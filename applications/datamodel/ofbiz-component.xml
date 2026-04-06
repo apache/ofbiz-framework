@@ -50,6 +50,7 @@ under the License.
     <entity-resource type="data" reader-name="seed" loader="main" location="data/seed/OrderSeedData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/seed/MarketingSeedData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/seed/CommonExtSeedData.xml"/>
+    <entity-resource type="data" reader-name="seed" loader="main" location="data/seed/HmoSeedData.xml"/>
 
     <!-- All components demo data -->
     <entity-resource type="data" reader-name="demo" loader="main" location="data/demo/PartyDemoData.xml"/>
@@ -64,5 +65,6 @@ under the License.
     <entity-resource type="data" reader-name="demo" loader="main" location="data/demo/OrderDemoData.xml"/>
     <entity-resource type="data" reader-name="demo" loader="main" location="data/demo/MarketingDemoData.xml"/>
     <entity-resource type="data" reader-name="demo" loader="main" location="data/demo/CommonExtDemoData.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/demo/HmoDemoData.xml"/>
 
 </ofbiz-component>

@@ -1,0 +1,710 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<!--
+    HMO Management System - Demo Data
+    Provides a complete working dataset for demonstration and testing:
+      - HealthFirst HMO Nigeria Limited (the HMO organisation)
+      - 2 sponsor companies (employers)
+      - 3 healthcare providers (hospital, clinic, pharmacy)
+      - 6 enrollees (primary members + dependents)
+      - Security groups and user logins for each HMO role
+      - Provider and sponsor agreements
+
+    All demo user logins use the password "ofbiz".
+
+    ContactMech IDs used: 9300 – 9328 (reserved for HMO demo data).
+    Agreement IDs used:   HMO-PROV-001 – HMO-SPON-002.
+-->
+
+<entity-engine-xml>
+
+    <!-- ============================================================ -->
+    <!--  HMO SECURITY GROUPS                                         -->
+    <!-- ============================================================ -->
+
+    <!-- HMO Administrator: full access to all HMO functions -->
+    <SecurityGroup groupId="HMO_ADMIN"         groupName="HMO Administrator"    description="Full administrative access to the HMO module"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="HMO_ADMIN" permissionId="OFBTOOLS_VIEW"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="HMO_ADMIN" permissionId="HMO_ADMIN"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="HMO_ADMIN" permissionId="HMO_VIEW"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="HMO_ADMIN" permissionId="HMO_CREATE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="HMO_ADMIN" permissionId="HMO_UPDATE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="HMO_ADMIN" permissionId="HMO_DELETE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="HMO_ADMIN" permissionId="HMO_ENROLL"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="HMO_ADMIN" permissionId="HMO_CLAIM_VIEW"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="HMO_ADMIN" permissionId="HMO_CLAIM_CREATE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="HMO_ADMIN" permissionId="HMO_CLAIM_UPDATE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="HMO_ADMIN" permissionId="HMO_CLAIM_APPROVE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="HMO_ADMIN" permissionId="HMO_PROVIDER_VIEW"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="HMO_ADMIN" permissionId="HMO_PROVIDER_MGMT"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="HMO_ADMIN" permissionId="HMO_REPORT_VIEW"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="HMO_ADMIN" permissionId="PARTYMGR_VIEW"/>
+
+    <!-- HMO Claims Officer: process and approve claims -->
+    <SecurityGroup groupId="HMO_CLAIMS_GRP"    groupName="HMO Claims Officer"   description="Can view, process, and approve HMO claims"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="HMO_CLAIMS_GRP" permissionId="OFBTOOLS_VIEW"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="HMO_CLAIMS_GRP" permissionId="HMO_VIEW"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="HMO_CLAIMS_GRP" permissionId="HMO_CLAIM_VIEW"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="HMO_CLAIMS_GRP" permissionId="HMO_CLAIM_CREATE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="HMO_CLAIMS_GRP" permissionId="HMO_CLAIM_UPDATE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="HMO_CLAIMS_GRP" permissionId="HMO_CLAIM_APPROVE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="HMO_CLAIMS_GRP" permissionId="HMO_PROVIDER_VIEW"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="HMO_CLAIMS_GRP" permissionId="HMO_REPORT_VIEW"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="HMO_CLAIMS_GRP" permissionId="PARTYMGR_VIEW"/>
+
+    <!-- HMO Provider: healthcare provider portal access -->
+    <SecurityGroup groupId="HMO_PROVIDER_GRP"  groupName="HMO Healthcare Provider" description="Healthcare provider portal access: submit and track claims"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="HMO_PROVIDER_GRP" permissionId="OFBTOOLS_VIEW"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="HMO_PROVIDER_GRP" permissionId="HMO_VIEW"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="HMO_PROVIDER_GRP" permissionId="HMO_CLAIM_VIEW"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="HMO_PROVIDER_GRP" permissionId="HMO_CLAIM_CREATE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="HMO_PROVIDER_GRP" permissionId="HMO_PROVIDER_VIEW"/>
+
+    <!-- HMO Enrollee: read-only access to own records -->
+    <SecurityGroup groupId="HMO_ENROLLEE_GRP"  groupName="HMO Enrollee"          description="Enrollee self-service: view own coverage and claims"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="HMO_ENROLLEE_GRP" permissionId="OFBTOOLS_VIEW"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="HMO_ENROLLEE_GRP" permissionId="HMO_VIEW"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="HMO_ENROLLEE_GRP" permissionId="HMO_CLAIM_VIEW"/>
+
+    <!-- HMO Sponsor: employer/corporate sponsor access -->
+    <SecurityGroup groupId="HMO_SPONSOR_GRP"   groupName="HMO Sponsor"           description="Corporate sponsor: manage employees and view billing"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="HMO_SPONSOR_GRP" permissionId="OFBTOOLS_VIEW"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="HMO_SPONSOR_GRP" permissionId="HMO_VIEW"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="HMO_SPONSOR_GRP" permissionId="HMO_ENROLL"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="HMO_SPONSOR_GRP" permissionId="HMO_CLAIM_VIEW"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="HMO_SPONSOR_GRP" permissionId="HMO_REPORT_VIEW"/>
+
+    <!-- ============================================================ -->
+    <!--  HMO ORGANISATION: HealthFirst HMO Nigeria Limited           -->
+    <!-- ============================================================ -->
+
+    <Party partyId="HmoHealthFirst" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
+    <PartyGroup partyId="HmoHealthFirst"
+        groupName="HealthFirst HMO Nigeria Limited"
+        officeSiteName="HealthFirst HMO"
+        comments="A registered Health Maintenance Organisation providing comprehensive healthcare coverage across Nigeria."/>
+    <PartyRole partyId="HmoHealthFirst" roleTypeId="INTERNAL_ORGANIZATIO"/>
+    <PartyRole partyId="HmoHealthFirst" roleTypeId="HMO_ORGANIZATION"/>
+    <PartyRole partyId="HmoHealthFirst" roleTypeId="_NA_"/>
+    <PartyStatus partyId="HmoHealthFirst" statusId="PARTY_ENABLED" statusDate="2010-01-01 08:00:00.0"/>
+
+    <!-- HMO Head Office – Victoria Island, Lagos -->
+    <ContactMech contactMechId="9300" contactMechTypeId="POSTAL_ADDRESS"/>
+    <PostalAddress contactMechId="9300"
+        toName="HealthFirst HMO Nigeria Limited"
+        address1="14 Ozumba Mbadiwe Avenue"
+        address2="Victoria Island"
+        city="Lagos"
+        postalCode="101241"
+        countryGeoId="NGA"/>
+    <PartyContactMech partyId="HmoHealthFirst" contactMechId="9300" fromDate="2010-01-01 00:00:00.0" allowSolicitation="Y"/>
+    <PartyContactMechPurpose partyId="HmoHealthFirst" contactMechId="9300" contactMechPurposeTypeId="GENERAL_LOCATION"  fromDate="2010-01-01 00:00:00.0"/>
+    <PartyContactMechPurpose partyId="HmoHealthFirst" contactMechId="9300" contactMechPurposeTypeId="BILLING_LOCATION"  fromDate="2010-01-01 00:00:00.0"/>
+
+    <!-- HMO phone -->
+    <ContactMech contactMechId="9301" contactMechTypeId="TELECOM_NUMBER"/>
+    <TelecomNumber contactMechId="9301" countryCode="234" areaCode="01" contactNumber="7001-8000"/>
+    <PartyContactMech partyId="HmoHealthFirst" contactMechId="9301" fromDate="2010-01-01 00:00:00.0" allowSolicitation="Y"/>
+    <PartyContactMechPurpose partyId="HmoHealthFirst" contactMechId="9301" contactMechPurposeTypeId="PHONE_WORK" fromDate="2010-01-01 00:00:00.0"/>
+
+    <!-- HMO email -->
+    <ContactMech contactMechId="9302" contactMechTypeId="EMAIL_ADDRESS" infoString="info@healthfirsthmo.ng"/>
+    <PartyContactMech partyId="HmoHealthFirst" contactMechId="9302" fromDate="2010-01-01 00:00:00.0" allowSolicitation="Y"/>
+    <PartyContactMechPurpose partyId="HmoHealthFirst" contactMechId="9302" contactMechPurposeTypeId="PRIMARY_EMAIL" fromDate="2010-01-01 00:00:00.0"/>
+
+    <!-- HMO admin user login -->
+    <Party partyId="HmoAdminUser" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
+    <Person partyId="HmoAdminUser" firstName="Adaeze" lastName="Okonkwo" personalTitle="Ms." gender="F"/>
+    <PartyRole partyId="HmoAdminUser" roleTypeId="HMO_CLAIMS_OFFICER"/>
+    <PartyRole partyId="HmoAdminUser" roleTypeId="_NA_"/>
+    <PartyStatus partyId="HmoAdminUser" statusId="PARTY_ENABLED" statusDate="2010-01-01 08:00:00.0"/>
+    <PartyRelationship partyIdFrom="HmoAdminUser" roleTypeIdFrom="HMO_CLAIMS_OFFICER"
+        partyIdTo="HmoHealthFirst" roleTypeIdTo="INTERNAL_ORGANIZATIO"
+        fromDate="2010-01-01 00:00:00.0"/>
+    <UserLogin userLoginId="hmo.admin" partyId="HmoAdminUser"
+        currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a"/>
+    <UserLoginSecurityGroup userLoginId="hmo.admin" groupId="HMO_ADMIN" fromDate="2010-01-01 00:00:00.0"/>
+
+    <!-- HMO Claims Officer user login -->
+    <Party partyId="HmoClaimsUser" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
+    <Person partyId="HmoClaimsUser" firstName="Emeka" lastName="Eze" personalTitle="Mr." gender="M"/>
+    <PartyRole partyId="HmoClaimsUser" roleTypeId="HMO_CLAIMS_OFFICER"/>
+    <PartyRole partyId="HmoClaimsUser" roleTypeId="_NA_"/>
+    <PartyStatus partyId="HmoClaimsUser" statusId="PARTY_ENABLED" statusDate="2010-01-01 08:00:00.0"/>
+    <PartyRelationship partyIdFrom="HmoClaimsUser" roleTypeIdFrom="HMO_CLAIMS_OFFICER"
+        partyIdTo="HmoHealthFirst" roleTypeIdTo="INTERNAL_ORGANIZATIO"
+        fromDate="2010-01-01 00:00:00.0"/>
+    <UserLogin userLoginId="hmo.claims" partyId="HmoClaimsUser"
+        currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a"/>
+    <UserLoginSecurityGroup userLoginId="hmo.claims" groupId="HMO_CLAIMS_GRP" fromDate="2010-01-01 00:00:00.0"/>
+
+    <!-- ============================================================ -->
+    <!--  SPONSOR 1: TechCorp Nigeria Ltd                             -->
+    <!--  Industry: Technology / IT services                          -->
+    <!-- ============================================================ -->
+
+    <Party partyId="HmoSponsor01" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
+    <PartyGroup partyId="HmoSponsor01"
+        groupName="TechCorp Nigeria Ltd"
+        officeSiteName="TechCorp Nigeria"
+        numEmployees="350"
+        annualRevenue="150000000"
+        comments="Technology services company headquartered in Lekki, Lagos. Sponsors Gold-tier HMO coverage for all permanent staff."/>
+    <PartyRole partyId="HmoSponsor01" roleTypeId="HMO_SPONSOR"/>
+    <PartyRole partyId="HmoSponsor01" roleTypeId="EMPLOYER"/>
+    <PartyRole partyId="HmoSponsor01" roleTypeId="BILL_TO_CUSTOMER"/>
+    <PartyRole partyId="HmoSponsor01" roleTypeId="_NA_"/>
+    <PartyStatus partyId="HmoSponsor01" statusId="PARTY_ENABLED" statusDate="2015-03-01 08:00:00.0"/>
+
+    <!-- Sponsor 1 address -->
+    <ContactMech contactMechId="9303" contactMechTypeId="POSTAL_ADDRESS"/>
+    <PostalAddress contactMechId="9303"
+        toName="TechCorp Nigeria Ltd"
+        address1="22 Admiralty Way"
+        address2="Lekki Phase 1"
+        city="Lagos"
+        postalCode="105102"
+        countryGeoId="NGA"/>
+    <PartyContactMech partyId="HmoSponsor01" contactMechId="9303" fromDate="2015-03-01 00:00:00.0" allowSolicitation="Y"/>
+    <PartyContactMechPurpose partyId="HmoSponsor01" contactMechId="9303" contactMechPurposeTypeId="GENERAL_LOCATION"  fromDate="2015-03-01 00:00:00.0"/>
+    <PartyContactMechPurpose partyId="HmoSponsor01" contactMechId="9303" contactMechPurposeTypeId="BILLING_LOCATION"  fromDate="2015-03-01 00:00:00.0"/>
+
+    <!-- Sponsor 1 phone -->
+    <ContactMech contactMechId="9304" contactMechTypeId="TELECOM_NUMBER"/>
+    <TelecomNumber contactMechId="9304" countryCode="234" areaCode="01" contactNumber="4420-0100"/>
+    <PartyContactMech partyId="HmoSponsor01" contactMechId="9304" fromDate="2015-03-01 00:00:00.0"/>
+    <PartyContactMechPurpose partyId="HmoSponsor01" contactMechId="9304" contactMechPurposeTypeId="PHONE_WORK" fromDate="2015-03-01 00:00:00.0"/>
+
+    <!-- Sponsor 1 email -->
+    <ContactMech contactMechId="9305" contactMechTypeId="EMAIL_ADDRESS" infoString="hr@techcorp.ng"/>
+    <PartyContactMech partyId="HmoSponsor01" contactMechId="9305" fromDate="2015-03-01 00:00:00.0" allowSolicitation="Y"/>
+    <PartyContactMechPurpose partyId="HmoSponsor01" contactMechId="9305" contactMechPurposeTypeId="PRIMARY_EMAIL" fromDate="2015-03-01 00:00:00.0"/>
+
+    <!-- Sponsor 1 → HMO relationship -->
+    <PartyRelationship partyIdFrom="HmoSponsor01" roleTypeIdFrom="HMO_SPONSOR"
+        partyIdTo="HmoHealthFirst" roleTypeIdTo="HMO_ORGANIZATION"
+        fromDate="2015-06-01 00:00:00.0"
+        relationshipName="Corporate Sponsor Agreement"/>
+
+    <!-- Sponsor 1 HR contact user login -->
+    <Party partyId="HmoSponsor01User" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
+    <Person partyId="HmoSponsor01User" firstName="Chioma" lastName="Nwosu" personalTitle="Mrs." gender="F"/>
+    <PartyRole partyId="HmoSponsor01User" roleTypeId="HMO_AGENT"/>
+    <PartyRole partyId="HmoSponsor01User" roleTypeId="_NA_"/>
+    <PartyStatus partyId="HmoSponsor01User" statusId="PARTY_ENABLED" statusDate="2015-06-01 08:00:00.0"/>
+    <PartyRelationship partyIdFrom="HmoSponsor01User" roleTypeIdFrom="HMO_AGENT"
+        partyIdTo="HmoSponsor01" roleTypeIdTo="EMPLOYER"
+        fromDate="2015-06-01 00:00:00.0" positionTitle="HR Manager"/>
+    <UserLogin userLoginId="hmo.sponsor1" partyId="HmoSponsor01User"
+        currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a"/>
+    <UserLoginSecurityGroup userLoginId="hmo.sponsor1" groupId="HMO_SPONSOR_GRP" fromDate="2015-06-01 00:00:00.0"/>
+
+    <!-- ============================================================ -->
+    <!--  SPONSOR 2: Acme Manufacturing Co                            -->
+    <!--  Industry: Manufacturing                                     -->
+    <!-- ============================================================ -->
+
+    <Party partyId="HmoSponsor02" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
+    <PartyGroup partyId="HmoSponsor02"
+        groupName="Acme Manufacturing Company"
+        officeSiteName="Acme Manufacturing"
+        numEmployees="820"
+        annualRevenue="420000000"
+        comments="Manufacturing company based in Aba, Abia State. Sponsors Silver-tier HMO coverage for permanent employees and Gold-tier for senior management."/>
+    <PartyRole partyId="HmoSponsor02" roleTypeId="HMO_SPONSOR"/>
+    <PartyRole partyId="HmoSponsor02" roleTypeId="EMPLOYER"/>
+    <PartyRole partyId="HmoSponsor02" roleTypeId="BILL_TO_CUSTOMER"/>
+    <PartyRole partyId="HmoSponsor02" roleTypeId="_NA_"/>
+    <PartyStatus partyId="HmoSponsor02" statusId="PARTY_ENABLED" statusDate="2012-09-01 08:00:00.0"/>
+
+    <!-- Sponsor 2 address -->
+    <ContactMech contactMechId="9306" contactMechTypeId="POSTAL_ADDRESS"/>
+    <PostalAddress contactMechId="9306"
+        toName="Acme Manufacturing Company"
+        address1="45 Factory Road"
+        address2="Ariaria Industrial Layout"
+        city="Aba"
+        postalCode="450001"
+        countryGeoId="NGA"/>
+    <PartyContactMech partyId="HmoSponsor02" contactMechId="9306" fromDate="2012-09-01 00:00:00.0" allowSolicitation="Y"/>
+    <PartyContactMechPurpose partyId="HmoSponsor02" contactMechId="9306" contactMechPurposeTypeId="GENERAL_LOCATION" fromDate="2012-09-01 00:00:00.0"/>
+    <PartyContactMechPurpose partyId="HmoSponsor02" contactMechId="9306" contactMechPurposeTypeId="BILLING_LOCATION" fromDate="2012-09-01 00:00:00.0"/>
+
+    <!-- Sponsor 2 phone -->
+    <ContactMech contactMechId="9307" contactMechTypeId="TELECOM_NUMBER"/>
+    <TelecomNumber contactMechId="9307" countryCode="234" areaCode="082" contactNumber="330-1200"/>
+    <PartyContactMech partyId="HmoSponsor02" contactMechId="9307" fromDate="2012-09-01 00:00:00.0"/>
+    <PartyContactMechPurpose partyId="HmoSponsor02" contactMechId="9307" contactMechPurposeTypeId="PHONE_WORK" fromDate="2012-09-01 00:00:00.0"/>
+
+    <!-- Sponsor 2 email -->
+    <ContactMech contactMechId="9308" contactMechTypeId="EMAIL_ADDRESS" infoString="admin@acmemfg.ng"/>
+    <PartyContactMech partyId="HmoSponsor02" contactMechId="9308" fromDate="2012-09-01 00:00:00.0" allowSolicitation="Y"/>
+    <PartyContactMechPurpose partyId="HmoSponsor02" contactMechId="9308" contactMechPurposeTypeId="PRIMARY_EMAIL" fromDate="2012-09-01 00:00:00.0"/>
+
+    <!-- Sponsor 2 → HMO relationship -->
+    <PartyRelationship partyIdFrom="HmoSponsor02" roleTypeIdFrom="HMO_SPONSOR"
+        partyIdTo="HmoHealthFirst" roleTypeIdTo="HMO_ORGANIZATION"
+        fromDate="2012-10-01 00:00:00.0"
+        relationshipName="Corporate Sponsor Agreement"/>
+
+    <!-- ============================================================ -->
+    <!--  PROVIDER 1: Lagos General Hospital                          -->
+    <!--  Tier: Primary Network – Hospital                            -->
+    <!-- ============================================================ -->
+
+    <Party partyId="HmoProvider01" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
+    <PartyGroup partyId="HmoProvider01"
+        groupName="Lagos General Hospital"
+        officeSiteName="Lagos General Hospital"
+        comments="Tertiary care hospital. Specialties: General Surgery, Cardiology, Paediatrics, Obstetrics and Gynaecology, Emergency."/>
+    <PartyRole partyId="HmoProvider01" roleTypeId="HMO_PROVIDER"/>
+    <PartyRole partyId="HmoProvider01" roleTypeId="HMO_HOSPITAL"/>
+    <PartyRole partyId="HmoProvider01" roleTypeId="SUPPLIER"/>
+    <PartyRole partyId="HmoProvider01" roleTypeId="_NA_"/>
+    <PartyStatus partyId="HmoProvider01" statusId="PARTY_ENABLED" statusDate="2010-01-01 08:00:00.0"/>
+
+    <!-- Provider 1 address -->
+    <ContactMech contactMechId="9309" contactMechTypeId="POSTAL_ADDRESS"/>
+    <PostalAddress contactMechId="9309"
+        toName="Lagos General Hospital"
+        address1="1 Broad Street"
+        address2="Lagos Island"
+        city="Lagos"
+        postalCode="100001"
+        countryGeoId="NGA"/>
+    <PartyContactMech partyId="HmoProvider01" contactMechId="9309" fromDate="2010-01-01 00:00:00.0" allowSolicitation="Y"/>
+    <PartyContactMechPurpose partyId="HmoProvider01" contactMechId="9309" contactMechPurposeTypeId="GENERAL_LOCATION" fromDate="2010-01-01 00:00:00.0"/>
+
+    <!-- Provider 1 phone -->
+    <ContactMech contactMechId="9310" contactMechTypeId="TELECOM_NUMBER"/>
+    <TelecomNumber contactMechId="9310" countryCode="234" areaCode="01" contactNumber="2636-0000"/>
+    <PartyContactMech partyId="HmoProvider01" contactMechId="9310" fromDate="2010-01-01 00:00:00.0"/>
+    <PartyContactMechPurpose partyId="HmoProvider01" contactMechId="9310" contactMechPurposeTypeId="PHONE_WORK" fromDate="2010-01-01 00:00:00.0"/>
+
+    <!-- Provider 1 email -->
+    <ContactMech contactMechId="9311" contactMechTypeId="EMAIL_ADDRESS" infoString="hmo@lagosgeneralhospital.ng"/>
+    <PartyContactMech partyId="HmoProvider01" contactMechId="9311" fromDate="2010-01-01 00:00:00.0" allowSolicitation="Y"/>
+    <PartyContactMechPurpose partyId="HmoProvider01" contactMechId="9311" contactMechPurposeTypeId="PRIMARY_EMAIL" fromDate="2010-01-01 00:00:00.0"/>
+
+    <!-- Provider 1 → HMO relationship (network membership) -->
+    <PartyRelationship partyIdFrom="HmoProvider01" roleTypeIdFrom="HMO_PROVIDER"
+        partyIdTo="HmoHealthFirst" roleTypeIdTo="HMO_ORGANIZATION"
+        fromDate="2010-01-01 00:00:00.0"
+        relationshipName="Primary Network Provider"/>
+
+    <!-- Provider 1 portal user login -->
+    <Party partyId="HmoProv01User" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
+    <Person partyId="HmoProv01User" firstName="Babatunde" lastName="Adeyemi" personalTitle="Dr." gender="M"/>
+    <PartyRole partyId="HmoProv01User" roleTypeId="HMO_PROVIDER"/>
+    <PartyRole partyId="HmoProv01User" roleTypeId="_NA_"/>
+    <PartyStatus partyId="HmoProv01User" statusId="PARTY_ENABLED" statusDate="2010-01-01 08:00:00.0"/>
+    <PartyRelationship partyIdFrom="HmoProv01User" roleTypeIdFrom="HMO_PROVIDER"
+        partyIdTo="HmoProvider01" roleTypeIdTo="HMO_HOSPITAL"
+        fromDate="2010-01-01 00:00:00.0" positionTitle="Claims Liaison Officer"/>
+    <UserLogin userLoginId="hmo.provider1" partyId="HmoProv01User"
+        currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a"/>
+    <UserLoginSecurityGroup userLoginId="hmo.provider1" groupId="HMO_PROVIDER_GRP" fromDate="2010-01-01 00:00:00.0"/>
+
+    <!-- ============================================================ -->
+    <!--  PROVIDER 2: Ikeja Medical Centre                            -->
+    <!--  Tier: Primary Network – Clinic                              -->
+    <!-- ============================================================ -->
+
+    <Party partyId="HmoProvider02" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
+    <PartyGroup partyId="HmoProvider02"
+        groupName="Ikeja Medical Centre"
+        officeSiteName="Ikeja Medical Centre"
+        comments="Outpatient clinic specialising in General Practice, Dentistry and Optical services. Located in Ikeja, Lagos."/>
+    <PartyRole partyId="HmoProvider02" roleTypeId="HMO_PROVIDER"/>
+    <PartyRole partyId="HmoProvider02" roleTypeId="HMO_CLINIC"/>
+    <PartyRole partyId="HmoProvider02" roleTypeId="SUPPLIER"/>
+    <PartyRole partyId="HmoProvider02" roleTypeId="_NA_"/>
+    <PartyStatus partyId="HmoProvider02" statusId="PARTY_ENABLED" statusDate="2011-06-01 08:00:00.0"/>
+
+    <!-- Provider 2 address -->
+    <ContactMech contactMechId="9312" contactMechTypeId="POSTAL_ADDRESS"/>
+    <PostalAddress contactMechId="9312"
+        toName="Ikeja Medical Centre"
+        address1="7 Obafemi Awolowo Way"
+        address2="Ikeja"
+        city="Lagos"
+        postalCode="100271"
+        countryGeoId="NGA"/>
+    <PartyContactMech partyId="HmoProvider02" contactMechId="9312" fromDate="2011-06-01 00:00:00.0" allowSolicitation="Y"/>
+    <PartyContactMechPurpose partyId="HmoProvider02" contactMechId="9312" contactMechPurposeTypeId="GENERAL_LOCATION" fromDate="2011-06-01 00:00:00.0"/>
+
+    <!-- Provider 2 phone -->
+    <ContactMech contactMechId="9313" contactMechTypeId="TELECOM_NUMBER"/>
+    <TelecomNumber contactMechId="9313" countryCode="234" areaCode="01" contactNumber="4770-2200"/>
+    <PartyContactMech partyId="HmoProvider02" contactMechId="9313" fromDate="2011-06-01 00:00:00.0"/>
+    <PartyContactMechPurpose partyId="HmoProvider02" contactMechId="9313" contactMechPurposeTypeId="PHONE_WORK" fromDate="2011-06-01 00:00:00.0"/>
+
+    <!-- Provider 2 email -->
+    <ContactMech contactMechId="9314" contactMechTypeId="EMAIL_ADDRESS" infoString="admin@ikejamedical.ng"/>
+    <PartyContactMech partyId="HmoProvider02" contactMechId="9314" fromDate="2011-06-01 00:00:00.0" allowSolicitation="Y"/>
+    <PartyContactMechPurpose partyId="HmoProvider02" contactMechId="9314" contactMechPurposeTypeId="PRIMARY_EMAIL" fromDate="2011-06-01 00:00:00.0"/>
+
+    <!-- Provider 2 → HMO relationship -->
+    <PartyRelationship partyIdFrom="HmoProvider02" roleTypeIdFrom="HMO_PROVIDER"
+        partyIdTo="HmoHealthFirst" roleTypeIdTo="HMO_ORGANIZATION"
+        fromDate="2011-06-01 00:00:00.0"
+        relationshipName="Primary Network Provider"/>
+
+    <!-- ============================================================ -->
+    <!--  PROVIDER 3: HealthPlus Pharmacy                             -->
+    <!--  Tier: Primary Network – Pharmacy                            -->
+    <!-- ============================================================ -->
+
+    <Party partyId="HmoProvider03" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
+    <PartyGroup partyId="HmoProvider03"
+        groupName="HealthPlus Pharmacy"
+        officeSiteName="HealthPlus Pharmacy"
+        comments="Nationwide retail pharmacy chain. Primary dispensing point for HMO formulary drugs."/>
+    <PartyRole partyId="HmoProvider03" roleTypeId="HMO_PROVIDER"/>
+    <PartyRole partyId="HmoProvider03" roleTypeId="HMO_PHARMACY"/>
+    <PartyRole partyId="HmoProvider03" roleTypeId="SUPPLIER"/>
+    <PartyRole partyId="HmoProvider03" roleTypeId="_NA_"/>
+    <PartyStatus partyId="HmoProvider03" statusId="PARTY_ENABLED" statusDate="2013-03-01 08:00:00.0"/>
+
+    <!-- Provider 3 address -->
+    <ContactMech contactMechId="9315" contactMechTypeId="POSTAL_ADDRESS"/>
+    <PostalAddress contactMechId="9315"
+        toName="HealthPlus Pharmacy"
+        address1="25 Adetokunbo Ademola Street"
+        address2="Victoria Island"
+        city="Lagos"
+        postalCode="101241"
+        countryGeoId="NGA"/>
+    <PartyContactMech partyId="HmoProvider03" contactMechId="9315" fromDate="2013-03-01 00:00:00.0" allowSolicitation="Y"/>
+    <PartyContactMechPurpose partyId="HmoProvider03" contactMechId="9315" contactMechPurposeTypeId="GENERAL_LOCATION" fromDate="2013-03-01 00:00:00.0"/>
+
+    <!-- Provider 3 phone -->
+    <ContactMech contactMechId="9316" contactMechTypeId="TELECOM_NUMBER"/>
+    <TelecomNumber contactMechId="9316" countryCode="234" areaCode="01" contactNumber="9000-0001"/>
+    <PartyContactMech partyId="HmoProvider03" contactMechId="9316" fromDate="2013-03-01 00:00:00.0"/>
+    <PartyContactMechPurpose partyId="HmoProvider03" contactMechId="9316" contactMechPurposeTypeId="PHONE_WORK" fromDate="2013-03-01 00:00:00.0"/>
+
+    <!-- Provider 3 email -->
+    <ContactMech contactMechId="9317" contactMechTypeId="EMAIL_ADDRESS" infoString="hmo@healthpluspharmacy.ng"/>
+    <PartyContactMech partyId="HmoProvider03" contactMechId="9317" fromDate="2013-03-01 00:00:00.0" allowSolicitation="Y"/>
+    <PartyContactMechPurpose partyId="HmoProvider03" contactMechId="9317" contactMechPurposeTypeId="PRIMARY_EMAIL" fromDate="2013-03-01 00:00:00.0"/>
+
+    <!-- Provider 3 → HMO relationship -->
+    <PartyRelationship partyIdFrom="HmoProvider03" roleTypeIdFrom="HMO_PROVIDER"
+        partyIdTo="HmoHealthFirst" roleTypeIdTo="HMO_ORGANIZATION"
+        fromDate="2013-03-01 00:00:00.0"
+        relationshipName="Primary Network Provider"/>
+
+    <!-- ============================================================ -->
+    <!--  ENROLLEE 1: Chidi Okeke (Primary – TechCorp)                -->
+    <!--  Plan: Gold | Coverage: Family                               -->
+    <!-- ============================================================ -->
+
+    <Party partyId="HmoEnrollee01" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
+    <Person partyId="HmoEnrollee01"
+        firstName="Chidi"
+        lastName="Okeke"
+        personalTitle="Mr."
+        gender="M"
+        birthDate="1985-04-12"/>
+    <PartyRole partyId="HmoEnrollee01" roleTypeId="HMO_ENROLLEE"/>
+    <PartyRole partyId="HmoEnrollee01" roleTypeId="EMPLOYEE"/>
+    <PartyRole partyId="HmoEnrollee01" roleTypeId="_NA_"/>
+    <PartyStatus partyId="HmoEnrollee01" statusId="PARTY_ENABLED" statusDate="2018-01-01 08:00:00.0"/>
+
+    <!-- Enrollee 1 contact details -->
+    <ContactMech contactMechId="9318" contactMechTypeId="POSTAL_ADDRESS"/>
+    <PostalAddress contactMechId="9318"
+        toName="Chidi Okeke"
+        address1="12 Bode Thomas Street"
+        address2="Surulere"
+        city="Lagos"
+        postalCode="102102"
+        countryGeoId="NGA"/>
+    <PartyContactMech partyId="HmoEnrollee01" contactMechId="9318" fromDate="2018-01-01 00:00:00.0" allowSolicitation="Y"/>
+    <PartyContactMechPurpose partyId="HmoEnrollee01" contactMechId="9318" contactMechPurposeTypeId="PRIMARY_LOCATION" fromDate="2018-01-01 00:00:00.0"/>
+
+    <ContactMech contactMechId="9319" contactMechTypeId="TELECOM_NUMBER"/>
+    <TelecomNumber contactMechId="9319" countryCode="234" areaCode="080" contactNumber="3300-4455"/>
+    <PartyContactMech partyId="HmoEnrollee01" contactMechId="9319" fromDate="2018-01-01 00:00:00.0"/>
+    <PartyContactMechPurpose partyId="HmoEnrollee01" contactMechId="9319" contactMechPurposeTypeId="PHONE_MOBILE" fromDate="2018-01-01 00:00:00.0"/>
+
+    <ContactMech contactMechId="9320" contactMechTypeId="EMAIL_ADDRESS" infoString="chidi.okeke@techcorp.ng"/>
+    <PartyContactMech partyId="HmoEnrollee01" contactMechId="9320" fromDate="2018-01-01 00:00:00.0" allowSolicitation="Y"/>
+    <PartyContactMechPurpose partyId="HmoEnrollee01" contactMechId="9320" contactMechPurposeTypeId="PRIMARY_EMAIL" fromDate="2018-01-01 00:00:00.0"/>
+
+    <!-- Enrollee 1 → HMO relationship -->
+    <PartyRelationship partyIdFrom="HmoEnrollee01" roleTypeIdFrom="HMO_ENROLLEE"
+        partyIdTo="HmoHealthFirst" roleTypeIdTo="HMO_ORGANIZATION"
+        fromDate="2018-01-01 00:00:00.0"
+        relationshipName="HMO Enrollment"/>
+
+    <!-- Enrollee 1 → Sponsor relationship (employee of TechCorp) -->
+    <PartyRelationship partyIdFrom="HmoEnrollee01" roleTypeIdFrom="EMPLOYEE"
+        partyIdTo="HmoSponsor01" roleTypeIdTo="EMPLOYER"
+        fromDate="2016-03-01 00:00:00.0"/>
+
+    <!-- Enrollee 1 self-service user login -->
+    <UserLogin userLoginId="hmo.enrollee1" partyId="HmoEnrollee01"
+        currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a"/>
+    <UserLoginSecurityGroup userLoginId="hmo.enrollee1" groupId="HMO_ENROLLEE_GRP" fromDate="2018-01-01 00:00:00.0"/>
+
+    <!-- ============================================================ -->
+    <!--  ENROLLEE 2: Amara Okeke (Dependent – Spouse of Chidi)       -->
+    <!--  Plan: Gold | Coverage: Family (via Chidi's policy)          -->
+    <!-- ============================================================ -->
+
+    <Party partyId="HmoEnrollee02" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
+    <Person partyId="HmoEnrollee02"
+        firstName="Amara"
+        lastName="Okeke"
+        personalTitle="Mrs."
+        gender="F"
+        birthDate="1987-09-25"/>
+    <PartyRole partyId="HmoEnrollee02" roleTypeId="HMO_ENROLLEE"/>
+    <PartyRole partyId="HmoEnrollee02" roleTypeId="HMO_DEPENDENT"/>
+    <PartyRole partyId="HmoEnrollee02" roleTypeId="_NA_"/>
+    <PartyStatus partyId="HmoEnrollee02" statusId="PARTY_ENABLED" statusDate="2018-01-01 08:00:00.0"/>
+
+    <ContactMech contactMechId="9321" contactMechTypeId="EMAIL_ADDRESS" infoString="amara.okeke@gmail.com"/>
+    <PartyContactMech partyId="HmoEnrollee02" contactMechId="9321" fromDate="2018-01-01 00:00:00.0" allowSolicitation="Y"/>
+    <PartyContactMechPurpose partyId="HmoEnrollee02" contactMechId="9321" contactMechPurposeTypeId="PRIMARY_EMAIL" fromDate="2018-01-01 00:00:00.0"/>
+
+    <!-- Amara → HMO enrollment -->
+    <PartyRelationship partyIdFrom="HmoEnrollee02" roleTypeIdFrom="HMO_DEPENDENT"
+        partyIdTo="HmoHealthFirst" roleTypeIdTo="HMO_ORGANIZATION"
+        fromDate="2018-01-01 00:00:00.0"
+        relationshipName="HMO Enrollment (Dependent)"/>
+
+    <!-- Amara → Chidi (spouse dependency) -->
+    <PartyRelationship partyIdFrom="HmoEnrollee02" roleTypeIdFrom="HMO_DEPENDENT"
+        partyIdTo="HmoEnrollee01" roleTypeIdTo="HMO_ENROLLEE"
+        fromDate="2018-01-01 00:00:00.0"
+        relationshipName="Spouse"/>
+
+    <!-- ============================================================ -->
+    <!--  ENROLLEE 3: Fatima Musa (Primary – TechCorp)                -->
+    <!--  Plan: Gold | Coverage: Individual                           -->
+    <!-- ============================================================ -->
+
+    <Party partyId="HmoEnrollee03" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
+    <Person partyId="HmoEnrollee03"
+        firstName="Fatima"
+        lastName="Musa"
+        personalTitle="Ms."
+        gender="F"
+        birthDate="1991-02-18"/>
+    <PartyRole partyId="HmoEnrollee03" roleTypeId="HMO_ENROLLEE"/>
+    <PartyRole partyId="HmoEnrollee03" roleTypeId="EMPLOYEE"/>
+    <PartyRole partyId="HmoEnrollee03" roleTypeId="_NA_"/>
+    <PartyStatus partyId="HmoEnrollee03" statusId="PARTY_ENABLED" statusDate="2019-07-01 08:00:00.0"/>
+
+    <ContactMech contactMechId="9322" contactMechTypeId="TELECOM_NUMBER"/>
+    <TelecomNumber contactMechId="9322" countryCode="234" areaCode="081" contactNumber="5566-7788"/>
+    <PartyContactMech partyId="HmoEnrollee03" contactMechId="9322" fromDate="2019-07-01 00:00:00.0"/>
+    <PartyContactMechPurpose partyId="HmoEnrollee03" contactMechId="9322" contactMechPurposeTypeId="PHONE_MOBILE" fromDate="2019-07-01 00:00:00.0"/>
+
+    <ContactMech contactMechId="9323" contactMechTypeId="EMAIL_ADDRESS" infoString="fatima.musa@techcorp.ng"/>
+    <PartyContactMech partyId="HmoEnrollee03" contactMechId="9323" fromDate="2019-07-01 00:00:00.0" allowSolicitation="Y"/>
+    <PartyContactMechPurpose partyId="HmoEnrollee03" contactMechId="9323" contactMechPurposeTypeId="PRIMARY_EMAIL" fromDate="2019-07-01 00:00:00.0"/>
+
+    <!-- Enrollee 3 → HMO -->
+    <PartyRelationship partyIdFrom="HmoEnrollee03" roleTypeIdFrom="HMO_ENROLLEE"
+        partyIdTo="HmoHealthFirst" roleTypeIdTo="HMO_ORGANIZATION"
+        fromDate="2019-07-01 00:00:00.0"
+        relationshipName="HMO Enrollment"/>
+
+    <!-- Enrollee 3 → TechCorp employment -->
+    <PartyRelationship partyIdFrom="HmoEnrollee03" roleTypeIdFrom="EMPLOYEE"
+        partyIdTo="HmoSponsor01" roleTypeIdTo="EMPLOYER"
+        fromDate="2019-05-01 00:00:00.0"/>
+
+    <!-- ============================================================ -->
+    <!--  ENROLLEE 4: Emeka Obi (Primary – Acme Manufacturing)        -->
+    <!--  Plan: Silver | Coverage: Family                             -->
+    <!-- ============================================================ -->
+
+    <Party partyId="HmoEnrollee04" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
+    <Person partyId="HmoEnrollee04"
+        firstName="Emeka"
+        lastName="Obi"
+        personalTitle="Mr."
+        gender="M"
+        birthDate="1978-11-03"/>
+    <PartyRole partyId="HmoEnrollee04" roleTypeId="HMO_ENROLLEE"/>
+    <PartyRole partyId="HmoEnrollee04" roleTypeId="EMPLOYEE"/>
+    <PartyRole partyId="HmoEnrollee04" roleTypeId="_NA_"/>
+    <PartyStatus partyId="HmoEnrollee04" statusId="PARTY_ENABLED" statusDate="2013-01-01 08:00:00.0"/>
+
+    <ContactMech contactMechId="9324" contactMechTypeId="POSTAL_ADDRESS"/>
+    <PostalAddress contactMechId="9324"
+        toName="Emeka Obi"
+        address1="3 Cemetery Road"
+        city="Aba"
+        postalCode="450001"
+        countryGeoId="NGA"/>
+    <PartyContactMech partyId="HmoEnrollee04" contactMechId="9324" fromDate="2013-01-01 00:00:00.0" allowSolicitation="Y"/>
+    <PartyContactMechPurpose partyId="HmoEnrollee04" contactMechId="9324" contactMechPurposeTypeId="PRIMARY_LOCATION" fromDate="2013-01-01 00:00:00.0"/>
+
+    <ContactMech contactMechId="9325" contactMechTypeId="TELECOM_NUMBER"/>
+    <TelecomNumber contactMechId="9325" countryCode="234" areaCode="082" contactNumber="2211-3344"/>
+    <PartyContactMech partyId="HmoEnrollee04" contactMechId="9325" fromDate="2013-01-01 00:00:00.0"/>
+    <PartyContactMechPurpose partyId="HmoEnrollee04" contactMechId="9325" contactMechPurposeTypeId="PHONE_MOBILE" fromDate="2013-01-01 00:00:00.0"/>
+
+    <ContactMech contactMechId="9326" contactMechTypeId="EMAIL_ADDRESS" infoString="emeka.obi@acmemfg.ng"/>
+    <PartyContactMech partyId="HmoEnrollee04" contactMechId="9326" fromDate="2013-01-01 00:00:00.0" allowSolicitation="Y"/>
+    <PartyContactMechPurpose partyId="HmoEnrollee04" contactMechId="9326" contactMechPurposeTypeId="PRIMARY_EMAIL" fromDate="2013-01-01 00:00:00.0"/>
+
+    <!-- Enrollee 4 → HMO -->
+    <PartyRelationship partyIdFrom="HmoEnrollee04" roleTypeIdFrom="HMO_ENROLLEE"
+        partyIdTo="HmoHealthFirst" roleTypeIdTo="HMO_ORGANIZATION"
+        fromDate="2013-01-01 00:00:00.0"
+        relationshipName="HMO Enrollment"/>
+
+    <!-- Enrollee 4 → Acme employment -->
+    <PartyRelationship partyIdFrom="HmoEnrollee04" roleTypeIdFrom="EMPLOYEE"
+        partyIdTo="HmoSponsor02" roleTypeIdTo="EMPLOYER"
+        fromDate="2010-06-01 00:00:00.0"/>
+
+    <!-- ============================================================ -->
+    <!--  ENROLLEE 5: Ngozi Obi (Dependent – Child of Emeka)          -->
+    <!--  Plan: Silver | Coverage: Family (via Emeka's policy)        -->
+    <!-- ============================================================ -->
+
+    <Party partyId="HmoEnrollee05" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
+    <Person partyId="HmoEnrollee05"
+        firstName="Ngozi"
+        lastName="Obi"
+        gender="F"
+        birthDate="2010-06-15"/>
+    <PartyRole partyId="HmoEnrollee05" roleTypeId="HMO_ENROLLEE"/>
+    <PartyRole partyId="HmoEnrollee05" roleTypeId="HMO_DEPENDENT"/>
+    <PartyRole partyId="HmoEnrollee05" roleTypeId="_NA_"/>
+    <PartyStatus partyId="HmoEnrollee05" statusId="PARTY_ENABLED" statusDate="2013-01-01 08:00:00.0"/>
+
+    <!-- Ngozi → HMO enrollment (dependent) -->
+    <PartyRelationship partyIdFrom="HmoEnrollee05" roleTypeIdFrom="HMO_DEPENDENT"
+        partyIdTo="HmoHealthFirst" roleTypeIdTo="HMO_ORGANIZATION"
+        fromDate="2013-01-01 00:00:00.0"
+        relationshipName="HMO Enrollment (Dependent)"/>
+
+    <!-- Ngozi → Emeka (child dependency) -->
+    <PartyRelationship partyIdFrom="HmoEnrollee05" roleTypeIdFrom="HMO_DEPENDENT"
+        partyIdTo="HmoEnrollee04" roleTypeIdTo="HMO_ENROLLEE"
+        fromDate="2013-01-01 00:00:00.0"
+        relationshipName="Child"/>
+
+    <!-- ============================================================ -->
+    <!--  ENROLLEE 6: Tunde Adeyemi (Primary – unsponsored/individual) -->
+    <!--  Plan: Bronze | Coverage: Individual                         -->
+    <!-- ============================================================ -->
+
+    <Party partyId="HmoEnrollee06" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
+    <Person partyId="HmoEnrollee06"
+        firstName="Tunde"
+        lastName="Adeyemi"
+        personalTitle="Mr."
+        gender="M"
+        birthDate="1982-07-30"/>
+    <PartyRole partyId="HmoEnrollee06" roleTypeId="HMO_ENROLLEE"/>
+    <PartyRole partyId="HmoEnrollee06" roleTypeId="CUSTOMER"/>
+    <PartyRole partyId="HmoEnrollee06" roleTypeId="_NA_"/>
+    <PartyStatus partyId="HmoEnrollee06" statusId="PARTY_ENABLED" statusDate="2021-04-01 08:00:00.0"/>
+
+    <ContactMech contactMechId="9327" contactMechTypeId="TELECOM_NUMBER"/>
+    <TelecomNumber contactMechId="9327" countryCode="234" areaCode="080" contactNumber="9988-7766"/>
+    <PartyContactMech partyId="HmoEnrollee06" contactMechId="9327" fromDate="2021-04-01 00:00:00.0"/>
+    <PartyContactMechPurpose partyId="HmoEnrollee06" contactMechId="9327" contactMechPurposeTypeId="PHONE_MOBILE" fromDate="2021-04-01 00:00:00.0"/>
+
+    <ContactMech contactMechId="9328" contactMechTypeId="EMAIL_ADDRESS" infoString="tunde.adeyemi@gmail.com"/>
+    <PartyContactMech partyId="HmoEnrollee06" contactMechId="9328" fromDate="2021-04-01 00:00:00.0" allowSolicitation="Y"/>
+    <PartyContactMechPurpose partyId="HmoEnrollee06" contactMechId="9328" contactMechPurposeTypeId="PRIMARY_EMAIL" fromDate="2021-04-01 00:00:00.0"/>
+
+    <!-- Enrollee 6 → HMO (direct/individual enrollment) -->
+    <PartyRelationship partyIdFrom="HmoEnrollee06" roleTypeIdFrom="HMO_ENROLLEE"
+        partyIdTo="HmoHealthFirst" roleTypeIdTo="HMO_ORGANIZATION"
+        fromDate="2021-04-01 00:00:00.0"
+        relationshipName="HMO Enrollment"/>
+
+    <!-- Enrollee 6 self-service login -->
+    <UserLogin userLoginId="hmo.enrollee6" partyId="HmoEnrollee06"
+        currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a"/>
+    <UserLoginSecurityGroup userLoginId="hmo.enrollee6" groupId="HMO_ENROLLEE_GRP" fromDate="2021-04-01 00:00:00.0"/>
+
+    <!-- ============================================================ -->
+    <!--  PROVIDER AGREEMENTS                                         -->
+    <!-- ============================================================ -->
+
+    <!-- Lagos General Hospital – provider agreement with HMO -->
+    <Agreement agreementId="HMO-PROV-001"
+        agreementTypeId="HMO_PROVIDER_AGMT"
+        partyIdFrom="HmoHealthFirst"
+        partyIdTo="HmoProvider01"
+        roleTypeIdFrom="HMO_ORGANIZATION"
+        roleTypeIdTo="HMO_HOSPITAL"
+        fromDate="2010-01-01 00:00:00.0"
+        description="Provider Agreement: Lagos General Hospital – Primary Network, all clinical specialties"/>
+
+    <!-- Ikeja Medical Centre – provider agreement with HMO -->
+    <Agreement agreementId="HMO-PROV-002"
+        agreementTypeId="HMO_PROVIDER_AGMT"
+        partyIdFrom="HmoHealthFirst"
+        partyIdTo="HmoProvider02"
+        roleTypeIdFrom="HMO_ORGANIZATION"
+        roleTypeIdTo="HMO_CLINIC"
+        fromDate="2011-06-01 00:00:00.0"
+        description="Provider Agreement: Ikeja Medical Centre – Primary Network, General Practice, Dental, Optical"/>
+
+    <!-- HealthPlus Pharmacy – provider agreement with HMO -->
+    <Agreement agreementId="HMO-PROV-003"
+        agreementTypeId="HMO_PROVIDER_AGMT"
+        partyIdFrom="HmoHealthFirst"
+        partyIdTo="HmoProvider03"
+        roleTypeIdFrom="HMO_ORGANIZATION"
+        roleTypeIdTo="HMO_PHARMACY"
+        fromDate="2013-03-01 00:00:00.0"
+        description="Provider Agreement: HealthPlus Pharmacy – Preferred Pharmacy Network"/>
+
+    <!-- ============================================================ -->
+    <!--  SPONSOR AGREEMENTS                                          -->
+    <!-- ============================================================ -->
+
+    <!-- TechCorp Nigeria – sponsor/corporate agreement with HMO -->
+    <Agreement agreementId="HMO-SPON-001"
+        agreementTypeId="HMO_SPONSOR_AGMT"
+        partyIdFrom="HmoSponsor01"
+        partyIdTo="HmoHealthFirst"
+        roleTypeIdFrom="HMO_SPONSOR"
+        roleTypeIdTo="HMO_ORGANIZATION"
+        fromDate="2015-06-01 00:00:00.0"
+        description="Corporate Sponsor Agreement: TechCorp Nigeria Ltd – Gold Plan for all permanent staff"/>
+
+    <!-- Acme Manufacturing – sponsor/corporate agreement with HMO -->
+    <Agreement agreementId="HMO-SPON-002"
+        agreementTypeId="HMO_SPONSOR_AGMT"
+        partyIdFrom="HmoSponsor02"
+        partyIdTo="HmoHealthFirst"
+        roleTypeIdFrom="HMO_SPONSOR"
+        roleTypeIdTo="HMO_ORGANIZATION"
+        fromDate="2012-10-01 00:00:00.0"
+        description="Corporate Sponsor Agreement: Acme Manufacturing Company – Silver Plan (staff), Gold Plan (management)"/>
+
+</entity-engine-xml>

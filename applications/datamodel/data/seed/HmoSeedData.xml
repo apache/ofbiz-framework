@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<!--
+    HMO Management System - Seed Data
+    Contains reference/type data: role types, status types, enumerations,
+    agreement types, and security permissions required for the HMO module.
+-->
+
+<entity-engine-xml>
+
+    <!-- ============================================================ -->
+    <!--  HMO ROLE TYPES                                              -->
+    <!-- ============================================================ -->
+
+    <RoleType roleTypeId="HMO_ROLE"          description="HMO Role"                  hasTable="N" parentTypeId="MAIN_ROLE"/>
+    <RoleType roleTypeId="HMO_ORGANIZATION"  description="HMO Organization"           hasTable="N" parentTypeId="HMO_ROLE"/>
+    <RoleType roleTypeId="HMO_SPONSOR"       description="HMO Sponsor (Employer)"     hasTable="N" parentTypeId="HMO_ROLE"/>
+    <RoleType roleTypeId="HMO_ENROLLEE"      description="HMO Enrollee"               hasTable="N" parentTypeId="HMO_ROLE"/>
+    <RoleType roleTypeId="HMO_DEPENDENT"     description="HMO Dependent"              hasTable="N" parentTypeId="HMO_ENROLLEE"/>
+    <RoleType roleTypeId="HMO_PROVIDER"      description="Healthcare Provider"        hasTable="N" parentTypeId="HMO_ROLE"/>
+    <RoleType roleTypeId="HMO_HOSPITAL"      description="Hospital"                   hasTable="N" parentTypeId="HMO_PROVIDER"/>
+    <RoleType roleTypeId="HMO_CLINIC"        description="Clinic / Outpatient Centre" hasTable="N" parentTypeId="HMO_PROVIDER"/>
+    <RoleType roleTypeId="HMO_PHARMACY"      description="Pharmacy"                   hasTable="N" parentTypeId="HMO_PROVIDER"/>
+    <RoleType roleTypeId="HMO_LABORATORY"    description="Laboratory / Diagnostics"   hasTable="N" parentTypeId="HMO_PROVIDER"/>
+    <RoleType roleTypeId="HMO_CARE_MANAGER"  description="HMO Care Manager"           hasTable="N" parentTypeId="HMO_ROLE"/>
+    <RoleType roleTypeId="HMO_CLAIMS_OFFICER" description="HMO Claims Officer"        hasTable="N" parentTypeId="HMO_ROLE"/>
+    <RoleType roleTypeId="HMO_AGENT"         description="HMO Enrollment Agent"       hasTable="N" parentTypeId="HMO_ROLE"/>
+
+    <!-- ============================================================ -->
+    <!--  HMO ENROLLMENT STATUS                                       -->
+    <!-- ============================================================ -->
+
+    <StatusType statusTypeId="HMO_ENROLL_STATUS" description="HMO Enrollment Status" hasTable="N"/>
+    <StatusItem statusId="HMO_ENRL_PENDING"    statusTypeId="HMO_ENROLL_STATUS" sequenceId="01" statusCode="PENDING"     description="Pending Activation"/>
+    <StatusItem statusId="HMO_ENRL_ACTIVE"     statusTypeId="HMO_ENROLL_STATUS" sequenceId="02" statusCode="ACTIVE"      description="Active"/>
+    <StatusItem statusId="HMO_ENRL_SUSPENDED"  statusTypeId="HMO_ENROLL_STATUS" sequenceId="03" statusCode="SUSPENDED"   description="Suspended"/>
+    <StatusItem statusId="HMO_ENRL_TERMINATED" statusTypeId="HMO_ENROLL_STATUS" sequenceId="04" statusCode="TERMINATED"  description="Terminated"/>
+    <StatusItem statusId="HMO_ENRL_EXPIRED"    statusTypeId="HMO_ENROLL_STATUS" sequenceId="05" statusCode="EXPIRED"     description="Expired"/>
+
+    <!-- Valid enrollment status transitions -->
+    <StatusValidChange statusId="HMO_ENRL_PENDING"   statusIdTo="HMO_ENRL_ACTIVE"     transitionName="Activate"/>
+    <StatusValidChange statusId="HMO_ENRL_PENDING"   statusIdTo="HMO_ENRL_TERMINATED" transitionName="Cancel"/>
+    <StatusValidChange statusId="HMO_ENRL_ACTIVE"    statusIdTo="HMO_ENRL_SUSPENDED"  transitionName="Suspend"/>
+    <StatusValidChange statusId="HMO_ENRL_ACTIVE"    statusIdTo="HMO_ENRL_TERMINATED" transitionName="Terminate"/>
+    <StatusValidChange statusId="HMO_ENRL_ACTIVE"    statusIdTo="HMO_ENRL_EXPIRED"    transitionName="Expire"/>
+    <StatusValidChange statusId="HMO_ENRL_SUSPENDED" statusIdTo="HMO_ENRL_ACTIVE"     transitionName="Reinstate"/>
+    <StatusValidChange statusId="HMO_ENRL_SUSPENDED" statusIdTo="HMO_ENRL_TERMINATED" transitionName="Terminate"/>
+
+    <!-- ============================================================ -->
+    <!--  HMO CLAIM STATUS                                            -->
+    <!-- ============================================================ -->
+
+    <StatusType statusTypeId="HMO_CLAIM_STATUS" description="HMO Claim Status" hasTable="N"/>
+    <StatusItem statusId="HMO_CLM_SUBMITTED"  statusTypeId="HMO_CLAIM_STATUS" sequenceId="01" statusCode="SUBMITTED"    description="Submitted"/>
+    <StatusItem statusId="HMO_CLM_REVIEWING"  statusTypeId="HMO_CLAIM_STATUS" sequenceId="02" statusCode="REVIEWING"    description="Under Review"/>
+    <StatusItem statusId="HMO_CLM_INFO_REQD"  statusTypeId="HMO_CLAIM_STATUS" sequenceId="03" statusCode="INFO_REQD"    description="Additional Info Required"/>
+    <StatusItem statusId="HMO_CLM_APPROVED"   statusTypeId="HMO_CLAIM_STATUS" sequenceId="04" statusCode="APPROVED"     description="Approved"/>
+    <StatusItem statusId="HMO_CLM_REJECTED"   statusTypeId="HMO_CLAIM_STATUS" sequenceId="05" statusCode="REJECTED"     description="Rejected"/>
+    <StatusItem statusId="HMO_CLM_PAID"       statusTypeId="HMO_CLAIM_STATUS" sequenceId="06" statusCode="PAID"         description="Paid"/>
+    <StatusItem statusId="HMO_CLM_APPEALED"   statusTypeId="HMO_CLAIM_STATUS" sequenceId="07" statusCode="APPEALED"     description="Appealed"/>
+    <StatusItem statusId="HMO_CLM_CLOSED"     statusTypeId="HMO_CLAIM_STATUS" sequenceId="08" statusCode="CLOSED"       description="Closed"/>
+
+    <!-- Valid claim status transitions -->
+    <StatusValidChange statusId="HMO_CLM_SUBMITTED"  statusIdTo="HMO_CLM_REVIEWING"  transitionName="Start Review"/>
+    <StatusValidChange statusId="HMO_CLM_REVIEWING"  statusIdTo="HMO_CLM_INFO_REQD"  transitionName="Request Info"/>
+    <StatusValidChange statusId="HMO_CLM_REVIEWING"  statusIdTo="HMO_CLM_APPROVED"   transitionName="Approve"/>
+    <StatusValidChange statusId="HMO_CLM_REVIEWING"  statusIdTo="HMO_CLM_REJECTED"   transitionName="Reject"/>
+    <StatusValidChange statusId="HMO_CLM_INFO_REQD"  statusIdTo="HMO_CLM_REVIEWING"  transitionName="Resume Review"/>
+    <StatusValidChange statusId="HMO_CLM_APPROVED"   statusIdTo="HMO_CLM_PAID"       transitionName="Mark Paid"/>
+    <StatusValidChange statusId="HMO_CLM_REJECTED"   statusIdTo="HMO_CLM_APPEALED"   transitionName="Appeal"/>
+    <StatusValidChange statusId="HMO_CLM_APPEALED"   statusIdTo="HMO_CLM_REVIEWING"  transitionName="Re-review"/>
+    <StatusValidChange statusId="HMO_CLM_PAID"       statusIdTo="HMO_CLM_CLOSED"     transitionName="Close"/>
+    <StatusValidChange statusId="HMO_CLM_REJECTED"   statusIdTo="HMO_CLM_CLOSED"     transitionName="Close"/>
+
+    <!-- ============================================================ -->
+    <!--  HMO PRE-AUTHORIZATION STATUS                                -->
+    <!-- ============================================================ -->
+
+    <StatusType statusTypeId="HMO_AUTH_STATUS" description="HMO Pre-Authorization Status" hasTable="N"/>
+    <StatusItem statusId="HMO_AUTH_PENDING"   statusTypeId="HMO_AUTH_STATUS" sequenceId="01" statusCode="PENDING"   description="Pending"/>
+    <StatusItem statusId="HMO_AUTH_APPROVED"  statusTypeId="HMO_AUTH_STATUS" sequenceId="02" statusCode="APPROVED"  description="Approved"/>
+    <StatusItem statusId="HMO_AUTH_DENIED"    statusTypeId="HMO_AUTH_STATUS" sequenceId="03" statusCode="DENIED"    description="Denied"/>
+    <StatusItem statusId="HMO_AUTH_EXPIRED"   statusTypeId="HMO_AUTH_STATUS" sequenceId="04" statusCode="EXPIRED"   description="Expired"/>
+
+    <StatusValidChange statusId="HMO_AUTH_PENDING"  statusIdTo="HMO_AUTH_APPROVED" transitionName="Approve"/>
+    <StatusValidChange statusId="HMO_AUTH_PENDING"  statusIdTo="HMO_AUTH_DENIED"   transitionName="Deny"/>
+    <StatusValidChange statusId="HMO_AUTH_APPROVED" statusIdTo="HMO_AUTH_EXPIRED"  transitionName="Expire"/>
+
+    <!-- ============================================================ -->
+    <!--  HMO PLAN TIER ENUMERATION                                   -->
+    <!-- ============================================================ -->
+
+    <EnumerationType enumTypeId="HMO_PLAN_TIER" description="HMO Health Plan Tier" hasTable="N"/>
+    <Enumeration enumId="HMO_PLAN_BRONZE"   enumTypeId="HMO_PLAN_TIER" enumCode="BRONZE"   sequenceId="01" description="Bronze Plan"/>
+    <Enumeration enumId="HMO_PLAN_SILVER"   enumTypeId="HMO_PLAN_TIER" enumCode="SILVER"   sequenceId="02" description="Silver Plan"/>
+    <Enumeration enumId="HMO_PLAN_GOLD"     enumTypeId="HMO_PLAN_TIER" enumCode="GOLD"     sequenceId="03" description="Gold Plan"/>
+    <Enumeration enumId="HMO_PLAN_PLATINUM" enumTypeId="HMO_PLAN_TIER" enumCode="PLATINUM" sequenceId="04" description="Platinum Plan"/>
+
+    <!-- ============================================================ -->
+    <!--  HMO COVERAGE TYPE ENUMERATION                               -->
+    <!-- ============================================================ -->
+
+    <EnumerationType enumTypeId="HMO_COVERAGE_TYPE" description="HMO Coverage Type" hasTable="N"/>
+    <Enumeration enumId="HMO_COV_INDIVIDUAL"  enumTypeId="HMO_COVERAGE_TYPE" enumCode="INDIVIDUAL"  sequenceId="01" description="Individual"/>
+    <Enumeration enumId="HMO_COV_EMP_SPOUSE"  enumTypeId="HMO_COVERAGE_TYPE" enumCode="EMP_SPOUSE"  sequenceId="02" description="Employee + Spouse"/>
+    <Enumeration enumId="HMO_COV_EMP_CHILD"   enumTypeId="HMO_COVERAGE_TYPE" enumCode="EMP_CHILD"   sequenceId="03" description="Employee + Children"/>
+    <Enumeration enumId="HMO_COV_FAMILY"      enumTypeId="HMO_COVERAGE_TYPE" enumCode="FAMILY"      sequenceId="04" description="Family"/>
+
+    <!-- ============================================================ -->
+    <!--  HMO PROVIDER SPECIALTY ENUMERATION                          -->
+    <!-- ============================================================ -->
+
+    <EnumerationType enumTypeId="HMO_PROVIDER_SPEC" description="Healthcare Provider Specialty" hasTable="N"/>
+    <Enumeration enumId="HMO_SPEC_GP"           enumTypeId="HMO_PROVIDER_SPEC" enumCode="GP"           sequenceId="01" description="General Practice"/>
+    <Enumeration enumId="HMO_SPEC_SURGERY"      enumTypeId="HMO_PROVIDER_SPEC" enumCode="SURGERY"      sequenceId="02" description="Surgery"/>
+    <Enumeration enumId="HMO_SPEC_PEDIATRICS"   enumTypeId="HMO_PROVIDER_SPEC" enumCode="PEDIATRICS"   sequenceId="03" description="Pediatrics"/>
+    <Enumeration enumId="HMO_SPEC_CARDIOLOGY"   enumTypeId="HMO_PROVIDER_SPEC" enumCode="CARDIOLOGY"   sequenceId="04" description="Cardiology"/>
+    <Enumeration enumId="HMO_SPEC_ORTHOPEDICS"  enumTypeId="HMO_PROVIDER_SPEC" enumCode="ORTHOPEDICS"  sequenceId="05" description="Orthopedics"/>
+    <Enumeration enumId="HMO_SPEC_NEUROLOGY"    enumTypeId="HMO_PROVIDER_SPEC" enumCode="NEUROLOGY"    sequenceId="06" description="Neurology"/>
+    <Enumeration enumId="HMO_SPEC_OBSGYN"       enumTypeId="HMO_PROVIDER_SPEC" enumCode="OBSGYN"       sequenceId="07" description="Obstetrics and Gynaecology"/>
+    <Enumeration enumId="HMO_SPEC_DENTISTRY"    enumTypeId="HMO_PROVIDER_SPEC" enumCode="DENTISTRY"    sequenceId="08" description="Dentistry"/>
+    <Enumeration enumId="HMO_SPEC_OPHTHALMOLOGY" enumTypeId="HMO_PROVIDER_SPEC" enumCode="OPHTHALMOLOGY" sequenceId="09" description="Ophthalmology"/>
+    <Enumeration enumId="HMO_SPEC_DERMATOLOGY"  enumTypeId="HMO_PROVIDER_SPEC" enumCode="DERMATOLOGY"  sequenceId="10" description="Dermatology"/>
+    <Enumeration enumId="HMO_SPEC_PHARMACY"     enumTypeId="HMO_PROVIDER_SPEC" enumCode="PHARMACY"     sequenceId="11" description="Pharmacy"/>
+    <Enumeration enumId="HMO_SPEC_LABORATORY"   enumTypeId="HMO_PROVIDER_SPEC" enumCode="LABORATORY"   sequenceId="12" description="Laboratory / Diagnostics"/>
+    <Enumeration enumId="HMO_SPEC_RADIOLOGY"    enumTypeId="HMO_PROVIDER_SPEC" enumCode="RADIOLOGY"    sequenceId="13" description="Radiology / Imaging"/>
+    <Enumeration enumId="HMO_SPEC_EMERGENCY"    enumTypeId="HMO_PROVIDER_SPEC" enumCode="EMERGENCY"    sequenceId="14" description="Emergency Medicine"/>
+    <Enumeration enumId="HMO_SPEC_PSYCHIATRY"   enumTypeId="HMO_PROVIDER_SPEC" enumCode="PSYCHIATRY"   sequenceId="15" description="Psychiatry / Mental Health"/>
+    <Enumeration enumId="HMO_SPEC_PHYSIOTHERAPY" enumTypeId="HMO_PROVIDER_SPEC" enumCode="PHYSIOTHERAPY" sequenceId="16" description="Physiotherapy"/>
+
+    <!-- ============================================================ -->
+    <!--  HMO CLAIM TYPE ENUMERATION                                  -->
+    <!-- ============================================================ -->
+
+    <EnumerationType enumTypeId="HMO_CLAIM_TYPE" description="HMO Claim Type" hasTable="N"/>
+    <Enumeration enumId="HMO_CLM_INPATIENT"   enumTypeId="HMO_CLAIM_TYPE" enumCode="INPATIENT"   sequenceId="01" description="Inpatient Admission"/>
+    <Enumeration enumId="HMO_CLM_OUTPATIENT"  enumTypeId="HMO_CLAIM_TYPE" enumCode="OUTPATIENT"  sequenceId="02" description="Outpatient Consultation"/>
+    <Enumeration enumId="HMO_CLM_PHARMACY_T"  enumTypeId="HMO_CLAIM_TYPE" enumCode="PHARMACY"    sequenceId="03" description="Pharmacy / Drugs"/>
+    <Enumeration enumId="HMO_CLM_LABORATORY_T" enumTypeId="HMO_CLAIM_TYPE" enumCode="LABORATORY" sequenceId="04" description="Laboratory / Diagnostics"/>
+    <Enumeration enumId="HMO_CLM_DENTAL"      enumTypeId="HMO_CLAIM_TYPE" enumCode="DENTAL"      sequenceId="05" description="Dental"/>
+    <Enumeration enumId="HMO_CLM_OPTICAL"     enumTypeId="HMO_CLAIM_TYPE" enumCode="OPTICAL"     sequenceId="06" description="Optical"/>
+    <Enumeration enumId="HMO_CLM_EMERGENCY_T" enumTypeId="HMO_CLAIM_TYPE" enumCode="EMERGENCY"   sequenceId="07" description="Emergency"/>
+    <Enumeration enumId="HMO_CLM_MATERNITY"   enumTypeId="HMO_CLAIM_TYPE" enumCode="MATERNITY"   sequenceId="08" description="Maternity"/>
+    <Enumeration enumId="HMO_CLM_SURGICAL"    enumTypeId="HMO_CLAIM_TYPE" enumCode="SURGICAL"    sequenceId="09" description="Surgical Procedure"/>
+    <Enumeration enumId="HMO_CLM_PHYSIOTHER"  enumTypeId="HMO_CLAIM_TYPE" enumCode="PHYSIOTHER"  sequenceId="10" description="Physiotherapy"/>
+
+    <!-- ============================================================ -->
+    <!--  HMO DEPENDENT RELATIONSHIP TYPE ENUMERATION                 -->
+    <!-- ============================================================ -->
+
+    <EnumerationType enumTypeId="HMO_DEP_RELATION" description="HMO Dependent Relationship" hasTable="N"/>
+    <Enumeration enumId="HMO_DEP_SPOUSE"   enumTypeId="HMO_DEP_RELATION" enumCode="SPOUSE"  sequenceId="01" description="Spouse"/>
+    <Enumeration enumId="HMO_DEP_CHILD"    enumTypeId="HMO_DEP_RELATION" enumCode="CHILD"   sequenceId="02" description="Child"/>
+    <Enumeration enumId="HMO_DEP_PARENT"   enumTypeId="HMO_DEP_RELATION" enumCode="PARENT"  sequenceId="03" description="Parent"/>
+    <Enumeration enumId="HMO_DEP_SIBLING"  enumTypeId="HMO_DEP_RELATION" enumCode="SIBLING" sequenceId="04" description="Sibling"/>
+
+    <!-- ============================================================ -->
+    <!--  HMO NETWORK TIER ENUMERATION (provider access tiers)        -->
+    <!-- ============================================================ -->
+
+    <EnumerationType enumTypeId="HMO_NETWORK_TIER" description="HMO Provider Network Tier" hasTable="N"/>
+    <Enumeration enumId="HMO_NET_PRIMARY"   enumTypeId="HMO_NETWORK_TIER" enumCode="PRIMARY"   sequenceId="01" description="Primary Network"/>
+    <Enumeration enumId="HMO_NET_SECONDARY" enumTypeId="HMO_NETWORK_TIER" enumCode="SECONDARY" sequenceId="02" description="Secondary Network"/>
+    <Enumeration enumId="HMO_NET_OUT"       enumTypeId="HMO_NETWORK_TIER" enumCode="OUT"       sequenceId="03" description="Out-of-Network"/>
+
+    <!-- ============================================================ -->
+    <!--  HMO AGREEMENT TYPES                                         -->
+    <!-- ============================================================ -->
+
+    <AgreementType agreementTypeId="HMO_AGREEMENT"      description="HMO Agreement"          hasTable="N"/>
+    <AgreementType agreementTypeId="HMO_PROVIDER_AGMT"  description="HMO Provider Agreement"  hasTable="N" parentTypeId="HMO_AGREEMENT"/>
+    <AgreementType agreementTypeId="HMO_SPONSOR_AGMT"   description="HMO Sponsor Agreement"   hasTable="N" parentTypeId="HMO_AGREEMENT"/>
+    <AgreementType agreementTypeId="HMO_ENROLL_AGMT"    description="HMO Enrollment Agreement" hasTable="N" parentTypeId="HMO_AGREEMENT"/>
+
+    <!-- ============================================================ -->
+    <!--  HMO SECURITY PERMISSIONS                                    -->
+    <!-- ============================================================ -->
+
+    <SecurityPermission permissionId="HMO_ADMIN"         description="HMO full administrative permission"/>
+    <SecurityPermission permissionId="HMO_VIEW"          description="HMO view permission"/>
+    <SecurityPermission permissionId="HMO_CREATE"        description="HMO create permission"/>
+    <SecurityPermission permissionId="HMO_UPDATE"        description="HMO update permission"/>
+    <SecurityPermission permissionId="HMO_DELETE"        description="HMO delete permission"/>
+    <SecurityPermission permissionId="HMO_ENROLL"        description="HMO enrollment management permission"/>
+    <SecurityPermission permissionId="HMO_CLAIM_VIEW"    description="HMO claim view permission"/>
+    <SecurityPermission permissionId="HMO_CLAIM_CREATE"  description="HMO claim create/submit permission"/>
+    <SecurityPermission permissionId="HMO_CLAIM_UPDATE"  description="HMO claim update permission"/>
+    <SecurityPermission permissionId="HMO_CLAIM_APPROVE" description="HMO claim approval permission"/>
+    <SecurityPermission permissionId="HMO_PROVIDER_VIEW" description="HMO provider view permission"/>
+    <SecurityPermission permissionId="HMO_PROVIDER_MGMT" description="HMO provider management permission"/>
+    <SecurityPermission permissionId="HMO_REPORT_VIEW"   description="HMO reporting view permission"/>
+
+</entity-engine-xml>
