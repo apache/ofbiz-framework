@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<!--
+    hmo-hr Seed Data
+
+    Provisions:
+      - Two new SecurityPermissions scoped to HR management
+      - One SecurityGroup (HMO_HR_GRP) for HR administrators
+      - EnumerationType HMO_JOB_TITLE with 8 standard HMO job titles
+      - EnumerationType HMO_LEAVE_TYPE with 5 leave categories
+      - StatusType HMO_STAFF_STATUS with items and valid transitions
+      - StatusType HMO_LEAVE_STATUS with items and valid transitions
+      - 10 HmoGradeLevel seed rows (GL-01 through GL-10) in NGN
+-->
+<entity-engine-xml>
+
+    <!-- ================================================================ -->
+    <!--  Security Permissions                                             -->
+    <!-- ================================================================ -->
+
+    <SecurityPermission permissionId="HMO_HR_VIEW"
+        description="HMO HR view permission — grants read-only access to HR screens"/>
+    <SecurityPermission permissionId="HMO_HR_MGMT"
+        description="HMO HR management permission — grants full access to HR operations"/>
+
+    <!-- ================================================================ -->
+    <!--  Security Group                                                   -->
+    <!-- ================================================================ -->
+
+    <SecurityGroup groupId="HMO_HR_GRP" description="HMO HR Administrator"/>
+
+    <SecurityGroupPermission groupId="HMO_HR_GRP" permissionId="OFBTOOLS_VIEW"     fromDate="2000-01-01 00:00:00.000"/>
+    <SecurityGroupPermission groupId="HMO_HR_GRP" permissionId="HMO_VIEW"          fromDate="2000-01-01 00:00:00.000"/>
+    <SecurityGroupPermission groupId="HMO_HR_GRP" permissionId="HMO_HR_VIEW"       fromDate="2000-01-01 00:00:00.000"/>
+    <SecurityGroupPermission groupId="HMO_HR_GRP" permissionId="HMO_HR_MGMT"       fromDate="2000-01-01 00:00:00.000"/>
+    <SecurityGroupPermission groupId="HMO_HR_GRP" permissionId="HMO_ENROLL"        fromDate="2000-01-01 00:00:00.000"/>
+    <SecurityGroupPermission groupId="HMO_HR_GRP" permissionId="HMO_REPORT_VIEW"   fromDate="2000-01-01 00:00:00.000"/>
+    <SecurityGroupPermission groupId="HMO_HR_GRP" permissionId="PARTYMGR_VIEW"     fromDate="2000-01-01 00:00:00.000"/>
+
+    <!-- ================================================================ -->
+    <!--  Job Title Enumeration                                            -->
+    <!-- ================================================================ -->
+
+    <EnumerationType enumTypeId="HMO_JOB_TITLE" description="HMO Staff Job Title" hasTable="N"/>
+
+    <Enumeration enumId="HMO_JT_CEO"            enumTypeId="HMO_JOB_TITLE" sequenceId="01" description="CEO"/>
+    <Enumeration enumId="HMO_JT_CFO"            enumTypeId="HMO_JOB_TITLE" sequenceId="02" description="CFO"/>
+    <Enumeration enumId="HMO_JT_HR_MGR"         enumTypeId="HMO_JOB_TITLE" sequenceId="03" description="HR Manager"/>
+    <Enumeration enumId="HMO_JT_CLAIMS_MGR"     enumTypeId="HMO_JOB_TITLE" sequenceId="04" description="Claims Manager"/>
+    <Enumeration enumId="HMO_JT_CARE_MGR"       enumTypeId="HMO_JOB_TITLE" sequenceId="05" description="Care Manager"/>
+    <Enumeration enumId="HMO_JT_FINANCE_OFFICER" enumTypeId="HMO_JOB_TITLE" sequenceId="06" description="Finance Officer"/>
+    <Enumeration enumId="HMO_JT_IT_OFFICER"     enumTypeId="HMO_JOB_TITLE" sequenceId="07" description="IT Officer"/>
+    <Enumeration enumId="HMO_JT_ADMIN_OFFICER"  enumTypeId="HMO_JOB_TITLE" sequenceId="08" description="Administrative Officer"/>
+
+    <!-- ================================================================ -->
+    <!--  Leave Type Enumeration                                           -->
+    <!-- ================================================================ -->
+
+    <EnumerationType enumTypeId="HMO_LEAVE_TYPE" description="HMO Leave Type" hasTable="N"/>
+
+    <Enumeration enumId="HMO_LV_ANNUAL"    enumTypeId="HMO_LEAVE_TYPE" sequenceId="01" description="Annual Leave"/>
+    <Enumeration enumId="HMO_LV_SICK"      enumTypeId="HMO_LEAVE_TYPE" sequenceId="02" description="Sick Leave"/>
+    <Enumeration enumId="HMO_LV_MATERNITY" enumTypeId="HMO_LEAVE_TYPE" sequenceId="03" description="Maternity Leave"/>
+    <Enumeration enumId="HMO_LV_PATERNITY" enumTypeId="HMO_LEAVE_TYPE" sequenceId="04" description="Paternity Leave"/>
+    <Enumeration enumId="HMO_LV_STUDY"     enumTypeId="HMO_LEAVE_TYPE" sequenceId="05" description="Study Leave"/>
+
+    <!-- ================================================================ -->
+    <!--  Staff Position Status                                            -->
+    <!-- ================================================================ -->
+
+    <StatusType statusTypeId="HMO_STAFF_STATUS" description="HMO Staff Position Status" hasTable="N"/>
+
+    <StatusItem statusId="HMO_STAFF_ACTIVE"     statusTypeId="HMO_STAFF_STATUS" sequenceId="01" description="Active"/>
+    <StatusItem statusId="HMO_STAFF_ON_LEAVE"   statusTypeId="HMO_STAFF_STATUS" sequenceId="02" description="On Leave"/>
+    <StatusItem statusId="HMO_STAFF_TERMINATED" statusTypeId="HMO_STAFF_STATUS" sequenceId="03" description="Terminated"/>
+
+    <StatusValidChange statusId="HMO_STAFF_ACTIVE"   statusIdTo="HMO_STAFF_ON_LEAVE"   transitionName="Put On Leave"/>
+    <StatusValidChange statusId="HMO_STAFF_ACTIVE"   statusIdTo="HMO_STAFF_TERMINATED" transitionName="Terminate"/>
+    <StatusValidChange statusId="HMO_STAFF_ON_LEAVE" statusIdTo="HMO_STAFF_ACTIVE"     transitionName="Return to Active"/>
+    <StatusValidChange statusId="HMO_STAFF_ON_LEAVE" statusIdTo="HMO_STAFF_TERMINATED" transitionName="Terminate"/>
+
+    <!-- ================================================================ -->
+    <!--  Leave Status                                                     -->
+    <!-- ================================================================ -->
+
+    <StatusType statusTypeId="HMO_LEAVE_STATUS" description="HMO Leave Status" hasTable="N"/>
+
+    <StatusItem statusId="HMO_LEAVE_PENDING"   statusTypeId="HMO_LEAVE_STATUS" sequenceId="01" description="Pending Approval"/>
+    <StatusItem statusId="HMO_LEAVE_APPROVED"  statusTypeId="HMO_LEAVE_STATUS" sequenceId="02" description="Approved"/>
+    <StatusItem statusId="HMO_LEAVE_REJECTED"  statusTypeId="HMO_LEAVE_STATUS" sequenceId="03" description="Rejected"/>
+    <StatusItem statusId="HMO_LEAVE_COMPLETED" statusTypeId="HMO_LEAVE_STATUS" sequenceId="04" description="Completed/Returned"/>
+
+    <StatusValidChange statusId="HMO_LEAVE_PENDING"  statusIdTo="HMO_LEAVE_APPROVED"  transitionName="Approve"/>
+    <StatusValidChange statusId="HMO_LEAVE_PENDING"  statusIdTo="HMO_LEAVE_REJECTED"  transitionName="Reject"/>
+    <StatusValidChange statusId="HMO_LEAVE_APPROVED" statusIdTo="HMO_LEAVE_COMPLETED" transitionName="Mark Returned"/>
+
+    <!-- ================================================================ -->
+    <!--  Grade Levels (GL-01 through GL-10) in NGN                       -->
+    <!-- ================================================================ -->
+
+    <HmoGradeLevel gradeLevelId="GLVL_01" gradeLevelCode="GL-01" description="Grade Level 01 — Entry"
+        salaryMin="300000.00" salaryMax="450000.00" currencyUomId="NGN"/>
+    <HmoGradeLevel gradeLevelId="GLVL_02" gradeLevelCode="GL-02" description="Grade Level 02"
+        salaryMin="450001.00" salaryMax="600000.00" currencyUomId="NGN"/>
+    <HmoGradeLevel gradeLevelId="GLVL_03" gradeLevelCode="GL-03" description="Grade Level 03"
+        salaryMin="600001.00" salaryMax="800000.00" currencyUomId="NGN"/>
+    <HmoGradeLevel gradeLevelId="GLVL_04" gradeLevelCode="GL-04" description="Grade Level 04"
+        salaryMin="800001.00" salaryMax="1000000.00" currencyUomId="NGN"/>
+    <HmoGradeLevel gradeLevelId="GLVL_05" gradeLevelCode="GL-05" description="Grade Level 05"
+        salaryMin="1000001.00" salaryMax="1300000.00" currencyUomId="NGN"/>
+    <HmoGradeLevel gradeLevelId="GLVL_06" gradeLevelCode="GL-06" description="Grade Level 06"
+        salaryMin="1300001.00" salaryMax="1700000.00" currencyUomId="NGN"/>
+    <HmoGradeLevel gradeLevelId="GLVL_07" gradeLevelCode="GL-07" description="Grade Level 07"
+        salaryMin="1700001.00" salaryMax="2200000.00" currencyUomId="NGN"/>
+    <HmoGradeLevel gradeLevelId="GLVL_08" gradeLevelCode="GL-08" description="Grade Level 08"
+        salaryMin="2200001.00" salaryMax="2800000.00" currencyUomId="NGN"/>
+    <HmoGradeLevel gradeLevelId="GLVL_09" gradeLevelCode="GL-09" description="Grade Level 09"
+        salaryMin="2800001.00" salaryMax="3500000.00" currencyUomId="NGN"/>
+    <HmoGradeLevel gradeLevelId="GLVL_10" gradeLevelCode="GL-10" description="Grade Level 10 — Senior"
+        salaryMin="3500001.00" salaryMax="5000000.00" currencyUomId="NGN"/>
+
+</entity-engine-xml>

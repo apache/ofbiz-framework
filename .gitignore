@@ -11,6 +11,8 @@ framework/*/build
 !/plugins/hmo-provider/**
 !/plugins/hmo-sponsor
 !/plugins/hmo-sponsor/**
+!/plugins/hmo-hr
+!/plugins/hmo-hr/**
 runtime/git-rebase/*
 runtime/SvnInfo.ftl
 runtime/GitInfo.ftl

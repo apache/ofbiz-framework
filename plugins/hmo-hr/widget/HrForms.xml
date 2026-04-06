@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://ofbiz.apache.org/Widget-Form"
+        xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
+
+    <!-- ================================================================ -->
+    <!--  Staff grid                                                       -->
+    <!-- ================================================================ -->
+    <grid name="StaffGrid" list-name="staffList" type="list"
+            odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <field name="staffPositionId" title="${uiLabelMap.HmoStaffPositionId}">
+            <hyperlink description="${staffPositionId}" target="viewStaff">
+                <parameter param-name="staffPositionId"/>
+            </hyperlink>
+        </field>
+        <field name="partyId" title="${uiLabelMap.HmoEnrollee}"><display/></field>
+        <field name="jobTitleEnumId" title="${uiLabelMap.HmoJobTitle}">
+            <display-entity entity-name="Enumeration" key-field-name="enumId" description="${description}"/>
+        </field>
+        <field name="gradeLevelId" title="${uiLabelMap.HmoGradeLevel}">
+            <display-entity entity-name="HmoGradeLevel" key-field-name="gradeLevelId" description="${gradeLevelCode}"/>
+        </field>
+        <field name="statusId" title="${uiLabelMap.HmoStatus}">
+            <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
+        </field>
+        <field name="fromDate" title="${uiLabelMap.HmoEffectiveFrom}"><display type="date"/></field>
+    </grid>
+
+    <!-- ================================================================ -->
+    <!--  Create staff position form                                       -->
+    <!-- ================================================================ -->
+    <form name="CreateStaffForm" type="single" target="createStaffPosition">
+        <field name="partyId" title="${uiLabelMap.HmoEnrollee}">
+            <lookup target-form-name="LookupPartyName"/>
+        </field>
+        <field name="jobTitleEnumId" title="${uiLabelMap.HmoJobTitle}">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="Enumeration" description="${description}" key-field-name="enumId">
+                    <entity-constraint name="enumTypeId" value="HMO_JOB_TITLE"/>
+                    <entity-order-by field-name="sequenceId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="gradeLevelId" title="${uiLabelMap.HmoGradeLevel}">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="HmoGradeLevel" description="${gradeLevelCode}" key-field-name="gradeLevelId">
+                    <entity-order-by field-name="gradeLevelCode"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="departmentPartyId" title="${uiLabelMap.HmoDepartment}"><text size="30"/></field>
+        <field name="supervisorPartyId" title="${uiLabelMap.HmoSupervisor}"><text size="30"/></field>
+        <field name="fromDate"          title="${uiLabelMap.HmoEffectiveFrom}"><date-time type="date"/></field>
+        <field name="submitButton" title="">
+            <submit button-type="button" text="${uiLabelMap.HmoNewStaff}"/>
+        </field>
+    </form>
+
+    <!-- ================================================================ -->
+    <!--  Staff detail (read-only)                                         -->
+    <!-- ================================================================ -->
+    <form name="StaffDetailForm" type="single" map-name="staffPosition">
+        <field name="staffPositionId" title="${uiLabelMap.HmoStaffPositionId}"><display/></field>
+        <field name="partyId"         title="${uiLabelMap.HmoEnrollee}"><display/></field>
+        <field name="jobTitleEnumId"  title="${uiLabelMap.HmoJobTitle}">
+            <display-entity entity-name="Enumeration" key-field-name="enumId" description="${description}"/>
+        </field>
+        <field name="gradeLevelId"    title="${uiLabelMap.HmoGradeLevel}">
+            <display-entity entity-name="HmoGradeLevel" key-field-name="gradeLevelId" description="${gradeLevelCode}"/>
+        </field>
+        <field name="departmentPartyId" title="${uiLabelMap.HmoDepartment}"><display/></field>
+        <field name="supervisorPartyId" title="${uiLabelMap.HmoSupervisor}"><display/></field>
+        <field name="statusId"        title="${uiLabelMap.HmoStatus}">
+            <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
+        </field>
+        <field name="fromDate"        title="${uiLabelMap.HmoEffectiveFrom}"><display type="date"/></field>
+        <field name="thruDate"        title="${uiLabelMap.HmoEffectiveTo}"><display type="date"/></field>
+    </form>
+
+    <!-- ================================================================ -->
+    <!--  Promote staff form                                               -->
+    <!-- ================================================================ -->
+    <form name="PromoteStaffForm" type="single" target="promoteStaff">
+        <field name="staffPositionId"><hidden/></field>
+        <field name="newGradeLevelId" title="${uiLabelMap.HmoNewGrade}">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="HmoGradeLevel" description="${gradeLevelCode}" key-field-name="gradeLevelId">
+                    <entity-order-by field-name="gradeLevelCode"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="newJobTitleEnumId" title="${uiLabelMap.HmoJobTitle}">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="Enumeration" description="${description}" key-field-name="enumId">
+                    <entity-constraint name="enumTypeId" value="HMO_JOB_TITLE"/>
+                    <entity-order-by field-name="sequenceId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="effectiveDate"      title="${uiLabelMap.HmoPromotionDate}"><date-time type="date"/></field>
+        <field name="approvedByPartyId"  title="${uiLabelMap.HmoApprovedBy}"><text size="30"/></field>
+        <field name="comments"           title="${uiLabelMap.HmoComments}"><textarea cols="60" rows="3"/></field>
+        <field name="submitButton" title="">
+            <submit button-type="button" text="${uiLabelMap.HmoPromoteStaff}"/>
+        </field>
+    </form>
+
+    <!-- ================================================================ -->
+    <!--  Leave grid                                                       -->
+    <!-- ================================================================ -->
+    <grid name="LeaveGrid" list-name="leaveList" type="list"
+            odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <field name="leaveId" title="${uiLabelMap.HmoLeaveId}">
+            <hyperlink description="${leaveId}" target="viewLeave">
+                <parameter param-name="leaveId"/>
+            </hyperlink>
+        </field>
+        <field name="partyId"         title="${uiLabelMap.HmoEnrollee}"><display/></field>
+        <field name="leaveTypeEnumId" title="${uiLabelMap.HmoLeaveType}">
+            <display-entity entity-name="Enumeration" key-field-name="enumId" description="${description}"/>
+        </field>
+        <field name="fromDate"        title="${uiLabelMap.HmoLeaveFromDate}"><display type="date"/></field>
+        <field name="thruDate"        title="${uiLabelMap.HmoLeaveThruDate}"><display type="date"/></field>
+        <field name="statusId"        title="${uiLabelMap.HmoStatus}">
+            <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
+        </field>
+    </grid>
+
+    <!-- ================================================================ -->
+    <!--  Create leave record form                                         -->
+    <!-- ================================================================ -->
+    <form name="CreateLeaveForm" type="single" target="createLeaveRecord">
+        <field name="partyId"         title="${uiLabelMap.HmoEnrollee}"><text size="30"/></field>
+        <field name="staffPositionId" title="${uiLabelMap.HmoStaffPositionId}">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="HmoStaffPosition" description="${staffPositionId}" key-field-name="staffPositionId">
+                    <entity-order-by field-name="staffPositionId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="leaveTypeEnumId" title="${uiLabelMap.HmoLeaveType}">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="Enumeration" description="${description}" key-field-name="enumId">
+                    <entity-constraint name="enumTypeId" value="HMO_LEAVE_TYPE"/>
+                    <entity-order-by field-name="sequenceId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="fromDate"  title="${uiLabelMap.HmoLeaveFromDate}"><date-time type="date"/></field>
+        <field name="thruDate"  title="${uiLabelMap.HmoLeaveThruDate}"><date-time type="date"/></field>
+        <field name="reason"    title="${uiLabelMap.HmoLeaveReason}"><textarea cols="60" rows="3"/></field>
+        <field name="submitButton" title="">
+            <submit button-type="button" text="${uiLabelMap.HmoNewLeave}"/>
+        </field>
+    </form>
+
+    <!-- ================================================================ -->
+    <!--  Leave detail (read-only)                                         -->
+    <!-- ================================================================ -->
+    <form name="LeaveDetailForm" type="single" map-name="leave">
+        <field name="leaveId"         title="${uiLabelMap.HmoLeaveId}"><display/></field>
+        <field name="partyId"         title="${uiLabelMap.HmoEnrollee}"><display/></field>
+        <field name="staffPositionId" title="${uiLabelMap.HmoStaffPositionId}"><display/></field>
+        <field name="leaveTypeEnumId" title="${uiLabelMap.HmoLeaveType}">
+            <display-entity entity-name="Enumeration" key-field-name="enumId" description="${description}"/>
+        </field>
+        <field name="fromDate"        title="${uiLabelMap.HmoLeaveFromDate}"><display type="date"/></field>
+        <field name="thruDate"        title="${uiLabelMap.HmoLeaveThruDate}"><display type="date"/></field>
+        <field name="statusId"        title="${uiLabelMap.HmoStatus}">
+            <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
+        </field>
+        <field name="approvedByPartyId" title="${uiLabelMap.HmoApprovedBy}"><display/></field>
+        <field name="reason"          title="${uiLabelMap.HmoLeaveReason}"><display/></field>
+    </form>
+
+    <!-- ================================================================ -->
+    <!--  Grade level grid                                                 -->
+    <!-- ================================================================ -->
+    <grid name="GradeLevelGrid" list-name="gradeLevelList" type="list"
+            odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <field name="gradeLevelId" title="${uiLabelMap.HmoStaffPositionId}">
+            <hyperlink description="${gradeLevelId}" target="editGradeLevel">
+                <parameter param-name="gradeLevelId"/>
+            </hyperlink>
+        </field>
+        <field name="gradeLevelCode" title="${uiLabelMap.HmoGradeLevelCode}"><display/></field>
+        <field name="description"    title="${uiLabelMap.CommonDescription}"><display/></field>
+        <field name="salaryMin"      title="${uiLabelMap.HmoSalaryMin}"><display type="currency"/></field>
+        <field name="salaryMax"      title="${uiLabelMap.HmoSalaryMax}"><display type="currency"/></field>
+        <field name="currencyUomId"  title="${uiLabelMap.HmoCurrency}"><display/></field>
+    </grid>
+
+    <!-- ================================================================ -->
+    <!--  Edit grade level form                                            -->
+    <!-- ================================================================ -->
+    <form name="EditGradeLevelForm" type="single" target="updateGradeLevel" map-name="gradeLevel">
+        <field name="gradeLevelId"><hidden/></field>
+        <field name="gradeLevelCode" title="${uiLabelMap.HmoGradeLevelCode}"><text size="10"/></field>
+        <field name="description"    title="${uiLabelMap.CommonDescription}"><text size="60"/></field>
+        <field name="salaryMin"      title="${uiLabelMap.HmoSalaryMin}"><text size="15"/></field>
+        <field name="salaryMax"      title="${uiLabelMap.HmoSalaryMax}"><text size="15"/></field>
+        <field name="currencyUomId"  title="${uiLabelMap.HmoCurrency}">
+            <drop-down no-current-selected-key="NGN">
+                <entity-options entity-name="Uom" description="${uomId}" key-field-name="uomId">
+                    <entity-constraint name="uomTypeId" value="CURRENCY_MEASURE"/>
+                    <entity-order-by field-name="uomId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="">
+            <submit button-type="button" text="${uiLabelMap.CommonUpdate}"/>
+        </field>
+    </form>
+
+</forms>

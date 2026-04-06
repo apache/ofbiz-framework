@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<!--
+    hmo-hr Service Definitions
+
+    Staff position management:
+        createStaffPosition, updateStaffPosition
+    Promotion lifecycle:
+        promoteStaff
+    Leave lifecycle:
+        createLeaveRecord, approveLeave, rejectLeave, processLeaveReturn
+    Grade level management:
+        updateGradeLevel
+
+    Note: Services use main-action="ENROLL" because HMO_ENROLL is the broadest
+    operational permission available in the current seed data. A dedicated
+    HMO_HR_MGMT permission is seeded by this plugin for future fine-grained
+    permission expansion without changing service definitions.
+-->
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/services.xsd">
+    <description>HMO HR Services</description>
+    <vendor>HMO</vendor>
+    <version>1.0</version>
+
+    <!-- ================================================================ -->
+    <!--  Staff Position CRUD                                              -->
+    <!-- ================================================================ -->
+
+    <service name="createStaffPosition" default-entity-name="HmoStaffPosition"
+            engine="entity-auto" invoke="create" auth="true">
+        <description>Create a new HMO staff employment position record.</description>
+        <permission-service service-name="hmoPermissionCheck" main-action="ENROLL"/>
+        <auto-attributes mode="INOUT" include="pk" optional="true"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+        <override name="partyId" optional="false"/>
+        <override name="jobTitleEnumId" optional="false"/>
+        <override name="gradeLevelId" optional="false"/>
+        <override name="fromDate" optional="false"/>
+        <override name="statusId" optional="true" default-value="HMO_STAFF_ACTIVE"/>
+    </service>
+
+    <service name="updateStaffPosition" default-entity-name="HmoStaffPosition"
+            engine="entity-auto" invoke="update" auth="true">
+        <description>Update an existing HMO staff position record.</description>
+        <permission-service service-name="hmoPermissionCheck" main-action="ENROLL"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+
+    <!-- ================================================================ -->
+    <!--  Promotion lifecycle                                              -->
+    <!-- ================================================================ -->
+
+    <service name="promoteStaff" engine="groovy" auth="true"
+            location="component://hmo-hr/src/main/groovy/org/apache/ofbiz/hmo/hr/HrServices.groovy"
+            invoke="promoteStaff">
+        <description>Record a staff promotion: creates an HmoPromotion record and
+            updates the employee's HmoStaffPosition with the new grade level and
+            job title.</description>
+        <permission-service service-name="hmoPermissionCheck" main-action="ENROLL"/>
+        <attribute name="staffPositionId"    mode="IN"  type="String"    optional="false"/>
+        <attribute name="newGradeLevelId"    mode="IN"  type="String"    optional="false"/>
+        <attribute name="newJobTitleEnumId"  mode="IN"  type="String"    optional="false"/>
+        <attribute name="effectiveDate"      mode="IN"  type="Timestamp" optional="true"/>
+        <attribute name="approvedByPartyId"  mode="IN"  type="String"    optional="true"/>
+        <attribute name="comments"           mode="IN"  type="String"    optional="true"/>
+        <!-- Output -->
+        <attribute name="promotionId"        mode="OUT" type="String"/>
+    </service>
+
+    <!-- ================================================================ -->
+    <!--  Leave lifecycle                                                  -->
+    <!-- ================================================================ -->
+
+    <service name="createLeaveRecord" default-entity-name="HmoLeaveRecord"
+            engine="entity-auto" invoke="create" auth="true">
+        <description>Submit a new leave application for an HMO staff member.</description>
+        <permission-service service-name="hmoPermissionCheck" main-action="ENROLL"/>
+        <auto-attributes mode="INOUT" include="pk" optional="true"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+        <override name="staffPositionId" optional="false"/>
+        <override name="partyId" optional="false"/>
+        <override name="leaveTypeEnumId" optional="false"/>
+        <override name="fromDate" optional="false"/>
+        <override name="thruDate" optional="false"/>
+        <override name="statusId" optional="true" default-value="HMO_LEAVE_PENDING"/>
+    </service>
+
+    <service name="approveLeave" engine="groovy" auth="true"
+            location="component://hmo-hr/src/main/groovy/org/apache/ofbiz/hmo/hr/HrServices.groovy"
+            invoke="approveLeave">
+        <description>Approve a pending leave application. Validates PENDING→APPROVED
+            transition via StatusValidChange.</description>
+        <permission-service service-name="hmoPermissionCheck" main-action="ENROLL"/>
+        <attribute name="leaveId"           mode="IN" type="String" optional="false"/>
+        <attribute name="approvedByPartyId" mode="IN" type="String" optional="true"/>
+    </service>
+
+    <service name="rejectLeave" engine="groovy" auth="true"
+            location="component://hmo-hr/src/main/groovy/org/apache/ofbiz/hmo/hr/HrServices.groovy"
+            invoke="rejectLeave">
+        <description>Reject a pending leave application. Validates PENDING→REJECTED
+            transition via StatusValidChange.</description>
+        <permission-service service-name="hmoPermissionCheck" main-action="ENROLL"/>
+        <attribute name="leaveId" mode="IN" type="String" optional="false"/>
+        <attribute name="reason"  mode="IN" type="String" optional="true"/>
+    </service>
+
+    <service name="processLeaveReturn" engine="groovy" auth="true"
+            location="component://hmo-hr/src/main/groovy/org/apache/ofbiz/hmo/hr/HrServices.groovy"
+            invoke="processLeaveReturn">
+        <description>Mark an approved leave as completed when the employee returns.
+            Validates APPROVED→COMPLETED transition via StatusValidChange.
+            Optionally updates thruDate to the actual return date.</description>
+        <permission-service service-name="hmoPermissionCheck" main-action="ENROLL"/>
+        <attribute name="leaveId"          mode="IN" type="String"    optional="false"/>
+        <attribute name="actualReturnDate" mode="IN" type="Timestamp" optional="true"/>
+    </service>
+
+    <!-- ================================================================ -->
+    <!--  Grade Level management                                           -->
+    <!-- ================================================================ -->
+
+    <service name="updateGradeLevel" default-entity-name="HmoGradeLevel"
+            engine="entity-auto" invoke="update" auth="true">
+        <description>Update an HMO grade level / pay band record.</description>
+        <permission-service service-name="hmoPermissionCheck" main-action="ENROLL"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+
+</services>

@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://ofbiz.apache.org/Site-Conf"
+        xsi:schemaLocation="http://ofbiz.apache.org/Site-Conf http://ofbiz.apache.org/dtds/site-conf.xsd">
+
+    <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>
+    <description>HMO HR &amp; Admin Controller</description>
+
+    <request-map uri="view">
+        <security https="true" auth="true"/>
+        <response name="success" type="request" value="main"/>
+    </request-map>
+
+    <request-map uri="main">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="main"/>
+    </request-map>
+
+    <!-- ================================================================ -->
+    <!--  Staff management                                                 -->
+    <!-- ================================================================ -->
+
+    <request-map uri="staffList">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="staffList"/>
+    </request-map>
+
+    <request-map uri="newStaff">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="newStaff"/>
+    </request-map>
+
+    <request-map uri="createStaffPosition">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createStaffPosition"/>
+        <response name="success" type="view" value="staffList"/>
+        <response name="error"   type="view" value="newStaff"/>
+    </request-map>
+
+    <request-map uri="viewStaff">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="viewStaff"/>
+    </request-map>
+
+    <request-map uri="promoteStaff">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="promoteStaff"/>
+        <response name="success" type="view" value="viewStaff"/>
+        <response name="error"   type="view" value="viewStaff"/>
+    </request-map>
+
+    <!-- ================================================================ -->
+    <!--  Leave management                                                 -->
+    <!-- ================================================================ -->
+
+    <request-map uri="leaveList">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="leaveList"/>
+    </request-map>
+
+    <request-map uri="newLeave">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="newLeave"/>
+    </request-map>
+
+    <request-map uri="createLeaveRecord">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createLeaveRecord"/>
+        <response name="success" type="view" value="leaveList"/>
+        <response name="error"   type="view" value="newLeave"/>
+    </request-map>
+
+    <request-map uri="viewLeave">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="viewLeave"/>
+    </request-map>
+
+    <request-map uri="approveLeave">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="approveLeave"/>
+        <response name="success" type="view" value="leaveList"/>
+        <response name="error"   type="view" value="viewLeave"/>
+    </request-map>
+
+    <request-map uri="rejectLeave">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="rejectLeave"/>
+        <response name="success" type="view" value="leaveList"/>
+        <response name="error"   type="view" value="viewLeave"/>
+    </request-map>
+
+    <request-map uri="processLeaveReturn">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="processLeaveReturn"/>
+        <response name="success" type="view" value="leaveList"/>
+        <response name="error"   type="view" value="viewLeave"/>
+    </request-map>
+
+    <!-- ================================================================ -->
+    <!--  Grade level management                                           -->
+    <!-- ================================================================ -->
+
+    <request-map uri="gradeLevelList">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="gradeLevelList"/>
+    </request-map>
+
+    <request-map uri="editGradeLevel">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="editGradeLevel"/>
+    </request-map>
+
+    <request-map uri="updateGradeLevel">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateGradeLevel"/>
+        <response name="success" type="view" value="gradeLevelList"/>
+        <response name="error"   type="view" value="editGradeLevel"/>
+    </request-map>
+
+    <!-- ================================================================ -->
+    <!--  View Mappings                                                    -->
+    <!-- ================================================================ -->
+
+    <view-map name="main"           type="screen" page="component://hmo-hr/widget/HrScreens.xml#HrDashboard"/>
+    <view-map name="staffList"      type="screen" page="component://hmo-hr/widget/HrScreens.xml#StaffList"/>
+    <view-map name="newStaff"       type="screen" page="component://hmo-hr/widget/HrScreens.xml#NewStaff"/>
+    <view-map name="viewStaff"      type="screen" page="component://hmo-hr/widget/HrScreens.xml#ViewStaff"/>
+    <view-map name="leaveList"      type="screen" page="component://hmo-hr/widget/HrScreens.xml#LeaveList"/>
+    <view-map name="newLeave"       type="screen" page="component://hmo-hr/widget/HrScreens.xml#NewLeave"/>
+    <view-map name="viewLeave"      type="screen" page="component://hmo-hr/widget/HrScreens.xml#ViewLeave"/>
+    <view-map name="gradeLevelList" type="screen" page="component://hmo-hr/widget/HrScreens.xml#GradeLevelList"/>
+    <view-map name="editGradeLevel" type="screen" page="component://hmo-hr/widget/HrScreens.xml#EditGradeLevel"/>
+
+</site-conf>

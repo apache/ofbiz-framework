@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/entitymodel.xsd">
+    <title>HMO HR Entity Model</title>
+    <description>Entity definitions for the HMO HR plugin: grade levels, staff
+        positions, promotions, and leave records.</description>
+    <version>1.0</version>
+
+    <!-- ================================================================ -->
+    <!--  HmoGradeLevel                                                    -->
+    <!--  Grade level / pay band reference table (GL-01 through GL-15).   -->
+    <!-- ================================================================ -->
+
+    <entity entity-name="HmoGradeLevel"
+            package-name="org.apache.ofbiz.hmo.hr"
+            title="HMO Grade Level">
+        <field name="gradeLevelId"   type="id"/>
+        <field name="gradeLevelCode" type="short-varchar">
+            <description>Human-readable code, e.g. GL-01, GL-02 … GL-15</description>
+        </field>
+        <field name="description"    type="description" optional="true"/>
+        <field name="salaryMin"      type="currency-amount" optional="true">
+            <description>Minimum salary for this grade band</description>
+        </field>
+        <field name="salaryMax"      type="currency-amount" optional="true">
+            <description>Maximum salary for this grade band</description>
+        </field>
+        <field name="currencyUomId"  type="id-vlong" optional="true">
+            <description>Currency for the salary range</description>
+        </field>
+
+        <prim-key field="gradeLevelId"/>
+
+        <relation type="one" fk-name="GLVL_CURR" rel-entity-name="Uom">
+            <key-map field-name="currencyUomId" rel-field-name="uomId"/>
+        </relation>
+    </entity>
+
+    <!-- ================================================================ -->
+    <!--  HmoStaffPosition                                                 -->
+    <!--  An HMO staff member's current employment record.                -->
+    <!-- ================================================================ -->
+
+    <entity entity-name="HmoStaffPosition"
+            package-name="org.apache.ofbiz.hmo.hr"
+            title="HMO Staff Position">
+        <field name="staffPositionId"    type="id"/>
+        <field name="partyId"            type="id">
+            <description>The employee party</description>
+        </field>
+        <field name="jobTitleEnumId"     type="id">
+            <description>Enumeration type HMO_JOB_TITLE</description>
+        </field>
+        <field name="gradeLevelId"       type="id">
+            <description>FK to HmoGradeLevel</description>
+        </field>
+        <field name="departmentPartyId"  type="id" optional="true">
+            <description>The department party</description>
+        </field>
+        <field name="fromDate"           type="date-time"/>
+        <field name="thruDate"           type="date-time" optional="true"/>
+        <field name="statusId"           type="id">
+            <description>HMO_STAFF_STATUS state machine (ACTIVE/ON_LEAVE/TERMINATED)</description>
+        </field>
+        <field name="supervisorPartyId"  type="id" optional="true">
+            <description>The supervisor's party ID</description>
+        </field>
+
+        <prim-key field="staffPositionId"/>
+
+        <relation type="one" fk-name="STPOS_PARTY" rel-entity-name="Party">
+            <key-map field-name="partyId"/>
+        </relation>
+        <relation type="one" fk-name="STPOS_JOBTITLE" rel-entity-name="Enumeration">
+            <key-map field-name="jobTitleEnumId" rel-field-name="enumId"/>
+        </relation>
+        <relation type="one" fk-name="STPOS_GLVL" rel-entity-name="HmoGradeLevel">
+            <key-map field-name="gradeLevelId"/>
+        </relation>
+        <relation type="one" title="Department" fk-name="STPOS_DEPT" rel-entity-name="Party">
+            <key-map field-name="departmentPartyId" rel-field-name="partyId"/>
+        </relation>
+        <relation type="one" title="Supervisor" fk-name="STPOS_SUPV" rel-entity-name="Party">
+            <key-map field-name="supervisorPartyId" rel-field-name="partyId"/>
+        </relation>
+        <relation type="one" fk-name="STPOS_STATUS" rel-entity-name="StatusItem">
+            <key-map field-name="statusId"/>
+        </relation>
+    </entity>
+
+    <!-- ================================================================ -->
+    <!--  HmoPromotion                                                     -->
+    <!--  Records a promotion event for an HMO staff member.              -->
+    <!-- ================================================================ -->
+
+    <entity entity-name="HmoPromotion"
+            package-name="org.apache.ofbiz.hmo.hr"
+            title="HMO Staff Promotion">
+        <field name="promotionId"            type="id"/>
+        <field name="staffPositionId"        type="id">
+            <description>FK to HmoStaffPosition</description>
+        </field>
+        <field name="partyId"                type="id">
+            <description>The employee party</description>
+        </field>
+        <field name="previousGradeLevelId"   type="id">
+            <description>Grade level before promotion</description>
+        </field>
+        <field name="newGradeLevelId"        type="id">
+            <description>Grade level after promotion</description>
+        </field>
+        <field name="previousJobTitleEnumId" type="id" optional="true">
+            <description>Job title before promotion</description>
+        </field>
+        <field name="newJobTitleEnumId"      type="id">
+            <description>Job title after promotion</description>
+        </field>
+        <field name="effectiveDate"          type="date-time"/>
+        <field name="approvedByPartyId"      type="id" optional="true">
+            <description>The party that approved this promotion</description>
+        </field>
+        <field name="comments"              type="very-long" optional="true"/>
+
+        <prim-key field="promotionId"/>
+
+        <relation type="one" fk-name="PROMO_STPOS" rel-entity-name="HmoStaffPosition">
+            <key-map field-name="staffPositionId"/>
+        </relation>
+        <relation type="one" fk-name="PROMO_PARTY" rel-entity-name="Party">
+            <key-map field-name="partyId"/>
+        </relation>
+        <relation type="one" title="PreviousGrade" fk-name="PROMO_PREVGLVL" rel-entity-name="HmoGradeLevel">
+            <key-map field-name="previousGradeLevelId" rel-field-name="gradeLevelId"/>
+        </relation>
+        <relation type="one" title="NewGrade" fk-name="PROMO_NEWGLVL" rel-entity-name="HmoGradeLevel">
+            <key-map field-name="newGradeLevelId" rel-field-name="gradeLevelId"/>
+        </relation>
+        <relation type="one" title="PreviousJobTitle" fk-name="PROMO_PREVJT" rel-entity-name="Enumeration">
+            <key-map field-name="previousJobTitleEnumId" rel-field-name="enumId"/>
+        </relation>
+        <relation type="one" title="NewJobTitle" fk-name="PROMO_NEWJT" rel-entity-name="Enumeration">
+            <key-map field-name="newJobTitleEnumId" rel-field-name="enumId"/>
+        </relation>
+        <relation type="one" title="ApprovedBy" fk-name="PROMO_APPRVD" rel-entity-name="Party">
+            <key-map field-name="approvedByPartyId" rel-field-name="partyId"/>
+        </relation>
+    </entity>
+
+    <!-- ================================================================ -->
+    <!--  HmoLeaveRecord                                                   -->
+    <!--  Employee leave application and approval record.                 -->
+    <!-- ================================================================ -->
+
+    <entity entity-name="HmoLeaveRecord"
+            package-name="org.apache.ofbiz.hmo.hr"
+            title="HMO Leave Record">
+        <field name="leaveId"            type="id"/>
+        <field name="staffPositionId"    type="id">
+            <description>FK to HmoStaffPosition</description>
+        </field>
+        <field name="partyId"            type="id">
+            <description>The employee party</description>
+        </field>
+        <field name="leaveTypeEnumId"    type="id">
+            <description>HMO_LEAVE_TYPE enumeration</description>
+        </field>
+        <field name="fromDate"           type="date-time"/>
+        <field name="thruDate"           type="date-time"/>
+        <field name="statusId"           type="id">
+            <description>HMO_LEAVE_STATUS state machine (PENDING/APPROVED/REJECTED/COMPLETED)</description>
+        </field>
+        <field name="approvedByPartyId"  type="id" optional="true">
+            <description>The party that approved or rejected this leave</description>
+        </field>
+        <field name="reason"             type="very-long" optional="true"/>
+
+        <prim-key field="leaveId"/>
+
+        <relation type="one" fk-name="LVR_STPOS" rel-entity-name="HmoStaffPosition">
+            <key-map field-name="staffPositionId"/>
+        </relation>
+        <relation type="one" fk-name="LVR_PARTY" rel-entity-name="Party">
+            <key-map field-name="partyId"/>
+        </relation>
+        <relation type="one" fk-name="LVR_LVTYPE" rel-entity-name="Enumeration">
+            <key-map field-name="leaveTypeEnumId" rel-field-name="enumId"/>
+        </relation>
+        <relation type="one" fk-name="LVR_STATUS" rel-entity-name="StatusItem">
+            <key-map field-name="statusId"/>
+        </relation>
+        <relation type="one" title="ApprovedBy" fk-name="LVR_APPRVD" rel-entity-name="Party">
+            <key-map field-name="approvedByPartyId" rel-field-name="partyId"/>
+        </relation>
+    </entity>
+
+</entitymodel>

@@ -34,4 +34,5 @@ under the License.
     <load-component component-location="hmo-ehdsi"/>
     <load-component component-location="hmo-provider"/>
     <load-component component-location="hmo-sponsor"/>
+    <load-component component-location="hmo-hr"/>
 </component-loader>

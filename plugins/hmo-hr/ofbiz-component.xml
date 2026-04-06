@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<!--
+    hmo-hr — HMO HR & Admin Plugin
+
+    Extends the OFBiz humanres application to manage HMO internal staff:
+    employment lifecycle, grade levels, promotions, leave management.
+
+    Depends on: humanres (OFBiz built-in human resources application)
+
+    Entity model defines: HmoGradeLevel, HmoStaffPosition, HmoPromotion, HmoLeaveRecord
+-->
+<ofbiz-component name="hmo-hr"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/ofbiz-component.xsd">
+
+    <resource-loader name="main" type="component"/>
+    <classpath type="dir" location="config"/>
+
+    <!-- Entity model: grade levels, staff positions, promotions, leave records -->
+    <entity-resource type="model" reader-name="main" loader="main" location="entitydef/entitymodel.xml"/>
+
+    <!-- Seed data: permissions, security group, enumerations, status types -->
+    <entity-resource type="data" reader-name="seed" loader="main" location="data/seed/HmoHrSeedData.xml"/>
+
+    <!-- Service definitions -->
+    <service-resource type="model" loader="main" location="servicedef/services.xml"/>
+
+    <!--
+        HMO HR & Admin webapp
+        base-permission="OFBTOOLS,HMO_VIEW" — internal staff app accessed via admin tools.
+    -->
+    <webapp name="hmohr"
+        title="HMO HR &amp; Admin"
+        position="24"
+        description="HMO HR and Administration Application"
+        server="default-server"
+        location="webapp/hmohr"
+        base-permission="OFBTOOLS,HMO_VIEW"
+        mount-point="/hmohr"
+        app-shortcut-screen="component://hmo-hr/widget/CommonScreens.xml#ShortcutApp"
+        app-bar-display="true"/>
+
+</ofbiz-component>
