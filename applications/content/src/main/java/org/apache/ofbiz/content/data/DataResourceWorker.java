@@ -715,10 +715,10 @@ public class DataResourceWorker implements org.apache.ofbiz.widget.content.DataR
                 sep = "/";
             }
             file = FileUtil.getFile(contextRoot + sep + objectInfo);
+            checkContextFileBoundary(file, contextRoot);
             if (!file.exists()) {
                 throw new FileNotFoundException("No file found: " + (contextRoot + sep + objectInfo));
             }
-            checkContextFileBoundary(file, contextRoot);
         }
 
         return file;
