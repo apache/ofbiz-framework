@@ -31,7 +31,6 @@ import javax.crypto.spec.PBEKeySpec;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.binary.Hex;
-import org.apache.commons.lang.RandomStringUtils;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralRuntimeException;
 import org.apache.ofbiz.base.util.StringUtil;
@@ -148,7 +147,13 @@ public class HashCrypt {
             hashType = "SHA";
         }
         if (salt == null) {
-            salt = RandomStringUtils.random(SECURE_RANDOM.nextInt(15) + 1, CRYPT_CHAR_SET);
+            int length = SECURE_RANDOM.nextInt(15) + 1;
+            StringBuilder saltBuilder = new StringBuilder(length);
+            for (int i = 0; i < length; i++) {
+                int index = SECURE_RANDOM.nextInt(CRYPT_CHAR_SET.length());
+                saltBuilder.append(CRYPT_CHAR_SET.charAt(index));
+            }
+            salt = saltBuilder.toString();
         }
         StringBuilder sb = new StringBuilder();
         sb.append("$").append(hashType).append("$").append(salt).append("$");
