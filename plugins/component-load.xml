@@ -22,12 +22,14 @@ under the License.
     HMO Plugin Suite - Component Load Order
     
     hmo-ehdsi is loaded first because it defines the shared service library
-    (checkMemberEligibility, getActiveCoverage) consumed by the other two plugins,
+    (checkMemberEligibility, getActiveCoverage) consumed by the other plugins,
     and hosts both the member self-service portal (/hmomember) and the internal
     HMO management application (/hmomgmt).
     
     hmo-provider defines the claim/pre-authorisation entity models and portal.
     hmo-sponsor defines the enrollment/policy entity models and corporate portal.
+    hmo-hr extends the humanres application for HMO internal staff management.
+    hmo-finance extends the accounting application for HMO financial operations.
 -->
 <component-loader xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/component-loader.xsd">
@@ -35,4 +37,5 @@ under the License.
     <load-component component-location="hmo-provider"/>
     <load-component component-location="hmo-sponsor"/>
     <load-component component-location="hmo-hr"/>
+    <load-component component-location="hmo-finance"/>
 </component-loader>

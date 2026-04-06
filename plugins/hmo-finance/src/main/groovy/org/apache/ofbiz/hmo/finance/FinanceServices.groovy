@@ -146,7 +146,8 @@ def createClaimPayment() {
         }
         BigDecimal approvedAmount = claim.approvedAmount ?: BigDecimal.ZERO
         totalAmount += approvedAmount
-        currencyUomId = claim.currencyUomId ?: currencyUomId        claimValues << [claim: claim, allocatedAmount: approvedAmount]
+        currencyUomId = claim.currencyUomId ?: currencyUomId
+        claimValues << [claim: claim, allocatedAmount: approvedAmount]
     }
 
     // Create the payment batch
