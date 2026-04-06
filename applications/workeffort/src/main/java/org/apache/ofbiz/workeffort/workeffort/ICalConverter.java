@@ -158,7 +158,8 @@ public class ICalConverter {
         serviceMap.put("statusId", "PRTYASGN_ASSIGNED");
         Map<String, Object> serviceResult = invokeService("createWorkEffortAndPartyAssign", serviceMap, context);
         if (ServiceUtil.isError(serviceResult)) {
-            return ICalWorker.createPartialContentResponse(ServiceUtil.getErrorMessage(serviceResult));
+            Debug.logError("createWorkEffortAndPartyAssign service error: " + ServiceUtil.getErrorMessage(serviceResult), MODULE);
+            return ICalWorker.createPartialContentResponse(null);
         }
         String workEffortId = (String) serviceResult.get("workEffortId");
         if (workEffortId != null) {
@@ -170,7 +171,8 @@ public class ICalConverter {
             serviceMap.put("fromDate", new Timestamp(System.currentTimeMillis()));
             serviceResult = invokeService("createWorkEffortAssoc", serviceMap, context);
             if (ServiceUtil.isError(serviceResult)) {
-                return ICalWorker.createPartialContentResponse(ServiceUtil.getErrorMessage(serviceResult));
+                Debug.logError("createWorkEffortAssoc service error: " + ServiceUtil.getErrorMessage(serviceResult), MODULE);
+                return ICalWorker.createPartialContentResponse(null);
             }
             storePartyAssignments(workEffortId, component, context);
         }
@@ -785,7 +787,8 @@ public class ICalConverter {
             serviceResult = invokeService("updateWorkEffortICalData", serviceMap, context);
         }
         if (ServiceUtil.isError(serviceResult)) {
-            return ICalWorker.createPartialContentResponse(ServiceUtil.getErrorMessage(serviceResult));
+            Debug.logError("createWorkEffortICalData/updateWorkEffortICalData service error: " + ServiceUtil.getErrorMessage(serviceResult), MODULE);
+            return ICalWorker.createPartialContentResponse(null);
         }
         return ICalWorker.createOkResponse(null);
     }
@@ -827,7 +830,8 @@ public class ICalConverter {
                     invokeService("assignPartyToWorkEffort", serviceMap, context);
                 }
             } catch (GenericEntityException e) {
-                responseProps = ICalWorker.createPartialContentResponse(e.getMessage());
+                Debug.logError(e, "Error assigning party to work effort: ", MODULE);
+                responseProps = ICalWorker.createPartialContentResponse(null);
                 break;
             }
         }
