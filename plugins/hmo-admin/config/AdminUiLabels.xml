@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/ofbiz-properties.xsd">
+
+    <!-- Application title -->
+    <property key="HmoAdminAppTitle">
+        <value xml:lang="en">HMO Administration</value>
+    </property>
+
+    <!-- Navigation labels -->
+    <property key="HmoAdminDashboard">
+        <value xml:lang="en">Dashboard</value>
+    </property>
+    <property key="HmoAdminEnrollmentOverview">
+        <value xml:lang="en">Enrollments</value>
+    </property>
+    <property key="HmoAdminClaimOverview">
+        <value xml:lang="en">Claims</value>
+    </property>
+    <property key="HmoAdminPreAuthOverview">
+        <value xml:lang="en">Pre-Authorisations</value>
+    </property>
+    <property key="HmoAdminProviderOverview">
+        <value xml:lang="en">Providers</value>
+    </property>
+    <property key="HmoAdminSponsorOverview">
+        <value xml:lang="en">Sponsors</value>
+    </property>
+    <property key="HmoAdminStaffOverview">
+        <value xml:lang="en">HR &amp; Staff</value>
+    </property>
+    <property key="HmoAdminFinanceOverview">
+        <value xml:lang="en">Finance</value>
+    </property>
+    <property key="HmoAdminAuditLog">
+        <value xml:lang="en">Audit Log</value>
+    </property>
+
+    <!-- Dashboard KPI panel titles -->
+    <property key="HmoAdminEnrollmentPanel">
+        <value xml:lang="en">Enrollments</value>
+    </property>
+    <property key="HmoAdminClaimsPanel">
+        <value xml:lang="en">Claims</value>
+    </property>
+    <property key="HmoAdminFinancePanel">
+        <value xml:lang="en">Finance</value>
+    </property>
+    <property key="HmoAdminHrPanel">
+        <value xml:lang="en">HR &amp; Staff</value>
+    </property>
+
+    <!-- Dashboard KPI labels — enrollment -->
+    <property key="HmoAdminTotalEnrollments">
+        <value xml:lang="en">Total Enrollments</value>
+    </property>
+    <property key="HmoAdminActiveEnrollments">
+        <value xml:lang="en">Active</value>
+    </property>
+    <property key="HmoAdminSuspendedEnrollments">
+        <value xml:lang="en">Suspended</value>
+    </property>
+    <property key="HmoAdminTerminatedEnrollments">
+        <value xml:lang="en">Terminated</value>
+    </property>
+
+    <!-- Dashboard KPI labels — claims -->
+    <property key="HmoAdminTotalClaims">
+        <value xml:lang="en">Total Claims</value>
+    </property>
+    <property key="HmoAdminPendingClaims">
+        <value xml:lang="en">Pending</value>
+    </property>
+    <property key="HmoAdminApprovedClaims">
+        <value xml:lang="en">Approved</value>
+    </property>
+    <property key="HmoAdminPaidClaims">
+        <value xml:lang="en">Paid</value>
+    </property>
+    <property key="HmoAdminRejectedClaims">
+        <value xml:lang="en">Rejected</value>
+    </property>
+
+    <!-- Dashboard KPI labels — finance -->
+    <property key="HmoAdminTotalPremiumCollected">
+        <value xml:lang="en">Total Premium Collected</value>
+    </property>
+    <property key="HmoAdminTotalClaimsPaid">
+        <value xml:lang="en">Total Claims Paid</value>
+    </property>
+    <property key="HmoAdminPendingInvoices">
+        <value xml:lang="en">Pending Invoices</value>
+    </property>
+
+    <!-- Dashboard KPI labels — HR -->
+    <property key="HmoAdminActiveStaff">
+        <value xml:lang="en">Active Staff</value>
+    </property>
+    <property key="HmoAdminStaffOnLeave">
+        <value xml:lang="en">Staff on Leave</value>
+    </property>
+    <property key="HmoAdminPendingLeaves">
+        <value xml:lang="en">Pending Leave Requests</value>
+    </property>
+
+    <!-- Dashboard quick links / sub-app sections -->
+    <property key="HmoAdminQuickLinks">
+        <value xml:lang="en">Quick Navigation</value>
+    </property>
+    <property key="HmoAdminSubApps">
+        <value xml:lang="en">Sub-Application Portals</value>
+    </property>
+    <property key="HmoAdminSubAppMgmt">
+        <value xml:lang="en">HMO Management</value>
+    </property>
+    <property key="HmoAdminSubAppHr">
+        <value xml:lang="en">HMO HR</value>
+    </property>
+    <property key="HmoAdminSubAppFinance">
+        <value xml:lang="en">HMO Finance</value>
+    </property>
+    <property key="HmoAdminSubAppSponsor">
+        <value xml:lang="en">HMO Sponsor</value>
+    </property>
+    <property key="HmoAdminSubAppProvider">
+        <value xml:lang="en">HMO Provider</value>
+    </property>
+    <property key="HmoAdminSubAppMember">
+        <value xml:lang="en">HMO Member</value>
+    </property>
+    <property key="HmoAdminViewAll">
+        <value xml:lang="en">View All</value>
+    </property>
+
+    <!-- Grid column labels — shared -->
+    <property key="HmoAdminStatus">
+        <value xml:lang="en">Status</value>
+    </property>
+    <property key="HmoAdminFromDate">
+        <value xml:lang="en">From Date</value>
+    </property>
+    <property key="HmoAdminThruDate">
+        <value xml:lang="en">Thru Date</value>
+    </property>
+
+    <!-- Grid column labels — enrollment -->
+    <property key="HmoAdminEnrollmentId">
+        <value xml:lang="en">Enrollment ID</value>
+    </property>
+    <property key="HmoAdminEnrollee">
+        <value xml:lang="en">Enrollee</value>
+    </property>
+    <property key="HmoAdminSponsorPolicy">
+        <value xml:lang="en">Sponsor Policy</value>
+    </property>
+
+    <!-- Grid column labels — pre-auth / claims -->
+    <property key="HmoAdminPreAuthId">
+        <value xml:lang="en">Pre-Auth ID</value>
+    </property>
+    <property key="HmoAdminClaimId">
+        <value xml:lang="en">Claim ID</value>
+    </property>
+    <property key="HmoAdminProvider">
+        <value xml:lang="en">Provider</value>
+    </property>
+    <property key="HmoAdminServiceType">
+        <value xml:lang="en">Service Type</value>
+    </property>
+    <property key="HmoAdminRequestDate">
+        <value xml:lang="en">Request Date</value>
+    </property>
+    <property key="HmoAdminClaimType">
+        <value xml:lang="en">Claim Type</value>
+    </property>
+    <property key="HmoAdminBilledAmount">
+        <value xml:lang="en">Billed Amount</value>
+    </property>
+    <property key="HmoAdminApprovedAmount">
+        <value xml:lang="en">Approved Amount</value>
+    </property>
+    <property key="HmoAdminSubmissionDate">
+        <value xml:lang="en">Submission Date</value>
+    </property>
+
+    <!-- Grid column labels — sponsor -->
+    <property key="HmoAdminSponsorPolicyId">
+        <value xml:lang="en">Policy ID</value>
+    </property>
+    <property key="HmoAdminSponsor">
+        <value xml:lang="en">Sponsor</value>
+    </property>
+    <property key="HmoAdminPlanTier">
+        <value xml:lang="en">Plan Tier</value>
+    </property>
+    <property key="HmoAdminPremiumAmount">
+        <value xml:lang="en">Premium Amount</value>
+    </property>
+
+    <!-- Grid column labels — HR -->
+    <property key="HmoAdminStaffPositionId">
+        <value xml:lang="en">Position ID</value>
+    </property>
+    <property key="HmoAdminStaff">
+        <value xml:lang="en">Staff Member</value>
+    </property>
+    <property key="HmoAdminJobTitle">
+        <value xml:lang="en">Job Title</value>
+    </property>
+    <property key="HmoAdminGradeLevel">
+        <value xml:lang="en">Grade Level</value>
+    </property>
+    <property key="HmoAdminStaffPositions">
+        <value xml:lang="en">Staff Positions</value>
+    </property>
+    <property key="HmoAdminLeaveRecords">
+        <value xml:lang="en">Leave Records</value>
+    </property>
+    <property key="HmoAdminLeaveId">
+        <value xml:lang="en">Leave ID</value>
+    </property>
+    <property key="HmoAdminLeaveType">
+        <value xml:lang="en">Leave Type</value>
+    </property>
+
+    <!-- Grid column labels — finance -->
+    <property key="HmoAdminPremiumInvoiceId">
+        <value xml:lang="en">Invoice ID</value>
+    </property>
+    <property key="HmoAdminBillingFrom">
+        <value xml:lang="en">Billing From</value>
+    </property>
+    <property key="HmoAdminBillingThru">
+        <value xml:lang="en">Billing Thru</value>
+    </property>
+    <property key="HmoAdminTotalAmount">
+        <value xml:lang="en">Total Amount</value>
+    </property>
+    <property key="HmoAdminPaidAmount">
+        <value xml:lang="en">Paid Amount</value>
+    </property>
+    <property key="HmoAdminClaimPaymentId">
+        <value xml:lang="en">Payment ID</value>
+    </property>
+    <property key="HmoAdminPaymentDate">
+        <value xml:lang="en">Payment Date</value>
+    </property>
+    <property key="HmoAdminCapitationId">
+        <value xml:lang="en">Capitation ID</value>
+    </property>
+    <property key="HmoAdminCapitationPerMember">
+        <value xml:lang="en">Capitation Per Member</value>
+    </property>
+    <property key="HmoAdminPremiumInvoices">
+        <value xml:lang="en">Premium Invoices</value>
+    </property>
+    <property key="HmoAdminClaimPayments">
+        <value xml:lang="en">Claim Payments</value>
+    </property>
+    <property key="HmoAdminCapitation">
+        <value xml:lang="en">Capitation Schedules</value>
+    </property>
+
+    <!-- Grid column labels — audit log -->
+    <property key="HmoAdminUserLogin">
+        <value xml:lang="en">User Login</value>
+    </property>
+    <property key="HmoAdminVisitId">
+        <value xml:lang="en">Visit ID</value>
+    </property>
+
+    <!-- Misc -->
+    <property key="HmoAdminNoPermission">
+        <value xml:lang="en">You do not have permission to view this page. HMO_ADMIN permission is required.</value>
+    </property>
+
+</resource>

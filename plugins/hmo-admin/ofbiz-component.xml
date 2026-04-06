@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<!--
+    hmo-admin — HMO Super Administrative Dashboard
+
+    Loaded last (position 26) so every entity and service from the five
+    other HMO plugins is already registered when this component starts.
+
+    This component introduces NO new entities — it is a pure read/aggregate
+    layer over the entities owned by hmo-ehdsi, hmo-provider, hmo-sponsor,
+    hmo-hr, and hmo-finance.  The single Groovy service aggregates KPI
+    counts for the dashboard screen.
+-->
+<ofbiz-component name="hmo-admin"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/ofbiz-component.xsd">
+
+    <resource-loader name="main" type="component"/>
+    <classpath type="dir" location="config"/>
+
+    <!-- Seed data: super-admin security group + permissions -->
+    <entity-resource type="data" reader-name="seed" loader="main" location="data/seed/HmoAdminSeedData.xml"/>
+
+    <!-- Service definitions -->
+    <service-resource type="model" loader="main" location="servicedef/services.xml"/>
+
+    <!--
+        HMO Admin webapp
+        base-permission="OFBTOOLS,HMO_ADMIN" — only super-admins may access this portal.
+    -->
+    <webapp name="hmoadmin"
+        title="HMO Administration"
+        position="26"
+        description="HMO Super Administrative Dashboard"
+        server="default-server"
+        location="webapp/hmoadmin"
+        base-permission="OFBTOOLS,HMO_ADMIN"
+        mount-point="/hmoadmin"
+        app-bar-display="true"
+        app-shortcut-screen="component://hmo-admin/widget/CommonScreens.xml#ShortcutApp"/>
+
+</ofbiz-component>

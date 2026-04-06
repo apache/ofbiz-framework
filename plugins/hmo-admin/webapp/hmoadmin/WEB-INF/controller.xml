@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://ofbiz.apache.org/Site-Conf"
+        xsi:schemaLocation="http://ofbiz.apache.org/Site-Conf http://ofbiz.apache.org/dtds/site-conf.xsd">
+
+    <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>
+    <description>HMO Administration Controller</description>
+
+    <request-map uri="view">
+        <security https="true" auth="true"/>
+        <response name="success" type="request" value="main"/>
+    </request-map>
+
+    <!-- ================================================================ -->
+    <!--  Main Dashboard                                                  -->
+    <!-- ================================================================ -->
+
+    <request-map uri="main">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="main"/>
+    </request-map>
+
+    <!-- ================================================================ -->
+    <!--  Enrollment Overview                                             -->
+    <!-- ================================================================ -->
+
+    <request-map uri="enrollmentOverview">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="enrollmentOverview"/>
+    </request-map>
+
+    <!-- ================================================================ -->
+    <!--  Claim Overview                                                  -->
+    <!-- ================================================================ -->
+
+    <request-map uri="claimOverview">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="claimOverview"/>
+    </request-map>
+
+    <!-- ================================================================ -->
+    <!--  Provider Overview                                               -->
+    <!-- ================================================================ -->
+
+    <request-map uri="providerOverview">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="providerOverview"/>
+    </request-map>
+
+    <!-- ================================================================ -->
+    <!--  Sponsor Overview                                                -->
+    <!-- ================================================================ -->
+
+    <request-map uri="sponsorOverview">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="sponsorOverview"/>
+    </request-map>
+
+    <!-- ================================================================ -->
+    <!--  HR &amp; Staff Overview                                         -->
+    <!-- ================================================================ -->
+
+    <request-map uri="staffOverview">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="staffOverview"/>
+    </request-map>
+
+    <!-- ================================================================ -->
+    <!--  Finance Overview                                                -->
+    <!-- ================================================================ -->
+
+    <request-map uri="financeOverview">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="financeOverview"/>
+    </request-map>
+
+    <!-- ================================================================ -->
+    <!--  Audit Log                                                       -->
+    <!-- ================================================================ -->
+
+    <request-map uri="auditLog">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="auditLog"/>
+    </request-map>
+
+    <!-- ================================================================ -->
+    <!--  View Mappings                                                   -->
+    <!-- ================================================================ -->
+
+    <view-map name="main"               type="screen" page="component://hmo-admin/widget/AdminScreens.xml#AdminDashboard"/>
+    <view-map name="enrollmentOverview" type="screen" page="component://hmo-admin/widget/AdminScreens.xml#EnrollmentOverview"/>
+    <view-map name="claimOverview"      type="screen" page="component://hmo-admin/widget/AdminScreens.xml#ClaimOverview"/>
+    <view-map name="providerOverview"   type="screen" page="component://hmo-admin/widget/AdminScreens.xml#ProviderOverview"/>
+    <view-map name="sponsorOverview"    type="screen" page="component://hmo-admin/widget/AdminScreens.xml#SponsorOverview"/>
+    <view-map name="staffOverview"      type="screen" page="component://hmo-admin/widget/AdminScreens.xml#StaffOverview"/>
+    <view-map name="financeOverview"    type="screen" page="component://hmo-admin/widget/AdminScreens.xml#FinanceOverview"/>
+    <view-map name="auditLog"           type="screen" page="component://hmo-admin/widget/AdminScreens.xml#AuditLog"/>
+
+</site-conf>

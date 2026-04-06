@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<!--
+    hmo-admin Seed Data
+
+    Provides:
+      - SecurityPermission: HMO_SUPER_ADMIN
+      - SecurityGroup: HMO_SUPER_ADMIN_GRP (HMO Super Administrator)
+        with all permissions from all HMO groups combined
+      - Additional permissions for HMO_ADMIN group to cover all sub-apps
+      - Demo UserLogin: hmo.superadmin
+-->
+<entity-engine-xml>
+
+    <!-- ============================================================ -->
+    <!--  Security Permission                                         -->
+    <!-- ============================================================ -->
+
+    <SecurityPermission permissionId="HMO_SUPER_ADMIN"
+        description="HMO super administrator — cross-plugin oversight"/>
+
+    <!-- ============================================================ -->
+    <!--  Extend HMO_ADMIN group with all sub-app permissions        -->
+    <!-- ============================================================ -->
+
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="HMO_ADMIN" permissionId="HMO_SUPER_ADMIN"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="HMO_ADMIN" permissionId="HMO_HR_VIEW"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="HMO_ADMIN" permissionId="HMO_HR_MGMT"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="HMO_ADMIN" permissionId="HMO_FINANCE_VIEW"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="HMO_ADMIN" permissionId="HMO_FINANCE_MGMT"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="HMO_ADMIN" permissionId="HMO_MGMT"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="HMO_ADMIN" permissionId="HMO_MEMBER"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="HMO_ADMIN" permissionId="HMO_SPONSOR_ACCESS"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="HMO_ADMIN" permissionId="HMO_PROVIDER_ACCESS"/>
+
+    <!-- ============================================================ -->
+    <!--  Security Group: HMO Super Administrator                    -->
+    <!-- ============================================================ -->
+
+    <SecurityGroup groupId="HMO_SUPER_ADMIN_GRP"
+        groupName="HMO Super Administrator"
+        description="Full cross-plugin oversight of all HMO operations"/>
+
+    <!-- Base OFBiz access -->
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="HMO_SUPER_ADMIN_GRP" permissionId="OFBTOOLS_VIEW"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="HMO_SUPER_ADMIN_GRP" permissionId="PARTYMGR_VIEW"/>
+
+    <!-- All HMO core permissions -->
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="HMO_SUPER_ADMIN_GRP" permissionId="HMO_ADMIN"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="HMO_SUPER_ADMIN_GRP" permissionId="HMO_SUPER_ADMIN"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="HMO_SUPER_ADMIN_GRP" permissionId="HMO_VIEW"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="HMO_SUPER_ADMIN_GRP" permissionId="HMO_CREATE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="HMO_SUPER_ADMIN_GRP" permissionId="HMO_UPDATE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="HMO_SUPER_ADMIN_GRP" permissionId="HMO_DELETE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="HMO_SUPER_ADMIN_GRP" permissionId="HMO_ENROLL"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="HMO_SUPER_ADMIN_GRP" permissionId="HMO_REPORT_VIEW"/>
+
+    <!-- Claim permissions -->
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="HMO_SUPER_ADMIN_GRP" permissionId="HMO_CLAIM_VIEW"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="HMO_SUPER_ADMIN_GRP" permissionId="HMO_CLAIM_CREATE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="HMO_SUPER_ADMIN_GRP" permissionId="HMO_CLAIM_UPDATE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="HMO_SUPER_ADMIN_GRP" permissionId="HMO_CLAIM_APPROVE"/>
+
+    <!-- Provider permissions -->
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="HMO_SUPER_ADMIN_GRP" permissionId="HMO_PROVIDER_VIEW"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="HMO_SUPER_ADMIN_GRP" permissionId="HMO_PROVIDER_MGMT"/>
+
+    <!-- Sub-app portal permissions -->
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="HMO_SUPER_ADMIN_GRP" permissionId="HMO_MGMT"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="HMO_SUPER_ADMIN_GRP" permissionId="HMO_MEMBER"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="HMO_SUPER_ADMIN_GRP" permissionId="HMO_SPONSOR_ACCESS"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="HMO_SUPER_ADMIN_GRP" permissionId="HMO_PROVIDER_ACCESS"/>
+
+    <!-- HR permissions -->
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="HMO_SUPER_ADMIN_GRP" permissionId="HMO_HR_VIEW"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="HMO_SUPER_ADMIN_GRP" permissionId="HMO_HR_MGMT"/>
+
+    <!-- Finance permissions -->
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="HMO_SUPER_ADMIN_GRP" permissionId="HMO_FINANCE_VIEW"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="HMO_SUPER_ADMIN_GRP" permissionId="HMO_FINANCE_MGMT"/>
+
+    <!-- ============================================================ -->
+    <!--  Demo User: hmo.superadmin                                  -->
+    <!-- ============================================================ -->
+
+    <UserLogin userLoginId="hmo.superadmin" currentPassword="{SHA}47ca69abb4d9b8be51d02f80f7e8a340f572abd9"
+        passwordHint="ofbiz" isSystem="N" enabled="Y" hasLoggedOut="N"
+        requirePasswordChange="N" externalAuthId="" userLdapDn=""
+        lastTimeZone="" lastLocale="" lastCurrencyUom=""/>
+
+    <UserLoginSecurityGroup userLoginId="hmo.superadmin" groupId="HMO_SUPER_ADMIN_GRP"
+        fromDate="2010-01-01 00:00:00.0"/>
+
+</entity-engine-xml>

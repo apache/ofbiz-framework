@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://ofbiz.apache.org/Widget-Screen"
+        xsi:schemaLocation="http://ofbiz.apache.org/Widget-Screen http://ofbiz.apache.org/dtds/widget-screen.xsd">
+
+    <!-- ================================================================ -->
+    <!--  Admin Dashboard                                                 -->
+    <!-- ================================================================ -->
+
+    <screen name="AdminDashboard">
+        <section>
+            <actions>
+                <set field="titleProperty" value="HmoAdminDashboard"/>
+                <service service-name="getAdminDashboardStats" result-map="dashStats"/>
+                <set field="totalEnrollments"      from-field="dashStats.totalEnrollments"/>
+                <set field="activeEnrollments"     from-field="dashStats.activeEnrollments"/>
+                <set field="suspendedEnrollments"  from-field="dashStats.suspendedEnrollments"/>
+                <set field="terminatedEnrollments" from-field="dashStats.terminatedEnrollments"/>
+                <set field="totalClaims"           from-field="dashStats.totalClaims"/>
+                <set field="pendingClaims"         from-field="dashStats.pendingClaims"/>
+                <set field="approvedClaims"        from-field="dashStats.approvedClaims"/>
+                <set field="paidClaims"            from-field="dashStats.paidClaims"/>
+                <set field="rejectedClaims"        from-field="dashStats.rejectedClaims"/>
+                <set field="totalPremiumCollected" from-field="dashStats.totalPremiumCollected"/>
+                <set field="totalClaimsPaid"       from-field="dashStats.totalClaimsPaid"/>
+                <set field="pendingInvoices"       from-field="dashStats.pendingInvoices"/>
+                <set field="activeStaff"           from-field="dashStats.activeStaff"/>
+                <set field="staffOnLeave"          from-field="dashStats.staffOnLeave"/>
+                <set field="pendingLeaves"         from-field="dashStats.pendingLeaves"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+
+                        <!-- KPI panels row -->
+                        <container style="dashboard-tiles">
+
+                            <!-- Enrollment panel -->
+                            <container style="tile">
+                                <label style="tile-title">${uiLabelMap.HmoAdminEnrollmentPanel}</label>
+                                <label>${uiLabelMap.HmoAdminTotalEnrollments}: ${totalEnrollments}</label>
+                                <label>${uiLabelMap.HmoAdminActiveEnrollments}: ${activeEnrollments}</label>
+                                <label>${uiLabelMap.HmoAdminSuspendedEnrollments}: ${suspendedEnrollments}</label>
+                                <label>${uiLabelMap.HmoAdminTerminatedEnrollments}: ${terminatedEnrollments}</label>
+                                <link target="enrollmentOverview" text="${uiLabelMap.HmoAdminViewAll}"/>
+                            </container>
+
+                            <!-- Claims panel -->
+                            <container style="tile">
+                                <label style="tile-title">${uiLabelMap.HmoAdminClaimsPanel}</label>
+                                <label>${uiLabelMap.HmoAdminTotalClaims}: ${totalClaims}</label>
+                                <label>${uiLabelMap.HmoAdminPendingClaims}: ${pendingClaims}</label>
+                                <label>${uiLabelMap.HmoAdminApprovedClaims}: ${approvedClaims}</label>
+                                <label>${uiLabelMap.HmoAdminPaidClaims}: ${paidClaims}</label>
+                                <label>${uiLabelMap.HmoAdminRejectedClaims}: ${rejectedClaims}</label>
+                                <link target="claimOverview" text="${uiLabelMap.HmoAdminViewAll}"/>
+                            </container>
+
+                            <!-- Finance panel -->
+                            <container style="tile">
+                                <label style="tile-title">${uiLabelMap.HmoAdminFinancePanel}</label>
+                                <label>${uiLabelMap.HmoAdminTotalPremiumCollected}: ${totalPremiumCollected}</label>
+                                <label>${uiLabelMap.HmoAdminTotalClaimsPaid}: ${totalClaimsPaid}</label>
+                                <label>${uiLabelMap.HmoAdminPendingInvoices}: ${pendingInvoices}</label>
+                                <link target="financeOverview" text="${uiLabelMap.HmoAdminViewAll}"/>
+                            </container>
+
+                            <!-- HR panel -->
+                            <container style="tile">
+                                <label style="tile-title">${uiLabelMap.HmoAdminHrPanel}</label>
+                                <label>${uiLabelMap.HmoAdminActiveStaff}: ${activeStaff}</label>
+                                <label>${uiLabelMap.HmoAdminStaffOnLeave}: ${staffOnLeave}</label>
+                                <label>${uiLabelMap.HmoAdminPendingLeaves}: ${pendingLeaves}</label>
+                                <link target="staffOverview" text="${uiLabelMap.HmoAdminViewAll}"/>
+                            </container>
+
+                        </container>
+
+                        <!-- Quick navigation to overview screens -->
+                        <screenlet title="${uiLabelMap.HmoAdminQuickLinks}">
+                            <container style="dashboard-tiles">
+                                <container style="tile">
+                                    <link target="enrollmentOverview" text="${uiLabelMap.HmoAdminEnrollmentOverview}"/>
+                                </container>
+                                <container style="tile">
+                                    <link target="claimOverview" text="${uiLabelMap.HmoAdminClaimOverview}"/>
+                                </container>
+                                <container style="tile">
+                                    <link target="providerOverview" text="${uiLabelMap.HmoAdminProviderOverview}"/>
+                                </container>
+                                <container style="tile">
+                                    <link target="sponsorOverview" text="${uiLabelMap.HmoAdminSponsorOverview}"/>
+                                </container>
+                                <container style="tile">
+                                    <link target="staffOverview" text="${uiLabelMap.HmoAdminStaffOverview}"/>
+                                </container>
+                                <container style="tile">
+                                    <link target="financeOverview" text="${uiLabelMap.HmoAdminFinanceOverview}"/>
+                                </container>
+                                <container style="tile">
+                                    <link target="auditLog" text="${uiLabelMap.HmoAdminAuditLog}"/>
+                                </container>
+                            </container>
+                        </screenlet>
+
+                        <!-- Quick links to sub-application portals -->
+                        <screenlet title="${uiLabelMap.HmoAdminSubApps}">
+                            <container style="dashboard-tiles">
+                                <container style="tile">
+                                    <link url-mode="inter-app" webSiteId="hmomgmt"    target="control/main" text="${uiLabelMap.HmoAdminSubAppMgmt}"/>
+                                </container>
+                                <container style="tile">
+                                    <link url-mode="inter-app" webSiteId="hmohr"      target="control/main" text="${uiLabelMap.HmoAdminSubAppHr}"/>
+                                </container>
+                                <container style="tile">
+                                    <link url-mode="inter-app" webSiteId="hmofinance" target="control/main" text="${uiLabelMap.HmoAdminSubAppFinance}"/>
+                                </container>
+                                <container style="tile">
+                                    <link url-mode="inter-app" webSiteId="hmosponsor"  target="control/main" text="${uiLabelMap.HmoAdminSubAppSponsor}"/>
+                                </container>
+                                <container style="tile">
+                                    <link url-mode="inter-app" webSiteId="hmoprovider" target="control/main" text="${uiLabelMap.HmoAdminSubAppProvider}"/>
+                                </container>
+                                <container style="tile">
+                                    <link url-mode="inter-app" webSiteId="hmomember"  target="control/main" text="${uiLabelMap.HmoAdminSubAppMember}"/>
+                                </container>
+                            </container>
+                        </screenlet>
+
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <!-- ================================================================ -->
+    <!--  Enrollment Overview                                             -->
+    <!-- ================================================================ -->
+
+    <screen name="EnrollmentOverview">
+        <section>
+            <actions>
+                <set field="titleProperty" value="HmoAdminEnrollmentOverview"/>
+                <find-by-and entity-name="HmoEnrollmentRecord" list="enrollmentList"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.HmoAdminEnrollmentOverview}">
+                            <include-grid name="EnrollmentGrid" location="component://hmo-admin/widget/AdminForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <!-- ================================================================ -->
+    <!--  Claim Overview                                                  -->
+    <!-- ================================================================ -->
+
+    <screen name="ClaimOverview">
+        <section>
+            <actions>
+                <set field="titleProperty" value="HmoAdminClaimOverview"/>
+                <find-by-and entity-name="HmoPreAuthorization" list="preAuthList"/>
+                <find-by-and entity-name="HmoClaim"            list="claimList"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.HmoAdminPreAuthOverview}">
+                            <include-grid name="PreAuthGrid" location="component://hmo-admin/widget/AdminForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.HmoAdminClaimOverview}">
+                            <include-grid name="ClaimGrid" location="component://hmo-admin/widget/AdminForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <!-- ================================================================ -->
+    <!--  Provider Overview                                               -->
+    <!-- ================================================================ -->
+
+    <screen name="ProviderOverview">
+        <section>
+            <actions>
+                <set field="titleProperty" value="HmoAdminProviderOverview"/>
+                <find-by-and entity-name="HmoClaim" list="claimList"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.HmoAdminProviderOverview}">
+                            <include-grid name="ProviderClaimGrid" location="component://hmo-admin/widget/AdminForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <!-- ================================================================ -->
+    <!--  Sponsor Overview                                                -->
+    <!-- ================================================================ -->
+
+    <screen name="SponsorOverview">
+        <section>
+            <actions>
+                <set field="titleProperty" value="HmoAdminSponsorOverview"/>
+                <find-by-and entity-name="HmoSponsorPolicy" list="sponsorPolicyList"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.HmoAdminSponsorOverview}">
+                            <include-grid name="SponsorPolicyGrid" location="component://hmo-admin/widget/AdminForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <!-- ================================================================ -->
+    <!--  HR &amp; Staff Overview                                         -->
+    <!-- ================================================================ -->
+
+    <screen name="StaffOverview">
+        <section>
+            <actions>
+                <set field="titleProperty" value="HmoAdminStaffOverview"/>
+                <find-by-and entity-name="HmoStaffPosition" list="staffPositionList"/>
+                <find-by-and entity-name="HmoLeaveRecord"   list="leaveList"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.HmoAdminStaffPositions}">
+                            <include-grid name="StaffPositionGrid" location="component://hmo-admin/widget/AdminForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.HmoAdminLeaveRecords}">
+                            <include-grid name="LeaveGrid" location="component://hmo-admin/widget/AdminForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <!-- ================================================================ -->
+    <!--  Finance Overview                                                -->
+    <!-- ================================================================ -->
+
+    <screen name="FinanceOverview">
+        <section>
+            <actions>
+                <set field="titleProperty" value="HmoAdminFinanceOverview"/>
+                <find-by-and entity-name="HmoPremiumInvoice"    list="premiumInvoiceList"/>
+                <find-by-and entity-name="HmoClaimPayment"      list="claimPaymentList"/>
+                <find-by-and entity-name="HmoCapitationSchedule" list="capitationList"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.HmoAdminPremiumInvoices}">
+                            <include-grid name="PremiumInvoiceGrid" location="component://hmo-admin/widget/AdminForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.HmoAdminClaimPayments}">
+                            <include-grid name="ClaimPaymentGrid" location="component://hmo-admin/widget/AdminForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.HmoAdminCapitation}">
+                            <include-grid name="CapitationGrid" location="component://hmo-admin/widget/AdminForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <!-- ================================================================ -->
+    <!--  Audit Log                                                       -->
+    <!-- ================================================================ -->
+
+    <screen name="AuditLog">
+        <section>
+            <actions>
+                <set field="titleProperty" value="HmoAdminAuditLog"/>
+                <find-by-and entity-name="UserLoginHistory" list="auditLogList"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.HmoAdminAuditLog}">
+                            <include-grid name="AuditLogGrid" location="component://hmo-admin/widget/AdminForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+</screens>

@@ -30,6 +30,8 @@ under the License.
     hmo-sponsor defines the enrollment/policy entity models and corporate portal.
     hmo-hr extends the humanres application for HMO internal staff management.
     hmo-finance extends the accounting application for HMO financial operations.
+    hmo-admin is loaded last (position 26) — it is a read-only super-admin
+    dashboard that aggregates KPIs from all five plugins above.
 -->
 <component-loader xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/component-loader.xsd">
@@ -38,4 +40,5 @@ under the License.
     <load-component component-location="hmo-sponsor"/>
     <load-component component-location="hmo-hr"/>
     <load-component component-location="hmo-finance"/>
+    <load-component component-location="hmo-admin"/>
 </component-loader>
