@@ -54,10 +54,10 @@ under the License.
             </drop-down>
         </field>
         <field name="billingPeriodFromDate" title="${uiLabelMap.HmoBillingPeriodFrom}">
-            <date-time type="timestamp"/>
+            <date-time type="date"/>
         </field>
         <field name="billingPeriodThruDate" title="${uiLabelMap.HmoBillingPeriodThru}">
-            <date-time type="timestamp"/>
+            <date-time type="date"/>
         </field>
         <field name="submitButton" title="">
             <submit button-type="button" text="${uiLabelMap.HmoNewPremiumInvoice}"/>
@@ -91,7 +91,7 @@ under the License.
     <form name="MarkInvoicePaidForm" type="single" target="markPremiumInvoicePaid">
         <field name="premiumInvoiceId"><hidden/></field>
         <field name="paidAmount"  title="${uiLabelMap.HmoPaidAmount}"><text size="20"/></field>
-        <field name="paymentDate" title="${uiLabelMap.HmoInvoiceDate}"><date-time type="timestamp"/></field>
+        <field name="paymentDate" title="${uiLabelMap.HmoPaymentDate}"><date-time type="date"/></field>
         <field name="submitButton" title="">
             <submit button-type="button" text="${uiLabelMap.HmoMarkPaid}"/>
         </field>
@@ -133,7 +133,7 @@ under the License.
             </drop-down>
         </field>
         <field name="referenceNumber" title="${uiLabelMap.HmoReferenceNumber}"><text size="40"/></field>
-        <field name="paymentDate"     title="${uiLabelMap.HmoPaymentDate}"><date-time type="timestamp"/></field>
+        <field name="paymentDate"     title="${uiLabelMap.HmoPaymentDate}"><date-time type="date"/></field>
         <field name="submitButton" title="">
             <submit button-type="button" text="${uiLabelMap.HmoNewClaimPayment}"/>
         </field>
@@ -182,7 +182,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="fromDate"    title="${uiLabelMap.HmoEffectiveFrom}"><date-time type="timestamp"/></field>
+        <field name="fromDate"    title="${uiLabelMap.HmoEffectiveFrom}"><date-time type="date"/></field>
         <field name="description" title="${uiLabelMap.HmoDescription}"><text size="60"/></field>
         <field name="submitButton" title="">
             <submit button-type="button" text="${uiLabelMap.HmoNewCapitation}"/>
@@ -195,7 +195,7 @@ under the License.
     <form name="EditCapitationForm" type="single" target="updateCapitationSchedule" map-name="capitationSchedule">
         <field name="capitationScheduleId"><hidden/></field>
         <field name="capitationAmountPerMember" title="${uiLabelMap.HmoCapitationPerMember}"><text size="20"/></field>
-        <field name="thruDate"    title="${uiLabelMap.HmoEffectiveTo}"><date-time type="timestamp"/></field>
+        <field name="thruDate"    title="${uiLabelMap.HmoEffectiveTo}"><date-time type="date"/></field>
         <field name="description" title="${uiLabelMap.HmoDescription}"><text size="60"/></field>
         <field name="submitButton" title="">
             <submit button-type="button" text="${uiLabelMap.HmoEditCapitation}"/>
@@ -206,8 +206,8 @@ under the License.
     <!--  Report Filter Form                                              -->
     <!-- ================================================================ -->
     <form name="ReportFilterForm" type="single" target="financialReport">
-        <field name="reportFromDate" title="${uiLabelMap.HmoReportFromDate}"><date-time type="timestamp"/></field>
-        <field name="reportThruDate" title="${uiLabelMap.HmoReportThruDate}"><date-time type="timestamp"/></field>
+        <field name="reportFromDate" title="${uiLabelMap.HmoReportFromDate}"><date-time type="date"/></field>
+        <field name="reportThruDate" title="${uiLabelMap.HmoReportThruDate}"><date-time type="date"/></field>
         <field name="submitButton" title="">
             <submit button-type="button" text="${uiLabelMap.HmoFinancialReport}"/>
         </field>

@@ -28,6 +28,12 @@ import org.apache.ofbiz.entity.condition.EntityOperator
  *           createClaimPayment, generateHmoFinancialReport
  */
 
+/** Default payment terms in days for newly created premium invoices. */
+private static final int DEFAULT_PAYMENT_TERM_DAYS = 30
+
+/** Fallback currency used when no currency is set on a claim or schedule. */
+private static final String DEFAULT_CURRENCY_UOM_ID = "NGN"
+
 /**
  * createPremiumInvoice — generate a premium invoice for a sponsor policy period.
  *
@@ -70,7 +76,7 @@ def createPremiumInvoice() {
     invoice.billingPeriodFromDate = billingPeriodFromDate
     invoice.billingPeriodThruDate = billingPeriodThruDate
     invoice.invoiceDate           = now
-    invoice.dueDate               = new Timestamp(now.getTime() + 30L * 24 * 60 * 60 * 1000)
+    invoice.dueDate               = new Timestamp(now.getTime() + DEFAULT_PAYMENT_TERM_DAYS * 24L * 60 * 60 * 1000)
     invoice.enrolleeCount         = enrolleeCount
     invoice.premiumAmount         = premiumAmount
     invoice.totalAmount           = totalAmount
@@ -140,8 +146,7 @@ def createClaimPayment() {
         }
         BigDecimal approvedAmount = claim.approvedAmount ?: BigDecimal.ZERO
         totalAmount += approvedAmount
-        currencyUomId = claim.currencyUomId ?: currencyUomId
-        claimValues << [claim: claim, allocatedAmount: approvedAmount]
+        currencyUomId = claim.currencyUomId ?: currencyUomId        claimValues << [claim: claim, allocatedAmount: approvedAmount]
     }
 
     // Create the payment batch
@@ -153,7 +158,7 @@ def createClaimPayment() {
     payment.paymentDate     = paymentDate
     payment.paymentMethod   = paymentMethod
     payment.totalAmount     = totalAmount
-    payment.currencyUomId   = currencyUomId ?: "NGN"
+    payment.currencyUomId   = currencyUomId ?: DEFAULT_CURRENCY_UOM_ID
     payment.referenceNumber = referenceNumber
     payment.statusId        = "HMO_PAY_PENDING"
     delegator.create(payment)
@@ -196,7 +201,7 @@ def generateHmoFinancialReport() {
     ], EntityOperator.AND)
     def paidInvoices = delegator.findList("HmoPremiumInvoice", invoiceCond, null, null, null, false)
     BigDecimal totalPremiumCollected = BigDecimal.ZERO
-    String currencyUomId = "NGN"
+    String currencyUomId = DEFAULT_CURRENCY_UOM_ID
     paidInvoices.each { inv ->
         totalPremiumCollected += (inv.paidAmount ?: BigDecimal.ZERO)
         if (inv.currencyUomId) currencyUomId = inv.currencyUomId
