@@ -94,6 +94,17 @@ under the License.
     </request-map>
 
     <!-- ================================================================ -->
+    <!--  Claim Payment Approval                                          -->
+    <!-- ================================================================ -->
+
+    <request-map uri="approveClaimPayment">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="approveClaimPayment"/>
+        <response name="success" type="view"    value="financeOverview"/>
+        <response name="error"   type="view"    value="financeOverview"/>
+    </request-map>
+
+    <!-- ================================================================ -->
     <!--  Audit Log                                                       -->
     <!-- ================================================================ -->
 

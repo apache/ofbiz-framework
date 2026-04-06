@@ -82,5 +82,20 @@ under the License.
         <attribute name="processedPayments"     mode="OUT" type="Long"/>
         <attribute name="totalClaimsPaid"       mode="OUT" type="BigDecimal"/>
     </service>
+    <!-- ================================================================ -->
+    <!--  Claim Payment Approval                                         -->
+    <!-- ================================================================ -->
+
+    <service name="approveClaimPayment" engine="groovy" auth="true"
+            location="component://hmo-admin/src/main/groovy/org/apache/ofbiz/hmo/admin/AdminDashboardService.groovy"
+            invoke="approveClaimPayment">
+        <description>Approve a pending claim payment, transitioning its status from
+            HMO_PAY_PENDING to HMO_PAY_PROCESSED.  Only super-admins with the
+            HMO_ADMIN permission may perform this action.</description>
+        <permission-service service-name="hmoPermissionCheck" main-action="ADMIN"/>
+        <attribute name="claimPaymentId" mode="IN" type="String" optional="false"/>
+        <!-- Outputs -->
+        <attribute name="claimPaymentId" mode="OUT" type="String"/>
+    </service>
 
 </services>

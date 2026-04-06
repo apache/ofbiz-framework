@@ -175,9 +175,55 @@ def getAdminDashboardStats() {
 }
 
 /**
+ * approveClaimPayment — transition a claim payment from PENDING to PROCESSED status.
+ *
+ * This is the super-admin approval step.  hmo-finance creates HmoClaimPayment
+ * records with status HMO_PAY_PENDING; the hmo-admin super-administrator then
+ * reviews and approves them here, advancing the status to HMO_PAY_PROCESSED.
+ *
+ * The transition is validated via StatusValidChange so the service will fail
+ * cleanly if the payment is already processed or in a non-approvable state.
+ */
+def approveClaimPayment() {
+    def delegator          = context.delegator
+    String claimPaymentId  = context.claimPaymentId
+
+    def payment = delegator.findOne("HmoClaimPayment", [claimPaymentId: claimPaymentId], false)
+    if (!payment) {
+        return error("Claim payment not found: ${claimPaymentId}")
+    }
+
+    if (payment.statusId != "HMO_PAY_PENDING") {
+        return error("Claim payment ${claimPaymentId} is not in PENDING status (current: ${payment.statusId}). Only PENDING payments may be approved.")
+    }
+
+    validateStatusTransition(delegator, payment.statusId, "HMO_PAY_PROCESSED")
+
+    payment.statusId = "HMO_PAY_PROCESSED"
+    payment.store()
+
+    return success([claimPaymentId: claimPaymentId])
+}
+
+/**
  * Count rows in an entity where statusId equals the given value.
  */
 private long countByStatus(delegator, String entityName, String statusId) {
     def cond = EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, statusId)
     return delegator.findCountByCondition(entityName, cond, null, null)
+}
+
+/**
+ * Validates a status transition using the OFBiz StatusValidChange table.
+ */
+private void validateStatusTransition(delegator, String fromStatusId, String toStatusId) {
+    def validChange = delegator.findOne("StatusValidChange", [
+        statusId  : fromStatusId,
+        statusIdTo: toStatusId
+    ], true)
+    if (!validChange) {
+        throw new IllegalStateException(
+            "Invalid status transition from '${fromStatusId}' to '${toStatusId}'."
+        )
+    }
 }

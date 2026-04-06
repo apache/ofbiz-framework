@@ -202,6 +202,13 @@ under the License.
         <field name="statusId"         title="${uiLabelMap.HmoAdminStatus}">
             <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
         </field>
+        <field name="approveButton" title="${uiLabelMap.HmoAdminApprovePayment}"
+                use-when="statusId == 'HMO_PAY_PENDING'">
+            <hyperlink description="${uiLabelMap.HmoAdminApprovePayment}" target="approveClaimPayment"
+                    also-hidden="false" confirmation-message="${uiLabelMap.HmoAdminApprovePaymentConfirm}">
+                <parameter param-name="claimPaymentId"/>
+            </hyperlink>
+        </field>
     </grid>
 
     <!-- ================================================================ -->

@@ -280,6 +280,14 @@ under the License.
         <value xml:lang="en">Capitation Schedules</value>
     </property>
 
+    <!-- Claim payment approval -->
+    <property key="HmoAdminApprovePayment">
+        <value xml:lang="en">Approve</value>
+    </property>
+    <property key="HmoAdminApprovePaymentConfirm">
+        <value xml:lang="en">Approve this claim payment and mark it as Processed?</value>
+    </property>
+
     <!-- Grid column labels — audit log -->
     <property key="HmoAdminUserLogin">
         <value xml:lang="en">User Login</value>
