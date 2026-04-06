@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://ofbiz.apache.org/Widget-Screen"
+        xsi:schemaLocation="http://ofbiz.apache.org/Widget-Screen http://ofbiz.apache.org/dtds/widget-screen.xsd">
+
+    <!-- ================================================================ -->
+    <!--  Member Dashboard                                                 -->
+    <!-- ================================================================ -->
+    <screen name="MemberDashboard">
+        <section>
+            <actions>
+                <set field="titleProperty" value="HmoMemberDashboard"/>
+                <script location="component://hmo-ehdsi/src/main/groovy/org/apache/ofbiz/hmo/ehdsi/MemberDashboard.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-has-permission permission="HMO_VIEW"/>
+                            </condition>
+                            <widgets>
+                                <container style="clear">
+                                    <label style="h1">${uiLabelMap.HmoWelcome}, ${userLogin.userLoginId}</label>
+                                </container>
+                                <container style="dashboard-tiles">
+                                    <container style="tile">
+                                        <label style="tile-title">${uiLabelMap.HmoCoverage}</label>
+                                        <label>${enrollment.statusId}</label>
+                                        <link target="myCoverage" text="${uiLabelMap.HmoViewDetails}"/>
+                                    </container>
+                                    <container style="tile">
+                                        <label style="tile-title">${uiLabelMap.HmoClaims}</label>
+                                        <label>${totalClaims} ${uiLabelMap.HmoClaims}</label>
+                                        <link target="myClaims" text="${uiLabelMap.HmoViewAll}"/>
+                                    </container>
+                                    <container style="tile">
+                                        <label style="tile-title">${uiLabelMap.HmoPreAuth}</label>
+                                        <label>${pendingPreAuths} ${uiLabelMap.HmoPending}</label>
+                                        <link target="myPreAuths" text="${uiLabelMap.HmoViewAll}"/>
+                                    </container>
+                                    <container style="tile">
+                                        <label style="tile-title">${uiLabelMap.HmoProviders}</label>
+                                        <link target="findProvider" text="${uiLabelMap.HmoFindProvider}"/>
+                                    </container>
+                                </container>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="error">${uiLabelMap.HmoNoPermission}</label>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <!-- ================================================================ -->
+    <!--  My Coverage                                                      -->
+    <!-- ================================================================ -->
+    <screen name="MyCoverage">
+        <section>
+            <actions>
+                <set field="titleProperty" value="HmoMyCoverage"/>
+                <script location="component://hmo-ehdsi/src/main/groovy/org/apache/ofbiz/hmo/ehdsi/MyCoverage.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.HmoMyCoverage}">
+                            <include-form name="CoverageDetail" location="component://hmo-ehdsi/widget/member/MemberForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.HmoMyDependents}">
+                            <include-grid name="DependentList" location="component://hmo-ehdsi/widget/member/MemberForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <!-- ================================================================ -->
+    <!--  My Dependents                                                    -->
+    <!-- ================================================================ -->
+    <screen name="MyDependents">
+        <section>
+            <actions>
+                <set field="titleProperty" value="HmoMyDependents"/>
+                <script location="component://hmo-ehdsi/src/main/groovy/org/apache/ofbiz/hmo/ehdsi/MyDependents.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.HmoMyDependents}">
+                            <include-grid name="DependentList" location="component://hmo-ehdsi/widget/member/MemberForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <!-- ================================================================ -->
+    <!--  Find a Provider                                                  -->
+    <!-- ================================================================ -->
+    <screen name="FindProvider">
+        <section>
+            <actions>
+                <set field="titleProperty" value="HmoFindProvider"/>
+                <script location="component://hmo-ehdsi/src/main/groovy/org/apache/ofbiz/hmo/ehdsi/FindProvider.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.HmoFindProvider}">
+                            <include-form name="FindProviderForm" location="component://hmo-ehdsi/widget/member/MemberForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.HmoProviderResults}">
+                            <include-grid name="ProviderSearchResults" location="component://hmo-ehdsi/widget/member/MemberForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <!-- ================================================================ -->
+    <!--  My Claims                                                        -->
+    <!-- ================================================================ -->
+    <screen name="MyClaims">
+        <section>
+            <actions>
+                <set field="titleProperty" value="HmoMyClaims"/>
+                <script location="component://hmo-ehdsi/src/main/groovy/org/apache/ofbiz/hmo/ehdsi/MyClaims.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.HmoMyClaims}">
+                            <include-grid name="ClaimList" location="component://hmo-ehdsi/widget/member/MemberForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <!-- ================================================================ -->
+    <!--  View Claim Detail (read-only)                                    -->
+    <!-- ================================================================ -->
+    <screen name="ViewClaim">
+        <section>
+            <actions>
+                <set field="titleProperty" value="HmoViewClaim"/>
+                <entity-one entity-name="HmoClaim" value-field="claim">
+                    <field-map field-name="claimId" from-field="parameters.claimId"/>
+                </entity-one>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.HmoClaimDetail}">
+                            <include-form name="ClaimDetail" location="component://hmo-ehdsi/widget/member/MemberForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <!-- ================================================================ -->
+    <!--  My Pre-Authorisations                                           -->
+    <!-- ================================================================ -->
+    <screen name="MyPreAuths">
+        <section>
+            <actions>
+                <set field="titleProperty" value="HmoMyPreAuths"/>
+                <script location="component://hmo-ehdsi/src/main/groovy/org/apache/ofbiz/hmo/ehdsi/MyPreAuths.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.HmoMyPreAuths}">
+                            <include-grid name="PreAuthList" location="component://hmo-ehdsi/widget/member/MemberForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <!-- ================================================================ -->
+    <!--  My Profile                                                       -->
+    <!-- ================================================================ -->
+    <screen name="MyProfile">
+        <section>
+            <actions>
+                <set field="titleProperty" value="HmoMyProfile"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.HmoMyProfile}">
+                            <include-form name="ProfileDetail" location="component://hmo-ehdsi/widget/member/MemberForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+</screens>

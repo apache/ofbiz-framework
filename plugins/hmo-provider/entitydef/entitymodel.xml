@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/entitymodel.xsd">
+    <title>HMO Provider Entity Model</title>
+    <description>Entity definitions for the HMO Provider plugin: pre-authorisations,
+        claims, claim lines, and claim documents.</description>
+    <version>1.0</version>
+
+    <!-- ================================================================ -->
+    <!--  HmoPreAuthorization                                              -->
+    <!--  A request from a healthcare provider for advance approval of    -->
+    <!--  a service or procedure for an enrolled member.                  -->
+    <!-- ================================================================ -->
+
+    <entity entity-name="HmoPreAuthorization"
+            package-name="org.apache.ofbiz.hmo.provider"
+            title="HMO Pre-Authorization">
+        <field name="preAuthId"                  type="id"/>
+        <field name="enrollmentId"               type="id"/>
+        <field name="providerPartyId"            type="id"/>
+        <field name="requestedServiceTypeEnumId" type="id">
+            <description>Claim type being pre-authorised (HMO_CLAIM_TYPE enumeration)</description>
+        </field>
+        <field name="diagnosisCode"              type="short-varchar">
+            <description>ICD-10 diagnosis code</description>
+        </field>
+        <field name="requestDate"                type="date-time"/>
+        <field name="requestedFromDate"          type="date-time"/>
+        <field name="requestedThruDate"          type="date-time"/>
+        <field name="statusId"                   type="id">
+            <description>HMO_AUTH_STATUS state machine</description>
+        </field>
+        <field name="reviewedByPartyId"          type="id" optional="true"/>
+        <field name="reviewNotes"                type="very-long" optional="true"/>
+        <field name="approvedAmount"             type="currency-amount" optional="true"/>
+        <field name="currencyUomId"              type="id-vlong" optional="true"/>
+
+        <prim-key field="preAuthId"/>
+
+        <relation type="one" fk-name="PREAUTH_ENRL" rel-entity-name="HmoEnrollmentRecord">
+            <key-map field-name="enrollmentId"/>
+        </relation>
+        <relation type="one" fk-name="PREAUTH_PROV" rel-entity-name="Party">
+            <key-map field-name="providerPartyId" rel-field-name="partyId"/>
+        </relation>
+        <relation type="one" fk-name="PREAUTH_SVC_TYPE" rel-entity-name="Enumeration">
+            <key-map field-name="requestedServiceTypeEnumId" rel-field-name="enumId"/>
+        </relation>
+        <relation type="one" fk-name="PREAUTH_STATUS" rel-entity-name="StatusItem">
+            <key-map field-name="statusId"/>
+        </relation>
+        <relation type="one" title="ReviewedBy" fk-name="PREAUTH_REVIEWER" rel-entity-name="Party">
+            <key-map field-name="reviewedByPartyId" rel-field-name="partyId"/>
+        </relation>
+        <relation type="one" fk-name="PREAUTH_CURR" rel-entity-name="Uom">
+            <key-map field-name="currencyUomId" rel-field-name="uomId"/>
+        </relation>
+    </entity>
+
+    <!-- ================================================================ -->
+    <!--  HmoClaim                                                         -->
+    <!--  A claim for healthcare services rendered to an enrolled member.  -->
+    <!-- ================================================================ -->
+
+    <entity entity-name="HmoClaim"
+            package-name="org.apache.ofbiz.hmo.provider"
+            title="HMO Claim">
+        <field name="claimId"           type="id"/>
+        <field name="preAuthId"         type="id" optional="true">
+            <description>Pre-auth reference; null for emergency and pharmacy claims</description>
+        </field>
+        <field name="enrollmentId"      type="id"/>
+        <field name="providerPartyId"   type="id"/>
+        <field name="claimTypeEnumId"   type="id">
+            <description>HMO_CLAIM_TYPE enumeration</description>
+        </field>
+        <field name="serviceFromDate"   type="date-time"/>
+        <field name="serviceThruDate"   type="date-time"/>
+        <field name="submissionDate"    type="date-time"/>
+        <field name="statusId"          type="id">
+            <description>HMO_CLAIM_STATUS state machine</description>
+        </field>
+        <field name="billedAmount"      type="currency-amount"/>
+        <field name="approvedAmount"    type="currency-amount" optional="true"/>
+        <field name="paidAmount"        type="currency-amount" optional="true"/>
+        <field name="currencyUomId"     type="id-vlong"/>
+        <field name="denialReasonCode"  type="short-varchar" optional="true"/>
+        <field name="reviewNotes"       type="very-long" optional="true"/>
+        <field name="reviewedByPartyId" type="id" optional="true"/>
+
+        <prim-key field="claimId"/>
+
+        <relation type="one" fk-name="CLAIM_PREAUTH" rel-entity-name="HmoPreAuthorization">
+            <key-map field-name="preAuthId"/>
+        </relation>
+        <relation type="one" fk-name="CLAIM_ENRL" rel-entity-name="HmoEnrollmentRecord">
+            <key-map field-name="enrollmentId"/>
+        </relation>
+        <relation type="one" fk-name="CLAIM_PROV" rel-entity-name="Party">
+            <key-map field-name="providerPartyId" rel-field-name="partyId"/>
+        </relation>
+        <relation type="one" fk-name="CLAIM_TYPE" rel-entity-name="Enumeration">
+            <key-map field-name="claimTypeEnumId" rel-field-name="enumId"/>
+        </relation>
+        <relation type="one" fk-name="CLAIM_STATUS" rel-entity-name="StatusItem">
+            <key-map field-name="statusId"/>
+        </relation>
+        <relation type="one" fk-name="CLAIM_CURR" rel-entity-name="Uom">
+            <key-map field-name="currencyUomId" rel-field-name="uomId"/>
+        </relation>
+        <relation type="one" title="ReviewedBy" fk-name="CLAIM_REVIEWER" rel-entity-name="Party">
+            <key-map field-name="reviewedByPartyId" rel-field-name="partyId"/>
+        </relation>
+        <relation type="many" fk-name="CLAIM_LINES" rel-entity-name="HmoClaimLine">
+            <key-map field-name="claimId"/>
+        </relation>
+        <relation type="many" fk-name="CLAIM_DOCS" rel-entity-name="HmoClaimDocument">
+            <key-map field-name="claimId"/>
+        </relation>
+    </entity>
+
+    <!-- ================================================================ -->
+    <!--  HmoClaimLine                                                     -->
+    <!--  Individual service line items within a claim.                   -->
+    <!-- ================================================================ -->
+
+    <entity entity-name="HmoClaimLine"
+            package-name="org.apache.ofbiz.hmo.provider"
+            title="HMO Claim Line">
+        <field name="claimId"          type="id"/>
+        <field name="claimLineSeqId"   type="id-vlong-ne"/>
+        <field name="procedureCode"    type="short-varchar">
+            <description>CPT/SNOMED procedure code</description>
+        </field>
+        <field name="diagnosisCode"    type="short-varchar">
+            <description>ICD-10 diagnosis code</description>
+        </field>
+        <field name="description"      type="description" optional="true"/>
+        <field name="quantity"         type="fixed-point"/>
+        <field name="unitAmount"       type="currency-amount"/>
+        <field name="lineAmount"       type="currency-amount"/>
+        <field name="currencyUomId"    type="id-vlong"/>
+
+        <prim-key field="claimId"/>
+        <prim-key field="claimLineSeqId"/>
+
+        <relation type="one" fk-name="CLAIMLINE_CLAIM" rel-entity-name="HmoClaim">
+            <key-map field-name="claimId"/>
+        </relation>
+        <relation type="one" fk-name="CLAIMLINE_CURR" rel-entity-name="Uom">
+            <key-map field-name="currencyUomId" rel-field-name="uomId"/>
+        </relation>
+    </entity>
+
+    <!-- ================================================================ -->
+    <!--  HmoClaimDocument                                                 -->
+    <!--  Supporting documents attached to a claim (encounter notes,      -->
+    <!--  invoices, lab results, discharge summaries, etc).               -->
+    <!-- ================================================================ -->
+
+    <entity entity-name="HmoClaimDocument"
+            package-name="org.apache.ofbiz.hmo.provider"
+            title="HMO Claim Document">
+        <field name="claimId"            type="id"/>
+        <field name="documentSeqId"      type="id-vlong-ne"/>
+        <field name="contentId"          type="id">
+            <description>Reference to OFBiz Content entity (stores the file)</description>
+        </field>
+        <field name="documentTypeId"     type="short-varchar">
+            <description>E.g. ENCOUNTER_NOTE, INVOICE, LAB_RESULT, DISCHARGE_SUMMARY</description>
+        </field>
+        <field name="uploadDate"         type="date-time"/>
+        <field name="uploadedByPartyId"  type="id"/>
+
+        <prim-key field="claimId"/>
+        <prim-key field="documentSeqId"/>
+
+        <relation type="one" fk-name="CLAIMDOC_CLAIM" rel-entity-name="HmoClaim">
+            <key-map field-name="claimId"/>
+        </relation>
+        <relation type="one" fk-name="CLAIMDOC_CONTENT" rel-entity-name="Content">
+            <key-map field-name="contentId"/>
+        </relation>
+        <relation type="one" fk-name="CLAIMDOC_UPLOADER" rel-entity-name="Party">
+            <key-map field-name="uploadedByPartyId" rel-field-name="partyId"/>
+        </relation>
+    </entity>
+
+</entitymodel>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<!--
+    hmo-provider Seed Data
+    
+    Reference code data for the HMO provider plugin:
+      - Common ICD-10 diagnosis codes used in Nigerian HMO claims
+      - Common CPT/SNOMED procedure codes
+    
+    These are stored as Enumeration entries under custom EnumerationTypes
+    for use in claim and pre-auth forms.
+-->
+<entity-engine-xml>
+
+    <!-- ============================================================ -->
+    <!--  ICD-10 DIAGNOSIS CODE ENUMERATION                           -->
+    <!-- ============================================================ -->
+
+    <EnumerationType enumTypeId="HMO_ICD10_CODE" description="ICD-10 Diagnosis Code" hasTable="N"/>
+
+    <Enumeration enumId="ICD_A09"   enumTypeId="HMO_ICD10_CODE" enumCode="A09"   sequenceId="010" description="Gastroenteritis"/>
+    <Enumeration enumId="ICD_A15"   enumTypeId="HMO_ICD10_CODE" enumCode="A15"   sequenceId="020" description="Tuberculosis"/>
+    <Enumeration enumId="ICD_B50"   enumTypeId="HMO_ICD10_CODE" enumCode="B50"   sequenceId="030" description="Malaria (Plasmodium falciparum)"/>
+    <Enumeration enumId="ICD_E11"   enumTypeId="HMO_ICD10_CODE" enumCode="E11"   sequenceId="040" description="Type 2 Diabetes Mellitus"/>
+    <Enumeration enumId="ICD_I10"   enumTypeId="HMO_ICD10_CODE" enumCode="I10"   sequenceId="050" description="Hypertension"/>
+    <Enumeration enumId="ICD_I21"   enumTypeId="HMO_ICD10_CODE" enumCode="I21"   sequenceId="060" description="Acute Myocardial Infarction"/>
+    <Enumeration enumId="ICD_J06"   enumTypeId="HMO_ICD10_CODE" enumCode="J06"   sequenceId="070" description="Upper Respiratory Infection"/>
+    <Enumeration enumId="ICD_J18"   enumTypeId="HMO_ICD10_CODE" enumCode="J18"   sequenceId="080" description="Pneumonia"/>
+    <Enumeration enumId="ICD_K29"   enumTypeId="HMO_ICD10_CODE" enumCode="K29"   sequenceId="090" description="Gastritis / Duodenitis"/>
+    <Enumeration enumId="ICD_K35"   enumTypeId="HMO_ICD10_CODE" enumCode="K35"   sequenceId="100" description="Acute Appendicitis"/>
+    <Enumeration enumId="ICD_L20"   enumTypeId="HMO_ICD10_CODE" enumCode="L20"   sequenceId="110" description="Atopic Dermatitis / Eczema"/>
+    <Enumeration enumId="ICD_M54"   enumTypeId="HMO_ICD10_CODE" enumCode="M54"   sequenceId="120" description="Low Back Pain"/>
+    <Enumeration enumId="ICD_N18"   enumTypeId="HMO_ICD10_CODE" enumCode="N18"   sequenceId="130" description="Chronic Kidney Disease"/>
+    <Enumeration enumId="ICD_O80"   enumTypeId="HMO_ICD10_CODE" enumCode="O80"   sequenceId="140" description="Normal Delivery"/>
+    <Enumeration enumId="ICD_S00"   enumTypeId="HMO_ICD10_CODE" enumCode="S00"   sequenceId="150" description="Superficial Injuries"/>
+    <Enumeration enumId="ICD_Z00"   enumTypeId="HMO_ICD10_CODE" enumCode="Z00"   sequenceId="160" description="General Health Examination"/>
+
+    <!-- ============================================================ -->
+    <!--  CPT PROCEDURE CODE ENUMERATION                              -->
+    <!-- ============================================================ -->
+
+    <EnumerationType enumTypeId="HMO_CPT_CODE" description="CPT Procedure Code" hasTable="N"/>
+
+    <Enumeration enumId="CPT_99201" enumTypeId="HMO_CPT_CODE" enumCode="99201" sequenceId="010" description="Office Visit - New Patient, Straightforward"/>
+    <Enumeration enumId="CPT_99211" enumTypeId="HMO_CPT_CODE" enumCode="99211" sequenceId="020" description="Office Visit - Established Patient, Minimal"/>
+    <Enumeration enumId="CPT_99213" enumTypeId="HMO_CPT_CODE" enumCode="99213" sequenceId="030" description="Office Visit - Established Patient, Low Complexity"/>
+    <Enumeration enumId="CPT_99221" enumTypeId="HMO_CPT_CODE" enumCode="99221" sequenceId="040" description="Initial Hospital Care"/>
+    <Enumeration enumId="CPT_99231" enumTypeId="HMO_CPT_CODE" enumCode="99231" sequenceId="050" description="Subsequent Hospital Care"/>
+    <Enumeration enumId="CPT_99281" enumTypeId="HMO_CPT_CODE" enumCode="99281" sequenceId="060" description="Emergency Department Visit - Low Severity"/>
+    <Enumeration enumId="CPT_99285" enumTypeId="HMO_CPT_CODE" enumCode="99285" sequenceId="070" description="Emergency Department Visit - High Severity"/>
+    <Enumeration enumId="CPT_27447" enumTypeId="HMO_CPT_CODE" enumCode="27447" sequenceId="080" description="Total Knee Arthroplasty"/>
+    <Enumeration enumId="CPT_43239" enumTypeId="HMO_CPT_CODE" enumCode="43239" sequenceId="090" description="Upper GI Endoscopy with Biopsy"/>
+    <Enumeration enumId="CPT_44950" enumTypeId="HMO_CPT_CODE" enumCode="44950" sequenceId="100" description="Appendectomy"/>
+    <Enumeration enumId="CPT_59400" enumTypeId="HMO_CPT_CODE" enumCode="59400" sequenceId="110" description="Routine Obstetric Care (Vaginal Delivery)"/>
+    <Enumeration enumId="CPT_71046" enumTypeId="HMO_CPT_CODE" enumCode="71046" sequenceId="120" description="Chest X-Ray, 2 Views"/>
+    <Enumeration enumId="CPT_80048" enumTypeId="HMO_CPT_CODE" enumCode="80048" sequenceId="130" description="Basic Metabolic Panel"/>
+    <Enumeration enumId="CPT_85025" enumTypeId="HMO_CPT_CODE" enumCode="85025" sequenceId="140" description="Complete Blood Count (CBC)"/>
+    <Enumeration enumId="CPT_87040" enumTypeId="HMO_CPT_CODE" enumCode="87040" sequenceId="150" description="Blood Culture"/>
+    <Enumeration enumId="CPT_90714" enumTypeId="HMO_CPT_CODE" enumCode="90714" sequenceId="160" description="Tetanus Toxoid Injection"/>
+
+    <!-- ============================================================ -->
+    <!--  CLAIM DOCUMENT TYPE ENUMERATION                             -->
+    <!-- ============================================================ -->
+
+    <EnumerationType enumTypeId="HMO_CLAIM_DOC_TYPE" description="HMO Claim Document Type" hasTable="N"/>
+    <Enumeration enumId="CLM_DOC_ENCOUNTER"  enumTypeId="HMO_CLAIM_DOC_TYPE" enumCode="ENCOUNTER"  sequenceId="01" description="Encounter / Clinical Note"/>
+    <Enumeration enumId="CLM_DOC_INVOICE"    enumTypeId="HMO_CLAIM_DOC_TYPE" enumCode="INVOICE"    sequenceId="02" description="Provider Invoice"/>
+    <Enumeration enumId="CLM_DOC_LAB"        enumTypeId="HMO_CLAIM_DOC_TYPE" enumCode="LAB"        sequenceId="03" description="Laboratory Result"/>
+    <Enumeration enumId="CLM_DOC_IMAGING"    enumTypeId="HMO_CLAIM_DOC_TYPE" enumCode="IMAGING"    sequenceId="04" description="Imaging Report"/>
+    <Enumeration enumId="CLM_DOC_DISCHARGE"  enumTypeId="HMO_CLAIM_DOC_TYPE" enumCode="DISCHARGE"  sequenceId="05" description="Discharge Summary"/>
+    <Enumeration enumId="CLM_DOC_REFERRAL"   enumTypeId="HMO_CLAIM_DOC_TYPE" enumCode="REFERRAL"   sequenceId="06" description="Referral Letter"/>
+    <Enumeration enumId="CLM_DOC_PHARMACY_R" enumTypeId="HMO_CLAIM_DOC_TYPE" enumCode="PHARMACY_R" sequenceId="07" description="Pharmacy Prescription and Receipt"/>
+
+    <!-- ============================================================ -->
+    <!--  DENIAL REASON CODE ENUMERATION                              -->
+    <!-- ============================================================ -->
+
+    <EnumerationType enumTypeId="HMO_DENIAL_REASON" description="HMO Claim Denial Reason" hasTable="N"/>
+    <Enumeration enumId="DENY_NOT_COVERED"    enumTypeId="HMO_DENIAL_REASON" enumCode="NOT_COVERED"    sequenceId="01" description="Service Not Covered"/>
+    <Enumeration enumId="DENY_INELIGIBLE"     enumTypeId="HMO_DENIAL_REASON" enumCode="INELIGIBLE"     sequenceId="02" description="Member Not Eligible at Time of Service"/>
+    <Enumeration enumId="DENY_DUP_CLAIM"      enumTypeId="HMO_DENIAL_REASON" enumCode="DUP_CLAIM"      sequenceId="03" description="Duplicate Claim"/>
+    <Enumeration enumId="DENY_NO_PREAUTH"     enumTypeId="HMO_DENIAL_REASON" enumCode="NO_PREAUTH"     sequenceId="04" description="Pre-Authorization Not Obtained"/>
+    <Enumeration enumId="DENY_LIMIT_EXCEEDED" enumTypeId="HMO_DENIAL_REASON" enumCode="LIMIT_EXCEEDED" sequenceId="05" description="Annual Benefit Limit Exceeded"/>
+    <Enumeration enumId="DENY_INCOMPLETE_DOC" enumTypeId="HMO_DENIAL_REASON" enumCode="INCOMPLETE_DOC" sequenceId="06" description="Incomplete Documentation"/>
+    <Enumeration enumId="DENY_OUT_OF_NETWORK" enumTypeId="HMO_DENIAL_REASON" enumCode="OUT_OF_NETWORK" sequenceId="07" description="Out-of-Network Provider"/>
+
+</entity-engine-xml>

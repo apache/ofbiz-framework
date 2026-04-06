@@ -3,7 +3,14 @@ build/
 gradle/wrapper/gradle-wrapper.jar
 applications/*/build
 framework/*/build
-/plugins/
+/plugins/*
+!/plugins/component-load.xml
+!/plugins/hmo-ehdsi
+!/plugins/hmo-ehdsi/**
+!/plugins/hmo-provider
+!/plugins/hmo-provider/**
+!/plugins/hmo-sponsor
+!/plugins/hmo-sponsor/**
 runtime/git-rebase/*
 runtime/SvnInfo.ftl
 runtime/GitInfo.ftl

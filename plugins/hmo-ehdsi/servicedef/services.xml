@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<!--
+    hmo-ehdsi Shared Service Definitions
+    
+    This file defines services consumed by all three HMO plugins:
+      - hmoPermissionCheck   : standard OFBiz-style permission check service
+      - checkMemberEligibility: verify a member's current enrollment status
+      - getActiveCoverage    : retrieve the active coverage record for a member
+      - updateEnrollmentStatus: transition an enrollment record through its status lifecycle
+-->
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/services.xsd">
+    <description>HMO EHDSI Shared Services</description>
+    <vendor>HMO</vendor>
+    <version>1.0</version>
+
+    <!-- ================================================================ -->
+    <!--  Permission check service                                         -->
+    <!-- ================================================================ -->
+
+    <service name="hmoPermissionCheck" engine="groovy" auth="true"
+            location="component://hmo-ehdsi/src/main/groovy/org/apache/ofbiz/hmo/ehdsi/HmoPermissionCheck.groovy"
+            invoke="hmoPermissionCheck">
+        <description>Standard HMO permission check. Requires HMO_ADMIN or the specific
+            permission passed as mainAction on the HMO permission family.</description>
+        <attribute name="mainAction" mode="IN" type="String" optional="false"/>
+        <attribute name="resourceDescription" mode="IN" type="String" optional="true"/>
+        <attribute name="hasPermission" mode="OUT" type="Boolean"/>
+        <attribute name="failMessage" mode="OUT" type="String" optional="true"/>
+    </service>
+
+    <!-- ================================================================ -->
+    <!--  Member eligibility check                                         -->
+    <!-- ================================================================ -->
+
+    <service name="checkMemberEligibility" engine="groovy" auth="true"
+            location="component://hmo-ehdsi/src/main/groovy/org/apache/ofbiz/hmo/ehdsi/CheckMemberEligibility.groovy"
+            invoke="checkMemberEligibility">
+        <description>Check whether a member (enrollee) is currently eligible for
+            HMO services. Looks up the active HmoEnrollmentRecord and returns
+            coverage details. Used by both the provider and member portals.</description>
+        <!-- Supply either memberIdNumber OR enrollmentId -->
+        <attribute name="memberIdNumber" mode="IN" type="String" optional="true"/>
+        <attribute name="enrollmentId" mode="IN" type="String" optional="true"/>
+        <!-- Outputs -->
+        <attribute name="isEligible" mode="OUT" type="String"/>
+        <attribute name="enrollmentId" mode="OUT" type="String" optional="true"/>
+        <attribute name="enrolleePartyId" mode="OUT" type="String" optional="true"/>
+        <attribute name="statusId" mode="OUT" type="String" optional="true"/>
+        <attribute name="planTierEnumId" mode="OUT" type="String" optional="true"/>
+        <attribute name="coverageTypeEnumId" mode="OUT" type="String" optional="true"/>
+        <attribute name="annualLimitAmount" mode="OUT" type="BigDecimal" optional="true"/>
+        <attribute name="fromDate" mode="OUT" type="Timestamp" optional="true"/>
+        <attribute name="thruDate" mode="OUT" type="Timestamp" optional="true"/>
+        <attribute name="ineligibilityReason" mode="OUT" type="String" optional="true"/>
+    </service>
+
+    <!-- ================================================================ -->
+    <!--  Active coverage lookup                                           -->
+    <!-- ================================================================ -->
+
+    <service name="getActiveCoverage" engine="groovy" auth="true"
+            location="component://hmo-ehdsi/src/main/groovy/org/apache/ofbiz/hmo/ehdsi/GetActiveCoverage.groovy"
+            invoke="getActiveCoverage">
+        <description>Retrieve the active HmoEnrollmentRecord and associated
+            HmoSponsorPolicy for the given party. Used by sponsor, provider,
+            and member portals for dashboard display.</description>
+        <attribute name="enrolleePartyId" mode="IN" type="String" optional="false"/>
+        <!-- Outputs -->
+        <attribute name="enrollmentRecord" mode="OUT" type="org.apache.ofbiz.entity.GenericValue" optional="true"/>
+        <attribute name="sponsorPolicy" mode="OUT" type="org.apache.ofbiz.entity.GenericValue" optional="true"/>
+        <attribute name="planTierDescription" mode="OUT" type="String" optional="true"/>
+        <attribute name="coverageTypeDescription" mode="OUT" type="String" optional="true"/>
+        <attribute name="dependents" mode="OUT" type="java.util.List" optional="true"/>
+    </service>
+
+    <!-- ================================================================ -->
+    <!--  Enrollment status transition                                     -->
+    <!-- ================================================================ -->
+
+    <service name="updateEnrollmentStatus" engine="groovy" auth="true"
+            location="component://hmo-ehdsi/src/main/groovy/org/apache/ofbiz/hmo/ehdsi/UpdateEnrollmentStatus.groovy"
+            invoke="updateEnrollmentStatus">
+        <description>Transition an HmoEnrollmentRecord to a new status, validating
+            the transition against the HMO_ENROLL_STATUS state machine.</description>
+        <permission-service service-name="hmoPermissionCheck" main-action="HMO_ENROLL"/>
+        <attribute name="enrollmentId" mode="IN" type="String" optional="false"/>
+        <attribute name="statusId" mode="IN" type="String" optional="false"/>
+        <attribute name="reason" mode="IN" type="String" optional="true"/>
+    </service>
+
+</services>

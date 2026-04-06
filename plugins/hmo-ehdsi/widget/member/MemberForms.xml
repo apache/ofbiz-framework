@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://ofbiz.apache.org/Widget-Form"
+        xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
+
+    <!-- ================================================================ -->
+    <!--  Coverage detail (read-only)                                      -->
+    <!-- ================================================================ -->
+    <form name="CoverageDetail" type="single" map-name="enrollment">
+        <field name="enrollmentId">
+            <display/>
+        </field>
+        <field name="memberIdNumber">
+            <display/>
+        </field>
+        <field name="statusId" title="${uiLabelMap.HmoEnrollmentStatus}">
+            <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
+        </field>
+        <field name="coverageTypeEnumId" title="${uiLabelMap.HmoCoverageType}">
+            <display-entity entity-name="Enumeration" key-field-name="enumId" description="${description}"/>
+        </field>
+        <field name="fromDate" title="${uiLabelMap.HmoEffectiveFrom}">
+            <display type="date-time"/>
+        </field>
+        <field name="thruDate" title="${uiLabelMap.HmoEffectiveTo}">
+            <display type="date-time"/>
+        </field>
+    </form>
+
+    <!-- ================================================================ -->
+    <!--  Dependent list                                                   -->
+    <!-- ================================================================ -->
+    <grid name="DependentList" list-name="dependents" type="list">
+        <field name="enrollmentId">
+            <display/>
+        </field>
+        <field name="memberIdNumber">
+            <display/>
+        </field>
+        <field name="statusId">
+            <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
+        </field>
+        <field name="fromDate">
+            <display type="date"/>
+        </field>
+    </grid>
+
+    <!-- ================================================================ -->
+    <!--  Provider search form                                             -->
+    <!-- ================================================================ -->
+    <form name="FindProviderForm" type="single" target="findProvider">
+        <field name="specialtyEnumId" title="${uiLabelMap.HmoSpecialty}">
+            <drop-down allow-empty="true" current="first-in-list" no-current-selected-key="HMO_SPEC_GP">
+                <entity-options entity-name="Enumeration" description="${description}" key-field-name="enumId">
+                    <entity-constraint name="enumTypeId" value="HMO_PROVIDER_SPEC"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="networkTierEnumId" title="${uiLabelMap.HmoNetworkTier}">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="Enumeration" description="${description}" key-field-name="enumId">
+                    <entity-constraint name="enumTypeId" value="HMO_NETWORK_TIER"/>
+                    <entity-order-by field-name="sequenceId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="searchButton" title="">
+            <submit button-type="button" text="${uiLabelMap.CommonSearch}"/>
+        </field>
+    </form>
+
+    <!-- ================================================================ -->
+    <!--  Provider search results                                          -->
+    <!-- ================================================================ -->
+    <grid name="ProviderSearchResults" list-name="providerList" type="list">
+        <field name="partyId" title="${uiLabelMap.HmoProviderPartyId}">
+            <display/>
+        </field>
+        <field name="groupName" title="${uiLabelMap.HmoProviderName}">
+            <display/>
+        </field>
+        <field name="specialtyEnumId" title="${uiLabelMap.HmoSpecialty}">
+            <display-entity entity-name="Enumeration" key-field-name="enumId" description="${description}"/>
+        </field>
+        <field name="networkTierEnumId" title="${uiLabelMap.HmoNetworkTier}">
+            <display-entity entity-name="Enumeration" key-field-name="enumId" description="${description}"/>
+        </field>
+    </grid>
+
+    <!-- ================================================================ -->
+    <!--  Claim list                                                       -->
+    <!-- ================================================================ -->
+    <grid name="ClaimList" list-name="claimList" type="list">
+        <field name="claimId" title="${uiLabelMap.HmoClaimId}">
+            <hyperlink description="${claimId}" target="viewClaim">
+                <parameter param-name="claimId"/>
+            </hyperlink>
+        </field>
+        <field name="claimTypeEnumId" title="${uiLabelMap.HmoClaimType}">
+            <display-entity entity-name="Enumeration" key-field-name="enumId" description="${description}"/>
+        </field>
+        <field name="serviceFromDate" title="${uiLabelMap.HmoServiceDate}">
+            <display type="date"/>
+        </field>
+        <field name="statusId" title="${uiLabelMap.HmoStatus}">
+            <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
+        </field>
+        <field name="billedAmount" title="${uiLabelMap.HmoBilledAmount}">
+            <display type="currency" currency="${claim.currencyUomId}"/>
+        </field>
+        <field name="approvedAmount" title="${uiLabelMap.HmoApprovedAmount}">
+            <display type="currency" currency="${claim.currencyUomId}"/>
+        </field>
+    </grid>
+
+    <!-- ================================================================ -->
+    <!--  Claim detail (read-only)                                         -->
+    <!-- ================================================================ -->
+    <form name="ClaimDetail" type="single" map-name="claim">
+        <field name="claimId"><display/></field>
+        <field name="claimTypeEnumId" title="${uiLabelMap.HmoClaimType}">
+            <display-entity entity-name="Enumeration" key-field-name="enumId" description="${description}"/>
+        </field>
+        <field name="statusId" title="${uiLabelMap.HmoStatus}">
+            <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
+        </field>
+        <field name="serviceFromDate" title="${uiLabelMap.HmoServiceFrom}"><display type="date"/></field>
+        <field name="serviceThruDate" title="${uiLabelMap.HmoServiceThru}"><display type="date"/></field>
+        <field name="billedAmount" title="${uiLabelMap.HmoBilledAmount}">
+            <display type="currency" currency="${claim.currencyUomId}"/>
+        </field>
+        <field name="approvedAmount" title="${uiLabelMap.HmoApprovedAmount}">
+            <display type="currency" currency="${claim.currencyUomId}"/>
+        </field>
+        <field name="reviewNotes" title="${uiLabelMap.HmoNotes}"><display/></field>
+    </form>
+
+    <!-- ================================================================ -->
+    <!--  Pre-auth list                                                    -->
+    <!-- ================================================================ -->
+    <grid name="PreAuthList" list-name="preAuthList" type="list">
+        <field name="preAuthId" title="${uiLabelMap.HmoPreAuthId}">
+            <display/>
+        </field>
+        <field name="requestedServiceTypeEnumId" title="${uiLabelMap.HmoServiceType}">
+            <display-entity entity-name="Enumeration" key-field-name="enumId" description="${description}"/>
+        </field>
+        <field name="requestDate" title="${uiLabelMap.HmoRequestDate}">
+            <display type="date"/>
+        </field>
+        <field name="statusId" title="${uiLabelMap.HmoStatus}">
+            <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
+        </field>
+    </grid>
+
+    <!-- ================================================================ -->
+    <!--  Profile detail                                                   -->
+    <!-- ================================================================ -->
+    <form name="ProfileDetail" type="single" map-name="person">
+        <field name="firstName" title="${uiLabelMap.CommonFirstName}"><display/></field>
+        <field name="lastName"  title="${uiLabelMap.CommonLastName}"><display/></field>
+        <field name="userLoginId" title="${uiLabelMap.CommonUsername}" map-name="userLogin"><display/></field>
+    </form>
+
+</forms>

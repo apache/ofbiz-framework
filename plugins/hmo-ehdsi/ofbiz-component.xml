@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<!--
+    hmo-ehdsi — Enrollee Health and Digital Services Interface
+    
+    This plugin provides:
+      1. /hmomember  — Member self-service portal (enrollee login, coverage, claims)
+      2. /hmomgmt    — Internal HMO management application (claims officers, care managers)
+    
+    It also hosts the shared service library (checkMemberEligibility, getActiveCoverage,
+    hmoPermissionCheck) consumed by both hmo-provider and hmo-sponsor plugins.
+-->
+<ofbiz-component name="hmo-ehdsi"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/ofbiz-component.xsd">
+
+    <resource-loader name="main" type="component"/>
+    <classpath type="dir" location="config"/>
+
+    <!-- Seed data: OFBTOOLS permission assignment for HMO roles -->
+    <entity-resource type="data" reader-name="seed" loader="main" location="data/seed/HmoEhdsiSeedData.xml"/>
+
+    <!-- Shared HMO services: eligibility check, coverage lookup, permission check -->
+    <service-resource type="model" loader="main" location="servicedef/services.xml"/>
+
+    <!--
+        Member Self-Service Portal
+        base-permission="HMO_VIEW" — all enrollee/provider/sponsor security groups have this;
+        the login page itself is auth="false" so unauthenticated users land on the login screen.
+    -->
+    <webapp name="hmomember"
+        title="HMO Member Portal"
+        position="20"
+        description="HMO Enrollee Self-Service Portal"
+        server="default-server"
+        location="webapp/hmomember"
+        base-permission="HMO_VIEW"
+        mount-point="/hmomember"
+        app-bar-display="false"/>
+
+    <!--
+        Internal HMO Management Application
+        base-permission="OFBTOOLS,HMO_VIEW" — requires admin tool access and HMO permission.
+    -->
+    <webapp name="hmomgmt"
+        title="HMO Management"
+        position="21"
+        description="HMO Internal Management Application"
+        server="default-server"
+        location="webapp/hmomgmt"
+        base-permission="OFBTOOLS,HMO_VIEW"
+        mount-point="/hmomgmt"
+        app-shortcut-screen="component://hmo-ehdsi/widget/mgmt/CommonScreens.xml#ShortcutApp"
+        app-bar-display="true"/>
+
+</ofbiz-component>

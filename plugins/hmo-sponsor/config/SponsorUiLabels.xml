@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/ofbiz-properties.xsd">
+
+    <property key="HmoSponsorPortalTitle">
+        <value xml:lang="en">HMO Sponsor Portal</value>
+    </property>
+    <property key="HmoSponsorDashboard">
+        <value xml:lang="en">Sponsor Dashboard</value>
+    </property>
+    <property key="HmoActiveEnrollees">
+        <value xml:lang="en">Active Enrollees</value>
+    </property>
+    <property key="HmoMonthlyPremium">
+        <value xml:lang="en">Monthly Premium</value>
+    </property>
+    <property key="HmoPendingRenewals">
+        <value xml:lang="en">Pending Renewals</value>
+    </property>
+    <property key="HmoManage">
+        <value xml:lang="en">Manage</value>
+    </property>
+    <property key="HmoViewBilling">
+        <value xml:lang="en">View Billing</value>
+    </property>
+    <property key="HmoViewPolicies">
+        <value xml:lang="en">View Policies</value>
+    </property>
+    <property key="HmoViewReports">
+        <value xml:lang="en">View Reports</value>
+    </property>
+    <property key="HmoReports">
+        <value xml:lang="en">Reports</value>
+    </property>
+    <property key="HmoEnrolleeList">
+        <value xml:lang="en">Enrollee Management</value>
+    </property>
+    <property key="HmoEnrollees">
+        <value xml:lang="en">Enrollees</value>
+    </property>
+    <property key="HmoAddEnrollee">
+        <value xml:lang="en">Add New Enrollee</value>
+    </property>
+    <property key="HmoEnrolleeDetail">
+        <value xml:lang="en">Enrollee Detail</value>
+    </property>
+    <property key="HmoEnrolleeActions">
+        <value xml:lang="en">Enrollment Actions</value>
+    </property>
+    <property key="HmoSuspend">
+        <value xml:lang="en">Suspend Enrollment</value>
+    </property>
+    <property key="HmoReinstate">
+        <value xml:lang="en">Reinstate Enrollment</value>
+    </property>
+    <property key="HmoTerminate">
+        <value xml:lang="en">Terminate Enrollment</value>
+    </property>
+    <property key="HmoEnroll">
+        <value xml:lang="en">Enroll Member</value>
+    </property>
+    <property key="HmoPrimaryEnrollee">
+        <value xml:lang="en">Primary Enrollee (for dependents)</value>
+    </property>
+    <property key="HmoGroupId">
+        <value xml:lang="en">Employer Group ID</value>
+    </property>
+    <property key="HmoPolicyList">
+        <value xml:lang="en">Group Policies</value>
+    </property>
+    <property key="HmoPolicies">
+        <value xml:lang="en">Policies</value>
+    </property>
+    <property key="HmoNewPolicy">
+        <value xml:lang="en">New Group Policy</value>
+    </property>
+    <property key="HmoEditPolicy">
+        <value xml:lang="en">Edit Policy</value>
+    </property>
+    <property key="HmoCreatePolicy">
+        <value xml:lang="en">Create Policy</value>
+    </property>
+    <property key="HmoMaxDependents">
+        <value xml:lang="en">Max Dependents</value>
+    </property>
+    <property key="HmoBilling">
+        <value xml:lang="en">Billing</value>
+    </property>
+    <property key="HmoBillingStatement">
+        <value xml:lang="en">Billing Statement</value>
+    </property>
+    <property key="HmoGenerateStatement">
+        <value xml:lang="en">Generate Billing Statement</value>
+    </property>
+    <property key="HmoPeriodFrom">
+        <value xml:lang="en">Period From</value>
+    </property>
+    <property key="HmoPeriodThru">
+        <value xml:lang="en">Period Thru</value>
+    </property>
+    <property key="HmoTotalPremium">
+        <value xml:lang="en">Total Premium</value>
+    </property>
+    <property key="HmoTotalClaimsCost">
+        <value xml:lang="en">Total Claims Cost</value>
+    </property>
+    <property key="HmoSponsorPartyId">
+        <value xml:lang="en">Sponsor</value>
+    </property>
+    <property key="HmoSponsorPolicy">
+        <value xml:lang="en">Group Policy</value>
+    </property>
+    <property key="HmoUtilisationReport">
+        <value xml:lang="en">Claims Utilisation by Employee</value>
+    </property>
+    <property key="HmoMostUsedProvider">
+        <value xml:lang="en">Most Used Provider</value>
+    </property>
+    <property key="HmoTopClaimType">
+        <value xml:lang="en">Top Claim Type</value>
+    </property>
+
+    <!-- Shared field labels -->
+    <property key="HmoDashboard">
+        <value xml:lang="en">Dashboard</value>
+    </property>
+    <property key="HmoEnrollmentId">
+        <value xml:lang="en">Enrollment ID</value>
+    </property>
+    <property key="HmoEnrollee">
+        <value xml:lang="en">Enrollee</value>
+    </property>
+    <property key="HmoEnrollment">
+        <value xml:lang="en">Enrollment ID</value>
+    </property>
+    <property key="HmoMemberId">
+        <value xml:lang="en">Member ID</value>
+    </property>
+    <property key="HmoCoverageType">
+        <value xml:lang="en">Coverage Type</value>
+    </property>
+    <property key="HmoStatus">
+        <value xml:lang="en">Status</value>
+    </property>
+    <property key="HmoEffectiveFrom">
+        <value xml:lang="en">Effective From</value>
+    </property>
+    <property key="HmoEffectiveTo">
+        <value xml:lang="en">Effective To</value>
+    </property>
+    <property key="HmoPolicyId">
+        <value xml:lang="en">Policy ID</value>
+    </property>
+    <property key="HmoPlanTier">
+        <value xml:lang="en">Plan Tier</value>
+    </property>
+    <property key="HmoPremium">
+        <value xml:lang="en">Premium Amount</value>
+    </property>
+    <property key="HmoAnnualLimit">
+        <value xml:lang="en">Annual Benefit Limit</value>
+    </property>
+    <property key="HmoCurrency">
+        <value xml:lang="en">Currency</value>
+    </property>
+    <property key="HmoTotalClaims">
+        <value xml:lang="en">Total Claims</value>
+    </property>
+    <property key="HmoTotalApproved">
+        <value xml:lang="en">Total Approved</value>
+    </property>
+    <property key="HmoNoPermission">
+        <value xml:lang="en">You do not have permission to view this page.</value>
+    </property>
+
+</resource>

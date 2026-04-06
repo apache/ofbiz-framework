@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<!--
+    hmo-provider Service Definitions
+    
+    Services for the healthcare provider portal:
+      Pre-Authorization lifecycle:
+        createPreAuthorization, approvePreAuthorization, denyPreAuthorization
+      Claim lifecycle:
+        submitClaim, reviewClaim, approveClaim, rejectClaim, markClaimPaid
+      Eligibility:
+        checkMemberEligibility (defined in hmo-ehdsi, called from provider portal)
+-->
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/services.xsd">
+    <description>HMO Provider Services</description>
+    <vendor>HMO</vendor>
+    <version>1.0</version>
+
+    <!-- ================================================================ -->
+    <!--  Pre-Authorization                                               -->
+    <!-- ================================================================ -->
+
+    <service name="createPreAuthorization" default-entity-name="HmoPreAuthorization"
+            engine="entity-auto" invoke="create" auth="true">
+        <description>Create a new pre-authorisation request for a healthcare service.</description>
+        <permission-service service-name="hmoPermissionCheck" main-action="CLAIM_CREATE"/>
+        <auto-attributes mode="INOUT" include="pk" optional="true"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+        <override name="enrollmentId" optional="false"/>
+        <override name="providerPartyId" optional="false"/>
+        <override name="requestedServiceTypeEnumId" optional="false"/>
+        <override name="statusId" optional="true" default-value="HMO_AUTH_PENDING"/>
+        <override name="requestDate" optional="true"/>
+    </service>
+
+    <service name="updatePreAuthorization" default-entity-name="HmoPreAuthorization"
+            engine="entity-auto" invoke="update" auth="true">
+        <description>Update a pre-authorisation record.</description>
+        <permission-service service-name="hmoPermissionCheck" main-action="CLAIM_UPDATE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+
+    <service name="approvePreAuthorization" engine="groovy" auth="true"
+            location="component://hmo-provider/src/main/groovy/org/apache/ofbiz/hmo/provider/ProviderServices.groovy"
+            invoke="approvePreAuthorization">
+        <description>Approve a pending pre-authorisation request and optionally set the
+            approved amount. Validates the HMO_AUTH_STATUS transition to HMO_AUTH_APPROVED.</description>
+        <permission-service service-name="hmoPermissionCheck" main-action="CLAIM_APPROVE"/>
+        <attribute name="preAuthId"      mode="IN" type="String"     optional="false"/>
+        <attribute name="approvedAmount" mode="IN" type="BigDecimal"  optional="true"/>
+        <attribute name="reviewNotes"    mode="IN" type="String"     optional="true"/>
+    </service>
+
+    <service name="denyPreAuthorization" engine="groovy" auth="true"
+            location="component://hmo-provider/src/main/groovy/org/apache/ofbiz/hmo/provider/ProviderServices.groovy"
+            invoke="denyPreAuthorization">
+        <description>Deny a pending pre-authorisation request.
+            Validates the HMO_AUTH_STATUS transition to HMO_AUTH_DENIED.</description>
+        <permission-service service-name="hmoPermissionCheck" main-action="CLAIM_APPROVE"/>
+        <attribute name="preAuthId"   mode="IN" type="String" optional="false"/>
+        <attribute name="reviewNotes" mode="IN" type="String" optional="true"/>
+    </service>
+
+    <!-- ================================================================ -->
+    <!--  Claim lifecycle                                                  -->
+    <!-- ================================================================ -->
+
+    <service name="submitClaim" engine="groovy" auth="true"
+            location="component://hmo-provider/src/main/groovy/org/apache/ofbiz/hmo/provider/ProviderServices.groovy"
+            invoke="submitClaim">
+        <description>Submit a new claim for healthcare services rendered. Creates the
+            HmoClaim record with status HMO_CLM_SUBMITTED. Pre-auth is optional for
+            emergency and pharmacy claim types.</description>
+        <permission-service service-name="hmoPermissionCheck" main-action="CLAIM_CREATE"/>
+        <attribute name="enrollmentId"     mode="IN" type="String"     optional="false"/>
+        <attribute name="providerPartyId"  mode="IN" type="String"     optional="false"/>
+        <attribute name="claimTypeEnumId"  mode="IN" type="String"     optional="false"/>
+        <attribute name="preAuthId"        mode="IN" type="String"     optional="true"/>
+        <attribute name="serviceFromDate"  mode="IN" type="Timestamp"  optional="false"/>
+        <attribute name="serviceThruDate"  mode="IN" type="Timestamp"  optional="true"/>
+        <attribute name="billedAmount"     mode="IN" type="BigDecimal" optional="false"/>
+        <attribute name="currencyUomId"    mode="IN" type="String"     optional="false"/>
+        <attribute name="claimLines"       mode="IN" type="java.util.List" optional="true"/>
+        <attribute name="claimId"          mode="OUT" type="String"/>
+    </service>
+
+    <service name="reviewClaim" engine="groovy" auth="true"
+            location="component://hmo-provider/src/main/groovy/org/apache/ofbiz/hmo/provider/ProviderServices.groovy"
+            invoke="reviewClaim">
+        <description>Move a submitted claim to Under Review status.</description>
+        <permission-service service-name="hmoPermissionCheck" main-action="CLAIM_UPDATE"/>
+        <attribute name="claimId"     mode="IN" type="String" optional="false"/>
+        <attribute name="reviewNotes" mode="IN" type="String" optional="true"/>
+    </service>
+
+    <service name="approveClaim" engine="groovy" auth="true"
+            location="component://hmo-provider/src/main/groovy/org/apache/ofbiz/hmo/provider/ProviderServices.groovy"
+            invoke="approveClaim">
+        <description>Approve a claim and set the approved amount.</description>
+        <permission-service service-name="hmoPermissionCheck" main-action="CLAIM_APPROVE"/>
+        <attribute name="claimId"        mode="IN" type="String"     optional="false"/>
+        <attribute name="approvedAmount" mode="IN" type="BigDecimal" optional="false"/>
+        <attribute name="reviewNotes"    mode="IN" type="String"     optional="true"/>
+    </service>
+
+    <service name="rejectClaim" engine="groovy" auth="true"
+            location="component://hmo-provider/src/main/groovy/org/apache/ofbiz/hmo/provider/ProviderServices.groovy"
+            invoke="rejectClaim">
+        <description>Reject a claim. Sets denialReasonCode and review notes.</description>
+        <permission-service service-name="hmoPermissionCheck" main-action="CLAIM_APPROVE"/>
+        <attribute name="claimId"          mode="IN" type="String" optional="false"/>
+        <attribute name="denialReasonCode" mode="IN" type="String" optional="true"/>
+        <attribute name="reviewNotes"      mode="IN" type="String" optional="true"/>
+    </service>
+
+    <service name="markClaimPaid" engine="groovy" auth="true"
+            location="component://hmo-provider/src/main/groovy/org/apache/ofbiz/hmo/provider/ProviderServices.groovy"
+            invoke="markClaimPaid">
+        <description>Record payment of an approved claim.</description>
+        <permission-service service-name="hmoPermissionCheck" main-action="CLAIM_APPROVE"/>
+        <attribute name="claimId"     mode="IN" type="String"     optional="false"/>
+        <attribute name="paidAmount"  mode="IN" type="BigDecimal" optional="false"/>
+        <attribute name="reviewNotes" mode="IN" type="String"     optional="true"/>
+    </service>
+
+</services>

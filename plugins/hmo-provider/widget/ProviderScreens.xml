@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://ofbiz.apache.org/Widget-Screen"
+        xsi:schemaLocation="http://ofbiz.apache.org/Widget-Screen http://ofbiz.apache.org/dtds/widget-screen.xsd">
+
+    <!-- ================================================================ -->
+    <!--  Provider Dashboard                                               -->
+    <!-- ================================================================ -->
+    <screen name="ProviderDashboard">
+        <section>
+            <actions>
+                <set field="titleProperty" value="HmoProviderDashboard"/>
+                <script location="component://hmo-provider/src/main/groovy/org/apache/ofbiz/hmo/provider/ProviderDashboard.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container style="dashboard-tiles">
+                            <container style="tile">
+                                <label style="tile-title">${uiLabelMap.HmoPreAuthPending}</label>
+                                <label>${pendingPreAuthCount}</label>
+                                <link target="preAuthList" text="${uiLabelMap.HmoViewAll}"/>
+                            </container>
+                            <container style="tile">
+                                <label style="tile-title">${uiLabelMap.HmoClaimsSubmitted}</label>
+                                <label>${submittedClaimsCount}</label>
+                                <link target="claimList" text="${uiLabelMap.HmoViewAll}"/>
+                            </container>
+                            <container style="tile">
+                                <label style="tile-title">${uiLabelMap.HmoClaimsApproved}</label>
+                                <label>${approvedClaimsCount}</label>
+                                <link target="claimList" text="${uiLabelMap.HmoViewAll}"/>
+                            </container>
+                            <container style="tile">
+                                <label style="tile-title">${uiLabelMap.HmoPaymentsPending}</label>
+                                <label>${pendingPaymentsCount}</label>
+                                <link target="paymentList" text="${uiLabelMap.HmoViewAll}"/>
+                            </container>
+                        </container>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <!-- ================================================================ -->
+    <!--  Check Eligibility                                                -->
+    <!-- ================================================================ -->
+    <screen name="CheckEligibility">
+        <section>
+            <actions>
+                <set field="titleProperty" value="HmoCheckEligibility"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.HmoCheckEligibility}">
+                            <include-form name="EligibilityCheckForm" location="component://hmo-provider/widget/ProviderForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <!-- ================================================================ -->
+    <!--  Eligibility Result                                               -->
+    <!-- ================================================================ -->
+    <screen name="EligibilityResult">
+        <section>
+            <actions>
+                <set field="titleProperty" value="HmoEligibilityResult"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.HmoEligibilityResult}">
+                            <include-form name="EligibilityResultForm" location="component://hmo-provider/widget/ProviderForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <!-- ================================================================ -->
+    <!--  Pre-Authorization List                                           -->
+    <!-- ================================================================ -->
+    <screen name="PreAuthList">
+        <section>
+            <actions>
+                <set field="titleProperty" value="HmoPreAuthList"/>
+                <script location="component://hmo-provider/src/main/groovy/org/apache/ofbiz/hmo/provider/PreAuthList.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.HmoNewPreAuth}">
+                            <link target="newPreAuth" text="${uiLabelMap.HmoNewPreAuth}" style="buttontext"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.HmoMyPreAuths}">
+                            <include-grid name="PreAuthGrid" location="component://hmo-provider/widget/ProviderForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <!-- ================================================================ -->
+    <!--  New Pre-Authorization Form                                       -->
+    <!-- ================================================================ -->
+    <screen name="NewPreAuth">
+        <section>
+            <actions>
+                <set field="titleProperty" value="HmoNewPreAuth"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.HmoNewPreAuth}">
+                            <include-form name="CreatePreAuthForm" location="component://hmo-provider/widget/ProviderForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <!-- ================================================================ -->
+    <!--  View Pre-Authorization                                           -->
+    <!-- ================================================================ -->
+    <screen name="ViewPreAuth">
+        <section>
+            <actions>
+                <set field="titleProperty" value="HmoPreAuthDetail"/>
+                <entity-one entity-name="HmoPreAuthorization" value-field="preAuth">
+                    <field-map field-name="preAuthId" from-field="parameters.preAuthId"/>
+                </entity-one>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.HmoPreAuthDetail}">
+                            <include-form name="PreAuthDetailForm" location="component://hmo-provider/widget/ProviderForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <!-- ================================================================ -->
+    <!--  Claim List                                                       -->
+    <!-- ================================================================ -->
+    <screen name="ClaimList">
+        <section>
+            <actions>
+                <set field="titleProperty" value="HmoClaimList"/>
+                <script location="component://hmo-provider/src/main/groovy/org/apache/ofbiz/hmo/provider/ClaimList.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="">
+                            <link target="newClaim" text="${uiLabelMap.HmoSubmitClaim}" style="buttontext"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.HmoMyClaims}">
+                            <include-grid name="ClaimGrid" location="component://hmo-provider/widget/ProviderForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <!-- ================================================================ -->
+    <!--  New Claim Form                                                   -->
+    <!-- ================================================================ -->
+    <screen name="NewClaim">
+        <section>
+            <actions>
+                <set field="titleProperty" value="HmoSubmitClaim"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.HmoSubmitClaim}">
+                            <include-form name="SubmitClaimForm" location="component://hmo-provider/widget/ProviderForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <!-- ================================================================ -->
+    <!--  View Claim                                                       -->
+    <!-- ================================================================ -->
+    <screen name="ViewClaim">
+        <section>
+            <actions>
+                <set field="titleProperty" value="HmoClaimDetail"/>
+                <entity-one entity-name="HmoClaim" value-field="claim">
+                    <field-map field-name="claimId" from-field="parameters.claimId"/>
+                </entity-one>
+                <entity-and entity-name="HmoClaimLine" list="claimLines">
+                    <field-map field-name="claimId" from-field="parameters.claimId"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.HmoClaimDetail}">
+                            <include-form name="ClaimDetailForm" location="component://hmo-provider/widget/ProviderForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.HmoClaimLines}">
+                            <include-grid name="ClaimLinesGrid" location="component://hmo-provider/widget/ProviderForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <!-- ================================================================ -->
+    <!--  Payment / Remittance List                                        -->
+    <!-- ================================================================ -->
+    <screen name="PaymentList">
+        <section>
+            <actions>
+                <set field="titleProperty" value="HmoPaymentList"/>
+                <script location="component://hmo-provider/src/main/groovy/org/apache/ofbiz/hmo/provider/PaymentList.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.HmoPayments}">
+                            <include-grid name="PaymentGrid" location="component://hmo-provider/widget/ProviderForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+</screens>

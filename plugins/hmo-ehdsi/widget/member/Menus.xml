@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://ofbiz.apache.org/Widget-Menu"
+        xsi:schemaLocation="http://ofbiz.apache.org/Widget-Menu http://ofbiz.apache.org/dtds/widget-menu.xsd">
+
+    <menu name="MemberAppBar" title="${uiLabelMap.HmoMemberPortalTitle}"
+            extends="CommonAppBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+        <menu-item name="Dashboard"    title="${uiLabelMap.HmoDashboard}">
+            <link target="main"/>
+        </menu-item>
+        <menu-item name="MyCoverage"   title="${uiLabelMap.HmoCoverage}">
+            <link target="myCoverage"/>
+        </menu-item>
+        <menu-item name="MyDependents" title="${uiLabelMap.HmoMyDependents}">
+            <link target="myDependents"/>
+        </menu-item>
+        <menu-item name="FindProvider" title="${uiLabelMap.HmoFindProvider}">
+            <link target="findProvider"/>
+        </menu-item>
+        <menu-item name="MyClaims"     title="${uiLabelMap.HmoClaims}">
+            <link target="myClaims"/>
+        </menu-item>
+        <menu-item name="MyPreAuths"   title="${uiLabelMap.HmoPreAuth}">
+            <link target="myPreAuths"/>
+        </menu-item>
+        <menu-item name="MyProfile"    title="${uiLabelMap.HmoMyProfile}">
+            <link target="myProfile"/>
+        </menu-item>
+    </menu>
+
+</menus>

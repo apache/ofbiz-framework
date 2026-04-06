@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://ofbiz.apache.org/Site-Conf"
+        xsi:schemaLocation="http://ofbiz.apache.org/Site-Conf http://ofbiz.apache.org/dtds/site-conf.xsd">
+
+    <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>
+    <description>HMO Provider Portal Controller</description>
+
+    <request-map uri="view">
+        <security https="true" auth="true"/>
+        <response name="success" type="request" value="main"/>
+    </request-map>
+
+    <request-map uri="main">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="main"/>
+    </request-map>
+
+    <!-- ================================================================ -->
+    <!--  Eligibility verification                                         -->
+    <!-- ================================================================ -->
+
+    <request-map uri="checkEligibility">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="checkEligibility"/>
+    </request-map>
+
+    <request-map uri="verifyMember">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="checkMemberEligibility"/>
+        <response name="success" type="view" value="eligibilityResult"/>
+        <response name="error"   type="view" value="checkEligibility"/>
+    </request-map>
+
+    <request-map uri="eligibilityResult">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="eligibilityResult"/>
+    </request-map>
+
+    <!-- ================================================================ -->
+    <!--  Pre-Authorization                                               -->
+    <!-- ================================================================ -->
+
+    <request-map uri="preAuthList">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="preAuthList"/>
+    </request-map>
+
+    <request-map uri="newPreAuth">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="newPreAuth"/>
+    </request-map>
+
+    <request-map uri="createPreAuthorization">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createPreAuthorization"/>
+        <response name="success" type="view" value="preAuthList"/>
+        <response name="error"   type="view" value="newPreAuth"/>
+    </request-map>
+
+    <request-map uri="viewPreAuth">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="viewPreAuth"/>
+    </request-map>
+
+    <!-- ================================================================ -->
+    <!--  Claims                                                           -->
+    <!-- ================================================================ -->
+
+    <request-map uri="claimList">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="claimList"/>
+    </request-map>
+
+    <request-map uri="newClaim">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="newClaim"/>
+    </request-map>
+
+    <request-map uri="submitClaim">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="submitClaim"/>
+        <response name="success" type="view" value="claimList"/>
+        <response name="error"   type="view" value="newClaim"/>
+    </request-map>
+
+    <request-map uri="viewClaim">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="viewClaim"/>
+    </request-map>
+
+    <!-- ================================================================ -->
+    <!--  Payment reconciliation                                           -->
+    <!-- ================================================================ -->
+
+    <request-map uri="paymentList">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="paymentList"/>
+    </request-map>
+
+    <!-- ================================================================ -->
+    <!--  View Mappings                                                    -->
+    <!-- ================================================================ -->
+
+    <view-map name="main"              type="screen" page="component://hmo-provider/widget/ProviderScreens.xml#ProviderDashboard"/>
+    <view-map name="checkEligibility"  type="screen" page="component://hmo-provider/widget/ProviderScreens.xml#CheckEligibility"/>
+    <view-map name="eligibilityResult" type="screen" page="component://hmo-provider/widget/ProviderScreens.xml#EligibilityResult"/>
+    <view-map name="preAuthList"       type="screen" page="component://hmo-provider/widget/ProviderScreens.xml#PreAuthList"/>
+    <view-map name="newPreAuth"        type="screen" page="component://hmo-provider/widget/ProviderScreens.xml#NewPreAuth"/>
+    <view-map name="viewPreAuth"       type="screen" page="component://hmo-provider/widget/ProviderScreens.xml#ViewPreAuth"/>
+    <view-map name="claimList"         type="screen" page="component://hmo-provider/widget/ProviderScreens.xml#ClaimList"/>
+    <view-map name="newClaim"          type="screen" page="component://hmo-provider/widget/ProviderScreens.xml#NewClaim"/>
+    <view-map name="viewClaim"         type="screen" page="component://hmo-provider/widget/ProviderScreens.xml#ViewClaim"/>
+    <view-map name="paymentList"       type="screen" page="component://hmo-provider/widget/ProviderScreens.xml#PaymentList"/>
+
+</site-conf>

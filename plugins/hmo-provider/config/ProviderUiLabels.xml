@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/ofbiz-properties.xsd">
+
+    <property key="HmoProviderPortalTitle">
+        <value xml:lang="en">HMO Provider Portal</value>
+    </property>
+    <property key="HmoProviderDashboard">
+        <value xml:lang="en">Provider Dashboard</value>
+    </property>
+    <property key="HmoCheckEligibility">
+        <value xml:lang="en">Check Eligibility</value>
+    </property>
+    <property key="HmoEligibilityResult">
+        <value xml:lang="en">Eligibility Result</value>
+    </property>
+    <property key="HmoEligibilityStatus">
+        <value xml:lang="en">Eligibility Status</value>
+    </property>
+    <property key="HmoAnnualLimit">
+        <value xml:lang="en">Annual Limit</value>
+    </property>
+    <property key="HmoIneligibilityReason">
+        <value xml:lang="en">Ineligibility Reason</value>
+    </property>
+    <property key="HmoPreAuthList">
+        <value xml:lang="en">Pre-Authorisations</value>
+    </property>
+    <property key="HmoNewPreAuth">
+        <value xml:lang="en">New Pre-Authorisation</value>
+    </property>
+    <property key="HmoPreAuthDetail">
+        <value xml:lang="en">Pre-Authorisation Detail</value>
+    </property>
+    <property key="HmoSubmitPreAuth">
+        <value xml:lang="en">Submit Pre-Authorisation Request</value>
+    </property>
+    <property key="HmoClaimList">
+        <value xml:lang="en">Claims</value>
+    </property>
+    <property key="HmoMyClaims">
+        <value xml:lang="en">My Claims</value>
+    </property>
+    <property key="HmoSubmitClaim">
+        <value xml:lang="en">Submit Claim</value>
+    </property>
+    <property key="HmoClaimDetail">
+        <value xml:lang="en">Claim Detail</value>
+    </property>
+    <property key="HmoClaimLines">
+        <value xml:lang="en">Claim Line Items</value>
+    </property>
+    <property key="HmoPaymentList">
+        <value xml:lang="en">Payments and Remittance</value>
+    </property>
+    <property key="HmoPayments">
+        <value xml:lang="en">Payments</value>
+    </property>
+    <property key="HmoPaidAmount">
+        <value xml:lang="en">Paid Amount</value>
+    </property>
+    <property key="HmoPaymentsPending">
+        <value xml:lang="en">Payments Pending</value>
+    </property>
+    <property key="HmoClaimsSubmitted">
+        <value xml:lang="en">Claims Submitted</value>
+    </property>
+    <property key="HmoClaimsApproved">
+        <value xml:lang="en">Claims Approved</value>
+    </property>
+    <property key="HmoCurrency">
+        <value xml:lang="en">Currency</value>
+    </property>
+    <property key="HmoMyPreAuths">
+        <value xml:lang="en">My Pre-Authorisations</value>
+    </property>
+    <property key="HmoPreAuthPending">
+        <value xml:lang="en">Pre-Auths Pending</value>
+    </property>
+    <property key="HmoDashboard">
+        <value xml:lang="en">Dashboard</value>
+    </property>
+    <property key="HmoViewAll">
+        <value xml:lang="en">View All</value>
+    </property>
+
+    <!-- Shared field labels (duplicated from EhdsiUiLabels for standalone use) -->
+    <property key="HmoPreAuth">
+        <value xml:lang="en">Pre-Authorisations</value>
+    </property>
+    <property key="HmoClaims">
+        <value xml:lang="en">Claims</value>
+    </property>
+    <property key="HmoEnrollment">
+        <value xml:lang="en">Enrollment ID</value>
+    </property>
+    <property key="HmoMemberId">
+        <value xml:lang="en">Member ID</value>
+    </property>
+    <property key="HmoPreAuthId">
+        <value xml:lang="en">Pre-Auth ID</value>
+    </property>
+    <property key="HmoClaimId">
+        <value xml:lang="en">Claim ID</value>
+    </property>
+    <property key="HmoClaimType">
+        <value xml:lang="en">Claim Type</value>
+    </property>
+    <property key="HmoServiceType">
+        <value xml:lang="en">Service Type</value>
+    </property>
+    <property key="HmoServiceDate">
+        <value xml:lang="en">Service Date</value>
+    </property>
+    <property key="HmoServiceFrom">
+        <value xml:lang="en">Service From</value>
+    </property>
+    <property key="HmoServiceThru">
+        <value xml:lang="en">Service Thru</value>
+    </property>
+    <property key="HmoRequestDate">
+        <value xml:lang="en">Request Date</value>
+    </property>
+    <property key="HmoRequestedFrom">
+        <value xml:lang="en">Requested From</value>
+    </property>
+    <property key="HmoRequestedThru">
+        <value xml:lang="en">Requested Thru</value>
+    </property>
+    <property key="HmoBilledAmount">
+        <value xml:lang="en">Billed Amount</value>
+    </property>
+    <property key="HmoApprovedAmount">
+        <value xml:lang="en">Approved Amount</value>
+    </property>
+    <property key="HmoStatus">
+        <value xml:lang="en">Status</value>
+    </property>
+    <property key="HmoNotes">
+        <value xml:lang="en">Review Notes</value>
+    </property>
+    <property key="HmoDiagnosisCode">
+        <value xml:lang="en">Diagnosis Code (ICD-10)</value>
+    </property>
+    <property key="HmoProcedureCode">
+        <value xml:lang="en">Procedure Code (CPT)</value>
+    </property>
+    <property key="HmoSeq">
+        <value xml:lang="en">Seq</value>
+    </property>
+    <property key="HmoLineAmount">
+        <value xml:lang="en">Line Amount</value>
+    </property>
+    <property key="HmoEnrollmentStatus">
+        <value xml:lang="en">Enrollment Status</value>
+    </property>
+    <property key="HmoCoverageType">
+        <value xml:lang="en">Coverage Type</value>
+    </property>
+    <property key="HmoPlanTier">
+        <value xml:lang="en">Plan Tier</value>
+    </property>
+    <property key="HmoSubmitted">
+        <value xml:lang="en">Submitted</value>
+    </property>
+
+</resource>

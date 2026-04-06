@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://ofbiz.apache.org/Widget-Screen"
+        xsi:schemaLocation="http://ofbiz.apache.org/Widget-Screen http://ofbiz.apache.org/dtds/widget-screen.xsd">
+
+    <!-- ================================================================ -->
+    <!--  Sponsor Dashboard                                               -->
+    <!-- ================================================================ -->
+    <screen name="SponsorDashboard">
+        <section>
+            <actions>
+                <set field="titleProperty" value="HmoSponsorDashboard"/>
+                <script location="component://hmo-sponsor/src/main/groovy/org/apache/ofbiz/hmo/sponsor/SponsorDashboard.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container style="dashboard-tiles">
+                            <container style="tile">
+                                <label style="tile-title">${uiLabelMap.HmoActiveEnrollees}</label>
+                                <label>${activeEnrolleesCount}</label>
+                                <link target="enrolleeList" text="${uiLabelMap.HmoManage}"/>
+                            </container>
+                            <container style="tile">
+                                <label style="tile-title">${uiLabelMap.HmoMonthlyPremium}</label>
+                                <label>${monthlyPremiumAmount}</label>
+                                <link target="billing" text="${uiLabelMap.HmoViewBilling}"/>
+                            </container>
+                            <container style="tile">
+                                <label style="tile-title">${uiLabelMap.HmoPendingRenewals}</label>
+                                <label>${pendingRenewalsCount}</label>
+                                <link target="policyList" text="${uiLabelMap.HmoViewPolicies}"/>
+                            </container>
+                            <container style="tile">
+                                <label style="tile-title">${uiLabelMap.HmoReports}</label>
+                                <link target="reports" text="${uiLabelMap.HmoViewReports}"/>
+                            </container>
+                        </container>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <!-- ================================================================ -->
+    <!--  Enrollee List                                                    -->
+    <!-- ================================================================ -->
+    <screen name="EnrolleeList">
+        <section>
+            <actions>
+                <set field="titleProperty" value="HmoEnrolleeList"/>
+                <script location="component://hmo-sponsor/src/main/groovy/org/apache/ofbiz/hmo/sponsor/EnrolleeList.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="">
+                            <link target="newEnrollee" text="${uiLabelMap.HmoAddEnrollee}" style="buttontext"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.HmoEnrollees}">
+                            <include-grid name="EnrolleeGrid" location="component://hmo-sponsor/widget/SponsorForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <!-- ================================================================ -->
+    <!--  New Enrollee Form                                                -->
+    <!-- ================================================================ -->
+    <screen name="NewEnrollee">
+        <section>
+            <actions>
+                <set field="titleProperty" value="HmoAddEnrollee"/>
+                <script location="component://hmo-sponsor/src/main/groovy/org/apache/ofbiz/hmo/sponsor/SponsorPolicies.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.HmoAddEnrollee}">
+                            <include-form name="EnrollMemberForm" location="component://hmo-sponsor/widget/SponsorForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <!-- ================================================================ -->
+    <!--  View Enrollee                                                    -->
+    <!-- ================================================================ -->
+    <screen name="ViewEnrollee">
+        <section>
+            <actions>
+                <set field="titleProperty" value="HmoEnrolleeDetail"/>
+                <entity-one entity-name="HmoEnrollmentRecord" value-field="enrollment">
+                    <field-map field-name="enrollmentId" from-field="parameters.enrollmentId"/>
+                </entity-one>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.HmoEnrolleeDetail}">
+                            <include-form name="EnrolleeDetailForm" location="component://hmo-sponsor/widget/SponsorForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.HmoEnrolleeActions}">
+                            <container>
+                                <link target="suspendEnrollment" text="${uiLabelMap.HmoSuspend}" style="buttontext">
+                                    <parameter param-name="enrollmentId"/>
+                                </link>
+                                <link target="reinstateEnrollment" text="${uiLabelMap.HmoReinstate}" style="buttontext">
+                                    <parameter param-name="enrollmentId"/>
+                                </link>
+                                <link target="terminateEnrollment" text="${uiLabelMap.HmoTerminate}" style="buttontext buttondangerous">
+                                    <parameter param-name="enrollmentId"/>
+                                </link>
+                            </container>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <!-- ================================================================ -->
+    <!--  Policy List                                                      -->
+    <!-- ================================================================ -->
+    <screen name="PolicyList">
+        <section>
+            <actions>
+                <set field="titleProperty" value="HmoPolicyList"/>
+                <script location="component://hmo-sponsor/src/main/groovy/org/apache/ofbiz/hmo/sponsor/SponsorPolicies.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="">
+                            <link target="newPolicy" text="${uiLabelMap.HmoNewPolicy}" style="buttontext"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.HmoPolicies}">
+                            <include-grid name="PolicyGrid" location="component://hmo-sponsor/widget/SponsorForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <!-- ================================================================ -->
+    <!--  New Policy Form                                                  -->
+    <!-- ================================================================ -->
+    <screen name="NewPolicy">
+        <section>
+            <actions>
+                <set field="titleProperty" value="HmoNewPolicy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.HmoNewPolicy}">
+                            <include-form name="CreatePolicyForm" location="component://hmo-sponsor/widget/SponsorForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <!-- ================================================================ -->
+    <!--  Edit Policy Form                                                 -->
+    <!-- ================================================================ -->
+    <screen name="EditPolicy">
+        <section>
+            <actions>
+                <set field="titleProperty" value="HmoEditPolicy"/>
+                <entity-one entity-name="HmoSponsorPolicy" value-field="policy">
+                    <field-map field-name="sponsorPolicyId" from-field="parameters.sponsorPolicyId"/>
+                </entity-one>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.HmoEditPolicy}">
+                            <include-form name="EditPolicyForm" location="component://hmo-sponsor/widget/SponsorForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <!-- ================================================================ -->
+    <!--  Billing                                                          -->
+    <!-- ================================================================ -->
+    <screen name="Billing">
+        <section>
+            <actions>
+                <set field="titleProperty" value="HmoBilling"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.HmoGenerateStatement}">
+                            <include-form name="BillingStatementForm" location="component://hmo-sponsor/widget/SponsorForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <!-- ================================================================ -->
+    <!--  Billing Statement Result                                         -->
+    <!-- ================================================================ -->
+    <screen name="BillingStatement">
+        <section>
+            <actions>
+                <set field="titleProperty" value="HmoBillingStatement"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.HmoBillingStatement}">
+                            <include-form name="StatementSummaryForm" location="component://hmo-sponsor/widget/SponsorForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.HmoEnrollees}">
+                            <include-grid name="StatementEnrolleeGrid" location="component://hmo-sponsor/widget/SponsorForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <!-- ================================================================ -->
+    <!--  Reports                                                          -->
+    <!-- ================================================================ -->
+    <screen name="Reports">
+        <section>
+            <actions>
+                <set field="titleProperty" value="HmoReports"/>
+                <script location="component://hmo-sponsor/src/main/groovy/org/apache/ofbiz/hmo/sponsor/SponsorReports.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-has-permission permission="HMO_REPORT_VIEW"/>
+                            </condition>
+                            <widgets>
+                                <screenlet title="${uiLabelMap.HmoUtilisationReport}">
+                                    <include-grid name="UtilisationReportGrid" location="component://hmo-sponsor/widget/SponsorForms.xml"/>
+                                </screenlet>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="error">${uiLabelMap.HmoNoPermission}</label>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+</screens>

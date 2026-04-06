@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<!--
+    hmo-sponsor Service Definitions
+    
+    Sponsor policy management:
+        createSponsorPolicy, updateSponsorPolicy
+    Enrollment lifecycle:
+        enrollMember, terminateEnrollment, suspendEnrollment, reinstateEnrollment
+    Billing:
+        generateSponsorBillingStatement
+-->
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/services.xsd">
+    <description>HMO Sponsor Services</description>
+    <vendor>HMO</vendor>
+    <version>1.0</version>
+
+    <!-- ================================================================ -->
+    <!--  Sponsor Policy CRUD                                             -->
+    <!-- ================================================================ -->
+
+    <service name="createSponsorPolicy" default-entity-name="HmoSponsorPolicy"
+            engine="entity-auto" invoke="create" auth="true">
+        <description>Create a new group health plan policy for a corporate sponsor.</description>
+        <permission-service service-name="hmoPermissionCheck" main-action="ENROLL"/>
+        <auto-attributes mode="INOUT" include="pk" optional="true"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+        <override name="partyId" optional="false"/>
+        <override name="planTierEnumId" optional="false"/>
+        <override name="coverageTypeEnumId" optional="false"/>
+        <override name="premiumAmount" optional="false"/>
+        <override name="currencyUomId" optional="false"/>
+        <override name="statusId" optional="true" default-value="HMO_ENRL_PENDING"/>
+    </service>
+
+    <service name="updateSponsorPolicy" default-entity-name="HmoSponsorPolicy"
+            engine="entity-auto" invoke="update" auth="true">
+        <description>Update an existing sponsor group policy (e.g., upgrade plan tier).</description>
+        <permission-service service-name="hmoPermissionCheck" main-action="ENROLL"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+
+    <!-- ================================================================ -->
+    <!--  Enrollment lifecycle                                             -->
+    <!-- ================================================================ -->
+
+    <service name="enrollMember" engine="groovy" auth="true"
+            location="component://hmo-sponsor/src/main/groovy/org/apache/ofbiz/hmo/sponsor/SponsorServices.groovy"
+            invoke="enrollMember">
+        <description>Enroll an employee (or dependent) under a sponsor group policy.
+            Creates an HmoEnrollmentRecord with status HMO_ENRL_ACTIVE and generates
+            a unique member ID number.</description>
+        <permission-service service-name="hmoPermissionCheck" main-action="ENROLL"/>
+        <attribute name="enrolleePartyId"        mode="IN" type="String"    optional="false"/>
+        <attribute name="sponsorPolicyId"        mode="IN" type="String"    optional="true"/>
+        <attribute name="coverageTypeEnumId"     mode="IN" type="String"    optional="false"/>
+        <attribute name="primaryEnrolleePartyId" mode="IN" type="String"    optional="true"/>
+        <attribute name="fromDate"               mode="IN" type="Timestamp" optional="true"/>
+        <attribute name="thruDate"               mode="IN" type="Timestamp" optional="true"/>
+        <attribute name="groupId"                mode="IN" type="String"    optional="true"/>
+        <!-- Outputs -->
+        <attribute name="enrollmentId"           mode="OUT" type="String"/>
+        <attribute name="memberIdNumber"         mode="OUT" type="String"/>
+    </service>
+
+    <service name="terminateEnrollment" engine="groovy" auth="true"
+            location="component://hmo-sponsor/src/main/groovy/org/apache/ofbiz/hmo/sponsor/SponsorServices.groovy"
+            invoke="terminateEnrollment">
+        <description>Terminate an active enrollment record. Sets status to
+            HMO_ENRL_TERMINATED and records the effective termination date.</description>
+        <permission-service service-name="hmoPermissionCheck" main-action="ENROLL"/>
+        <attribute name="enrollmentId"     mode="IN" type="String"    optional="false"/>
+        <attribute name="terminationDate"  mode="IN" type="Timestamp" optional="true"/>
+        <attribute name="reason"           mode="IN" type="String"    optional="true"/>
+    </service>
+
+    <service name="suspendEnrollment" engine="groovy" auth="true"
+            location="component://hmo-sponsor/src/main/groovy/org/apache/ofbiz/hmo/sponsor/SponsorServices.groovy"
+            invoke="suspendEnrollment">
+        <description>Suspend an active enrollment (e.g., unpaid premium, leave of absence).
+            Sets status to HMO_ENRL_SUSPENDED.</description>
+        <permission-service service-name="hmoPermissionCheck" main-action="ENROLL"/>
+        <attribute name="enrollmentId" mode="IN" type="String" optional="false"/>
+        <attribute name="reason"       mode="IN" type="String" optional="true"/>
+    </service>
+
+    <service name="reinstateEnrollment" engine="groovy" auth="true"
+            location="component://hmo-sponsor/src/main/groovy/org/apache/ofbiz/hmo/sponsor/SponsorServices.groovy"
+            invoke="reinstateEnrollment">
+        <description>Reinstate a suspended enrollment back to active status.</description>
+        <permission-service service-name="hmoPermissionCheck" main-action="ENROLL"/>
+        <attribute name="enrollmentId" mode="IN" type="String" optional="false"/>
+        <attribute name="reason"       mode="IN" type="String" optional="true"/>
+    </service>
+
+    <!-- ================================================================ -->
+    <!--  Billing                                                          -->
+    <!-- ================================================================ -->
+
+    <service name="generateSponsorBillingStatement" engine="groovy" auth="true"
+            location="component://hmo-sponsor/src/main/groovy/org/apache/ofbiz/hmo/sponsor/SponsorServices.groovy"
+            invoke="generateSponsorBillingStatement">
+        <description>Generate a billing statement for a sponsor for the given period.
+            Calculates total premium, active enrollee count, and approved claims cost
+            for the period.</description>
+        <permission-service service-name="hmoPermissionCheck" main-action="VIEW"/>
+        <attribute name="sponsorPartyId"  mode="IN" type="String"    optional="false"/>
+        <attribute name="periodFromDate"  mode="IN" type="Timestamp" optional="false"/>
+        <attribute name="periodThruDate"  mode="IN" type="Timestamp" optional="false"/>
+        <!-- Outputs -->
+        <attribute name="activeEnrollees"    mode="OUT" type="Long"/>
+        <attribute name="totalPremiumAmount" mode="OUT" type="BigDecimal"/>
+        <attribute name="totalClaimsCost"    mode="OUT" type="BigDecimal"/>
+        <attribute name="currencyUomId"      mode="OUT" type="String"/>
+        <attribute name="enrollmentList"     mode="OUT" type="java.util.List"/>
+    </service>
+
+</services>

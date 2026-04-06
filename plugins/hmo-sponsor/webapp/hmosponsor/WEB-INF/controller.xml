@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://ofbiz.apache.org/Site-Conf"
+        xsi:schemaLocation="http://ofbiz.apache.org/Site-Conf http://ofbiz.apache.org/dtds/site-conf.xsd">
+
+    <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>
+    <description>HMO Sponsor Portal Controller</description>
+
+    <request-map uri="view">
+        <security https="true" auth="true"/>
+        <response name="success" type="request" value="main"/>
+    </request-map>
+
+    <request-map uri="main">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="main"/>
+    </request-map>
+
+    <!-- ================================================================ -->
+    <!--  Enrollee management                                              -->
+    <!-- ================================================================ -->
+
+    <request-map uri="enrolleeList">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="enrolleeList"/>
+    </request-map>
+
+    <request-map uri="newEnrollee">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="newEnrollee"/>
+    </request-map>
+
+    <request-map uri="enrollMember">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="enrollMember"/>
+        <response name="success" type="view" value="enrolleeList"/>
+        <response name="error"   type="view" value="newEnrollee"/>
+    </request-map>
+
+    <request-map uri="viewEnrollee">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="viewEnrollee"/>
+    </request-map>
+
+    <request-map uri="terminateEnrollment">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="terminateEnrollment"/>
+        <response name="success" type="view" value="enrolleeList"/>
+        <response name="error"   type="view" value="viewEnrollee"/>
+    </request-map>
+
+    <request-map uri="suspendEnrollment">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="suspendEnrollment"/>
+        <response name="success" type="view" value="enrolleeList"/>
+        <response name="error"   type="view" value="viewEnrollee"/>
+    </request-map>
+
+    <request-map uri="reinstateEnrollment">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="reinstateEnrollment"/>
+        <response name="success" type="view" value="enrolleeList"/>
+        <response name="error"   type="view" value="viewEnrollee"/>
+    </request-map>
+
+    <!-- ================================================================ -->
+    <!--  Policy management                                                -->
+    <!-- ================================================================ -->
+
+    <request-map uri="policyList">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="policyList"/>
+    </request-map>
+
+    <request-map uri="newPolicy">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="newPolicy"/>
+    </request-map>
+
+    <request-map uri="createSponsorPolicy">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createSponsorPolicy"/>
+        <response name="success" type="view" value="policyList"/>
+        <response name="error"   type="view" value="newPolicy"/>
+    </request-map>
+
+    <request-map uri="editPolicy">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="editPolicy"/>
+    </request-map>
+
+    <request-map uri="updateSponsorPolicy">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateSponsorPolicy"/>
+        <response name="success" type="view" value="policyList"/>
+        <response name="error"   type="view" value="editPolicy"/>
+    </request-map>
+
+    <!-- ================================================================ -->
+    <!--  Billing                                                          -->
+    <!-- ================================================================ -->
+
+    <request-map uri="billing">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="billing"/>
+    </request-map>
+
+    <request-map uri="generateStatement">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="generateSponsorBillingStatement"/>
+        <response name="success" type="view" value="billingStatement"/>
+        <response name="error"   type="view" value="billing"/>
+    </request-map>
+
+    <request-map uri="billingStatement">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="billingStatement"/>
+    </request-map>
+
+    <!-- ================================================================ -->
+    <!--  Reports                                                          -->
+    <!-- ================================================================ -->
+
+    <request-map uri="reports">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="reports"/>
+    </request-map>
+
+    <!-- ================================================================ -->
+    <!--  View Mappings                                                    -->
+    <!-- ================================================================ -->
+
+    <view-map name="main"             type="screen" page="component://hmo-sponsor/widget/SponsorScreens.xml#SponsorDashboard"/>
+    <view-map name="enrolleeList"     type="screen" page="component://hmo-sponsor/widget/SponsorScreens.xml#EnrolleeList"/>
+    <view-map name="newEnrollee"      type="screen" page="component://hmo-sponsor/widget/SponsorScreens.xml#NewEnrollee"/>
+    <view-map name="viewEnrollee"     type="screen" page="component://hmo-sponsor/widget/SponsorScreens.xml#ViewEnrollee"/>
+    <view-map name="policyList"       type="screen" page="component://hmo-sponsor/widget/SponsorScreens.xml#PolicyList"/>
+    <view-map name="newPolicy"        type="screen" page="component://hmo-sponsor/widget/SponsorScreens.xml#NewPolicy"/>
+    <view-map name="editPolicy"       type="screen" page="component://hmo-sponsor/widget/SponsorScreens.xml#EditPolicy"/>
+    <view-map name="billing"          type="screen" page="component://hmo-sponsor/widget/SponsorScreens.xml#Billing"/>
+    <view-map name="billingStatement" type="screen" page="component://hmo-sponsor/widget/SponsorScreens.xml#BillingStatement"/>
+    <view-map name="reports"          type="screen" page="component://hmo-sponsor/widget/SponsorScreens.xml#Reports"/>
+
+</site-conf>
