@@ -73,7 +73,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet title="">
+                        <screenlet title="${uiLabelMap.HmoActions}">
                             <link target="newEnrollee" text="${uiLabelMap.HmoAddEnrollee}" style="buttontext"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.HmoEnrollees}">
@@ -154,7 +154,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet title="">
+                        <screenlet title="${uiLabelMap.HmoActions}">
                             <link target="newPolicy" text="${uiLabelMap.HmoNewPolicy}" style="buttontext"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.HmoPolicies}">

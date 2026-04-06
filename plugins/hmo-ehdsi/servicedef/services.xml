@@ -102,7 +102,7 @@ under the License.
             invoke="updateEnrollmentStatus">
         <description>Transition an HmoEnrollmentRecord to a new status, validating
             the transition against the HMO_ENROLL_STATUS state machine.</description>
-        <permission-service service-name="hmoPermissionCheck" main-action="HMO_ENROLL"/>
+        <permission-service service-name="hmoPermissionCheck" main-action="ENROLL"/>
         <attribute name="enrollmentId" mode="IN" type="String" optional="false"/>
         <attribute name="statusId" mode="IN" type="String" optional="false"/>
         <attribute name="reason" mode="IN" type="String" optional="true"/>

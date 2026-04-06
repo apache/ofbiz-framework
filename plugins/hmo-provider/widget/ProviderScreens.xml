@@ -181,7 +181,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet title="">
+                        <screenlet title="${uiLabelMap.HmoActions}">
                             <link target="newClaim" text="${uiLabelMap.HmoSubmitClaim}" style="buttontext"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.HmoMyClaims}">
