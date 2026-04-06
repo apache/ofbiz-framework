@@ -268,6 +268,11 @@ public class DataServices {
                 sep = "/";
             }
             file = new File(prefix + sep + objectInfo);
+            try {
+                DataResourceWorker.checkContextFileBoundary(file, prefix);
+            } catch (GeneralException e) {
+                return ServiceUtil.returnError(e.getMessage());
+            }
         }
         if (file == null) {
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentUnableObtainReferenceToFile",
@@ -478,6 +483,11 @@ public class DataServices {
                     sep = "/";
                 }
                 file = new File(prefix + sep + objectInfo);
+                try {
+                    DataResourceWorker.checkContextFileBoundary(file, prefix);
+                } catch (GeneralException e) {
+                    return ServiceUtil.returnError(e.getMessage());
+                }
             }
             if (file == null) {
                 throw new IOException("File is null");
