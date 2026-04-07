@@ -1495,11 +1495,8 @@ public final class MacroFormRenderer implements FormStringRenderer {
         if (showDescription == null) {
             showDescription = "Y".equals(visualTheme.getModelTheme().getLookupShowDescription());
         }
-        // lastViewName, used by lookup to remember the real last view name
-        String lastViewName = request.getParameter("_LAST_VIEW_NAME_"); // Try to get it from parameters firstly
-        if (UtilValidate.isEmpty(lastViewName)) { // get from session
-            lastViewName = (String) request.getSession().getAttribute("_LAST_VIEW_NAME_");
-        }
+        // lastViewName, used by lookup to remember the real last view name; read only from session (set by RequestHandler) to prevent user input
+        String lastViewName = (String) request.getSession().getAttribute("_LAST_VIEW_NAME_");
         if (UtilValidate.isEmpty(lastViewName)) {
             lastViewName = "";
         }
