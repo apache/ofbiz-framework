@@ -1418,7 +1418,12 @@ public final class RequestHandler {
 
         //If required by webSite parameter, surcharge control path
         if (webSiteProps.getWebappPath() != null) {
-            String requestPath = request.getServletPath();
+            // Derive servlet path from the trusted _CONTROL_PATH_ request attribute (set by ControlServlet)
+            // rather than calling getServletPath() directly on the request, to avoid relying on user-influenced input.
+            String contextPath = request.getContextPath();
+            String requestPath = controlPath.startsWith(contextPath)
+                    ? controlPath.substring(contextPath.length())
+                    : controlPath;
             if (requestPath == null) requestPath = "";
             if (requestPath.lastIndexOf("/") > 0) {
                 if (requestPath.indexOf("/") == 0) {
