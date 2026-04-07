@@ -101,5 +101,32 @@ under the License.
     <Enumeration enumId="DENY_LIMIT_EXCEEDED" enumTypeId="HMO_DENIAL_REASON" enumCode="LIMIT_EXCEEDED" sequenceId="05" description="Annual Benefit Limit Exceeded"/>
     <Enumeration enumId="DENY_INCOMPLETE_DOC" enumTypeId="HMO_DENIAL_REASON" enumCode="INCOMPLETE_DOC" sequenceId="06" description="Incomplete Documentation"/>
     <Enumeration enumId="DENY_OUT_OF_NETWORK" enumTypeId="HMO_DENIAL_REASON" enumCode="OUT_OF_NETWORK" sequenceId="07" description="Out-of-Network Provider"/>
+    <!-- ============================================================ -->
+    <!--  FACILITY TYPE ENUMERATION                                   -->
+    <!-- ============================================================ -->
+
+    <EnumerationType enumTypeId="HMO_FACILITY_TYPE" description="HMO Healthcare Facility Type" hasTable="N"/>
+    <Enumeration enumId="HMO_FAC_HOSPITAL"   enumTypeId="HMO_FACILITY_TYPE" enumCode="HOSPITAL"   sequenceId="01" description="Hospital"/>
+    <Enumeration enumId="HMO_FAC_CLINIC"     enumTypeId="HMO_FACILITY_TYPE" enumCode="CLINIC"     sequenceId="02" description="Clinic"/>
+    <Enumeration enumId="HMO_FAC_PHARMACY"   enumTypeId="HMO_FACILITY_TYPE" enumCode="PHARMACY"   sequenceId="03" description="Pharmacy"/>
+    <Enumeration enumId="HMO_FAC_LAB"        enumTypeId="HMO_FACILITY_TYPE" enumCode="LAB"        sequenceId="04" description="Laboratory"/>
+    <Enumeration enumId="HMO_FAC_DENTAL"     enumTypeId="HMO_FACILITY_TYPE" enumCode="DENTAL"     sequenceId="05" description="Dental Clinic"/>
+    <Enumeration enumId="HMO_FAC_OPTICAL"    enumTypeId="HMO_FACILITY_TYPE" enumCode="OPTICAL"    sequenceId="06" description="Optical Centre"/>
+    <Enumeration enumId="HMO_FAC_MATERNITY"  enumTypeId="HMO_FACILITY_TYPE" enumCode="MATERNITY"  sequenceId="07" description="Maternity / Lying-In"/>
+    <Enumeration enumId="HMO_FAC_SPECIALIST" enumTypeId="HMO_FACILITY_TYPE" enumCode="SPECIALIST" sequenceId="08" description="Specialist Centre"/>
+
+    <!-- ============================================================ -->
+    <!--  FACILITY STATUS                                             -->
+    <!-- ============================================================ -->
+
+    <StatusType statusTypeId="HMO_FACILITY_STATUS" description="HMO Healthcare Facility Status" hasTable="N"/>
+
+    <StatusItem statusId="HMO_FAC_PENDING"   statusTypeId="HMO_FACILITY_STATUS" sequenceId="01" description="Pending Admin Approval"/>
+    <StatusItem statusId="HMO_FAC_ACTIVE"    statusTypeId="HMO_FACILITY_STATUS" sequenceId="02" description="Active"/>
+    <StatusItem statusId="HMO_FAC_SUSPENDED" statusTypeId="HMO_FACILITY_STATUS" sequenceId="03" description="Suspended"/>
+
+    <StatusValidChange statusId="HMO_FAC_PENDING"   statusIdTo="HMO_FAC_ACTIVE"    transitionName="Approve Registration"/>
+    <StatusValidChange statusId="HMO_FAC_ACTIVE"    statusIdTo="HMO_FAC_SUSPENDED" transitionName="Suspend"/>
+    <StatusValidChange statusId="HMO_FAC_SUSPENDED" statusIdTo="HMO_FAC_ACTIVE"    transitionName="Reinstate"/>
 
 </entity-engine-xml>

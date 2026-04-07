@@ -132,6 +132,57 @@ under the License.
         <field name="statusId"         title="${uiLabelMap.HmoAdminStatus}">
             <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
         </field>
+        <!-- Admin approval — visible only while status is PENDING -->
+        <field name="approveButton" title="${uiLabelMap.HmoAdminApproveSponsor}"
+                use-when="statusId == 'HMO_ENRL_PENDING'">
+            <hyperlink description="${uiLabelMap.HmoAdminApproveSponsor}" target="approveSponsorPolicy"
+                    also-hidden="false" confirmation-message="${uiLabelMap.HmoAdminApproveSponsorConfirm}">
+                <parameter param-name="sponsorPolicyId"/>
+            </hyperlink>
+        </field>
+        <!-- Delist — visible while policy has no thruDate yet -->
+        <field name="delistButton" title="${uiLabelMap.HmoAdminDelistSponsor}"
+                use-when="thruDate == null">
+            <hyperlink description="${uiLabelMap.HmoAdminDelistSponsor}" target="delistSponsor"
+                    also-hidden="false" confirmation-message="${uiLabelMap.HmoAdminDelistSponsorConfirm}">
+                <parameter param-name="sponsorPolicyId"/>
+            </hyperlink>
+        </field>
+    </grid>
+
+    <!-- ================================================================ -->
+    <!--  Facility Grid                                                   -->
+    <!-- ================================================================ -->
+
+    <grid name="FacilityGrid" list-name="facilityList" type="list"
+            odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <field name="facilityId"         title="${uiLabelMap.HmoAdminFacilityId}"><display/></field>
+        <field name="facilityName"       title="${uiLabelMap.HmoAdminFacilityName}"><display/></field>
+        <field name="partyId"            title="${uiLabelMap.HmoAdminFacilityParty}"><display/></field>
+        <field name="facilityTypeEnumId" title="${uiLabelMap.HmoAdminFacilityType}">
+            <display-entity entity-name="Enumeration" key-field-name="enumId" description="${description}"/>
+        </field>
+        <field name="fromDate"           title="${uiLabelMap.HmoAdminFromDate}"><display type="date"/></field>
+        <field name="thruDate"           title="${uiLabelMap.HmoAdminThruDate}"><display type="date"/></field>
+        <field name="statusId"           title="${uiLabelMap.HmoAdminStatus}">
+            <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
+        </field>
+        <!-- Admin approval — visible only while status is PENDING -->
+        <field name="approveButton" title="${uiLabelMap.HmoAdminApproveFacility}"
+                use-when="statusId == 'HMO_FAC_PENDING'">
+            <hyperlink description="${uiLabelMap.HmoAdminApproveFacility}" target="approveFacility"
+                    also-hidden="false" confirmation-message="${uiLabelMap.HmoAdminApproveFacilityConfirm}">
+                <parameter param-name="facilityId"/>
+            </hyperlink>
+        </field>
+        <!-- Delist — visible while facility has no thruDate yet -->
+        <field name="delistButton" title="${uiLabelMap.HmoAdminDelistFacility}"
+                use-when="thruDate == null">
+            <hyperlink description="${uiLabelMap.HmoAdminDelistFacility}" target="delistFacility"
+                    also-hidden="false" confirmation-message="${uiLabelMap.HmoAdminDelistFacilityConfirm}">
+                <parameter param-name="facilityId"/>
+            </hyperlink>
+        </field>
     </grid>
 
     <!-- ================================================================ -->

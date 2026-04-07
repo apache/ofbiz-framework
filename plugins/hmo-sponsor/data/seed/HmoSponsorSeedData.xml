@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<!--
+    hmo-sponsor Seed Data
+
+    Provides:
+      - StatusType HMO_ENRL_STATUS with items and valid transitions for
+        HmoSponsorPolicy and HmoEnrollmentRecord status machines.
+        HMO_ENRL_PENDING is the initial status for newly registered sponsors;
+        admin must approve to transition to HMO_ENRL_ACTIVE.
+      - Plan tier and coverage type enumerations.
+-->
+<entity-engine-xml>
+
+    <!-- ============================================================ -->
+    <!--  ENROLLMENT / POLICY STATUS                                  -->
+    <!-- ============================================================ -->
+
+    <StatusType statusTypeId="HMO_ENRL_STATUS" description="HMO Enrollment / Policy Status" hasTable="N"/>
+
+    <StatusItem statusId="HMO_ENRL_PENDING"    statusTypeId="HMO_ENRL_STATUS" sequenceId="01" description="Pending Admin Approval"/>
+    <StatusItem statusId="HMO_ENRL_ACTIVE"     statusTypeId="HMO_ENRL_STATUS" sequenceId="02" description="Active"/>
+    <StatusItem statusId="HMO_ENRL_SUSPENDED"  statusTypeId="HMO_ENRL_STATUS" sequenceId="03" description="Suspended"/>
+    <StatusItem statusId="HMO_ENRL_TERMINATED" statusTypeId="HMO_ENRL_STATUS" sequenceId="04" description="Terminated"/>
+    <StatusItem statusId="HMO_ENRL_EXPIRED"    statusTypeId="HMO_ENRL_STATUS" sequenceId="05" description="Expired"/>
+
+    <!-- Sponsor policy transitions -->
+    <StatusValidChange statusId="HMO_ENRL_PENDING"    statusIdTo="HMO_ENRL_ACTIVE"     transitionName="Approve Sponsor"/>
+    <StatusValidChange statusId="HMO_ENRL_PENDING"    statusIdTo="HMO_ENRL_TERMINATED" transitionName="Reject Sponsor"/>
+    <StatusValidChange statusId="HMO_ENRL_ACTIVE"     statusIdTo="HMO_ENRL_SUSPENDED"  transitionName="Suspend"/>
+    <StatusValidChange statusId="HMO_ENRL_ACTIVE"     statusIdTo="HMO_ENRL_TERMINATED" transitionName="Terminate"/>
+    <StatusValidChange statusId="HMO_ENRL_ACTIVE"     statusIdTo="HMO_ENRL_EXPIRED"    transitionName="Expire"/>
+    <StatusValidChange statusId="HMO_ENRL_SUSPENDED"  statusIdTo="HMO_ENRL_ACTIVE"     transitionName="Reinstate"/>
+    <StatusValidChange statusId="HMO_ENRL_SUSPENDED"  statusIdTo="HMO_ENRL_TERMINATED" transitionName="Terminate"/>
+
+    <!-- ============================================================ -->
+    <!--  PLAN TIER ENUMERATION                                       -->
+    <!-- ============================================================ -->
+
+    <EnumerationType enumTypeId="HMO_PLAN_TIER" description="HMO Plan Tier" hasTable="N"/>
+    <Enumeration enumId="HMO_TIER_BRONZE"   enumTypeId="HMO_PLAN_TIER" enumCode="BRONZE"   sequenceId="01" description="Bronze"/>
+    <Enumeration enumId="HMO_TIER_SILVER"   enumTypeId="HMO_PLAN_TIER" enumCode="SILVER"   sequenceId="02" description="Silver"/>
+    <Enumeration enumId="HMO_TIER_GOLD"     enumTypeId="HMO_PLAN_TIER" enumCode="GOLD"     sequenceId="03" description="Gold"/>
+    <Enumeration enumId="HMO_TIER_PLATINUM" enumTypeId="HMO_PLAN_TIER" enumCode="PLATINUM" sequenceId="04" description="Platinum"/>
+
+    <!-- ============================================================ -->
+    <!--  COVERAGE TYPE ENUMERATION                                   -->
+    <!-- ============================================================ -->
+
+    <EnumerationType enumTypeId="HMO_COVERAGE_TYPE" description="HMO Coverage Type" hasTable="N"/>
+    <Enumeration enumId="HMO_COV_INDIVIDUAL" enumTypeId="HMO_COVERAGE_TYPE" enumCode="INDIVIDUAL" sequenceId="01" description="Individual"/>
+    <Enumeration enumId="HMO_COV_SPOUSE"     enumTypeId="HMO_COVERAGE_TYPE" enumCode="SPOUSE"     sequenceId="02" description="Individual + Spouse"/>
+    <Enumeration enumId="HMO_COV_FAMILY"     enumTypeId="HMO_COVERAGE_TYPE" enumCode="FAMILY"     sequenceId="03" description="Family"/>
+
+</entity-engine-xml>

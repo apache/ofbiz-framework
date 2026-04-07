@@ -83,6 +83,60 @@ under the License.
         <attribute name="totalClaimsPaid"       mode="OUT" type="BigDecimal"/>
     </service>
     <!-- ================================================================ -->
+    <!--  Sponsor Policy Approval & Delisting                            -->
+    <!-- ================================================================ -->
+
+    <service name="approveSponsorPolicy" engine="groovy" auth="true"
+            location="component://hmo-admin/src/main/groovy/org/apache/ofbiz/hmo/admin/AdminDashboardService.groovy"
+            invoke="approveSponsorPolicy">
+        <description>Approve a pending sponsor policy, transitioning its status from
+            HMO_ENRL_PENDING to HMO_ENRL_ACTIVE.  Only super-admins with the
+            HMO_ADMIN permission may perform this action.</description>
+        <permission-service service-name="hmoPermissionCheck" main-action="ADMIN"/>
+        <attribute name="sponsorPolicyId" mode="IN"  type="String" optional="false"/>
+        <attribute name="sponsorPolicyId" mode="OUT" type="String"/>
+    </service>
+
+    <service name="delistSponsor" engine="groovy" auth="true"
+            location="component://hmo-admin/src/main/groovy/org/apache/ofbiz/hmo/admin/AdminDashboardService.groovy"
+            invoke="delistSponsor">
+        <description>Delist a sponsor group policy by setting its thruDate and terminating the status.
+            Only super-admins with the HMO_ADMIN permission may perform this action.</description>
+        <permission-service service-name="hmoPermissionCheck" main-action="ADMIN"/>
+        <attribute name="sponsorPolicyId" mode="IN"  type="String"               optional="false"/>
+        <attribute name="thruDate"        mode="IN"  type="java.sql.Timestamp"   optional="true"/>
+        <attribute name="reason"          mode="IN"  type="String"               optional="true"/>
+        <attribute name="sponsorPolicyId" mode="OUT" type="String"/>
+    </service>
+
+    <!-- ================================================================ -->
+    <!--  Facility Approval & Delisting                                   -->
+    <!-- ================================================================ -->
+
+    <service name="approveFacility" engine="groovy" auth="true"
+            location="component://hmo-admin/src/main/groovy/org/apache/ofbiz/hmo/admin/AdminDashboardService.groovy"
+            invoke="approveFacility">
+        <description>Approve a pending healthcare facility registration, transitioning its
+            status from HMO_FAC_PENDING to HMO_FAC_ACTIVE.  Only super-admins with the
+            HMO_ADMIN permission may perform this action.</description>
+        <permission-service service-name="hmoPermissionCheck" main-action="ADMIN"/>
+        <attribute name="facilityId" mode="IN"  type="String" optional="false"/>
+        <attribute name="facilityId" mode="OUT" type="String"/>
+    </service>
+
+    <service name="delistFacility" engine="groovy" auth="true"
+            location="component://hmo-admin/src/main/groovy/org/apache/ofbiz/hmo/admin/AdminDashboardService.groovy"
+            invoke="delistFacility">
+        <description>Delist a healthcare facility by setting its thruDate.
+            Only super-admins with the HMO_ADMIN permission may perform this action.</description>
+        <permission-service service-name="hmoPermissionCheck" main-action="ADMIN"/>
+        <attribute name="facilityId"   mode="IN"  type="String"             optional="false"/>
+        <attribute name="thruDate"     mode="IN"  type="java.sql.Timestamp" optional="true"/>
+        <attribute name="delistReason" mode="IN"  type="String"             optional="true"/>
+        <attribute name="facilityId"   mode="OUT" type="String"/>
+    </service>
+
+    <!-- ================================================================ -->
     <!--  Claim Payment Approval                                         -->
     <!-- ================================================================ -->
 

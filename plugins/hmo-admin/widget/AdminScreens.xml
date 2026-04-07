@@ -209,12 +209,16 @@ under the License.
             <actions>
                 <set field="titleProperty" value="HmoAdminProviderOverview"/>
                 <find-by-and entity-name="HmoClaim" list="claimList"/>
+                <find-by-and entity-name="HmoFacility" list="facilityList"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.HmoAdminProviderOverview}">
                             <include-grid name="ProviderClaimGrid" location="component://hmo-admin/widget/AdminForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.HmoAdminFacilities}">
+                            <include-grid name="FacilityGrid" location="component://hmo-admin/widget/AdminForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>

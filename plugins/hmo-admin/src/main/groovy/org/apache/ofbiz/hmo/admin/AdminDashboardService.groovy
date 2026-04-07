@@ -175,6 +175,123 @@ def getAdminDashboardStats() {
 }
 
 /**
+ * approveSponsorPolicy — transition a sponsor policy from PENDING to ACTIVE.
+ *
+ * New sponsor group policies created via createSponsorPolicy default to
+ * HMO_ENRL_PENDING.  The super-admin approves here, making the policy
+ * operational (HMO_ENRL_ACTIVE).
+ */
+def approveSponsorPolicy() {
+    def delegator         = context.delegator
+    String sponsorPolicyId = context.sponsorPolicyId
+
+    def policy = delegator.findOne("HmoSponsorPolicy", [sponsorPolicyId: sponsorPolicyId], false)
+    if (!policy) {
+        return error("Sponsor policy not found: ${sponsorPolicyId}")
+    }
+    if (policy.statusId != "HMO_ENRL_PENDING") {
+        return error("Sponsor policy ${sponsorPolicyId} is not in PENDING status (current: ${policy.statusId}). Only PENDING policies may be approved.")
+    }
+
+    validateStatusTransition(delegator, policy.statusId, "HMO_ENRL_ACTIVE")
+
+    policy.statusId = "HMO_ENRL_ACTIVE"
+    if (!policy.fromDate) {
+        policy.fromDate = new java.sql.Timestamp(System.currentTimeMillis())
+    }
+    policy.store()
+
+    return success([sponsorPolicyId: sponsorPolicyId])
+}
+
+/**
+ * delistSponsor — delist a sponsor by setting thruDate on HmoSponsorPolicy.
+ *
+ * Only the super-admin may set the through date that effectively terminates
+ * a group policy.  The thruDate defaults to now if not supplied.
+ */
+def delistSponsor() {
+    def delegator         = context.delegator
+    String sponsorPolicyId = context.sponsorPolicyId
+    def thruDate          = context.thruDate ?: new java.sql.Timestamp(System.currentTimeMillis())
+    String reason         = context.reason
+
+    def policy = delegator.findOne("HmoSponsorPolicy", [sponsorPolicyId: sponsorPolicyId], false)
+    if (!policy) {
+        return error("Sponsor policy not found: ${sponsorPolicyId}")
+    }
+    if (policy.thruDate && policy.thruDate <= new java.sql.Timestamp(System.currentTimeMillis())) {
+        return error("Sponsor policy ${sponsorPolicyId} is already delisted (thruDate is in the past).")
+    }
+
+    policy.thruDate = thruDate
+    policy.statusId = "HMO_ENRL_TERMINATED"
+    policy.store()
+
+    return success([sponsorPolicyId: sponsorPolicyId])
+}
+
+/**
+ * approveFacility — transition a healthcare facility from PENDING to ACTIVE.
+ *
+ * New facilities self-register through the provider portal with status
+ * HMO_FAC_PENDING.  The super-admin reviews and approves here, admitting
+ * the facility to the HMO network (HMO_FAC_ACTIVE).
+ */
+def approveFacility() {
+    def delegator  = context.delegator
+    String facilityId = context.facilityId
+    String approvedByPartyId = context.userLogin?.partyId
+
+    def facility = delegator.findOne("HmoFacility", [facilityId: facilityId], false)
+    if (!facility) {
+        return error("Facility not found: ${facilityId}")
+    }
+    if (facility.statusId != "HMO_FAC_PENDING") {
+        return error("Facility ${facilityId} is not in PENDING status (current: ${facility.statusId}). Only PENDING facilities may be approved.")
+    }
+
+    validateStatusTransition(delegator, facility.statusId, "HMO_FAC_ACTIVE")
+
+    facility.statusId         = "HMO_FAC_ACTIVE"
+    facility.approvedByPartyId = approvedByPartyId
+    facility.approvalDate     = new java.sql.Timestamp(System.currentTimeMillis())
+    if (!facility.fromDate) {
+        facility.fromDate = facility.approvalDate
+    }
+    facility.store()
+
+    return success([facilityId: facilityId])
+}
+
+/**
+ * delistFacility — delist a healthcare facility by setting thruDate on HmoFacility.
+ *
+ * Only the super-admin may delist a facility.  The thruDate defaults to now
+ * if not supplied.
+ */
+def delistFacility() {
+    def delegator  = context.delegator
+    String facilityId = context.facilityId
+    def thruDate   = context.thruDate ?: new java.sql.Timestamp(System.currentTimeMillis())
+    String reason  = context.delistReason
+
+    def facility = delegator.findOne("HmoFacility", [facilityId: facilityId], false)
+    if (!facility) {
+        return error("Facility not found: ${facilityId}")
+    }
+    if (facility.thruDate && facility.thruDate <= new java.sql.Timestamp(System.currentTimeMillis())) {
+        return error("Facility ${facilityId} is already delisted (thruDate is in the past).")
+    }
+
+    facility.thruDate     = thruDate
+    facility.delistReason = reason
+    facility.store()
+
+    return success([facilityId: facilityId])
+}
+
+/**
  * approveClaimPayment — transition a claim payment from PENDING to PROCESSED status.
  *
  * This is the super-admin approval step.  hmo-finance creates HmoClaimPayment

@@ -26,6 +26,58 @@ under the License.
     <version>1.0</version>
 
     <!-- ================================================================ -->
+    <!--  HmoFacility                                                      -->
+    <!--  Represents a healthcare facility (hospital, clinic, pharmacy,   -->
+    <!--  laboratory, etc.) that is registered with the HMO network.      -->
+    <!--  Admin must approve new registrations; delisting is done by      -->
+    <!--  setting thruDate.                                               -->
+    <!-- ================================================================ -->
+
+    <entity entity-name="HmoFacility"
+            package-name="org.apache.ofbiz.hmo.provider"
+            title="HMO Healthcare Facility">
+        <field name="facilityId"          type="id"/>
+        <field name="partyId"             type="id">
+            <description>The OFBiz Party that represents this facility</description>
+        </field>
+        <field name="facilityTypeEnumId"  type="id">
+            <description>HMO_FACILITY_TYPE enumeration (Hospital, Clinic, Pharmacy, Lab, etc.)</description>
+        </field>
+        <field name="facilityName"        type="name"/>
+        <field name="fromDate"            type="date-time">
+            <description>Date the facility was registered / approved by admin</description>
+        </field>
+        <field name="thruDate"            type="date-time" optional="true">
+            <description>Delisting effective date; set by admin to delist the facility</description>
+        </field>
+        <field name="statusId"            type="id">
+            <description>HMO_FACILITY_STATUS state machine (PENDING → ACTIVE; ACTIVE → SUSPENDED etc.)</description>
+        </field>
+        <field name="approvedByPartyId"   type="id" optional="true">
+            <description>Admin party that approved this registration</description>
+        </field>
+        <field name="approvalDate"        type="date-time" optional="true"/>
+        <field name="delistReason"        type="description" optional="true">
+            <description>Reason recorded when admin sets the thruDate to delist the facility</description>
+        </field>
+
+        <prim-key field="facilityId"/>
+
+        <relation type="one" fk-name="FACILITY_PARTY" rel-entity-name="Party">
+            <key-map field-name="partyId"/>
+        </relation>
+        <relation type="one" fk-name="FACILITY_TYPE" rel-entity-name="Enumeration">
+            <key-map field-name="facilityTypeEnumId" rel-field-name="enumId"/>
+        </relation>
+        <relation type="one" fk-name="FACILITY_STATUS" rel-entity-name="StatusItem">
+            <key-map field-name="statusId"/>
+        </relation>
+        <relation type="one" title="ApprovedBy" fk-name="FACILITY_APPROVER" rel-entity-name="Party">
+            <key-map field-name="approvedByPartyId" rel-field-name="partyId"/>
+        </relation>
+    </entity>
+
+    <!-- ================================================================ -->
     <!--  HmoPreAuthorization                                              -->
     <!--  A request from a healthcare provider for advance approval of    -->
     <!--  a service or procedure for an enrolled member.                  -->

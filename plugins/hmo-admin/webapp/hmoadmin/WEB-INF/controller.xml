@@ -94,6 +94,42 @@ under the License.
     </request-map>
 
     <!-- ================================================================ -->
+    <!--  Sponsor Approval & Delisting                                   -->
+    <!-- ================================================================ -->
+
+    <request-map uri="approveSponsorPolicy">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="approveSponsorPolicy"/>
+        <response name="success" type="view" value="sponsorOverview"/>
+        <response name="error"   type="view" value="sponsorOverview"/>
+    </request-map>
+
+    <request-map uri="delistSponsor">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="delistSponsor"/>
+        <response name="success" type="view" value="sponsorOverview"/>
+        <response name="error"   type="view" value="sponsorOverview"/>
+    </request-map>
+
+    <!-- ================================================================ -->
+    <!--  Facility Approval & Delisting                                   -->
+    <!-- ================================================================ -->
+
+    <request-map uri="approveFacility">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="approveFacility"/>
+        <response name="success" type="view" value="providerOverview"/>
+        <response name="error"   type="view" value="providerOverview"/>
+    </request-map>
+
+    <request-map uri="delistFacility">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="delistFacility"/>
+        <response name="success" type="view" value="providerOverview"/>
+        <response name="error"   type="view" value="providerOverview"/>
+    </request-map>
+
+    <!-- ================================================================ -->
     <!--  Claim Payment Approval                                          -->
     <!-- ================================================================ -->
 

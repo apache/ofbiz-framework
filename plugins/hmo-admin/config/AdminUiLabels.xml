@@ -288,6 +288,51 @@ under the License.
         <value xml:lang="en">Approve this claim payment and mark it as Processed?</value>
     </property>
 
+    <!-- Sponsor approval and delisting -->
+    <property key="HmoAdminApproveSponsor">
+        <value xml:lang="en">Approve</value>
+    </property>
+    <property key="HmoAdminApproveSponsorConfirm">
+        <value xml:lang="en">Approve this sponsor policy and make it active?</value>
+    </property>
+    <property key="HmoAdminDelistSponsor">
+        <value xml:lang="en">Delist</value>
+    </property>
+    <property key="HmoAdminDelistSponsorConfirm">
+        <value xml:lang="en">Delist this sponsor policy? This will set the through date and terminate the policy.</value>
+    </property>
+
+    <!-- Facility grid labels -->
+    <property key="HmoAdminFacilities">
+        <value xml:lang="en">Healthcare Facilities</value>
+    </property>
+    <property key="HmoAdminFacilityId">
+        <value xml:lang="en">Facility ID</value>
+    </property>
+    <property key="HmoAdminFacilityName">
+        <value xml:lang="en">Facility Name</value>
+    </property>
+    <property key="HmoAdminFacilityParty">
+        <value xml:lang="en">Party</value>
+    </property>
+    <property key="HmoAdminFacilityType">
+        <value xml:lang="en">Facility Type</value>
+    </property>
+
+    <!-- Facility approval and delisting -->
+    <property key="HmoAdminApproveFacility">
+        <value xml:lang="en">Approve</value>
+    </property>
+    <property key="HmoAdminApproveFacilityConfirm">
+        <value xml:lang="en">Approve this facility registration and admit it to the HMO network?</value>
+    </property>
+    <property key="HmoAdminDelistFacility">
+        <value xml:lang="en">Delist</value>
+    </property>
+    <property key="HmoAdminDelistFacilityConfirm">
+        <value xml:lang="en">Delist this facility? This will set the through date and remove it from the network.</value>
+    </property>
+
     <!-- Grid column labels — audit log -->
     <property key="HmoAdminUserLogin">
         <value xml:lang="en">User Login</value>
