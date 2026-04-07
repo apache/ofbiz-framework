@@ -33,4 +33,6 @@ under the License.
     <load-component component-location="marketing"/>
 <!-- common component used by most other components last because it uses info from most components-->
     <load-component component-location="commonext"/>
+<!-- HMO demo component: loads HMO seed and demo data independently of default OFBiz demo data -->
+    <load-component component-location="hmo-demo"/>
 </component-loader>
