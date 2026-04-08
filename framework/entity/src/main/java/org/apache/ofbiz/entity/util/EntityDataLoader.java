@@ -264,7 +264,7 @@ public class EntityDataLoader {
             reader.setCreateDummyFks(dummyFks);
             reader.setMaintainTxStamps(maintainTxs);
             reader.setContinueOnFail(continueOnFail);
-            rowsChanged += reader.parse(dataUrl);
+            rowsChanged += (int) reader.parse(dataUrl);
         } catch (IOException | SAXException e) {
             String xmlError = "[loadData]: Error loading XML Resource \"" + dataUrl.toExternalForm() + "\"; Error was: " + e.getMessage();
             errorMessages.add(xmlError);
