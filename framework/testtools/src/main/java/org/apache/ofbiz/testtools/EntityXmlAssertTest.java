@@ -58,7 +58,7 @@ public class EntityXmlAssertTest extends OFBizTestCase {
         try {
             URL entityXmlURL = FlexibleLocation.resolveLocation(entityXmlUrlString);
             EntitySaxReader reader = new EntitySaxReader(getDelegator());
-            testCaseCount += reader.parse(entityXmlURL);
+            testCaseCount += (int) reader.parse(entityXmlURL);
         } catch (Exception e) {
             Debug.logError(e, "Error getting test case count", MODULE);
         }
