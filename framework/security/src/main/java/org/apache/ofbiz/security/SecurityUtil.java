@@ -19,12 +19,16 @@
 package org.apache.ofbiz.security;
 
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.GeneralException;
+import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilValidate;
@@ -133,6 +137,76 @@ public final class SecurityUtil {
             if (permissionIds.contains(permission)) return true;
         }
         return false;
+    }
+
+    /**
+     * Checks that the given file is within one of the directories listed in
+     * {@code content.data.local.file.allowed.paths} (security.properties).
+     * Use {@code ${ofbiz.home}} as a portable placeholder for the OFBiz home directory.
+     */
+    public static void checkLocalFileAllowList(File file) throws GeneralException {
+        try {
+            String canonicalFilePath = file.getCanonicalPath();
+            String ofbizHome = System.getProperty("ofbiz.home");
+            String allowedPathsStr = UtilProperties.getPropertyValue("security",
+                    "content.data.local.file.allowed.paths", "${ofbiz.home}");
+            if (UtilValidate.isNotEmpty(allowedPathsStr)) {
+                boolean inAllowedPath = false;
+                for (String allowedPath : allowedPathsStr.split(",")) {
+                    allowedPath = allowedPath.trim().replace("${ofbiz.home}", ofbizHome);
+                    if (UtilValidate.isEmpty(allowedPath)) {
+                        continue;
+                    }
+                    String canonicalAllowedDir = new File(allowedPath).getCanonicalPath();
+                    if (canonicalFilePath.startsWith(canonicalAllowedDir + File.separator)
+                            || canonicalFilePath.equals(canonicalAllowedDir)) {
+                        inAllowedPath = true;
+                        break;
+                    }
+                }
+                if (!inAllowedPath) {
+                    throw new GeneralException("Access to file denied: path is not within an allowed directory");
+                }
+            }
+        } catch (IOException e) {
+            throw new GeneralException("Unable to validate file path: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Checks that the given file is within the OFBiz home directory and within one of the
+     * subdirectories listed in {@code content.data.ofbiz.file.allowed.paths} (security.properties).
+     */
+    public static void checkOfbizFileAllowList(File file) throws GeneralException {
+        try {
+            String canonicalHome = new File(System.getProperty("ofbiz.home")).getCanonicalPath();
+            String canonicalFilePath = file.getCanonicalPath();
+            if (!canonicalFilePath.startsWith(canonicalHome + File.separator)) {
+                throw new GeneralException("Access to file denied: path resolves outside of the OFBiz home directory");
+            }
+            String allowedPathsStr = UtilProperties.getPropertyValue("security",
+                    "content.data.ofbiz.file.allowed.paths", "applications/,themes/,plugins/,runtime/");
+            if (UtilValidate.isNotEmpty(allowedPathsStr)) {
+                boolean inAllowedPath = false;
+                for (String relPath : allowedPathsStr.split(",")) {
+                    relPath = relPath.trim().replaceAll("^/+", "");
+                    if (UtilValidate.isEmpty(relPath)) {
+                        continue;
+                    }
+                    String canonicalAllowedDir = new File(canonicalHome, relPath).getCanonicalPath();
+                    if (canonicalFilePath.startsWith(canonicalAllowedDir + File.separator)
+                            || canonicalFilePath.equals(canonicalAllowedDir)) {
+                        inAllowedPath = true;
+                        break;
+                    }
+                }
+                if (!inAllowedPath) {
+                    throw new GeneralException("Access to file denied: path is not within an allowed directory");
+                }
+            }
+        } catch (IOException e) {
+            throw new GeneralException("Unable to validate file path: " + e.getMessage());
+        }
     }
 
     /**
