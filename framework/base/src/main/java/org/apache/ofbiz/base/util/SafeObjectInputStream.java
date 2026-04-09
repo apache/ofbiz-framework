@@ -38,10 +38,35 @@ import java.util.regex.Pattern;
  */
 public final class SafeObjectInputStream extends ObjectInputStream {
     private static final String[] DEFAULT_ALLOWLIST_PATTERN = {
-            "byte\\[\\]", "foo", "SerializationInjector",
+            "byte\\[\\]",
             "\\[Z", "\\[B", "\\[S", "\\[I", "\\[J", "\\[F", "\\[D", "\\[C",
-            "java..*", "sun.util.calendar..*", "org.apache.ofbiz..*",
-            "org.codehaus.groovy.runtime.GStringImpl", "groovy.lang.GString"};
+            "java\\.lang\\.String",
+            "java\\.lang\\.Number",
+            "java\\.lang\\.Integer",
+            "java\\.lang\\.Long",
+            "java\\.lang\\.Float",
+            "java\\.lang\\.Double",
+            "java\\.lang\\.Boolean",
+            "java\\.util\\.Locale",
+            "java\\.math\\.BigDecimal",
+            "java\\.sql\\.Timestamp",
+            "java\\.sql\\.Date",
+            "java\\.sql\\.Time",
+            "java\\.util\\.Date",
+            "java\\.util\\.ArrayList",
+            "java\\.util\\.LinkedList",
+            "java\\.util\\.Stack",
+            "java\\.util\\.Vector",
+            "java\\.util\\.TreeSet",
+            "java\\.util\\.HashSet",
+            "java\\.util\\.HashMap",
+            "java\\.util\\.Properties",
+            "java\\.util\\.Hashtable",
+            "java\\.util\\.WeakHashMap",
+            "java\\.util\\.TreeMap",
+            "java\\.util\\.Arrays\\$ArrayList",
+            "org\\.apache\\.ofbiz\\.entity\\.GenericValue",
+            "org\\.apache\\.ofbiz\\.entity\\.GenericPK"};
     private static final String[] DEFAULT_DENYLIST = {"rmi", "<"};
 
     /** The regular expression used to match serialized types. */
