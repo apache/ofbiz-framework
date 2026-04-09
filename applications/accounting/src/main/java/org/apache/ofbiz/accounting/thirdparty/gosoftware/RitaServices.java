@@ -454,7 +454,7 @@ public class RitaServices {
         } catch (RuntimeException e) {
             Debug.logError(e, MODULE);
         }
-        boolean ssl = "Y".equals(props.getProperty("ssl", "N")) ? true : false;
+        boolean ssl = "Y".equals(props.getProperty("ssl", "N"));
 
         RitaApi api = null;
         if (port > 0 && host != null) {

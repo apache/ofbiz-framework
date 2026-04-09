@@ -2262,8 +2262,8 @@ public class PartyServices {
         String searchPartyFirstContext = (String) context.get("searchPartyFirst");
         String searchAllIdContext = (String) context.get("searchAllId");
 
-        boolean searchPartyFirst = UtilValidate.isNotEmpty(searchPartyFirstContext) && "N".equals(searchPartyFirstContext) ? false : true;
-        boolean searchAllId = UtilValidate.isNotEmpty(searchAllIdContext) && "Y".equals(searchAllIdContext) ? true : false;
+        boolean searchPartyFirst = !UtilValidate.isNotEmpty(searchPartyFirstContext) || !"N".equals(searchPartyFirstContext);
+        boolean searchAllId = UtilValidate.isNotEmpty(searchAllIdContext) && "Y".equals(searchAllIdContext);
 
         GenericValue party = null;
         List<GenericValue> partiesFound = null;
