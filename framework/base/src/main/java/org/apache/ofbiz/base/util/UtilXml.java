@@ -91,15 +91,21 @@ public final class UtilXml {
 
     private static XStream createXStream() {
         XStream xstream = new XStream();
-        /* This method is a pure helper method for XStream 1.4.x.
-         * It initializes an XStream instance with a white list of well-known and simple types of the Java runtime
-         *  as it is done in XStream 1.5.x by default. This method will do therefore nothing in XStream 1.5
-         *  and could be removed them
-         */
-        // XStream.setupDefaultSecurity(xstream);
-        /* You may want to enhance the white list created by XStream::setupDefaultSecurity (or by default with XStream 1.5)
-         * using xstream::allowTypesByWildcard with your own classes
-         */
+        // Allow only the concrete types that XmlSerializer.serializeSingle handles explicitly.
+        // All other types are blocked to prevent deserialization gadget chain attacks.
+        // Class names are used as strings to avoid a compile-time dependency on framework/entity.
+        xstream.allowTypes(new String[]{
+                "java.lang.String", "java.lang.Integer", "java.lang.Long",
+                "java.lang.Float", "java.lang.Double", "java.lang.Boolean",
+                "java.util.Locale", "java.math.BigDecimal",
+                "java.sql.Timestamp", "java.sql.Date", "java.sql.Time", "java.util.Date",
+                "java.util.ArrayList", "java.util.LinkedList", "java.util.Stack",
+                "java.util.Vector", "java.util.TreeSet", "java.util.HashSet",
+                "java.util.HashMap", "java.util.Properties", "java.util.Hashtable",
+                "java.util.WeakHashMap", "java.util.TreeMap",
+                "org.apache.ofbiz.entity.GenericValue",
+                "org.apache.ofbiz.entity.GenericPK"
+        });
         return xstream;
     }
 
