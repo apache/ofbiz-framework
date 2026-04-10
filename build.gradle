@@ -153,8 +153,8 @@ javadoc {
 }
 
 java {
-    sourceCompatibility(JavaVersion.VERSION_17)
-    targetCompatibility(JavaVersion.VERSION_17)
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 }
 
 // Java compile options, syntax gradlew -PXlint:none build
@@ -189,31 +189,31 @@ allprojects {
         // on mavenCentral directly
         maven {
             // org.restlet and org.restlet.ext.servlet
-            url 'https://maven.restlet.talend.com'
+            url = 'https://maven.restlet.talend.com'
         }
         maven {
             // net.fortuna.ical4j:ical4j:1.0-rc3-atlassian-11
-            url 'https://packages.atlassian.com/maven-3rdparty/'
+            url = 'https://packages.atlassian.com/maven-3rdparty/'
         }
         maven {
             // org/milyn/flute/1.3/flute-1.3.jar
             // need artifact only because of wrong pom metadata in maven central
             // Required by: plugins:birt > org.eclipse.birt.runtime:viewservlets:4.5.0 > org.eclipse.birt.runtime:org.eclipse.birt.runtime:4.4.1
             // TODO Maybe this will no longer needed wheh upgrading viewservlets to 4.9.0
-            url "https://repo1.maven.org/maven2"
+            url = "https://repo1.maven.org/maven2"
             metadataSources {
                 artifact()
             }
         }
         maven {
-            url 'https://clojars.org/repo'
+            url = 'https://clojars.org/repo'
         }
         maven {
-            url "https://artifacts.alfresco.com/nexus/content/repositories/public/"
+            url = "https://artifacts.alfresco.com/nexus/content/repositories/public/"
         }
         /* maven {
             // To test not released FreeMarker versions, see OFBIZ-12934 and sub-tasks for details
-            url "https://repository.apache.org/content/repositories/snapshots/"
+            url = "https://repository.apache.org/content/repositories/snapshots/"
         } */
     }
 }
@@ -391,12 +391,12 @@ def sysadminGroup = 'System Administration'
 
 task loadAll(group: ofbizServer) {
     dependsOn 'generateSecretKeys', 'ofbiz --load-data'
-    description 'Load default data; meant for OFBiz development, testing, and demo purposes'
+    description = 'Load default data; meant for OFBiz development, testing, and demo purposes'
 }
 
 task testIntegration(group: ofbizServer) {
     dependsOn 'ofbiz --test'
-    description 'Run OFBiz integration tests; You must run loadAll before running this task'
+    description = 'Run OFBiz integration tests; You must run loadAll before running this task'
 }
 
 task terminateOfbiz(group: ofbizServer,
@@ -420,7 +420,7 @@ task terminateOfbiz(group: ofbizServer,
 }
 
 task loadAdminUserLogin(group: ofbizServer) {
-    description 'Create admin user with temporary password equal to ofbiz. You must provide userLoginId'
+    description = 'Create admin user with temporary password equal to ofbiz. You must provide userLoginId'
     createOfbizCommandTask('executeLoadAdminUser',
         ['--load-data', 'file=/runtime/tmp/AdminUserLoginData.xml'])
     executeLoadAdminUser.doFirst {
@@ -601,18 +601,18 @@ task deleteAllPluginsDocumentation {
 
 task generateReadmeFiles(group: docsGroup, type: AsciidoctorTask) {
     doFirst { delete "${buildDir}/asciidoc/readme" }
-    description 'Generate OFBiz README files'
+    description = 'Generate OFBiz README files'
     sourceDir "${rootDir}"
     // CHANGELOG.adoc should be only present in the current stable version
     sources {
         include 'README.adoc', 'CHANGELOG.adoc', 'CONTRIBUTING.adoc', 'DOCKER.adoc'
     }
-    outputDir file("${buildDir}/asciidoc/readme/")
+    outputDir = file("${buildDir}/asciidoc/readme/")
 }
 
 task generateOfbizDocumentation(group: docsGroup, type: AsciidoctorTask) {
     dependsOn deleteOfbizDocumentation
-    description 'Generate OFBiz documentation manuals'
+    description = 'Generate OFBiz documentation manuals'
         activeComponents().each { component ->
             copy {
                 from "${component}/src/docs/asciidoc/images/${component.name}"
@@ -621,7 +621,7 @@ task generateOfbizDocumentation(group: docsGroup, type: AsciidoctorTask) {
             }
         }
     sourceDir "${rootDir}/docs/asciidoc"
-    outputDir file("${buildDir}/asciidoc/ofbiz")
+    outputDir = file("${buildDir}/asciidoc/ofbiz")
     doLast {
         activeComponents().each { component ->
             delete "${rootDir}/docs/asciidoc/images/${component.name}"
@@ -631,7 +631,7 @@ task generateOfbizDocumentation(group: docsGroup, type: AsciidoctorTask) {
 
 task generatePluginDocumentation(group: docsGroup) {
     dependsOn deletePluginDocumentation
-    description 'Generate plugin documentation. Expects pluginId flag'
+    description = 'Generate plugin documentation. Expects pluginId flag'
     activeComponents()
         .findAll { project.hasProperty('pluginId') && it.name == pluginId }
         .each { component ->
@@ -683,7 +683,7 @@ task generateAllPluginsDocumentation(group: docsGroup,
                         }
                         if (asciidocFolder.exists()) {
                             sourceDir file("${component}/src/docs/asciidoc")
-                            outputDir file("${buildDir}/asciidoc/plugins/${component.name}")
+                            outputDir = file("${buildDir}/asciidoc/plugins/${component.name}")
                             doLast { println "Documentation generated for plugin ${component.name}" }
                         }
                     mustRunAfter deleteAllPluginsDocumentation
@@ -1020,7 +1020,7 @@ task cleanFooterFiles(group: cleanupGroup, description: 'clean generated footer 
  */
 def cleanTasks = tasks.findAll { it.name ==~ /^clean.+/ }
 task cleanAll(group: cleanupGroup, dependsOn: [cleanTasks, clean]) {
-    description 'Execute all cleaning tasks.'
+    description = 'Execute all cleaning tasks.'
 }
 
 /* ========================================================
