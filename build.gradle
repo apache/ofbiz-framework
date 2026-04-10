@@ -30,7 +30,6 @@ plugins {
     id 'codenarc'
     id 'maven-publish'
     id "org.asciidoctor.jvm.convert" version "latest.release"
-    id "org.asciidoctor.jvm.pdf" version "latest.release"
     id "org.owasp.dependencycheck" version "latest.release" apply false
     //id 'se.patrikerdes.use-latest-versions' version '0.2.18' apply false
     id "se.patrikerdes.use-latest-versions"  version "latest.release" apply false
