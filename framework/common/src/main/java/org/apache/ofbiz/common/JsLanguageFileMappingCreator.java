@@ -60,17 +60,17 @@ public class JsLanguageFileMappingCreator {
 
         // setup some variables to locate the js files
         String componentRoot = "component://common-theme/webapp";
-        String jqueryUiLocaleRelPath = "/common/js/jquery/ui/i18n/";
-        String dateJsLocaleRelPath = "/common/js/jquery/plugins/datejs/";
+        String jqueryUiLocaleRelPath = "/common/js/i18n/datepicker/";
+        String dateJsLocaleRelPath = "/common/js/node_modules/datejs/src/i18n/";
         String validateRelPath = "/common/js/node_modules/jquery-validation/dist/localization/";
-        String dateTimePickerJsLocaleRelPath = "/common/js/jquery/plugins/datetimepicker/i18n/";
-        String select2LocaleRelPath = "/common/js/jquery/plugins/select2/js/i18n/";
+        String dateTimePickerJsLocaleRelPath = "/common/js/node_modules/@chinchilla-software/jquery-ui-timepicker-addon/dist/i18n/";
+        String select2LocaleRelPath = "/common/js/node_modules/select2/dist/js/i18n/";
         String jsFilePostFix = ".js";
-        String dateJsLocalePrefix = "date-";
+        String dateJsLocalePrefix = "";
         String validateLocalePrefix = "messages_";
         String jqueryUiLocalePrefix = "datepicker-";
         String dateTimePickerPrefix = "jquery-ui-timepicker-";
-        String defaultLocaleDateJs = "en-US";
+        String defaultLocaleDateJs = "en-AU"; // en-US is not in the datejs npm package; en-AU is the closest available fallback
         String defaultLocaleJquery = "en"; // Beware to keep the OFBiz specific datepicker-en.js file when upgrading...
 
         for (Locale locale : localeList) {
