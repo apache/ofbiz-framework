@@ -34,10 +34,12 @@ var rawdata = [
           <#if (assocList?has_content)>
             <#list assocList as assoc>
                 <#assign content  = delegator.findOne("Content",Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("contentId",assoc.contentIdTo), false)/>
-                {
-                "data": {"title" : unescapeHtmlText("${content.contentName!assoc.contentIdTo}"), "attr": {"href": "javascript:void(0);", "onClick" : "callDocument('${assoc.contentIdTo}');"}},
                 <#assign assocChilds  = EntityQuery.use(delegator).from("ContentAssoc").where("contentId", assoc.contentIdTo!, "contentAssocTypeId", "TREE_CHILD").queryList()!/>
-                    "attr": {"id" : "${assoc.contentIdTo}", "contentId" : "${assoc.contentId}", "AssocType" : "${assoc.contentAssocTypeId}", "fromDate" : "${assoc.fromDate}"}
+                {
+                "id": "${assoc.contentIdTo}",
+                "text": unescapeHtmlText("${content.contentName!assoc.contentIdTo}"),
+                "a_attr": {"href": "javascript:void(0);", "onClick": "callDocument('${assoc.contentIdTo}');"},
+                "li_attr": {"contentId": "${assoc.contentId}", "AssocType": "${assoc.contentAssocTypeId}", "fromDate": "${assoc.fromDate}"}
                 <#if assocChilds?has_content>
                     ,"children": [
                         <@fillTree assocList = assocChilds/>
@@ -64,49 +66,39 @@ jQuery(document).ready(createTree());
  <#-------------------------------------------------------------------------------------create Tree-->
   function createTree() {
     jQuery(function () {
-        importLibrary(["/common/js/jquery/plugins/jsTree/jquery.jstree.js"], function(){
+        importLibrary(["/common/js/node_modules/jstree/dist/jstree.min.js",
+            "/common/js/node_modules/jstree/dist/themes/default/style.min.css"], function(){
             jQuery("#tree").jstree({
-                "plugins" : [ "themes", "json_data", "ui", "contextmenu", "crrm"],
-                "json_data" : {
-                    "data" : rawdata,
-                    "progressive_render" : false
+                "core": {
+                    "data": rawdata,
+                    "check_callback": true
                 },
-                'contextmenu': {
-                    'items': {
-                        'ccp' : false,
-                        'create' : false,
-                        'rename' : false,
-                        'remove' : false,
-                        'create1' : {
-                            'label' : "New Folder",
-                            'action' : function(obj) {
-                                callCreateDocumentTree(obj.attr('id'));
+                "contextmenu": {
+                    "items": function(node) {
+                        return {
+                            'create1': {
+                                'label': "New Folder",
+                                'action': function() { callCreateDocumentTree(node.id); }
+                            },
+                            'create2': {
+                                'label': "New Content in Folder",
+                                'action': function() { callCreateDocument(node.id); }
+                            },
+                            'rename1': {
+                                'label': "Rename Folder",
+                                'action': function() { callRenameDocumentTree(node.id); }
+                            },
+                            'delete1': {
+                                'label': "Delete Folder",
+                                'action': function() {
+                                    var li = node.li_attr || {};
+                                    callDeleteDocument(node.id, li.contentId, li.AssocType, li.fromDate);
+                                }
                             }
-                        },
-                        'create2' : {
-                            'label' : "New Content in Folder",
-                            'action' : function(obj) {
-                                callCreateDocument(obj.attr('id'));
-                            }
-                        },
-                        'rename1' : {
-                            'label' : "Rename Folder",
-                            'action' : function(obj) {
-                                callRenameDocumentTree(obj.attr('id'));
-                            }
-                        },
-                        'delete1' : {
-                            'label' : "Delete Folder",
-                            'action' : function(obj) {
-                                callDeleteDocument(obj.attr('id'), obj.attr('contentId'), obj.attr('AssocType'), obj.attr('fromDate'));
-                            }
-                        },
+                        };
                     }
                 },
-                "themes": {
-                    "theme":"default",
-                    "url":"/common/js/jquery/plugins/jsTree/themes/default/style.css"
-                }
+                "plugins": ["themes", "contextmenu"]
             });
         });
     });

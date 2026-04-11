@@ -22,7 +22,7 @@ under the License.
 function unescapeHtmlText(text) {
     return jQuery('<div />').html(text).text()
 }
- 
+
 jQuery(window).load(createTree());
 
 <#-- creating the JSON Data -->
@@ -30,15 +30,17 @@ var rawdata = [
         <#if (completedTree?has_content)>
             <@fillTree rootCat = completedTree/>
         </#if>
-        
+
         <#macro fillTree rootCat>
             <#if (rootCat?has_content)>
                 <#list rootCat as root>
                     {
-                    "data": {"title" : unescapeHtmlText("<#if root.categoryName??>${root.categoryName?js_string} [${root.productCategoryId}]<#else>${root.productCategoryId?js_string}</#if>"), "attr": {"href" : "<@ofbizUrl>/EditProdCatalog?prodCatalogId=${root.productCategoryId}</@ofbizUrl>","onClick" : "callDocument('${root.productCategoryId}', 'catalog');"}},
-                    "attr": {"id" : "${root.productCategoryId}", "rel" : "root", "isCatalog" : "${root.isCatalog?string}" ,"isCategoryType" : "${root.isCategoryType?string}"}
+                    "id": "${root.productCategoryId}",
+                    "text": unescapeHtmlText("<#if root.categoryName??>${root.categoryName?js_string} [${root.productCategoryId}]<#else>${root.productCategoryId?js_string}</#if>"),
+                    "a_attr": {"href": "<@ofbizUrl>/EditProdCatalog?prodCatalogId=${root.productCategoryId}</@ofbizUrl>", "onClick": "callDocument('${root.productCategoryId}', 'catalog');"},
+                    "li_attr": {"rel": "root", "isCatalog": "${root.isCatalog?string}", "isCategoryType": "${root.isCategoryType?string}"}
                     <#if root.child??>
-                    ,"state" : "closed"
+                    ,"children": true
                     </#if>
                     <#if root_has_next>
                         },
@@ -50,60 +52,76 @@ var rawdata = [
         </#macro>
      ];
 
+ <#-- helper to transform jstree 1.x AJAX response nodes to 3.x format -->
+  function convertNodes(nodes) {
+      if (!nodes || !nodes.length) return [];
+      return jQuery.map(nodes, function(n) {
+          var result = {
+              id: (n.attr && n.attr.id) || n.id || '',
+              text: n.data ? (typeof n.data === 'string' ? n.data : n.data.title) : (n.text || ''),
+              children: (n.state === 'closed' || n.state === 'open') ? true : (n.children || false)
+          };
+          if (n.data && n.data.attr) result.a_attr = n.data.attr;
+          if (n.attr) {
+              result.li_attr = {};
+              for (var k in n.attr) { if (k !== 'id') result.li_attr[k] = n.attr[k]; }
+          }
+          return result;
+      });
+  }
+
  <#-- create Tree-->
   function createTree() {
     jQuery(function () {
-        importLibrary(["/common/js/jquery/plugins/jsTree/jquery.jstree.js"], function() {
-            <#-- reset the tree when user browsing out of scope of catalog manager -->
+        importLibrary(["/common/js/node_modules/jstree/dist/jstree.min.js",
+            "/common/js/node_modules/jstree/dist/themes/default/style.min.css"], function(){
             <#if stillInCatalogManager>
-            $.cookie('jstree_select', null);
-            $.cookie('jstree_open', null);
-            <#else>
-            <#-- Coloring the category when type the product categoryId manualy at the url bar -->
-            $.cookie('jstree_select', "<#if productCategoryId??>${productCategoryId}<#elseif prodCatalogId??>${prodCatalogId}<#elseif showProductCategoryId??>${showProductCategoryId}</#if>");
+            localStorage.removeItem('product_category_tree');
             </#if>
             jQuery("#tree").jstree({
-                "plugins": ["themes", "json_data", "ui", "cookies", "types"],
-                "json_data": {
-                    "data": rawdata,
-                    "ajax": {
-                        "url": "getChild",
-                        "type": "POST",
-                        "data": function (n) {
-                            return {
-                                "isCategoryType": n.attr ? n.attr("isCatalog").replace("node_", "") : 1,
-                                "isCatalog": n.attr ? n.attr("isCatalog").replace("node_", "") : 1,
-                                "productCategoryId": n.attr ? n.attr("id").replace("node_", "") : 1,
-                                "additionParam": "','category",
-                                "hrefString": "EditCategory?productCategoryId=",
-                                "onclickFunction": "callDocument"
-                            };
-                        },
-                        success: function (data) {
-                            return data.treeData;
+                "core": {
+                    "data": function(node, callback) {
+                        var inst = this;
+                        if (node.id === '#') {
+                            callback.call(inst, rawdata);
+                        } else {
+                            jQuery.ajax({
+                                url: "getChild",
+                                type: "POST",
+                                data: {
+                                    "isCategoryType": node.li_attr ? node.li_attr.isCategoryType : "true",
+                                    "isCatalog": node.li_attr ? node.li_attr.isCatalog : "true",
+                                    "productCategoryId": node.id,
+                                    "additionParam": "','category",
+                                    "hrefString": "EditCategory?productCategoryId=",
+                                    "onclickFunction": "callDocument"
+                                },
+                                success: function(data) {
+                                    callback.call(inst, convertNodes(data.treeData));
+                                }
+                            });
                         }
-                    }
+                    },
+                    "check_callback": true
                 },
-                "types": {
-                    "valid_children": ["root"],
-                    "types": {
-                        "CATEGORY": {
-                            "icon": {
-                                "image": "/common/js/jquery/plugins/jsTree/themes/apple/d.png",
-                                "position": "10px40px"
-                            }
-                        }
-                    }
-                },
-                "themes": {
-                    "theme": "default",
-                    "url": "/common/js/jquery/plugins/jsTree/themes/default/style.css"
-                }
+                "state": {"key": "product_category_tree"},
+                "plugins": ["themes", "state"]
             });
+            <#if !stillInCatalogManager>
+            jQuery("#tree").on('ready.jstree', function() {
+                <#if productCategoryId??>
+                jQuery("#tree").jstree(true).select_node('${productCategoryId}');
+                <#elseif prodCatalogId??>
+                jQuery("#tree").jstree(true).select_node('${prodCatalogId}');
+                <#elseif showProductCategoryId??>
+                jQuery("#tree").jstree(true).select_node('${showProductCategoryId}');
+                </#if>
+            });
+            </#if>
         });
     });
   }
-  
+
   function callDocument(id,type) {
     //jQuerry Ajax Request
     var dataSet = {};

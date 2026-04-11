@@ -35,10 +35,12 @@ var rawdata = [
             <#if (rootCat?has_content)>
                 <#list rootCat as root>
                     {
-                    "data": {"title" : unescapeHtmlText("<#if root.groupName??>${root.groupName?js_string} [${root.partyId}]<#else>${root.partyId?js_string}</#if>"), "attr": {"href" : "<@ofbizUrl>/viewprofile?partyId=${root.partyId}</@ofbizUrl>","onClick" : "callDocument('${root.partyId}');"}},
-                    "attr": {"id" : "${root.partyId}", "rel" : "Y"}
+                    "id": "${root.partyId}",
+                    "text": unescapeHtmlText("<#if root.groupName??>${root.groupName?js_string} [${root.partyId}]<#else>${root.partyId?js_string}</#if>"),
+                    "a_attr": {"href": "<@ofbizUrl>/viewprofile?partyId=${root.partyId}</@ofbizUrl>", "onClick": "callDocument('${root.partyId}');"},
+                    "li_attr": {"rel": "Y"}
                     <#if root.child??>
-                    ,"state" : "closed"
+                    ,"children": true
                     </#if>
                     <#if root_has_next>
                         },
@@ -50,53 +52,62 @@ var rawdata = [
         </#macro>
      ];
 
+ <#-- helper to transform jstree 1.x AJAX response nodes to 3.x format -->
+  function convertNodes(nodes) {
+      if (!nodes || !nodes.length) return [];
+      return jQuery.map(nodes, function(n) {
+          var result = {
+              id: (n.attr && n.attr.id) || n.id || '',
+              text: n.data ? (typeof n.data === 'string' ? n.data : n.data.title) : (n.text || ''),
+              children: (n.state === 'closed' || n.state === 'open') ? true : (n.children || false)
+          };
+          if (n.data && n.data.attr) result.a_attr = n.data.attr;
+          if (n.attr) {
+              result.li_attr = {};
+              for (var k in n.attr) { if (k !== 'id') result.li_attr[k] = n.attr[k]; }
+          }
+          return result;
+      });
+  }
+
  <#-- create Tree-->
   function createTree() {
       jQuery(function () {
-        var libraryFiles = ["/common/js/jquery/ui/js/jquery.cookie-1.4.0.js",
-            "/common/js/jquery/plugins/jsTree/jquery.jstree.js"];
-        importLibrary(libraryFiles, function(){
-
-            $.cookie('jstree_select', null);
-            $.cookie('jstree_open', null);
+        importLibrary(["/common/js/node_modules/jstree/dist/jstree.min.js",
+            "/common/js/node_modules/jstree/dist/themes/default/style.min.css"], function(){
 
             jQuery("#tree").jstree({
-            "core" : { "initially_open" : [ "${partyId}" ] },
-            "plugins" : [ "themes", "json_data","ui" ,"cookies", "types", "crrm", "contextmenu"],
-                "json_data" : {
-                    "data" : rawdata,
-                    "ajax" : { "url" : "<@ofbizUrl>getHRChild</@ofbizUrl>", "type" : "POST",
-                        "data" : function (n) {
-                                return {
-                                    "partyId" : n.attr ? n.attr("id").replace("node_","") : 1 ,
-                                    "additionParam" : "','category" ,
-                                    "hrefString" : "viewprofile?partyId=" ,
-                                    "onclickFunction" : "callDocument"
-                            };
-                        },
-                        success : function(data) {
-                            return data.hrTree;
+                "core": {
+                    "data": function(node, callback) {
+                        var inst = this;
+                        if (node.id === '#') {
+                            callback.call(inst, rawdata);
+                        } else {
+                            jQuery.ajax({
+                                url: "<@ofbizUrl>getHRChild</@ofbizUrl>",
+                                type: "POST",
+                                data: {
+                                    "partyId": node.id,
+                                    "additionParam": "','category",
+                                    "hrefString": "viewprofile?partyId=",
+                                    "onclickFunction": "callDocument"
+                                },
+                                success: function(data) {
+                                    callback.call(inst, convertNodes(data.hrTree));
+                                }
+                            });
                         }
-                    }
+                    },
+                    "check_callback": true
                 },
-                "types" : {
-                 "valid_children" : [ "root" ],
-                 "types" : {
-                     "CATEGORY" : {
-                         "icon" : {
-                             "image" : "/common/js/jquery/plugins/jsTree/themes/apple/d.png",
-                             "position" : "10px40px"
-                         }
-                     }
-                 }
-                },
-                "contextmenu": {items: customMenu},
-                "themes": {
-                    "theme":"default",
-                    "url":"/common/js/jquery/plugins/jsTree/themes/default/style.css"
-                }
+                "state": {"key": "humanres_party_tree"},
+                "contextmenu": {"items": customMenu},
+                "plugins": ["themes", "state", "contextmenu"]
+            });
 
-          });
+            jQuery("#tree").on('ready.jstree', function() {
+                jQuery("#tree").jstree(true).open_node('${partyId}');
+            });
         });
       });
   }
@@ -126,89 +137,68 @@ var rawdata = [
   
   function customMenu(node) {
     // The default set of all items
-    if(node.attr('rel')=='Y'){ 
-    var items = {
-        EmpPosition: { 
-            label: "Add Employee Position",
-            action: function (NODE, TREE_OBJ) {
-                var dataSet = {};
-                dataSet = {"partyId" : NODE.attr("id")};
-                jQuery.ajax({
-                    type: "GET",
-                    url: "EditEmplPosition",
-                    data: dataSet,
-                    error: function(msg) {
-                        alert("An error occurred loading content! : " + msg);
-                    },
-                    success: function(msg) {
-                        jQuery('div.page-container').html(msg);
-                    }
-                });
-            }
-        },
-        AddIntOrg: { 
-            label: "Add Internal Organization",
-            action: function (NODE, TREE_OBJ) {
-                var dataSet = {};
-                dataSet = {"headpartyId" : NODE.attr("id")};
-                jQuery.ajax({
-                    type: "GET",
-                    url: "EditInternalOrgFtl",
-                    data: dataSet,
-                    error: function(msg) {
-                        alert("An error occurred loading content! : " + msg);
-                    },
-                    success: function(msg) {
-                        jQuery('#dialog').html(msg);
-                    }
-                });
-            }
-        },
-        RemoveIntOrg: { 
-            label: "Remove Internal Organization",
-            action: function (NODE, TREE_OBJ) {
-                var dataSet = {};
-                dataSet = {"partyId" : NODE.attr("id"),"parentpartyId" : $.jstree._focused()._get_parent(node).attr("id")};
-                jQuery.ajax({
-                    type: "GET",
-                    url: "RemoveInternalOrgFtl",
-                    data: dataSet,
-                    error: function(msg) {
-                        alert("An error occurred loading content! : " + msg);
-                    },
-                    success: function(msg) {
-                        jQuery('#dialog').html(msg);
-                    }
-                });
-            }
-        }
-    };}
-    if(node.attr('rel')=='N'){ 
-        var items = {
-            AddPerson: { 
-                label: "Add Person",
-                action: function (NODE, TREE_OBJ) {
-                    var dataSet = {};
-                    dataSet = {"emplPositionId" : NODE.attr("id")};
+    var nodeRel = node.li_attr && node.li_attr.rel;
+    var nodeId = node.id;
+    var items = {};
+
+    if (nodeRel === 'Y') {
+        items = {
+            EmpPosition: {
+                label: "Add Employee Position",
+                action: function() {
                     jQuery.ajax({
                         type: "GET",
-                        url: "EditEmplPositionFulfillments",
-                        data: dataSet,
-                        error: function(msg) {
-                            alert("An error occurred loading content! : " + msg);
-                        },
-                        success: function(msg) {
-                            jQuery('div.page-container').html(msg);
-                        }
+                        url: "EditEmplPosition",
+                        data: {"partyId": nodeId},
+                        error: function(msg) { alert("An error occurred loading content! : " + msg); },
+                        success: function(msg) { jQuery('div.page-container').html(msg); }
+                    });
+                }
+            },
+            AddIntOrg: {
+                label: "Add Internal Organization",
+                action: function() {
+                    jQuery.ajax({
+                        type: "GET",
+                        url: "EditInternalOrgFtl",
+                        data: {"headpartyId": nodeId},
+                        error: function(msg) { alert("An error occurred loading content! : " + msg); },
+                        success: function(msg) { jQuery('#dialog').html(msg); }
+                    });
+                }
+            },
+            RemoveIntOrg: {
+                label: "Remove Internal Organization",
+                action: function() {
+                    var tree = jQuery("#tree").jstree(true);
+                    var parentId = tree.get_parent(node);
+                    jQuery.ajax({
+                        type: "GET",
+                        url: "RemoveInternalOrgFtl",
+                        data: {"partyId": nodeId, "parentpartyId": parentId},
+                        error: function(msg) { alert("An error occurred loading content! : " + msg); },
+                        success: function(msg) { jQuery('#dialog').html(msg); }
                     });
                 }
             }
-        }
+        };
     }
 
-    if ($(node).hasClass("folder")) {
-        // Delete the "delete" menu item
-        delete items.deleteItem;
+    if (nodeRel === 'N') {
+        items = {
+            AddPerson: {
+                label: "Add Person",
+                action: function() {
+                    jQuery.ajax({
+                        type: "GET",
+                        url: "EditEmplPositionFulfillments",
+                        data: {"emplPositionId": nodeId},
+                        error: function(msg) { alert("An error occurred loading content! : " + msg); },
+                        success: function(msg) { jQuery('div.page-container').html(msg); }
+                    });
+                }
+            }
+        };
     }
 
     return items;

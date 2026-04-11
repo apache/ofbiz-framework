@@ -34,48 +34,67 @@ jQuery(window).load(createTree());
 var rawdata = [
     <#list parentGroupList as parentGroup>
                    {
-                    "data": {"title" : unescapeHtmlText("<#if parentGroup.productStoreGroupName??>${parentGroup.productStoreGroupName?js_string} [${parentGroup.productStoreGroupId}]</#if>"),
-                                  "attr": {"href" : "<@ofbizUrl>/EditProductStoreGroupAndAssoc</@ofbizUrl>","onClick" : "callDocument('${parentGroup.productStoreGroupId}');"}},
-                    "attr": {"parentGroupId" : "${parentGroup.productStoreGroupId}"}, 
-                    "state" : "closed"
+                    "id": "${parentGroup.productStoreGroupId}",
+                    "text": unescapeHtmlText("<#if parentGroup.productStoreGroupName??>${parentGroup.productStoreGroupName?js_string} [${parentGroup.productStoreGroupId}]</#if>"),
+                    "a_attr": {"href": "<@ofbizUrl>/EditProductStoreGroupAndAssoc</@ofbizUrl>", "onClick": "callDocument('${parentGroup.productStoreGroupId}');"},
+                    "li_attr": {"parentGroupId": "${parentGroup.productStoreGroupId}"},
+                    "children": true
                     }<#if parentGroup_has_next>,</#if>
      </#list>
      ];
 
+ <#-- helper to transform jstree 1.x AJAX response nodes to 3.x format -->
+  function convertNodes(nodes) {
+      if (!nodes || !nodes.length) return [];
+      return jQuery.map(nodes, function(n) {
+          var result = {
+              id: (n.attr && n.attr.id) || n.id || '',
+              text: n.data ? (typeof n.data === 'string' ? n.data : n.data.title) : (n.text || ''),
+              children: (n.state === 'closed' || n.state === 'open') ? true : (n.children || false)
+          };
+          if (n.data && n.data.attr) result.a_attr = n.data.attr;
+          if (n.attr) {
+              result.li_attr = {};
+              for (var k in n.attr) { if (k !== 'id') result.li_attr[k] = n.attr[k]; }
+          }
+          return result;
+      });
+  }
+
  <#-- create Tree-->
   function createTree() {
     jQuery(function () {
-        importLibrary(["/common/js/jquery/plugins/jsTree/jquery.jstree.js"], function() {
+        importLibrary(["/common/js/node_modules/jstree/dist/jstree.min.js",
+            "/common/js/node_modules/jstree/dist/themes/default/style.min.css"], function(){
             jQuery("#tree").jstree({
-                "plugins": ["themes", "json_data", "ui", "cookies", "types"],
-                "json_data": {
-                    "data": rawdata,
-                    "ajax": {
-                        "url": "<@ofbizUrl>getProductStoreGroupRollupHierarchy</@ofbizUrl>",
-                        "type": "POST",
-                        "data": function (n) {
-                            return {
-                                "parentGroupId": n.attr ? n.attr("parentGroupId").replace("node_", "") : 1,
-                                "onclickFunction": "callDocument"
-                            };
-                        },
-                        success: function (data) {
-                            return data.storeGroupTree;
+                "core": {
+                    "data": function(node, callback) {
+                        var inst = this;
+                        if (node.id === '#') {
+                            callback.call(inst, rawdata);
+                        } else {
+                            jQuery.ajax({
+                                url: "<@ofbizUrl>getProductStoreGroupRollupHierarchy</@ofbizUrl>",
+                                type: "POST",
+                                data: {
+                                    "parentGroupId": node.li_attr ? node.li_attr.parentGroupId : node.id,
+                                    "onclickFunction": "callDocument"
+                                },
+                                success: function(data) {
+                                    callback.call(inst, convertNodes(data.storeGroupTree));
+                                }
+                            });
                         }
-                    }
+                    },
+                    "check_callback": true
                 },
-                "types": {
-                    "valid_children": ["root"]
-                },
-                "themes": {
-                    "theme": "default",
-                    "url": "/common/js/jquery/plugins/jsTree/themes/default/style.css"
-                }
+                "state": {"key": "product_store_group_tree"},
+                "plugins": ["themes", "state"]
             });
         });
     });
   }
-  
+
   function callDocument(id) {
     //jQuerry Ajax Request
     var dataSet = {};

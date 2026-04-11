@@ -38,10 +38,12 @@ var rawdata = [
                 <#if locale != "en">
                   <#assign content = Static["org.apache.ofbiz.content.content.ContentWorker"].findAlternateLocaleContent(delegator, content, locale)/>
                 </#if>
-                {
-                "data": {"title" : unescapeHtmlText("${content.contentName!assoc.contentIdTo}"), "attr": {"href": "javascript:void(0);", "onClick" : "callDocument('${assoc.contentIdTo}');"}},
                 <#assign assocChilds  = EntityQuery.use(delegator).from("ContentAssoc").where("contentId", assoc.contentIdTo!, "contentAssocTypeId", "TREE_CHILD").orderBy("sequenceNum").queryList()!/>
-                    "attr": {"id" : "${assoc.contentIdTo}", "contentId" : "${assoc.contentId}", "AssocType" : "${assoc.contentAssocTypeId}", "fromDate" : "${assoc.fromDate}"}
+                {
+                "id": "${assoc.contentIdTo}",
+                "text": unescapeHtmlText("${content.contentName!assoc.contentIdTo}"),
+                "a_attr": {"href": "javascript:void(0);", "onClick": "callDocument('${assoc.contentIdTo}');"},
+                "li_attr": {"contentId": "${assoc.contentId}", "AssocType": "${assoc.contentAssocTypeId}", "fromDate": "${assoc.fromDate}"}
                 <#if assocChilds?has_content>
                     ,"children": [
                         <@fillTree assocList = assocChilds/>
@@ -64,17 +66,13 @@ var rawdata = [
  <#-------------------------------------------------------------------------------------create Tree-->
   function createTree() {
     jQuery(function () {
-        importLibrary(["/common/js/jquery/plugins/jsTree/jquery.jstree.js"], function() {
+        importLibrary(["/common/js/node_modules/jstree/dist/jstree.min.js",
+            "/common/js/node_modules/jstree/dist/themes/default/style.min.css"], function() {
             jQuery("#tree").jstree({
-                "plugins": ["themes", "json_data", "ui", "crrm"],
-                "json_data": {
-                    "data": rawdata,
-                    "progressive_render": false
+                "core": {
+                    "data": rawdata
                 },
-                "themes": {
-                    "theme": "default",
-                    "url": "/common/js/jquery/plugins/jsTree/themes/default/style.css"
-                }
+                "plugins": ["themes"]
             });
         });
     });
