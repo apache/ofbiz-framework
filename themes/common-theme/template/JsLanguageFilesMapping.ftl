@@ -34,7 +34,7 @@ public final class JsLanguageFilesMapping {
     public static class DateJs {
 
         private static Map<String, String> localeFiles = new HashMap<>();
-        private static String defaultDateJs = "/common/js/jquery/plugins/datejs/date-en-US.js";
+        private static String defaultDateJs = "/common/js/node_modules/datejs/src/i18n/en-AU.js";
 
         static {
             <#list datejs.keySet() as dateJsFiles>
@@ -54,7 +54,7 @@ public final class JsLanguageFilesMapping {
 
     public static class JQuery {
         private static Map<String, String> localeFiles = new HashMap<>();
-        private static String defaultDateJs = "/common/js/jquery/ui/i18n/datepicker-en.js";
+        private static String defaultDateJs = "/common/js/i18n/datepicker/datepicker-en.js";
 
         static {
             <#list jquery.keySet() as jqueryFiles>
@@ -94,7 +94,7 @@ public final class JsLanguageFilesMapping {
 
     public static class DateTime {
         private static Map<String, String> localeFiles = new HashMap<>();
-        private static String defaultDateTime = "/common/js/jquery/plugins/datetimepicker/i18n/jquery-ui-timepicker-en.js";
+        private static String defaultDateTime = "/common/js/node_modules/@chinchilla-software/jquery-ui-timepicker-addon/dist/i18n/jquery-ui-timepicker-en.js";
 
         static {
             <#list dateTime.keySet() as dateTimeFiles>
@@ -113,7 +113,7 @@ public final class JsLanguageFilesMapping {
 
     public static class Select2 {
         private static Map<String, String> localeFiles = new HashMap<>();
-        private static String defaultSelect2 = "/common/js/jquery/plugins/select2/js/i18n/en.js";
+        private static String defaultSelect2 = "/common/js/node_modules/select2/dist/js/i18n/en.js";
 
         static {
             <#list select2.keySet() as select2Files>

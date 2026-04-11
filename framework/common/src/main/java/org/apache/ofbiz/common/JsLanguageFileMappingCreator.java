@@ -59,12 +59,20 @@ public class JsLanguageFileMappingCreator {
         Map<String, String> select2LocaleFile = new LinkedHashMap<>();
 
         // setup some variables to locate the js files
-        String componentRoot = "component://common-theme/webapp";
+        // componentRoot points to the actual webapp directory (served at webappMount URL prefix)
+        String componentRoot = "component://common-theme/webapp/common-theme";
+        String webappMount = "/common"; // URL mount point that maps to componentRoot on the filesystem
         String jqueryUiLocaleRelPath = "/common/js/i18n/datepicker/";
         String dateJsLocaleRelPath = "/common/js/node_modules/datejs/src/i18n/";
         String validateRelPath = "/common/js/node_modules/jquery-validation/dist/localization/";
         String dateTimePickerJsLocaleRelPath = "/common/js/node_modules/@chinchilla-software/jquery-ui-timepicker-addon/dist/i18n/";
         String select2LocaleRelPath = "/common/js/node_modules/select2/dist/js/i18n/";
+        // Filesystem-local paths: strip the webappMount prefix for use with componentRoot
+        String fsJqueryUiLocaleRelPath = jqueryUiLocaleRelPath.substring(webappMount.length());
+        String fsDateJsLocaleRelPath = dateJsLocaleRelPath.substring(webappMount.length());
+        String fsValidateRelPath = validateRelPath.substring(webappMount.length());
+        String fsDateTimePickerJsLocaleRelPath = dateTimePickerJsLocaleRelPath.substring(webappMount.length());
+        String fsSelect2LocaleRelPath = select2LocaleRelPath.substring(webappMount.length());
         String jsFilePostFix = ".js";
         String dateJsLocalePrefix = "";
         String validateLocalePrefix = "messages_";
@@ -92,7 +100,7 @@ public class JsLanguageFileMappingCreator {
             /*
              * Try to open the date-js language file
              */
-            String fileName = componentRoot + dateJsLocaleRelPath + dateJsLocalePrefix + modifiedDisplayCountry + jsFilePostFix;
+            String fileName = componentRoot + fsDateJsLocaleRelPath + dateJsLocalePrefix + modifiedDisplayCountry + jsFilePostFix;
             file = FileUtil.getFile(fileName);
 
             if (file.exists()) {
@@ -100,7 +108,7 @@ public class JsLanguageFileMappingCreator {
             } else {
                 // Try to guess a language
                 String tmpLocale = strippedLocale + "-" + strippedLocale.toUpperCase(Locale.getDefault());
-                fileName = componentRoot + dateJsLocaleRelPath + dateJsLocalePrefix + tmpLocale + jsFilePostFix;
+                fileName = componentRoot + fsDateJsLocaleRelPath + dateJsLocalePrefix + tmpLocale + jsFilePostFix;
                 file = FileUtil.getFile(fileName);
                 if (file.exists()) {
                     fileUrl = dateJsLocaleRelPath + dateJsLocalePrefix + tmpLocale + jsFilePostFix;
@@ -115,12 +123,12 @@ public class JsLanguageFileMappingCreator {
              * Try to open the jquery validation language file
              */
             if (modifiedDisplayCountryForValidation != null) { // Try 1st lang_country
-                fileName = componentRoot + validateRelPath + validateLocalePrefix + modifiedDisplayCountryForValidation + jsFilePostFix;
+                fileName = componentRoot + fsValidateRelPath + validateLocalePrefix + modifiedDisplayCountryForValidation + jsFilePostFix;
                 file = FileUtil.getFile(fileName);
                 if (file.exists()) {
                     fileUrl = validateRelPath + validateLocalePrefix + modifiedDisplayCountryForValidation + jsFilePostFix;
                 } else { // lang only
-                    fileName = componentRoot + validateRelPath + validateLocalePrefix + strippedLocale + jsFilePostFix;
+                    fileName = componentRoot + fsValidateRelPath + validateLocalePrefix + strippedLocale + jsFilePostFix;
                     file = FileUtil.getFile(fileName);
                     if (file.exists()) {
                         fileUrl = validateRelPath + validateLocalePrefix + strippedLocale + jsFilePostFix;
@@ -130,7 +138,7 @@ public class JsLanguageFileMappingCreator {
                     }
                 }
             } else { // Then try lang only
-                fileName = componentRoot + validateRelPath + validateLocalePrefix + strippedLocale + jsFilePostFix;
+                fileName = componentRoot + fsValidateRelPath + validateLocalePrefix + strippedLocale + jsFilePostFix;
                 file = FileUtil.getFile(fileName);
                 if (file.exists()) {
                     fileUrl = validateRelPath + validateLocalePrefix + strippedLocale + jsFilePostFix;
@@ -144,14 +152,14 @@ public class JsLanguageFileMappingCreator {
             /*
              * Try to open the jquery timepicker language file
              */
-            fileName = componentRoot + jqueryUiLocaleRelPath + jqueryUiLocalePrefix + strippedLocale + jsFilePostFix;
+            fileName = componentRoot + fsJqueryUiLocaleRelPath + jqueryUiLocalePrefix + strippedLocale + jsFilePostFix;
             file = FileUtil.getFile(fileName);
 
             if (file.exists()) {
                 fileUrl = jqueryUiLocaleRelPath + jqueryUiLocalePrefix + strippedLocale + jsFilePostFix;
             } else {
                 // Try to guess a language
-                fileName = componentRoot + jqueryUiLocaleRelPath + jqueryUiLocalePrefix + modifiedDisplayCountry + jsFilePostFix;
+                fileName = componentRoot + fsJqueryUiLocaleRelPath + jqueryUiLocalePrefix + modifiedDisplayCountry + jsFilePostFix;
                 file = FileUtil.getFile(fileName);
                 if (file.exists()) {
                     fileUrl = jqueryUiLocaleRelPath + jqueryUiLocalePrefix + modifiedDisplayCountry + jsFilePostFix;
@@ -165,14 +173,14 @@ public class JsLanguageFileMappingCreator {
             /*
              * Try to open the datetimepicker language file
              */
-            fileName = componentRoot + dateTimePickerJsLocaleRelPath + dateTimePickerPrefix + strippedLocale + jsFilePostFix;
+            fileName = componentRoot + fsDateTimePickerJsLocaleRelPath + dateTimePickerPrefix + strippedLocale + jsFilePostFix;
             file = FileUtil.getFile(fileName);
 
             if (file.exists()) {
                 fileUrl = dateTimePickerJsLocaleRelPath + dateTimePickerPrefix + strippedLocale + jsFilePostFix;
             } else {
                 // Try to guess a language
-                fileName = componentRoot + dateTimePickerJsLocaleRelPath + dateTimePickerPrefix + modifiedDisplayCountry + jsFilePostFix;
+                fileName = componentRoot + fsDateTimePickerJsLocaleRelPath + dateTimePickerPrefix + modifiedDisplayCountry + jsFilePostFix;
                 file = FileUtil.getFile(fileName);
                 if (file.exists()) {
                     fileUrl = dateTimePickerJsLocaleRelPath + dateTimePickerPrefix + modifiedDisplayCountry + jsFilePostFix;
@@ -186,14 +194,14 @@ public class JsLanguageFileMappingCreator {
             /*
              * Try to open the Select 2 language file
              */
-            fileName = componentRoot + select2LocaleRelPath + strippedLocale + jsFilePostFix;
+            fileName = componentRoot + fsSelect2LocaleRelPath + strippedLocale + jsFilePostFix;
             file = FileUtil.getFile(fileName);
 
             if (file.exists()) {
                 fileUrl = select2LocaleRelPath + strippedLocale + jsFilePostFix;
             } else {
                 // Try to guess a language
-                fileName = componentRoot + select2LocaleRelPath + modifiedDisplayCountry + jsFilePostFix;
+                fileName = componentRoot + fsSelect2LocaleRelPath + modifiedDisplayCountry + jsFilePostFix;
                 file = FileUtil.getFile(fileName);
                 if (file.exists()) {
                     fileUrl = select2LocaleRelPath + modifiedDisplayCountry + jsFilePostFix;
