@@ -46,8 +46,8 @@ dependencies {
     implementation 'org.apache.geronimo.components:geronimo-transaction:3.1.5' // 4.0.0 does not compile
     implementation 'org.apache.geronimo.specs:geronimo-jms_1.1_spec:1.1.1'
     implementation 'org.apache.httpcomponents:httpclient-cache:4.5.14'
-    implementation 'org.apache.logging.log4j:log4j-api:2.25.3' // the API of log4j 2
-    implementation 'org.apache.logging.log4j:log4j-core:2.25.3' // Somehow needed by Buildbot to compile OFBizDynamicThresholdFilter.java
+    implementation 'org.apache.logging.log4j:log4j-api:2.25.4' // the API of log4j 2
+    implementation 'org.apache.logging.log4j:log4j-core:2.25.4' // Somehow needed by Buildbot to compile OFBizDynamicThresholdFilter.java
     implementation 'org.apache.poi:poi:4.1.2' // poi-ooxml-schemas-5.0.0.pom'. Received status code 401 from server
     implementation 'org.apache.pdfbox:pdfbox:2.0.36' // 3.0.1 does not compile
     implementation 'org.apache.shiro:shiro-core:1.13.0'
@@ -99,11 +99,11 @@ dependencies {
     runtimeOnly 'org.apache.axis2:axis2-transport-local:1.8.2'
     runtimeOnly 'org.apache.derby:derby:10.14.2.0' // 10.17.1.0 does not compile
     runtimeOnly 'org.apache.geronimo.specs:geronimo-jaxrpc_1.1_spec:2.1'
-    runtimeOnly 'org.apache.logging.log4j:log4j-1.2-api:2.25.3' // for external jars using the old log4j1.2: routes logging to log4j 2
-    runtimeOnly 'org.apache.logging.log4j:log4j-jul:2.25.3' // for external jars using the java.util.logging: routes logging to log4j 2
-    runtimeOnly 'org.apache.logging.log4j:log4j-slf4j-impl:2.25.3' // for external jars using slf4j: routes logging to log4j 2
-    runtimeOnly 'org.apache.logging.log4j:log4j-web:2.25.3' //???
-    runtimeOnly 'org.apache.logging.log4j:log4j-jcl:2.25.3' // need to constrain to version to avoid classpath conflict (ReflectionUtil)
+    runtimeOnly 'org.apache.logging.log4j:log4j-1.2-api:2.25.4' // for external jars using the old log4j1.2: routes logging to log4j 2
+    runtimeOnly 'org.apache.logging.log4j:log4j-jul:2.25.4' // for external jars using the java.util.logging: routes logging to log4j 2
+    runtimeOnly 'org.apache.logging.log4j:log4j-slf4j-impl:2.25.4' // for external jars using slf4j: routes logging to log4j 2
+    runtimeOnly 'org.apache.logging.log4j:log4j-web:2.25.4' //???
+    runtimeOnly 'org.apache.logging.log4j:log4j-jcl:2.25.4' // need to constrain to version to avoid classpath conflict (ReflectionUtil)
 
     // specify last codenarc version for java 17 compliance
     codenarc('org.codenarc:CodeNarc:3.7.0')
