@@ -64,7 +64,7 @@ dependencies {
     implementation 'org.apache.xmlgraphics:batik-anim:1.19'
     implementation 'org.apache.xmlgraphics:batik-util:1.19'
     implementation 'org.apache.xmlgraphics:batik-bridge:1.19'
-    implementation 'org.apache.xmlgraphics:fop:2.10'
+    implementation 'org.apache.xmlgraphics:fop:2.11'
     // NOTE: fop 2.11+ pulls fontbox 3.x which conflicts with pdfbox 2.x used elsewhere; stay on 2.10 (last version using fontbox 2.x)
     implementation 'org.clojure:clojure:1.12.4'
     implementation 'org.codehaus.groovy:groovy-all:3.0.25'
