@@ -2,7 +2,7 @@
 
 ## Workflows
 
-- `gradle.yaml`  
+- `gradle.yml`  
   Build and checks (style, Javadoc)  
   → Trigger: push / PR on `trunk` and `release*`
 
@@ -10,7 +10,7 @@
   Security analysis (Java + JavaScript)  
   → Trigger: push / PR + weekly on `trunk` and `release*`
 
-- `docker-image.yaml`  
+- `docker-image.yml`  
   Build and push images to `ghcr.io/apache/ofbiz`  
   → Trigger: push on `trunk` / `release*` + tags
 
@@ -21,6 +21,10 @@
 - `scorecard.yml`  
   OpenSSF security scorecard  
   → Trigger: `trunk` + weekly
+
+- `asf-allowlist-check.yml`
+  Verifies all GitHub Actions refs are on the ASF allowlist
+  → Trigger: push / PR on `.github/` path
 
 ### Workflow behavior
 
