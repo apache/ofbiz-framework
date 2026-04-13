@@ -24,9 +24,11 @@ name: "ASF Allowlist Check"
 
 on:
   pull_request:
+    branches: [ trunk, release* ]
     paths:
       - ".github/**"
   push:
+    branches: [ trunk, release* ]
     paths:
       - ".github/**"
 
