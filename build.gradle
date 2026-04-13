@@ -499,11 +499,11 @@ task createTenant(group: ofbizServer, description: 'Create a new tenant in your 
 
 // ========== Documentation tasks ==========
 tasks.withType(AsciidoctorTask) { task ->
-    inProcess = JAVA_EXEC
-        forkOptions {
+    executionMode = JAVA_EXEC
+        jvm {
             jvmArgs("--add-opens","java.base/sun.nio.ch=ALL-UNNAMED","--add-opens","java.base/java.io=ALL-UNNAMED")
         }
-    outputOptions {
+//    outputOptions {
 //         // I hate we have to do this - but JRuby (asciidoctorj-pdf) and Windows don't mix well
 //        if (System.properties['os.name'].toLowerCase().contains('windows')) {
 //            backends = ['html5']
@@ -515,8 +515,8 @@ tasks.withType(AsciidoctorTask) { task ->
 //        at org.jruby.RubyKernel.require(org/jruby/RubyKernel.java:1017)
 //        at RUBY.require(uri:classloader:/META-INF/jruby.home/lib/ruby/stdlib/rubygems/core_ext/kernel_require.rb:85)
 //        at RUBY.<main>(<script>:1)
-        backends = ['html5']
-    }
+//        backends = ['html5']
+//    }
     attributes \
         'doctype': 'book',
         'revnumber': getCurrentGitBranch(),
