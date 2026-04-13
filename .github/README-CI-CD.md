@@ -45,6 +45,7 @@ Read **only from `trunk`**.
 Updates:
 - GitHub Actions
 - Docker base images
+- Gradle dependencies
 - NPM (`themes/common-theme/.../js`)
 
 Each ecosystem includes:
@@ -54,6 +55,7 @@ Each ecosystem includes:
 ## New release branch checklist
 
 Before creating a new release branch from `trunk`, update `dependabot.yml` (on `trunk`) by adding a `target-branch` entry for:
+- gradle
 - npm
 - github-actions
 - docker

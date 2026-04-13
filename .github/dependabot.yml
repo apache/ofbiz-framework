@@ -20,6 +20,33 @@
 
 version: 2
 updates:
+  - package-ecosystem: "gradle"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    #groups:
+    #  all-dependencies:
+    #    patterns:
+    #      - "*"
+    ignore:
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-major"
+
+  - package-ecosystem: "gradle"
+    directory: "/"
+    target-branch: "release24.09"
+    schedule:
+      interval: "daily"
+    #groups:
+    #  all-dependencies:
+    #    patterns:
+    #      - "*"
+    ignore:
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-major"
+
   - package-ecosystem: "npm"
     directory: "themes/common-theme/webapp/common-theme/js"
     schedule:
