@@ -48,7 +48,6 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.ofbiz.base.location.FlexibleLocation;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
@@ -809,7 +808,7 @@ public class WebToolsServices {
                         entityMap.put("title", entity.getTitle());
                         entityMap.put("description", entityDescription);
                         String entityLocation = entity.getLocation();
-                        entityLocation = StringUtils.replaceOnce(entityLocation, System.getProperty("ofbiz.home") + "/", "");
+                        entityLocation = entityLocation.replace(System.getProperty("ofbiz.home") + "/", "");
                         entityMap.put("location", entityLocation);
                         entityMap.put("javaNameList", javaNameList);
                         entityMap.put("relationsList", relationsList);

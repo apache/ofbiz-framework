@@ -459,7 +459,8 @@ public class UtilCodec {
 
         // check for js events
         String onEvent = "on" + StringUtils.substringBetween(value, " on", "=");
-        if (JS_EVENT_LIST.stream().anyMatch(str -> StringUtils.containsIgnoreCase(str, onEvent))
+        String onEventLower = onEvent.toLowerCase(Locale.ROOT);
+        if (JS_EVENT_LIST.stream().anyMatch(s -> s.toLowerCase(Locale.ROOT).contains(onEventLower))
                 || value.contains("seekSegmentTime")) {
             String issueMsg = null;
             if (locale.equals(new Locale("test"))) { // labels are not available in testClasses Gradle task
