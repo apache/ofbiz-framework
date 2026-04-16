@@ -919,7 +919,7 @@ public class SecuredUpload {
 
         // cf. https://commons.apache.org/proper/commons-csv/apidocs/org/apache/commons/csv/CSVFormat.html
         if (!content.contains("</svg>")) {
-            try (CSVParser parser = new CSVParser(in, cvsFormat)) {
+            try (CSVParser parser = cvsFormat.parse(in)) {
                 parser.getRecords();
             }
         } else {
