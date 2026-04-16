@@ -18,10 +18,7 @@
  *******************************************************************************/
 package org.apache.ofbiz.base.start;
 
-import java.io.OutputStreamWriter;
 import java.io.PrintStream;
-import java.io.PrintWriter;
-import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -33,7 +30,8 @@ import java.util.stream.Collectors;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
-import org.apache.commons.cli.HelpFormatter;
+import org.apache.commons.cli.help.HelpFormatter;
+import org.apache.commons.cli.help.TextHelpAppendable;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.OptionGroup;
 import org.apache.commons.cli.Options;
@@ -82,7 +80,7 @@ public final class StartupCommandUtil {
             .longOpt(StartupOption.HELP.getName())
             .desc("Prints this help screen to the user")
             .hasArg(false)
-            .build();
+            .get();
     private static final Option LOAD_DATA = Option.builder("l")
             .longOpt(StartupOption.LOAD_DATA.getName())
             .desc("Creates tables/load data e.g:"
@@ -122,29 +120,29 @@ public final class StartupCommandUtil {
             .valueSeparator('=')
             .optionalArg(true)
             .argName("key=value")
-            .build();
+            .get();
     private static final Option PORTOFFSET = Option.builder("o")
             .longOpt(StartupOption.PORTOFFSET.getName())
             .desc("Offsets all default ports for OFBiz")
             .hasArg()
             .argName("offset")
             .optionalArg(false)
-            .build();
+            .get();
     private static final Option SHUTDOWN = Option.builder("d")
             .longOpt(StartupOption.SHUTDOWN.getName())
             .desc("Shutdown OFBiz")
             .hasArg(false)
-            .build();
+            .get();
     private static final Option START = Option.builder("u")
             .longOpt(StartupOption.START.getName())
             .desc("Start OFBiz")
             .hasArg(false)
-            .build();
+            .get();
     private static final Option STATUS = Option.builder("s")
             .longOpt(StartupOption.STATUS.getName())
             .desc("Gives the status of OFBiz")
             .hasArg(false)
-            .build();
+            .get();
     private static final Option TEST = Option.builder("t")
             .longOpt(StartupOption.TEST.getName())
             .desc("Runs the selected test or all if none selected e.g.: "
@@ -159,7 +157,7 @@ public final class StartupCommandUtil {
             .valueSeparator('=')
             .optionalArg(true)
             .argName("key=value")
-            .build();
+            .get();
 
     static List<StartupCommand> parseOfbizCommands(final String[] args) throws StartupException {
         CommandLine commandLine = null;
@@ -174,21 +172,25 @@ public final class StartupCommandUtil {
     }
 
     static void printOfbizStartupHelp(final PrintStream printStream) {
-        HelpFormatter formatter = new HelpFormatter();
-        formatter.printHelp(
-                new PrintWriter(new OutputStreamWriter(printStream, StandardCharsets.UTF_8), true),
-                HelpFormatter.DEFAULT_WIDTH + 6,
-                "ofbiz|ofbizDebug|ofbizBackground",
-                System.lineSeparator() + "Executes OFBiz command e.g. start, shutdown, check status, etc",
-                getOfbizStartupOptions(),
-                HelpFormatter.DEFAULT_LEFT_PAD,
-                HelpFormatter.DEFAULT_DESC_PAD,
-                "note: Only one command can execute at a time. Portoffset may be appended."
-                    + System.lineSeparator()
-                    + "Also a command must be invoked separately for each argument e.g."
-                    + System.lineSeparator()
-                    + "gradlew \"ofbiz --test component=somecomp --test case=somecase\"",
-                true);
+        HelpFormatter.Builder builder = HelpFormatter.builder();
+        builder.setShowSince(false);
+        builder.setHelpAppendable(new TextHelpAppendable(printStream));
+        HelpFormatter formatter = builder.get();
+        try {
+            formatter.printHelp(
+                    "ofbiz|ofbizDebug|ofbizBackground",
+                    System.lineSeparator() + "Executes OFBiz command e.g. start, shutdown, check status, etc",
+                    getOfbizStartupOptions(),
+                    "note: Only one command can execute at a time. Portoffset may be appended."
+                        + System.lineSeparator()
+                        + "Also a command must be invoked separately for each argument e.g."
+                        + System.lineSeparator()
+                        + "gradlew \"ofbiz --test component=somecomp --test case=somecase\"",
+                    true);
+        } catch (Exception e) {
+            // In case of any exception during help printing, print a simple help message without formatting
+            printStream.println("Usage: ofbiz|ofbizDebug|ofbizBackground [options]");
+        }
     }
 
     static void highlightAndPrintErrorMessage(String errorMessage) {
