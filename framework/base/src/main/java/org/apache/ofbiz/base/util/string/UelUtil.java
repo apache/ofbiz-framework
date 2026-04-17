@@ -226,8 +226,10 @@ public final class UelUtil {
         }
 
         @Override
-        public Object getValue(ELContext context) {
-            return this.object;
+        public <T> T getValue(ELContext context) {
+            @SuppressWarnings("unchecked")
+            T result = (T) this.object;
+            return result;
         }
 
         @Override
@@ -293,8 +295,10 @@ public final class UelUtil {
             return this.varName.hashCode();
         }
         @Override
-        public Object getValue(ELContext context) {
-            return this.elContext.variables.get(this.varName);
+        public <T> T getValue(ELContext context) {
+            @SuppressWarnings("unchecked")
+            T result = (T) this.elContext.variables.get(this.varName);
+            return result;
         }
         @Override
         public String getExpressionString() {
