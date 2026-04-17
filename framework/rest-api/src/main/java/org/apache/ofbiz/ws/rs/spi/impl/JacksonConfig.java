@@ -27,6 +27,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 
@@ -36,12 +37,13 @@ public class JacksonConfig implements ContextResolver<ObjectMapper> {
     private final ObjectMapper objectMapper;
 
     public JacksonConfig() {
-        objectMapper = new ObjectMapper();
-        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-        objectMapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
-        objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
+        objectMapper = JsonMapper.builder()
+                .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
+                .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
+                .defaultPropertyInclusion(JsonInclude.Value.construct(JsonInclude.Include.NON_NULL, JsonInclude.Include.NON_NULL))
+                .visibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY)
+                .enable(SerializationFeature.INDENT_OUTPUT)
+                .build();
         SimpleModule simpleModule = new SimpleModule();
         simpleModule.addSerializer(Link.class, new LinkSerializer());
         objectMapper.registerModule(simpleModule);
