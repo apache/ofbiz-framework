@@ -18,9 +18,7 @@
  *******************************************************************************/
 package org.apache.ofbiz.base.util.string;
 
-import java.beans.FeatureDescriptor;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import jakarta.el.ELContext;
@@ -61,11 +59,6 @@ public class NodeELResolver extends ELResolver {
     @Override
     public Class<?> getCommonPropertyType(ELContext context, Object base) {
         return isResolvable(base) ? String.class : null;
-    }
-
-    @Override
-    public Iterator<FeatureDescriptor> getFeatureDescriptors(ELContext context, Object base) {
-        return null;
     }
 
     @Override
