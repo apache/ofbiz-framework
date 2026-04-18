@@ -18,7 +18,7 @@
  *******************************************************************************/
 package org.apache.ofbiz.testtools;
 
-import groovy.util.GroovyTestCase;
+import groovy.test.GroovyTestCase;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.security.Security;
 import org.apache.ofbiz.service.LocalDispatcher;
