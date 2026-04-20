@@ -218,7 +218,7 @@ public class OutputServices {
         Map<String, Object> screenContext = UtilGenerics.cast(serviceContext.remove("screenContext"));
         String contentType = (String) serviceContext.remove("contentType");
         String filePath = (String) serviceContext.remove("filePath");
-        String fileName = (String) serviceContext.remove("fileName");
+        String fileName = new File((String) serviceContext.remove("fileName")).getName();
 
         if (UtilValidate.isEmpty(screenContext)) {
             screenContext = new HashMap<>();
@@ -265,7 +265,12 @@ public class OutputServices {
             if (UtilValidate.isEmpty(filePath)) {
                 filePath = EntityUtilProperties.getPropertyValue("content", "content.output.path", "/output", delegator);
             }
-            File file = new File(filePath, fileName);
+            File baseDir = new File(filePath).getCanonicalFile();
+            File file = new File(baseDir, fileName).getCanonicalFile();
+            if (!file.toPath().startsWith(baseDir.toPath())) {
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentRenderingPathTraversalError",
+                        UtilMisc.toMap("fileName", fileName, "filePath", filePath), locale));
+            }
 
             FileOutputStream fos = new FileOutputStream(file);
             fos.write(baos.toByteArray());
