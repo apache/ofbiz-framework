@@ -37,6 +37,7 @@ import java.util.Map;
 import javax.sql.rowset.serial.SerialBlob;
 
 import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.SafeObjectInputStream;
 
 /**
  * An object that handles getting/setting column values in JDBC
@@ -617,7 +618,7 @@ public abstract class JdbcValueHandler<T> {
                 if (bis == null) {
                     return null;
                 }
-                in = new ObjectInputStream(bis);
+                in = new SafeObjectInputStream(bis);
                 return in.readObject();
             } catch (Exception e) {
                 throw new SQLException(e);
