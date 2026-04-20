@@ -66,7 +66,9 @@ public final class SafeObjectInputStream extends ObjectInputStream {
             "java\\.util\\.TreeMap",
             "java\\.util\\.Arrays\\$ArrayList",
             "org\\.apache\\.ofbiz\\.entity\\.GenericValue",
-            "org\\.apache\\.ofbiz\\.entity\\.GenericPK"};
+            "org\\.apache\\.ofbiz\\.entity\\.GenericPK",
+            "org\\.codehaus\\.groovy\\.runtime\\.GStringImpl",
+            "groovy\\.lang\\.GString"};
     private static final String[] DEFAULT_DENYLIST = {"rmi", "<"};
 
     /** The regular expression used to match serialized types. */
