@@ -20,6 +20,7 @@ package org.apache.ofbiz.entity.serialize;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.Serializable;
 import java.lang.ref.WeakReference;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -47,8 +48,10 @@ import javax.xml.bind.DatatypeConverter;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilMisc;
+import org.apache.ofbiz.base.util.UtilObject;
 import org.apache.ofbiz.base.util.UtilXml;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericPK;
@@ -254,11 +257,18 @@ public class XmlSerializer {
     }
 
     public static Element serializeCustom(Object object, Document document) throws SerializeException {
-        Debug.logError("Serialization of custom Java objects (cus-obj) is no longer supported. "
-                + "This feature has been removed for security reasons. Object class: "
-                + object.getClass().getName(), MODULE);
-        throw new SerializeException("Serialization of custom Java objects is not supported. "
-                + "Object class: " + object.getClass().getName());
+        if (object instanceof Serializable) {
+            byte[] objBytes = UtilObject.getBytes(object);
+            if (objBytes == null) {
+                throw new SerializeException("Unable to serialize object; null byte array returned");
+            }
+            String byteHex = StringUtil.toHexString(objBytes);
+            Element element = document.createElement("cus-obj");
+            // this is hex encoded so does not need to be in a CDATA block
+            element.appendChild(document.createTextNode(byteHex));
+            return element;
+        }
+        throw new SerializeException("Cannot serialize object of class " + object.getClass().getName());
     }
 
     public static Element makeElement(String elementName, Object value, Document document) {
@@ -455,9 +465,17 @@ public class XmlSerializer {
     public static Object deserializeCustom(Element element) throws SerializeException {
         String tagName = element.getLocalName();
         if ("cus-obj".equals(tagName)) {
-            Debug.logError("Deserialization of cus-obj elements is no longer supported. "
-                    + "This feature has been removed for security reasons.", MODULE);
-            throw new SerializeException("Deserialization of cus-obj elements is not supported.");
+            String value = UtilXml.elementValue(element);
+            if (value != null) {
+                byte[] valueBytes = StringUtil.fromHexString(value);
+                if (valueBytes != null) {
+                    Object obj = UtilObject.getObject(valueBytes);
+                    if (obj != null) {
+                        return obj;
+                    }
+                }
+            }
+            throw new SerializeException("Problem deserializing object from byte array + " + element.getLocalName());
         }
         throw new SerializeException("Cannot deserialize element named " + element.getLocalName());
     }
