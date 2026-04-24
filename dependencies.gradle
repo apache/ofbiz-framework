@@ -81,7 +81,7 @@ dependencies {
     implementation 'org.jdom:jdom2:2.0.6.1'
     implementation 'com.google.re2j:re2j:1.8'
     implementation 'xerces:xercesImpl:2.12.2'
-    implementation('org.mustangproject:library:2.22.0') {
+    implementation('org.mustangproject:library:2.23.0') {
       exclude group: 'pull-parser', module: 'pull-parser'
       exclude group: 'xpp3', module: 'xpp3'
     }
