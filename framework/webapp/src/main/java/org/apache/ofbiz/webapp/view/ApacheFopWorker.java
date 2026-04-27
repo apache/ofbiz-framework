@@ -167,8 +167,12 @@ public final class ApacheFopWorker {
         try {
             TransformerFactory factory = TransformerFactory.newInstance();
             factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
-            factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
-            factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
+            try {
+                factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+                factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
+            } catch (IllegalArgumentException e) {
+                Debug.logWarning("TransformerFactory does not support ACCESS_EXTERNAL_* attributes: " + e.getMessage(), MODULE);
+            }
             Transformer transformer;
             if (stylesheet == null) {
                 transformer = factory.newTransformer();

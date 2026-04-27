@@ -50,8 +50,12 @@ public final class XslTransform {
         String result = null;
         TransformerFactory tfactory = TransformerFactory.newInstance();
         tfactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
-        tfactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
-        tfactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
+        try {
+            tfactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+            tfactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
+        } catch (IllegalArgumentException e) {
+            Debug.logWarning("TransformerFactory does not support ACCESS_EXTERNAL_* attributes: " + e.getMessage(), MODULE);
+        }
         if (tfactory.getFeature(SAXSource.FEATURE)) {
             // setup for xml data file preprocessing to be able to xinclude
             SAXParserFactory pfactory = SAXParserFactory.newInstance();

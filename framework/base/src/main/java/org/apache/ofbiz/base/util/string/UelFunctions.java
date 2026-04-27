@@ -446,8 +446,12 @@ public class UelFunctions {
             ByteArrayInputStream bis = new ByteArrayInputStream(sb.toString().getBytes(StandardCharsets.UTF_8));
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             transformerFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
-            transformerFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
-            transformerFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
+            try {
+                transformerFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+                transformerFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
+            } catch (IllegalArgumentException e) {
+                Debug.logWarning("TransformerFactory does not support ACCESS_EXTERNAL_* attributes: " + e.getMessage(), MODULE);
+            }
             try (ByteArrayOutputStream os = new ByteArrayOutputStream();) {
                 UtilXml.transformDomDocument(transformerFactory.newTransformer(new StreamSource(bis)), node, os);
                 return os.toString();

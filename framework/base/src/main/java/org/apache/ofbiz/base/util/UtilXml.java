@@ -228,8 +228,12 @@ public final class UtilXml {
         ByteArrayInputStream bis = new ByteArrayInputStream(sb.toString().getBytes());
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
         transformerFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
-        transformerFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
-        transformerFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
+        try {
+            transformerFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+            transformerFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
+        } catch (IllegalArgumentException e) {
+            Debug.logWarning("TransformerFactory does not support ACCESS_EXTERNAL_* attributes: " + e.getMessage(), MODULE);
+        }
         return transformerFactory.newTransformer(new StreamSource(bis));
     }
 
@@ -1282,8 +1286,12 @@ public final class UtilXml {
         Transformer transformer;
         try {
             tf.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
-            tf.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
-            tf.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
+            try {
+                tf.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+                tf.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
+            } catch (IllegalArgumentException e) {
+                Debug.logWarning("TransformerFactory does not support ACCESS_EXTERNAL_* attributes: " + e.getMessage(), MODULE);
+            }
             transformer = tf.newTransformer();
             transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");

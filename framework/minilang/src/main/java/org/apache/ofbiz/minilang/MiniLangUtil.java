@@ -284,8 +284,12 @@ public final class MiniLangUtil {
             styleSheetURL = FlexibleLocation.resolveLocation("component://minilang/config/MiniLang.xslt");
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             transformerFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
-            transformerFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
-            transformerFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
+            try {
+                transformerFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+                transformerFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
+            } catch (IllegalArgumentException e) {
+                Debug.logWarning("TransformerFactory does not support ACCESS_EXTERNAL_* attributes: " + e.getMessage(), MODULE);
+            }
             try (InputStream styleSheetInStream = styleSheetURL.openStream()) {
                 transformer = transformerFactory.newTransformer(new StreamSource(styleSheetInStream));
             }
