@@ -384,10 +384,35 @@ under the License.
                 <set field="newOrderItem.isModifiedPrice" value="N"/>
                 <set field="newOrderItem.isPromo" value="Y"/>
                 <if-empty field="newOrderItem.statusId">
-                    <set field="newOrderItem.statusId" value="ITEM_CREATED"/>
+                    <if-compare field="order.statusId" operator="equals" value="ORDER_APPROVED">
+                        <set field="newOrderItem.statusId" value="ITEM_APPROVED"/>
+                    <else>
+                        <set field="newOrderItem.statusId" value="ITEM_CREATED"/>
+                    </else>
+                    </if-compare>
                 </if-empty>
                 <make-next-seq-id value-field="newOrderItem" seq-field-name="orderItemSeqId"/>
                 <create-value value-field="newOrderItem"/>
+
+                <!-- create the OrderItemShipGroupAssoc -->
+                <call-object-method obj-field="cart" method-name="getItemIndex" ret-field="itemIndex">
+                    <field field="item" type="org.apache.ofbiz.order.shoppingcart.ShoppingCartItem"/>
+                </call-object-method>
+                <call-object-method obj-field="cart" method-name="getItemShipGroupIndex" ret-field="shipGroupIndex">
+                    <field field="itemIndex" type="int"/>
+                </call-object-method>
+                <call-object-method obj-field="cart" method-name="getShipInfo" ret-field="csi">
+                    <field field="shipGroupIndex" type="int"/>
+                </call-object-method>
+                <call-object-method obj-field="csi" method-name="getShipGroupSeqId" ret-field="shipGroupSeqId"/>
+
+                <make-value entity-name="OrderItemShipGroupAssoc" value-field="newOisga"/>
+                <set field="newOisga.orderId" from-field="parameters.orderId"/>
+                <set field="newOisga.orderItemSeqId" from-field="newOrderItem.orderItemSeqId"/>
+                <set field="newOisga.shipGroupSeqId" from-field="shipGroupSeqId"/>
+                <set field="newOisga.quantity" from-field="newOrderItem.quantity"/>
+                <create-value value-field="newOisga"/>
+
                 <!-- and the orderItemSeqId is assigned to the shopping cart item-->
                 <call-object-method obj-field="item" method-name="setOrderItemSeqId">
                     <field field="newOrderItem.orderItemSeqId" type="String"/>
