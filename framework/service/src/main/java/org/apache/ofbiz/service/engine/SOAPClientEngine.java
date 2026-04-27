@@ -136,7 +136,10 @@ public final class SOAPClientEngine extends GenericAsyncEngine {
 
         try {
             String xmlParameters = SoapSerializer.serialize(parameterMap);
-            XMLStreamReader reader = XMLInputFactory.newInstance().createXMLStreamReader(new StringReader(xmlParameters));
+            XMLInputFactory xmlInputFactory = XMLInputFactory.newInstance();
+            xmlInputFactory.setProperty(XMLInputFactory.IS_SUPPORTING_EXTERNAL_ENTITIES, false);
+            xmlInputFactory.setProperty(XMLInputFactory.SUPPORT_DTD, false);
+            XMLStreamReader reader = xmlInputFactory.createXMLStreamReader(new StringReader(xmlParameters));
             OMXMLParserWrapper builder = OMXMLBuilderFactory.createStAXOMBuilder(reader);
             parameterSer = builder.getDocumentElement();
         } catch (Exception e) {

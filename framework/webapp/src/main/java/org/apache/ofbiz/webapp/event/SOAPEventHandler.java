@@ -237,7 +237,10 @@ public class SOAPEventHandler implements EventHandler {
             }
             String xmlResults = SoapSerializer.serialize(serviceResults);
             //Debug.logInfo("xmlResults ==================" + xmlResults, MODULE);
-            XMLStreamReader reader = XMLInputFactory.newInstance().createXMLStreamReader(new StringReader(xmlResults));
+            XMLInputFactory xmlInputFactory = XMLInputFactory.newInstance();
+            xmlInputFactory.setProperty(XMLInputFactory.IS_SUPPORTING_EXTERNAL_ENTITIES, false);
+            xmlInputFactory.setProperty(XMLInputFactory.SUPPORT_DTD, false);
+            XMLStreamReader reader = xmlInputFactory.createXMLStreamReader(new StringReader(xmlResults));
             OMXMLParserWrapper resultsBuilder = OMXMLBuilderFactory.createStAXOMBuilder(OMAbstractFactory.getOMFactory(),
                     reader);
             OMElement resultSer = resultsBuilder.getDocumentElement();
@@ -290,7 +293,10 @@ public class SOAPEventHandler implements EventHandler {
             // setup the response
             res.setContentType("text/xml");
             String xmlResults = SoapSerializer.serialize(object);
-            XMLStreamReader xmlReader = XMLInputFactory.newInstance().createXMLStreamReader(new StringReader(xmlResults));
+            XMLInputFactory xmlInputFactory = XMLInputFactory.newInstance();
+            xmlInputFactory.setProperty(XMLInputFactory.IS_SUPPORTING_EXTERNAL_ENTITIES, false);
+            xmlInputFactory.setProperty(XMLInputFactory.SUPPORT_DTD, false);
+            XMLStreamReader xmlReader = xmlInputFactory.createXMLStreamReader(new StringReader(xmlResults));
             OMXMLParserWrapper resultsBuilder = OMXMLBuilderFactory.createStAXOMBuilder(OMAbstractFactory.getOMFactory(), xmlReader);
             OMElement resultSer = resultsBuilder.getDocumentElement();
 
