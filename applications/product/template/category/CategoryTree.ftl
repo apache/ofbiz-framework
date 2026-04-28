@@ -73,13 +73,15 @@ var rawdata = [
  <#-- create Tree-->
   function createTree() {
     jQuery(function () {
-        importLibrary(["/common/js/node_modules/jstree/dist/jstree.min.js",
-            "/common/js/node_modules/jstree/dist/themes/default/style.min.css"], function(){
+        importLibrary(["/common/js/node_modules/jstree/dist/jstree.min.js"], function(){
             <#if stillInCatalogManager>
             localStorage.removeItem('product_category_tree');
             </#if>
             jQuery("#tree").jstree({
                 "core": {
+                    "themes": {
+                        "url": "/common/js/node_modules/jstree/dist/themes/default/style.min.css"
+                    },
                     "data": function(node, callback) {
                         var inst = this;
                         if (node.id === '#') {
