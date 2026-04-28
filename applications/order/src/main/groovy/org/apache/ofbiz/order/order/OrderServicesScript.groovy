@@ -31,7 +31,6 @@ import org.apache.ofbiz.order.shoppingcart.ShoppingCart
 import org.apache.ofbiz.order.shoppingcart.ShoppingCartItem
 
 import java.sql.Timestamp
-
 /**
  * Service to create OrderHeader
  */
@@ -214,21 +213,37 @@ Map recreateOrderAdjustments() {
             // a new order item is created
             GenericValue newOrderItem = makeValue('OrderItem')
             newOrderItem.with {
-                orderId = parameters.orderId
+                orderId = order.get("orderId")
                 orderItemTypeId = item.getItemType()
                 selectedAmount = item.getSelectedAmount()
                 unitPrice = item.getBasePrice()
                 unitListPrice = item.getListPrice()
-                itemDescription = item.getName(dispatcher)
+                itemDescription = item.getDescription()
                 statusId = item.getStatusId()
                 productId = item.getProductId()
                 quantity = item.getQuantity()
                 isModifiedPrice = 'N'
                 isPromo = 'Y'
-                statusId = newOrderItem.statusId ?: 'ITEM_CREATED'
+                statusId = order.statusId == 'ORDER_APPROVED' ? 'ITEM_APPROVED' : 'ITEM_CREATED'
             }
             newOrderItem.orderItemSeqId = delegator.getNextSeqId('OrderItem')
             newOrderItem.create()
+
+            // create the OrderItemShipGroupAssoc
+            int itemIndex = cart.getItemIndex(item)
+            int shipGroupIndex = cart.getItemShipGroupIndex(itemIndex)
+            def csi = cart.getShipInfo(shipGroupIndex)
+            String shipGroupSeqId = csi.getShipGroupSeqId()
+
+            GenericValue newOisga = makeValue('OrderItemShipGroupAssoc')
+            newOisga.with {
+                orderId = order.orderId
+                orderItemSeqId = newOrderItem.orderItemSeqId
+                shipGroupSeqId = shipGroupSeqId
+                quantity = newOrderItem.quantity
+            }
+            newOisga.create()
+
             // And the orderItemSeqId is assigned to the shopping cart item
             item.setOrderItemSeqId(newOrderItem.orderItemSeqId)
         }
