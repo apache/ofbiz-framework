@@ -69,6 +69,8 @@ public final class UtilHtml {
      */
     public static List<String> hasUnclosedTag(String content) {
         XMLInputFactory inputFactory = XMLInputFactory.newInstance();
+        inputFactory.setProperty(XMLInputFactory.IS_SUPPORTING_EXTERNAL_ENTITIES, false);
+        inputFactory.setProperty(XMLInputFactory.SUPPORT_DTD, false);
         XMLEventReader eventReader = null;
         List<String> errorList = new ArrayList<>();
         try {

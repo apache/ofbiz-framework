@@ -60,6 +60,7 @@ import javax.wsdl.extensions.soap.SOAPBinding;
 import javax.wsdl.extensions.soap.SOAPBody;
 import javax.wsdl.extensions.soap.SOAPOperation;
 import javax.wsdl.factory.WSDLFactory;
+import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -1993,6 +1994,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         DocumentBuilder builder = null;
         Document document = null;
         try {
+            factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
             builder = factory.newDocumentBuilder();
             document = builder.newDocument();
         } catch (Exception e) {

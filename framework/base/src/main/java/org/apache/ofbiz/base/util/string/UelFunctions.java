@@ -37,6 +37,7 @@ import java.util.TimeZone;
 
 import jakarta.el.FunctionMapper;
 
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -368,6 +369,7 @@ public class UelFunctions {
             URL url = FlexibleLocation.resolveLocation(str);
             if (url != null) {
                 DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+                factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
                 factory.setFeature("http://xml.org/sax/features/external-general-entities", false);
                 factory.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
                 factory.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
@@ -443,6 +445,9 @@ public class UelFunctions {
             sb.append("</xsl:template>\n</xsl:stylesheet>\n");
             ByteArrayInputStream bis = new ByteArrayInputStream(sb.toString().getBytes(StandardCharsets.UTF_8));
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            transformerFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+            transformerFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+            transformerFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
             try (ByteArrayOutputStream os = new ByteArrayOutputStream();) {
                 UtilXml.transformDomDocument(transformerFactory.newTransformer(new StreamSource(bis)), node, os);
                 return os.toString();

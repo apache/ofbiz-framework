@@ -37,6 +37,7 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -226,6 +227,9 @@ public final class UtilXml {
         sb.append("</xsl:template>\n</xsl:stylesheet>\n");
         ByteArrayInputStream bis = new ByteArrayInputStream(sb.toString().getBytes());
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
+        transformerFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+        transformerFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+        transformerFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
         return transformerFactory.newTransformer(new StreamSource(bis));
     }
 
@@ -460,6 +464,7 @@ public final class UtilXml {
         factory.setAttribute("http://xml.org/sax/features/validation", validate);
         factory.setAttribute("http://apache.org/xml/features/validation/schema", validate);
 
+        factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
         factory.setFeature("http://xml.org/sax/features/external-general-entities", false);
         factory.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
         factory.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
@@ -589,6 +594,9 @@ public final class UtilXml {
         parser.setFeature("http://xml.org/sax/features/validation", validate);
         parser.setFeature("http://apache.org/xml/features/validation/schema", validate);
         parser.setFeature("http://apache.org/xml/features/dom/defer-node-expansion", false);
+        parser.setFeature("http://xml.org/sax/features/external-general-entities", false);
+        parser.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
+        parser.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
 
         // with a SchemaUrl, a URL object
         if (validate) {
@@ -617,9 +625,9 @@ public final class UtilXml {
     public static Document makeEmptyXmlDocument(String rootElementName) {
         Document document = null;
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-
         factory.setValidating(true);
         try {
+            factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
             DocumentBuilder builder = factory.newDocumentBuilder();
 
             document = builder.newDocument();
@@ -1273,6 +1281,9 @@ public final class UtilXml {
         TransformerFactory tf = TransformerFactory.newInstance();
         Transformer transformer;
         try {
+            tf.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+            tf.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+            tf.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
             transformer = tf.newTransformer();
             transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");

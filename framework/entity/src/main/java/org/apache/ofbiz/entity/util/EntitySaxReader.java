@@ -35,6 +35,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import javax.xml.XMLConstants;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -265,7 +266,13 @@ public class EntitySaxReader extends DefaultHandler {
     private long parse(InputStream is, String docDescription) throws SAXException, java.io.IOException {
         SAXParser parser;
         try {
-            parser = SAXParserFactory.newInstance().newSAXParser();
+            SAXParserFactory factory = SAXParserFactory.newInstance();
+            factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+            factory.setFeature("http://xml.org/sax/features/external-general-entities", false);
+            factory.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
+            factory.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
+            factory.setXIncludeAware(false);
+            parser = factory.newSAXParser();
         } catch (ParserConfigurationException pce) {
             throw new SAXException("Unable to create the SAX parser", pce);
         }
