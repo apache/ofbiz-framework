@@ -22,14 +22,14 @@ under the License.
 [![Licence](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0)
 [![Version](https://img.shields.io/badge/Version-trunk-red.svg)](https://github.com/apache/ofbiz-framework)
 
-[![Java CI with Gradle](https://github.com/apache/ofbiz-framework/actions/workflows/gradle.yaml/badge.svg?branch=trunk)](https://github.com/apache/ofbiz-framework/actions/workflows/gradle.yaml) 
-[![CodeQL](https://github.com/apache/ofbiz-framework/actions/workflows/codeql-analysis.yml/badge.svg)](link=https://github.com/apache/ofbiz-framework/actions/workflows/codeql-analysis.yml)<!-- For the CodeQL badge to not get stuck on failing, you need to delete the last failing CodeQL workflow (AKA action)-->
+[![Java CI with Gradle](https://github.com/apache/ofbiz-framework/actions/workflows/gradle.yml/badge.svg?branch=trunk)](https://github.com/apache/ofbiz-framework/actions/workflows/gradle.yml) 
+[![CodeQL](https://github.com/apache/ofbiz-framework/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/apache/ofbiz-framework/actions/workflows/codeql-analysis.yml)<!-- For the CodeQL badge to not get stuck on failing, you need to delete the last failing CodeQL workflow (AKA action)-->
 [![Build Status](https://ci2.apache.org/badges/ofbizTrunkFrameworkPlugins.svg)](https://ci2.apache.org/#/builders?tags=%2BofbizTrunkFrameworkPlugins)<!--For the BuildBot badge to not get stuck on failure, ALL builds of all branches handled by https://svn.apache.org/repos/infra/infrastructure/buildbot2/projects/ofbiz.py need to pass-->
-[![services health](https://qpkb254zxeu.montastic.io/badge)](link=https://qpkb254zxeu.montastic.io)
+[![services health](https://qpkb254zxeu.montastic.io/badge)](https://qpkb254zxeu.montastic.io)
 
 [![Scorecard supply-chain security](https://github.com/apache/ofbiz-framework/actions/workflows/scorecard.yml/badge.svg)](https://github.com/apache/ofbiz-framework/actions/workflows/scorecard.yml)
-[![openssf scorecard](https://api.securityscorecards.dev/projects/github.com/apache/ofbiz-framework/badge)](link=https://securityscorecards.dev/viewer/?uri=github.com/apache/ofbiz-framework)
-[![openssf best practices](https://www.bestpractices.dev/projects/8708/badge)](link=https://www.bestpractices.dev/projects/8708)
+[![openssf scorecard](https://api.securityscorecards.dev/projects/github.com/apache/ofbiz-framework/badge)](https://securityscorecards.dev/viewer/?uri=github.com/apache/ofbiz-framework)
+[![openssf best practices](https://www.bestpractices.dev/projects/8708/badge)](https://www.bestpractices.dev/projects/8708)
 
 ---
 
