@@ -34,6 +34,7 @@ import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.FileUtil;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.template.FreeMarkerWorker;
 import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.ServiceUtil;
@@ -185,11 +186,13 @@ public class JsLanguageFileMappingCreator {
                 if (file.exists()) {
                     fileUrl = dateTimePickerJsLocaleRelPath + dateTimePickerPrefix + modifiedDisplayCountry + jsFilePostFix;
                 } else {
-                    // use default language en as fallback
-                    fileUrl = dateTimePickerJsLocaleRelPath + dateTimePickerPrefix + defaultLocaleJquery + jsFilePostFix;
+                    // en is the default language for the timepicker, so jquery-ui-timepicker-en.js is not needed as a fallback.
+                    fileUrl = null;
                 }
             }
-            dateTimePickerLocaleFile.put(displayCountry, fileUrl);
+            if (UtilValidate.isNotEmpty(fileUrl)) {
+                dateTimePickerLocaleFile.put(displayCountry, fileUrl);
+            }
 
             /*
              * Try to open the Select 2 language file

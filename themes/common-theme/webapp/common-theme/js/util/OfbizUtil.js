@@ -1608,6 +1608,9 @@ var importLibrary = function () {
 
         jQuery.when.apply(jQuery,
             jQuery.map(urls, function (url) {
+                if (!url) {
+                    return null;
+                }
                 if (!importLibraryFiles.has(url)) {
                     var deferObj = (url.endsWith(".css") ?
                         jQuery.get(url, function (css) {
