@@ -91,7 +91,7 @@ var rawdata = [
                                 url: "getChild",
                                 type: "POST",
                                 data: {
-                                    "isCategoryType": node.li_attr ? node.li_attr.isCategoryType : "true",
+                                    "isCategoryType": node.li_attr ? node.li_attr.isCatalog : "true",
                                     "isCatalog": node.li_attr ? node.li_attr.isCatalog : "true",
                                     "productCategoryId": node.id,
                                     "additionParam": "','category",
