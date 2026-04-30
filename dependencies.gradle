@@ -111,7 +111,7 @@ dependencies {
 
     // use constraints to update transitive dependencies
     constraints {
-        implementation('org.apache.james:apache-mime4j-core:0.8.13') {
+        implementation('org.apache.james:apache-mime4j-core:0.8.14') {
             because 'CVE-2024-21742'
         }
         implementation('org.bouncycastle:bcprov-jdk18on:1.84') {
