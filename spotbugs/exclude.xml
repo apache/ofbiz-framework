@@ -48,11 +48,6 @@ under the License.
     <Method name="getFactoryInstance" />
     <Bug pattern="DC_DOUBLECHECK" />
   </Match>
-  <Match>
-    <Class name="org.apache.ofbiz.accounting.thirdparty.valuelink.ValueLinkApi" />
-    <Method name="getWorkingKeyIndex" />
-    <Bug pattern="DC_DOUBLECHECK" />
-  </Match>
 <!-- ^ ^ OK because of synchronized use -->
 
 <!-- v v OK see remark about OWASP advice at bottom of OFBIZ-9973 -->

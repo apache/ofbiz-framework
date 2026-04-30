@@ -437,7 +437,6 @@ No changes
 |UserLogin |externalAuthId |Added |No |NA
 |UserLogin |userLdapDn |Added |No |NA
 |UserLogin |disabledBy |Added |No |NA
-|ValueLinkKey |createdByUserLogin |Added |No |NA
 |WebSite |visualThemeSetId |Added |No |NA
 |WebSite |hostedPathAlias |Added |No |NA
 |WebSite |isDefault |Added |No |NA

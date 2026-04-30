@@ -920,18 +920,6 @@ public final class UtilValidate {
         return isTime(hour, minute, second);
     }
 
-    /** Check to see if a card number is a valid ValueLink Gift Card
-     * @param stPassed a string representing a valuelink gift card
-     * @return true, if the number passed simple checks
-     */
-    public static boolean isValueLinkCard(String stPassed) {
-        if (isEmpty(stPassed)) {
-            return DEFAULT_EMPTY_OK;
-        }
-        String st = stripCharsInBag(stPassed, CREDIT_CARD_DELIMITERS);
-        return st.length() == 16 && (st.startsWith("7") || st.startsWith("6"));
-    }
-
     /** Check to see if a card number is a valid OFB Gift Card (Certifiicate)
      * @param stPassed a string representing a gift card
      * @return tru, if the number passed simple checks
@@ -949,7 +937,7 @@ public final class UtilValidate {
      * @return true, if the number passed simple checks
      */
     public static boolean isGiftCard(String stPassed) {
-        return isOFBGiftCard(stPassed) || isValueLinkCard(stPassed);
+        return isOFBGiftCard(stPassed);
     }
 
     public static int getLuhnSum(String stPassed) {
