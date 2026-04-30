@@ -864,6 +864,7 @@ under the License.
 	     </type-validate>
         </attribute>
         <attribute name="affectAccounting" type="Boolean" mode="OUT" optional="true"/>
+        <override name="inventoryItemId" optional="true"/>
     </service>
     <service name="updatePurchaseShipmentFromReceipt" engine="java"
       location="org.apache.ofbiz.shipment.shipment.ShipmentServices" invoke="updatePurchaseShipmentFromReceipt" auth="true">
@@ -898,17 +899,6 @@ under the License.
         <override name="inventoryItemTypeId" optional="false"/>
         <override name="productId" optional="false"/>
         <override name="facilityId" optional="false"/>
-    </service>
-
-    <service name="issueOrderItemToShipmentAndReceiveAgainstPO" engine="groovy" transaction-timeout="600"
-            location="component://product/src/main/groovy/org/apache/ofbiz/product/shipment/ShipmentReceiptServices.groovy" invoke="issueOrderItemToShipmentAndReceiveAgainstPO" auth="true">
-        <description>Issues order item quantity specified to the shipment, then receives inventory for that item and quantity</description>
-        <required-permissions join-type="AND">
-            <permission-service service-name="checkCanChangeShipmentStatusPacked" main-action="CREATE"/>
-            <permission-service service-name="facilityGenericPermission" main-action="UPDATE"/>
-        </required-permissions>
-        <implements service="issueOrderItemToShipment"/>
-        <implements service="receiveInventoryProduct"/>
     </service>
 
     <service name="quickReceiveReturn" engine="groovy"

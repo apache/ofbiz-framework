@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
  xmlns="http://ofbiz.apache.org/Widget-Form" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
     <!-- DataResource forms -->
     <form name="FindDataResource" target="findDataResource" type="single" default-map-name="parameters"
@@ -223,7 +223,7 @@ under the License.
         <field name="contentId"><hidden value="${parameters.contentId}"/></field>
         <field name="templateDataResource"><hidden value="${parameters.templateDataResource}"/></field>
     </form>
-    
+
     <form name="ListContentsAssociatedToDataResource" type="list" list-name="contentRecords" default-widget-style="display"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
@@ -233,7 +233,7 @@ under the License.
             </entity-and>
         </actions>
         <field name="contentId" widget-style="buttontext">
-            <hyperlink description="${contentId}" target="/EditContent" also-hidden="false">
+            <hyperlink description="${contentId}" target="EditContent" also-hidden="false">
                 <parameter param-name="contentId"/>
             </hyperlink>
         </field>

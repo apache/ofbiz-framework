@@ -216,6 +216,11 @@ public class UtilObjectTests {
             assertNotNull("groovySerializableBytes", groovySerializableBytes);
             assertNull("groovyDeserializable", UtilObject.getObject(groovySerializableBytes));
 
+            // SerializationInjector is a test-only class; allow it explicitly for this assertion.
+            // Note: the allowList value is treated as a regex, so '.' is used instead of '$'
+            // (dot matches any character including the inner-class separator '$').
+            UtilProperties.setPropertyValueInMemory("SafeObjectInputStream", "allowList",
+                    "org.apache.ofbiz.base.util.UtilObjectTests.SerializationInjector");
             byte[] injectorBytes = UtilObject.getBytes(new SerializationInjector(false, false));
             assertNotNull("injectorBytes good", injectorBytes);
             assertNotNull("injector good", UtilObject.getObject(injectorBytes));

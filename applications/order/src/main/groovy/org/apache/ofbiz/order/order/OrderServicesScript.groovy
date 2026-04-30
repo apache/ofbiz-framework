@@ -18,6 +18,8 @@
 */
 package org.apache.ofbiz.order.order
 
+import java.sql.Timestamp
+
 import org.apache.ofbiz.base.util.GeneralException
 import org.apache.ofbiz.base.util.ObjectType
 import org.apache.ofbiz.base.util.UtilDateTime
@@ -28,9 +30,8 @@ import org.apache.ofbiz.entity.condition.EntityConditionBuilder
 import org.apache.ofbiz.entity.condition.EntityOperator
 import org.apache.ofbiz.order.customer.CheckoutMapProcs
 import org.apache.ofbiz.order.shoppingcart.ShoppingCart
+import org.apache.ofbiz.order.shoppingcart.ShoppingCart.CartShipInfo
 import org.apache.ofbiz.order.shoppingcart.ShoppingCartItem
-
-import java.sql.Timestamp
 
 /**
  * Service to create OrderHeader
@@ -214,21 +215,37 @@ Map recreateOrderAdjustments() {
             // a new order item is created
             GenericValue newOrderItem = makeValue('OrderItem')
             newOrderItem.with {
-                orderId = parameters.orderId
+                orderId = order.get('orderId')
                 orderItemTypeId = item.getItemType()
                 selectedAmount = item.getSelectedAmount()
                 unitPrice = item.getBasePrice()
                 unitListPrice = item.getListPrice()
-                itemDescription = item.getName(dispatcher)
+                itemDescription = item.getDescription()
                 statusId = item.getStatusId()
                 productId = item.getProductId()
                 quantity = item.getQuantity()
                 isModifiedPrice = 'N'
                 isPromo = 'Y'
-                statusId = newOrderItem.statusId ?: 'ITEM_CREATED'
+                statusId = order.statusId == 'ORDER_APPROVED' ? 'ITEM_APPROVED' : 'ITEM_CREATED'
             }
             newOrderItem.orderItemSeqId = delegator.getNextSeqId('OrderItem')
             newOrderItem.create()
+
+            // create the OrderItemShipGroupAssoc
+            int itemIndex = cart.getItemIndex(item)
+            int shipGroupIndex = cart.getItemShipGroupIndex(itemIndex)
+            CartShipInfo csi = cart.getShipInfo(shipGroupIndex)
+            String shipGroupSeqIdExt = csi.getShipGroupSeqId()
+
+            GenericValue newOisga = makeValue('OrderItemShipGroupAssoc')
+            newOisga.with {
+                orderId = order.orderId
+                orderItemSeqId = newOrderItem.orderItemSeqId
+                shipGroupSeqId = shipGroupSeqIdExt
+                quantity = newOrderItem.quantity
+            }
+            newOisga.create()
+
             // And the orderItemSeqId is assigned to the shopping cart item
             item.setOrderItemSeqId(newOrderItem.orderItemSeqId)
         }

@@ -350,7 +350,7 @@ Map createInvoiceItem() {
     // if there is no amount and a productItem is supplied fill the amount(price) and description from the product record
     //     TODO: there are return adjustments now that make this code very broken. The check for price was added as a quick fix.
     if (invoiceItem.productId) {
-        invoiceItem.quantity = invoiceItem.quantity ?: 1
+        invoiceItem.quantity = (invoiceItem.quantity != null) ? invoiceItem.quantity : 1
         if (!invoiceItem.amount) {
             GenericValue product = from('Product').where(parameters).cache().queryOne()
             invoiceItem.description = product.description

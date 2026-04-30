@@ -21,11 +21,12 @@ package org.apache.ofbiz.product.product;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.RandomAccessFile;
 import java.math.BigDecimal;
 import java.nio.ByteBuffer;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.nio.file.StandardOpenOption;
 import java.sql.Timestamp;
 import java.util.Arrays;
@@ -991,6 +992,7 @@ public class ProductServices {
             String imageUrlPrefix = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog",
                     "image.url.prefix", delegator), imageContext);
             imageServerPath = imageServerPath.endsWith("/") ? imageServerPath.substring(0, imageServerPath.length() - 1) : imageServerPath;
+            Path imageServerNormalizedPath = Paths.get(imageServerPath).normalize();
             imageUrlPrefix = imageUrlPrefix.endsWith("/") ? imageUrlPrefix.substring(0, imageUrlPrefix.length() - 1) : imageUrlPrefix;
             FlexibleStringExpander filenameExpander = FlexibleStringExpander.getInstance(imageFilenameFormat);
             String viewNumber = String.valueOf(productContentTypeId.charAt(productContentTypeId.length() - 1));
@@ -1027,8 +1029,15 @@ public class ProductServices {
 
             /* Write the new image file */
             String targetDirectory = imageServerPath + "/" + filePathPrefix;
+            // Guard against path traversal: the resolved directory must remain inside imageServerPath
+            Path resolvedTargetDir = Paths.get(targetDirectory).normalize();
+            if (!resolvedTargetDir.startsWith(imageServerNormalizedPath)) {
+                Debug.logError("Path traversal attempt detected in product image upload, productId: " + productId, MODULE);
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
+                        "ProductImageViewUnableWriteFile", UtilMisc.toMap("fileName", targetDirectory), locale));
+            }
             try {
-                File targetDir = new File(targetDirectory);
+                File targetDir = resolvedTargetDir.toFile();
                 // Create the new directory
                 if (!targetDir.exists()) {
                     boolean created = targetDir.mkdirs();
@@ -1074,21 +1083,31 @@ public class ProductServices {
             }
             // Write
             try {
-                String fileToCheck = imageServerPath + "/" + fileLocation + "." + extension.getString("fileExtensionId");
-                File file = new File(fileToCheck);
+                String fileExtId = extension.getString("fileExtensionId");
+                // Guard against path traversal in the resolved file path
+                Path resolvedFilePath = Paths.get(imageServerPath, fileLocation + "." + fileExtId).normalize();
+                if (!resolvedFilePath.startsWith(imageServerNormalizedPath)) {
+                    Debug.logError("Path traversal attempt detected in product image file path, productId: " + productId, MODULE);
+                    return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
+                            "ProductImageViewUnableWriteFile", UtilMisc.toMap("fileName", resolvedFilePath.toString()), locale));
+                }
+                File file = resolvedFilePath.toFile();
                 try {
-                    Path tempFile = Files.createTempFile(null, null);
+                    // Use the intended extension so that isValidFile's allow-list check applies correctly
+                    // (e.g. rejects htm/html before content inspection) and so that the imageMadeSafe()
+                    // call inside isValidFile re-encodes and sanitizes the image in-place in the temp file.
+                    Path tempFile = Files.createTempFile(null, "." + fileExtId);
                     Files.write(tempFile, imageData.array(), StandardOpenOption.APPEND);
                     // Check if a webshell is not uploaded
                     if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(tempFile.toString(), "Image", delegator)) {
                         String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedImageFormats", locale);
+                        new File(tempFile.toString()).deleteOnExit();
                         return ServiceUtil.returnError(errorMessage);
                     }
-                    File tempFileToDelete = new File(tempFile.toString());
-                    tempFileToDelete.deleteOnExit();
-                    RandomAccessFile out = new RandomAccessFile(fileToCheck, "rw");
-                    out.write(imageData.array());
-                    out.close();
+                    // Copy from the sanitized temp file, not from the original byte array, so that
+                    // metadata and payloads stripped by imageMadeSafe() are not reintroduced.
+                    Files.copy(tempFile, resolvedFilePath, StandardCopyOption.REPLACE_EXISTING);
+                    new File(tempFile.toString()).deleteOnExit();
                 } catch (FileNotFoundException e) {
                     Debug.logError(e, MODULE);
                     return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
@@ -1348,6 +1367,7 @@ public class ProductServices {
             String imageUrlPrefix = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog",
                     "image.url.prefix", delegator), imageContext);
             imageServerPath = imageServerPath.endsWith("/") ? imageServerPath.substring(0, imageServerPath.length() - 1) : imageServerPath;
+            Path imageServerNormalizedPath = Paths.get(imageServerPath).normalize();
             imageUrlPrefix = imageUrlPrefix.endsWith("/") ? imageUrlPrefix.substring(0, imageUrlPrefix.length() - 1) : imageUrlPrefix;
             FlexibleStringExpander filenameExpander = FlexibleStringExpander.getInstance(imageFilenameFormat);
             String id = productPromoId + "_Image_" + productPromoContentTypeId.charAt(productPromoContentTypeId.length() - 1);
@@ -1375,29 +1395,45 @@ public class ProductServices {
                 filenameToUse += "." + extension.getString("fileExtensionId");
             }
 
-            File makeResourceDirectory = new File(imageServerPath + "/" + filePathPrefix);
+            // Guard against path traversal: the resolved directory must remain inside imageServerPath
+            Path resolvedResourceDir = Paths.get(imageServerPath, filePathPrefix).normalize();
+            if (!resolvedResourceDir.startsWith(imageServerNormalizedPath)) {
+                Debug.logError("Path traversal attempt detected in product promo image upload, productPromoId: " + productPromoId, MODULE);
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
+                        "ProductImageViewUnableWriteFile", UtilMisc.toMap("fileName", imageServerPath + "/" + filePathPrefix), locale));
+            }
+            File makeResourceDirectory = resolvedResourceDir.toFile();
             if (!makeResourceDirectory.exists()) {
                 if (!makeResourceDirectory.mkdirs()) {
                     Debug.logError("Directory :" + makeResourceDirectory.getPath() + ", couldn't be created", MODULE);
                 }
             }
 
-            String fileToCheck = imageServerPath + "/" + filePathPrefix + filenameToUse;
-            File file = new File(fileToCheck);
+            // Guard against path traversal in the resolved file path
+            Path resolvedFilePath = Paths.get(imageServerPath, filePathPrefix + filenameToUse).normalize();
+            if (!resolvedFilePath.startsWith(imageServerNormalizedPath)) {
+                Debug.logError("Path traversal attempt detected in product promo image file path, productPromoId: " + productPromoId, MODULE);
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
+                        "ProductImageViewUnableWriteFile", UtilMisc.toMap("fileName", resolvedFilePath.toString()), locale));
+            }
+            File file = resolvedFilePath.toFile();
+            String fileExtId = extension != null ? extension.getString("fileExtensionId") : "";
 
             try {
-                Path tempFile = Files.createTempFile(null, null);
+                // Use the intended extension so that isValidFile's allow-list check applies correctly
+                // and imageMadeSafe() sanitizes the image in-place in the temp file.
+                Path tempFile = Files.createTempFile(null, fileExtId.isEmpty() ? null : "." + fileExtId);
                 Files.write(tempFile, imageData.array(), StandardOpenOption.APPEND);
                 // Check if a webshell is not uploaded
                 if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(tempFile.toString(), "Image", delegator)) {
                     String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedImageFormats", locale);
+                    new File(tempFile.toString()).deleteOnExit();
                     return ServiceUtil.returnError(errorMessage);
                 }
-                File tempFileToDelete = new File(tempFile.toString());
-                tempFileToDelete.deleteOnExit();
-                RandomAccessFile out = new RandomAccessFile(file, "rw");
-                out.write(imageData.array());
-                out.close();
+                // Copy from the sanitized temp file, not from the original byte array, so that
+                // metadata and payloads stripped by imageMadeSafe() are not reintroduced.
+                Files.copy(tempFile, resolvedFilePath, StandardCopyOption.REPLACE_EXISTING);
+                new File(tempFile.toString()).deleteOnExit();
             } catch (FileNotFoundException e) {
                 Debug.logError(e, MODULE);
                 return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,

@@ -18,6 +18,8 @@
  *******************************************************************************/
 package org.apache.ofbiz.widget.renderer.macro.renderable;
 
+import java.util.Locale;
+
 public final class RenderableFtlNoop implements RenderableFtl {
     public static final RenderableFtlNoop INSTANCE = new RenderableFtlNoop();
 
@@ -25,7 +27,7 @@ public final class RenderableFtlNoop implements RenderableFtl {
     }
 
     @Override
-    public void accept(final RenderableFtlVisitor visitor) {
-        visitor.visit(this);
+    public void accept(final RenderableFtlVisitor visitor, Locale locale) {
+        visitor.visit(this, locale);
     }
 }

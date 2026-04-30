@@ -44,11 +44,11 @@ import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.TreeSet;
 
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.ofbiz.base.location.FlexibleLocation;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
@@ -167,6 +167,7 @@ public class WebToolsServices {
                 factory.setAttribute("http://xml.org/sax/features/validation", true);
                 factory.setAttribute("http://apache.org/xml/features/validation/schema", true);
 
+                factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
                 factory.setFeature("http://xml.org/sax/features/external-general-entities", false);
                 factory.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
                 factory.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
@@ -505,6 +506,7 @@ public class WebToolsServices {
         Locale locale = (Locale) context.get("locale");
         String outpath = (String) context.get("outpath"); // mandatory
         Timestamp fromDate = (Timestamp) context.get("fromDate");
+        Timestamp thruDate = (Timestamp) context.get("thruDate");
         Integer txTimeout = (Integer) context.get("txTimeout");
         if (txTimeout == null) {
             txTimeout = 7200;
@@ -536,8 +538,13 @@ public class WebToolsServices {
                         continue;
                     }
                     List<EntityCondition> conds = new LinkedList<>();
-                    if (UtilValidate.isNotEmpty(fromDate)) {
-                        conds.add(EntityCondition.makeCondition("createdStamp", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate));
+                    if (!me.getNoAutoStamp()) {
+                        if (UtilValidate.isNotEmpty(fromDate)) {
+                            conds.add(EntityCondition.makeCondition("createdStamp", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate));
+                        }
+                        if (UtilValidate.isNotEmpty(thruDate)) {
+                            conds.add(EntityCondition.makeCondition("createdStamp", EntityOperator.LESS_THAN_EQUAL_TO, thruDate));
+                        }
                     }
                     EntityQuery eq = EntityQuery.use(delegator).from(curEntityName).where(conds).orderBy(me.getPkFieldNames());
 
@@ -809,7 +816,7 @@ public class WebToolsServices {
                         entityMap.put("title", entity.getTitle());
                         entityMap.put("description", entityDescription);
                         String entityLocation = entity.getLocation();
-                        entityLocation = StringUtils.replaceOnce(entityLocation, System.getProperty("ofbiz.home") + "/", "");
+                        entityLocation = entityLocation.replace(System.getProperty("ofbiz.home") + "/", "");
                         entityMap.put("location", entityLocation);
                         entityMap.put("javaNameList", javaNameList);
                         entityMap.put("relationsList", relationsList);

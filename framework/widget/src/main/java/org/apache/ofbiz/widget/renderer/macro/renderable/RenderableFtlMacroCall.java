@@ -19,6 +19,7 @@
 package org.apache.ofbiz.widget.renderer.macro.renderable;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -37,8 +38,8 @@ public final class RenderableFtlMacroCall implements RenderableFtl {
     }
 
     @Override
-    public void accept(final RenderableFtlVisitor visitor) {
-        visitor.visit(this);
+    public void accept(final RenderableFtlVisitor visitor, Locale locale) {
+        visitor.visit(this, locale);
     }
 
     public String getName() {

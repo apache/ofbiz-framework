@@ -134,6 +134,7 @@ under the License.
 
     <!-- Set the average cost of product -->
     <eca service="receiveInventoryProduct" event="commit">
+        <condition field-name="inventoryItemId" operator="is-not-empty"/>
         <action service="updateProductAverageCostOnReceiveInventory" mode="sync"/>
     </eca>
 

@@ -3674,7 +3674,7 @@ public class InvoiceServices {
         String encoding = System.getProperty("file.encoding");
         String csvString = Charset.forName(encoding).decode(fileBytes).toString();
         Builder csvFormatBuilder = Builder.create().setHeader();
-        CSVFormat fmt = csvFormatBuilder.build();
+        CSVFormat fmt = csvFormatBuilder.get();
         List<String> errMsgs = new LinkedList<>();
         List<String> newErrMsgs;
         String lastInvoiceId = null;

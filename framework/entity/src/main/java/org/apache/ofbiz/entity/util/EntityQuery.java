@@ -73,12 +73,11 @@ public class EntityQuery {
     private Integer offset;
     private Integer limit;
 
-
     /** Construct an EntityQuery object for use against the specified Delegator
-     * @param delegator The delegator instance to use for the query
+     * @param delegatorProvider The delegator provider instance to use for the query
      */
-    public static EntityQuery use(Delegator delegator) {
-        return new EntityQuery(delegator);
+    public static EntityQuery use(DelegatorProvider delegatorProvider) {
+        return new EntityQuery(delegatorProvider.getDelegator());
     }
 
     /** Construct an EntityQuery object for use against the specified Delegator

@@ -85,7 +85,10 @@ under the License.
                 <#assign creditCard = orderPaymentPreference.getRelatedOne("PaymentMethod", false).getRelatedOne("CreditCard", false)>
                 ${Static["org.apache.ofbiz.party.contact.ContactHelper"].formatCreditCard(creditCard)}
             <#else>
-                ${paymentMethodType.get("description",locale)!}
+                <#if paymentMethodType?has_content>
+                    ${paymentMethodType.get("description",locale)!}
+                </#if>
+            </#else>
             </#if>
         </fo:block>
     </#list>

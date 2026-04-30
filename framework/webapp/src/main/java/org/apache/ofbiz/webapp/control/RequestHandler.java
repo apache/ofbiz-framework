@@ -1177,8 +1177,10 @@ public final class RequestHandler {
         // add in the attributes as well so everything needed for the rendering context will be in place if/when we get back to this view
         paramMap.putAll(UtilHttp.getAttributeMap(req));
         UtilMisc.makeMapSerializable(paramMap);
-        // Used by lookups to keep the real view (request)
-        req.getSession().setAttribute("_LAST_VIEW_NAME_", paramMap.getOrDefault("_LAST_VIEW_NAME_", view));
+        // Used by lookups to keep the real view (request); accept the request parameter only if it is a safe view name (alphanumeric/dash/underscore)
+        String lastViewNameParam = (String) paramMap.get("_LAST_VIEW_NAME_");
+        String lastViewName = (lastViewNameParam != null && lastViewNameParam.matches("[\\w\\-]+")) ? lastViewNameParam : view;
+        req.getSession().setAttribute("_LAST_VIEW_NAME_", lastViewName);
         req.getSession().setAttribute("_LAST_VIEW_PARAMS_", paramMap);
 
         if ("SAVED".equals(saveName)) {
@@ -1428,7 +1430,12 @@ public final class RequestHandler {
 
         //If required by webSite parameter, surcharge control path
         if (webSiteProps.getWebappPath() != null) {
-            String requestPath = request.getServletPath();
+            // Derive servlet path from the trusted _CONTROL_PATH_ request attribute (set by ControlServlet)
+            // rather than calling getServletPath() directly on the request, to avoid relying on user-influenced input.
+            String contextPath = request.getContextPath();
+            String requestPath = controlPath.startsWith(contextPath)
+                    ? controlPath.substring(contextPath.length())
+                    : controlPath;
             if (requestPath == null) requestPath = "";
             if (requestPath.lastIndexOf("/") > 0) {
                 if (requestPath.indexOf("/") == 0) {

@@ -28,9 +28,9 @@ RUN apt-get update \
 WORKDIR /builder
 
 # Add and run the gradle wrapper to trigger a download if needed.
+COPY gradle/wrapper/gradle-wrapper.properties gradle/wrapper/
 COPY --chmod=755 gradle/init-gradle-wrapper.sh gradle/
 COPY --chmod=755 gradlew .
-RUN ["sed", "-i", "s/shasum/sha1sum/g", "gradle/init-gradle-wrapper.sh"]
 RUN ["gradle/init-gradle-wrapper.sh"]
 
 # Run gradlew to trigger downloading of the gradle distribution (if needed)
@@ -52,7 +52,7 @@ COPY APACHE2_HEADER build.gradle common.gradle gradle.properties NOTICE settings
 # Build OFBiz while mounting a gradle cache
 RUN --mount=type=cache,id=gradle-cache,sharing=locked,target=/root/.gradle \
     --mount=type=tmpfs,target=runtime/tmp \
-    ["./gradlew", "--console", "plain", "distTar"]
+    ["./gradlew", "--console", "plain", "generateSecretKeys", "distTar"]
 
 ###################################################################################
 
@@ -78,7 +78,7 @@ USER ofbiz
 WORKDIR /ofbiz
 
 # Extract the OFBiz tar distribution created by the builder stage.
-RUN --mount=type=bind,from=builder,source=/builder/build/distributions/ofbiz-unspecified.tar,target=/mnt/ofbiz.tar \
+RUN --mount=type=bind,from=builder,source=/builder/build/distributions/ofbiz.tar,target=/mnt/ofbiz.tar \
     ["tar", "--extract", "--strip-components=1", "--file=/mnt/ofbiz.tar"]
 
 # Create directories for OFBiz volume mountpoints.
@@ -93,6 +93,8 @@ RUN echo '${uiLabelMap.CommonJavaVersion}:' "$(java --version | grep Runtime | s
 COPY --chmod=555 docker/docker-entrypoint.sh docker/send_ofbiz_stop_signal.sh .
 
 COPY --chmod=444 docker/disable-component.xslt .
+
+RUN mkdir templates
 COPY --chmod=444 docker/templates templates
 
 EXPOSE 8443

@@ -18,8 +18,10 @@
  *******************************************************************************/
 package org.apache.ofbiz.widget.renderer.macro.renderable;
 
+import java.util.Locale;
+
 public interface RenderableFtlVisitor {
-    void visit(RenderableFtlMacroCall renderableFtlMacroCall);
-    void visit(RenderableFtlNoop renderableFtlNoop);
-    void visit(RenderableFtlString renderableFtlString);
+    void visit(RenderableFtlMacroCall renderableFtlMacroCall, Locale locale);
+    void visit(RenderableFtlNoop renderableFtlNoop, Locale locale);
+    void visit(RenderableFtlString renderableFtlString, Locale locale);
 }

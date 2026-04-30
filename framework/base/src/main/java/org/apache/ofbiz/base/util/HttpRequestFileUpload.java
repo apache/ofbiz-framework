@@ -270,9 +270,26 @@ public class HttpRequestFileUpload {
                         }
                         fos.flush();
 
+                        // If the saved override filename carries no extension but the original client filename does,
+                        // temporarily rename the file to add that extension so that isAllowedExtension inside
+                        // isValidFile can compare it against the per-type allow-list.
+                        String fileToValidate = fileTocheck;
+                        if (overrideFilename != null && filename != null
+                                && filename.lastIndexOf('.') > 0
+                                && filenameToUse.lastIndexOf('.') < 0) {
+                            String originalExt = filename.substring(filename.lastIndexOf('.')).toLowerCase(java.util.Locale.ROOT);
+                            new File(fileTocheck).renameTo(new File(fileTocheck + originalExt));
+                            fileToValidate = fileTocheck + originalExt;
+                        }
                         // Check if a webshell is not uploaded
-                        if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(fileTocheck, fileType, delegator)) {
+                        if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(fileToValidate, fileType, delegator)) {
+                            if (!fileToValidate.equals(fileTocheck)) {
+                                new File(fileToValidate).renameTo(new File(fileTocheck));
+                            }
                             return false;
+                        }
+                        if (!fileToValidate.equals(fileTocheck)) {
+                            new File(fileToValidate).renameTo(new File(fileTocheck));
                         }
                     } catch (ImageReadException e) {
                         Debug.logError(e, MODULE);

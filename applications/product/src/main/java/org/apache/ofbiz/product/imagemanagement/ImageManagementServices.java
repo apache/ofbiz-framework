@@ -25,10 +25,10 @@ import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.nio.file.StandardOpenOption;
 import java.util.HashMap;
 import java.util.List;
@@ -157,21 +157,21 @@ public class ImageManagementServices {
                 imageName = "";
             }
 
+            String fileExt = uploadFileName.contains(".") ? uploadFileName.substring(uploadFileName.lastIndexOf('.')) : "";
             if (UtilValidate.isEmpty(imageResize)) {
                 try {
-                    Path tempFile = Files.createTempFile(null, null);
+                    Path tempFile = Files.createTempFile(null, fileExt);
                     Files.write(tempFile, imageData.array(), StandardOpenOption.APPEND);
                     // Check if a webshell is not uploaded
                     if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(tempFile.toString(), "Image", delegator)) {
                         String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedImageFormats", locale);
+                        new File(tempFile.toString()).deleteOnExit();
                         return ServiceUtil.returnError(errorMessage);
                     }
-                    File tempFileToDelete = new File(tempFile.toString());
-                    tempFileToDelete.deleteOnExit();
-                    // Create image file original to folder product id.
-                    RandomAccessFile out = new RandomAccessFile(file, "rw");
-                    out.write(imageData.array());
-                    out.close();
+                    // Copy from the sanitized temp file, not from the original byte array, so that
+                    // metadata and payloads stripped by imageMadeSafe() are not reintroduced.
+                    Files.copy(tempFile, file.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                    new File(tempFile.toString()).deleteOnExit();
                 } catch (FileNotFoundException e) {
                     Debug.logError(e, MODULE);
                     return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
@@ -187,18 +187,18 @@ public class ImageManagementServices {
                 fileOriginal = checkExistsImage(fileOriginal);
 
                 try {
-                    Path tempFile = Files.createTempFile(null, null);
+                    Path tempFile = Files.createTempFile(null, fileExt);
                     Files.write(tempFile, imageData.array(), StandardOpenOption.APPEND);
                     // Check if a webshell is not uploaded
                     if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(tempFile.toString(), "Image", delegator)) {
                         String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedImageFormats", locale);
+                        new File(tempFile.toString()).deleteOnExit();
                         return ServiceUtil.returnError(errorMessage);
                     }
-                    File tempFileToDelete = new File(tempFile.toString());
-                    tempFileToDelete.deleteOnExit();
-                    RandomAccessFile outFile = new RandomAccessFile(fileOriginal, "rw");
-                    outFile.write(imageData.array());
-                    outFile.close();
+                    // Copy from the sanitized temp file, not from the original byte array, so that
+                    // metadata and payloads stripped by imageMadeSafe() are not reintroduced.
+                    Files.copy(tempFile, fileOriginal.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                    new File(tempFile.toString()).deleteOnExit();
                 } catch (FileNotFoundException e) {
                     Debug.logError(e, MODULE);
                     return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
@@ -578,19 +578,20 @@ public class ImageManagementServices {
         // Create image file thumbnail to folder product id.
         String fileToCheck = imageServerPath + "/" + productId + "/" + filenameToUseThumb;
         File fileOriginalThumb = new File(fileToCheck);
+        String thumbExt = extensionThumb != null ? "." + extensionThumb.getString("fileExtensionId") : "";
         try {
-            Path tempFile = Files.createTempFile(null, null);
+            Path tempFile = Files.createTempFile(null, thumbExt);
             Files.write(tempFile, imageData.array(), StandardOpenOption.APPEND);
             // Check if a webshell is not uploaded
             if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(tempFile.toString(), "Image", delegator)) {
                 String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedImageFormats", locale);
+                new File(tempFile.toString()).deleteOnExit();
                 return ServiceUtil.returnError(errorMessage);
             }
-            File tempFileToDelete = new File(tempFile.toString());
-            tempFileToDelete.deleteOnExit();
-            RandomAccessFile outFileThumb = new RandomAccessFile(fileOriginalThumb, "rw");
-            outFileThumb.write(imageData.array());
-            outFileThumb.close();
+            // Copy from the sanitized temp file, not from the original byte array, so that
+            // metadata and payloads stripped by imageMadeSafe() are not reintroduced.
+            Files.copy(tempFile, fileOriginalThumb.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            new File(tempFile.toString()).deleteOnExit();
         } catch (FileNotFoundException e) {
             Debug.logError(e, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,

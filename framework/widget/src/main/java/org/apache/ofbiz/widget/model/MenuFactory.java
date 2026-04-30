@@ -107,6 +107,9 @@ public class MenuFactory {
         Map<String, ModelMenu> modelMenuMap = MENU_LOCATION_CACHE.get(keyName);
         if (modelMenuMap == null) {
             URL menuFileUrl = FlexibleLocation.resolveLocation(resourceName);
+            if (menuFileUrl == null || UtilValidate.isUrlInStringAndDoesNotStartByComponentProtocol(menuFileUrl.toString())) {
+                throw new IllegalArgumentException("Could not resolve location to URL: " + resourceName);
+            }
             Document menuFileDoc = UtilXml.readXmlDocument(menuFileUrl, true, true);
             modelMenuMap = readMenuDocument(menuFileDoc, resourceName, visualTheme);
             MENU_LOCATION_CACHE.putIfAbsent(keyName, modelMenuMap);

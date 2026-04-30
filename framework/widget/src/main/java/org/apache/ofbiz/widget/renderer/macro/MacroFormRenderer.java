@@ -144,7 +144,11 @@ public final class MacroFormRenderer implements FormStringRenderer {
     }
 
     public void writeFtlElement(final Appendable writer, final RenderableFtl renderableFtl) {
-        ftlWriter.processFtl(writer, renderableFtl);
+        ftlWriter.processFtl(writer, null, renderableFtl);
+    }
+
+    public void writeFtlElement(final Appendable writer, Locale locale, final RenderableFtl renderableFtl) {
+        ftlWriter.processFtl(writer, locale, renderableFtl);
     }
 
     private void executeMacro(Appendable writer, String macro) {
@@ -260,7 +264,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
 
     @Override
     public void renderDateTimeField(Appendable writer, Map<String, Object> context, DateTimeField dateTimeField) {
-        writeFtlElement(writer, renderableFtlFormElementsBuilder.dateTime(context, dateTimeField));
+        writeFtlElement(writer, (Locale) context.get("locale"), renderableFtlFormElementsBuilder.dateTime(context, dateTimeField));
 
         final ModelFormField modelFormField = dateTimeField.getModelFormField();
         this.addAsterisks(writer, context, modelFormField);
@@ -1374,7 +1378,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
 
     @Override
     public void renderDateFindField(Appendable writer, Map<String, Object> context, DateFindField dateFindField) {
-        writeFtlElement(writer, renderableFtlFormElementsBuilder.dateFind(context, dateFindField));
+        writeFtlElement(writer, (Locale) context.get("locale"), renderableFtlFormElementsBuilder.dateFind(context, dateFindField));
 
         final ModelFormField modelFormField = dateFindField.getModelFormField();
         this.appendTooltip(writer, context, modelFormField);
@@ -1382,7 +1386,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
 
     @Override
     public void renderDateRangePickerField(Appendable writer, Map<String, Object> context, ModelFormField.DateRangePickerField dateRangePickerField) {
-        writeFtlElement(writer, renderableFtlFormElementsBuilder.dateRangePicker(context, dateRangePickerField));
+        writeFtlElement(writer, (Locale) context.get("locale"), renderableFtlFormElementsBuilder.dateRangePicker(context, dateRangePickerField));
 
         final ModelFormField modelFormField = dateRangePickerField.getModelFormField();
         this.appendTooltip(writer, context, modelFormField);
@@ -1491,11 +1495,8 @@ public final class MacroFormRenderer implements FormStringRenderer {
         if (showDescription == null) {
             showDescription = "Y".equals(visualTheme.getModelTheme().getLookupShowDescription());
         }
-        // lastViewName, used by lookup to remember the real last view name
-        String lastViewName = request.getParameter("_LAST_VIEW_NAME_"); // Try to get it from parameters firstly
-        if (UtilValidate.isEmpty(lastViewName)) { // get from session
-            lastViewName = (String) request.getSession().getAttribute("_LAST_VIEW_NAME_");
-        }
+        // lastViewName, used by lookup to remember the real last view name; read only from session (set by RequestHandler) to prevent user input
+        String lastViewName = (String) request.getSession().getAttribute("_LAST_VIEW_NAME_");
         if (UtilValidate.isEmpty(lastViewName)) {
             lastViewName = "";
         }
@@ -2000,13 +2001,13 @@ public final class MacroFormRenderer implements FormStringRenderer {
     @Override
     public void renderFieldGroupOpen(Appendable writer, Map<String, Object> context, ModelForm.FieldGroup fieldGroup) {
         final RenderableFtl renderableFtl = renderableFtlFormElementsBuilder.fieldGroupOpen(context, fieldGroup);
-        ftlWriter.processFtl(writer, renderableFtl);
+        ftlWriter.processFtl(writer, (Locale) context.get("locale"), renderableFtl);
     }
 
     @Override
     public void renderFieldGroupClose(Appendable writer, Map<String, Object> context, ModelForm.FieldGroup fieldGroup) {
         final RenderableFtl renderableFtl = renderableFtlFormElementsBuilder.fieldGroupClose(context, fieldGroup);
-        ftlWriter.processFtl(writer, renderableFtl);
+        ftlWriter.processFtl(writer, (Locale) context.get("locale"), renderableFtl);
     }
 
     @Override
@@ -2355,19 +2356,19 @@ public final class MacroFormRenderer implements FormStringRenderer {
                 height = request.getAttribute("height").toString();
             }
             StringBuilder targetParameters = new StringBuilder();
-            if (UtilValidate.isNotEmpty(parameterMap)) {
-                targetParameters.append("{");
-                for (Map.Entry<String, String> parameter : parameterMap.entrySet()) {
-                    if (targetParameters.length() > 1) {
-                        targetParameters.append(",");
+            if (UtilValidate.isNotEmpty(parameterMap) || UtilValidate.isNotEmpty(uniqueItemName)) {
+                try {
+                    Map<String, Object> params = new java.util.TreeMap<>();
+                    if (UtilValidate.isNotEmpty(parameterMap)) {
+                        params.putAll(parameterMap);
                     }
-                    targetParameters.append("'");
-                    targetParameters.append(parameter.getKey());
-                    targetParameters.append("':'");
-                    targetParameters.append(parameter.getValue());
-                    targetParameters.append("'");
+                    if (UtilValidate.isNotEmpty(uniqueItemName)) {
+                        params.put("presentation", "layer");
+                    }
+                    targetParameters.append(org.apache.ofbiz.base.lang.JSON.from(params).toString());
+                } catch (Exception e) {
+                    Debug.logError(e, "Error converting dialog params to JSON", MODULE);
                 }
-                targetParameters.append("}");
             }
             StringWriter sr = new StringWriter();
             sr.append("<@makeHyperlinkString ");
@@ -2388,7 +2389,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
             sr.append("\" alternate=\"");
             sr.append(alt);
             sr.append("\" targetParameters=\"");
-            sr.append(targetParameters.toString());
+            sr.append(encodeDoubleQuotes(targetParameters.toString()));
             sr.append("\" linkUrl=\"");
             sr.append(linkUrl.toString());
             sr.append("\" targetWindow=\"");

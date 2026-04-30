@@ -30,9 +30,7 @@ plugins {
     id 'codenarc'
     id 'maven-publish'
     id "org.asciidoctor.jvm.convert" version "latest.release"
-    id "org.asciidoctor.jvm.pdf" version "latest.release"
     id "org.owasp.dependencycheck" version "latest.release" apply false
-    //id 'se.patrikerdes.use-latest-versions' version '0.2.18' apply false
     id "se.patrikerdes.use-latest-versions"  version "latest.release" apply false
     id "com.github.ben-manes.versions" version "latest.release" apply false
     id "com.github.ManifestClasspath" version "latest.release"
@@ -123,7 +121,6 @@ application {
             ? jvmArgs.tokenize()
             : ['-Xms128M','-Xmx1024M',
             '-Djdk.serialFilter=maxarray=100000;maxdepth=20;maxrefs=1000;maxbytes=500000', // OFBIZ-12592 and OFBIZ-12716
-//            '--add-exports=java.base/sun.util.calendar=ALL-UNNAMED', // OFBIZ-12721
             '--add-opens=java.base/java.util=ALL-UNNAMED' // OFBIZ-12726
             ]
 }
@@ -142,7 +139,7 @@ javadoc {
         // Those external Javadoc links should correspond to the actual
         // versions declared in the 'dependencies' block.
         links(
-            'https://docs.oracle.com/javase/17/docs/api',
+            'https://docs.oracle.com/en/java/javase/17/docs/api/',
             'https://tomcat.apache.org/tomcat-10.1-doc/servletapi/',
             'http://docs.groovy-lang.org/docs/groovy-4.0.22/html/api',
             'https://commons.apache.org/proper/commons-cli/apidocs'
@@ -153,8 +150,8 @@ javadoc {
 }
 
 java {
-    sourceCompatibility(JavaVersion.VERSION_17)
-    targetCompatibility(JavaVersion.VERSION_17)
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 }
 
 // Java compile options, syntax gradlew -PXlint:none build
@@ -189,31 +186,31 @@ allprojects {
         // on mavenCentral directly
         maven {
             // org.restlet and org.restlet.ext.servlet
-            url 'https://maven.restlet.talend.com'
+            url = 'https://maven.restlet.talend.com'
         }
         maven {
             // net.fortuna.ical4j:ical4j:1.0-rc3-atlassian-11
-            url 'https://packages.atlassian.com/maven-3rdparty/'
+            url = 'https://packages.atlassian.com/maven-3rdparty/'
         }
         maven {
             // org/milyn/flute/1.3/flute-1.3.jar
             // need artifact only because of wrong pom metadata in maven central
             // Required by: plugins:birt > org.eclipse.birt.runtime:viewservlets:4.5.0 > org.eclipse.birt.runtime:org.eclipse.birt.runtime:4.4.1
             // TODO Maybe this will no longer needed wheh upgrading viewservlets to 4.9.0
-            url "https://repo1.maven.org/maven2"
+            url = "https://repo1.maven.org/maven2"
             metadataSources {
                 artifact()
             }
         }
         maven {
-            url 'https://clojars.org/repo'
+            url = 'https://clojars.org/repo'
         }
         maven {
-            url "https://artifacts.alfresco.com/nexus/content/repositories/public/"
+            url = "https://artifacts.alfresco.com/nexus/content/repositories/public/"
         }
         /* maven {
             // To test not released FreeMarker versions, see OFBIZ-12934 and sub-tasks for details
-            url "https://repository.apache.org/content/repositories/snapshots/"
+            url = "https://repository.apache.org/content/repositories/snapshots/"
         } */
     }
 }
@@ -375,6 +372,7 @@ test {
     jvmArgs "-javaagent:${classpath.find { it.name.contains('jmockit') }.absolutePath}"
 }
 
+
 /* ========================================================
  * Tasks
  * ======================================================== */
@@ -389,13 +387,13 @@ def sysadminGroup = 'System Administration'
 // ========== OFBiz Server tasks ==========
 
 task loadAll(group: ofbizServer) {
-    dependsOn 'ofbiz --load-data'
-    description 'Load default data; meant for OFBiz development, testing, and demo purposes'
+    dependsOn 'generateSecretKeys', 'ofbiz --load-data'
+    description = 'Load default data; meant for OFBiz development, testing, and demo purposes'
 }
 
 task testIntegration(group: ofbizServer) {
     dependsOn 'ofbiz --test'
-    description 'Run OFBiz integration tests; You must run loadAll before running this task'
+    description = 'Run OFBiz integration tests; You must run loadAll before running this task'
 }
 
 task terminateOfbiz(group: ofbizServer,
@@ -419,7 +417,7 @@ task terminateOfbiz(group: ofbizServer,
 }
 
 task loadAdminUserLogin(group: ofbizServer) {
-    description 'Create admin user with temporary password equal to ofbiz. You must provide userLoginId'
+    description = 'Create admin user with temporary password equal to ofbiz. You must provide userLoginId'
     createOfbizCommandTask('executeLoadAdminUser',
         ['--load-data', 'file=/runtime/tmp/AdminUserLoginData.xml'])
     executeLoadAdminUser.doFirst {
@@ -600,18 +598,18 @@ task deleteAllPluginsDocumentation {
 
 task generateReadmeFiles(group: docsGroup, type: AsciidoctorTask) {
     doFirst { delete "${buildDir}/asciidoc/readme" }
-    description 'Generate OFBiz README files'
+    description = 'Generate OFBiz README files'
     sourceDir "${rootDir}"
     // CHANGELOG.adoc should be only present in the current stable version
     sources {
         include 'README.adoc', 'CHANGELOG.adoc', 'CONTRIBUTING.adoc', 'DOCKER.adoc'
     }
-    outputDir file("${buildDir}/asciidoc/readme/")
+    outputDir = file("${buildDir}/asciidoc/readme/")
 }
 
 task generateOfbizDocumentation(group: docsGroup, type: AsciidoctorTask) {
     dependsOn deleteOfbizDocumentation
-    description 'Generate OFBiz documentation manuals'
+    description = 'Generate OFBiz documentation manuals'
         activeComponents().each { component ->
             copy {
                 from "${component}/src/docs/asciidoc/images/${component.name}"
@@ -620,7 +618,7 @@ task generateOfbizDocumentation(group: docsGroup, type: AsciidoctorTask) {
             }
         }
     sourceDir "${rootDir}/docs/asciidoc"
-    outputDir file("${buildDir}/asciidoc/ofbiz")
+    outputDir = file("${buildDir}/asciidoc/ofbiz")
     doLast {
         activeComponents().each { component ->
             delete "${rootDir}/docs/asciidoc/images/${component.name}"
@@ -630,7 +628,7 @@ task generateOfbizDocumentation(group: docsGroup, type: AsciidoctorTask) {
 
 task generatePluginDocumentation(group: docsGroup) {
     dependsOn deletePluginDocumentation
-    description 'Generate plugin documentation. Expects pluginId flag'
+    description = 'Generate plugin documentation. Expects pluginId flag'
     activeComponents()
         .findAll { project.hasProperty('pluginId') && it.name == pluginId }
         .each { component ->
@@ -682,7 +680,7 @@ task generateAllPluginsDocumentation(group: docsGroup,
                         }
                         if (asciidocFolder.exists()) {
                             sourceDir file("${component}/src/docs/asciidoc")
-                            outputDir file("${buildDir}/asciidoc/plugins/${component.name}")
+                            outputDir = file("${buildDir}/asciidoc/plugins/${component.name}")
                             doLast { println "Documentation generated for plugin ${component.name}" }
                         }
                     mustRunAfter deleteAllPluginsDocumentation
@@ -742,6 +740,37 @@ task gitInfoFooter(group: sysadminGroup, description: 'Update the Git Branch-rev
         gitFooterFile << '${uiLabelMap.CommonRevision} : ' + "${revision}" + System.lineSeparator()
         gitFooterFile << '${uiLabelMap.CommonBuiltOn} : ' + "${timestamp}" + System.lineSeparator()
         gitFooterFile << '${uiLabelMap.CommonJavaVersion} : ' + "${org.gradle.internal.jvm.Jvm.current()}"
+    }
+}
+
+task generateSecretKeys(group: sysadminGroup,
+        description: 'Generate cryptographically secure 512-bit (64-char) secret keys for JWT token signing and password encryption, and write them to security.properties') {
+    doLast {
+        def propertiesFile = file('framework/security/config/security.properties')
+
+        def generateAndWriteKey = { String propertyName ->
+            def content = propertiesFile.text
+            def escapedName = propertyName.replace('.', '\\.')
+            // Only generate a key if the property is missing or commented out
+            if (content =~ /(?m)^${escapedName}=.+$/) {
+                println "Secret key '${propertyName}' is already set, skipping."
+                return
+            }
+            def keyBytes = new byte[48] // 48 bytes * 4/3 = 64 Base64 chars (no padding needed)
+            new java.security.SecureRandom().nextBytes(keyBytes)
+            def key = java.util.Base64.getEncoder().encodeToString(keyBytes)
+            if (content =~ /(?m)^#?${escapedName}=.*$/) {
+                content = content.replaceAll(/(?m)^#?${escapedName}=.*$/, "${propertyName}=${key}")
+            } else {
+                content += "\n${propertyName}=${key}\n"
+            }
+            propertiesFile.text = content
+        }
+
+        generateAndWriteKey('login.secret_key_string')
+        generateAndWriteKey('security.token.key')
+
+        println "Secret key generation complete. Keep any new keys secret and do not commit them to version control."
     }
 }
 
@@ -988,7 +1017,7 @@ task cleanFooterFiles(group: cleanupGroup, description: 'clean generated footer 
  */
 def cleanTasks = tasks.findAll { it.name ==~ /^clean.+/ }
 task cleanAll(group: cleanupGroup, dependsOn: [cleanTasks, clean]) {
-    description 'Execute all cleaning tasks.'
+    description = 'Execute all cleaning tasks.'
 }
 
 /* ========================================================

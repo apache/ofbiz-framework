@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.apache.ofbiz.widget.renderer.macro.renderable;
 
+import java.util.Locale;
 import java.util.function.Consumer;
 
 public final class RenderableFtlString implements RenderableFtl {
@@ -49,8 +50,8 @@ public final class RenderableFtlString implements RenderableFtl {
     }
 
     @Override
-    public void accept(final RenderableFtlVisitor visitor) {
-        visitor.visit(this);
+    public void accept(final RenderableFtlVisitor visitor, Locale locale) {
+        visitor.visit(this, locale);
     }
 
     public static final class RenderableFtlStringBuilder {

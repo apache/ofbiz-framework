@@ -180,8 +180,7 @@ public class ControlFilter extends HttpFilter {
             if (!parameters.isEmpty()) {
                 for (String key : parameters.keySet()) {
                     Object object = parameters.get(key);
-                    if (object.getClass().equals(String.class)
-                            || object instanceof Collection) {
+                    if (object != null && (object.getClass().equals(String.class) || object instanceof Collection)) {
                         try {
                             List<String> toCheck = object.getClass().equals(String.class)
                                     ? List.of((String) object)

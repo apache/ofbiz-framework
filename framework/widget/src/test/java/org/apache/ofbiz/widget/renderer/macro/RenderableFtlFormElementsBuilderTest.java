@@ -260,6 +260,8 @@ public class RenderableFtlFormElementsBuilderTest {
         new Expectations() {
             {
                 textField.getType(); result = "number";
+                textField.getMin(); result = "2";
+                textField.getMax(); result = "8";
                 httpSession.getAttribute("delegatorName"); result = "DelegatorName";
             }
         };
@@ -268,6 +270,8 @@ public class RenderableFtlFormElementsBuilderTest {
         assertThat(renderableFtl, MacroCallMatcher.hasName("renderTextField"));
         assertThat(renderableFtl, MacroCallMatcher.hasParameters(MacroCallParameterMatcher.hasNameAndStringValue("type", "number")));
         assertThat(renderableFtl, MacroCallMatcher.hasParameters(MacroCallParameterMatcher.hasNameAndStringValue("step", "any")));
+        assertThat(renderableFtl, MacroCallMatcher.hasParameters(MacroCallParameterMatcher.hasNameAndStringValue("min", "2")));
+        assertThat(renderableFtl, MacroCallMatcher.hasParameters(MacroCallParameterMatcher.hasNameAndStringValue("max", "8")));
     }
 
     @Test
@@ -329,6 +333,26 @@ public class RenderableFtlFormElementsBuilderTest {
         assertThat(renderableFtl, MacroCallMatcher.hasName("renderTextField"));
         assertThat(renderableFtl, MacroCallMatcher.hasParameters(MacroCallParameterMatcher.hasNameAndStringValue("type", "tel")));
         assertThat(renderableFtl, MacroCallMatcher.hasParameters(MacroCallParameterMatcher.hasNameAndStringValue("step", "")));
+    }
+
+    @Test
+    public void textFieldTypeRange(@Mocked final ModelFormField.TextField textField) {
+        new Expectations() {
+            {
+                textField.getType(); result = "range";
+                textField.getMin(); result = "15";
+                textField.getMax(); result = "30";
+                textField.getStep(); result = "3";
+                httpSession.getAttribute("delegatorName"); result = "DelegatorName";
+            }
+        };
+
+        final RenderableFtl renderableFtl = renderableFtlFormElementsBuilder.textField(Map.of("session", httpSession), textField, true);
+        assertThat(renderableFtl, MacroCallMatcher.hasName("renderTextField"));
+        assertThat(renderableFtl, MacroCallMatcher.hasParameters(MacroCallParameterMatcher.hasNameAndStringValue("type", "range")));
+        assertThat(renderableFtl, MacroCallMatcher.hasParameters(MacroCallParameterMatcher.hasNameAndStringValue("min", "15")));
+        assertThat(renderableFtl, MacroCallMatcher.hasParameters(MacroCallParameterMatcher.hasNameAndStringValue("max", "30")));
+        assertThat(renderableFtl, MacroCallMatcher.hasParameters(MacroCallParameterMatcher.hasNameAndStringValue("step", "3")));
     }
 
     @Test

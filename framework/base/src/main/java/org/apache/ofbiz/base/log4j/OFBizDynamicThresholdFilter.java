@@ -34,7 +34,9 @@ import org.apache.logging.log4j.core.config.plugins.PluginAttribute;
 import org.apache.logging.log4j.core.config.plugins.PluginElement;
 import org.apache.logging.log4j.core.config.plugins.PluginFactory;
 import org.apache.logging.log4j.core.filter.AbstractFilter;
+import org.apache.logging.log4j.core.impl.ContextDataFactory;
 import org.apache.logging.log4j.core.impl.ContextDataInjectorFactory;
+import org.apache.logging.log4j.util.StringMap;
 import org.apache.logging.log4j.core.util.KeyValuePair;
 import org.apache.logging.log4j.message.Message;
 import org.apache.logging.log4j.util.PerformanceSensitive;
@@ -150,7 +152,8 @@ public final class OFBizDynamicThresholdFilter extends AbstractFilter {
     }
 
     private ReadOnlyStringMap currentContextData() {
-        return injector.rawContextData();
+        StringMap contextData = ContextDataFactory.createContextData();
+        return injector.injectContextData(null, contextData);
     }
 
     @Override

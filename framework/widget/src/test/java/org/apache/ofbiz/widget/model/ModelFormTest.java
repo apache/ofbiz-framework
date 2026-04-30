@@ -49,6 +49,7 @@ public class ModelFormTest {
         list.add(genericValue);
         when(delegator.findList(any(), any(), any(), any(), any(), any(), Mockito.anyBoolean()))
                 .thenReturn(list);
+        when(delegator.getDelegator()).thenReturn(delegator);
         context = new HashMap<>();
         context.put("delegator", delegator);
     }

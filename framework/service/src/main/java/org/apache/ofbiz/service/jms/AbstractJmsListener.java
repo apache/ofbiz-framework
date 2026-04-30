@@ -71,6 +71,13 @@ public abstract class AbstractJmsListener implements GenericMessageListener, Exc
                 return null;
             }
 
+            // Authorization check BEFORE deserialization to prevent gadget chain attacks.
+            ModelService model = dispatcher.getDispatchContext().getModelService(serviceName);
+            if (!model.isExport()) {
+                Debug.logWarning("Attempt to invoke a non-exported service: " + serviceName, MODULE);
+                return null;
+            }
+
             Object o = XmlSerializer.deserialize(xmlContext, dispatcher.getDelegator());
 
             if (Debug.verboseOn()) {
@@ -81,18 +88,10 @@ public abstract class AbstractJmsListener implements GenericMessageListener, Exc
             }
         } catch (JMSException je) {
             Debug.logError(je, "Problems reading message.", MODULE);
+        } catch (GenericServiceException e) {
+            Debug.logError(e, "Unable to get ModelService for service: " + serviceName, MODULE);
         } catch (Exception e) {
             Debug.logError(e, "Problems deserializing the service context.", MODULE);
-        }
-
-        try {
-            ModelService model = dispatcher.getDispatchContext().getModelService(serviceName);
-            if (!model.isExport()) {
-                Debug.logWarning("Attempt to invoke a non-exported service: " + serviceName, MODULE);
-                return null;
-            }
-        } catch (GenericServiceException e) {
-            Debug.logError(e, "Unable to get ModelService for service : " + serviceName, MODULE);
         }
 
         if (Debug.verboseOn()) {

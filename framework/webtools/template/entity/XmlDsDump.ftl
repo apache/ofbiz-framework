@@ -59,7 +59,7 @@ under the License.
     <table class="basic-table">
       <tr>
         <td class="label">${uiLabelMap.WebtoolsOutputDirectory}</td>
-        <td><input type="text" size="60" name="outpath" value="${parameters.outpath!}"/></td>
+        <td><input type="text" size="60" name="outpath" value="${parameters.outpath!}"/> ${uiLabelMap.WebtoolsDefaultsToOfbizRootDirectory}</td>
       </tr>
       <tr>
         <td class="label">${uiLabelMap.WebtoolsMaxRecordsPerFile}</td>
@@ -67,7 +67,7 @@ under the License.
       </tr>
       <tr>
         <td class="label">${uiLabelMap.WebtoolsSingleFilename}</td>
-        <td><input type="text" size="60" name="filename" value="${parameters.filename!}"/></td>
+        <td><input type="text" size="60" name="filename" value="${parameters.filename!}"/> ${uiLabelMap.WebtoolsDefaultsToOfbizRootDirectory}</td>
       </tr>
       <tr>
         <td class="label">${uiLabelMap.WebtoolsRecordsUpdatedSince}</td>
@@ -126,7 +126,8 @@ under the License.
                 <#assign check = "false"/>
             </#if>
             <#assign curEntityName = modelEntity.getEntityName()/>
-            <td><input type="checkbox" name="entityName" value="${curEntityName}"<#if check="true"> checked="checked"</#if>/>${curEntityName}</td>
+            <#assign isViewEntity = (modelEntity.getClass().getName() == "org.apache.ofbiz.entity.model.ModelViewEntity")/>
+            <td><input type="checkbox" name="entityName" value="${curEntityName}"<#if check="true"> checked="checked"</#if>/>${curEntityName}<#if isViewEntity> (View Entity)</#if></td>
           </#list>
         </tr>
       </table>

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://ofbiz.apache.org/Widget-Screen" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Screen http://ofbiz.apache.org/dtds/widget-screen.xsd">
+    <!-- Global decorator for Lookup pop-up windows or layered CSS -->
+    <screen name="LookupDecorator">
+        <section>
+            <condition>
+                <not>
+                    <if-compare operator="equals" value="Y" field="parameters.ajaxLookup"/>
+                </not>
+            </condition>
+            <widgets>
+                <section>
+                    <actions>
+                        <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                        <service service-name="getUserPreferenceGroup" result-map="prefResult">
+                            <field-map field-name="userPrefGroupTypeId" value="GLOBAL_PREFERENCES"/>
+                        </service>
+                        <set field="userPreferences" from-field="prefResult.userPrefMap" global="true"/>
+
+                        <property-map resource="general" map-name="generalProperties" global="true"/>
+                        <set field="defaultOrganizationPartyId" from-field="userPreferences.ORGANIZATION_PARTY" global="true"/>
+
+                        <set field="messagesTemplateLocation" from-field="layoutSettings.VT_MSG_TMPLT_LOC" default-value="component://common-theme/template/includes/Messages.ftl"/>
+                        <set field="layoutSettings.styleSheets[]" value="/common/js/node_modules/featherlight/release/featherlight.min.css" global="true"/>
+                        <set field="layoutSettings.javaScripts[+0]" value="/common/js/node_modules/featherlight/release/featherlight.min.js" global="true"/>
+                        <set field="layoutSettings.javaScripts[+0]" value="/common/js/node_modules/jquery-ui-dist/jquery-ui.min.js" global="true"/>
+                        <set field="layoutSettings.javaScripts[+0]" value="/common/js/node_modules/jquery-validation/dist/jquery.validate.min.js"/>
+                        <set field="layoutSettings.javaScripts[+0]" value="/common/js/node_modules/jquery.browser/dist/jquery.browser.min.js" global="true"/>
+                        <set field="layoutSettings.javaScripts[+0]" value="/common/js/node_modules/jquery-migrate/dist/jquery-migrate.min.js" global="true"/>
+                        <set field="layoutSettings.javaScripts[+0]" value="/common/js/node_modules/jquery/dist/jquery.min.js" global="true"/>
+                        <set field="layoutSettings.javaScripts[+0]" value="/common/js/node_modules/dompurify/dist/purify.min.js" global="true"/>
+                        <set field="layoutSettings.javaScripts[]" value="/common/js/util/OfbizUtil.js" global="true"/>
+                    </actions>
+                    <widgets>
+                        <section>
+                            <condition>
+                                <if-compare value="layer" operator="not-equals" field="parameters.presentation"/>
+                            </condition>
+                            <widgets>
+                                <platform-specific>
+                                    <html>
+                                        <html-template location="component://helveticus/template/includes/Lookup.ftl"/>
+                                    </html>
+                                </platform-specific>
+                            </widgets>
+                        </section>
+                        <platform-specific>
+                            <html>
+                                <html-template location="${messagesTemplateLocation}"/>
+                            </html>
+                        </platform-specific>
+                        <section>
+                            <condition>
+                                <not>
+                                    <if-empty-section section-name="body"/>
+                                </not>
+                            </condition>
+                            <widgets>
+                                <decorator-section-include name="body"/>
+                            </widgets>
+                            <fail-widgets>
+                                <screenlet title="${title}" id="findScreenlet" collapsible="true" padded="false">
+                                    <container id="search-options">
+                                        <decorator-section-include name="search-options"/>
+                                    </container>
+                                </screenlet>
+                                <screenlet>
+                                    <container id="search-results">
+                                        <decorator-section-include name="search-results"/>
+                                    </container>
+                                </screenlet>
+                            </fail-widgets>
+                        </section>
+                        <section>
+                            <condition>
+                                <if-compare value="layer" operator="not-equals" field="parameters.presentation"/>
+                            </condition>
+                            <widgets>
+                                <platform-specific>
+                                    <html>
+                                        <html-template location="component://common-theme/template/includes/LookupFooter.ftl"/>
+                                    </html>
+                                </platform-specific>
+                            </widgets>
+                        </section>
+                    </widgets>
+                </section>
+            </widgets>
+            <fail-widgets>
+                <section>
+                    <actions>
+                        <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                        <set field="searchType" from-field="parameters.searchType" default-value="${searchType}"/>
+                        <set field="autocompleterViewSize" from-field="parameters.autocompleterViewSize"
+                             default-value="${groovy: modelTheme.getAutocompleterDefaultViewSize()}"/>
+                        <script location="component://common/src/main/groovy/org/apache/ofbiz/common/FindAutocompleteOptions.groovy"/>
+                    </actions>
+                    <widgets>
+                        <decorator-screen name="AjaxGlobalDecorator">
+                            <decorator-section name="body">
+                                <platform-specific>
+                                    <html>
+                                        <html-template location="component://common-theme/template/includes/AjaxAutocompleteOptions.ftl"/>
+                                    </html>
+                                </platform-specific>
+                            </decorator-section>
+                        </decorator-screen>
+                    </widgets>
+                </section>
+            </fail-widgets>
+        </section>
+    </screen>
+</screens>

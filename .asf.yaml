@@ -43,8 +43,8 @@ github:
     # default commit message when merging with a merge commit
     # can either be: DEFAULT | PR_TITLE | PR_TITLE_AND_DESC
     merge_commit_message: PR_TITLE_AND_DESC
-    # disable rebase button:
-    rebase:  false
+    # enable rebase button:
+    rebase:  true
 
 notifications:
   jobs:  notifications@ofbiz.apache.org

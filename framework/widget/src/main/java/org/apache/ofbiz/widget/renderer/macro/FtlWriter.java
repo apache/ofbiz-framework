@@ -63,9 +63,9 @@ public final class FtlWriter {
      * @param writer        The Appendable to write the result of the template processing to.
      * @param renderableFtl The Renderable FTL to process as a template.
      */
-    public void processFtl(final Appendable writer, final RenderableFtl renderableFtl) {
+    public void processFtl(final Appendable writer, Locale locale, final RenderableFtl renderableFtl) {
         final RenderableFtlFtlWriterVisitor writerVisitor = new RenderableFtlFtlWriterVisitor(writer);
-        renderableFtl.accept(writerVisitor);
+        renderableFtl.accept(writerVisitor, locale);
     }
 
     /**
@@ -122,29 +122,29 @@ public final class FtlWriter {
         }
 
         @Override
-        public void visit(RenderableFtlMacroCall renderableFtlMacroCall) {
+        public void visit(RenderableFtlMacroCall renderableFtlMacroCall, Locale locale) {
             final String name = renderableFtlMacroCall.getName();
 
             try {
-                final Environment environment = getEnvironment(writer, null);
+                final Environment environment = getEnvironment(writer, locale);
 
                 environment.setVariable("$args$" + name,
                         defaultObjectWrapper.wrap(renderableFtlMacroCall.getParameters()));
 
-                processFtlString(writer, null, String.format("<@%s?with_args($args$%s)/>", name, name));
+                processFtlString(writer, locale, String.format("<@%s?with_args($args$%s)/>", name, name));
             } catch (TemplateException | IOException e) {
                 Debug.logError(e, "Error rendering ftl macro: " + name, MODULE);
             }
         }
 
         @Override
-        public void visit(RenderableFtlNoop renderableFtlNoop) {
+        public void visit(RenderableFtlNoop renderableFtlNoop, Locale locale) {
             // Do nothing.
         }
 
         @Override
-        public void visit(RenderableFtlString renderableFtlString) {
-            processFtlString(writer, null, renderableFtlString.getFtlString());
+        public void visit(RenderableFtlString renderableFtlString, Locale locale) {
+            processFtlString(writer, locale, renderableFtlString.getFtlString());
         }
     }
 }

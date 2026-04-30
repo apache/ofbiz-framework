@@ -19,8 +19,8 @@ under the License.
 <#if asm_multipleSelect??> <#-- we check only this var and suppose the others are also present -->
 <script type="text/javascript">
 jQuery(document).ready(function () {
-    var libraryFiles = ["/common/js/jquery/plugins/select2/js/select2-4.0.6.js",
-        "/common/js/jquery/plugins/select2/css/select2-4.0.6.css"];
+    var libraryFiles = ["/common/js/node_modules/select2/dist/js/select2.full.min.js",
+        "/common/js/node_modules/select2/dist/css/select2.min.css"];
     importLibrary(libraryFiles, function(){
 
         var langFile = ["<@jsLangFilesMap>select2</@jsLangFilesMap>"];

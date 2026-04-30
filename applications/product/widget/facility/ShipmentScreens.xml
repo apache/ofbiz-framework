@@ -100,7 +100,6 @@ under the License.
                                         <label style="h1" text="${uiLabelMap.ProductShipmentId}: ${shipment.shipmentId}"/>
                                         <container>
                                             <include-menu location="${parameters.mainMenuLocation}" name="ShipmentTabBar"/>
-                                            <include-menu location="${parameters.mainMenuLocation}" name="ShipmentActionBar"/>
                                         </container>
                                     </widgets>
                                 </section>
@@ -123,7 +122,15 @@ under the License.
                                         </container>
                                     </widgets>
                                 </section>
-
+                                <section>
+                                    <widgets>
+                                        <container>
+                                            <link style="buttontext" text="${uiLabelMap.ProductGenerateShipmentManifestReport}" target="ShipmentManifest.pdf" target-window="_BLANK">
+                                                <parameter param-name="shipmentId"/>
+                                            </link>
+                                        </container>
+                                    </widgets>
+                                </section>
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>

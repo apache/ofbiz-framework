@@ -473,7 +473,7 @@ under the License.
       <alias entity-alias="II" name="availableToPromiseTotal"/>
       <alias entity-alias="II" name="unitCost"/>
       <alias entity-alias="II" name="lotId"/>
-      <view-link entity-alias="SR" rel-entity-alias="II">
+      <view-link entity-alias="SR" rel-entity-alias="II" rel-optional="true">
         <key-map field-name="inventoryItemId"/>
       </view-link>
     </view-entity>

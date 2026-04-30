@@ -61,6 +61,7 @@ import org.apache.ofbiz.entity.model.ModelKeyMap;
 import org.apache.ofbiz.entity.model.ModelRelation;
 import org.apache.ofbiz.entity.model.ModelViewEntity;
 import org.apache.ofbiz.entity.model.ModelViewEntity.ModelAlias;
+import org.apache.ofbiz.entity.util.DelegatorProvider;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -74,7 +75,8 @@ import org.w3c.dom.Element;
  * then it should be made immutable by calling the <code>setImmutable()</code> method.</p>
  */
 @SuppressWarnings("serial")
-public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>, Serializable, Comparable<GenericEntity>, Cloneable {
+public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
+        Serializable, Comparable<GenericEntity>, Cloneable, DelegatorProvider {
 
     private static final String MODULE = GenericEntity.class.getName();
     public static final GenericEntity NULL_ENTITY = new NullGenericEntity();

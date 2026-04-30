@@ -89,6 +89,7 @@
     <service name="createDataResourceAndText" engine="java" default-entity-name="DataResource" auth="true"
             location="org.apache.ofbiz.content.data.DataServices" invoke="createDataResourceAndText">
         <description>Create a DataResource and, possibly, ElectronicText or ImageDataResource</description>
+        <permission-service service-name="genericDataResourcePermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="INOUT" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <attribute name="textData" mode="IN" optional="true" type="String" allow-html="safe"/>
@@ -99,6 +100,7 @@
     <service name="updateDataResourceAndText" engine="java" default-entity-name="DataResource" auth="true"
             location="org.apache.ofbiz.content.data.DataServices" invoke="updateDataResourceAndText">
         <description>Create a DataResource and, possibly, ElectronicText or ImageDataResource</description>
+        <permission-service service-name="genericDataResourcePermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <attribute name="textData" mode="IN" type="String" optional="true"  allow-html="safe"/>

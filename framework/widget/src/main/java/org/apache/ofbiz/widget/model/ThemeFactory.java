@@ -180,7 +180,7 @@ public final class ThemeFactory {
                     if (modelTheme == null) {
                         URL themeFileUrl = null;
                         themeFileUrl = FlexibleLocation.resolveLocation(resourceName);
-                        if (themeFileUrl == null) {
+                        if (themeFileUrl == null || UtilValidate.isUrlInStringAndDoesNotStartByComponentProtocol(themeFileUrl.toString())) {
                             throw new IllegalArgumentException("Could not resolve location to URL: " + resourceName);
                         }
                         Document themeFileDoc = UtilXml.readXmlDocument(themeFileUrl, true, true);

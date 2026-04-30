@@ -26,6 +26,7 @@ import java.util.Map;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.ofbiz.base.location.FlexibleLocation;
+import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.UtilXml;
 import org.apache.ofbiz.base.util.cache.UtilCache;
 import org.apache.ofbiz.entity.Delegator;
@@ -50,6 +51,9 @@ public class TreeFactory {
         Map<String, ModelTree> modelTreeMap = TREE_LOCATION_CACHE.get(resourceName);
         if (modelTreeMap == null) {
             URL treeFileUrl = FlexibleLocation.resolveLocation(resourceName);
+            if (treeFileUrl == null || UtilValidate.isUrlInStringAndDoesNotStartByComponentProtocol(treeFileUrl.toString())) {
+                throw new IllegalArgumentException("Could not resolve location to URL: " + resourceName);
+            }
             Document treeFileDoc = UtilXml.readXmlDocument(treeFileUrl, true, true);
             modelTreeMap = readTreeDocument(treeFileDoc, delegator, dispatcher, resourceName);
             modelTreeMap = TREE_LOCATION_CACHE.putIfAbsentAndGet(resourceName, modelTreeMap);

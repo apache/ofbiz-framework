@@ -37,6 +37,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilProperties;
@@ -47,6 +48,7 @@ import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.security.Security;
+import org.apache.ofbiz.security.SecurityUtil;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ModelService;
@@ -489,6 +491,12 @@ public class CoreEvents {
 
         // load the file
         File file = new File(filePath);
+        try {
+            SecurityUtil.checkOfbizFileAllowList(file);
+        } catch (GeneralException e) {
+            Debug.logError(e.getMessage(), MODULE);
+            return "error";
+        }
         if (file.exists()) {
             Long longLen = file.length();
             int length = longLen.intValue();

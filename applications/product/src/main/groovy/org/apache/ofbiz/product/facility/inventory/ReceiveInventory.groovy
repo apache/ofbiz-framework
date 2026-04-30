@@ -207,6 +207,8 @@ if (purchaseOrderItems) {
 receivedItems = null
 if (purchaseOrder) {
     receivedItems = from('ShipmentReceiptAndItem').where('orderId', purchaseOrderId, 'facilityId', facilityId).queryList()
+    receivedItemsWithNoInventory = from('ShipmentReceiptAndItem').where('orderId', purchaseOrderId, 'inventoryItemId', null).queryList()
+    receivedItems.addAll(receivedItemsWithNoInventory)
     context.receivedItems = receivedItems
 }
 

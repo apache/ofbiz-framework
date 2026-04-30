@@ -46,6 +46,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.ofbiz.base.lang.JSON;
 import org.apache.ofbiz.base.location.FlexibleLocation;
 import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilProperties;
@@ -57,6 +58,7 @@ import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.ofbiz.webapp.control.JWTManager;
 import org.apache.ofbiz.webapp.control.LoginWorker;
+import org.apache.ofbiz.security.SecurityUtil;
 import org.apache.ofbiz.widget.model.ModelWidget;
 import org.apache.ofbiz.widget.model.ScriptLinkHelper;
 import org.apache.ofbiz.widget.model.ThemeFactory;
@@ -414,6 +416,7 @@ public class CommonEvents {
                     if (!platformSpecificPath.contains(File.separator) && "\\".equals(File.separator)) {
                         platformSpecificPath = platformSpecificPath.replace("/", "\\");
                     }
+                    SecurityUtil.checkOfbizFileAllowList(new File(platformSpecificPath));
                     // get line number
                     int lineNumber = 1;
                     if (UtilValidate.isNotEmpty(fragment)) {
@@ -446,7 +449,7 @@ public class CommonEvents {
                         Debug.logInfo(line, MODULE);
                     }
                     return "success";
-                } catch (IOException e) {
+                } catch (GeneralException | IOException e) {
                     Debug.logError(e, MODULE);
                 }
             }

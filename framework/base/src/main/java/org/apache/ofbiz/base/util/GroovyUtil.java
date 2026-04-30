@@ -21,7 +21,9 @@ package org.apache.ofbiz.base.util;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.script.ScriptContext;
@@ -30,6 +32,7 @@ import org.apache.ofbiz.base.location.FlexibleLocation;
 import org.apache.ofbiz.base.util.cache.UtilCache;
 import org.codehaus.groovy.control.CompilationFailedException;
 import org.codehaus.groovy.control.CompilerConfiguration;
+import org.codehaus.groovy.control.customizers.SecureASTCustomizer;
 import org.codehaus.groovy.runtime.InvokerHelper;
 
 import groovy.lang.Binding;
@@ -46,6 +49,7 @@ public final class GroovyUtil {
     private static final String MODULE = GroovyUtil.class.getName();
     private static final UtilCache<String, Class<?>> PARSED_SCRIPTS = UtilCache.createUtilCache("script.GroovyLocationParsedCache", 0, 0, false);
     private static final GroovyClassLoader GROOVY_CLASS_LOADER;
+    private static final CompilerConfiguration SANDBOXED_COMPILER_CONFIG;
 
     private GroovyUtil() { }
 
@@ -60,8 +64,43 @@ public final class GroovyUtil {
         GROOVY_CLASS_LOADER = groovyClassLoader;
     }
 
+    static {
+        // Compile-time AST restrictions applied to eval() expressions.
+        // Blocks OS-execution APIs and dynamic class-loading as a defence-in-depth measure.
+        // Note: SecureASTCustomizer operates at compile time and does not constitute a
+        // complete sandbox; eval() expressions should never originate from untrusted input.
+        SecureASTCustomizer secureAst = new SecureASTCustomizer();
+        secureAst.setDisallowedImports(List.of(
+                "java.lang.Runtime",
+                "java.lang.ProcessBuilder",
+                "java.lang.ClassLoader",
+                "java.lang.Thread",
+                "java.lang.reflect.Method",
+                "java.lang.reflect.Field",
+                "java.net.Socket",
+                "java.net.ServerSocket",
+                "groovy.lang.GroovyShell",
+                "groovy.lang.GroovyClassLoader"));
+        @SuppressWarnings("rawtypes")
+        List<Class> blockedReceivers = Arrays.asList(
+                Runtime.class,
+                ProcessBuilder.class,
+                Thread.class,
+                ClassLoader.class);
+        secureAst.setDisallowedReceiversClasses(blockedReceivers);
+        SANDBOXED_COMPILER_CONFIG = new CompilerConfiguration();
+        SANDBOXED_COMPILER_CONFIG.addCompilationCustomizers(secureAst);
+    }
+
     /**
-     * Evaluate a Groovy condition or expression
+     * Evaluate a Groovy condition or expression.
+     * <p>The shell is created with a restricted {@link CompilerConfiguration} backed by
+     * {@link SecureASTCustomizer}: explicit imports of OS-execution and dynamic class-loading
+     * APIs ({@code Runtime}, {@code ProcessBuilder}, {@code Thread}, {@code ClassLoader} and
+     * related reflection / network classes) are disallowed, and those same types are blocked
+     * as method-call receivers.  This is a compile-time, defence-in-depth measure; it does
+     * not constitute a complete sandbox, and expressions must never originate from untrusted
+     * user input.
      * @param expression The expression to evaluate
      * @param context The context to use in evaluation (re-written)
      * @see <a href="StringUtil.html#convertOperatorSubstitutions(java.lang.String)">StringUtil.convertOperatorSubstitutions(java.lang.String)</a>
@@ -80,7 +119,7 @@ public final class GroovyUtil {
             Debug.logVerbose("Using Context -- " + context, MODULE);
         }
         try {
-            GroovyShell shell = new GroovyShell(getBinding(context, expression));
+            GroovyShell shell = new GroovyShell(GroovyUtil.class.getClassLoader(), getBinding(context, expression), SANDBOXED_COMPILER_CONFIG);
             o = shell.evaluate(StringUtil.convertOperatorSubstitutions(expression));
             if (Debug.verboseOn()) {
                 Debug.logVerbose("Evaluated to -- " + o, MODULE);

@@ -217,7 +217,7 @@ public class MacroFormRendererTest {
 
         new Verifications() {
             {
-                ftlWriter.processFtl(appendable, renderableFtlAsterisk);
+                ftlWriter.processFtl(appendable, null, renderableFtlAsterisk);
             }
         };
     }
@@ -977,7 +977,7 @@ public class MacroFormRendererTest {
                 .put("description", description)
                 .put("linkUrl", "Encoded%20Target")
                 .put("id", id)
-                .put("targetParameters", "{'k1':'v1','k2':'v2'}")
+                .put("targetParameters", "{\\\"k1\\\":\\\"v1\\\",\\\"k2\\\":\\\"v2\\\",\\\"presentation\\\":\\\"layer\\\"}")
                 .put("width", width)
                 .put("confirmation", confirmation)
                 .put("targetWindow", targetWindow)
@@ -1036,7 +1036,7 @@ public class MacroFormRendererTest {
     private void genericSingleMacroRenderedVerification() {
         new Verifications() {
             {
-                ftlWriter.processFtl(appendable, genericMacroCall);
+                ftlWriter.processFtl(appendable, null, genericMacroCall);
             }
         };
     }
@@ -1056,7 +1056,7 @@ public class MacroFormRendererTest {
     private void genericTooltipRenderedVerification() {
         new Verifications() {
             {
-                ftlWriter.processFtl(appendable, genericTooltipMacroCall);
+                ftlWriter.processFtl(appendable, null, genericTooltipMacroCall);
             }
         };
     }
@@ -1064,7 +1064,7 @@ public class MacroFormRendererTest {
     private void genericSubHyperlinkRenderedVerification() {
         new Verifications() {
             {
-                ftlWriter.processFtl(appendable, genericHyperlinkMacroCall);
+                ftlWriter.processFtl(appendable, null, genericHyperlinkMacroCall);
             }
         };
     }

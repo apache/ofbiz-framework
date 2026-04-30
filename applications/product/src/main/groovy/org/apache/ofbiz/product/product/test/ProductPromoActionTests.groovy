@@ -23,9 +23,9 @@ import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.order.shoppingcart.CheckOutHelper
 import org.apache.ofbiz.order.shoppingcart.ShoppingCart
 import org.apache.ofbiz.order.shoppingcart.ShoppingCartItem
-import org.apache.ofbiz.service.testtools.OFBizTestCase
 import org.apache.ofbiz.order.shoppingcart.product.ProductPromoWorker.ActionResultInfo
 import org.apache.ofbiz.service.ServiceUtil
+import org.apache.ofbiz.service.testtools.OFBizTestCase
 
 class ProductPromoActionTests extends OFBizTestCase {
 
@@ -100,7 +100,7 @@ class ProductPromoActionTests extends OFBizTestCase {
      *  1. test failed with passing non valid value
      *  2. test success if the special price is set
      */
-    void testPoductSpecialPrice() {
+    void testProductSpecialPrice() {
         ShoppingCart cart = loadOrder('DEMO10091')
 
         Map<String, Object> serviceContext = prepareConditionMap(cart, 10, false)

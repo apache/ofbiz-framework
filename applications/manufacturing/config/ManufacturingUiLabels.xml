@@ -4265,6 +4265,14 @@
         <value xml:lang="zh">尝试从产品关联（productAssoc）获得物料清单时出错</value>
         <value xml:lang="zh-TW">嘗試從產品結合(productAssoc)獲得物料清單時出錯</value>
     </property>
+   <property key="ManufacturingProductionRunUnableToCreateLaborCosts">
+        <value xml:lang="en">Unable to create labor costs for the production run task ${productionRunTaskId}: ${errorString}</value>
+        <value xml:lang="it">Impossibile creare i costi di manodopera per l'attività di esecuzione dell'ordine di produzione ${productionRunTaskId}: ${errorString}</value>
+        <value xml:lang="ja">生産実行タスク ${productionRunTaskId} に対する作業人件費を作成できませんでした：${errorString}</value>
+        <value xml:lang="vi">Không thể tạo chi phí nhân công cho tác vụ thực hiện lệnh sản xuất ${productionRunTaskId}: ${errorString}</value>
+        <value xml:lang="zh">无法为生产执行任务 ${productionRunTaskId} 创建人工成本：${errorString}</value>
+        <value xml:lang="zh-TW">無法為生產執行任務 ${productionRunTaskId} 建立人工成本：${errorString}</value>
+   </property>
     <property key="ManufacturingProductionRunUnableToCreateMaterialsCosts">
         <value xml:lang="en">Unable to create materials costs for the production run task ${productionRunTaskId}: ${errorString}</value>
         <value xml:lang="it">Non è possibile create i costi dei materiali per il compito dell'ordine di produzione ${productionRunTaskId}: ${errorString}</value>

@@ -43,12 +43,13 @@ import org.apache.ofbiz.entity.util.EntityCrypto;
 import org.apache.ofbiz.entity.util.EntityFindOptions;
 import org.apache.ofbiz.entity.util.EntityListIterator;
 import org.apache.ofbiz.entity.util.EntityStoreOptions;
+import org.apache.ofbiz.entity.util.DelegatorProvider;
 import org.apache.ofbiz.entity.util.SequenceUtil;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
-public interface Delegator {
+public interface Delegator extends DelegatorProvider {
 
     enum OperationType { INSERT, UPDATE, DELETE }
 

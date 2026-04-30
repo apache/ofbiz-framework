@@ -255,16 +255,20 @@ public final class RenderableFtlFormElementsBuilder {
         if (UtilValidate.isEmpty(type)) {
             type = "text";
         }
+        String pattern = "";
+        if (List.of("text", "email", "url", "tel").contains(type)) {
+            pattern = textField.getPattern();
+        }
         String step = "";
-        if (type.equals("number")) {
+        String min = "";
+        String max = "";
+        if (List.of("number", "range").contains(type)) {
+            min = textField.getMin();
+            max = textField.getMax();
             step = textField.getStep();
             if (UtilValidate.isEmpty(step)) {
                 step = "any";
             }
-        }
-        String pattern = "";
-        if (List.of("text", "email", "url", "tel").contains(type)) {
-            pattern = textField.getPattern();
         }
         List<String> classes = new ArrayList<>();
         String alert = "false";
@@ -315,8 +319,10 @@ public final class RenderableFtlFormElementsBuilder {
                 .stringParameter("name", name)
                 .stringParameter("className", String.join(" ", classes))
                 .stringParameter("type", type)
-                .stringParameter("step", step)
                 .stringParameter("pattern", pattern)
+                .stringParameter("step", step)
+                .stringParameter("min", min)
+                .stringParameter("max", max)
                 .stringParameter("alert", alert)
                 .stringParameter("value", value)
                 .stringParameter("textSize", textSize)

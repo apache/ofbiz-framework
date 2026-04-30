@@ -544,4 +544,18 @@ public class EntityQueryTestSuite extends EntityTestCase {
             TransactionUtil.rollback(transactionStarted, "Transaction is Rolled Back", e);
         }
     }
+
+    /**
+     * Check that init function use() work well with a GenericValue that implements DelegatorProvider
+     * assert: ensure delegator present on GV is the same that created and EntityQuery.use on GV not return null
+     */
+    public void testUseFromDelegatorProvider() throws GenericEntityException {
+        Delegator delegator = getDelegator();
+        GenericValue testGv = delegator.makeValue("TestingType",
+                "testingTypeId", "useDelegProv",
+                "description", "Use delegator Provider");
+        assertNotNull(testGv.getDelegator().getDelegatorName());
+        assertEquals(delegator.getDelegatorName(), testGv.getDelegator().getDelegatorName());
+        assertNotNull(EntityQuery.use(testGv));
+    }
 }

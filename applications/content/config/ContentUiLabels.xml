@@ -2089,6 +2089,9 @@
         <value xml:lang="zh">生成${contentType}是出错：${errorString}</value>
         <value xml:lang="zh-TW">產生${contentType}時出錯:${errorString}</value>
     </property>
+    <property key="ContentRenderingPathTraversalError">
+        <value xml:lang="en">Rejected output path: "${fileName}" resolves outside the allowed directory "${filePath}"</value>
+    </property>
     <property key="ContentRequiredField">
         <value xml:lang="en">Required field ${requiredField} is missing in simple method call ${resourceDescription}</value>
         <value xml:lang="fr">Le champ requis ${requiredField} est manquant dans l'appel d'une méthode simple : ${resourceDescription}</value>

@@ -104,7 +104,7 @@ under the License.
                     <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
                 </or>
             </condition>
-            <link target="EditBillingAccount"/>
+            <link target="EditAgreement"/>
         </menu-item>
         <menu-item name="NewFinAccount" title="${uiLabelMap.CommonCreate} ${uiLabelMap.AccountingFinAccount}">
             <condition>

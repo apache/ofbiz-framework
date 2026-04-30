@@ -495,6 +495,11 @@ public class GenericDelegator implements Delegator {
     }
 
     @Override
+    public Delegator getDelegator() {
+        return this;
+    }
+
+    @Override
     public GenericHelperInfo getGroupHelperInfo(String entityGroupName) {
         if (entityGroupName == null) {
             return null;
