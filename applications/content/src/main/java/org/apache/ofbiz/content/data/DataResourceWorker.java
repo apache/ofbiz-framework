@@ -37,6 +37,7 @@ import java.net.UnknownHostException;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -474,12 +475,24 @@ public class DataResourceWorker implements org.apache.ofbiz.widget.content.DataR
 
     /**
      * Checks that the given file is within the provided context root directory.
+     * Uses a dual-check strategy to support EFS/Docker mount points:
+     * 1. Canonical paths (resolves symlinks on both sides) — works for non-mounted paths.
+     * 2. Normalized absolute paths (collapses ".." without following symlinks) — fallback for
+     *    when contextRoot or a subdirectory inside it is a mount point, causing canonical paths
+     *    to diverge. Path traversal via ".." is still blocked by the normalization step.
      */
     static void checkContextFileBoundary(File file, String contextRoot) throws GeneralException {
         try {
             String canonicalAllowed = new File(contextRoot).getCanonicalPath();
             String canonicalFilePath = file.getCanonicalPath();
-            if (!canonicalFilePath.startsWith(canonicalAllowed + File.separator)) {
+            boolean passesCanonical = canonicalFilePath.startsWith(canonicalAllowed + File.separator)
+                    || canonicalFilePath.equals(canonicalAllowed);
+
+            Path normalizedAllowed = Path.of(contextRoot).toAbsolutePath().normalize();
+            Path normalizedFilePath = file.toPath().toAbsolutePath().normalize();
+            boolean passesNormalized = normalizedFilePath.startsWith(normalizedAllowed);
+
+            if (!passesCanonical && !passesNormalized) {
                 throw new GeneralException("Access to file denied: path resolves outside of the allowed directory");
             }
         } catch (IOException e) {

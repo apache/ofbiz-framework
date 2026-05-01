@@ -20,13 +20,95 @@ package org.apache.ofbiz.security;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
+import org.apache.ofbiz.base.util.GeneralException;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 public class SecurityUtilTest {
+
+    private Path tempHome;
+    private Path tempExternal;
+    private String previousOfbizHome;
+
+    @Before
+    public void setUpTempDirs() throws Exception {
+        tempHome = Files.createTempDirectory("ofbiz-home-test");
+        tempExternal = Files.createTempDirectory("ofbiz-ext-test");
+        previousOfbizHome = System.getProperty("ofbiz.home");
+        System.setProperty("ofbiz.home", tempHome.toString());
+    }
+
+    @After
+    public void tearDownTempDirs() throws Exception {
+        if (previousOfbizHome != null) {
+            System.setProperty("ofbiz.home", previousOfbizHome);
+        } else {
+            System.clearProperty("ofbiz.home");
+        }
+        deleteDirRecursively(tempHome);
+        deleteDirRecursively(tempExternal);
+    }
+
+    private static void deleteDirRecursively(Path dir) throws Exception {
+        if (dir != null && Files.exists(dir)) {
+            Files.walk(dir).sorted(Comparator.reverseOrder()).map(Path::toFile).forEach(File::delete);
+        }
+    }
+
+    @Test
+    public void checkOfbizFileAllowListAcceptsFileInAllowedDir() throws Exception {
+        Path runtimeDir = Files.createDirectory(tempHome.resolve("runtime"));
+        Path file = Files.createTempFile(runtimeDir, "upload", ".dat");
+        SecurityUtil.checkOfbizFileAllowList(file.toFile());
+    }
+
+    @Test
+    public void checkOfbizFileAllowListRejectsFileOutsideAllowedDir() throws Exception {
+        Path forbiddenDir = Files.createDirectory(tempHome.resolve("forbidden"));
+        Path file = Files.createTempFile(forbiddenDir, "upload", ".dat");
+        try {
+            SecurityUtil.checkOfbizFileAllowList(file.toFile());
+            fail("Expected GeneralException for file outside allowed dirs");
+        } catch (GeneralException e) {
+            assertTrue(e.getMessage().contains("not within an allowed directory"));
+        }
+    }
+
+    @Test
+    public void checkOfbizFileAllowListAcceptsFileUnderSymlinkedAllowedDir() throws Exception {
+        // Simulates an EFS/Docker volume mount: runtime/ is a symlink to an external directory.
+        // Prior to the fix, the home-boundary canonical check incorrectly rejected this because
+        // the file's canonical path diverged from canonicalHome.
+        Path runtimeLink = tempHome.resolve("runtime");
+        Files.createSymbolicLink(runtimeLink, tempExternal);
+        Path file = Files.createTempFile(tempExternal, "upload", ".dat");
+        SecurityUtil.checkOfbizFileAllowList(file.toFile());
+    }
+
+    @Test
+    public void checkOfbizFileAllowListRejectsPathTraversal() throws Exception {
+        Path runtimeDir = Files.createDirectory(tempHome.resolve("runtime"));
+        // Construct a path that tries to escape via ".." — getCanonicalPath resolves this.
+        File traversalFile = new File(runtimeDir.toFile(), "../../etc/passwd");
+        try {
+            SecurityUtil.checkOfbizFileAllowList(traversalFile);
+            fail("Expected GeneralException for path traversal attempt");
+        } catch (GeneralException e) {
+            assertTrue(e.getMessage().contains("not within an allowed directory"));
+        }
+    }
+
+
     @Test
     public void basicAdminPermissionTesting() {
         List<String> adminPermissions = Arrays.asList("PARTYMGR", "EXAMPLE", "ACCTG_PREF");
