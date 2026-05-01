@@ -174,16 +174,19 @@ public final class SecurityUtil {
     }
 
     /**
-     * Checks that the given file is within the OFBiz home directory and within one of the
-     * subdirectories listed in {@code content.data.ofbiz.file.allowed.paths} (security.properties).
+     * Checks that the given file is within one of the subdirectories listed in
+     * {@code content.data.ofbiz.file.allowed.paths} (security.properties), relative to the OFBiz
+     * home directory. The check uses canonical paths (resolving symlinks on both sides), so
+     * EFS/Docker volume mounts on allowed subdirectories are handled correctly. A preliminary
+     * "must be under ofbiz.home" canonical check is intentionally absent: when an allowed
+     * subdirectory (e.g. {@code runtime/}) is a mount point, the file's canonical path diverges
+     * from {@code canonicalHome}, but the per-allowed-path comparison below still passes because
+     * it resolves both sides through the mount. Path traversal via {@code ../} is still blocked.
      */
     public static void checkOfbizFileAllowList(File file) throws GeneralException {
         try {
             String canonicalHome = new File(System.getProperty("ofbiz.home")).getCanonicalPath();
             String canonicalFilePath = file.getCanonicalPath();
-            if (!canonicalFilePath.startsWith(canonicalHome + File.separator)) {
-                throw new GeneralException("Access to file denied: path resolves outside of the OFBiz home directory");
-            }
             String allowedPathsStr = UtilProperties.getPropertyValue("security",
                     "content.data.ofbiz.file.allowed.paths", "applications/,themes/,plugins/,runtime/");
             if (UtilValidate.isNotEmpty(allowedPathsStr)) {
