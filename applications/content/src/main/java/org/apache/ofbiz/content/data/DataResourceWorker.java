@@ -39,6 +39,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
+import java.sql.Timestamp;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -65,7 +66,9 @@ import org.apache.ofbiz.base.location.FlexibleLocation;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.FileUtil;
 import org.apache.ofbiz.base.util.GeneralException;
+import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilCodec;
+import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilIO;
@@ -883,8 +886,6 @@ public class DataResourceWorker implements org.apache.ofbiz.widget.content.DataR
 
             // FTL template
             if ("FTL".equals(dataTemplateTypeId)) {
-                throw new GeneralException("Error rendering template: FTL template type is no longer supported for data resources.");
-                /*
                 try {
                     // get the template data for rendering
                     String templateText = getDataResourceText(dataResource, targetMimeTypeId, locale, templateContext, delegator, cache);
@@ -894,7 +895,7 @@ public class DataResourceWorker implements org.apache.ofbiz.widget.content.DataR
                         StringBuffer newTemplateText = new StringBuffer(templateText);
                         String webAnalyticsCode = "<script type=\"text/javascript\">";
                         for (GenericValue webAnalytic : webAnalytics) {
-                            StringWrapper wrapString = StringUtil.wrapString((String) webAnalytic.get("webAnalyticsCode"));
+                            StringUtil.StringWrapper wrapString = StringUtil.wrapString((String) webAnalytic.get("webAnalyticsCode"));
                             webAnalyticsCode += wrapString.toString();
                         }
                         webAnalyticsCode += "</script>";
@@ -909,10 +910,12 @@ public class DataResourceWorker implements org.apache.ofbiz.widget.content.DataR
                     Timestamp lastUpdatedStamp = UtilDateTime.nowTimestamp();
                     //If dataResource is type of ELECTRONIC_TEXT then only use the lastUpdatedStamp of electronicText entity for freemarker caching
                     if ("ELECTRONIC_TEXT".equals(dataResource.getString("dataResourceTypeId"))) {
-                        GenericValue electronicText = dataResource.getRelatedOne("ElectronicText", true);
+                        /*GenericValue electronicText = dataResource.getRelatedOne("ElectronicText", true);
                         if (electronicText != null) {
                             lastUpdatedStamp = electronicText.getTimestamp("lastUpdatedStamp");
-                        }
+                        }*/
+                        throw new GeneralException(
+                                "Error rendering template: FreeMarker templates are no longer supported for ElectronicText data resources.");
                     }
 
                     FreeMarkerWorker.renderTemplateFromString("delegator:" + delegator.getDelegatorName() + ":DataResource:"
@@ -920,8 +923,6 @@ public class DataResourceWorker implements org.apache.ofbiz.widget.content.DataR
                 } catch (TemplateException e) {
                     throw new GeneralException("Error rendering FTL template", e);
                 }
-                */
-
             } else if ("XSLT".equals(dataTemplateTypeId)) {
                 File targetFileLocation = new File(System.getProperty("ofbiz.home") + "/runtime/tempfiles/docbook.css");
                 String defaultVisualThemeId = EntityUtilProperties.getPropertyValue("general", "VISUAL_THEME", delegator);
