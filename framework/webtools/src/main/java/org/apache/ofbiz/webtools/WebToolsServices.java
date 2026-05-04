@@ -87,6 +87,7 @@ import org.apache.ofbiz.entity.util.EntitySaxReader;
 import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.ofbiz.entityext.EntityGroupUtil;
 import org.apache.ofbiz.security.Security;
+import org.apache.ofbiz.security.SecurityUtil;
 import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
@@ -158,6 +159,11 @@ public class WebToolsServices {
             if (!fmFile.exists()) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "WebtoolsErrorReadingTemplateFile",
                         UtilMisc.toMap("filename", fmfilename, "errorString", "Template file not found."), locale));
+            }
+            try {
+                SecurityUtil.checkOfbizFileAllowList(fmFile);
+            } catch (GeneralException e) {
+                return ServiceUtil.returnError(e.getMessage());
             }
             try {
                 DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -516,6 +522,11 @@ public class WebToolsServices {
 
         if (UtilValidate.isNotEmpty(outpath)) {
             File outdir = new File(outpath);
+            try {
+                SecurityUtil.checkOfbizFileAllowList(outdir);
+            } catch (GeneralException e) {
+                return ServiceUtil.returnError(e.getMessage());
+            }
             if (!outdir.exists()) {
                 outdir.mkdir();
             }
