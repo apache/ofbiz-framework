@@ -1094,12 +1094,33 @@ public class DataResourceWorker implements org.apache.ofbiz.widget.content.DataR
 
             if (url.getHost() != null) { // is absolute
                 checkUrlResourceAllowed(url);
-                int c;
-                try (InputStream in = url.openStream(); StringWriter sw = new StringWriter()) {
-                    while ((c = in.read()) != -1) {
-                        sw.write(c);
+                int connectTimeout = (int) UtilProperties.getPropertyNumber("security",
+                        "content.data.url.resource.connect.timeout", 10000.0);
+                int readTimeout = (int) UtilProperties.getPropertyNumber("security",
+                        "content.data.url.resource.read.timeout", 30000.0);
+                long maxResponseSize = (long) UtilProperties.getPropertyNumber("security",
+                        "content.data.url.resource.max.response.size", (double) (10L * 1024 * 1024));
+                URLConnection con = url.openConnection();
+                con.setConnectTimeout(connectTimeout);
+                con.setReadTimeout(readTimeout);
+                // Disable automatic redirect-following to prevent SSRF bypass via redirect to private addresses
+                if (con instanceof HttpURLConnection) ((HttpURLConnection) con).setInstanceFollowRedirects(false);
+                con.connect();
+                // Reject redirects outright; we cannot safely re-validate an arbitrary Location header
+                if (con instanceof HttpURLConnection) {
+                    HttpURLConnection httpCon = (HttpURLConnection) con;
+                    int responseCode = httpCon.getResponseCode();
+                    if (responseCode >= 300 && responseCode < 400) {
+                        httpCon.disconnect();
+                        throw new GeneralException("URL_RESOURCE request returned a redirect (" + responseCode
+                                + "); redirects are not followed for security reasons");
                     }
-                    text = sw.toString();
+                }
+                try (InputStream limitedIn = BoundedInputStream.builder()
+                        .setInputStream(con.getInputStream())
+                        .setMaxCount(maxResponseSize)
+                        .get()) {
+                    text = IOUtils.toString(limitedIn, StandardCharsets.UTF_8);
                 }
             } else {
                 String prefix = DataResourceWorker.buildRequestPrefix(delegator, locale, webSiteId, https);
