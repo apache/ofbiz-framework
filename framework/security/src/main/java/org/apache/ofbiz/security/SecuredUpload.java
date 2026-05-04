@@ -23,6 +23,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Transparency;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -712,27 +713,39 @@ public class SecuredUpload {
             return false;
         }
 
-        try (DataInputStream stream = new DataInputStream(new FileInputStream(file));) {
-            byte[] data = new byte[8];
-            stream.readFully(data); //Read PNG Header
+        try (DataInputStream stream = new DataInputStream(new FileInputStream(file))) {
+            byte[] header = new byte[8];
+            stream.readFully(header); // Read PNG signature
+            ByteArrayOutputStream idatBuffer = new ByteArrayOutputStream();
+            byte[] nameBuf = new byte[4];
             while (true) {
-                data = new byte[4];
-                stream.readFully(data); //Read Length
-                int length = ((data[0] & 0xFF) << 24)
-                        | ((data[1] & 0xFF) << 16)
-                        | ((data[2] & 0xFF) << 8)
-                        | (data[3] & 0xFF); //Byte array to int
-                stream.readFully(data); //Read Name
-                String name = new String(data); //Byte array to String
+                byte[] lenBuf = new byte[4];
+                stream.readFully(lenBuf); // Read chunk length
+                int length = ((lenBuf[0] & 0xFF) << 24)
+                        | ((lenBuf[1] & 0xFF) << 16)
+                        | ((lenBuf[2] & 0xFF) << 8)
+                        | (lenBuf[3] & 0xFF);
+                stream.readFully(nameBuf); // Read chunk type
+                String name = new String(nameBuf);
                 if (name.equals("IDAT")) {
-                    data = new byte[length];
-                    stream.readFully(data); //Read Data
-                    return inflate(data);
-                } else { //Don't care about other chunks
-                    data = new byte[length + 4]; //Data length + 4 byte CRC
-                    stream.readFully(data); //Skip Data and CRC.
+                    byte[] chunkData = new byte[length];
+                    stream.readFully(chunkData); // Read data
+                    idatBuffer.write(chunkData);
+                    stream.readFully(new byte[4]); // Skip CRC
+                } else if (name.equals("IEND")) {
+                    stream.readFully(new byte[4]); // Skip CRC
+                    break; // IEND marks end of PNG datastream
+                } else {
+                    stream.readFully(new byte[length + 4]); // Skip data and CRC
                 }
             }
+            // Reject any bytes appended after IEND
+            if (stream.read() != -1) {
+                Debug.logError("================== Not saved for security reason, PNG has trailing bytes after IEND ==================", MODULE);
+                return false;
+            }
+            // Inflate all concatenated IDAT chunks
+            return inflate(idatBuffer.toByteArray());
         } catch (IOException error) {
             Debug.logError("================== Not saved for security reason, wrong PNG IDAT (weird) ==================" + error, MODULE);
             return false;
