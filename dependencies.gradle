@@ -18,7 +18,7 @@
  */
 dependencies {
     implementation 'com.drewnoakes:metadata-extractor:2.20.0'
-    implementation 'com.github.ben-manes.caffeine:caffeine:3.2.3'
+    implementation 'com.github.ben-manes.caffeine:caffeine:3.2.4'
     implementation 'com.google.guava:guava:33.6.0-jre'
     implementation 'com.google.zxing:core:3.5.4'
     implementation 'com.googlecode.concurrentlinkedhashmap:concurrentlinkedhashmap-lru:1.4.2'
