@@ -582,6 +582,12 @@ public class SecuredUpload {
         if (!noWebshellInPNG(file)) {
             return false;
         }
+        if (!noWebshellInJPEG(file)) {
+            return false;
+        }
+        if (!noWebshellInGIF(file)) {
+            return false;
+        }
 
         boolean safeState = false;
 
@@ -750,6 +756,158 @@ public class SecuredUpload {
             Debug.logError("================== Not saved for security reason, wrong PNG IDAT (weird) ==================" + error, MODULE);
             return false;
         }
+    }
+
+    private static boolean noWebshellInJPEG(File file) {
+        try {
+            byte[] bytes = Files.readAllBytes(file.toPath());
+            if (!Imaging.guessFormat(bytes).equals(ImageFormats.JPEG)) {
+                return true; // Not a JPEG file, it's OK so far
+            }
+            // SOI marker check
+            if (bytes.length < 4 || (bytes[0] & 0xFF) != 0xFF || (bytes[1] & 0xFF) != 0xD8) {
+                Debug.logError("================== Not saved for security reason, malformed JPEG ==================", MODULE);
+                return false;
+            }
+            int pos = 2;
+            while (pos < bytes.length) {
+                if ((bytes[pos] & 0xFF) != 0xFF) {
+                    Debug.logError("================== Not saved for security reason, malformed JPEG marker ==================", MODULE);
+                    return false;
+                }
+                // Skip 0xFF fill bytes (valid marker padding per JPEG spec)
+                while (pos < bytes.length && (bytes[pos] & 0xFF) == 0xFF) {
+                    pos++;
+                }
+                if (pos >= bytes.length) {
+                    Debug.logError("================== Not saved for security reason, JPEG missing EOI ==================", MODULE);
+                    return false;
+                }
+                int marker = bytes[pos++] & 0xFF;
+                if (marker == 0xD9) {
+                    // EOI — reject any trailing bytes
+                    if (pos != bytes.length) {
+                        Debug.logError("================ Not saved for security reason, JPEG has trailing bytes after EOI ================", MODULE);
+                        return false;
+                    }
+                    return true;
+                } else if (marker >= 0xD0 && marker <= 0xD8) {
+                    // SOI (0xD8) and RST0–RST7 (0xD0–0xD7) — no length field
+                    continue;
+                } else if (marker == 0xDA) {
+                    // SOS: length-prefixed header followed by entropy-coded scan data
+                    if (pos + 2 > bytes.length) return false;
+                    int len = ((bytes[pos] & 0xFF) << 8) | (bytes[pos + 1] & 0xFF);
+                    if (len < 2 || pos + len > bytes.length) return false;
+                    pos += len; // Skip SOS header
+                    // Scan entropy-coded data, respecting byte stuffing (FF 00) and restart markers
+                    while (pos < bytes.length - 1) {
+                        if ((bytes[pos] & 0xFF) == 0xFF) {
+                            int next = bytes[pos + 1] & 0xFF;
+                            if (next == 0x00 || (next >= 0xD0 && next <= 0xD7)) {
+                                pos += 2; // Stuffed 0xFF or RST — part of scan data
+                            } else {
+                                break; // Real marker — stop scanning scan data
+                            }
+                        } else {
+                            pos++;
+                        }
+                    }
+                } else {
+                    // Regular length-delimited segment
+                    if (pos + 2 > bytes.length) return false;
+                    int len = ((bytes[pos] & 0xFF) << 8) | (bytes[pos + 1] & 0xFF);
+                    if (len < 2 || pos + len > bytes.length) return false;
+                    pos += len;
+                }
+            }
+            Debug.logError("================== Not saved for security reason, JPEG missing EOI ==================", MODULE);
+            return false;
+        } catch (IOException error) {
+            Debug.logError("================== Not saved for security reason ==================" + error, MODULE);
+            return false;
+        }
+    }
+
+    private static boolean noWebshellInGIF(File file) {
+        try {
+            byte[] bytes = Files.readAllBytes(file.toPath());
+            if (!Imaging.guessFormat(bytes).equals(ImageFormats.GIF)) {
+                return true; // Not a GIF file, it's OK so far
+            }
+            // Header: "GIF87a" or "GIF89a"
+            if (bytes.length < 13) return false;
+            String gifHeader = new String(bytes, 0, 6, StandardCharsets.US_ASCII);
+            if (!"GIF87a".equals(gifHeader) && !"GIF89a".equals(gifHeader)) {
+                Debug.logError("================== Not saved for security reason, malformed GIF ==================", MODULE);
+                return false;
+            }
+            int pos = 6;
+            // Logical Screen Descriptor: packed byte at offset 4 within LSD
+            int packed = bytes[pos + 4] & 0xFF;
+            boolean hasGCT = (packed & 0x80) != 0;
+            int gctSize = packed & 0x07;
+            pos += 7;
+            // Skip Global Color Table
+            if (hasGCT) {
+                int gctBytes = 3 * (1 << (gctSize + 1));
+                if (pos + gctBytes > bytes.length) return false;
+                pos += gctBytes;
+            }
+            // Parse blocks until Trailer
+            while (pos < bytes.length) {
+                int blockType = bytes[pos++] & 0xFF;
+                if (blockType == 0x3B) {
+                    // Trailer — reject any trailing bytes
+                    if (pos != bytes.length) {
+                        Debug.logError("=============== Not saved for security reason, GIF has trailing bytes after Trailer ===============", MODULE);
+                        return false;
+                    }
+                    return true;
+                } else if (blockType == 0x21) {
+                    // Extension: label byte + sub-blocks
+                    if (pos >= bytes.length) return false;
+                    pos++; // Skip extension label
+                    pos = skipGIFSubBlocks(bytes, pos);
+                    if (pos < 0) return false;
+                } else if (blockType == 0x2C) {
+                    // Image Descriptor: 9 bytes
+                    if (pos + 9 > bytes.length) return false;
+                    int imagePacked = bytes[pos + 8] & 0xFF;
+                    boolean hasLCT = (imagePacked & 0x80) != 0;
+                    int lctSize = imagePacked & 0x07;
+                    pos += 9;
+                    if (hasLCT) {
+                        int lctBytes = 3 * (1 << (lctSize + 1));
+                        if (pos + lctBytes > bytes.length) return false;
+                        pos += lctBytes;
+                    }
+                    pos++; // LZW minimum code size
+                    pos = skipGIFSubBlocks(bytes, pos);
+                    if (pos < 0) return false;
+                } else {
+                    Debug.logError("================== Not saved for security reason, unknown GIF block type ==================", MODULE);
+                    return false;
+                }
+            }
+            Debug.logError("================== Not saved for security reason, GIF missing Trailer ==================", MODULE);
+            return false;
+        } catch (IOException error) {
+            Debug.logError("================== Not saved for security reason ==================" + error, MODULE);
+            return false;
+        }
+    }
+
+    private static int skipGIFSubBlocks(byte[] bytes, int pos) {
+        while (pos < bytes.length) {
+            int blockSize = bytes[pos++] & 0xFF;
+            if (blockSize == 0) {
+                return pos; // Block Terminator
+            }
+            pos += blockSize;
+            if (pos > bytes.length) return -1;
+        }
+        return -1; // Reached EOF without Block Terminator
     }
 
     private static boolean isPNG(File file) throws IOException {
