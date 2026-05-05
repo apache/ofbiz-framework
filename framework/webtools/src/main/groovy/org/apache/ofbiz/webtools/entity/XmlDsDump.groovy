@@ -218,7 +218,7 @@ if (passedEntityNames) {
                     }
 
                     curNumberWritten = 0
-                    entityQuery.queryIterator().withCloseable {values ->
+                    entityQuery.queryIterator().withCloseable { values ->
                         while ((value = values.next()) != null) {
                             value.writeXmlText(writer, '')
                             numberWritten++
@@ -273,7 +273,7 @@ if (passedEntityNames) {
                         isFirst = true
                         writer = null
                         fileSplitNumber = 1
-                        entityQuery.queryIterator().withCloseable {values ->
+                        entityQuery.queryIterator().withCloseable { values ->
                             while ((value = values.next()) != null) {
                                 //Don't bother writing the file if there's nothing
                                 //to put into it
