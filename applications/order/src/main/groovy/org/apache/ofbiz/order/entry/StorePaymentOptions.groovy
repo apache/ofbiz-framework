@@ -25,8 +25,7 @@ productStore = ProductStoreWorker.getProductStore(request)
 productStorePaymentMethodTypeIdMap = [:]
 productStorePaymentSettingList = productStore.getRelated('ProductStorePaymentSetting', null, null, true)
 productStorePaymentSettingIter = productStorePaymentSettingList.iterator()
-while (productStorePaymentSettingIter.hasNext()) {
-    productStorePaymentSetting = productStorePaymentSettingIter.next()
+while ((productStorePaymentSetting = productStorePaymentSettingIter.next()) != null) {
     productStorePaymentMethodTypeIdMap.put(productStorePaymentSetting.get('paymentMethodTypeId'), true)
 }
 context.put('productStorePaymentMethodTypeIdMap', productStorePaymentMethodTypeIdMap)

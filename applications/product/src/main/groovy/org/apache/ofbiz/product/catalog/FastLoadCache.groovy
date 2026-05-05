@@ -31,8 +31,7 @@ messageList.add(ctimer.timerString('Before load all categories into cache'))
 
 category = null
 long numCategories = 0
-while (categories.hasNext()) {
-    category = (GenericValue) categories.next()
+while ((category = (GenericValue) categories.next()) != null) {
     delegator.putInPrimaryKeyCache(category.getPrimaryKey(), category)
     numCategories++
 }
@@ -50,8 +49,7 @@ products = from('Product').queryIterator()
 messageList.add(ptimer.timerString('Before load all products into cache'))
 product = null
 long numProducts = 0
-while (products.hasNext()) {
-    product = (GenericValue) products.next()
+while ((product = (GenericValue) products.next()) != null) {
     delegator.putInPrimaryKeyCache(product.getPrimaryKey(), product)
     numProducts++
 }

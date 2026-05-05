@@ -322,8 +322,7 @@ if (action) {
             // attempt to get the full size
             if (hasOffsetQOH || hasOffsetATP) {
                 rowProcessed = 0
-                while (prodsEli.hasNext()) {
-                    nextValue = prodsEli.next()
+                while ((nextValue = prodsEli.next()) != null) {
                     offsetQOHQtyAvailable = nextValue.getDouble('offsetQOHQtyAvailable')
                     offsetATPQtyAvailable = nextValue.getDouble('offsetATPQtyAvailable')
                     if (hasOffsetATP) {

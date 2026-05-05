@@ -220,8 +220,7 @@ if (passedEntityNames) {
                     }
 
                     curNumberWritten = 0
-                    while (values.hasNext()) {
-                        value = values.next()
+                    while ((value = values.next()) != null) {
                         value.writeXmlText(writer, '')
                         numberWritten++
                         curNumberWritten++
@@ -277,8 +276,7 @@ if (passedEntityNames) {
                         isFirst = true
                         writer = null
                         fileSplitNumber = 1
-                        while (values.hasNext()) {
-                            value = values.next()
+                        while ((value = values.next()) != null) {
                             //Don't bother writing the file if there's nothing
                             //to put into it
                             if (isFirst) {
