@@ -219,14 +219,14 @@ if (passedEntityNames) {
 
                     curNumberWritten = 0
                     entityQuery.queryIterator().withCloseable {values ->
-                    while ((value = values.next()) != null) {
-                        value.writeXmlText(writer, '')
-                        numberWritten++
-                        curNumberWritten++
-                        if (curNumberWritten % 500 == 0 || curNumberWritten == 1) {
-                            Debug.log("Records written [$curEntityName]: $curNumberWritten Total: $numberWritten")
+                        while ((value = values.next()) != null) {
+                            value.writeXmlText(writer, '')
+                            numberWritten++
+                            curNumberWritten++
+                            if (curNumberWritten % 500 == 0 || curNumberWritten == 1) {
+                                Debug.log("Records written [$curEntityName]: $curNumberWritten Total: $numberWritten")
+                            }
                         }
-                    }
                     }
                     Debug.log("Wrote [$curNumberWritten] from entity : $curEntityName")
                     TransactionUtil.commit(beganTransaction)
@@ -274,41 +274,41 @@ if (passedEntityNames) {
                         writer = null
                         fileSplitNumber = 1
                         entityQuery.queryIterator().withCloseable {values ->
-                        while ((value = values.next()) != null) {
-                            //Don't bother writing the file if there's nothing
-                            //to put into it
-                            if (isFirst) {
-                                writer = new PrintWriter(
-                                            new BufferedWriter(
-                                                new OutputStreamWriter(new FileOutputStream(new File(outdir, fileName + '.xml')), 'UTF-8')))
-                                writer.println('<?xml version="1.0" encoding="UTF-8"?>')
-                                writer.println('<entity-engine-xml>')
-                                isFirst = false
-                            }
-                            value.writeXmlText(writer, '')
-                            numberWritten++
+                            while ((value = values.next()) != null) {
+                                //Don't bother writing the file if there's nothing
+                                //to put into it
+                                if (isFirst) {
+                                    writer = new PrintWriter(
+                                                new BufferedWriter(
+                                                    new OutputStreamWriter(new FileOutputStream(new File(outdir, fileName + '.xml')), 'UTF-8')))
+                                    writer.println('<?xml version="1.0" encoding="UTF-8"?>')
+                                    writer.println('<entity-engine-xml>')
+                                    isFirst = false
+                                }
+                                value.writeXmlText(writer, '')
+                                numberWritten++
 
-                            // split into small files
-                            if (maxRecordsPerFile > 0 && (numberWritten % maxRecordsPerFile == 0)) {
-                                fileSplitNumber++
-                                // close the file
-                                writer.println('</entity-engine-xml>')
-                                writer.close()
+                                // split into small files
+                                if (maxRecordsPerFile > 0 && (numberWritten % maxRecordsPerFile == 0)) {
+                                    fileSplitNumber++
+                                    // close the file
+                                    writer.println('</entity-engine-xml>')
+                                    writer.close()
 
-                                // create a new file
-                                splitNumStr = UtilFormatOut.formatPaddedNumber((long) fileSplitNumber, 3)
-                                writer = new PrintWriter(
-                                            new BufferedWriter(
-                                                new OutputStreamWriter(
-                                                        new FileOutputStream(new File(outdir, fileName + '_' + splitNumStr + '.xml')), 'UTF-8')))
-                                writer.println('<?xml version="1.0" encoding="UTF-8"?>')
-                                writer.println('<entity-engine-xml>')
-                            }
+                                    // create a new file
+                                    splitNumStr = UtilFormatOut.formatPaddedNumber((long) fileSplitNumber, 3)
+                                    writer = new PrintWriter(
+                                                new BufferedWriter(
+                                                    new OutputStreamWriter(
+                                                            new FileOutputStream(new File(outdir, fileName + '_' + splitNumStr + '.xml')), 'UTF-8')))
+                                    writer.println('<?xml version="1.0" encoding="UTF-8"?>')
+                                    writer.println('<entity-engine-xml>')
+                                }
 
-                            if (numberWritten % 500 == 0 || numberWritten == 1) {
-                                Debug.log("Records written [$curEntityName]: $numberWritten")
+                                if (numberWritten % 500 == 0 || numberWritten == 1) {
+                                    Debug.log("Records written [$curEntityName]: $numberWritten")
+                                }
                             }
-                        }
                         }
                         if (writer) {
                             writer.println('</entity-engine-xml>')
