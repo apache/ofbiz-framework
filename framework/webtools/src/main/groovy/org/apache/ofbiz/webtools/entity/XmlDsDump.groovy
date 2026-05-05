@@ -25,7 +25,7 @@ import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.entity.condition.EntityJoinOperator
 import org.apache.ofbiz.entity.model.ModelViewEntity
 import org.apache.ofbiz.entity.transaction.TransactionUtil
-import org.apache.ofbiz.entity.util.EntityFindOptions
+import org.apache.ofbiz.entity.util.EntityQuery
 
 outpath = parameters.outpath
 filename = parameters.filename
@@ -188,7 +188,6 @@ if (passedEntityNames) {
         session.setAttribute('xmlrawdump_entitylist', passedEntityNames)
         session.setAttribute('entityDateCond', entityDateCond)
     } else {
-        efo = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, false)
         numberOfEntities = passedEntityNames?.size() ?: 0
         context.numberOfEntities = numberOfEntities
         numberWritten = 0
@@ -213,13 +212,13 @@ if (passedEntityNames) {
                 beganTransaction = TransactionUtil.begin(3600)
                 try {
                     me = reader.getModelEntity(curEntityName)
-                    if (me.getNoAutoStamp() || me instanceof ModelViewEntity) {
-                        values = delegator.find(curEntityName, null, null, null, null, efo)
-                    } else {
-                        values = delegator.find(curEntityName, entityDateCond, null, null, null, efo)
+                    entityQuery = EntityQuery.use(delegator).from(curEntityName).cursorScrollInsensitive()
+                    if (!me.getNoAutoStamp() && !(me instanceof ModelViewEntity) && entityDateCond) {
+                        entityQuery.where(entityDateCond)
                     }
 
                     curNumberWritten = 0
+                    entityQuery.queryIterator().withCloseable {values ->
                     while ((value = values.next()) != null) {
                         value.writeXmlText(writer, '')
                         numberWritten++
@@ -228,7 +227,7 @@ if (passedEntityNames) {
                             Debug.log("Records written [$curEntityName]: $curNumberWritten Total: $numberWritten")
                         }
                     }
-                    values.close()
+                    }
                     Debug.log("Wrote [$curNumberWritten] from entity : $curEntityName")
                     TransactionUtil.commit(beganTransaction)
                 } catch (Exception e) {
@@ -258,7 +257,6 @@ if (passedEntityNames) {
                     fileName = preConfiguredSetName ? UtilFormatOut.formatPaddedNumber((long) fileNumber, 3) + '_' : ''
                     fileName = fileName + curEntityName
 
-                    values = null
                     beganTransaction = false
                     try {
                         beganTransaction = TransactionUtil.begin(3600)
@@ -268,14 +266,14 @@ if (passedEntityNames) {
                             results.add("[$fileNumber] [vvv] $curEntityName skipping view entity")
                             return
                         }
-                        if (me.getNoAutoStamp() || me instanceof ModelViewEntity) {
-                            values = delegator.find(curEntityName, null, null, null, null, efo)
-                        } else {
-                            values = delegator.find(curEntityName, entityDateCond, null, null, null, efo)
+                        entityQuery = EntityQuery.use(delegator).from(curEntityName).cursorScrollInsensitive()
+                        if (!me.getNoAutoStamp() && !(me instanceof ModelViewEntity) && entityDateCond) {
+                            entityQuery.where(entityDateCond)
                         }
                         isFirst = true
                         writer = null
                         fileSplitNumber = 1
+                        entityQuery.queryIterator().withCloseable {values ->
                         while ((value = values.next()) != null) {
                             //Don't bother writing the file if there's nothing
                             //to put into it
@@ -311,6 +309,7 @@ if (passedEntityNames) {
                                 Debug.log("Records written [$curEntityName]: $numberWritten")
                             }
                         }
+                        }
                         if (writer) {
                             writer.println('</entity-engine-xml>')
                             writer.close()
@@ -322,11 +321,7 @@ if (passedEntityNames) {
                             Debug.log(thisResult)
                             results.add(thisResult)
                         }
-                        values.close()
                     } catch (Exception ex) {
-                        if (values != null) {
-                            values.close()
-                        }
                         thisResult = "[$fileNumber] [xxx] Error when writing $curEntityName: $ex"
                         Debug.log(thisResult)
                         results.add(thisResult)
