@@ -52,7 +52,6 @@ offsetATP = -1
 hasOffsetQOH = false
 hasOffsetATP = false
 
-EntityListIterator prodsEli = null
 rows = [] as ArrayList
 
 if (action) {
@@ -228,14 +227,13 @@ if (action) {
 
     beganTransaction = false
     List prods = null
-    try {
-        beganTransaction = TransactionUtil.begin()
+    beganTransaction = TransactionUtil.begin()
 
-        // get the indexes for the partial list
-        lowIndex = ((viewIndex.intValue() * viewSize.intValue()) + 1)
-        highIndex = (viewIndex.intValue() + 1) * viewSize.intValue()
-        prodsEli = from(prodView).where(whereCondition).orderBy(orderBy).cursorScrollInsensitive().maxRows(highIndex).distinct().queryIterator()
-
+    // get the indexes for the partial list
+    lowIndex = ((viewIndex.intValue() * viewSize.intValue()) + 1)
+    highIndex = (viewIndex.intValue() + 1) * viewSize.intValue()
+    try (EntityListIterator prodsEli = from(prodView).where(whereCondition).orderBy(orderBy).cursorScrollInsensitive().maxRows(highIndex)
+            .distinct().queryIterator()) {
         // get the partial list for this page
         prods = prodsEli.getPartialList(lowIndex, highIndex)
         prodsIt = prods.iterator()
@@ -268,50 +266,50 @@ if (action) {
 
             if (checkTime) {
                 // Make a query against the sales usage view entity
-                salesUsageIt = from(salesUsageViewEntity)
+                salesUsageQuery = from(salesUsageViewEntity)
                                     .where(EntityCondition.makeCondition('facilityId', EntityOperator.EQUALS, facilityId),
                                         EntityCondition.makeCondition('productId', EntityOperator.EQUALS, oneProd.productId),
                                         EntityCondition.makeCondition('statusId', EntityOperator.IN,
                                                 ['ORDER_COMPLETED', 'ORDER_APPROVED', 'ORDER_HELD']),
                                         EntityCondition.makeCondition('orderTypeId', EntityOperator.EQUALS, 'SALES_ORDER'),
                                         EntityCondition.makeCondition('orderDate', EntityOperator.GREATER_THAN_EQUAL_TO, checkTime))
-                                    .queryIterator()
 
                 // Sum the sales usage quantities found
                 salesUsageQuantity = 0
-                salesUsageIt.each { salesUsageItem ->
-                    if (salesUsageItem.quantity) {
-                        try {
-                            salesUsageQuantity += salesUsageItem.getDouble('quantity').doubleValue()
-                        } catch (Exception e) {
-                            logError(e, 'Caught an exception : ' + e)
-                            request.setAttribute('_ERROR_MESSAGE', 'An exception occured please check the log')
+                salesUsageQuery.queryIterator().withCloseable { salesUsageIt ->
+                    while ((salesUsageItem = salesUsageIt.next()) != null) {
+                        if (salesUsageItem.quantity) {
+                            try {
+                                salesUsageQuantity += salesUsageItem.getDouble('quantity').doubleValue()
+                            } catch (Exception e) {
+                                logError(e, 'Caught an exception : ' + e)
+                                request.setAttribute('_ERROR_MESSAGE', 'An exception occured please check the log')
+                            }
                         }
                     }
                 }
-                salesUsageIt.close()
 
                 // Make a query against the production usage view entity
-                productionUsageIt = from(productionUsageViewEntity)
+                productionUsageQuery = from(productionUsageViewEntity)
                                     .where(EntityCondition.makeCondition('facilityId', EntityOperator.EQUALS, facilityId),
                                          EntityCondition.makeCondition('productId', EntityOperator.EQUALS, oneProd.productId),
                                          EntityCondition.makeCondition('workEffortTypeId', EntityOperator.EQUALS, 'PROD_ORDER_TASK'),
                                          EntityCondition.makeCondition('actualCompletionDate', EntityOperator.GREATER_THAN_EQUAL_TO, checkTime))
-                                    .queryIterator()
 
                 // Sum the production usage quantities found
                 productionUsageQuantity = 0
-                productionUsageIt.each { productionUsageItem ->
-                    if (productionUsageItem.quantity) {
-                        try {
-                            productionUsageQuantity += productionUsageItem.getDouble('quantity').doubleValue()
-                        } catch (Exception e) {
-                            logError(e, 'Caught an exception : ' + e)
-                            request.setAttribute('_ERROR_MESSAGE', 'An exception occured please check the log')
+                productionUsageQuery.queryIterator().withCloseable { productionUsageIt ->
+                    while ((productionUsageItem = productionUsageIt.next()) != null) {
+                        if (productionUsageItem.quantity) {
+                            try {
+                                productionUsageQuantity += productionUsageItem.getDouble('quantity').doubleValue()
+                            } catch (Exception e) {
+                                logError(e, 'Caught an exception : ' + e)
+                                request.setAttribute('_ERROR_MESSAGE', 'An exception occured please check the log')
+                            }
                         }
                     }
                 }
-                productionUsageIt.close()
                 oneInventory.usageQuantity = salesUsageQuantity + productionUsageQuantity
             }
             rows.add(oneInventory)
@@ -342,7 +340,6 @@ if (action) {
                 productListSize = prodsEli.getResultsSizeAfterPartialList()
             }
         }
-        prodsEli.close()
         if (highIndex > productListSize) {
             highIndex = productListSize
         }
@@ -361,13 +358,6 @@ if (action) {
         // after rolling back, rethrow the exception
         throw e
     } finally {
-        if (prodsEli != null) {
-            try {
-                prodsEli.close()
-            } catch (Exception exc) {
-                logError(exc, module)
-            }
-        }
         // only commit the transaction if we started one... this will throw an exception if it fails
         TransactionUtil.commit(beganTransaction)
     }

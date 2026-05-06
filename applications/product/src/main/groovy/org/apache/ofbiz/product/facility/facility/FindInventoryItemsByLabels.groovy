@@ -24,7 +24,6 @@ import org.apache.ofbiz.entity.condition.EntityOperator
 import org.apache.ofbiz.entity.model.DynamicViewEntity
 import org.apache.ofbiz.entity.model.ModelKeyMap
 import org.apache.ofbiz.entity.transaction.TransactionUtil
-import org.apache.ofbiz.entity.util.EntityListIterator
 
 facilityId = parameters.facilityId
 
@@ -54,7 +53,6 @@ for (int i = 1; i <= numberOfFields; i++) {
         andCondition.add(EntityCondition.makeCondition('inventoryItemLabelId' + i, EntityOperator.EQUALS, inventoryItemLabelId))
     }
 }
-EntityListIterator inventoryItemsEli = null
 beganTransaction = false
 List inventoryItems = null
 if (andCondition.size() > 1) {
@@ -64,25 +62,20 @@ if (andCondition.size() > 1) {
         highIndex = (viewIndex - 1) * viewSize
 
         beganTransaction = TransactionUtil.begin()
-        inventoryItemsEli = from(inventoryItemAndLabelsView)
-                .where(andCondition).cursorScrollInsensitive().distinct().maxRows(highIndex).queryIterator()
+        inventoryItemsPagedList = from(inventoryItemAndLabelsView)
+                .where(andCondition).cursorScrollInsensitive().distinct().maxRows(highIndex).queryPagedList(lowIndex, viewSize)
 
-        inventoryItemsSize = inventoryItemsEli.getResultsSizeAfterPartialList()
+        inventoryItemsSize = inventoryItemsPagedList.getSize()
         context.inventoryItemsSize = inventoryItemsSize
         if (highIndex > inventoryItemsSize) {
             highIndex = inventoryItemsSize
         }
 
-        // get the partial list for this page
-        inventoryItemsEli.beforeFirst()
         if (inventoryItemsSize > 0) {
-            inventoryItems = inventoryItemsEli.getPartialList(lowIndex, viewSize)
+            inventoryItems = inventoryItemsPagedList.getData()
         } else {
             inventoryItems = [] as ArrayList
         }
-
-        // close the list iterator
-        inventoryItemsEli.close()
     } catch (GenericEntityException e) {
         errMsg = 'Failure in operation, rolling back transaction'
         logError(e, errMsg)

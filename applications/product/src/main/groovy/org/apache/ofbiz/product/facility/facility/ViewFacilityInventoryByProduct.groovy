@@ -142,10 +142,10 @@ if (action) {
     List prods = null
     try {
         beganTransaction = TransactionUtil.begin()
-        prodsEli = from(prodView).where(whereCondition).orderBy('productId').cursorScrollInsensitive().distinct().queryIterator()
-        prods = prodsEli.getPartialList(lowIndex, highIndex)
-        listSize = prodsEli.getResultsSizeAfterPartialList()
-        prodsEli.close()
+        prodsPagedList = from(prodView).where(whereCondition).orderBy('productId').cursorScrollInsensitive()
+                .distinct().queryPagedList(lowIndex, highIndex)
+        prods = prodsPagedList.getData()
+        listSize = prodsPagedList.getSize()
     } catch (GenericEntityException e) {
         errMsg = 'Failure in operation, rolling back transaction'
         logError(e, errMsg)

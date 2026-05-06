@@ -40,15 +40,14 @@ context.lowIndex = lowIndex
 int listSize = 0
 
 try {
-    listIt = from('SurveyQuestionAndAppl')
+    pagedList = from('SurveyQuestionAndAppl')
                 .where('surveyId', surveyId)
                 .orderBy('sequenceNum')
                 .cursorScrollInsensitive()
                 .cache(true)
-                .queryIterator()
-    surveyQuestionAndApplList = listIt.getPartialList(lowIndex, highIndex - lowIndex + 1)
-
-    listSize = listIt.getResultsSizeAfterPartialList()
+                .queryPagedList(lowIndex, highIndex - lowIndex + 1)
+    surveyQuestionAndApplList = pagedList.getData()
+    listSize = pagedList.getSize()
     if (listSize < highIndex) {
         highIndex = listSize
     }
@@ -58,8 +57,6 @@ try {
     context.listSize = listSize
 } catch (GenericEntityException e) {
     logError(e,  'Failure in ' + module)
-} finally {
-    listIt.close()
 }
 surveyPageList = from('SurveyPage').where('surveyId', surveyId).orderBy('sequenceNum').queryList()
 surveyMultiRespList = from('SurveyMultiResp').where('surveyId', surveyId).orderBy('multiRespTitle').queryList()

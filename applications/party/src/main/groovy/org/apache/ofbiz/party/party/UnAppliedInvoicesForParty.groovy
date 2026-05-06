@@ -46,28 +46,28 @@ invExprs =
         ], EntityOperator.OR)
     ], EntityOperator.AND)
 
-invIterator = from('InvoiceAndType').where(invExprs).cursorScrollInsensitive().distinct().queryIterator()
+invQuery = from('InvoiceAndType').where(invExprs).cursorScrollInsensitive().distinct()
 invoiceList = []
-
+invQuery.queryIterator().withCloseable { invIterator ->
 /* codenarc-disable */
-while (invoice = invIterator.next()) {
+    while (invoice = invIterator.next()) {
 /* codenarc-enable */
-    unAppliedAmount = InvoiceWorker.getInvoiceNotApplied(invoice, actualCurrency).setScale(2, RoundingMode.HALF_UP)
-    if (unAppliedAmount.signum() == 1) {
-        if (actualCurrency == true) {
-            invoiceCurrencyUomId = invoice.currencyUomId
-        } else {
-            invoiceCurrencyUomId = context.defaultOrganizationPartyCurrencyUomId
+        unAppliedAmount = InvoiceWorker.getInvoiceNotApplied(invoice, actualCurrency).setScale(2, RoundingMode.HALF_UP)
+        if (unAppliedAmount.signum() == 1) {
+            if (actualCurrency == true) {
+                invoiceCurrencyUomId = invoice.currencyUomId
+            } else {
+                invoiceCurrencyUomId = context.defaultOrganizationPartyCurrencyUomId
+            }
+            invoiceList.add([invoiceId: invoice.invoiceId,
+                             invoiceDate: invoice.invoiceDate,
+                             unAppliedAmount: unAppliedAmount,
+                             invoiceCurrencyUomId: invoiceCurrencyUomId,
+                             amount: InvoiceWorker.getInvoiceTotal(invoice, actualCurrency).setScale(2, RoundingMode.HALF_UP),
+                             invoiceTypeId: invoice.invoiceTypeId,
+                             invoiceParentTypeId: invoice.parentTypeId])
         }
-        invoiceList.add([invoiceId: invoice.invoiceId,
-                         invoiceDate: invoice.invoiceDate,
-                         unAppliedAmount: unAppliedAmount,
-                         invoiceCurrencyUomId: invoiceCurrencyUomId,
-                         amount: InvoiceWorker.getInvoiceTotal(invoice, actualCurrency).setScale(2, RoundingMode.HALF_UP),
-                         invoiceTypeId: invoice.invoiceTypeId,
-                         invoiceParentTypeId: invoice.parentTypeId])
     }
 }
-invIterator.close()
 
 context.ListUnAppliedInvoices = invoiceList

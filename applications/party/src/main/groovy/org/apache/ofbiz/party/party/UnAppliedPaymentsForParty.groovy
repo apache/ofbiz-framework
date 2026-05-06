@@ -19,7 +19,6 @@
 package org.apache.ofbiz.party.party
 
 import java.math.RoundingMode
-
 import org.apache.ofbiz.accounting.payment.PaymentWorker
 import org.apache.ofbiz.entity.util.EntityFindOptions
 import org.apache.ofbiz.entity.condition.EntityCondition
@@ -48,29 +47,29 @@ payExprs =
         ], EntityOperator.AND)
 
 paymentList = []
-payIterator = from('PaymentAndType').where(payExprs).cursorScrollInsensitive().distinct().queryIterator()
-
-/* codenarc-disable */
-while (payment = payIterator.next()) {
-/* codenarc-enable */
-    unAppliedAmount = PaymentWorker.getPaymentNotApplied(payment, actualCurrency).setScale(2, RoundingMode.HALF_UP)
-    if (unAppliedAmount.signum() == 1) {
-        if (actualCurrency == true && payment.actualCurrencyAmount && payment.actualCurrencyUomId) {
-            amount = payment.actualCurrencyAmount
-            paymentCurrencyUomId = payment.actualCurrencyUomId
-        } else {
-            amount = payment.amount
-            paymentCurrencyUomId = payment.currencyUomId
+entityQuery = from('PaymentAndType').where(payExprs).cursorScrollInsensitive().distinct()
+entityQuery.queryIterator().withCloseable { payIterator ->
+    /* codenarc-disable */
+    while (payment = payIterator.next()) {
+    /* codenarc-enable */
+        unAppliedAmount = PaymentWorker.getPaymentNotApplied(payment, actualCurrency).setScale(2, RoundingMode.HALF_UP)
+        if (unAppliedAmount.signum() == 1) {
+            if (actualCurrency == true && payment.actualCurrencyAmount && payment.actualCurrencyUomId) {
+                amount = payment.actualCurrencyAmount
+                paymentCurrencyUomId = payment.actualCurrencyUomId
+            } else {
+                amount = payment.amount
+                paymentCurrencyUomId = payment.currencyUomId
+            }
+            paymentList.add([paymentId: payment.paymentId,
+                        effectiveDate: payment.effectiveDate,
+                        unAppliedAmount: unAppliedAmount,
+                        amount: amount,
+                        paymentCurrencyUomId: paymentCurrencyUomId,
+                        paymentTypeId: payment.paymentTypeId,
+                        paymentParentTypeId: payment.parentTypeId])
         }
-        paymentList.add([paymentId: payment.paymentId,
-                         effectiveDate: payment.effectiveDate,
-                         unAppliedAmount: unAppliedAmount,
-                         amount: amount,
-                         paymentCurrencyUomId: paymentCurrencyUomId,
-                         paymentTypeId: payment.paymentTypeId,
-                         paymentParentTypeId: payment.parentTypeId])
     }
 }
-payIterator.close()
 
 context.paymentList = paymentList

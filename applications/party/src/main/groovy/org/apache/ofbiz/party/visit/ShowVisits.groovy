@@ -19,6 +19,7 @@
 package org.apache.ofbiz.party.visit
 
 import org.apache.ofbiz.entity.transaction.TransactionUtil
+import org.apache.ofbiz.entity.util.EntityQuery
 
 partyId = parameters.partyId
 context.partyId = partyId
@@ -28,8 +29,6 @@ context.showAll = showAll
 
 sort = parameters.sort
 context.sort = sort
-
-visitListIt = null
 sortList = ['-fromDate']
 if (sort) {
     sortList.add(0, sort)
@@ -48,20 +47,16 @@ try {
     lowIndex = (((viewIndex - 1) * viewSize) + 1)
     highIndex = viewIndex * viewSize
 
+    EntityQuery visitQuery = from('Visit').orderBy(sortList).cursorScrollInsensitive().maxRows(highIndex).distinct()
     if (partyId) {
-        visitListIt = from('Visit')
-                .where('partyId', partyId).orderBy(sortList).cursorScrollInsensitive().maxRows(highIndex).distinct().queryIterator()
-    } else if (showAll.equalsIgnoreCase('true')) {
-        visitListIt = from('Visit').orderBy(sortList).cursorScrollInsensitive().maxRows(highIndex).distinct().queryIterator()
-    } else {
+        visitQuery.where('partyId', partyId)
+    } else if (!showAll.equalsIgnoreCase('true')) {
         // show active visits
-        visitListIt = from('Visit').where('thruDate', null).orderBy(sortList).cursorScrollInsensitive().maxRows(highIndex).distinct().queryIterator()
+        visitQuery.where('thruDate', null)
     }
-
-    // get the partial list for this page
-    visitList = visitListIt.getPartialList(lowIndex, viewSize) ?: []
-
-    visitListSize = visitListIt.getResultsSizeAfterPartialList()
+    pagedList = visitQuery.queryPagedList(lowIndex, viewSize)
+    visitList = pagedList.getData() ?: []
+    visitListSize = pagedList.getSize()
     if (highIndex > visitListSize) {
         highIndex = visitListSize
     }
@@ -79,7 +74,6 @@ try {
     throw e
 } finally {
     // only commit the transaction if we started one... this will throw an exception if it fails
-    visitListIt.close()
     TransactionUtil.commit(beganTransaction)
 }
 

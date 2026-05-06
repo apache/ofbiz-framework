@@ -67,15 +67,14 @@ boolean beganTransaction = false
 try {
     beganTransaction = TransactionUtil.begin()
 
-    productFeaturesEli = from('ProductFeature')
+    productFeaturesPagedList = from('ProductFeature')
                             .where('productFeatureCategoryId', productFeatureCategoryId)
                             .orderBy('productFeatureTypeId', 'defaultSequenceNum', 'description')
                             .distinct()
                             .cursorScrollInsensitive()
                             .maxRows(highIndex)
-                            .queryIterator()
-    productFeatures = productFeaturesEli.getPartialList(lowIndex + 1, highIndex - lowIndex)
-    productFeaturesEli.close()
+                            .queryPagedList(lowIndex + 1, highIndex - lowIndex)
+    productFeatures = productFeaturesPagedList.getData()
 } catch (GenericEntityException e) {
     String errMsg = 'Failure in operation, rolling back transaction'
     logError(e, errMsg)
