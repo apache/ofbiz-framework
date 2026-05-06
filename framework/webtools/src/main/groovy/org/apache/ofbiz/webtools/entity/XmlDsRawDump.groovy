@@ -18,12 +18,9 @@
 */
 package org.apache.ofbiz.webtools.entity
 
-import org.apache.ofbiz.base.util.Debug
 import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.entity.model.ModelViewEntity
 import org.apache.ofbiz.entity.util.EntityQuery
-
-module = 'XmlDsRawDump.groovy'
 
 if (!security.hasPermission('ENTITY_MAINT', session)) {
     response.contentType = 'text/plain; charset=UTF-8'
@@ -64,9 +61,10 @@ try {
         }
     }
 } catch (Exception e) {
-    Debug.logError(e, 'Failure in raw XML data source dump', module)
+    logError(e, 'Failure in raw XML data source dump')
     throw e
 }
 
 writer.println('</entity-engine-xml>')
+logInfo("Total records written from all entities: $numberWritten")
 return 'success'
