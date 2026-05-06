@@ -131,6 +131,7 @@ under the License.
         </xs:attribute>
         <xs:attribute name="semaphore-wait-seconds" type="xs:int" default="300"/>
         <xs:attribute name="semaphore-sleep" type="xs:int" default="500"/>
+        <xs:attribute name="semaphore-parameter-name" type="xs:string"/>
     </xs:attributeGroup>
     <xs:element name="notification">
         <xs:complexType>

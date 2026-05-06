@@ -214,6 +214,11 @@ public final class ModelServiceReader implements Serializable {
         }
         service.setSemaphoreSleep(semaphoreSleep);
 
+        String semaphoreParamName = UtilXml.checkEmpty(serviceElement.getAttribute("semaphore-parameter-name"));
+        if (UtilValidate.isNotEmpty(semaphoreParamName)) {
+            service.setSemaphoreParameterName(semaphoreParamName);
+        }
+
         // set the max retry field
         String maxRetryStr = UtilXml.checkEmpty(serviceElement.getAttribute("max-retry"));
         int maxRetry = 0;

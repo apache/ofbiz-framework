@@ -50,17 +50,19 @@ public final class ServiceSemaphore {
     private Delegator delegator;
     private GenericValue lock;
     private ModelService model;
+    private String parameterValue;
 
     private int wait = 0;
     private int mode;
     private Timestamp lockTime = null;
 
-    public ServiceSemaphore(Delegator delegator, ModelService model) {
+    public ServiceSemaphore(Delegator delegator, ModelService model, String parameterValue) {
         this.delegator = delegator;
         this.mode = "wait".equals(model.getSemaphore()) ? SEMAPHORE_MODE_WAIT
                 : ("fail".equals(model.getSemaphore()) ? SEMAPHORE_MODE_FAIL : SEMAPHORE_MODE_NONE);
         this.model = model;
         this.lock = null;
+        this.parameterValue = parameterValue;
     }
 
     /**
@@ -147,8 +149,8 @@ public final class ServiceSemaphore {
 
         try {
             if (EntityQuery.use(delegator).from("ServiceSemaphore")
-                    .where("serviceName", model.getName()).queryCount() == 0) {
-                semaphore = delegator.makeValue("ServiceSemaphore", "serviceName", model.getName(),
+                    .where("serviceName", model.getName(), "parameterValue", parameterValue).queryCount() == 0) {
+                semaphore = delegator.makeValue("ServiceSemaphore", "serviceName", model.getName(), "parameterValue", parameterValue,
                         "lockedByInstanceId", JobManager.INSTANCE_ID, "lockThread", threadName, "lockTime", lockTime);
 
                 // use the special method below so we can reuse the unique tx functions
@@ -196,7 +198,7 @@ public final class ServiceSemaphore {
                 } else {
                     // Last check before inserting data in this transaction to avoid error log
                     isError = EntityQuery.use(delegator).from("ServiceSemaphore")
-                            .where("serviceName", model.getName()).queryCount() != 0;
+                            .where("serviceName", model.getName(), "parameterValue", parameterValue).queryCount() != 0;
                     if (!isError) {
                         lock = value.create();
                     }

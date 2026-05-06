@@ -185,6 +185,9 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
     /** Semaphore sleep time (in milliseconds) */
     private int semaphoreSleep;
 
+    /** Semaphore parameter name */
+    private String semaphoreParameterName;
+
     /** Require a new transaction for this service */
     private boolean hideResultInLog;
 
@@ -399,6 +402,14 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
     }
 
     /**
+     * Sets semaphore parameter name.
+     * @param semaphoreParameterName the semaphore sleep
+     */
+    public void setSemaphoreParameterName(String semaphoreParameterName) {
+        this.semaphoreParameterName = semaphoreParameterName;
+    }
+
+    /**
      * Sets hide result in log.
      * @param hideResultInLog the hide result in log
      */
@@ -572,6 +583,14 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
      */
     public int getSemaphoreSleep() {
         return semaphoreSleep;
+    }
+
+    /**
+     * Gets semaphore parameter name.
+     * @return the semaphore parameter name
+     */
+    public String getSemaphoreParameterName() {
+        return semaphoreParameterName;
     }
 
     /**
@@ -791,6 +810,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         this.debug = model.debug;
         this.semaphoreWait = model.semaphoreWait;
         this.semaphoreSleep = model.semaphoreSleep;
+        this.semaphoreParameterName = model.semaphoreParameterName;
         this.contextInfo = model.contextInfo;
         this.definitionLocation = model.definitionLocation;
         this.description = model.description;
