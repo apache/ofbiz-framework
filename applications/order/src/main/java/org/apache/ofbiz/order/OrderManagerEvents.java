@@ -276,6 +276,7 @@ public class OrderManagerEvents {
         // get the current payment prefs
         GenericValue offlineValue = null;
         List<GenericValue> currentPrefs = null;
+        List<GenericValue> billingAccountPrefs = new LinkedList<GenericValue>();
         BigDecimal paymentTally = BigDecimal.ZERO;
         try {
             EntityConditionList<EntityExpr> ecl = EntityCondition.makeCondition(UtilMisc.toList(
@@ -292,22 +293,34 @@ public class OrderManagerEvents {
                 if ("EXT_OFFLINE".equals(paymentMethodType)) {
                     offlineValue = cp;
                 } else {
+                    if ("EXT_BILLACT".equals(paymentMethodType)
+                            && !"PAYMENT_RECEIVED".equals(cp.getString("statusId"))) {
+                        billingAccountPrefs.add(cp);
+                    }
+
                     BigDecimal cpAmt = cp.getBigDecimal("maxAmount");
                     if (cpAmt != null) {
                         paymentTally = paymentTally.add(cpAmt);
                     }
                 }
+                }
             }
-        }
+
 
         // now finish up
         boolean okayToApprove = false;
         if (paymentTally.compareTo(grandTotal) >= 0) {
             // cancel the offline preference
             okayToApprove = true;
+
             if (offlineValue != null) {
                 offlineValue.set("statusId", "PAYMENT_CANCELLED");
                 toBeStored.add(offlineValue);
+            }
+
+            for (GenericValue billingAccountPref : billingAccountPrefs) {
+                billingAccountPref.set("statusId", "PAYMENT_RECEIVED");
+                toBeStored.add(billingAccountPref);
             }
         }
 
