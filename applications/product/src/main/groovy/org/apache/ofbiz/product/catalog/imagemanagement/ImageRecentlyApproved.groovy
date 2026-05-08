@@ -21,7 +21,6 @@ package org.apache.ofbiz.product.catalog.imagemanagement
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.entity.condition.EntityOperator
-
 import java.sql.Timestamp
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
@@ -55,7 +54,7 @@ for (i in 0..limit) {
 
     List time = []
     if (tempTimeList.size > 0) {
-        0..tempTimeList.size - 1.each { j ->
+        (0..tempTimeList.size - 1).each { j ->
             time.add(sdfTime.format(tempTimeList.get(j).get(0)))
         }
     }
