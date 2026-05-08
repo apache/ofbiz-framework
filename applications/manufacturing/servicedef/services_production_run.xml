@@ -393,4 +393,52 @@ under the License.
         <description>Compute the actual costs for the production run task.</description>
         <attribute mode="IN" name="productionRunTaskId" optional="false" type="String"/>
     </service>
+    <service name="autoReserveWorkEffortInventory" engine="groovy"
+             location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/jobshopmgt/ProductionRunResServices.groovy"
+             invoke="autoReserveWorkEffortInventory" auth="true">
+        <description>Reserve Inventory for Production Run</description>
+        <attribute name="productionRunId" type="String" mode="IN" optional="false"/>
+    </service>
+    <service name="reserveWorkEffortInventoryItem" engine="groovy"
+             location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/jobshopmgt/ProductionRunResServices.groovy"
+             invoke="reserveWorkEffortInventoryItem" auth="true">
+        <description>Reserve Inventory for Production Run Task</description>
+        <attribute name="workEffortId" type="String" mode="IN" optional="false"/>
+        <attribute name="productId" type="String" mode="IN" optional="false"/>
+        <attribute name="facilityId" type="String" mode="IN" optional="false"/>
+        <attribute name="inventoryItemId" type="String" mode="IN" optional="true"/>
+        <attribute name="quantity" type="BigDecimal" mode="IN" optional="true"/>
+    </service>
+    <service name="releaseProductionRunTaskComponent" engine="groovy"
+             location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/jobshopmgt/ProductionRunResServices.groovy"
+             invoke="releaseProductionRunTaskComponent" auth="true">
+        <description>Reserve Inventory for Production Run Task</description>
+        <attribute name="workEffortId" type="String" mode="IN" optional="false"/>
+        <attribute name="productId" type="String" mode="IN" optional="false"/>
+        <attribute name="facilityId" type="String" mode="IN" optional="false"/>
+        <attribute name="wegsProductId" type="String" mode="IN" optional="true"/>
+        <attribute name="inventoryItemId" type="String" mode="IN" optional="true"/>
+        <attribute name="quantity" type="BigDecimal" mode="IN" optional="true"/>
+    </service>
+
+    <service name="reserveWorkEffortInventory" engine="groovy"
+             location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/jobshopmgt/ProductionRunResServices.groovy"
+             invoke="reserveWorkEffortInventory" auth="true">
+        <description>Create WorkEffortInvRes or increment existing reserved quantity.</description>
+        <auto-attributes mode="IN" entity-name="WorkEffortInvRes" include="pk" optional="false"/>
+        <auto-attributes mode="IN" entity-name="WorkEffortInvRes" include="nonpk" optional="true">
+            <exclude field-name="createdDate"/>
+        </auto-attributes>
+        <override name="quantity" optional="false"/>
+    </service>
+    <service name="getTaskQuantities" engine="groovy"
+             location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/jobshopmgt/ProductionRunResServices.groovy"
+             invoke="getTaskQuantities" auth="true">
+        <description>Get the total reserved and issued quantity for the component.</description>
+        <attribute name="workEffortId" mode="IN" type="String"/>
+        <attribute name="productId" mode="IN" type="String"/>
+        <attribute name="wegsProductId" mode="IN" type="String"/>
+        <attribute name="totalReserved" mode="OUT" type="BigDecimal"/>
+        <attribute name="totalIssued" mode="OUT" type="BigDecimal"/>
+    </service>
 </services>

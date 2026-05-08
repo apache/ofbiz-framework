@@ -608,6 +608,26 @@ under the License.
             <key-map field-name="inventoryItemId"/>
         </view-link>
     </view-entity>
+    <view-entity entity-name="WorkEffortAndInventoryProducedAndDetail" package-name="org.apache.ofbiz.workeffort.workeffort"
+                 title="Inventory Item and Detail and Product produced by WorkEffort">
+        <description>Inventory Item and Detail and Product produced by WorkEffort</description>
+        <member-entity entity-alias="WEIP" entity-name="WorkEffortInventoryProduced"/>
+        <member-entity entity-alias="II" entity-name="InventoryItem"/>
+        <member-entity entity-alias="IID" entity-name="InventoryItemDetail"/>
+        <alias-all entity-alias="WEIP"/>
+        <alias entity-alias="II" name="productId"/>
+        <alias entity-alias="II" name="currencyUomId"/>
+        <alias entity-alias="II" name="unitCost"/>
+        <alias entity-alias="II" name="lotId"/>
+        <alias entity-alias="II" name="quantityOnHandTotal"/>
+        <alias entity-alias="II" name="quantityOnHandDiff"/>
+        <view-link entity-alias="WEIP" rel-entity-alias="II">
+            <key-map field-name="inventoryItemId"/>
+        </view-link>
+        <view-link entity-alias="II" rel-entity-alias="IID">
+            <key-map field-name="inventoryItemId"/>
+        </view-link>
+    </view-entity>
     <view-entity entity-name="WorkEffortPartyAssignView"
                  package-name="org.apache.ofbiz.workeffort.workeffort"
                  title="Work Effort And Party Assignment and PartyNameView">

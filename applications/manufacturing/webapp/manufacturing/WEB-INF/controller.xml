@@ -679,7 +679,23 @@ under the License.
     <request-map uri="issueProductionRunTaskComponents">
         <security https="true" auth="true"/>
         <event type="service-multi" invoke="issueProductionRunTaskComponent"/>
-        <response name="success" type="view" value="ProductionRunDeclaration"/>
+        <response name="success" type="view" value="EditProductionRun"/>
+        <response name="error" type="view" value="EditProductionRun"/>
+    </request-map>
+    <request-map uri="reserveProductionRunTaskComponent">
+        <security https="true" auth="true"/>
+        <event type="service-multi" invoke="reserveWorkEffortInventoryItem"/>
+        <response name="success" type="request-redirect" value="ProductionRunDeclaration">
+            <redirect-parameter name="productionRunId"/>
+        </response>
+        <response name="error" type="view" value="ProductionRunDeclaration"/>
+    </request-map>
+    <request-map uri="releaseProductionRunTaskComponent">
+        <security https="true" auth="true"/>
+        <event type="service-multi" invoke="releaseProductionRunTaskComponent"/>
+        <response name="success" type="request-redirect" value="ProductionRunDeclaration">
+            <redirect-parameter name="productionRunId"/>
+        </response>
         <response name="error" type="view" value="ProductionRunDeclaration"/>
     </request-map>
     <request-map uri="createProductionRunTaskProduct">
@@ -768,6 +784,10 @@ under the License.
     <request-map uri="WorkWithShipmentPlans">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="WorkWithShipmentPlans"/>
+    </request-map>
+    <request-map uri="SetInventoryItem">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="SetInventoryItem"/>
     </request-map>
 
     <!-- Reports -->
@@ -891,6 +911,7 @@ under the License.
     <view-map name="ProductionRunContent" type="screen" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#ProductionRunContent"/>
     <view-map name="ProductionRunAssocs" type="screen" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#ProductionRunAssocs"/>
     <view-map name="WorkWithShipmentPlans" type="screen" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#WorkWithShipmentPlans"/>
+    <view-map name="SetInventoryItem" type="screen" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#SetInventoryItem"/>
 
     <!-- Report view mappings -->
     <view-map name="ShipmentPlanStockReport" type="screenfop" page="component://manufacturing/widget/manufacturing/ReportScreens.xml#ShipmentPlanStockReport" content-type="application/pdf" encoding="none"/>
