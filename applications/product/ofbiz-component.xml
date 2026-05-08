@@ -29,7 +29,6 @@ under the License.
 
     <entity-resource type="data" reader-name="seed" loader="main" location="data/ProductSecurityPermissionSeedData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/FacilitySecurityPermissionSeedData.xml"/>
-    <entity-resource type="data" reader-name="seed" loader="main" location="data/ApiSchemaDhl.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/ProductPortletData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/PromoCustomMethodData.xml"/>
 
@@ -46,10 +45,6 @@ under the License.
     <service-resource type="model" loader="main" location="servicedef/services_price.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_pricepromo.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_shipmentgateway.xml"/>
-    <service-resource type="model" loader="main" location="servicedef/services_shipment_dhl.xml"/>
-    <service-resource type="model" loader="main" location="servicedef/services_shipment_fedex.xml"/>
-    <service-resource type="model" loader="main" location="servicedef/services_shipment_ups.xml"/>
-    <service-resource type="model" loader="main" location="servicedef/services_shipment_usps.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_shipment.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_store.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_subscription.xml"/>
