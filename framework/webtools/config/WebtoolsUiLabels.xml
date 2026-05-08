@@ -3973,13 +3973,13 @@
     </property>
     <property key="WebtoolsOutToBrowser">
         <value xml:lang="de">ODER Browserausgabe</value>
-        <value xml:lang="en">&lt;U&gt;OR&lt;/U&gt; Out to Browser (FireFox, Safari and Opera: view source. Chrome does not work)</value>
-        <value xml:lang="fr">&lt;U&gt;OU&lt;/U&gt; dans le navigateur (FireFox, Safari  et Opera : voir le source. Chrome ne fontionne pas)</value>
+        <value xml:lang="en">&lt;U&gt;OR&lt;/U&gt; Out to Browser</value>
+        <value xml:lang="fr">&lt;U&gt;OU&lt;/U&gt; dans le navigateur</value>
         <value xml:lang="it">O output al browser</value>
         <value xml:lang="ja">ブラウザに出力</value>
         <value xml:lang="pt">Ou devolver para o navegador</value>
         <value xml:lang="th">หรืออกไปสู่ Browser</value>
-        <value xml:lang="vi">&lt;U&gt;OR&lt;/U&gt; Kết xuất ra Trình duyệt (FireFox, Safari và Opera: xem mã. Chrome không thực hiện)</value>
+        <value xml:lang="vi">&lt;U&gt;OR&lt;/U&gt; Kết xuất ra Trình duyệt</value>
         <value xml:lang="zh">或者输出到浏览器</value>
         <value xml:lang="zh-TW">或者輸出到瀏覽器</value>
     </property>
