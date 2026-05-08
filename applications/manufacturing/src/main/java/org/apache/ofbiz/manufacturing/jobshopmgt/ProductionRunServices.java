@@ -1308,6 +1308,29 @@ public class ProductionRunServices {
                 materialsCost = materialsCost.add(unitCost.multiply(quantity)).setScale(DECIMALS, ROUNDING);
                 materialsCostByCurrency.put(currencyUomId, materialsCost);
             }
+            List<GenericValue> returns = EntityQuery.use(delegator).from("WorkEffortAndInventoryProduced")
+                    .where("workEffortId", productionRunTaskId).queryList();
+            for (GenericValue inventoryProduced : returns) {
+                // We check if it is a "return" (i.e. a product that was a component of the task)
+                GenericValue component = EntityQuery.use(delegator).from("WorkEffortGoodStandard")
+                        .where("workEffortId", productionRunTaskId,
+                                "productId", inventoryProduced.get("productId"),
+                                "workEffortGoodStdTypeId", "PRUNT_PROD_NEEDED")
+                        .queryFirst();
+                if (component != null) {
+                    BigDecimal quantity = inventoryProduced.getBigDecimal("quantityOnHandTotal");
+                    BigDecimal unitCost = inventoryProduced.getBigDecimal("unitCost");
+                    if (UtilValidate.isNotEmpty(unitCost) && UtilValidate.isNotEmpty(quantity)) {
+                        String currencyUomId = inventoryProduced.getString("currencyUomId");
+                        if (!materialsCostByCurrency.containsKey(currencyUomId)) {
+                            materialsCostByCurrency.put(currencyUomId, BigDecimal.ZERO);
+                        }
+                        BigDecimal materialsCost = materialsCostByCurrency.get(currencyUomId);
+                        materialsCost = materialsCost.subtract(unitCost.multiply(quantity)).setScale(DECIMALS, ROUNDING);
+                        materialsCostByCurrency.put(currencyUomId, materialsCost);
+                    }
+                }
+            }
             for (String currencyUomId : materialsCostByCurrency.keySet()) {
                 BigDecimal materialsCost = materialsCostByCurrency.get(currencyUomId);
                 Map<String, Object> inMap = UtilMisc.<String, Object>toMap("userLogin", userLogin,
