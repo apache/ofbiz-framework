@@ -125,6 +125,9 @@ public class CoreEvents {
         String serviceCnt = (String) params.remove("SERVICE_COUNT");
         String retryCnt = (String) params.remove("SERVICE_MAXRETRY");
         String runAsSystemUser = (String) params.remove("SERVICE_RUN_AS_SYSTEM");
+        if (!security.hasPermission("SERVICE_RSAS_VIEW", userLogin)) {
+            runAsSystemUser = "N";
+        }
 
         // the frequency map
         Map<String, Integer> freqMap = new HashMap<>();
