@@ -22,7 +22,7 @@ under the License.
     <Tenant tenantId="@tenantId@" tenantName="@tenantName@" />
     <TenantDomainName tenantId="@tenantId@" domainName="@domainName@" />
     <TenantDataSource tenantId="@tenantId@" entityGroupName="org.apache.ofbiz" 
-        jdbcUri="jdbc:derby:ofbiz_@tenantId@;create=true" jdbcUsername="ofbiz" jdbcPassword="ofbiz"/>
+        jdbcUri="jdbc:h2:file:./runtime/data/h2/ofbiz_@tenantId@;AUTO_SERVER=TRUE" jdbcUsername="ofbiz" jdbcPassword="ofbiz"/>
     <TenantDataSource tenantId="@tenantId@" entityGroupName="org.apache.ofbiz.olap" 
-        jdbcUri="jdbc:derby:ofbizolap_@tenantId@;create=true" jdbcUsername="ofbiz" jdbcPassword="ofbiz"/>
+        jdbcUri="jdbc:h2:file:./runtime/data/h2/ofbizolap_@tenantId@;AUTO_SERVER=TRUE" jdbcUsername="ofbiz" jdbcPassword="ofbiz"/>
 </entity-engine-xml>

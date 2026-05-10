@@ -971,8 +971,8 @@ task pullPlugin(group: ofbizPlugin, description: 'Download and install a plugin 
 task cleanCatalina(group: cleanupGroup, description: 'Clean Catalina data in runtime/catalina/work') {
     doLast { delete "${rootDir}/runtime/catalina/work" }
 }
-task cleanData(group: cleanupGroup, description: 'Clean all DB data (Derby) under runtime/data') {
-    doLast { deleteAllInDirWithExclusions("${rootDir}/runtime/data/", ['README', 'derby.properties']) }
+task cleanData(group: cleanupGroup, description: 'Clean all DB data (H2) under runtime/data') {
+    doLast { deleteAllInDirWithExclusions("${rootDir}/runtime/data/", ['README', '.h2.server.properties']) }
 }
 task cleanDownloads(group: cleanupGroup, description: 'Clean all downloaded files') {
     doLast {

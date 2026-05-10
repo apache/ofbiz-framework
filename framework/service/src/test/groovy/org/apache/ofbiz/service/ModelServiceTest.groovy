@@ -46,7 +46,6 @@ class ModelServiceTest {
     @Before
     void initialize() {
         System.setProperty('ofbiz.home', System.getProperty('user.dir'))
-        System.setProperty('derby.system.home', './runtime/data/derby')
         dispatcher = Mockito.mock(LocalDispatcher)
         Mockito.when(dispatcher.getDelegator()).thenReturn(DelegatorFactory.getDelegator('default'))
     }
