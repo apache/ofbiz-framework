@@ -113,6 +113,12 @@ public class CoreEvents {
         Locale locale = UtilHttp.getLocale(request);
         TimeZone timeZone = UtilHttp.getTimeZone(request);
 
+        if (!security.hasPermission("SERVICE_MAINT", userLogin)) {
+            String errMsg = UtilProperties.getMessage(ERR_RESOURCE, "coreEvents.not_authorized_to_call", locale);
+            request.setAttribute("_ERROR_MESSAGE_", errMsg);
+            return "error";
+        }
+
         Map<String, Object> params = UtilHttp.getParameterMap(request);
         // get the schedule parameters
         String jobName = (String) params.remove("JOB_NAME");
@@ -434,10 +440,18 @@ public class CoreEvents {
      * @return Response code string
      */
     public static String runService(HttpServletRequest request, HttpServletResponse response) {
+        Security security = (Security) request.getAttribute("security");
+        GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
         // get the mode and service name
         String serviceName = request.getParameter("serviceName");
         String mode = request.getParameter("mode");
         Locale locale = UtilHttp.getLocale(request);
+
+        if (!security.hasPermission("SERVICE_MAINT", userLogin)) {
+            String errMsg = UtilProperties.getMessage(ERR_RESOURCE, "coreEvents.not_authorized_to_call", locale);
+            request.setAttribute("_ERROR_MESSAGE_", errMsg);
+            return "error";
+        }
 
         if (UtilValidate.isEmpty(serviceName)) {
             String errMsg = UtilProperties.getMessage(ERR_RESOURCE, "coreEvents.must_specify_service_name", locale);
@@ -450,7 +464,6 @@ public class CoreEvents {
         }
 
         // now do a security check
-        Security security = (Security) request.getAttribute("security");
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
 
         //lookup the service definition to see if this service is externally available, if not require the SERVICE_INVOKE_ANY permission
