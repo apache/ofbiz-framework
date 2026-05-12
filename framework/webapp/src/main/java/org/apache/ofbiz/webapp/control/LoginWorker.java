@@ -444,10 +444,9 @@ public final class LoginWorker {
         if (UtilValidate.isEmpty(password) && UtilValidate.isEmpty(token)) {
             unpwErrMsgList.add(UtilProperties.getMessage(RESOURCE, "loginevents.password_was_empty_reenter", UtilHttp.getLocale(request)));
         }
-        boolean requirePasswordChange = "Y".equals(request.getParameter("requirePasswordChange"));
         if (!unpwErrMsgList.isEmpty()) {
             request.setAttribute("_ERROR_MESSAGE_LIST_", unpwErrMsgList);
-            return requirePasswordChange ? "requirePasswordChange" : "error";
+            return "error";
         }
 
         boolean setupNewDelegatorEtc = false;
@@ -535,8 +534,9 @@ public final class LoginWorker {
 
         if (ModelService.RESPOND_SUCCESS.equals(result.get(ModelService.RESPONSE_MESSAGE))) {
             GenericValue userLogin = (GenericValue) result.get("userLogin");
-
-            if (requirePasswordChange) {
+            if (userLogin != null && "Y".equals(userLogin.getString("requirePasswordChange"))
+                    && UtilValidate.isNotEmpty(request.getParameter("newPassword"))
+                    && UtilValidate.isNotEmpty(request.getParameter("newPasswordVerify"))) {
                 Map<String, Object> inMap = UtilMisc.<String, Object>toMap(
                         "login.username", username,
                         "login.password", password,
@@ -554,7 +554,7 @@ public final class LoginWorker {
                     String errMsg = UtilProperties.getMessage(RESOURCE, "loginevents.following_error_occurred_during_login",
                             messageMap, UtilHttp.getLocale(request));
                     request.setAttribute("_ERROR_MESSAGE_", errMsg);
-                    return "requirePasswordChange";
+                    return "error";
                 }
                 if (ServiceUtil.isError(resultPasswordChange)) {
                     String errorMessage = (String) resultPasswordChange.get(ModelService.ERROR_MESSAGE);
@@ -565,7 +565,7 @@ public final class LoginWorker {
                         request.setAttribute("_ERROR_MESSAGE_", errMsg);
                     }
                     request.setAttribute("_ERROR_MESSAGE_LIST_", resultPasswordChange.get(ModelService.ERROR_MESSAGE_LIST));
-                    return "requirePasswordChange";
+                    return "error";
                 } else {
                     try {
                         userLogin.refresh();
@@ -575,7 +575,7 @@ public final class LoginWorker {
                         String errMsg = UtilProperties.getMessage(RESOURCE, "loginevents.following_error_occurred_during_login",
                                 messageMap, UtilHttp.getLocale(request));
                         request.setAttribute("_ERROR_MESSAGE_", errMsg);
-                        return "requirePasswordChange";
+                        return "error";
                     }
                 }
             }

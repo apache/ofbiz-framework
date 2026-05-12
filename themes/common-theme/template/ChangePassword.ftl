@@ -29,7 +29,6 @@ under the License.
   </div>
   <div class="screenlet-body">
     <form method="post" action="<@ofbizUrl>login</@ofbizUrl>" name="loginform">
-      <input type="hidden" name="requirePasswordChange" value="Y"/>
       <input type="hidden" name="USERNAME" value="${username}"/>
       <input type="hidden" name="TOKEN" value="${parameters.TOKEN!}"/>
       <input type="hidden" name="userTenantId" value="${tenantId}"/>
