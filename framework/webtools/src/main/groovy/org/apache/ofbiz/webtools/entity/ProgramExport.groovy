@@ -156,7 +156,7 @@ if (security.hasPermission('ENTITY_MAINT', session)) {
         setStarImportsWhitelist([])
         setStaticImportsWhitelist([])
         setStaticStarImportsWhitelist([])
-        setIndirectImportCheckEnabled(false)
+        setIndirectImportCheckEnabled(true)
         // Constant types whitelist
         setConstantTypesClassesWhiteList([
                 Object, String, Integer, Long, Float, Double, Boolean,
@@ -178,7 +178,6 @@ if (security.hasPermission('ENTITY_MAINT', session)) {
         setExpressionsBlacklist([MethodPointerExpression])
         // Receiver whitelist - only safe OFBiz entity operations
         setReceiversWhiteList([
-                'java.lang.Object',
                 'org.apache.ofbiz.entity.Delegator',
                 'org.apache.ofbiz.entity.util.EntityQuery',
                 'org.apache.ofbiz.entity.util.EntityFindOptions',
