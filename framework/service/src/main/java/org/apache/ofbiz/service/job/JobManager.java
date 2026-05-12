@@ -364,6 +364,18 @@ public final class JobManager {
                     if ("SERVICE_QUEUED".equals(job.getString("statusId"))) {
                         newJob.set("tempExprId", job.getString("tempExprId"));
                         newJob.set("recurrenceInfoId", job.getString("recurrenceInfoId"));
+                    } else if ("SERVICE_RUNNING".equals(job.getString("statusId"))) {
+                        // If the job was running, check if a future recurrence was already scheduled
+                        long childJobsCount = EntityQuery.use(delegator).from("JobSandbox")
+                                .where("parentJobId", job.getString("jobId"))
+                                .queryCount();
+                        if (childJobsCount == 0) {
+                            newJob.set("tempExprId", job.getString("tempExprId"));
+                            newJob.set("recurrenceInfoId", job.getString("recurrenceInfoId"));
+                        } else {
+                            newJob.set("tempExprId", null);
+                            newJob.set("recurrenceInfoId", null);
+                        }
                     } else {
                         //don't set a recurrent schedule on the new job, run it just one time
                         newJob.set("tempExprId", null);
