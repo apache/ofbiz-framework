@@ -33,7 +33,6 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
-import org.apache.ofbiz.base.util.GroovyUtil;
 import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilCodec;
 import org.apache.ofbiz.base.util.UtilDateTime;
@@ -41,7 +40,6 @@ import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
 import org.apache.ofbiz.content.ContentManagementWorker;
 import org.apache.ofbiz.content.data.DataResourceWorker;
 import org.apache.ofbiz.entity.Delegator;
@@ -61,7 +59,6 @@ import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.service.ServiceUtil;
-import org.codehaus.groovy.control.CompilationFailedException;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
@@ -684,6 +681,11 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
      */
     public static boolean checkWhen(Map<String, Object> context, String whenStr, boolean defaultReturn) {
         boolean isWhen = defaultReturn;
+        /*
+         * The logic has been commented out, as it represents a potential security risk.
+         * Moreover, the usage of this method is limited to a small group of custom Freemarker transforms,
+         * that can be removed since they are essentially old experiments.
+
         if (UtilValidate.isNotEmpty(whenStr)) {
             FlexibleStringExpander fse = FlexibleStringExpander.getInstance(whenStr);
             String newWhen = fse.expandString(context);
@@ -702,6 +704,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
                 throw new RuntimeException(e.getMessage());
             }
         }
+        */
         return isWhen;
     }
 
