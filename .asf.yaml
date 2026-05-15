@@ -15,8 +15,8 @@
 
 github:
   description: "Apache OFBiz is an open source product for the automation of enterprise processes. It includes framework components and business applications for ERP, CRM, E-Business/E-Commerce, Supply Chain Management and Manufacturing Resource Planning. OFBiz provides a foundation and starting point for reliable, secure and scalable enterprise solutions."
-  homepage:  https://ofbiz.apache.org/
-  dependabot_alerts:  true
+  homepage: https://ofbiz.apache.org/
+  dependabot_alerts: true
   dependabot_updates: false
   labels:
     - ofbiz
@@ -34,18 +34,31 @@ github:
     - hacktoberfest
   enabled_merge_buttons:
     # enable squash button:
-    squash:  true
+    squash: true
     # default commit message when merging with a squash commit
     # can either be: DEFAULT | PR_TITLE | PR_TITLE_AND_COMMIT_DETAILS | PR_TITLE_AND_DESC
     squash_commit_message: PR_TITLE_AND_DESC
     # enable merge button:
-    merge:   true
+    merge: true
     # default commit message when merging with a merge commit
     # can either be: DEFAULT | PR_TITLE | PR_TITLE_AND_DESC
     merge_commit_message: PR_TITLE_AND_DESC
     # enable rebase button:
-    rebase:  true
+    rebase: true
 
+  rulesets:
+    - name: "Default Branch Protection"
+      type: branch
+      branches:
+        includes:
+          - "~DEFAULT_BRANCH"
+          - "release/*"
+          - "rel/*"
+        excludes: []
+      bypass_teams:
+        - root
+      restrict_deletion: true
+      restrict_force_push: true
 notifications:
-  jobs:  notifications@ofbiz.apache.org
+  jobs: notifications@ofbiz.apache.org
   jira_options: link label
