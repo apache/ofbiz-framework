@@ -36,7 +36,10 @@ under the License.
                      min-threads="2"
                      max-threads="5"
                      poll-enabled="true"
-                     poll-db-millis="30000">
+                     poll-db-millis="30000"
+                     lease-refresh-millis="300000"
+                     lease-validation-millis="480000"
+                     lease-expiry-millis="600000">
             <run-from-pool name="pool"/>
         </thread-pool>
 

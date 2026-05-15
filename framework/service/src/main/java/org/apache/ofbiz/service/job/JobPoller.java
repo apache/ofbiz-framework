@@ -115,6 +115,24 @@ public final class JobPoller implements ServiceConfigListener {
         }
     }
 
+    private static int leaseRefreshTime() {
+        try {
+            return ServiceConfigUtil.getServiceEngine(ServiceConfigUtil.getEngine()).getThreadPool().getLeaseRefreshMillis();
+        } catch (GenericConfigException e) {
+            Debug.logWarning(e, "Exception thrown while getting lease-refresh-millis, using default: ", MODULE);
+            return ThreadPool.LEASE_REFRESH_MILLIS;
+        }
+    }
+
+    private static int leaseValidationTime() {
+        try {
+            return ServiceConfigUtil.getServiceEngine(ServiceConfigUtil.getEngine()).getThreadPool().getLeaseValidationMillis();
+        } catch (GenericConfigException e) {
+            Debug.logWarning(e, "Exception thrown while getting lease-validation-millis, using default: ", MODULE);
+            return ThreadPool.LEASE_VALIDATION_MILLIS;
+        }
+    }
+
     static int queueSize() {
         try {
             ThreadPool threadPool = ServiceConfigUtil.getServiceEngine(ServiceConfigUtil.getEngine()).getThreadPool();
@@ -245,7 +263,7 @@ public final class JobPoller implements ServiceConfigListener {
         }
     }
 
-    // Polls all registered JobManagers for jobs to queue.
+    // Polls all registered JobManagers for jobs to queue, and runs periodic lease heartbeat and stale-job recovery.
     private final class JobManagerPoller implements Runnable {
 
         // Do not check for interrupts in this method. The design requires the
@@ -253,6 +271,8 @@ public final class JobPoller implements ServiceConfigListener {
         @Override
         public void run() {
             Debug.logInfo("JobPoller thread started.", MODULE);
+            long lastHeartbeatTime = 0;
+            long lastRecoveryTime = 0;
             try {
                 while (Start.getInstance().getCurrentState() != Start.ServerState.RUNNING) {
                     Thread.sleep(1000);
@@ -294,6 +314,21 @@ public final class JobPoller implements ServiceConfigListener {
                                 Debug.logError(e, MODULE);
                             }
                         }
+                    }
+                    long now = System.currentTimeMillis();
+                    // Heartbeat: renew leaseUpdatedStamp for all jobs owned by this instance.
+                    if (now - lastHeartbeatTime > leaseRefreshTime()) {
+                        for (JobManager jm : JOB_MANAGERS.values()) {
+                            jm.heartbeatRunningJobs();
+                        }
+                        lastHeartbeatTime = now;
+                    }
+                    // Recovery: reset stale jobs from dead nodes back to SERVICE_PENDING.
+                    if (now - lastRecoveryTime > leaseValidationTime()) {
+                        for (JobManager jm : JOB_MANAGERS.values()) {
+                            jm.recoverStaleJobs();
+                        }
+                        lastRecoveryTime = now;
                     }
                     Thread.sleep(pollWaitTime());
                 }
