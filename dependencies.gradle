@@ -60,8 +60,8 @@ dependencies {
     implementation 'org.apache.tika:tika-parsers:3.3.0'
     implementation 'org.apache.tika:tika-parser-pdf-module:3.3.0'
     implementation 'org.apache.cxf:cxf-rt-frontend-jaxrs:4.2.0'
-    implementation 'org.apache.tomcat:tomcat-catalina-ha:10.1.54' // Remember to change the version number (10 now) in javadoc block if needed.
-    implementation 'org.apache.tomcat:tomcat-jasper:10.1.54'
+    implementation 'org.apache.tomcat:tomcat-catalina-ha:10.1.55' // Remember to change the version number (10 now) in javadoc block if needed.
+    implementation 'org.apache.tomcat:tomcat-jasper:10.1.55'
     implementation 'org.apache.axis2:axis2-kernel:1.8.2'
     implementation 'org.apache.xmlgraphics:batik-anim:1.19'
     implementation 'org.apache.xmlgraphics:batik-util:1.19'

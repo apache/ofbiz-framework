@@ -29,7 +29,8 @@ plugins {
     id 'checkstyle'
     id 'codenarc'
     id 'maven-publish'
-    id "org.asciidoctor.jvm.convert" version "latest.release"
+    id "org.asciidoctor.jvm.convert" version "4.0.5" // For now we can not update above. See "production-ready version" warning in https://plugins.gradle.org/plugin/org.asciidoctor.jvm
+    id "org.asciidoctor.jvm.pdf" version "4.0.5"     // For now we can not update above. See "production-ready version" warning in https://plugins.gradle.org/plugin/org.asciidoctor.jvm
     id "org.owasp.dependencycheck" version "latest.release" apply false
     id "se.patrikerdes.use-latest-versions"  version "latest.release" apply false
     id "com.github.ben-manes.versions" version "latest.release" apply false
