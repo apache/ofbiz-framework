@@ -163,6 +163,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
             field-type-name="h2"
             check-on-start="true"
             add-missing-on-start="true"
+            max-worker-pool-size="1"
             use-pk-constraint-names="false"
             use-indices-unique="false"
             alias-view-columns="false"
@@ -178,12 +179,13 @@ access. For a detailed description see the core/docs/entityconfig.html file.
 
         <inline-jdbc
                 jdbc-driver="org.h2.Driver"
-                jdbc-uri="jdbc:h2:file:./runtime/data/h2/ofbiz;INIT=CREATE SCHEMA IF NOT EXISTS OFBIZ"
+                jdbc-uri="jdbc:h2:file:./runtime/data/h2/ofbiz;AUTO_SERVER=TRUE;LOCK_TIMEOUT=60000;INIT=CREATE SCHEMA IF NOT EXISTS OFBIZ"
                 jdbc-username="ofbiz"
                 jdbc-password-lookup="h2-ofbiz"
                 isolation-level="ReadCommitted"
-                pool-minsize="2"
+                pool-minsize="0"
                 pool-maxsize="250"
+                pool-sleeptime="300000"
                 test-on-borrow="true"
                 pool-jdbc-test-stmt="SELECT 1"
                 soft-min-evictable-idle-time-millis="600000"
@@ -192,10 +194,11 @@ access. For a detailed description see the core/docs/entityconfig.html file.
     </datasource>
     <datasource name="localh2odbc"
         helper-class="org.apache.ofbiz.entity.datasource.GenericHelperDAO"
-        schema-name="OFBIZ"
+        schema-name="ODBC"
         field-type-name="h2"
         check-on-start="true"
         add-missing-on-start="true"
+        max-worker-pool-size="1"
         use-pk-constraint-names="false"
         use-indices-unique="false"
         alias-view-columns="false"
@@ -204,21 +207,25 @@ access. For a detailed description see the core/docs/entityconfig.html file.
 
         <inline-jdbc
             jdbc-driver="org.h2.Driver"
-            jdbc-uri="jdbc:h2:file:./runtime/data/h2/ofbizodbc;INIT=CREATE SCHEMA IF NOT EXISTS OFBIZ"
+            jdbc-uri="jdbc:h2:file:./runtime/data/h2/ofbiz;AUTO_SERVER=TRUE;LOCK_TIMEOUT=60000;INIT=CREATE SCHEMA IF NOT EXISTS ODBC"
             jdbc-username="ofbiz"
             jdbc-password-lookup="h2-ofbizodbc"
             isolation-level="ReadCommitted"
-            pool-minsize="2"
+            pool-minsize="0"
             pool-maxsize="250"
-                time-between-eviction-runs-millis="600000"/>
+            pool-sleeptime="300000"
+            test-on-borrow="true"
+            pool-jdbc-test-stmt="SELECT 1"
+            time-between-eviction-runs-millis="600000"/>
         <!-- <jndi-jdbc jndi-server-name="localjndi" jndi-name="java:/H2DataSource" isolation-level="ReadCommitted"/> -->
     </datasource>
     <datasource name="localh2olap"
             helper-class="org.apache.ofbiz.entity.datasource.GenericHelperDAO"
-            schema-name="OFBIZ"
+            schema-name="OLAP"
             field-type-name="h2"
             check-on-start="true"
             add-missing-on-start="true"
+            max-worker-pool-size="1"
             use-pk-constraint-names="false"
             use-indices-unique="false"
             alias-view-columns="false"
@@ -233,21 +240,25 @@ access. For a detailed description see the core/docs/entityconfig.html file.
         <read-data reader-name="ext-demo"/>
         <inline-jdbc
                 jdbc-driver="org.h2.Driver"
-                jdbc-uri="jdbc:h2:file:./runtime/data/h2/ofbizolap;INIT=CREATE SCHEMA IF NOT EXISTS OFBIZ"
+                jdbc-uri="jdbc:h2:file:./runtime/data/h2/ofbiz;AUTO_SERVER=TRUE;LOCK_TIMEOUT=60000;INIT=CREATE SCHEMA IF NOT EXISTS OLAP"
                 jdbc-username="ofbiz"
                 jdbc-password-lookup="h2-ofbizolap"
                 isolation-level="ReadCommitted"
-                pool-minsize="2"
+                pool-minsize="0"
                 pool-maxsize="250"
+                pool-sleeptime="300000"
+                test-on-borrow="true"
+                pool-jdbc-test-stmt="SELECT 1"
                 time-between-eviction-runs-millis="600000"/>
         <!-- <jndi-jdbc jndi-server-name="localjndi" jndi-name="java:/H2DataSource" isolation-level="ReadCommitted"/> -->
     </datasource>
     <datasource name="localh2tenant"
         helper-class="org.apache.ofbiz.entity.datasource.GenericHelperDAO"
-        schema-name="OFBIZ"
+        schema-name="TENANT"
         field-type-name="h2"
         check-on-start="true"
         add-missing-on-start="true"
+        max-worker-pool-size="1"
         use-pk-constraint-names="false"
         use-indices-unique="false"
         alias-view-columns="false"
@@ -262,12 +273,15 @@ access. For a detailed description see the core/docs/entityconfig.html file.
 
         <inline-jdbc
             jdbc-driver="org.h2.Driver"
-            jdbc-uri="jdbc:h2:file:./runtime/data/h2/ofbiztenant;INIT=CREATE SCHEMA IF NOT EXISTS OFBIZ"
+            jdbc-uri="jdbc:h2:file:./runtime/data/h2/ofbiz;AUTO_SERVER=TRUE;LOCK_TIMEOUT=60000;INIT=CREATE SCHEMA IF NOT EXISTS TENANT"
             jdbc-username="ofbiz"
             jdbc-password-lookup="h2-ofbiztenant"
             isolation-level="ReadCommitted"
-            pool-minsize="2"
+            pool-minsize="0"
             pool-maxsize="250"
+            pool-sleeptime="300000"
+            test-on-borrow="true"
+            pool-jdbc-test-stmt="SELECT 1"
             time-between-eviction-runs-millis="600000"/>
         <!-- <jndi-jdbc jndi-server-name="localjndi" jndi-name="java:/H2DataSource" isolation-level="ReadCommitted"/> -->
     </datasource>
