@@ -52,13 +52,14 @@ github:
       branches:
         includes:
           - "~DEFAULT_BRANCH"
-          - "release/*"
-          - "rel/*"
+          - "release*"
         excludes: []
       bypass_teams:
         - root
       restrict_deletion: true
       restrict_force_push: true
+      required_linear_history: true
+
 notifications:
   jobs: notifications@ofbiz.apache.org
   jira_options: link label
