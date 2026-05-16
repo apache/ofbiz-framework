@@ -550,20 +550,14 @@ tasks.withType(AsciidoctorTask) { task ->
         jvm {
             jvmArgs("--add-opens","java.base/sun.nio.ch=ALL-UNNAMED","--add-opens","java.base/java.io=ALL-UNNAMED")
         }
-//    outputOptions {
-//         // I hate we have to do this - but JRuby (asciidoctorj-pdf) and Windows don't mix well
-//        if (System.properties['os.name'].toLowerCase().contains('windows')) {
-//            backends = ['html5']
-//        } else {
-//            backends = ['html5', 'pdf']
-//        }
-         //It seems we have no choice when using Builbot we now get this issue:
-//        Caused by: org.jruby.exceptions.LoadError: (LoadError) no such file to load -- asciidoctor-pdf
-//        at org.jruby.RubyKernel.require(org/jruby/RubyKernel.java:1017)
-//        at RUBY.require(uri:classloader:/META-INF/jruby.home/lib/ruby/stdlib/rubygems/core_ext/kernel_require.rb:85)
-//        at RUBY.<main>(<script>:1)
-//        backends = ['html5'] // this is the default, so for now outputOptions is not needed
-//    }
+    outputOptions {
+         // I hate we have to do this - but JRuby (asciidoctorj-pdf) and Windows don't mix well
+        if (System.properties['os.name'].toLowerCase().contains('windows')) {
+            backends = ['html5']
+        } else {
+            backends = ['html5', 'pdf']
+        }
+    }
     attributes \
         'doctype': 'book',
         'revnumber': getCurrentGitBranch(),

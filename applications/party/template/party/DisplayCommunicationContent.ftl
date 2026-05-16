@@ -18,7 +18,22 @@ under the License.
 -->
 
 
-<#-- Display content in a specific div to avoid display conflicts -->
-<div style="margin-left: 14%;width:50% !important;">
-    ${StringUtil.wrapString(childCommEvent.content!)}
-</div>
+<#-- iframe isolates the email's <style> block from the parent page. Stored content is
+     HTML-entity-encoded, so decode it via a textarea before assigning to srcdoc. -->
+<#assign iframeId = "commContent_" + childCommEvent.communicationEventId>
+<iframe id="${iframeId}"
+        sandbox="allow-same-origin"
+        style="width: 100%; min-height: 600px; border: 1px solid #ccc; margin-left: 14%;"></iframe>
+<script type="text/javascript">
+    (function() {
+        var iframe = document.getElementById('${iframeId}');
+        iframe.onload = function() {
+            try {
+                this.style.height = (this.contentWindow.document.documentElement.scrollHeight + 20) + 'px';
+            } catch (e) {}
+        };
+        var decoder = document.createElement('textarea');
+        decoder.innerHTML = '${StringUtil.wrapString((childCommEvent.content!'')?js_string)}';
+        iframe.srcdoc = decoder.value;
+    })();
+</script>
