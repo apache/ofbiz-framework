@@ -247,26 +247,10 @@ public class GenericDelegator implements Delegator {
 
         // initialize helpers by group
         Set<String> groupNames = getModelGroupReader().getGroupNames(delegatorBaseName);
-        Map<String, List<String>> helperGroups = new HashMap<>();
-        for (String groupName: groupNames) {
-            GenericHelperInfo helperInfo = this.getGroupHelperInfo(groupName);
-            String helperName = helperInfo != null ? helperInfo.getHelperFullName() : groupName;
-            helperGroups.computeIfAbsent(helperName, k -> new LinkedList<>()).add(groupName);
-        }
-
         List<Future<Void>> futures = new LinkedList<>();
-        futures.add(ExecutionPool.GLOBAL_BATCH.submit(() -> {
-            for (List<String> groupNamesForHelper : helperGroups.values()) {
-                for (String groupName : groupNamesForHelper) {
-                    try {
-                        createHelperCallable(groupName).call();
-                    } catch (Exception e) {
-                        Debug.logError(e, MODULE);
-                    }
-                }
-            }
-            return null;
-        }));
+        for (String groupName: groupNames) {
+            futures.add(ExecutionPool.GLOBAL_BATCH.submit(createHelperCallable(groupName)));
+        }
         ExecutionPool.getAllFutures(futures);
 
         // NOTE: doing some things before the ECAs and such to make sure it is in place just in case it is used in a service engine startup thing or
