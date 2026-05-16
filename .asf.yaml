@@ -60,5 +60,9 @@ github:
   dependabot_updates: false
 
 notifications:
+  commits: commits@ofbiz.apache.org
+  discussions: notifications@ofbiz.apache.org # discussions are not used, but we want to be notified if they are created
+  issues: notifications@ofbiz.apache.org # issues are not used, but we want to be notified if they are created
+  pullrequests: notifications@ofbiz.apache.org
   jobs: notifications@ofbiz.apache.org
-  jira_options: link label
+  jira_options: link label # if a JIRA issue is mentioned in the title of a pull request, add to the JIRA issue a comment with a link to the pull request and add the "has-pull-request" label to the JIRA issue
