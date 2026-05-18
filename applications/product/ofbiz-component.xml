@@ -33,7 +33,8 @@ under the License.
     <entity-resource type="data" reader-name="seed" loader="main" location="data/ProductPortletData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/PromoCustomMethodData.xml"/>
 
-    <entity-resource type="data" reader-name="seed-initial" loader="main" location="data/ProductScheduledServices.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/ProductScheduledServices.xml"/>
+
     <entity-resource type="data" reader-name="seed-initial" loader="main" location="data/CatalogSystemPropertyData.xml"/>
 
     <service-resource type="model" loader="main" location="servicedef/services.xml"/>
