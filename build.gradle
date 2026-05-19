@@ -459,17 +459,17 @@ task loadTenant(group: ofbizServer, description: 'Load data using tenantId') {
 
 task createTenant(group: ofbizServer, description: 'Create a new tenant in your environment') {
 
-    def databaseTemplateFile = "${rootDir}/framework/resources/templates/AdminNewTenantData-Derby.xml"
+    def databaseTemplateFile = "${rootDir}/framework/resources/templates/AdminNewTenantData-H2.xml"
 
     task prepareAndValidateTenantArguments {
         doLast {
             if (!project.hasProperty('tenantId')) {
                 throw new GradleException('Project property tenantId is missing')
             }
-            // dbPlatform values: D(Derby), M(MySQL), O(Oracle), P(PostgreSQL) (default D)
+            // dbPlatform values: H(H2), M(MySQL), O(Oracle), P(PostgreSQL) (default D)
             if (project.hasProperty('dbPlatform')) {
-                if (dbPlatform == 'D') {
-                    databaseTemplateFile = "${rootDir}/framework/resources/templates/AdminNewTenantData-Derby.xml"
+                if (dbPlatform == 'H') {
+                    databaseTemplateFile = "${rootDir}/framework/resources/templates/AdminNewTenantData-H2.xml"
                 } else if (dbPlatform == 'M') {
                     databaseTemplateFile = "${rootDir}/framework/resources/templates/AdminNewTenantData-MySQL.xml"
                 } else if (dbPlatform == 'O') {

@@ -179,7 +179,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
 
         <inline-jdbc
                 jdbc-driver="org.h2.Driver"
-                jdbc-uri="jdbc:h2:file:./runtime/data/h2/ofbiz;AUTO_SERVER=TRUE;LOCK_TIMEOUT=60000;INIT=CREATE SCHEMA IF NOT EXISTS OFBIZ"
+                jdbc-uri="jdbc:h2:file:./runtime/data/h2/ofbiz;AUTO_SERVER=TRUE;LOCK_TIMEOUT=60000;INIT=CREATE SCHEMA IF NOT EXISTS OFBIZ\;SET SCHEMA OFBIZ"
                 jdbc-username="ofbiz"
                 jdbc-password-lookup="h2-ofbiz"
                 isolation-level="ReadCommitted"
@@ -207,7 +207,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
 
         <inline-jdbc
             jdbc-driver="org.h2.Driver"
-            jdbc-uri="jdbc:h2:file:./runtime/data/h2/ofbiz;AUTO_SERVER=TRUE;LOCK_TIMEOUT=60000;INIT=CREATE SCHEMA IF NOT EXISTS ODBC"
+            jdbc-uri="jdbc:h2:file:./runtime/data/h2/ofbiz;AUTO_SERVER=TRUE;LOCK_TIMEOUT=60000;INIT=CREATE SCHEMA IF NOT EXISTS ODBC\;SET SCHEMA ODBC"
             jdbc-username="ofbiz"
             jdbc-password-lookup="h2-ofbizodbc"
             isolation-level="ReadCommitted"
@@ -240,7 +240,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
         <read-data reader-name="ext-demo"/>
         <inline-jdbc
                 jdbc-driver="org.h2.Driver"
-                jdbc-uri="jdbc:h2:file:./runtime/data/h2/ofbiz;AUTO_SERVER=TRUE;LOCK_TIMEOUT=60000;INIT=CREATE SCHEMA IF NOT EXISTS OLAP"
+                jdbc-uri="jdbc:h2:file:./runtime/data/h2/ofbiz;AUTO_SERVER=TRUE;LOCK_TIMEOUT=60000;INIT=CREATE SCHEMA IF NOT EXISTS OLAP\;SET SCHEMA OLAP"
                 jdbc-username="ofbiz"
                 jdbc-password-lookup="h2-ofbizolap"
                 isolation-level="ReadCommitted"
@@ -273,7 +273,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
 
         <inline-jdbc
             jdbc-driver="org.h2.Driver"
-            jdbc-uri="jdbc:h2:file:./runtime/data/h2/ofbiz;AUTO_SERVER=TRUE;LOCK_TIMEOUT=60000;INIT=CREATE SCHEMA IF NOT EXISTS TENANT"
+            jdbc-uri="jdbc:h2:file:./runtime/data/h2/ofbiz;AUTO_SERVER=TRUE;LOCK_TIMEOUT=60000;INIT=CREATE SCHEMA IF NOT EXISTS TENANT\;SET SCHEMA TENANT"
             jdbc-username="ofbiz"
             jdbc-password-lookup="h2-ofbiztenant"
             isolation-level="ReadCommitted"
@@ -738,7 +738,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
       http://support.microsoft.com/kb/820773/
      c. Demo data are in conflict with Entity Unique Index when loading data
       This is a known issue with MsSQL since https://markmail.org/message/mezqxb3eyzz3xpv6
-      The problem does not exist with Derby, nor with the mostly open source DBMS used with OFBiz: Postres, MySQL, MariaDB, etc.
+      The problem does not exist with H2, nor with the mostly open source DBMS used with OFBiz: Postres, MySQL, MariaDB, etc.
       So we will not change the current OOTB setting and suggest to simply change your own configuration. See OFBIZ-11998 for more.
     -->
     <datasource name="localmssql"
@@ -825,7 +825,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
     </datasource>
     
     <!-- According to http://markmail.org/message/s75sf6zhtizzkqbv Since version V6R1 (AS/400, db2) there is no need for an own fieldtype.xml - just use the h2-fieldtypes like this: -->
-    <!-- Beware use-indices-unique="false" is needed because of Derby bug with null values in a unique index, not sure it's needed with DB2 -->
+    <!-- Beware use-indices-unique="false" is needed because of H2 bug with null values in a unique index, not sure it's needed with DB2 -->
     <datasource name="DB2"
             helper-class="org.apache.ofbiz.entity.datasource.GenericHelperDAO"
             schema-name="OFBIZ"
