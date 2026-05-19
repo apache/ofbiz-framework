@@ -1561,7 +1561,7 @@ under the License.
     </request-map>
     <request-map uri="updateFeatures">
         <security https="true" auth="true"/>
-        <event type="service-multi" invoke="updateOrRemove"/>
+        <event type="service-multi" invoke="createOrRemoveProductFeatureDataResource"/>
         <response name="success" type="view" value="CMSContentEdit"/>
         <response name="error" type="view" value="CMSContentEdit"/>
     </request-map>

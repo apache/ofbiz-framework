@@ -500,28 +500,12 @@
         <attribute mode="IN" name="contentId" optional="true" type="String"/>
     </service>
 
-    <service name="updateOrRemove" engine="java"
-        location="org.apache.ofbiz.content.ContentManagementServices" invoke="updateOrRemove" auth="true" validate="false">
-        <description>Update or remove a child entity based on value of "action"</description>
-        <attribute name="entityName" type="String" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingEntityName"/>
-            </type-validate>
-        </attribute>
+    <service name="createOrRemoveProductFeatureDataResource" engine="java"
+             location="org.apache.ofbiz.content.ContentManagementServices" invoke="createOrRemoveProductFeatureDataResource" auth="true" validate="false">
+        <description>Create or remove ProductFeatureDataResource based on value of "action"</description>
         <attribute name="action" type="String" mode="IN" optional="true"/>
-        <attribute name="pkFieldCount" type="String" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingPkFieldCount"/>
-            </type-validate>
-        </attribute>
-        <attribute name="fieldName0" type="String" mode="IN" optional="true"/>
-        <attribute name="fieldValue1" type="String" mode="IN" optional="true"/>
-        <attribute name="fieldName2" type="String" mode="IN" optional="true"/>
-        <attribute name="fieldValue2" type="String" mode="IN" optional="true"/>
-        <attribute name="fieldName3" type="String" mode="IN" optional="true"/>
-        <attribute name="fieldValue3" type="String" mode="IN" optional="true"/>
-        <attribute name="fieldName1" type="String" mode="IN" optional="true"/>
-        <attribute name="fieldValue0" type="String" mode="IN" optional="true"/>
+        <attribute name="productFeatureId" type="String" mode="IN"/>
+        <attribute name="dataResourceId" type="String" mode="IN"/>
     </service>
 
     <service name="resequence" auth="true" engine="group">
