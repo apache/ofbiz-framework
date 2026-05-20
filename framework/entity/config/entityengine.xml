@@ -179,7 +179,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
 
         <inline-jdbc
                 jdbc-driver="org.h2.Driver"
-                jdbc-uri="jdbc:h2:file:./runtime/data/h2/ofbiz;AUTO_SERVER=TRUE;LOCK_TIMEOUT=60000;INIT=CREATE SCHEMA IF NOT EXISTS OFBIZ\;SET SCHEMA OFBIZ"
+                jdbc-uri="jdbc:h2:file:./runtime/data/h2/ofbiz;DB_CLOSE_ON_EXIT=FALSE;INIT=CREATE SCHEMA IF NOT EXISTS OFBIZ\;SET SCHEMA OFBIZ"
                 jdbc-username="ofbiz"
                 jdbc-password-lookup="h2-ofbiz"
                 isolation-level="ReadCommitted"
@@ -207,7 +207,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
 
         <inline-jdbc
             jdbc-driver="org.h2.Driver"
-            jdbc-uri="jdbc:h2:file:./runtime/data/h2/ofbiz;AUTO_SERVER=TRUE;LOCK_TIMEOUT=60000;INIT=CREATE SCHEMA IF NOT EXISTS ODBC\;SET SCHEMA ODBC"
+            jdbc-uri="jdbc:h2:file:./runtime/data/h2/ofbiz;DB_CLOSE_ON_EXIT=FALSE;INIT=CREATE SCHEMA IF NOT EXISTS ODBC\;SET SCHEMA ODBC"
             jdbc-username="ofbiz"
             jdbc-password-lookup="h2-ofbizodbc"
             isolation-level="ReadCommitted"
@@ -240,7 +240,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
         <read-data reader-name="ext-demo"/>
         <inline-jdbc
                 jdbc-driver="org.h2.Driver"
-                jdbc-uri="jdbc:h2:file:./runtime/data/h2/ofbiz;AUTO_SERVER=TRUE;LOCK_TIMEOUT=60000;INIT=CREATE SCHEMA IF NOT EXISTS OLAP\;SET SCHEMA OLAP"
+                jdbc-uri="jdbc:h2:file:./runtime/data/h2/ofbiz;DB_CLOSE_ON_EXIT=FALSE;INIT=CREATE SCHEMA IF NOT EXISTS OLAP\;SET SCHEMA OLAP"
                 jdbc-username="ofbiz"
                 jdbc-password-lookup="h2-ofbizolap"
                 isolation-level="ReadCommitted"
@@ -273,7 +273,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
 
         <inline-jdbc
             jdbc-driver="org.h2.Driver"
-            jdbc-uri="jdbc:h2:file:./runtime/data/h2/ofbiz;AUTO_SERVER=TRUE;LOCK_TIMEOUT=60000;INIT=CREATE SCHEMA IF NOT EXISTS TENANT\;SET SCHEMA TENANT"
+            jdbc-uri="jdbc:h2:file:./runtime/data/h2/ofbiz;DB_CLOSE_ON_EXIT=FALSE;INIT=CREATE SCHEMA IF NOT EXISTS TENANT\;SET SCHEMA TENANT"
             jdbc-username="ofbiz"
             jdbc-password-lookup="h2-ofbiztenant"
             isolation-level="ReadCommitted"
