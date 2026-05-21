@@ -106,7 +106,7 @@ MS Windows: `init-gradle-wrapper`
 > **Note** -
 > If you wonder where are stored the PowerShell Executables, here are the answers: [https://s.apache.org/w5dye](https://s.apache.org/w5dye)
 
-Unix-like OS: `/gradle/init-gradle-wrapper.sh`
+Unix-like OS: `./gradle/init-gradle-wrapper.sh`
 
 ### Prepare OFBiz
 
