@@ -333,7 +333,8 @@ public final class JobManager {
         assertIsRunning();
         long leaseExpiryMillis;
         try {
-            leaseExpiryMillis = ServiceConfigUtil.getServiceEngine().getThreadPool().getLeaseExpiryMillis();
+            ThreadPool threadPool = ServiceConfigUtil.getServiceEngine().getThreadPool();
+            leaseExpiryMillis = threadPool.getLeaseExpiryMillis();
         } catch (GenericConfigException e) {
             Debug.logWarning(e, "Unable to read lease-expiry-millis; using default.", MODULE);
             leaseExpiryMillis = ThreadPool.LEASE_EXPIRY_MILLIS;
