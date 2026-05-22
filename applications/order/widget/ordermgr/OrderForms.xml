@@ -195,7 +195,7 @@ under the License.
                 <option key="ORDER_HELD" description="${uiLabelMap.CommonHeld}"/>
                 <option key="ORDER_COMPLETED" description="${uiLabelMap.CommonCompleted}"/>
                 <option key="ORDER_REJECTED" description="${uiLabelMap.CommonRejected}"/>
-                <option key="ORDER_CANDELLED" description="${uiLabelMap.CommonCancelled}"/>
+                <option key="ORDER_CANCELLED" description="${uiLabelMap.CommonCancelled}"/>
             </drop-down>
         </field>
         <field name="roleTypeId">
