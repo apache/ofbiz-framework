@@ -680,6 +680,7 @@ public class LoginServices {
         boolean useEncryption = "true".equals(EntityUtilProperties.getPropertyValue("security", "password.encrypt", delegator));
 
         String userLoginId = (String) context.get("userLoginId");
+        String userFullName = (String) context.get("userFullName");
         String partyId = (String) context.get("partyId");
         String currentPassword = (String) context.get("currentPassword");
         String currentPasswordVerify = (String) context.get("currentPasswordVerify");
@@ -719,7 +720,7 @@ public class LoginServices {
             }
         }
 
-        GenericValue userLoginToCreate = delegator.makeValue("UserLogin", UtilMisc.toMap("userLoginId", userLoginId));
+        GenericValue userLoginToCreate = delegator.makeValue("UserLogin", UtilMisc.toMap("userLoginId", userLoginId, "userFullName", userFullName));
         checkNewPassword(userLoginToCreate, null, currentPassword, currentPasswordVerify, passwordHint, errorMessageList, true, locale);
         userLoginToCreate.set("externalAuthId", externalAuthId);
         userLoginToCreate.set("passwordHint", passwordHint);

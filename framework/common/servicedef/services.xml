@@ -435,6 +435,7 @@ under the License.
         location="org.apache.ofbiz.common.login.LoginServices" invoke="createUserLogin">
         <description>Create a UserLogin</description>
         <attribute name="userLoginId" type="String" mode="IN" optional="false"/>
+        <attribute name="userFullName" type="String" mode="IN" optional="true"/>
         <attribute name="enabled" type="String" mode="IN" optional="true"/>
         <attribute name="currentPassword" type="String" mode="IN" optional="false"/>
         <attribute name="currentPasswordVerify" type="String" mode="IN" optional="false"/>
