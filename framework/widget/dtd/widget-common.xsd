@@ -27,7 +27,6 @@ under the License.
             <xs:element ref="not" />
             <xs:element ref="if-service-permission" />
             <xs:element ref="if-has-permission" />
-            <xs:element ref="if-entity-permission" />
             <xs:element ref="if-validate-method" />
             <xs:element ref="if-compare" />
             <xs:element ref="if-compare-field" />
@@ -85,28 +84,6 @@ under the License.
         <xs:complexType>
             <xs:attribute type="xs:string" name="permission" use="required" />
             <xs:attribute type="xs:string" name="action" />
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="if-entity-permission" substitutionGroup="AllConditionals">
-        <xs:complexType>
-            <xs:choice minOccurs="0">
-                <xs:element minOccurs="0" maxOccurs="1" ref="permission-condition-getter" />
-                <xs:element minOccurs="0" maxOccurs="1" ref="related-role-getter" />
-                <xs:element minOccurs="0" maxOccurs="1" ref="auxiliary-value-getter" />
-            </xs:choice>
-            <xs:attribute type="xs:string" name="entity-name" use="required" />
-            <xs:attribute type="xs:string" name="entity-id" use="required">
-                <xs:annotation>
-                    <xs:documentation>Can have multiple pipe separated values, but don't use spaces.</xs:documentation>
-                </xs:annotation>
-            </xs:attribute>
-            <xs:attribute type="xs:string" name="target-operation" use="required">
-                <xs:annotation>
-                    <xs:documentation>Can have multiple pipe separated values, but don't use spaces.</xs:documentation>
-                </xs:annotation>
-            </xs:attribute>
-            <xs:attribute name="display-fail-cond" type="xs:boolean"
-                          default="false"/>
         </xs:complexType>
     </xs:element>
     <xs:element name="permission-condition-getter">

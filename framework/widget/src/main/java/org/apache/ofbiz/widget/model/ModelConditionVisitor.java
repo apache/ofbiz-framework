@@ -22,7 +22,6 @@ import org.apache.ofbiz.widget.model.AbstractModelCondition.And;
 import org.apache.ofbiz.widget.model.AbstractModelCondition.IfCompare;
 import org.apache.ofbiz.widget.model.AbstractModelCondition.IfCompareField;
 import org.apache.ofbiz.widget.model.AbstractModelCondition.IfEmpty;
-import org.apache.ofbiz.widget.model.AbstractModelCondition.IfEntityPermission;
 import org.apache.ofbiz.widget.model.AbstractModelCondition.IfHasPermission;
 import org.apache.ofbiz.widget.model.AbstractModelCondition.IfRegexp;
 import org.apache.ofbiz.widget.model.AbstractModelCondition.IfServicePermission;
@@ -44,8 +43,6 @@ public interface ModelConditionVisitor {
     void visit(IfCompareField ifCompareField) throws Exception;
 
     void visit(IfEmpty ifEmpty) throws Exception;
-
-    void visit(IfEntityPermission ifEntityPermission) throws Exception;
 
     void visit(IfHasPermission ifHasPermission) throws Exception;
 

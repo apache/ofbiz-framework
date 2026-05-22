@@ -24,7 +24,6 @@ import org.apache.ofbiz.widget.model.AbstractModelCondition.And;
 import org.apache.ofbiz.widget.model.AbstractModelCondition.IfCompare;
 import org.apache.ofbiz.widget.model.AbstractModelCondition.IfCompareField;
 import org.apache.ofbiz.widget.model.AbstractModelCondition.IfEmpty;
-import org.apache.ofbiz.widget.model.AbstractModelCondition.IfEntityPermission;
 import org.apache.ofbiz.widget.model.AbstractModelCondition.IfHasPermission;
 import org.apache.ofbiz.widget.model.AbstractModelCondition.IfRegexp;
 import org.apache.ofbiz.widget.model.AbstractModelCondition.IfServicePermission;
@@ -88,13 +87,6 @@ public class XmlWidgetConditionVisitor extends XmlAbstractWidgetVisitor implemen
     public void visit(IfEmptySection ifEmptySection) throws Exception {
         writer.append("<if-empty-section");
         visitAttribute("section-name", ifEmptySection.getSectionExdr());
-        writer.append("/>");
-    }
-
-    @Override
-    public void visit(IfEntityPermission ifEntityPermission) throws Exception {
-        writer.append("<if-entity-permission");
-        // TODO: Create EntityPermissionChecker visitor
         writer.append("/>");
     }
 
