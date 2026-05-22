@@ -57,6 +57,7 @@ import org.apache.ofbiz.service.calendar.RecurrenceInfo;
 import org.apache.ofbiz.service.calendar.RecurrenceInfoException;
 import org.apache.ofbiz.service.config.ServiceConfigUtil;
 import org.apache.ofbiz.service.config.model.RunFromPool;
+import org.apache.ofbiz.service.config.model.ThreadPool;
 
 /**
  * Job manager. The job manager queues and manages jobs. Client code can queue a job to be run immediately
@@ -304,12 +305,11 @@ public final class JobManager {
      */
     protected void heartbeatRunningJobs() {
         assertIsRunning();
-        List<EntityExpr> conditions = UtilMisc.toList(
-                EntityCondition.makeCondition("runByInstanceId", EntityOperator.EQUALS, INSTANCE_ID),
+        List<EntityCondition> conditions = List.of(
+                EntityCondition.makeCondition("runByInstanceId", INSTANCE_ID),
                 EntityCondition.makeCondition(
-                        EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "SERVICE_RUNNING"),
-                        EntityOperator.OR,
-                        EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "SERVICE_QUEUED")));
+                        EntityCondition.makeCondition("statusId", EntityOperator.IN, List.of("SERVICE_RUNNING", "SERVICE_QUEUED"))));
+
         try {
             int updated = delegator.storeByCondition("JobSandbox",
                     UtilMisc.toMap("leaseUpdatedStamp", UtilDateTime.nowTimestamp()),
@@ -336,20 +336,18 @@ public final class JobManager {
             leaseExpiryMillis = ServiceConfigUtil.getServiceEngine().getThreadPool().getLeaseExpiryMillis();
         } catch (GenericConfigException e) {
             Debug.logWarning(e, "Unable to read lease-expiry-millis; using default.", MODULE);
-            leaseExpiryMillis = org.apache.ofbiz.service.config.model.ThreadPool.LEASE_EXPIRY_MILLIS;
+            leaseExpiryMillis = ThreadPool.LEASE_EXPIRY_MILLIS;
         }
         Timestamp expiryThreshold = new Timestamp(System.currentTimeMillis() - leaseExpiryMillis);
         // Match QUEUED or RUNNING jobs owned by any instance with an expired (or missing) lease stamp
-        List<EntityCondition> conditions = UtilMisc.toList(
-                EntityCondition.makeCondition(
-                        EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "SERVICE_QUEUED"),
-                        EntityOperator.OR,
-                        EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "SERVICE_RUNNING")),
+        List<EntityCondition> conditions = List.of(
                 EntityCondition.makeCondition("runByInstanceId", EntityOperator.NOT_EQUAL, null),
+                EntityCondition.makeCondition("statusId", EntityOperator.IN, List.of("SERVICE_QUEUED", "SERVICE_RUNNING")),
                 EntityCondition.makeCondition(
                         EntityCondition.makeCondition("leaseUpdatedStamp", EntityOperator.LESS_THAN, expiryThreshold),
                         EntityOperator.OR,
                         EntityCondition.makeCondition("leaseUpdatedStamp", EntityOperator.EQUALS, null)));
+
         int recovered = 0;
         try {
             recovered = delegator.storeByCondition("JobSandbox",

@@ -232,11 +232,7 @@ public class PersistedServiceJob extends GenericServiceJob {
             }
             // Check if the next recurrence has already been created (e.g. by a previous failed attempt on another node)
             long nextEpoch = nextRunTime.toInstant().toEpochMilli();
-            long existingCount = EntityQuery.use(delegator).from("JobSandbox")
-                    .where(EntityCondition.makeCondition(UtilMisc.toList(
-                            EntityCondition.makeCondition("parentJobId", EntityOperator.EQUALS, pJobId),
-                            EntityCondition.makeCondition("runTimeEpoch", EntityOperator.EQUALS, nextEpoch))))
-                    .queryCount();
+            long existingCount = EntityQuery.use(delegator).from("JobSandbox").where("parentJobId", pJobId, "runTimeEpoch", nextEpoch).queryCount();
             if (existingCount > 0) {
                 if (Debug.infoOn()) {
                     Debug.logInfo("Skipping duplicate recurrence for job [" + getJobId()
