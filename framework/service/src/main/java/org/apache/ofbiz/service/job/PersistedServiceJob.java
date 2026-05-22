@@ -235,8 +235,7 @@ public class PersistedServiceJob extends GenericServiceJob {
             long existingCount = EntityQuery.use(delegator).from("JobSandbox")
                     .where(EntityCondition.makeCondition(UtilMisc.toList(
                             EntityCondition.makeCondition("parentJobId", EntityOperator.EQUALS, pJobId),
-                            EntityCondition.makeCondition("runTimeEpoch", EntityOperator.EQUALS, nextEpoch),
-                            EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "SERVICE_PENDING"))))
+                            EntityCondition.makeCondition("runTimeEpoch", EntityOperator.EQUALS, nextEpoch))))
                     .queryCount();
             if (existingCount > 0) {
                 if (Debug.infoOn()) {
