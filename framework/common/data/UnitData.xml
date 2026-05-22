@@ -59,10 +59,10 @@ under the License.
     <Uom abbreviation="Gbps" description="Gigabit-per-second of Data" uomId="DATASPD_Gbps" uomTypeId="DATASPD_MEASURE"/>
     <Uom abbreviation="Tbps" description="Terabit-per-second of Data" uomId="DATASPD_Tbps" uomTypeId="DATASPD_MEASURE"/>
 
-    <UomConversion uomId="DATASPD_Kbps" uomIdTo="DATASPD_bps" conversionFactor="1024"/>
-    <UomConversion uomId="DATASPD_Mbps" uomIdTo="DATASPD_Kbps" conversionFactor="1024"/>
-    <UomConversion uomId="DATASPD_Gbps" uomIdTo="DATASPD_Mbps" conversionFactor="1024"/>
-    <UomConversion uomId="DATASPD_Tbps" uomIdTo="DATASPD_Gbps" conversionFactor="1024"/>
+    <UomConversion uomId="DATASPD_Kbps" uomIdTo="DATASPD_bps" conversionFactor="1000"/>
+    <UomConversion uomId="DATASPD_Mbps" uomIdTo="DATASPD_Kbps" conversionFactor="1000"/>
+    <UomConversion uomId="DATASPD_Gbps" uomIdTo="DATASPD_Mbps" conversionFactor="1000"/>
+    <UomConversion uomId="DATASPD_Tbps" uomIdTo="DATASPD_Gbps" conversionFactor="1000"/>
 
     <!-- =============== TIME_FREQ_MEASURE =============== -->
     <Uom abbreviation="ms" description="Time in Milli-Seconds" uomId="TF_ms" uomTypeId="TIME_FREQ_MEASURE"/>
