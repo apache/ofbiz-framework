@@ -1073,7 +1073,7 @@ under the License.
         <actions>
            <entity-condition entity-name="AcctgTransAndEntries" list="acctgTransList" result-set-type="forward" distinct="true">
                 <condition-list>
-                    <condition-expr field-name="organizationPartyId" operator="equals" from-field="organizationPartyId"/>
+                    <condition-expr field-name="organizationPartyId" operator="equals" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}"/>
                     <condition-expr field-name="acctgTransTypeId" operator="equals" from-field="parameters.acctgTransTypeId" ignore-if-empty="true"/>
                     <condition-expr field-name="glFiscalTypeId" operator="equals" from-field="parameters.glFiscalTypeId" ignore-if-empty="true"/>
                     <condition-expr field-name="glJournalId" operator="equals" from-field="parameters.glJournalId" ignore-if-empty="true"/>
