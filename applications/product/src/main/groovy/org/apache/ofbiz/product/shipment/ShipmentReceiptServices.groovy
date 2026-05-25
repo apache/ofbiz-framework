@@ -299,6 +299,7 @@ BigDecimal getReceivedQuantityForOrderItem (GenericValue orderItem) {
     List shipmentReceipts = from('ShipmentReceipt').where(orderId: orderItem.orderId, orderItemSeqId: orderItem.orderItemSeqId).queryList()
     for (GenericValue shipmentReceipt : shipmentReceipts) {
         receivedQuantity +=  shipmentReceipt.quantityAccepted
+        receivedQuantity +=  shipmentReceipt.quantityRejected
     }
     return receivedQuantity
 }
