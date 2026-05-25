@@ -457,4 +457,5 @@ No changes
 |WorkEffortStatus |reason |Added |No |NA
 |WorkEffortTypeAttr |description |Added |No |NA
 |WorkOrderItemFulfillment |shipGroupSeqId |Added |No |NA
+|UserLogin |userFullName |Added |No |NA
 |=================================================================
