@@ -19,6 +19,7 @@
 package org.apache.ofbiz.service.config.model;
 
 import org.apache.ofbiz.base.lang.ThreadSafe;
+import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.service.config.ServiceConfigException;
 import org.w3c.dom.Element;
 
@@ -39,17 +40,17 @@ public final class Server {
     private final String username;
 
     Server(Element serverElement) throws ServiceConfigException {
-        String jndiServerName = serverElement.getAttribute("jndi-server-name").intern();
+        String jndiServerName = UtilProperties.getEnvironmentProperty(serverElement.getAttribute("jndi-server-name").intern());
         if (jndiServerName.isEmpty()) {
             throw new ServiceConfigException("<server> element jndi-server-name attribute is empty");
         }
         this.jndiServerName = jndiServerName;
-        String jndiName = serverElement.getAttribute("jndi-name").intern();
+        String jndiName = UtilProperties.getEnvironmentProperty(serverElement.getAttribute("jndi-name").intern());
         if (jndiName.isEmpty()) {
             throw new ServiceConfigException("<server> element jndi-name attribute is empty");
         }
         this.jndiName = jndiName;
-        String topicQueue = serverElement.getAttribute("topic-queue").intern();
+        String topicQueue = UtilProperties.getEnvironmentProperty(serverElement.getAttribute("topic-queue").intern());
         if (topicQueue.isEmpty()) {
             throw new ServiceConfigException("<server> element topic-queue attribute is empty");
         }
@@ -59,11 +60,11 @@ public final class Server {
             throw new ServiceConfigException("<server> element type attribute is empty");
         }
         this.type = type;
-        this.username = serverElement.getAttribute("username").intern();
-        this.password = serverElement.getAttribute("password").intern();
-        this.clientId = serverElement.getAttribute("client-id").intern();
-        this.listen = "true".equals(serverElement.getAttribute("listen"));
-        this.listenerClass = serverElement.getAttribute("listener-class").intern();
+        this.username = UtilProperties.getEnvironmentProperty(serverElement.getAttribute("username").intern());
+        this.password = UtilProperties.getEnvironmentProperty(serverElement.getAttribute("password").intern());
+        this.clientId = UtilProperties.getEnvironmentProperty(serverElement.getAttribute("client-id").intern());
+        this.listen = "true".equals(UtilProperties.getEnvironmentProperty(serverElement.getAttribute("listen")));
+        this.listenerClass = UtilProperties.getEnvironmentProperty(serverElement.getAttribute("listener-class").intern());
     }
 
     public String getClientId() {

@@ -26,9 +26,12 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Properties;
 
+import com.google.common.collect.ImmutableMap;
 import org.junit.Test;
 
 public class UtilPropertiesTests {
@@ -77,5 +80,26 @@ public class UtilPropertiesTests {
                 new String(xmlData.getBytes(), Charset.forName("UTF-8")).getBytes())) {
             return UtilProperties.xmlToProperties(in, locale, null);
         }
+    }
+
+    /**
+     * Environment Variable property retrieval
+     * Test that default value is retrieved if no variable set.
+     */
+    @Test
+    public void testEnvironmentPropertyDefaultValue() {
+        String value = UtilProperties.getEnvironmentProperty(new HashMap<>(), "${env:ENV_VARIABLE:DEFAULT_VALUE}");
+        assertEquals("DEFAULT_VALUE", value);
+    }
+
+    /**
+     * Environment Variable property retrieval
+     * Test that defined value is retrieved if env variable set.
+     */
+    @Test
+    public void testEnvironmentPropertyMatch() {
+        Map<String, String> env = ImmutableMap.of("ENV_VARIABLE", "SET_VALUE");
+        String value = UtilProperties.getEnvironmentProperty(env, "${env:ENV_VARIABLE:DEFAULT_VALUE}");
+        assertEquals("SET_VALUE", value);
     }
 }

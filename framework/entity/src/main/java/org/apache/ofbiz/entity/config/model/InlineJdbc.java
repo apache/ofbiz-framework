@@ -19,6 +19,7 @@
 package org.apache.ofbiz.entity.config.model;
 
 import org.apache.ofbiz.base.lang.ThreadSafe;
+import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.entity.GenericEntityConfException;
 import org.w3c.dom.Element;
 
@@ -59,17 +60,17 @@ public final class InlineJdbc extends JdbcElement {
             throw new GenericEntityConfException("<inline-jdbc> element jdbc-driver attribute is empty" + lineNumberText);
         }
         this.jdbcDriver = jdbcDriver;
-        String jdbcUri = element.getAttribute("jdbc-uri").intern();
+        String jdbcUri = UtilProperties.getEnvironmentProperty(element.getAttribute("jdbc-uri").intern());
         if (jdbcUri.isEmpty()) {
             throw new GenericEntityConfException("<inline-jdbc> element jdbc-uri attribute is empty" + lineNumberText);
         }
         this.jdbcUri = jdbcUri;
-        String jdbcUsername = element.getAttribute("jdbc-username").intern();
+        String jdbcUsername = UtilProperties.getEnvironmentProperty(element.getAttribute("jdbc-username").intern());
         if (jdbcUsername.isEmpty()) {
             throw new GenericEntityConfException("<inline-jdbc> element jdbc-username attribute is empty" + lineNumberText);
         }
         this.jdbcUsername = jdbcUsername;
-        this.jdbcPassword = element.getAttribute("jdbc-password").intern();
+        this.jdbcPassword = UtilProperties.getEnvironmentProperty(element.getAttribute("jdbc-password").intern());
         this.jdbcPasswordLookup = element.getAttribute("jdbc-password-lookup").intern();
         String poolMaxsize = element.getAttribute("pool-maxsize");
         if (poolMaxsize.isEmpty()) {

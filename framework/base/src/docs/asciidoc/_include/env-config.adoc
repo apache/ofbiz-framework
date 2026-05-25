@@ -1,0 +1,41 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+= Configuration by environment variable
+
+https://issues.apache.org/jira/browse/OFBIZ-9498[OFBIZ-9498] introduce a new way to configure an OFBiz instance at
+launch using environment variable.
+
+This is a first intermediate step of the task, that allow configuration without modifying
+source code of a distributed OFBiz artefact.
+
+Currently, some configurations are designed to be set through environment variable :
+
+* framework/entity/config/entityengine.xml for database access credentials
+** jdbc-uri="${env:OFB_POSTGRES_DB:jdbc:postgresql://127.0.0.1/ofbiz}"
+** jdbc-username="${env:OFB_POSTGRES_USER:ofbiz}"
+** jdbc-password="${env:OFB_POSTGRES_PASS:ofbiz}"
+
+* framework/common/config/general.properties
+** unique.instanceId=${env:OFB_INSTANCE_ID:ofbiz1}
+
+Others could be designed using the same notation `${env:ENV_NAME:DEFAULT_VALUE}`, such as :
+
+* any property in the `*.properties` files
+* In `serviceengine.xml`, for new specific service engine, to allow api access credential configuration by the Ops.
+
