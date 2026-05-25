@@ -27277,6 +27277,19 @@
         <value xml:lang="zh">现货数量</value>
         <value xml:lang="zh-TW">現貨數量</value>
     </property>
+    <property key="ProductQtyAccepted">
+        <value xml:lang="de">Angenommene Menge</value>
+        <value xml:lang="en">Qty Accepted</value>
+        <value xml:lang="es">Cantidad aceptada</value>
+        <value xml:lang="fr">Qté acceptée</value>
+        <value xml:lang="it">Qnt Accettata</value>
+        <value xml:lang="ja">受諾数量</value>
+        <value xml:lang="ro">Cantitate Acceptata</value>
+        <value xml:lang="ru">Принятое количество</value>
+        <value xml:lang="th">จำนวนที่ยอมรับ</value>
+        <value xml:lang="zh">已接受的数量</value>
+        <value xml:lang="zh-TW">已接受的數量</value>
+    </property>
     <property key="ProductQtyOffset">
         <value xml:lang="de">Vorhandene Menge minus Minimalbestand</value>
         <value xml:lang="en">Qty Offset</value>

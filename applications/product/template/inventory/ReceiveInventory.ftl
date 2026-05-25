@@ -446,7 +446,7 @@ under the License.
                               <@htmlTemplate.lookupField formName="selectAllForm" name="locationSeqId_o_${rowCount}" id="locationSeqId_o_${rowCount}" fieldFormName="${LookupFacilityLocationView}"/>
                             </#if>
                           </td>
-                          <td align="right">${uiLabelMap.ProductQtyReceived} :</td>
+                          <td align="right">${uiLabelMap.ProductQtyAccepted} :</td>
                           <td align="right">
                             <input type="text" name="quantityAccepted_o_${rowCount}" size="6" value=<#if partialReceive??>"0"<#else>"${defaultQuantity?string.number}"</#if>/>
                           </td>
