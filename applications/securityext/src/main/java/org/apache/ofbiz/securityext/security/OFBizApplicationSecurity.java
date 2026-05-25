@@ -38,7 +38,7 @@ import org.apache.ofbiz.entity.condition.EntityExpr;
 import org.apache.ofbiz.entity.condition.EntityOperator;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.entity.util.EntityUtil;
-import org.apache.ofbiz.security.Security;import javax.swing.*;
+import org.apache.ofbiz.security.Security;
 
 public class OFBizApplicationSecurity implements Security {
 
