@@ -87,11 +87,6 @@ public final class SecurityFactory {
 
         private Delegator delegator = null;
 
-        private static final Map<String, Map<String, String>> SIMPLE_ROLE_ENT = UtilMisc.toMap(
-                "ORDERMGR", UtilMisc.<String, String>toMap("name", "OrderRole", "pkey", "orderId"),
-                "FACILITY", UtilMisc.<String, String>toMap("name", "FacilityParty", "pkey", "facilityId"),
-                "MARKETING", UtilMisc.<String, String>toMap("name", "MarketingCampaignRole", "pkey", "marketingCampaignId"));
-
         private OFBizSecurity() { }
 
         @Override
@@ -223,25 +218,7 @@ public final class SecurityFactory {
                 if (hasEntityPermission(application, action, userLogin)) return true;
                 if (hasEntityPermission(application + "_ROLE", action, userLogin)) return true;
             }
-            String entityName = null;
-            EntityCondition condition = null;
-            Map<String, String> simpleRoleMap = OFBizSecurity.SIMPLE_ROLE_ENT.get(application);
-            if (simpleRoleMap != null && roles != null) {
-                entityName = simpleRoleMap.get("name");
-                String pkey = simpleRoleMap.get("pkey");
-                if (pkey != null) {
-                    List<EntityExpr> expressions = new ArrayList<>();
-                    for (String role: roles) {
-                        expressions.add(EntityCondition.makeCondition("roleTypeId", EntityOperator.EQUALS, role));
-                    }
-                    EntityConditionList<EntityExpr> exprList = EntityCondition.makeCondition(expressions, EntityOperator.OR);
-                    EntityExpr keyExpr = EntityCondition.makeCondition(pkey, primaryKey);
-                    EntityExpr partyExpr = EntityCondition.makeCondition("partyId", userLogin.getString("partyId"));
-                    condition = EntityCondition.makeCondition(exprList, keyExpr, partyExpr);
-                }
-
-            }
-            return hasRolePermission(application, action, entityName, condition, userLogin);
+            return false;
         }
 
         @Override
