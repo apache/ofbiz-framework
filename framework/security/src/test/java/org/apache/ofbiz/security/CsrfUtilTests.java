@@ -20,6 +20,7 @@ package org.apache.ofbiz.security;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -59,14 +60,19 @@ public class CsrfUtilTests {
 
         // add userLogin to session
         GenericValue userLogin = mock(GenericValue.class);
-        when(userLogin.get("partyId")).thenReturn("10000");
-        when(userLogin.getString("partyId")).thenReturn("10000");
+        when(userLogin.getString("userLoginId")).thenReturn("csrf-test-user");
         when(session.getAttribute("userLogin")).thenReturn(userLogin);
 
         // with userLogin in session, test token map is not retrieved from session
         resultMap = CsrfUtil.getTokenMap(request, "/partymgr");
         assertNull(resultMap.get("uri_1"));
 
+        GenericValue otherUserLogin = mock(GenericValue.class);
+        when(otherUserLogin.getString("userLoginId")).thenReturn("other-test-user");
+        when(session.getAttribute("userLogin")).thenReturn(otherUserLogin);
+
+        Map<String, String> otherUserResultMap = CsrfUtil.getTokenMap(request, "/partymgr");
+        assertNotSame(resultMap, otherUserResultMap);
     }
 
     @Test
@@ -101,8 +107,7 @@ public class CsrfUtilTests {
 
         // add userLogin to session
         GenericValue userLogin = mock(GenericValue.class);
-        when(userLogin.get("partyId")).thenReturn("10000");
-        when(userLogin.getString("partyId")).thenReturn("10000");
+        when(userLogin.getString("userLoginId")).thenReturn("csrf-token-generation-test-user");
         when(session.getAttribute("userLogin")).thenReturn(userLogin);
 
         String token = CsrfUtil.generateTokenForNonAjax(request, "");

@@ -81,46 +81,30 @@ public final class CsrfUtil {
 
         HttpSession session = request.getSession();
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
-        String partyId = null;
-        if (userLogin != null && userLogin.get("partyId") != null) {
-            partyId = userLogin.getString("partyId");
-        }
+        String userLoginId = userLogin == null ? null : userLogin.getString("userLoginId");
 
-        Map<String, String> tokenMap = null;
-        if (UtilValidate.isNotEmpty(partyId)) {
-            Map<String, Map<String, String>> partyTokenMap = csrfTokenCache.get(partyId);
-            if (partyTokenMap == null) {
-                partyTokenMap = new HashMap<>();
-                csrfTokenCache.put(partyId, partyTokenMap);
-            }
-
-            tokenMap = partyTokenMap.get(targetContextPath);
+        if (UtilValidate.isEmpty(userLoginId)) {
+            Map<String, String> tokenMap = UtilGenerics.cast(session.getAttribute("CSRF-Token"));
             if (tokenMap == null) {
-                tokenMap = new LinkedHashMap<String, String>() {
-                    private static final long serialVersionUID = 1L;
-
-                    @Override
-                    protected boolean removeEldestEntry(Map.Entry<String, String> eldest) {
-                        return size() > cacheSize;
-                    }
-                };
-                partyTokenMap.put(targetContextPath, tokenMap);
-            }
-        } else {
-            tokenMap = UtilGenerics.cast(session.getAttribute("CSRF-Token"));
-            if (tokenMap == null) {
-                tokenMap = new LinkedHashMap<String, String>() {
-                    private static final long serialVersionUID = 1L;
-
-                    @Override
-                    protected boolean removeEldestEntry(Map.Entry<String, String> eldest) {
-                        return size() > cacheSize;
-                    }
-                };
+                tokenMap = createTokenMap();
                 session.setAttribute("CSRF-Token", tokenMap);
             }
+            return tokenMap;
         }
-        return tokenMap;
+
+        Map<String, Map<String, String>> userTokenMap = csrfTokenCache.computeIfAbsent(userLoginId, key -> new HashMap<>());
+        return userTokenMap.computeIfAbsent(targetContextPath, key -> createTokenMap());
+    }
+
+    private static Map<String, String> createTokenMap() {
+        return new LinkedHashMap<String, String>() {
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            protected boolean removeEldestEntry(Map.Entry<String, String> eldest) {
+                return size() > cacheSize;
+            }
+        };
     }
 
     private static String generateToken() {
@@ -353,17 +337,20 @@ public final class CsrfUtil {
 
     public static void cleanupTokenMap(HttpSession session) {
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
-        String partyId = null;
-        if (userLogin != null && userLogin.get("partyId") != null) {
-            partyId = userLogin.getString("partyId");
-            Map<String, Map<String, String>> partyTokenMap = csrfTokenCache.get(partyId);
-            if (partyTokenMap != null) {
-                String contextPath = session.getServletContext().getContextPath();
-                partyTokenMap.remove(contextPath);
-                if (partyTokenMap.isEmpty()) {
-                    csrfTokenCache.remove(partyId);
-                }
-            }
+        String userLoginId = userLogin == null ? null : userLogin.getString("userLoginId");
+        if (UtilValidate.isEmpty(userLoginId)) {
+            return;
+        }
+
+        Map<String, Map<String, String>> userTokenMap = csrfTokenCache.get(userLoginId);
+        if (userTokenMap == null) {
+            return;
+        }
+
+        String contextPath = session.getServletContext().getContextPath();
+        userTokenMap.remove(contextPath);
+        if (userTokenMap.isEmpty()) {
+            csrfTokenCache.remove(userLoginId);
         }
     }
 
