@@ -173,8 +173,9 @@ public class CommonServices {
 
 
         // check for a party id
-        if (partyId == null) {
-            if (userLogin != null && userLogin.get("partyId") != null) {
+        if (partyId == null && userLogin != null) {
+            ModelEntity modelUserLogin = userLogin.getModelEntity();
+            if (modelUserLogin.isField("partyId") && userLogin.get("partyId") != null) {
                 partyId = userLogin.getString("partyId");
             }
         }

@@ -551,12 +551,15 @@ public class LoginServices {
             }
         }
 
+        ModelEntity modelUserLogin = userLogin.getModelEntity();
         // Log impersonation in UserLoginHistory
         Map<String, Object> historyCreateMap = UtilMisc.toMap("userLoginId", userLoginIdToImpersonate);
         historyCreateMap.put("visitId", visitId);
         historyCreateMap.put("fromDate", UtilDateTime.nowTimestamp());
         historyCreateMap.put("successfulLogin", "Y");
-        historyCreateMap.put("partyId", userLogin.get("partyId"));
+        if (modelUserLogin.isField("partyId")) {
+            historyCreateMap.put("partyId", userLogin.get("partyId"));
+        }
         historyCreateMap.put("originUserLoginId", originUserLogin.get("userLoginId"));
         // End impersonation in one hour max
         historyCreateMap.put("thruDate", UtilDateTime.adjustTimestamp(UtilDateTime.nowTimestamp(), Calendar.HOUR, 1));
@@ -692,6 +695,7 @@ public class LoginServices {
 
         // security: don't create a user login if the specified partyId (if not empty) already exists
         // unless the logged in user has permission to do so (same partyId or PARTYMGR_CREATE)
+        ModelEntity modelUserLogin = delegator.getModelEntity("UserLogin");
         if (UtilValidate.isNotEmpty(partyId)) {
             GenericValue party = null;
 
@@ -704,7 +708,7 @@ public class LoginServices {
             if (party != null) {
                 if (loggedInUserLogin != null) {
                     // <b>security check</b>: userLogin partyId must equal partyId, or must have PARTYMGR_CREATE permission
-                    if (!partyId.equals(loggedInUserLogin.getString("partyId"))) {
+                    if (modelUserLogin.isField("partyId") && !partyId.equals(loggedInUserLogin.getString("partyId"))) {
                         if (!security.hasEntityPermission("PARTYMGR", "_CREATE", loggedInUserLogin)) {
 
                             errMsg = UtilProperties.getMessage(RESOURCE, "loginservices.party_with_specified_party_ID_exists_not_have_permission",
@@ -727,11 +731,8 @@ public class LoginServices {
         userLoginToCreate.set("enabled", enabled);
         userLoginToCreate.set("requirePasswordChange", requirePasswordChange);
         userLoginToCreate.set("currentPassword", useEncryption ? HashCrypt.cryptUTF8(getHashType(), null, currentPassword) : currentPassword);
-        try {
+        if (modelUserLogin.isField("partyId")) {
             userLoginToCreate.set("partyId", partyId);
-        } catch (Exception e) {
-            // Will get thrown in framework-only installation
-            Debug.logInfo(e, "Exception thrown while setting UserLogin partyId field: ", MODULE);
         }
 
         try {
@@ -925,8 +926,12 @@ public class LoginServices {
         if ((userLoginId != null) && ("true".equals(EntityUtilProperties.getPropertyValue("security", "username.lowercase", delegator)))) {
             userLoginId = userLoginId.toLowerCase(Locale.getDefault());
         }
+        ModelEntity modelUserLogin = loggedInUserLogin.getModelEntity();
 
-        String partyId = loggedInUserLogin.getString("partyId");
+        String partyId = null;
+        if (modelUserLogin.isField("partyId")) {
+            partyId = loggedInUserLogin.getString("partyId");
+        }
         String password = loggedInUserLogin.getString("currentPassword");
         String passwordHint = loggedInUserLogin.getString("passwordHint");
 
@@ -949,7 +954,7 @@ public class LoginServices {
         }
 
         if (newUserLogin != null) {
-            if (!newUserLogin.get("partyId").equals(partyId)) {
+            if (modelUserLogin.isField("partyId") && UtilValidate.isNotEmpty(partyId) && !partyId.equals(newUserLogin.get("partyId"))) {
                 Map<String, String> messageMap = UtilMisc.toMap("userLoginId", userLoginId);
                 errMsg = UtilProperties.getMessage(RESOURCE, "loginservices.could_not_create_login_user_with_ID_exists", messageMap, locale);
                 errorMessageList.add(errMsg);
@@ -961,7 +966,9 @@ public class LoginServices {
         }
 
         newUserLogin.set("passwordHint", passwordHint);
-        newUserLogin.set("partyId", partyId);
+        if (modelUserLogin.isField("partyId")) {
+            newUserLogin.set("partyId", partyId);
+        }
         newUserLogin.set("currentPassword", password);
         newUserLogin.set("enabled", "Y");
         newUserLogin.set("disabledDateTime", null);
