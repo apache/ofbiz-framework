@@ -30,7 +30,7 @@ under the License.
         <#else>-->
             <img src="/rainbowstone/images/avatar.svg" alt="user">
 <#--        </#if>-->
-            <div id="user-name">
+            <div id="user-name" onclick="javascript:location.href='userprofile'">
                 <span>${userLogin.userFullName!userLogin.userLoginId}</span>
             </div>
             <a id="user-lang" href="<@ofbizUrl>ListLocales</@ofbizUrl>">

@@ -76,7 +76,7 @@ under the License.
     </#if>
     <li <#if companyListSize?default(0) &lt;= 1>class="language"</#if>><a href="<@ofbizUrl>ListLocales</@ofbizUrl>">${uiLabelMap.CommonLanguageTitle}</a></li>
     <#if userLogin?exists>
-      <li class="user">${userName}</li>
+      <li class="user"><a href="<@ofbizUrl>userprofile</@ofbizUrl>">${userName}</a></li>
     </#if>
   </ul>
 </div>

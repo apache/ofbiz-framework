@@ -164,7 +164,7 @@ under the License.
         <li class="control-area">
           <ul id="preferences-menu">
             <#if userLogin??>
-              <li class="user">${userName}</li>
+              <li class="user"><a href="<@ofbizUrl>userprofile</@ofbizUrl>">${userName}</a></li>
               <#if orgName?has_content>
                 <li class="org">${orgName}</li>
               </#if>

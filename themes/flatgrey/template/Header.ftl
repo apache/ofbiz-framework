@@ -143,7 +143,7 @@ under the License.
             <#if layoutSettings.topLines?has_content>
               <#list layoutSettings.topLines as topLine>
                 <#if topLine.text??>
-                  <li>${topLine.text}<a href="${StringUtil.wrapString(topLine.url!)}${StringUtil.wrapString(externalKeyParam)}">${topLine.urlText!}</a></li>
+                  <li>${topLine.text} <a href="${StringUtil.wrapString(topLine.url!)}">${topLine.urlText!}</a></li>
                 <#elseif topLine.dropDownList??>
                   <li><#include "component://common-theme/template/includes/InsertDropDown.ftl"/></li>
                 <#else>
@@ -151,7 +151,7 @@ under the License.
                 </#if>
               </#list>
             <#else>
-              <li>${userLogin.userFullName!userLogin.userLoginId}</li>
+              <li><a href="<@ofbizUrl>userprofile</@ofbizUrl>">${userLogin.userFullName!userLogin.userLoginId}</a></li>
             </#if>
             <li><a href="<@ofbizUrl>logout</@ofbizUrl>">${uiLabelMap.CommonLogout}</a></li>
           <#else>

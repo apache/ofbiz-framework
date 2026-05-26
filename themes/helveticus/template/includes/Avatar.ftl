@@ -26,7 +26,7 @@ under the License.
     </svg>
 <#--</#if>-->
     <div id="user-details" style="display:none;">
-        <p id="user-name">
+        <p id="user-name" onclick="javascript:location.href='userprofile'">
             <strong>${userLogin.userFullName!userLogin.userLoginId}</strong>
         </p>
 
