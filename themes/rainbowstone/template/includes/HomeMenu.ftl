@@ -23,11 +23,11 @@ under the License.
 <#assign contextPath = request.getContextPath()>
 <#assign displayApps = Static["org.apache.ofbiz.webapp.WebAppCache"].getShared().getAppBarWebInfos(ofbizServerName, "main")>
 <#assign displaySecondaryApps = Static["org.apache.ofbiz.webapp.WebAppCache"].getShared().getAppBarWebInfos(ofbizServerName, "secondary")>
-<#assign avatarList = EntityQuery.use(delegator).from("PartyContent").where("partyId", person.partyId!, "partyContentTypeId", "LGOIMGURL").queryList()!>
+<#--<#assign avatarList = EntityQuery.use(delegator).from("PartyContent").where("partyId", person.partyId!, "partyContentTypeId", "LGOIMGURL").queryList()!>
 <#if avatarList?has_content>
     <#assign avatar = Static["org.apache.ofbiz.entity.util.EntityUtil"].getFirst(avatarList)>
     <#assign avatarDetail = EntityQuery.use(delegator).from("PartyContentDetail").where("partyId", person.partyId!, "contentId", avatar.contentId!).queryFirst()!>
-</#if>
+</#if>-->
 <body onpageshow="showHideFavorites()">
 <script type="text/javascript">
     function showHideFavorites() {

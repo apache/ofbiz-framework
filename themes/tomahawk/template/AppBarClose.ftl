@@ -17,17 +17,13 @@ specific language governing permissions and limitations
 under the License.
 -->
 <#assign appModelMenu = Static["org.apache.ofbiz.widget.model.MenuFactory"].getMenuFromLocation(applicationMenuLocation,applicationMenuName,visualTheme)>
-<#if person?has_content>
-  <#assign userName = (person.firstName!) + " " + (person.middleName!) + " " + person.lastName!>
-<#elseif partyGroup?has_content>
-  <#assign userName = partyGroup.groupName!>
-<#elseif userLogin??>
-  <#assign userName = userLogin.userLoginId>
+<#if userLogin??>
+  <#assign userName = userLogin.userFullName!userLogin.userLoginId>
 <#else>
   <#assign userName = "">
 </#if>
-<#if defaultOrganizationPartyGroupName?has_content>
-  <#assign orgName = " - " + defaultOrganizationPartyGroupName!>
+<#if defaultOrganizationName?has_content>
+  <#assign orgName = " - " + defaultOrganizationName!>
 <#else>
   <#assign orgName = "">
 </#if>
@@ -80,20 +76,7 @@ under the License.
     </#if>
     <li <#if companyListSize?default(0) &lt;= 1>class="language"</#if>><a href="<@ofbizUrl>ListLocales</@ofbizUrl>">${uiLabelMap.CommonLanguageTitle}</a></li>
     <#if userLogin?exists>
-      <#if userLogin.partyId?exists>
-        <li class="user"><a href="<@ofbizUrl controlPath="/partymgr/control">viewprofile?partyId=${userLogin.partyId}</@ofbizUrl>">${userName}</a>&nbsp;&nbsp;&nbsp;&nbsp;</li>
-        <#assign size = companyListSize?default(0)>
-        <#if size &gt; 1>
-            <#assign currentCompany = delegator.findOne("PartyNameView", {"partyId" : organizationPartyId}, false)>
-            <#if currentCompany?exists>
-                <li class="user">
-                    <a href="<@ofbizUrl>ListSetCompanies</@ofbizUrl>">${currentCompany.groupName} &nbsp;- </a>
-                </li>
-            </#if>
-        </#if>
-      <#else>
-        <li class="user">${userName}</li>
-      </#if>
+      <li class="user">${userName}</li>
     </#if>
   </ul>
 </div>

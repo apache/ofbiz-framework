@@ -18,8 +18,6 @@ under the License.
 -->
 <#assign externalKeyParam = "&amp;externalLoginKey=" + requestAttributes.externalLoginKey!>
 
-<#if (requestAttributes.person)??><#assign person = requestAttributes.person></#if>
-<#if (requestAttributes.partyGroup)??><#assign partyGroup = requestAttributes.partyGroup></#if>
 <#assign docLangAttr = locale.toString()?replace("_", "-")>
 <#assign langDir = "ltr">
 <#if "ar.iw"?contains(docLangAttr?substring(0, 2))>
@@ -104,18 +102,14 @@ under the License.
 </#if>
 <#assign organizationLogoLinkURL = "${layoutSettings.organizationLogoLinkUrl!}">
 
-<#if person?has_content>
-  <#assign userName = (person.firstName!) + " " + (person.middleName!) + " " + person.lastName!>
-<#elseif partyGroup?has_content>
-  <#assign userName = partyGroup.groupName!>
-<#elseif userLogin??>
-  <#assign userName = userLogin.userLoginId>
+<#if userLogin??>
+  <#assign userName = userLogin.userFullName!userLogin.userLoginId>
 <#else>
   <#assign userName = "">
 </#if>
 
-<#if defaultOrganizationPartyGroupName?has_content>
-  <#assign orgName = " - " + defaultOrganizationPartyGroupName!>
+<#if defaultOrganizationName?has_content>
+  <#assign orgName = " - " + defaultOrganizationName!>
 <#else>
   <#assign orgName = "">
 </#if>
@@ -170,20 +164,7 @@ under the License.
         <li class="control-area">
           <ul id="preferences-menu">
             <#if userLogin??>
-              <#if userLogin.partyId??>
-                <#assign size = companyListSize?default(0)>
-                <#if size &gt; 1>
-                    <#assign currentCompany = delegator.findOne("PartyNameView", {"partyId" : organizationPartyId}, false)>
-                    <#if currentCompany?exists>
-                        <li class="user">
-                            <a href="<@ofbizUrl>ListSetCompanies</@ofbizUrl>">${currentCompany.groupName} &nbsp;- </a>
-                        </li>
-                    </#if>
-                </#if>
-                <li class="user"><a href="<@ofbizUrl controlPath="/partymgr/control">viewprofile?partyId=${userLogin.partyId}</@ofbizUrl>">${userName}</a></li>
-              <#else>
-                <li class="user">${userName}</li>
-              </#if>
+              <li class="user">${userName}</li>
               <#if orgName?has_content>
                 <li class="org">${orgName}</li>
               </#if>

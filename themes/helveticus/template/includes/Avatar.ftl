@@ -18,20 +18,16 @@ under the License.
 -->
 
 <div id="user-avatar" onclick="showHideUserPref()">
-<#if avatarDetail??>
+<#--<#if avatarDetail??>
     <img src="<@ofbizUrl>stream?contentId=${avatarDetail.contentId}</@ofbizUrl>" alt="user">
-<#else>
+<#else>-->
     <svg class="appbar-btn-img" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
     </svg>
-</#if>
+<#--</#if>-->
     <div id="user-details" style="display:none;">
-        <p id="user-name" <#if userLogin.partyId??>onclick="javascript:location.href='/partymgr/control/viewprofile?partyId=${userLogin.partyId}'"</#if>>
-            <#if (person.firstName)?? && (person.lastName)??>
-                ${person.firstName}&nbsp;<strong> ${person.lastName?upper_case}</strong>
-            <#else>
-                <strong>${userLogin.userLoginId}</strong>
-            </#if>
+        <p id="user-name">
+            <strong>${userLogin.userFullName!userLogin.userLoginId}</strong>
         </p>
 
         <a id="user-lang" href="<@ofbizUrl>ListLocales</@ofbizUrl>">
