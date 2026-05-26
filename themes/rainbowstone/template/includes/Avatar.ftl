@@ -18,25 +18,20 @@ under the License.
 -->
 
 <div id="user-avatar" onclick="showHideUserPref()">
-<#if avatarDetail??>
+<#--<#if avatarDetail??>
     <img src="<@ofbizUrl>stream?contentId=${avatarDetail.contentId}</@ofbizUrl>" alt="user">
-<#else>
+<#else>-->
     <img src="/rainbowstone/images/avatar.svg" alt="user">
-</#if>
+<#--</#if>-->
     <div id="user-details" style="display:none;">
         <div id="user-row1">
-        <#if avatarDetail??>
+        <#--<#if avatarDetail??>
             <img src="<@ofbizUrl>stream?contentId=${avatarDetail.contentId}</@ofbizUrl>" alt="user">
-        <#else>
+        <#else>-->
             <img src="/rainbowstone/images/avatar.svg" alt="user">
-        </#if>
-            <div id="user-name" <#if userLogin.partyId??>onclick="javascript:location.href='/partymgr/control/viewprofile?partyId=${userLogin.partyId}'"</#if>>
-                <#if (person.firstName)?? && (person.lastName)??>
-                    <span>${person.firstName}</span>
-                    <span>${person.lastName?upper_case}</span>
-                <#else>
-                    <span>${userLogin.userLoginId}</span>
-                </#if>
+<#--        </#if>-->
+            <div id="user-name">
+                <span>${userLogin.userFullName!userLogin.userLoginId}</span>
             </div>
             <a id="user-lang" href="<@ofbizUrl>ListLocales</@ofbizUrl>">
             <#assign userLang = locale.toString()>

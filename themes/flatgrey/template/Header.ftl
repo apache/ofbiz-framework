@@ -151,7 +151,7 @@ under the License.
                 </#if>
               </#list>
             <#else>
-              <li>${userLogin.userLoginId}</li>
+              <li>${userLogin.userFullName!userLogin.userLoginId}</li>
             </#if>
             <li><a href="<@ofbizUrl>logout</@ofbizUrl>">${uiLabelMap.CommonLogout}</a></li>
           <#else>
