@@ -52,7 +52,8 @@ under the License.
             </hyperlink>
         </field>
         <field name="FindUtilCacheClear" title=" " use-when="hasUtilCacheEdit" widget-style="buttontext">
-            <hyperlink description="${uiLabelMap.CommonClear}" target="FindUtilCacheClear" >
+            <hyperlink description="${uiLabelMap.CommonClear}" target="FindUtilCacheClear"
+                    request-confirmation="true" confirmation-message="${uiLabelMap.WebtoolsConfirmIrreversibleDelete} cache ${cacheName}?">
                 <parameter param-name="UTIL_CACHE_NAME" from-field="cacheName"/>
             </hyperlink>
         </field>
@@ -64,7 +65,8 @@ under the License.
         <field name="lineSize" title="${uiLabelMap.WebtoolsBytes}" sort-field="true"><display/></field>
 
         <field name="administration" title=" " widget-style="buttontext" use-when="hasUtilCacheEdit">
-            <hyperlink description="${uiLabelMap.CommonRemove}" target="FindUtilCacheElementsRemoveElement">
+            <hyperlink description="${uiLabelMap.CommonRemove}" target="FindUtilCacheElementsRemoveElement"
+                    request-confirmation="true" confirmation-message="${uiLabelMap.WebtoolsConfirmIrreversibleDelete} cache element ${elementKey}?">
                 <parameter param-name="UTIL_CACHE_NAME" from-field="cacheName"/>
                 <parameter param-name="UTIL_CACHE_ELEMENT_NUMBER" from-field="keyNum"/>
             </hyperlink>

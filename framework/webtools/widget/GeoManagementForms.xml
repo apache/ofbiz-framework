@@ -60,7 +60,8 @@
         </field>
         <field name="wellKnownText" title="${uiLabelMap.CommonGeoWellKnownText}"><display/></field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink description="${uiLabelMap.CommonRemove}" target="deleteGeo">
+            <hyperlink description="${uiLabelMap.CommonRemove}" target="deleteGeo"
+                    request-confirmation="true" confirmation-message="${uiLabelMap.WebtoolsConfirmIrreversibleDelete} Geo ${geoId}?">
                 <parameter param-name="geoId"/>
                 <parameter param-name="noConditionFind" value="Y"/>
             </hyperlink>
@@ -172,7 +173,9 @@
         <field name="geoAssocTypeId" title="${uiLabelMap.CommonGeoAssocTypeId}">
             <display-entity entity-name="GeoAssocType" key-field-name="geoAssocTypeId"/>
         </field>
-        <field name="delete" title="${uiLabelMap.CommonDelete}"><submit/></field>
+        <field name="delete" title="${uiLabelMap.CommonDelete}">
+            <submit request-confirmation="true" confirmation-message="${uiLabelMap.WebtoolsConfirmIrreversibleDelete} GeoAssoc ${geoId} -> ${geoIdTo}?"/>
+        </field>
     </grid>
 
 </forms>

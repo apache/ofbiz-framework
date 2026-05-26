@@ -1309,6 +1309,9 @@
         <value xml:lang="en">Are you sure you want to delete?</value>
         <value xml:lang="fr">Êtes-vous sûr de vouloir supprimer l'élément ?</value>
     </property>
+    <property key="WebtoolsConfirmIrreversibleDelete">
+        <value xml:lang="en">This action is irreversible. Are you sure you want to delete</value>
+    </property>
     <property key="WebtoolsCount">
         <value xml:lang="de">Anzahl</value>
         <value xml:lang="en">Count</value>
