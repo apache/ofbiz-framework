@@ -56,4 +56,8 @@ under the License.
     <SecurityPermission description="ALL operations in the Security Management Screens." permissionId="SECURITY_ADMIN"/>
     <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="SECURITY_ADMIN"/>
 
+    <!-- -->
+    <SecurityPermission permissionId="SECURITY_PWD_UPDATE" description="Update other user passwords." />
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="SECURITY_PWD_UPDATE"/>
+
 </entity-engine-xml>

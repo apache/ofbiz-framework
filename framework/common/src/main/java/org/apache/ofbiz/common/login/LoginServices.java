@@ -694,7 +694,7 @@ public class LoginServices {
         String errMsg = null;
 
         // security: don't create a user login if the specified partyId (if not empty) already exists
-        // unless the logged in user has permission to do so (same partyId or PARTYMGR_CREATE)
+        // unless the logged in user has permission to do so (same partyId or SECURITY_CREATE)
         ModelEntity modelUserLogin = delegator.getModelEntity("UserLogin");
         if (UtilValidate.isNotEmpty(partyId)) {
             GenericValue party = null;
@@ -707,9 +707,9 @@ public class LoginServices {
 
             if (party != null) {
                 if (loggedInUserLogin != null) {
-                    // <b>security check</b>: userLogin partyId must equal partyId, or must have PARTYMGR_CREATE permission
+                    // <b>security check</b>: userLogin partyId must equal partyId, or must have SECURITY_CREATE permission
                     if (modelUserLogin.isField("partyId") && !partyId.equals(loggedInUserLogin.getString("partyId"))) {
-                        if (!security.hasEntityPermission("PARTYMGR", "_CREATE", loggedInUserLogin)) {
+                        if (!security.hasEntityPermission("SECURITY", "_CREATE", loggedInUserLogin)) {
 
                             errMsg = UtilProperties.getMessage(RESOURCE, "loginservices.party_with_specified_party_ID_exists_not_have_permission",
                                     locale);
@@ -808,10 +808,9 @@ public class LoginServices {
             return ServiceUtil.returnError(errMsg);
         }
 
-        // <b>security check</b>: userLogin userLoginId must equal userLoginId, or must have PARTYMGR_UPDATE permission
+        // <b>security check</b>: userLogin userLoginId must equal userLoginId, or must have SECURITY_PWD_UPDATE permission
         // NOTE: must check permission first so that admin users can set own password without specifying old password
-        // TODO: change this security group because we can't use permission groups defined in the applications from the framework.
-        if (!security.hasEntityPermission("PARTYMGR", "_UPDATE", loggedInUserLogin)) {
+        if (!security.hasEntityPermission("SECURITY_PWD", "_UPDATE", loggedInUserLogin)) {
             if (!userLoginId.equals(loggedInUserLogin.getString("userLoginId"))) {
                 errMsg = UtilProperties.getMessage(RESOURCE, "loginservices.not_have_permission_update_password_for_user_login", locale);
                 return ServiceUtil.returnError(errMsg);
@@ -1030,8 +1029,7 @@ public class LoginServices {
             userLoginId = loggedInUserLogin.getString("userLoginId");
         }
 
-        // <b>security check</b>: must have PARTYMGR_UPDATE permission
-        if (!security.hasEntityPermission("PARTYMGR", "_UPDATE", loggedInUserLogin)
+        if (!security.hasEntityPermission("SECURITY_PWD", "_UPDATE", loggedInUserLogin)
                 && !security.hasEntityPermission("SECURITY", "_UPDATE", loggedInUserLogin)) {
             errMsg = UtilProperties.getMessage(RESOURCE, "loginservices.not_permission_update_security_info_for_user_login", locale);
             return ServiceUtil.returnError(errMsg);
