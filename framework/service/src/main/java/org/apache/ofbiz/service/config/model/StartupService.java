@@ -18,44 +18,61 @@
  *******************************************************************************/
 package org.apache.ofbiz.service.config.model;
 
+import org.apache.ofbiz.base.config.AbstractConfigElement;
 import org.apache.ofbiz.base.lang.ThreadSafe;
+import org.apache.ofbiz.entity.GenericEntityConfException;
 import org.apache.ofbiz.service.config.ServiceConfigException;
 import org.w3c.dom.Element;
+
+import java.util.Map;
 
 /**
  * An object that models the <code>&lt;startup-service&gt;</code> element.
  */
 @ThreadSafe
-public final class StartupService {
+public final class StartupService extends AbstractConfigElement {
+
+    private final ServiceConfigGetter config = ServiceConfigGetter.getInstance();
+    public static final String ELEMENT_NAME = "startup-service";
+    private final String xPath;
 
     private final String name;
     private final String runInPool;
     private final String runtimeDataId;
     private final int runtimeDelay;
 
-    StartupService(Element startupServiceElement) throws ServiceConfigException {
+    StartupService(Element startupServiceElement, String xPathParent) throws ServiceConfigException {
         String name = startupServiceElement.getAttribute("name").intern();
         if (name.isEmpty()) {
             throw new ServiceConfigException("<startup-service> element name attribute is empty");
         }
         this.name = name;
-        String runtimeDataId = startupServiceElement.getAttribute("runtime-data-id").intern();
-        this.runtimeDataId = runtimeDataId.isEmpty() ? null : runtimeDataId;
-        String runtimeDelay = startupServiceElement.getAttribute("runtime-delay").intern();
-        if (runtimeDelay.isEmpty()) {
-            this.runtimeDelay = 0;
-        } else {
-            try {
-                this.runtimeDelay = Integer.parseInt(runtimeDelay);
-            } catch (Exception e) {
-                throw new ServiceConfigException("<startup-service> element runtime-delay attribute value is invalid");
-            }
-        }
-        this.runInPool = startupServiceElement.getAttribute("run-in-pool").intern();
+        xPath = xPathParent.concat("/startup-service[@name='" + name + "']");
+        runtimeDataId = config.getValue(xPath.concat("/@runtime-data-id"), null, String.class);
+        runtimeDelay = config.getValue(xPath.concat("/@runtime-delay"), 0, Integer.class);
+        this.runInPool = config.getValue(xPath.concat("/@run-in-pool"));
     }
 
-    public String getName() {
-        return name;
+    StartupService(Map<String, Object> configObject, String xPath) throws ServiceConfigException {
+        this.xPath = xPath;
+        String name = getNameFromXPath(xPath);
+        if (name.isEmpty()) {
+            throw new ServiceConfigException("<startup-service> element name attribute is empty");
+        }
+        this.name = name;
+        runtimeDataId = config.getValue(configObject, "/@runtime-data-id", null, String.class);
+        runtimeDelay = config.getValue(configObject, "/@runtime-delay", 0, Integer.class);
+        this.runInPool = config.getValue(configObject, "/@run-in-pool");
+    }
+
+    public static StartupService loadFromXml(Element element, String xPathParent)
+            throws GenericEntityConfException, ServiceConfigException {
+        return new StartupService(element, xPathParent);
+    }
+
+    public static StartupService loadFromConfig(Map<String, Object> configMap, String xPath)
+            throws GenericEntityConfException, ServiceConfigException {
+        return new StartupService(configMap, xPath);
     }
 
     public String getRunInPool() {
@@ -69,4 +86,10 @@ public final class StartupService {
     public int getRuntimeDelay() {
         return runtimeDelay;
     }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
 }

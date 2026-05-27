@@ -1,0 +1,36 @@
+{
+  "entityengine": {
+    "entity-config": {
+      "datasource": {
+        "localoracle": {
+          "helper-class": "org.apache.ofbiz.entity.datasource.GenericHelperDAO",
+          "schema-name": "OFBIZ",
+          "field-type-name": "oracle",
+          "check-on-start": "true",
+          "add-missing-on-start": "true",
+          "alias-view-columns": "false",
+          "join-style": "ansi",
+          "use-order-by-nulls": "true",
+          "read-data": [
+            { "reader-name": "tenant" },
+            { "reader-name": "seed" },
+            { "reader-name": "seed-initial" },
+            { "reader-name": "demo" },
+            { "reader-name": "ext" },
+            { "reader-name": "ext-test" },
+            { "reader-name": "ext-demo" }
+          ],
+          "inline-jdbc": {
+            "jdbc-driver": "oracle.jdbc.driver.OracleDriver",
+            "jdbc-uri": "jdbc:oracle:thin:@127.0.0.1:1521:ofbiz",
+            "jdbc-username": "ofbiz",
+            "jdbc-password": "ofbiz",
+            "pool-minsize": "2",
+            "pool-maxsize": "250",
+            "time-between-eviction-runs-millis": "600000",
+          }
+        }
+      }
+    }
+  }
+}

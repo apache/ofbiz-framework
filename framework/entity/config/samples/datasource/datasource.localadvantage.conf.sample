@@ -1,0 +1,39 @@
+{
+  "entityengine": {
+    "entity-config": {
+      "datasource": {
+        "localadvantage": {
+          "helper-class": "org.apache.ofbiz.entity.datasource.GenericHelperDAO",
+          "field-type-name": "advantage",
+          "check-on-start": "true",
+          "add-missing-on-start": "true",
+          "check-indices-on-start": "false",
+          "use-foreign-keys": "false",
+          "use-foreign-key-indices": "true",
+          "join-style": "ansi-no-parenthesis",
+          "alias-view-columns": "false",
+          "always-use-constraint-keyword": "true",
+          "read-data": [
+            {"reader-name": "tenant"},
+            {"reader-name": "seed"},
+            {"reader-name": "seed-initial"},
+            {"reader-name": "demo"},
+            {"reader-name": "ext"},
+            {"reader-name": "ext-test"},
+            {"reader-name": "ext-demo"}
+          ],
+          "inline-jdbc": {
+            "jdbc-driver": "com.extendedsystems.jdbc.advantage.ADSDriver",
+            "jdbc-uri": "jdbc:extendedsystems:advantage://localhost:6262;catalog=c:\\advantage\\OFBIZ.ADD;TableType=adt",
+            "jdbc-username": "ADSSYS",
+            "jdbc-password": "adssys",
+            "isolation-level": "ReadCommitted",
+            "pool-minsize": "2",
+            "pool-maxsize": "250",
+            "time-between-eviction-runs-millis": "600000"
+          }
+        }
+      }
+    }
+  }
+}
