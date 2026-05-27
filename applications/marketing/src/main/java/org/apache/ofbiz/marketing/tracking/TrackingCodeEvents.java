@@ -475,6 +475,7 @@ public class TrackingCodeEvents {
             for (Cookie cookie : cookies) {
                 if (cookie.getName().endsWith("_ACCESS")) {
                     cookie.setMaxAge(0);
+                    cookie.setSecure(true);
                     response.addCookie(cookie);
                 }
             }
