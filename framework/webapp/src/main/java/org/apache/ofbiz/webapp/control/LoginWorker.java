@@ -1156,6 +1156,7 @@ public final class LoginWorker {
             autoLoginCookie.setMaxAge(0);
             autoLoginCookie.setDomain(EntityUtilProperties.getPropertyValue("url", "cookie.domain", delegator));
             autoLoginCookie.setPath("root".equals(applicationName) ? "/" : request.getContextPath());
+            autoLoginCookie.setSecure(true);
             response.addCookie(autoLoginCookie);
         }
         // remove the session attributes
