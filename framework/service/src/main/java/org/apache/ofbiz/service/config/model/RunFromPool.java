@@ -18,7 +18,10 @@
  *******************************************************************************/
 package org.apache.ofbiz.service.config.model;
 
+import java.util.Map;
+import org.apache.ofbiz.base.config.AbstractConfigElement;
 import org.apache.ofbiz.base.lang.ThreadSafe;
+import org.apache.ofbiz.entity.GenericEntityConfException;
 import org.apache.ofbiz.service.config.ServiceConfigException;
 import org.w3c.dom.Element;
 
@@ -26,19 +29,48 @@ import org.w3c.dom.Element;
  * An object that models the <code>&lt;run-from-pool&gt;</code> element.
  */
 @ThreadSafe
-public final class RunFromPool {
+public final class RunFromPool extends AbstractConfigElement {
 
+    public static final String ELEMENT_NAME = "run-from-pool";
+    private final String xPath;
     private final String name;
 
-    RunFromPool(Element runFromPoolElement) throws ServiceConfigException {
+    RunFromPool(Element runFromPoolElement, String xPathParent) throws ServiceConfigException {
         String name = runFromPoolElement.getAttribute("name").intern();
         if (name.isEmpty()) {
             throw new ServiceConfigException("<run-from-pool> element name attribute is empty");
         }
         this.name = name;
+        xPath = xPathParent.concat("/run-from-pool[@name='" + name + "']");
     }
 
+    RunFromPool(Map<String, Object> configObject, String xPath) throws ServiceConfigException {
+        String name = getNameFromXPath(xPath);
+        if (name.isEmpty()) {
+            throw new ServiceConfigException("<run-from-pool> element name attribute is empty");
+        }
+        this.name = name;
+        this.xPath = xPath;
+    }
+
+    public static RunFromPool loadFromXml(Element element, String xPathParent)
+            throws GenericEntityConfException, ServiceConfigException {
+        return new RunFromPool(element, xPathParent);
+    }
+
+    public static RunFromPool loadFromConfig(Map<String, Object> configMap, String xPath)
+            throws GenericEntityConfException, ServiceConfigException {
+        return new RunFromPool(configMap, xPath);
+    }
+
+    @Override
+    public boolean allowMultipleSources() {
+        return false;
+    }
+
+    @Override
     public String getName() {
         return name;
     }
+
 }

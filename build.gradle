@@ -299,6 +299,8 @@ dependencies {
         compileOnly project(path: subProject.path, configuration: 'pluginLibsCompileOnly')
     }
 
+    implementation 'com.typesafe:config:1.4.3'
+
     // Libraries downloaded manually
     implementation fileTree(dir: file("${rootDir}/lib"), include: '**/*.jar')
     getDirectoryInActiveComponentsIfExists('lib').each { libDir ->

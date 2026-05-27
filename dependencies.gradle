@@ -79,9 +79,10 @@ dependencies {
     implementation libs.java.jwt
     implementation libs.jwks.rsa
     implementation libs.jdom2
+    implementation libs.typesafe
     implementation libs.re2j
     implementation libs.xerces.impl
-    implementation(libs.mustangproject.library) {
+    implementation('org.mustangproject:library:2.22.0') {
       exclude group: 'pull-parser', module: 'pull-parser'
       exclude group: 'xpp3', module: 'xpp3'
     }

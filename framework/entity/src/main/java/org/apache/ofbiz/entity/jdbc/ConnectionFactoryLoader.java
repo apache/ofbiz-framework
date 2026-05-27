@@ -26,7 +26,6 @@ import org.apache.ofbiz.entity.connection.ConnectionFactory;
  * ConnectionFactoryLoader - utility class that loads the connection manager and provides to client code a reference to it (ConnectionFactory)
  */
 public class ConnectionFactoryLoader {
-    // Debug MODULE name
     private static final String MODULE = ConnectionFactoryLoader.class.getName();
     private static final ConnectionFactory CONN_FACTORY = createConnectionFactory();
 

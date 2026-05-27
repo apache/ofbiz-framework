@@ -29,6 +29,7 @@ import org.apache.ofbiz.base.config.ResourceHandler;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilXml;
 import org.apache.ofbiz.service.config.ServiceConfigUtil;
+import org.apache.ofbiz.service.config.model.ServiceConfigGetter;
 import org.apache.ofbiz.service.config.model.ServiceGroups;
 import org.w3c.dom.Element;
 
@@ -54,7 +55,7 @@ public final class ServiceGroupReader {
             throw new RuntimeException(e.getMessage());
         }
         for (ServiceGroups serviceGroup : serviceGroupsList) {
-            ResourceHandler handler = new MainResourceHandler(ServiceConfigUtil.getServiceEngineXmlFileName(), serviceGroup.getLoader(),
+            ResourceHandler handler = new MainResourceHandler(ServiceConfigGetter.getServiceEngineXmlFileName(), serviceGroup.getLoader(),
                     serviceGroup.getLocation());
             addGroupDefinitions(handler);
         }

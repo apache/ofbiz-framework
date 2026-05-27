@@ -18,8 +18,10 @@
  *******************************************************************************/
 package org.apache.ofbiz.service.config.model;
 
+import java.util.Map;
+import org.apache.ofbiz.base.config.AbstractConfigElement;
 import org.apache.ofbiz.base.lang.ThreadSafe;
-import org.apache.ofbiz.base.util.UtilXml;
+import org.apache.ofbiz.entity.GenericEntityConfException;
 import org.apache.ofbiz.service.config.ServiceConfigException;
 import org.w3c.dom.Element;
 
@@ -27,22 +29,43 @@ import org.w3c.dom.Element;
  * An object that models the <code>&lt;notify&gt;</code> element.
  */
 @ThreadSafe
-public final class Notify {
+public final class Notify extends AbstractConfigElement {
+
+    private final ServiceConfigGetter config = ServiceConfigGetter.getInstance();
+    public static final String ELEMENT_NAME = "notify";
+    private final String xPath;
 
     private final String content;
     private final String type;
 
-    Notify(Element notifyElement) throws ServiceConfigException {
+    Notify(Element notifyElement, String xPathParent) throws ServiceConfigException {
+        xPath = xPathParent;
         String type = notifyElement.getAttribute("type").intern();
         if (type.isEmpty()) {
             throw new ServiceConfigException("<notify> element type attribute is empty");
         }
         this.type = type;
-        String content = UtilXml.elementValue(notifyElement);
-        if (content == null) {
-            content = "";
+        content = notifyElement.getTextContent();
+    }
+
+    Notify(Map<String, Object> configObject, String xPath) throws ServiceConfigException {
+        this.xPath = xPath;
+        String type = getNameFromXPath(xPath);
+        if (type.isEmpty()) {
+            throw new ServiceConfigException("<notify> element type attribute is empty");
         }
-        this.content = content;
+        this.type = type;
+        content = config.getValue(configObject, "/@content");
+    }
+
+    public static Notify loadFromXml(Element element, String xPathParent)
+            throws GenericEntityConfException, ServiceConfigException {
+        return new Notify(element, xPathParent);
+    }
+
+    public static Notify loadFromConfig(Map<String, Object> configMap, String xPath)
+            throws GenericEntityConfException, ServiceConfigException {
+        return new Notify(configMap, xPath);
     }
 
     public String getContent() {
@@ -53,4 +76,8 @@ public final class Notify {
         return type;
     }
 
+    @Override
+    public String getName() {
+        return type;
+    }
 }

@@ -82,6 +82,26 @@ Make sure to set the `$JAVA_HOME` environment variable.
 * If on Windows, a Powershell version >= 7.1.3 installed that you can download from the below link.
 [Powershell](https://github.com/PowerShell/PowerShell)
 
+## Configuration system
+A new configuration system has been implemented.
+If you want to set up another database than H2 (Highly recommended for anything else than sandbox usage),  
+you can do it easily by creating a .conf file.
+You can find examples in `framework/entity/config/samples`.
+Define a delegator and a datasource, and you're all set.
+
+Please note the following rules: 
+- The config files follow the [Hocon Syntax](https://learnxinyminutes.com/hocon/), a Json superset, and uses TypeSafe  
+  implementation by default. Hocon is able to use environment variables.
+- You can disable this behavior by setting 'ofbiz.config.overload.enable' in `start.properties` to false.
+  - This will allow you to use the vanilla Xml-only config system.
+- **All files** with .conf extension and located in the `config` folder of a plugin or framework component will be read.
+- You can pass files names as launching parameters with `-c` argument.
+  - Example for local developement : `./gradlew ofbiz --args="-c file=/tmp/myfile.conf"`
+  - Example for binary args (prod) : `ofbiz -c file=myfile.conf`'
+  - Warning : Files loaded in this way will be prioritized over files that are not specified.
+  - This means that if `myfile.conf` (passed as startup parameter) and `myOtherFile.conf` (in a plugin) both define a `foo` parameters,   
+  it is the value in `myfile.conf` that will be used.
+- For now, you can use this system to override entitygine.xml configs, and serviceengine.xml configs.
 
 <!-- tag: quickstart -->
 ## Quick start

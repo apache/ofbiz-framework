@@ -229,9 +229,8 @@ public class EntityDataLoadContainer implements Container {
             throws ContainerException {
         if (overrideDelegator != null) {
             return DelegatorFactory.getDelegator(overrideDelegator);
-        } else {
-            return getDelegatorFromProp(delegatorNameProp);
         }
+        return getDelegatorFromProp(delegatorNameProp);
     }
 
     private static Delegator getDelegatorFromProp(Configuration.Property delegatorNameProp) throws ContainerException {
