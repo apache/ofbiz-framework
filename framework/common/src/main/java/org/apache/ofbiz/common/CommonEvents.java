@@ -35,6 +35,7 @@ import java.io.Writer;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import javax.imageio.ImageIO;
 import jakarta.servlet.http.HttpServletRequest;
@@ -423,7 +424,7 @@ public class CommonEvents {
                         try (LineNumberReader lnr = new LineNumberReader(new FileReader(platformSpecificPath))) {
                             String line;
                             while ((line = lnr.readLine()) != null) {
-                                if (line.matches(".*name=\"" + fragment + "\".*")) {
+                                if (line.matches(".*name=\"" + Pattern.quote(fragment) + "\".*")) {
                                     lineNumber = lnr.getLineNumber();
                                     break;
                                 }
