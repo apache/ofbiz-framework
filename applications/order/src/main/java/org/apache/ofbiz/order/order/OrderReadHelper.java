@@ -3185,6 +3185,7 @@ public class OrderReadHelper {
 
         List<GenericValue> promoAdjustments = EntityUtil.filterByAnd(allOrderAdjustments, UtilMisc.toMap("orderAdjustmentTypeId",
                 "PROMOTION_ADJUSTMENT"));
+        promoAdjustments = getOrderHeaderAdjustments(promoAdjustments, null);
 
         if (UtilValidate.isNotEmpty(promoAdjustments)) {
             Iterator<GenericValue> promoAdjIter = promoAdjustments.iterator();
