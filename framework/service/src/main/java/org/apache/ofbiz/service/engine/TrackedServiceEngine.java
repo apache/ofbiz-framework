@@ -75,7 +75,7 @@ public class TrackedServiceEngine extends GroovyEngine {
                     .instantiate();
             tracker.persist();
 
-            context.put("jobTrackerId", tracker.getTrackerId());
+            context.put("jobTrackerId", tracker.getJobTrackerId());
 
             tracker.updateStatus("JOB_T_SCHEDULED", Map.of("startDate", UtilDateTime.nowTimestamp()));
             try {
@@ -86,7 +86,7 @@ public class TrackedServiceEngine extends GroovyEngine {
             }
             tracker.computeJobsTotalQty();
             tracker.updateStatus("JOB_T_RUNNING");
-            result.put("jobTrackerId", tracker.getTrackerId());
+            result.put("jobTrackerId", tracker.getJobTrackerId());
         } catch (GenericServiceException | GenericEntityException e) {
             throw new RuntimeException(e);
         }

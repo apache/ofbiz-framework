@@ -22,7 +22,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Map;
 
-import org.apache.ofbiz.service.tracker.JobTracker;
 import org.apache.ofbiz.base.config.GenericConfigException;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilDateTime;
@@ -43,6 +42,7 @@ import org.apache.ofbiz.service.job.Job;
 import org.apache.ofbiz.service.job.JobManager;
 import org.apache.ofbiz.service.job.JobManagerException;
 import org.apache.ofbiz.service.job.JobPriority;
+import org.apache.ofbiz.service.tracker.JobTracker;
 import org.apache.ofbiz.service.tracker.JobTrackerFactory;
 
 /**
@@ -110,7 +110,9 @@ public abstract class GenericAsyncEngine extends AbstractEngine {
                 jFields.put("maxRetry", (long) modelService.getMaxRetry());
                 jFields.put("runtimeDataId", dataId);
                 jFields.put("priority", JobPriority.NORMAL);
-                jFields.put("jobTrackerId", context.get("jobTrackerId"));
+                if (UtilValidate.isNotEmpty(context.get("jobTrackerId"))) {
+                    jFields.put("jobTrackerId", context.get("jobTrackerId"));
+                }
                 if (UtilValidate.isNotEmpty(authUserLoginId)) {
                     jFields.put("authUserLoginId", authUserLoginId);
                 }

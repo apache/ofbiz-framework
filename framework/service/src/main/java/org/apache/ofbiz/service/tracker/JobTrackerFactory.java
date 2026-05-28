@@ -18,9 +18,7 @@
  *******************************************************************************/
 package org.apache.ofbiz.service.tracker;
 
-import org.apache.ofbiz.base.crypto.HashCrypt;
-import org.apache.ofbiz.base.util.UtilDateTime;
-import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.cache.UtilCache;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
@@ -38,8 +36,7 @@ import static org.apache.ofbiz.base.util.UtilValidate.isEmpty;
 public class JobTrackerFactory {
     private static final UtilCache<String, JobTracker> TRACKER_CACHE = UtilCache.createUtilCache("service.tracker");
 
-    private final String instanceId = UtilProperties.getPropertyValue("general", "unique.instanceId", "ofbiz0");
-    private final String processId;
+    private final String jobTrackerId;
     private final LocalDispatcher dispatcher;
     private final Delegator delegator;
     private final TimeZone timeZone;
@@ -55,7 +52,7 @@ public class JobTrackerFactory {
         this.timeZone = timeZone;
         this.userLogin = userLogin;
         this.locale = locale;
-        processId = HashCrypt.digestHash("MD5", (instanceId + UtilDateTime.nowAsString()).getBytes()).substring(5);
+        jobTrackerId = delegator.getNextSeqId("JobTracker");
     }
 
     public JobTrackerFactory(LocalDispatcher dispatcher) {
@@ -64,7 +61,7 @@ public class JobTrackerFactory {
         this.timeZone = TimeZone.getDefault();
         this.userLogin = null;
         this.locale = Locale.getDefault();
-        processId = HashCrypt.digestHash("MD5", (instanceId + UtilDateTime.nowAsString()).getBytes()).substring(5);
+        jobTrackerId = delegator.getNextSeqId("JobTracker");
     }
 
     /**
@@ -112,6 +109,9 @@ public class JobTrackerFactory {
      * @throws GenericEntityException
      */
     public static JobTracker getJobTracker(LocalDispatcher dispatcher, String jobTrackerId) throws GenericEntityException {
+        if (UtilValidate.isEmpty(jobTrackerId)) {
+            return null;
+        }
         JobTracker jobTracker = TRACKER_CACHE.get(jobTrackerId);
         if (jobTracker == null) {
             GenericValue trackerValue = EntityQuery.use(dispatcher.getDelegator()).from("JobTracker")
@@ -123,10 +123,6 @@ public class JobTrackerFactory {
             jobTracker = TRACKER_CACHE.putIfAbsentAndGet(jobTrackerId, new JobTracker(dispatcher, trackerValue));
         }
         return jobTracker;
-    }
-
-    public static void refresh(JobTracker jobTracker) throws GenericEntityException {
-        TRACKER_CACHE.put(jobTracker.getTrackerId(), jobTracker);
     }
 
     /**
@@ -145,8 +141,15 @@ public class JobTrackerFactory {
         }
 
         JobTracker tracker = new JobTracker(dispatcher, timeZone, locale, trackerUserLogin,
-                processId, serviceName, serviceParams,
+                jobTrackerId, serviceName, serviceParams,
                 isEmpty(persistResult) ? Boolean.FALSE : persistResult);
-        return TRACKER_CACHE.putIfAbsentAndGet(processId, tracker);
+        return TRACKER_CACHE.putIfAbsentAndGet(jobTrackerId, tracker);
+    }
+
+    /**
+     * clean cache for a jobTracker instance
+     */
+    public static void clean(String jobTrackerId) {
+        TRACKER_CACHE.remove(jobTrackerId);
     }
 }

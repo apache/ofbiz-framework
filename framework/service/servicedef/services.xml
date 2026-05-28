@@ -286,6 +286,11 @@ under the License.
         <attribute name="jobTrackerId" type="String" mode="IN"/>
     </service>
 
+    <service name="cancelJobTracker" engine="groovy" auth="true" invoke="cancelJobTracker"
+             location="component://service/src/main/groovy/org/apache/ofbiz/service/TrackerServices.groovy">
+        <attribute name="jobTrackerId" type="String" mode="IN"/>
+    </service>
+
     <service name="createTrackedJobResult" engine="entity-auto" auth="true" invoke="create" default-entity-name="TrackedJobResult">
         <auto-attributes include="pk" mode="IN"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>

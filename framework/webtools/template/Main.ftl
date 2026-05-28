@@ -89,6 +89,7 @@ under the License.
           <li><a href="<@ofbizUrl>FindJob</@ofbizUrl>">${uiLabelMap.PageTitleJobList}</a></li>
           <li><a href="<@ofbizUrl>threadList</@ofbizUrl>">${uiLabelMap.PageTitleThreadList}</a></li>
           <li><a href="<@ofbizUrl>FindJobManagerLock</@ofbizUrl>">${uiLabelMap.PageTitleJobManagerLockList}</a></li>
+          <li><a href="<@ofbizUrl>FindJobTracker</@ofbizUrl>">${uiLabelMap.WebtoolsJobTrackerList}</a></li>
           <li><a href="<@ofbizUrl>ServiceLog</@ofbizUrl>">${uiLabelMap.WebtoolsServiceLog}</a></li>
         </#if>
         <#if security.hasPermission("DATAFILE_MAINT", session)>

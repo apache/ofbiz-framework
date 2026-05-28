@@ -22,15 +22,14 @@ import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.service.ModelService
 
 Map testTopLevelServiceThatPlansTrackedServices() {
-
-    (1..3).forEach {
+    3.times {
         dispatcher.runAsyncTracked('ping', context.jobTrackerId, [:])
     }
     return success([jobTrackerId: context.jobTrackerId])
 }
 
 Map serviceForTestingTracker() {
-    (1..20).forEach {
+    20.times {
         dispatcher.runAsyncTracked('ServiceThatWaitsAMoment', context.jobTrackerId, [userLogin: context.userLogin])
     }
     return success()

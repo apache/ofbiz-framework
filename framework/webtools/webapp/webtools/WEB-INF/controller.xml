@@ -344,6 +344,11 @@ under the License.
         <response name="success" type="view" value="JobTrackerDetails"/>
         <response name="error" type="view" value="JobTrackerDetails"/>
     </request-map>
+    <request-map uri="cancelJobTracker"><security/>
+        <event type="service" invoke="cancelJobTracker"/>
+        <response name="success" type="view" value="JobTrackerDetails"/>
+        <response name="error" type="view" value="JobTrackerDetails"/>
+    </request-map>
     <request-map uri="cancelJob">
         <security https="true" auth="true"/>
         <event type="service" invoke="cancelScheduledJob"/>

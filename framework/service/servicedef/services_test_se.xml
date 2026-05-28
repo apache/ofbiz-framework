@@ -216,20 +216,20 @@ under the License.
     </service>
 
     <!--Test job tracker engine service -->
-    <service name="TestTopLevelServiceThatPlansTrackedServices" engine="groovy-tracker"
+    <service name="TestTopLevelServiceThatPlansTrackedServices" engine="groovy-tracker" auth="true"
              location="component://service/src/test/groovy/org/apache/ofbizservice/test/TrackerTestServices.groovy"
-             auth="true" invoke="testTopLevelServiceThatPlansTrackedServices">
+             invoke="testTopLevelServiceThatPlansTrackedServices">
         <description>Test service</description>
         <attribute name="jobTrackerId" type="String" mode="OUT"/>
     </service>
-    <service name="ServiceForTestingTracker" engine="groovy-tracker"
+    <service name="ServiceForTestingTracker" engine="groovy-tracker" auth="true"
              location="component://service/src/test/groovy/org/apache/ofbizservice/test/TrackerTestServices.groovy"
-             auth="true" invoke="serviceForTestingTracker">
+             invoke="serviceForTestingTracker">
         <description>Test service</description>
     </service>
-    <service name="ServiceThatWaitsAMoment" engine="groovy"
+    <service name="ServiceThatWaitsAMoment" engine="groovy" auth="true"
              location="component://service/src/test/groovy/org/apache/ofbizservice/test/TrackerTestServices.groovy"
-             auth="true" invoke="serviceThatWaitsAMoment">
+             invoke="serviceThatWaitsAMoment">
         <description>Test service</description>
     </service>
 

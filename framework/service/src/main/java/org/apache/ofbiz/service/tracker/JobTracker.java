@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.apache.ofbiz.service.tracker;
 
+import java.sql.Timestamp;
 import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilValidate;
@@ -26,13 +27,11 @@ import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.serialize.SerializeException;
 import org.apache.ofbiz.entity.serialize.XmlSerializer;
-import org.apache.ofbiz.entity.transaction.TransactionUtil;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.xml.sax.SAXException;
 
-import javax.transaction.Transaction;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.util.HashMap;
@@ -54,7 +53,7 @@ public class JobTracker {
     private final Map<String, Object> serviceParams;
     private final Boolean persistResult;
     private final GenericValue userLogin;
-    private GenericValue processGV;
+    private GenericValue jobTrackerGV;
     private String runtimeDataId = null;
 
     JobTracker(LocalDispatcher dispatcher, TimeZone timeZone, Locale locale,
@@ -71,7 +70,7 @@ public class JobTracker {
                 "locale", locale);
         this.serviceParams = parameters;
         this.serviceParams.putAll(processParams);
-        this.processGV = delegator.findOne("JobTracker", false, "jobTrackerId", trackerId);
+        this.jobTrackerGV = EntityQuery.use(delegator).from("JobTracker").where("jobTrackerId", trackerId).queryOne();
         this.persistResult = persistResult;
         this.userLogin = userLogin;
     }
@@ -94,21 +93,21 @@ public class JobTracker {
         this.runtimeDataId = jobTracker.getString("runtimeDataId");
         this.serviceParams = retrieveServiceParams();
         this.persistResult = jobTracker.getBoolean("persistResult");
-        this.processGV = jobTracker;
+        this.jobTrackerGV = jobTracker;
     }
 
     /**
      * @return the id of a job tracker
      */
-    public String getTrackerId() {
+    public String getJobTrackerId() {
         return this.trackerId;
     }
 
     /**
      * @return the GenericValue corresponding to this tracker
      */
-    public GenericValue getProcessGV() {
-        return processGV;
+    public GenericValue getGenericValue() {
+        return jobTrackerGV;
     }
 
     /**
@@ -132,36 +131,30 @@ public class JobTracker {
      * @throws GenericServiceException
      */
     public void persist() throws GenericEntityException, GenericServiceException {
-        Transaction transaction = TransactionUtil.suspend();
-        TransactionUtil.begin();
-        GenericValue tracker = delegator.findOne("JobTracker", false, "jobTrackerId", trackerId);
-        if (tracker == null || tracker.isEmpty()) {
-            persistParameters();
-            Map<String, Object> context = new HashMap<>(processParams);
-            context.putAll(serviceParams);
-            context.put("serviceName", this.serviceName);
-            context.put("runtimeDataId", this.runtimeDataId);
-            context.put("persistResult", this.persistResult ? "Y" : "N");
-            context.put("runAsUser", this.userLogin.getString("userLoginId"));
-            dispatcher.runSync("createJobTracker", context);
-        }
-        tracker = delegator.findOne("JobTracker", false, "jobTrackerId", trackerId);
-        if (tracker.isEmpty()) {
+        persistParameters();
+        Map<String, Object> context = new HashMap<>(processParams);
+        context.putAll(serviceParams);
+        context.put("serviceName", this.serviceName);
+        context.put("runtimeDataId", this.runtimeDataId);
+        context.put("persistResult", this.persistResult ? "Y" : "N");
+        context.put("runAsUser", this.userLogin.getString("userLoginId"));
+        dispatcher.runSync("createJobTracker", context, 60, true);
+        this.jobTrackerGV = EntityQuery.use(delegator).from("JobTracker").where("jobTrackerId", trackerId).queryOne();
+        if (UtilValidate.isEmpty(this.jobTrackerGV)) {
             throw new GenericEntityException("Couldn't find or create jobTracker GV");
         }
-        this.processGV = delegator.findOne("JobTracker", false, "jobTrackerId", trackerId);
-        TransactionUtil.commit();
-        TransactionUtil.resume(transaction);
     }
 
     /**
      * @return the current status of a jobTracker
      * @throws GenericEntityException
      */
-    public String getStatus() throws GenericEntityException {
-        GenericValue myStatus = delegator
-                .findOne("JobTracker", false, "jobTrackerId", trackerId);
-        return myStatus.isEmpty() ? "JOB_T_FAILED" : myStatus.getString("status");
+    public String getStatusId() throws GenericEntityException {
+        if (this.jobTrackerGV == null) {
+            return "JOB_T_FAILED";
+        }
+        jobTrackerGV.refresh();
+        return jobTrackerGV.getString("statusId");
     }
 
     /**
@@ -199,11 +192,13 @@ public class JobTracker {
      * @throws GenericServiceException
      */
     public void cancel() throws GenericEntityException, GenericServiceException {
-        delegator.storeByCondition("JobSandbox", toMap("statusId", "SERVICE_CANCELLED"),
+        Timestamp now = UtilDateTime.nowTimestamp();
+        delegator.storeByCondition("JobSandbox", toMap("statusId", "SERVICE_CANCELLED",
+                        "cancelDateTime", now),
                 makeCondition(
                         makeCondition("jobTrackerId", trackerId),
-                        makeCondition("statusId", IN, toList("SERVICE_PENDING", "SERVICE_QUEUED"))));
-        updateStatus("JOB_T_CANCELLED", toMap("cancelDate", UtilDateTime.nowTimestamp()));
+                        makeCondition("statusId", IN, toList("SERVICE_PENDING", "SERVICE_QUEUED", "SERVICE_ON_HOLD"))));
+        updateStatus("JOB_T_CANCELLED", toMap("cancelDate", now));
     }
 
     /**
@@ -211,7 +206,7 @@ public class JobTracker {
      *
      * @throws GenericServiceException
      */
-    public void complete() throws GenericServiceException, GenericEntityException {
+    public void complete() throws GenericServiceException {
         updateStatus("JOB_T_FINISHED", toMap("completionDate", UtilDateTime.nowTimestamp()));
     }
 
@@ -221,7 +216,7 @@ public class JobTracker {
      * @param statusId
      * @throws GenericServiceException
      */
-    public void updateStatus(String statusId) throws GenericServiceException, GenericEntityException {
+    public void updateStatus(String statusId) throws GenericServiceException {
         updateStatus(statusId, null);
     }
 
@@ -232,8 +227,8 @@ public class JobTracker {
      * @param statusParams
      * @throws GenericServiceException
      */
-    public void updateStatus(String statusId, Map<String, Object> statusParams) throws GenericServiceException, GenericEntityException {
-        if (processGV.isEmpty()) {
+    public void updateStatus(String statusId, Map<String, Object> statusParams) throws GenericServiceException {
+        if (UtilValidate.isEmpty(jobTrackerGV)) {
             return;
         }
         Map<String, Object> updateParameters = new HashMap<>(processParams);
@@ -242,8 +237,6 @@ public class JobTracker {
             updateParameters.putAll(statusParams);
         }
         dispatcher.runSync("updateJobTracker", updateParameters, 60, true);
-        processGV.refresh();
-        JobTrackerFactory.refresh(this);
     }
 
     /**
@@ -253,26 +246,23 @@ public class JobTracker {
      * @throws GenericServiceException
      */
     public void computeJobsTotalQty() throws GenericEntityException, GenericServiceException {
-        if (processGV.isEmpty()) {
+        if (UtilValidate.isEmpty(jobTrackerGV)) {
             return;
         }
         Map<String, Object> context = new HashMap<>(processParams);
-
-        long count = EntityQuery.use(delegator)
+        context.put("jobsTotalQty", EntityQuery.use(delegator)
                 .from("JobSandbox")
                 .where("jobTrackerId", trackerId)
-                .queryCount();
-
-        context.put("jobsTotalQty", count);
+                .queryCount());
         dispatcher.runSync("updateJobTracker", context, 60, true);
-        processGV.refresh();
-        JobTrackerFactory.refresh(this);
+        JobTrackerFactory.clean(trackerId);
     }
 
     private void persistParameters() throws GenericEntityException {
         this.runtimeDataId = delegator.getNextSeqId("RuntimeData");
         String serializedParams;
         try {
+            serviceParams.remove("timeZone"); // unsupport by serializer
             serializedParams = XmlSerializer.serialize(serviceParams);
         } catch (SerializeException | IOException e) {
             throw new RuntimeException(e);

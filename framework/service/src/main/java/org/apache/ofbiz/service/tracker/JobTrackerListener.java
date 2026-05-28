@@ -28,10 +28,14 @@ import org.apache.ofbiz.entity.util.EntityQuery;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import static org.apache.ofbiz.base.util.UtilDateTime.adjustTimestamp;
+import static org.apache.ofbiz.base.util.UtilDateTime.nowTimestamp;
 import static org.apache.ofbiz.entity.condition.EntityCondition.makeCondition;
 import static org.apache.ofbiz.entity.condition.EntityOperator.IN;
 
@@ -46,13 +50,14 @@ public class JobTrackerListener {
 
     public JobTrackerListener(Delegator delegator, JobTracker tracker) {
         this.delegator = delegator;
-        this.trackerId = tracker.getTrackerId();
+        this.trackerId = tracker.getJobTrackerId();
     }
 
     /**
      * give information of jobTracker instance with followed jobs
+     *
      * @return a Map with all jobtracker information and
-     *         for each jobs status the number and percentage of job in it
+     * for each jobs status the number and percentage of job in it
      */
     public Map<String, Object> state() {
         List<GenericValue> jobQtyByStatus;
@@ -67,8 +72,10 @@ public class JobTrackerListener {
                     .from("JobTracker")
                     .where("jobTrackerId", trackerId)
                     .queryOne();
-            state = UtilValidate.isNotEmpty(jobTracker) ? jobTracker.getAllFields() : Collections.emptyMap();
-
+            if (UtilValidate.isEmpty(jobTracker)) {
+                return Collections.emptyMap();
+            }
+            state = jobTracker.getAllFields();
             List<String> completedStatusIds = List.of("SERVICE_FAILED", "SERVICE_FINISHED", "SERVICE_CRASHED", "SERVICE_CANCELLED");
             jobQtyByStatus.forEach(jobQty -> {
                 BigDecimal jobsCurrentQuantityForStatus = jobQty.getBigDecimal("quantity");
@@ -94,10 +101,11 @@ public class JobTrackerListener {
      * "SERVICE_PENDING" , "SERVICE_QUEUED" , "SERVICE_RUNNING" , "SERVICE_FINISHED" ,
      * "SERVICE_FAILED" , "SERVICE_CRASHED" , "SERVICE_ON_HOLD" , "SERVICE_CANCELLED" ,
      * Checks that all job related to this tracker are done running
+     *
      * @return true if all related jobs are at a terminal status
      */
     public boolean isFinished() {
-        List<String> notFinishedStatuses = List.of("SERVICE_PENDING", "SERVICE_QUEUED", "SERVICE_RUNNING", "SERVICE_ON_HOLD");
+        final List<String> notFinishedStatuses = List.of("SERVICE_PENDING", "SERVICE_QUEUED", "SERVICE_RUNNING", "SERVICE_ON_HOLD");
         try {
             return EntityQuery.use(delegator).from("JobSandbox").where(makeCondition(
                             makeCondition("jobTrackerId", trackerId),
@@ -107,4 +115,50 @@ public class JobTrackerListener {
             throw new RuntimeException(e);
         }
     }
+
+    /**
+     * @return the estimated completion time when the jobTacker seems to be completed
+     */
+    public Timestamp getEstimatedCompletionTime() {
+        long remainingSeconds = getEstimatedTotalTime();
+        return adjustTimestamp(nowTimestamp(), Calendar.MILLISECOND, Math.toIntExact(remainingSeconds));
+    }
+
+    /**
+     * Return the estimated number of seconds remaining for the full process to end.
+     * Return -1 if finished
+     *
+     * @return
+     */
+    public long getEstimatedTotalTime() {
+        Map<String, Object> state = state();
+        if (UtilValidate.isEmpty(state)) {
+            return -1;
+        }
+        BigDecimal totalCompleted = (BigDecimal) state.get("totalCompleted");
+        if (totalCompleted == null) {
+            return -1;
+        }
+        long totalJobsCompleted = totalCompleted.longValue();
+        Timestamp startDate = (Timestamp) state.get("startDate");
+        long jobsTotalQty = (long) state.get("jobsTotalQty");
+        if (totalJobsCompleted == jobsTotalQty) {
+            return -1;
+        }
+        long milliSecSinceStart = (nowTimestamp().getTime() - startDate.getTime());
+        return totalJobsCompleted == 0L ? 0L : (milliSecSinceStart * jobsTotalQty) / totalJobsCompleted; // Produit en croix
+    }
+
+    /**
+     * @return the remaining time when the jobTacker seems to be completed
+     */
+    public long getEstimatedRemainingTime() {
+        Timestamp startDate = (Timestamp) state().get("startDate");
+        if (startDate == null) {
+            return 0;
+        }
+        long milliSecSinceStart = (nowTimestamp().getTime() - startDate.getTime());
+        return getEstimatedTotalTime() - milliSecSinceStart;
+    }
+
 }

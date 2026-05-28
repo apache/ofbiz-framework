@@ -41,7 +41,7 @@ class TrackerEngineTest extends OFBizTestCase {
         assert ServiceUtil.isSuccess(result)
         String trackerId = result.jobTrackerId
         JobTracker tracker = JobTrackerFactory.getJobTracker(dispatcher, trackerId)
-        assert tracker.getProcessGV().jobsTotalQty == 3
+        assert tracker.getGenericValue().jobsTotalQty == 3
         JobTrackerListener listener = new JobTrackerListener(delegator, tracker)
         assert listener.state()
     }

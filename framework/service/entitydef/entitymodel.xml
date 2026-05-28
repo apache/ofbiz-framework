@@ -67,6 +67,7 @@ under the License.
         <field name="cancelDateTime" type="date-time"></field>
         <field name="jobResult" type="value"></field>
         <field name="recurrenceTimeZone" type="id-long"/>
+        <field name="jobTrackerId" type="id-vlong"/>
         <prim-key field="jobId"/>
         <relation type="one" fk-name="JOB_SNDBX_RECINFO" rel-entity-name="RecurrenceInfo">
             <key-map field-name="recurrenceInfoId"/>
@@ -85,6 +86,9 @@ under the License.
         </relation>
         <relation type="one" fk-name="JOB_SNDBX_STTS" rel-entity-name="StatusItem">
             <key-map field-name="statusId"/>
+        </relation>
+        <relation type="one" rel-entity-name="JobTracker">
+            <key-map field-name="jobTrackerId"/>
         </relation>
         <index name="JOB_SNDBX_RUNSTAT">
             <index-field name="runByInstanceId"/>
@@ -253,14 +257,19 @@ under the License.
         <field name="resultCode" type="description"/>
         <prim-key field="jobTrackerId"/>
         <prim-key field="jobTrackerResultSeqId"/>
-    </entity>
-
-    <extend-entity entity-name="JobSandbox">
-        <field name="jobTrackerId" type="id-vlong"/>
-        <relation type="one" rel-entity-name="JobTracker">
+        <relation type="one" rel-entity-name="JobTracker" fk-name="FK_TJR_TJ">
             <key-map field-name="jobTrackerId"/>
         </relation>
-    </extend-entity>
+    </entity>
+    <view-entity entity-name="JobTrackerAndJobResult" package-name="org.apache.ofbiz.service.tracker" title="job tracker and result">
+        <member-entity entity-alias="JT" entity-name="JobTracker"/>
+        <member-entity entity-alias="TJR" entity-name="TrackedJobResult"/>
+        <alias-all entity-alias="JT"/>
+        <alias-all entity-alias="TJR"/>
+        <view-link entity-alias="JT" rel-entity-alias="TJR">
+            <key-map field-name="jobTrackerId"/>
+        </view-link>
+    </view-entity>
 
     <view-entity entity-name="JobSandboxQtyByStatusAndJobTrackerView" package-name="org.apache.ofbiz.service.tracker">
         <member-entity entity-alias="JS" entity-name="JobSandbox"/>

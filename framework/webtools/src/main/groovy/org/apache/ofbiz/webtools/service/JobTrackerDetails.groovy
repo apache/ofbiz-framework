@@ -19,19 +19,19 @@
 package org.apache.ofbiz.webtools.service
 
 import org.apache.ofbiz.service.tracker.JobTrackerListener
+import java.text.SimpleDateFormat
 
-JobTrackerListener listener = new JobTrackerListener(delegator, parameters.jobTrackerId)
+JobTrackerListener listener = new JobTrackerListener(delegator, parameters.jobTrackerId as String)
+context.state = listener?.state() ?: [:]
+long remainingTime = listener.getEstimatedRemainingTime() ?: 0L
+if (remainingTime <= 0) {
+    context.state.remainingTime = 'Not applicable'
+} else {
+    SimpleDateFormat df = remainingTime > (60 * 60 * 1000) ? // > 1h ?
+            new SimpleDateFormat('HH:mm:ss', context.locale as Locale) :
+            new SimpleDateFormat('mm:ss', context.locale as Locale)
+
+    context.state.remainingTime = df.format(new Date(remainingTime))
+}
 
 context.state = listener.state()
-//if (listener) {
-//    GenericValue runtimeData = .getRelatedOne('RuntimeData', false)
-//    if (runtimeData) {
-//        runtimeInfoMap = UtilGenerics.checkMap(XmlSerializer.deserialize(runtimeData.getString('runtimeInfo'), delegator), String, Object)
-//        runtimeInfoList = []
-//        runtimeInfoMap.each { key, value ->
-//            valueMap = [key: key, value: value.toString()]
-//            runtimeInfoList.add(valueMap)
-//        }
-//        context.runtimeInfoList = runtimeInfoList
-//    }
-//}

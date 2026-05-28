@@ -19,17 +19,25 @@
 package org.apache.ofbiz.service
 
 import org.apache.ofbiz.service.tracker.JobTracker
+import org.apache.ofbiz.service.tracker.JobTrackerFactory
 
 Map pauseJobTracker() {
     String jobTrackerId = parameters.jobTrackerId
-    JobTracker tracker = new JobTracker(dispatcher, parameters.userLogin, jobTrackerId)
+    JobTracker tracker = JobTrackerFactory.getJobTracker(dispatcher, jobTrackerId)
     tracker.pause()
     return success()
 }
 
 Map resumeJobTracker() {
     String jobTrackerId = parameters.jobTrackerId
-    JobTracker tracker = new JobTracker(dispatcher, parameters.userLogin, jobTrackerId)
+    JobTracker tracker = JobTrackerFactory.getJobTracker(dispatcher, jobTrackerId)
     tracker.resume()
+    return success()
+}
+
+Map cancelJobTracker() {
+    String jobTrackerId = parameters.jobTrackerId
+    JobTracker tracker = JobTrackerFactory.getJobTracker(dispatcher, jobTrackerId)
+    tracker.cancel()
     return success()
 }

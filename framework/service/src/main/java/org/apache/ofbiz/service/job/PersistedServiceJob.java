@@ -34,7 +34,6 @@ import java.util.Map;
 
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.apache.ofbiz.service.tracker.JobTracker;
 import org.apache.commons.lang.StringUtils;
 import org.apache.ofbiz.base.config.GenericConfigException;
 import org.apache.ofbiz.base.util.Debug;
@@ -55,6 +54,7 @@ import org.apache.ofbiz.service.calendar.RecurrenceInfoException;
 import org.apache.ofbiz.service.calendar.TemporalExpression;
 import org.apache.ofbiz.service.calendar.TemporalExpressionWorker;
 import org.apache.ofbiz.service.config.ServiceConfigUtil;
+import org.apache.ofbiz.service.tracker.JobTracker;
 import org.xml.sax.SAXException;
 
 import com.ibm.icu.util.Calendar;
