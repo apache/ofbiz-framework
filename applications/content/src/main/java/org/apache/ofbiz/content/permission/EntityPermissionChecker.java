@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  *******************************************************************************/
-package org.apache.ofbiz.entityext.permission;
+package org.apache.ofbiz.content.permission;
 
 import java.util.ArrayList;
 import java.util.Arrays;

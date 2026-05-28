@@ -42,7 +42,7 @@ under the License.
     <Person partyId="TestParty" firstName="Test" lastName="Party"/>
     <PartyRole partyId="TestParty" roleTypeId="CONTACT"/>
     <PartyStatus partyId="TestParty" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
-    <UserLogin userLoginId="TestParty" partyId="TestParty"/>
+    <UserLogin userLoginId="TestParty" userFullName="Test Party" partyId="TestParty"/>
 
     <PartyRelationship partyIdFrom="TestCompany" roleTypeIdFrom="_NA_" partyIdTo="TestCustomer" roleTypeIdTo="CONTACT" fromDate="2000-01-01 00:00:00" partyRelationshipTypeId="EMPLOYMENT"/>
     <PartyRelationship partyIdFrom="TestCompany" roleTypeIdFrom="_NA_" partyIdTo="TestParty" roleTypeIdTo="CONTACT" fromDate="2000-01-01 00:00:00" partyRelationshipTypeId="EMPLOYMENT"/>

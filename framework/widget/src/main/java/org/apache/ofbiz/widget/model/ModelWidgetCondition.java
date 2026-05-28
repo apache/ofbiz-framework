@@ -38,7 +38,6 @@ import org.apache.ofbiz.base.util.UtilXml;
 import org.apache.ofbiz.base.util.collections.FlexibleMapAccessor;
 import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
 import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.entityext.permission.EntityPermissionChecker;
 import org.apache.ofbiz.minilang.operation.BaseCompare;
 import org.apache.ofbiz.security.Security;
 import org.apache.ofbiz.service.DispatchContext;
@@ -181,8 +180,6 @@ public abstract class ModelWidgetCondition implements Serializable {
                 return new IfRegexp(this, modelWidget, conditionElement);
             } else if ("if-empty".equals(nodeName)) {
                 return new IfEmpty(this, modelWidget, conditionElement);
-            } else if ("if-entity-permission".equals(nodeName)) {
-                return new IfEntityPermission(this, modelWidget, conditionElement);
             } else {
                 throw new IllegalArgumentException("Condition element not supported with name: " + nodeName);
             }
@@ -315,24 +312,6 @@ public abstract class ModelWidgetCondition implements Serializable {
         public boolean eval(Map<String, Object> context) {
             Object fieldVal = this.fieldAcsr.get(context);
             return ObjectType.isEmpty(fieldVal);
-        }
-    }
-
-    /**
-     * Models the &lt;if-entity-permission&gt; element.
-     * @see <code>widget-common.xsd</code>
-     */
-    public static final class IfEntityPermission extends ModelWidgetCondition implements Condition {
-        private final EntityPermissionChecker permissionChecker;
-
-        private IfEntityPermission(ConditionFactory factory, ModelWidget modelWidget, Element condElement) {
-            super(factory, modelWidget, condElement);
-            this.permissionChecker = new EntityPermissionChecker(condElement);
-        }
-
-        @Override
-        public boolean eval(Map<String, Object> context) {
-            return permissionChecker.runPermissionCheck(context);
         }
     }
 

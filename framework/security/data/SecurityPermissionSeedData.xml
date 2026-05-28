@@ -46,5 +46,18 @@ under the License.
     <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="read"/>
     <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="update"/>
     <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="delete"/>
-    
+
+
+    <!-- Security Management security -->
+    <SecurityPermission description="View operations in the Security Management Screens." permissionId="SECURITY_VIEW"/>
+    <SecurityPermission description="Create operations in the Security Management Screens." permissionId="SECURITY_CREATE"/>
+    <SecurityPermission description="Update operations in the Security Management Screens." permissionId="SECURITY_UPDATE"/>
+    <SecurityPermission description="Delete operations in the Security Management Screens." permissionId="SECURITY_DELETE"/>
+    <SecurityPermission description="ALL operations in the Security Management Screens." permissionId="SECURITY_ADMIN"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="SECURITY_ADMIN"/>
+
+    <!-- -->
+    <SecurityPermission permissionId="SECURITY_PWD_UPDATE" description="Update other user passwords." />
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="SECURITY_PWD_UPDATE"/>
+
 </entity-engine-xml>

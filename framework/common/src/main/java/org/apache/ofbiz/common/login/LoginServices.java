@@ -551,12 +551,15 @@ public class LoginServices {
             }
         }
 
+        ModelEntity modelUserLogin = userLogin.getModelEntity();
         // Log impersonation in UserLoginHistory
         Map<String, Object> historyCreateMap = UtilMisc.toMap("userLoginId", userLoginIdToImpersonate);
         historyCreateMap.put("visitId", visitId);
         historyCreateMap.put("fromDate", UtilDateTime.nowTimestamp());
         historyCreateMap.put("successfulLogin", "Y");
-        historyCreateMap.put("partyId", userLogin.get("partyId"));
+        if (modelUserLogin.isField("partyId")) {
+            historyCreateMap.put("partyId", userLogin.get("partyId"));
+        }
         historyCreateMap.put("originUserLoginId", originUserLogin.get("userLoginId"));
         // End impersonation in one hour max
         historyCreateMap.put("thruDate", UtilDateTime.adjustTimestamp(UtilDateTime.nowTimestamp(), Calendar.HOUR, 1));
@@ -680,6 +683,7 @@ public class LoginServices {
         boolean useEncryption = "true".equals(EntityUtilProperties.getPropertyValue("security", "password.encrypt", delegator));
 
         String userLoginId = (String) context.get("userLoginId");
+        String userFullName = (String) context.get("userFullName");
         String partyId = (String) context.get("partyId");
         String currentPassword = (String) context.get("currentPassword");
         String currentPasswordVerify = (String) context.get("currentPasswordVerify");
@@ -690,7 +694,8 @@ public class LoginServices {
         String errMsg = null;
 
         // security: don't create a user login if the specified partyId (if not empty) already exists
-        // unless the logged in user has permission to do so (same partyId or PARTYMGR_CREATE)
+        // unless the logged in user has permission to do so (same partyId or SECURITY_CREATE)
+        ModelEntity modelUserLogin = delegator.getModelEntity("UserLogin");
         if (UtilValidate.isNotEmpty(partyId)) {
             GenericValue party = null;
 
@@ -702,9 +707,9 @@ public class LoginServices {
 
             if (party != null) {
                 if (loggedInUserLogin != null) {
-                    // <b>security check</b>: userLogin partyId must equal partyId, or must have PARTYMGR_CREATE permission
-                    if (!partyId.equals(loggedInUserLogin.getString("partyId"))) {
-                        if (!security.hasEntityPermission("PARTYMGR", "_CREATE", loggedInUserLogin)) {
+                    // <b>security check</b>: userLogin partyId must equal partyId, or must have SECURITY_CREATE permission
+                    if (modelUserLogin.isField("partyId") && !partyId.equals(loggedInUserLogin.getString("partyId"))) {
+                        if (!security.hasEntityPermission("SECURITY", "_CREATE", loggedInUserLogin)) {
 
                             errMsg = UtilProperties.getMessage(RESOURCE, "loginservices.party_with_specified_party_ID_exists_not_have_permission",
                                     locale);
@@ -719,18 +724,15 @@ public class LoginServices {
             }
         }
 
-        GenericValue userLoginToCreate = delegator.makeValue("UserLogin", UtilMisc.toMap("userLoginId", userLoginId));
+        GenericValue userLoginToCreate = delegator.makeValue("UserLogin", UtilMisc.toMap("userLoginId", userLoginId, "userFullName", userFullName));
         checkNewPassword(userLoginToCreate, null, currentPassword, currentPasswordVerify, passwordHint, errorMessageList, true, locale);
         userLoginToCreate.set("externalAuthId", externalAuthId);
         userLoginToCreate.set("passwordHint", passwordHint);
         userLoginToCreate.set("enabled", enabled);
         userLoginToCreate.set("requirePasswordChange", requirePasswordChange);
         userLoginToCreate.set("currentPassword", useEncryption ? HashCrypt.cryptUTF8(getHashType(), null, currentPassword) : currentPassword);
-        try {
+        if (modelUserLogin.isField("partyId")) {
             userLoginToCreate.set("partyId", partyId);
-        } catch (Exception e) {
-            // Will get thrown in framework-only installation
-            Debug.logInfo(e, "Exception thrown while setting UserLogin partyId field: ", MODULE);
         }
 
         try {
@@ -806,10 +808,9 @@ public class LoginServices {
             return ServiceUtil.returnError(errMsg);
         }
 
-        // <b>security check</b>: userLogin userLoginId must equal userLoginId, or must have PARTYMGR_UPDATE permission
+        // <b>security check</b>: userLogin userLoginId must equal userLoginId, or must have SECURITY_PWD_UPDATE permission
         // NOTE: must check permission first so that admin users can set own password without specifying old password
-        // TODO: change this security group because we can't use permission groups defined in the applications from the framework.
-        if (!security.hasEntityPermission("PARTYMGR", "_UPDATE", loggedInUserLogin)) {
+        if (!security.hasEntityPermission("SECURITY_PWD", "_UPDATE", loggedInUserLogin)) {
             if (!userLoginId.equals(loggedInUserLogin.getString("userLoginId"))) {
                 errMsg = UtilProperties.getMessage(RESOURCE, "loginservices.not_have_permission_update_password_for_user_login", locale);
                 return ServiceUtil.returnError(errMsg);
@@ -924,24 +925,18 @@ public class LoginServices {
         if ((userLoginId != null) && ("true".equals(EntityUtilProperties.getPropertyValue("security", "username.lowercase", delegator)))) {
             userLoginId = userLoginId.toLowerCase(Locale.getDefault());
         }
+        ModelEntity modelUserLogin = loggedInUserLogin.getModelEntity();
 
-        String partyId = loggedInUserLogin.getString("partyId");
+        String partyId = null;
+        if (modelUserLogin.isField("partyId")) {
+            partyId = loggedInUserLogin.getString("partyId");
+        }
         String password = loggedInUserLogin.getString("currentPassword");
         String passwordHint = loggedInUserLogin.getString("passwordHint");
 
-        // security: don't create a user login if the specified partyId (if not empty) already exists
-        // unless the logged in user has permission to do so (same partyId or PARTYMGR_CREATE)
-        if (UtilValidate.isNotEmpty(partyId)) {
-            if (!loggedInUserLogin.isEmpty()) {
-                // security check: userLogin partyId must equal partyId, or must have PARTYMGR_CREATE permission
-                if (!partyId.equals(loggedInUserLogin.getString("partyId"))) {
-                    errMsg = UtilProperties.getMessage(RESOURCE, "loginservices.party_with_party_id_exists_not_permission_create_user_login", locale);
-                    errorMessageList.add(errMsg);
-                }
-            } else {
-                errMsg = UtilProperties.getMessage(RESOURCE, "loginservices.must_logged_in_have_permission_create_user_login_exists", locale);
-                errorMessageList.add(errMsg);
-            }
+        if (loggedInUserLogin.isEmpty()) {
+            errMsg = UtilProperties.getMessage(RESOURCE, "loginservices.must_logged_in_have_permission_create_user_login_exists", locale);
+            errorMessageList.add(errMsg);
         }
 
         GenericValue newUserLogin = null;
@@ -958,7 +953,7 @@ public class LoginServices {
         }
 
         if (newUserLogin != null) {
-            if (!newUserLogin.get("partyId").equals(partyId)) {
+            if (modelUserLogin.isField("partyId") && UtilValidate.isNotEmpty(partyId) && !partyId.equals(newUserLogin.get("partyId"))) {
                 Map<String, String> messageMap = UtilMisc.toMap("userLoginId", userLoginId);
                 errMsg = UtilProperties.getMessage(RESOURCE, "loginservices.could_not_create_login_user_with_ID_exists", messageMap, locale);
                 errorMessageList.add(errMsg);
@@ -970,7 +965,9 @@ public class LoginServices {
         }
 
         newUserLogin.set("passwordHint", passwordHint);
-        newUserLogin.set("partyId", partyId);
+        if (modelUserLogin.isField("partyId")) {
+            newUserLogin.set("partyId", partyId);
+        }
         newUserLogin.set("currentPassword", password);
         newUserLogin.set("enabled", "Y");
         newUserLogin.set("disabledDateTime", null);
@@ -1032,8 +1029,7 @@ public class LoginServices {
             userLoginId = loggedInUserLogin.getString("userLoginId");
         }
 
-        // <b>security check</b>: must have PARTYMGR_UPDATE permission
-        if (!security.hasEntityPermission("PARTYMGR", "_UPDATE", loggedInUserLogin)
+        if (!security.hasEntityPermission("SECURITY_PWD", "_UPDATE", loggedInUserLogin)
                 && !security.hasEntityPermission("SECURITY", "_UPDATE", loggedInUserLogin)) {
             errMsg = UtilProperties.getMessage(RESOURCE, "loginservices.not_permission_update_security_info_for_user_login", locale);
             return ServiceUtil.returnError(errMsg);

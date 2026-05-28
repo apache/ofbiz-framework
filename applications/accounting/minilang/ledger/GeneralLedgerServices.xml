@@ -1638,6 +1638,19 @@ under the License.
             <field-map field-name="inventoryItemId" from-field="parameters.inventoryItemId"/>
         </entity-one>
         <get-related-one value-field="workEffortInventoryAssign" relation-name="InventoryItem" to-value-field="inventoryItem"/>
+        <set field="partyAccountingPreferencesCallMap.organizationPartyId" from-field="inventoryItem.ownerPartyId"/>
+        <call-service service-name="getPartyAccountingPreferences" in-map-name="partyAccountingPreferencesCallMap">
+             <result-to-field result-name="partyAccountingPreference" field="partyAcctgPreference"/>
+        </call-service>
+        <if>
+            <condition>
+                <if-compare field="partyAcctgPreference.enableAccounting" value="N" operator="equals"/>
+            </condition>
+            <then>
+                <log level="warning" message="The internal organization with id [${partyAccountingPreferencesCallMap.organizationPartyId}] has no PartyAcctgPreference setting; the following accounting transaction will be ignored."/>
+                <return/>
+            </then>
+        </if>
         <!-- TODO: handle serialized inventory -->
         <calculate field="origAmount" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
             <calcop operator="multiply">
@@ -1663,6 +1676,19 @@ under the License.
         <set field="creditEntry.origAmount" from-field="origAmount"/>
         <set field="creditEntry.origCurrencyUomId" from-field="inventoryItem.currencyUomId"/>
         <set field="acctgTransEntries[]" from-field="creditEntry" type="Object"/>
+
+        <!-- An inventory item detail record is created to keep track of the units (value) that we are going to add to the inventory account -->
+        <set field="quantityToDeduct" from-field="parameters.quantity" type="BigDecimal"/>
+        <if-empty field="quantityToDeduct">
+            <log level="warning" message="Accounting issuance for WorkEffort [${parameters.workEffortId}] and InventoryItem [${parameters.inventoryItemId}] is missing the incremental 'quantity' parameter. Falling back to assignment total: ${workEffortInventoryAssign.quantity}"/>
+            <set field="quantityToDeduct" from-field="workEffortInventoryAssign.quantity" type="BigDecimal"/>
+        </if-empty>
+
+        <set field="createInventoryDetailMap.inventoryItemId" from-field="parameters.inventoryItemId"/>
+        <set field="createInventoryDetailMap.workEffortId" from-field="parameters.workEffortId"/>
+        <set field="createInventoryDetailMap.accountingQuantityDiff" value="${(-1) * quantityToDeduct}" type="BigDecimal"/>
+        <call-service service-name="createInventoryItemDetail" in-map-name="createInventoryDetailMap"/>
+
         <!-- Set header fields (AcctgTrans) -->
         <set field="createAcctgTransAndEntriesInMap.glFiscalTypeId" value="ACTUAL"/>
         <set field="createAcctgTransAndEntriesInMap.acctgTransTypeId" value="INVENTORY"/>

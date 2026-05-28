@@ -18,11 +18,9 @@
  *******************************************************************************/
 package org.apache.ofbiz.security;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.ServiceLoader;
 
 import jakarta.servlet.http.HttpSession;
@@ -35,8 +33,6 @@ import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.condition.EntityCondition;
-import org.apache.ofbiz.entity.condition.EntityConditionList;
-import org.apache.ofbiz.entity.condition.EntityExpr;
 import org.apache.ofbiz.entity.condition.EntityOperator;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.entity.util.EntityUtil;
@@ -86,11 +82,6 @@ public final class SecurityFactory {
     private static final class OFBizSecurity implements Security {
 
         private Delegator delegator = null;
-
-        private static final Map<String, Map<String, String>> SIMPLE_ROLE_ENT = UtilMisc.toMap(
-                "ORDERMGR", UtilMisc.<String, String>toMap("name", "OrderRole", "pkey", "orderId"),
-                "FACILITY", UtilMisc.<String, String>toMap("name", "FacilityParty", "pkey", "facilityId"),
-                "MARKETING", UtilMisc.<String, String>toMap("name", "MarketingCampaignRole", "pkey", "marketingCampaignId"));
 
         private OFBizSecurity() { }
 
@@ -223,25 +214,7 @@ public final class SecurityFactory {
                 if (hasEntityPermission(application, action, userLogin)) return true;
                 if (hasEntityPermission(application + "_ROLE", action, userLogin)) return true;
             }
-            String entityName = null;
-            EntityCondition condition = null;
-            Map<String, String> simpleRoleMap = OFBizSecurity.SIMPLE_ROLE_ENT.get(application);
-            if (simpleRoleMap != null && roles != null) {
-                entityName = simpleRoleMap.get("name");
-                String pkey = simpleRoleMap.get("pkey");
-                if (pkey != null) {
-                    List<EntityExpr> expressions = new ArrayList<>();
-                    for (String role: roles) {
-                        expressions.add(EntityCondition.makeCondition("roleTypeId", EntityOperator.EQUALS, role));
-                    }
-                    EntityConditionList<EntityExpr> exprList = EntityCondition.makeCondition(expressions, EntityOperator.OR);
-                    EntityExpr keyExpr = EntityCondition.makeCondition(pkey, primaryKey);
-                    EntityExpr partyExpr = EntityCondition.makeCondition("partyId", userLogin.getString("partyId"));
-                    condition = EntityCondition.makeCondition(exprList, keyExpr, partyExpr);
-                }
-
-            }
-            return hasRolePermission(application, action, entityName, condition, userLogin);
+            return false;
         }
 
         @Override

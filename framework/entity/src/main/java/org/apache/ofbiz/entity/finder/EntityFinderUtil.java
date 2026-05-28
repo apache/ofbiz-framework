@@ -18,6 +18,10 @@
  *******************************************************************************/
 package org.apache.ofbiz.entity.finder;
 
+import java.sql.Timestamp;
+import java.util.Locale;
+import org.apache.ofbiz.base.util.GeneralException;
+import org.apache.ofbiz.base.util.UtilDateTime;
 import static org.apache.ofbiz.base.util.UtilGenerics.cast;
 
 import java.io.Serializable;
@@ -35,10 +39,12 @@ import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.ObjectType;
 import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilGenerics;
+import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.UtilXml;
 import org.apache.ofbiz.base.util.collections.FlexibleMapAccessor;
 import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
+import org.apache.ofbiz.entity.GenericEntity;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.condition.EntityComparisonOperator;
@@ -47,6 +53,7 @@ import org.apache.ofbiz.entity.condition.EntityFunction;
 import org.apache.ofbiz.entity.condition.EntityJoinOperator;
 import org.apache.ofbiz.entity.condition.EntityOperator;
 import org.apache.ofbiz.entity.model.ModelEntity;
+import org.apache.ofbiz.entity.model.ModelField;
 import org.apache.ofbiz.entity.model.ModelFieldTypeReader;
 import org.apache.ofbiz.entity.util.EntityListIterator;
 import org.w3c.dom.Element;
@@ -286,6 +293,9 @@ public final class EntityFinderUtil {
                     case "condition-expr":
                         conditionList.add(new ConditionExpr(subElement));
                         break;
+                    case "condition-date":
+                        conditionList.add(new ConditionDate(subElement));
+                        break;
                     case "condition-list":
                         conditionList.add(new ConditionList(subElement));
                         break;
@@ -338,6 +348,86 @@ public final class EntityFinderUtil {
         public EntityCondition createCondition(Map<String, ? extends Object> context, ModelEntity modelEntity, ModelFieldTypeReader
                 modelFieldTypeReader) {
             return (EntityCondition) fieldNameAcsr.get(context);
+        }
+    }
+
+    @SuppressWarnings("serial")
+    public static final class ConditionDate implements Condition {
+        private final FlexibleMapAccessor<Object> dateField;
+        private final List<FlexibleStringExpander> compareDateFields;
+        private final FlexibleStringExpander ignoreExdr;
+        private final boolean ignoreIfNull;
+        private final boolean ignoreIfEmpty;
+
+        public ConditionDate(Element conditionDateElement) {
+            String fieldDateName = conditionDateElement.getAttribute("from-field");
+            this.dateField = !fieldDateName.isEmpty()
+                    ? FlexibleMapAccessor.getInstance(fieldDateName)
+                    : null;
+            List<FlexibleStringExpander> collectedCompareDateFields = UtilXml.childElementList(conditionDateElement).stream()
+                    .map(e -> FlexibleStringExpander.getInstance(e.getAttribute("field-name")))
+                    .toList();
+            compareDateFields = !(collectedCompareDateFields.isEmpty() || collectedCompareDateFields.size() % 2 != 0)
+                    ? collectedCompareDateFields
+                    : List.of(FlexibleStringExpander.getInstance("fromDate"),
+                    FlexibleStringExpander.getInstance("thruDate"));
+            this.ignoreIfNull = "true".equals(conditionDateElement.getAttribute("ignore-if-null"));
+            this.ignoreIfEmpty = "true".equals(conditionDateElement.getAttribute("ignore-if-empty"));
+            this.ignoreExdr = FlexibleStringExpander.getInstance(conditionDateElement.getAttribute("ignore"));
+        }
+
+        @Override
+        public EntityCondition createCondition(Map<String, ? extends Object> context, ModelEntity modelEntity, ModelFieldTypeReader
+                modelFieldTypeReader) {
+            if ("true".equals(this.ignoreExdr.expandString(context))) {
+                return null;
+            }
+            Timestamp dateFieldValue = null;
+            ModelField dateFieldFromEntity = null;
+            if (this.dateField != null) {
+                dateFieldFromEntity = modelEntity.getField(dateField.getOriginalName());
+                if (dateFieldFromEntity == null) {
+                    Object valueFound = dateField.get(context);
+                    if (valueFound != null) {
+                        try {
+                            dateFieldValue = (Timestamp) ObjectType.simpleTypeOrObjectConvert(
+                                    valueFound, "java.sql.Timestamp", "", (Locale) context.get("locale"));
+                        } catch (GeneralException e) {
+                            Debug.logWarning("Failed to convert value " + valueFound, MODULE);
+                        }
+                    }
+                }
+            }
+            if (this.ignoreIfNull && dateFieldValue == null) {
+                return null;
+            }
+            if (this.ignoreIfEmpty && ObjectType.isEmpty(dateFieldValue)) {
+                return null;
+            }
+            if (UtilValidate.isEmpty(dateFieldValue)) {
+                dateFieldValue = UtilDateTime.nowTimestamp();
+            }
+            List<EntityCondition> conditionDates = UtilMisc.toList();
+            for (int i = 0; i < compareDateFields.size() / 2; i++) {
+                String fromDateField = compareDateFields.get(i).expandString(context);
+                String thruDateField = compareDateFields.get(i + 1).expandString(context);
+                if (dateFieldFromEntity != null) {
+                    ModelField fromDateModelField = modelEntity.getField(fromDateField);
+                    ModelField thruDateModelField = modelEntity.getField(thruDateField);
+                    conditionDates.add(EntityCondition.makeConditionWhere(
+                            fromDateModelField.getColName() + " <= " + dateFieldFromEntity.getColName()));
+                    conditionDates.add(EntityCondition.makeCondition(EntityOperator.OR,
+                            EntityCondition.makeConditionWhere(thruDateModelField.getColName() + " >= " + dateFieldFromEntity.getColName()),
+                            EntityCondition.makeCondition(thruDateField, EntityOperator.EQUALS, GenericEntity.NULL_FIELD)));
+                } else {
+                    conditionDates.add(EntityCondition.makeCondition(fromDateField, EntityOperator.LESS_THAN_EQUAL_TO, dateFieldValue));
+                    conditionDates.add(EntityCondition.makeCondition(EntityOperator.OR,
+                            EntityCondition.makeCondition(thruDateField, EntityOperator.GREATER_THAN_EQUAL_TO, dateFieldValue),
+                            EntityCondition.makeCondition(thruDateField, EntityOperator.EQUALS, GenericEntity.NULL_FIELD)));
+                }
+            }
+
+            return EntityCondition.makeCondition(conditionDates);
         }
     }
 

@@ -88,7 +88,6 @@ under the License.
                 <#if paymentMethodType?has_content>
                     ${paymentMethodType.get("description",locale)!}
                 </#if>
-            </#else>
             </#if>
         </fo:block>
     </#list>

@@ -32,7 +32,6 @@ import java.util.Properties;
 import java.util.Set;
 import java.util.TimeZone;
 import java.util.stream.Stream;
-
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -557,13 +556,13 @@ public final class FreeMarkerWorker {
             if (name != null && name.startsWith("delegator:")) {
                 return null; // this is a template stored in the database
             }
-            URL locationUrl = null;
             try {
-                locationUrl = FlexibleLocation.resolveLocation(name);
+                URL locationUrl = FlexibleLocation.resolveLocation(name);
+                return locationUrl != null && new File(locationUrl.toURI()).exists() ? locationUrl : null;
             } catch (Exception e) {
                 Debug.logWarning("Unable to locate the template: " + name, MODULE);
             }
-            return locationUrl != null && new File(locationUrl.getFile()).exists() ? locationUrl : null;
+            return null;
         }
     }
 

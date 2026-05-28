@@ -36,6 +36,9 @@ import org.junit.Test;
 
 public class SecurityUtilTest {
 
+    private static final List<String> FRAMEWORK_ADMIN_PERMISSIONS = Arrays.asList(
+            "SECURITY", "COMMON", "ENTITY_DATA");
+
     private Path tempHome;
     private Path tempExternal;
     private String previousOfbizHome;
@@ -111,28 +114,32 @@ public class SecurityUtilTest {
 
     @Test
     public void basicAdminPermissionTesting() {
-        List<String> adminPermissions = Arrays.asList("PARTYMGR", "EXAMPLE", "ACCTG_PREF");
-        assertTrue(SecurityUtil.checkMultiLevelAdminPermissionValidity(adminPermissions, "PARTYMGR_CREATE"));
-        assertTrue(SecurityUtil.checkMultiLevelAdminPermissionValidity(adminPermissions, "EXAMPLE_CREATE "));
-        assertTrue(SecurityUtil.checkMultiLevelAdminPermissionValidity(adminPermissions, "EXAMPLE_ADMIN"));
-        assertFalse(SecurityUtil.checkMultiLevelAdminPermissionValidity(adminPermissions, "ACCTG_ADMIN"));
+        assertTrue(SecurityUtil.checkMultiLevelAdminPermissionValidity(
+                FRAMEWORK_ADMIN_PERMISSIONS, "SECURITY_CREATE1"));
+        assertTrue(SecurityUtil.checkMultiLevelAdminPermissionValidity(
+                FRAMEWORK_ADMIN_PERMISSIONS, "COMMON_CREATE "));
+        assertTrue(SecurityUtil.checkMultiLevelAdminPermissionValidity(
+                FRAMEWORK_ADMIN_PERMISSIONS, "COMMON_ADMIN"));
+        assertFalse(SecurityUtil.checkMultiLevelAdminPermissionValidity(
+                FRAMEWORK_ADMIN_PERMISSIONS, "ENTITY_MAINT"));
     }
 
     @Test
     public void multiLevelAdminPermissionTesting() {
-        List<String> adminPermissions = Arrays.asList("PARTYMGR", "EXAMPLE", "ACCTG_PREF");
-        assertTrue(SecurityUtil.checkMultiLevelAdminPermissionValidity(adminPermissions, "PARTYMGR_CME_CREATE"));
         assertTrue(SecurityUtil.checkMultiLevelAdminPermissionValidity(
-                    adminPermissions, "EXAMPLE_WITH_MULTI_LEVEL_ADMIN"));
-        assertFalse(SecurityUtil.checkMultiLevelAdminPermissionValidity(adminPermissions, "ACCTG_ADMIN"));
+                FRAMEWORK_ADMIN_PERMISSIONS, "SECURITY_PWD_UPDATE"));
+        assertTrue(SecurityUtil.checkMultiLevelAdminPermissionValidity(
+                FRAMEWORK_ADMIN_PERMISSIONS, "ENTITY_DATA_UPDATE"));
+        assertFalse(SecurityUtil.checkMultiLevelAdminPermissionValidity(
+                FRAMEWORK_ADMIN_PERMISSIONS, "ENTITY_MAINT"));
     }
 
     @Test
     public void multiLevelBadHierarchyPermissionTesting() {
-        List<String> adminPermissions = Arrays.asList("PARTYMGR", "EXAMPLE", "ACCTG_PREF");
         assertFalse(SecurityUtil.checkMultiLevelAdminPermissionValidity(
-                    adminPermissions, "SPECIFIC_MULTI_LEVEL_EXAMPLE_VIEW"));
-        assertFalse(SecurityUtil.checkMultiLevelAdminPermissionValidity(adminPermissions, "HOTDEP_PARTYMGR_ADMIN"));
+                FRAMEWORK_ADMIN_PERMISSIONS, "SPECIFIC_MULTI_LEVEL_SECURITY_VIEW"));
+        assertFalse(SecurityUtil.checkMultiLevelAdminPermissionValidity(
+                FRAMEWORK_ADMIN_PERMISSIONS, "WEBTOOLS_ENTITY_DATA_ADMIN"));
     }
 
 }

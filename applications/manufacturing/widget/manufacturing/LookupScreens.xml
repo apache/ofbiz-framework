@@ -78,4 +78,35 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="LookupInventoryItem">
+        <section>
+            <actions>
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="ManufacturingUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="title" from-field="uiLabelMap.ProductInventoryItem"/>
+                <set field="entityName" value="InventoryItem"/>
+                <set field="productId" value="${groovy: parameters.productId ?: parameters.parm0}"/>
+                <set field="facilityId" value="${groovy: parameters.facilityId ?: parameters.parm1}"/>
+                <set field="requestParameters.productId" from-field="productId"/>
+                <set field="requestParameters.productId_op" value="equals"/>
+                <set field="requestParameters.facilityId" from-field="facilityId"/>
+                <set field="requestParameters.facilityId_op" value="equals"/>
+                <set field="requestParameters.noConditionFind" value="Y"/>
+                <set field="searchFields" value="[inventoryItemId, lotId, productId, facilityId]"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
+                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
+                    <decorator-section name="search-options">
+                        <include-form name="LookupInventoryItem" location="component://manufacturing/widget/manufacturing/FieldLookupForms.xml"/>
+                    </decorator-section>
+                    <decorator-section name="search-results">
+                        <include-form name="ListLookupInventoryItem" location="component://manufacturing/widget/manufacturing/FieldLookupForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 </screens>

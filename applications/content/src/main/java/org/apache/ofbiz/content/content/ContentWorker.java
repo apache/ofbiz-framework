@@ -33,7 +33,6 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
-import org.apache.ofbiz.base.util.GroovyUtil;
 import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilCodec;
 import org.apache.ofbiz.base.util.UtilDateTime;
@@ -41,7 +40,6 @@ import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
 import org.apache.ofbiz.content.ContentManagementWorker;
 import org.apache.ofbiz.content.data.DataResourceWorker;
 import org.apache.ofbiz.entity.Delegator;
@@ -61,7 +59,6 @@ import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.service.ServiceUtil;
-import org.codehaus.groovy.control.CompilationFailedException;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
@@ -499,96 +496,6 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
         return contentAssocDataResourceViewFrom;
     }
 
-    public static void traverse(Delegator delegator, GenericValue content, Timestamp fromDate, Timestamp thruDate, Map<String, Object> whenMap,
-            int depthIdx, Map<String, Object> masterNode, String contentAssocTypeId, List<GenericValue> pickList, String direction) {
-        String contentTypeId = null;
-        String contentId = null;
-        try {
-            if (contentAssocTypeId == null) {
-                contentAssocTypeId = "";
-            }
-            contentId = (String) content.get("contentId");
-            contentTypeId = (String) content.get("contentTypeId");
-            List<GenericValue> topicList = content.getRelated("ToContentAssoc", UtilMisc.toMap("contentAssocTypeId", "TOPIC"), null, false);
-            List<String> topics = new LinkedList<>();
-            for (GenericValue assoc : topicList) {
-                topics.add(assoc.getString("contentId"));
-            }
-            List<GenericValue> keywordList = content.getRelated("ToContentAssoc", UtilMisc.toMap("contentAssocTypeId", "KEYWORD"), null, false);
-            List<String> keywords = new LinkedList<>();
-            for (GenericValue assoc : keywordList) {
-                keywords.add(assoc.getString("contentId"));
-            }
-            List<GenericValue> purposeValueList = content.getRelated("ContentPurpose", null, null, true);
-            List<String> purposes = new LinkedList<>();
-            for (GenericValue purposeValue : purposeValueList) {
-                purposes.add(purposeValue.getString("contentPurposeTypeId"));
-            }
-            List<String> contentTypeAncestry = new LinkedList<>();
-            getContentTypeAncestry(delegator, contentTypeId, contentTypeAncestry);
-
-            Map<String, Object> context = new HashMap<>();
-            context.put("content", content);
-            context.put("contentAssocTypeId", contentAssocTypeId);
-            context.put("purposes", purposes);
-            context.put("topics", topics);
-            context.put("keywords", keywords);
-            context.put("typeAncestry", contentTypeAncestry);
-            boolean isPick = checkWhen(context, (String) whenMap.get("pickWhen"), true);
-            boolean isReturnBefore = checkWhen(context, (String) whenMap.get("returnBeforePickWhen"), false);
-            Map<String, Object> thisNode = null;
-            if (isPick || !isReturnBefore) {
-                thisNode = new HashMap<>();
-                thisNode.put("contentId", contentId);
-                thisNode.put("contentTypeId", contentTypeId);
-                thisNode.put("contentAssocTypeId", contentAssocTypeId);
-                List<Map<String, Object>> kids = UtilGenerics.cast(masterNode.get("kids"));
-                if (kids == null) {
-                    kids = new LinkedList<>();
-                    masterNode.put("kids", kids);
-                }
-                kids.add(thisNode);
-            }
-            if (isPick) {
-                pickList.add(content);
-                thisNode.put("value", content);
-            }
-            boolean isReturnAfter = checkWhen(context, (String) whenMap.get("returnAfterPickWhen"), false);
-            if (!isReturnAfter) {
-                List<String> assocTypes = new LinkedList<>();
-                List<GenericValue> relatedAssocs = getContentAssocsWithId(delegator, contentId, fromDate, thruDate, direction, assocTypes);
-                Map<String, Object> assocContext = new HashMap<>();
-                assocContext.put("related", relatedAssocs);
-                for (GenericValue assocValue : relatedAssocs) {
-                    contentAssocTypeId = (String) assocValue.get("contentAssocTypeId");
-                    assocContext.put("contentAssocTypeId", contentAssocTypeId);
-                    assocContext.put("parentContent", content);
-                    String assocRelation = null;
-                    // This needs to be the opposite
-                    String relatedDirection = null;
-                    if (direction != null && "From".equalsIgnoreCase(direction)) {
-                        assocContext.put("contentIdFrom", assocValue.get("contentId"));
-                        assocRelation = "ToContent";
-                        relatedDirection = "From";
-                    } else {
-                        assocContext.put("contentIdTo", assocValue.get("contentId"));
-                        assocRelation = "FromContent";
-                        relatedDirection = "To";
-                    }
-
-                    boolean isFollow = checkWhen(assocContext, (String) whenMap.get("followWhen"), true);
-                    if (isFollow) {
-                        GenericValue thisContent = assocValue.getRelatedOne(assocRelation, false);
-                        traverse(delegator, thisContent, fromDate, thruDate, whenMap, depthIdx + 1, thisNode, contentAssocTypeId, pickList,
-                                relatedDirection);
-                    }
-                }
-            }
-        } catch (GenericEntityException e) {
-            Debug.logError("Entity Error:" + e.getMessage(), null);
-        }
-    }
-
     public static boolean traverseSubContent(Map<String, Object> ctx) {
         boolean inProgress = false;
         List<Map<String, Object>> nodeTrail = UtilGenerics.cast(ctx.get("nodeTrail"));
@@ -774,6 +681,11 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
      */
     public static boolean checkWhen(Map<String, Object> context, String whenStr, boolean defaultReturn) {
         boolean isWhen = defaultReturn;
+        /*
+         * The logic has been commented out, as it represents a potential security risk.
+         * Moreover, the usage of this method is limited to a small group of custom Freemarker transforms,
+         * that can be removed since they are essentially old experiments.
+
         if (UtilValidate.isNotEmpty(whenStr)) {
             FlexibleStringExpander fse = FlexibleStringExpander.getInstance(whenStr);
             String newWhen = fse.expandString(context);
@@ -792,6 +704,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
                 throw new RuntimeException(e.getMessage());
             }
         }
+        */
         return isWhen;
     }
 

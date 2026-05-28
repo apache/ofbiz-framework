@@ -658,6 +658,29 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="userprofile">
+        <section>
+            <actions>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="titleProperty" value="CommonProfile"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <actions>
+                                <set field="userProfileTemplateLocation" from-field="layoutSettings.VT_USER_PROFILE_TMPLT_LOC" default-value="component://common-theme/template/UserProfile.ftl"/>
+                            </actions>
+                            <widgets />
+                        </section>
+                        <platform-specific>
+                            <html><html-template location="${userProfileTemplateLocation}"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
     <screen name="GetUiLabels">
         <section>
             <actions>

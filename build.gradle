@@ -29,7 +29,8 @@ plugins {
     id 'checkstyle'
     id 'codenarc'
     id 'maven-publish'
-    id "org.asciidoctor.jvm.convert" version "latest.release"
+    id "org.asciidoctor.jvm.convert" version "4.0.5" // For now we can not update above. See "production-ready version" warning in https://plugins.gradle.org/plugin/org.asciidoctor.jvm
+    id "org.asciidoctor.jvm.pdf" version "4.0.5"     // For now we can not update above. See "production-ready version" warning in https://plugins.gradle.org/plugin/org.asciidoctor.jvm
     id "org.owasp.dependencycheck" version "latest.release" apply false
     id "se.patrikerdes.use-latest-versions"  version "latest.release" apply false
     id "com.github.ben-manes.versions" version "latest.release" apply false
@@ -458,17 +459,17 @@ task loadTenant(group: ofbizServer, description: 'Load data using tenantId') {
 
 task createTenant(group: ofbizServer, description: 'Create a new tenant in your environment') {
 
-    def databaseTemplateFile = "${rootDir}/framework/resources/templates/AdminNewTenantData-Derby.xml"
+    def databaseTemplateFile = "${rootDir}/framework/resources/templates/AdminNewTenantData-H2.xml"
 
     task prepareAndValidateTenantArguments {
         doLast {
             if (!project.hasProperty('tenantId')) {
                 throw new GradleException('Project property tenantId is missing')
             }
-            // dbPlatform values: D(Derby), M(MySQL), O(Oracle), P(PostgreSQL) (default D)
+            // dbPlatform values: H(H2), M(MySQL), O(Oracle), P(PostgreSQL) (default D)
             if (project.hasProperty('dbPlatform')) {
-                if (dbPlatform == 'D') {
-                    databaseTemplateFile = "${rootDir}/framework/resources/templates/AdminNewTenantData-Derby.xml"
+                if (dbPlatform == 'H') {
+                    databaseTemplateFile = "${rootDir}/framework/resources/templates/AdminNewTenantData-H2.xml"
                 } else if (dbPlatform == 'M') {
                     databaseTemplateFile = "${rootDir}/framework/resources/templates/AdminNewTenantData-MySQL.xml"
                 } else if (dbPlatform == 'O') {
@@ -549,20 +550,14 @@ tasks.withType(AsciidoctorTask) { task ->
         jvm {
             jvmArgs("--add-opens","java.base/sun.nio.ch=ALL-UNNAMED","--add-opens","java.base/java.io=ALL-UNNAMED")
         }
-//    outputOptions {
-//         // I hate we have to do this - but JRuby (asciidoctorj-pdf) and Windows don't mix well
-//        if (System.properties['os.name'].toLowerCase().contains('windows')) {
-//            backends = ['html5']
-//        } else {
-//            backends = ['html5', 'pdf']
-//        }
-         //It seems we have no choice when using Builbot we now get this issue:
-//        Caused by: org.jruby.exceptions.LoadError: (LoadError) no such file to load -- asciidoctor-pdf
-//        at org.jruby.RubyKernel.require(org/jruby/RubyKernel.java:1017)
-//        at RUBY.require(uri:classloader:/META-INF/jruby.home/lib/ruby/stdlib/rubygems/core_ext/kernel_require.rb:85)
-//        at RUBY.<main>(<script>:1)
-//        backends = ['html5'] // this is the default, so for now outputOptions is not needed
-//    }
+    outputOptions {
+         // I hate we have to do this - but JRuby (asciidoctorj-pdf) and Windows don't mix well
+        if (System.properties['os.name'].toLowerCase().contains('windows')) {
+            backends = ['html5']
+        } else {
+            backends = ['html5', 'pdf']
+        }
+    }
     attributes \
         'doctype': 'book',
         'revnumber': getCurrentGitBranch(),
@@ -971,8 +966,8 @@ task pullPlugin(group: ofbizPlugin, description: 'Download and install a plugin 
 task cleanCatalina(group: cleanupGroup, description: 'Clean Catalina data in runtime/catalina/work') {
     doLast { delete "${rootDir}/runtime/catalina/work" }
 }
-task cleanData(group: cleanupGroup, description: 'Clean all DB data (Derby) under runtime/data') {
-    doLast { deleteAllInDirWithExclusions("${rootDir}/runtime/data/", ['README', 'derby.properties']) }
+task cleanData(group: cleanupGroup, description: 'Clean all DB data (H2) under runtime/data') {
+    doLast { deleteAllInDirWithExclusions("${rootDir}/runtime/data/", ['README', '.h2.server.properties']) }
 }
 task cleanDownloads(group: cleanupGroup, description: 'Clean all downloaded files') {
     doLast {

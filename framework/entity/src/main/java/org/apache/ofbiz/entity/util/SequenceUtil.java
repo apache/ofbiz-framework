@@ -201,76 +201,72 @@ public class SequenceUtil {
                 try {
                     beganTransaction = TransactionUtil.begin();
 
-                    Connection connection = null;
-                    Statement stmt = null;
-                    ResultSet rs = null;
+                    boolean committed = false;
+                    boolean connectionAvailable = false;
+                    try (Connection connection = TransactionFactoryLoader.getInstance().getConnection(SequenceUtil.this.helperInfo)) {
+                        if (connection == null) {
+                            throw new GenericEntityException("Unable to establish a connection with the database, connection was null...");
+                        }
+                        connectionAvailable = true;
 
-                    try {
-                        connection = TransactionFactoryLoader.getInstance().getConnection(SequenceUtil.this.helperInfo);
-                    } catch (SQLException sqle) {
-                        Debug.logWarning("Unable to establish a connection with the database. Error was:" + sqle.toString(), MODULE);
-                        throw sqle;
-                    } catch (GenericEntityException e) {
-                        Debug.logWarning("Unable to establish a connection with the database. Error was: " + e.toString(), MODULE);
-                        throw e;
-                    }
-                    if (connection == null) {
-                        throw new GenericEntityException("Unable to establish a connection with the database, connection was null...");
-                    }
+                        try (Statement stmt = connection.createStatement()) {
+                            String sql = null;
+                            // 1 - run an update with no changes to get a lock on the record
+                            if (stmt.executeUpdate(updateForLockStatement) <= 0) {
+                                Debug.logWarning("Lock failed; no sequence row was found, will try to add a new one for sequence: " + seqName,
+                                        MODULE);
+                                sql = "INSERT INTO " + SequenceUtil.this.tableName + " (" + SequenceUtil.this.nameColName + ", "
+                                        + SequenceUtil.this.idColName + ") VALUES ('" + this.seqName + "', " + START_SEQ_ID + ")";
+                                try {
+                                    stmt.executeUpdate(sql);
+                                } catch (SQLException sqle) {
+                                    // insert failed: this means that another thread inserted the record;
+                                    // then retry to run an update with no changes to
+                                    // get a lock on the record
+                                    if (stmt.executeUpdate(updateForLockStatement) <= 0) {
+                                        // This should never happen
+                                        throw new GenericEntityException("No rows changed when trying insert new sequence: " + seqName);
+                                    }
 
-                    try {
-                        stmt = connection.createStatement();
-                        String sql = null;
-                        // 1 - run an update with no changes to get a lock on the record
-                        if (stmt.executeUpdate(updateForLockStatement) <= 0) {
-                            Debug.logWarning("Lock failed; no sequence row was found, will try to add a new one for sequence: " + seqName, MODULE);
-                            sql = "INSERT INTO " + SequenceUtil.this.tableName + " (" + SequenceUtil.this.nameColName + ", "
-                                    + SequenceUtil.this.idColName + ") VALUES ('" + this.seqName + "', " + START_SEQ_ID + ")";
-                            try {
-                                stmt.executeUpdate(sql);
-                            } catch (SQLException sqle) {
-                                // insert failed: this means that another thread inserted the record; then retry to run an update with no changes to
-                                // get a lock on the record
-                                if (stmt.executeUpdate(updateForLockStatement) <= 0) {
-                                    // This should never happen
-                                    throw new GenericEntityException("No rows changed when trying insert new sequence: " + seqName);
                                 }
-
                             }
-                        }
-                        // 2 - select the record (now locked) to get the curSeqId
-                        rs = stmt.executeQuery(selectSequenceStatement);
-                        boolean sequenceFound = rs.next();
-                        if (sequenceFound) {
-                            curSeqId = rs.getLong(SequenceUtil.this.idColName);
-                        }
-                        rs.close();
-                        if (!sequenceFound) {
-                            throw new GenericEntityException("Failed to find the sequence record for sequence: " + seqName);
-                        }
-                        // 3 - increment the sequence
-                        sql = "UPDATE " + SequenceUtil.this.tableName + " SET " + SequenceUtil.this.idColName + "=" + SequenceUtil.this.idColName
-                                + "+" + bankSize + " WHERE " + SequenceUtil.this.nameColName + "='" + this.seqName + "'";
-                        if (stmt.executeUpdate(sql) <= 0) {
-                            throw new GenericEntityException("Update failed, no rows changes for seqName: " + seqName);
-                        }
+                            // 2 - select the record (now locked) to get the curSeqId
+                            boolean sequenceFound;
+                            try (ResultSet rs = stmt.executeQuery(selectSequenceStatement)) {
+                                sequenceFound = rs.next();
+                                if (sequenceFound) {
+                                    curSeqId = rs.getLong(SequenceUtil.this.idColName);
+                                }
+                            }
+                            if (!sequenceFound) {
+                                throw new GenericEntityException("Failed to find the sequence record for sequence: " + seqName);
+                            }
+                            // 3 - increment the sequence
+                            sql = "UPDATE " + SequenceUtil.this.tableName + " SET " + SequenceUtil.this.idColName + "=" + SequenceUtil.this.idColName
+                                    + "+" + bankSize + " WHERE " + SequenceUtil.this.nameColName + "='" + this.seqName + "'";
+                            if (stmt.executeUpdate(sql) <= 0) {
+                                throw new GenericEntityException("Update failed, no rows changes for seqName: " + seqName);
+                            }
 
-                        TransactionUtil.commit(beganTransaction);
+                            TransactionUtil.commit(beganTransaction);
+                            committed = true;
+                        }
 
                     } catch (SQLException sqle) {
-                        Debug.logWarning(sqle, "SQL Exception:" + sqle.getMessage(), MODULE);
-                        throw sqle;
-                    } finally {
-                        try {
-                            if (stmt != null) stmt.close();
-                        } catch (SQLException sqle) {
-                            Debug.logWarning(sqle, "Error closing statement in sequence util", MODULE);
+                        if (committed) {
+                            Debug.logWarning(sqle, "Error closing database resources in sequence util", MODULE);
+                        } else if (!connectionAvailable) {
+                            Debug.logWarning("Unable to establish a connection with the database. Error was:" + sqle.toString(), MODULE);
+                            throw sqle;
+                        } else {
+                            Debug.logWarning(sqle, "SQL Exception:" + sqle.getMessage(), MODULE);
+                            throw sqle;
                         }
-                        try {
-                            connection.close();
-                        } catch (SQLException sqle) {
-                            Debug.logWarning(sqle, "Error closing connection in sequence util", MODULE);
+                    } catch (GenericEntityException e) {
+                        if (!connectionAvailable) {
+                            Debug.logWarning("Unable to establish a connection with the database. Error was: " + e.toString(), MODULE);
                         }
+                        throw e;
                     }
                 } catch (SQLException | GenericEntityException e) {
                     // reset the sequence fields and return (note: it would be better to throw an exception)
@@ -313,4 +309,3 @@ public class SequenceUtil {
         }
     }
 }
-

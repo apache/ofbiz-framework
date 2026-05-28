@@ -54,7 +54,7 @@ try {
         // show active visits
         visitQuery.where('thruDate', null)
     }
-    pagedList = visitQuery.queryPagedList(lowIndex, viewSize)
+    pagedList = visitQuery.queryPagedList(viewIndex, viewSize)
     visitList = pagedList.getData() ?: []
     visitListSize = pagedList.getSize()
     if (highIndex > visitListSize) {

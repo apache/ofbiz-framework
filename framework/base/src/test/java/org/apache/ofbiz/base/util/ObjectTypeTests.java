@@ -496,7 +496,7 @@ public class ObjectTypeTests {
         System.setProperty("testBigDecimal", "bypassLocaleChange");
         simpleTypeOrObjectConvertTestSingleMulti("BigDecimal->String", new BigDecimal("12345.67"),
                 new String[] {"String", "java.lang.String"}, null, LOCALE_DATA, "12,345.67");
-        System.clearProperty("testBigDecima");
+        System.clearProperty("testBigDecimal");
         simpleTypeOrObjectConvertTestSingleMulti("BigDecimal->BigDecimal", dcml,
                 new String[] {"BigDecimal", "java.math.BigDecimal"}, new BigDecimal("781.25"));
         simpleTypeOrObjectConvertTestSingleMulti("BigDecimal->Double", dcml,

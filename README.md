@@ -106,7 +106,7 @@ MS Windows: `init-gradle-wrapper`
 > **Note** -
 > If you wonder where are stored the PowerShell Executables, here are the answers: [https://s.apache.org/w5dye](https://s.apache.org/w5dye)
 
-Unix-like OS: `/gradle/init-gradle-wrapper.sh`
+Unix-like OS: `./gradle/init-gradle-wrapper.sh`
 
 ### Prepare OFBiz
 
@@ -464,7 +464,7 @@ following project parameters are passed:
 * tenantName: optional, default is value of tenantId
 * domainName: optional, default is org.apache.ofbiz
 * tenantReaders: optional, default value is seed,seed-initial,demo
-* dbPlatform: optional, D(Derby), M(MySQL), O(Oracle), P(PostgreSQL) (default D)
+* dbPlatform: optional, H(H2), M(MySQL), O(Oracle), P(PostgreSQL) (default D)
 * dbIp: optional, ip address of the database
 * dbUser: optional, username of the database
 * dbPassword: optional, password of the database
@@ -794,7 +794,7 @@ then the build execution will fail.
 
 ### Setup an external database like MySQL, PostgreSQL, etc
 
-To setup an external database instead of the default embedded Apache Derby, you
+To setup an external database instead of the default embedded H2 database, you
 will need to follow the following instructions:
 
 1.  Find the JDBC driver suitable for your database using one of the following

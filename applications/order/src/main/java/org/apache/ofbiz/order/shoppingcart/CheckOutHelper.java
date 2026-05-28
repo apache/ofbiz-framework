@@ -1920,16 +1920,6 @@ public class CheckOutHelper {
                         Debug.logError(ServiceUtil.getErrorMessage(gcBalanceMap), MODULE);
                     }
                 }
-                if ("valuelink".equalsIgnoreCase(giftCardType)) {
-                    balanceField = "balance";
-                    ctx.put("paymentConfig", paymentConfig);
-                    ctx.put("cardNumber", gc.getString("cardNumber"));
-                    ctx.put("pin", gc.getString("pinNumber"));
-                    gcBalanceMap = dispatcher.runSync("balanceInquireGiftCard", ctx);
-                    if (ServiceUtil.isError(gcBalanceMap)) {
-                        Debug.logError(ServiceUtil.getErrorMessage(gcBalanceMap), MODULE);
-                    }
-                }
             } catch (GenericServiceException e) {
                 Debug.logError(e, MODULE);
             }

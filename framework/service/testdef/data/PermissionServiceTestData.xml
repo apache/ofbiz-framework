@@ -27,12 +27,8 @@ under the License.
     <SecurityGroup groupId="TESTPERMVIEW" description="permissions reader."/>
     <SecurityGroupPermission groupId="TESTPERMVIEW" permissionId="TESTPERM_VIEW" fromDate="2001-05-13 12:00:00.0"/>
 
-    <Party partyId="permUser1" partyTypeId="PERSON"/>
-    <Person partyId="permUser1" firstName="Permission" lastName="User 1"/>
-    <UserLogin userLoginId="permUser1" partyId="permUser1"/>
-    <Party partyId="permUser2" partyTypeId="PERSON"/>
-    <Person partyId="permUser2" firstName="Permission" lastName="User 2"/>
-    <UserLogin userLoginId="permUser2" partyId="permUser2"/>
+    <UserLogin userLoginId="permUser1" userFullName="Permission User 1"/>
+    <UserLogin userLoginId="permUser2" userFullName="Permission User 2"/>
 
     <UserLoginSecurityGroup groupId="TESTPERMADMIN" userLoginId="permUser1" fromDate="2001-01-01 12:00:00.0"/>
     <UserLoginSecurityGroup groupId="TESTPERMVIEW" userLoginId="permUser2" fromDate="2001-01-01 12:00:00.0"/>

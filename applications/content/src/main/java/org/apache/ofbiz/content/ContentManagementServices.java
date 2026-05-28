@@ -797,58 +797,41 @@ public class ContentManagementServices {
         return results;
     }
 
-    public static Map<String, Object> updateOrRemove(DispatchContext dctx, Map<String, ? extends Object> context) {
-        Map<String, Object> results = new HashMap<>();
+    /**
+     * Creates or removes a link between a product feature and a data resource based on the provided action.
+     *
+     * @param dctx The DispatchContext instance providing access to the delegator and other utilities.
+     * @param context A map containing the following keys:
+     *                - productFeatureId (String): The ID of the product feature.
+     *                - dataResourceId (String): The ID of the data resource.
+     *                - action (String): Indicates whether to create or remove the link. Use "Y" for create, otherwise the link is removed.
+     * @return A map containing the results of the operation. In case of an error, returns a map with an error message.
+     */
+    public static Map<String, Object> createOrRemoveProductFeatureDataResource(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
-        String entityName = (String) context.get("entityName");
+        String productFeatureId = (String) context.get("productFeatureId");
+        String dataResourceId = (String) context.get("dataResourceId");
         String action = (String) context.get("action");
-        String pkFieldCount = (String) context.get("pkFieldCount");
-        Map<String, String> pkFields = new HashMap<>();
-        int fieldCount = Integer.parseInt(pkFieldCount);
-        for (int i = 0; i < fieldCount; i++) {
-            String fieldName = (String) context.get("fieldName" + i);
-            String fieldValue = (String) context.get("fieldValue" + i);
-            if (UtilValidate.isEmpty(fieldValue)) {
-                // It may be the case that the last row in a form is "empty" waiting for
-                // someone to enter a value, in which case we do not want to throw an
-                // error, we just want to ignore it.
-                return results;
-            }
-            pkFields.put(fieldName, fieldValue);
-        }
         boolean doLink = "Y".equalsIgnoreCase(action);
-        if (Debug.infoOn()) {
-            Debug.logInfo("in updateOrRemove, context:" + context, MODULE);
-        }
         try {
-            GenericValue entityValuePK = delegator.makeValue(entityName, pkFields);
-            if (Debug.infoOn()) {
-                Debug.logInfo("in updateOrRemove, entityValuePK:" + entityValuePK, MODULE);
-            }
-            GenericValue entityValueExisting = EntityQuery.use(delegator).from(entityName).where(entityValuePK).cache().queryOne();
-            if (Debug.infoOn()) {
-                Debug.logInfo("in updateOrRemove, entityValueExisting:" + entityValueExisting, MODULE);
-            }
+            GenericValue entityValuePK = delegator.makeValue("ProductFeatureDataResource",
+                    UtilMisc.toMap("productFeatureId", productFeatureId, "dataResourceId", dataResourceId));
+
+            GenericValue entityValueExisting = EntityQuery.use(delegator).from("ProductFeatureDataResource")
+                    .where("productFeatureId", productFeatureId, "dataResourceId", dataResourceId).cache().queryOne();
+
             if (entityValueExisting == null) {
                 if (doLink) {
                     entityValuePK.create();
-                    if (Debug.infoOn()) {
-                        Debug.logInfo("in updateOrRemove, entityValuePK: CREATED", MODULE);
-                    }
                 }
-            } else {
-                if (!doLink) {
-                    entityValueExisting.remove();
-                    if (Debug.infoOn()) {
-                        Debug.logInfo("in updateOrRemove, entityValueExisting: REMOVED", MODULE);
-                    }
-                }
+            } else if (!doLink) {
+                entityValueExisting.remove();
             }
         } catch (GenericEntityException e) {
             Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.toString());
         }
-        return results;
+        return ServiceUtil.returnSuccess();
     }
 
     /**

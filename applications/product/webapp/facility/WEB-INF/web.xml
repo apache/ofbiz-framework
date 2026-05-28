@@ -97,11 +97,9 @@ under the License.
         <servlet-class>org.apache.ofbiz.webapp.control.ControlServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
-    </servlet>
     <servlet-mapping>
         <servlet-name>ControlServlet</servlet-name>
         <url-pattern>/control/*</url-pattern>
-    </servlet-mapping>
     </servlet-mapping>
 
     <welcome-file-list>

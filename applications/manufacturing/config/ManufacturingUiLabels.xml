@@ -790,6 +790,19 @@
         <value xml:lang="zh">实际开始日期/时间</value>
         <value xml:lang="zh-TW">實際開始日期/時間</value>
     </property>
+    <property key="ManufacturingEditWorkEffortInvRes">
+        <value xml:lang="en">Edit Inventory Reservations</value>
+    </property>
+    <property key="ManufacturingAddWorkEffortInvRes">
+        <value xml:lang="en">Add Inventory Reservation</value>
+    </property>
+    <property key="ManufacturingReservedQuantity">
+        <value xml:lang="en">Reserved</value>
+    </property>
+    <property key="ManufacturingManageReservations">
+        <value xml:lang="en">Manage Reservations</value>
+    </property>
+
     <property key="ManufacturingAddExistingRoutingTask">
         <value xml:lang="de">Einen bestehenden Arbeitsgang hinzufügen</value>
         <value xml:lang="en">Add a existing RoutingTask</value>
@@ -2466,6 +2479,35 @@
         <value xml:lang="zh">交付数量</value>
         <value xml:lang="zh-TW">交付數量</value>
     </property>
+    <property key="ManufacturingRemainingQuantity">
+        <value xml:lang="en">Remaining Quantity</value>
+        <value xml:lang="it">Quantità rimanente</value>
+    </property>
+    <property key="ManufacturingRequiredQuantity">
+        <value xml:lang="en">Required Quantity</value>
+        <value xml:lang="it">Quantità richiesta</value>
+    </property>
+    <property key="ManufacturingReservationSummary">
+        <value xml:lang="en">Reservation Summary</value>
+    </property>
+    <property key="ManufacturingTotalReserved">
+        <value xml:lang="en">Total Reserved</value>
+    </property>
+    <property key="ManufacturingShortfall">
+        <value xml:lang="en">Confirmed Shortage (Tried &amp; Failed)</value>
+    </property>
+    <property key="ManufacturingNetReserved">
+        <value xml:lang="en">Net Reserved</value>
+    </property>
+    <property key="ManufacturingShortageHelpText">
+        <value xml:lang="en">Confirmed Shortage indicates inventory that could not be reserved during the last attempt because the warehouse was empty.</value>
+    </property>
+    <property key="ManufacturingUnaccountedQuantity">
+        <value xml:lang="en">Pending Process (Untouched)</value>
+    </property>
+    <property key="ManufacturingUnaccountedHelpText">
+        <value xml:lang="en">Pending Process indicates requirements that have not yet been attempted for reservation or issuance.</value>
+    </property>
     <property key="ManufacturingJobShop">
         <value xml:lang="de">Produktionsaufträge</value>
         <value xml:lang="en">JobShop</value>
@@ -3117,6 +3159,60 @@
     <property key="ManufacturingMrpRunScheduledSuccessfully">
         <value xml:lang="en">Mrp run scheduled successfully</value>
         <value xml:lang="fr">Exécution de Mrp programmée avec succès</value>
+    </property>
+    <property key="ManufacturingProductionRunTaskIssuedSuccessfully">
+        <value xml:lang="en">Issued Inventory for Production Run Task [${workEffortId}]</value>
+    </property>
+    <property key="ManufacturingAutoReservePrun">
+        <value xml:lang="en">Auto-Reserve Production Run Inventory</value>
+    </property>
+    <property key="ManufacturingAllowInventoryReallocation">
+        <value xml:lang="en">Allow Inventory Reallocation</value>
+    </property>
+    <property key="ManufacturingReconcilePrunBackorders">
+        <value xml:lang="en">Auto-Reconcile Production Backorders</value>
+    </property>
+    <property key="ManufacturingRelease">
+        <value xml:lang="en">Release</value>
+    </property>
+    <property key="ManufacturingReserve">
+        <value xml:lang="en">Reserve</value>
+    </property>
+    <property key="ManufacturingForceIssue">
+        <value xml:lang="en">Force Issue</value>
+    </property>
+    <property key="ManufacturingForceIssueImpact">
+        <value xml:lang="en">Force Issue Impact Warning</value>
+    </property>
+    <property key="ManufacturingForceIssueImpactWarning">
+        <value xml:lang="en">The following inventory reservations will be reallocated if you proceed with Force Issuance:</value>
+    </property>
+    <property key="ManufacturingImpactType">
+        <value xml:lang="en">Impact Type</value>
+    </property>
+    <property key="ManufacturingImpactId">
+        <value xml:lang="en">Ref ID</value>
+    </property>
+    <property key="ManufacturingImpactQuantity">
+        <value xml:lang="en">Impacted Qty</value>
+    </property>
+    <property key="ManufacturingConfirmForceIssue">
+        <value xml:lang="en">Confirm Force Issue</value>
+    </property>
+    <property key="ManufacturingNoImpactDetected">
+        <value xml:lang="en">No significant impact on other reservations detected.</value>
+    </property>
+    <property key="ManufacturingIssuancePreview">
+        <value xml:lang="en">Preview of Issuance Plan</value>
+    </property>
+    <property key="POOL_STOCK">
+        <value xml:lang="en">Free Stock</value>
+    </property>
+    <property key="TASK_RESERVATION">
+        <value xml:lang="en">Existing Reservation</value>
+    </property>
+    <property key="REALLOCATED_STOCK">
+        <value xml:lang="en">Re-allocated Stock</value>
     </property>
     <property key="ManufacturingNewCalendar">
         <value xml:lang="de">Neuer Kalender</value>
@@ -6039,5 +6135,8 @@
         <value xml:lang="nl">Productierun koppelen</value>
         <value xml:lang="zh">链接到生产运行</value>
         <value xml:lang="zh-TW">連結生產運行</value>
+    </property>
+    <property key="ManufacturingReservationStrategy">
+        <value xml:lang="en">Reservation Strategy</value>
     </property>
 </resource>

@@ -67,12 +67,12 @@ under the License.
     <PartyStatus partyId="bizadmin" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyContactMech partyId="bizadmin" contactMechId="admin" fromDate="2003-01-01 00:00:00.0" allowSolicitation="Y"/>
 
-    <UserLogin userLoginId="admin" partyId="admin"/>
-    <UserLogin userLoginId="flexadmin" partyId="admin"/>
-    <UserLogin userLoginId="demoadmin" partyId="admin"/>
-    <UserLogin userLoginId="ltdadmin" partyId="ltdadmin"/>
-    <UserLogin userLoginId="ltdadmin1" partyId="ltdadmin1"/>
-    <UserLogin userLoginId="bizadmin" partyId="bizadmin"/>
+    <UserLogin userLoginId="admin" userFullName="THE ADMINISTRATOR" partyId="admin"/>
+    <UserLogin userLoginId="flexadmin" userFullName="THE FLEX ADMINISTRATOR" partyId="admin"/>
+    <UserLogin userLoginId="demoadmin" userFullName="Demo Admin" partyId="admin"/>
+    <UserLogin userLoginId="ltdadmin" userFullName="Limited Administrator" partyId="ltdadmin"/>
+    <UserLogin userLoginId="ltdadmin1" userFullName="Limited Administrator1" partyId="ltdadmin1"/>
+    <UserLogin userLoginId="bizadmin" userFullName="Business Administrator" partyId="bizadmin"/>
 
     <EmailTemplateSetting emailTemplateSettingId="EMAIL_PASSWORD" subject="New Password Sent (${userLoginId})" fromAddress="ofbiztest@example.com"
                           description="Used to send a new password at user request"/>

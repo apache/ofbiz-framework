@@ -368,27 +368,26 @@ public final class FileUtil {
         // Create zip file from content input stream
         String zipFileName = UUID.randomUUID().toString() + ".zip";
         String zipFilePath = UtilProperties.getPropertyValue("general", "http.upload.tmprepository", "runtime/tmp");
-        FileOutputStream fos = new FileOutputStream(new File(zipFilePath, zipFileName));
-        ZipOutputStream zos = new ZipOutputStream(fos);
-        zos.setMethod(ZipOutputStream.DEFLATED);
-        zos.setLevel(Deflater.BEST_COMPRESSION);
+        File tmpZipFile = new File(zipFilePath, zipFileName);
+        try (FileOutputStream fos = new FileOutputStream(tmpZipFile);
+                ZipOutputStream zos = new ZipOutputStream(fos)) {
+            zos.setMethod(ZipOutputStream.DEFLATED);
+            zos.setLevel(Deflater.BEST_COMPRESSION);
 
-        // parse all map to set in the zip stream
-        for (String fileName : files.keySet()) {
-            ZipEntry ze = new ZipEntry(fileName);
-            zos.putNextEntry(ze);
-            int len;
-            byte[] bufferData = new byte[8192];
-            while ((len = files.get(fileName).read(bufferData)) > 0) {
-                zos.write(bufferData, 0, len);
+            // parse all map to set in the zip stream
+            for (String fileName : files.keySet()) {
+                ZipEntry ze = new ZipEntry(fileName);
+                zos.putNextEntry(ze);
+                int len;
+                byte[] bufferData = new byte[8192];
+                while ((len = files.get(fileName).read(bufferData)) > 0) {
+                    zos.write(bufferData, 0, len);
+                }
+                zos.closeEntry();
             }
         }
-        zos.closeEntry();
-        zos.close();
-        fos.close();
 
         //prepare zip stream
-        File tmpZipFile = new File(zipFilePath, zipFileName);
         ByteArrayInputStream zipStream = new ByteArrayInputStream(FileUtils.readFileToByteArray(tmpZipFile));
 
         //Then delete zip file
@@ -432,36 +431,34 @@ public final class FileUtil {
         }
 
         // get the Zip file content
-        ZipInputStream zis = new ZipInputStream(new FileInputStream(zipFile));
-        // get the zipped file list entry
-        ZipEntry ze = zis.getNextEntry();
+        try (ZipInputStream zis = new ZipInputStream(new FileInputStream(zipFile))) {
+            // get the zipped file list entry
+            ZipEntry ze = zis.getNextEntry();
 
-        while (ze != null) {
-            File newFile = null;
-            if (handleZipSlip) {
-                newFile = newFile(outputFolder, ze); // Prevents Zip slip vulnerability
-                if (null == newFile) {
-                    zis.closeEntry();
-                    zis.close();
-                    return false;
+            while (ze != null) {
+                File newFile = null;
+                if (handleZipSlip) {
+                    newFile = newFile(outputFolder, ze); // Prevents Zip slip vulnerability
+                    if (null == newFile) {
+                        zis.closeEntry();
+                        return false;
+                    }
+                } else {
+                    newFile = new File(outputFolder, ze.getName());
                 }
-            } else {
-                newFile = new File(outputFolder, ze.getName());
-            }
-            //create all non existing folders
-            //else you will hit FileNotFoundException for compressed folder
-            new File(newFile.getParent()).mkdirs();
+                //create all non existing folders
+                //else you will hit FileNotFoundException for compressed folder
+                new File(newFile.getParent()).mkdirs();
 
-            FileOutputStream fos = new FileOutputStream(newFile);
-            int len;
-            while ((len = zis.read(buffer)) > 0) {
-                fos.write(buffer, 0, len);
+                try (FileOutputStream fos = new FileOutputStream(newFile)) {
+                    int len;
+                    while ((len = zis.read(buffer)) > 0) {
+                        fos.write(buffer, 0, len);
+                    }
+                }
+                ze = zis.getNextEntry();
             }
-            fos.close();
-            ze = zis.getNextEntry();
         }
-        zis.closeEntry();
-        zis.close();
         return true;
     }
 

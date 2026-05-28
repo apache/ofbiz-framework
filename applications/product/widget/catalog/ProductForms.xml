@@ -306,8 +306,6 @@ under the License.
                 <sort-field name="shippingWeight"/>
                 <sort-field name="quantityIncluded"/>
                 <sort-field name="quantityUomId"/>
-                <sort-field name="quantityIncluded"/>
-                <sort-field name="quantityUomId"/>
             </field-group>
             <field-group title="${uiLabelMap.CommonShipping}" collapsible="true" initially-collapsed="true">
                 <sort-field name="piecesIncluded"/>

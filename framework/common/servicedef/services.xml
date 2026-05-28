@@ -169,7 +169,6 @@ under the License.
         <required-permissions join-type="AND"><check-permission permission="PERIOD_MAINT"/></required-permissions>
         <auto-attributes mode="OUT" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
-        <attribute name="organizationPartyId" type="String" mode="IN" optional="false"/><!-- FIXME: Framework dependency on Party component -->
         <override name="fromDate" optional="false"/>
         <override name="thruDate" optional="false"/>
         <override name="periodTypeId" optional="false"/>
@@ -435,6 +434,7 @@ under the License.
         location="org.apache.ofbiz.common.login.LoginServices" invoke="createUserLogin">
         <description>Create a UserLogin</description>
         <attribute name="userLoginId" type="String" mode="IN" optional="false"/>
+        <attribute name="userFullName" type="String" mode="IN" optional="true"/>
         <attribute name="enabled" type="String" mode="IN" optional="true"/>
         <attribute name="currentPassword" type="String" mode="IN" optional="false"/>
         <attribute name="currentPasswordVerify" type="String" mode="IN" optional="false"/>

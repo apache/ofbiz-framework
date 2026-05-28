@@ -213,7 +213,7 @@ under the License.
             the issuance is done.
             If locationSeqIds are provided, then the items are only issued from the inventory items associated to the locations.
             If failIfItemsAreNotAvailable is set to "Y" (the default is "Y") then the service fails if there is not enough inventory available:
-            no reservation will be stolen.
+            no reservation will be reallocated.
             If failIfItemsAreNotOnHand is set to "Y" (the default is "Y") then the service fails if there is not enough inventory:
             no items with negative qoh will be created.
             If lotId is filled, failIfItemsAreNotAvailable is set to automatically set to "Y".
@@ -226,10 +226,41 @@ under the License.
         <attribute name="failIfItemsAreNotOnHand" type="String" mode="IN" optional="true"/>
         <attribute name="reserveOrderEnumId" type="String" mode="IN" optional="true"/>
         <attribute name="lotId" mode="IN" type="String" optional="true" />
+        <attribute name="inventoryItemId" type="String" mode="IN" optional="true"/>
         <attribute name="locationSeqId" type="String" mode="IN" optional="true"/>
         <attribute name="secondaryLocationSeqId" type="String" mode="IN" optional="true"/>
         <attribute name="reasonEnumId" type="String" mode="IN" optional="true"/>
         <attribute name="description" type="String" mode="IN" optional="true"/>
+    </service>
+    
+    <service name="executeProductionRunTaskComponentAtomic" engine="groovy"
+             location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/jobshopmgt/ProductionRunServicesScript.groovy" invoke="executeProductionRunTaskComponentAtomic" auth="false">
+        <description>
+            Bypasses chronological sweeping to instantly issue inventory specifically from the passed inventoryItemId inline.
+        </description>
+        <attribute name="workEffortId" type="String" mode="IN" optional="false"/>
+        <attribute name="productId" type="String" mode="IN" optional="false"/>
+        <attribute name="inventoryItemId" type="String" mode="IN" optional="true"/>
+        <attribute name="quantity" type="BigDecimal" mode="IN" optional="true"/>
+        <attribute name="failIfItemsAreNotAvailable" type="String" mode="IN" optional="true"/>
+        <attribute name="failIfItemsAreNotOnHand" type="String" mode="IN" optional="true"/>
+        <attribute name="reserveOrderEnumId" type="String" mode="IN" optional="true"/>
+        <attribute name="reasonEnumId" type="String" mode="IN" optional="true"/>
+        <attribute name="description" type="String" mode="IN" optional="true"/>
+    </service>
+
+    <service name="reconcileGlobalReservations" engine="groovy"
+             location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/jobshopmgt/ProductionRunServicesScript.groovy" invoke="reconcileGlobalReservationsService" auth="false">
+        <description>
+            Reconciles reservations system-wide after an inventory issuance to ensure ATP/QOH consistency.
+        </description>
+        <attribute name="inventoryItemId" type="String" mode="IN" optional="true"/>
+        <attribute name="amountToIssue" type="BigDecimal" mode="IN" optional="true"/>
+        <attribute name="currentWorkEffortId" type="String" mode="IN" optional="true"/>
+        <attribute name="strategy" type="String" mode="IN" optional="true"/>
+        <attribute name="failAvailable" type="String" mode="IN" optional="true"/>
+        <attribute name="allowInventoryReallocation" type="String" mode="IN" optional="true"/>
+        <attribute name="impactedTaskIds" type="List" mode="OUT" optional="true"/>
     </service>
     <service name="issueInventoryItemToWorkEffort" engine="groovy"
              location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/jobshopmgt/ProductionRunServicesScript.groovy" invoke="issueInventoryItemToWorkEffort" auth="false">
@@ -308,7 +339,7 @@ under the License.
             If the inventory item is for a 'marketing package' run the decomposeInventoryItem service.
             It is intended to be called as seca when a marketing package is received into warehouse (e.g. from a return).
         </description>
-        <attribute name="inventoryItemId" type="String" mode="IN" optional="false"/>
+        <attribute name="inventoryItemId" type="String" mode="IN" optional="true"/>
         <!--<attribute name="quantityAccepted" type="BigDecimal" mode="IN" optional="true"/>-->
     </service>
     <service name="decomposeInventoryItem" engine="java"
@@ -393,4 +424,138 @@ under the License.
         <description>Compute the actual costs for the production run task.</description>
         <attribute mode="IN" name="productionRunTaskId" optional="false" type="String"/>
     </service>
+
+    <!-- Manufacturing Inventory Reservation Services -->
+    <service name="reserveWorkEffortInventory" engine="groovy"
+             location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/jobshopmgt/ProductionRunResServices.groovy" invoke="reserveWorkEffortInventory" auth="true">
+        <description>Handles DB insert/update for WorkEffortInvRes</description>
+        <attribute name="workEffortId" type="String" mode="IN" optional="false"/>
+        <attribute name="inventoryItemId" type="String" mode="IN" optional="false"/>
+        <attribute name="productId" type="String" mode="IN" optional="true"/>
+        <attribute name="quantity" type="BigDecimal" mode="IN" optional="false"/>
+        <attribute name="reserveOrderEnumId" type="String" mode="IN" optional="true"/>
+        <attribute name="quantityNotAvailable" type="BigDecimal" mode="IN" optional="true"/>
+        <attribute name="reservedDatetime" type="java.sql.Timestamp" mode="IN" optional="true"/>
+        <attribute name="promisedDatetime" type="java.sql.Timestamp" mode="IN" optional="true"/>
+        <attribute name="sequenceId" type="Long" mode="IN" optional="true"/>
+    </service>
+    <service name="reserveWorkEffortInventoryItem" engine="groovy"
+             location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/jobshopmgt/ProductionRunResServices.groovy" invoke="reserveWorkEffortInventoryItem" auth="true">
+        <description>Manufacturing-specific wrapper for inventory reservation. Provides a flexible extension point for production business rules (e.g., lot selection, task status checks) that should not be implemented in the generic core engine.</description>
+        <attribute name="workEffortId" type="String" mode="IN" optional="false"/>
+        <attribute name="productId" type="String" mode="IN" optional="false"/>
+        <attribute name="facilityId" type="String" mode="IN" optional="false"/>
+        <attribute name="quantity" type="BigDecimal" mode="IN" optional="false"/>
+        <attribute name="quantityNotAvailable" type="BigDecimal" mode="IN" optional="true"/>
+        <attribute name="inventoryItemId" type="String" mode="IN" optional="true"/>
+        <attribute name="requireInventory" type="String" mode="IN" optional="true"/>
+        <attribute name="reserveOrderEnumId" type="String" mode="IN" optional="true"/>
+        <attribute name="lotId" type="String" mode="IN" optional="true"/>
+    </service>
+    <service name="autoReserveWorkEffortInventory" engine="groovy"
+             location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/jobshopmgt/ProductionRunResServices.groovy" invoke="autoReserveWorkEffortInventory" auth="true">
+        <description>Automated inventory reservation for all components of a production run.</description>
+        <attribute name="productionRunId" type="String" mode="IN" optional="true"/>
+        <attribute name="workEffortId" type="String" mode="IN" optional="true"/>
+        <attribute name="reserveOrderEnumId" type="String" mode="IN" optional="true"/>
+    </service>
+    <service name="checkProductionRunFacilityAutoReserve" engine="groovy"
+             location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/jobshopmgt/ProductionRunResServices.groovy" invoke="checkProductionRunFacilityAutoReserve" auth="true">
+        <description>Condition service to check if auto-reservation is enabled for the production run's facility.</description>
+        <attribute name="productionRunId" type="String" mode="IN" optional="true"/>
+        <attribute name="workEffortId" type="String" mode="IN" optional="true"/>
+        <attribute name="serviceContext" type="Map" mode="IN" optional="true"/>
+        <attribute name="conditionReply" type="Boolean" mode="OUT" optional="false"/>
+    </service>
+    <service name="getProductionRunTaskForceIssueImpact" engine="groovy" auth="true"
+             location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/jobshopmgt/ProductionRunResServices.groovy" invoke="getProductionRunTaskForceIssueImpact">
+        <attribute name="workEffortId" type="String" mode="IN"/>
+        <attribute name="productId" type="String" mode="IN" optional="true"/>
+        <attribute name="reserveOrderEnumId" type="String" mode="IN" optional="true"/>
+        <attribute name="impactList" type="List" mode="OUT" optional="true"/>
+        <attribute name="inventoryIssuePlan" type="List" mode="OUT" optional="true"/>
+        <attribute name="totalNeededQuantity" type="BigDecimal" mode="OUT" optional="true"/>
+        <attribute name="facilityId" type="String" mode="OUT" optional="true"/>
+        <attribute name="policyViolation" type="String" mode="OUT" optional="true"/>
+    </service>
+    <service name="releaseProductionRunTaskComponent" engine="groovy"
+             location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/jobshopmgt/ProductionRunResServices.groovy" invoke="releaseProductionRunTaskComponent" auth="true">
+        <description>Cancels reservations</description>
+        <attribute name="workEffortId" type="String" mode="IN" optional="false"/>
+        <attribute name="inventoryItemId" type="String" mode="IN" optional="false"/>
+        <attribute name="productId" type="String" mode="IN" optional="false"/>
+        <attribute name="quantity" type="BigDecimal" mode="IN" optional="true"/>
+        <attribute name="appendInventoryItemDetail" type="Boolean" mode="IN" optional="true" default-value="true"/>
+    </service>
+    <service name="getTaskQuantities" engine="groovy"
+             location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/jobshopmgt/ProductionRunResServices.groovy" invoke="getTaskQuantities" auth="true">
+        <description>Helper calculating total issued + reserved per component</description>
+        <attribute name="workEffortId" type="String" mode="IN" optional="false"/>
+        <attribute name="productId" type="String" mode="IN" optional="false"/>
+        <attribute name="fromDate" type="java.sql.Timestamp" mode="IN" optional="true"/>
+        <attribute name="issuedQuantity" type="BigDecimal" mode="OUT" optional="false"/>
+        <attribute name="reservedQuantity" type="BigDecimal" mode="OUT" optional="false"/>
+        <attribute name="netReservedQuantity" type="BigDecimal" mode="OUT" optional="false"/>
+        <attribute name="shortfallQuantity" type="BigDecimal" mode="OUT" optional="false"/>
+        <attribute name="unaccountedQuantity" type="BigDecimal" mode="OUT"/>
+        <attribute name="remainingQuantity" type="BigDecimal" mode="OUT"/>
+        <attribute name="requiredQuantity" type="BigDecimal" mode="OUT" optional="false"/>
+    </service>
+    <service name="createWorkEffortInvRes" default-entity-name="WorkEffortInvRes" engine="entity-auto" invoke="create" auth="true">
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="updateWorkEffortInvRes" default-entity-name="WorkEffortInvRes" engine="entity-auto" invoke="update" auth="true">
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="deleteWorkEffortInvRes" default-entity-name="WorkEffortInvRes" engine="entity-auto" invoke="delete" auth="true">
+        <attribute name="workEffortId" type="String" mode="IN" optional="false"/>
+        <attribute name="inventoryItemId" type="String" mode="IN" optional="false"/>
+        <attribute name="productId" type="String" mode="IN" optional="false"/>
+    </service>
+    <service name="reallocateAndIssueInventory" engine="groovy"
+             location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/jobshopmgt/ProductionRunResServices.groovy" invoke="reallocateAndIssueInventory" auth="true">
+        <description>Performs Move-Then-Issue: Reallocates reservations from affected reservations to the current task, then issues.</description>
+        <attribute name="workEffortId" type="String" mode="IN" optional="false"/>
+        <attribute name="productId" type="String" mode="IN" optional="true"/>
+        <attribute name="reserveOrderEnumId" type="String" mode="IN" optional="true"/>
+        <attribute name="inventoryIssuePlan" type="List" mode="INOUT" optional="true"/>
+        <attribute name="impactList" type="List" mode="INOUT" optional="true"/>
+        <attribute name="productionRunId" type="String" mode="INOUT" optional="true"/>
+        <attribute name="failIfItemsAreNotAvailable" type="String" mode="IN" optional="true"/>
+        <attribute name="failIfItemsAreNotOnHand" type="String" mode="IN" optional="true"/>
+    </service>
+    <service name="reassignWorkEffortInventoryReservations" engine="groovy"
+             location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/jobshopmgt/ProductionRunResServices.groovy" invoke="reassignWorkEffortInventoryReservations" auth="true">
+        <description>
+            Reassigns inventory reservations for a product in a facility to fulfill production run task's backorders.
+            Commonly triggered after inventory receipt or production issuance.
+        </description>
+        <attribute name="productId" type="String" mode="IN" optional="true"/>
+        <attribute name="facilityId" type="String" mode="IN" optional="true"/>
+        <attribute name="inventoryItemId" type="String" mode="IN" optional="true"/>
+        <attribute name="workEffortIds" type="List" mode="IN" optional="true"/>
+        <attribute name="satisfiedCount" type="Integer" mode="OUT" optional="true"/>
+    </service>
+    <service name="checkProductionRunFacilityRecon" engine="groovy"
+            location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/jobshopmgt/ProductionRunResServices.groovy" invoke="checkProductionRunFacilityRecon" auth="true">
+        <description>Condition service for SECA: Checks if a facility has reconcilePrunBackorders enabled.</description>
+        <attribute name="inventoryItemId" type="String" mode="IN" optional="true"/>
+        <attribute name="serviceContext" type="Map" mode="IN" optional="true"/>
+        <attribute mode="OUT" name="productId" type="String" optional="true"/>
+        <attribute mode="OUT" name="facilityId" type="String" optional="true"/>
+        <attribute mode="OUT" name="conditionReply" type="Boolean" optional="true"/>
+    </service>
+    <service name="reconcileInventoryForProductionJobs" engine="groovy" transaction-timeout="3600"
+             location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/jobshopmgt/ProductionRunResServices.groovy" invoke="reconcileInventoryForProductionJobs" auth="true">
+        <description>
+            Nightly scheduled job responsible for maintaining inventory integrity across active production runs.
+            Enforces inventory integrity by auditing logical reservations against physical stock and operational policies.
+            Behavior is governed by two facility-level flags:
+            1. allowInventoryReallocation: Informs the auditor's strictness in purging orphaned debt from daily reallocations.
+            2. reconcilePrunBackorders: Gates the Satisfier's ability to auto-settle valid production run backorders using pool stock.
+        </description>
+    </service>
+
 </services>

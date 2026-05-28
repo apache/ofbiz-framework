@@ -23,6 +23,7 @@ import java.util.Map;
 import org.apache.ofbiz.base.util.UtilXml;
 import org.apache.ofbiz.entity.condition.EntityCondition;
 import org.apache.ofbiz.entity.finder.EntityFinderUtil.Condition;
+import org.apache.ofbiz.entity.finder.EntityFinderUtil.ConditionDate;
 import org.apache.ofbiz.entity.finder.EntityFinderUtil.ConditionExpr;
 import org.apache.ofbiz.entity.finder.EntityFinderUtil.ConditionList;
 import org.apache.ofbiz.entity.finder.EntityFinderUtil.ConditionObject;
@@ -47,15 +48,15 @@ public class ByConditionFinder extends ListFinder {
         // NOTE: the whereCondition can be null, ie (condition-expr | condition-list) is optional; if left out, means find all,
         // or with no condition in essense
         // process condition-expr | condition-list
-        Element conditionExprElement = UtilXml.firstChildElement(element, "condition-expr");
-        Element conditionListElement = UtilXml.firstChildElement(element, "condition-list");
-        Element conditionObjectElement = UtilXml.firstChildElement(element, "condition-object");
-        if (conditionExprElement != null) {
-            this.whereCondition = new ConditionExpr(conditionExprElement);
-        } else if (conditionListElement != null) {
-            this.whereCondition = new ConditionList(conditionListElement);
-        } else if (conditionObjectElement != null) {
-            this.whereCondition = new ConditionObject(conditionObjectElement);
+        Element conditionElement = UtilXml.firstChildElement(element);
+        if (conditionElement != null) {
+            this.whereCondition = switch (UtilXml.getTagNameIgnorePrefix(conditionElement)) {
+            case "condition-expr" -> new ConditionExpr(conditionElement);
+            case "condition-date" -> new ConditionDate(conditionElement);
+            case "condition-list" -> new ConditionList(conditionElement);
+            case "condition-object" -> new ConditionObject(conditionElement);
+            default -> null;
+            };
         }
 
         Element havingConditionListElement = UtilXml.firstChildElement(element, "having-condition-list");

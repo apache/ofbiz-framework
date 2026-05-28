@@ -761,6 +761,8 @@ public class ShipmentServices {
             Map<String, BigDecimal> receivedCountMap = new HashMap<>();
             for (GenericValue item: shipmentReceipts) {
                 BigDecimal receivedQuantity = item.getBigDecimal("quantityAccepted");
+                BigDecimal rejectedQuantity = item.getBigDecimal("quantityRejected");
+                receivedQuantity = rejectedQuantity == null ? receivedQuantity : receivedQuantity.add(rejectedQuantity);
                 BigDecimal quantity = receivedCountMap.get(item.getString("productId"));
                 quantity = quantity == null ? receivedQuantity : receivedQuantity.add(quantity);
                 receivedCountMap.put(item.getString("productId"), quantity);

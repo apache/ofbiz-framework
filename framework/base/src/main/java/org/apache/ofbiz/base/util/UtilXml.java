@@ -429,10 +429,9 @@ public final class UtilXml {
             throw new IOException("Domain " + urlHost + " not accepted to prevent host header injection."
                     + " You need to set host-headers-allowed property in security.properties file.");
         }
-        InputStream is = url.openStream();
-        Document document = readXmlDocument(is, validate, url.toString(), withPosition);
-        is.close();
-        return document;
+        try (InputStream is = url.openStream()) {
+            return readXmlDocument(is, validate, url.toString(), withPosition);
+        }
     }
 
     public static Document readXmlDocument(InputStream is, String docDescription)

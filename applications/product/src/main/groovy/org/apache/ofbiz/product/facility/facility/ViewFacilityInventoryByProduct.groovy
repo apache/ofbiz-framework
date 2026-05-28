@@ -143,7 +143,7 @@ if (action) {
     try {
         beganTransaction = TransactionUtil.begin()
         prodsPagedList = from(prodView).where(whereCondition).orderBy('productId').cursorScrollInsensitive()
-                .distinct().queryPagedList(lowIndex, highIndex)
+                .distinct().queryPagedList(viewIndex, viewSize)
         prods = prodsPagedList.getData()
         listSize = prodsPagedList.getSize()
     } catch (GenericEntityException e) {

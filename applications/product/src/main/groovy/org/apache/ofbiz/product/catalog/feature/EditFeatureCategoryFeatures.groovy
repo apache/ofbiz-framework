@@ -73,7 +73,7 @@ try {
                             .distinct()
                             .cursorScrollInsensitive()
                             .maxRows(highIndex)
-                            .queryPagedList(lowIndex + 1, highIndex - lowIndex)
+                            .queryPagedList(viewIndex, viewSize)
     productFeatures = productFeaturesPagedList.getData()
 } catch (GenericEntityException e) {
     String errMsg = 'Failure in operation, rolling back transaction'

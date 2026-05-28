@@ -22,6 +22,7 @@ under the License.
     <RecurrenceRule recurrenceRuleId="300" untilDateTime="" frequency="DAILY" intervalNumber="1" countNumber="-1"/>
     <RecurrenceInfo recurrenceInfoId="300" startDateTime="2000-01-01 22:00:00.000" recurrenceRuleId="300" recurrenceCount="0"/>
     <RecurrenceInfo recurrenceInfoId="301" startDateTime="2000-01-01 23:00:00.000" recurrenceRuleId="300" recurrenceCount="0"/>
+    <RecurrenceInfo recurrenceInfoId="302" startDateTime="2000-01-01 01:00:00.000" recurrenceRuleId="300" recurrenceCount="0"/>
     <!--
       The initLowLevelCode service is used to properly initialize the products' low level codes (Product.billOfMaterialsLevel field).
       This information is needed by the MRP algorithm (executeMrp service) and by the standard cost algorithm (calculateAllProductsCosts service).
@@ -62,4 +63,9 @@ under the License.
     </RuntimeData>
 
     <JobSandbox jobId="8401" jobName="Calculate product costs" runTime="2000-01-01 00:00:00.000" serviceName="calculateAllProductsCosts" runtimeDataId="8401" poolId="pool" runAsUser="system" recurrenceInfoId="301"/>
+    <!--
+      The reconcileInventoryForProductionJobs service is a nightly cleanup job that audits logical debt (phantom backorders)
+      and auto-satisfies legitimate backorders based on facility policies.
+    -->
+    <JobSandbox jobId="8402" jobName="Nightly Inventory Reconciliation" runTime="2000-01-01 00:00:00.000" serviceName="reconcileInventoryForProductionJobs" poolId="pool" runAsUser="system" recurrenceInfoId="302"/>
 </entity-engine-xml>

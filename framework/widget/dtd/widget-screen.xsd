@@ -63,7 +63,6 @@ under the License.
             <xs:element ref="not" />
             <xs:element ref="if-service-permission" />
             <xs:element ref="if-has-permission" />
-            <xs:element ref="if-entity-permission" />
             <xs:element ref="if-validate-method" />
             <xs:element ref="if-compare" />
             <xs:element ref="if-compare-field" />

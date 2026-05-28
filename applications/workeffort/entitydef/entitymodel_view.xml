@@ -608,6 +608,37 @@ under the License.
             <key-map field-name="inventoryItemId"/>
         </view-link>
     </view-entity>
+    <view-entity entity-name="WorkEffortInvResAndItem"
+                 package-name="org.apache.ofbiz.workeffort.workeffort"
+                 title="Inventory Item and Inventory Reservation For Work Effort">
+      <description>Inventory Item and Inventory Reservation For Work Effort</description>
+      <member-entity entity-alias="WEIR" entity-name="WorkEffortInvRes"/>
+      <member-entity entity-alias="II" entity-name="InventoryItem"/>
+      <member-entity entity-alias="WE" entity-name="WorkEffort"/>
+      <alias-all entity-alias="WEIR"/>
+      <alias-all entity-alias="II">
+          <exclude field="productId"/>
+      </alias-all>
+      <alias entity-alias="II" name="inventoryProductId" field="productId"/>
+      <alias entity-alias="WE" name="workEffortParentId"/>
+      <view-link entity-alias="WEIR" rel-entity-alias="II" rel-optional="true">
+        <key-map field-name="inventoryItemId"/>
+      </view-link>
+      <view-link entity-alias="WEIR" rel-entity-alias="WE">
+        <key-map field-name="workEffortId"/>
+      </view-link>
+    </view-entity>
+    <view-entity entity-name="WorkEffortInventoryAssignAndItem"
+                 package-name="org.apache.ofbiz.workeffort.workeffort"
+                 title="Inventory Item and Assignment For Work Effort">
+        <member-entity entity-alias="WEIA" entity-name="WorkEffortInventoryAssign"/>
+        <member-entity entity-alias="II" entity-name="InventoryItem"/>
+        <alias-all entity-alias="WEIA"/>
+        <alias entity-alias="II" name="productId"/>
+        <view-link entity-alias="WEIA" rel-entity-alias="II">
+            <key-map field-name="inventoryItemId"/>
+        </view-link>
+    </view-entity>
     <view-entity entity-name="WorkEffortPartyAssignView"
                  package-name="org.apache.ofbiz.workeffort.workeffort"
                  title="Work Effort And Party Assignment and PartyNameView">

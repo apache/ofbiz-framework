@@ -836,13 +836,10 @@ under the License.
     <CustomMethod customMethodId="GIFT_AUTH_OFBIZ" customMethodTypeId="GIFT_AUTH" customMethodName="ofbGcAuthorize" description="GIFT card authorize"/>
     <CustomMethod customMethodId="GIFT_AUTH_ALWAYSAPPR" customMethodTypeId="GIFT_AUTH" customMethodName="alwaysApproveGCProcessor" description="GIFT card always authorize"/>
     <CustomMethod customMethodId="GIFT_AUTH_ALWAYSDECL" customMethodTypeId="GIFT_AUTH" customMethodName="alwaysDeclineGCProcessor" description="GIFT card always decline"/>
-    <CustomMethod customMethodId="GIFT_AUTH_VALUELINK" customMethodTypeId="GIFT_AUTH" customMethodName="valueLinkProcessor" description="GIFT card ValueLink authorize"/>
     <CustomMethod customMethodId="GIFT_CAPTURE_OFBIZ" customMethodTypeId="GIFT_CAPTURE" customMethodName="ofbGcProcessor" description="GIFT card capture"/>
     <CustomMethod customMethodId="GIFT_REFUND_OFBIZ" customMethodTypeId="GIFT_REFUND" customMethodName="ofbGcRefund" description="GIFT card refund"/>
-    <CustomMethod customMethodId="GIFT_REFUND_VALUELI" customMethodTypeId="GIFT_REFUND" customMethodName="valueLinkRefund" description="GIFT card ValueLink refund"/>
     <CustomMethod customMethodId="GIFT_RELEASE_OFBIZ" customMethodTypeId="GIFT_RELEASE" customMethodName="ofbGcRelease" description="GIFT card release"/>
     <CustomMethod customMethodId="GIFT_RELEASE_TEST" customMethodTypeId="GIFT_RELEASE" customMethodName="testGCRelease" description="GIFT card test release"/>
-    <CustomMethod customMethodId="GIFT_RELEASE_VALUEL" customMethodTypeId="GIFT_RELEASE" customMethodName="valueLinkRelease" description="GIFT card ValueLink release"/>
     <CustomMethod customMethodId="GIFT_PURCH_OFBIZ" customMethodTypeId="GIFT_PURCHASE" customMethodName="ofbGcPurchase" description="GIFT card Purchase Fulfillment Service"/>
 
     <CustomMethod customMethodId="PAYPAL_AUTH_PFP" customMethodTypeId="PAYPAL_AUTH" customMethodName="payflowPayPalProcessor" description="Payflow PayPal payment authorize"/>

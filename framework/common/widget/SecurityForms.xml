@@ -69,7 +69,6 @@ under the License.
     <form name="AddUserLogin" type="single" target="${createUserLoginURI}"
         focus-field-name="userLoginId" header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createUserLogin"/>
-        <field name="partyId"><hidden/></field>
         <field name="enabled"><hidden/></field>
         <field name="currentPassword" required-field="true"><password/></field>
         <field name="currentPasswordVerify" required-field="true"><password/></field>
@@ -81,16 +80,13 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="text-link"/></field>
         <field name="cancelLink" title=" " widget-style="smallSubmit">
-            <hyperlink description="${uiLabelMap.CommonCancelDone}" target="${cancelPage}" also-hidden="false">
-                <parameter param-name="partyId"/>
-            </hyperlink>
+            <hyperlink description="${uiLabelMap.CommonCancelDone}" target="${cancelPage}" also-hidden="false"/>
         </field>
     </form>
 
     <form name="AddUserLoginSecurityGroup" type="single" target="${addUserLoginSecurityGroupURI}"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="addUserLoginToSecurityGroup"/>
-        <field name="partyId"><hidden value="${partyId}"/></field>
         <field name="userLoginId"><hidden/></field>
         <field name="groupId" title="${uiLabelMap.CommonGroup}">
             <drop-down allow-empty="false">
@@ -116,9 +112,7 @@ under the License.
         <field name="description" title="${uiLabelMap.CommonDescription}"><text size="60" maxlength="250"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}"><submit button-type="button"/></field>
         <field name="cancelLink" title=" " widget-style="smallSubmit">
-            <hyperlink description="${uiLabelMap.CommonCancelDone}" target="${cancelPage}" also-hidden="false">
-                <parameter param-name="partyId"/>
-            </hyperlink>
+            <hyperlink description="${uiLabelMap.CommonCancelDone}" target="${cancelPage}" also-hidden="false"/>
         </field>
     </form>
 
@@ -222,6 +216,7 @@ under the License.
                 <parameter param-name="userLoginId"/>
             </hyperlink>
         </field>
+        <field name="userFullName" sort-field="true"><display/></field>
         <field name="enabled" sort-field="true"><display/></field>
         <field name="hasLoggedOut" sort-field="true"><display/></field>
         <field name="disabledDateTime" sort-field="true"><display/></field>
@@ -234,7 +229,6 @@ under the License.
                 <order-by field-name="groupId"/>
             </entity-condition>
         </actions>
-        <field name="partyId"><hidden value="${partyId}"/></field>
         <field name="groupIdCol" title="${uiLabelMap.CommonSecurityGroupId}" widget-style="buttontext">
             <hyperlink description="${groupId}" target="EditSecurityGroup">
                     <parameter param-name="groupId"/>
@@ -249,7 +243,6 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
         <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink description="${uiLabelMap.CommonExpire}" target="${expireUserLoginSecurityGroupURI}" also-hidden="false">
-                <parameter param-name="partyId"/>
                 <parameter param-name="userLoginId"/>
                 <parameter param-name="groupId"/>
                 <parameter param-name="fromDate"/>
@@ -267,7 +260,6 @@ under the License.
             <set field="passwordHint" from-field="editUserLogin.passwordHint"/>
         </actions>
         <auto-fields-service service-name="updatePassword"/>
-        <field name="partyId"><hidden/></field>
         <field name="userLoginId"><hidden/></field>
         <field name="currentPassword"><password/></field>
         <field name="newPassword"><password/></field>
@@ -276,7 +268,6 @@ under the License.
         <field name="cancelLink" title=" " widget-style="smallSubmit">
             <hyperlink description="${uiLabelMap.CommonCancelDone}" target="${cancelPage}" also-hidden="false">
                 <parameter param-name="userLoginId"/>
-                <parameter param-name="partyId"/>
             </hyperlink>
         </field>
     </form>
@@ -287,7 +278,6 @@ under the License.
             <property-to-field field="ldapEnabled" resource="security" property="security.ldap.enable"/>
         </actions>
         <auto-fields-service service-name="updateUserLoginSecurity"/>
-        <field name="partyId"><hidden/></field>
         <field name="userLoginId"><hidden/></field>
         <field name="userLdapDn" use-when="&quot;true&quot;.equals(ldapEnabled)"><text/></field>
         <field name="userLdapDn" use-when="!&quot;true&quot;.equals(ldapEnabled)"><ignored/></field>
@@ -295,7 +285,6 @@ under the License.
         <field name="cancelLink" title=" " widget-style="smallSubmit">
             <hyperlink description="${uiLabelMap.CommonCancelDone}" target="${cancelPage}" also-hidden="false">
                 <parameter param-name="userLoginId"/>
-                <parameter param-name="partyId"/>
             </hyperlink>
         </field>
     </form>

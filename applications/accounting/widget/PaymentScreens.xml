@@ -169,9 +169,7 @@ under the License.
                 <set field="helpAnchor" value="_help_for_payment_applications"/>
                 <set field="paymentId" from-field="parameters.paymentId"/>
                 <entity-one entity-name="Payment" value-field="payment"/>
-                <set field="appliedAmount" type="String" value="${groovy:
-                    import java.text.NumberFormat;
-                    return(NumberFormat.getNumberInstance(context.get(&quot;locale&quot;)).format(org.apache.ofbiz.accounting.payment.PaymentWorker.getPaymentApplied(payment)));}"/>
+                <set field="appliedAmount" type="BigDecimal" value="${groovy:org.apache.ofbiz.accounting.payment.PaymentWorker.getPaymentApplied(payment)}"/>
                 <set field="notAppliedAmount" type="BigDecimal" value="${groovy:org.apache.ofbiz.accounting.payment.PaymentWorker.getPaymentNotApplied(payment)}"/>
                 <set field="notAppliedAmountStr" type="String" value="${groovy:
                     import java.text.NumberFormat;

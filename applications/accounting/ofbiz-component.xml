@@ -57,7 +57,6 @@ under the License.
     <service-resource type="model" loader="main" location="servicedef/services_paypal.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_pccharge.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_rita.xml"/>
-    <service-resource type="model" loader="main" location="servicedef/services_valuelink.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_verisign.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_orbital.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_securepay.xml"/>

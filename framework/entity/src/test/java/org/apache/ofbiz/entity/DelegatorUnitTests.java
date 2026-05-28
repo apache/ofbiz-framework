@@ -39,7 +39,6 @@ public class DelegatorUnitTests {
     @Before
     public void initialize() {
         System.setProperty("ofbiz.home", System.getProperty("user.dir"));
-        System.setProperty("derby.system.home", "./runtime/data/derby");
         logErrorOn = Debug.isOn(Debug.ERROR); // save the current setting (to be restored after the tests)
         Debug.set(Debug.ERROR, false); // disable error logging
     }

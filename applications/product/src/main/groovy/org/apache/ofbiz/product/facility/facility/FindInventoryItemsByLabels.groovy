@@ -63,7 +63,7 @@ if (andCondition.size() > 1) {
 
         beganTransaction = TransactionUtil.begin()
         inventoryItemsPagedList = from(inventoryItemAndLabelsView)
-                .where(andCondition).cursorScrollInsensitive().distinct().maxRows(highIndex).queryPagedList(lowIndex, viewSize)
+                .where(andCondition).cursorScrollInsensitive().distinct().maxRows(highIndex).queryPagedList(viewIndex, viewSize)
 
         inventoryItemsSize = inventoryItemsPagedList.getSize()
         context.inventoryItemsSize = inventoryItemsSize

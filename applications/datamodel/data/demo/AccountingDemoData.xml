@@ -1330,7 +1330,7 @@ under the License.
     <Party partyId="AcctBuyer" partyTypeId="PERSON"/>
     <Person partyId="AcctBuyer" firstName="Acct" lastName="Buyer"/>
     <PartyRole partyId="AcctBuyer" roleTypeId="BUYER"/>
-    <UserLogin partyId="AcctBuyer" userLoginId="AcctBuyer"/>
+    <UserLogin partyId="AcctBuyer" userLoginId="AcctBuyer" userFullName="Acct Buyer"/>
     <SecurityGroup groupId="ORDERPURCH"/><!-- is needed because accounting is before order -->
     <UserLoginSecurityGroup userLoginId="AcctBuyer" groupId="ORDERPURCH" fromDate="2001-05-13 00:00:00"/>
 
@@ -1545,7 +1545,7 @@ under the License.
     <PartyRole partyId="accountingadmin" roleTypeId="EMPLOYEE"/>
     <PartyRole partyId="accountingadmin" roleTypeId="_NA_"/>
     <PartyStatus partyId="accountant_group" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
-    <UserLogin userLoginId="accountingadmin" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" partyId="accountingadmin"/>
+    <UserLogin userLoginId="accountingadmin" userFullName="Accounting Administrator" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" partyId="accountingadmin"/>
     <UserLoginSecurityGroup groupId="ACCTG_FUNCTNL_ADMIN" userLoginId="accountingadmin" fromDate="2001-01-01 12:00:00.0"/>
 
     <PartyRelationship partyIdFrom="Company" partyIdTo="accountingadmin" partyRelationshipTypeId="EMPLOYMENT" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="EMPLOYEE" fromDate="2001-01-01 12:00:00.0"/>
