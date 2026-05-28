@@ -22,7 +22,7 @@
         "moment-timezone": "^0.6.2",
         "moment-with-locales-es6": "^1.0.1",
         "readmore-js": "^2.2.1",
-        "select2": "^4.0.13",
+        "select2": "^4.1.0",
         "trumbowyg": "^2.31.0",
         "uglify-js": "3.19.3"
     },
