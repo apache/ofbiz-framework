@@ -369,8 +369,11 @@ eclipse.classpath.file.whenMerged { classpath ->
 tasks.eclipse.dependsOn(cleanEclipse)
 
 test {
-    useJUnit()
+    useJUnitPlatform()
     jvmArgs "-javaagent:${classpath.find { it.name.contains('jmockit') }.absolutePath}"
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
 }
 
 
