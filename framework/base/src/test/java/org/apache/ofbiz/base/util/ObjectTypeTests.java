@@ -37,14 +37,14 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TimeZone;
 
-import org.junit.After;
-import org.junit.Before;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.w3c.dom.Document;
 
 import com.ibm.icu.util.Calendar;
 
-public class ObjectTypeTests {
+public final class ObjectTypeTests {
     private static final LocaleData LOCALE_DATA = new LocaleData("en_US", "Pacific/Wake", "fr", "GMT");
     private final TimeDuration duration = new TimeDuration(0, 0, 0, 1, 1, 1, 1);
     // These numbers are all based on 1 / 128, which is a binary decimal
@@ -96,12 +96,12 @@ public class ObjectTypeTests {
         }
     }
 
-    @Before
+    @BeforeEach
     public void setUp() {
         System.setProperty("testBigDecimal", "bypassLocaleChange");
     }
 
-    @After
+    @AfterEach
     public void tearDown() {
         System.clearProperty("testBigDecimal");
     }
