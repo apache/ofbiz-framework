@@ -18,8 +18,8 @@
  */
 package org.apache.ofbiz.webapp.control;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -28,7 +28,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 import org.apache.ofbiz.entity.GenericValue;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class ExternalLoginKeysManagerTests {
     @Test
