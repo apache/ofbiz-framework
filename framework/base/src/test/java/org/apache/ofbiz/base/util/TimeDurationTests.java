@@ -18,11 +18,11 @@
  */
 package org.apache.ofbiz.base.util;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.ibm.icu.util.Calendar;
 import com.ibm.icu.util.TimeZone;
@@ -41,25 +41,24 @@ public class TimeDurationTests {
 
     private static void assertDurationFields(String label, DateTuple d, String string, TimeDuration duration,
             boolean isNegative, boolean isZero) {
-        assertEquals(label + ".years()", d.years, duration.years());
-        assertEquals(label + ".months()", d.months, duration.months());
-        assertEquals(label + ".days()", d.days, duration.days());
-        assertEquals(label + ".hours()", d.hours, duration.hours());
-        assertEquals(label + ".minutes()", d.minutes, duration.minutes());
-        assertEquals(label + ".seconds()", d.seconds, duration.seconds());
-        assertEquals(label + ".milliseconds()", d.milliseconds, duration.milliseconds());
-        assertEquals(label + ".isNegative()", isNegative, duration.isNegative());
-        assertEquals(label + ".toString()", string, duration.toString());
-        assertEquals(label + ".equals(from/to long)", duration, TimeDuration.fromLong(TimeDuration.toLong(duration)));
-        assertEquals(label + ".equals(from/to number)", duration,
-                TimeDuration.fromNumber(TimeDuration.toLong(duration)));
-        assertEquals(label + ".isZero", isZero, duration.isZero());
+        assertEquals(d.years, duration.years(), label + ".years()");
+        assertEquals(d.months, duration.months(), label + ".months()");
+        assertEquals(d.days, duration.days(), label + ".days()");
+        assertEquals(d.hours, duration.hours(), label + ".hours()");
+        assertEquals(d.minutes, duration.minutes(), label + ".minutes()");
+        assertEquals(d.seconds, duration.seconds(), label + ".seconds()");
+        assertEquals(d.milliseconds, duration.milliseconds(), label + ".milliseconds()");
+        assertEquals(isNegative, duration.isNegative(), label + ".isNegative()");
+        assertEquals(string, duration.toString(), label + ".toString()");
+        assertEquals(duration, TimeDuration.fromLong(TimeDuration.toLong(duration)), label + ".equals(from/to long)");
+        assertEquals(duration, TimeDuration.fromNumber(TimeDuration.toLong(duration)), label + ".equals(from/to number)");
+        assertEquals(isZero, duration.isZero(), label + ".isZero");
         if (isZero) {
-            assertEquals(label + ".compareTo(zero) == 0", 0, doCompare(TimeDuration.ZERO_TIME_DURATION, duration));
-            assertEquals(label + ".compareTo(zero) == 0", 0, doCompare(duration, TimeDuration.ZERO_TIME_DURATION));
+            assertEquals(0, doCompare(TimeDuration.ZERO_TIME_DURATION, duration), label + ".compareTo(zero) == 0");
+            assertEquals(0, doCompare(duration, TimeDuration.ZERO_TIME_DURATION), label + ".compareTo(zero) == 0");
         } else {
-            assertNotSame(label + ".compareTo(zero) != 0", 0, doCompare(TimeDuration.ZERO_TIME_DURATION, duration));
-            assertNotSame(label + ".compareTo(zero) != 0", 0, doCompare(duration, TimeDuration.ZERO_TIME_DURATION));
+            assertNotSame(0, doCompare(TimeDuration.ZERO_TIME_DURATION, duration), label + ".compareTo(zero) != 0");
+            assertNotSame(0, doCompare(duration, TimeDuration.ZERO_TIME_DURATION), label + ".compareTo(zero) != 0");
         }
     }
 
@@ -128,16 +127,16 @@ public class TimeDurationTests {
         Calendar added = calDuration.addToCalendar((Calendar) ZERO.clone());
         TimeDuration addDuration = new TimeDuration(ZERO, added);
         assertDurationFields(label + "(cal[add])", d, durationString, addDuration, isNegative, false);
-        assertEquals(label + ".compareTo(string, cal)", 0, doCompare(stringDuration, calDuration));
-        assertEquals(label + ".compareTo(string, string)", 0, doCompare(stringDuration, stringDuration));
-        assertEquals(label + ".compareTo(cal, cal)", 0, doCompare(calDuration, calDuration));
-        assertEquals(label + ".compareTo(cal, string)", 0, doCompare(calDuration, stringDuration));
-        assertEquals(label + ".equals(cal, cal)", calDuration, calDuration);
-        assertEquals(label + ".equals(cal, string)", calDuration, stringDuration);
-        assertEquals(label + ".equals(string, cal)", stringDuration, calDuration);
-        assertEquals(label + ".equals(string, string)", stringDuration, stringDuration);
+        assertEquals(0, doCompare(stringDuration, calDuration), label + ".compareTo(string, cal)");
+        assertEquals(0, doCompare(stringDuration, stringDuration), label + ".compareTo(string, string)");
+        assertEquals(0, doCompare(calDuration, calDuration), label + ".compareTo(cal, cal)");
+        assertEquals(0, doCompare(calDuration, stringDuration), label + ".compareTo(cal, string)");
+        assertEquals(calDuration, calDuration, label + ".equals(cal, cal)");
+        assertEquals(calDuration, stringDuration, label + ".equals(cal, string)");
+        assertEquals(stringDuration, calDuration, label + ".equals(string, cal)");
+        assertEquals(stringDuration, stringDuration, label + ".equals(string, string)");
         if (lastString != null) {
-            assertFalse(label + ".not-equals(string, lastString)", stringDuration.equals(lastString));
+            assertFalse(stringDuration.equals(lastString), label + ".not-equals(string, lastString)");
         }
         return stringDuration;
     }
@@ -162,10 +161,10 @@ public class TimeDurationTests {
     public void testDuration() throws Exception {
         Calendar now = Calendar.getInstance();
         TimeDuration zeroDuration = TimeDuration.ZERO_TIME_DURATION;
-        assertFalse("zero equals null", zeroDuration.equals(null));
+        assertFalse(zeroDuration.equals(null), "zero equals null");
         Calendar newTime = (Calendar) now.clone();
         zeroDuration.addToCalendar(newTime);
-        assertEquals("zero same calendar", now, newTime);
+        assertEquals(now, newTime, "zero same calendar");
         assertDurationFields("zero(same zero calendar)", DateTuple.of(0, 0, 0, 0, 0, 0, 0), "0:0:0:0:0:0:0",
                 new TimeDuration(ZERO, ZERO), false, true);
         assertDurationFields("zero(same now calendar)", DateTuple.of(0, 0, 0, 0, 0, 0, 0), "0:0:0:0:0:0:0",

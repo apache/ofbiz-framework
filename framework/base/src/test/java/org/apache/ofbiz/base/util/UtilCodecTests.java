@@ -18,15 +18,15 @@
  */
 package org.apache.ofbiz.base.util;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class UtilCodecTests {
 
@@ -54,7 +54,7 @@ public class UtilCodecTests {
         encoderTest("string", UtilCodec.getEncoder("string"), "abc\\\"def", "abc\"def");
         encoderTest("xml", UtilCodec.getEncoder("xml"), "&#x3c;&#x3e;&#x27;&#x22;", "<>'\"");
         encoderTest("html", UtilCodec.getEncoder("html"), "&lt;&gt;&#x27;&quot;", "<>'\"");
-        assertNull("invalid encoder", UtilCodec.getEncoder("foobar"));
+        assertNull(UtilCodec.getEncoder("foobar"), "invalid encoder");
     }
 
     @Test
@@ -84,15 +84,15 @@ public class UtilCodecTests {
     }
 
     private static void encoderTest(String label, UtilCodec.SimpleEncoder encoder, String wanted, String toEncode) {
-        assertNull(label + "(encoder):null", encoder.encode(null));
-        assertEquals(label + "(encoder):encode", wanted, encoder.encode(toEncode));
+        assertNull(encoder.encode(null), label + "(encoder):null");
+        assertEquals(wanted, encoder.encode(toEncode), label + "(encoder):encode");
     }
     private static void checkStringForHtmlStrictNoneTest(String label, String fixed, String input,
             String... wantedMessages) {
         List<String> gottenMessages = new ArrayList<>();
-        assertEquals(label, fixed, UtilCodec.checkStringForHtmlStrictNone(label, input, gottenMessages,
-                new Locale("test"))); // labels are not available in testClasses Gradle task
-        assertEquals(label, Arrays.asList(wantedMessages), gottenMessages);
+        assertEquals(fixed, UtilCodec.checkStringForHtmlStrictNone(label, input, gottenMessages,
+                new Locale("test")), label); // labels are not available in testClasses Gradle task
+        assertEquals(Arrays.asList(wantedMessages), gottenMessages, label);
     }
 
     @Test

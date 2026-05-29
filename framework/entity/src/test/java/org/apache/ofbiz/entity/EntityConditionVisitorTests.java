@@ -18,8 +18,8 @@
  */
 package org.apache.ofbiz.entity;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
@@ -35,7 +35,7 @@ import org.apache.ofbiz.entity.condition.EntityDateFilterCondition;
 import org.apache.ofbiz.entity.condition.EntityExpr;
 import org.apache.ofbiz.entity.condition.EntityFieldMap;
 import org.apache.ofbiz.entity.condition.EntityWhereString;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /* Tests adapted from code examples described in the javadoc of the
  * EntityConditionVisitor interface.  They should be kept in sync with

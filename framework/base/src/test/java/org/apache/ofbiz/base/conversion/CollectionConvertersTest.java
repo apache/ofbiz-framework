@@ -18,13 +18,13 @@
  */
 package org.apache.ofbiz.base.conversion;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.Map;
 
 import org.apache.ofbiz.base.util.UtilMisc;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class CollectionConvertersTest {
 
@@ -38,11 +38,11 @@ public class CollectionConvertersTest {
             } catch (ConversionException e) {
                 caught = e;
             } finally {
-                assertNotNull("bad(" + s + ")", caught);
+                assertNotNull(caught, "bad(" + s + ")");
             }
         }
-        assertEquals("single", UtilMisc.toMap("1", "one"), cvt.convert("{1=one}"));
-        assertEquals("double", UtilMisc.toMap("2", "two", "1", "one"), cvt.convert("{1=one, 2=two}"));
-        assertEquals("double-space", UtilMisc.toMap("2", "two ", " 1", "one"), cvt.convert("{ 1=one, 2=two }"));
+        assertEquals(UtilMisc.toMap("1", "one"), cvt.convert("{1=one}"), "single");
+        assertEquals(UtilMisc.toMap("2", "two", "1", "one"), cvt.convert("{1=one, 2=two}"), "double");
+        assertEquals(UtilMisc.toMap("2", "two ", " 1", "one"), cvt.convert("{ 1=one, 2=two }"), "double-space");
     }
 }
