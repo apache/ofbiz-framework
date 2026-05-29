@@ -37,6 +37,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TimeZone;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.w3c.dom.Document;
 
@@ -92,6 +94,16 @@ public class ObjectTypeTests {
             this.badLocale = UtilMisc.parseLocale(badLocale);
             this.badTimeZone = TimeZone.getTimeZone(badTimeZone);
         }
+    }
+
+    @Before
+    public void setUp() {
+        System.setProperty("testBigDecimal", "bypassLocaleChange");
+    }
+
+    @After
+    public void tearDown() {
+        System.clearProperty("testBigDecimal");
     }
 
     public static Object simpleTypeOrObjectConvert(Object obj, String type, String format, TimeZone timeZone,
@@ -493,10 +505,8 @@ public class ObjectTypeTests {
 
     @Test
     public void testBigDecimal() throws GeneralException {
-        System.setProperty("testBigDecimal", "bypassLocaleChange");
         simpleTypeOrObjectConvertTestSingleMulti("BigDecimal->String", new BigDecimal("12345.67"),
                 new String[] {"String", "java.lang.String"}, null, LOCALE_DATA, "12,345.67");
-        System.clearProperty("testBigDecimal");
         simpleTypeOrObjectConvertTestSingleMulti("BigDecimal->BigDecimal", dcml,
                 new String[] {"BigDecimal", "java.math.BigDecimal"}, new BigDecimal("781.25"));
         simpleTypeOrObjectConvertTestSingleMulti("BigDecimal->Double", dcml,
