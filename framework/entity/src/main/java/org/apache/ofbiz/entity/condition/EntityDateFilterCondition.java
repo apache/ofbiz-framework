@@ -33,7 +33,9 @@ import org.apache.ofbiz.entity.model.ModelEntity;
  * Represents Date-range condition expression.
  * <p>
  * This is used to filter rows that are valid in a particular range.
+ * @deprecated Use {@link EntityCondition#makeConditionDate} instead.
  */
+@Deprecated
 @SuppressWarnings("serial")
 public final class EntityDateFilterCondition implements EntityCondition {
     /** The column containing dates before which a row is considered invalid.  */
@@ -47,7 +49,9 @@ public final class EntityDateFilterCondition implements EntityCondition {
      * The <i>current date</i> is the one computed when the SQL query is generated.
      * @param fromDateName the name of the field corresponding to the from date
      * @param thruDateName the name of the field corresponding to the thru date
+     * @deprecated Use {@link EntityCondition#makeConditionDate} instead.
      */
+    @Deprecated
     public EntityDateFilterCondition(String fromDateName, String thruDateName) {
         this.fromDateName = fromDateName;
         this.thruDateName = thruDateName;
@@ -120,17 +124,11 @@ public final class EntityDateFilterCondition implements EntityCondition {
      * @param fromDateName the name of the field corresponding to the from date
      * @param thruDateName the name of the field corresponding to the thru date
      * @return a condition expression filtering rows that are currently valid
+     * @deprecated Use {@link EntityCondition#makeConditionDate} instead.
      */
+    @Deprecated
     public static EntityCondition makeCondition(Timestamp moment, String fromDateName, String thruDateName) {
-        return EntityCondition.makeCondition(
-                EntityCondition.makeCondition(
-                        EntityCondition.makeCondition(thruDateName, null),
-                        EntityOperator.OR,
-                        EntityCondition.makeCondition(thruDateName, EntityOperator.GREATER_THAN, moment)),
-                EntityCondition.makeCondition(
-                        EntityCondition.makeCondition(fromDateName, null),
-                        EntityOperator.OR,
-                        EntityCondition.makeCondition(fromDateName, EntityOperator.LESS_THAN_EQUAL_TO, moment)));
+        return EntityCondition.makeConditionDate(moment, fromDateName, thruDateName);
     }
 
     /**
@@ -148,25 +146,11 @@ public final class EntityDateFilterCondition implements EntityCondition {
      * @param fromDateName  The name of the field containing the entity's "fromDate"
      * @param thruDateName  The name of the field containing the entity's "thruDate"
      * @return EntityCondition representing the date range filter
+     * @deprecated Use {@link EntityCondition#makeConditionRange} instead.
      */
+    @Deprecated
     public static EntityCondition makeRangeCondition(Timestamp rangeStart, Timestamp rangeEnd, String fromDateName,
             String thruDateName) {
-        return EntityCondition.makeCondition(EntityOperator.OR,
-                EntityCondition.makeConditionMap(thruDateName, null, fromDateName, null),
-                EntityCondition.makeCondition(
-                        EntityCondition.makeCondition(fromDateName, EntityOperator.GREATER_THAN_EQUAL_TO, rangeStart),
-                        EntityCondition.makeCondition(fromDateName, EntityOperator.LESS_THAN, rangeEnd)),
-                EntityCondition.makeCondition(
-                        EntityCondition.makeCondition(thruDateName, EntityOperator.GREATER_THAN_EQUAL_TO, rangeStart),
-                        EntityCondition.makeCondition(thruDateName, EntityOperator.LESS_THAN, rangeEnd)),
-                EntityCondition.makeCondition(
-                        EntityCondition.makeCondition(fromDateName, null),
-                        EntityCondition.makeCondition(thruDateName, EntityOperator.GREATER_THAN_EQUAL_TO, rangeStart)),
-                EntityCondition.makeCondition(
-                        EntityCondition.makeCondition(thruDateName, null),
-                        EntityCondition.makeCondition(fromDateName, EntityOperator.LESS_THAN, rangeEnd)),
-                EntityCondition.makeCondition(
-                        EntityCondition.makeCondition(fromDateName, EntityOperator.LESS_THAN_EQUAL_TO, rangeStart),
-                        EntityCondition.makeCondition(thruDateName, EntityOperator.GREATER_THAN_EQUAL_TO, rangeEnd)));
+        return EntityCondition.makeConditionRange(rangeStart, rangeEnd, fromDateName, thruDateName);
     }
 }

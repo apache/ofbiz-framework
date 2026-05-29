@@ -49,7 +49,6 @@ import org.apache.ofbiz.entity.GenericEntity;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.condition.EntityCondition;
-import org.apache.ofbiz.entity.condition.EntityDateFilterCondition;
 import org.apache.ofbiz.entity.condition.OrderByList;
 import org.apache.ofbiz.entity.model.ModelEntity;
 import org.apache.ofbiz.entity.model.ModelField;
@@ -139,15 +138,15 @@ public final class EntityUtil {
     }
 
     public static EntityCondition getFilterByDateExpr(java.util.Date moment) {
-        return EntityDateFilterCondition.makeCondition(new java.sql.Timestamp(moment.getTime()), "fromDate", "thruDate");
+        return EntityCondition.makeConditionDate(new java.sql.Timestamp(moment.getTime()), "fromDate", "thruDate");
     }
 
     public static EntityCondition getFilterByDateExpr(java.sql.Timestamp moment) {
-        return EntityDateFilterCondition.makeCondition(moment, "fromDate", "thruDate");
+        return EntityCondition.makeConditionDate(moment, "fromDate", "thruDate");
     }
 
     public static EntityCondition getFilterByDateExpr(java.sql.Timestamp moment, String fromDateName, String thruDateName) {
-        return EntityDateFilterCondition.makeCondition(moment, fromDateName, thruDateName);
+        return EntityCondition.makeConditionDate(moment, fromDateName, thruDateName);
     }
 
     /**

@@ -1217,7 +1217,7 @@ public class ModelViewEntity extends ModelEntity {
             } else {
                 ModelEntity modelEntity = modelViewEntity.getAliasedEntity(entityAlias, modelReader);
                 ModelField modelField = modelViewEntity.getAliasedField(modelEntity, field, modelReader);
-                String colName = entityAlias + "." + modelField.getColName();
+                String colName = entityAlias + "." + SqlJdbcUtil.filterColName(modelField.getColName());
 
                 if (UtilValidate.isNotEmpty(defaultValue)) {
                     colName = "COALESCE(" + colName + "," + defaultValue + ")";
