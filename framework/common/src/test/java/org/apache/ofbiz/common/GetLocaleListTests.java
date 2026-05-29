@@ -38,7 +38,7 @@ import org.junit.jupiter.api.Test;
 
 import groovy.util.GroovyScriptEngine;
 
-public class GetLocaleListTests {
+public final class GetLocaleListTests {
     private Map<String, Object> params;
     private GroovyScriptEngine engine;
 

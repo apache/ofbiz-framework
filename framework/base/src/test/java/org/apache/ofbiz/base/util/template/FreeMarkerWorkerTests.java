@@ -27,7 +27,7 @@ import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class FreeMarkerWorkerTests {
+public final class FreeMarkerWorkerTests {
     @BeforeEach
     public void initialize() {
         System.setProperty("ofbiz.home", System.getProperty("user.dir"));

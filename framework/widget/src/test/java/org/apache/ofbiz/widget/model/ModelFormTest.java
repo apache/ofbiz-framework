@@ -37,7 +37,7 @@ import org.mockito.Mockito;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
-public class ModelFormTest {
+public final class ModelFormTest {
     private HashMap<String, Object> context;
     private Delegator delegator;
 

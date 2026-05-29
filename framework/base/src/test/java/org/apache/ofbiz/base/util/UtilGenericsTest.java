@@ -40,7 +40,8 @@ public class UtilGenericsTest {
 
     @Test
     public void heterogenousCheckCollection() {
-        assertThrows(IllegalArgumentException.class, () -> UtilGenerics.<String, Collection<String>>checkCollection(Arrays.asList("foo", 0), String.class));
+        assertThrows(IllegalArgumentException.class, () ->
+                UtilGenerics.<String, Collection<String>>checkCollection(Arrays.asList("foo", 0), String.class));
     }
 
     @Test

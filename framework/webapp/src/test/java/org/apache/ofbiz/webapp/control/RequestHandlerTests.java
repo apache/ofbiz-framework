@@ -48,7 +48,7 @@ import org.junit.jupiter.api.Test;
 import org.w3c.dom.Element;
 
 public class RequestHandlerTests {
-    public static class ResolveURITests {
+    public static final class ResolveURITests {
         private MultivaluedMapContext<String, RequestMap> reqMaps;
         private Map<String, ViewMap> viewMaps;
         private HttpServletRequest req;
@@ -221,7 +221,7 @@ public class RequestHandlerTests {
         }
     }
 
-    public static class ResolveMethodTests {
+    public static final class ResolveMethodTests {
         private Element dummyElement;
         private Collection<RequestMap> rmaps;
 
@@ -262,7 +262,7 @@ public class RequestHandlerTests {
         }
     }
 
-    public static class CheckCertificatesTests {
+    public static final class CheckCertificatesTests {
         private HttpServletRequest req;
 
         @BeforeEach

@@ -36,7 +36,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.w3c.dom.Element;
 
-public class ModelFormFieldTest {
+public final class ModelFormFieldTest {
     private HashMap<String, Object> context;
 
     @BeforeEach

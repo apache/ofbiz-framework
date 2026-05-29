@@ -31,7 +31,7 @@ import org.apache.ofbiz.base.util.collections.MultivaluedMapContextAdapter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class MultivaluedMapContextAdapterTests {
+public final class MultivaluedMapContextAdapterTests {
     private MultivaluedMapContext<String, Integer> adaptee;
     private MultivaluedMapContextAdapter<String, Integer> adapter;
 

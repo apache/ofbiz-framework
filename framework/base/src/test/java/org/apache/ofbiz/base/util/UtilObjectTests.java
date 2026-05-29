@@ -48,7 +48,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 @SourceMonitored
-public class UtilObjectTests {
+public final class UtilObjectTests {
     @AfterEach
     public void cleanUp() {
         // Ensure that the default value of allowed deserialization classes is used.
@@ -122,7 +122,7 @@ public class UtilObjectTests {
         byte[] result = new byte[source.length];
         int r = in.read();
         assertEquals(2, in.read(new byte[2]), "onClose, read short length");
-        assertNotEquals((Object)(-1), (Object)r, "onClose, not read/eof");
+        assertNotEquals((Object) (-1), (Object) r, "onClose, not read/eof");
         assertEquals(source.length - 3, in.read(result, 3, result.length - 3), "onClose, read length");
         Exception caught = null;
         try {
@@ -135,7 +135,7 @@ public class UtilObjectTests {
         in = new ErrorInjector(new ByteArrayInputStream(source), 4);
         result = new byte[source.length];
         r = in.read();
-        assertNotEquals((Object)(-1), (Object)r, "after, not read/eof");
+        assertNotEquals((Object) (-1), (Object) r, "after, not read/eof");
         assertEquals(2, in.read(result, 0, 2), "after, read short length");
         assertEquals(1, in.read(result, 3, result.length - 3), "after, read long length");
         caught = null;
@@ -235,7 +235,7 @@ public class UtilObjectTests {
 
     @Test
     public void testGetByteCount() throws Exception {
-        assertNotEquals((Object)0L, (Object)UtilObject.getByteCount(0L), "long");
+        assertNotEquals((Object) 0L, (Object) UtilObject.getByteCount(0L), "long");
         Exception caught = null;
         try {
             UtilObject.getByteCount(this);

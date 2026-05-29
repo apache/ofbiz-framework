@@ -33,7 +33,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-public class ControlFilterTests {
+public final class ControlFilterTests {
 
     private FilterConfig config;
     private ControlFilter filter;

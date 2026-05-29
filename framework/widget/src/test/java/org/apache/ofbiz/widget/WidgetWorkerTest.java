@@ -32,7 +32,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasProperty;
 
-public class WidgetWorkerTest {
+public final class WidgetWorkerTest {
 
     @BeforeEach
     public void setupMockups() {

@@ -71,7 +71,7 @@ import mockit.Mocked;
 import mockit.Tested;
 import mockit.Verifications;
 
-public class MacroFormRendererTest {
+public final class MacroFormRendererTest {
 
     @Injectable
     private HttpServletRequest request;

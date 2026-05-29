@@ -35,7 +35,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 
-public class ComponentContainerTest {
+public final class ComponentContainerTest {
     private static final Path ORDER_CONFIG = Paths.get("applications", "order", "config");
     private static final Path ACCOUNTING_CONFIG = Paths.get("applications", "accounting", "config");
     private static final Path[] CONFIGS = {ORDER_CONFIG, ACCOUNTING_CONFIG};

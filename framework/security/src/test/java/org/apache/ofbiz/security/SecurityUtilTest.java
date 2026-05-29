@@ -34,7 +34,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class SecurityUtilTest {
+public final class SecurityUtilTest {
 
     private static final List<String> FRAMEWORK_ADMIN_PERMISSIONS = Arrays.asList(
             "SECURITY", "COMMON", "ENTITY_DATA");

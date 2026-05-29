@@ -27,7 +27,7 @@ import org.apache.ofbiz.base.util.collections.MultivaluedMapContext;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class MultivaluedMapContextTests {
+public final class MultivaluedMapContextTests {
     private MultivaluedMapContext<String, Integer> m;
 
     @BeforeEach

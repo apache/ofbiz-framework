@@ -32,7 +32,7 @@ import org.apache.ofbiz.base.component.ComponentConfig.WebappInfo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class WebAppCacheTest {
+public final class WebAppCacheTest {
     private ArrayList<ComponentConfig> ccSource;
     private WebAppCache wac;
     private ArrayList<WebappInfo> wInfos;
