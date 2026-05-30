@@ -2735,7 +2735,6 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     /**
      * Sets @param shippingContactMechId in all ShipInfo(ShipGroups) associated
      * with this ShoppingCart
-     * <p>
      * @param shippingContactMechId
      */
     public void setAllShippingContactMechId(String shippingContactMechId) {
@@ -2763,7 +2762,6 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     /**
      * Sets @param shipmentMethodTypeId in all ShipInfo(ShipGroups) associated
      * with this ShoppingCart
-     * <p>
      * @param shipmentMethodTypeId
      */
     public void setAllShipmentMethodTypeId(String shipmentMethodTypeId) {
@@ -2831,7 +2829,6 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     /**
      * Sets @param shippingInstructions in all ShipInfo(ShipGroups) associated
      * with this ShoppingCart
-     * <p>
      * @param shippingInstructions
      */
     public void setAllShippingInstructions(String shippingInstructions) {
@@ -2860,7 +2857,6 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     /**
     * Sets @param maySplit in all ShipInfo(ShipGroups) associated
     * with this ShoppingCart
-    * <p>
     * @param maySplit
     */
     public void setAllMaySplit(Boolean maySplit) {
@@ -2897,7 +2893,6 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     /**
     * Sets @param giftMessage in all ShipInfo(ShipGroups) associated
     * with this ShoppingCart
-    * <p>
     * @param giftMessage
     */
     public void setAllGiftMessage(String giftMessage) {
@@ -2930,7 +2925,6 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     /**
     * Sets @param isGift in all ShipInfo(ShipGroups) associated
     * with this ShoppingCart
-    * <p>
     * @param isGift
     */
     public void setAllIsGift(Boolean isGift) {
@@ -2970,7 +2964,6 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     /**
     * Sets @param carrierPartyId in all ShipInfo(ShipGroups) associated
     * with this ShoppingCart
-    * <p>
     * @param carrierPartyId
     */
     public void setAllCarrierPartyId(String carrierPartyId) {
@@ -3028,7 +3021,6 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     /**
     * Sets @param productStoreShipMethId in all ShipInfo(ShipGroups) associated
     * with this ShoppingCart
-    * <p>
     * @param productStoreShipMethId
     */
     public void setAllProductStoreShipMethId(String productStoreShipMethId) {
