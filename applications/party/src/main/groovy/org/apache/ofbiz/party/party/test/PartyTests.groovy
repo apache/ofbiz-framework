@@ -19,9 +19,9 @@
 package org.apache.ofbiz.party.party.test
 
 import org.apache.ofbiz.entity.GenericValue
-import org.apache.ofbiz.service.ServiceUtil
 import org.apache.ofbiz.service.testtools.OFBizTestCase
 
+@SuppressWarnings(['LineLength', 'UnnecessaryObjectReferences', 'UnnecessaryGString', 'PublicMethodsBeforeNonPublicMethods', 'ClassSize', 'MethodCount', 'ConsecutiveBlankLines', 'BlockEndsWithBlankLine', 'ClassEndsWithBlankLine'])
 class PartyTests extends OFBizTestCase {
 
     PartyTests(String name) {
@@ -132,7 +132,9 @@ class PartyTests extends OFBizTestCase {
 
     void testUpdateUserPassword() {
         GenericValue partyUserLogin = org.apache.ofbiz.party.party.PartyWorker.findPartyLatestUserLogin('DemoCustomer', delegator)
-        Map serviceCtx = dispatcher.getDispatchContext().makeValidContext('updatePassword', org.apache.ofbiz.service.ModelService.IN_PARAM, partyUserLogin)
+        Map serviceCtx = dispatcher.getDispatchContext().makeValidContext('updatePassword',
+            org.apache.ofbiz.service.ModelService.IN_PARAM,
+            partyUserLogin)
         serviceCtx.newPassword = 'ofbiz-demo'
         serviceCtx.newPasswordVerify = 'ofbiz-demo'
         serviceCtx.userLogin = userLogin
@@ -578,7 +580,16 @@ class PartyTests extends OFBizTestCase {
         assert ServiceUtil.isSuccess(serviceResult)
 
         GenericValue partyRelationship = from('PartyRelationship')
-            .where('partyIdFrom', 'TestCompany', 'partyIdTo', 'TestCustomer', 'roleTypeIdFrom', 'INTERNAL_ORGANIZATIO', 'roleTypeIdTo', 'CONTACT', 'fromDate', java.sql.Timestamp.valueOf('2009-09-09 01:01:01'))
+            .where('partyIdFrom',
+                   'TestCompany',
+                   'partyIdTo',
+                   'TestCustomer',
+                   'roleTypeIdFrom',
+                   'INTERNAL_ORGANIZATIO',
+                   'roleTypeIdTo',
+                   'CONTACT',
+                   'fromDate',
+                   java.sql.Timestamp.valueOf('2009-09-09 01:01:01'))
             .queryOne()
         assert partyRelationship
     }
@@ -599,7 +610,16 @@ class PartyTests extends OFBizTestCase {
         assert partyRole
 
         GenericValue partyRelationship = from('PartyRelationship')
-            .where('partyIdFrom', 'TestCompany', 'partyIdTo', 'TestCustomer', 'roleTypeIdFrom', 'BUYER', 'roleTypeIdTo', 'ACCOUNT_LEAD', 'fromDate', java.sql.Timestamp.valueOf('2009-09-09 01:01:01'))
+            .where('partyIdFrom',
+                   'TestCompany',
+                   'partyIdTo',
+                   'TestCustomer',
+                   'roleTypeIdFrom',
+                   'BUYER',
+                   'roleTypeIdTo',
+                   'ACCOUNT_LEAD',
+                   'fromDate',
+                   java.sql.Timestamp.valueOf('2009-09-09 01:01:01'))
             .queryOne()
         assert partyRelationship
     }
@@ -698,7 +718,16 @@ class PartyTests extends OFBizTestCase {
         assert partyRole
 
         GenericValue partyRelationship = from('PartyRelationship')
-            .where('partyIdFrom', 'TestCompany', 'partyIdTo', 'TestCustomer', 'roleTypeIdFrom', 'BUYER', 'roleTypeIdTo', 'ACCOUNT_LEAD', 'fromDate', java.sql.Timestamp.valueOf('2009-09-09 01:01:01'))
+            .where('partyIdFrom',
+                   'TestCompany',
+                   'partyIdTo',
+                   'TestCustomer',
+                   'roleTypeIdFrom',
+                   'BUYER',
+                   'roleTypeIdTo',
+                   'ACCOUNT_LEAD',
+                   'fromDate',
+                   java.sql.Timestamp.valueOf('2009-09-09 01:01:01'))
             .queryOne()
         assert partyRelationship
         assert serviceCtx.partyRelationshipTypeId == 'AGENT'
@@ -743,7 +772,14 @@ class PartyTests extends OFBizTestCase {
         assert ServiceUtil.isSuccess(serviceResult)
 
         GenericValue partyContactMechPurpose = from('PartyContactMechPurpose')
-            .where('partyId', 'TestCustomer', 'contactMechId', 'TestContactMech', 'contactMechPurposeTypeId', 'PRIMARY_EMAIL', 'fromDate', java.sql.Timestamp.valueOf('2000-01-01 00:00:00'))
+            .where('partyId',
+                   'TestCustomer',
+                   'contactMechId',
+                   'TestContactMech',
+                   'contactMechPurposeTypeId',
+                   'PRIMARY_EMAIL',
+                   'fromDate',
+                   java.sql.Timestamp.valueOf('2000-01-01 00:00:00'))
             .queryOne()
         assert partyContactMechPurpose
         assert partyContactMechPurpose.thruDate != null
@@ -762,7 +798,16 @@ class PartyTests extends OFBizTestCase {
         assert ServiceUtil.isSuccess(serviceResult)
 
         GenericValue partyRelationship = from('PartyRelationship')
-            .where('partyIdFrom', 'TestCompany', 'partyIdTo', 'TestCustomer', 'roleTypeIdFrom', '_NA_', 'roleTypeIdTo', 'CONTACT', 'fromDate', java.sql.Timestamp.valueOf('2000-01-01 00:00:00'))
+            .where('partyIdFrom',
+                   'TestCompany',
+                   'partyIdTo',
+                   'TestCustomer',
+                   'roleTypeIdFrom',
+                   '_NA_',
+                   'roleTypeIdTo',
+                   'CONTACT',
+                   'fromDate',
+                   java.sql.Timestamp.valueOf('2000-01-01 00:00:00'))
             .queryOne()
         assert !partyRelationship
     }
@@ -1037,7 +1082,16 @@ class PartyTests extends OFBizTestCase {
         assert ServiceUtil.isSuccess(serviceResult)
 
         GenericValue partyRelationship = from('PartyRelationship')
-            .where('partyIdFrom', 'TestCompany', 'partyIdTo', 'TestParty', 'roleTypeIdFrom', '_NA_', 'roleTypeIdTo', 'CONTACT', 'fromDate', java.sql.Timestamp.valueOf('2000-01-01 00:00:00'))
+            .where('partyIdFrom',
+                   'TestCompany',
+                   'partyIdTo',
+                   'TestParty',
+                   'roleTypeIdFrom',
+                   '_NA_',
+                   'roleTypeIdTo',
+                   'CONTACT',
+                   'fromDate',
+                   java.sql.Timestamp.valueOf('2000-01-01 00:00:00'))
             .queryOne()
         assert partyRelationship
         assert partyRelationship.partyRelationshipTypeId == 'AGENT'
@@ -1305,7 +1359,14 @@ class PartyTests extends OFBizTestCase {
         assert ServiceUtil.isSuccess(serviceResult)
 
         GenericValue partyContactMechPurpose = from('PartyContactMechPurpose')
-            .where('partyId', 'TestCustomer', 'contactMechId', 'TestContactMech', 'contactMechPurposeTypeId', 'PRIMARY_EMAIL', 'fromDate', java.sql.Timestamp.valueOf('2009-09-09 01:01:01'))
+            .where('partyId',
+                   'TestCustomer',
+                   'contactMechId',
+                   'TestContactMech',
+                   'contactMechPurposeTypeId',
+                   'PRIMARY_EMAIL',
+                   'fromDate',
+                   java.sql.Timestamp.valueOf('2009-09-09 01:01:01'))
             .queryOne()
         assert partyContactMechPurpose
     }
@@ -1332,7 +1393,10 @@ class PartyTests extends OFBizTestCase {
         Map serviceResult = dispatcher.runSync('createPartyInvitationRoleAssoc', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue partyInvitationRoleAssoc = from('PartyInvitationRoleAssoc').where('partyInvitationId', 'TEST_INVITE', 'roleTypeId', 'COMMEVENT_ROLE').queryOne()
+        GenericValue partyInvitationRoleAssoc = from('PartyInvitationRoleAssoc').where('partyInvitationId',
+                                                                                       'TEST_INVITE',
+                                                                                       'roleTypeId',
+                                                                                       'COMMEVENT_ROLE').queryOne()
         assert partyInvitationRoleAssoc
     }
 
@@ -1345,7 +1409,10 @@ class PartyTests extends OFBizTestCase {
         Map serviceResult = dispatcher.runSync('deletePartyInvitationRoleAssoc', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue partyInvitationRoleAssoc = from('PartyInvitationRoleAssoc').where('partyInvitationId', 'TEST_INVITE-2', 'roleTypeId', 'COMMEVENT_ROLE').queryOne()
+        GenericValue partyInvitationRoleAssoc = from('PartyInvitationRoleAssoc').where('partyInvitationId',
+                                                                                       'TEST_INVITE-2',
+                                                                                       'roleTypeId',
+                                                                                       'COMMEVENT_ROLE').queryOne()
         assert !partyInvitationRoleAssoc
     }
 
@@ -1381,7 +1448,10 @@ class PartyTests extends OFBizTestCase {
         Map serviceResult = dispatcher.runSync('createPartyInvitationGroupAssoc', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue partyInvitationGroupAssoc = from('PartyInvitationGroupAssoc').where('partyInvitationId', 'TEST_INVITE', 'partyIdTo', 'TestCompany').queryOne()
+        GenericValue partyInvitationGroupAssoc = from('PartyInvitationGroupAssoc').where('partyInvitationId',
+                                                                                         'TEST_INVITE',
+                                                                                         'partyIdTo',
+                                                                                         'TestCompany').queryOne()
         assert partyInvitationGroupAssoc
     }
 
@@ -1394,7 +1464,10 @@ class PartyTests extends OFBizTestCase {
         Map serviceResult = dispatcher.runSync('deletePartyInvitationGroupAssoc', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue partyInvitationGroupAssoc = from('PartyInvitationGroupAssoc').where('partyInvitationId', 'TEST_INVITE-2', 'partyIdTo', 'TestCompany').queryOne()
+        GenericValue partyInvitationGroupAssoc = from('PartyInvitationGroupAssoc').where('partyInvitationId',
+                                                                                         'TEST_INVITE-2',
+                                                                                         'partyIdTo',
+                                                                                         'TestCompany').queryOne()
         assert !partyInvitationGroupAssoc
     }
 

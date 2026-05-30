@@ -1,13 +1,11 @@
 package org.apache.ofbiz.manufacturing.test
 
-import org.apache.ofbiz.entity.condition.EntityCondition
-import org.apache.ofbiz.entity.condition.EntityOperator
 import org.apache.ofbiz.entity.GenericValue
-import org.apache.ofbiz.service.ServiceUtil
 import org.apache.ofbiz.service.testtools.OFBizTestCase
 import org.apache.ofbiz.base.util.UtilDateTime
 import java.sql.Timestamp
 
+@SuppressWarnings(['LineLength', 'UnnecessaryObjectReferences', 'UnnecessaryGString', 'PublicMethodsBeforeNonPublicMethods', 'ClassSize', 'MethodCount', 'ConsecutiveBlankLines', 'BlockEndsWithBlankLine', 'ClassEndsWithBlankLine'])
 class ProductionRunTests extends OFBizTestCase {
 
     ProductionRunTests(String name) {
@@ -18,7 +16,7 @@ class ProductionRunTests extends OFBizTestCase {
         GenericValue userLogin = from('UserLogin').where('userLoginId', 'TestManufAdmin').queryOne()
         String productId = 'PROD_MANUF'
         String facilityId = 'WebStoreWarehouse'
-        BigDecimal quantity = new BigDecimal('5.0')
+        BigDecimal quantity = 5.0
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp()
         Timestamp productionRunStartDate = UtilDateTime.addDaysToTimestamp(nowTimestamp, 1)
 
@@ -42,7 +40,7 @@ class ProductionRunTests extends OFBizTestCase {
         assert productionRunHeader.facilityId == 'WebStoreWarehouse'
         assert productionRunHeader.currentStatusId == 'PRUN_CREATED'
         assert productionRunTask.currentStatusId == 'PRUN_CREATED'
-        assert productionRunHeader.quantityToProduce == new BigDecimal('5.0')
+        assert productionRunHeader.quantityToProduce == 5.0
 
         List<GenericValue> productionRunProducts = from('WorkEffortGoodStandard').where('workEffortId', productionRunId).queryList()
         GenericValue productionRunProduct = productionRunProducts ? productionRunProducts[0] : null
@@ -50,7 +48,7 @@ class ProductionRunTests extends OFBizTestCase {
         assert productionRunProduct
         assert productionRunProduct.productId == productId
         assert productionRunProduct.workEffortGoodStdTypeId == 'PRUN_PROD_DELIV'
-        assert productionRunProduct.estimatedQuantity == new BigDecimal('5.0')
+        assert productionRunProduct.estimatedQuantity == 5.0
 
         assert productionRunTask
         assert productionRunTask.workEffortTypeId == 'PROD_ORDER_TASK'
@@ -82,7 +80,7 @@ class ProductionRunTests extends OFBizTestCase {
         GenericValue userLogin = from('UserLogin').where('userLoginId', 'TestManufAdmin').queryOne()
         String productId = 'PROD_MANUF'
         String facilityId = 'WebStoreWarehouse'
-        BigDecimal quantity = new BigDecimal('5.0')
+        BigDecimal quantity = 5.0
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp()
         Timestamp productionRunStartDate = UtilDateTime.addDaysToTimestamp(nowTimestamp, 1)
 
@@ -98,7 +96,7 @@ class ProductionRunTests extends OFBizTestCase {
         String productionRunId = serviceResult.productionRunId
 
         dispatcher.runSync('changeProductionRunStatus', [userLogin: userLogin, productionRunId: productionRunId, statusId: 'PRUN_SCHEDULED'])
-        
+
         GenericValue productionRunHeader = from('WorkEffort').where('workEffortId', productionRunId).queryOne()
         List<GenericValue> productionRunTasks = from('WorkEffort').where('workEffortParentId', productionRunId).queryList()
         GenericValue productionRunTask = productionRunTasks ? productionRunTasks[0] : null
@@ -120,7 +118,7 @@ class ProductionRunTests extends OFBizTestCase {
         GenericValue userLogin = from('UserLogin').where('userLoginId', 'TestManufAdmin').queryOne()
         String productId = 'PROD_MANUF'
         String facilityId = 'WebStoreWarehouse'
-        BigDecimal quantity = new BigDecimal('5.0')
+        BigDecimal quantity = 5.0
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp()
         Timestamp productionRunStartDate = UtilDateTime.addDaysToTimestamp(nowTimestamp, 1)
 
@@ -138,7 +136,10 @@ class ProductionRunTests extends OFBizTestCase {
         dispatcher.runSync('changeProductionRunStatus', [userLogin: userLogin, productionRunId: productionRunId, statusId: 'PRUN_SCHEDULED'])
 
         Timestamp productionRunNewStartDate = UtilDateTime.addDaysToTimestamp(nowTimestamp, 2)
-        dispatcher.runSync('updateProductionRun', [userLogin: userLogin, productionRunId: productionRunId, estimatedStartDate: productionRunNewStartDate])
+        dispatcher.runSync('updateProductionRun',
+                            [userLogin: userLogin,
+                            productionRunId: productionRunId,
+                            estimatedStartDate: productionRunNewStartDate])
 
         GenericValue productionRunHeader = from('WorkEffort').where('workEffortId', productionRunId).queryOne()
         List<GenericValue> productionRunTasks = from('WorkEffort').where('workEffortParentId', productionRunId).queryList()
@@ -152,7 +153,7 @@ class ProductionRunTests extends OFBizTestCase {
         GenericValue userLogin = from('UserLogin').where('userLoginId', 'TestManufAdmin').queryOne()
         String productId = 'PROD_MANUF'
         String facilityId = 'WebStoreWarehouse'
-        BigDecimal quantity = new BigDecimal('5.0')
+        BigDecimal quantity = 5.0
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp()
         Timestamp productionRunStartDate = UtilDateTime.addDaysToTimestamp(nowTimestamp, 1)
 
@@ -199,7 +200,7 @@ class ProductionRunTests extends OFBizTestCase {
         GenericValue userLogin = from('UserLogin').where('userLoginId', 'TestManufAdmin').queryOne()
         String productId = 'PROD_MANUF'
         String facilityId = 'WebStoreWarehouse'
-        BigDecimal quantity = new BigDecimal('2.0')
+        BigDecimal quantity = 2.0
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp()
         Timestamp productionRunStartDate = UtilDateTime.addDaysToTimestamp(nowTimestamp, 1)
 
@@ -236,7 +237,7 @@ class ProductionRunTests extends OFBizTestCase {
             inventoryItemTypeId: 'NON_SERIAL_INV_ITEM',
             lotId: 'LOT12345',
             componentsLocationMap: componentsLocationMap,
-            quantity: new BigDecimal('1.0')
+            quantity: 1.0
         ]
         dispatcher.runSync('productionRunDeclareAndProduce', issueAndProduceCtx)
 
@@ -249,23 +250,25 @@ class ProductionRunTests extends OFBizTestCase {
 
         List<GenericValue> inventoryProduced = from('WorkEffortAndInventoryProduced').where('workEffortId', productionRunId).queryList()
         BigDecimal materialProducedTotal = BigDecimal.ZERO
-        for (GenericValue produced : inventoryProduced) { materialProducedTotal = materialProducedTotal.add(produced.getBigDecimal("quantityOnHandTotal") ?: BigDecimal.ZERO) }
-        
+        for (GenericValue produced : inventoryProduced) {
+            materialProducedTotal = materialProducedTotal.add(produced.getBigDecimal("quantityOnHandTotal") ?: BigDecimal.ZERO)
+        }
+
         List<GenericValue> inventoryConsumed = from('WorkEffortAndInventoryAssign').where('workEffortId', productionRunTask.workEffortId).queryList()
         BigDecimal materialAConsumedTotal = BigDecimal.ZERO
         BigDecimal materialBConsumedTotal = BigDecimal.ZERO
         for (GenericValue consumed : inventoryConsumed) {
             if (consumed.productId == 'MAT_A_COST') {
-                materialAConsumedTotal = materialAConsumedTotal.add(consumed.getBigDecimal("quantity") ?: BigDecimal.ZERO)
+                materialAConsumedTotal = materialAConsumedTotal.add(consumed.getBigDecimal('quantity') ?: BigDecimal.ZERO)
             } else if (consumed.productId == 'MAT_B_COST') {
-                materialBConsumedTotal = materialBConsumedTotal.add(consumed.getBigDecimal("quantity") ?: BigDecimal.ZERO)
+                materialBConsumedTotal = materialBConsumedTotal.add(consumed.getBigDecimal('quantity') ?: BigDecimal.ZERO)
             }
         }
 
-        assert materialAConsumedTotal == new BigDecimal('2.0')
-        assert materialBConsumedTotal == new BigDecimal('3.0')
-        assert materialProducedTotal == new BigDecimal('1.0')
-        assert productionRunHeader.quantityProduced == new BigDecimal('1.0')
+        assert materialAConsumedTotal == 2.0
+        assert materialBConsumedTotal == 3.0
+        assert materialProducedTotal == 1.0
+        assert productionRunHeader.quantityProduced == 1.0
 
         // Do it again
         dispatcher.runSync('productionRunDeclareAndProduce', issueAndProduceCtx)
@@ -280,23 +283,25 @@ class ProductionRunTests extends OFBizTestCase {
 
         inventoryProduced = from('WorkEffortAndInventoryProduced').where('workEffortId', productionRunId).queryList()
         materialProducedTotal = BigDecimal.ZERO
-        for (GenericValue produced : inventoryProduced) { materialProducedTotal = materialProducedTotal.add(produced.getBigDecimal("quantityOnHandTotal") ?: BigDecimal.ZERO) }
-        
+        for (GenericValue produced : inventoryProduced) {
+            materialProducedTotal = materialProducedTotal.add(produced.getBigDecimal("quantityOnHandTotal") ?: BigDecimal.ZERO)
+        }
+
         inventoryConsumed = from('WorkEffortAndInventoryAssign').where('workEffortId', productionRunTask.workEffortId).queryList()
         materialAConsumedTotal = BigDecimal.ZERO
         materialBConsumedTotal = BigDecimal.ZERO
         for (GenericValue consumed : inventoryConsumed) {
             if (consumed.productId == 'MAT_A_COST') {
-                materialAConsumedTotal = materialAConsumedTotal.add(consumed.getBigDecimal("quantity") ?: BigDecimal.ZERO)
+                materialAConsumedTotal = materialAConsumedTotal.add(consumed.getBigDecimal('quantity') ?: BigDecimal.ZERO)
             } else if (consumed.productId == 'MAT_B_COST') {
-                materialBConsumedTotal = materialBConsumedTotal.add(consumed.getBigDecimal("quantity") ?: BigDecimal.ZERO)
+                materialBConsumedTotal = materialBConsumedTotal.add(consumed.getBigDecimal('quantity') ?: BigDecimal.ZERO)
             }
         }
 
-        assert materialAConsumedTotal == new BigDecimal('4.0')
-        assert materialBConsumedTotal == new BigDecimal('6.0')
-        assert materialProducedTotal == new BigDecimal('2.0')
-        assert productionRunHeader.quantityProduced == new BigDecimal('2.0')
+        assert materialAConsumedTotal == 4.0
+        assert materialBConsumedTotal == 6.0
+        assert materialProducedTotal == 2.0
+        assert productionRunHeader.quantityProduced == 2.0
 
         Map costResult = dispatcher.runSync('getProductionRunCost', [userLogin: userLogin, workEffortId: productionRunId])
         BigDecimal totalCost = costResult.totalCost
@@ -311,7 +316,7 @@ class ProductionRunTests extends OFBizTestCase {
         GenericValue userLogin = from('UserLogin').where('userLoginId', 'TestManufAdmin').queryOne()
         String productId = 'PROD_MANUF'
         String facilityId = 'WebStoreWarehouse'
-        BigDecimal quantity = new BigDecimal('1.0')
+        BigDecimal quantity = 1.0
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp()
         Timestamp productionRunStartDate = UtilDateTime.addDaysToTimestamp(nowTimestamp, 1)
 
@@ -344,7 +349,7 @@ class ProductionRunTests extends OFBizTestCase {
         GenericValue userLogin = from('UserLogin').where('userLoginId', 'TestManufAdmin').queryOne()
         String productId = 'PROD_MANUF'
         String facilityId = 'WebStoreWarehouse'
-        BigDecimal quantity = new BigDecimal('1.0')
+        BigDecimal quantity = 1.0
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp()
         Timestamp productionRunStartDate = UtilDateTime.addDaysToTimestamp(nowTimestamp, 1)
 
@@ -379,7 +384,10 @@ class ProductionRunTests extends OFBizTestCase {
         String orderId = serviceResult.orderId
 
         GenericValue orderItem = from('OrderItem').where('orderId', orderId).queryFirst()
-        GenericValue originalOrderItemShipGrpInvRes = from('OrderItemShipGrpInvRes').where('orderId', orderId, 'orderItemSeqId', orderItem.orderItemSeqId).queryFirst()
+        GenericValue originalOrderItemShipGrpInvRes = from('OrderItemShipGrpInvRes').where('orderId',
+                                                                                           orderId,
+                                                                                           'orderItemSeqId',
+                                                                                           orderItem.orderItemSeqId).queryFirst()
 
         Map prCtx = [
             userLogin: userLogin,
@@ -399,7 +407,7 @@ class ProductionRunTests extends OFBizTestCase {
         assert productionRunHeader.facilityId == 'WebStoreWarehouse'
         assert productionRunHeader.currentStatusId == 'PRUN_CREATED'
         assert productionRunTask.currentStatusId == 'PRUN_CREATED'
-        assert productionRunHeader.quantityToProduce == new BigDecimal('1.0')
+        assert productionRunHeader.quantityToProduce == 1.0
 
         List<GenericValue> productionRunProducts = from('WorkEffortGoodStandard').where('workEffortId', productionRunId).queryList()
         GenericValue productionRunProduct = productionRunProducts ? productionRunProducts[0] : null
@@ -407,9 +415,12 @@ class ProductionRunTests extends OFBizTestCase {
         assert productionRunProduct
         assert productionRunProduct.productId == productId
         assert productionRunProduct.workEffortGoodStdTypeId == 'PRUN_PROD_DELIV'
-        assert productionRunProduct.estimatedQuantity == new BigDecimal('1.0')
+        assert productionRunProduct.estimatedQuantity == 1.0
 
-        GenericValue workOrderItemFulfillment = from('WorkOrderItemFulfillment').where('workEffortId', productionRunId, 'orderId', orderId).queryFirst()
+        GenericValue workOrderItemFulfillment = from('WorkOrderItemFulfillment').where('workEffortId',
+                                                                                       productionRunId,
+                                                                                       'orderId',
+                                                                                       orderId).queryFirst()
         assert workOrderItemFulfillment
         assert workOrderItemFulfillment.orderItemSeqId
 
@@ -417,7 +428,10 @@ class ProductionRunTests extends OFBizTestCase {
         dispatcher.runSync('quickChangeProductionRunStatus', [userLogin: userLogin, productionRunId: productionRunId, statusId: 'PRUN_CLOSED'])
 
         GenericValue producedMaterial = from('WorkEffortAndInventoryProduced').where('workEffortId', productionRunHeader.workEffortId).queryFirst()
-        GenericValue newOrderItemShipGrpInvRes = from('OrderItemShipGrpInvRes').where('orderId', orderId, 'orderItemSeqId', orderItem.orderItemSeqId).queryFirst()
+        GenericValue newOrderItemShipGrpInvRes = from('OrderItemShipGrpInvRes').where('orderId',
+                                                                                      orderId,
+                                                                                      'orderItemSeqId',
+                                                                                      orderItem.orderItemSeqId).queryFirst()
 
         assert newOrderItemShipGrpInvRes
         assert newOrderItemShipGrpInvRes.inventoryItemId != originalOrderItemShipGrpInvRes.inventoryItemId
@@ -458,7 +472,7 @@ class ProductionRunTests extends OFBizTestCase {
         assert productionRunHeader.facilityId == 'WebStoreWarehouse'
         assert productionRunHeader.currentStatusId == 'PRUN_CREATED'
         assert productionRunTask.currentStatusId == 'PRUN_CREATED'
-        assert productionRunHeader.quantityToProduce == new BigDecimal('1.0')
+        assert productionRunHeader.quantityToProduce == 1.0
 
         List<GenericValue> productionRunProducts = from('WorkEffortGoodStandard').where('workEffortId', productionRunHeader.workEffortId).queryList()
         GenericValue productionRunProduct = productionRunProducts ? productionRunProducts[0] : null
@@ -466,6 +480,6 @@ class ProductionRunTests extends OFBizTestCase {
         assert productionRunProduct
         assert productionRunProduct.productId == productId
         assert productionRunProduct.workEffortGoodStdTypeId == 'PRUN_PROD_DELIV'
-        assert productionRunProduct.estimatedQuantity == new BigDecimal('1.0')
+        assert productionRunProduct.estimatedQuantity == 1.0
     }
 }

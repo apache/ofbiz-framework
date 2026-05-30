@@ -19,9 +19,9 @@
 package org.apache.ofbiz.order.order.test
 
 import org.apache.ofbiz.entity.GenericValue
-import org.apache.ofbiz.service.ServiceUtil
 import org.apache.ofbiz.service.testtools.OFBizTestCase
 
+@SuppressWarnings(['LineLength', 'UnnecessaryObjectReferences', 'UnnecessaryGString', 'PublicMethodsBeforeNonPublicMethods', 'ClassSize', 'MethodCount', 'ConsecutiveBlankLines', 'BlockEndsWithBlankLine', 'ClassEndsWithBlankLine'])
 class CustRequestTests extends OFBizTestCase {
 
     CustRequestTests(String name) {
@@ -40,7 +40,7 @@ class CustRequestTests extends OFBizTestCase {
         assert custRequest
     }
 
-    void inlineUpdateRequest() {
+    protected void inlineUpdateRequest() {
         Map serviceCtx = [
                 userLogin: userLogin,
         ]

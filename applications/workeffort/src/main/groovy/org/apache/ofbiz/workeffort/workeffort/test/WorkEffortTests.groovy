@@ -19,9 +19,9 @@
 package org.apache.ofbiz.workeffort.workeffort.test
 
 import org.apache.ofbiz.entity.GenericValue
-import org.apache.ofbiz.service.ServiceUtil
 import org.apache.ofbiz.service.testtools.OFBizTestCase
 
+@SuppressWarnings(['LineLength', 'UnnecessaryObjectReferences', 'UnnecessaryGString', 'PublicMethodsBeforeNonPublicMethods', 'ClassSize', 'MethodCount', 'ConsecutiveBlankLines', 'BlockEndsWithBlankLine', 'ClassEndsWithBlankLine'])
 class WorkEffortTests extends OFBizTestCase {
 
     WorkEffortTests(String name) {
@@ -44,7 +44,12 @@ class WorkEffortTests extends OFBizTestCase {
         assert ServiceUtil.isSuccess(serviceResult)
         assert serviceResult.workEffortId
 
-        List<GenericValue> workEffortPartyAssignmentList = from('WorkEffortPartyAssignment').where('workEffortId', serviceResult.workEffortId, 'partyId', 'TestParty-1', 'roleTypeId', 'CAL_OWNER').queryList()
+        List<GenericValue> workEffortPartyAssignmentList = from('WorkEffortPartyAssignment').where('workEffortId',
+                                                                                                   serviceResult.workEffortId,
+                                                                                                   'partyId',
+                                                                                                   'TestParty-1',
+                                                                                                   'roleTypeId',
+                                                                                                   'CAL_OWNER').queryList()
         GenericValue workEffortPartyAssignment = workEffortPartyAssignmentList ? workEffortPartyAssignmentList[0] : null
         GenericValue workEffort = from('WorkEffort').where('workEffortId', serviceResult.workEffortId).queryOne()
         assert workEffort
@@ -114,7 +119,10 @@ class WorkEffortTests extends OFBizTestCase {
         assert serviceResult.workEffortId
         assert serviceResult.communicationEventId
 
-        GenericValue communicationEventWorkEff = from('CommunicationEventWorkEff').where('workEffortId', serviceResult.workEffortId, 'communicationEventId', serviceResult.communicationEventId).queryOne()
+        GenericValue communicationEventWorkEff = from('CommunicationEventWorkEff').where('workEffortId',
+                                                                                         serviceResult.workEffortId,
+                                                                                         'communicationEventId',
+                                                                                         serviceResult.communicationEventId).queryOne()
         assert communicationEventWorkEff
     }
 
@@ -131,7 +139,14 @@ class WorkEffortTests extends OFBizTestCase {
         assert ServiceUtil.isSuccess(serviceResult)
         assert serviceResult.fromDate
 
-        GenericValue workEffortPartyAssignment = from('WorkEffortPartyAssignment').where('partyId', 'TestParty', 'roleTypeId', 'CONTENT_AUTHOR', 'workEffortId', 'TestWorkeffort-3', 'fromDate', serviceResult.fromDate).queryOne()
+        GenericValue workEffortPartyAssignment = from('WorkEffortPartyAssignment').where('partyId',
+                                                                                         'TestParty',
+                                                                                         'roleTypeId',
+                                                                                         'CONTENT_AUTHOR',
+                                                                                         'workEffortId',
+                                                                                         'TestWorkeffort-3',
+                                                                                         'fromDate',
+                                                                                         serviceResult.fromDate).queryOne()
         assert workEffortPartyAssignment
     }
 
@@ -147,7 +162,14 @@ class WorkEffortTests extends OFBizTestCase {
         Map serviceResult = dispatcher.runSync('updatePartyToWorkEffortAssignment', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue workEffortPartyAssignment = from('WorkEffortPartyAssignment').where('partyId', 'TestParty', 'roleTypeId', 'CUSTOMER', 'workEffortId', 'TestWorkeffort-3', 'fromDate', java.sql.Timestamp.valueOf('2009-09-09 02:02:02')).queryOne()
+        GenericValue workEffortPartyAssignment = from('WorkEffortPartyAssignment').where('partyId',
+                                                                                         'TestParty',
+                                                                                         'roleTypeId',
+                                                                                         'CUSTOMER',
+                                                                                         'workEffortId',
+                                                                                         'TestWorkeffort-3',
+                                                                                         'fromDate',
+                                                                                         java.sql.Timestamp.valueOf('2009-09-09 02:02:02')).queryOne()
         assert workEffortPartyAssignment
         assert workEffortPartyAssignment.statusId == 'PRTYASGN_ASSIGNED'
     }
@@ -163,7 +185,14 @@ class WorkEffortTests extends OFBizTestCase {
         Map serviceResult = dispatcher.runSync('expireWorkEffortPartyAssignment', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue workEffortPartyAssignment = from('WorkEffortPartyAssignment').where('partyId', 'TestParty', 'roleTypeId', 'ACCOUNTANT', 'workEffortId', 'TestWorkeffort-3', 'fromDate', java.sql.Timestamp.valueOf('2009-09-09 02:02:02')).queryOne()
+        GenericValue workEffortPartyAssignment = from('WorkEffortPartyAssignment').where('partyId',
+                                                                                         'TestParty',
+                                                                                         'roleTypeId',
+                                                                                         'ACCOUNTANT',
+                                                                                         'workEffortId',
+                                                                                         'TestWorkeffort-3',
+                                                                                         'fromDate',
+                                                                                         java.sql.Timestamp.valueOf('2009-09-09 02:02:02')).queryOne()
         assert workEffortPartyAssignment
         assert workEffortPartyAssignment.thruDate
     }
@@ -177,7 +206,10 @@ class WorkEffortTests extends OFBizTestCase {
         Map serviceResult = dispatcher.runSync('quickAssignPartyToWorkEffort', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        List<GenericValue> workEffortPartyAssignmentList = from('WorkEffortPartyAssignment').where('workEffortId', 'TestWorkeffort-3', 'partyId', 'TestCompany').queryList()
+        List<GenericValue> workEffortPartyAssignmentList = from('WorkEffortPartyAssignment').where('workEffortId',
+                                                                                                   'TestWorkeffort-3',
+                                                                                                   'partyId',
+                                                                                                   'TestCompany').queryList()
         GenericValue workEffortPartyAssignment = workEffortPartyAssignmentList ? workEffortPartyAssignmentList[0] : null
         assert workEffortPartyAssignment
     }
@@ -192,7 +224,12 @@ class WorkEffortTests extends OFBizTestCase {
         Map serviceResult = dispatcher.runSync('quickAssignPartyToWorkEffortWithRole', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        List<GenericValue> workEffortPartyAssignmentList = from('WorkEffortPartyAssignment').where('workEffortId', 'TestWorkeffort-3', 'partyId', 'TestParty-1', 'roleTypeId', 'BILL_FROM_VENDOR').queryList()
+        List<GenericValue> workEffortPartyAssignmentList = from('WorkEffortPartyAssignment').where('workEffortId',
+                                                                                                   'TestWorkeffort-3',
+                                                                                                   'partyId',
+                                                                                                   'TestParty-1',
+                                                                                                   'roleTypeId',
+                                                                                                   'BILL_FROM_VENDOR').queryList()
         GenericValue workEffortPartyAssignment = workEffortPartyAssignmentList ? workEffortPartyAssignmentList[0] : null
         assert workEffortPartyAssignment
     }
@@ -254,7 +291,14 @@ class WorkEffortTests extends OFBizTestCase {
         Map serviceResult = dispatcher.runSync('createWorkEffortAssoc', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue workEffortAssoc = from('WorkEffortAssoc').where('workEffortIdFrom', 'TestWorkeffort-2', 'workEffortIdTo', 'TestWorkeffort-3', 'workEffortAssocTypeId', 'ROUTING_COMPONENT', 'fromDate', java.sql.Timestamp.valueOf('2009-09-09 02:02:02')).queryOne()
+        GenericValue workEffortAssoc = from('WorkEffortAssoc').where('workEffortIdFrom',
+                                                                     'TestWorkeffort-2',
+                                                                     'workEffortIdTo',
+                                                                     'TestWorkeffort-3',
+                                                                     'workEffortAssocTypeId',
+                                                                     'ROUTING_COMPONENT',
+                                                                     'fromDate',
+                                                                     java.sql.Timestamp.valueOf('2009-09-09 02:02:02')).queryOne()
         assert workEffortAssoc
     }
 
@@ -281,7 +325,10 @@ class WorkEffortTests extends OFBizTestCase {
         Map serviceResult = dispatcher.runSync('createWorkEffortKeyword', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue workEffortKeyword = from('WorkEffortKeyword').where('workEffortId', 'TestWorkeffort-2', 'keyword', 'new test keyword for workeffort').queryOne()
+        GenericValue workEffortKeyword = from('WorkEffortKeyword').where('workEffortId',
+                                                                         'TestWorkeffort-2',
+                                                                         'keyword',
+                                                                         'new test keyword for workeffort').queryOne()
         assert workEffortKeyword
     }
 
@@ -459,7 +506,12 @@ class WorkEffortTests extends OFBizTestCase {
         assert ServiceUtil.isSuccess(serviceResult)
         assert serviceResult.rateAmount
 
-        List<GenericValue> rateAmountList = from('RateAmount').where('partyId', 'TestParty', 'rateTypeId', 'STANDARD', 'rateCurrencyUomId', 'USD').queryList()
+        List<GenericValue> rateAmountList = from('RateAmount').where('partyId',
+                                                                     'TestParty',
+                                                                     'rateTypeId',
+                                                                     'STANDARD',
+                                                                     'rateCurrencyUomId',
+                                                                     'USD').queryList()
         GenericValue rateAmount = rateAmountList ? rateAmountList[0] : null
         assert rateAmount
     }
