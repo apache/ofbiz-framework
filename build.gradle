@@ -147,6 +147,7 @@ javadoc {
         )
     }
     options as StandardJavadocDocletOptions
+    options.addStringOption('Xdoclint:all,-missing', '-quiet')
     //options.addStringOption('Xmaxwarns', '0') // Setting to 0 means all warnings (default 100). We have currently (2025/03/16) 12167 warnings!
 }
 
