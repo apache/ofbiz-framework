@@ -327,13 +327,13 @@ Map cancelInvoice() {
  * @return Success response
  */
 Map sendInvoicePerEmail() {
+    Map ctx = [*: parameters,
+               xslfoAttachScreenLocation: 'component://accounting/widget/AccountingPrintScreens.xml#InvoicePDF',
+               bodyParameters: [invoiceId: parameters.invoiceId,
+                                userLogin: parameters.userLogin,
+                                other: parameters.other]] //to print in 'other currency'
     Map emailParams = dispatcher.getDispatchContext()
-            .makeValidContext([*: parameters,
-                               xslfoAttachScreenLocation: 'component://accounting/widget/AccountingPrintScreens.xml#InvoicePDF',
-                               bodyParameters: [invoiceId: parameters.invoiceId,
-                                                userLogin: parameters.userLogin,
-                                                other: parameters.other] //to print in 'other currency'
-    ])
+            .makeValidContext('sendMailFromScreen', 'IN', ctx)
     dispatcher.runAsync('sendMailFromScreen', emailParams)
     return success(label('AccountingUiLabels', 'AccountingEmailScheduledToSend'))
 }
@@ -564,7 +564,7 @@ Map addTaxOnInvoice() {
         addTaxMap.itemAmountList << totalAmount
         addTaxMap.itemPriceList << it.amount
         addTaxMap.itemQuantityList << it.quantity
-        addTaxMap.itemShippingList << BigDecimal.ZERO
+        addTaxMap.itemShippingList << 0
     }
     if (!addTaxMap.itemProductList) {
         return error(label('AccountingUiLabels', 'AccountingTaxProductIdCannotCalculate'))
