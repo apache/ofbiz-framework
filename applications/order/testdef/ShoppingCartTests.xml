@@ -21,27 +21,7 @@ under the License.
 <test-suite suite-name="shoppingcarttests"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/test-suite.xsd">
-
-    <test-case case-name="shoppingCart-test">
-        <simple-method-test location="component://order/minilang/test/ShoppingCartTests.xml" name="testCreateShoppingCart"/>
-    </test-case>
-    
-    <test-case case-name="productRentalOrder-test">
-        <simple-method-test location="component://order/minilang/test/ShoppingCartTests.xml" name="testCreateOrderRentalProduct"/>
-    </test-case>
-    
-    <test-case case-name="productServiceOrder-test">
-        <simple-method-test location="component://order/minilang/test/ShoppingCartTests.xml" name="testCreateOrderServiceProduct"/>
-    </test-case>
-    <test-case case-name="loadCartFromQuote-test">
-        <simple-method-test location="component://order/minilang/test/ShoppingCartTests.xml" name="testLoadCartFromQuote"/>
-    </test-case>
-    
-    <test-case case-name="configurableServiceOrder-test">
-        <simple-method-test location="component://order/minilang/test/ShoppingCartTests.xml" name="testCreateOrderConfigurableServiceProduct"/>
-    </test-case>
-
-    <test-case case-name="testOrderMoveItemBetweenShipGoups">
-        <simple-method-test location="component://order/minilang/test/ShoppingCartTests.xml" name="testOrderMoveItemBetweenShipGoups"/>
+    <test-case case-name="shoppingcart-tests">
+        <junit-test-suite class-name="org.apache.ofbiz.order.shoppingcart.test.ShoppingCartTests"/>
     </test-case>
 </test-suite>

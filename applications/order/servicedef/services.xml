@@ -1509,16 +1509,6 @@ under the License.
         <attribute name="paymentId" type="String" mode="IN" optional="false"/>
     </service>
     
-    <service name="createTestOrderRentalProduct" engine="simple" auth="true"
-        location="component://order/minilang/test/ShoppingCartTests.xml" invoke="testCreateOrderRentalProduct">
-        <description>Create Test Order Rental of an asset which is shipped from and returned to inventory</description>
-    </service>
-    
-    <service name="testCreateShoppinCartAndOrder" engine="simple" auth="true"
-        location="component://order/minilang/test/ShoppingCartTests.xml" invoke="testCreateShoppinCartAndOrder">
-        <description>Create an order using a shopping cart - only used internally in ShoppingCartTests.xml for test purpose</description>
-        <attribute name="orderMap" type="Map" mode="OUT"/>
-    </service>
     
     <!-- Order Item Attribute -->
     <service name="createOrderItemAttribute" engine="entity-auto" default-entity-name="OrderItemAttribute" invoke="create" auth="true">

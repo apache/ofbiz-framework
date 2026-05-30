@@ -31,6 +31,6 @@
         <simple-method-test location="component://workeffort/minilang/workeffort/WorkEffortSimpleServices.xml" name="testCreateProjectService"/>
     </test-case>
     <test-case case-name="workeffort-tests">
-        <simple-method-test location="component://workeffort/minilang/test/WorkEffortTests.xml"/>
+        <junit-test-suite class-name="org.apache.ofbiz.workeffort.workeffort.test.WorkEffortTests"/>
     </test-case>
 </test-suite>
