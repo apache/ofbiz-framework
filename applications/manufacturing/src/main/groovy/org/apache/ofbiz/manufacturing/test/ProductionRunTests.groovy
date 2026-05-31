@@ -19,6 +19,7 @@
 package org.apache.ofbiz.manufacturing.test
 
 import org.apache.ofbiz.entity.GenericValue
+import org.apache.ofbiz.service.ServiceUtil
 import org.apache.ofbiz.service.testtools.OFBizTestCase
 import org.apache.ofbiz.base.util.UtilDateTime
 import java.sql.Timestamp
@@ -527,4 +528,3 @@ class ProductionRunTests extends OFBizTestCase {
         assert productionRunProduct.estimatedQuantity == 1.0
     }
 }
-
