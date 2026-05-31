@@ -63,7 +63,7 @@ class FixedAssetTests extends OFBizTestCase {
         GenericValue fixedAssetRegistration = from('FixedAssetRegistration')
                 .where('fixedAssetId', 'DEMO_VEHICLE_01', 'fromDate', fromDate)
                 .filterByDate().queryOne()
-        assert fixedAssetRegistration == null
+        assert !fixedAssetRegistration
     }
     void testDeleteFixedAssetRegistration() {
         Timestamp fromDate = UtilDateTime.toTimestamp('04/01/2020 00:00:00')
@@ -78,7 +78,7 @@ class FixedAssetTests extends OFBizTestCase {
         GenericValue fixedAssetRegistration = from('FixedAssetRegistration')
                 .where('fixedAssetId', 'DEMO_VEHICLE_01', 'fromDate', fromDate)
                 .queryOne()
-        assert fixedAssetRegistration == null
+        assert !fixedAssetRegistration
     }
     void testCreateFixedAssetMeter() {
         Map serviceCtx = [
@@ -127,7 +127,7 @@ class FixedAssetTests extends OFBizTestCase {
         GenericValue fixedAssetMeter = from('FixedAssetMeter')
                 .where('fixedAssetId', 'DEMO_VEHICLE_01', 'productMeterTypeId', 'ODOMETER', 'readingDate', readingDate)
                 .queryOne()
-        assert fixedAssetMeter == null
+        assert !fixedAssetMeter
     }
     void testCreateFixedAssetGeoPoint() {
         Map serviceCtx = [

@@ -69,7 +69,7 @@ class AutoAcctgAdminTests extends OFBizTestCase {
                 .where('paymentTypeId', 'COMMISSION_PAYMENT',
                         'organizationPartyId', 'DEMO_COMPANY1')
                 .queryOne()
-        assert paymentMethodTypeGlAccount == null
+        assert !paymentMethodTypeGlAccount
     }
 
     void testCreatePartyAcctgPreference() {
@@ -112,7 +112,7 @@ class AutoAcctgAdminTests extends OFBizTestCase {
         ]
         Map serviceResult = dispatcher.runSync('getPartyAccountingPreferences', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
-        assert serviceResult.partyAccountingPreference != null
+        assert serviceResult.partyAccountingPreference
     }
 
     void testSetAcctgCompany() {
@@ -179,7 +179,7 @@ class AutoAcctgAdminTests extends OFBizTestCase {
                 .where('glAccountTypeId', 'ACCOUNTS_PAYABLE',
                         'organizationPartyId', 'DEMO_COMPANY1')
                 .queryOne()
-        assert glAccountTypeDefault == null
+        assert !glAccountTypeDefault
     }
 
     void testAddInvoiceItemTypeGlAssignment() {
@@ -213,7 +213,7 @@ class AutoAcctgAdminTests extends OFBizTestCase {
                 .where('invoiceItemTypeId', 'PINV_SALES_TAX',
                         'organizationPartyId', 'DEMO_COMPANY1')
                 .queryOne()
-        assert invoiceItemTypeGlAccount == null
+        assert !invoiceItemTypeGlAccount
     }
 
     void testAddPaymentTypeGlAssignment() {
@@ -247,7 +247,7 @@ class AutoAcctgAdminTests extends OFBizTestCase {
                 .where('paymentMethodTypeId', 'CASH',
                         'organizationPartyId', 'DEMO_COMPANY1')
                 .queryOne()
-        assert paymentMethodTypeGlAccount == null
+        assert !paymentMethodTypeGlAccount
     }
 
 }
