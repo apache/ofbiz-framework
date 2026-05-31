@@ -20,6 +20,7 @@ package org.apache.ofbiz.party.party.test
 
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.service.testtools.OFBizTestCase
+import org.apache.ofbiz.service.ServiceUtil
 
 @SuppressWarnings(['LineLength', 'UnnecessaryObjectReferences', 'UnnecessaryGString', 'PublicMethodsBeforeNonPublicMethods', 'ClassSize', 'MethodCount', 'ConsecutiveBlankLines', 'BlockEndsWithBlankLine', 'ClassEndsWithBlankLine'])
 class PartyTests extends OFBizTestCase {
@@ -45,7 +46,7 @@ class PartyTests extends OFBizTestCase {
 
         GenericValue postalAddress = from('PostalAddress').where('contactMechId', serviceResult.contactMechId).queryOne()
         assert postalAddress != null
-        postalAddress.city = 'City of Industry'
+        assert postalAddress.city == 'City of Industry'
     }
 
     void testFindPartyWithSearchParameters() {
@@ -62,13 +63,16 @@ class PartyTests extends OFBizTestCase {
             .where('partyId', 'DemoCustomer', 'roleTypeId', 'CUSTOMER')
             .queryOne()
 
-        if (partyRoleDetailAndPartyDetail) {
-            assert serviceResult.partyList != null || serviceResult.partyListSize != null
-        } else {
-            assert serviceResult.partyList == null && serviceResult.partyListSize == null
-        }
-        if (serviceResult.partyList instanceof org.apache.ofbiz.entity.util.EntityListIterator) {
-            serviceResult.partyList.close()
+        try {
+            if (partyRoleDetailAndPartyDetail) {
+                assert serviceResult.partyList != null || serviceResult.partyListSize != null
+            } else {
+                assert serviceResult.partyList == null && serviceResult.partyListSize == null
+            }
+        } finally {
+            if (serviceResult.partyList instanceof org.apache.ofbiz.entity.util.EntityListIterator) {
+                serviceResult.partyList.close()
+            }
         }
     }
 
@@ -79,9 +83,12 @@ class PartyTests extends OFBizTestCase {
         ]
         Map serviceResult = dispatcher.runSync('findParty', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
-        assert serviceResult.partyList != null || serviceResult.partyListSize != null
-        if (serviceResult.partyList instanceof org.apache.ofbiz.entity.util.EntityListIterator) {
-            serviceResult.partyList.close()
+        try {
+            assert serviceResult.partyList != null || serviceResult.partyListSize != null
+        } finally {
+            if (serviceResult.partyList instanceof org.apache.ofbiz.entity.util.EntityListIterator) {
+                serviceResult.partyList.close()
+            }
         }
     }
 

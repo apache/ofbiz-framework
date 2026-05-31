@@ -20,6 +20,7 @@ package org.apache.ofbiz.order.order.test
 
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.service.testtools.OFBizTestCase
+import org.apache.ofbiz.service.ServiceUtil
 
 @SuppressWarnings(['LineLength', 'UnnecessaryObjectReferences', 'UnnecessaryGString', 'PublicMethodsBeforeNonPublicMethods', 'ClassSize', 'MethodCount', 'ConsecutiveBlankLines', 'BlockEndsWithBlankLine', 'ClassEndsWithBlankLine'])
 class CustRequestTests extends OFBizTestCase {
@@ -40,13 +41,18 @@ class CustRequestTests extends OFBizTestCase {
         assert custRequest
     }
 
-    protected void inlineUpdateRequest() {
+    void testUpdateCustRequest() {
         Map serviceCtx = [
+                custRequestId: '9000',
+                custRequestName: 'Updated Test Request',
                 userLogin: userLogin,
         ]
         Map serviceResult = dispatcher.runSync('updateCustRequest', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
+        GenericValue custRequest = from('CustRequest').where('custRequestId', '9000').queryOne()
+        assert custRequest
+        assert custRequest.custRequestName == 'Updated Test Request'
     }
 
     void testCreateCustRequestItem() {

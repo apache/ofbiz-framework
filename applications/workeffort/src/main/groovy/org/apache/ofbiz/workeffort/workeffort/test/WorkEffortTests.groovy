@@ -20,6 +20,7 @@ package org.apache.ofbiz.workeffort.workeffort.test
 
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.service.testtools.OFBizTestCase
+import org.apache.ofbiz.service.ServiceUtil
 
 @SuppressWarnings(['LineLength', 'UnnecessaryObjectReferences', 'UnnecessaryGString', 'PublicMethodsBeforeNonPublicMethods', 'ClassSize', 'MethodCount', 'ConsecutiveBlankLines', 'BlockEndsWithBlankLine', 'ClassEndsWithBlankLine'])
 class WorkEffortTests extends OFBizTestCase {
@@ -494,6 +495,82 @@ class WorkEffortTests extends OFBizTestCase {
 
         GenericValue timeEntry = from('TimeEntry').where('timeEntryId', 'TestTimeEntry-2').queryOne()
         assert !timeEntry
+    }
+
+    void testCreateEventService() {
+        GenericValue systemLogin = from('UserLogin').where('userLoginId', 'system').queryOne()
+        Map createCtx = [
+                workEffortTypeId: 'EVENT',
+                quickAssignPartyId: 'DemoCustomer',
+                workEffortName: 'Create Work Effort',
+                currentStatusId: 'CAL_TENTATIVE',
+                userLogin: systemLogin,
+        ]
+        Map createResult = dispatcher.runSync('createWorkEffort', createCtx)
+        assert ServiceUtil.isSuccess(createResult)
+        String workEffortId = createResult.workEffortId
+        assert workEffortId
+
+        Map updateCtx = [
+                workEffortId: workEffortId,
+                workEffortTypeId: 'EVENT',
+                workEffortName: 'Update an event',
+                currentStatusId: 'CAL_ACCEPTED',
+                userLogin: systemLogin,
+        ]
+        Map updateResult = dispatcher.runSync('updateWorkEffort', updateCtx)
+        assert ServiceUtil.isSuccess(updateResult)
+
+        GenericValue workEffort = from('WorkEffort').where('workEffortId', workEffortId).queryOne()
+        assert workEffort
+        assert workEffort.workEffortTypeId == 'EVENT'
+        assert workEffort.workEffortName == 'Update an event'
+        assert workEffort.currentStatusId == 'CAL_ACCEPTED'
+    }
+
+    void testCreateProjectService() {
+        GenericValue systemLogin = from('UserLogin').where('userLoginId', 'system').queryOne()
+        Map createCtx = [
+                workEffortTypeId: 'PROJECT',
+                quickAssignPartyId: 'DemoCustomer',
+                workEffortName: 'Create a project',
+                currentStatusId: 'CAL_TENTATIVE',
+                userLogin: systemLogin,
+        ]
+        Map createResult = dispatcher.runSync('createWorkEffort', createCtx)
+        assert ServiceUtil.isSuccess(createResult)
+        String workEffortId = createResult.workEffortId
+        assert workEffortId
+
+        Map updateCtx = [
+                workEffortId: workEffortId,
+                workEffortTypeId: 'PROJECT',
+                workEffortName: 'Update a project',
+                currentStatusId: 'CAL_ACCEPTED',
+                userLogin: systemLogin,
+        ]
+        Map updateResult = dispatcher.runSync('updateWorkEffort', updateCtx)
+        assert ServiceUtil.isSuccess(updateResult)
+
+        Map noteCtx = [
+                workEffortId: workEffortId,
+                noteParty: 'DemoCustomer',
+                noteInfo: "This is a note for party 'DemoCustomer'",
+                userLogin: systemLogin,
+        ]
+        Map noteResult = dispatcher.runSync('createWorkEffortNote', noteCtx)
+        assert ServiceUtil.isSuccess(noteResult)
+
+        GenericValue workEffort = from('WorkEffort').where('workEffortId', workEffortId).queryOne()
+        assert workEffort
+        assert workEffort.workEffortTypeId == 'PROJECT'
+        assert workEffort.workEffortName == 'Update a project'
+        assert workEffort.currentStatusId == 'CAL_ACCEPTED'
+
+        GenericValue noteData = from('NoteData').where('noteId', noteResult.noteId).queryOne()
+        assert noteData
+        assert noteData.noteParty == 'DemoCustomer'
+        assert noteData.noteInfo == "This is a note for party 'DemoCustomer'"
     }
 
     void testGetTimeEntryRate() {
