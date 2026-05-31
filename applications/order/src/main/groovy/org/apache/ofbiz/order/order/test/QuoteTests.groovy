@@ -18,13 +18,13 @@
  */
 package org.apache.ofbiz.order.order.test
 
-import org.apache.ofbiz.base.util.UtilDateTime
-import org.apache.ofbiz.entity.condition.EntityCondition
 import static org.apache.ofbiz.entity.condition.EntityComparisonOperator.GREATER_THAN_EQUAL_TO
 
 import java.sql.Timestamp
 
+import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.entity.GenericValue
+import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.order.shoppingcart.ShoppingCart
 import org.apache.ofbiz.service.ServiceUtil
 import org.apache.ofbiz.service.testtools.OFBizTestCase
