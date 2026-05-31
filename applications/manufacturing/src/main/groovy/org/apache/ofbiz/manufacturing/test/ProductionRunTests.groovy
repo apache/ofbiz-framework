@@ -24,7 +24,6 @@ import org.apache.ofbiz.service.testtools.OFBizTestCase
 import org.apache.ofbiz.base.util.UtilDateTime
 import java.sql.Timestamp
 
-@SuppressWarnings(['LineLength', 'UnnecessaryObjectReferences', 'UnnecessaryGString', 'PublicMethodsBeforeNonPublicMethods', 'ClassSize', 'MethodCount', 'ConsecutiveBlankLines', 'BlockEndsWithBlankLine', 'ClassEndsWithBlankLine'])
 class ProductionRunTests extends OFBizTestCase {
 
     ProductionRunTests(String name) {
@@ -112,7 +111,8 @@ class ProductionRunTests extends OFBizTestCase {
         assert ServiceUtil.isSuccess(serviceResult)
         String productionRunId = serviceResult.productionRunId
 
-        Map scheduleResult = dispatcher.runSync('changeProductionRunStatus', [userLogin: userLogin, productionRunId: productionRunId, statusId: 'PRUN_SCHEDULED'])
+        Map scheduleResult = dispatcher.runSync('changeProductionRunStatus',
+                [userLogin: userLogin, productionRunId: productionRunId, statusId: 'PRUN_SCHEDULED'])
         assert ServiceUtil.isSuccess(scheduleResult)
 
         GenericValue productionRunHeader = from('WorkEffort').where('workEffortId', productionRunId).queryOne()
@@ -123,7 +123,8 @@ class ProductionRunTests extends OFBizTestCase {
         assert productionRunHeader.currentStatusId == 'PRUN_SCHEDULED'
         assert productionRunTask.currentStatusId == 'PRUN_SCHEDULED'
 
-        Map printResult = dispatcher.runSync('changeProductionRunStatus', [userLogin: userLogin, productionRunId: productionRunId, statusId: 'PRUN_DOC_PRINTED'])
+        Map printResult = dispatcher.runSync('changeProductionRunStatus',
+                [userLogin: userLogin, productionRunId: productionRunId, statusId: 'PRUN_DOC_PRINTED'])
         assert ServiceUtil.isSuccess(printResult)
 
         productionRunHeader = from('WorkEffort').where('workEffortId', productionRunId).queryOne()
@@ -154,7 +155,8 @@ class ProductionRunTests extends OFBizTestCase {
         assert ServiceUtil.isSuccess(serviceResult)
         String productionRunId = serviceResult.productionRunId
 
-        Map scheduleResult = dispatcher.runSync('changeProductionRunStatus', [userLogin: userLogin, productionRunId: productionRunId, statusId: 'PRUN_SCHEDULED'])
+        Map scheduleResult = dispatcher.runSync('changeProductionRunStatus',
+                [userLogin: userLogin, productionRunId: productionRunId, statusId: 'PRUN_SCHEDULED'])
         assert ServiceUtil.isSuccess(scheduleResult)
 
         Timestamp productionRunNewStartDate = UtilDateTime.addDaysToTimestamp(nowTimestamp, 2)
@@ -169,8 +171,10 @@ class ProductionRunTests extends OFBizTestCase {
         assert productionRunTasks
         GenericValue productionRunTask = productionRunTasks[0]
 
-        assert productionRunHeader.estimatedStartDate == productionRunNewStartDate || productionRunHeader.estimatedStartDate.getTime() == productionRunNewStartDate.getTime()
-        assert productionRunTask.estimatedStartDate == productionRunNewStartDate || productionRunTask.estimatedStartDate.getTime() == productionRunNewStartDate.getTime()
+        assert productionRunHeader.estimatedStartDate == productionRunNewStartDate
+                || productionRunHeader.estimatedStartDate.getTime() == productionRunNewStartDate.getTime()
+        assert productionRunTask.estimatedStartDate == productionRunNewStartDate
+                || productionRunTask.estimatedStartDate.getTime() == productionRunNewStartDate.getTime()
     }
 
     void testProductionRunCancelled() {
@@ -192,7 +196,8 @@ class ProductionRunTests extends OFBizTestCase {
         assert ServiceUtil.isSuccess(serviceResult)
         String productionRunId = serviceResult.productionRunId
 
-        Map scheduleResult = dispatcher.runSync('quickChangeProductionRunStatus', [userLogin: userLogin, productionRunId: productionRunId, statusId: 'PRUN_SCHEDULED'])
+        Map scheduleResult = dispatcher.runSync('quickChangeProductionRunStatus',
+                [userLogin: userLogin, productionRunId: productionRunId, statusId: 'PRUN_SCHEDULED'])
         assert ServiceUtil.isSuccess(scheduleResult)
         Map cancelResult = dispatcher.runSync('cancelProductionRun', [userLogin: userLogin, productionRunId: productionRunId])
         assert ServiceUtil.isSuccess(cancelResult)
@@ -241,7 +246,8 @@ class ProductionRunTests extends OFBizTestCase {
         assert ServiceUtil.isSuccess(serviceResult)
         String productionRunId = serviceResult.productionRunId
 
-        Map printResult = dispatcher.runSync('quickChangeProductionRunStatus', [userLogin: userLogin, productionRunId: productionRunId, statusId: 'PRUN_DOC_PRINTED'])
+        Map printResult = dispatcher.runSync('quickChangeProductionRunStatus',
+                [userLogin: userLogin, productionRunId: productionRunId, statusId: 'PRUN_DOC_PRINTED'])
         assert ServiceUtil.isSuccess(printResult)
         Map startResult = dispatcher.runSync('quickStartAllProductionRunTasks', [userLogin: userLogin, productionRunId: productionRunId])
         assert ServiceUtil.isSuccess(startResult)
@@ -282,7 +288,7 @@ class ProductionRunTests extends OFBizTestCase {
         List<GenericValue> inventoryProduced = from('WorkEffortAndInventoryProduced').where('workEffortId', productionRunId).queryList()
         BigDecimal materialProducedTotal = BigDecimal.ZERO
         for (GenericValue produced : inventoryProduced) {
-            materialProducedTotal = materialProducedTotal.add(produced.getBigDecimal("quantityOnHandTotal") ?: BigDecimal.ZERO)
+            materialProducedTotal = materialProducedTotal.add(produced.getBigDecimal('quantityOnHandTotal') ?: BigDecimal.ZERO)
         }
 
         List<GenericValue> inventoryConsumed = from('WorkEffortAndInventoryAssign').where('workEffortId', productionRunTask.workEffortId).queryList()
@@ -304,7 +310,8 @@ class ProductionRunTests extends OFBizTestCase {
         // Do it again
         Map produceResult2 = dispatcher.runSync('productionRunDeclareAndProduce', issueAndProduceCtx)
         assert ServiceUtil.isSuccess(produceResult2)
-        Map completeResult = dispatcher.runSync('quickChangeProductionRunStatus', [userLogin: userLogin, productionRunId: productionRunId, statusId: 'PRUN_COMPLETED'])
+        Map completeResult = dispatcher.runSync('quickChangeProductionRunStatus',
+                [userLogin: userLogin, productionRunId: productionRunId, statusId: 'PRUN_COMPLETED'])
         assert ServiceUtil.isSuccess(completeResult)
 
         productionRunHeader = from('WorkEffort').where('workEffortId', productionRunId).queryOne()
@@ -318,7 +325,7 @@ class ProductionRunTests extends OFBizTestCase {
         inventoryProduced = from('WorkEffortAndInventoryProduced').where('workEffortId', productionRunId).queryList()
         materialProducedTotal = BigDecimal.ZERO
         for (GenericValue produced : inventoryProduced) {
-            materialProducedTotal = materialProducedTotal.add(produced.getBigDecimal("quantityOnHandTotal") ?: BigDecimal.ZERO)
+            materialProducedTotal = materialProducedTotal.add(produced.getBigDecimal('quantityOnHandTotal') ?: BigDecimal.ZERO)
         }
 
         inventoryConsumed = from('WorkEffortAndInventoryAssign').where('workEffortId', productionRunTask.workEffortId).queryList()
@@ -364,9 +371,11 @@ class ProductionRunTests extends OFBizTestCase {
         assert ServiceUtil.isSuccess(serviceResult)
         String productionRunId = serviceResult.productionRunId
 
-        Map printResult = dispatcher.runSync('quickChangeProductionRunStatus', [userLogin: userLogin, productionRunId: productionRunId, statusId: 'PRUN_DOC_PRINTED'])
+        Map printResult = dispatcher.runSync('quickChangeProductionRunStatus',
+                [userLogin: userLogin, productionRunId: productionRunId, statusId: 'PRUN_DOC_PRINTED'])
         assert ServiceUtil.isSuccess(printResult)
-        Map completeResult = dispatcher.runSync('quickChangeProductionRunStatus', [userLogin: userLogin, productionRunId: productionRunId, statusId: 'PRUN_COMPLETED'])
+        Map completeResult = dispatcher.runSync('quickChangeProductionRunStatus',
+                [userLogin: userLogin, productionRunId: productionRunId, statusId: 'PRUN_COMPLETED'])
         assert ServiceUtil.isSuccess(completeResult)
 
         GenericValue productionRunHeader = from('WorkEffort').where('workEffortId', productionRunId).queryOne()
@@ -400,9 +409,11 @@ class ProductionRunTests extends OFBizTestCase {
         assert ServiceUtil.isSuccess(serviceResult)
         String productionRunId = serviceResult.productionRunId
 
-        Map printResult = dispatcher.runSync('quickChangeProductionRunStatus', [userLogin: userLogin, productionRunId: productionRunId, statusId: 'PRUN_DOC_PRINTED'])
+        Map printResult = dispatcher.runSync('quickChangeProductionRunStatus',
+                [userLogin: userLogin, productionRunId: productionRunId, statusId: 'PRUN_DOC_PRINTED'])
         assert ServiceUtil.isSuccess(printResult)
-        Map closeResult = dispatcher.runSync('quickChangeProductionRunStatus', [userLogin: userLogin, productionRunId: productionRunId, statusId: 'PRUN_CLOSED'])
+        Map closeResult = dispatcher.runSync('quickChangeProductionRunStatus',
+                [userLogin: userLogin, productionRunId: productionRunId, statusId: 'PRUN_CLOSED'])
         assert ServiceUtil.isSuccess(closeResult)
 
         GenericValue productionRunHeader = from('WorkEffort').where('workEffortId', productionRunId).queryOne()
@@ -465,9 +476,11 @@ class ProductionRunTests extends OFBizTestCase {
         assert workOrderItemFulfillment
         assert workOrderItemFulfillment.orderItemSeqId
 
-        Map printResult = dispatcher.runSync('quickChangeProductionRunStatus', [userLogin: userLogin, productionRunId: productionRunId, statusId: 'PRUN_DOC_PRINTED'])
+        Map printResult = dispatcher.runSync('quickChangeProductionRunStatus',
+                [userLogin: userLogin, productionRunId: productionRunId, statusId: 'PRUN_DOC_PRINTED'])
         assert ServiceUtil.isSuccess(printResult)
-        Map closeResult = dispatcher.runSync('quickChangeProductionRunStatus', [userLogin: userLogin, productionRunId: productionRunId, statusId: 'PRUN_CLOSED'])
+        Map closeResult = dispatcher.runSync('quickChangeProductionRunStatus',
+                [userLogin: userLogin, productionRunId: productionRunId, statusId: 'PRUN_CLOSED'])
         assert ServiceUtil.isSuccess(closeResult)
 
         GenericValue producedMaterial = from('WorkEffortAndInventoryProduced').where('workEffortId', productionRunHeader.workEffortId).queryFirst()
@@ -527,5 +540,6 @@ class ProductionRunTests extends OFBizTestCase {
         assert productionRunProduct.workEffortGoodStdTypeId == 'PRUN_PROD_DELIV'
         assert productionRunProduct.estimatedQuantity == 1.0
     }
+
 }
 

@@ -22,7 +22,6 @@ import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.service.testtools.OFBizTestCase
 import org.apache.ofbiz.service.ServiceUtil
 
-@SuppressWarnings(['LineLength', 'UnnecessaryObjectReferences', 'UnnecessaryGString', 'PublicMethodsBeforeNonPublicMethods', 'ClassSize', 'MethodCount', 'ConsecutiveBlankLines', 'BlockEndsWithBlankLine', 'ClassEndsWithBlankLine'])
 class WorkEffortTests extends OFBizTestCase {
 
     WorkEffortTests(String name) {
@@ -278,7 +277,6 @@ class WorkEffortTests extends OFBizTestCase {
         Map serviceResult = dispatcher.runSync('getWorkEffort', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
         assert serviceResult.workEffort
-
     }
 
     void testCreateWorkEffortAssoc() {
@@ -592,4 +590,5 @@ class WorkEffortTests extends OFBizTestCase {
         GenericValue rateAmount = rateAmountList ? rateAmountList[0] : null
         assert rateAmount
     }
+
 }

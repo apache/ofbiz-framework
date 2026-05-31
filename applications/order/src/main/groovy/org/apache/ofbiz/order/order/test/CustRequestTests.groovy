@@ -22,7 +22,6 @@ import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.service.testtools.OFBizTestCase
 import org.apache.ofbiz.service.ServiceUtil
 
-@SuppressWarnings(['LineLength', 'UnnecessaryObjectReferences', 'UnnecessaryGString', 'PublicMethodsBeforeNonPublicMethods', 'ClassSize', 'MethodCount', 'ConsecutiveBlankLines', 'BlockEndsWithBlankLine', 'ClassEndsWithBlankLine'])
 class CustRequestTests extends OFBizTestCase {
 
     CustRequestTests(String name) {
@@ -177,4 +176,5 @@ class CustRequestTests extends OFBizTestCase {
 
         assert serviceResult
     }
+
 }

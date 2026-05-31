@@ -27,7 +27,6 @@ import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.product.config.ProductConfigWrapper
 import java.sql.Timestamp
 
-@SuppressWarnings(['LineLength', 'UnnecessaryObjectReferences', 'UnnecessaryGString', 'PublicMethodsBeforeNonPublicMethods', 'ClassSize', 'MethodCount', 'ConsecutiveBlankLines', 'BlockEndsWithBlankLine', 'ClassEndsWithBlankLine'])
 class ShoppingCartTests extends OFBizTestCase {
 
     ShoppingCartTests(String name) {
@@ -42,40 +41,27 @@ class ShoppingCartTests extends OFBizTestCase {
         assert orderMap.orderId
     }
 
-
     void testCreateOrderRentalProduct() {
         Locale locale = Locale.getDefault()
         GenericValue demoCustomer = from('UserLogin').where('userLoginId', 'DemoCustomer').queryOne()
         ShoppingCart shoppingCart = new ShoppingCart(delegator, '9000', locale, 'USD')
-        shoppingCart.setOrderType('SALES_ORDER')
-        shoppingCart.setChannelType('WEB_SALES_CHANNEL')
-        shoppingCart.setProductStoreId('9000')
-        shoppingCart.setBillToCustomerPartyId('DemoCustomer')
-        shoppingCart.setPlacingCustomerPartyId('DemoCustomer')
-        shoppingCart.setShipToCustomerPartyId('DemoCustomer')
-        shoppingCart.setEndUserCustomerPartyId('DemoCustomer')
-        shoppingCart.setUserLogin(demoCustomer, dispatcher)
+        shoppingCart.with {
+            setOrderType('SALES_ORDER')
+            setChannelType('WEB_SALES_CHANNEL')
+            setProductStoreId('9000')
+            setBillToCustomerPartyId('DemoCustomer')
+            setPlacingCustomerPartyId('DemoCustomer')
+            setShipToCustomerPartyId('DemoCustomer')
+            setEndUserCustomerPartyId('DemoCustomer')
+            setUserLogin(demoCustomer, dispatcher)
+        }
 
         Timestamp nextDate = UtilDateTime.addDaysToTimestamp(UtilDateTime.nowTimestamp(), 1)
-        shoppingCart.addOrIncreaseItem('RentalShip',
-                                    null,
-                                    BigDecimal.ONE,
-                                    nextDate,
-                                    3,
-                                    1,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    'DemoCatalog',
-                                    null,
-                                    'RENTAL_ORDER_ITEM',
-                                    null,
-                                    null,
-                                    dispatcher)
-        shoppingCart.setDefaultCheckoutOptions(dispatcher)
+        shoppingCart.with {
+            addOrIncreaseItem('RentalShip', null, BigDecimal.ONE, nextDate, 3, 1,
+                    null, null, null, null, null, null, 'DemoCatalog', null, 'RENTAL_ORDER_ITEM', null, null, dispatcher)
+            setDefaultCheckoutOptions(dispatcher)
+        }
 
         CheckOutHelper checkOutHelper = new CheckOutHelper(dispatcher, delegator, shoppingCart)
         Map orderCreateResult = checkOutHelper.createOrder(demoCustomer)
@@ -91,34 +77,19 @@ class ShoppingCartTests extends OFBizTestCase {
         Locale locale = Locale.getDefault()
         GenericValue demoCustomer = from('UserLogin').where('userLoginId', 'DemoCustomer').queryOne()
         ShoppingCart shoppingCart = new ShoppingCart(delegator, '9000', locale, 'USD')
-        shoppingCart.setOrderType('SALES_ORDER')
-        shoppingCart.setChannelType('WEB_SALES_CHANNEL')
-        shoppingCart.setProductStoreId('9000')
-        shoppingCart.setBillToCustomerPartyId('DemoCustomer')
-        shoppingCart.setPlacingCustomerPartyId('DemoCustomer')
-        shoppingCart.setShipToCustomerPartyId('DemoCustomer')
-        shoppingCart.setEndUserCustomerPartyId('DemoCustomer')
-        shoppingCart.setUserLogin(demoCustomer, dispatcher)
-
-        shoppingCart.addOrIncreaseItem('SV-1001',
-                                    null,
-                                    BigDecimal.ONE,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    'DemoCatalog',
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    dispatcher)
-        shoppingCart.setDefaultCheckoutOptions(dispatcher)
+        shoppingCart.with {
+            setOrderType('SALES_ORDER')
+            setChannelType('WEB_SALES_CHANNEL')
+            setProductStoreId('9000')
+            setBillToCustomerPartyId('DemoCustomer')
+            setPlacingCustomerPartyId('DemoCustomer')
+            setShipToCustomerPartyId('DemoCustomer')
+            setEndUserCustomerPartyId('DemoCustomer')
+            setUserLogin(demoCustomer, dispatcher)
+            addOrIncreaseItem('SV-1001', null, BigDecimal.ONE, null, null, null,
+                    null, null, null, null, null, null, 'DemoCatalog', null, null, null, null, dispatcher)
+            setDefaultCheckoutOptions(dispatcher)
+        }
 
         CheckOutHelper checkOutHelper = new CheckOutHelper(dispatcher, delegator, shoppingCart)
         Map orderCreateResult = checkOutHelper.createOrder(demoCustomer)
@@ -194,43 +165,30 @@ class ShoppingCartTests extends OFBizTestCase {
         GenericValue demoCustomer = from('UserLogin').where('userLoginId', 'DemoCustomer').queryOne()
 
         ShoppingCart shoppingCart = new ShoppingCart(delegator, '9000', locale, 'USD')
-        shoppingCart.setOrderType('SALES_ORDER')
-        shoppingCart.setChannelType('WEB_SALES_CHANNEL')
-        shoppingCart.setProductStoreId('9000')
-        shoppingCart.setBillToCustomerPartyId('DemoCustomer')
-        shoppingCart.setPlacingCustomerPartyId('DemoCustomer')
-        shoppingCart.setShipToCustomerPartyId('DemoCustomer')
-        shoppingCart.setEndUserCustomerPartyId('DemoCustomer')
-        shoppingCart.setUserLogin(demoCustomer, dispatcher)
+        shoppingCart.with {
+            setOrderType('SALES_ORDER')
+            setChannelType('WEB_SALES_CHANNEL')
+            setProductStoreId('9000')
+            setBillToCustomerPartyId('DemoCustomer')
+            setPlacingCustomerPartyId('DemoCustomer')
+            setShipToCustomerPartyId('DemoCustomer')
+            setEndUserCustomerPartyId('DemoCustomer')
+            setUserLogin(demoCustomer, dispatcher)
+        }
 
-        ProductConfigWrapper configWrapper = new ProductConfigWrapper(delegator, dispatcher, 'CFSV1001', null, 'DemoCatalog', '9000', 'USD', locale, demoCustomer)
+        ProductConfigWrapper configWrapper = new ProductConfigWrapper(
+                delegator, dispatcher, 'CFSV1001', null, 'DemoCatalog', '9000', 'USD', locale, demoCustomer)
         configWrapper.setSelected('SCAN_TYPE', 0L, 'SCAN-EC', null)
 
-        shoppingCart.addOrIncreaseItem('CFSV1001',
-                                    null,
-                                    BigDecimal.ONE,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    'DemoCatalog',
-                                    configWrapper,
-                                    null,
-                                    null,
-                                    null,
-                                    dispatcher)
-
-        shoppingCart.setAllShippingContactMechId('9015')
-        shoppingCart.setAllShipmentMethodTypeId('GROUND')
-        shoppingCart.setAllCarrierPartyId('UPS')
-        shoppingCart.addPaymentAmount('EXT_COD', shoppingCart.getGrandTotal())
-
-        shoppingCart.setDefaultCheckoutOptions(dispatcher)
+        shoppingCart.with {
+            addOrIncreaseItem('CFSV1001', null, BigDecimal.ONE, null, null, null,
+                    null, null, null, null, null, null, 'DemoCatalog', configWrapper, null, null, null, dispatcher)
+            setAllShippingContactMechId('9015')
+            setAllShipmentMethodTypeId('GROUND')
+            setAllCarrierPartyId('UPS')
+            addPaymentAmount('EXT_COD', getGrandTotal())
+            setDefaultCheckoutOptions(dispatcher)
+        }
 
         CheckOutHelper checkOutHelper = new CheckOutHelper(dispatcher, delegator, shoppingCart)
         Map orderCreateResult = checkOutHelper.createOrder(demoCustomer)
@@ -298,92 +256,94 @@ class ShoppingCartTests extends OFBizTestCase {
     }
     protected Map createShoppinCartAndOrder(GenericValue userLogin, Locale locale) {
         ShoppingCart shoppingCart = new ShoppingCart(delegator, '9000', locale, 'USD')
-        shoppingCart.setOrderType('SALES_ORDER')
-        shoppingCart.setUserLogin(userLogin, dispatcher)
-        shoppingCart.setProductStoreId('9000')
-        shoppingCart.addPaymentAmount('CREDIT_CARD', 49.26)
-        shoppingCart.setOrderPartyId('DemoCustomer')
+        shoppingCart.with {
+            setOrderType('SALES_ORDER')
+            setUserLogin(userLogin, dispatcher)
+            setProductStoreId('9000')
+            addPaymentAmount('CREDIT_CARD', 49.26)
+            setOrderPartyId('DemoCustomer')
+        }
 
-        int itemIndex = shoppingCart.addItemToEnd('GZ-2644',
-                                                    0,
-                                                    5,
-                                                    38.4,
-                                                    (HashMap) null, (HashMap) null, 'DemoCatalog', 'PRODUCT_ORDER_ITEM', dispatcher, false, true, true, true)
+        int itemIndex = shoppingCart.addItemToEnd('GZ-2644', 0, 5, 38.4,
+                (HashMap) null, (HashMap) null, 'DemoCatalog', 'PRODUCT_ORDER_ITEM', dispatcher, false, true, true, true)
         org.apache.ofbiz.order.shoppingcart.ShoppingCartItem cartItem = shoppingCart.findCartItem(itemIndex)
         shoppingCart.setItemShipGroupQty(cartItem, 5, 0)
 
         GenericValue orderAdjustmentPromotion = delegator.makeValue('OrderAdjustment')
-        orderAdjustmentPromotion.orderAdjustmentTypeId = 'PROMOTION_ADJUSTMENT'
-        orderAdjustmentPromotion.shipGroupSeqId = '_NA_'
-        orderAdjustmentPromotion.amount = -3.84
-        orderAdjustmentPromotion.productPromoId = '9011'
-        orderAdjustmentPromotion.productPromoRuleId = '01'
-        orderAdjustmentPromotion.productPromoActionSeqId = '01'
-        shoppingCart.addAdjustment(orderAdjustmentPromotion)
+        orderAdjustmentPromotion.with {
+            orderAdjustmentTypeId = 'PROMOTION_ADJUSTMENT'
+            shipGroupSeqId = '_NA_'
+            amount = -3.84
+            productPromoId = '9011'
+            productPromoRuleId = '01'
+            productPromoActionSeqId = '01'
+        }
 
         GenericValue orderAdjustmentShipping = delegator.makeValue('OrderAdjustment')
-        orderAdjustmentShipping.orderAdjustmentTypeId = 'SHIPPING_CHARGES'
-        orderAdjustmentShipping.shipGroupSeqId = '00001'
-        orderAdjustmentShipping.amount = 12.10
-        shoppingCart.addAdjustment(orderAdjustmentShipping)
+        orderAdjustmentShipping.with {
+            orderAdjustmentTypeId = 'SHIPPING_CHARGES'
+            shipGroupSeqId = '00001'
+            amount = 12.10
+        }
 
         GenericValue orderAdjustmentSalesTax = delegator.makeValue('OrderAdjustment')
-        orderAdjustmentSalesTax.orderAdjustmentTypeId = 'SALES_TAX'
-        orderAdjustmentSalesTax.orderItemSeqId = '00001'
-        orderAdjustmentSalesTax.shipGroupSeqId = '00001'
-        orderAdjustmentSalesTax.amount = 1.824
-        orderAdjustmentSalesTax.sourcePercentage = 0.100000
-        orderAdjustmentSalesTax.taxAuthorityRateSeqId = '9004'
-        orderAdjustmentSalesTax.primaryGeoId = 'UT'
-        orderAdjustmentSalesTax.taxAuthGeoId = 'UT'
         orderAdjustmentSalesTax.with {
+            orderAdjustmentTypeId = 'SALES_TAX'
+            orderItemSeqId = '00001'
+            shipGroupSeqId = '00001'
+            amount = 1.824
+            sourcePercentage = 0.100000
+            taxAuthorityRateSeqId = '9004'
+            primaryGeoId = 'UT'
+            taxAuthGeoId = 'UT'
             taxAuthPartyId = 'UT_TAXMAN'
             overrideGlAccountId = '224153'
             comments = 'Utah State Sales Tax'
         }
-        shoppingCart.addAdjustment(orderAdjustmentSalesTax)
 
         GenericValue orderAdjustmentSalesTax1 = delegator.makeValue('OrderAdjustment')
-        orderAdjustmentSalesTax1.orderAdjustmentTypeId = 'SALES_TAX'
-        orderAdjustmentSalesTax1.orderItemSeqId = '00001'
-        orderAdjustmentSalesTax1.shipGroupSeqId = '00001'
-        orderAdjustmentSalesTax1.amount = 0.039
-        orderAdjustmentSalesTax1.sourcePercentage = 0.100000
-        orderAdjustmentSalesTax1.taxAuthorityRateSeqId = '9005'
-        orderAdjustmentSalesTax1.primaryGeoId = 'UT-UTAH'
-        orderAdjustmentSalesTax1.taxAuthGeoId = 'UT-UTAH'
         orderAdjustmentSalesTax1.with {
+            orderAdjustmentTypeId = 'SALES_TAX'
+            orderItemSeqId = '00001'
+            shipGroupSeqId = '00001'
+            amount = 0.039
+            sourcePercentage = 0.100000
+            taxAuthorityRateSeqId = '9005'
+            primaryGeoId = 'UT-UTAH'
+            taxAuthGeoId = 'UT-UTAH'
             taxAuthPartyId = 'UT_UTAH_TAXMAN'
             overrideGlAccountId = '224153'
             comments = 'Utah County, Utah Sales Tax'
         }
-        shoppingCart.addAdjustment(orderAdjustmentSalesTax1)
 
         GenericValue orderAdjustmentSalesTax2 = delegator.makeValue('OrderAdjustment')
-        orderAdjustmentSalesTax2.orderAdjustmentTypeId = 'SALES_TAX'
-        orderAdjustmentSalesTax2.orderItemSeqId = '00001'
-        orderAdjustmentSalesTax2.shipGroupSeqId = '00001'
-        orderAdjustmentSalesTax2.amount = 0.384
-        orderAdjustmentSalesTax2.sourcePercentage = 1
-        orderAdjustmentSalesTax2.taxAuthorityRateSeqId = '9000'
-        orderAdjustmentSalesTax2.primaryGeoId = '_NA_'
-        orderAdjustmentSalesTax2.taxAuthGeoId = '_NA_'
         orderAdjustmentSalesTax2.with {
+            orderAdjustmentTypeId = 'SALES_TAX'
+            orderItemSeqId = '00001'
+            shipGroupSeqId = '00001'
+            amount = 0.384
+            sourcePercentage = 1
+            taxAuthorityRateSeqId = '9000'
+            primaryGeoId = '_NA_'
+            taxAuthGeoId = '_NA_'
             taxAuthPartyId = '_NA_'
             overrideGlAccountId = '224000'
             comments = '1% OFB _NA_ Tax'
         }
-        shoppingCart.addAdjustment(orderAdjustmentSalesTax2)
 
-        shoppingCart.setAllShippingContactMechId('9015')
-        shoppingCart.setAllShipmentMethodTypeId('NEXT_DAY')
-        shoppingCart.setAllCarrierPartyId('UPS')
-        shoppingCart.setAllIsGift(false)
-        shoppingCart.setAllMaySplit(false)
-
-        shoppingCart.setBillFromVendorPartyId('Company')
-        shoppingCart.setPlacingCustomerPartyId('DemoCustomer')
         shoppingCart.with {
+            addAdjustment(orderAdjustmentPromotion)
+            addAdjustment(orderAdjustmentShipping)
+            addAdjustment(orderAdjustmentSalesTax)
+            addAdjustment(orderAdjustmentSalesTax1)
+            addAdjustment(orderAdjustmentSalesTax2)
+            setAllShippingContactMechId('9015')
+            setAllShipmentMethodTypeId('NEXT_DAY')
+            setAllCarrierPartyId('UPS')
+            setAllIsGift(false)
+            setAllMaySplit(false)
+            setBillFromVendorPartyId('Company')
+            setPlacingCustomerPartyId('DemoCustomer')
             setBillToCustomerPartyId('DemoCustomer')
             setShipToCustomerPartyId('DemoCustomer')
             setEndUserCustomerPartyId('DemoCustomer')
@@ -396,4 +356,5 @@ class ShoppingCartTests extends OFBizTestCase {
 
         return orderMap
     }
+
 }

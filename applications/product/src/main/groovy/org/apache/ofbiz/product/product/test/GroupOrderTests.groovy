@@ -25,7 +25,6 @@ import org.apache.ofbiz.service.testtools.OFBizTestCase
 
 import java.sql.Timestamp
 
-@SuppressWarnings(['LineLength', 'UnnecessaryObjectReferences', 'UnnecessaryGString', 'PublicMethodsBeforeNonPublicMethods', 'ClassSize', 'MethodCount', 'ConsecutiveBlankLines', 'BlockEndsWithBlankLine', 'ClassEndsWithBlankLine'])
 class GroupOrderTests extends OFBizTestCase {
 
     GroupOrderTests(String name) {
@@ -68,7 +67,9 @@ class GroupOrderTests extends OFBizTestCase {
 
         GenericValue orderItemGroupOrder = from('OrderItemGroupOrder').where('groupOrderId', groupOrderId).queryFirst()
         assert orderItemGroupOrder
-        GenericValue orderItem = from('OrderItem').where('orderId', orderItemGroupOrder.orderId, 'orderItemSeqId', orderItemGroupOrder.orderItemSeqId).queryOne()
+        GenericValue orderItem = from('OrderItem')
+                .where('orderId', orderItemGroupOrder.orderId, 'orderItemSeqId', orderItemGroupOrder.orderItemSeqId)
+                .queryOne()
         assert orderItem.statusId == 'ITEM_APPROVED'
     }
 
@@ -108,7 +109,10 @@ class GroupOrderTests extends OFBizTestCase {
 
         GenericValue orderItemGroupOrder = from('OrderItemGroupOrder').where('groupOrderId', groupOrderId).queryFirst()
         assert orderItemGroupOrder
-        GenericValue orderItem = from('OrderItem').where('orderId', orderItemGroupOrder.orderId, 'orderItemSeqId', orderItemGroupOrder.orderItemSeqId).queryOne()
+        GenericValue orderItem = from('OrderItem')
+                .where('orderId', orderItemGroupOrder.orderId, 'orderItemSeqId', orderItemGroupOrder.orderItemSeqId)
+                .queryOne()
         assert orderItem.statusId == 'ITEM_CANCELLED'
     }
+
 }
