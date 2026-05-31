@@ -349,7 +349,7 @@ class ProductionRunTests extends OFBizTestCase {
         assert totalCost != null
 
         List<GenericValue> acctgTrans = from('AcctgTrans').where('workEffortId', productionRunId).queryList()
-        assert acctgTrans.size() > 0
+        assert acctgTrans
     }
 
     void testQuickRunProductionRun() {

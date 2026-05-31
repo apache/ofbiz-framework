@@ -209,6 +209,9 @@ class PartyMiscTests extends OFBizTestCase {
     }
 
     void testRemoveAddressMatchMap() {
+        // Create the record first so this test is independent of seed data and execution order
+        dispatcher.runSync('createAddressMatchMap', [mapKey: 'TESTKEY-1', mapValue: 'Test Value 1', userLogin: userLogin])
+
         Map serviceCtx = [
                 mapKey: 'TESTKEY-1',
                 mapValue: 'Test Value 1',
