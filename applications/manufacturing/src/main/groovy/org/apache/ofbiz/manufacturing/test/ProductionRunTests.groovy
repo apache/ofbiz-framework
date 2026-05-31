@@ -528,3 +528,4 @@ class ProductionRunTests extends OFBizTestCase {
         assert productionRunProduct.estimatedQuantity == 1.0
     }
 }
+
