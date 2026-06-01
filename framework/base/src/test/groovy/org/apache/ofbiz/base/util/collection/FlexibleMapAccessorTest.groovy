@@ -18,16 +18,15 @@
  *******************************************************************************/
 package org.apache.ofbiz.base.util.collection
 
-import junit.framework.TestCase
+import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.Test
 import org.apache.ofbiz.base.util.collections.FlexibleMapAccessor
 import org.apache.ofbiz.base.util.string.tool.TestException
 import org.apache.ofbiz.base.util.string.tool.TestingMap
-import org.junit.Assert
-import org.junit.Test
 
 /* codenarc-disable GStringExpressionWithinString, UnnecessaryBigDecimalInstantiation */
 
-class FlexibleMapAccessorTest extends TestCase {
+class FlexibleMapAccessorTest {
 
     private static final Locale LOCALE_TO_TEST = new Locale('en', 'US')
     private static final FlexibleMapAccessor<?> EMPTY_FMA = FlexibleMapAccessor.getInstance('')
@@ -107,7 +106,7 @@ class FlexibleMapAccessorTest extends TestCase {
         assert !outParameters.isEmpty()
         assert outParameters.keySet().contains('var')
         assert outParameters.('var') === null
-        Assert.assertThrows(IllegalArgumentException, () -> fmaVarInstance.put(null, 'Foo'))
+        Assertions.assertThrows(IllegalArgumentException, () -> fmaVarInstance.put(null, 'Foo'))
     }
 
     @Test
@@ -120,7 +119,7 @@ class FlexibleMapAccessorTest extends TestCase {
         assert !parameters.isEmpty()
         assert parameters.keySet().contains('someList')
         assert parameters.('someList') == []
-        Assert.assertThrows(IllegalArgumentException, () -> fmaVarInstance.put(null, 'Foo'))
+        Assertions.assertThrows(IllegalArgumentException, () -> fmaVarInstance.put(null, 'Foo'))
     }
 
     @Test
