@@ -29,7 +29,6 @@ import org.junit.jupiter.api.BeforeAll
 // codenarc-disable JUnitLostTest
 class UtilCacheTest  {
 
-
     @BeforeAll
     static void clearCaches() { // codenarc-disable UnusedPrivateMethod
         UtilCache.clearAllCaches()

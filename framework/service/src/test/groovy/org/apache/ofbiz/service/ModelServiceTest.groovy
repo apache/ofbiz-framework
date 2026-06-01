@@ -45,7 +45,7 @@ class ModelServiceTest {
     @org.junit.jupiter.api.BeforeAll
     static void initClasses() {
         // Initialize SecuredUpload before UtilProperties is mocked
-        Class.forName('org.apache.ofbiz.security.SecuredUpload')
+        new org.apache.ofbiz.security.SecuredUpload()
     }
 
     @BeforeEach
@@ -58,8 +58,8 @@ class ModelServiceTest {
     @BeforeEach
     void initMock() {
         utilities = Mockito.mockStatic(UtilProperties, Mockito.CALLS_REAL_METHODS)
-        utilities.when({ UtilProperties.getMessage(eq(ModelService.RESOURCE), any(), any()) }).thenReturn('Failed')
-        utilities.when({ UtilProperties.createProperties(eq('debug.properties')) }).thenReturn(new Properties())
+        utilities.when { UtilProperties.getMessage(eq(ModelService.RESOURCE), any(), any()) }.thenReturn('Failed')
+        utilities.when { UtilProperties.createProperties(eq('debug.properties')) }.thenReturn(new Properties())
     }
 
     @AfterEach
@@ -116,7 +116,7 @@ class ModelServiceTest {
 
     @Test
     void callValidateServiceWithNullRequiredParam() {
-        org.junit.jupiter.api.Assertions.assertThrows(ServiceValidationException) {
+        Assertions.assertThrows(ServiceValidationException) {
             String serviceXml = '''<service name="testParam" engine="java"
                    location="org.apache.ofbiz.common.CommonServices" invoke="ping">
                    <attribute name="message" type="String" mode="IN"/>
@@ -144,7 +144,7 @@ class ModelServiceTest {
 
     @Test
     void callValidateServiceWithOneSingleRequiredParamMissing() {
-        org.junit.jupiter.api.Assertions.assertThrows(ServiceValidationException) {
+        Assertions.assertThrows(ServiceValidationException) {
             String serviceXml = '''<service name="testParam" engine="java"
                    location="org.apache.ofbiz.common.CommonServices" invoke="ping">
                    <attribute name="message" type="String" mode="IN"/>
@@ -174,7 +174,7 @@ class ModelServiceTest {
 
     @Test
     void callValidateServiceWithOneComplexParameterAllRequiredEmbeddedMissing() {
-        org.junit.jupiter.api.Assertions.assertThrows(ServiceValidationException) {
+        Assertions.assertThrows(ServiceValidationException) {
             String serviceXml = '''<service name="testParam" engine="java"
                    location="org.apache.ofbiz.common.CommonServices" invoke="ping">
                    <attribute name="header" type="java.util.Map" mode="IN" optional="false">
@@ -226,7 +226,7 @@ class ModelServiceTest {
 
     @Test
     void callValidateServiceWithOneComplexParameterAndUnexpectedEmbeededParam() {
-        org.junit.jupiter.api.Assertions.assertThrows(ServiceValidationException) {
+        Assertions.assertThrows(ServiceValidationException) {
             String serviceXml = '''<service name="testParam" engine="java"
                    location="org.apache.ofbiz.common.CommonServices" invoke="ping">
                    <attribute name="header" type="java.util.Map" mode="IN" optional="false">
@@ -242,7 +242,7 @@ class ModelServiceTest {
 
     @Test
     void callValidateServiceWithOneComplexParameterAndBadListValue() {
-        org.junit.jupiter.api.Assertions.assertThrows(ServiceValidationException) {
+        Assertions.assertThrows(ServiceValidationException) {
             String serviceXml = '''<service name="testParam" engine="java"
                    location="org.apache.ofbiz.common.CommonServices" invoke="ping">
                    <attribute name="header" type="java.util.Map" mode="IN" optional="false">
@@ -279,7 +279,7 @@ class ModelServiceTest {
 
     @Test
     void callValidateServiceWithTwoComplexLevelParameterUnwantedParameter() {
-        org.junit.jupiter.api.Assertions.assertThrows(ServiceValidationException) {
+        Assertions.assertThrows(ServiceValidationException) {
             String serviceXml = '''<service name="testParam" engine="java"
                    location="org.apache.ofbiz.common.CommonServices" invoke="ping">
                    <attribute name="header" type="java.util.Map" mode="IN" optional="false">
@@ -333,7 +333,7 @@ class ModelServiceTest {
 
     @Test
     void callValidateServiceWithOneComplexParameterAsListAndUnwantedParameter() {
-        org.junit.jupiter.api.Assertions.assertThrows(ServiceValidationException) {
+        Assertions.assertThrows(ServiceValidationException) {
             String serviceXml = '''<service name="testParam" engine="java"
                    location="org.apache.ofbiz.common.CommonServices" invoke="ping">
                    <attribute name="header" type="java.util.List" mode="IN" optional="false">
