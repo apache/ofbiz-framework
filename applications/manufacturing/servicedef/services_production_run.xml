@@ -24,6 +24,54 @@ under the License.
     <version>1.0</version>
 
     <!-- Job Shop Management services -->
+    <service name="findProductionRuns" engine="groovy"
+            location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/jobshopmgt/ProductionRunQueryServices.groovy" invoke="findProductionRuns" auth="true">
+        <description>Find production run summaries for API clients.</description>
+        <permission-service service-name="manufacturingPermissionService" main-action="VIEW"/>
+        <attribute name="pageIndex" type="Integer" mode="INOUT" optional="true"/>
+        <attribute name="pageSize" type="Integer" mode="INOUT" optional="true"/>
+        <attribute name="productId" type="String" mode="IN" optional="true"/>
+        <attribute name="productName" type="String" mode="IN" optional="true"/>
+        <attribute name="workEffortName" type="String" mode="IN" optional="true"/>
+        <attribute name="query" type="String" mode="IN" optional="true"/>
+        <attribute name="productionRunId" type="String" mode="IN" optional="true"/>
+        <attribute name="workEffortId" type="String" mode="IN" optional="true"/>
+        <attribute name="facilityId" type="String" mode="IN" optional="true"/>
+        <attribute name="statusId" type="String" mode="IN" optional="true"/>
+        <attribute name="currentStatusId" type="String" mode="IN" optional="true"/>
+        <attribute name="sort" type="String" mode="IN" optional="true"/>
+        <attribute name="totalCount" type="Long" mode="OUT" optional="false"/>
+        <attribute name="hasNext" type="Boolean" mode="OUT" optional="false"/>
+        <attribute name="productionRuns" type="List" mode="OUT" optional="false"/>
+    </service>
+    <service name="getProductionRunDetails" engine="groovy"
+            location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/jobshopmgt/ProductionRunQueryServices.groovy" invoke="getProductionRunDetails" auth="true">
+        <description>Get production run detail for API clients.</description>
+        <permission-service service-name="manufacturingPermissionService" main-action="VIEW"/>
+        <attribute name="productionRunId" type="String" mode="INOUT" optional="true"/>
+        <attribute name="workEffortId" type="String" mode="INOUT" optional="true"/>
+        <attribute name="productId" type="String" mode="OUT" optional="true"/>
+        <attribute name="productName" type="String" mode="OUT" optional="true"/>
+        <attribute name="facilityId" type="String" mode="OUT" optional="true"/>
+        <attribute name="facilityName" type="String" mode="OUT" optional="true"/>
+        <attribute name="statusId" type="String" mode="OUT" optional="true"/>
+        <attribute name="statusDescription" type="String" mode="OUT" optional="true"/>
+        <attribute name="workEffortName" type="String" mode="OUT" optional="true"/>
+        <attribute name="description" type="String" mode="OUT" optional="true"/>
+        <attribute name="quantity" type="BigDecimal" mode="OUT" optional="true"/>
+        <attribute name="quantityProduced" type="BigDecimal" mode="OUT" optional="true"/>
+        <attribute name="quantityRejected" type="BigDecimal" mode="OUT" optional="true"/>
+        <attribute name="quantityUomId" type="String" mode="OUT" optional="true"/>
+        <attribute name="quantityUomDescription" type="String" mode="OUT" optional="true"/>
+        <attribute name="estimatedStartDate" type="Timestamp" mode="OUT" optional="true"/>
+        <attribute name="estimatedCompletionDate" type="Timestamp" mode="OUT" optional="true"/>
+        <attribute name="actualStartDate" type="Timestamp" mode="OUT" optional="true"/>
+        <attribute name="actualCompletionDate" type="Timestamp" mode="OUT" optional="true"/>
+        <attribute name="parties" type="List" mode="OUT" optional="false"/>
+        <attribute name="notes" type="List" mode="OUT" optional="false"/>
+        <attribute name="tasks" type="List" mode="OUT" optional="false"/>
+        <attribute name="components" type="List" mode="OUT" optional="false"/>
+    </service>
     <!-- creation of production runs -->
     <service name="createProductionRun" engine="java"
             location="org.apache.ofbiz.manufacturing.jobshopmgt.ProductionRunServices" invoke="createProductionRun" auth="true">
