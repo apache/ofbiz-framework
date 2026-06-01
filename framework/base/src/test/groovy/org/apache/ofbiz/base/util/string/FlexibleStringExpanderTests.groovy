@@ -18,18 +18,17 @@
  *******************************************************************************/
 package org.apache.ofbiz.base.util.string
 
-import junit.framework.TestCase
 import org.apache.ofbiz.base.util.string.tool.SpecialNumber
 import org.apache.ofbiz.base.util.string.tool.TestNpe
 import org.apache.ofbiz.base.util.string.tool.TestException
-import org.junit.Test
+import org.junit.jupiter.api.Test
 
 /* codenarc-disable GStringExpressionWithinString, JUnitTestMethodWithoutAssert, UnnecessaryBigDecimalInstantiation */
 
 /**
  * Test Class for FlexibleStringExpander object
  */
-class FlexibleStringExpanderTests extends TestCase {
+class FlexibleStringExpanderTests {
 
     private static final Locale LOCALE_TO_TEST = new Locale('en', 'US')
     private static final Locale OTHER_LOCALE = new Locale('fr')

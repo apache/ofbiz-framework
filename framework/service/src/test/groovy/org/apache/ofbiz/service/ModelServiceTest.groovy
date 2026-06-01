@@ -26,9 +26,8 @@ import org.apache.ofbiz.base.util.UtilURL
 import org.apache.ofbiz.base.util.UtilXml
 import org.apache.ofbiz.base.util.cache.UtilCache
 import org.apache.ofbiz.entity.DelegatorFactory
-import org.junit.Assert
-import org.junit.Before
-import org.junit.Test
+import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.mockito.MockedStatic
@@ -43,7 +42,13 @@ class ModelServiceTest {
     private MockedStatic<UtilProperties> utilities
     private LocalDispatcher dispatcher
 
-    @Before
+    @org.junit.jupiter.api.BeforeAll
+    static void initClasses() {
+        // Initialize SecuredUpload before UtilProperties is mocked
+        new org.apache.ofbiz.security.SecuredUpload()
+    }
+
+    @BeforeEach
     void initialize() {
         System.setProperty('ofbiz.home', System.getProperty('user.dir'))
         dispatcher = Mockito.mock(LocalDispatcher)
@@ -52,9 +57,9 @@ class ModelServiceTest {
 
     @BeforeEach
     void initMock() {
-        utilities = Mockito.mockStatic(UtilProperties)
-        utilities.when(UtilProperties.getMessage(eq(ModelService.RESOURCE), any(), any())).thenReturn('Failed')
-        utilities.when(UtilProperties.createProperties(eq('debug.properties'))).thenReturn(new Properties())
+        utilities = Mockito.mockStatic(UtilProperties, Mockito.CALLS_REAL_METHODS)
+        utilities.when { UtilProperties.getMessage(eq(ModelService.RESOURCE), any(), any()) }.thenReturn('Failed')
+        utilities.when { UtilProperties.createProperties(eq('debug.properties')) }.thenReturn(new Properties())
     }
 
     @AfterEach
@@ -74,7 +79,7 @@ class ModelServiceTest {
                     .validate(dispatcher, [message: 'ok'],
                             'IN', Locale.default)
         } catch (ServiceValidationException ignored) {
-            Assert.fail('Required parameters not validated')
+            Assertions.fail('Required parameters not validated')
         }
     }
 
@@ -89,7 +94,7 @@ class ModelServiceTest {
                     .validate(dispatcher, [message: 'ok'],
                             'IN', Locale.default)
         } catch (ServiceValidationException ignored) {
-            Assert.fail('Optional parameter not validated')
+            Assertions.fail('Optional parameter not validated')
         }
     }
 
@@ -105,13 +110,13 @@ class ModelServiceTest {
                     .validate(dispatcher, [message: 'ok'],
                             'IN', Locale.default)
         } catch (ServiceValidationException ignored) {
-            Assert.fail('Optional parameter not validated')
+            Assertions.fail('Optional parameter not validated')
         }
     }
 
     @Test
     void callValidateServiceWithNullRequiredParam() {
-        org.junit.jupiter.api.Assertions.assertThrows(ServiceValidationException) {
+        Assertions.assertThrows(ServiceValidationException) {
             String serviceXml = '''<service name="testParam" engine="java"
                    location="org.apache.ofbiz.common.CommonServices" invoke="ping">
                    <attribute name="message" type="String" mode="IN"/>
@@ -133,13 +138,13 @@ class ModelServiceTest {
                     .validate(dispatcher, [message: null],
                             'IN', Locale.default)
         } catch (ServiceValidationException ignored) {
-            Assert.fail('Optional parameter not validated')
+            Assertions.fail('Optional parameter not validated')
         }
     }
 
     @Test
     void callValidateServiceWithOneSingleRequiredParamMissing() {
-        org.junit.jupiter.api.Assertions.assertThrows(ServiceValidationException) {
+        Assertions.assertThrows(ServiceValidationException) {
             String serviceXml = '''<service name="testParam" engine="java"
                    location="org.apache.ofbiz.common.CommonServices" invoke="ping">
                    <attribute name="message" type="String" mode="IN"/>
@@ -163,13 +168,13 @@ class ModelServiceTest {
                     .validate(dispatcher, [header: [headerParam: 'foo']],
                             'IN', Locale.default)
         } catch (ServiceValidationException ignored) {
-            Assert.fail('Paramètre complexe non identifié')
+            Assertions.fail('Paramètre complexe non identifié')
         }
     }
 
     @Test
     void callValidateServiceWithOneComplexParameterAllRequiredEmbeddedMissing() {
-        org.junit.jupiter.api.Assertions.assertThrows(ServiceValidationException) {
+        Assertions.assertThrows(ServiceValidationException) {
             String serviceXml = '''<service name="testParam" engine="java"
                    location="org.apache.ofbiz.common.CommonServices" invoke="ping">
                    <attribute name="header" type="java.util.Map" mode="IN" optional="false">
@@ -197,7 +202,7 @@ class ModelServiceTest {
                     .validate(dispatcher, [header: [headerParam: 'foo']],
                             'IN', Locale.default)
         } catch (ServiceValidationException ignored) {
-            Assert.fail('Missing optional should not throw exception')
+            Assertions.fail('Missing optional should not throw exception')
         }
     }
 
@@ -215,13 +220,13 @@ class ModelServiceTest {
                     .validate(dispatcher, [header: [headerParam: 'foo', otherParam: 'Good']],
                             'IN', Locale.default)
         } catch (ServiceValidationException ignored) {
-            Assert.fail('Complex parameter control error')
+            Assertions.fail('Complex parameter control error')
         }
     }
 
     @Test
     void callValidateServiceWithOneComplexParameterAndUnexpectedEmbeededParam() {
-        org.junit.jupiter.api.Assertions.assertThrows(ServiceValidationException) {
+        Assertions.assertThrows(ServiceValidationException) {
             String serviceXml = '''<service name="testParam" engine="java"
                    location="org.apache.ofbiz.common.CommonServices" invoke="ping">
                    <attribute name="header" type="java.util.Map" mode="IN" optional="false">
@@ -237,7 +242,7 @@ class ModelServiceTest {
 
     @Test
     void callValidateServiceWithOneComplexParameterAndBadListValue() {
-        org.junit.jupiter.api.Assertions.assertThrows(ServiceValidationException) {
+        Assertions.assertThrows(ServiceValidationException) {
             String serviceXml = '''<service name="testParam" engine="java"
                    location="org.apache.ofbiz.common.CommonServices" invoke="ping">
                    <attribute name="header" type="java.util.Map" mode="IN" optional="false">
@@ -268,13 +273,13 @@ class ModelServiceTest {
                                                     otherParam: 'true']],
                             'IN', Locale.default)
         } catch (ServiceValidationException ignored) {
-            Assert.fail('Paramètre complexe non identifié')
+            Assertions.fail('Paramètre complexe non identifié')
         }
     }
 
     @Test
     void callValidateServiceWithTwoComplexLevelParameterUnwantedParameter() {
-        org.junit.jupiter.api.Assertions.assertThrows(ServiceValidationException) {
+        Assertions.assertThrows(ServiceValidationException) {
             String serviceXml = '''<service name="testParam" engine="java"
                    location="org.apache.ofbiz.common.CommonServices" invoke="ping">
                    <attribute name="header" type="java.util.Map" mode="IN" optional="false">
@@ -303,7 +308,7 @@ class ModelServiceTest {
                                                     otherParam: 'true']],
                             'IN', Locale.default)
         } catch (ServiceValidationException ignored) {
-            Assert.fail('Map should not have been analyzed')
+            Assertions.fail('Map should not have been analyzed')
         }
     }
 
@@ -322,13 +327,13 @@ class ModelServiceTest {
                                                     [headerParam: 'line2', otherParam: 'Good']]],
                             'IN', Locale.default)
         } catch (ServiceValidationException ignored) {
-            Assert.fail('Complex List Parameter Error')
+            Assertions.fail('Complex List Parameter Error')
         }
     }
 
     @Test
     void callValidateServiceWithOneComplexParameterAsListAndUnwantedParameter() {
-        org.junit.jupiter.api.Assertions.assertThrows(ServiceValidationException) {
+        Assertions.assertThrows(ServiceValidationException) {
             String serviceXml = '''<service name="testParam" engine="java"
                    location="org.apache.ofbiz.common.CommonServices" invoke="ping">
                    <attribute name="header" type="java.util.List" mode="IN" optional="false">
@@ -369,7 +374,7 @@ class ModelServiceTest {
         try {
             modelService.validate(dispatcher, [header: [headerParam: 'line1', otherParam: 'Good']], 'IN', Locale.default)
         } catch (ServiceValidationException ignored) {
-            Assert.fail('Complex implement not valid')
+            Assertions.fail('Complex implement not valid')
         }
     }
 
@@ -384,7 +389,7 @@ class ModelServiceTest {
         try {
             sanitizedContext = DispatchContext.makeValidContext(fo, 'IN', [quantity: 20])
         } catch (GeneralServiceException ignored) {
-            Assert.fail('Error calling with integer for BigDecimal')
+            Assertions.fail('Error calling with integer for BigDecimal')
         }
         assert sanitizedContext.quantity instanceof BigDecimal
     }
@@ -402,7 +407,7 @@ class ModelServiceTest {
         try {
             sanitizedContext = DispatchContext.makeValidContext(fo, 'IN', [someMap: [quantity: 20]])
         } catch (GeneralServiceException ignored) {
-            Assert.fail('Error calling with integer for BigDecimal in Map')
+            Assertions.fail('Error calling with integer for BigDecimal in Map')
         }
         assert sanitizedContext.someMap.quantity instanceof BigDecimal
     }
@@ -420,7 +425,7 @@ class ModelServiceTest {
         try {
             sanitizedContext = DispatchContext.makeValidContext(fo, 'IN', [someList: [[quantity: 20]]])
         } catch (GeneralServiceException ignored) {
-            Assert.fail('Error calling with integer for BigDecimal in List')
+            Assertions.fail('Error calling with integer for BigDecimal in List')
         }
         assert sanitizedContext.someList[0].quantity instanceof BigDecimal
     }
