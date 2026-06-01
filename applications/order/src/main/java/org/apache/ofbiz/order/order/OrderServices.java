@@ -5623,7 +5623,9 @@ public class OrderServices {
         Transaction trans = null;
         try {
             // disable transaction processing
-            trans = TransactionUtil.suspend();
+            if (TransactionUtil.isTransactionInPlace()) {
+                trans = TransactionUtil.suspend();
+            }
 
             // get the cart
             ShoppingCart cart = (ShoppingCart) context.get("shoppingCart");
