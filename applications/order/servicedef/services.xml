@@ -869,7 +869,7 @@ under the License.
         </attribute>
     </service>
 
-    <service name="orderSequence_enforced" engine="groovy"
+    <service name="orderSequence_enforced" engine="groovy" require-new-transaction="true"
         location="component://order/src/main/groovy/org/apache/ofbiz/order/order/OrderServicesScript.groovy" invoke="orderSequence_enforced">
         <implements service="getNextOrderId"/>
         <attribute name="partyAcctgPreference" type="org.apache.ofbiz.entity.GenericValue" mode="IN"/>
