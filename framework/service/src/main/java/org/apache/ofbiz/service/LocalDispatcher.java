@@ -168,6 +168,14 @@ public interface LocalDispatcher extends DelegatorProvider {
     void runAsync(String serviceName, boolean persist, Object... context)
             throws ServiceAuthException, ServiceValidationException, GenericServiceException;
 
+    /**
+     * Run persist service asynchronously and follow it with a dedicated jobTracker
+     * @param serviceName Name of the service to run.
+     * @param jobTrackerId Job tracker reference that follow this job
+     * @param context Map of name, value pairs composing the context.
+     * @throws ServiceValidationException
+     * @throws GenericServiceException
+     */
     void runAsyncTracked(String serviceName, String jobTrackerId, Map<String, Object> context)
             throws ServiceValidationException, GenericServiceException;
 

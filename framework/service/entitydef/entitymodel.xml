@@ -87,7 +87,7 @@ under the License.
         <relation type="one" fk-name="JOB_SNDBX_STTS" rel-entity-name="StatusItem">
             <key-map field-name="statusId"/>
         </relation>
-        <relation type="one" rel-entity-name="JobTracker">
+        <relation type="one" fk-name="JOB_SNDBX_TRACK" rel-entity-name="JobTracker">
             <key-map field-name="jobTrackerId"/>
         </relation>
         <index name="JOB_SNDBX_RUNSTAT">
@@ -242,11 +242,8 @@ under the License.
         <field name="lastModifiedDate" type="date-time"/>
         <field name="lastModifiedByUserLogin" type="id-vlong"/>
         <prim-key field="jobTrackerId"/>
-        <relation type="one" rel-entity-name="StatusItem">
+        <relation type="one" fk-name="JOB_T_STATUS" rel-entity-name="StatusItem">
             <key-map field-name="statusId"/>
-        </relation>
-        <relation type="many" rel-entity-name="JobSandbox">
-            <key-map field-name="jobTrackerId"/>
         </relation>
     </entity>
 
@@ -257,7 +254,7 @@ under the License.
         <field name="resultCode" type="description"/>
         <prim-key field="jobTrackerId"/>
         <prim-key field="jobTrackerResultSeqId"/>
-        <relation type="one" rel-entity-name="JobTracker" fk-name="FK_TJR_TJ">
+        <relation type="one" fk-name="FK_TJR_TJ" rel-entity-name="JobTracker">
             <key-map field-name="jobTrackerId"/>
         </relation>
     </entity>

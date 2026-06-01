@@ -280,12 +280,10 @@ under the License.
              location="component://service/src/main/groovy/org/apache/ofbiz/service/TrackerServices.groovy">
         <attribute name="jobTrackerId" type="String" mode="IN"/>
     </service>
-
     <service name="resumeJobTracker" engine="groovy" auth="true" invoke="resumeJobTracker"
              location="component://service/src/main/groovy/org/apache/ofbiz/service/TrackerServices.groovy">
         <attribute name="jobTrackerId" type="String" mode="IN"/>
     </service>
-
     <service name="cancelJobTracker" engine="groovy" auth="true" invoke="cancelJobTracker"
              location="component://service/src/main/groovy/org/apache/ofbiz/service/TrackerServices.groovy">
         <attribute name="jobTrackerId" type="String" mode="IN"/>

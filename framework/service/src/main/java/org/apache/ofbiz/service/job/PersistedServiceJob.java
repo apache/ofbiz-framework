@@ -90,6 +90,7 @@ public class PersistedServiceJob extends GenericServiceJob {
      * @param dctx
      * @param jobValue
      * @param req
+     * @param jobTracker
      */
     public PersistedServiceJob(DispatchContext dctx, GenericValue jobValue, GenericRequester req, JobTracker jobTracker) {
         super(dctx, jobValue.getString("jobId"), jobValue.getString("jobName"), null, null, req, jobTracker);

@@ -50,4 +50,5 @@ under the License.
     <StatusValidChange statusId="JOB_T_RUNNING" statusIdTo="JOB_T_FINISHED"/>
     <StatusValidChange statusId="JOB_T_ON_HOLD" statusIdTo="JOB_T_RUNNING"/>
     <StatusValidChange statusId="JOB_T_ON_HOLD" statusIdTo="JOB_T_CANCELLED"/>
+    <StatusValidChange statusId="JOB_T_ON_HOLD" statusIdTo="JOB_T_FAILED"/>
 </entity-engine-xml>

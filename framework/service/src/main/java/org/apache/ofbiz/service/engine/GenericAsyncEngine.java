@@ -72,6 +72,7 @@ public abstract class GenericAsyncEngine extends AbstractEngine {
     public void runAsync(String localName, ModelService modelService, Map<String, Object> context, GenericRequester requester, boolean persist)
             throws GenericServiceException {
         DispatchContext dctx = getDispatcher().getLocalContext(localName);
+        String jobTrackerId = (String) context.get("jobTrackerId");
         Job job = null;
 
         if (persist) {
@@ -110,8 +111,8 @@ public abstract class GenericAsyncEngine extends AbstractEngine {
                 jFields.put("maxRetry", (long) modelService.getMaxRetry());
                 jFields.put("runtimeDataId", dataId);
                 jFields.put("priority", JobPriority.NORMAL);
-                if (UtilValidate.isNotEmpty(context.get("jobTrackerId"))) {
-                    jFields.put("jobTrackerId", context.get("jobTrackerId"));
+                if (UtilValidate.isNotEmpty(jobTrackerId)) {
+                    jFields.put("jobTrackerId", jobTrackerId);
                 }
                 if (UtilValidate.isNotEmpty(authUserLoginId)) {
                     jFields.put("authUserLoginId", authUserLoginId);
@@ -135,7 +136,7 @@ public abstract class GenericAsyncEngine extends AbstractEngine {
                 String jobId = modelService.getName() + "." + name;
                 JobTracker jobTracker;
                 try {
-                    jobTracker = JobTrackerFactory.getJobTracker(dctx.getDispatcher(), (String) context.get("jobTrackerId"));
+                    jobTracker = JobTrackerFactory.getJobTracker(dctx.getDispatcher(), jobTrackerId);
                 } catch (GenericEntityException e) {
                     throw new RuntimeException(e);
                 }
