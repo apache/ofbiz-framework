@@ -46,10 +46,6 @@ package org.apache.ofbiz.entity.condition;
  *             system.out.println("EntityFieldMap");
  *         }
  *
- *         public void visit(EntityDateFilterCondition df) {
- *              system.out.println("EntityDateFilterCondition");
- *         }
- *
  *         public void visit(EntityExpr expr) {
  *              system.out.println("EntityExpr");
  *         }
@@ -68,7 +64,6 @@ package org.apache.ofbiz.entity.condition;
  *
  *         public void visit(EntityNotCondition cond) {}
  *         public void visit(EntityFieldMap m) {}
- *         public void visit(EntityDateFilterCondition df) {}
  *
  *         public <T extends EntityCondition> void visit(EntityConditionList<T> l) {
  *             Iterator<T> it = l.getConditionIterator();
@@ -123,13 +118,6 @@ public interface EntityConditionVisitor {
      * @see EntityFieldMap
      */
     void visit(EntityFieldMap m);
-
-    /**
-     * Visits a date filter condition.
-     * @param df the visited class
-     * @see EntityDateFilterCondition
-     */
-    void visit(EntityDateFilterCondition df);
 
     /**
      * Visits an entity expression.
