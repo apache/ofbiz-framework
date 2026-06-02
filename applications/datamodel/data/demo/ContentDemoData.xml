@@ -19,6 +19,13 @@ under the License.
 -->
 <entity-engine-xml>
     <!-- Content Manager security -->
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FULLADMIN" permissionId="CONTENTMGR_SUPER_ADMIN"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="CONTENTMGR_SUPER_CREATE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="CONTENTMGR_SUPER_DELETE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="CONTENTMGR_SUPER_UPDATE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="CONTENTMGR_SUPER_VIEW"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="VIEWADMIN" permissionId="CONTENTMGR_SUPER_VIEW"/>
+
     <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FULLADMIN" permissionId="CONTENTMGR_ADMIN"/>
     <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="CONTENTMGR_CREATE"/>
     <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="CONTENTMGR_DELETE"/>
