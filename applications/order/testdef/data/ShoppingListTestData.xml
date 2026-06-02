@@ -20,7 +20,7 @@ under the License.
 
 <entity-engine-xml>
     <ShoppingList shoppingListId="DemoWishList" listName="Demo Wish List" partyId="DemoCustomer" shoppingListTypeId="SLT_WISH_LIST" productStoreId="9000" isActive="Y" currencyUom="USD" isPublic="N"/>
-    <ShoppingListItem shoppingListId="DemoWishList" shoppingListItemSeqId="00001" productId="GZ-2644" quantity="5" productStoreId="9000"/>
-    <ShoppingListItem shoppingListId="DemoWishList" shoppingListItemSeqId="00002" productId="WG-1111" quantity="2" productStoreId="9000"/>
-    <ShoppingListItem shoppingListId="DemoWishList" shoppingListItemSeqId="00003" productId="WG-5569" quantity="10" productStoreId="9000"/>
+    <ShoppingListItem shoppingListId="DemoWishList" shoppingListItemSeqId="00001" productId="GZ-2644" quantity="5"/>
+    <ShoppingListItem shoppingListId="DemoWishList" shoppingListItemSeqId="00002" productId="WG-1111" quantity="2"/>
+    <ShoppingListItem shoppingListId="DemoWishList" shoppingListItemSeqId="00003" productId="WG-5569" quantity="10"/>
 </entity-engine-xml>
