@@ -21,6 +21,24 @@
         xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
     <simple-method method-name="genericDataResourcePermission" short-description="Generic Service for DataResource Permissions">
+        <!-- Operating with DataResources containing templates requires special permission -->
+        <if>
+            <condition>
+                <and>
+                    <not>
+                        <if-empty field="parameters.dataTemplateTypeId"/>
+                    </not>
+                    <if-compare field="parameters.dataTemplateTypeId" value="NONE" operator="not-equals"/>
+                </and>
+            </condition>
+            <then>
+                <set field="primaryPermission" value="CONTENTMGR_SUPER"/>
+                <call-simple-method method-name="genericBasePermissionCheck"
+                                    xml-resource="component://common/minilang/permission/CommonPermissionServices.xml"/>
+                <return/>
+            </then>
+        </if>
+
         <set field="primaryPermission" value="CONTENTMGR"/>
         <call-simple-method method-name="genericBasePermissionCheck" xml-resource="component://common/minilang/permission/CommonPermissionServices.xml"/>
 
