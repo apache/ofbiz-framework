@@ -32,9 +32,12 @@
                 </and>
             </condition>
             <then>
-                <set field="primaryPermission" value="CONTENTMGR_SUPER"/>
-                <call-simple-method method-name="genericBasePermissionCheck"
-                                    xml-resource="component://common/minilang/permission/CommonPermissionServices.xml"/>
+                <set field="inParams.primaryPermission" value="CONTENTMGR_SUPER"/>
+                <set field="inParams.mainAction" from-field="parameters.mainAction"/>
+                <call-service service-name="genericBasePermissionCheck" in-map-name="inParams">
+                    <result-to-field result-name="hasPermission"/>
+                </call-service>
+                <field-to-result field="hasPermission"/>
                 <return/>
             </then>
         </if>
