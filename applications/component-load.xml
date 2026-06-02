@@ -33,4 +33,5 @@ under the License.
     <load-component component-location="marketing"/>
 <!-- common component used by most other components last because it uses info from most components-->
     <load-component component-location="commonext"/>
+    <load-component component-location="rest-api"/>
 </component-loader>
