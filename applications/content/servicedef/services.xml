@@ -898,6 +898,7 @@
         <description>Generic DataResource Permission Service; Takes mainAction to determine the mode.</description>
         <implements service="permissionInterface"/>
         <attribute name="dataResourceId" type="String" mode="IN" optional="true"/>
+        <attribute name="dataTemplateTypeId" type="String" mode="IN" optional="true"/>
     </service>
 
     <service name="createContentAlternativeUrl" engine="groovy"
