@@ -230,4 +230,77 @@ under the License.
             </hyperlink>
         </field>
     </grid>
+    <form name="FindJobTrackers" type="single" target="FindJobTracker" default-entity-name="JobTracker">
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
+        <field name="jobTrackerId"><text-find/></field>
+        <field name="statusId">
+            <drop-down allow-empty="true">
+                <entity-options key-field-name="statusId" entity-name="StatusItem">
+                    <entity-constraint name="statusTypeId" operator="equals" value="JOB_TRACKER_STATUS"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="searchButton"><submit/></field>
+    </form>
+    <grid name="ListJobTrackers" list-name="listIt" paginate-target="FindJobTracker" default-entity-name="JobTracker" separate-columns="true">
+        <actions>
+            <set field="orderBy" default-value="-startDate" from-field="parameters.sortField"/>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
+                <field-map field-name="entityName" value="JobTracker"/>
+                <field-map field-name="orderBy" from-field="orderBy"/>
+            </service>
+        </actions>
+        <field name="jobTrackerId" sort-field="true">
+            <hyperlink description="${jobTrackerId}" target="JobTrackerDetails" also-hidden="false">
+                <parameter param-name="jobTrackerId"/>
+            </hyperlink>
+        </field>
+        <field name="startDate" title="${uiLabelMap.CommonStartDate}" sort-field="true"><display format="date-time"/></field>
+        <field name="completionDate" title="${uiLabelMap.CommonEndDate}" sort-field="true"><display format="date-time"/></field>
+        <field name="cancelDate" title="${uiLabelMap.CommonCancelDate}" sort-field="true"><display format="date-time"/></field>
+        <field name="serviceName" title="${uiLabelMap.WebtoolsService}" sort-field="true">
+            <hyperlink description="${serviceName}" target="ServiceList" also-hidden="false">
+                <parameter param-name="sel_service_name" from-field="serviceName"/>
+            </hyperlink>
+        </field>
+        <field name="statusId" sort-field="true"><display-entity entity-name="StatusItem"/></field>
+        <field name="jobsTotalQty" title="${uiLabelMap.CommonTotal}" sort-field="true"><display/></field>
+    </grid>
+    <form name="JobTrackerDetails" type="single" default-map-name="state">
+        <auto-fields-entity entity-name="JobTracker" default-field-type="display"/>
+        <field name="statusId"><display-entity entity-name="StatusItem"/></field>
+        <field title=" " name="pauseTracker" use-when="state.statusId == 'JOB_T_RUNNING'">
+            <hyperlink description="${uiLabelMap.CommonHold}" target="pauseJobTracker" link-type="anchor" style="buttontext">
+                <parameter param-name="jobTrackerId" from-field="parameters.jobTrackerId"/>
+            </hyperlink>
+        </field>
+        <field title=" " name="resumeTracker" use-when="state.statusId == 'JOB_T_ON_HOLD'">
+            <hyperlink description="${uiLabelMap.CommonRestart}" target="resumeJobTracker" link-type="anchor" style="buttontext">
+                <parameter param-name="jobTrackerId" from-field="parameters.jobTrackerId"/>
+            </hyperlink>
+        </field>
+        <field title=" " name="resultTracker" use-when="state.statusId == 'JOB_T_FINISHED'">
+            <hyperlink description="${uiLabelMap.WebtoolsResults}" target="FindJobTrackerResult" link-type="anchor" style="buttontext">
+                <parameter param-name="jobTrackerId" from-field="parameters.jobTrackerId"/>
+            </hyperlink>
+        </field>
+    </form>
+    <form name="FindJobTrackerResults" type="single" target="FindJobTracker" default-entity-name="JobTracker">
+        <auto-fields-entity entity-name="TrackedJobResult" default-field-type="find"/>
+        <field name="noConditionFind"><hidden value="N"/></field>
+        <field name="searchButton"><submit/></field>
+    </form>
+    <grid name="ListJobTrackerResults" list-name="listIt" paginate-target="FindJobTrackerResult" default-entity-name="TrackedJobResult">
+        <actions>
+            <set field="orderBy" default-value="jobTrackerResultSeqId" from-field="parameters.sortField"/>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
+                <field-map field-name="entityName" value="TrackedJobResult"/>
+                <field-map field-name="orderBy" from-field="orderBy"/>
+            </service>
+        </actions>
+        <auto-fields-entity entity-name="TrackedJobResult" default-field-type="display"/>
+    </grid>
 </forms>

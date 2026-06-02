@@ -19,16 +19,26 @@
 package org.apache.ofbiz.service.job;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.ofbiz.base.util.Assert;
 import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.UtilValidate;
+import org.apache.ofbiz.entity.Delegator;
+import org.apache.ofbiz.entity.GenericEntityException;
+import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.GenericRequester;
+import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
+import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.service.ServiceUtil;
 import org.apache.ofbiz.service.semaphore.SemaphoreFailException;
 import org.apache.ofbiz.service.semaphore.SemaphoreWaitException;
+import org.apache.ofbiz.service.tracker.JobTracker;
+import org.apache.ofbiz.service.tracker.JobTrackerListener;
+
 /**
  * A generic async-service job.
  */
@@ -41,6 +51,7 @@ public class GenericServiceJob extends AbstractJob implements Serializable {
     private final transient DispatchContext dctx;
     private final String service;
     private final Map<String, Object> context;
+    private final JobTracker jobTracker;
     /**
      * Gets dctx.
      * @return the dctx
@@ -49,13 +60,15 @@ public class GenericServiceJob extends AbstractJob implements Serializable {
         return dctx;
     }
 
-    public GenericServiceJob(DispatchContext dctx, String jobId, String jobName, String service, Map<String, Object> context, GenericRequester req) {
+    public GenericServiceJob(DispatchContext dctx, String jobId, String jobName, String service, Map<String, Object> context,
+                             GenericRequester req, JobTracker jobTracker) {
         super(jobId, jobName);
         Assert.notNull("dctx", dctx);
         this.dctx = dctx;
         this.service = service;
         this.context = context;
         this.requester = req;
+        this.jobTracker = jobTracker;
     }
 
     /**
@@ -63,6 +76,14 @@ public class GenericServiceJob extends AbstractJob implements Serializable {
      */
     @Override
     public void exec() throws InvalidJobException {
+        try {
+            refreshStatus();
+        } catch (GenericEntityException ignored) {
+        }
+        if (getCurrentState() == State.ON_HOLD) {
+            deQueue();
+            return;
+        }
         if (getCurrentState() != State.QUEUED) {
             throw new InvalidJobException("Illegal state change");
         }
@@ -93,6 +114,56 @@ public class GenericServiceJob extends AbstractJob implements Serializable {
             finish(result);
         } else {
             failed(thrown);
+        }
+        handleTrackerActions(result);
+    }
+
+    /**
+     * @param result
+     */
+    void handleTrackerActions(Map<String, Object> result) {
+        Delegator delegator = this.dctx.getDelegator();
+        if (UtilValidate.isEmpty(this.jobTracker) || !this.jobTracker.getPersistResult()) {
+            return;
+        }
+        try {
+            JobTrackerListener jtl = new JobTrackerListener(delegator, this.jobTracker);
+            if (jtl.isFinished()) {
+                jobTracker.complete();
+            }
+            if (!this.jobTracker.getPersistResult()) {
+                return;
+            }
+            Map<String, Object> contextAndResult = new HashMap<>(getContext());
+            contextAndResult.putAll(result);
+            Map<String, Object> createResultContext = dctx.makeValidContext("createTrackedJobResult",
+                    ModelService.IN_PARAM, contextAndResult);
+            createResultContext.put("jobTrackerId", this.jobTracker.getJobTrackerId());
+            createResultContext.put("jobTrackerResultSeqId", this.getJobId());
+            createResultContext.put("userLogin", this.jobTracker.getUserLogin());
+            if (ServiceUtil.isError(result) || ServiceUtil.isFailure(result)) {
+                createResultContext.put("resultMessage", ServiceUtil.makeErrorMessage(result, "", "", "", ""));
+                createResultContext.put("resultCode", ServiceUtil.isError(result) ? ModelService.RESPOND_ERROR : ModelService.RESPOND_FAIL);
+            } else {
+                createResultContext.put("resultMessage", ServiceUtil.makeSuccessMessage(result, "", "", "", ""));
+                createResultContext.put("resultCode", ModelService.RESPOND_SUCCESS);
+            }
+            dctx.getDispatcher().runSync("createTrackedJobResult", createResultContext);
+        } catch (GenericServiceException | InvalidJobException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * @throws GenericEntityException
+     */
+    protected void refreshStatus() throws GenericEntityException {
+        GenericValue job = dctx.getDelegator().findOne("JobSandbox", false, "jobId", getJobId());
+        if (job != null) {
+            GenericValue statusItem = dctx.getDelegator().findOne("StatusItem", true, "statusId", job.get("statusId"));
+            if (currentState() != State.valueOf(statusItem.getString("statusCode"))) {
+                setCurrentState(State.valueOf(statusItem.getString("statusCode")));
+            }
         }
     }
 

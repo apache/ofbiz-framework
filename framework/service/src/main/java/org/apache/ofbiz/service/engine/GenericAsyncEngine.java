@@ -42,6 +42,8 @@ import org.apache.ofbiz.service.job.Job;
 import org.apache.ofbiz.service.job.JobManager;
 import org.apache.ofbiz.service.job.JobManagerException;
 import org.apache.ofbiz.service.job.JobPriority;
+import org.apache.ofbiz.service.tracker.JobTracker;
+import org.apache.ofbiz.service.tracker.JobTrackerFactory;
 
 /**
  * Generic Asynchronous Engine
@@ -70,6 +72,7 @@ public abstract class GenericAsyncEngine extends AbstractEngine {
     public void runAsync(String localName, ModelService modelService, Map<String, Object> context, GenericRequester requester, boolean persist)
             throws GenericServiceException {
         DispatchContext dctx = getDispatcher().getLocalContext(localName);
+        String jobTrackerId = (String) context.get("jobTrackerId");
         Job job = null;
 
         if (persist) {
@@ -108,6 +111,9 @@ public abstract class GenericAsyncEngine extends AbstractEngine {
                 jFields.put("maxRetry", (long) modelService.getMaxRetry());
                 jFields.put("runtimeDataId", dataId);
                 jFields.put("priority", JobPriority.NORMAL);
+                if (UtilValidate.isNotEmpty(jobTrackerId)) {
+                    jFields.put("jobTrackerId", jobTrackerId);
+                }
                 if (UtilValidate.isNotEmpty(authUserLoginId)) {
                     jFields.put("authUserLoginId", authUserLoginId);
                 }
@@ -128,7 +134,13 @@ public abstract class GenericAsyncEngine extends AbstractEngine {
             if (jMgr != null) {
                 String name = Long.toString(System.currentTimeMillis());
                 String jobId = modelService.getName() + "." + name;
-                job = new GenericServiceJob(dctx, jobId, name, modelService.getName(), context, requester);
+                JobTracker jobTracker;
+                try {
+                    jobTracker = JobTrackerFactory.getJobTracker(dctx.getDispatcher(), jobTrackerId);
+                } catch (GenericEntityException e) {
+                    throw new RuntimeException(e);
+                }
+                job = new GenericServiceJob(dctx, jobId, name, modelService.getName(), context, requester, jobTracker);
                 try {
                     getDispatcher().getJobManager().runJob(job);
                 } catch (JobManagerException jse) {
