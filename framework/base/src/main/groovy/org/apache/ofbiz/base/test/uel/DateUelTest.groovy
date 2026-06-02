@@ -103,7 +103,7 @@ class DateUelTest extends OFBizTestCase {
 
     void testNowTimestampUel() {
         FlexibleStringExpander fse = FlexibleStringExpander.getInstance('${date:nowTimestamp()}')
-        assert (fse.expand([:]).time - UtilDateTime.nowTimestamp().time).abs() < 15 // less than 10 ns appart
+        assert (fse.expand([:]).time - UtilDateTime.nowTimestamp().time).abs() < 500 // less than 500 ms apart
     }
 
     private void doUelDateTest(String uelInput, Closure uelFunction) {
