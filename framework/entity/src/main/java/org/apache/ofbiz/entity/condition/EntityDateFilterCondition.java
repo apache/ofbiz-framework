@@ -95,8 +95,9 @@ public final class EntityDateFilterCondition implements EntityCondition {
     }
 
     @Override
+    @Deprecated
     public void accept(EntityConditionVisitor visitor) {
-        visitor.visit(this);
+        throw new UnsupportedOperationException("EntityDateFilterCondition is deprecated and visitor support has been removed.");
     }
 
     @Override

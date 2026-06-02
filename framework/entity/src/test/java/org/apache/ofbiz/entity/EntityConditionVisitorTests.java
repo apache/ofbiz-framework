@@ -31,7 +31,6 @@ import org.apache.ofbiz.entity.condition.EntityCondition;
 import org.apache.ofbiz.entity.condition.EntityNotCondition;
 import org.apache.ofbiz.entity.condition.EntityConditionList;
 import org.apache.ofbiz.entity.condition.EntityConditionVisitor;
-import org.apache.ofbiz.entity.condition.EntityDateFilterCondition;
 import org.apache.ofbiz.entity.condition.EntityExpr;
 import org.apache.ofbiz.entity.condition.EntityFieldMap;
 import org.apache.ofbiz.entity.condition.EntityWhereString;
@@ -65,11 +64,6 @@ public class EntityConditionVisitorTests {
             }
 
             @Override
-            public void visit(EntityDateFilterCondition df) {
-                pw.print("EntityDateFilterConfition");
-            }
-
-            @Override
             public void visit(EntityExpr expr) {
                 pw.print("EntityExpr");
             }
@@ -92,7 +86,6 @@ public class EntityConditionVisitorTests {
 
             @Override public void visit(EntityNotCondition cond) { }
             @Override public void visit(EntityFieldMap m) { }
-            @Override public void visit(EntityDateFilterCondition df) { }
 
             @Override
             public <T extends EntityCondition> void visit(EntityConditionList<T> l) {
