@@ -295,13 +295,11 @@ Map quickReceiveReturn() {
  * Computes the till now received quantity from all ShipmentReceipts
  */
 BigDecimal getReceivedQuantityForOrderItem (GenericValue orderItem) {
-    BigDecimal receivedQuantity = 0
-    List shipmentReceipts = from('ShipmentReceipt').where(orderId: orderItem.orderId, orderItemSeqId: orderItem.orderItemSeqId).queryList()
-    for (GenericValue shipmentReceipt : shipmentReceipts) {
-        receivedQuantity +=  shipmentReceipt.quantityAccepted
-        receivedQuantity +=  shipmentReceipt.quantityRejected
-    }
-    return receivedQuantity
+    return from('ShipmentReceipt')
+            .where(orderId: orderItem.orderId,
+                    orderItemSeqId: orderItem.orderItemSeqId)
+            .queryList()
+            .sum { (it.quantityAccepted ?: 0) + (it.quantityRejected ?: 0) }
 }
 
 /**
