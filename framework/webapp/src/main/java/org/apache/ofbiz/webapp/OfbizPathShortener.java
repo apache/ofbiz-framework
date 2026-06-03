@@ -127,7 +127,9 @@ public class OfbizPathShortener {
         Transaction trans = null;
         try {
             try {
-                trans = TransactionUtil.suspend();
+                if (TransactionUtil.isTransactionInPlace()) {
+                    trans = TransactionUtil.suspend();
+                }
                 TransactionUtil.begin();
                 delegator.create("ShortenedPath", Map.of("shortenedPath", shortenedPath,
                         "originalPath", path,

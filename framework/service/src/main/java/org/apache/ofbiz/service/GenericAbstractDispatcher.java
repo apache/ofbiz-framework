@@ -120,7 +120,9 @@ public abstract class GenericAbstractDispatcher implements LocalDispatcher {
         Transaction suspendedTransaction = null;
         try {
             boolean beganTransaction = false;
-            suspendedTransaction = TransactionUtil.suspend();
+            if (TransactionUtil.isTransactionInPlace()) {
+                suspendedTransaction = TransactionUtil.suspend();
+            }
             try {
                 beganTransaction = TransactionUtil.begin();
                 try {

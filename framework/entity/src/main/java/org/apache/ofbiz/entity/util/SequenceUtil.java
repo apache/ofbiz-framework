@@ -195,7 +195,9 @@ public class SequenceUtil {
 
             Transaction suspendedTransaction = null;
             try {
-                suspendedTransaction = TransactionUtil.suspend();
+                if (TransactionUtil.isTransactionInPlace()) {
+                    suspendedTransaction = TransactionUtil.suspend();
+                }
 
                 boolean beganTransaction = false;
                 try {
