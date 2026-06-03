@@ -18,9 +18,9 @@
  */
 package org.apache.ofbiz.security;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.File;
 import java.nio.file.Files;
@@ -30,11 +30,11 @@ import java.util.Comparator;
 import java.util.List;
 
 import org.apache.ofbiz.base.util.GeneralException;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-public class SecurityUtilTest {
+public final class SecurityUtilTest {
 
     private static final List<String> FRAMEWORK_ADMIN_PERMISSIONS = Arrays.asList(
             "SECURITY", "COMMON", "ENTITY_DATA");
@@ -43,7 +43,7 @@ public class SecurityUtilTest {
     private Path tempExternal;
     private String previousOfbizHome;
 
-    @Before
+    @BeforeEach
     public void setUpTempDirs() throws Exception {
         tempHome = Files.createTempDirectory("ofbiz-home-test");
         tempExternal = Files.createTempDirectory("ofbiz-ext-test");
@@ -51,7 +51,7 @@ public class SecurityUtilTest {
         System.setProperty("ofbiz.home", tempHome.toString());
     }
 
-    @After
+    @AfterEach
     public void tearDownTempDirs() throws Exception {
         if (previousOfbizHome != null) {
             System.setProperty("ofbiz.home", previousOfbizHome);

@@ -30,6 +30,7 @@ under the License.
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="keystore"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="webapp"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="container"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="uel-mapping"/>
             </xs:sequence>
             <xs:attributeGroup ref="attlist.ofbiz-component"/>
         </xs:complexType>
@@ -297,4 +298,13 @@ under the License.
             <xs:any minOccurs="0" maxOccurs="unbounded" processContents="skip"/>
         </xs:sequence>
     </xs:complexType>
+    <xs:element name="uel-mapping">
+        <xs:complexType>
+            <xs:attributeGroup ref="attlist.uel-mapping"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.uel-mapping">
+        <xs:attribute type="xs:string" name="name" use="required"/>
+        <xs:attribute type="xs:string" name="class-name" use="required"/>
+    </xs:attributeGroup>
 </xs:schema>

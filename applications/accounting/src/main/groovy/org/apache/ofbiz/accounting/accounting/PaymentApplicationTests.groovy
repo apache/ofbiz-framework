@@ -47,7 +47,7 @@ class PaymentApplicationTests extends OFBizTestCase {
         GenericValue payment = from('Payment').where('paymentId', serviceInMap.paymentId).queryOne()
         assert payment
 
-        assert paymentApplication != null
+        assert paymentApplication
         assert paymentApplication.invoiceId == serviceInMap.invoiceId
         assert paymentApplication.paymentId == serviceInMap.paymentId
         assert paymentApplication.amountApplied == payment.amount
@@ -77,7 +77,7 @@ class PaymentApplicationTests extends OFBizTestCase {
         GenericValue payment = from('Payment').where('paymentId', serviceInMap.paymentId).queryOne()
         assert payment
 
-        assert paymentApplication != null
+        assert paymentApplication
         assert paymentApplication.toPaymentId == serviceInMap.toPaymentId
         assert paymentApplication.paymentId == serviceInMap.paymentId
         assert paymentApplication.amountApplied == payment.amount
@@ -108,7 +108,7 @@ class PaymentApplicationTests extends OFBizTestCase {
         GenericValue payment = from('Payment').where('paymentId', serviceInMap.paymentId).queryOne()
         assert payment
 
-        assert paymentApplication != null
+        assert paymentApplication
         assert paymentApplication.billingAccountId == serviceInMap.billingAccountId
         assert paymentApplication.paymentId == serviceInMap.paymentId
         assert paymentApplication.amountApplied == payment.amount
@@ -138,7 +138,7 @@ class PaymentApplicationTests extends OFBizTestCase {
 
         GenericValue payment = from('Payment').where('paymentId', serviceInMap.paymentId).queryOne()
         assert payment
-        assert paymentApplication != null
+        assert paymentApplication
         assert paymentApplication.taxAuthGeoId == serviceInMap.taxAuthGeoId
         assert paymentApplication.paymentId == serviceInMap.paymentId
         assert paymentApplication.amountApplied == payment.amount

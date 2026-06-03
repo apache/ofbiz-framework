@@ -18,12 +18,12 @@
  */
 package org.apache.ofbiz.base.util;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -37,14 +37,14 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TimeZone;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.w3c.dom.Document;
 
 import com.ibm.icu.util.Calendar;
 
-public class ObjectTypeTests {
+public final class ObjectTypeTests {
     private static final LocaleData LOCALE_DATA = new LocaleData("en_US", "Pacific/Wake", "fr", "GMT");
     private final TimeDuration duration = new TimeDuration(0, 0, 0, 1, 1, 1, 1);
     // These numbers are all based on 1 / 128, which is a binary decimal
@@ -96,12 +96,12 @@ public class ObjectTypeTests {
         }
     }
 
-    @Before
+    @BeforeEach
     public void setUp() {
         System.setProperty("testBigDecimal", "bypassLocaleChange");
     }
 
-    @After
+    @AfterEach
     public void tearDown() {
         System.clearProperty("testBigDecimal");
     }
@@ -114,16 +114,13 @@ public class ObjectTypeTests {
     public static void simpleTypeOrObjectConvertTest(String label, Object toConvert, String type, Object wanted)
             throws GeneralException {
         basicTest(label, toConvert);
-        assertEquals(label + ":null target type", toConvert,
-                simpleTypeOrObjectConvert(toConvert, null, null, null, null, true));
-        assertEquals(label + ":null source object", (Object) null,
-                simpleTypeOrObjectConvert(null, type, null, null, null, true));
-        assertEquals(label, wanted, simpleTypeOrObjectConvert(toConvert, type, null, null, null, true));
+        assertEquals(toConvert, simpleTypeOrObjectConvert(toConvert, null, null, null, null, true), label + ":null target type");
+        assertEquals((Object) null, simpleTypeOrObjectConvert(null, type, null, null, null, true), label + ":null source object");
+        assertEquals(wanted, simpleTypeOrObjectConvert(toConvert, type, null, null, null, true), label);
         if (toConvert instanceof String) {
             String str = (String) toConvert;
             Document doc = UtilXml.makeEmptyXmlDocument();
-            assertEquals(label + ":text-node proxy", wanted,
-                    simpleTypeOrObjectConvert(doc.createTextNode(str), type, null, null, null, true));
+            assertEquals(wanted, simpleTypeOrObjectConvert(doc.createTextNode(str), type, null, null, null, true), label + ":text-node proxy");
         }
     }
 
@@ -135,17 +132,14 @@ public class ObjectTypeTests {
         try {
             Locale.setDefault(localeData.goodLocale);
             TimeZone.setDefault(localeData.goodTimeZone);
-            assertEquals(label + ":default-timezone/locale", wanted,
-                    simpleTypeOrObjectConvert(toConvert, type, format, null, null, true));
-            assertNotEquals(label + ":bad-passed-timezone/locale", wanted,
-                    simpleTypeOrObjectConvert(toConvert, type, format, localeData.badTimeZone, localeData.badLocale,
-                            true));
+            assertEquals(wanted, simpleTypeOrObjectConvert(toConvert, type, format, null, null, true), label + ":default-timezone/locale");
+            assertNotEquals(wanted, simpleTypeOrObjectConvert(toConvert, type, format, localeData.badTimeZone, localeData.badLocale,
+                            true), label + ":bad-passed-timezone/locale");
             Locale.setDefault(localeData.badLocale);
             TimeZone.setDefault(localeData.badTimeZone);
-            assertNotEquals(label + ":bad-default-timezone/locale", wanted,
-                    simpleTypeOrObjectConvert(toConvert, type, format, null, null, true));
-            assertEquals(label + ":passed-timezone/locale", wanted, simpleTypeOrObjectConvert(toConvert, type, format,
-                    localeData.goodTimeZone, localeData.goodLocale, true));
+            assertNotEquals(wanted, simpleTypeOrObjectConvert(toConvert, type, format, null, null, true), label + ":bad-default-timezone/locale");
+            assertEquals(wanted, simpleTypeOrObjectConvert(toConvert, type, format,
+                    localeData.goodTimeZone, localeData.goodLocale, true), label + ":passed-timezone/locale");
         } finally {
             Locale.setDefault(defaultLocale);
             TimeZone.setDefault(defaultTimeZone);
@@ -193,7 +187,7 @@ public class ObjectTypeTests {
         } catch (GeneralException e) {
             caught = e;
         } finally {
-            assertNotNull(label + ":caught", caught);
+            assertNotNull(caught, label + ":caught");
         }
     }
 
@@ -207,7 +201,7 @@ public class ObjectTypeTests {
 
     public static void simpleTypeOrObjectConvertTestNoError(String label, Object toConvert, String type)
             throws GeneralException {
-        assertSame(label, toConvert, simpleTypeOrObjectConvert(toConvert, type, null, null, null, false));
+        assertSame(toConvert, simpleTypeOrObjectConvert(toConvert, type, null, null, null, false), label);
     }
 
     public static void simpleTypeOrObjectConvertTestNoError(String label, Object toConvert, String[] types)
@@ -219,14 +213,10 @@ public class ObjectTypeTests {
     }
 
     public static void basicTest(String label, Object toConvert) throws GeneralException {
-        assertEquals(label + ":PlainString", toConvert.toString(),
-                simpleTypeOrObjectConvert(toConvert, "PlainString", null, null, null, true));
-        assertSame(label + ":same", toConvert,
-                simpleTypeOrObjectConvert(toConvert, toConvert.getClass().getName(), null, null, null, true));
-        assertSame(label + ":to-Object", toConvert,
-                simpleTypeOrObjectConvert(toConvert, "Object", null, null, null, true));
-        assertSame(label + ":to-java.lang.Object",
-                toConvert, simpleTypeOrObjectConvert(toConvert, "java.lang.Object", null, null, null, true));
+        assertEquals(toConvert.toString(), simpleTypeOrObjectConvert(toConvert, "PlainString", null, null, null, true), label + ":PlainString");
+        assertSame(toConvert, simpleTypeOrObjectConvert(toConvert, toConvert.getClass().getName(), null, null, null, true), label + ":same");
+        assertSame(toConvert, simpleTypeOrObjectConvert(toConvert, "Object", null, null, null, true), label + ":to-Object");
+        assertSame(toConvert, simpleTypeOrObjectConvert(toConvert, "java.lang.Object", null, null, null, true), label + ":to-java.lang.Object");
     }
 
     @Test
@@ -237,8 +227,7 @@ public class ObjectTypeTests {
         } catch (Exception e) {
             exception = e;
         }
-        assertTrue("Exception thrown by loadClass(\"foobarbaz\") is not ClassNotFoundException",
-                exception instanceof ClassNotFoundException);
+        assertTrue(exception instanceof ClassNotFoundException, "Exception thrown by loadClass(\"foobarbaz\") is not ClassNotFoundException");
     }
 
     @Test
@@ -246,23 +235,21 @@ public class ObjectTypeTests {
         try {
             Class<?> theClass;
             theClass = ObjectType.loadClass("boolean");
-            assertEquals("Wrong class returned by loadClass(\"boolean\")", (Boolean.TYPE).getName(),
-                    theClass.getName());
+            assertEquals((Boolean.TYPE).getName(), theClass.getName(), "Wrong class returned by loadClass(\"boolean\")");
             theClass = ObjectType.loadClass("short");
-            assertEquals("Wrong class returned by loadClass(\"short\")", (Short.TYPE).getName(), theClass.getName());
+            assertEquals((Short.TYPE).getName(), theClass.getName(), "Wrong class returned by loadClass(\"short\")");
             theClass = ObjectType.loadClass("int");
-            assertEquals("Wrong class returned by loadClass(\"int\")", (Integer.TYPE).getName(), theClass.getName());
+            assertEquals((Integer.TYPE).getName(), theClass.getName(), "Wrong class returned by loadClass(\"int\")");
             theClass = ObjectType.loadClass("long");
-            assertEquals("Wrong class returned by loadClass(\"long\")", (Long.TYPE).getName(), theClass.getName());
+            assertEquals((Long.TYPE).getName(), theClass.getName(), "Wrong class returned by loadClass(\"long\")");
             theClass = ObjectType.loadClass("float");
-            assertEquals("Wrong class returned by loadClass(\"float\")", (Float.TYPE).getName(), theClass.getName());
+            assertEquals((Float.TYPE).getName(), theClass.getName(), "Wrong class returned by loadClass(\"float\")");
             theClass = ObjectType.loadClass("double");
-            assertEquals("Wrong class returned by loadClass(\"double\")", (Double.TYPE).getName(), theClass.getName());
+            assertEquals((Double.TYPE).getName(), theClass.getName(), "Wrong class returned by loadClass(\"double\")");
             theClass = ObjectType.loadClass("byte");
-            assertEquals("Wrong class returned by loadClass(\"byte\")", (Byte.TYPE).getName(), theClass.getName());
+            assertEquals((Byte.TYPE).getName(), theClass.getName(), "Wrong class returned by loadClass(\"byte\")");
             theClass = ObjectType.loadClass("char");
-            assertEquals("Wrong class returned by loadClass(\"char\")", (Character.TYPE).getName(),
-                    theClass.getName());
+            assertEquals((Character.TYPE).getName(), theClass.getName(), "Wrong class returned by loadClass(\"char\")");
         } catch (Exception e) {
             fail("Exception thrown by loadClass: " + e.getMessage());
         }
@@ -274,15 +261,14 @@ public class ObjectTypeTests {
             Class<?> theClass;
             // first try with a class full name
             theClass = ObjectType.loadClass("java.lang.String");
-            assertEquals("Wrong class returned by loadClass(\"java.lang.String\")", "java.lang.String",
-                    theClass.getName());
+            assertEquals("java.lang.String", theClass.getName(), "Wrong class returned by loadClass(\"java.lang.String\")");
             // now try with some aliases
             theClass = ObjectType.loadClass("String");
-            assertEquals("Wrong class returned by loadClass(\"String\")", "java.lang.String", theClass.getName());
+            assertEquals("java.lang.String", theClass.getName(), "Wrong class returned by loadClass(\"String\")");
             theClass = ObjectType.loadClass("Object");
-            assertEquals("Wrong class returned by loadClass(\"Object\")", "java.lang.Object", theClass.getName());
+            assertEquals("java.lang.Object", theClass.getName(), "Wrong class returned by loadClass(\"Object\")");
             theClass = ObjectType.loadClass("Date");
-            assertEquals("Wrong class returned by loadClass(\"Date\")", "java.sql.Date", theClass.getName());
+            assertEquals("java.sql.Date", theClass.getName(), "Wrong class returned by loadClass(\"Date\")");
         } catch (Exception e) {
             fail("Exception thrown by loadClass: " + e.getMessage());
         }
@@ -296,7 +282,7 @@ public class ObjectTypeTests {
         } catch (GeneralException e) {
             caught = e;
         } finally {
-            assertNotNull("class not found", caught);
+            assertNotNull(caught, "class not found");
         }
     }
 
@@ -401,9 +387,8 @@ public class ObjectTypeTests {
 
         // usual pattern assumes that the String->BigDecimal conversion will break with bad timezone/locale
         // which is not the case for this particular test
-        assertEquals("String->BigDecimal supports NBSP",
-                simpleTypeOrObjectConvert("29 000", "BigDecimal", null, LOCALE_DATA.goodTimeZone,
-                        LOCALE_DATA.goodLocale, false), largeBigDecimal);
+        assertEquals(simpleTypeOrObjectConvert("29 000", "BigDecimal", null, LOCALE_DATA.goodTimeZone,
+                        LOCALE_DATA.goodLocale, false), largeBigDecimal, "String->BigDecimal supports NBSP");
     }
 
     @Test

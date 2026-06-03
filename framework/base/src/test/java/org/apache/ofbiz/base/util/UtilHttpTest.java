@@ -28,7 +28,8 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasEntry;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
 import java.sql.Timestamp;
@@ -43,14 +44,14 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.ws.rs.HttpMethod;
 
 import org.hamcrest.Matchers;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-public class UtilHttpTest {
+public final class UtilHttpTest {
     private HttpServletRequest req;
 
-    @Before
+    @BeforeEach
     public void setup() {
         req = Mockito.mock(HttpServletRequest.class);
     }
@@ -204,8 +205,8 @@ public class UtilHttpTest {
         assertThat(UtilHttp.makeParamListWithSuffix(req, extra, "_suf", "b"), containsInAnyOrder("1", "3"));
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void missingRequestMakeParamListWithSuffix() {
-        UtilHttp.makeParamListWithSuffix(null, "suffix", "prefix");
+        assertThrows(NullPointerException.class, () -> UtilHttp.makeParamListWithSuffix(null, "suffix", "prefix"));
     }
 }

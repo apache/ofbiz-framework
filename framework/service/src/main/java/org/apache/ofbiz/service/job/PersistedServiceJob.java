@@ -29,6 +29,7 @@ import java.time.format.SignStyle;
 import java.time.temporal.ChronoField;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -53,6 +54,7 @@ import org.apache.ofbiz.service.calendar.RecurrenceInfoException;
 import org.apache.ofbiz.service.calendar.TemporalExpression;
 import org.apache.ofbiz.service.calendar.TemporalExpressionWorker;
 import org.apache.ofbiz.service.config.ServiceConfigUtil;
+import org.apache.ofbiz.service.tracker.JobTracker;
 import org.xml.sax.SAXException;
 
 import com.ibm.icu.util.Calendar;
@@ -88,9 +90,10 @@ public class PersistedServiceJob extends GenericServiceJob {
      * @param dctx
      * @param jobValue
      * @param req
+     * @param jobTracker
      */
-    public PersistedServiceJob(DispatchContext dctx, GenericValue jobValue, GenericRequester req) {
-        super(dctx, jobValue.getString("jobId"), jobValue.getString("jobName"), null, null, req);
+    public PersistedServiceJob(DispatchContext dctx, GenericValue jobValue, GenericRequester req, JobTracker jobTracker) {
+        super(dctx, jobValue.getString("jobId"), jobValue.getString("jobName"), null, null, req, jobTracker);
         this.delegator = dctx.getDelegator();
         this.jobValue = jobValue;
         /*
@@ -397,15 +400,19 @@ public class PersistedServiceJob extends GenericServiceJob {
 
     @Override
     public void deQueue() throws InvalidJobException {
-        if (getCurrentState() != State.QUEUED) {
+        if (!List.of(State.QUEUED, State.ON_HOLD).contains(getCurrentState())) {
             throw new InvalidJobException("Illegal state change");
         }
-        setCurrentState(State.CREATED);
+        if (getCurrentState() == State.QUEUED) {
+            setCurrentState(State.CREATED);
+        }
         try {
             jobValue.refresh();
             jobValue.set("startDateTime", null);
             jobValue.set("runByInstanceId", null);
-            jobValue.set("statusId", "SERVICE_PENDING");
+            if (getCurrentState() == State.QUEUED) {
+                jobValue.set("statusId", "SERVICE_PENDING");
+            }
             jobValue.store();
         } catch (GenericEntityException e) {
             throw new InvalidJobException("Unable to dequeue job [" + getJobId() + "]", e);

@@ -22,12 +22,8 @@ under the License.
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/test-suite.xsd">
 
-    <test-case case-name="limitreached-test">
-        <simple-method-test location="component://product/minilang/product/test/GroupOrderTest.xml" name="testGroupOrderLimitReached"/>
-    </test-case>
-
-    <test-case case-name="limitnotreached-test">
-        <simple-method-test location="component://product/minilang/product/test/GroupOrderTest.xml" name="testGroupOrderLimitNotReached"/>
+    <test-case case-name="group-order-tests">
+        <junit-test-suite class-name="org.apache.ofbiz.product.product.test.GroupOrderTests"/>
     </test-case>
 
 </test-suite>

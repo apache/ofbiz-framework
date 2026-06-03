@@ -24,8 +24,8 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.FilterConfig;
@@ -33,7 +33,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-public class ControlFilterTests {
+public final class ControlFilterTests {
 
     private FilterConfig config;
     private ControlFilter filter;
@@ -42,7 +42,7 @@ public class ControlFilterTests {
     private FilterChain next;
     private HttpSession session;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         config = mock(FilterConfig.class);
         when(config.getInitParameter(anyString())).thenReturn(null);

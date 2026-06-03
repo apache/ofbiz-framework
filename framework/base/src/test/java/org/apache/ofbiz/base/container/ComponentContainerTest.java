@@ -18,7 +18,7 @@
  */
 package org.apache.ofbiz.base.container;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -30,12 +30,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.apache.ofbiz.base.component.ComponentConfig;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 
-public class ComponentContainerTest {
+public final class ComponentContainerTest {
     private static final Path ORDER_CONFIG = Paths.get("applications", "order", "config");
     private static final Path ACCOUNTING_CONFIG = Paths.get("applications", "accounting", "config");
     private static final Path[] CONFIGS = {ORDER_CONFIG, ACCOUNTING_CONFIG};
@@ -45,7 +45,7 @@ public class ComponentContainerTest {
 
     public ComponentContainerTest() throws URISyntaxException { }
 
-    @Before
+    @BeforeEach
     public void setUp() throws IOException {
         cleanUp();
         for (Path cfg : CONFIGS) {
@@ -53,7 +53,7 @@ public class ComponentContainerTest {
         }
     }
 
-    @After
+    @AfterEach
     public void cleanUp() throws IOException {
         for (Path cfg : CONFIGS) {
             Files.deleteIfExists(ofbizHome.resolve(cfg));

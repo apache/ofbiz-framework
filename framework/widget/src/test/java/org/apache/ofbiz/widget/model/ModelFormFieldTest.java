@@ -31,15 +31,15 @@ import java.util.stream.Collectors;
 
 import com.google.common.collect.ImmutableMap;
 import org.hamcrest.Matchers;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.w3c.dom.Element;
 
-public class ModelFormFieldTest {
+public final class ModelFormFieldTest {
     private HashMap<String, Object> context;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         context = new HashMap<>();
     }

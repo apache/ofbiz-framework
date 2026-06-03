@@ -21,8 +21,8 @@ package org.apache.ofbiz.widget;
 import mockit.Mock;
 import mockit.MockUp;
 import org.apache.ofbiz.security.CsrfUtil;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import jakarta.servlet.http.HttpServletRequest;
 import java.net.URI;
@@ -32,9 +32,9 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasProperty;
 
-public class WidgetWorkerTest {
+public final class WidgetWorkerTest {
 
-    @Before
+    @BeforeEach
     public void setupMockups() {
         new RequestHandlerMockUp();
     }

@@ -484,6 +484,7 @@ public final class ModelServiceReader implements Serializable {
         service.addParam(createInternalParam("locale", "java.util.Locale", ModelService.IN_OUT_PARAM));
         service.addParam(createInternalParam("timeZone", "java.util.TimeZone", ModelService.IN_OUT_PARAM));
         service.addParam(createInternalParam("visualTheme", "org.apache.ofbiz.widget.renderer.VisualTheme", ModelService.IN_OUT_PARAM));
+        service.addParam(createInternalParam("jobTrackerId", "String", ModelService.IN_PARAM));
     }
 
     static ModelParam createInternalParam(String name, String type, String mode) {

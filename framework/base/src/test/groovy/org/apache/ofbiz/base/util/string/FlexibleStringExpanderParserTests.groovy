@@ -18,7 +18,7 @@
  *******************************************************************************/
 package org.apache.ofbiz.base.util.string
 
-import org.junit.Test
+import org.junit.jupiter.api.Test
 
 /* codenarc-disable GStringExpressionWithinString, JUnitTestMethodWithoutAssert */
 

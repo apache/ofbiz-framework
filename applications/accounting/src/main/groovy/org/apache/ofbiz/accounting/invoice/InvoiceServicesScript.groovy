@@ -328,7 +328,7 @@ Map cancelInvoice() {
  */
 Map sendInvoicePerEmail() {
     Map emailParams = dispatcher.getDispatchContext()
-            .makeValidContext([*: parameters,
+            .makeValidContext('sendMailFromScreen', 'IN', [*: parameters,
                                xslfoAttachScreenLocation: 'component://accounting/widget/AccountingPrintScreens.xml#InvoicePDF',
                                bodyParameters: [invoiceId: parameters.invoiceId,
                                                 userLogin: parameters.userLogin,

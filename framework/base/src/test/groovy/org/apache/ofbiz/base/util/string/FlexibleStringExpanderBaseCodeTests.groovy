@@ -21,7 +21,7 @@ package org.apache.ofbiz.base.util.string
 import groovy.io.FileType
 import org.apache.ofbiz.base.util.Debug
 import org.apache.ofbiz.base.util.ScriptUtil
-import org.junit.Test
+import org.junit.jupiter.api.Test
 
 import java.util.regex.MatchResult
 import java.util.regex.Matcher

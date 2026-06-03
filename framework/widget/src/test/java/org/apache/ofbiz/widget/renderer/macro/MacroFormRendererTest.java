@@ -55,8 +55,8 @@ import org.apache.ofbiz.widget.renderer.VisualTheme;
 import org.apache.ofbiz.widget.renderer.macro.renderable.RenderableFtl;
 import org.apache.ofbiz.widget.renderer.macro.renderable.RenderableFtlMacroCall;
 import org.hamcrest.Matchers;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
@@ -71,7 +71,7 @@ import mockit.Mocked;
 import mockit.Tested;
 import mockit.Verifications;
 
-public class MacroFormRendererTest {
+public final class MacroFormRendererTest {
 
     @Injectable
     private HttpServletRequest request;
@@ -123,7 +123,7 @@ public class MacroFormRendererTest {
             .name("genericTooltip")
             .build();
 
-    @Before
+    @BeforeEach
     public void setupMockups() {
         new FreeMarkerWorkerMockUp();
         new ThemeFactoryMockUp();

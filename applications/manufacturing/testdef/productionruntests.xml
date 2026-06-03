@@ -26,6 +26,6 @@
     </test-case>
 
     <test-case case-name="production-run-tests">
-        <simple-method-test location="component://manufacturing/minilang/test/ProductionRunTests.xml"/>
+        <junit-test-suite class-name="org.apache.ofbiz.manufacturing.test.ProductionRunTests"/>
     </test-case>
 </test-suite>

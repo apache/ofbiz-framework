@@ -67,7 +67,7 @@ class AutoAcctgInvoiceTests extends OFBizTestCase {
                 'invoiceContentTypeId', 'COMMENTS')
                 .queryFirst()
 
-        assert invoiceContent != null
+        assert invoiceContent
     }
 
     void testCopyInvoice() {
@@ -78,7 +78,7 @@ class AutoAcctgInvoiceTests extends OFBizTestCase {
         Map serviceResult = dispatcher.runSync('copyInvoice', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        assert serviceResult.invoiceId != null
+        assert serviceResult.invoiceId
     }
 
     void testCreateInvoice() {
@@ -92,7 +92,7 @@ class AutoAcctgInvoiceTests extends OFBizTestCase {
         Map serviceResult = dispatcher.runSync('createInvoice', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        assert serviceResult.invoiceId != null
+        assert serviceResult.invoiceId
     }
 
     void testGetInvoice() {
@@ -103,8 +103,8 @@ class AutoAcctgInvoiceTests extends OFBizTestCase {
         Map serviceResult = dispatcher.runSync('getInvoice', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        assert serviceResult.invoice != null
-        assert serviceResult.invoiceItems != null
+        assert serviceResult.invoice
+        assert serviceResult.invoiceItems
     }
 
     void testSetInvoiceStatus() {
@@ -120,7 +120,7 @@ class AutoAcctgInvoiceTests extends OFBizTestCase {
                 .where('invoiceId', '1002')
                 .queryOne()
 
-        assert invoice != null
+        assert invoice
         assert invoice.statusId == 'INVOICE_APPROVED'
     }
 
@@ -133,7 +133,7 @@ class AutoAcctgInvoiceTests extends OFBizTestCase {
         Map serviceResult = dispatcher.runSync('copyInvoiceToTemplate', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        assert serviceResult.invoiceId != null
+        assert serviceResult.invoiceId
     }
 
     void testCreateInvoiceItem() {
@@ -146,7 +146,7 @@ class AutoAcctgInvoiceTests extends OFBizTestCase {
         Map serviceResult = dispatcher.runSync('createInvoiceItem', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        assert serviceResult.invoiceItemSeqId != null
+        assert serviceResult.invoiceItemSeqId
     }
 
     void testCreateInvoiceStatus() {
@@ -166,7 +166,7 @@ class AutoAcctgInvoiceTests extends OFBizTestCase {
                         'statusDate', nowTimestamp)
                 .queryOne()
 
-        assert invoiceStatus != null
+        assert invoiceStatus
     }
 
     void testCreateInvoiceRole() {
@@ -185,7 +185,7 @@ class AutoAcctgInvoiceTests extends OFBizTestCase {
                         'roleTypeId', 'INTERNAL_ORGANIZATIO')
                 .queryOne()
 
-        assert invoiceRole != null
+        assert invoiceRole
     }
 
     void testCreateInvoiceTerm() {
@@ -204,7 +204,7 @@ class AutoAcctgInvoiceTests extends OFBizTestCase {
                 .where('invoiceTermId', serviceResult.invoiceTermId)
                 .queryOne()
 
-        assert invoiceTerm != null
+        assert invoiceTerm
     }
 
     void testCancelInvoice() {
@@ -214,7 +214,7 @@ class AutoAcctgInvoiceTests extends OFBizTestCase {
         ]
         Map serviceResult = dispatcher.runSync('cancelInvoice', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
-        assert serviceResult.invoiceTypeId != null
+        assert serviceResult.invoiceTypeId
     }
 
 }

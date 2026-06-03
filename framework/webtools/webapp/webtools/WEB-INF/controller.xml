@@ -330,6 +330,25 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="JobDetails"/>
     </request-map>
+    <request-map uri="FindJobTracker"><security/><response name="success" type="view" value="FindJobTracker"/></request-map>
+    <request-map uri="JobTrackerDetails"><security/><response name="success" type="view" value="JobTrackerDetails"/></request-map>
+    <request-map uri="FindJobTrackerResult"><security/><response name="success" type="view" value="FindJobTrackerResult"/></request-map>
+    <request-map uri="JobTrackerState"><security/><response name="success" type="view" value="JobTrackerState"/></request-map>
+    <request-map uri="pauseJobTracker"><security/>
+        <event type="service" invoke="pauseJobTracker"/>
+        <response name="success" type="view" value="JobTrackerDetails"/>
+        <response name="error" type="view" value="JobTrackerDetails"/>
+    </request-map>
+    <request-map uri="resumeJobTracker"><security/>
+        <event type="service" invoke="resumeJobTracker"/>
+        <response name="success" type="view" value="JobTrackerDetails"/>
+        <response name="error" type="view" value="JobTrackerDetails"/>
+    </request-map>
+    <request-map uri="cancelJobTracker"><security/>
+        <event type="service" invoke="cancelJobTracker"/>
+        <response name="success" type="view" value="JobTrackerDetails"/>
+        <response name="error" type="view" value="JobTrackerDetails"/>
+    </request-map>
     <request-map uri="cancelJob">
         <security https="true" auth="true"/>
         <event type="service" invoke="cancelScheduledJob"/>
@@ -635,6 +654,7 @@ under the License.
     <request-map uri="WebtoolsLayoutDemoCsv"><security https="true" auth="true"/><response name="success" type="view" value="WebtoolsLayoutDemoCsv"/></request-map>
     <request-map uri="WebtoolsLayoutDemoXls"><security https="true" auth="true"/><response name="success" type="view" value="WebtoolsLayoutDemoXls"/></request-map>
 
+    <request-map uri="AvailableUelList"><security https="true" auth="true"/><response name="success" type="view" value="AvailableUelList"/></request-map>
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
@@ -687,6 +707,10 @@ under the License.
     <view-map name="ServiceList" type="screen" page="component://webtools/widget/ServiceScreens.xml#ServiceList"/>
     <view-map name="FindJob" type="screen" page="component://webtools/widget/ServiceScreens.xml#FindJob"/>
     <view-map name="JobDetails" type="screen" page="component://webtools/widget/ServiceScreens.xml#JobDetails"/>
+    <view-map name="FindJobTracker" type="screen" page="component://webtools/widget/ServiceScreens.xml#FindJobTrackers"/>
+    <view-map name="JobTrackerDetails" type="screen" page="component://webtools/widget/ServiceScreens.xml#JobTrackerDetails"/>
+    <view-map name="JobTrackerState" type="screen" page="component://webtools/widget/ServiceScreens.xml#JobTrackerState"/>
+    <view-map name="FindJobTrackerResult" type="screen" page="component://webtools/widget/ServiceScreens.xml#FindJobTrackerResults"/>
     <view-map name="serviceResult" type="screen" page="component://webtools/widget/ServiceScreens.xml#ServiceResult"/>
     <view-map name="threadList" type="screen" page="component://webtools/widget/ServiceScreens.xml#ThreadList"/>
     <view-map name="scheduleJob" type="screen" page="component://webtools/widget/ServiceScreens.xml#ScheduleJob"/>
@@ -743,5 +767,6 @@ under the License.
     <view-map name="WebtoolsLayoutDemoCsv" type="screencsv" page="component://webtools/widget/MiscScreens.xml#WebtoolsLayoutDemoText" content-type="text/csv"/>
     <view-map name="WebtoolsLayoutDemoXls" type="screenxls" page="component://webtools/widget/MiscScreens.xml#WebtoolsLayoutDemoText" content-type="application/vnd.ms-excel"/>
 
+    <view-map name="AvailableUelList" type="screen" page="component://webtools/widget/MiscScreens.xml#AvailableUelList"/>
     <!-- end of view mappings -->
 </site-conf>

@@ -20,30 +20,30 @@ package org.apache.ofbiz.entity;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.hamcrest.MatcherAssert;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.containsString;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertThrows;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class DelegatorUnitTests {
+public final class DelegatorUnitTests {
     private boolean logErrorOn;
 
-    @Before
+    @BeforeEach
     public void initialize() {
         System.setProperty("ofbiz.home", System.getProperty("user.dir"));
         logErrorOn = Debug.isOn(Debug.ERROR); // save the current setting (to be restored after the tests)
         Debug.set(Debug.ERROR, false); // disable error logging
     }
 
-    @After
+    @AfterEach
     public void restore() {
         Debug.set(Debug.ERROR, logErrorOn); // restore the error log setting
     }

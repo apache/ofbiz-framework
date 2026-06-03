@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ofbiz.base.util.UtilMisc;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class MapContextTest {
 
