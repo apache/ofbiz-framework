@@ -315,19 +315,19 @@ under the License.
         <response name="success" type="view" value="WebSiteContactList"/>
     </request-map>
     <request-map uri="createWebSiteContactList">
-        <security https="true" auth="false"/>
+        <security https="true" auth="true"/>
         <event type="service" invoke="createWebSiteContactList"/>
         <response name="success" type="view" value="WebSiteContactList"/>
         <response name="error" type="view" value="WebSiteContactList"/>
     </request-map>
     <request-map uri="updateWebSiteContactList">
-        <security https="true" auth="false"/>
+        <security https="true" auth="true"/>
         <event type="service" invoke="updateWebSiteContactList"/>
         <response name="success" type="view" value="WebSiteContactList"/>
         <response name="error" type="view" value="WebSiteContactList"/>
     </request-map>
     <request-map uri="deleteWebSiteContactList">
-        <security https="true" auth="false"/>
+        <security https="true" auth="true"/>
         <event type="service" invoke="deleteWebSiteContactList"/>
         <response name="success" type="view" value="WebSiteContactList"/>
         <response name="error" type="view" value="WebSiteContactList"/>
