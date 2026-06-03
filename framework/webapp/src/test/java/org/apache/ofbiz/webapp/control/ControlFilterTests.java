@@ -24,7 +24,6 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -54,18 +53,12 @@ public final class ControlFilterTests {
         when(req.getContextPath()).thenReturn("");
         resp = mock(HttpServletResponse.class);
         next = mock(FilterChain.class);
-        System.setProperty("ControlFilterTests", "bypassPreventsStreamExploitation");
         filter = new ControlFilter();
-
-    }
-
-    @AfterEach
-    public void tearDown() {
-        System.clearProperty("ControlFilterTests");
     }
 
     @Test
     public void filterWithExactAllowedPath() throws Exception {
+        System.setProperty("ControlFilterTests", "bypassPreventsStreamExploitation");
         when(config.getInitParameter("redirectPath")).thenReturn("/foo");
         when(config.getInitParameter("allowedPaths")).thenReturn("/foo:/bar");
         when(req.getRequestURI()).thenReturn("/servlet/bar");
@@ -74,10 +67,12 @@ public final class ControlFilterTests {
         filter.init(config);
         filter.doFilter(req, resp, next);
         verify(next).doFilter(req, resp);
+        System.clearProperty("ControlFilterTests");
     }
 
     @Test
     public void filterWithAllowedSubPath() throws Exception {
+        System.setProperty("ControlFilterTests", "bypassPreventsStreamExploitation");
         when(config.getInitParameter("redirectPath")).thenReturn("/foo");
         when(config.getInitParameter("allowedPaths")).thenReturn("/foo:/bar");
         when(req.getRequestURI()).thenReturn("/servlet/bar/baz");
@@ -86,10 +81,12 @@ public final class ControlFilterTests {
         filter.init(config);
         filter.doFilter(req, resp, next);
         verify(next).doFilter(req, resp);
+        System.clearProperty("ControlFilterTests");
     }
 
     @Test
     public void filterWithRedirection() throws Exception {
+        System.setProperty("ControlFilterTests", "bypassPreventsStreamExploitation");
         when(config.getInitParameter("redirectPath")).thenReturn("/foo");
         when(config.getInitParameter("allowedPaths")).thenReturn("/bar:/baz");
         when(req.getRequestURI()).thenReturn("/missing/path");
@@ -97,10 +94,12 @@ public final class ControlFilterTests {
         filter.init(config);
         filter.doFilter(req, resp, next);
         verify(resp).sendRedirect("/foo");
+        System.clearProperty("ControlFilterTests");
     }
 
     @Test
     public void filterWithURIredirection() throws Exception {
+        System.setProperty("ControlFilterTests", "bypassPreventsStreamExploitation");
         when(config.getInitParameter("redirectPath")).thenReturn("http://example.org/foo");
         when(config.getInitParameter("allowedPaths")).thenReturn("/foo:/bar");
         when(req.getRequestURI()).thenReturn("/baz");
@@ -108,10 +107,12 @@ public final class ControlFilterTests {
         filter.init(config);
         filter.doFilter(req, resp, next);
         verify(resp).sendRedirect("http://example.org/foo");
+        System.clearProperty("ControlFilterTests");
     }
 
     @Test
     public void bailsOutWithVariousErrorCodes() throws Exception {
+        System.setProperty("ControlFilterTests", "bypassPreventsStreamExploitation");
         when(config.getInitParameter("allowedPaths")).thenReturn("/foo");
         when(req.getRequestURI()).thenReturn("/baz");
 
@@ -137,10 +138,12 @@ public final class ControlFilterTests {
         filter.init(config);
         filter.doFilter(req, resp, next);
         verify(resp).sendError(404, "/baz");
+        System.clearProperty("ControlFilterTests");
     }
 
     @Test
     public void redirectAllAllowed() throws Exception {
+        System.setProperty("ControlFilterTests", "bypassPreventsStreamExploitation");
         when(config.getInitParameter("redirectPath")).thenReturn("/bar");
         when(config.getInitParameter("forceRedirectAll")).thenReturn("Y");
         when(config.getInitParameter("allowedPaths")).thenReturn("/foo");
@@ -149,10 +152,12 @@ public final class ControlFilterTests {
         filter.init(config);
         filter.doFilter(req, resp, next);
         verify(resp).sendRedirect("/bar");
+        System.clearProperty("ControlFilterTests");
     }
 
     @Test
     public void redirectAllNotAllowed() throws Exception {
+        System.setProperty("ControlFilterTests", "bypassPreventsStreamExploitation");
         when(config.getInitParameter("redirectPath")).thenReturn("/bar");
         when(config.getInitParameter("forceRedirectAll")).thenReturn("Y");
         when(config.getInitParameter("allowedPaths")).thenReturn("/foo");
@@ -161,10 +166,12 @@ public final class ControlFilterTests {
         filter.init(config);
         filter.doFilter(req, resp, next);
         verify(resp).sendRedirect("/bar");
+        System.clearProperty("ControlFilterTests");
     }
 
     @Test
     public void redirectAllRecursive() throws Exception {
+        System.setProperty("ControlFilterTests", "bypassPreventsStreamExploitation");
         when(config.getInitParameter("redirectPath")).thenReturn("/foo");
         when(config.getInitParameter("forceRedirectAll")).thenReturn("Y");
         when(config.getInitParameter("allowedPaths")).thenReturn("/foo");
@@ -182,5 +189,6 @@ public final class ControlFilterTests {
         filter.doFilter(req, resp, next);
         verify(next).doFilter(req, resp);
         verify(session).removeAttribute("_FORCE_REDIRECT_");
+        System.clearProperty("ControlFilterTests");
     }
 }
