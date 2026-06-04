@@ -183,9 +183,7 @@ under the License.
                                     </platform-specific>
                                 </screenlet>
                                 <screenlet id="shipmentReceiptPanel" title="${uiLabelMap.PageTitleViewShipmentReceipts}" initially-collapsed="true">
-                                    <platform-specific>
-                                        <html><html-template location="component://product/template/shipment/ViewShipmentRouteInfo.ftl"/></html>
-                                    </platform-specific>
+                                    <include-grid name="ShipmentReceipts" location="component://product/widget/facility/ShipmentForms.xml"/>
                                 </screenlet>
                             </decorator-section>
                         </decorator-screen>
