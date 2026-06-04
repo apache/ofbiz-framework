@@ -27,6 +27,7 @@ import java.util.Properties;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.spi.ExtendedLogger;
 
 /**
  * Configurable Debug logging wrapper class
@@ -115,8 +116,9 @@ public final class Debug {
             }
 
             // log
-            Logger logger = getLogger(module);
-            logger.log(LEVEL_OBJS[level], msg, t);
+            ExtendedLogger logger = (ExtendedLogger) getLogger(module);
+            logger.logMessage(Debug.class.getName(), LEVEL_OBJS[level], null,
+                    logger.getMessageFactory().newMessage(msg != null ? msg : ""), t);
         }
     }
 
