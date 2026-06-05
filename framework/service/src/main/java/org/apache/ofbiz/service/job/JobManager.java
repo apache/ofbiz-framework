@@ -310,7 +310,7 @@ public final class JobManager {
      * Bulk-renews the lease (leaseUpdatedStamp) for all RUNNING and QUEUED jobs owned by this instance.
      * Called periodically from the {@link JobPoller} main loop.
      */
-    protected void heartbeatRunningJobs() {
+    public void heartbeatRunningJobs() {
         assertIsRunning();
         List<EntityCondition> conditions = List.of(
                 EntityCondition.makeCondition("runByInstanceId", INSTANCE_ID),
@@ -336,7 +336,7 @@ public final class JobManager {
      * Uses storeByCondition for atomicity to avoid race conditions in multi-node deployments.
      * Called periodically from the {@link JobPoller} main loop.
      */
-    protected int recoverStaleJobs() {
+    public int recoverStaleJobs() {
         assertIsRunning();
         long leaseExpiryMillis;
         try {
