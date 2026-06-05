@@ -26,5 +26,29 @@ under the License.
     <StatusItem description="Finished" sequenceId="10" statusCode="FINISHED" statusId="SERVICE_FINISHED" statusTypeId="SERVICE_STATUS"/>
     <StatusItem description="Failed" sequenceId="20" statusCode="FAILED" statusId="SERVICE_FAILED" statusTypeId="SERVICE_STATUS"/>
     <StatusItem description="Crashed" sequenceId="40" statusCode="CRASHED" statusId="SERVICE_CRASHED" statusTypeId="SERVICE_STATUS"/>
+    <StatusItem description="On Hold" sequenceId="50" statusCode="ON_HOLD" statusId="SERVICE_ON_HOLD" statusTypeId="SERVICE_STATUS"/> <!--To commit-->
     <StatusItem description="Cancelled" sequenceId="99" statusCode="CANCELLED" statusId="SERVICE_CANCELLED" statusTypeId="SERVICE_STATUS"/>
+
+    <!-- Job tracker status codes -->
+    <StatusType description="Job tracker" hasTable="N" statusTypeId="JOB_TRACKER_STATUS"/>
+    <StatusItem description="Created" sequenceId="01" statusCode="CREATED" statusId="JOB_T_CREATED" statusTypeId="JOB_TRACKER_STATUS"/>
+    <StatusItem description="Scheduled" sequenceId="02" statusCode="SCHEDULED" statusId="JOB_T_SCHEDULED" statusTypeId="JOB_TRACKER_STATUS"/>
+    <StatusItem description="Running" sequenceId="05" statusCode="RUNNING" statusId="JOB_T_RUNNING" statusTypeId="JOB_TRACKER_STATUS"/>
+    <StatusItem description="Finished" sequenceId="10" statusCode="FINISHED" statusId="JOB_T_FINISHED" statusTypeId="JOB_TRACKER_STATUS"/>
+    <StatusItem description="Failed" sequenceId="20" statusCode="FAILED" statusId="JOB_T_FAILED" statusTypeId="JOB_TRACKER_STATUS"/>
+    <StatusItem description="On hold" sequenceId="30" statusCode="ON_HOLD" statusId="JOB_T_ON_HOLD" statusTypeId="JOB_TRACKER_STATUS"/>
+    <StatusItem description="Cancelled" sequenceId="99" statusCode="CANCELLED" statusId="JOB_T_CANCELLED" statusTypeId="JOB_TRACKER_STATUS"/>
+
+    <!-- Job tracker status valid change -->
+    <StatusValidChange statusId="JOB_T_CREATED" statusIdTo="JOB_T_SCHEDULED"/>
+    <StatusValidChange statusId="JOB_T_CREATED" statusIdTo="JOB_T_CANCELLED"/>
+    <StatusValidChange statusId="JOB_T_SCHEDULED" statusIdTo="JOB_T_RUNNING"/>
+    <StatusValidChange statusId="JOB_T_SCHEDULED" statusIdTo="JOB_T_CANCELLED"/>
+    <StatusValidChange statusId="JOB_T_RUNNING" statusIdTo="JOB_T_CANCELLED"/>
+    <StatusValidChange statusId="JOB_T_RUNNING" statusIdTo="JOB_T_ON_HOLD"/>
+    <StatusValidChange statusId="JOB_T_RUNNING" statusIdTo="JOB_T_FAILED"/>
+    <StatusValidChange statusId="JOB_T_RUNNING" statusIdTo="JOB_T_FINISHED"/>
+    <StatusValidChange statusId="JOB_T_ON_HOLD" statusIdTo="JOB_T_RUNNING"/>
+    <StatusValidChange statusId="JOB_T_ON_HOLD" statusIdTo="JOB_T_CANCELLED"/>
+    <StatusValidChange statusId="JOB_T_ON_HOLD" statusIdTo="JOB_T_FAILED"/>
 </entity-engine-xml>

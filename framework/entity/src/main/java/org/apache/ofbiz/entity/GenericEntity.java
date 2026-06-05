@@ -877,6 +877,8 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
         Object value = get(name);
         if (value instanceof Double) {
             return new BigDecimal((Double) value);
+        } else if (value instanceof Long) {
+            return new BigDecimal((Long) value);
         }
         return (BigDecimal) value;
     }

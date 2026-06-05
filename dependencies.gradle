@@ -77,7 +77,7 @@ dependencies {
     implementation 'oro:oro:2.0.8'
     implementation 'wsdl4j:wsdl4j:1.6.3'
     implementation 'com.auth0:java-jwt:4.5.2'
-    implementation 'com.auth0:jwks-rsa:0.23.1'
+    implementation 'com.auth0:jwks-rsa:0.24.0'
     implementation 'org.jdom:jdom2:2.0.6.1'
     implementation 'com.google.re2j:re2j:1.8'
     implementation 'xerces:xercesImpl:2.12.2'
@@ -86,10 +86,12 @@ dependencies {
       exclude group: 'xpp3', module: 'xpp3'
     }
 
-    testImplementation 'org.hamcrest:hamcrest-library:2.2' // Enable junit4 to not depend on hamcrest-1.3
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:6.1.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:6.1.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter-params:6.1.0'
+    testImplementation 'org.hamcrest:hamcrest-library:2.2'
     testImplementation 'org.mockito:mockito-core:5.23.0'
     testImplementation 'org.jmockit:jmockit:1.50'
-    testImplementation 'com.pholser:junit-quickcheck-generators:1.0'
 
     runtimeOnly 'javax.xml.soap:javax.xml.soap-api:1.4.0'
     runtimeOnly 'net.sf.barcode4j:barcode4j-fop-ext:2.1'
@@ -97,8 +99,7 @@ dependencies {
     runtimeOnly 'org.apache.avalon.framework:avalon-framework-impl:4.3.1'
     runtimeOnly 'org.apache.axis2:axis2-transport-http:1.8.2'
     runtimeOnly 'org.apache.axis2:axis2-transport-local:1.8.2'
-    runtimeOnly 'org.apache.derby:derby:10.16.1.1' // 10.17.x.x requires Java 21
-    runtimeOnly 'org.apache.derby:derbytools:10.16.1.1' // 10.17.x.x requires Java 21
+    runtimeOnly 'com.h2database:h2:2.4.240'
     runtimeOnly 'org.apache.geronimo.specs:geronimo-jaxrpc_1.1_spec:2.1'
     runtimeOnly 'org.apache.logging.log4j:log4j-1.2-api:2.25.4' // for external jars using the old log4j1.2: routes logging to log4j 2
     runtimeOnly 'org.apache.logging.log4j:log4j-jul:2.25.4' // for external jars using the java.util.logging: routes logging to log4j 2

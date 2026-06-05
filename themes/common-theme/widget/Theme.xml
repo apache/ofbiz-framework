@@ -153,6 +153,7 @@ under the License.
             <screen name="ajaxNotLoggedIn"/>
             <screen name="requirePasswordChange"/>
             <screen name="forgotPassword"/>
+            <screen name="userprofile"/>
             <screen name="GetUiLabels"/>
             <screen name="help"/>
             <screen name="viewBlocked"/>

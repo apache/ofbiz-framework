@@ -26,5 +26,5 @@ under the License.
     <!-- various automated processes will cause it to be put in this role anyway -->
     <PartyRole partyId="system" roleTypeId="PACKER"/>
 
-    <UserLogin userLoginId="system" partyId="system"/>
+    <UserLogin userLoginId="system" userFullName="System Account" partyId="system"/>
 </entity-engine-xml>

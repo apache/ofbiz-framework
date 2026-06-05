@@ -55,5 +55,7 @@ under the License.
     <!-- Rate Type for Labor Cost Data -->
     <RateType rateTypeId="FLC" description="Fully Loaded Cost (price for WorkEffort)"/>
 
+    <!-- Inventory Detail Reason for Trinity Synchronization -->
+    <Enumeration description="Trinity of Truth Synchronization" enumCode="VAR_INTEGRITY_SYNC" enumId="VAR_INTEGRITY_SYNC" sequenceId="99" enumTypeId="IID_REASON"/>
 
 </entity-engine-xml>

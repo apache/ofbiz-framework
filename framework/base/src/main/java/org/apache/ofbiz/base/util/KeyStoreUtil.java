@@ -188,7 +188,9 @@ public final class KeyStoreUtil {
     }
 
     public static Certificate pemToCert(File certFile) throws IOException, CertificateException {
-        return pemToCert(new FileInputStream(certFile));
+        try (InputStream is = new FileInputStream(certFile)) {
+            return pemToCert(is);
+        }
     }
 
     public static Certificate pemToCert(InputStream is) throws IOException, CertificateException {
@@ -201,31 +203,30 @@ public final class KeyStoreUtil {
 
         BufferedReader reader = new BufferedReader(r);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        PrintStream ps = new PrintStream(baos, false, StandardCharsets.UTF_8.toString());
+        try (PrintStream ps = new PrintStream(baos, false, StandardCharsets.UTF_8.toString())) {
+            String line;
 
-        String line;
+            // ignore up to the header
+            while ((line = reader.readLine()) != null && !line.equals(header)) {
+                Debug.logVerbose("Ignore up to the header...", MODULE);
+            }
 
-        // ignore up to the header
-        while ((line = reader.readLine()) != null && !line.equals(header)) {
-            Debug.logVerbose("Ignore up to the header...", MODULE);
+            // no header found
+            if (line == null) {
+                throw new IOException("Error reading certificate, missing BEGIN boundary");
+            }
+
+            // in between the header and footer is the actual certificate
+            while ((line = reader.readLine()) != null && !line.equals(footer)) {
+                line = line.replaceAll("\\s", "");
+                ps.print(line);
+            }
+
+            // no footer found
+            if (line == null) {
+                throw new IOException("Error reading certificate, missing END boundary");
+            }
         }
-
-        // no header found
-        if (line == null) {
-            throw new IOException("Error reading certificate, missing BEGIN boundary");
-        }
-
-        // in between the header and footer is the actual certificate
-        while ((line = reader.readLine()) != null && !line.equals(footer)) {
-            line = line.replaceAll("\\s", "");
-            ps.print(line);
-        }
-
-        // no footer found
-        if (line == null) {
-            throw new IOException("Error reading certificate, missing END boundary");
-        }
-        ps.close();
 
         // decode the buffer to a X509Certificate
 

@@ -855,7 +855,7 @@ public class WebToolsServices {
         String datasourceName = (String) context.get("datasourceName");
         String entityNamePrefix = (String) context.get("entityNamePrefix");
         Locale locale = (Locale) context.get("locale");
-        if (datasourceName == null) datasourceName = "localderby";
+        if (datasourceName == null) datasourceName = "localh2";
 
         ModelReader reader = dctx.getDelegator().getModelReader();
 

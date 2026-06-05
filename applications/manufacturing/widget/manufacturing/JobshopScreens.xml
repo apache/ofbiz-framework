@@ -782,4 +782,146 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="EditWorkEffortInvRes">
+        <section>
+            <actions>
+                <property-map resource="ManufacturingUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="titleProperty" value="ManufacturingEditWorkEffortInvRes"/>
+                <set field="tabButtonItem" value="components"/>
+                <set field="headerItem" value="jobshop"/>
+                <set field="productionRunId" from-field="parameters.productionRunId"/>
+                <set field="workEffortId" from-field="parameters.workEffortId"/>
+                <set field="productId" from-field="parameters.productId"/>
+                <set field="fromDate" from-field="parameters.fromDate"/>
+
+                <entity-one entity-name="WorkEffort" value-field="productionRun">
+                    <field-map field-name="workEffortId" from-field="productionRunId"/>
+                </entity-one>
+                <entity-one entity-name="WorkEffort" value-field="productionRunTask">
+                    <field-map field-name="workEffortId" from-field="workEffortId"/>
+                </entity-one>
+                <entity-one entity-name="Product" value-field="product">
+                    <field-map field-name="productId" from-field="productId"/>
+                </entity-one>
+
+                <service service-name="getTaskQuantities" result-map="taskQuantities">
+                    <field-map field-name="workEffortId" from-field="workEffortId"/>
+                    <field-map field-name="productId" from-field="productId"/>
+                </service>
+
+                <set field="issuedQuantity" from-field="taskQuantities.issuedQuantity" type="BigDecimal"/>
+                <set field="reservedQuantity" from-field="taskQuantities.reservedQuantity" type="BigDecimal"/>
+                <set field="netReservedQuantity" from-field="taskQuantities.netReservedQuantity" type="BigDecimal"/>
+                <set field="shortfallQuantity" from-field="taskQuantities.shortfallQuantity" type="BigDecimal"/>
+                <set field="remainingQuantity" from-field="taskQuantities.remainingQuantity" type="BigDecimal"/>
+                <set field="requiredQuantity" from-field="taskQuantities.requiredQuantity" type="BigDecimal"/>
+
+                <entity-condition entity-name="WorkEffortInvResAndItem" list="workEffortInvResList">
+                    <condition-list>
+                        <condition-expr field-name="workEffortId" from-field="workEffortId"/>
+                        <condition-expr field-name="productId" from-field="productId"/>
+                    </condition-list>
+                </entity-condition>
+
+                <set field="facilityId" value="${groovy: parameters.facilityId ?: productionRun?.facilityId ?: productionRunTask?.facilityId}"/>
+                <set field="parameters.presentation" value="layer"/>
+                <set field="messagesTemplateLocation" value="component://common-theme/template/includes/Messages.ftl"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
+                    <decorator-section name="body">
+                        <container id="ReservationModalArea">
+                            <screenlet title="${uiLabelMap.ManufacturingReservationSummary}">
+                                <container style="alert alert-info">
+                                    <label text="${uiLabelMap.ManufacturingShortageHelpText}"/>
+                                    <label text="${uiLabelMap.ManufacturingUnaccountedHelpText}"/>
+                                </container>
+                                <include-form name="WorkEffortInvResSummary" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
+                            </screenlet>
+                            <screenlet title="${uiLabelMap.ManufacturingEditWorkEffortInvRes} - ${product.internalName} [${productId}]">
+                                <include-grid name="ListWorkEffortInvRes" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
+                            </screenlet>
+                            <screenlet title="${uiLabelMap.ManufacturingAddWorkEffortInvRes}">
+                                <include-form name="AddWorkEffortInvRes" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
+                            </screenlet>
+                        </container>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ConfirmForceIssueModal">
+        <section>
+            <actions>
+                <property-map resource="ManufacturingUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="workEffortId" from-field="parameters.workEffortId"/>
+                <set field="productId" from-field="parameters.productId"/>
+                <set field="fromDate" from-field="parameters.fromDate"/>
+                <set field="reserveOrderEnumId" from-field="parameters.reserveOrderEnumId" default-value="INVRO_FIFO_REC"/>
+                <service service-name="getProductionRunTaskForceIssueImpact" result-map="impactResult">
+                    <field-map field-name="workEffortId" from-field="workEffortId"/>
+                    <field-map field-name="productId" from-field="productId"/>
+                    <field-map field-name="reserveOrderEnumId" from-field="reserveOrderEnumId"/>
+                </service>
+                <set field="policyViolation" from-field="impactResult.policyViolation"/>
+                <set field="impactList" from-field="impactResult.impactList"/>
+                <set field="inventoryIssuePlan" from-field="impactResult.inventoryIssuePlan"/>
+                <set field="totalNeededQuantity" from-field="impactResult.totalNeededQuantity"/>
+                <set field="targetUri" value="reallocateAndIssueInventory"/>
+                <set field="parameters.presentation" value="layer"/>
+                <set field="messagesTemplateLocation" value="component://common-theme/template/includes/Messages.ftl"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
+                    <decorator-section name="body">
+                        <container id="ConfirmForceIssueArea">
+                            <label style="h2" text="${uiLabelMap.ManufacturingConfirmForceIssue}"/>
+                            <section>
+                                <condition>
+                                    <not><if-empty field="policyViolation"/></not>
+                                </condition>
+                                <widgets>
+                                    <container style="alert alert-danger">
+                                        <label text="${policyViolation}"/>
+                                    </container>
+                                </widgets>
+                                <fail-widgets>
+                                    <include-form name="ForceIssueStrategyOptions" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
+                                    <section>
+                                        <condition>
+                                            <not><if-empty field="inventoryIssuePlan"/></not>
+                                        </condition>
+                                        <widgets>
+                                            <label style="h3" text="${uiLabelMap.ManufacturingIssuancePreview} (Items: ${groovy: inventoryIssuePlan.size()})"/>
+                                            <include-grid name="InventoryIssuePlanList" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
+                                        </widgets>
+                                    </section>
+                                    <section>
+                                        <condition>
+                                            <not><if-empty field="impactList"/></not>
+                                        </condition>
+                                        <widgets>
+                                            <container style="alert alert-warning">
+                                                <label text="${uiLabelMap.ManufacturingForceIssueImpactWarning}"/>
+                                            </container>
+                                            <include-grid name="ForceIssueImpactList" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
+                                        </widgets>
+                                        <fail-widgets>
+                                            <container style="alert alert-info">
+                                                <label text="${uiLabelMap.ManufacturingNoImpactDetected}"/>
+                                            </container>
+                                        </fail-widgets>
+                                    </section>
+                                </fail-widgets>
+                            </section>
+                        </container>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 </screens>

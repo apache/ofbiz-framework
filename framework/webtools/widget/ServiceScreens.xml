@@ -121,6 +121,121 @@ under the License.
         </section>
     </screen>
 
+    <screen name="FindJobTrackers">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleFindJobTracker"/>
+                <set field="tabButtonItem" value="jobTrackerList"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonServiceDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container style="page-title"><label text="${uiLabelMap[titleProperty]}"/></container>
+                        <screenlet id="searchOptions" name="findScreenlet" collapsible="true" title="${uiLabelMap.CommonSearchOptions}">
+                            <container id="search-options">
+                                <include-form name="FindJobTrackers" location="component://webtools/widget/ServiceForms.xml"/>
+                            </container>
+                        </screenlet>
+                        <screenlet padded="false">
+                            <label style="h3" text="${uiLabelMap.CommonSearchResults}"/>
+                            <container id="search-results">
+                                <include-grid name="ListJobTrackers" location="component://webtools/widget/ServiceForms.xml"/>
+                            </container>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="JobTrackerDetails">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleJobTrackerDetails"/>
+                <set field="tabButtonItem" value="jobTrackerList"/>
+                <script location="component://webtools/src/main/groovy/org/apache/ofbiz/webtools/service/JobTrackerDetails.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonServiceDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.PageTitleJobTrackerDetails}">
+                            <include-form name="JobTrackerDetails" location="component://webtools/widget/ServiceForms.xml"/>
+                        </screenlet>
+                        <container auto-update-target="JobTrackerState?jobTrackerId=${parameters.jobTrackerId}"
+                                   auto-update-interval="2">
+                            <include-screen name="JobTrackerState"/>
+                        </container>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="JobTrackerState">
+        <section>
+            <actions>
+                <property-map resource="WebtoolsUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <entity-and entity-name="StatusItem" list="statusItems">
+                    <field-map field-name="statusTypeId" value="SERVICE_STATUS"/>
+                    <order-by field-name="sequenceId"/>
+                </entity-and>
+                <script location="component://webtools/src/main/groovy/org/apache/ofbiz/webtools/service/JobTrackerDetails.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="EmbeddedDecorator" location="component://common/widget/CommonScreens.xml">
+                    <decorator-section name="list">
+                        <screenlet title="${uiLabelMap.WebtoolsJobTrackerJobsEvolution}">
+                            <iterate-section entry="status" list="statusItems">
+                                <section>
+                                    <actions>
+                                        <set field="percentage" value="${groovy:state.get(status.statusId + '_percentage')}" default-value="0" type="BigDecimal"/>
+                                    </actions>
+                                    <widgets>
+                                        <label>${status.description}: ${groovy: state.(status.statusId)} (${groovy: percentage * 100} %)</label>
+                                        <horizontal-separator/>
+                                    </widgets>
+                                </section>
+                            </iterate-section>
+                            <section>
+                                <actions>
+                                    <set field="percentage" from-field="state.totalCompleted_percentage" default-value="0" type="BigDecimal"/>
+                                </actions>
+                                <widgets>
+                                    <label style="h2">${uiLabelMap.CommonTotalDone}: ${state.totalCompleted} (${groovy: percentage * 100} %)</label>
+                                </widgets>
+                            </section>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="FindJobTrackerResults">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleFindJobTrackerResults"/>
+                <set field="tabButtonItem" value="jobTrackerList"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonServiceDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container style="page-title"><label text="${uiLabelMap[titleProperty]}"/></container>
+                        <screenlet id="searchOptions" name="findScreenlet" collapsible="true" title="${uiLabelMap.CommonSearchOptions}">
+                            <container id="search-options">
+                                <include-form name="FindJobTrackerResults" location="component://webtools/widget/ServiceForms.xml"/>
+                            </container>
+                        </screenlet>
+                        <screenlet padded="false">
+                            <label style="h3" text="${uiLabelMap.CommonSearchResults}"/>
+                            <container id="search-results">
+                                <include-grid name="ListJobTrackerResults" location="component://webtools/widget/ServiceForms.xml"/>
+                            </container>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
     <screen name="ScheduleJob">
         <section>
             <actions>

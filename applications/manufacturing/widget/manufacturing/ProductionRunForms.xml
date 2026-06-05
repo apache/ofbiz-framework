@@ -250,6 +250,13 @@ under the License.
         </field>
         <field name="estimatedQuantity" title="${uiLabelMap.ManufacturingQuantity}"><display/></field>
         <field name="quantityUomId" map-name="product" title="${uiLabelMap.CommonUom}"><display-entity entity-name="Uom" key-field-name="uomId" description="${abbreviation}"/></field>
+        <field name="reserveLink" title=" " widget-style="buttontext">
+            <hyperlink description="${uiLabelMap.ManufacturingManageReservations}" target="EditWorkEffortInvRes" also-hidden="false" link-type="layered-modal">
+                <parameter param-name="productionRunId"/>
+                <parameter param-name="workEffortId"/>
+                <parameter param-name="productId"/>
+            </hyperlink>
+        </field>
     </grid>
     <form name="EditProductionRunRoutingTask" type="single" target="updateProductionRunRoutingTask" title="" default-map-name="productionRunTask"
         header-row-style="header-row" default-table-style="basic-table">
@@ -392,8 +399,8 @@ under the License.
                 <parameter param-name="failIfItemsAreNotAvailable" value="Y"/>
             </hyperlink>
         </field>
-        <field name="issueLinkQoh" title=" " widget-style="smallSubmit" use-when="&quot;${issueTaskId}&quot;.equals(&quot;${workEffortId}&quot;)">
-            <hyperlink description="${uiLabelMap.ManufacturingIssueProductionRunTask}" target="issueProductionRunRoutingTask" also-hidden="false">
+        <field name="issueLinkQoh" title=" " widget-style="buttontext alert" use-when="&quot;${issueTaskId}&quot;.equals(&quot;${workEffortId}&quot;)">
+            <hyperlink description="${uiLabelMap.ManufacturingForceIssue}" target="ConfirmForceIssueModal" also-hidden="false" link-type="layered-modal">
                 <parameter param-name="workEffortId"/>
                 <parameter param-name="productionRunId" from-field="workEffortParentId"/>
                 <parameter param-name="failIfItemsAreNotAvailable" value="N"/>
@@ -420,12 +427,6 @@ under the License.
         <field name="productionRunId"><hidden/></field>
         <field name="workEffortId"><hidden/></field>
         <field name="fromDate"><hidden/></field>
-        <field name="failIfItemsAreNotAvailable">
-            <drop-down allow-empty="false">
-                <option key="Y" description="${uiLabelMap.CommonYes}"/>
-                <option key="N" description="${uiLabelMap.CommonNo}"/>
-            </drop-down>
-        </field>
         <field name="task" entry-name="workEffortId" title="${uiLabelMap.ManufacturingRoutingTaskId}">
             <display description="${workEffortName} [${workEffortId}]"/>
         </field>
@@ -433,7 +434,30 @@ under the License.
             <display description="${internalName} [${productId}]" also-hidden="false"/>
         </field>
         <field name="estimatedQuantity" title="${uiLabelMap.ManufacturingQuantity}"><display also-hidden="false"/></field>
+        <field name="netReservedQuantity" title="${uiLabelMap.ManufacturingNetReserved}" widget-style="text-success"><display also-hidden="false"/></field>
+        <field name="shortfallQuantity" title="${uiLabelMap.ManufacturingShortfall}" widget-style="text-error"><display also-hidden="false"/></field>
         <field name="issuedQuantity" title="${uiLabelMap.ManufacturingIssuedQuantity}"><display also-hidden="false"/></field>
+        <field name="reserveLink" title=" " widget-style="buttontext">
+            <hyperlink description="${uiLabelMap.ManufacturingManageReservations}" target="EditWorkEffortInvRes" also-hidden="false" link-type="layered-modal">
+                <parameter param-name="productionRunId"/>
+                <parameter param-name="workEffortId"/>
+                <parameter param-name="productId"/>
+            </hyperlink>
+        </field>
+        <field name="forceIssueLink" title=" " widget-style="buttontext alert" use-when="shortfallQuantity != null &amp;&amp; shortfallQuantity.compareTo(java.math.BigDecimal.ZERO) &gt; 0">
+            <hyperlink description="${uiLabelMap.ManufacturingForceIssue}" target="ConfirmForceIssueModal" also-hidden="false" link-type="layered-modal">
+                <parameter param-name="productionRunId"/>
+                <parameter param-name="workEffortId"/>
+                <parameter param-name="productId"/>
+                <parameter param-name="fromDate"/>
+            </hyperlink>
+        </field>
+        <field name="failIfItemsAreNotAvailable">
+            <drop-down allow-empty="false">
+                <option key="Y" description="${uiLabelMap.CommonYes}"/>
+                <option key="N" description="${uiLabelMap.CommonNo}"/>
+            </drop-down>
+        </field>
         <field name="locationSeqId">
             <drop-down allow-empty="true">
                 <entity-options entity-name="ProductFacilityLocation" description="${locationSeqId}">
@@ -1008,5 +1032,125 @@ under the License.
         <field name="description"><text/></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit/></field>
     </form>
-</forms>
+ <grid name="ListWorkEffortInvRes" list-name="workEffortInvResList"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <field name="inventoryItemId" title="${uiLabelMap.ProductInventoryItem}" widget-style="buttontext">
+            <hyperlink target="/facility/control/EditInventoryItem" description="${inventoryItemId}" also-hidden="false" target-type="inter-app">
+                <parameter param-name="inventoryItemId"/>
+            </hyperlink>
+        </field>
+        <field name="lotId" title="${uiLabelMap.ProductLotId}"><display/></field>
+         <field name="netReservedQuantity" title="${uiLabelMap.ManufacturingNetReserved}">
+            <display description="${groovy: (quantity ?: 0.0).subtract(quantityNotAvailable ?: 0.0)}"/>
+        </field>
+        <field name="quantityNotAvailable" use-when="quantityNotAvailable != null &amp;&amp; quantityNotAvailable &gt; 0" title="${uiLabelMap.ManufacturingShortfall}" widget-style="alert">
+            <display default-value="0.0"/>
+        </field>
+        <field name="quantityNotAvailable" use-when="quantityNotAvailable == null || quantityNotAvailable == 0" title="${uiLabelMap.ManufacturingShortfall}">
+            <display default-value="0.0"/>
+        </field>
+       
+        <field name="deleteLink" title=" " widget-style="smallSubmit">
+            <hyperlink description="${uiLabelMap.ManufacturingRelease}" target-type="plain"
+                target="javascript:ajaxUpdateArea('ReservationModalArea', 'deleteWorkEffortInvRes', 'workEffortId=${workEffortId}&amp;inventoryItemId=${inventoryItemId}&amp;productionRunId=${productionRunId}&amp;productId=${productId}');">
+            </hyperlink>
+        </field>
+        <on-event-update-area event-type="paginate" area-id="ReservationModalArea" area-target="EditWorkEffortInvRes"/>
+    </grid>
 
+    <form name="AddWorkEffortInvRes" type="single" target="createWorkEffortInvRes" title=""
+        header-row-style="header-row" default-table-style="basic-table">
+        <field name="productionRunId"><hidden/></field>
+        <field name="workEffortId"><hidden/></field>
+        <field name="productId"><hidden value="${productId}"/></field>
+        <field name="facilityId"><hidden value="${facilityId}"/></field>
+        <field name="inventoryItemId" title="${uiLabelMap.ProductInventoryItem}" required-field="true">
+            <lookup target-form-name="LookupInventoryItem" target-parameter="productId,facilityId" presentation="layer" width="800" height="600"/>
+        </field>
+        <field name="quantity" title="${uiLabelMap.ManufacturingReservedQuantity}" required-field="true">
+            <text size="10" default-value="${remainingQuantity}"/>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.ManufacturingReserve}"><submit/></field>
+        <on-event-update-area event-type="submit" area-id="ReservationModalArea" area-target="EditWorkEffortInvRes"/>
+    </form>
+    <form name="WorkEffortInvResSummary" type="single"
+        header-row-style="header-row" default-table-style="basic-table">
+        <field name="requiredQuantity" title="${uiLabelMap.ManufacturingRequiredQuantity}">
+            <display type="number"/>
+        </field>
+        <field name="netReservedQuantity" title="${uiLabelMap.ManufacturingNetReserved}" widget-style="text-success">
+            <display type="number"/>
+        </field>
+         <field name="shortfallQuantity" title="${uiLabelMap.ManufacturingShortfall}" widget-style="alert">
+            <display type="number" default-value="0"/>
+        </field>
+        <field name="unaccountedQuantity" title="${uiLabelMap.ManufacturingUnaccountedQuantity}" widget-style="text-warning">
+            <display type="number" default-value="0"/>
+        </field>
+        <field name="issuedQuantity" title="${uiLabelMap.ManufacturingIssuedQuantity}">
+            <display type="number"/>
+        </field>
+        <field name="remainingQuantity" title="${uiLabelMap.ManufacturingRemainingQuantity}" widget-style="strong">
+            <display type="number"/>
+        </field>
+    </form>
+    <grid name="ForceIssueImpactList" list-name="impactList"
+        header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <field name="productId" title="${uiLabelMap.ProductProduct}">
+            <display-entity entity-name="Product" description="${internalName} [${productId}]"/>
+        </field>
+        <field name="inventoryItemId" title="${uiLabelMap.ProductInventoryItem}">
+            <display/>
+        </field>
+        <field name="impactType" title="${uiLabelMap.ManufacturingImpactType}">
+            <display/>
+        </field>
+        <field name="impactId" title="${uiLabelMap.ManufacturingImpactId}">
+            <display/>
+        </field>
+        <field name="parentWorkEffortId" title="${uiLabelMap.ManufacturingProductionRunId}">
+            <display/>
+        </field>
+        <field name="inventoryItemId" title="${uiLabelMap.ProductInventoryItem}">
+            <display/>
+        </field>
+        <field name="impactQuantity" title="${uiLabelMap.ManufacturingImpactQuantity}">
+            <display type="number"/>
+        </field>
+        <on-event-update-area event-type="paginate" area-id="ConfirmForceIssueArea" area-target="ConfirmForceIssueModal"/>
+    </grid>
+
+    <grid name="InventoryIssuePlanList" list-name="inventoryIssuePlan"
+        header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <field name="productId" title="${uiLabelMap.ProductProduct}">
+            <display-entity entity-name="Product" description="${internalName} [${productId}]"/>
+        </field>
+        <field name="type" title="${uiLabelMap.CommonType}">
+            <display description="${uiLabelMap[type]}"/>
+        </field>
+        <field name="inventoryItemId" title="${uiLabelMap.ProductInventoryItem}">
+            <display/>
+        </field>
+        <field name="quantity" title="${uiLabelMap.CommonQuantity}">
+            <display type="number"/>
+        </field>
+    </grid>
+
+    <form name="ForceIssueStrategyOptions" id="ForceIssueStrategyOptions" type="single" target="reallocateAndIssueInventory">
+        <actions>
+            <set field="reserveOrderEnumId" from-field="parameters.reserveOrderEnumId" default-value="INVRO_FIFO_REC"/>
+        </actions>
+        <field name="workEffortId"><hidden/></field>
+        <field name="productId"><hidden/></field>
+        <field name="productionRunId" entry-name="parameters.productionRunId"><hidden/></field>   
+        <field name="reserveOrderEnumId" title="${uiLabelMap.ManufacturingReservationStrategy}" event="onchange" action="javascript:ajaxUpdateArea('ConfirmForceIssueArea', 'ConfirmForceIssueModal', 'reserveOrderEnumId=' + this.value + '&amp;workEffortId=${workEffortId}&amp;productId=${productId}&amp;productionRunId=${parameters.productionRunId}');">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="Enumeration" key-field-name="enumId" description="${description}">
+                    <entity-constraint name="enumTypeId" value="INV_RES_ORDER"/>
+                    <entity-order-by field-name="sequenceId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.ManufacturingConfirmForceIssue}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+</forms>

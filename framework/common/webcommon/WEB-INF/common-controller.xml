@@ -130,6 +130,24 @@ under the License.
         <response name="error" type="request" value="main"/>
     </request-map>
 
+    <!-- userprofile requset -->
+    <request-map uri="userprofile">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="userprofile"/>
+    </request-map>
+    <request-map uri="setUserLocale">
+        <security https="true" auth="false"/>
+        <event type="java" path="org.apache.ofbiz.common.CommonEvents" invoke="setSessionLocale"/>
+        <response name="success" type="request-redirect" value="userprofile"/>
+        <response name="error" type="request" value="userprofile"/>
+    </request-map>
+    <request-map uri="setUserTimeZone">
+        <security https="true" auth="false"/>
+        <event type="java" path="org.apache.ofbiz.common.CommonEvents" invoke="setSessionTimeZone"/>
+        <response name="success" type="request-redirect" value="userprofile"/>
+        <response name="error" type="request" value="userprofile"/>
+    </request-map>
+
     <!-- Common Mappings used for Set user organization -->
     <request-map uri="ListSetCompanies"><security https="true" auth="false"/><response name="success" type="view" value="ListSetCompanies" save-last-view="true"/></request-map>
 
@@ -360,6 +378,7 @@ under the License.
     <view-map name="LookupTimeDuration" type="screen" page="component://common/widget/LookupScreens.xml#TimeDuration" auth="false"/>
     <view-map name="ListTimezones" type="screen" page="component://common/widget/LookupScreens.xml#ListTimezones"/>
     <view-map name="ListVisualThemes" type="screen" page="component://common/widget/LookupScreens.xml#ListVisualThemes"/>
+    <view-map name="userprofile" type="screen" page="component://common/widget/CommonScreens.xml#userprofile"/>
 
     <view-map name="ajaxAutocompleteOptions" type="screen" page="component://common/widget/CommonScreens.xml#ajaxAutocompleteOptions"/>
 

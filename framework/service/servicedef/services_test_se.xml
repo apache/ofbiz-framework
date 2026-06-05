@@ -214,4 +214,23 @@ under the License.
              location="component://service/src/main/groovy/org/apache/ofbiz/service/test/TestServices.groovy" invoke="testPingErrorWithDSLCall">
         <implements service="testGroovyPingSuccess"/>
     </service>
+
+    <!--Test job tracker engine service -->
+    <service name="TestTopLevelServiceThatPlansTrackedServices" engine="groovy-tracker" auth="true"
+             location="component://service/src/test/groovy/org/apache/ofbizservice/test/TrackerTestServices.groovy"
+             invoke="testTopLevelServiceThatPlansTrackedServices">
+        <description>Test service</description>
+        <attribute name="jobTrackerId" type="String" mode="OUT"/>
+    </service>
+    <service name="ServiceForTestingTracker" engine="groovy-tracker" auth="true"
+             location="component://service/src/test/groovy/org/apache/ofbizservice/test/TrackerTestServices.groovy"
+             invoke="serviceForTestingTracker">
+        <description>Test service</description>
+    </service>
+    <service name="ServiceThatWaitsAMoment" engine="groovy" auth="true"
+             location="component://service/src/test/groovy/org/apache/ofbizservice/test/TrackerTestServices.groovy"
+             invoke="serviceThatWaitsAMoment">
+        <description>Test service</description>
+    </service>
+
 </services>

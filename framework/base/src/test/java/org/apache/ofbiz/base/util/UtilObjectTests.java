@@ -23,10 +23,11 @@ import static org.apache.ofbiz.base.util.UtilObject.getObjectException;
 import static org.apache.ofbiz.base.util.UtilObject.getObjectFromFactory;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -43,12 +44,12 @@ import java.util.Set;
 
 import org.apache.ofbiz.base.lang.Factory;
 import org.apache.ofbiz.base.lang.SourceMonitored;
-import org.junit.After;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
 
 @SourceMonitored
-public class UtilObjectTests {
-    @After
+public final class UtilObjectTests {
+    @AfterEach
     public void cleanUp() {
         // Ensure that the default value of allowed deserialization classes is used.
         UtilProperties.setPropertyValueInMemory("SafeObjectInputStream", "allowList", "");
@@ -120,30 +121,30 @@ public class UtilObjectTests {
         InputStream in = new ErrorInjector(new ByteArrayInputStream(source), true);
         byte[] result = new byte[source.length];
         int r = in.read();
-        assertEquals("onClose, read short length", 2, in.read(new byte[2]));
-        assertNotSame("onClose, not read/eof", -1, r);
-        assertEquals("onClose, read length", source.length - 3, in.read(result, 3, result.length - 3));
+        assertEquals(2, in.read(new byte[2]), "onClose, read short length");
+        assertNotEquals((Object) (-1), (Object) r, "onClose, not read/eof");
+        assertEquals(source.length - 3, in.read(result, 3, result.length - 3), "onClose, read length");
         Exception caught = null;
         try {
             in.close();
         } catch (IOException e) {
             caught = e;
         } finally {
-            assertNotNull("onClose, exception", caught);
+            assertNotNull(caught, "onClose, exception");
         }
         in = new ErrorInjector(new ByteArrayInputStream(source), 4);
         result = new byte[source.length];
         r = in.read();
-        assertNotSame("after, not read/eof", -1, r);
-        assertEquals("after, read short length", 2, in.read(result, 0, 2));
-        assertEquals("after, read long length", 1, in.read(result, 3, result.length - 3));
+        assertNotEquals((Object) (-1), (Object) r, "after, not read/eof");
+        assertEquals(2, in.read(result, 0, 2), "after, read short length");
+        assertEquals(1, in.read(result, 3, result.length - 3), "after, read long length");
         caught = null;
         try {
             in.read(result, 4, result.length - 4);
         } catch (IOException e) {
             caught = e;
         } finally {
-            assertNotNull("read, buffer exception", caught);
+            assertNotNull(caught, "read, buffer exception");
         }
         caught = null;
         try {
@@ -151,7 +152,7 @@ public class UtilObjectTests {
         } catch (IOException e) {
             caught = e;
         } finally {
-            assertNotNull("read, singleton exception", caught);
+            assertNotNull(caught, "read, singleton exception");
         }
         in.close();
     }
@@ -185,13 +186,13 @@ public class UtilObjectTests {
 
     @Test
     public void testGetBytesObject() {
-        assertNotNull("long", UtilObject.getBytes(0L));
-        assertNotNull("injector good", UtilObject.getBytes(new SerializationInjector(false, false)));
+        assertNotNull(UtilObject.getBytes(0L), "long");
+        assertNotNull(UtilObject.getBytes(new SerializationInjector(false, false)), "injector good");
         boolean errorOn = Debug.isOn(Debug.ERROR);
         try {
             Debug.set(Debug.ERROR, false);
-            assertNull("injector bad", UtilObject.getBytes(new SerializationInjector(false, true)));
-            assertNull("long", UtilObject.getBytes(this));
+            assertNull(UtilObject.getBytes(new SerializationInjector(false, true)), "injector bad");
+            assertNull(UtilObject.getBytes(this), "long");
         } finally {
             Debug.set(Debug.ERROR, errorOn);
         }
@@ -201,20 +202,20 @@ public class UtilObjectTests {
     public void testGetObject() {
         Long one = 1L;
         byte[] oneBytes = UtilObject.getBytes(one);
-        assertNotNull("oneBytes", oneBytes);
-        assertEquals("one getObject", one, UtilObject.getObject(oneBytes));
+        assertNotNull(oneBytes, "oneBytes");
+        assertEquals(one, UtilObject.getObject(oneBytes), "one getObject");
         boolean errorOn = Debug.isOn(Debug.ERROR);
         try {
             Debug.set(Debug.ERROR, false);
-            assertNull("parse empty array", UtilObject.getObject(new byte[0]));
+            assertNull(UtilObject.getObject(new byte[0]), "parse empty array");
 
             // simulate a ClassNotFoundException
             Object groovySerializable = GroovyUtil.eval(
                     "class foo implements java.io.Serializable { }; return new foo()",
                     new HashMap<String, Object>());
             byte[] groovySerializableBytes = UtilObject.getBytes(groovySerializable);
-            assertNotNull("groovySerializableBytes", groovySerializableBytes);
-            assertNull("groovyDeserializable", UtilObject.getObject(groovySerializableBytes));
+            assertNotNull(groovySerializableBytes, "groovySerializableBytes");
+            assertNull(UtilObject.getObject(groovySerializableBytes), "groovyDeserializable");
 
             // SerializationInjector is a test-only class; allow it explicitly for this assertion.
             // Note: the allowList value is treated as a regex, so '.' is used instead of '$'
@@ -222,11 +223,11 @@ public class UtilObjectTests {
             UtilProperties.setPropertyValueInMemory("SafeObjectInputStream", "allowList",
                     "org.apache.ofbiz.base.util.UtilObjectTests.SerializationInjector");
             byte[] injectorBytes = UtilObject.getBytes(new SerializationInjector(false, false));
-            assertNotNull("injectorBytes good", injectorBytes);
-            assertNotNull("injector good", UtilObject.getObject(injectorBytes));
+            assertNotNull(injectorBytes, "injectorBytes good");
+            assertNotNull(UtilObject.getObject(injectorBytes), "injector good");
             injectorBytes = UtilObject.getBytes(new SerializationInjector(true, false));
-            assertNotNull("injectorBytes bad", injectorBytes);
-            assertNull("injector bad", UtilObject.getObject(injectorBytes));
+            assertNotNull(injectorBytes, "injectorBytes bad");
+            assertNull(UtilObject.getObject(injectorBytes), "injector bad");
         } finally {
             Debug.set(Debug.ERROR, errorOn);
         }
@@ -234,14 +235,14 @@ public class UtilObjectTests {
 
     @Test
     public void testGetByteCount() throws Exception {
-        assertNotSame("long", 0, UtilObject.getByteCount(0L));
+        assertNotEquals((Object) 0L, (Object) UtilObject.getByteCount(0L), "long");
         Exception caught = null;
         try {
             UtilObject.getByteCount(this);
         } catch (IOException e) {
             caught = e;
         } finally {
-            assertNotNull("exception thrown", caught);
+            assertNotNull(caught, "exception thrown");
         }
     }
 
@@ -298,20 +299,20 @@ public class UtilObjectTests {
 
     @Test
     public void testGetObjectFromFactory() throws Exception {
-        assertEquals("first one", "ONE", getObjectFromFactory(TestFactoryIntf.class, toSet("first", "one")));
-        assertEquals("first two", "TWO", getObjectFromFactory(TestFactoryIntf.class, toSet("first", "two")));
-        assertEquals("first three", "THREE", getObjectFromFactory(TestFactoryIntf.class, toSet("first", "three")));
-        assertEquals("first null", "1", getObjectFromFactory(TestFactoryIntf.class, toSet("first", "second", "ONE")));
-        assertEquals("second one", "1", getObjectFromFactory(TestFactoryIntf.class, toSet("second", "ONE")));
-        assertEquals("second two", "2", getObjectFromFactory(TestFactoryIntf.class, toSet("second", "TWO")));
-        assertEquals("second three", "3", getObjectFromFactory(TestFactoryIntf.class, toSet("second", "THREE")));
+        assertEquals("ONE", getObjectFromFactory(TestFactoryIntf.class, toSet("first", "one")), "first one");
+        assertEquals("TWO", getObjectFromFactory(TestFactoryIntf.class, toSet("first", "two")), "first two");
+        assertEquals("THREE", getObjectFromFactory(TestFactoryIntf.class, toSet("first", "three")), "first three");
+        assertEquals("1", getObjectFromFactory(TestFactoryIntf.class, toSet("first", "second", "ONE")), "first null");
+        assertEquals("1", getObjectFromFactory(TestFactoryIntf.class, toSet("second", "ONE")), "second one");
+        assertEquals("2", getObjectFromFactory(TestFactoryIntf.class, toSet("second", "TWO")), "second two");
+        assertEquals("3", getObjectFromFactory(TestFactoryIntf.class, toSet("second", "THREE")), "second three");
         Exception caught = null;
         try {
             getObjectFromFactory(TestFactoryIntf.class, toSet("first"));
         } catch (ClassNotFoundException e) {
             caught = e;
         } finally {
-            assertNotNull("nothing found first", caught);
+            assertNotNull(caught, "nothing found first");
         }
         caught = null;
         try {
@@ -319,7 +320,7 @@ public class UtilObjectTests {
         } catch (ClassNotFoundException e) {
             caught = e;
         } finally {
-            assertNotNull("nothing found second", caught);
+            assertNotNull(caught, "nothing found second");
         }
     }
 
@@ -347,7 +348,7 @@ public class UtilObjectTests {
     }
 
     // Test reading a basic list of string object after forbidding such kind of objects.
-    @Test(expected = ClassCastException.class)
+    @Test
     public void testGetObjectExceptionUnsafe() throws IOException, ClassNotFoundException {
         // Only allow object of type where the package prefix is 'org.apache.ofbiz'
         UtilProperties.setPropertyValueInMemory("SafeObjectInputStream", "allowList", "org.apache.ofbiz..*");
@@ -355,7 +356,7 @@ public class UtilObjectTests {
                 ObjectOutputStream oos = new ObjectOutputStream(bos)) {
             List<String> forbiddenObject = Arrays.asList("foo", "bar", "baz");
             oos.writeObject(forbiddenObject);
-            getObjectException(bos.toByteArray());
+            assertThrows(ClassCastException.class, () -> getObjectException(bos.toByteArray()));
         }
     }
 }

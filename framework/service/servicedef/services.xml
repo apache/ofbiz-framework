@@ -265,4 +265,33 @@ under the License.
         <auto-attributes include="pk" mode="IN"/>
     </service>
 
+    <!--  Job tracker  -->
+    <service name="createJobTracker" engine="entity-auto" auth="true" invoke="create" default-entity-name="JobTracker">
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="statusId" default-value="JOB_T_CREATED"/>
+    </service>
+    <service name="updateJobTracker" engine="entity-auto" auth="true" invoke="update" default-entity-name="JobTracker">
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+
+    <service name="pauseJobTracker" engine="groovy" auth="true" invoke="pauseJobTracker"
+             location="component://service/src/main/groovy/org/apache/ofbiz/service/TrackerServices.groovy">
+        <attribute name="jobTrackerId" type="String" mode="IN"/>
+    </service>
+    <service name="resumeJobTracker" engine="groovy" auth="true" invoke="resumeJobTracker"
+             location="component://service/src/main/groovy/org/apache/ofbiz/service/TrackerServices.groovy">
+        <attribute name="jobTrackerId" type="String" mode="IN"/>
+    </service>
+    <service name="cancelJobTracker" engine="groovy" auth="true" invoke="cancelJobTracker"
+             location="component://service/src/main/groovy/org/apache/ofbiz/service/TrackerServices.groovy">
+        <attribute name="jobTrackerId" type="String" mode="IN"/>
+    </service>
+
+    <service name="createTrackedJobResult" engine="entity-auto" auth="true" invoke="create" default-entity-name="TrackedJobResult">
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+
 </services>

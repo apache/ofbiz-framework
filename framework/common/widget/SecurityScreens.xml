@@ -48,7 +48,6 @@ under the License.
                 <set field="titleProperty" value="CreateUserLogin"/>
                 <set field="cancelPage" from-field="parameters.CANCEL_PAGE" default-value="FindUserLogin"/>
                 <set field="createUserLoginURI" value="createUserLogin"/>
-                <set field="partyId" from-field="parameters.partyId"/>
             </actions>
             <widgets>
                 <decorator-screen name="SecurityDecorator" location="${parameters.securityDecoratorLocation}">

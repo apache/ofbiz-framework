@@ -3835,24 +3835,6 @@ under the License.
       </relation>
     </entity>
 
-    <entity entity-name="ValueLinkKey"
-            package-name="org.apache.ofbiz.accounting.payment"
-            title="Value Link Key Store">
-      <field name="merchantId" type="id-vlong"></field>
-      <field name="publicKey" type="very-long"></field>
-      <field name="privateKey" type="very-long"></field>
-      <field name="exchangeKey" type="very-long"></field>
-      <field name="workingKey" type="very-long"></field>
-      <field name="workingKeyIndex" type="numeric"></field>
-      <field name="lastWorkingKey" type="very-long"></field>
-      <field name="createdDate" type="date-time"></field>
-      <field name="createdByTerminal" type="short-varchar"></field>
-      <field name="createdByUserLogin" type="id-vlong"></field>
-      <field name="lastModifiedDate" type="date-time"></field>
-      <field name="lastModifiedByTerminal" type="short-varchar"></field>
-      <field name="lastModifiedByUserLogin" type="id-vlong"></field>
-      <prim-key field="merchantId"/>
-    </entity>
     <!-- ========================================================= -->
     <!-- org.apache.ofbiz.accounting.tax -->
     <!-- ========================================================= -->

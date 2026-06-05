@@ -191,6 +191,12 @@ public class GenericDispatcherFactory implements LocalDispatcherFactory {
         }
 
         @Override
+        public void runAsyncTracked(String serviceName, String jobTrackerId, Map<String, Object> context) throws GenericServiceException {
+            context.put("jobTrackerId", jobTrackerId);
+            runAsync(serviceName, context, true);
+        }
+
+        @Override
         public void runAsync(String serviceName, Map<String, ? extends Object> context)
                 throws ServiceAuthException, ServiceValidationException, GenericServiceException {
             runAsync(serviceName, context, true);

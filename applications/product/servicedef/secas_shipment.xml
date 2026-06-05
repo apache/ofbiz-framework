@@ -144,7 +144,7 @@ under the License.
     </eca>
     <eca service="createShipment" event="commit">
         <condition field-name="statusId" operator="is-not-empty"/>
-        <action service="createShipmentStatus" mode="async"/>
+        <action service="createShipmentStatus" mode="sync"/>
     </eca>
 
 

@@ -36,7 +36,9 @@ under the License.
     <test-case case-name="service-dead-lock-retry-assert-data">
         <entity-xml action="assert" entity-xml-url="component://service/testdef/data/ServiceDeadLockRetryAssertData.xml"/>
     </test-case>
-
+    <test-case case-name="engine-tracker-tests">
+        <junit-test-suite name="engine-tracker" class-name="org.apache.ofbiz.service.test.engine.TrackerEngineTest"/>
+    </test-case>
     <!-- this case is failing, so commenting out by default until an automatic fix can be found
     <test-case case-name="service-lock-wait-timeout-retry-test">
         <service-test service-name="testServiceLockWaitTimeoutRetry"/>

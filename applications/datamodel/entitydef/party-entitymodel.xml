@@ -2819,7 +2819,7 @@ under the License.
       <field name="height" type="floating-point"></field>
       <field name="weight" type="floating-point"></field>
       <field name="mothersMaidenName" type="long-varchar" encrypt="true"></field>
-      <field name="oldMaritalStatusEnumId" type="id" col-name="marital_satus_enum_id">
+      <field name="oldMaritalStatusEnumId" type="id" col-name="MARITAL_STATUS_ENUM_ID">
         <description>DEPRECATED use maritalStatusTypeId instead</description>
       </field>
       <field name="maritalStatusTypeId" type="id"/>

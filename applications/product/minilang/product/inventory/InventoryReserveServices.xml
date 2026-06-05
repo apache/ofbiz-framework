@@ -43,7 +43,12 @@ under the License.
         <if-compare field="productType.isPhysical" operator="equals" value="N">
             <set field="parameters.quantityNotReserved" value="0" type="BigDecimal"/>
             <else>
-                <entity-one entity-name="OrderHeader" value-field="orderHeader"/>
+                <if-not-empty field="parameters.orderId">
+                    <entity-one entity-name="OrderHeader" value-field="orderHeader"/>
+                </if-not-empty>
+                <if-not-empty field="parameters.workEffortId">
+                    <entity-one entity-name="WorkEffort" value-field="productionRunTask"/>
+                </if-not-empty>
 
                 <!-- before we do the find, put together the orderBy list based on which reserveOrderEnumId is specified -->
                 <!-- FIFO=first in first out, so it should be order by ASCending receive or expire date
@@ -87,6 +92,7 @@ under the License.
                         <condition-expr field-name="facilityId" from-field="parameters.facilityId" ignore-if-empty="true" ignore-if-null="true"/>
                         <condition-expr field-name="containerId" from-field="parameters.containerId" ignore-if-empty="true" ignore-if-null="true"/>
                         <condition-expr field-name="lotId" from-field="parameters.lotId" ignore-if-empty="true" ignore-if-null="true"/>
+                        <condition-expr field-name="inventoryItemId" from-field="parameters.inventoryItemId" ignore-if-empty="true" ignore-if-null="true"/>
                         <condition-expr field-name="availableToPromiseTotal" operator="greater" value="0.0"/>
                         <condition-expr field-name="locationTypeEnumId" operator="equals" value="FLT_PICKLOC"/>
                         <condition-expr field-name="statusId" operator="not-equals" value="INV_NS_DEFECTIVE"/>
@@ -110,6 +116,7 @@ under the License.
                             <condition-expr field-name="facilityId" from-field="parameters.facilityId" ignore-if-empty="true" ignore-if-null="true"/>
                             <condition-expr field-name="containerId" from-field="parameters.containerId" ignore-if-empty="true" ignore-if-null="true"/>
                             <condition-expr field-name="lotId" from-field="parameters.lotId" ignore-if-empty="true" ignore-if-null="true"/>
+                            <condition-expr field-name="inventoryItemId" from-field="parameters.inventoryItemId" ignore-if-empty="true" ignore-if-null="true"/>
                             <condition-expr field-name="availableToPromiseTotal" operator="greater" value="0.0"/>
                             <condition-expr field-name="locationTypeEnumId" operator="equals" value="FLT_BULK"/>
                             <condition-expr field-name="statusId" operator="not-equals" value="INV_NS_DEFECTIVE"/>
@@ -134,6 +141,7 @@ under the License.
                             <condition-expr field-name="facilityId" from-field="parameters.facilityId" ignore-if-empty="true" ignore-if-null="true"/>
                             <condition-expr field-name="containerId" from-field="parameters.containerId" ignore-if-empty="true" ignore-if-null="true"/>
                             <condition-expr field-name="lotId" from-field="parameters.lotId" ignore-if-empty="true" ignore-if-null="true"/>
+                            <condition-expr field-name="inventoryItemId" from-field="parameters.inventoryItemId" ignore-if-empty="true" ignore-if-null="true"/>
                             <condition-expr field-name="availableToPromiseTotal" operator="greater" value="0.0"/>
                             <condition-expr field-name="locationSeqId" operator="equals" from-field="nullField"/>
                             <condition-expr field-name="statusId" operator="not-equals" value="INV_NS_DEFECTIVE"/>
@@ -182,9 +190,12 @@ under the License.
                             <calculate field="createDetailMap.availableToPromiseDiff" decimal-scale="6">
                                 <calcop operator="negative" field="parameters.quantityNotReserved"/>
                             </calculate>
+                            <set from-field="parameters.workEffortId" field="createDetailMap.workEffortId"/>
                             
                             <if-not-empty field="parameters.reserveReasonEnumId"><set from-field="parameters.reserveReasonEnumId" field="createDetailMap.reasonEnumId"/></if-not-empty>
-                            <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
+                            <if-empty field="parameters.workEffortId">
+                                <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
+                            </if-empty>
                             <clear-field field="createDetailMap"/>
 
                             <!-- get the promiseDatetime -->
@@ -200,10 +211,12 @@ under the License.
                                     </else>
                                 </if-not-empty>
                             </if-empty>
+                            <if-not-empty field="orderHeader">
                             <script>groovy:
                                 [promisedDatetime: org.apache.ofbiz.base.util.UtilDateTime.adjustTimestamp(
                                 orderHeader.orderDate, Calendar.DAY_OF_YEAR, daysToShip as int)]
                             </script>
+                            </if-not-empty>
 
                             <!-- create or update OrderItemShipGrpInvRes record -->
                             <set from-field="parameters.orderId" field="reserveOisgirMap.orderId"/>
@@ -217,8 +230,24 @@ under the License.
                             <set from-field="promisedDatetime" field="reserveOisgirMap.promisedDatetime"/>
                             <set from-field="parameters.sequenceId" field="reserveOisgirMap.sequenceId"/>
                             <set from-field="parameters.priority" field="reserveOisgirMap.priority"/>
+                            <if-not-empty field="orderHeader">
                             <call-service service-name="reserveOrderItemInventory" in-map-name="reserveOisgirMap"/>
+                            </if-not-empty>
                             <clear-field field="reserveOisgirMap"/>
+                            <!-- create or update  WorkEffortInvRes record -->
+                            <if-not-empty field="productionRunTask">
+                                <set from-field="parameters.workEffortId" field="reserveProductionRunMap.workEffortId"/>
+                                <set from-field="lastNonSerInventoryItem.inventoryItemId" field="reserveProductionRunMap.inventoryItemId"/>
+                                <set from-field="parameters.reserveOrderEnumId" field="reserveProductionRunMap.reserveOrderEnumId"/>
+                                <set from-field="parameters.quantityNotReserved" field="reserveProductionRunMap.quantity" type="BigDecimal"/>
+                                <set from-field="parameters.quantityNotReserved" field="reserveProductionRunMap.quantityNotAvailable" type="BigDecimal"/>
+                                <set from-field="parameters.reservedDatetime" field="reserveProductionRunMap.reservedDatetime"/>
+                                <set from-field="promisedDatetime" field="reserveProductionRunMap.promisedDatetime"/>
+                                <set from-field="parameters.sequenceId" field="reserveProductionRunMap.sequenceId"/>
+                                <set from-field="parameters.productId" field="reserveProductionRunMap.productId"/>
+                                <call-service service-name="reserveWorkEffortInventory" in-map-name="reserveProductionRunMap"/>
+                                <clear-field field="reserveProductionRunMap"/>
+                            </if-not-empty>
                         <else>
                             <!-- no non-ser inv item, create a non-ser InventoryItem with availableToPromise = -quantityNotReserved -->
                             <clear-field field="createInventoryItemInMap"/>
@@ -247,8 +276,11 @@ under the License.
                             <calculate field="createDetailMap.availableToPromiseDiff" decimal-scale="6">
                                 <calcop operator="negative" field="parameters.quantityNotReserved"/>
                             </calculate>
+                            <set from-field="parameters.workEffortId" field="createDetailMap.workEffortId"/>
                             <if-not-empty field="parameters.reserveReasonEnumId"><set from-field="parameters.reserveReasonEnumId" field="createDetailMap.reasonEnumId"/></if-not-empty>
-                            <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
+                            <if-empty field="parameters.workEffortId">
+                                <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
+                            </if-empty>
                             <clear-field field="createDetailMap"/>
 
                             <!-- get the promiseDatetime -->
@@ -264,10 +296,12 @@ under the License.
                                     </else>
                                 </if-not-empty>
                             </if-empty>
+                            <if-not-empty field="orderHeader">
                             <script>groovy:
                                 [promisedDatetime: org.apache.ofbiz.base.util.UtilDateTime.adjustTimestamp(
                                 orderHeader.orderDate, Calendar.DAY_OF_YEAR, daysToShip as int)]
                             </script>
+                            </if-not-empty>
 
                             <!-- create OrderItemShipGrpInvRes record -->
                             <set from-field="parameters.orderId" field="reserveOisgirMap.orderId"/>
@@ -281,8 +315,25 @@ under the License.
                             <set from-field="promisedDatetime" field="reserveOisgirMap.promisedDatetime"/>
                             <set from-field="parameters.sequenceId" field="reserveOisgirMap.sequenceId"/>
                             <set from-field="parameters.priority" field="reserveOisgirMap.priority"/>
+                            <if-not-empty field="orderHeader">
                             <call-service service-name="reserveOrderItemInventory" in-map-name="reserveOisgirMap"/>
+                            </if-not-empty>
                             <clear-field field="reserveOisgirMap"/>
+
+                            <!-- create WorkEffortInvRes record -->
+                            <if-not-empty field="productionRunTask">
+                                <set from-field="parameters.workEffortId" field="reserveProductionRunMap.workEffortId"/>
+                                <set from-field="newNonSerInventoryItem.inventoryItemId" field="reserveProductionRunMap.inventoryItemId"/>
+                                <set from-field="parameters.reserveOrderEnumId" field="reserveProductionRunMap.reserveOrderEnumId"/>
+                                <set from-field="parameters.quantityNotReserved" field="reserveProductionRunMap.quantity" type="BigDecimal"/>
+                                <set from-field="parameters.quantityNotReserved" field="reserveProductionRunMap.quantityNotAvailable" type="BigDecimal"/>
+                                <set from-field="parameters.reservedDatetime" field="reserveProductionRunMap.reservedDatetime"/>
+                                <set from-field="promisedDatetime" field="reserveProductionRunMap.promisedDatetime"/>
+                                <set from-field="parameters.sequenceId" field="reserveProductionRunMap.sequenceId"/>
+                                <set from-field="parameters.productId" field="reserveProductionRunMap.productId"/>
+                                <call-service service-name="reserveWorkEffortInventory" in-map-name="reserveProductionRunMap"/>
+                                <clear-field field="reserveProductionRunMap"/>
+                            </if-not-empty>
                         </else>
                         </if-not-empty>
 
@@ -312,6 +363,7 @@ under the License.
           <set from-field="parameters.orderItemSeqId" field="createDetailMap.orderItemSeqId"/>
           <set field="createDetailMap.quantityOnHandDiff" value="-1" type="BigDecimal"/>
           <set field="createDetailMap.availableToPromiseDiff" value="-1" type="BigDecimal"/>
+          <set from-field="parameters.workEffortId" field="createDetailMap.workEffortId"/>
           <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
         </if-compare>
         <set-service-fields service-name="cancelOrderItemShipGrpInvRes" map="parameters" to-map="cancelOrderItemShipGrpInvResMap"/>
@@ -385,10 +437,25 @@ under the License.
         <if-not-empty field="parameters.sequenceId">
             <set field="reserveOisgirMap.sequenceId" from-field="parameters.sequenceId"/>
         </if-not-empty>
-        <!-- store OrderItemShipGrpInvRes record -->
-        <set from-field="parameters.priority" field="reserveOisgirMap.priority"/>
-        <call-service service-name="reserveOrderItemInventory" in-map-name="reserveOisgirMap"/>
-        <clear-field field="reserveOisgirMap"/>
+        <if-not-empty field="orderHeader">
+            <!-- store OrderItemShipGrpInvRes record -->
+            <set from-field="parameters.priority" field="reserveOisgirMap.priority"/>
+            <call-service service-name="reserveOrderItemInventory" in-map-name="reserveOisgirMap"/>
+            <clear-field field="reserveOisgirMap"/>
+        </if-not-empty>
+        <if-not-empty field="productionRunTask">
+            <!-- store WorkEffortInvRes record -->
+            <set from-field="parameters.workEffortId" field="reserveProductionRunMap.workEffortId"/>
+            <set from-field="inventoryItem.inventoryItemId" field="reserveProductionRunMap.inventoryItemId"/>
+            <set from-field="parameters.reserveOrderEnumId" field="reserveProductionRunMap.reserveOrderEnumId"/>
+            <set from-field="parameters.reservedDatetime" field="reserveProductionRunMap.reservedDatetime"/>
+            <set from-field="promisedDatetime" field="reserveProductionRunMap.promisedDatetime"/>
+            <set field="reserveProductionRunMap.quantity" value="1" type="BigDecimal"/>
+            <set from-field="parameters.sequenceId" field="reserveProductionRunMap.sequenceId"/>
+            <set from-field="parameters.productId" field="reserveProductionRunMap.productId"/>
+            <call-service service-name="reserveWorkEffortInventory" in-map-name="reserveProductionRunMap"/>
+            <clear-field field="reserveProductionRunMap"/>
+        </if-not-empty>
         <field-to-result field="inventoryItem.inventoryItemId" result-name="inventoryItemId"/>
     </simple-method>
 
@@ -404,6 +471,7 @@ under the License.
                     <call-service service-name="updateInventoryItem" in-map-name="updateInventoryItemMap"/>
 
                     <!-- store OrderItemShipGrpInvRes record -->
+                    <if-not-empty field="orderHeader">
                     <call-simple-method method-name="getPromisedDateTime"/>
                     <set from-field="parameters.orderId" field="reserveOisgirMap.orderId"/>
                     <set from-field="parameters.orderItemSeqId" field="reserveOisgirMap.orderItemSeqId"/>
@@ -418,6 +486,21 @@ under the License.
                     </if-not-empty>
                     <call-service service-name="reserveOrderItemInventory" in-map-name="reserveOisgirMap"/>
                     <clear-field field="reserveOisgirMap"/>
+                    </if-not-empty>
+
+                    <!-- store WorkEffortInvRes record -->
+                    <if-not-empty field="productionRunTask">
+                        <set from-field="parameters.workEffortId" field="reserveProductionRunMap.workEffortId"/>
+                        <set from-field="inventoryItem.inventoryItemId" field="reserveProductionRunMap.inventoryItemId"/>
+                        <set from-field="parameters.reserveOrderEnumId" field="reserveProductionRunMap.reserveOrderEnumId"/>
+                        <set from-field="parameters.reservedDatetime" field="reserveProductionRunMap.reservedDatetime"/>
+                        <set from-field="promisedDatetime" field="reserveProductionRunMap.promisedDatetime"/>
+                        <set field="reserveProductionRunMap.quantity" value="1" type="BigDecimal"/>
+                        <set from-field="parameters.sequenceId" field="reserveProductionRunMap.sequenceId"/>
+                        <set from-field="parameters.productId" field="reserveProductionRunMap.productId"/>
+                        <call-service service-name="reserveWorkEffortInventory" in-map-name="reserveProductionRunMap"/>
+                        <clear-field field="reserveProductionRunMap"/>
+                    </if-not-empty>
 
                     <calculate field="parameters.quantityNotReserved">
                         <calcop operator="subtract" field="parameters.quantityNotReserved"><number value="1.0"/></calcop>
@@ -456,12 +539,14 @@ under the License.
                         <calculate field="createDetailMap.availableToPromiseDiff" decimal-scale="6">
                             <calcop operator="negative" field="parameters.deductAmount"/>
                         </calculate>
+                        <set from-field="parameters.workEffortId" field="createDetailMap.workEffortId"/>
                         <if-not-empty field="ebayReserveReasonEnumId"><set from-field="parameters.reserveReasonEnumId" field="createDetailMap.reasonEnumId"/></if-not-empty>
                         <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
                         <clear-field field="createDetailMap"/>
 
                         <!-- create OrderItemShipGrpInvRes record  and check for reserved from ebay don't need shipgroup-->
                         <if-empty field="ebayReserveReasonEnumId">
+                            <if-not-empty field="orderHeader">
                             <call-simple-method method-name="getPromisedDateTime"/>
                             <set from-field="parameters.orderId" field="reserveOisgirMap.orderId"/>
                             <set from-field="parameters.orderItemSeqId" field="reserveOisgirMap.orderItemSeqId"/>
@@ -477,6 +562,21 @@ under the License.
                             </if-not-empty>
                             <call-service service-name="reserveOrderItemInventory" in-map-name="reserveOisgirMap"/>
                             <clear-field field="reserveOisgirMap"/>
+                            </if-not-empty>
+
+                            <!-- create WorkEffortInvRes record -->
+                            <if-not-empty field="productionRunTask">
+                                <set from-field="parameters.workEffortId" field="reserveProductionRunMap.workEffortId"/>
+                                <set from-field="inventoryItem.inventoryItemId" field="reserveProductionRunMap.inventoryItemId"/>
+                                <set from-field="parameters.reserveOrderEnumId" field="reserveProductionRunMap.reserveOrderEnumId"/>
+                                <set from-field="parameters.reservedDatetime" field="reserveProductionRunMap.reservedDatetime"/>
+                                <set from-field="parameters.deductAmount" field="reserveProductionRunMap.quantity" type="BigDecimal"/>
+                                <set from-field="promisedDatetime" field="reserveProductionRunMap.promisedDatetime"/>
+                                <set from-field="parameters.sequenceId" field="reserveProductionRunMap.sequenceId"/>
+                                <set from-field="parameters.productId" field="reserveProductionRunMap.productId"/>
+                                <call-service service-name="reserveWorkEffortInventory" in-map-name="reserveProductionRunMap"/>
+                                <clear-field field="reserveProductionRunMap"/>
+                            </if-not-empty>
                         </if-empty>
                         <calculate field="parameters.quantityNotReserved" decimal-scale="6">
                             <calcop operator="subtract" field="parameters.quantityNotReserved">
@@ -638,6 +738,7 @@ under the License.
             <set from-field="parameters.orderItemSeqId" field="createDetailMap.orderItemSeqId"/>
             <set from-field="parameters.shipGroupSeqId" field="createDetailMap.shipGroupSeqId"/>
             <set from-field="cancelQuantity" field="createDetailMap.availableToPromiseDiff"/>
+            <set from-field="parameters.workEffortId" field="createDetailMap.workEffortId"/>
             <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
             <clear-field field="createDetailMap"/>
 

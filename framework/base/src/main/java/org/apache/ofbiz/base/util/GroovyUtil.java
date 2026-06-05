@@ -220,10 +220,9 @@ public final class GroovyUtil {
         if (GROOVY_CLASS_LOADER != null) {
             return GROOVY_CLASS_LOADER.parseClass(classText, location);
         } else {
-            GroovyClassLoader classLoader = new GroovyClassLoader();
-            Class<?> klass = classLoader.parseClass(classText, location);
-            classLoader.close();
-            return klass;
+            try (GroovyClassLoader classLoader = new GroovyClassLoader()) {
+                return classLoader.parseClass(classText, location);
+            }
         }
     }
 
@@ -237,10 +236,9 @@ public final class GroovyUtil {
         if (GROOVY_CLASS_LOADER != null) {
             return GROOVY_CLASS_LOADER.parseClass(text);
         } else {
-            GroovyClassLoader groovyClassLoader = new GroovyClassLoader();
-            Class<?> classLoader = groovyClassLoader.parseClass(text);
-            groovyClassLoader.close();
-            return classLoader;
+            try (GroovyClassLoader groovyClassLoader = new GroovyClassLoader()) {
+                return groovyClassLoader.parseClass(text);
+            }
         }
     }
 

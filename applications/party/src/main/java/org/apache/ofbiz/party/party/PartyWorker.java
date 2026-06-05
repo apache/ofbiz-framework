@@ -32,6 +32,7 @@ import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.UtilFormatOut;
 import org.apache.ofbiz.base.util.UtilMisc;
+import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
@@ -44,6 +45,10 @@ import org.apache.ofbiz.entity.condition.EntityOperator;
 import org.apache.ofbiz.entity.model.ModelEntity;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.entity.util.EntityUtil;
+import org.apache.ofbiz.security.Security;
+import org.apache.ofbiz.service.ModelService;
+
+import static org.apache.ofbiz.service.ServiceUtil.getLocale;
 
 /**
  * Worker methods for Party Information
@@ -51,6 +56,7 @@ import org.apache.ofbiz.entity.util.EntityUtil;
 public final class PartyWorker {
 
     private static final String MODULE = PartyWorker.class.getName();
+    private static final String RESOURCE = "ServiceErrorUiLabels";
 
     private PartyWorker() { }
 
@@ -602,6 +608,42 @@ public final class PartyWorker {
 
     public static GenericValue findParty(Delegator delegator, String idToFind) throws GenericEntityException {
         return findParty(delegator, idToFind, null);
+    }
+    /** A small routine used all over to improve code efficiency, get the partyId and does a security check
+     *<b>security check</b>: userLogin partyId must equal partyId, or must have [secEntity][secOperation] permission
+     */
+    public static String getPartyIdCheckSecurity(GenericValue userLogin, Security security, Map<String, ? extends Object> context,
+                                                 Map<String, Object> result, String secEntity, String secOperation) {
+        return getPartyIdCheckSecurity(userLogin, security, context, result, secEntity, secOperation, null, null);
+    }
+    public static String getPartyIdCheckSecurity(GenericValue userLogin, Security security, Map<String, ? extends Object> context,
+                                                 Map<String, Object> result, String secEntity, String secOperation, String adminSecEntity,
+                                                 String adminSecOperation) {
+        String partyId = (String) context.get("partyId");
+        Locale locale = getLocale(context);
+        if (UtilValidate.isEmpty(partyId)) {
+            partyId = userLogin.getString("partyId");
+        }
+
+        // partyId might be null, so check it
+        if (UtilValidate.isEmpty(partyId)) {
+            result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
+            String errMsg = UtilProperties.getMessage(RESOURCE, "serviceUtil.party_id_missing", locale) + ".";
+            result.put(ModelService.ERROR_MESSAGE, errMsg);
+            return partyId;
+        }
+
+        // <b>security check</b>: userLogin partyId must equal partyId, or must have either of the two permissions
+        if (!partyId.equals(userLogin.getString("partyId"))) {
+            if (!security.hasEntityPermission(secEntity, secOperation, userLogin) && !(adminSecEntity != null && adminSecOperation != null
+                    && security.hasEntityPermission(adminSecEntity, adminSecOperation, userLogin))) {
+                result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
+                String errMsg = UtilProperties.getMessage(RESOURCE, "serviceUtil.no_permission_to_operation", locale) + ".";
+                result.put(ModelService.ERROR_MESSAGE, errMsg);
+                return partyId;
+            }
+        }
+        return partyId;
     }
 
 }

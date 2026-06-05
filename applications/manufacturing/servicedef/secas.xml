@@ -39,4 +39,15 @@ under the License.
         <condition field-name="productAssocTypeId" operator="equals" value="MANUF_COMPONENT"/>
         <action service="updateLowLevelCode" mode="sync"/>
     </eca>
+    <!-- Trigger auto-reservation when a production run is confirmed (printed) -->
+    <eca service="changeProductionRunStatus" event="return">
+        <condition field-name="newStatusId" operator="equals" value="PRUN_DOC_PRINTED"/>
+        <condition-service service-name="checkProductionRunFacilityAutoReserve"/>
+        <action service="autoReserveWorkEffortInventory" mode="sync"/>
+    </eca>
+    <!-- Real-time Backorder Reconciliation for Production Runs -->
+    <eca service="balanceInventoryItems" event="commit">
+        <condition-service service-name="checkProductionRunFacilityRecon"/>
+        <action service="reassignWorkEffortInventoryReservations" mode="sync"/>
+    </eca>
 </service-eca>

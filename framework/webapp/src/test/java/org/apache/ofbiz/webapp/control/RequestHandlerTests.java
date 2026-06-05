@@ -22,9 +22,9 @@ import static org.hamcrest.CoreMatchers.both;
 import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
-import static org.junit.Assert.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -43,19 +43,19 @@ import org.apache.ofbiz.base.util.collections.MultivaluedMapContext;
 import org.apache.ofbiz.webapp.control.ConfigXMLReader.ControllerConfig;
 import org.apache.ofbiz.webapp.control.ConfigXMLReader.RequestMap;
 import org.apache.ofbiz.webapp.control.ConfigXMLReader.ViewMap;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.w3c.dom.Element;
 
 public class RequestHandlerTests {
-    public static class ResolveURITests {
+    public static final class ResolveURITests {
         private MultivaluedMapContext<String, RequestMap> reqMaps;
         private Map<String, ViewMap> viewMaps;
         private HttpServletRequest req;
         private Element dummyElement;
         private ControllerConfig ccfg;
 
-        @Before
+        @BeforeEach
         public void setUp() {
             ccfg = mock(ControllerConfig.class);
             reqMaps = new MultivaluedMapContext<>();
@@ -221,11 +221,11 @@ public class RequestHandlerTests {
         }
     }
 
-    public static class ResolveMethodTests {
+    public static final class ResolveMethodTests {
         private Element dummyElement;
         private Collection<RequestMap> rmaps;
 
-        @Before
+        @BeforeEach
         public void setUp() {
             dummyElement = mock(Element.class);
             rmaps = new ArrayList<>();
@@ -262,10 +262,10 @@ public class RequestHandlerTests {
         }
     }
 
-    public static class CheckCertificatesTests {
+    public static final class CheckCertificatesTests {
         private HttpServletRequest req;
 
-        @Before
+        @BeforeEach
         public void setUp() {
             req = mock(HttpServletRequest.class);
             when(req.getAttribute(anyString())).thenReturn(null);

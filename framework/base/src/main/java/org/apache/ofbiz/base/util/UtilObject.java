@@ -64,13 +64,11 @@ public final class UtilObject {
      * @throws IOException
      */
     public static long getByteCount(Object obj) throws IOException {
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        ObjectOutputStream oos = new ObjectOutputStream(bos);
-        oos.writeObject(obj);
-        oos.flush();
-        long size = bos.size();
-        bos.close();
-        return size;
+        try (ByteArrayOutputStream bos = new ByteArrayOutputStream(); ObjectOutputStream oos = new ObjectOutputStream(bos)) {
+            oos.writeObject(obj);
+            oos.flush();
+            return bos.size();
+        }
     }
 
     /** Deserialize a byte array back to an object; if there is an error, it is logged, and null is returned. */

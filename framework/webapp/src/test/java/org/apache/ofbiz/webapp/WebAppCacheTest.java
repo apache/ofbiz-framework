@@ -23,21 +23,21 @@ import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import java.util.ArrayList;
 
 import org.apache.ofbiz.base.component.ComponentConfig;
 import org.apache.ofbiz.base.component.ComponentConfig.WebappInfo;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-public class WebAppCacheTest {
+public final class WebAppCacheTest {
     private ArrayList<ComponentConfig> ccSource;
     private WebAppCache wac;
     private ArrayList<WebappInfo> wInfos;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         ccSource = new ArrayList<>();
         wac = new WebAppCache(() -> ccSource);

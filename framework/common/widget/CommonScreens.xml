@@ -282,6 +282,17 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="userprofile">
+        <section>
+            <actions>
+                <set field="titleProperty" value="CommonProfile" />
+            </actions>
+            <widgets>
+                <include-screen name="MinimalActions" />
+                <include-screen name="userprofile" location="${groovy:commonScreenLocations.userprofile?commonScreenLocations.userprofile:commonDecoratorLocation}"/>
+            </widgets>
+        </section>
+    </screen>
     <screen name="GetUiLabels">
         <section>
             <widgets>

@@ -516,10 +516,8 @@ public class CoreEvents {
         if (file.exists()) {
             Long longLen = file.length();
             int length = longLen.intValue();
-            try {
-                FileInputStream fis = new FileInputStream(file);
+            try (FileInputStream fis = new FileInputStream(file)) {
                 UtilHttp.streamContentToBrowser(response, fis, length, null);
-                fis.close();
             } catch (IOException e) {
                 Debug.logError(e, MODULE);
                 return "error";

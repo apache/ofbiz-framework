@@ -45,7 +45,7 @@ try {
                 .orderBy('sequenceNum')
                 .cursorScrollInsensitive()
                 .cache(true)
-                .queryPagedList(lowIndex, highIndex - lowIndex + 1)
+                .queryPagedList(viewIndex, viewSize)
     surveyQuestionAndApplList = pagedList.getData()
     listSize = pagedList.getSize()
     if (listSize < highIndex) {

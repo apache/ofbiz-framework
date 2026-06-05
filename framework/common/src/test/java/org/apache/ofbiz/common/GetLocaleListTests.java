@@ -22,7 +22,7 @@ import static org.hamcrest.CoreMatchers.both;
 import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.CoreMatchers.hasItems;
 import static org.hamcrest.CoreMatchers.not;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.util.HashMap;
@@ -33,16 +33,16 @@ import java.util.stream.Collectors;
 
 import org.apache.ofbiz.base.util.GroovyUtil;
 import org.apache.ofbiz.base.util.ScriptUtil;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import groovy.util.GroovyScriptEngine;
 
-public class GetLocaleListTests {
+public final class GetLocaleListTests {
     private Map<String, Object> params;
     private GroovyScriptEngine engine;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         params = new HashMap<>();
         engine = new GroovyScriptEngine(System.getProperty("user.dir"));

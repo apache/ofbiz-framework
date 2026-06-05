@@ -28,7 +28,6 @@ class ShoppingListTests extends OFBizTestCase {
         super(name)
     }
 
-    // Test create shopping list.
     void testCreateShoppingList() {
         GenericValue userLogin = delegator.findOne('UserLogin', [userLoginId: 'DemoCustomer'], false)
         Map serviceCtx = [
@@ -49,7 +48,6 @@ class ShoppingListTests extends OFBizTestCase {
         assert shoppingList.listName == 'Demo Wish List 1'
     }
 
-    // Test create shopping list item
     void testCreateShoppingListItem() {
         GenericValue userLogin = delegator.findOne('UserLogin', [userLoginId: 'DemoCustomer'], false)
         String shoppingListId = 'DemoWishList'
@@ -69,7 +67,6 @@ class ShoppingListTests extends OFBizTestCase {
         assert shoppingListItem.quantity == 3
     }
 
-    // Test create shopping list item by adding a product that already exist in shopping list.
     void testCreateShoppingListItemWithSameProduct() {
         GenericValue userLogin = delegator.findOne('UserLogin', [userLoginId: 'DemoCustomer'], false)
         String shoppingListId = 'DemoWishList'
@@ -88,7 +85,6 @@ class ShoppingListTests extends OFBizTestCase {
         assert shoppingListItem.quantity == 7
     }
 
-    // Test update shopping list by updating the listName
     void testUpdateShoppingList() {
         GenericValue userLogin = delegator.findOne('UserLogin', [userLoginId: 'DemoCustomer'], false)
         Map serviceCtx = [
@@ -103,7 +99,6 @@ class ShoppingListTests extends OFBizTestCase {
         assert shoppingList.listName == 'New Demo Wish List'
     }
 
-    // Test update shopping list item by updating quantity of item
     void testUpdateShoppingListItem () {
         GenericValue userLogin = delegator.findOne('UserLogin', [userLoginId: 'DemoCustomer'], false)
         Map serviceCtx = [
@@ -120,7 +115,6 @@ class ShoppingListTests extends OFBizTestCase {
         assert shoppingListItem.quantity == 4
     }
 
-    // Test update shopping list item for a product with zero quantity
     void testUpdateShoppingListItemWithZeroQty() {
         GenericValue userLogin = delegator.findOne('UserLogin', [userLoginId: 'DemoCustomer'], false)
         Map serviceCtx = [
@@ -136,7 +130,6 @@ class ShoppingListTests extends OFBizTestCase {
         assert shoppingListItem
     }
 
-    // Test remove shopping list item
     void testRemoveShoppingListItem() {
         GenericValue userLogin = delegator.findOne('UserLogin', [userLoginId: 'DemoCustomer'], false)
         Map serviceCtx = [

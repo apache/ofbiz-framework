@@ -34,7 +34,7 @@ under the License.
     <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="MANUFADMIN" permissionId="FACILITY_CREATE"/>
     <Party partyId="TestManufAdmin" partyTypeId="PERSON"/>
     <Person partyId="TestManufAdmin" firstName="Manufacturing" lastName="Admin"/>
-    <UserLogin partyId="TestManufAdmin" userLoginId="TestManufAdmin"/>
+    <UserLogin partyId="TestManufAdmin" userLoginId="TestManufAdmin" userFullName="Manufacturing Admin"/>
     <UserLoginSecurityGroup userLoginId="TestManufAdmin" groupId="MANUFADMIN" fromDate="2001-05-13 00:00:00"/>
     <SecurityGroup groupId="SUPPLYADMIN" description="Supply Chain Admin group, has permissions to execute requirement based manufacturing tasks." groupName="Supply Admin"/>
     <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPPLYADMIN" permissionId="MANUFACTURING_VIEW"/>
@@ -43,6 +43,6 @@ under the License.
     <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPPLYADMIN" permissionId="ACCOUNTING_CREATE"/>
     <Party partyId="TestSupplyAdmin" partyTypeId="PERSON"/>
     <Person partyId="TestSupplyAdmin" firstName="Supply" lastName="Admin"/>
-    <UserLogin partyId="TestSupplyAdmin" userLoginId="TestSupplyAdmin"/>
+    <UserLogin partyId="TestSupplyAdmin" userLoginId="TestSupplyAdmin" userFullName="Supply Admin"/>
     <UserLoginSecurityGroup userLoginId="TestSupplyAdmin" groupId="SUPPLYADMIN" fromDate="2001-05-13 00:00:00"/>
 </entity-engine-xml>

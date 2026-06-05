@@ -32,13 +32,11 @@ import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.util.EntityQuery;
-import org.apache.ofbiz.security.Security;
 
 
 /**
@@ -171,43 +169,6 @@ public final class ServiceUtil {
             result.put(ModelService.SUCCESS_MESSAGE, message);
         }
         return result;
-    }
-
-    /** A small routine used all over to improve code efficiency, get the partyId and does a security check
-     *<b>security check</b>: userLogin partyId must equal partyId, or must have [secEntity][secOperation] permission
-     */
-    public static String getPartyIdCheckSecurity(GenericValue userLogin, Security security, Map<String, ? extends Object> context,
-                                                 Map<String, Object> result, String secEntity, String secOperation) {
-        return getPartyIdCheckSecurity(userLogin, security, context, result, secEntity, secOperation, null, null);
-    }
-    public static String getPartyIdCheckSecurity(GenericValue userLogin, Security security, Map<String, ? extends Object> context,
-                                                 Map<String, Object> result, String secEntity, String secOperation, String adminSecEntity,
-                                                 String adminSecOperation) {
-        String partyId = (String) context.get("partyId");
-        Locale locale = getLocale(context);
-        if (UtilValidate.isEmpty(partyId)) {
-            partyId = userLogin.getString("partyId");
-        }
-
-        // partyId might be null, so check it
-        if (UtilValidate.isEmpty(partyId)) {
-            result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
-            String errMsg = UtilProperties.getMessage(ServiceUtil.RESOURCE, "serviceUtil.party_id_missing", locale) + ".";
-            result.put(ModelService.ERROR_MESSAGE, errMsg);
-            return partyId;
-        }
-
-        // <b>security check</b>: userLogin partyId must equal partyId, or must have either of the two permissions
-        if (!partyId.equals(userLogin.getString("partyId"))) {
-            if (!security.hasEntityPermission(secEntity, secOperation, userLogin) && !(adminSecEntity != null && adminSecOperation != null
-                    && security.hasEntityPermission(adminSecEntity, adminSecOperation, userLogin))) {
-                result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
-                String errMsg = UtilProperties.getMessage(ServiceUtil.RESOURCE, "serviceUtil.no_permission_to_operation", locale) + ".";
-                result.put(ModelService.ERROR_MESSAGE, errMsg);
-                return partyId;
-            }
-        }
-        return partyId;
     }
 
     public static void setMessages(HttpServletRequest request, String errorMessage, String eventMessage, String defaultMessage) {

@@ -136,7 +136,7 @@ under the License.
     <UserLogin userLoginId="DemoCustCompany" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a"/>
     <UserLogin userLoginId="DemoCustAgent" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a"/>
     <UserLogin userLoginId="DemoCustomer" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a"/>
-    <UserLogin userLoginId="supplier" partyId="externaluser" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a"/>
+    <UserLogin userLoginId="supplier" userFullName="External User" partyId="externaluser" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a"/>
     <UserLoginSecurityGroup groupId="ORDERSUPPLIER_LTD" userLoginId="supplier" fromDate="2001-01-01 12:00:00.0"/>
 
     <Party partyId="DemoCustomer"/>
@@ -2171,7 +2171,7 @@ under the License.
     <Person partyId="DemoBuyer" firstName="Demo" lastName="Buyer"/>
     <PartyRole partyId="DemoBuyer" roleTypeId="BUYER"/>
     <PartyStatus partyId="DemoBuyer" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
-    <UserLogin partyId="DemoBuyer" userLoginId="DemoBuyer"/>
+    <UserLogin partyId="DemoBuyer" userLoginId="DemoBuyer" userFullName="Demo Buyer"/>
     <UserLoginSecurityGroup userLoginId="DemoBuyer" groupId="ORDERPURCH" fromDate="2001-05-13 00:00:00"/>
 
     <!-- this person can create sales orders for any store -->
@@ -2179,7 +2179,7 @@ under the License.
     <Person partyId="DemoRepAll" firstName="Demo" lastName="Sales Rep for All Stores"/>
     <PartyRole partyId="DemoRepAll" roleTypeId="SALES_REP"/>
     <PartyStatus partyId="DemoRepAll" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
-    <UserLogin partyId="DemoRepAll" userLoginId="DemoRepAll"/>
+    <UserLogin partyId="DemoRepAll" userLoginId="DemoRepAll" userFullName="Demo Sales Rep for All Stores"/>
     <UserLoginSecurityGroup userLoginId="DemoRepAll" groupId="ORDERENTRY_ALL" fromDate="2001-05-13 00:00:00"/>
 
     <!-- this person can only create sales orders for stores for which he is a sales rep -->
@@ -2187,7 +2187,7 @@ under the License.
     <Person partyId="DemoRepStore" firstName="Demo" lastName="Sales Rep for Specified Stores Only"/>
     <PartyRole partyId="DemoRepStore" roleTypeId="SALES_REP"/>
     <PartyStatus partyId="DemoRepStore" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
-    <UserLogin partyId="DemoRepStore" userLoginId="DemoRepStore"/>
+    <UserLogin partyId="DemoRepStore" userLoginId="DemoRepStore" userFullName="Demo Sales Rep for Specified Stores Only"/>
     <UserLoginSecurityGroup userLoginId="DemoRepStore" groupId="ORDERENTRY" fromDate="2001-05-13 00:00:00"/>
     <ProductStoreRole partyId="DemoRepStore" roleTypeId="SALES_REP" productStoreId="9000" fromDate="2001-05-13 12:00:00.0"/>
 
@@ -2207,7 +2207,7 @@ under the License.
     <PartyRole partyId="DemoCustCompany" roleTypeId="ACCOUNT"/>
     <PartyStatus partyId="DemoCustCompany" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyGroup partyId="DemoCustCompany" groupName="Demo Customer Company"/>
-    <UserLogin partyId="DemoCustCompany" userLoginId="DemoCustCompany"/>
+    <UserLogin partyId="DemoCustCompany" userLoginId="DemoCustCompany" userFullName="Demo Customer Company"/>
     <PartyRole partyId="DemoCustCompany" roleTypeId="CUSTOMER"/>
     <PartyRole partyId="DemoCustCompany" roleTypeId="BILL_TO_CUSTOMER"/>
     <PartyRole partyId="DemoCustCompany" roleTypeId="_NA_"/>
@@ -2243,7 +2243,7 @@ under the License.
     <!-- DemoCustAgent -->
     <Party partyId="DemoCustAgent" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="DemoCustAgent" firstName="Demo" lastName="Agent"/>
-    <UserLogin partyId="DemoCustAgent" userLoginId="DemoCustAgent"/>
+    <UserLogin partyId="DemoCustAgent" userLoginId="DemoCustAgent" userFullName="Demo Agent"/>
     <PartyRole partyId="DemoCustAgent" roleTypeId="CUSTOMER"/>
     <PartyRole partyId="DemoCustAgent" roleTypeId="AGENT"/>
     <PartyRole partyId="DemoCustAgent" roleTypeId="_NA_"/>
@@ -2269,7 +2269,7 @@ under the License.
     <!-- DemoCustomer -->
     <Party partyId="DemoCustomer" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="DemoCustomer" firstName="Demo" lastName="Customer"/>
-    <UserLogin partyId="DemoCustomer" userLoginId="DemoCustomer"/>
+    <UserLogin partyId="DemoCustomer" userLoginId="DemoCustomer" userFullName="Demo Customer"/>
     <PartyRole partyId="DemoCustomer" roleTypeId="CUSTOMER"/>
     <PartyRole partyId="DemoCustomer" roleTypeId="CONTACT"/>
     <PartyRole partyId="DemoCustomer" roleTypeId="BILL_TO_CUSTOMER"/>
@@ -2302,7 +2302,7 @@ under the License.
     <!-- EuroCustomer wants invoices in Euro(s), located in Amsterdam (Netherlands) -->
     <Party partyId="EuroCustomer" partyTypeId="PERSON" statusId="PARTY_ENABLED" preferredCurrencyUomId="EUR"/>
     <Person partyId="EuroCustomer" firstName="Euro" lastName="Customer"/>
-    <UserLogin partyId="EuroCustomer" userLoginId="EuroCustomer" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" lastLocale="nl_NL"/>
+    <UserLogin partyId="EuroCustomer" userLoginId="EuroCustomer" userFullName="Euro Customer" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" lastLocale="nl_NL"/>
     <PartyClassification partyId="EuroCustomer" partyClassificationGroupId="EMEA" fromDate="2001-01-01 00:00:00.0"/>
     <PartyRole partyId="EuroCustomer" roleTypeId="CUSTOMER"/>
     <PartyRole partyId="EuroCustomer" roleTypeId="BILL_TO_CUSTOMER"/>
@@ -2330,7 +2330,7 @@ under the License.
     <!-- FrenchCustomer want invoices in euro and be located in Poussan -->
     <Party partyId="FrenchCustomer" partyTypeId="PERSON" statusId="PARTY_ENABLED" preferredCurrencyUomId="EUR"/>
     <Person partyId="FrenchCustomer" firstName="French" lastName="Customer"/>
-    <UserLogin partyId="FrenchCustomer" userLoginId="FrenchCustomer" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" lastLocale="fr_FR"/>
+    <UserLogin partyId="FrenchCustomer" userLoginId="FrenchCustomer" userFullName="French Customer" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" lastLocale="fr_FR"/>
     <PartyClassification partyId="FrenchCustomer" partyClassificationGroupId="EMEA" fromDate="2001-01-01 00:00:00.0"/>
     <PartyRole partyId="FrenchCustomer" roleTypeId="CUSTOMER"/>
     <PartyRole partyId="FrenchCustomer" roleTypeId="BILL_TO_CUSTOMER"/>

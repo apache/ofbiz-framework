@@ -26,7 +26,7 @@ class OrderReturnTests extends OFBizTestCase {
     OrderReturnTests(String name) {
         super(name)
     }
-    // Return related test services
+
     void testQuickReturnOrder() {
         Map serviceCtx = [
             orderId: 'TEST_DEMO10090',

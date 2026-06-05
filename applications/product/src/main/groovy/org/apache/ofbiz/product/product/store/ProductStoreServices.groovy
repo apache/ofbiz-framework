@@ -136,7 +136,7 @@ Map reserveStoreInventory() {
     }
 
     GenericValue product = from('Product').where(parameters).cache().queryOne()
-    GenericValue orderHeader = from('OrderHeader').where(parameters).cache().queryOne()
+    GenericValue orderHeader = from('OrderHeader').where(parameters).queryOne()
     parameters.priority = orderHeader.priority
 
     // if prodCatalog is set to not reserve inventory, break here

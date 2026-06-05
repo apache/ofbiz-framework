@@ -111,12 +111,8 @@ under the License.
                        <tr>
                           <td class="">[${feature.productFeatureId}] - ${feature.description}</td>
                           <td class=""><input type="checkbox" name="action_o_${rowCount}" value="Y" ${checked}/></td>
-                          <input type="hidden" name="fieldName0_o_${rowCount}" value="productFeatureId"/>
-                          <input type="hidden" name="fieldValue0_o_${rowCount}" value="${feature.productFeatureId}"/>
-                          <input type="hidden" name="fieldName1_o_${rowCount}" value="dataResourceId"/>
-                          <input type="hidden" name="fieldValue1_o_${rowCount}" value="${feature.dataResourceId}"/>
-                          <input type="hidden" name="entityName_o_${rowCount}" value="ProductFeatureDataResource"/>
-                          <input type="hidden" name="pkFieldCount_o_${rowCount}" value="2"/>
+                          <input type="hidden" name="productFeatureId_o_${rowCount}" value="${feature.productFeatureId}"/>
+                          <input type="hidden" name="dataResourceId_o_${rowCount}" value="${feature.dataResourceId}"/>
                        </tr>
                        <#assign rowCount=rowCount + 1/>
                     </#list>
@@ -126,12 +122,8 @@ under the License.
                           <@htmlTemplate.lookupField formName="updatefeatures" name="fieldValue0_o_${rowCount}" id="fieldValue0_o_${rowCount}" fieldFormName="LookupProductFeature"/>
                         </div>
                       </td>
-                          <input type="hidden" name="fieldName0_o_${rowCount}" value="productFeatureId"/>
-                          <input type="hidden" name="fieldValue0_o_${rowCount}" value=""/>
-                          <input type="hidden" name="fieldName1_o_${rowCount}" value="dataResourceId"/>
-                          <input type="hidden" name="fieldValue1_o_${rowCount}" value="${dataResourceId}"/>
-                          <input type="hidden" name="entityName_o_${rowCount}" value="ProductFeatureDataResource"/>
-                          <input type="hidden" name="pkFieldCount_o_${rowCount}" value="2"/>
+                          <input type="hidden" name="productFeatureId_o_${rowCount}" value=""/>
+                          <input type="hidden" name="dataResourceId_o_${rowCount}" value="${dataResourceId}"/>
                           <#assign rowCount=rowCount + 1/>
                     </tr>
                     <tr>

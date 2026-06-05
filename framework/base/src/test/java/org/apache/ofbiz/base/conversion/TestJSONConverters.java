@@ -18,7 +18,7 @@
  */
 package org.apache.ofbiz.base.conversion;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -29,7 +29,7 @@ import java.util.Map;
 
 import org.apache.ofbiz.base.lang.JSON;
 import org.apache.ofbiz.base.util.UtilGenerics;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class TestJSONConverters {
     public TestJSONConverters() {
@@ -48,7 +48,7 @@ public class TestJSONConverters {
         JSON json = JSON.from(map);
         Object obj = converter.convert(json);
         convertedMap = (obj instanceof Map) ? UtilGenerics.cast(obj) : null;
-        assertEquals("JSON to Map", map, convertedMap);
+        assertEquals(map, convertedMap, "JSON to Map");
     }
 
     @Test
@@ -60,7 +60,7 @@ public class TestJSONConverters {
         JSON json = JSON.from(list);
         Object obj = converter.convert(json);
         List<Object> convertedList = (obj instanceof List) ? UtilGenerics.cast(obj) : null;
-        assertEquals("JSON to List", list, convertedList);
+        assertEquals(list, convertedList, "JSON to List");
     }
 
     @Test
@@ -72,7 +72,7 @@ public class TestJSONConverters {
         map.put("field1", "value1");
         map.put("field2", new BigDecimal("3.7"));
         json = converter.convert(map);
-        assertEquals("Map to JSON", "{\"field1\":\"value1\",\"field2\":3.7}", json.toString());
+        assertEquals("{\"field1\":\"value1\",\"field2\":3.7}", json.toString(), "Map to JSON");
     }
 
     @Test
@@ -83,7 +83,7 @@ public class TestJSONConverters {
         list.add("field1");
         list.add("field2");
         json = converter.convert(list);
-        assertEquals("List to JSON", "[\"field1\",\"field2\"]", json.toString());
+        assertEquals("[\"field1\",\"field2\"]", json.toString(), "List to JSON");
     }
 }
 
