@@ -146,7 +146,9 @@ public final class LoginWorker {
 
         try {
             try {
-                parentTx = TransactionUtil.suspend();
+                if (TransactionUtil.isTransactionInPlace()) {
+                    parentTx = TransactionUtil.suspend();
+                }
             } catch (GenericTransactionException e) {
                 Debug.logError(e, "Cannot suspend current transaction: " + e.getMessage(), MODULE);
             }

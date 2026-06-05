@@ -212,7 +212,9 @@ public class PayPalServices {
         boolean beganTransaction = false;
         Transaction parentTransaction = null;
         try {
-            parentTransaction = TransactionUtil.suspend();
+            if (TransactionUtil.isTransactionInPlace()) {
+                parentTransaction = TransactionUtil.suspend();
+            }
             beganTransaction = TransactionUtil.begin();
         } catch (GenericTransactionException e1) {
             Debug.logError(e1, MODULE);

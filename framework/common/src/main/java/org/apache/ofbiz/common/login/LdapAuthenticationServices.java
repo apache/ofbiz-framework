@@ -123,7 +123,9 @@ public class LdapAuthenticationServices {
                 boolean beganTransaction = false;
                 try {
                     try {
-                        parentTx = TransactionUtil.suspend();
+                        if (TransactionUtil.isTransactionInPlace()) {
+                            parentTx = TransactionUtil.suspend();
+                        }
                     } catch (GenericTransactionException e) {
                         Debug.logError(e, "Could not suspend transaction: " + e.getMessage(), MODULE);
                     }
