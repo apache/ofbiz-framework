@@ -22,14 +22,28 @@
 
     <simple-method method-name="genericDataResourcePermission" short-description="Generic Service for DataResource Permissions">
         <!-- Operating with DataResources containing templates requires special permission -->
+        <entity-one entity-name="DataResource" value-field="thisDataResource">
+            <field-map field-name="dataResourceId" from-field="parameters.dataResourceId"/>
+        </entity-one>
         <if>
             <condition>
-                <and>
-                    <not>
-                        <if-empty field="parameters.dataTemplateTypeId"/>
-                    </not>
-                    <if-compare field="parameters.dataTemplateTypeId" value="NONE" operator="not-equals"/>
-                </and>
+                <or>
+                    <and>
+                        <not>
+                            <if-empty field="parameters.dataTemplateTypeId"/>
+                        </not>
+                        <if-compare field="parameters.dataTemplateTypeId" value="NONE" operator="not-equals"/>
+                    </and>
+                    <and>
+                        <not>
+                            <if-empty field="thisDataResource"/>
+                        </not>
+                        <not>
+                            <if-empty field="thisDataResource.dataTemplateTypeId"/>
+                        </not>
+                        <if-compare field="thisDataResource.dataTemplateTypeId" value="NONE" operator="not-equals"/>
+                    </and>
+                </or>
             </condition>
             <then>
                 <set field="inParams.primaryPermission" value="CONTENTMGR_SUPER"/>
