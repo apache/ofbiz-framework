@@ -858,7 +858,6 @@ Map updateShippingMethodAndCharges() {
                                                        trackingIdNumber: null,
                                                        trackingDigest: null,
                                                        carrierServiceStatusId: null]
-    run service: 'upsShipmentConfirm', with: parameters
     return success()
 }
 

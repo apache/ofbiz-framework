@@ -1784,20 +1784,7 @@ under the License.
         <response name="error" type="view" value="orderview"/>
     </request-map>
 
-    <!-- UPS carrier requests -->
-    <request-map uri="upsEmailReturnLabelOrder">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="upsEmailReturnLabel"/>
-        <response name="success" type="view" value="orderview"/>
-        <response name="error" type="view" value="orderview"/>
-    </request-map>
-    <request-map uri="upsEmailReturnLabelReturn">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="upsEmailReturnLabel"/>
-        <response name="success" type="view" value="returnhead"/>
-        <response name="error" type="view" value="returnhead"/>
-    </request-map>
-    
+
     <request-map uri="updateShippingMethodAndCharges">
         <security https="true" auth="true"/>
         <event type="service" invoke="updateShippingMethodAndCharges"/>

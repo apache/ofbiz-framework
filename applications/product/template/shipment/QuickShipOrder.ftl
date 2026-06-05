@@ -108,8 +108,11 @@ under the License.
           <#else>
             <#-- display the links for label/packing slip -->
             <#assign allDone = "yes">
+            <#assign shipmentPackageRouteSeg = (delegator.findOne("ShipmentPackageRouteSeg", {"shipmentId": requestParameters.shipmentId, "shipmentRouteSegmentId": requestParameters.shipmentRouteSegmentId, "shipmentPackageSeqId": "00001"}, false))!>
             <center>
-              <a href="<@ofbizUrl>viewShipmentPackageRouteSegLabelImage?shipmentId=${requestParameters.shipmentId}&amp;shipmentRouteSegmentId=${requestParameters.shipmentRouteSegmentId}&amp;shipmentPackageSeqId=00001</@ofbizUrl>" target="_blank" class="buttontext">${uiLabelMap.ProductShippingLabel}</a><br />
+              <#if shipmentPackageRouteSeg?has_content && shipmentPackageRouteSeg.labelImage??>
+                <a href="<@ofbizUrl>viewShipmentPackageRouteSegLabelImage?shipmentId=${requestParameters.shipmentId}&amp;shipmentRouteSegmentId=${requestParameters.shipmentRouteSegmentId}&amp;shipmentPackageSeqId=00001</@ofbizUrl>" target="_blank" class="buttontext">${uiLabelMap.ProductShippingLabel}</a><br />
+              </#if>
               <a href="<@ofbizUrl>ShipmentManifest.pdf?shipmentId=${requestParameters.shipmentId}&amp;shipmentRouteSegmentId=${requestParameters.shipmentRouteSegmentId}</@ofbizUrl>" target="_blank" class="buttontext">${uiLabelMap.ProductPackingSlip}</a>
             </center>
           </#if>
