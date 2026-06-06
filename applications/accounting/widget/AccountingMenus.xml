@@ -114,6 +114,7 @@ under the License.
             </condition>
             <link target="EditFinAccount"/>
         </menu-item>
+        <menu-item name="ImportExport" title="${uiLabelMap.CommonImportExport}"><link target="ImportExport"/></menu-item>
     </menu>
 
     <menu name="AccountingShortcutAppBar" title="${uiLabelMap.AccountingManager}">

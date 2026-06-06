@@ -103,6 +103,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="CommonImportExport"/>
+                <set field="headerItem" value="invoices"/>
                 <entity-one entity-name="PartyGroup" value-field="partyGroup">
                     <field-map field-name="partyId" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}"/>
                 </entity-one>
