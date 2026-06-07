@@ -169,6 +169,13 @@ tasks.withType(JavaCompile) {
 // Enables Zip larger than 4 GB and more than 65535 entries
 tasks.withType(Zip) { zip64 = true }
 
+// Multiple SecretProvider plugins each contribute the same META-INF/services/ filename.
+// Only one provider should be enabled at a time (via ofbiz-component.xml enabled="true/false").
+// FIRST keeps the alphabetically first file during transitional states where two are temporarily enabled.
+processResources {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
 // Only used for release branches
 def getCurrentGitBranch() {
     return "git branch --show-current".execute().text.trim()
