@@ -201,6 +201,10 @@ under the License.
                                             <include-form name="LayoutDemoList" location="component://webtools/widget/MiscForms.xml"/>
                                             <include-form name="LayoutDemoForm" location="component://webtools/widget/MiscForms.xml"/>
                                         </screenlet>
+                                        <screenlet id="screenlet-demo-header" collapsible="true"
+                                                   screen-header-name="WebtoolsLayoutDemoSimpleGridResume">
+                                            <include-grid name="LayoutDemoSimpleGrid" location="component://webtools/widget/MiscForms.xml"/>
+                                        </screenlet>
                                     </widgets>
                                 </section>
                             </widgets>
@@ -210,6 +214,15 @@ under the License.
                         </section>
                     </decorator-section>
                 </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="WebtoolsLayoutDemoSimpleGridResume">
+        <section>
+            <widgets>
+                <label style="h2">${uiLabelMap.WebtoolsLayoutDemo}</label>
+                <horizontal-separator/>
+                <label>${uiLabelMap.CommonOther}</label>
             </widgets>
         </section>
     </screen>

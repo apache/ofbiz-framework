@@ -312,6 +312,16 @@ under the License.
                     <xs:documentation>Name of the screenlet include-menu sub element that will be used for the screenlet tab bar.</xs:documentation>
                 </xs:annotation>
             </xs:attribute>
+            <xs:attribute type="xs:string" name="screen-header-name">
+                <xs:annotation>
+                    <xs:documentation>The screen name to use if you when a complex screenlet header</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="screen-header-location">
+                <xs:annotation>
+                    <xs:documentation>The screen location to use if you when a complex screenlet header, if empty use the same location of the screenlet's parent screen</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
 
