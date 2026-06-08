@@ -749,6 +749,32 @@ task gitInfoFooter(group: sysadminGroup, description: 'Update the Git Branch-rev
     }
 }
 
+task generateDBPassword(group: sysadminGroup,
+        description: 'Write a plain or encrypted (ENC(...)) database password into passwords.properties. '
+                + 'Usage: ./gradlew generateDBPassword -Pvalue=<password> -PlookupKey=<e.g. mysql-ofbiz> [-PmasterKey=<key>]') {
+    doLast {
+        def secret = project.property('value')
+        if (project.hasProperty('masterKey')) {
+            def output = new java.io.ByteArrayOutputStream()
+            javaexec {
+                classpath = sourceSets.main.runtimeClasspath
+                mainClass = 'org.apache.ofbiz.base.crypto.ConfigCryptoUtil'
+                args project.property('masterKey'), secret
+                standardOutput = output
+            }
+            secret = output.toString().trim()
+        }
+        def propertyName = "jdbc-password.${project.property('lookupKey')}"
+        def newLine = "${propertyName}=${secret}"
+        def passwordsFile = file('framework/base/config/passwords.properties')
+        def lines = passwordsFile.readLines()
+        def index = lines.findIndexOf { it.startsWith("${propertyName}=") }
+        if (index >= 0) lines[index] = newLine else lines << newLine
+        passwordsFile.text = lines.join(System.lineSeparator()) + System.lineSeparator()
+        println "Stored ${newLine} in passwords.properties"
+    }
+}
+
 task generateSecretKeys(group: sysadminGroup,
         description: 'Generate cryptographically secure 512-bit (64-char) secret keys for JWT token signing and password encryption, and write them to security.properties') {
     doLast {

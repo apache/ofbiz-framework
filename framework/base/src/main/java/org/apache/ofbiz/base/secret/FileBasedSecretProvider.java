@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.apache.ofbiz.base.secret;
 
+import org.apache.ofbiz.base.crypto.ConfigCryptoUtil;
 import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
@@ -29,14 +30,36 @@ import org.apache.ofbiz.base.util.UtilValidate;
  * <p>This preserves full backward compatibility with the existing
  * {@code jdbc-password-lookup} mechanism in {@code entityengine.xml}.
  * No configuration is required to use this implementation.</p>
+ *
+ * <p>Values may optionally be stored encrypted, wrapped as {@code ENC(<base64>)},
+ * e.g. {@code jdbc-password.mysql-ofbiz=ENC(AbCd123...)}. Encrypted values are
+ * decrypted in-memory with {@link ConfigCryptoUtil} using the master key supplied
+ * via the {@code OFBIZ_DB_KEY} environment variable.</p>
  */
 public final class FileBasedSecretProvider implements SecretProvider {
+
+    private static final String ENC_PREFIX = "ENC(";
+    private static final String ENC_SUFFIX = ")";
+    private static final String MASTER_KEY_ENV_VAR = "OFBIZ_DB_KEY";
 
     @Override
     public String getSecret(String key) throws GeneralException {
         String value = UtilProperties.getPropertyValue("passwords", key);
         if (UtilValidate.isEmpty(value)) {
             throw new GeneralException("Secret key '" + key + "' not found in passwords.properties");
+        }
+        if (value.startsWith(ENC_PREFIX) && value.endsWith(ENC_SUFFIX)) {
+            String masterKey = System.getenv(MASTER_KEY_ENV_VAR);
+            if (UtilValidate.isEmpty(masterKey)) {
+                throw new GeneralException("Secret '" + key + "' is encrypted but the " + MASTER_KEY_ENV_VAR
+                        + " environment variable holding the master key is not set");
+            }
+            String encryptedValue = value.substring(ENC_PREFIX.length(), value.length() - ENC_SUFFIX.length());
+            try {
+                return ConfigCryptoUtil.decrypt(encryptedValue, masterKey);
+            } catch (GeneralException e) {
+                throw new GeneralException("Failed to decrypt secret '" + key + "': " + e.getMessage(), e);
+            }
         }
         return value;
     }
