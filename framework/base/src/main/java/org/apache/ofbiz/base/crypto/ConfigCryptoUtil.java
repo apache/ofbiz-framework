@@ -105,6 +105,39 @@ public final class ConfigCryptoUtil {
         }
     }
 
+    /**
+     * Returns the plaintext of {@code rawValue} if it is wrapped in {@code ENC(...)},
+     * otherwise returns it unchanged.
+     *
+     * <p>All {@link org.apache.ofbiz.base.secret.SecretProvider} implementations should
+     * call this after fetching a value from their remote backend so that operators can
+     * optionally add a client-side AES-256-GCM layer on top of whatever the vault already
+     * provides. The master key is read from the {@code OFBIZ_DB_KEY} environment variable.</p>
+     *
+     * @param rawValue   the value as returned by the secret backend (plaintext or {@code ENC(...)})
+     * @param secretName used only in error messages to identify which secret failed
+     * @return the plaintext value — either the original string or the decrypted one
+     * @throws GeneralException if the value is encrypted but {@code OFBIZ_DB_KEY} is missing,
+     *                          or if decryption fails (e.g. wrong key)
+     */
+    public static String decryptIfEncrypted(String rawValue, String secretName) throws GeneralException {
+        if (!rawValue.startsWith("ENC(") || !rawValue.endsWith(")")) {
+            return rawValue;
+        }
+        String masterKey = System.getenv("OFBIZ_DB_KEY");
+        if (masterKey == null || masterKey.isEmpty()) {
+            throw new GeneralException("Secret '" + secretName + "' is encrypted (ENC(...)) but the "
+                    + "OFBIZ_DB_KEY environment variable is not set");
+        }
+        String base64 = rawValue.substring("ENC(".length(), rawValue.length() - 1);
+        try {
+            return decrypt(base64, masterKey);
+        } catch (GeneralException e) {
+            throw new GeneralException("Failed to decrypt secret '" + secretName
+                    + "': verify OFBIZ_DB_KEY matches the key used to encrypt", e);
+        }
+    }
+
     private ConfigCryptoUtil() { }
 
     /**

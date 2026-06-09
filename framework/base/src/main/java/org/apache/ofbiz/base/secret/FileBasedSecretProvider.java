@@ -38,29 +38,12 @@ import org.apache.ofbiz.base.util.UtilValidate;
  */
 public final class FileBasedSecretProvider implements SecretProvider {
 
-    private static final String ENC_PREFIX = "ENC(";
-    private static final String ENC_SUFFIX = ")";
-    private static final String MASTER_KEY_ENV_VAR = "OFBIZ_DB_KEY";
-
     @Override
     public String getSecret(String key) throws GeneralException {
         String value = UtilProperties.getPropertyValue("passwords", key);
         if (UtilValidate.isEmpty(value)) {
             throw new GeneralException("Secret key '" + key + "' not found in passwords.properties");
         }
-        if (value.startsWith(ENC_PREFIX) && value.endsWith(ENC_SUFFIX)) {
-            String masterKey = System.getenv(MASTER_KEY_ENV_VAR);
-            if (UtilValidate.isEmpty(masterKey)) {
-                throw new GeneralException("Secret '" + key + "' is encrypted but the " + MASTER_KEY_ENV_VAR
-                        + " environment variable holding the master key is not set");
-            }
-            String encryptedValue = value.substring(ENC_PREFIX.length(), value.length() - ENC_SUFFIX.length());
-            try {
-                return ConfigCryptoUtil.decrypt(encryptedValue, masterKey);
-            } catch (GeneralException e) {
-                throw new GeneralException("Failed to decrypt secret '" + key + "': " + e.getMessage(), e);
-            }
-        }
-        return value;
+        return ConfigCryptoUtil.decryptIfEncrypted(value, key);
     }
 }
