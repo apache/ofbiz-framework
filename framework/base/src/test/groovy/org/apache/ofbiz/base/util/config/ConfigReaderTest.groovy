@@ -26,17 +26,20 @@ import com.typesafe.config.ConfigParseOptions
 import org.apache.ofbiz.base.config.ConfigurationInterface
 import org.apache.ofbiz.base.config.ConfigurationFactory
 import org.apache.ofbiz.base.config.TypesafeConfigImplReader
-import org.junit.After
+import org.apache.ofbiz.base.util.UtilProperties
+import org.junit.jupiter.api.AfterEach
 import org.mockito.MockedStatic
 import org.mockito.Mockito
 
 class ConfigReaderTest {
 
     private MockedStatic<ConfigFactory> mockConfig
+    private MockedStatic<UtilProperties> mockProperties
 
-    @After
+    @AfterEach
     void closeMock() {
         mockConfig?.close()
+        mockProperties?.close()
     }
 
     private void initHoconConfig(String hoconContent) {
@@ -66,6 +69,17 @@ class ConfigReaderTest {
     protected TypesafeConfigImplReader initReader(String hoconContent) {
         setConfig(hoconContent)
         return new TypesafeConfigImplReader()
+    }
+
+    protected TypesafeConfigImplReader initReaderAndProperties(String hoconContent, String propFileName = null,
+                                                               String propFileContent = null) {
+        mockProperties = Mockito.mockStatic(UtilProperties, Mockito.CALLS_REAL_METHODS)
+        if (propFileName && propFileContent) {
+            Properties props = new Properties()
+            props.load(new ByteArrayInputStream(propFileContent.getBytes()))
+            mockProperties.when(() -> UtilProperties.getProperties(propFileName)).thenReturn(props)
+        }
+        return initReader(hoconContent)
     }
 
 }

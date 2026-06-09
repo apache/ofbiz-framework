@@ -31,13 +31,14 @@ public class PropertiesConfigurationReader implements ConfigurationReaderInterfa
 
     @Override
     public void init(String resourceName) {
-        props = UtilProperties.getProperties(resourceName);
+        Properties vanilla = UtilProperties.getProperties(resourceName);
+        props = vanilla != null ? vanilla : new Properties();
     }
 
     @Override
     public String getValue(String key) {
         String value = props.getProperty(key);
-        return value == null ? null : value.intern();
+        return value == null ? "" : value.intern().trim();
     }
 
     @Override

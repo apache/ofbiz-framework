@@ -130,8 +130,15 @@ public class TypesafeConfigImplReader implements ConfigurationReaderInterface {
 
         String configPath = convertToConfigPath(resourceName, key);
         String value = null;
-        if (configPath != null && globalConfig.hasPath(configPath)) {
-            value = globalConfig.getString(configPath).intern();
+        if (configPath == null) {
+            return "";
+        } else {
+            if (!globalConfig.hasPath(configPath) && !key.startsWith("/")) { // property case, escaping xml xpaths
+                configPath = convertToConfigPath(resourceName, '"' + key + '"');
+            }
+            if (globalConfig.hasPath(configPath)) {
+                value = globalConfig.getString(configPath).intern();
+            }
         }
         CONFIGURATION_CACHE.put(configMapKey, value);
         return value;

@@ -30,7 +30,7 @@ import org.apache.ofbiz.entity.config.model.EntityConfig
 import org.apache.ofbiz.entity.config.model.EntityConfigFactory
 import org.apache.ofbiz.entity.config.model.EntityConfigGetter
 import org.apache.ofbiz.base.config.ConfigHelper
-import org.junit.After
+import org.junit.jupiter.api.AfterEach
 import org.mockito.MockedStatic
 import org.mockito.Mockito
 import org.w3c.dom.Document
@@ -46,7 +46,7 @@ class BaseEntityConfigReaderTest {
     private MockedStatic<ConfigFactory> mockConfig
     private MockedStatic<EntityConfigGetter> mockConfigGetter
 
-    @After
+    @AfterEach
     void closeMock() {
         mockXmlReader?.close()
         mockConfigGetter?.close()
