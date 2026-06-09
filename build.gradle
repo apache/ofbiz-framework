@@ -751,9 +751,9 @@ task gitInfoFooter(group: sysadminGroup, description: 'Update the Git Branch-rev
 
 task generateDBPassword(group: sysadminGroup,
         description: 'Write a plain or encrypted (ENC(...)) database password into passwords.properties. '
-                + 'Usage: ./gradlew generateDBPassword -Pvalue=<password> -PlookupKey=<e.g. mysql-ofbiz> [-PmasterKey=<key>]') {
+                + 'Usage: ./gradlew generateDBPassword -PdbPassword=<password> -PlookupKey=<e.g. mysql-ofbiz> [-PmasterKey=<key>]') {
     doLast {
-        def secret = project.property('value')
+        def secret = project.property('dbPassword')
         if (project.hasProperty('masterKey')) {
             def output = new java.io.ByteArrayOutputStream()
             javaexec {
