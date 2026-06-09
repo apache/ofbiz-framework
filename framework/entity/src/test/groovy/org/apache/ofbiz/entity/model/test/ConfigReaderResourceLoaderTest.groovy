@@ -20,7 +20,7 @@ package org.apache.ofbiz.entity.model.test
 
 import org.apache.ofbiz.entity.config.model.EntityConfig
 import org.apache.ofbiz.entity.config.model.ResourceLoader
-import org.junit.Test
+import org.junit.jupiter.api.Test
 
 class ConfigReaderResourceLoaderTest extends BaseEntityConfigReaderTest {
 

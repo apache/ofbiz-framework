@@ -21,7 +21,7 @@ package org.apache.ofbiz.base.util.config
 import static org.apache.ofbiz.base.config.TypesafeConfigImplReader.convertToConfigPath
 
 import org.apache.ofbiz.base.config.TypesafeConfigImplReader
-import org.junit.Test
+import org.junit.jupiter.api.Test
 
 class ConfigReaderPathHandlingTest extends ConfigReaderTest {
 

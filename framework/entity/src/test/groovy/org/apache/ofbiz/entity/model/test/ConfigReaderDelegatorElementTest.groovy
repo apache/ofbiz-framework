@@ -21,7 +21,7 @@ package org.apache.ofbiz.entity.model.test
 import org.apache.ofbiz.entity.config.model.DelegatorElement
 import org.apache.ofbiz.entity.config.model.EntityConfig
 import org.apache.ofbiz.entity.config.model.GroupMap
-import org.junit.Test
+import org.junit.jupiter.api.Test
 
 class ConfigReaderDelegatorElementTest extends BaseEntityConfigReaderTest {
 

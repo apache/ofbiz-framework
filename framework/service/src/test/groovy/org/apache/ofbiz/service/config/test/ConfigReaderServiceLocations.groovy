@@ -19,7 +19,7 @@
 package org.apache.ofbiz.service.config.test
 
 import org.apache.ofbiz.service.config.model.ServiceEngine
-import org.junit.Test
+import org.junit.jupiter.api.Test
 
 class ConfigReaderServiceLocations extends BaseServiceConfigReaderTest {
 
