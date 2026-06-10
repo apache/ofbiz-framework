@@ -45,10 +45,13 @@ import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.cache.UtilCache;
 
+import javax.xml.xpath.XPathExpressionException;
+
 public class TypesafeConfigImplReader implements ConfigurationReaderInterface {
     private static final String MODULE = TypesafeConfigImplReader.class.getName();
     private Config globalConfig = ConfigFactory.empty();
     private static final UtilCache<String, String> CONFIGURATION_CACHE = UtilCache.createUtilCache("base.config", 0, 0);
+    private static final int MAX_PATH_LENGTH = 500;
 
     public TypesafeConfigImplReader() {
         this((String) null);
@@ -200,9 +203,9 @@ public class TypesafeConfigImplReader implements ConfigurationReaderInterface {
     /**
      * Collects simple config elements that don't have precise naming keys (such as run-from-pool, or read-data)
      *
-     * @param resourceName       the name of the resource to look in for the element (eg: 'entityengine').
-     * @param xPath              the xPath of the elements
-     * @param targetClass        the class of the wanted elements, that will be used in the return List
+     * @param resourceName the name of the resource to look in for the element (eg: 'entityengine').
+     * @param xPath        the xPath of the elements
+     * @param targetClass  the class of the wanted elements, that will be used in the return List
      * @return a List of objects of {@code targetClass}
      */
     public <T> List<T> collectAnonymousElementList(String resourceName, String xPath, Class<T> targetClass) {
@@ -244,11 +247,11 @@ public class TypesafeConfigImplReader implements ConfigurationReaderInterface {
      * Collects all elements of wanted type, regardless of their configuration origin or file.
      * Applies all overloads from typesafe config system.
      *
-     * @param resourceName       the name of the resource to look in for the element (eg: 'entityengine').
-     * @param xPath              the xPath of the elements
-     * @param targetClass        the class of the wanted elements, that will be used in the return List
+     * @param resourceName      the name of the resource to look in for the element (eg: 'entityengine').
+     * @param xPath             the xPath of the elements
+     * @param targetClass       the class of the wanted elements, that will be used in the return List
      * @param existingObjectMap the map (if any) of already existing objects (loaded from XML for example). It will be used to
-     *                           check if any overload must be applied to an existing object.
+     *                          check if any overload must be applied to an existing object.
      * @return a Map of objects of the wanted class, with all configs applied. The config object name will be used as map key.
      */
     public <T> Map<String, T> collectElementsAsMapValuesWithConfigsApplied(String resourceName, String xPath,
@@ -319,22 +322,30 @@ public class TypesafeConfigImplReader implements ConfigurationReaderInterface {
      * @return a converted path understandable by Lightbend config methods or null if there is an error in the path
      */
     public static String convertToConfigPath(String resourceName, String path) {
-        if (UtilValidate.isEmpty(resourceName)) {
-            return convertToConfigPath(path);
+        try {
+            if (UtilValidate.isEmpty(resourceName)) {
+                return convertToConfigPath(path);
+            }
+            return (resourceName.contains(".")
+                    ? resourceName.substring(0, resourceName.lastIndexOf('.'))
+                    : resourceName)
+                    + "." + convertToConfigPath(path);
+        } catch (XPathExpressionException e) {
+            throw new RuntimeException(e);
         }
-        return (resourceName.contains(".")
-                ? resourceName.substring(0, resourceName.lastIndexOf('.'))
-                : resourceName)
-                + "." + convertToConfigPath(path);
     }
 
     /**
      * See {@link TypesafeConfigImplReader#convertToConfigPath(String, String)}
      */
-    public static String convertToConfigPath(String path) {
+    public static String convertToConfigPath(String path) throws XPathExpressionException {
         if (path == null || !path.contains("/")) {
             return path;
         }
+        if (path.length() >= MAX_PATH_LENGTH) {
+            throw new XPathExpressionException("Security error, given to long, max path size allowed is " + MAX_PATH_LENGTH);
+        }
+
         Pattern pattern = Pattern.compile("\\[@(.+)=([^\"'].+[^\"'])]", Pattern.CASE_INSENSITIVE);
         String convertedPath = pattern.matcher(path)
                 .replaceAll("[@$1=\"$2\"]")

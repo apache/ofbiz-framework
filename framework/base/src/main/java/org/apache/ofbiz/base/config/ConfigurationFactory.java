@@ -73,8 +73,15 @@ public class ConfigurationFactory {
      * @return resets and returns a new empty {@code configInstance}
      */
     public static ConfigurationInterface resetAndGet() {
+        return resetAndGet(List.of());
+    }
+
+    /**
+     * @return resets and returns a new empty {@code configInstance}
+     */
+    public static ConfigurationInterface resetAndGet(List<File> configPaths) {
         configInstance = null;
-        return getInstance();
+        return getInstance(configPaths);
     }
 
 }

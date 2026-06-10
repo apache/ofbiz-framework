@@ -34,6 +34,7 @@ import org.w3c.dom.Element;
 
 public class XmlConfigurationReader implements ConfigurationReaderInterface {
     public static final String MODULE = XmlConfigurationReader.class.getName();
+    private static final List<String> ALLOWED_ROOT_ELEMENT_NAMES = List.of("entity-config", "service-config");
     private Element rootElement;
     private XPath xPath;
 
@@ -54,6 +55,7 @@ public class XmlConfigurationReader implements ConfigurationReaderInterface {
     public String getValue(String key) {
         String value = "";
         try {
+            sanitize(key);
             value = xPath.compile(key).evaluate(rootElement);
         } catch (XPathExpressionException e) {
             Debug.logError("Expression cannot be evaluated: " + e, MODULE);
@@ -62,8 +64,7 @@ public class XmlConfigurationReader implements ConfigurationReaderInterface {
     }
 
     @Override
-    public void clearCache() {
-    }
+    public void clearCache() { }
 
     @Override
     public <T> T findSingleElementWithClassInParent(String xPath, Object parent, Class<T> targetClass) {
@@ -97,4 +98,18 @@ public class XmlConfigurationReader implements ConfigurationReaderInterface {
         }
         return childModelObject;
     }
+
+    /**
+     * Prevents Xpath injection vulnerability
+     *
+     * @param key the xpath to check
+     * @throws XPathExpressionException if the xpath presents a security threat
+     */
+    private void sanitize(String key) throws XPathExpressionException {
+        String root = key.split("/")[1];
+        if (key.contains("../") || !ALLOWED_ROOT_ELEMENT_NAMES.contains(root)) {
+            throw new XPathExpressionException("Security error, given xpath not allowed");
+        }
+    }
+
 }
