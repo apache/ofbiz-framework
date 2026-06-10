@@ -55,4 +55,20 @@ public interface SecretProvider {
      * @throws GeneralException if the secret cannot be found or an error occurs during resolution
      */
     String getSecret(String key) throws GeneralException;
+
+    /**
+     * Returns whether {@link FallbackSecretProvider} is allowed to fall back to
+     * {@link FileBasedSecretProvider} (i.e. {@code passwords.properties}) when this
+     * provider fails to resolve a secret.
+     *
+     * <p>Implementations should read this from their own plugin configuration
+     * resource (e.g. {@code <fallback-property>.fallback.enabled}), defaulting
+     * to {@code true}.</p>
+     *
+     * @return {@code true} if local fallback is permitted, {@code false} to require
+     *         this provider to be the sole source of secrets
+     */
+    default boolean isFallbackEnabled() {
+        return true;
+    }
 }

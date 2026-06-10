@@ -33,6 +33,13 @@ import org.apache.ofbiz.base.util.Debug;
  * If none is found, {@link FileBasedSecretProvider} is used automatically,
  * preserving backward compatibility with {@code passwords.properties}.</p>
  *
+ * <p>If a custom (remote) provider is found, it is wrapped in a
+ * {@link FallbackSecretProvider} together with {@link FileBasedSecretProvider}.
+ * When the remote provider's own {@code <prefix>.fallback.enabled} configuration
+ * property is {@code true} (the default) and the remote provider fails (e.g. the
+ * remote secret manager is unreachable), the secret is resolved from the local
+ * {@code passwords.properties} file instead.</p>
+ *
  * <p>This mirrors the pattern already used by
  * {@link org.apache.ofbiz.security.SecurityFactory}.</p>
  */
@@ -48,7 +55,7 @@ public final class SecretProviderFactory {
         if (it.hasNext()) {
             SecretProvider provider = it.next();
             Debug.logInfo("SecretProvider: using custom implementation " + provider.getClass().getName(), MODULE);
-            return provider;
+            return new FallbackSecretProvider(provider, new FileBasedSecretProvider());
         }
         Debug.logInfo("SecretProvider: no custom implementation found, using FileBasedSecretProvider", MODULE);
         return new FileBasedSecretProvider();
