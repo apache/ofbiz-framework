@@ -128,14 +128,15 @@ under the License.
             <screen name="LookupDecorator"/>
             <screen name="ShortcutDecorator"/>
             <screen name="SimpleDecorator"/>
-            <screen name="EmbeddedDecorator"/>
             <screen name="FoReportDecorator"/>
             <screen name="GlobalFoDecorator"/>
             <screen name="LookupHelpDecorator" location="component://common-theme/widget/HelpScreens.xml"/>
         </root-decorator>
         <subtype-decorator default-location="component://common-theme/widget/CommonScreens.xml">
-            <screen name="FindScreenDecorator"/>
             <screen name="DetailScreenDecorator"/>
+            <screen name="FindScreenDecorator"/>
+            <screen name="FilteredListDecorator"/>
+            <screen name="EmbeddedDecorator"/>
         </subtype-decorator>
         <generic-screen default-location="component://common-theme/widget/CommonScreens.xml">
             <screen name="geoChart"/>

@@ -329,6 +329,21 @@ under the License.
         </section>
     </screen>
 
+    <!--FilteredListDecorator: Sub Screen to display a list link to a filter form.
+        contains sections :
+          * menu-bar
+          * filter-options: option for filter on the list
+          * filtered-results: result displayed after apply filter
+          -->
+    <screen name="FilteredListDecorator">
+        <section>
+            <widgets>
+                <include-screen name="MinimalActions" />
+                <include-screen name="FilteredListDecorator" location="${groovy:commonScreenLocations.FilteredListDecorator?commonScreenLocations.FilteredListDecorator:commonDecoratorLocation}"/>
+            </widgets>
+        </section>
+    </screen>
+
     <!--DetailScreenDecorator: Sub Screen to show a sum up of
         an object and its related data. Composed in six sections :
           * menu-bar
