@@ -32,6 +32,8 @@ import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.cache.UtilCache;
 
+import javax.xml.xpath.XPathExpressionException;
+
 public class DefaultConfiguration implements ConfigurationInterface {
     public static final String MODULE = DefaultConfiguration.class.getName();
     private static final UtilCache<String, ConfigurationReaderInterface> CONFIGURATION_TYPE = UtilCache.createUtilCache("base.config.type", 0, 0);
@@ -91,7 +93,12 @@ public class DefaultConfiguration implements ConfigurationInterface {
 
     @Override
     public <T> T getValue(Map<String, Object> configObject, String key, Class<T> targetClass, T defaultValue) {
-        Object value = typesafeConfReader.getValue(configObject, TypesafeConfigImplReader.convertToConfigPath(key));
+        Object value = null;
+        try {
+            value = typesafeConfReader.getValue(configObject, TypesafeConfigImplReader.convertToConfigPath(key));
+        } catch (XPathExpressionException e) {
+            Debug.logError("Error getting value from typesafe configs", MODULE);
+        }
         if (targetClass == String.class) {
             return value == null ? defaultValue : UtilGenerics.cast(value);
         }
