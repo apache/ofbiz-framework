@@ -30,6 +30,14 @@ public class Success {
     private String successMessage;
     private Object data;
 
+    /**
+     * Creates a success response with basic status and message information.
+     *
+     * @param statusCode HTTP status code
+     * @param statusDescription HTTP status reason phrase or description
+     * @param successMessage human-readable success message
+     * @param data
+     */
     public Success(int statusCode, String statusDescription, String successMessage, Object data) {
         this.statusCode = statusCode;
         this.statusDescription = statusDescription;
@@ -38,56 +46,72 @@ public class Success {
     }
 
     /**
-     * @return the statusCode
+     * Returns the status code.
+     *
+     * @return the status code representing the result
      */
     public int getStatusCode() {
         return statusCode;
     }
 
     /**
-     * @param statusCode the statusCode to set
+     * Sets the status code.
+     *
+     * @param statusCode the status code to set
      */
     public void setStatusCode(int statusCode) {
         this.statusCode = statusCode;
     }
 
     /**
-     * @return the statusDescription
+     * Returns the status description.
+     *
+     * @return the status description
      */
     public String getStatusDescription() {
         return statusDescription;
     }
 
     /**
-     * @param statusDescription the statusDescription to set
+     * Sets the status description.
+     *
+     * @param statusDescription the status description to set
      */
     public void setStatusDescription(String statusDescription) {
         this.statusDescription = statusDescription;
     }
 
     /**
-     * @return the successMessage
+     * Returns the success message.
+     *
+     * @return the success message
      */
     public String getSuccessMessage() {
         return successMessage;
     }
 
     /**
-     * @param successMessage the successMessage to set
+     * Sets the success message.
+     *
+     * @param successMessage the success message to set
      */
     public void setSuccessMessage(String successMessage) {
         this.successMessage = successMessage;
     }
 
     /**
-     * @return the data
+     * Returns the response data.
+     *
+     * @return the data object
      */
     public Object getData() {
         return data;
     }
 
     /**
-     * @param data the data to set
+     * Sets the response data.
+     *
+     * @param data the data object to set
      */
     public void setData(Object data) {
         this.data = data;

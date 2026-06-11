@@ -21,19 +21,6 @@ package org.apache.ofbiz.ws.rs.security.auth;
 import java.io.IOException;
 import java.util.Map;
 
-import jakarta.annotation.Priority;
-import jakarta.servlet.ServletContext;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.ws.rs.Priorities;
-import jakarta.ws.rs.container.ContainerRequestContext;
-import jakarta.ws.rs.container.ContainerRequestFilter;
-import jakarta.ws.rs.container.ResourceInfo;
-import jakarta.ws.rs.core.Context;
-import jakarta.ws.rs.core.HttpHeaders;
-import jakarta.ws.rs.core.Response;
-import jakarta.ws.rs.core.UriInfo;
-import jakarta.ws.rs.ext.Provider;
-
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
@@ -49,8 +36,37 @@ import org.apache.ofbiz.ws.rs.common.AuthenticationScheme;
 import org.apache.ofbiz.ws.rs.resources.OFBizServiceResource;
 import org.apache.ofbiz.ws.rs.util.RestApiUtil;
 
+import jakarta.annotation.Priority;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.ws.rs.Priorities;
+import jakarta.ws.rs.container.ContainerRequestContext;
+import jakarta.ws.rs.container.ContainerRequestFilter;
+import jakarta.ws.rs.container.ResourceInfo;
+import jakarta.ws.rs.core.Context;
+import jakarta.ws.rs.core.HttpHeaders;
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.UriInfo;
+import jakarta.ws.rs.ext.Provider;
+
 /**
- * Api Security
+ * JAX-RS container request filter that enforces JWT Bearer token authentication
+ * on all resources annotated with {@link Secured}.
+ *
+ * <p>For requests targeting {@link OFBizServiceResource}, authentication may be
+ * skipped if the underlying OFBiz service has {@code auth=false} in its service
+ * definition and no {@code Authorization} header is present. If a token is
+ * present regardless, it is always validated.</p>
+ *
+ * <p>On successful validation, the resolved {@link GenericValue} userLogin is
+ * stored as a request attribute under {@code "userLogin"} for use by downstream
+ * resource methods. On failure, the request is aborted with HTTP 401 Unauthorized.
+ * If no {@code Authorization} header was present, a
+ * {@code WWW-Authenticate: Bearer realm="OFBiz"} challenge header is included
+ * in the response.</p>
+ *
+ * @see Secured
+ * @see HttpBasicAuthFilter
  */
 @Secured
 @Provider
@@ -71,8 +87,6 @@ public class APIAuthFilter implements ContainerRequestFilter {
     @Context
     private ServletContext servletContext;
 
-    /**
-     */
     @Override
     public void filter(ContainerRequestContext requestContext) throws IOException {
         String authorizationHeader = requestContext.getHeaderString(HttpHeaders.AUTHORIZATION);
@@ -107,18 +121,11 @@ public class APIAuthFilter implements ContainerRequestFilter {
         }
     }
 
-    /**
-     * @param authorizationHeader
-     * @return
-     */
     private boolean isTokenBasedAuthentication(String authorizationHeader) {
         return authorizationHeader != null
                 && authorizationHeader.toLowerCase().startsWith(AuthenticationScheme.BEARER.getScheme().toLowerCase() + " ");
     }
 
-    /**
-     * @param requestContext
-     */
     private void abortWithUnauthorized(ContainerRequestContext requestContext, boolean isAuthHeaderPresent, String message) {
         if (!isAuthHeaderPresent) {
             requestContext.abortWith(

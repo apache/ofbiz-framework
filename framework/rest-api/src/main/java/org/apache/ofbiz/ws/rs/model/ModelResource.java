@@ -33,22 +33,29 @@ public class ModelResource {
     private boolean auth;
 
     /**
-     * @return the auth
+     * Returns whether the user is authenticated.
+     *
+     * @return true if the user is authenticated, false otherwise
      */
     public boolean isAuth() {
         return auth;
     }
 
     /**
-     * @param auth the auth to set
+     * Sets the authentication status of the user.
+     *
+     * @param auth true to mark the user as authenticated, false otherwise
      */
     public void setAuth(boolean auth) {
         this.auth = auth;
     }
 
     /**
-     * @param auth
-     * @return
+     * Sets whether this resource requires JWT authentication and returns
+     * this instance to support method chaining.
+     *
+     * @param auth {@code true} if a valid JWT is required; {@code false} otherwise
+     * @return this {@link ModelResource} instance
      */
     public ModelResource auth(boolean auth) {
         this.auth = auth;
@@ -56,22 +63,30 @@ public class ModelResource {
     }
 
     /**
-     * @param publish the publish to set
+     * Sets whether the item is published.
+     *
+     * @param publish true to mark as published, false otherwise
      */
     protected void setPublish(boolean publish) {
         this.publish = publish;
     }
 
     /**
-     * @return the operation
+     * Returns the operations defined for this resource, or an empty list if
+     * no operations have been added yet.
+     *
+     * @return the list of {@link ModelOperation} instances; never {@code null}
      */
     public List<ModelOperation> getOperations() {
         return operations == null ? new ArrayList<ModelOperation>() : operations;
     }
 
     /**
-     * @param operation
-     * @return
+     * Adds an operation to this resource and returns this instance
+     * to support method chaining.
+     *
+     * @param operation the {@link ModelOperation} to add
+     * @return this {@link ModelResource} instance
      */
     public ModelResource addOperation(ModelOperation operation) {
         if (this.operations == null) {
@@ -82,13 +97,17 @@ public class ModelResource {
     }
 
     /**
-     * @return the name
+     * Returns the name.
+     *
+     * @return the current name value
      */
     public String getName() {
         return name;
     }
 
     /**
+     * Sets the name.
+     *
      * @param name the name to set
      */
     public void setName(String name) {
@@ -96,8 +115,11 @@ public class ModelResource {
     }
 
     /**
-     * @param name
-     * @return
+     * Sets the name of this resource and returns this instance
+     * to support method chaining.
+     *
+     * @param name the resource name
+     * @return this {@link ModelResource} instance
      */
     public ModelResource name(String name) {
         this.name = name;
@@ -105,8 +127,11 @@ public class ModelResource {
     }
 
     /**
-     * @param path
-     * @return
+     * Sets the path of this resource and returns this instance
+     * to support method chaining.
+     *
+     * @param path the URL path segment for this resource
+     * @return this {@link ModelResource} instance
      */
     public ModelResource path(String path) {
         this.path = path;
@@ -114,13 +139,17 @@ public class ModelResource {
     }
 
     /**
-     * @return the path
+     * Returns the path.
+     *
+     * @return the current path value
      */
     public String getPath() {
         return path;
     }
 
     /**
+     * Sets the path.
+     *
      * @param path the path to set
      */
     public void setPath(String path) {
@@ -128,15 +157,20 @@ public class ModelResource {
     }
 
     /**
-     * @return the displayName
+     * Returns the display name.
+     *
+     * @return the display name
      */
     public String getDisplayName() {
         return displayName;
     }
 
     /**
-     * @param displayName
-     * @return
+     * Sets the display name of this resource and returns this instance
+     * to support method chaining.
+     *
+     * @param displayName the human-readable display name
+     * @return this {@link ModelResource} instance
      */
     public ModelResource displayName(String displayName) {
         this.displayName = displayName;
@@ -144,20 +178,26 @@ public class ModelResource {
     }
 
     /**
-     * @param displayName the displayName to set
+     * Sets the display name.
+     *
+     * @param displayName the display name to set
      */
     public void setDisplayName(String displayName) {
         this.displayName = displayName;
     }
 
     /**
-     * @return the description
+     * Returns the description.
+     *
+     * @return the description value
      */
     public String getDescription() {
         return description;
     }
 
     /**
+     * Sets the description.
+     *
      * @param description the description to set
      */
     public void setDescription(String description) {
@@ -165,23 +205,29 @@ public class ModelResource {
     }
 
     /**
-     * Adds a sub-resource to this resource.
-     * @param resource the child resource to add
+     * Adds a nested sub-resource to this resource.
+     *
+     * @param resource the child {@link ModelResource} to add
      */
     public void addSubResource(ModelResource resource) {
         this.subResources.add(resource);
     }
 
     /**
-     * @return the list of sub-resources
+     * Returns the nested sub-resources of this resource.
+     *
+     * @return the list of child {@link ModelResource} instances; never {@code null}
      */
     public List<ModelResource> getSubResources() {
         return subResources;
     }
 
     /**
-     * @param description
-     * @return
+     * Sets the description of this resource and returns this instance
+     * to support method chaining.
+     *
+     * @param description the resource description
+     * @return this {@link ModelResource} instance
      */
     public ModelResource description(String description) {
         this.description = description;
@@ -189,24 +235,26 @@ public class ModelResource {
     }
 
     /**
-     * @return the publish
+     * Returns whether the item is published.
+     *
+     * @return true if the item is published, false otherwise
      */
     public boolean isPublish() {
         return publish;
     }
 
     /**
-     * @param publish
-     * @return
+     * Sets whether this resource is published and returns this instance
+     * to support method chaining.
+     *
+     * @param publish {@code true} if this resource should be published; {@code false} otherwise
+     * @return this {@link ModelResource} instance
      */
     public ModelResource publish(boolean publish) {
         this.publish = publish;
         return this;
     }
 
-    /**
-     * @return
-     */
     @Override
     public String toString() {
         // TODO Auto-generated method stub

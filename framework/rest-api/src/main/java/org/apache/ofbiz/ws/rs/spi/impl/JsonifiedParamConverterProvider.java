@@ -23,13 +23,6 @@ import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.ws.rs.BadRequestException;
-import jakarta.ws.rs.core.Context;
-import jakarta.ws.rs.ext.ParamConverter;
-import jakarta.ws.rs.ext.ParamConverterProvider;
-import jakarta.ws.rs.ext.Provider;
-
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.ws.rs.ApiServiceRequest;
@@ -37,6 +30,13 @@ import org.apache.ofbiz.ws.rs.ApiServiceRequest;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.ws.rs.BadRequestException;
+import jakarta.ws.rs.core.Context;
+import jakarta.ws.rs.ext.ParamConverter;
+import jakarta.ws.rs.ext.ParamConverterProvider;
+import jakarta.ws.rs.ext.Provider;
 
 @Provider
 public class JsonifiedParamConverterProvider implements ParamConverterProvider {
@@ -54,12 +54,17 @@ public class JsonifiedParamConverterProvider implements ParamConverterProvider {
     }
 
     /**
-     * Gets converter.
-     * @param <T>         the type parameter
-     * @param rawType     the raw type
-     * @param genericType the generic type
-     * @param annotations the annotations
-     * @return the converter
+     * {@inheritDoc}
+     *
+     * <p>Returns a {@link ParamConverter} for {@link ApiServiceRequest} that
+     * deserializes a JSON string into an {@link ApiServiceRequest} wrapping
+     * a {@code Map<String, Object>}. Returns {@code null} for all other types,
+     * indicating this provider does not handle them.</p>
+     *
+     * <p>The converter's {@code fromString} method returns an empty
+     * {@link ApiServiceRequest} if the value is absent or empty, and throws
+     * {@link BadRequestException} if the JSON is malformed. The {@code toString}
+     * method delegates to {@link ApiServiceRequest#getInParams()}.</p>
      */
     @Override
     public <T> ParamConverter<T> getConverter(Class<T> rawType, Type genericType, Annotation[] annotations) {

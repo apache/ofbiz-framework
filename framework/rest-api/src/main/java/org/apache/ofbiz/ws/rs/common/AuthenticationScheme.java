@@ -28,7 +28,10 @@ public enum AuthenticationScheme {
         this.scheme = scheme;
     }
     /**
-     * @return the scheme
+     * Returns the scheme string as used in HTTP {@code Authorization}
+     * and {@code WWW-Authenticate} headers.
+     *
+     * @return the scheme name, either {@code "Basic"} or {@code "Bearer"}
      */
     public String getScheme() {
         return scheme;

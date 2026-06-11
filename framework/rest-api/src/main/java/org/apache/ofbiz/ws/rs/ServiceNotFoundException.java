@@ -24,6 +24,12 @@ public class ServiceNotFoundException extends NotFoundException {
 
     private static final long serialVersionUID = -3002310435429546325L;
 
+    /**
+     * Constructs a new {@link ServiceNotFoundException} for the given OFBiz
+     * service name.
+     *
+     * @param service the name of the service that could not be found
+     */
     public ServiceNotFoundException(String service) {
         super("Service '" + service + "' not found.");
     }

@@ -22,9 +22,25 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+
 import jakarta.ws.rs.NameBinding;
 
 
+/**
+ * JAX-RS name binding annotation that binds {@link org.apache.ofbiz.ws.rs.security.auth.APIAuthFilter}
+ * to the resource classes or methods it annotates.
+ *
+ * <p>When applied to a JAX-RS resource class or method, the JAX-RS runtime
+ * will execute {@link org.apache.ofbiz.ws.rs.security.auth.APIAuthFilter} before the request is processed,
+ * validating the Bearer JWT token in the {@code Authorization} header.
+ * Requests without a valid token are rejected with HTTP 401 Unauthorized.</p>
+ *
+ * <p>This annotation is applied to all protected API endpoints, such as
+ * {@link org.apache.ofbiz.ws.rs.resources.OFBizServiceResource}, which require a valid JWT obtained from
+ * {@code POST /auth/token}.</p>
+ *
+ * @see org.apache.ofbiz.ws.rs.security.auth.APIAuthFilter
+ */
 @NameBinding
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE, ElementType.METHOD})

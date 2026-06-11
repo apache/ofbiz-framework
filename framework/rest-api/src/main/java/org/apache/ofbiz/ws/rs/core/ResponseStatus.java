@@ -82,6 +82,7 @@ public final class ResponseStatus {
 
         /**
          * Convert a numerical status code into the corresponding Status.
+         *
          * @param code
          * @return the matching Status or null is no matching Status is defined.
          */

@@ -29,7 +29,10 @@ public class MethodNotAllowedException extends ClientErrorException {
     private static final long serialVersionUID = -3002310435429546325L;
 
     /**
-     * Construct a new Method Not Allowed exception.
+     * Constructs a new {@link MethodNotAllowedException} with the given message
+     * and HTTP status 405 Method Not Allowed.
+     *
+     * @param message a human-readable description of why the method is not allowed
      */
     public MethodNotAllowedException(String message) {
         super(message, Response.Status.METHOD_NOT_ALLOWED);

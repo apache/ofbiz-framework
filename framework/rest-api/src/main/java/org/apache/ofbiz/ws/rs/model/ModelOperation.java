@@ -29,22 +29,29 @@ public class ModelOperation {
     private boolean auth;
 
     /**
-     * @return the auth
+     * Returns whether the user is authenticated.
+     *
+     * @return true if authenticated, false otherwise
      */
     public boolean isAuth() {
         return auth;
     }
 
     /**
-     * @param auth the auth to set
+     * Sets the authentication state.
+     *
+     * @param auth true to mark as authenticated, false otherwise
      */
     public void setAuth(boolean auth) {
         this.auth = auth;
     }
 
     /**
-     * @param auth
-     * @return ModelOperation
+     * Sets whether this operation requires JWT authentication and returns
+     * this instance.
+     *
+     * @param auth {@code true} if a valid JWT is required; {@code false} otherwise
+     * @return this {@link ModelOperation} instance
      */
     public ModelOperation auth(boolean auth) {
         this.auth = auth;
@@ -52,28 +59,28 @@ public class ModelOperation {
     }
 
     /**
-     * Gets the value of the service property.
+     * Returns the service name.
      *
-     * @return possible object is {@link String }
-     *
+     * @return the service value
      */
     public String getService() {
         return service;
     }
 
     /**
-     * Sets the value of the service property.
+     * Sets the service name.
      *
-     * @param value allowed object is {@link String }
-     *
+     * @param value the service value to set
      */
     public void setService(String value) {
         this.service = value;
     }
 
     /**
-     * @param value
-     * @return ModelOperation
+     * Sets the OFBiz service name for this operation and returns this instance.
+     *
+     * @param value the service name
+     * @return this {@link ModelOperation} instance
      */
     public ModelOperation service(String value) {
         this.service = value;
@@ -81,28 +88,28 @@ public class ModelOperation {
     }
 
     /**
-     * Gets the value of the verb property.
+     * Returns the HTTP verb.
      *
-     * @return possible object is {@link String }
-     *
+     * @return the verb value (e.g., GET, POST, PUT, DELETE)
      */
     public String getVerb() {
         return verb;
     }
 
     /**
-     * Sets the value of the verb property.
+     * Sets the HTTP verb.
      *
-     * @param value allowed object is {@link String }
-     *
+     * @param value the verb to set (e.g., GET, POST, PUT, DELETE)
      */
     public void setVerb(String value) {
         this.verb = value;
     }
 
     /**
-     * @param value
-     * @return ModelOperation
+     * Sets the HTTP verb for this operation and returns this instance.
+     *
+     * @param value the HTTP verb (e.g. {@code GET}, {@code POST})
+     * @return this {@link ModelOperation} instance
      */
     public ModelOperation verb(String value) {
         this.verb = value;
@@ -110,28 +117,28 @@ public class ModelOperation {
     }
 
     /**
-     * Gets the value of the produces property.
+     * Returns the response media type produced by the service.
      *
-     * @return possible object is {@link String }
-     *
+     * @return the produces value (e.g., application/json)
      */
     public String getProduces() {
         return produces;
     }
 
     /**
-     * Sets the value of the produces property.
+     * Sets the response media type produced by the service.
      *
-     * @param value allowed object is {@link String }
-     *
+     * @param value the produces value to set (e.g., application/json)
      */
     public void setProduces(String value) {
         this.produces = value;
     }
 
     /**
-     * @param value
-     * @return ModelOperation
+     * Sets the media type this operation produces and returns this instance.
+     *
+     * @param value the media type (e.g. {@code application/json})
+     * @return this {@link ModelOperation} instance
      */
     public ModelOperation produces(String value) {
         this.produces = value;
@@ -139,28 +146,28 @@ public class ModelOperation {
     }
 
     /**
-     * Gets the value of the consumes property.
+     * Returns the request media type consumed by the service.
      *
-     * @return possible object is {@link String }
-     *
+     * @return the consumes value (e.g., application/json)
      */
     public String getConsumes() {
         return consumes;
     }
 
     /**
-     * Sets the value of the consumes property.
+     * Sets the request media type consumed by the service.
      *
-     * @param value allowed object is {@link String }
-     *
+     * @param value the consumes value to set (e.g., application/json)
      */
     public void setConsumes(String value) {
         this.consumes = value;
     }
 
     /**
-     * @param value
-     * @return ModelOperation
+     * Sets the media type this operation consumes and returns this instance.
+     *
+     * @param value the media type (e.g. {@code application/json})
+     * @return this {@link ModelOperation} instance
      */
     public ModelOperation consumes(String value) {
         this.consumes = value;
@@ -168,28 +175,28 @@ public class ModelOperation {
     }
 
     /**
-     * Gets the value of the path property.
+     * Returns the path.
      *
-     * @return possible object is {@link String }
-     *
+     * @return the current path value
      */
     public String getPath() {
         return path;
     }
 
     /**
-     * Sets the value of the path property.
+     * Sets the path.
      *
-     * @param value allowed object is {@link String }
-     *
+     * @param value the path to set
      */
     public void setPath(String value) {
         this.path = value;
     }
 
     /**
-     * @param value
-     * @return ModelOperation
+     * Sets the sub-path for this operation and returns this instance.
+     *
+     * @param value the sub-path relative to the parent resource path
+     * @return this {@link ModelOperation} instance
      */
     public ModelOperation path(String value) {
         this.path = value;
@@ -197,40 +204,36 @@ public class ModelOperation {
     }
 
     /**
-     * Gets the value of the description property.
+     * Returns the description.
      *
-     * @return possible object is {@link String }
-     *
+     * @return the description value
      */
     public String getDescription() {
         return description;
     }
 
     /**
-     * Sets the value of the description property.
+     * Sets the description.
      *
-     * @param value allowed object is {@link String }
-     *
+     * @param value the description to set
      */
     public void setDescription(String value) {
         this.description = value;
     }
 
     /**
-     * @param value
-     * @return ModelOperation
+     * Sets the description for this operation and returns this instance.
+     *
+     * @param value the operation description
+     * @return this {@link ModelOperation} instance
      */
     public ModelOperation description(String value) {
         this.description = value;
         return this;
     }
 
-    /**
-     * @return String
-     */
     @Override
     public String toString() {
-        // TODO Auto-generated method stub
         return "service: " + service + ", path: " + path + ", verb: " + verb + ", description: " + description
                 + ", produces: " + produces;
     }

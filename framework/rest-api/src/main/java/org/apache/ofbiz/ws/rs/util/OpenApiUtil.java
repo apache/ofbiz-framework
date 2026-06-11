@@ -23,9 +23,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import jakarta.ws.rs.core.HttpHeaders;
-import jakarta.ws.rs.core.Response;
-
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilValidate;
@@ -51,6 +48,8 @@ import io.swagger.v3.oas.models.media.NumberSchema;
 import io.swagger.v3.oas.models.media.Schema;
 import io.swagger.v3.oas.models.media.StringSchema;
 import io.swagger.v3.oas.models.responses.ApiResponse;
+import jakarta.ws.rs.core.HttpHeaders;
+import jakarta.ws.rs.core.Response;
 
 public final class OpenApiUtil {
 
@@ -173,10 +172,20 @@ public final class OpenApiUtil {
         SCHEMAS.put("api.response.service.methodnotallowed", genericErrorSchema);
     }
 
+    /**
+     * Returns the standard API responses shared across all OFBiz REST operations.
+     *
+     * @return the map of standard {@link ApiResponse} instances keyed by HTTP status code
+     */
     public static Map<String, ApiResponse> getStandardApiResponses() {
         return RESPONSES;
     }
 
+    /**
+     * Returns the standard API response schemas shared across all OFBiz REST operations.
+     *
+     * @return the map of standard {@link Schema} instances keyed by schema name
+     */
     public static Map<String, Schema<?>> getStandardApiResponseSchemas() {
         return SCHEMAS;
     }
@@ -265,14 +274,39 @@ public final class OpenApiUtil {
         RESPONSES.put(String.valueOf(Response.Status.METHOD_NOT_ALLOWED.getStatusCode()), methodNotAllowed);
     }
 
+    /**
+     * Returns the OpenAPI {@link Class} type mapped to the given OFBiz service
+     * attribute type.
+     *
+     * @param attributeType the OFBiz attribute type (e.g. {@code "String"}, {@code "Long"})
+     * @return the corresponding OpenAPI schema class, or {@code null} if no mapping exists
+     */
     public static Class<?> getOpenApiTypeForAttributeType(String attributeType) {
         return JAVA_OPEN_API_MAP.get(CLASS_ALIAS.get(attributeType));
     }
 
+    /**
+     * Returns the OpenAPI {@link Class} type mapped to the given OFBiz entity
+     * field type.
+     *
+     * @param fieldType the OFBiz entity field type (e.g. {@code "date-time"}, {@code "numeric"})
+     * @return the corresponding OpenAPI schema class, or {@code null} if no mapping exists
+     */
     public static Class<?> getOpenApiTypeForFieldType(String fieldType) {
         return JAVA_OPEN_API_MAP.get(FIELD_TYPE_MAP.get(fieldType));
     }
 
+    /**
+     * Builds the OpenAPI request body schema for the input parameters of the
+     * given OFBiz service.
+     *
+     * <p>Each input parameter is mapped to an OpenAPI property. Parameters
+     * that are not optional are added to the required list. Parameters without
+     * a known OpenAPI type mapping are silently skipped.</p>
+     *
+     * @param service the {@link ModelService} for which to build the input schema
+     * @return an OpenAPI {@link Schema} representing the service request body
+     */
     public static Schema<Object> getInSchema(ModelService service) {
         Schema<Object> parentSchema = new Schema<Object>();
         parentSchema.setDescription("In Schema for service: " + service.getName() + " request");
@@ -292,6 +326,19 @@ public final class OpenApiUtil {
         return parentSchema;
     }
 
+    /**
+     * Builds the OpenAPI schema for a single OFBiz service parameter.
+     *
+     * <p>The schema type is determined by mapping the parameter's OFBiz type
+     * to an OpenAPI type. Returns {@code null} and logs a warning if no mapping
+     * is found, or if a {@code Map} type parameter has no entity name or child
+     * attributes defined.</p>
+     *
+     * @param service the {@link ModelService} owning the parameter
+     * @param param   the {@link ModelParam} to build a schema for
+     * @return the OpenAPI {@link Schema} for the parameter, or {@code null} if
+     *         the parameter cannot be mapped
+     */
     public static Schema<?> getAttributeSchema(ModelService service, ModelParam param) {
         Schema<?> schema = null;
         Class<?> schemaClass = getOpenApiTypeForAttributeType(param.getType());
@@ -344,6 +391,17 @@ public final class OpenApiUtil {
         return schema;
     }
 
+    /**
+     * Builds the OpenAPI response body schema for the output parameters of the
+     * given OFBiz service.
+     *
+     * <p>The response schema always includes {@code statusCode},
+     * {@code statusDescription}, and {@code successMessage} properties.
+     * Service output parameters are nested under a {@code data} property.</p>
+     *
+     * @param service the {@link ModelService} for which to build the output schema
+     * @return an OpenAPI {@link Schema} representing the service response body
+     */
     public static Schema<Object> getOutSchema(ModelService service) {
         Schema<Object> parentSchema = new Schema<Object>();
         parentSchema.setDescription("Out Schema for service: " + service.getName() + " response");
@@ -393,6 +451,14 @@ public final class OpenApiUtil {
         return dataSchema;
     }
 
+    /**
+     * Builds a standard HTTP 200 success {@link ApiResponse} referencing the
+     * OpenAPI response schema for the given service.
+     *
+     * @param service the {@link ModelService} for which to build the success response
+     * @return an {@link ApiResponse} with a JSON media type and a schema reference
+     *         to {@code #/components/schemas/api.response.<serviceName>.success}
+     */
     public static ApiResponse buildSuccessResponse(ModelService service) {
         final ApiResponse success = new ApiResponse()
                 .description("Success response for the API call.")

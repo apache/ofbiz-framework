@@ -35,6 +35,28 @@ public final class RestServices {
 
     private RestServices() { }
 
+    /**
+     * Generates a JWT authentication token for the currently logged-in user.
+     *
+     * <p>This service creates a signed JWT token based on the provided
+     * {@code userLoginId}. The token can be used for authenticated REST
+     * API access.</p>
+     *
+     * <p>The token expiration time is retrieved from the security properties
+     * configuration ({@code security.jwt.token.expireTime}).</p>
+     *
+     * @param ctx the service execution context providing access to Delegator and environment
+     * @param context input parameters map containing:
+     *        <ul>
+     *            <li>{@code userLogin} - the authenticated user login entity</li>
+     *        </ul>
+     * @return a service success response map containing:
+     *         <ul>
+     *             <li>{@code access_token} - generated JWT token</li>
+     *             <li>{@code expires_in} - token validity duration in seconds</li>
+     *             <li>{@code token_type} - token type ("Bearer")</li>
+     *         </ul>
+     */
     public static Map<String, Object> generateAuthToken(DispatchContext ctx, Map<String, Object> context) {
         Delegator delegator = ctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");

@@ -31,7 +31,10 @@ public class ModelApi {
     private boolean publish;
 
     /**
-     * @return
+     * Returns the List of ModelResources. Creates an empty
+     * List if no resources set.
+     *
+     * @return the resources value
      */
     public List<ModelResource> getResources() {
         if (resources == null) {
@@ -41,8 +44,11 @@ public class ModelApi {
     }
 
     /**
-     * @param resource
-     * @return
+     * Adds a resource to this API definition and returns the current instance
+     * to support method chaining.
+     *
+     * @param resource the {@link ModelResource} to add
+     * @return this {@link ModelApi} instance
      */
     public ModelApi addResource(ModelResource resource) {
         if (this.resources == null) {
@@ -53,94 +59,90 @@ public class ModelApi {
     }
 
     /**
-     * Gets the value of the name property.
+     * Returns the name.
      *
-     * @return possible object is {@link String }
-     *
+     * @return the name value
      */
     public String getName() {
         return name;
     }
 
     /**
-     * Gets the value of the path property.
+     * Returns the path.
      *
-     * @return possible object is {@link String }
-     *
+     * @return the path value
      */
     public String getPath() {
         return path;
     }
 
     /**
-     * Sets the value of the name property.
+     * Sets the name.
      *
-     * @param value allowed object is {@link String }
-     *
+     * @param value the name value to set
      */
     public void setName(String value) {
         this.name = value;
     }
 
     /**
-     * Sets the value of the path property.
+     * Sets the path.
      *
-     * @param path allowed object is {@link String }
-     *
+     * @param path the path value to set
      */
     public void setPath(String path) {
         this.path = path;
     }
 
     /**
-     * Gets the value of the displayName property.
+     * Returns the display name.
      *
-     * @return possible object is {@link String }
-     *
+     * @return the display name value
      */
     public String getDisplayName() {
         return displayName;
     }
 
     /**
-     * Sets the value of the displayName property.
+     * Sets the display name.
      *
-     * @param value allowed object is {@link String }
-     *
+     * @param value the display name value to set
      */
     public void setDisplayName(String value) {
         this.displayName = value;
     }
 
     /**
-     * Gets the value of the description property.
+     * Returns the description.
      *
-     * @return possible object is {@link String }
-     *
+     * @return the description value
      */
     public String getDescription() {
         return description;
     }
 
     /**
-     * Sets the value of the description property.
+     * Sets the description.
      *
-     * @param value allowed object is {@link String }
-     *
+     * @param value the description value to set
      */
     public void setDescription(String value) {
         this.description = value;
     }
 
     /**
-     * @return the publish
+     * Returns whether publish is enabled.
+     *
+     * @return true if publish is enabled, otherwise false
      */
     public boolean isPublish() {
         return publish;
     }
 
     /**
-     * @param publish the publish to set
+     * Sets whether publish is enabled.
+     *
+     * @param publish true to enable publish, false to disable it
      */
     public void setPublish(boolean publish) {
         this.publish = publish;
