@@ -20,17 +20,15 @@ package org.apache.ofbiz.base.crypto;
 
 import java.nio.charset.StandardCharsets;
 import java.security.GeneralSecurityException;
-import java.security.SecureRandom;
-import java.util.Arrays;
 import java.util.Base64;
 
-import javax.crypto.Cipher;
 import javax.crypto.SecretKeyFactory;
-import javax.crypto.spec.GCMParameterSpec;
 import javax.crypto.spec.PBEKeySpec;
-import javax.crypto.spec.SecretKeySpec;
 
 import org.apache.ofbiz.base.util.GeneralException;
+import org.apache.shiro.crypto.CryptoException;
+import org.apache.shiro.crypto.cipher.AesCipherService;
+import org.apache.shiro.lang.util.ByteSource;
 
 /**
  * AES-256-GCM encryption/decryption for configuration values such as the
@@ -38,26 +36,30 @@ import org.apache.ofbiz.base.util.GeneralException;
  *
  * <p>The AES key is derived from a master key (e.g. the {@code OFBIZ_DB_KEY}
  * environment variable) via PBKDF2WithHmacSHA256, so the same master key always
- * yields the same AES key. The IV is randomly generated per encryption and
- * stored alongside the ciphertext, both Base64-encoded together.</p>
+ * yields the same AES key. The actual cipher operations are delegated to Shiro's
+ * {@link AesCipherService} (the same library used by
+ * {@link org.apache.ofbiz.entity.util.EntityCrypto}), which defaults to GCM mode
+ * and prepends a random IV to the ciphertext.</p>
  */
 public final class ConfigCryptoUtil {
 
-    private static final String CIPHER_ALGORITHM = "AES/GCM/NoPadding";
     private static final String KEY_DERIVATION_ALGORITHM = "PBKDF2WithHmacSHA256";
     // Static salt: the master key is the actual secret; the salt only needs to defeat
     // precomputed rainbow tables, not provide per-installation uniqueness.
     private static final byte[] SALT = "OFBizConfigCryptoUtilSalt".getBytes(StandardCharsets.UTF_8);
     private static final int ITERATIONS = 10000;
     private static final int KEY_LENGTH_BITS = 256;
-    private static final int GCM_TAG_LENGTH_BITS = 128;
-    private static final int IV_LENGTH_BYTES = 12;
 
-    private static SecretKeySpec deriveKey(String masterKey) throws GeneralSecurityException {
+    // Note: AesCipherService derives the GCM tag length from getKeySize(), which must stay at
+    // its default of 128 (a valid GCM tag length). The 256-bit AES key below is passed directly
+    // to encrypt/decrypt and does not depend on this setting.
+    private static final AesCipherService CIPHER_SERVICE = new AesCipherService();
+
+    private static byte[] deriveKey(String masterKey) throws GeneralSecurityException {
         SecretKeyFactory factory = SecretKeyFactory.getInstance(KEY_DERIVATION_ALGORITHM);
         PBEKeySpec spec = new PBEKeySpec(masterKey.toCharArray(), SALT, ITERATIONS, KEY_LENGTH_BITS);
         try {
-            return new SecretKeySpec(factory.generateSecret(spec).getEncoded(), "AES");
+            return factory.generateSecret(spec).getEncoded();
         } finally {
             spec.clearPassword();
         }
@@ -69,38 +71,25 @@ public final class ConfigCryptoUtil {
      */
     public static String encrypt(String plainText, String masterKey) throws GeneralException {
         try {
-            SecretKeySpec secretKey = deriveKey(masterKey);
-            byte[] iv = new byte[IV_LENGTH_BYTES];
-            new SecureRandom().nextBytes(iv);
-            Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM);
-            cipher.init(Cipher.ENCRYPT_MODE, secretKey, new GCMParameterSpec(GCM_TAG_LENGTH_BITS, iv));
-            byte[] cipherText = cipher.doFinal(plainText.getBytes(StandardCharsets.UTF_8));
-            byte[] payload = new byte[IV_LENGTH_BYTES + cipherText.length];
-            System.arraycopy(iv, 0, payload, 0, IV_LENGTH_BYTES);
-            System.arraycopy(cipherText, 0, payload, IV_LENGTH_BYTES, cipherText.length);
-            return Base64.getEncoder().encodeToString(payload);
-        } catch (GeneralSecurityException e) {
+            byte[] key = deriveKey(masterKey);
+            ByteSource encrypted = CIPHER_SERVICE.encrypt(plainText.getBytes(StandardCharsets.UTF_8), key);
+            return encrypted.toBase64();
+        } catch (GeneralSecurityException | CryptoException e) {
             throw new GeneralException("Unable to encrypt value", e);
         }
     }
 
     /**
-     * Reverses {@link #encrypt(String, String)}: derives the AES key from {@code masterKey},
-     * splits the IV from the ciphertext and decrypts.
+     * Reverses {@link #encrypt(String, String)}: derives the AES key from {@code masterKey}
+     * and lets {@link AesCipherService} split the IV from the ciphertext and decrypt.
      */
     public static String decrypt(String encryptedBase64, String masterKey) throws GeneralException {
         try {
+            byte[] key = deriveKey(masterKey);
             byte[] payload = Base64.getDecoder().decode(encryptedBase64);
-            if (payload.length <= IV_LENGTH_BYTES) {
-                throw new GeneralException("Encrypted value is too short to contain an IV and ciphertext");
-            }
-            byte[] iv = Arrays.copyOfRange(payload, 0, IV_LENGTH_BYTES);
-            byte[] cipherText = Arrays.copyOfRange(payload, IV_LENGTH_BYTES, payload.length);
-            SecretKeySpec secretKey = deriveKey(masterKey);
-            Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM);
-            cipher.init(Cipher.DECRYPT_MODE, secretKey, new GCMParameterSpec(GCM_TAG_LENGTH_BITS, iv));
-            return new String(cipher.doFinal(cipherText), StandardCharsets.UTF_8);
-        } catch (GeneralSecurityException | IllegalArgumentException e) {
+            byte[] decrypted = CIPHER_SERVICE.decrypt(payload, key).getClonedBytes();
+            return new String(decrypted, StandardCharsets.UTF_8);
+        } catch (GeneralSecurityException | CryptoException | IllegalArgumentException e) {
             throw new GeneralException("Unable to decrypt value: verify the master key is correct", e);
         }
     }
