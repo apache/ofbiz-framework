@@ -57,6 +57,7 @@ import org.apache.ofbiz.service.calendar.RecurrenceInfo;
 import org.apache.ofbiz.service.calendar.RecurrenceInfoException;
 import org.apache.ofbiz.service.config.ServiceConfigUtil;
 import org.apache.ofbiz.service.config.model.RunFromPool;
+import org.apache.ofbiz.service.config.model.ThreadPool;
 import org.apache.ofbiz.service.tracker.JobTracker;
 import org.apache.ofbiz.service.tracker.JobTrackerFactory;
 
@@ -303,6 +304,71 @@ public final class JobManager {
             }
         }
         return poll;
+    }
+
+    /**
+     * Bulk-renews the lease (leaseUpdatedStamp) for all RUNNING and QUEUED jobs owned by this instance.
+     * Called periodically from the {@link JobPoller} main loop.
+     */
+    public void heartbeatRunningJobs() {
+        assertIsRunning();
+        List<EntityCondition> conditions = List.of(
+                EntityCondition.makeCondition("runByInstanceId", INSTANCE_ID),
+                EntityCondition.makeCondition(
+                        EntityCondition.makeCondition("statusId", EntityOperator.IN, List.of("SERVICE_RUNNING", "SERVICE_QUEUED"))));
+
+        try {
+            int updated = delegator.storeByCondition("JobSandbox",
+                    UtilMisc.toMap("leaseUpdatedStamp", UtilDateTime.nowTimestamp()),
+                    EntityCondition.makeCondition(conditions));
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("Heartbeat: lease renewed for " + updated + " job(s) on instance [" + INSTANCE_ID + "]", MODULE);
+            }
+        } catch (GenericEntityException e) {
+            Debug.logWarning(e, "Exception thrown while renewing job leases: ", MODULE);
+        }
+    }
+
+    /**
+     * Scans all RUNNING/QUEUED jobs across all nodes and resets any whose leaseUpdatedStamp
+     * is older than the configured lease-expiry threshold, releasing them back to SERVICE_PENDING
+     * so a healthy node can pick them up.
+     * Uses storeByCondition for atomicity to avoid race conditions in multi-node deployments.
+     * Called periodically from the {@link JobPoller} main loop.
+     */
+    public int recoverStaleJobs() {
+        assertIsRunning();
+        long leaseExpiryMillis;
+        try {
+            ThreadPool threadPool = ServiceConfigUtil.getServiceEngine().getThreadPool();
+            leaseExpiryMillis = threadPool.getLeaseExpiryMillis();
+        } catch (GenericConfigException e) {
+            Debug.logWarning(e, "Unable to read lease-expiry-millis; using default.", MODULE);
+            leaseExpiryMillis = ThreadPool.LEASE_EXPIRY_MILLIS;
+        }
+        Timestamp expiryThreshold = new Timestamp(System.currentTimeMillis() - leaseExpiryMillis);
+        // Match QUEUED or RUNNING jobs owned by any instance with an expired (or missing) lease stamp
+        List<EntityCondition> conditions = List.of(
+                EntityCondition.makeCondition("runByInstanceId", EntityOperator.NOT_EQUAL, null),
+                EntityCondition.makeCondition("statusId", EntityOperator.IN, List.of("SERVICE_QUEUED", "SERVICE_RUNNING")),
+                EntityCondition.makeCondition(
+                        EntityCondition.makeCondition("leaseUpdatedStamp", EntityOperator.LESS_THAN, expiryThreshold),
+                        EntityOperator.OR,
+                        EntityCondition.makeCondition("leaseUpdatedStamp", EntityOperator.EQUALS, null)));
+
+        int recovered = 0;
+        try {
+            recovered = delegator.storeByCondition("JobSandbox",
+                    UtilMisc.toMap("statusId", "SERVICE_PENDING", "runByInstanceId", null, "startDateTime", null, "leaseUpdatedStamp", null),
+                    EntityCondition.makeCondition(conditions));
+            if (recovered > 0) {
+                Debug.logInfo("Stale job recovery: reset " + recovered
+                        + " expired job(s) to SERVICE_PENDING on instance [" + INSTANCE_ID + "]", MODULE);
+            }
+        } catch (GenericEntityException e) {
+            Debug.logWarning(e, "Exception thrown while recovering stale jobs: ", MODULE);
+        }
+        return recovered;
     }
 
     public static List<GenericValue> getJobsToPurge(Delegator delegator, String poolId, String instanceId, int limit, Timestamp purgeTime)

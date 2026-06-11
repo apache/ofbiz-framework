@@ -34,7 +34,10 @@ class ConfigReaderThreadPool extends BaseServiceConfigReaderTest {
                      min-threads="14"
                      max-threads="15"
                      poll-enabled="true"
-                     poll-db-millis="16">
+                     poll-db-millis="16"
+                     lease-refresh-millis="17"
+                     lease-validation-millis="18"
+                     lease-expiry-millis="19">
             <run-from-pool name="pool-test1"/>
             <run-from-pool name="pool-test2"/>
         </thread-pool>''', '')
@@ -48,6 +51,9 @@ class ConfigReaderThreadPool extends BaseServiceConfigReaderTest {
             assert getMaxThreads() == 15
             assert getPollEnabled()
             assert getPollDbMillis() == 16
+            assert getLeaseRefreshMillis() == 17
+            assert getLeaseValidationMillis() == 18
+            assert getLeaseExpiryMillis() == 19
             List runFroms = getRunFromPools()
             assert runFroms.size() == 2
             assert runFroms.find { it.getName() == 'pool-test1' }
@@ -66,7 +72,10 @@ class ConfigReaderThreadPool extends BaseServiceConfigReaderTest {
                      min-threads="14"
                      max-threads="15"
                      poll-enabled="true"
-                     poll-db-millis="16">
+                     poll-db-millis="16"
+                     lease-refresh-millis="17"
+                     lease-validation-millis="18"
+                     lease-expiry-millis="19">
             <run-from-pool name="pool-test1"/>
             <run-from-pool name="pool-test2"/>
         </thread-pool>''', '''"thread-pool": {
@@ -79,6 +88,9 @@ class ConfigReaderThreadPool extends BaseServiceConfigReaderTest {
                      "max-threads": "915",
                      "poll-enabled": "false",
                      "poll-db-millis": "916"
+                     "lease-refresh-millis"="917"
+                     "lease-validation-millis"="918"
+                     "lease-expiry-millis"="919"
                      "run-from-pool": [{ "name": "pool-over" }]
                       }''')
         engine.getThreadPool().with {
@@ -91,6 +103,9 @@ class ConfigReaderThreadPool extends BaseServiceConfigReaderTest {
             assert getMaxThreads() == 915
             assert !getPollEnabled()
             assert getPollDbMillis() == 916
+            assert getLeaseRefreshMillis() == 917
+            assert getLeaseValidationMillis() == 918
+            assert getLeaseExpiryMillis() == 919
 
             List runFroms = getRunFromPools()
             assert runFroms.size() == 1
