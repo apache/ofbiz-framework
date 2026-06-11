@@ -57,7 +57,8 @@ public final class SecretProviderFactory {
             Debug.logInfo("SecretProvider: using custom implementation " + provider.getClass().getName(), MODULE);
             return new FallbackSecretProvider(provider, new FileBasedSecretProvider());
         }
-        Debug.logInfo("SecretProvider: no custom implementation found, using FileBasedSecretProvider", MODULE);
+        Debug.logInfo("SecretProvider: no custom implementation found, using FileBasedSecretProvider"
+                + " (framework/base/config/passwords.properties)", MODULE);
         return new FileBasedSecretProvider();
     }
 
