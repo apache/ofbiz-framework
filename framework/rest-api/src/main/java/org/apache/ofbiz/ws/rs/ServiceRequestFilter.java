@@ -20,6 +20,14 @@ package org.apache.ofbiz.ws.rs;
 
 import java.io.IOException;
 
+import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.UtilValidate;
+import org.apache.ofbiz.service.GenericServiceException;
+import org.apache.ofbiz.service.ModelService;
+import org.apache.ofbiz.webapp.WebAppUtil;
+import org.apache.ofbiz.ws.rs.annotation.ServiceRequestValidator;
+import org.apache.ofbiz.ws.rs.util.RestApiUtil;
+
 import jakarta.annotation.Priority;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.HttpServletRequest;
@@ -33,14 +41,6 @@ import jakarta.ws.rs.container.ResourceInfo;
 import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.UriInfo;
 import jakarta.ws.rs.ext.Provider;
-
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.service.GenericServiceException;
-import org.apache.ofbiz.service.ModelService;
-import org.apache.ofbiz.webapp.WebAppUtil;
-import org.apache.ofbiz.ws.rs.annotation.ServiceRequestValidator;
-import org.apache.ofbiz.ws.rs.util.RestApiUtil;
 
 @Provider
 @ServiceRequestValidator
@@ -64,8 +64,23 @@ public class ServiceRequestFilter implements ContainerRequestFilter {
     private ServletContext servletContext;
 
     /**
-     * @param requestContext
-     * @throws IOException
+     * {@inheritDoc}
+     *
+     * <p>Validates the incoming service request against the OFBiz service
+     * definition before the request reaches the resource method. The following
+     * checks are performed in order:</p>
+     * <ul>
+     *   <li>The service exists — throws {@link ServiceNotFoundException} if not</li>
+     *   <li>The service is marked as exportable — throws {@link NotFoundException} if not</li>
+     *   <li>The service has an HTTP action defined — throws {@link NotFoundException} if not</li>
+     *   <li>The HTTP method matches the service action — throws {@link MethodNotAllowedException} if not</li>
+     *   <li>GET requests include the {@code inParams} query parameter —
+     *       throws {@link BadRequestException} if absent</li>
+     * </ul>
+     *
+     * <p>On successful validation, the service name is stored in
+     * {@link ServiceNameContextHolder} for use by downstream filters and
+     * exception mappers.</p>
      */
     @Override
     public void filter(ContainerRequestContext requestContext) throws IOException {

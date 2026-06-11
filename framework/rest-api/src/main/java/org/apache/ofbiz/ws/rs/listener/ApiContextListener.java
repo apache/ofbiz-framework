@@ -18,16 +18,28 @@
  *******************************************************************************/
 package org.apache.ofbiz.ws.rs.listener;
 
-import jakarta.servlet.ServletContext;
-import jakarta.servlet.ServletContextEvent;
-import jakarta.servlet.ServletContextListener;
-
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.DelegatorFactory;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ServiceContainer;
 
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletContextEvent;
+import jakarta.servlet.ServletContextListener;
+
+/**
+ * Servlet context listener that initializes and destroys the OFBiz
+ * {@link Delegator} and {@link LocalDispatcher} instances for the REST API
+ * web application.
+ *
+ * <p>On startup, the delegator and dispatcher are retrieved using the
+ * {@code entityDelegatorName} and {@code localDispatcherName} init parameters
+ * from {@code web.xml} and stored as servlet context attributes, making them
+ * available to all JAX-RS resources via {@code @Context ServletContext}.</p>
+ *
+ * <p>On shutdown, both attributes are removed from the servlet context.</p>
+ */
 public class ApiContextListener implements ServletContextListener {
 
     public static final String MODULE = ApiContextListener.class.getName();
@@ -35,7 +47,14 @@ public class ApiContextListener implements ServletContextListener {
     private static ServletContext servletContext = null;
 
     /**
+     * {@inheritDoc}
+     *
+     * <p>Retrieves the {@link Delegator} and {@link LocalDispatcher} using the
+     * {@code entityDelegatorName} and {@code localDispatcherName} init parameters
+     * from {@code web.xml} and stores them as servlet context attributes for use
+     * by JAX-RS resources.</p>
      */
+    @Override
     public void contextInitialized(ServletContextEvent sce) {
         servletContext = sce.getServletContext();
         Delegator delegator = DelegatorFactory.getDelegator(servletContext.getInitParameter("entityDelegatorName"));
@@ -46,7 +65,12 @@ public class ApiContextListener implements ServletContextListener {
     }
 
     /**
+     * {@inheritDoc}
+     *
+     * <p>Removes the {@code delegator} and {@code dispatcher} attributes
+     * from the servlet context.</p>
      */
+    @Override
     public void contextDestroyed(ServletContextEvent sce) {
         ServletContext context = sce.getServletContext();
         Debug.logInfo("Api Jersey Context destroyed, removing delegator and dispatcher ", MODULE);
@@ -55,6 +79,16 @@ public class ApiContextListener implements ServletContextListener {
         context = null;
     }
 
+
+    /**
+     * Returns the servlet context stored at initialization time.
+     *
+     * @return the application {@link ServletContext}, or {@code null} if the
+     *         context has not yet been initialized
+     * @deprecated Temporary workaround to provide servlet context access to
+     *             {@code OFBizOpenApiReader}; will be removed once that class
+     *             is refactored
+     */
     // TODO: remove after the refactoring of OFBizOpenApiReader
     public static ServletContext getApplicationCntx() {
         return servletContext;

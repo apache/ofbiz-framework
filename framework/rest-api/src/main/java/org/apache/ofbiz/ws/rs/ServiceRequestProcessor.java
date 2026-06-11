@@ -22,10 +22,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.ws.rs.NotFoundException;
-import jakarta.ws.rs.core.Response;
-
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.service.DispatchContext;
@@ -36,12 +32,35 @@ import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.service.ServiceUtil;
 import org.apache.ofbiz.ws.rs.util.RestApiUtil;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.ws.rs.NotFoundException;
+import jakarta.ws.rs.core.Response;
+
 public class ServiceRequestProcessor {
 
     /**
-     * @param requestContext
-     * @return
-     * @throws GenericServiceException
+     * Processes an incoming REST API request by executing the mapped OFBiz service
+     * and returning a JSON response.
+     *
+     * <p>The following keys are expected in {@code requestContext}:</p>
+     * <ul>
+     *   <li>{@code serviceName} — the OFBiz service to invoke</li>
+     *   <li>{@code httpVerb} — the HTTP method of the request (e.g. {@code GET}, {@code POST})</li>
+     *   <li>{@code requestMap} — the request parameters</li>
+     *   <li>{@code dispatcher} — the {@link LocalDispatcher} to use for service invocation</li>
+     *   <li>{@code request} — the {@link HttpServletRequest} providing the authenticated user</li>
+     * </ul>
+     *
+     * <p>If the service result indicates success, the non-internal output parameters
+     * are returned in the response data. If the service fails, an HTTP 422
+     * Unprocessable Entity error response is returned.</p>
+     *
+     * @param requestContext a map containing the request execution context
+     * @return a JSON {@link Response} with the service output on success, or an
+     *         error response on failure
+     * @throws GenericServiceException if the service invocation fails unexpectedly
+     * @throws NotFoundException       if the requested service does not exist
+     * @throws MethodNotAllowedException if the HTTP verb is not permitted for the service
      */
     @SuppressWarnings("unchecked")
     public Response process(Map<String, Object> requestContext) throws GenericServiceException {

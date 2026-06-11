@@ -21,20 +21,6 @@ package org.apache.ofbiz.ws.rs.resources;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import jakarta.servlet.ServletConfig;
-import jakarta.servlet.ServletContext;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.PathParam;
-import jakarta.ws.rs.Produces;
-import jakarta.ws.rs.core.Application;
-import jakarta.ws.rs.core.Context;
-import jakarta.ws.rs.core.HttpHeaders;
-import jakarta.ws.rs.core.MediaType;
-import jakarta.ws.rs.core.Response;
-import jakarta.ws.rs.core.UriInfo;
-
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.ws.rs.openapi.OFBizOpenApiReader;
 import org.apache.ofbiz.ws.rs.openapi.OFBizResourceScanner;
@@ -51,6 +37,19 @@ import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.info.License;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 import io.swagger.v3.oas.models.servers.Server;
+import jakarta.servlet.ServletConfig;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.Application;
+import jakarta.ws.rs.core.Context;
+import jakarta.ws.rs.core.HttpHeaders;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.UriInfo;
 
 @Path("/openapi.{type:json|yaml}")
 public final class OpenApiResource {
@@ -66,6 +65,31 @@ public final class OpenApiResource {
     @Context
     private Application app;
 
+    /**
+     * Generates the OpenAPI specification for OFBiz REST resources.
+     *
+     * <p>This endpoint dynamically builds the OpenAPI document by scanning all
+     * JAX-RS resources in the configured package and applying OFBiz-specific
+     * OpenAPI readers and scanners.</p>
+     *
+     * <p>The generated specification includes configured security schemes for:
+     * <ul>
+     *     <li>JWT Bearer token authentication</li>
+     *     <li>HTTP Basic authentication</li>
+     * </ul>
+     *
+     * <p>The response format can be returned as either JSON or YAML depending on
+     * the requested type.</p>
+     *
+     * <p>This endpoint is marked as hidden in OpenAPI documentation to avoid
+     * recursive self-inclusion in the generated spec.</p>
+     *
+     * @param headers HTTP headers of the request (currently unused but available for extensions)
+     * @param uriInfo URI context of the request
+     * @param type optional response format selector ("yaml" for YAML output, otherwise JSON)
+     * @return the generated OpenAPI specification in JSON or YAML format
+     * @throws Exception if OpenAPI generation or serialization fails
+     */
     @GET
     @Produces({MediaType.APPLICATION_JSON, "application/yaml"})
     @Operation(hidden = true)

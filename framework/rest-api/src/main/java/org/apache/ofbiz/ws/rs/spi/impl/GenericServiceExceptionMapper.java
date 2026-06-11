@@ -18,13 +18,6 @@
  *******************************************************************************/
 package org.apache.ofbiz.ws.rs.spi.impl;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.ws.rs.container.ContainerRequestContext;
-import jakarta.ws.rs.core.Context;
-import jakarta.ws.rs.core.MediaType;
-import jakarta.ws.rs.core.Response;
-import jakarta.ws.rs.ext.Provider;
-
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.entity.GenericEntityException;
@@ -32,11 +25,18 @@ import org.apache.ofbiz.entity.GenericEntityNotFoundException;
 import org.apache.ofbiz.entity.GenericNoSuchEntityException;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.ServiceValidationException;
+import org.apache.ofbiz.ws.rs.ServiceNameContextHolder;
 import org.apache.ofbiz.ws.rs.core.ResponseStatus;
 import org.apache.ofbiz.ws.rs.response.Error;
 import org.apache.ofbiz.ws.rs.util.RestApiUtil;
 import org.codehaus.groovy.runtime.InvokerInvocationException;
-import org.apache.ofbiz.ws.rs.ServiceNameContextHolder;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.ws.rs.container.ContainerRequestContext;
+import jakarta.ws.rs.core.Context;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.ext.Provider;
 
 /**
  *
@@ -58,9 +58,20 @@ public class GenericServiceExceptionMapper implements jakarta.ws.rs.ext.Exceptio
     private ContainerRequestContext crc;
 
     /**
-     * To response response.
-     * @param gse GenericServiceException
-     * @return Response
+     * {@inheritDoc}
+     *
+     * <p>Unwraps the root cause of the exception and maps it to an appropriate
+     * HTTP error response:</p>
+     * <ul>
+     *   <li>{@link ServiceValidationException} → HTTP 400 Bad Request</li>
+     *   <li>{@link GenericNoSuchEntityException} or {@link GenericEntityNotFoundException}
+     *       → HTTP 500 Internal Server Error</li>
+     *   <li>{@link GenericEntityException} → HTTP 422 Unprocessable Entity</li>
+     *   <li>Any other cause → HTTP 500 Internal Server Error</li>
+     * </ul>
+     *
+     * <p>{@link InvokerInvocationException} is transparently unwrapped to
+     * expose the underlying cause before mapping.</p>
      */
     @Override
     public Response toResponse(GenericServiceException gse) {

@@ -35,6 +35,15 @@ public final class ModelApiReader {
     private ModelApiReader() {
 
     }
+
+    /**
+     * Parses the given {@code *.rest.xml} file and returns a fully populated
+     * {@link ModelApi} instance including all nested resources and operations.
+     *
+     * @param apiDef the {@code *.rest.xml} file to parse.
+     * @return the parsed {@link ModelApi}, or {@code null} if the file could
+     *         not be read or parsed
+     */
     public static ModelApi getModelApi(final File apiDef) {
         Element docElement;
         try {
@@ -42,7 +51,7 @@ public final class ModelApiReader {
                     .getDocumentElement();
         } catch (SAXException | ParserConfigurationException | IOException e) {
             e.printStackTrace();
-            return null;
+            throw new RuntimeException("Failed to parse REST API definition: " + apiDef, e);
         }
         docElement.normalize();
         ModelApi api = new ModelApi();

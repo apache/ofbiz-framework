@@ -20,18 +20,6 @@ package org.apache.ofbiz.ws.rs.resources;
 
 import java.util.Map;
 
-import jakarta.servlet.ServletContext;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.ws.rs.HeaderParam;
-import jakarta.ws.rs.POST;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.Produces;
-import jakarta.ws.rs.core.Context;
-import jakarta.ws.rs.core.HttpHeaders;
-import jakarta.ws.rs.core.MediaType;
-import jakarta.ws.rs.core.Response;
-
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericValue;
@@ -45,6 +33,17 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.ws.rs.HeaderParam;
+import jakarta.ws.rs.POST;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.Context;
+import jakarta.ws.rs.core.HttpHeaders;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 
 
 @Path("/auth")
@@ -61,6 +60,28 @@ public class AuthenticationResource {
     private HttpServletResponse httpResponse;
 
     /**
+     * Generates a JWT access token and refresh token for authenticated users.
+     *
+     * <p>This endpoint uses Basic Authentication credentials to authenticate the
+     * user and issues a signed JWT token that can be used for subsequent API
+     * requests. A refresh token is also generated to allow renewal of the access
+     * token without re-authentication.</p>
+     *
+     * <p><b>Security:</b> This operation requires HTTP Basic Authentication and is
+     * protected by {@code @AuthToken}.</p>
+     *
+     * <p>The method retrieves the current {@code Delegator} and dispatcher from the
+     * servlet context and expects a resolved {@code userLogin} attribute on the
+     * HTTP request.</p>
+     *
+     * @param creds the HTTP Authorization header containing Basic Authentication credentials
+     * @return a JSON response containing:
+     *         <ul>
+     *             <li>{@code access_token} - the JWT access token</li>
+     *             <li>{@code refresh_token} - token used to obtain new access tokens</li>
+     *             <li>{@code expires_in} - token expiration time in seconds</li>
+     *             <li>{@code token_type} - token type (Bearer)</li>
+     *         </ul>
      */
     @POST
     @Produces(MediaType.APPLICATION_JSON)

@@ -18,26 +18,25 @@
  *******************************************************************************/
 package org.apache.ofbiz.ws.rs.spi.impl;
 
+import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.ws.rs.response.Error;
+
 import jakarta.ws.rs.WebApplicationException;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.ext.Provider;
 
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.ws.rs.response.Error;
-
 @Provider
 public class GlobalExceptionMapper implements jakarta.ws.rs.ext.ExceptionMapper<Throwable> {
 
-    /**
-     * Module Name Used for debugging
-     */
     private static final String MODULE = GlobalExceptionMapper.class.getName();
 
     /**
-     * To response response.
-     * @param throwable the throwable
-     * @return the response
+     * {@inheritDoc}
+     *
+     * <p>Maps the throwable to an HTTP error response. If the throwable is a
+     * {@link WebApplicationException}, its own HTTP status is used; all other
+     * throwables result in HTTP 500 Internal Server Error.</p>
      */
     @Override
     public Response toResponse(Throwable throwable) {

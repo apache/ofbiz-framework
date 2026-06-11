@@ -22,11 +22,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
-import jakarta.ws.rs.NotFoundException;
-import jakarta.ws.rs.container.ContainerRequestContext;
-import jakarta.ws.rs.core.Response;
-import jakarta.ws.rs.ext.ExceptionMapper;
-
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.GenericValue;
@@ -36,8 +31,13 @@ import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ModelParam;
 import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.service.ServiceUtil;
-import org.apache.ofbiz.ws.rs.util.RestApiUtil;
 import org.apache.ofbiz.ws.rs.ServiceNameContextHolder;
+import org.apache.ofbiz.ws.rs.util.RestApiUtil;
+
+import jakarta.ws.rs.NotFoundException;
+import jakarta.ws.rs.container.ContainerRequestContext;
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.ext.ExceptionMapper;
 
 public final class ServiceRequestHandler extends RestRequestHandler {
 
@@ -49,9 +49,22 @@ public final class ServiceRequestHandler extends RestRequestHandler {
     }
 
     /**
-     * @param ctx ContainerRequestContext
-     * @param arguments Map
-     * @return Response
+     * {@inheritDoc}
+     *
+     * <p>Executes the mapped OFBiz service synchronously and returns a JSON
+     * response. The execution proceeds as follows:</p>
+     * <ul>
+     *   <li>A valid service context is built from the request arguments using
+     *       {@link DispatchContext#makeValidContext}</li>
+     *   <li>The authenticated {@code userLogin} is added to the service context</li>
+     *   <li>The service is executed synchronously via {@link LocalDispatcher#runSync}</li>
+     *   <li>On success, non-internal output parameters are collected and returned
+     *       as a JSON success response</li>
+     *   <li>On service result failure, an HTTP 422 error response is returned</li>
+     *   <li>On {@link GenericServiceException} from either context building or
+     *       execution, the registered {@link ExceptionMapper} is used to map the
+     *       exception to an appropriate error response</li>
+     * </ul>
      */
     @Override
     protected Response execute(ContainerRequestContext ctx, Map<String, Object> arguments) {
