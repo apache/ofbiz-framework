@@ -79,5 +79,8 @@ under the License.
     </test-case>
     <test-case case-name="service-purge-test">
         <junit-test-suite class-name="org.apache.ofbiz.service.test.ServicePurgeTest"/>
-    </test-case>    
+    </test-case>
+    <test-case case-name="service-multiple-node-recovery">
+        <junit-test-suite class-name="org.apache.ofbiz.service.test.ServiceMultipleNodeRecoveryTest"/>
+    </test-case>
 </test-suite>

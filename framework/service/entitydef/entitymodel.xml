@@ -67,6 +67,7 @@ under the License.
         <field name="cancelDateTime" type="date-time"></field>
         <field name="jobResult" type="value"></field>
         <field name="recurrenceTimeZone" type="id-long"/>
+        <field name="leaseUpdatedStamp" type="date-time"/><!-- Last heartbeat timestamp written by the owning node; used for lease-based stale job recovery in multi-node ASG deployments -->
         <field name="jobTrackerId" type="id-vlong"/>
         <prim-key field="jobId"/>
         <relation type="one" fk-name="JOB_SNDBX_RECINFO" rel-entity-name="RecurrenceInfo">
