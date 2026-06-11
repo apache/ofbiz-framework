@@ -44,6 +44,9 @@ public final class ThreadPool {
     public static final int PURGE_JOBS_DAYS = 30;
     public static final int QUEUE_SIZE = 100;
     public static final int THREAD_TTL = 120000; // Idle thread lifespan - 2 minutes.
+    public static final int LEASE_REFRESH_MILLIS = 300000; // Heartbeat interval - 5 minutes.
+    public static final int LEASE_VALIDATION_MILLIS = 480000; // Stale-job scan interval - 8 minutes.
+    public static final int LEASE_EXPIRY_MILLIS = 600000; // Lease expiry threshold - 10 minutes.
 
     private final int failedRetryMin;
     private final int jobs;
@@ -55,6 +58,9 @@ public final class ThreadPool {
     private final List<RunFromPool> runFromPools;
     private final String sendToPool;
     private final int ttl;
+    private final int leaseRefreshMillis;
+    private final int leaseValidationMillis;
+    private final int leaseExpiryMillis;
 
     ThreadPool(Element poolElement) throws ServiceConfigException, NumberFormatException {
         String sendToPool = poolElement.getAttribute("send-to-pool").intern();
@@ -170,6 +176,12 @@ public final class ThreadPool {
             }
             this.runFromPools = Collections.unmodifiableList(runFromPools);
         }
+        String leaseRefreshMillis = poolElement.getAttribute("lease-refresh-millis").intern();
+        this.leaseRefreshMillis = leaseRefreshMillis.isEmpty() ? LEASE_REFRESH_MILLIS : Integer.parseInt(leaseRefreshMillis);
+        String leaseValidationMillis = poolElement.getAttribute("lease-validation-millis").intern();
+        this.leaseValidationMillis = leaseValidationMillis.isEmpty() ? LEASE_VALIDATION_MILLIS : Integer.parseInt(leaseValidationMillis);
+        String leaseExpiryMillis = poolElement.getAttribute("lease-expiry-millis").intern();
+        this.leaseExpiryMillis = leaseExpiryMillis.isEmpty() ? LEASE_EXPIRY_MILLIS : Integer.parseInt(leaseExpiryMillis);
     }
 
     public int getFailedRetryMin() {
@@ -210,5 +222,17 @@ public final class ThreadPool {
 
     public int getTtl() {
         return ttl;
+    }
+
+    public int getLeaseRefreshMillis() {
+        return leaseRefreshMillis;
+    }
+
+    public int getLeaseValidationMillis() {
+        return leaseValidationMillis;
+    }
+
+    public int getLeaseExpiryMillis() {
+        return leaseExpiryMillis;
     }
 }
