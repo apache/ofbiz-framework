@@ -38,16 +38,33 @@ public class Error {
     private String errorDesc;
     private List<String> additionalErrors;
 
+    /**
+     * Creates an empty error response.
+     */
     public Error() {
-
     }
 
+    /**
+     * Creates an error response with basic status and message information.
+     *
+     * @param statusCode HTTP status code
+     * @param statusDescription HTTP status reason phrase or description
+     * @param errorMessage human-readable error message
+     */
     public Error(int statusCode, String statusDescription, String errorMessage) {
         this.statusCode = statusCode;
         this.statusDescription = statusDescription;
         this.errorMessage = errorMessage;
     }
 
+    /**
+     * Creates an error response with additional error details.
+     *
+     * @param statusCode HTTP status code
+     * @param statusDescription HTTP status reason phrase or description
+     * @param errorMessage human-readable error message
+     * @param additionalErrors list of additional validation or processing errors
+     */
     public Error(int statusCode, String statusDescription, String errorMessage, List<String> additionalErrors) {
         this.statusCode = statusCode;
         this.statusDescription = statusDescription;
@@ -56,8 +73,10 @@ public class Error {
     }
 
     /**
-     * @param statusCode
-     * @return
+     * Fluent builder methods for constructing an {@code Error} response.
+     *
+     * <p>These methods allow chaining to populate error metadata in a concise way.
+     * Each method sets a field and returns the same {@code Error} instance.</p>
      */
     public Error code(int statusCode) {
         this.statusCode = statusCode;
@@ -65,8 +84,10 @@ public class Error {
     }
 
     /**
-     * @param statusDescription
-     * @return
+     * Fluent builder methods for constructing an {@code Error} response.
+     *
+     * <p>These methods allow chaining to populate error metadata in a concise way.
+     * Each method sets a field and returns the same {@code Error} instance.</p>
      */
     public Error description(String statusDescription) {
         this.statusDescription = statusDescription;
@@ -74,8 +95,10 @@ public class Error {
     }
 
     /**
-     * @param errorMessage
-     * @return
+     * Fluent builder methods for constructing an {@code Error} response.
+     *
+     * <p>These methods allow chaining to populate error metadata in a concise way.
+     * Each method sets a field and returns the same {@code Error} instance.</p>
      */
     public Error message(String errorMessage) {
         this.errorMessage = errorMessage;
@@ -83,8 +106,10 @@ public class Error {
     }
 
     /**
-     * @param type
-     * @return
+     * Fluent builder methods for constructing an {@code Error} response.
+     *
+     * <p>These methods allow chaining to populate error metadata in a concise way.
+     * Each method sets a field and returns the same {@code Error} instance.</p>
      */
     public Error type(String type) {
         this.type = type;
@@ -92,8 +117,10 @@ public class Error {
     }
 
     /**
-     * @param statusCode
-     * @return
+     * Fluent builder methods for constructing an {@code Error} response.
+     *
+     * <p>These methods allow chaining to populate error metadata in a concise way.
+     * Each method sets a field and returns the same {@code Error} instance.</p>
      */
     public Error statusCode(int statusCode) {
         this.statusCode = statusCode;
@@ -101,8 +128,10 @@ public class Error {
     }
 
     /**
-     * @param additionalErrors
-     * @return
+     * Fluent builder methods for constructing an {@code Error} response.
+     *
+     * <p>These methods allow chaining to populate error metadata in a concise way.
+     * Each method sets a field and returns the same {@code Error} instance.</p>
      */
     public Error additionalErrors(List<String> additionalErrors) {
         this.additionalErrors = additionalErrors;
@@ -110,8 +139,10 @@ public class Error {
     }
 
     /**
-     * @param errorDesc
-     * @return
+     * Fluent builder methods for constructing an {@code Error} response.
+     *
+     * <p>These methods allow chaining to populate error metadata in a concise way.
+     * Each method sets a field and returns the same {@code Error} instance.</p>
      */
     public Error errorDesc(String errorDesc) {
         this.setErrorDesc(errorDesc);
@@ -119,77 +150,99 @@ public class Error {
     }
 
     /**
-     * @return the statusCode
+     * Returns the status code.
+     *
+     * @return the HTTP or application status code
      */
     public int getStatusCode() {
         return statusCode;
     }
 
     /**
-     * @return the type
+     * Returns the type.
+     *
+     * @return the type value
      */
     public String getType() {
         return type;
     }
 
     /**
-     * @param statusCode the statusCode to set
+     * Sets the status code.
+     *
+     * @param statusCode the status code to set
      */
     public void setStatusCode(int statusCode) {
         this.statusCode = statusCode;
     }
 
     /**
-     * @return the statusDescription
+     * Returns the status description.
+     *
+     * @return the status description
      */
     public String getStatusDescription() {
         return statusDescription;
     }
 
     /**
-     * @param statusDescription the statusDescription to set
+     * Sets the status description.
+     *
+     * @param statusDescription the status description to set
      */
     public void setStatusDescription(String statusDescription) {
         this.statusDescription = statusDescription;
     }
 
     /**
-     * @return the errorMessage
+     * Returns the error message.
+     *
+     * @return the error message
      */
     public String getErrorMessage() {
         return errorMessage;
     }
 
     /**
-     * @param errorMessage the errorMessage to set
+     * Sets the error message.
+     *
+     * @param errorMessage the error message to set
      */
     public void setErrorMessage(String errorMessage) {
         this.errorMessage = errorMessage;
     }
 
     /**
-     * @return the additionalErrors
+     * Returns the list of additional errors.
+     *
+     * @return list of additional error messages
      */
     public List<String> getAdditionalErrors() {
         return additionalErrors;
     }
 
     /**
-     * @param additionalErrors the additionalErrors to set
+     * Sets the list of additional errors.
+     *
+     * @param additionalErrors the additional errors to set
      */
     public void setAdditionalErrors(List<String> additionalErrors) {
         this.additionalErrors = additionalErrors;
     }
 
     /**
-     * @return the errorDesc
+     * Returns the error description.
+     *
+     * @return the error description
      */
     public String getErrorDesc() {
         return errorDesc;
     }
 
     /**
-     * @param errorDesc the errorDesc to set
+     * Sets the error description.
+     *
+     * @param errorDesc the error description to set
      */
     public void setErrorDesc(String errorDesc) {
         this.errorDesc = errorDesc;

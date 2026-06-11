@@ -25,32 +25,38 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import jakarta.ws.rs.HttpMethod;
-import jakarta.ws.rs.core.MediaType;
-
 import org.apache.ofbiz.base.component.ComponentConfig;
 import org.apache.ofbiz.base.component.ComponentException;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.ws.rs.ServiceRequestFilter;
+import org.apache.ofbiz.ws.rs.annotation.Secured;
+import org.apache.ofbiz.ws.rs.filters.ServiceContextCleanupFilter;
 import org.apache.ofbiz.ws.rs.model.ModelApi;
 import org.apache.ofbiz.ws.rs.model.ModelApiReader;
 import org.apache.ofbiz.ws.rs.model.ModelOperation;
 import org.apache.ofbiz.ws.rs.model.ModelResource;
 import org.apache.ofbiz.ws.rs.process.ServiceRequestHandler;
-import org.apache.ofbiz.ws.rs.annotation.Secured;
 import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.logging.LoggingFeature;
 import org.glassfish.jersey.media.multipart.MultiPartFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.model.Resource;
 import org.glassfish.jersey.server.model.ResourceMethod;
-import org.apache.ofbiz.ws.rs.filters.ServiceContextCleanupFilter;
+
+import jakarta.ws.rs.HttpMethod;
+import jakarta.ws.rs.core.MediaType;
 
 public class OFBizApiConfig extends ResourceConfig {
     private static final String MODULE = OFBizApiConfig.class.getName();
     private static final Map<String, ModelApi> MICRO_APIS = new HashMap<>();
 
+    /**
+     * Configures the OFBiz JAX-RS application by registering built-in resource
+     * packages, features, filters, and all DSL-defined REST API resources loaded
+     * from {@code *.rest.xml} files found in each OFBiz component's {@code api}
+     * directory.
+     */
     public OFBizApiConfig() {
         packages("org.apache.ofbiz.ws.rs.resources");
         packages("org.apache.ofbiz.ws.rs.security.auth");
@@ -69,6 +75,15 @@ public class OFBizApiConfig extends ResourceConfig {
         registerDSLResources();
     }
 
+    /**
+     * Returns all loaded REST API definitions keyed by their root path.
+     *
+     * <p>Each entry maps the API path (e.g. {@code "party"}) to the
+     * corresponding {@link ModelApi} loaded from a {@code *.rest.xml}
+     * definition file.</p>
+     *
+     * @return registered API definitions
+     */
     public static Map<String, ModelApi> getModelApis() {
         return MICRO_APIS;
     }
@@ -104,7 +119,7 @@ public class OFBizApiConfig extends ResourceConfig {
                         MICRO_APIS.put(path, api);
                     }
                 }
-            } catch (ComponentException e) {
+            } catch (ComponentException | RuntimeException e) {
                 Debug.logError(e, MODULE);
             }
         });

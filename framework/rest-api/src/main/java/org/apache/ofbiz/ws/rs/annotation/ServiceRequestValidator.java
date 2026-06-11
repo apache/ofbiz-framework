@@ -25,6 +25,19 @@ import java.lang.annotation.Target;
 
 import jakarta.ws.rs.NameBinding;
 
+
+/**
+ * JAX-RS name binding annotation that binds {@link org.apache.ofbiz.ws.rs.ServiceRequestFilter}
+ * to the resource class it annotates.
+ *
+ * <p>When applied to a JAX-RS resource class, the JAX-RS runtime will
+ * execute {@link org.apache.ofbiz.ws.rs.ServiceRequestFilter} before each request is processed,
+ * validating the incoming request parameters against the OFBiz service
+ * definition. Requests that fail validation are rejected before reaching
+ * the resource method.</p>
+ *
+ * @see org.apache.ofbiz.ws.rs.ServiceRequestFilter
+ */
 @NameBinding
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ ElementType.TYPE })

@@ -21,23 +21,23 @@ package org.apache.ofbiz.ws.rs.spi.impl;
 import java.io.IOException;
 import java.util.Map.Entry;
 
-import jakarta.ws.rs.core.Link;
-
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 
+import jakarta.ws.rs.core.Link;
+
 public class LinkSerializer extends JsonSerializer<jakarta.ws.rs.core.Link> {
     static final String HREF_PROPERTY = "href";
 
-
     /**
-     * Serialize.
-     * @param link               the link
-     * @param jsonGenerator      the json generator
-     * @param serializerProvider the serializer provider
-     * @throws IOException the io exception
+     * {@inheritDoc}
+     *
+     * <p>Serializes the {@link Link} as a JSON object with the URI written
+     * as {@code "href"} and each link parameter written as an additional
+     * string field.</p>
      */
+    @Override
     public void serialize(Link link, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
         jsonGenerator.writeStartObject();
         jsonGenerator.writeStringField(HREF_PROPERTY, link.getUri().toString());

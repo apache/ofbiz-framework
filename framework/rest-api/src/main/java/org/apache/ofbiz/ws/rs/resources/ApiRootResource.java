@@ -18,13 +18,13 @@
  *******************************************************************************/
 package org.apache.ofbiz.ws.rs.resources;
 
-import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.JsonNodeFactory;
-import com.fasterxml.jackson.databind.node.ObjectNode;
-
 import org.apache.ofbiz.ws.rs.util.RestApiUtil;
 import org.glassfish.jersey.server.model.Resource;
 import org.glassfish.jersey.server.model.ResourceMethod;
+
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.JsonNodeFactory;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.ws.rs.GET;
@@ -40,7 +40,15 @@ import jakarta.ws.rs.core.Response;
 public class ApiRootResource {
 
     /**
+     * Returns a JSON document describing all available REST resources in the
+     * current application.
      *
+     * <p>The output includes each resource path and the HTTP methods supported
+     * by each endpoint.</p>
+     *
+     * @param application the JAX-RS application containing registered classes
+     * @param request the current HTTP servlet request, used to determine the base URL
+     * @return a JSON response containing all discovered REST resources
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -87,6 +95,15 @@ public class ApiRootResource {
         return false;
     }
 
+    /**
+     * Joins multiple URI path segments into a single normalized URI.
+     *
+     * <p>This method ensures that duplicate or missing slashes between segments
+     * are handled correctly.</p>
+     *
+     * @param parts the URI segments to join
+     * @return the combined and normalized URI string
+     */
     public static String joinUri(String... parts) {
         StringBuilder result = new StringBuilder();
         for (String part : parts) {

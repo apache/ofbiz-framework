@@ -18,24 +18,40 @@
  *******************************************************************************/
 package org.apache.ofbiz.ws.rs.spi.impl;
 
-import jakarta.ws.rs.core.Link;
-import jakarta.ws.rs.ext.ContextResolver;
-import jakarta.ws.rs.ext.Provider;
-
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
+
+import jakarta.ws.rs.core.Link;
+import jakarta.ws.rs.ext.ContextResolver;
+import jakarta.ws.rs.ext.Provider;
 
 @Provider
 public class JacksonConfig implements ContextResolver<ObjectMapper> {
 
     private final ObjectMapper objectMapper;
 
+    /**
+     * Configures the Jackson {@link ObjectMapper} used for JSON serialization
+     * and deserialization in REST responses.
+     *
+     * <p>This configuration applies consistent serialization rules across OFBiz REST APIs,
+     * including:
+     * <ul>
+     *     <li>ISO-style date handling (no timestamp serialization)</li>
+     *     <li>Ignoring unknown JSON properties during deserialization</li>
+     *     <li>Excluding null values from output</li>
+     *     <li>Full field visibility for serialization/deserialization</li>
+     *     <li>Pretty-printed JSON output</li>
+     * </ul>
+     *
+     * <p>Additionally, custom serializers are registered for REST link representations</p>
+     */
     public JacksonConfig() {
         objectMapper = JsonMapper.builder()
                 .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
@@ -49,11 +65,6 @@ public class JacksonConfig implements ContextResolver<ObjectMapper> {
         objectMapper.registerModule(simpleModule);
     }
 
-    /**
-     * Gets context.
-     * @param type the type
-     * @return the context
-     */
     @Override
     public ObjectMapper getContext(Class<?> type) {
         return objectMapper;

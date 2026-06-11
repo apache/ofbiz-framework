@@ -22,17 +22,6 @@ import java.io.IOException;
 import java.util.Base64;
 import java.util.Map;
 
-import jakarta.servlet.ServletContext;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.ws.rs.ForbiddenException;
-import jakarta.ws.rs.container.ContainerRequestContext;
-import jakarta.ws.rs.container.ContainerRequestFilter;
-import jakarta.ws.rs.container.ResourceInfo;
-import jakarta.ws.rs.core.Context;
-import jakarta.ws.rs.core.HttpHeaders;
-import jakarta.ws.rs.core.Response;
-import jakarta.ws.rs.ext.Provider;
-
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilMisc;
@@ -43,6 +32,17 @@ import org.apache.ofbiz.service.ServiceUtil;
 import org.apache.ofbiz.ws.rs.annotation.AuthToken;
 import org.apache.ofbiz.ws.rs.common.AuthenticationScheme;
 import org.apache.ofbiz.ws.rs.util.RestApiUtil;
+
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.ws.rs.ForbiddenException;
+import jakarta.ws.rs.container.ContainerRequestContext;
+import jakarta.ws.rs.container.ContainerRequestFilter;
+import jakarta.ws.rs.container.ResourceInfo;
+import jakarta.ws.rs.core.Context;
+import jakarta.ws.rs.core.HttpHeaders;
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.ext.Provider;
 
 
 @AuthToken
@@ -63,8 +63,16 @@ public class HttpBasicAuthFilter implements ContainerRequestFilter {
     private static final String REALM = "OFBiz";
 
     /**
-     * @param requestContext
-     * @throws IOException
+     * {@inheritDoc}
+     *
+     * <p>Validates the {@code Authorization} header as HTTP Basic Auth by
+     * decoding the Base64 credentials and authenticating the username and
+     * password against OFBiz user logins.</p>
+     *
+     * <p>Aborts with HTTP 401 Unauthorized if the header is absent or not
+     * Basic Auth. Aborts with HTTP 401 if authentication fails with a
+     * {@link ForbiddenException}. On success, the request proceeds to the
+     * token issuance endpoint.</p>
      */
     @Override
     public void filter(ContainerRequestContext requestContext) throws IOException {
@@ -84,18 +92,11 @@ public class HttpBasicAuthFilter implements ContainerRequestFilter {
 
     }
 
-    /**
-     * @param authorizationHeader
-     * @return
-     */
     private boolean isBasicAuth(String authorizationHeader) {
         return authorizationHeader != null
                 && authorizationHeader.toLowerCase().startsWith(AuthenticationScheme.BASIC.getScheme().toLowerCase() + " ");
     }
 
-    /**
-     * @param requestContext
-     */
     private void abortWithUnauthorized(ContainerRequestContext requestContext, boolean isAuthHeaderPresent, String message) {
         if (!isAuthHeaderPresent) {
             requestContext.abortWith(

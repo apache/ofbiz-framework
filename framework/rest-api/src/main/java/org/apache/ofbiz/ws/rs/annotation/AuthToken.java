@@ -22,9 +22,25 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+
 import jakarta.ws.rs.NameBinding;
 
 
+/**
+ * JAX-RS name binding annotation that binds {@link org.apache.ofbiz.ws.rs.security.auth.HttpBasicAuthFilter}
+ * to the resource classes or methods it annotates.
+ *
+ * <p>When applied to a JAX-RS resource class or method, the JAX-RS runtime
+ * will execute {@link org.apache.ofbiz.ws.rs.security.auth.HttpBasicAuthFilter} before the request is processed,
+ * validating the HTTP Basic Auth credentials in the {@code Authorization}
+ * header against OFBiz user logins.</p>
+ *
+ * <p>This annotation is used on the token issuance endpoint
+ * ({@code POST /auth/token}), which requires Basic Auth to authenticate
+ * the user before issuing a JWT access token.</p>
+ *
+ * @see org.apache.ofbiz.ws.rs.security.auth.HttpBasicAuthFilter
+ */
 @NameBinding
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE, ElementType.METHOD})

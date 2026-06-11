@@ -33,11 +33,19 @@ public class OFBizResourceScanner extends JaxrsApplicationAndResourcePackagesAnn
         IGNORED.add("org.apache.ofbiz.ws.rs.resources.OFBizServiceResource");
     }
 
+    /**
+     * Constructs a new {@link OFBizResourceScanner} configured to scan only
+     * packages explicitly registered as resource packages.
+     */
     public OFBizResourceScanner() {
         onlyConsiderResourcePackages = true;
     }
 
     /**
+     * Returns the set of resource classes discovered by the parent scanner,
+     * excluding classes configured in the ignore list.
+     *
+     * @return the filtered set of resource classes
      */
     public Set<Class<?>> classes() {
         Set<Class<?>> classes = super.classes();
@@ -51,6 +59,14 @@ public class OFBizResourceScanner extends JaxrsApplicationAndResourcePackagesAnn
     }
 
     /**
+     * Determines whether a class or package name should be excluded from
+     * OpenAPI resource scanning.
+     *
+     * <p>A name is considered ignored if it is empty or starts with one of the
+     * configured ignore prefixes.</p>
+     *
+     * @param classOrPackageName the fully qualified class or package name
+     * @return {@code true} if the name should be ignored; {@code false} otherwise
      */
     protected boolean isIgnored(String classOrPackageName) {
         if (UtilValidate.isEmpty(classOrPackageName)) {

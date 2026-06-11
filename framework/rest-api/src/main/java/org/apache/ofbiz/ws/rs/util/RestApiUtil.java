@@ -25,17 +25,17 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import jakarta.ws.rs.core.MediaType;
-import jakarta.ws.rs.core.MultivaluedMap;
-import jakarta.ws.rs.core.Response;
-import jakarta.ws.rs.core.Response.ResponseBuilder;
-
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.ws.rs.core.ResponseStatus;
 import org.apache.ofbiz.ws.rs.response.Error;
 import org.apache.ofbiz.ws.rs.response.Success;
+
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.MultivaluedMap;
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.Response.ResponseBuilder;
 
 public final class RestApiUtil {
 
@@ -45,24 +45,53 @@ public final class RestApiUtil {
 
     }
 
+    /**
+     * Builds a JSON success response with HTTP 200 and the given message and data.
+     *
+     * @param message a human-readable success message
+     * @param data    the response payload
+     * @return a JAX-RS {@link Response} with status 200 and a JSON {@link Success} body
+     */
     public static Response success(String message, Object data) {
         Success success = new Success(Response.Status.OK.getStatusCode(), Response.Status.OK.getReasonPhrase(), message, data);
         return Response.status(Response.Status.OK).type(MediaType.APPLICATION_JSON).entity(success).build();
     }
 
+    /**
+     * Builds a JSON error response with the given status code, reason phrase,
+     * and message.
+     *
+     * @param statusCode   the HTTP status code
+     * @param reasonPhrase the HTTP reason phrase (e.g. {@code "Bad Request"})
+     * @param message      a human-readable error message
+     * @return a JAX-RS {@link Response} with a JSON {@link Error} body
+     */
     public static Response error(int statusCode, String reasonPhrase, String message) {
         Error error = new Error(statusCode, reasonPhrase, message);
         return Response.status(statusCode).type(MediaType.APPLICATION_JSON).entity(error).build();
     }
 
+    /**
+     * Builds a JSON error {@link ResponseBuilder} that can be further modified
+     * before building the final response.
+     *
+     * @param statusCode   the HTTP status code
+     * @param reasonPhrase the HTTP reason phrase (e.g. {@code "Bad Request"})
+     * @param message      a human-readable error message
+     * @return a JAX-RS {@link ResponseBuilder} with a JSON {@link Error} entity
+     */
     public static ResponseBuilder errorBuilder(int statusCode, String reasonPhrase, String message) {
         Error error = new Error(statusCode, reasonPhrase, message);
         return Response.status(statusCode).type(MediaType.APPLICATION_JSON).entity(error);
     }
 
     /**
-     * @param multivaluedMap
-     * @return
+     * Extracts query or form parameters from a {@link MultivaluedMap} into a
+     * flat map. Single-value entries are unwrapped to a plain {@link String};
+     * multi-value entries are kept as a {@link List}.
+     *
+     * @param multivaluedMap the JAX-RS parameter map to extract from
+     * @return a map of parameter names to either a {@link String} or {@link List} of strings
      */
     public static Map<String, Object> extractParams(MultivaluedMap<String, String> multivaluedMap) {
         Map<String, Object> result = new HashMap<>();
@@ -75,9 +104,13 @@ public final class RestApiUtil {
     }
 
     /**
-     * Extracts path parameters from resource pathInfo
-     * @param pathInfo
-     * @return
+     * Extracts path parameter names from a JAX-RS path template string.
+     * Template variables are identified by curly brace notation (e.g.
+     * {@code {id}}).
+     *
+     * @param pathInfo the path template string (e.g. {@code "/order/{orderId}/item/{itemId}"})
+     * @return a list of parameter names without braces; empty if {@code pathInfo}
+     *         is {@code null} or contains no template variables
      */
     public static List<String> getPathParameters(String pathInfo) {
         List<String> pathParams = new ArrayList<>();
@@ -93,6 +126,17 @@ public final class RestApiUtil {
         return pathParams;
     }
 
+    /**
+     * Builds a JSON error response from an OFBiz service result map that
+     * indicates failure. Extracts the primary error message and any additional
+     * error messages from the result and returns an HTTP 422 Unprocessable Entity
+     * response.
+     *
+     * @param service the name of the OFBiz service that produced the error
+     * @param result  the service result map containing error message entries
+     * @param locale  the locale used to resolve the error message label
+     * @return a JAX-RS {@link Response} with status 422 and a JSON {@link Error} body
+     */
     @SuppressWarnings("unchecked")
     public static Response buildErrorFromServiceResult(String service, Map<String, Object> result, Locale locale) {
         String errorMessage = null;
@@ -117,6 +161,16 @@ public final class RestApiUtil {
                 .entity(error).build();
     }
 
+    /**
+     * Resolves a localized error message from {@code ApiUiLabels} for the given
+     * service name and error key, substituting the service name into the message
+     * template.
+     *
+     * @param serviceName the OFBiz service name substituted into the message template
+     * @param errorKey    the label key to look up in {@code ApiUiLabels}
+     * @param locale      the locale used to resolve the label
+     * @return the resolved and substituted error message string
+     */
     public static String getErrorMessage(String serviceName, String errorKey, Locale locale) {
         String error = UtilProperties.getMessage(DEFAULT_MSG_UI_LABEL_RESOURCE, errorKey, locale);
         error = error.replace("${service}", serviceName);
