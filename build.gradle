@@ -775,6 +775,35 @@ task generateDBPassword(group: sysadminGroup,
     }
 }
 
+task generateEncryptedSecret(group: sysadminGroup,
+        description: 'Generate an encrypted secret (ENC(...)) and its systemPropertyLookup marker, for pasting '
+                + 'into a SystemProperty record (e.g. payment/SMS/shipment gateway credentials). '
+                + 'Usage: ./gradlew generateEncryptedSecret -PsecretPassword=<value> -PlookupKey=<key> -PmasterKey=<key>') {
+    doLast {
+        def secret = project.property('secretPassword')
+        def lookupKey = project.property('lookupKey')
+        def masterKey = project.property('masterKey')
+
+        def markerName = 'SECRET'
+        def generalPropsFile = file('framework/common/config/general.properties')
+        if (generalPropsFile.exists()) {
+            def generalProps = new Properties()
+            generalPropsFile.withInputStream { generalProps.load(it) }
+            markerName = generalProps.getProperty('secret.value.marker', markerName)
+        }
+
+        def output = new java.io.ByteArrayOutputStream()
+        javaexec {
+            classpath = sourceSets.main.runtimeClasspath
+            mainClass = 'org.apache.ofbiz.base.crypto.ConfigCryptoUtil'
+            args masterKey, secret
+            standardOutput = output
+        }
+        println "systemPropertyLookup=${markerName}(${lookupKey})"
+        println "systemPropertyValue=${output.toString().trim()}"
+    }
+}
+
 task generateSecretKeys(group: sysadminGroup,
         description: 'Generate cryptographically secure 512-bit (64-char) secret keys for JWT token signing and password encryption, and write them to security.properties') {
     doLast {
