@@ -34,7 +34,10 @@ import java.util.Properties;
 import java.util.ResourceBundle;
 import java.util.Set;
 
+import org.apache.ofbiz.base.crypto.ConfigCryptoUtil;
+import org.apache.ofbiz.base.secret.SecretValueResolver;
 import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
@@ -69,13 +72,54 @@ public final class EntityUtilProperties implements Serializable {
             if (systemProperty != null) {
                 //property exists in database
                 results.put("isExistInDb", "Y");
-                results.put("value", (systemProperty.getString("systemPropertyValue") != null)
-                        ? systemProperty.getString("systemPropertyValue") : "");
+                results.put("value", resolveSystemPropertyValue(resource, name, systemProperty));
             }
         } catch (GenericEntityException e) {
             Debug.logError("Could not get a system property for " + name + " : " + e.getMessage(), MODULE);
         }
         return results;
+    }
+
+    /**
+     * Resolves the effective value of a {@code SystemProperty} record:
+     * <ul>
+     *   <li>if {@code systemPropertyLookup} holds a {@code SECRET(key)} reference (see
+     *       {@link SecretValueResolver}), resolves {@code key} via the configured
+     *       {@code SecretProvider} (a remote secret manager, with its own
+     *       {@code passwords.properties} fallback); if that fails, falls back to
+     *       {@code systemPropertyValue}</li>
+     *   <li>otherwise (or on lookup failure), uses {@code systemPropertyValue}, decrypting it
+     *       with {@link ConfigCryptoUtil} if it is wrapped in {@code ENC(...)}</li>
+     * </ul>
+     */
+    private static String resolveSystemPropertyValue(String resource, String name, GenericValue systemProperty) {
+        String lookup = systemProperty.getString("systemPropertyLookup");
+        if (UtilValidate.isNotEmpty(lookup)) {
+            Debug.logInfo("EntityUtilProperties: resolving " + resource + "/" + name
+                    + " via SystemProperty.systemPropertyLookup '" + lookup + "'", MODULE);
+            String resolved = SecretValueResolver.resolve(lookup);
+            if (UtilValidate.isNotEmpty(resolved) && !resolved.equals(lookup)) {
+                return resolved;
+            }
+            Debug.logWarning("EntityUtilProperties: systemPropertyLookup '" + lookup + "' for " + resource + "/" + name
+                    + " did not resolve, falling back to systemPropertyValue", MODULE);
+        }
+        String value = systemProperty.getString("systemPropertyValue");
+        if (value == null) {
+            return "";
+        }
+        try {
+            String decrypted = ConfigCryptoUtil.decryptIfEncrypted(value, resource + "." + name);
+            if (!decrypted.equals(value)) {
+                Debug.logInfo("EntityUtilProperties: resolved " + resource + "/" + name
+                        + " from SystemProperty.systemPropertyValue (decrypted ENC(...) value)", MODULE);
+            }
+            return decrypted;
+        } catch (GeneralException e) {
+            Debug.logError("EntityUtilProperties: failed to decrypt systemPropertyValue for " + resource + "/" + name
+                    + ": " + e.getMessage(), MODULE);
+            return "";
+        }
     }
 
     public static boolean propertyValueEquals(String resource, String name, String compareString) {

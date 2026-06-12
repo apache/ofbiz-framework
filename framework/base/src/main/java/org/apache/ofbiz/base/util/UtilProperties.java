@@ -43,6 +43,7 @@ import java.util.ResourceBundle;
 import java.util.Set;
 
 import org.apache.ofbiz.base.location.FlexibleLocation;
+import org.apache.ofbiz.base.secret.SecretValueResolver;
 import org.apache.ofbiz.base.util.cache.UtilCache;
 import org.apache.ofbiz.base.util.collections.ResourceBundleMapWrapper;
 import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
@@ -287,7 +288,7 @@ public final class UtilProperties implements Serializable {
         } catch (Exception e) {
             Debug.logInfo(e, MODULE);
         }
-        return value == null ? "" : value.trim();
+        return value == null ? "" : SecretValueResolver.resolve(value.trim());
     }
 
     /**

@@ -34,7 +34,7 @@ import org.apache.shiro.lang.util.ByteSource;
  * AES-256-GCM encryption/decryption for configuration values such as the
  * database passwords stored in {@code passwords.properties} as {@code ENC(...)}.
  *
- * <p>The AES key is derived from a master key (e.g. the {@code OFBIZ_DB_KEY}
+ * <p>The AES key is derived from a master key (e.g. the {@code OFBIZ_MASTER_KEY}
  * environment variable) via PBKDF2WithHmacSHA256, so the same master key always
  * yields the same AES key. The actual cipher operations are delegated to Shiro's
  * {@link AesCipherService} (the same library used by
@@ -101,29 +101,29 @@ public final class ConfigCryptoUtil {
      * <p>All {@link org.apache.ofbiz.base.secret.SecretProvider} implementations should
      * call this after fetching a value from their remote backend so that operators can
      * optionally add a client-side AES-256-GCM layer on top of whatever the vault already
-     * provides. The master key is read from the {@code OFBIZ_DB_KEY} environment variable.</p>
+     * provides. The master key is read from the {@code OFBIZ_MASTER_KEY} environment variable.</p>
      *
      * @param rawValue   the value as returned by the secret backend (plaintext or {@code ENC(...)})
      * @param secretName used only in error messages to identify which secret failed
      * @return the plaintext value — either the original string or the decrypted one
-     * @throws GeneralException if the value is encrypted but {@code OFBIZ_DB_KEY} is missing,
+     * @throws GeneralException if the value is encrypted but {@code OFBIZ_MASTER_KEY} is missing,
      *                          or if decryption fails (e.g. wrong key)
      */
     public static String decryptIfEncrypted(String rawValue, String secretName) throws GeneralException {
         if (!rawValue.startsWith("ENC(") || !rawValue.endsWith(")")) {
             return rawValue;
         }
-        String masterKey = System.getenv("OFBIZ_DB_KEY");
+        String masterKey = System.getenv("OFBIZ_MASTER_KEY");
         if (masterKey == null || masterKey.isEmpty()) {
             throw new GeneralException("Secret '" + secretName + "' is encrypted (ENC(...)) but the "
-                    + "OFBIZ_DB_KEY environment variable is not set");
+                    + "OFBIZ_MASTER_KEY environment variable is not set");
         }
         String base64 = rawValue.substring("ENC(".length(), rawValue.length() - 1);
         try {
             return decrypt(base64, masterKey);
         } catch (GeneralException e) {
             throw new GeneralException("Failed to decrypt secret '" + secretName
-                    + "': verify OFBIZ_DB_KEY matches the key used to encrypt", e);
+                    + "': verify OFBIZ_MASTER_KEY matches the key used to encrypt", e);
         }
     }
 

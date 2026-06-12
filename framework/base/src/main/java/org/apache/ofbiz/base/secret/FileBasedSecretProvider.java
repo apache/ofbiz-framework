@@ -34,7 +34,7 @@ import org.apache.ofbiz.base.util.UtilValidate;
  * <p>Values may optionally be stored encrypted, wrapped as {@code ENC(<base64>)},
  * e.g. {@code jdbc-password.mysql-ofbiz=ENC(AbCd123...)}. Encrypted values are
  * decrypted in-memory with {@link ConfigCryptoUtil} using the master key supplied
- * via the {@code OFBIZ_DB_KEY} environment variable.</p>
+ * via the {@code OFBIZ_MASTER_KEY} environment variable.</p>
  */
 public final class FileBasedSecretProvider implements SecretProvider {
 

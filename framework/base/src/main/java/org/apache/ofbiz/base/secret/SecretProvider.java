@@ -42,7 +42,7 @@ import org.apache.ofbiz.base.util.GeneralException;
  * top of whatever the remote vault already provides. Call
  * {@code ConfigCryptoUtil.decryptIfEncrypted()} on the raw value returned by
  * the remote API before caching or returning it. The master key is read from
- * the {@code OFBIZ_DB_KEY} environment variable at runtime and is never stored
+ * the {@code OFBIZ_MASTER_KEY} environment variable at runtime and is never stored
  * in config files or in the remote vault.</p>
  */
 public interface SecretProvider {
