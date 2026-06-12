@@ -242,11 +242,16 @@ Map copyQuote() {
         List quoteRoles = quote.getRelated('QuoteRole', null, null, false)
         for (GenericValue quoteRole : quoteRoles) {
             if (quoteRole.roleTypeId != 'REQ_TAKER') {
-                Map serviceContext = dctx.makeValidContext('createQuoteRole', ModelService.IN_PARAM,
-                        [*: quoteRole, quoteId: quoteIdTo, userLogin: userLogin])
-                serviceResult = dispatcher.runSync('createQuoteRole', serviceContext)
-                if (ServiceUtil.isError(serviceResult)) {
-                    return serviceResult
+                GenericValue existingQuoteRole = from('QuoteRole')
+                        .where(quoteId: quoteIdTo, partyId: quoteRole.partyId, roleTypeId: quoteRole.roleTypeId)
+                        .queryOne()
+                if (!existingQuoteRole) {
+                    Map serviceContext = dctx.makeValidContext('createQuoteRole', ModelService.IN_PARAM,
+                            [*: quoteRole, quoteId: quoteIdTo, userLogin: userLogin])
+                    serviceResult = dispatcher.runSync('createQuoteRole', serviceContext)
+                    if (ServiceUtil.isError(serviceResult)) {
+                        return serviceResult
+                    }
                 }
             }
         }
