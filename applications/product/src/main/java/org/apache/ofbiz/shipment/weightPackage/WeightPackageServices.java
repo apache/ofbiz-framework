@@ -30,7 +30,6 @@ import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.util.EntityQuery;
-import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.ServiceUtil;
 
@@ -161,8 +160,7 @@ public class WeightPackageServices {
 
         Map<String, Object> response = new HashMap<>();
         try {
-            String getActualShippingQuoteFromUps = EntityUtilProperties.getPropertyValue("shipment", "shipment.ups.shipping", "N", delegator);
-            String result = weightPackageSession.complete(orderId, locale, getActualShippingQuoteFromUps);
+            String result = weightPackageSession.complete(orderId, locale);
             if ("showWarningForm".equals(result)) {
                 response.put("showWarningForm", true);
             } else if ("success".equals(result)) {
@@ -187,8 +185,7 @@ public class WeightPackageServices {
 
         Map<String, Object> response = new HashMap<>();
         try {
-            String getActualShippingQuoteFromUps = EntityUtilProperties.getPropertyValue("shipment", "shipment.ups.shipping", "N", delegator);
-            if (weightPackageSession.completeShipment(orderId, getActualShippingQuoteFromUps)) {
+            if (weightPackageSession.completeShipment(orderId)) {
                 response.put("shipmentId", shipmentId);
             } else {
                 response = ServiceUtil.returnError(UtilProperties.getMessage("ProductErrorUiLabels",
@@ -207,9 +204,8 @@ public class WeightPackageServices {
 
         String orderId = (String) context.get("orderId");
 
-        String getActualShippingQuoteFromUps = EntityUtilProperties.getPropertyValue("shipment", "shipment.ups.shipping", "N", delegator);
         try {
-            weightPackageSession.savePackagesInfo(orderId, getActualShippingQuoteFromUps);
+            weightPackageSession.savePackagesInfo(orderId);
         } catch (GeneralException e) {
             return ServiceUtil.returnError(e.getMessage());
         }

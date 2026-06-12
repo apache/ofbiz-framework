@@ -173,11 +173,6 @@ under the License.
                 <parameter param-name="facilityId"/>
             </link>
         </menu-item>
-        <menu-item name="Scheduling" title="${uiLabelMap.ProductScheduling}">
-            <link target="Scheduling">
-                <parameter param-name="facilityId"/>
-            </link>
-        </menu-item>
         <menu-item name="FindShipmentIn" title="${uiLabelMap.ProductIncomingShipments}">
             <link target="FindShipment">
                 <parameter param-name="destinationFacilityId" from-field="facilityId"/>
