@@ -131,9 +131,10 @@ public final class ConfigCryptoUtil {
 
     /**
      * Command-line helper that prints {@code ENC(<base64>)} for a given master key and plaintext
-     * value, ready to be pasted into {@code passwords.properties} (e.g. as
-     * {@code jdbc-password.<lookup-key>=ENC(...)}). Invoked via the {@code encryptDbPassword}
-     * Gradle task.
+     * value. Invoked via the {@code generateDBPassword} and {@code generateEncryptedSecret}
+     * Gradle tasks to produce values for {@code passwords.properties}
+     * ({@code jdbc-password.<lookup-key>=ENC(...)}) and {@code SystemProperty.systemPropertyValue}
+     * respectively.
      */
     public static void main(String[] args) throws GeneralException {
         if (args.length != 2) {
