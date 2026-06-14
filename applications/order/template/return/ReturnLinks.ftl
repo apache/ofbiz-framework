@@ -53,15 +53,6 @@ under the License.
               <#assign shipGroupShipment = EntityQuery.use(delegator).from("Shipment").where("primaryOrderId", shipGroup.orderId!, "primaryShipGroupSeqId", shipGroup.shipGroupSeqId!).queryFirst()! />
                 <#if shipGroupShipment??>
                 <#assign shipmentRouteSegment = EntityQuery.use(delegator).from("ShipmentRouteSegment").where("shipmentId", shipGroupShipment.shipmentId!).queryFirst()!>
-                <#if shipmentRouteSegment??>
-                  <#if "UPS" == shipmentRouteSegment.carrierPartyId!>
-                    <li><a href="javascript:document.upsEmailReturnLabel.submit();" class="buttontext">${uiLabelMap.ProductEmailReturnShippingLabelUPS}</a></li>
-                    <li><form name="upsEmailReturnLabel" method="post" action="<@ofbizUrl>upsEmailReturnLabelReturn</@ofbizUrl>">
-                      <input type="hidden" name="returnId" value="${returnId}"/>
-                      <input type="hidden" name="shipmentId" value="${shipGroupShipment.shipmentId}"/>
-                      <input type="hidden" name="shipmentRouteSegmentId" value="${shipmentRouteSegment.shipmentRouteSegmentId}" />
-                    </form></li>
-                  </#if>
                 </#if>
               </#if>
             </#if>

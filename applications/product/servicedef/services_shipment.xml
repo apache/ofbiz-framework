@@ -430,14 +430,6 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <attribute name="newShipmentRouteSegmentId" type="String" mode="OUT" optional="false"/>
     </service>
-    <service name="quickScheduleShipmentRouteSegment" default-entity-name="ShipmentRouteSegment" engine="java"
-            location="org.apache.ofbiz.shipment.shipment.ShipmentServices" invoke="quickScheduleShipmentRouteSegment" auth="true">
-        <description>Schedules a shipment route segment with the carrier and service level in the ShipmentRouteSegment entity.
-          Actual scheduling is done by an async service, and this does not return an error, so it can be called in a multi-form,
-          and one failed shipment scheduling does not cause other shipments to be rolled back.
-        </description>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
-    </service>
     <service name="ensureRouteSegPackage" default-entity-name="ShipmentRouteSegment" engine="groovy"
             location="component://product/src/main/groovy/org/apache/ofbiz/product/shipment/ShipmentServices.groovy" invoke="ensureRouteSegPackage" auth="true">
         <description>Ensure ShipmentPackageRouteSeg exists for all Packages for this RouteSegment</description>

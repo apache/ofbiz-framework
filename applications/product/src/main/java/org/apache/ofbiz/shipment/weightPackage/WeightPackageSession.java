@@ -38,7 +38,6 @@ import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.DelegatorFactory;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ServiceContainer;
 import org.apache.ofbiz.service.ServiceUtil;
@@ -478,30 +477,17 @@ public class WeightPackageSession implements Serializable {
      * Complete string.
      * @param orderId the order id
      * @param locale the locale
-     * @param calculateOnlineShippingRateFromUps the calculate online shipping rate from ups
      * @return the string
      * @throws GeneralException the general exception
      */
-    public String complete(String orderId, Locale locale, String calculateOnlineShippingRateFromUps) throws GeneralException {
+    public String complete(String orderId, Locale locale) throws GeneralException {
         //create the package(s)
         this.createPackages(orderId);
         // calculate the actual shipping charges according to package(s) weight and dimensions
-        BigDecimal actualShippingCost;
-        // Check if UPS integration is done
-        if ("UPS".equals(this.carrierPartyId) && "Y".equals(calculateOnlineShippingRateFromUps)) {
-            // call upsShipmentConfirm service, it will calculate the online shipping rate from UPS
-            // and save in ShipmentRouteSegment entity in actualCost field
-            actualShippingCost = this.upsShipmentConfirm();
-        } else {
-            // calculate the shipping charges manually
-            actualShippingCost = this.getActualShipCost();
-        }
+        BigDecimal actualShippingCost = this.getActualShipCost();
         // calculate the difference between estimated shipping charges and actual shipping charges
         if (diffInShipCost(actualShippingCost)) {
             return "showWarningForm";
-        } else if ("UPS".equals(this.carrierPartyId) && "Y".equals(calculateOnlineShippingRateFromUps)) {
-            // call upsShipmentAccept service, it will made record(s) in ShipmentPackageRouteSeg entity
-            this.upsShipmentAccept();
         }
         // change order item(s) status
         this.changeOrderItemStatus(orderId);
@@ -518,16 +504,10 @@ public class WeightPackageSession implements Serializable {
     /**
      * Complete shipment boolean.
      * @param orderId the order id
-     * @param calculateOnlineShippingRateFromUps the calculate online shipping rate from ups
      * @return the boolean
      * @throws GeneralException the general exception
      */
-    public boolean completeShipment(String orderId, String calculateOnlineShippingRateFromUps) throws GeneralException {
-        // Check if UPS integration is done
-        if ("UPS".equals(this.carrierPartyId) && "Y".equals(calculateOnlineShippingRateFromUps)) {
-            // call upsShipmentAccept service, it will made record(s) in ShipmentPackageRouteSeg entity
-            this.upsShipmentAccept();
-        }
+    public boolean completeShipment(String orderId) throws GeneralException {
         // change order item(s) status
         this.changeOrderItemStatus(orderId);
         // assign item(s) to package(s)
@@ -538,56 +518,6 @@ public class WeightPackageSession implements Serializable {
         this.setShipmentToPacked();
 
         return true;
-    }
-
-    /**
-     * Ups shipment confirm big decimal.
-     * @return the big decimal
-     * @throws GeneralException the general exception
-     */
-    protected BigDecimal upsShipmentConfirm() throws GeneralException {
-        Delegator delegator = this.getDelegator();
-        BigDecimal actualCost = BigDecimal.ZERO;
-        List<GenericValue> shipmentRouteSegments = EntityQuery.use(delegator).from("ShipmentRouteSegment")
-                .where("shipmentId", shipmentId).queryList();
-        if (UtilValidate.isNotEmpty(shipmentRouteSegments)) {
-            for (GenericValue shipmentRouteSegment : shipmentRouteSegments) {
-                Map<String, Object> shipmentRouteSegmentMap = new HashMap<>();
-                shipmentRouteSegmentMap.put("shipmentId", shipmentId);
-                shipmentRouteSegmentMap.put("shipmentRouteSegmentId", shipmentRouteSegment.getString("shipmentRouteSegmentId"));
-                shipmentRouteSegmentMap.put("userLogin", userLogin);
-                Map<String, Object> shipmentRouteSegmentResult = this.getDispatcher().runSync("upsShipmentConfirm", shipmentRouteSegmentMap);
-                if (ServiceUtil.isError(shipmentRouteSegmentResult)) {
-                    throw new GeneralException(ServiceUtil.getErrorMessage(shipmentRouteSegmentResult));
-                }
-                GenericValue shipRouteSeg = EntityQuery.use(delegator).from("ShipmentRouteSegment")
-                        .where("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegment.getString("shipmentRouteSegmentId"))
-                        .queryOne();
-                actualCost = actualCost.add(shipRouteSeg.getBigDecimal("actualCost"));
-            }
-        }
-        return actualCost;
-    }
-
-    /**
-     * Ups shipment accept.
-     * @throws GeneralException the general exception
-     */
-    protected void upsShipmentAccept() throws GeneralException {
-        List<GenericValue> shipmentRouteSegments = this.getDelegator().findByAnd("ShipmentRouteSegment",
-                UtilMisc.toMap("shipmentId", shipmentId), null, false);
-        if (UtilValidate.isNotEmpty(shipmentRouteSegments)) {
-            for (GenericValue shipmentRouteSegment : shipmentRouteSegments) {
-                Map<String, Object> shipmentRouteSegmentMap = new HashMap<>();
-                shipmentRouteSegmentMap.put("shipmentId", shipmentId);
-                shipmentRouteSegmentMap.put("shipmentRouteSegmentId", shipmentRouteSegment.getString("shipmentRouteSegmentId"));
-                shipmentRouteSegmentMap.put("userLogin", userLogin);
-                Map<String, Object> shipmentRouteSegmentResult = this.getDispatcher().runSync("upsShipmentAccept", shipmentRouteSegmentMap);
-                if (ServiceUtil.isError(shipmentRouteSegmentResult)) {
-                    throw new GeneralException(ServiceUtil.getErrorMessage(shipmentRouteSegmentResult));
-                }
-            }
-        }
     }
 
     /**
@@ -796,18 +726,11 @@ public class WeightPackageSession implements Serializable {
     /**
      * Save packages info.
      * @param orderId the order id
-     * @param calculateOnlineShippingRateFromUps the calculate online shipping rate from ups
      * @throws GeneralException the general exception
      */
-    protected void savePackagesInfo(String orderId, String calculateOnlineShippingRateFromUps) throws GeneralException {
+    protected void savePackagesInfo(String orderId) throws GeneralException {
         //create the package(s)
         this.createPackages(orderId);
-        // Check if UPS integration is done
-        if ("UPS".equals(this.carrierPartyId) && "Y".equals(calculateOnlineShippingRateFromUps)) {
-            // call upsShipmentConfirm service, it will calculate the online shipping rate from UPS and save in
-            // ShipmentRouteSegment entity in actualCost field
-            this.upsShipmentConfirm();
-        }
     }
 
     /**
