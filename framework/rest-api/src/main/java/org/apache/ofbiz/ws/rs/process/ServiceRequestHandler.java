@@ -18,21 +18,18 @@
  *******************************************************************************/
 package org.apache.ofbiz.ws.rs.process;
 
-import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Set;
 
 import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
-import org.apache.ofbiz.service.ModelParam;
 import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.service.ServiceUtil;
 import org.apache.ofbiz.ws.rs.ServiceNameContextHolder;
 import org.apache.ofbiz.ws.rs.util.RestApiUtil;
+import org.apache.ofbiz.ws.rs.util.ServiceRequestWorker;
 
 import jakarta.ws.rs.NotFoundException;
 import jakarta.ws.rs.container.ContainerRequestContext;
@@ -89,22 +86,11 @@ public final class ServiceRequestHandler extends RestRequestHandler {
             final ExceptionMapper<GenericServiceException> mapper = getMappers().get().findMapping(e);
             return mapper.toResponse(e);
         }
-        Map<String, Object> responseData = new LinkedHashMap<>();
         if (ServiceUtil.isSuccess(result)) {
-            Set<String> outParams = svc.getOutParamNames();
-            for (String outParamName : outParams) {
-                ModelParam outParam = svc.getParam(outParamName);
-                if (!outParam.isInternal()) {
-                    Object value = result.get(outParamName);
-                    if (UtilValidate.isNotEmpty(value)) {
-                        responseData.put(outParamName, value);
-                    }
-                }
-            }
+            Map<String, Object> responseData = ServiceRequestWorker.extractResponseData(svc, result);
             return RestApiUtil.success((String) result.get(ModelService.SUCCESS_MESSAGE), responseData);
-        } else {
-            return RestApiUtil.buildErrorFromServiceResult(service, result, getHttpRequest().getLocale());
         }
+        return RestApiUtil.buildErrorFromServiceResult(service, result, getHttpRequest().getLocale());
     }
 
     private ModelService getModelService(DispatchContext dispatchContext) {
