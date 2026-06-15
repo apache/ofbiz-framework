@@ -95,34 +95,37 @@ public class OFBizApiConfig extends ResourceConfig {
 
     private void loadApiDefinitions() {
         Collection<ComponentConfig> components = ComponentConfig.getAllComponents();
-        components.forEach(component -> {
-            String cName = component.getComponentName();
+        for (ComponentConfig component : components) {
+            String componentName = component.getComponentName();
             try {
-                String apiDirPath = ComponentConfig.getRootLocation(cName) + "/api";
+                String apiDirPath = ComponentConfig.getRootLocation(componentName) + "/api";
                 File apiDir = new File(apiDirPath);
-                if (apiDir.exists() && apiDir.isDirectory()) {
-                    File[] restXmlFiles = apiDir.listFiles((dir, name) -> name.endsWith(".rest.xml"));
-                    for (File apiSchemaF : restXmlFiles) {
-                        ModelApi api = ModelApiReader.getModelApi(apiSchemaF);
-                        if (!api.isPublish()) {
-                            Debug.logInfo("API {}[{}] is declared to be a non-publish, ignoring...", api.getName(), api.getPath(), MODULE);
-                            continue;
-                        }
-                        String path = api.getPath();
-                        if (MICRO_APIS.containsKey(path)) {
-                            Debug.logWarning("Duplicate REST API definition detected for path: " + path
-                                    + " at location " + apiSchemaF
-                                    + ". Overriding existing entry from component: " + cName, MODULE);
-                        } else {
-                            Debug.logInfo("Processing REST API path: " + path + " from component " + cName, MODULE);
-                        }
-                        MICRO_APIS.put(path, api);
+                if (!apiDir.exists() || !apiDir.isDirectory()) {
+                    continue;
+                }
+                File[] restXmlFiles = apiDir.listFiles((dir, name) -> name.endsWith(".rest.xml"));
+                if (restXmlFiles == null) {
+                    continue;
+                }
+                for (File restXmlFile : restXmlFiles) {
+                    ModelApi api = ModelApiReader.getModelApi(restXmlFile);
+                    if (!api.isPublish()) {
+                        Debug.logInfo("API %s[%s] is declared non-publish, ignoring...", api.getName(), api.getPath(), MODULE);
+                        continue;
                     }
+                    String path = api.getPath();
+                    if (MICRO_APIS.containsKey(path)) {
+                        Debug.logWarning("Duplicate REST API definition for path: %s at: %s, overriding component: %s",
+                                path, restXmlFile, componentName, MODULE);
+                    } else {
+                        Debug.logInfo("Processing REST API path: %s from component: %s", path, componentName, MODULE);
+                    }
+                    MICRO_APIS.put(path, api);
                 }
             } catch (ComponentException | RuntimeException e) {
                 Debug.logError(e, MODULE);
             }
-        });
+        }
     }
 
     private void traverseAndRegisterApiDefinitions() {

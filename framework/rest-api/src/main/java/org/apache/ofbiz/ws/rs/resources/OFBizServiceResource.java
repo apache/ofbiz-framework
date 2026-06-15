@@ -153,12 +153,7 @@ public class OFBizServiceResource {
     public Response doPost(HashMap<String, Object> serviceInParams,
             @PathParam(value = "serviceName") String serviceName)
             throws IOException, GenericEntityException, GenericServiceException {
-        if (UtilValidate.isEmpty(serviceInParams)) {
-            throw new BadRequestException("The request body is missing.");
-        }
-        ServiceRequestProcessor processor = new ServiceRequestProcessor();
-        return processor.process(UtilMisc.toMap("serviceName", serviceName, "httpVerb", HttpMethod.POST, "requestMap",
-                serviceInParams, "dispatcher", servletContext.getAttribute("dispatcher"), "request", httpRequest));
+        return processBodyRequest(serviceName, HttpMethod.POST, serviceInParams);
     }
 
     /**
@@ -179,12 +174,7 @@ public class OFBizServiceResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response doPut(HashMap<String, Object> serviceInParams, @PathParam(value = "serviceName") String serviceName)
             throws IOException, GenericEntityException, GenericServiceException {
-        if (UtilValidate.isEmpty(serviceInParams)) {
-            throw new BadRequestException("The request body is missing.");
-        }
-        ServiceRequestProcessor processor = new ServiceRequestProcessor();
-        return processor.process(UtilMisc.toMap("serviceName", serviceName, "httpVerb", HttpMethod.PUT, "requestMap",
-                serviceInParams, "dispatcher", servletContext.getAttribute("dispatcher"), "request", httpRequest));
+        return processBodyRequest(serviceName, HttpMethod.PUT, serviceInParams);
     }
 
     /**
@@ -206,12 +196,7 @@ public class OFBizServiceResource {
     public Response doPatch(HashMap<String, Object> serviceInParams,
             @PathParam(value = "serviceName") String serviceName)
             throws IOException, GenericEntityException, GenericServiceException {
-        if (UtilValidate.isEmpty(serviceInParams)) {
-            throw new BadRequestException("The request body is missing.");
-        }
-        ServiceRequestProcessor processor = new ServiceRequestProcessor();
-        return processor.process(UtilMisc.toMap("serviceName", serviceName, "httpVerb", HttpMethod.PATCH, "requestMap",
-                serviceInParams, "dispatcher", servletContext.getAttribute("dispatcher"), "request", httpRequest));
+        return processBodyRequest(serviceName, HttpMethod.PATCH, serviceInParams);
     }
 
     /**
@@ -233,11 +218,20 @@ public class OFBizServiceResource {
     public Response doDelete(HashMap<String, Object> serviceInParams,
             @PathParam(value = "serviceName") String serviceName)
             throws IOException, GenericEntityException, GenericServiceException {
+        return processBodyRequest(serviceName, HttpMethod.DELETE, serviceInParams);
+    }
+
+    private Response processBodyRequest(String serviceName, String httpVerb, HashMap<String, Object> serviceInParams)
+            throws IOException, GenericEntityException, GenericServiceException {
         if (UtilValidate.isEmpty(serviceInParams)) {
             throw new BadRequestException("The request body is missing.");
         }
         ServiceRequestProcessor processor = new ServiceRequestProcessor();
-        return processor.process(UtilMisc.toMap("serviceName", serviceName, "httpVerb", HttpMethod.DELETE, "requestMap",
-                serviceInParams, "dispatcher", servletContext.getAttribute("dispatcher"), "request", httpRequest));
+        return processor.process(UtilMisc.toMap(
+                "serviceName", serviceName,
+                "httpVerb", httpVerb,
+                "requestMap", serviceInParams,
+                "dispatcher", servletContext.getAttribute("dispatcher"),
+                "request", httpRequest));
     }
 }
