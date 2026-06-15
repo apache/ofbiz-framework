@@ -95,7 +95,6 @@ public final class OpenApiResource {
     @Operation(hidden = true)
     public Response getOpenApi(@Context HttpHeaders headers, @Context UriInfo uriInfo, @PathParam("type") String type)
             throws Exception {
-        boolean pretty = false;
         OpenAPI openApi = new OpenAPI();
         openApi.addServersItem(buildOpenApiServer());
 
@@ -126,13 +125,12 @@ public final class OpenApiResource {
 
         if (UtilValidate.isNotEmpty(type) && type.trim().equalsIgnoreCase("yaml")) {
             return Response.status(Response.Status.OK)
-                    .entity(pretty ? Yaml.pretty(openApi) : Yaml.mapper().writeValueAsString(openApi))
+                    .entity(Yaml.mapper().writeValueAsString(openApi))
                     .type("application/yaml").build();
-        } else {
-            return Response.status(Response.Status.OK)
-                    .entity(pretty ? Json.pretty(openApi) : Json.mapper().writeValueAsString(openApi))
-                    .type(MediaType.APPLICATION_JSON_TYPE).build();
         }
+        return Response.status(Response.Status.OK)
+                .entity(Json.mapper().writeValueAsString(openApi))
+                .type(MediaType.APPLICATION_JSON_TYPE).build();
     }
 
 

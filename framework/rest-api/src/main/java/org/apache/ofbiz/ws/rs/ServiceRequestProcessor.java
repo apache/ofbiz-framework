@@ -18,19 +18,17 @@
  *******************************************************************************/
 package org.apache.ofbiz.ws.rs;
 
-import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Set;
 
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
-import org.apache.ofbiz.service.ModelParam;
 import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.service.ServiceUtil;
 import org.apache.ofbiz.ws.rs.util.RestApiUtil;
+import org.apache.ofbiz.ws.rs.util.ServiceRequestWorker;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.ws.rs.NotFoundException;
@@ -84,20 +82,9 @@ public class ServiceRequestProcessor {
         serviceContext.put("userLogin", userLogin);
         Map<String, Object> result = dispatcher.runSync(serviceName, serviceContext);
         if (ServiceUtil.isSuccess(result)) {
-            Map<String, Object> responseData = new LinkedHashMap<>();
-            Set<String> outParams = service.getOutParamNames();
-            for (String outParamName : outParams) {
-                ModelParam outParam = service.getParam(outParamName);
-                if (!outParam.isInternal()) {
-                    Object value = result.get(outParamName);
-                    if (UtilValidate.isNotEmpty(value)) {
-                        responseData.put(outParamName, value);
-                    }
-                }
-            }
+            Map<String, Object> responseData = ServiceRequestWorker.extractResponseData(service, result);
             return RestApiUtil.success((String) result.get(ModelService.SUCCESS_MESSAGE), responseData);
-        } else {
-            return RestApiUtil.buildErrorFromServiceResult(serviceName, result, request.getLocale());
         }
+        return RestApiUtil.buildErrorFromServiceResult(serviceName, result, request.getLocale());
     }
 }

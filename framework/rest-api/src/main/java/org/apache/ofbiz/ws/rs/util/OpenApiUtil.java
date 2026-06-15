@@ -351,7 +351,7 @@ public final class OpenApiUtil {
             schema = (Schema<?>) schemaClass.getDeclaredConstructor().newInstance();
         } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException
                 | SecurityException e) {
-            e.printStackTrace();
+            Debug.logError(e, MODULE);
         }
 
         List<ModelParam> children = param.getChildren();
@@ -367,9 +367,8 @@ public final class OpenApiUtil {
                             + "entity-name defined.",
                             MODULE);
                     return null;
-                } else {
-                    schema = getSchemaForEntity(delegator.getModelEntity(param.getEntityName()));
                 }
+                schema = getSchemaForEntity(delegator.getModelEntity(param.getEntityName()));
             } else if (UtilValidate.isEmpty(param.getChildren())) {
                 Debug.logWarning(
                         "Attribute '" + param.getName() + "' ignored as it is declared as '" + param.getType() + "' but does not have "
@@ -442,7 +441,7 @@ public final class OpenApiUtil {
                 schema = (Schema<?>) schemaClass.getDeclaredConstructor().newInstance();
             } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException
                     | SecurityException e) {
-                e.printStackTrace();
+                Debug.logError(e, MODULE);
             }
             if (schemaClass != null) {
                 dataSchema.addProperty(fieldNm, schema.description(fieldNm));
