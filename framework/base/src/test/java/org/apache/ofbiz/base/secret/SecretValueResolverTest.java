@@ -45,13 +45,13 @@ public class SecretValueResolverTest {
 
     @Test
     public void resolvesKnownKeyFromPasswordsProperties() {
-        assertEquals("ofbiz", SecretValueResolver.resolve("SECRET(jdbc-password.h2-ofbiz)"));
+        assertEquals("ofbiz", SecretValueResolver.resolve("LOOKUP(jdbc-password.h2-ofbiz)"));
         // Cached lookup should return the same value.
-        assertEquals("ofbiz", SecretValueResolver.resolve("SECRET(jdbc-password.h2-ofbiz)"));
+        assertEquals("ofbiz", SecretValueResolver.resolve("LOOKUP(jdbc-password.h2-ofbiz)"));
     }
 
     @Test
     public void unresolvableKeyReturnsEmptyString() {
-        assertEquals("", SecretValueResolver.resolve("SECRET(jdbc-password.does-not-exist)"));
+        assertEquals("", SecretValueResolver.resolve("LOOKUP(jdbc-password.does-not-exist)"));
     }
 }

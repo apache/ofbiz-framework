@@ -83,11 +83,10 @@ public final class EntityUtilProperties implements Serializable {
     /**
      * Resolves the effective value of a {@code SystemProperty} record:
      * <ul>
-     *   <li>if {@code systemPropertyLookup} holds a {@code SECRET(key)} reference (see
-     *       {@link SecretValueResolver}), resolves {@code key} via the configured
-     *       {@code SecretProvider} (a remote secret manager, with its own
-     *       {@code passwords.properties} fallback); if that fails, falls back to
-     *       {@code systemPropertyValue}</li>
+     *   <li>if {@code systemPropertyLookup} is non-empty, its value is treated as a raw secret
+     *       key and resolved directly via {@link SecretValueResolver#resolveKey(String)} (i.e.
+     *       no {@code LOOKUP(...)} wrapper — the field itself implies lookup semantics); if
+     *       resolution fails or returns empty, falls back to {@code systemPropertyValue}</li>
      *   <li>otherwise (or on lookup failure), uses {@code systemPropertyValue}, decrypting it
      *       with {@link ConfigCryptoUtil} if it is wrapped in {@code ENC(...)}</li>
      * </ul>
@@ -96,12 +95,12 @@ public final class EntityUtilProperties implements Serializable {
         String lookup = systemProperty.getString("systemPropertyLookup");
         if (UtilValidate.isNotEmpty(lookup)) {
             Debug.logInfo("EntityUtilProperties: resolving " + resource + "/" + name
-                    + " via SystemProperty.systemPropertyLookup '" + lookup + "'", MODULE);
-            String resolved = SecretValueResolver.resolve(lookup);
-            if (UtilValidate.isNotEmpty(resolved) && !resolved.equals(lookup)) {
+                    + " via SystemProperty.systemPropertyLookup key '" + lookup + "'", MODULE);
+            String resolved = SecretValueResolver.resolveKey(lookup);
+            if (UtilValidate.isNotEmpty(resolved)) {
                 return resolved;
             }
-            Debug.logWarning("EntityUtilProperties: systemPropertyLookup '" + lookup + "' for " + resource + "/" + name
+            Debug.logWarning("EntityUtilProperties: systemPropertyLookup key '" + lookup + "' for " + resource + "/" + name
                     + " did not resolve, falling back to systemPropertyValue", MODULE);
         }
         String value = systemProperty.getString("systemPropertyValue");

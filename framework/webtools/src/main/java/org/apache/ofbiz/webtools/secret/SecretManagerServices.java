@@ -28,9 +28,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import org.apache.ofbiz.base.component.ComponentConfig;
 import org.apache.ofbiz.base.crypto.ConfigCryptoUtil;
+import org.apache.ofbiz.base.secret.SecretValueResolver;
 import org.apache.ofbiz.base.location.FlexibleLocation;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
@@ -57,6 +59,8 @@ public final class SecretManagerServices {
 
     private static final String PASSWORDS_FILE_LOCATION = "component://base/config/passwords.properties";
     private static final String JDBC_PASSWORD_PREFIX = "jdbc-password.";
+    /** Allows only letters, digits, dots, hyphens, underscores — blocks marker wrappers and path traversal. */
+    private static final Pattern SAFE_IDENTIFIER = Pattern.compile("^[\\w.\\-]+$");
 
     private SecretManagerServices() { }
 
@@ -87,6 +91,13 @@ public final class SecretManagerServices {
             String systemPropertyId, String lookupKey, String secretValue) throws GeneralException {
         if (UtilValidate.isEmpty(secretValue)) {
             throw new GeneralException("secretValue is required");
+        }
+        if (secretValue.trim().startsWith("ENC(")) {
+            throw new GeneralException("secretValue must be the plain secret — do not enter an ENC(...) encrypted value");
+        }
+        if (UtilValidate.isNotEmpty(lookupKey) && !SAFE_IDENTIFIER.matcher(lookupKey.trim()).matches()) {
+            throw new GeneralException("lookupKey must contain only letters, digits, dots, hyphens, and underscores"
+                    + " — do not enter a " + SecretValueResolver.MARKER_NAME + "(...) marker or path separator");
         }
         String encryptedValue = "ENC(" + ConfigCryptoUtil.encrypt(secretValue, getMasterKey()) + ")";
 
@@ -129,17 +140,18 @@ public final class SecretManagerServices {
         }
         systemProperty.set("systemPropertyValue", encryptedValue);
         if (UtilValidate.isNotEmpty(lookupKey)) {
-            systemProperty.set("systemPropertyLookup", "SECRET(" + lookupKey + ")");
+            systemProperty.set("systemPropertyLookup", lookupKey);
         }
         delegator.createOrStore(systemProperty);
     }
 
     /**
      * Searches all loaded OFBiz components for {@code config/<systemResourceId>.properties},
-     * sets {@code <systemPropertyId>=SECRET(<lookupKey>)} in the source file, then clears the
-     * OFBiz property caches so the change is picked up immediately without a server restart.
+     * sets {@code <systemPropertyId>=LOOKUP(<lookupKey>)} in the source {@code .properties} file
+     * (so that {@link org.apache.ofbiz.base.secret.SecretValueResolver} resolves it at runtime),
+     * then clears the OFBiz property caches so the change is picked up immediately without a restart.
      *
-     * <p>If the property previously referenced a different lookup key via {@code SECRET(old-key)},
+     * <p>If the property previously referenced a different lookup key via {@code LOOKUP(old-key)},
      * the stale {@code old-key} entry is removed from passwords.properties before the new one is written.</p>
      *
      * <p>Scanning component directories (not the classpath) ensures we write to the actual
@@ -158,15 +170,17 @@ public final class SecretManagerServices {
             removePasswordsEntry(existingLookupKey);
             Debug.logInfo("Removed stale passwords.properties entry for old lookup key: " + existingLookupKey, MODULE);
         }
-        writePropertiesEntry(propsFile, systemPropertyId, "SECRET(" + lookupKey + ")");
+        writePropertiesEntry(propsFile, systemPropertyId, SecretValueResolver.MARKER_NAME + "(" + lookupKey + ")");
         UtilCache.clearCachesThatStartWith("properties.UtilProperties");
-        Debug.logInfo("Set " + systemPropertyId + "=SECRET(" + lookupKey + ") in "
+        Debug.logInfo("Set " + systemPropertyId + "=" + SecretValueResolver.MARKER_NAME + "(" + lookupKey + ") in "
                 + propsFile.getPath() + " and refreshed property caches", MODULE);
     }
 
     /**
-     * Reads {@code file} and returns the key inside {@code SECRET(<key>)} for the given
-     * {@code propertyId}, or {@code null} if the property is absent or not a SECRET reference.
+     * Reads {@code file} and returns the key inside a {@code LOOKUP(<key>)} marker for the given
+     * {@code propertyId}, or {@code null} if the property is absent or not a LOOKUP reference.
+     * Used only for the source {@code .properties} file path (Case B); {@code SystemProperty.systemPropertyLookup}
+     * stores the raw key without a wrapper.
      */
     private static String readSecretLookupKey(File file, String propertyId) throws GeneralException {
         try {
@@ -174,8 +188,9 @@ public final class SecretManagerServices {
             for (String line : Files.readAllLines(file.toPath(), StandardCharsets.UTF_8)) {
                 if (line.startsWith(linePrefix)) {
                     String value = line.substring(linePrefix.length()).trim();
-                    if (value.startsWith("SECRET(") && value.endsWith(")")) {
-                        return value.substring("SECRET(".length(), value.length() - 1);
+                    String markerPrefix = SecretValueResolver.MARKER_NAME + "(";
+                    if (value.startsWith(markerPrefix) && value.endsWith(")")) {
+                        return value.substring(markerPrefix.length(), value.length() - 1);
                     }
                     return null;
                 }

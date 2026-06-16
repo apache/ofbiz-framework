@@ -2038,7 +2038,7 @@
             Leave Resource ID and Property ID empty to write only to passwords.properties
             (entityengine.xml jdbc-password-lookup use-case).
             Provide all four fields to also update the matching property file on disk
-            (sets &lt;propertyId&gt;=SECRET(&lt;lookupKey&gt;)) and refresh the in-memory
+            (sets &lt;propertyId&gt;=LOOKUP(&lt;lookupKey&gt;)) and refresh the in-memory
             property cache — no server restart needed.</value>
     </property>
     <property key="WebtoolsSecretTarget">
@@ -2069,7 +2069,7 @@
         <value xml:lang="en">Required for passwords.properties. When Resource ID and Property ID are empty,
             stored as jdbc-password.&lt;lookupKey&gt; (entityengine.xml use-case). When all four fields are
             provided, stored as &lt;lookupKey&gt; directly (property file use-case).
-            Optional for SystemProperty: if set, systemPropertyLookup is set to SECRET(&lt;lookupKey&gt;)
+            Optional for SystemProperty: if set, the plain key is stored in systemPropertyLookup
             so a configured remote secret provider is tried first.</value>
     </property>
     <property key="WebtoolsSecretValue">

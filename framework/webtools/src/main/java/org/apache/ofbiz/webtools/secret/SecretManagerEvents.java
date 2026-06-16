@@ -202,6 +202,7 @@ public final class SecretManagerEvents {
                 String resourceId = getColumn(record, "systemResourceId");
                 String propertyId = getColumn(record, "systemPropertyId");
                 String lookupKey = getColumn(record, "lookupKey");
+                String secretValue = getColumn(record, "secretValue");
 
                 // target must be a known constant
                 if (target != null && !VALID_TARGETS.contains(target)) {
@@ -212,6 +213,11 @@ public final class SecretManagerEvents {
                 validateIdentifier(errors, rowNum, "systemResourceId", resourceId);
                 validateIdentifier(errors, rowNum, "systemPropertyId", propertyId);
                 validateIdentifier(errors, rowNum, "lookupKey", lookupKey);
+                // secretValue must be the plain secret, not an already-encrypted value
+                if (secretValue != null && secretValue.trim().startsWith("ENC(")) {
+                    errors.add("Row " + rowNum + ": 'secretValue' must be the plain secret"
+                            + " — do not enter an ENC(...) encrypted value");
+                }
             }
         }
         return errors;

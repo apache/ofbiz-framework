@@ -28,7 +28,7 @@ import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.UtilProperties;
 
 /**
- * Resolves configuration values of the form {@code SECRET(key)} to the
+ * Resolves configuration values of the form {@code LOOKUP(key)} to the
  * corresponding secret value via {@link SecretProviderFactory}.
  *
  * <p>This allows any property read through {@code UtilProperties} or
@@ -38,14 +38,14 @@ import org.apache.ofbiz.base.util.UtilProperties;
  * same {@link SecretProvider} SPI and providers already used for
  * {@code jdbc-password-lookup}.</p>
  *
- * <p>Values that do not match {@code SECRET(key)} are returned unchanged.
+ * <p>Values that do not match {@code LOOKUP(key)} are returned unchanged.
  * The {@code jdbc-password-lookup} mechanism in {@code entityengine.xml}
  * ({@code EntityConfig.getJdbcPassword()}) does not go through this class and
  * is unaffected.</p>
  *
- * <p>The marker name ({@code SECRET} by default) can be changed via the
- * {@code secret.value.marker} property in {@code general.properties}, e.g. to
- * {@code MASK} or {@code ENCRYPT}, in case it collides with existing property
+ * <p>The marker name ({@code LOOKUP} by default) can be changed via the
+ * {@code secret.value.marker} property in {@code security.properties}, e.g. to
+ * {@code SECRET} or {@code ENCRYPT}, in case it collides with existing property
  * values.</p>
  *
  * <p>Resolved values are cached for {@code secret.cache.ttl.seconds}
@@ -59,17 +59,17 @@ public final class SecretValueResolver {
     // Read the marker name and cache TTL directly from the Properties object, bypassing
     // UtilProperties.getPropertyValue(), which calls back into resolve() and would otherwise
     // deadlock/NPE on these fields during static initialization.
-    private static final Properties GENERAL_PROPERTIES = UtilProperties.getProperties("general");
+    private static final Properties SECURITY_PROPERTIES = UtilProperties.getProperties("security");
 
-    private static final String MARKER_NAME = GENERAL_PROPERTIES != null
-            ? GENERAL_PROPERTIES.getProperty("secret.value.marker", "SECRET").trim()
-            : "SECRET";
+    public static final String MARKER_NAME = SECURITY_PROPERTIES != null
+            ? SECURITY_PROPERTIES.getProperty("secret.value.marker", "LOOKUP").trim()
+            : "LOOKUP";
 
     private static final Pattern SECRET_PATTERN =
             Pattern.compile("^" + Pattern.quote(MARKER_NAME) + "\\((.+)\\)$");
 
-    private static final long CACHE_TTL_MILLIS = (GENERAL_PROPERTIES != null
-            ? Long.parseLong(GENERAL_PROPERTIES.getProperty("secret.cache.ttl.seconds", "300").trim())
+    private static final long CACHE_TTL_MILLIS = (SECURITY_PROPERTIES != null
+            ? Long.parseLong(SECURITY_PROPERTIES.getProperty("secret.cache.ttl.seconds", "300").trim())
             : 300L) * 1000L;
 
     private static final ConcurrentHashMap<String, CacheEntry> CACHE = new ConcurrentHashMap<>();
@@ -77,13 +77,13 @@ public final class SecretValueResolver {
     private SecretValueResolver() { }
 
     /**
-     * If {@code rawValue} matches {@code SECRET(key)}, resolves {@code key} via
+     * If {@code rawValue} matches {@code LOOKUP(key)}, resolves {@code key} via
      * {@link SecretProviderFactory#getInstance()}, caching the result for
      * {@code secret.cache.ttl.seconds}. Otherwise returns {@code rawValue} unchanged.
      *
      * @param rawValue the raw property value, possibly {@code null}
      * @return the resolved secret value, or {@code rawValue} unchanged if it is not a
-     *         {@code SECRET(key)} reference; an empty string if resolution fails
+     *         {@code LOOKUP(key)} reference; an empty string if resolution fails
      */
     public static String resolve(String rawValue) {
         if (rawValue == null) {
@@ -93,13 +93,28 @@ public final class SecretValueResolver {
         if (!matcher.matches()) {
             return rawValue;
         }
-        String key = matcher.group(1).trim();
+        return resolveKey(matcher.group(1).trim());
+    }
 
+    /**
+     * Resolves {@code key} directly via {@link SecretProviderFactory}, with the same TTL-based
+     * caching as {@link #resolve(String)}. Use this when the caller already holds the raw key
+     * (e.g. from {@code SystemProperty.systemPropertyLookup}) without a {@code LOOKUP(...)} wrapper.
+     *
+     * @param key the raw secret key, possibly {@code null} or empty
+     * @return the resolved secret value; an empty string if resolution fails; {@code null} if {@code key} is {@code null}
+     */
+    public static String resolveKey(String key) {
+        if (key == null) {
+            return null;
+        }
+        if (key.isEmpty()) {
+            return "";
+        }
         CacheEntry cached = CACHE.get(key);
         if (cached != null && cached.expiry > System.currentTimeMillis()) {
             return cached.value;
         }
-
         try {
             String secret = SecretProviderFactory.getInstance().getSecret(key);
             CACHE.put(key, new CacheEntry(secret, System.currentTimeMillis() + CACHE_TTL_MILLIS));

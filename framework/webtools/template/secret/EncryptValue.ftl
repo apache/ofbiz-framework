@@ -117,6 +117,42 @@ under the License.
         r.addEventListener('change', updateLabels);
     });
     updateLabels();
+
+    // Client-side validation: reject marker wrappers and pre-encrypted values before submit
+    var SAFE_ID = /^[\w.\-]+$/;
+    var form = document.querySelector('form[action$="createEncryptedSecret"]');
+    var errDiv = document.createElement('div');
+    errDiv.style.cssText = 'display:none;padding:8px;margin-bottom:8px;border:1px solid #a00;background:#fff0f0;color:#700;';
+    form.parentNode.insertBefore(errDiv, form);
+
+    form.addEventListener('submit', function (e) {
+        var errors = [];
+        var lookupKeyInput = form.querySelector('input[name="lookupKey"]');
+        var secretValueInput = form.querySelector('input[name="secretValue"]');
+        var lookupKey = lookupKeyInput.value.trim();
+        var secretValue = secretValueInput.value;
+
+        if (lookupKey && !SAFE_ID.test(lookupKey)) {
+            errors.push('Lookup Key must contain only letters, digits, dots, hyphens, and underscores. Do not enter a LOOKUP(...) or similar marker — type the key name only.');
+            lookupKeyInput.style.borderColor = '#a00';
+        } else {
+            lookupKeyInput.style.borderColor = '';
+        }
+        if (secretValue.trim().startsWith('ENC(')) {
+            errors.push('Secret Value must be the plain secret. Do not paste an ENC(...) encrypted value — type or paste the original password.');
+            secretValueInput.style.borderColor = '#a00';
+        } else {
+            secretValueInput.style.borderColor = '';
+        }
+
+        if (errors.length > 0) {
+            errDiv.innerHTML = errors.map(function (m) { return '<p style="margin:2px 0">' + m + '</p>'; }).join('');
+            errDiv.style.display = 'block';
+            e.preventDefault();
+        } else {
+            errDiv.style.display = 'none';
+        }
+    });
 }());
 </script>
 
