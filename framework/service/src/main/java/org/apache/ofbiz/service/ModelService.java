@@ -1675,7 +1675,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
                     } catch (GeneralException e) {
                         String errMsg = "Type conversion of field [" + paramName + "] to type [" + modelParam.getType() + "] failed for value \""
                                 + value + "\": " + e;
-                        Debug.logWarning("[ModelService.makeValid] : %s", MODULE, errMsg);
+                        Debug.logWarning("[ModelService.makeValid] : " + errMsg, MODULE);
                         if (errorMessages != null) {
                             errorMessages.add(errMsg);
                         }
