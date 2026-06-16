@@ -170,7 +170,6 @@ public final class ModelServiceReader implements Serializable {
         service.setSemaphore(UtilXml.checkEmpty(serviceElement.getAttribute("semaphore")).intern());
         service.setDefaultEntityName(UtilXml.checkEmpty(serviceElement.getAttribute("default-entity-name")).intern());
         service.setFromLoader(isFromURL ? readerURL.toExternalForm() : handler.getLoaderName());
-        service.setAction(UtilXml.checkEmpty(serviceElement.getAttribute("action")).intern());
 
         // these default to true; if anything but true, make false
         service.setAuth("true".equalsIgnoreCase(serviceElement.getAttribute("auth")));

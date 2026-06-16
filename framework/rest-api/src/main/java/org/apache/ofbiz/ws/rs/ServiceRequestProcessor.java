@@ -20,7 +20,6 @@ package org.apache.ofbiz.ws.rs;
 
 import java.util.Map;
 
-import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.GenericServiceException;
@@ -74,9 +73,6 @@ public class ServiceRequestProcessor {
             service = dispatchContext.getModelService(serviceName);
         } catch (GenericServiceException gse) {
             throw new NotFoundException(gse.getMessage());
-        }
-        if (UtilValidate.isNotEmpty(service.getAction()) && !service.getAction().equalsIgnoreCase(httpVerb)) {
-            throw new MethodNotAllowedException("HTTP " + httpVerb + " is not allowed on this service.");
         }
         Map<String, Object> serviceContext = dispatchContext.makeValidContext(serviceName, ModelService.IN_PARAM, requestMap);
         serviceContext.put("userLogin", userLogin);
