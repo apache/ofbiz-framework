@@ -466,6 +466,24 @@ under the License.
         <response name="success" type="view" value="ConnectionPoolStatus"/>
     </request-map>
 
+    <!-- Secret Manager requests -->
+    <request-map uri="EncryptValue">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EncryptValue"/>
+    </request-map>
+    <request-map uri="createEncryptedSecret">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="createEncryptedSecret"/>
+        <response name="success" type="view" value="EncryptValue"/>
+        <response name="error" type="view" value="EncryptValue"/>
+    </request-map>
+    <request-map uri="uploadEncryptedSecrets">
+        <security https="true" auth="true"/>
+        <event type="java" path="org.apache.ofbiz.webtools.secret.SecretManagerEvents" invoke="uploadEncryptedSecrets"/>
+        <response name="success" type="view" value="EncryptValue"/>
+        <response name="error" type="view" value="EncryptValue"/>
+    </request-map>
+
     <!-- ModelInducedFromDb requests-->
     <request-map uri="CreateModelInduceFromDb">
         <security https="true" auth="true"/>
@@ -727,6 +745,7 @@ under the License.
     <view-map name="EntitySyncStatus" type="screen" page="component://webtools/widget/EntitySyncScreens.xml#EntitySyncStatus"/>
     <view-map name="EntitySQLProcessor" type="screen" page="component://webtools/widget/EntityScreens.xml#EntitySQLProcessor"/>
     <view-map name="ConnectionPoolStatus" type="screen" page="component://webtools/widget/EntityScreens.xml#ConnectionPoolStatus"/>
+    <view-map name="EncryptValue" type="screen" page="component://webtools/widget/SecretManagerScreens.xml#EncryptValue"/>
     <view-map name="EntityExportAll" type="screen" page="component://webtools/widget/EntityScreens.xml#EntityExportAll"/>
     <view-map name="ProgramExport" type="screen" page="component://webtools/widget/EntityScreens.xml#ProgramExport"/>
     <view-map name="EntityImportDir" type="screen" page="component://webtools/widget/EntityScreens.xml#EntityImportDir"/>

@@ -122,6 +122,18 @@ under the License.
           if the user has the ENTITY_MAINT permission.</description>
         <implements service="permissionInterface"/>
     </service>
+    <service name="createEncryptedSecret" engine="java"
+            location="org.apache.ofbiz.webtools.secret.SecretManagerServices" invoke="createEncryptedSecret" auth="true" use-transaction="true">
+        <description>Encrypts a secret value with ConfigCryptoUtil (AES-256-GCM, keyed by the OFBIZ_MASTER_KEY
+            environment variable) and stores the resulting ENC(...) value either as a SystemProperty.systemPropertyValue
+            or as a jdbc-password.&lt;lookupKey&gt; entry in passwords.properties.</description>
+        <permission-service service-name="entityMaintPermCheck" main-action="VIEW"/>
+        <attribute name="secretTarget" type="String" mode="IN" optional="false"/>
+        <attribute name="systemResourceId" type="String" mode="IN" optional="true"/>
+        <attribute name="systemPropertyId" type="String" mode="IN" optional="true"/>
+        <attribute name="lookupKey" type="String" mode="IN" optional="true"/>
+        <attribute name="secretValue" type="String" mode="IN" optional="false" allow-html="any"/>
+    </service>
     <service name="exportServiceEoModelBundle" engine="java" location="org.apache.ofbiz.webtools.WebToolsServices" invoke="exportServiceEoModelBundle" auth="true" use-transaction="false">
         <description>Saves service and related artifacts diagram to an Apple EOModelBundle file.
         </description>

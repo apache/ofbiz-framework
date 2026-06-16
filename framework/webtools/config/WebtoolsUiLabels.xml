@@ -2016,6 +2016,83 @@
         <value xml:lang="zh">实体XML表述</value>
         <value xml:lang="zh-TW">資料實體XML表述</value>
     </property>
+    <property key="WebtoolsEncryptValue">
+        <value xml:lang="en">Encrypt Value</value>
+    </property>
+    <property key="WebtoolsSecretManagerTools">
+        <value xml:lang="en">Secret Manager Tools</value>
+    </property>
+    <property key="WebtoolsEncryptValueInfo">
+        <value xml:lang="en">Encrypt a secret value with AES-256-GCM (using the server's OFBIZ_MASTER_KEY) and store
+            the result either in a SystemProperty record or in framework/base/config/passwords.properties.
+            The encrypted value is not displayed. If the target SystemProperty record or
+            passwords.properties entry already exists, it is updated with the new encrypted value;
+            otherwise it is created.</value>
+    </property>
+    <property key="WebtoolsSecretSystemPropertyRequiredInfo">
+        <value xml:lang="en">For SystemProperty: Resource ID and Property ID are required. Lookup Key
+            is optional.</value>
+    </property>
+    <property key="WebtoolsSecretPasswordsFileRequiredInfo">
+        <value xml:lang="en">For passwords.properties: Lookup Key is always required.
+            Leave Resource ID and Property ID empty to write only to passwords.properties
+            (entityengine.xml jdbc-password-lookup use-case).
+            Provide all four fields to also update the matching property file on disk
+            (sets &lt;propertyId&gt;=SECRET(&lt;lookupKey&gt;)) and refresh the in-memory
+            property cache — no server restart needed.</value>
+    </property>
+    <property key="WebtoolsSecretTarget">
+        <value xml:lang="en">Store In</value>
+    </property>
+    <property key="WebtoolsSecretTargetSystemProperty">
+        <value xml:lang="en">SystemProperty entity</value>
+    </property>
+    <property key="WebtoolsSecretTargetPasswordsFile">
+        <value xml:lang="en">passwords.properties</value>
+    </property>
+    <property key="WebtoolsSecretSystemResourceId">
+        <value xml:lang="en">System Resource ID (SystemProperty)</value>
+    </property>
+    <property key="WebtoolsSecretSystemPropertyId">
+        <value xml:lang="en">System Property ID (SystemProperty)</value>
+    </property>
+    <property key="WebtoolsSecretFileResourceId">
+        <value xml:lang="en">Resource ID (Property File)</value>
+    </property>
+    <property key="WebtoolsSecretFilePropertyId">
+        <value xml:lang="en">Property ID (Property File)</value>
+    </property>
+    <property key="WebtoolsSecretLookupKey">
+        <value xml:lang="en">Lookup Key</value>
+    </property>
+    <property key="WebtoolsSecretLookupKeyInfo">
+        <value xml:lang="en">Required for passwords.properties. When Resource ID and Property ID are empty,
+            stored as jdbc-password.&lt;lookupKey&gt; (entityengine.xml use-case). When all four fields are
+            provided, stored as &lt;lookupKey&gt; directly (property file use-case).
+            Optional for SystemProperty: if set, systemPropertyLookup is set to SECRET(&lt;lookupKey&gt;)
+            so a configured remote secret provider is tried first.</value>
+    </property>
+    <property key="WebtoolsSecretValue">
+        <value xml:lang="en">Secret Value</value>
+    </property>
+    <property key="WebtoolsSecretEncryptAndSave">
+        <value xml:lang="en">Encrypt and Save</value>
+    </property>
+    <property key="WebtoolsSecretCsvUploadInfo">
+        <value xml:lang="en">Or upload a CSV file to create multiple secrets at once:</value>
+    </property>
+    <property key="WebtoolsSecretCsvColumns">
+        <value xml:lang="en">Columns (header row required): target, systemResourceId, systemPropertyId, lookupKey, secretValue</value>
+    </property>
+    <property key="WebtoolsSecretCsvTargetInfo">
+        <value xml:lang="en">target is SYSTEM_PROPERTY or PASSWORDS_FILE; leave unused columns empty</value>
+    </property>
+    <property key="WebtoolsSecretCsvFile">
+        <value xml:lang="en">CSV File</value>
+    </property>
+    <property key="WebtoolsSecretUploadAndEncrypt">
+        <value xml:lang="en">Upload and Encrypt</value>
+    </property>
     <property key="WebtoolsEntityXMLTools">
         <value xml:lang="de">Entität XML Tools</value>
         <value xml:lang="en">Entity XML Tools</value>
