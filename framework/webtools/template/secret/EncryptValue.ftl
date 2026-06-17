@@ -22,8 +22,8 @@ under the License.
 <details style="margin-bottom:8px;"><summary style="cursor:pointer;font-weight:bold;">Active Configuration</summary>
 <table class="basic-table" cellspacing="0" style="margin-top:4px;width:auto;">
   <tbody>
-    <#list activeSettings?keys as k>
-    <tr><td class="label" style="white-space:nowrap;">${k}</td><td><code>${activeSettings[k]}</code></td></tr>
+    <#list activeSettings as entry>
+    <tr><td class="label" style="white-space:nowrap;">${entry[0]}</td><td><code>${entry[1]}</code></td></tr>
     </#list>
   </tbody>
 </table>
@@ -329,7 +329,7 @@ under the License.
         ${uiLabelMap.WebtoolsSecretUsageTotalLookups}: <strong>${usageSummary.totalLookups!0}</strong> &nbsp;|&nbsp;
         ${uiLabelMap.WebtoolsSecretUsageCachedKeys}: <strong>${usageSummary.cachedKeys!0}</strong>
     </p>
-    <#if usageReport?has_content>
+    <#if usageReportRows?has_content>
         <table class="basic-table hover-bar" cellspacing="0">
             <thead>
                 <tr class="header-row">
@@ -340,13 +340,12 @@ under the License.
                 </tr>
             </thead>
             <tbody>
-                <#list usageReport?keys as key>
-                    <#assign stats = usageReport[key]/>
+                <#list usageReportRows as row>
                     <tr>
-                        <td title="${key}" style="max-width:240px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${key}</td>
-                        <td>${stats.hits!0}</td>
-                        <td>${stats.misses!0}</td>
-                        <td>${stats.total!0}</td>
+                        <td title="${row[0]}" style="max-width:240px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${row[0]}</td>
+                        <td>${row[1]}</td>
+                        <td>${row[2]}</td>
+                        <td>${row[3]}</td>
                     </tr>
                 </#list>
             </tbody>
