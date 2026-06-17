@@ -109,15 +109,23 @@ public class FallbackSecretProviderTest {
         AtomicBoolean fallbackClosed = new AtomicBoolean(false);
         SecretProvider primary = new SecretProvider() {
             @Override
-            public String getSecret(String key) { return ""; }
+            public String getSecret(String key) {
+                return "";
+            }
             @Override
-            public void close() { throw new RuntimeException("primary-close-error"); }
+            public void close() {
+                throw new RuntimeException("primary-close-error");
+            }
         };
         SecretProvider fallback = new SecretProvider() {
             @Override
-            public String getSecret(String key) { return ""; }
+            public String getSecret(String key) {
+                return "";
+            }
             @Override
-            public void close() { fallbackClosed.set(true); }
+            public void close() {
+                fallbackClosed.set(true);
+            }
         };
         try {
             new FallbackSecretProvider(primary, fallback).close();
@@ -130,18 +138,26 @@ public class FallbackSecretProviderTest {
     private static SecretProvider fixedProvider(String value, boolean fallbackEnabled) {
         return new SecretProvider() {
             @Override
-            public String getSecret(String key) { return value; }
+            public String getSecret(String key) {
+                return value;
+            }
             @Override
-            public boolean isFallbackEnabled() { return fallbackEnabled; }
+            public boolean isFallbackEnabled() {
+                return fallbackEnabled;
+            }
         };
     }
 
     private static SecretProvider throwingProvider(GeneralException ex, boolean fallbackEnabled) {
         return new SecretProvider() {
             @Override
-            public String getSecret(String key) throws GeneralException { throw ex; }
+            public String getSecret(String key) throws GeneralException {
+                throw ex;
+            }
             @Override
-            public boolean isFallbackEnabled() { return fallbackEnabled; }
+            public boolean isFallbackEnabled() {
+                return fallbackEnabled;
+            }
         };
     }
 }
