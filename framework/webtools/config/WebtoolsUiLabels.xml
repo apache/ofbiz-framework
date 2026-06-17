@@ -2093,6 +2093,81 @@
     <property key="WebtoolsSecretUploadAndEncrypt">
         <value xml:lang="en">Upload and Encrypt</value>
     </property>
+    <property key="WebtoolsSecretConfirmValue">
+        <value xml:lang="en">Confirm Secret Value</value>
+    </property>
+    <property key="WebtoolsSecretConfirmValueMismatch">
+        <value xml:lang="en">Secret Value and Confirm Secret Value must match.</value>
+    </property>
+    <property key="WebtoolsSecretFlushCacheInfo">
+        <value xml:lang="en">Force an immediate re-fetch from the secret provider by flushing all cached values.
+            Use this after rotating a secret so the new value is picked up without restarting OFBiz.</value>
+    </property>
+    <property key="WebtoolsSecretFlushCache">
+        <value xml:lang="en">Flush Secret Cache</value>
+    </property>
+    <property key="WebtoolsSecretReloadProviderInfo">
+        <value xml:lang="en">Re-discover the active secret provider via ServiceLoader. Use this after deploying
+            a new vault plugin jar or editing that plugin's own connection settings, without restarting OFBiz.</value>
+    </property>
+    <property key="WebtoolsSecretReloadProvider">
+        <value xml:lang="en">Reload Secret Provider</value>
+    </property>
+    <property key="WebtoolsSecretSyncInfo">
+        <value xml:lang="en">Fetch the current value of a key from the active secret provider and re-encrypt it into
+            the local fallback snapshot. Use this after rotating a secret in the remote vault to keep the local
+            ENC(...) fallback (used when the vault is unreachable) up to date.</value>
+    </property>
+    <property key="WebtoolsSecretSync">
+        <value xml:lang="en">Sync From Provider</value>
+    </property>
+    <property key="WebtoolsSecretTestConnectionInfo">
+        <value xml:lang="en">Verify that the active secret provider is reachable by resolving a known key.
+            If the key exists the secret value is confirmed but never displayed.
+            A "key not found" response still confirms vault connectivity.</value>
+    </property>
+    <property key="WebtoolsSecretTestKey">
+        <value xml:lang="en">Test Key</value>
+    </property>
+    <property key="WebtoolsSecretTestConnection">
+        <value xml:lang="en">Test Connection</value>
+    </property>
+    <property key="WebtoolsSecretActiveProvider">
+        <value xml:lang="en">Active Secret Provider</value>
+    </property>
+    <property key="WebtoolsSecretUsageStatsInfo">
+        <value xml:lang="en">Secret lookup statistics since the last JVM start. Hit = served from cache; Miss = fetched from provider.</value>
+    </property>
+    <property key="WebtoolsSecretUsageStatsRefresh">
+        <value xml:lang="en">Show Usage Stats</value>
+    </property>
+    <property key="WebtoolsSecretUsageStatsReset">
+        <value xml:lang="en">Reset Stats</value>
+    </property>
+    <property key="WebtoolsSecretUsageTotalHits">
+        <value xml:lang="en">Cache Hits</value>
+    </property>
+    <property key="WebtoolsSecretUsageTotalMisses">
+        <value xml:lang="en">Provider Fetches</value>
+    </property>
+    <property key="WebtoolsSecretUsageTotalLookups">
+        <value xml:lang="en">Total Lookups</value>
+    </property>
+    <property key="WebtoolsSecretUsageCachedKeys">
+        <value xml:lang="en">Keys In Cache</value>
+    </property>
+    <property key="WebtoolsSecretUsageKey">
+        <value xml:lang="en">Secret Key</value>
+    </property>
+    <property key="WebtoolsSecretUsageHits">
+        <value xml:lang="en">Cache Hits</value>
+    </property>
+    <property key="WebtoolsSecretUsageMisses">
+        <value xml:lang="en">Provider Fetches</value>
+    </property>
+    <property key="WebtoolsSecretUsageTotal">
+        <value xml:lang="en">Total</value>
+    </property>
     <property key="WebtoolsEntityXMLTools">
         <value xml:lang="de">Entität XML Tools</value>
         <value xml:lang="en">Entity XML Tools</value>
@@ -4242,6 +4317,9 @@
         <value xml:lang="vi">Kiểm thử hiệu năng</value>
         <value xml:lang="zh">性能测试</value>
         <value xml:lang="zh-TW">性能測試</value>
+    </property>
+    <property key="WebtoolsSecretPermissionError">
+        <value xml:lang="en">You do not have permission to manage secrets. The SECRET_MAINT or ENTITY_MAINT permission is required.</value>
     </property>
     <property key="WebtoolsPermissionError">
         <value xml:lang="de">WebTools Autorisierungsfehler</value>

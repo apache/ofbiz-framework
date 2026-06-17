@@ -962,6 +962,26 @@ public class WebToolsServices {
         return resultMap;
     }
 
+    /**
+     * Performs a secret management security check. Returns hasPermission=true if the user has
+     * the {@code SECRET_MAINT} permission or the broader {@code ENTITY_MAINT} permission
+     * (backward-compatible: existing admins with ENTITY_MAINT are not locked out).
+     */
+    public static Map<String, Object> secretMaintPermCheck(DispatchContext dctx, Map<String, ? extends Object> context) {
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        Locale locale = (Locale) context.get("locale");
+        Security security = dctx.getSecurity();
+        if (security.hasPermission("SECRET_MAINT", userLogin) || security.hasPermission("ENTITY_MAINT", userLogin)) {
+            Map<String, Object> resultMap = ServiceUtil.returnSuccess();
+            resultMap.put("hasPermission", true);
+            return resultMap;
+        }
+        Map<String, Object> resultMap = ServiceUtil.returnFailure(
+                UtilProperties.getMessage(RESOURCE, "WebtoolsSecretPermissionError", locale));
+        resultMap.put("hasPermission", false);
+        return resultMap;
+    }
+
 
     public static Map<String, Object> exportServiceEoModelBundle(DispatchContext dctx, Map<String, ? extends Object> context) {
         String eomodeldFullPath = (String) context.get("eomodeldFullPath");

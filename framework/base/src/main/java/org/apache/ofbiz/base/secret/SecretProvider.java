@@ -50,9 +50,20 @@ public interface SecretProvider {
     /**
      * Returns the secret value for the given key.
      *
+     * <p><strong>Contract when the key does not exist:</strong> implementations must throw
+     * {@link GeneralException} rather than returning {@code null} or an empty string.
+     * {@link FallbackSecretProvider} and {@link SecretValueResolver} rely on the exception to
+     * distinguish "key not present" from a successful empty-value lookup. Exception messages
+     * should contain text such as {@code "not found"}, {@code "NotFound"}, or
+     * {@code "does not exist"} so that callers (e.g. {@link
+     * org.apache.ofbiz.webtools.secret.SecretManagerServices#testSecretProviderConnection})
+     * can tell the difference between a missing key and a connectivity failure.</p>
+     *
      * @param key the identifier for the secret (e.g. {@code "jdbc-password.mydb"})
-     * @return the resolved secret value, never {@code null} or empty
-     * @throws GeneralException if the secret cannot be found or an error occurs during resolution
+     * @return the resolved secret value; never {@code null} or empty
+     * @throws GeneralException if the secret cannot be found or an error occurs during resolution;
+     *                          for a missing key the message should include "not found", "NotFound",
+     *                          or "does not exist"
      */
     String getSecret(String key) throws GeneralException;
 
@@ -71,4 +82,32 @@ public interface SecretProvider {
     default boolean isFallbackEnabled() {
         return true;
     }
+
+    /**
+     * Releases any resources held by this provider (e.g. HTTP connection pools, SDK clients).
+     * Called automatically by {@link SecretProviderFactory} via a JVM shutdown hook.
+     *
+     * <p>Implementations that hold long-lived SDK clients (e.g. AWS {@code SecretsManagerClient},
+     * GCP {@code SecretManagerServiceClient}) should override this method to close them cleanly.</p>
+     *
+     * <p>The default implementation is a no-op, so providers with no closeable resources do not
+     * need to override it.</p>
+     */
+    default void close() { }
+
+    /**
+     * Clears any secret values this provider has cached in memory, forcing the next
+     * {@link #getSecret(String)} call for each key to re-fetch from the remote vault.
+     *
+     * <p>Implementations that cache resolved values (all of the bundled vault providers do, with a
+     * TTL configured via their own {@code <prefix>.cache.ttl.seconds} property) should override this
+     * method. It is called by {@link SecretProviderFactory#invalidateCache()}, which is in turn
+     * invoked by the Secret Manager admin screen's "Flush Secret Cache" action after a secret has
+     * been rotated in the remote vault, so the new value is picked up immediately without waiting
+     * for the provider's own TTL to expire.</p>
+     *
+     * <p>The default implementation is a no-op, so providers with no internal cache do not need to
+     * override it.</p>
+     */
+    default void invalidateCache() { }
 }

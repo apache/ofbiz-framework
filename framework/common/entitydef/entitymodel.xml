@@ -890,6 +890,7 @@ under the License.
         <field name="systemPropertyValue" type="value"></field>
         <field name="systemPropertyLookup" type="name"></field>
         <field name="description" type="description"></field>
+        <field name="lastRotatedDate" type="date-time"></field>
         <prim-key field="systemResourceId"/>
         <prim-key field="systemPropertyId"/>
     </entity>

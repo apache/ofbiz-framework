@@ -54,6 +54,12 @@ under the License.
             </condition>
             <link target="security"/>
         </menu-item>
+        <menu-item name="secretManager" title="${uiLabelMap.WebtoolsSecretManagerTools}">
+            <condition>
+                <if-service-permission service-name="entityMaintPermCheck" main-action="VIEW"/>
+            </condition>
+            <link target="EncryptValue"/>
+        </menu-item>
         <menu-item name="LayoutDemo" title="${uiLabelMap.WebtoolsLayoutDemo}">
             <link target="WebtoolsLayoutDemo" />
         </menu-item>

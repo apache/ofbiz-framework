@@ -21,11 +21,13 @@ package org.apache.ofbiz.base.crypto;
 import java.nio.charset.StandardCharsets;
 import java.security.GeneralSecurityException;
 import java.util.Base64;
+import java.util.Properties;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 
 import org.apache.ofbiz.base.util.GeneralException;
+import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.shiro.crypto.CryptoException;
 import org.apache.shiro.crypto.cipher.AesCipherService;
 import org.apache.shiro.lang.util.ByteSource;
@@ -47,13 +49,38 @@ public final class ConfigCryptoUtil {
     // Static salt: the master key is the actual secret; the salt only needs to defeat
     // precomputed rainbow tables, not provide per-installation uniqueness.
     private static final byte[] SALT = "OFBizConfigCryptoUtilSalt".getBytes(StandardCharsets.UTF_8);
-    private static final int ITERATIONS = 10000;
     private static final int KEY_LENGTH_BITS = 256;
 
     // Note: AesCipherService derives the GCM tag length from getKeySize(), which must stay at
     // its default of 128 (a valid GCM tag length). The 256-bit AES key below is passed directly
     // to encrypt/decrypt and does not depend on this setting.
     private static final AesCipherService CIPHER_SERVICE = new AesCipherService();
+
+    // Read config once at class-load time using raw Properties to avoid re-entrancy via
+    // UtilProperties.getPropertyValue() → SecretValueResolver → ConfigCryptoUtil.
+    private static final Properties SECURITY_PROPERTIES = UtilProperties.getProperties("security");
+
+    /** Name of the environment variable holding the AES master key; configurable via secret.master.key.env.var. */
+    public static final String MASTER_KEY_ENV_VAR = SECURITY_PROPERTIES != null
+            ? SECURITY_PROPERTIES.getProperty("secret.master.key.env.var", "OFBIZ_MASTER_KEY").trim()
+            : "OFBIZ_MASTER_KEY";
+
+    // PBKDF2 iteration count. Raising this requires re-encrypting all existing ENC(...) values
+    // because the derived AES key changes when the iteration count changes.
+    static final int ITERATIONS = readIterations();
+
+    private static int readIterations() {
+        if (SECURITY_PROPERTIES == null) {
+            return 310000;
+        }
+        try {
+            int v = Integer.parseInt(
+                    SECURITY_PROPERTIES.getProperty("secret.pbkdf2.iterations", "310000").trim());
+            return v > 0 ? v : 310000;
+        } catch (NumberFormatException e) {
+            return 310000;
+        }
+    }
 
     private static byte[] deriveKey(String masterKey) throws GeneralSecurityException {
         SecretKeyFactory factory = SecretKeyFactory.getInstance(KEY_DERIVATION_ALGORITHM);
@@ -70,6 +97,9 @@ public final class ConfigCryptoUtil {
      * @return Base64 string containing the random IV followed by the ciphertext (with GCM auth tag)
      */
     public static String encrypt(String plainText, String masterKey) throws GeneralException {
+        if (masterKey == null || masterKey.isEmpty()) {
+            throw new GeneralException("masterKey must not be null or empty");
+        }
         try {
             byte[] key = deriveKey(masterKey);
             ByteSource encrypted = CIPHER_SERVICE.encrypt(plainText.getBytes(StandardCharsets.UTF_8), key);
@@ -84,6 +114,9 @@ public final class ConfigCryptoUtil {
      * and lets {@link AesCipherService} split the IV from the ciphertext and decrypt.
      */
     public static String decrypt(String encryptedBase64, String masterKey) throws GeneralException {
+        if (masterKey == null || masterKey.isEmpty()) {
+            throw new GeneralException("masterKey must not be null or empty");
+        }
         try {
             byte[] key = deriveKey(masterKey);
             byte[] payload = Base64.getDecoder().decode(encryptedBase64);
@@ -113,10 +146,10 @@ public final class ConfigCryptoUtil {
         if (!rawValue.startsWith("ENC(") || !rawValue.endsWith(")")) {
             return rawValue;
         }
-        String masterKey = System.getenv("OFBIZ_MASTER_KEY");
+        String masterKey = System.getenv(MASTER_KEY_ENV_VAR);
         if (masterKey == null || masterKey.isEmpty()) {
             throw new GeneralException("Secret '" + secretName + "' is encrypted (ENC(...)) but the "
-                    + "OFBIZ_MASTER_KEY environment variable is not set");
+                    + MASTER_KEY_ENV_VAR + " environment variable is not set");
         }
         String base64 = rawValue.substring("ENC(".length(), rawValue.length() - 1);
         try {

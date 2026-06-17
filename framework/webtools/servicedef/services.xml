@@ -122,17 +122,69 @@ under the License.
           if the user has the ENTITY_MAINT permission.</description>
         <implements service="permissionInterface"/>
     </service>
+    <service name="secretMaintPermCheck" engine="java"
+            location="org.apache.ofbiz.webtools.WebToolsServices" invoke="secretMaintPermCheck">
+        <description>Returns hasPermission=true if the user holds the SECRET_MAINT permission
+            (or the broader ENTITY_MAINT permission for backward compatibility).</description>
+        <implements service="permissionInterface"/>
+    </service>
     <service name="createEncryptedSecret" engine="java"
             location="org.apache.ofbiz.webtools.secret.SecretManagerServices" invoke="createEncryptedSecret" auth="true" use-transaction="true">
         <description>Encrypts a secret value with ConfigCryptoUtil (AES-256-GCM, keyed by the OFBIZ_MASTER_KEY
             environment variable) and stores the resulting ENC(...) value either as a SystemProperty.systemPropertyValue
             or as a jdbc-password.&lt;lookupKey&gt; entry in passwords.properties.</description>
-        <permission-service service-name="entityMaintPermCheck" main-action="VIEW"/>
+        <permission-service service-name="secretMaintPermCheck" main-action="VIEW"/>
         <attribute name="secretTarget" type="String" mode="IN" optional="false"/>
         <attribute name="systemResourceId" type="String" mode="IN" optional="true"/>
         <attribute name="systemPropertyId" type="String" mode="IN" optional="true"/>
         <attribute name="lookupKey" type="String" mode="IN" optional="true"/>
         <attribute name="secretValue" type="String" mode="IN" optional="false" allow-html="any"/>
+        <attribute name="secretValueConfirm" type="String" mode="IN" optional="true" allow-html="any"/>
+    </service>
+    <service name="flushSecretCache" engine="java"
+            location="org.apache.ofbiz.webtools.secret.SecretManagerServices" invoke="flushSecretCache" auth="true" use-transaction="false">
+        <description>Flushes all in-memory cached secret values (SecretValueResolver TTL cache, the UtilProperties
+            file cache, and the active SecretProvider's own internal cache) so the next lookup re-fetches from the
+            provider. Useful after a secret rotation.</description>
+        <permission-service service-name="secretMaintPermCheck" main-action="VIEW"/>
+    </service>
+    <service name="reloadSecretProvider" engine="java"
+            location="org.apache.ofbiz.webtools.secret.SecretManagerServices" invoke="reloadSecretProvider" auth="true" use-transaction="false">
+        <description>Re-runs ServiceLoader discovery and replaces the active SecretProvider instance. Useful after
+            deploying a new vault plugin jar or editing that plugin's own connection settings without a restart.</description>
+        <permission-service service-name="secretMaintPermCheck" main-action="VIEW"/>
+    </service>
+    <service name="syncSecretFromProvider" engine="java"
+            location="org.apache.ofbiz.webtools.secret.SecretManagerServices" invoke="syncSecretFromProvider" auth="true" use-transaction="true">
+        <description>Fetches the current value of lookupKey from the active SecretProvider and re-encrypts it into
+            the local fallback snapshot (passwords.properties or SystemProperty.systemPropertyValue), keeping the
+            ENC(...) value used when the remote vault is unreachable in sync with the latest rotation.</description>
+        <permission-service service-name="secretMaintPermCheck" main-action="VIEW"/>
+        <attribute name="secretTarget" type="String" mode="IN" optional="false"/>
+        <attribute name="systemResourceId" type="String" mode="IN" optional="true"/>
+        <attribute name="systemPropertyId" type="String" mode="IN" optional="true"/>
+        <attribute name="lookupKey" type="String" mode="IN" optional="false"/>
+    </service>
+    <service name="testSecretProviderConnection" engine="java"
+            location="org.apache.ofbiz.webtools.secret.SecretManagerServices" invoke="testSecretProviderConnection" auth="true" use-transaction="false">
+        <description>Tests connectivity to the active SecretProvider by resolving a given key.
+            Distinguishes "connected but key not found" from a real connection failure.</description>
+        <permission-service service-name="secretMaintPermCheck" main-action="VIEW"/>
+        <attribute name="testKey" type="String" mode="IN" optional="false"/>
+    </service>
+    <service name="getSecretUsageStats" engine="java"
+            location="org.apache.ofbiz.webtools.secret.SecretManagerServices" invoke="getSecretUsageStats" auth="true" use-transaction="false">
+        <description>Returns in-memory usage statistics (hit/miss counts) for the SecretValueResolver cache
+            since the last JVM start, for display in the Secret Manager admin screen.</description>
+        <permission-service service-name="secretMaintPermCheck" main-action="VIEW"/>
+        <attribute name="usageSummary" type="java.util.Map" mode="OUT" optional="true"/>
+        <attribute name="usageReport" type="java.util.Map" mode="OUT" optional="true"/>
+    </service>
+    <service name="resetSecretUsageStats" engine="java"
+            location="org.apache.ofbiz.webtools.secret.SecretManagerServices" invoke="resetSecretUsageStats" auth="true" use-transaction="false">
+        <description>Resets in-memory secret usage counters to zero so operators can observe
+            clean post-rotation metrics without a JVM restart.</description>
+        <permission-service service-name="secretMaintPermCheck" main-action="VIEW"/>
     </service>
     <service name="exportServiceEoModelBundle" engine="java" location="org.apache.ofbiz.webtools.WebToolsServices" invoke="exportServiceEoModelBundle" auth="true" use-transaction="false">
         <description>Saves service and related artifacts diagram to an Apple EOModelBundle file.

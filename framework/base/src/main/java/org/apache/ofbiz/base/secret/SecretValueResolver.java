@@ -18,11 +18,20 @@
  *******************************************************************************/
 package org.apache.ofbiz.base.secret;
 
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.Map;
+import java.util.Set;
 import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.ofbiz.base.lang.ThreadSafe;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.UtilProperties;
@@ -52,6 +61,7 @@ import org.apache.ofbiz.base.util.UtilProperties;
  * (default 300) to avoid calling the remote secret manager on every property
  * lookup.</p>
  */
+@ThreadSafe
 public final class SecretValueResolver {
 
     private static final String MODULE = SecretValueResolver.class.getName();
@@ -68,11 +78,52 @@ public final class SecretValueResolver {
     private static final Pattern SECRET_PATTERN =
             Pattern.compile("^" + Pattern.quote(MARKER_NAME) + "\\((.+)\\)$");
 
-    private static final long CACHE_TTL_MILLIS = (SECURITY_PROPERTIES != null
-            ? Long.parseLong(SECURITY_PROPERTIES.getProperty("secret.cache.ttl.seconds", "300").trim())
-            : 300L) * 1000L;
+    // Cap at 86400 seconds (24 h) to prevent silent long-overflow when an operator enters
+    // an unreasonably large value in security.properties.
+    private static final long MAX_TTL_SECONDS = 86400L;
+    private static final long CACHE_TTL_MILLIS = parseTtlMillis();
+
+    private static long parseTtlMillis() {
+        long seconds = 300L;
+        if (SECURITY_PROPERTIES != null) {
+            try {
+                seconds = Long.parseLong(
+                        SECURITY_PROPERTIES.getProperty("secret.cache.ttl.seconds", "300").trim());
+            } catch (NumberFormatException ignored) {
+                seconds = 300L;
+            }
+        }
+        return Math.min(Math.max(seconds, 1L), MAX_TTL_SECONDS) * 1000L;
+    }
 
     private static final ConcurrentHashMap<String, CacheEntry> CACHE = new ConcurrentHashMap<>();
+
+    // Per-key locks used for stampede protection: only one thread fetches from the provider
+    // when a cache entry expires; others wait and then read the freshly cached value.
+    private static final ConcurrentHashMap<String, Object> KEY_LOCKS = new ConcurrentHashMap<>();
+
+    // Usage counters — incremented every time resolveKey() is called.
+    private static final AtomicLong TOTAL_HITS = new AtomicLong();
+    private static final AtomicLong TOTAL_MISSES = new AtomicLong();
+    private static final ConcurrentHashMap<String, AtomicLong> KEY_HIT_COUNTS = new ConcurrentHashMap<>();
+    private static final ConcurrentHashMap<String, AtomicLong> KEY_MISS_COUNTS = new ConcurrentHashMap<>();
+
+    // Daemon thread that sweeps expired entries so stale keys don't accumulate indefinitely.
+    private static final ScheduledExecutorService EVICTION_EXECUTOR;
+    static {
+        ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor(r -> {
+            Thread t = new Thread(r, "SecretValueResolver-CacheEviction");
+            t.setDaemon(true);
+            return t;
+        });
+        executor.scheduleAtFixedRate(() -> {
+            long now = System.currentTimeMillis();
+            CACHE.entrySet().removeIf(e -> e.getValue().expiry <= now);
+            // Remove per-key locks for keys no longer in the cache to prevent unbounded growth.
+            KEY_LOCKS.keySet().removeIf(k -> !CACHE.containsKey(k));
+        }, CACHE_TTL_MILLIS, CACHE_TTL_MILLIS, TimeUnit.MILLISECONDS);
+        EVICTION_EXECUTOR = executor;
+    }
 
     private SecretValueResolver() { }
 
@@ -113,16 +164,140 @@ public final class SecretValueResolver {
         }
         CacheEntry cached = CACHE.get(key);
         if (cached != null && cached.expiry > System.currentTimeMillis()) {
+            TOTAL_HITS.incrementAndGet();
+            KEY_HIT_COUNTS.computeIfAbsent(key, k -> new AtomicLong()).incrementAndGet();
             return cached.value;
         }
-        try {
-            String secret = SecretProviderFactory.getInstance().getSecret(key);
-            CACHE.put(key, new CacheEntry(secret, System.currentTimeMillis() + CACHE_TTL_MILLIS));
-            return secret;
-        } catch (GeneralException e) {
-            Debug.logError("SecretValueResolver: failed to resolve secret '" + key + "': " + e.getMessage(), MODULE);
-            return "";
+        // Per-key lock: only the first thread that finds a stale/absent entry fetches from the
+        // provider. All other threads for the same key wait, then read the freshly cached value.
+        Object lock = KEY_LOCKS.computeIfAbsent(key, k -> new Object());
+        synchronized (lock) {
+            // Double-check: another thread may have populated the cache while we waited.
+            CacheEntry rechecked = CACHE.get(key);
+            if (rechecked != null && rechecked.expiry > System.currentTimeMillis()) {
+                TOTAL_HITS.incrementAndGet();
+                KEY_HIT_COUNTS.computeIfAbsent(key, k -> new AtomicLong()).incrementAndGet();
+                return rechecked.value;
+            }
+            try {
+                String secret = SecretProviderFactory.getInstance().getSecret(key);
+                CACHE.put(key, new CacheEntry(secret, System.currentTimeMillis() + CACHE_TTL_MILLIS));
+                TOTAL_MISSES.incrementAndGet();
+                KEY_MISS_COUNTS.computeIfAbsent(key, k -> new AtomicLong()).incrementAndGet();
+                return secret;
+            } catch (GeneralException e) {
+                // Log only the exception type — never e.getMessage() — to prevent a provider that
+                // accidentally embeds a secret value in its error message from leaking it to the log.
+                Debug.logError("SecretValueResolver: failed to resolve secret '" + key
+                        + "' (" + e.getClass().getSimpleName() + ")", MODULE);
+                TOTAL_MISSES.incrementAndGet();
+                KEY_MISS_COUNTS.computeIfAbsent(key, k -> new AtomicLong()).incrementAndGet();
+                return "";
+            }
         }
+    }
+
+    /**
+     * Redacts sensitive patterns from a string before it is used in a log message or UI output.
+     * Currently masks {@code ENC(...)} blobs (replacing the base64 payload with {@code ***}) so
+     * that encrypted config values logged by accident are not directly usable.
+     *
+     * @param value the string to sanitize, possibly {@code null}
+     * @return the sanitized string, or {@code null} if the input is {@code null}
+     */
+    public static String maskSensitive(String value) {
+        if (value == null) {
+            return null;
+        }
+        return value.replaceAll("ENC\\([^)]*\\)", "ENC(***)");
+    }
+
+    /**
+     * Removes the cached value for {@code key}, forcing the next {@link #resolve(String)} or
+     * {@link #resolveKey(String)} call to re-fetch from the provider. Call this after writing a
+     * new encrypted value for {@code key} so the update is visible immediately without waiting for
+     * the TTL to expire.
+     *
+     * @param key the raw secret key (without any {@code LOOKUP(...)} wrapper), or {@code null} to no-op
+     */
+    public static void invalidate(String key) {
+        if (key != null) {
+            CACHE.remove(key);
+            KEY_LOCKS.remove(key);
+        }
+    }
+
+    /**
+     * Clears all cached secret values, forcing every subsequent lookup to re-fetch from the
+     * provider. Useful after a bulk secret rotation or when an admin explicitly flushes the cache
+     * via the Secret Manager admin screen.
+     */
+    public static void invalidateAll() {
+        CACHE.clear();
+        KEY_LOCKS.clear();
+        Debug.logInfo("SecretValueResolver: secret value cache flushed", MODULE);
+    }
+
+    /**
+     * Resets all in-memory usage counters to zero. Useful when an operator wants to observe
+     * clean post-rotation metrics without waiting for a JVM restart.
+     */
+    public static void resetUsageStats() {
+        TOTAL_HITS.set(0);
+        TOTAL_MISSES.set(0);
+        KEY_HIT_COUNTS.clear();
+        KEY_MISS_COUNTS.clear();
+        Debug.logInfo("SecretValueResolver: usage stats reset", MODULE);
+    }
+
+    /**
+     * Returns a snapshot of usage statistics for the secret value cache. Each entry in the
+     * returned map represents one unique key that has been looked up since the last JVM start.
+     * The map is sorted by total lookup count (descending) for easy review in the admin UI.
+     *
+     * <p>Map structure: {@code key → {"hits": n, "misses": m, "total": n+m}}</p>
+     */
+    public static Map<String, Map<String, Long>> getUsageReport() {
+        // Collect all known keys from both hit and miss maps.
+        Set<String> keys = new LinkedHashSet<>(KEY_HIT_COUNTS.keySet());
+        keys.addAll(KEY_MISS_COUNTS.keySet());
+
+        Map<String, Map<String, Long>> report = new LinkedHashMap<>();
+        keys.stream()
+                .sorted((a, b) -> {
+                    long totalA = getCount(KEY_HIT_COUNTS, a) + getCount(KEY_MISS_COUNTS, a);
+                    long totalB = getCount(KEY_HIT_COUNTS, b) + getCount(KEY_MISS_COUNTS, b);
+                    return Long.compare(totalB, totalA); // descending
+                })
+                .forEach(key -> {
+                    long hits = getCount(KEY_HIT_COUNTS, key);
+                    long misses = getCount(KEY_MISS_COUNTS, key);
+                    Map<String, Long> stats = new LinkedHashMap<>();
+                    stats.put("hits", hits);
+                    stats.put("misses", misses);
+                    stats.put("total", hits + misses);
+                    report.put(key, stats);
+                });
+        return report;
+    }
+
+    /** Returns the aggregate hit and miss totals since JVM start as a simple summary map. */
+    public static Map<String, Long> getUsageSummary() {
+        // Capture atomics once to avoid a TOCTOU race where a concurrent hit/miss
+        // arrives between two get() calls and makes totalLookups != totalHits + totalMisses.
+        long hits = TOTAL_HITS.get();
+        long misses = TOTAL_MISSES.get();
+        Map<String, Long> summary = new LinkedHashMap<>();
+        summary.put("totalHits", hits);
+        summary.put("totalMisses", misses);
+        summary.put("totalLookups", hits + misses);
+        summary.put("cachedKeys", (long) CACHE.size());
+        return summary;
+    }
+
+    private static long getCount(ConcurrentHashMap<String, AtomicLong> map, String key) {
+        AtomicLong counter = map.get(key);
+        return counter == null ? 0L : counter.get();
     }
 
     private static final class CacheEntry {

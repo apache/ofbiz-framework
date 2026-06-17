@@ -483,6 +483,42 @@ under the License.
         <response name="success" type="view" value="EncryptValue"/>
         <response name="error" type="view" value="EncryptValue"/>
     </request-map>
+    <request-map uri="flushSecretCache">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="flushSecretCache"/>
+        <response name="success" type="view" value="EncryptValue"/>
+        <response name="error" type="view" value="EncryptValue"/>
+    </request-map>
+    <request-map uri="reloadSecretProvider">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="reloadSecretProvider"/>
+        <response name="success" type="view" value="EncryptValue"/>
+        <response name="error" type="view" value="EncryptValue"/>
+    </request-map>
+    <request-map uri="syncSecretFromProvider">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="syncSecretFromProvider"/>
+        <response name="success" type="view" value="EncryptValue"/>
+        <response name="error" type="view" value="EncryptValue"/>
+    </request-map>
+    <request-map uri="testSecretProviderConnection">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="testSecretProviderConnection"/>
+        <response name="success" type="view" value="EncryptValue"/>
+        <response name="error" type="view" value="EncryptValue"/>
+    </request-map>
+    <request-map uri="getSecretUsageStats">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="getSecretUsageStats"/>
+        <response name="success" type="view" value="EncryptValue"/>
+        <response name="error" type="view" value="EncryptValue"/>
+    </request-map>
+    <request-map uri="resetSecretUsageStats">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="resetSecretUsageStats"/>
+        <response name="success" type="view" value="EncryptValue"/>
+        <response name="error" type="view" value="EncryptValue"/>
+    </request-map>
 
     <!-- ModelInducedFromDb requests-->
     <request-map uri="CreateModelInduceFromDb">

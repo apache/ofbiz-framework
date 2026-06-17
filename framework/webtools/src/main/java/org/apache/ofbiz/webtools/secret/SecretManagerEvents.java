@@ -27,7 +27,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.regex.Pattern;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -65,8 +64,6 @@ public final class SecretManagerEvents {
             List.of("target", "systemResourceId", "systemPropertyId", "lookupKey", "secretValue");
     private static final Set<String> VALID_TARGETS = Set.of(
             SecretManagerServices.TARGET_SYSTEM_PROPERTY, SecretManagerServices.TARGET_PASSWORDS_FILE);
-    /** Allows only letters, digits, dots, hyphens, underscores — prevents path traversal and property-file injection. */
-    private static final Pattern SAFE_IDENTIFIER = Pattern.compile("^[\\w.\\-]+$");
 
     private SecretManagerEvents() { }
 
@@ -75,7 +72,9 @@ public final class SecretManagerEvents {
         Security security = (Security) request.getAttribute("security");
         GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
 
-        if (security == null || !security.hasPermission("ENTITY_MAINT", userLogin)) {
+        if (security == null
+                || (!security.hasPermission("SECRET_MAINT", userLogin)
+                        && !security.hasPermission("ENTITY_MAINT", userLogin))) {
             request.setAttribute("_ERROR_MESSAGE_", "You do not have permission to perform this operation");
             return "error";
         }
@@ -118,6 +117,7 @@ public final class SecretManagerEvents {
                 long rowNum = record.getRecordNumber() + 1;
                 try {
                     SecretManagerServices.storeEncryptedSecret(delegator,
+                            userLogin,
                             getColumn(record, "target"),
                             getColumn(record, "systemResourceId"),
                             getColumn(record, "systemPropertyId"),
@@ -167,7 +167,7 @@ public final class SecretManagerEvents {
      *       {@code ..} path-traversal sequences.</li>
      * </ul>
      */
-    private static List<String> validateCsvContent(byte[] csvBytes) throws IOException {
+    static List<String> validateCsvContent(byte[] csvBytes) throws IOException {
         List<String> errors = new ArrayList<>();
 
         // Whole-file content scan using OFBiz's existing SecuredUpload allow-list validator.
@@ -223,16 +223,21 @@ public final class SecretManagerEvents {
         return errors;
     }
 
-    /** Validates that {@code value} contains only safe identifier characters and no {@code ..}. */
+    /** Validates that {@code value} contains only safe identifier characters, no {@code ..}, and is within length. */
     private static void validateIdentifier(List<String> errors, long rowNum, String field, String value) {
         if (value == null) {
+            return;
+        }
+        if (value.length() > SecretManagerServices.MAX_KEY_LENGTH) {
+            errors.add("Row " + rowNum + ": '" + field + "' must not exceed "
+                    + SecretManagerServices.MAX_KEY_LENGTH + " characters");
             return;
         }
         if (value.contains("..")) {
             errors.add("Row " + rowNum + ": '" + field + "' must not contain '..' (path traversal)");
             return;
         }
-        if (!SAFE_IDENTIFIER.matcher(value).matches()) {
+        if (!SecretManagerServices.SAFE_IDENTIFIER.matcher(value).matches()) {
             errors.add("Row " + rowNum + ": '" + field
                     + "' contains invalid characters — only letters, digits, dots, hyphens, and underscores are allowed");
         }

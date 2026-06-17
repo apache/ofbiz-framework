@@ -17,6 +17,18 @@ specific language governing permissions and limitations
 under the License.
 -->
 
+<p><strong>${uiLabelMap.WebtoolsSecretActiveProvider}:</strong> ${activeSecretProvider!}</p>
+<#if activeSettings?has_content>
+<details style="margin-bottom:8px;"><summary style="cursor:pointer;font-weight:bold;">Active Configuration</summary>
+<table class="basic-table" cellspacing="0" style="margin-top:4px;width:auto;">
+  <tbody>
+    <#list activeSettings?keys as k>
+    <tr><td class="label" style="white-space:nowrap;">${k}</td><td><code>${activeSettings[k]}</code></td></tr>
+    </#list>
+  </tbody>
+</table>
+</details>
+</#if>
 <p>${uiLabelMap.WebtoolsEncryptValueInfo}</p>
 <ul>
     <li>${uiLabelMap.WebtoolsSecretSystemPropertyRequiredInfo}</li>
@@ -72,7 +84,7 @@ under the License.
                     <label>${uiLabelMap.WebtoolsSecretLookupKey}</label>
                 </td>
                 <td>
-                    <input type="text" size="40" name="lookupKey" value="${parameters.lookupKey!}"/>
+                    <input type="text" size="40" maxlength="256" name="lookupKey" value="${parameters.lookupKey!}"/>
                     <div>${uiLabelMap.WebtoolsSecretLookupKeyInfo}</div>
                 </td>
             </tr>
@@ -82,6 +94,14 @@ under the License.
                 </td>
                 <td>
                     <input type="password" size="40" name="secretValue" autocomplete="new-password"/>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">
+                    <label>${uiLabelMap.WebtoolsSecretConfirmValue}</label>
+                </td>
+                <td>
+                    <input type="password" size="40" name="secretValueConfirm" autocomplete="new-password"/>
                 </td>
             </tr>
             <tr>
@@ -129,11 +149,13 @@ under the License.
         var errors = [];
         var lookupKeyInput = form.querySelector('input[name="lookupKey"]');
         var secretValueInput = form.querySelector('input[name="secretValue"]');
+        var secretValueConfirmInput = form.querySelector('input[name="secretValueConfirm"]');
         var lookupKey = lookupKeyInput.value.trim();
         var secretValue = secretValueInput.value;
+        var secretValueConfirm = secretValueConfirmInput.value;
 
         if (lookupKey && !SAFE_ID.test(lookupKey)) {
-            errors.push('Lookup Key must contain only letters, digits, dots, hyphens, and underscores. Do not enter a LOOKUP(...) or similar marker — type the key name only.');
+            errors.push('Lookup Key must contain only letters, digits, dots, hyphens, and underscores. Do not enter a ${SecretValueMarker!"LOOKUP"}(...) or similar marker — type the key name only.');
             lookupKeyInput.style.borderColor = '#a00';
         } else {
             lookupKeyInput.style.borderColor = '';
@@ -144,6 +166,12 @@ under the License.
         } else {
             secretValueInput.style.borderColor = '';
         }
+        if (secretValue !== secretValueConfirm) {
+            errors.push('${uiLabelMap.WebtoolsSecretConfirmValueMismatch}');
+            secretValueConfirmInput.style.borderColor = '#a00';
+        } else {
+            secretValueConfirmInput.style.borderColor = '';
+        }
 
         if (errors.length > 0) {
             errDiv.innerHTML = errors.map(function (m) { return '<p style="margin:2px 0">' + m + '</p>'; }).join('');
@@ -152,6 +180,19 @@ under the License.
         } else {
             errDiv.style.display = 'none';
         }
+    });
+}());
+
+// Submit-in-progress feedback: disable submit button and show "Processing..." on all forms
+(function () {
+    document.querySelectorAll('form.basic-form').forEach(function (f) {
+        f.addEventListener('submit', function () {
+            var btn = f.querySelector('input[type="submit"]');
+            if (btn && !btn.disabled) {
+                btn.disabled = true;
+                btn.value = 'Processing…';
+            }
+        });
     });
 }());
 </script>
@@ -184,3 +225,131 @@ under the License.
         </tbody>
     </table>
 </form>
+
+<hr/>
+
+<p>${uiLabelMap.WebtoolsSecretFlushCacheInfo}</p>
+<form class="basic-form" method="post" action="<@ofbizUrl>flushSecretCache</@ofbizUrl>">
+    <input type="submit" value="${uiLabelMap.WebtoolsSecretFlushCache}"/>
+</form>
+
+<hr/>
+
+<p>${uiLabelMap.WebtoolsSecretReloadProviderInfo}</p>
+<form class="basic-form" method="post" action="<@ofbizUrl>reloadSecretProvider</@ofbizUrl>">
+    <input type="submit" value="${uiLabelMap.WebtoolsSecretReloadProvider}"/>
+</form>
+
+<hr/>
+
+<p>${uiLabelMap.WebtoolsSecretSyncInfo}</p>
+<form class="basic-form" method="post" action="<@ofbizUrl>syncSecretFromProvider</@ofbizUrl>">
+    <table class="basic-table" cellspacing="0">
+        <tbody>
+            <tr>
+                <td class="label">
+                    <label>${uiLabelMap.WebtoolsSecretTarget}</label>
+                </td>
+                <td>
+                    <label><input type="radio" name="secretTarget" value="SYSTEM_PROPERTY" checked="checked"/>${uiLabelMap.WebtoolsSecretTargetSystemProperty}</label>
+                    <label><input type="radio" name="secretTarget" value="PASSWORDS_FILE"/>${uiLabelMap.WebtoolsSecretTargetPasswordsFile}</label>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">
+                    <label>${uiLabelMap.WebtoolsSecretSystemResourceId}</label>
+                </td>
+                <td>
+                    <input type="text" size="40" name="systemResourceId"/>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">
+                    <label>${uiLabelMap.WebtoolsSecretSystemPropertyId}</label>
+                </td>
+                <td>
+                    <input type="text" size="40" name="systemPropertyId"/>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">
+                    <label>${uiLabelMap.WebtoolsSecretLookupKey}</label>
+                </td>
+                <td>
+                    <input type="text" size="40" maxlength="256" name="lookupKey"/>
+                </td>
+            </tr>
+            <tr>
+                <td class="label"></td>
+                <td>
+                    <input type="submit" value="${uiLabelMap.WebtoolsSecretSync}"/>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</form>
+
+<hr/>
+
+<p>${uiLabelMap.WebtoolsSecretTestConnectionInfo}</p>
+<form class="basic-form" method="post" action="<@ofbizUrl>testSecretProviderConnection</@ofbizUrl>">
+    <table class="basic-table" cellspacing="0">
+        <tbody>
+            <tr>
+                <td class="label">
+                    <label>${uiLabelMap.WebtoolsSecretTestKey}</label>
+                </td>
+                <td>
+                    <input type="text" size="40" maxlength="256" name="testKey" value="${parameters.testKey!}" placeholder="e.g. jdbc-password.default"/>
+                </td>
+            </tr>
+            <tr>
+                <td class="label"></td>
+                <td>
+                    <input type="submit" value="${uiLabelMap.WebtoolsSecretTestConnection}"/>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</form>
+
+<hr/>
+
+<p>${uiLabelMap.WebtoolsSecretUsageStatsInfo}</p>
+<form class="basic-form" method="post" action="<@ofbizUrl>getSecretUsageStats</@ofbizUrl>" style="display:inline;">
+    <input type="submit" value="${uiLabelMap.WebtoolsSecretUsageStatsRefresh}"/>
+</form>
+<form class="basic-form" method="post" action="<@ofbizUrl>resetSecretUsageStats</@ofbizUrl>" style="display:inline;margin-left:8px;">
+    <input type="submit" value="${uiLabelMap.WebtoolsSecretUsageStatsReset}"/>
+</form>
+<#if usageSummary?has_content>
+    <p>
+        ${uiLabelMap.WebtoolsSecretUsageTotalHits}: <strong>${usageSummary.totalHits!0}</strong> &nbsp;|&nbsp;
+        ${uiLabelMap.WebtoolsSecretUsageTotalMisses}: <strong>${usageSummary.totalMisses!0}</strong> &nbsp;|&nbsp;
+        ${uiLabelMap.WebtoolsSecretUsageTotalLookups}: <strong>${usageSummary.totalLookups!0}</strong> &nbsp;|&nbsp;
+        ${uiLabelMap.WebtoolsSecretUsageCachedKeys}: <strong>${usageSummary.cachedKeys!0}</strong>
+    </p>
+    <#if usageReport?has_content>
+        <table class="basic-table hover-bar" cellspacing="0">
+            <thead>
+                <tr class="header-row">
+                    <td>${uiLabelMap.WebtoolsSecretUsageKey}</td>
+                    <td>${uiLabelMap.WebtoolsSecretUsageHits}</td>
+                    <td>${uiLabelMap.WebtoolsSecretUsageMisses}</td>
+                    <td>${uiLabelMap.WebtoolsSecretUsageTotal}</td>
+                </tr>
+            </thead>
+            <tbody>
+                <#list usageReport?keys as key>
+                    <#assign stats = usageReport[key]/>
+                    <tr>
+                        <td title="${key}" style="max-width:240px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${key}</td>
+                        <td>${stats.hits!0}</td>
+                        <td>${stats.misses!0}</td>
+                        <td>${stats.total!0}</td>
+                    </tr>
+                </#list>
+            </tbody>
+        </table>
+    </#if>
+</#if>
