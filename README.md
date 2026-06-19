@@ -22,9 +22,9 @@ under the License.
 [![Licence](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0)
 [![Version](https://img.shields.io/badge/Version-trunk-red.svg)](https://github.com/apache/ofbiz-framework)
 
-[![Java CI with Gradle](https://github.com/apache/ofbiz-framework/actions/workflows/gradle.yml/badge.svg?branch=trunk)](https://github.com/apache/ofbiz-framework/actions/workflows/gradle.yml) 
+[![Java CI with Gradle](https://github.com/apache/ofbiz-framework/actions/workflows/gradle.yml/badge.svg?branch=trunk)](https://github.com/apache/ofbiz-framework/actions/workflows/gradle.yml)
 [![CodeQL](https://github.com/apache/ofbiz-framework/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/apache/ofbiz-framework/actions/workflows/codeql-analysis.yml)<!-- For the CodeQL badge to not get stuck on failing, you need to delete the last failing CodeQL workflow (AKA action)-->
-[![Build Status](https://ci2.apache.org/badges/ofbizTrunkFrameworkPlugins.svg)](https://ci2.apache.org/#/builders?tags=%2BofbizTrunkFrameworkPlugins)<!--For the BuildBot badge to not get stuck on failure, ALL builds of all branches handled by https://svn.apache.org/repos/infra/infrastructure/buildbot2/projects/ofbiz.py need to pass-->
+[![Build Status](https://ci2.apache.org/badges/ofbizTrunkFrameworkPlugins.svg)](https://ci2.apache.org/#/builders?tags=%2BofbizTrunkFrameworkPlugins)<!--For the BuildBot badge to not get stuck on failure, ALL builds of all branches handled by https://github.com/apache/infrastructure-bb2/blob/master/ofbiz.py need to pass-->
 [![services health](https://qpkb254zxeu.montastic.io/badge)](https://qpkb254zxeu.montastic.io)
 
 [![Scorecard supply-chain security](https://github.com/apache/ofbiz-framework/actions/workflows/scorecard.yml/badge.svg)](https://github.com/apache/ofbiz-framework/actions/workflows/scorecard.yml)
@@ -47,11 +47,11 @@ For more details about OFBiz please visit the OFBiz Documentation page:
 ## Notes
 
 > **Note** -
-> If you want to use Eclipse, read the [Setup eclipse project for OFBiz](#setup-eclipse-project-for-ofbiz) 
+> If you want to use Eclipse, read the [Setup eclipse project for OFBiz](#setup-eclipse-project-for-ofbiz)
 > section to set it up.
 
 > **Note** -
-> If you want to use an external database like MySQL or PostgreSQL, read 
+> If you want to use an external database like MySQL or PostgreSQL, read
 > the [Setup an external database](#setup-an-external-database-like-mysql-postgresql-etc) section.
 
 > **Note** -
@@ -59,7 +59,7 @@ For more details about OFBiz please visit the OFBiz Documentation page:
 > [Running gradle tasks without an internet connection](#running-gradle-tasks-without-an-internet-connection) section.
 
 > **Note** -
-> The directory structure and repositories have changed. For more 
+> The directory structure and repositories have changed. For more
 > information read the [Repository and directory structure](#repository-and-directory-structure) section.
 
 > **Note** -
@@ -72,14 +72,14 @@ The only requirements to run OFBiz are
 
 * to have the Java Development Kit (JDK) version 17 installed on your system
 (not just the JRE, but the full JDK) that you can download from the link below.
-Make sure to set the `$JAVA_HOME` environment variable.  
-[JDK download](https://adoptopenjdk.net/). 
+Make sure to set the `$JAVA_HOME` environment variable.
+[JDK download](https://adoptopenjdk.net/).
 [To know more about the JDK](https://medium.com/@javachampions/java-is-still-free-2-0-0-6b9aa8d6d244)
 
 > **Warning** -
 > On Windows, do not install OFBiz in a directory whose path contains spaces.
 
-* If on Windows, a Powershell version >= 7.1.3 installed that you can download from the below link.  
+* If on Windows, a Powershell version >= 7.1.3 installed that you can download from the below link.
 [Powershell](https://github.com/PowerShell/PowerShell)
 
 
@@ -97,10 +97,10 @@ MS Windows: `init-gradle-wrapper`
 >
 > - If you encounter an error
 >>  "Powershell is not recognized as an internal or external command, operable program or batch file"
->      
+>
 > follow the advice at: [https://s.apache.org/vdcv8](https://s.apache.org/vdcv8). If you want more details see: https://s.apache.org/urnju
 >
-> - If you run into problems, check the execution policy of PowerShell. See [https://s.apache.org/urnju](https://s.apache.org/urnju) for details. 
+> - If you run into problems, check the execution policy of PowerShell. See [https://s.apache.org/urnju](https://s.apache.org/urnju) for details.
 > By setting the execution policy to "unrestricted", you'll be prompted to run the script once you run the init-gradle-wrapper command.
 
 > **Note** -
@@ -672,7 +672,7 @@ It's able to handle branches switches
 > **Important** -
 > You need to use the last Git version, at least a 2.26 version
 
-MS Windows: `pullPluginSource example`  
+MS Windows: `pullPluginSource example`
 Unix-like OS: `./pullPluginSource.sh example`
 
 ### Pull all official plugins from source control
@@ -686,7 +686,7 @@ It's able to handle branches switches
 > **Important** -
 > You need to use the last Git version, at least a 2.26 version
 
-MS Windows: `pullAllPluginsSource`  
+MS Windows: `pullAllPluginsSource`
 Unix-like OS: `./pullAllPluginsSource.sh`
 
 
@@ -802,7 +802,7 @@ options:
 
     * Search for the JDBC driver in [jcenter](https://bintray.com/bintray/jcenter) and
 place it in build.gradle dependencies e.g.
-`runtime 'mysql:mysql-connector-java:8.0.30'`  
+`runtime 'mysql:mysql-connector-java:8.0.30'`
 OR
     * Download the JDBC driver jar and place it in $OFBIZ_HOME/lib or the lib
 sub-directory of any component
