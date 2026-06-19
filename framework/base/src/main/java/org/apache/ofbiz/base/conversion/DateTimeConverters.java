@@ -22,6 +22,8 @@ import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
+import java.time.Instant;
+import java.time.format.DateTimeParseException;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -669,6 +671,16 @@ public class DateTimeConverters implements ConverterLoader {
             String str = obj.trim();
             if (str.isEmpty()) {
                 return null;
+            }
+            // ISO 8601 format (e.g. 2009-01-15T00:00:00.000Z) produced by SOAP serialization
+            // and external integrations is rejected by the default yyyy-MM-dd HH:mm:ss.SSS parser.
+            // An ISO 8601 date-time always carries the 'T' separator at index 10, right after yyyy-MM-dd.
+            if (str.length() > 10 && str.charAt(10) == 'T') {
+                try {
+                    return Timestamp.from(Instant.parse(str));
+                } catch (DateTimeParseException e) {
+                    // not a valid ISO 8601 instant — fall through to existing logic
+                }
             }
             DateFormat df = null;
             if (UtilValidate.isEmpty(formatString)) {
