@@ -139,10 +139,11 @@ under the License.
 </#macro>
 
 <#macro renderContentFrame fullUrl width height border=""><iframe src="${fullUrl}" width="${width}" height="${height}" <#if border?has_content>border="${border}"</#if> /></#macro>
-<#macro renderScreenletBegin collapsible saveCollapsed collapsibleAreaId expandToolTip collapseToolTip fullUrlString padded menuString showMore collapsed javaScriptEnabled id="" title="">
+<#macro renderScreenletBegin collapsible saveCollapsed collapsibleAreaId expandToolTip collapseToolTip fullUrlString padded menuString showMore collapsed javaScriptEnabled id="" title="" screenHeader="">
 <div class="screenlet"<#if id?has_content> id="${id}"</#if>><#rt/>
 <#if showMore>
 <div class="screenlet-title-bar"><ul><#if title?has_content><li class="h3">${title}</li></#if>
+<#if screenHeader?has_content><li><div class="screenlet-header">${screenHeader}</div></li></#if>
 <#if collapsible>
 <li class="<#rt/>
 <#if collapsed>
