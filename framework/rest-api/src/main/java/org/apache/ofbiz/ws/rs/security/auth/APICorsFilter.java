@@ -26,10 +26,12 @@ import jakarta.annotation.Priority;
 import jakarta.ws.rs.HttpMethod;
 import jakarta.ws.rs.Priorities;
 import jakarta.ws.rs.container.ContainerRequestContext;
+import jakarta.ws.rs.container.ContainerRequestFilter;
 import jakarta.ws.rs.container.ContainerResponseContext;
 import jakarta.ws.rs.container.ContainerResponseFilter;
 import jakarta.ws.rs.core.HttpHeaders;
 import jakarta.ws.rs.core.MultivaluedMap;
+import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.ext.Provider;
 
 import org.apache.catalina.filters.CorsFilter;
@@ -41,11 +43,18 @@ import org.apache.ofbiz.base.util.UtilValidate;
  */
 
 @Provider
-@Priority(Priorities.HEADER_DECORATOR)
-public class APICorsFilter implements ContainerResponseFilter {
+@Priority(100) // Run before auth filters to handle OPTIONS preflight requests
+public class APICorsFilter implements ContainerRequestFilter, ContainerResponseFilter {
 
     // check security.properties file for 'cors.origins.allowed'
     private static final List<String> ALLOWED_CORS_ORIGINS = UtilMisc.getCorsOriginsAllowed();
+
+    @Override
+    public void filter(ContainerRequestContext requestContext) throws IOException {
+        if (HttpMethod.OPTIONS.equalsIgnoreCase(requestContext.getMethod())) {
+            requestContext.abortWith(Response.ok().build());
+        }
+    }
 
     @Override
     public void filter(ContainerRequestContext requestContext, ContainerResponseContext responseContext)
@@ -69,7 +78,7 @@ public class APICorsFilter implements ContainerResponseFilter {
 
         // publish supported request header field names
         responseHeaders.addAll(CorsFilter.RESPONSE_HEADER_ACCESS_CONTROL_ALLOW_HEADERS,
-                Arrays.asList(HttpHeaders.CONTENT_TYPE, HttpHeaders.AUTHORIZATION));
+                Arrays.asList(HttpHeaders.CONTENT_TYPE, HttpHeaders.AUTHORIZATION, "Refresh-Token"));
 
         // inform about all the supported methods. Itemize these due to the lack of support for the wildcard (*)
         // in few browsers, e.g. in 'Safari' resp. 'FF for Android'
