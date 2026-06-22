@@ -39,12 +39,17 @@ import org.apache.ofbiz.base.secret.SecretValueResolver;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.UtilDateTime;
+import org.apache.ofbiz.base.util.UtilMisc;
+import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.cache.UtilCache;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericValue;
+import org.apache.ofbiz.entity.condition.EntityCondition;
+import org.apache.ofbiz.entity.condition.EntityOperator;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.service.DispatchContext;
+import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ServiceUtil;
 
 /**
@@ -238,6 +243,15 @@ public final class SecretManagerServices {
         }
 
         try {
+            String currentValue = readCurrentStoredValue(delegator, secretTarget, systemResourceId, systemPropertyId, providerKey);
+            if (currentValue != null && currentValue.equals(freshValue)) {
+                Debug.logInfo("[SECRET_AUDIT] user=" + userLoginId + " action=syncSecretFromProvider"
+                        + " providerKey=" + providerKey + " outcome=no-change", MODULE);
+                Map<String, Object> result = ServiceUtil.returnSuccess("Local encrypted snapshot for '" + lookupKey
+                        + "' is already up to date — no change detected from the active secret provider");
+                result.put("changed", Boolean.FALSE);
+                return result;
+            }
             storeEncryptedSecret(delegator, userLogin, secretTarget, systemResourceId, systemPropertyId, lookupKey, freshValue);
         } catch (GeneralException e) {
             Debug.logError(e, MODULE);
@@ -245,8 +259,117 @@ public final class SecretManagerServices {
         }
         Debug.logInfo("[SECRET_AUDIT] user=" + userLoginId + " action=syncSecretFromProvider"
                 + " providerKey=" + providerKey + " outcome=synced", MODULE);
-        return ServiceUtil.returnSuccess("Local encrypted snapshot for '" + lookupKey
+        Map<String, Object> result = ServiceUtil.returnSuccess("Local encrypted snapshot for '" + lookupKey
                 + "' synced from the active secret provider");
+        result.put("changed", Boolean.TRUE);
+        return result;
+    }
+
+    /**
+     * Returns the current plaintext value already stored locally for {@code providerKey}, or
+     * {@code null} if there is nothing stored yet (e.g. first-ever sync). Used by {@link
+     * #syncSecretFromProvider} to skip re-encrypting and rewriting when the vault value hasn't
+     * actually changed, so {@code lastRotatedDate} only advances on a real rotation.
+     */
+    static String readCurrentStoredValue(Delegator delegator, String secretTarget,
+            String systemResourceId, String systemPropertyId, String providerKey) throws GeneralException {
+        if (TARGET_SYSTEM_PROPERTY.equals(secretTarget)) {
+            GenericValue systemProperty = EntityQuery.use(delegator).from("SystemProperty")
+                    .where("systemResourceId", systemResourceId, "systemPropertyId", systemPropertyId)
+                    .queryOne();
+            if (systemProperty == null) {
+                return null;
+            }
+            String storedValue = systemProperty.getString("systemPropertyValue");
+            return UtilValidate.isEmpty(storedValue) ? null : ConfigCryptoUtil.decryptIfEncrypted(storedValue, providerKey);
+        } else if (TARGET_PASSWORDS_FILE.equals(secretTarget)) {
+            String storedValue = UtilProperties.getPropertyValue("passwords", providerKey);
+            return UtilValidate.isEmpty(storedValue) ? null : ConfigCryptoUtil.decryptIfEncrypted(storedValue, providerKey);
+        }
+        return null;
+    }
+
+    /**
+     * Scheduled-job entry point (see {@code JobSandbox} seed data "SECRET_AUTOSYNC") that
+     * automatically calls {@link #syncSecretFromProvider} for every {@code SystemProperty} row that
+     * has a non-empty {@code systemPropertyLookup}, so a secret rotated in the remote vault is
+     * written back to {@code SystemProperty.systemPropertyValue} without an admin manually clicking
+     * "Sync Now" in the {@code EncryptValue} screen.
+     *
+     * <p>No-ops when {@code secret.rotation.autosync.enabled} (security.properties) is not
+     * {@code true} — disabled by default. A failure resolving one key is logged and counted, but
+     * does not prevent the remaining keys from being processed.</p>
+     */
+    public static Map<String, Object> autoSyncRotatedSecrets(DispatchContext dctx, Map<String, ? extends Object> context) {
+        if (!UtilProperties.getPropertyAsBoolean("security", "secret.rotation.autosync.enabled", false)) {
+            return ServiceUtil.returnSuccess(
+                    "Automatic secret rotation sync is disabled (secret.rotation.autosync.enabled=false)");
+        }
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        return syncAllRotatedSystemProperties(dctx, userLogin);
+    }
+
+    /**
+     * Queries every {@code SystemProperty} row with a non-empty {@code systemPropertyLookup} and
+     * calls {@link #syncSecretFromProvider} for each, isolating per-row failures. Split out from
+     * {@link #autoSyncRotatedSecrets} so the looping/counting logic can be unit-tested without
+     * depending on the {@code secret.rotation.autosync.enabled} flag.
+     */
+    static Map<String, Object> syncAllRotatedSystemProperties(DispatchContext dctx, GenericValue userLogin) {
+        Delegator delegator = dctx.getDelegator();
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+
+        long syncedCount = 0;
+        long unchangedCount = 0;
+        long failedCount = 0;
+        try {
+            List<GenericValue> lookupBackedProperties = EntityQuery.use(delegator).from("SystemProperty")
+                    .where(EntityCondition.makeCondition("systemPropertyLookup", EntityOperator.NOT_EQUAL, null))
+                    .queryList();
+            for (GenericValue systemProperty : lookupBackedProperties) {
+                String systemResourceId = systemProperty.getString("systemResourceId");
+                String systemPropertyId = systemProperty.getString("systemPropertyId");
+                String lookupKey = systemProperty.getString("systemPropertyLookup");
+                if (UtilValidate.isEmpty(lookupKey)) {
+                    continue;
+                }
+                try {
+                    Map<String, Object> syncResult = dispatcher.runSync("syncSecretFromProvider", UtilMisc.toMap(
+                            "secretTarget", TARGET_SYSTEM_PROPERTY,
+                            "systemResourceId", systemResourceId,
+                            "systemPropertyId", systemPropertyId,
+                            "lookupKey", lookupKey,
+                            "userLogin", userLogin));
+                    if (ServiceUtil.isError(syncResult)) {
+                        failedCount++;
+                        Debug.logWarning("[SECRET_AUDIT] action=autoSyncRotatedSecrets systemResourceId=" + systemResourceId
+                                + " systemPropertyId=" + systemPropertyId + " outcome=failed detail="
+                                + ServiceUtil.getErrorMessage(syncResult), MODULE);
+                    } else if (Boolean.TRUE.equals(syncResult.get("changed"))) {
+                        syncedCount++;
+                    } else {
+                        unchangedCount++;
+                    }
+                } catch (GeneralException e) {
+                    failedCount++;
+                    Debug.logWarning("[SECRET_AUDIT] action=autoSyncRotatedSecrets systemResourceId=" + systemResourceId
+                            + " systemPropertyId=" + systemPropertyId + " outcome=failed detail="
+                            + e.getClass().getSimpleName(), MODULE);
+                }
+            }
+        } catch (GeneralException e) {
+            Debug.logError(e, MODULE);
+            return ServiceUtil.returnError("Unable to query SystemProperty rows for rotation sync: " + e.getMessage());
+        }
+
+        Debug.logInfo("[SECRET_AUDIT] action=autoSyncRotatedSecrets synced=" + syncedCount
+                + " unchanged=" + unchangedCount + " failed=" + failedCount, MODULE);
+        Map<String, Object> result = ServiceUtil.returnSuccess("Automatic secret rotation sync complete: "
+                + syncedCount + " synced, " + unchangedCount + " unchanged, " + failedCount + " failed");
+        result.put("syncedCount", syncedCount);
+        result.put("unchangedCount", unchangedCount);
+        result.put("failedCount", failedCount);
+        return result;
     }
 
     /** Service implementation for the webtools "Encrypt Value" screen. */

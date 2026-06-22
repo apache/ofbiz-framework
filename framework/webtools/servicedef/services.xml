@@ -164,6 +164,18 @@ under the License.
         <attribute name="systemResourceId" type="String" mode="IN" optional="true"/>
         <attribute name="systemPropertyId" type="String" mode="IN" optional="true"/>
         <attribute name="lookupKey" type="String" mode="IN" optional="false"/>
+        <attribute name="changed" type="Boolean" mode="OUT" optional="true"/>
+    </service>
+    <service name="autoSyncRotatedSecrets" engine="java"
+            location="org.apache.ofbiz.webtools.secret.SecretManagerServices" invoke="autoSyncRotatedSecrets" auth="true" use-transaction="false">
+        <description>Scheduled-job entry point (see JobSandbox seed data "SECRET_AUTOSYNC") that calls
+            syncSecretFromProvider for every SystemProperty row with a non-empty systemPropertyLookup, so a secret
+            rotated in the remote vault is written back automatically without an admin clicking "Sync Now". No-ops
+            unless secret.rotation.autosync.enabled=true in security.properties (disabled by default).</description>
+        <permission-service service-name="secretMaintPermCheck" main-action="VIEW"/>
+        <attribute name="syncedCount" type="Long" mode="OUT" optional="true"/>
+        <attribute name="unchangedCount" type="Long" mode="OUT" optional="true"/>
+        <attribute name="failedCount" type="Long" mode="OUT" optional="true"/>
     </service>
     <service name="testSecretProviderConnection" engine="java"
             location="org.apache.ofbiz.webtools.secret.SecretManagerServices" invoke="testSecretProviderConnection" auth="true" use-transaction="false">
