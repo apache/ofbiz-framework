@@ -95,7 +95,7 @@ under the License.
                             </#list>
                           </select>
                           <input type="submit" class="smallSubmit" value="${uiLabelMap.CommonReceive}"</a>
-                          </form>
+                        </form>
                       </li>
                   <#else>
                       <li>
