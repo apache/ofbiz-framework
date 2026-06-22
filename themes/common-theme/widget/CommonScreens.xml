@@ -734,6 +734,30 @@ under the License.
         </section>
     </screen>
 
+    <screen name="FilteredListDecorator">
+        <section>
+            <widgets>
+                <container id="${screen:id(screenStack)}">
+                    <decorator-section-include name="menu-bar"/>
+                    <container style="clear"/>
+                    <section>
+                        <condition>
+                            <not><if-empty-section section-name="filter-options"/></not>
+                        </condition>
+                        <widgets>
+                            <container id="filter-options">
+                                <decorator-section-include name="filter-options" />
+                            </container>
+                        </widgets>
+                    </section>
+                    <container id="filtered-results">
+                        <decorator-section-include name="filtered-results"/>
+                    </container>
+                </container>
+            </widgets>
+        </section>
+    </screen>
+
     <screen name="DetailScreenDecorator">
         <section>
             <actions>

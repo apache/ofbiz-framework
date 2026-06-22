@@ -3477,6 +3477,10 @@
         <value xml:lang="zh">布局演示</value>
         <value xml:lang="zh-TW">佈局演示</value>
     </property>
+    <property key="WebtoolsLayoutDemoSimpleGridHeaderInfo">
+        <value xml:lang="en">Demonstration of a complex header for a collapsed screenlet</value>
+        <value xml:lang="fr">Démonstration d'entête complexe pour screenlet repliée</value>
+    </property>
     <property key="WebtoolsLayoutDemoText">
         <value xml:lang="en">Demonstrate layout best practices and provide a visual theme test page (it's recommended to use HTML source code).</value>
         <value xml:lang="fr">Démontre les bonnes pratiques de mise en page et fournit un page de test pour les thèmes (il est recommandé d'utiliser le code source HTML).</value>
