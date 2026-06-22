@@ -94,8 +94,8 @@ under the License.
                               <option value="${facility.facilityId}">${facility.facilityName}</option>
                             </#list>
                           </select>
+                          <input type="submit" class="smallSubmit" value="${uiLabelMap.CommonReceive}"</a>
                           </form>
-                          <a href="javascript:document.receivePurchaseOrderForm.submit()" class="buttontext">${uiLabelMap.CommonReceive}</a>
                       </li>
                   <#else>
                       <li>
