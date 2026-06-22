@@ -687,8 +687,8 @@ under the License.
               </#if>
             </td>
           </tr>
-
-          <#if shipGroup.isGift?has_content && noShipment?default("false") != "true">
+          
+          <#if orderHeader?has_content && "PURCHASE_ORDER" != orderHeader.orderTypeId && shipGroup.isGift?has_content && noShipment?default("false") != "true">
           <tr><td colspan="3"><hr /></td></tr>
           <tr>
             <td class="label">
