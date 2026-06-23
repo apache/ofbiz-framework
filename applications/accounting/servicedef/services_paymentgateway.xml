@@ -40,89 +40,9 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
-    <service name="createPaymentGatewayConfigSagePay" engine="entity-auto" invoke="create" default-entity-name="PaymentGatewaySagePay">
-        <description>Create Payment Gateway Config SagePay</description>
-        <auto-attributes include="pk" mode="INOUT" optional="true"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true"/>
-    </service>
-    <service name="updatePaymentGatewayConfigSagePay" engine="entity-auto" invoke="update" default-entity-name="PaymentGatewaySagePay">
-        <description>Update Payment Gateway Config SagePay</description>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true"/>
-    </service>
-    <service name="deletePaymentGatewayConfigSagePay" engine="entity-auto" invoke="delete" default-entity-name="PaymentGatewaySagePay">
-        <description>Delete Payment Gateway Config SagePay</description>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
-    </service>
-
-    <service name="createPaymentGatewayConfigAuthorizeNet" engine="entity-auto" invoke="create" default-entity-name="PaymentGatewayAuthorizeNet">
-        <description>Create Payment Gateway Config Authorize Dot Net</description>
-        <auto-attributes include="pk" mode="INOUT" optional="true"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true"/>
-    </service>
-    <service name="updatePaymentGatewayConfigAuthorizeNet" engine="entity-auto" invoke="update" default-entity-name="PaymentGatewayAuthorizeNet">
-        <description>Update Payment Gateway Config Authorize Dot Net</description>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true"/>
-    </service>
-    <service name="deletePaymentGatewayConfigAuthorizeNet" engine="entity-auto" invoke="delete" default-entity-name="PaymentGatewayAuthorizeNet">
-        <description>Delete Payment Gateway Config Authorize Dot Net</description>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
-    </service>
-
-    <service name="createPaymentGatewayConfigClearCommerce" engine="entity-auto" invoke="create" default-entity-name="PaymentGatewayClearCommerce">
-        <description>Create Payment Gateway Config Clear Commerce</description>
-        <auto-attributes include="pk" mode="INOUT" optional="true"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true"/>
-    </service>
-    <service name="updatePaymentGatewayConfigClearCommerce" engine="entity-auto" invoke="update" default-entity-name="PaymentGatewayClearCommerce">
-        <description>Update Payment Gateway Config Clear Commerce</description>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true"/>
-    </service>
-    <service name="deletePaymentGatewayConfigClearCommerce" engine="entity-auto" invoke="delete" default-entity-name="PaymentGatewayClearCommerce">
-        <description>Delete Payment Gateway Config Clear Commerce</description>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
-    </service>
-    
-    <service name="updatePaymentGatewayConfigCyberSource" engine="simple" location="component://accounting/minilang/payment/PaymentGatewayConfigServices.xml" invoke="updatePaymentGatewayConfigCyberSource">
-        <description>Update Payment Gateway Config CyberSource</description>
-        <auto-attributes entity-name="PaymentGatewayCyberSource" include="pk" mode="IN" optional="false"/>
-        <auto-attributes entity-name="PaymentGatewayCyberSource" include="nonpk" mode="IN" optional="true"/>
-    </service>
-    
-    <service name="updatePaymentGatewayConfigPayflowPro" engine="simple" location="component://accounting/minilang/payment/PaymentGatewayConfigServices.xml" invoke="updatePaymentGatewayConfigPayflowPro">
-        <description>Update Payment Gateway Config Payflow Pro</description>
-        <auto-attributes entity-name="PaymentGatewayPayflowPro" include="pk" mode="IN" optional="false"/>
-        <auto-attributes entity-name="PaymentGatewayPayflowPro" include="nonpk" mode="IN" optional="true"/>
-    </service>
-    
-    <service name="updatePaymentGatewayConfigPayPal" engine="simple" location="component://accounting/minilang/payment/PaymentGatewayConfigServices.xml" invoke="updatePaymentGatewayConfigPayPal">
-        <description>Update Payment Gateway Config PayPal</description>
-        <auto-attributes entity-name="PaymentGatewayPayPal" include="pk" mode="IN" optional="false"/>
-        <auto-attributes entity-name="PaymentGatewayPayPal" include="nonpk" mode="IN" optional="true"/>
-    </service>
-    
-    <service name="updatePaymentGatewayConfigWorldPay" engine="simple" location="component://accounting/minilang/payment/PaymentGatewayConfigServices.xml" invoke="updatePaymentGatewayConfigWorldPay">
-        <description>Update Payment Gateway Config WorldPay</description>
-        <auto-attributes entity-name="PaymentGatewayWorldPay" include="pk" mode="IN" optional="false"/>
-        <auto-attributes entity-name="PaymentGatewayWorldPay" include="nonpk" mode="IN" optional="true"/>
-    </service>
-    
     <service name="updatePaymentGatewayConfigType" engine="simple" location="component://accounting/minilang/payment/PaymentGatewayConfigServices.xml" invoke="updatePaymentGatewayConfigType">
         <description>Update Payment Gateway Config Type</description>
         <auto-attributes entity-name="PaymentGatewayConfigType" include="pk" mode="IN" optional="false"/>
         <auto-attributes entity-name="PaymentGatewayConfigType" include="nonpk" mode="IN" optional="true"/>
-    </service>
-    
-    <service name="updatePaymentGatewayConfigSecurePay" engine="simple" location="component://accounting/minilang/payment/PaymentGatewayConfigServices.xml" invoke="updatePaymentGatewayConfigSecurePay">
-        <description>Update Payment Gateway Config SecurePay</description>
-        <auto-attributes entity-name="PaymentGatewaySecurePay" include="pk" mode="IN" optional="false"/>
-        <auto-attributes entity-name="PaymentGatewaySecurePay" include="nonpk" mode="IN" optional="true"/>
-    </service>
-    
-    <service name="updatePaymentGatewayConfigEway" engine="entity-auto" invoke="update" default-entity-name="PaymentGatewayEway" auth="true">
-        <auto-attributes mode="IN" include="pk" optional="false"/>
-        <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
 </services>

@@ -268,12 +268,6 @@ dependencies {
 }
 
 def excludedJavaSources = [
-    'org/apache/ofbiz/accounting/thirdparty/cybersource/IcsPaymentServices.java',
-    'org/apache/ofbiz/accounting/thirdparty/orbital/OrbitalPaymentServices.java',
-    'org/apache/ofbiz/accounting/thirdparty/paypal/PayPalServices.java',
-    'org/apache/ofbiz/accounting/thirdparty/securepay/SecurePayPaymentServices.java',
-    'org/apache/ofbiz/accounting/thirdparty/securepay/SecurePayServiceTest.java',
-    'org/apache/ofbiz/accounting/thirdparty/verisign/PayflowPro.java',
     'org/apache/ofbiz/order/thirdparty/taxware/TaxwareException.java',
     'org/apache/ofbiz/order/thirdparty/taxware/TaxwareServices.java',
     'org/apache/ofbiz/order/thirdparty/taxware/TaxwareUTL.java'

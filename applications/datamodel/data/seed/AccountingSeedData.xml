@@ -756,23 +756,9 @@ under the License.
     <CustomMethodType customMethodTypeId="GIFT_RELEASE" hasTable="N" description="GIFT card release methods"/>
     <CustomMethodType customMethodTypeId="GIFT_PURCHASE" hasTable="N" description="GIFT card purchase methods"/>
 
-    <CustomMethodType customMethodTypeId="PAYPAL_AUTH" hasTable="N" description="PayPal authorize methods"/>
-    <CustomMethodType customMethodTypeId="PAYPAL_CAPTURE" hasTable="N" description="PayPal capture methods"/>
-    <CustomMethodType customMethodTypeId="PAYPAL_REFUND" hasTable="N" description="PayPal refund methods"/>
-    <CustomMethodType customMethodTypeId="PAYPAL_RELEASE" hasTable="N" description="PayPal release methods"/>
-
     <CustomMethod customMethodId="CC_AUTH_TEST" customMethodTypeId="CC_AUTH" customMethodName="testCCProcessor" description="CC Test authorize"/>
     <CustomMethod customMethodId="CC_AUTH_CAPTURE_TST" customMethodTypeId="CC_AUTH" customMethodName="testCCProcessorWithCapture" description="CC Test authorize and capture"/>
     <CustomMethod customMethodId="CC_AUTH_RANDOM_TEST" customMethodTypeId="CC_AUTH" customMethodName="testRandomAuthorize" description="CC Test random authorize"/>
-    <CustomMethod customMethodId="CC_AUTH_AIM" customMethodTypeId="CC_AUTH" customMethodName="aimCCAuth" description="CC Authorize dot net authorize"/>
-    <CustomMethod customMethodId="CC_AUTH_CAPTURE_AIM" customMethodTypeId="CC_AUTH" customMethodName="aimCCAuthCapture" description="CC Authorize dot net authorize and capture"/>
-    <CustomMethod customMethodId="CC_AUTH_CLEARCOMMERC" customMethodTypeId="CC_AUTH" customMethodName="clearCommerceCCAuth" description="CC Clear Commerce authorize"/>
-    <CustomMethod customMethodId="CC_AUTH_CLEARCOM_REP" customMethodTypeId="CC_AUTH" customMethodName="clearCommerceCCReport" description="CC Clear Commerce authorize reporting facility"/>
-    <CustomMethod customMethodId="CC_AUTH_CYBERSOURCE" customMethodTypeId="CC_AUTH" customMethodName="cyberSourceCCAuth" description="CC CyberSource authorize"/>
-    <CustomMethod customMethodId="CC_AUTH_PAYFLOW" customMethodTypeId="CC_AUTH" customMethodName="payflowCCProcessor" description="CC Payflow Pro authorize"/>
-    <CustomMethod customMethodId="CC_AUTH_PCCHARGE" customMethodTypeId="CC_AUTH" customMethodName="pcChargeCCAuth" description="CC PCCharge authorize"/>
-    <CustomMethod customMethodId="CC_AUTH_RITA" customMethodTypeId="CC_AUTH" customMethodName="ritaCCAuth" description="CC RiTA authorize"/>
-    <CustomMethod customMethodId="CC_AUTH_RITA_REMOTE" customMethodTypeId="CC_AUTH" customMethodName="ritaCCAuthRemote" description="CC RiTA remote authorize"/>
     <CustomMethod customMethodId="CC_AUTH_ALWAYSAPPROV" customMethodTypeId="CC_AUTH" customMethodName="alwaysApproveCCProcessor" description="CC Always authorize"/>
     <CustomMethod customMethodId="CC_AUTH_ALWAYSDECLIN" customMethodTypeId="CC_AUTH" customMethodName="alwaysDeclineCCProcessor" description="CC Always decline"/>
     <CustomMethod customMethodId="CC_AUTH_ALWAYSNSF" customMethodTypeId="CC_AUTH" customMethodName="alwaysNsfCCProcessor" description="CC Always decline for not sufficient funds"/>
@@ -781,46 +767,15 @@ under the License.
     <CustomMethod customMethodId="CC_AUTH_ALWAYSBADNUM" customMethodTypeId="CC_AUTH" customMethodName="alwaysBadCardNumberCCProcessor" description="CC Always decline for bad card number"/>
     <CustomMethod customMethodId="CC_AUTH_ALWAYSFAIL" customMethodTypeId="CC_AUTH" customMethodName="alwaysBadCardNumberCCProcessor" description="CC Always fail"/>
     <CustomMethod customMethodId="CC_AUTH_CAPTURE_ALWA" customMethodTypeId="CC_AUTH" customMethodName="alwaysApproveWithCaptureCCProcessor" description="CC Always authorize and capture"/>
-    <CustomMethod customMethodId="CC_AUTH_ORBITAL" customMethodTypeId="CC_AUTH" customMethodName="orbitalCCAuth" description="CC Orbital authorize"/>
-    <CustomMethod customMethodId="CC_AUTH_CAPTR_ORBTL" customMethodTypeId="CC_AUTH" customMethodName="orbitalCCAuthCapture" description="CC Orbital authorize and capture"/>
-
     <CustomMethod customMethodId="CC_CAPTURE_TEST" customMethodTypeId="CC_CAPTURE" customMethodName="testCCCapture" description="CC Test capture"/>
     <CustomMethod customMethodId="CC_CAPTURE_REAUTH" customMethodTypeId="CC_CAPTURE" customMethodName="testCCCaptureWithReAuth" description="CC Test reauth capture"/>
     <CustomMethod customMethodId="CC_CAPTURE_ALWAYSDEC" customMethodTypeId="CC_CAPTURE" customMethodName="testCCProcessorCaptureAlwaysDecline" description="CC Always decline capture"/>
-    <CustomMethod customMethodId="CC_CAPTURE_AIM" customMethodTypeId="CC_CAPTURE" customMethodName="aimCCCapture" description="CC Authorize dot net capture"/>
-    <CustomMethod customMethodId="CC_CAPTURE_CLEARCOMM" customMethodTypeId="CC_CAPTURE" customMethodName="clearCommerceCCCapture" description="CC Clear Commerce capture"/>
-    <CustomMethod customMethodId="CC_CAPTURE_CYBERSOUR" customMethodTypeId="CC_CAPTURE" customMethodName="cyberSourceCCCapture" description="CC CyberSource capture"/>
-    <CustomMethod customMethodId="CC_CAPTURE_PAYFLOW" customMethodTypeId="CC_CAPTURE" customMethodName="payflowCCCapture" description="CC Payflow Pro capture"/>
-    <CustomMethod customMethodId="CC_CAPTURE_PCCHARGE" customMethodTypeId="CC_CAPTURE" customMethodName="pcChargeCCCapture" description="CC PCCharge capture"/>
-    <CustomMethod customMethodId="CC_CAPTURE_RITA" customMethodTypeId="CC_CAPTURE" customMethodName="ritaCCCapture" description="CC RiTA capture"/>
-    <CustomMethod customMethodId="CC_CAPTURE_RITA_REMO" customMethodTypeId="CC_CAPTURE" customMethodName="ritaCCCaptureRemote" description="CC RiTA remote capture"/>
-    <CustomMethod customMethodId="CC_CAPTURE_ORBITAL" customMethodTypeId="CC_CAPTURE" customMethodName="orbitalCCCapture" description="CC Orbital capture"/>
 
     <CustomMethod customMethodId="CC_REFUND_TEST" customMethodTypeId="CC_REFUND" customMethodName="testCCRefund" description="CC Test refund"/>
     <CustomMethod customMethodId="CC_REFUND_TEST_FAIL" customMethodTypeId="CC_REFUND" customMethodName="testCCRefundFailure" description="CC Test refund failure"/>
-    <CustomMethod customMethodId="CC_REFUND_AIM" customMethodTypeId="CC_REFUND" customMethodName="aimCCRefund" description="CC Authorize dot net refund"/>
-    <CustomMethod customMethodId="CC_REFUND_CLEARCOMME" customMethodTypeId="CC_REFUND" customMethodName="clearCommerceCCRefund" description="CC Clear Commerce refund"/>
-    <CustomMethod customMethodId="CC_REFUND_CYBERSOURC" customMethodTypeId="CC_REFUND" customMethodName="cyberSourceCCRefund" description="CC CyberSource refund"/>
-    <CustomMethod customMethodId="CC_REFUND_PAYFLOW" customMethodTypeId="CC_REFUND" customMethodName="payflowCCRefund" description="CC Payflow Pro refund"/>
-    <CustomMethod customMethodId="CC_REFUND_PCCHARGE" customMethodTypeId="CC_REFUND" customMethodName="pcChargeCCRefund" description="CC PCCharge refund"/>
-    <CustomMethod customMethodId="CC_REFUND_RITA" customMethodTypeId="CC_REFUND" customMethodName="ritaCCRefund" description="CC RiTA refund"/>
-    <CustomMethod customMethodId="CC_REFUND_RITA_REMOT" customMethodTypeId="CC_REFUND" customMethodName="ritaCCRefundRemote" description="CC RiTA remote refund"/>
-    <CustomMethod customMethodId="CC_REFUND_ORBITAL" customMethodTypeId="CC_REFUND" customMethodName="orbitalCCRefund" description="CC Orbital refund"/>
 
     <CustomMethod customMethodId="CC_RELEASE_TEST" customMethodTypeId="CC_RELEASE" customMethodName="testCCRelease" description="CC Test release"/>
-    <CustomMethod customMethodId="CC_RELEASE_AIM" customMethodTypeId="CC_RELEASE" customMethodName="aimCCRelease" description="CC Authorize dot net release"/>
-    <CustomMethod customMethodId="CC_RELEASE_CLEARCOMM" customMethodTypeId="CC_RELEASE" customMethodName="clearCommerceCCRelease" description="CC Clear Commerce release"/>
-    <CustomMethod customMethodId="CC_RELEASE_CYBERSOUR" customMethodTypeId="CC_RELEASE" customMethodName="cyberSourceCCRelease" description="CC CyberSource release"/>
-    <CustomMethod customMethodId="CC_RELEASE_PAYFLOW" customMethodTypeId="CC_RELEASE" customMethodName="payflowCCVoid" description="CC Payflow Pro release"/>
-    <CustomMethod customMethodId="CC_RELEASE_PCCHARGE" customMethodTypeId="CC_RELEASE" customMethodName="pcChargeCCRelease" description="CC PCCharge release"/>
-    <CustomMethod customMethodId="CC_RELEASE_RITA" customMethodTypeId="CC_RELEASE" customMethodName="ritaCCRelease" description="CC RiTA release"/>
-    <CustomMethod customMethodId="CC_RELEASE_RITA_REMO" customMethodTypeId="CC_RELEASE" customMethodName="ritaCCReleaseRemote" description="CC RiTA remote release"/>
-    <CustomMethod customMethodId="CC_RELEASE_ORBITAL" customMethodTypeId="CC_RELEASE" customMethodName="orbitalCCRelease" description="CC Orbital release"/>
 
-    <CustomMethod customMethodId="CC_CREDIT_AIM" customMethodTypeId="CC_CREDIT" customMethodName="aimCCCredit" description="CC Authorize dot net credit"/>
-    <CustomMethod customMethodId="CC_CREDIT_CLEARCOMME" customMethodTypeId="CC_CREDIT" customMethodName="clearCommerceCCCredit" description="CC Clear Commerce credit"/>
-    <CustomMethod customMethodId="CC_CREDIT_CYBERSOURC" customMethodTypeId="CC_CREDIT" customMethodName="cyberSourceCCCredit" description="CC CyberSource credit"/>
-    <CustomMethod customMethodId="CC_CREDIT_RITA" customMethodTypeId="CC_CREDIT" customMethodName="ritaCCCreditRefund" description="CC RiTA credit"/>
 
     <CustomMethod customMethodId="EFT_AUTH_TEST" customMethodTypeId="EFT_AUTH" customMethodName="testEFTProcessor" description="EFT test authorize"/>
     <CustomMethod customMethodId="EFT_AUTH_ALWAYSAPPRO" customMethodTypeId="EFT_AUTH" customMethodName="alwaysApproveEFTProcessor" description="EFT always authorize"/>
@@ -842,27 +797,6 @@ under the License.
     <CustomMethod customMethodId="GIFT_RELEASE_TEST" customMethodTypeId="GIFT_RELEASE" customMethodName="testGCRelease" description="GIFT card test release"/>
     <CustomMethod customMethodId="GIFT_PURCH_OFBIZ" customMethodTypeId="GIFT_PURCHASE" customMethodName="ofbGcPurchase" description="GIFT card Purchase Fulfillment Service"/>
 
-    <CustomMethod customMethodId="PAYPAL_AUTH_PFP" customMethodTypeId="PAYPAL_AUTH" customMethodName="payflowPayPalProcessor" description="Payflow PayPal payment authorize"/>
-    <CustomMethod customMethodId="PAYPAL_AUTH" customMethodTypeId="PAYPAL_AUTH" customMethodName="payPalProcessor" description="PayPal payment authorize"/>
-
-    <CustomMethod customMethodId="PAYPAL_CAPTURE_PFP" customMethodTypeId="PAYPAL_CAPTURE" customMethodName="payflowPayPalCapture" description="Payflow PayPal payment capture"/>
-    <CustomMethod customMethodId="PAYPAL_CAPTURE" customMethodTypeId="PAYPAL_CAPTURE" customMethodName="payPalCapture" description="PayPal payment capture"/>
-
-    <CustomMethod customMethodId="PAYPAL_REFUND_PFP" customMethodTypeId="PAYPAL_REFUND" customMethodName="payflowPayPalRefund" description="Payflow PayPal payment refund"/>
-    <CustomMethod customMethodId="PAYPAL_REFUND" customMethodTypeId="PAYPAL_REFUND" customMethodName="payPalRefund" description="PayPal payment refund"/>
-
-    <CustomMethod customMethodId="PAYPAL_RELEASE_PFP" customMethodTypeId="PAYPAL_RELEASE" customMethodName="payflowPayPalVoid" description="Payflow PayPal Order release"/>
-    <CustomMethod customMethodId="PAYPAL_RELEASE" customMethodTypeId="PAYPAL_RELEASE" customMethodName="payPalVoid" description="PayPal Order Release"/>
-
-    <CustomMethod customMethodId="CC_CHARGE_EWAY" customMethodTypeId="CC_AUTH" customMethodName="ewayCharge" description="eWay CC Charge"/>
-    <CustomMethod customMethodId="CC_REFUND_EWAY" customMethodTypeId="CC_REFUND" customMethodName="ewayRefund" description="eWay CC Refund"/>
-    <CustomMethod customMethodId="CC_RELEASE_EWAY" customMethodTypeId="CC_RELEASE" customMethodName="ewayRelease" description="eWay CC Release"/>
-
-    <CustomMethod customMethodId="SECURE_AUTH_OFBIZ" customMethodTypeId="CC_AUTH" customMethodName="ofbScAuthorize" description="SecurePay payment authorize"/>
-    <CustomMethod customMethodId="SECURE_CAPTURE_OFBIZ" customMethodTypeId="CC_CAPTURE" customMethodName="ofbScCapture" description="SecurePay payment capture"/>
-    <CustomMethod customMethodId="SECURE_REFUND_OFBIZ" customMethodTypeId="CC_REFUND" customMethodName="ofbScRefund" description="SecurePay payment refund"/>
-    <CustomMethod customMethodId="SECURE_RELEASE_OFBIZ" customMethodTypeId="CC_RELEASE" customMethodName="ofbScRelease" description="SecurePay payment release"/>
-    <CustomMethod customMethodId="SECURE_CREDIT_OFBIZ" customMethodTypeId="CC_CREDIT" customMethodName="ofbScCCCredit" description="SecurePay Credit Card"/>
 
     <!-- CustomScreenType available for official template document-->
     <CustomScreenType customScreenTypeId="CST_INVOICE_TPL" description="Invoice types template"/>
@@ -1129,16 +1063,6 @@ under the License.
     <BudgetReviewResultType description="Accepted" budgetReviewResultTypeId="BGR_ACCEPTED"/>
     <BudgetReviewResultType description="Rejected" budgetReviewResultTypeId="BGR_REJECTED"/>
 
-    <PaymentGatewayConfigType paymentGatewayConfigTypeId="PAY_GATWY_SAGEPAY" hasTable="Y" description="Payment Gateway SagePay"/>
-    <PaymentGatewayConfigType paymentGatewayConfigTypeId="PAY_GATWY_AUTH_NET" hasTable="Y" description="Payment Gateway Authorize Dot Net"/>
-    <PaymentGatewayConfigType paymentGatewayConfigTypeId="PAY_GATWY_CYBERSRC" hasTable="Y" description="Payment Gateway CyberSource"/>
-    <PaymentGatewayConfigType paymentGatewayConfigTypeId="PAY_GATWY_EWAY" hasTable="Y" description="Payment Gateway eWay"/>
-    <PaymentGatewayConfigType paymentGatewayConfigTypeId="PAY_GATWY_PAYFLOWPRO" hasTable="Y" description="Payment Gateway Payflow Pro"/>
-    <PaymentGatewayConfigType paymentGatewayConfigTypeId="PAY_GATWY_PAYPAL" hasTable="Y" description="Payment Gateway PayPal"/>
-    <PaymentGatewayConfigType paymentGatewayConfigTypeId="PAY_GATWY_CLRCOMRC" hasTable="Y" description="Payment Gateway Clear Commerce"/>
-    <PaymentGatewayConfigType paymentGatewayConfigTypeId="PAY_GATWY_WORLDPAY" hasTable="Y" description="Payment Gateway RBS WorldPay"/>
-    <PaymentGatewayConfigType paymentGatewayConfigTypeId="PAY_GATWY_ORBITAL" hasTable="Y" description="Payment Gateway Orbital"/>
-    <PaymentGatewayConfigType paymentGatewayConfigTypeId="PAY_GATWY_SECUREPAY" hasTable="Y" description="Payment Gateway SecurePay"/>
     
     <!-- US Tax Account Groups -->
     <GlAccountGroupType glAccountGroupTypeId="TAX_FIELD_US" description="Tax Form Field: USA"/>

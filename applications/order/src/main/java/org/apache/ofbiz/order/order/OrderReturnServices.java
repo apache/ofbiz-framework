@@ -52,7 +52,6 @@ import org.apache.ofbiz.entity.condition.EntityOperator;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.entity.util.EntityUtil;
 import org.apache.ofbiz.entity.util.EntityUtilProperties;
-import org.apache.ofbiz.order.thirdparty.paypal.ExpressCheckoutEvents;
 import org.apache.ofbiz.product.product.ProductContentWrapper;
 import org.apache.ofbiz.product.product.ProductWorker;
 import org.apache.ofbiz.service.DispatchContext;
@@ -1339,14 +1338,6 @@ public class OrderReturnServices {
                 // This can be extended to support additional electronic types
                 List<String> electronicTypes = UtilMisc.<String>toList("CREDIT_CARD", "EFT_ACCOUNT", "FIN_ACCOUNT", "GIFT_CARD");
 
-                // Figure out if EXT_PAYPAL should be considered as an electronic type
-                if (productStore != null) {
-                    ExpressCheckoutEvents.CheckoutType payPalType = ExpressCheckoutEvents.determineCheckoutType(delegator,
-                            productStore.getString("productStoreId"));
-                    if (!payPalType.equals(ExpressCheckoutEvents.CheckoutType.NONE)) {
-                        electronicTypes.add("EXT_PAYPAL");
-                    }
-                }
                 // This defines the ordered part of the sequence of refund processing
                 List<String> orderedRefundPaymentMethodTypes = new LinkedList<>();
                 orderedRefundPaymentMethodTypes.add("EXT_BILLACT");
