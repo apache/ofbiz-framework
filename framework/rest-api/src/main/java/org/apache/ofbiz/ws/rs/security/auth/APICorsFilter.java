@@ -24,6 +24,7 @@ import java.util.List;
 
 import jakarta.annotation.Priority;
 import jakarta.ws.rs.HttpMethod;
+import jakarta.ws.rs.Priorities;
 import jakarta.ws.rs.container.ContainerRequestContext;
 import jakarta.ws.rs.container.ContainerRequestFilter;
 import jakarta.ws.rs.container.ContainerResponseContext;
@@ -42,7 +43,7 @@ import org.apache.ofbiz.base.util.UtilValidate;
  */
 
 @Provider
-@Priority(100) // Run before auth filters to handle OPTIONS preflight requests
+@Priority(Priorities.HEADER_DECORATOR)
 public class APICorsFilter implements ContainerRequestFilter, ContainerResponseFilter {
 
     // check security.properties file for 'cors.origins.allowed'
