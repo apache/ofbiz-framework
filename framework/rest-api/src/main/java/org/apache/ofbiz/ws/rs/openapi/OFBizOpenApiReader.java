@@ -85,6 +85,7 @@ public final class OFBizOpenApiReader extends Reader implements OpenApiReader {
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public OpenAPI read(Set<Class<?>> classes, Map<String, Object> resources) {
         openApi = super.read(classes, resources);
         ServletContext servletContext = ApiContextListener.getApplicationCntx();
