@@ -26,8 +26,5 @@
         <junit-test-suite class-name="org.apache.ofbiz.accounting.accounting.AutoPaymentTests"/>
     </test-case>
     
-    <!-- enable when sandbox is available and configured -->
-    <!-- test-case case-name="cc-tests">
-        <junit-test-suite class-name="org.apache.ofbiz.accounting.accounting.thirdparty.securepay.SecurePayServiceTest"/>
-    </test-case-->
+
 </test-suite>

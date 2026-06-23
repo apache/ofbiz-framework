@@ -5006,19 +5006,6 @@
         <value xml:lang="zh">离线支付</value>
         <value xml:lang="zh-TW">離線支付</value>
     </property>
-    <property key="PaymentMethodType.description.EXT_PAYPAL">
-        <value xml:lang="ar">PayPal</value>
-        <value xml:lang="de">PayPal-Konto</value>
-        <value xml:lang="en">PayPal</value>
-        <value xml:lang="zh">贝宝</value>
-        <value xml:lang="zh-TW">PayPal</value>
-    </property>
-    <property key="PaymentMethodType.description.EXT_WORLDPAY">
-        <value xml:lang="de">RBS WorldPay-Konto</value>
-        <value xml:lang="en">RBS WorldPay</value>
-        <value xml:lang="zh">环球付</value>
-        <value xml:lang="zh-TW">RBS WorldPay</value>
-    </property>
     <property key="PaymentMethodType.description.FIN_ACCOUNT">
         <value xml:lang="ar">حساب مالي</value>
         <value xml:lang="de">Finanzkonto</value>

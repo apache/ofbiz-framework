@@ -49,18 +49,6 @@ under the License.
     <service-resource type="model" loader="main" location="servicedef/services_cost.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_sample.xml"/>
 
-    <!-- Payment Processor/Gateway Service Definitions -->
-    <service-resource type="model" loader="main" location="servicedef/services_sagepay.xml"/>
-    <service-resource type="model" loader="main" location="servicedef/services_authorizedotnet.xml"/>
-    <service-resource type="model" loader="main" location="servicedef/services_clearcommerce.xml"/>
-    <service-resource type="model" loader="main" location="servicedef/services_cybersource.xml"/>
-    <service-resource type="model" loader="main" location="servicedef/services_paypal.xml"/>
-    <service-resource type="model" loader="main" location="servicedef/services_pccharge.xml"/>
-    <service-resource type="model" loader="main" location="servicedef/services_rita.xml"/>
-    <service-resource type="model" loader="main" location="servicedef/services_verisign.xml"/>
-    <service-resource type="model" loader="main" location="servicedef/services_orbital.xml"/>
-    <service-resource type="model" loader="main" location="servicedef/services_securepay.xml"/>
-
     <!-- Accounting Permission Services -->
     <service-resource type="model" loader="main" location="servicedef/services_perm.xml"/>
 
