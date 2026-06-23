@@ -339,6 +339,7 @@ public final class OpenApiUtil {
      * @return the OpenAPI {@link Schema} for the parameter, or {@code null} if
      *         the parameter cannot be mapped
      */
+    @SuppressWarnings("deprecation")
     public static Schema<?> getAttributeSchema(ModelService service, ModelParam param) {
         Schema<?> schema = null;
         Class<?> schemaClass = getOpenApiTypeForAttributeType(param.getType());
