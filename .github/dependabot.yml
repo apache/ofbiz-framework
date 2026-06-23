@@ -53,6 +53,11 @@ updates:
       interval: "daily"
 
   - package-ecosystem: "npm"
+    directory: "framework/rest-api"
+    schedule:
+      interval: "daily"
+
+  - package-ecosystem: "npm"
     directory: "themes/common-theme/webapp/common-theme/js"
     target-branch: "release24.09"
     schedule:
