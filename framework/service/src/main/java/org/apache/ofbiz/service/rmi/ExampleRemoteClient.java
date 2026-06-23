@@ -56,7 +56,7 @@ public class ExampleRemoteClient {
         try {
             rd = (RemoteDispatcher) Naming.lookup(RMI_URL);
         } catch (NotBoundException | RemoteException | MalformedURLException e) {
-            e.printStackTrace();
+            Debug.logError(e, MODULE);
         }
     }
 
