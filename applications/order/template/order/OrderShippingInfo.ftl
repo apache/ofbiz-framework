@@ -555,7 +555,6 @@ under the License.
                 <span class="label">&nbsp;${uiLabelMap.OrderTrackingNumber}</span>
               </td>
               <td>
-                <#-- TODO: add links to UPS/FEDEX/etc based on carrier partyId  -->
                 <#if shipGroup.trackingNumber?has_content>
                   ${shipGroup.trackingNumber}
                 </#if>
