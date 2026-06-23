@@ -162,9 +162,9 @@ if (modelEntity) {
 static Set<String> getFieldsToSelect(ModelEntity modelEntity) {
     if (modelEntity instanceof ModelViewEntity) {
         List groupByFields = modelEntity.getAliasesCopy()
-                .find { it.getGroupBy() }*.getName()
+                .find { it.getGroupBy() }*.getName() ?: []
         List functionFields = modelEntity.getAliasesCopy()
-                .find { it.getFunction() }*.getName()
+                .find { it.getFunction() }*.getName() ?: []
         return [*groupByFields, *functionFields] as Set
     }
     return [] as Set
