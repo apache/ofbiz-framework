@@ -1044,7 +1044,6 @@ public class CheckOutHelper {
             Debug.logError(e, MODULE);
             throw new GeneralException("Problem occurred in tax service (" + e.getMessage() + ")", e);
         }
-        // the adjustments (returned in order) from taxware.
         List<GenericValue> orderAdj = UtilGenerics.cast(serviceResult.get("orderAdjustments"));
         List<List<GenericValue>> itemAdj = UtilGenerics.cast(serviceResult.get("itemAdjustments"));
 

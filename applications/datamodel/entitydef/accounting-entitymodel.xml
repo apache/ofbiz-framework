@@ -3817,49 +3817,6 @@ under the License.
         <field name="description" type="description"></field>
         <prim-key field="taxAuthorityRateTypeId"/>
     </entity>
-    <entity entity-name="ZipSalesRuleLookup" package-name="org.apache.ofbiz.accounting.tax" title="Zip Sales Tax Lookup">
-        <field name="stateCode" type="short-varchar"></field>
-        <field name="city" type="short-varchar"></field>
-        <field name="county" type="short-varchar"></field>
-        <field name="fromDate" type="date-time"></field>
-        <field name="idCode" type="short-varchar"></field>
-        <field name="taxable" type="short-varchar"></field>
-        <field name="shipCond" type="long-varchar"></field>
-        <prim-key field="stateCode"/>
-        <prim-key field="city"/>
-        <prim-key field="county"/>
-        <prim-key field="fromDate"/>
-    </entity>
-    <entity entity-name="ZipSalesTaxLookup" package-name="org.apache.ofbiz.accounting.tax" title="Zip Sales Tax Lookup">
-        <field name="zipCode" type="short-varchar"></field>
-        <field name="stateCode" type="short-varchar"></field>
-        <field name="city" type="short-varchar"></field>
-        <field name="county" type="short-varchar"></field>
-        <field name="fromDate" type="date-time"></field>
-        <field name="countyFips" type="short-varchar"></field>
-        <field name="countyDefault" type="indicator"></field>
-        <field name="generalDefault" type="indicator"></field>
-        <field name="insideCity" type="indicator"></field>
-        <field name="geoCode" type="short-varchar"></field>
-        <field name="stateSalesTax" type="fixed-point"></field>
-        <field name="citySalesTax" type="fixed-point"></field>
-        <field name="cityLocalSalesTax" type="fixed-point"></field>
-        <field name="countySalesTax" type="fixed-point"></field>
-        <field name="countyLocalSalesTax" type="fixed-point"></field>
-        <field name="comboSalesTax" type="fixed-point"></field>
-        <field name="stateUseTax" type="fixed-point"></field>
-        <field name="cityUseTax" type="fixed-point"></field>
-        <field name="cityLocalUseTax" type="fixed-point"></field>
-        <field name="countyUseTax" type="fixed-point"></field>
-        <field name="countyLocalUseTax" type="fixed-point"></field>
-        <field name="comboUseTax" type="fixed-point"></field>
-        <prim-key field="zipCode"/>
-        <prim-key field="stateCode"/>
-        <prim-key field="city"/>
-        <prim-key field="county"/>
-        <prim-key field="fromDate"/>
-    </entity>
-
     <entity entity-name="PartyGlAccount" package-name="org.apache.ofbiz.accounting.ledger" title="Party Gl Account">
         <field name="organizationPartyId" type="id"/>
         <field name="partyId" type="id"/>
