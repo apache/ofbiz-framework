@@ -97,12 +97,12 @@ public class OFBizServiceResource {
         List<Map<String, Object>> serviceList = new ArrayList<>();
         for (String serviceName : serviceNames) {
             ModelService service = context.getModelService(serviceName);
-            if (service != null && service.isExport() && UtilValidate.isNotEmpty(service.getAction())) {
+            if (service != null && service.isExport()) {
                 Map<String, Object> serviceMap = new LinkedHashMap<String, Object>();
                 serviceMap.put("name", service.getName());
                 serviceMap.put("description", service.getDescription());
                 Link selfLink = Link.fromUriBuilder(uriInfo.getAbsolutePathBuilder().path(service.getName()))
-                        .type(service.getAction()).rel("self").build();
+                        .type(HttpMethod.POST).rel("self").build();
                 serviceMap.put("link", selfLink);
                 serviceList.add(serviceMap);
             }

@@ -30,7 +30,6 @@ import jakarta.ws.rs.core.HttpHeaders;
 import jakarta.ws.rs.core.Response;
 
 import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
@@ -86,6 +85,7 @@ public final class OFBizOpenApiReader extends Reader implements OpenApiReader {
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public OpenAPI read(Set<Class<?>> classes, Map<String, Object> resources) {
         openApi = super.read(classes, resources);
         ServletContext servletContext = ApiContextListener.getApplicationCntx();
@@ -224,40 +224,23 @@ public final class OFBizOpenApiReader extends Reader implements OpenApiReader {
             } catch (GenericServiceException e) {
                 e.printStackTrace();
             }
-            if (service != null && service.isExport() && UtilValidate.isNotEmpty(service.getAction())) {
-                String action = service.getAction().toUpperCase();
+            if (service != null && service.isExport()) {
                 SecurityRequirement security = new SecurityRequirement();
                 security.addList("jwtToken");
                 final Operation operation = new Operation().summary(service.getDescription())
                         .description(service.getDescription()).addTagsItem("Exported Services")
                         .operationId(service.getName()).deprecated(false).addSecurityItem(security);
                 PathItem pathItemObject = new PathItem();
-                if (service.getAction().equalsIgnoreCase(HttpMethod.GET)) {
-                    boolean inParamsEmpty = UtilValidate.isEmpty(service.getInParamNamesMap());
-                    if (!inParamsEmpty) {
-                        QueryParameter serviceInParam = new QueryParameter();
-                        serviceInParam.setRequired(true);
-                        serviceInParam.setDescription("Operation Input Parameters in JSON");
-                        serviceInParam.setName("input");
+                RequestBody request = new RequestBody().description("Request Body for service " + service.getName())
+                        .content(new Content().addMediaType(jakarta.ws.rs.core.MediaType.APPLICATION_JSON,
+                                new MediaType().schema(new Schema<>().$ref("#/components/schemas/" + "api.request." + service.getName()))));
+                operation.setRequestBody(request);
+                operation.addParametersItem(HEADER_CONTENT_TYPE_JSON);
 
-                        Schema<?> refSchema = new Schema<>();
-                        refSchema.$ref("#/components/schemas/" + "api.request." + service.getName());
-                        serviceInParam.content(new Content().addMediaType(jakarta.ws.rs.core.MediaType.APPLICATION_JSON,
-                                new MediaType().schema(refSchema)));
-                        operation.addParametersItem(serviceInParam);
-                    }
-                    operation.addParametersItem(HEADER_ACCEPT_JSON);
-                } else if (action.matches(HttpMethod.POST + "|" + HttpMethod.PUT + "|" + HttpMethod.PATCH)) {
-                    RequestBody request = new RequestBody().description("Request Body for service " + service.getName())
-                            .content(new Content().addMediaType(jakarta.ws.rs.core.MediaType.APPLICATION_JSON,
-                                    new MediaType().schema(new Schema<>().$ref("#/components/schemas/" + "api.request." + service.getName()))));
-                    operation.setRequestBody(request);
-                    operation.addParametersItem(HEADER_CONTENT_TYPE_JSON);
-                }
                 addServiceOutSchema(service);
                 addServiceInSchema(service);
                 addServiceOperationApiResponses(service, operation);
-                setPathItemOperation(pathItemObject, service.getAction().toUpperCase(), operation);
+                setPathItemOperation(pathItemObject, HttpMethod.POST, operation);
                 paths.addPathItem("/services/" + service.getName(), pathItemObject);
             }
         }

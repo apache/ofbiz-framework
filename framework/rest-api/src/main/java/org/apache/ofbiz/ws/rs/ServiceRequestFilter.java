@@ -31,8 +31,6 @@ import org.apache.ofbiz.ws.rs.util.RestApiUtil;
 import jakarta.annotation.Priority;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.ws.rs.BadRequestException;
-import jakarta.ws.rs.HttpMethod;
 import jakarta.ws.rs.NotFoundException;
 import jakarta.ws.rs.Priorities;
 import jakarta.ws.rs.container.ContainerRequestContext;
@@ -73,9 +71,6 @@ public class ServiceRequestFilter implements ContainerRequestFilter {
      *   <li>The service exists — throws {@link ServiceNotFoundException} if not</li>
      *   <li>The service is marked as exportable — throws {@link NotFoundException} if not</li>
      *   <li>The service has an HTTP action defined — throws {@link NotFoundException} if not</li>
-     *   <li>The HTTP method matches the service action — throws {@link MethodNotAllowedException} if not</li>
-     *   <li>GET requests include the {@code inParams} query parameter —
-     *       throws {@link BadRequestException} if absent</li>
      * </ul>
      *
      * <p>On successful validation, the service name is stored in
@@ -86,8 +81,6 @@ public class ServiceRequestFilter implements ContainerRequestFilter {
     public void filter(ContainerRequestContext requestContext) throws IOException {
         Debug.logInfo("Service request is going to get validated!", MODULE);
         String service = (String) RestApiUtil.extractParams(uriInfo.getPathParameters()).get("serviceName");
-        String method = requestContext.getMethod();
-        String action = null;
         if (UtilValidate.isNotEmpty(service)) {
             ModelService mdService = null;
             try {
@@ -100,23 +93,10 @@ public class ServiceRequestFilter implements ContainerRequestFilter {
                 throw new ServiceNotFoundException(service);
             }
 
-            if (mdService != null && !mdService.isExport()) {
+            if (!mdService.isExport()) {
                 throw new NotFoundException("Service '" + service + "' is not exportable.");
             }
 
-            action = mdService.getAction();
-            if (mdService != null && UtilValidate.isEmpty(action)) {
-                throw new NotFoundException("Service '" + service + "' does not have HTTP action defined.");
-            }
-
-            if (!action.equalsIgnoreCase(method)) {
-                throw new MethodNotAllowedException("HTTP " + method + " is not allowed on service '" + service + "'");
-            }
-
-            if (action.equalsIgnoreCase(HttpMethod.GET) && UtilValidate.isNotEmpty(mdService.getInParamNamesMap())
-                    && UtilValidate.isEmpty(httpRequest.getParameter(SVC_IN_PARAMS))) {
-                throw new BadRequestException("Missing Parameter: 'inParams'");
-            }
             // If everything looks good, set the 'requestForService' property in the
             // context. Indicates which service this request is for.
             ServiceNameContextHolder.set(service);

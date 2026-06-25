@@ -134,9 +134,6 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
     /** The namespace of this service */
     private String nameSpace;
 
-    /** The corresponding REST verb behaviour for this service */
-    private String action;
-
     /** The package name or location of this service */
     private String location;
 
@@ -260,14 +257,6 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
      */
     public void setNameSpace(String nameSpace) {
         this.nameSpace = nameSpace;
-    }
-
-    /**
-     * Sets action.
-     * @param action the action
-     */
-    public void setAction(String action) {
-        this.action = action;
     }
 
     /**
@@ -524,14 +513,6 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
      */
     public String getNameSpace() {
         return nameSpace;
-    }
-
-    /**
-     * Gets action.
-     * @return the action
-     */
-    public String getAction() {
-        return action;
     }
 
     /**
@@ -801,7 +782,6 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         this.defaultEntityName = model.defaultEntityName;
         this.auth = model.auth;
         this.export = model.export;
-        this.action = model.action;
         this.validate = model.validate;
         this.useTransaction = model.useTransaction;
         this.requireNewTransaction = model.requireNewTransaction;
@@ -937,7 +917,6 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         buf.append(defaultEntityName).append("::");
         buf.append(auth).append("::");
         buf.append(export).append("::");
-        buf.append(action).append("::");
         buf.append(validate).append("::");
         buf.append(useTransaction).append("::");
         buf.append(requireNewTransaction).append("::");

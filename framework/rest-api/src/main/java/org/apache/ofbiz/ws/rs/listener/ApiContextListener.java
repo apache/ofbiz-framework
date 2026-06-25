@@ -90,6 +90,7 @@ public class ApiContextListener implements ServletContextListener {
      *             is refactored
      */
     // TODO: remove after the refactoring of OFBizOpenApiReader
+    @Deprecated
     public static ServletContext getApplicationCntx() {
         return servletContext;
     }
