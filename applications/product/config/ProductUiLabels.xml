@@ -9283,22 +9283,6 @@
         <value xml:lang="zh">更新送货网关配置</value>
         <value xml:lang="zh-TW">更新出貨閘道配置</value>
     </property>
-    <property key="PageTitleUpdateShipmentGatewayConfigDhl">
-        <value xml:lang="de">Aktualisiere Versandportal Konfiguration DHL</value>
-        <value xml:lang="en">Update Shipment Gateway Config DHL</value>
-        <value xml:lang="es">Actualizar configuración de envío Gateway DHL</value>
-        <value xml:lang="it">Aggiorna configurazione gateway spedizione DHL</value>
-        <value xml:lang="zh">更新敦豪快递送货网站配置</value>
-        <value xml:lang="zh-TW">更新DHL出貨網站配置</value>
-    </property>
-    <property key="PageTitleUpdateShipmentGatewayConfigFedex">
-        <value xml:lang="de">Aktualisiere Versandportal Konfiguration FedEx</value>
-        <value xml:lang="en">Update Shipment Gateway Config FedEx</value>
-        <value xml:lang="es">Actualizar configuración de envío Gateway FedEx</value>
-        <value xml:lang="it">Aggiorna configurazione gateway spedizione FedEx</value>
-        <value xml:lang="zh">更新联邦快递送货网关配置</value>
-        <value xml:lang="zh-TW">更新FedEx出貨閘道配置</value>
-    </property>
     <property key="PageTitleUpdateShipmentGatewayConfigType">
         <value xml:lang="de">Aktualisiere Versandportal Konfigurations Typ</value>
         <value xml:lang="en">Update Shipment Gateway Config Type</value>
@@ -9306,22 +9290,6 @@
         <value xml:lang="it">Aggiorna tipo configurazione gateway spedizione</value>
         <value xml:lang="zh">更新送货网关配置类型</value>
         <value xml:lang="zh-TW">更新出貨閘道配置類型</value>
-    </property>
-    <property key="PageTitleUpdateShipmentGatewayConfigUps">
-        <value xml:lang="de">Aktualisiere Versandportal Konfiguration UPS</value>
-        <value xml:lang="en">Update Shipment Gateway Config UPS</value>
-        <value xml:lang="es">Actualizar configuración de Gateway de envío UPS</value>
-        <value xml:lang="it">Aggiorna configurazione gateway spedizione UPS</value>
-        <value xml:lang="zh">更新联合包裹送货网关配置</value>
-        <value xml:lang="zh-TW">更新UPS出貨閘道配置</value>
-    </property>
-    <property key="PageTitleUpdateShipmentGatewayConfigUsps">
-        <value xml:lang="de">Aktualisiere Versandportal Konfiguration USPS</value>
-        <value xml:lang="en">Update Shipment Gateway Config USPS</value>
-        <value xml:lang="es">Actualizar configuración de Gateway de envío USPS</value>
-        <value xml:lang="it">Aggiorna configurazione gateway spedizione USPS</value>
-        <value xml:lang="zh">更新美国邮政送货网关配置</value>
-        <value xml:lang="zh-TW">更新美國郵政出貨閘道配置</value>
     </property>
     <property key="PageTitleViewFacilityContactMechanism">
         <value xml:lang="de">Einrichtungs-Kontaktmechanismus anzeigen für ${facility.facilityName} [${facility.facilityId}]</value>
@@ -9507,19 +9475,6 @@
         <value xml:lang="vi">Viết tắt</value>
         <value xml:lang="zh">缩写</value>
         <value xml:lang="zh-TW">縮寫</value>
-    </property>
-    <property key="ProductAcceptUpsShipmentConfirmation">
-        <value xml:lang="de">UPS Lieferbestätigung annehmen</value>
-        <value xml:lang="en">Accept UPS Shipment Confirmation</value>
-        <value xml:lang="es">Aceptar Confirmación de Envío UPS</value>
-        <value xml:lang="fr">Confirmation de l'expédition UPS acceptée</value>
-        <value xml:lang="it">Accetta Conferma Spedizione UPS</value>
-        <value xml:lang="ja">UPS発送確認を受付</value>
-        <value xml:lang="ro">Accepta Confirmarea Expedierii UPS</value>
-        <value xml:lang="ru">Принять все подтверждения поставок UPS</value>
-        <value xml:lang="th">ยอมรับการยืนยันการขนส่งสินค้า UPS</value>
-        <value xml:lang="zh">接受UPS货运确认</value>
-        <value xml:lang="zh-TW">接受UPS貨運確認</value>
     </property>
     <property key="ProductAccountType">
         <value xml:lang="de">Kontotyp</value>
@@ -13016,33 +12971,6 @@
         <value xml:lang="vi">Xác nhận Vận chuyển bằng DHL</value>
         <value xml:lang="zh">确认货运使用DHL</value>
         <value xml:lang="zh-TW">確認貨運使用DHL</value>
-    </property>
-    <property key="ProductConfirmShipmentFedex">
-        <value xml:lang="de">Lieferung mit Fedex bestätigen</value>
-        <value xml:lang="en">Confirm Shipment with Fedex</value>
-        <value xml:lang="es">Confirmar envío por Fedex</value>
-        <value xml:lang="fr">Confirmer l'expédition avec Fedex</value>
-        <value xml:lang="it">Conferma Spedizione con Fedex</value>
-        <value xml:lang="ja">Fedexで発送を確認</value>
-        <value xml:lang="ru">Подтвердите доставку через Fedex</value>
-        <value xml:lang="th">ยืนยันการขนส่งด้วย Fedex</value>
-        <value xml:lang="vi">Xác nhận Vận chuyển bằng FedEX</value>
-        <value xml:lang="zh">确认货运使用Fedex</value>
-        <value xml:lang="zh-TW">確認貨運使用Fedex</value>
-    </property>
-    <property key="ProductConfirmShipmentUps">
-        <value xml:lang="de">Lieferung mit UPS bestätigen</value>
-        <value xml:lang="en">Confirm Shipment with UPS</value>
-        <value xml:lang="es">Confirmar Envío por UPS</value>
-        <value xml:lang="fr">Confirmer l'expédition avec UPS</value>
-        <value xml:lang="it">Conferma Spedizione con UPS</value>
-        <value xml:lang="ja">UPSで発送を確認</value>
-        <value xml:lang="ro">Confirma Expedieri cu UPS</value>
-        <value xml:lang="ru">Подтвердите доставку через UPS</value>
-        <value xml:lang="th">ยืนยันการขนส่งด้วย UPS</value>
-        <value xml:lang="vi">Xác nhận Vận chuyển bằng UPS</value>
-        <value xml:lang="zh">确认货运使用UPS</value>
-        <value xml:lang="zh-TW">確認貨運使用UPS</value>
     </property>
     <property key="ProductContactTypeInformation">
         <value xml:lang="de">Kontakttyp Informationen</value>
@@ -27063,58 +26991,6 @@
         <value xml:lang="zh">无法从数据库找出预估</value>
         <value xml:lang="zh-TW">無法從資料庫找出預估</value>
     </property>
-    <property key="ProductShipmentFedexHomeAppointment">
-        <value xml:lang="de">Verabredung</value>
-        <value xml:lang="en">Appointment</value>
-        <value xml:lang="es">Cita</value>
-        <value xml:lang="fr">Rendez-vous</value>
-        <value xml:lang="it">Appuntamento</value>
-        <value xml:lang="ja">予約</value>
-        <value xml:lang="ru">Встреча</value>
-        <value xml:lang="th">การนัดหมาย</value>
-        <value xml:lang="vi">Bổ nhiệm</value>
-        <value xml:lang="zh">预约</value>
-        <value xml:lang="zh-TW">預約</value>
-    </property>
-    <property key="ProductShipmentFedexHomeDateCertain">
-        <value xml:lang="de">Bestimmtes Datum</value>
-        <value xml:lang="en">Date Certain</value>
-        <value xml:lang="es">Fecha cierta</value>
-        <value xml:lang="fr">Date certaine</value>
-        <value xml:lang="it">Data Sicura</value>
-        <value xml:lang="ja">確定日</value>
-        <value xml:lang="ru">Определенная дата</value>
-        <value xml:lang="th">วันที่แน่นอน</value>
-        <value xml:lang="vi">Ngày chính xác</value>
-        <value xml:lang="zh">确定的日期</value>
-        <value xml:lang="zh-TW">確定的日期</value>
-    </property>
-    <property key="ProductShipmentFedexHomeDeliveryTypeDate">
-        <value xml:lang="de">Hausliefertyp/Datum (nur FedEx)</value>
-        <value xml:lang="en">Home Delivery Type/Date (FedEx only)</value>
-        <value xml:lang="es">Envío a domicilio tipo/fecha (sólo FedEx)</value>
-        <value xml:lang="fr">Livraison à domicile Type/Date (FedEx seulement)</value>
-        <value xml:lang="it">Tipo Consegna a Casa/Data (solo FedEx)</value>
-        <value xml:lang="ja">家庭配送種類/日 (FedExのみ)</value>
-        <value xml:lang="ru">Тип доставки до дома/дата (только FedEx)</value>
-        <value xml:lang="th">บริการส่งถึงบ้าน ประเภท/วันที่ (FedEx only)</value>
-        <value xml:lang="vi">Kiểu / Ngày nhận hàng tại nhà (chỉ với FedEx)</value>
-        <value xml:lang="zh">家庭送货类型/日期(仅适用于FedEx)</value>
-        <value xml:lang="zh-TW">家庭送達類型/日期(僅適用於FedEx)</value>
-    </property>
-    <property key="ProductShipmentFedexHomeEvening">
-        <value xml:lang="de">Abends</value>
-        <value xml:lang="en">Evening</value>
-        <value xml:lang="es">Tarde</value>
-        <value xml:lang="fr">Soir</value>
-        <value xml:lang="it">Serale</value>
-        <value xml:lang="ja">夜</value>
-        <value xml:lang="ru">Вечер</value>
-        <value xml:lang="th">ตอนเย็น</value>
-        <value xml:lang="vi">Tối</value>
-        <value xml:lang="zh">傍晚</value>
-        <value xml:lang="zh-TW">傍晚</value>
-    </property>
     <property key="ProductShipmentId">
         <value xml:lang="de">Lieferung ID</value>
         <value xml:lang="en">Shipment ID</value>
@@ -27508,19 +27384,6 @@
         <value xml:lang="vi">Kiểu chuyển vận</value>
         <value xml:lang="zh">货运类型标识</value>
         <value xml:lang="zh-TW">貨運類型識別</value>
-    </property>
-    <property key="ProductShipmentUpsResidential">
-        <value xml:lang="de">Auslieferung Wohnhaus</value>
-        <value xml:lang="en">Residential Delivery</value>
-        <value xml:lang="es">Entrega residencial</value>
-        <value xml:lang="fr">Livraison résidentielle</value>
-        <value xml:lang="it">Consegna Residenziale</value>
-        <value xml:lang="ja">戸口配送</value>
-        <value xml:lang="ru">Доставка по месту жительства</value>
-        <value xml:lang="th">ที่อยู่การขนส่ง</value>
-        <value xml:lang="vi">Nhận tại nơi cư trú</value>
-        <value xml:lang="zh">居住区投递</value>
-        <value xml:lang="zh-TW">居住區投遞</value>
     </property>
     <property key="ProductShipments">
         <value xml:lang="de">Lieferungen</value>
@@ -29222,20 +29085,6 @@
         <value xml:lang="zh">跟踪</value>
         <value xml:lang="zh-TW">追蹤</value>
     </property>
-    <property key="ProductTrackUpsShipment">
-        <value xml:lang="de">UPS Lieferung verfolgen</value>
-        <value xml:lang="en">Track UPS Shipment</value>
-        <value xml:lang="es">Seguimiento de envío UPS</value>
-        <value xml:lang="fr">Suivi d'expédition via UPS</value>
-        <value xml:lang="it">Tracciare Spedizione UPS</value>
-        <value xml:lang="ja">UPS発送を追跡</value>
-        <value xml:lang="ro">Trasare Expediere UPS</value>
-        <value xml:lang="ru">Отследить поставку UPS</value>
-        <value xml:lang="th">เส้นทางการขนส่งUPS</value>
-        <value xml:lang="vi">Theo dõi chuyển vận UPS</value>
-        <value xml:lang="zh">跟踪UPS货运</value>
-        <value xml:lang="zh-TW">追蹤UPS貨運</value>
-    </property>
     <property key="ProductTracking">
         <value xml:lang="de">Verfolgen</value>
         <value xml:lang="en">Tracking</value>
@@ -30142,34 +29991,6 @@
         <value xml:lang="es">Virtuales y Variantes</value>
         <value xml:lang="nl">Sectie 1: Virtuelen en varianten</value>
         <value xml:lang="zh">虚拟和可变</value>
-    </property>
-    <property key="ProductVoidUpsShipment">
-        <value xml:lang="de">Storniere UPS Lieferung</value>
-        <value xml:lang="en">Void UPS Shipment</value>
-        <value xml:lang="es">Envío vacío de UPS</value>
-        <value xml:lang="fr">Absence d'expédition UPS</value>
-        <value xml:lang="it">Spedizione UPS vuota</value>
-        <value xml:lang="ja">無効UPS発送</value>
-        <value xml:lang="ro">Expediere UPS goala</value>
-        <value xml:lang="ru">Пустая поставка UPS</value>
-        <value xml:lang="th">Void UPS Shipment</value>
-        <value xml:lang="vi">Thủ tục chuyển vận UPS</value>
-        <value xml:lang="zh">空UPS货运</value>
-        <value xml:lang="zh-TW">空UPS貨運</value>
-    </property>
-    <property key="ProductVoidUpsShipmentConfirmation">
-        <value xml:lang="de">Bestätigung UPS Lieferstornierung</value>
-        <value xml:lang="en">Void UPS Shipment Confirmation</value>
-        <value xml:lang="es">Confirmación del envío vacío de UPS</value>
-        <value xml:lang="fr">Confirmation de l'absence d'expédition UPS</value>
-        <value xml:lang="it">Conferma Spedizione UPS vuota</value>
-        <value xml:lang="ja">無効UPS発送確認</value>
-        <value xml:lang="ro">Confirma Expediere UPS goala</value>
-        <value xml:lang="ru">Подтверждение пустой поставки UPS</value>
-        <value xml:lang="th">Void UPS Shipment Confirmation</value>
-        <value xml:lang="vi">Xác nhận thủ tục chuyển vận UPS</value>
-        <value xml:lang="zh">空UPS货运确认</value>
-        <value xml:lang="zh-TW">空UPS貨運確認</value>
     </property>
     <property key="ProductWarehouseArea">
         <value xml:lang="de">Lagerbereich</value>
