@@ -194,20 +194,6 @@ under the License.
         <attribute name="fromDate" type="String" mode="IN" optional="true"/>
     </service>
 
-    <!-- ZipSales Tax Services -->
-    <service name="importZipSalesTaxData" engine="java" transaction-timeout="7200"
-        location="org.apache.ofbiz.order.thirdparty.zipsales.ZipSalesServices" invoke="importFlatTable">
-        <description>Import ZipSales Flat File</description>
-        <attribute name="taxFileLocation" type="String" mode="IN" optional="false"/>
-        <attribute name="ruleFileLocation" type="String" mode="IN" optional="false"/>
-    </service>
-
-    <service name="flatZipSalesTaxCalc" engine="java"
-        location="org.apache.ofbiz.order.thirdparty.zipsales.ZipSalesServices" invoke="flatTaxCalc">
-        <description>Zip Sales Calc Tax Service - change this to calcTax to run</description>
-        <implements service="calcTaxInterface"/>
-    </service>
-
     <!-- TaxAuthorityAssocType services -->
     <service name="createTaxAuthorityAssocType" default-entity-name="TaxAuthorityAssocType" engine="entity-auto" invoke="create" auth="true">
         <description>Create a TaxAuthorityAssocType</description>
