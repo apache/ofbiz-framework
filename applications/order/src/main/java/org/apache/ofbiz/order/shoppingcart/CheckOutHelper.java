@@ -56,7 +56,6 @@ import org.apache.ofbiz.order.order.OrderChangeHelper;
 import org.apache.ofbiz.order.order.OrderReadHelper;
 import org.apache.ofbiz.order.shoppingcart.product.ProductPromoWorker;
 import org.apache.ofbiz.order.shoppingcart.shipping.ShippingEvents;
-import org.apache.ofbiz.order.thirdparty.paypal.ExpressCheckoutEvents;
 import org.apache.ofbiz.party.contact.ContactHelper;
 import org.apache.ofbiz.party.contact.ContactMechWorker;
 import org.apache.ofbiz.product.store.ProductStoreWorker;
@@ -1045,7 +1044,6 @@ public class CheckOutHelper {
             Debug.logError(e, MODULE);
             throw new GeneralException("Problem occurred in tax service (" + e.getMessage() + ")", e);
         }
-        // the adjustments (returned in order) from taxware.
         List<GenericValue> orderAdj = UtilGenerics.cast(serviceResult.get("orderAdjustments"));
         List<List<GenericValue>> itemAdj = UtilGenerics.cast(serviceResult.get("itemAdjustments"));
 
@@ -1161,17 +1159,6 @@ public class CheckOutHelper {
                     }
                 }
             }
-        }
-
-        // check for a paypal express checkout needing completion
-        List<EntityExpr> payPalExprs = UtilMisc.toList(
-                EntityCondition.makeCondition("paymentMethodId", EntityOperator.NOT_EQUAL, null),
-                EntityCondition.makeCondition("paymentMethodTypeId", "EXT_PAYPAL"));
-        List<GenericValue> payPalPaymentPrefs = EntityUtil.filterByAnd(allPaymentPreferences, payPalExprs);
-        if (UtilValidate.isNotEmpty(payPalPaymentPrefs)) {
-            GenericValue payPalPaymentPref = EntityUtil.getFirst(payPalPaymentPrefs);
-            ExpressCheckoutEvents.doExpressCheckout(productStore.getString("productStoreId"), orderId, payPalPaymentPref, userLogin,
-                    delegator, dispatcher);
         }
 
         // check for online payment methods needing authorization

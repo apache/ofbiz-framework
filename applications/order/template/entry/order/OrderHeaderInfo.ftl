@@ -101,7 +101,6 @@ under the License.
                 </td>
                 <td width="5">&nbsp;</td>
                 <td valign="top" width="80%">
-                    <#-- TODO: add links to UPS/FEDEX/etc based on carrier partyId  -->
                     <div>${trackingNumber}</div>
                 </td>
             </tr>

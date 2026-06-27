@@ -532,10 +532,6 @@ if (orderItems) {
     context.orderItem = orderItem
 }
 
-// getting online ship estimates corresponding to this Order from UPS when "Hold" button will be clicked, when user packs from weight package screen.
-// This case comes when order's shipping amount is  more then or less than default percentage (defined in shipment.properties)
-// of online UPS shipping amount.
-
 shipments = from('Shipment').where('primaryOrderId', orderId, 'statusId', 'SHIPMENT_PICKED').queryList()
 if (shipments) {
     pickedShipmentId = EntityUtil.getFirst(shipments).shipmentId

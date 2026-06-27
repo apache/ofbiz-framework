@@ -43,21 +43,6 @@ under the License.
           <#assign partyId = "${(returnHeader.fromPartyId)!}"/>
           <li><a href="<@ofbizUrl>setOrderCurrencyAgreementShipDates?partyId=${partyId!}&amp;originOrderId=${orderId!}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderCreateExchangeOrder} ${uiLabelMap.CommonFor} ${orderId!}</a></li>
         </#if>
-        <#if returnHeader.statusId?has_content && "RETURN_ACCEPTED" == returnHeader.statusId>
-          <#assign returnItems = EntityQuery.use(delegator).from("ReturnItem").where("returnId", returnId!).queryList()!/>
-          <#if returnItems?has_content>
-            <#assign orderId = (Static["org.apache.ofbiz.entity.util.EntityUtil"].getFirst(returnItems)).getString("orderId")/>
-            <#assign shipGroupAssoc = EntityQuery.use(delegator).from("OrderItemShipGroupAssoc").where("orderId", orderId!).queryFirst()!/>
-            <#assign shipGroup = delegator.findOne("OrderItemShipGroup", {"orderId" : orderId, "shipGroupSeqId" : shipGroupAssoc.shipGroupSeqId}, false)>
-            <#if shipGroup?? && shipGroup.shipmentMethodTypeId != "NO_SHIPPING">
-              <#assign shipGroupShipment = EntityQuery.use(delegator).from("Shipment").where("primaryOrderId", shipGroup.orderId!, "primaryShipGroupSeqId", shipGroup.shipGroupSeqId!).queryFirst()! />
-                <#if shipGroupShipment??>
-                <#assign shipmentRouteSegment = EntityQuery.use(delegator).from("ShipmentRouteSegment").where("shipmentId", shipGroupShipment.shipmentId!).queryFirst()!>
-                </#if>
-              </#if>
-            </#if>
-          </#if>
-        </#if>
       </#if>
           </ul>
         </li>
