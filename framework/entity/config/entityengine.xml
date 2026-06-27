@@ -97,10 +97,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
     <entity-data-reader name="ext-test"/>
     <entity-data-reader name="ext-demo"/>
 
-    <field-type name="hsql" loader="fieldfile" location="fieldtypehsql.xml"/>
     <field-type name="h2" loader="fieldfile" location="fieldtypeh2.xml"/>
-    <field-type name="daffodil" loader="fieldfile" location="fieldtypedaffodil.xml"/>
-    <field-type name="axion" loader="fieldfile" location="fieldtypeaxion.xml"/>
     <field-type name="mysql" loader="fieldfile" location="fieldtypemysql.xml"/>
     <field-type name="postgres" loader="fieldfile" location="fieldtypepostgres.xml"/>
     <field-type name="oracle" loader="fieldfile" location="fieldtypeoracle.xml"/>
@@ -109,7 +106,10 @@ access. For a detailed description see the core/docs/entityconfig.html file.
     <field-type name="firebird" loader="fieldfile" location="fieldtypefirebird.xml"/>
     <field-type name="mssql" loader="fieldfile" location="fieldtypemssql.xml"/>
     <field-type name="advantage" loader="fieldfile" location="fieldtypeadvantage.xml"/>
-    
+    <field-type name="hsql" loader="fieldfile" location="fieldtypehsql.xml"/>
+    <field-type name="daffodil" loader="fieldfile" location="fieldtypedaffodil.xml"/>
+    <field-type name="axion" loader="fieldfile" location="fieldtypeaxion.xml"/>
+
     <!--
     For DAO/JDBC Helper: Tries:
       1. JNDI Datasource IF jdbc.jndi.name, context.provider, etc are specified
@@ -124,38 +124,6 @@ access. For a detailed description see the core/docs/entityconfig.html file.
      * Serializable (NOT Recommended)
      * Not set uses database default
     -->
-    
-    <datasource name="localhsql"
-            helper-class="org.apache.ofbiz.entity.datasource.GenericHelperDAO"
-            field-type-name="hsql"
-            check-on-start="true"
-            add-missing-on-start="true"
-            check-indices-on-start="true"
-            use-foreign-keys="true"
-            use-foreign-key-indices="true"
-            use-fk-initially-deferred="false"
-            join-style="ansi-no-parenthesis"
-            alias-view-columns="false">
-        <read-data reader-name="tenant"/>
-        <read-data reader-name="seed"/>
-        <read-data reader-name="seed-initial"/>
-        <read-data reader-name="demo"/>
-        <read-data reader-name="ext"/>
-        <read-data reader-name="ext-test"/>
-        <read-data reader-name="ext-demo"/>
-        <inline-jdbc
-                jdbc-driver="org.hsqldb.jdbcDriver"
-                jdbc-uri="jdbc:hsqldb:runtime/data/hsqldb/ofbiz"
-                jdbc-username="ofbiz"
-                jdbc-password="ofbiz"
-                isolation-level="ReadCommitted"
-                pool-minsize="2"
-                pool-maxsize="250"
-                time-between-eviction-runs-millis="600000"/>
-        <!-- <jndi-jdbc jndi-server-name="localjndi" jndi-name="java:/HsqlDataSource" isolation-level="ReadUncommitted"/> -->
-        <!-- <jndi-jdbc jndi-server-name="default" jndi-name="comp/env/jdbc/xa/localhsql" isolation-level="ReadUncommitted"/> --> <!-- Orion Style JNDI name -->
-        <!-- <jndi-jdbc jndi-server-name="localjndi" jndi-name="localhsqlDataSource"/> --> <!-- Weblogic Style JNDI name -->
-    </datasource>
 
     <datasource name="localh2"
             helper-class="org.apache.ofbiz.entity.datasource.GenericHelperDAO"
@@ -176,7 +144,6 @@ access. For a detailed description see the core/docs/entityconfig.html file.
         <read-data reader-name="ext"/>
         <read-data reader-name="ext-test"/>
         <read-data reader-name="ext-demo"/>
-
         <inline-jdbc
                 jdbc-driver="org.h2.Driver"
                 jdbc-uri="jdbc:h2:file:./runtime/data/h2/ofbiz;DB_CLOSE_ON_EXIT=FALSE;CACHE_SIZE=65536;INIT=CREATE SCHEMA IF NOT EXISTS OFBIZ\;SET SCHEMA OFBIZ"
@@ -204,7 +171,6 @@ access. For a detailed description see the core/docs/entityconfig.html file.
         alias-view-columns="false"
         use-order-by-nulls="true"
         offset-style="fetch">
-
         <inline-jdbc
             jdbc-driver="org.h2.Driver"
             jdbc-uri="jdbc:h2:file:./runtime/data/h2/ofbiz;DB_CLOSE_ON_EXIT=FALSE;CACHE_SIZE=65536;INIT=CREATE SCHEMA IF NOT EXISTS ODBC\;SET SCHEMA ODBC"
@@ -230,7 +196,6 @@ access. For a detailed description see the core/docs/entityconfig.html file.
             use-indices-unique="false"
             alias-view-columns="false"
             use-order-by-nulls="true">
-
         <read-data reader-name="tenant"/>
         <read-data reader-name="seed"/>
         <read-data reader-name="seed-initial"/>
@@ -270,7 +235,6 @@ access. For a detailed description see the core/docs/entityconfig.html file.
         <read-data reader-name="ext"/>
         <read-data reader-name="ext-test"/>
         <read-data reader-name="ext-demo"/>
-
         <inline-jdbc
             jdbc-driver="org.h2.Driver"
             jdbc-uri="jdbc:h2:file:./runtime/data/h2/ofbiz;DB_CLOSE_ON_EXIT=FALSE;CACHE_SIZE=65536;INIT=CREATE SCHEMA IF NOT EXISTS TENANT\;SET SCHEMA TENANT"
@@ -284,56 +248,6 @@ access. For a detailed description see the core/docs/entityconfig.html file.
             pool-jdbc-test-stmt="SELECT 1"
             time-between-eviction-runs-millis="600000"/>
         <!-- <jndi-jdbc jndi-server-name="localjndi" jndi-name="java:/H2DataSource" isolation-level="ReadCommitted"/> -->
-    </datasource>
-    
-    <datasource name="localdaffodil"
-            helper-class="org.apache.ofbiz.entity.datasource.GenericHelperDAO"
-            field-type-name="daffodil"
-            check-on-start="true"
-            add-missing-on-start="true">
-        <read-data reader-name="tenant"/>
-        <read-data reader-name="seed"/>
-        <read-data reader-name="seed-initial"/>
-        <read-data reader-name="demo"/>
-        <read-data reader-name="ext"/>
-        <read-data reader-name="ext-test"/>
-        <read-data reader-name="ext-demo"/>
-        <!-- this setup is for the embedded version of Daffodil, with in.co.daffodil.db.jdbc.DaffodilDBDriver -->
-        <!-- note that Daffodil can also run in a network mode with the driver class: in.co.daffodil.db.rmi.RmiDaffodilDBDriver and URI: jdbc:daffodilDB://<hostname>:<port>/ofbiz;create=true -->
-        <inline-jdbc
-                jdbc-driver="in.co.daffodil.db.jdbc.DaffodilDBDriver"
-                jdbc-uri="jdbc:daffodilDB_embedded:ofbiz;create=true"
-                jdbc-username="ofbiz"
-                jdbc-password="ofbiz"
-                isolation-level="ReadCommitted"
-                pool-minsize="2"
-                pool-maxsize="250"
-                time-between-eviction-runs-millis="600000"/>
-        <!-- <jndi-jdbc jndi-server-name="localjndi" jndi-name="java:/DaffodilDataSource" isolation-level="ReadCommitted"/> -->
-    </datasource>
-
-    <datasource name="localaxion"
-            helper-class="org.apache.ofbiz.entity.datasource.GenericHelperDAO"
-            field-type-name="axion"
-            check-on-start="true"
-            add-missing-on-start="true"
-            use-pk-constraint-names="false">
-        <read-data reader-name="tenant"/>
-        <read-data reader-name="seed"/>
-        <read-data reader-name="seed-initial"/>
-        <read-data reader-name="demo"/>
-        <read-data reader-name="ext"/>
-        <read-data reader-name="ext-test"/>
-        <read-data reader-name="ext-demo"/>
-        <inline-jdbc
-                jdbc-driver="org.axiondb.jdbc.AxionDriver"
-                jdbc-uri="jdbc:axiondb:ofbiz:data/axion/ofbiz"
-                jdbc-username="ofbiz"
-                jdbc-password="ofbiz"
-                isolation-level="ReadCommitted"
-                pool-minsize="2"
-                pool-maxsize="250"
-                time-between-eviction-runs-millis="600000"/>
     </datasource>
 
     <!-- Also consider:
@@ -823,7 +737,89 @@ access. For a detailed description see the core/docs/entityconfig.html file.
                 pool-maxsize="250"
                 time-between-eviction-runs-millis="600000"/>
     </datasource>
-    
+
+    <datasource name="localhsql"
+                helper-class="org.apache.ofbiz.entity.datasource.GenericHelperDAO"
+                field-type-name="hsql"
+                check-on-start="true"
+                add-missing-on-start="true"
+                check-indices-on-start="true"
+                use-foreign-keys="true"
+                use-foreign-key-indices="true"
+                use-fk-initially-deferred="false"
+                join-style="ansi-no-parenthesis"
+                alias-view-columns="false">
+        <read-data reader-name="tenant"/>
+        <read-data reader-name="seed"/>
+        <read-data reader-name="seed-initial"/>
+        <read-data reader-name="demo"/>
+        <read-data reader-name="ext"/>
+        <read-data reader-name="ext-test"/>
+        <read-data reader-name="ext-demo"/>
+        <inline-jdbc
+                jdbc-driver="org.hsqldb.jdbcDriver"
+                jdbc-uri="jdbc:hsqldb:runtime/data/hsqldb/ofbiz"
+                jdbc-username="ofbiz"
+                jdbc-password="ofbiz"
+                isolation-level="ReadCommitted"
+                pool-minsize="2"
+                pool-maxsize="250"
+                time-between-eviction-runs-millis="600000"/>
+        <!-- <jndi-jdbc jndi-server-name="localjndi" jndi-name="java:/HsqlDataSource" isolation-level="ReadUncommitted"/> -->
+        <!-- <jndi-jdbc jndi-server-name="default" jndi-name="comp/env/jdbc/xa/localhsql" isolation-level="ReadUncommitted"/> --> <!-- Orion Style JNDI name -->
+        <!-- <jndi-jdbc jndi-server-name="localjndi" jndi-name="localhsqlDataSource"/> --> <!-- Weblogic Style JNDI name -->
+    </datasource>
+
+    <datasource name="localdaffodil"
+                helper-class="org.apache.ofbiz.entity.datasource.GenericHelperDAO"
+                field-type-name="daffodil"
+                check-on-start="true"
+                add-missing-on-start="true">
+        <read-data reader-name="tenant"/>
+        <read-data reader-name="seed"/>
+        <read-data reader-name="seed-initial"/>
+        <read-data reader-name="demo"/>
+        <read-data reader-name="ext"/>
+        <read-data reader-name="ext-test"/>
+        <read-data reader-name="ext-demo"/>
+        <!-- this setup is for the embedded version of Daffodil, with in.co.daffodil.db.jdbc.DaffodilDBDriver -->
+        <!-- note that Daffodil can also run in a network mode with the driver class: in.co.daffodil.db.rmi.RmiDaffodilDBDriver and URI: jdbc:daffodilDB://<hostname>:<port>/ofbiz;create=true -->
+        <inline-jdbc
+                jdbc-driver="in.co.daffodil.db.jdbc.DaffodilDBDriver"
+                jdbc-uri="jdbc:daffodilDB_embedded:ofbiz;create=true"
+                jdbc-username="ofbiz"
+                jdbc-password="ofbiz"
+                isolation-level="ReadCommitted"
+                pool-minsize="2"
+                pool-maxsize="250"
+                time-between-eviction-runs-millis="600000"/>
+        <!-- <jndi-jdbc jndi-server-name="localjndi" jndi-name="java:/DaffodilDataSource" isolation-level="ReadCommitted"/> -->
+    </datasource>
+
+    <datasource name="localaxion"
+                helper-class="org.apache.ofbiz.entity.datasource.GenericHelperDAO"
+                field-type-name="axion"
+                check-on-start="true"
+                add-missing-on-start="true"
+                use-pk-constraint-names="false">
+        <read-data reader-name="tenant"/>
+        <read-data reader-name="seed"/>
+        <read-data reader-name="seed-initial"/>
+        <read-data reader-name="demo"/>
+        <read-data reader-name="ext"/>
+        <read-data reader-name="ext-test"/>
+        <read-data reader-name="ext-demo"/>
+        <inline-jdbc
+                jdbc-driver="org.axiondb.jdbc.AxionDriver"
+                jdbc-uri="jdbc:axiondb:ofbiz:data/axion/ofbiz"
+                jdbc-username="ofbiz"
+                jdbc-password="ofbiz"
+                isolation-level="ReadCommitted"
+                pool-minsize="2"
+                pool-maxsize="250"
+                time-between-eviction-runs-millis="600000"/>
+    </datasource>
+
     <!-- According to http://markmail.org/message/s75sf6zhtizzkqbv Since version V6R1 (AS/400, db2) there is no need for an own fieldtype.xml - just use the h2-fieldtypes like this: -->
     <!-- Beware use-indices-unique="false" is needed because of H2 bug with null values in a unique index, not sure it's needed with DB2 -->
     <datasource name="DB2"
@@ -844,7 +840,6 @@ access. For a detailed description see the core/docs/entityconfig.html file.
         <read-data reader-name="ext"/>
         <read-data reader-name="ext-test"/>
         <read-data reader-name="ext-demo"/>
-            
             <!--   There is an open source version of the jdbc driver at sourceforge: http://sourceforge.net/projects/jt400/ -->
         <inline-jdbc
             jdbc-driver="com.ibm.as400.access.AS400JDBCDriver"
