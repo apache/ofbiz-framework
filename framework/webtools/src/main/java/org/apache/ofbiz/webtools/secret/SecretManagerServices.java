@@ -27,6 +27,9 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.sql.Timestamp;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -44,10 +47,12 @@ import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.cache.UtilCache;
 import org.apache.ofbiz.entity.Delegator;
+import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.condition.EntityCondition;
 import org.apache.ofbiz.entity.condition.EntityOperator;
 import org.apache.ofbiz.entity.util.EntityQuery;
+import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ServiceUtil;
@@ -74,6 +79,10 @@ public final class SecretManagerServices {
     /** Allows only letters, digits, dots, hyphens, underscores — blocks marker wrappers and path traversal. */
     static final Pattern SAFE_IDENTIFIER = Pattern.compile("^[\\w.\\-]+$");
 
+    /** Read once at class load — deployment mode never changes at runtime. */
+    private static final String DEPLOYMENT_MODE =
+            UtilProperties.getPropertyValue("security", "secret.audit.deployment.mode", "DIRECT");
+
     private SecretManagerServices() { }
 
     /**
@@ -98,29 +107,66 @@ public final class SecretManagerServices {
         if (!SAFE_IDENTIFIER.matcher(testKey).matches()) {
             return ServiceUtil.returnError("testKey must contain only letters, digits, dots, hyphens, and underscores");
         }
+        Delegator delegator = dctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String userLoginId = (userLogin != null) ? userLogin.getString("userLoginId") : "unknown";
+        String userLoginIdOrNull = (userLogin != null) ? userLogin.getString("userLoginId") : null;
         try {
             String value = SecretProviderFactory.getInstance().getSecret(testKey);
-            String outcome = UtilValidate.isNotEmpty(value) ? "found" : "empty-value";
-            Debug.logInfo("[SECRET_AUDIT] user=" + userLoginId + " action=testSecretProviderConnection"
-                    + " testKey=" + testKey + " outcome=" + outcome, MODULE);
+            String providerName = SecretProviderFactory.getProviderName();
+            Debug.logInfo("[SECRET_AUDIT] action=TEST_CONNECTION user=" + userLoginId
+                    + " key=" + testKey
+                    + " provider=" + providerName
+                    + " mode=" + DEPLOYMENT_MODE
+                    + " accessMode=PROVIDER_CALL outcome=SUCCESS", MODULE);
+            SecretAuditLogger.log(delegator, SecretAuditEvent.builder()
+                    .userLoginId(userLoginIdOrNull)
+                    .action("TEST_CONNECTION")
+                    .secretKeyRef(testKey)
+                    .providerType(providerName)
+                    .accessMode("PROVIDER_CALL")
+                    .outcome("SUCCESS")
+                    .build());
             if (UtilValidate.isNotEmpty(value)) {
                 return ServiceUtil.returnSuccess("Connected — key '" + testKey + "' found successfully");
             }
             return ServiceUtil.returnSuccess("Connected — key '" + testKey + "' returned an empty value");
         } catch (GeneralException e) {
             String msg = e.getMessage();
+            String providerName = SecretProviderFactory.getProviderName();
             // "not found" responses confirm connectivity; only network/auth errors are real failures
             if (msg != null && (msg.contains("not found") || msg.contains("NotFound") || msg.contains("does not exist"))) {
-                Debug.logInfo("[SECRET_AUDIT] user=" + userLoginId + " action=testSecretProviderConnection"
-                        + " testKey=" + testKey + " outcome=key-not-found", MODULE);
+                Debug.logInfo("[SECRET_AUDIT] action=TEST_CONNECTION user=" + userLoginId
+                        + " key=" + testKey
+                        + " provider=" + providerName
+                        + " mode=" + DEPLOYMENT_MODE
+                        + " accessMode=PROVIDER_CALL outcome=NOT_FOUND", MODULE);
+                SecretAuditLogger.log(delegator, SecretAuditEvent.builder()
+                        .userLoginId(userLoginIdOrNull)
+                        .action("TEST_CONNECTION")
+                        .secretKeyRef(testKey)
+                        .providerType(providerName)
+                        .accessMode("PROVIDER_CALL")
+                        .outcome("NOT_FOUND")
+                        .build());
                 return ServiceUtil.returnSuccess("Connected — key '" + testKey + "' was not found in the provider (vault is reachable)");
             }
-            // Log the full message server-side but never expose SDK internals to the browser:
-            // vault error messages can contain endpoint URLs, IAM ARNs, or credential fragments.
-            Debug.logWarning("[SECRET_AUDIT] user=" + userLoginId + " action=testSecretProviderConnection"
-                    + " testKey=" + testKey + " outcome=connection-failed detail=" + msg, MODULE);
+            // Full SDK message logged separately for server-side debugging only — never in the [SECRET_AUDIT] line.
+            Debug.logWarning("[SECRET_AUDIT] action=TEST_CONNECTION user=" + userLoginId
+                    + " key=" + testKey
+                    + " provider=" + providerName
+                    + " mode=" + DEPLOYMENT_MODE
+                    + " accessMode=PROVIDER_CALL outcome=FAILURE errorCategory=PROVIDER_ERROR", MODULE);
+            Debug.logWarning("Secret provider connection test failed for key '" + testKey + "': " + msg, MODULE);
+            SecretAuditLogger.log(delegator, SecretAuditEvent.builder()
+                    .userLoginId(userLoginIdOrNull)
+                    .action("TEST_CONNECTION")
+                    .secretKeyRef(testKey)
+                    .providerType(providerName)
+                    .accessMode("PROVIDER_CALL")
+                    .outcome("FAILURE")
+                    .errorCategory("PROVIDER_ERROR")
+                    .build());
             return ServiceUtil.returnError("Connection failed (" + e.getClass().getSimpleName()
                     + ") — check server logs for details");
         }
@@ -131,10 +177,17 @@ public final class SecretManagerServices {
      * rotation so operators can observe clean post-rotation metrics without a JVM restart.
      */
     public static Map<String, Object> resetSecretUsageStats(DispatchContext dctx, Map<String, ? extends Object> context) {
+        Delegator delegator = dctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String userLoginId = (userLogin != null) ? userLogin.getString("userLoginId") : "unknown";
         SecretValueResolver.resetUsageStats();
-        Debug.logInfo("[SECRET_AUDIT] user=" + userLoginId + " action=resetSecretUsageStats", MODULE);
+        Debug.logInfo("[SECRET_AUDIT] action=RESET_STATS user=" + userLoginId
+                + " mode=" + DEPLOYMENT_MODE + " accessMode=NOT_APPLICABLE outcome=SUCCESS", MODULE);
+        SecretAuditLogger.log(delegator, SecretAuditEvent.builder()
+                .userLoginId(userLogin != null ? userLogin.getString("userLoginId") : null)
+                .action("RESET_STATS")
+                .outcome("SUCCESS")
+                .build());
         return ServiceUtil.returnSuccess("Secret usage statistics reset successfully");
     }
 
@@ -163,12 +216,19 @@ public final class SecretManagerServices {
      * return the stale value straight from the provider's cache instead of re-fetching from the vault.</p>
      */
     public static Map<String, Object> flushSecretCache(DispatchContext dctx, Map<String, ? extends Object> context) {
+        Delegator delegator = dctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String userLoginId = (userLogin != null) ? userLogin.getString("userLoginId") : "unknown";
         SecretValueResolver.invalidateAll();
         UtilCache.clearCachesThatStartWith("properties.UtilProperties");
         SecretProviderFactory.invalidateCache();
-        Debug.logInfo("[SECRET_AUDIT] user=" + userLoginId + " action=flushSecretCache", MODULE);
+        Debug.logInfo("[SECRET_AUDIT] action=FLUSH_CACHE user=" + userLoginId
+                + " mode=" + DEPLOYMENT_MODE + " accessMode=NOT_APPLICABLE outcome=SUCCESS", MODULE);
+        SecretAuditLogger.log(delegator, SecretAuditEvent.builder()
+                .userLoginId(userLogin != null ? userLogin.getString("userLoginId") : null)
+                .action("FLUSH_CACHE")
+                .outcome("SUCCESS")
+                .build());
         return ServiceUtil.returnSuccess("Secret value cache flushed successfully");
     }
 
@@ -179,13 +239,21 @@ public final class SecretManagerServices {
      * {@code config/*.properties} file, without requiring a full OFBiz restart.
      */
     public static Map<String, Object> reloadSecretProvider(DispatchContext dctx, Map<String, ? extends Object> context) {
+        Delegator delegator = dctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String userLoginId = (userLogin != null) ? userLogin.getString("userLoginId") : "unknown";
         UtilCache.clearCachesThatStartWith("properties.UtilProperties");
         SecretProviderFactory.reload();
         String providerName = SecretProviderFactory.getProviderName();
-        Debug.logInfo("[SECRET_AUDIT] user=" + userLoginId + " action=reloadSecretProvider"
-                + " provider=" + providerName, MODULE);
+        Debug.logInfo("[SECRET_AUDIT] action=RELOAD_PROVIDER user=" + userLoginId
+                + " provider=" + providerName
+                + " mode=" + DEPLOYMENT_MODE + " accessMode=NOT_APPLICABLE outcome=SUCCESS", MODULE);
+        SecretAuditLogger.log(delegator, SecretAuditEvent.builder()
+                .userLoginId(userLogin != null ? userLogin.getString("userLoginId") : null)
+                .action("RELOAD_PROVIDER")
+                .providerType(providerName)
+                .outcome("SUCCESS")
+                .build());
         return ServiceUtil.returnSuccess("Secret provider reloaded — active provider is now: " + providerName);
     }
 
@@ -232,9 +300,24 @@ public final class SecretManagerServices {
         try {
             freshValue = SecretProviderFactory.getInstance().getSecret(providerKey);
         } catch (GeneralException e) {
-            Debug.logWarning("[SECRET_AUDIT] user=" + userLoginId + " action=syncSecretFromProvider"
-                    + " providerKey=" + providerKey + " outcome=fetch-failed detail=" + e.getClass().getSimpleName(),
-                    MODULE);
+            Debug.logWarning("[SECRET_AUDIT] action=SYNC user=" + userLoginId
+                    + " key=" + providerKey
+                    + " target=" + secretTarget
+                    + " provider=" + SecretProviderFactory.getProviderName()
+                    + " mode=" + DEPLOYMENT_MODE
+                    + " accessMode=PROVIDER_CALL outcome=FAILURE errorCategory=PROVIDER_ERROR", MODULE);
+            SecretAuditLogger.log(delegator, SecretAuditEvent.builder()
+                    .userLoginId(userLogin != null ? userLogin.getString("userLoginId") : null)
+                    .action("SYNC")
+                    .secretKeyRef(providerKey)
+                    .secretTarget(secretTarget)
+                    .providerType(SecretProviderFactory.getProviderName())
+                    .accessMode("PROVIDER_CALL")
+                    .systemResourceId(systemResourceId)
+                    .systemPropertyId(systemPropertyId)
+                    .outcome("FAILURE")
+                    .errorCategory("PROVIDER_ERROR")
+                    .build());
             return ServiceUtil.returnError("Failed to fetch the current value from the active secret provider for key '"
                     + providerKey + "' (" + e.getClass().getSimpleName() + ") — check server logs for details");
         }
@@ -245,8 +328,23 @@ public final class SecretManagerServices {
         try {
             String currentValue = readCurrentStoredValue(delegator, secretTarget, systemResourceId, systemPropertyId, providerKey);
             if (currentValue != null && currentValue.equals(freshValue)) {
-                Debug.logInfo("[SECRET_AUDIT] user=" + userLoginId + " action=syncSecretFromProvider"
-                        + " providerKey=" + providerKey + " outcome=no-change", MODULE);
+                Debug.logInfo("[SECRET_AUDIT] action=SYNC user=" + userLoginId
+                        + " key=" + providerKey
+                        + " target=" + secretTarget
+                        + " provider=" + SecretProviderFactory.getProviderName()
+                        + " mode=" + DEPLOYMENT_MODE
+                        + " accessMode=PROVIDER_CALL outcome=NO_CHANGE", MODULE);
+                SecretAuditLogger.log(delegator, SecretAuditEvent.builder()
+                        .userLoginId(userLogin != null ? userLogin.getString("userLoginId") : null)
+                        .action("SYNC")
+                        .secretKeyRef(providerKey)
+                        .secretTarget(secretTarget)
+                        .providerType(SecretProviderFactory.getProviderName())
+                        .accessMode("PROVIDER_CALL")
+                        .systemResourceId(systemResourceId)
+                        .systemPropertyId(systemPropertyId)
+                        .outcome("NO_CHANGE")
+                        .build());
                 Map<String, Object> result = ServiceUtil.returnSuccess("Local encrypted snapshot for '" + lookupKey
                         + "' is already up to date — no change detected from the active secret provider");
                 result.put("changed", Boolean.FALSE);
@@ -257,8 +355,23 @@ public final class SecretManagerServices {
             Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
-        Debug.logInfo("[SECRET_AUDIT] user=" + userLoginId + " action=syncSecretFromProvider"
-                + " providerKey=" + providerKey + " outcome=synced", MODULE);
+        Debug.logInfo("[SECRET_AUDIT] action=SYNC user=" + userLoginId
+                + " key=" + providerKey
+                + " target=" + secretTarget
+                + " provider=" + SecretProviderFactory.getProviderName()
+                + " mode=" + DEPLOYMENT_MODE
+                + " accessMode=PROVIDER_CALL outcome=SUCCESS", MODULE);
+        SecretAuditLogger.log(delegator, SecretAuditEvent.builder()
+                .userLoginId(userLogin != null ? userLogin.getString("userLoginId") : null)
+                .action("SYNC")
+                .secretKeyRef(providerKey)
+                .secretTarget(secretTarget)
+                .providerType(SecretProviderFactory.getProviderName())
+                .accessMode("PROVIDER_CALL")
+                .systemResourceId(systemResourceId)
+                .systemPropertyId(systemPropertyId)
+                .outcome("SUCCESS")
+                .build());
         Map<String, Object> result = ServiceUtil.returnSuccess("Local encrypted snapshot for '" + lookupKey
                 + "' synced from the active secret provider");
         result.put("changed", Boolean.TRUE);
@@ -342,9 +455,8 @@ public final class SecretManagerServices {
                             "userLogin", userLogin));
                     if (ServiceUtil.isError(syncResult)) {
                         failedCount++;
-                        Debug.logWarning("[SECRET_AUDIT] action=autoSyncRotatedSecrets systemResourceId=" + systemResourceId
-                                + " systemPropertyId=" + systemPropertyId + " outcome=failed detail="
-                                + ServiceUtil.getErrorMessage(syncResult), MODULE);
+                        Debug.logWarning("Secret auto-sync failed for " + systemResourceId + "." + systemPropertyId
+                                + ": " + ServiceUtil.getErrorMessage(syncResult), MODULE);
                     } else if (Boolean.TRUE.equals(syncResult.get("changed"))) {
                         syncedCount++;
                     } else {
@@ -352,9 +464,8 @@ public final class SecretManagerServices {
                     }
                 } catch (GeneralException e) {
                     failedCount++;
-                    Debug.logWarning("[SECRET_AUDIT] action=autoSyncRotatedSecrets systemResourceId=" + systemResourceId
-                            + " systemPropertyId=" + systemPropertyId + " outcome=failed detail="
-                            + e.getClass().getSimpleName(), MODULE);
+                    Debug.logWarning("Secret auto-sync exception for " + systemResourceId + "." + systemPropertyId
+                            + " (" + e.getClass().getSimpleName() + ")", MODULE);
                 }
             }
         } catch (GeneralException e) {
@@ -362,7 +473,7 @@ public final class SecretManagerServices {
             return ServiceUtil.returnError("Unable to query SystemProperty rows for rotation sync: " + e.getMessage());
         }
 
-        Debug.logInfo("[SECRET_AUDIT] action=autoSyncRotatedSecrets synced=" + syncedCount
+        Debug.logInfo("Secret auto-sync complete: synced=" + syncedCount
                 + " unchanged=" + unchangedCount + " failed=" + failedCount, MODULE);
         Map<String, Object> result = ServiceUtil.returnSuccess("Automatic secret rotation sync complete: "
                 + syncedCount + " synced, " + unchangedCount + " unchanged, " + failedCount + " failed");
@@ -401,8 +512,8 @@ public final class SecretManagerServices {
      * both the single-entry service ({@link #createEncryptedSecret}) and the CSV bulk-upload
      * event so that both paths share the exact same validation and storage logic.
      *
-     * <p>A structured audit log entry is written on every successful call so that the
-     * who/what/when of each secret operation is preserved for compliance review.</p>
+     * <p>A {@code SecretAuditLog} row is written on every successful call via
+     * {@link SecretAuditLogger} so the who/what/when of each store is preserved for compliance.</p>
      */
     public static void storeEncryptedSecret(Delegator delegator, GenericValue userLogin, String secretTarget,
             String systemResourceId, String systemPropertyId, String lookupKey, String secretValue)
@@ -485,12 +596,154 @@ public final class SecretManagerServices {
         }
 
         String userLoginId = (userLogin != null) ? userLogin.getString("userLoginId") : "unknown";
-        Debug.logInfo("[SECRET_AUDIT] user=" + userLoginId
-                + " action=storeEncryptedSecret"
+        Debug.logInfo("[SECRET_AUDIT] action=STORE user=" + userLoginId
+                + " key=" + lookupKey
                 + " target=" + secretTarget
-                + " systemResourceId=" + systemResourceId
-                + " systemPropertyId=" + systemPropertyId
-                + " lookupKey=" + lookupKey, MODULE);
+                + " mode=" + DEPLOYMENT_MODE + " accessMode=NOT_APPLICABLE outcome=SUCCESS", MODULE);
+        SecretAuditLogger.log(delegator, SecretAuditEvent.builder()
+                .userLoginId(userLogin != null ? userLogin.getString("userLoginId") : null)
+                .action("STORE")
+                .secretKeyRef(lookupKey)
+                .secretTarget(secretTarget)
+                .systemResourceId(systemResourceId)
+                .systemPropertyId(systemPropertyId)
+                .outcome("SUCCESS")
+                .build());
+    }
+
+    /**
+     * Updates the {@code secret.audit.retention.days} and {@code secret.audit.purge.batch.size}
+     * {@code SystemProperty} rows from the Audit Log Viewer retention settings panel.
+     * Requires {@code SECRET_MAINT} (enforced in services.xml via {@code secretMaintPermCheck}).
+     */
+    public static Map<String, Object> updateSecretAuditRetention(DispatchContext dctx,
+            Map<String, ? extends Object> context) {
+        Delegator delegator = dctx.getDelegator();
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        String userLoginId = (userLogin != null) ? userLogin.getString("userLoginId") : "unknown";
+
+        String retentionDaysStr = UtilValidate.isNotEmpty((String) context.get("retentionDays"))
+                ? ((String) context.get("retentionDays")).trim() : "";
+        String batchSizeStr = UtilValidate.isNotEmpty((String) context.get("batchSize"))
+                ? ((String) context.get("batchSize")).trim() : "";
+
+        int retentionDays;
+        try {
+            retentionDays = Integer.parseInt(retentionDaysStr);
+        } catch (NumberFormatException e) {
+            return ServiceUtil.returnError("Retention period must be a positive integer");
+        }
+        if (retentionDays < 1) {
+            return ServiceUtil.returnError("Retention period must be at least 1 day");
+        }
+
+        int batchSize;
+        try {
+            batchSize = Integer.parseInt(batchSizeStr);
+        } catch (NumberFormatException e) {
+            return ServiceUtil.returnError("Purge batch size must be a positive integer");
+        }
+        if (batchSize < 1 || batchSize > 10000) {
+            return ServiceUtil.returnError("Purge batch size must be between 1 and 10000");
+        }
+
+        try {
+            upsertSystemProperty(delegator, "security", "secret.audit.retention.days",
+                    String.valueOf(retentionDays));
+            upsertSystemProperty(delegator, "security", "secret.audit.purge.batch.size",
+                    String.valueOf(batchSize));
+        } catch (GenericEntityException e) {
+            Debug.logError(e, MODULE);
+            return ServiceUtil.returnError("Failed to update retention settings: " + e.getMessage());
+        }
+
+        Debug.logInfo("[SECRET_AUDIT] action=UPDATE_RETENTION user=" + userLoginId
+                + " retentionDays=" + retentionDays + " batchSize=" + batchSize
+                + " mode=" + DEPLOYMENT_MODE + " outcome=SUCCESS", MODULE);
+        return ServiceUtil.returnSuccess(
+                "Audit log retention updated: " + retentionDays + " days, batch size " + batchSize);
+    }
+
+    private static void upsertSystemProperty(Delegator delegator, String resourceId,
+            String propertyId, String value) throws GenericEntityException {
+        GenericValue sp = EntityQuery.use(delegator).from("SystemProperty")
+                .where("systemResourceId", resourceId, "systemPropertyId", propertyId)
+                .queryOne();
+        if (sp == null) {
+            sp = delegator.makeValue("SystemProperty",
+                    "systemResourceId", resourceId, "systemPropertyId", propertyId);
+        }
+        sp.set("systemPropertyValue", value);
+        delegator.createOrStore(sp);
+    }
+
+    /**
+     * Scheduled purge job: deletes {@link SecretAuditLog} rows whose {@code auditTimestamp} is older
+     * than the {@code secret.audit.retention.days} SystemProperty (default 365 days). Rows are removed
+     * in bounded batches of at most {@code secret.audit.purge.batch.size} (default 500) per database
+     * transaction so the purge never holds a long-running table lock.
+     *
+     * <p>The {@code SECRET_AUDIT_PURGE} JobSandbox entry runs this weekly. PCI-DSS 4.0 §10.7 requires
+     * at least 12 months — do not set {@code secret.audit.retention.days} below 365 in production.</p>
+     */
+    public static Map<String, Object> purgeExpiredSecretAuditLogs(DispatchContext dctx,
+            Map<String, ? extends Object> context) {
+        Delegator delegator = dctx.getDelegator();
+
+        int retentionDays = 365;
+        int batchSize = 500;
+        try {
+            String v = EntityUtilProperties.getPropertyValue("security", "secret.audit.retention.days", delegator);
+            if (UtilValidate.isNotEmpty(v)) {
+                retentionDays = Integer.parseInt(v.trim());
+            }
+        } catch (NumberFormatException e) {
+            Debug.logWarning("secret.audit.retention.days is not a valid integer — using default 365", MODULE);
+        }
+        try {
+            String v = EntityUtilProperties.getPropertyValue("security", "secret.audit.purge.batch.size", delegator);
+            if (UtilValidate.isNotEmpty(v)) {
+                batchSize = Integer.parseInt(v.trim());
+            }
+        } catch (NumberFormatException e) {
+            Debug.logWarning("secret.audit.purge.batch.size is not a valid integer — using default 500", MODULE);
+        }
+
+        Timestamp cutoff = Timestamp.from(Instant.now().minus(Duration.ofDays(retentionDays)));
+        EntityCondition expired = EntityCondition.makeCondition(
+                "auditTimestamp", EntityOperator.LESS_THAN, cutoff);
+
+        long totalPurged = 0;
+        try {
+            while (true) {
+                List<GenericValue> batch = EntityQuery.use(delegator)
+                        .select("secretAuditLogId")
+                        .from("SecretAuditLog")
+                        .where(expired)
+                        .maxRows(batchSize)
+                        .queryList();
+                if (batch.isEmpty()) {
+                    break;
+                }
+                delegator.removeAll(batch);
+                totalPurged += batch.size();
+                if (batch.size() < batchSize) {
+                    break;
+                }
+            }
+        } catch (GenericEntityException e) {
+            Debug.logError(e, "purgeExpiredSecretAuditLogs: batch delete failed after "
+                    + totalPurged + " rows", MODULE);
+            return ServiceUtil.returnError("Purge failed after " + totalPurged + " rows: "
+                    + e.getMessage());
+        }
+
+        Debug.logInfo("purgeExpiredSecretAuditLogs: purged " + totalPurged
+                + " SecretAuditLog row(s) older than " + retentionDays + " days", MODULE);
+        Map<String, Object> result = ServiceUtil.returnSuccess(
+                "Purged " + totalPurged + " SecretAuditLog row(s) older than " + retentionDays + " days");
+        result.put("purgedCount", totalPurged);
+        return result;
     }
 
     private static void storeSystemPropertySecret(Delegator delegator, String systemResourceId, String systemPropertyId,

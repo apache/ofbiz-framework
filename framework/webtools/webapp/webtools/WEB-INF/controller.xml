@@ -519,6 +519,22 @@ under the License.
         <response name="success" type="view" value="EncryptValue"/>
         <response name="error" type="view" value="EncryptValue"/>
     </request-map>
+    <request-map uri="SecretAuditLog">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="SecretAuditLog"/>
+    </request-map>
+    <request-map uri="exportSecretAuditLog">
+        <security https="true" auth="true"/>
+        <event type="java" path="org.apache.ofbiz.webtools.secret.SecretManagerEvents" invoke="exportSecretAuditLogs"/>
+        <response name="success" type="none"/>
+        <response name="error" type="view" value="SecretAuditLog"/>
+    </request-map>
+    <request-map uri="updateSecretAuditRetention">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="updateSecretAuditRetention"/>
+        <response name="success" type="view" value="SecretAuditLog"/>
+        <response name="error" type="view" value="SecretAuditLog"/>
+    </request-map>
 
     <!-- ModelInducedFromDb requests-->
     <request-map uri="CreateModelInduceFromDb">
@@ -782,6 +798,7 @@ under the License.
     <view-map name="EntitySQLProcessor" type="screen" page="component://webtools/widget/EntityScreens.xml#EntitySQLProcessor"/>
     <view-map name="ConnectionPoolStatus" type="screen" page="component://webtools/widget/EntityScreens.xml#ConnectionPoolStatus"/>
     <view-map name="EncryptValue" type="screen" page="component://webtools/widget/SecretManagerScreens.xml#EncryptValue"/>
+    <view-map name="SecretAuditLog" type="screen" page="component://webtools/widget/SecretManagerScreens.xml#SecretAuditLog"/>
     <view-map name="EntityExportAll" type="screen" page="component://webtools/widget/EntityScreens.xml#EntityExportAll"/>
     <view-map name="ProgramExport" type="screen" page="component://webtools/widget/EntityScreens.xml#ProgramExport"/>
     <view-map name="EntityImportDir" type="screen" page="component://webtools/widget/EntityScreens.xml#EntityImportDir"/>

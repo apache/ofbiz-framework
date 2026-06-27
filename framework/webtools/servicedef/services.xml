@@ -198,6 +198,26 @@ under the License.
             clean post-rotation metrics without a JVM restart.</description>
         <permission-service service-name="secretMaintPermCheck" main-action="VIEW"/>
     </service>
+    <service name="updateSecretAuditRetention" engine="java"
+            location="org.apache.ofbiz.webtools.secret.SecretManagerServices"
+            invoke="updateSecretAuditRetention" auth="true" use-transaction="true">
+        <description>Updates the secret.audit.retention.days and secret.audit.purge.batch.size
+            SystemProperty rows from the Audit Log Viewer retention settings panel.
+            Requires SECRET_MAINT.</description>
+        <permission-service service-name="secretMaintPermCheck" main-action="VIEW"/>
+        <attribute name="retentionDays" type="String" mode="IN" optional="false"/>
+        <attribute name="batchSize" type="String" mode="IN" optional="false"/>
+    </service>
+    <service name="purgeExpiredSecretAuditLogs" engine="java"
+            location="org.apache.ofbiz.webtools.secret.SecretManagerServices"
+            invoke="purgeExpiredSecretAuditLogs" auth="true" use-transaction="false">
+        <description>Deletes SecretAuditLog rows older than the retention period configured in the
+            secret.audit.retention.days SystemProperty (default 365 days, minimum required by
+            PCI-DSS 4.0 §10.7). Rows are removed in bounded batches of at most
+            secret.audit.purge.batch.size (default 500) per database transaction. Scheduled weekly
+            by the SECRET_AUDIT_PURGE JobSandbox entry seeded in SecretManagerScheduledServiceData.xml.</description>
+        <attribute name="purgedCount" type="Long" mode="OUT" optional="true"/>
+    </service>
     <service name="exportServiceEoModelBundle" engine="java" location="org.apache.ofbiz.webtools.WebToolsServices" invoke="exportServiceEoModelBundle" auth="true" use-transaction="false">
         <description>Saves service and related artifacts diagram to an Apple EOModelBundle file.
         </description>

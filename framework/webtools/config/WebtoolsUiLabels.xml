@@ -2168,6 +2168,129 @@
     <property key="WebtoolsSecretUsageTotal">
         <value xml:lang="en">Total</value>
     </property>
+    <property key="WebtoolsSecretAuditLog">
+        <value xml:lang="en">Secret Audit Log</value>
+    </property>
+    <property key="WebtoolsSecretAuditPermissionError">
+        <value xml:lang="en">You do not have permission to view the Secret Audit Log. The SECRET_AUDIT_VIEW or ENTITY_MAINT permission is required.</value>
+    </property>
+    <property key="WebtoolsSecretAuditFilterUser">
+        <value xml:lang="en">User Login ID</value>
+    </property>
+    <property key="WebtoolsSecretAuditFilterAction">
+        <value xml:lang="en">Action</value>
+    </property>
+    <property key="WebtoolsSecretAuditFilterOutcome">
+        <value xml:lang="en">Outcome</value>
+    </property>
+    <property key="WebtoolsSecretAuditFilterKey">
+        <value xml:lang="en">Secret Key Ref</value>
+    </property>
+    <property key="WebtoolsSecretAuditFilterFrom">
+        <value xml:lang="en">Date From</value>
+    </property>
+    <property key="WebtoolsSecretAuditFilterTo">
+        <value xml:lang="en">Date To</value>
+    </property>
+    <property key="WebtoolsSecretAuditShowing">
+        <value xml:lang="en">Showing</value>
+    </property>
+    <property key="WebtoolsSecretAuditOf">
+        <value xml:lang="en">of</value>
+    </property>
+    <property key="WebtoolsSecretAuditTimestamp">
+        <value xml:lang="en">Timestamp</value>
+    </property>
+    <property key="WebtoolsSecretAuditUser">
+        <value xml:lang="en">User</value>
+    </property>
+    <property key="WebtoolsSecretAuditAction">
+        <value xml:lang="en">Action</value>
+    </property>
+    <property key="WebtoolsSecretAuditOutcome">
+        <value xml:lang="en">Outcome</value>
+    </property>
+    <property key="WebtoolsSecretAuditErrorCategory">
+        <value xml:lang="en">Error Category</value>
+    </property>
+    <property key="WebtoolsSecretAuditKey">
+        <value xml:lang="en">Secret Key Ref</value>
+    </property>
+    <property key="WebtoolsSecretAuditTarget">
+        <value xml:lang="en">Target</value>
+    </property>
+    <property key="WebtoolsSecretAuditAccessMode">
+        <value xml:lang="en">Access Mode</value>
+    </property>
+    <property key="WebtoolsSecretAuditProvider">
+        <value xml:lang="en">Provider</value>
+    </property>
+    <property key="WebtoolsSecretAuditDeployMode">
+        <value xml:lang="en">Deploy Mode</value>
+    </property>
+    <property key="WebtoolsSecretAuditResourceId">
+        <value xml:lang="en">Resource ID</value>
+    </property>
+    <property key="WebtoolsSecretAuditPropertyId">
+        <value xml:lang="en">Property ID</value>
+    </property>
+    <property key="WebtoolsSecretAuditNoRows">
+        <value xml:lang="en">No audit records found matching the filter criteria.</value>
+    </property>
+    <property key="WebtoolsSecretAuditClientIp">
+        <value xml:lang="en">Client IP</value>
+    </property>
+    <property key="WebtoolsSecretAuditK8sNoticeTitle">
+        <value xml:lang="en">K8s Injected Mode</value>
+    </property>
+    <property key="WebtoolsSecretAuditK8sNoticeBody">
+        <value xml:lang="en">OFBiz is running in K8S_INJECTED deployment mode. Vault-level FETCH events are emitted by the external secret operator (CSI driver, ESO, or Vault Agent) and are not recorded here. Only admin actions (STORE, SYNC, FLUSH_CACHE, etc.) appear in this log.</value>
+    </property>
+    <property key="WebtoolsSecretAuditExportTitle">
+        <value xml:lang="en">Export to CSV</value>
+    </property>
+    <property key="WebtoolsSecretAuditExportButton">
+        <value xml:lang="en">Download CSV</value>
+    </property>
+    <property key="WebtoolsSecretAuditExportHint">
+        <value xml:lang="en">Date range required. Maximum export window: 90 days. Maximum rows per file: 50,000 (a header comment is added if the cap is hit — narrow the range and re-export).</value>
+    </property>
+    <property key="WebtoolsSecretAuditRetentionTitle">
+        <value xml:lang="en">Retention &amp; Phase 2 Settings</value>
+    </property>
+    <property key="WebtoolsSecretAuditRetentionDays">
+        <value xml:lang="en">Retention period</value>
+    </property>
+    <property key="WebtoolsSecretAuditRetentionDaysSuffix">
+        <value xml:lang="en">days (PCI-DSS 4.0 §10.7 minimum: 365)</value>
+    </property>
+    <property key="WebtoolsSecretAuditRetentionBatch">
+        <value xml:lang="en">Purge batch size</value>
+    </property>
+    <property key="WebtoolsSecretAuditRetentionNextRun">
+        <value xml:lang="en">Next scheduled purge</value>
+    </property>
+    <property key="WebtoolsSecretAuditRetentionFetchEvents">
+        <value xml:lang="en">FETCH / ROTATION_POLL logging</value>
+    </property>
+    <property key="WebtoolsSecretAuditRetentionCacheHits">
+        <value xml:lang="en">CACHE_HIT logging</value>
+    </property>
+    <property key="WebtoolsSecretAuditRetentionHint">
+        <value xml:lang="en">To change the retention period or batch size, update the secret.audit.retention.days / secret.audit.purge.batch.size SystemProperty rows and restart the purge job. To enable Phase 2 logging, set secret.audit.log.fetch.events=true or secret.audit.log.cache.hits=true in security.properties and restart OFBiz.</value>
+    </property>
+    <property key="WebtoolsSecretAuditRetentionSave">
+        <value xml:lang="en">Save Retention Settings</value>
+    </property>
+    <property key="WebtoolsSecretAuditFilterProvider">
+        <value xml:lang="en">Provider</value>
+    </property>
+    <property key="WebtoolsSecretAuditFilterDeployMode">
+        <value xml:lang="en">Deploy Mode</value>
+    </property>
+    <property key="WebtoolsSecretAuditLogLink">
+        <value xml:lang="en">View Secret Audit Log</value>
+    </property>
     <property key="WebtoolsEntityXMLTools">
         <value xml:lang="de">Entität XML Tools</value>
         <value xml:lang="en">Entity XML Tools</value>

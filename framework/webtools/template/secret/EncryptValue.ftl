@@ -19,16 +19,18 @@ under the License.
 
 <p><strong>${uiLabelMap.WebtoolsSecretActiveProvider}:</strong> ${activeSecretProvider!}</p>
 <#if activeSettings?has_content>
-<details style="margin-bottom:8px;"><summary style="cursor:pointer;font-weight:bold;">Active Configuration</summary>
-<table class="basic-table" cellspacing="0" style="margin-top:4px;width:auto;">
+<h3>Active Configuration</h3>
+<table class="basic-table" cellspacing="0">
   <tbody>
     <#list activeSettings as entry>
-    <tr><td class="label" style="white-space:nowrap;">${entry[0]}</td><td><code>${entry[1]}</code></td></tr>
+    <tr><td class="label">${entry[0]}</td><td><code>${entry[1]}</code></td></tr>
     </#list>
   </tbody>
 </table>
-</details>
 </#if>
+<p>
+  <a href="<@ofbizUrl>SecretAuditLog</@ofbizUrl>" class="buttontext">${uiLabelMap.WebtoolsSecretAuditLogLink}</a>
+</p>
 <p>${uiLabelMap.WebtoolsEncryptValueInfo}</p>
 <ul>
     <li>${uiLabelMap.WebtoolsSecretSystemPropertyRequiredInfo}</li>
@@ -38,12 +40,12 @@ under the License.
 <#assign inlineEventList = eventMessageList![]/>
 <#assign inlineErrorList = errorMessageList![]/>
 <#if inlineEventList?has_content>
-  <div class="successMessage" style="padding:8px;margin-bottom:8px;border:1px solid #5a5;background:#efffef;color:#040;">
+  <div class="eventMessage">
     <#list inlineEventList as msg><p>${msg}</p></#list>
   </div>
 </#if>
 <#if inlineErrorList?has_content>
-  <div class="errorMessage" style="padding:8px;margin-bottom:8px;">
+  <div class="errorMessage">
     <#list inlineErrorList as err><p>${err}</p></#list>
   </div>
 </#if>
@@ -142,7 +144,8 @@ under the License.
     var SAFE_ID = /^[\w.\-]+$/;
     var form = document.querySelector('form[action$="createEncryptedSecret"]');
     var errDiv = document.createElement('div');
-    errDiv.style.cssText = 'display:none;padding:8px;margin-bottom:8px;border:1px solid #a00;background:#fff0f0;color:#700;';
+    errDiv.className = 'errorMessage';
+    errDiv.style.display = 'none';
     form.parentNode.insertBefore(errDiv, form);
 
     form.addEventListener('submit', function (e) {
@@ -174,7 +177,7 @@ under the License.
         }
 
         if (errors.length > 0) {
-            errDiv.innerHTML = errors.map(function (m) { return '<p style="margin:2px 0">' + m + '</p>'; }).join('');
+            errDiv.innerHTML = errors.map(function (m) { return '<p>' + m + '</p>'; }).join('');
             errDiv.style.display = 'block';
             e.preventDefault();
         } else {
@@ -316,12 +319,14 @@ under the License.
 <hr/>
 
 <p>${uiLabelMap.WebtoolsSecretUsageStatsInfo}</p>
-<form class="basic-form" method="post" action="<@ofbizUrl>getSecretUsageStats</@ofbizUrl>" style="display:inline;">
+<div class="button-bar">
+<form class="basic-form" method="post" action="<@ofbizUrl>getSecretUsageStats</@ofbizUrl>">
     <input type="submit" value="${uiLabelMap.WebtoolsSecretUsageStatsRefresh}"/>
 </form>
-<form class="basic-form" method="post" action="<@ofbizUrl>resetSecretUsageStats</@ofbizUrl>" style="display:inline;margin-left:8px;">
+<form class="basic-form" method="post" action="<@ofbizUrl>resetSecretUsageStats</@ofbizUrl>">
     <input type="submit" value="${uiLabelMap.WebtoolsSecretUsageStatsReset}"/>
 </form>
+</div>
 <#if usageSummary?has_content>
     <p>
         ${uiLabelMap.WebtoolsSecretUsageTotalHits}: <strong>${usageSummary.totalHits!0}</strong> &nbsp;|&nbsp;
@@ -342,7 +347,7 @@ under the License.
             <tbody>
                 <#list usageReportRows as row>
                     <tr>
-                        <td title="${row[0]}" style="max-width:240px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${row[0]}</td>
+                        <td title="${row[0]}">${row[0]}</td>
                         <td>${row[1]}</td>
                         <td>${row[2]}</td>
                         <td>${row[3]}</td>

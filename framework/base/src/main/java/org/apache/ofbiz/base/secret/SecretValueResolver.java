@@ -96,6 +96,18 @@ public final class SecretValueResolver {
         return Math.min(Math.max(seconds, 1L), MAX_TTL_SECONDS) * 1000L;
     }
 
+    // Phase 2 audit flags — read once at class load; both off by default (opt-in only).
+    // Enabling these adds a non-blocking queue offer on every cache hit / provider fetch.
+    public static final boolean LOG_CACHE_HITS = SECURITY_PROPERTIES != null
+            && "true".equalsIgnoreCase(
+                    SECURITY_PROPERTIES.getProperty("secret.audit.log.cache.hits", "false").trim());
+    public static final boolean LOG_FETCH_EVENTS = SECURITY_PROPERTIES != null
+            && "true".equalsIgnoreCase(
+                    SECURITY_PROPERTIES.getProperty("secret.audit.log.fetch.events", "false").trim());
+
+    /** Set once at startup by webtools SecretAuditContainer; null until then — all audit calls no-op. */
+    private static volatile SecretAuditSink auditSink;
+
     private static final ConcurrentHashMap<String, CacheEntry> CACHE = new ConcurrentHashMap<>();
 
     // Per-key locks used for stampede protection: only one thread fetches from the provider
@@ -126,6 +138,20 @@ public final class SecretValueResolver {
     }
 
     private SecretValueResolver() { }
+
+    /**
+     * Registers the audit sink that receives CACHE_HIT, FETCH, and ROTATION_POLL events.
+     * Called once at OFBiz startup from {@code SecretAuditContainer} in webtools after the
+     * entity layer is available. Pass {@code null} to deregister (e.g. during shutdown).
+     */
+    public static void setAuditSink(SecretAuditSink sink) {
+        auditSink = sink;
+    }
+
+    /** Returns the currently registered audit sink, or {@code null} if none is set. */
+    public static SecretAuditSink getAuditSink() {
+        return auditSink;
+    }
 
     /**
      * If {@code rawValue} matches {@code LOOKUP(key)}, resolves {@code key} via
@@ -166,6 +192,7 @@ public final class SecretValueResolver {
         if (cached != null && cached.expiry > System.currentTimeMillis()) {
             TOTAL_HITS.incrementAndGet();
             KEY_HIT_COUNTS.computeIfAbsent(key, k -> new AtomicLong()).incrementAndGet();
+            if (LOG_CACHE_HITS) { SecretAuditSink s = auditSink; if (s != null) s.onCacheHit(key); }
             return cached.value;
         }
         // Per-key lock: only the first thread that finds a stale/absent entry fetches from the
@@ -177,6 +204,7 @@ public final class SecretValueResolver {
             if (rechecked != null && rechecked.expiry > System.currentTimeMillis()) {
                 TOTAL_HITS.incrementAndGet();
                 KEY_HIT_COUNTS.computeIfAbsent(key, k -> new AtomicLong()).incrementAndGet();
+                if (LOG_CACHE_HITS) { SecretAuditSink s = auditSink; if (s != null) s.onCacheHit(key); }
                 return rechecked.value;
             }
             try {
@@ -184,6 +212,7 @@ public final class SecretValueResolver {
                 CACHE.put(key, new CacheEntry(secret, System.currentTimeMillis() + CACHE_TTL_MILLIS));
                 TOTAL_MISSES.incrementAndGet();
                 KEY_MISS_COUNTS.computeIfAbsent(key, k -> new AtomicLong()).incrementAndGet();
+                if (LOG_FETCH_EVENTS) { SecretAuditSink s = auditSink; if (s != null) s.onFetch(key, "PROVIDER_CALL", "SUCCESS", null); }
                 return secret;
             } catch (GeneralException e) {
                 // Log only the exception type — never e.getMessage() — to prevent a provider that
@@ -192,6 +221,7 @@ public final class SecretValueResolver {
                         + "' (" + e.getClass().getSimpleName() + ")", MODULE);
                 TOTAL_MISSES.incrementAndGet();
                 KEY_MISS_COUNTS.computeIfAbsent(key, k -> new AtomicLong()).incrementAndGet();
+                if (LOG_FETCH_EVENTS) { SecretAuditSink s = auditSink; if (s != null) s.onFetch(key, "PROVIDER_CALL", "FAILURE", "PROVIDER_ERROR"); }
                 return "";
             }
         }

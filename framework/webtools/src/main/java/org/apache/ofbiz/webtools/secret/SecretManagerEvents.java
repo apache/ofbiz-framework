@@ -21,8 +21,11 @@ package org.apache.ofbiz.webtools.secret;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.io.Reader;
 import java.nio.charset.StandardCharsets;
+import java.sql.Timestamp;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -41,7 +44,11 @@ import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
+import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
+import org.apache.ofbiz.entity.condition.EntityCondition;
+import org.apache.ofbiz.entity.condition.EntityOperator;
+import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.security.SecuredUpload;
 import org.apache.ofbiz.security.Security;
 
@@ -75,6 +82,12 @@ public final class SecretManagerEvents {
         if (security == null
                 || (!security.hasPermission("SECRET_MAINT", userLogin)
                         && !security.hasPermission("ENTITY_MAINT", userLogin))) {
+            SecretAuditLogger.log(delegator, SecretAuditEvent.builder()
+                    .userLoginId(userLogin != null ? userLogin.getString("userLoginId") : null)
+                    .clientIpAddress(request.getRemoteAddr())
+                    .action("STORE")
+                    .outcome("DENIED")
+                    .build());
             request.setAttribute("_ERROR_MESSAGE_", "You do not have permission to perform this operation");
             return "error";
         }
@@ -115,17 +128,29 @@ public final class SecretManagerEvents {
                 CSVParser parser = format.parse(reader)) {
             for (CSVRecord record : parser) {
                 long rowNum = record.getRecordNumber() + 1;
+                String rowTarget     = getColumn(record, "target");
+                String rowResourceId = getColumn(record, "systemResourceId");
+                String rowPropertyId = getColumn(record, "systemPropertyId");
+                String rowLookupKey  = getColumn(record, "lookupKey");
                 try {
-                    SecretManagerServices.storeEncryptedSecret(delegator,
-                            userLogin,
-                            getColumn(record, "target"),
-                            getColumn(record, "systemResourceId"),
-                            getColumn(record, "systemPropertyId"),
-                            getColumn(record, "lookupKey"),
+                    SecretManagerServices.storeEncryptedSecret(delegator, userLogin,
+                            rowTarget, rowResourceId, rowPropertyId, rowLookupKey,
                             getColumn(record, "secretValue"));
                     successCount++;
                 } catch (Exception e) {
                     errors.add("Row " + rowNum + ": " + e.getMessage());
+                    // PCI-DSS 10.2: failed stores are individually attributable events too.
+                    SecretAuditLogger.log(delegator, SecretAuditEvent.builder()
+                            .userLoginId(userLogin != null ? userLogin.getString("userLoginId") : null)
+                            .clientIpAddress(request.getRemoteAddr())
+                            .action("STORE")
+                            .secretKeyRef(rowLookupKey)
+                            .secretTarget(rowTarget)
+                            .systemResourceId(rowResourceId)
+                            .systemPropertyId(rowPropertyId)
+                            .outcome("FAILURE")
+                            .errorCategory("PROVIDER_ERROR")
+                            .build());
                 }
             }
         } catch (IOException e) {
@@ -249,6 +274,138 @@ public final class SecretManagerEvents {
         }
         String value = record.get(name);
         return UtilValidate.isEmpty(value) ? null : value;
+    }
+
+    /**
+     * Streams a CSV export of SecretAuditLog rows for the requested date range.
+     *
+     * <p>Rules enforced:
+     * <ul>
+     *   <li>Date range (dateFrom, dateTo) is required.</li>
+     *   <li>Window may not exceed 90 days (to prevent runaway memory / bandwidth usage).</li>
+     *   <li>Output is capped at {@value #MAX_EXPORT_ROWS} rows; a comment header is prepended if the
+     *       cap is hit, instructing the operator to narrow the range.</li>
+     * </ul>
+     * Optional filters (filterUserLoginId, filterAction, filterOutcome, filterSecretKeyRef) are
+     * carried from the viewer page and applied to the export query.
+     */
+    private static final int MAX_EXPORT_ROWS = 50000;
+    private static final int MAX_EXPORT_WINDOW_DAYS = 90;
+
+    public static String exportSecretAuditLogs(HttpServletRequest request, HttpServletResponse response) {
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
+        Security security   = (Security) request.getAttribute("security");
+        GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
+
+        if (!security.hasPermission("SECRET_AUDIT_VIEW", userLogin)
+                && !security.hasPermission("ENTITY_MAINT", userLogin)) {
+            request.setAttribute("_ERROR_MESSAGE_", "You do not have permission to export audit logs.");
+            return "error";
+        }
+
+        String dateFrom = UtilValidate.isEmpty(request.getParameter("filterDateFrom")) ? null
+                : request.getParameter("filterDateFrom").trim();
+        String dateTo   = UtilValidate.isEmpty(request.getParameter("filterDateTo"))   ? null
+                : request.getParameter("filterDateTo").trim();
+
+        if (dateFrom == null || dateTo == null) {
+            request.setAttribute("_ERROR_MESSAGE_", "Date range (From and To) is required for export.");
+            return "error";
+        }
+
+        Timestamp tsFrom, tsTo;
+        try {
+            tsFrom = Timestamp.valueOf(dateFrom + " 00:00:00");
+            tsTo   = Timestamp.valueOf(dateTo   + " 23:59:59");
+        } catch (IllegalArgumentException e) {
+            request.setAttribute("_ERROR_MESSAGE_", "Invalid date format — use YYYY-MM-DD.");
+            return "error";
+        }
+        if (tsTo.before(tsFrom)) {
+            request.setAttribute("_ERROR_MESSAGE_", "'Date To' must be on or after 'Date From'.");
+            return "error";
+        }
+        long windowDays = Duration.between(tsFrom.toInstant(), tsTo.toInstant()).toDays();
+        if (windowDays > MAX_EXPORT_WINDOW_DAYS) {
+            request.setAttribute("_ERROR_MESSAGE_", "Export window may not exceed " + MAX_EXPORT_WINDOW_DAYS
+                    + " days. Requested: " + windowDays + " days.");
+            return "error";
+        }
+
+        List<EntityCondition> conds = new ArrayList<>();
+        conds.add(EntityCondition.makeCondition("auditTimestamp", EntityOperator.GREATER_THAN_EQUAL_TO, tsFrom));
+        conds.add(EntityCondition.makeCondition("auditTimestamp", EntityOperator.LESS_THAN_EQUAL_TO, tsTo));
+        String filterUser         = request.getParameter("filterUserLoginId");
+        String filterAction       = request.getParameter("filterAction");
+        String filterOutcome      = request.getParameter("filterOutcome");
+        String filterKey          = request.getParameter("filterSecretKeyRef");
+        String filterProviderType = request.getParameter("filterProviderType");
+        String filterDeployMode   = request.getParameter("filterDeploymentMode");
+        if (UtilValidate.isNotEmpty(filterUser))         conds.add(EntityCondition.makeCondition("userLoginId",    EntityOperator.EQUALS, filterUser));
+        if (UtilValidate.isNotEmpty(filterAction))       conds.add(EntityCondition.makeCondition("action",         EntityOperator.EQUALS, filterAction));
+        if (UtilValidate.isNotEmpty(filterOutcome))      conds.add(EntityCondition.makeCondition("outcome",        EntityOperator.EQUALS, filterOutcome));
+        if (UtilValidate.isNotEmpty(filterKey))          conds.add(EntityCondition.makeCondition("secretKeyRef",   EntityOperator.EQUALS, filterKey));
+        if (UtilValidate.isNotEmpty(filterProviderType)) conds.add(EntityCondition.makeCondition("providerType",   EntityOperator.EQUALS, filterProviderType));
+        if (UtilValidate.isNotEmpty(filterDeployMode))   conds.add(EntityCondition.makeCondition("deploymentMode", EntityOperator.EQUALS, filterDeployMode));
+        EntityCondition where = EntityCondition.makeCondition(conds, EntityOperator.AND);
+
+        List<GenericValue> rows;
+        try {
+            // Fetch one extra row to detect whether the cap was hit without a COUNT query.
+            rows = EntityQuery.use(delegator).from("SecretAuditLog")
+                    .where(where).orderBy("auditTimestamp")
+                    .maxRows(MAX_EXPORT_ROWS + 1).queryList();
+        } catch (GenericEntityException e) {
+            Debug.logError(e, "exportSecretAuditLogs: query failed", MODULE);
+            request.setAttribute("_ERROR_MESSAGE_", "Export query failed.");
+            return "error";
+        }
+        boolean capped = rows.size() > MAX_EXPORT_ROWS;
+        if (capped) rows = rows.subList(0, MAX_EXPORT_ROWS);
+
+        String filename = "secret-audit-" + dateFrom + "-to-" + dateTo + ".csv";
+        response.setContentType("text/csv;charset=UTF-8");
+        response.setHeader("Content-Disposition", "attachment; filename=\"" + filename + "\"");
+        try {
+            PrintWriter writer = response.getWriter();
+            if (capped) {
+                writer.println("# NOTICE: export capped at " + MAX_EXPORT_ROWS
+                        + " rows — narrow the date range to retrieve remaining records.");
+            }
+            writer.println("secretAuditLogId,auditTimestamp,userLoginId,clientIpAddress,"
+                    + "action,outcome,errorCategory,secretKeyRef,secretTarget,accessMode,"
+                    + "providerType,deploymentMode,systemResourceId,systemPropertyId");
+            for (GenericValue row : rows) {
+                writer.println(
+                    csvEscape(row.getString("secretAuditLogId")) + ","
+                    + csvEscape(String.valueOf(row.get("auditTimestamp"))) + ","
+                    + csvEscape(row.getString("userLoginId")) + ","
+                    + csvEscape(row.getString("clientIpAddress")) + ","
+                    + csvEscape(row.getString("action")) + ","
+                    + csvEscape(row.getString("outcome")) + ","
+                    + csvEscape(row.getString("errorCategory")) + ","
+                    + csvEscape(row.getString("secretKeyRef")) + ","
+                    + csvEscape(row.getString("secretTarget")) + ","
+                    + csvEscape(row.getString("accessMode")) + ","
+                    + csvEscape(row.getString("providerType")) + ","
+                    + csvEscape(row.getString("deploymentMode")) + ","
+                    + csvEscape(row.getString("systemResourceId")) + ","
+                    + csvEscape(row.getString("systemPropertyId")));
+            }
+            writer.flush();
+        } catch (IOException e) {
+            Debug.logError(e, "exportSecretAuditLogs: write failed", MODULE);
+            return "error";
+        }
+        return "success";
+    }
+
+    private static String csvEscape(String val) {
+        if (val == null) return "";
+        if (val.contains(",") || val.contains("\"") || val.contains("\n") || val.contains("\r")) {
+            return "\"" + val.replace("\"", "\"\"") + "\"";
+        }
+        return val;
     }
 
     /**

@@ -83,9 +83,18 @@ public final class SecretProviderFactory {
                 try {
                     instance.invalidateCache();
                     SecretValueResolver.invalidateAll();
-                    Debug.logInfo("[SECRET_AUDIT] user=system action=scheduledRotationPoll", MODULE);
+                    Debug.logInfo("[SECRET_AUDIT] action=ROTATION_POLL user=system provider=" + providerName
+                            + " outcome=SUCCESS", MODULE);
+                    if (SecretValueResolver.LOG_FETCH_EVENTS) {
+                        SecretAuditSink s = SecretValueResolver.getAuditSink();
+                        if (s != null) s.onRotationPoll("SUCCESS", null);
+                    }
                 } catch (Exception e) {
                     Debug.logWarning("SecretProvider: scheduled rotation poll failed: " + e.getMessage(), MODULE);
+                    if (SecretValueResolver.LOG_FETCH_EVENTS) {
+                        SecretAuditSink s = SecretValueResolver.getAuditSink();
+                        if (s != null) s.onRotationPoll("FAILURE", "PROVIDER_ERROR");
+                    }
                 }
             }, ROTATION_POLL_SECONDS, ROTATION_POLL_SECONDS, TimeUnit.SECONDS);
             Debug.logInfo("SecretProvider: scheduled rotation poll enabled every "

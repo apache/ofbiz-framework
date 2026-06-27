@@ -46,6 +46,7 @@ under the License.
 
     <!-- Secret Manager security -->
     <SecurityPermission description="Encrypt, store, and flush cached secrets via the Secret Manager screen." permissionId="SECRET_MAINT"/>
+    <SecurityPermission description="View and export the Secret Audit Log (compliance officers, security auditors)." permissionId="SECRET_AUDIT_VIEW"/>
 
     <!-- Entity Maintenance security -->
     <SecurityPermission description="Use the Entity Maintenance pages." permissionId="ENTITY_MAINT"/>
@@ -74,6 +75,7 @@ under the License.
     <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="PERIOD_MAINT"/>
     <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="ENUM_STATUS_MAINT"/>
     <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="SECRET_MAINT"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="SECRET_AUDIT_VIEW"/>
     <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="ENTITY_MAINT"/>
     <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="ENTITY_DATA_ADMIN"/>
     <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="UTIL_CACHE_EDIT"/>
