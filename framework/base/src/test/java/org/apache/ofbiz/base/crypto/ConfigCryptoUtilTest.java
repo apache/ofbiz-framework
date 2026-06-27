@@ -87,6 +87,56 @@ public class ConfigCryptoUtilTest {
         assertEquals(plain, ConfigCryptoUtil.decryptIfEncrypted(encWrapped, "test-secret"));
     }
 
+    // ── reEncrypt tests ──────────────────────────────────────────────────────────────────────
+
+    @Test
+    public void reEncryptRoundTrips() throws GeneralException {
+        String oldKey = "old-master-key";
+        String newKey = "new-master-key";
+        String plain = "secret-db-password";
+        String encWithOldKey = "ENC(" + ConfigCryptoUtil.encrypt(plain, oldKey) + ")";
+        String encWithNewKey = ConfigCryptoUtil.reEncrypt(encWithOldKey, oldKey, newKey);
+        assertTrue("reEncrypt output must be ENC(...) wrapped", encWithNewKey.startsWith("ENC(") && encWithNewKey.endsWith(")"));
+        String base64 = encWithNewKey.substring("ENC(".length(), encWithNewKey.length() - 1);
+        assertEquals("plaintext must survive a full reEncrypt cycle", plain, ConfigCryptoUtil.decrypt(base64, newKey));
+    }
+
+    @Test
+    public void reEncryptWithSameKeyPreservesPlaintext() throws GeneralException {
+        String key = "same-key-both-ends";
+        String plain = "unchanged-value";
+        String enc = "ENC(" + ConfigCryptoUtil.encrypt(plain, key) + ")";
+        String reEnc = ConfigCryptoUtil.reEncrypt(enc, key, key);
+        String base64 = reEnc.substring("ENC(".length(), reEnc.length() - 1);
+        assertEquals("plaintext must be identical when old and new key are the same", plain, ConfigCryptoUtil.decrypt(base64, key));
+    }
+
+    @Test
+    public void reEncryptProducesEncWrapper() throws GeneralException {
+        String oldKey = "key-a";
+        String newKey = "key-b";
+        String enc = "ENC(" + ConfigCryptoUtil.encrypt("value", oldKey) + ")";
+        String result = ConfigCryptoUtil.reEncrypt(enc, oldKey, newKey);
+        assertTrue("output must start with ENC(", result.startsWith("ENC("));
+        assertTrue("output must end with )", result.endsWith(")"));
+    }
+
+    @Test(expected = GeneralException.class)
+    public void reEncryptWithWrongOldKeyThrows() throws GeneralException {
+        String enc = "ENC(" + ConfigCryptoUtil.encrypt("secret", "correct-key") + ")";
+        ConfigCryptoUtil.reEncrypt(enc, "wrong-key", "new-key");
+    }
+
+    @Test(expected = GeneralException.class)
+    public void reEncryptRejectsNonEncValue() throws GeneralException {
+        ConfigCryptoUtil.reEncrypt("plaintext-no-wrapper", "oldKey", "newKey");
+    }
+
+    @Test(expected = GeneralException.class)
+    public void reEncryptRejectsMissingCloseParen() throws GeneralException {
+        ConfigCryptoUtil.reEncrypt("ENC(base64withnoclose", "oldKey", "newKey");
+    }
+
     @Test
     public void iterationCountIsPositive() {
         // Verifies that readIterations() returned a usable value regardless of what security.properties contains.

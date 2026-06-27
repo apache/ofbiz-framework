@@ -847,6 +847,27 @@ task generateEncryptedSecret(group: sysadminGroup,
     }
 }
 
+task reEncryptAllSecrets(group: sysadminGroup,
+        description: 'Re-encrypts every ENC(...) blob in passwords.properties and SystemProperty DB rows '
+                + 'with a new master AES key. All decryptions are validated before any writes occur. '
+                + 'Usage: ./gradlew reEncryptAllSecrets -PoldMasterKey=<old> -PnewMasterKey=<new> [-PdryRun=true]. '
+                + 'Keys may also be supplied via the OFBIZ_OLD_MASTER_KEY / OFBIZ_NEW_MASTER_KEY env vars '
+                + 'or entered interactively (run with --no-daemon --console=plain).') {
+    dependsOn classes
+    doLast {
+        def oldKey = project.hasProperty('oldMasterKey') ? project.property('oldMasterKey')
+                : (System.getenv('OFBIZ_OLD_MASTER_KEY') ?: promptSecret('Enter OLD master key: '))
+        def newKey = project.hasProperty('newMasterKey') ? project.property('newMasterKey')
+                : (System.getenv('OFBIZ_NEW_MASTER_KEY') ?: promptSecret('Enter NEW master key: '))
+        def dryRun = project.hasProperty('dryRun') ? project.property('dryRun') : 'false'
+        javaexec {
+            classpath = sourceSets.main.runtimeClasspath
+            mainClass = 'org.apache.ofbiz.base.crypto.ReEncryptSecretsMain'
+            args oldKey, newKey, dryRun
+        }
+    }
+}
+
 task generateSecretKeys(group: sysadminGroup,
         description: 'Generate cryptographically secure 512-bit (64-char) secret keys for JWT token signing and password encryption, and write them to security.properties') {
     doLast {

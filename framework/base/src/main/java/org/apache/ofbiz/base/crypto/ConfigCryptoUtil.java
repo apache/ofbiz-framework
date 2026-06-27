@@ -160,6 +160,32 @@ public final class ConfigCryptoUtil {
         }
     }
 
+    /**
+     * Decrypts {@code encValue} (which must be an {@code ENC(...)} wrapper) with
+     * {@code oldMasterKey} and immediately re-encrypts the plaintext with {@code newMasterKey}.
+     *
+     * <p>Used by the {@code reEncryptAllSecrets} Gradle task to rotate the master AES key
+     * without ever exposing the raw plaintext beyond the JVM heap.</p>
+     *
+     * @param encValue     the current {@code ENC(...)} value from {@code passwords.properties}
+     *                     or a {@code SystemProperty} row
+     * @param oldMasterKey the master key currently in use
+     * @param newMasterKey the new master key to encrypt with
+     * @return a fresh {@code ENC(...)} value encrypted under {@code newMasterKey}
+     * @throws GeneralException if {@code encValue} is not a valid {@code ENC(...)} wrapper,
+     *                          if decryption fails (wrong key or corrupted data),
+     *                          or if re-encryption fails
+     */
+    public static String reEncrypt(String encValue, String oldMasterKey, String newMasterKey)
+            throws GeneralException {
+        if (encValue == null || !encValue.startsWith("ENC(") || !encValue.endsWith(")")) {
+            throw new GeneralException("Value is not a valid ENC(...) wrapper: " + encValue);
+        }
+        String base64 = encValue.substring("ENC(".length(), encValue.length() - 1);
+        String plainText = decrypt(base64, oldMasterKey);
+        return "ENC(" + encrypt(plainText, newMasterKey) + ")";
+    }
+
     private ConfigCryptoUtil() { }
 
     /**
