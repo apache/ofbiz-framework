@@ -18,11 +18,10 @@
  */
 import org.apache.ofbiz.base.secret.SecretValueResolver
 import java.text.SimpleDateFormat
-import java.util.Date
 
 context.usageSummary = SecretValueResolver.getUsageSummary()
 
-def fmt = new SimpleDateFormat('yyyy-MM-dd HH:mm:ss')
+SimpleDateFormat fmt = new SimpleDateFormat('yyyy-MM-dd HH:mm:ss', Locale.US)
 context.usageReportRows = SecretValueResolver.getUsageReport().collect { key, stats ->
     long lastMs = (stats.lastAccessedMs ?: 0L) as long
     String lastStr = lastMs > 0L ? fmt.format(new Date(lastMs)) : '—'
