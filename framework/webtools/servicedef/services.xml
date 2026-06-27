@@ -133,7 +133,6 @@ under the License.
         <description>Encrypts a secret value with ConfigCryptoUtil (AES-256-GCM, keyed by the OFBIZ_MASTER_KEY
             environment variable) and stores the resulting ENC(...) value either as a SystemProperty.systemPropertyValue
             or as a jdbc-password.&lt;lookupKey&gt; entry in passwords.properties.</description>
-        <permission-service service-name="secretMaintPermCheck" main-action="VIEW"/>
         <attribute name="secretTarget" type="String" mode="IN" optional="false"/>
         <attribute name="systemResourceId" type="String" mode="IN" optional="true"/>
         <attribute name="systemPropertyId" type="String" mode="IN" optional="true"/>
@@ -146,20 +145,17 @@ under the License.
         <description>Flushes all in-memory cached secret values (SecretValueResolver TTL cache, the UtilProperties
             file cache, and the active SecretProvider's own internal cache) so the next lookup re-fetches from the
             provider. Useful after a secret rotation.</description>
-        <permission-service service-name="secretMaintPermCheck" main-action="VIEW"/>
     </service>
     <service name="reloadSecretProvider" engine="java"
             location="org.apache.ofbiz.webtools.secret.SecretManagerServices" invoke="reloadSecretProvider" auth="true" use-transaction="false">
         <description>Re-runs ServiceLoader discovery and replaces the active SecretProvider instance. Useful after
             deploying a new vault plugin jar or editing that plugin's own connection settings without a restart.</description>
-        <permission-service service-name="secretMaintPermCheck" main-action="VIEW"/>
     </service>
     <service name="syncSecretFromProvider" engine="java"
             location="org.apache.ofbiz.webtools.secret.SecretManagerServices" invoke="syncSecretFromProvider" auth="true" use-transaction="true">
         <description>Fetches the current value of lookupKey from the active SecretProvider and re-encrypts it into
             the local fallback snapshot (passwords.properties or SystemProperty.systemPropertyValue), keeping the
             ENC(...) value used when the remote vault is unreachable in sync with the latest rotation.</description>
-        <permission-service service-name="secretMaintPermCheck" main-action="VIEW"/>
         <attribute name="secretTarget" type="String" mode="IN" optional="false"/>
         <attribute name="systemResourceId" type="String" mode="IN" optional="true"/>
         <attribute name="systemPropertyId" type="String" mode="IN" optional="true"/>
@@ -172,7 +168,6 @@ under the License.
             syncSecretFromProvider for every SystemProperty row with a non-empty systemPropertyLookup, so a secret
             rotated in the remote vault is written back automatically without an admin clicking "Sync Now". No-ops
             unless secret.rotation.autosync.enabled=true in security.properties (disabled by default).</description>
-        <permission-service service-name="secretMaintPermCheck" main-action="VIEW"/>
         <attribute name="syncedCount" type="Long" mode="OUT" optional="true"/>
         <attribute name="unchangedCount" type="Long" mode="OUT" optional="true"/>
         <attribute name="failedCount" type="Long" mode="OUT" optional="true"/>
@@ -181,14 +176,12 @@ under the License.
             location="org.apache.ofbiz.webtools.secret.SecretManagerServices" invoke="testSecretProviderConnection" auth="true" use-transaction="false">
         <description>Tests connectivity to the active SecretProvider by resolving a given key.
             Distinguishes "connected but key not found" from a real connection failure.</description>
-        <permission-service service-name="secretMaintPermCheck" main-action="VIEW"/>
         <attribute name="testKey" type="String" mode="IN" optional="false"/>
     </service>
     <service name="getSecretUsageStats" engine="java"
             location="org.apache.ofbiz.webtools.secret.SecretManagerServices" invoke="getSecretUsageStats" auth="true" use-transaction="false">
         <description>Returns in-memory usage statistics (hit/miss counts) for the SecretValueResolver cache
             since the last JVM start, for display in the Secret Manager admin screen.</description>
-        <permission-service service-name="secretMaintPermCheck" main-action="VIEW"/>
         <attribute name="usageSummary" type="java.util.Map" mode="OUT" optional="true"/>
         <attribute name="usageReport" type="java.util.Map" mode="OUT" optional="true"/>
     </service>
@@ -196,7 +189,6 @@ under the License.
             location="org.apache.ofbiz.webtools.secret.SecretManagerServices" invoke="resetSecretUsageStats" auth="true" use-transaction="false">
         <description>Resets in-memory secret usage counters to zero so operators can observe
             clean post-rotation metrics without a JVM restart.</description>
-        <permission-service service-name="secretMaintPermCheck" main-action="VIEW"/>
     </service>
     <service name="updateSecretAuditRetention" engine="java"
             location="org.apache.ofbiz.webtools.secret.SecretManagerServices"
@@ -204,7 +196,6 @@ under the License.
         <description>Updates the secret.audit.retention.days and secret.audit.purge.batch.size
             SystemProperty rows from the Audit Log Viewer retention settings panel.
             Requires SECRET_MAINT.</description>
-        <permission-service service-name="secretMaintPermCheck" main-action="VIEW"/>
         <attribute name="retentionDays" type="String" mode="IN" optional="false"/>
         <attribute name="batchSize" type="String" mode="IN" optional="false"/>
     </service>

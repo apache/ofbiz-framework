@@ -299,6 +299,12 @@ public final class SecretManagerEvents {
 
         if (!security.hasPermission("SECRET_AUDIT_VIEW", userLogin)
                 && !security.hasPermission("ENTITY_MAINT", userLogin)) {
+            SecretAuditLogger.log(delegator, SecretAuditEvent.builder()
+                    .userLoginId(userLogin != null ? userLogin.getString("userLoginId") : null)
+                    .clientIpAddress(request.getRemoteAddr())
+                    .action("EXPORT_AUDIT")
+                    .outcome("DENIED")
+                    .build());
             request.setAttribute("_ERROR_MESSAGE_", "You do not have permission to export audit logs.");
             return "error";
         }

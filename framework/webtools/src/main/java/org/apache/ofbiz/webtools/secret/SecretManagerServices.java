@@ -53,6 +53,7 @@ import org.apache.ofbiz.entity.condition.EntityCondition;
 import org.apache.ofbiz.entity.condition.EntityOperator;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.entity.util.EntityUtilProperties;
+import org.apache.ofbiz.security.Security;
 import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ServiceUtil;
@@ -85,6 +86,33 @@ public final class SecretManagerServices {
 
     private SecretManagerServices() { }
 
+    private static boolean hasSecretMaintPermission(Security security, GenericValue userLogin) {
+        return security != null
+                && (security.hasPermission("SECRET_MAINT", userLogin)
+                        || security.hasPermission("ENTITY_MAINT", userLogin));
+    }
+
+    private static Map<String, Object> deniedResult(Delegator delegator, GenericValue userLogin,
+            String action, String secretKeyRef, String secretTarget,
+            String systemResourceId, String systemPropertyId) {
+        String userLoginId = (userLogin != null) ? userLogin.getString("userLoginId") : "unknown";
+        String userLoginIdOrNull = (userLogin != null) ? userLogin.getString("userLoginId") : null;
+        Debug.logWarning("[SECRET_AUDIT] action=" + action + " user=" + userLoginId
+                + (secretKeyRef != null ? " key=" + secretKeyRef : "")
+                + (secretTarget != null ? " target=" + secretTarget : "")
+                + " mode=" + DEPLOYMENT_MODE + " accessMode=NOT_APPLICABLE outcome=DENIED", MODULE);
+        SecretAuditLogger.log(delegator, SecretAuditEvent.builder()
+                .userLoginId(userLoginIdOrNull)
+                .action(action)
+                .secretKeyRef(secretKeyRef)
+                .secretTarget(secretTarget)
+                .systemResourceId(systemResourceId)
+                .systemPropertyId(systemPropertyId)
+                .outcome("DENIED")
+                .build());
+        return ServiceUtil.returnError("You do not have permission to perform this operation");
+    }
+
     /**
      * Tests connectivity to the active {@link org.apache.ofbiz.base.secret.SecretProvider} by
      * attempting to resolve {@code testKey}. Reports three outcomes:
@@ -96,6 +124,13 @@ public final class SecretManagerServices {
      * </ul>
      */
     public static Map<String, Object> testSecretProviderConnection(DispatchContext dctx, Map<String, ? extends Object> context) {
+        Delegator delegator = dctx.getDelegator();
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        if (!hasSecretMaintPermission(dctx.getSecurity(), userLogin)) {
+            String testKeyRaw = (String) context.get("testKey");
+            return deniedResult(delegator, userLogin, "TEST_CONNECTION",
+                    UtilValidate.isNotEmpty(testKeyRaw) ? testKeyRaw.trim() : null, null, null, null);
+        }
         String testKey = (String) context.get("testKey");
         if (UtilValidate.isEmpty(testKey)) {
             return ServiceUtil.returnError("testKey is required");
@@ -107,8 +142,6 @@ public final class SecretManagerServices {
         if (!SAFE_IDENTIFIER.matcher(testKey).matches()) {
             return ServiceUtil.returnError("testKey must contain only letters, digits, dots, hyphens, and underscores");
         }
-        Delegator delegator = dctx.getDelegator();
-        GenericValue userLogin = (GenericValue) context.get("userLogin");
         String userLoginId = (userLogin != null) ? userLogin.getString("userLoginId") : "unknown";
         String userLoginIdOrNull = (userLogin != null) ? userLogin.getString("userLoginId") : null;
         try {
@@ -179,6 +212,9 @@ public final class SecretManagerServices {
     public static Map<String, Object> resetSecretUsageStats(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
+        if (!hasSecretMaintPermission(dctx.getSecurity(), userLogin)) {
+            return deniedResult(delegator, userLogin, "RESET_STATS", null, null, null, null);
+        }
         String userLoginId = (userLogin != null) ? userLogin.getString("userLoginId") : "unknown";
         SecretValueResolver.resetUsageStats();
         Debug.logInfo("[SECRET_AUDIT] action=RESET_STATS user=" + userLoginId
@@ -197,6 +233,11 @@ public final class SecretManagerServices {
      * on restart; it is meant for operator visibility, not durable monitoring.
      */
     public static Map<String, Object> getSecretUsageStats(DispatchContext dctx, Map<String, ? extends Object> context) {
+        Delegator delegator = dctx.getDelegator();
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        if (!hasSecretMaintPermission(dctx.getSecurity(), userLogin)) {
+            return deniedResult(delegator, userLogin, "VIEW_STATS", null, null, null, null);
+        }
         Map<String, Object> result = ServiceUtil.returnSuccess();
         result.put("usageSummary", SecretValueResolver.getUsageSummary());
         result.put("usageReport", SecretValueResolver.getUsageReport());
@@ -218,6 +259,9 @@ public final class SecretManagerServices {
     public static Map<String, Object> flushSecretCache(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
+        if (!hasSecretMaintPermission(dctx.getSecurity(), userLogin)) {
+            return deniedResult(delegator, userLogin, "FLUSH_CACHE", null, null, null, null);
+        }
         String userLoginId = (userLogin != null) ? userLogin.getString("userLoginId") : "unknown";
         SecretValueResolver.invalidateAll();
         UtilCache.clearCachesThatStartWith("properties.UtilProperties");
@@ -241,6 +285,9 @@ public final class SecretManagerServices {
     public static Map<String, Object> reloadSecretProvider(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
+        if (!hasSecretMaintPermission(dctx.getSecurity(), userLogin)) {
+            return deniedResult(delegator, userLogin, "RELOAD_PROVIDER", null, null, null, null);
+        }
         String userLoginId = (userLogin != null) ? userLogin.getString("userLoginId") : "unknown";
         UtilCache.clearCachesThatStartWith("properties.UtilProperties");
         SecretProviderFactory.reload();
@@ -274,11 +321,16 @@ public final class SecretManagerServices {
     public static Map<String, Object> syncSecretFromProvider(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
-        String userLoginId = (userLogin != null) ? userLogin.getString("userLoginId") : "unknown";
         String secretTarget = (String) context.get("secretTarget");
         String systemResourceId = (String) context.get("systemResourceId");
         String systemPropertyId = (String) context.get("systemPropertyId");
         String lookupKey = (String) context.get("lookupKey");
+        if (!hasSecretMaintPermission(dctx.getSecurity(), userLogin)) {
+            return deniedResult(delegator, userLogin, "SYNC",
+                    UtilValidate.isNotEmpty(lookupKey) ? lookupKey.trim() : null,
+                    secretTarget, systemResourceId, systemPropertyId);
+        }
+        String userLoginId = (userLogin != null) ? userLogin.getString("userLoginId") : "unknown";
 
         if (UtilValidate.isEmpty(lookupKey)) {
             return ServiceUtil.returnError("lookupKey is required to sync from the active secret provider");
@@ -414,11 +466,15 @@ public final class SecretManagerServices {
      * does not prevent the remaining keys from being processed.</p>
      */
     public static Map<String, Object> autoSyncRotatedSecrets(DispatchContext dctx, Map<String, ? extends Object> context) {
+        Delegator delegator = dctx.getDelegator();
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        if (!hasSecretMaintPermission(dctx.getSecurity(), userLogin)) {
+            return deniedResult(delegator, userLogin, "ROTATION_POLL", null, null, null, null);
+        }
         if (!UtilProperties.getPropertyAsBoolean("security", "secret.rotation.autosync.enabled", false)) {
             return ServiceUtil.returnSuccess(
                     "Automatic secret rotation sync is disabled (secret.rotation.autosync.enabled=false)");
         }
-        GenericValue userLogin = (GenericValue) context.get("userLogin");
         return syncAllRotatedSystemProperties(dctx, userLogin);
     }
 
@@ -493,6 +549,11 @@ public final class SecretManagerServices {
         String lookupKey = (String) context.get("lookupKey");
         String secretValue = (String) context.get("secretValue");
         String secretValueConfirm = (String) context.get("secretValueConfirm");
+        if (!hasSecretMaintPermission(dctx.getSecurity(), userLogin)) {
+            return deniedResult(delegator, userLogin, "STORE",
+                    UtilValidate.isNotEmpty(lookupKey) ? lookupKey.trim() : null,
+                    secretTarget, systemResourceId, systemPropertyId);
+        }
 
         if (UtilValidate.isNotEmpty(secretValueConfirm) && !secretValueConfirm.equals(secretValue)) {
             return ServiceUtil.returnError("Secret Value and Confirm Secret Value do not match");
@@ -614,12 +675,15 @@ public final class SecretManagerServices {
     /**
      * Updates the {@code secret.audit.retention.days} and {@code secret.audit.purge.batch.size}
      * {@code SystemProperty} rows from the Audit Log Viewer retention settings panel.
-     * Requires {@code SECRET_MAINT} (enforced in services.xml via {@code secretMaintPermCheck}).
+     * Requires {@code SECRET_MAINT} (enforced inline; see {@link #hasSecretMaintPermission}).
      */
     public static Map<String, Object> updateSecretAuditRetention(DispatchContext dctx,
             Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
+        if (!hasSecretMaintPermission(dctx.getSecurity(), userLogin)) {
+            return deniedResult(delegator, userLogin, "UPDATE_RETENTION", null, null, null, null);
+        }
         String userLoginId = (userLogin != null) ? userLogin.getString("userLoginId") : "unknown";
 
         String retentionDaysStr = UtilValidate.isNotEmpty((String) context.get("retentionDays"))
