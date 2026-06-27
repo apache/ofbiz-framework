@@ -22,6 +22,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyBoolean;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
@@ -31,6 +32,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ofbiz.base.util.GeneralException;
+import org.apache.ofbiz.security.Security;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
@@ -81,8 +83,13 @@ public class SecretManagerServicesTest {
 
     @Test
     public void autoSyncNoOpsWhenDisabled() {
-        // secret.rotation.autosync.enabled defaults to false in security.properties, so the
-        // delegator/dispatcher (both unset mocks here) are never touched.
+        // secret.rotation.autosync.enabled defaults to false in security.properties.
+        // The permission check runs first; stub security to allow SECRET_MAINT so we reach
+        // the autosync-disabled guard and confirm the early-exit success response.
+        Security security = mock(Security.class);
+        when(security.hasPermission(anyString(), (GenericValue) any())).thenReturn(true);
+        when(dctx.getSecurity()).thenReturn(security);
+
         Map<String, Object> result = SecretManagerServices.autoSyncRotatedSecrets(dctx, UtilMisc.toMap());
         assertEquals("success", result.get("responseMessage"));
     }
@@ -112,6 +119,9 @@ public class SecretManagerServicesTest {
         mockSystemPropertyFindList(List.of(changedRow, unchangedRow, failingRow));
         when(dctx.getDelegator()).thenReturn(delegator);
         when(dctx.getDispatcher()).thenReturn(dispatcher);
+        // Feature 2 adds a ROTATION_POLL SecretAuditLogger.log() call after the loop.
+        // Return "test" so SecretAuditLogger skips the DB write in the test guard.
+        when(delegator.getDelegatorBaseName()).thenReturn("test");
 
         when(dispatcher.runSync(eq("syncSecretFromProvider"), lookupKeyMatches("keyA"))).thenReturn(successWithChanged(true));
         when(dispatcher.runSync(eq("syncSecretFromProvider"), lookupKeyMatches("keyB"))).thenReturn(successWithChanged(false));

@@ -88,6 +88,16 @@ public final class SecretAuditQueue implements SecretAuditSink {
         this.delegatorName = name;
     }
 
+    /** Package-private — for unit tests only. Returns the current number of queued events. */
+    int queueSize() {
+        return queue.size();
+    }
+
+    /** Package-private — for unit tests only. Discards all queued events without persisting them. */
+    void clearForTesting() {
+        queue.clear();
+    }
+
     /**
      * Graceful shutdown: stops the background writer and performs a final best-effort
      * drain. Called by {@link SecretAuditContainer#stop()}.

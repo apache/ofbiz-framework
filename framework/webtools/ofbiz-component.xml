@@ -37,5 +37,7 @@ under the License.
         base-permission="OFBTOOLS,WEBTOOLS"
         mount-point="/webtools"/>
     <container name="secret-audit-container" loaders="main"
-            class="org.apache.ofbiz.webtools.secret.SecretAuditContainer"/>
+            class="org.apache.ofbiz.webtools.secret.SecretAuditContainer">
+        <property name="delegator-name" value="default"/>
+    </container>
 </ofbiz-component>

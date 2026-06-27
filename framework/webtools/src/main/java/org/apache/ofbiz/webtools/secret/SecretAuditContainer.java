@@ -21,6 +21,7 @@ package org.apache.ofbiz.webtools.secret;
 import java.util.List;
 
 import org.apache.ofbiz.base.container.Container;
+import org.apache.ofbiz.base.container.ContainerConfig;
 import org.apache.ofbiz.base.container.ContainerException;
 import org.apache.ofbiz.base.secret.SecretValueResolver;
 import org.apache.ofbiz.base.start.StartupCommand;
@@ -43,16 +44,31 @@ public final class SecretAuditContainer implements Container {
     private static final String MODULE = SecretAuditContainer.class.getName();
 
     private String name;
+    private String delegatorName = "default";
 
     @Override
     public void init(List<StartupCommand> ofbizCommands, String name, String configFile) {
         this.name = name;
+        try {
+            ContainerConfig.Configuration cfg = ContainerConfig.getConfiguration(name);
+            String configured = ContainerConfig.getPropertyValue(cfg, "delegator-name", "default");
+            if (configured != null && !configured.isEmpty()) {
+                this.delegatorName = configured;
+            }
+        } catch (ContainerException e) {
+            // No container configuration registered for this name (common in unit tests and
+            // in deployments where the property block is omitted). Use the "default" fallback.
+            Debug.logInfo("SecretAuditContainer: no container configuration found for '"
+                    + name + "'; using delegator 'default'", MODULE);
+        }
     }
 
     @Override
     public boolean start() throws ContainerException {
+        SecretAuditQueue.INSTANCE.setDelegatorName(delegatorName);
         SecretValueResolver.setAuditSink(SecretAuditQueue.INSTANCE);
         Debug.logInfo("SecretAuditContainer: SecretAuditQueue registered as audit sink"
+                + " using delegator '" + delegatorName + "'"
                 + " (FETCH events=" + SecretValueResolver.LOG_FETCH_EVENTS
                 + ", CACHE_HIT events=" + SecretValueResolver.LOG_CACHE_HITS + ")", MODULE);
         return true;
