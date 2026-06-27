@@ -526,11 +526,30 @@ public final class SecretManagerServices {
             }
         } catch (GeneralException e) {
             Debug.logError(e, MODULE);
+            Debug.logWarning("[SECRET_AUDIT] action=ROTATION_POLL"
+                    + " mode=" + DEPLOYMENT_MODE + " outcome=FAILURE errorCategory=PROVIDER_ERROR", MODULE);
+            SecretAuditLogger.log(delegator, SecretAuditEvent.builder()
+                    .userLoginId(userLogin != null ? userLogin.getString("userLoginId") : null)
+                    .action("ROTATION_POLL")
+                    .providerType(SecretProviderFactory.getProviderName())
+                    .outcome("FAILURE")
+                    .errorCategory("PROVIDER_ERROR")
+                    .build());
             return ServiceUtil.returnError("Unable to query SystemProperty rows for rotation sync: " + e.getMessage());
         }
 
-        Debug.logInfo("Secret auto-sync complete: synced=" + syncedCount
-                + " unchanged=" + unchangedCount + " failed=" + failedCount, MODULE);
+        long totalChecked = syncedCount + unchangedCount + failedCount;
+        String pollOutcome = failedCount > 0 ? "PARTIAL_FAILURE" : "SUCCESS";
+        String providerName = SecretProviderFactory.getProviderName();
+        Debug.logInfo("[SECRET_AUDIT] action=ROTATION_POLL checked=" + totalChecked
+                + " synced=" + syncedCount + " unchanged=" + unchangedCount + " failed=" + failedCount
+                + " provider=" + providerName + " mode=" + DEPLOYMENT_MODE + " outcome=" + pollOutcome, MODULE);
+        SecretAuditLogger.log(delegator, SecretAuditEvent.builder()
+                .userLoginId(userLogin != null ? userLogin.getString("userLoginId") : null)
+                .action("ROTATION_POLL")
+                .providerType(providerName)
+                .outcome(pollOutcome)
+                .build());
         Map<String, Object> result = ServiceUtil.returnSuccess("Automatic secret rotation sync complete: "
                 + syncedCount + " synced, " + unchangedCount + " unchanged, " + failedCount + " failed");
         result.put("syncedCount", syncedCount);
