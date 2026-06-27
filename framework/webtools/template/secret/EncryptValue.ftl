@@ -17,7 +17,16 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<p><strong>${uiLabelMap.WebtoolsSecretActiveProvider}:</strong> ${activeSecretProvider!}</p>
+<p>
+  <strong>${uiLabelMap.WebtoolsSecretActiveProvider}:</strong> ${activeSecretProvider!}
+  <#if providerHealthy?has_content>
+    <#if providerHealthy>
+      &mdash; ${uiLabelMap.WebtoolsSecretProviderReachable}
+    <#else>
+      &mdash; ${uiLabelMap.WebtoolsSecretProviderUnreachable}
+    </#if>
+  </#if>
+</p>
 <#if activeSettings?has_content>
 <h3>Active Configuration</h3>
 <table class="basic-table" cellspacing="0">
@@ -319,41 +328,10 @@ under the License.
 <hr/>
 
 <p>${uiLabelMap.WebtoolsSecretUsageStatsInfo}</p>
-<div class="button-bar">
-<form class="basic-form" method="post" action="<@ofbizUrl>getSecretUsageStats</@ofbizUrl>">
-    <input type="submit" value="${uiLabelMap.WebtoolsSecretUsageStatsRefresh}"/>
-</form>
-<form class="basic-form" method="post" action="<@ofbizUrl>resetSecretUsageStats</@ofbizUrl>">
-    <input type="submit" value="${uiLabelMap.WebtoolsSecretUsageStatsReset}"/>
-</form>
-</div>
-<#if usageSummary?has_content>
-    <p>
-        ${uiLabelMap.WebtoolsSecretUsageTotalHits}: <strong>${usageSummary.totalHits!0}</strong> &nbsp;|&nbsp;
-        ${uiLabelMap.WebtoolsSecretUsageTotalMisses}: <strong>${usageSummary.totalMisses!0}</strong> &nbsp;|&nbsp;
-        ${uiLabelMap.WebtoolsSecretUsageTotalLookups}: <strong>${usageSummary.totalLookups!0}</strong> &nbsp;|&nbsp;
-        ${uiLabelMap.WebtoolsSecretUsageCachedKeys}: <strong>${usageSummary.cachedKeys!0}</strong>
-    </p>
-    <#if usageReportRows?has_content>
-        <table class="basic-table hover-bar" cellspacing="0">
-            <thead>
-                <tr class="header-row">
-                    <td>${uiLabelMap.WebtoolsSecretUsageKey}</td>
-                    <td>${uiLabelMap.WebtoolsSecretUsageHits}</td>
-                    <td>${uiLabelMap.WebtoolsSecretUsageMisses}</td>
-                    <td>${uiLabelMap.WebtoolsSecretUsageTotal}</td>
-                </tr>
-            </thead>
-            <tbody>
-                <#list usageReportRows as row>
-                    <tr>
-                        <td title="${row[0]}">${row[0]}</td>
-                        <td>${row[1]}</td>
-                        <td>${row[2]}</td>
-                        <td>${row[3]}</td>
-                    </tr>
-                </#list>
-            </tbody>
-        </table>
-    </#if>
-</#if>
+<p>
+    ${uiLabelMap.WebtoolsSecretUsageTotalHits}: <strong>${usageSummary.totalHits!0}</strong> &nbsp;|&nbsp;
+    ${uiLabelMap.WebtoolsSecretUsageTotalMisses}: <strong>${usageSummary.totalMisses!0}</strong> &nbsp;|&nbsp;
+    ${uiLabelMap.WebtoolsSecretUsageTotalLookups}: <strong>${usageSummary.totalLookups!0}</strong> &nbsp;|&nbsp;
+    ${uiLabelMap.WebtoolsSecretUsageCachedKeys}: <strong>${usageSummary.cachedKeys!0}</strong>
+    &nbsp;&nbsp;<a href="<@ofbizUrl>SecretUsageStats</@ofbizUrl>" class="buttontext">${uiLabelMap.WebtoolsSecretUsageStatsFullView}</a>
+</p>

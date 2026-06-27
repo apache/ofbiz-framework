@@ -2168,6 +2168,27 @@
     <property key="WebtoolsSecretUsageTotal">
         <value xml:lang="en">Total</value>
     </property>
+    <property key="WebtoolsSecretUsageLastAccessed">
+        <value xml:lang="en">Last Accessed</value>
+    </property>
+    <property key="WebtoolsSecretUsageStatsTitle">
+        <value xml:lang="en">Secret Usage Statistics</value>
+    </property>
+    <property key="WebtoolsSecretUsageStatsFullView">
+        <value xml:lang="en">View full stats</value>
+    </property>
+    <property key="WebtoolsSecretUsageStatsResetInfo">
+        <value xml:lang="en">Reset all counters to zero. Useful to observe clean post-rotation metrics without a JVM restart.</value>
+    </property>
+    <property key="WebtoolsSecretUsageNoStats">
+        <value xml:lang="en">No secret lookups recorded since the last JVM start or stats reset.</value>
+    </property>
+    <property key="WebtoolsSecretProviderReachable">
+        <value xml:lang="en">Reachable</value>
+    </property>
+    <property key="WebtoolsSecretProviderUnreachable">
+        <value xml:lang="en">Unreachable (check server logs)</value>
+    </property>
     <property key="WebtoolsSecretAuditLog">
         <value xml:lang="en">Secret Audit Log</value>
     </property>

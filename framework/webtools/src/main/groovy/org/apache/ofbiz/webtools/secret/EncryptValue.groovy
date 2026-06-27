@@ -18,15 +18,22 @@ context.activeSettings = [
     ['PBKDF2 iterations', props?.getProperty('secret.pbkdf2.iterations', '310000')]
 ]
 
-// getSecretUsageStats stores its OUT params as request attributes; pull them into the
-// screen context since populateBasicContext() only exposes request attrs under "parameters".
-if (parameters.usageSummary) {
-    context.usageSummary = parameters.usageSummary
+// Provider health probe: call the active provider directly (bypasses SecretValueResolver so
+// no cache touch and no audit event is written). A "not found" exception means the vault is
+// reachable — the ping key simply doesn't exist, which is expected.
+try {
+    SecretProviderFactory.getInstance().getSecret('__ping__')
+    context.providerHealthy = true
+} catch (Exception e) {
+    String msg = e.getMessage() ?: ''
+    context.providerHealthy = (msg.contains('not found') || msg.contains('NotFound')
+            || msg.contains('does not exist') || msg.contains('ResourceNotFoundException')
+            || msg.contains('SecretNotFoundException'))
 }
-if (parameters.usageReport) {
-    // Same Map-iteration pitfall as activeSettings above: flatten to a List of rows before
-    // handing it to the template instead of iterating the Map with ?keys/[key].
-    context.usageReportRows = parameters.usageReport.collect { key, stats ->
-        [key, stats.hits ?: 0, stats.misses ?: 0, stats.total ?: 0]
-    }
+
+// Auto-load usage stats on every page load so the summary is always visible without
+// requiring the operator to click Refresh first.
+context.usageSummary = SecretValueResolver.getUsageSummary()
+context.usageReportRows = SecretValueResolver.getUsageReport().collect { key, stats ->
+    [key, stats.hits ?: 0L, stats.misses ?: 0L, stats.total ?: 0L]
 }

@@ -119,6 +119,8 @@ public final class SecretValueResolver {
     private static final AtomicLong TOTAL_MISSES = new AtomicLong();
     private static final ConcurrentHashMap<String, AtomicLong> KEY_HIT_COUNTS = new ConcurrentHashMap<>();
     private static final ConcurrentHashMap<String, AtomicLong> KEY_MISS_COUNTS = new ConcurrentHashMap<>();
+    // Last-access timestamp (millis since epoch) per key — updated on every hit or miss.
+    private static final ConcurrentHashMap<String, AtomicLong> KEY_LAST_ACCESS_TIMES = new ConcurrentHashMap<>();
 
     // Daemon thread that sweeps expired entries so stale keys don't accumulate indefinitely.
     private static final ScheduledExecutorService EVICTION_EXECUTOR;
@@ -192,6 +194,7 @@ public final class SecretValueResolver {
         if (cached != null && cached.expiry > System.currentTimeMillis()) {
             TOTAL_HITS.incrementAndGet();
             KEY_HIT_COUNTS.computeIfAbsent(key, k -> new AtomicLong()).incrementAndGet();
+            KEY_LAST_ACCESS_TIMES.computeIfAbsent(key, k -> new AtomicLong()).set(System.currentTimeMillis());
             if (LOG_CACHE_HITS) {
                 SecretAuditSink s = auditSink;
                 if (s != null) {
@@ -209,6 +212,7 @@ public final class SecretValueResolver {
             if (rechecked != null && rechecked.expiry > System.currentTimeMillis()) {
                 TOTAL_HITS.incrementAndGet();
                 KEY_HIT_COUNTS.computeIfAbsent(key, k -> new AtomicLong()).incrementAndGet();
+                KEY_LAST_ACCESS_TIMES.computeIfAbsent(key, k -> new AtomicLong()).set(System.currentTimeMillis());
                 if (LOG_CACHE_HITS) {
                     SecretAuditSink s = auditSink;
                     if (s != null) {
@@ -222,6 +226,7 @@ public final class SecretValueResolver {
                 CACHE.put(key, new CacheEntry(secret, System.currentTimeMillis() + CACHE_TTL_MILLIS));
                 TOTAL_MISSES.incrementAndGet();
                 KEY_MISS_COUNTS.computeIfAbsent(key, k -> new AtomicLong()).incrementAndGet();
+                KEY_LAST_ACCESS_TIMES.computeIfAbsent(key, k -> new AtomicLong()).set(System.currentTimeMillis());
                 if (LOG_FETCH_EVENTS) {
                     SecretAuditSink s = auditSink;
                     if (s != null) {
@@ -236,6 +241,7 @@ public final class SecretValueResolver {
                         + "' (" + e.getClass().getSimpleName() + ")", MODULE);
                 TOTAL_MISSES.incrementAndGet();
                 KEY_MISS_COUNTS.computeIfAbsent(key, k -> new AtomicLong()).incrementAndGet();
+                KEY_LAST_ACCESS_TIMES.computeIfAbsent(key, k -> new AtomicLong()).set(System.currentTimeMillis());
                 if (LOG_FETCH_EVENTS) {
                     SecretAuditSink s = auditSink;
                     if (s != null) {
@@ -297,6 +303,7 @@ public final class SecretValueResolver {
         TOTAL_MISSES.set(0);
         KEY_HIT_COUNTS.clear();
         KEY_MISS_COUNTS.clear();
+        KEY_LAST_ACCESS_TIMES.clear();
         Debug.logInfo("SecretValueResolver: usage stats reset", MODULE);
     }
 
@@ -305,7 +312,7 @@ public final class SecretValueResolver {
      * returned map represents one unique key that has been looked up since the last JVM start.
      * The map is sorted by total lookup count (descending) for easy review in the admin UI.
      *
-     * <p>Map structure: {@code key → {"hits": n, "misses": m, "total": n+m}}</p>
+     * <p>Map structure: {@code key → {"hits": n, "misses": m, "total": n+m, "lastAccessedMs": t}}</p>
      */
     public static Map<String, Map<String, Long>> getUsageReport() {
         // Collect all known keys from both hit and miss maps.
@@ -326,6 +333,7 @@ public final class SecretValueResolver {
                     stats.put("hits", hits);
                     stats.put("misses", misses);
                     stats.put("total", hits + misses);
+                    stats.put("lastAccessedMs", getLastAccess(key));
                     report.put(key, stats);
                 });
         return report;
@@ -348,6 +356,11 @@ public final class SecretValueResolver {
     private static long getCount(ConcurrentHashMap<String, AtomicLong> map, String key) {
         AtomicLong counter = map.get(key);
         return counter == null ? 0L : counter.get();
+    }
+
+    private static long getLastAccess(String key) {
+        AtomicLong ts = KEY_LAST_ACCESS_TIMES.get(key);
+        return ts == null ? 0L : ts.get();
     }
 
     private static final class CacheEntry {

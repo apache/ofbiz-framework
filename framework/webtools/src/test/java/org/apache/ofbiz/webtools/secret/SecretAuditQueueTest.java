@@ -20,12 +20,11 @@ package org.apache.ofbiz.webtools.secret;
 
 import static org.junit.Assert.assertTrue;
 
-import org.apache.ofbiz.base.secret.SecretAuditSink;
 import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Unit tests for {@link SecretAuditQueue} — verifies the {@link SecretAuditSink} callbacks
+ * Unit tests for {@link SecretAuditQueue} — verifies the audit-sink callbacks
  * build correctly shaped events and that the queue handles overflow and delegator-name
  * reconfiguration without throwing.
  *
