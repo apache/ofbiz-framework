@@ -24,14 +24,17 @@ import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.entity.condition.EntityOperator
 import org.apache.ofbiz.entity.util.EntityUtilProperties
 
-import java.net.URLEncoder
 import java.sql.Timestamp
 
 // --- pagination ---
 viewIndex = (parameters.viewIndex ?: 0) as int
 viewSize  = (parameters.viewSize  ?: 50) as int
-if (viewIndex < 0) viewIndex = 0
-if (viewSize  < 1) viewSize  = 50
+if (viewIndex < 0) {
+    viewIndex = 0
+}
+if (viewSize < 1) {
+    viewSize = 50
+}
 
 // --- filter parameters ---
 filterUser         = parameters.filterUserLoginId    ?: ''
@@ -45,23 +48,35 @@ filterTo           = parameters.filterDateTo         ?: ''
 
 // --- build conditions ---
 conditions = []
-if (filterUser)         conditions << EntityCondition.makeCondition('userLoginId',    EntityOperator.EQUALS, filterUser)
-if (filterAction)       conditions << EntityCondition.makeCondition('action',         EntityOperator.EQUALS, filterAction)
-if (filterOutcome)      conditions << EntityCondition.makeCondition('outcome',        EntityOperator.EQUALS, filterOutcome)
-if (filterKey)          conditions << EntityCondition.makeCondition('secretKeyRef',   EntityOperator.EQUALS, filterKey)
-if (filterProviderType) conditions << EntityCondition.makeCondition('providerType',   EntityOperator.EQUALS, filterProviderType)
-if (filterDeployMode)   conditions << EntityCondition.makeCondition('deploymentMode', EntityOperator.EQUALS, filterDeployMode)
+if (filterUser) {
+    conditions << EntityCondition.makeCondition('userLoginId', EntityOperator.EQUALS, filterUser)
+}
+if (filterAction) {
+    conditions << EntityCondition.makeCondition('action', EntityOperator.EQUALS, filterAction)
+}
+if (filterOutcome) {
+    conditions << EntityCondition.makeCondition('outcome', EntityOperator.EQUALS, filterOutcome)
+}
+if (filterKey) {
+    conditions << EntityCondition.makeCondition('secretKeyRef', EntityOperator.EQUALS, filterKey)
+}
+if (filterProviderType) {
+    conditions << EntityCondition.makeCondition('providerType', EntityOperator.EQUALS, filterProviderType)
+}
+if (filterDeployMode) {
+    conditions << EntityCondition.makeCondition('deploymentMode', EntityOperator.EQUALS, filterDeployMode)
+}
 if (filterFrom) {
     try {
         conditions << EntityCondition.makeCondition('auditTimestamp',
                 EntityOperator.GREATER_THAN_EQUAL_TO, Timestamp.valueOf(filterFrom + ' 00:00:00'))
-    } catch (IllegalArgumentException ignore) {}
+    } catch (IllegalArgumentException ignore) { }
 }
 if (filterTo) {
     try {
         conditions << EntityCondition.makeCondition('auditTimestamp',
                 EntityOperator.LESS_THAN_EQUAL_TO, Timestamp.valueOf(filterTo + ' 23:59:59'))
-    } catch (IllegalArgumentException ignore) {}
+    } catch (IllegalArgumentException ignore) { }
 }
 
 // --- query ---
@@ -88,26 +103,28 @@ filterParams = "filterUserLoginId=${enc(filterUser as String)}" +
         "&viewSize=${viewSize}"
 
 // --- populate context ---
-context.auditRows            = auditRows
-context.listSize             = listSize
-context.viewIndex            = viewIndex
-context.viewSize             = viewSize
-context.lowIndex             = listSize > 0 ? viewIndex * viewSize + 1 : 0
-context.highIndex            = highIndex
-context.filterUserLoginId    = filterUser
-context.filterAction         = filterAction
-context.filterOutcome        = filterOutcome
-context.filterSecretKeyRef   = filterKey
-context.filterProviderType   = filterProviderType
-context.filterDeploymentMode = filterDeployMode
-context.filterDateFrom       = filterFrom
-context.filterDateTo         = filterTo
-context.filterParams         = filterParams
+context.putAll([
+        auditRows: auditRows,
+        listSize: listSize,
+        viewIndex: viewIndex,
+        viewSize: viewSize,
+        lowIndex: listSize > 0 ? viewIndex * viewSize + 1 : 0,
+        highIndex: highIndex,
+        filterUserLoginId: filterUser,
+        filterAction: filterAction,
+        filterOutcome: filterOutcome,
+        filterSecretKeyRef: filterKey,
+        filterProviderType: filterProviderType,
+        filterDeploymentMode: filterDeployMode,
+        filterDateFrom: filterFrom,
+        filterDateTo: filterTo,
+        filterParams: filterParams
+])
 
 // --- K8s mode notice ---
 deploymentMode         = UtilProperties.getPropertyValue('security', 'secret.audit.deployment.mode', 'DIRECT')
 context.deploymentMode = deploymentMode
-context.isK8sMode      = 'K8S_INJECTED' == deploymentMode
+context.isK8sMode      = deploymentMode == 'K8S_INJECTED'
 
 // --- retention settings ---
 context.retentionDays  = EntityUtilProperties.getPropertyValue('security', 'secret.audit.retention.days',   delegator) ?: '365'

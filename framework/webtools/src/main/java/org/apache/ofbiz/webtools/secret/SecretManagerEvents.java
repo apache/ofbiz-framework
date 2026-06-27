@@ -128,10 +128,10 @@ public final class SecretManagerEvents {
                 CSVParser parser = format.parse(reader)) {
             for (CSVRecord record : parser) {
                 long rowNum = record.getRecordNumber() + 1;
-                String rowTarget     = getColumn(record, "target");
+                String rowTarget = getColumn(record, "target");
                 String rowResourceId = getColumn(record, "systemResourceId");
                 String rowPropertyId = getColumn(record, "systemPropertyId");
-                String rowLookupKey  = getColumn(record, "lookupKey");
+                String rowLookupKey = getColumn(record, "lookupKey");
                 try {
                     SecretManagerServices.storeEncryptedSecret(delegator, userLogin,
                             rowTarget, rowResourceId, rowPropertyId, rowLookupKey,
@@ -294,7 +294,7 @@ public final class SecretManagerEvents {
 
     public static String exportSecretAuditLogs(HttpServletRequest request, HttpServletResponse response) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
-        Security security   = (Security) request.getAttribute("security");
+        Security security = (Security) request.getAttribute("security");
         GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
 
         if (!security.hasPermission("SECRET_AUDIT_VIEW", userLogin)
@@ -305,7 +305,7 @@ public final class SecretManagerEvents {
 
         String dateFrom = UtilValidate.isEmpty(request.getParameter("filterDateFrom")) ? null
                 : request.getParameter("filterDateFrom").trim();
-        String dateTo   = UtilValidate.isEmpty(request.getParameter("filterDateTo"))   ? null
+        String dateTo = UtilValidate.isEmpty(request.getParameter("filterDateTo")) ? null
                 : request.getParameter("filterDateTo").trim();
 
         if (dateFrom == null || dateTo == null) {
@@ -313,10 +313,11 @@ public final class SecretManagerEvents {
             return "error";
         }
 
-        Timestamp tsFrom, tsTo;
+        Timestamp tsFrom;
+        Timestamp tsTo;
         try {
             tsFrom = Timestamp.valueOf(dateFrom + " 00:00:00");
-            tsTo   = Timestamp.valueOf(dateTo   + " 23:59:59");
+            tsTo = Timestamp.valueOf(dateTo + " 23:59:59");
         } catch (IllegalArgumentException e) {
             request.setAttribute("_ERROR_MESSAGE_", "Invalid date format — use YYYY-MM-DD.");
             return "error";
@@ -335,18 +336,30 @@ public final class SecretManagerEvents {
         List<EntityCondition> conds = new ArrayList<>();
         conds.add(EntityCondition.makeCondition("auditTimestamp", EntityOperator.GREATER_THAN_EQUAL_TO, tsFrom));
         conds.add(EntityCondition.makeCondition("auditTimestamp", EntityOperator.LESS_THAN_EQUAL_TO, tsTo));
-        String filterUser         = request.getParameter("filterUserLoginId");
-        String filterAction       = request.getParameter("filterAction");
-        String filterOutcome      = request.getParameter("filterOutcome");
-        String filterKey          = request.getParameter("filterSecretKeyRef");
+        String filterUser = request.getParameter("filterUserLoginId");
+        String filterAction = request.getParameter("filterAction");
+        String filterOutcome = request.getParameter("filterOutcome");
+        String filterKey = request.getParameter("filterSecretKeyRef");
         String filterProviderType = request.getParameter("filterProviderType");
-        String filterDeployMode   = request.getParameter("filterDeploymentMode");
-        if (UtilValidate.isNotEmpty(filterUser))         conds.add(EntityCondition.makeCondition("userLoginId",    EntityOperator.EQUALS, filterUser));
-        if (UtilValidate.isNotEmpty(filterAction))       conds.add(EntityCondition.makeCondition("action",         EntityOperator.EQUALS, filterAction));
-        if (UtilValidate.isNotEmpty(filterOutcome))      conds.add(EntityCondition.makeCondition("outcome",        EntityOperator.EQUALS, filterOutcome));
-        if (UtilValidate.isNotEmpty(filterKey))          conds.add(EntityCondition.makeCondition("secretKeyRef",   EntityOperator.EQUALS, filterKey));
-        if (UtilValidate.isNotEmpty(filterProviderType)) conds.add(EntityCondition.makeCondition("providerType",   EntityOperator.EQUALS, filterProviderType));
-        if (UtilValidate.isNotEmpty(filterDeployMode))   conds.add(EntityCondition.makeCondition("deploymentMode", EntityOperator.EQUALS, filterDeployMode));
+        String filterDeployMode = request.getParameter("filterDeploymentMode");
+        if (UtilValidate.isNotEmpty(filterUser)) {
+            conds.add(EntityCondition.makeCondition("userLoginId", EntityOperator.EQUALS, filterUser));
+        }
+        if (UtilValidate.isNotEmpty(filterAction)) {
+            conds.add(EntityCondition.makeCondition("action", EntityOperator.EQUALS, filterAction));
+        }
+        if (UtilValidate.isNotEmpty(filterOutcome)) {
+            conds.add(EntityCondition.makeCondition("outcome", EntityOperator.EQUALS, filterOutcome));
+        }
+        if (UtilValidate.isNotEmpty(filterKey)) {
+            conds.add(EntityCondition.makeCondition("secretKeyRef", EntityOperator.EQUALS, filterKey));
+        }
+        if (UtilValidate.isNotEmpty(filterProviderType)) {
+            conds.add(EntityCondition.makeCondition("providerType", EntityOperator.EQUALS, filterProviderType));
+        }
+        if (UtilValidate.isNotEmpty(filterDeployMode)) {
+            conds.add(EntityCondition.makeCondition("deploymentMode", EntityOperator.EQUALS, filterDeployMode));
+        }
         EntityCondition where = EntityCondition.makeCondition(conds, EntityOperator.AND);
 
         List<GenericValue> rows;
@@ -377,20 +390,20 @@ public final class SecretManagerEvents {
                     + "providerType,deploymentMode,systemResourceId,systemPropertyId");
             for (GenericValue row : rows) {
                 writer.println(
-                    csvEscape(row.getString("secretAuditLogId")) + ","
-                    + csvEscape(String.valueOf(row.get("auditTimestamp"))) + ","
-                    + csvEscape(row.getString("userLoginId")) + ","
-                    + csvEscape(row.getString("clientIpAddress")) + ","
-                    + csvEscape(row.getString("action")) + ","
-                    + csvEscape(row.getString("outcome")) + ","
-                    + csvEscape(row.getString("errorCategory")) + ","
-                    + csvEscape(row.getString("secretKeyRef")) + ","
-                    + csvEscape(row.getString("secretTarget")) + ","
-                    + csvEscape(row.getString("accessMode")) + ","
-                    + csvEscape(row.getString("providerType")) + ","
-                    + csvEscape(row.getString("deploymentMode")) + ","
-                    + csvEscape(row.getString("systemResourceId")) + ","
-                    + csvEscape(row.getString("systemPropertyId")));
+                        csvEscape(row.getString("secretAuditLogId")) + ","
+                        + csvEscape(String.valueOf(row.get("auditTimestamp"))) + ","
+                        + csvEscape(row.getString("userLoginId")) + ","
+                        + csvEscape(row.getString("clientIpAddress")) + ","
+                        + csvEscape(row.getString("action")) + ","
+                        + csvEscape(row.getString("outcome")) + ","
+                        + csvEscape(row.getString("errorCategory")) + ","
+                        + csvEscape(row.getString("secretKeyRef")) + ","
+                        + csvEscape(row.getString("secretTarget")) + ","
+                        + csvEscape(row.getString("accessMode")) + ","
+                        + csvEscape(row.getString("providerType")) + ","
+                        + csvEscape(row.getString("deploymentMode")) + ","
+                        + csvEscape(row.getString("systemResourceId")) + ","
+                        + csvEscape(row.getString("systemPropertyId")));
             }
             writer.flush();
         } catch (IOException e) {

@@ -192,7 +192,12 @@ public final class SecretValueResolver {
         if (cached != null && cached.expiry > System.currentTimeMillis()) {
             TOTAL_HITS.incrementAndGet();
             KEY_HIT_COUNTS.computeIfAbsent(key, k -> new AtomicLong()).incrementAndGet();
-            if (LOG_CACHE_HITS) { SecretAuditSink s = auditSink; if (s != null) s.onCacheHit(key); }
+            if (LOG_CACHE_HITS) {
+                SecretAuditSink s = auditSink;
+                if (s != null) {
+                    s.onCacheHit(key);
+                }
+            }
             return cached.value;
         }
         // Per-key lock: only the first thread that finds a stale/absent entry fetches from the
@@ -204,7 +209,12 @@ public final class SecretValueResolver {
             if (rechecked != null && rechecked.expiry > System.currentTimeMillis()) {
                 TOTAL_HITS.incrementAndGet();
                 KEY_HIT_COUNTS.computeIfAbsent(key, k -> new AtomicLong()).incrementAndGet();
-                if (LOG_CACHE_HITS) { SecretAuditSink s = auditSink; if (s != null) s.onCacheHit(key); }
+                if (LOG_CACHE_HITS) {
+                    SecretAuditSink s = auditSink;
+                    if (s != null) {
+                        s.onCacheHit(key);
+                    }
+                }
                 return rechecked.value;
             }
             try {
@@ -212,7 +222,12 @@ public final class SecretValueResolver {
                 CACHE.put(key, new CacheEntry(secret, System.currentTimeMillis() + CACHE_TTL_MILLIS));
                 TOTAL_MISSES.incrementAndGet();
                 KEY_MISS_COUNTS.computeIfAbsent(key, k -> new AtomicLong()).incrementAndGet();
-                if (LOG_FETCH_EVENTS) { SecretAuditSink s = auditSink; if (s != null) s.onFetch(key, "PROVIDER_CALL", "SUCCESS", null); }
+                if (LOG_FETCH_EVENTS) {
+                    SecretAuditSink s = auditSink;
+                    if (s != null) {
+                        s.onFetch(key, "PROVIDER_CALL", "SUCCESS", null);
+                    }
+                }
                 return secret;
             } catch (GeneralException e) {
                 // Log only the exception type — never e.getMessage() — to prevent a provider that
@@ -221,7 +236,12 @@ public final class SecretValueResolver {
                         + "' (" + e.getClass().getSimpleName() + ")", MODULE);
                 TOTAL_MISSES.incrementAndGet();
                 KEY_MISS_COUNTS.computeIfAbsent(key, k -> new AtomicLong()).incrementAndGet();
-                if (LOG_FETCH_EVENTS) { SecretAuditSink s = auditSink; if (s != null) s.onFetch(key, "PROVIDER_CALL", "FAILURE", "PROVIDER_ERROR"); }
+                if (LOG_FETCH_EVENTS) {
+                    SecretAuditSink s = auditSink;
+                    if (s != null) {
+                        s.onFetch(key, "PROVIDER_CALL", "FAILURE", "PROVIDER_ERROR");
+                    }
+                }
                 return "";
             }
         }

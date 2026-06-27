@@ -55,8 +55,7 @@ public record SecretAuditEvent(
         /** Nullable — populated for SYNC / STORE / ROTATION_POLL events against a SystemProperty row. */
         String systemResourceId,
         /** Nullable — populated for SYNC / STORE / ROTATION_POLL events against a SystemProperty row. */
-        String systemPropertyId
-) {
+        String systemPropertyId) {
 
     public static Builder builder() {
         return new Builder();
@@ -77,20 +76,53 @@ public record SecretAuditEvent(
 
         private Builder() { }
 
-        public Builder userLoginId(String v)      { userLoginId = v;      return this; }
-        public Builder clientIpAddress(String v)  { clientIpAddress = v;  return this; }
-        public Builder secretKeyRef(String v)      { secretKeyRef = v;     return this; }
-        public Builder secretTarget(String v)      { secretTarget = v;     return this; }
-        public Builder action(String v)            { action = v;           return this; }
-        public Builder accessMode(String v)        { accessMode = v;       return this; }
-        public Builder providerType(String v)      { providerType = v;     return this; }
-        public Builder outcome(String v)           { outcome = v;          return this; }
-        public Builder errorCategory(String v)     { errorCategory = v;    return this; }
-        public Builder systemResourceId(String v)  { systemResourceId = v; return this; }
-        public Builder systemPropertyId(String v)  { systemPropertyId = v; return this; }
+        public Builder userLoginId(String v) {
+            userLoginId = v;
+            return this;
+        }
+        public Builder clientIpAddress(String v) {
+            clientIpAddress = v;
+            return this;
+        }
+        public Builder secretKeyRef(String v) {
+            secretKeyRef = v;
+            return this;
+        }
+        public Builder secretTarget(String v) {
+            secretTarget = v;
+            return this;
+        }
+        public Builder action(String v) {
+            action = v;
+            return this;
+        }
+        public Builder accessMode(String v) {
+            accessMode = v;
+            return this;
+        }
+        public Builder providerType(String v) {
+            providerType = v;
+            return this;
+        }
+        public Builder outcome(String v) {
+            outcome = v;
+            return this;
+        }
+        public Builder errorCategory(String v) {
+            errorCategory = v;
+            return this;
+        }
+        public Builder systemResourceId(String v) {
+            systemResourceId = v;
+            return this;
+        }
+        public Builder systemPropertyId(String v) {
+            systemPropertyId = v;
+            return this;
+        }
 
         public SecretAuditEvent build() {
-            Objects.requireNonNull(action,  "SecretAuditEvent.action is required");
+            Objects.requireNonNull(action, "SecretAuditEvent.action is required");
             Objects.requireNonNull(outcome, "SecretAuditEvent.outcome is required");
             return new SecretAuditEvent(userLoginId, clientIpAddress, secretKeyRef,
                     secretTarget, action, accessMode, providerType,

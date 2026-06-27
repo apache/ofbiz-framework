@@ -181,20 +181,20 @@ public final class SecretAuditLogger {
                 : ((GenericDelegator) delegator).getCurrentUserIdentifier();
 
         GenericValue entry = delegator.makeValue("SecretAuditLog");
-        entry.set("secretAuditLogId",  delegator.getNextSeqId("SecretAuditLog"));
-        entry.set("auditTimestamp",    UtilDateTime.nowTimestamp());
-        entry.set("userLoginId",       resolvedUser);
-        entry.set("clientIpAddress",   event.clientIpAddress());
-        entry.set("secretKeyRef",      event.secretKeyRef());
-        entry.set("secretTarget",      event.secretTarget());
-        entry.set("action",            event.action());
-        entry.set("accessMode",        event.accessMode());
-        entry.set("providerType",      event.providerType());
-        entry.set("deploymentMode",    DEPLOYMENT_MODE);
-        entry.set("outcome",           event.outcome());
-        entry.set("errorCategory",     event.errorCategory());
-        entry.set("systemResourceId",  event.systemResourceId());
-        entry.set("systemPropertyId",  event.systemPropertyId());
+        entry.set("secretAuditLogId", delegator.getNextSeqId("SecretAuditLog"));
+        entry.set("auditTimestamp", UtilDateTime.nowTimestamp());
+        entry.set("userLoginId", resolvedUser);
+        entry.set("clientIpAddress", event.clientIpAddress());
+        entry.set("secretKeyRef", event.secretKeyRef());
+        entry.set("secretTarget", event.secretTarget());
+        entry.set("action", event.action());
+        entry.set("accessMode", event.accessMode());
+        entry.set("providerType", event.providerType());
+        entry.set("deploymentMode", DEPLOYMENT_MODE);
+        entry.set("outcome", event.outcome());
+        entry.set("errorCategory", event.errorCategory());
+        entry.set("systemResourceId", event.systemResourceId());
+        entry.set("systemPropertyId", event.systemPropertyId());
         delegator.create(entry);
     }
 }

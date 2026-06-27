@@ -58,8 +58,8 @@ public final class SecretAuditQueue implements SecretAuditSink {
 
     private static final String MODULE = SecretAuditQueue.class.getName();
 
-    private static final int QUEUE_CAPACITY     = 2000;
-    private static final int DRAIN_BATCH_SIZE   = 50;
+    private static final int QUEUE_CAPACITY = 2000;
+    private static final int DRAIN_BATCH_SIZE = 50;
     private static final long DRAIN_INTERVAL_SECONDS = 2L;
     private static final long DROP_LOG_INTERVAL = 100L;
 
