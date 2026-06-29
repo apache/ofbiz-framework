@@ -88,8 +88,10 @@ function paginateOrderList(viewSize, viewIndex, hideFields) {
 </script>
 
 <#if security.hasEntityPermission("ORDERMGR", "_VIEW", session)>
+<#assign hideFields = ("Y" == requestParameters.hideFields?default("N"))?then("Y", "N")>
+<#assign hiddenFormName = "lookupandhidefields${hideFields}">
 <#if parameters.hideFields?has_content>
-<form name='lookupandhidefields${requestParameters.hideFields?default("Y")}' method="post" action="<@ofbizUrl>searchorders</@ofbizUrl>">
+<form name='${hiddenFormName}' method="post" action="<@ofbizUrl>searchorders</@ofbizUrl>">
   <#if parameters.hideFields?default("N")=='Y'>
     <input type="hidden" name="hideFields" value="N"/>
   <#else>
@@ -142,10 +144,10 @@ function paginateOrderList(viewSize, viewIndex, hideFields) {
       <li class="h3">${uiLabelMap.OrderFindOrder}</li>
       <div class="basic-nav">
         <ul>
-      <#if "Y" == requestParameters.hideFields?default("N")>
-        <li><a href="javascript:document.lookupandhidefields${requestParameters.hideFields}.submit()">${uiLabelMap.CommonShowLookupFields}</a></li>
+      <#if "Y" == hideFields>
+        <li><a href="javascript:document.${hiddenFormName}.submit()">${uiLabelMap.CommonShowLookupFields}</a></li>
       <#else>
-        <#if orderList??><li><a href="javascript:document.lookupandhidefields${requestParameters.hideFields?default("Y")}.submit()">${uiLabelMap.CommonHideFields}</a></li></#if>
+        <#if orderList??><li><a href="javascript:document.${hiddenFormName}.submit()">${uiLabelMap.CommonHideFields}</a></li></#if>
         <li><a href="<@ofbizUrl controlPath="/partymgr/control">findparty?externalLoginKey=${requestAttributes.externalLoginKey!}</@ofbizUrl>">${uiLabelMap.PartyLookupParty}</a></li>
         <li><a href="javascript:lookupOrders(true);">${uiLabelMap.OrderLookupOrder}</a></li>
       </#if>
@@ -404,7 +406,7 @@ function paginateOrderList(viewSize, viewIndex, hideFields) {
       </#if>
 </div>
 </form>
-<#if requestParameters.hideFields?default("N") != "Y">
+<#if hideFields?default("N") == "N">
 <script type="text/javascript">
 document.lookuporder.orderId.focus();
 </script>
@@ -418,7 +420,7 @@ document.lookuporder.orderId.focus();
       <li class="h3">${uiLabelMap.OrderOrderFound}</li>
       <#if (orderList?has_content && 0 < orderList?size)>
         <#if (orderListSize > highIndex)>
-          <li><a href="javascript:paginateOrderList('${viewSize}', '${viewIndex+1}', '${requestParameters.hideFields?default("N")}')">${uiLabelMap.CommonNext}</a></li>
+          <li><a href="javascript:paginateOrderList('${viewSize}', '${viewIndex+1}', '${hideFields}')">${uiLabelMap.CommonNext}</a></li>
         <#else>
           <li><span class="disabled">${uiLabelMap.CommonNext}</span></li>
         </#if>
@@ -426,7 +428,7 @@ document.lookuporder.orderId.focus();
           <li><span>${lowIndex} - ${highIndex} ${uiLabelMap.CommonOf} ${orderListSize}</span></li>
         </#if>
         <#if (viewIndex > 1)>
-          <li><a href="javascript:paginateOrderList('${viewSize}', '${viewIndex-1}', '${requestParameters.hideFields?default("N")}')">${uiLabelMap.CommonPrevious}</a></li>
+          <li><a href="javascript:paginateOrderList('${viewSize}', '${viewIndex-1}', '${hideFields}')">${uiLabelMap.CommonPrevious}</a></li>
         <#else>
           <li><span class="disabled">${uiLabelMap.CommonPrevious}</span></li>
         </#if>
@@ -458,16 +460,16 @@ document.lookuporder.orderId.focus();
         </#if>
         <select name="serviceName" onchange="javascript:setServiceName(this);">
            <option value="javascript:void(0);">${uiLabelMap.OrderAnyOrderStatus}</option>
-           <option value="<@ofbizUrl>massApproveOrders?hideFields=${requestParameters.hideFields?default("N")}${ampersand}${paramList}</@ofbizUrl>">${uiLabelMap.OrderApproveOrder}</option>
-           <option value="<@ofbizUrl>massHoldOrders?hideFields=${requestParameters.hideFields?default("N")}${ampersand}${paramList}</@ofbizUrl>">${uiLabelMap.OrderHold}</option>
-           <option value="<@ofbizUrl>massProcessOrders?hideFields=${requestParameters.hideFields?default("N")}${ampersand}${paramList}</@ofbizUrl>">${uiLabelMap.OrderProcessOrder}</option>
-           <option value="<@ofbizUrl>massCancelOrders?hideFields=${requestParameters.hideFields?default("N")}${ampersand}${paramList}</@ofbizUrl>">${uiLabelMap.OrderCancelOrder}</option>
-           <option value="<@ofbizUrl>massCancelRemainingPurchaseOrderItems?hideFields=${requestParameters.hideFields?default("N")}${ampersand}${paramList}</@ofbizUrl>">${uiLabelMap.OrderCancelRemainingPOItems}</option>
-           <option value="<@ofbizUrl>massRejectOrders?hideFields=${requestParameters.hideFields?default("N")}${ampersand}${paramList}</@ofbizUrl>">${uiLabelMap.OrderRejectOrder}</option>
-           <option value="<@ofbizUrl>massPickOrders?hideFields=${requestParameters.hideFields?default("N")}${ampersand}${paramList}</@ofbizUrl>">${uiLabelMap.OrderPickOrders}</option>
-           <option value="<@ofbizUrl>massQuickShipOrders?hideFields=${requestParameters.hideFields?default("N")}${ampersand}${paramList}</@ofbizUrl>">${uiLabelMap.OrderQuickShipEntireOrder}</option>
-           <option value="<@ofbizUrl>massPrintOrders?hideFields=${requestParameters.hideFields?default('N')}${ampersand}${paramList}</@ofbizUrl>">${uiLabelMap.CommonPrint}</option>
-           <option value="<@ofbizUrl>massCreateFileForOrders?hideFields=${requestParameters.hideFields?default('N')}${ampersand}${paramList}</@ofbizUrl>">${uiLabelMap.ContentCreateFile}</option>
+           <option value="<@ofbizUrl>massApproveOrders?hideFields=${hideFields}${ampersand}${paramList}</@ofbizUrl>">${uiLabelMap.OrderApproveOrder}</option>
+           <option value="<@ofbizUrl>massHoldOrders?hideFields=${hideFields}${ampersand}${paramList}</@ofbizUrl>">${uiLabelMap.OrderHold}</option>
+           <option value="<@ofbizUrl>massProcessOrders?hideFields=${hideFields}${ampersand}${paramList}</@ofbizUrl>">${uiLabelMap.OrderProcessOrder}</option>
+           <option value="<@ofbizUrl>massCancelOrders?hideFields=${hideFields}${ampersand}${paramList}</@ofbizUrl>">${uiLabelMap.OrderCancelOrder}</option>
+           <option value="<@ofbizUrl>massCancelRemainingPurchaseOrderItems?hideFields=${hideFields}${ampersand}${paramList}</@ofbizUrl>">${uiLabelMap.OrderCancelRemainingPOItems}</option>
+           <option value="<@ofbizUrl>massRejectOrders?hideFields=${hideFields}${ampersand}${paramList}</@ofbizUrl>">${uiLabelMap.OrderRejectOrder}</option>
+           <option value="<@ofbizUrl>massPickOrders?hideFields=${hideFields}${ampersand}${paramList}</@ofbizUrl>">${uiLabelMap.OrderPickOrders}</option>
+           <option value="<@ofbizUrl>massQuickShipOrders?hideFields=${hideFields}${ampersand}${paramList}</@ofbizUrl>">${uiLabelMap.OrderQuickShipEntireOrder}</option>
+           <option value="<@ofbizUrl>massPrintOrders?hideFields=${hideFields}${ampersand}${paramList}</@ofbizUrl>">${uiLabelMap.CommonPrint}</option>
+           <option value="<@ofbizUrl>massCreateFileForOrders?hideFields=${hideFields}${ampersand}${paramList}</@ofbizUrl>">${uiLabelMap.ContentCreateFile}</option>
         </select>
         <#if printers?has_content>
         <select name="printerName">
