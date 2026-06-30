@@ -39,7 +39,7 @@ import static org.mockito.Mockito.verify;
  * case where a ModelConversion entry is safe to register. All other shapes
  * (arithmetic, functions, defaultValue, nested alias) must stay as wildcards.
  */
-public class ModelViewEntityComplexAliasTests {
+public final class ModelViewEntityComplexAliasTests {
 
     @Mock
     private ModelViewEntity mockViewEntity;
@@ -59,42 +59,42 @@ public class ModelViewEntityComplexAliasTests {
     // ── ComplexAliasField.isPassThrough() ──────────────────────────────────
 
     @Test
-    void isPassThrough_plainFieldReference_returnsTrue() {
+    void isPassThroughPlainFieldReferenceReturnsTrue() {
         ModelViewEntity.ComplexAliasField field =
                 new ModelViewEntity.ComplexAliasField("ME", "myField", "", "");
         assertTrue(field.isPassThrough());
     }
 
     @Test
-    void isPassThrough_withFunction_returnsFalse() {
+    void isPassThroughWithFunctionReturnsFalse() {
         ModelViewEntity.ComplexAliasField field =
                 new ModelViewEntity.ComplexAliasField("ME", "myField", "", "upper");
         assertFalse(field.isPassThrough());
     }
 
     @Test
-    void isPassThrough_withDefaultValue_returnsFalse() {
+    void isPassThroughWithDefaultValueReturnsFalse() {
         ModelViewEntity.ComplexAliasField field =
                 new ModelViewEntity.ComplexAliasField("ME", "myField", "0", "");
         assertFalse(field.isPassThrough());
     }
 
     @Test
-    void isPassThrough_emptyEntityAlias_returnsFalse() {
+    void isPassThroughEmptyEntityAliasReturnsFalse() {
         ModelViewEntity.ComplexAliasField field =
                 new ModelViewEntity.ComplexAliasField("", "myField", "", "");
         assertFalse(field.isPassThrough());
     }
 
     @Test
-    void isPassThrough_emptyField_returnsFalse() {
+    void isPassThroughEmptyFieldReturnsFalse() {
         ModelViewEntity.ComplexAliasField field =
                 new ModelViewEntity.ComplexAliasField("ME", "", "", "");
         assertFalse(field.isPassThrough());
     }
 
     @Test
-    void isPassThrough_literalValueConstant_returnsFalse() {
+    void isPassThroughLiteralValueConstantReturnsFalse() {
         // entityAlias and field are both empty — this is a SQL literal constant, not a column ref
         ModelViewEntity.ComplexAliasField field =
                 new ModelViewEntity.ComplexAliasField("", "", "", "", "LITERAL_VALUE");
@@ -104,7 +104,7 @@ public class ModelViewEntityComplexAliasTests {
     // ── ComplexAlias.bindAliasToConversions() — positive ───────────────────
 
     @Test
-    void bindAliasToConversions_singlePassThroughField_registersConversion() {
+    void bindAliasToConversionsSinglePassThroughFieldRegistersConversion() {
         // ModelConversion is a final inner class and cannot be mocked without the inline mock maker.
         // We verify the dispatch reached getOrCreateModelConversion with the correct entityAlias,
         // which is the key decision point. addConversion() is a trivial HashMap put tested separately.
@@ -123,7 +123,7 @@ public class ModelViewEntityComplexAliasTests {
     // ── ComplexAlias.bindAliasToConversions() — negative (stays wildcard) ──
 
     @Test
-    void bindAliasToConversions_singleFieldWithFunction_doesNotRegister() {
+    void bindAliasToConversionsSingleFieldWithFunctionDoesNotRegister() {
         ModelViewEntity.ComplexAlias alias = new ModelViewEntity.ComplexAlias("+");
         alias.addComplexAliasMember(new ModelViewEntity.ComplexAliasField("ME", "myField", "", "upper"));
 
@@ -133,7 +133,7 @@ public class ModelViewEntityComplexAliasTests {
     }
 
     @Test
-    void bindAliasToConversions_singleFieldWithDefaultValue_doesNotRegister() {
+    void bindAliasToConversionsSingleFieldWithDefaultValueDoesNotRegister() {
         ModelViewEntity.ComplexAlias alias = new ModelViewEntity.ComplexAlias("+");
         alias.addComplexAliasMember(new ModelViewEntity.ComplexAliasField("ME", "myField", "0", ""));
 
@@ -143,7 +143,7 @@ public class ModelViewEntityComplexAliasTests {
     }
 
     @Test
-    void bindAliasToConversions_multipleMembers_doesNotRegister() {
+    void bindAliasToConversionsMultipleMembersDoesNotRegister() {
         // Arithmetic across two fields — computed value != either raw field value
         ModelViewEntity.ComplexAlias alias = new ModelViewEntity.ComplexAlias("+");
         alias.addComplexAliasMember(new ModelViewEntity.ComplexAliasField("ME", "unitPrice", "", ""));
@@ -155,7 +155,7 @@ public class ModelViewEntityComplexAliasTests {
     }
 
     @Test
-    void bindAliasToConversions_nestedComplexAliasAsSoleMember_doesNotRegister() {
+    void bindAliasToConversionsNestedComplexAliasAsSoleMemberDoesNotRegister() {
         // Sole member is another ComplexAlias, not a ComplexAliasField
         ModelViewEntity.ComplexAlias inner = new ModelViewEntity.ComplexAlias("+");
         inner.addComplexAliasMember(new ModelViewEntity.ComplexAliasField("ME", "myField", "", ""));
