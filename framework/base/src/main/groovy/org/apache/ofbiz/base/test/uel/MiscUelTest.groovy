@@ -30,7 +30,7 @@ class MiscUelTest extends OFBizTestCase {
 
     MiscUelTest(String name) { super(name) }
 
-    void testSystemUel() {
+    void testSystemUel() { // codenarc-disable JUnitTestMethodWithoutAssert
         doUelSystemTest('${sys:getenv("foo")}', 'foo', { String prop -> UelFunctions.sysGetEnv(prop) })
         doUelSystemTest('${sys:getProperty("bar")}', 'bar', { String prop -> UelFunctions.sysGetProp(prop) })
     }
