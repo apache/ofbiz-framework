@@ -30,10 +30,9 @@ class MiscUelTest extends OFBizTestCase {
 
     MiscUelTest(String name) { super(name) }
 
-    void testSystemUel() { // codenarc-disable JUnitTestMethodWithoutAssert
-         // todo: Both are null, but mockito doesn't do system mock..
-        doUelSystemTest('${sys:getenv}', 'foo', { String prop -> UelFunctions.sysGetEnv(prop) })
-        doUelSystemTest('${sys:getProperty}', 'bar', { String prop -> UelFunctions.sysGetProp(prop) })
+    void testSystemUel() {
+        doUelSystemTest('${sys:getenv("foo")}', 'foo', { String prop -> UelFunctions.sysGetEnv(prop) })
+        doUelSystemTest('${sys:getProperty("bar")}', 'bar', { String prop -> UelFunctions.sysGetProp(prop) })
     }
 
     void testUtilSizeUel() {
