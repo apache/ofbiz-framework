@@ -310,7 +310,7 @@ Map updateIssuanceShipmentAndPoOnReceiveInventory() {
     GenericValue orderItem = from('OrderItem').where(parameters).queryOne()
     if (parameters.orderCurrencyUnitPrice) {
         if (parameters.orderCurrencyUnitPrice != orderItem.unitPrice) {
-            orderItem.unitPrice = new BigDecimal (parameters.orderCurrencyUnitPrice)
+            orderItem.unitPrice = parameters.orderCurrencyUnitPrice
             orderItem.store()
         }
     } else {
