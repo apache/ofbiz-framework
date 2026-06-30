@@ -414,18 +414,18 @@ under the License.
                             <#assign product = orderItem.getRelatedOne("Product", true)/>
                             <input type="hidden" name="productId_o_${rowCount}" value="${product.productId}"/>
                             <td width="45%">
-                                ${orderItem.orderItemSeqId}:&nbsp;<a href="<@ofbizUrl controlPath="/catalog/control">EditProduct?productId=${product.productId}</@ofbizUrl>" target="catalog" class="buttontext">${product.productId}&nbsp;-&nbsp;${orderItem.itemDescription!}</a> : ${product.description!}
+                                ${orderItem.orderItemSeqId}&nbsp;-<a href="<@ofbizUrl controlPath="/catalog/control">EditProduct?productId=${product.productId}</@ofbizUrl>" target="catalog" class="buttontext">${product.productId}&nbsp;-&nbsp;${orderItem.itemDescription!}</a>&nbsp;${product.description!}
                             </td>
                           <#else>
                             <td width="45%">
-                                <b>${orderItemType.get("description",locale)}</b> : ${orderItem.itemDescription!}&nbsp;&nbsp;
+                                <b>${orderItemType.get("description",locale)}</b>&nbsp;${orderItem.itemDescription!}&nbsp;&nbsp;
                                 <input type="text" size="12" name="productId_o_${rowCount}"/>
                                 <a href="<@ofbizUrl controlPath="/catalog/control">EditProduct</@ofbizUrl>" target="catalog" class="buttontext">${uiLabelMap.ProductCreateProduct}</a>
                             </td>
                           </#if>
-                          <td align="right">${uiLabelMap.ProductLocation}:</td>
+                          <td align="right">${uiLabelMap.ProductLocation}</td>
                           <#-- location(s) -->
-                          <td align="right">
+                          <td align="left">
                             <#assign facilityLocations = (orderItem.getRelated("ProductFacilityLocation", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("facilityId", facilityId), null, false))!/>
                             <#if facilityLocations?has_content>
                               <select name="locationSeqId_o_${rowCount}">
@@ -446,14 +446,14 @@ under the License.
                               <@htmlTemplate.lookupField formName="selectAllForm" name="locationSeqId_o_${rowCount}" id="locationSeqId_o_${rowCount}" fieldFormName="${LookupFacilityLocationView}"/>
                             </#if>
                           </td>
-                          <td align="right">${uiLabelMap.ProductQtyAccepted} :</td>
-                          <td align="right">
+                          <td align="right">${uiLabelMap.ProductQtyAccepted}</td>
+                          <td align="left">
                             <input type="text" name="quantityAccepted_o_${rowCount}" size="6" value=<#if partialReceive??>"0"<#else>"${defaultQuantity?string.number}"</#if>/>
                           </td>
                         </tr>
                         <tr>
                           <td width="45%">
-                            ${uiLabelMap.ProductInventoryItemType} :&nbsp;
+                            ${uiLabelMap.ProductInventoryItemType}&nbsp;
                             <#if product.inventoryItemTypeId?has_content>
                               <input name="inventoryItemTypeId_o_${rowCount}" type="hidden" value="${product.inventoryItemTypeId}" />
                               <#assign inventoryItemType = product.getRelatedOne("InventoryItemType", true)! />
@@ -470,8 +470,8 @@ under the License.
                             </select>
                             </#if>
                           </td>
-                          <td align="right">${uiLabelMap.ProductRejectionReason} :</td>
-                          <td align="right">
+                          <td align="right">${uiLabelMap.ProductRejectionReason}</td>
+                          <td align="left">
                             <select name="rejectionId_o_${rowCount}" size="1">
                               <option></option>
                               <#list rejectReasons as nextRejection>
@@ -479,39 +479,39 @@ under the License.
                               </#list>
                             </select>
                           </td>
-                          <td align="right">${uiLabelMap.ProductQtyRejected} :</td>
-                          <td align="right">
+                          <td align="right">${uiLabelMap.ProductQtyRejected}</td>
+                          <td align="left">
                             <input type="text" name="quantityRejected_o_${rowCount}" value="0" size="6"/>
                           </td>
                           <tr>
                             <td width="45%">
                               <#assign isSerialized = Static["org.apache.ofbiz.product.product.ProductWorker"].isSerialized(delegator, product.productId)!/>
                               <#if isSerialized?has_content>
-                                ${uiLabelMap.ProductSerialNumber} :&nbsp;
+                                ${uiLabelMap.ProductSerialNumber}&nbsp;
                                 <input type="text" name="serialNumber_o_${rowCount}" value="" />
                             </#if>
                             </td>
                             <#if !product.lotIdFilledIn?has_content || product.lotIdFilledIn != "Forbidden">
                               <td align="right">${uiLabelMap.ProductLotId}</td>
-                              <td align="right">
+                              <td align="left">
                                 <input type="text" name="lotId_o_${rowCount}" size="20" />
                               </td>
                             <#else>
                               <td align="right">&nbsp;</td>
                               <td align="right">&nbsp;</td>
                             </#if>
-                            <td align="right">${uiLabelMap.OrderQtyOrdered} :</td>
-                            <td align="right">
+                            <td align="right">${uiLabelMap.OrderQtyOrdered}</td>
+                            <td align="left">
                               <input type="text" class="inputBox" name="quantityOrdered" value="${orderItem.quantity}" size="6" maxlength="20" disabled="disabled" />
                             </td>
                           </tr>
                         </tr>
                         <tr>
-                          <td>&nbsp;</td>
-                          <td align="right">${uiLabelMap.ProductFacilityOwner}:</td>
-                          <td align="right"><input type="text" name="ownerPartyId_o_${rowCount}" size="20" maxlength="20" value="${facility.ownerPartyId}"/></td>
+                          <td>&nbsp;</td> 
+                          <td align="right">${uiLabelMap.ProductFacilityOwner}</td>
+                          <td align="left"><input type="text" name="ownerPartyId_o_${rowCount}" size="20" maxlength="20" value="${facility.ownerPartyId}"/></td>
                           <#if currencyUomId?default('') != orderCurrencyUomId?default('')>
-                            <td>${uiLabelMap.ProductPerUnitPriceOrder}:</td>
+                            <td>${uiLabelMap.ProductPerUnitPriceOrder}</td>
                             <td>
                               <input type="hidden" name="orderCurrencyUomId_o_${rowCount}" value="${orderCurrencyUomId!}" />
                               <input type="text" id="orderCurrencyUnitPrice_${rowCount}" name="orderCurrencyUnitPrice_o_${rowCount}" value="${orderCurrencyUnitPriceMap[orderItem.orderItemSeqId]}" onchange="javascript:getConvertedPrice(orderCurrencyUnitPrice_${rowCount}, '${orderCurrencyUomId}', '${currencyUomId}', '${rowCount}', '${orderCurrencyUnitPriceMap[orderItem.orderItemSeqId]}', '${itemCost}');" size="6" maxlength="20" />
@@ -524,8 +524,8 @@ under the License.
                               ${currencyUomId!}
                             </td>
                           <#else>
-                            <td align="right">${uiLabelMap.ProductPerUnitPrice}:</td>
-                            <td align="right">
+                            <td align="right">${uiLabelMap.ProductPerUnitPrice}</td>
+                            <td align="left">
                               <input type="hidden" name="currencyUomId_o_${rowCount}" value="${currencyUomId!}" />
                               <input type="text" name="unitCost_o_${rowCount}" value="${itemCost}" size="6" maxlength="20" />
                               ${currencyUomId!}
