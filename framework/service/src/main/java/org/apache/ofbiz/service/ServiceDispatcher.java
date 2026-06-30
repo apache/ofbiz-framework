@@ -278,6 +278,10 @@ public final class ServiceDispatcher {
         Map<String, Object> ecaContext = null;
         RunningService rs = null;
         DispatchContext ctx = getLocalContext(localName);
+        if (ctx == null) {
+            throw new GenericServiceException("Service container is not available (shutting down?) for context: " + localName
+                    + " — cannot run service: " + modelService.getName());
+        }
         GenericEngine engine = null;
         Transaction parentTransaction = null;
         boolean isFailure = false;
