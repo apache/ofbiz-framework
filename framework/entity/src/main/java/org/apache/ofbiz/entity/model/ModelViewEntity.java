@@ -670,9 +670,7 @@ public class ModelViewEntity extends ModelEntity {
         while (it.hasNext()) {
             ModelViewEntity.ModelAlias alias = it.next();
             if (alias.isComplexAlias()) {
-                // TODO: conversion for complex-alias needs to be implemented for cache and in-memory eval stuff to work correctly
-                Debug.logVerbose("[" + this.getEntityName() + "]: Conversion for complex-alias needs to be implemented for cache and "
-                        + "in-memory eval stuff to work correctly, will not work for alias: " + alias.getName(), MODULE);
+                alias.getComplexAliasMember().bindAliasToConversions(alias.getName(), this);
             } else {
                 ModelConversion conversion = getOrCreateModelConversion(alias.getEntityAlias());
                 conversion.addConversion(alias.getField(), alias.getName());
@@ -1060,6 +1058,10 @@ public class ModelViewEntity extends ModelEntity {
             this.complexAliasMember = complexAliasMember;
         }
 
+        public ComplexAliasMember getComplexAliasMember() {
+            return this.complexAliasMember;
+        }
+
         public boolean isComplexAlias() {
             return complexAliasMember != null;
         }
@@ -1118,6 +1120,7 @@ public class ModelViewEntity extends ModelEntity {
 
     public interface ComplexAliasMember extends Serializable {
         void makeAliasColName(StringBuilder colNameBuffer, StringBuilder fieldTypeBuffer, ModelViewEntity modelViewEntity, ModelReader modelReader);
+        void bindAliasToConversions(String aliasName, ModelViewEntity modelViewEntity);
     }
 
     public static final class ComplexAlias implements ComplexAliasMember {
@@ -1147,6 +1150,18 @@ public class ModelViewEntity extends ModelEntity {
 
         public void addAllComplexAliasMembers(List<ComplexAliasMember> complexAliasMembers) {
             this.complexAliasMembers.addAll(complexAliasMembers);
+        }
+
+        @Override
+        public void bindAliasToConversions(String aliasName, ModelViewEntity modelViewEntity) {
+            // Only safe for a single pass-through field — arithmetic across multiple members
+            // or any transforming function makes rawField != computedAlias, breaking cache probes.
+            if (complexAliasMembers.size() == 1 && complexAliasMembers.get(0) instanceof ComplexAliasField) {
+                ComplexAliasField sole = (ComplexAliasField) complexAliasMembers.get(0);
+                if (sole.isPassThrough()) {
+                    sole.bindAliasToConversions(aliasName, modelViewEntity);
+                }
+            }
         }
 
         @Override
@@ -1202,6 +1217,22 @@ public class ModelViewEntity extends ModelEntity {
             this.defaultValue = defaultValue;
             this.function = function;
             this.value = value;
+        }
+
+        /** True when this is a plain column reference with no function or default applied. */
+        public boolean isPassThrough() {
+            return UtilValidate.isNotEmpty(entityAlias)
+                && UtilValidate.isNotEmpty(field)
+                && UtilValidate.isEmpty(function)
+                && UtilValidate.isEmpty(defaultValue);
+        }
+
+        @Override
+        public void bindAliasToConversions(String aliasName, ModelViewEntity modelViewEntity) {
+            if (UtilValidate.isNotEmpty(entityAlias) && UtilValidate.isNotEmpty(field)) {
+                ModelConversion conversion = modelViewEntity.getOrCreateModelConversion(entityAlias);
+                conversion.addConversion(field, aliasName);
+            }
         }
 
         /**
