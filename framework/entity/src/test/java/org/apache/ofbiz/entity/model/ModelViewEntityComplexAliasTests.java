@@ -25,6 +25,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -32,6 +33,7 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 /**
  * Tests for the Tier-2 complex-alias conversion binding:
@@ -43,6 +45,12 @@ public final class ModelViewEntityComplexAliasTests {
 
     @Mock
     private ModelViewEntity mockViewEntity;
+
+    @Mock
+    private ModelReader mockModelReader;
+
+    @Mock
+    private ModelEntity mockModelEntity;
 
     private AutoCloseable mocks;
 
@@ -166,5 +174,90 @@ public final class ModelViewEntityComplexAliasTests {
         outer.bindAliasToConversions("myAlias", mockViewEntity);
 
         verify(mockViewEntity, never()).getOrCreateModelConversion(anyString());
+    }
+
+    // ── ComplexAliasField.makeAliasColName() — default-value quoting ────────
+
+    @Test
+    void makeAliasColNameDateTimeDefaultValueIsWrappedInSingleQuotes() {
+        ModelField dateTimeField = ModelField.create(null, "estimatedDeliveryDate", "date-time", false);
+        when(mockViewEntity.getAliasedEntity("OI", mockModelReader)).thenReturn(mockModelEntity);
+        when(mockViewEntity.getAliasedField(mockModelEntity, "estimatedDeliveryDate", mockModelReader)).thenReturn(dateTimeField);
+
+        ModelViewEntity.ComplexAliasField caf =
+                new ModelViewEntity.ComplexAliasField("OI", "estimatedDeliveryDate", "2026-06-30 12:34:56.789", "min");
+
+        StringBuilder colNameBuffer = new StringBuilder();
+        StringBuilder fieldTypeBuffer = new StringBuilder();
+        caf.makeAliasColName(colNameBuffer, fieldTypeBuffer, mockViewEntity, mockModelReader);
+
+        assertEquals("MIN(COALESCE(OI.ESTIMATED_DELIVERY_DATE,'2026-06-30 12:34:56.789'))", colNameBuffer.toString());
+        assertEquals("date-time", fieldTypeBuffer.toString());
+    }
+
+    @Test
+    void makeAliasColNameNumericDefaultValueIsNotQuoted() {
+        ModelField numericField = ModelField.create(null, "quantity", "numeric", false);
+        when(mockViewEntity.getAliasedEntity("OI", mockModelReader)).thenReturn(mockModelEntity);
+        when(mockViewEntity.getAliasedField(mockModelEntity, "quantity", mockModelReader)).thenReturn(numericField);
+
+        ModelViewEntity.ComplexAliasField caf =
+                new ModelViewEntity.ComplexAliasField("OI", "quantity", "0", null);
+
+        StringBuilder colNameBuffer = new StringBuilder();
+        StringBuilder fieldTypeBuffer = new StringBuilder();
+        caf.makeAliasColName(colNameBuffer, fieldTypeBuffer, mockViewEntity, mockModelReader);
+
+        assertEquals("COALESCE(OI.QUANTITY,0)", colNameBuffer.toString());
+    }
+
+    @Test
+    void makeAliasColNameAlreadyQuotedDefaultValueIsNotDoubleQuoted() {
+        ModelField dateTimeField = ModelField.create(null, "estimatedDeliveryDate", "date-time", false);
+        when(mockViewEntity.getAliasedEntity("OI", mockModelReader)).thenReturn(mockModelEntity);
+        when(mockViewEntity.getAliasedField(mockModelEntity, "estimatedDeliveryDate", mockModelReader)).thenReturn(dateTimeField);
+
+        ModelViewEntity.ComplexAliasField caf =
+                new ModelViewEntity.ComplexAliasField("OI", "estimatedDeliveryDate", "'2026-06-30 12:34:56.789'", null);
+
+        StringBuilder colNameBuffer = new StringBuilder();
+        StringBuilder fieldTypeBuffer = new StringBuilder();
+        caf.makeAliasColName(colNameBuffer, fieldTypeBuffer, mockViewEntity, mockModelReader);
+
+        assertEquals("COALESCE(OI.ESTIMATED_DELIVERY_DATE,'2026-06-30 12:34:56.789')", colNameBuffer.toString());
+    }
+
+    @Test
+    void makeAliasColNameNoDefaultValueProducesPlainColumnName() {
+        ModelField dateTimeField = ModelField.create(null, "estimatedDeliveryDate", "date-time", false);
+        when(mockViewEntity.getAliasedEntity("OI", mockModelReader)).thenReturn(mockModelEntity);
+        when(mockViewEntity.getAliasedField(mockModelEntity, "estimatedDeliveryDate", mockModelReader)).thenReturn(dateTimeField);
+
+        ModelViewEntity.ComplexAliasField caf =
+                new ModelViewEntity.ComplexAliasField("OI", "estimatedDeliveryDate", null, "min");
+
+        StringBuilder colNameBuffer = new StringBuilder();
+        StringBuilder fieldTypeBuffer = new StringBuilder();
+        caf.makeAliasColName(colNameBuffer, fieldTypeBuffer, mockViewEntity, mockModelReader);
+
+        assertEquals("MIN(OI.ESTIMATED_DELIVERY_DATE)", colNameBuffer.toString());
+    }
+
+    @Test
+    void makeAliasColNameSqlFunctionDefaultValueIsNotQuoted() {
+        // Oracle requires TO_TIMESTAMP(...) — a function expression must pass through unmodified
+        ModelField dateTimeField = ModelField.create(null, "estimatedDeliveryDate", "date-time", false);
+        when(mockViewEntity.getAliasedEntity("OI", mockModelReader)).thenReturn(mockModelEntity);
+        when(mockViewEntity.getAliasedField(mockModelEntity, "estimatedDeliveryDate", mockModelReader)).thenReturn(dateTimeField);
+
+        ModelViewEntity.ComplexAliasField caf = new ModelViewEntity.ComplexAliasField(
+                "OI", "estimatedDeliveryDate", "TO_TIMESTAMP('2026-06-30','YYYY-MM-DD')", null);
+
+        StringBuilder colNameBuffer = new StringBuilder();
+        StringBuilder fieldTypeBuffer = new StringBuilder();
+        caf.makeAliasColName(colNameBuffer, fieldTypeBuffer, mockViewEntity, mockModelReader);
+
+        assertEquals("COALESCE(OI.ESTIMATED_DELIVERY_DATE,TO_TIMESTAMP('2026-06-30','YYYY-MM-DD'))",
+                colNameBuffer.toString());
     }
 }
