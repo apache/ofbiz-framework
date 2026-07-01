@@ -61,13 +61,12 @@ public class ModelViewEntity extends ModelEntity {
     private static final Set<String> NUMERIC_FUNCTION_SET = new HashSet<>(); // names of functions that return a numeric type
     // OFBiz field types that map to numeric Java types — default values for these do not need SQL quoting
     private static final Set<String> NUMERIC_FIELD_TYPES = Set.of(
-        "numeric",
-        "integer",
-        "floating-point",
-        "fixed-point",
-        "currency-amount",
-        "currency-precise"
-    );
+            "numeric",
+            "integer",
+            "floating-point",
+            "fixed-point",
+            "currency-amount",
+            "currency-precise");
     static {
         FUNCTION_PREFIX_MAP.put("min", "MIN(");
         FUNCTION_PREFIX_MAP.put("max", "MAX(");
