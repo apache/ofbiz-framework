@@ -77,7 +77,7 @@ under the License.
 
         <notification-group name="default.error.main">
             <notification subject="Service Error ${model.serviceName}"
-                          screen="component://content/widget/EmailScreens.xml#ServiceNotification"/>
+                          screen="component://common/widget/EmailScreens.xml#ServiceNotification"/>
             <notify type="from">ofbiz@test.com</notify>
             <notify type="to">error@test.com</notify>
         </notification-group>
