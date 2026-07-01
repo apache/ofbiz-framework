@@ -69,11 +69,11 @@ public class ScreenFactory {
         int numSignIndex = combinedName.lastIndexOf("#");
         if (numSignIndex == -1) {
             throw new IllegalArgumentException("Error in screen location/name: no \"#\" found to separate the location from the name;"
-                    + "correct example: component://product/screen/product/ProductScreens.xml#EditProduct");
+                    + "correct example: component://common/widget/CommonScreens.xml#states");
         }
         if (numSignIndex + 1 >= combinedName.length()) {
             throw new IllegalArgumentException("Error in screen location/name: the \"#\" was at the end with no screen name after it;"
-                    + "correct example: component://product/screen/product/ProductScreens.xml#EditProduct");
+                    + "correct example: component://common/widget/CommonScreens.xml#states");
         }
         String resourceName = combinedName.substring(0, numSignIndex);
         return resourceName;
@@ -84,11 +84,11 @@ public class ScreenFactory {
         int numSignIndex = combinedName.lastIndexOf("#");
         if (numSignIndex == -1) {
             throw new IllegalArgumentException("Error in screen location/name: no \"#\" found to separate the location from the name;"
-                    + "correct example: component://product/screen/product/ProductScreens.xml#EditProduct");
+                    + "correct example: component://common/widget/CommonScreens.xml#states");
         }
         if (numSignIndex + 1 >= combinedName.length()) {
             throw new IllegalArgumentException("Error in screen location/name: the \"#\" was at the end with no screen name after it;"
-                    + "correct example: component://product/screen/product/ProductScreens.xml#EditProduct");
+                    + "correct example: component://common/widget/CommonScreens.xml#states");
         }
         String screenName = combinedName.substring(numSignIndex + 1);
         return screenName;
