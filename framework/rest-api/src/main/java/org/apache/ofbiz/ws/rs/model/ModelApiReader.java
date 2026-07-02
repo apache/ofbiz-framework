@@ -25,6 +25,7 @@ import java.io.IOException;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.UtilXml;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
@@ -105,14 +106,19 @@ public final class ModelApiReader {
         for (Element operationEle : UtilXml.childElementList(resourceEle, "operation")) {
             Element serviceEle = UtilXml.firstChildElement(operationEle, "service");
             String serviceName = UtilXml.checkEmpty(serviceEle.getAttribute("name")).intern();
-            ModelOperation op = new ModelOperation()
-                    .path(UtilXml.checkEmpty(operationEle.getAttribute("path")).intern())
-                    .verb(UtilXml.checkEmpty(operationEle.getAttribute("verb")).intern()).service(serviceName)
-                    .produces(UtilXml.checkEmpty(operationEle.getAttribute("produces")).intern())
-                    .consumes(UtilXml.checkEmpty(operationEle.getAttribute("consumes")).intern())
-                    .description(UtilXml.checkEmpty(operationEle.getAttribute("description")).intern())
-                    .auth(Boolean.parseBoolean(UtilXml.checkEmpty(operationEle.getAttribute("auth")).intern()));
-            resource.addOperation(op);
+            if (!UtilValidate.isEmpty(serviceName)) {
+                ModelOperation op = new ModelOperation()
+                        .path(UtilXml.checkEmpty(operationEle.getAttribute("path")).intern())
+                        .verb(UtilXml.checkEmpty(operationEle.getAttribute("verb")).intern()).service(serviceName)
+                        .produces(UtilXml.checkEmpty(operationEle.getAttribute("produces")).intern())
+                        .consumes(UtilXml.checkEmpty(operationEle.getAttribute("consumes")).intern())
+                        .description(UtilXml.checkEmpty(operationEle.getAttribute("description")).intern())
+                        .auth(Boolean.parseBoolean(UtilXml.checkEmpty(operationEle.getAttribute("auth")).intern()));
+                resource.addOperation(op);
+            } else {
+                Debug.logWarning("Error during creation of ModelApi, due to missing 'service' Attribute in ApiModelXml for"
+                        + "ModelResource [%s]", MODULE, resource.getName());
+            }
         }
     }
 
