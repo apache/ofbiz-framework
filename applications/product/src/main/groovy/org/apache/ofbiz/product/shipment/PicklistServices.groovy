@@ -20,6 +20,20 @@ package org.apache.ofbiz.product.shipment
 
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.service.ServiceUtil
+import org.apache.ofbiz.entity.condition.EntityCondition
+import org.apache.ofbiz.entity.condition.EntityOperator
+import org.apache.ofbiz.widget.model.ThemeFactory
+import org.apache.ofbiz.widget.renderer.VisualTheme
+import org.apache.ofbiz.widget.renderer.macro.MacroScreenRenderer
+import org.apache.ofbiz.widget.renderer.ScreenRenderer
+import org.apache.ofbiz.widget.renderer.fo.FoFormRenderer
+import org.apache.ofbiz.webapp.view.ApacheFopWorker
+import org.apache.ofbiz.base.util.collections.MapStack
+import java.io.StringWriter
+import java.io.ByteArrayOutputStream
+import javax.xml.transform.stream.StreamSource
+import java.io.StringReader
+import org.apache.fop.apps.Fop
 
 /*
  * Migrate all element present on entity OldPicklistStatusHistory to entity PickListStatus
@@ -127,6 +141,163 @@ Map getPicklistDetails() {
 
     result.picklistDetails = picklistDetails
     result.picklistDetails.items = items
+    return result
+}
+
+Map getPickingPicklists() {
+    Map result = ServiceUtil.returnSuccess()
+    String facilityId = context.facilityId
+    String statusId = context.statusId
+    String searchQuery = context.searchQuery
+
+    // Query picklists
+    def conds = [EntityCondition.makeCondition("facilityId", EntityOperator.EQUALS, facilityId)]
+    
+    // Status Filter:
+    // If statusId is "COMPLETED", show PICKLIST_PICKED and PICKLIST_CANCELLED.
+    // If statusId is "ALL", show all statuses.
+    // If statusId is empty (default), show active picklists only: PICKLIST_INPUT and PICKLIST_PRINTED.
+    // Otherwise, match the statusId directly.
+    if (statusId == "COMPLETED") {
+        conds.add(EntityCondition.makeCondition("statusId", EntityOperator.IN, ["PICKLIST_PICKED", "PICKLIST_CANCELLED"]))
+    } else if (statusId && statusId != "ALL") {
+        conds.add(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, statusId))
+    } else if (!statusId || statusId == "") {
+        conds.add(EntityCondition.makeCondition("statusId", EntityOperator.IN, ["PICKLIST_INPUT", "PICKLIST_PRINTED"]))
+    }
+
+    // Search Query:
+    if (searchQuery && searchQuery.trim() != "") {
+        String q = searchQuery.trim()
+        Set<String> searchPicklistIds = [] as Set
+        
+        // 1. Search by picklistId directly
+        List picklistsById = from("Picklist")
+            .where(EntityCondition.makeCondition("picklistId", EntityOperator.LIKE, "%" + q + "%"))
+            .queryList()
+        picklistsById.each { searchPicklistIds.add(it.picklistId) }
+
+        // 2. Search by primaryOrderId (Order ID)
+        List binsByOrder = from("PicklistBin")
+            .where(EntityCondition.makeCondition("primaryOrderId", EntityOperator.LIKE, "%" + q + "%"))
+            .queryList()
+        binsByOrder.each { searchPicklistIds.add(it.picklistId) }
+
+        if (searchPicklistIds) {
+            conds.add(EntityCondition.makeCondition("picklistId", EntityOperator.IN, searchPicklistIds))
+        } else {
+            // Force empty results if query doesn't match anything
+            result.picklistList = []
+            return result
+        }
+    }
+
+    def query = from("Picklist")
+        .where(EntityCondition.makeCondition(conds, EntityOperator.AND))
+        .orderBy("picklistDate DESC")
+        
+    // Cap at 20 rows if NOT searching
+    if (!searchQuery || searchQuery.trim() == "") {
+        query = query.maxRows(20)
+    }
+
+    List picklists = query.queryList()
+
+    List picklistList = []
+    picklists.each { picklist ->
+        // Find bins
+        List bins = from("PicklistBin").where("picklistId", picklist.picklistId).queryList()
+        int totalOrders = bins.size()
+
+        // Find items
+        int totalItems = 0
+        int pickedItems = 0
+        bins.each { bin ->
+            List items = from("PicklistItem").where("picklistBinId", bin.picklistBinId).queryList()
+            items.each { item ->
+                totalItems += item.quantity ?: 0
+                if (item.itemStatusId == "PICKITEM_COMPLETED") {
+                    pickedItems += item.quantity ?: 0
+                }
+            }
+        }
+
+        picklistList << [
+            picklistId: picklist.picklistId,
+            statusId: picklist.statusId,
+            picklistDate: picklist.picklistDate,
+            totalOrders: totalOrders,
+            totalItems: totalItems,
+            pickedItems: pickedItems
+        ]
+    }
+
+    result.picklistList = picklistList
+    return result
+}
+
+Map cancelPickingPicklist() {
+    Map result = ServiceUtil.returnSuccess()
+    runService("updatePicklist", [
+        picklistId: context.picklistId,
+        statusId: "PICKLIST_CANCELLED",
+        userLogin: context.userLogin
+    ])
+    return result
+}
+
+Map getPickingPicklistPdf() {
+    Map result = ServiceUtil.returnSuccess()
+    String picklistId = context.picklistId
+
+    // Retrieve picklist and transition status
+    GenericValue picklist = from("Picklist").where("picklistId", picklistId).queryOne()
+    if (!picklist) {
+        return ServiceUtil.returnError("Picklist not found with ID: " + picklistId)
+    }
+
+    if (picklist.statusId == "PICKLIST_INPUT") {
+        runService("updatePicklist", [
+            picklistId: picklistId,
+            statusId: "PICKLIST_PRINTED",
+            userLogin: context.userLogin
+        ])
+    }
+
+    // Programmatic FO rendering
+    VisualTheme visualTheme = ThemeFactory.resolveVisualTheme(null)
+    MapStack screenContext = MapStack.create()
+    screenContext.put("locale", context.locale ?: Locale.getDefault())
+    screenContext.put("picklistId", picklistId)
+    screenContext.put("userLogin", context.userLogin)
+
+    // Set up parameters map for screens and actions
+    Map parameters = [:]
+    parameters.put("picklistId", picklistId)
+    parameters.put("userLogin", context.userLogin)
+    screenContext.put("parameters", parameters)
+    // Render the report screen to FO string
+    StringWriter writer = new StringWriter()
+    MacroScreenRenderer foScreenStringRenderer = new MacroScreenRenderer(
+        visualTheme.getModelTheme().getType("screenfop"),
+        visualTheme.getModelTheme().getScreenRendererLocation("screenfop")
+    )
+    ScreenRenderer screens = new ScreenRenderer(writer, screenContext, foScreenStringRenderer)
+    screens.populateContextForService(dctx, screenContext)
+    screens.getContext().put("formStringRenderer", new FoFormRenderer())
+    screens.render("component://product/widget/facility/FacilityScreens.xml#PicklistReport.fo")
+
+    // Convert FO String to PDF byte array
+    ByteArrayOutputStream baos = new ByteArrayOutputStream()
+    StreamSource src = new StreamSource(new StringReader(writer.toString()))
+    Fop fop = ApacheFopWorker.createFopInstance(baos, "application/pdf")
+    ApacheFopWorker.transform(src, null, fop)
+
+    baos.flush()
+    byte[] pdfBytes = baos.toByteArray()
+    baos.close()
+
+    result.pdfBase64 = Base64.getEncoder().encodeToString(pdfBytes)
     return result
 }
 

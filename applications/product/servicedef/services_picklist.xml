@@ -243,4 +243,26 @@ under the License.
         <attribute name="picklistDetails" type="Map" mode="OUT" optional="true"/>
     </service>
 
+    <service name="getPickingPicklists" engine="groovy"
+             location="component://product/src/main/groovy/org/apache/ofbiz/product/shipment/PicklistServices.groovy" invoke="getPickingPicklists" auth="true" export="true" action="GET">
+        <description>Retrieve all picklists for a facility, optionally filtered by status and search query.</description>
+        <attribute name="facilityId" type="String" mode="IN" optional="false"/>
+        <attribute name="statusId" type="String" mode="IN" optional="true"/>
+        <attribute name="searchQuery" type="String" mode="IN" optional="true"/>
+        <attribute name="picklistList" type="List" mode="OUT" optional="true"/>
+    </service>
+
+    <service name="cancelPickingPicklist" engine="groovy"
+             location="component://product/src/main/groovy/org/apache/ofbiz/product/shipment/PicklistServices.groovy" invoke="cancelPickingPicklist" auth="true" export="true" action="POST">
+        <description>Cancel a picklist and all its unpicked items.</description>
+        <attribute name="picklistId" type="String" mode="IN" optional="false"/>
+    </service>
+
+    <service name="getPickingPicklistPdf" engine="groovy"
+             location="component://product/src/main/groovy/org/apache/ofbiz/product/shipment/PicklistServices.groovy" invoke="getPickingPicklistPdf" auth="true" export="true" action="GET">
+        <description>Programmatically render picklist report FO to a Base64-encoded PDF string and transition its status from input to printed.</description>
+        <attribute name="picklistId" type="String" mode="IN" optional="false"/>
+        <attribute name="pdfBase64" type="String" mode="OUT" optional="true"/>
+    </service>
+
 </services>
