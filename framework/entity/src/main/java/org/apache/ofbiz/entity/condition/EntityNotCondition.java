@@ -66,9 +66,15 @@ public class EntityNotCondition implements EntityCondition {
 
     @Override
     public String makeWhereString(ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams, Datasource datasourceInfo) {
+        return makeWhereString(modelEntity, entityConditionParams, datasourceInfo, null);
+    }
+
+    @Override
+    public String makeWhereString(ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams,
+            Datasource datasourceInfo, Delegator delegator) {
         return new StringBuilder()
                 .append("NOT(")
-                .append(condition.makeWhereString(modelEntity, entityConditionParams, datasourceInfo))
+                .append(condition.makeWhereString(modelEntity, entityConditionParams, datasourceInfo, delegator))
                 .append(')')
                 .toString();
     }
