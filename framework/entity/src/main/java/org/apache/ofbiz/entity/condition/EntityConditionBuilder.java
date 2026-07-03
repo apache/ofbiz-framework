@@ -51,7 +51,13 @@ public class EntityConditionBuilder extends BuilderSupport {
 
         @Override
         public String makeWhereString(ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams, Datasource datasourceInfo) {
-            return condition.makeWhereString(modelEntity, entityConditionParams, datasourceInfo);
+            return makeWhereString(modelEntity, entityConditionParams, datasourceInfo, null);
+        }
+
+        @Override
+        public String makeWhereString(ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams,
+                Datasource datasourceInfo, Delegator delegator) {
+            return condition.makeWhereString(modelEntity, entityConditionParams, datasourceInfo, delegator);
         }
 
         @Override
