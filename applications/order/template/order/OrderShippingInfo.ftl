@@ -94,8 +94,8 @@ under the License.
                               <option value="${facility.facilityId}">${facility.facilityName}</option>
                             </#list>
                           </select>
-                          </form>
-                          <a href="javascript:document.receivePurchaseOrderForm.submit()" class="buttontext">${uiLabelMap.CommonReceive}</a>
+                          <input type="submit" class="smallSubmit" value="${uiLabelMap.CommonReceive}"/>
+                        </form>
                       </li>
                   <#else>
                       <li>
@@ -107,8 +107,8 @@ under the License.
                               <option value="${facility.facilityId}">${facility.facilityName}</option>
                             </#list>
                           </select>
+                          <input type="submit" class="smallSubmit" value="${uiLabelMap.OrderQuickReceivePurchaseOrder}"/>
                         </form>
-                        <a href="javascript:document.receiveInventoryForm.submit()" class="buttontext">${uiLabelMap.OrderQuickReceivePurchaseOrder}</a>
                       </li>
                       <li>
                         <form name="partialReceiveInventoryForm" action="/facility/control/ReceiveInventory" method="post">
@@ -120,8 +120,8 @@ under the License.
                               <option value="${facility.facilityId}">${facility.facilityName}</option>
                             </#list>
                           </select>
+                          <input type="submit" class="smallSubmit" value="${uiLabelMap.CommonReceive}"/>
                         </form>
-                        <a href="javascript:document.partialReceiveInventoryForm.submit()" class="buttontext">${uiLabelMap.CommonReceive}</a>
                       </li>
                   </#if>
               </#if>
@@ -636,8 +636,8 @@ under the License.
               </#if>
             </td>
           </tr>
-
-          <#if shipGroup.isGift?has_content && noShipment?default("false") != "true">
+          
+          <#if orderHeader?has_content && "PURCHASE_ORDER" != orderHeader.orderTypeId && shipGroup.isGift?has_content && noShipment?default("false") != "true">
           <tr><td colspan="3"><hr /></td></tr>
           <tr>
             <td class="label">

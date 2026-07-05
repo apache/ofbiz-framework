@@ -42,9 +42,16 @@ under the License.
                               
                 <!-- optional: fields to display in the given order, default is searchFields -->
                 <set field="displayFields" value="[geoId, geoName, geoCode]"/>
-                
-                <!-- optional: additional entity condition (named andCondition) added to search query -->
-                <!-- example : script location="component://party/src/main/groovy/org/apache/ofbiz/party/party/StatusCondition.groovy" /-->
+
+                <!-- Optional: Add an additional entity condition (`andCondition`) to the search query.
+                              Create the condition in a Groovy script and expose it in the screen context. -->
+                <!-- Example:
+                    exprList = [
+                        EntityCondition.makeCondition("geoTypeId", EntityOperator.NOT_EQUAL, "PROVINCE"),
+                        EntityCondition.makeCondition("geoCode", EntityOperator.NOT_EQUAL, null)
+                    ]
+                    context.andCondition = EntityCondition.makeCondition(exprList, EntityOperator.AND)
+                -->
             </actions>
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
@@ -80,9 +87,15 @@ under the License.
                 <!-- optional: fields to display in the given order, default is searchFields -->
                 <set field="displayFields" value="[geoId, geoName, geoCode]"/>
 
-                <!-- optional: additional entity condition (named andCondition) added to search query -->
-                <!-- example : script location="component://party/src/main/groovy/org/apache/ofbiz/party/party/StatusCondition.groovy" /-->
-                
+                <!-- Optional: Add an additional entity condition (`andCondition`) to the search query.
+                        Create the condition in a Groovy script and expose it in the screen context. -->
+                <!-- Example:
+                    exprList = [
+                        EntityCondition.makeCondition("geoTypeId", EntityOperator.NOT_EQUAL, "PROVINCE"),
+                        EntityCondition.makeCondition("geoCode", EntityOperator.NOT_EQUAL, null)
+                    ]
+                    context.andCondition = EntityCondition.makeCondition(exprList, EntityOperator.AND)
+                -->
             </actions>
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">

@@ -59,6 +59,14 @@ public class ModelViewEntity extends ModelEntity {
 
     private static final Map<String, String> FUNCTION_PREFIX_MAP = new HashMap<>();
     private static final Set<String> NUMERIC_FUNCTION_SET = new HashSet<>(); // names of functions that return a numeric type
+    // OFBiz field types that map to numeric Java types — default values for these do not need SQL quoting
+    private static final Set<String> NUMERIC_FIELD_TYPES = Set.of(
+            "numeric",
+            "integer",
+            "floating-point",
+            "fixed-point",
+            "currency-amount",
+            "currency-precise");
     static {
         FUNCTION_PREFIX_MAP.put("min", "MIN(");
         FUNCTION_PREFIX_MAP.put("max", "MAX(");
@@ -1251,7 +1259,15 @@ public class ModelViewEntity extends ModelEntity {
                 String colName = entityAlias + "." + SqlJdbcUtil.filterColName(modelField.getColName());
 
                 if (UtilValidate.isNotEmpty(defaultValue)) {
-                    colName = "COALESCE(" + colName + "," + defaultValue + ")";
+                    String sqlDefault = defaultValue;
+                    // Quote plain string values for non-numeric fields.
+                    // Skip quoting when the value is already a SQL literal (starts with ')
+                    // or a SQL expression/function call (contains '('), e.g. TO_TIMESTAMP(...).
+                    boolean alreadySqlExpression = defaultValue.startsWith("'") || defaultValue.contains("(");
+                    if (!NUMERIC_FIELD_TYPES.contains(modelField.getType()) && !alreadySqlExpression) {
+                        sqlDefault = "'" + defaultValue + "'";
+                    }
+                    colName = "COALESCE(" + colName + "," + sqlDefault + ")";
                 }
 
                 if (UtilValidate.isNotEmpty(function)) {
