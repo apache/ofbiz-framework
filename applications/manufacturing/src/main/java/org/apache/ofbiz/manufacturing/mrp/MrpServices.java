@@ -548,7 +548,7 @@ public class MrpServices {
         EntityQuery supplierProductQuery = EntityQuery.use(delegator)
                 .from("SupplierProduct")
                 .where("productId", productId)
-                .orderBy("supplierPrefOrderId", "availableFromDate", "partyId");
+                .orderBy("availableFromDate", "supplierPrefOrderId", "partyId");
         if (effectiveDate != null) {
             supplierProductQuery.filterByDate(effectiveDate, "availableFromDate", "availableThruDate");
         } else {
