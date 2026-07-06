@@ -573,7 +573,7 @@ public class MrpServices {
             }
         }
 
-        return UtilValidate.isNotEmpty(fallbackSupplierProduct)
+        return fallbackSupplierProduct != null
                 ? fallbackSupplierProduct.getBigDecimal("standardLeadTimeDays").intValue()
                 : 0;
     }
