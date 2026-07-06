@@ -58,6 +58,7 @@ public class MrpServices {
 
     private static final String MODULE = MrpServices.class.getName();
     private static final String RESOURCE = "ManufacturingUiLabels";
+    private static final String MAIN_SUPPLIER_PREF_ORDER_ID = "10_MAIN_SUPPL";
 
     public static Map<String, Object> initMrpEvents(DispatchContext ctx, Map<String, ? extends Object> context) {
         Delegator delegator = ctx.getDelegator();
@@ -542,6 +543,41 @@ public class MrpServices {
         return ((BigDecimal) resultMap.get("quantityOnHandTotal"));
     }
 
+    private static int getSupplierProductLeadTimeDays(Delegator delegator, String productId, Timestamp effectiveDate)
+            throws GenericEntityException {
+        EntityQuery supplierProductQuery = EntityQuery.use(delegator)
+                .from("SupplierProduct")
+                .where("productId", productId)
+                .orderBy("availableFromDate", "supplierPrefOrderId", "partyId");
+        if (effectiveDate != null) {
+            supplierProductQuery.filterByDate(effectiveDate, "availableFromDate", "availableThruDate");
+        } else {
+            supplierProductQuery.filterByDate();
+        }
+
+        List<GenericValue> supplierProducts = supplierProductQuery.queryList();
+        if (UtilValidate.isEmpty(supplierProducts)) {
+            return 0;
+        }
+        GenericValue fallbackSupplierProduct = null;
+        for (GenericValue supplierProduct : supplierProducts) {
+            BigDecimal standardLeadTimeDays = supplierProduct.getBigDecimal("standardLeadTimeDays");
+            if (UtilValidate.isEmpty(standardLeadTimeDays)) {
+                continue;
+            }
+            if (MAIN_SUPPLIER_PREF_ORDER_ID.equals(supplierProduct.getString("supplierPrefOrderId"))) {
+                return standardLeadTimeDays.intValue();
+            }
+            if (fallbackSupplierProduct == null) {
+                fallbackSupplierProduct = supplierProduct;
+            }
+        }
+
+        return fallbackSupplierProduct != null
+                ? fallbackSupplierProduct.getBigDecimal("standardLeadTimeDays").intValue()
+                : 0;
+    }
+
     public static void logMrpError(String mrpId, String productId, String errorMessage, Delegator delegator) {
         logMrpError(mrpId, productId, UtilDateTime.nowTimestamp(), errorMessage, delegator);
     }
@@ -844,8 +880,19 @@ public class MrpServices {
                         }
                         // #####################################################
 
+                        int startDateOffsetDays = daysToShip;
+                        if (!isBuilt) {
+                            try {
+                                startDateOffsetDays = getSupplierProductLeadTimeDays(delegator, product.getString("productId"), eventDate);
+                            } catch (GenericEntityException e) {
+                                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpCannotFindProductForEvent",
+                                        locale));
+                            }
+                        }
+
                         // calculate the ProposedOrder requirementStartDate and update the requirementStartDate object property.
-                        Map<String, Object> routingTaskStartDate = proposedOrder.calculateStartDate(daysToShip, routing, delegator, dispatcher,
+                        Map<String, Object> routingTaskStartDate = proposedOrder.calculateStartDate(startDateOffsetDays, routing, delegator,
+                                dispatcher,
                                 userLogin);
                         if (isBuilt) {
                             // process the product components

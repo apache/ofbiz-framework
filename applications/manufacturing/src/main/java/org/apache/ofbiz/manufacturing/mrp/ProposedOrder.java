@@ -28,11 +28,13 @@ import java.util.ListIterator;
 import java.util.Map;
 
 import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
+import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.entity.util.EntityUtil;
 import org.apache.ofbiz.manufacturing.bom.BOMNode;
 import org.apache.ofbiz.manufacturing.bom.BOMTree;
@@ -202,9 +204,15 @@ public class ProposedOrder {
             // the product is purchased
             // TODO: REVIEW this code
             try {
-                GenericValue techDataCalendar = product.getDelegator().findOne("TechDataCalendar", UtilMisc.toMap("calendarId",
-                        "SUPPLIER"), true);
-                startDate = TechDataServices.addBackward(techDataCalendar, endDate, timeToShip);
+                GenericValue techDataCalendar = EntityQuery.use(product.getDelegator())
+                        .from("TechDataCalendar")
+                        .where("calendarId", "SUPPLIER")
+                        .queryOne();
+                if (techDataCalendar != null) {
+                    startDate = TechDataServices.addBackward(techDataCalendar, endDate, timeToShip);
+                } else {
+                    startDate = UtilDateTime.addDaysToTimestamp(endDate, -daysToShip);
+                }
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Error : reading SUPPLIER TechDataCalendar: " + e.getMessage(), MODULE);
             }
