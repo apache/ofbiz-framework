@@ -425,6 +425,7 @@ under the License.
     <FacilityType description="Room" facilityTypeId="ROOM" hasTable="N"/>
     <FacilityType description="Retail Store" facilityTypeId="RETAIL_STORE" hasTable="N"/>
     <FacilityType description="Warehouse" facilityTypeId="WAREHOUSE" hasTable="N"/>
+    <FacilityCalendarType facilityCalendarTypeId="SHIPPING" description="Shipping/handling working calendar"/>
 
     <FacilityAssocType facilityAssocTypeId="BACKUP_WAREHOUSE" description="Facility that serves another facility in terms of inventory"/>
 

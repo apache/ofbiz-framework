@@ -1212,6 +1212,7 @@ under the License.
     <ProductCategoryRollup fromDate="2001-05-13 12:00:00.0" parentProductCategoryId="2011" productCategoryId="20111"/>
 
     <!-- some default product facility settings -->
+    <FacilityCalendar facilityId="WebStoreWarehouse" calendarId="SHIPPING" facilityCalendarTypeId="SHIPPING" fromDate="2001-05-13 12:00:00.0"/>
     <ProductFacility productId="GZ-2644" facilityId="WebStoreWarehouse" minimumStock="2" reorderQuantity="10" daysToShip="15"/>
     <ProductFacility productId="GZ-8544" facilityId="WebStoreWarehouse" minimumStock="20" reorderQuantity="50" daysToShip="1"/>
     <ProductFacility productId="WG-1111" facilityId="WebStoreWarehouse" minimumStock="2" reorderQuantity="10" daysToShip="1"/>
