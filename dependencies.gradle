@@ -49,6 +49,7 @@ dependencies {
     implementation 'org.apache.httpcomponents:httpclient-cache:4.5.14'
     implementation 'org.apache.logging.log4j:log4j-api:2.25.4' // the API of log4j 2
     implementation 'org.apache.logging.log4j:log4j-core:2.25.4' // Somehow needed by Buildbot to compile OFBizDynamicThresholdFilter.java
+    implementation 'org.apache.logging.log4j:log4j-layout-template-json:2.25.4' // JSON/ECS structured logging profile (log4j2-json.xml)
     implementation 'org.apache.poi:poi:5.5.1'
     implementation 'org.apache.pdfbox:pdfbox:3.0.7'
     implementation 'org.apache.pdfbox:pdfbox-io:3.0.7'

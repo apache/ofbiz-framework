@@ -116,14 +116,22 @@ ext.os = System.getProperty('os.name').toLowerCase()
 ext.gradlew = os.contains('windows') ? 'gradlew.bat' : './gradlew'
 ext.pluginsDir = "${rootDir}/plugins"
 
+// Global switch for structured (ECS JSON) logging - read from debug.properties so the default
+// "./gradlew ofbiz" command reflects it directly, with no separate command-line flag to remember.
+def debugProperties = new Properties()
+file('framework/base/config/debug.properties').withInputStream { debugProperties.load(it) }
+ext.jsonLogsEnabled = debugProperties.getProperty('json.logs.enabled', 'false').toBoolean()
+
 application {
     mainClass = 'org.apache.ofbiz.base.start.Start'
+    def defaultJvmArgs = ['-Xms128M','-Xmx1024M',
+            '-Djdk.serialFilter=maxarray=100000;maxdepth=20;maxrefs=1000;maxbytes=500000', // OFBIZ-12592 and OFBIZ-12716
+            '--add-opens=java.base/java.util=ALL-UNNAMED', // OFBIZ-12726
+            "-Dofbiz.json.logs=${jsonLogsEnabled}"
+            ]
     applicationDefaultJvmArgs = project.hasProperty('jvmArgs')
             ? jvmArgs.tokenize()
-            : ['-Xms128M','-Xmx1024M',
-            '-Djdk.serialFilter=maxarray=100000;maxdepth=20;maxrefs=1000;maxbytes=500000', // OFBIZ-12592 and OFBIZ-12716
-            '--add-opens=java.base/java.util=ALL-UNNAMED' // OFBIZ-12726
-            ]
+            : defaultJvmArgs
 }
 
 distributions.main.contents.from(rootDir) {

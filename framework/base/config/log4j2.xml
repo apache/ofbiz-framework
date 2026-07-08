@@ -29,6 +29,14 @@ under the License.
         <Property name="includeLocation_prod">false</Property>
         <Property name="logPattern">%date{DEFAULT} |%-20.20thread |%-30.30logger{1}${lineToken_${sys:ofbiz.env:-dev}}|%level{length=1}| %message%n</Property>
         <Property name="includeLocation">${includeLocation_${sys:ofbiz.env:-dev}}</Property>
+        <!--
+          Placeholder for the JSON event template used by the opt-in structured logging appender
+          below. Defaults to the bundled ECS template. To use a different schema (e.g. Splunk,
+          CloudWatch), ship a template JSON file in your own component's config/ directory and
+          point this at it with -Dofbiz.json.logs.template=classpath:your-template.json - no
+          change to this file required.
+        -->
+        <Property name="jsonLogTemplateUri">${sys:ofbiz.json.logs.template:-classpath:templates/ecs-layout.json}</Property>
     </Properties>
     <OFBizDynamicThresholdFilter key="uri" onMatch="ACCEPT" onMismatch="DENY">
         <KeyValuePair key="/getJs" value="ERROR"/>
@@ -74,10 +82,40 @@ under the License.
             <DefaultRolloverStrategy fileIndex="min" max="10"/>
         </RollingFile>
 
+        <!--
+          Opt-in structured (ECS JSON) logging - disabled by default, so this contributes zero
+          extra disk/CPU cost unless explicitly enabled. Controlled by the json.logs.enabled
+          switch in framework/base/config/debug.properties (default false); the default
+          "./gradlew ofbiz" command already picks that up, no separate flag needed. When enabled,
+          writes runtime/logs/ofbiz-json.log alongside the plain-text files above, unchanged.
+          The Select/SystemPropertyArbiter below means this appender (and its AppenderRef further
+          down) simply doesn't exist in the resolved configuration when disabled.
+        -->
+        <Select>
+            <SystemPropertyArbiter propertyName="ofbiz.json.logs" propertyValue="true">
+                <RollingFile name="jsonFile" fileName="runtime/logs/ofbiz-json.log" filePattern="runtime/logs/ofbiz-json.log.%i">
+                    <JsonTemplateLayout eventTemplateUri="${jsonLogTemplateUri}">
+                        <EventTemplateAdditionalField key="service.name" value="ofbiz"/>
+                        <EventTemplateAdditionalField key="service.environment" value="${sys:ofbiz.env:-dev}"/>
+                    </JsonTemplateLayout>
+                    <Policies>
+                        <OnStartupTriggeringPolicy/>
+                        <SizeBasedTriggeringPolicy size="10 MB"/>
+                    </Policies>
+                    <DefaultRolloverStrategy fileIndex="min" max="30"/>
+                </RollingFile>
+            </SystemPropertyArbiter>
+        </Select>
+
         <Async name="async" includeLocation="${includeLocation}">
             <AppenderRef ref="ofbiz"/>
             <AppenderRef ref="stdout"/>
             <AppenderRef ref="error"/>
+            <Select>
+                <SystemPropertyArbiter propertyName="ofbiz.json.logs" propertyValue="true">
+                    <AppenderRef ref="jsonFile"/>
+                </SystemPropertyArbiter>
+            </Select>
         </Async>
     </Appenders>
 

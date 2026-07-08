@@ -29,6 +29,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.UUID;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang.BooleanUtils;
@@ -45,6 +47,7 @@ import org.apache.ofbiz.common.UrlServletHelper;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.security.SecuredFreemarker;
 import org.apache.ofbiz.security.SecuredUpload;
+import org.apache.ofbiz.webapp.stats.VisitHandler;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.FilterConfig;
@@ -95,6 +98,17 @@ public class ControlFilter extends HttpFilter {
     private int errorCode;
     /** The list of all path prefixes that are allowed. */
     private Set<String> allowedPaths;
+
+    /**
+     * Generates a UUID-shaped log correlation id from {@link ThreadLocalRandom} instead of
+     * {@link UUID#randomUUID()}. Request ids only need to be unique for log correlation, not
+     * cryptographically unpredictable, and UUID.randomUUID() draws from a shared SecureRandom
+     * that can become a contention point across threads under high concurrency.
+     */
+    private static String generateRequestId() {
+        ThreadLocalRandom random = ThreadLocalRandom.current();
+        return new UUID(random.nextLong(), random.nextLong()).toString();
+    }
     private static final List<String> ALLOWEDTOKENS = getAllowedTokens();
 
 
@@ -265,12 +279,23 @@ public class ControlFilter extends HttpFilter {
             // Check if the requested URI is allowed.
             if (allowedPaths.stream().anyMatch(uri::startsWith)) {
                 try {
-                    // support OFBizDynamicThresholdFilter in log4j2.xml
+                    // support OFBizDynamicThresholdFilter in log4j2.xml, and structured logging (log4j2-json.xml)
                     ThreadContext.put("uri", uri);
+                    ThreadContext.put("requestId", generateRequestId());
+                    String visitId = VisitHandler.getVisitId(session);
+                    if (visitId != null) {
+                        ThreadContext.put("visitId", visitId);
+                    }
+                    if (userLogin != null) {
+                        ThreadContext.put("userLoginId", userLogin.getString("userLoginId"));
+                    }
 
                     chain.doFilter(req, resp);
                 } finally {
                     ThreadContext.remove("uri");
+                    ThreadContext.remove("requestId");
+                    ThreadContext.remove("visitId");
+                    ThreadContext.remove("userLoginId");
                 }
             } else {
                 if (redirectPath == null) {
