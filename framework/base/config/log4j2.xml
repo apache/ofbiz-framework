@@ -33,8 +33,9 @@ under the License.
           Placeholder for the JSON event template used by the opt-in structured logging appender
           below. Defaults to the bundled ECS template. To use a different schema (e.g. Splunk,
           CloudWatch), ship a template JSON file in your own component's config/ directory and
-          point this at it with -Dofbiz.json.logs.template=classpath:your-template.json - no
-          change to this file required.
+          point json.logs.template at it (classpath:your-template.json) in
+          framework/base/config/debug.properties - the default "./gradlew ofbiz" command picks
+          that up directly, no JVM flag or change to this file required.
         -->
         <Property name="jsonLogTemplateUri">${sys:ofbiz.json.logs.template:-classpath:templates/ecs-layout.json}</Property>
     </Properties>
