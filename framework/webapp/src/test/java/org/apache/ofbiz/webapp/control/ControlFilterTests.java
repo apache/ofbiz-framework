@@ -30,7 +30,6 @@ import org.junit.jupiter.api.Test;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.FilterConfig;
-import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -43,7 +42,6 @@ public final class ControlFilterTests {
     private HttpServletResponse resp;
     private FilterChain next;
     private HttpSession session;
-    private ServletContext servletContext;
 
     @BeforeEach
     public void setUp() {
@@ -51,8 +49,6 @@ public final class ControlFilterTests {
         when(config.getInitParameter(anyString())).thenReturn(null);
         session = mock(HttpSession.class);
         when(session.getAttribute(anyString())).thenReturn(null);
-        servletContext = mock(ServletContext.class);
-        when(session.getServletContext()).thenReturn(servletContext);
         req = mock(HttpServletRequest.class);
         when(req.getSession()).thenReturn(session);
         when(req.getContextPath()).thenReturn("");
