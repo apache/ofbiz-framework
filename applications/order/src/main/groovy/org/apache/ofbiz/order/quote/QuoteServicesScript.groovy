@@ -225,10 +225,10 @@ Map copyQuote() {
     // Copy quoteAdjustments.
     if (parameters.copyQuoteAdjustments == 'Y') {
         List quoteAdjustments = quote.getRelated('QuoteAdjustment', null, null, false)
-        for (GenericValue quoteAdjustement : quoteAdjustments) {
+        for (GenericValue quoteAdjustment : quoteAdjustments) {
             if (!quoteAdjustment.quoteItemSeqId) {
                 Map serviceContext = dctx.makeValidContext('createQuoteAdjustment', ModelService.IN_PARAM,
-                        [*: quoteAdjustement, quoteId: quoteIdTo, userLogin: userLogin])
+                        [*: quoteAdjustment, quoteId: quoteIdTo, userLogin: userLogin])
                 serviceResult = dispatcher.runSync('createQuoteAdjustment', serviceContext)
                 if (ServiceUtil.isError(serviceResult)) {
                     return serviceResult
