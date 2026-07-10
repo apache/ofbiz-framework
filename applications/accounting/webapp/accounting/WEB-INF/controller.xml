@@ -239,6 +239,24 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="invoiceAttributes"/>
     </request-map>
+    <request-map uri="createInvoiceAttribute">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createInvoiceAttribute"/>
+        <response name="success" type="view" value="invoiceAttributes"/>
+        <response name="error" type="view" value="invoiceAttributes"/>
+    </request-map>
+    <request-map uri="updateInvoiceAttribute">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateInvoiceAttribute"/>
+        <response name="success" type="view" value="invoiceAttributes"/>
+        <response name="error" type="view" value="invoiceAttributes"/>
+    </request-map>
+    <request-map uri="deleteInvoiceAttribute">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deleteInvoiceAttribute"/>
+        <response name="success" type="view" value="invoiceAttributes"/>
+        <response name="error" type="view" value="invoiceAttributes"/>
+    </request-map>
     <request-map uri="invoiceContactMech">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="invoiceContactMech"/>
