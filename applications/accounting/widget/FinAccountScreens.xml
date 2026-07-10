@@ -41,6 +41,9 @@ under the License.
                                 <section>
                                     <condition><not><if-empty field="finAccountId"/></not></condition>
                                     <widgets>
+                                        <container style="leftclear">
+                                            <label style="h1" text="${uiLabelMap.AccountingFinAccount}: ${finAccountId}"/>
+                                        </container>
                                         <include-menu name="FinAccountTabBar" location="${parameters.mainMenuLocation}"/>
                                     </widgets>
                                     <fail-widgets>
@@ -141,7 +144,6 @@ under the License.
                                         <not><if-empty field="finAccountId"/></not>
                                     </condition>
                                     <widgets>
-                                        <label style="h1" text="${uiLabelMap.AccountingFinAccount}: ${finAccountId}"></label>
                                         <screenlet id="EditFinAccountPanel" collapsible="true">
                                             <include-form name="EditFinAccount" location="component://accounting/widget/FinAccountForms.xml"/>
                                         </screenlet>
@@ -155,7 +157,6 @@ under the License.
                                 </section>
                             </widgets>
                             <fail-widgets>
-                                <label style="h1" text="${uiLabelMap.AccountingFinAccount}: ${finAccountId}"></label>
                                 <screenlet>
                                 <include-form name="FinAccount" location="component://accounting/widget/FinAccountForms.xml"/>
                                 </screenlet>
@@ -194,7 +195,6 @@ under the License.
                                 </and>
                             </condition>
                             <widgets>
-                                <label style="h1" text="${uiLabelMap.AccountingFinAccount}: ${finAccountId}"></label>
                                 <screenlet id="FinAccountRolePanel" title="${uiLabelMap.PartyAddRole}">
                                     <include-form name="AddFinAccountRole" location="component://accounting/widget/FinAccountForms.xml"/>
                                  </screenlet>
@@ -203,7 +203,6 @@ under the License.
                                  </screenlet>
                             </widgets>
                             <fail-widgets>
-                                <label style="h1" text="${uiLabelMap.AccountingFinAccount}: ${finAccountId}"></label>
                                  <screenlet title="${uiLabelMap.CommonRoles}">
                                     <include-grid name="FinAccountRoles" location="component://accounting/widget/FinAccountForms.xml"/>
                                  </screenlet>
@@ -329,6 +328,7 @@ under the License.
     <screen name="FinAccountMain">
         <section>
             <actions>
+                <set field="titleProperty" value="AccountingFinAccount"/>
                 <set field="tabButtonItem" value="finAccountMain"/>
                 <set field="helpAnchor" value="_the_financial_account_main_screen"/>
             </actions>
@@ -514,7 +514,6 @@ under the License.
                                 </or>
                             </condition>
                             <widgets>
-                                <label style="h1" text="${uiLabelMap.AccountingFinAccount}: ${finAccountId}"></label>
                                 <link target="EditFinAccountTrans" text="${uiLabelMap.CommonCreate}" style="buttontext">
                                     <parameter param-name="finAccountId" from-field="finAccountId"/>
                                 </link>
@@ -541,7 +540,6 @@ under the License.
                                 </decorator-screen>
                             </widgets>
                             <fail-widgets>
-                                <label style="h1" text="${uiLabelMap.AccountingFinAccount}: ${finAccountId}"></label>
                                 <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
                                     <decorator-section name="search-options">
                                         <include-form name="FindFinAccountTransactions" location="component://accounting/widget/FinAccountForms.xml"/>
