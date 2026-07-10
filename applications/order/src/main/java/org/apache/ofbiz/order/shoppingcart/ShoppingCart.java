@@ -671,7 +671,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             }
             item = ShoppingCartItem.makeItem(0, productId, selectedAmount, quantity, null,
                     reservStart, reservLength, reservPersons, accommodationMapId, accommodationSpotId, shipBeforeDate, shipAfterDate,
-                    reserveAfterDate, features, attributes, prodCatalogId, configWrapper, itemType, itemGroup, dispatcher,
+                    reserveAfterDate, features, attributes, orderItemAttributes, prodCatalogId, configWrapper, itemType, itemGroup, dispatcher,
                     this, Boolean.TRUE, Boolean.TRUE, parentProductId, Boolean.FALSE, Boolean.FALSE);
         }
 
