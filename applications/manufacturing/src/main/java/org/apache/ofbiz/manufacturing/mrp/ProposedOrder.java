@@ -28,11 +28,13 @@ import java.util.ListIterator;
 import java.util.Map;
 
 import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
+import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.entity.util.EntityUtil;
 import org.apache.ofbiz.manufacturing.bom.BOMNode;
 import org.apache.ofbiz.manufacturing.bom.BOMTree;
@@ -98,7 +100,12 @@ public class ProposedOrder {
      *       <li> step by step calculate from the endDate the startDate</li>
      *     </ul>
      *   </li>
-     *   <li>For the bought product, the first ProductFacility.daysToShip is used to calculated the startDate</li>
+     *   <li>For purchased products created from SALES_ORDER_SHIP demand, supplier lead time is applied using the
+     *       SUPPLIER calendar when available.</li>
+     *   <li>For SALES_ORDER_SHIP purchased products, ProductFacility.daysToShip is first applied as the seller
+     *       facility's final shipping/handling leg using the active SHIPPING facility calendar, falling back to the
+     *       DEFAULT calendar and then direct day arithmetic, and supplier lead time is then applied before that
+     *       facility-ready date as the upstream replenishment leg.</li>
      * </ul>
      * @return
      * <ul>
@@ -106,12 +113,12 @@ public class ProposedOrder {
      * <li>else null.</li>
      * </ul>
      **/
-    public Map<String, Object> calculateStartDate(int daysToShip, GenericValue routing, Delegator delegator, LocalDispatcher dispatcher,
-                                                  GenericValue userLogin) {
+    public Map<String, Object> calculateStartDate(String mrpEventTypeId, int facilityDaysToShip, int supplierLeadTimeDays,
+            GenericValue routing, Delegator delegator, LocalDispatcher dispatcher, GenericValue userLogin) {
         Map<String, Object> result = null;
         Timestamp endDate = (Timestamp) requiredByDate.clone();
         Timestamp startDate = endDate;
-        long timeToShip = daysToShip * 8 * 60 * 60 * 1000L;
+        long facilityTimeToShip = facilityDaysToShip * 8 * 60 * 60 * 1000L;
         if (isBuilt) {
             List<GenericValue> listRoutingTaskAssoc = null;
             if (routing == null) {
@@ -186,7 +193,7 @@ public class ProposedOrder {
                         long totalTime = ProductionRun.getEstimatedTaskTime(routingTask, quantity, dispatcher);
                         if (i == listRoutingTaskAssoc.size()) {
                             // add the daysToShip at the end of the routing
-                            totalTime += timeToShip;
+                            totalTime += facilityTimeToShip;
                         }
                         startDate = TechDataServices.addBackward(TechDataServices.getTechDataCalendar(routingTask), endDate, totalTime);
                         // record the routingTask with the startDate associated
@@ -199,18 +206,57 @@ public class ProposedOrder {
                 Debug.logError("No routing found for product = " + product.getString("productId"), MODULE);
             }
         } else {
-            // the product is purchased
-            // TODO: REVIEW this code
+            // SALES_ORDER_SHIP demand can lead MRP to propose purchased replenishment.
+            // In that case, apply the seller facility's final shipping leg before the upstream supplier lead time.
+            long supplierLeadTime = supplierLeadTimeDays * 8 * 60 * 60 * 1000L;
             try {
-                GenericValue techDataCalendar = product.getDelegator().findOne("TechDataCalendar", UtilMisc.toMap("calendarId",
-                        "SUPPLIER"), true);
-                startDate = TechDataServices.addBackward(techDataCalendar, endDate, timeToShip);
+                GenericValue techDataCalendar = EntityQuery.use(delegator)
+                        .from("TechDataCalendar")
+                        .where("calendarId", "SUPPLIER")
+                        .queryOne();
+                if ("SALES_ORDER_SHIP".equals(mrpEventTypeId) && facilityDaysToShip > 0) {
+                    GenericValue facilityCalendar = getFacilityShippingCalendar(endDate, delegator);
+                    if (facilityCalendar != null) {
+                        startDate = TechDataServices.addBackward(facilityCalendar, startDate, facilityTimeToShip);
+                    } else {
+                        startDate = UtilDateTime.addDaysToTimestamp(startDate, -facilityDaysToShip);
+                    }
+                }
+                if ("SALES_ORDER_SHIP".equals(mrpEventTypeId) && supplierLeadTimeDays > 0) {
+                    if (techDataCalendar != null) {
+                        startDate = TechDataServices.addBackward(techDataCalendar, startDate, supplierLeadTime);
+                    } else {
+                        startDate = UtilDateTime.addDaysToTimestamp(startDate, -supplierLeadTimeDays);
+                    }
+                }
             } catch (GenericEntityException e) {
-                Debug.logError(e, "Error : reading SUPPLIER TechDataCalendar: " + e.getMessage(), MODULE);
+                Debug.logError(e, "Error : reading purchased scheduling calendars: " + e.getMessage(), MODULE);
             }
         }
         requirementStartDate = startDate;
         return result;
+    }
+
+    private GenericValue getFacilityShippingCalendar(Timestamp date, Delegator delegator) throws GenericEntityException {
+        GenericValue facilityCalendar = EntityQuery.use(delegator)
+                .from("FacilityCalendar")
+                .where("facilityId", facilityId, "facilityCalendarTypeId", "SHIPPING")
+                .filterByDate(date)
+                .orderBy("-fromDate")
+                .queryFirst();
+        if (facilityCalendar != null) {
+            GenericValue techDataCalendar = EntityQuery.use(delegator)
+                    .from("TechDataCalendar")
+                    .where("calendarId", facilityCalendar.getString("calendarId"))
+                    .queryOne();
+            if (techDataCalendar != null) {
+                return techDataCalendar;
+            }
+        }
+        return EntityQuery.use(delegator)
+                .from("TechDataCalendar")
+                .where("calendarId", "DEFAULT")
+                .queryOne();
     }
 
 

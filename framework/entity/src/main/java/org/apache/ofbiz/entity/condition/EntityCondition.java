@@ -192,8 +192,56 @@ public interface EntityCondition extends IsEmpty, Serializable {
      * @param thruDateName the name of the field corresponding to the thru date
      * @return a condition expression filtering rows that are currently valid
      */
-    static EntityDateFilterCondition makeConditionDate(String fromDateName, String thruDateName) {
-        return new EntityDateFilterCondition(fromDateName, thruDateName);
+    static EntityCondition makeConditionDate(String fromDateName, String thruDateName) {
+        return makeConditionDate(org.apache.ofbiz.base.util.UtilDateTime.nowTimestamp(), fromDateName, thruDateName);
+    }
+
+    /**
+     * Constructs a condition expression to filter rows that are valid at a given timestamp.
+     * @param moment the timestamp used to check validity
+     * @param fromDateName the name of the field corresponding to the from date
+     * @param thruDateName the name of the field corresponding to the thru date
+     * @return a condition expression filtering rows that are valid at the given timestamp
+     */
+    static EntityCondition makeConditionDate(java.sql.Timestamp moment, String fromDateName, String thruDateName) {
+        return EntityCondition.makeCondition(
+                EntityCondition.makeCondition(
+                        EntityCondition.makeCondition(thruDateName, null),
+                        EntityOperator.OR,
+                        EntityCondition.makeCondition(thruDateName, EntityOperator.GREATER_THAN, moment)),
+                EntityCondition.makeCondition(
+                        EntityCondition.makeCondition(fromDateName, null),
+                        EntityOperator.OR,
+                        EntityCondition.makeCondition(fromDateName, EntityOperator.LESS_THAN_EQUAL_TO, moment)));
+    }
+
+    /**
+     * Constructs a condition expression representing a date range filter query to be used against
+     * entities that themselves represent a date range.
+     * @param rangeStart    The start of the range to filter against
+     * @param rangeEnd      The end of the range to filter against
+     * @param fromDateName  The name of the field containing the entity's "fromDate"
+     * @param thruDateName  The name of the field containing the entity's "thruDate"
+     * @return EntityCondition representing the date range filter
+     */
+    static EntityCondition makeConditionRange(java.sql.Timestamp rangeStart, java.sql.Timestamp rangeEnd, String fromDateName, String thruDateName) {
+        return EntityCondition.makeCondition(EntityOperator.OR,
+                EntityCondition.makeConditionMap(thruDateName, null, fromDateName, null),
+                EntityCondition.makeCondition(
+                        EntityCondition.makeCondition(fromDateName, EntityOperator.GREATER_THAN_EQUAL_TO, rangeStart),
+                        EntityCondition.makeCondition(fromDateName, EntityOperator.LESS_THAN, rangeEnd)),
+                EntityCondition.makeCondition(
+                        EntityCondition.makeCondition(thruDateName, EntityOperator.GREATER_THAN_EQUAL_TO, rangeStart),
+                        EntityCondition.makeCondition(thruDateName, EntityOperator.LESS_THAN, rangeEnd)),
+                EntityCondition.makeCondition(
+                        EntityCondition.makeCondition(fromDateName, null),
+                        EntityCondition.makeCondition(thruDateName, EntityOperator.GREATER_THAN_EQUAL_TO, rangeStart)),
+                EntityCondition.makeCondition(
+                        EntityCondition.makeCondition(thruDateName, null),
+                        EntityCondition.makeCondition(fromDateName, EntityOperator.LESS_THAN, rangeEnd)),
+                EntityCondition.makeCondition(
+                        EntityCondition.makeCondition(fromDateName, EntityOperator.LESS_THAN_EQUAL_TO, rangeStart),
+                        EntityCondition.makeCondition(thruDateName, EntityOperator.GREATER_THAN_EQUAL_TO, rangeEnd)));
     }
 
     /**

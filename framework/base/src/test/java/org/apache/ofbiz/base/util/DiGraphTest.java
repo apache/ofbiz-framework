@@ -23,20 +23,15 @@ import static java.util.Collections.emptyList;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.in;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assume.assumeNoException;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 
-import com.pholser.junit.quickcheck.Property;
-import com.pholser.junit.quickcheck.runner.JUnitQuickcheck;
-
-@RunWith(JUnitQuickcheck.class)
 public class DiGraphTest {
 
     @Test
@@ -51,14 +46,14 @@ public class DiGraphTest {
                 "e", asList("z", "b")));
     }
 
-    @Test(expected = IllegalStateException.class)
+    @Test
     public void testWithCycle() {
         Map<String, Collection<String>> g = UtilMisc.toMap(
                 "a", asList("b"),
                 "b", asList("c"),
                 "c", asList("a"));
         Digraph<String> dg = new Digraph<>(g);
-        dg.sort();
+        assertThrows(IllegalStateException.class, () -> dg.sort());
     }
 
     @Test
@@ -67,17 +62,6 @@ public class DiGraphTest {
                 "a", asList("b"),
                 "b", emptyList(),
                 "c", asList("b")));
-    }
-
-    @Property
-    public <T> void topologicalOrderProperty(Map<T, Collection<T>> graphspec) {
-        try {
-            checkTopologicalOrder(graphspec);
-        } catch (IllegalArgumentException e) {
-            assumeNoException("Invalid Graph", e);
-        } catch (IllegalStateException e) {
-            assumeNoException("Not a directed acyclic graph", e);
-        }
     }
 
     private static <T> void checkTopologicalOrder(Map<T, Collection<T>> graphspec) {

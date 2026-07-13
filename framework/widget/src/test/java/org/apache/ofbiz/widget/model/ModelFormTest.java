@@ -30,18 +30,18 @@ import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.webapp.control.JWTManager;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
-public class ModelFormTest {
+public final class ModelFormTest {
     private HashMap<String, Object> context;
     private Delegator delegator;
 
-    @Before
+    @BeforeEach
     public void setUp() throws GenericEntityException {
         delegator = Mockito.mock(Delegator.class);
         GenericValue genericValue = Mockito.mock(GenericValue.class);
@@ -60,8 +60,8 @@ public class ModelFormTest {
                 Map.of("areaId", "myAreaId",
                         "areaTarget", "myAreaTarget")));
         ModelForm.UpdateArea updateArea = ModelForm.UpdateArea.fromJwtToken(context);
-        Assert.assertEquals("areaId not correct", updateArea.getAreaId(), "myAreaId");
-        Assert.assertEquals("areaTarget not correct", updateArea.getAreaTarget(), "myAreaTarget");
+        Assertions.assertEquals(updateArea.getAreaId(), "myAreaId", "areaId not correct");
+        Assertions.assertEquals(updateArea.getAreaTarget(), "myAreaTarget", "areaTarget not correct");
     }
 
     @Test
@@ -73,8 +73,8 @@ public class ModelFormTest {
                 "parameters", converter.convert(Map.of("entry1", "value1")).toString())));
         ModelForm.UpdateArea updateArea = ModelForm.UpdateArea.fromJwtToken(context);
         CommonWidgetModels.Parameter parameter = getParameterOnly(updateArea);
-        Assert.assertEquals("Parameters key name isn't the same", parameter.getName(), "entry1");
-        Assert.assertEquals("Parameters value isn't the same", parameter.getValue().toString(), "value1");
+        Assertions.assertEquals(parameter.getName(), "entry1", "Parameters key name isn't the same");
+        Assertions.assertEquals(parameter.getValue().toString(), "value1", "Parameters value isn't the same");
     }
 
     @Test
@@ -86,13 +86,13 @@ public class ModelFormTest {
                 "parameters", converter.convert(UtilMisc.toMap("entry1", List.of("1", "2"))).toString())));
         ModelForm.UpdateArea updateArea = ModelForm.UpdateArea.fromJwtToken(context);
         CommonWidgetModels.Parameter parameter = getParameterOnly(updateArea);
-        Assert.assertEquals("Parameters key name isn't the same", parameter.getName(), "entry1");
-        Assert.assertEquals("Parameters value isn't the same", parameter.getValue().toString(), "[1, 2]");
+        Assertions.assertEquals(parameter.getName(), "entry1", "Parameters key name isn't the same");
+        Assertions.assertEquals(parameter.getValue().toString(), "[1, 2]", "Parameters value isn't the same");
     }
 
     private static CommonWidgetModels.Parameter getParameterOnly(ModelForm.UpdateArea updateArea) {
-        Assert.assertNotNull(updateArea.getParameterList());
-        Assert.assertEquals("Parameter size should be one", updateArea.getParameterList().size(), 1);
+        Assertions.assertNotNull(updateArea.getParameterList());
+        Assertions.assertEquals(updateArea.getParameterList().size(), 1, "Parameter size should be one");
         return updateArea.getParameterList().get(0);
     }
 

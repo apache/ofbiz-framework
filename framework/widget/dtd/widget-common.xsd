@@ -27,7 +27,6 @@ under the License.
             <xs:element ref="not" />
             <xs:element ref="if-service-permission" />
             <xs:element ref="if-has-permission" />
-            <xs:element ref="if-entity-permission" />
             <xs:element ref="if-validate-method" />
             <xs:element ref="if-compare" />
             <xs:element ref="if-compare-field" />
@@ -85,28 +84,6 @@ under the License.
         <xs:complexType>
             <xs:attribute type="xs:string" name="permission" use="required" />
             <xs:attribute type="xs:string" name="action" />
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="if-entity-permission" substitutionGroup="AllConditionals">
-        <xs:complexType>
-            <xs:choice minOccurs="0">
-                <xs:element minOccurs="0" maxOccurs="1" ref="permission-condition-getter" />
-                <xs:element minOccurs="0" maxOccurs="1" ref="related-role-getter" />
-                <xs:element minOccurs="0" maxOccurs="1" ref="auxiliary-value-getter" />
-            </xs:choice>
-            <xs:attribute type="xs:string" name="entity-name" use="required" />
-            <xs:attribute type="xs:string" name="entity-id" use="required">
-                <xs:annotation>
-                    <xs:documentation>Can have multiple pipe separated values, but don't use spaces.</xs:documentation>
-                </xs:annotation>
-            </xs:attribute>
-            <xs:attribute type="xs:string" name="target-operation" use="required">
-                <xs:annotation>
-                    <xs:documentation>Can have multiple pipe separated values, but don't use spaces.</xs:documentation>
-                </xs:annotation>
-            </xs:attribute>
-            <xs:attribute name="display-fail-cond" type="xs:boolean"
-                          default="false"/>
         </xs:complexType>
     </xs:element>
     <xs:element name="permission-condition-getter">
@@ -358,6 +335,7 @@ under the License.
         <xs:complexType>
             <xs:choice maxOccurs="unbounded">
                 <xs:element ref="condition-expr" />
+                <xs:element ref="condition-date" />
                 <xs:element ref="condition-list" />
                 <xs:element ref="condition-object" />
             </xs:choice>
@@ -375,6 +353,7 @@ under the License.
         <xs:complexType>
             <xs:choice maxOccurs="unbounded">
                 <xs:element ref="condition-expr" />
+                <xs:element ref="condition-date" />
                 <xs:element ref="condition-list" />
                 <xs:element ref="condition-object" />
             </xs:choice>
@@ -420,6 +399,35 @@ under the License.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="condition-date">
+        <xs:complexType>
+            <xs:choice maxOccurs="unbounded" minOccurs="0">
+                <xs:element ref="date-field" />
+            </xs:choice>
+            <xs:attribute type="xs:string" name="from-field">
+                <xs:annotation>
+                    <xs:documentation>
+                        field in context that contains the date to use for filter
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="ignore-if-null" type="xs:boolean" default="false"/>
+            <xs:attribute name="ignore-if-empty" type="xs:boolean" default="false"/>
+            <xs:attribute name="ignore" type="xs:boolean" default="false">
+                <xs:annotation>
+                    <xs:documentation>
+                        Ignore the condition if flag is true.
+                        Defaults to false.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="date-field">
+        <xs:complexType>
+            <xs:attribute name="field-name" type="xs:string"/>
         </xs:complexType>
     </xs:element>
     <xs:element name="condition-object">

@@ -34,4 +34,9 @@ under the License.
     <!-- load the administration server -->
     <container name="admin-container" loaders="main" class="org.apache.ofbiz.base.container.AdminServerContainer"/>
 
+    <!--  Load base uel methods  -->
+    <uel-mapping name="date-uel" class-name="org.apache.ofbiz.base.util.string.uel.DateUel"/>
+    <uel-mapping name="math-uel" class-name="org.apache.ofbiz.base.util.string.uel.MathUel"/>
+    <uel-mapping name="string-uel" class-name="org.apache.ofbiz.base.util.string.uel.StringUel"/>
+    <uel-mapping name="misc-uel" class-name="org.apache.ofbiz.base.util.string.uel.MiscUel"/>
 </ofbiz-component>

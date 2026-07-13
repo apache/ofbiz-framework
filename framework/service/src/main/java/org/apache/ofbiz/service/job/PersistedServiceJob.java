@@ -29,6 +29,7 @@ import java.time.format.SignStyle;
 import java.time.temporal.ChronoField;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -53,6 +54,7 @@ import org.apache.ofbiz.service.calendar.RecurrenceInfoException;
 import org.apache.ofbiz.service.calendar.TemporalExpression;
 import org.apache.ofbiz.service.calendar.TemporalExpressionWorker;
 import org.apache.ofbiz.service.config.ServiceConfigUtil;
+import org.apache.ofbiz.service.tracker.JobTracker;
 import org.xml.sax.SAXException;
 
 import com.ibm.icu.util.Calendar;
@@ -88,9 +90,10 @@ public class PersistedServiceJob extends GenericServiceJob {
      * @param dctx
      * @param jobValue
      * @param req
+     * @param jobTracker
      */
-    public PersistedServiceJob(DispatchContext dctx, GenericValue jobValue, GenericRequester req) {
-        super(dctx, jobValue.getString("jobId"), jobValue.getString("jobName"), null, null, req);
+    public PersistedServiceJob(DispatchContext dctx, GenericValue jobValue, GenericRequester req, JobTracker jobTracker) {
+        super(dctx, jobValue.getString("jobId"), jobValue.getString("jobName"), null, null, req, jobTracker);
         this.delegator = dctx.getDelegator();
         this.jobValue = jobValue;
         /*
@@ -156,6 +159,7 @@ public class PersistedServiceJob extends GenericServiceJob {
         }
         jobValue.set("startDateTime", UtilDateTime.nowTimestamp());
         jobValue.set("statusId", "SERVICE_RUNNING");
+        jobValue.set("leaseUpdatedStamp", UtilDateTime.nowTimestamp());
         try {
             jobValue.store();
         } catch (GenericEntityException e) {
@@ -219,12 +223,24 @@ public class PersistedServiceJob extends GenericServiceJob {
         /*
         This solution ensures that the system uses a consistent,
         UTC-based time for scheduling and rescheduling recurring jobs, even when DST changes affect the local time.
-        */
+         */
         ZonedDateTime nextRunTime = ZonedDateTime.ofInstant(Instant.ofEpochMilli(next), ZoneId.of("UTC"));
         if (nextRunTime.toInstant().toEpochMilli() > startTime) {
             String pJobId = jobValue.getString("parentJobId");
             if (pJobId == null) {
                 pJobId = jobValue.getString("jobId");
+            }
+            // Check if the next recurrence has already been created (e.g. by a previous failed attempt on another node)
+            long nextEpoch = nextRunTime.toInstant().toEpochMilli();
+            long existingCount = EntityQuery.use(delegator).from("JobSandbox").where("parentJobId", pJobId, "runTimeEpoch", nextEpoch).queryCount();
+            if (existingCount > 0) {
+                if (Debug.infoOn()) {
+                    Debug.logInfo("Skipping duplicate recurrence for job [" + getJobId()
+                            + "] - next slot at epoch [" + nextEpoch + "] already exists for parent [" + pJobId + "]",
+                            MODULE);
+                }
+                nextRecurrence = next;
+                return;
             }
             GenericValue newJob = GenericValue.create(jobValue);
             newJob.remove("jobId");
@@ -235,6 +251,7 @@ public class PersistedServiceJob extends GenericServiceJob {
             newJob.set("runByInstanceId", null);
             newJob.set("runTime", Timestamp.from(nextRunTime.toInstant()));
             newJob.set("runTimeEpoch", nextRunTime.toInstant().toEpochMilli());
+            newJob.set("leaseUpdatedStamp", null);
             if (isRetryOnFailure) {
                 newJob.set("currentRetryCount", currentRetryCount + 1);
             } else {
@@ -397,15 +414,21 @@ public class PersistedServiceJob extends GenericServiceJob {
 
     @Override
     public void deQueue() throws InvalidJobException {
-        if (getCurrentState() != State.QUEUED) {
+        if (!List.of(State.QUEUED, State.ON_HOLD).contains(getCurrentState())) {
             throw new InvalidJobException("Illegal state change");
         }
-        setCurrentState(State.CREATED);
+        if (getCurrentState() == State.QUEUED) {
+            setCurrentState(State.CREATED);
+        }
         try {
             jobValue.refresh();
             jobValue.set("startDateTime", null);
             jobValue.set("runByInstanceId", null);
+            jobValue.set("leaseUpdatedStamp", null);
             jobValue.set("statusId", "SERVICE_PENDING");
+            if (getCurrentState() == State.QUEUED) {
+                jobValue.set("statusId", "SERVICE_PENDING");
+            }
             jobValue.store();
         } catch (GenericEntityException e) {
             throw new InvalidJobException("Unable to dequeue job [" + getJobId() + "]", e);

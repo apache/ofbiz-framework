@@ -1,0 +1,147 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+package org.apache.ofbiz.order.order.test
+
+import org.apache.ofbiz.entity.GenericValue
+import org.apache.ofbiz.service.ServiceUtil
+import org.apache.ofbiz.service.testtools.OFBizTestCase
+
+class ShoppingListTests extends OFBizTestCase {
+
+    ShoppingListTests(String name) {
+        super(name)
+    }
+
+    void testCreateShoppingList() {
+        GenericValue userLogin = delegator.findOne('UserLogin', [userLoginId: 'DemoCustomer'], false)
+        Map serviceCtx = [
+                partyId: 'DemoCustomer',
+                shoppingListTypeId: 'SLT_WISH_LIST',
+                productStoreId: '9000',
+                listName: 'Demo Wish List 1',
+                isActive: 'Y',
+                currencyUom: 'USD',
+                userLogin: userLogin
+        ]
+        Map resultMap = dispatcher.runSync('createShoppingList', serviceCtx, 600, true)
+        String shoppingListId = resultMap.shoppingListId
+        GenericValue shoppingList = delegator.findOne('ShoppingList', [shoppingListId: shoppingListId], false)
+        assert ServiceUtil.isSuccess(resultMap)
+        assert shoppingList
+        assert shoppingList.partyId == 'DemoCustomer'
+        assert shoppingList.listName == 'Demo Wish List 1'
+    }
+
+    void testCreateShoppingListItem() {
+        GenericValue userLogin = delegator.findOne('UserLogin', [userLoginId: 'DemoCustomer'], false)
+        String shoppingListId = 'DemoWishList'
+        Map serviceCtx = [
+                shoppingListId: shoppingListId,
+                productId: 'GZ-8544',
+                quantity: new BigDecimal(3),
+                productStoreId: '9000',
+                userLogin: userLogin
+        ]
+        Map resultMap = dispatcher.runSync('createShoppingListItem', serviceCtx)
+        String shoppingListItemSeqId = resultMap.shoppingListItemSeqId
+        GenericValue shoppingListItem = from('ShoppingListItem').where('shoppingListItemSeqId', shoppingListItemSeqId).queryOne()
+        assert ServiceUtil.isSuccess(resultMap)
+        assert shoppingListItem
+        assert shoppingListItem.productId == 'GZ-8544'
+        assert shoppingListItem.quantity == 3
+    }
+
+    void testCreateShoppingListItemWithSameProduct() {
+        GenericValue userLogin = delegator.findOne('UserLogin', [userLoginId: 'DemoCustomer'], false)
+        String shoppingListId = 'DemoWishList'
+        Map serviceCtx = [
+                shoppingListId: shoppingListId,
+                productId: 'GZ-2644',
+                quantity: new BigDecimal(2),
+                productStoreId: '9000',
+                userLogin: userLogin
+        ]
+        Map resultMap = dispatcher.runSync('createShoppingListItem', serviceCtx)
+        String shoppingListItemSeqId = resultMap.shoppingListItemSeqId
+        GenericValue shoppingListItem = from('ShoppingListItem').where('shoppingListItemSeqId', shoppingListItemSeqId).queryOne()
+        assert ServiceUtil.isSuccess(resultMap)
+        assert shoppingListItem
+        assert shoppingListItem.quantity == 7
+    }
+
+    void testUpdateShoppingList() {
+        GenericValue userLogin = delegator.findOne('UserLogin', [userLoginId: 'DemoCustomer'], false)
+        Map serviceCtx = [
+                shoppingListId: 'DemoWishList',
+                listName: 'New Demo Wish List',
+                userLogin: userLogin
+        ]
+        Map resultMap = dispatcher.runSync('updateShoppingList', serviceCtx)
+        GenericValue shoppingList = delegator.findOne('ShoppingList', [shoppingListId: serviceCtx.shoppingListId], false)
+        assert ServiceUtil.isSuccess(resultMap)
+        assert shoppingList
+        assert shoppingList.listName == 'New Demo Wish List'
+    }
+
+    void testUpdateShoppingListItem () {
+        GenericValue userLogin = delegator.findOne('UserLogin', [userLoginId: 'DemoCustomer'], false)
+        Map serviceCtx = [
+                shoppingListId: 'DemoWishList',
+                shoppingListItemSeqId: '00002',
+                quantity: new BigDecimal(4),
+                userLogin: userLogin
+        ]
+        Map resultMap = dispatcher.runSync('updateShoppingListItem', serviceCtx)
+        GenericValue shoppingListItem = delegator.findOne('ShoppingListItem',
+                [shoppingListId: serviceCtx.shoppingListId, 'shoppingListItemSeqId': '00002'], false)
+        assert ServiceUtil.isSuccess(resultMap)
+        assert shoppingListItem
+        assert shoppingListItem.quantity == 4
+    }
+
+    void testUpdateShoppingListItemWithZeroQty() {
+        GenericValue userLogin = delegator.findOne('UserLogin', [userLoginId: 'DemoCustomer'], false)
+        Map serviceCtx = [
+                shoppingListId: 'DemoWishList',
+                shoppingListItemSeqId: '00003',
+                quantity: new BigDecimal(0),
+                userLogin: userLogin
+        ]
+        Map resultMap = dispatcher.runSync('updateShoppingListItem', serviceCtx)
+        GenericValue shoppingListItem = delegator.findOne('ShoppingListItem',
+                [shoppingListId: serviceCtx.shoppingListId, 'shoppingListItemSeqId': '00003'], false)
+        assert ServiceUtil.isSuccess(resultMap)
+        assert shoppingListItem
+    }
+
+    void testRemoveShoppingListItem() {
+        GenericValue userLogin = delegator.findOne('UserLogin', [userLoginId: 'DemoCustomer'], false)
+        Map serviceCtx = [
+                shoppingListId: 'DemoWishList',
+                shoppingListItemSeqId: '00002',
+                userLogin: userLogin
+        ]
+        Map resultMap = dispatcher.runSync('removeShoppingListItem', serviceCtx)
+        GenericValue shoppingListItem = delegator.findOne('ShoppingListItem',
+                [shoppingListId: serviceCtx.shoppingListId, 'shoppingListItemSeqId': '00002'], false)
+        assert ServiceUtil.isSuccess(resultMap)
+        assert !shoppingListItem
+    }
+
+}

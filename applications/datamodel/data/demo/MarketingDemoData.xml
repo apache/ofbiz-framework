@@ -80,7 +80,7 @@ under the License.
     <PartyRole partyId="DemoLeadOwner" roleTypeId="OWNER"/>
     <PartyStatus partyId="DemoLeadOwner" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyRelationship partyIdFrom="Company" roleTypeIdFrom="_NA_" partyIdTo="DemoLeadOwner" roleTypeIdTo="_NA_" partyRelationshipTypeId="EMPLOYMENT" fromDate="2000-01-01 00:00:00"/>
-    <UserLogin userLoginId="DemoLeadOwner" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" partyId="DemoLeadOwner" enabled="Y"/>
+    <UserLogin userLoginId="DemoLeadOwner" userFullName="Demo LeadOwner" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" partyId="DemoLeadOwner" enabled="Y"/>
     <UserLoginSecurityGroup groupId="VIEWADMIN" userLoginId="DemoLeadOwner" fromDate="2001-05-13 00:00:00.000"/>
 
     <Party partyId="DemoLeadOwner1" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
@@ -89,7 +89,7 @@ under the License.
     <PartyRole partyId="DemoLeadOwner1" roleTypeId="OWNER"/>
     <PartyStatus partyId="DemoLeadOwner1" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
     <PartyRelationship partyIdFrom="Company" roleTypeIdFrom="_NA_" partyIdTo="DemoLeadOwner1" roleTypeIdTo="_NA_" partyRelationshipTypeId="EMPLOYMENT" fromDate="2000-01-01 00:00:00"/>
-    <UserLogin userLoginId="DemoLeadOwner1" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" partyId="DemoLeadOwner1" enabled="Y"/>
+    <UserLogin userLoginId="DemoLeadOwner1" userFullName="Demo LeadOwner1" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" partyId="DemoLeadOwner1" enabled="Y"/>
     <UserLoginSecurityGroup groupId="VIEWADMIN" userLoginId="DemoLeadOwner1" fromDate="2001-05-13 00:00:00.000"/>
 
     <!-- Demo Leads -->

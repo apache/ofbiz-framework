@@ -18,7 +18,7 @@
  */
 package org.apache.ofbiz.entity.util;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
@@ -28,21 +28,21 @@ import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.model.ModelEntity;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-public class EntitySaxReaderTests {
+public final class EntitySaxReaderTests {
     private boolean logVerboseOn;
 
-    @Before
+    @BeforeEach
     public void initialize() {
         logVerboseOn = Debug.isOn(Debug.VERBOSE); // save the current setting (to be restored after the tests)
         // disable verbose logging: this is necessary to avoid a test error in the "parse" unit test
         Debug.set(Debug.VERBOSE, false);
     }
 
-    @After
+    @AfterEach
     public void restore() {
         Debug.set(Debug.VERBOSE, logVerboseOn); // restore the verbose log setting
     }

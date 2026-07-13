@@ -18,15 +18,15 @@
  */
 package org.apache.ofbiz.base.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilFormatOut;
 import org.apache.ofbiz.base.util.UtilValidate;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class BaseUnitTests {
 
@@ -49,23 +49,17 @@ public class BaseUnitTests {
 
     @Test
     public void testFormatPrintableCreditCard1() {
-        assertEquals("test 4111111111111111 to ************111",
-                "************1111",
-                UtilFormatOut.formatPrintableCreditCard("4111111111111111"));
+        assertEquals("************1111", UtilFormatOut.formatPrintableCreditCard("4111111111111111"), "test 4111111111111111 to ************111");
     }
 
     @Test
     public void testFormatPrintableCreditCard2() {
-        assertEquals("test 4111 to 4111",
-                "4111",
-                UtilFormatOut.formatPrintableCreditCard("4111"));
+        assertEquals("4111", UtilFormatOut.formatPrintableCreditCard("4111"), "test 4111 to 4111");
     }
 
     @Test
     public void testFormatPrintableCreditCard3() {
-        assertEquals("test null to null",
-                null,
-                UtilFormatOut.formatPrintableCreditCard(null));
+        assertEquals(null, UtilFormatOut.formatPrintableCreditCard(null), "test null to null");
     }
 
     @Test
@@ -92,7 +86,7 @@ public class BaseUnitTests {
     public void testStringUtil() {
         byte[] testArray = {-1};
         byte[] result = StringUtil.fromHexString(StringUtil.toHexString(testArray));
-        assertEquals("Hex conversions", testArray[0], result[0]);
+        assertEquals(testArray[0], result[0], "Hex conversions");
     }
 
 }

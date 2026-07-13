@@ -210,7 +210,7 @@ public class OrderServices {
         // final check - will pass if userLogin's partyId = partyId for order or if userLogin has ORDERMGR_CREATE permission
         // jacopoc: what is the meaning of this code block? FIXME
         if (!hasPermission) {
-            partyId = ServiceUtil.getPartyIdCheckSecurity(userLogin, security, context, resultSecurity, "ORDERMGR", "_CREATE");
+            partyId = PartyWorker.getPartyIdCheckSecurity(userLogin, security, context, resultSecurity, "ORDERMGR", "_CREATE");
             if (!resultSecurity.isEmpty()) {
                 return resultSecurity;
             }
@@ -5623,7 +5623,9 @@ public class OrderServices {
         Transaction trans = null;
         try {
             // disable transaction processing
-            trans = TransactionUtil.suspend();
+            if (TransactionUtil.isTransactionInPlace()) {
+                trans = TransactionUtil.suspend();
+            }
 
             // get the cart
             ShoppingCart cart = (ShoppingCart) context.get("shoppingCart");

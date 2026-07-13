@@ -225,10 +225,10 @@ Map copyQuote() {
     // Copy quoteAdjustments.
     if (parameters.copyQuoteAdjustments == 'Y') {
         List quoteAdjustments = quote.getRelated('QuoteAdjustment', null, null, false)
-        for (GenericValue quoteAdjustement : quoteAdjustments) {
+        for (GenericValue quoteAdjustment : quoteAdjustments) {
             if (!quoteAdjustment.quoteItemSeqId) {
                 Map serviceContext = dctx.makeValidContext('createQuoteAdjustment', ModelService.IN_PARAM,
-                        [*: quoteAdjustement, quoteId: quoteIdTo, userLogin: userLogin])
+                        [*: quoteAdjustment, quoteId: quoteIdTo, userLogin: userLogin])
                 serviceResult = dispatcher.runSync('createQuoteAdjustment', serviceContext)
                 if (ServiceUtil.isError(serviceResult)) {
                     return serviceResult
@@ -242,11 +242,16 @@ Map copyQuote() {
         List quoteRoles = quote.getRelated('QuoteRole', null, null, false)
         for (GenericValue quoteRole : quoteRoles) {
             if (quoteRole.roleTypeId != 'REQ_TAKER') {
-                Map serviceContext = dctx.makeValidContext('createQuoteRole', ModelService.IN_PARAM,
-                        [*: quoteRole, quoteId: quoteIdTo, userLogin: userLogin])
-                serviceResult = dispatcher.runSync('createQuoteRole', serviceContext)
-                if (ServiceUtil.isError(serviceResult)) {
-                    return serviceResult
+                GenericValue existingQuoteRole = from('QuoteRole')
+                        .where(quoteId: quoteIdTo, partyId: quoteRole.partyId, roleTypeId: quoteRole.roleTypeId)
+                        .queryOne()
+                if (!existingQuoteRole) {
+                    Map serviceContext = dctx.makeValidContext('createQuoteRole', ModelService.IN_PARAM,
+                            [*: quoteRole, quoteId: quoteIdTo, userLogin: userLogin])
+                    serviceResult = dispatcher.runSync('createQuoteRole', serviceContext)
+                    if (ServiceUtil.isError(serviceResult)) {
+                        return serviceResult
+                    }
                 }
             }
         }

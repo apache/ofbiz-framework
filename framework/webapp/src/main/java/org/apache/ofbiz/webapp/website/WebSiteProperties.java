@@ -81,7 +81,11 @@ public final class WebSiteProperties {
         Assert.notNull("request", request);
         WebSiteProperties webSiteProps = (WebSiteProperties) request.getAttribute("_WEBSITE_PROPS_");
         if (webSiteProps == null) {
-            Boolean addPortoffset = true;
+            // The port offset is already applied when the properties are built from a WebSite
+            // entity value (see from(GenericValue)). Only apply it here when we fall back to the
+            // url.properties defaults, otherwise it would be added twice. (OFBIZ-13352)
+            boolean applyPortOffset = false;
+            boolean addHttpsOffset = true;
             Delegator delegator = (Delegator) request.getAttribute("delegator");
             if (delegator != null) {
                 String webSiteId = WebSiteWorker.getWebSiteId(request);
@@ -94,6 +98,7 @@ public final class WebSiteProperties {
             }
             if (webSiteProps == null) {
                 webSiteProps = new WebSiteProperties(delegator);
+                applyPortOffset = true;
             }
             if (webSiteProps.getHttpPort().isEmpty() && !request.isSecure()) {
                 webSiteProps = webSiteProps.updateHttpPort(String.valueOf(request.getServerPort()));
@@ -103,12 +108,14 @@ public final class WebSiteProperties {
             }
             if (webSiteProps.getHttpsPort().isEmpty() && request.isSecure()) {
                 webSiteProps = webSiteProps.updateHttpsPort(String.valueOf(request.getServerPort()));
-                addPortoffset = false; // We take the port from the request, don't add the portOffset
+                addHttpsOffset = false; // We take the port from the request, don't add the portOffset
             }
             if (webSiteProps.getHttpsHost().isEmpty()) {
                 webSiteProps = webSiteProps.updateHttpsHost(request.getServerName());
             }
-            webSiteProps = webSiteProps.addPortOffset(addPortoffset);
+            if (applyPortOffset) {
+                webSiteProps = webSiteProps.addPortOffset(addHttpsOffset);
+            }
             request.setAttribute("_WEBSITE_PROPS_", webSiteProps);
         }
         return webSiteProps;

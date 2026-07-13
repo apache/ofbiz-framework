@@ -4896,22 +4896,6 @@
         <value xml:lang="zh">不能定位税务文件：${taxFileLocation}</value>
         <value xml:lang="zh-TW">不能定位稅務文件：${taxFileLocation}</value>
     </property>
-    <property key="OrderUnableToReadZipSalesDataFile">
-        <value xml:lang="ar">غير ممكن قرائة ZipSales DataFile</value>
-        <value xml:lang="de">ZipSales-Datei konnte nicht gelesen werden</value>
-        <value xml:lang="en">Unable to read ZipSales DataFile </value>
-        <value xml:lang="es">No se pudo leer el archivo de código de ventas</value>
-        <value xml:lang="fr">Impossible de lire le code postal des fichiers de données de ventes</value>
-        <value xml:lang="it">Non è possibile leggere ZipSales DataFile </value>
-        <value xml:lang="ja">ZipSalesデータファイルを読み込みできません</value>
-        <value xml:lang="pt-BR">Incapaz de ler arquivo de dados ZipSales</value>
-        <value xml:lang="ro">Nu este posibila citerea ZipSales DataFile </value>
-        <value xml:lang="ru">Невозможно прочитать файл данных ZipSales DataFile </value>
-        <value xml:lang="th">Unable to read ZipSales DataFile </value>
-        <value xml:lang="vi">Không tìm thấy tập tin dữ liệu kinh doanh vùng (ZipSales DataFile)</value>
-        <value xml:lang="zh">不能读取 ZipSales 数据文件 </value>
-        <value xml:lang="zh-TW">不能讀取 ZipSales 資料文件 </value>
-    </property>
     <property key="OrderUnableToRemoveSalesTaxAdjustments">
         <value xml:lang="ar">غير ممكن إزالة تعديلات ضريبة المبيعات</value>
         <value xml:lang="de">SALES_TAX-Anpassungen konnten nicht entfernt werden</value>

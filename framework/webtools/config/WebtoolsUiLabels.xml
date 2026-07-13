@@ -593,6 +593,14 @@
         <value xml:lang="zh">查找任务</value>
         <value xml:lang="zh-TW">尋找任務</value>
     </property>
+    <property key="PageTitleFindJobTracker">
+        <value xml:lang="en">Job tracker</value>
+        <value xml:lang="fr">Traceur de job</value>
+    </property>
+    <property key="PageTitleFindJobTrackerResults">
+        <value xml:lang="en">Job tracker results</value>
+        <value xml:lang="fr">Résultat du traceur de job</value>
+    </property>
     <property key="PageTitleFindUtilCache">
         <value xml:lang="de">Cache Wartungsseite</value>
         <value xml:lang="en">Cache Maintenance Page</value>
@@ -684,6 +692,10 @@
     <property key="PageTitleJobManagerLockList">
         <value xml:lang="en">Job manager locks list</value>
         <value xml:lang="fr">Blocage du gestionnaire de service</value>
+    </property>
+    <property key="PageTitleJobTrackerDetails">
+        <value xml:lang="en">Job tracker details</value>
+        <value xml:lang="fr">Détails du traceur de job</value>
     </property>
     <property key="PageTitleScheduleJob">
         <value xml:lang="de">Job anlegen</value>
@@ -879,6 +891,10 @@
         <value xml:lang="vi">KHÔNG ĐỒNG BỘ</value>
         <value xml:lang="zh">异步</value>
         <value xml:lang="zh-TW">非同步</value>
+    </property>
+    <property key="WebtoolsAvailableUelMethods">
+        <value xml:lang="en">Available UEL Methods</value>
+        <value xml:lang="fr">Fonctions UEL disponibles</value>
     </property>
     <property key="WebtoolsBackToCacheMaintenance">
         <value xml:lang="de">Zurück zur Cache-Wartung</value>
@@ -2913,6 +2929,14 @@
         <value xml:lang="en">Job manager locks enabled</value>
         <value xml:lang="fr">Blocages actifs sur le gestionnaire de service</value>
     </property>
+    <property key="WebtoolsJobTrackerJobsEvolution">
+        <value xml:lang="en">Tracked jobs evolution</value>
+        <value xml:lang="fr">État des jobs suivis</value>
+    </property>
+    <property key="WebtoolsJobTrackerList">
+        <value xml:lang="en">Job Tracker List</value>
+        <value xml:lang="fr">Liste des traceurs de job</value>
+    </property>
     <property key="WebtoolsLHSMapName">
         <value xml:lang="de">Name der LHS-Map</value>
         <value xml:lang="en">LHS map name</value>
@@ -3300,6 +3324,10 @@
         <value xml:lang="vi">Bố cục (Layout) mẫu</value>
         <value xml:lang="zh">布局演示</value>
         <value xml:lang="zh-TW">佈局演示</value>
+    </property>
+    <property key="WebtoolsLayoutDemoSimpleGridHeaderInfo">
+        <value xml:lang="en">Demonstration of a complex header for a collapsed screenlet</value>
+        <value xml:lang="fr">Démonstration d'entête complexe pour screenlet repliée</value>
     </property>
     <property key="WebtoolsLayoutDemoText">
         <value xml:lang="en">Demonstrate layout best practices and provide a visual theme test page (it's recommended to use HTML source code).</value>
@@ -3973,13 +4001,13 @@
     </property>
     <property key="WebtoolsOutToBrowser">
         <value xml:lang="de">ODER Browserausgabe</value>
-        <value xml:lang="en">&lt;U&gt;OR&lt;/U&gt; Out to Browser (FireFox, Safari and Opera: view source. Chrome does not work)</value>
-        <value xml:lang="fr">&lt;U&gt;OU&lt;/U&gt; dans le navigateur (FireFox, Safari  et Opera : voir le source. Chrome ne fontionne pas)</value>
+        <value xml:lang="en">&lt;U&gt;OR&lt;/U&gt; Out to Browser</value>
+        <value xml:lang="fr">&lt;U&gt;OU&lt;/U&gt; dans le navigateur</value>
         <value xml:lang="it">O output al browser</value>
         <value xml:lang="ja">ブラウザに出力</value>
         <value xml:lang="pt">Ou devolver para o navegador</value>
         <value xml:lang="th">หรืออกไปสู่ Browser</value>
-        <value xml:lang="vi">&lt;U&gt;OR&lt;/U&gt; Kết xuất ra Trình duyệt (FireFox, Safari và Opera: xem mã. Chrome không thực hiện)</value>
+        <value xml:lang="vi">&lt;U&gt;OR&lt;/U&gt; Kết xuất ra Trình duyệt</value>
         <value xml:lang="zh">或者输出到浏览器</value>
         <value xml:lang="zh-TW">或者輸出到瀏覽器</value>
     </property>
@@ -5687,6 +5715,22 @@
         <value xml:lang="vi">TỔNG</value>
         <value xml:lang="zh">全部</value>
         <value xml:lang="zh-TW">全部</value>
+    </property>
+    <property key="WebtoolsUelKeyString">
+        <value xml:lang="en">Uel string key</value>
+        <value xml:lang="fr">Clef de l'Uel</value>
+    </property>
+    <property key="WebtoolsUelMethodClass">
+        <value xml:lang="en">Uel Method class</value>
+        <value xml:lang="fr">Methode appelée par l'Uel</value>
+    </property>
+    <property key="WebtoolsUelMethodParams">
+        <value xml:lang="en">Uel method params</value>
+        <value xml:lang="fr">Paramètres de la methode Uel</value>
+    </property>
+    <property key="WebtoolsUelDescription">
+        <value xml:lang="en">Uel description</value>
+        <value xml:lang="fr">Description de l'Uel</value>
     </property>
     <property key="WebtoolsUnCheckAll">
         <value xml:lang="de">Keine auswählen</value>

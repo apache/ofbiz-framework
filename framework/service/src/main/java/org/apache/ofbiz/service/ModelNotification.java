@@ -125,10 +125,6 @@ public class ModelNotification {
     public Map<String, Object> buildContext(Map<String, ? extends Object> context, Map<String, Object> result, ModelService model)
             throws GenericServiceException {
         Map<String, Object> userLogin = UtilGenerics.cast(context.get("userLogin"));
-        String partyId = null;
-        if (userLogin != null) {
-            partyId = (String) userLogin.get("partyId");
-        }
 
         String screen = getScreen();
         if (screen == null) {
@@ -160,7 +156,6 @@ public class ModelNotification {
         notifyContext.put("sendCc", cc);
         notifyContext.put("sendTo", to);
         notifyContext.put("subject", subject);
-        notifyContext.put("partyId", partyId);
 
         notifyContext.put("bodyScreenUri", screen);
 

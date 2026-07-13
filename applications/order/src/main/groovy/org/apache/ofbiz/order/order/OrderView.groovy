@@ -532,38 +532,12 @@ if (orderItems) {
     context.orderItem = orderItem
 }
 
-// getting online ship estimates corresponding to this Order from UPS when "Hold" button will be clicked, when user packs from weight package screen.
-// This case comes when order's shipping amount is  more then or less than default percentage (defined in shipment.properties)
-// of online UPS shipping amount.
-
 shipments = from('Shipment').where('primaryOrderId', orderId, 'statusId', 'SHIPMENT_PICKED').queryList()
 if (shipments) {
     pickedShipmentId = EntityUtil.getFirst(shipments).shipmentId
     shipmentRouteSegment = from('ShipmentRouteSegment').where('shipmentId', pickedShipmentId).queryFirst()
     context.shipmentRouteSegmentId = shipmentRouteSegment.shipmentRouteSegmentId
     context.pickedShipmentId = pickedShipmentId
-    if (pickedShipmentId && shipmentRouteSegment.trackingIdNumber) {
-        if (shipmentRouteSegment.carrierPartyId == 'UPS' && productStore) {
-            resultMap = runService('upsShipmentAlternateRatesEstimate', [productStoreId: productStore.productStoreId, shipmentId: pickedShipmentId])
-            shippingRates = resultMap.shippingRates
-            shippingRateList = []
-            shippingRates.each { shippingRate ->
-                shippingMethodAndRate = [:]
-                serviceCodes = shippingRate.keySet()
-                serviceCodes.each { serviceCode ->
-                    carrierShipmentMethod = from('CarrierShipmentMethod').where('partyId', 'UPS', 'carrierServiceCode', serviceCode).queryFirst()
-                    shipmentMethodTypeId = carrierShipmentMethod.shipmentMethodTypeId
-                    rate = shippingRate.get(serviceCode)
-                    shipmentMethodDescription = carrierShipmentMethod.getRelated('ShipmentMethodType', null, null, false)[0]?.description
-                    shippingMethodAndRate.shipmentMethodTypeId = carrierShipmentMethod.shipmentMethodTypeId
-                    shippingMethodAndRate.rate = rate
-                    shippingMethodAndRate.shipmentMethodDescription = shipmentMethodDescription
-                    shippingRateList.add(shippingMethodAndRate)
-                }
-            }
-            context.shippingRateList = shippingRateList
-        }
-    }
 }
 
 // get orderAdjustmentId for SHIPPING_CHARGES

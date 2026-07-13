@@ -18,9 +18,9 @@
  */
 package org.apache.ofbiz.base.conversion;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.math.BigDecimal;
 import java.net.URL;
@@ -32,7 +32,7 @@ import java.util.Map;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilURL;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class MiscTests {
 
@@ -56,12 +56,12 @@ public class MiscTests {
             throws Exception {
         Converter<S, ? super S> converter = Converters.getConverter(sourceClass, targetClass);
         Object result = converter.convert(UtilGenerics.<S>cast(wanted));
-        assertEquals("pass thru convert", wanted, result);
-        assertSame("pass thru exact equals", wanted, result);
-        assertTrue("pass thru can convert wanted", converter.canConvert(wanted.getClass(), targetClass));
-        assertTrue("pass thru can convert source", converter.canConvert(sourceClass, targetClass));
-        assertEquals("pass thru source class", wanted.getClass(), converter.getSourceClass());
-        assertEquals("pass thru target class", targetClass, converter.getTargetClass());
+        assertEquals(wanted, result, "pass thru convert");
+        assertSame(wanted, result, "pass thru exact equals");
+        assertTrue(converter.canConvert(wanted.getClass(), targetClass), "pass thru can convert wanted");
+        assertTrue(converter.canConvert(sourceClass, targetClass), "pass thru can convert source");
+        assertEquals(wanted.getClass(), converter.getSourceClass(), "pass thru source class");
+        assertEquals(targetClass, converter.getTargetClass(), "pass thru target class");
     }
 
     @Test

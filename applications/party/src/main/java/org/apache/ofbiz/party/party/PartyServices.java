@@ -1790,17 +1790,17 @@ public class PartyServices {
                 || UtilValidate.isNotEmpty(context.get("city")) || UtilValidate.isNotEmpty(context.get("postalCode"))
                 || UtilValidate.isNotEmpty(context.get("countryGeoId")) || (UtilValidate.isNotEmpty(stateProvinceGeoId))) {
             // add address to dynamic view
-            dynamicView.addMemberEntity("PC", "PartyContactMech");
+            dynamicView.addMemberEntity("PCPA", "PartyContactMech");
             dynamicView.addMemberEntity("PA", "PostalAddress");
-            dynamicView.addAlias("PC", "contactMechId");
+            dynamicView.addAlias("PCPA", "contactMechId");
             dynamicView.addAlias("PA", "address1");
             dynamicView.addAlias("PA", "address2");
             dynamicView.addAlias("PA", "city");
             dynamicView.addAlias("PA", "stateProvinceGeoId");
             dynamicView.addAlias("PA", "countryGeoId");
             dynamicView.addAlias("PA", "postalCode");
-            dynamicView.addViewLink("PT", "PC", Boolean.FALSE, ModelKeyMap.makeKeyMapList("partyId"));
-            dynamicView.addViewLink("PC", "PA", Boolean.FALSE, ModelKeyMap.makeKeyMapList("contactMechId"));
+            dynamicView.addViewLink("PT", "PCPA", Boolean.FALSE, ModelKeyMap.makeKeyMapList("partyId"));
+            dynamicView.addViewLink("PCPA", "PA", Boolean.FALSE, ModelKeyMap.makeKeyMapList("contactMechId"));
 
             // filter on address1
             String address1 = (String) context.get("address1");
@@ -1845,12 +1845,12 @@ public class PartyServices {
         // ----
         if ("O".equals(extInfo) || UtilValidate.isNotEmpty(context.get("infoString"))) {
             // add info to dynamic view
-            dynamicView.addMemberEntity("PC", "PartyContactMech");
+            dynamicView.addMemberEntity("PCCM", "PartyContactMech");
             dynamicView.addMemberEntity("CM", "ContactMech");
-            dynamicView.addAlias("PC", "contactMechId");
+            dynamicView.addAlias("PCCM", "contactMechId");
             dynamicView.addAlias("CM", "infoString");
-            dynamicView.addViewLink("PT", "PC", Boolean.FALSE, ModelKeyMap.makeKeyMapList("partyId"));
-            dynamicView.addViewLink("PC", "CM", Boolean.FALSE, ModelKeyMap.makeKeyMapList("contactMechId"));
+            dynamicView.addViewLink("PT", "PCCM", Boolean.FALSE, ModelKeyMap.makeKeyMapList("partyId"));
+            dynamicView.addViewLink("PCCM", "CM", Boolean.FALSE, ModelKeyMap.makeKeyMapList("contactMechId"));
 
             // filter on infoString
             String infoString = (String) context.get("infoString");
@@ -1869,14 +1869,14 @@ public class PartyServices {
                 || UtilValidate.isNotEmpty(context.get("areaCode"))
                 || UtilValidate.isNotEmpty(context.get("contactNumber"))) {
             // add telecom to dynamic view
-            dynamicView.addMemberEntity("PC", "PartyContactMech");
+            dynamicView.addMemberEntity("PCTM", "PartyContactMech");
             dynamicView.addMemberEntity("TM", "TelecomNumber");
-            dynamicView.addAlias("PC", "contactMechId");
+            dynamicView.addAlias("PCTM", "contactMechId");
             dynamicView.addAlias("TM", "countryCode");
             dynamicView.addAlias("TM", "areaCode");
             dynamicView.addAlias("TM", "contactNumber");
-            dynamicView.addViewLink("PT", "PC", Boolean.FALSE, ModelKeyMap.makeKeyMapList("partyId"));
-            dynamicView.addViewLink("PC", "TM", Boolean.FALSE, ModelKeyMap.makeKeyMapList("contactMechId"));
+            dynamicView.addViewLink("PT", "PCTM", Boolean.FALSE, ModelKeyMap.makeKeyMapList("partyId"));
+            dynamicView.addViewLink("PCTM", "TM", Boolean.FALSE, ModelKeyMap.makeKeyMapList("contactMechId"));
 
             // filter on countryCode
             String countryCode = (String) context.get("countryCode");

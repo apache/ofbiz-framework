@@ -761,6 +761,8 @@ public class ShipmentServices {
             Map<String, BigDecimal> receivedCountMap = new HashMap<>();
             for (GenericValue item: shipmentReceipts) {
                 BigDecimal receivedQuantity = item.getBigDecimal("quantityAccepted");
+                BigDecimal rejectedQuantity = item.getBigDecimal("quantityRejected");
+                receivedQuantity = rejectedQuantity == null ? receivedQuantity : receivedQuantity.add(rejectedQuantity);
                 BigDecimal quantity = receivedCountMap.get(item.getString("productId"));
                 quantity = quantity == null ? receivedQuantity : receivedQuantity.add(quantity);
                 receivedCountMap.put(item.getString("productId"), quantity);
@@ -826,49 +828,6 @@ public class ShipmentServices {
         } catch (GenericEntityException | GenericServiceException ex) {
             return ServiceUtil.returnError(ex.getMessage());
         }
-    }
-    /**
-     * Service to call a ShipmentRouteSegment.carrierPartyId's confirm shipment method asynchronously
-     */
-    public static Map<String, Object> quickScheduleShipmentRouteSegment(DispatchContext dctx, Map<String, ? extends Object> context) {
-        Delegator delegator = dctx.getDelegator();
-        LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericValue userLogin = (GenericValue) context.get("userLogin");
-
-        String shipmentId = (String) context.get("shipmentId");
-        String shipmentRouteSegmentId = (String) context.get("shipmentRouteSegmentId");
-        String carrierPartyId = null;
-
-        // get the carrierPartyId
-        try {
-            GenericValue shipmentRouteSegment = EntityQuery.use(delegator).from("ShipmentRouteSegment")
-                    .where("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId)
-                    .cache(true)
-                    .queryOne();
-            carrierPartyId = shipmentRouteSegment.getString("carrierPartyId");
-        } catch (GenericEntityException e) {
-            Debug.logError(e, MODULE);
-            return ServiceUtil.returnError(e.getMessage());
-        }
-
-        // get the shipment label.  This is carrier specific.
-        // TODO: This may not need to be done asynchronously.  The reason it's done that way right now is that calling it synchronously means that
-        // if we can't confirm a single shipment, then all shipment route segments in a multi-form are rolled back.
-        try {
-            Map<String, Object> input = UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId,
-                    "userLogin", userLogin);
-            // for DHL, we just need to confirm the shipment to get the label.  Other carriers may have more elaborate requirements.
-            if ("DHL".equals(carrierPartyId)) {
-                dispatcher.runAsync("dhlShipmentConfirm", input);
-            } else {
-                Debug.logError(carrierPartyId + " is not supported at this time.  Sorry.", MODULE);
-            }
-        } catch (GenericServiceException se) {
-            Debug.logError(se, se.getMessage(), MODULE);
-        }
-
-        // don't return an error
-        return ServiceUtil.returnSuccess();
     }
 
     /**

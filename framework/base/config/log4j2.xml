@@ -18,6 +18,18 @@ specific language governing permissions and limitations
 under the License.
 -->
 <Configuration monitorInterval="60" packages="org.apache.ofbiz.base.log4j">
+    <!--
+      Source line numbers in log output are enabled by default.
+      To disable for production, set/uncomment systemProp.ofbiz.env=prod in gradle.properties.
+    -->
+    <Properties>
+        <Property name="lineToken_dev">:%line</Property>
+        <Property name="lineToken_prod"></Property>
+        <Property name="includeLocation_dev">true</Property>
+        <Property name="includeLocation_prod">false</Property>
+        <Property name="logPattern">%date{DEFAULT} |%-20.20thread |%-30.30logger{1}${lineToken_${sys:ofbiz.env:-dev}}|%level{length=1}| %message%n</Property>
+        <Property name="includeLocation">${includeLocation_${sys:ofbiz.env:-dev}}</Property>
+    </Properties>
     <OFBizDynamicThresholdFilter key="uri" onMatch="ACCEPT" onMismatch="DENY">
         <KeyValuePair key="/getJs" value="ERROR"/>
         <KeyValuePair key="/control/getJs" value="ERROR"/>
@@ -40,11 +52,11 @@ under the License.
     -->
     <Appenders>
         <Console name="stdout" target="SYSTEM_OUT">
-            <PatternLayout pattern="%date{DEFAULT} |%-20.20thread |%-30.30logger{1}|%level{length=1}| %message%n"/>
+            <PatternLayout pattern="${logPattern}"/>
         </Console>
 
         <RollingFile name="ofbiz" fileName="runtime/logs/ofbiz.log" filePattern="runtime/logs/ofbiz.log.%i">
-            <PatternLayout pattern="%date{DEFAULT} |%-20.20thread |%-30.30logger{1}|%level{length=1}| %message%n"/>
+            <PatternLayout pattern="${logPattern}"/>
             <Policies>
                 <OnStartupTriggeringPolicy/>
                 <SizeBasedTriggeringPolicy size="10 MB"/>
@@ -54,7 +66,7 @@ under the License.
 
         <RollingFile name="error" fileName="runtime/logs/error.log" filePattern="runtime/logs/error.log.%i">
             <ThresholdFilter level="error" onMatch="ACCEPT" onMismatch="DENY"/>
-            <PatternLayout pattern="%date{DEFAULT} |%-20.20thread |%-30.30logger{1}|%level{length=1}| %message%n"/>
+            <PatternLayout pattern="${logPattern}"/>
             <Policies>
                 <OnStartupTriggeringPolicy/>
                 <SizeBasedTriggeringPolicy size="10 MB"/>
@@ -62,7 +74,7 @@ under the License.
             <DefaultRolloverStrategy fileIndex="min" max="10"/>
         </RollingFile>
 
-        <Async name="async">
+        <Async name="async" includeLocation="${includeLocation}">
             <AppenderRef ref="ofbiz"/>
             <AppenderRef ref="stdout"/>
             <AppenderRef ref="error"/>

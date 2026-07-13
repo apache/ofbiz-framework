@@ -28,6 +28,7 @@ Apache OFBiz assumes that:
 * Administrative users are fully trusted.
 * Customizations, plugins, and extensions are trusted code.
 * External systems (databases, integrations, identity providers) are secured independently.
+* The default configuration distributed with Apache OFBiz, including the bundled database configuration, is provided to simplify evaluation, development, and demonstration of the framework. It is not intended for production use. Security reports based solely on assumptions that the default demonstration configuration is used in a production environment may not represent vulnerabilities in Apache OFBiz itself.
 
 OFBiz does not attempt to defend against attackers who have obtained administrative access to the application or high-privilege access to the host system.
 

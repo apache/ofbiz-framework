@@ -117,16 +117,17 @@ for (int currentDay = 0; currentDay <= daysInMonth; currentDay++) {
     productAndExprs.add(EntityCondition.makeCondition('invoiceDate', EntityOperator.GREATER_THAN_EQUAL_TO, currentDayBegin))
     productAndExprs.add(EntityCondition.makeCondition('invoiceDate', EntityOperator.LESS_THAN, nextDayBegin))
 
-    productResultListIterator = select('productId', 'quantityTotal', 'amountTotal')
-            .from('InvoiceItemProductSummary').where(productAndExprs).cursorScrollInsensitive().cache(true).queryIterator()
+    productResultListQuery = select('productId', 'quantityTotal', 'amountTotal')
+            .from('InvoiceItemProductSummary').where(productAndExprs).cursorScrollInsensitive().cache(true)
     productResultMap = [:]
-    while ((productResult = productResultListIterator.next()) != null) {
-        productResultMap[productResult.productId] = productResult
-        monthProductResult = UtilMisc.getMapFromMap(monthProductResultMap, productResult.productId)
-        UtilMisc.addToBigDecimalInMap(monthProductResult, 'quantityTotal', productResult.getBigDecimal('quantityTotal'))
-        UtilMisc.addToBigDecimalInMap(monthProductResult, 'amountTotal', productResult.getBigDecimal('amountTotal'))
+    productResultListQuery.queryIterator().withCloseable { productResultListIterator ->
+        while ((productResult = productResultListIterator.next()) != null) {
+            productResultMap[productResult.productId] = productResult
+            monthProductResult = UtilMisc.getMapFromMap(monthProductResultMap, productResult.productId)
+            UtilMisc.addToBigDecimalInMap(monthProductResult, 'quantityTotal', productResult.getBigDecimal('quantityTotal'))
+            UtilMisc.addToBigDecimalInMap(monthProductResult, 'amountTotal', productResult.getBigDecimal('amountTotal'))
+        }
     }
-    productResultListIterator.close()
     productResultMapByDayList.add(productResultMap)
 
     // do the category find
@@ -135,16 +136,17 @@ for (int currentDay = 0; currentDay <= daysInMonth; currentDay++) {
     categoryAndExprs.add(EntityCondition.makeCondition('invoiceDate', EntityOperator.GREATER_THAN_EQUAL_TO, currentDayBegin))
     categoryAndExprs.add(EntityCondition.makeCondition('invoiceDate', EntityOperator.LESS_THAN, nextDayBegin))
 
-    categoryResultListIterator = select('productCategoryId', 'quantityTotal', 'amountTotal')
-            .from('InvoiceItemCategorySummary').where(categoryAndExprs).cursorScrollInsensitive().cache(true).queryIterator()
+    categoryResultListQuery = select('productCategoryId', 'quantityTotal', 'amountTotal')
+            .from('InvoiceItemCategorySummary').where(categoryAndExprs).cursorScrollInsensitive().cache(true)
     categoryResultMap = [:]
-    while ((categoryResult = categoryResultListIterator.next()) != null) {
-        categoryResultMap[categoryResult.productCategoryId] = categoryResult
-        monthCategoryResult = UtilMisc.getMapFromMap(monthCategoryResultMap, categoryResult.productCategoryId)
-        UtilMisc.addToBigDecimalInMap(monthCategoryResult, 'quantityTotal', categoryResult.getBigDecimal('quantityTotal'))
-        UtilMisc.addToBigDecimalInMap(monthCategoryResult, 'amountTotal', categoryResult.getBigDecimal('amountTotal'))
+    categoryResultListQuery.queryIterator().with { categoryResultListIterator ->
+        while ((categoryResult = categoryResultListIterator.next()) != null) {
+            categoryResultMap[categoryResult.productCategoryId] = categoryResult
+            monthCategoryResult = UtilMisc.getMapFromMap(monthCategoryResultMap, categoryResult.productCategoryId)
+            UtilMisc.addToBigDecimalInMap(monthCategoryResult, 'quantityTotal', categoryResult.getBigDecimal('quantityTotal'))
+            UtilMisc.addToBigDecimalInMap(monthCategoryResult, 'amountTotal', categoryResult.getBigDecimal('amountTotal'))
+        }
     }
-    categoryResultListIterator.close()
     categoryResultMapByDayList.add(categoryResultMap)
 
     // do a find for InvoiceItem with a null productId
@@ -153,11 +155,8 @@ for (int currentDay = 0; currentDay <= daysInMonth; currentDay++) {
     productNullAndExprs.add(EntityCondition.makeCondition('productId', EntityOperator.EQUALS, null))
     productNullAndExprs.add(EntityCondition.makeCondition('invoiceDate', EntityOperator.GREATER_THAN_EQUAL_TO, currentDayBegin))
     productNullAndExprs.add(EntityCondition.makeCondition('invoiceDate', EntityOperator.LESS_THAN, nextDayBegin))
-    productNullResultListIterator = select('productId', 'quantityTotal', 'amountTotal')
-            .from('InvoiceItemProductSummary').where(productNullAndExprs).cursorScrollInsensitive().cache(true).queryIterator()
-    // should just be 1 result
-    productNullResult = productNullResultListIterator.next()
-    productNullResultListIterator.close()
+    productNullResult = select('productId', 'quantityTotal', 'amountTotal')
+            .from('InvoiceItemProductSummary').where(productNullAndExprs).cursorScrollInsensitive().cache(true).queryFirst()
     if (productNullResult) {
         productNullResultByDayList.add(productNullResult)
         UtilMisc.addToBigDecimalInMap(monthProductNullResult, 'quantityTotal', productNullResult.getBigDecimal('quantityTotal'))

@@ -42,6 +42,7 @@ import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilRandom;
 import org.apache.ofbiz.base.util.UtilValidate;
+import org.apache.ofbiz.base.util.collections.MapStack;
 import org.apache.ofbiz.base.util.template.FreeMarkerWorker;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericValue;
@@ -709,6 +710,15 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         parameters.put("showMore", showMore);
         parameters.put("collapsed", collapsed);
         parameters.put("javaScriptEnabled", javaScriptEnabled);
+        String screenHeader = screenlet.getScreenHeader(context);
+        if (UtilValidate.isNotEmpty(screenHeader)) {
+            try {
+                StringWriter localWriter = new StringWriter();
+                ScreenRenderer screenRenderer = new ScreenRenderer(localWriter, MapStack.create(context), this);
+                screenRenderer.render(screenHeader);
+                parameters.put("screenHeader", localWriter.getBuffer().toString());
+            } catch (GeneralException | ParserConfigurationException | SAXException ignored) { }
+        }
         executeMacro(writer, "renderScreenletBegin", parameters);
     }
 

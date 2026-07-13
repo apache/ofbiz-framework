@@ -120,6 +120,33 @@ under the License.
     <td ><input type="text" name="description" value="${facility.description!}" size="60" maxlength="250" /></td>
   </tr>
   <tr>
+    <td class="label">${uiLabelMap.ManufacturingAutoReservePrun}</td>
+    <td>
+      <select name="autoReservePrun">
+          <option value="Y" <#if (facility.autoReservePrun?? && facility.autoReservePrun == 'Y')>selected="selected"</#if>>${uiLabelMap.CommonY}</option>
+          <option value="N" <#if (facility.autoReservePrun?? && facility.autoReservePrun == 'N') || !facility.autoReservePrun??>selected="selected"</#if>>${uiLabelMap.CommonN}</option>
+      </select>
+    </td>
+  </tr>
+  <tr>
+    <td class="label">${uiLabelMap.ManufacturingAllowInventoryReallocation}</td>
+    <td>
+      <select name="allowInventoryReallocation">
+          <option value="Y" <#if (facility.allowInventoryReallocation?? && facility.allowInventoryReallocation == 'Y')>selected="selected"</#if>>${uiLabelMap.CommonY}</option>
+          <option value="N" <#if (facility.allowInventoryReallocation?? && facility.allowInventoryReallocation == 'N') || !facility.allowInventoryReallocation??>selected="selected"</#if>>${uiLabelMap.CommonN}</option>
+      </select>
+    </td>
+  </tr>
+  <tr>
+    <td class="label">${uiLabelMap.ManufacturingReconcilePrunBackorders}</td>
+    <td>
+      <select name="reconcilePrunBackorders">
+          <option value="Y" <#if (facility.reconcilePrunBackorders?? && facility.reconcilePrunBackorders == 'Y')>selected="selected"</#if>>${uiLabelMap.CommonY}</option>
+          <option value="N" <#if (facility.reconcilePrunBackorders?? && facility.reconcilePrunBackorders == 'N') || !facility.reconcilePrunBackorders??>selected="selected"</#if>>${uiLabelMap.CommonN}</option>
+      </select>
+    </td>
+  </tr>
+  <tr>
     <td class="label">${uiLabelMap.ProductDefaultDaysToShip}</td>
     <td><input type="text" name="defaultDaysToShip" value="${facility.defaultDaysToShip!}" size="10" maxlength="20" /></td>
   </tr>

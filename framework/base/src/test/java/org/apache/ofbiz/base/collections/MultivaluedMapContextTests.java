@@ -24,13 +24,13 @@ import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import org.apache.ofbiz.base.util.collections.MultivaluedMapContext;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-public class MultivaluedMapContextTests {
+public final class MultivaluedMapContextTests {
     private MultivaluedMapContext<String, Integer> m;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         m = new MultivaluedMapContext<>();
     }

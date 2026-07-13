@@ -512,21 +512,9 @@ under the License.
             <fail-property resource="ProductErrorUiLabels" property="facility.productId"/>
         </type-validate>
         </attribute>
-        <attribute name="orderId" type="String" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.orderId"/>
-        </type-validate>
-        </attribute>
-        <attribute name="orderItemSeqId" type="String" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.orderItemSeqId"/>
-        </type-validate>
-        </attribute>
-        <attribute name="shipGroupSeqId" type="String" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.shipGroupSeqId"/>
-        </type-validate>
-        </attribute>
+        <attribute name="orderId" type="String" mode="IN" optional="true"/>
+        <attribute name="orderItemSeqId" type="String" mode="IN" optional="true"/>
+        <attribute name="shipGroupSeqId" type="String" mode="IN" optional="true"/>
         <attribute name="quantity" type="BigDecimal" mode="IN" optional="false">
         <type-validate>
             <fail-property resource="ProductErrorUiLabels" property="facility.quantity"/>
@@ -544,6 +532,9 @@ under the License.
         </type-validate>
         </attribute>
         <attribute name="sequenceId" type="Long" mode="IN" optional="true"/>
+        <attribute name="workEffortId" type="String" mode="IN" optional="true"/>
+        <attribute name="productId" type="String" mode="IN" optional="true"/>
+        <attribute name="inventoryItemId" type="String" mode="IN" optional="true"/>
         <attribute name="lotId" mode="IN" type="String" optional="true" />
         <attribute name="priority" type="String" mode="IN" optional="true"/>
         <attribute name="quantityNotReserved" type="BigDecimal" mode="OUT" optional="false"/>
@@ -564,21 +555,10 @@ under the License.
             <fail-property resource="ProductErrorUiLabels" property="facility.facilityId"/>
         </type-validate>
         </attribute>
-        <attribute name="orderId" type="String" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.orderId"/>
-        </type-validate>
-        </attribute>
-        <attribute name="orderItemSeqId" type="String" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.orderItemSeqId"/>
-        </type-validate>
-        </attribute>
-        <attribute name="shipGroupSeqId" type="String" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.shipGroupSeqId"/>
-        </type-validate>
-        </attribute>
+        <attribute name="orderId" type="String" mode="IN" optional="true"/>
+        <attribute name="orderItemSeqId" type="String" mode="IN" optional="true"/>
+        <attribute name="shipGroupSeqId" type="String" mode="IN" optional="true"/>
+
         <attribute name="quantity" type="BigDecimal" mode="IN" optional="false">
         <type-validate>
             <fail-property resource="ProductErrorUiLabels" property="facility.quantity"/>
@@ -596,6 +576,9 @@ under the License.
         </attribute>
         <attribute name="reserveOrderEnumId" type="String" mode="IN" optional="true"/>
         <attribute name="sequenceId" type="Long" mode="IN" optional="true"/>
+        <attribute name="workEffortId" type="String" mode="IN" optional="true"/>
+        <attribute name="productId" type="String" mode="IN" optional="true"/>
+        <attribute name="inventoryItemId" type="String" mode="IN" optional="true"/>
         <attribute name="quantityNotReserved" type="BigDecimal" mode="OUT" optional="false"/>
         <attribute name="priority" type="String" mode="IN"  optional="true"/>
         <attribute name="lotId" type="String" mode="IN" optional="true" />

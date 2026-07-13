@@ -296,16 +296,19 @@ under the License.
     <!-- WebSiteContactList services -->
     <service name="createWebSiteContactList" engine="simple" default-entity-name="WebSiteContactList"
         location="component://marketing/minilang/marketing/contact/ContactListServices.xml" invoke="createWebSiteContactList">
+        <permission-service service-name="marketingPermissionService" main-action="CREATE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
     <service name="updateWebSiteContactList" engine="simple" default-entity-name="WebSiteContactList"
         location="component://marketing/minilang/marketing/contact/ContactListServices.xml" invoke="updateWebSiteContactList">
+        <permission-service service-name="marketingPermissionService" main-action="UPDATE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
     <service name="deleteWebSiteContactList" engine="simple" default-entity-name="WebSiteContactList"
         location="component://marketing/minilang/marketing/contact/ContactListServices.xml" invoke="deleteWebSiteContactList">
+        <permission-service service-name="marketingPermissionService" main-action="DELETE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
     

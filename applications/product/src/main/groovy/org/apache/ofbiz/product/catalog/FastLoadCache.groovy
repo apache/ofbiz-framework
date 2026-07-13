@@ -26,16 +26,16 @@ messageList = []
 messageList.add('Loading Categories...')
 UtilTimer ctimer = new UtilTimer()
 messageList.add(ctimer.timerString('Before category find'))
-categories = from('ProductCategory').queryIterator()
 messageList.add(ctimer.timerString('Before load all categories into cache'))
 
 category = null
 long numCategories = 0
-while ((category = (GenericValue) categories.next()) != null) {
-    delegator.putInPrimaryKeyCache(category.getPrimaryKey(), category)
-    numCategories++
+from('ProductCategory').queryIterator().withCloseable { categories ->
+    while ((category = (GenericValue) categories.next()) != null) {
+        delegator.putInPrimaryKeyCache(category.getPrimaryKey(), category)
+        numCategories++
+    }
 }
-categories.close()
 
 messageList.add(ctimer.timerString('Finished Categories'))
 messageList.add('Loaded ' + numCategories + ' Categories')
@@ -45,15 +45,15 @@ messageList.add('&nbsp;')
 messageList.add('Loading Products...')
 UtilTimer ptimer = new UtilTimer()
 messageList.add(ptimer.timerString('Before product find'))
-products = from('Product').queryIterator()
 messageList.add(ptimer.timerString('Before load all products into cache'))
 product = null
 long numProducts = 0
-while ((product = (GenericValue) products.next()) != null) {
-    delegator.putInPrimaryKeyCache(product.getPrimaryKey(), product)
-    numProducts++
+from('Product').queryIterator().withCloseable { products ->
+    while ((product = (GenericValue) products.next()) != null) {
+        delegator.putInPrimaryKeyCache(product.getPrimaryKey(), product)
+        numProducts++
+    }
 }
-products.close()
 
 messageList.add(ptimer.timerString('Finished Products'))
 messageList.add('Loaded ' + numProducts + ' products')

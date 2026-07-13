@@ -86,30 +86,19 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
      * @return A new <code>ModelAction</code> instance
      */
     public static ModelAction newInstance(ModelWidget modelWidget, Element actionElement) {
-        String nodeName = UtilXml.getNodeNameIgnorePrefix(actionElement);
-        if ("set".equals(nodeName)) {
-            return new SetField(modelWidget, actionElement);
-        } else if ("property-map".equals(nodeName)) {
-            return new PropertyMap(modelWidget, actionElement);
-        } else if ("property-to-field".equals(nodeName)) {
-            return new PropertyToField(modelWidget, actionElement);
-        } else if ("script".equals(nodeName)) {
-            return new Script(modelWidget, actionElement);
-        } else if ("service".equals(nodeName)) {
-            return new Service(modelWidget, actionElement);
-        } else if ("entity-one".equals(nodeName)) {
-            return new EntityOne(modelWidget, actionElement);
-        } else if ("entity-and".equals(nodeName)) {
-            return new EntityAnd(modelWidget, actionElement);
-        } else if ("entity-condition".equals(nodeName)) {
-            return new EntityCondition(modelWidget, actionElement);
-        } else if ("get-related-one".equals(nodeName)) {
-            return new GetRelatedOne(modelWidget, actionElement);
-        } else if ("get-related".equals(nodeName)) {
-            return new GetRelated(modelWidget, actionElement);
-        } else {
-            throw new IllegalArgumentException("Action element not supported with name: " + actionElement.getNodeName());
-        }
+        return switch (UtilXml.getNodeNameIgnorePrefix(actionElement)) {
+        case "set" -> new SetField(modelWidget, actionElement);
+        case "property-map" -> new PropertyMap(modelWidget, actionElement);
+        case "property-to-field" -> new PropertyToField(modelWidget, actionElement);
+        case "script" -> new Script(modelWidget, actionElement);
+        case "service" -> new Service(modelWidget, actionElement);
+        case "entity-one" -> new EntityOne(modelWidget, actionElement);
+        case "entity-and" -> new EntityAnd(modelWidget, actionElement);
+        case "entity-condition" -> new EntityCondition(modelWidget, actionElement);
+        case "get-related-one" -> new GetRelatedOne(modelWidget, actionElement);
+        case "get-related" -> new GetRelated(modelWidget, actionElement);
+        default -> throw new IllegalArgumentException("Action element not supported with name: " + actionElement.getNodeName());
+        };
     }
 
     public static List<ModelAction> readSubActions(ModelWidget modelWidget, Element parentElement) {

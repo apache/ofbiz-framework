@@ -101,36 +101,8 @@ under the License.
     <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="ACCTG_FUNCTNL_ADMIN" permissionId="ACCOUNTING_VIEW"/>
 
     <!-- Payment Gateway Config -->
-    <PaymentGatewayConfig paymentGatewayConfigId="SAGEPAY_CONFIG" paymentGatewayConfigTypeId="PAY_GATWY_SAGEPAY" description="SagePay Config"/>
-    <PaymentGatewaySagePay paymentGatewayConfigId="SAGEPAY_CONFIG" vendor="YOUR_VENDOR_NAME" productionHost="https://live.sagepay.com:443" testingHost="https://test.sagepay.com:443" sagePayMode="TEST" protocolVersion="2.22" authenticationTransType="DEFERRED" authenticationUrl="/gateway/service/vspdirect-register.vsp" authoriseTransType="RELEASE" authoriseUrl="/gateway/service/release.vsp" releaseTransType="ABORT" releaseUrl="/gateway/service/abort.vsp" voidUrl="/gateway/service/void.vsp" refundUrl="/gateway/service/refund.vsp"/>
+    <PaymentGatewayConfig paymentGatewayConfigId="TEST_GATEWAY_CONFIG" description="Test Payment Gateway Config"/>
 
-    <PaymentGatewayConfig paymentGatewayConfigId="AUTHORIZE_NET_CONFIG" paymentGatewayConfigTypeId="PAY_GATWY_AUTH_NET" description="Authorize Dot Net Config"/>
-    <PaymentGatewayAuthorizeNet paymentGatewayConfigId="AUTHORIZE_NET_CONFIG" transactionUrl="https://test.authorize.net/gateway/transact.dll" certificateAlias="test.authorize.net" apiVersion="3.1" delimitedData="TRUE" delimiterChar="|" method="CC" emailCustomer="FALSE" emailMerchant="FALSE" testMode="TRUE" relayResponse="FALSE" transDescription="OFBizAuthNet"/>
-
-    <PaymentGatewayConfig paymentGatewayConfigId="CYBERSOURCE_CONFIG" paymentGatewayConfigTypeId="PAY_GATWY_CYBERSRC" description="CyberSource Config"/>
-    <PaymentGatewayCyberSource paymentGatewayConfigId="CYBERSOURCE_CONFIG" merchantId="[MerchantID]" apiVersion="1.43" production="false" keysDir="${sys:getProperty('ofbiz.home')}/applications/accounting/icskeys" keysFile="merchantID.p12" logEnabled="true" logDir="${sys:getProperty('ofbiz.home')}/runtime/logs" logFile="cybersource.log" logSize="10" merchantDescr="Some Nice Web Store" autoBill="false" enableDav="N" fraudScore="N" ignoreAvs="false" disableBillAvs="Y"/>
-
-    <PaymentGatewayConfig paymentGatewayConfigId="EWAY_CONFIG" paymentGatewayConfigTypeId="PAY_GATWY_EWAY" description="eWay Config"/>
-    <PaymentGatewayEway paymentGatewayConfigId="EWAY_CONFIG" customerId="87654321" testMode="Y" enableBeagle="N" enableCvn="N"/>
-
-    <PaymentGatewayConfig paymentGatewayConfigId="PAYFLOWPRO_CONFIG" paymentGatewayConfigTypeId="PAY_GATWY_PAYFLOWPRO" description="Payflow Pro Config"/>
-    <PaymentGatewayPayflowPro paymentGatewayConfigId="PAYFLOWPRO_CONFIG" certsPath="${sys:getProperty('ofbiz.home')}/applications/accounting/pfcerts" hostAddress="pilot-payflowpro.paypal.com" hostPort="443" timeout="80" proxyPort="80"
-                              vendor="[Vendor]" userId="[PayFlow UserID]" pwd="[PayFlow Password]" partner="[PayFlow Partner]" checkAvs="Y" checkCvv2="Y" preAuth="Y" enableTransmit="true" logFileName="${sys:getProperty('ofbiz.home')}/runtime/logs/payflow_java.log" loggingLevel="6" maxLogFileSize="1000000" stackTraceOn="N" returnUrl="[Express Checkout Return URL]" cancelReturnUrl="[Express Checkout Cancel Return URL]" redirectUrl="[Express Checkout Customer Redirect URL]"/>
-
-    <PaymentGatewayConfig paymentGatewayConfigId="PAYPAL_CONFIG" paymentGatewayConfigTypeId="PAY_GATWY_PAYPAL" description="PayPal Config"/>
-    <PaymentGatewayPayPal paymentGatewayConfigId="PAYPAL_CONFIG" confirmTemplate="/order/emailconfirmation.ftl" redirectUrl="https://www.sandbox.paypal.com/webscr" confirmUrl="https://www.sandbox.paypal.com/us/cgi-bin/webscr" requireConfirmedShipping="N"/>
-
-    <PaymentGatewayConfig paymentGatewayConfigId="CLEARCOMMERCE_CONFIG" paymentGatewayConfigTypeId="PAY_GATWY_CLRCOMRC" description="Clear Commerce Config"/>
-    <PaymentGatewayClearCommerce paymentGatewayConfigId="CLEARCOMMERCE_CONFIG" sourceId="mySource" groupId="myGroup" clientId="[ClearCommerce clientId]" username="[ClearCommerce username]" pwd="[ClearCommerce password]" userAlias="[ClearCommerce alias]" processMode="P" serverURL="https://test5x.clearcommerce.com:11500" enableCVM="N"/>
-
-    <PaymentGatewayConfig paymentGatewayConfigId="WORLDPAY_CONFIG" paymentGatewayConfigTypeId="PAY_GATWY_WORLDPAY" description="RBS WorldPay Config"/>
-    <PaymentGatewayWorldPay paymentGatewayConfigId="WORLDPAY_CONFIG" redirectUrl="https://select-test.worldpay.com/wcc/purchase" authMode="A" fixContact="N" hideContact="N" hideCurrency="N" noLanguageMenu="N" withDelivery="N" testMode="100"/>
-
-    <PaymentGatewayConfig paymentGatewayConfigId="ORBITAL_CONFIG" paymentGatewayConfigTypeId="PAY_GATWY_ORBITAL" description="Orbital Config"/>
-    <PaymentGatewayOrbital paymentGatewayConfigId="ORBITAL_CONFIG" username="ofbizuser" connectionPassword="ofbizpwd" merchantId="785240009879" engineClass="com.paymentech.orbital.sdk.engine.https.HttpsEngine" hostName="orbitalvar1.paymentech.net" port="443" hostNameFailover="orbitalvar2.paymentech.net" portFailover="443" connectionTimeoutSeconds="90" readTimeoutSeconds="90" authorizationURI="/authorize" sdkVersion="PaymentechSDK_6.3.0" sslSocketFactory="default" responseType="gateway"/>
-
-    <PaymentGatewayConfig paymentGatewayConfigId="SECUREPAY_CONFIG" paymentGatewayConfigTypeId="PAY_GATWY_SECUREPAY" description="SecurePay Config"/>
-    <PaymentGatewaySecurePay paymentGatewayConfigId="SECUREPAY_CONFIG" merchantId="[SecurePay MerchantID]" pwd="[SecurePay Password]" serverURL="[SecurePay serverURL]" processTimeout="80" enableAmountRound="N"/>
 
     <!-- The main Company Internal Organization -->
     <Party partyId="Company" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
@@ -1330,7 +1302,7 @@ under the License.
     <Party partyId="AcctBuyer" partyTypeId="PERSON"/>
     <Person partyId="AcctBuyer" firstName="Acct" lastName="Buyer"/>
     <PartyRole partyId="AcctBuyer" roleTypeId="BUYER"/>
-    <UserLogin partyId="AcctBuyer" userLoginId="AcctBuyer"/>
+    <UserLogin partyId="AcctBuyer" userLoginId="AcctBuyer" userFullName="Acct Buyer"/>
     <SecurityGroup groupId="ORDERPURCH"/><!-- is needed because accounting is before order -->
     <UserLoginSecurityGroup userLoginId="AcctBuyer" groupId="ORDERPURCH" fromDate="2001-05-13 00:00:00"/>
 
@@ -1545,7 +1517,7 @@ under the License.
     <PartyRole partyId="accountingadmin" roleTypeId="EMPLOYEE"/>
     <PartyRole partyId="accountingadmin" roleTypeId="_NA_"/>
     <PartyStatus partyId="accountant_group" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
-    <UserLogin userLoginId="accountingadmin" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" partyId="accountingadmin"/>
+    <UserLogin userLoginId="accountingadmin" userFullName="Accounting Administrator" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" partyId="accountingadmin"/>
     <UserLoginSecurityGroup groupId="ACCTG_FUNCTNL_ADMIN" userLoginId="accountingadmin" fromDate="2001-01-01 12:00:00.0"/>
 
     <PartyRelationship partyIdFrom="Company" partyIdTo="accountingadmin" partyRelationshipTypeId="EMPLOYMENT" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="EMPLOYEE" fromDate="2001-01-01 12:00:00.0"/>

@@ -35,6 +35,9 @@ import org.apache.ofbiz.webapp.control.ConfigXMLReader;
 import org.apache.ofbiz.webapp.view.AbstractViewHandler;
 import org.apache.ofbiz.webapp.view.ViewHandlerException;
 
+import freemarker.cache.MultiTemplateLoader;
+import freemarker.cache.TemplateLoader;
+import freemarker.ext.jakarta.servlet.WebappTemplateLoader;
 import freemarker.ext.jakarta.jsp.TaglibFactory;
 import freemarker.ext.jakarta.servlet.HttpRequestHashModel;
 import freemarker.ext.jakarta.servlet.HttpSessionHashModel;
@@ -51,7 +54,15 @@ public class FreeMarkerViewHandler extends AbstractViewHandler {
     @Override
     public void init(ServletContext context) throws ViewHandlerException {
         config.setCacheStorage(new OfbizCacheStorage("unknown"));
-        config.setServletContextForTemplateLoading(context, "/");
+        TemplateLoader webappLoader = new WebappTemplateLoader(context, "/");
+        TemplateLoader defaultLoader = config.getTemplateLoader();
+        TemplateLoader[] loaders;
+        if (defaultLoader != null) {
+            loaders = new TemplateLoader[] {defaultLoader, webappLoader};
+        } else {
+            loaders = new TemplateLoader[] {webappLoader};
+        }
+        config.setTemplateLoader(new MultiTemplateLoader(loaders));
     }
 
     @Override
@@ -106,13 +117,8 @@ public class FreeMarkerViewHandler extends AbstractViewHandler {
 
         // process the template & flush the output
         try {
-            if (page.startsWith("component://")) {
-                FreeMarkerWorker.renderTemplate(page, context, response.getWriter());
-            } else {
-                // backwards compatibility
-                Template template = config.getTemplate(page);
-                FreeMarkerWorker.renderTemplate(template, context, response.getWriter());
-            }
+            Template template = config.getTemplate(page);
+            FreeMarkerWorker.renderTemplate(template, context, response.getWriter());
             response.flushBuffer();
         } catch (TemplateException te) {
             throw new ViewHandlerException("Problems processing Freemarker template", te);

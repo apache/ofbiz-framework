@@ -18,17 +18,17 @@
  *******************************************************************************/
 package org.apache.ofbiz.base.util.template;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-public class FreeMarkerWorkerTests {
-    @Before
+public final class FreeMarkerWorkerTests {
+    @BeforeEach
     public void initialize() {
         System.setProperty("ofbiz.home", System.getProperty("user.dir"));
     }

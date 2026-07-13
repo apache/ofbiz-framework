@@ -35,5 +35,11 @@ under the License.
         <attribute name="importIssuer" type="String" mode="IN" optional="true"/>
         <attribute name="alias" type="String" mode="IN" optional="false"/>
     </service>
+    <service name="migrateUserLoginUserFullName" engine="java" auth="true" transaction-timeout="7200"
+            location="org.apache.ofbiz.securityext.migrate.MigrationServices" invoke="migrateUserLoginUserFullName">
+        <description>Migration service to populate the user full name from the UserLogin associated Party</description>
+        <attribute name="userLoginId" type="String" mode="IN" optional="true"/>
+        <attribute name="partyId" type="String" mode="IN" optional="true"/>
+    </service>
 
 </services>

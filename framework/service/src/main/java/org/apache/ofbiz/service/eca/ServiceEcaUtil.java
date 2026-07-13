@@ -148,7 +148,7 @@ public final class ServiceEcaUtil {
             //remove the old rule if found and keep the recent one
             //This will prevent duplicate rule execution along with enabled/disabled seca workflow
             if (rules.remove(rule)) {
-                Debug.logWarning("Duplicate Service ECA [" + serviceName + "] on [" + eventName + "] ", MODULE);
+                Debug.logVerbose("Duplicate Service ECA [" + serviceName + "] on [" + eventName + "] ", MODULE);
             }
             rules.add(rule);
         }

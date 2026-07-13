@@ -170,7 +170,6 @@ public final class ModelServiceReader implements Serializable {
         service.setSemaphore(UtilXml.checkEmpty(serviceElement.getAttribute("semaphore")).intern());
         service.setDefaultEntityName(UtilXml.checkEmpty(serviceElement.getAttribute("default-entity-name")).intern());
         service.setFromLoader(isFromURL ? readerURL.toExternalForm() : handler.getLoaderName());
-        service.setAction(UtilXml.checkEmpty(serviceElement.getAttribute("action")).intern());
 
         // these default to true; if anything but true, make false
         service.setAuth("true".equalsIgnoreCase(serviceElement.getAttribute("auth")));
@@ -489,6 +488,7 @@ public final class ModelServiceReader implements Serializable {
         service.addParam(createInternalParam("locale", "java.util.Locale", ModelService.IN_OUT_PARAM));
         service.addParam(createInternalParam("timeZone", "java.util.TimeZone", ModelService.IN_OUT_PARAM));
         service.addParam(createInternalParam("visualTheme", "org.apache.ofbiz.widget.renderer.VisualTheme", ModelService.IN_OUT_PARAM));
+        service.addParam(createInternalParam("jobTrackerId", "String", ModelService.IN_PARAM));
     }
 
     static ModelParam createInternalParam(String name, String type, String mode) {

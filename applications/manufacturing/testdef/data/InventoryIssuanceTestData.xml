@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<entity-engine-xml>
+    <!-- Test Party Backbone -->
+    <Party partyId="II_COMPANY" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
+    <PartyGroup partyId="II_COMPANY" groupName="Manufacturing Test Company"/>
+    <PartyRole partyId="II_COMPANY" roleTypeId="INTERNAL_ORGANIZATIO"/>
+    <PartyRole partyId="II_COMPANY" roleTypeId="OWNER"/>
+
+    <!-- Test Facility Backbone -->
+    <Facility facilityId="II_WH" facilityName="Test Warehouse" facilityTypeId="WAREHOUSE" ownerPartyId="II_COMPANY" autoReservePrun="Y" allowInventoryReallocation="Y" reconcilePrunBackorders="N"/>
+    <Facility facilityId="WH_FLUID" facilityName="Fluid Warehouse" facilityTypeId="WAREHOUSE" ownerPartyId="II_COMPANY" autoReservePrun="Y" allowInventoryReallocation="Y" reconcilePrunBackorders="Y"/>
+    <Facility facilityId="WH_TRADITIONAL" facilityName="Traditional Warehouse" facilityTypeId="WAREHOUSE" ownerPartyId="II_COMPANY" autoReservePrun="Y" allowInventoryReallocation="N" reconcilePrunBackorders="N"/>
+    <Facility facilityId="WH_SAFE" facilityName="Safe Recovery Warehouse" facilityTypeId="WAREHOUSE" ownerPartyId="II_COMPANY" autoReservePrun="Y" allowInventoryReallocation="N" reconcilePrunBackorders="Y"/>
+    <Facility facilityId="WH_NO_AUTO_RES" facilityName="No Auto Reservation Warehouse" facilityTypeId="WAREHOUSE" ownerPartyId="II_COMPANY" autoReservePrun="N" allowInventoryReallocation="Y" reconcilePrunBackorders="N"/>
+
+
+    <!-- Product Backbone -->
+    <Product productId="II_MAT_A_COST" productTypeId="FINISHED_GOOD" isVirtual="N" isVariant="N" internalName="Material A"/>
+    <Product productId="II_MAT_B_COST" productTypeId="FINISHED_GOOD" isVirtual="N" isVariant="N" internalName="Material B"/>
+    <Product productId="II_MAT_C_COST" productTypeId="FINISHED_GOOD" isVirtual="N" isVariant="N" internalName="Material C"/>
+    <Product productId="II_MAT_D_PRODUCED" productTypeId="FINISHED_GOOD" isVirtual="N" isVariant="N" internalName="Produced Material D"/>
+    <Product productId="II_MAT_E_RAW" productTypeId="FINISHED_GOOD" isVirtual="N" isVariant="N" internalName="Raw Material E"/>
+    <Product productId="II_PROD_MANUF" productTypeId="FINISHED_GOOD" isVirtual="N" isVariant="N" internalName="Manufactured Product"/>
+    <Product productId="II_PROD_CHAIN" productTypeId="FINISHED_GOOD" isVirtual="N" isVariant="N" internalName="Chain Test Product"/>
+
+    <!-- BOM (Bill of Materials): II_PROD_MANUF needs 2 units of II_MAT_A per finished good and 1 MAT_C -->
+    <ProductAssoc productId="II_PROD_MANUF" productIdTo="II_MAT_A_COST" productAssocTypeId="MANUF_COMPONENT" fromDate="2020-01-01 00:00:00.0" quantity="2.0"/>
+    <ProductAssoc productId="II_PROD_MANUF" productIdTo="II_MAT_C_COST" productAssocTypeId="MANUF_COMPONENT" fromDate="2020-01-01 00:00:00.0" quantity="1.0"/>
+    
+    <ProductAssoc productId="II_PROD_CHAIN" productIdTo="II_MAT_D_PRODUCED" productAssocTypeId="MANUF_COMPONENT" fromDate="2020-01-01 00:00:00.0" quantity="1.0"/>
+    <ProductAssoc productId="II_MAT_D_PRODUCED" productIdTo="II_MAT_E_RAW" productAssocTypeId="MANUF_COMPONENT" fromDate="2020-01-01 00:00:00.0" quantity="1.0"/>
+
+    <PartyAcctgPreference partyId="II_COMPANY" 
+                           cogsMethodId="COGS_FIFO"
+                           baseCurrencyUomId="USD" 
+                           enableAccounting="Y"/>
+
+    <!-- Accounting Setup -->
+    <CustomTimePeriod customTimePeriodId="II_FISCAL_YEAR" periodTypeId="FISCAL_YEAR" fromDate="2020-01-01 00:00:00.0" thruDate="2026-12-31 23:59:59.0" isClosed="N" organizationPartyId="II_COMPANY"/>
+    
+    <GlAccount glAccountId="II_INV_ACCOUNT" glAccountTypeId="INVENTORY_ACCOUNT" glAccountClassId="INVENTORY_ASSET" accountCode="140000" accountName="Inventory"/>
+    <GlAccount glAccountId="II_RAW_MAT_ACCOUNT" glAccountTypeId="RAWMAT_INVENTORY" glAccountClassId="INVENTORY_ASSET" accountCode="141000" accountName="Raw Materials"/>
+    <GlAccount glAccountId="II_WIP_ACCOUNT" glAccountTypeId="WIP_INVENTORY" glAccountClassId="INVENTORY_ASSET" accountCode="142000" accountName="Work In Progress"/>
+    <GlAccount glAccountId="II_COGS_ACCOUNT" glAccountTypeId="COGS_ACCOUNT" glAccountClassId="COGS_EXPENSE" accountCode="500000" accountName="COGS"/>
+
+    <GlAccountOrganization glAccountId="II_INV_ACCOUNT" organizationPartyId="II_COMPANY" fromDate="2020-01-01 00:00:00.0"/>
+    <GlAccountOrganization glAccountId="II_RAW_MAT_ACCOUNT" organizationPartyId="II_COMPANY" fromDate="2020-01-01 00:00:00.0"/>
+    <GlAccountOrganization glAccountId="II_WIP_ACCOUNT" organizationPartyId="II_COMPANY" fromDate="2020-01-01 00:00:00.0"/>
+    <GlAccountOrganization glAccountId="II_COGS_ACCOUNT" organizationPartyId="II_COMPANY" fromDate="2020-01-01 00:00:00.0"/>
+
+    <GlAccountTypeDefault glAccountTypeId="INVENTORY_ACCOUNT" organizationPartyId="II_COMPANY" glAccountId="II_INV_ACCOUNT"/>
+    <GlAccountTypeDefault glAccountTypeId="RAWMAT_INVENTORY" organizationPartyId="II_COMPANY" glAccountId="II_RAW_MAT_ACCOUNT"/>
+    <GlAccountTypeDefault glAccountTypeId="WIP_INVENTORY" organizationPartyId="II_COMPANY" glAccountId="II_WIP_ACCOUNT"/>
+    <GlAccountTypeDefault glAccountTypeId="COGS_ACCOUNT" organizationPartyId="II_COMPANY" glAccountId="II_COGS_ACCOUNT"/>
+
+    <!-- Manual Override Data -->
+
+    <FacilityLocation facilityId="WH_TRADITIONAL" locationSeqId="TLOC_01" locationTypeEnumId="FLT_PICKLOC"/>
+    <FacilityLocation facilityId="WH_FLUID" locationSeqId="FLOC_01" locationTypeEnumId="FLT_PICKLOC"/>
+    
+    <Lot lotId="LOT_MANUAL_01" creationDate="2020-01-01 00:00:00.0"/>
+    
+    <!-- Core Test Item -->
+    <InventoryItem inventoryItemId="II_MAT_A_TEST_INV" inventoryItemTypeId="NON_SERIAL_INV_ITEM" productId="II_MAT_A_COST" facilityId="II_WH" 
+                   datetimeReceived="2020-01-01 00:00:00.0" quantityOnHandTotal="100.0" availableToPromiseTotal="100.0"/>
+
+    <!-- Item 1: Traditional Warehouse (Strict) -->
+    <InventoryItem inventoryItemId="II_MAN_STRICT" inventoryItemTypeId="NON_SERIAL_INV_ITEM" productId="II_MAT_A_COST" facilityId="WH_TRADITIONAL" 
+                   locationSeqId="TLOC_01" lotId="LOT_MANUAL_01" datetimeReceived="2020-01-01 00:00:00.0" quantityOnHandTotal="10.0" availableToPromiseTotal="10.0"/>
+    
+    <!-- Item 2: Fluid Warehouse (Reallocation Allowed) -->
+    <InventoryItem inventoryItemId="II_MAN_FLUID" inventoryItemTypeId="NON_SERIAL_INV_ITEM" productId="II_MAT_A_COST" facilityId="WH_FLUID" 
+                   locationSeqId="FLOC_01" lotId="LOT_MANUAL_01" datetimeReceived="2020-01-01 00:00:00.0" quantityOnHandTotal="10.0" availableToPromiseTotal="10.0"/>
+    
+    <InventoryItem inventoryItemId="II_MAT_E_RAW_INV" inventoryItemTypeId="NON_SERIAL_INV_ITEM" productId="II_MAT_E_RAW" facilityId="WH_FLUID" 
+                   datetimeReceived="2020-01-01 00:00:00.0" quantityOnHandTotal="100.0" availableToPromiseTotal="100.0"/>
+
+    <!-- Item 3: Dirty State Item (Backorder) -->
+
+    <!-- WorkEfforts for Testing -->
+    <WorkEffort workEffortId="WE_PARENT" workEffortTypeId="PROD_ORDER_HEADER" currentStatusId="PRUN_RUNNING"/>
+    <WorkEffort workEffortId="WE_AFFECTED" workEffortTypeId="PROD_ORDER_TASK" workEffortParentId="WE_PARENT" currentStatusId="PRUN_RUNNING" facilityId="WH_TRADITIONAL"/>
+    <WorkEffort workEffortId="WE_ISSUING_STRICT" workEffortTypeId="PROD_ORDER_TASK" workEffortParentId="WE_PARENT" currentStatusId="PRUN_RUNNING" facilityId="WH_TRADITIONAL"/>
+    <WorkEffort workEffortId="WE_ISSUING_FLUID" workEffortTypeId="PROD_ORDER_TASK" workEffortParentId="WE_PARENT" currentStatusId="PRUN_RUNNING" facilityId="WH_FLUID"/>
+
+    <WorkEffortGoodStandard workEffortId="WE_AFFECTED" productId="II_MAT_A_COST" workEffortGoodStdTypeId="PRUNT_PROD_NEEDED" fromDate="2020-01-01 00:00:00.0" estimatedQuantity="100.0"/>
+    <WorkEffortGoodStandard workEffortId="WE_ISSUING_STRICT" productId="II_MAT_A_COST" workEffortGoodStdTypeId="PRUNT_PROD_NEEDED" fromDate="2020-01-01 00:00:00.0" estimatedQuantity="100.0"/>
+    <WorkEffortGoodStandard workEffortId="WE_ISSUING_FLUID" productId="II_MAT_A_COST" workEffortGoodStdTypeId="PRUNT_PROD_NEEDED" fromDate="2020-01-01 00:00:00.0" estimatedQuantity="100.0"/>
+
+    <!-- Enumeration required for inventory integrity adjustments -->
+    <Enumeration description="Inventory integrity adjustment" enumCode="VAR_INTEGRITY_SYNC" enumId="VAR_INTEGRITY_SYNC" sequenceId="99" enumTypeId="IID_REASON"/>
+
+</entity-engine-xml>

@@ -1,0 +1,13 @@
+{
+    "name": "ofbiz-rest-api-docs",
+    "description": "ofbiz-framework REST API documentation assets",
+    "repository": "https://github.com/apache/ofbiz-framework.git",
+    "license": "Apache-2.0",
+    "dependencies": {
+        "swagger-ui-dist": "5.32.8",
+        "redoc": "2.5.3"
+    },
+    "overrides": {
+        "js-yaml": "4.2.0"
+    }
+}

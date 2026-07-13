@@ -45,6 +45,7 @@ import org.apache.axiom.soap.SOAPEnvelope;
 import org.apache.axiom.soap.SOAPFactory;
 import org.apache.axiom.soap.SOAPModelBuilder;
 import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.UtilCodec;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilXml;
@@ -116,11 +117,13 @@ public class SOAPEventHandler implements EventHandler {
                     sb.append("<html><head><title>OFBiz SOAP/1.1 Services</title></head>");
                     sb.append("<body>No such service.").append("<p>Services:<ul>");
 
+                    String encodedLocationUri = UtilCodec.getEncoder("html").encode(locationUri);
                     for (String scvName: dctx.getAllServiceNames()) {
                         ModelService model = dctx.getModelService(scvName);
                         if (model.isExport()) {
-                            sb.append("<li><a href=\"").append(locationUri).append("/").append(model.getName()).append("?wsdl\">");
-                            sb.append(model.getName()).append("</a></li>");
+                            String encodedName = UtilCodec.getEncoder("html").encode(model.getName());
+                            sb.append("<li><a href=\"").append(encodedLocationUri).append("/").append(encodedName).append("?wsdl\">");
+                            sb.append(encodedName).append("</a></li>");
                         }
                     }
                     sb.append("</ul></p></body></html>");

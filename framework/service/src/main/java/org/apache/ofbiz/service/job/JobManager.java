@@ -31,6 +31,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.apache.ofbiz.service.tracker.JobTracker;
 import org.apache.ofbiz.base.config.GenericConfigException;
 import org.apache.ofbiz.base.util.Assert;
 import org.apache.ofbiz.base.util.Debug;
@@ -57,6 +58,8 @@ import org.apache.ofbiz.service.calendar.RecurrenceInfo;
 import org.apache.ofbiz.service.calendar.RecurrenceInfoException;
 import org.apache.ofbiz.service.config.ServiceConfigUtil;
 import org.apache.ofbiz.service.config.model.RunFromPool;
+import org.apache.ofbiz.service.config.model.ThreadPool;
+import org.apache.ofbiz.service.tracker.JobTrackerFactory;
 
 /**
  * Job manager. The job manager queues and manages jobs. Client code can queue a job to be run immediately
@@ -203,6 +206,7 @@ public final class JobManager {
                                 EntityCondition.makeCondition("runTime",
                                         EntityOperator.LESS_THAN_EQUAL_TO, UtilDateTime.nowTimestamp()))),
                 EntityCondition.makeCondition("startDateTime", EntityOperator.EQUALS, null),
+                EntityCondition.makeCondition("statusId", "SERVICE_PENDING"),
                 EntityCondition.makeCondition("cancelDateTime", EntityOperator.EQUALS, null),
                 EntityCondition.makeCondition("runByInstanceId", EntityOperator.EQUALS, null));
         // limit to just defined pools
@@ -243,7 +247,11 @@ public final class JobManager {
                     int rowsUpdated = delegator.storeByCondition("JobSandbox", UtilMisc.toMap("runByInstanceId", INSTANCE_ID),
                             EntityCondition.makeCondition(updateExpression));
                     if (rowsUpdated == 1) {
-                        poll.add(new PersistedServiceJob(dctx, jobValue, null));
+                        JobTracker jobTracker = null;
+                        if (UtilValidate.isNotEmpty(jobValue.getString("jobTrackerId"))) {
+                            jobTracker = JobTrackerFactory.getJobTracker(getDispatcher(), jobValue.getString("jobTrackerId"));
+                        }
+                        poll.add(new PersistedServiceJob(dctx, jobValue, null, jobTracker));
                         if (poll.size() == limit) {
                             break;
                         }
@@ -296,6 +304,71 @@ public final class JobManager {
             }
         }
         return poll;
+    }
+
+    /**
+     * Bulk-renews the lease (leaseUpdatedStamp) for all RUNNING and QUEUED jobs owned by this instance.
+     * Called periodically from the {@link JobPoller} main loop.
+     */
+    public void heartbeatRunningJobs() {
+        assertIsRunning();
+        List<EntityCondition> conditions = List.of(
+                EntityCondition.makeCondition("runByInstanceId", INSTANCE_ID),
+                EntityCondition.makeCondition(
+                        EntityCondition.makeCondition("statusId", EntityOperator.IN, List.of("SERVICE_RUNNING", "SERVICE_QUEUED"))));
+
+        try {
+            int updated = delegator.storeByCondition("JobSandbox",
+                    UtilMisc.toMap("leaseUpdatedStamp", UtilDateTime.nowTimestamp()),
+                    EntityCondition.makeCondition(conditions));
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("Heartbeat: lease renewed for " + updated + " job(s) on instance [" + INSTANCE_ID + "]", MODULE);
+            }
+        } catch (GenericEntityException e) {
+            Debug.logWarning(e, "Exception thrown while renewing job leases: ", MODULE);
+        }
+    }
+
+    /**
+     * Scans all RUNNING/QUEUED jobs across all nodes and resets any whose leaseUpdatedStamp
+     * is older than the configured lease-expiry threshold, releasing them back to SERVICE_PENDING
+     * so a healthy node can pick them up.
+     * Uses storeByCondition for atomicity to avoid race conditions in multi-node deployments.
+     * Called periodically from the {@link JobPoller} main loop.
+     */
+    public int recoverStaleJobs() {
+        assertIsRunning();
+        long leaseExpiryMillis;
+        try {
+            ThreadPool threadPool = ServiceConfigUtil.getServiceEngine().getThreadPool();
+            leaseExpiryMillis = threadPool.getLeaseExpiryMillis();
+        } catch (GenericConfigException e) {
+            Debug.logWarning(e, "Unable to read lease-expiry-millis; using default.", MODULE);
+            leaseExpiryMillis = ThreadPool.LEASE_EXPIRY_MILLIS;
+        }
+        Timestamp expiryThreshold = new Timestamp(System.currentTimeMillis() - leaseExpiryMillis);
+        // Match QUEUED or RUNNING jobs owned by any instance with an expired (or missing) lease stamp
+        List<EntityCondition> conditions = List.of(
+                EntityCondition.makeCondition("runByInstanceId", EntityOperator.NOT_EQUAL, null),
+                EntityCondition.makeCondition("statusId", EntityOperator.IN, List.of("SERVICE_QUEUED", "SERVICE_RUNNING")),
+                EntityCondition.makeCondition(
+                        EntityCondition.makeCondition("leaseUpdatedStamp", EntityOperator.LESS_THAN, expiryThreshold),
+                        EntityOperator.OR,
+                        EntityCondition.makeCondition("leaseUpdatedStamp", EntityOperator.EQUALS, null)));
+
+        int recovered = 0;
+        try {
+            recovered = delegator.storeByCondition("JobSandbox",
+                    UtilMisc.toMap("statusId", "SERVICE_PENDING", "runByInstanceId", null, "startDateTime", null, "leaseUpdatedStamp", null),
+                    EntityCondition.makeCondition(conditions));
+            if (recovered > 0) {
+                Debug.logInfo("Stale job recovery: reset " + recovered
+                        + " expired job(s) to SERVICE_PENDING on instance [" + INSTANCE_ID + "]", MODULE);
+            }
+        } catch (GenericEntityException e) {
+            Debug.logWarning(e, "Exception thrown while recovering stale jobs: ", MODULE);
+        }
+        return recovered;
     }
 
     public static List<GenericValue> getJobsToPurge(Delegator delegator, String poolId, String instanceId, int limit, Timestamp purgeTime)
@@ -364,6 +437,18 @@ public final class JobManager {
                     if ("SERVICE_QUEUED".equals(job.getString("statusId"))) {
                         newJob.set("tempExprId", job.getString("tempExprId"));
                         newJob.set("recurrenceInfoId", job.getString("recurrenceInfoId"));
+                    } else if ("SERVICE_RUNNING".equals(job.getString("statusId"))) {
+                        // If the job was running, check if a future recurrence was already scheduled
+                        long childJobsCount = EntityQuery.use(delegator).from("JobSandbox")
+                                .where("parentJobId", job.getString("jobId"))
+                                .queryCount();
+                        if (childJobsCount == 0) {
+                            newJob.set("tempExprId", job.getString("tempExprId"));
+                            newJob.set("recurrenceInfoId", job.getString("recurrenceInfoId"));
+                        } else {
+                            newJob.set("tempExprId", null);
+                            newJob.set("recurrenceInfoId", null);
+                        }
                     } else {
                         //don't set a recurrent schedule on the new job, run it just one time
                         newJob.set("tempExprId", null);
@@ -379,6 +464,9 @@ public final class JobManager {
                     Debug.logWarning(e, MODULE);
                 }
             }
+
+            // If some jobs was followed by a job tracker, call it to recalculate the quantity
+            updateJobTrackersThatFollowCrashedJobs(crashed);
             if (Debug.infoOn()) {
                 Debug.logInfo("-- " + rescheduled + " jobs re-scheduled", MODULE);
             }
@@ -388,6 +476,23 @@ public final class JobManager {
             }
         }
         crashedJobsReloaded = true;
+    }
+
+    private void updateJobTrackersThatFollowCrashedJobs(List<GenericValue> crashed) {
+        List<String> jobTrackerIds = crashed.stream()
+                .filter(job -> UtilValidate.isNotEmpty(job.getString("jobTrackerId")))
+                .map(job -> job.getString("jobTrackerId"))
+                .distinct()
+                .toList();
+        if (!jobTrackerIds.isEmpty()) {
+            jobTrackerIds.forEach(jobTrackerId -> {
+                try {
+                    JobTrackerFactory.getJobTracker(getDispatcher(), jobTrackerId).computeJobsTotalQty();
+                } catch (Exception e) {
+                    Debug.logWarning(e, "Failed to recalculate jobs quantity for the jobTracker " + jobTrackerId, MODULE);
+                }
+            });
+        }
     }
 
     /** Queues a Job to run now.

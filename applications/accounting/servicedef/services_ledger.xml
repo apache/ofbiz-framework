@@ -411,6 +411,7 @@ under the License.
         <description>Create an accounting transaction for inventory that is issued to a work effort (Type: INVENTORY D: RAWMAT_INVENTORY, C: WIP_INVENTORY)</description>
         <attribute name="workEffortId" type="String" mode="IN" optional="false"/>
         <attribute name="inventoryItemId" type="String" mode="IN" optional="false"/>
+        <attribute name="quantity" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="acctgTransId" type="String" mode="OUT" optional="true"/>
     </service>
     <!-- Service for the automatic creation of AcctgTransForPhysicalInventoryVariance, triggered by SECAs -->

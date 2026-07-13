@@ -72,7 +72,7 @@ under the License.
 <#macro renderImage src id style wid hgt border alt urlString><fo:block><fo:external-graphic id="${id}" src="${src}" content-width="${wid}" content-height="${hgt}" scaling="non-uniform"/></fo:block></#macro>
 
 <#macro renderContentFrame></#macro>
-<#macro renderScreenletBegin id title collapsible saveCollapsed collapsibleAreaId expandToolTip collapseToolTip fullUrlString padded menuString showMore collapsed javaScriptEnabled></#macro>
+<#macro renderScreenletBegin id title collapsible saveCollapsed collapsibleAreaId expandToolTip collapseToolTip fullUrlString padded menuString showMore collapsed javaScriptEnabled title="" screenHeader=""></#macro>
 <#macro renderScreenletSubWidget></#macro>
 <#macro renderScreenletEnd></#macro>
 
