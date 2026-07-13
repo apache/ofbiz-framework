@@ -222,12 +222,10 @@ under the License.
     <entity entity-name="ServiceSemaphore" package-name="org.apache.ofbiz.service.semaphore" title="Semaphore Lock"
             sequence-bank-size="100">
         <field name="serviceName" type="name"></field>
-        <field name="parameterValue" type="name"/>
         <field name="lockedByInstanceId" type="id"></field>
         <field name="lockThread" type="name"></field>
         <field name="lockTime" type="date-time"></field>
         <prim-key field="serviceName"/>
-        <prim-key field="parameterValue"/>
     </entity>
 
     <!-- ========================================================= -->

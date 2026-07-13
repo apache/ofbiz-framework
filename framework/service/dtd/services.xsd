@@ -117,7 +117,6 @@ under the License.
         </xs:attribute>
         <xs:attribute name="semaphore-wait-seconds" type="xs:int" default="300"/>
         <xs:attribute name="semaphore-sleep" type="xs:int" default="500"/>
-        <xs:attribute name="semaphore-parameter-name" type="xs:string"/>
     </xs:attributeGroup>
     <xs:element name="notification">
         <xs:complexType>
@@ -356,6 +355,19 @@ under the License.
             </xs:simpleType>
         </xs:attribute>
         <xs:attribute name="optional" type="xs:boolean" default="false"/>
+        <xs:attribute name="include-in-lock" type="xs:boolean" default="false">
+            <xs:annotation>
+                <xs:documentation>
+                    Only relevant when the service defines a semaphore (wait or fail).
+                    If set to true the value of this attribute is included in the semaphore lock key:
+                    the values of all attributes flagged with include-in-lock are hashed and the hash is
+                    appended to the service name used to acquire the lock, so calls with different values
+                    can run concurrently while calls with the same values are still serialized.
+                    Can only be used on IN or INOUT attributes, ignored otherwise.
+                    An optional attribute can be flagged too, its value is then included as null when not passed.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
         <xs:attribute name="default-value" type="xs:string">
             <xs:annotation>
                 <xs:documentation>The value specified will be used for the attribute if no value is passed in.
@@ -437,6 +449,14 @@ under the License.
             </xs:simpleType>
         </xs:attribute>
         <xs:attribute name="optional" type="xs:boolean"/>
+        <xs:attribute name="include-in-lock" type="xs:boolean" default="false">
+            <xs:annotation>
+                <xs:documentation>
+                    See the documentation on the include-in-lock attribute of the "attribute" element.
+                    Useful to flag an attribute defined through auto-attributes.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
         <xs:attribute name="default-value" type="xs:string"/>
         <xs:attribute name="form-label" type="xs:string"/>
         <xs:attribute name="form-display" type="xs:boolean"/>

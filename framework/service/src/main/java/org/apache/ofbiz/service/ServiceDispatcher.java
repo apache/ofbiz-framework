@@ -288,16 +288,9 @@ public final class ServiceDispatcher {
         boolean isError = false;
         boolean beganTrans = false;
         try {
-            String semaphoreParamValue = "_NA_";
-            String semaphoreParamName = modelService.getSemaphoreParameterName();
-            if (UtilValidate.isNotEmpty(semaphoreParamName)) {
-                Object paramObj = params.get(semaphoreParamName);
-                semaphoreParamValue = (paramObj != null) ? paramObj.toString() : "_NULL_";
-            }
-
             // check for semaphore and acquire a lock
             if ("wait".equals(modelService.getSemaphore()) || "fail".equals(modelService.getSemaphore())) {
-                lock = new ServiceSemaphore(delegator, modelService, semaphoreParamValue);
+                lock = new ServiceSemaphore(delegator, modelService, params);
                 lock.acquire();
             }
 

@@ -213,11 +213,6 @@ public final class ModelServiceReader implements Serializable {
         }
         service.setSemaphoreSleep(semaphoreSleep);
 
-        String semaphoreParamName = UtilXml.checkEmpty(serviceElement.getAttribute("semaphore-parameter-name"));
-        if (UtilValidate.isNotEmpty(semaphoreParamName)) {
-            service.setSemaphoreParameterName(semaphoreParamName);
-        }
-
         // set the max retry field
         String maxRetryStr = UtilXml.checkEmpty(serviceElement.getAttribute("max-retry"));
         int maxRetry = 0;
@@ -534,6 +529,16 @@ public final class ModelServiceReader implements Serializable {
             param.setDefaultValue(defValue.intern());
         }
 
+        // flag the attribute to include its value in the service semaphore lock key
+        if ("true".equalsIgnoreCase(attribute.getAttribute("include-in-lock"))) {
+            if (!param.isIn()) {
+                Debug.logError("Attribute [" + param.getName() + "] of service [" + service.getName()
+                        + "] cannot be included in the semaphore lock key: only IN or INOUT attributes are allowed", MODULE);
+            } else {
+                param.setIncludeInLock(true);
+            }
+        }
+
         // set the entity name to the default if not specified
         if (param.getEntityName().length() == 0) {
             param.setEntityName(service.getDefaultEntityName());
@@ -598,6 +603,15 @@ public final class ModelServiceReader implements Serializable {
 
                 if (UtilValidate.isNotEmpty(overrideElement.getAttribute("allow-html"))) {
                     param.setAllowHtml(UtilXml.checkEmpty(overrideElement.getAttribute("allow-html")).intern());
+                }
+
+                if ("true".equalsIgnoreCase(overrideElement.getAttribute("include-in-lock"))) {
+                    if (!param.isIn()) {
+                        Debug.logError("Attribute [" + param.getName() + "] of service [" + service.getName()
+                                + "] cannot be included in the semaphore lock key: only IN or INOUT attributes are allowed", MODULE);
+                    } else {
+                        param.setIncludeInLock(true);
+                    }
                 }
 
                 // default value

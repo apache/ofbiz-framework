@@ -18,11 +18,18 @@
  *******************************************************************************/
 package org.apache.ofbiz.service.semaphore;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transaction;
 
 import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
@@ -30,6 +37,7 @@ import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.transaction.GenericTransactionException;
 import org.apache.ofbiz.entity.transaction.TransactionUtil;
 import org.apache.ofbiz.entity.util.EntityQuery;
+import org.apache.ofbiz.service.ModelParam;
 import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.service.job.JobManager;
 
@@ -50,19 +58,50 @@ public final class ServiceSemaphore {
     private Delegator delegator;
     private GenericValue lock;
     private ModelService model;
-    private String parameterValue;
+    private String lockName;
 
     private int wait = 0;
     private int mode;
     private Timestamp lockTime = null;
 
-    public ServiceSemaphore(Delegator delegator, ModelService model, String parameterValue) {
+    public ServiceSemaphore(Delegator delegator, ModelService model, Map<String, ?> context) {
         this.delegator = delegator;
         this.mode = "wait".equals(model.getSemaphore()) ? SEMAPHORE_MODE_WAIT
                 : ("fail".equals(model.getSemaphore()) ? SEMAPHORE_MODE_FAIL : SEMAPHORE_MODE_NONE);
         this.model = model;
         this.lock = null;
-        this.parameterValue = parameterValue;
+        this.lockName = makeLockName(model, context);
+    }
+
+    /**
+     * Build the semaphore lock name for a service call. When some service attributes are flagged
+     * with include-in-lock="true", their values are hashed and the hash is appended to the service
+     * name so that the lock scope is the combination of the service and those attribute values,
+     * while the ServiceSemaphore entity keeps its single field primary key.
+     * @param model the service model
+     * @param context the service call context
+     * @return the lock name stored in the ServiceSemaphore serviceName field
+     */
+    private static String makeLockName(ModelService model, Map<String, ?> context) {
+        List<ModelParam> lockParams = model.getInModelParamList().stream()
+                .filter(ModelParam::isIncludeInLock)
+                .collect(Collectors.toList());
+        if (lockParams.isEmpty()) {
+            return model.getName();
+        }
+        StringBuilder lockKey = new StringBuilder();
+        for (ModelParam lockParam : lockParams) {
+            Object value = context != null ? context.get(lockParam.getName()) : null;
+            lockKey.append(lockParam.getName()).append('=').append(value).append(';');
+        }
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            String hash = StringUtil.toHexString(digest.digest(lockKey.toString().getBytes(StandardCharsets.UTF_8)));
+            // the hash is truncated so the lock name fits in the 100 character serviceName field
+            return model.getName() + "#" + hash.substring(0, 32);
+        } catch (NoSuchAlgorithmException e) {
+            throw new IllegalStateException("SHA-256 message digest not available", e);
+        }
     }
 
     /**
@@ -103,7 +142,7 @@ public final class ServiceSemaphore {
     private void waitOrFail() throws SemaphoreWaitException, SemaphoreFailException {
         if (SEMAPHORE_MODE_FAIL == mode) {
             // fail
-            throw new SemaphoreFailException("Service [" + model.getName() + "] is locked");
+            throw new SemaphoreFailException("Service [" + lockName + "] is locked");
         } else if (SEMAPHORE_MODE_WAIT == mode) {
             // get the wait and sleep values
             long maxWaitCount = ((model.getSemaphoreWait() * 1000) / model.getSemaphoreSleep());
@@ -126,7 +165,7 @@ public final class ServiceSemaphore {
             }
             if (timedOut) {
                 double waitTimeSec = ((System.currentTimeMillis() - lockTime.getTime()) / 1000.0);
-                String errMsg = "Service [" + model.getName() + "] with wait semaphore exceeded wait timeout, waited ["
+                String errMsg = "Service [" + lockName + "] with wait semaphore exceeded wait timeout, waited ["
                         + waitTimeSec + "], wait started at " + lockTime;
                 throw new SemaphoreWaitException(errMsg);
             }
@@ -149,8 +188,8 @@ public final class ServiceSemaphore {
 
         try {
             if (EntityQuery.use(delegator).from("ServiceSemaphore")
-                    .where("serviceName", model.getName(), "parameterValue", parameterValue).queryCount() == 0) {
-                semaphore = delegator.makeValue("ServiceSemaphore", "serviceName", model.getName(), "parameterValue", parameterValue,
+                    .where("serviceName", lockName).queryCount() == 0) {
+                semaphore = delegator.makeValue("ServiceSemaphore", "serviceName", lockName,
                         "lockedByInstanceId", JobManager.INSTANCE_ID, "lockThread", threadName, "lockTime", lockTime);
 
                 // use the special method below so we can reuse the unique tx functions
@@ -198,7 +237,7 @@ public final class ServiceSemaphore {
                 } else {
                     // Last check before inserting data in this transaction to avoid error log
                     isError = EntityQuery.use(delegator).from("ServiceSemaphore")
-                            .where("serviceName", model.getName(), "parameterValue", parameterValue).queryCount() != 0;
+                            .where("serviceName", lockName).queryCount() != 0;
                     if (!isError) {
                         lock = value.create();
                     }

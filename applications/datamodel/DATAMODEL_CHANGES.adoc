@@ -419,7 +419,6 @@ No changes
 |SalaryStep |lastModifiedByUserLogin |Added |No |NA
 |SalesOpportunity |nextStepDate |Added |No |NA
 |ServiceSemaphore |lockedByInstanceId |Added |No |NA
-|ServiceSemaphore |parameterValue |Added |Yes |NA
 |ShoppingListItem |modifiedPrice |Added |No |NA
 |SkillType |parentTypeId |Added |No |NA
 |SkillType |hasTable |Added |No |NA
