@@ -58,6 +58,15 @@ public class MrpServices {
 
     private static final String MODULE = MrpServices.class.getName();
     private static final String RESOURCE = "ManufacturingUiLabels";
+    private static final String MAIN_SUPPLIER_PREF_ORDER_ID = "10_MAIN_SUPPL";
+
+    private static boolean shouldApplyFacilityDaysToShip(String mrpEventTypeId) {
+        return "SALES_ORDER_SHIP".equals(mrpEventTypeId);
+    }
+
+    private static boolean shouldApplySupplierLeadTime(String mrpEventTypeId, boolean isBuilt) {
+        return !isBuilt && "SALES_ORDER_SHIP".equals(mrpEventTypeId);
+    }
 
     public static Map<String, Object> initMrpEvents(DispatchContext ctx, Map<String, ? extends Object> context) {
         Delegator delegator = ctx.getDelegator();
@@ -542,6 +551,41 @@ public class MrpServices {
         return ((BigDecimal) resultMap.get("quantityOnHandTotal"));
     }
 
+    private static int getSupplierProductLeadTimeDays(Delegator delegator, String productId, Timestamp effectiveDate)
+            throws GenericEntityException {
+        EntityQuery supplierProductQuery = EntityQuery.use(delegator)
+                .from("SupplierProduct")
+                .where("productId", productId)
+                .orderBy("availableFromDate", "supplierPrefOrderId", "partyId");
+        if (effectiveDate != null) {
+            supplierProductQuery.filterByDate(effectiveDate, "availableFromDate", "availableThruDate");
+        } else {
+            supplierProductQuery.filterByDate();
+        }
+
+        List<GenericValue> supplierProducts = supplierProductQuery.queryList();
+        if (UtilValidate.isEmpty(supplierProducts)) {
+            return 0;
+        }
+        GenericValue fallbackSupplierProduct = null;
+        for (GenericValue supplierProduct : supplierProducts) {
+            BigDecimal standardLeadTimeDays = supplierProduct.getBigDecimal("standardLeadTimeDays");
+            if (UtilValidate.isEmpty(standardLeadTimeDays)) {
+                continue;
+            }
+            if (MAIN_SUPPLIER_PREF_ORDER_ID.equals(supplierProduct.getString("supplierPrefOrderId"))) {
+                return standardLeadTimeDays.intValue();
+            }
+            if (fallbackSupplierProduct == null) {
+                fallbackSupplierProduct = supplierProduct;
+            }
+        }
+
+        return fallbackSupplierProduct != null
+                ? fallbackSupplierProduct.getBigDecimal("standardLeadTimeDays").intValue()
+                : 0;
+    }
+
     public static void logMrpError(String mrpId, String productId, String errorMessage, Delegator delegator) {
         logMrpError(mrpId, productId, UtilDateTime.nowTimestamp(), errorMessage, delegator);
     }
@@ -674,7 +718,6 @@ public class MrpServices {
         Timestamp eventDate = null;
         BigDecimal reorderQuantity = BigDecimal.ZERO;
         BigDecimal minimumStock = BigDecimal.ZERO;
-        int daysToShip = 0;
         List<BOMNode> components = null;
         boolean isBuilt = false;
         GenericValue routing = null;
@@ -758,15 +801,11 @@ public class MrpServices {
                         // days to ship is only relevant for sales order to plan for preparatory days to ship.  Otherwise MRP will push event dates
                         // for manufacturing parts
                         // as well and cause problems
-                        daysToShip = 0;
                         if (productFacility != null) {
                             reorderQuantity = (productFacility.getBigDecimal("reorderQuantity") != null ? productFacility.getBigDecimal(
                                     "reorderQuantity") : BigDecimal.ONE.negate());
                             minimumStock = (productFacility.getBigDecimal("minimumStock") != null ? productFacility.getBigDecimal("minimumStock")
                                     : BigDecimal.ZERO);
-                            if ("SALES_ORDER_SHIP".equals(inventoryEventForMRP.getString("mrpEventTypeId"))) {
-                                daysToShip = (productFacility.getLong("daysToShip") != null ? productFacility.getLong("daysToShip").intValue() : 0);
-                            }
                         } else {
                             minimumStock = BigDecimal.ZERO;
                             reorderQuantity = BigDecimal.ONE.negate();
@@ -844,9 +883,25 @@ public class MrpServices {
                         }
                         // #####################################################
 
+                        String mrpEventTypeId = inventoryEventForMRP.getString("mrpEventTypeId");
+                        int facilityDaysToShip = 0;
+                        if (productFacility != null && shouldApplyFacilityDaysToShip(mrpEventTypeId)) {
+                            facilityDaysToShip = (productFacility.getLong("daysToShip") != null
+                                    ? productFacility.getLong("daysToShip").intValue() : 0);
+                        }
+                        int supplierLeadTimeDays = 0;
+                        if (shouldApplySupplierLeadTime(mrpEventTypeId, isBuilt)) {
+                            try {
+                                supplierLeadTimeDays = getSupplierProductLeadTimeDays(delegator, product.getString("productId"), eventDate);
+                            } catch (GenericEntityException e) {
+                                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpCannotFindProductForEvent",
+                                        locale));
+                            }
+                        }
+
                         // calculate the ProposedOrder requirementStartDate and update the requirementStartDate object property.
-                        Map<String, Object> routingTaskStartDate = proposedOrder.calculateStartDate(daysToShip, routing, delegator, dispatcher,
-                                userLogin);
+                        Map<String, Object> routingTaskStartDate = proposedOrder.calculateStartDate(mrpEventTypeId, facilityDaysToShip,
+                                supplierLeadTimeDays, routing, delegator, dispatcher, userLogin);
                         if (isBuilt) {
                             // process the product components
                             processBomComponent(mrpId, product, proposedOrder.getQuantity(), proposedOrder.getRequirementStartDate(),
