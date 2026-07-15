@@ -660,7 +660,7 @@ public final class TransactionUtil implements Status {
         el.add(0, e);
 
         if (Debug.infoOn()) {
-            Long curThreadId = Thread.currentThread().getId();
+            Long curThreadId = Thread.currentThread().threadId();
             List<Exception> ctEl = allThreadsTransactionBeginStackSave.get(curThreadId);
             if (ctEl == null) {
                 ctEl = new LinkedList<>();
@@ -673,7 +673,7 @@ public final class TransactionUtil implements Status {
     private static Exception popTransactionBeginStackSave() {
         if (Debug.infoOn()) {
             // do the unofficial all threads Map one first, and don't do a real return
-            Long curThreadId = Thread.currentThread().getId();
+            Long curThreadId = Thread.currentThread().threadId();
             List<Exception> ctEl = allThreadsTransactionBeginStackSave.get(curThreadId);
             if (UtilValidate.isNotEmpty(ctEl)) {
                 ctEl.remove(0);
@@ -751,14 +751,14 @@ public final class TransactionUtil implements Status {
         }
         transactionBeginStack.set(newExc);
         if (Debug.infoOn()) {
-            Long curThreadId = Thread.currentThread().getId();
+            Long curThreadId = Thread.currentThread().threadId();
             allThreadsTransactionBeginStack.put(curThreadId, newExc);
         }
     }
 
     private static Exception clearTransactionBeginStack() {
         if (Debug.infoOn()) {
-            Long curThreadId = Thread.currentThread().getId();
+            Long curThreadId = Thread.currentThread().threadId();
             allThreadsTransactionBeginStack.remove(curThreadId);
         }
         Exception e = transactionBeginStack.get();

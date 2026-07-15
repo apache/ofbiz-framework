@@ -30,8 +30,8 @@ import org.junit.jupiter.api.Test
  */
 class FlexibleStringExpanderTests {
 
-    private static final Locale LOCALE_TO_TEST = new Locale('en', 'US')
-    private static final Locale OTHER_LOCALE = new Locale('fr')
+    private static final Locale LOCALE_TO_TEST = Locale.of('en', 'US')
+    private static final Locale OTHER_LOCALE = Locale.of('fr')
     private static final TimeZone TIME_ZONE_TO_TEST = TimeZone.getTimeZone('PST')
     private static final TimeZone OTHER_TIME_ZONE = TimeZone.getTimeZone('GMT')
 

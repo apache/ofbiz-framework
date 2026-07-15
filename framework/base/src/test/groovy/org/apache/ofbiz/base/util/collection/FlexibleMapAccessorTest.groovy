@@ -28,7 +28,7 @@ import org.apache.ofbiz.base.util.string.tool.TestingMap
 
 class FlexibleMapAccessorTest {
 
-    private static final Locale LOCALE_TO_TEST = new Locale('en', 'US')
+    private static final Locale LOCALE_TO_TEST = Locale.of('en', 'US')
     private static final FlexibleMapAccessor<?> EMPTY_FMA = FlexibleMapAccessor.getInstance('')
     private static final FlexibleMapAccessor<?> NULL_FMA = FlexibleMapAccessor.getInstance(null)
 
