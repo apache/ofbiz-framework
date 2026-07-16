@@ -53,6 +53,9 @@ import org.owasp.html.TagBalancingHtmlStreamEventReceiver;
 @SuppressWarnings("rawtypes")
 public class UtilCodec {
     private static final String MODULE = UtilCodec.class.getName();
+    // sentinel locale used because labels are not available in the testClasses Gradle task
+    @SuppressWarnings("deprecation")
+    private static final Locale TEST_LOCALE = new Locale("test");
     private static final HtmlEncoder HTML_ENCODER = new HtmlEncoder();
     private static final XmlEncoder XML_ENCODER = new XmlEncoder();
     private static final StringEncoder STRING_ENCODER = new StringEncoder();
@@ -435,7 +438,7 @@ public class UtilCodec {
             Debug.logError("Canonicalization (format consistency, character escaping that is mixed or double, etc) "
                     + "error for attribute named [" + valueName + "], String [" + value + "]: " + e.toString(), MODULE);
             String issueMsg = null;
-            if (locale.equals(Locale.of("test"))) { // labels are not available in testClasses Gradle task
+            if (locale.equals(TEST_LOCALE)) {
                 issueMsg = "In field [" + valueName + "] found character escaping (mixed or double) "
                         + "that is not allowed or other format consistency error: ";
             } else {
@@ -448,7 +451,7 @@ public class UtilCodec {
         // check for "<", ">"
         if (value.indexOf("<") >= 0 || value.indexOf(">") >= 0) {
             String issueMsg = null;
-            if (locale.equals(Locale.of("test"))) { // labels are not available in testClasses Gradle task
+            if (locale.equals(TEST_LOCALE)) {
                 issueMsg = "In field [" + valueName + "] less-than (<) and greater-than (>) symbols are not allowed.";
             } else {
                 issueMsg = UtilProperties.getMessage("SecurityUiLabels", "PolicyNoneLess-thanGreater-than",
@@ -463,7 +466,7 @@ public class UtilCodec {
         if (JS_EVENT_LIST.stream().anyMatch(s -> s.toLowerCase(Locale.ROOT).contains(onEventLower))
                 || value.contains("seekSegmentTime")) {
             String issueMsg = null;
-            if (locale.equals(Locale.of("test"))) { // labels are not available in testClasses Gradle task
+            if (locale.equals(TEST_LOCALE)) {
                 issueMsg = "In field [" + valueName + "] Javascript events are not allowed.";
             } else {
                 issueMsg = UtilProperties.getMessage("SecurityUiLabels", "PolicyNoneJsEvents",
@@ -501,7 +504,7 @@ public class UtilCodec {
         PolicyFactory policy = null;
         try {
             Class<?> customPolicyClass = null;
-            if (locale.equals(Locale.of("test"))) { // labels are not available in testClasses Gradle task
+            if (locale.equals(TEST_LOCALE)) {
                 customPolicyClass = Class.forName("org.apache.ofbiz.base.html.CustomSafePolicy");
             } else {
                 customPolicyClass = Class.forName(UtilProperties.getPropertyValue("owasp", "sanitizer.custom.safe.policy.class"));
@@ -566,7 +569,7 @@ public class UtilCodec {
             // Maybe later we will figure out that some more HTML entities will need to be added to here, see OFBIZ-12691
             if (filtered != null && !value.replace("&#39;", "'").replace("&#34;", "\"").replace("&#64;", "@").equals(unescapeEcmaScriptAndHtml4)) {
                 String issueMsg = null;
-                if (locale.equals(Locale.of("test"))) { // labels are not available in testClasses Gradle task
+                if (locale.equals(TEST_LOCALE)) {
                     issueMsg = "In field [" + valueName + "] by our input policy, your input has not been accepted "
                             + "for security reason. Please check and modify accordingly, thanks.";
                 } else {

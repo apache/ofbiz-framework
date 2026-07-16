@@ -174,6 +174,7 @@ public class OfbizCurrencyTransform implements TemplateTransformModel {
             }
 
             @Override
+            @SuppressWarnings("deprecation")
             public void close() throws IOException {
                 try {
                     if (Debug.verboseOn()) {
@@ -192,7 +193,7 @@ public class OfbizCurrencyTransform implements TemplateTransformModel {
                             // we set the max to 10 digits as an hack to not round numbers in the ui
                         }
                     } else {
-                        out.write(UtilFormatOut.formatCurrency(amount, isoCode, Locale.of(locale), rounding));
+                        out.write(UtilFormatOut.formatCurrency(amount, isoCode, new Locale(locale), rounding));
                         // we set the max to 10 digits as an hack to not round numbers in the ui
                     }
                 } catch (TemplateModelException e) {

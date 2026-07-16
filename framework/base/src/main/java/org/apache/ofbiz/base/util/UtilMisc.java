@@ -550,6 +550,7 @@ public final class UtilMisc {
      * @param localeString The locale string (en_US)
      * @return Locale The new Locale object or null if no valid locale can be interpreted
      */
+    @SuppressWarnings("deprecation")
     public static Locale parseLocale(String localeString) {
         if (UtilValidate.isEmpty(localeString)) {
             return null;
@@ -569,7 +570,7 @@ public final class UtilMisc {
             String language = localeString.substring(0, 2);
             String country = localeString.substring(3, 5);
             String extension = localeString.substring(6);
-            locale = Locale.of(language, country, extension);
+            locale = new Locale(language, country, extension);
         } else {
             Debug.logWarning("Do not know what to do with the localeString [" + localeString + "], should be length 2, 5, or greater than 6, "
                     + "returning null", MODULE);

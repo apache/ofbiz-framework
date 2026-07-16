@@ -172,8 +172,10 @@ public final class UtilNumber {
     static {
         rbnfRuleSets = new HashMap<>();
         rbnfRuleSets.put(Locale.US, RULE_SET_EN_US);
-        rbnfRuleSets.put(Locale.of("th"), RULE_SET_TH_TH);
-        rbnfRuleSets.put(Locale.of("en", "IN"), RULE_SET_EN_IN);
+        @SuppressWarnings("deprecation") Locale thLocale = new Locale("th");
+        @SuppressWarnings("deprecation") Locale enInLocale = new Locale("en", "IN");
+        rbnfRuleSets.put(thLocale, RULE_SET_TH_TH);
+        rbnfRuleSets.put(enInLocale, RULE_SET_EN_IN);
     }
 
     private UtilNumber() { }

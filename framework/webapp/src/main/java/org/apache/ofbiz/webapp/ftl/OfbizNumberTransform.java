@@ -116,6 +116,7 @@ public class OfbizNumberTransform implements TemplateTransformModel {
             }
 
             @Override
+            @SuppressWarnings("deprecation")
             public void close() throws IOException {
                 try {
                     if (Debug.verboseOn()) {
@@ -135,7 +136,7 @@ public class OfbizNumberTransform implements TemplateTransformModel {
                             localeObj = env.getLocale();
                         }
                     } else {
-                        localeObj = Locale.of(locale);
+                        localeObj = new Locale(locale);
                     }
                     out.write(UtilFormatOut.formatNumber(number, format, delegator, localeObj));
                 } catch (TemplateModelException e) {

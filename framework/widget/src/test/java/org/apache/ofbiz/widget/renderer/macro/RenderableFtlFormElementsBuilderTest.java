@@ -613,7 +613,8 @@ public class RenderableFtlFormElementsBuilderTest {
         };
 
         final Map<String, Object> context = new HashMap<>();
-        context.put("locale", Locale.of("fr"));
+        @SuppressWarnings("deprecation") Locale locale = new Locale("fr");
+        context.put("locale", locale);
 
         final RenderableFtl renderableFtl = renderableFtlFormElementsBuilder.dateRangePicker(context, dateRangePickerField);
         assertThat(renderableFtl, MacroCallMatcher.hasName("renderDateRangePicker"));

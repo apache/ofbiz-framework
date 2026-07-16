@@ -30,6 +30,10 @@ import org.junit.jupiter.api.Test;
 
 public class UtilCodecTests {
 
+    // sentinel locale used because labels are not available in the testClasses Gradle task
+    @SuppressWarnings("deprecation")
+    private static final Locale TEST_LOCALE = new Locale("test");
+
     @Test
     public void canonicalizeRevealsEscapedXSS() {
         String xssVector = "&lt;script&gtalert(\"XSS vector\");&lt;/script&gt;";
@@ -42,7 +46,7 @@ public class UtilCodecTests {
         String xssVector = "&lt;script&gtalert(\"XSS vector\");&lt;/script&gt;";
         List<String> errorList = new ArrayList<>();
         String canonicalizedXssVector = UtilCodec.checkStringForHtmlStrictNone("fieldName", xssVector, errorList,
-                Locale.of("test")); // labels are not available in testClasses Gradle task
+                TEST_LOCALE);
         assertEquals("<script>alert(\"XSS vector\");</script>", canonicalizedXssVector);
         assertEquals(1, errorList.size());
         assertEquals("In field [fieldName] less-than (<) and greater-than (>) symbols are not allowed.",
@@ -91,7 +95,7 @@ public class UtilCodecTests {
             String... wantedMessages) {
         List<String> gottenMessages = new ArrayList<>();
         assertEquals(fixed, UtilCodec.checkStringForHtmlStrictNone(label, input, gottenMessages,
-                Locale.of("test")), label); // labels are not available in testClasses Gradle task
+                TEST_LOCALE), label);
         assertEquals(Arrays.asList(wantedMessages), gottenMessages, label);
     }
 
@@ -100,7 +104,7 @@ public class UtilCodecTests {
         String xssVector = "<script>alert('XSS vector');</script>";
         List<String> errorList = new ArrayList<>();
         String canonicalizedXssVector = UtilCodec.checkStringForHtmlSafe("fieldName", xssVector, errorList,
-                Locale.of("test"), true); // labels are not available in testClasses Gradle task
+                TEST_LOCALE, true);
         assertEquals("<script>alert('XSS vector');</script>", canonicalizedXssVector);
         assertEquals(1, errorList.size());
         assertEquals("In field [fieldName] by our input policy, your input has not been accepted for security reason. "

@@ -650,6 +650,7 @@ public final class TransactionUtil implements Status {
     // =======================================
     // TRANSACTION BEGIN STACK
     // =======================================
+    @SuppressWarnings("deprecation")
     private static void pushTransactionBeginStackSave(Exception e) {
         // use the ThreadLocal one because it is more reliable than the all threads Map
         List<Exception> el = transactionBeginStackSave.get();
@@ -660,7 +661,7 @@ public final class TransactionUtil implements Status {
         el.add(0, e);
 
         if (Debug.infoOn()) {
-            Long curThreadId = Thread.currentThread().threadId();
+            Long curThreadId = Thread.currentThread().getId();
             List<Exception> ctEl = allThreadsTransactionBeginStackSave.get(curThreadId);
             if (ctEl == null) {
                 ctEl = new LinkedList<>();
@@ -670,10 +671,11 @@ public final class TransactionUtil implements Status {
         }
     }
 
+    @SuppressWarnings("deprecation")
     private static Exception popTransactionBeginStackSave() {
         if (Debug.infoOn()) {
             // do the unofficial all threads Map one first, and don't do a real return
-            Long curThreadId = Thread.currentThread().threadId();
+            Long curThreadId = Thread.currentThread().getId();
             List<Exception> ctEl = allThreadsTransactionBeginStackSave.get(curThreadId);
             if (UtilValidate.isNotEmpty(ctEl)) {
                 ctEl.remove(0);
@@ -741,6 +743,7 @@ public final class TransactionUtil implements Status {
         setTransactionBeginStack(e);
     }
 
+    @SuppressWarnings("deprecation")
     private static void setTransactionBeginStack(Exception newExc) {
         if (transactionBeginStack.get() != null) {
             Exception e = transactionBeginStack.get();
@@ -751,14 +754,15 @@ public final class TransactionUtil implements Status {
         }
         transactionBeginStack.set(newExc);
         if (Debug.infoOn()) {
-            Long curThreadId = Thread.currentThread().threadId();
+            Long curThreadId = Thread.currentThread().getId();
             allThreadsTransactionBeginStack.put(curThreadId, newExc);
         }
     }
 
+    @SuppressWarnings("deprecation")
     private static Exception clearTransactionBeginStack() {
         if (Debug.infoOn()) {
-            Long curThreadId = Thread.currentThread().threadId();
+            Long curThreadId = Thread.currentThread().getId();
             allThreadsTransactionBeginStack.remove(curThreadId);
         }
         Exception e = transactionBeginStack.get();
