@@ -29,6 +29,7 @@ import java.io.OutputStream;
 import java.io.Reader;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.net.URI;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.LinkedList;
@@ -417,7 +418,7 @@ public final class UtilXml {
                 innerUrlStr = innerUrlStr.substring(0, bangIdx);
             }
             try {
-                urlHost = new URL(innerUrlStr).getHost();
+                urlHost = URI.create(innerUrlStr).toURL().getHost();
             } catch (java.net.MalformedURLException e) {
                 throw new IOException("Cannot determine host from jar URL: " + url);
             }
