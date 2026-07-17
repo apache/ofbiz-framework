@@ -19,8 +19,12 @@ under the License.
 
 <#macro renderField text><#if text??>"${text?replace("\"", "\"\"")}"</#if></#macro>
 
+<#global prependComma = false>
+
+<#macro renderComma><#if prependComma>,<#else><#global prependComma = true></#if></#macro>
+
 <#macro renderDisplayField type imageLocation idName description title class alert inPlaceEditorUrl="" inPlaceEditorParams="">
-<@renderField description />,<#rt/>
+<@renderField description /><#rt/>
 </#macro>
 <#macro renderHyperlinkField></#macro>
 
@@ -50,7 +54,7 @@ placeholder="" delegatorName="default"><@renderField value /></#macro>
 <#macro renderHiddenField name conditionGroup="" value="" id="" event="" action="" disabled=false></#macro>
 <#macro renderIgnoredField></#macro>
 
-<#macro renderFieldTitle style title id="" fieldHelpText="" for=""><@renderField title />,</#macro>
+<#macro renderFieldTitle style title id="" fieldHelpText="" for=""><@renderField title /></#macro>
 <#macro renderEmptyFormDataMessage message></#macro>
 <#macro renderSingleFormFieldTitle></#macro>
 
@@ -63,24 +67,24 @@ placeholder="" delegatorName="default"><@renderField value /></#macro>
 
 <#macro renderFormatHeaderOpen></#macro>
 <#macro renderFormatHeaderClose></#macro>
-<#macro renderFormatHeaderRowOpen style></#macro>
+<#macro renderFormatHeaderRowOpen style><#global prependComma = false></#macro>
 <#macro renderFormatHeaderRowClose>
 
 </#macro>
-<#macro renderFormatHeaderRowCellOpen style positionSpan></#macro>
+<#macro renderFormatHeaderRowCellOpen style positionSpan><@renderComma /></#macro>
 <#macro renderFormatHeaderRowCellClose></#macro>
 
-<#macro renderFormatHeaderRowFormCellOpen style> </#macro>
+<#macro renderFormatHeaderRowFormCellOpen style><@renderComma /></#macro>
 <#macro renderFormatHeaderRowFormCellClose></#macro>
 <#macro renderFormatHeaderRowFormCellTitleSeparator style isLast></#macro>
 
-<#macro renderFormatItemRowOpen formName itemIndex altRowStyles evenRowStyle oddRowStyle></#macro>
+<#macro renderFormatItemRowOpen formName itemIndex altRowStyles evenRowStyle oddRowStyle><#global prependComma = false></#macro>
 <#macro renderFormatItemRowClose formName>
 
 </#macro>
-<#macro renderFormatItemRowCellOpen fieldName style positionSpan></#macro>
+<#macro renderFormatItemRowCellOpen fieldName style positionSpan><@renderComma /></#macro>
 <#macro renderFormatItemRowCellClose fieldName></#macro>
-<#macro renderFormatItemRowFormCellOpen style></#macro>
+<#macro renderFormatItemRowFormCellOpen style><@renderComma /></#macro>
 <#macro renderFormatItemRowFormCellClose></#macro>
 
 <#macro renderFormatSingleWrapperOpen formName style></#macro>
@@ -122,7 +126,7 @@ placeholder="" delegatorName="default"><@renderField value /></#macro>
 <#macro renderAsterisks requiredField></#macro>
 <#macro makeHiddenFormLinkForm actionUrl name parameters targetWindow></#macro>
 <#macro makeHiddenFormLinkAnchor linkStyle hiddenFormName event action imgSrc description confirmation><@renderField description /></#macro>
-<#macro makeHyperlinkString hiddenFormName imgSrc imgTitle title alternate linkUrl description text="" linkStyle="" event="" action="" targetParameters="" targetWindow="" confirmation="" uniqueItemName="" height="" width="" id=""><@renderField description />,<#rt/></#macro>
+<#macro makeHyperlinkString hiddenFormName imgSrc imgTitle title alternate linkUrl description text="" linkStyle="" event="" action="" targetParameters="" targetWindow="" confirmation="" uniqueItemName="" height="" width="" id=""><@renderField description /><#rt/></#macro>
 <#macro renderDateRangePicker className alert id name value formName event action locale alwaysShowCalendars applyButtonClasses applyLabel autoApply buttonClasses cancelButtonClasses cancelLabel clearTitle
         drops linkedCalendars maxSpan maxYear minYear opens rangeLastMonthLabel rangeLastWeekLabel rangeNextMonthLabel rangeNextWeekLabel rangeThisMonthLabel rangeThisWeekLabel showDropdowns showIsoWeekNumbers showRanges showWeekNumbers
         singleDatePicker timePicker timePicker24Hour timePickerIncrement timePickerSeconds conditionGroup="" value2="" titleStyle="" tabindex=""></#macro>
