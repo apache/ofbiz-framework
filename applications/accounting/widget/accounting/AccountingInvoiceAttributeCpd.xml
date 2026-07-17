@@ -51,6 +51,9 @@ under the License.
                              <ws:screenlet title="${uiLabelMap.CommonAttributes}">
                                  <ws:include-grid name="InvoiceAttributes" location="component://accounting/widget/accounting/AccountingInvoiceAttributeCpd.xml"/>
                              </ws:screenlet>
+                             <ws:screenlet title="${uiLabelMap.CommonAdd} ${uiLabelMap.CommonAttributes}">
+                                 <ws:include-form name="AddInvoiceAttribute" location="component://accounting/widget/accounting/AccountingInvoiceAttributeCpd.xml"/>
+                             </ws:screenlet>
                          </ws:decorator-section>
                      </ws:decorator-screen>
                 </ws:widgets>
@@ -62,11 +65,27 @@ under the License.
 
     <wf:forms>
 
-        <wf:grid name="InvoiceAttributes" paginate-target="Accounting/Invoice/Attributes" list-name="invoiceAttributes"
-            odd-row-style="alternate-row" default-table-style="basic-table hover-bar"
-            extends="CommonDynamicGrid" extends-resource="component://common/widget/CommonForms.xml">
-            <wf:auto-fields-entity entity-name="InvoiceAttribute" default-field-type="display"/>
+        <wf:grid name="InvoiceAttributes" target="updateInvoiceAttribute" paginate-target="invoiceAttributes" list-name="invoiceAttributes"
+            odd-row-style="alternate-row" default-table-style="basic-table hover-bar" separate-columns="true">
+            <wf:auto-fields-entity entity-name="InvoiceAttribute" default-field-type="edit"/>
+            <wf:field name="invoiceId"><wf:hidden/></wf:field>
+            <wf:field name="attrName"><wf:display/></wf:field>
+            <wf:field name="submitButton" title="${uiLabelMap.CommonUpdate}"><wf:submit button-type="button"/></wf:field>
+            <wf:field name="deleteLink" title=" " widget-style="buttontext">
+                <wf:hyperlink description="${uiLabelMap.CommonDelete}" target="deleteInvoiceAttribute" also-hidden="false">
+                    <wf:parameter param-name="invoiceId"/>
+                    <wf:parameter param-name="attrName"/>
+                </wf:hyperlink>
+            </wf:field>
         </wf:grid>
+
+        <wf:form name="AddInvoiceAttribute" type="single" target="createInvoiceAttribute" title=""
+            header-row-style="header-row" default-table-style="basic-table">
+            <wf:auto-fields-entity entity-name="InvoiceAttribute" default-field-type="edit"/>
+            <wf:field name="invoiceId"><wf:hidden/></wf:field>
+            <wf:field name="attrName" required-field="true"></wf:field>
+            <wf:field name="submitButton" title="${uiLabelMap.CommonCreate}"><wf:submit button-type="button"/></wf:field>
+        </wf:form>
 
     </wf:forms>
 

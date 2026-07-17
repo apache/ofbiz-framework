@@ -183,6 +183,7 @@ public final class Config {
         }
     }
 
+    @SuppressWarnings("deprecation")
     private static Locale getDefaultLocale(Properties props, String defaultLocale) {
         String localeString = getProperty(props, "ofbiz.locale.default", defaultLocale);
         String locales[] = localeString.split("_");

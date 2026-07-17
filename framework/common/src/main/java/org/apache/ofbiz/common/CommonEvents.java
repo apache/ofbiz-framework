@@ -442,7 +442,7 @@ public class CommonEvents {
                     String cmd = (String) FlexibleStringExpander.getInstance(cmdTemplate).expand(sourceMap);
                     // run command
                     Debug.logInfo("Run command: " + cmd, MODULE);
-                    Process process = Runtime.getRuntime().exec(cmd);
+                    Process process = Runtime.getRuntime().exec(new String[]{cmd});
                     // print result
                     BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
                     String line = "";
