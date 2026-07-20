@@ -23,6 +23,7 @@ import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
@@ -334,7 +335,7 @@ public final class RestApiUtil {
      */
     static List<String> validateSortFields(String sortExpression, Set<String> allowedFields) {
         if (UtilValidate.isEmpty(sortExpression)) {
-            return List.of();
+            return Collections.emptyList();
         }
 
         List<String> validatedFields = new ArrayList<>();
@@ -368,7 +369,7 @@ public final class RestApiUtil {
      */
     static Map<String, Object> validateFilterParameters(Map<String, ?> filters, Set<String> allowedFields) {
         if (UtilValidate.isEmpty(filters)) {
-            return Map.of();
+            return Collections.emptyMap();
         }
 
         Map<String, Object> validatedFilters = new LinkedHashMap<>();
@@ -468,7 +469,7 @@ public final class RestApiUtil {
 
     @SuppressWarnings("unchecked")
     private static Map<String, Object> castLinkMap(Object value) {
-        return value instanceof Map<?, ?> ? (Map<String, Object>) value : Map.of();
+        return value instanceof Map<?, ?> ? (Map<String, Object>) value : Collections.emptyMap();
     }
 
     private static String encodeQueryValue(String value) {

@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilValidate;
 
 /**
@@ -146,19 +147,19 @@ public final class RestListResponseBuilder {
         }
 
         long totalPages = getTotalPages();
-        links.put("self", RestApiUtil.makeLinkMap(buildPageHref(basePath, pageIndex), Map.of("rel", "self")));
+        links.put("self", RestApiUtil.makeLinkMap(buildPageHref(basePath, pageIndex), UtilMisc.toMap("rel", "self")));
         if (totalPages > 0) {
-            links.put("first", RestApiUtil.makeLinkMap(buildPageHref(basePath, 0), Map.of("rel", "first")));
+            links.put("first", RestApiUtil.makeLinkMap(buildPageHref(basePath, 0), UtilMisc.toMap("rel", "first")));
             if (pageIndex > 0) {
-                links.put("prev", RestApiUtil.makeLinkMap(buildPageHref(basePath, pageIndex - 1), Map.of("rel", "prev")));
+                links.put("prev", RestApiUtil.makeLinkMap(buildPageHref(basePath, pageIndex - 1), UtilMisc.toMap("rel", "prev")));
             }
             Integer nextPageIndex = getNextPageIndex();
             if (hasNext() && nextPageIndex != null) {
-                links.put("next", RestApiUtil.makeLinkMap(buildPageHref(basePath, nextPageIndex), Map.of("rel", "next")));
+                links.put("next", RestApiUtil.makeLinkMap(buildPageHref(basePath, nextPageIndex), UtilMisc.toMap("rel", "next")));
             }
             Integer lastPageIndex = getLastPageIndex();
             if (lastPageIndex != null) {
-                links.put("last", RestApiUtil.makeLinkMap(buildPageHref(basePath, lastPageIndex), Map.of("rel", "last")));
+                links.put("last", RestApiUtil.makeLinkMap(buildPageHref(basePath, lastPageIndex), UtilMisc.toMap("rel", "last")));
             }
         }
         return links;
