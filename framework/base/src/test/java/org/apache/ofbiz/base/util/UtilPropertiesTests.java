@@ -35,6 +35,7 @@ public class UtilPropertiesTests {
 
     private static final String COUNTRY = "AU";
     private static final String LANGUAGE = "en";
+    @SuppressWarnings("deprecation")
     private final Locale locale = new Locale(LANGUAGE, COUNTRY);
 
     /**

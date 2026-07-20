@@ -550,6 +550,7 @@ public final class UtilMisc {
      * @param localeString The locale string (en_US)
      * @return Locale The new Locale object or null if no valid locale can be interpreted
      */
+    @SuppressWarnings("deprecation")
     public static Locale parseLocale(String localeString) {
         if (UtilValidate.isEmpty(localeString)) {
             return null;

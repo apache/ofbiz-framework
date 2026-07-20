@@ -650,6 +650,7 @@ public final class TransactionUtil implements Status {
     // =======================================
     // TRANSACTION BEGIN STACK
     // =======================================
+    @SuppressWarnings("deprecation")
     private static void pushTransactionBeginStackSave(Exception e) {
         // use the ThreadLocal one because it is more reliable than the all threads Map
         List<Exception> el = transactionBeginStackSave.get();
@@ -670,6 +671,7 @@ public final class TransactionUtil implements Status {
         }
     }
 
+    @SuppressWarnings("deprecation")
     private static Exception popTransactionBeginStackSave() {
         if (Debug.infoOn()) {
             // do the unofficial all threads Map one first, and don't do a real return
@@ -741,6 +743,7 @@ public final class TransactionUtil implements Status {
         setTransactionBeginStack(e);
     }
 
+    @SuppressWarnings("deprecation")
     private static void setTransactionBeginStack(Exception newExc) {
         if (transactionBeginStack.get() != null) {
             Exception e = transactionBeginStack.get();
@@ -756,6 +759,7 @@ public final class TransactionUtil implements Status {
         }
     }
 
+    @SuppressWarnings("deprecation")
     private static Exception clearTransactionBeginStack() {
         if (Debug.infoOn()) {
             Long curThreadId = Thread.currentThread().getId();

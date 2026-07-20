@@ -30,6 +30,15 @@ permissions:
 
 jobs:
   build:
+    # trunk builds sourceCompatibility/targetCompatibility 17 bytecode (see build.gradle),
+    # but is matrix-tested on both the JDK 17 runtime it targets and the JDK 21 runtime
+    # it may adopt later. release* branches stay JDK 17 only until they make that same move,
+    # since trunk fixes must stay backportable to them.
+    if: ${{ !(matrix.java == 21 && ((github.event_name == 'push' && startsWith(github.ref_name, 'release')) || (github.event_name == 'pull_request' && startsWith(github.base_ref, 'release')))) }}
+    strategy:
+      fail-fast: false
+      matrix:
+        java: [ 17, 21 ]
 
     runs-on: ubuntu-latest
 
@@ -40,10 +49,10 @@ jobs:
     - name: Check out OFBiz sources
       uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
 
-    - name: Set up JDK 17
-      uses: actions/setup-java@0f481fcb613427c0f801b606911222b5b6f3083a # v5.5.0
+    - name: Set up JDK ${{ matrix.java }}
+      uses: actions/setup-java@03ad4de0992f5dab5e18fcb136590ce7c4a0ac95 # v5.6.0
       with:
-        java-version: 17
+        java-version: ${{ matrix.java }}
         distribution: temurin
         cache: 'gradle'
 

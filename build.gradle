@@ -120,9 +120,16 @@ application {
     mainClass = 'org.apache.ofbiz.base.start.Start'
     applicationDefaultJvmArgs = project.hasProperty('jvmArgs')
             ? jvmArgs.tokenize()
-            : ['-Xms128M','-Xmx1024M',
+            : ['-Xms128M', '-Xmx1024M',
             '-Djdk.serialFilter=maxarray=100000;maxdepth=20;maxrefs=1000;maxbytes=500000', // OFBIZ-12592 and OFBIZ-12716
-            '--add-opens=java.base/java.util=ALL-UNNAMED' // OFBIZ-12726
+            // Required for embedded Tomcat 10.1 and libraries (Groovy 5, Spring 6) under Java 17+ strong encapsulation
+            '--add-opens=java.base/java.lang=ALL-UNNAMED',
+            '--add-opens=java.base/java.io=ALL-UNNAMED',
+            '--add-opens=java.base/java.util=ALL-UNNAMED',         // OFBIZ-12726
+            '--add-opens=java.base/java.util.concurrent=ALL-UNNAMED',
+            '--add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED',
+            // Allow libraries using the stable Foreign Function & Memory API (Apache SSHD, Tika)
+            '--enable-native-access=ALL-UNNAMED',
             ]
 }
 
@@ -163,6 +170,12 @@ tasks.withType(JavaCompile) {
         options.compilerArgs << '-Xlint:all'
         // Exclude varargs warnings which are not silenced by @SafeVarargs.
         options.compilerArgs << '-Xlint:-varargs'
+        // this-escape lint was introduced in JDK 21's javac and is an invalid flag on JDK 17,
+        // so only pass it when compiling with a JDK that recognizes it.
+        if (JavaVersion.current().isCompatibleWith(JavaVersion.VERSION_21)) {
+            // Exclude this-escape warnings pending proper refactoring of widget/service classes.
+            options.compilerArgs << '-Xlint:-this-escape'
+        }
     }
 }
 
@@ -370,6 +383,10 @@ tasks.eclipse.dependsOn(cleanEclipse)
 test {
     useJUnitPlatform()
     jvmArgs "-javaagent:${classpath.find { it.name.contains('jmockit') }.absolutePath}"
+    // Required for JMockit instrumentation, Mockito, and Spring Test under Java 21
+    jvmArgs '--add-opens=java.base/java.lang=ALL-UNNAMED'
+    jvmArgs '--add-opens=java.base/java.lang.reflect=ALL-UNNAMED'
+    jvmArgs '--enable-native-access=ALL-UNNAMED'
     testLogging {
         events "passed", "skipped", "failed"
     }

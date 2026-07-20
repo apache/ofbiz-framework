@@ -752,6 +752,7 @@ public final class UtilProperties implements Serializable {
      * a list containing <code>en_US</code> and <code>en</code>.
      * @return A list of candidate locales.
      */
+    @SuppressWarnings("deprecation")
     public static List<Locale> localeToCandidateList(Locale locale) {
         List<Locale> localeList = new LinkedList<>();
         localeList.add(locale);
