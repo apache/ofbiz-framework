@@ -25,6 +25,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -339,6 +340,7 @@ public final class RestApiUtil {
         }
 
         List<String> validatedFields = new ArrayList<>();
+        Set<String> seenFields = new HashSet<>();
         for (String token : sortExpression.split(",", -1)) {
             String candidate = token.trim();
             if (UtilValidate.isEmpty(candidate)) {
@@ -349,6 +351,9 @@ public final class RestApiUtil {
             }
 
             String normalizedField = candidate.startsWith("-") ? candidate.substring(1) : candidate;
+            if (!seenFields.add(normalizedField)) {
+                throw new IllegalArgumentException("Duplicate sort field: " + normalizedField);
+            }
             if (UtilValidate.isNotEmpty(allowedFields) && !allowedFields.contains(normalizedField)) {
                 throw new IllegalArgumentException("Unsupported sort field: " + normalizedField);
             }
@@ -368,6 +373,24 @@ public final class RestApiUtil {
      * @throws IllegalArgumentException when a filter field is unsupported
      */
     static Map<String, Object> validateFilterParameters(Map<String, ?> filters, Set<String> allowedFields) {
+        return validateFilterParameters(filters, allowedFields, null, null);
+    }
+
+    /**
+     * Validates candidate direct filter parameters against optional endpoint-defined
+     * policies while preserving insertion order.
+     *
+     * @param filters the candidate filter parameters collected from the request
+     * @param allowedFields the endpoint-supported filter fields, or
+     *        {@code null}/empty to skip field-level validation
+     * @param repeatableFields the fields allowed to appear more than once, or
+     *        {@code null}/empty to reject repeated values for all fields
+     * @param valueValidators optional per-field validators for scalar or repeated values
+     * @return the validated filter parameters in insertion order
+     * @throws IllegalArgumentException when a filter field or value is invalid
+     */
+    static Map<String, Object> validateFilterParameters(Map<String, ?> filters, Set<String> allowedFields,
+            Set<String> repeatableFields, Map<String, FilterValueValidator> valueValidators) {
         if (UtilValidate.isEmpty(filters)) {
             return Collections.emptyMap();
         }
@@ -380,6 +403,7 @@ public final class RestApiUtil {
             if (UtilValidate.isNotEmpty(allowedFields) && !allowedFields.contains(entry.getKey())) {
                 throw new IllegalArgumentException("Unsupported filter field: " + entry.getKey());
             }
+            validateFilterValues(entry.getKey(), entry.getValue(), repeatableFields, valueValidators);
             validatedFilters.put(entry.getKey(), entry.getValue());
         }
         return validatedFilters;
@@ -472,12 +496,52 @@ public final class RestApiUtil {
         return value instanceof Map<?, ?> ? (Map<String, Object>) value : Collections.emptyMap();
     }
 
+    private static void validateFilterValues(String fieldName, Object value, Set<String> repeatableFields,
+            Map<String, FilterValueValidator> valueValidators) {
+        if (value instanceof List<?> values) {
+            if (values.size() > 1 && (UtilValidate.isEmpty(repeatableFields) || !repeatableFields.contains(fieldName))) {
+                throw new IllegalArgumentException("Filter parameter does not support repeated values: " + fieldName);
+            }
+            for (Object item : values) {
+                validateFilterValue(fieldName, item, valueValidators);
+            }
+            return;
+        }
+        validateFilterValue(fieldName, value, valueValidators);
+    }
+
+    private static void validateFilterValue(String fieldName, Object value, Map<String, FilterValueValidator> valueValidators) {
+        if (UtilValidate.isEmpty(value) || UtilValidate.isEmpty(valueValidators)) {
+            return;
+        }
+        FilterValueValidator validator = valueValidators.get(fieldName);
+        if (validator != null) {
+            validator.validate(fieldName, value);
+        }
+    }
+
     private static String encodeQueryValue(String value) {
         try {
             return URLEncoder.encode(value, StandardCharsets.UTF_8.name()).replace("+", "%20");
         } catch (UnsupportedEncodingException e) {
             throw new IllegalStateException("UTF-8 must always be available", e);
         }
+    }
+
+    /**
+     * Validates the direct query-parameter values accepted for a filter field.
+     */
+    @FunctionalInterface
+    public interface FilterValueValidator {
+
+        /**
+         * Validates a single filter value for the given field.
+         *
+         * @param fieldName the filter field name
+         * @param value the direct request value to validate
+         * @throws IllegalArgumentException when the value is not supported
+         */
+        void validate(String fieldName, Object value);
     }
 
     /**

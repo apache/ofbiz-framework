@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.ofbiz.base.util.UtilMisc;
 import org.junit.jupiter.api.Test;
 
 import jakarta.ws.rs.core.Response;
@@ -71,6 +72,14 @@ public final class RestApiUtilPaginationTest {
     }
 
     @Test
+    public void rejectsDuplicateSortFields() {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+                () -> RestApiUtil.validateSortFields("fieldOne,-fieldOne", Set.of("fieldOne", "fieldTwo")));
+
+        assertEquals("Duplicate sort field: fieldOne", exception.getMessage());
+    }
+
+    @Test
     public void serializesAvailableRelationsAsHttpLinkHeader() {
         Map<String, Object> links = new LinkedHashMap<>();
         links.put("first", RestApiUtil.makeLinkMap("/rest/items?pageIndex=0&pageSize=20", Map.of("rel", "first")));
@@ -122,6 +131,41 @@ public final class RestApiUtilPaginationTest {
                         Map.of("filterOne", "valueOne", "filterThree", "valueThree"), Set.of("filterOne", "filterTwo")));
 
         assertEquals("Unsupported filter field: filterThree", exception.getMessage());
+    }
+
+    @Test
+    public void rejectsRepeatedFilterValuesWhenFieldIsNotRepeatable() {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+                () -> RestApiUtil.validateFilterParameters(
+                        UtilMisc.toMap("statusId", List.of("PRUN_CREATED", "PRUN_RUNNING")),
+                        Set.of("statusId"), null, null));
+
+        assertEquals("Filter parameter does not support repeated values: statusId", exception.getMessage());
+    }
+
+    @Test
+    public void preservesRepeatedFilterValuesWhenFieldIsRepeatable() {
+        Map<String, Object> validatedFilters = RestApiUtil.validateFilterParameters(
+                UtilMisc.toMap("statusId", List.of("PRUN_CREATED", "PRUN_RUNNING")),
+                Set.of("statusId"), Set.of("statusId"), null);
+
+        assertEquals(List.of("PRUN_CREATED", "PRUN_RUNNING"), validatedFilters.get("statusId"));
+    }
+
+    @Test
+    public void rejectsInvalidFilterValueFormatWhenValidatorProvided() {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+                () -> RestApiUtil.validateFilterParameters(
+                        UtilMisc.toMap("pageSizeHint", "abc"),
+                        Set.of("pageSizeHint"),
+                        null,
+                        UtilMisc.toMap("pageSizeHint", (RestApiUtil.FilterValueValidator) (fieldName, value) -> {
+                            if (UtilMisc.toIntegerObject(value) == null) {
+                                throw new IllegalArgumentException("Invalid integer value for filter field: " + fieldName);
+                            }
+                        })));
+
+        assertEquals("Invalid integer value for filter field: pageSizeHint", exception.getMessage());
     }
 
     @Test

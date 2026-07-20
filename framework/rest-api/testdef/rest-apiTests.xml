@@ -33,4 +33,7 @@ under the License.
     <test-case case-name="rest-collection-response-tests">
         <junit-test-suite class-name="org.apache.ofbiz.ws.rs.util.RestListResponseBuilderTest"/>
     </test-case>
+    <test-case case-name="rest-global-exception-mapper-tests">
+        <junit-test-suite class-name="org.apache.ofbiz.ws.rs.spi.impl.GlobalExceptionMapperTest"/>
+    </test-case>
 </test-suite>
