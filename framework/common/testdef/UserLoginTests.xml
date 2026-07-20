@@ -22,8 +22,6 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/test-suite.xsd">
 
-    <test-case case-name="userlogin-tests">
-        <simple-method-test location="component://common/minilang/test/UserLoginTests.xml"/>
-    </test-case>
+    <test-case case-name="userlogin-tests"><junit-test-suite class-name="org.apache.ofbiz.common.test.UserLoginTests"/></test-case>
 
 </test-suite>
