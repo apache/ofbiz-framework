@@ -32,6 +32,13 @@ public final class RestApiUtilPaginationTest {
     }
 
     @Test
+    public void validatesSortSyntaxWithoutAllowlist() {
+        List<String> validatedFields = RestApiUtil.validateSortFields("fieldOne,-fieldFour", null);
+
+        assertEquals(List.of("fieldOne", "-fieldFour"), validatedFields);
+    }
+
+    @Test
     public void rejectsMalformedSortExpressionsWithEmptySegments() {
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
                 () -> RestApiUtil.validateSortFields("fieldOne,,fieldTwo", Set.of("fieldOne", "fieldTwo")));
@@ -90,6 +97,31 @@ public final class RestApiUtilPaginationTest {
     public void returnsNullLinkHeaderWhenNoRelationsAvailable() {
         assertNull(RestApiUtil.toLinkHeaderValue(null));
         assertNull(RestApiUtil.toLinkHeaderValue(Map.of()));
+    }
+
+    @Test
+    public void validatesAllowedFilterFields() {
+        Map<String, Object> validatedFilters = RestApiUtil.validateFilterParameters(
+                Map.of("filterOne", "valueOne", "filterTwo", "valueTwo"), Set.of("filterOne", "filterTwo"));
+
+        assertEquals(Map.of("filterOne", "valueOne", "filterTwo", "valueTwo"), validatedFilters);
+    }
+
+    @Test
+    public void preservesFiltersWhenAllowlistMissing() {
+        Map<String, Object> validatedFilters = RestApiUtil.validateFilterParameters(
+                Map.of("filterOne", "valueOne", "filterThree", "valueThree"), null);
+
+        assertEquals(Map.of("filterOne", "valueOne", "filterThree", "valueThree"), validatedFilters);
+    }
+
+    @Test
+    public void rejectsUnsupportedFilterFields() {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+                () -> RestApiUtil.validateFilterParameters(
+                        Map.of("filterOne", "valueOne", "filterThree", "valueThree"), Set.of("filterOne", "filterTwo")));
+
+        assertEquals("Unsupported filter field: filterThree", exception.getMessage());
     }
 
     @Test

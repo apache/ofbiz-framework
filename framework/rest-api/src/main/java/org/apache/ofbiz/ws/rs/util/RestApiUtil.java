@@ -327,16 +327,14 @@ public final class RestApiUtil {
      * allowed for sorting and returns the accepted normalized tokens in order.
      *
      * @param sortExpression the requested sort expression
-     * @param allowedFields the endpoint-supported sortable fields
+     * @param allowedFields the endpoint-supported sortable fields, or
+     *        {@code null}/empty to apply syntax-only validation
      * @return the validated sort tokens, or an empty list when no sort was requested
-     * @throws IllegalArgumentException when no allowlist is configured or a field is unsupported
+     * @throws IllegalArgumentException when a token is malformed or a field is unsupported
      */
     static List<String> validateSortFields(String sortExpression, Set<String> allowedFields) {
         if (UtilValidate.isEmpty(sortExpression)) {
             return List.of();
-        }
-        if (UtilValidate.isEmpty(allowedFields)) {
-            throw new IllegalArgumentException("No supported sort fields are configured for this endpoint");
         }
 
         List<String> validatedFields = new ArrayList<>();
@@ -350,12 +348,40 @@ public final class RestApiUtil {
             }
 
             String normalizedField = candidate.startsWith("-") ? candidate.substring(1) : candidate;
-            if (!allowedFields.contains(normalizedField)) {
+            if (UtilValidate.isNotEmpty(allowedFields) && !allowedFields.contains(normalizedField)) {
                 throw new IllegalArgumentException("Unsupported sort field: " + normalizedField);
             }
             validatedFields.add(candidate);
         }
         return validatedFields;
+    }
+
+    /**
+     * Validates candidate filter parameters against an optional endpoint-defined
+     * allowlist while preserving insertion order.
+     *
+     * @param filters the candidate filter parameters collected from the request
+     * @param allowedFields the endpoint-supported filter fields, or
+     *        {@code null}/empty to skip field-level validation
+     * @return the validated filter parameters in insertion order
+     * @throws IllegalArgumentException when a filter field is unsupported
+     */
+    static Map<String, Object> validateFilterParameters(Map<String, ?> filters, Set<String> allowedFields) {
+        if (UtilValidate.isEmpty(filters)) {
+            return Map.of();
+        }
+
+        Map<String, Object> validatedFilters = new LinkedHashMap<>();
+        for (Map.Entry<String, ?> entry : filters.entrySet()) {
+            if (UtilValidate.isEmpty(entry.getKey()) || UtilValidate.isEmpty(entry.getValue())) {
+                continue;
+            }
+            if (UtilValidate.isNotEmpty(allowedFields) && !allowedFields.contains(entry.getKey())) {
+                throw new IllegalArgumentException("Unsupported filter field: " + entry.getKey());
+            }
+            validatedFilters.put(entry.getKey(), entry.getValue());
+        }
+        return validatedFilters;
     }
 
     /**
