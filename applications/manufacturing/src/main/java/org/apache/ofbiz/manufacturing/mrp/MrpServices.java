@@ -199,7 +199,8 @@ public class MrpServices {
             }
             parameters = UtilMisc.toMap("mrpId", mrpId, "productId", productId, "eventDate", requiredByDate, "mrpEventTypeId", "SALES_ORDER_SHIP");
             try {
-                InventoryEventPlannedServices.createOrUpdateMrpEvent(parameters, eventQuantityTmp, null,
+                String salesOrderFacilityId = genericResult.getString("facilityId");
+                InventoryEventPlannedServices.createOrUpdateMrpEvent(parameters, eventQuantityTmp, salesOrderFacilityId,
                         genericResult.getString("orderId") + "-" + genericResult.getString("orderItemSeqId"), false, delegator);
             } catch (GenericEntityException e) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpEventProblemInitializing", UtilMisc.toMap(
@@ -231,8 +232,9 @@ public class MrpServices {
 
             parameters = UtilMisc.toMap("mrpId", mrpId, "productId", productId, "eventDate", estimatedShipDate, "mrpEventTypeId", "PROD_REQ_RECP");
             try {
-                InventoryEventPlannedServices.createOrUpdateMrpEvent(parameters, eventQuantityTmp, null, genericResult.getString("requirementId"),
-                        false, delegator);
+                String requirementFacilityId = genericResult.getString("facilityId");
+                InventoryEventPlannedServices.createOrUpdateMrpEvent(parameters, eventQuantityTmp, requirementFacilityId,
+                        genericResult.getString("requirementId"), false, delegator);
             } catch (GenericEntityException e) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpEventProblemInitializing", UtilMisc.toMap(
                         "mrpEventTypeId", "PROD_REQ_RECP"), locale));
@@ -309,7 +311,8 @@ public class MrpServices {
 
                 parameters = UtilMisc.toMap("mrpId", mrpId, "productId", productId, "eventDate", estimatedShipDate, "mrpEventTypeId",
                         "PUR_ORDER_RECP");
-                InventoryEventPlannedServices.createOrUpdateMrpEvent(parameters, shipGroupQuantity, null,
+                String purchaseOrderFacilityId = UtilValidate.isNotEmpty(facilityId) ? facilityId : null;
+                InventoryEventPlannedServices.createOrUpdateMrpEvent(parameters, shipGroupQuantity, purchaseOrderFacilityId,
                         genericResult.getString("orderId") + "-" + genericResult.getString("orderItemSeqId"), false, delegator);
             } catch (GenericEntityException e) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpEventProblemInitializing", UtilMisc.toMap(
@@ -351,7 +354,9 @@ public class MrpServices {
                         "MANUF_ORDER_REQ");
                 String eventName = (UtilValidate.isEmpty(genericResult.getString("workEffortParentId")) ? genericResult.getString("workEffortId")
                         : genericResult.getString("workEffortParentId") + "-" + genericResult.getString("workEffortId"));
-                InventoryEventPlannedServices.createOrUpdateMrpEvent(parameters, eventQuantityTmp, null, eventName, false, delegator);
+                String productionFacilityId = genericResult.getString("facilityId");
+                InventoryEventPlannedServices.createOrUpdateMrpEvent(parameters, eventQuantityTmp, productionFacilityId, eventName, false,
+                        delegator);
             }
         } catch (GenericEntityException e) {
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpEventProblemInitializing", UtilMisc.toMap(
@@ -395,8 +400,9 @@ public class MrpServices {
 
                 parameters = UtilMisc.toMap("mrpId", mrpId, "productId", productId, "eventDate", estimatedShipDate, "mrpEventTypeId",
                         "MANUF_ORDER_RECP");
-                InventoryEventPlannedServices.createOrUpdateMrpEvent(parameters, eventQuantityTmp, null, genericResult.getString("workEffortId"),
-                        false, delegator);
+                String productionFacilityId = genericResult.getString("facilityId");
+                InventoryEventPlannedServices.createOrUpdateMrpEvent(parameters, eventQuantityTmp, productionFacilityId,
+                        genericResult.getString("workEffortId"), false, delegator);
             }
         } catch (GenericEntityException e) {
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpEventProblemInitializing", UtilMisc.toMap(
@@ -437,7 +443,8 @@ public class MrpServices {
             }
             parameters = UtilMisc.toMap("mrpId", mrpId, "productId", productId, "eventDate", now, "mrpEventTypeId", "REQUIRED_MRP");
             try {
-                InventoryEventPlannedServices.createOrUpdateMrpEvent(parameters, BigDecimal.ZERO, null, null, false, delegator);
+                String productFacilityId = genericResult.getString("facilityId");
+                InventoryEventPlannedServices.createOrUpdateMrpEvent(parameters, BigDecimal.ZERO, productFacilityId, null, false, delegator);
             } catch (GenericEntityException e) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpEventProblemInitializing", UtilMisc.toMap(
                         "mrpEventTypeId", "REQUIRED_MRP"), locale));
@@ -537,7 +544,7 @@ public class MrpServices {
             }
         } catch (GenericServiceException e) {
             Debug.logError(e, "Error calling getProductInventoryAvailableByFacility service", MODULE);
-            logMrpError(mrpId, productId, "Unable to count inventory", delegator);
+            logMrpError(mrpId, productId, facilityId, "Unable to count inventory", delegator);
             return BigDecimal.ZERO;
         }
         return ((BigDecimal) resultMap.get("quantityOnHandTotal"));
@@ -579,16 +586,26 @@ public class MrpServices {
     }
 
     public static void logMrpError(String mrpId, String productId, String errorMessage, Delegator delegator) {
-        logMrpError(mrpId, productId, UtilDateTime.nowTimestamp(), errorMessage, delegator);
+        logMrpError(mrpId, productId, null, UtilDateTime.nowTimestamp(), errorMessage, delegator);
+    }
+
+    public static void logMrpError(String mrpId, String productId, String facilityId, String errorMessage, Delegator delegator) {
+        logMrpError(mrpId, productId, facilityId, UtilDateTime.nowTimestamp(), errorMessage, delegator);
     }
 
     public static void logMrpError(String mrpId, String productId, Timestamp eventDate, String errorMessage, Delegator delegator) {
+        logMrpError(mrpId, productId, null, eventDate, errorMessage, delegator);
+    }
+
+    public static void logMrpError(String mrpId, String productId, String facilityId, Timestamp eventDate, String errorMessage,
+            Delegator delegator) {
         try {
             if (UtilValidate.isNotEmpty(productId) && UtilValidate.isNotEmpty(errorMessage)) {
                 GenericValue inventoryEventError = delegator.makeValue("MrpEvent", UtilMisc.toMap("productId", productId,
                         "mrpId", mrpId,
                         "eventDate", eventDate,
                         "mrpEventTypeId", "ERROR",
+                        "facilityId", facilityId,
                         "eventName", errorMessage));
                 delegator.createOrStore(inventoryEventError);
             }
@@ -609,7 +626,7 @@ public class MrpServices {
      */
 
     public static void processBomComponent(String mrpId, GenericValue product, BigDecimal eventQuantity, Timestamp startDate,
-                                           Map<String, Object> routingTaskStartDate, List<BOMNode> listComponent) {
+                                           Map<String, Object> routingTaskStartDate, List<BOMNode> listComponent, String facilityId) {
         // TODO : change the return type to boolean to be able to test if all is ok or if it have had a exception
         Delegator delegator = product.getDelegator();
 
@@ -628,11 +645,12 @@ public class MrpServices {
                     parameters.put("mrpEventTypeId", "MRP_REQUIREMENT");
                     BigDecimal componentEventQuantity = node.getQuantity();
                     try {
-                        InventoryEventPlannedServices.createOrUpdateMrpEvent(parameters, componentEventQuantity.negate(), null, product.get(
+                        InventoryEventPlannedServices.createOrUpdateMrpEvent(parameters, componentEventQuantity.negate(), facilityId, product.get(
                                 "productId") + ": " + eventDate, false, delegator);
                     } catch (GenericEntityException e) {
                         Debug.logError("Error : findOne(\"MrpEvent\", parameters) =" + parameters + "--" + e.getMessage(), MODULE);
-                        logMrpError(mrpId, node.getProduct().getString("productId"), "Unable to create event (processBomComponent)", delegator);
+                        logMrpError(mrpId, node.getProduct().getString("productId"), facilityId,
+                                "Unable to create event (processBomComponent)", delegator);
                     }
                 }
             }
@@ -897,7 +915,7 @@ public class MrpServices {
                         if (isBuilt) {
                             // process the product components
                             processBomComponent(mrpId, product, proposedOrder.getQuantity(), proposedOrder.getRequirementStartDate(),
-                                    routingTaskStartDate, components);
+                                    routingTaskStartDate, components, manufacturingFacilityId);
                         }
                         // create the  ProposedOrder (only if the product is warehouse managed), and the MrpEvent associated
                         String requirementId = null;
@@ -905,8 +923,8 @@ public class MrpServices {
                             requirementId = proposedOrder.create(ctx, userLogin);
                         }
                         if (UtilValidate.isEmpty(productFacility) && !isBuilt) {
-                            logMrpError(mrpId, productId, now, "No ProductFacility record for [" + facilityId + "]; no requirement created.",
-                                    delegator);
+                            logMrpError(mrpId, productId, facilityId, now, "No ProductFacility record for [" + facilityId
+                                    + "]; no requirement created.", delegator);
                         }
                         String eventName = null;
                         if (UtilValidate.isNotEmpty(requirementId)) {
@@ -916,8 +934,9 @@ public class MrpServices {
                                 "mrpId", mrpId,
                                 "eventDate", eventDate,
                                 "mrpEventTypeId", (isBuilt ? "PROP_MANUF_O_RECP" : "PROP_PUR_O_RECP"));
+                        String eventFacilityId = isBuilt ? manufacturingFacilityId : facilityId;
                         try {
-                            InventoryEventPlannedServices.createOrUpdateMrpEvent(eventMap, proposedOrder.getQuantity(), null,
+                            InventoryEventPlannedServices.createOrUpdateMrpEvent(eventMap, proposedOrder.getQuantity(), eventFacilityId,
                                     eventName, (proposedOrder.getRequirementStartDate().compareTo(now) < 0), delegator);
                         } catch (GenericEntityException e) {
                             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpCreateOrUpdateEvent",
