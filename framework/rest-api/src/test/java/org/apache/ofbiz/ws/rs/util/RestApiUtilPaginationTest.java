@@ -26,8 +26,8 @@ public final class RestApiUtilPaginationTest {
 
     @Test
     public void rejectsUnsupportedSortFields() {
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-                () -> RestApiUtil.validateSortFields("fieldFour", Set.of("fieldOne", "fieldTwo")));
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () ->
+                RestApiUtil.validateSortFields("fieldFour", Set.of("fieldOne", "fieldTwo")));
 
         assertEquals("Unsupported sort field: fieldFour", exception.getMessage());
     }
@@ -41,40 +41,40 @@ public final class RestApiUtilPaginationTest {
 
     @Test
     public void rejectsMalformedSortExpressionsWithEmptySegments() {
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-                () -> RestApiUtil.validateSortFields("fieldOne,,fieldTwo", Set.of("fieldOne", "fieldTwo")));
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () ->
+                RestApiUtil.validateSortFields("fieldOne,,fieldTwo", Set.of("fieldOne", "fieldTwo")));
 
         assertEquals("Sort expression contains an empty field", exception.getMessage());
     }
 
     @Test
     public void rejectsMalformedSortExpressionsWithTrailingEmptySegment() {
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-                () -> RestApiUtil.validateSortFields("fieldOne,", Set.of("fieldOne", "fieldTwo")));
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () ->
+                RestApiUtil.validateSortFields("fieldOne,", Set.of("fieldOne", "fieldTwo")));
 
         assertEquals("Sort expression contains an empty field", exception.getMessage());
     }
 
     @Test
     public void rejectsMalformedSortExpressionsWithMultipleTrailingEmptySegments() {
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-                () -> RestApiUtil.validateSortFields("fieldOne,,", Set.of("fieldOne", "fieldTwo")));
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () ->
+                RestApiUtil.validateSortFields("fieldOne,,", Set.of("fieldOne", "fieldTwo")));
 
         assertEquals("Sort expression contains an empty field", exception.getMessage());
     }
 
     @Test
     public void rejectsMalformedSortExpressionsWithBareDescendingPrefix() {
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-                () -> RestApiUtil.validateSortFields("-", Set.of("fieldOne", "fieldTwo")));
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () ->
+                RestApiUtil.validateSortFields("-", Set.of("fieldOne", "fieldTwo")));
 
         assertEquals("Sort expression contains a malformed field", exception.getMessage());
     }
 
     @Test
     public void rejectsDuplicateSortFields() {
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-                () -> RestApiUtil.validateSortFields("fieldOne,-fieldOne", Set.of("fieldOne", "fieldTwo")));
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () ->
+                RestApiUtil.validateSortFields("fieldOne,-fieldOne", Set.of("fieldOne", "fieldTwo")));
 
         assertEquals("Duplicate sort field: fieldOne", exception.getMessage());
     }
@@ -126,8 +126,8 @@ public final class RestApiUtilPaginationTest {
 
     @Test
     public void rejectsUnsupportedFilterFields() {
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-                () -> RestApiUtil.validateFilterParameters(
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () ->
+                RestApiUtil.validateFilterParameters(
                         Map.of("filterOne", "valueOne", "filterThree", "valueThree"), Set.of("filterOne", "filterTwo")));
 
         assertEquals("Unsupported filter field: filterThree", exception.getMessage());
@@ -135,8 +135,8 @@ public final class RestApiUtilPaginationTest {
 
     @Test
     public void rejectsRepeatedFilterValuesWhenFieldIsNotRepeatable() {
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-                () -> RestApiUtil.validateFilterParameters(
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () ->
+                RestApiUtil.validateFilterParameters(
                         UtilMisc.toMap("statusId", List.of("PRUN_CREATED", "PRUN_RUNNING")),
                         Set.of("statusId"), null, null));
 
@@ -154,8 +154,8 @@ public final class RestApiUtilPaginationTest {
 
     @Test
     public void rejectsInvalidFilterValueFormatWhenValidatorProvided() {
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-                () -> RestApiUtil.validateFilterParameters(
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () ->
+                RestApiUtil.validateFilterParameters(
                         UtilMisc.toMap("pageSizeHint", "abc"),
                         Set.of("pageSizeHint"),
                         null,
