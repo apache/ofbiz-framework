@@ -1314,4 +1314,20 @@ public final class UtilValidate {
         }
         return isValid;
     }
+
+    /**
+     * return true if the two uri are equals
+     *  /uri == uri
+     *  Uri == uri
+     * @param firstUri
+     * @param secondUri
+     */
+    public static boolean isUriEquals(String firstUri, String secondUri) {
+        String firstUriClean = firstUri.trim();
+        firstUriClean = firstUriClean.startsWith("/") ? firstUriClean.substring(1) : firstUriClean;
+
+        String secondUriClean = secondUri.trim();
+        secondUriClean = secondUriClean.startsWith("/") ? secondUriClean.substring(1) : secondUriClean;
+        return firstUriClean.equalsIgnoreCase(secondUriClean);
+    }
 }

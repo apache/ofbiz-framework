@@ -1151,6 +1151,17 @@ public final class UtilHttp {
     }
 
     /**
+     * Return request uri without parameters from the pathInfo
+     * @param pathInfo
+     */
+    public static String getRequestUriFromPathInfo(String pathInfo) {
+        if (pathInfo.indexOf('?') > -1) {
+            return pathInfo.substring(0, pathInfo.indexOf('?'));
+        }
+        return pathInfo;
+    }
+
+    /**
      * Returns the query string contained in a request target - basically everything
      * after and including the ? character.
      * @param target The request target
@@ -1820,4 +1831,22 @@ public final class UtilHttp {
         return allowedProtocolList;
     }
 
+    /**
+     * Return true if the request is identified as AjaxRequest
+     * @param request
+     */
+    public static boolean isAjaxCall(HttpServletRequest request) {
+        return "XMLHttpRequest".equalsIgnoreCase(request.getHeader("X-Requested-With"));
+    }
+
+    /**
+     * Return true if the request match logins uri present en security properties
+     * @param request
+     */
+    public static boolean isLoginRequest(HttpServletRequest request) {
+        List<String> loginUris = StringUtil.split(EntityUtilProperties.getPropertyValue("security", "login.uris",
+                (Delegator) request.getAttribute("delegator")), ",");
+        return loginUris.stream()
+                .anyMatch(uri -> UtilValidate.isUriEquals(getRequestUriFromPathInfo(request.getPathInfo()), uri));
+    }
 }

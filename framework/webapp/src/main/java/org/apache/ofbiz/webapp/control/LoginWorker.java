@@ -354,20 +354,23 @@ public final class LoginWorker {
                 // return an error
                 request.removeAttribute("_LOGIN_PASSED_");
 
-                // keep the previous request name in the session
-                session.setAttribute("_PREVIOUS_REQUEST_", request.getPathInfo());
+                // keep the previous request name in the session if the requestUri is auth
+                if (!UtilHttp.isLoginRequest(request) && !UtilHttp.isAjaxCall(request)
+                        && RequestHandler.isSecurityAuthRequest(request)) {
+                    session.setAttribute("_PREVIOUS_REQUEST_", request.getPathInfo());
 
-                // NOTE: not using the old _PREVIOUS_PARAMS_ attribute at all because it was a security hole as it was used to put data in
-                // the URL (never encrypted) that was originally in a form field that may have been encrypted
-                // keep 2 maps: one for URL parameters and one for form parameters
-                Map<String, Object> urlParams = UtilHttp.getUrlOnlyParameterMap(request);
-                if (UtilValidate.isNotEmpty(urlParams)) {
-                    session.setAttribute("_PREVIOUS_PARAM_MAP_URL_", urlParams);
-                }
-                Predicate<String> isUrlParam = urlParams.keySet()::contains;
-                Map<String, Object> formParams = UtilHttp.getParameterMap(request, isUrlParam.negate());
-                if (UtilValidate.isNotEmpty(formParams)) {
-                    session.setAttribute("_PREVIOUS_PARAM_MAP_FORM_", formParams);
+                    // NOTE: not using the old _PREVIOUS_PARAMS_ attribute at all because it was a security hole as it was used to put data in
+                    // the URL (never encrypted) that was originally in a form field that may have been encrypted
+                    // keep 2 maps: one for URL parameters and one for form parameters
+                    Map<String, Object> urlParams = UtilHttp.getUrlOnlyParameterMap(request);
+                    if (UtilValidate.isNotEmpty(urlParams)) {
+                        session.setAttribute("_PREVIOUS_PARAM_MAP_URL_", urlParams);
+                    }
+                    Predicate<String> isUrlParam = urlParams.keySet()::contains;
+                    Map<String, Object> formParams = UtilHttp.getParameterMap(request, isUrlParam.negate());
+                    if (UtilValidate.isNotEmpty(formParams)) {
+                        session.setAttribute("_PREVIOUS_PARAM_MAP_FORM_", formParams);
+                    }
                 }
                 response.setStatus(HttpStatus.SC_UNAUTHORIZED);
                 return "error";
