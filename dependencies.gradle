@@ -93,6 +93,17 @@ dependencies {
       exclude group: 'xpp3', module: 'xpp3'
     }
 
+    // Used by framework/testtools' JupiterTestSuite/JupiterTestExtension to run Jupiter test
+    // classes referenced from testdef jupiter-test-suite elements via the JUnit Platform Launcher.
+    // implementation (not testImplementation) because those test classes live in each component's
+    // src/main, same as junit-test-suite (JUnit 3) classes, so ofbiz --test can load them without
+    // needing the test sourceSet, and so Gradle's own `test` task (which only scans src/test) never
+    // tries to run them directly - they depend on the suite-level Delegator/LocalDispatcher that
+    // only ModelTestSuite/TestRunContainer supply.
+    implementation 'org.junit.jupiter:junit-jupiter-api:6.1.0'
+    implementation 'org.junit.jupiter:junit-jupiter-params:6.1.0'
+    implementation 'org.junit.platform:junit-platform-launcher:6.1.0'
+
     testImplementation 'org.junit.jupiter:junit-jupiter-api:6.1.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:6.1.0'
     testImplementation 'org.junit.jupiter:junit-jupiter-params:6.1.0'
