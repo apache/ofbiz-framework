@@ -4982,13 +4982,6 @@
         <value xml:lang="zh">到货付款</value>
         <value xml:lang="zh-TW">到貨付款</value>
     </property>
-    <property key="PaymentMethodType.description.EXT_EBAY">
-        <value xml:lang="ar">eBay</value>
-        <value xml:lang="de">eBay</value>
-        <value xml:lang="en">eBay</value>
-        <value xml:lang="th">อีเบย์</value>
-        <value xml:lang="zh">eBay</value>
-    </property>
     <property key="PaymentMethodType.description.EXT_OFFLINE">
         <value xml:lang="ar">دفعة offline</value>
         <value xml:lang="de">Offline Zahlung</value>
