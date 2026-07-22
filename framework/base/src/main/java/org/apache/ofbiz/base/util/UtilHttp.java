@@ -411,6 +411,16 @@ public final class UtilHttp {
                         UtilHttp::canonicalizeParameterMap));
     }
 
+    /**
+     * Return pathInfo without parameters passed as query
+     * @param pathInfo
+     */
+    public static String getPathInfoWithoutQuery(String pathInfo) {
+        return pathInfo.indexOf('?') > -1
+                ? pathInfo.substring(0, pathInfo.indexOf('?'))
+                : pathInfo;
+    }
+
     public static Map<String, Object> getUrlOnlyParameterMap(HttpServletRequest request) {
         // NOTE: these have already been through canonicalizeParameterMap, so not doing it again here
         Map<String, Object> paramMap = getQueryStringOnlyParameterMap(request.getQueryString());
@@ -1151,17 +1161,6 @@ public final class UtilHttp {
     }
 
     /**
-     * Return request uri without parameters from the pathInfo
-     * @param pathInfo
-     */
-    public static String getRequestUriFromPathInfo(String pathInfo) {
-        if (pathInfo.indexOf('?') > -1) {
-            return pathInfo.substring(0, pathInfo.indexOf('?'));
-        }
-        return pathInfo;
-    }
-
-    /**
      * Returns the query string contained in a request target - basically everything
      * after and including the ? character.
      * @param target The request target
@@ -1847,6 +1846,6 @@ public final class UtilHttp {
         List<String> loginUris = StringUtil.split(EntityUtilProperties.getPropertyValue("security", "login.uris",
                 (Delegator) request.getAttribute("delegator")), ",");
         return loginUris.stream()
-                .anyMatch(uri -> UtilValidate.isUriEquals(getRequestUriFromPathInfo(request.getPathInfo()), uri));
+                .anyMatch(uri -> UtilValidate.isUriEquals(getPathInfoWithoutQuery(request.getPathInfo()), uri));
     }
 }

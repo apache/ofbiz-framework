@@ -394,8 +394,9 @@ public final class RequestHandler {
         // Grab data from request object to process
         String defaultRequestUri = RequestHandler.getRequestUri(request.getPathInfo());
 
-        String requestMissingErrorMessage = "Unknown request ["
-                + UtilHttp.getRequestUriFromPathInfo(request.getPathInfo())
+        String sanitizeRequestUri = UtilCodec.getEncoder("html").sanitize(
+                UtilHttp.getPathInfoWithoutQuery(request.getPathInfo()), null);
+        String requestMissingErrorMessage = "Unknown request [" + sanitizeRequestUri
                 + "]; this request does not exist or cannot be called directly.";
 
         String path = request.getPathInfo();
