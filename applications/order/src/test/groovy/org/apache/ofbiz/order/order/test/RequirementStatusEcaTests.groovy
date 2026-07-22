@@ -79,9 +79,9 @@ class RequirementStatusEcaTests extends OFBizTestCase {
         GenericValue userLogin = from('UserLogin').where('userLoginId', userLoginId).queryOne()
         if (userLogin == null) {
             userLogin = delegator.makeValue('UserLogin', [
-                userLoginId : userLoginId,
+                userLoginId: userLoginId,
                 userFullName: 'MRP Requirement Status Test User',
-                enabled     : 'Y'
+                enabled: 'Y'
             ])
             delegator.create(userLogin)
         }
@@ -92,24 +92,25 @@ class RequirementStatusEcaTests extends OFBizTestCase {
         if (from('RequirementType').where('requirementTypeId', 'CUSTOMER_REQUIREMENT').queryOne() == null) {
             delegator.create(delegator.makeValue('RequirementType', [
                 requirementTypeId: 'CUSTOMER_REQUIREMENT',
-                hasTable         : 'N',
-                description      : 'Customer Requirement'
+                hasTable: 'N',
+                description: 'Customer Requirement'
             ]))
         }
         if (from('StatusType').where('statusTypeId', 'REQUIREMENT_STATUS').queryOne() == null) {
             delegator.create(delegator.makeValue('StatusType', [
                 statusTypeId: 'REQUIREMENT_STATUS',
-                description : 'Requirement Status'
+                description: 'Requirement Status'
             ]))
         }
         if (from('StatusItem').where('statusId', 'REQ_PROPOSED').queryOne() == null) {
             delegator.create(delegator.makeValue('StatusItem', [
-                statusId    : 'REQ_PROPOSED',
+                statusId: 'REQ_PROPOSED',
                 statusTypeId: 'REQUIREMENT_STATUS',
-                statusCode  : 'PROPOSED',
-                sequenceId  : '01',
-                description : 'Proposed'
+                statusCode: 'PROPOSED',
+                sequenceId: '01',
+                description: 'Proposed'
             ]))
         }
     }
+
 }
