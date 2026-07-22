@@ -42,4 +42,7 @@ under the License.
     <test-case case-name="order-requirement-tests">
         <junit-test-suite class-name="org.apache.ofbiz.order.order.test.OrderRequirementTests"/>
     </test-case>
+    <test-case case-name="requirement-status-eca-tests">
+        <junit-test-suite class-name="org.apache.ofbiz.order.order.test.RequirementStatusEcaTests"/>
+    </test-case>
 </test-suite>
