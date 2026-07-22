@@ -57,6 +57,13 @@ public final class JupiterTestSuite implements Test {
     private final Launcher launcher;
     private final LauncherDiscoveryRequest request;
     private final int testCaseCount;
+    // Stored, not applied immediately: ModelTestSuite.prepareTest() calls setDelegator()/
+    // setDispatcher() once for every JupiterTestSuite in a <test-suite>, before any of them run.
+    // Pushing straight to the shared ThreadLocal there would let one instance's post-run cleanup
+    // (see run() below) wipe state a sibling instance still needs. Applying them in run() instead
+    // means each instance re-arms its own state right before it executes.
+    private Delegator delegator;
+    private LocalDispatcher dispatcher;
 
     public JupiterTestSuite(Class<?> testClass) {
         this.testClass = testClass;
@@ -68,11 +75,11 @@ public final class JupiterTestSuite implements Test {
     }
 
     public void setDelegator(Delegator delegator) {
-        JupiterTestExtension.CURRENT_DELEGATOR.set(delegator);
+        this.delegator = delegator;
     }
 
     public void setDispatcher(LocalDispatcher dispatcher) {
-        JupiterTestExtension.CURRENT_DISPATCHER.set(dispatcher);
+        this.dispatcher = dispatcher;
     }
 
     @Override
@@ -82,6 +89,8 @@ public final class JupiterTestSuite implements Test {
 
     @Override
     public void run(TestResult result) {
+        JupiterTestExtension.CURRENT_DELEGATOR.set(delegator);
+        JupiterTestExtension.CURRENT_DISPATCHER.set(dispatcher);
         Map<String, Test> leafTests = new HashMap<>();
         try {
             launcher.execute(request, new TestExecutionListener() {

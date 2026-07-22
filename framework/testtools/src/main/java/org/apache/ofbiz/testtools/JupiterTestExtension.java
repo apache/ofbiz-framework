@@ -29,22 +29,43 @@ import org.junit.jupiter.api.extension.TestInstancePostProcessor;
 
 /**
  * Injects the per-suite Delegator/LocalDispatcher that ModelTestSuite already builds for JUnit 3
- * test-cases into Jupiter test classes run through JupiterTestSuite. JUnit 3's EntityTestCase gets
- * these through post-construction setDelegator()/setDispatcher() calls; a Groovy subclass then just
- * writes "delegator"/"dispatcher" bare, with no per-method wiring. Jupiter test classes that
- * {@code @ExtendWith(JupiterTestExtension.class)} get the same ergonomics two ways:
+ * test-cases into Jupiter test classes run through JupiterTestSuite.
+ *
+ * <p>The recommended pattern - the one both reference examples use ({@code ExampleTests} and
+ * {@code ExampleJupiterTests} in {@code plugins/example/.../test}) - is to {@code implements
+ * JupiterTestHelper} and call its getDelegator()/getDispatcher()/getUserLogin()/from()/select()
+ * directly: no field, no method parameter, nothing to declare in the test class at all. That
+ * interface's default methods read this extension's CURRENT_DELEGATOR/CURRENT_DISPATCHER
+ * ThreadLocals directly (see its javadoc), which is also why it works unchanged inside
+ * {@literal @}ParameterizedTest methods - getDispatcher() isn't one of the method's declared
+ * parameters, so there's no interaction with {@literal @}CsvSource (or any other argument source)
+ * ordering at all. See {@code shouldCreateExampleAcrossTypes} in {@code ExampleJupiterTests},
+ * which combines a {@literal @}CsvSource-provided {@code String} with a getDispatcher() call.
+ *
+ * <p>Two lower-level mechanisms remain available for classes that can't rely on
+ * {@code JupiterTestHelper}:
  *
  * <ul>
- * <li>declare a "delegator"/"dispatcher" field (any visibility - a bare Groovy property declaration
- * is enough) and it is set once per test instance via postProcessTestInstance(), same idea as
- * EntityTestCase's setters, no method parameter needed;</li>
- * <li>or declare a Delegator/LocalDispatcher method parameter directly, resolved via
- * resolveParameter() below - useful when a field would be ambiguous, e.g. mixed with
- * {@literal @}ParameterizedTest CSV arguments.</li>
+ * <li>declare a "delegator"/"dispatcher" field (any visibility - a bare Groovy property
+ * declaration is enough) and it is set once per test instance via postProcessTestInstance() below,
+ * the same idea as JUnit 3's EntityTestCase getting Delegator/LocalDispatcher through
+ * post-construction setDelegator()/setDispatcher() calls; or</li>
+ * <li>declare a Delegator/LocalDispatcher method parameter directly, resolved via
+ * resolveParameter() below.</li>
  * </ul>
  *
- * Both are wired from the same suite-scoped values, so either style (or both, on different methods
- * of the same class) can be used interchangeably.
+ * Both are wired from the same suite-scoped values as JupiterTestHelper, so either can be mixed in
+ * on the same class if needed. The method-parameter style is needed rather than merely optional in
+ * one case: {@literal @}BeforeAll/{@literal @}AfterAll are static, so they run with no test
+ * instance for postProcessTestInstance() to inject a field into, or for a default interface method
+ * to be called on; a method parameter, resolved per-invocation, is the only way to reach
+ * Delegator/LocalDispatcher there.
+ *
+ * <p>When a {@literal @}ParameterizedTest method does mix {@literal @}CsvSource-provided arguments
+ * with a method parameter resolved by this extension (Delegator/LocalDispatcher) rather than
+ * JupiterTestHelper, the CSV-provided parameters must come first in the method signature: JUnit 5
+ * fills them left-to-right, then resolves the remaining parameters via registered
+ * ParameterResolvers.
  *
  * <p>JupiterTestSuite.run() executes tests synchronously on the calling thread (the default JUnit
  * Platform execution mode, and the one TestRunContainer relies on), so a plain ThreadLocal set
