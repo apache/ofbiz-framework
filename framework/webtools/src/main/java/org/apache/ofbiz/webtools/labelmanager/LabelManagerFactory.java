@@ -124,7 +124,6 @@ public final class LabelManagerFactory {
                                     || labelKey.contains("TemporalExpression_")
                                     || labelKey.contains(".portalPageName.")
                                     || labelKey.contains("ProductStoreGroup.productStoreGroupName.NA")
-                                    || labelKey.contains("buildEbayConfig.")
                                     || labelKey.contains("week.")
                                     || labelKey.contains("second.")
                                     || labelKey.contains("hour.")
