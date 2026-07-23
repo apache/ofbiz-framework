@@ -25,6 +25,7 @@ import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.model.DynamicViewEntity;
+import org.apache.ofbiz.entity.testtools.EntityTestCase;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.service.LocalDispatcher;
 
@@ -80,10 +81,7 @@ public interface JupiterTestHelper {
      * @throws GenericEntityException the generic entity exception
      */
     default GenericValue getUserLogin(String userLoginId) throws GenericEntityException {
-        return EntityQuery.use(JupiterTestExtension.CURRENT_DELEGATOR.get())
-                .from("UserLogin")
-                .where("userLoginId", userLoginId)
-                .queryOne();
+        return EntityTestCase.getUserLogin(getDelegator(), userLoginId);
     }
 
     /**
@@ -101,7 +99,7 @@ public interface JupiterTestHelper {
      * @return the entity query
      */
     default EntityQuery from(String entityName) {
-        return EntityQuery.use(JupiterTestExtension.CURRENT_DELEGATOR.get()).from(entityName);
+        return EntityTestCase.from(getDelegator(), entityName);
     }
 
     /**
@@ -110,7 +108,7 @@ public interface JupiterTestHelper {
      * @return the entity query
      */
     default EntityQuery from(DynamicViewEntity dynamicViewEntity) {
-        return EntityQuery.use(JupiterTestExtension.CURRENT_DELEGATOR.get()).from(dynamicViewEntity);
+        return EntityTestCase.from(getDelegator(), dynamicViewEntity);
     }
 
     /**
@@ -119,7 +117,7 @@ public interface JupiterTestHelper {
      * @return the entity query
      */
     default EntityQuery select(String... fields) {
-        return EntityQuery.use(JupiterTestExtension.CURRENT_DELEGATOR.get()).select(fields);
+        return EntityTestCase.select(getDelegator(), fields);
     }
 
     /**
@@ -128,7 +126,7 @@ public interface JupiterTestHelper {
      * @return the entity query
      */
     default EntityQuery select(Set<String> fields) {
-        return EntityQuery.use(JupiterTestExtension.CURRENT_DELEGATOR.get()).select(fields);
+        return EntityTestCase.select(getDelegator(), fields);
     }
 
     /**
