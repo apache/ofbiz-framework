@@ -413,12 +413,14 @@ public final class UtilHttp {
 
     /**
      * Return pathInfo without parameters passed as query
-     * @param pathInfo
+     * @param request
      */
-    public static String getPathInfoWithoutQuery(String pathInfo) {
-        return pathInfo.indexOf('?') > -1
+    public static String getPathInfoWithoutQuery(HttpServletRequest request) {
+        String pathInfo = request.getPathInfo();
+        pathInfo = pathInfo.indexOf('?') > -1
                 ? pathInfo.substring(0, pathInfo.indexOf('?'))
                 : pathInfo;
+        return pathInfo.replaceAll("[^\\p{Alnum}/\\-_]", ""); // TODO find better place
     }
 
     public static Map<String, Object> getUrlOnlyParameterMap(HttpServletRequest request) {
@@ -1846,6 +1848,6 @@ public final class UtilHttp {
         List<String> loginUris = StringUtil.split(EntityUtilProperties.getPropertyValue("security", "login.uris",
                 (Delegator) request.getAttribute("delegator")), ",");
         return loginUris.stream()
-                .anyMatch(uri -> UtilValidate.isUriEquals(getPathInfoWithoutQuery(request.getPathInfo()), uri));
+                .anyMatch(uri -> UtilValidate.isUriEquals(getPathInfoWithoutQuery(request), uri));
     }
 }

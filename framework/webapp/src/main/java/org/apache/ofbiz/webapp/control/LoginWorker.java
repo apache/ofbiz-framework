@@ -354,9 +354,10 @@ public final class LoginWorker {
                 // return an error
                 request.removeAttribute("_LOGIN_PASSED_");
 
-                // keep the previous request name in the session if the requestUri is auth
+                // keep the previous request name in the session if the requestUri is auth and without event
                 if (!UtilHttp.isLoginRequest(request) && !UtilHttp.isAjaxCall(request)
-                        && RequestHandler.isSecurityAuthRequest(request)) {
+                        && RequestHandler.isSecurityAuthRequest(request)
+                        && !RequestHandler.isRequestWithEvent(request)) {
                     session.setAttribute("_PREVIOUS_REQUEST_", request.getPathInfo());
 
                     // NOTE: not using the old _PREVIOUS_PARAMS_ attribute at all because it was a security hole as it was used to put data in

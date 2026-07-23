@@ -355,6 +355,16 @@ public final class RequestHandler {
         return requestMaps.stream().allMatch(RequestMap::isSecurityAuth);
     }
 
+    /**
+     * check if HTTP request match requestMaps with a event.
+     * @param request the HTTP request containing the request handler
+     * @return true if all requestMap linked are security auth at true
+     */
+    public static boolean isRequestWithEvent(HttpServletRequest request) {
+        Collection<RequestMap> requestMaps = resolveURI(Objects.requireNonNull(from(request).getControllerConfig()), request);
+        return requestMaps.stream().anyMatch(requestMap -> requestMap.getEvent() != null);
+    }
+
     public ConfigXMLReader.ControllerConfig getControllerConfig() {
         try {
             return ConfigXMLReader.getControllerConfig(this.controllerConfigURL);
@@ -394,9 +404,7 @@ public final class RequestHandler {
         // Grab data from request object to process
         String defaultRequestUri = RequestHandler.getRequestUri(request.getPathInfo());
 
-        String sanitizeRequestUri = UtilCodec.getEncoder("html").sanitize(
-                UtilHttp.getPathInfoWithoutQuery(request.getPathInfo()), null);
-        String requestMissingErrorMessage = "Unknown request [" + sanitizeRequestUri
+        String requestMissingErrorMessage = "Unknown request [" + UtilHttp.getPathInfoWithoutQuery(request)
                 + "]; this request does not exist or cannot be called directly.";
 
         String path = request.getPathInfo();
