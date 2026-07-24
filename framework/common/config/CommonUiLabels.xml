@@ -13919,15 +13919,6 @@
         <value xml:lang="zh-CN">建立数据源类型</value>
         <value xml:lang="zh-TW">新建資料源類型</value>
     </property>
-    <property key="Ebay">
-        <value xml:lang="en">eBay</value>
-        <value xml:lang="es">eBay</value>
-        <value xml:lang="es-CL">eBay</value>
-        <value xml:lang="es-MX">eBay</value>
-        <value xml:lang="th">อีเบย์</value>
-        <value xml:lang="zh">eBay</value>
-        <value xml:lang="zh-TW">eBay</value>
-    </property>
     <property key="Example">
         <value xml:lang="ar">مثال</value>
         <value xml:lang="cs">Příklad</value>

@@ -27,7 +27,7 @@ A main GL account used would be the one that represents the Company bank account
 In the demo data mappings Electronic Funds Transfer, Company Account, Financial Account are all linked
  to the Company bank account GL account.
 
-OFBiz demo data defines 15 different payment methods as follows:
+OFBiz demo data defines 14 different payment methods as follows:
 
 * Cash
 * Certified Cheque
@@ -38,7 +38,6 @@ OFBiz demo data defines 15 different payment methods as follows:
     A direct debit is controlled by the payee and an automatic payment via bank account is controlled by the payer)
 * Billing Account
 * Cash on Delivery (COD)
-* eBay
 * Offline Payment +
    (NOTE: Is this ambiguous - since COD is an offline payment...)
 * PayPal
