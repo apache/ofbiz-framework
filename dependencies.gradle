@@ -93,25 +93,11 @@ dependencies {
       exclude group: 'xpp3', module: 'xpp3'
     }
 
-    // Used by framework/testtools' JupiterTestSuite/JupiterTestExtension to run Jupiter test
-    // classes referenced from testdef jupiter-test-suite elements via the JUnit Platform Launcher.
-    // implementation (not testImplementation) because those test classes live in each component's
-    // src/main, same as junit-test-suite (JUnit 3) classes, so ofbiz --test can load them without
-    // needing the test sourceSet, and so Gradle's own `test` task (which only scans src/test) never
-    // tries to run them directly - they depend on the suite-level Delegator/LocalDispatcher that
-    // only ModelTestSuite/TestRunContainer supply.
     implementation 'org.junit.jupiter:junit-jupiter-api:6.1.0'
-    implementation 'org.junit.jupiter:junit-jupiter-params:6.1.0'
     implementation 'org.junit.platform:junit-platform-launcher:6.1.0'
-    // runtimeOnly, not testRuntimeOnly: the Launcher above needs a TestEngine on the classpath to
-    // discover/execute jupiter-test-suite classes through `ofbiz --test` in a built distribution,
-    // not only under Gradle's own `test` task. Declared explicitly rather than relying on the engine
-    // arriving transitively via an unrelated dependency (e.g. groovy-test-junit5).
     runtimeOnly 'org.junit.jupiter:junit-jupiter-engine:6.1.0'
 
-    // testImplementation/testRuntimeOnly for junit-jupiter-api/params/engine are intentionally not
-    // repeated here: Gradle's testImplementation/testRuntimeOnly already extend implementation/
-    // runtimeOnly above, so the test sourceSet inherits all three without a separate declaration.
+    testImplementation 'org.junit.jupiter:junit-jupiter-params:6.1.0'
     testImplementation 'org.hamcrest:hamcrest-library:2.2'
     testImplementation 'org.mockito:mockito-core:5.23.0'
     testImplementation 'org.jmockit:jmockit:1.50'
