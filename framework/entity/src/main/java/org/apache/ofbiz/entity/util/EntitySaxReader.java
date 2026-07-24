@@ -225,6 +225,19 @@ public class EntitySaxReader extends DefaultHandler {
         this.currentAction = action;
     }
 
+    private boolean isSequenceValueItemRegression(GenericValue value) throws GenericEntityException {
+        if (!"SequenceValueItem".equals(value.getEntityName())) {
+            return false;
+        }
+        GenericValue existing = delegator.findOne("SequenceValueItem", false, "seqName", value.get("seqName"));
+        if (existing == null) {
+            return false;
+        }
+        Long incomingSeqId = value.getLong("seqId");
+        Long existingSeqId = existing.getLong("seqId");
+        return incomingSeqId != null && existingSeqId != null && incomingSeqId < existingSeqId;
+    }
+
     /**
      * Parse long.
      * @param content the content
@@ -484,6 +497,12 @@ public class EntitySaxReader extends DefaultHandler {
                         } else if (Action.DELETE == currentAction && !exist) {
                             skip = true;
                         }
+                    }
+                    if (!skip && !this.checkDataOnly && Action.DELETE != currentAction && isSequenceValueItemRegression(currentValue)) {
+                        skip = true;
+                        Debug.logWarning("Skipping import of " + currentValue.getEntityName() + " [" + currentValue.get("seqName")
+                                + "]: imported seqId=" + currentValue.getLong("seqId")
+                                + " would move the sequence counter backward, keeping the current higher value", MODULE);
                     }
                     if (!skip) {
                         if (this.useTryInsertMethod && !this.checkDataOnly) {

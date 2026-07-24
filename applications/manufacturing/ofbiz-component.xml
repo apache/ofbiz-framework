@@ -44,6 +44,7 @@ under the License.
 
     <test-suite loader="main" location="testdef/productionruntests.xml"/>
     <test-suite loader="main" location="testdef/InventoryIssuanceTests.xml"/>
+    <test-suite loader="main" location="testdef/MrpTests.xml"/>
 
     <!-- web applications; will be mounted when using the embedded container -->
     <webapp name="manufacturing"
@@ -56,4 +57,3 @@ under the License.
         mount-point="/manufacturing"/>
 
 </ofbiz-component>
-

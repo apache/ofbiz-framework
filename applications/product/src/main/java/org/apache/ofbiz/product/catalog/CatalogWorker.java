@@ -359,7 +359,4 @@ public final class CatalogWorker {
                 "productCategoryId", true);
     }
 
-    public static String getCatalogTopEbayCategoryId(ServletRequest request, String prodCatalogId) {
-        return getProdCatalogCategoryId((Delegator) request.getAttribute("delegator"), prodCatalogId, "PCCT_EBAY_ROOT");
-    }
 }

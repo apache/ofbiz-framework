@@ -19,7 +19,7 @@
         "jquery.browser": "^0.1.0",
         "js-cookie": "^3.0.8",
         "jstree": "^3.3.17",
-        "moment-timezone": "^0.6.2",
+        "moment-timezone": "^0.6.3",
         "moment-with-locales-es6": "^1.0.1",
         "readmore-js": "^2.2.1",
         "select2": "^4.1.0",

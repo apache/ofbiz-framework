@@ -1665,6 +1665,12 @@
         <value xml:lang="en">Use instead</value>
         <value xml:lang="fr">Utilisez en remplacement</value>
     </property>
+    <property key="WebtoolsDisableEeca">
+        <value xml:lang="en">Disable ECAs</value>
+    </property>
+    <property key="WebtoolsDisableEecaWarning">
+        <value xml:lang="en">Disabling ECAs prevents entity-change-triggered services (e.g. order status updates) from firing while this data is loaded. Use this for full-instance snapshot restores; leave it unchecked for partial or incremental imports that rely on those side effects.</value>
+    </property>
     <property key="WebtoolsDispatcherName">
         <value xml:lang="de">Dispatcher-Name</value>
         <value xml:lang="en">Dispatcher Name</value>

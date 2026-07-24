@@ -27,7 +27,6 @@ import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.ObjectType;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.entity.Delegator;
-import org.apache.ofbiz.entity.DelegatorFactory;
 import org.apache.ofbiz.entity.GenericEntity;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericModelException;
@@ -136,7 +135,13 @@ public final class EntityExpr implements EntityCondition {
     @Override
     public String makeWhereString(ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams,
             Datasource datasourceInfo) {
-        checkRhsType(modelEntity, null);
+        return makeWhereString(modelEntity, entityConditionParams, datasourceInfo, null);
+    }
+
+    @Override
+    public String makeWhereString(ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams,
+            Datasource datasourceInfo, Delegator delegator) {
+        checkRhsType(modelEntity, delegator);
         StringBuilder sql = new StringBuilder();
         operator.addSqlValue(sql, modelEntity, entityConditionParams, true, lhs, rhs, datasourceInfo);
         return sql.toString();
@@ -174,7 +179,7 @@ public final class EntityExpr implements EntityCondition {
      * @param delegator the delegator used to check the condition expression
      */
     public void checkRhsType(ModelEntity modelEntity, Delegator delegator) {
-        if (EntityExpr.isNullField(rhs) || modelEntity == null) {
+        if (EntityExpr.isNullField(rhs) || modelEntity == null || delegator == null) {
             return;
         }
 
@@ -194,9 +199,7 @@ public final class EntityExpr implements EntityCondition {
             }
         }
 
-        // This will be the common case for now as the delegator isn't available where we want to do this
-        // we'll cheat a little here and assume the default delegator.
-        Delegator deleg = (delegator == null) ? DelegatorFactory.getDelegator("default") : delegator;
+        Delegator deleg = delegator;
 
         String fieldName = null;
         ModelField curField;

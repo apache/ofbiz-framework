@@ -569,16 +569,6 @@
         <value xml:lang="zh">浏览根 (一个)</value>
         <value xml:lang="zh-TW">瀏覽根 (一個)</value>
     </property>
-    <property key="ProdCatalogCategoryType.description.PCCT_EBAY_ROOT">
-        <value xml:lang="de">Ebay Root (Eine)</value>
-        <value xml:lang="en">Ebay Root (One)</value>
-        <value xml:lang="es">Raíz de Ebay (uno)</value>
-        <value xml:lang="fr">Ebay Root (Un)</value>
-        <value xml:lang="ja">Epayルート(1)</value>
-        <value xml:lang="vi">Thư mục gốc Ebay (duy nhất)</value>
-        <value xml:lang="zh">eBay根（一个）</value>
-        <value xml:lang="zh-TW">eBay根(一個)</value>
-    </property>
     <property key="ProdCatalogCategoryType.description.PCCT_MOST_POPULAR">
         <value xml:lang="de">Am populärsten (Eine)</value>
         <value xml:lang="en">Most Popular (One)</value>
@@ -1992,11 +1982,6 @@
         <value xml:lang="vi">Cảnh báo</value>
         <value xml:lang="zh">警告</value>
         <value xml:lang="zh-TW">警告</value>
-    </property>
-    <property key="ProductContentType.description.EBAY_DESCRIPTION">
-        <value xml:lang="en">Detail Page for eBay Auctions</value>
-        <value xml:lang="es">Página de detalles para subastas de eBay</value>
-        <value xml:lang="fr">Page de ventes aux enchères eBay.</value>
     </property>
     <property key="ProductContentType.description.META_DESCRIPTION">
         <value xml:lang="en">Meta Description</value>
