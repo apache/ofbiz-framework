@@ -675,6 +675,177 @@ public class MrpServices {
         }
     }
 
+    private static String mrpRunLogIdFromContext(Delegator delegator, Map<String, ? extends Object> context) {
+        String mrpRunLogId = (String) context.get("mrpRunLogId");
+        if (UtilValidate.isNotEmpty(mrpRunLogId)) {
+            return mrpRunLogId;
+        }
+        mrpRunLogId = (String) context.get("jobTrackerId");
+        return UtilValidate.isNotEmpty(mrpRunLogId) ? mrpRunLogId : delegator.getNextSeqId("MrpRunLog");
+    }
+
+    private static String startMrpRunLog(DispatchContext ctx, Map<String, ? extends Object> context, GenericValue userLogin, String mrpRunLogId,
+                                         Timestamp startedAt) {
+        if (UtilValidate.isEmpty(mrpRunLogId)) {
+            return null;
+        }
+        LocalDispatcher dispatcher = ctx.getDispatcher();
+        Delegator delegator = ctx.getDelegator();
+        String userLoginId = userLogin != null ? userLogin.getString("userLoginId") : null;
+        try {
+            GenericValue existingMrpRunLog = EntityQuery.use(delegator).from("MrpRunLog").where("mrpRunLogId", mrpRunLogId).queryOne();
+            if (existingMrpRunLog == null) {
+                Map<String, Object> createParameters = UtilMisc.toMap("mrpRunLogId", mrpRunLogId, "runStatusId", "SERVICE_RUNNING",
+                        "startedAt", startedAt, "userLogin", userLogin);
+                if (UtilValidate.isNotEmpty((String) context.get("mrpName"))) {
+                    createParameters.put("mrpName", context.get("mrpName"));
+                }
+                if (UtilValidate.isNotEmpty((String) context.get("facilityId"))) {
+                    createParameters.put("facilityId", context.get("facilityId"));
+                }
+                if (UtilValidate.isNotEmpty((String) context.get("facilityGroupId"))) {
+                    createParameters.put("facilityGroupId", context.get("facilityGroupId"));
+                }
+                if (context.get("defaultYearsOffset") != null) {
+                    createParameters.put("defaultYearsOffset", context.get("defaultYearsOffset"));
+                }
+                if (UtilValidate.isNotEmpty((String) context.get("jobId"))) {
+                    createParameters.put("jobId", context.get("jobId"));
+                }
+                if (UtilValidate.isNotEmpty(userLoginId)) {
+                    createParameters.put("runByUserLoginId", userLoginId);
+                }
+                Map<String, Object> createResponse = dispatcher.runSync("createMrpRunLog", createParameters, 60, true);
+                if (ServiceUtil.isError(createResponse)) {
+                    Debug.logWarning("Unable to create MrpRunLog [" + mrpRunLogId + "]: " + ServiceUtil.getErrorMessage(createResponse), MODULE);
+                } else {
+                    return mrpRunLogId;
+                }
+            }
+        } catch (GenericEntityException e) {
+            Debug.logWarning(e, "Unable to query MrpRunLog [" + mrpRunLogId + "] before starting", MODULE);
+        } catch (GenericServiceException e) {
+            Debug.logWarning(e, "Unable to call createMrpRunLog for [" + mrpRunLogId + "]", MODULE);
+        }
+        updateMrpRunLog(dispatcher, UtilMisc.toMap("mrpRunLogId", mrpRunLogId, "runStatusId", "SERVICE_RUNNING",
+                "startedAt", startedAt, "userLogin", userLogin), "mark as running", mrpRunLogId);
+        return mrpRunLogId;
+    }
+
+    private static String failureReasonFromResult(Map<String, Object> result) {
+        return ServiceUtil.isError(result) ? "SERVICE_ERROR" : null;
+    }
+
+    private static String failureReasonFromException(RuntimeException e) {
+        return "RUNTIME_EXCEPTION";
+    }
+
+    private static String cleanFailureMessage(Map<String, Object> result) {
+        return conciseFailureMessage(ServiceUtil.getErrorMessage(result));
+    }
+
+    private static String cleanFailureMessage(RuntimeException e) {
+        String errorMessage = e.getMessage();
+        return conciseFailureMessage(UtilValidate.isNotEmpty(errorMessage) ? errorMessage : e.toString());
+    }
+
+    private static String conciseFailureMessage(String errorMessage) {
+        if (UtilValidate.isEmpty(errorMessage)) {
+            return null;
+        }
+        String cleanedMessage = errorMessage.replaceAll("\\s+", " ").trim();
+        // Keep only the user-facing failure summary in MrpRunLog, not serialized debug payloads such as "{key=value}".
+        cleanedMessage = stripTrailingSerializedMap(cleanedMessage);
+        return UtilValidate.isNotEmpty(cleanedMessage) ? cleanedMessage : null;
+    }
+
+    private static String stripTrailingSerializedMap(String errorMessage) {
+        int mapStart = errorMessage.lastIndexOf('{');
+        if (mapStart < 0 || !errorMessage.endsWith("}")) {
+            return errorMessage;
+        }
+        String trailingValue = errorMessage.substring(mapStart);
+        if (!trailingValue.contains("=")) {
+            return errorMessage;
+        }
+        String prefix = errorMessage.substring(0, mapStart).trim();
+        while (!prefix.isEmpty() && ",;:".indexOf(prefix.charAt(prefix.length() - 1)) >= 0) {
+            prefix = prefix.substring(0, prefix.length() - 1).trim();
+        }
+        return prefix;
+    }
+
+    private static Long countMrpEventsForRun(Delegator delegator, String mrpId) {
+        if (UtilValidate.isEmpty(mrpId)) {
+            return null;
+        }
+        try {
+            return EntityQuery.use(delegator).from("MrpEvent").where("mrpId", mrpId).queryCount();
+        } catch (GenericEntityException e) {
+            Debug.logWarning(e, "Unable to count MrpEvent rows for mrpId [" + mrpId + "]", MODULE);
+            return null;
+        }
+    }
+
+    private static String buildOutcomeMessage(Long mrpEventCount, long proposedRequirementCount) {
+        if (mrpEventCount == null) {
+            return null;
+        }
+        return "Created " + mrpEventCount + " MRP events and " + proposedRequirementCount + " proposed requirements";
+    }
+
+    private static Map<String, Object> finishMrpRunLog(LocalDispatcher dispatcher, GenericValue userLogin, String mrpRunLogId, Timestamp startedAt,
+                                                       String mrpId, String failureReason, String failureMessage, Long mrpEventCount,
+                                                       Long proposedRequirementCount, String outcomeMessage, Map<String, Object> result) {
+        if (UtilValidate.isEmpty(mrpRunLogId)) {
+            return result;
+        }
+        Timestamp finishedAt = UtilDateTime.nowTimestamp();
+        String statusId = ServiceUtil.isError(result) ? "SERVICE_FAILED" : "SERVICE_FINISHED";
+        try {
+            Map<String, Object> parameters = UtilMisc.toMap("mrpRunLogId", mrpRunLogId, "runStatusId", statusId, "startedAt", startedAt,
+                    "finishedAt", finishedAt, "userLogin", userLogin);
+            if (UtilValidate.isNotEmpty(mrpId)) {
+                parameters.put("mrpId", mrpId);
+            }
+            if (UtilValidate.isNotEmpty(failureReason)) {
+                parameters.put("failureReason", failureReason);
+            }
+            if (UtilValidate.isNotEmpty(failureMessage)) {
+                parameters.put("failureMessage", failureMessage);
+            }
+            if (!ServiceUtil.isError(result)) {
+                parameters.put("failureReason", null);
+                parameters.put("failureMessage", null);
+                parameters.put("mrpEventCount", mrpEventCount);
+                parameters.put("proposedRequirementCount", proposedRequirementCount);
+                parameters.put("outcomeMessage", outcomeMessage);
+            } else {
+                parameters.put("mrpEventCount", null);
+                parameters.put("proposedRequirementCount", null);
+                parameters.put("outcomeMessage", outcomeMessage);
+            }
+            if (startedAt != null && finishedAt != null) {
+                parameters.put("durationMillis", finishedAt.getTime() - startedAt.getTime());
+            }
+            updateMrpRunLog(dispatcher, parameters, "finish", mrpRunLogId);
+        } catch (RuntimeException e) {
+            Debug.logWarning(e, "Unable to prepare MrpRunLog finish parameters for [" + mrpRunLogId + "]", MODULE);
+        }
+        return result;
+    }
+
+    private static void updateMrpRunLog(LocalDispatcher dispatcher, Map<String, Object> parameters, String action, String mrpRunLogId) {
+        try {
+            Map<String, Object> response = dispatcher.runSync("updateMrpRunLog", parameters, 60, true);
+            if (ServiceUtil.isError(response)) {
+                Debug.logWarning("Unable to " + action + " MrpRunLog [" + mrpRunLogId + "]: " + ServiceUtil.getErrorMessage(response), MODULE);
+            }
+        } catch (GenericServiceException e) {
+            Debug.logWarning(e, "Unable to call updateMrpRunLog to " + action + " [" + mrpRunLogId + "]", MODULE);
+        }
+    }
+
     /**
      * Launch the MRP.
      * <ul>
@@ -693,48 +864,64 @@ public class MrpServices {
         LocalDispatcher dispatcher = ctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Timestamp now = UtilDateTime.nowTimestamp();
+        String mrpRunLogId = mrpRunLogIdFromContext(delegator, context);
+        mrpRunLogId = startMrpRunLog(ctx, context, userLogin, mrpRunLogId, now);
         Locale locale = (Locale) context.get("locale");
         String mrpName = (String) context.get("mrpName");
         Integer defaultYearsOffset = (Integer) context.get("defaultYearsOffset");
         String facilityGroupId = (String) context.get("facilityGroupId");
         String facilityId = (String) context.get("facilityId");
         String manufacturingFacilityId = null;
-        if (UtilValidate.isEmpty(facilityId) && UtilValidate.isEmpty(facilityGroupId)) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpFacilityNotAvailable", locale));
-        }
-        if (UtilValidate.isEmpty(facilityId)) {
-            try {
-                GenericValue facilityGroup = EntityQuery.use(delegator).from("FacilityGroup").where("facilityGroupId", facilityGroupId).queryOne();
-                if (UtilValidate.isEmpty(facilityGroup)) {
-                    return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpFacilityGroupIsNotValid", UtilMisc.toMap(
-                            "facilityGroupId", facilityGroupId), locale));
-                }
-                List<GenericValue> facilities = facilityGroup.getRelated("FacilityGroupMember", null, UtilMisc.toList("sequenceNum"), false);
-                if (UtilValidate.isEmpty(facilities)) {
-                    return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpFacilityGroupIsNotAssociatedToFacility",
-                            UtilMisc.toMap("facilityGroupId", facilityGroupId), locale));
-                }
-                for (GenericValue facilityMember : facilities) {
-                    GenericValue facility = facilityMember.getRelatedOne("Facility", false);
-                    if ("WAREHOUSE".equals(facility.getString("facilityTypeId")) && UtilValidate.isEmpty(facilityId)) {
-                        facilityId = facility.getString("facilityId");
-                    }
-                    if ("PLANT".equals(facility.getString("facilityTypeId")) && UtilValidate.isEmpty(manufacturingFacilityId)) {
-                        manufacturingFacilityId = facility.getString("facilityId");
-                    }
-                }
-            } catch (GenericEntityException e) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpFacilityGroupCannotBeLoad", UtilMisc.toMap(
-                        "errorString", e.getMessage()), locale));
+        String mrpId = null;
+        long proposedRequirementCount = 0;
+        try {
+            if (UtilValidate.isEmpty(facilityId) && UtilValidate.isEmpty(facilityGroupId)) {
+                Map<String, Object> errorResult = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpFacilityNotAvailable",
+                        locale));
+                return finishMrpRunLog(dispatcher, userLogin, mrpRunLogId, now, mrpId, failureReasonFromResult(errorResult),
+                        cleanFailureMessage(errorResult), null, null, null, errorResult);
             }
-        } else {
-            manufacturingFacilityId = facilityId;
-        }
+            if (UtilValidate.isEmpty(facilityId)) {
+                try {
+                    GenericValue facilityGroup = EntityQuery.use(delegator).from("FacilityGroup").where("facilityGroupId", facilityGroupId).queryOne();
+                    if (UtilValidate.isEmpty(facilityGroup)) {
+                        Map<String, Object> errorResult = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
+                                "ManufacturingMrpFacilityGroupIsNotValid", UtilMisc.toMap("facilityGroupId", facilityGroupId), locale));
+                        return finishMrpRunLog(dispatcher, userLogin, mrpRunLogId, now, mrpId, failureReasonFromResult(errorResult),
+                                cleanFailureMessage(errorResult), null, null, null, errorResult);
+                    }
+                    List<GenericValue> facilities = facilityGroup.getRelated("FacilityGroupMember", null, UtilMisc.toList("sequenceNum"), false);
+                    if (UtilValidate.isEmpty(facilities)) {
+                        Map<String, Object> errorResult = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
+                                "ManufacturingMrpFacilityGroupIsNotAssociatedToFacility", UtilMisc.toMap("facilityGroupId", facilityGroupId), locale));
+                        return finishMrpRunLog(dispatcher, userLogin, mrpRunLogId, now, mrpId, failureReasonFromResult(errorResult),
+                                cleanFailureMessage(errorResult), null, null, null, errorResult);
+                    }
+                    for (GenericValue facilityMember : facilities) {
+                        GenericValue facility = facilityMember.getRelatedOne("Facility", false);
+                        if ("WAREHOUSE".equals(facility.getString("facilityTypeId")) && UtilValidate.isEmpty(facilityId)) {
+                            facilityId = facility.getString("facilityId");
+                        }
+                        if ("PLANT".equals(facility.getString("facilityTypeId")) && UtilValidate.isEmpty(manufacturingFacilityId)) {
+                            manufacturingFacilityId = facility.getString("facilityId");
+                        }
+                    }
+                } catch (GenericEntityException e) {
+                    Map<String, Object> errorResult = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
+                            "ManufacturingMrpFacilityGroupCannotBeLoad", UtilMisc.toMap("errorString", e.getMessage()), locale));
+                    return finishMrpRunLog(dispatcher, userLogin, mrpRunLogId, now, mrpId, failureReasonFromResult(errorResult),
+                            cleanFailureMessage(errorResult), null, null, null, errorResult);
+                }
+            } else {
+                manufacturingFacilityId = facilityId;
+            }
 
-        if (UtilValidate.isEmpty(facilityId) || UtilValidate.isEmpty(manufacturingFacilityId)) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpFacilityOrManufacturingFacilityNotAvailable",
-                    locale));
-        }
+            if (UtilValidate.isEmpty(facilityId) || UtilValidate.isEmpty(manufacturingFacilityId)) {
+                Map<String, Object> errorResult = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
+                        "ManufacturingMrpFacilityOrManufacturingFacilityNotAvailable", locale));
+                return finishMrpRunLog(dispatcher, userLogin, mrpRunLogId, now, mrpId, failureReasonFromResult(errorResult),
+                        cleanFailureMessage(errorResult), null, null, null, errorResult);
+            }
 
         int bomLevelWithNoEvent = 0;
         BigDecimal stockTmp = BigDecimal.ZERO;
@@ -750,7 +937,7 @@ public class MrpServices {
         boolean isBuilt = false;
         GenericValue routing = null;
 
-        String mrpId = delegator.getNextSeqId("MrpEvent");
+        mrpId = delegator.getNextSeqId("MrpEvent");
 
         Map<String, Object> result = null;
         Map<String, Object> parameters = null;
@@ -765,11 +952,15 @@ public class MrpServices {
         try {
             result = dispatcher.runSync("initMrpEvents", parameters);
             if (ServiceUtil.isError(result)) {
-                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result));
+                Map<String, Object> errorResult = ServiceUtil.returnError(ServiceUtil.getErrorMessage(result));
+                return finishMrpRunLog(dispatcher, userLogin, mrpRunLogId, now, mrpId, failureReasonFromResult(errorResult),
+                        cleanFailureMessage(errorResult), null, null, null, errorResult);
             }
         } catch (GenericServiceException e) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpErrorRunningInitMrpEvents", UtilMisc.toMap(
-                    "errorString", e.getMessage()), locale));
+            Map<String, Object> errorResult = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
+                    "ManufacturingMrpErrorRunningInitMrpEvents", UtilMisc.toMap("errorString", e.getMessage()), locale));
+            return finishMrpRunLog(dispatcher, userLogin, mrpRunLogId, now, mrpId, failureReasonFromResult(errorResult),
+                    cleanFailureMessage(errorResult), null, null, null, errorResult);
         }
         long bomLevel = 0;
         do {
@@ -789,8 +980,10 @@ public class MrpServices {
                         .queryList();
             } catch (GenericEntityException e) {
                 Long bomLevelToString = bomLevel;
-                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpErrorForBomLevel", UtilMisc.toMap("bomLevel",
-                        bomLevelToString.toString(), "errorString", e.getMessage()), locale));
+                Map<String, Object> errorResult = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpErrorForBomLevel",
+                        UtilMisc.toMap("bomLevel", bomLevelToString.toString(), "errorString", e.getMessage()), locale));
+                return finishMrpRunLog(dispatcher, userLogin, mrpRunLogId, now, mrpId, failureReasonFromResult(errorResult),
+                        cleanFailureMessage(errorResult), null, null, null, errorResult);
             }
 
             if (UtilValidate.isNotEmpty(listInventoryEventForMRP)) {
@@ -814,7 +1007,10 @@ public class MrpServices {
                             productFacility = EntityUtil.getFirst(product.getRelated("ProductFacility", UtilMisc.toMap("facilityId", facilityId),
                                     null, true));
                         } catch (GenericEntityException e) {
-                            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpCannotFindProductForEvent", locale));
+                            Map<String, Object> errorResult = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
+                                    "ManufacturingMrpCannotFindProductForEvent", locale));
+                            return finishMrpRunLog(dispatcher, userLogin, mrpRunLogId, now, mrpId, failureReasonFromResult(errorResult),
+                                    cleanFailureMessage(errorResult), null, null, null, errorResult);
                         }
                         stockTmp = findProductMrpQoh(mrpId, product, facilityId, dispatcher, delegator);
                         try {
@@ -823,8 +1019,10 @@ public class MrpServices {
                                     "mrpEventTypeId", "INITIAL_QOH", "eventDate", now),
                                     stockTmp, facilityId, null, false, delegator);
                         } catch (GenericEntityException e) {
-                            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpCreateOrUpdateEvent",
-                                    UtilMisc.toMap("parameters", parameters), locale));
+                            Map<String, Object> errorResult = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
+                                    "ManufacturingMrpCreateOrUpdateEvent", UtilMisc.toMap("parameters", parameters), locale));
+                            return finishMrpRunLog(dispatcher, userLogin, mrpRunLogId, now, mrpId, failureReasonFromResult(errorResult),
+                                    cleanFailureMessage(errorResult), null, null, null, errorResult);
                         }
                         // days to ship is only relevant for sales order to plan for preparatory days to ship.  Otherwise MRP will push event dates
                         // for manufacturing parts
@@ -846,11 +1044,15 @@ public class MrpServices {
                                     product.getString("productId"), "quantity", positiveEventQuantity, "excludeWIPs", Boolean.FALSE, "userLogin",
                                     userLogin));
                             if (ServiceUtil.isError(serviceResponse)) {
-                                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResponse));
+                                Map<String, Object> errorResult = ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResponse));
+                                return finishMrpRunLog(dispatcher, userLogin, mrpRunLogId, now, mrpId, failureReasonFromResult(errorResult),
+                                        cleanFailureMessage(errorResult), null, null, null, errorResult);
                             }
                         } catch (GenericServiceException e) {
-                            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpErrorExplodingProduct",
-                                    UtilMisc.toMap("productId", product.getString("productId")), locale));
+                            Map<String, Object> errorResult = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
+                                    "ManufacturingMrpErrorExplodingProduct", UtilMisc.toMap("productId", product.getString("productId")), locale));
+                            return finishMrpRunLog(dispatcher, userLogin, mrpRunLogId, now, mrpId, failureReasonFromResult(errorResult),
+                                    cleanFailureMessage(errorResult), null, null, null, errorResult);
                         }
                         components = UtilGenerics.cast(serviceResponse.get("components"));
                         if (UtilValidate.isNotEmpty(components)) {
@@ -885,11 +1087,15 @@ public class MrpServices {
                                     product.getString("productId"), "quantity", proposedOrder.getQuantity(), "excludeWIPs", Boolean.FALSE,
                                     "userLogin", userLogin));
                             if (ServiceUtil.isError(serviceResponse)) {
-                                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResponse));
+                                Map<String, Object> errorResult = ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResponse));
+                                return finishMrpRunLog(dispatcher, userLogin, mrpRunLogId, now, mrpId, failureReasonFromResult(errorResult),
+                                        cleanFailureMessage(errorResult), null, null, null, errorResult);
                             }
                         } catch (GenericServiceException e) {
-                            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpErrorExplodingProduct",
-                                    UtilMisc.toMap("productId", product.getString("productId")), locale));
+                            Map<String, Object> errorResult = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
+                                    "ManufacturingMrpErrorExplodingProduct", UtilMisc.toMap("productId", product.getString("productId")), locale));
+                            return finishMrpRunLog(dispatcher, userLogin, mrpRunLogId, now, mrpId, failureReasonFromResult(errorResult),
+                                    cleanFailureMessage(errorResult), null, null, null, errorResult);
                         }
                         components = UtilGenerics.cast(serviceResponse.get("components"));
                         String routingId = (String) serviceResponse.get("workEffortId");
@@ -897,8 +1103,10 @@ public class MrpServices {
                             try {
                                 routing = EntityQuery.use(delegator).from("WorkEffort").where("workEffortId", routingId).queryOne();
                             } catch (GenericEntityException e) {
-                                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpCannotFindProductForEvent",
-                                        locale));
+                                Map<String, Object> errorResult = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
+                                        "ManufacturingMrpCannotFindProductForEvent", locale));
+                                return finishMrpRunLog(dispatcher, userLogin, mrpRunLogId, now, mrpId, failureReasonFromResult(errorResult),
+                                        cleanFailureMessage(errorResult), null, null, null, errorResult);
                             }
                         } else {
                             routing = null;
@@ -922,8 +1130,10 @@ public class MrpServices {
                             try {
                                 supplierLeadTimeDays = getSupplierProductLeadTimeDays(delegator, product.getString("productId"), eventDate);
                             } catch (GenericEntityException e) {
-                                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpCannotFindProductForEvent",
-                                        locale));
+                                Map<String, Object> errorResult = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
+                                        "ManufacturingMrpCannotFindProductForEvent", locale));
+                                return finishMrpRunLog(dispatcher, userLogin, mrpRunLogId, now, mrpId, failureReasonFromResult(errorResult),
+                                        cleanFailureMessage(errorResult), null, null, null, errorResult);
                             }
                         }
 
@@ -939,6 +1149,9 @@ public class MrpServices {
                         String requirementId = null;
                         if (productFacility != null) {
                             requirementId = proposedOrder.create(ctx, userLogin);
+                        }
+                        if (UtilValidate.isNotEmpty(requirementId)) {
+                            proposedRequirementCount += 1;
                         }
                         if (UtilValidate.isEmpty(productFacility) && !isBuilt) {
                             logMrpError(mrpId, productId, facilityId, now, "No ProductFacility record for [" + facilityId
@@ -957,8 +1170,10 @@ public class MrpServices {
                             InventoryEventPlannedServices.createOrUpdateMrpEvent(eventMap, proposedOrder.getQuantity(), eventFacilityId,
                                     eventName, isProposedOrderLate(proposedOrder.getRequirementStartDate(), now, inventoryEventForMRP), delegator);
                         } catch (GenericEntityException e) {
-                            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpCreateOrUpdateEvent",
-                                    UtilMisc.toMap("parameters", parameters), locale));
+                            Map<String, Object> errorResult = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
+                                    "ManufacturingMrpCreateOrUpdateEvent", UtilMisc.toMap("parameters", parameters), locale));
+                            return finishMrpRunLog(dispatcher, userLogin, mrpRunLogId, now, mrpId, failureReasonFromResult(errorResult),
+                                    cleanFailureMessage(errorResult), null, null, null, errorResult);
                         }
                         //
                         stockTmp = stockTmp.add(proposedOrder.getQuantity());
@@ -977,6 +1192,16 @@ public class MrpServices {
         result.put("msgResult", msgResult);
         result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
         Debug.logInfo("return from executeMrp", MODULE);
-        return result;
+        Long mrpEventCount = countMrpEventsForRun(delegator, mrpId);
+        Long requirementCount = proposedRequirementCount;
+        String outcomeMessage = buildOutcomeMessage(mrpEventCount, proposedRequirementCount);
+        return finishMrpRunLog(dispatcher, userLogin, mrpRunLogId, now, mrpId, null, null, mrpEventCount, requirementCount,
+                outcomeMessage, result);
+        } catch (RuntimeException e) {
+            String errorMessage = cleanFailureMessage(e);
+            finishMrpRunLog(dispatcher, userLogin, mrpRunLogId, now, mrpId, failureReasonFromException(e), errorMessage,
+                    null, null, null, ServiceUtil.returnError(errorMessage));
+            throw e;
+        }
     }
 }
