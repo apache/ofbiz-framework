@@ -54,17 +54,17 @@ under the License.
                         The plugins Auto-Loading feature also loads all components in the order they are found (i.e. alphabetic or creation date).
                          
                         Using depends-on allows to create a series of dependencies for component loading, before loading a particular component.
-                        For instance we can define dependency for a component like component ebaystore is dependent on component ebay 
-                        (even multiple dependencies for a single component is supported). 
-                        
+                        For instance we can define a dependency for a component named componentB that depends on a component named componentA
+                        (even multiple dependencies for a single component is supported).
+
                         If any anomaly is found loading of components will stop.
-                        
-                        We can declare it in this fashion in ofbiz-component.xml file (beware ebaystore is disabled by default)
+
+                        We can declare it in this fashion in the componentB's ofbiz-component.xml file:
                         <![CDATA[
-                        <ofbiz-component name="ebaystore" enabled="true"
+                        <ofbiz-component name="componentB" enabled="true"
                         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-component.xsd">
-                        <depends-on component-name="ebay"/>
+                        <depends-on component-name="componentA"/>
                         ]]>
                     </xs:documentation>
                 </xs:annotation>

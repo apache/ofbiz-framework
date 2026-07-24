@@ -29,7 +29,41 @@ permissions:
   contents: read
 
 jobs:
+  # Computes which JDK versions the build job's matrix should cover. This lives in its
+  # own job because the `matrix` context is not available in a job-level `if:`, so the
+  # release*-branches-skip-21 rule can't be expressed as a condition on the build job
+  # itself - see https://github.com/orgs/community/discussions/37883. Instead we shrink
+  # the matrix itself before it reaches the build job.
+  prep:
+    runs-on: ubuntu-latest
+    outputs:
+      java: ${{ steps.set-matrix.outputs.java }}
+    steps:
+    - name: Determine JDK matrix
+      id: set-matrix
+      env:
+        EVENT_NAME: ${{ github.event_name }}
+        REF_NAME: ${{ github.ref_name }}
+        BASE_REF: ${{ github.base_ref }}
+      run: |
+        # release* branches stay JDK 17 only until they adopt JDK 21 too,
+        # since trunk fixes must stay backportable to them.
+        if { [ "$EVENT_NAME" = "push" ] && [[ "$REF_NAME" == release* ]]; } || \
+           { [ "$EVENT_NAME" = "pull_request" ] && [[ "$BASE_REF" == release* ]]; }; then
+          echo 'java=[17]' >> "$GITHUB_OUTPUT"
+        else
+          echo 'java=[17,21]' >> "$GITHUB_OUTPUT"
+        fi
+
   build:
+    # trunk builds sourceCompatibility/targetCompatibility 17 bytecode (see build.gradle),
+    # but is matrix-tested on both the JDK 17 runtime it targets and the JDK 21 runtime
+    # it may adopt later.
+    needs: prep
+    strategy:
+      fail-fast: false
+      matrix:
+        java: ${{ fromJson(needs.prep.outputs.java) }}
 
     runs-on: ubuntu-latest
 
@@ -38,12 +72,12 @@ jobs:
 
     steps:
     - name: Check out OFBiz sources
-      uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
-    - name: Set up JDK 17
-      uses: actions/setup-java@1bcf9fb12cf4aa7d266a90ae39939e61372fe520 # v5.4.0
+    - name: Set up JDK ${{ matrix.java }}
+      uses: actions/setup-java@03ad4de0992f5dab5e18fcb136590ce7c4a0ac95 # v5.6.0
       with:
-        java-version: 17
+        java-version: ${{ matrix.java }}
         distribution: temurin
         cache: 'gradle'
 

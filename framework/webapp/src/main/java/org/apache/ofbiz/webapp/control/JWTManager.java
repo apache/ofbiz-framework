@@ -19,7 +19,7 @@
 package org.apache.ofbiz.webapp.control;
 
 import java.net.MalformedURLException;
-import java.net.URL;
+import java.net.URI;
 import java.security.interfaces.RSAPublicKey;
 import java.sql.Timestamp;
 import java.util.Calendar;
@@ -83,7 +83,7 @@ public class JWTManager {
                 if (localRef == null) {
                     String issuer = EntityUtilProperties.getPropertyValue("security", "security.token.issuer", "", delegator);
                     String jwksUrl = issuer + "/protocol/openid-connect/certs";
-                    localRef = new JwkProviderBuilder(new URL(jwksUrl))
+                    localRef = new JwkProviderBuilder(URI.create(jwksUrl).toURL())
                             .cached(10, 24, TimeUnit.HOURS)   // cache up to 10 keys for 24h
                             .rateLimited(10, 1, TimeUnit.MINUTES) // prevent frequent fetches
                             .build();

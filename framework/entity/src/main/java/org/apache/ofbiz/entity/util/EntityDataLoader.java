@@ -225,23 +225,23 @@ public class EntityDataLoader {
         return getUrlByComponentList(helperName, components, readerNames);
     }
 
-    public static int loadData(URL dataUrl, String helperName, Delegator delegator, List<Object> errorMessages) throws GenericEntityException {
+    public static long loadData(URL dataUrl, String helperName, Delegator delegator, List<Object> errorMessages) throws GenericEntityException {
         return loadData(dataUrl, helperName, delegator, errorMessages, -1);
     }
 
-    public static int loadData(URL dataUrl, String helperName, Delegator delegator, List<Object> errorMessages, int txTimeout)
+    public static long loadData(URL dataUrl, String helperName, Delegator delegator, List<Object> errorMessages, int txTimeout)
             throws GenericEntityException {
         return loadData(dataUrl, helperName, delegator, errorMessages, txTimeout, false, false, false);
     }
 
-    public static int loadData(URL dataUrl, String helperName, Delegator delegator, List<Object> errorMessages, int txTimeout, boolean dummyFks,
+    public static long loadData(URL dataUrl, String helperName, Delegator delegator, List<Object> errorMessages, int txTimeout, boolean dummyFks,
                                boolean maintainTxs, boolean tryInsert) throws GenericEntityException {
         return loadData(dataUrl, helperName, delegator, errorMessages, txTimeout, false, false, false, true);
     }
 
-    public static int loadData(URL dataUrl, String helperName, Delegator delegator, List<Object> errorMessages, int txTimeout, boolean dummyFks,
+    public static long loadData(URL dataUrl, String helperName, Delegator delegator, List<Object> errorMessages, int txTimeout, boolean dummyFks,
                                boolean maintainTxs, boolean tryInsert, boolean continueOnFail) throws GenericEntityException {
-        int rowsChanged = 0;
+        long rowsChanged = 0;
 
         if (dataUrl == null) {
             String errMsg = "Cannot load data, dataUrl was null";
@@ -264,7 +264,7 @@ public class EntityDataLoader {
             reader.setCreateDummyFks(dummyFks);
             reader.setMaintainTxStamps(maintainTxs);
             reader.setContinueOnFail(continueOnFail);
-            rowsChanged += (int) reader.parse(dataUrl);
+            rowsChanged += reader.parse(dataUrl);
         } catch (IOException | SAXException e) {
             String xmlError = "[loadData]: Error loading XML Resource \"" + dataUrl.toExternalForm() + "\"; Error was: " + e.getMessage();
             errorMessages.add(xmlError);

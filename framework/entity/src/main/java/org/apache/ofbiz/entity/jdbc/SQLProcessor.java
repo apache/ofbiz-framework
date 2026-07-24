@@ -847,6 +847,7 @@ public class SQLProcessor implements AutoCloseable {
         }
     }
 
+    @SuppressWarnings("deprecation")
     private void checkLockWaitInfo(Exception sqle) {
         String eMsg = sqle.getMessage();
 

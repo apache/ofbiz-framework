@@ -122,6 +122,7 @@ public class WebToolsServices {
         String maintainTimeStamps = (String) context.get("maintainTimeStamps");
         String createDummyFks = (String) context.get("createDummyFks");
         String checkDataOnly = (String) context.get("checkDataOnly");
+        String disableEeca = (String) context.get("disableEeca");
         Map<String, Object> placeholderValues = UtilGenerics.cast(context.get("placeholderValues"));
 
         Integer txTimeout = (Integer) context.get("txTimeout");
@@ -212,6 +213,7 @@ public class WebToolsServices {
                 Map<String, Object> inputMap = UtilMisc.toMap("onlyInserts", onlyInserts,
                         "createDummyFks", createDummyFks,
                         "checkDataOnly", checkDataOnly,
+                        "disableEeca", disableEeca,
                         "maintainTimeStamps", maintainTimeStamps,
                         "txTimeout", txTimeout,
                         "placeholderValues", placeholderValues,
@@ -253,6 +255,7 @@ public class WebToolsServices {
         String onlyInserts = (String) context.get("onlyInserts");
         String maintainTimeStamps = (String) context.get("maintainTimeStamps");
         String createDummyFks = (String) context.get("createDummyFks");
+        String disableEeca = (String) context.get("disableEeca");
         boolean deleteFiles = (String) context.get("deleteFiles") != null;
         String checkDataOnly = (String) context.get("checkDataOnly");
         Map<String, Object> placeholderValues = UtilGenerics.cast(context.get("placeholderValues"));
@@ -296,6 +299,7 @@ public class WebToolsServices {
                         Map<String, Object> parseEntityXmlFileArgs = UtilMisc.toMap("onlyInserts", onlyInserts,
                                 "createDummyFks", createDummyFks,
                                 "checkDataOnly", checkDataOnly,
+                                "disableEeca", disableEeca,
                                 "maintainTimeStamps", maintainTimeStamps,
                                 "txTimeout", txTimeout,
                                 "placeholderValues", placeholderValues,
@@ -414,7 +418,7 @@ public class WebToolsServices {
 
         List<Object> errorMessages = new LinkedList<>();
         List<String> infoMessages = new LinkedList<>();
-        int totalRowsChanged = 0;
+        long totalRowsChanged = 0;
         if (UtilValidate.isNotEmpty(urlList)) {
             messages.add("=-=-=-=-=-=-= Doing a data " + (checkDataOnly ? "check" : "load") + " with the following files:");
             for (URL dataUrl : urlList) {
@@ -425,7 +429,7 @@ public class WebToolsServices {
 
             for (URL dataUrl : urlList) {
                 try {
-                    int rowsChanged = 0;
+                    long rowsChanged = 0;
                     if (checkDataOnly) {
                         try {
                             errorMessages.add("Checking data in [" + dataUrl.toExternalForm() + "]");
@@ -479,6 +483,7 @@ public class WebToolsServices {
         boolean maintainTimeStamps = (String) context.get("maintainTimeStamps") != null;
         boolean createDummyFks = (String) context.get("createDummyFks") != null;
         boolean checkDataOnly = (String) context.get("checkDataOnly") != null;
+        boolean disableEeca = (String) context.get("disableEeca") != null;
         Integer txTimeout = (Integer) context.get("txTimeout");
         Map<String, Object> placeholderValues = UtilGenerics.cast(context.get("placeholderValues"));
 
@@ -495,6 +500,9 @@ public class WebToolsServices {
             reader.setCreateDummyFks(createDummyFks);
             reader.setCheckDataOnly(checkDataOnly);
             reader.setPlaceholderValues(placeholderValues);
+            if (disableEeca) {
+                reader.setDisableEeca(true);
+            }
 
             long numberRead = (url != null ? reader.parse(url) : reader.parse(xmltext));
             rowProcessed = numberRead;

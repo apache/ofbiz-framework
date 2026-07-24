@@ -196,7 +196,6 @@ under the License.
     <PaymentMethodType paymentMethodTypeId="COMPANY_ACCOUNT" defaultGlAccountId="122000"/>
     <PaymentMethodType paymentMethodTypeId="EXT_BILLACT" defaultGlAccountId="122000"/>
     <PaymentMethodType paymentMethodTypeId="EXT_COD" defaultGlAccountId="122000"/>
-    <PaymentMethodType paymentMethodTypeId="EXT_EBAY" defaultGlAccountId="122000"/>
     <PaymentMethodType paymentMethodTypeId="EXT_OFFLINE" defaultGlAccountId="122000"/>
     <PaymentMethodType paymentMethodTypeId="EXT_PAYPAL" defaultGlAccountId="122000"/>
     <PaymentMethodType paymentMethodTypeId="EXT_WORLDPAY" defaultGlAccountId="122000"/>
@@ -357,7 +356,6 @@ under the License.
     <PaymentMethodTypeGlAccount organizationPartyId="Company" paymentMethodTypeId="COMPANY_ACCOUNT" glAccountId="111100"/>
     <PaymentMethodTypeGlAccount organizationPartyId="Company" paymentMethodTypeId="EXT_BILLACT" glAccountId="213000"/>
     <PaymentMethodTypeGlAccount organizationPartyId="Company" paymentMethodTypeId="EXT_COD" glAccountId="112000"/>
-    <PaymentMethodTypeGlAccount organizationPartyId="Company" paymentMethodTypeId="EXT_EBAY" glAccountId="112000"/>
     <PaymentMethodTypeGlAccount organizationPartyId="Company" paymentMethodTypeId="EXT_OFFLINE" glAccountId="112000"/>
     <PaymentMethodTypeGlAccount organizationPartyId="Company" paymentMethodTypeId="EXT_PAYPAL" glAccountId="122500"/>
     <PaymentMethodTypeGlAccount organizationPartyId="Company" paymentMethodTypeId="EXT_WORLDPAY" glAccountId="122500"/>
