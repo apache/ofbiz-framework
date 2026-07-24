@@ -623,6 +623,16 @@ public class MrpServices {
     }
 
     /**
+     * Returns whether a proposed supply order should be classified as late for the current MRP run.
+     */
+    public static boolean isProposedOrderLate(Timestamp requirementStartDate, Timestamp runStartedAt, GenericValue sourceEvent) {
+        if (sourceEvent != null && "REQUIRED_MRP".equals(sourceEvent.getString("mrpEventTypeId"))) {
+            return false;
+        }
+        return requirementStartDate.compareTo(runStartedAt) < 0;
+    }
+
+    /**
      * Process the bill of material (bom) of the product  to insert components in the MrpEvent table.
      * Before inserting in the entity, test if there is the record already existing to add quantity rather to create a new one.
      * @param mrpId                the mrp id
@@ -945,7 +955,7 @@ public class MrpServices {
                         String eventFacilityId = isBuilt ? manufacturingFacilityId : facilityId;
                         try {
                             InventoryEventPlannedServices.createOrUpdateMrpEvent(eventMap, proposedOrder.getQuantity(), eventFacilityId,
-                                    eventName, (proposedOrder.getRequirementStartDate().compareTo(now) < 0), delegator);
+                                    eventName, isProposedOrderLate(proposedOrder.getRequirementStartDate(), now, inventoryEventForMRP), delegator);
                         } catch (GenericEntityException e) {
                             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpCreateOrUpdateEvent",
                                     UtilMisc.toMap("parameters", parameters), locale));
