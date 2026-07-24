@@ -36,6 +36,7 @@ import org.junit.platform.launcher.core.LauncherFactory;
 
 import junit.framework.AssertionFailedError;
 import junit.framework.Test;
+import junit.framework.TestCase;
 import junit.framework.TestResult;
 
 import static org.junit.platform.engine.discovery.DiscoverySelectors.selectClass;
@@ -156,23 +157,21 @@ public final class JupiterTestSuite implements Test {
     }
 
     /**
-     * Public (not private): Ant's JUnitVersionHelper.getTestCaseName() reflectively invokes
-     * getName() on this object from outside this package, without calling setAccessible() first.
-     * A non-public nested class would make that Method.invoke() throw IllegalAccessException,
-     * which Ant swallows silently, so the XML report would just show "unknown" as the name.
+     * Extends junit.framework.TestCase (not a bare Test implementation) so Ant's
+     * XMLJUnitResultFormatter resolves the reporting name through JUnitVersionHelper's
+     * {@code instanceof TestCase} branch: a Method handle fixed once, at class-init, to
+     * {@code TestCase.class.getMethod("getName")} - the stable, public JUnit 3 API this file
+     * already depends on - rather than the duck-typed {@code t.getClass().getMethod("getName")}
+     * fallback used for arbitrary Test implementors. That fallback is why this class doesn't need
+     * to be public: the resolved Method's declaring class is TestCase, so reflection.invoke()
+     * succeeds regardless of this nested class's own visibility.
      */
-    public static final class JupiterLeafTest implements Test {
-        private final String name;
+    static final class JupiterLeafTest extends TestCase {
         private final String className;
 
         JupiterLeafTest(String name, String className) {
-            this.name = name;
+            super(name);
             this.className = className;
-        }
-
-        @Override
-        public int countTestCases() {
-            return 1;
         }
 
         @Override
@@ -180,19 +179,9 @@ public final class JupiterTestSuite implements Test {
             throw new UnsupportedOperationException("JupiterLeafTest is a reporting handle only, it cannot be run directly");
         }
 
-        /**
-         * Not part of the Test interface: Ant's XMLJUnitResultFormatter (JUnitVersionHelper.getTestCaseName)
-         * looks this up by reflection for any non-TestCase Test implementation, falling back to "unknown"
-         * if absent. Kept as the bare legacy reporting name (no class prefix) to match how JUnit 3 test
-         * methods are named in the same report.
-         */
-        public String getName() {
-            return name;
-        }
-
         @Override
         public String toString() {
-            return name + "(" + className + ")";
+            return getName() + "(" + className + ")";
         }
     }
 

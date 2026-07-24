@@ -24,6 +24,7 @@ import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.ParameterContext;
+import org.junit.jupiter.api.extension.ParameterResolutionException;
 import org.junit.jupiter.api.extension.ParameterResolver;
 import org.junit.jupiter.api.extension.TestInstancePostProcessor;
 
@@ -70,6 +71,15 @@ import org.junit.jupiter.api.extension.TestInstancePostProcessor;
  * <p>JupiterTestSuite.run() executes tests synchronously on the calling thread (the default JUnit
  * Platform execution mode, and the one TestRunContainer relies on), so a plain ThreadLocal set
  * immediately before launcher.execute() is read correctly by both hooks below.
+ *
+ * <p><b>Not per-test isolation.</b> JUnit 5 creates a fresh test instance per {@literal @}Test
+ * method by default, which can suggest each method also gets a fresh Delegator/LocalDispatcher -
+ * it doesn't. The Delegator/LocalDispatcher injected here are the single instances
+ * ModelTestSuite.prepareTest() builds once for the whole {@code <test-suite>}, shared across every
+ * test method and every Jupiter/JUnit 3 class in that suite, exactly as JUnit 3 test-cases already
+ * share them today. TestRunContainer rolls back all accumulated mutations once, after the entire
+ * suite finishes - not per test method - so a test can observe data created by an earlier test in
+ * the same suite, and ordering between test-cases in the suite's testdef XML can matter.
  */
 public class JupiterTestExtension implements ParameterResolver, TestInstancePostProcessor {
 
@@ -91,21 +101,69 @@ public class JupiterTestExtension implements ParameterResolver, TestInstancePost
     @Override
     public Object resolveParameter(ParameterContext parameterContext, ExtensionContext extensionContext) {
         Class<?> type = parameterContext.getParameter().getType();
-        return type == Delegator.class ? CURRENT_DELEGATOR.get() : CURRENT_DISPATCHER.get();
+        Object value = type == Delegator.class ? CURRENT_DELEGATOR.get() : CURRENT_DISPATCHER.get();
+        if (value == null) {
+            throw new ParameterResolutionException(unavailableMessage(type.getSimpleName(),
+                    "parameter '" + parameterContext.getParameter().getName() + "'"));
+        }
+        return value;
     }
 
     private static void injectField(Object testInstance, String fieldName, Class<?> fieldType, Object value) throws IllegalAccessException {
-        if (value == null) {
-            return;
-        }
+        Field field = null;
         for (Class<?> clz = testInstance.getClass(); clz != null; clz = clz.getSuperclass()) {
-            Field field = declaredFieldOrNull(clz, fieldName);
-            if (field != null && fieldType.isAssignableFrom(field.getType())) {
-                field.setAccessible(true);
-                field.set(testInstance, value);
-                return;
+            Field candidate = declaredFieldOrNull(clz, fieldName);
+            if (candidate != null && fieldType.isAssignableFrom(candidate.getType())) {
+                field = candidate;
+                break;
             }
         }
+        if (field == null) {
+            Field mismatch = findAnyFieldOfType(testInstance.getClass(), fieldType);
+            if (mismatch != null) {
+                throw new IllegalStateException("Field '" + mismatch.getName() + "' in " + testInstance.getClass().getName()
+                        + " is of type " + fieldType.getSimpleName() + ", but field injection only recognizes a field "
+                        + "named exactly '" + fieldName + "'. Rename it to '" + fieldName + "', or implement "
+                        + "JupiterTestHelper instead (type-based, no field name required).");
+            }
+            return;
+        }
+        if (value == null) {
+            throw new IllegalStateException(unavailableMessage(fieldType.getSimpleName(),
+                    "field '" + fieldName + "' of " + testInstance.getClass().getName()));
+        }
+        field.setAccessible(true);
+        field.set(testInstance, value);
+    }
+
+    /**
+     * Backstop for Concern 3 (name-literal field injection is otherwise silent on a typo): finds any field of the
+     * right type regardless of name, so injectField() can fail loudly with the actual field name and the required
+     * one, instead of leaving a misnamed field null with no indication injection was ever attempted.
+     */
+    private static Field findAnyFieldOfType(Class<?> testClass, Class<?> fieldType) {
+        for (Class<?> clz = testClass; clz != null; clz = clz.getSuperclass()) {
+            for (Field field : clz.getDeclaredFields()) {
+                if (fieldType.isAssignableFrom(field.getType())) {
+                    return field;
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Both injection points (field and parameter) reach here only when the caller has explicitly asked for a
+     * Delegator/LocalDispatcher - by declaring the field or parameter - so a null ThreadLocal value here is always a
+     * misconfiguration, not a legitimate "test doesn't need it" case. Failing fast at the injection site turns what
+     * would otherwise be a mystery NPE deep in test logic into an error that points at the actual cause.
+     */
+    private static String unavailableMessage(String typeName, String target) {
+        return "No " + typeName + " available to inject into " + target + ". JupiterTestExtension's ThreadLocal "
+                + "bridge is only populated on the thread that calls JupiterTestSuite.run(), and only for classes "
+                + "run through the ofbiz --test container (jupiter-test-suite in a testdef XML). This is null "
+                + "because either this class ran outside that container (e.g. plain gradlew test), or JUnit 5 "
+                + "parallel execution is enabled for it - both unsupported for delegator/dispatcher injection.";
     }
 
     private static Field declaredFieldOrNull(Class<?> clz, String fieldName) {
