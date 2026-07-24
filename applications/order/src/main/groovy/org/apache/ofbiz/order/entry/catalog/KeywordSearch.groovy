@@ -29,9 +29,11 @@ import org.apache.ofbiz.product.product.ProductSearchSession
 module = 'KeywordSearch.groovy'
 
 // note: this can be run multiple times in the same request without causing problems, will check to see on its own if it has run again
+prodCatalogId = CatalogWorker.getCurrentCatalogId(request)
+// without this, a catalog with no PCCT_VIEW_ALLW category configured searches every catalog
+parameters.SEARCH_CATALOG_ID = parameters.SEARCH_CATALOG_ID ?: prodCatalogId
 request.getSession().setAttribute('dispatcher', dispatcher)
 ProductSearchSession.processSearchParameters(parameters, request)
-prodCatalogId = CatalogWorker.getCurrentCatalogId(request)
 result = ProductSearchSession.getProductSearchResult(request, delegator, prodCatalogId)
 
 context << [
