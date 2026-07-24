@@ -84,6 +84,9 @@ public class InventoryEventPlannedServices {
             if (isLate) {
                 mrpEvent.put("isLate", "Y");
             }
+            if (UtilValidate.isEmpty(mrpEvent.getString("facilityId")) && UtilValidate.isNotEmpty(facilityId)) {
+                mrpEvent.put("facilityId", facilityId);
+            }
             mrpEvent.store();
         }
     }

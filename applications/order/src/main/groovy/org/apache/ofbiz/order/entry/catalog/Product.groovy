@@ -26,6 +26,7 @@ import org.apache.ofbiz.product.category.CategoryContentWrapper
 import org.apache.ofbiz.product.category.CategoryWorker
 import org.apache.ofbiz.product.product.ProductContentWrapper
 import org.apache.ofbiz.product.product.ProductWorker
+import org.apache.ofbiz.product.store.ProductStoreWorker
 
 contentPathPrefix = CatalogWorker.getContentPathPrefix(request)
 catalogName = CatalogWorker.getCatalogName(request)
@@ -85,6 +86,29 @@ if (productId) {
             if (!CategoryWorker.isProductInCategory(delegator, productId, viewProductCategoryId)) {
                 // a view allow productCategoryId was found, but the product is not in the category, axe it...
                 product = null
+            }
+        } else {
+            // no View-Allow category configured: fall back to scoping by the whole store's catalogs
+            // (not just currentCatalogId) so products shared across a store's own catalogs still work,
+            // while products that only exist in an unrelated store's catalog get excluded
+            productStoreId = ProductStoreWorker.getProductStoreId(request)
+            if (productStoreId) {
+                storeCatalogCategoryIds = [] as Set
+                CatalogWorker.getStoreCatalogs(delegator, productStoreId)?.each { storeCatalog ->
+                    topCategoryId = CatalogWorker.getCatalogTopCategoryId(delegator, storeCatalog.prodCatalogId)
+                    if (topCategoryId) {
+                        storeCatalogCategoryIds << topCategoryId
+                        CategoryWorker.getRelatedCategoriesRet(delegator, 'topLevelList', topCategoryId, true, false, true).each {
+                            storeCatalogCategoryIds << it.productCategoryId
+                        }
+                    }
+                }
+                productCategoryIds = from('ProductCategoryMember').where('productId', productId).filterByDate()
+                        .queryList()*.productCategoryId as Set
+                if (storeCatalogCategoryIds.disjoint(productCategoryIds)) {
+                    // product isn't reachable from any catalog belonging to the current store, axe it...
+                    product = null
+                }
             }
         }
     }

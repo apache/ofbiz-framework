@@ -270,6 +270,20 @@ public interface EntityCondition extends IsEmpty, Serializable {
             Datasource datasourceInfo);
 
     /**
+     * Dumps the corresponding SQL string, using {@code delegator} (when available) to validate
+     * field/value type compatibility instead of assuming the {@code "default"} delegator.
+     * @param modelEntity the model of the entity
+     * @param entityConditionParams the effective parameters used to substitute '?' parameters
+     * @param datasourceInfo the model of the data source interpreting the SQL
+     * @param delegator the delegator actually being used to run this query, or {@code null} if unavailable
+     * @return the corresponding SQL string
+     */
+    default String makeWhereString(ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams,
+            Datasource datasourceInfo, Delegator delegator) {
+        return makeWhereString(modelEntity, entityConditionParams, datasourceInfo);
+    }
+
+    /**
      * Verifies that this condition expression is valid.
      * @param modelEntity the model of the entity
      * @throws GenericModelException when this condition expression is not valid

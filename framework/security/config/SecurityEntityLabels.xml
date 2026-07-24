@@ -776,13 +776,6 @@
         <value xml:lang="zh">使用数据文件维护页面。</value>
         <value xml:lang="zh-TW">使用資料檔維護頁面.</value>
     </property>
-    <property key="SecurityPermission.description.EBAY_VIEW">
-        <value xml:lang="en">View operations in the eBay application.</value>
-        <value xml:lang="it">Operazioni di visualizzazione nell'applicazione eBay.</value>
-        <value xml:lang="ja">eBay業務での表示操作。</value>
-        <value xml:lang="zh">EBay应用程序中的浏览操作。</value>
-        <value xml:lang="zh-TW">eBay應用程式中的檢視操作.</value>
-    </property>
     <property key="SecurityPermission.description.ENTITY_DATA_ADMIN">
         <value xml:lang="en">ALL with the Entity Data Maintenance pages.</value>
         <value xml:lang="es">TODO dentro de las páginas de Mantenimiento de Datos de Entidad.</value>

@@ -33,7 +33,19 @@ under the License.
         <attribute name="facilityId" type="String" mode="IN" optional="true"/>
         <attribute name="mrpName" type="String" mode="IN" optional="true"/>
         <attribute name="defaultYearsOffset" type="Integer" mode="IN" optional="true"/>
+        <attribute name="mrpRunLogId" type="String" mode="IN" optional="true"/>
+        <attribute name="jobTrackerId" type="String" mode="IN" optional="true"/>
         <attribute name="msgResult" type="List" mode="OUT" optional="false"/>
+    </service>
+    <service name="createMrpRunLog" default-entity-name="MrpRunLog" engine="entity-auto" invoke="create" auth="true">
+        <description>Create durable metadata for an MRP execution.</description>
+        <auto-attributes include="pk" mode="INOUT" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateMrpRunLog" default-entity-name="MrpRunLog" engine="entity-auto" invoke="update" auth="true">
+        <description>Update durable metadata for an MRP execution.</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="initMrpEvents" engine="java"
             location="org.apache.ofbiz.manufacturing.mrp.MrpServices" invoke="initMrpEvents" auth="true">

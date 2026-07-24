@@ -493,21 +493,6 @@
         <value xml:lang="zh">后进先出法</value>
         <value xml:lang="zh-TW">後進先出法</value>
     </property>
-    <property key="Enumeration.description.EBAY_SALES_CHANNEL">
-        <value xml:lang="cs">eBay</value>
-        <value xml:lang="de">Verkaufskanal: eBay</value>
-        <value xml:lang="en">eBay Channel</value>
-        <value xml:lang="es">eBay</value>
-        <value xml:lang="fr">Canal de vente : eBay</value>
-        <value xml:lang="it">Canale eBay</value>
-        <value xml:lang="ja">eBayチャネル</value>
-        <value xml:lang="pt">Canal eBay</value>
-        <value xml:lang="ru">Каннал eBay</value>
-        <value xml:lang="th">ช่องทาง eBay</value>
-        <value xml:lang="vi">Kênh eBay</value>
-        <value xml:lang="zh">EBay渠道</value>
-        <value xml:lang="zh-TW">EBay通路</value>
-    </property>
     <property key="Enumeration.description.EMAIL_SALES_CHANNEL">
         <value xml:lang="ar">قناة البريد الالكتروني</value>
         <value xml:lang="cs">Elektronická pošta</value>
