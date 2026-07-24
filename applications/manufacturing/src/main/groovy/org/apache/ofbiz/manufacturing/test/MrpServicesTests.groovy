@@ -49,6 +49,7 @@ class MrpServicesTests extends OFBizTestCase {
     }
 
     private static class StubGenericValue extends GenericValue {
+
         private final Map fields
 
         StubGenericValue(Map fields) {
@@ -77,5 +78,7 @@ class MrpServicesTests extends OFBizTestCase {
             }
             super.getProperty(name)
         }
+
     }
+
 }
