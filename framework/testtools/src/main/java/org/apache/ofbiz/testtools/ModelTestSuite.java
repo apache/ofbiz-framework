@@ -38,6 +38,7 @@ import org.apache.ofbiz.minilang.SimpleMethod;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ServiceContainer;
 import org.apache.ofbiz.service.testtools.OFBizTestCase;
+import org.apache.ofbiz.testtools.JupiterTestExtension.JupiterTestSuite;
 import org.w3c.dom.Element;
 
 import junit.framework.Test;
