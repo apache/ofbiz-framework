@@ -43,10 +43,13 @@ import org.apache.ofbiz.service.LocalDispatcher;
  * logWarning read no ThreadLocal at all; they just delegate to {@code Debug.log*} with
  * {@code getClass().getName()}.) Relying on these ThreadLocals is safe under the current,
  * single-threaded, synchronous execution model (the default JUnit Platform mode, and the only one
- * {@code JupiterTestSuite}/{@code TestRunContainer} support), but if a test class opts into JUnit
- * 5 parallel execution, these methods will run on a worker thread where the ThreadLocal is unset,
- * and will silently operate on/return {@code null} - producing a confusing NPE far from this root
- * cause.
+ * {@code JupiterTestSuite}/{@code TestRunContainer} support). Under that model, a class run
+ * outside the container (e.g. plain {@code gradlew test}) no longer reaches these methods at all -
+ * {@code JupiterTestExtension}'s {@code evaluateExecutionCondition()} disables it first, reporting
+ * a skip instead of letting a null ThreadLocal read through into a confusing NPE. That protection
+ * does not extend to JUnit 5 parallel execution, which remains unsupported: a test class that opts
+ * into it runs on a worker thread where the ThreadLocal is unset even when genuinely inside the
+ * container, and these methods will again silently operate on/return {@code null}.
  */
 public interface JupiterTestHelper {
 

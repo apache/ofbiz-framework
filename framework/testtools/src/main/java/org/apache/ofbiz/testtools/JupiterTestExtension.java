@@ -22,6 +22,8 @@ import java.lang.reflect.Field;
 
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.service.LocalDispatcher;
+import org.junit.jupiter.api.extension.ConditionEvaluationResult;
+import org.junit.jupiter.api.extension.ExecutionCondition;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.ParameterContext;
 import org.junit.jupiter.api.extension.ParameterResolutionException;
@@ -70,7 +72,18 @@ import org.junit.jupiter.api.extension.TestInstancePostProcessor;
  *
  * <p>JupiterTestSuite.run() executes tests synchronously on the calling thread (the default JUnit
  * Platform execution mode, and the one TestRunContainer relies on), so a plain ThreadLocal set
- * immediately before launcher.execute() is read correctly by both hooks below.
+ * immediately before launcher.execute() is read correctly by all three hooks below.
+ *
+ * <p><b>Classes run outside the container are skipped, not failed.</b>
+ * evaluateExecutionCondition() below disables any {@literal @}ExtendWith(JupiterTestExtension)
+ * class whose CURRENT_DELEGATOR/CURRENT_DISPATCHER ThreadLocals are unset - the case where the
+ * class was run via plain {@code gradlew test} instead of through JupiterTestSuite.run() - before
+ * a test instance is ever created. This turns what would otherwise be a NullPointerException deep
+ * in test logic (JupiterTestHelper's default methods) or the IllegalStateException/
+ * ParameterResolutionException thrown by the two hooks below into a reported skip with an
+ * actionable reason. Those two hooks' exceptions remain in place as a safety net for a genuine
+ * in-container misconfiguration; they are simply unreachable for the outside-the-container case
+ * now that the class never gets that far.
  *
  * <p><b>Not per-test isolation.</b> JUnit 5 creates a fresh test instance per {@literal @}Test
  * method by default, which can suggest each method also gets a fresh Delegator/LocalDispatcher -
@@ -81,10 +94,29 @@ import org.junit.jupiter.api.extension.TestInstancePostProcessor;
  * suite finishes - not per test method - so a test can observe data created by an earlier test in
  * the same suite, and ordering between test-cases in the suite's testdef XML can matter.
  */
-public class JupiterTestExtension implements ParameterResolver, TestInstancePostProcessor {
+public class JupiterTestExtension implements ParameterResolver, TestInstancePostProcessor, ExecutionCondition {
 
     static final ThreadLocal<Delegator> CURRENT_DELEGATOR = new ThreadLocal<>();
     static final ThreadLocal<LocalDispatcher> CURRENT_DISPATCHER = new ThreadLocal<>();
+
+    /**
+     * Disables classes/methods run outside the ofbiz --test container instead of letting them reach
+     * postProcessTestInstance()/resolveParameter() (or, for JupiterTestHelper-based classes, a
+     * NullPointerException from a getDelegator()/getDispatcher() caller). Both ThreadLocals are
+     * checked rather than just one so a class relying on only a Delegator or only a
+     * LocalDispatcher isn't disabled by a coincidentally-unset ThreadLocal it never actually reads
+     * - in practice JupiterTestSuite.run() arms both together.
+     */
+    @Override
+    public ConditionEvaluationResult evaluateExecutionCondition(ExtensionContext extensionContext) {
+        if (CURRENT_DELEGATOR.get() == null && CURRENT_DISPATCHER.get() == null) {
+            return ConditionEvaluationResult.disabled(
+                    "Requires the ofbiz --test container (Delegator/LocalDispatcher not armed on this "
+                            + "thread). Run via 'gradlew testIntegration' or 'ofbiz --test', not plain "
+                            + "'gradlew test'.");
+        }
+        return ConditionEvaluationResult.enabled("Delegator/LocalDispatcher available.");
+    }
 
     @Override
     public void postProcessTestInstance(Object testInstance, ExtensionContext extensionContext) throws Exception {
