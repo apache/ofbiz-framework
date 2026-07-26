@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.apache.ofbiz.testtools;
 
+import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -42,10 +43,18 @@ import org.junit.jupiter.api.extension.ExtendWith;
  * component's testdef XML. A class carrying only this annotation, with no matching
  * testdef entry, runs nowhere: excluded from gradlew test by tag, and never picked up
  * by ModelTestSuite for testIntegration either.
+ *
+ * <p>Running {@code gradlew test --tests} against one of these classes fails the build
+ * with "No tests found for given includes" rather than reporting a skip, since the tag
+ * excludes it from discovery before Gradle's {@code --tests} filter ever sees it; use
+ * {@code gradlew testIntegration} or {@code ofbiz --test} instead. An IDE-native run
+ * that bypasses Gradle's test task entirely still reports a clean skip via the runtime
+ * condition.
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
+@Documented
 @Tag(JupiterTestExtension.INTEGRATION_TAG)
 @ExtendWith(JupiterTestExtension.class)
-public @interface JupiterTestEngine {
+public @interface JupiterIntegrationTest {
 }

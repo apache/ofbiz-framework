@@ -94,11 +94,15 @@ import static org.junit.platform.engine.discovery.DiscoverySelectors.selectClass
  * immediately before launcher.execute() is read correctly by all three hooks below.
  *
  * <p><b>Classes run outside the container are skipped, not failed.</b>
- * evaluateExecutionCondition() below disables any {@literal @}JupiterTestEngine class
- * whose CURRENT_DELEGATOR/CURRENT_DISPATCHER ThreadLocals are unset - the case where the
- * class was run via plain {@code gradlew test} instead of through JupiterTestSuite.run() - before
- * a test instance is ever created. This turns what would otherwise be a NullPointerException deep
- * in test logic (JupiterTestHelper's default methods) or the IllegalStateException/
+ * evaluateExecutionCondition() below disables any class extended with this extension - via
+ * {@literal @}JupiterIntegrationTest or a bare {@literal @}ExtendWith(JupiterTestExtension) - whose
+ * CURRENT_DELEGATOR/CURRENT_DISPATCHER ThreadLocals are unset. Under plain {@code gradlew test},
+ * {@literal @}JupiterIntegrationTest classes are already excluded before discovery by their tag (see
+ * build.gradle's excludeTags), so this condition is the safety net for the paths that filter doesn't
+ * cover: a class using bare {@literal @}ExtendWith(JupiterTestExtension.class) instead of
+ * {@literal @}JupiterIntegrationTest, and an IDE-native test run that bypasses Gradle's test task
+ * entirely. This turns what would otherwise be a NullPointerException deep in test logic
+ * (JupiterTestHelper's default methods) or the IllegalStateException/
  * ParameterResolutionException thrown by the two hooks below into a reported skip with an
  * actionable reason. Those two hooks' exceptions remain in place as a safety net for a genuine
  * in-container misconfiguration; they are simply unreachable for the outside-the-container case
@@ -115,7 +119,7 @@ import static org.junit.platform.engine.discovery.DiscoverySelectors.selectClass
  */
 public class JupiterTestExtension implements ParameterResolver, TestInstancePostProcessor, ExecutionCondition {
 
-    /** Read by build.gradle's `test` task ({@code excludeTags}) and by {@link JupiterTestEngine}. */
+    /** Read by build.gradle's `test` task ({@code excludeTags}) and by {@link JupiterIntegrationTest}. */
     public static final String INTEGRATION_TAG = "jupiterIntegration";
 
     static final ThreadLocal<Delegator> CURRENT_DELEGATOR = new ThreadLocal<>();
