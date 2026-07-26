@@ -374,7 +374,9 @@ eclipse.classpath.file.whenMerged { classpath ->
 tasks.eclipse.dependsOn(cleanEclipse)
 
 test {
-    useJUnitPlatform()
+    useJUnitPlatform {
+        excludeTags 'jupiterIntegration'  // see JupiterTestExtension.INTEGRATION_TAG
+    }
     jvmArgs "-javaagent:${classpath.find { it.name.contains('jmockit') }.absolutePath}"
     // Required for JMockit instrumentation, Mockito, and Spring Test under Java 21
     jvmArgs '--add-opens=java.base/java.lang=ALL-UNNAMED'
