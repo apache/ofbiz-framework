@@ -94,8 +94,8 @@ import static org.junit.platform.engine.discovery.DiscoverySelectors.selectClass
  * immediately before launcher.execute() is read correctly by all three hooks below.
  *
  * <p><b>Classes run outside the container are skipped, not failed.</b>
- * evaluateExecutionCondition() below disables any {@literal @}ExtendWith(JupiterTestExtension)
- * class whose CURRENT_DELEGATOR/CURRENT_DISPATCHER ThreadLocals are unset - the case where the
+ * evaluateExecutionCondition() below disables any {@literal @}JupiterTestEngine class
+ * whose CURRENT_DELEGATOR/CURRENT_DISPATCHER ThreadLocals are unset - the case where the
  * class was run via plain {@code gradlew test} instead of through JupiterTestSuite.run() - before
  * a test instance is ever created. This turns what would otherwise be a NullPointerException deep
  * in test logic (JupiterTestHelper's default methods) or the IllegalStateException/
@@ -114,6 +114,9 @@ import static org.junit.platform.engine.discovery.DiscoverySelectors.selectClass
  * the same suite, and ordering between test-cases in the suite's testdef XML can matter.
  */
 public class JupiterTestExtension implements ParameterResolver, TestInstancePostProcessor, ExecutionCondition {
+
+    /** Read by build.gradle's `test` task ({@code excludeTags}) and by {@link JupiterTestEngine}. */
+    public static final String INTEGRATION_TAG = "jupiterIntegration";
 
     static final ThreadLocal<Delegator> CURRENT_DELEGATOR = new ThreadLocal<>();
     static final ThreadLocal<LocalDispatcher> CURRENT_DISPATCHER = new ThreadLocal<>();
