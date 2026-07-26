@@ -56,5 +56,5 @@ import org.junit.jupiter.api.extension.ExtendWith;
 @Documented
 @Tag(JupiterTestExtension.INTEGRATION_TAG)
 @ExtendWith(JupiterTestExtension.class)
-public @interface JupiterIntegrationTest {
+public @interface JunitJupiterTest {
 }

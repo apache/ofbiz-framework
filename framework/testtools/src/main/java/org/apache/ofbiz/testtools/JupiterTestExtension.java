@@ -95,12 +95,12 @@ import static org.junit.platform.engine.discovery.DiscoverySelectors.selectClass
  *
  * <p><b>Classes run outside the container are skipped, not failed.</b>
  * evaluateExecutionCondition() below disables any class extended with this extension - via
- * {@literal @}JupiterIntegrationTest or a bare {@literal @}ExtendWith(JupiterTestExtension) - whose
+ * {@literal @}JunitJupiterTest or a bare {@literal @}ExtendWith(JupiterTestExtension) - whose
  * CURRENT_DELEGATOR/CURRENT_DISPATCHER ThreadLocals are unset. Under plain {@code gradlew test},
- * {@literal @}JupiterIntegrationTest classes are already excluded before discovery by their tag (see
+ * {@literal @}JunitJupiterTest classes are already excluded before discovery by their tag (see
  * build.gradle's excludeTags), so this condition is the safety net for the paths that filter doesn't
  * cover: a class using bare {@literal @}ExtendWith(JupiterTestExtension.class) instead of
- * {@literal @}JupiterIntegrationTest, and an IDE-native test run that bypasses Gradle's test task
+ * {@literal @}JunitJupiterTest, and an IDE-native test run that bypasses Gradle's test task
  * entirely. This turns what would otherwise be a NullPointerException deep in test logic
  * (JupiterTestHelper's default methods) or the IllegalStateException/
  * ParameterResolutionException thrown by the two hooks below into a reported skip with an
@@ -119,7 +119,7 @@ import static org.junit.platform.engine.discovery.DiscoverySelectors.selectClass
  */
 public class JupiterTestExtension implements ParameterResolver, TestInstancePostProcessor, ExecutionCondition {
 
-    /** Read by build.gradle's `test` task ({@code excludeTags}) and by {@link JupiterIntegrationTest}. */
+    /** Read by build.gradle's `test` task ({@code excludeTags}) and by {@link JunitJupiterTest}. */
     public static final String INTEGRATION_TAG = "jupiterIntegration";
 
     static final ThreadLocal<Delegator> CURRENT_DELEGATOR = new ThreadLocal<>();
