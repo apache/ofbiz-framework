@@ -31,7 +31,7 @@ import org.apache.ofbiz.service.LocalDispatcher;
 
 /**
  * Bare-call helpers ported from OFBizTestCase/EntityTestCase for JUnit 5 Jupiter test classes.
- * Implement this on a {@literal @}ExtendWith(JupiterTestExtension.class) test class (Java or
+ * Implement this on a {@literal @}JupiterTestEngine test class (Java or
  * Groovy) to get getUserLogin(), from()/select(), getDelegator()/getDispatcher(), and
  * logInfo/logError/logWarning with no field, no method parameter, and no inheritance required.
  * Reads JupiterTestExtension.CURRENT_DELEGATOR/CURRENT_DISPATCHER directly - legal because this
