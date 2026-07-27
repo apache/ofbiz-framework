@@ -238,7 +238,10 @@ public class JupiterTestExtension implements ParameterResolver, TestInstancePost
      * sharing the same suite-level Delegator/LocalDispatcher and reporting through the same
      * TestResult/TestListener/XML pipeline TestRunContainer already has. Execution goes through the
      * real JUnit Platform Launcher, so @Test/@ParameterizedTest/@Disabled behave exactly as they
-     * would under `./gradlew test`.
+     * would under `./gradlew test`. The discovery request pins the default method orderer to
+     * {@code MethodOrderer.OrderAnnotation}, replacing Jupiter's own unordered default so a class's
+     * execution order is always whatever its {@code @Order} annotations say (or unspecified only
+     * among methods that declare none) rather than an unpredictable per-run default.
      */
     static final class JupiterTestSuite implements Test {
 
@@ -262,6 +265,9 @@ public class JupiterTestExtension implements ParameterResolver, TestInstancePost
             this.launcher = LauncherFactory.create();
             this.request = LauncherDiscoveryRequestBuilder.request()
                     .selectors(selectClass(testClass))
+                    .configurationParameter(
+                            "junit.jupiter.testmethod.order.default",
+                            "org.junit.jupiter.api.MethodOrderer$OrderAnnotation")
                     .build();
             this.testCaseCount = (int) launcher.discover(request).countTestIdentifiers(TestIdentifier::isTest);
         }
