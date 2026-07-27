@@ -24,11 +24,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import jakarta.servlet.ServletContext;
-import jakarta.ws.rs.HttpMethod;
-import jakarta.ws.rs.core.HttpHeaders;
-import jakarta.ws.rs.core.Response;
-
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.GenericServiceException;
@@ -39,6 +34,7 @@ import org.apache.ofbiz.webapp.WebAppUtil;
 import org.apache.ofbiz.ws.rs.core.OFBizApiConfig;
 import org.apache.ofbiz.ws.rs.listener.ApiContextListener;
 import org.apache.ofbiz.ws.rs.model.ModelApi;
+import org.apache.ofbiz.ws.rs.model.ModelMapping;
 import org.apache.ofbiz.ws.rs.model.ModelOperation;
 import org.apache.ofbiz.ws.rs.model.ModelResource;
 import org.apache.ofbiz.ws.rs.util.OpenApiUtil;
@@ -65,6 +61,10 @@ import io.swagger.v3.oas.models.responses.ApiResponse;
 import io.swagger.v3.oas.models.responses.ApiResponses;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.tags.Tag;
+import jakarta.servlet.ServletContext;
+import jakarta.ws.rs.HttpMethod;
+import jakarta.ws.rs.core.HttpHeaders;
+import jakarta.ws.rs.core.Response;
 
 public final class OFBizOpenApiReader extends Reader implements OpenApiReader {
     private static final String MODULE = OFBizOpenApiReader.class.getName();
@@ -108,6 +108,10 @@ public final class OFBizOpenApiReader extends Reader implements OpenApiReader {
         apis.forEach((k, api) -> {
             if (!api.isPublish()) return;
 
+            List<ModelMapping> mappings = api.getMappings();
+            mappings.forEach(modelMapping -> {
+                OpenApiUtil.getListTypes().put(modelMapping.getName(), modelMapping.getClassName());
+            });
             List<String> baseSegments = new ArrayList<>();
             baseSegments.add(api.getPath());
 
