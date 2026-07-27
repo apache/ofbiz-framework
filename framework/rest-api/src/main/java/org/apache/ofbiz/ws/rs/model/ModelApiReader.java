@@ -65,7 +65,16 @@ public final class ModelApiReader {
         for (Element resourceEle : UtilXml.childElementList(docElement, "resource")) {
             createModelResource(resourceEle, api);
         }
+        for (Element mappingEle : UtilXml.childElementList(docElement, "mapping")) {
+            createModelMapping(mappingEle, api);
+        }
         return api;
+    }
+
+    private static void createModelMapping(Element mappingEle, ModelApi modelApi) {
+        ModelMapping mapping = new ModelMapping().name(UtilXml.checkEmpty(mappingEle.getAttribute("name")).intern()).className(UtilXml.checkEmpty(
+                mappingEle.getAttribute("className")).intern());
+        modelApi.addMapping(mapping);
     }
 
     private static void createModelResource(Element resourceEle, ModelApi api) {

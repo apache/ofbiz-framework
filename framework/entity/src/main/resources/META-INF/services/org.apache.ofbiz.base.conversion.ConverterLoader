@@ -23,3 +23,4 @@ org.apache.ofbiz.base.conversion.JSONConverters
 org.apache.ofbiz.base.conversion.MiscConverters
 org.apache.ofbiz.base.conversion.NetConverters
 org.apache.ofbiz.base.conversion.NumberConverters
+org.apache.ofbiz.base.conversion.ModelConverters

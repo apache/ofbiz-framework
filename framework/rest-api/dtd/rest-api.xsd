@@ -23,6 +23,7 @@ under the License.
         <xs:complexType>
             <xs:sequence>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="resource"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="mapping"/>
             </xs:sequence>
             <xs:attribute name="name" type="xs:string" use="required"/>
             <xs:attribute name="path" type="xs:string" use="required"/>
@@ -85,6 +86,12 @@ under the License.
     <xs:element name="service">
         <xs:complexType>
             <xs:attribute name="name" type="xs:string" use="required"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="mapping">
+        <xs:complexType>
+            <xs:attribute name="name" type="xs:string" />
+            <xs:attribute name="className" type="xs:string" />
         </xs:complexType>
     </xs:element>
 </xs:schema>
