@@ -177,6 +177,297 @@ class ShipmentTests extends OFBizTestCase {
         assert shipmentReceipt.productId == serviceCtx.productId
     }
 
+    void testIssueOrderItemShipGrpInvResToShipmentRejectsMixedDestinations() {
+        Map orderResult = dispatcher.runSync('createTestSalesOrderSingle',
+                [userLogin: userLogin, productId: 'GZ-2644'])
+        assert ServiceUtil.isSuccess(orderResult)
+        String orderId = orderResult.orderId
+        assert orderId
+
+        GenericValue orderItem = from('OrderItem').where('orderId', orderId).queryFirst()
+        assert orderItem
+        String orderItemSeqId = orderItem.orderItemSeqId
+
+        GenericValue shipGroup1 = from('OrderItemShipGroup')
+                .where('orderId', orderId, 'shipGroupSeqId', '00001')
+                .queryOne()
+        assert shipGroup1
+        assert shipGroup1.contactMechId
+
+        Map createShipmentCtx = [
+                shipmentTypeId: 'SALES_SHIPMENT',
+                statusId: 'SHIPMENT_INPUT',
+                primaryOrderId: orderId,
+                primaryShipGroupSeqId: '00001',
+                originFacilityId: 'WebStoreWarehouse',
+                userLogin: userLogin
+        ]
+        Map createShipmentResult = dispatcher.runSync('createShipment', createShipmentCtx)
+        assert ServiceUtil.isSuccess(createShipmentResult)
+        String shipmentId = createShipmentResult.shipmentId
+        assert shipmentId
+
+        GenericValue shipment = from('Shipment').where('shipmentId', shipmentId).queryOne()
+        assert shipment.destinationContactMechId == shipGroup1.contactMechId
+
+        Map createAddressCtx = [
+                address1: '789 Different St',
+                city: 'Sacramento',
+                stateProvinceGeoId: 'CA',
+                postalCode: '95814',
+                countryGeoId: 'USA',
+                userLogin: userLogin
+        ]
+        Map createAddressResult = dispatcher.runSync('createPostalAddress', createAddressCtx)
+        assert ServiceUtil.isSuccess(createAddressResult)
+        String differentContactMechId = createAddressResult.contactMechId
+        assert differentContactMechId
+        assert differentContactMechId != shipGroup1.contactMechId
+
+        Map createShipGroupCtx = [
+                orderId: orderId,
+                shipGroupSeqId: '00002',
+                contactMechId: differentContactMechId,
+                facilityId: 'WebStoreWarehouse',
+                maySplit: 'Y',
+                userLogin: userLogin
+        ]
+        Map createShipGroupResult = dispatcher.runSync('createOrderItemShipGroup', createShipGroupCtx)
+        assert ServiceUtil.isSuccess(createShipGroupResult)
+
+        Map createAssocCtx = [
+                orderId: orderId,
+                orderItemSeqId: orderItemSeqId,
+                shipGroupSeqId: '00002',
+                quantity: new BigDecimal('1'),
+                userLogin: userLogin
+        ]
+        Map createAssocResult = dispatcher.runSync('addOrderItemShipGroupAssoc', createAssocCtx)
+        assert ServiceUtil.isSuccess(createAssocResult)
+
+        GenericValue inventoryItem = from('InventoryItem')
+                .where('productId', 'GZ-2644', 'facilityId', 'WebStoreWarehouse')
+                .queryFirst()
+        assert inventoryItem
+
+        Map createInvResCtx = [
+                orderId: orderId,
+                shipGroupSeqId: '00002',
+                orderItemSeqId: orderItemSeqId,
+                inventoryItemId: inventoryItem.inventoryItemId,
+                quantity: new BigDecimal('1'),
+                userLogin: userLogin
+        ]
+        Map createInvResResult = dispatcher.runSync('createOrderItemShipGrpInvRes', createInvResCtx)
+        assert ServiceUtil.isSuccess(createInvResResult)
+
+        Map issueCtx = [
+                shipmentId: shipmentId,
+                orderId: orderId,
+                shipGroupSeqId: '00002',
+                orderItemSeqId: orderItemSeqId,
+                inventoryItemId: inventoryItem.inventoryItemId,
+                quantity: new BigDecimal('1'),
+                userLogin: userLogin
+        ]
+        Map issueResult = dispatcher.runSync('issueOrderItemShipGrpInvResToShipment', issueCtx)
+        assert ServiceUtil.isError(issueResult)
+        assert ServiceUtil.getErrorMessage(issueResult).contains('different destination address')
+    }
+
+    void testIssueOrderItemShipGrpInvResToShipmentRejectsMixedDestinationsAcrossOrders() {
+        Map orderResult1 = dispatcher.runSync('createTestSalesOrderSingle',
+                [userLogin: userLogin, productId: 'GZ-2644'])
+        assert ServiceUtil.isSuccess(orderResult1)
+        String orderId1 = orderResult1.orderId
+        assert orderId1
+
+        GenericValue shipGroup1 = from('OrderItemShipGroup')
+                .where('orderId', orderId1, 'shipGroupSeqId', '00001')
+                .queryOne()
+        assert shipGroup1
+        assert shipGroup1.contactMechId
+
+        Map createShipmentCtx = [
+                shipmentTypeId: 'SALES_SHIPMENT',
+                statusId: 'SHIPMENT_INPUT',
+                primaryOrderId: orderId1,
+                primaryShipGroupSeqId: '00001',
+                originFacilityId: 'WebStoreWarehouse',
+                userLogin: userLogin
+        ]
+        Map createShipmentResult = dispatcher.runSync('createShipment', createShipmentCtx)
+        assert ServiceUtil.isSuccess(createShipmentResult)
+        String shipmentId = createShipmentResult.shipmentId
+        assert shipmentId
+
+        // second, independent order; also uses shipGroupSeqId '00001' but a different destination
+        Map orderResult2 = dispatcher.runSync('createTestSalesOrderSingle',
+                [userLogin: userLogin, productId: 'GZ-2644'])
+        assert ServiceUtil.isSuccess(orderResult2)
+        String orderId2 = orderResult2.orderId
+        assert orderId2
+        assert orderId2 != orderId1
+
+        GenericValue orderItem2 = from('OrderItem').where('orderId', orderId2).queryFirst()
+        assert orderItem2
+        String orderItemSeqId2 = orderItem2.orderItemSeqId
+
+        Map createAddressCtx = [
+                address1: '999 Cross Order Ave',
+                city: 'Sacramento',
+                stateProvinceGeoId: 'CA',
+                postalCode: '95814',
+                countryGeoId: 'USA',
+                userLogin: userLogin
+        ]
+        Map createAddressResult = dispatcher.runSync('createPostalAddress', createAddressCtx)
+        assert ServiceUtil.isSuccess(createAddressResult)
+        String differentContactMechId = createAddressResult.contactMechId
+        assert differentContactMechId
+        assert differentContactMechId != shipGroup1.contactMechId
+
+        Map updateShipGroupCtx = [
+                orderId: orderId2,
+                shipGroupSeqId: '00001',
+                contactMechId: differentContactMechId,
+                contactMechPurposeTypeId: 'SHIPPING_LOCATION',
+                userLogin: userLogin
+        ]
+        Map updateShipGroupResult = dispatcher.runSync('updateOrderItemShipGroup', updateShipGroupCtx)
+        assert ServiceUtil.isSuccess(updateShipGroupResult)
+
+        GenericValue inventoryItem = from('InventoryItem')
+                .where('productId', 'GZ-2644', 'facilityId', 'WebStoreWarehouse')
+                .queryFirst()
+        assert inventoryItem
+
+        Map createInvResCtx = [
+                orderId: orderId2,
+                shipGroupSeqId: '00001',
+                orderItemSeqId: orderItemSeqId2,
+                inventoryItemId: inventoryItem.inventoryItemId,
+                quantity: new BigDecimal('1'),
+                userLogin: userLogin
+        ]
+        Map createInvResResult = dispatcher.runSync('createOrderItemShipGrpInvRes', createInvResCtx)
+        assert ServiceUtil.isSuccess(createInvResResult)
+
+        Map issueCtx = [
+                shipmentId: shipmentId,
+                orderId: orderId2,
+                shipGroupSeqId: '00001',
+                orderItemSeqId: orderItemSeqId2,
+                inventoryItemId: inventoryItem.inventoryItemId,
+                quantity: new BigDecimal('1'),
+                userLogin: userLogin
+        ]
+        Map issueResult = dispatcher.runSync('issueOrderItemShipGrpInvResToShipment', issueCtx)
+        assert ServiceUtil.isError(issueResult)
+        assert ServiceUtil.getErrorMessage(issueResult).contains('different destination address')
+    }
+
+    void testPackingSessionRejectsMixedShipGroupDestinations() {
+        Map orderResult = dispatcher.runSync('createTestSalesOrderSingle',
+                [userLogin: userLogin, productId: 'GZ-2644'])
+        assert ServiceUtil.isSuccess(orderResult)
+        String orderId = orderResult.orderId
+        assert orderId
+
+        GenericValue orderItem = from('OrderItem').where('orderId', orderId).queryFirst()
+        assert orderItem
+        String orderItemSeqId = orderItem.orderItemSeqId
+
+        Map createAddressCtx = [
+                address1: '456 Other Ave',
+                city: 'Sacramento',
+                stateProvinceGeoId: 'CA',
+                postalCode: '95814',
+                countryGeoId: 'USA',
+                userLogin: userLogin
+        ]
+        Map createAddressResult = dispatcher.runSync('createPostalAddress', createAddressCtx)
+        assert ServiceUtil.isSuccess(createAddressResult)
+        String differentContactMechId = createAddressResult.contactMechId
+        assert differentContactMechId
+
+        Map createShipGroupCtx = [
+                orderId: orderId,
+                shipGroupSeqId: '00002',
+                contactMechId: differentContactMechId,
+                facilityId: 'WebStoreWarehouse',
+                maySplit: 'Y',
+                userLogin: userLogin
+        ]
+        Map createShipGroupResult = dispatcher.runSync('createOrderItemShipGroup', createShipGroupCtx)
+        assert ServiceUtil.isSuccess(createShipGroupResult)
+
+        Map createAssocCtx = [
+                orderId: orderId,
+                orderItemSeqId: orderItemSeqId,
+                shipGroupSeqId: '00002',
+                quantity: new BigDecimal('1'),
+                userLogin: userLogin
+        ]
+        Map createAssocResult = dispatcher.runSync('addOrderItemShipGroupAssoc', createAssocCtx)
+        assert ServiceUtil.isSuccess(createAssocResult)
+
+        GenericValue inventoryItem = from('InventoryItem')
+                .where('productId', 'GZ-2644', 'facilityId', 'WebStoreWarehouse')
+                .queryFirst()
+        assert inventoryItem
+
+        Map createInvResCtx = [
+                orderId: orderId,
+                shipGroupSeqId: '00002',
+                orderItemSeqId: orderItemSeqId,
+                inventoryItemId: inventoryItem.inventoryItemId,
+                quantity: new BigDecimal('1'),
+                userLogin: userLogin
+        ]
+        Map createInvResResult = dispatcher.runSync('createOrderItemShipGrpInvRes', createInvResCtx)
+        assert ServiceUtil.isSuccess(createInvResResult)
+
+        PackingSession packingSession = new PackingSession(dispatcher, userLogin)
+
+        Map packLine1Ctx = [
+                productId: 'GZ-2644',
+                orderId: orderId,
+                shipGroupSeqId: '00001',
+                quantity: new BigDecimal('1'),
+                packageSeq: 1,
+                pickerPartyId: 'DemoCustomer',
+                packingSession: packingSession,
+                userLogin: userLogin
+        ]
+        Map packLine1Result = dispatcher.runSync('packSingleItem', packLine1Ctx)
+        assert ServiceUtil.isSuccess(packLine1Result)
+
+        Map packLine2Ctx = [
+                productId: 'GZ-2644',
+                orderId: orderId,
+                shipGroupSeqId: '00002',
+                quantity: new BigDecimal('1'),
+                packageSeq: 1,
+                pickerPartyId: 'DemoCustomer',
+                packingSession: packingSession,
+                userLogin: userLogin
+        ]
+        Map packLine2Result = dispatcher.runSync('packSingleItem', packLine2Ctx)
+        assert ServiceUtil.isSuccess(packLine2Result)
+
+        Map completeCtx = [
+                orderId: orderId,
+                pickerPartyId: 'DemoCustomer',
+                packingSession: packingSession,
+                forceComplete: true,
+                userLogin: userLogin
+        ]
+        Map completeResult = dispatcher.runSync('completePack', completeCtx)
+        assert ServiceUtil.isError(completeResult)
+        assert ServiceUtil.getErrorMessage(completeResult).contains('[104]')
+    }
+
     void testCreateShipmentRouteSegment() {
         GenericValue shipment = from('Shipment')
                 .where('shipmentId', '9998')
@@ -199,6 +490,132 @@ class ShipmentTests extends OFBizTestCase {
         assert shipmentRouteSegment
         assert shipmentRouteSegment.shipmentId == '9998'
         assert shipmentRouteSegment.shipmentRouteSegmentId == shipmentRouteSegmentId
+    }
+
+    void testQuickShipEntireOrderDoesNotMixShipGroupDestinations() {
+        Map orderResult = dispatcher.runSync('createTestSalesOrderSingle',
+                [userLogin: userLogin, productId: 'GZ-2644'])
+        assert ServiceUtil.isSuccess(orderResult)
+        String orderId = orderResult.orderId
+        assert orderId
+
+        GenericValue orderItem = from('OrderItem').where('orderId', orderId).queryFirst()
+        assert orderItem
+        String orderItemSeqId = orderItem.orderItemSeqId
+
+        Map createAddressCtx = [
+                address1: '321 Another Rd',
+                city: 'Sacramento',
+                stateProvinceGeoId: 'CA',
+                postalCode: '95814',
+                countryGeoId: 'USA',
+                userLogin: userLogin
+        ]
+        Map createAddressResult = dispatcher.runSync('createPostalAddress', createAddressCtx)
+        assert ServiceUtil.isSuccess(createAddressResult)
+        String differentContactMechId = createAddressResult.contactMechId
+        assert differentContactMechId
+
+        Map createShipGroupCtx = [
+                orderId: orderId,
+                shipGroupSeqId: '00002',
+                contactMechId: differentContactMechId,
+                facilityId: 'WebStoreWarehouse',
+                maySplit: 'Y',
+                userLogin: userLogin
+        ]
+        Map createShipGroupResult = dispatcher.runSync('createOrderItemShipGroup', createShipGroupCtx)
+        assert ServiceUtil.isSuccess(createShipGroupResult)
+
+        Map createAssocCtx = [
+                orderId: orderId,
+                orderItemSeqId: orderItemSeqId,
+                shipGroupSeqId: '00002',
+                quantity: new BigDecimal('1'),
+                userLogin: userLogin
+        ]
+        Map createAssocResult = dispatcher.runSync('addOrderItemShipGroupAssoc', createAssocCtx)
+        assert ServiceUtil.isSuccess(createAssocResult)
+
+        GenericValue inventoryItem = from('InventoryItem')
+                .where('productId', 'GZ-2644', 'facilityId', 'WebStoreWarehouse')
+                .queryFirst()
+        assert inventoryItem
+
+        Map createInvResCtx = [
+                orderId: orderId,
+                shipGroupSeqId: '00002',
+                orderItemSeqId: orderItemSeqId,
+                inventoryItemId: inventoryItem.inventoryItemId,
+                quantity: new BigDecimal('1'),
+                userLogin: userLogin
+        ]
+        Map createInvResResult = dispatcher.runSync('createOrderItemShipGrpInvRes', createInvResCtx)
+        assert ServiceUtil.isSuccess(createInvResResult)
+
+        Map quickShipResult = dispatcher.runSync('quickShipEntireOrder', [orderId: orderId, userLogin: userLogin])
+        assert ServiceUtil.isSuccess(quickShipResult)
+
+        List<GenericValue> shipments = from('Shipment').where('primaryOrderId', orderId).queryList()
+        assert shipments.size() == 2
+
+        for (GenericValue shipment : shipments) {
+            List<GenericValue> itemIssuances = from('ItemIssuance').where('shipmentId', shipment.shipmentId).queryList()
+            Set<String> shipGroupsOnThisShipment = itemIssuances*.shipGroupSeqId as Set
+            assert shipGroupsOnThisShipment.size() == 1
+            assert shipGroupsOnThisShipment.contains(shipment.primaryShipGroupSeqId)
+        }
+    }
+
+    void testQuickShipEntireOrderSkipsShipGroupWithNothingToShip() {
+        Map orderResult = dispatcher.runSync('createTestSalesOrderSingle',
+                [userLogin: userLogin, productId: 'GZ-2644'])
+        assert ServiceUtil.isSuccess(orderResult)
+        String orderId = orderResult.orderId
+        assert orderId
+
+        GenericValue orderItem = from('OrderItem').where('orderId', orderId).queryFirst()
+        assert orderItem
+
+        Map createAddressCtx = [
+                address1: '555 Empty Group Rd',
+                city: 'Sacramento',
+                stateProvinceGeoId: 'CA',
+                postalCode: '95814',
+                countryGeoId: 'USA',
+                userLogin: userLogin
+        ]
+        Map createAddressResult = dispatcher.runSync('createPostalAddress', createAddressCtx)
+        assert ServiceUtil.isSuccess(createAddressResult)
+        String secondContactMechId = createAddressResult.contactMechId
+        assert secondContactMechId
+
+        // Ship group 00002: created but given NO order items and NO inventory reservation —
+        // this is the "nothing to ship for this group" case.
+        Map createShipGroupCtx = [
+                orderId: orderId,
+                shipGroupSeqId: '00002',
+                contactMechId: secondContactMechId,
+                facilityId: 'WebStoreWarehouse',
+                maySplit: 'Y',
+                userLogin: userLogin
+        ]
+        Map createShipGroupResult = dispatcher.runSync('createOrderItemShipGroup', createShipGroupCtx)
+        assert ServiceUtil.isSuccess(createShipGroupResult)
+
+        // orderItemShipGroupList (from getRelated('OrderItemShipGroup')) has no guaranteed order,
+        // so this test only proves correctness if ship group 00001 (which HAS items) still gets
+        // shipped regardless of iteration order relative to the empty 00002.
+        Map quickShipResult = dispatcher.runSync('quickShipEntireOrder', [orderId: orderId, userLogin: userLogin])
+        assert ServiceUtil.isSuccess(quickShipResult)
+
+        List<GenericValue> shipments = from('Shipment').where('primaryOrderId', orderId).queryList()
+        assert shipments.size() == 1
+        assert shipments[0].primaryShipGroupSeqId == '00001'
+
+        List<GenericValue> itemIssuances = from('ItemIssuance').where('shipmentId', shipments[0].shipmentId).queryList()
+        assert itemIssuances
+        assert itemIssuances*.shipGroupSeqId as Set == ['00001'] as Set
     }
 
 }
