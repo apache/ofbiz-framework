@@ -963,6 +963,8 @@ public class PackingSession implements java.io.Serializable {
 
         // check for errors
         this.checkReservations(force);
+        // reject packing ship groups with different destination addresses onto one shipment
+        this.checkShipGroupDestinations();
         // set the status to 0
         this.status = 0;
         // create the shipment
@@ -1011,6 +1013,38 @@ public class PackingSession implements java.io.Serializable {
             } else {
                 Debug.logWarning("Packing warnings: " + errors, MODULE);
             }
+        }
+    }
+
+    /**
+     * Check that all packed lines' ship groups share the same destination address.
+     * @throws GeneralException the general exception
+     */
+    protected void checkShipGroupDestinations() throws GeneralException {
+        Delegator delegator = this.getDelegator();
+        Map<String, String> destinationByShipGroupKey = new HashMap<>();
+        for (PackingSessionLine line : this.getLines()) {
+            String shipGroupKey = line.getOrderId() + "::" + line.getShipGroupSeqId();
+            if (destinationByShipGroupKey.containsKey(shipGroupKey)) {
+                continue;
+            }
+            GenericValue orderItemShipGroup;
+            try {
+                orderItemShipGroup = EntityQuery.use(delegator).from("OrderItemShipGroup")
+                        .where("orderId", line.getOrderId(), "shipGroupSeqId", line.getShipGroupSeqId())
+                        .queryOne();
+            } catch (GenericEntityException e) {
+                throw new GeneralException(e.getMessage());
+            }
+            String contactMechId = orderItemShipGroup != null ? orderItemShipGroup.getString("contactMechId") : null;
+            destinationByShipGroupKey.put(shipGroupKey, contactMechId);
+        }
+
+        Set<String> distinctDestinations = new HashSet<>(destinationByShipGroupKey.values());
+        distinctDestinations.remove(null);
+        if (distinctDestinations.size() > 1) {
+            throw new GeneralException("Cannot pack items from ship groups with different destination addresses"
+                    + " onto the same shipment: " + destinationByShipGroupKey + " [104]");
         }
     }
 
