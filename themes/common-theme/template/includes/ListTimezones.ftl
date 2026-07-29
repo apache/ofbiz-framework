@@ -26,13 +26,12 @@ under the License.
   </div>
   <table cellspacing="0" class="basic-table hover-bar">
     <#assign altRow = true>
-    <#assign displayStyle = Static["java.util.TimeZone"].LONG>
     <#assign availableTimeZones = Static["org.apache.ofbiz.base.util.UtilDateTime"].availableTimeZones()/>
     <#list availableTimeZones as availableTz>
       <#assign altRow = !altRow>
       <tr<#if altRow> class="alternate-row"</#if>>
         <td>
-          <a href="<@ofbizUrl>setSessionTimeZone</@ofbizUrl>?tzId=${availableTz.getID()}">${availableTz.getDisplayName(availableTz.useDaylightTime(), displayStyle, locale)} (${availableTz.getID()})</a>
+          <a href="<@ofbizUrl>setSessionTimeZone</@ofbizUrl>?tzId=${availableTz.getID()}">${availableTz.toZoneId().getDisplayName(Static["java.time.format.TextStyle"].FULL_STANDALONE, locale)} (${availableTz.getID()})</a>
         </td>
       </tr>
     </#list>
