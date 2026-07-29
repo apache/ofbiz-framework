@@ -197,6 +197,10 @@ public class ScreenFactory {
 
         ModelScreen modelScreen = null;
         if (UtilValidate.isNotEmpty(location)) {
+            if (UtilValidate.isBlockedPath(location)) {
+                Debug.logWarning("The location of screen [%s] is on a blocked Path. Abbort rendering. Raw location [%s]", MODULE, name, location);
+                throw new IllegalArgumentException("Abort screenrendering due to screenlocation pointing to a blocked path");
+            }
             try {
                 modelScreen = ScreenFactory.getScreenFromLocation(location, name);
             } catch (IOException | SAXException | ParserConfigurationException e) {

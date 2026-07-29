@@ -18,6 +18,8 @@
  *******************************************************************************/
 package org.apache.ofbiz.base.util;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.Map;
@@ -152,6 +154,9 @@ public final class UtilValidate {
     /** Valid contiguous U.S. postal codes */
     public static final String CONTIGUOUS_US_STATE_CODES = "AL|AZ|AR|CA|CO|CT|DE|DC|FL|GA|ID|IL|IN|IA|KS|KY|LA|ME|MD|MA|MI|MN|MS|MO|MT|NE|NV|NH|"
             + "NJ|NM|NY|NC|ND|OH|OK|OR|PA|RI|SC|SD|TN|TX|UT|VT|VA|WA|WV|WI|WY";
+
+    /** Paths from which loading files should be prevented */
+    public static final String[] BLOCKED_PATHS = {"proc/self/fd"};
 
     /** Check whether an object is empty, will see if it is a String, Map, Collection, etc. */
     public static boolean isEmpty(Object o) {
@@ -656,6 +661,24 @@ public final class UtilValidate {
         return UrlValidator.getInstance().isValid(s);
     }
 
+    /**
+     * isBlockedPath takes a String representing a filePath, normalizes it and checks it against a Blacklist
+     * @param rawPathString
+     * @return true if its a blocked path, false otherwise or if it is empty
+     */
+    public static boolean isBlockedPath(String rawPathString) {
+        if (UtilValidate.isEmpty(rawPathString)) {
+            return false;
+        }
+        Path normalized = Paths.get(rawPathString).normalize();
+        String normalizedPath = normalized.toString();
+        for (String blocked : BLOCKED_PATHS) {
+            if (normalizedPath.contains(blocked)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     /** isYear returns true if string s is a valid
      *  Year number.  Must be 2 or 4 digits only.
