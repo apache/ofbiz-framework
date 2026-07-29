@@ -9,7 +9,8 @@
     },
     "overrides": {
         "js-yaml": "4.3.0",
-        "brace-expansion": "2.1.2",
+        "minimatch": "10.2.5",
+        "brace-expansion": "5.0.8",
         "fast-xml-parser": "5.10.1",
         "dompurify": "3.4.12"
     }
