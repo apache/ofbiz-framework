@@ -129,46 +129,66 @@ under the License.
             </add-error>
         </if-compare-field>
 
-        <!-- reject if this ship group's destination differs from the shipment's primary ship group;
-             compare the full (orderId, shipGroupSeqId) pair, since shipGroupSeqId restarts at 00001
-             per order -->
-        <entity-one entity-name="Shipment" value-field="shipmentDestCheck">
+        <!-- get shipment -->
+        <entity-one entity-name="Shipment" value-field="shipment">
             <field-map field-name="shipmentId" from-field="parameters.shipmentId"/>
         </entity-one>
-        <if-not-empty field="shipmentDestCheck.primaryShipGroupSeqId">
+
+        <!-- reject if this ship group's destination is in a different taxing jurisdiction than the
+             shipment's primary ship group; compare the full (orderId, shipGroupSeqId) pair, since
+             shipGroupSeqId restarts at 00001 per order -->
+        <if-not-empty field="orderItemShipGrpInvRes">
+        <if-not-empty field="shipment.primaryShipGroupSeqId">
             <if>
                 <condition>
                     <or>
                         <if-compare-field field="orderItemShipGrpInvRes.orderId" operator="not-equals"
-                                to-field="shipmentDestCheck.primaryOrderId"/>
+                                to-field="shipment.primaryOrderId"/>
                         <if-compare-field field="orderItemShipGrpInvRes.shipGroupSeqId" operator="not-equals"
-                                to-field="shipmentDestCheck.primaryShipGroupSeqId"/>
+                                to-field="shipment.primaryShipGroupSeqId"/>
                     </or>
                 </condition>
                 <then>
                     <entity-one entity-name="OrderItemShipGroup" value-field="primaryShipGroupDestCheck">
-                        <field-map field-name="orderId" from-field="shipmentDestCheck.primaryOrderId"/>
-                        <field-map field-name="shipGroupSeqId" from-field="shipmentDestCheck.primaryShipGroupSeqId"/>
+                        <field-map field-name="orderId" from-field="shipment.primaryOrderId"/>
+                        <field-map field-name="shipGroupSeqId" from-field="shipment.primaryShipGroupSeqId"/>
                     </entity-one>
+                    <get-related-one value-field="primaryShipGroupDestCheck" relation-name="PostalAddress"
+                            to-value-field="primaryShipGroupDestAddress"/>
 
                     <entity-one entity-name="OrderItemShipGroup" value-field="incomingShipGroupDestCheck">
                         <field-map field-name="orderId" from-field="orderItemShipGrpInvRes.orderId"/>
                         <field-map field-name="shipGroupSeqId" from-field="orderItemShipGrpInvRes.shipGroupSeqId"/>
                     </entity-one>
+                    <get-related-one value-field="incomingShipGroupDestCheck" relation-name="PostalAddress"
+                            to-value-field="incomingShipGroupDestAddress"/>
 
-                    <!-- only reject when both sides have a known, differing contactMechId -->
-                    <if-not-empty field="primaryShipGroupDestCheck.contactMechId">
-                        <if-not-empty field="incomingShipGroupDestCheck.contactMechId">
-                            <if-compare-field field="primaryShipGroupDestCheck.contactMechId" operator="not-equals"
-                                    to-field="incomingShipGroupDestCheck.contactMechId">
-                                <add-error>
-                                    <fail-property resource="ProductUiLabels" property="ProductNotIssueOrderToShipmentShipGroupDestinationMismatch"/>
-                                </add-error>
-                            </if-compare-field>
+                    <!-- only reject when both sides resolve to a known address in a different
+                         country/state/postal code -->
+                    <if-not-empty field="primaryShipGroupDestAddress">
+                        <if-not-empty field="incomingShipGroupDestAddress">
+                            <if>
+                                <condition>
+                                    <or>
+                                        <if-compare-field field="primaryShipGroupDestAddress.countryGeoId" operator="not-equals"
+                                                to-field="incomingShipGroupDestAddress.countryGeoId"/>
+                                        <if-compare-field field="primaryShipGroupDestAddress.stateProvinceGeoId" operator="not-equals"
+                                                to-field="incomingShipGroupDestAddress.stateProvinceGeoId"/>
+                                        <if-compare-field field="primaryShipGroupDestAddress.postalCode" operator="not-equals"
+                                                to-field="incomingShipGroupDestAddress.postalCode"/>
+                                    </or>
+                                </condition>
+                                <then>
+                                    <add-error>
+                                        <fail-property resource="ProductUiLabels" property="ProductNotIssueOrderToShipmentShipGroupDestinationMismatch"/>
+                                    </add-error>
+                                </then>
+                            </if>
                         </if-not-empty>
                     </if-not-empty>
                 </then>
             </if>
+        </if-not-empty>
         </if-not-empty>
 
         <check-errors/>
@@ -177,8 +197,6 @@ under the License.
         <entity-one entity-name="OrderItem" value-field="orderItem"/>
         <!-- get inventoryItem -->
         <entity-one entity-name="InventoryItem" value-field="inventoryItem"/>
-        <!-- get shipment -->
-        <entity-one entity-name="Shipment" value-field="shipment"/>
         <!-- get orderShipment -->
         <make-value entity-name="OrderShipment" value-field="orderShipmentLookupPk"/>
         <set-pk-fields value-field="orderShipmentLookupPk" map="parameters"/>
