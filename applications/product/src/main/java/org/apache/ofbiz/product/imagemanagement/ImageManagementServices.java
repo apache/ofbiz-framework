@@ -27,6 +27,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
@@ -71,6 +72,28 @@ public class ImageManagementServices {
     private static final String RESOURCE = "ProductUiLabels";
     private static int imageCount = 0;
     private static String imagePath;
+
+    /**
+     * Ensures a user-supplied image file name is safe to use as a rename target: it must pass
+     * {@link org.apache.ofbiz.security.SecuredUpload#isValidFileName} (no path separators, no
+     * traversal sequences, no denied extensions) and must resolve, once normalized, directly
+     * inside the given product image directory.
+     */
+    private static boolean isValidProductImageFileName(String fileName, Path resolvedProductDir, Delegator delegator) {
+        if (UtilValidate.isEmpty(fileName)) {
+            return false;
+        }
+        try {
+            if (!org.apache.ofbiz.security.SecuredUpload.isValidFileName(fileName, delegator)) {
+                return false;
+            }
+            Path resolvedFilePath = resolvedProductDir.resolve(fileName).normalize();
+            return resolvedFilePath.getParent() != null && resolvedFilePath.getParent().equals(resolvedProductDir);
+        } catch (IOException | InvalidPathException e) {
+            Debug.logError(e, MODULE);
+            return false;
+        }
+    }
 
     public static Map<String, Object> addMultipleuploadForProduct(DispatchContext dctx,
             Map<String, ? extends Object> context) throws ImageReadException {
@@ -889,6 +912,14 @@ public class ImageManagementServices {
             Debug.logError("Path traversal attempt detected in rename image, productId: " + productId, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                     "ProductImageViewUnableWriteFile", UtilMisc.toMap("fileName", resolvedProductDir.toString()), locale));
+        }
+        // Guard against path traversal via drDataResourceName: it must resolve to a plain file name
+        // directly inside the product's own image directory, with no separators or traversal sequences,
+        // and a supported image extension.
+        if (!isValidProductImageFileName(filenameToUse, resolvedProductDir, delegator)) {
+            Debug.logError("Path traversal attempt detected in rename image, drDataResourceName: " + filenameToUse, MODULE);
+            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+                    "ProductImageViewUnableWriteFile", UtilMisc.toMap("fileName", filenameToUse), locale));
         }
         String imageType = filenameToUse.substring(filenameToUse.lastIndexOf('.'));
         String imgExtension = filenameToUse.substring(filenameToUse.length() - 3, filenameToUse.length());
