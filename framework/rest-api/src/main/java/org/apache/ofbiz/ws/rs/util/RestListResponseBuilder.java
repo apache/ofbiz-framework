@@ -115,6 +115,8 @@ public final class RestListResponseBuilder {
         response.put("totalCount", totalCount);
         response.put("totalPages", getTotalPages());
         response.put("hasNext", hasNext());
+        response.put("previousPageCount", getPreviousPageCount());
+        response.put("nextPageCount", getNextPageCount());
         response.put(collectionName, collectionData);
 
         Map<String, Object> links = buildLinks();
@@ -133,6 +135,14 @@ public final class RestListResponseBuilder {
             return 0L;
         }
         return (totalCount / pageSize) + ((totalCount % pageSize == 0) ? 0L : 1L);
+    }
+
+    private long getPreviousPageCount() {
+        return Math.max(0L, pageIndex);
+    }
+
+    private long getNextPageCount() {
+        return Math.max(getTotalPages() - pageIndex - 1L, 0L);
     }
 
     private Map<String, Object> buildLinks() {

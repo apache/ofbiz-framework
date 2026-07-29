@@ -84,6 +84,8 @@ public final class RestListResponseBuilderTest {
                 .build();
 
         assertEquals(5L, result.get("totalPages"));
+        assertEquals(1L, result.get("previousPageCount"));
+        assertEquals(3L, result.get("nextPageCount"));
 
         Map<?, ?> links = (Map<?, ?>) result.get("links");
         Map<?, ?> firstLink = (Map<?, ?>) links.get("first");
@@ -192,5 +194,18 @@ public final class RestListResponseBuilderTest {
                 .build();
 
         assertFalse(result.containsKey("links"));
+    }
+
+    @Test
+    public void includesZeroPreviousAndNextPageCountsWhenNoResults() {
+        Map<String, Object> result = RestListResponseBuilder.forList("items", List.of())
+                .pageIndex(0)
+                .pageSize(20)
+                .totalCount(0)
+                .requestPath("/rest/items?pageIndex=0&pageSize=20")
+                .build();
+
+        assertEquals(0L, result.get("previousPageCount"));
+        assertEquals(0L, result.get("nextPageCount"));
     }
 }
