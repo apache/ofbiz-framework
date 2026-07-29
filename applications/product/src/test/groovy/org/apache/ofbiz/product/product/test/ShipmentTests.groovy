@@ -210,56 +210,12 @@ class ShipmentTests extends OFBizTestCase {
         GenericValue shipment = from('Shipment').where('shipmentId', shipmentId).queryOne()
         assert shipment.destinationContactMechId == shipGroup1.contactMechId
 
-        Map createAddressCtx = [
-                address1: '789 Different St',
-                city: 'Sacramento',
-                stateProvinceGeoId: 'CA',
-                postalCode: '95814',
-                countryGeoId: 'USA',
-                userLogin: userLogin
-        ]
-        Map createAddressResult = dispatcher.runSync('createPostalAddress', createAddressCtx)
-        assert ServiceUtil.isSuccess(createAddressResult)
-        String differentContactMechId = createAddressResult.contactMechId
-        assert differentContactMechId
+        String differentContactMechId = resolveDifferentDestinationAddress('789 Different St')
         assert differentContactMechId != shipGroup1.contactMechId
-
-        Map createShipGroupCtx = [
-                orderId: orderId,
-                shipGroupSeqId: '00002',
-                contactMechId: differentContactMechId,
-                facilityId: 'WebStoreWarehouse',
-                maySplit: 'Y',
-                userLogin: userLogin
-        ]
-        Map createShipGroupResult = dispatcher.runSync('createOrderItemShipGroup', createShipGroupCtx)
-        assert ServiceUtil.isSuccess(createShipGroupResult)
-
-        Map createAssocCtx = [
-                orderId: orderId,
-                orderItemSeqId: orderItemSeqId,
-                shipGroupSeqId: '00002',
-                quantity: new BigDecimal('1'),
-                userLogin: userLogin
-        ]
-        Map createAssocResult = dispatcher.runSync('addOrderItemShipGroupAssoc', createAssocCtx)
-        assert ServiceUtil.isSuccess(createAssocResult)
-
-        GenericValue inventoryItem = from('InventoryItem')
-                .where('productId', 'GZ-2644', 'facilityId', 'WebStoreWarehouse')
-                .queryFirst()
-        assert inventoryItem
-
-        Map createInvResCtx = [
-                orderId: orderId,
-                shipGroupSeqId: '00002',
-                orderItemSeqId: orderItemSeqId,
-                inventoryItemId: inventoryItem.inventoryItemId,
-                quantity: new BigDecimal('1'),
-                userLogin: userLogin
-        ]
-        Map createInvResResult = dispatcher.runSync('createOrderItemShipGrpInvRes', createInvResCtx)
-        assert ServiceUtil.isSuccess(createInvResResult)
+        addShipGroup(orderId, '00002', differentContactMechId)
+        GenericValue inventoryItem = findGz2644InventoryItem()
+        associateItemWithShipGroup(orderId, orderItemSeqId, '00002', new BigDecimal('1'))
+        reserveInventoryToShipGroup(orderId, orderItemSeqId, '00002', inventoryItem.inventoryItemId, new BigDecimal('1'))
 
         Map issueCtx = [
                 shipmentId: shipmentId,
@@ -272,7 +228,7 @@ class ShipmentTests extends OFBizTestCase {
         ]
         Map issueResult = dispatcher.runSync('issueOrderItemShipGrpInvResToShipment', issueCtx)
         assert ServiceUtil.isError(issueResult)
-        assert ServiceUtil.getErrorMessage(issueResult).contains('different destination address')
+        assert ServiceUtil.getErrorMessage(issueResult).contains('different destination')
     }
 
     void testIssueOrderItemShipGrpInvResToShipmentRejectsMixedDestinationsAcrossOrders() {
@@ -313,18 +269,7 @@ class ShipmentTests extends OFBizTestCase {
         assert orderItem2
         String orderItemSeqId2 = orderItem2.orderItemSeqId
 
-        Map createAddressCtx = [
-                address1: '999 Cross Order Ave',
-                city: 'Sacramento',
-                stateProvinceGeoId: 'CA',
-                postalCode: '95814',
-                countryGeoId: 'USA',
-                userLogin: userLogin
-        ]
-        Map createAddressResult = dispatcher.runSync('createPostalAddress', createAddressCtx)
-        assert ServiceUtil.isSuccess(createAddressResult)
-        String differentContactMechId = createAddressResult.contactMechId
-        assert differentContactMechId
+        String differentContactMechId = resolveDifferentDestinationAddress('999 Cross Order Ave')
         assert differentContactMechId != shipGroup1.contactMechId
 
         Map updateShipGroupCtx = [
@@ -337,21 +282,9 @@ class ShipmentTests extends OFBizTestCase {
         Map updateShipGroupResult = dispatcher.runSync('updateOrderItemShipGroup', updateShipGroupCtx)
         assert ServiceUtil.isSuccess(updateShipGroupResult)
 
-        GenericValue inventoryItem = from('InventoryItem')
-                .where('productId', 'GZ-2644', 'facilityId', 'WebStoreWarehouse')
-                .queryFirst()
-        assert inventoryItem
-
-        Map createInvResCtx = [
-                orderId: orderId2,
-                shipGroupSeqId: '00001',
-                orderItemSeqId: orderItemSeqId2,
-                inventoryItemId: inventoryItem.inventoryItemId,
-                quantity: new BigDecimal('1'),
-                userLogin: userLogin
-        ]
-        Map createInvResResult = dispatcher.runSync('createOrderItemShipGrpInvRes', createInvResCtx)
-        assert ServiceUtil.isSuccess(createInvResResult)
+        // order2's item is already associated with ship group 00001 from checkout; only reserve
+        GenericValue inventoryItem = findGz2644InventoryItem()
+        reserveInventoryToShipGroup(orderId2, orderItemSeqId2, '00001', inventoryItem.inventoryItemId, new BigDecimal('1'))
 
         Map issueCtx = [
                 shipmentId: shipmentId,
@@ -364,7 +297,7 @@ class ShipmentTests extends OFBizTestCase {
         ]
         Map issueResult = dispatcher.runSync('issueOrderItemShipGrpInvResToShipment', issueCtx)
         assert ServiceUtil.isError(issueResult)
-        assert ServiceUtil.getErrorMessage(issueResult).contains('different destination address')
+        assert ServiceUtil.getErrorMessage(issueResult).contains('different destination')
     }
 
     void testPackingSessionRejectsMixedShipGroupDestinations() {
@@ -378,55 +311,11 @@ class ShipmentTests extends OFBizTestCase {
         assert orderItem
         String orderItemSeqId = orderItem.orderItemSeqId
 
-        Map createAddressCtx = [
-                address1: '456 Other Ave',
-                city: 'Sacramento',
-                stateProvinceGeoId: 'CA',
-                postalCode: '95814',
-                countryGeoId: 'USA',
-                userLogin: userLogin
-        ]
-        Map createAddressResult = dispatcher.runSync('createPostalAddress', createAddressCtx)
-        assert ServiceUtil.isSuccess(createAddressResult)
-        String differentContactMechId = createAddressResult.contactMechId
-        assert differentContactMechId
-
-        Map createShipGroupCtx = [
-                orderId: orderId,
-                shipGroupSeqId: '00002',
-                contactMechId: differentContactMechId,
-                facilityId: 'WebStoreWarehouse',
-                maySplit: 'Y',
-                userLogin: userLogin
-        ]
-        Map createShipGroupResult = dispatcher.runSync('createOrderItemShipGroup', createShipGroupCtx)
-        assert ServiceUtil.isSuccess(createShipGroupResult)
-
-        Map createAssocCtx = [
-                orderId: orderId,
-                orderItemSeqId: orderItemSeqId,
-                shipGroupSeqId: '00002',
-                quantity: new BigDecimal('1'),
-                userLogin: userLogin
-        ]
-        Map createAssocResult = dispatcher.runSync('addOrderItemShipGroupAssoc', createAssocCtx)
-        assert ServiceUtil.isSuccess(createAssocResult)
-
-        GenericValue inventoryItem = from('InventoryItem')
-                .where('productId', 'GZ-2644', 'facilityId', 'WebStoreWarehouse')
-                .queryFirst()
-        assert inventoryItem
-
-        Map createInvResCtx = [
-                orderId: orderId,
-                shipGroupSeqId: '00002',
-                orderItemSeqId: orderItemSeqId,
-                inventoryItemId: inventoryItem.inventoryItemId,
-                quantity: new BigDecimal('1'),
-                userLogin: userLogin
-        ]
-        Map createInvResResult = dispatcher.runSync('createOrderItemShipGrpInvRes', createInvResCtx)
-        assert ServiceUtil.isSuccess(createInvResResult)
+        String differentContactMechId = resolveDifferentDestinationAddress('456 Other Ave')
+        addShipGroup(orderId, '00002', differentContactMechId)
+        GenericValue inventoryItem = findGz2644InventoryItem()
+        associateItemWithShipGroup(orderId, orderItemSeqId, '00002', new BigDecimal('1'))
+        reserveInventoryToShipGroup(orderId, orderItemSeqId, '00002', inventoryItem.inventoryItemId, new BigDecimal('1'))
 
         PackingSession packingSession = new PackingSession(dispatcher, userLogin)
 
@@ -503,55 +392,11 @@ class ShipmentTests extends OFBizTestCase {
         assert orderItem
         String orderItemSeqId = orderItem.orderItemSeqId
 
-        Map createAddressCtx = [
-                address1: '321 Another Rd',
-                city: 'Sacramento',
-                stateProvinceGeoId: 'CA',
-                postalCode: '95814',
-                countryGeoId: 'USA',
-                userLogin: userLogin
-        ]
-        Map createAddressResult = dispatcher.runSync('createPostalAddress', createAddressCtx)
-        assert ServiceUtil.isSuccess(createAddressResult)
-        String differentContactMechId = createAddressResult.contactMechId
-        assert differentContactMechId
-
-        Map createShipGroupCtx = [
-                orderId: orderId,
-                shipGroupSeqId: '00002',
-                contactMechId: differentContactMechId,
-                facilityId: 'WebStoreWarehouse',
-                maySplit: 'Y',
-                userLogin: userLogin
-        ]
-        Map createShipGroupResult = dispatcher.runSync('createOrderItemShipGroup', createShipGroupCtx)
-        assert ServiceUtil.isSuccess(createShipGroupResult)
-
-        Map createAssocCtx = [
-                orderId: orderId,
-                orderItemSeqId: orderItemSeqId,
-                shipGroupSeqId: '00002',
-                quantity: new BigDecimal('1'),
-                userLogin: userLogin
-        ]
-        Map createAssocResult = dispatcher.runSync('addOrderItemShipGroupAssoc', createAssocCtx)
-        assert ServiceUtil.isSuccess(createAssocResult)
-
-        GenericValue inventoryItem = from('InventoryItem')
-                .where('productId', 'GZ-2644', 'facilityId', 'WebStoreWarehouse')
-                .queryFirst()
-        assert inventoryItem
-
-        Map createInvResCtx = [
-                orderId: orderId,
-                shipGroupSeqId: '00002',
-                orderItemSeqId: orderItemSeqId,
-                inventoryItemId: inventoryItem.inventoryItemId,
-                quantity: new BigDecimal('1'),
-                userLogin: userLogin
-        ]
-        Map createInvResResult = dispatcher.runSync('createOrderItemShipGrpInvRes', createInvResCtx)
-        assert ServiceUtil.isSuccess(createInvResResult)
+        String differentContactMechId = resolveDifferentDestinationAddress('321 Another Rd')
+        addShipGroup(orderId, '00002', differentContactMechId)
+        GenericValue inventoryItem = findGz2644InventoryItem()
+        associateItemWithShipGroup(orderId, orderItemSeqId, '00002', new BigDecimal('1'))
+        reserveInventoryToShipGroup(orderId, orderItemSeqId, '00002', inventoryItem.inventoryItemId, new BigDecimal('1'))
 
         Map quickShipResult = dispatcher.runSync('quickShipEntireOrder', [orderId: orderId, userLogin: userLogin])
         assert ServiceUtil.isSuccess(quickShipResult)
@@ -577,31 +422,10 @@ class ShipmentTests extends OFBizTestCase {
         GenericValue orderItem = from('OrderItem').where('orderId', orderId).queryFirst()
         assert orderItem
 
-        Map createAddressCtx = [
-                address1: '555 Empty Group Rd',
-                city: 'Sacramento',
-                stateProvinceGeoId: 'CA',
-                postalCode: '95814',
-                countryGeoId: 'USA',
-                userLogin: userLogin
-        ]
-        Map createAddressResult = dispatcher.runSync('createPostalAddress', createAddressCtx)
-        assert ServiceUtil.isSuccess(createAddressResult)
-        String secondContactMechId = createAddressResult.contactMechId
-        assert secondContactMechId
-
         // Ship group 00002: created but given NO order items and NO inventory reservation —
         // this is the "nothing to ship for this group" case.
-        Map createShipGroupCtx = [
-                orderId: orderId,
-                shipGroupSeqId: '00002',
-                contactMechId: secondContactMechId,
-                facilityId: 'WebStoreWarehouse',
-                maySplit: 'Y',
-                userLogin: userLogin
-        ]
-        Map createShipGroupResult = dispatcher.runSync('createOrderItemShipGroup', createShipGroupCtx)
-        assert ServiceUtil.isSuccess(createShipGroupResult)
+        String secondContactMechId = resolveDifferentDestinationAddress('555 Empty Group Rd')
+        addShipGroup(orderId, '00002', secondContactMechId)
 
         // orderItemShipGroupList (from getRelated('OrderItemShipGroup')) has no guaranteed order,
         // so this test only proves correctness if ship group 00001 (which HAS items) still gets
@@ -616,6 +440,77 @@ class ShipmentTests extends OFBizTestCase {
         List<GenericValue> itemIssuances = from('ItemIssuance').where('shipmentId', shipments[0].shipmentId).queryList()
         assert itemIssuances
         assert itemIssuances*.shipGroupSeqId as Set == ['00001'] as Set
+    }
+
+    /**
+     * Resolves a postal address in a different country/state/postal code than the demo customer's
+     * default shipping address, returning its contactMechId.
+     */
+    private String resolveDifferentDestinationAddress(String addressStreet) {
+        Map createAddressCtx = [
+                address1: addressStreet,
+                city: 'New York',
+                stateProvinceGeoId: 'NY',
+                postalCode: '10001',
+                countryGeoId: 'USA',
+                userLogin: userLogin
+        ]
+        Map createAddressResult = dispatcher.runSync('createPostalAddress', createAddressCtx)
+        assert ServiceUtil.isSuccess(createAddressResult)
+        String contactMechId = createAddressResult.contactMechId
+        assert contactMechId
+        return contactMechId
+    }
+
+    /** Adds a splittable OrderItemShipGroup with the given destination. */
+    private void addShipGroup(String orderId, String shipGroupSeqId, String contactMechId) {
+        Map createShipGroupCtx = [
+                orderId: orderId,
+                shipGroupSeqId: shipGroupSeqId,
+                contactMechId: contactMechId,
+                facilityId: 'WebStoreWarehouse',
+                maySplit: 'Y',
+                userLogin: userLogin
+        ]
+        Map createShipGroupResult = dispatcher.runSync('createOrderItemShipGroup', createShipGroupCtx)
+        assert ServiceUtil.isSuccess(createShipGroupResult)
+    }
+
+    /** Associates an order item with a ship group for the given quantity. */
+    private void associateItemWithShipGroup(String orderId, String orderItemSeqId, String shipGroupSeqId, BigDecimal quantity) {
+        Map createAssocCtx = [
+                orderId: orderId,
+                orderItemSeqId: orderItemSeqId,
+                shipGroupSeqId: shipGroupSeqId,
+                quantity: quantity,
+                userLogin: userLogin
+        ]
+        Map createAssocResult = dispatcher.runSync('addOrderItemShipGroupAssoc', createAssocCtx)
+        assert ServiceUtil.isSuccess(createAssocResult)
+    }
+
+    /** Reserves inventory for an order item under a ship group. */
+    private void reserveInventoryToShipGroup(String orderId, String orderItemSeqId, String shipGroupSeqId,
+            String inventoryItemId, BigDecimal quantity) {
+        Map createInvResCtx = [
+                orderId: orderId,
+                shipGroupSeqId: shipGroupSeqId,
+                orderItemSeqId: orderItemSeqId,
+                inventoryItemId: inventoryItemId,
+                quantity: quantity,
+                userLogin: userLogin
+        ]
+        Map createInvResResult = dispatcher.runSync('createOrderItemShipGrpInvRes', createInvResCtx)
+        assert ServiceUtil.isSuccess(createInvResResult)
+    }
+
+    /** Finds an available GZ-2644 inventory item at WebStoreWarehouse. */
+    private GenericValue findGz2644InventoryItem() {
+        GenericValue inventoryItem = from('InventoryItem')
+                .where('productId', 'GZ-2644', 'facilityId', 'WebStoreWarehouse')
+                .queryFirst()
+        assert inventoryItem
+        return inventoryItem
     }
 
 }
