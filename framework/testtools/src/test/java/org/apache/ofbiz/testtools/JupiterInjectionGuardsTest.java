@@ -27,6 +27,7 @@ import java.util.List;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ParameterContext;
 import org.junit.jupiter.api.extension.ParameterResolutionException;
@@ -144,8 +145,10 @@ class JupiterInjectionGuardsTest {
                     new JupiterTestExtension.JupiterTestSuite(ThreadRecordingFixture.class);
             suite.run(new TestResult());
 
-            assertThat(ThreadRecordingFixture.EXECUTED_ON, hasSize(ThreadRecordingFixture.METHOD_COUNT));
-            assertThat(ThreadRecordingFixture.EXECUTED_ON, everyItem(sameInstance(callingThread)));
+            synchronized (ThreadRecordingFixture.EXECUTED_ON) {
+                assertThat(ThreadRecordingFixture.EXECUTED_ON, hasSize(ThreadRecordingFixture.METHOD_COUNT));
+                assertThat(ThreadRecordingFixture.EXECUTED_ON, everyItem(sameInstance(callingThread)));
+            }
         } finally {
             System.clearProperty(PARALLEL_ENABLED);
             System.clearProperty(PARALLEL_MODE_DEFAULT);
@@ -166,6 +169,17 @@ class JupiterInjectionGuardsTest {
         String name;
     }
 
+    //FORBID PUBLIC FIELDS
+
+    // Tagged so build.gradle's `test` task (excludeTags 'jupiterIntegration') excludes it from
+    // plain gradlew test's classpath-scan discovery entirely - it must not be independently
+    // discovered and run as its own phantom test class, only constructed and run directly by
+    // parallelExecutionStaysDisabledEvenWhenSystemPropertiesRequestIt() above. Do NOT use
+    // @JunitJupiterTest here: that composed annotation also adds @ExtendWith(JupiterTestExtension),
+    // whose evaluateExecutionCondition() would find CURRENT_DELEGATOR/CURRENT_DISPATCHER both null
+    // (this fixture is never passed through setDelegator()/setDispatcher()) and disable every
+    // method, making the regression test's hasSize(METHOD_COUNT) assertion fail.
+    @Tag(JupiterTestExtension.INTEGRATION_TAG)
     static class ThreadRecordingFixture {
         static final int METHOD_COUNT = 4;
         static final List<Thread> EXECUTED_ON = Collections.synchronizedList(new ArrayList<>());
@@ -190,7 +204,6 @@ class JupiterInjectionGuardsTest {
             EXECUTED_ON.add(Thread.currentThread());
         }
     }
-    //FORBID PUBLIC FIELDS
 
     static class ParameterFixtures {
         void dummy(Delegator delegator) {

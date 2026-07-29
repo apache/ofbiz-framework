@@ -89,9 +89,18 @@ import static org.junit.platform.engine.discovery.DiscoverySelectors.selectClass
  * fills them left-to-right, then resolves the remaining parameters via registered
  * ParameterResolvers.
  *
- * <p>JupiterTestSuite.run() executes tests synchronously on the calling thread (the default JUnit
- * Platform execution mode, and the one TestRunContainer relies on), so a plain ThreadLocal set
- * immediately before launcher.execute() is read correctly by all three hooks below.
+ * <p>JupiterTestSuite.run() executes tests synchronously on the calling thread. This is pinned, not
+ * merely assumed of Jupiter's default: the discovery request built in JupiterTestSuite's
+ * constructor sets {@code configurationParameter("junit.jupiter.execution.parallel.enabled",
+ * "false")} on the {@code LauncherDiscoveryRequest} itself, which is the highest-precedence
+ * configuration source in the JUnit Platform - it wins over a {@code junit-platform.properties}
+ * file, a JVM system property, or any future Gradle test-task configuration, so none of those can
+ * silently re-enable parallelism out from under this extension. That configurationParameter must
+ * not be removed: without it, a test method could be dispatched to a worker thread other than the
+ * one launcher.execute() was called from, and the plain ThreadLocal set immediately before that
+ * call - which is what all three hooks below (postProcessTestInstance(), resolveParameter(),
+ * evaluateExecutionCondition()) read CURRENT_DELEGATOR/CURRENT_DISPATCHER from - is invisible to
+ * any other thread.
  *
  * <p><b>Classes run outside the container are skipped, not failed.</b>
  * evaluateExecutionCondition() below disables any class extended with this extension - via
@@ -241,7 +250,11 @@ public class JupiterTestExtension implements ParameterResolver, TestInstancePost
      * would under `./gradlew test`. The discovery request pins the default method orderer to
      * {@code MethodOrderer.OrderAnnotation}, replacing Jupiter's own unordered default so a class's
      * execution order is always whatever its {@code @Order} annotations say (or unspecified only
-     * among methods that declare none) rather than an unpredictable per-run default.
+     * among methods that declare none) rather than an unpredictable per-run default. It also pins
+     * {@code junit.jupiter.execution.parallel.enabled} to {@code false}, so every test method
+     * executes on the calling thread regardless of any system property or properties file that
+     * might otherwise request parallelism - see the class-level javadoc above for why that matters
+     * to the ThreadLocal bridge.
      */
     static final class JupiterTestSuite implements Test {
 
