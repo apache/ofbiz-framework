@@ -253,14 +253,14 @@ sourceSets {
         java {
             srcDirs = getDirectoryInActiveComponentsIfExists('src/test/java')
         }
-        // Groovy tests often fail, because JUNIT does not have access to the ofbiz enviroment.
-        // If a groovy test is supposed to be tested this way, it can be added here.
+        // All groovy tests are compiled here so OFBizTestCase-based integration
+        // tests are on the classpath for 'ofbiz --test' (see createOfbizCommandTask).
+        // Most of them extend OFBizTestCase -> junit.framework.TestCase and would
+        // otherwise be auto-discovered and run directly by the 'test' task below,
+        // which fails because JUnit does not have access to the ofbiz environment.
+        // See the 'test' task's include list for which ones are safe to run that way.
         groovy {
             srcDirs = getDirectoryInActiveComponentsIfExists('src/test/groovy')
-            include 'org/apache/ofbiz/service/ModelServiceTest.groovy'
-            include 'org/apache/ofbiz/test/TestServices.groovy'
-            include 'org/apache/ofbiz/base/util/string/FlexibleStringExpanderBaseCodeTests.groovy'
-            include 'org/apache/ofbiz/base/util/FileUtilTests.groovy'
         }
         resources {
             srcDirs = getDirectoryInActiveComponentsIfExists('src/test/resources')
@@ -326,6 +326,13 @@ tasks.eclipse.dependsOn(cleanEclipse)
 
 test {
     useJUnit()
+    // Only run the plain JUnit tests here; OFBizTestCase-based integration tests
+    // are compiled (see sourceSets.test.groovy above) but must run via
+    // 'ofbiz --test', since they need the ofbiz environment JUnit doesn't provide.
+    include 'org/apache/ofbiz/service/ModelServiceTest.class'
+    include 'org/apache/ofbiz/test/TestServices.class'
+    include 'org/apache/ofbiz/base/util/string/FlexibleStringExpanderBaseCodeTests.class'
+    include 'org/apache/ofbiz/base/util/FileUtilTests.class'
     jvmArgs "-javaagent:${classpath.find { it.name.contains('jmockit') }.absolutePath}"
 }
 
@@ -990,12 +997,14 @@ tasks.addRule('Pattern: ofbizBackground <Commands>: Execute OFBiz startup comman
 def createOfbizCommandTask(taskName, arguments) {
     task(type: JavaExec, dependsOn: classes, taskName) {
         jvmArgs(application.applicationDefaultJvmArgs)
-        classpath = sourceSets.main.runtimeClasspath
+        if (taskName ==~ /^ofbiz.*(--test|-t).*/) {
+            classpath = sourceSets.main.runtimeClasspath + sourceSets.test.runtimeClasspath
+            finalizedBy(createTestReports)
+        } else {
+            classpath = sourceSets.main.runtimeClasspath
+        }
         mainClass = application.mainClass
         args arguments
-        if (taskName ==~ /^ofbiz.*(--test|-t).*/) {
-            finalizedBy(createTestReports)
-        }
     }
 }
 
