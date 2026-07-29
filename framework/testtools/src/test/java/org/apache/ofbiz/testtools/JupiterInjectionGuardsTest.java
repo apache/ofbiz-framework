@@ -20,6 +20,9 @@ package org.apache.ofbiz.testtools;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.service.LocalDispatcher;
@@ -28,8 +31,12 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ParameterContext;
 import org.junit.jupiter.api.extension.ParameterResolutionException;
 
+import junit.framework.TestResult;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.everyItem;
+import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.sameInstance;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
@@ -45,6 +52,9 @@ import static org.mockito.Mockito.when;
 class JupiterInjectionGuardsTest {
 
     private final JupiterTestExtension extension = new JupiterTestExtension();
+
+    private static final String PARALLEL_ENABLED = "junit.jupiter.execution.parallel.enabled";
+    private static final String PARALLEL_MODE_DEFAULT = "junit.jupiter.execution.parallel.mode.default";
 
     @AfterEach
     void clearThreadLocals() {
@@ -122,6 +132,26 @@ class JupiterInjectionGuardsTest {
         assertThat(resolved, sameInstance(delegator));
     }
 
+    @Test
+    void parallelExecutionStaysDisabledEvenWhenSystemPropertiesRequestIt() {
+        System.setProperty(PARALLEL_ENABLED, "true");
+        System.setProperty(PARALLEL_MODE_DEFAULT, "concurrent");
+        try {
+            Thread callingThread = Thread.currentThread();
+            ThreadRecordingFixture.EXECUTED_ON.clear();
+
+            JupiterTestExtension.JupiterTestSuite suite =
+                    new JupiterTestExtension.JupiterTestSuite(ThreadRecordingFixture.class);
+            suite.run(new TestResult());
+
+            assertThat(ThreadRecordingFixture.EXECUTED_ON, hasSize(ThreadRecordingFixture.METHOD_COUNT));
+            assertThat(ThreadRecordingFixture.EXECUTED_ON, everyItem(sameInstance(callingThread)));
+        } finally {
+            System.clearProperty(PARALLEL_ENABLED);
+            System.clearProperty(PARALLEL_MODE_DEFAULT);
+        }
+    }
+
     //ALLOW PUBLIC FIELDS
     static class CorrectlyNamedFields {
         Delegator delegator;
@@ -134,6 +164,31 @@ class JupiterInjectionGuardsTest {
 
     static class NoRelevantFields {
         String name;
+    }
+
+    static class ThreadRecordingFixture {
+        static final int METHOD_COUNT = 4;
+        static final List<Thread> EXECUTED_ON = Collections.synchronizedList(new ArrayList<>());
+
+        @Test
+        void methodA() {
+            EXECUTED_ON.add(Thread.currentThread());
+        }
+
+        @Test
+        void methodB() {
+            EXECUTED_ON.add(Thread.currentThread());
+        }
+
+        @Test
+        void methodC() {
+            EXECUTED_ON.add(Thread.currentThread());
+        }
+
+        @Test
+        void methodD() {
+            EXECUTED_ON.add(Thread.currentThread());
+        }
     }
     //FORBID PUBLIC FIELDS
 

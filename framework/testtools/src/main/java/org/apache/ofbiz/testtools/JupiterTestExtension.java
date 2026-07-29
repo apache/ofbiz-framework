@@ -268,6 +268,7 @@ public class JupiterTestExtension implements ParameterResolver, TestInstancePost
                     .configurationParameter(
                             "junit.jupiter.testmethod.order.default",
                             "org.junit.jupiter.api.MethodOrderer$OrderAnnotation")
+                    .configurationParameter("junit.jupiter.execution.parallel.enabled", "false")
                     .build();
             this.testCaseCount = (int) launcher.discover(request).countTestIdentifiers(TestIdentifier::isTest);
         }
