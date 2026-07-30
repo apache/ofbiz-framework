@@ -27,7 +27,6 @@ under the License.
 <#if !(selectedTimeZoneId?has_content) && timeZone??>
   <#assign selectedTimeZoneId = timeZone.getID()>
 </#if>
-<#assign displayStyle = Static["java.util.TimeZone"].LONG>
 <#assign availableLocales = Static["org.apache.ofbiz.base.util.UtilMisc"].availableLocales()>
 <#assign availableTimeZones = Static["org.apache.ofbiz.base.util.UtilDateTime"].availableTimeZones()>
 
@@ -40,7 +39,7 @@ under the License.
 <#assign lastTimeZoneDisplay = uiLabelMap.CommonNA>
 <#if lastTimeZoneId?has_content>
   <#assign lastTimeZone = Static["java.util.TimeZone"].getTimeZone(lastTimeZoneId)>
-  <#assign lastTimeZoneDisplay = lastTimeZone.getDisplayName(lastTimeZone.useDaylightTime(), displayStyle, locale) + " (" + lastTimeZone.getID() + ")">
+  <#assign lastTimeZoneDisplay = lastTimeZone.toZoneId().getDisplayName(Static["java.time.format.TextStyle"].FULL_STANDALONE, locale) + " (" + lastTimeZone.getID() + ")">
 </#if>
 
 <div class="screenlet">
@@ -113,7 +112,7 @@ under the License.
           <#list availableTimeZones as availableTz>
             <#assign availableTzId = availableTz.getID()>
             <option value="${availableTzId}"<#if availableTzId == selectedTimeZoneId!> selected="selected"</#if>>
-              ${availableTz.getDisplayName(availableTz.useDaylightTime(), displayStyle, locale)} (${availableTzId})
+              ${availableTz.toZoneId().getDisplayName(Static["java.time.format.TextStyle"].FULL_STANDALONE, locale)} (${availableTzId})
             </option>
           </#list>
         </select>
