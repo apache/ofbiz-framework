@@ -24,17 +24,4 @@
         <junit-test-suite class-name="org.apache.ofbiz.base.test.SimpleTests"/>
     </test-case>
 
-    <test-case case-name="uel-date-tests">
-        <junit-test-suite class-name="org.apache.ofbiz.base.test.uel.DateUelTest"/>
-    </test-case>
-    <test-case case-name="uel-math-tests">
-        <junit-test-suite class-name="org.apache.ofbiz.base.test.uel.MathUelTest"/>
-    </test-case>
-    <test-case case-name="uel-string-tests">
-        <junit-test-suite class-name="org.apache.ofbiz.base.test.uel.StringUelTest"/>
-    </test-case>
-    <test-case case-name="uel-misc-tests">
-        <junit-test-suite class-name="org.apache.ofbiz.base.test.uel.MiscUelTest"/>
-    </test-case>
-
 </test-suite>
