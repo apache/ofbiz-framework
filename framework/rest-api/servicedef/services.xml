@@ -32,4 +32,13 @@ under the License.
         <attribute name="token_type" type="String" mode="OUT" optional="false"/>
     </service>
 
+
+
+    <!-- Example Services -->
+    <!-- The services listed below serve to provide simple examples on how to use the REST-API component -->
+    <service name="createRestOrderExample" engine="java"
+             location="org.apache.ofbiz.ws.rs.examples.RestExampleServices" invoke="createRestOrderExample">
+        <attribute name="Order" type="org.apache.ofbiz.ws.rs.examples.RestOrderExample" mode="IN" optional="false"/>
+        <attribute name="orderId" type="String" mode="OUT" optional="true"/>
+    </service>
 </services>
