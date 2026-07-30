@@ -18,10 +18,10 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<ofbiz-component name="accounting"
+<ofbiz-component name="test-accounting"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/ofbiz-component.xsd">
-    <depends-on component-name="order" />
+    <depends-on component-name="test-order" />
     <resource-loader name="main" type="component"/>
     <classpath type="dir" location="config"/>
 </ofbiz-component>

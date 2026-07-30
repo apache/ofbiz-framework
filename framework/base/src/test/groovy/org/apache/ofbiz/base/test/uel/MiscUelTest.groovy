@@ -20,35 +20,44 @@ package org.apache.ofbiz.base.test.uel
 
 import org.apache.ofbiz.base.util.string.FlexibleStringExpander
 import org.apache.ofbiz.base.util.string.UelFunctions
-import org.apache.ofbiz.service.testtools.OFBizTestCase
+
+import org.junit.jupiter.api.BeforeAll
+import org.junit.jupiter.api.Test
 
 /**
- * ./gradlew 'ofbiz -t component=base -t suitename=basetests'
+ * ./gradlew test --tests "org.apache.ofbiz.base.test.uel.MiscUelTest"
  */
 /* codenarc-disable GStringExpressionWithinString,ClosureAsLastMethodParameter */
-class MiscUelTest extends OFBizTestCase {
+class MiscUelTest {
 
-    MiscUelTest(String name) { super(name) }
+    @BeforeAll
+    static void loadUelFunctions() {
+        UelTestSupport.ensureUelFunctionsLoaded()
+    }
 
-    void testSystemUel() { // codenarc-disable JUnitTestMethodWithoutAssert
+    @Test
+    void systemEnvAndPropertyUelFunctionsWork() { // codenarc-disable JUnitTestMethodWithoutAssert
         doUelSystemTest('${sys:getenv("foo")}', 'foo', { String prop -> UelFunctions.sysGetEnv(prop) })
         doUelSystemTest('${sys:getProperty("bar")}', 'bar', { String prop -> UelFunctions.sysGetProp(prop) })
     }
 
-    void testUtilSizeUel() {
+    @Test
+    void utilSizeUelFunctionReturnsListSize() {
         List foo = [1, 2, 3]
         FlexibleStringExpander fse = FlexibleStringExpander.getInstance('${util:size(foo)}')
         assert fse.expand([foo: foo]) == UelFunctions.getSize(foo)
     }
 
-    void testDefaultLocaleAndTimzoneUel() {
+    @Test
+    void defaultLocaleAndTimeZoneUelFunctionsReturnSystemDefaults() {
         FlexibleStringExpander fse = FlexibleStringExpander.getInstance('${util:defaultLocale()}')
         assert fse.expand([foo: 'bar']) == Locale.getDefault()
         fse = FlexibleStringExpander.getInstance('${util:defaultTimeZone()}')
         assert fse.expand([foo: 'bar']) == TimeZone.getDefault()
     }
 
-    void testLabelUel() {
+    @Test
+    void labelUelFunctionResolvesPropertyLabel() {
         String labelFile = 'CommonEntityLabels', labelKey = 'VisualTheme.description.RAINBOWSTONE_AMBER'
         FlexibleStringExpander fse = FlexibleStringExpander.getInstance(
                 '${util:label(\'CommonEntityLabels\',\'VisualTheme.description.RAINBOWSTONE_AMBER\', locale)}')
