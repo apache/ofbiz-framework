@@ -36,8 +36,8 @@ import org.junit.jupiter.api.Test;
 
 
 public final class ComponentContainerTest {
-    private static final Path ORDER_CONFIG = Paths.get("applications", "order", "config");
-    private static final Path ACCOUNTING_CONFIG = Paths.get("applications", "accounting", "config");
+    private static final Path ORDER_CONFIG = Paths.get("applications", "test-order", "config");
+    private static final Path ACCOUNTING_CONFIG = Paths.get("applications", "test-accounting", "config");
     private static final Path[] CONFIGS = {ORDER_CONFIG, ACCOUNTING_CONFIG};
 
     private Path ofbizHome = Paths.get(ComponentContainerTest.class.getResource("testsdata").toURI())
@@ -65,9 +65,17 @@ public final class ComponentContainerTest {
         ComponentContainer containerObj = new ComponentContainer();
         containerObj.init("component-container", ofbizHome);
 
+        // ComponentConfig's cache is a single JVM-wide static shared with the rest of the test
+        // suite (e.g. the UEL bootstrap session listener also loads the real, ~90-component
+        // project into it). Filter down to just this test's own fixture names so the assertion
+        // stays a genuine, order-sensitive check of sortDependencies() - accounting depends on
+        // order, so a correct topological sort must place test-order before test-accounting even
+        // though alphabetical scan order would visit test-accounting first - regardless of
+        // whatever else has been loaded into the shared cache by other tests in this JVM.
         List<String> loadedComponents = ComponentConfig.components()
                 .map(ComponentConfig::getGlobalName)
+                .filter(name -> name.equals("test-order") || name.equals("test-accounting"))
                 .collect(Collectors.toList());
-        assertEquals(Arrays.asList("order", "accounting"), loadedComponents);
+        assertEquals(Arrays.asList("test-order", "test-accounting"), loadedComponents);
     }
 }

@@ -98,6 +98,7 @@ dependencies {
     runtimeOnly 'org.junit.jupiter:junit-jupiter-engine:6.1.0'
 
     testImplementation 'org.junit.jupiter:junit-jupiter-params:6.1.0'
+    testImplementation 'org.junit.platform:junit-platform-launcher:6.1.0'
     testImplementation 'org.hamcrest:hamcrest-library:2.2'
     testImplementation 'org.mockito:mockito-core:5.23.0'
     testImplementation 'org.jmockit:jmockit:1.50'
