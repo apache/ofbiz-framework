@@ -35,8 +35,10 @@ public class GlobalExceptionMapper implements jakarta.ws.rs.ext.ExceptionMapper<
      * {@inheritDoc}
      *
      * <p>Maps the throwable to an HTTP error response. If the throwable is a
-     * {@link WebApplicationException}, its own HTTP status is used; all other
-     * throwables result in HTTP 500 Internal Server Error.</p>
+     * {@link WebApplicationException}, its own HTTP status is used. Query-contract
+     * validation failures reported as {@link IllegalArgumentException} are mapped
+     * to HTTP 400 Bad Request. All other throwables result in HTTP 500 Internal
+     * Server Error.</p>
      */
     @Override
     public Response toResponse(Throwable throwable) {
@@ -44,9 +46,14 @@ public class GlobalExceptionMapper implements jakarta.ws.rs.ext.ExceptionMapper<
         if (Debug.verboseOn()) {
             throwable.printStackTrace();
         }
-        Response.StatusType type = (throwable instanceof WebApplicationException
-                    ? ((WebApplicationException) throwable).getResponse().getStatusInfo()
-                    : Response.Status.INTERNAL_SERVER_ERROR);
+        Response.StatusType type;
+        if (throwable instanceof WebApplicationException) {
+            type = ((WebApplicationException) throwable).getResponse().getStatusInfo();
+        } else if (throwable instanceof IllegalArgumentException) {
+            type = Response.Status.BAD_REQUEST;
+        } else {
+            type = Response.Status.INTERNAL_SERVER_ERROR;
+        }
 
         Error error = new Error(type.getStatusCode(), type.getReasonPhrase(), throwable.getMessage());
         return Response.status(type.getStatusCode()).entity(error).type(MediaType.APPLICATION_JSON).build();
