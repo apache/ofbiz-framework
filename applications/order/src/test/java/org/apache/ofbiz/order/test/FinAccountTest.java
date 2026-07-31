@@ -18,6 +18,10 @@
  *******************************************************************************/
 package org.apache.ofbiz.order.test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 import java.util.Locale;
 
 import org.apache.ofbiz.base.util.Debug;
@@ -25,18 +29,19 @@ import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.order.finaccount.FinAccountHelper;
-import org.apache.ofbiz.service.testtools.OFBizTestCase;
+import org.apache.ofbiz.testtools.JunitJupiterTest;
+import org.apache.ofbiz.testtools.JupiterTestHelper;
+import org.junit.jupiter.api.Test;
 
-public class FinAccountTest extends OFBizTestCase {
+@JunitJupiterTest
+public class FinAccountTest implements JupiterTestHelper {
     private static final String MODULE = FinAccountTest.class.getName();
-    public FinAccountTest(String name) {
-        super(name);
-    }
 
     /**
      * Test create fin account basic.
      * @throws Exception the exception
      */
+    @Test
     public void testCreateFinAccountBasic() throws Exception {
         Delegator delegator = getDelegator();
         String finAccountCode;

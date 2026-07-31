@@ -27,9 +27,9 @@ under the License.
         <entity-xml action="load" entity-xml-url="component://order/testdef/data/QuoteTestData.xml"/>
     </test-case>
     <test-case case-name="custrequest-tests">
-        <junit-test-suite class-name="org.apache.ofbiz.order.order.test.CustRequestTests"/>
+        <jupiter-test-suite class-name="org.apache.ofbiz.order.order.test.CustRequestTests"/>
     </test-case>
     <test-case case-name="test-cust-request-permission-check">
-        <junit-test-suite class-name="org.apache.ofbiz.order.order.test.CustRequestPermissionCheckTests"/>
+        <jupiter-test-suite class-name="org.apache.ofbiz.order.order.test.CustRequestPermissionCheckTests"/>
     </test-case>
 </test-suite>

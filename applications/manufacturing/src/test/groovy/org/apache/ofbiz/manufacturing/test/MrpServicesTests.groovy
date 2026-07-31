@@ -20,16 +20,18 @@ package org.apache.ofbiz.manufacturing.test
 
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.manufacturing.mrp.MrpServices
-import org.apache.ofbiz.service.testtools.OFBizTestCase
+import org.apache.ofbiz.testtools.JunitJupiterTest
+import org.apache.ofbiz.testtools.JupiterTestHelper
 
 import java.sql.Timestamp
+import org.junit.jupiter.api.Order
+import org.junit.jupiter.api.Test
 
-class MrpServicesTests extends OFBizTestCase {
+@JunitJupiterTest
+class MrpServicesTests implements JupiterTestHelper {
 
-    MrpServicesTests(String name) {
-        super(name)
-    }
-
+    @Test
+    @Order(1)
     void testRequiredMrpProposedOrderIsNotLateForSlightlyEarlierTimestamp() {
         Timestamp runStartedAt = Timestamp.valueOf('2026-07-22 11:30:00.100')
         Timestamp requirementStartDate = Timestamp.valueOf('2026-07-22 11:30:00.095')
@@ -37,6 +39,8 @@ class MrpServicesTests extends OFBizTestCase {
         assert !MrpServices.isProposedOrderLate(requirementStartDate, runStartedAt, mrpEvent(mrpEventTypeId: 'REQUIRED_MRP'))
     }
 
+    @Test
+    @Order(2)
     void testNonRequiredMrpProposedOrderRemainsLateWhenStartDatePrecedesRun() {
         Timestamp runStartedAt = Timestamp.valueOf('2026-07-22 11:30:00.100')
         Timestamp requirementStartDate = Timestamp.valueOf('2026-07-22 11:29:59.000')

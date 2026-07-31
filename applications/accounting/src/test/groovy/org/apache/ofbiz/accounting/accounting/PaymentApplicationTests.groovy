@@ -20,17 +20,19 @@ package org.apache.ofbiz.accounting.accounting
 
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.service.ServiceUtil
-import org.apache.ofbiz.service.testtools.OFBizTestCase
+import org.apache.ofbiz.testtools.JunitJupiterTest
+import org.apache.ofbiz.testtools.JupiterTestHelper
 import org.apache.ofbiz.accounting.invoice.InvoiceWorker
 import org.apache.ofbiz.accounting.payment.PaymentWorker
 import org.apache.ofbiz.order.order.OrderReadHelper
+import org.junit.jupiter.api.Order
+import org.junit.jupiter.api.Test
 
-class PaymentApplicationTests extends OFBizTestCase {
+@JunitJupiterTest
+class PaymentApplicationTests implements JupiterTestHelper {
 
-    PaymentApplicationTests(String name) {
-        super(name)
-    }
-
+    @Test
+    @Order(1)
     void testInvoiceAppl() {
         Map serviceInMap = [:]
         //from the test data
@@ -60,6 +62,8 @@ class PaymentApplicationTests extends OFBizTestCase {
         delegator.removeAll('PaymentApplication')
     }
 
+    @Test
+    @Order(2)
     void testToPayment() {
         Map serviceInMap = [:]
         serviceInMap.paymentId = 'appltest10000'
@@ -90,6 +94,8 @@ class PaymentApplicationTests extends OFBizTestCase {
         delegator.removeAll('PaymentApplication')
     }
 
+    @Test
+    @Order(3)
     void testBillingAppl() {
         Map serviceInMap = [:]
         //from the test data
@@ -123,7 +129,9 @@ class PaymentApplicationTests extends OFBizTestCase {
         delegator.removeAll('PaymentApplication')
     }
 
-    void testTaxGeoId () {
+    @Test
+    @Order(4)
+    void testTaxGeoId() {
         Map serviceInMap = [:]
         //from the test data
         serviceInMap.paymentId = 'appltest10000'

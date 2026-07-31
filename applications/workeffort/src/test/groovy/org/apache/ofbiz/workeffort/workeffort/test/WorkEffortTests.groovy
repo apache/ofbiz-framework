@@ -19,15 +19,17 @@
 package org.apache.ofbiz.workeffort.workeffort.test
 
 import org.apache.ofbiz.entity.GenericValue
-import org.apache.ofbiz.service.testtools.OFBizTestCase
+import org.apache.ofbiz.testtools.JunitJupiterTest
+import org.apache.ofbiz.testtools.JupiterTestHelper
 import org.apache.ofbiz.service.ServiceUtil
+import org.junit.jupiter.api.Order
+import org.junit.jupiter.api.Test
 
-class WorkEffortTests extends OFBizTestCase {
+@JunitJupiterTest
+class WorkEffortTests implements JupiterTestHelper {
 
-    WorkEffortTests(String name) {
-        super(name)
-    }
-
+    @Test
+    @Order(1)
     void testCreateWorkEffortAndPartyAssign() {
         Map serviceCtx = [
                 partyId: 'TestParty-1',
@@ -59,6 +61,8 @@ class WorkEffortTests extends OFBizTestCase {
         assert workEffortPartyAssignment.statusId == 'PRTYASGN_ASSIGNED'
     }
 
+    @Test
+    @Order(2)
     void testDeleteWorkEffort() {
         Map createCtx = [
                 workEffortId: 'TestWorkEffort-98',
@@ -80,6 +84,8 @@ class WorkEffortTests extends OFBizTestCase {
         assert !workEffort
     }
 
+    @Test
+    @Order(3)
     void testCopyWorkEffort() {
         Map serviceCtx = [
                 sourceWorkEffortId: 'TestWorkeffort-3',
@@ -94,6 +100,8 @@ class WorkEffortTests extends OFBizTestCase {
         assert workEffort.workEffortName == 'New Test Workeffort'
     }
 
+    @Test
+    @Order(4)
     void testDuplicateWorkEffort() {
         Map serviceCtx = [
                 oldWorkEffortId: 'TestWorkeffort-3',
@@ -108,6 +116,8 @@ class WorkEffortTests extends OFBizTestCase {
         assert workEffort.workEffortName == 'New Test Workeffort'
     }
 
+    @Test
+    @Order(5)
     void testMakeCommunicationEventWorkEffort() {
         Map serviceCtx = [
                 communicationEventId: 'TestEvent-1',
@@ -126,6 +136,8 @@ class WorkEffortTests extends OFBizTestCase {
         assert communicationEventWorkEff
     }
 
+    @Test
+    @Order(6)
     void testAssignPartyToWorkEffort() {
         Map serviceCtx = [
                 partyId: 'TestParty',
@@ -150,6 +162,8 @@ class WorkEffortTests extends OFBizTestCase {
         assert workEffortPartyAssignment
     }
 
+    @Test
+    @Order(7)
     void testUpdatePartyToWorkEffortAssignment() {
         Map serviceCtx = [
                 partyId: 'TestParty',
@@ -174,6 +188,8 @@ class WorkEffortTests extends OFBizTestCase {
         assert workEffortPartyAssignment.statusId == 'PRTYASGN_ASSIGNED'
     }
 
+    @Test
+    @Order(8)
     void testDeletePartyToWorkEffortAssignment() {
         Map serviceCtx = [
                 partyId: 'TestParty',
@@ -197,6 +213,8 @@ class WorkEffortTests extends OFBizTestCase {
         assert workEffortPartyAssignment.thruDate
     }
 
+    @Test
+    @Order(9)
     void testQuickAssignPartyToWorkEffort() {
         Map serviceCtx = [
                 quickAssignPartyId: 'TestCompany',
@@ -214,6 +232,8 @@ class WorkEffortTests extends OFBizTestCase {
         assert workEffortPartyAssignment
     }
 
+    @Test
+    @Order(10)
     void testQuickAssignPartyToWorkEffortWithRole() {
         Map serviceCtx = [
                 quickAssignPartyId: 'TestParty-1',
@@ -234,6 +254,8 @@ class WorkEffortTests extends OFBizTestCase {
         assert workEffortPartyAssignment
     }
 
+    @Test
+    @Order(11)
     void testCreateWorkEffortNote() {
         Map serviceCtx = [
                 workEffortId: 'TestWorkeffort-3',
@@ -251,6 +273,8 @@ class WorkEffortTests extends OFBizTestCase {
         assert noteData.noteInfo == 'This is test note.'
     }
 
+    @Test
+    @Order(12)
     void testUpdateWorkEffortNote() {
         Map serviceCtx = [
                 workEffortId: 'TestWorkeffort-3',
@@ -269,6 +293,8 @@ class WorkEffortTests extends OFBizTestCase {
         assert noteData.noteInfo == 'This is updated test note.'
     }
 
+    @Test
+    @Order(13)
     void testGetWorkEffort() {
         Map serviceCtx = [
                 workEffortId: 'TestWorkeffort-3',
@@ -279,6 +305,8 @@ class WorkEffortTests extends OFBizTestCase {
         assert serviceResult.workEffort
     }
 
+    @Test
+    @Order(14)
     void testCreateWorkEffortAssoc() {
         Map serviceCtx = [
                 workEffortIdFrom: 'TestWorkeffort-2',
@@ -301,6 +329,8 @@ class WorkEffortTests extends OFBizTestCase {
         assert workEffortAssoc
     }
 
+    @Test
+    @Order(15)
     void testCopyWorkEffortAssocs() {
         Map serviceCtx = [
                 sourceWorkEffortId: 'TestWorkeffort-2',
@@ -314,6 +344,8 @@ class WorkEffortTests extends OFBizTestCase {
         assert workEffortAssocList
     }
 
+    @Test
+    @Order(16)
     void testCreateWorkEffortKeyword() {
         Map serviceCtx = [
                 workEffortId: 'TestWorkeffort-2',
@@ -331,6 +363,8 @@ class WorkEffortTests extends OFBizTestCase {
         assert workEffortKeyword
     }
 
+    @Test
+    @Order(17)
     void testDeleteWorkEffortKeyword() {
         Map serviceCtx = [
                 workEffortId: 'TestWorkeffort-3',
@@ -344,6 +378,8 @@ class WorkEffortTests extends OFBizTestCase {
         assert !workEffortKeyword
     }
 
+    @Test
+    @Order(18)
     void testDeleteWorkEffortKeywords() {
         Map serviceCtx = [
                 workEffortId: 'TestWorkeffort-2',
@@ -356,6 +392,8 @@ class WorkEffortTests extends OFBizTestCase {
         assert !workEffortKeywordList
     }
 
+    @Test
+    @Order(19)
     void testCreateTimesheet() {
         Map serviceCtx = [
                 partyId: 'TestParty',
@@ -374,6 +412,8 @@ class WorkEffortTests extends OFBizTestCase {
         assert timesheet.comments == 'Test timesheet'
     }
 
+    @Test
+    @Order(20)
     void testUpdateTimesheet() {
         Map serviceCtx = [
                 timesheetId: 'TestTimesheet-2',
@@ -390,6 +430,8 @@ class WorkEffortTests extends OFBizTestCase {
         assert timesheet.statusId == 'TIMESHEET_COMPLETED'
     }
 
+    @Test
+    @Order(21)
     void testDeleteTimesheet() {
         Map serviceCtx = [
                 timesheetId: 'TestTimesheet-3',
@@ -402,6 +444,8 @@ class WorkEffortTests extends OFBizTestCase {
         assert !timesheet
     }
 
+    @Test
+    @Order(22)
     void testCreateTimesheets() {
         List partyIdList = ['TestParty', 'TestParty-1']
         Map serviceCtx = [
@@ -420,6 +464,8 @@ class WorkEffortTests extends OFBizTestCase {
         }
     }
 
+    @Test
+    @Order(23)
     void testCreateTimesheetForThisWeek() {
         Map serviceCtx = [
                 partyId: 'TestParty-1',
@@ -437,6 +483,8 @@ class WorkEffortTests extends OFBizTestCase {
         assert timesheet.fromDate == java.sql.Timestamp.valueOf('2009-09-06 00:00:00.0')
     }
 
+    @Test
+    @Order(24)
     void testAddTimesheetToNewInvoice() {
         Map serviceCtx = [
                 partyId: 'TestParty-1',
@@ -453,6 +501,8 @@ class WorkEffortTests extends OFBizTestCase {
         assert invoice.partyId == 'TestParty-1'
     }
 
+    @Test
+    @Order(25)
     void testCreateTimeEntry() {
         Map serviceCtx = [
                 workEffortId: 'TestWorkeffort-2',
@@ -469,6 +519,8 @@ class WorkEffortTests extends OFBizTestCase {
         assert timeEntry.comments == 'Test Time Entry'
     }
 
+    @Test
+    @Order(26)
     void testUpdateTimeEntry() {
         Map serviceCtx = [
                 timeEntryId: 'TestTimeEntry-1',
@@ -483,6 +535,8 @@ class WorkEffortTests extends OFBizTestCase {
         assert timeEntry.timesheetId == 'TestTimesheet-4'
     }
 
+    @Test
+    @Order(27)
     void testDeleteTimeEntry() {
         Map serviceCtx = [
                 timeEntryId: 'TestTimeEntry-2',
@@ -495,6 +549,8 @@ class WorkEffortTests extends OFBizTestCase {
         assert !timeEntry
     }
 
+    @Test
+    @Order(28)
     void testCreateEventService() {
         GenericValue systemLogin = from('UserLogin').where('userLoginId', 'system').queryOne()
         Map createCtx = [
@@ -526,6 +582,8 @@ class WorkEffortTests extends OFBizTestCase {
         assert workEffort.currentStatusId == 'CAL_ACCEPTED'
     }
 
+    @Test
+    @Order(29)
     void testCreateProjectService() {
         GenericValue systemLogin = from('UserLogin').where('userLoginId', 'system').queryOne()
         Map createCtx = [
@@ -571,6 +629,8 @@ class WorkEffortTests extends OFBizTestCase {
         assert noteData.noteInfo == "This is a note for party 'DemoCustomer'"
     }
 
+    @Test
+    @Order(30)
     void testGetTimeEntryRate() {
         Map serviceCtx = [
                 timeEntryId: 'TestTimeEntry-3',

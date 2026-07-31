@@ -23,14 +23,16 @@ import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.util.EntityQuery
 import org.apache.ofbiz.service.ServiceUtil
-import org.apache.ofbiz.service.testtools.OFBizTestCase
+import org.apache.ofbiz.testtools.JunitJupiterTest
+import org.apache.ofbiz.testtools.JupiterTestHelper
+import org.junit.jupiter.api.Order
+import org.junit.jupiter.api.Test
 
-class AutoInvoiceTests extends OFBizTestCase {
+@JunitJupiterTest
+class AutoInvoiceTests implements JupiterTestHelper {
 
-    AutoInvoiceTests(String name) {
-        super(name)
-    }
-
+    @Test
+    @Order(1)
     void testInvoiceWorkerGetInvoiceTotal() {
         String invoiceId = 'demo10000'
         BigDecimal amount = 323.54
@@ -106,6 +108,8 @@ class AutoInvoiceTests extends OFBizTestCase {
     }
 
     // Test case for Commission Run
+    @Test
+    @Order(2)
     void testCommissionRun() {
         /*
             Precondition : For Creating Commission invoice following data should be there :
@@ -145,6 +149,8 @@ class AutoInvoiceTests extends OFBizTestCase {
     }
 
     // Test case to verify GL postings for Cancel Invoice process
+    @Test
+    @Order(3)
     void testGlPostingOnCancelInvoice() {
         /*
             Precondition :
@@ -216,6 +222,8 @@ class AutoInvoiceTests extends OFBizTestCase {
     }
 
     // Test case to verify GL postings for Cancel Check Run process
+    @Test
+    @Order(4)
     void testGlPostingOnCancelCheckRun() {
         /*
             Precondition :

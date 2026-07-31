@@ -19,6 +19,10 @@
 
 package org.apache.ofbiz.shipment.test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -26,26 +30,22 @@ import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.util.EntityQuery;
-import org.apache.ofbiz.service.testtools.OFBizTestCase;
 import org.apache.ofbiz.shipment.packing.PackingSession;
+import org.apache.ofbiz.testtools.JunitJupiterTest;
+import org.apache.ofbiz.testtools.JupiterTestHelper;
+import org.junit.jupiter.api.Test;
 
 /**
  * Item Issuance Tests
  */
-public class IssuanceTest extends OFBizTestCase {
-
-    public IssuanceTest(String name) {
-        super(name);
-    }
-
-    @Override
-    protected void tearDown() throws Exception {
-    }
+@JunitJupiterTest
+public class IssuanceTest implements JupiterTestHelper {
 
     /**
      * Test multiple inventory item issuance.
      * @throws Exception the exception
      */
+    @Test
     public void testMultipleInventoryItemIssuance() throws Exception {
         String facilityId = "WebStoreWarehouse";
         String productId = "GZ-2644";
@@ -64,8 +64,8 @@ public class IssuanceTest extends OFBizTestCase {
         // Test the OrderShipment is correct
         List<GenericValue> orderShipments = orderHeader.getRelated("OrderShipment", null, null, false);
 
-        assertFalse("No OrderShipment for order", UtilValidate.isEmpty(orderShipments));
-        assertEquals("Incorrect number of OrderShipments for order", 1, orderShipments.size());
+        assertFalse(UtilValidate.isEmpty(orderShipments), "No OrderShipment for order");
+        assertEquals(1, orderShipments.size(), "Incorrect number of OrderShipments for order");
 
         GenericValue orderShipment = orderShipments.get(0);
         assertEquals(orderItemSeqId, orderShipment.getString("orderItemSeqId"));
@@ -73,12 +73,12 @@ public class IssuanceTest extends OFBizTestCase {
         assertEquals(shipmentId, orderShipment.getString("shipmentId"));
         assertEquals(shipmentItemSeqId, orderShipment.getString("shipmentItemSeqId"));
         BigDecimal actual = orderShipment.getBigDecimal("quantity");
-        assertTrue("Incorrect quantity in OrderShipment. Expected 6.00000 actual " + actual, actual.compareTo(BigDecimal.valueOf(6L)) == 0);
+        assertTrue(actual.compareTo(BigDecimal.valueOf(6L)) == 0, "Incorrect quantity in OrderShipment. Expected 6.00000 actual " + actual);
 
         // Test the ItemIssuances are correct
         List<GenericValue> itemIssuances = orderHeader.getRelated("ItemIssuance", null, UtilMisc.toList("inventoryItemId"), false);
-        assertFalse("No ItemIssuances for order", UtilValidate.isEmpty(itemIssuances));
-        assertEquals("Incorrect number of ItemIssuances for order", 2, itemIssuances.size());
+        assertFalse(UtilValidate.isEmpty(itemIssuances), "No ItemIssuances for order");
+        assertEquals(2, itemIssuances.size(), "Incorrect number of ItemIssuances for order");
 
         GenericValue itemIssuance = itemIssuances.get(0);
         assertEquals(orderItemSeqId, itemIssuance.getString("orderItemSeqId"));
@@ -87,7 +87,7 @@ public class IssuanceTest extends OFBizTestCase {
         assertEquals(shipmentItemSeqId, itemIssuance.getString("shipmentItemSeqId"));
         assertEquals("9001", itemIssuance.getString("inventoryItemId"));
         actual = itemIssuance.getBigDecimal("quantity");
-        assertTrue("Incorrect quantity in ItemIssuance. Expected 5.00000 actual " + actual, actual.compareTo(BigDecimal.valueOf(5L)) == 0);
+        assertTrue(actual.compareTo(BigDecimal.valueOf(5L)) == 0, "Incorrect quantity in ItemIssuance. Expected 5.00000 actual " + actual);
 
         itemIssuance = itemIssuances.get(1);
         assertEquals(orderItemSeqId, itemIssuance.getString("orderItemSeqId"));
@@ -96,11 +96,11 @@ public class IssuanceTest extends OFBizTestCase {
         assertEquals(shipmentItemSeqId, itemIssuance.getString("shipmentItemSeqId"));
         assertEquals("9025", itemIssuance.getString("inventoryItemId"));
         actual = itemIssuance.getBigDecimal("quantity");
-        assertTrue("Incorrect quantity in ItemIssuance. Expected 1.00000 actual " + actual, actual.compareTo(BigDecimal.valueOf(1L)) == 0);
+        assertTrue(actual.compareTo(BigDecimal.valueOf(1L)) == 0, "Incorrect quantity in ItemIssuance. Expected 1.00000 actual " + actual);
 
         // Test reservations have been removed
         List<GenericValue> reservations = orderHeader.getRelated("OrderItemShipGrpInvRes", null, null, false);
-        assertTrue("Reservations exist for order - should have been deleted", UtilValidate.isEmpty(reservations));
+        assertTrue(UtilValidate.isEmpty(reservations), "Reservations exist for order - should have been deleted");
 
         // Test order header status is now ORDER_COMPLETED
         assertEquals(orderHeader.getString("statusId"), "ORDER_COMPLETED");

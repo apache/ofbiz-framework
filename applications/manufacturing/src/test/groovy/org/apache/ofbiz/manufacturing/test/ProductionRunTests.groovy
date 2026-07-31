@@ -20,16 +20,18 @@ package org.apache.ofbiz.manufacturing.test
 
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.service.ServiceUtil
-import org.apache.ofbiz.service.testtools.OFBizTestCase
+import org.apache.ofbiz.testtools.JunitJupiterTest
+import org.apache.ofbiz.testtools.JupiterTestHelper
 import org.apache.ofbiz.base.util.UtilDateTime
 import java.sql.Timestamp
+import org.junit.jupiter.api.Order
+import org.junit.jupiter.api.Test
 
-class ProductionRunTests extends OFBizTestCase {
+@JunitJupiterTest
+class ProductionRunTests implements JupiterTestHelper {
 
-    ProductionRunTests(String name) {
-        super(name)
-    }
-
+    @Test
+    @Order(7)
     void testProductionRunCreation() {
         GenericValue userLogin = from('UserLogin').where('userLoginId', 'TestManufAdmin').queryOne()
         String productId = 'PROD_MANUF'
@@ -92,6 +94,8 @@ class ProductionRunTests extends OFBizTestCase {
         assert productionRunMaterialB.estimatedQuantity == quantity * 3
     }
 
+    @Test
+    @Order(5)
     void testProductionRunScheduleConfirm() {
         GenericValue userLogin = from('UserLogin').where('userLoginId', 'TestManufAdmin').queryOne()
         String productId = 'PROD_MANUF'
@@ -136,6 +140,8 @@ class ProductionRunTests extends OFBizTestCase {
         assert productionRunTask.currentStatusId == 'PRUN_DOC_PRINTED'
     }
 
+    @Test
+    @Order(1)
     void testProductionRunDateChange() {
         GenericValue userLogin = from('UserLogin').where('userLoginId', 'TestManufAdmin').queryOne()
         String productId = 'PROD_MANUF'
@@ -177,6 +183,8 @@ class ProductionRunTests extends OFBizTestCase {
                 || productionRunTask.estimatedStartDate.getTime() == productionRunNewStartDate.getTime()
     }
 
+    @Test
+    @Order(2)
     void testProductionRunCancelled() {
         GenericValue userLogin = from('UserLogin').where('userLoginId', 'TestManufAdmin').queryOne()
         String productId = 'PROD_MANUF'
@@ -227,6 +235,8 @@ class ProductionRunTests extends OFBizTestCase {
         assert productionRunMaterialB.statusId == 'WEGS_CANCELLED'
     }
 
+    @Test
+    @Order(8)
     void testProductionRunQuickIssueAndProduce() {
         GenericValue userLogin = from('UserLogin').where('userLoginId', 'TestManufAdmin').queryOne()
         String productId = 'PROD_MANUF'
@@ -352,6 +362,8 @@ class ProductionRunTests extends OFBizTestCase {
         assert acctgTrans
     }
 
+    @Test
+    @Order(9)
     void testQuickRunProductionRun() {
         GenericValue userLogin = from('UserLogin').where('userLoginId', 'TestManufAdmin').queryOne()
         String productId = 'PROD_MANUF'
@@ -390,6 +402,8 @@ class ProductionRunTests extends OFBizTestCase {
         assert costResult.totalCost
     }
 
+    @Test
+    @Order(6)
     void testQuickCloseProductionRun() {
         GenericValue userLogin = from('UserLogin').where('userLoginId', 'TestManufAdmin').queryOne()
         String productId = 'PROD_MANUF'
@@ -425,6 +439,12 @@ class ProductionRunTests extends OFBizTestCase {
         assert productionRunTask.currentStatusId == 'PRUN_CLOSED'
     }
 
+    @Test
+    // Must run before testProductionRunQuickIssueAndProduce/testQuickRunProductionRun/
+    // testQuickCloseProductionRun: those tests produce PROD_MANUF inventory as a side effect,
+    // which pre-satisfies this test's order reservation and breaks its
+    // "reservation moves to the newly produced item" assertion below.
+    @Order(4)
     void testCreateProductionRunForOrder() {
         GenericValue userLogin = from('UserLogin').where('userLoginId', 'admin').queryOne()
         String productId = 'PROD_MANUF'
@@ -494,6 +514,8 @@ class ProductionRunTests extends OFBizTestCase {
         assert producedMaterial.inventoryItemId == newOrderItemShipGrpInvRes.inventoryItemId
     }
 
+    @Test
+    @Order(3)
     void testCreateProductionRunForRequirement() {
         GenericValue userLogin = from('UserLogin').where('userLoginId', 'TestSupplyAdmin').queryOne()
         String productId = 'PROD_MANUF'

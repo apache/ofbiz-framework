@@ -20,14 +20,14 @@ package org.apache.ofbiz.marketing.marketing.test
 
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.service.ServiceUtil
-import org.apache.ofbiz.service.testtools.OFBizTestCase
+import org.apache.ofbiz.testtools.JunitJupiterTest
+import org.apache.ofbiz.testtools.JupiterTestHelper
+import org.junit.jupiter.api.Test
 
-class MarketingTests extends OFBizTestCase {
+@JunitJupiterTest
+class MarketingTests implements JupiterTestHelper {
 
-    MarketingTests(String name) {
-        super(name)
-    }
-
+    @Test
     void testCreateAndUpdateContactList() {
         /* Precondition:
         Create contact list

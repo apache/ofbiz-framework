@@ -21,15 +21,17 @@ package org.apache.ofbiz.party.party.test
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.service.ServiceUtil
-import org.apache.ofbiz.service.testtools.OFBizTestCase
+import org.apache.ofbiz.testtools.JunitJupiterTest
+import org.apache.ofbiz.testtools.JupiterTestHelper
+import org.junit.jupiter.api.Order
+import org.junit.jupiter.api.Test
 
-class PartyStatusChangeTests extends OFBizTestCase {
-
-    PartyStatusChangeTests(String name) {
-        super(name)
-    }
+@JunitJupiterTest
+class PartyStatusChangeTests implements JupiterTestHelper {
 
     // Test case for changing party status to PARTY_DISABLED
+    @Test
+    @Order(1)
     void testSetPartyStatusToDisabled() {
         String partyId = 'PARTY_ENABLED'
         String statusId = 'PARTY_DISABLED'
@@ -52,6 +54,8 @@ class PartyStatusChangeTests extends OFBizTestCase {
     }
 
     // Test case for changing party status to PARTY_ENABLED
+    @Test
+    @Order(2)
     void testSetPartyStatusToEnabled() {
         String partyId = 'PARTY_DISABLED'
         String statusId = 'PARTY_ENABLED'

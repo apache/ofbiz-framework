@@ -21,15 +21,17 @@ package org.apache.ofbiz.product.product.test
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.service.ServiceUtil
-import org.apache.ofbiz.service.testtools.OFBizTestCase
+import org.apache.ofbiz.testtools.JunitJupiterTest
+import org.apache.ofbiz.testtools.JupiterTestHelper
 import org.apache.ofbiz.shipment.packing.PackingSession
+import org.junit.jupiter.api.Order
+import org.junit.jupiter.api.Test
 
-class ShipmentTests extends OFBizTestCase {
+@JunitJupiterTest
+class ShipmentTests implements JupiterTestHelper {
 
-    ShipmentTests(String name) {
-        super(name)
-    }
-
+    @Test
+    @Order(1)
     void testPackingServices() {
         PackingSession packingSession = new PackingSession(dispatcher, userLogin)
         Map serviceCtx = [
@@ -102,6 +104,8 @@ class ShipmentTests extends OFBizTestCase {
         }
     }
 
+    @Test
+    @Order(2)
     void testShipmentServices() {
         Map serviceCtx = [
                 shipmentTypeId: 'SALES_SHIPMENT',
@@ -138,6 +142,8 @@ class ShipmentTests extends OFBizTestCase {
         assert shipment.statusId == 'SHIPMENT_SHIPPED'
     }
 
+    @Test
+    @Order(3)
     void testReceiveInventoryNonSerialized() {
         Map serviceCtx = [
                 facilityId: 'WebStoreWarehouse',
@@ -177,6 +183,8 @@ class ShipmentTests extends OFBizTestCase {
         assert shipmentReceipt.productId == serviceCtx.productId
     }
 
+    @Test
+    @Order(4)
     void testIssueOrderItemShipGrpInvResToShipmentRejectsMixedDestinations() {
         Map orderResult = dispatcher.runSync('createTestSalesOrderSingle',
                 [userLogin: userLogin, productId: 'GZ-2644'])
@@ -231,6 +239,8 @@ class ShipmentTests extends OFBizTestCase {
         assert ServiceUtil.getErrorMessage(issueResult).contains('different destination')
     }
 
+    @Test
+    @Order(5)
     void testIssueOrderItemShipGrpInvResToShipmentRejectsMixedDestinationsAcrossOrders() {
         Map orderResult1 = dispatcher.runSync('createTestSalesOrderSingle',
                 [userLogin: userLogin, productId: 'GZ-2644'])
@@ -300,6 +310,8 @@ class ShipmentTests extends OFBizTestCase {
         assert ServiceUtil.getErrorMessage(issueResult).contains('different destination')
     }
 
+    @Test
+    @Order(6)
     void testPackingSessionRejectsMixedShipGroupDestinations() {
         Map orderResult = dispatcher.runSync('createTestSalesOrderSingle',
                 [userLogin: userLogin, productId: 'GZ-2644'])
@@ -357,6 +369,8 @@ class ShipmentTests extends OFBizTestCase {
         assert ServiceUtil.getErrorMessage(completeResult).contains('[104]')
     }
 
+    @Test
+    @Order(7)
     void testCreateShipmentRouteSegment() {
         GenericValue shipment = from('Shipment')
                 .where('shipmentId', '9998')
@@ -381,6 +395,8 @@ class ShipmentTests extends OFBizTestCase {
         assert shipmentRouteSegment.shipmentRouteSegmentId == shipmentRouteSegmentId
     }
 
+    @Test
+    @Order(8)
     void testQuickShipEntireOrderDoesNotMixShipGroupDestinations() {
         Map orderResult = dispatcher.runSync('createTestSalesOrderSingle',
                 [userLogin: userLogin, productId: 'GZ-2644'])
@@ -412,6 +428,8 @@ class ShipmentTests extends OFBizTestCase {
         }
     }
 
+    @Test
+    @Order(9)
     void testQuickShipEntireOrderSkipsShipGroupWithNothingToShip() {
         Map orderResult = dispatcher.runSync('createTestSalesOrderSingle',
                 [userLogin: userLogin, productId: 'GZ-2644'])

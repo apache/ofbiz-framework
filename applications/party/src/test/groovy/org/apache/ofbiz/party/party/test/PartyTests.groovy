@@ -20,14 +20,16 @@ package org.apache.ofbiz.party.party.test
 
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.service.ServiceUtil
-import org.apache.ofbiz.service.testtools.OFBizTestCase
+import org.apache.ofbiz.testtools.JunitJupiterTest
+import org.apache.ofbiz.testtools.JupiterTestHelper
+import org.junit.jupiter.api.Order
+import org.junit.jupiter.api.Test
 
-class PartyTests extends OFBizTestCase {
+@JunitJupiterTest
+class PartyTests implements JupiterTestHelper {
 
-    PartyTests(String name) {
-        super(name)
-    }
-
+    @Test
+    @Order(1)
     void testCopyPartyContactMechs() {
         Map serviceCtx = [
                 partyIdFrom: 'TestCustomer',
@@ -41,6 +43,8 @@ class PartyTests extends OFBizTestCase {
         assert partyContactMechList
     }
 
+    @Test
+    @Order(2)
     void testCreatePartyGroup() {
         Map serviceCtx = [
                 partyId: 'DemoGroup1',
@@ -59,6 +63,8 @@ class PartyTests extends OFBizTestCase {
         assert partyGroup.groupName == 'Demo Group'
     }
 
+    @Test
+    @Order(3)
     void testCreatePartyPostalAddress() {
         Map serviceCtx = [
                 contactMechId: 'TestPostalAddress',
@@ -79,6 +85,8 @@ class PartyTests extends OFBizTestCase {
         assert postalAddress.city == 'City of Industry'
     }
 
+    @Test
+    @Order(4)
     void testCreatePartyRelationship() {
         Map serviceCtx = [
                 partyIdFrom: 'TestCompany',
@@ -106,6 +114,8 @@ class PartyTests extends OFBizTestCase {
         assert partyRelationship
     }
 
+    @Test
+    @Order(5)
     void testCreatePartyRelationshipAndRole() {
         Map serviceCtx = [
                 partyIdFrom: 'TestCompany',
@@ -136,6 +146,8 @@ class PartyTests extends OFBizTestCase {
         assert partyRelationship
     }
 
+    @Test
+    @Order(6)
     void testCreatePartyRelationshipContactAccount() {
         Map serviceCtx = [
                 accountPartyId: 'TestParty',
@@ -152,6 +164,8 @@ class PartyTests extends OFBizTestCase {
         assert partyRelationshipList
     }
 
+    @Test
+    @Order(7)
     void testCreatePartyRole() {
         Map serviceCtx = [
                 partyId: 'DemoCustomer',
@@ -170,6 +184,8 @@ class PartyTests extends OFBizTestCase {
         assert partyRole.roleTypeId == 'CLIENT'
     }
 
+    @Test
+    @Order(8)
     void testCreatePartyTelecomNumber() {
         Map serviceCtx = [
                 partyId: 'DemoCustomer',
@@ -209,6 +225,8 @@ class PartyTests extends OFBizTestCase {
         assert pcmp.contactMechPurposeTypeId == 'PRIMARY_PHONE'
     }
 
+    @Test
+    @Order(9)
     void testCreatePerson() {
         Map serviceCtx = [
                 firstName: 'Demo',
@@ -229,6 +247,8 @@ class PartyTests extends OFBizTestCase {
         assert person.lastName == 'Person'
     }
 
+    @Test
+    @Order(10)
     void testCreatePersonAndUserLogin() {
         Map serviceCtx = [
                 partyId: 'DemoPerson',
@@ -253,6 +273,8 @@ class PartyTests extends OFBizTestCase {
         assert person.lastName == 'Person'
     }
 
+    @Test
+    @Order(11)
     void testCreateUpdatePartyRelationshipAndRoles() {
         Map serviceCtx = [
                 partyId: 'TestCompany',
@@ -286,6 +308,8 @@ class PartyTests extends OFBizTestCase {
         assert serviceCtx.partyRelationshipTypeId == 'AGENT'
     }
 
+    @Test
+    @Order(12)
     void testCreateUpdatePersonWithCreate() {
         Map serviceCtx = [
                 partyId: 'DemoPerson1',
@@ -305,6 +329,8 @@ class PartyTests extends OFBizTestCase {
         assert person.lastName == 'Person1'
     }
 
+    @Test
+    @Order(13)
     void testCreateUpdatePersonWithUpdate() {
         Map serviceCtx = [
                 partyId: 'DemoPerson1',
@@ -324,6 +350,8 @@ class PartyTests extends OFBizTestCase {
         assert person.lastName == 'Person2'
     }
 
+    @Test
+    @Order(14)
     void testDeletePartyRelationship() {
         Map serviceCtx = [
                 partyIdFrom: 'TestCompany',
@@ -351,6 +379,8 @@ class PartyTests extends OFBizTestCase {
         assert !partyRelationship
     }
 
+    @Test
+    @Order(15)
     void testDeletePartyRole() {
         Map serviceCtx = [
                 partyId: 'TestCustomer',
@@ -364,6 +394,8 @@ class PartyTests extends OFBizTestCase {
         assert !partyRole
     }
 
+    @Test
+    @Order(16)
     void testEnsurePartyRole() {
         Map serviceCtx = [
                 partyId: 'DemoCustomer',
@@ -413,6 +445,8 @@ class PartyTests extends OFBizTestCase {
         assert partyRole
     }
 
+    @Test
+    @Order(17)
     void testFindPartiesById() {
         Map serviceCtx = [
                 idToFind: 'TestCustomer',
@@ -426,6 +460,8 @@ class PartyTests extends OFBizTestCase {
         assert party.partyId == 'TestCustomer'
     }
 
+    @Test
+    @Order(18)
     void testFindPartyFromEmailAddress() {
         Map serviceCtx = [
                 address: 'newtest_email@example.com',
@@ -440,6 +476,8 @@ class PartyTests extends OFBizTestCase {
         assert contactMech
     }
 
+    @Test
+    @Order(19)
     void testFindPartyFromTelephone() {
         Map serviceCtx = [
                 telno: '801555-5555',
@@ -452,6 +490,8 @@ class PartyTests extends OFBizTestCase {
         assert party
     }
 
+    @Test
+    @Order(20)
     void testFindPartyFromTelephoneComplete() {
         Map serviceCtx = [
                 telno: '801555-5555',
@@ -464,6 +504,8 @@ class PartyTests extends OFBizTestCase {
         assert party
     }
 
+    @Test
+    @Order(21)
     void testFindPartyWithNoSearchParameters() {
         Map serviceCtx = [
                 lookupFlag: 'Y',
@@ -480,6 +522,8 @@ class PartyTests extends OFBizTestCase {
         }
     }
 
+    @Test
+    @Order(22)
     void testFindPartyWithSearchParameters() {
         Map serviceCtx = [
                 partyId: 'DemoCustomer',
@@ -507,6 +551,8 @@ class PartyTests extends OFBizTestCase {
         }
     }
 
+    @Test
+    @Order(23)
     void testGetPartyMainRole() {
         Map serviceCtx = [
                 partyId: 'TestCustomer',
@@ -519,6 +565,8 @@ class PartyTests extends OFBizTestCase {
         assert partyRole
     }
 
+    @Test
+    @Order(24)
     void testLookupParty() {
         Map serviceCtx = [
                 firstName: 'Test',
@@ -530,6 +578,8 @@ class PartyTests extends OFBizTestCase {
         assert serviceResult.lookupResult
     }
 
+    @Test
+    @Order(25)
     void testQuickCreateCustomer() {
         Map serviceCtx = [
                 firstName: 'Test',
@@ -549,6 +599,8 @@ class PartyTests extends OFBizTestCase {
         assert partyRole
     }
 
+    @Test
+    @Order(26)
     void testUpdatePartyCreditCard() {
         Map serviceCtx = [
                 partyId: 'DemoCustomer',
@@ -594,6 +646,8 @@ class PartyTests extends OFBizTestCase {
         assert newPmac.cardNumber == '5500000000000004'
     }
 
+    @Test
+    @Order(27)
     void testUpdatePartyRelationship() {
         Map serviceCtx = [
                 partyIdFrom: 'TestCompany',
@@ -623,6 +677,8 @@ class PartyTests extends OFBizTestCase {
         assert partyRelationship.partyRelationshipTypeId == 'AGENT'
     }
 
+    @Test
+    @Order(28)
     void testUpdateUserPassword() {
         GenericValue partyUserLogin = org.apache.ofbiz.party.party.PartyWorker.findPartyLatestUserLogin('DemoCustomer', delegator)
         Map serviceCtx = dispatcher.getDispatchContext().makeValidContext('updatePassword',

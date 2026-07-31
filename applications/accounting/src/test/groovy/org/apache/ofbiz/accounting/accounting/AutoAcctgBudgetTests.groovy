@@ -20,14 +20,16 @@ package org.apache.ofbiz.accounting.accounting
 
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.service.ServiceUtil
-import org.apache.ofbiz.service.testtools.OFBizTestCase
+import org.apache.ofbiz.testtools.JunitJupiterTest
+import org.apache.ofbiz.testtools.JupiterTestHelper
+import org.junit.jupiter.api.Order
+import org.junit.jupiter.api.Test
 
-class AutoAcctgBudgetTests extends OFBizTestCase {
+@JunitJupiterTest
+class AutoAcctgBudgetTests implements JupiterTestHelper {
 
-    AutoAcctgBudgetTests(String name) {
-        super(name)
-    }
-
+    @Test
+    @Order(1)
     void testCreateBudget() {
         Map serviceCtx = [:]
         serviceCtx.budgetTypeId = 'CAPITAL_BUDGET'
@@ -42,6 +44,8 @@ class AutoAcctgBudgetTests extends OFBizTestCase {
         assert budget.comments == 'Capital Budget'
     }
 
+    @Test
+    @Order(2)
     void testUpdateBudgetStatus() {
         Map serviceCtx = [:]
         serviceCtx.budgetId = '9999'

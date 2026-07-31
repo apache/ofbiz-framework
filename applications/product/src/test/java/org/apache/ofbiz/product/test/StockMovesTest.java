@@ -19,6 +19,8 @@
 
 package org.apache.ofbiz.product.test;
 
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
@@ -26,25 +28,21 @@ import java.util.Map;
 
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.service.testtools.OFBizTestCase;
+import org.apache.ofbiz.testtools.JunitJupiterTest;
+import org.apache.ofbiz.testtools.JupiterTestHelper;
+import org.junit.jupiter.api.Test;
 
 /**
  * Facility Tests
  */
-public class StockMovesTest extends OFBizTestCase {
-
-    public StockMovesTest(String name) {
-        super(name);
-    }
-
-    @Override
-    protected void tearDown() throws Exception {
-    }
+@JunitJupiterTest
+public class StockMovesTest implements JupiterTestHelper {
 
     /**
      * Test stock moves.
      * @throws Exception the exception
      */
+    @Test
     public void testStockMoves() throws Exception {
         GenericValue userLogin = getUserLogin("system");
         Map<String, Object> fsmnCtx = new HashMap<>();

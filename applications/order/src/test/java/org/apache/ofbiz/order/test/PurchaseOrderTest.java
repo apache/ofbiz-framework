@@ -18,6 +18,8 @@
  *******************************************************************************/
 package org.apache.ofbiz.order.test;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -28,27 +30,23 @@ import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.service.testtools.OFBizTestCase;
+import org.apache.ofbiz.testtools.JunitJupiterTest;
+import org.apache.ofbiz.testtools.JupiterTestHelper;
 import org.apache.ofbiz.service.ServiceUtil;
+import org.junit.jupiter.api.Test;
 
-public class PurchaseOrderTest extends OFBizTestCase {
-    private static final String MODULE = OFBizTestCase.class.getName();
+@JunitJupiterTest
+public class PurchaseOrderTest implements JupiterTestHelper {
+    private static final String MODULE = PurchaseOrderTest.class.getName();
 
     private String orderId = null;
     private String statusId = null;
-
-    public PurchaseOrderTest(String name) {
-        super(name);
-    }
-
-    @Override
-    protected void tearDown() throws Exception {
-    }
 
     /**
      * Test create purchase order.
      * @throws Exception the exception
      */
+    @Test
     public void testCreatePurchaseOrder() throws Exception {
         Delegator delegator = getDelegator();
         Map<String, Object> ctx = new HashMap<>();

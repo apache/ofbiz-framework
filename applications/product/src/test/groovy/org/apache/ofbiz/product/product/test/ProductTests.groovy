@@ -20,14 +20,14 @@ package org.apache.ofbiz.product.product.test
 
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.service.ServiceUtil
-import org.apache.ofbiz.service.testtools.OFBizTestCase
+import org.apache.ofbiz.testtools.JunitJupiterTest
+import org.apache.ofbiz.testtools.JupiterTestHelper
+import org.junit.jupiter.api.Test
 
-class ProductTests extends OFBizTestCase {
+@JunitJupiterTest
+class ProductTests implements JupiterTestHelper {
 
-    ProductTests(String name) {
-        super(name)
-    }
-
+    @Test
     void testUpdateProductCategory() {
         Map serviceCtx = [
                 categoryName: 'Updated Test Product Category',

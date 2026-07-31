@@ -25,10 +25,10 @@
     </test-case>
 
     <test-case case-name="inventory-issuance-groovy-tests">
-        <junit-test-suite class-name="org.apache.ofbiz.manufacturing.test.InventoryIssuanceTests"/>
+        <jupiter-test-suite class-name="org.apache.ofbiz.manufacturing.test.InventoryIssuanceTests"/>
     </test-case>
 
     <test-case case-name="inventory-issuance-policy-matrix-tests">
-        <junit-test-suite class-name="org.apache.ofbiz.manufacturing.test.InventoryIssuancePolicyMatrixTests"/>
+        <jupiter-test-suite class-name="org.apache.ofbiz.manufacturing.test.InventoryIssuancePolicyMatrixTests"/>
     </test-case>
 </test-suite>
