@@ -49,6 +49,9 @@ import org.apache.ofbiz.entity.GenericEntity;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.condition.EntityCondition;
+import org.apache.ofbiz.entity.condition.EntityFieldValue;
+import org.apache.ofbiz.entity.condition.EntityFunction;
+import org.apache.ofbiz.entity.condition.EntityOperator;
 import org.apache.ofbiz.entity.condition.OrderByList;
 import org.apache.ofbiz.entity.model.ModelEntity;
 import org.apache.ofbiz.entity.model.ModelField;
@@ -127,6 +130,138 @@ public final class EntityUtil {
         } else {
             return null;
         }
+    }
+
+    public static Map<String, GenericValue> lookupById(Delegator delegator, String entityName, String fieldName, Collection<?> ids) {
+        try {
+            return lookupById(delegator, entityName, fieldName, ids, true);
+        } catch (GenericEntityException e) {
+            throw new IllegalStateException("Unable to lookup " + entityName + " by " + fieldName, e);
+        }
+    }
+
+    public static Map<String, GenericValue> lookupById(Delegator delegator, String entityName, String fieldName, Collection<?> ids,
+            boolean useCache) throws GenericEntityException {
+        Map<String, GenericValue> valuesById = new HashMap<>();
+        if (UtilValidate.isEmpty(ids)) {
+            return valuesById;
+        }
+
+        Set<String> keys = new HashSet<>();
+        for (Object id : ids) {
+            if (id == null) {
+                continue;
+            }
+            String key = id.toString();
+            if (UtilValidate.isEmpty(key) || UtilValidate.isEmpty(key.trim())) {
+                continue;
+            }
+            keys.add(key);
+        }
+        if (keys.isEmpty()) {
+            return valuesById;
+        }
+
+        EntityQuery query = EntityQuery.use(delegator)
+                .from(entityName)
+                .where(EntityCondition.makeCondition(fieldName, EntityOperator.IN, keys));
+        if (useCache) {
+            query.cache(true);
+        }
+        for (GenericValue value : query.queryList()) {
+            Object fieldValue = value.get(fieldName);
+            if (fieldValue != null) {
+                valuesById.put(fieldValue.toString(), value);
+            }
+        }
+        return valuesById;
+    }
+
+    public static Set<String> searchIds(Delegator delegator, String entityName, String idFieldName, Collection<String> searchFieldNames,
+            Object queryText, int maxRows) throws GenericEntityException {
+        return searchIds(delegator, entityName, idFieldName, searchFieldNames, queryText, new ArrayList<>(), maxRows);
+    }
+
+    public static Set<String> searchIds(Delegator delegator, String entityName, String idFieldName, Collection<String> searchFieldNames,
+            Object queryText, Collection<EntityCondition> extraConditions, int maxRows) throws GenericEntityException {
+        Set<String> matchingIds = new HashSet<>();
+        if (UtilValidate.isEmpty(queryText)) {
+            return matchingIds;
+        }
+
+        List<EntityCondition> conditions = new ArrayList<>();
+        if (UtilValidate.isNotEmpty(extraConditions)) {
+            conditions.addAll(extraConditions);
+        }
+        conditions.add(upperLikeAny(searchFieldNames, queryText));
+        EntityCondition whereCondition = conditions.size() == 1
+                ? conditions.get(0)
+                : EntityCondition.makeCondition(conditions, EntityOperator.AND);
+        for (Object id : EntityQuery.use(delegator)
+                .from(entityName)
+                .select(idFieldName)
+                .where(whereCondition)
+                .maxRows(maxRows)
+                .getFieldList(idFieldName)) {
+            if (id != null) {
+                matchingIds.add(id.toString());
+            }
+        }
+        return matchingIds;
+    }
+
+    public static Map<String, Integer> countByField(Delegator delegator, String entityName, String fieldName, Collection<?> fieldValues,
+            Collection<EntityCondition> extraConditions, boolean filterByDate) throws GenericEntityException {
+        Map<String, Integer> countsByField = new HashMap<>();
+        if (UtilValidate.isEmpty(fieldValues)) {
+            return countsByField;
+        }
+
+        Set<String> values = new HashSet<>();
+        for (Object fieldValue : fieldValues) {
+            if (fieldValue == null) {
+                continue;
+            }
+            String value = fieldValue.toString();
+            if (UtilValidate.isEmpty(value) || UtilValidate.isEmpty(value.trim())) {
+                continue;
+            }
+            values.add(value);
+        }
+        if (values.isEmpty()) {
+            return countsByField;
+        }
+
+        List<EntityCondition> conditions = new ArrayList<>();
+        conditions.add(EntityCondition.makeCondition(fieldName, EntityOperator.IN, values));
+        if (UtilValidate.isNotEmpty(extraConditions)) {
+            conditions.addAll(extraConditions);
+        }
+        EntityQuery query = EntityQuery.use(delegator)
+                .from(entityName)
+                .select(fieldName)
+                .where(EntityCondition.makeCondition(conditions, EntityOperator.AND));
+        if (filterByDate) {
+            query.filterByDate();
+        }
+        for (GenericValue row : query.queryList()) {
+            Object fieldValue = row.get(fieldName);
+            if (fieldValue != null) {
+                String key = fieldValue.toString();
+                countsByField.put(key, countsByField.getOrDefault(key, 0) + 1);
+            }
+        }
+        return countsByField;
+    }
+
+    public static EntityCondition upperLikeAny(Collection<String> fieldNames, Object queryText) {
+        String likeQuery = "%" + queryText.toString().trim().toUpperCase(Locale.ROOT) + "%";
+        List<EntityCondition> conditions = new ArrayList<>();
+        for (String fieldName : fieldNames) {
+            conditions.add(EntityCondition.makeCondition(EntityFunction.upper(EntityFieldValue.makeFieldValue(fieldName)),
+                    EntityOperator.LIKE, likeQuery));
+        }
+        return EntityCondition.makeCondition(conditions, EntityOperator.OR);
     }
 
     public static EntityCondition getFilterByDateExpr() {
