@@ -109,7 +109,7 @@ Map updateProductStore() {
                 EQUALS(productStoreId: store.productStoreId)
                 LESS_THAN_EQUAL_TO(fromDate: nowTimestamp)
             }
-            delegator.storeByCondition('ProductStoreFacility', condition, [thruDate: nowTimestamp])
+            delegator.storeByCondition('ProductStoreFacility', [thruDate: nowTimestamp], condition)
         }
         // create the new entry
         makeValue('ProductStoreFacility', [
