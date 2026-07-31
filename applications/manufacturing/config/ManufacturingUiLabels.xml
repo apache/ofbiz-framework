@@ -994,6 +994,9 @@
         <value xml:lang="zh">物料清单</value>
         <value xml:lang="zh-TW">物料清單</value>
     </property>
+    <property key="ManufacturingBomAssociationNotFound">
+        <value xml:lang="en">BOM association was not found.</value>
+    </property>
     <property key="ManufacturingBomErrorCreatingBillOfMaterialsTree">
         <value xml:lang="en">Error creating bill of materials tree: ${errorString}</value>
         <value xml:lang="it">Errore durante la creazione dell'albero dei materiali: ${errorString}</value>
@@ -1078,6 +1081,18 @@
         <value xml:lang="vi">Giả lập (simulation) Chào giá</value>
         <value xml:lang="zh">物料清单仿真</value>
         <value xml:lang="zh-TW">物料清單模擬</value>
+    </property>
+    <property key="ManufacturingBomSimulationAvailabilityCheckFailed">
+        <value xml:lang="en">Availability check failed for product ${productId}: ${errorString}</value>
+    </property>
+    <property key="ManufacturingBomSimulationAvailabilityNotChecked">
+        <value xml:lang="en">Availability not checked because no facility was selected.</value>
+    </property>
+    <property key="ManufacturingBomSimulationCostCheckFailed">
+        <value xml:lang="en">Cost check failed for product ${productId}: ${errorString}</value>
+    </property>
+    <property key="ManufacturingBomSimulationCostNotChecked">
+        <value xml:lang="en">Cost not checked because no currency was selected.</value>
     </property>
     <property key="ManufacturingBomType">
         <value xml:lang="de">Stücklistenart</value>
@@ -3598,6 +3613,9 @@
         <value xml:lang="zh">产品标识</value>
         <value xml:lang="zh-TW">產品識別</value>
     </property>
+    <property key="ManufacturingProductIdRequired">
+        <value xml:lang="en">Product ID is required.</value>
+    </property>
     <property key="ManufacturingProductIdTo">
         <value xml:lang="de">Produkt-Nr. an</value>
         <value xml:lang="en">Product ID To</value>
@@ -3652,6 +3670,9 @@
         <value xml:lang="vi">Sản phẩm không tồn tại</value>
         <value xml:lang="zh">产品不存在</value>
         <value xml:lang="zh-TW">產品不存在</value>
+    </property>
+    <property key="ManufacturingProductNotFound">
+        <value xml:lang="en">Product not found: ${productId}</value>
     </property>
     <property key="ManufacturingProductRoutingNotExist">
         <value xml:lang="de">Arbeitsplan-Verbindung nicht vorhanden</value>
