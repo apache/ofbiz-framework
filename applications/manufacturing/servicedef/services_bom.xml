@@ -27,15 +27,16 @@ under the License.
     <!-- Bill of Materials services -->
     <service name="createBOMAssoc" default-entity-name="ProductAssoc" engine="simple"
                 location="component://manufacturing/minilang/bom/BomSimpleMethods.xml" invoke="createBOMAssoc" auth="true">
-        <description>Add Product to Product Association</description>
+        <description>Add a product to a BOM as a ProductAssoc component. Validates that a product is not added as its own component, rejects duplicate associations before create, and delegates the actual ProductAssoc create to the existing product association service.</description>
+        <permission-service service-name="manufacturingPermissionService" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <attribute name="errorMessage" type="String" optional="true" mode="OUT"/>
         <override name="fromDate" optional="true"/>
     </service>
     <service name="copyBOMAssocs" default-entity-name="ProductAssoc" engine="simple"
                 location="component://manufacturing/minilang/bom/BomSimpleMethods.xml" invoke="copyBOMAssocs" auth="true">
-        <description>Copy BOM associations from one product to another</description>
+        <description>Copy active BOM associations from one product to another. Reuses BOM association creation for each copied component, supports narrowing the source associations by BOM key fields, and preserves a supplied effective fromDate for REST/API copy workflows.</description>
+        <permission-service service-name="manufacturingPermissionService" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <attribute name="copyToProductId" type="String" optional="false" mode="IN"/>
         <override name="fromDate" optional="true"/>

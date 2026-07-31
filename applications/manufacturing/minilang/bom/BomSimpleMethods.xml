@@ -26,6 +26,25 @@ under the License.
             <now-timestamp field="parameters.fromDate"/>
         </if-empty>
 
+        <if-compare-field field="parameters.productId" to-field="parameters.productIdTo" operator="equals">
+            <property-to-field property="ManufacturingBomProductCannotBeComponentOfItself" resource="ManufacturingUiLabels" field="errorMessage"/>
+            <add-error>
+                <fail-message message="${errorMessage}"/>
+            </add-error>
+            <check-errors/>
+        </if-compare-field>
+
+        <make-value entity-name="ProductAssoc" value-field="productAssocLookup"/>
+        <set-pk-fields map="parameters" value-field="productAssocLookup"/>
+        <find-by-primary-key entity-name="ProductAssoc" map="productAssocLookup" value-field="existingProductAssoc"/>
+        <if-not-empty field="existingProductAssoc.productId">
+            <set field="errorMessage" value="Value found, cannot create a new one"/>
+            <add-error>
+                <fail-message message="${errorMessage}"/>
+            </add-error>
+            <check-errors/>
+        </if-not-empty>
+
         <set field="searchDuplicatedAncestorContext.productId" from-field="parameters.productId"/>
         <set field="searchDuplicatedAncestorContext.productIdTo" from-field="parameters.productIdTo"/>
         <if-not-empty field="parameters.fromDate">
@@ -39,8 +58,10 @@ under the License.
             <set field="productToProduct[]" from-field="duplicatedProductAssoc.productId"/>
             <set field="productToProduct[]" from-field="duplicatedProductAssoc.productIdTo"/>
             <property-to-field property="ManufacturingDuplicatedComponentInBOM" resource="ManufacturingUiLabels" field="errorMessage" arg-list-name="productToProduct"/>
-            <field-to-result field="errorMessage" result-name="errorMessage"/>
-            <return/>
+            <add-error>
+                <fail-message message="${errorMessage}"/>
+            </add-error>
+            <check-errors/>
         </if-not-empty>
         <set-service-fields service-name="createProductAssoc" map="parameters" to-map="context"/>
         <call-service service-name="createProductAssoc" in-map-name="context"/>
@@ -48,12 +69,21 @@ under the License.
 
     <simple-method method-name="copyBOMAssocs" short-description="Copy BOM associations from one product to another">
         <make-value entity-name="ProductAssoc" value-field="lookupMap"/>
-        <set-pk-fields map="parameters" value-field="lookupMap"/>
+        <set field="lookupMap.productId" from-field="parameters.productId"/>
+        <if-not-empty field="parameters.productAssocTypeId">
+            <set field="lookupMap.productAssocTypeId" from-field="parameters.productAssocTypeId"/>
+        </if-not-empty>
+        <if-not-empty field="parameters.productIdTo">
+            <set field="lookupMap.productIdTo" from-field="parameters.productIdTo"/>
+        </if-not-empty>
         <find-by-and entity-name="ProductAssoc" map="lookupMap" list="assocs"/>
         <filter-list-by-date list="assocs"/>
         <iterate list="assocs" entry="assoc">
             <set-service-fields service-name="createBOMAssoc" map="assoc" to-map="context"/>
             <set field="context.productId" from-field="parameters.copyToProductId"/>
+            <if-not-empty field="parameters.fromDate">
+                <set field="context.fromDate" from-field="parameters.fromDate"/>
+            </if-not-empty>
             <call-service service-name="createBOMAssoc" in-map-name="context" break-on-error="false"/>
         </iterate>
     </simple-method>
