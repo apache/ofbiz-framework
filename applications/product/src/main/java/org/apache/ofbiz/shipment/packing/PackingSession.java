@@ -962,6 +962,8 @@ public class PackingSession implements java.io.Serializable {
 
         // check for errors
         this.checkReservations(force);
+        // reject packing ship groups with different destination addresses onto one shipment
+        this.checkShipGroupDestinations();
         // set the status to 0
         this.status = 0;
         // create the shipment
@@ -1011,6 +1013,58 @@ public class PackingSession implements java.io.Serializable {
                 Debug.logWarning("Packing warnings: " + errors, MODULE);
             }
         }
+    }
+
+    /**
+     * Check that all packed lines' ship groups share the same destination address.
+     * @throws GeneralException the general exception
+     */
+    protected void checkShipGroupDestinations() throws GeneralException {
+        Delegator delegator = this.getDelegator();
+        Map<String, String> jurisdictionByShipGroupKey = new HashMap<>();
+        for (PackingSessionLine line : this.getLines()) {
+            String shipGroupKey = line.getOrderId() + "/" + line.getShipGroupSeqId();
+            if (jurisdictionByShipGroupKey.containsKey(shipGroupKey)) {
+                continue;
+            }
+            GenericValue destinationAddress;
+            try {
+                GenericValue orderItemShipGroup = EntityQuery.use(delegator).from("OrderItemShipGroup")
+                        .where("orderId", line.getOrderId(), "shipGroupSeqId", line.getShipGroupSeqId())
+                        .queryOne();
+                destinationAddress = orderItemShipGroup != null
+                        ? orderItemShipGroup.getRelatedOne("PostalAddress", false) : null;
+            } catch (GenericEntityException e) {
+                throw new GeneralException(e.getMessage());
+            }
+            jurisdictionByShipGroupKey.put(shipGroupKey, destinationJurisdictionKey(destinationAddress));
+        }
+
+        Set<String> distinctJurisdictions = new HashSet<>(jurisdictionByShipGroupKey.values());
+        distinctJurisdictions.remove(null);
+        if (distinctJurisdictions.size() > 1) {
+            throw new GeneralException("Cannot pack items from ship groups with different destinations onto"
+                    + " the same shipment: " + jurisdictionByShipGroupKey.keySet() + " [104]");
+        }
+    }
+
+    /**
+     * Builds a key identifying the country/state/postal code of a destination address, or {@code null}
+     * if the address (or all three of those fields) is unknown.
+     * @param destinationAddress the destination address
+     * @return the jurisdiction key
+     */
+    private static String destinationJurisdictionKey(GenericValue destinationAddress) {
+        if (destinationAddress == null) {
+            return null;
+        }
+        String countryGeoId = destinationAddress.getString("countryGeoId");
+        String stateProvinceGeoId = destinationAddress.getString("stateProvinceGeoId");
+        String postalCode = destinationAddress.getString("postalCode");
+        if (countryGeoId == null && stateProvinceGeoId == null && postalCode == null) {
+            return null;
+        }
+        return countryGeoId + "|" + stateProvinceGeoId + "|" + postalCode;
     }
 
     /**
