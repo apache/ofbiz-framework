@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<api name="Manufacturing BOM Management API"
+        path="bom-management"
+        displayName="BOM Management"
+        description="REST API for manufacturing bill of materials management"
+        publish="true">
+    <resource name="BomManagement" path="" auth="true" publish="true">
+        <operation verb="get" produces="application/json" auth="true"
+                description="Find products with bill of material component associations">
+            <service name="findBomProducts"/>
+        </operation>
+        <operation verb="post" consumes="application/json" produces="application/json" auth="true"
+                description="Create the first component association for a product BOM">
+            <service name="createBOMAssoc"/>
+        </operation>
+        <operation verb="post" path="/simulation" consumes="application/json" produces="application/json" auth="true"
+                description="Run a BOM explosion simulation for availability and cost">
+            <service name="runBomSimulation"/>
+        </operation>
+        <operation verb="get" path="/warehouses" produces="application/json" auth="true"
+                description="Find warehouse facilities for manufacturing application workflows">
+            <service name="findWarehouses"/>
+        </operation>
+        <operation verb="get" path="/bom-types" produces="application/json" auth="true"
+                description="Find BOM types for manufacturing BOM workflows">
+            <service name="findBomTypes"/>
+        </operation>
+        <operation verb="get" path="/products/search" produces="application/json" auth="true"
+                description="Find products for BOM product selection workflows">
+            <service name="findProductLookupOptions"/>
+        </operation>
+        <operation verb="get" path="/{productId}" produces="application/json" auth="true"
+                description="Get one product BOM snapshot">
+            <service name="getBomSnapshot"/>
+        </operation>
+        <operation verb="post" path="/{productId}/components" consumes="application/json" produces="application/json" auth="true"
+                description="Add a component to a product BOM">
+            <service name="createBOMAssoc"/>
+        </operation>
+        <operation verb="put" path="/{productId}/components" consumes="application/json" produces="application/json" auth="true"
+                description="Update a component in a product BOM">
+            <service name="updateProductAssoc"/>
+        </operation>
+        <operation verb="delete" path="/{productId}/components" produces="application/json" auth="true"
+                description="Remove a component association from a product BOM">
+            <service name="removeBomAssociation"/>
+        </operation>
+        <operation verb="post" path="/{componentProductId}/parents" consumes="application/json" produces="application/json" auth="true"
+                description="Add a used-in parent association for the selected component product">
+            <service name="createBOMAssoc"/>
+        </operation>
+        <operation verb="put" path="/{componentProductId}/parents" consumes="application/json" produces="application/json" auth="true"
+                description="Update a used-in parent association for the selected component product">
+            <service name="updateProductAssoc"/>
+        </operation>
+        <operation verb="delete" path="/{componentProductId}/parents" produces="application/json" auth="true"
+                description="Remove a used-in parent association for the selected component product">
+            <service name="removeBomParentAssociation"/>
+        </operation>
+        <operation verb="post" path="/{productId}/copy" consumes="application/json" produces="application/json" auth="true"
+                description="Copy BOM components from one product to another">
+            <service name="copyBOMAssocs"/>
+        </operation>
+    </resource>
+</api>
