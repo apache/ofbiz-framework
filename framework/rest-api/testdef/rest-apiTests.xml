@@ -21,9 +21,19 @@ under the License.
 <test-suite suite-name="rest-api-tests"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/test-suite.xsd">
-
     <test-case case-name="rest-api-services-tests">
         <junit-test-suite class-name="org.apache.ofbiz.ws.rs.test.RestServicesTests"/>
     </test-case>
-
+    <test-case case-name="rest-collection-query-tests">
+        <junit-test-suite class-name="org.apache.ofbiz.ws.rs.util.RestQueryOptionsTest"/>
+    </test-case>
+    <test-case case-name="rest-api-utility-pagination-tests">
+        <junit-test-suite class-name="org.apache.ofbiz.ws.rs.util.RestApiUtilPaginationTest"/>
+    </test-case>
+    <test-case case-name="rest-collection-response-tests">
+        <junit-test-suite class-name="org.apache.ofbiz.ws.rs.util.RestListResponseBuilderTest"/>
+    </test-case>
+    <test-case case-name="rest-global-exception-mapper-tests">
+        <junit-test-suite class-name="org.apache.ofbiz.ws.rs.spi.impl.GlobalExceptionMapperTest"/>
+    </test-case>
 </test-suite>
