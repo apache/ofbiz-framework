@@ -20,14 +20,16 @@ package org.apache.ofbiz.party.party.test
 
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.party.contact.ContactMechWorker
-import org.apache.ofbiz.service.testtools.OFBizTestCase
+import org.apache.ofbiz.testtools.JunitJupiterTest
+import org.apache.ofbiz.testtools.JupiterTestHelper
+import org.junit.jupiter.api.Order
+import org.junit.jupiter.api.Test
 
-class ContactMechWorkerTests extends OFBizTestCase {
+@JunitJupiterTest
+class ContactMechWorkerTests implements JupiterTestHelper {
 
-    ContactMechWorkerTests(String name) {
-        super(name)
-    }
-
+    @Test
+    @Order(1)
     void testPartyContactMechResolution() {
         //control for the DemoCustomer that postal, email, telecom and ftp contact are present and return correct information
         List partyContactMechValueMaps = ContactMechWorker.getPartyContactMechValueMaps(delegator, 'DemoCustomer', true)
@@ -103,6 +105,8 @@ class ContactMechWorkerTests extends OFBizTestCase {
         }
     }
 
+    @Test
+    @Order(2)
     void testOrderContactMechResolution() {
         List orderContactMechValueMaps = ContactMechWorker.getOrderContactMechValueMaps(delegator, 'Demo1002')
         assert orderContactMechValueMaps
@@ -139,6 +143,8 @@ class ContactMechWorkerTests extends OFBizTestCase {
         assert foundBillingAddress && foundShippingAddress && foundOrderEmail
     }
 
+    @Test
+    @Order(3)
     void testWorkEffortContactMechResolution() {
         List workEffortContactMechValueMaps = ContactMechWorker.getWorkEffortContactMechValueMaps(delegator, 'TEST_CM_WORKER')
         assert workEffortContactMechValueMaps

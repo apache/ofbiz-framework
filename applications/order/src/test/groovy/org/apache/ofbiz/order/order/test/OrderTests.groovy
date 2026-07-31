@@ -19,14 +19,16 @@
 package org.apache.ofbiz.order.order.test
 
 import org.apache.ofbiz.service.ServiceUtil
-import org.apache.ofbiz.service.testtools.OFBizTestCase
+import org.apache.ofbiz.testtools.JunitJupiterTest
+import org.apache.ofbiz.testtools.JupiterTestHelper
+import org.junit.jupiter.api.Order
+import org.junit.jupiter.api.Test
 
-class OrderTests extends OFBizTestCase {
+@JunitJupiterTest
+class OrderTests implements JupiterTestHelper {
 
-    OrderTests(String name) {
-        super(name)
-    }
-
+    @Test
+    @Order(1)
     void testCreateOrderDeliverySchedule() {
         Map serviceCtx = [
                 orderId: 'TEST_DEMO10090',
@@ -36,6 +38,8 @@ class OrderTests extends OFBizTestCase {
         assert ServiceUtil.isSuccess(serviceResult)
     }
 
+    @Test
+    @Order(2)
     void testCreateOrderItemChange() {
         Map serviceCtx = [
                 changeTypeEnumId: 'ODR_ITM_APPEND',
@@ -48,6 +52,8 @@ class OrderTests extends OFBizTestCase {
         assert serviceResult.orderItemChangeId
     }
 
+    @Test
+    @Order(3)
     void testCreateOrderPaymentApplication() {
         Map serviceCtx = [
                 paymentId: '1014',
@@ -57,6 +63,8 @@ class OrderTests extends OFBizTestCase {
         assert ServiceUtil.isSuccess(serviceResult)
     }
 
+    @Test
+    @Order(4)
     void testCreateRequirement() {
         Map serviceCtx = [
                 custRequestId: '9000',
@@ -67,6 +75,8 @@ class OrderTests extends OFBizTestCase {
         assert ServiceUtil.isSuccess(serviceResult)
     }
 
+    @Test
+    @Order(5)
     void testGetRequirementsForSupplier() {
         Map serviceCtx = [
                 partyId: 'Company',
@@ -76,6 +86,8 @@ class OrderTests extends OFBizTestCase {
         assert ServiceUtil.isSuccess(serviceResult)
     }
 
+    @Test
+    @Order(6)
     void testCreateRequirementRole() {
         Map serviceCtx = [
                 requirementId: '1000',
@@ -87,6 +99,8 @@ class OrderTests extends OFBizTestCase {
         assert ServiceUtil.isSuccess(serviceResult)
     }
 
+    @Test
+    @Order(7)
     void testCreateAutoRequirementsForOrder() {
         Map serviceCtx = [
                 orderId: 'TEST_DEMO10090',
@@ -96,6 +110,8 @@ class OrderTests extends OFBizTestCase {
         assert ServiceUtil.isSuccess(serviceResult)
     }
 
+    @Test
+    @Order(8)
     void testCreateATPRequirementsForOrder() {
         Map serviceCtx = [
                 orderId: 'TEST_DEMO10090',

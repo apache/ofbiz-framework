@@ -19,20 +19,22 @@
 package org.apache.ofbiz.order.shoppingcart.test
 
 import org.apache.ofbiz.entity.GenericValue
-import org.apache.ofbiz.service.testtools.OFBizTestCase
+import org.apache.ofbiz.testtools.JunitJupiterTest
+import org.apache.ofbiz.testtools.JupiterTestHelper
 import org.apache.ofbiz.order.shoppingcart.ShoppingCart
 import org.apache.ofbiz.order.shoppingcart.CheckOutHelper
 import org.apache.ofbiz.order.order.OrderChangeHelper
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.product.config.ProductConfigWrapper
 import java.sql.Timestamp
+import org.junit.jupiter.api.Order
+import org.junit.jupiter.api.Test
 
-class ShoppingCartTests extends OFBizTestCase {
+@JunitJupiterTest
+class ShoppingCartTests implements JupiterTestHelper {
 
-    ShoppingCartTests(String name) {
-        super(name)
-    }
-
+    @Test
+    @Order(1)
     void testCreateShoppingCart() {
         GenericValue userLogin = from('UserLogin').where('userLoginId', 'system').queryOne()
         Locale locale = Locale.getDefault()
@@ -41,6 +43,8 @@ class ShoppingCartTests extends OFBizTestCase {
         assert orderMap.orderId
     }
 
+    @Test
+    @Order(2)
     void testCreateOrderRentalProduct() {
         Locale locale = Locale.getDefault()
         GenericValue demoCustomer = from('UserLogin').where('userLoginId', 'DemoCustomer').queryOne()
@@ -73,6 +77,8 @@ class ShoppingCartTests extends OFBizTestCase {
         dispatcher.runSync('quickShipEntireOrder', [orderId: orderId, userLogin: systemLogin])
     }
 
+    @Test
+    @Order(3)
     void testCreateOrderServiceProduct() {
         Locale locale = Locale.getDefault()
         GenericValue demoCustomer = from('UserLogin').where('userLoginId', 'DemoCustomer').queryOne()
@@ -101,6 +107,8 @@ class ShoppingCartTests extends OFBizTestCase {
         dispatcher.runSync('quickShipEntireOrder', [orderId: orderId, userLogin: systemLogin])
     }
 
+    @Test
+    @Order(4)
     void testLoadCartFromQuote() {
         GenericValue systemLogin = from('UserLogin').where('userLoginId', 'system').queryOne()
 
@@ -158,6 +166,8 @@ class ShoppingCartTests extends OFBizTestCase {
         assert shoppingCart.getGrandTotal() == expectedTotal
     }
 
+    @Test
+    @Order(5)
     void testCreateOrderConfigurableServiceProduct() {
         // ShoppingCartEvents requires request/response which are not readily mockable here without Spring
         // So we just use CheckOutHelper for test.
@@ -200,6 +210,8 @@ class ShoppingCartTests extends OFBizTestCase {
         dispatcher.runSync('quickShipEntireOrder', [orderId: orderId, userLogin: systemLogin])
     }
 
+    @Test
+    @Order(6)
     void testOrderMoveItemBetweenShipGoups() {
         GenericValue userLogin = from('UserLogin').where('userLoginId', 'system').queryOne()
         Locale locale = Locale.getDefault()

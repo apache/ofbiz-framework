@@ -19,31 +19,30 @@
 
 package org.apache.ofbiz.product.test;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.service.testtools.OFBizTestCase;
+import org.apache.ofbiz.testtools.JunitJupiterTest;
+import org.apache.ofbiz.testtools.JupiterTestHelper;
+import org.junit.jupiter.api.Test;
 
-public class InventoryItemTransferTest extends OFBizTestCase {
+@JunitJupiterTest
+public class InventoryItemTransferTest implements JupiterTestHelper {
 
     private static String inventoryTransferId = null;
     private BigDecimal transferQty = BigDecimal.ONE;
-
-    public InventoryItemTransferTest(String name) {
-        super(name);
-    }
-
-    @Override
-    protected void tearDown() throws Exception {
-    }
 
     /**
      * Test create inventory items transfer.
      * @throws Exception the exception
      */
+    @Test
     public void testCreateInventoryItemsTransfer() throws Exception {
         GenericValue userLogin = getUserLogin("system");
         // create

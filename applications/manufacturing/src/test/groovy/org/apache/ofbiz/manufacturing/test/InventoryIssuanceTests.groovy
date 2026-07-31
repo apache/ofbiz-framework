@@ -22,20 +22,20 @@ import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.entity.condition.EntityOperator
 import org.apache.ofbiz.service.ServiceUtil
-import org.apache.ofbiz.service.testtools.OFBizTestCase
+import org.apache.ofbiz.testtools.JunitJupiterTest
+import org.apache.ofbiz.testtools.JupiterTestHelper
 import java.math.RoundingMode
 import org.apache.ofbiz.base.util.Debug
 import org.apache.ofbiz.base.util.UtilDateTime
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Order
+import org.junit.jupiter.api.Test
 
+@JunitJupiterTest
 class InventoryIssuanceTests extends InventoryIssuanceTestSupport {
 
-    public InventoryIssuanceTests(String name) {
-        super(name)
-    }
-
-    @Override
+    @BeforeEach
     void setUp() {
-        super.setUp()
         userLogin = from('UserLogin').where('userLoginId', 'system').queryOne()
 
         // Target Purge: Clean up only the items and reservations we own.
@@ -55,6 +55,8 @@ class InventoryIssuanceTests extends InventoryIssuanceTestSupport {
 
     // --- Category 1 & 2: Basic & Force Issuance ---
 
+    @Test
+    @Order(1)
     void testS1_1_StrictIssuanceFailure() {
         String facId = 'WH_S1_1'
         storeFacility([facilityId: facId, facilityName: facId, facilityTypeId: 'WAREHOUSE',
@@ -70,6 +72,8 @@ class InventoryIssuanceTests extends InventoryIssuanceTestSupport {
         assert ServiceUtil.isError(result)
     }
 
+    @Test
+    @Order(2)
     void testS1_2_ForceWithReallocation() {
         String facId = 'WH_S1_2'
         storeFacility([facilityId: facId, facilityName: facId, facilityTypeId: 'WAREHOUSE',
@@ -103,6 +107,8 @@ class InventoryIssuanceTests extends InventoryIssuanceTestSupport {
 
     // --- Category 4: Real-time Reconciliation (SECA) ---
 
+    @Test
+    @Order(3)
     void testS4_1_RealTimeReconciliationOnReceipt() {
         String facId = 'WH_RECON_Y'
         storeFacility([facilityId: facId, facilityName: facId, facilityTypeId: 'WAREHOUSE',
@@ -139,6 +145,8 @@ class InventoryIssuanceTests extends InventoryIssuanceTestSupport {
         assert res.inventoryItemId == newItemId : 'Reservation should be tied to the newly received item'
     }
 
+    @Test
+    @Order(4)
     void testS4_2_ProductionChainAutoSatisfaction() {
         String facId = 'WH_CHAIN_RECON'
         storeFacility([facilityId: facId, facilityName: facId, facilityTypeId: 'WAREHOUSE',
@@ -192,6 +200,8 @@ class InventoryIssuanceTests extends InventoryIssuanceTestSupport {
 
     // --- Category 3: Backorders & Residuals ---
 
+    @Test
+    @Order(5)
     void testS3_2_NegativeReservationResolution() {
         String facId = 'WH_S3_2'
         storeFacility([facilityId: facId, facilityName: facId, facilityTypeId: 'WAREHOUSE',
@@ -218,6 +228,8 @@ class InventoryIssuanceTests extends InventoryIssuanceTestSupport {
         assertInventoryIntegrity('II_MAT_C_COST', weId, 20.0, 0.0, 30.0, facId)
     }
 
+    @Test
+    @Order(6)
     void testS3_4_ImpactPlanAudit() {
         String facId = 'WH_S3_4'
         storeFacility([facilityId: facId, facilityName: facId, facilityTypeId: 'WAREHOUSE',
@@ -248,6 +260,8 @@ class InventoryIssuanceTests extends InventoryIssuanceTestSupport {
         assert v1Impact.type == 'REALLOCATED' : 'Affected reservation 1 impact type should be REALLOCATED'
     }
 
+    @Test
+    @Order(7)
     void testS3_5_AffectedReservationSanityGuard() {
         String facId = 'WH_S3_5'
         storeFacility([facilityId: facId, facilityName: facId, facilityTypeId: 'WAREHOUSE',
@@ -284,6 +298,8 @@ class InventoryIssuanceTests extends InventoryIssuanceTestSupport {
         assert scaleQuantity(totalCommited) == scaleQuantity(20.0) : 'Total commitment should match Requirement (20)'
     }
 
+    @Test
+    @Order(8)
     void testS3_6_ExplicitReallocationWorkflow() {
         String facId = 'WH_S3_6'
         storeFacility([facilityId: facId, facilityName: facId, facilityTypeId: 'WAREHOUSE',
@@ -320,6 +336,8 @@ class InventoryIssuanceTests extends InventoryIssuanceTestSupport {
         assert scaleQuantity(invItem.getBigDecimal('accountingQuantityTotal')) == scaleQuantity(50.0) : 'Accounting Total should be 50'
     }
 
+    @Test
+    @Order(9)
     void testS4_1_ReleaseWithRestore() {
         String facId = 'WH_S4_1'
         storeFacility([facilityId: facId, facilityName: facId, facilityTypeId: 'WAREHOUSE',
@@ -342,6 +360,8 @@ class InventoryIssuanceTests extends InventoryIssuanceTestSupport {
         assert res == null
     }
 
+    @Test
+    @Order(10)
     void testS4_2_ReleaseSatisfaction() {
         String weId = setUpProductionRun('II_PROD_MANUF', 10.0)
 
@@ -366,6 +386,8 @@ class InventoryIssuanceTests extends InventoryIssuanceTestSupport {
 
     // --- Category 5: Hardened Policy & Reconciliation ---
 
+    @Test
+    @Order(11)
     void testS5_1_PolicyGateFail() {
         String itemId = 'II_INV_TRAD_S5_1'
         setUpInventory('WH_TRADITIONAL', 'II_MAT_A_COST', itemId, 100.0)
@@ -385,6 +407,8 @@ class InventoryIssuanceTests extends InventoryIssuanceTestSupport {
                 'Error message should contain reallocation policy violation'
     }
 
+    @Test
+    @Order(12)
     void testS5_2_APIPolicyEnforcement() {
         String itemId = 'II_INV_TRAD_S5_2'
         String issuingWeId = setUpProductionRun('II_PROD_MANUF', 10.0, 'WH_TRADITIONAL')
@@ -404,6 +428,8 @@ class InventoryIssuanceTests extends InventoryIssuanceTestSupport {
         assert reallocResult.errorMessage.contains('Policy Violation')
     }
 
+    @Test
+    @Order(13)
     void testS5_3_NightlyReconciliation() {
         String itemIdA = 'II_INV_FLUID_A_S5_3'
         String itemIdC = 'II_INV_FLUID_C_S5_3'
@@ -440,6 +466,8 @@ class InventoryIssuanceTests extends InventoryIssuanceTestSupport {
         assert (boRes.getBigDecimal('quantityNotAvailable') ?: BigDecimal.ZERO) == BigDecimal.ZERO
     }
 
+    @Test
+    @Order(14)
     void testS5_4_ReconFluidPolicy() {
         String itemId = 'II_INV_FLUID_A_S5_4'
         setUpInventory('WH_FLUID', 'II_MAT_A_COST', itemId, 5.0)
@@ -480,6 +508,8 @@ class InventoryIssuanceTests extends InventoryIssuanceTestSupport {
                 'Satisfier should have settled the debt in Fluid Warehouse'
     }
 
+    @Test
+    @Order(15)
     void testS5_5_ReconTraditionalPolicy() {
         String itemId = 'II_INV_TRAD_A_S5_5'
         setUpInventory('WH_TRADITIONAL', 'II_MAT_A_COST', itemId, 20.0)
@@ -521,6 +551,8 @@ class InventoryIssuanceTests extends InventoryIssuanceTestSupport {
         assert scaleQuantity(boQna) == scaleQuantity(2.0) : 'Satisfier should NOT have settled in Traditional Warehouse'
     }
 
+    @Test
+    @Order(16)
     void testS5_6_ReconSafePolicy() {
         setUpInventory('WH_SAFE', 'II_MAT_A_COST', 'INV_SAFE_A', 20.0)
         setUpInventory('WH_SAFE', 'II_MAT_C_COST', 'INV_SAFE_C_HEAL', 0.0)
@@ -554,6 +586,8 @@ class InventoryIssuanceTests extends InventoryIssuanceTestSupport {
         assert scaleQuantity(boQna) == scaleQuantity(0.0) : 'Safe Mode (Conservative Satisfier) should have healed backorder'
     }
 
+    @Test
+    @Order(17)
     void testM1_ManualLotReallocationSuccess() {
         setUpInventory('WH_FLUID', 'II_MAT_A_COST', 'II_MAN_FLUID', 10.0)
         GenericValue item = from('InventoryItem').where('inventoryItemId', 'II_MAN_FLUID').queryOne()
@@ -578,6 +612,8 @@ class InventoryIssuanceTests extends InventoryIssuanceTestSupport {
                 'Affected reservation should be backordered by 5'
     }
 
+    @Test
+    @Order(18)
     void testM2_ManualForceNegative() {
         setUpInventory('WH_FLUID', 'II_MAT_A_COST', 'II_MAN_FLUID', 0.0)
 
@@ -592,6 +628,8 @@ class InventoryIssuanceTests extends InventoryIssuanceTestSupport {
         assert scaleQuantity(item.getBigDecimal('quantityOnHandTotal')) == scaleQuantity(-10.0) : 'QOH should be -10'
     }
 
+    @Test
+    @Order(19)
     void testM3_UserStrictnessOverridesFacilityFluidity() {
         setUpInventory('WH_FLUID', 'II_MAT_A_COST', 'II_MAN_FLUID', 10.0)
         GenericValue item = from('InventoryItem').where('inventoryItemId', 'II_MAN_FLUID').queryOne()
@@ -615,6 +653,8 @@ class InventoryIssuanceTests extends InventoryIssuanceTestSupport {
                 "Error should contain 'Materials Not Available' or 'promised to other tasks'. Got: ${error}"
     }
 
+    @Test
+    @Order(20)
     void testM4_FacilityStrictnessOverridesUserFluidity() {
         setUpInventory('WH_TRADITIONAL', 'II_MAT_A_COST', 'II_MAN_STRICT', 10.0)
         GenericValue item = from('InventoryItem').where('inventoryItemId', 'II_MAN_STRICT').queryOne()
@@ -638,6 +678,8 @@ class InventoryIssuanceTests extends InventoryIssuanceTestSupport {
                 "Error should contain 'Materials Not Available' or 'forbids inventory reallocation'. Got: ${error}"
     }
 
+    @Test
+    @Order(21)
     void testM6_SelfConsumptionSuccessInStrictMode() {
         setUpInventory('WH_TRADITIONAL', 'II_MAT_A_COST', 'II_MAN_STRICT', 10.0)
 
@@ -655,6 +697,8 @@ class InventoryIssuanceTests extends InventoryIssuanceTestSupport {
         assertInventoryIntegrity('II_MAT_A_COST', 'WE_ISSUING_STRICT', 5.0, 5.0, 0.0, 'WH_TRADITIONAL')
     }
 
+    @Test
+    @Order(22)
     void testS5_7_NullPolicyDefaultsToStrict() {
         String facId = 'WH_NULL_POLICY'
         storeFacility([
@@ -673,6 +717,8 @@ class InventoryIssuanceTests extends InventoryIssuanceTestSupport {
         assert impactResult.policyViolation.contains('forbidden') : 'Message should explain that reallocation is forbidden'
     }
 
+    @Test
+    @Order(23)
     void testFacilityPolicyPersistence() {
         String facId = 'WH_POLICY_TEST'
         storeFacility([
@@ -698,15 +744,11 @@ class InventoryIssuanceTests extends InventoryIssuanceTestSupport {
 
 }
 
+@JunitJupiterTest
 class InventoryIssuancePolicyMatrixTests extends InventoryIssuanceTestSupport {
 
-    InventoryIssuancePolicyMatrixTests(String name) {
-        super(name)
-    }
-
-    @Override
+    @BeforeEach
     void setUp() {
-        super.setUp()
         userLogin = from('UserLogin').where('userLoginId', 'system').queryOne()
 
         delegator.removeByCondition('WorkEffortInvRes', EntityCondition.makeCondition('productId', EntityOperator.LIKE, 'II_%'))
@@ -724,6 +766,8 @@ class InventoryIssuancePolicyMatrixTests extends InventoryIssuanceTestSupport {
                 'InventoryIssuancePolicyMatrixTests')
     }
 
+    @Test
+    @Order(1)
     void testS6_1_ManualReserve_IssueDefault_Success() {
         String weId = setUpNoAutoReserveProductionRun('II_S6_1', 100.0)
         dispatcher.runSync('reserveWorkEffortInventoryItem', [
@@ -736,6 +780,8 @@ class InventoryIssuancePolicyMatrixTests extends InventoryIssuanceTestSupport {
         assertInventoryIntegrity('II_MAT_A_COST', weId, 20.0, 0.0, 80.0, 'WH_NO_AUTO_RES')
     }
 
+    @Test
+    @Order(2)
     void testS6_2_ManualReserve_IssueFailIfAvail_Y_Success() {
         String weId = setUpNoAutoReserveProductionRun('II_S6_2', 100.0)
         dispatcher.runSync('reserveWorkEffortInventoryItem', [
@@ -750,6 +796,8 @@ class InventoryIssuancePolicyMatrixTests extends InventoryIssuanceTestSupport {
         assertInventoryIntegrity('II_MAT_A_COST', weId, 20.0, 0.0, 80.0, 'WH_NO_AUTO_RES')
     }
 
+    @Test
+    @Order(3)
     void testS6_3_ManualReserve_IssueFailIfAvail_N_Success() {
         String weId = setUpNoAutoReserveProductionRun('II_S6_3', 100.0)
         dispatcher.runSync('reserveWorkEffortInventoryItem', [
@@ -764,6 +812,8 @@ class InventoryIssuancePolicyMatrixTests extends InventoryIssuanceTestSupport {
         assertInventoryIntegrity('II_MAT_A_COST', weId, 20.0, 0.0, 80.0, 'WH_NO_AUTO_RES')
     }
 
+    @Test
+    @Order(4)
     void testS6_4_NoReserve_DirectIssueDefault_Success() {
         String weId = setUpNoAutoReserveProductionRun('II_S6_4', 100.0)
 
@@ -772,6 +822,8 @@ class InventoryIssuancePolicyMatrixTests extends InventoryIssuanceTestSupport {
         assertInventoryIntegrity('II_MAT_A_COST', weId, 20.0, 0.0, 80.0, 'WH_NO_AUTO_RES')
     }
 
+    @Test
+    @Order(5)
     void testS6_5_NoReserve_DirectIssueFailIfAvail_Y_Success() {
         String weId = setUpNoAutoReserveProductionRun('II_S6_5', 100.0)
 
@@ -782,6 +834,8 @@ class InventoryIssuancePolicyMatrixTests extends InventoryIssuanceTestSupport {
         assertInventoryIntegrity('II_MAT_A_COST', weId, 20.0, 0.0, 80.0, 'WH_NO_AUTO_RES')
     }
 
+    @Test
+    @Order(6)
     void testS6_6_NoReserve_DirectIssueFailIfAvail_N_Success() {
         String weId = setUpNoAutoReserveProductionRun('II_S6_6', 100.0)
 
@@ -792,6 +846,8 @@ class InventoryIssuancePolicyMatrixTests extends InventoryIssuanceTestSupport {
         assertInventoryIntegrity('II_MAT_A_COST', weId, 20.0, 0.0, 80.0, 'WH_NO_AUTO_RES')
     }
 
+    @Test
+    @Order(7)
     void testS6_7_Insufficient_ManualReserve_IssueDefault_Fail() {
         String weId = setUpNoAutoReserveProductionRun('II_S6_7', 0.0)
         dispatcher.runSync('reserveWorkEffortInventoryItem', [
@@ -803,6 +859,8 @@ class InventoryIssuancePolicyMatrixTests extends InventoryIssuanceTestSupport {
         assert ServiceUtil.isError(result)
     }
 
+    @Test
+    @Order(8)
     void testS6_8_Insufficient_ManualReserve_IssueFailIfAvail_Y_Fail() {
         String weId = setUpNoAutoReserveProductionRun('II_S6_8', 0.0)
         dispatcher.runSync('reserveWorkEffortInventoryItem', [
@@ -816,6 +874,8 @@ class InventoryIssuancePolicyMatrixTests extends InventoryIssuanceTestSupport {
         assert ServiceUtil.isError(result)
     }
 
+    @Test
+    @Order(9)
     void testS6_9_Insufficient_ManualReserve_IssueFailIfAvail_N_Success() {
         String weId = setUpNoAutoReserveProductionRun('II_S6_9', 0.0)
         dispatcher.runSync('reserveWorkEffortInventoryItem', [
@@ -830,12 +890,16 @@ class InventoryIssuancePolicyMatrixTests extends InventoryIssuanceTestSupport {
         assertInventoryIntegrity('II_MAT_A_COST', weId, 20.0, 0.0, -20.0, 'WH_NO_AUTO_RES')
     }
 
+    @Test
+    @Order(10)
     void testS6_10_Insufficient_NoReserve_DirectIssueDefault_Fail() {
         String weId = setUpNoAutoReserveProductionRun('II_S6_10', 0.0)
         Map result = dispatcher.runSync('issueProductionRunTask', [workEffortId: weId, userLogin: userLogin], 0, true)
         assert ServiceUtil.isError(result)
     }
 
+    @Test
+    @Order(11)
     void testS6_11_Insufficient_NoReserve_DirectIssueFailIfAvail_Y_Fail() {
         String weId = setUpNoAutoReserveProductionRun('II_S6_11', 0.0)
         Map result = dispatcher.runSync('issueProductionRunTask', [
@@ -844,6 +908,8 @@ class InventoryIssuancePolicyMatrixTests extends InventoryIssuanceTestSupport {
         assert ServiceUtil.isError(result)
     }
 
+    @Test
+    @Order(12)
     void testS6_12_Insufficient_NoReserve_DirectIssueFailIfAvail_N_Success() {
         String weId = setUpNoAutoReserveProductionRun('II_S6_12', 0.0)
         Map result = dispatcher.runSync('issueProductionRunTask', [
@@ -855,13 +921,9 @@ class InventoryIssuancePolicyMatrixTests extends InventoryIssuanceTestSupport {
 
 }
 
-class InventoryIssuanceTestSupport extends OFBizTestCase {
+class InventoryIssuanceTestSupport implements JupiterTestHelper {
 
     protected GenericValue userLogin
-
-    protected InventoryIssuanceTestSupport(String name) {
-        super(name)
-    }
 
     protected void storeFacility(Map fields) {
         GenericValue gv = delegator.makeValue('Facility', fields)

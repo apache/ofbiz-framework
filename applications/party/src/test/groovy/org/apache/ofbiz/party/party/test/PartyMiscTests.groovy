@@ -20,14 +20,20 @@ package org.apache.ofbiz.party.party.test
 
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.service.ServiceUtil
-import org.apache.ofbiz.service.testtools.OFBizTestCase
+import org.apache.ofbiz.testtools.JunitJupiterTest
+import org.apache.ofbiz.testtools.JupiterTestHelper
+import org.junit.jupiter.api.Order
+import org.junit.jupiter.api.Test
 
-class PartyMiscTests extends OFBizTestCase {
+@JunitJupiterTest
+class PartyMiscTests implements JupiterTestHelper {
 
-    PartyMiscTests(String name) {
-        super(name)
-    }
-
+    @Test
+    // Must run after testRemoveAddressMatchMap: this wipes the whole AddressMatchMap table
+    // (delegator.removeAll), and running it first breaks testRemoveAddressMatchMap's own
+    // create-then-remove of a fresh row ("Value not found, cannot remove") - confirmed by
+    // isolating this from testCreateAddressMatchMap's position, which does not matter.
+    @Order(15)
     void testClearAddressMatchMap() {
         Map serviceCtx = [
                 userLogin: userLogin
@@ -39,6 +45,8 @@ class PartyMiscTests extends OFBizTestCase {
         assert !addrs
     }
 
+    @Test
+    @Order(1)
     void testCreateAddressMatchMap() {
         Map serviceCtx = [
                 mapKey: 'TEST_KEY',
@@ -52,6 +60,8 @@ class PartyMiscTests extends OFBizTestCase {
         assert addressMatchMap
     }
 
+    @Test
+    @Order(2)
     void testCreateAffiliate() {
         Map serviceCtx = [
                 partyId: 'TestCompany',
@@ -66,6 +76,8 @@ class PartyMiscTests extends OFBizTestCase {
         assert affiliate.affiliateName == 'Test Affiliate'
     }
 
+    @Test
+    @Order(3)
     void testCreateEmailAddressVerification() {
         Map serviceCtx = [
                 emailAddress: 'test_email@example.com',
@@ -79,6 +91,8 @@ class PartyMiscTests extends OFBizTestCase {
         assert emailAddressVerification.verifyHash == serviceResult.verifyHash
     }
 
+    @Test
+    @Order(4)
     void testCreatePartyIdentifications() {
         Map serviceCtx = [
                 partyId: 'TestCustomer',
@@ -98,6 +112,8 @@ class PartyMiscTests extends OFBizTestCase {
         assert partyIdentification.idValue == '123456789'
     }
 
+    @Test
+    @Order(5)
     void testCreatePartyInvitation() {
         Map serviceCtx = [
                 partyIdFrom: 'TestCompany',
@@ -113,6 +129,8 @@ class PartyMiscTests extends OFBizTestCase {
         assert partyInvitation.emailAddress == 'test_email@example.com'
     }
 
+    @Test
+    @Order(6)
     void testCreatePartyInvitationGroupAssoc() {
         Map serviceCtx = [
                 partyInvitationId: 'TEST_INVITE',
@@ -129,6 +147,8 @@ class PartyMiscTests extends OFBizTestCase {
         assert partyInvitationGroupAssoc
     }
 
+    @Test
+    @Order(7)
     void testCreatePartyInvitationRoleAssoc() {
         Map serviceCtx = [
                 partyInvitationId: 'TEST_INVITE',
@@ -145,6 +165,8 @@ class PartyMiscTests extends OFBizTestCase {
         assert partyInvitationRoleAssoc
     }
 
+    @Test
+    @Order(8)
     void testCreatePartyNote() {
         Map serviceCtx = [
                 partyId: 'DemoCustomer',
@@ -164,6 +186,8 @@ class PartyMiscTests extends OFBizTestCase {
         assert noteData.noteInfo == 'This is demo note to test createPartyNote service'
     }
 
+    @Test
+    @Order(9)
     void testDeletePartyInvitation() {
         Map serviceCtx = [
                 partyInvitationId: 'TEST_INVITE-1',
@@ -176,6 +200,8 @@ class PartyMiscTests extends OFBizTestCase {
         assert !partyInvitation
     }
 
+    @Test
+    @Order(10)
     void testDeletePartyInvitationGroupAssoc() {
         Map serviceCtx = [
                 partyInvitationId: 'TEST_INVITE-2',
@@ -192,6 +218,8 @@ class PartyMiscTests extends OFBizTestCase {
         assert !partyInvitationGroupAssoc
     }
 
+    @Test
+    @Order(11)
     void testDeletePartyInvitationRoleAssoc() {
         Map serviceCtx = [
                 partyInvitationId: 'TEST_INVITE-2',
@@ -208,6 +236,8 @@ class PartyMiscTests extends OFBizTestCase {
         assert !partyInvitationRoleAssoc
     }
 
+    @Test
+    @Order(12)
     void testRemoveAddressMatchMap() {
         // Create the record first so this test is independent of seed data and execution order
         dispatcher.runSync('createAddressMatchMap', [mapKey: 'TESTKEY-1', mapValue: 'Test Value 1', userLogin: userLogin])
@@ -224,6 +254,8 @@ class PartyMiscTests extends OFBizTestCase {
         assert !addressMatchMap
     }
 
+    @Test
+    @Order(13)
     void testUpdateAffiliate() {
         Map serviceCtx = [
                 partyId: 'TestGroup-1',
@@ -242,6 +274,8 @@ class PartyMiscTests extends OFBizTestCase {
         assert affiliate.siteVisitors == '2000'
     }
 
+    @Test
+    @Order(14)
     void testUpdatePartyInvitation() {
         Map serviceCtx = [
                 partyInvitationId: 'TEST_INVITE',

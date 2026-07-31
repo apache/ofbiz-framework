@@ -21,15 +21,18 @@ package org.apache.ofbiz.accounting.accounting
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.service.ServiceUtil
-import org.apache.ofbiz.service.testtools.OFBizTestCase
+import org.apache.ofbiz.testtools.JunitJupiterTest
+import org.apache.ofbiz.testtools.JupiterTestHelper
 
 import java.sql.Timestamp
+import org.junit.jupiter.api.Order
+import org.junit.jupiter.api.Test
 
-class AutoAcctgPaymentTests extends OFBizTestCase {
+@JunitJupiterTest
+class AutoAcctgPaymentTests implements JupiterTestHelper {
 
-    AutoAcctgPaymentTests(String name) {
-        super(name)
-    }
+    @Test
+    @Order(1)
     void testCreatePayment() {
         Map serviceCtx = [:]
         serviceCtx.paymentTypeId = 'CUSTOMER_PAYMENT'
@@ -45,6 +48,8 @@ class AutoAcctgPaymentTests extends OFBizTestCase {
         assert payment.paymentTypeId == 'CUSTOMER_PAYMENT'
         assert payment.paymentMethodTypeId == 'COMPANY_CHECK'
     }
+    @Test
+    @Order(2)
     void testSetPaymentStatus() {
         Map serviceCtx = [:]
         serviceCtx.paymentId = '1000'
@@ -57,6 +62,8 @@ class AutoAcctgPaymentTests extends OFBizTestCase {
         assert payment
         assert serviceResult.oldStatusId == 'PAYMENT_NOT_AUTH'
     }
+    @Test
+    @Order(3)
     void testQuickSendPayment() {
         Map serviceCtx = [:]
         serviceCtx.paymentId = '1001'
@@ -68,6 +75,8 @@ class AutoAcctgPaymentTests extends OFBizTestCase {
         assert payment
         assert payment.statusId == 'PMNT_SENT'
     }
+    @Test
+    @Order(4)
     void testGetPayments() {
         Map serviceCtx = [
             finAccountTransId: '1001',
@@ -77,6 +86,8 @@ class AutoAcctgPaymentTests extends OFBizTestCase {
         assert ServiceUtil.isSuccess(serviceResult)
         assert serviceResult.payments != null
     }
+    @Test
+    @Order(5)
     void testCreatePaymentContent() {
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp()
         Map serviceCtx = [

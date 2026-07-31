@@ -25,24 +25,24 @@ under the License.
         <entity-xml action="load" entity-xml-url="component://order/testdef/data/OrderTestData.xml"/>
     </test-case>
     <test-case case-name="order-test">
-        <junit-test-suite class-name="org.apache.ofbiz.order.test.OrderTest"/>
+        <jupiter-test-suite class-name="org.apache.ofbiz.order.test.OrderTest"/>
     </test-case>
     <test-case case-name="purchaseOrder-test">
-        <junit-test-suite class-name="org.apache.ofbiz.order.test.PurchaseOrderTest"/>
+        <jupiter-test-suite class-name="org.apache.ofbiz.order.test.PurchaseOrderTest"/>
     </test-case>
     <test-case case-name="salesOrder-test">
-        <junit-test-suite class-name="org.apache.ofbiz.order.test.SalesOrderTest"/>
+        <jupiter-test-suite class-name="org.apache.ofbiz.order.test.SalesOrderTest"/>
     </test-case>
     <test-case case-name="order-tests-xml">
-        <junit-test-suite class-name="org.apache.ofbiz.order.order.test.OrderTests"/>
+        <jupiter-test-suite class-name="org.apache.ofbiz.order.order.test.OrderTests"/>
     </test-case>
     <test-case case-name="order-return-tests">
-        <junit-test-suite class-name="org.apache.ofbiz.order.order.test.OrderReturnTests"/>
+        <jupiter-test-suite class-name="org.apache.ofbiz.order.order.test.OrderReturnTests"/>
     </test-case>
     <test-case case-name="order-requirement-tests">
-        <junit-test-suite class-name="org.apache.ofbiz.order.order.test.OrderRequirementTests"/>
+        <jupiter-test-suite class-name="org.apache.ofbiz.order.order.test.OrderRequirementTests"/>
     </test-case>
     <test-case case-name="requirement-status-eca-tests">
-        <junit-test-suite class-name="org.apache.ofbiz.order.order.test.RequirementStatusEcaTests"/>
+        <jupiter-test-suite class-name="org.apache.ofbiz.order.order.test.RequirementStatusEcaTests"/>
     </test-case>
 </test-suite>

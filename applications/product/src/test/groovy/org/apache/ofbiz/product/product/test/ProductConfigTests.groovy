@@ -19,15 +19,15 @@
 package org.apache.ofbiz.product.product.test
 
 import org.apache.ofbiz.entity.GenericValue
-import org.apache.ofbiz.service.testtools.OFBizTestCase
+import org.apache.ofbiz.testtools.JunitJupiterTest
+import org.apache.ofbiz.testtools.JupiterTestHelper
 import org.apache.ofbiz.service.ServiceUtil
+import org.junit.jupiter.api.Test
 
-class ProductConfigTests extends OFBizTestCase {
+@JunitJupiterTest
+class ProductConfigTests implements JupiterTestHelper {
 
-    ProductConfigTests(String name) {
-        super(name)
-    }
-
+    @Test
     void testCreateProductConfigOption() {
         Map serviceCtx = [:]
         serviceCtx.configItemId = 'testConfigItemId'

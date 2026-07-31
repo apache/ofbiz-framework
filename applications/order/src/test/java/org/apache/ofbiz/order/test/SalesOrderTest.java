@@ -23,29 +23,26 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.service.ServiceUtil;
-import org.apache.ofbiz.service.testtools.OFBizTestCase;
+import org.apache.ofbiz.testtools.JunitJupiterTest;
+import org.apache.ofbiz.testtools.JupiterTestHelper;
+import org.junit.jupiter.api.Test;
 
-public class SalesOrderTest extends OFBizTestCase {
-    private static final String MODULE = OFBizTestCase.class.getName();
-
-
-    public SalesOrderTest(String name) {
-        super(name);
-    }
-
-    @Override
-    protected void tearDown() throws Exception {
-    }
+@JunitJupiterTest
+public class SalesOrderTest implements JupiterTestHelper {
+    private static final String MODULE = SalesOrderTest.class.getName();
 
     /**
      * Test create sales order.
      * @throws Exception the exception
      */
+    @Test
     public void testCreateSalesOrder() throws Exception {
         Delegator delegator = getDelegator();
         Map<String, Object> ctx = UtilMisc.<String, Object>toMap("partyId", "DemoCustomer", "orderTypeId", "SALES_ORDER", "currencyUom", "USD",

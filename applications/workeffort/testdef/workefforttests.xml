@@ -24,6 +24,6 @@
         <entity-xml action="load" entity-xml-url="component://workeffort/testdef/data/WorkEffortTestData.xml"/>
     </test-case>
     <test-case case-name="workeffort-tests">
-        <junit-test-suite class-name="org.apache.ofbiz.workeffort.workeffort.test.WorkEffortTests"/>
+        <jupiter-test-suite class-name="org.apache.ofbiz.workeffort.workeffort.test.WorkEffortTests"/>
     </test-case>
 </test-suite>

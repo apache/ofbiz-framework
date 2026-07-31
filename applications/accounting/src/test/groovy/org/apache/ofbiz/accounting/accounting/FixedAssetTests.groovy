@@ -21,14 +21,17 @@ package org.apache.ofbiz.accounting.accounting
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.service.ServiceUtil
-import org.apache.ofbiz.service.testtools.OFBizTestCase
+import org.apache.ofbiz.testtools.JunitJupiterTest
+import org.apache.ofbiz.testtools.JupiterTestHelper
 import java.sql.Timestamp
+import org.junit.jupiter.api.Order
+import org.junit.jupiter.api.Test
 
-class FixedAssetTests extends OFBizTestCase {
+@JunitJupiterTest
+class FixedAssetTests implements JupiterTestHelper {
 
-    FixedAssetTests(String name) {
-        super(name)
-    }
+    @Test
+    @Order(1)
     void testCreateFixedAssetRegistration() {
         Map serviceCtx = [
                 fixedAssetId: 'DEMO_VEHICLE_01',
@@ -46,6 +49,8 @@ class FixedAssetTests extends OFBizTestCase {
                 .filterByDate().queryFirst()
         assert fixedAssetRegistration
     }
+    @Test
+    @Order(2)
     void testUpdateFixedAssetRegistration() {
         Timestamp fromDate = UtilDateTime.toTimestamp('04/01/2020 00:00:00')
         Map serviceCtx = [
@@ -65,6 +70,8 @@ class FixedAssetTests extends OFBizTestCase {
                 .filterByDate().queryOne()
         assert !fixedAssetRegistration
     }
+    @Test
+    @Order(3)
     void testDeleteFixedAssetRegistration() {
         Timestamp fromDate = UtilDateTime.toTimestamp('04/01/2020 00:00:00')
         Map serviceCtx = [
@@ -80,6 +87,8 @@ class FixedAssetTests extends OFBizTestCase {
                 .queryOne()
         assert !fixedAssetRegistration
     }
+    @Test
+    @Order(4)
     void testCreateFixedAssetMeter() {
         Map serviceCtx = [
                 fixedAssetId: 'DEMO_VEHICLE_01',
@@ -96,6 +105,8 @@ class FixedAssetTests extends OFBizTestCase {
                 .queryFirst()
         assert fixedAssetMeter
     }
+    @Test
+    @Order(5)
     void testUpdateFixedAssetMeter() {
         Timestamp readingDate = UtilDateTime.toTimestamp('04/01/2020 00:00:00')
         Map serviceCtx = [
@@ -113,6 +124,8 @@ class FixedAssetTests extends OFBizTestCase {
                 .queryOne()
         assert fixedAssetMeter
     }
+    @Test
+    @Order(6)
     void testDeleteFixedAssetMeter() {
         Timestamp readingDate = UtilDateTime.toTimestamp('04/01/2020 00:00:00')
         Map serviceCtx = [
@@ -129,6 +142,8 @@ class FixedAssetTests extends OFBizTestCase {
                 .queryOne()
         assert !fixedAssetMeter
     }
+    @Test
+    @Order(7)
     void testCreateFixedAssetGeoPoint() {
         Map serviceCtx = [
                 fixedAssetId: 'DEMO_VEHICLE_01',

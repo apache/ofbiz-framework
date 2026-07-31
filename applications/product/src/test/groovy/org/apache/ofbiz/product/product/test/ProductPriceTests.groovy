@@ -20,14 +20,16 @@ package org.apache.ofbiz.product.product.test
 
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.service.ServiceUtil
-import org.apache.ofbiz.service.testtools.OFBizTestCase
+import org.apache.ofbiz.testtools.JunitJupiterTest
+import org.apache.ofbiz.testtools.JupiterTestHelper
+import org.junit.jupiter.api.Order
+import org.junit.jupiter.api.Test
 
-class ProductPriceTests extends OFBizTestCase {
+@JunitJupiterTest
+class ProductPriceTests implements JupiterTestHelper {
 
-    ProductPriceTests(String name) {
-        super(name)
-    }
-
+    @Test
+    @Order(1)
     void testCalculateProductPrice() {
         String productId = 'GZ-2002'
         GenericValue product = from('Product').where('productId', productId).queryOne()
@@ -39,6 +41,8 @@ class ProductPriceTests extends OFBizTestCase {
         assert resultMap.listPrice == 48
     }
 
+    @Test
+    @Order(2)
     void testCalculateProductPriceOfVariantProduct() {
         // If product is a variant and no price is set, then default price of virtual product will be set
         String productId = 'GZ-1006-3'
@@ -51,6 +55,8 @@ class ProductPriceTests extends OFBizTestCase {
         assert resultMap.listPrice == 5.99
     }
 
+    @Test
+    @Order(3)
     void testCalculateProductPriceOfVirtualProduct() {
         // If product is a virtual and no price is set then then the service return price of a variant product which have lowest DEFAULT_PRICE.
         // It is also considered whether the product is discontinued for sale before using the lowest price against a variant for a virtual product

@@ -20,14 +20,16 @@ package org.apache.ofbiz.order.order.test
 
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.service.ServiceUtil
-import org.apache.ofbiz.service.testtools.OFBizTestCase
+import org.apache.ofbiz.testtools.JunitJupiterTest
+import org.apache.ofbiz.testtools.JupiterTestHelper
+import org.junit.jupiter.api.Order
+import org.junit.jupiter.api.Test
 
-class ShoppingListTests extends OFBizTestCase {
+@JunitJupiterTest
+class ShoppingListTests implements JupiterTestHelper {
 
-    ShoppingListTests(String name) {
-        super(name)
-    }
-
+    @Test
+    @Order(1)
     void testCreateShoppingList() {
         GenericValue userLogin = delegator.findOne('UserLogin', [userLoginId: 'DemoCustomer'], false)
         Map serviceCtx = [
@@ -48,6 +50,8 @@ class ShoppingListTests extends OFBizTestCase {
         assert shoppingList.listName == 'Demo Wish List 1'
     }
 
+    @Test
+    @Order(2)
     void testCreateShoppingListItem() {
         GenericValue userLogin = delegator.findOne('UserLogin', [userLoginId: 'DemoCustomer'], false)
         String shoppingListId = 'DemoWishList'
@@ -67,6 +71,8 @@ class ShoppingListTests extends OFBizTestCase {
         assert shoppingListItem.quantity == 3
     }
 
+    @Test
+    @Order(3)
     void testCreateShoppingListItemWithSameProduct() {
         GenericValue userLogin = delegator.findOne('UserLogin', [userLoginId: 'DemoCustomer'], false)
         String shoppingListId = 'DemoWishList'
@@ -85,6 +91,8 @@ class ShoppingListTests extends OFBizTestCase {
         assert shoppingListItem.quantity == 7
     }
 
+    @Test
+    @Order(4)
     void testUpdateShoppingList() {
         GenericValue userLogin = delegator.findOne('UserLogin', [userLoginId: 'DemoCustomer'], false)
         Map serviceCtx = [
@@ -99,7 +107,9 @@ class ShoppingListTests extends OFBizTestCase {
         assert shoppingList.listName == 'New Demo Wish List'
     }
 
-    void testUpdateShoppingListItem () {
+    @Test
+    @Order(5)
+    void testUpdateShoppingListItem() {
         GenericValue userLogin = delegator.findOne('UserLogin', [userLoginId: 'DemoCustomer'], false)
         Map serviceCtx = [
                 shoppingListId: 'DemoWishList',
@@ -115,6 +125,8 @@ class ShoppingListTests extends OFBizTestCase {
         assert shoppingListItem.quantity == 4
     }
 
+    @Test
+    @Order(6)
     void testUpdateShoppingListItemWithZeroQty() {
         GenericValue userLogin = delegator.findOne('UserLogin', [userLoginId: 'DemoCustomer'], false)
         Map serviceCtx = [
@@ -130,6 +142,8 @@ class ShoppingListTests extends OFBizTestCase {
         assert shoppingListItem
     }
 
+    @Test
+    @Order(7)
     void testRemoveShoppingListItem() {
         GenericValue userLogin = delegator.findOne('UserLogin', [userLoginId: 'DemoCustomer'], false)
         Map serviceCtx = [

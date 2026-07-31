@@ -18,24 +18,30 @@
  *******************************************************************************/
 package org.apache.ofbiz.order.test;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.service.ServiceUtil;
-import org.apache.ofbiz.service.testtools.OFBizTestCase;
+import org.apache.ofbiz.testtools.JunitJupiterTest;
+import org.apache.ofbiz.testtools.JupiterTestHelper;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class OrderTest extends OFBizTestCase {
-    private static final String MODULE = OFBizTestCase.class.getName();
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
 
-    public OrderTest(String name) {
-        super(name);
-    }
+@JunitJupiterTest
+public class OrderTest implements JupiterTestHelper {
+    private static final String MODULE = OrderTest.class.getName();
 
     /**
      * Test admin get next order seq id.
      * @throws Exception the exception
      */
+    @Test
+    @Order(1)
     public void testAdminGetNextOrderSeqId() throws Exception {
         Map<String, Object> ctx = new HashMap<>();
         ctx.put("partyId", "admin"); //party with no AcctgPref prefix
@@ -53,6 +59,8 @@ public class OrderTest extends OFBizTestCase {
      * Test company get next order seq id.
      * @throws Exception the exception
      */
+    @Test
+    @Order(2)
     public void testCompanyGetNextOrderSeqId() throws Exception {
         Map<String, Object> ctx = new HashMap<>();
         ctx.put("partyId", "Company"); //party with AcctgPref prefix : CO
@@ -70,6 +78,8 @@ public class OrderTest extends OFBizTestCase {
      * Test complete get next order seq id.
      * @throws Exception the exception
      */
+    @Test
+    @Order(3)
     public void testCompleteGetNextOrderSeqId() throws Exception {
         Map<String, Object> ctx = new HashMap<>();
         ctx.put("partyId", "Company"); //party with AcctgPref prefix : CO

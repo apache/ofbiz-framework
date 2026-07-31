@@ -27,17 +27,19 @@ import org.apache.ofbiz.security.Security
 import org.apache.ofbiz.security.SecurityFactory
 import org.apache.ofbiz.service.ModelService
 import org.apache.ofbiz.service.ServiceUtil
-import org.apache.ofbiz.service.testtools.OFBizTestCase
+import org.apache.ofbiz.testtools.JunitJupiterTest
+import org.apache.ofbiz.testtools.JupiterTestHelper
 import org.apache.ofbiz.shipment.packing.PackingSession
 import org.springframework.mock.web.MockHttpServletRequest
 import org.springframework.mock.web.MockHttpServletResponse
+import org.junit.jupiter.api.Order
+import org.junit.jupiter.api.Test
 
-class InvoicePerShipmentTests extends OFBizTestCase {
+@JunitJupiterTest
+class InvoicePerShipmentTests implements JupiterTestHelper {
 
-    InvoicePerShipmentTests(String name) {
-        super(name)
-    }
-
+    @Test
+    @Order(1)
     void testInvoicePerShipmentSetFalse() {
         /* Test Invoice Per Shipment
          Step 1) Set create.invoice.per.shipment=N in accounting.properties file.
@@ -49,6 +51,8 @@ class InvoicePerShipmentTests extends OFBizTestCase {
         assert !invoices
     }
 
+    @Test
+    @Order(2)
     void testInvoicePerShipmentSetTrue() {
         /* Test Invoice Per Shipment
          Step 1) Set create.invoice.per.shipment=Y in accounting.properties file.
@@ -60,6 +64,8 @@ class InvoicePerShipmentTests extends OFBizTestCase {
         assert invoices
     }
 
+    @Test
+    @Order(3)
     void testInvoicePerShipmentSetOrderFalse() {
         /* Test Invoice Per Shipment
          Step 1) Create order and set invoicePerShipment=N.
@@ -70,6 +76,8 @@ class InvoicePerShipmentTests extends OFBizTestCase {
         assert !invoices
     }
 
+    @Test
+    @Order(4)
     void testInvoicePerShipmentSetOrderTrue() {
         /* Test Invoice Per Shipment
          Step 1) Create order and set invoicePerShipment=Y

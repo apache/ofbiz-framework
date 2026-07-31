@@ -19,15 +19,17 @@
 package org.apache.ofbiz.order.order.test
 
 import org.apache.ofbiz.entity.GenericValue
-import org.apache.ofbiz.service.testtools.OFBizTestCase
+import org.apache.ofbiz.testtools.JunitJupiterTest
+import org.apache.ofbiz.testtools.JupiterTestHelper
 import org.apache.ofbiz.service.ServiceUtil
+import org.junit.jupiter.api.Order
+import org.junit.jupiter.api.Test
 
-class CustRequestTests extends OFBizTestCase {
+@JunitJupiterTest
+class CustRequestTests implements JupiterTestHelper {
 
-    CustRequestTests(String name) {
-        super(name)
-    }
-
+    @Test
+    @Order(1)
     void testCreateNewRequest() {
         Map serviceCtx = [
                 userLogin: userLogin,
@@ -40,6 +42,8 @@ class CustRequestTests extends OFBizTestCase {
         assert custRequest
     }
 
+    @Test
+    @Order(2)
     void testUpdateCustRequest() {
         Map serviceCtx = [
                 custRequestId: '9000',
@@ -54,6 +58,8 @@ class CustRequestTests extends OFBizTestCase {
         assert custRequest.custRequestName == 'Updated Test Request'
     }
 
+    @Test
+    @Order(3)
     void testCreateCustRequestItem() {
         Map serviceCtx = [
                 custRequestId: '9000',
@@ -65,6 +71,8 @@ class CustRequestTests extends OFBizTestCase {
         assert serviceResult.custRequestId
     }
 
+    @Test
+    @Order(4)
     void testCreateCustRequestItemNote() {
         Map serviceCtx = [
                 custRequestId: '9000',
@@ -78,6 +86,8 @@ class CustRequestTests extends OFBizTestCase {
         assert serviceResult.noteId
     }
 
+    @Test
+    @Order(5)
     void testCreateCustRequestNote() {
         Map serviceCtx = [
                 custRequestId: '9000',
@@ -91,6 +101,8 @@ class CustRequestTests extends OFBizTestCase {
         assert serviceResult.fromPartyId == 'DemoCustomer'
     }
 
+    @Test
+    @Order(6)
     void testCreateCustRequestParty() {
         Map serviceCtx = [
                 custRequestId: '9000',
@@ -107,6 +119,8 @@ class CustRequestTests extends OFBizTestCase {
         assert custRequestParty
     }
 
+    @Test
+    @Order(7)
     void testCreateCustRequestStatus() {
         Map serviceCtx = [
                 custRequestId: '9000',
@@ -120,6 +134,8 @@ class CustRequestTests extends OFBizTestCase {
         assert serviceResult.custRequestStatusId
     }
 
+    @Test
+    @Order(8)
     void testSetCustRequestStatus() {
         Map serviceCtx = [
                 custRequestId: '9000',
@@ -132,6 +148,8 @@ class CustRequestTests extends OFBizTestCase {
         assert serviceResult.oldStatusId
     }
 
+    @Test
+    @Order(9)
     void testGetCustRequestsByRole() {
         Map serviceCtx = [
                 roleTypeId: 'OWNER',
@@ -143,6 +161,8 @@ class CustRequestTests extends OFBizTestCase {
         assert serviceResult.custRequestAndRoles instanceof List
     }
 
+    @Test
+    @Order(10)
     void testCreateCustRequestContent() {
         Map serviceCtx = [
                 custRequestId: '9000',
@@ -158,6 +178,8 @@ class CustRequestTests extends OFBizTestCase {
         assert custRequestContent
     }
 
+    @Test
+    @Order(11)
     void testCreateCustRequestAttribute() {
         Map serviceCtx = [
                 attrName: 'Test Name',
@@ -175,6 +197,8 @@ class CustRequestTests extends OFBizTestCase {
         assert custRequestAttribute.attrValue == 'Test Value'
     }
 
+    @Test
+    @Order(12)
     void testCopyCustRequestItem() {
         Map serviceCtx = [
                 custRequestId: '9000',

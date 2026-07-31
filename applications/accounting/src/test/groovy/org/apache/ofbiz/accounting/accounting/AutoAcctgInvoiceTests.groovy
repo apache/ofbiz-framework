@@ -21,16 +21,18 @@ package org.apache.ofbiz.accounting.accounting
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.service.ServiceUtil
-import org.apache.ofbiz.service.testtools.OFBizTestCase
+import org.apache.ofbiz.testtools.JunitJupiterTest
+import org.apache.ofbiz.testtools.JupiterTestHelper
 
 import java.sql.Timestamp
+import org.junit.jupiter.api.Order
+import org.junit.jupiter.api.Test
 
-class AutoAcctgInvoiceTests extends OFBizTestCase {
+@JunitJupiterTest
+class AutoAcctgInvoiceTests implements JupiterTestHelper {
 
-    AutoAcctgInvoiceTests(String name) {
-        super(name)
-    }
-
+    @Test
+    @Order(1)
     void testCreateInvoiceContent() {
         Map serviceCtx = [
             invoiceId: '1008',
@@ -50,6 +52,8 @@ class AutoAcctgInvoiceTests extends OFBizTestCase {
 
         assert invoiceContent.contentId == serviceResult.contentId
     }
+    @Test
+    @Order(2)
     void testCreateSimpleTextContentForInvoice() {
         Map serviceCtx = [
                 invoiceId: '1009',
@@ -70,6 +74,8 @@ class AutoAcctgInvoiceTests extends OFBizTestCase {
         assert invoiceContent
     }
 
+    @Test
+    @Order(3)
     void testCopyInvoice() {
         Map serviceCtx = [
                 invoiceIdToCopyFrom: '1000',
@@ -81,6 +87,8 @@ class AutoAcctgInvoiceTests extends OFBizTestCase {
         assert serviceResult.invoiceId
     }
 
+    @Test
+    @Order(4)
     void testCreateInvoice() {
         Map serviceCtx = [
                 invoiceTypeId: 'PURCHASE_INVOICE',
@@ -95,6 +103,8 @@ class AutoAcctgInvoiceTests extends OFBizTestCase {
         assert serviceResult.invoiceId
     }
 
+    @Test
+    @Order(5)
     void testGetInvoice() {
         Map serviceCtx = [
                 invoiceId: '1001',
@@ -107,6 +117,8 @@ class AutoAcctgInvoiceTests extends OFBizTestCase {
         assert serviceResult.invoiceItems
     }
 
+    @Test
+    @Order(6)
     void testSetInvoiceStatus() {
         Map serviceCtx = [
                 invoiceId: '1002',
@@ -124,6 +136,8 @@ class AutoAcctgInvoiceTests extends OFBizTestCase {
         assert invoice.statusId == 'INVOICE_APPROVED'
     }
 
+    @Test
+    @Order(7)
     void testCopyInvoiceToTemplate() {
         Map serviceCtx = [
                 invoiceId: '1002',
@@ -136,6 +150,8 @@ class AutoAcctgInvoiceTests extends OFBizTestCase {
         assert serviceResult.invoiceId
     }
 
+    @Test
+    @Order(8)
     void testCreateInvoiceItem() {
         Map serviceCtx = [
                 invoiceId: '1003',
@@ -149,6 +165,8 @@ class AutoAcctgInvoiceTests extends OFBizTestCase {
         assert serviceResult.invoiceItemSeqId
     }
 
+    @Test
+    @Order(9)
     void testCreateInvoiceStatus() {
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp()
         Map serviceCtx = [
@@ -169,6 +187,8 @@ class AutoAcctgInvoiceTests extends OFBizTestCase {
         assert invoiceStatus
     }
 
+    @Test
+    @Order(10)
     void testCreateInvoiceRole() {
         Map serviceCtx = [
                 invoiceId: '1006',
@@ -188,6 +208,8 @@ class AutoAcctgInvoiceTests extends OFBizTestCase {
         assert invoiceRole
     }
 
+    @Test
+    @Order(11)
     void testCreateInvoiceTerm() {
         Map serviceCtx = [
                 invoiceId: '1006',
@@ -207,6 +229,8 @@ class AutoAcctgInvoiceTests extends OFBizTestCase {
         assert invoiceTerm
     }
 
+    @Test
+    @Order(12)
     void testCancelInvoice() {
         Map serviceCtx = [
                 invoiceId: '1007',

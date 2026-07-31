@@ -21,13 +21,16 @@ package org.apache.ofbiz.accounting.accounting
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.service.ServiceUtil
-import org.apache.ofbiz.service.testtools.OFBizTestCase
+import org.apache.ofbiz.testtools.JunitJupiterTest
+import org.apache.ofbiz.testtools.JupiterTestHelper
+import org.junit.jupiter.api.Order
+import org.junit.jupiter.api.Test
 
-class AutoAcctgLedgerTests extends OFBizTestCase {
+@JunitJupiterTest
+class AutoAcctgLedgerTests implements JupiterTestHelper {
 
-    AutoAcctgLedgerTests(String name) {
-        super(name)
-    }
+    @Test
+    @Order(1)
     void testCreateAcctgTrans() {
         Map serviceCtx = [:]
         serviceCtx.acctgTransTypeId = 'CREDIT_MEMO'
@@ -42,6 +45,8 @@ class AutoAcctgLedgerTests extends OFBizTestCase {
         assert acctgTrans.acctgTransId == serviceResult.acctgTransId
         assert acctgTrans.acctgTransTypeId == 'CREDIT_MEMO'
     }
+    @Test
+    @Order(2)
     void testCreateAcctgTransEntry() {
         Map serviceCtx = [
             acctgTransId: '1000',

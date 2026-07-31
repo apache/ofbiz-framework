@@ -19,14 +19,14 @@
 package org.apache.ofbiz.order.order.test
 
 import org.apache.ofbiz.service.ServiceUtil
-import org.apache.ofbiz.service.testtools.OFBizTestCase
+import org.apache.ofbiz.testtools.JunitJupiterTest
+import org.apache.ofbiz.testtools.JupiterTestHelper
+import org.junit.jupiter.api.Test
 
-class CustRequestPermissionCheckTests extends OFBizTestCase {
+@JunitJupiterTest
+class CustRequestPermissionCheckTests implements JupiterTestHelper {
 
-    CustRequestPermissionCheckTests(String name) {
-        super(name)
-    }
-
+    @Test
     void testCustRequestPermission() {
         Map serviceCtx = [:]
         serviceCtx.fromPartyId = 'Company'
