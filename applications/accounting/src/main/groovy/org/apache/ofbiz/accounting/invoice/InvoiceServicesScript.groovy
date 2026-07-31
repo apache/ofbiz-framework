@@ -180,7 +180,7 @@ Map updateInvoice() {
     // only save if something has changed, do not update status here
     // update all non status and key fields
     GenericValue lookedInvoice = invoice.clone()
-    invoice.setNonPKFields([*: parameters, statustId: 'INVOICE_IN_PROCESS'], false)
+    invoice.setNonPKFields([*: parameters, statustId: 'INVOICE_IN_PROCESS'], true)
     if (lookedInvoice != invoice) {
         invoice.store()
     }
@@ -376,7 +376,7 @@ Map updateInvoiceItem() {
         return error(label('AccountingUiLabels', 'AccountingInvoiceItemNotFound', parameters))
     }
     GenericValue lookedInvoiceItem = invoiceItem.clone()
-    invoiceItem.setNonPKFields(parameters, false)
+    invoiceItem.setNonPKFields(parameters, true)
 
     // check if the productNumber is updated, when yes retrieve product description and price
     if (lookedInvoiceItem.productId != invoiceItem.productId) {
