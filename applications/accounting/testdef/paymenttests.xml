@@ -23,7 +23,7 @@
         xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/test-suite.xsd">
 
     <test-case case-name="auto-payment-tests">
-        <junit-test-suite class-name="org.apache.ofbiz.accounting.accounting.AutoPaymentTests"/>
+        <jupiter-test-suite class-name="org.apache.ofbiz.accounting.accounting.AutoPaymentTests"/>
     </test-case>
     
 

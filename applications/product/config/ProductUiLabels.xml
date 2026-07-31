@@ -20229,6 +20229,9 @@
         <value xml:lang="zh">没有发放订单明细送货组库存预留到送货 ${parameters.shipmentId}，因为要发放的数量 ${parameters.quantity} 大于剩余的退货的数量 ${orderItemShipGrpInvRes.quantity}，订单 ${orderItemShipGrpInvRes.orderId}、订单明细 ${orderItemShipGrpInvRes.orderItemSeqId}、库存明细 ${orderItemShipGrpInvRes.inventoryItemId}</value>
         <value xml:lang="zh-TW">沒有發放訂單細項出貨群組庫存預留到出貨 ${parameters.shipmentId},因為要發放的數量 ${parameters.quantity} 大於剩餘的退貨的數量 ${orderItemShipGrpInvRes.quantity},訂單 ${orderItemShipGrpInvRes.orderId}、訂單細項 ${orderItemShipGrpInvRes.orderItemSeqId}、庫存細項 ${orderItemShipGrpInvRes.inventoryItemId}</value>
     </property>
+    <property key="ProductNotIssueOrderToShipmentShipGroupDestinationMismatch">
+        <value xml:lang="en">Not issuing Order Item Ship Group Inventory Reservation to shipment ${parameters.shipmentId} because ship group ${orderItemShipGrpInvRes.shipGroupSeqId} for order ${orderItemShipGrpInvRes.orderId} has a different destination than ship group ${shipment.primaryShipGroupSeqId} already associated with this shipment</value>
+    </property>
     <property key="ProductNotIssueToFixedAssetMaintQuantityLess">
         <value xml:lang="de">Füge Bestandsposition nicht zu Anlagegütern ${fixedAssetMaint.fixedAssetId:fixedAssetMaint.maintHistSeqId} hinzu da die Menge ${parameters.quantity} kleiner oder gleich 0 ist für Bestandsposition ${inventoryItem.inventoryItemId}</value>
         <value xml:lang="en">Not issuing InventoryItem to FixedAssetMaint ${fixedAssetMaint.fixedAssetId:fixedAssetMaint.maintHistSeqId} because the quantity to issue ${parameters.quantity} is less than or equal to 0 for inventoryItem ${inventoryItem.inventoryItemId}</value>

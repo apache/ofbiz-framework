@@ -18,19 +18,21 @@
  */
 package org.apache.ofbiz.accounting.accounting
 
-import org.apache.ofbiz.service.testtools.OFBizTestCase
+import org.apache.ofbiz.testtools.JunitJupiterTest
+import org.apache.ofbiz.testtools.JupiterTestHelper
 import org.apache.ofbiz.service.ServiceUtil
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.base.util.UtilDateTime
 
 import java.sql.Timestamp
+import org.junit.jupiter.api.Order
+import org.junit.jupiter.api.Test
 
-class RateTests extends OFBizTestCase {
+@JunitJupiterTest
+class RateTests implements JupiterTestHelper {
 
-    RateTests(String name) {
-        super(name)
-    }
-
+    @Test
+    @Order(1)
     void testExpirePartyRate() {
         Timestamp fromDate = UtilDateTime.toTimestamp('07/04/2013 00:00:00')
         Map serviceCtx = [
@@ -48,6 +50,8 @@ class RateTests extends OFBizTestCase {
         assert partyRate.thruDate
     }
 
+    @Test
+    @Order(2)
     void testUpdateRateAmount() {
         Timestamp fromDate = UtilDateTime.toTimestamp('04/07/2013 00:00:00')
         Map serviceCtx = [
@@ -69,6 +73,8 @@ class RateTests extends OFBizTestCase {
         assert rateAmount.rateAmount == 25
     }
 
+    @Test
+    @Order(3)
     void testGetRateAmount() {
         Map serviceCtx = [
                 rateTypeId: 'AVERAGE_PAY_RATE',
@@ -80,6 +86,8 @@ class RateTests extends OFBizTestCase {
         assert serviceResult.rateAmount == 75
     }
 
+    @Test
+    @Order(4)
     void testGetRatesAmountsFromWorkEffortId() {
         Map serviceCtx = [
                 periodTypeId: 'RATE_HOUR',
@@ -93,6 +101,8 @@ class RateTests extends OFBizTestCase {
         assert serviceResult.ratesList
     }
 
+    @Test
+    @Order(5)
     void testGetRatesAmountsFromPartyId() {
         Map serviceCtx = [
                 periodTypeId: 'RATE_HOUR',
@@ -106,6 +116,8 @@ class RateTests extends OFBizTestCase {
         assert serviceResult.ratesList != null
     }
 
+    @Test
+    @Order(6)
     void testGetRatesAmountsFromEmplPositionTypeId() {
         Map serviceCtx = [
                 periodTypeId: 'RATE_HOUR',
@@ -119,6 +131,8 @@ class RateTests extends OFBizTestCase {
         assert serviceResult.ratesList
     }
 
+    @Test
+    @Order(7)
     void testUpdatePartyRate() {
         Timestamp fromDate = UtilDateTime.toTimestamp('04/07/2013 00:00:00')
         Map serviceCtx = [
@@ -143,6 +157,8 @@ class RateTests extends OFBizTestCase {
         assert rateAmount.rateAmount == 75
     }
 
+    @Test
+    @Order(8)
     void testFilterRateAmountList() {
         List<GenericValue> amountList = from('RateAmount').where('rateTypeId', 'AVERAGE_PAY_RATE', 'rateCurrencyUomId', 'USD').queryList()
         Map serviceCtx = [
@@ -155,6 +171,8 @@ class RateTests extends OFBizTestCase {
         assert serviceResult.filteredRatesList
     }
 
+    @Test
+    @Order(9)
     void testExpireRateAmount() {
         Timestamp fromDate = UtilDateTime.toTimestamp('07/04/2013 00:00:00')
         Map serviceCtx = [

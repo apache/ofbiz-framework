@@ -30,6 +30,8 @@ import java.util.Locale;
 import java.util.Map;
 
 import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.GeneralException;
+import org.apache.ofbiz.base.util.ObjectType;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
@@ -65,17 +67,10 @@ public class BOMServices {
         Map<String, Object> result = new HashMap<>();
         Delegator delegator = dctx.getDelegator();
         String productId = (String) context.get("productId");
-        String fromDateStr = (String) context.get("fromDate");
         String bomType = (String) context.get("bomType");
         Locale locale = (Locale) context.get("locale");
+        Date fromDate = getDateValue(context.get("fromDate"), locale);
 
-        Date fromDate = null;
-        if (UtilValidate.isNotEmpty(fromDateStr)) {
-            try {
-                fromDate = Timestamp.valueOf(fromDateStr);
-            } catch (Exception e) {
-            }
-        }
         if (fromDate == null) {
             fromDate = new Date();
         }
@@ -303,7 +298,6 @@ public class BOMServices {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String productId = (String) context.get("productId");
-        String fromDateStr = (String) context.get("fromDate");
         String bomType = (String) context.get("bomType");
         Integer type = (Integer) context.get("type");
         BigDecimal quantity = (BigDecimal) context.get("quantity");
@@ -313,13 +307,7 @@ public class BOMServices {
             type = 0;
         }
 
-        Date fromDate = null;
-        if (UtilValidate.isNotEmpty(fromDateStr)) {
-            try {
-                fromDate = Timestamp.valueOf(fromDateStr);
-            } catch (Exception e) {
-            }
-        }
+        Date fromDate = getDateValue(context.get("fromDate"), locale);
         if (fromDate == null) {
             fromDate = new Date();
         }
@@ -340,6 +328,15 @@ public class BOMServices {
         result.put("tree", tree);
 
         return result;
+    }
+
+    private static Date getDateValue(Object dateValue, Locale locale) {
+        try {
+            Object convertedDate = ObjectType.simpleTypeOrObjectConvert(dateValue, "Timestamp", null, locale, false);
+            return convertedDate instanceof Timestamp ? (Timestamp) convertedDate : null;
+        } catch (GeneralException e) {
+            return null;
+        }
     }
 
     /** It reads the product's bill of materials,

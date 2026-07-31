@@ -463,8 +463,10 @@ under the License.
                     </screenlet>
                     <section>
                         <actions>
-                            <entity-and entity-name="CommunicationEvent" list="commEvents">
+                            <set field="parameters.sortField" from-field="parameters.sortField" default-value="-entryDate"/>
+                            <entity-and entity-name="CommunicationEventAndRole" list="commEvents">
                                 <field-map field-name="parentCommEventId" from-field="parameters.communicationEventId"/>
+                                <order-by field-name="${parameters.sortField}"/>
                             </entity-and>
                         </actions>
                         <widgets>

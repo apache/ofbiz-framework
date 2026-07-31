@@ -21,14 +21,16 @@ package org.apache.ofbiz.accounting.accounting
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.service.ServiceUtil
-import org.apache.ofbiz.service.testtools.OFBizTestCase
+import org.apache.ofbiz.testtools.JunitJupiterTest
+import org.apache.ofbiz.testtools.JupiterTestHelper
+import org.junit.jupiter.api.Order
+import org.junit.jupiter.api.Test
 
-class AutoAcctgFixedAssetTests extends OFBizTestCase {
+@JunitJupiterTest
+class AutoAcctgFixedAssetTests implements JupiterTestHelper {
 
-    AutoAcctgFixedAssetTests(String name) {
-        super(name)
-    }
-
+    @Test
+    @Order(1)
     void testCreateFixedAssetMaint() {
         Map serviceCtx = [
                 fixedAssetId: '1000',
@@ -46,6 +48,8 @@ class AutoAcctgFixedAssetTests extends OFBizTestCase {
         assert fixedAssetMaint.maintHistSeqId != null
     }
 
+    @Test
+    @Order(2)
     void testCreateFixedAssetMeter() {
         Map serviceCtx = [
                    fixedAssetId: '1000',
@@ -63,6 +67,8 @@ class AutoAcctgFixedAssetTests extends OFBizTestCase {
         assert fixedAssetMeter.meterValue == BigDecimal.TEN
     }
 
+    @Test
+    @Order(3)
     void testCancelFixedAssetStdCost() {
         Map serviceCtx = [
                         fixedAssetId: '1000',

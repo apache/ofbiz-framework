@@ -19,14 +19,16 @@
 package org.apache.ofbiz.product.product.test
 
 import org.apache.ofbiz.service.ServiceUtil
-import org.apache.ofbiz.service.testtools.OFBizTestCase
+import org.apache.ofbiz.testtools.JunitJupiterTest
+import org.apache.ofbiz.testtools.JupiterTestHelper
+import org.junit.jupiter.api.Order
+import org.junit.jupiter.api.Test
 
-class InventoryTests extends OFBizTestCase {
+@JunitJupiterTest
+class InventoryTests implements JupiterTestHelper {
 
-    InventoryTests(String name) {
-        super(name)
-    }
-
+    @Test
+    @Order(1)
     void testGetInventoryAvailableByFacility() {
         Map serviceCtx = [
                 productId: 'GZ-2644',
@@ -40,6 +42,8 @@ class InventoryTests extends OFBizTestCase {
     }
 
     // Test Physical Inventory Adjustment
+    @Test
+    @Order(2)
     void testCreatePhysicalInventoryAndVariance() {
         Map serviceCtx = [
                 inventoryItemId: '9024',

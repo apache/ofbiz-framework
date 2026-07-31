@@ -20,14 +20,14 @@ package org.apache.ofbiz.accounting.accounting
 
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.service.ServiceUtil
-import org.apache.ofbiz.service.testtools.OFBizTestCase
+import org.apache.ofbiz.testtools.JunitJupiterTest
+import org.apache.ofbiz.testtools.JupiterTestHelper
+import org.junit.jupiter.api.Test
 
-class AutoAcctgPaymentGatewayTests extends OFBizTestCase {
+@JunitJupiterTest
+class AutoAcctgPaymentGatewayTests implements JupiterTestHelper {
 
-    AutoAcctgPaymentGatewayTests(String name) {
-        super(name)
-    }
-
+    @Test
     void testUpdatePaymentGatewayConfig() {
         Map serviceCtx = [:]
         serviceCtx.paymentGatewayConfigId = 'TEST_GATEWAY_CONFIG'

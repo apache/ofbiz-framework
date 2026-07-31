@@ -89,6 +89,31 @@ under the License.
         </xs:attribute>
     </xs:attributeGroup>
 
+    <xs:element name="jupiter-test-suite" substitutionGroup="TestCaseTypes">
+        <xs:annotation>
+            <xs:documentation>
+                Used for JUnit 5 (Jupiter) test classes, run through the JUnit Platform Launcher and
+                reported through the same pipeline as junit-test-suite. Runs alongside junit-test-suite
+                test-cases in the same test-suite, sharing its Delegator/LocalDispatcher. Test classes
+                that need a real Delegator or LocalDispatcher should add
+                @ExtendWith(JupiterTestExtension.class) and declare them as method parameters.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:attributeGroup ref="attlist.jupiter-test-suite"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.jupiter-test-suite">
+        <xs:attribute type="xs:string" name="class-name" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    A plain JUnit 5 Jupiter test class (no junit.framework.TestCase inheritance,
+                    no (String name) constructor - just @Test/@ParameterizedTest/@Disabled methods).
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:attributeGroup>
+
     <xs:element name="service-test" substitutionGroup="TestCaseTypes">
         <xs:complexType>
             <xs:attributeGroup ref="attlist.service-test"/>

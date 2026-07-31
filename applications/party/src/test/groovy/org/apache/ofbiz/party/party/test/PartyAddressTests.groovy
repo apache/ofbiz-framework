@@ -20,14 +20,16 @@ package org.apache.ofbiz.party.party.test
 
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.service.ServiceUtil
-import org.apache.ofbiz.service.testtools.OFBizTestCase
+import org.apache.ofbiz.testtools.JunitJupiterTest
+import org.apache.ofbiz.testtools.JupiterTestHelper
+import org.junit.jupiter.api.Order
+import org.junit.jupiter.api.Test
 
-class PartyAddressTests extends OFBizTestCase {
+@JunitJupiterTest
+class PartyAddressTests implements JupiterTestHelper {
 
-    PartyAddressTests(String name) {
-        super(name)
-    }
-
+    @Test
+    @Order(1)
     void testCreateContactMech() {
         Map serviceCtx = [
                 contactMechId: 'TestEmailConactMech',
@@ -43,6 +45,8 @@ class PartyAddressTests extends OFBizTestCase {
         assert contactMech.infoString == 'test_email@example.com'
     }
 
+    @Test
+    @Order(2)
     void testCreateEmailAddress() {
         Map serviceCtx = [
                 emailAddress: 'test.email123@example.com',
@@ -56,6 +60,8 @@ class PartyAddressTests extends OFBizTestCase {
         assert contactMech.infoString == 'test.email123@example.com'
     }
 
+    @Test
+    @Order(3)
     void testCreatePartyContactMech() {
         Map serviceCtx = [
                 contactMechId: 'TestContactMech3',
@@ -73,6 +79,11 @@ class PartyAddressTests extends OFBizTestCase {
         assert partyContactMech
     }
 
+    @Test
+    // Must run after testExpirePartyContactMechPurpose: that test expires the fixture's active
+    // PRIMARY_EMAIL purpose for this contactMechId, which this test needs already expired -
+    // otherwise createPartyContactMechPurpose fails ("a purpose with that type already exists").
+    @Order(9)
     void testCreatePartyContactMechPurpose() {
         Map serviceCtx = [
                 partyId: 'TestCustomer',
@@ -97,6 +108,8 @@ class PartyAddressTests extends OFBizTestCase {
         assert partyContactMechPurpose
     }
 
+    @Test
+    @Order(5)
     void testCreatePartyDataSource() {
         Map serviceCtx = [
                 partyId: 'TestCustomer',
@@ -113,6 +126,8 @@ class PartyAddressTests extends OFBizTestCase {
         assert partyDataSource
     }
 
+    @Test
+    @Order(6)
     void testCreatePartyEmailAddress() {
         Map serviceCtx = [
                 partyId: 'TestCustomer',
@@ -127,6 +142,8 @@ class PartyAddressTests extends OFBizTestCase {
         assert contactMech.infoString == 'test.email1234@example.com'
     }
 
+    @Test
+    @Order(7)
     void testCreatePostalAddress() {
         Map serviceCtx = [
                 toName: 'Test Address',
@@ -147,6 +164,8 @@ class PartyAddressTests extends OFBizTestCase {
         assert postalAddress.postalCode == '90000'
     }
 
+    @Test
+    @Order(8)
     void testCreateTelecomNumber() {
         Map serviceCtx = [
                 contactMechId: 'TestTelecomNumber',
@@ -163,6 +182,8 @@ class PartyAddressTests extends OFBizTestCase {
         assert telecomNumber.contactNumber == '1111111'
     }
 
+    @Test
+    @Order(4)
     void testExpirePartyContactMechPurpose() {
         Map serviceCtx = [
                 partyId: 'TestCustomer',
@@ -188,6 +209,8 @@ class PartyAddressTests extends OFBizTestCase {
         assert partyContactMechPurpose.thruDate != null
     }
 
+    @Test
+    @Order(10)
     void testGetPartyEmail() {
         Map serviceCtx = [
                 partyId: 'TestCustomer',
@@ -200,6 +223,8 @@ class PartyAddressTests extends OFBizTestCase {
         assert serviceResult.contactMechId
     }
 
+    @Test
+    @Order(11)
     void testGetPartyPostalAddress() {
         Map serviceCtx = [
                 partyId: 'TestCustomer',
@@ -213,6 +238,8 @@ class PartyAddressTests extends OFBizTestCase {
         assert serviceResult.contactMechId
     }
 
+    @Test
+    @Order(12)
     void testGetPartyTelephone() {
         Map serviceCtx = [
                 partyId: 'TestCustomer',
@@ -225,6 +252,8 @@ class PartyAddressTests extends OFBizTestCase {
         assert serviceResult.contactMechId
     }
 
+    @Test
+    @Order(13)
     void testUpdateContactMech() {
         Map serviceCtx = [
                 contactMechId: 'TestContactMech',
@@ -240,6 +269,8 @@ class PartyAddressTests extends OFBizTestCase {
         assert contactMech.infoString == 'demo_email@example.com'
     }
 
+    @Test
+    @Order(14)
     void testUpdateEmailAddress() {
         Map serviceCtx = [
                 contactMechId: 'TestContactMech',
@@ -254,6 +285,8 @@ class PartyAddressTests extends OFBizTestCase {
         assert contactMech.infoString == 'test.email123@example.com'
     }
 
+    @Test
+    @Order(15)
     void testUpdatePartyEmailAddress() {
         Map serviceCtx = [
                 partyId: 'TestCustomer',
@@ -269,6 +302,8 @@ class PartyAddressTests extends OFBizTestCase {
         assert contactMech.infoString == 'test.email12345@example.com'
     }
 
+    @Test
+    @Order(16)
     void testUpdatePartyGroup() {
         Map serviceCtx = [
                 partyId: 'TestGroup-1',
@@ -285,6 +320,8 @@ class PartyAddressTests extends OFBizTestCase {
         assert partyGroup.logoImageUrl == '/images/ofbiz_logo.png'
     }
 
+    @Test
+    @Order(17)
     void testUpdatePartyPostalAddress() {
         Map serviceCtx = [
                 contactMechId: 'TestPostalAdd2',
@@ -307,6 +344,8 @@ class PartyAddressTests extends OFBizTestCase {
         assert postalAddress.postalCode == '90000'
     }
 
+    @Test
+    @Order(18)
     void testUpdatePartyTelecomNumber() {
         Map serviceCtx = [
                 partyId: 'TestCustomer',
@@ -324,6 +363,8 @@ class PartyAddressTests extends OFBizTestCase {
         assert telecomNumber.contactNumber == '1111111'
     }
 
+    @Test
+    @Order(19)
     void testUpdatePerson() {
         Map serviceCtx = [
                 partyId: 'TestCustomer',
@@ -340,6 +381,8 @@ class PartyAddressTests extends OFBizTestCase {
         assert person.lastName == 'Person'
     }
 
+    @Test
+    @Order(20)
     void testUpdatePostalAddress() {
         Map serviceCtx = [
                 contactMechId: 'TestPostalAdd1',
@@ -362,6 +405,8 @@ class PartyAddressTests extends OFBizTestCase {
         assert serviceResult.contactMechId != serviceResult.oldContactMechId
     }
 
+    @Test
+    @Order(21)
     void testUpdatePostalAddressAndPurposes() {
         Map serviceCtx = [
                 partyId: 'TestCustomer',
@@ -385,6 +430,8 @@ class PartyAddressTests extends OFBizTestCase {
         assert postalAddress.postalCode == '90000'
     }
 
+    @Test
+    @Order(22)
     void testUpdateTelecomNumber() {
         Map serviceCtx = [
                 contactMechId: 'TestContactMech1',

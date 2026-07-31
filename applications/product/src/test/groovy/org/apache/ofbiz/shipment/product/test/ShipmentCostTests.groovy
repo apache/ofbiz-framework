@@ -19,13 +19,13 @@
 package org.apache.ofbiz.product.shipment.test
 
 import org.apache.ofbiz.service.ServiceUtil
-import org.apache.ofbiz.service.testtools.OFBizTestCase
+import org.apache.ofbiz.testtools.JunitJupiterTest
+import org.apache.ofbiz.testtools.JupiterTestHelper
+import org.junit.jupiter.api.Order
+import org.junit.jupiter.api.Test
 
-class ShipmentCostTests extends OFBizTestCase {
-
-    ShipmentCostTests(String name) {
-        super(name)
-    }
+@JunitJupiterTest
+class ShipmentCostTests implements JupiterTestHelper {
 
     /**
      * ShipmentCostEstimates from ShipmentCostTestData.xml
@@ -68,6 +68,8 @@ class ShipmentCostTests extends OFBizTestCase {
 
      */
 
+    @Test
+    @Order(1)
     void testCalculateSimpleShipmentCostFlatValue() {
         Map serviceCtx = [
                 shippableItemInfo: [[:]],
@@ -86,6 +88,8 @@ class ShipmentCostTests extends OFBizTestCase {
         assert resultMap.shippingEstimateAmount == 10d
     }
 
+    @Test
+    @Order(2)
     void testCalculateSimpleShipmentCostPercentValue() {
         Map serviceCtx = [
                 shippableItemInfo: [[:]],
@@ -104,6 +108,8 @@ class ShipmentCostTests extends OFBizTestCase {
         assert resultMap.shippingEstimateAmount == 0.4d
     }
 
+    @Test
+    @Order(3)
     void testCalculateWeightBreakShipmentCostFlatValue() {
         Map serviceCtx = [
                 shippableItemInfo: [[:]],
@@ -156,6 +162,8 @@ class ShipmentCostTests extends OFBizTestCase {
         assert resultMap.shippingEstimateAmount as Double == 11d
     }
 
+    @Test
+    @Order(4)
     void testCalculateQuantityBreakShipmentCostFlatValue() {
         Map serviceCtx = [
                 shippableItemInfo: [[:]],
@@ -206,6 +214,8 @@ class ShipmentCostTests extends OFBizTestCase {
         assert resultMap.shippingEstimateAmount as Double == 14d
     }
 
+    @Test
+    @Order(5)
     void testCalculatePriceBreakShipmentCostFlatValue() {
         Map serviceCtx = [
                 shippableItemInfo: [[:]],
@@ -256,6 +266,8 @@ class ShipmentCostTests extends OFBizTestCase {
         assert resultMap.shippingEstimateAmount as Double == 17d
     }
 
+    @Test
+    @Order(6)
     void testCalculatePriceAndWeightBreakShipmentCostFlatValue() {
         Map serviceCtx = [
                 shippableItemInfo: [[:]],
@@ -322,6 +334,8 @@ class ShipmentCostTests extends OFBizTestCase {
         assert resultMap.shippingEstimateAmount as Double == 21d
     }
 
+    @Test
+    @Order(7)
     void testPriceBreakOverRangeAndFailedShipmentCost() {
         Map serviceCtx = [
                 shippableItemInfo: [[:]],
@@ -339,6 +353,8 @@ class ShipmentCostTests extends OFBizTestCase {
         assert ServiceUtil.isFailure(resultMap)
     }
 
+    @Test
+    @Order(8)
     void testCalculateMultipleWithPartyShipmentCostFlatValue() {
         Map serviceCtx = [
                 shippableItemInfo: [[:]],
@@ -358,6 +374,8 @@ class ShipmentCostTests extends OFBizTestCase {
         assert resultMap.shippingEstimateAmount as Double == 1d
     }
 
+    @Test
+    @Order(9)
     void testCalculateMultipleWithBreakShipmentCostFlatValue() {
         Map serviceCtx = [
                 shippableItemInfo: [[:]],

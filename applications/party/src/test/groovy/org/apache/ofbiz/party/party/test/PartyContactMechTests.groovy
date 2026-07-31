@@ -22,14 +22,16 @@ import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.party.party.PartyWorker
 import org.apache.ofbiz.service.ModelService
 import org.apache.ofbiz.service.ServiceUtil
-import org.apache.ofbiz.service.testtools.OFBizTestCase
+import org.apache.ofbiz.testtools.JunitJupiterTest
+import org.apache.ofbiz.testtools.JupiterTestHelper
+import org.junit.jupiter.api.Order
+import org.junit.jupiter.api.Test
 
-class PartyContactMechTests extends OFBizTestCase {
+@JunitJupiterTest
+class PartyContactMechTests implements JupiterTestHelper {
 
-    PartyContactMechTests(String name) {
-        super(name)
-    }
-
+    @Test
+    @Order(1)
     void testUpdatePartyEmailAddress() {
         String partyId = 'DemoCustomer'
         String contactMechTypeId = 'EMAIL_ADDRESS'
@@ -72,6 +74,8 @@ class PartyContactMechTests extends OFBizTestCase {
         assert contactMech.infoString == serviceCtx.emailAddress
     }
 
+    @Test
+    @Order(2)
     void testUpdatePartyTelecomNumber() {
         String partyId = 'DemoCustomer'
 
@@ -126,6 +130,8 @@ class PartyContactMechTests extends OFBizTestCase {
         assert telecomNumber.contactNumber == serviceCtx.contactNumber
     }
 
+    @Test
+    @Order(3)
     void testUpdatePartyPostalAddress() {
         String partyId = 'DemoCustomer'
 
@@ -179,6 +185,8 @@ class PartyContactMechTests extends OFBizTestCase {
         assert postalAddress.postalCode == serviceCtx.postalCode
     }
 
+    @Test
+    @Order(4)
     void testCreatePartyEmailAddress() {
         String partyId = 'DemoEmployee'
         String emailAddress = 'demo.employee@gmail.com'
@@ -217,6 +225,8 @@ class PartyContactMechTests extends OFBizTestCase {
         assert contactMechPurposeTypeId == partyContactMechPurpose.contactMechPurposeTypeId
     }
 
+    @Test
+    @Order(5)
     void testCreatePartyTelecomNumber() {
         String partyId = 'DemoEmployee'
         String areaCode = '801'
@@ -260,6 +270,8 @@ class PartyContactMechTests extends OFBizTestCase {
         assert contactMechPurposeTypeId == partyContactMechPurpose.contactMechPurposeTypeId
     }
 
+    @Test
+    @Order(6)
     void testCreateUpdatePartyTelecomNumberWithCreate() {
         String partyId = 'DemoCustomer'
         String contactMechPurposeTypeId = 'PHONE_WORK'
@@ -306,6 +318,8 @@ class PartyContactMechTests extends OFBizTestCase {
         assert contactMechPurposeTypeId == partyContactMechPurpose.contactMechPurposeTypeId
     }
 
+    @Test
+    @Order(7)
     void testCreateUpdatePartyTelecomNumberWithUpdate() {
         String partyId = 'DemoCustomer'
         String contactMechPurposeTypeId = 'PHONE_HOME'
@@ -355,6 +369,8 @@ class PartyContactMechTests extends OFBizTestCase {
         assert partyContactMechPurpose
     }
 
+    @Test
+    @Order(8)
     void testCreateUpdatePartyEmailAddressWithCreate() {
         String partyId = 'DemoCustomer'
         String contactMechPurposeTypeId = 'PRIMARY_EMAIL'
@@ -389,6 +405,8 @@ class PartyContactMechTests extends OFBizTestCase {
         assert partyContactMechPurpose
     }
 
+    @Test
+    @Order(9)
     void testCreateUpdatePartyEmailAddressWithUpdate() {
         String partyId = 'DemoCustomer'
         String contactMechPurposeTypeId = 'PRIMARY_EMAIL'

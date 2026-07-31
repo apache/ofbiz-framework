@@ -21,14 +21,16 @@ package org.apache.ofbiz.accounting.accounting
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.service.ServiceUtil
-import org.apache.ofbiz.service.testtools.OFBizTestCase
+import org.apache.ofbiz.testtools.JunitJupiterTest
+import org.apache.ofbiz.testtools.JupiterTestHelper
+import org.junit.jupiter.api.Order
+import org.junit.jupiter.api.Test
 
-class AutoAcctgFinAccountTests extends OFBizTestCase {
+@JunitJupiterTest
+class AutoAcctgFinAccountTests implements JupiterTestHelper {
 
-    AutoAcctgFinAccountTests(String name) {
-        super(name)
-    }
-
+    @Test
+    @Order(1)
     void testCreateFinAccount() {
         Map serviceCtx = [
                 finAccountId: '1000',
@@ -49,6 +51,8 @@ class AutoAcctgFinAccountTests extends OFBizTestCase {
         assert finAccount.finAccountCode == '1000'
     }
 
+    @Test
+    @Order(2)
     void testUpdateFinAccount() {
         Map serviceCtx = [
                 finAccountId: '1001',
@@ -65,6 +69,8 @@ class AutoAcctgFinAccountTests extends OFBizTestCase {
         assert finAccount.organizationPartyId == 'DEMO_COMPANY2'
     }
 
+    @Test
+    @Order(3)
     void testDeleteFinAccount() {
         Map serviceCtx = [
                 finAccountId: '1002',
@@ -79,6 +85,8 @@ class AutoAcctgFinAccountTests extends OFBizTestCase {
         assert finAccount.thruDate != null
     }
 
+    @Test
+    @Order(4)
     void testCreateFinAccountRole() {
         Map serviceCtx = [
                 finAccountId: '1003',
@@ -97,6 +105,8 @@ class AutoAcctgFinAccountTests extends OFBizTestCase {
         assert finAccountRole
     }
 
+    @Test
+    @Order(5)
     void testUpdateFinAccountRole() {
         Map serviceCtx = [
                 finAccountId: '1004',
@@ -116,6 +126,8 @@ class AutoAcctgFinAccountTests extends OFBizTestCase {
         assert finAccountRole.thruDate != null
     }
 
+    @Test
+    @Order(6)
     void testDeleteFinAccountRole() {
         Map serviceCtx = [
                 finAccountId: '1004',
@@ -133,6 +145,8 @@ class AutoAcctgFinAccountTests extends OFBizTestCase {
         assert finAccountRole == null
     }
 
+    @Test
+    @Order(7)
     void testCreateFinAccountTrans() {
         Map serviceCtx = [
                 finAccountId: '1003',
@@ -148,6 +162,8 @@ class AutoAcctgFinAccountTests extends OFBizTestCase {
         assert finAccountTran
     }
 
+    @Test
+    @Order(8)
     void testCreateFinAccountStatus() {
         Map serviceCtx = [
                 finAccountId: '1003',
@@ -164,6 +180,8 @@ class AutoAcctgFinAccountTests extends OFBizTestCase {
         assert finAccountStatus
     }
 
+    @Test
+    @Order(9)
     void testCreateFinAccountAuth() {
         Map serviceCtx = [
                 finAccountId: '1004',
@@ -178,6 +196,8 @@ class AutoAcctgFinAccountTests extends OFBizTestCase {
         assert serviceResult.finAccountAuthId != null
     }
 
+    @Test
+    @Order(10)
     void testSetFinAccountTransStatus() {
         Map serviceCtx = [
                 finAccountTransId: '1010',

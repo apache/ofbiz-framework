@@ -25,19 +25,21 @@ import org.apache.ofbiz.order.shoppingcart.ShoppingCart
 import org.apache.ofbiz.order.shoppingcart.ShoppingCartItem
 import org.apache.ofbiz.order.shoppingcart.product.ProductPromoWorker.ActionResultInfo
 import org.apache.ofbiz.service.ServiceUtil
-import org.apache.ofbiz.service.testtools.OFBizTestCase
+import org.apache.ofbiz.testtools.JunitJupiterTest
+import org.apache.ofbiz.testtools.JupiterTestHelper
+import org.junit.jupiter.api.Order
+import org.junit.jupiter.api.Test
 
-class ProductPromoActionTests extends OFBizTestCase {
-
-    ProductPromoActionTests(String name) {
-        super(name)
-    }
+@JunitJupiterTest
+class ProductPromoActionTests implements JupiterTestHelper {
 
     /**
      * This test check if the function productTaxPercent work correctly
      *  1. test failed with passing non valid value
      *  2. test success if the tax percent promo is set for tax percent
      */
+    @Test
+    @Order(1)
     void testActionProductTaxPercent() {
         ShoppingCart cart = loadOrder('DEMO10090')
 
@@ -73,6 +75,8 @@ class ProductPromoActionTests extends OFBizTestCase {
      *  1. test failed with passing non valid value
      *  2. test success if the ship charge promo is set for the shipping amount
      */
+    @Test
+    @Order(2)
     void testProductShipCharge() {
         ShoppingCart cart = loadOrder('DEMO10090')
 
@@ -100,6 +104,8 @@ class ProductPromoActionTests extends OFBizTestCase {
      *  1. test failed with passing non valid value
      *  2. test success if the special price is set
      */
+    @Test
+    @Order(3)
     void testProductSpecialPrice() {
         ShoppingCart cart = loadOrder('DEMO10091')
 
@@ -133,6 +139,8 @@ class ProductPromoActionTests extends OFBizTestCase {
      * This test check if the function ProductOrderAmount work correctly
      *  1. test success if the order amount off is set
      */
+    @Test
+    @Order(4)
     void testProductOrderAmount() {
         ShoppingCart cart = loadOrder('DEMO10090')
 
@@ -155,6 +163,8 @@ class ProductPromoActionTests extends OFBizTestCase {
      *  1. test success if the order percent off promo is set
      *  2. test failed with passing non valid value
      */
+    @Test
+    @Order(5)
     void testProductOrderPercent() {
         ShoppingCart cart = loadOrder('DEMO10090')
 
@@ -196,6 +206,8 @@ class ProductPromoActionTests extends OFBizTestCase {
      *  1. test failed with passing non valid value
      *  2. test success if promo is applied
      */
+    @Test
+    @Order(6)
     void testProductPrice() {
         ShoppingCart cart = loadOrder('DEMO10090')
 
@@ -232,6 +244,8 @@ class ProductPromoActionTests extends OFBizTestCase {
      *  1. test success if promo is applied
      *  2. test failed with passing already applied promo
      */
+    @Test
+    @Order(7)
     void testProductAMDISC() {
         ShoppingCart cart = loadOrder('DEMO10090')
 
@@ -261,6 +275,8 @@ class ProductPromoActionTests extends OFBizTestCase {
      *  1. test success if promo is applied
      *  2. test failed with passing already applied promo
      */
+    @Test
+    @Order(8)
     void testProductDISC() {
         ShoppingCart cart = loadOrder('DEMO10090')
 
@@ -290,6 +306,8 @@ class ProductPromoActionTests extends OFBizTestCase {
      *  1. test failed with passing non valid value
      *  2. test success if gift with purchase promo is set for order
      */
+    @Test
+    @Order(9)
     void testProductGWP() {
         ShoppingCart cart = loadOrder('DEMO10090')
 
@@ -319,6 +337,8 @@ class ProductPromoActionTests extends OFBizTestCase {
      *  1. test success if the free shipping promo is set for tax percent
      *  2. don't need to make false test because this fonction doesn't need condition
      */
+    @Test
+    @Order(10)
     void testFreeShippingAct() {
         ShoppingCart cart = loadOrder('DEMO10090')
 

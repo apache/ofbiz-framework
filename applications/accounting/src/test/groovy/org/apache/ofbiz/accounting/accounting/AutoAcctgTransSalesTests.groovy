@@ -21,15 +21,17 @@ package org.apache.ofbiz.accounting.accounting
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.util.EntityUtil
 import org.apache.ofbiz.service.ServiceUtil
-import org.apache.ofbiz.service.testtools.OFBizTestCase
+import org.apache.ofbiz.testtools.JunitJupiterTest
+import org.apache.ofbiz.testtools.JupiterTestHelper
+import org.junit.jupiter.api.Order
+import org.junit.jupiter.api.Test
 
-class AutoAcctgTransSalesTests extends OFBizTestCase {
-
-    AutoAcctgTransSalesTests(String name) {
-        super(name)
-    }
+@JunitJupiterTest
+class AutoAcctgTransSalesTests implements JupiterTestHelper {
 
     // Test case for Accounting Transaction on Sales
+    @Test
+    @Order(1)
     void testAcctgTransForSalesOrderShipments() {
         /*
             Precondition :
@@ -86,6 +88,8 @@ class AutoAcctgTransSalesTests extends OFBizTestCase {
         }
     }
 
+    @Test
+    @Order(2)
     void testAcctgTransOnSalesInvoice() {
         /*
             Precondition:
@@ -169,6 +173,8 @@ class AutoAcctgTransSalesTests extends OFBizTestCase {
         assert accountsReceivableEntries
     }
 
+    @Test
+    @Order(3)
     void testAcctgTransOnPaymentReceivedFromCustomer() {
         /*
             Precondition :-

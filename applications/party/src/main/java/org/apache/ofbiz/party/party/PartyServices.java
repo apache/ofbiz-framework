@@ -2296,7 +2296,7 @@ public class PartyServices {
         ByteBuffer fileBytes = (ByteBuffer) context.get("uploadedFile");
         String encoding = System.getProperty("file.encoding");
         String csvString = Charset.forName(encoding).decode(fileBytes).toString();
-        Builder csvFormatBuilder = Builder.create().setHeader();
+        Builder csvFormatBuilder = Builder.create().setHeader().setAllowMissingColumnNames(true);
         CSVFormat fmt = csvFormatBuilder.get();
         List<String> errMsgs = new LinkedList<>();
         List<String> newErrMsgs = new LinkedList<>();
