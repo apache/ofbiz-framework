@@ -21,14 +21,16 @@ package org.apache.ofbiz.content.content
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.service.ServiceUtil
-import org.apache.ofbiz.service.testtools.OFBizTestCase
+import org.apache.ofbiz.testtools.JunitJupiterTest
+import org.apache.ofbiz.testtools.JupiterTestHelper
+import org.junit.jupiter.api.Order
+import org.junit.jupiter.api.Test
 
-class ContentTests extends OFBizTestCase {
+@JunitJupiterTest
+class ContentTests implements JupiterTestHelper {
 
-    ContentTests(String name) {
-        super(name)
-    }
-
+    @Test
+    @Order(1)
     void testGetDataResource() {
         Map serviceCtx = [:]
         serviceCtx.dataResourceId = 'TEST_RESOURCE'
@@ -39,6 +41,8 @@ class ContentTests extends OFBizTestCase {
         assert serviceResult.resultData.dataResource.dataResourceTypeId == 'TEST_RESOURCE_TYPE'
     }
 
+    @Test
+    @Order(2)
     void testCreateDataCategory() {
         Map serviceCtx = [:]
         serviceCtx.dataCategoryId = 'TEST_DATA_CATEGORY_1'
@@ -54,6 +58,8 @@ class ContentTests extends OFBizTestCase {
         assert dataCategory.categoryName == 'Test Data Category 1'
     }
 
+    @Test
+    @Order(3)
     void testUpdateDataCategory() {
         Map serviceCtx = [:]
         serviceCtx.dataCategoryId = 'TEST_DATA_CATEGORY_2'
@@ -80,6 +86,8 @@ class ContentTests extends OFBizTestCase {
         assert dataCategory
     }
 
+    @Test
+    @Order(4)
     void testDeleteDataCategory() {
         Map serviceCtx = [:]
         serviceCtx.dataCategoryId = 'TEST_DATA_CATEGORY_3'
@@ -100,6 +108,8 @@ class ContentTests extends OFBizTestCase {
         assert !dataCategory
     }
 
+    @Test
+    @Order(5)
     void testCreateDataResourceRole() {
         Map serviceCtx = [:]
         serviceCtx.dataResourceId = 'TEST_DATA_RESOURCE_1'
@@ -120,6 +130,8 @@ class ContentTests extends OFBizTestCase {
         assert dataResourceRole
     }
 
+    @Test
+    @Order(6)
     void testUpdateDataResourceRole() {
         Map serviceCtx = [:]
         serviceCtx.dataResourceId = 'TEST_DATA_RESOURCE_2'
@@ -150,6 +162,8 @@ class ContentTests extends OFBizTestCase {
         assert dataResourceRole.thruDate
     }
 
+    @Test
+    @Order(7)
     void testRemoveDataResourceRole() {
         Map serviceCtx = [:]
         serviceCtx.dataResourceId = 'TEST_DATA_RESOURCE_3'
@@ -177,6 +191,8 @@ class ContentTests extends OFBizTestCase {
         assert !dataResourceRole
     }
 
+    @Test
+    @Order(8)
     void testGetContent() {
         Map serviceCtx = [:]
         serviceCtx.contentId = 'TEST_CONTENT4'

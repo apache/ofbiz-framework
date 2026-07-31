@@ -20,14 +20,16 @@ package org.apache.ofbiz.product.product.test
 
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.service.ServiceUtil
-import org.apache.ofbiz.service.testtools.OFBizTestCase
+import org.apache.ofbiz.testtools.JunitJupiterTest
+import org.apache.ofbiz.testtools.JupiterTestHelper
+import org.junit.jupiter.api.Order
+import org.junit.jupiter.api.Test
 
-class CostTests extends OFBizTestCase {
+@JunitJupiterTest
+class CostTests implements JupiterTestHelper {
 
-    CostTests(String name) {
-        super(name)
-    }
-
+    @Test
+    @Order(1)
     void testCalculateProductStandardCosts() {
         String productId = 'PROD_MANUF'
         Map serviceCtx = [
@@ -63,6 +65,8 @@ class CostTests extends OFBizTestCase {
         assert costTotalAmount == 84
     }
 
+    @Test
+    @Order(2)
     void testGetProductCost() {
         String productId = 'PROD_MANUF'
         Map serviceCtx = [

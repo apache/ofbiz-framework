@@ -20,14 +20,16 @@ package org.apache.ofbiz.accounting.accounting
 
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.service.ServiceUtil
-import org.apache.ofbiz.service.testtools.OFBizTestCase
+import org.apache.ofbiz.testtools.JunitJupiterTest
+import org.apache.ofbiz.testtools.JupiterTestHelper
+import org.junit.jupiter.api.Order
+import org.junit.jupiter.api.Test
 
-class AutoAcctgAgreementTests extends OFBizTestCase {
+@JunitJupiterTest
+class AutoAcctgAgreementTests implements JupiterTestHelper {
 
-    AutoAcctgAgreementTests(String name) {
-        super(name)
-    }
-
+    @Test
+    @Order(1)
     void testAddPaymentMethodTypeGlAssignment() {
         Map serviceCtx = [
                 agreementId: '1000',
@@ -43,6 +45,8 @@ class AutoAcctgAgreementTests extends OFBizTestCase {
         assert agreement == null
     }
 
+    @Test
+    @Order(2)
     void testCopyAgreement() {
         Map serviceCtx = [
                 agreementId: '1010',
@@ -66,6 +70,8 @@ class AutoAcctgAgreementTests extends OFBizTestCase {
         assert agreementProductAppls
     }
 
+    @Test
+    @Order(3)
     void testGetCommissionForProduct() {
         Map serviceCtx = [
                 productId: 'TestProduct2',

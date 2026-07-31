@@ -21,16 +21,18 @@ package org.apache.ofbiz.product.product.test
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.service.ServiceUtil
-import org.apache.ofbiz.service.testtools.OFBizTestCase
+import org.apache.ofbiz.testtools.JunitJupiterTest
+import org.apache.ofbiz.testtools.JupiterTestHelper
 
 import java.sql.Timestamp
+import org.junit.jupiter.api.Order
+import org.junit.jupiter.api.Test
 
-class GroupOrderTests extends OFBizTestCase {
+@JunitJupiterTest
+class GroupOrderTests implements JupiterTestHelper {
 
-    GroupOrderTests(String name) {
-        super(name)
-    }
-
+    @Test
+    @Order(1)
     void testGroupOrderLimitReached() {
         GenericValue systemUserLogin = from('UserLogin').where('userLoginId', 'system').queryOne()
         GenericValue adminUserLogin = from('UserLogin').where('userLoginId', 'admin').queryOne()
@@ -73,6 +75,8 @@ class GroupOrderTests extends OFBizTestCase {
         assert orderItem.statusId == 'ITEM_APPROVED'
     }
 
+    @Test
+    @Order(2)
     void testGroupOrderLimitNotReached() {
         GenericValue systemUserLogin = from('UserLogin').where('userLoginId', 'system').queryOne()
         GenericValue adminUserLogin = from('UserLogin').where('userLoginId', 'admin').queryOne()

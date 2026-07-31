@@ -27,14 +27,16 @@ import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.order.shoppingcart.ShoppingCart
 import org.apache.ofbiz.service.ServiceUtil
-import org.apache.ofbiz.service.testtools.OFBizTestCase
+import org.apache.ofbiz.testtools.JunitJupiterTest
+import org.apache.ofbiz.testtools.JupiterTestHelper
+import org.junit.jupiter.api.Order
+import org.junit.jupiter.api.Test
 
-class QuoteTests extends OFBizTestCase {
+@JunitJupiterTest
+class QuoteTests implements JupiterTestHelper {
 
-    QuoteTests(String name) {
-        super(name)
-    }
-
+    @Test
+    @Order(1)
     void testCreateQuoteWorkEffort() {
         GenericValue userLogin = getUserLogin('DemoRepStore')
 
@@ -55,6 +57,8 @@ class QuoteTests extends OFBizTestCase {
     // Test case for unsuccessfully creating a QuoteWorkEffort record by attempting
     // to use a quoteId and workEffortId that has already been used in an existing
     // QuoteWorkEffortRecord.
+    @Test
+    @Order(2)
     void testCreateQuoteWorkEffortFail() {
         Timestamp startTime = UtilDateTime.nowTimestamp()
         GenericValue userLogin = getUserLogin('DemoRepStore')
@@ -83,6 +87,8 @@ class QuoteTests extends OFBizTestCase {
         assert !quoteWorkEffort
     }
 
+    @Test
+    @Order(3)
     void testCheckUpdateQuotestatus() {
         Map serviceCtx = [
                 userLogin: userLogin,
@@ -97,6 +103,8 @@ class QuoteTests extends OFBizTestCase {
 
     // Test case for calling createQuoteWorkEffort without a workEffortId which
     // triggers an ECA to create the WorkEffort first.
+    @Test
+    @Order(4)
     void testCreateWorkEffortAndQuoteWorkEffort() {
         GenericValue userLogin = getUserLogin('system')
 
@@ -128,7 +136,9 @@ class QuoteTests extends OFBizTestCase {
         assert quoteWorkEffort
     }
 
-    void testCreateQuote () {
+    @Test
+    @Order(5)
+    void testCreateQuote() {
         Map serviceCtx = [
                 userLogin: userLogin,
                 partyId: 'Company'
@@ -140,6 +150,8 @@ class QuoteTests extends OFBizTestCase {
         assert quote
     }
 
+    @Test
+    @Order(6)
     void testUpdateQuote() {
         Map serviceCtx = [
                 userLogin: userLogin,
@@ -156,6 +168,8 @@ class QuoteTests extends OFBizTestCase {
         assert ServiceUtil.isError(serviceResult)
     }
 
+    @Test
+    @Order(7)
     void testCopyQuote() {
         Map serviceCtx = [
                 userLogin: userLogin,
@@ -166,6 +180,8 @@ class QuoteTests extends OFBizTestCase {
         assert serviceResult.quoteId
     }
 
+    @Test
+    @Order(8)
     void testCreateQuoteItem() {
         Map serviceCtx = [
                 userLogin: userLogin,
@@ -179,6 +195,8 @@ class QuoteTests extends OFBizTestCase {
         assert quoteItem.quoteUnitPrice
     }
 
+    @Test
+    @Order(9)
     void testUpdateQuoteItem() {
         Map serviceCtx = [
                 userLogin: userLogin,
@@ -192,6 +210,11 @@ class QuoteTests extends OFBizTestCase {
         assert quoteItem.productId == 'GZ-1001'
     }
 
+    @Test
+    // Must run after testUpdateQuoteTerm: this removes QuoteItem 9000/00002, which cascades to
+    // delete its QuoteTerm - testUpdateQuoteTerm updates that same QuoteTerm and fails
+    // ("Value not found, cannot update") if it no longer exists.
+    @Order(12)
     void testRemoveQuoteItem() {
         Map serviceCtx = [
                 userLogin: userLogin,
@@ -206,7 +229,9 @@ class QuoteTests extends OFBizTestCase {
         assert !quoteTerm
     }
 
-    void testCreateQuoteTerm () {
+    @Test
+    @Order(11)
+    void testCreateQuoteTerm() {
         Map serviceCtx = [
                 userLogin: userLogin,
                 termTypeId: 'FIN_PAYMENT_DISC',
@@ -232,6 +257,8 @@ class QuoteTests extends OFBizTestCase {
         assert serviceCtx.description == term.description
     }
 
+    @Test
+    @Order(10)
     void testUpdateQuoteTerm() {
         Map serviceCtx = [
             termTypeId: 'FIN_PAYMENT_DISC',
@@ -262,7 +289,9 @@ class QuoteTests extends OFBizTestCase {
         assert quoteTerm.description == serviceCtx.description
     }
 
-    void testDeleteQuoteTerm () {
+    @Test
+    @Order(13)
+    void testDeleteQuoteTerm() {
         Map serviceCtx = [
                 userLogin: userLogin,
                 termTypeId: 'FIN_PAYMENT_DISC',
@@ -277,7 +306,9 @@ class QuoteTests extends OFBizTestCase {
         assert !quoteTerm
     }
 
-    void testCreateQuoteAttribute () {
+    @Test
+    @Order(14)
+    void testCreateQuoteAttribute() {
         Map serviceCtx = [
                 userLogin: userLogin,
                 quoteId: '9001',
@@ -288,7 +319,9 @@ class QuoteTests extends OFBizTestCase {
         assert ServiceUtil.isSuccess(serviceResult)
     }
 
-    void testCreateQuoteCoefficient () {
+    @Test
+    @Order(15)
+    void testCreateQuoteCoefficient() {
         Map serviceCtx = [
                 userLogin: userLogin,
                 quoteId: '9001',
@@ -299,7 +332,9 @@ class QuoteTests extends OFBizTestCase {
         assert ServiceUtil.isSuccess(serviceResult)
     }
 
-    void testGetNextQuoteId () {
+    @Test
+    @Order(16)
+    void testGetNextQuoteId() {
         Map serviceCtx = [
                 userLogin: userLogin,
                 partyId: 'DemoCustomer-1'
@@ -310,6 +345,8 @@ class QuoteTests extends OFBizTestCase {
         assert serviceResult.quoteId
     }
 
+    @Test
+    @Order(17)
     void testQuoteSequenceEnforced() {
         GenericValue partyAcctgPreference = from('PartyAcctgPreference').where('partyId', 'DemoCustomer').queryOne()
         Long lastQuoteNumber = partyAcctgPreference.lastQuoteNumber ?: 0
@@ -325,7 +362,9 @@ class QuoteTests extends OFBizTestCase {
         assert serviceResult.quoteId == lastQuoteNumber + 1L
     }
 
-    void testCopyQuoteItem () {
+    @Test
+    @Order(18)
+    void testCopyQuoteItem() {
         Map serviceCtx = [
                 userLogin: userLogin,
                 quoteId: '9001',
@@ -342,7 +381,9 @@ class QuoteTests extends OFBizTestCase {
         assert quoteAdjustment
     }
 
-    void testCreateQuoteAndQuoteItemForRequest () {
+    @Test
+    @Order(19)
+    void testCreateQuoteAndQuoteItemForRequest() {
         Map serviceCtx = [
                 userLogin: userLogin,
                 custRequestId: '9000',
@@ -355,6 +396,8 @@ class QuoteTests extends OFBizTestCase {
     }
 
     @SuppressWarnings('UnnecessaryObjectReferences')
+    @Test
+    @Order(20)
     void testCreateQuoteFromCart() {
         String productId = 'SV-1001'
         String partyId = 'DemoCustomer'
@@ -385,6 +428,8 @@ class QuoteTests extends OFBizTestCase {
         assert quoteAdjustment
     }
 
+    @Test
+    @Order(21)
     void testCreateQuoteFromShoppingList() {
         Map serviceCtx = [
             userLogin: userLogin,
@@ -399,6 +444,8 @@ class QuoteTests extends OFBizTestCase {
         assert quoteAdjustment
     }
 
+    @Test
+    @Order(22)
     void testAutoUpdateQuotePrice() {
         Map serviceCtx = [
             userLogin: userLogin,
@@ -412,7 +459,9 @@ class QuoteTests extends OFBizTestCase {
         assert quoteItem.quoteUnitPrice == 12
     }
 
-    void testCreateQuoteFromCustRequest () {
+    @Test
+    @Order(23)
+    void testCreateQuoteFromCustRequest() {
         Map serviceCtx = [
                 userLogin: userLogin,
                 custRequestId: '9000'
@@ -423,7 +472,9 @@ class QuoteTests extends OFBizTestCase {
         assert quoteItem
     }
 
-    void testAutoCreateQuoteAdjustments () {
+    @Test
+    @Order(24)
+    void testAutoCreateQuoteAdjustments() {
         Map serviceCtx = [
             userLogin: userLogin,
             quoteId: '9001'
@@ -435,7 +486,9 @@ class QuoteTests extends OFBizTestCase {
         assert promoQuoteAdjustment
     }
 
-    void testCreateQuoteNote () {
+    @Test
+    @Order(25)
+    void testCreateQuoteNote() {
         Map serviceCtx = [
                 userLogin: userLogin,
                 quoteId: '9001',

@@ -19,14 +19,17 @@
 package org.apache.ofbiz.order.order.test
 
 import org.apache.ofbiz.service.ServiceUtil
-import org.apache.ofbiz.service.testtools.OFBizTestCase
+import org.apache.ofbiz.testtools.JunitJupiterTest
+import org.apache.ofbiz.testtools.JupiterTestHelper
+import org.junit.jupiter.api.Order
+import org.junit.jupiter.api.Test
 
-class OrderRequirementTests extends OFBizTestCase {
+@JunitJupiterTest
+class OrderRequirementTests implements JupiterTestHelper {
 
-    OrderRequirementTests(String name) {
-        super(name)
-    }
     // Requirement related test services
+    @Test
+    @Order(1)
     void testCheckCreateProductRequirementForFacility() {
         Map serviceCtx = [
             facilityId: 'WebStoreWarehouse',
@@ -36,6 +39,8 @@ class OrderRequirementTests extends OFBizTestCase {
         Map serviceResult = dispatcher.runSync('checkCreateProductRequirementForFacility', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
     }
+    @Test
+    @Order(2)
     void testCheckCreateStockRequirementQoh() {
         Map serviceCtx = [
             orderId: 'TEST_DEMO10090',
@@ -48,6 +53,8 @@ class OrderRequirementTests extends OFBizTestCase {
         Map serviceResult = dispatcher.runSync('checkCreateStockRequirementQoh', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
     }
+    @Test
+    @Order(3)
     void testCheckCreateStockRequirementAtp() {
         Map serviceCtx = [
             orderId: 'TEST_DEMO10091',
@@ -60,6 +67,8 @@ class OrderRequirementTests extends OFBizTestCase {
         Map serviceResult = dispatcher.runSync('checkCreateStockRequirementAtp', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
     }
+    @Test
+    @Order(4)
     void testCheckCreateOrderRequirement() {
         Map serviceCtx = [
             orderId: 'TEST_DEMO10090',
@@ -69,6 +78,8 @@ class OrderRequirementTests extends OFBizTestCase {
         Map serviceResult = dispatcher.runSync('checkCreateOrderRequirement', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
     }
+    @Test
+    @Order(5)
     void testAutoAssignRequirementToSupplier() {
         Map serviceCtx = [
             requirementId: '1000',
@@ -77,6 +88,8 @@ class OrderRequirementTests extends OFBizTestCase {
         Map serviceResult = dispatcher.runSync('autoAssignRequirementToSupplier', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
     }
+    @Test
+    @Order(6)
     void testCreateRequirementCustRequest() {
         Map serviceCtx = [
             requirementId: '1000',
@@ -87,6 +100,8 @@ class OrderRequirementTests extends OFBizTestCase {
         Map serviceResult = dispatcher.runSync('createRequirementCustRequest', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
     }
+    @Test
+    @Order(7)
     void testAddRequirementTask() {
         Map serviceCtx = [
             requirementId: '1000',

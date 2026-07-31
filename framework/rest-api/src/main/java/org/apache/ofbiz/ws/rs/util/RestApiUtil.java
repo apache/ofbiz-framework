@@ -18,12 +18,20 @@
  *******************************************************************************/
 package org.apache.ofbiz.ws.rs.util;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
@@ -40,6 +48,7 @@ import jakarta.ws.rs.core.Response.ResponseBuilder;
 public final class RestApiUtil {
 
     private static final String DEFAULT_MSG_UI_LABEL_RESOURCE = "ApiUiLabels";
+    private static final String QUERY_STRING_SEPARATOR = "&";
 
     private RestApiUtil() {
 
@@ -54,7 +63,12 @@ public final class RestApiUtil {
      */
     public static Response success(String message, Object data) {
         Success success = new Success(Response.Status.OK.getStatusCode(), Response.Status.OK.getReasonPhrase(), message, data);
-        return Response.status(Response.Status.OK).type(MediaType.APPLICATION_JSON).entity(success).build();
+        ResponseBuilder builder = Response.status(Response.Status.OK).type(MediaType.APPLICATION_JSON).entity(success);
+        String linkHeaderValue = getPaginationLinkHeaderValue(data);
+        if (UtilValidate.isNotEmpty(linkHeaderValue)) {
+            builder.header("Link", linkHeaderValue);
+        }
+        return builder.build();
     }
 
     /**
@@ -178,5 +192,387 @@ public final class RestApiUtil {
         String error = UtilProperties.getMessage(DEFAULT_MSG_UI_LABEL_RESOURCE, errorKey, locale);
         error = error.replace("${service}", serviceName);
         return error;
+    }
+
+    /**
+     * Returns the first non-empty parameter value found for the provided aliases,
+     * matching keys case-insensitively.
+     *
+     * @param parameters the parameter map to search
+     * @param aliases the accepted parameter names in lookup order
+     * @return the first non-empty value, or {@code null} when none is present
+     */
+    static Object getParameterValueIgnoreCase(Map<String, ?> parameters, String... aliases) {
+        if (UtilValidate.isEmpty(parameters) || aliases == null || aliases.length == 0) {
+            return null;
+        }
+        for (String alias : aliases) {
+            for (Map.Entry<String, ?> entry : parameters.entrySet()) {
+                if (entry.getKey() != null && entry.getKey().equalsIgnoreCase(alias)
+                        && UtilValidate.isNotEmpty(entry.getValue())) {
+                    return entry.getValue();
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Returns {@code true} when the given parameter name matches any reserved
+     * name case-insensitively.
+     *
+     * @param parameterName the parameter name to inspect
+     * @param reservedNames the reserved names to compare against
+     * @return {@code true} when the parameter name is reserved
+     */
+    static boolean isReservedParameter(String parameterName, Set<String> reservedNames) {
+        if (parameterName == null || UtilValidate.isEmpty(reservedNames)) {
+            return false;
+        }
+        for (String reservedName : reservedNames) {
+            if (parameterName.equalsIgnoreCase(reservedName)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Parses a request path or query string into an insertion-ordered parameter list.
+     * When the input does not contain a query string, an empty map is returned.
+     *
+     * @param requestPath the full request path or query string
+     * @return a list containing decoded query parameters in encounter order
+     */
+    static List<QueryParameter> extractQueryParameters(String requestPath) {
+        List<QueryParameter> parameters = new ArrayList<>();
+        if (UtilValidate.isEmpty(requestPath)) {
+            return parameters;
+        }
+
+        int querySeparatorIndex = requestPath.indexOf('?');
+        if (querySeparatorIndex < 0) {
+            return parameters;
+        }
+        String queryString = requestPath.substring(querySeparatorIndex + 1);
+        if (UtilValidate.isEmpty(queryString)) {
+            return parameters;
+        }
+
+        for (String entry : queryString.split(QUERY_STRING_SEPARATOR)) {
+            if (UtilValidate.isEmpty(entry)) {
+                continue;
+            }
+
+            int assignmentIndex = entry.indexOf('=');
+            String key = assignmentIndex >= 0 ? entry.substring(0, assignmentIndex) : entry;
+            String value = assignmentIndex >= 0 ? entry.substring(assignmentIndex + 1) : "";
+            String decodedKey = decodeQueryValue(key);
+            String decodedValue = decodeQueryValue(value);
+            if (UtilValidate.isNotEmpty(decodedKey)) {
+                parameters.add(new QueryParameter(decodedKey, decodedValue));
+            }
+        }
+        return parameters;
+    }
+
+    /**
+     * Encodes query parameters for safe inclusion in a URL query string while
+     * preserving encounter order and repeated keys.
+     *
+     * @param parameters decoded query parameters
+     * @return an encoded query string, or an empty string when no parameters exist
+     */
+    static String encodeQueryParameters(List<QueryParameter> parameters) {
+        if (UtilValidate.isEmpty(parameters)) {
+            return "";
+        }
+        StringBuilder queryBuilder = new StringBuilder();
+        boolean first = true;
+        for (QueryParameter parameter : parameters) {
+            if (!first) {
+                queryBuilder.append(QUERY_STRING_SEPARATOR);
+            }
+            queryBuilder.append(encodeQueryValue(parameter.getName())).append('=')
+                    .append(encodeQueryValue(parameter.getValue()));
+            first = false;
+        }
+        return queryBuilder.toString();
+    }
+
+    /**
+     * Builds a map representation of a REST link that matches the existing
+     * serializer contract of {@code href} plus optional link parameters.
+     *
+     * @param href the link target
+     * @param params optional link parameters such as {@code rel}
+     * @return an insertion-ordered map suitable for JSON serialization
+     */
+    static Map<String, Object> makeLinkMap(String href, Map<String, String> params) {
+        Map<String, Object> link = new LinkedHashMap<>();
+        if (UtilValidate.isEmpty(href)) {
+            return link;
+        }
+        link.put("href", href);
+        if (UtilValidate.isNotEmpty(params)) {
+            params.forEach((key, value) -> {
+                if (UtilValidate.isNotEmpty(key) && UtilValidate.isNotEmpty(value)) {
+                    link.put(key, value);
+                }
+            });
+        }
+        return link;
+    }
+
+    /**
+     * Validates a comma-separated sort expression against the endpoint fields
+     * allowed for sorting and returns the accepted normalized tokens in order.
+     *
+     * @param sortExpression the requested sort expression
+     * @param allowedFields the endpoint-supported sortable fields, or
+     *        {@code null}/empty to apply syntax-only validation
+     * @return the validated sort tokens, or an empty list when no sort was requested
+     * @throws IllegalArgumentException when a token is malformed or a field is unsupported
+     */
+    static List<String> validateSortFields(String sortExpression, Set<String> allowedFields) {
+        if (UtilValidate.isEmpty(sortExpression)) {
+            return Collections.emptyList();
+        }
+
+        List<String> validatedFields = new ArrayList<>();
+        Set<String> seenFields = new HashSet<>();
+        for (String token : sortExpression.split(",", -1)) {
+            String candidate = token.trim();
+            if (UtilValidate.isEmpty(candidate)) {
+                throw new IllegalArgumentException("Sort expression contains an empty field");
+            }
+            if ("-".equals(candidate)) {
+                throw new IllegalArgumentException("Sort expression contains a malformed field");
+            }
+
+            String normalizedField = candidate.startsWith("-") ? candidate.substring(1) : candidate;
+            if (!seenFields.add(normalizedField)) {
+                throw new IllegalArgumentException("Duplicate sort field: " + normalizedField);
+            }
+            if (UtilValidate.isNotEmpty(allowedFields) && !allowedFields.contains(normalizedField)) {
+                throw new IllegalArgumentException("Unsupported sort field: " + normalizedField);
+            }
+            validatedFields.add(candidate);
+        }
+        return validatedFields;
+    }
+
+    /**
+     * Validates candidate filter parameters against an optional endpoint-defined
+     * allowlist while preserving insertion order.
+     *
+     * @param filters the candidate filter parameters collected from the request
+     * @param allowedFields the endpoint-supported filter fields, or
+     *        {@code null}/empty to skip field-level validation
+     * @return the validated filter parameters in insertion order
+     * @throws IllegalArgumentException when a filter field is unsupported
+     */
+    static Map<String, Object> validateFilterParameters(Map<String, ?> filters, Set<String> allowedFields) {
+        return validateFilterParameters(filters, allowedFields, null, null);
+    }
+
+    /**
+     * Validates candidate direct filter parameters against optional endpoint-defined
+     * policies while preserving insertion order.
+     *
+     * @param filters the candidate filter parameters collected from the request
+     * @param allowedFields the endpoint-supported filter fields, or
+     *        {@code null}/empty to skip field-level validation
+     * @param repeatableFields the fields allowed to appear more than once, or
+     *        {@code null}/empty to reject repeated values for all fields
+     * @param valueValidators optional per-field validators for scalar or repeated values
+     * @return the validated filter parameters in insertion order
+     * @throws IllegalArgumentException when a filter field or value is invalid
+     */
+    static Map<String, Object> validateFilterParameters(Map<String, ?> filters, Set<String> allowedFields,
+            Set<String> repeatableFields, Map<String, FilterValueValidator> valueValidators) {
+        if (UtilValidate.isEmpty(filters)) {
+            return Collections.emptyMap();
+        }
+
+        Map<String, Object> validatedFilters = new LinkedHashMap<>();
+        for (Map.Entry<String, ?> entry : filters.entrySet()) {
+            if (UtilValidate.isEmpty(entry.getKey()) || UtilValidate.isEmpty(entry.getValue())) {
+                continue;
+            }
+            if (UtilValidate.isNotEmpty(allowedFields) && !allowedFields.contains(entry.getKey())) {
+                throw new IllegalArgumentException("Unsupported filter field: " + entry.getKey());
+            }
+            validateFilterValues(entry.getKey(), entry.getValue(), repeatableFields, valueValidators);
+            validatedFilters.put(entry.getKey(), entry.getValue());
+        }
+        return validatedFilters;
+    }
+
+    /**
+     * Serializes body-style pagination links into an RFC-style HTTP Link header
+     * value while preserving the existing body-link order.
+     *
+     * @param links the response-body pagination links keyed by relation
+     * @return the HTTP Link header value, or {@code null} when no complete relations exist
+     */
+    static String toLinkHeaderValue(Map<String, Object> links) {
+        if (UtilValidate.isEmpty(links)) {
+            return null;
+        }
+
+        List<String> headerParts = new ArrayList<>();
+        for (Map.Entry<String, Object> entry : links.entrySet()) {
+            Map<String, Object> link = castLinkMap(entry.getValue());
+            Object href = link.get("href");
+            Object rel = link.get("rel");
+            if (UtilValidate.isNotEmpty(href) && UtilValidate.isNotEmpty(rel)) {
+                headerParts.add("<" + href + ">; rel=\"" + rel + "\"");
+            }
+        }
+        return headerParts.isEmpty() ? null : String.join(", ", headerParts);
+    }
+
+    @SuppressWarnings("unchecked")
+    private static String getPaginationLinkHeaderValue(Object data) {
+        if (!(data instanceof Map<?, ?> dataMap)) {
+            return null;
+        }
+        Object links = dataMap.get("links");
+        return links instanceof Map<?, ?> ? toLinkHeaderValue((Map<String, Object>) links) : null;
+    }
+
+    /**
+     * Builds a list result from already normalized REST query options.
+     *
+     * @param collectionName the response property name for the collection
+     * @param collectionData the collection payload
+     * @param queryOptions the normalized REST query options
+     * @param totalCount the total matching record count
+     * @param requestPath the originating request path
+     * @return a map containing collection data, pagination metadata, and links
+     */
+    public static Map<String, Object> getPagedResult(String collectionName, Object collectionData, RestQueryOptions queryOptions,
+            long totalCount, String requestPath) {
+        return RestListResponseBuilder.forList(collectionName, collectionData)
+                .pageIndex(queryOptions.getPageIndex())
+                .pageSize(queryOptions.getPageSize())
+                .totalCount(totalCount)
+                .requestPath(requestPath)
+                .build();
+    }
+
+    /**
+     * Builds a list result from explicit paging values.
+     *
+     * @param collectionName the response property name for the collection
+     * @param collectionData the collection payload
+     * @param pageIndex the zero-based page index
+     * @param pageSize the page size
+     * @param totalCount the total matching record count
+     * @param requestPath the originating request path
+     * @return a map containing collection data, pagination metadata, and links
+     */
+    public static Map<String, Object> getCollectionResult(String collectionName, Object collectionData, int pageIndex, int pageSize,
+            long totalCount, String requestPath) {
+        return RestListResponseBuilder.forList(collectionName, collectionData)
+                .pageIndex(pageIndex)
+                .pageSize(pageSize)
+                .totalCount(totalCount)
+                .requestPath(requestPath)
+                .build();
+    }
+
+    private static String decodeQueryValue(String value) {
+        try {
+            return URLDecoder.decode(value, StandardCharsets.UTF_8.name());
+        } catch (UnsupportedEncodingException e) {
+            throw new IllegalStateException("UTF-8 must always be available", e);
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    private static Map<String, Object> castLinkMap(Object value) {
+        return value instanceof Map<?, ?> ? (Map<String, Object>) value : Collections.emptyMap();
+    }
+
+    private static void validateFilterValues(String fieldName, Object value, Set<String> repeatableFields,
+            Map<String, FilterValueValidator> valueValidators) {
+        if (value instanceof List<?> values) {
+            if (values.size() > 1 && (UtilValidate.isEmpty(repeatableFields) || !repeatableFields.contains(fieldName))) {
+                throw new IllegalArgumentException("Filter parameter does not support repeated values: " + fieldName);
+            }
+            for (Object item : values) {
+                validateFilterValue(fieldName, item, valueValidators);
+            }
+            return;
+        }
+        validateFilterValue(fieldName, value, valueValidators);
+    }
+
+    private static void validateFilterValue(String fieldName, Object value, Map<String, FilterValueValidator> valueValidators) {
+        if (UtilValidate.isEmpty(value) || UtilValidate.isEmpty(valueValidators)) {
+            return;
+        }
+        FilterValueValidator validator = valueValidators.get(fieldName);
+        if (validator != null) {
+            validator.validate(fieldName, value);
+        }
+    }
+
+    private static String encodeQueryValue(String value) {
+        try {
+            return URLEncoder.encode(value, StandardCharsets.UTF_8.name()).replace("+", "%20");
+        } catch (UnsupportedEncodingException e) {
+            throw new IllegalStateException("UTF-8 must always be available", e);
+        }
+    }
+
+    /**
+     * Validates the direct query-parameter values accepted for a filter field.
+     */
+    @FunctionalInterface
+    public interface FilterValueValidator {
+
+        /**
+         * Validates a single filter value for the given field.
+         *
+         * @param fieldName the filter field name
+         * @param value the direct request value to validate
+         * @throws IllegalArgumentException when the value is not supported
+         */
+        void validate(String fieldName, Object value);
+    }
+
+    /**
+     * Represents a decoded query parameter while preserving encounter order and
+     * repeated keys for downstream link generation.
+     */
+    static final class QueryParameter {
+        private final String name;
+        private final String value;
+
+        QueryParameter(String name, String value) {
+            this.name = name;
+            this.value = value;
+        }
+
+        /**
+         * Returns the decoded parameter name.
+         *
+         * @return the decoded parameter name
+         */
+        public String getName() {
+            return name;
+        }
+
+        /**
+         * Returns the decoded parameter value.
+         *
+         * @return the decoded parameter value
+         */
+        public String getValue() {
+            return value;
+        }
     }
 }

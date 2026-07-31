@@ -22,20 +22,22 @@ import java.sql.Timestamp
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.order.shoppingcart.ShoppingCart
-import org.apache.ofbiz.service.testtools.OFBizTestCase
+import org.apache.ofbiz.testtools.JunitJupiterTest
+import org.apache.ofbiz.testtools.JupiterTestHelper
 import org.apache.ofbiz.service.ServiceUtil
+import org.junit.jupiter.api.Order
+import org.junit.jupiter.api.Test
 
-class ProductPromoCondTests extends OFBizTestCase {
-
-    ProductPromoCondTests(String name) {
-        super(name)
-    }
+@JunitJupiterTest
+class ProductPromoCondTests implements JupiterTestHelper {
 
     /**
      * This test check if the function productPartyID work correctly
      *  1. test success with a valid partyId
      *  2. test failed with passing non valid value
      */
+    @Test
+    @Order(1)
     void testPartyIdPromo() {
         String condValue = 'FrenchCustomer'
         ShoppingCart cart = new ShoppingCart(delegator, '9000', Locale.getDefault(), 'EUR')
@@ -61,6 +63,8 @@ class ProductPromoCondTests extends OFBizTestCase {
      *  1. test success if the customer is subscribed more than the "condValue"
      *  2. test failed with passing non valid value
      */
+    @Test
+    @Order(2)
     void testNewACCTPromo() {
         String condValue = '1095'
         GenericValue frenchCustomer = delegator.makeValue('Party', [partyId: 'FrenchCustomer', createdDate: Timestamp.valueOf('2010-01-01 00:00:00')])
@@ -90,6 +94,8 @@ class ProductPromoCondTests extends OFBizTestCase {
      *  1. test success if the login user is from part of classification of the promoCondition
      *  2. test failed with passing non valid value
      */
+    @Test
+    @Order(3)
     void testPartyClassPromo() {
         String condValue = 'PROMO_TEST'
         GenericValue partyClassGroup = delegator.makeValue('PartyClassificationGroup', [partyClassificationGroupId: condValue])
@@ -124,6 +130,8 @@ class ProductPromoCondTests extends OFBizTestCase {
      *  1. test success if the login user is from part of the Group member of the promoCondition
      *  2. test failed with passing non valid value
      */
+    @Test
+    @Order(4)
     void testPartyGMPromo() {
         String condValue = 'HUMAN_RES'
         ShoppingCart cart = new ShoppingCart(delegator, '9000', Locale.getDefault(), 'EUR')
@@ -158,6 +166,8 @@ class ProductPromoCondTests extends OFBizTestCase {
      *  1. test success if the login user role type is equal to the condValue
      *  2. test failed with passing non valid value
      */
+    @Test
+    @Order(5)
     void testRoleTypePromo() {
         String condValue = 'APPROVER'
         ShoppingCart cart = new ShoppingCart(delegator, '9000', Locale.getDefault(), 'EUR')
@@ -185,6 +195,8 @@ class ProductPromoCondTests extends OFBizTestCase {
      *  1. test success if the shipping address is equal to the condValue
      *  2. test failed with passing non valid value
      */
+    @Test
+    @Order(6)
     void testCondGeoIdPromo() {
         ShoppingCart cart = loadOrder('DEMO10090')
         cart.setShippingContactMechId(0, '9200')
@@ -213,6 +225,8 @@ class ProductPromoCondTests extends OFBizTestCase {
      *  1. test success if the order total is equal or greater than the condValue
      *  2. test failed with passing non valid value
      */
+    @Test
+    @Order(7)
     void testCondOrderTotalPromo() {
         String condValue = '34.56'
         // call service promo
@@ -235,6 +249,8 @@ class ProductPromoCondTests extends OFBizTestCase {
      *  1. test success if the recurrence is equal to the condValue
      *  2. test failed with passing non valid value
      */
+    @Test
+    @Order(8)
     void testRecurrencePromo() {
         String condValue = 'TEST_PROMO'
         ShoppingCart cart = new ShoppingCart(delegator, '9000', Locale.getDefault(), 'EUR')
@@ -267,6 +283,8 @@ class ProductPromoCondTests extends OFBizTestCase {
      *  1. test success if ship total is greater than the condValue
      *  2. test failed with passing non valid value
      */
+    @Test
+    @Order(9)
     void testShipTotalPromo() {
         String condValue = '20'
         BigDecimal amount = BigDecimal.valueOf(25)
@@ -294,6 +312,8 @@ class ProductPromoCondTests extends OFBizTestCase {
      *  1. test success if the amount of specific product is equal to the condValue
      *  2. test failed with passing non valid value
      */
+    @Test
+    @Order(10)
     void testProductAmountPromo() {
         String condValue = '30'
         String orderId = 'DEMO10090'
@@ -324,6 +344,8 @@ class ProductPromoCondTests extends OFBizTestCase {
      *  1. test success if the total amount of product is equal or greater than the condValue
      *  2. test failed with passing non valid value
      */
+    @Test
+    @Order(11)
     void testProductTotalPromo() {
         String orderId = 'Demo1002'
         ShoppingCart cart = loadOrder(orderId)

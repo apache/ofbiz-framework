@@ -912,9 +912,9 @@ Map getOrderItemShipGroupLists(GenericValue orderHeader) {
     List orderItemShipGroupList = orderHeader.getRelated('OrderItemShipGroup', null, null, false)
     // group orderItems (actually OrderItemAndShipGroupAssocs) by shipGroupSeqId in a Map with List values
     // This Map is actually used only for sales orders' shipments right now.
-    List orderItemListByShGrpMap = []
+    Map orderItemListByShGrpMap = [:]
     for (GenericValue orderItemAndShipGroupAssoc : orderItemAndShipGroupAssocList) {
-        orderItemListByShGrpMap << orderItemAndShipGroupAssoc
+        orderItemListByShGrpMap.computeIfAbsent(orderItemAndShipGroupAssoc.shipGroupSeqId) { [] } << orderItemAndShipGroupAssoc
     }
     Map result = success()
     result.orderItemListByShGrpMap = orderItemListByShGrpMap
@@ -926,7 +926,7 @@ Map getOrderItemShipGroupLists(GenericValue orderHeader) {
 /**
  * Sub-method used by quickShip methods to create a shipment
  */
-Map createShipmentForFacilityAndShipGroup(GenericValue orderHeader, List orderItemListByShGrpMap,
+Map createShipmentForFacilityAndShipGroup(GenericValue orderHeader, Map orderItemListByShGrpMap,
                                           List orderItemShipGroupList, List orderItemAndShipGroupAssocList,
                                           String orderItemShipGrpInvResFacilityId,
                                           Timestamp eventDate, Boolean setPackedOnly) {
@@ -938,12 +938,13 @@ Map createShipmentForFacilityAndShipGroup(GenericValue orderHeader, List orderIt
     // for OrderItemShipGroup need to split all OISGIRs into their ship groups and create a shipment for each
     GenericValue facility = from('Facility').where(facilityId: orderItemShipGrpInvResFacilityId).cache().queryOne()
     for (GenericValue orderItemShipGroup : orderItemShipGroupList) {
-        List perShipGroupItemList = orderItemListByShGrpMap
-        // make sure we have something to ship
+        List perShipGroupItemList = orderItemListByShGrpMap[orderItemShipGroup.shipGroupSeqId] ?: []
+        // skip to the next ship group instead of aborting the remaining ones
         if (!perShipGroupItemList) {
             List argListNames = [orderItemShipGroup.shipGroupSeqId]
-            return success(UtilProperties.getMessage('ProductUiLabels',
-                    'FacilityShipmentNoItemsAvailableToShip', argListNames, locale))
+            successMessageList << UtilProperties.getMessage('ProductUiLabels',
+                    'FacilityShipmentNoItemsAvailableToShip', argListNames, locale)
+            continue
         }
         // create the shipment for this facility and ship group combination
         Map shipmentContext = [primaryOrderId: orderHeader.orderId,

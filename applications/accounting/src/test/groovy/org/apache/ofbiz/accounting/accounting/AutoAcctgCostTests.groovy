@@ -20,14 +20,16 @@ package org.apache.ofbiz.accounting.accounting
 
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.service.ServiceUtil
-import org.apache.ofbiz.service.testtools.OFBizTestCase
+import org.apache.ofbiz.testtools.JunitJupiterTest
+import org.apache.ofbiz.testtools.JupiterTestHelper
+import org.junit.jupiter.api.Order
+import org.junit.jupiter.api.Test
 
-class AutoAcctgCostTests extends OFBizTestCase {
+@JunitJupiterTest
+class AutoAcctgCostTests implements JupiterTestHelper {
 
-    AutoAcctgCostTests(String name) {
-        super(name)
-    }
-
+    @Test
+    @Order(1)
     void testUpdateProductAverageCostOnReceiveInventory() {
         Map serviceCtx = [:]
         serviceCtx.facilityId = 'DemoFacility1'
@@ -45,6 +47,8 @@ class AutoAcctgCostTests extends OFBizTestCase {
         assert productAverageCost.averageCost == 9
     }
 
+    @Test
+    @Order(2)
     void testGetProductAverageCost() {
         GenericValue inventoryItem = from('InventoryItem')
                                             .where('inventoryItemId', '9999').queryOne()

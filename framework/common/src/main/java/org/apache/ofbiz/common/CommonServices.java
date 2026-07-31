@@ -38,7 +38,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
-import javax.mail.internet.MimeMessage;
+import jakarta.mail.internet.MimeMessage;
 
 import org.apache.ofbiz.base.metrics.Metrics;
 import org.apache.ofbiz.base.metrics.MetricsFactory;

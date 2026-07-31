@@ -20,17 +20,17 @@ package org.apache.ofbiz.product.product.test
 
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.service.ServiceUtil
-import org.apache.ofbiz.service.testtools.OFBizTestCase
+import org.apache.ofbiz.testtools.JunitJupiterTest
+import org.apache.ofbiz.testtools.JupiterTestHelper
 import org.springframework.mock.web.MockHttpServletRequest
 import org.springframework.mock.web.MockHttpServletResponse
 import org.apache.ofbiz.product.product.ProductEvents
+import org.junit.jupiter.api.Test
 
-class ProductTagTest extends OFBizTestCase {
+@JunitJupiterTest
+class ProductTagTest implements JupiterTestHelper {
 
-    ProductTagTest(String name) {
-        super(name)
-    }
-
+    @Test
     void testProductTag() {
         /*Test Product Tag
         Step 1) Create a product tag.

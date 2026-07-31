@@ -344,6 +344,10 @@ checkstyle {
     toolVersion = '10.20.2'
 }
 gitHooks {
+    // Resolve the real .git dir so this also works from a linked worktree,
+    // where "$rootDir/.git" (the plugin's default) is a gitlink file, not a directory.
+    def gitCommonDir = "git -C ${rootDir} rev-parse --git-common-dir".execute().text.trim()
+    hooksDirectory.set(new File(rootDir, gitCommonDir).toPath().resolve('hooks').toFile())
     hooks = ['pre-push': 'checkstyleMain codenarcMain codenarcTest']
 }
 
@@ -381,7 +385,9 @@ eclipse.classpath.file.whenMerged { classpath ->
 tasks.eclipse.dependsOn(cleanEclipse)
 
 test {
-    useJUnitPlatform()
+    useJUnitPlatform {
+        excludeTags 'jupiterIntegration'  // see JupiterTestExtension.INTEGRATION_TAG
+    }
     jvmArgs "-javaagent:${classpath.find { it.name.contains('jmockit') }.absolutePath}"
     // Required for JMockit instrumentation, Mockito, and Spring Test under Java 21
     jvmArgs '--add-opens=java.base/java.lang=ALL-UNNAMED'

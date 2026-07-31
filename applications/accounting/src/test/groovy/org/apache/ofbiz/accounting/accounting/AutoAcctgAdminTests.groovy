@@ -20,14 +20,16 @@ package org.apache.ofbiz.accounting.accounting
 
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.service.ServiceUtil
-import org.apache.ofbiz.service.testtools.OFBizTestCase
+import org.apache.ofbiz.testtools.JunitJupiterTest
+import org.apache.ofbiz.testtools.JupiterTestHelper
+import org.junit.jupiter.api.Order
+import org.junit.jupiter.api.Test
 
-class AutoAcctgAdminTests extends OFBizTestCase {
+@JunitJupiterTest
+class AutoAcctgAdminTests implements JupiterTestHelper {
 
-    AutoAcctgAdminTests(String name) {
-        super(name)
-    }
-
+    @Test
+    @Order(1)
     void testGetFXConversion() {
         Map serviceCtx = [
                 uomId: 'EUR',
@@ -38,6 +40,8 @@ class AutoAcctgAdminTests extends OFBizTestCase {
         assert ServiceUtil.isSuccess(serviceResult)
     }
 
+    @Test
+    @Order(2)
     void testAddPaymentMethodTypeGlAssignment() {
         Map serviceCtx = [
             paymentMethodTypeId: 'GIFT_CARD',
@@ -56,6 +60,8 @@ class AutoAcctgAdminTests extends OFBizTestCase {
         assert paymentMethodTypeGlAccount.glAccountId == '999999'
     }
 
+    @Test
+    @Order(3)
     void testRemovePaymentTypeGlAssignment() {
         Map serviceCtx = [
                 paymentTypeId: 'COMMISSION_PAYMENT',
@@ -72,6 +78,8 @@ class AutoAcctgAdminTests extends OFBizTestCase {
         assert !paymentMethodTypeGlAccount
     }
 
+    @Test
+    @Order(4)
     void testCreatePartyAcctgPreference() {
         Map serviceCtx = [
                 partyId: 'DEMO_COMPANY',
@@ -89,6 +97,8 @@ class AutoAcctgAdminTests extends OFBizTestCase {
         assert partyAcctgPreference.refundPaymentMethodId == '9020'
     }
 
+    @Test
+    @Order(5)
     void testUpdatePartyAcctgPreference() {
         Map serviceCtx = [
                 partyId: 'DEMO_COMPANY1',
@@ -105,6 +115,8 @@ class AutoAcctgAdminTests extends OFBizTestCase {
         assert partyAcctgPreference.refundPaymentMethodId == '9020'
     }
 
+    @Test
+    @Order(6)
     void testGetPartyAccountingPreferences() {
         Map serviceCtx = [
                 organizationPartyId: 'DEMO_COMPANY1',
@@ -115,6 +127,8 @@ class AutoAcctgAdminTests extends OFBizTestCase {
         assert serviceResult.partyAccountingPreference
     }
 
+    @Test
+    @Order(7)
     void testSetAcctgCompany() {
         Map serviceCtx = [
                 organizationPartyId: 'DEMO_COMPANY1',
@@ -131,6 +145,8 @@ class AutoAcctgAdminTests extends OFBizTestCase {
         assert userPreference.userPrefTypeId == 'ORGANIZATION_PARTY'
     }
 
+    @Test
+    @Order(8)
     void testUpdateFXConversion() {
         Map serviceCtx = [
                 uomId: 'INR',
@@ -148,6 +164,8 @@ class AutoAcctgAdminTests extends OFBizTestCase {
         assert uomConversionDated.conversionFactor == 2.0
     }
 
+    @Test
+    @Order(9)
     void testCreateGlAccountTypeDefault() {
         Map serviceCtx = [
                 glAccountTypeId: 'BALANCE_ACCOUNT',
@@ -165,6 +183,8 @@ class AutoAcctgAdminTests extends OFBizTestCase {
         assert glAccountTypeDefault.glAccountId == '999999'
     }
 
+    @Test
+    @Order(10)
     void testRemoveGlAccountTypeDefault() {
         Map serviceCtx = [
                 glAccountTypeId: 'ACCOUNTS_PAYABLE',
@@ -182,6 +202,8 @@ class AutoAcctgAdminTests extends OFBizTestCase {
         assert !glAccountTypeDefault
     }
 
+    @Test
+    @Order(11)
     void testAddInvoiceItemTypeGlAssignment() {
         Map serviceCtx = [
                 invoiceItemTypeId: 'PINV_FPROD_ITEM',
@@ -200,6 +222,8 @@ class AutoAcctgAdminTests extends OFBizTestCase {
         assert invoiceItemTypeGlAccount.glAccountId == '999999'
     }
 
+    @Test
+    @Order(12)
     void testRemoveInvoiceItemTypeGlAssignment() {
         Map serviceCtx = [
                 invoiceItemTypeId: 'PINV_SALES_TAX',
@@ -216,6 +240,8 @@ class AutoAcctgAdminTests extends OFBizTestCase {
         assert !invoiceItemTypeGlAccount
     }
 
+    @Test
+    @Order(13)
     void testAddPaymentTypeGlAssignment() {
         Map serviceCtx = [
                 paymentTypeId: 'TAX_PAYMENT',
@@ -234,6 +260,8 @@ class AutoAcctgAdminTests extends OFBizTestCase {
         assert paymentGlAccountTypeMap.glAccountTypeId == 'TAX_ACCOUNT'
     }
 
+    @Test
+    @Order(14)
     void testRemovePaymentMethodTypeGlAssignment() {
         Map serviceCtx = [
                 paymentMethodTypeId: 'CASH',

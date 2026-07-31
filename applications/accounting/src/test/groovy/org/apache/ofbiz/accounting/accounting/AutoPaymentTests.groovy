@@ -25,15 +25,17 @@ import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.util.EntityUtil
 import org.apache.ofbiz.service.ServiceUtil
-import org.apache.ofbiz.service.testtools.OFBizTestCase
+import org.apache.ofbiz.testtools.JunitJupiterTest
+import org.apache.ofbiz.testtools.JupiterTestHelper
+import org.junit.jupiter.api.Order
+import org.junit.jupiter.api.Test
 
-class AutoPaymentTests extends OFBizTestCase {
-
-    AutoPaymentTests(String name) {
-        super(name)
-    }
+@JunitJupiterTest
+class AutoPaymentTests implements JupiterTestHelper {
 
     // Test case for Batching Payments process
+    @Test
+    @Order(1)
     void testCreatePaymentGroupAndMember() {
         String paymentGroupTypeId = 'BATCH_PAYMENT'
         String paymentGroupName = 'Payment Batch'
@@ -67,6 +69,8 @@ class AutoPaymentTests extends OFBizTestCase {
     }
 
     // Test case for voiding payments
+    @Test
+    @Order(2)
     void testVoidPayment() {
         /*
             Precondition : payment is in sent status and invoice is in ready for posting status
@@ -114,6 +118,8 @@ class AutoPaymentTests extends OFBizTestCase {
     }
 
     // Test case for canceling invoices
+    @Test
+    @Order(3)
     void testCancelInvoice() {
         /*
             Precondition : invoice is in ready status
@@ -162,6 +168,8 @@ class AutoPaymentTests extends OFBizTestCase {
     }
 
     // Test case for process mass check run
+    @Test
+    @Order(4)
     void testCreatePaymentAndPaymentGroupForInvoices() {
         /*
             Precondition : Invoice is in ready status.
@@ -196,6 +204,8 @@ class AutoPaymentTests extends OFBizTestCase {
     }
 
     // Test case for cancel check run
+    @Test
+    @Order(5)
     void testCancelCheckRunPayments() {
         /*
             Pre condition : Invoice is in paid status.
@@ -232,6 +242,8 @@ class AutoPaymentTests extends OFBizTestCase {
     }
 
     // Test case for deposit or withdraw payments
+    @Test
+    @Order(6)
     void testDepositWithdrawPayments() {
         //List paymentIds = ['demo10001', 'demo10010']
         List paymentIds = ['demo10010']
@@ -259,6 +271,8 @@ class AutoPaymentTests extends OFBizTestCase {
         }
     }
 
+    @Test
+    @Order(7)
     void testDepositWithdrawPaymentsInSingleTrans() {
         List paymentIds = ['8004']
         BigDecimal paymentRunningTotal = new BigDecimal('0')
@@ -289,6 +303,8 @@ class AutoPaymentTests extends OFBizTestCase {
     }
 
     // Test case for fin account trans
+    @Test
+    @Order(8)
     void testSetFinAccountTransStatus() {
         /*
             Precondition : FinAccountTrans should be in CREATED status
@@ -319,6 +335,8 @@ class AutoPaymentTests extends OFBizTestCase {
     }
 
     // Test case to verify GL postings for Void Payment process
+    @Test
+    @Order(9)
     void testGlPostingsOnVoidPayment() {
         /*
             Precondition :
@@ -391,6 +409,8 @@ class AutoPaymentTests extends OFBizTestCase {
     }
 
     // Test case to verify GL postings for Check Run process
+    @Test
+    @Order(10)
     void testGlPostingOnCheckRun() {
         /*
             Precondition :

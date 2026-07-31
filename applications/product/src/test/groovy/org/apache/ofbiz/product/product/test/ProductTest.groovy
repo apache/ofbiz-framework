@@ -21,16 +21,18 @@ package org.apache.ofbiz.product.product.test
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.service.ServiceUtil
-import org.apache.ofbiz.service.testtools.OFBizTestCase
+import org.apache.ofbiz.testtools.JunitJupiterTest
+import org.apache.ofbiz.testtools.JupiterTestHelper
 
 import java.sql.Timestamp
+import org.junit.jupiter.api.Order
+import org.junit.jupiter.api.Test
 
-class ProductTest extends OFBizTestCase {
+@JunitJupiterTest
+class ProductTest implements JupiterTestHelper {
 
-    ProductTest(String name) {
-        super(name)
-    }
-
+    @Test
+    @Order(1)
     void testCreateProduct() {
         String internalName = 'Test_product'
         String productTypeId = 'Test_type'
@@ -52,6 +54,8 @@ class ProductTest extends OFBizTestCase {
         assert productTypeId == product.productTypeId
     }
 
+    @Test
+    @Order(2)
     void testUpdateProduct() {
         String productId = 'Test_product_A'
         String productName = 'Test_name_B'
@@ -74,6 +78,8 @@ class ProductTest extends OFBizTestCase {
         assert description == product.description
     }
 
+    @Test
+    @Order(3)
     void testDuplicateProduct() {
         String productId = 'Duplicate_Id'
         String oldProductId = 'Test_product_B'
@@ -95,6 +101,8 @@ class ProductTest extends OFBizTestCase {
         assert product.description == 'This is product description'
     }
 
+    @Test
+    @Order(4)
     void testQuickAddVariant() {
         String productId = 'Test_product_B'
         String productFeatureIds = 'Test_feature'
@@ -128,6 +136,8 @@ class ProductTest extends OFBizTestCase {
         assert productFeature
     }
 
+    @Test
+    @Order(5)
     void testDeleteProductKeywords() {
         String productId = 'Test_product_C'
 
@@ -151,6 +161,8 @@ class ProductTest extends OFBizTestCase {
         assert !keywords
     }
 
+    @Test
+    @Order(6)
     void testDiscontinueProductSales() {
         String productId = 'Test_product_C'
 
@@ -168,6 +180,12 @@ class ProductTest extends OFBizTestCase {
         assert product.salesDiscontinuationDate
     }
 
+    @Test
+    // Must run after testUpdateProductReview: updateProductReview's rating-recalculation does an
+    // unconditional insert into ProductCalculatedInfo(Test_product_C) when none exists yet: if this
+    // test runs first, its own recalculation already creates that row, and updateProductReview's
+    // insert then fails with a primary-key violation.
+    @Order(8)
     void testCreateProductReview() {
         String productId = 'Test_product_C'
         String productStoreId = 'Test_store'
@@ -194,6 +212,8 @@ class ProductTest extends OFBizTestCase {
         assert productRating == review.productRating
     }
 
+    @Test
+    @Order(7)
     void testUpdateProductReview() {
         String productReviewId = 'Test_review'
         BigDecimal productRating = new BigDecimal('3')
@@ -216,6 +236,8 @@ class ProductTest extends OFBizTestCase {
         assert productRating == review.productRating
     }
 
+    @Test
+    @Order(9)
     void testFindProductById() {
         Map serviceCtx = [
                 idToFind: 'Test_product_C',
@@ -226,6 +248,8 @@ class ProductTest extends OFBizTestCase {
         assert serviceResult.product
     }
 
+    @Test
+    @Order(10)
     void testCreateProductPrice() {
         String productId = 'Test_product_A'
         String productPriceTypeId = 'AVERAGE_COST'
@@ -260,6 +284,8 @@ class ProductTest extends OFBizTestCase {
         assert price == productPrice.price
     }
 
+    @Test
+    @Order(11)
     void testUpdateProductPrice() {
         String productId = 'Test_prod_price_up'
         String productPriceTypeId = 'AVERAGE_COST'
@@ -312,6 +338,8 @@ class ProductTest extends OFBizTestCase {
         assert price == productPrice.price
     }
 
+    @Test
+    @Order(12)
     void testDeleteProductPrice() {
         String productId = 'Test_product_C'
         String productPriceTypeId = 'AVERAGE_COST'
@@ -343,6 +371,8 @@ class ProductTest extends OFBizTestCase {
         assert !productPrice
     }
 
+    @Test
+    @Order(13)
     void testCreateProductCategory() {
         String productCategoryId = 'TEST_CATEGORY'
         String productCategoryTypeId = 'USAGE_CATEGORY'

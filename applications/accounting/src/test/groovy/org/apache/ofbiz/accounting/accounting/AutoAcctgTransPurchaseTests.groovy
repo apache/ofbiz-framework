@@ -20,15 +20,17 @@ package org.apache.ofbiz.accounting.accounting
 
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.service.ServiceUtil
-import org.apache.ofbiz.service.testtools.OFBizTestCase
+import org.apache.ofbiz.testtools.JunitJupiterTest
+import org.apache.ofbiz.testtools.JupiterTestHelper
+import org.junit.jupiter.api.Order
+import org.junit.jupiter.api.Test
 
-class AutoAcctgTransPurchaseTests extends OFBizTestCase {
-
-    AutoAcctgTransPurchaseTests(String name) {
-        super(name)
-    }
+@JunitJupiterTest
+class AutoAcctgTransPurchaseTests implements JupiterTestHelper {
 
     // Test case for Accounting Transaction on Purchase
+    @Test
+    @Order(1)
     void testAcctgTransOnPoReceipts() {
         /*
             Precondition : shipment is created from supplier and order items are issued
@@ -87,6 +89,8 @@ class AutoAcctgTransPurchaseTests extends OFBizTestCase {
         assert orderItemBilling
     }
 
+    @Test
+    @Order(2)
     void testAcctgTransOnEditPoInvoice() {
         /*
             Precondition: To the Purchase Invoice created add taxes and two different shipping charges
@@ -136,6 +140,8 @@ class AutoAcctgTransPurchaseTests extends OFBizTestCase {
         }
     }
 
+    @Test
+    @Order(3)
     void testAcctgTransOnPaymentSentToSupplier() {
         /*
             Precondition: New payment is created for: supplierId = "DemoSupplier", "Payment Type ID" = "Vendor Payment" and

@@ -26,15 +26,15 @@
     </test-case>
 
     <test-case case-name="party-tests">
-        <junit-test-suite class-name="org.apache.ofbiz.party.party.test.PartyTests"/>
+        <jupiter-test-suite class-name="org.apache.ofbiz.party.party.test.PartyTests"/>
     </test-case>
     <test-case case-name="party-address-tests">
-        <junit-test-suite class-name="org.apache.ofbiz.party.party.test.PartyAddressTests"/>
+        <jupiter-test-suite class-name="org.apache.ofbiz.party.party.test.PartyAddressTests"/>
     </test-case>
     <test-case case-name="party-communication-event-tests">
-        <junit-test-suite class-name="org.apache.ofbiz.party.party.test.PartyCommunicationEventTests"/>
+        <jupiter-test-suite class-name="org.apache.ofbiz.party.party.test.PartyCommunicationEventTests"/>
     </test-case>
     <test-case case-name="party-misc-tests">
-        <junit-test-suite class-name="org.apache.ofbiz.party.party.test.PartyMiscTests"/>
+        <jupiter-test-suite class-name="org.apache.ofbiz.party.party.test.PartyMiscTests"/>
     </test-case>
 </test-suite>

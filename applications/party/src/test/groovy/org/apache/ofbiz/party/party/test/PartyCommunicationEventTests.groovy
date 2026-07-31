@@ -20,14 +20,16 @@ package org.apache.ofbiz.party.party.test
 
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.service.ServiceUtil
-import org.apache.ofbiz.service.testtools.OFBizTestCase
+import org.apache.ofbiz.testtools.JunitJupiterTest
+import org.apache.ofbiz.testtools.JupiterTestHelper
+import org.junit.jupiter.api.Order
+import org.junit.jupiter.api.Test
 
-class PartyCommunicationEventTests extends OFBizTestCase {
+@JunitJupiterTest
+class PartyCommunicationEventTests implements JupiterTestHelper {
 
-    PartyCommunicationEventTests(String name) {
-        super(name)
-    }
-
+    @Test
+    @Order(1)
     void testCreateCommunicationEvent() {
         Map serviceCtx = [
                 communicationEventId: 'TestEvent-3',
@@ -47,6 +49,8 @@ class PartyCommunicationEventTests extends OFBizTestCase {
         assert communicationEvent.subject == 'Why i would use the OFBiz system'
     }
 
+    @Test
+    @Order(2)
     void testCreateCommunicationEventRole() {
         Map serviceCtx = [
                 communicationEventId: 'TestEvent-6',
@@ -66,6 +70,8 @@ class PartyCommunicationEventTests extends OFBizTestCase {
         assert communicationEventRole.statusId == 'COM_ROLE_CREATED'
     }
 
+    @Test
+    @Order(3)
     void testCreateCommunicationEventRoleWithoutPermission() {
         Map serviceCtx = [
                 communicationEventId: 'TestEvent-6',
@@ -85,6 +91,8 @@ class PartyCommunicationEventTests extends OFBizTestCase {
         assert communicationEventRole.statusId == 'COM_ROLE_CREATED'
     }
 
+    @Test
+    @Order(4)
     void testCreateCommunicationEventWithoutPermission() {
         Map serviceCtx = [
                 communicationEventId: 'TestEvent-4',
@@ -104,6 +112,8 @@ class PartyCommunicationEventTests extends OFBizTestCase {
         assert communicationEvent.subject == 'Why i would use the OFBiz system'
     }
 
+    @Test
+    @Order(5)
     void testCreateNewCommEvent() {
         Map createNewCommEventMap = [
                 communicationEventTypeId: 'EMAIL_COMMUNICATION',
@@ -135,6 +145,8 @@ class PartyCommunicationEventTests extends OFBizTestCase {
         assert communicationEvent.contactMechTypeId == updateCommEventMap.contactMechTypeId
     }
 
+    @Test
+    @Order(6)
     void testDeleteCommunicationEvent() {
         Map serviceCtx = [
                 communicationEventId: 'TestEvent-1',
@@ -147,6 +159,8 @@ class PartyCommunicationEventTests extends OFBizTestCase {
         assert !communicationEvent
     }
 
+    @Test
+    @Order(7)
     void testDeleteCommunicationEventWorkEffort() {
         Map serviceCtx = [
                 communicationEventId: 'TestEvent-5',
@@ -162,6 +176,8 @@ class PartyCommunicationEventTests extends OFBizTestCase {
         assert !communicationEventWorkEff
     }
 
+    @Test
+    @Order(8)
     void testRemoveCommunicationEventRole() {
         Map serviceCtx = [
                 communicationEventId: 'TestEvent-5',
@@ -179,6 +195,8 @@ class PartyCommunicationEventTests extends OFBizTestCase {
         assert !communicationEventRole
     }
 
+    @Test
+    @Order(9)
     void testSetCommEventComplete() {
         Map serviceCtx = [
                 communicationEventId: 'TestEvent-6',
@@ -192,6 +210,8 @@ class PartyCommunicationEventTests extends OFBizTestCase {
         assert communicationEvent.statusId == 'COM_COMPLETE'
     }
 
+    @Test
+    @Order(10)
     void testSetCommEventRoleToRead() {
         Map serviceCtx = [
                 communicationEventId: 'TestEvent-7',
@@ -208,6 +228,11 @@ class PartyCommunicationEventTests extends OFBizTestCase {
         assert communicationEventRole
     }
 
+    @Test
+    // Must run after testUpdateCommunicationEventRole: this sets the CommunicationEventRole
+    // (TestEvent-2/TestCompany/ADDRESSEE) to COM_ROLE_COMPLETED, and COMPLETED -> READ is not a
+    // valid transition, which is what testUpdateCommunicationEventRole needs to do to that role.
+    @Order(14)
     void testSetCommunicationEventRoleStatus() {
         Map serviceCtx = [
                 communicationEventId: 'TestEvent-2',
@@ -225,6 +250,8 @@ class PartyCommunicationEventTests extends OFBizTestCase {
         assert communicationEventRole
     }
 
+    @Test
+    @Order(12)
     void testSetCommunicationEventStatus() {
         Map serviceCtx = [
                 communicationEventId: 'TestEvent-6',
@@ -239,6 +266,8 @@ class PartyCommunicationEventTests extends OFBizTestCase {
         assert communicationEvent.statusId == 'COM_COMPLETE'
     }
 
+    @Test
+    @Order(13)
     void testUpdateCommunicationEvent() {
         Map serviceCtx = [
                 communicationEventId: 'TestEvent-7',
@@ -253,6 +282,8 @@ class PartyCommunicationEventTests extends OFBizTestCase {
         assert communicationEvent.statusId == 'COM_COMPLETE'
     }
 
+    @Test
+    @Order(11)
     void testUpdateCommunicationEventRole() {
         Map serviceCtx = [
                 communicationEventId: 'TestEvent-2',

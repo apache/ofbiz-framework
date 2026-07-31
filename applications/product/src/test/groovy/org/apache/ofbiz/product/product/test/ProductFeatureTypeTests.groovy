@@ -20,14 +20,14 @@ package org.apache.ofbiz.product.product.test
 
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.service.ServiceUtil
-import org.apache.ofbiz.service.testtools.OFBizTestCase
+import org.apache.ofbiz.testtools.JunitJupiterTest
+import org.apache.ofbiz.testtools.JupiterTestHelper
+import org.junit.jupiter.api.Test
 
-class ProductFeatureTypeTests extends OFBizTestCase {
+@JunitJupiterTest
+class ProductFeatureTypeTests implements JupiterTestHelper {
 
-    ProductFeatureTypeTests(String name) {
-        super(name)
-    }
-
+    @Test
     void testCreateProductFeatureType() {
         Map serviceCtx = [:]
         serviceCtx.productFeatureTypeId = 'testProdFeat'
