@@ -38,6 +38,7 @@ import org.apache.ofbiz.minilang.SimpleMethod;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ServiceContainer;
 import org.apache.ofbiz.service.testtools.OFBizTestCase;
+import org.apache.ofbiz.testtools.JupiterTestExtension.JupiterTestSuite;
 import org.w3c.dom.Element;
 
 import junit.framework.Test;
@@ -124,6 +125,15 @@ public class ModelTestSuite {
                     Debug.logError(e, MODULE);
                 }
             }
+        } else if ("jupiter-test-suite".equals(nodeName)) {
+            String className = testElement.getAttribute("class-name");
+            try {
+                Class<?> clz = ObjectType.loadClass(className);
+                this.testList.add(new JupiterTestSuite(clz));
+                Debug.logInfo("Added Jupiter test class: " + className, MODULE);
+            } catch (Exception e) {
+                Debug.logError(e, "Unable to load jupiter test suite class : " + className, MODULE);
+            }
         } else if ("webdriver-test".equals(nodeName)) {
             try {
                 String className = "org.apache.ofbiz.testtools.WebDriverTest";
@@ -197,6 +207,11 @@ public class ModelTestSuite {
             // CHECKSTYLE_ON: ALMOST_ALL
         } else if (test instanceof GroovyScriptAssert) {
             prepareGroovyScriptAssert((GroovyScriptAssert) test);
+        } else if (test instanceof JupiterTestSuite) {
+            // CHECKSTYLE_OFF: ALMOST_ALL
+            ((JupiterTestSuite) test).setDelegator(delegator);
+            ((JupiterTestSuite) test).setDispatcher(dispatcher);
+            // CHECKSTYLE_ON: ALMOST_ALL
         }
     }
 
