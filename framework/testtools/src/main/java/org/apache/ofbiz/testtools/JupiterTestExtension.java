@@ -19,6 +19,7 @@
 package org.apache.ofbiz.testtools;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -27,6 +28,7 @@ import java.util.regex.Pattern;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.service.LocalDispatcher;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.extension.ConditionEvaluationResult;
 import org.junit.jupiter.api.extension.ExecutionCondition;
 import org.junit.jupiter.api.extension.ExtensionContext;
@@ -35,6 +37,7 @@ import org.junit.jupiter.api.extension.ParameterResolutionException;
 import org.junit.jupiter.api.extension.ParameterResolver;
 import org.junit.jupiter.api.extension.TestInstancePostProcessor;
 import org.junit.platform.engine.TestExecutionResult;
+import org.junit.platform.engine.support.descriptor.MethodSource;
 import org.junit.platform.launcher.Launcher;
 import org.junit.platform.launcher.LauncherDiscoveryRequest;
 import org.junit.platform.launcher.TestExecutionListener;
@@ -283,7 +286,43 @@ public class JupiterTestExtension implements ParameterResolver, TestInstancePost
                             "org.junit.jupiter.api.MethodOrderer$OrderAnnotation")
                     .configurationParameter("junit.jupiter.execution.parallel.enabled", "false")
                     .build();
-            this.testCaseCount = (int) launcher.discover(request).countTestIdentifiers(TestIdentifier::isTest);
+            this.testCaseCount = (int) launcher.discover(request).countTestIdentifiers(
+                    id -> id.isTest() && !isStaticallyDisabled(id));
+        }
+
+        /**
+         * Excludes {@literal @}Disabled methods/classes from countTestCases() so it agrees with the
+         * TestResult.runCount() TestRunContainer actually logs: run() below never calls startTest()
+         * for a disabled test (see executionSkipped()), so runCount() never counts it either. Discovery
+         * alone can't see every reason a test might not run - an ExecutionCondition like this class's own
+         * evaluateExecutionCondition() is only evaluated at execution time - but a bare {@literal @}Disabled
+         * is visible right here via reflection on the MethodSource, which covers the common case cheaply.
+         * Any resolution failure falls back to "not disabled" (matches the old, over-counting behavior)
+         * rather than risk hiding a test that actually runs.
+         */
+        private static boolean isStaticallyDisabled(TestIdentifier identifier) {
+            return identifier.getSource()
+                    .filter(MethodSource.class::isInstance)
+                    .map(MethodSource.class::cast)
+                    .map(JupiterTestSuite::isDisabledMethodSource)
+                    .orElse(false);
+        }
+
+        private static boolean isDisabledMethodSource(MethodSource source) {
+            try {
+                Class<?> testClass = Class.forName(source.getClassName());
+                if (testClass.isAnnotationPresent(Disabled.class)) {
+                    return true;
+                }
+                for (Method method : testClass.getDeclaredMethods()) {
+                    if (method.getName().equals(source.getMethodName()) && method.isAnnotationPresent(Disabled.class)) {
+                        return true;
+                    }
+                }
+            } catch (ClassNotFoundException e) {
+                return false;
+            }
+            return false;
         }
 
         void setDelegator(Delegator delegator) {
@@ -329,6 +368,17 @@ public class JupiterTestExtension implements ParameterResolver, TestInstancePost
                             return;
                         }
                         Test leaf = leafTests.get(testIdentifier.getUniqueId());
+                        if (testExecutionResult.getStatus() == TestExecutionResult.Status.ABORTED) {
+                            // A JUnit 5 Assumptions.assumeTrue/assumeFalse failure: a deliberate skip, not a
+                            // defect, so it is reported the same way executionSkipped() reports a @Disabled
+                            // test - logged, not routed through addFailure()/addError() - even though, unlike
+                            // a @Disabled test, startTest() already ran for it and endTest() still must too.
+                            testExecutionResult.getThrowable().ifPresent(throwable ->
+                                    Debug.logInfo("[JUNIT] ABORTED: " + testIdentifier.getDisplayName()
+                                            + " (" + testClass.getName() + ") - " + throwable.getMessage(), MODULE));
+                            result.endTest(leaf);
+                            return;
+                        }
                         testExecutionResult.getThrowable().ifPresent(throwable -> {
                             if (throwable instanceof AssertionError) {
                                 result.addFailure(leaf, new AssertionFailedError(throwable.getMessage()));
