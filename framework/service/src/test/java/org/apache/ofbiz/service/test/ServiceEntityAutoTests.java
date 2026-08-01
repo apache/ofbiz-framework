@@ -18,6 +18,11 @@
  *******************************************************************************/
 package org.apache.ofbiz.service.test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Locale;
@@ -31,26 +36,20 @@ import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.ServiceUtil;
-import org.apache.ofbiz.service.testtools.OFBizTestCase;
+import org.apache.ofbiz.testtools.JunitJupiterTest;
+import org.apache.ofbiz.testtools.JupiterTestHelper;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
 
-public class ServiceEntityAutoTests extends OFBizTestCase {
-
-    public ServiceEntityAutoTests(String name) {
-        super(name);
-    }
-
-    @Override
-    protected void setUp() throws Exception {
-    }
-
-    @Override
-    protected void tearDown() throws Exception {
-    }
+@JunitJupiterTest
+public class ServiceEntityAutoTests implements JupiterTestHelper {
 
     /**
      * Test entity auto create singl pk entity.
      * @throws Exception the exception
      */
+    @Test
+    @Order(1)
     public void testEntityAutoCreateSinglPkEntity() throws Exception {
         Delegator delegator = getDelegator();
         //test create with given pk
@@ -79,6 +78,8 @@ public class ServiceEntityAutoTests extends OFBizTestCase {
      * Test entity auto create double pk entity.
      * @throws Exception the exception
      */
+    @Test
+    @Order(2)
     public void testEntityAutoCreateDoublePkEntity() throws Exception {
         Delegator delegator = getDelegator();
         delegator.create("Testing", "testingId", "TESTING_2");
@@ -113,6 +114,8 @@ public class ServiceEntityAutoTests extends OFBizTestCase {
      * Test entity auto create multi pk entity.
      * @throws Exception the exception
      */
+    @Test
+    @Order(3)
     public void testEntityAutoCreateMultiPkEntity() throws Exception {
         Delegator delegator = getDelegator();
         delegator.create("TestingNode", "testingNodeId", "NODE_1");
@@ -141,6 +144,8 @@ public class ServiceEntityAutoTests extends OFBizTestCase {
      * Test entity auto update entity.
      * @throws Exception the exception
      */
+    @Test
+    @Order(4)
     public void testEntityAutoUpdateEntity() throws Exception {
         Delegator delegator = getDelegator();
         delegator.create("Testing", "testingId", "TESTING_4", "testingName", "entity auto testing");
@@ -163,6 +168,8 @@ public class ServiceEntityAutoTests extends OFBizTestCase {
      * Test entity auto delete entity.
      * @throws Exception the exception
      */
+    @Test
+    @Order(5)
     public void testEntityAutoDeleteEntity() throws Exception {
         Delegator delegator = getDelegator();
         delegator.create("Testing", "testingId", "TESTING_5");
@@ -186,6 +193,8 @@ public class ServiceEntityAutoTests extends OFBizTestCase {
      * Test entity auto expire entity.
      * @throws Exception the exception
      */
+    @Test
+    @Order(6)
     public void testEntityAutoExpireEntity() throws Exception {
         Delegator delegator = getDelegator();
         Timestamp now = UtilDateTime.nowTimestamp();
@@ -199,14 +208,14 @@ public class ServiceEntityAutoTests extends OFBizTestCase {
         assertTrue(ServiceUtil.isSuccess(results));
         GenericValue testingNodeMember = EntityQuery.use(delegator).from("TestingNodeMember").where(testingNodeMemberPkMap).queryOne();
         Timestamp expireDate = testingNodeMember.getTimestamp("thruDate");
-        assertNotNull("Expire thruDate set ", expireDate);
+        assertNotNull(expireDate, "Expire thruDate set ");
 
         //test expire to ensure the thruDate isn't update but extendThruDate is
         results = getDispatcher().runSync("testEntityAutoExpireTestingNodeMember", testingNodeMemberPkMap);
         assertTrue(ServiceUtil.isSuccess(results));
         testingNodeMember = EntityQuery.use(delegator).from("TestingNodeMember").where(testingNodeMemberPkMap).queryOne();
         assertTrue(expireDate.compareTo(testingNodeMember.getTimestamp("thruDate")) == 0);
-        assertNotNull("Expire extendThruDate set ", testingNodeMember.getTimestamp("extendThruDate"));
+        assertNotNull(testingNodeMember.getTimestamp("extendThruDate"), "Expire extendThruDate set ");
 
         //test expire a specific field
         delegator.create("TestFieldType", "testFieldTypeId", "TESTING_6");
@@ -214,7 +223,7 @@ public class ServiceEntityAutoTests extends OFBizTestCase {
         results = getDispatcher().runSync("testEntityAutoExpireTestFieldType", testingExpireMap);
         assertTrue(ServiceUtil.isSuccess(results));
         GenericValue testFieldType = EntityQuery.use(delegator).from("TestFieldType").where("testFieldTypeId", "TESTING_6").queryOne();
-        assertNotNull("Expire dateTimeField set", testFieldType.getTimestamp("dateTimeField"));
+        assertNotNull(testFieldType.getTimestamp("dateTimeField"), "Expire dateTimeField set");
 
         //test expire a specific field with in value
         delegator.create("TestFieldType", "testFieldTypeId", "TESTING_6bis");
@@ -230,6 +239,8 @@ public class ServiceEntityAutoTests extends OFBizTestCase {
      * Test entity auto entity status concept.
      * @throws Exception the exception
      */
+    @Test
+    @Order(7)
     public void testEntityAutoEntityStatusConcept() throws Exception {
         Delegator delegator = getDelegator();
         delegator.create("Testing", "testingId", "TESTING_7");

@@ -18,6 +18,11 @@
  *******************************************************************************/
 package org.apache.ofbiz.minilang.test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -29,18 +34,17 @@ import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilXml;
 import org.apache.ofbiz.minilang.SimpleMethod;
 import org.apache.ofbiz.minilang.method.MethodContext;
-import org.apache.ofbiz.service.testtools.OFBizTestCase;
+import org.apache.ofbiz.testtools.JunitJupiterTest;
+import org.apache.ofbiz.testtools.JupiterTestHelper;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
 
-public class MiniLangTests extends OFBizTestCase {
+@JunitJupiterTest
+public class MiniLangTests implements JupiterTestHelper {
 
     private static final String MODULE = MiniLangTests.class.getName();
 
-    private final boolean traceEnabled;
-
-    public MiniLangTests(String name) {
-        super(name);
-        traceEnabled = "true".equals(UtilProperties.getPropertyValue("minilang", "unit.tests.trace.enabled"));
-    }
+    private final boolean traceEnabled = "true".equals(UtilProperties.getPropertyValue("minilang", "unit.tests.trace.enabled"));
 
     private static Map<String, Object> createContext() {
         return UtilMisc.toMap("locale", Locale.US, "timeZone", TimeZone.getTimeZone("GMT"));
@@ -63,45 +67,49 @@ public class MiniLangTests extends OFBizTestCase {
      * Test assignment operators.
      * @throws Exception the exception
      */
+    @Test
+    @Order(1)
     public void testAssignmentOperators() throws Exception {
         // <check-errors> and <add-error> tests
         SimpleMethod methodToTest = createSimpleMethod("<simple-method name=\"testCheckErrors\"><check-errors/></simple-method>");
         MethodContext context = createServiceMethodContext();
         String result = methodToTest.exec(context);
-        assertEquals("<check-errors> success result", methodToTest.getDefaultSuccessCode(), result);
+        assertEquals(methodToTest.getDefaultSuccessCode(), result, "<check-errors> success result");
         List<String> messages = context.getEnv(methodToTest.getServiceErrorMessageListName());
-        assertNull("<check-errors> null error message list", messages);
+        assertNull(messages, "<check-errors> null error message list");
         methodToTest = createSimpleMethod("<simple-method name=\"testCheckErrors\"><add-error><fail-message message=\"This should fail\"/>"
                 + "</add-error><check-errors/></simple-method>");
         context = createServiceMethodContext();
         result = methodToTest.exec(context);
-        assertEquals("<check-errors> error result", methodToTest.getDefaultErrorCode(), result);
+        assertEquals(methodToTest.getDefaultErrorCode(), result, "<check-errors> error result");
         messages = context.getEnv(methodToTest.getServiceErrorMessageListName());
-        assertNotNull("<check-errors> error message list", messages);
-        assertTrue("<check-errors> error message text", messages.contains("This should fail"));
+        assertNotNull(messages, "<check-errors> error message list");
+        assertTrue(messages.contains("This should fail"), "<check-errors> error message text");
         // <assert>, <not>, and <if-empty> tests
         methodToTest = createSimpleMethod("<simple-method name=\"testAssert\"><assert><not><if-empty field=\"locale\"/></not></assert>"
                 + "<check-errors/></simple-method>");
         context = createServiceMethodContext();
         result = methodToTest.exec(context);
-        assertEquals("<assert> success result", methodToTest.getDefaultSuccessCode(), result);
+        assertEquals(methodToTest.getDefaultSuccessCode(), result, "<assert> success result");
         messages = context.getEnv(methodToTest.getServiceErrorMessageListName());
-        assertNull("<assert> null error message list", messages);
+        assertNull(messages, "<assert> null error message list");
         methodToTest = createSimpleMethod("<simple-method name=\"testAssert\"><assert><if-empty field=\"locale\"/></assert><check-errors/>"
                 + "</simple-method>");
         context = createServiceMethodContext();
         result = methodToTest.exec(context);
-        assertEquals("<assert> error result", methodToTest.getDefaultErrorCode(), result);
+        assertEquals(methodToTest.getDefaultErrorCode(), result, "<assert> error result");
         messages = context.getEnv(methodToTest.getServiceErrorMessageListName());
-        assertNotNull("<assert> error message list", messages);
+        assertNotNull(messages, "<assert> error message list");
         String errorMessage = messages.get(0);
-        assertTrue("<assert> error message text", errorMessage.startsWith("Assertion failed:"));
+        assertTrue(errorMessage.startsWith("Assertion failed:"), "<assert> error message text");
     }
 
     /**
      * Test field to result operation.
      * @throws Exception the exception
      */
+    @Test
+    @Order(2)
     public void testFieldToResultOperation() throws Exception {
         String simpleMethodXml = "<simple-method name=\"testFieldToResult\">"
                 + "  <set field=\"resultValue\" value=\"someResultValue\"/>"
@@ -112,8 +120,8 @@ public class MiniLangTests extends OFBizTestCase {
         SimpleMethod methodToTest = createSimpleMethod(simpleMethodXml);
         MethodContext context = createServiceMethodContext();
         String result = methodToTest.exec(context);
-        assertEquals("testFieldToResult success result", methodToTest.getDefaultSuccessCode(), result);
-        assertEquals("Plain expression result name set", "someResultValue", context.getResult("constantResultName"));
-        assertEquals("Nested expression result name set", "someResultValue", context.getResult("dynamicResultName"));
+        assertEquals(methodToTest.getDefaultSuccessCode(), result, "testFieldToResult success result");
+        assertEquals("someResultValue", context.getResult("constantResultName"), "Plain expression result name set");
+        assertEquals("someResultValue", context.getResult("dynamicResultName"), "Nested expression result name set");
     }
 }

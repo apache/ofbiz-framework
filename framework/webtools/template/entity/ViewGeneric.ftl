@@ -60,7 +60,8 @@ function ShowTab(lname) {
         </#if>
         <#if value?has_content>
           <#if hasDeletePermission>
-            <form action='<@ofbizUrl>entity/change/${currentFindString}</@ofbizUrl>' method="post" name="updateForm">
+            <#assign deleteConfirmMessage = "${uiLabelMap.WebtoolsConfirmIrreversibleDelete} ${entityName} ${findByPk}?" />
+            <form action='<@ofbizUrl>entity/change/${currentFindString}</@ofbizUrl>' method="post" name="updateForm" onsubmit="return confirm('${deleteConfirmMessage?js_string}');">
               <input type="hidden" value="DELETE" name="_method"/>
               <#list pkNamesValuesMap.keySet() as pkName>
                 <input type="hidden" value="${pkNamesValuesMap.get(pkName)}" name="${pkName}"/>

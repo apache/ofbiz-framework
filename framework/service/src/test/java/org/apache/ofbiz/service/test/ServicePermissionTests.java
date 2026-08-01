@@ -18,23 +18,29 @@
  *******************************************************************************/
 package org.apache.ofbiz.service.test;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.service.ServiceAuthException;
 import org.apache.ofbiz.service.ServiceUtil;
-import org.apache.ofbiz.service.testtools.OFBizTestCase;
+import org.apache.ofbiz.testtools.JunitJupiterTest;
+import org.apache.ofbiz.testtools.JupiterTestHelper;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
 
 import java.util.Map;
 
-public class ServicePermissionTests extends OFBizTestCase {
-
-    public ServicePermissionTests(String name) {
-        super(name);
-    }
+@JunitJupiterTest
+public class ServicePermissionTests implements JupiterTestHelper {
 
     /**
      * Test permission success.
      * @throws Exception the exception
      */
+    @Test
+    @Order(1)
     public void testPermissionSuccess() throws Exception {
         Map<String, Object> testingPermMap = UtilMisc.toMap("userLogin", getUserLogin("permUser1"));
         Map<String, Object> results = getDispatcher().runSync("testSimplePermission", testingPermMap);
@@ -45,6 +51,8 @@ public class ServicePermissionTests extends OFBizTestCase {
      * Test service permission success.
      * @throws Exception the exception
      */
+    @Test
+    @Order(2)
     public void testServicePermissionSuccess() throws Exception {
         Map<String, Object> testingPermMap = UtilMisc.toMap("userLogin", getUserLogin("permUser1"), "givePermission", "Y");
         Map<String, Object> results = getDispatcher().runSync("testSimpleServicePermission", testingPermMap);
@@ -55,11 +63,13 @@ public class ServicePermissionTests extends OFBizTestCase {
      * Test service permission error.
      * @throws Exception the exception
      */
+    @Test
+    @Order(3)
     public void testServicePermissionError() throws Exception {
         Map<String, Object> testingPermMap = UtilMisc.toMap("userLogin", getUserLogin("permUser1"), "givePermission", "N");
         try {
             Map<String, Object> results = getDispatcher().runSync("testSimpleServicePermission", testingPermMap);
-            assertFalse("The testGroupPermission don't raise service exception", ServiceUtil.isError(results));
+            assertFalse(ServiceUtil.isError(results), "The testGroupPermission don't raise service exception");
         } catch (ServiceAuthException e) {
             assertNotNull(e);
         }
@@ -69,6 +79,8 @@ public class ServicePermissionTests extends OFBizTestCase {
      * Test group permission success.
      * @throws Exception the exception
      */
+    @Test
+    @Order(4)
     public void testGroupPermissionSuccess() throws Exception {
         Map<String, Object> testingPermMap = UtilMisc.toMap("userLogin", getUserLogin("permUser1"), "givePermission", "Y");
         Map<String, Object> results = getDispatcher().runSync("testSimpleGroupAndPermission", testingPermMap);
@@ -83,11 +95,13 @@ public class ServicePermissionTests extends OFBizTestCase {
      * Test permission failed.
      * @throws Exception the exception
      */
+    @Test
+    @Order(5)
     public void testPermissionFailed() throws Exception {
         Map<String, Object> testingPermMap = UtilMisc.toMap("userLogin", getUserLogin("permUser2"));
         try {
             Map<String, Object> results = getDispatcher().runSync("testSimplePermission", testingPermMap);
-            assertFalse("The service testSimplePermission don't raise service exception", ServiceUtil.isError(results));
+            assertFalse(ServiceUtil.isError(results), "The service testSimplePermission don't raise service exception");
         } catch (ServiceAuthException e) {
             assertNotNull(e);
         }
@@ -97,11 +111,13 @@ public class ServicePermissionTests extends OFBizTestCase {
      * Test service permission failed.
      * @throws Exception the exception
      */
+    @Test
+    @Order(6)
     public void testServicePermissionFailed() throws Exception {
         Map<String, Object> testingPermMap = UtilMisc.toMap("userLogin", getUserLogin("permUser2"), "givePermission", "N");
         try {
             Map<String, Object> results = getDispatcher().runSync("testSimpleServicePermission", testingPermMap);
-            assertFalse("The service testServicePermission don't raise service exception", ServiceUtil.isError(results));
+            assertFalse(ServiceUtil.isError(results), "The service testServicePermission don't raise service exception");
         } catch (ServiceAuthException e) {
             assertNotNull(e);
         }
@@ -111,11 +127,13 @@ public class ServicePermissionTests extends OFBizTestCase {
      * Test group permission failed.
      * @throws Exception the exception
      */
+    @Test
+    @Order(7)
     public void testGroupPermissionFailed() throws Exception {
         Map<String, Object> testingPermMap = UtilMisc.toMap("userLogin", getUserLogin("permUser2"), "givePermission", "Y");
         try {
             Map<String, Object> results = getDispatcher().runSync("testSimpleGroupAndPermission", testingPermMap);
-            assertFalse("The testGroupPermission don't raise service exception", ServiceUtil.isError(results));
+            assertFalse(ServiceUtil.isError(results), "The testGroupPermission don't raise service exception");
         } catch (ServiceAuthException e) {
             assertNotNull(e);
         }
@@ -123,7 +141,7 @@ public class ServicePermissionTests extends OFBizTestCase {
         testingPermMap = UtilMisc.toMap("userLogin", getUserLogin("permUser1"), "givePermission", "N");
         try {
             Map<String, Object> results = getDispatcher().runSync("testSimpleGroupOrPermission", testingPermMap);
-            assertFalse("The testGroupPermission don't raise service exception", ServiceUtil.isError(results));
+            assertFalse(ServiceUtil.isError(results), "The testGroupPermission don't raise service exception");
         } catch (ServiceAuthException e) {
             assertNotNull(e);
         }

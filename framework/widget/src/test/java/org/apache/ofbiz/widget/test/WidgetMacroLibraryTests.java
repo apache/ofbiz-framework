@@ -19,27 +19,31 @@
 
 package org.apache.ofbiz.widget.test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import java.io.InputStream;
 
 import org.apache.ofbiz.base.start.Start;
 import org.apache.ofbiz.base.util.HttpClient;
 import org.apache.ofbiz.base.util.HttpClientException;
 import org.apache.ofbiz.base.util.SSLUtil;
-import org.apache.ofbiz.service.testtools.OFBizTestCase;
+import org.apache.ofbiz.testtools.JunitJupiterTest;
+import org.apache.ofbiz.testtools.JupiterTestHelper;
 import org.apache.tika.metadata.Metadata;
 import org.apache.tika.parser.ParseContext;
 import org.apache.tika.parser.pdf.PDFParser;
 import org.apache.tika.sax.BodyContentHandler;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
 
 
-public class WidgetMacroLibraryTests extends OFBizTestCase {
+@JunitJupiterTest
+public class WidgetMacroLibraryTests implements JupiterTestHelper {
 
     private String screenUrl = "https://localhost:8443/webtools/control/WebtoolsLayoutDemo"; //use existing screen to present most of layout use case
     private final String authentificationQuery = "?USERNAME=admin&PASSWORD=ofbiz";
-
-    public WidgetMacroLibraryTests(String name) {
-        super(name);
-    }
 
     /**
      * Prepare the http client to call the demo layout screen
@@ -56,6 +60,8 @@ public class WidgetMacroLibraryTests extends OFBizTestCase {
      * Test html macro library.
      * @throws Exception the exception
      */
+    @Test
+    @Order(1)
     public void testHtmlMacroLibrary() throws Exception {
         HttpClient http = initHttpClient();
         if (Start.getInstance().getConfig().getPortOffset() != 0) {
@@ -64,96 +70,106 @@ public class WidgetMacroLibraryTests extends OFBizTestCase {
         }
         http.setUrl(screenUrl.concat(authentificationQuery));
         String screenOutString = http.post();
-        assertNotNull("Response failed from ofbiz", screenOutString);
-        assertEquals("Response contentType isn't good : " + http.getResponseContentType(), "text/html;charset=UTF-8", http.getResponseContentType());
+        assertNotNull(screenOutString, "Response failed from ofbiz");
+        assertEquals("text/html;charset=UTF-8", http.getResponseContentType(), "Response contentType isn't good : " + http.getResponseContentType());
 
         //Test if a ftl macro error is present
-        assertFalse("Html Screen contains Macro on error : see " + screenUrl + " for more detail",
-                screenOutString.contains("FreeMarker template error:"));
+        assertFalse(screenOutString.contains("FreeMarker template error:"),
+                "Html Screen contains Macro on error : see " + screenUrl + " for more detail");
     }
 
     /**
      * Test text macro library.
      * @throws Exception the exception
      */
+    @Test
+    @Order(2)
     public void testTextMacroLibrary() throws Exception {
         String screentextUrl = screenUrl.concat("Text");
         HttpClient http = initHttpClient();
         http.setUrl(screentextUrl.concat(authentificationQuery));
         String screenOutString = http.post();
-        assertNotNull("Response failed from ofbiz", screenOutString);
-        assertEquals("Response contentType isn't good : " + http.getResponseContentType(), "text/html;charset=UTF-8", http.getResponseContentType());
+        assertNotNull(screenOutString, "Response failed from ofbiz");
+        assertEquals("text/html;charset=UTF-8", http.getResponseContentType(), "Response contentType isn't good : " + http.getResponseContentType());
 
         //Test if a ftl macro error is present
-        assertFalse("Text Screen contains Macro on error : see " + screentextUrl + " for more detail",
-                screenOutString.contains("FreeMarker template error:"));
+        assertFalse(screenOutString.contains("FreeMarker template error:"),
+                "Text Screen contains Macro on error : see " + screentextUrl + " for more detail");
     }
 
     /**
      * Test xml macro library.
      * @throws Exception the exception
      */
+    @Test
+    @Order(3)
     public void testXmlMacroLibrary() throws Exception {
         String screenxmlUrl = screenUrl.concat("Xml");
         HttpClient http = initHttpClient();
         http.setUrl(screenxmlUrl.concat(authentificationQuery));
         String screenOutString = http.post();
-        assertNotNull("Response failed from ofbiz", screenOutString);
-        assertEquals("Response contentType isn't good : " + http.getResponseContentType(), "text/xml;charset=UTF-8", http.getResponseContentType());
+        assertNotNull(screenOutString, "Response failed from ofbiz");
+        assertEquals("text/xml;charset=UTF-8", http.getResponseContentType(), "Response contentType isn't good : " + http.getResponseContentType());
 
         //Test if a ftl macro error is present
-        assertFalse("Xml Screen contains Macro on error : see " + screenxmlUrl + " for more detail",
-                screenOutString.contains("FreeMarker template error:"));
+        assertFalse(screenOutString.contains("FreeMarker template error:"),
+                "Xml Screen contains Macro on error : see " + screenxmlUrl + " for more detail");
     }
 
     /**
      * Test csv macro library.
      * @throws Exception the exception
      */
+    @Test
+    @Order(4)
     public void testCsvMacroLibrary() throws Exception {
         String screencsvUrl = screenUrl.concat("Csv");
         HttpClient http = initHttpClient();
         http.setUrl(screencsvUrl.concat(authentificationQuery));
         String screenOutString = http.post();
-        assertNotNull("Response failed from ofbiz", screenOutString);
-        assertEquals("Response contentType isn't good : " + http.getResponseContentType(), "text/csv;charset=UTF-8", http.getResponseContentType());
+        assertNotNull(screenOutString, "Response failed from ofbiz");
+        assertEquals("text/csv;charset=UTF-8", http.getResponseContentType(), "Response contentType isn't good : " + http.getResponseContentType());
 
         //Test if a ftl macro error is present
-        assertFalse("Csv Screen contains Macro on error : see " + screencsvUrl + " for more detail",
-                screenOutString.contains("FreeMarker template error:"));
+        assertFalse(screenOutString.contains("FreeMarker template error:"),
+                "Csv Screen contains Macro on error : see " + screencsvUrl + " for more detail");
     }
 
     /**
      * Test xls macro library.
      * @throws Exception the exception
      */
+    @Test
+    @Order(5)
     public void testXlsMacroLibrary() throws Exception {
         String screenxlsUrl = screenUrl.concat("Xls");
         HttpClient http = initHttpClient();
         http.setUrl(screenxlsUrl.concat(authentificationQuery));
         String screenOutString = http.post();
-        assertNotNull("Response failed from ofbiz", screenOutString);
-        assertEquals("Response contentType isn't good : " + http.getResponseContentType(), "application/vnd.ms-excel;charset=UTF-8",
-                http.getResponseContentType());
+        assertNotNull(screenOutString, "Response failed from ofbiz");
+        assertEquals("application/vnd.ms-excel;charset=UTF-8",
+                http.getResponseContentType(), "Response contentType isn't good : " + http.getResponseContentType());
 
         //Test if a ftl macro error is present
-        assertFalse("Csv Screen contains Macro on error : see " + screenxlsUrl + " for more detail",
-                screenOutString.contains("FreeMarker template error:"));
+        assertFalse(screenOutString.contains("FreeMarker template error:"),
+                "Csv Screen contains Macro on error : see " + screenxlsUrl + " for more detail");
     }
 
     /**
      * Test fop macro library.
      * @throws Exception the exception
      */
+    @Test
+    @Order(6)
     public void testFopMacroLibrary() throws Exception {
         String screentextUrl = screenUrl.concat("Fop");
         HttpClient http = initHttpClient();
         http.setUrl(screentextUrl.concat(authentificationQuery));
         //FIXME need to check if the stream is an application-pdf that don't contains ftl stack trace
         InputStream screenInputStream = http.postStream();
-        assertNotNull("Response failed from ofbiz", screenInputStream);
-        assertEquals("Response contentType isn't good : " + http.getResponseContentType(), "application/pdf;charset=UTF-8",
-                http.getResponseContentType());
+        assertNotNull(screenInputStream, "Response failed from ofbiz");
+        assertEquals("application/pdf;charset=UTF-8",
+                http.getResponseContentType(), "Response contentType isn't good : " + http.getResponseContentType());
 
         String screenOutString = "";
         try {
@@ -165,7 +181,7 @@ public class WidgetMacroLibraryTests extends OFBizTestCase {
             screenInputStream.close();
         }
         //Test if a ftl macro error is present
-        assertFalse("Fop Screen contains Macro on error : see " + screentextUrl + " for more detail",
-                screenOutString.contains("FreeMarker template error:"));
+        assertFalse(screenOutString.contains("FreeMarker template error:"),
+                "Fop Screen contains Macro on error : see " + screentextUrl + " for more detail");
     }
 }

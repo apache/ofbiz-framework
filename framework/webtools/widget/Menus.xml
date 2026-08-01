@@ -268,13 +268,14 @@ under the License.
             <link target="FindUtilCache"/>
         </menu-item>
         <menu-item name="clearAll" title="${uiLabelMap.WebtoolsClearAllCaches}">
-            <link target="FindUtilCacheClearAll"/>
+            <link target="FindUtilCacheClearAll" request-confirmation="true" confirmation-message="${uiLabelMap.WebtoolsConfirmIrreversibleDelete} ${uiLabelMap.WebtoolsClearAllCaches}?"/>
         </menu-item>
         <menu-item name="forceGarbageCollection" title="${uiLabelMap.WebtoolsRunGC}">
             <link target="ForceGarbageCollection"/>
         </menu-item>
         <menu-item name="clearSelectedCaches" title="${uiLabelMap.WebtoolsClearSelectedCaches}">
-            <link target="javascript: document.ListCache.submit()" url-mode="plain"/>
+            <link target="javascript: document.ListCache.submit()" url-mode="plain"
+                    request-confirmation="true" confirmation-message="${uiLabelMap.WebtoolsConfirmIrreversibleDelete} ${uiLabelMap.WebtoolsClearSelectedCaches}?"/>
         </menu-item>
     </menu>
 
@@ -286,7 +287,7 @@ under the License.
 
     <menu name="EditCache" extends="CommonButtonBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="clear" title="${uiLabelMap.WebtoolsClearThisCache}">
-            <link target="EditUtilCacheClear">
+            <link target="EditUtilCacheClear" request-confirmation="true" confirmation-message="${uiLabelMap.WebtoolsConfirmIrreversibleDelete} cache ${cacheName}?">
                <parameter param-name="UTIL_CACHE_NAME" from-field="cacheName"/>
                <parameter param-name="type" from-field="parameters.type"/>
             </link>

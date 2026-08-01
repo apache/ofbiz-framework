@@ -18,6 +18,13 @@
  *******************************************************************************/
 package org.apache.ofbiz.entity.test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import java.math.BigDecimal;
 import java.sql.Blob;
 import java.sql.Date;
@@ -55,15 +62,19 @@ import org.apache.ofbiz.entity.config.model.Datasource;
 import org.apache.ofbiz.entity.config.model.EntityConfig;
 import org.apache.ofbiz.entity.model.ModelEntity;
 import org.apache.ofbiz.entity.model.ModelField;
-import org.apache.ofbiz.entity.testtools.EntityTestCase;
 import org.apache.ofbiz.entity.transaction.GenericTransactionException;
 import org.apache.ofbiz.entity.transaction.TransactionUtil;
 import org.apache.ofbiz.entity.util.EntityListIterator;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.entity.util.EntitySaxReader;
 import org.apache.ofbiz.entity.util.SequenceUtil;
+import org.apache.ofbiz.testtools.JunitJupiterTest;
+import org.apache.ofbiz.testtools.JupiterTestHelper;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
 
-public class EntityTestSuite extends EntityTestCase {
+@JunitJupiterTest
+public class EntityTestSuite implements JupiterTestHelper {
 
     private static final String MODULE = EntityTestSuite.class.getName();
     /*
@@ -75,39 +86,39 @@ public class EntityTestSuite extends EntityTestCase {
      */
     public static final long TEST_COUNT = 1000;
 
-    public EntityTestSuite(String name) {
-        super(name);
-    }
-
     private static final int LEVEL_1_MAX = 3;   // number of TestingNode entities to create
 
     /**
      * Test models.
      * @throws Exception the exception
      */
+    @Test
+    @Order(1)
     public void testModels() throws Exception {
         ModelEntity modelEntity = getDelegator().getModelEntity("TestingType");
-        assertNotNull("TestingType entity model not null", modelEntity);
+        assertNotNull(modelEntity, "TestingType entity model not null");
         ModelField modelField = modelEntity.getField("description");
-        assertNotNull("TestingType.description field model not null", modelField);
+        assertNotNull(modelField, "TestingType.description field model not null");
         modelField = ModelField.create(modelEntity, null, "newDesc", modelField.getType(), "NEW_DESC", null,
                 null, false, false, false, false, false, null);
         modelEntity.addField(modelField);
         modelField = modelEntity.getField("newDesc");
-        assertNotNull("TestingType.newDesc field model not null", modelField);
+        assertNotNull(modelField, "TestingType.newDesc field model not null");
         modelEntity.removeField("newDesc");
         modelField = modelEntity.getField("newDesc");
-        assertNull("TestingType.newDesc field model is null", modelField);
+        assertNull(modelField, "TestingType.newDesc field model is null");
     }
 
     /**
      * Tests storing values with the delegator's .create, .makeValue, and .storeAll methods
      */
+    @Test
+    @Order(2)
     public void testMakeValue() throws Exception {
         // This method call directly stores a new value into the entity engine
         GenericValue createdValue = getDelegator().create("TestingType", "testingTypeId", "TEST-MAKE-1", "description", "Testing Type #Make-1");
-        assertTrue("Created value is mutable", createdValue.isMutable());
-        assertFalse("Observable has not changed", createdValue.hasChanged());
+        assertTrue(createdValue.isMutable(), "Created value is mutable");
+        assertFalse(createdValue.hasChanged(), "Observable has not changed");
 
         // This sequence creates the GenericValue entities first, puts them in a List, then calls the delegator to store them all
         List<GenericValue> newValues = new LinkedList<>();
@@ -123,52 +134,56 @@ public class EntityTestSuite extends EntityTestCase {
                                                            .where(EntityCondition.makeCondition("testingTypeId", EntityOperator.LIKE, "TEST-MAKE-%"))
                                                            .orderBy("testingTypeId")
                                                            .queryList();
-        assertEquals("4 TestingTypes(for make) found", 4, newlyCreatedValues.size());
+        assertEquals(4, newlyCreatedValues.size(), "4 TestingTypes(for make) found");
     }
 
     /**
      * Tests updating entities by doing a GenericValue .put(key, value) and .store()
      */
+    @Test
+    @Order(3)
     public void testUpdateValue() throws Exception {
         // retrieve a sample GenericValue, make sure it's correct
         getDelegator().removeByCondition("TestingType", EntityCondition.makeCondition("testingTypeId", EntityOperator.LIKE, "TEST-UPDATE-%"));
         GenericValue testValue = EntityQuery.use(getDelegator()).from("TestingType").where("testingTypeId", "TEST-UPDATE-1").queryOne();
-        assertNull("No pre-existing type value", testValue);
+        assertNull(testValue, "No pre-existing type value");
         getDelegator().create("TestingType", "testingTypeId", "TEST-UPDATE-1", "description", "Testing Type #Update-1");
         testValue = EntityQuery.use(getDelegator()).from("TestingType").where("testingTypeId", "TEST-UPDATE-1").queryOne();
-        assertEquals("Retrieved value has the correct description", "Testing Type #Update-1", testValue.getString("description"));
+        assertEquals("Testing Type #Update-1", testValue.getString("description"), "Retrieved value has the correct description");
         // Test Observable aspect
-        assertFalse("Observable has not changed", testValue.hasChanged());
+        assertFalse(testValue.hasChanged(), "Observable has not changed");
         TestObserver observer = new TestObserver();
         testValue.addObserver(observer);
         testValue.put("description", "New Testing Type #Update-1");
-        assertEquals("Observer called with original GenericValue field name", "description", observer.arg);
+        assertEquals("description", observer.arg, "Observer called with original GenericValue field name");
         GenericValue clonedValue = (GenericValue) testValue.clone();
         clonedValue.put("description", "New Testing Type #Update-1");
-        assertTrue("Cloned Observable has changed", clonedValue.hasChanged());
-        assertEquals("Observer called with cloned GenericValue field name", "description", observer.arg);
+        assertTrue(clonedValue.hasChanged(), "Cloned Observable has changed");
+        assertEquals("description", observer.arg, "Observer called with cloned GenericValue field name");
         // now store it
         testValue.store();
-        assertFalse("Observable has not changed", testValue.hasChanged());
+        assertFalse(testValue.hasChanged(), "Observable has not changed");
         // now retrieve it again and make sure that the updated value is correct
         testValue = EntityQuery.use(getDelegator()).from("TestingType").where("testingTypeId", "TEST-UPDATE-1").queryOne();
-        assertEquals("Retrieved value has the correct description", "New Testing Type #Update-1", testValue.getString("description"));
+        assertEquals("New Testing Type #Update-1", testValue.getString("description"), "Retrieved value has the correct description");
     }
 
     /**
      * Test remove value.
      * @throws Exception the exception
      */
+    @Test
+    @Order(4)
     public void testRemoveValue() throws Exception {
         // Retrieve a sample GenericValue, make sure it's correct
         getDelegator().removeByCondition("TestingType", EntityCondition.makeCondition("testingTypeId", EntityOperator.LIKE, "TEST-REMOVE-%"));
         GenericValue testValue = EntityQuery.use(getDelegator()).from("TestingType").where("testingTypeId", "TEST-REMOVE-1").queryOne();
-        assertNull("No pre-existing type value", testValue);
+        assertNull(testValue, "No pre-existing type value");
         getDelegator().create("TestingType", "testingTypeId", "TEST-REMOVE-1", "description", "Testing Type #Remove-1");
         testValue = EntityQuery.use(getDelegator()).from("TestingType").where("testingTypeId", "TEST-REMOVE-1").queryOne();
-        assertEquals("Retrieved value has the correct description", "Testing Type #Remove-1", testValue.getString("description"));
+        assertEquals("Testing Type #Remove-1", testValue.getString("description"), "Retrieved value has the correct description");
         testValue.remove();
-        assertFalse("Observable has not changed", testValue.hasChanged());
+        assertFalse(testValue.hasChanged(), "Observable has not changed");
         // Test immutable
         try {
             testValue.put("description", "New Testing Type #Remove-4");
@@ -181,13 +196,15 @@ public class EntityTestSuite extends EntityTestCase {
         } catch (UnsupportedOperationException e) {
         }
         testValue = EntityQuery.use(getDelegator()).from("TestingType").where("testingTypeId", "TEST-REMOVE-1").queryOne();
-        assertEquals("Finding removed value returns null", null, testValue);
+        assertEquals(null, testValue, "Finding removed value returns null");
     }
 
     /**
      * Test to load huge entity
      * @throws Exception the exception
      */
+    @Test
+    @Order(5)
     public void testCreateAllValues() throws Exception {
         List<GenericValue> testValues = new ArrayList<>(100);
         for (int i = 0; i < 100; i++) {
@@ -197,26 +214,30 @@ public class EntityTestSuite extends EntityTestCase {
             testValues.add(getDelegator().makeValue("Testing", "testingId", "TEST_CREATE_DIST" + i));
         }
         getDelegator().createAllByBatchProcess(testValues);
-        assertEquals("create all insert 100 elements", 100, getDelegator().findCountByCondition("TestingType",
-                EntityCondition.makeCondition("testingTypeId", EntityOperator.LIKE, "TEST_CREATE_ALL%"), null, null));
-        assertEquals("create all insert 100 elements", 100, getDelegator().findCountByCondition("Testing",
-                EntityCondition.makeCondition("testingId", EntityOperator.LIKE, "TEST_CREATE_DIST%"), null, null));
+        assertEquals(100, getDelegator().findCountByCondition("TestingType",
+                EntityCondition.makeCondition("testingTypeId", EntityOperator.LIKE, "TEST_CREATE_ALL%"), null, null),
+                "create all insert 100 elements");
+        assertEquals(100, getDelegator().findCountByCondition("Testing",
+                EntityCondition.makeCondition("testingId", EntityOperator.LIKE, "TEST_CREATE_DIST%"), null, null),
+                "create all insert 100 elements");
     }
 
     /**
      * Tests the entity cache
      * @throws Exception the exception
      */
+    @Test
+    @Order(6)
     public void testEntityCache() throws Exception {
         // Test primary key cache
         Delegator delegator = getDelegator();
         delegator.removeByCondition("TestingType", EntityCondition.makeCondition("testingTypeId", EntityOperator.LIKE, "TEST-CACHE-%"));
         delegator.removeByCondition("TestingSubtype", EntityCondition.makeCondition("testingTypeId", EntityOperator.LIKE, "TEST-CACHE-%"));
         GenericValue testValue = EntityQuery.use(delegator).from("TestingType").where("testingTypeId", "TEST-CACHE-1").cache(true).queryOne();
-        assertNull("No pre-existing type value", testValue);
+        assertNull(testValue, "No pre-existing type value");
         delegator.create("TestingType", "testingTypeId", "TEST-CACHE-1", "description", "Testing Type #Cache-1");
         testValue = EntityQuery.use(delegator).from("TestingType").where("testingTypeId", "TEST-CACHE-1").cache(true).queryOne();
-        assertEquals("Retrieved from cache value has the correct description", "Testing Type #Cache-1", testValue.getString("description"));
+        assertEquals("Testing Type #Cache-1", testValue.getString("description"), "Retrieved from cache value has the correct description");
         // Test immutable
         try {
             testValue.put("description", "New Testing Type #Cache-1");
@@ -233,49 +254,49 @@ public class EntityTestSuite extends EntityTestCase {
         int hashCode = testValue.hashCode();
         GenericValue originalValue = testValue;
         testValue = (GenericValue) testValue.clone();
-        assertTrue("Cloned GenericValue equals original GenericValue", originalValue.equals(testValue));
-        assertTrue("Cloned GenericValue has the same hash code", hashCode == testValue.hashCode());
+        assertTrue(originalValue.equals(testValue), "Cloned GenericValue equals original GenericValue");
+        assertTrue(hashCode == testValue.hashCode(), "Cloned GenericValue has the same hash code");
         testValue.put("description", "New Testing Type #Cache-1");
-        assertFalse("Modified GenericValue does not equal original GenericValue", originalValue.equals(testValue));
-        assertTrue("Modified GenericValue has a different hash code", hashCode != testValue.hashCode());
+        assertFalse(originalValue.equals(testValue), "Modified GenericValue does not equal original GenericValue");
+        assertTrue(hashCode != testValue.hashCode(), "Modified GenericValue has a different hash code");
         testValue.store();
         testValue = EntityQuery.use(delegator).from("TestingType").where("testingTypeId", "TEST-CACHE-1").cache(true).queryOne();
-        assertEquals("Retrieved from cache value has the correct description", "New Testing Type #Cache-1", testValue.getString("description"));
+        assertEquals("New Testing Type #Cache-1", testValue.getString("description"), "Retrieved from cache value has the correct description");
         // Test storeByCondition updates the cache
         testValue = EntityQuery.use(delegator).from("TestingType").where("testingTypeId", "TEST-CACHE-1").cache(true).queryFirst();
         EntityCondition storeByCondition = EntityCondition.makeCondition(UtilMisc.toMap("testingTypeId", "TEST-CACHE-1",
                 "lastUpdatedStamp", testValue.get("lastUpdatedStamp")));
         int qtyChanged = delegator.storeByCondition("TestingType", UtilMisc.toMap("description", "New Testing Type #Cache-0"), storeByCondition);
-        assertEquals("Delegator.storeByCondition updated one value", 1, qtyChanged);
+        assertEquals(1, qtyChanged, "Delegator.storeByCondition updated one value");
         testValue = EntityQuery.use(delegator).from("TestingType").where("testingTypeId", "TEST-CACHE-1").cache(true).queryFirst();
 
-        assertEquals("Retrieved from cache value has the correct description", "New Testing Type #Cache-0", testValue.getString("description"));
+        assertEquals("New Testing Type #Cache-0", testValue.getString("description"), "Retrieved from cache value has the correct description");
         // Test removeByCondition updates the cache
         qtyChanged = delegator.removeByCondition("TestingType", storeByCondition);
-        assertEquals("Delegator.removeByCondition removed one value", 1, qtyChanged);
+        assertEquals(1, qtyChanged, "Delegator.removeByCondition removed one value");
         testValue = EntityQuery.use(delegator).from("TestingType").where("testingTypeId", "TEST-CACHE-1").cache(true).queryFirst();
-        assertEquals("Retrieved from cache value is null", null, testValue);
+        assertEquals(null, testValue, "Retrieved from cache value is null");
         // Test entity value remove operation updates the cache
         testValue = delegator.create("TestingType", "testingTypeId", "TEST-CACHE-1", "description", "Testing Type #Cache-1");
         testValue.remove();
         testValue = EntityQuery.use(delegator).from("TestingType").where("testingTypeId", "TEST-CACHE-1").cache(true).queryOne();
-        assertEquals("Retrieved from cache value is null", null, testValue);
+        assertEquals(null, testValue, "Retrieved from cache value is null");
         // Test entity condition cache
         List<GenericValue> testList = EntityQuery.use(delegator)
                                                  .from("TestingType")
                                                  .where(EntityCondition.makeCondition("description", EntityOperator.EQUALS, "Testing Type #Cache-2"))
                                                  .cache(true)
                                                  .queryList();
-        assertEquals("Delegator findList returned no values", 0, testList.size());
+        assertEquals(0, testList.size(), "Delegator findList returned no values");
         delegator.create("TestingType", "testingTypeId", "TEST-CACHE-2", "description", "Testing Type #Cache-2");
         testList = EntityQuery.use(delegator)
                               .from("TestingType")
                               .where(EntityCondition.makeCondition("description", EntityOperator.EQUALS, "Testing Type #Cache-2"))
                               .cache(true)
                               .queryList();
-        assertEquals("Delegator findList returned one value", 1, testList.size());
+        assertEquals(1, testList.size(), "Delegator findList returned one value");
         testValue = testList.get(0);
-        assertEquals("Retrieved from cache value has the correct description", "Testing Type #Cache-2", testValue.getString("description"));
+        assertEquals("Testing Type #Cache-2", testValue.getString("description"), "Retrieved from cache value has the correct description");
         // Test immutable
         try {
             testValue.put("description", "New Testing Type #2");
@@ -296,7 +317,7 @@ public class EntityTestSuite extends EntityTestCase {
                               .where(EntityCondition.makeCondition("description", EntityOperator.EQUALS, "Testing Type #Cache-2"))
                               .cache(true)
                               .queryList();
-        assertEquals("Delegator findList returned two values", 2, testList.size());
+        assertEquals(2, testList.size(), "Delegator findList returned two values");
         // Test entity value update operation updates the cache
         testValue.put("description", "New Testing Type #Cache-3");
         testValue.store();
@@ -305,7 +326,7 @@ public class EntityTestSuite extends EntityTestCase {
                               .where(EntityCondition.makeCondition("description", EntityOperator.EQUALS, "Testing Type #Cache-2"))
                               .cache(true)
                               .queryList();
-        assertEquals("Delegator findList returned one value", 1, testList.size());
+        assertEquals(1, testList.size(), "Delegator findList returned one value");
         // Test entity value remove operation updates the cache
         testValue = testList.get(0);
         testValue = (GenericValue) testValue.clone();
@@ -315,16 +336,16 @@ public class EntityTestSuite extends EntityTestCase {
                               .where(EntityCondition.makeCondition("description", EntityOperator.EQUALS, "Testing Type #Cache-2"))
                               .cache(true)
                               .queryList();
-        assertEquals("Delegator findList returned empty list", 0, testList.size());
+        assertEquals(0, testList.size(), "Delegator findList returned empty list");
         // Test view entities in the pk cache - updating an entity should clear pk caches for all view entities containing that entity.
         testValue = EntityQuery.use(delegator).from("TestingSubtype").where("testingTypeId", "TEST-CACHE-3").cache(true).queryOne();
-        assertNull("No pre-existing TestingSubtype", testValue);
+        assertNull(testValue, "No pre-existing TestingSubtype");
         testValue = delegator.create("TestingSubtype", "testingTypeId", "TEST-CACHE-3", "subtypeDescription", "Testing Subtype #Cache-3");
-        assertNotNull("TestingSubtype created", testValue);
+        assertNotNull(testValue, "TestingSubtype created");
         // Confirm member entity appears in the view
         testValue = EntityQuery.use(delegator).from("TestingViewPks").where("testingTypeId", "TEST-CACHE-3").cache(true).queryOne();
-        assertEquals("View retrieved from cache has the correct member description", "Testing Subtype #Cache-3",
-                testValue.getString("subtypeDescription"));
+        assertEquals("Testing Subtype #Cache-3", testValue.getString("subtypeDescription"),
+                "View retrieved from cache has the correct member description");
         testValue = EntityQuery.use(delegator).from("TestingSubtype").where("testingTypeId", "TEST-CACHE-3").cache(true).queryOne();
         // Modify member entity
         testValue = (GenericValue) testValue.clone();
@@ -332,14 +353,16 @@ public class EntityTestSuite extends EntityTestCase {
         testValue.store();
         // Check if cached view contains the modification
         testValue = EntityQuery.use(delegator).from("TestingViewPks").where("testingTypeId", "TEST-CACHE-3").cache(true).queryOne();
-        assertEquals("View retrieved from cache has the correct member description", "New Testing Subtype #Cache-3",
-                testValue.getString("subtypeDescription"));
+        assertEquals("New Testing Subtype #Cache-3", testValue.getString("subtypeDescription"),
+                "View retrieved from cache has the correct member description");
     }
 
     /**
      * Test xml serialization.
      * @throws Exception the exception
      */
+    @Test
+    @Order(7)
     public void testXmlSerialization() throws Exception {
         // Must use the default delegator because the deserialized GenericValue can't
         // find the randomized one.
@@ -347,14 +370,14 @@ public class EntityTestSuite extends EntityTestCase {
         boolean transBegin = TransactionUtil.begin();
         localDelegator.create("TestingType", "testingTypeId", "TEST-5", "description", "Testing Type #5");
         GenericValue testValue = EntityQuery.use(localDelegator).from("TestingType").where("testingTypeId", "TEST-5").queryOne();
-        assertEquals("Retrieved value has the correct description", "Testing Type #5", testValue.getString("description"));
+        assertEquals("Testing Type #5", testValue.getString("description"), "Retrieved value has the correct description");
         String newValueStr = UtilXml.toXml(testValue);
         GenericValue newValue = (GenericValue) UtilXml.fromXml(newValueStr);
-        assertEquals("Retrieved value has the correct description", "Testing Type #5", newValue.getString("description"));
+        assertEquals("Testing Type #5", newValue.getString("description"), "Retrieved value has the correct description");
         newValue.put("description", "XML Testing Type #5");
         newValue.store();
         newValue = EntityQuery.use(localDelegator).from("TestingType").where("testingTypeId", "TEST-5").queryOne();
-        assertEquals("Retrieved value has the correct description", "XML Testing Type #5", newValue.getString("description"));
+        assertEquals("XML Testing Type #5", newValue.getString("description"), "Retrieved value has the correct description");
         TransactionUtil.rollback(transBegin, null, null);
     }
 
@@ -389,6 +412,8 @@ public class EntityTestSuite extends EntityTestCase {
     /**
      * Tests storing data with the delegator's .create method.  Also tests .findCountByCondition and .getNextSeqId
      */
+    @Test
+    @Order(8)
     public void testCreateTree() throws Exception {
         Delegator delegator = getDelegator();
         // get how many child nodes did we have before creating the tree
@@ -398,17 +423,19 @@ public class EntityTestSuite extends EntityTestCase {
                                       .from("TestingNode")
                                       .where(EntityCondition.makeCondition("description", EntityOperator.LIKE, "create:%"))
                                       .queryCount();
-        assertEquals("Created/Stored Nodes", created, newlyStored);
+        assertEquals(created, newlyStored, "Created/Stored Nodes");
     }
 
     /**
      * More tests of storing data with .storeAll.  Also prepares data for testing view-entities (see below.)
      */
+    @Test
+    @Order(9)
     public void testAddMembersToTree() throws Exception {
         Delegator delegator = getDelegator();
         delegator.removeByCondition("TestingType", EntityCondition.makeCondition("testingTypeId", EntityOperator.LIKE, "TEST-TREE-%"));
         GenericValue testValue = EntityQuery.use(delegator).from("TestingType").where("testingTypeId", "TEST-TREE-1").cache(true).queryOne();
-        assertNull("No pre-existing type value", testValue);
+        assertNull(testValue, "No pre-existing type value");
         delegator.create("TestingType", "testingTypeId", "TEST-TREE-1", "description", "Testing Type #Tree-1");
         // get the level1 nodes
         List<GenericValue> nodeLevel1 = EntityQuery.use(delegator)
@@ -441,7 +468,7 @@ public class EntityTestSuite extends EntityTestCase {
             newValues.add(member);
         }
         int n = delegator.storeAll(newValues);
-        assertEquals("Created/Stored Nodes", newValues.size(), n);
+        assertEquals(newValues.size(), n, "Created/Stored Nodes");
     }
 
     /**
@@ -491,6 +518,8 @@ public class EntityTestSuite extends EntityTestCase {
     /**
      * Tests findByCondition and tests searching on a view-entity
      */
+    @Test
+    @Order(10)
     public void testCountViews() throws Exception {
         Delegator delegator = getDelegator();
         delegator.removeByCondition("Testing", EntityCondition.makeCondition("testingTypeId", EntityOperator.EQUALS, "TEST-COUNT-VIEW"));
@@ -514,25 +543,27 @@ public class EntityTestSuite extends EntityTestCase {
             }
         }
         long testingcount = EntityQuery.use(delegator).from("Testing").where("testingTypeId", "TEST-COUNT-VIEW").queryCount();
-        assertEquals("Number of views should equal number of created entities in the test.", testingcount, nodeWithMembers.size());
+        assertEquals(testingcount, nodeWithMembers.size(), "Number of views should equal number of created entities in the test.");
     }
 
     /**
      * Tests findByCondition and a find by distinct
      */
+    @Test
+    @Order(11)
     public void testFindDistinct() throws Exception {
         Delegator delegator = getDelegator();
         delegator.removeByCondition("Testing", EntityCondition.makeCondition("testingTypeId", EntityOperator.LIKE, "TEST-DISTINCT-%"));
         List<GenericValue> testingDistinctList = EntityQuery.use(delegator).from("Testing")
                 .where(EntityCondition.makeCondition("testingTypeId", EntityOperator.LIKE, "TEST-DISTINCT-%")).queryList();
 
-        assertEquals("No existing Testing entities for distinct", 0, testingDistinctList.size());
+        assertEquals(0, testingDistinctList.size(), "No existing Testing entities for distinct");
         delegator.removeByCondition("TestingType", EntityCondition.makeCondition("testingTypeId", EntityOperator.LIKE, "TEST-DISTINCT-%"));
         GenericValue testValue = EntityQuery.use(delegator).from("TestingType").where("testingTypeId", "TEST-DISTINCT-1").cache(true).queryOne();
-        assertNull("No pre-existing type value", testValue);
+        assertNull(testValue, "No pre-existing type value");
         delegator.create("TestingType", "testingTypeId", "TEST-DISTINCT-1", "description", "Testing Type #Distinct-1");
         testValue = EntityQuery.use(delegator).from("TestingType").where("testingTypeId", "TEST-DISTINCT-1").cache(true).queryOne();
-        assertNotNull("Found newly created type value", testValue);
+        assertNotNull(testValue, "Found newly created type value");
 
         delegator.create("Testing", "testingId", "TEST-DISTINCT-1", "testingTypeId", "TEST-DISTINCT-1", "testingSize", 10L,
                 "comments", "No-comments");
@@ -552,29 +583,33 @@ public class EntityTestSuite extends EntityTestCase {
                                                       .queryList();
         Debug.logInfo("testingSize10 is " + testingSize10.size(), MODULE);
 
-        assertEquals("There should only be 1 result found by findDistinct()", 1, testingSize10.size());
+        assertEquals(1, testingSize10.size(), "There should only be 1 result found by findDistinct()");
     }
 
     /**
      * Tests a findByCondition using not like
      */
+    @Test
+    @Order(12)
     public void testNotLike() throws Exception {
         List<GenericValue> nodes = EntityQuery.use(getDelegator())
                                               .from("TestingNode")
                                               .where(EntityCondition.makeCondition("description", EntityOperator.NOT_LIKE, "root%"))
                                               .queryList();
-        assertNotNull("Found nodes", nodes);
+        assertNotNull(nodes, "Found nodes");
 
         for (GenericValue product: nodes) {
             String nodeId = product.getString("description");
             Debug.logInfo("Testing name - " + nodeId, MODULE);
-            assertFalse("No nodes starting w/ root", nodeId.startsWith("root"));
+            assertFalse(nodeId.startsWith("root"), "No nodes starting w/ root");
         }
     }
 
     /**
      * Tests foreign key integrity by trying to remove an entity which has foreign-key dependencies.  Should cause an exception.
      */
+    @Test
+    @Order(13)
     public void testForeignKeyCreate() {
         try {
             String helperName = getDelegator().getEntityHelper("Testing").getHelperName();
@@ -592,13 +627,15 @@ public class EntityTestSuite extends EntityTestCase {
         } catch (GenericEntityException e) {
             caught = e;
         }
-        assertNotNull("Foreign key referential integrity is not observed for create (INSERT)", caught);
+        assertNotNull(caught, "Foreign key referential integrity is not observed for create (INSERT)");
         Debug.logInfo(caught.toString(), MODULE);
     }
 
     /**
      * Tests foreign key integrity by trying to remove an entity which has foreign-key dependencies.  Should cause an exception.
      */
+    @Test
+    @Order(14)
     public void testForeignKeyRemove() throws Exception {
         Delegator delegator = getDelegator();
         try {
@@ -626,13 +663,15 @@ public class EntityTestSuite extends EntityTestCase {
         } catch (GenericEntityException e) {
             caught = e;
         }
-        assertNotNull("Foreign key referential integrity is not observed for remove (DELETE)", caught);
+        assertNotNull(caught, "Foreign key referential integrity is not observed for remove (DELETE)");
         Debug.logInfo(caught.toString(), MODULE);
     }
 
     /**
      * Tests the .getRelatedOne method and removeAll for removing entities
      */
+    @Test
+    @Order(15)
     public void testRemoveNodeMemberAndTesting() throws Exception {
         Delegator delegator = getDelegator();
         flushAndRecreateTree("rnmat");
@@ -656,19 +695,21 @@ public class EntityTestSuite extends EntityTestCase {
                             .from("TestingNodeMember")
                             .where(EntityCondition.makeCondition("testingId", EntityOperator.LIKE, "rnmat:%"))
                             .queryList();
-        assertEquals("No more Node Member entities", 0, values.size());
+        assertEquals(0, values.size(), "No more Node Member entities");
 
         delegator.removeAll(testings);
         values = EntityQuery.use(delegator)
                             .from("Testing")
                             .where(EntityCondition.makeCondition("description", EntityOperator.LIKE, "rnmat:%"))
                             .queryList();
-        assertEquals("No more Testing entities", 0, values.size());
+        assertEquals(0, values.size(), "No more Testing entities");
     }
 
     /**
      * Tests the storeByCondition operation
      */
+    @Test
+    @Order(16)
     public void testStoreByCondition() throws Exception {
         flushAndRecreateTree("store-by-condition-a");
         flushAndRecreateTree("store-by-condition-b");
@@ -678,12 +719,14 @@ public class EntityTestSuite extends EntityTestCase {
         getDelegator().storeByCondition("TestingNode", fieldsToSet, isLevel1);
         List<GenericValue> updatedNodes = EntityQuery.use(getDelegator()).from("TestingNode").where(fieldsToSet).queryList();
         int n = updatedNodes.size();
-        assertTrue("testStoreByCondition updated nodes > 0", n > 0);
+        assertTrue(n > 0, "testStoreByCondition updated nodes > 0");
     }
 
     /**
      * Tests the .removeByCondition method for removing entities directly
      */
+    @Test
+    @Order(17)
     public void testRemoveByCondition() throws Exception {
         flushAndRecreateTree("remove-by-condition-a");
         //
@@ -691,12 +734,14 @@ public class EntityTestSuite extends EntityTestCase {
         //
         EntityCondition isLevel1 = EntityCondition.makeCondition("description", EntityOperator.LIKE, "remove-by-condition-a:1:%");
         int n = getDelegator().removeByCondition("TestingNode", isLevel1);
-        assertTrue("testRemoveByCondition nodes > 0", n > 0);
+        assertTrue(n > 0, "testRemoveByCondition nodes > 0");
     }
 
     /**
      * Test the .removeByPrimaryKey by using findByCondition and then retrieving the GenericPk from a GenericValue
      */
+    @Test
+    @Order(18)
     public void testRemoveByPK() throws Exception {
         Delegator delegator = getDelegator();
         flushAndRecreateTree("remove-by-pk");
@@ -713,40 +758,44 @@ public class EntityTestSuite extends EntityTestCase {
         for (GenericValue value: rootValues) {
             GenericPK pk = value.getPrimaryKey();
             int del = delegator.removeByPrimaryKey(pk);
-            assertEquals("Removing Root by primary key", 1, del);
+            assertEquals(1, del, "Removing Root by primary key");
         }
 
         // no more TestingNode should be in the data base anymore.
 
         List<GenericValue> testingNodes = EntityQuery.use(delegator).from("TestingNode").where(isRoot).queryList();
-        assertEquals("No more TestingNode after removing the roots", 0, testingNodes.size());
+        assertEquals(0, testingNodes.size(), "No more TestingNode after removing the roots");
     }
 
     /**
      * Tests the .removeAll method only.
      */
+    @Test
+    @Order(19)
     public void testRemoveType() throws Exception {
         Delegator delegator = getDelegator();
         List<GenericValue> values = EntityQuery.use(delegator).from("TestingRemoveAll").queryList();
         delegator.removeAll(values);
         values = EntityQuery.use(delegator).from("TestingRemoveAll").queryList();
-        assertEquals("No more TestingRemoveAll: setup", 0, values.size());
+        assertEquals(0, values.size(), "No more TestingRemoveAll: setup");
         for (int i = 0; i < 10; i++) {
             delegator.create("TestingRemoveAll", "testingRemoveAllId", "prefix:" + i);
         }
         values = EntityQuery.use(delegator).from("TestingRemoveAll").queryList();
-        assertEquals("No more TestingRemoveAll: create", 10, values.size());
+        assertEquals(10, values.size(), "No more TestingRemoveAll: create");
 
         delegator.removeAll(values);
 
         // now make sure there are no more of these
         values = EntityQuery.use(delegator).from("TestingRemoveAll").queryList();
-        assertEquals("No more TestingRemoveAll: finish", 0, values.size());
+        assertEquals(0, values.size(), "No more TestingRemoveAll: finish");
     }
 
     /**
      * This test will create a large number of unique items and add them to the delegator at once
      */
+    @Test
+    @Order(20)
     public void testCreateManyAndStoreAtOnce() throws Exception {
         Delegator delegator = getDelegator();
         try {
@@ -760,7 +809,7 @@ public class EntityTestSuite extends EntityTestCase {
                                                                .where(EntityCondition.makeCondition("testingId", EntityOperator.LIKE, "T1-%"))
                                                                .orderBy("testingId")
                                                                .queryList();
-            assertEquals("Test to create " + TEST_COUNT + " and store all at once", TEST_COUNT, newlyCreatedValues.size());
+            assertEquals(TEST_COUNT, newlyCreatedValues.size(), "Test to create " + TEST_COUNT + " and store all at once");
         } finally {
             List<GenericValue> newlyCreatedValues = EntityQuery.use(delegator)
                                                                .from("Testing")
@@ -774,6 +823,8 @@ public class EntityTestSuite extends EntityTestCase {
     /**
      * This test will create a large number of unique items and add them to the delegator at once
      */
+    @Test
+    @Order(21)
     public void testCreateManyAndStoreOneAtATime() throws Exception {
         Delegator delegator = getDelegator();
         try {
@@ -785,7 +836,7 @@ public class EntityTestSuite extends EntityTestCase {
                                                                .where(EntityCondition.makeCondition("testingId", EntityOperator.LIKE, "T2-%"))
                                                                .orderBy("testingId")
                                                                .queryList();
-            assertEquals("Test to create " + TEST_COUNT + " and store one at a time: ", TEST_COUNT, newlyCreatedValues.size());
+            assertEquals(TEST_COUNT, newlyCreatedValues.size(), "Test to create " + TEST_COUNT + " and store one at a time: ");
         } finally {
             List<GenericValue> newlyCreatedValues = EntityQuery.use(delegator)
                                                                .from("Testing")
@@ -799,6 +850,8 @@ public class EntityTestSuite extends EntityTestCase {
     /**
      * This test will use the large number of unique items from above and test the EntityListIterator looping through the list
      */
+    @Test
+    @Order(22)
     public void testEntityListIterator() throws Exception {
         Delegator delegator = getDelegator();
         try {
@@ -812,7 +865,7 @@ public class EntityTestSuite extends EntityTestCase {
                                                                .where(EntityCondition.makeCondition("testingId", EntityOperator.LIKE, "T3-%"))
                                                                .orderBy("testingId")
                                                                .queryList();
-            assertEquals("Test to create " + TEST_COUNT + " and store all at once", TEST_COUNT, newlyCreatedValues.size());
+            assertEquals(TEST_COUNT, newlyCreatedValues.size(), "Test to create " + TEST_COUNT + " and store all at once");
             boolean beganTransaction = false;
             try {
                 beganTransaction = TransactionUtil.begin();
@@ -821,20 +874,20 @@ public class EntityTestSuite extends EntityTestCase {
                                                          .where(EntityCondition.makeCondition("testingId", EntityOperator.LIKE, "T3-%"))
                                                          .orderBy("testingId")
                                                          .queryIterator();
-                assertNotNull("Test if EntityListIterator was created: ", iterator);
+                assertNotNull(iterator, "Test if EntityListIterator was created: ");
 
                 int i = 0;
                 GenericValue item = iterator.next();
                 while (item != null) {
-                    assertEquals("Testing if iterated data matches test data (row " + i + "): ", getTestId("T3-", i), item.getString("testingId"));
+                    assertEquals(getTestId("T3-", i), item.getString("testingId"), "Testing if iterated data matches test data (row " + i + "): ");
                     item = iterator.next();
                     i++;
                 }
-                assertEquals("Test if EntitlyListIterator iterates exactly " + TEST_COUNT + " times: ", TEST_COUNT, i);
+                assertEquals(TEST_COUNT, i, "Test if EntitlyListIterator iterates exactly " + TEST_COUNT + " times: ");
                 iterator.close();
             } catch (GenericEntityException e) {
                 TransactionUtil.rollback(beganTransaction, "GenericEntityException occurred while iterating with EntityListIterator", e);
-                assertTrue("GenericEntityException:" + e.toString(), false);
+                assertTrue(false, "GenericEntityException:" + e.toString());
                 return;
             } finally {
                 TransactionUtil.commit(beganTransaction);
@@ -851,6 +904,8 @@ public class EntityTestSuite extends EntityTestCase {
     /**
      * This test will verify transaction rollbacks using TransactionUtil.
      */
+    @Test
+    @Order(23)
     public void testTransactionUtilRollback() throws Exception {
         Delegator delegator = getDelegator();
         GenericValue testValue = delegator.makeValue("Testing", "testingId", "rollback-test");
@@ -858,12 +913,14 @@ public class EntityTestSuite extends EntityTestCase {
         delegator.create(testValue);
         TransactionUtil.rollback(transBegin, null, null);
         GenericValue testValueOut = EntityQuery.use(delegator).from("Testing").where("testingId", "rollback-test").queryOne();
-        assertEquals("Test that transaction rollback removes value: ", null, testValueOut);
+        assertEquals(null, testValueOut, "Test that transaction rollback removes value: ");
     }
 
     /**
      * This test will verify that a transaction which takes longer than the pre-set timeout are rolled back.
      */
+    @Test
+    @Order(24)
     public void testTransactionUtilMoreThanTimeout() throws Exception {
         Delegator delegator = getDelegator();
         GenericTransactionException caught = null;
@@ -876,7 +933,7 @@ public class EntityTestSuite extends EntityTestCase {
         } catch (GenericTransactionException e) {
             caught = e;
         } finally {
-            assertNotNull("timeout thrown", caught);
+            assertNotNull(caught, "timeout thrown");
             delegator.removeByAnd("Testing", "testingId", "timeout-test");
         }
     }
@@ -884,6 +941,8 @@ public class EntityTestSuite extends EntityTestCase {
     /**
      * This test will verify that the same transaction transaction which takes less time than timeout will be committed.
      */
+    @Test
+    @Order(25)
     public void testTransactionUtilLessThanTimeout() throws Exception {
         Delegator delegator = getDelegator();
         try {
@@ -901,6 +960,8 @@ public class EntityTestSuite extends EntityTestCase {
     /**
      * Tests field types.
      */
+    @Test
+    @Order(26)
     public void testFieldTypes() throws Exception {
         Delegator delegator = getDelegator();
         String id = "testFieldTypes";
@@ -941,26 +1002,26 @@ public class EntityTestSuite extends EntityTestCase {
             testValue.set("clobField", clobStr);
             testValue.store();
             testValue = EntityQuery.use(delegator).from("TestFieldType").where("testFieldTypeId", id).queryOne();
-            assertEquals("testFieldTypeId", id, testValue.get("testFieldTypeId"));
+            assertEquals(id, testValue.get("testFieldTypeId"), "testFieldTypeId");
             Blob blob = (Blob) testValue.get("blobField");
             byte[] c = blob.getBytes(1, (int) blob.length());
-            assertEquals("Byte array read from entity is the same length", b.length, c.length);
+            assertEquals(b.length, c.length, "Byte array read from entity is the same length");
             for (int i = 0; i < b.length; i++) {
-                assertEquals("Byte array data[" + i + "]", b[i], c[i]);
+                assertEquals(b[i], c[i], "Byte array data[" + i + "]");
             }
             c = (byte[]) testValue.get("byteArrayField");
-            assertEquals("Byte array read from entity is the same length", b.length, c.length);
+            assertEquals(b.length, c.length, "Byte array read from entity is the same length");
             for (int i = 0; i < b.length; i++) {
-                assertEquals("Byte array data[" + i + "]", b[i], c[i]);
+                assertEquals(b[i], c[i], "Byte array data[" + i + "]");
             }
-            assertEquals("objectField", currentTimestamp, testValue.get("objectField"));
-            assertEquals("dateField", currentDate, testValue.get("dateField"));
-            assertEquals("timeField", currentTime, testValue.get("timeField"));
-            assertEquals("dateTimeField", currentTimestamp, testValue.get("dateTimeField"));
-            assertEquals("fixedPointField", fixedPoint, testValue.get("fixedPointField"));
-            assertEquals("floatingPointField", floatingPoint, testValue.get("floatingPointField"));
-            assertEquals("numericField", numeric, testValue.get("numericField"));
-            assertEquals("clobField", clobStr, testValue.get("clobField"));
+            assertEquals(currentTimestamp, testValue.get("objectField"), "objectField");
+            assertEquals(currentDate, testValue.get("dateField"), "dateField");
+            assertEquals(currentTime, testValue.get("timeField"), "timeField");
+            assertEquals(currentTimestamp, testValue.get("dateTimeField"), "dateTimeField");
+            assertEquals(fixedPoint, testValue.get("fixedPointField"), "fixedPointField");
+            assertEquals(floatingPoint, testValue.get("floatingPointField"), "floatingPointField");
+            assertEquals(numeric, testValue.get("numericField"), "numericField");
+            assertEquals(clobStr, testValue.get("clobField"), "clobField");
             testValue.set("blobField", null);
             testValue.set("byteArrayField", null);
             testValue.set("objectField", null);
@@ -973,17 +1034,17 @@ public class EntityTestSuite extends EntityTestCase {
             testValue.set("clobField", null);
             testValue.store();
             testValue = EntityQuery.use(delegator).from("TestFieldType").where("testFieldTypeId", id).queryOne();
-            assertEquals("testFieldTypeId", id, testValue.get("testFieldTypeId"));
-            assertNull("blobField null", testValue.get("blobField"));
-            assertNull("byteArrayField null", testValue.get("byteArrayField"));
-            assertNull("objectField null", testValue.get("objectField"));
-            assertNull("dateField null", testValue.get("dateField"));
-            assertNull("timeField null", testValue.get("timeField"));
-            assertNull("dateTimeField null", testValue.get("dateTimeField"));
-            assertNull("fixedPointField null", testValue.get("fixedPointField"));
-            assertNull("floatingPointField null", testValue.get("floatingPointField"));
-            assertNull("numericField null", testValue.get("numericField"));
-            assertNull("clobField null", testValue.get("clobField"));
+            assertEquals(id, testValue.get("testFieldTypeId"), "testFieldTypeId");
+            assertNull(testValue.get("blobField"), "blobField null");
+            assertNull(testValue.get("byteArrayField"), "byteArrayField null");
+            assertNull(testValue.get("objectField"), "objectField null");
+            assertNull(testValue.get("dateField"), "dateField null");
+            assertNull(testValue.get("timeField"), "timeField null");
+            assertNull(testValue.get("dateTimeField"), "dateTimeField null");
+            assertNull(testValue.get("fixedPointField"), "fixedPointField null");
+            assertNull(testValue.get("floatingPointField"), "floatingPointField null");
+            assertNull(testValue.get("numericField"), "numericField null");
+            assertNull(testValue.get("clobField"), "clobField null");
         } finally {
             // Remove all our newly inserted values.
             List<GenericValue> values = EntityQuery.use(delegator).from("TestFieldType").queryList();
@@ -1015,6 +1076,8 @@ public class EntityTestSuite extends EntityTestCase {
     /**
      * Tests EntitySaxReader, verification loading data with tag create, create-update, create-replace, delete
      */
+    @Test
+    @Order(27)
     public void testEntitySaxReaderCreation() throws Exception {
         Delegator delegator = getDelegator();
         String xmlContentLoad =
@@ -1030,26 +1093,28 @@ public class EntityTestSuite extends EntityTestCase {
                 + "</entity-engine-xml>";
         EntitySaxReader reader = new EntitySaxReader(delegator);
         long numberLoaded = reader.parse(xmlContentLoad);
-        assertEquals("Create Entity loaded ", 4, numberLoaded);
+        assertEquals(4, numberLoaded, "Create Entity loaded ");
         GenericValue t1 = EntityQuery.use(delegator).from("Testing").where("testingId", "T1").queryOne();
         GenericValue t2 = EntityQuery.use(delegator).from("Testing").where("testingId", "T2").cache(true).queryOne();
-        assertNotNull("Create Testing(T1)", t1);
-        assertEquals("Create Testing(T1).testingTypeId", "JUNIT-TEST", t1.getString("testingTypeId"));
-        assertEquals("Create Testing(T1).testingName", "First test", t1.getString("testingName"));
-        assertEquals("Create Testing(T1).testingSize", Long.valueOf(10), t1.getLong("testingSize"));
-        assertEquals("Create Testing(T1).testingDate", UtilDateTime.toTimestamp("01/01/2010 00:00:00"), t1.getTimestamp("testingDate"));
+        assertNotNull(t1, "Create Testing(T1)");
+        assertEquals("JUNIT-TEST", t1.getString("testingTypeId"), "Create Testing(T1).testingTypeId");
+        assertEquals("First test", t1.getString("testingName"), "Create Testing(T1).testingName");
+        assertEquals(Long.valueOf(10), t1.getLong("testingSize"), "Create Testing(T1).testingSize");
+        assertEquals(UtilDateTime.toTimestamp("01/01/2010 00:00:00"), t1.getTimestamp("testingDate"), "Create Testing(T1).testingDate");
 
-        assertNotNull("Create Testing(T2)", t2);
-        assertEquals("Create Testing(T2).testingTypeId", "JUNIT-TEST2", t2.getString("testingTypeId"));
-        assertEquals("Create Testing(T2).testingName", "Second test", t2.getString("testingName"));
-        assertEquals("Create Testing(T2).testingSize", Long.valueOf(20), t2.getLong("testingSize"));
-        assertEquals("Create Testing(T2).testingDate", UtilDateTime.toTimestamp("02/01/2010 00:00:00"), t2.getTimestamp("testingDate"));
+        assertNotNull(t2, "Create Testing(T2)");
+        assertEquals("JUNIT-TEST2", t2.getString("testingTypeId"), "Create Testing(T2).testingTypeId");
+        assertEquals("Second test", t2.getString("testingName"), "Create Testing(T2).testingName");
+        assertEquals(Long.valueOf(20), t2.getLong("testingSize"), "Create Testing(T2).testingSize");
+        assertEquals(UtilDateTime.toTimestamp("02/01/2010 00:00:00"), t2.getTimestamp("testingDate"), "Create Testing(T2).testingDate");
     }
 
     /**
      * Test entity sax reader create skip.
      * @throws Exception the exception
      */
+    @Test
+    @Order(28)
     public void testEntitySaxReaderCreateSkip() throws Exception {
         Delegator delegator = getDelegator();
         String xmlContentLoad =
@@ -1067,19 +1132,21 @@ public class EntityTestSuite extends EntityTestCase {
                 + "</create>";
         reader = new EntitySaxReader(delegator);
         numberLoaded += reader.parse(xmlContentLoad);
-        assertEquals("Create Skip Entity loaded ", 3, numberLoaded);
+        assertEquals(3, numberLoaded, "Create Skip Entity loaded ");
         GenericValue t1 = EntityQuery.use(delegator).from("Testing").where("testingId", "reader-create-skip").queryOne();
-        assertNotNull("Create Skip Testing(T1)", t1);
-        assertEquals("Create Skip Testing(T1).testingTypeId", "reader-create-skip", t1.getString("testingTypeId"));
-        assertEquals("Create Skip Testing(T1).testingName", "reader create skip", t1.getString("testingName"));
-        assertEquals("Create Skip Testing(T1).testingSize", Long.valueOf(10), t1.getLong("testingSize"));
-        assertEquals("Create Skip Testing(T1).testingDate", UtilDateTime.toTimestamp("01/01/2010 00:00:00"), t1.getTimestamp("testingDate"));
+        assertNotNull(t1, "Create Skip Testing(T1)");
+        assertEquals("reader-create-skip", t1.getString("testingTypeId"), "Create Skip Testing(T1).testingTypeId");
+        assertEquals("reader create skip", t1.getString("testingName"), "Create Skip Testing(T1).testingName");
+        assertEquals(Long.valueOf(10), t1.getLong("testingSize"), "Create Skip Testing(T1).testingSize");
+        assertEquals(UtilDateTime.toTimestamp("01/01/2010 00:00:00"), t1.getTimestamp("testingDate"), "Create Skip Testing(T1).testingDate");
     }
 
     /**
      * Test entity sax reader update.
      * @throws Exception the exception
      */
+    @Test
+    @Order(29)
     public void testEntitySaxReaderUpdate() throws Exception {
         Delegator delegator = getDelegator();
         String xmlContentLoad =
@@ -1097,26 +1164,28 @@ public class EntityTestSuite extends EntityTestCase {
                 + "</entity-engine-xml>";
         EntitySaxReader reader = new EntitySaxReader(delegator);
         long numberLoaded = reader.parse(xmlContentLoad);
-        assertEquals("Update Entity loaded ", 5, numberLoaded);
+        assertEquals(5, numberLoaded, "Update Entity loaded ");
         GenericValue t1 = EntityQuery.use(delegator).from("Testing").where("testingId", "create-update-T1").queryOne();
         GenericValue t3 = EntityQuery.use(delegator).from("Testing").where("testingId", "create-update-T3").queryOne();
-        assertNotNull("Update Testing(T1)", t1);
-        assertEquals("Update Testing(T1).testingTypeId", "create-update", t1.getString("testingTypeId"));
-        assertEquals("Update Testing(T1).testingName", "First test update", t1.getString("testingName"));
-        assertEquals("Update Testing(T1).testingSize", Long.valueOf(20), t1.getLong("testingSize"));
-        assertEquals("Update Testing(T1).testingDate", UtilDateTime.toTimestamp("01/01/2010 00:00:00"), t1.getTimestamp("testingDate"));
+        assertNotNull(t1, "Update Testing(T1)");
+        assertEquals("create-update", t1.getString("testingTypeId"), "Update Testing(T1).testingTypeId");
+        assertEquals("First test update", t1.getString("testingName"), "Update Testing(T1).testingName");
+        assertEquals(Long.valueOf(20), t1.getLong("testingSize"), "Update Testing(T1).testingSize");
+        assertEquals(UtilDateTime.toTimestamp("01/01/2010 00:00:00"), t1.getTimestamp("testingDate"), "Update Testing(T1).testingDate");
 
-        assertNotNull("Update Testing(T3)", t3);
-        assertEquals("Update Testing(T3).testingTypeId", "create-updated", t3.getString("testingTypeId"));
-        assertEquals("Update Testing(T3).testingName", "Third test", t3.getString("testingName"));
-        assertEquals("Update Testing(T3).testingSize", Long.valueOf(30), t3.getLong("testingSize"));
-        assertEquals("Update Testing(T3).testingDate", UtilDateTime.toTimestamp("03/01/2010 00:00:00"), t3.getTimestamp("testingDate"));
+        assertNotNull(t3, "Update Testing(T3)");
+        assertEquals("create-updated", t3.getString("testingTypeId"), "Update Testing(T3).testingTypeId");
+        assertEquals("Third test", t3.getString("testingName"), "Update Testing(T3).testingName");
+        assertEquals(Long.valueOf(30), t3.getLong("testingSize"), "Update Testing(T3).testingSize");
+        assertEquals(UtilDateTime.toTimestamp("03/01/2010 00:00:00"), t3.getTimestamp("testingDate"), "Update Testing(T3).testingDate");
     }
 
     /**
      * Test entity sax reader replace.
      * @throws Exception the exception
      */
+    @Test
+    @Order(30)
     public void testEntitySaxReaderReplace() throws Exception {
         Delegator delegator = getDelegator();
         String xmlContentLoad =
@@ -1132,26 +1201,28 @@ public class EntityTestSuite extends EntityTestCase {
                 + "</entity-engine-xml>";
         EntitySaxReader reader = new EntitySaxReader(delegator);
         long numberLoaded = reader.parse(xmlContentLoad);
-        assertEquals("Replace Entity loaded ", 4, numberLoaded);
+        assertEquals(4, numberLoaded, "Replace Entity loaded ");
         GenericValue t1 = EntityQuery.use(delegator).from("Testing").where("testingId", "create-replace-T1").queryOne();
         GenericValue t2 = EntityQuery.use(delegator).from("Testing").where("testingId", "create-replace-T2").queryOne();
-        assertNotNull("Replace Testing(T1)", t1);
-        assertEquals("Replace Testing(T1).testingTypeId", "create-replace", t1.getString("testingTypeId"));
-        assertEquals("Replace Testing(T1).testingName", "First test replace", t1.getString("testingName"));
-        assertNull("Replace Testing(T1).testingSize", t1.getLong("testingSize"));
-        assertNull("Replace Testing(T1).testingDate", t1.getTimestamp("testingDate"));
+        assertNotNull(t1, "Replace Testing(T1)");
+        assertEquals("create-replace", t1.getString("testingTypeId"), "Replace Testing(T1).testingTypeId");
+        assertEquals("First test replace", t1.getString("testingName"), "Replace Testing(T1).testingName");
+        assertNull(t1.getLong("testingSize"), "Replace Testing(T1).testingSize");
+        assertNull(t1.getTimestamp("testingDate"), "Replace Testing(T1).testingDate");
 
-        assertNotNull("Replace Testing(T2)", t2);
-        assertEquals("Replace Testing(T2).testingTypeId", "create-replace", t2.getString("testingTypeId"));
-        assertEquals("Replace Testing(T2).testingName", "Second test update", t2.getString("testingName"));
-        assertEquals("Replace Testing(T2).testingSize", Long.valueOf(20), t2.getLong("testingSize"));
-        assertEquals("Replace Testing(T2).testingDate", UtilDateTime.toTimestamp("02/01/2010 00:00:00"), t2.getTimestamp("testingDate"));
+        assertNotNull(t2, "Replace Testing(T2)");
+        assertEquals("create-replace", t2.getString("testingTypeId"), "Replace Testing(T2).testingTypeId");
+        assertEquals("Second test update", t2.getString("testingName"), "Replace Testing(T2).testingName");
+        assertEquals(Long.valueOf(20), t2.getLong("testingSize"), "Replace Testing(T2).testingSize");
+        assertEquals(UtilDateTime.toTimestamp("02/01/2010 00:00:00"), t2.getTimestamp("testingDate"), "Replace Testing(T2).testingDate");
     }
 
     /**
      * Test entity sax reader delete.
      * @throws Exception the exception
      */
+    @Test
+    @Order(31)
     public void testEntitySaxReaderDelete() throws Exception {
         Delegator delegator = getDelegator();
         String xmlContentLoad =
@@ -1164,22 +1235,24 @@ public class EntityTestSuite extends EntityTestCase {
                         + "</delete>";
         EntitySaxReader reader = new EntitySaxReader(delegator);
         long numberLoaded = reader.parse(xmlContentLoad);
-        assertEquals("Delete Entity loaded ", 5, numberLoaded);
+        assertEquals(5, numberLoaded, "Delete Entity loaded ");
         GenericValue t1 = EntityQuery.use(delegator).from("Testing").where("testingId", "T1").queryOne();
         GenericValue t2 = EntityQuery.use(delegator).from("Testing").where("testingId", "T2").queryOne();
         GenericValue t3 = EntityQuery.use(delegator).from("Testing").where("testingId", "T3").queryOne();
-        assertNull("Delete Testing(T1)", t1);
-        assertNull("Delete Testing(T2)", t2);
-        assertNull("Delete Testing(T3)", t3);
+        assertNull(t1, "Delete Testing(T1)");
+        assertNull(t2, "Delete Testing(T2)");
+        assertNull(t3, "Delete Testing(T3)");
         GenericValue testType = EntityQuery.use(delegator).from("TestingType").where("testingTypeId", "JUNIT-TEST").queryOne();
-        assertNull("Delete TestingType 1", testType);
+        assertNull(testType, "Delete TestingType 1");
         testType = EntityQuery.use(delegator).from("TestingType").where("testingTypeId", "JUNIT-TEST2").queryOne();
-        assertNull("Delete TestingType 2", testType);
+        assertNull(testType, "Delete TestingType 2");
     }
 
     /**
      * Test sequence value item.
      */
+    @Test
+    @Order(32)
     public void testSequenceValueItem() {
         Delegator delegator = getDelegator();
         SequenceUtil sequencer = new SequenceUtil(delegator.getGroupHelperInfo(delegator.getEntityGroupName("SequenceValueItem")),
@@ -1199,6 +1272,8 @@ public class EntityTestSuite extends EntityTestCase {
     /**
      * Test sequence value item with concurrent threads.
      */
+    @Test
+    @Order(33)
     public void testSequenceValueItemWithConcurrentThreads() {
         Delegator delegator = getDelegator();
         final SequenceUtil sequencer = new SequenceUtil(delegator.getGroupHelperInfo(delegator.getEntityGroupName("SequenceValueItem")),
@@ -1237,8 +1312,8 @@ public class EntityTestSuite extends EntityTestCase {
         long endTime = System.currentTimeMillis();
         long totalTime = endTime - startTime;
         Debug.logInfo("testSequenceValueItemWithConcurrentThreads total time (ms): " + totalTime, MODULE);
-        assertFalse("Null sequence id returned", nullSeqIdReturned.get());
-        assertFalse("Duplicate sequence id returned", duplicateFound.get());
+        assertFalse(nullSeqIdReturned.get(), "Null sequence id returned");
+        assertFalse(duplicateFound.get(), "Duplicate sequence id returned");
     }
 
     /**
@@ -1253,6 +1328,8 @@ public class EntityTestSuite extends EntityTestCase {
         This test assess that running the same number of sql statements withing one transaction is faster than running
         them with individual transactions.
      */
+    @Test
+    @Order(34)
     public void testOneBigTransactionIsFasterThanSeveralSmallOnes() {
         boolean transactionStarted = false;
         long startTime = System.currentTimeMillis();
@@ -1277,7 +1354,7 @@ public class EntityTestSuite extends EntityTestCase {
         long totalTimeOneTransaction = endTime - startTime;
         Debug.logInfo("Selected " + totalNumberOfRows + " rows with " + numberOfQueries + " queries (all contained in one big transaction) in "
                 + totalTimeOneTransaction + " ms", MODULE);
-        assertTrue("Errors detected executing the big transaction", noErrors);
+        assertTrue(noErrors, "Errors detected executing the big transaction");
 
         totalNumberOfRows = 0;
         noErrors = true;
@@ -1300,8 +1377,8 @@ public class EntityTestSuite extends EntityTestCase {
         long totalTimeSeveralSmallTransactions = endTime - startTime;
         Debug.logInfo("Selected " + totalNumberOfRows + " rows with " + numberOfQueries + " queries (each in its own transaction) in "
                 + totalTimeSeveralSmallTransactions + " ms", MODULE);
-        assertTrue("Errors detected executing the small transactions", noErrors);
-        assertTrue("One big transaction was not faster than several small ones", totalTimeOneTransaction < totalTimeSeveralSmallTransactions);
+        assertTrue(noErrors, "Errors detected executing the small transactions");
+        assertTrue(totalTimeOneTransaction < totalTimeSeveralSmallTransactions, "One big transaction was not faster than several small ones");
     }
 
     private final class TestObserver implements Observer {

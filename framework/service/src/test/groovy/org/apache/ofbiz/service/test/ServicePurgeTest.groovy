@@ -22,16 +22,16 @@ import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.util.EntityQuery
 import org.apache.ofbiz.service.config.ServiceConfigUtil
-import org.apache.ofbiz.service.testtools.OFBizTestCase
+import org.apache.ofbiz.testtools.JunitJupiterTest
+import org.apache.ofbiz.testtools.JupiterTestHelper
+import org.junit.jupiter.api.Test
 
 // ./gradlew "ofbiz --test component=service --test suitename=servicetests --test case=service-purge-test"
 
-class ServicePurgeTest  extends OFBizTestCase {
+@JunitJupiterTest
+class ServicePurgeTest implements JupiterTestHelper {
 
-    ServicePurgeTest(String name) {
-        super(name)
-    }
-
+    @Test
     void testRuntimeDataIsCleanedAfterServicePurge() {
         GenericValue sysUserLogin = delegator.findOne('UserLogin', true, 'userLoginId', 'system')
         String jobId = delegator.getNextSeqId('JobSandbox')

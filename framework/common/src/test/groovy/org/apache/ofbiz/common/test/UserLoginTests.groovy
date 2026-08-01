@@ -20,14 +20,14 @@ package org.apache.ofbiz.common.test
 
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.service.ServiceUtil
-import org.apache.ofbiz.service.testtools.OFBizTestCase
+import org.apache.ofbiz.testtools.JunitJupiterTest
+import org.apache.ofbiz.testtools.JupiterTestHelper
+import org.junit.jupiter.api.Test
 
-class UserLoginTests extends OFBizTestCase {
+@JunitJupiterTest
+class UserLoginTests implements JupiterTestHelper {
 
-    UserLoginTests(String name) {
-        super(name)
-    }
-
+    @Test
     void testCreateUserLogin() {
         String userLoginId = 'demo.person'
 

@@ -18,30 +18,38 @@
 */
 package org.apache.ofbiz.base.test
 
-import org.apache.ofbiz.service.testtools.OFBizTestCase
+import org.apache.ofbiz.testtools.JunitJupiterTest
+import org.apache.ofbiz.testtools.JupiterTestHelper
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.Order
 
 /**
  * Class validating groovy scripts test engine.
  */
 
-class SimpleTests extends OFBizTestCase {
+@JunitJupiterTest
+class SimpleTests implements JupiterTestHelper {
 
-    SimpleTests(String name) {
-        super(name)
-    }
-
+    @Test
+    @Order(1)
     void testTrue() {
         assert 1 + 1 == 2
     }
 
+    @Test
+    @Order(2)
     void testDelegator() {
         assert delegator
     }
 
+    @Test
+    @Order(3)
     void testDispatcher() {
         assert dispatcher
     }
 
+    @Test
+    @Order(4)
     void testSecurity() {
         assert dispatcher.security
     }
