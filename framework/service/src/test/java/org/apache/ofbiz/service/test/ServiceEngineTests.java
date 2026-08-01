@@ -18,39 +18,37 @@
  *******************************************************************************/
 package org.apache.ofbiz.service.test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.util.Map;
 
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.service.ModelService;
-import org.apache.ofbiz.service.testtools.OFBizTestCase;
+import org.apache.ofbiz.testtools.JunitJupiterTest;
+import org.apache.ofbiz.testtools.JupiterTestHelper;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
 
-public class ServiceEngineTests extends OFBizTestCase {
-
-    public ServiceEngineTests(String name) {
-        super(name);
-    }
-
-    @Override
-    protected void setUp() throws Exception {
-    }
-
-    @Override
-    protected void tearDown() throws Exception {
-    }
+@JunitJupiterTest
+public class ServiceEngineTests implements JupiterTestHelper {
 
     /**
      * Test basic java invocation.
      * @throws Exception the exception
      */
+    @Test
+    @Order(1)
     public void testBasicJavaInvocation() throws Exception {
         Map<String, Object> result = getDispatcher().runSync("testScv", UtilMisc.toMap("message", "Unit Test"));
-        assertEquals("Service result success", ModelService.RESPOND_SUCCESS, result.get(ModelService.RESPONSE_MESSAGE));
+        assertEquals(ModelService.RESPOND_SUCCESS, result.get(ModelService.RESPONSE_MESSAGE), "Service result success");
     }
 
     /**
      * Test a seca with condition in
      * @throws Exception the exception
      */
+    @Test
+    @Order(2)
     public void testConditionSecaInInvocation() throws Exception {
         Map<String, Object> result = getDispatcher().runSync("ping", UtilMisc.toMap("message", "present"));
         assertEquals("set message to condition in message", result.get("message"));
@@ -64,9 +62,11 @@ public class ServiceEngineTests extends OFBizTestCase {
      * Test a basic clojure invocation
      * @throws Exception the exception
      */
+    @Test
+    @Order(3)
     public void testBasicClojureInvocation() throws Exception {
         Map<String, Object> result = getDispatcher().runSync("testClojureSvc", UtilMisc.toMap("message", "Unit Test"));
-        assertEquals("Service result success", ModelService.RESPOND_SUCCESS, result.get(ModelService.RESPONSE_MESSAGE));
+        assertEquals(ModelService.RESPOND_SUCCESS, result.get(ModelService.RESPONSE_MESSAGE), "Service result success");
     }
 
 }

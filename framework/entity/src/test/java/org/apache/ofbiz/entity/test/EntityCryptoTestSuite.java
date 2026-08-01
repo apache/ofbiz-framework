@@ -18,6 +18,10 @@
  *******************************************************************************/
 package org.apache.ofbiz.entity.test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 import java.util.List;
 
 import org.apache.ofbiz.base.util.UtilMisc;
@@ -26,21 +30,24 @@ import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.condition.EntityCondition;
 import org.apache.ofbiz.entity.condition.EntityConditionSubSelect;
 import org.apache.ofbiz.entity.condition.EntityOperator;
-import org.apache.ofbiz.entity.testtools.EntityTestCase;
 import org.apache.ofbiz.entity.util.EntityQuery;
+import org.apache.ofbiz.testtools.JunitJupiterTest;
+import org.apache.ofbiz.testtools.JupiterTestHelper;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
 
 /**
  * The type EntityCryptoTestSuite.
  */
-public class EntityCryptoTestSuite extends EntityTestCase {
-    public EntityCryptoTestSuite(String name) {
-        super(name);
-    }
+@JunitJupiterTest
+public class EntityCryptoTestSuite implements JupiterTestHelper {
 
     /**
      * Test crypto.
      * @throws Exception the exception
      */
+    @Test
+    @Order(1)
     public void testCrypto() throws Exception {
         String nanoTime = "" + System.nanoTime();
         getDelegator().removeByAnd("TestingCrypto", UtilMisc.toMap("testingCryptoTypeId", "BASIC"));
@@ -65,6 +72,8 @@ public class EntityCryptoTestSuite extends EntityTestCase {
      * Test crypto encryption.
      * @throws Exception the exception
      */
+    @Test
+    @Order(2)
     public void testCryptoEncryption() throws Exception {
         Delegator delegator = getDelegator();
         // clear out all values
@@ -127,6 +136,8 @@ public class EntityCryptoTestSuite extends EntityTestCase {
      * Test crypto lookup.
      * @throws Exception the exception
      */
+    @Test
+    @Order(3)
     public void testCryptoLookup() throws Exception {
         Delegator delegator = getDelegator();
         String nanoTime = "" + System.nanoTime();
@@ -176,6 +187,8 @@ public class EntityCryptoTestSuite extends EntityTestCase {
      * Test crypto sub select.
      * @throws Exception the exception
      */
+    @Test
+    @Order(4)
     public void testCryptoSubSelect() throws Exception {
         Delegator delegator = getDelegator();
         String nanoTime = "" + System.nanoTime();

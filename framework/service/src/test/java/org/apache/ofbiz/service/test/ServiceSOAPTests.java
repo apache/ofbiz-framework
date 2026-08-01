@@ -18,6 +18,8 @@
  */
 package org.apache.ofbiz.service.test;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,20 +27,22 @@ import java.util.Map;
 import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.service.testtools.OFBizTestCase;
+import org.apache.ofbiz.testtools.JunitJupiterTest;
+import org.apache.ofbiz.testtools.JupiterTestHelper;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
 
-public class ServiceSOAPTests extends OFBizTestCase {
+@JunitJupiterTest
+public class ServiceSOAPTests implements JupiterTestHelper {
 
     private static final String MODULE = ServiceSOAPTests.class.getName();
-
-    public ServiceSOAPTests(String name) {
-        super(name);
-    }
 
     /**
      * Test soap simple service.
      * @throws Exception the exception
      */
+    @Test
+    @Order(1)
     public void testSOAPSimpleService() throws Exception {
         Map<String, Object> serviceContext = new HashMap<>();
         serviceContext.put("defaultValue", Double.valueOf("123.4567"));
@@ -50,6 +54,8 @@ public class ServiceSOAPTests extends OFBizTestCase {
      * Test soap service.
      * @throws Exception the exception
      */
+    @Test
+    @Order(2)
     public void testSOAPService() throws Exception {
         Map<String, Object> serviceContext = new HashMap<>();
         GenericValue testing = getDelegator().makeValue("Testing");

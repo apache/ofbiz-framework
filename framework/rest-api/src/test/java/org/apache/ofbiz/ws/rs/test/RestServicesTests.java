@@ -19,6 +19,11 @@
 
 package org.apache.ofbiz.ws.rs.test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.Map;
@@ -26,16 +31,16 @@ import java.util.Map;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.service.ServiceUtil;
-import org.apache.ofbiz.service.testtools.OFBizTestCase;
+import org.apache.ofbiz.testtools.JunitJupiterTest;
+import org.apache.ofbiz.testtools.JupiterTestHelper;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class RestServicesTests extends OFBizTestCase {
-
-    public RestServicesTests(String name) {
-        super(name);
-    }
+@JunitJupiterTest
+public class RestServicesTests implements JupiterTestHelper {
 
     /**
      * Verifies that the {@code generateAuthTokenService} returns a success response
@@ -46,14 +51,16 @@ public class RestServicesTests extends OFBizTestCase {
      *
      * @throws Exception if the service call or entity lookup fails unexpectedly
      */
+    @Test
+    @Order(1)
     public void testGenerateAuthTokenReturnsSuccess() throws Exception {
         GenericValue userLogin = getDelegator().findOne("UserLogin", UtilMisc.toMap("userLoginId", "admin"), false);
-        assertNotNull("admin userLogin must exist in demo data", userLogin);
+        assertNotNull(userLogin, "admin userLogin must exist in demo data");
 
         Map<String, Object> ctx = UtilMisc.toMap("userLogin", (Object) userLogin);
         Map<String, Object> result = getDispatcher().runSync("generateAuthTokenService", ctx);
 
-        assertTrue("Service should return success", ServiceUtil.isSuccess(result));
+        assertTrue(ServiceUtil.isSuccess(result), "Service should return success");
     }
 
     /**
@@ -65,6 +72,8 @@ public class RestServicesTests extends OFBizTestCase {
      *
      * @throws Exception if the service call or entity lookup fails unexpectedly
      */
+    @Test
+    @Order(2)
     public void testGenerateAuthTokenAccessTokenPresent() throws Exception {
         GenericValue userLogin = getDelegator().findOne("UserLogin", UtilMisc.toMap("userLoginId", "admin"), false);
 
@@ -73,8 +82,8 @@ public class RestServicesTests extends OFBizTestCase {
                 UtilMisc.toMap("userLogin", (Object) userLogin));
 
         String accessToken = (String) result.get("access_token");
-        assertNotNull("access_token should not be null", accessToken);
-        assertFalse("access_token should not be empty", accessToken.isEmpty());
+        assertNotNull(accessToken, "access_token should not be null");
+        assertFalse(accessToken.isEmpty(), "access_token should not be empty");
     }
 
     /**
@@ -86,6 +95,8 @@ public class RestServicesTests extends OFBizTestCase {
      *
      * @throws Exception if the service call or entity lookup fails unexpectedly
      */
+    @Test
+    @Order(3)
     public void testGenerateAuthTokenTokenTypeIsBearer() throws Exception {
         GenericValue userLogin = getDelegator().findOne("UserLogin", UtilMisc.toMap("userLoginId", "admin"), false);
 
@@ -93,7 +104,7 @@ public class RestServicesTests extends OFBizTestCase {
                 "generateAuthTokenService",
                 UtilMisc.toMap("userLogin", (Object) userLogin));
 
-        assertEquals("token_type should be Bearer", "Bearer", result.get("token_type"));
+        assertEquals("Bearer", result.get("token_type"), "token_type should be Bearer");
     }
 
     /**
@@ -107,6 +118,8 @@ public class RestServicesTests extends OFBizTestCase {
      * @throws Exception if the service call or entity lookup fails unexpectedly,
      *                   or if {@code expires_in} cannot be parsed as an integer
      */
+    @Test
+    @Order(4)
     public void testGenerateAuthTokenExpiresInIsValid() throws Exception {
         GenericValue userLogin = getDelegator().findOne("UserLogin", UtilMisc.toMap("userLoginId", "admin"), false);
 
@@ -115,13 +128,13 @@ public class RestServicesTests extends OFBizTestCase {
                 UtilMisc.toMap("userLogin", (Object) userLogin));
 
         String expiresIn = (String) result.get("expires_in");
-        assertNotNull("expires_in should not be null", expiresIn);
+        assertNotNull(expiresIn, "expires_in should not be null");
 
         int expiresCurrent = Integer.parseInt(expiresIn);
-        assertTrue("expires_in should be a positive number", expiresCurrent > 0);
+        assertTrue(expiresCurrent > 0, "expires_in should be a positive number");
 
         int expiresTarget = 1800;
-        assertTrue("expires_in should match the configured amount", expiresCurrent == expiresTarget);
+        assertTrue(expiresCurrent == expiresTarget, "expires_in should match the configured amount");
     }
 
     /**
@@ -135,6 +148,8 @@ public class RestServicesTests extends OFBizTestCase {
      *
      * @throws Exception if the service call or entity lookup fails unexpectedly
      */
+    @Test
+    @Order(5)
     public void testGenerateAuthTokenTokenIsValidJwtFormat() throws Exception {
         GenericValue userLogin = getDelegator().findOne("UserLogin", UtilMisc.toMap("userLoginId", "admin"), false);
 
@@ -144,7 +159,7 @@ public class RestServicesTests extends OFBizTestCase {
 
         String accessToken = (String) result.get("access_token");
         String[] parts = accessToken.split("\\.");
-        assertEquals("JWT should have 3 parts (header.payload.signature)", 3, parts.length);
+        assertEquals(3, parts.length, "JWT should have 3 parts (header.payload.signature)");
     }
 
     /**
@@ -157,12 +172,14 @@ public class RestServicesTests extends OFBizTestCase {
      *
      * @throws Exception if the service call or entity lookup fails unexpectedly
      */
+    @Test
+    @Order(6)
     public void testGenerateAuthTokenDifferentUsersGetDifferentTokens() throws Exception {
         GenericValue adminLogin = getDelegator().findOne("UserLogin", UtilMisc.toMap("userLoginId", "admin"), false);
         GenericValue systemLogin = getDelegator().findOne("UserLogin", UtilMisc.toMap("userLoginId", "system"), false);
 
-        assertNotNull("admin userLogin must exist", adminLogin);
-        assertNotNull("system userLogin must exist", systemLogin);
+        assertNotNull(adminLogin, "admin userLogin must exist");
+        assertNotNull(systemLogin, "system userLogin must exist");
 
         Map<String, Object> adminResult = getDispatcher().runSync(
                 "generateAuthTokenService",
@@ -173,8 +190,8 @@ public class RestServicesTests extends OFBizTestCase {
                 UtilMisc.toMap("userLogin", (Object) systemLogin));
 
         assertFalse(
-                "Different users should receive different tokens",
-                adminResult.get("access_token").equals(systemResult.get("access_token")));
+                adminResult.get("access_token").equals(systemResult.get("access_token")),
+                "Different users should receive different tokens");
     }
 
     /**
@@ -182,6 +199,8 @@ public class RestServicesTests extends OFBizTestCase {
      *
      * @throws Exception if the service call or entity lookup fails unexpectedly
      */
+    @Test
+    @Order(7)
     public void testGenerateAuthTokenIssuerAndUserLoginIdInPayload() throws Exception {
         GenericValue adminLogin = getDelegator().findOne("UserLogin", UtilMisc.toMap("userLoginId", "admin"), false);
         Map<String, Object> adminResult = getDispatcher().runSync(
@@ -200,8 +219,8 @@ public class RestServicesTests extends OFBizTestCase {
         String iss = claims.path("iss").asText(null);
         String userLoginId = claims.path("userLoginId").asText(null);
 
-        assertTrue("Issuer is ApacheOFBiz", iss.equals("ApacheOFBiz"));
-        assertTrue("UserLoginId is admin", userLoginId.equals("admin"));
+        assertTrue(iss.equals("ApacheOFBiz"), "Issuer is ApacheOFBiz");
+        assertTrue(userLoginId.equals("admin"), "UserLoginId is admin");
     }
 
     private static String padBase64(String input) {
