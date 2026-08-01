@@ -348,7 +348,7 @@ public class JupiterTestExtension implements ParameterResolver, TestInstancePost
                     @Override
                     public void executionStarted(TestIdentifier testIdentifier) {
                         if (testIdentifier.isTest()) {
-                            Test leaf = new JupiterLeafTest(reportingName(testIdentifier), testClass.getName());
+                            Test leaf = new JupiterLeafTest(reportingName(testIdentifier, testClass), testClass.getName());
                             leafTests.put(testIdentifier.getUniqueId(), leaf);
                             result.startTest(leaf);
                         }
@@ -406,15 +406,29 @@ public class JupiterTestExtension implements ParameterResolver, TestInstancePost
          * is replaced with the test's own @ParameterizedTest(name=...) display text (e.g. "[1] exampleTypeId=CONTRIVED"
          * becomes "shouldCreateExampleAcrossTypes[exampleTypeId=CONTRIVED]"), so each row is identifiable
          * without needing to click into it.
+         *
+         * <p>Prefixed with the test class's simple name ("AutoAcctgAdminTests.testXxx") because that class
+         * is otherwise invisible in the JUnit XML/HTML report: every Jupiter-sourced {@code <testcase>} in a
+         * suite shares one {@code classname}, {@code JupiterLeafTest}'s own class
+         * ({@code org.apache.ofbiz.testtools.JupiterTestExtension$JupiterTestSuite$JupiterLeafTest}), since
+         * Ant's {@code JUnitVersionHelper.getTestCaseClassName()} derives {@code classname} from
+         * {@code test.getClass().getName()} with no hook to override it - the only exception is a test
+         * object that literally is {@code junit.framework.JUnit4TestCaseFacade}, whose package-private
+         * constructor rules out subclassing it from this package. Two different Jupiter classes bundled into
+         * the same {@code <test-suite>} can therefore define same-named methods (a real collision:
+         * {@code AutoAcctgAdminTests} and {@code AutoAcctgAgreementTests} both have a
+         * {@code testAddPaymentMethodTypeGlAssignment}) and be indistinguishable in the report without this
+         * prefix, since {@code classname} can't carry it and bare {@code name} previously didn't either.
          */
-        private static String reportingName(TestIdentifier testIdentifier) {
+        private static String reportingName(TestIdentifier testIdentifier, Class<?> testClass) {
             String withoutParamTypes = testIdentifier.getLegacyReportingName().replaceAll("\\([^)]*\\)", "");
             Matcher indexSuffix = INDEX_SUFFIX.matcher(withoutParamTypes);
-            if (!indexSuffix.matches()) {
-                return withoutParamTypes;
+            String bareName = withoutParamTypes;
+            if (indexSuffix.matches()) {
+                String invocationLabel = testIdentifier.getDisplayName().replaceFirst("^\\[\\d+]\\s*", "");
+                bareName = indexSuffix.group(1) + "[" + invocationLabel + "]";
             }
-            String invocationLabel = testIdentifier.getDisplayName().replaceFirst("^\\[\\d+]\\s*", "");
-            return indexSuffix.group(1) + "[" + invocationLabel + "]";
+            return testClass.getSimpleName() + "." + bareName;
         }
 
         /**
