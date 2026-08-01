@@ -26,7 +26,7 @@ under the License.
 </#if>
 <hr />
 
-  <form class="basic-form" method="post" action="<@ofbizUrl>entityImportDir</@ofbizUrl>">
+  <form class="basic-form" method="post" action="<@ofbizUrl>entityImportDir</@ofbizUrl>" onsubmit="return !this.deleteFiles.checked || confirm('${uiLabelMap.WebtoolsConfirmIrreversibleDelete?js_string} ${uiLabelMap.WebtoolsDeleteFiles?js_string}: ' + this.path.value + '?');">
     <table class="basic-table" cellspacing="0">
         <tbody>
             <tr>
