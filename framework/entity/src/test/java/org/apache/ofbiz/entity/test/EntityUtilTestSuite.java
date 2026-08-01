@@ -18,27 +18,29 @@
  *******************************************************************************/
 package org.apache.ofbiz.entity.test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.condition.EntityCondition;
 import org.apache.ofbiz.entity.condition.EntityExpr;
 import org.apache.ofbiz.entity.condition.EntityOperator;
-import org.apache.ofbiz.entity.testtools.EntityTestCase;
 import org.apache.ofbiz.entity.util.EntityUtil;
+import org.apache.ofbiz.testtools.JunitJupiterTest;
+import org.apache.ofbiz.testtools.JupiterTestHelper;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class EntityUtilTestSuite extends EntityTestCase {
+@JunitJupiterTest
+public class EntityUtilTestSuite implements JupiterTestHelper {
 
     private static final String MODULE = EntityUtilTestSuite.class.getName();
 
     public static final long TEST_COUNT = 1000;
-
-    public EntityUtilTestSuite(String name) {
-        super(name);
-    }
 
     private List<GenericValue> prepareGenericValueList() {
         List<GenericValue> newValues = new ArrayList<>();
@@ -52,63 +54,71 @@ public class EntityUtilTestSuite extends EntityTestCase {
     /**
      * Test get field list from entity list.
      */
+    @Test
+    @Order(1)
     public void testGetFieldListFromEntityList() {
         List<GenericValue> newValues = prepareGenericValueList();
         List<String> descriptionList = EntityUtil.getFieldListFromEntityList(newValues, "description", false);
-        assertEquals("Get not distinct field list from " + TEST_COUNT + " entity", TEST_COUNT, descriptionList.size());
-        assertEquals("Get first description value", "Description 0", descriptionList.get(0));
-        assertEquals("Get tens description value", "Description 0", descriptionList.get(10));
+        assertEquals(TEST_COUNT, descriptionList.size(), "Get not distinct field list from " + TEST_COUNT + " entity");
+        assertEquals("Description 0", descriptionList.get(0), "Get first description value");
+        assertEquals("Description 0", descriptionList.get(10), "Get tens description value");
 
         descriptionList = EntityUtil.getFieldListFromEntityList(newValues, "description", true);
-        assertEquals("Get distinct field list from " + TEST_COUNT + " entity, modulo 10 values", 10, descriptionList.size());
-        assertEquals("Get first description value", "Description 0", descriptionList.get(0));
+        assertEquals(10, descriptionList.size(), "Get distinct field list from " + TEST_COUNT + " entity, modulo 10 values");
+        assertEquals("Description 0", descriptionList.get(0), "Get first description value");
     }
 
     /**
      * Test filter by condition.
      */
+    @Test
+    @Order(2)
     public void testFilterByCondition() {
         List<GenericValue> newValues = prepareGenericValueList();
         EntityExpr condition = EntityCondition.makeCondition("description", "Description 0");
         List<GenericValue> filteredValues = EntityUtil.filterByCondition(newValues, condition);
-        assertEquals("Filter on 10% description condition " + TEST_COUNT + " entity", TEST_COUNT / 10, filteredValues.size());
-        assertEquals("Get first description value", "Description 0", filteredValues.get(0).get("description"));
+        assertEquals(TEST_COUNT / 10, filteredValues.size(), "Filter on 10% description condition " + TEST_COUNT + " entity");
+        assertEquals("Description 0", filteredValues.get(0).get("description"), "Get first description value");
 
         filteredValues = EntityUtil.filterOutByCondition(newValues, condition);
-        assertEquals("Filter out on 10% description condition " + TEST_COUNT + " entity", TEST_COUNT - TEST_COUNT / 10, filteredValues.size());
-        assertEquals("Get first description value", "Description 1", filteredValues.get(0).get("description"));
+        assertEquals(TEST_COUNT - TEST_COUNT / 10, filteredValues.size(), "Filter out on 10% description condition " + TEST_COUNT + " entity");
+        assertEquals("Description 1", filteredValues.get(0).get("description"), "Get first description value");
     }
 
     /**
      * Test filter by and.
      */
+    @Test
+    @Order(3)
     public void testFilterByAnd() {
         List<GenericValue> newValues = prepareGenericValueList();
         List<EntityExpr> condition = UtilMisc.toList(EntityCondition.makeCondition("description", "Description 0"),
                 EntityCondition.makeCondition("testingId", "00010"));
         List<GenericValue> filteredWithMap = EntityUtil.filterByAnd(newValues, UtilMisc.toMap("description", "Description 0", "testingId", "00010"));
         List<GenericValue> filteredWithCondition = EntityUtil.filterByAnd(newValues, condition);
-        assertEquals("Filter with same condition using Map and List<EntityExpr> ", filteredWithCondition, filteredWithMap);
+        assertEquals(filteredWithCondition, filteredWithMap, "Filter with same condition using Map and List<EntityExpr> ");
 
         condition = UtilMisc.toList(EntityCondition.makeCondition("description", "Description 0"),
                 EntityCondition.makeCondition("testingId", EntityOperator.LIKE, "000%"));
         filteredWithCondition = EntityUtil.filterByAnd(newValues, condition);
-        assertEquals("Filter condition using List<EntityExpr> must have 10 results", 10, filteredWithCondition.size());
+        assertEquals(10, filteredWithCondition.size(), "Filter condition using List<EntityExpr> must have 10 results");
         filteredWithCondition.forEach(genericValue ->
-                assertEquals("Filter condition using List<EntityExpr> must get simple description",
-                        "Description 0", genericValue.get("description")));
+                assertEquals("Description 0", genericValue.get("description"),
+                        "Filter condition using List<EntityExpr> must get simple description"));
     }
 
     /**
      * Test filter by or.
      */
+    @Test
+    @Order(4)
     public void testFilterByOr() {
         List<GenericValue> newValues = prepareGenericValueList();
         List<EntityExpr> condition = UtilMisc.toList(EntityCondition.makeCondition("description", "Description 0"),
                 EntityCondition.makeCondition("testingId", "00001"));
         List<GenericValue> filteredWithCondition = EntityUtil.filterByOr(newValues, condition);
 
-        assertEquals("Filter condition using List<EntityExpr> must have " + (TEST_COUNT / 10 + 1) + " results",
-                TEST_COUNT / 10 + 1, filteredWithCondition.size());
+        assertEquals(TEST_COUNT / 10 + 1, filteredWithCondition.size(),
+                "Filter condition using List<EntityExpr> must have " + (TEST_COUNT / 10 + 1) + " results");
     }
 }
