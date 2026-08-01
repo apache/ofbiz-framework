@@ -18,27 +18,22 @@
  *******************************************************************************/
 package org.apache.ofbiz.service.test;
 
-import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.service.ModelService;
-import org.apache.ofbiz.service.ServiceUtil;
-import org.apache.ofbiz.service.testtools.OFBizTestCase;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Map;
 
-public class GroovyDslServiceEngineTests extends OFBizTestCase {
+import org.apache.ofbiz.base.util.UtilMisc;
+import org.apache.ofbiz.service.ModelService;
+import org.apache.ofbiz.service.ServiceUtil;
+import org.apache.ofbiz.testtools.JunitJupiterTest;
+import org.apache.ofbiz.testtools.JupiterTestHelper;
+import org.junit.jupiter.api.Test;
 
-    public GroovyDslServiceEngineTests(String name) {
-        super(name);
-    }
+@JunitJupiterTest
+public class GroovyDslServiceEngineTests implements JupiterTestHelper {
 
-    @Override
-    protected void setUp() throws Exception {
-    }
-
-    @Override
-    protected void tearDown() throws Exception {
-    }
-
+    @Test
     public final void testGroovyServices() throws Exception {
         String pingMsg = "Unit Test";
         Map<String, Object> pingMap = UtilMisc.toMap("ping", pingMsg);

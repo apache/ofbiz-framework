@@ -18,14 +18,17 @@
  *******************************************************************************/
 package org.apache.ofbiz.webapp.test
 
-import org.apache.ofbiz.service.testtools.OFBizTestCase
+import org.apache.ofbiz.testtools.JunitJupiterTest
+import org.apache.ofbiz.testtools.JupiterTestHelper
 import org.apache.ofbiz.webapp.OfbizPathShortener
+import org.junit.jupiter.api.Order
+import org.junit.jupiter.api.Test
 
-class OfbizPathShortenerTests extends OFBizTestCase {
+@JunitJupiterTest
+class OfbizPathShortenerTests implements JupiterTestHelper {
 
-    OfbizPathShortenerTests(String name) {
-        super(name)
-    }
+    @Test
+    @Order(1)
     void testComputeLongUrlToShortUrl() {
         String longUri = 'passwordChange?USERNAME=admin&TOKEN=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxML' +
                 'LL.eyJ1c2VyTG9naW5JZCI6Imx1Y2lsZS5wZWxsZXRpZXJAZWRsbi5vcmciLCJpc3MiOiJBcGFjaGVPRkJpeiIsImV4cCI6MTcyNTU' +
@@ -33,6 +36,8 @@ class OfbizPathShortenerTests extends OFBizTestCase {
                 'jl4rTxgoEYuRMoHg&JavaScriptEnabled=Y&Albert=Yoda'
         assert OfbizPathShortener.resolveShortenedPath(this.getDelegator(), longUri).length() < 11
     }
+    @Test
+    @Order(2)
     void testResolveLongUrlComputedFromShort() {
         String longUri = 'passwordChange?USERNAME=admin&TOKEN=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxML' +
                 'LL.eyJ1c2VyTG9naW5JZCI6Imx1Y2lsZS5wZWxsZXRpZXJAZWRsbi5vcmciLCJpc3MiOiJBcGFjaGVPRkJpeiIsImV4cCI6MTcyNTU' +
@@ -41,6 +46,8 @@ class OfbizPathShortenerTests extends OFBizTestCase {
         String shortUri = OfbizPathShortener.resolveShortenedPath(this.getDelegator(), longUri)
         assert longUri == OfbizPathShortener.resolveOriginalPathFromShortened(this.getDelegator(), shortUri)
     }
+    @Test
+    @Order(3)
     void testResolveLongUrlComputedFromShortAlreadyStored() {
         String longUri = 'passwordChange?USERNAME=admin&TOKEN=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxML' +
                 'LL.eyJ1c2VyTG9naW5JZCI6Imx1Y2lsZS5wZWxsZXRpZXJAZWRsbi5vcmciLCJpc3MiOiJBcGFjaGVPRkJpeiIsImV4cCI6MTcyNTU' +

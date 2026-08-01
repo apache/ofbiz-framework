@@ -24,21 +24,23 @@ import org.apache.ofbiz.entity.condition.EntityConditionBuilder
 import org.apache.ofbiz.entity.util.EntityQuery
 import org.apache.ofbiz.service.config.ServiceConfigUtil
 import org.apache.ofbiz.service.job.JobManager
-import org.apache.ofbiz.service.testtools.OFBizTestCase
+import org.apache.ofbiz.testtools.JunitJupiterTest
+import org.apache.ofbiz.testtools.JupiterTestHelper
+import org.junit.jupiter.api.Order
+import org.junit.jupiter.api.Test
 
 import java.sql.Timestamp
 
 // ./gradlew "ofbiz --test component=service --test suitename=servicetests --test case=service-multiple-node-recovery"
 
-class ServiceMultipleNodeRecoveryTest extends OFBizTestCase {
+@JunitJupiterTest
+class ServiceMultipleNodeRecoveryTest implements JupiterTestHelper {
 
     private static final Timestamp LAST_HOUR = UtilDateTime.adjustTimestamp(UtilDateTime.nowTimestamp(), Calendar.HOUR, -1)
     private static final String POOL_ID = ServiceConfigUtil.getServiceEngine().getThreadPool().getSendToPool()
 
-    ServiceMultipleNodeRecoveryTest(String name) {
-        super(name)
-    }
-
+    @Test
+    @Order(1)
     void testMultipleNodeRecoveryAfterOneFail() {
         Timestamp now = UtilDateTime.nowTimestamp()
         long leaseExpiryMillis = ServiceConfigUtil.getServiceEngine().getThreadPool().getLeaseExpiryMillis()
@@ -104,6 +106,8 @@ class ServiceMultipleNodeRecoveryTest extends OFBizTestCase {
                 .queryCount() == 1
     }
 
+    @Test
+    @Order(2)
     void testMultipleNodeRecoveryHearbeat() {
         Timestamp now = UtilDateTime.nowTimestamp()
         GenericValue sysUserLogin = delegator.findOne('UserLogin', true, 'userLoginId', 'system')

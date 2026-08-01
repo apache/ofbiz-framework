@@ -19,14 +19,14 @@
 package org.apache.ofbiz.entity.test
 
 import org.apache.ofbiz.entity.util.EntityUtilProperties
-import org.apache.ofbiz.service.testtools.OFBizTestCase
+import org.apache.ofbiz.testtools.JunitJupiterTest
+import org.apache.ofbiz.testtools.JupiterTestHelper
+import org.junit.jupiter.api.Test
 
-class EntityUtilPropertiesTests extends OFBizTestCase {
+@JunitJupiterTest
+class EntityUtilPropertiesTests implements JupiterTestHelper {
 
-    EntityUtilPropertiesTests(String name) {
-        super(name)
-    }
-
+    @Test
     void testGetGeneralProperties() {
         String currencyUomIdDefault = EntityUtilProperties.getPropertyValue('general', 'currency.uom.id.default', delegator)
         assert currencyUomIdDefault == 'USD'
