@@ -718,6 +718,7 @@ task createTestReports(group: sysadminGroup, description: 'Generate HTML reports
                 include(name: '*.xml')
             }
             report(format:'frames', todir:'./runtime/logs/test-results/html')
+            report(format:'noframes', todir:'./runtime/logs/test-results/html')
         }
     }
 }
