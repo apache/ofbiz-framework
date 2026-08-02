@@ -720,6 +720,12 @@ task createTestReports(group: sysadminGroup, description: 'Generate HTML reports
             report(format:'frames', todir:'./runtime/logs/test-results/html')
             report(format:'noframes', todir:'./runtime/logs/test-results/html')
         }
+        // Ant's stock junit-frames.xsl/junit-noframes.xsl label this column "Type", but it actually
+        // renders the failure/error message and stack trace, not the bare exception type - relabel
+        // it post-generation rather than vendoring and maintaining a forked copy of Ant's templates.
+        fileTree('./runtime/logs/test-results/html') {
+            include '**/*.html'
+        }.each { file -> file.text = file.text.replace('>Type</th>', '>Failure Reason</th>') }
     }
 }
 
