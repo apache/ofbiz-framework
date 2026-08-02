@@ -19,6 +19,7 @@
 package org.apache.ofbiz.testtools;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -27,6 +28,7 @@ import java.util.regex.Pattern;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.service.LocalDispatcher;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.extension.ConditionEvaluationResult;
 import org.junit.jupiter.api.extension.ExecutionCondition;
 import org.junit.jupiter.api.extension.ExtensionContext;
@@ -35,6 +37,7 @@ import org.junit.jupiter.api.extension.ParameterResolutionException;
 import org.junit.jupiter.api.extension.ParameterResolver;
 import org.junit.jupiter.api.extension.TestInstancePostProcessor;
 import org.junit.platform.engine.TestExecutionResult;
+import org.junit.platform.engine.support.descriptor.MethodSource;
 import org.junit.platform.launcher.Launcher;
 import org.junit.platform.launcher.LauncherDiscoveryRequest;
 import org.junit.platform.launcher.TestExecutionListener;
@@ -283,7 +286,43 @@ public class JupiterTestExtension implements ParameterResolver, TestInstancePost
                             "org.junit.jupiter.api.MethodOrderer$OrderAnnotation")
                     .configurationParameter("junit.jupiter.execution.parallel.enabled", "false")
                     .build();
-            this.testCaseCount = (int) launcher.discover(request).countTestIdentifiers(TestIdentifier::isTest);
+            this.testCaseCount = (int) launcher.discover(request).countTestIdentifiers(
+                    id -> id.isTest() && !isStaticallyDisabled(id));
+        }
+
+        /**
+         * Excludes {@literal @}Disabled methods/classes from countTestCases() so it agrees with the
+         * TestResult.runCount() TestRunContainer actually logs: run() below never calls startTest()
+         * for a disabled test (see executionSkipped()), so runCount() never counts it either. Discovery
+         * alone can't see every reason a test might not run - an ExecutionCondition like this class's own
+         * evaluateExecutionCondition() is only evaluated at execution time - but a bare {@literal @}Disabled
+         * is visible right here via reflection on the MethodSource, which covers the common case cheaply.
+         * Any resolution failure falls back to "not disabled" (matches the old, over-counting behavior)
+         * rather than risk hiding a test that actually runs.
+         */
+        private static boolean isStaticallyDisabled(TestIdentifier identifier) {
+            return identifier.getSource()
+                    .filter(MethodSource.class::isInstance)
+                    .map(MethodSource.class::cast)
+                    .map(JupiterTestSuite::isDisabledMethodSource)
+                    .orElse(false);
+        }
+
+        private static boolean isDisabledMethodSource(MethodSource source) {
+            try {
+                Class<?> testClass = Class.forName(source.getClassName());
+                if (testClass.isAnnotationPresent(Disabled.class)) {
+                    return true;
+                }
+                for (Method method : testClass.getDeclaredMethods()) {
+                    if (method.getName().equals(source.getMethodName()) && method.isAnnotationPresent(Disabled.class)) {
+                        return true;
+                    }
+                }
+            } catch (ClassNotFoundException e) {
+                return false;
+            }
+            return false;
         }
 
         void setDelegator(Delegator delegator) {
@@ -309,7 +348,7 @@ public class JupiterTestExtension implements ParameterResolver, TestInstancePost
                     @Override
                     public void executionStarted(TestIdentifier testIdentifier) {
                         if (testIdentifier.isTest()) {
-                            Test leaf = new JupiterLeafTest(reportingName(testIdentifier), testClass.getName());
+                            Test leaf = new JupiterLeafTest(reportingName(testIdentifier, testClass), testClass.getName());
                             leafTests.put(testIdentifier.getUniqueId(), leaf);
                             result.startTest(leaf);
                         }
@@ -329,6 +368,17 @@ public class JupiterTestExtension implements ParameterResolver, TestInstancePost
                             return;
                         }
                         Test leaf = leafTests.get(testIdentifier.getUniqueId());
+                        if (testExecutionResult.getStatus() == TestExecutionResult.Status.ABORTED) {
+                            // A JUnit 5 Assumptions.assumeTrue/assumeFalse failure: a deliberate skip, not a
+                            // defect, so it is reported the same way executionSkipped() reports a @Disabled
+                            // test - logged, not routed through addFailure()/addError() - even though, unlike
+                            // a @Disabled test, startTest() already ran for it and endTest() still must too.
+                            testExecutionResult.getThrowable().ifPresent(throwable ->
+                                    Debug.logInfo("[JUNIT] ABORTED: " + testIdentifier.getDisplayName()
+                                            + " (" + testClass.getName() + ") - " + throwable.getMessage(), MODULE));
+                            result.endTest(leaf);
+                            return;
+                        }
                         testExecutionResult.getThrowable().ifPresent(throwable -> {
                             if (throwable instanceof AssertionError) {
                                 result.addFailure(leaf, new AssertionFailedError(throwable.getMessage()));
@@ -356,15 +406,29 @@ public class JupiterTestExtension implements ParameterResolver, TestInstancePost
          * is replaced with the test's own @ParameterizedTest(name=...) display text (e.g. "[1] exampleTypeId=CONTRIVED"
          * becomes "shouldCreateExampleAcrossTypes[exampleTypeId=CONTRIVED]"), so each row is identifiable
          * without needing to click into it.
+         *
+         * <p>Prefixed with the test class's simple name ("AutoAcctgAdminTests.testXxx") because that class
+         * is otherwise invisible in the JUnit XML/HTML report: every Jupiter-sourced {@code <testcase>} in a
+         * suite shares one {@code classname}, {@code JupiterLeafTest}'s own class
+         * ({@code org.apache.ofbiz.testtools.JupiterTestExtension$JupiterTestSuite$JupiterLeafTest}), since
+         * Ant's {@code JUnitVersionHelper.getTestCaseClassName()} derives {@code classname} from
+         * {@code test.getClass().getName()} with no hook to override it - the only exception is a test
+         * object that literally is {@code junit.framework.JUnit4TestCaseFacade}, whose package-private
+         * constructor rules out subclassing it from this package. Two different Jupiter classes bundled into
+         * the same {@code <test-suite>} can therefore define same-named methods (a real collision:
+         * {@code AutoAcctgAdminTests} and {@code AutoAcctgAgreementTests} both have a
+         * {@code testAddPaymentMethodTypeGlAssignment}) and be indistinguishable in the report without this
+         * prefix, since {@code classname} can't carry it and bare {@code name} previously didn't either.
          */
-        private static String reportingName(TestIdentifier testIdentifier) {
+        private static String reportingName(TestIdentifier testIdentifier, Class<?> testClass) {
             String withoutParamTypes = testIdentifier.getLegacyReportingName().replaceAll("\\([^)]*\\)", "");
             Matcher indexSuffix = INDEX_SUFFIX.matcher(withoutParamTypes);
-            if (!indexSuffix.matches()) {
-                return withoutParamTypes;
+            String bareName = withoutParamTypes;
+            if (indexSuffix.matches()) {
+                String invocationLabel = testIdentifier.getDisplayName().replaceFirst("^\\[\\d+]\\s*", "");
+                bareName = indexSuffix.group(1) + "[" + invocationLabel + "]";
             }
-            String invocationLabel = testIdentifier.getDisplayName().replaceFirst("^\\[\\d+]\\s*", "");
-            return indexSuffix.group(1) + "[" + invocationLabel + "]";
+            return testClass.getSimpleName() + "." + bareName;
         }
 
         /**

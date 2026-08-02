@@ -27,8 +27,12 @@ import java.util.List;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assumptions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.extension.ParameterContext;
 import org.junit.jupiter.api.extension.ParameterResolutionException;
 
@@ -39,6 +43,7 @@ import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.everyItem;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.instanceOf;
+import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.sameInstance;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -155,6 +160,48 @@ class JupiterInjectionGuardsTest {
         }
     }
 
+    @Test
+    void assumptionSkipIsReportedAsInfoNotAsAnError() {
+        Delegator delegator = mock(Delegator.class);
+        LocalDispatcher dispatcher = mock(LocalDispatcher.class);
+
+        JupiterTestExtension.JupiterTestSuite suite =
+                new JupiterTestExtension.JupiterTestSuite(AssumptionFixture.class);
+        suite.setDelegator(delegator);
+        suite.setDispatcher(dispatcher);
+        TestResult result = new TestResult();
+        suite.run(result);
+
+        // startTest()/endTest() still ran (unlike a @Disabled test, which never starts), so the
+        // test counts toward runCount(); it must not also land in errorCount()/failureCount() the
+        // way a bare Throwable used to before ABORTED got its own branch in executionFinished().
+        assertThat(result.runCount(), is(1));
+        assertThat(result.errorCount(), is(0));
+        assertThat(result.failureCount(), is(0));
+    }
+
+    @Test
+    void countTestCasesExcludesDisabledMethods() {
+        JupiterTestExtension.JupiterTestSuite suite =
+                new JupiterTestExtension.JupiterTestSuite(DisabledCountFixture.class);
+
+        assertThat(suite.countTestCases(), is(1));
+    }
+
+    @Test
+    void beforeAllStaticMethodReceivesDelegatorViaParameterResolution() {
+        Delegator delegator = mock(Delegator.class);
+        LocalDispatcher dispatcher = mock(LocalDispatcher.class);
+
+        JupiterTestExtension.JupiterTestSuite suite =
+                new JupiterTestExtension.JupiterTestSuite(StaticInjectionFixture.class);
+        suite.setDelegator(delegator);
+        suite.setDispatcher(dispatcher);
+        suite.run(new TestResult());
+
+        assertThat(StaticInjectionFixture.capturedDelegator(), sameInstance(delegator));
+    }
+
     //ALLOW PUBLIC FIELDS
     static class CorrectlyNamedFields {
         Delegator delegator;
@@ -207,6 +254,53 @@ class JupiterInjectionGuardsTest {
 
     static class ParameterFixtures {
         void dummy(Delegator delegator) {
+        }
+    }
+
+    @Tag(JupiterTestExtension.INTEGRATION_TAG)
+    @ExtendWith(JupiterTestExtension.class)
+    static class AssumptionFixture {
+        @Test
+        void skipsViaAssumption() {
+            Assumptions.assumeTrue(false, "deliberately never true - exists only to abort this test");
+        }
+    }
+
+    // No @ExtendWith needed: countTestCases() is read straight off the constructor's discovery
+    // result, before run() would ever need CURRENT_DELEGATOR/CURRENT_DISPATCHER armed.
+    @Tag(JupiterTestExtension.INTEGRATION_TAG)
+    static class DisabledCountFixture {
+        @Test
+        void enabledTest() {
+        }
+
+        @Disabled("only used to verify countTestCases() excludes a statically-disabled method")
+        @Test
+        void disabledTest() {
+        }
+    }
+
+    // Unlike ThreadRecordingFixture above, this one needs @ExtendWith(JupiterTestExtension.class)
+    // active: a static @BeforeAll method has no test instance for postProcessTestInstance() to
+    // inject a field into, so resolveParameter() - reached only through the registered extension -
+    // is the only injection path the javadoc documents for it, and this is what exercises that path.
+    @Tag(JupiterTestExtension.INTEGRATION_TAG)
+    @ExtendWith(JupiterTestExtension.class)
+    static class StaticInjectionFixture {
+        private static Delegator capturedDelegator;
+
+        @BeforeAll
+        static void captureDelegator(Delegator delegator) {
+            capturedDelegator = delegator;
+        }
+
+        static Delegator capturedDelegator() {
+            return capturedDelegator;
+        }
+
+        @Test
+        void triggersBeforeAll() {
+            // No-op: exists only so the class has a @Test method for @BeforeAll to run ahead of.
         }
     }
 }
