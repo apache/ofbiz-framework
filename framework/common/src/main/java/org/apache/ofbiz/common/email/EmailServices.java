@@ -362,7 +362,7 @@ public class EmailServices {
             }
             Boolean sendFailureNotification = (Boolean) context.get("sendFailureNotification");
             if (sendFailureNotification == null || sendFailureNotification) {
-                sendFailureNotification(ctx, context, mail, failedAddresses);
+                sendFailureNotification(ctx, context, mail, failedAddresses, sendFrom);
                 results.put("messageWrapper", new MimeMessageWrapper(session, mail));
                 try {
                     results.put("messageId", mail.getMessageID());
@@ -687,13 +687,13 @@ public class EmailServices {
         return sendMailFromScreen(dctx, serviceContext);
     }
     public static void sendFailureNotification(DispatchContext dctx, Map<String, ? extends Object> context, MimeMessage message,
-                                               List<SMTPAddressFailedException> failures) {
+                                               List<SMTPAddressFailedException> failures, String sendFrom) {
         Locale locale = (Locale) context.get("locale");
         Map<String, Object> newContext = new LinkedHashMap<>();
         newContext.put("userLogin", context.get("userLogin"));
         newContext.put("sendFailureNotification", false);
-        newContext.put("sendFrom", context.get("sendFrom"));
-        newContext.put("sendTo", context.get("sendFrom"));
+        newContext.put("sendFrom", sendFrom);
+        newContext.put("sendTo", sendFrom);
         newContext.put("subject", UtilProperties.getMessage(RESOURCE, "CommonEmailSendUndeliveredMail", locale));
         StringBuilder sb = new StringBuilder();
         sb.append(UtilProperties.getMessage(RESOURCE, "CommonEmailDeliveryFailed", locale));
