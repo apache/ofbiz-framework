@@ -18,12 +18,12 @@
  *******************************************************************************/
 package org.apache.ofbiz.base.util;
 
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.Map;
 
+import java.util.regex.Pattern;
 import org.apache.commons.validator.routines.EmailValidator;
 import org.apache.commons.validator.routines.UrlValidator;
 import org.apache.ofbiz.base.lang.IsEmpty;
@@ -156,7 +156,7 @@ public final class UtilValidate {
             + "NJ|NM|NY|NC|ND|OH|OK|OR|PA|RI|SC|SD|TN|TX|UT|VT|VA|WA|WV|WI|WY";
 
     /** Paths from which loading files should be prevented */
-    public static final String[] BLOCKED_PATHS = {"proc/self/fd"};
+    private static Pattern allowedPathsPattern = null;
 
     /** Check whether an object is empty, will see if it is a String, Map, Collection, etc. */
     public static boolean isEmpty(Object o) {
@@ -661,23 +661,23 @@ public final class UtilValidate {
         return UrlValidator.getInstance().isValid(s);
     }
 
+    private static Pattern initAllowedPathPattern() {
+        return Pattern.compile(UtilProperties.getPropertyValue("security", "allowFilePaths", ""));
+    }
+
     /**
-     * isBlockedPath takes a String representing a filePath, normalizes it and checks it against a Blacklist
+     * isAllowedPath takes a String representing a filePath, normalizes it and checks it if allowed
      * @param rawPathString
-     * @return true if its a blocked path, false otherwise or if it is empty
+     * @return true if it's an allowed path, false otherwise
      */
-    public static boolean isBlockedPath(String rawPathString) {
-        if (UtilValidate.isEmpty(rawPathString)) {
-            return false;
+    public static boolean isAllowedPath(String rawPathString) {
+        if (allowedPathsPattern == null) {
+            allowedPathsPattern = initAllowedPathPattern();
         }
-        Path normalized = Paths.get(rawPathString).normalize();
-        String normalizedPath = normalized.toString();
-        for (String blocked : BLOCKED_PATHS) {
-            if (normalizedPath.contains(blocked)) {
-                return true;
-            }
-        }
-        return false;
+        return UtilValidate.isNotEmpty(rawPathString)
+                && allowedPathsPattern.matcher(Paths.get(rawPathString)
+                        .normalize().toString())
+                .matches();
     }
 
     /** isYear returns true if string s is a valid

@@ -90,8 +90,8 @@
             <set field="helpAnchor" value="_help_for_view_organization_profile"/>
           </actions>
             <widgets>
-                <include-screen name="Party" location="applications/party/widget/partymgr/ProfileScreens.xml"/>
-                <include-screen name="Contact" location="applications/party/widget/partymgr/ProfileScreens.xml"/>
+                <include-screen name="Party" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                <include-screen name="Contact" location="component://party/widget/partymgr/ProfileScreens.xml"/>
             </widgets>
         </section>
     </screen>

@@ -29,6 +29,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.ofbiz.base.location.FlexibleLocation;
+import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.UtilXml;
@@ -73,7 +74,13 @@ public class GridFactory {
         String cacheKey = sb.toString();
         ModelGrid modelGrid = GRID_LOCATION_CACHE.get(cacheKey);
         if (modelGrid == null) {
-            URL gridFileUrl = FlexibleLocation.resolveLocation(resourceName);
+            String sanitizedLocation = WidgetSecureLocation.sanitize(resourceName);
+            if (sanitizedLocation == null) {
+                Debug.logWarning("The location of grid [%s] isn't an allowed Path. Abort rendering. Raw location [%s]",
+                        MODULE, gridName, resourceName);
+                throw new IllegalArgumentException("Abort grid rendering due to grid unallowed grid location");
+            }
+            URL gridFileUrl = FlexibleLocation.resolveLocation(sanitizedLocation);
             if (gridFileUrl == null || UtilValidate.isUrlInStringAndDoesNotStartByComponentProtocol(gridFileUrl.toString())) {
                 throw new IllegalArgumentException("Could not resolve location to URL: " + resourceName);
             }
@@ -108,11 +115,17 @@ public class GridFactory {
             ServletContext servletContext = request.getServletContext();
             Delegator delegator = (Delegator) request.getAttribute("delegator");
             LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
-            URL gridFileUrl = servletContext.getResource(resourceName);
+            String sanitizedLocation = WidgetSecureLocation.sanitize(resourceName);
+            if (sanitizedLocation == null) {
+                Debug.logWarning("The location of grid [%s] isn't an allowed Path. Abort rendering. Raw location [%s]",
+                        MODULE, gridName, resourceName);
+                throw new IllegalArgumentException("Abort grid rendering due to grid unallowed grid location");
+            }
+            URL gridFileUrl = servletContext.getResource(sanitizedLocation);
             Document gridFileDoc = UtilXml.readXmlDocument(gridFileUrl, true, true);
             Element gridElement = UtilXml.firstChildElement(gridFileDoc.getDocumentElement(), "grid", "name", gridName);
             modelGrid = createModelGrid(gridElement, delegator.getModelReader(), visualTheme,
-                    dispatcher.getDispatchContext(), resourceName, gridName);
+                    dispatcher.getDispatchContext(), sanitizedLocation, gridName);
             modelGrid = GRID_WEBAPP_CACHE.putIfAbsentAndGet(cacheKey, modelGrid);
         }
         if (modelGrid == null) {
