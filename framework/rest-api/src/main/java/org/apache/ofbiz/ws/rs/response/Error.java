@@ -78,17 +78,6 @@ public class Error {
      * <p>These methods allow chaining to populate error metadata in a concise way.
      * Each method sets a field and returns the same {@code Error} instance.</p>
      */
-    public Error code(int statusCode) {
-        this.statusCode = statusCode;
-        return this;
-    }
-
-    /**
-     * Fluent builder methods for constructing an {@code Error} response.
-     *
-     * <p>These methods allow chaining to populate error metadata in a concise way.
-     * Each method sets a field and returns the same {@code Error} instance.</p>
-     */
     public Error description(String statusDescription) {
         this.statusDescription = statusDescription;
         return this;

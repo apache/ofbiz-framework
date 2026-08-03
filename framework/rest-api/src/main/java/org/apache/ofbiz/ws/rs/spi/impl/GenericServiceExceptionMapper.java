@@ -87,7 +87,7 @@ public class GenericServiceExceptionMapper implements jakarta.ws.rs.ext.Exceptio
         if (actualCause instanceof ServiceValidationException) {
             ServiceValidationException validationException = (ServiceValidationException) actualCause;
             Error error = new Error().type(actualCause.getClass().getSimpleName())
-                    .code(Response.Status.BAD_REQUEST.getStatusCode())
+                    .statusCode(Response.Status.BAD_REQUEST.getStatusCode())
                     .description(Response.Status.BAD_REQUEST.getReasonPhrase())
                     .message(RestApiUtil.getErrorMessage(service, "GenericServiceValidationErrorMessage", request.getLocale()))
                     .errorDesc((validationException.getMessage()))
@@ -96,7 +96,7 @@ public class GenericServiceExceptionMapper implements jakarta.ws.rs.ext.Exceptio
         } else if (actualCause instanceof GenericNoSuchEntityException
                 || actualCause instanceof GenericEntityNotFoundException) {
             Error error = new Error().type(actualCause.getClass().getSimpleName())
-                    .code(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode())
+                    .statusCode(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode())
                     .description(Response.Status.INTERNAL_SERVER_ERROR.getReasonPhrase())
                     .message(RestApiUtil.getErrorMessage(service, "NoSuchEntityDefaultMessage", request.getLocale()))
                     .errorDesc(ExceptionUtils.getRootCauseMessage(gse));
@@ -104,7 +104,7 @@ public class GenericServiceExceptionMapper implements jakarta.ws.rs.ext.Exceptio
                     .entity(error);
         } else if (actualCause instanceof GenericEntityException) {
             Error error = new Error().type(actualCause.getClass().getSimpleName())
-                    .code(ResponseStatus.Custom.UNPROCESSABLE_ENTITY.getStatusCode())
+                    .statusCode(ResponseStatus.Custom.UNPROCESSABLE_ENTITY.getStatusCode())
                     .description(ResponseStatus.Custom.UNPROCESSABLE_ENTITY.getReasonPhrase())
                     .message(RestApiUtil.getErrorMessage(service, "GenericServiceExecutionGenericEntityOperationErrorMessage",
                             request.getLocale()))
@@ -113,7 +113,7 @@ public class GenericServiceExceptionMapper implements jakarta.ws.rs.ext.Exceptio
                     .entity(error);
         } else {
             Error error = new Error().type(actualCause.getClass().getSimpleName())
-                    .code(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode())
+                    .statusCode(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode())
                     .description(Response.Status.INTERNAL_SERVER_ERROR.getReasonPhrase())
                     .message(RestApiUtil.getErrorMessage(service, "GenericServiceExecutionGenericExceptionErrorMessage",
                             request.getLocale()))

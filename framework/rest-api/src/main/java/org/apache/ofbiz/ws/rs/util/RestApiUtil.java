@@ -168,7 +168,7 @@ public final class RestApiUtil {
                 additionalErrorMessages.add(errorMessageList.get(i));
             }
         }
-        Error error = new Error().type("ServiceError").code(ResponseStatus.Custom.UNPROCESSABLE_ENTITY.getStatusCode())
+        Error error = new Error().type("ServiceError").statusCode(ResponseStatus.Custom.UNPROCESSABLE_ENTITY.getStatusCode())
                 .description(ResponseStatus.Custom.UNPROCESSABLE_ENTITY.getReasonPhrase())
                 .message(getErrorMessage(service, "GenericServiceErrorMessage", locale)).errorDesc(errorMessage);
         if (!additionalErrorMessages.isEmpty()) {
