@@ -80,6 +80,33 @@ public final class RestApiUtilPaginationTest {
     }
 
     @Test
+    public void resolvesOrderByWithFieldAliasesAndStableDefaults() {
+        List<String> orderBy = RestApiUtil.resolveOrderBy("-displayName",
+                UtilMisc.toMap("displayName", "entityName", "externalId", "entityId"),
+                List.of("entityName", "entityId"));
+
+        assertEquals(List.of("-entityName", "entityId"), orderBy);
+    }
+
+    @Test
+    public void resolvesOrderByToDefaultsWhenSortMissing() {
+        List<String> defaultOrderBy = List.of("entityName", "entityId");
+
+        assertEquals(defaultOrderBy, RestApiUtil.resolveOrderBy(null,
+                UtilMisc.toMap("externalId", "entityId"), defaultOrderBy));
+    }
+
+    @Test
+    public void rejectsOrderByAliasesThatMapToDuplicateEntityFields() {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () ->
+                RestApiUtil.resolveOrderBy("displayName,-entityName",
+                        UtilMisc.toMap("displayName", "entityName", "entityName", "entityName"),
+                        List.of("entityId")));
+
+        assertEquals("Duplicate sort field: entityName", exception.getMessage());
+    }
+
+    @Test
     public void serializesAvailableRelationsAsHttpLinkHeader() {
         Map<String, Object> links = new LinkedHashMap<>();
         links.put("first", RestApiUtil.makeLinkMap("/rest/items?pageIndex=0&pageSize=20", Map.of("rel", "first")));
