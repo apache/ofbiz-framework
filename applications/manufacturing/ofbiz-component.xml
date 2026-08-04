@@ -34,6 +34,7 @@ under the License.
 
     <!-- service resources: model(s) [definitions], eca(s) and group definitions -->
     <service-resource type="model" loader="main" location="servicedef/services.xml"/>
+    <service-resource type="model" loader="main" location="servicedef/services_lookup.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_calendar.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_routing.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_production_run.xml"/>
