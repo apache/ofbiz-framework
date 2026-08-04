@@ -68,4 +68,126 @@ under the License.
         <attribute mode="OUT" name="setupTime" type="BigDecimal" optional="true"/>
         <attribute mode="OUT" name="taskUnitTime" type="BigDecimal" optional="true"/>
     </service>
+    <!-- API wrappers for the manufacturing suite Routing and Cost Management PWA -->
+    <service name="findProductRoutings" engine="groovy" auth="true"
+            location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/api/RoutingCostManagementServices.groovy" invoke="findProductRoutings">
+        <description>Find routing templates with product-link and task-count summary fields needed by routing management list views, while keeping create and update operations delegated to native WorkEffort services.</description>
+        <attribute mode="IN" name="query" optional="true" type="String"/>
+        <attribute mode="IN" name="productId" optional="true" type="String"/>
+        <attribute mode="IN" name="routingId" optional="true" type="String"/>
+        <attribute mode="IN" name="workEffortId" optional="true" type="String"/>
+        <attribute mode="IN" name="workEffortName" optional="true" type="String"/>
+        <attribute mode="IN" name="currentStatusId" optional="true" type="String"/>
+        <attribute mode="IN" name="pageIndex" optional="true" type="Integer"/>
+        <attribute mode="IN" name="pageSize" optional="true" type="Integer"/>
+        <attribute mode="IN" name="sort" optional="true" type="String"/>
+        <attribute mode="OUT" name="pageIndex" optional="false" type="Integer"/>
+        <attribute mode="OUT" name="pageSize" optional="false" type="Integer"/>
+        <attribute mode="OUT" name="totalCount" optional="false" type="Long"/>
+        <attribute mode="OUT" name="totalPages" optional="false" type="Long"/>
+        <attribute mode="OUT" name="hasNext" optional="false" type="Boolean"/>
+        <attribute mode="OUT" name="routings" optional="false" type="java.util.List"/>
+    </service>
+    <service name="findRoutingTaskPurposeTypeOptions" engine="groovy" auth="true"
+            location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/api/RoutingCostManagementServices.groovy" invoke="findRoutingTaskPurposeTypeOptions">
+        <description>Find routing task purpose type options from WorkEffortPurposeType using the same paged REST response shape as other manufacturing lookups, so routing task forms can load valid operation-purpose values from OFBiz data.</description>
+        <attribute mode="IN" name="pageIndex" optional="true" type="Integer"/>
+        <attribute mode="IN" name="pageSize" optional="true" type="Integer"/>
+        <attribute mode="IN" name="sort" optional="true" type="String"/>
+        <attribute mode="OUT" name="pageIndex" optional="false" type="Integer"/>
+        <attribute mode="OUT" name="pageSize" optional="false" type="Integer"/>
+        <attribute mode="OUT" name="totalCount" optional="false" type="Long"/>
+        <attribute mode="OUT" name="totalPages" optional="false" type="Long"/>
+        <attribute mode="OUT" name="hasNext" optional="false" type="Boolean"/>
+        <attribute mode="OUT" name="purposeTypes" optional="false" type="java.util.List"/>
+    </service>
+    <service name="searchRoutingTasksForRouting" engine="groovy" auth="true"
+            location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/api/RoutingCostManagementServices.groovy" invoke="searchRoutingTasksForRouting">
+        <description>Search reusable routing task definitions by ID or name for operation selection, returning only task records suitable for linking into a routing through native WorkEffortAssoc services.</description>
+        <attribute mode="IN" name="query" optional="true" type="String"/>
+        <attribute mode="IN" name="pageIndex" optional="true" type="Integer"/>
+        <attribute mode="IN" name="pageSize" optional="true" type="Integer"/>
+        <attribute mode="IN" name="sort" optional="true" type="String"/>
+        <attribute mode="OUT" name="pageIndex" optional="false" type="Integer"/>
+        <attribute mode="OUT" name="pageSize" optional="false" type="Integer"/>
+        <attribute mode="OUT" name="totalCount" optional="false" type="Long"/>
+        <attribute mode="OUT" name="totalPages" optional="false" type="Long"/>
+        <attribute mode="OUT" name="hasNext" optional="false" type="Boolean"/>
+        <attribute mode="OUT" name="tasks" optional="false" type="java.util.List"/>
+    </service>
+    <service name="getRoutingDetails" engine="groovy" auth="true"
+            location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/api/RoutingCostManagementServices.groovy" invoke="getRoutingDetails">
+        <description>Get one routing template with its product outputs, associated operations, available task choices, and cost rows in one response, reducing REST round trips for routing detail screens without replacing native write services.</description>
+        <attribute mode="IN" name="routingId" optional="true" type="String"/>
+        <attribute mode="IN" name="workEffortId" optional="true" type="String"/>
+        <attribute mode="OUT" name="routingId" optional="false" type="String"/>
+        <attribute mode="OUT" name="workEffortId" optional="false" type="String"/>
+        <attribute mode="OUT" name="workEffortName" optional="true" type="String"/>
+        <attribute mode="OUT" name="description" optional="true" type="String"/>
+        <attribute mode="OUT" name="quantityToProduce" optional="true" type="BigDecimal"/>
+        <attribute mode="OUT" name="currentStatusId" optional="true" type="String"/>
+        <attribute mode="OUT" name="products" optional="false" type="java.util.List"/>
+        <attribute mode="OUT" name="operations" optional="false" type="java.util.List"/>
+        <attribute mode="OUT" name="tasks" optional="false" type="java.util.List"/>
+        <attribute mode="OUT" name="costs" optional="false" type="java.util.List"/>
+    </service>
+    <service name="expireRoutingGoodStandard" engine="groovy" auth="true"
+            location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/api/RoutingCostManagementServices.groovy" invoke="expireRoutingGoodStandard">
+        <description>Expire a routing product or task output association by setting WorkEffortGoodStandard.thruDate, preserving historical routing data while giving REST delete operations an explicit service for the native composite key.</description>
+        <attribute mode="IN" name="workEffortId" optional="false" type="String"/>
+        <attribute mode="IN" name="productId" optional="false" type="String"/>
+        <attribute mode="IN" name="workEffortGoodStdTypeId" optional="false" type="String"/>
+        <attribute mode="IN" name="fromDate" optional="false" type="Timestamp"/>
+        <attribute mode="OUT" name="workEffortId" optional="false" type="String"/>
+        <attribute mode="OUT" name="productId" optional="false" type="String"/>
+        <attribute mode="OUT" name="workEffortGoodStdTypeId" optional="false" type="String"/>
+        <attribute mode="OUT" name="fromDate" optional="false" type="Timestamp"/>
+        <attribute mode="OUT" name="thruDate" optional="false" type="Timestamp"/>
+        <attribute mode="OUT" name="removed" optional="false" type="Boolean"/>
+    </service>
+    <service name="findRoutingTasks" engine="groovy" auth="true"
+            location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/api/RoutingCostManagementServices.groovy" invoke="findRoutingTasks">
+        <description>Find routing task definitions with work center, cost, output, tool, and operator summary data needed by routing operation list views, while keeping task maintenance backed by native WorkEffort services.</description>
+        <attribute mode="IN" name="query" optional="true" type="String"/>
+        <attribute mode="IN" name="workEffortId" optional="true" type="String"/>
+        <attribute mode="IN" name="routingTaskId" optional="true" type="String"/>
+        <attribute mode="IN" name="workEffortName" optional="true" type="String"/>
+        <attribute mode="IN" name="fixedAssetId" optional="true" type="String"/>
+        <attribute mode="IN" name="pageIndex" optional="true" type="Integer"/>
+        <attribute mode="IN" name="pageSize" optional="true" type="Integer"/>
+        <attribute mode="IN" name="sort" optional="true" type="String"/>
+        <attribute mode="OUT" name="pageIndex" optional="false" type="Integer"/>
+        <attribute mode="OUT" name="pageSize" optional="false" type="Integer"/>
+        <attribute mode="OUT" name="totalCount" optional="false" type="Long"/>
+        <attribute mode="OUT" name="totalPages" optional="false" type="Long"/>
+        <attribute mode="OUT" name="hasNext" optional="false" type="Boolean"/>
+        <attribute mode="OUT" name="tasks" optional="false" type="java.util.List"/>
+    </service>
+    <service name="getRoutingTaskDetails" engine="groovy" auth="true"
+            location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/api/RoutingCostManagementServices.groovy" invoke="getRoutingTaskDetails">
+        <description>Get one routing task definition with routing usage, cost rates, outputs, tool standards, operator assignments, and fixed asset context in one response, giving operation detail screens a complete read model without adding write wrappers for native child services.</description>
+        <attribute mode="IN" name="routingTaskId" optional="true" type="String"/>
+        <attribute mode="IN" name="taskId" optional="true" type="String"/>
+        <attribute mode="IN" name="workEffortId" optional="true" type="String"/>
+        <attribute mode="OUT" name="routingTaskId" optional="false" type="String"/>
+        <attribute mode="OUT" name="workEffortId" optional="false" type="String"/>
+        <attribute mode="OUT" name="workEffortName" optional="true" type="String"/>
+        <attribute mode="OUT" name="description" optional="true" type="String"/>
+        <attribute mode="OUT" name="workEffortPurposeTypeId" optional="true" type="String"/>
+        <attribute mode="OUT" name="workEffortPurposeTypeDescription" optional="true" type="String"/>
+        <attribute mode="OUT" name="fixedAssetId" optional="true" type="String"/>
+        <attribute mode="OUT" name="fixedAssetName" optional="true" type="String"/>
+        <attribute mode="OUT" name="workCenterName" optional="true" type="String"/>
+        <attribute mode="OUT" name="estimatedSetupMillis" optional="true" type="Double"/>
+        <attribute mode="OUT" name="estimatedMilliSeconds" optional="true" type="Double"/>
+        <attribute mode="OUT" name="estimateCalcMethod" optional="true" type="String"/>
+        <attribute mode="OUT" name="reservPersons" optional="true" type="BigDecimal"/>
+        <attribute mode="OUT" name="routings" optional="false" type="java.util.List"/>
+        <attribute mode="OUT" name="costRates" optional="false" type="java.util.List"/>
+        <attribute mode="OUT" name="outputs" optional="false" type="java.util.List"/>
+        <attribute mode="OUT" name="tools" optional="false" type="java.util.List"/>
+        <attribute mode="OUT" name="operators" optional="false" type="java.util.List"/>
+        <attribute mode="OUT" name="costs" optional="false" type="java.util.List"/>
+        <attribute mode="OUT" name="fixedAssets" optional="false" type="java.util.List"/>
+    </service>
 </services>
