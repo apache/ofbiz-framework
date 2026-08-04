@@ -53,6 +53,13 @@ under the License.
         <override name="fromDate" optional="true"/>
     </service>
 
+    <service name="updateWorkEffortCostCalc" default-entity-name="WorkEffortCostCalc" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a WorkEffortCostCalc entry so manufacturing applications can change date-effective cost calculation assignments on work efforts without bypassing the service engine, entity validation, or accounting cost permission checks.</description>
+        <permission-service service-name="acctgCostPermissionCheck" main-action="UPDATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+
     <service name="removeWorkEffortCostCalc" default-entity-name="WorkEffortCostCalc" engine="entity-auto" invoke="delete" auth="true">
         <description>Remove a WorkEffortCostCalc entry</description>
         <permission-service service-name="acctgCostPermissionCheck" main-action="DELETE"/>
