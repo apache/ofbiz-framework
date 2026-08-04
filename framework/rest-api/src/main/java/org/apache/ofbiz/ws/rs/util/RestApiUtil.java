@@ -363,6 +363,55 @@ public final class RestApiUtil {
     }
 
     /**
+     * Resolves a REST sort expression into EntityQuery order-by fields.
+     * Endpoint contracts can expose semantic sort names while entities use
+     * different field names, so public names are validated before mapping.
+     *
+     * @param sortExpression the requested sort expression
+     * @param sortFieldMap endpoint-supported sort fields mapped to entity fields
+     * @param defaultOrderBy fallback order fields and stable tie-breakers
+     * @return entity order-by fields suitable for {@code EntityQuery.orderBy}
+     * @throws IllegalArgumentException when a token is malformed, unsupported,
+     *         or maps to a duplicate entity field
+     */
+    public static List<String> resolveOrderBy(String sortExpression, Map<String, String> sortFieldMap, List<String> defaultOrderBy) {
+        List<String> orderBy = new ArrayList<>();
+        if (UtilValidate.isEmpty(sortExpression)) {
+            if (UtilValidate.isNotEmpty(defaultOrderBy)) {
+                orderBy.addAll(defaultOrderBy);
+            }
+            return orderBy;
+        }
+
+        Set<String> allowedFields = UtilValidate.isNotEmpty(sortFieldMap) ? sortFieldMap.keySet() : null;
+        List<String> validatedFields = validateSortFields(sortExpression, allowedFields);
+        Set<String> seenEntityFields = new HashSet<>();
+        for (String requestedField : validatedFields) {
+            boolean descending = requestedField.startsWith("-");
+            String sortKey = descending ? requestedField.substring(1) : requestedField;
+            String entityField = UtilValidate.isNotEmpty(sortFieldMap) ? sortFieldMap.get(sortKey) : sortKey;
+            if (UtilValidate.isEmpty(entityField)) {
+                throw new IllegalArgumentException("Unsupported sort field: " + sortKey);
+            }
+            if (!seenEntityFields.add(entityField)) {
+                throw new IllegalArgumentException("Duplicate sort field: " + entityField);
+            }
+            orderBy.add((descending ? "-" : "") + entityField);
+        }
+
+        if (UtilValidate.isNotEmpty(defaultOrderBy)) {
+            for (String defaultField : defaultOrderBy) {
+                String normalizedDefaultField = defaultField.startsWith("-") ? defaultField.substring(1) : defaultField;
+                if (!seenEntityFields.contains(normalizedDefaultField)) {
+                    orderBy.add(defaultField);
+                    seenEntityFields.add(normalizedDefaultField);
+                }
+            }
+        }
+        return orderBy;
+    }
+
+    /**
      * Validates candidate filter parameters against an optional endpoint-defined
      * allowlist while preserving insertion order.
      *
