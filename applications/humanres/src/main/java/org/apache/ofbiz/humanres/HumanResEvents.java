@@ -36,6 +36,7 @@ import org.apache.ofbiz.entity.condition.EntityCondition;
 import org.apache.ofbiz.entity.condition.EntityOperator;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.party.party.PartyHelper;
+import org.apache.ofbiz.security.Security;
 
 public class HumanResEvents {
     private static final String MODULE = HumanResEvents.class.getName();
@@ -43,6 +44,20 @@ public class HumanResEvents {
 
     // Please note : the structure of map in this function is according to the JSON data map of the jsTree
     public static String getChildHRCategoryTree(HttpServletRequest request, HttpServletResponse response) {
+
+        // enforcing HUMANRES_VIEW authorization
+        GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
+        Security security = (Security) request.getAttribute("security");
+
+        if (userLogin == null || security == null || !security.hasEntityPermission("HUMANRES", "_VIEW", userLogin)) {
+            try {
+                response.sendError(HttpServletResponse.SC_FORBIDDEN, "Access Denied");
+            } catch (java.io.IOException e) {
+                Debug.logError(e, MODULE);
+            }
+            return "error";
+        }
+
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         String partyId = request.getParameter("partyId");
         String onclickFunction = request.getParameter("onclickFunction");
