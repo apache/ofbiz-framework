@@ -374,6 +374,11 @@ eclipse.classpath.file.whenMerged { classpath ->
             entry.path ==~ /(\/+themes)$/ )
         }
     }
+
+    // remove .pom artifacts from classpath
+    classpath.entries.removeAll { entry ->
+        entry.kind == 'lib' && entry.path.endsWith('.pom')
+    }
 }
 tasks.eclipse.dependsOn(cleanEclipse)
 
