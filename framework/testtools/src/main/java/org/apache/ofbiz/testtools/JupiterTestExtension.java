@@ -365,6 +365,7 @@ public class JupiterTestExtension implements ParameterResolver, TestInstancePost
                     @Override
                     public void executionFinished(TestIdentifier testIdentifier, TestExecutionResult testExecutionResult) {
                         if (!testIdentifier.isTest()) {
+                            reportContainerFailure(testIdentifier, testExecutionResult, result);
                             return;
                         }
                         Test leaf = leafTests.get(testIdentifier.getUniqueId());
@@ -393,6 +394,31 @@ public class JupiterTestExtension implements ParameterResolver, TestInstancePost
                 JupiterTestExtension.CURRENT_DELEGATOR.remove();
                 JupiterTestExtension.CURRENT_DISPATCHER.remove();
             }
+        }
+
+        /**
+         * Without this, a container-level failure - a static {@literal @}BeforeAll (or any other
+         * class-level setup JUnit 5 runs before its children) throwing - is silently discarded:
+         * executionFinished() above returns before doing anything for a non-test identifier, so the
+         * FAILED/ABORTED result JUnit 5 reports once, on the container, never reaches
+         * result.addError()/addFailure(). That would leave every {@literal @}Test method in the class
+         * never individually started, results.wasSuccessful() still true, and testIntegration reporting
+         * full success for a class whose tests never actually ran. Reported as a synthetic leaf (mirroring
+         * JupiterLeafTest's own "reporting handle only" pattern below) since TestResult has no native
+         * concept of a class-level failure with no associated test case.
+         */
+        private void reportContainerFailure(TestIdentifier testIdentifier, TestExecutionResult testExecutionResult, TestResult result) {
+            TestExecutionResult.Status status = testExecutionResult.getStatus();
+            if (status != TestExecutionResult.Status.FAILED && status != TestExecutionResult.Status.ABORTED) {
+                return;
+            }
+            Test leaf = new JupiterLeafTest(testClass.getSimpleName() + ".initializationError", testClass.getName());
+            Throwable throwable = testExecutionResult.getThrowable()
+                    .orElseGet(() -> new AssertionError("Container '" + testIdentifier.getDisplayName()
+                            + "' reported " + status + " with no throwable"));
+            result.startTest(leaf);
+            result.addError(leaf, throwable);
+            result.endTest(leaf);
         }
 
         /**

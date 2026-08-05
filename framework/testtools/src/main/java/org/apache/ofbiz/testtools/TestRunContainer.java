@@ -87,7 +87,19 @@ public class TestRunContainer implements Container {
 
             // test
             xml.startTestSuite(test);
-            suite.run(results);
+            try {
+                suite.run(results);
+            } catch (Throwable t) {
+                // An individual test's exception is always caught by TestCase.runBare()/TestResult's
+                // own protected-invocation machinery and reported as that one test's error - it can
+                // never take down sibling suites. JupiterTestSuite.run() (the JUnit 3 bridge for
+                // Jupiter classes) doesn't have that same guarantee: anything escaping its
+                // launcher.execute() call - a JUnitException from a discovery/engine-registration problem,
+                // a PreconditionViolationException, or a bug in its own TestExecutionListener callback code
+                // - propagates straight out of suite.run() here. Without this catch, that would abort every
+                // remaining testdef suite in this loop, not just the one that hit the problem.
+                reportSuiteExecutionFailure(suite, results, t);
+            }
             test.setCounts(results.runCount(), results.failureCount(), results.errorCount());
             modelSuite.getDelegator().rollback(); // rollback all entity operations
             xml.endTestSuite(test);
@@ -121,6 +133,30 @@ public class TestRunContainer implements Container {
                 Debug.set(level, isOn);
             }
         }
+    }
+
+    /**
+     * Reports an exception that escaped suite.run() itself as a synthetic suite-level error instead of
+     * letting it propagate out of start()'s for loop - see the try/catch around suite.run() above for
+     * why that would otherwise abort every remaining testdef suite in the run, not just this one.
+     * Reported through the same TestResult/listener pipeline (JunitListener, the XML formatter) a normal
+     * addError() would use, so it shows up in the suite's report and results.wasSuccessful() correctly
+     * flips to false, rather than this suite silently contributing zero tests to the run.
+     *
+     * <p>Package-private rather than private so TestRunContainerTest can exercise it directly without
+     * needing a full ofbiz --test container bootstrap.
+     */
+    static void reportSuiteExecutionFailure(TestSuite suite, TestResult results, Throwable throwable) {
+        Debug.logError(throwable, "[JUNIT] Suite '" + suite.getName() + "' failed to execute: " + throwable, MODULE);
+        Test failureMarker = new TestCase(suite.getName() + ".suiteExecutionError") {
+            @Override
+            public void run(TestResult result) {
+                throw new UnsupportedOperationException("reporting handle only, cannot be run directly");
+            }
+        };
+        results.startTest(failureMarker);
+        results.addError(failureMarker, throwable);
+        results.endTest(failureMarker);
     }
 
     private static JunitSuiteWrapper prepareJunitSuiteWrapper(Map<String, String> testProps) throws ContainerException {
