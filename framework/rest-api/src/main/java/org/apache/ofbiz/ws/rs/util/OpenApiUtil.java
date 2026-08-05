@@ -351,6 +351,10 @@ public final class OpenApiUtil {
     @SuppressWarnings("deprecation")
     public static Schema<?> getAttributeSchema(ModelService service, ModelParam param) {
         Schema<?> schema = null;
+        if (param == null) {
+            Debug.logWarning("ModelParam is null - ignored.", MODULE);
+            return null;
+        }
         Class<?> schemaClass = getOpenApiTypeForAttributeType(param.getType());
         if (schemaClass == null) {
             Debug.logWarning("Attribute '" + param.getName() + "' ignored as it is declared as '" + param.getType()
