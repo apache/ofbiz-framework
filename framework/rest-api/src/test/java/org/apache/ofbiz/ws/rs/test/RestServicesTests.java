@@ -30,6 +30,7 @@ import java.util.Map;
 
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.entity.GenericValue;
+import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.service.ServiceUtil;
 import org.apache.ofbiz.testtools.JunitJupiterTest;
 import org.apache.ofbiz.testtools.JupiterTestHelper;
@@ -228,5 +229,15 @@ public class RestServicesTests implements JupiterTestHelper {
         StringBuilder sb = new StringBuilder(input);
         for (int i = 0; i < padding; i++) sb.append('=');
         return sb.toString();
+    }
+
+    @Test
+    public void testReturnCustomErrorCode() throws Exception {
+        GenericValue adminLogin = getDelegator().findOne("UserLogin", UtilMisc.toMap("userLoginId", "admin"), false);
+        Map<String, Object> result = getDispatcher().runSync(
+                "returnCustomErrorTest",
+                UtilMisc.toMap("userLogin", (Object) adminLogin));
+        String errorCode = (String) result.get(ModelService.ERROR_CODE);
+        assertTrue(errorCode.equals("999"));
     }
 }

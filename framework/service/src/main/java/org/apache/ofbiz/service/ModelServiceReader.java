@@ -471,6 +471,7 @@ public final class ModelServiceReader implements Serializable {
         }
 
         // Add the default optional parameters
+        service.addParam(createInternalParam(ModelService.ERROR_CODE, "String", ModelService.OUT_PARAM));
         service.addParam(createInternalParam(ModelService.RESPONSE_MESSAGE, "String", ModelService.OUT_PARAM));
         service.addParam(createInternalParam(ModelService.ERROR_MESSAGE, "String", ModelService.OUT_PARAM));
         service.addParam(createInternalParam(ModelService.ERROR_MESSAGE_LIST, "java.util.List", ModelService.OUT_PARAM));
