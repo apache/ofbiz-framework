@@ -396,6 +396,110 @@ test {
     }
 }
 
+// 'gradlew test --tests <ClassName>' against a @JunitJupiterTest class fails with Gradle's generic
+// "No tests found for given includes" rather than pointing at testIntegration: the excludeTags
+// filter above excludes the class from discovery entirely before --tests filtering ever runs, so
+// from Gradle's perspective the class simply doesn't exist. This doesn't change that failure - it's
+// otherwise a genuinely useful safety net for a real --tests typo - it just appends a pointer to the
+// right command for the specific case where the cause is a Jupiter integration-test class.
+gradle.taskGraph.afterTask { Task task, TaskState state ->
+    if (task.path == ':test' && state.failure) {
+        Throwable rootCause = state.failure
+        while (rootCause.cause != null) {
+            rootCause = rootCause.cause
+        }
+        if (rootCause.message?.contains('No tests found for given includes')) {
+            logger.error('')
+            logger.error('[hint] If the class above is annotated @JunitJupiterTest, this failure is expected: '
+                    + 'that tag excludes it from \'gradlew test\' discovery entirely (see JunitJupiterTest\'s '
+                    + 'javadoc), so --tests never gets a chance to filter it in. Run it via '
+                    + '\'gradlew testIntegration\' or \'ofbiz --test\' instead.')
+            logger.error('')
+        }
+    }
+}
+
+// ModelTestSuite.parseTestElement() resolves every <junit-test-suite>/<jupiter-test-suite>
+// class-name attribute at runtime via ObjectType.loadClass(), but a lookup failure there is
+// only Debug.logError()'d - the whole suite is silently dropped from testIntegration with no
+// build failure and no signal short of reading the log output. This task repeats that same
+// lookup at build time, against the compiled test classpath, so a typo'd or stale (post-rename)
+// class-name fails the build instead of quietly vanishing from the test run.
+task verifyTestdefClassNames(group: 'Verification', dependsOn: testClasses) {
+    description = 'Fails the build if any testdef XML class-name attribute cannot be resolved on the classpath'
+    def testdefDirs = getDirectoryInActiveComponentsIfExists('testdef')
+    def testdefXmlFiles = files(testdefDirs.collect { fileTree(it) { include '**/*.xml' } })
+    def testRuntimeClasspath = sourceSets.test.runtimeClasspath
+    inputs.files(testdefXmlFiles)
+    inputs.files(testRuntimeClasspath)
+    doLast {
+        URL[] classpathUrls = testRuntimeClasspath.files.collect { it.toURI().toURL() }
+        URLClassLoader classpathLoader = new URLClassLoader(classpathUrls, getClass().classLoader)
+        List<String> unresolved = []
+        testdefXmlFiles.each { xmlFile ->
+            def root = new XmlParser(false, false).parse(xmlFile)
+            root.depthFirst()
+                .findAll { it.name() == 'junit-test-suite' || it.name() == 'jupiter-test-suite' }
+                .each { node ->
+                    String className = node.'@class-name'
+                    if (!className) {
+                        return
+                    }
+                    try {
+                        Class.forName(className, false, classpathLoader)
+                    } catch (Throwable t) {
+                        unresolved << "${xmlFile}: <${node.name()} class-name=\"${className}\"/> - ${t}"
+                    }
+                }
+        }
+        if (!unresolved.isEmpty()) {
+            throw new GradleException('The following testdef class-name references cannot be resolved on the '
+                    + 'classpath (typo, or the class was renamed/moved/deleted without updating the testdef XML):\n'
+                    + unresolved.collect { " - ${it}" }.join('\n'))
+        }
+    }
+}
+check.dependsOn verifyTestdefClassNames
+
+// JunitJupiterTest's own javadoc documents that bare @ExtendWith(JupiterTestExtension.class)
+// skips gradlew test's excludeTags-based exclusion - it's only caught at runtime by
+// evaluateExecutionCondition(), reporting a skip instead of being excluded from discovery
+// outright. That's an intentional, documented escape hatch for JupiterTestExtension's own home
+// (JunitJupiterTest's definition and JupiterInjectionGuardsTest's fixtures, both under
+// framework/testtools, use it deliberately to define/exercise the escape hatch itself), but
+// nothing stops a future contributor from using the bare form on a real test class by habit or
+// copy-paste. This cheap grep-based check catches that everywhere else.
+task verifyNoBareJupiterExtendWith(group: 'Verification') {
+    description = 'Fails the build if a bare @ExtendWith(JupiterTestExtension.class) is used ' +
+            'outside framework/testtools instead of @JunitJupiterTest'
+    def testInfraDir = file('framework/testtools')
+    def sourceFiles = files(
+        (getDirectoryInActiveComponentsIfExists('src/main/java')
+            + getDirectoryInActiveComponentsIfExists('src/main/groovy')
+            + getDirectoryInActiveComponentsIfExists('src/test/java')
+            + getDirectoryInActiveComponentsIfExists('src/test/groovy'))
+            .collect { dir -> fileTree(dir) { include '**/*.java', '**/*.groovy' } }
+    ).filter { file -> !file.toPath().startsWith(testInfraDir.toPath()) }
+    inputs.files(sourceFiles)
+    doLast {
+        def bareExtendWith = ~/@ExtendWith\(\s*(org\.apache\.ofbiz\.testtools\.)?JupiterTestExtension(\.class)?\s*\)/
+        List<String> offenders = []
+        sourceFiles.each { file ->
+            file.readLines().eachWithIndex { line, idx ->
+                if (bareExtendWith.matcher(line).find()) {
+                    offenders << "${file}:${idx + 1}: ${line.trim()}"
+                }
+            }
+        }
+        if (!offenders.isEmpty()) {
+            throw new GradleException('Bare @ExtendWith(JupiterTestExtension.class) found outside '
+                    + 'framework/testtools - use @JunitJupiterTest instead, so gradlew test\'s '
+                    + 'excludeTags-based exclusion actually applies (see JunitJupiterTest\'s javadoc):\n'
+                    + offenders.collect { " - ${it}" }.join('\n'))
+        }
+    }
+}
+check.dependsOn verifyNoBareJupiterExtendWith
 
 /* ========================================================
  * Tasks
