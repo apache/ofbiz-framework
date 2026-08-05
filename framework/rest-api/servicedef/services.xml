@@ -41,4 +41,11 @@ under the License.
         <attribute name="Order" type="org.apache.ofbiz.ws.rs.examples.RestOrderExample" mode="IN" optional="false"/>
         <attribute name="orderId" type="String" mode="OUT" optional="true"/>
     </service>
+
+    <!-- TestServices -->
+    <service name="returnCustomErrorTest" engine="java"
+            location="org.apache.ofbiz.ws.rs.test.RestTestServices" invoke="returnCustomErrorTest">
+        <description>TestService that returns a custom errorCode</description>
+    </service>
+            
 </services>
