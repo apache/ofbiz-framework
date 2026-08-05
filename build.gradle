@@ -341,7 +341,7 @@ gitHooks {
     // where "$rootDir/.git" (the plugin's default) is a gitlink file, not a directory.
     def gitCommonDir = "git -C ${rootDir} rev-parse --git-common-dir".execute().text.trim()
     hooksDirectory.set(new File(rootDir, gitCommonDir).toPath().resolve('hooks').toFile())
-    hooks = ['pre-push': 'checkstyleMain codenarcMain codenarcTest']
+    hooks = ['pre-push': 'checkstyleMain checkstyleTest codenarcMain codenarcTest']
 }
 
 // Checks OFBiz Groovy coding conventions.
