@@ -48,12 +48,17 @@ public class JunitSuiteWrapper {
                 // TODO create TestSuite object based on this that will contain its TestCase objects
 
                 Element documentElement = testSuiteDocument.getDocumentElement();
-                ModelTestSuite modelTestSuite = new ModelTestSuite(documentElement, testCase);
-
-                // make sure there are test-cases configured for the suite
-                if (suiteName != null && !modelTestSuite.getSuiteName().equals(suiteName)) {
+                // Filter on suite-name before constructing ModelTestSuite, not after: the
+                // constructor unconditionally creates a test Delegator + LocalDispatcher pair,
+                // and for any <jupiter-test-suite> entries inside it also runs a full JUnit
+                // Platform Launcher discovery - all of that is wasted work for a testdef file
+                // that suitename= was going to discard anyway. The suite-name attribute lives on
+                // this same documentElement (ModelTestSuite's constructor reads it from the
+                // identical element), so it can be read directly here first.
+                if (suiteName != null && !documentElement.getAttribute("suite-name").equals(suiteName)) {
                     continue;
                 }
+                ModelTestSuite modelTestSuite = new ModelTestSuite(documentElement, testCase);
                 if (modelTestSuite.getTestList().size() > 0) {
                     this.modelTestSuiteList.add(modelTestSuite);
                 }
