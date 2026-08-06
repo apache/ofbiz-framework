@@ -938,6 +938,118 @@ task createTestReports(group: sysadminGroup, description: 'Generate HTML reports
     }
 }
 
+def modernReportCss() {
+    '''
+body { font-family: sans-serif; margin: 2em; color: #222; }
+h1 { margin-bottom: 0.2em; }
+#filters { margin-bottom: 1em; }
+#filters label { margin-right: 1.5em; }
+table { border-collapse: collapse; width: 100%; margin-bottom: 2em; }
+th, td { border: 1px solid #ccc; padding: 0.4em 0.6em; text-align: left; vertical-align: top; }
+th { background: #eee; }
+table.detail tr.row-fail, table.detail tr.row-error { background: #fdecea; }
+table.detail tr.row-skipped { color: #888; }
+pre { white-space: pre-wrap; margin: 0; font-size: 0.85em; }
+.parse-error { color: #b00020; font-weight: bold; }
+'''
+}
+
+def modernReportJs() {
+    '''
+function applyFilters() {
+    var showPass = document.getElementById('filter-pass').checked;
+    var showFail = document.getElementById('filter-fail').checked;
+    var showError = document.getElementById('filter-error').checked;
+    var showSkipped = document.getElementById('filter-skipped').checked;
+    var rows = document.querySelectorAll('table.detail tbody tr');
+    rows.forEach(function(row) {
+        var visible = (row.classList.contains('row-pass') && showPass)
+            || (row.classList.contains('row-fail') && showFail)
+            || (row.classList.contains('row-error') && showError)
+            || (row.classList.contains('row-skipped') && showSkipped);
+        row.style.display = visible ? '' : 'none';
+    });
+}
+['filter-pass', 'filter-fail', 'filter-error', 'filter-skipped'].forEach(function(id) {
+    document.getElementById(id).addEventListener('change', applyFilters);
+});
+applyFilters();
+'''
+}
+
+def buildBodyFragment(List suites) {
+    def writer = new StringWriter()
+    def html = new MarkupBuilder(writer)
+    html.div {
+        table(id: 'summary') {
+            thead { tr { th('Suite'); th('Tests'); th('Failures'); th('Errors'); th('Skipped'); th('Time (s)') } }
+            tbody {
+                suites.each { s ->
+                    tr {
+                        td { a(href: "#suite-${s.name}", s.name) }
+                        td(s.tests)
+                        td(s.failures)
+                        td(s.errors)
+                        td(s.skipped)
+                        td(s.time)
+                    }
+                }
+            }
+        }
+        suites.each { s ->
+            h2(id: "suite-${s.name}", s.name)
+            if (s.parseError) {
+                p('class': 'parse-error', "Could not parse this suite's results: ${s.parseError}")
+            } else {
+                table('class': 'detail') {
+                    thead { tr { th('Test'); th('Status'); th('Time (s)'); th('Failure Reason') } }
+                    tbody {
+                        s.testcases.each { tc ->
+                            tr('class': "row-${tc.status}") {
+                                td("${tc.classname}.${tc.name}")
+                                td(tc.status)
+                                td(tc.time)
+                                td { pre(tc.failureReason ?: '') }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    writer.toString()
+}
+
+def renderModernReport(List suites) {
+    def bodyFragment = buildBodyFragment(suites)
+    def css = modernReportCss()
+    def js = modernReportJs()
+    """<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>OFBiz Test Report</title>
+<style>
+${css}
+</style>
+</head>
+<body>
+<h1>OFBiz Test Report</h1>
+<div id="filters">
+<label><input type="checkbox" id="filter-pass" checked> Pass</label>
+<label><input type="checkbox" id="filter-fail" checked> Fail</label>
+<label><input type="checkbox" id="filter-error" checked> Error</label>
+<label><input type="checkbox" id="filter-skipped" checked> Skipped</label>
+</div>
+${bodyFragment}
+<script>
+${js}
+</script>
+</body>
+</html>
+"""
+}
+
 def parseSuiteXml(File xmlFile) {
     try {
         def suite = new XmlSlurper().parse(xmlFile)
@@ -984,12 +1096,15 @@ def parseSuiteXml(File xmlFile) {
 task createModernTestReport(group: sysadminGroup,
         description: 'Generate a single-page modern HTML test report alongside the classic Ant-based one') {
     doLast {
-        def suiteFiles = fileTree('./runtime/logs/test-results') { include '*.xml' }.sort { it.name }
+        def suiteFiles = fileTree('./runtime/logs/test-results') {
+            include '*.xml'
+            exclude 'TESTS-TestSuites.xml'
+        }.sort { it.name }
         def suites = suiteFiles.collect { xmlFile -> parseSuiteXml(xmlFile) }
 
         def reportFile = file('./runtime/logs/test-results/modern-report.html')
         reportFile.parentFile.mkdirs()
-        reportFile.text = suites.toString()
+        reportFile.text = renderModernReport(suites)
         println "Modern test report written to ${reportFile}"
     }
 }
