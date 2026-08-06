@@ -1232,6 +1232,9 @@ task createFramedTestReport(group: sysadminGroup,
         def suites = suiteFiles.collect { xmlFile -> parseSuiteXml(xmlFile) }
 
         def outDir = file('./runtime/logs/test-results/modern-report-framed')
+        if (outDir.exists()) {
+            outDir.deleteDir()
+        }
         outDir.mkdirs()
         buildFramedReportFiles(suites).each { name, content -> file("${outDir}/${name}").text = content }
         println "Framed test report written to ${outDir}/index.html"
