@@ -29,7 +29,13 @@ public final class ResponseStatus {
          * "https://tools.ietf.org/html/rfc4918#section-11.2">https://tools.ietf.org/html/rfc4918#section-11.2</a>
          */
         UNPROCESSABLE_ENTITY(422, "Unprocessable Entity");
-
+        /** ============ Custom http Responses START =======
+         *
+         * List Custom Status Codes comma-separated here
+         * MY_CUSTOM_STATUS_CODE(999, "Custom Status Code");
+         *
+         * ============ Custom http Responses END =========
+         */
         private final int code;
         private final String reason;
         private final Family family;

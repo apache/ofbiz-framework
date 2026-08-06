@@ -48,7 +48,8 @@ public final class RestApiUtilTest {
     @Test
     void testSuccess() {
         String message = "Success";
-        String data = "some data";
+        Map<String, Object> data = new HashMap<>();
+        data.put("dataKey", "dataValue");
 
         Response response = RestApiUtil.success(message, data);
 

@@ -122,7 +122,8 @@ public final class ModelApiReader {
                         .produces(UtilXml.checkEmpty(operationEle.getAttribute("produces")).intern())
                         .consumes(UtilXml.checkEmpty(operationEle.getAttribute("consumes")).intern())
                         .description(UtilXml.checkEmpty(operationEle.getAttribute("description")).intern())
-                        .auth(Boolean.parseBoolean(UtilXml.checkEmpty(operationEle.getAttribute("auth")).intern()));
+                        .auth(Boolean.parseBoolean(UtilXml.checkEmpty(operationEle.getAttribute("auth")).intern()))
+                        .addApiResponses(UtilXml.checkEmpty(operationEle.getAttribute("addApiResponses")).intern());
                 resource.addOperation(op);
             } else {
                 Debug.logWarning("Error during creation of ModelApi, due to missing 'service' Attribute in ApiModelXml for"

@@ -41,11 +41,11 @@ import org.apache.ofbiz.ws.rs.core.ResponseStatus;
 import org.apache.ofbiz.ws.rs.response.Error;
 import org.apache.ofbiz.ws.rs.response.Success;
 
-import jakarta.ws.rs.core.Response.StatusType;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.MultivaluedMap;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.ResponseBuilder;
+import jakarta.ws.rs.core.Response.StatusType;
 
 public final class RestApiUtil {
 
@@ -58,15 +58,22 @@ public final class RestApiUtil {
     }
 
     /**
-     * Builds a JSON success response with HTTP 200 and the given message and data.
+     * Builds a JSON success response with HTTP 200 / CUSTOM-STATUS-CODE and the given message and data.
+     * Checks for a custom status code within data. Defaults to HTTP 200 if non present.
      *
      * @param message a human-readable success message
      * @param data    the response payload
      * @return a JAX-RS {@link Response} with status 200 and a JSON {@link Success} body
      */
     public static Response success(String message, Object data) {
-        Success success = new Success(Response.Status.OK.getStatusCode(), Response.Status.OK.getReasonPhrase(), message, data);
-        ResponseBuilder builder = Response.status(Response.Status.OK).type(MediaType.APPLICATION_JSON).entity(success);
+        StatusType status = extractResponseCode(data);
+
+        if (status == null) {
+            status = Response.Status.OK;
+        }
+
+        Success success = new Success(status.getStatusCode(), status.getReasonPhrase(), message, data);
+        ResponseBuilder builder = Response.status(status.getStatusCode()).type(MediaType.APPLICATION_JSON).entity(success);
         String linkHeaderValue = getPaginationLinkHeaderValue(data);
         if (UtilValidate.isNotEmpty(linkHeaderValue)) {
             builder.header("Link", linkHeaderValue);
