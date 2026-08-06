@@ -977,40 +977,48 @@ applyFilters();
 '''
 }
 
-def buildBodyFragment(List suites) {
+def suiteSlug(String name) {
+    (name ?: '').replaceAll('[^A-Za-z0-9_-]', '_')
+}
+
+def buildSummaryTable(List suites, Closure hrefFn) {
     def writer = new StringWriter()
     def html = new MarkupBuilder(writer)
-    html.div {
-        table(id: 'summary') {
-            thead { tr { th('Suite'); th('Tests'); th('Failures'); th('Errors'); th('Skipped'); th('Time (s)') } }
-            tbody {
-                suites.each { s ->
-                    tr {
-                        td { a(href: "#suite-${s.name}", s.name) }
-                        td(s.tests)
-                        td(s.failures)
-                        td(s.errors)
-                        td(s.skipped)
-                        td(s.time)
-                    }
+    html.table(id: 'summary') {
+        thead { tr { th('Suite'); th('Tests'); th('Failures'); th('Errors'); th('Skipped'); th('Time (s)') } }
+        tbody {
+            suites.each { s ->
+                tr {
+                    td { a(href: hrefFn(s), s.name) }
+                    td(s.tests)
+                    td(s.failures)
+                    td(s.errors)
+                    td(s.skipped)
+                    td(s.time)
                 }
             }
         }
-        suites.each { s ->
-            h2(id: "suite-${s.name}", s.name)
-            if (s.parseError) {
-                p('class': 'parse-error', "Could not parse this suite's results: ${s.parseError}")
-            } else {
-                table('class': 'detail') {
-                    thead { tr { th('Test'); th('Status'); th('Time (s)'); th('Failure Reason') } }
-                    tbody {
-                        s.testcases.each { tc ->
-                            tr('class': "row-${tc.status}") {
-                                td("${tc.classname}.${tc.name}")
-                                td(tc.status)
-                                td(tc.time)
-                                td { pre(tc.failureReason ?: '') }
-                            }
+    }
+    writer.toString()
+}
+
+def buildSuiteDetailFragment(Map suite) {
+    def writer = new StringWriter()
+    def html = new MarkupBuilder(writer)
+    html.div {
+        h2(id: "suite-${suiteSlug(suite.name)}", suite.name)
+        if (suite.parseError) {
+            p('class': 'parse-error', "Could not parse this suite's results: ${suite.parseError}")
+        } else {
+            table('class': 'detail') {
+                thead { tr { th('Test'); th('Status'); th('Time (s)'); th('Failure Reason') } }
+                tbody {
+                    suite.testcases.each { tc ->
+                        tr('class': "row-${tc.status}") {
+                            td("${tc.classname}.${tc.name}")
+                            td(tc.status)
+                            td(tc.time)
+                            td { pre(tc.failureReason ?: '') }
                         }
                     }
                 }
@@ -1018,6 +1026,12 @@ def buildBodyFragment(List suites) {
         }
     }
     writer.toString()
+}
+
+def buildBodyFragment(List suites) {
+    def summary = buildSummaryTable(suites) { s -> "#suite-${suiteSlug(s.name)}" }
+    def details = suites.collect { s -> buildSuiteDetailFragment(s) }.join()
+    "<div>${summary}${details}</div>"
 }
 
 def renderModernReport(List suites) {
