@@ -103,7 +103,6 @@ dependencies {
     testImplementation 'org.junit.platform:junit-platform-launcher:6.1.0'
     testImplementation 'org.hamcrest:hamcrest-library:2.2'
     testImplementation 'org.mockito:mockito-core:5.23.0'
-    testImplementation 'org.jmockit:jmockit:1.50'
 
     runtimeOnly 'javax.xml.soap:javax.xml.soap-api:1.4.0'
     runtimeOnly 'net.sf.barcode4j:barcode4j-fop-ext:2.1'
