@@ -110,6 +110,12 @@ Two things worth knowing before adding a new Jupiter test class:
   Delegator/LocalDispatcher. Without `@Order`, a class is relying on declaration order only
   implicitly - reordering methods, adding one in the middle, or splitting the file can silently
   break it later.
+* *An optional `@DisplayName` on a plain `@Test` method adds to the reported name, it doesn't
+  replace it.* The method name always stays the primary, always-present part of the name shown in
+  `testIntegration`'s console output and JUnit XML/HTML reports - a real `@DisplayName` is appended
+  after `" - "`, e.g. `testTestEntityModels - Test entity models`. A method with no `@DisplayName`
+  is unaffected. This has no effect on `@ParameterizedTest` invocations - use
+  `@ParameterizedTest(name = ...)` to control those instead.
 
 === Service
 Specific service's name which will be tested in a service-name attribute like this:

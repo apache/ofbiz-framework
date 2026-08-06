@@ -422,17 +422,21 @@ public class JupiterTestExtension implements ParameterResolver, TestInstancePost
         }
 
         /**
-         * For a plain @Test method, the base name comes from getDisplayName(): "methodName(ParamType1,
-         * ParamType2)", honoring a custom @DisplayName when the method has one (getLegacyReportingName()
-         * can't do this - Jupiter's MethodBasedTestDescriptor overrides getLegacyReportingBaseName() as
-         * final, always returning the raw signature with no path for @DisplayName to reach it). Unannotated
-         * methods still get that identical "methodName(ParamType1, ParamType2)" shape from JUnit 5's default
-         * Standard display name generator, so this is a no-op for every currently-migrated class and only
-         * changes output for methods that actually carry @DisplayName. The parameter types aren't meaningful
-         * to a report reader here (they're always the JupiterTestExtension-injected Delegator/LocalDispatcher,
-         * or CSV-provided arguments already visible elsewhere in the name), so they're stripped, leaving plain
-         * JUnit 3 test methods ("testCreateExample") and Jupiter ones ("shouldCreateExample") looking
-         * consistent.
+         * For a plain @Test method, the base name is the method name itself ("testCreateExample",
+         * "shouldCreateExample") - a report reader needs that to go straight from the report to the
+         * source, and losing it behind a @DisplayName's prose was a real readability regression once
+         * @DisplayName started being used. getLegacyReportingName() supplies that raw
+         * "methodName(ParamType1, ParamType2)" signature unconditionally, regardless of any
+         * @DisplayName on the method (Jupiter's MethodBasedTestDescriptor overrides
+         * getLegacyReportingBaseName() as final, always returning it). The parameter types aren't
+         * meaningful to a report reader here (they're always the JupiterTestExtension-injected
+         * Delegator/LocalDispatcher, or CSV-provided arguments already visible elsewhere in the name),
+         * so they're stripped. When the method also carries a real @DisplayName - detected by
+         * getDisplayName() differing from the same method-name shape JUnit 5's default Standard
+         * display name generator would otherwise produce - that text is appended after " - ", e.g.
+         * "testTestEntityModels - Test entity models". A method with no @DisplayName is unaffected:
+         * getDisplayName() falls back to that identical default shape, so the two sides match and only
+         * the bare method name is used.
          *
          * <p>For an @ParameterizedTest invocation, getDisplayName()'s shape is controlled entirely by the
          * developer's @ParameterizedTest(name=...) pattern - the index can be anywhere, or absent - so it
@@ -475,14 +479,14 @@ public class JupiterTestExtension implements ParameterResolver, TestInstancePost
                 String invocationLabel = testIdentifier.getDisplayName().replaceFirst("^\\[\\d+]\\s*", "");
                 bareName = indexSuffix.group(1) + "[" + invocationLabel + "]";
             } else {
-                // Plain @Test method: getDisplayName() is the API that actually honors a
-                // custom @DisplayName - Jupiter's MethodBasedTestDescriptor overrides
-                // getLegacyReportingBaseName() as final, always returning the raw
-                // "methodName(ParamTypes)" signature with no path for @DisplayName to reach it.
-                // Unannotated methods still get that identical shape from JUnit 5's default
-                // Standard display name generator, so this is a no-op unless @DisplayName is
-                // actually present.
-                bareName = testIdentifier.getDisplayName().replaceAll("\\([^)]*\\)$", "");
+                // Plain @Test method: the method name stays the primary, always-present part of
+                // the reported name. getDisplayName() is the API that actually honors a custom
+                // @DisplayName - append its text after " - " only when it's real, i.e. differs
+                // from the default-generated "methodName(ParamTypes)" shape a method with no
+                // @DisplayName would otherwise get.
+                String methodName = legacyReportingName;
+                String displayNameText = testIdentifier.getDisplayName().replaceAll("\\([^)]*\\)$", "");
+                bareName = displayNameText.equals(methodName) ? methodName : methodName + " - " + displayNameText;
             }
             return testClass.getSimpleName() + "." + bareName;
         }
