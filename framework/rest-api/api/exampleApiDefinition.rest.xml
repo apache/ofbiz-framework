@@ -31,6 +31,22 @@ under the License.
         </operation>
     </resource>
 
+    <!-- TEST-services -->
+    <!-- The exposed endpoints are neccessary for tests defined in RestTestHttpRequest.java to run.-->
+    <!-- If you decide to remove / not publish this rest.xml, those tests need to be commented out. -->
+
+    <resource name="orders" path="/returnSuccess">
+        <operation verb="post" consumes="application/json" produces="application/json">
+            <service name="returnSuccess"/>
+        </operation>
+    </resource>
+
+    <resource name="orders" path="/returnSuccessButOverwriteStatusCode">
+        <operation verb="post" consumes="application/json" produces="application/json">
+            <service name="returnSuccessButOverwriteStatusCode"/>
+        </operation>
+    </resource>
+
     <mapping name="RestOrderExample" className="org.apache.ofbiz.ws.rs.examples.RestOrderExample"/>
 
 </api>

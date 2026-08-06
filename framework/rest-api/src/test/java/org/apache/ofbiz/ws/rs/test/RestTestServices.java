@@ -23,6 +23,7 @@ import java.util.Map;
 import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.service.ServiceUtil;
+import org.apache.ofbiz.ws.rs.util.RestApiUtil;
 
 public class RestTestServices {
 
@@ -36,6 +37,32 @@ public class RestTestServices {
     public static Map<String, Object> returnCustomErrorTest(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map<String, Object> result = ServiceUtil.returnError("Some error");
         result.put(ModelService.ERROR_CODE, 999);
+        return result;
+    }
+
+    // ============== Status Code Test Services =================== //
+    /**
+     * TestService returning a success
+     *
+     * @param dctx
+     * @param context
+     * @return result
+     */
+    public static Map<String, Object> returnSuccess(DispatchContext dctx, Map<String, ? extends Object> context) {
+        Map<String, Object> result = ServiceUtil.returnSuccess();
+        return result;
+    }
+
+    /**
+     * TestService returning a success but explicitly returns status code 201 instead of default 200
+     *
+     * @param dctx
+     * @param context
+     * @return result
+     */
+    public static Map<String, Object> returnSuccessButOverwriteStatusCode(DispatchContext dctx, Map<String, ? extends Object> context) {
+        Map<String, Object> result = ServiceUtil.returnSuccess();
+        result.put(RestApiUtil.RESPONSE_STATUS_KEY, 201);
         return result;
     }
 }

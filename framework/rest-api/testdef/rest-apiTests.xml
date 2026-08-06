@@ -24,4 +24,7 @@ under the License.
     <test-case case-name="rest-api-services-tests">
         <jupiter-test-suite class-name="org.apache.ofbiz.ws.rs.test.RestServicesTests"/>
     </test-case>
+    <test-case case-name="rest-api-http-requests">
+        <jupiter-test-suite class-name="org.apache.ofbiz.ws.rs.test.RestTestHttpRequest"/>
+    </test-case>
 </test-suite>

@@ -81,6 +81,7 @@ under the License.
             <xs:attribute name="path" type="xs:string" use="optional"/>
             <xs:attribute name="description" type="xs:string"/>
             <xs:attribute name="auth" type="xs:boolean" default="true"/>
+            <xs:attribute name="addApiResponses" type="xs:string"/>
         </xs:complexType>
     </xs:element>
     <xs:element name="service">

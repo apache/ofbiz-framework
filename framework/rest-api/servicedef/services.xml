@@ -47,5 +47,16 @@ under the License.
             location="org.apache.ofbiz.ws.rs.test.RestTestServices" invoke="returnCustomErrorTest">
         <description>TestService that returns a custom errorCode</description>
     </service>
-            
+
+    <service name="returnSuccess" engine="java"
+            location="org.apache.ofbiz.ws.rs.test.RestTestServices" invoke="returnSuccess">
+        <description>TestService that returns success, but overwrites it with a custom http status code</description>
+    </service>
+
+    <service name="returnSuccessButOverwriteStatusCode" engine="java"
+            location="org.apache.ofbiz.ws.rs.test.RestTestServices" invoke="returnSuccessButOverwriteStatusCode">
+        <description>TestService that returns success, but overwrites it with a custom http status code</description>
+        <attribute name="httpResponseStatus" type="java.lang.Integer" mode="OUT" optional="false"/>
+    </service>
+
 </services>
