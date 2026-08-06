@@ -1003,7 +1003,7 @@ public class SecuredUpload {
     private static boolean isValidPdfFile(String fileName) {
         File file = new File(fileName);
         boolean safeState = false;
-        boolean canParseZUGFeRD = true;
+        boolean canParseZUGFeRD = false;
         try {
             if (Objects.isNull(file) || !file.exists()) {
                 return safeState;
@@ -1040,6 +1040,8 @@ public class SecuredUpload {
                                         + " is not a readable (valid and secure) PDF file. For security reason it's not accepted as a such file",
                                         MODULE);
 
+                            } else {
+                                canParseZUGFeRD = true;
                             }
                         } catch (SAXException | ParserConfigurationException | IOException e) {
                             safeState = false;
