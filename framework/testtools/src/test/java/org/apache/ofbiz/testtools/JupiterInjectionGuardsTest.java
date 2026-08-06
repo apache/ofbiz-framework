@@ -189,6 +189,31 @@ class JupiterInjectionGuardsTest {
     }
 
     @Test
+    void throwingBeforeAllIsReportedAsAnErrorInsteadOfSilentlyDiscarded() {
+        Delegator delegator = mock(Delegator.class);
+        LocalDispatcher dispatcher = mock(LocalDispatcher.class);
+
+        JupiterTestExtension.JupiterTestSuite suite =
+                new JupiterTestExtension.JupiterTestSuite(ThrowingBeforeAllFixture.class);
+        suite.setDelegator(delegator);
+        suite.setDispatcher(dispatcher);
+        TestResult result = new TestResult();
+        suite.run(result);
+
+        // The @Test method itself never starts - JUnit 5 reports the failure once, on the class
+        // container, with no [test-method:...] identifier at all (confirmed by instrumenting the
+        // listener directly) - so this runCount()/errorCount() pair comes entirely from the
+        // synthetic leaf reportContainerFailure() reports, not from triggersBeforeAll() itself.
+        // Without that reporting, this would be results.wasSuccessful() == true for a class whose
+        // tests never actually ran - the exact false-positive "all green" this fix prevents.
+        assertThat(result.runCount(), is(1));
+        assertThat(result.errorCount(), is(1));
+        assertThat(result.wasSuccessful(), is(false));
+        Throwable reported = result.errors().nextElement().thrownException();
+        assertThat(reported.getMessage(), containsString("boom"));
+    }
+
+    @Test
     void beforeAllStaticMethodReceivesDelegatorViaParameterResolution() {
         Delegator delegator = mock(Delegator.class);
         LocalDispatcher dispatcher = mock(LocalDispatcher.class);
@@ -301,6 +326,22 @@ class JupiterInjectionGuardsTest {
         @Test
         void triggersBeforeAll() {
             // No-op: exists only so the class has a @Test method for @BeforeAll to run ahead of.
+        }
+    }
+
+    // Exercises reportContainerFailure(): a throwing @BeforeAll means JUnit 5 reports FAILED once, on
+    // the class container, and never starts triggersBeforeAll() below at all.
+    @Tag(JupiterTestExtension.INTEGRATION_TAG)
+    @ExtendWith(JupiterTestExtension.class)
+    static class ThrowingBeforeAllFixture {
+        @BeforeAll
+        static void explode() {
+            throw new IllegalStateException("boom");
+        }
+
+        @Test
+        void triggersBeforeAll() {
+            // No-op: never actually reached - exists only so the class has a @Test method.
         }
     }
 }
