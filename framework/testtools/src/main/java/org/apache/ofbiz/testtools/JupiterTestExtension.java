@@ -422,14 +422,24 @@ public class JupiterTestExtension implements ParameterResolver, TestInstancePost
         }
 
         /**
-         * getLegacyReportingName() reports plain @Test methods as "methodName(ParamType1, ParamType2)"
-         * and @ParameterizedTest invocations as "methodName(ParamType1, ParamType2)[index]" - the
-         * parameter types come from JUnit 5's own default display name, not from anything meaningful to
-         * a report reader here (they're always the JupiterTestExtension-injected Delegator/LocalDispatcher,
-         * or CSV-provided arguments already visible elsewhere in the name). Stripping them leaves plain
+         * For a plain @Test method, the base name comes from getDisplayName(): "methodName(ParamType1,
+         * ParamType2)", honoring a custom @DisplayName when the method has one (getLegacyReportingName()
+         * can't do this - Jupiter's MethodBasedTestDescriptor overrides getLegacyReportingBaseName() as
+         * final, always returning the raw signature with no path for @DisplayName to reach it). Unannotated
+         * methods still get that identical "methodName(ParamType1, ParamType2)" shape from JUnit 5's default
+         * Standard display name generator, so this is a no-op for every currently-migrated class and only
+         * changes output for methods that actually carry @DisplayName. The parameter types aren't meaningful
+         * to a report reader here (they're always the JupiterTestExtension-injected Delegator/LocalDispatcher,
+         * or CSV-provided arguments already visible elsewhere in the name), so they're stripped, leaving plain
          * JUnit 3 test methods ("testCreateExample") and Jupiter ones ("shouldCreateExample") looking
-         * consistent. For @ParameterizedTest invocations, the bare "[index]" from getLegacyReportingName()
-         * is replaced with the test's own @ParameterizedTest(name=...) display text (e.g. "[1] exampleTypeId=CONTRIVED"
+         * consistent.
+         *
+         * <p>For an @ParameterizedTest invocation, getDisplayName()'s shape is controlled entirely by the
+         * developer's @ParameterizedTest(name=...) pattern - the index can be anywhere, or absent - so it
+         * can't be used to detect that an identifier is a parameterized invocation. getLegacyReportingName()
+         * is used for that detection instead: it reliably ends in "[index]" for every parameterized
+         * invocation regardless of the display-name pattern in use. Once detected, the bare "[index]" is
+         * replaced with the invocation's own getDisplayName() text (e.g. "[1] exampleTypeId=CONTRIVED"
          * becomes "shouldCreateExampleAcrossTypes[exampleTypeId=CONTRIVED]"), so each row is identifiable
          * without needing to click into it.
          *
@@ -447,12 +457,32 @@ public class JupiterTestExtension implements ParameterResolver, TestInstancePost
          * prefix, since {@code classname} can't carry it and bare {@code name} previously didn't either.
          */
         private static String reportingName(TestIdentifier testIdentifier, Class<?> testClass) {
-            String withoutParamTypes = testIdentifier.getLegacyReportingName().replaceAll("\\([^)]*\\)", "");
-            Matcher indexSuffix = INDEX_SUFFIX.matcher(withoutParamTypes);
-            String bareName = withoutParamTypes;
+            // getLegacyReportingName() reliably ends in "[index]" for a parameterized
+            // invocation regardless of whatever @ParameterizedTest(name=...) pattern the
+            // developer used (unlike getDisplayName(), whose shape is entirely controlled by
+            // that pattern and may put the index anywhere, or omit it) - so it's kept here
+            // purely as a structural signal for "is this a parameterized invocation", not as
+            // the source of the visible name text.
+            String legacyReportingName = testIdentifier.getLegacyReportingName().replaceAll("\\([^)]*\\)", "");
+            Matcher indexSuffix = INDEX_SUFFIX.matcher(legacyReportingName);
+            String bareName;
             if (indexSuffix.matches()) {
+                // Parameterized invocation: the invocation's own display text (its
+                // @ParameterizedTest(name=...) text, e.g. "[1] exampleTypeId=CONTRIVED")
+                // replaces the bare "[index]", so each row is identifiable without clicking in.
+                // A @DisplayName on the parameterized method itself has no effect here - use
+                // @ParameterizedTest(name = ...) instead to control this text.
                 String invocationLabel = testIdentifier.getDisplayName().replaceFirst("^\\[\\d+]\\s*", "");
                 bareName = indexSuffix.group(1) + "[" + invocationLabel + "]";
+            } else {
+                // Plain @Test method: getDisplayName() is the API that actually honors a
+                // custom @DisplayName - Jupiter's MethodBasedTestDescriptor overrides
+                // getLegacyReportingBaseName() as final, always returning the raw
+                // "methodName(ParamTypes)" signature with no path for @DisplayName to reach it.
+                // Unannotated methods still get that identical shape from JUnit 5's default
+                // Standard display name generator, so this is a no-op unless @DisplayName is
+                // actually present.
+                bareName = testIdentifier.getDisplayName().replaceAll("\\([^)]*\\)$", "");
             }
             return testClass.getSimpleName() + "." + bareName;
         }
