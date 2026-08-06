@@ -1064,6 +1064,105 @@ ${js}
 """
 }
 
+def renderFramedIndexPage() {
+    '''<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>OFBiz Test Report</title>
+</head>
+<frameset cols="20%,80%">
+<frame src="nav.html" name="nav">
+<frame src="overview.html" name="detail">
+<noframes>
+<body>
+<p>This report is designed to be viewed using the frames feature. If you see this
+message, you are using a non-frame-capable web client &mdash; use
+<a href="../modern-report.html">modern-report.html</a> instead.</p>
+</body>
+</noframes>
+</frameset>
+</html>
+'''
+}
+
+def renderFramedNavPage(List suites) {
+    def writer = new StringWriter()
+    def html = new MarkupBuilder(writer)
+    html.html {
+        head {
+            meta(charset: 'UTF-8')
+            title('OFBiz Test Report: Suites')
+            style(modernReportCss())
+        }
+        body {
+            h2 { a(href: 'overview.html', target: 'detail', 'Overview') }
+            ul {
+                suites.each { s ->
+                    li { a(href: "suite-${suiteSlug(s.name)}.html", target: 'detail', s.name) }
+                }
+            }
+        }
+    }
+    "<!DOCTYPE html>\n${writer}"
+}
+
+def renderFramedOverviewPage(List suites) {
+    def summary = buildSummaryTable(suites) { s -> "suite-${suiteSlug(s.name)}.html" }
+    """<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>OFBiz Test Report: Overview</title>
+<style>
+${modernReportCss()}
+</style>
+</head>
+<body>
+<h1>OFBiz Test Report</h1>
+${summary}
+</body>
+</html>
+"""
+}
+
+def renderFramedSuitePage(Map suite) {
+    def detail = buildSuiteDetailFragment(suite)
+    """<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>OFBiz Test Report: ${suite.name}</title>
+<style>
+${modernReportCss()}
+</style>
+</head>
+<body>
+<div id="filters">
+<label><input type="checkbox" id="filter-pass" checked> Pass</label>
+<label><input type="checkbox" id="filter-fail" checked> Fail</label>
+<label><input type="checkbox" id="filter-error" checked> Error</label>
+<label><input type="checkbox" id="filter-skipped" checked> Skipped</label>
+</div>
+${detail}
+<script>
+${modernReportJs()}
+</script>
+</body>
+</html>
+"""
+}
+
+def buildFramedReportFiles(List suites) {
+    def files = [
+            'index.html': renderFramedIndexPage(),
+            'nav.html': renderFramedNavPage(suites),
+            'overview.html': renderFramedOverviewPage(suites)
+    ]
+    suites.each { s -> files["suite-${suiteSlug(s.name)}.html"] = renderFramedSuitePage(s) }
+    files
+}
+
 def parseSuiteXml(File xmlFile) {
     try {
         def suite = new XmlSlurper().parse(xmlFile)
@@ -1120,6 +1219,22 @@ task createModernTestReport(group: sysadminGroup,
         reportFile.parentFile.mkdirs()
         reportFile.text = renderModernReport(suites)
         println "Modern test report written to ${reportFile}"
+    }
+}
+
+task createFramedTestReport(group: sysadminGroup,
+        description: 'Generate a navigable, frameset-based HTML test report alongside the classic Ant-based and single-page modern reports') {
+    doLast {
+        def suiteFiles = fileTree('./runtime/logs/test-results') {
+            include '*.xml'
+            exclude 'TESTS-TestSuites.xml'
+        }.sort { it.name }
+        def suites = suiteFiles.collect { xmlFile -> parseSuiteXml(xmlFile) }
+
+        def outDir = file('./runtime/logs/test-results/modern-report-framed')
+        outDir.mkdirs()
+        buildFramedReportFiles(suites).each { name, content -> file("${outDir}/${name}").text = content }
+        println "Framed test report written to ${outDir}/index.html"
     }
 }
 
@@ -1462,6 +1577,7 @@ def createOfbizCommandTask(taskName, arguments) {
             classpath = sourceSets.main.runtimeClasspath + sourceSets.test.runtimeClasspath
             finalizedBy(createTestReports)
             finalizedBy(createModernTestReport)
+            finalizedBy(createFramedTestReport)
         } else {
             classpath = sourceSets.main.runtimeClasspath
         }
