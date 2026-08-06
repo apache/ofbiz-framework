@@ -16,6 +16,8 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+import groovy.xml.MarkupBuilder
+import groovy.xml.XmlSlurper
 import org.apache.tools.ant.filters.ReplaceTokens
 import org.asciidoctor.gradle.jvm.AsciidoctorTask
 
@@ -936,6 +938,16 @@ task createTestReports(group: sysadminGroup, description: 'Generate HTML reports
     }
 }
 
+task createModernTestReport(group: sysadminGroup,
+        description: 'Generate a single-page modern HTML test report alongside the classic Ant-based one') {
+    doLast {
+        def reportFile = file('./runtime/logs/test-results/modern-report.html')
+        reportFile.parentFile.mkdirs()
+        reportFile.text = '<html><body>placeholder - generation not implemented yet</body></html>'
+        println "Modern test report written to ${reportFile}"
+    }
+}
+
 task gitInfoFooter(group: sysadminGroup, description: 'Update the Git Branch-revision info in the footer if Git is used') {
     doLast {
         def branch
@@ -1274,6 +1286,7 @@ def createOfbizCommandTask(taskName, arguments) {
         if (taskName ==~ /^ofbiz.*(--test|-t).*/) {
             classpath = sourceSets.main.runtimeClasspath + sourceSets.test.runtimeClasspath
             finalizedBy(createTestReports)
+            finalizedBy(createModernTestReport)
         } else {
             classpath = sourceSets.main.runtimeClasspath
         }
