@@ -938,12 +938,58 @@ task createTestReports(group: sysadminGroup, description: 'Generate HTML reports
     }
 }
 
+def parseSuiteXml(File xmlFile) {
+    try {
+        def suite = new XmlSlurper().parse(xmlFile)
+        def testcases = suite.testcase.collect { tc ->
+            def status = 'pass'
+            def failureReason = null
+            if (tc.failure.size() > 0) {
+                status = 'fail'
+                failureReason = tc.failure[0].text().trim() ?: (tc.failure[0].@message as String)
+            } else if (tc.error.size() > 0) {
+                status = 'error'
+                failureReason = tc.error[0].text().trim() ?: (tc.error[0].@message as String)
+            } else if (tc.skipped.size() > 0) {
+                status = 'skipped'
+            }
+            [
+                    classname: tc.@classname as String,
+                    name: tc.@name as String,
+                    time: (tc.@time as String) ?: '0',
+                    status: status,
+                    failureReason: failureReason
+            ]
+        }
+        [
+                name: suite.@name as String,
+                tests: (suite.@tests as String) ?: '0',
+                failures: (suite.@failures as String) ?: '0',
+                errors: (suite.@errors as String) ?: '0',
+                skipped: (suite.@skipped as String) ?: '0',
+                time: (suite.@time as String) ?: '0',
+                testcases: testcases,
+                parseError: null
+        ]
+    } catch (Exception e) {
+        [
+                name: xmlFile.name,
+                tests: '?', failures: '?', errors: '?', skipped: '?', time: '?',
+                testcases: [],
+                parseError: e.message
+        ]
+    }
+}
+
 task createModernTestReport(group: sysadminGroup,
         description: 'Generate a single-page modern HTML test report alongside the classic Ant-based one') {
     doLast {
+        def suiteFiles = fileTree('./runtime/logs/test-results') { include '*.xml' }.sort { it.name }
+        def suites = suiteFiles.collect { xmlFile -> parseSuiteXml(xmlFile) }
+
         def reportFile = file('./runtime/logs/test-results/modern-report.html')
         reportFile.parentFile.mkdirs()
-        reportFile.text = '<html><body>placeholder - generation not implemented yet</body></html>'
+        reportFile.text = suites.toString()
         println "Modern test report written to ${reportFile}"
     }
 }
