@@ -18,24 +18,16 @@
  *******************************************************************************/
 package org.apache.ofbiz.content.content;
 
-import java.io.IOException;
-import java.io.StringWriter;
-import java.io.Writer;
 import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Set;
 
 import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.GeneralException;
-import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilDateTime;
-import org.apache.ofbiz.base.util.UtilFormatOut;
 import org.apache.ofbiz.base.util.UtilGenerics;
-import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
@@ -104,7 +96,7 @@ public class ContentServices {
         for (GenericValue content : contentList) {
             serviceInMap.put("currentContent", content);
             try {
-                permResults = dispatcher.runSync("checkContentPermission", serviceInMap);
+                permResults = dispatcher.runSync("genericContentPermission", serviceInMap);
                 if (ServiceUtil.isError(permResults)) {
                     return ServiceUtil.returnError(ServiceUtil.getErrorMessage(permResults));
                 }
@@ -113,8 +105,8 @@ public class ContentServices {
                 return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentPermissionNotGranted", locale));
             }
 
-            String permissionStatus = (String) permResults.get("permissionStatus");
-            if (permissionStatus != null && "granted".equalsIgnoreCase(permissionStatus)) {
+            Boolean hasPermission = (Boolean) permResults.get("hasPermission");
+            if (Boolean.TRUE.equals(hasPermission)) {
                 permittedList.add(content);
             }
 
@@ -122,101 +114,6 @@ public class ContentServices {
 
         results.put("contentList", permittedList);
         return results;
-    }
-
-    /**
-     * Update a ContentAssoc service. The work is done in a separate method so that complex services that need this
-     * functionality do not need to incur the reflection performance penalty.
-     */
-    public static Map<String, Object> deactivateContentAssoc(DispatchContext dctx, Map<String, ? extends Object> rcontext) {
-        Map<String, Object> context = UtilMisc.makeMapWritable(rcontext);
-        context.put("entityOperation", "_UPDATE");
-        List<String> targetOperationList = ContentWorker.prepTargetOperationList(context, "_UPDATE");
-
-        List<String> contentPurposeList = ContentWorker.prepContentPurposeList(context);
-        context.put("targetOperationList", targetOperationList);
-        context.put("contentPurposeList", contentPurposeList);
-        context.put("skipPermissionCheck", null);
-
-        Map<String, Object> result = deactivateContentAssocMethod(dctx, context);
-        return result;
-    }
-
-    /**
-     * Update a ContentAssoc method. The work is done in this separate method so that complex services that need this
-     * functionality do not need to incur the reflection performance penalty.
-     */
-    public static Map<String, Object> deactivateContentAssocMethod(DispatchContext dctx, Map<String, ? extends Object> rcontext) {
-        Map<String, Object> context = UtilMisc.makeMapWritable(rcontext);
-        Delegator delegator = dctx.getDelegator();
-        LocalDispatcher dispatcher = dctx.getDispatcher();
-        Map<String, Object> result = new HashMap<>();
-        Locale locale = (Locale) context.get("locale");
-        context.put("entityOperation", "_UPDATE");
-        List<String> targetOperationList = ContentWorker.prepTargetOperationList(context, "_UPDATE");
-
-        List<String> contentPurposeList = ContentWorker.prepContentPurposeList(context);
-        context.put("targetOperationList", targetOperationList);
-        context.put("contentPurposeList", contentPurposeList);
-
-        GenericValue pk = delegator.makeValue("ContentAssoc");
-        pk.setAllFields(context, false, null, Boolean.TRUE);
-        pk.setAllFields(context, false, "ca", Boolean.TRUE);
-
-        GenericValue contentAssoc = null;
-        try {
-            contentAssoc = EntityQuery.use(delegator).from("ContentAssoc").where(pk).queryOne();
-        } catch (GenericEntityException e) {
-            Debug.logError(e, "Entity Error:" + e.getMessage(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentAssocRetrievingError",
-                    UtilMisc.toMap("errorString", e.getMessage()), locale));
-        }
-
-        if (contentAssoc == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentAssocDeactivatingError", locale));
-        }
-
-        GenericValue userLogin = (GenericValue) context.get("userLogin");
-        String userLoginId = (String) userLogin.get("userLoginId");
-        String lastModifiedByUserLogin = userLoginId;
-        Timestamp lastModifiedDate = UtilDateTime.nowTimestamp();
-        contentAssoc.put("lastModifiedByUserLogin", lastModifiedByUserLogin);
-        contentAssoc.put("lastModifiedDate", lastModifiedDate);
-        contentAssoc.put("thruDate", UtilDateTime.nowTimestamp());
-
-        String permissionStatus = null;
-        Map<String, Object> serviceInMap = new HashMap<>();
-        serviceInMap.put("userLogin", context.get("userLogin"));
-        serviceInMap.put("targetOperationList", targetOperationList);
-        serviceInMap.put("contentPurposeList", contentPurposeList);
-        serviceInMap.put("entityOperation", context.get("entityOperation"));
-        serviceInMap.put("contentIdTo", contentAssoc.get("contentIdTo"));
-        serviceInMap.put("contentIdFrom", contentAssoc.get("contentId"));
-
-        Map<String, Object> permResults = null;
-        try {
-            permResults = dispatcher.runSync("checkAssocPermission", serviceInMap);
-            if (ServiceUtil.isError(permResults)) {
-                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(permResults));
-            }
-        } catch (GenericServiceException e) {
-            Debug.logError(e, "Problem checking permissions", "ContentServices");
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentPermissionNotGranted", locale));
-        }
-        permissionStatus = (String) permResults.get("permissionStatus");
-
-        if (permissionStatus != null && "granted".equals(permissionStatus)) {
-            try {
-                contentAssoc.store();
-            } catch (GenericEntityException e) {
-                return ServiceUtil.returnError(e.getMessage());
-            }
-        } else {
-            String errorMsg = ContentWorker.prepPermissionErrorMsg(permResults);
-            return ServiceUtil.returnError(errorMsg);
-        }
-
-        return result;
     }
 
     /**
@@ -282,96 +179,7 @@ public class ContentServices {
         return results;
     }
 
-    /**
-     * Get and render subcontent associated with template id and mapkey. If subContentId is supplied, that content will be rendered
-     * without searching for other matching content.
-     */
-    public static Map<String, Object> renderSubContentAsText(DispatchContext dctx, Map<String, ? extends Object> context) {
-        Map<String, Object> results = new HashMap<>();
-        LocalDispatcher dispatcher = dctx.getDispatcher();
 
-        Map<String, Object> templateContext = UtilGenerics.cast(context.get("templateContext"));
-        String contentId = (String) context.get("contentId");
-
-        if (templateContext != null && UtilValidate.isEmpty(contentId)) {
-            contentId = (String) templateContext.get("contentId");
-        }
-        String mapKey = (String) context.get("mapKey");
-        if (templateContext != null && UtilValidate.isEmpty(mapKey)) {
-            mapKey = (String) templateContext.get("mapKey");
-        }
-        String mimeTypeId = (String) context.get("mimeTypeId");
-        if (templateContext != null && UtilValidate.isEmpty(mimeTypeId)) {
-            mimeTypeId = (String) templateContext.get("mimeTypeId");
-        }
-        Locale locale = (Locale) context.get("locale");
-        if (templateContext != null && locale == null) {
-            locale = (Locale) templateContext.get("locale");
-        }
-
-        Writer out = (Writer) context.get("outWriter");
-        Writer outWriter = new StringWriter();
-
-        if (templateContext == null) {
-            templateContext = new HashMap<>();
-        }
-
-        try {
-            ContentWorker.renderSubContentAsText(dispatcher, contentId, outWriter, mapKey, templateContext, locale, mimeTypeId, true);
-            out.write(outWriter.toString());
-            results.put("textData", outWriter.toString());
-        } catch (GeneralException | IOException e) {
-            Debug.logError(e, "Error rendering sub-content text", MODULE);
-            return ServiceUtil.returnError(e.toString());
-        }
-
-        return results;
-
-    }
-
-    /**
-     * Get and render subcontent associated with template id and mapkey. If subContentId is supplied, that content will be rendered
-     * without searching for other matching content.
-     */
-    public static Map<String, Object> renderContentAsText(DispatchContext dctx, Map<String, ? extends Object> context) {
-        Map<String, Object> results = new HashMap<>();
-        LocalDispatcher dispatcher = dctx.getDispatcher();
-        Writer out = (Writer) context.get("outWriter");
-
-        Map<String, Object> templateContext = UtilGenerics.cast(context.get("templateContext"));
-        String contentId = (String) context.get("contentId");
-        if (templateContext != null && UtilValidate.isEmpty(contentId)) {
-            contentId = (String) templateContext.get("contentId");
-        }
-        String mimeTypeId = (String) context.get("mimeTypeId");
-        if (templateContext != null && UtilValidate.isEmpty(mimeTypeId)) {
-            mimeTypeId = (String) templateContext.get("mimeTypeId");
-        }
-        Locale locale = (Locale) context.get("locale");
-        if (templateContext != null && locale == null) {
-            locale = (Locale) templateContext.get("locale");
-        }
-
-        if (templateContext == null) {
-            templateContext = new HashMap<>();
-        }
-
-        Writer outWriter = new StringWriter();
-        GenericValue view = (GenericValue) context.get("subContentDataResourceView");
-        if (view != null && view.containsKey("contentId")) {
-            contentId = view.getString("contentId");
-        }
-
-        try {
-            ContentWorker.renderContentAsText(dispatcher, contentId, outWriter, templateContext, locale, mimeTypeId, null, null, true);
-            if (out != null) out.write(outWriter.toString());
-            results.put("textData", outWriter.toString());
-        } catch (GeneralException | IOException e) {
-            Debug.logError(e, "Error rendering sub-content text", MODULE);
-            return ServiceUtil.returnError(e.toString());
-        }
-        return results;
-    }
 
     public static Map<String, Object> linkContentToPubPt(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map<String, Object> results = new HashMap<>();
@@ -453,84 +261,7 @@ public class ContentServices {
         return results;
     }
 
-    public static Map<String, Object> publishContent(DispatchContext dctx, Map<String, ? extends Object> context) throws GenericServiceException {
-        Map<String, Object> result = new HashMap<>();
-        GenericValue content = (GenericValue) context.get("content");
 
-        try {
-            content.put("statusId", "CTNT_PUBLISHED");
-            content.store();
-        } catch (GenericEntityException e) {
-            Debug.logError(e.getMessage(), MODULE);
-            return ServiceUtil.returnError(e.getMessage());
-        }
-        return result;
-    }
-
-    public static Map<String, Object> getPrefixedMembers(DispatchContext dctx, Map<String, ? extends Object> context) throws GenericServiceException {
-        Map<String, Object> result = new HashMap<>();
-        Map<String, Object> mapIn = UtilGenerics.cast(context.get("mapIn"));
-        String prefix = (String) context.get("prefix");
-        Map<String, Object> mapOut = new HashMap<>();
-        result.put("mapOut", mapOut);
-        if (mapIn != null) {
-            Set<Map.Entry<String, Object>> entrySet = mapIn.entrySet();
-            for (Map.Entry<String, Object> entry : entrySet) {
-                String key = entry.getKey();
-                if (key.startsWith(prefix)) {
-                    Object value = entry.getValue();
-                    mapOut.put(key, value);
-                }
-            }
-        }
-        return result;
-    }
-
-    public static Map<String, Object> splitString(DispatchContext dctx, Map<String, ? extends Object> context) throws GenericServiceException {
-        Map<String, Object> result = new HashMap<>();
-        List<String> outputList = new LinkedList<>();
-        String delimiter = UtilFormatOut.checkEmpty((String) context.get("delimiter"), "|");
-        String inputString = (String) context.get("inputString");
-        if (UtilValidate.isNotEmpty(inputString)) {
-            outputList = StringUtil.split(inputString, delimiter);
-        }
-        result.put("outputList", outputList);
-        return result;
-    }
-
-    public static Map<String, Object> joinString(DispatchContext dctx, Map<String, ? extends Object> context) throws GenericServiceException {
-        Map<String, Object> result = new HashMap<>();
-        String outputString = null;
-        String delimiter = UtilFormatOut.checkEmpty((String) context.get("delimiter"), "|");
-        List<String> inputList = UtilGenerics.cast(context.get("inputList"));
-        if (inputList != null) {
-            outputString = StringUtil.join(inputList, delimiter);
-        }
-        result.put("outputString", outputString);
-        return result;
-    }
-
-    public static Map<String, Object> urlEncodeArgs(DispatchContext dctx, Map<String, ? extends Object> context) throws GenericServiceException {
-        Map<String, Object> result = new HashMap<>();
-        Map<String, Object> mapFiltered = new HashMap<>();
-        Map<String, Object> mapIn = UtilGenerics.cast(context.get("mapIn"));
-        if (mapIn != null) {
-            Set<Map.Entry<String, Object>> entrySet = mapIn.entrySet();
-            for (Map.Entry<String, Object> entry : entrySet) {
-                String key = entry.getKey();
-                Object value = entry.getValue();
-                if (value instanceof String) {
-                    if (UtilValidate.isNotEmpty(value)) {
-                        mapFiltered.put(key, value);
-                    }
-                } else if (value != null) {
-                    mapFiltered.put(key, value);
-                }
-            }
-            String outputString = UtilHttp.urlEncodeArgs(mapFiltered);
-            result.put("outputString", outputString);
-        }
-        return result;
-    }
 
 }
+
