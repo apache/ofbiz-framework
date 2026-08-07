@@ -252,10 +252,6 @@ public class ContentManagementEvents {
                         serviceIn.put("contentAssocTypeId", "PUBLISH_LINK");
                         serviceIn.put("fromDate", nowTimestamp);
                         serviceIn.put("contentIdTo", currentSubContentId);
-                        serviceIn.put("roleTypeList", roleTypeList);
-                        serviceIn.put("targetOperationList", targetOperationList);
-                        // TODO check if this should be removed (see above)
-                        serviceIn.put("contentPurposeList", contentPurposeList);
                         result = dispatcher.runSync("createContentAssoc", serviceIn);
                         if (ServiceUtil.isError(result)) {
                             String errorMessage = ServiceUtil.getErrorMessage(result);
@@ -270,10 +266,6 @@ public class ContentManagementEvents {
                         serviceIn.put("contentAssocTypeId", "PUBLISH_LINK");
                         serviceIn.put("fromDate", nowTimestamp);
                         serviceIn.put("contentIdTo", contentId);
-                        serviceIn.put("roleTypeList", roleTypeList);
-                        serviceIn.put("targetOperationList", targetOperationList);
-                        // TODO check if this should be removed (see above)
-                        serviceIn.put("contentPurposeList", contentPurposeList);
                         result = dispatcher.runSync("createContentAssoc", serviceIn);
                         if (ServiceUtil.isError(result)) {
                             String errorMessage = ServiceUtil.getErrorMessage(result);
