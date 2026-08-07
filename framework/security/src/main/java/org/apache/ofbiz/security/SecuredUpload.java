@@ -1130,8 +1130,14 @@ public class SecuredUpload {
             Debug.logError("The file " + fileName + " is a Windows executable, for security reason it's not accepted", MODULE);
             return true;
         }
-        // Check for ELF (Linux) and scripts
+        // Check for ELF (Linux) and scripts. Tika reports the generic application/x-elf only for
+        // ELF files it can't further classify; real-world binaries are detected as one of its
+        // more specific sub-types below (e.g. every PIE-compiled executable or shared library).
         if ("application/x-elf".equals(mimeType)
+                || "application/x-executable".equals(mimeType)
+                || "application/x-sharedlib".equals(mimeType)
+                || "application/x-object".equals(mimeType)
+                || "application/x-coredump".equals(mimeType)
                 || "application/x-sh".equals(mimeType)
                 || "text/x-perl".equals(mimeType)
                 || "text/x-ruby".equals(mimeType)
