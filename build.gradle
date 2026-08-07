@@ -16,6 +16,8 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+import groovy.xml.MarkupBuilder
+import groovy.xml.XmlSlurper
 import org.apache.tools.ant.filters.ReplaceTokens
 import org.asciidoctor.gradle.jvm.AsciidoctorTask
 
@@ -110,6 +112,7 @@ useLatestVersions {
 
 apply from: 'common.gradle'
 apply from: 'dependencies.gradle'
+apply from: 'test-reports.gradle'
 
 // global properties
 ext.os = System.getProperty('os.name').toLowerCase()
@@ -915,26 +918,8 @@ task generateAllPluginsDocumentation(group: docsGroup,
 
 
 // ========== System Administration tasks ==========
-task createTestReports(group: sysadminGroup, description: 'Generate HTML reports from junit XML output') {
-    doLast {
-        ant.taskdef(name: 'junitreport',
-            classname: 'org.apache.tools.ant.taskdefs.optional.junit.XMLResultAggregator',
-            classpath: configurations.junitReport.asPath)
-        ant.junitreport(todir: './runtime/logs/test-results') {
-            fileset(dir: './runtime/logs/test-results') {
-                include(name: '*.xml')
-            }
-            report(format:'frames', todir:'./runtime/logs/test-results/html')
-            report(format:'noframes', todir:'./runtime/logs/test-results/html')
-        }
-        // Ant's stock junit-frames.xsl/junit-noframes.xsl label this column "Type", but it actually
-        // renders the failure/error message and stack trace, not the bare exception type - relabel
-        // it post-generation rather than vendoring and maintaining a forked copy of Ant's templates.
-        fileTree('./runtime/logs/test-results/html') {
-            include '**/*.html'
-        }.each { file -> file.text = file.text.replace('>Type</th>', '>Failure Reason</th>') }
-    }
-}
+// createTestReports/createModernTestReport/createFramedTestReport moved to test-reports.gradle
+// (applied above) - kept out of this file since they're self-contained and sizable.
 
 task gitInfoFooter(group: sysadminGroup, description: 'Update the Git Branch-revision info in the footer if Git is used') {
     doLast {
@@ -1273,7 +1258,21 @@ def createOfbizCommandTask(taskName, arguments) {
         jvmArgs(application.applicationDefaultJvmArgs)
         if (taskName ==~ /^ofbiz.*(--test|-t).*/) {
             classpath = sourceSets.main.runtimeClasspath + sourceSets.test.runtimeClasspath
+            // TestRunContainer.java writes one XML per suite as "<suite.getName()>.xml" and only
+            // ever overwrites the suites a run actually re-executes - nothing here deletes the
+            // rest first. Left alone, a narrower run (suitename=... filtering to one component) or
+            // a renamed/removed suite leaves other suites' XML sitting in this directory from
+            // whenever they last ran, and all three report tasks below just glob whatever *.xml
+            // files exist at generation time - so the report would silently blend fresh results
+            // with stale ones from an earlier run into what looks like one coherent run. Clearing
+            // the directory before the run starts guarantees every report reflects exactly this
+            // run's suites, nothing left over from before.
+            doFirst {
+                delete fileTree('./runtime/logs/test-results') { include '*.xml' }
+            }
             finalizedBy(createTestReports)
+            finalizedBy(createModernTestReport)
+            finalizedBy(createFramedTestReport)
         } else {
             classpath = sourceSets.main.runtimeClasspath
         }
