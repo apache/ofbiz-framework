@@ -18,9 +18,11 @@
  *******************************************************************************/
 package org.apache.ofbiz.base.util;
 
+import java.nio.file.Paths;
 import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import org.apache.commons.validator.routines.EmailValidator;
 import org.apache.commons.validator.routines.UrlValidator;
@@ -152,6 +154,8 @@ public final class UtilValidate {
     /** Valid contiguous U.S. postal codes */
     public static final String CONTIGUOUS_US_STATE_CODES = "AL|AZ|AR|CA|CO|CT|DE|DC|FL|GA|ID|IL|IN|IA|KS|KY|LA|ME|MD|MA|MI|MN|MS|MO|MT|NE|NV|NH|"
             + "NJ|NM|NY|NC|ND|OH|OK|OR|PA|RI|SC|SD|TN|TX|UT|VT|VA|WA|WV|WI|WY";
+
+    private static Pattern allowedPathsPattern = null;
 
     /** Check whether an object is empty, will see if it is a String, Map, Collection, etc. */
     public static boolean isEmpty(Object o) {
@@ -656,6 +660,29 @@ public final class UtilValidate {
         return UrlValidator.getInstance().isValid(s);
     }
 
+    private static Pattern initAllowedPathPattern() {
+        return Pattern.compile(UtilProperties.getPropertyValue("security", "allowFilePaths", ""));
+    }
+
+    /**
+     * isAllowedPath takes a String representing a filePath, normalizes it and checks it if allowed
+     * @param rawPathString
+     * @return true if it's an allowed path, false otherwise
+     */
+    public static boolean isAllowedPath(String rawPathString) {
+        String allowPatternStr = UtilProperties.getPropertyValue("security", "allowFilePaths", "");
+        if (isEmpty(allowPatternStr)) {
+            return false;
+        }
+        if (allowedPathsPattern == null) {
+            allowedPathsPattern = initAllowedPathPattern();
+        }
+        return UtilValidate.isNotEmpty(rawPathString)
+                && allowedPathsPattern.matcher(Paths.get(rawPathString)
+                        .normalize().toString())
+                .matches();
+    }
+
 
     /** isYear returns true if string s is a valid
      *  Year number.  Must be 2 or 4 digits only.
@@ -948,6 +975,7 @@ public final class UtilValidate {
      * @param stPassed a string representing a gift card
      * @return true, if the number passed simple checks
      */
+
     public static boolean isGiftCard(String stPassed) {
         return isOFBGiftCard(stPassed) || isValueLinkCard(stPassed);
     }

@@ -26,6 +26,7 @@ import java.util.Map;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.ofbiz.base.location.FlexibleLocation;
+import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.UtilXml;
 import org.apache.ofbiz.base.util.cache.UtilCache;
@@ -50,7 +51,13 @@ public class TreeFactory {
             throws IOException, SAXException, ParserConfigurationException {
         Map<String, ModelTree> modelTreeMap = TREE_LOCATION_CACHE.get(resourceName);
         if (modelTreeMap == null) {
-            URL treeFileUrl = FlexibleLocation.resolveLocation(resourceName);
+            String sanitizedLocation = WidgetSecureLocation.sanitize(resourceName);
+            if (sanitizedLocation == null) {
+                Debug.logWarning("The location of tree [%s] isn't an allowed Path. Abort rendering. Raw location [%s]",
+                        MODULE, treeName, resourceName);
+                throw new IllegalArgumentException("Abort tree rendering due to tree unallowed tree location");
+            }
+            URL treeFileUrl = FlexibleLocation.resolveLocation(sanitizedLocation);
             if (treeFileUrl == null || UtilValidate.isUrlInStringAndDoesNotStartByComponentProtocol(treeFileUrl.toString())) {
                 throw new IllegalArgumentException("Could not resolve location to URL: " + resourceName);
             }
