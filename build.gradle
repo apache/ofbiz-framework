@@ -119,6 +119,12 @@ ext.os = System.getProperty('os.name').toLowerCase()
 ext.gradlew = os.contains('windows') ? 'gradlew.bat' : './gradlew'
 ext.pluginsDir = "${rootDir}/plugins"
 
+// "./gradlew ofbiz" command reflects them directly, with no separate command-line flag to remember.
+def debugProperties = new Properties()
+file('framework/base/config/debug.properties').withInputStream { debugProperties.load(it) }
+ext.jsonLogsEnabled = debugProperties.getProperty('json.logs.enabled', 'false').toBoolean()
+ext.jsonLogsTemplate = debugProperties.getProperty('json.logs.template', 'classpath:templates/ecs-layout.json')
+
 application {
     mainClass = 'org.apache.ofbiz.base.start.Start'
     applicationDefaultJvmArgs = project.hasProperty('jvmArgs')
@@ -133,6 +139,8 @@ application {
             '--add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED',
             // Allow libraries using the stable Foreign Function & Memory API (Apache SSHD, Tika)
             '--enable-native-access=ALL-UNNAMED',
+            "-Dofbiz.json.logs=${jsonLogsEnabled}",
+            "-Dofbiz.json.logs.template=${jsonLogsTemplate}",
             ]
 }
 
