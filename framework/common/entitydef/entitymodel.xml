@@ -911,4 +911,30 @@ under the License.
         <field name="description" type="description"></field>
         <prim-key field="telecomGatewayConfigId"/>
     </entity>
+
+    <!-- ============================ -->
+    <!-- org.apache.ofbiz.common.email -->
+    <!-- ============================ -->
+    <entity entity-name="MailSmtpConfig"
+            package-name="org.apache.ofbiz.common.email"
+            title="Mail SMTP Configuration">
+        <field name="mailSmtpConfigId" type="id"></field>
+        <field name="description" type="description"></field>
+        <field name="relayHost" type="value"><description>SMTP relay host, e.g. smtp.gmail.com</description></field>
+        <field name="port" type="value"><description>SMTP port, e.g. 587</description></field>
+        <field name="starttlsEnable" type="indicator"><description>Y enables STARTTLS</description></field>
+        <field name="socketFactoryPort" type="value"></field>
+        <field name="socketFactoryClass" type="value"></field>
+        <field name="socketFactoryFallback" type="value"></field>
+        <field name="sendPartial" type="indicator"><description>Y allows partial delivery on multi-recipient failures</description></field>
+        <field name="authMechanism" type="value"><description>NONE, BASIC, or XOAUTH2</description></field>
+        <field name="authUser" type="value"></field>
+        <field name="authPassword" type="value" encrypt="true"></field>
+        <field name="oauth2ClientId" type="value"></field>
+        <field name="oauth2ClientSecret" type="value" encrypt="true"></field>
+        <field name="oauth2RefreshToken" type="very-long" encrypt="true"><description>May be rewritten if the provider rotates it</description></field>
+        <field name="oauth2TokenEndpoint" type="value"><description>Must be https://</description></field>
+        <field name="oauth2Scope" type="value"></field>
+        <prim-key field="mailSmtpConfigId"/>
+    </entity>
 </entitymodel>

@@ -24,6 +24,7 @@ import java.util.List;
 public class ModelApi {
 
     private List<ModelResource> resources;
+    private List<ModelMapping> mappings;
     private String name;
     private String path;
     private String displayName;
@@ -38,7 +39,7 @@ public class ModelApi {
      */
     public List<ModelResource> getResources() {
         if (resources == null) {
-            resources = new ArrayList<ModelResource>();
+            resources = new ArrayList<>();
         }
         return this.resources;
     }
@@ -58,6 +59,30 @@ public class ModelApi {
         return this;
     }
 
+    /**
+     * Returns the mappings
+     *
+     * @return mappings List
+     */
+    public List<ModelMapping> getMappings() {
+        if (mappings == null) {
+            mappings = new ArrayList<>();
+        }
+        return this.mappings;
+    }
+
+    /**
+     * Adds a mapping List
+     *
+     * @param mapping the {@link ModelMapping} to add
+     */
+    public ModelApi addMapping(ModelMapping mapping) {
+        if (this.mappings == null) {
+            this.mappings = new ArrayList<>();
+        }
+        this.mappings.add(mapping);
+        return this;
+    }
     /**
      * Returns the name.
      *

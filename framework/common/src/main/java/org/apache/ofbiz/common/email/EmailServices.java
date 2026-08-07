@@ -177,43 +177,48 @@ public class EmailServices {
         Boolean isStartTLSEnabled = (Boolean) context.get("startTLSEnabled");
 
         boolean useSmtpAuth = false;
+        MailSmtpConfigUtil.ResolvedConfig mailSmtpConfig = MailSmtpConfigUtil.resolve(delegator);
 
         // define some default
         if (sendType == null || "mail.smtp.host".equals(sendType)) {
             sendType = "mail.smtp.host";
             if (UtilValidate.isEmpty(sendVia)) {
-                sendVia = EntityUtilProperties.getPropertyValue("general", "mail.smtp.relay.host", "localhost", delegator);
+                sendVia = mailSmtpConfig.relayHost;
             }
             if (UtilValidate.isEmpty(authUser)) {
-                authUser = EntityUtilProperties.getPropertyValue("general", "mail.smtp.auth.user", delegator);
+                authUser = mailSmtpConfig.authUser;
             }
             if (UtilValidate.isEmpty(authPass)) {
-                authPass = EntityUtilProperties.getPropertyValue("general", "mail.smtp.auth.password", delegator);
+                authPass = mailSmtpConfig.authPassword;
             }
-            if (UtilValidate.isNotEmpty(authUser)) {
-                useSmtpAuth = true;
-            }
+            useSmtpAuth = !"NONE".equals(mailSmtpConfig.authMechanism) && UtilValidate.isNotEmpty(authUser);
             if (UtilValidate.isEmpty(port)) {
-                port = EntityUtilProperties.getPropertyValue("general", "mail.smtp.port", delegator);
+                port = mailSmtpConfig.port;
             }
             if (UtilValidate.isEmpty(socketFactoryPort)) {
-                socketFactoryPort = EntityUtilProperties.getPropertyValue("general", "mail.smtp.socketFactory.port", delegator);
+                socketFactoryPort = mailSmtpConfig.socketFactoryPort;
             }
             if (UtilValidate.isEmpty(socketFactoryClass)) {
-                socketFactoryClass = EntityUtilProperties.getPropertyValue("general", "mail.smtp.socketFactory.class", delegator);
+                socketFactoryClass = mailSmtpConfig.socketFactoryClass;
             }
             if (UtilValidate.isEmpty(socketFactoryFallback)) {
-                socketFactoryFallback = EntityUtilProperties.getPropertyValue("general", "mail.smtp.socketFactory.fallback", "false", delegator);
+                socketFactoryFallback = mailSmtpConfig.socketFactoryFallback;
             }
             if (sendPartial == null) {
-                sendPartial = EntityUtilProperties.propertyValueEqualsIgnoreCase("general", "mail.smtp.sendpartial", "true", delegator);
+                sendPartial = mailSmtpConfig.sendPartial;
             }
             if (isStartTLSEnabled == null) {
-                isStartTLSEnabled = EntityUtilProperties.propertyValueEqualsIgnoreCase("general", "mail.smtp.starttls.enable", "true", delegator);
+                isStartTLSEnabled = mailSmtpConfig.starttlsEnable;
             }
         } else if (sendVia == null) {
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonEmailSendMissingParameterSendVia", locale));
         }
+
+        // Only the (cheap, no-I/O) XOAUTH2-vs-BASIC decision is made here. The actual access-token
+        // fetch (a live network round-trip) is deferred until right before the SMTP connect attempt,
+        // below, so it never runs when mail sending is disabled (mail.notifications.enabled=N, the
+        // default) or on any other early-return path.
+        boolean useXOAuth2 = useSmtpAuth && "XOAUTH2".equals(mailSmtpConfig.authMechanism);
 
         if (contentType == null) {
             contentType = "text/html";
@@ -243,6 +248,9 @@ public class EmailServices {
             }
             if (useSmtpAuth) {
                 props.put("mail.smtp.auth", "true");
+            }
+            if (useXOAuth2) {
+                props.put("mail.smtp.auth.mechanisms", "XOAUTH2");
             }
             if (sendPartial != null) {
                 props.put("mail.smtp.sendpartial", sendPartial ? "true" : "false");
@@ -315,7 +323,6 @@ public class EmailServices {
         } catch (MessagingException e) {
             Debug.logError(e, "MessagingException when creating message to [" + sendTo + "] from [" + sendFrom + "] cc [" + sendCc + "] bcc ["
                     + sendBcc + "] subject [" + subject + "]", MODULE);
-            Debug.logError("Email message that could not be created to [" + sendTo + "] had context: " + context, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonEmailSendMessagingException", UtilMisc.toMap("sendTo",
                     sendTo, "sendFrom", sendFrom, "sendCc", sendCc, "sendBcc", sendBcc, "subject", subject), locale));
         }
@@ -333,13 +340,24 @@ public class EmailServices {
             return results;
         }
 
+        String effectiveAuthPass = authPass;
+        if (useXOAuth2) {
+            try {
+                effectiveAuthPass = SmtpOAuth2TokenProvider.getAccessToken(delegator, mailSmtpConfig);
+            } catch (GeneralException e) {
+                Debug.logError(e, "Failed to obtain SMTP OAuth2 access token for [" + sendVia + "]", MODULE);
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonEmailSendOAuth2Error", UtilMisc.toMap("sendVia",
+                        sendVia, "errorString", e.getMessage()), locale));
+            }
+        }
+
         Transport trans = null;
         try {
             trans = session.getTransport("smtp");
             if (!useSmtpAuth) {
                 trans.connect();
             } else {
-                trans.connect(sendVia, authUser, authPass);
+                trans.connect(sendVia, authUser, effectiveAuthPass);
             }
             trans.sendMessage(mail, mail.getAllRecipients());
             results.put("messageWrapper", new MimeMessageWrapper(session, mail));
@@ -362,7 +380,7 @@ public class EmailServices {
             }
             Boolean sendFailureNotification = (Boolean) context.get("sendFailureNotification");
             if (sendFailureNotification == null || sendFailureNotification) {
-                sendFailureNotification(ctx, context, mail, failedAddresses);
+                sendFailureNotification(ctx, context, mail, failedAddresses, sendFrom);
                 results.put("messageWrapper", new MimeMessageWrapper(session, mail));
                 try {
                     results.put("messageId", mail.getMessageID());
@@ -378,7 +396,6 @@ public class EmailServices {
             // message code prefix may be used by calling services to determine the cause of the failure
             Debug.logError(e, "[CON] Connection error when sending message to [" + sendTo + "] from [" + sendFrom + "] cc [" + sendCc
                     + "] bcc [" + sendBcc + "] subject [" + subject + "]", MODULE);
-            Debug.logError("Email message that could not be sent to [" + sendTo + "] had context: " + context, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonEmailSendConnectionError", UtilMisc.toMap("sendTo",
                     sendTo, "sendFrom", sendFrom, "sendCc", sendCc, "sendBcc", sendBcc, "subject", subject), locale));
         }
@@ -687,13 +704,13 @@ public class EmailServices {
         return sendMailFromScreen(dctx, serviceContext);
     }
     public static void sendFailureNotification(DispatchContext dctx, Map<String, ? extends Object> context, MimeMessage message,
-                                               List<SMTPAddressFailedException> failures) {
+                                               List<SMTPAddressFailedException> failures, String sendFrom) {
         Locale locale = (Locale) context.get("locale");
         Map<String, Object> newContext = new LinkedHashMap<>();
         newContext.put("userLogin", context.get("userLogin"));
         newContext.put("sendFailureNotification", false);
-        newContext.put("sendFrom", context.get("sendFrom"));
-        newContext.put("sendTo", context.get("sendFrom"));
+        newContext.put("sendFrom", sendFrom);
+        newContext.put("sendTo", sendFrom);
         newContext.put("subject", UtilProperties.getMessage(RESOURCE, "CommonEmailSendUndeliveredMail", locale));
         StringBuilder sb = new StringBuilder();
         sb.append(UtilProperties.getMessage(RESOURCE, "CommonEmailDeliveryFailed", locale));

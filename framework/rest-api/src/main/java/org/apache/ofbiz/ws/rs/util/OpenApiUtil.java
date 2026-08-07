@@ -18,7 +18,12 @@
  *******************************************************************************/
 package org.apache.ofbiz.ws.rs.util;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -59,6 +64,7 @@ public final class OpenApiUtil {
 
     }
 
+    private static final Map<String, String> LIST_TYPE_MAP = new HashMap<>();
     private static final Map<String, String> CLASS_ALIAS = new HashMap<>();
     private static final Map<String, Class<?>> JAVA_OPEN_API_MAP = new HashMap<>();
     private static final Map<String, String> FIELD_TYPE_MAP = new HashMap<String, String>();
@@ -282,6 +288,9 @@ public final class OpenApiUtil {
      * @return the corresponding OpenAPI schema class, or {@code null} if no mapping exists
      */
     public static Class<?> getOpenApiTypeForAttributeType(String attributeType) {
+        if (isTypeDomainModel(attributeType)) {
+            return MapSchema.class;
+        }
         return JAVA_OPEN_API_MAP.get(CLASS_ALIAS.get(attributeType));
     }
 
@@ -342,6 +351,10 @@ public final class OpenApiUtil {
     @SuppressWarnings("deprecation")
     public static Schema<?> getAttributeSchema(ModelService service, ModelParam param) {
         Schema<?> schema = null;
+        if (param == null) {
+            Debug.logWarning("ModelParam is null - ignored.", MODULE);
+            return null;
+        }
         Class<?> schemaClass = getOpenApiTypeForAttributeType(param.getType());
         if (schemaClass == null) {
             Debug.logWarning("Attribute '" + param.getName() + "' ignored as it is declared as '" + param.getType()
@@ -359,7 +372,11 @@ public final class OpenApiUtil {
         Delegator delegator = WebAppUtil.getDelegator(ApiContextListener.getApplicationCntx());
         if (schema instanceof ArraySchema) {
             ArraySchema arrSch = (ArraySchema) schema;
-            arrSch.setItems(children.size() > 0 ? getAttributeSchema(service, children.get(0)) : new StringSchema());
+            if (LIST_TYPE_MAP.containsKey(param.getName())) {
+                arrSch.setItems(getSchemaForModel(LIST_TYPE_MAP.get(param.getName())));
+            } else {
+                arrSch.setItems(children.size() > 0 ? getAttributeSchema(service, children.get(0)) : new StringSchema());
+            }
         } else if (schema instanceof MapSchema) {
             if (isTypeGenericEntityOrGenericValue(param.getType())) {
                 if (UtilValidate.isEmpty(param.getEntityName())) {
@@ -370,6 +387,8 @@ public final class OpenApiUtil {
                     return null;
                 }
                 schema = getSchemaForEntity(delegator.getModelEntity(param.getEntityName()));
+            } else if (isTypeDomainModel(param.getType())) {
+                schema = getSchemaForModel(param.getType());
             } else if (UtilValidate.isEmpty(param.getChildren())) {
                 Debug.logWarning(
                         "Attribute '" + param.getName() + "' ignored as it is declared as '" + param.getType() + "' but does not have "
@@ -425,6 +444,81 @@ public final class OpenApiUtil {
             return false;
         }
         return type.matches("org.apache.ofbiz.entity.GenericValue|GenericValue|org.apache.ofbiz.entity.GenericEntity|GenericEntity");
+    }
+
+    private static boolean isTypeDomainModel(String className) {
+        if (className == null || CLASS_ALIAS.containsKey(className)) {
+            return false;
+        }
+        try {
+            Class<?> modelClass = Class.forName(className);
+            Class<?> domainModelClass = Class.forName("org.apache.ofbiz.base.model.DomainModel");
+            return domainModelClass.isAssignableFrom(modelClass);
+        } catch (ClassNotFoundException e) {
+            Debug.logInfo("Class not found while checking DomainModel type: " + className, MODULE);
+        }
+        return false;
+    }
+
+    @SuppressWarnings("unchecked")
+    private static Schema<?> getSchemaForModel(String className) {
+        Schema<?> dataSchema = new Schema<>();
+        dataSchema.setType("object");
+        try {
+            Class<?> modelClass = Class.forName(className);
+            List<Field> fields = getFields(modelClass);
+            for (Field field : fields) {
+                String fieldNm = field.getName();
+                Class<?> fieldType = field.getType();
+                Schema<?> schema = null;
+                Class<?> schemaClass = getOpenApiTypeForAttributeType(fieldType.getName());
+                if (schemaClass == null) {
+                    continue;
+                }
+                try {
+                    schema = (Schema<?>) schemaClass.newInstance();
+                    if (schema instanceof ArraySchema) {
+                        ParameterizedType genericType = (ParameterizedType) field.getGenericType();
+                        Class<? extends Type> genericClass = (Class<? extends Type>) genericType.getActualTypeArguments()[0];
+                        ArraySchema arrSch = (ArraySchema) schema;
+                        Class<?> listSchemaClass = getOpenApiTypeForAttributeType(genericClass.getName());
+                        Schema<?> listSchema = null;
+                        if (listSchemaClass == null || isTypeDomainModel(genericClass.getName())) {
+                            arrSch.setItems(getSchemaForModel(genericClass.getName()));
+                        } else {
+                            listSchema = (Schema<?>) listSchemaClass.newInstance();
+                            arrSch.setItems(listSchema);
+                        }
+                        dataSchema.addProperties(fieldNm, arrSch);
+                    } else if (schema instanceof MapSchema) {
+                        if (isTypeDomainModel(fieldType.getName())) {
+                            schema = getSchemaForModel(fieldType.getName());
+                            dataSchema.addProperties(fieldNm, schema);
+                        }
+                    } else {
+                        dataSchema.addProperties(fieldNm, schema.description(fieldNm));
+                    }
+                } catch (InstantiationException | IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            }
+        } catch (ClassNotFoundException e1) {
+            e1.printStackTrace();
+        }
+        return dataSchema;
+    }
+
+    private static <T> List<Field> getFields(Class<?> clazz) {
+        List<Field> fields = new ArrayList<>();
+        while (clazz != Object.class) {
+            fields.addAll(0, Arrays.asList(clazz.getDeclaredFields()));
+            clazz = clazz.getSuperclass();
+        }
+        return fields;
+    }
+
+    public static Map<String, String> getListTypes() {
+        return LIST_TYPE_MAP;
     }
 
     private static Schema<?> getSchemaForEntity(ModelEntity entity) {

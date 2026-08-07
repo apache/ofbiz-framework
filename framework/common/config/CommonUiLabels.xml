@@ -3575,6 +3575,9 @@
         <value xml:lang="zh">当 sendType 不是 mail.smtp.host 时，必须有参数 sendVia </value>
         <value xml:lang="zh-TW">當 sendType 不是 mail.smtp.host 時,必須有參數 sendVia </value>
     </property>
+    <property key="CommonEmailSendOAuth2Error">
+        <value xml:lang="en">[OAUTH2] Error obtaining SMTP OAuth2 access token for ${sendVia}: ${errorString}</value>
+    </property>
     <property key="CommonEmailSendRenderingScreenEmailError">
         <value xml:lang="ar">خطأ في تقديم شاشة البريد الإلكتروني: ${errorString}</value>
         <value xml:lang="cs">Nepodařilo se připravit obrazovku pro email: ${errorString}</value>

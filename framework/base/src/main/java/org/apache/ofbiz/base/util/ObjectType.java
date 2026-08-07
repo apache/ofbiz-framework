@@ -31,6 +31,7 @@ import org.apache.ofbiz.base.conversion.ConversionException;
 import org.apache.ofbiz.base.conversion.Converter;
 import org.apache.ofbiz.base.conversion.Converters;
 import org.apache.ofbiz.base.conversion.LocalizedConverter;
+import org.apache.ofbiz.base.conversion.ModelConverter;
 import org.apache.ofbiz.base.lang.IsEmpty;
 import org.apache.ofbiz.base.lang.SourceMonitored;
 import org.w3c.dom.Node;
@@ -345,6 +346,15 @@ public class ObjectType {
                 }
                 try {
                     return localizedConverter.convert(obj, locale, timeZone, format);
+                } catch (ConversionException e) {
+                    Debug.logWarning(e, "Exception thrown while converting type: ", MODULE);
+                    throw new GeneralException(e.getMessage(), e);
+                }
+            } else if (converter instanceof ModelConverter) {
+                @SuppressWarnings("rawtypes")
+                ModelConverter<Object, Object> modelConverter = (ModelConverter) converter;
+                try {
+                    return modelConverter.convert(obj, targetClass.getName());
                 } catch (ConversionException e) {
                     Debug.logWarning(e, "Exception thrown while converting type: ", MODULE);
                     throw new GeneralException(e.getMessage(), e);
