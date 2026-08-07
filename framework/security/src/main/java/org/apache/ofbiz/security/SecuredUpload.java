@@ -1112,9 +1112,9 @@ public class SecuredUpload {
         // Check for ELF (Linux) and scripts
         if ("application/x-elf".equals(mimeType)
                 || "application/x-sh".equals(mimeType)
-                || "application/text/x-perl".equals(mimeType)
-                || "application/text/x-ruby".equals(mimeType)
-                || "application/text/x-python".equals(mimeType)) {
+                || "text/x-perl".equals(mimeType)
+                || "text/x-ruby".equals(mimeType)
+                || "text/x-python".equals(mimeType)) {
             Debug.logError("The file " + fileName + " is a Linux executable, for security reason it's not accepted", MODULE);
             return true;
         }
