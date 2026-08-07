@@ -376,6 +376,9 @@ public class CatalinaContainer implements Container {
             throws ContainerException {
         List<Valve> engineValves = new ArrayList<>();
 
+        // populates Log4j2 ThreadContext with requestId/visitId/userLoginId for log correlation
+        engineValves.add(new CorrelationValve());
+
         // configure the CrossSubdomainSessionValve
         if (ContainerConfig.getPropertyValue(engineConfig, "enable-cross-subdomain-sessions", false)) {
             engineValves.add(new CrossSubdomainSessionValve());

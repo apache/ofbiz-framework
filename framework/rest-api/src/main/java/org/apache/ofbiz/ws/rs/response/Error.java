@@ -34,8 +34,8 @@ public class Error {
     private String errorMessage;
     @JsonProperty("errorType")
     private String type;
-    @JsonProperty("errorDescription")
-    private String errorDesc;
+    private String errorCode;
+    private String errorDescription;
     private List<String> additionalErrors;
 
     /**
@@ -133,8 +133,19 @@ public class Error {
      * <p>These methods allow chaining to populate error metadata in a concise way.
      * Each method sets a field and returns the same {@code Error} instance.</p>
      */
-    public Error errorDesc(String errorDesc) {
-        this.setErrorDesc(errorDesc);
+    public Error errorDescription(String errorDescription) {
+        this.setErrorDescription(errorDescription);
+        return this;
+    }
+
+    /**
+     * Fluent builder methods for constructing an {@code Error} response.
+     *
+     * <p>These methods allow chaining to populate error metadata in a concise way.
+     * Each method sets a field and returns the same {@code Error} instance.</p>
+     */
+    public Error errorCode(String errorCode) {
+        this.setErrorCode(errorCode);
         return this;
     }
 
@@ -184,6 +195,24 @@ public class Error {
     }
 
     /**
+     * Returns the errorCode
+     *
+     * @return errorCode
+     */
+    public String getErrorCode() {
+        return errorCode;
+    }
+
+    /**
+     * Sets the errorCode
+     *
+     * @param errorCode the errorCode to set
+     */
+    public void setErrorCode(String errorCode) {
+        this.errorCode = errorCode;
+    }
+
+    /**
      * Returns the error message.
      *
      * @return the error message
@@ -224,17 +253,17 @@ public class Error {
      *
      * @return the error description
      */
-    public String getErrorDesc() {
-        return errorDesc;
+    public String getErrorDescription() {
+        return errorDescription;
     }
 
     /**
      * Sets the error description.
      *
-     * @param errorDesc the error description to set
+     * @param errorDescription the error description to set
      */
-    public void setErrorDesc(String errorDesc) {
-        this.errorDesc = errorDesc;
+    public void setErrorDescription(String errorDescription) {
+        this.errorDescription = errorDescription;
     }
 
 }

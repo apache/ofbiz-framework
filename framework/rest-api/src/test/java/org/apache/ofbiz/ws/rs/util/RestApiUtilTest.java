@@ -73,7 +73,7 @@ public final class RestApiUtilTest {
 
         assertEquals(expected.getAdditionalErrors(), actual.getAdditionalErrors());
         assertEquals(expected.getClass(), actual.getClass());
-        assertEquals(expected.getErrorDesc(), actual.getErrorDesc());
+        assertEquals(expected.getErrorDescription(), actual.getErrorDescription());
         assertEquals(expected.getErrorMessage(), actual.getErrorMessage());
         assertEquals(expected.getStatusCode(), actual.getStatusCode());
         assertEquals(expected.getStatusDescription(), actual.getStatusDescription());
@@ -153,7 +153,7 @@ public final class RestApiUtilTest {
 
         Error error = (Error) response.getEntity();
 
-        assertEquals("errorOne", error.getErrorDesc());
+        assertEquals("errorOne", error.getErrorDescription());
         assertEquals(List.of("errorTwo", "errorThree"), error.getAdditionalErrors());
     }
 }
