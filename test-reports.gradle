@@ -410,6 +410,9 @@ def renderFramedNavPage(List suites) {
             ul('class': 'nav-list') {
                 li { a('class': 'nav-link', href: 'overview.html', target: 'detail', 'Overview') }
                 li { a('class': 'nav-link', href: 'all-tests.html', target: 'detail', 'All Tests') }
+                li { a('class': 'nav-link', href: 'all-tests-fails.html', target: 'detail', 'All Failures') }
+                li { a('class': 'nav-link', href: 'all-tests-errors.html', target: 'detail', 'All Errors') }
+                li { a('class': 'nav-link', href: 'all-tests-skipped.html', target: 'detail', 'All Skipped') }
             }
             div('class': 'nav-section-label', 'Suites')
             ul('class': 'nav-list') {
@@ -502,6 +505,36 @@ def buildAllTestsFragment(List suites) {
     writer.toString()
 }
 
+def suitesFilteredByStatus(List suites, String status) {
+    // Keeps every suite (even ones with zero matches) so buildAllTestsFragment's normal
+    // iteration just emits no rows for them - simpler than special-casing an empty suite list,
+    // and matches how the unfiltered all-tests.html already handles a suite with a parseError
+    // (skipped, not removed from the list).
+    suites.collect { s -> s.parseError ? s : s + [testcases: s.testcases.findAll { it.status == status }] }
+}
+
+def renderFramedStatusPage(String status, String title, List suites) {
+    // Pre-filtered, static equivalent of all-tests.html's JS checkbox filter - unlike that page,
+    // this has a stable URL and needs no JavaScript, matching the old Ant report's
+    // alltests-fails.html/alltests-errors.html/alltests-skipped.html.
+    def detail = buildAllTestsFragment(suitesFilteredByStatus(suites, status))
+    """<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Apache OFBiz Test Report: ${title}</title>
+<link rel="stylesheet" href="junit-report.css">
+</head>
+<body>
+<div class="navbar-report"><h1>${title}</h1></div>
+<div class="container">
+${detail}
+</div>
+</body>
+</html>
+"""
+}
+
 def renderFramedAllTestsPage(List suites) {
     def detail = buildAllTestsFragment(suites)
     """<!DOCTYPE html>
@@ -534,7 +567,10 @@ def buildFramedReportFiles(List suites) {
             'index.html': renderFramedIndexPage(),
             'nav.html': renderFramedNavPage(suites),
             'overview.html': renderFramedOverviewPage(suites),
-            'all-tests.html': renderFramedAllTestsPage(suites)
+            'all-tests.html': renderFramedAllTestsPage(suites),
+            'all-tests-fails.html': renderFramedStatusPage('fail', 'All Failures', suites),
+            'all-tests-errors.html': renderFramedStatusPage('error', 'All Errors', suites),
+            'all-tests-skipped.html': renderFramedStatusPage('skipped', 'All Skipped', suites)
     ]
     suites.each { s -> files["suite-${suiteSlug(s.name)}.html"] = renderFramedSuitePage(s) }
     files
