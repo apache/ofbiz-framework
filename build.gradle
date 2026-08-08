@@ -398,6 +398,7 @@ test {
     testLogging {
         events "passed", "skipped", "failed"
     }
+    finalizedBy(reskinGradleTestReport)
 }
 
 // 'gradlew test --tests <ClassName>' against a @JunitJupiterTest class fails with Gradle's generic

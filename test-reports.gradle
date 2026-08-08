@@ -739,3 +739,131 @@ task createFramedTestReport(group: sysadminGroup,
         println "Framed test report written to ${outDir}/index.html"
     }
 }
+
+def gradleReportReskinCss() {
+    // Layered on top of Gradle's own built-in test report (build/reports/tests/test/), which is
+    // baked into the Gradle distribution itself and has no supported theming hook - this targets
+    // that report's existing, stable class/id names (.infoBox, .tabLinks, td.success, etc.)
+    // rather than replacing the report wholesale, so the native per-class stdout/stderr tab,
+    // breadcrumbs and tab-switching JS all keep working untouched. Deliberately not shared with
+    // modernReportCss() above: that one styles markup this file itself renders, this one only
+    // overrides selectors Gradle renders, and the two happen to converge on the same palette.
+    '''
+:root {
+  --bs-primary: #0d6efd;
+  --bs-success: #198754;
+  --bs-danger: #dc3545;
+  --bs-secondary: #6c757d;
+  --bs-body-bg: #f8f9fa;
+  --bs-border-color: #dee2e6;
+}
+html, body { background: var(--bs-body-bg) !important; }
+body, body a, body a:visited {
+  font-family: -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+  color: #212529 !important;
+}
+#content > h1 {
+  /* Bleeds edge-to-edge by canceling out #content's native 30px/50px padding (left
+     untouched here) with an equal negative margin, then reapplying its own padding so the
+     title text still lines up with the rest of the page's left/right margin. */
+  margin: -30px -50px 1.5rem !important;
+  padding: 0.9rem 50px !important;
+  background: var(--bs-primary);
+  color: #fff !important;
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+.breadcrumbs, .breadcrumbs a { color: var(--bs-secondary) !important; font-size: 0.85rem; }
+.breadcrumbs { margin: -1rem 0 1.5rem !important; }
+
+.summaryGroup, #successRate.infoBox {
+  border: 1px solid var(--bs-border-color) !important;
+  border-radius: 0.5rem !important;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+}
+.infoBox { padding: 1rem !important; }
+.counter, .percent { font-size: 1.6rem !important; font-weight: 700 !important; color: #212529; }
+.infoBox p { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.03em; color: var(--bs-secondary); margin-top: 0.35rem !important; }
+#failures .counter { color: var(--bs-danger); }
+#tests .counter { color: var(--bs-primary); }
+#ignored .counter { color: var(--bs-secondary); }
+div.success, #successRate.success { background: #fff !important; border-color: var(--bs-success) !important; }
+div.success .percent, #successRate.success .percent { color: var(--bs-success) !important; }
+div.failures, #successRate.failures { background: #fff !important; border-color: var(--bs-danger) !important; }
+div.failures .percent, #successRate.failures .percent { color: var(--bs-danger) !important; }
+
+ul.tabLinks { border-bottom: 1px solid var(--bs-border-color) !important; min-width: 0 !important; }
+ul.tabLinks li {
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 0.6rem 0.2rem !important;
+  margin-right: 1.5rem !important;
+}
+ul.tabLinks li a { font-size: 0.95rem !important; color: var(--bs-secondary); font-weight: 500; }
+ul.tabLinks li.selected { background: transparent !important; border-bottom: 2px solid var(--bs-primary) !important; }
+ul.tabLinks li.selected a { color: var(--bs-primary) !important; }
+
+div.tab table {
+  width: 100% !important;
+  min-width: 0 !important;
+  background: #fff;
+  border: 1px solid var(--bs-border-color);
+  border-radius: 0.5rem;
+  border-collapse: separate !important;
+  border-spacing: 0;
+}
+div.tab th {
+  background: #f1f3f5 !important;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  letter-spacing: 0.03em;
+  color: var(--bs-secondary);
+  padding: 0.6rem 0.9rem !important;
+  white-space: nowrap;
+}
+div.tab td { padding: 0.55rem 0.9rem !important; white-space: normal !important; border-top: 1px solid var(--bs-border-color) !important; }
+div.tab tr:nth-child(even) td { background: rgba(0, 0, 0, 0.015); }
+div.tab tr:hover td { background: rgba(13, 110, 253, 0.06); }
+td.success { color: var(--bs-success) !important; }
+td.failures { color: var(--bs-danger) !important; }
+
+span.code pre {
+  background: #f8f9fa !important;
+  border: 1px solid var(--bs-border-color) !important;
+  border-radius: 0.5rem !important;
+  padding: 1rem !important;
+  font-size: 0.82rem !important;
+  color: #333;
+}
+
+#footer, #footer a { color: var(--bs-secondary) !important; }
+#footer { border-top: 1px solid var(--bs-border-color); padding-top: 1rem; }
+'''
+}
+
+task reskinGradleTestReport(group: sysadminGroup,
+        description: "Layer a Bootstrap-style stylesheet onto Gradle's native build/reports/tests/test HTML report") {
+    doLast {
+        def outDir = file('./build/reports/tests/test')
+        if (!outDir.exists()) {
+            return
+        }
+        def cssFile = file("${outDir}/junit-report-reskin.css")
+        cssFile.text = gradleReportReskinCss()
+        def linkTag = { String href -> "<link rel=\"stylesheet\" href=\"${href}\">\n</head>" }
+        fileTree(outDir) { include '**/*.html' }.each { htmlFile ->
+            def content = htmlFile.text
+            // Idempotency guard: 'test' being UP-TO-DATE still runs this finalizedBy task (it
+            // carries no declared inputs/outputs of its own), which would otherwise re-inject the
+            // <link> into HTML Gradle didn't regenerate and left already-reskinned from last time.
+            if (!content.contains('junit-report-reskin.css') && content.contains('</head>')) {
+                def depth = outDir.toPath().relativize(htmlFile.toPath()).nameCount - 1
+                def href = ('../' * depth) + 'junit-report-reskin.css'
+                htmlFile.text = content.replace('</head>', linkTag(href))
+            }
+        }
+        println "Reskinned Gradle test report at ${outDir}/index.html"
+    }
+}
