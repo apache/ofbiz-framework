@@ -29,7 +29,6 @@ import org.apache.ofbiz.base.component.ComponentConfig;
 import org.apache.ofbiz.base.component.ComponentException;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.ws.rs.ServiceRequestFilter;
 import org.apache.ofbiz.ws.rs.annotation.Secured;
 import org.apache.ofbiz.ws.rs.filters.ServiceContextCleanupFilter;
 import org.apache.ofbiz.ws.rs.model.ModelApi;
@@ -67,7 +66,6 @@ public class OFBizApiConfig extends ResourceConfig {
         // packages("io.swagger.v3.jaxrs2.integration.resources"); //commenting it out
         // to generate customized OpenApi Spec
         register(JacksonFeature.class);
-        register(ServiceRequestFilter.class);
         register(MultiPartFeature.class);
         register(ServiceContextCleanupFilter.class);
         //property(ServerProperties.TRACING, "ALL");

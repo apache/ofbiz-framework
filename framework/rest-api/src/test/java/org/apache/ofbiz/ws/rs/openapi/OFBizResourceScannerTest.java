@@ -51,24 +51,6 @@ public class OFBizResourceScannerTest {
     }
 
     /**
-     * Verifies that the exact class name in {@code IGNORED} is ignored.
-     */
-    @Test
-    void testIsIgnoredExactMatch() {
-        assertTrue(scanner.isIgnored("org.apache.ofbiz.ws.rs.resources.OFBizServiceResource"));
-    }
-
-    /**
-     * Verifies that a class name starting with an ignored entry is also ignored.
-     * Since {@code startsWith} is used, any sub-class or nested path under the
-     * ignored prefix is treated as ignored.
-     */
-    @Test
-    void testIsIgnoredPrefixMatch() {
-        assertTrue(scanner.isIgnored("org.apache.ofbiz.ws.rs.resources.OFBizServiceResource$InnerClass"));
-    }
-
-    /**
      * Verifies that a class name not in {@code IGNORED} and not starting with
      * any ignored entry is not ignored.
      */

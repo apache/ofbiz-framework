@@ -27,13 +27,10 @@ import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.util.EntityQuery;
-import org.apache.ofbiz.service.GenericServiceException;
-import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.webapp.control.JWTManager;
 import org.apache.ofbiz.ws.rs.annotation.Secured;
 import org.apache.ofbiz.ws.rs.common.AuthenticationScheme;
-import org.apache.ofbiz.ws.rs.resources.OFBizServiceResource;
 import org.apache.ofbiz.ws.rs.util.RestApiUtil;
 
 import jakarta.annotation.Priority;
@@ -42,21 +39,14 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.ws.rs.Priorities;
 import jakarta.ws.rs.container.ContainerRequestContext;
 import jakarta.ws.rs.container.ContainerRequestFilter;
-import jakarta.ws.rs.container.ResourceInfo;
 import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.HttpHeaders;
 import jakarta.ws.rs.core.Response;
-import jakarta.ws.rs.core.UriInfo;
 import jakarta.ws.rs.ext.Provider;
 
 /**
  * JAX-RS container request filter that enforces JWT Bearer token authentication
  * on all resources annotated with {@link Secured}.
- *
- * <p>For requests targeting {@link OFBizServiceResource}, authentication may be
- * skipped if the underlying OFBiz service has {@code auth=false} in its service
- * definition and no {@code Authorization} header is present. If a token is
- * present regardless, it is always validated.</p>
  *
  * <p>On successful validation, the resolved {@link GenericValue} userLogin is
  * stored as a request attribute under {@code "userLogin"} for use by downstream
@@ -76,12 +66,6 @@ public class APIAuthFilter implements ContainerRequestFilter {
     private static final String MODULE = APIAuthFilter.class.getName();
 
     @Context
-    private UriInfo uriInfo;
-
-    @Context
-    private ResourceInfo resourceInfo;
-
-    @Context
     private HttpServletRequest httpRequest;
 
     @Context
@@ -90,22 +74,6 @@ public class APIAuthFilter implements ContainerRequestFilter {
     @Override
     public void filter(ContainerRequestContext requestContext) throws IOException {
         String authorizationHeader = requestContext.getHeaderString(HttpHeaders.AUTHORIZATION);
-        if (isServiceResource()) {
-            String service = (String) RestApiUtil.extractParams(uriInfo.getPathParameters()).get("serviceName");
-            if (UtilValidate.isNotEmpty(service)) {
-                ModelService mdService = null;
-                try {
-                    mdService = ((LocalDispatcher) servletContext.getAttribute("dispatcher")).getDispatchContext().getModelService(service);
-                } catch (GenericServiceException e) {
-                    Debug.logError(e.getMessage(), MODULE);
-                }
-                // Skip auth for services auth=false in service definition and if Authorization header is absent
-                // Still validate the token if it is present even if service being called is auth=false
-                if (mdService != null && !mdService.isAuth() && authorizationHeader == null) {
-                    return;
-                }
-            }
-        }
         Delegator delegator = (Delegator) servletContext.getAttribute("delegator");
         if (!isTokenBasedAuthentication(authorizationHeader)) {
             abortWithUnauthorized(requestContext, false, "Unauthorized: Access is denied due to invalid or absent Authorization header.");
@@ -155,10 +123,6 @@ public class APIAuthFilter implements ContainerRequestFilter {
             Debug.logError(e, "Unable to get UserLogin information from JWT Token: " + e.getMessage(), MODULE);
         }
         return userLogin;
-    }
-
-    private boolean isServiceResource() {
-        return OFBizServiceResource.class.isAssignableFrom(resourceInfo.getResourceClass());
     }
 
 }

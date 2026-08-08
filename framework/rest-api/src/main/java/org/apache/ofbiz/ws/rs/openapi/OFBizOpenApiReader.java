@@ -97,7 +97,6 @@ public final class OFBizOpenApiReader extends Reader implements OpenApiReader {
         context = dispatcher.getDispatchContext();
         initializeStdOpenApiComponents();
         addPredefinedSchemas();
-        addExportableServices();
         addApiResources();
         openApi.setPaths(paths);
         openApi.setComponents(components);
@@ -241,41 +240,8 @@ public final class OFBizOpenApiReader extends Reader implements OpenApiReader {
         }
         return pathBuilder.toString();
     }
-    private void addExportableServices() {
-        Set<String> serviceNames = context.getAllServiceNames();
-        for (String serviceName : serviceNames) {
-            ModelService service = null;
-            try {
-                service = context.getModelService(serviceName);
-            } catch (GenericServiceException e) {
-                e.printStackTrace();
-            }
-            if (service != null && service.isExport()) {
-                SecurityRequirement security = new SecurityRequirement();
-                security.addList("jwtToken");
-                final Operation operation = new Operation().summary(service.getDescription())
-                        .description(service.getDescription()).addTagsItem("Exported Services")
-                        .operationId(service.getName()).deprecated(false).addSecurityItem(security);
-                PathItem pathItemObject = new PathItem();
-                RequestBody request = new RequestBody().description("Request Body for service " + service.getName())
-                        .content(new Content().addMediaType(jakarta.ws.rs.core.MediaType.APPLICATION_JSON,
-                                new MediaType().schema(new Schema<>().$ref("#/components/schemas/" + "api.request." + service.getName()))));
-                operation.setRequestBody(request);
-                operation.addParametersItem(HEADER_CONTENT_TYPE_JSON);
-
-                addServiceOutSchema(service);
-                addServiceInSchema(service);
-                addServiceOperationApiResponses(service, null, operation);
-                setPathItemOperation(pathItemObject, HttpMethod.POST, operation);
-                paths.addPathItem("/services/" + service.getName(), pathItemObject);
-            }
-        }
-    }
 
     private void initializeStdOpenApiComponents() {
-        Tag serviceResourceTag = new Tag().name("Exported Services")
-                .description("OFBiz services that are exposed via REST interface with export attribute set to true");
-        openApi.addTagsItem(serviceResourceTag);
         components = openApi.getComponents();
         if (components == null) {
             components = new Components();

@@ -29,10 +29,6 @@ public class OFBizResourceScanner extends JaxrsApplicationAndResourcePackagesAnn
 
     private static final Set<String> IGNORED = new HashSet<>();
 
-    static {
-        IGNORED.add("org.apache.ofbiz.ws.rs.resources.OFBizServiceResource");
-    }
-
     /**
      * Constructs a new {@link OFBizResourceScanner} configured to scan only
      * packages explicitly registered as resource packages.
