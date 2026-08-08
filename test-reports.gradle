@@ -369,13 +369,13 @@ def renderModernReport(List suites) {
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Apache OFBiz Test Report</title>
+<title>Apache OFBiz JUnit (Jupiter) Integration Test Report</title>
 <style>
 ${css}
 </style>
 </head>
 <body>
-<div class="navbar-report"><h1>Apache OFBiz Test Report</h1></div>
+<div class="navbar-report"><h1>Apache OFBiz JUnit (Jupiter) Integration Test Report</h1></div>
 <div class="container">
 <h2>Summary</h2>
 ${overallSummary}
@@ -395,7 +395,7 @@ def renderFramedIndexPage() {
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Apache OFBiz Test Report</title>
+<title>Apache OFBiz JUnit (Jupiter) Integration Test Report</title>
 </head>
 <frameset cols="20%,80%">
 <frame src="nav.html" name="nav">
@@ -418,7 +418,7 @@ def renderFramedNavPage(List suites) {
     html.html {
         head {
             meta(charset: 'UTF-8')
-            title('Apache OFBiz Test Report: Suites')
+            title('Apache OFBiz JUnit (Jupiter) Integration Test Report: Suites')
             link(rel: 'stylesheet', href: 'junit-report.css')
         }
         body('class': 'nav-pane') {
@@ -447,11 +447,11 @@ def renderFramedOverviewPage(List suites) {
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Apache OFBiz Test Report: Overview</title>
+<title>Apache OFBiz JUnit (Jupiter) Integration Test Report: Overview</title>
 <link rel="stylesheet" href="junit-report.css">
 </head>
 <body>
-<div class="navbar-report"><h1>Apache OFBiz Test Report</h1></div>
+<div class="navbar-report"><h1>Apache OFBiz JUnit (Jupiter) Integration Test Report</h1></div>
 <div class="container">
 <h2>Summary</h2>
 ${overallSummary}
@@ -493,7 +493,7 @@ def renderFramedSuitePage(Map suite, boolean hasFailsPage, boolean hasErrorsPage
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Apache OFBiz Test Report: ${suiteNameHtml}</title>
+<title>Apache OFBiz JUnit (Jupiter) Integration Test Report: ${suiteNameHtml}</title>
 <link rel="stylesheet" href="junit-report.css">
 </head>
 <body>
@@ -522,7 +522,7 @@ def renderFramedSuiteStatusPage(Map suite, String status, String statusLabel) {
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Apache OFBiz Test Report: ${suiteNameHtml} - ${statusLabel}</title>
+<title>Apache OFBiz JUnit (Jupiter) Integration Test Report: ${suiteNameHtml} - ${statusLabel}</title>
 <link rel="stylesheet" href="junit-report.css">
 </head>
 <body>
@@ -577,7 +577,7 @@ def renderFramedStatusPage(String status, String title, List suites) {
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Apache OFBiz Test Report: ${title}</title>
+<title>Apache OFBiz JUnit (Jupiter) Integration Test Report: ${title}</title>
 <link rel="stylesheet" href="junit-report.css">
 </head>
 <body>
@@ -596,7 +596,7 @@ def renderFramedAllTestsPage(List suites) {
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Apache OFBiz Test Report: All Tests</title>
+<title>Apache OFBiz JUnit (Jupiter) Integration Test Report: All Tests</title>
 <link rel="stylesheet" href="junit-report.css">
 </head>
 <body>
@@ -853,15 +853,33 @@ task reskinGradleTestReport(group: sysadminGroup,
         def cssFile = file("${outDir}/junit-report-reskin.css")
         cssFile.text = gradleReportReskinCss()
         def linkTag = { String href -> "<link rel=\"stylesheet\" href=\"${href}\">\n</head>" }
+        def reportTitle = 'Apache OFBiz JUnit (Jupiter) Test Report'
         fileTree(outDir) { include '**/*.html' }.each { htmlFile ->
             def content = htmlFile.text
+            def updated = content
+            // Retitle just the top-level overview page so it doesn't read like a bare Gradle
+            // report; per-package/class pages keep Gradle's own "... Summary" headings untouched.
+            // Matched by regex rather than the literal old text ("Test Summary" the first time
+            // Gradle generates it, but whatever reportTitle was last set to on every run after
+            // that) so re-running with a new reportTitle always lands, without needing a full
+            // regenerate of build/reports/tests/test first.
+            if (htmlFile.name == 'index.html'
+                    && outDir.toPath().relativize(htmlFile.toPath()).nameCount == 1) {
+                updated = updated
+                    .replaceFirst(/<title>Test results - [^<]*<\/title>/,
+                                  "<title>Test results - ${reportTitle}</title>")
+                    .replaceFirst(/<h1>[^<]*<\/h1>/, "<h1>${reportTitle}</h1>")
+            }
             // Idempotency guard: 'test' being UP-TO-DATE still runs this finalizedBy task (it
             // carries no declared inputs/outputs of its own), which would otherwise re-inject the
             // <link> into HTML Gradle didn't regenerate and left already-reskinned from last time.
-            if (!content.contains('junit-report-reskin.css') && content.contains('</head>')) {
+            if (!updated.contains('junit-report-reskin.css') && updated.contains('</head>')) {
                 def depth = outDir.toPath().relativize(htmlFile.toPath()).nameCount - 1
                 def href = ('../' * depth) + 'junit-report-reskin.css'
-                htmlFile.text = content.replace('</head>', linkTag(href))
+                updated = updated.replace('</head>', linkTag(href))
+            }
+            if (updated != content) {
+                htmlFile.text = updated
             }
         }
         println "Reskinned Gradle test report at ${outDir}/index.html"
