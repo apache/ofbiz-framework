@@ -253,9 +253,6 @@ subprojects {
 }
 
 configurations {
-    junitReport {
-        description = 'libraries needed to run junitreport for OFBiz unit tests'
-    }
     ofbizPlugins {
         description = 'ofbiz plugin dependencies configuration'
         transitive = true
@@ -280,9 +277,6 @@ dependencies {
         runtimeOnly project(path: subProject.path, configuration: 'pluginLibsRuntime')
         compileOnly project(path: subProject.path, configuration: 'pluginLibsCompileOnly')
     }
-
-    junitReport 'junit:junit:4.13.2'
-    junitReport 'org.apache.ant:ant-junit:1.10.15'
 
     // Libraries downloaded manually
     implementation fileTree(dir: file("${rootDir}/lib"), include: '**/*.jar')
@@ -925,7 +919,7 @@ task generateAllPluginsDocumentation(group: docsGroup,
 
 
 // ========== System Administration tasks ==========
-// createTestReports/createModernTestReport/createFramedTestReport moved to test-reports.gradle
+// createTestReport/createFramedTestReport moved to test-reports.gradle
 // (applied above) - kept out of this file since they're self-contained and sizable.
 
 task gitInfoFooter(group: sysadminGroup, description: 'Update the Git Branch-revision info in the footer if Git is used') {
@@ -1269,7 +1263,7 @@ def createOfbizCommandTask(taskName, arguments) {
             // ever overwrites the suites a run actually re-executes - nothing here deletes the
             // rest first. Left alone, a narrower run (suitename=... filtering to one component) or
             // a renamed/removed suite leaves other suites' XML sitting in this directory from
-            // whenever they last ran, and all three report tasks below just glob whatever *.xml
+            // whenever they last ran, and the two report tasks below just glob whatever *.xml
             // files exist at generation time - so the report would silently blend fresh results
             // with stale ones from an earlier run into what looks like one coherent run. Clearing
             // the directory before the run starts guarantees every report reflects exactly this
@@ -1277,8 +1271,7 @@ def createOfbizCommandTask(taskName, arguments) {
             doFirst {
                 delete fileTree('./runtime/logs/test-results') { include '*.xml' }
             }
-            finalizedBy(createTestReports)
-            finalizedBy(createModernTestReport)
+            finalizedBy(createTestReport)
             finalizedBy(createFramedTestReport)
         } else {
             classpath = sourceSets.main.runtimeClasspath
