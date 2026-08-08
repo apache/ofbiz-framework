@@ -1271,7 +1271,7 @@ def createOfbizCommandTask(taskName, arguments) {
             doFirst {
                 delete fileTree('./runtime/logs/test-results') { include '*.xml' }
             }
-            finalizedBy(createModernTestReport)
+            finalizedBy(createTestReport)
             finalizedBy(createFramedTestReport)
         } else {
             classpath = sourceSets.main.runtimeClasspath

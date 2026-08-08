@@ -19,15 +19,15 @@
 import groovy.xml.MarkupBuilder
 import groovy.xml.XmlSlurper
 
-// createModernTestReport (single-page) and createFramedTestReport (navigable multi-page)
-// turn the JUnit suite XML written to runtime/logs/test-results into an HTML report - split
-// out of build.gradle into its own file since it's self-contained and sizable, applied below
-// so it still runs as part of every Gradle invocation exactly as if it were declared inline.
+// createTestReport (single-page) and createFramedTestReport (navigable multi-page) turn the
+// JUnit suite XML written to runtime/logs/test-results into an HTML report - split out of
+// build.gradle into its own file since it's self-contained and sizable, applied below so it
+// still runs as part of every Gradle invocation exactly as if it were declared inline.
 def sysadminGroup = 'System Administration'
 
 def modernReportCss() {
     // Hand-rolled, not a real Bootstrap import: same default palette/spacing/component shapes.
-    // Used two ways: inlined into modern-report.html so that report stays one portable file, and
+    // Used two ways: inlined into test-report.html so that report stays one portable file, and
     // written once as a shared junit-report.css alongside the framed report's many pages (referenced via
     // a same-directory relative <link>, so it's still a zero-external-network-request file:// doc -
     // see the 2026-08-07 "CSS/JS duplication" note in junit5-improvements-august2026.md).
@@ -389,7 +389,7 @@ def renderFramedIndexPage() {
 <body>
 <p>This report is designed to be viewed using the frames feature. If you see this
 message, you are using a non-frame-capable web client &mdash; use
-<a href="../modern-report.html">modern-report.html</a> instead.</p>
+<a href="../test-report.html">test-report.html</a> instead.</p>
 </body>
 </noframes>
 </frameset>
@@ -527,7 +527,7 @@ def buildFramedReportFiles(List suites) {
     def files = [
             // Written once and referenced by every page below via a same-directory relative
             // <link>/<script src> instead of each page inlining its own copy - see modernReportCss()'s
-            // comment. modern-report.html (the single-page report) still inlines both directly, since
+            // comment. test-report.html (the single-page report) still inlines both directly, since
             // staying one portable file is the point there.
             'junit-report.css': modernReportCss(),
             'junit-report.js': modernReportJs(),
@@ -586,8 +586,8 @@ def parseSuiteXml(File xmlFile) {
     }
 }
 
-task createModernTestReport(group: sysadminGroup,
-        description: 'Generate a single-page modern HTML test report alongside the classic Ant-based one') {
+task createTestReport(group: sysadminGroup,
+        description: 'Generate a single-page HTML test report') {
     doLast {
         def suiteFiles = fileTree('./runtime/logs/test-results') {
             include '*.xml'
@@ -602,25 +602,25 @@ task createModernTestReport(group: sysadminGroup,
         def suites = suiteFiles.collect { xmlFile -> parseSuiteXml(xmlFile) }
                 .sort { it.name?.toLowerCase() }
 
-        def reportFile = file('./runtime/logs/test-results/modern-report.html')
+        def reportFile = file('./runtime/logs/test-results/test-report.html')
         reportFile.parentFile.mkdirs()
         reportFile.text = renderModernReport(suites)
-        println "Modern test report written to ${reportFile}"
+        println "Test report written to ${reportFile}"
     }
 }
 
 task createFramedTestReport(group: sysadminGroup,
-        description: 'Generate a navigable, frameset-based HTML test report alongside the classic Ant-based and single-page modern reports') {
+        description: 'Generate a navigable, frameset-based HTML test report') {
     doLast {
         def suiteFiles = fileTree('./runtime/logs/test-results') {
             include '*.xml'
             exclude 'TESTS-TestSuites.xml'
         }
-        // See createModernTestReport's matching comment: sort by parsed suite name, not filename.
+        // See createTestReport's matching comment: sort by parsed suite name, not filename.
         def suites = suiteFiles.collect { xmlFile -> parseSuiteXml(xmlFile) }
                 .sort { it.name?.toLowerCase() }
 
-        def outDir = file('./runtime/logs/test-results/modern-report-framed')
+        def outDir = file('./runtime/logs/test-results/html')
         if (outDir.exists()) {
             outDir.deleteDir()
         }
