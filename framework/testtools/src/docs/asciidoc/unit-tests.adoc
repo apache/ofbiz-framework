@@ -194,7 +194,9 @@ This error message will be in between starting and finished test cass line like 
 ----
 
 == Test result
-After you run unit test, you can see the result of the testing. +
-If you use run-tests target, you can see test result web page by view runtime/logs/test-results/html/index.html
-file in web browser and see JUnit Test Result files for each test suite in runtime/logs/test-results directory. +
-If you use other target you only see JUnit Test Result file in runtime/logs/test-results.
+After you run the tests, you can see the results in `runtime/logs/test-results`: +
+Open `runtime/logs/test-results/html/index.html` in a web browser for a navigable, multi-page
+report, or `runtime/logs/test-results/test-report.html` for the same results as a single
+portable file. +
+The raw JUnit Test Result XML file for each test suite is also available directly in
+`runtime/logs/test-results`.
