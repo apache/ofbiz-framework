@@ -253,9 +253,6 @@ subprojects {
 }
 
 configurations {
-    junitReport {
-        description = 'libraries needed to run junitreport for OFBiz unit tests'
-    }
     ofbizPlugins {
         description = 'ofbiz plugin dependencies configuration'
         transitive = true
@@ -280,9 +277,6 @@ dependencies {
         runtimeOnly project(path: subProject.path, configuration: 'pluginLibsRuntime')
         compileOnly project(path: subProject.path, configuration: 'pluginLibsCompileOnly')
     }
-
-    junitReport 'junit:junit:4.13.2'
-    junitReport 'org.apache.ant:ant-junit:1.10.15'
 
     // Libraries downloaded manually
     implementation fileTree(dir: file("${rootDir}/lib"), include: '**/*.jar')
@@ -925,7 +919,7 @@ task generateAllPluginsDocumentation(group: docsGroup,
 
 
 // ========== System Administration tasks ==========
-// createTestReports/createModernTestReport/createFramedTestReport moved to test-reports.gradle
+// createModernTestReport/createFramedTestReport moved to test-reports.gradle
 // (applied above) - kept out of this file since they're self-contained and sizable.
 
 task gitInfoFooter(group: sysadminGroup, description: 'Update the Git Branch-revision info in the footer if Git is used') {
@@ -1277,7 +1271,6 @@ def createOfbizCommandTask(taskName, arguments) {
             doFirst {
                 delete fileTree('./runtime/logs/test-results') { include '*.xml' }
             }
-            finalizedBy(createTestReports)
             finalizedBy(createModernTestReport)
             finalizedBy(createFramedTestReport)
         } else {

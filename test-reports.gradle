@@ -19,33 +19,11 @@
 import groovy.xml.MarkupBuilder
 import groovy.xml.XmlSlurper
 
-// createTestReports (classic Ant-based), createModernTestReport (single-page) and
-// createFramedTestReport (navigable multi-page) all turn the JUnit suite XML written to
-// runtime/logs/test-results into an HTML report - split out of build.gradle into its own file
-// since it's self-contained and sizable, applied below so it still runs as part of every Gradle
-// invocation exactly as if it were declared inline.
+// createModernTestReport (single-page) and createFramedTestReport (navigable multi-page)
+// turn the JUnit suite XML written to runtime/logs/test-results into an HTML report - split
+// out of build.gradle into its own file since it's self-contained and sizable, applied below
+// so it still runs as part of every Gradle invocation exactly as if it were declared inline.
 def sysadminGroup = 'System Administration'
-
-task createTestReports(group: sysadminGroup, description: 'Generate HTML reports from junit XML output') {
-    doLast {
-        ant.taskdef(name: 'junitreport',
-            classname: 'org.apache.tools.ant.taskdefs.optional.junit.XMLResultAggregator',
-            classpath: configurations.junitReport.asPath)
-        ant.junitreport(todir: './runtime/logs/test-results') {
-            fileset(dir: './runtime/logs/test-results') {
-                include(name: '*.xml')
-            }
-            report(format:'frames', todir:'./runtime/logs/test-results/html')
-            report(format:'noframes', todir:'./runtime/logs/test-results/html')
-        }
-        // Ant's stock junit-frames.xsl/junit-noframes.xsl label this column "Type", but it actually
-        // renders the failure/error message and stack trace, not the bare exception type - relabel
-        // it post-generation rather than vendoring and maintaining a forked copy of Ant's templates.
-        fileTree('./runtime/logs/test-results/html') {
-            include '**/*.html'
-        }.each { file -> file.text = file.text.replace('>Type</th>', '>Failure Reason</th>') }
-    }
-}
 
 def modernReportCss() {
     // Hand-rolled, not a real Bootstrap import: same default palette/spacing/component shapes.
