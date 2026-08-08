@@ -459,9 +459,21 @@ def filterControlsHtml() {
 </div>'''
 }
 
-def renderFramedSuitePage(Map suite) {
+def renderFramedSuiteStatusLinksHtml(boolean hasFailsPage, boolean hasErrorsPage, String slug) {
+    def links = []
+    if (hasFailsPage) {
+        links << "<a href=\"suite-${slug}-fails.html\">Failures only</a>"
+    }
+    if (hasErrorsPage) {
+        links << "<a href=\"suite-${slug}-errors.html\">Errors only</a>"
+    }
+    links ? "<p class=\"suite-status-links\">${links.join(' | ')}</p>" : ''
+}
+
+def renderFramedSuitePage(Map suite, boolean hasFailsPage, boolean hasErrorsPage) {
     def detail = buildSuiteDetailFragment(suite)
     def suiteNameHtml = escapeHtmlText(suite.name)
+    def statusLinks = renderFramedSuiteStatusLinksHtml(hasFailsPage, hasErrorsPage, suiteSlug(suite.name))
     """<!DOCTYPE html>
 <html>
 <head>
@@ -472,10 +484,35 @@ def renderFramedSuitePage(Map suite) {
 <body>
 <div class="navbar-report"><h1>${suiteNameHtml}</h1></div>
 <div class="container">
+${statusLinks}
 ${filterControlsHtml()}
 ${detail}
 </div>
 <script src="junit-report.js"></script>
+</body>
+</html>
+"""
+}
+
+def renderFramedSuiteStatusPage(Map suite, String status, String statusLabel) {
+    // Per-suite equivalent of renderFramedStatusPage, generated only when the suite actually has
+    // a test in that status - mirrors the old Ant report's per-class -fails/-errors pages, which
+    // only existed for classes with a failure/error.
+    def filteredSuite = suite + [testcases: suite.testcases.findAll { it.status == status }]
+    def detail = buildSuiteDetailFragment(filteredSuite)
+    def suiteNameHtml = escapeHtmlText(suite.name)
+    """<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Apache OFBiz Test Report: ${suiteNameHtml} - ${statusLabel}</title>
+<link rel="stylesheet" href="junit-report.css">
+</head>
+<body>
+<div class="navbar-report"><h1>${suiteNameHtml} - ${statusLabel}</h1></div>
+<div class="container">
+${detail}
+</div>
 </body>
 </html>
 """
@@ -572,7 +609,18 @@ def buildFramedReportFiles(List suites) {
             'all-tests-errors.html': renderFramedStatusPage('error', 'All Errors', suites),
             'all-tests-skipped.html': renderFramedStatusPage('skipped', 'All Skipped', suites)
     ]
-    suites.each { s -> files["suite-${suiteSlug(s.name)}.html"] = renderFramedSuitePage(s) }
+    suites.each { s ->
+        def slug = suiteSlug(s.name)
+        def hasFails = !s.parseError && s.testcases.any { it.status == 'fail' }
+        def hasErrors = !s.parseError && s.testcases.any { it.status == 'error' }
+        files["suite-${slug}.html"] = renderFramedSuitePage(s, hasFails, hasErrors)
+        if (hasFails) {
+            files["suite-${slug}-fails.html"] = renderFramedSuiteStatusPage(s, 'fail', 'Failures')
+        }
+        if (hasErrors) {
+            files["suite-${slug}-errors.html"] = renderFramedSuiteStatusPage(s, 'error', 'Errors')
+        }
+    }
     files
 }
 
