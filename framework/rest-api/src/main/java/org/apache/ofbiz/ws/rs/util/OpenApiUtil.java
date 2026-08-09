@@ -476,7 +476,7 @@ public final class OpenApiUtil {
                     continue;
                 }
                 try {
-                    schema = (Schema<?>) schemaClass.newInstance();
+                    schema = (Schema<?>) schemaClass.getDeclaredConstructor().newInstance();
                     if (schema instanceof ArraySchema) {
                         ParameterizedType genericType = (ParameterizedType) field.getGenericType();
                         Class<? extends Type> genericClass = (Class<? extends Type>) genericType.getActualTypeArguments()[0];
@@ -486,19 +486,20 @@ public final class OpenApiUtil {
                         if (listSchemaClass == null || isTypeDomainModel(genericClass.getName())) {
                             arrSch.setItems(getSchemaForModel(genericClass.getName()));
                         } else {
-                            listSchema = (Schema<?>) listSchemaClass.newInstance();
+                            listSchema = (Schema<?>) listSchemaClass.getDeclaredConstructor().newInstance();
                             arrSch.setItems(listSchema);
                         }
-                        dataSchema.addProperties(fieldNm, arrSch);
+                        dataSchema.addProperty(fieldNm, arrSch);
                     } else if (schema instanceof MapSchema) {
                         if (isTypeDomainModel(fieldType.getName())) {
                             schema = getSchemaForModel(fieldType.getName());
-                            dataSchema.addProperties(fieldNm, schema);
+                            dataSchema.addProperty(fieldNm, schema);
                         }
                     } else {
-                        dataSchema.addProperties(fieldNm, schema.description(fieldNm));
+                        dataSchema.addProperty(fieldNm, schema.description(fieldNm));
                     }
-                } catch (InstantiationException | IllegalAccessException e) {
+                } catch (InstantiationException | IllegalAccessException | NoSuchMethodException
+                        | InvocationTargetException e) {
                     e.printStackTrace();
                 }
             }
