@@ -1,0 +1,222 @@
+# Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+
+[versions]
+metadata-extractor = "2.20.0"
+caffeine = "3.2.4"
+guava = "33.6.0-jre"
+zxing-core = "3.5.4"
+concurrentlinkedhashmap-lru = "1.4.2"
+ez-vcard = "0.12.2"
+owasp-java-html-sanitizer = "20240325.1"
+libphonenumber = "8.13.55"
+icu4j = "76.1"
+# This is the last version with com.lowagie.text that is used (only) by PdfSurveyServices class.
+openpdf = "1.4.2"
+jakarta-mail-api = "2.1.5"
+angus-mail = "2.0.5"
+rome = "2.1.0"
+xstream = "1.4.21"
+commons-cli = "1.11.0"
+commons-net = "3.13.0"
+commons-validator = "1.10.1"
+javax-activation = "1.1.1"
+javax-transaction-api = "1.3"
+ical4j = "1.0-rc4-atlassian-12"
+zip4j = "2.11.6"
+activiti-juel-jakarta = "8.1.0"
+ant-junit = "1.10.17"
+commons-collections4 = "4.5.0"
+commons-csv = "1.14.1"
+commons-dbcp2 = "2.14.0"
+commons-fileupload2-jakarta = "2.0.0-M1"
+# Alpha but OK, "Imaging was working and was used by a number of projects in production even before
+# reaching its initial release as an Apache Commons component." Since 1.0.0-alpha4 (note the use of
+# semver) the API has changed. Better wait an "official release" to rewrite OFBiz code...
+commons-imaging = "1.0-alpha3"
+commons-text = "1.15.0"
+# 4.0.0 does not compile
+geronimo-transaction = "3.1.5"
+geronimo-jms-spec = "1.1.1"
+httpclient-cache = "4.5.14"
+# Shared by log4j-api, log4j-core, log4j-layout-template-json, log4j-legacy-api, log4j-jul,
+# log4j-slf4j2-impl, log4j-web, log4j-jcl.
+log4j = "2.25.4"
+poi = "5.5.1"
+pdfbox = "3.0.7"
+# Got "Exception in thread "main" java.lang.UnsupportedOperationException: Cannot create a hash with
+# the given algorithm: argon2" with 2.0.2 in integration tests
+shiro-core = "1.13.0"
+shiro-crypto-cipher = "2.1.0"
+# Shared by sshd-core, sshd-sftp.
+sshd = "2.17.1"
+# Shared by tika-core, tika-parsers, tika-parser-pdf-module.
+tika = "3.3.1"
+cxf-rt-frontend-jaxrs = "4.2.0"
+# Remember to change the version number (10 now) in javadoc block if needed. Shared by
+# tomcat-catalina-ha, tomcat-jasper.
+tomcat = "10.1.56"
+# Shared by axis2-kernel, axis2-transport-http, axis2-transport-local.
+axis2 = "1.8.2"
+# Shared by batik-anim, batik-util, batik-bridge.
+batik = "1.19"
+fop = "2.11"
+clojure = "1.12.4"
+groovy-all = "5.0.5"
+# Remember to change the version number in FreeMarkerWorker class when upgrading. See OFBIZ-10019 if >= 2.4
+freemarker = "2.3.34"
+esapi = "2.7.0.0"
+# Shared by spring-test, spring-web.
+spring = "6.2.18"
+jackson-databind = "2.21.3"
+# Shared by jersey-container-servlet, jersey-hk2, jersey-media-multipart, jersey-media-json-jackson.
+jersey = "3.1.11"
+# Shared by swagger-jaxrs2-core, swagger-jaxrs2-servlet-initializer, swagger-annotations.
+swagger = "2.2.50"
+oro = "2.0.8"
+wsdl4j = "1.6.3"
+java-jwt = "4.5.2"
+jwks-rsa = "0.24.0"
+jdom2 = "2.0.6.1"
+re2j = "1.8"
+xerces-impl = "2.12.2"
+mustangproject-library = "2.24.0"
+# Shared by junit-jupiter-api, junit-platform-launcher, junit-jupiter-engine, junit-jupiter-params.
+junit = "6.1.0"
+hamcrest-library = "2.2"
+mockito-core = "5.23.0"
+javax-xml-soap-api = "1.4.0"
+# Shared by barcode4j-core, barcode4j-fop-ext. Not bundled: no bundle was agreed for this pair.
+barcode4j = "2.1"
+avalon-framework-impl = "4.3.1"
+h2 = "2.4.240"
+geronimo-jaxrpc-spec = "2.1"
+# Specify last codenarc version for java 17 compliance.
+codenarc = "3.7.0-groovy-4.0"
+# CVE-2024-21742
+apache-mime4j-core = "0.8.14"
+# CVE-2024-29857, CVE-2024-30171, CVE-2024-30172, CVE-2024-34447
+bcprov-jdk18on = "1.84"
+# CVE-2022-4065
+testng = "7.12.0"
+
+[libraries]
+metadata-extractor = { module = "com.drewnoakes:metadata-extractor", version.ref = "metadata-extractor" }
+caffeine = { module = "com.github.ben-manes.caffeine:caffeine", version.ref = "caffeine" }
+guava = { module = "com.google.guava:guava", version.ref = "guava" }
+zxing-core = { module = "com.google.zxing:core", version.ref = "zxing-core" }
+concurrentlinkedhashmap-lru = { module = "com.googlecode.concurrentlinkedhashmap:concurrentlinkedhashmap-lru", version.ref = "concurrentlinkedhashmap-lru" }
+ez-vcard = { module = "com.googlecode.ez-vcard:ez-vcard", version.ref = "ez-vcard" }
+owasp-java-html-sanitizer = { module = "com.googlecode.owasp-java-html-sanitizer:owasp-java-html-sanitizer", version.ref = "owasp-java-html-sanitizer" }
+libphonenumber = { module = "com.googlecode.libphonenumber:libphonenumber", version.ref = "libphonenumber" }
+icu4j = { module = "com.ibm.icu:icu4j", version.ref = "icu4j" }
+openpdf = { module = "com.github.librepdf:openpdf", version.ref = "openpdf" }
+jakarta-mail-api = { module = "jakarta.mail:jakarta.mail-api", version.ref = "jakarta-mail-api" }
+angus-mail = { module = "org.eclipse.angus:angus-mail", version.ref = "angus-mail" }
+rome = { module = "com.rometools:rome", version.ref = "rome" }
+xstream = { module = "com.thoughtworks.xstream:xstream", version.ref = "xstream" }
+commons-cli = { module = "commons-cli:commons-cli", version.ref = "commons-cli" }
+commons-net = { module = "commons-net:commons-net", version.ref = "commons-net" }
+commons-validator = { module = "commons-validator:commons-validator", version.ref = "commons-validator" }
+javax-activation = { module = "javax.activation:activation", version.ref = "javax-activation" }
+javax-transaction-api = { module = "javax.transaction:javax.transaction-api", version.ref = "javax-transaction-api" }
+ical4j = { module = "net.fortuna.ical4j:ical4j", version.ref = "ical4j" }
+zip4j = { module = "net.lingala.zip4j:zip4j", version.ref = "zip4j" }
+activiti-juel-jakarta = { module = "org.activiti:activiti-juel-jakarta", version.ref = "activiti-juel-jakarta" }
+ant-junit = { module = "org.apache.ant:ant-junit", version.ref = "ant-junit" }
+commons-collections4 = { module = "org.apache.commons:commons-collections4", version.ref = "commons-collections4" }
+commons-csv = { module = "org.apache.commons:commons-csv", version.ref = "commons-csv" }
+commons-dbcp2 = { module = "org.apache.commons:commons-dbcp2", version.ref = "commons-dbcp2" }
+commons-fileupload2-jakarta = { module = "org.apache.commons:commons-fileupload2-jakarta", version.ref = "commons-fileupload2-jakarta" }
+commons-imaging = { module = "org.apache.commons:commons-imaging", version.ref = "commons-imaging" }
+commons-text = { module = "org.apache.commons:commons-text", version.ref = "commons-text" }
+geronimo-transaction = { module = "org.apache.geronimo.components:geronimo-transaction", version.ref = "geronimo-transaction" }
+geronimo-jms-spec = { module = "org.apache.geronimo.specs:geronimo-jms_1.1_spec", version.ref = "geronimo-jms-spec" }
+httpclient-cache = { module = "org.apache.httpcomponents:httpclient-cache", version.ref = "httpclient-cache" }
+log4j-api = { module = "org.apache.logging.log4j:log4j-api", version.ref = "log4j" }
+log4j-core = { module = "org.apache.logging.log4j:log4j-core", version.ref = "log4j" }
+log4j-layout-template-json = { module = "org.apache.logging.log4j:log4j-layout-template-json", version.ref = "log4j" }
+poi = { module = "org.apache.poi:poi", version.ref = "poi" }
+pdfbox-core = { module = "org.apache.pdfbox:pdfbox", version.ref = "pdfbox" }
+pdfbox-io = { module = "org.apache.pdfbox:pdfbox-io", version.ref = "pdfbox" }
+shiro-core = { module = "org.apache.shiro:shiro-core", version.ref = "shiro-core" }
+shiro-crypto-cipher = { module = "org.apache.shiro:shiro-crypto-cipher", version.ref = "shiro-crypto-cipher" }
+sshd-core = { module = "org.apache.sshd:sshd-core", version.ref = "sshd" }
+sshd-sftp = { module = "org.apache.sshd:sshd-sftp", version.ref = "sshd" }
+tika-core = { module = "org.apache.tika:tika-core", version.ref = "tika" }
+tika-parsers = { module = "org.apache.tika:tika-parsers", version.ref = "tika" }
+tika-parser-pdf-module = { module = "org.apache.tika:tika-parser-pdf-module", version.ref = "tika" }
+cxf-rt-frontend-jaxrs = { module = "org.apache.cxf:cxf-rt-frontend-jaxrs", version.ref = "cxf-rt-frontend-jaxrs" }
+tomcat-catalina-ha = { module = "org.apache.tomcat:tomcat-catalina-ha", version.ref = "tomcat" }
+tomcat-jasper = { module = "org.apache.tomcat:tomcat-jasper", version.ref = "tomcat" }
+axis2-kernel = { module = "org.apache.axis2:axis2-kernel", version.ref = "axis2" }
+batik-anim = { module = "org.apache.xmlgraphics:batik-anim", version.ref = "batik" }
+batik-util = { module = "org.apache.xmlgraphics:batik-util", version.ref = "batik" }
+batik-bridge = { module = "org.apache.xmlgraphics:batik-bridge", version.ref = "batik" }
+fop = { module = "org.apache.xmlgraphics:fop", version.ref = "fop" }
+clojure = { module = "org.clojure:clojure", version.ref = "clojure" }
+groovy-all = { module = "org.apache.groovy:groovy-all", version.ref = "groovy-all" }
+freemarker = { module = "org.freemarker:freemarker", version.ref = "freemarker" }
+esapi = { module = "org.owasp.esapi:esapi", version.ref = "esapi" }
+spring-test = { module = "org.springframework:spring-test", version.ref = "spring" }
+spring-web = { module = "org.springframework:spring-web", version.ref = "spring" }
+jackson-databind = { module = "com.fasterxml.jackson.core:jackson-databind", version.ref = "jackson-databind" }
+jersey-container-servlet = { module = "org.glassfish.jersey.containers:jersey-container-servlet", version.ref = "jersey" }
+jersey-hk2 = { module = "org.glassfish.jersey.inject:jersey-hk2", version.ref = "jersey" }
+jersey-media-multipart = { module = "org.glassfish.jersey.media:jersey-media-multipart", version.ref = "jersey" }
+jersey-media-json-jackson = { module = "org.glassfish.jersey.media:jersey-media-json-jackson", version.ref = "jersey" }
+swagger-jaxrs2-core = { module = "io.swagger.core.v3:swagger-jaxrs2", version.ref = "swagger" }
+swagger-jaxrs2-servlet-initializer = { module = "io.swagger.core.v3:swagger-jaxrs2-servlet-initializer", version.ref = "swagger" }
+swagger-annotations = { module = "io.swagger.core.v3:swagger-annotations", version.ref = "swagger" }
+oro = { module = "oro:oro", version.ref = "oro" }
+wsdl4j = { module = "wsdl4j:wsdl4j", version.ref = "wsdl4j" }
+java-jwt = { module = "com.auth0:java-jwt", version.ref = "java-jwt" }
+jwks-rsa = { module = "com.auth0:jwks-rsa", version.ref = "jwks-rsa" }
+jdom2 = { module = "org.jdom:jdom2", version.ref = "jdom2" }
+re2j = { module = "com.google.re2j:re2j", version.ref = "re2j" }
+xerces-impl = { module = "xerces:xercesImpl", version.ref = "xerces-impl" }
+mustangproject-library = { module = "org.mustangproject:library", version.ref = "mustangproject-library" }
+junit-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit" }
+junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher", version.ref = "junit" }
+junit-jupiter-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junit" }
+junit-jupiter-params = { module = "org.junit.jupiter:junit-jupiter-params", version.ref = "junit" }
+hamcrest-library = { module = "org.hamcrest:hamcrest-library", version.ref = "hamcrest-library" }
+mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockito-core" }
+javax-xml-soap-api = { module = "javax.xml.soap:javax.xml.soap-api", version.ref = "javax-xml-soap-api" }
+barcode4j-core = { module = "net.sf.barcode4j:barcode4j", version.ref = "barcode4j" }
+barcode4j-fop-ext = { module = "net.sf.barcode4j:barcode4j-fop-ext", version.ref = "barcode4j" }
+avalon-framework-impl = { module = "org.apache.avalon.framework:avalon-framework-impl", version.ref = "avalon-framework-impl" }
+axis2-transport-http = { module = "org.apache.axis2:axis2-transport-http", version.ref = "axis2" }
+axis2-transport-local = { module = "org.apache.axis2:axis2-transport-local", version.ref = "axis2" }
+h2 = { module = "com.h2database:h2", version.ref = "h2" }
+geronimo-jaxrpc-spec = { module = "org.apache.geronimo.specs:geronimo-jaxrpc_1.1_spec", version.ref = "geronimo-jaxrpc-spec" }
+log4j-legacy-api = { module = "org.apache.logging.log4j:log4j-1.2-api", version.ref = "log4j" }
+log4j-jul = { module = "org.apache.logging.log4j:log4j-jul", version.ref = "log4j" }
+log4j-slf4j2-impl = { module = "org.apache.logging.log4j:log4j-slf4j2-impl", version.ref = "log4j" }
+log4j-web = { module = "org.apache.logging.log4j:log4j-web", version.ref = "log4j" }
+log4j-jcl = { module = "org.apache.logging.log4j:log4j-jcl", version.ref = "log4j" }
+codenarc = { module = "org.codenarc:CodeNarc", version.ref = "codenarc" }
+apache-mime4j-core = { module = "org.apache.james:apache-mime4j-core", version.ref = "apache-mime4j-core" }
+bcprov-jdk18on = { module = "org.bouncycastle:bcprov-jdk18on", version.ref = "bcprov-jdk18on" }
+testng = { module = "org.testng:testng", version.ref = "testng" }
+
+[bundles]
+jersey = ["jersey-container-servlet", "jersey-hk2", "jersey-media-multipart", "jersey-media-json-jackson"]
+swagger = ["swagger-jaxrs2-core", "swagger-jaxrs2-servlet-initializer", "swagger-annotations"]
+batik = ["batik-anim", "batik-util", "batik-bridge"]
+tika = ["tika-core", "tika-parsers", "tika-parser-pdf-module"]
+pdfbox = ["pdfbox-core", "pdfbox-io"]
