@@ -67,6 +67,81 @@ POST /rest/exampleApi/createRestOrderExample HTTP/1.1
 Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJ1c2VyTG9naW5JZCI6ImFkbWluIiwiaXNzIjoiQXBhY2hlT0ZCaXoiLCJleHAiOjE1OTY3MDk4MjAsImlhdCI6MTU5NjcwODAyMH0.9Hj4pkkeQowAMxPLrI_To0WTohxxgVR6FoViyx5HoboTACQZ4iqDyqiIBodkuCVsZwOTPT1RSAQJ0L_oSVMqBA
 ----
 
+== Example
+
+* Call OFBiz service via GET
+
+
+[source, json]
+----
+GET /rest/example-product/product?inParams=%7B%22idToFind%22:%22GZ-1001%22%7D HTTP/1.1 +
+Content-Type: application/json +
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJBcGFjaGVPRkJpeiIsImlhdCI6MTU0NzczOTM0OCwiZXhwIjoxNjc5Mjc1MzQ4LCJhdWQiOiJ3d3cuZXhhbXBsZS5jb20iLCJzdWIiOiJqcm9ja2V0QGV4YW1wbGUuY29tIiwiR2l2ZW5OYW1lIjoiSm9obm55IiwiU3VybmFtZSI6IlJvY2tldCIsIkVtYWlsIjoianJvY2tldEBleGFtcGxlLmNvbSIsInVzZXJMb2dpbklkIjoiYWRtaW4iLCJSb2xlIjpbIk1hbmFnZXIiLCJQcm9qZWN0IEFkbWluaXN0cmF0b3IiXX0.fwafgrgpodBJcXxNTQdZknKeWKb3sDOsQrcR2vcRw97FznD6mkE79p10Tu7cqpUx7LiXuROUAnXEgqDice-BSg
+----
+
+Response :
+[source, json]
+----
+{
+  "statusCode" : 200,
+  "statusDescription" : "OK",
+  "data" : {
+    "product" : {
+      "createdStamp" : "2020-06-11T15:29:58.182+0000",
+      "productName" : "Nan Gizmo",
+      "createdByUserLogin" : "admin",
+      "productId" : "GZ-1001",
+      "taxable" : "Y",
+      "primaryProductCategoryId" : "101",
+      "createdTxStamp" : "2020-06-11T15:29:57.523+0000",
+      "lastUpdatedTxStamp" : "2020-06-11T15:29:57.523+0000",
+      "isVirtual" : "N",
+      "autoCreateKeywords" : "Y",
+      "description" : "Indian style Nan gizmo",
+      "chargeShipping" : "Y",
+      "internalName" : "Nan Gizmo",
+      "lastModifiedByUserLogin" : "admin",
+      "lastUpdatedStamp" : "2020-06-11T15:29:58.182+0000",
+      "lastModifiedDate" : "2001-05-13T06:30:00.000+0000",
+      "productTypeId" : "FINISHED_GOOD",
+      "createdDate" : "2001-05-13T06:30:00.000+0000",
+      "isVariant" : "N"
+    }
+  }
+}
+----
+
+* Call OFBiz Service via POST +
+[source, json]
+----
+POST rest/exampleApi/createRestOrderExample HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJBcGFjaGVPRkJpeiIsImlhdCI6MTU0NzczOTM0OCwiZXhwIjoxNjc5Mjc1MzQ4LCJhdWQiOiJ3d3cuZXhhbXBsZS5jb20iLCJzdWIiOiJqcm9ja2V0QGV4YW1wbGUuY29tIiwiR2l2ZW5OYW1lIjoiSm9obm55IiwiU3VybmFtZSI6IlJvY2tldCIsIkVtYWlsIjoianJvY2tldEBleGFtcGxlLmNvbSIsInVzZXJMb2dpbklkIjoiYWRtaW4iLCJSb2xlIjpbIk1hbmFnZXIiLCJQcm9qZWN0IEFkbWluaXN0cmF0b3IiXX0.fwafgrgpodBJcXxNTQdZknKeWKb3sDOsQrcR2vcRw97FznD6mkE79p10Tu7cqpUx7LiXuROUAnXEgqDice-BSg
+{
+  "Order": {
+    "customerName": "customer",
+    "items": [
+      {
+        "productId": "10001",
+        "quantity": 1
+      }
+    ]
+  }
+}
+----
+
+Response +
+[source, json]
+----
+{
+  "statusCode" : 200,
+  "statusDescription" : "OK",
+  "data" : {
+    "orderId" : "12345"
+  }
+}
+----
+
 == Refresh Token Mechanism
 
 The authentication system now supports a refresh token mechanism.
