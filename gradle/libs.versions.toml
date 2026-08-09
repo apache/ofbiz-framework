@@ -55,7 +55,7 @@ geronimo-jms-spec = "1.1.1"
 httpclient-cache = "4.5.14"
 # Shared by log4j-api, log4j-core, log4j-layout-template-json, log4j-legacy-api, log4j-jul,
 # log4j-slf4j2-impl, log4j-web, log4j-jcl.
-log4j = "2.25.4"
+log4j = "2.26.1"
 poi = "5.5.1"
 pdfbox = "3.0.8"
 # Got "Exception in thread "main" java.lang.UnsupportedOperationException: Cannot create a hash with
