@@ -200,3 +200,13 @@ Map resolvePartyProcessMap() {
     }
     return resultMap
 }
+
+Map createPartyLeadFromVCard() {
+    return (run service: 'createPartyFromVCard', with: [*: parameters,
+                                                        serviceName: 'createLead'])
+}
+
+Map createPartyContactFromVCard() {
+    return (run service: 'createPartyFromVCard', with: [*: parameters,
+                                                        serviceName: 'createContact'])
+}
