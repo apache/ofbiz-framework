@@ -30,6 +30,15 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.security.GeneralSecurityException;
+import java.security.KeyFactory;
+import java.security.PrivateKey;
+import java.security.PublicKey;
+import java.security.interfaces.RSAPrivateCrtKey;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.PKCS8EncodedKeySpec;
+import java.security.spec.RSAPublicKeySpec;
+import java.util.Base64;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
@@ -65,7 +74,9 @@ import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.collections.MapStack;
 import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
 import org.apache.ofbiz.entity.Delegator;
+import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
+import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.GenericServiceException;
@@ -78,6 +89,11 @@ import org.apache.ofbiz.widget.renderer.ScreenRenderer;
 import org.apache.ofbiz.widget.renderer.ScreenStringRenderer;
 import org.apache.ofbiz.widget.renderer.VisualTheme;
 import org.apache.ofbiz.widget.renderer.macro.MacroScreenRenderer;
+import org.simplejavamail.utils.mail.dkim.Canonicalization;
+import org.simplejavamail.utils.mail.dkim.DkimMessage;
+import org.simplejavamail.utils.mail.dkim.DkimSigner;
+import org.simplejavamail.utils.mail.dkim.DkimSigningException;
+import org.simplejavamail.utils.mail.dkim.SigningAlgorithm;
 import org.xml.sax.SAXException;
 
 import org.eclipse.angus.mail.smtp.SMTPAddressFailedException;
@@ -359,10 +375,16 @@ public class EmailServices {
             } else {
                 trans.connect(sendVia, authUser, effectiveAuthPass);
             }
-            trans.sendMessage(mail, mail.getAllRecipients());
+            MimeMessage messageToSend = dkimSign(mail, delegator);
+            trans.sendMessage(messageToSend, messageToSend.getAllRecipients());
             results.put("messageWrapper", new MimeMessageWrapper(session, mail));
             results.put("messageId", mail.getMessageID());
             trans.close();
+        } catch (DkimSigningException e) {
+            Debug.logError(e, "DKIM signing failed at write-time for [" + sendTo + "] from [" + sendFrom
+                    + "] subject [" + subject + "]; message NOT sent (not an SMTP connection problem)", MODULE);
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonEmailSendConnectionError", UtilMisc.toMap("sendTo",
+                    sendTo, "sendFrom", sendFrom, "sendCc", sendCc, "sendBcc", sendBcc, "subject", subject), locale));
         } catch (SendFailedException e) {
             // message code prefix may be used by calling services to determine the cause of the failure
             Debug.logError(e, "[ADDRERR] Address error when sending message to [" + sendTo + "] from [" + sendFrom + "] cc [" + sendCc
@@ -735,6 +757,104 @@ public class EmailServices {
             dctx.getDispatcher().runSync("sendMailMultiPart", newContext);
         } catch (GenericServiceException e) {
             Debug.logError(e, MODULE);
+        }
+    }
+
+    /**
+     * Parses a PKCS#8 PEM RSA private key into an RSAPrivateCrtKey. Always throws
+     * GeneralSecurityException (never unchecked), since callers narrow their catch to it.
+     */
+    static RSAPrivateCrtKey parsePemRsaPrivateKey(String pem) throws GeneralSecurityException {
+        String base64 = pem.replaceAll("-----BEGIN [A-Z ]+-----", "")
+                .replaceAll("-----END [A-Z ]+-----", "")
+                .replaceAll("\\s", "");
+        byte[] der;
+        try {
+            der = Base64.getDecoder().decode(base64);
+        } catch (IllegalArgumentException e) {
+            throw new InvalidKeySpecException("MailDkimConfig privateKey is not valid PEM/base64: " + e.getMessage());
+        }
+        PrivateKey key = KeyFactory.getInstance("RSA").generatePrivate(new PKCS8EncodedKeySpec(der));
+        if (!(key instanceof RSAPrivateCrtKey)) {
+            throw new InvalidKeySpecException("MailDkimConfig privateKey is not a PKCS#8 RSA private key");
+        }
+        return (RSAPrivateCrtKey) key;
+    }
+
+    /** Signs mail with DKIM if MailDkimConfig is enabled and complete; otherwise returns it unchanged. Fails open on any error. */
+    static MimeMessage dkimSign(MimeMessage mail, Delegator delegator) {
+        GenericValue config;
+        try {
+            config = EntityQuery.use(delegator).from("MailDkimConfig").cache(true)
+                    .orderBy("mailDkimConfigId").queryFirst();
+        } catch (GenericEntityException e) {
+            Debug.logWarning(e, "Error loading MailDkimConfig; sending unsigned", MODULE);
+            return mail;
+        }
+        if (config == null || !"Y".equals(config.getString("enabled"))) {
+            return mail;
+        }
+        String domain = config.getString("domain");
+        String selector = config.getString("selector");
+        String privateKeyPem = config.getString("privateKey");
+        if (UtilValidate.isEmpty(domain) || UtilValidate.isEmpty(selector) || UtilValidate.isEmpty(privateKeyPem)) {
+            Debug.logError("MailDkimConfig [" + config.getString("mailDkimConfigId")
+                    + "] is enabled but missing domain/selector/privateKey; sending unsigned", MODULE);
+            return mail;
+        }
+        try {
+            RSAPrivateCrtKey privateKey = parsePemRsaPrivateKey(privateKeyPem);
+            DkimSigner signer = new DkimSigner(domain, selector, privateKey);
+            signer.setHeaderCanonicalization(Canonicalization.RELAXED);
+            signer.setBodyCanonicalization(Canonicalization.RELAXED);
+            signer.setSigningAlgorithm(SigningAlgorithm.SHA256_WITH_RSA);
+            // l= tag omitted (library default): would let an attacker append unsigned content after
+            // the signed body. checkDomainKey disabled: avoids a live DNS lookup on every send --
+            // that's the receiver's job, not ours; see getDkimDnsRecord for setup-time verification.
+            signer.setCheckDomainKey(false);
+            return new DkimMessage(mail, signer);
+        } catch (Exception e) {
+            Debug.logError(e, "DKIM signing failed; sending unsigned", MODULE);
+            return mail;
+        }
+    }
+
+    /** Derives the "v=DKIM1; k=rsa; p=..." TXT record value from an RSA private key's CRT parameters. */
+    static String derivePublicKeyRecordValue(RSAPrivateCrtKey privateKey) throws GeneralSecurityException {
+        RSAPublicKeySpec publicSpec = new RSAPublicKeySpec(privateKey.getModulus(), privateKey.getPublicExponent());
+        PublicKey publicKey = KeyFactory.getInstance("RSA").generatePublic(publicSpec);
+        return "v=DKIM1; k=rsa; p=" + Base64.getEncoder().encodeToString(publicKey.getEncoded());
+    }
+
+    /** Derives the DNS TXT record an admin needs to publish for a MailDkimConfig's signing key. */
+    public static Map<String, Object> getDkimDnsRecord(DispatchContext ctx, Map<String, ?> context) {
+        Delegator delegator = ctx.getDelegator();
+        String mailDkimConfigId = (String) context.get("mailDkimConfigId");
+        GenericValue config;
+        try {
+            config = EntityQuery.use(delegator).from("MailDkimConfig").where("mailDkimConfigId", mailDkimConfigId)
+                    .cache(true).queryOne();
+        } catch (GenericEntityException e) {
+            return ServiceUtil.returnError(e.getMessage());
+        }
+        if (config == null) {
+            return ServiceUtil.returnError("No MailDkimConfig found for ID [" + mailDkimConfigId + "]");
+        }
+        String domain = config.getString("domain");
+        String selector = config.getString("selector");
+        String privateKeyPem = config.getString("privateKey");
+        if (UtilValidate.isEmpty(domain) || UtilValidate.isEmpty(selector) || UtilValidate.isEmpty(privateKeyPem)) {
+            return ServiceUtil.returnError("MailDkimConfig [" + mailDkimConfigId + "] is missing domain/selector/privateKey");
+        }
+        try {
+            RSAPrivateCrtKey privateKey = parsePemRsaPrivateKey(privateKeyPem);
+            Map<String, Object> result = ServiceUtil.returnSuccess();
+            result.put("recordName", selector + "._domainkey." + domain);
+            result.put("recordValue", derivePublicKeyRecordValue(privateKey));
+            return result;
+        } catch (GeneralSecurityException e) {
+            return ServiceUtil.returnError("Could not parse MailDkimConfig [" + mailDkimConfigId
+                    + "] private key: " + e.getMessage());
         }
     }
 

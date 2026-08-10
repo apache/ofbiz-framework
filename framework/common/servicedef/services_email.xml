@@ -187,4 +187,12 @@ under the License.
         <description>Delete a EmailTemplateSetting record</description>
         <auto-attributes include="pk" mode="IN"/>
     </service>
+    <service name="getDkimDnsRecord" engine="java" auth="true"
+            location="org.apache.ofbiz.common.email.EmailServices" invoke="getDkimDnsRecord">
+        <description>Derives the DNS TXT record (name and value) to publish for a MailDkimConfig's
+            signing key, so admins can verify/copy it without hand-computing the DKIM public key.</description>
+        <attribute name="mailDkimConfigId" type="String" mode="IN" optional="false"/>
+        <attribute name="recordName" type="String" mode="OUT" optional="false"/>
+        <attribute name="recordValue" type="String" mode="OUT" optional="false"/>
+    </service>
 </services>

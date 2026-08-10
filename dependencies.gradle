@@ -29,6 +29,7 @@ dependencies {
     implementation libs.openpdf
     implementation libs.jakarta.mail.api
     implementation libs.angus.mail
+    implementation libs.utils.mail.dkim
     implementation libs.rome
     implementation libs.xstream
     implementation libs.commons.cli
