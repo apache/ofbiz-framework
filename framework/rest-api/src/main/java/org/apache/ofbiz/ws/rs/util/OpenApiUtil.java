@@ -18,7 +18,12 @@
  *******************************************************************************/
 package org.apache.ofbiz.ws.rs.util;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,6 +40,7 @@ import org.apache.ofbiz.webapp.WebAppUtil;
 import org.apache.ofbiz.ws.rs.common.AuthenticationScheme;
 import org.apache.ofbiz.ws.rs.core.ResponseStatus;
 import org.apache.ofbiz.ws.rs.listener.ApiContextListener;
+import org.apache.ofbiz.ws.rs.model.ModelOperation;
 
 import io.swagger.v3.oas.models.headers.Header;
 import io.swagger.v3.oas.models.media.ArraySchema;
@@ -59,11 +65,19 @@ public final class OpenApiUtil {
 
     }
 
+    private static final Map<String, String> LIST_TYPE_MAP = new HashMap<>();
     private static final Map<String, String> CLASS_ALIAS = new HashMap<>();
     private static final Map<String, Class<?>> JAVA_OPEN_API_MAP = new HashMap<>();
-    private static final Map<String, String> FIELD_TYPE_MAP = new HashMap<String, String>();
+    private static final Map<String, String> FIELD_TYPE_MAP = new HashMap<>();
     private static final Map<String, ApiResponse> RESPONSES = new HashMap<>();
     private static final Map<String, Schema<?>> SCHEMAS = new HashMap<>();
+    private static final Map<String, ApiResponse> CUSTOM_RESPONSES = new HashMap<>();
+    private static final Schema<?> GENERIC_ERROR_SCHEMA = new MapSchema()
+            .addProperty("statusCode", new IntegerSchema().description("HTTP Status Code"))
+            .addProperty("statusDescription", new StringSchema().description("HTTP Status Code Description"))
+            .addProperty("errorType", new StringSchema().description("Error Type for the error"))
+            .addProperty("errorMessage", new StringSchema().description("Error Message"));
+
 
     static {
         CLASS_ALIAS.put("String", "String");
@@ -155,21 +169,45 @@ public final class OpenApiUtil {
 
         buildApiResponseSchemas();
         buildApiResponses();
+        builCustomApiResponses();
     }
 
     private static void buildApiResponseSchemas() {
-        Schema<?> genericErrorSchema = new MapSchema();
-        genericErrorSchema.addProperty("statusCode", new IntegerSchema().description("HTTP Status Code"));
+        SCHEMAS.put("api.response.unauthorized.noheader", GENERIC_ERROR_SCHEMA);
+        SCHEMAS.put("api.response.unauthorized.invalidtoken", GENERIC_ERROR_SCHEMA);
+        SCHEMAS.put("api.response.forbidden", GENERIC_ERROR_SCHEMA);
+        SCHEMAS.put("api.response.service.badrequest", GENERIC_ERROR_SCHEMA);
+        SCHEMAS.put("api.response.service.unprocessableentity", GENERIC_ERROR_SCHEMA);
+        SCHEMAS.put("api.response.service.methodnotallowed", GENERIC_ERROR_SCHEMA);
+    }
 
-        genericErrorSchema.addProperty("statusDescription", new StringSchema().description("HTTP Status Code Description"));
-        genericErrorSchema.addProperty("errorType", new StringSchema().description("Error Type for the error"));
-        genericErrorSchema.addProperty("errorMessage", new StringSchema().description("Error Message"));
-        SCHEMAS.put("api.response.unauthorized.noheader", genericErrorSchema);
-        SCHEMAS.put("api.response.unauthorized.invalidtoken", genericErrorSchema);
-        SCHEMAS.put("api.response.forbidden", genericErrorSchema);
-        SCHEMAS.put("api.response.service.badrequest", genericErrorSchema);
-        SCHEMAS.put("api.response.service.unprocessableentity", genericErrorSchema);
-        SCHEMAS.put("api.response.service.methodnotallowed", genericErrorSchema);
+    /*
+     * Define your custom ApiResponses here
+     */
+    private static void builCustomApiResponses() {
+        /**
+         * Map<String, Object> customResponseExample = UtilMisc.toMap(
+         *      "statusCode", ResponseStatus.Custom.MY_CUSTOM_STATUS_CODE.getStatusCode(),
+         *      "statusDescription", ResponseStatus.Custom.MY_CUSTOM_STATUS_CODE.getReasonPhrase(),
+         *      "errorType", "An Error Type",
+         *      "errorCode", "1234",
+         *      "errorMessage", "Something went Wrong.",
+         *      "errorDescription", "A description of what went wrong.");
+         *
+         * final ApiResponse customResponse = new ApiResponse()
+         * .description("Custom Error: A description of said error.")
+         *       .content(new Content()
+         *               .addMediaType(jakarta.ws.rs.core.MediaType.APPLICATION_JSON, new MediaType()
+         *                       .schema(new Schema<>()
+         *                               .$ref("#/components/schemas/" + "api.response.custom.response.example"))
+         *                       .example(customResponseExample)));
+         *
+         * CUSTOM_RESPONSES.put(String.valueOf(ResponseStatus.Custom.MY_CUSTOM_STATUS_CODE.getStatusCode()), customResponse);
+        **/
+    }
+
+    public static ApiResponse getCustomApiResponseByStatusCode(String statusCode) {
+        return CUSTOM_RESPONSES.get(statusCode);
     }
 
     /**
@@ -202,12 +240,12 @@ public final class OpenApiUtil {
                 "errorMessage", "Forbidden: Insufficient rights to perform this API call.");
         Map<String, Object> badRequestExample = UtilMisc.toMap("statusCode", Response.Status.BAD_REQUEST.getStatusCode(),
                 "statusDescription", Response.Status.BAD_REQUEST.getReasonPhrase(),
-                "errorType", "ServiceValidationException",
+                "errorType", "ServiceValidationException", "errorCode", "1000",
                 "errorMessage", "createProduct validation failed. The request contained invalid information and could not be processed.",
                 "errorDescription", "The following required parameter is missing: [IN] [createProduct.internalName]");
         Map<String, Object> unprocessableEntExample = UtilMisc.toMap("statusCode", ResponseStatus.Custom.UNPROCESSABLE_ENTITY.getStatusCode(),
                 "statusDescription", ResponseStatus.Custom.UNPROCESSABLE_ENTITY.getReasonPhrase(),
-                "errorType", "GenericEntityException",
+                "errorType", "GenericEntityException", "errorCode", "2000",
                 "errorMessage", "createProduct execution failed. The request contained invalid information and could not be processed.",
                 "errorDescription", "StandardException: A truncation error was encountered trying to shrink CHAR 'string' to length 1.");
         Map<String, Object> methodNotAllowedExample = UtilMisc.toMap("statusCode", Response.Status.METHOD_NOT_ALLOWED.getStatusCode(),
@@ -282,6 +320,9 @@ public final class OpenApiUtil {
      * @return the corresponding OpenAPI schema class, or {@code null} if no mapping exists
      */
     public static Class<?> getOpenApiTypeForAttributeType(String attributeType) {
+        if (isTypeDomainModel(attributeType)) {
+            return MapSchema.class;
+        }
         return JAVA_OPEN_API_MAP.get(CLASS_ALIAS.get(attributeType));
     }
 
@@ -307,7 +348,7 @@ public final class OpenApiUtil {
      * @param service the {@link ModelService} for which to build the input schema
      * @return an OpenAPI {@link Schema} representing the service request body
      */
-    public static Schema<Object> getInSchema(ModelService service) {
+    public static Schema<Object> getInSchema(ModelService service, ModelOperation op) {
         Schema<Object> parentSchema = new Schema<Object>();
         parentSchema.setDescription("In Schema for service: " + service.getName() + " request");
         parentSchema.setType("object");
@@ -342,6 +383,10 @@ public final class OpenApiUtil {
     @SuppressWarnings("deprecation")
     public static Schema<?> getAttributeSchema(ModelService service, ModelParam param) {
         Schema<?> schema = null;
+        if (param == null) {
+            Debug.logWarning("ModelParam is null - ignored.", MODULE);
+            return null;
+        }
         Class<?> schemaClass = getOpenApiTypeForAttributeType(param.getType());
         if (schemaClass == null) {
             Debug.logWarning("Attribute '" + param.getName() + "' ignored as it is declared as '" + param.getType()
@@ -359,7 +404,11 @@ public final class OpenApiUtil {
         Delegator delegator = WebAppUtil.getDelegator(ApiContextListener.getApplicationCntx());
         if (schema instanceof ArraySchema) {
             ArraySchema arrSch = (ArraySchema) schema;
-            arrSch.setItems(children.size() > 0 ? getAttributeSchema(service, children.get(0)) : new StringSchema());
+            if (LIST_TYPE_MAP.containsKey(param.getName())) {
+                arrSch.setItems(getSchemaForModel(LIST_TYPE_MAP.get(param.getName())));
+            } else {
+                arrSch.setItems(children.size() > 0 ? getAttributeSchema(service, children.get(0)) : new StringSchema());
+            }
         } else if (schema instanceof MapSchema) {
             if (isTypeGenericEntityOrGenericValue(param.getType())) {
                 if (UtilValidate.isEmpty(param.getEntityName())) {
@@ -370,6 +419,8 @@ public final class OpenApiUtil {
                     return null;
                 }
                 schema = getSchemaForEntity(delegator.getModelEntity(param.getEntityName()));
+            } else if (isTypeDomainModel(param.getType())) {
+                schema = getSchemaForModel(param.getType());
             } else if (UtilValidate.isEmpty(param.getChildren())) {
                 Debug.logWarning(
                         "Attribute '" + param.getName() + "' ignored as it is declared as '" + param.getType() + "' but does not have "
@@ -412,12 +463,18 @@ public final class OpenApiUtil {
         Schema<Object> dataSchema = new Schema<Object>();
         parentSchema.addProperty("data", dataSchema);
         service.getOutParamNamesMap().forEach((name, type) -> {
-            Schema<?> attrSchema = getAttributeSchema(service, service.getParam(name));
-            if (attrSchema != null) {
-                dataSchema.addProperty(name, getAttributeSchema(service, service.getParam(name)));
+            if (!name.equals(RestApiUtil.RESPONSE_STATUS_KEY)) {
+                Schema<?> attrSchema = getAttributeSchema(service, service.getParam(name));
+                if (attrSchema != null) {
+                    dataSchema.addProperty(name, getAttributeSchema(service, service.getParam(name)));
+                }
             }
         });
         return parentSchema;
+    }
+
+    public static Schema<?> getGenericErrorSchema(ModelService service) {
+        return GENERIC_ERROR_SCHEMA;
     }
 
     private static boolean isTypeGenericEntityOrGenericValue(String type) {
@@ -425,6 +482,82 @@ public final class OpenApiUtil {
             return false;
         }
         return type.matches("org.apache.ofbiz.entity.GenericValue|GenericValue|org.apache.ofbiz.entity.GenericEntity|GenericEntity");
+    }
+
+    private static boolean isTypeDomainModel(String className) {
+        if (className == null || CLASS_ALIAS.containsKey(className)) {
+            return false;
+        }
+        try {
+            Class<?> modelClass = Class.forName(className);
+            Class<?> domainModelClass = Class.forName("org.apache.ofbiz.base.model.DomainModel");
+            return domainModelClass.isAssignableFrom(modelClass);
+        } catch (ClassNotFoundException e) {
+            Debug.logInfo("Class not found while checking DomainModel type: " + className, MODULE);
+        }
+        return false;
+    }
+
+    @SuppressWarnings("unchecked")
+    private static Schema<?> getSchemaForModel(String className) {
+        Schema<?> dataSchema = new Schema<>();
+        dataSchema.setType("object");
+        try {
+            Class<?> modelClass = Class.forName(className);
+            List<Field> fields = getFields(modelClass);
+            for (Field field : fields) {
+                String fieldNm = field.getName();
+                Class<?> fieldType = field.getType();
+                Schema<?> schema = null;
+                Class<?> schemaClass = getOpenApiTypeForAttributeType(fieldType.getName());
+                if (schemaClass == null) {
+                    continue;
+                }
+                try {
+                    schema = (Schema<?>) schemaClass.getDeclaredConstructor().newInstance();
+                    if (schema instanceof ArraySchema) {
+                        ParameterizedType genericType = (ParameterizedType) field.getGenericType();
+                        Class<? extends Type> genericClass = (Class<? extends Type>) genericType.getActualTypeArguments()[0];
+                        ArraySchema arrSch = (ArraySchema) schema;
+                        Class<?> listSchemaClass = getOpenApiTypeForAttributeType(genericClass.getName());
+                        Schema<?> listSchema = null;
+                        if (listSchemaClass == null || isTypeDomainModel(genericClass.getName())) {
+                            arrSch.setItems(getSchemaForModel(genericClass.getName()));
+                        } else {
+                            listSchema = (Schema<?>) listSchemaClass.getDeclaredConstructor().newInstance();
+                            arrSch.setItems(listSchema);
+                        }
+                        dataSchema.addProperty(fieldNm, arrSch);
+                    } else if (schema instanceof MapSchema) {
+                        if (isTypeDomainModel(fieldType.getName())) {
+                            schema = getSchemaForModel(fieldType.getName());
+                            dataSchema.addProperty(fieldNm, schema);
+                        }
+                    } else {
+                        dataSchema.addProperty(fieldNm, schema.description(fieldNm));
+                    }
+                } catch (InstantiationException | IllegalAccessException | NoSuchMethodException
+                        | InvocationTargetException e) {
+                    e.printStackTrace();
+                }
+            }
+        } catch (ClassNotFoundException e1) {
+            e1.printStackTrace();
+        }
+        return dataSchema;
+    }
+
+    private static <T> List<Field> getFields(Class<?> clazz) {
+        List<Field> fields = new ArrayList<>();
+        while (clazz != Object.class) {
+            fields.addAll(0, Arrays.asList(clazz.getDeclaredFields()));
+            clazz = clazz.getSuperclass();
+        }
+        return fields;
+    }
+
+    public static Map<String, String> getListTypes() {
+        return LIST_TYPE_MAP;
     }
 
     private static Schema<?> getSchemaForEntity(ModelEntity entity) {

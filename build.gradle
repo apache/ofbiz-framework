@@ -16,6 +16,8 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+import groovy.xml.MarkupBuilder
+import groovy.xml.XmlSlurper
 import org.apache.tools.ant.filters.ReplaceTokens
 import org.asciidoctor.gradle.jvm.AsciidoctorTask
 
@@ -110,11 +112,18 @@ useLatestVersions {
 
 apply from: 'common.gradle'
 apply from: 'dependencies.gradle'
+apply from: 'test-reports.gradle'
 
 // global properties
 ext.os = System.getProperty('os.name').toLowerCase()
 ext.gradlew = os.contains('windows') ? 'gradlew.bat' : './gradlew'
 ext.pluginsDir = "${rootDir}/plugins"
+
+// "./gradlew ofbiz" command reflects them directly, with no separate command-line flag to remember.
+def debugProperties = new Properties()
+file('framework/base/config/debug.properties').withInputStream { debugProperties.load(it) }
+ext.jsonLogsEnabled = debugProperties.getProperty('json.logs.enabled', 'false').toBoolean()
+ext.jsonLogsTemplate = debugProperties.getProperty('json.logs.template', 'classpath:templates/ecs-layout.json')
 
 application {
     mainClass = 'org.apache.ofbiz.base.start.Start'
@@ -130,6 +139,8 @@ application {
             '--add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED',
             // Allow libraries using the stable Foreign Function & Memory API (Apache SSHD, Tika)
             '--enable-native-access=ALL-UNNAMED',
+            "-Dofbiz.json.logs=${jsonLogsEnabled}",
+            "-Dofbiz.json.logs.template=${jsonLogsTemplate}",
             ]
 }
 
@@ -249,9 +260,6 @@ subprojects {
 }
 
 configurations {
-    junitReport {
-        description = 'libraries needed to run junitreport for OFBiz unit tests'
-    }
     ofbizPlugins {
         description = 'ofbiz plugin dependencies configuration'
         transitive = true
@@ -276,9 +284,6 @@ dependencies {
         runtimeOnly project(path: subProject.path, configuration: 'pluginLibsRuntime')
         compileOnly project(path: subProject.path, configuration: 'pluginLibsCompileOnly')
     }
-
-    junitReport 'junit:junit:4.13.2'
-    junitReport 'org.apache.ant:ant-junit:1.10.15'
 
     // Libraries downloaded manually
     implementation fileTree(dir: file("${rootDir}/lib"), include: '**/*.jar')
@@ -348,7 +353,7 @@ gitHooks {
     // where "$rootDir/.git" (the plugin's default) is a gitlink file, not a directory.
     def gitCommonDir = "git -C ${rootDir} rev-parse --git-common-dir".execute().text.trim()
     hooksDirectory.set(new File(rootDir, gitCommonDir).toPath().resolve('hooks').toFile())
-    hooks = ['pre-push': 'checkstyleMain codenarcMain codenarcTest']
+    hooks = ['pre-push': 'checkstyleMain checkstyleTest codenarcMain codenarcTest']
 }
 
 // Checks OFBiz Groovy coding conventions.
@@ -381,6 +386,11 @@ eclipse.classpath.file.whenMerged { classpath ->
             entry.path ==~ /(\/+themes)$/ )
         }
     }
+
+    // remove .pom artifacts from classpath
+    classpath.entries.removeAll { entry ->
+        entry.kind == 'lib' && entry.path.endsWith('.pom')
+    }
 }
 tasks.eclipse.dependsOn(cleanEclipse)
 
@@ -388,16 +398,218 @@ test {
     useJUnitPlatform {
         excludeTags 'jupiterIntegration'  // see JupiterTestExtension.INTEGRATION_TAG
     }
-    jvmArgs "-javaagent:${classpath.find { it.name.contains('jmockit') }.absolutePath}"
-    // Required for JMockit instrumentation, Mockito, and Spring Test under Java 21
+    // Required for Mockito and Spring Test under Java 21
     jvmArgs '--add-opens=java.base/java.lang=ALL-UNNAMED'
     jvmArgs '--add-opens=java.base/java.lang.reflect=ALL-UNNAMED'
     jvmArgs '--enable-native-access=ALL-UNNAMED'
     testLogging {
         events "passed", "skipped", "failed"
     }
+    finalizedBy(reskinGradleTestReport)
 }
 
+// 'gradlew test --tests <ClassName>' against a @JunitJupiterTest class fails with Gradle's generic
+// "No tests found for given includes" rather than pointing at testIntegration: the excludeTags
+// filter above excludes the class from discovery entirely before --tests filtering ever runs, so
+// from Gradle's perspective the class simply doesn't exist. This doesn't change that failure - it's
+// otherwise a genuinely useful safety net for a real --tests typo - it just appends a pointer to the
+// right command for the specific case where the cause is a Jupiter integration-test class.
+gradle.taskGraph.afterTask { Task task, TaskState state ->
+    if (task.path == ':test' && state.failure) {
+        Throwable rootCause = state.failure
+        while (rootCause.cause != null) {
+            rootCause = rootCause.cause
+        }
+        if (rootCause.message?.contains('No tests found for given includes')) {
+            logger.error('')
+            logger.error('[hint] If the class above is annotated @JunitJupiterTest, this failure is expected: '
+                    + 'that tag excludes it from \'gradlew test\' discovery entirely (see JunitJupiterTest\'s '
+                    + 'javadoc), so --tests never gets a chance to filter it in. Run it via '
+                    + '\'gradlew testIntegration\' or \'ofbiz --test\' instead.')
+            logger.error('')
+        }
+    }
+}
+
+// ModelTestSuite.parseTestElement() resolves every <junit-test-suite>/<jupiter-test-suite>
+// class-name attribute at runtime via ObjectType.loadClass(), but a lookup failure there is
+// only Debug.logError()'d - the whole suite is silently dropped from testIntegration with no
+// build failure and no signal short of reading the log output. This task repeats that same
+// lookup at build time, against the compiled test classpath, so a typo'd or stale (post-rename)
+// class-name fails the build instead of quietly vanishing from the test run.
+task verifyTestdefClassNames(group: 'Verification', dependsOn: testClasses) {
+    description = 'Fails the build if any testdef XML class-name attribute cannot be resolved on the classpath'
+    def testdefDirs = getDirectoryInActiveComponentsIfExists('testdef')
+    def testdefXmlFiles = files(testdefDirs.collect { fileTree(it) { include '**/*.xml' } })
+    def testRuntimeClasspath = sourceSets.test.runtimeClasspath
+    inputs.files(testdefXmlFiles)
+    inputs.files(testRuntimeClasspath)
+    doLast {
+        URL[] classpathUrls = testRuntimeClasspath.files.collect { it.toURI().toURL() }
+        URLClassLoader classpathLoader = new URLClassLoader(classpathUrls, getClass().classLoader)
+        List<String> unresolved = []
+        testdefXmlFiles.each { xmlFile ->
+            def root = new XmlParser(false, false).parse(xmlFile)
+            root.depthFirst()
+                .findAll { it.name() == 'junit-test-suite' || it.name() == 'jupiter-test-suite' }
+                .each { node ->
+                    String className = node.'@class-name'
+                    if (!className) {
+                        return
+                    }
+                    try {
+                        Class.forName(className, false, classpathLoader)
+                    } catch (Throwable t) {
+                        unresolved << "${xmlFile}: <${node.name()} class-name=\"${className}\"/> - ${t}"
+                    }
+                }
+        }
+        if (!unresolved.isEmpty()) {
+            throw new GradleException('The following testdef class-name references cannot be resolved on the '
+                    + 'classpath (typo, or the class was renamed/moved/deleted without updating the testdef XML):\n'
+                    + unresolved.collect { " - ${it}" }.join('\n'))
+        }
+    }
+}
+check.dependsOn verifyTestdefClassNames
+
+// JunitJupiterTest's own javadoc documents that bare @ExtendWith(JupiterTestExtension.class)
+// skips gradlew test's excludeTags-based exclusion - it's only caught at runtime by
+// evaluateExecutionCondition(), reporting a skip instead of being excluded from discovery
+// outright. That's an intentional, documented escape hatch for JupiterTestExtension's own home
+// (JunitJupiterTest's definition and JupiterInjectionGuardsTest's fixtures, both under
+// framework/testtools, use it deliberately to define/exercise the escape hatch itself), but
+// nothing stops a future contributor from using the bare form on a real test class by habit or
+// copy-paste. This cheap grep-based check catches that everywhere else.
+task verifyNoBareJupiterExtendWith(group: 'Verification') {
+    description = 'Fails the build if a bare @ExtendWith(JupiterTestExtension.class) is used ' +
+            'outside framework/testtools instead of @JunitJupiterTest'
+    def testInfraDir = file('framework/testtools')
+    def sourceFiles = files(
+        (getDirectoryInActiveComponentsIfExists('src/main/java')
+            + getDirectoryInActiveComponentsIfExists('src/main/groovy')
+            + getDirectoryInActiveComponentsIfExists('src/test/java')
+            + getDirectoryInActiveComponentsIfExists('src/test/groovy'))
+            .collect { dir -> fileTree(dir) { include '**/*.java', '**/*.groovy' } }
+    ).filter { file -> !file.toPath().startsWith(testInfraDir.toPath()) }
+    inputs.files(sourceFiles)
+    doLast {
+        def bareExtendWith = ~/@ExtendWith\(\s*(org\.apache\.ofbiz\.testtools\.)?JupiterTestExtension(\.class)?\s*\)/
+        List<String> offenders = []
+        sourceFiles.each { file ->
+            file.readLines().eachWithIndex { line, idx ->
+                if (bareExtendWith.matcher(line).find()) {
+                    offenders << "${file}:${idx + 1}: ${line.trim()}"
+                }
+            }
+        }
+        if (!offenders.isEmpty()) {
+            throw new GradleException('Bare @ExtendWith(JupiterTestExtension.class) found outside '
+                    + 'framework/testtools - use @JunitJupiterTest instead, so gradlew test\'s '
+                    + 'excludeTags-based exclusion actually applies (see JunitJupiterTest\'s javadoc):\n'
+                    + offenders.collect { " - ${it}" }.join('\n'))
+        }
+    }
+}
+check.dependsOn verifyNoBareJupiterExtendWith
+
+// junit5-improvements item 3: the 8 real ordering bugs found during the JUnit3->JUnit5
+// migration were caught reactively (a suite actually failing under a full testIntegration
+// run), not via a systematic per-file audit - only 7 of 82 migrated classes were ever
+// spot-checked. A multi-method Jupiter class with zero @Order annotations at all is
+// implicitly relying on whatever order the JVM happens to return its test methods in - the
+// exact shape of bug that produced those 8 failures. This task flags that pattern so it's at
+// least visible, rather than depending on tests happening to catch it a second time.
+// Deliberately NOT wired into check: plenty of multi-method classes are legitimately
+// order-independent and would never need @Order, so hard-failing the build here would be
+// noise, not signal - a human triages the flagged list instead. Reuses
+// verifyTestdefClassNames' testdef-XML-scan + classloader pattern above.
+task flagUnorderedJupiterTests(group: 'Verification', dependsOn: testClasses) {
+    description = 'Lists testdef-registered Jupiter classes with more than one test method ' +
+            'and no @Order annotations at all - report-only, never fails the build'
+    def testdefDirs = getDirectoryInActiveComponentsIfExists('testdef')
+    def testdefXmlFiles = files(testdefDirs.collect { fileTree(it) { include '**/*.xml' } })
+    def testRuntimeClasspath = sourceSets.test.runtimeClasspath
+    inputs.files(testdefXmlFiles)
+    inputs.files(testRuntimeClasspath)
+    doLast {
+        URL[] classpathUrls = testRuntimeClasspath.files.collect { it.toURI().toURL() }
+        new URLClassLoader(classpathUrls, getClass().classLoader).withCloseable { classpathLoader ->
+            def testAnnotation
+            def paramTestAnnotation
+            def orderAnnotation
+            try {
+                testAnnotation = classpathLoader.loadClass('org.junit.jupiter.api.Test')
+                paramTestAnnotation = classpathLoader.loadClass('org.junit.jupiter.params.ParameterizedTest')
+                orderAnnotation = classpathLoader.loadClass('org.junit.jupiter.api.Order')
+            } catch (Throwable t) {
+                logger.lifecycle("flagUnorderedJupiterTests: could not load JUnit Jupiter annotation "
+                        + "classes on the test runtime classpath - skipping check (${t}).")
+                return
+            }
+            Set<String> seenClasses = []
+            List<String> flagged = []
+            int skipped = 0
+            testdefXmlFiles.each { xmlFile ->
+                def root
+                try {
+                    root = new XmlParser(false, false).parse(xmlFile)
+                } catch (Throwable ignored) {
+                    skipped++
+                    return // malformed/unreadable testdef XML - not this task's job to fail on
+                }
+                root.depthFirst()
+                    .findAll { it.name() == 'jupiter-test-suite' }
+                    .each { node ->
+                        String className = node.'@class-name'
+                        if (!className || !seenClasses.add(className)) {
+                            return // no class-name, or already evaluated from another testdef file
+                        }
+                        try {
+                            Class<?> clz = Class.forName(className, false, classpathLoader)
+                            // declaredMethods (not the inherited-methods variant): every Jupiter
+                            // test method in this codebase is declared directly on its own test
+                            // class today, not inherited from a shared base class - if a future
+                            // class inherits test methods from a common base, this task would
+                            // silently miss them.
+                            def testMethods = clz.declaredMethods.findAll {
+                                it.isAnnotationPresent(testAnnotation) || it.isAnnotationPresent(paramTestAnnotation)
+                            }
+                            boolean anyOrdered = testMethods.any { it.isAnnotationPresent(orderAnnotation) }
+                            // Flags only classes with zero total @Order usage. A class with
+                            // @Order on some but not all methods is NOT flagged, even though its
+                            // unannotated methods still get an arbitrary tie-broken position
+                            // under the pinned OrderAnnotation orderer - a clean run here means
+                            // "no class has zero @Order," not "every class is fully ordered."
+                            if (testMethods.size() > 1 && !anyOrdered) {
+                                flagged << "${className} (${testMethods.size()} test methods, no @Order) - ${xmlFile}"
+                            }
+                        } catch (Throwable ignored) {
+                            // Class.forName or the reflection calls below it can throw for a
+                            // testdef entry that doesn't resolve cleanly on this classpath -
+                            // verifyTestdefClassNames (above) is what fails the build for that
+                            // condition; this task only needs to not crash on it, but a silently
+                            // dropped class would make a clean run indistinguishable from one
+                            // that just failed to check everything, so it's counted instead.
+                            skipped++
+                        }
+                    }
+            }
+            String skipNote = skipped > 0
+                    ? " (${skipped} class(es) or testdef file(s) could not be loaded/parsed cleanly and were skipped)"
+                    : ''
+            if (flagged.isEmpty()) {
+                logger.lifecycle('flagUnorderedJupiterTests: no testdef-registered Jupiter class relies on '
+                        + "implicit declaration order.${skipNote}")
+            } else {
+                logger.lifecycle('flagUnorderedJupiterTests: the following classes have more than one test '
+                        + 'method and no @Order annotations at all - they are implicitly relying on '
+                        + "declaration order:${skipNote}\n"
+                        + flagged.collect { " - ${it}" }.join('\n'))
+            }
+        }
+    }
+}
 
 /* ========================================================
  * Tasks
@@ -715,26 +927,8 @@ task generateAllPluginsDocumentation(group: docsGroup,
 
 
 // ========== System Administration tasks ==========
-task createTestReports(group: sysadminGroup, description: 'Generate HTML reports from junit XML output') {
-    doLast {
-        ant.taskdef(name: 'junitreport',
-            classname: 'org.apache.tools.ant.taskdefs.optional.junit.XMLResultAggregator',
-            classpath: configurations.junitReport.asPath)
-        ant.junitreport(todir: './runtime/logs/test-results') {
-            fileset(dir: './runtime/logs/test-results') {
-                include(name: '*.xml')
-            }
-            report(format:'frames', todir:'./runtime/logs/test-results/html')
-            report(format:'noframes', todir:'./runtime/logs/test-results/html')
-        }
-        // Ant's stock junit-frames.xsl/junit-noframes.xsl label this column "Type", but it actually
-        // renders the failure/error message and stack trace, not the bare exception type - relabel
-        // it post-generation rather than vendoring and maintaining a forked copy of Ant's templates.
-        fileTree('./runtime/logs/test-results/html') {
-            include '**/*.html'
-        }.each { file -> file.text = file.text.replace('>Type</th>', '>Failure Reason</th>') }
-    }
-}
+// createTestReport/createFramedTestReport moved to test-reports.gradle
+// (applied above) - kept out of this file since they're self-contained and sizable.
 
 task gitInfoFooter(group: sysadminGroup, description: 'Update the Git Branch-revision info in the footer if Git is used') {
     doLast {
@@ -1201,7 +1395,20 @@ def createOfbizCommandTask(taskName, arguments) {
         jvmArgs(application.applicationDefaultJvmArgs)
         if (taskName ==~ /^ofbiz.*(--test|-t).*/) {
             classpath = sourceSets.main.runtimeClasspath + sourceSets.test.runtimeClasspath
-            finalizedBy(createTestReports)
+            // TestRunContainer.java writes one XML per suite as "<suite.getName()>.xml" and only
+            // ever overwrites the suites a run actually re-executes - nothing here deletes the
+            // rest first. Left alone, a narrower run (suitename=... filtering to one component) or
+            // a renamed/removed suite leaves other suites' XML sitting in this directory from
+            // whenever they last ran, and the two report tasks below just glob whatever *.xml
+            // files exist at generation time - so the report would silently blend fresh results
+            // with stale ones from an earlier run into what looks like one coherent run. Clearing
+            // the directory before the run starts guarantees every report reflects exactly this
+            // run's suites, nothing left over from before.
+            doFirst {
+                delete fileTree('./runtime/logs/test-results') { include '*.xml' }
+            }
+            finalizedBy(createTestReport)
+            finalizedBy(createFramedTestReport)
         } else {
             classpath = sourceSets.main.runtimeClasspath
         }

@@ -28,4 +28,8 @@ final class ManufacturingServiceUtil {
         return product?.productName ?: product?.internalName ?: product?.productId
     }
 
+    static String displayFixedAssetName(GenericValue fixedAsset) {
+        return fixedAsset?.fixedAssetName ?: fixedAsset?.fixedAssetId
+    }
+
 }

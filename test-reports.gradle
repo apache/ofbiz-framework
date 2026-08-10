@@ -1,0 +1,887 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+import groovy.xml.MarkupBuilder
+import groovy.xml.XmlSlurper
+
+// createTestReport (single-page) and createFramedTestReport (navigable multi-page) turn the
+// JUnit suite XML written to runtime/logs/test-results into an HTML report - split out of
+// build.gradle into its own file since it's self-contained and sizable, applied below so it
+// still runs as part of every Gradle invocation exactly as if it were declared inline.
+def sysadminGroup = 'System Administration'
+
+def modernReportCss() {
+    // Hand-rolled, not a real Bootstrap import: same default palette/spacing/component shapes.
+    // Used two ways: inlined into test-report.html so that report stays one portable file, and
+    // written once as a shared junit-report.css alongside the framed report's many pages (referenced via
+    // a same-directory relative <link>, so it's still a zero-external-network-request file:// doc -
+    // see the 2026-08-07 "CSS/JS duplication" note in junit5-improvements-august2026.md).
+    '''
+:root {
+  --bs-primary: #0d6efd;
+  --bs-success: #198754;
+  --bs-danger: #dc3545;
+  --bs-warning: #fd7e14;
+  --bs-secondary: #6c757d;
+  --bs-body-bg: #f8f9fa;
+  --bs-border-color: #dee2e6;
+}
+body {
+  font-family: -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  margin: 0;
+  color: #212529;
+  background: var(--bs-body-bg);
+  line-height: 1.5;
+}
+.navbar-report { background: var(--bs-primary); color: #fff; padding: 0.75rem 1.5rem; }
+.navbar-report h1 { margin: 0; font-size: 1.4rem; }
+.container { max-width: 1140px; margin: 0 auto; padding: 1.5rem; }
+h2 { font-size: 1.25rem; margin: 1.5rem 0 0.75rem; }
+
+.stat-cards { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1.5rem; }
+.stat-card {
+  flex: 1 1 8rem;
+  background: #fff;
+  border: 1px solid var(--bs-border-color);
+  border-radius: 0.375rem;
+  padding: 0.9rem;
+  text-align: center;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+.stat-value { display: block; font-size: 1.6rem; font-weight: 600; color: #212529; text-decoration: none; }
+a.stat-value:hover { color: var(--bs-primary); text-decoration: underline; }
+.stat-label { font-size: 0.75rem; color: var(--bs-secondary); text-transform: uppercase; letter-spacing: 0.03em; }
+
+.filter-group { margin-bottom: 1rem; }
+.btn-check { position: absolute; opacity: 0; pointer-events: none; }
+.btn-toggle {
+  display: inline-block;
+  padding: 0.375rem 0.9rem;
+  margin-right: 0.4rem;
+  border: 1px solid var(--bs-border-color);
+  border-radius: 0.375rem;
+  cursor: pointer;
+  font-size: 0.875rem;
+  color: #444;
+  background: #fff;
+  user-select: none;
+}
+.btn-check:checked + .btn-toggle-pass { background: var(--bs-success); border-color: var(--bs-success); color: #fff; }
+.btn-check:checked + .btn-toggle-fail { background: var(--bs-danger); border-color: var(--bs-danger); color: #fff; }
+.btn-check:checked + .btn-toggle-error { background: var(--bs-warning); border-color: var(--bs-warning); color: #fff; }
+.btn-check:checked + .btn-toggle-skipped { background: var(--bs-secondary); border-color: var(--bs-secondary); color: #fff; }
+.btn-check:focus-visible + .btn-toggle { outline: 2px solid var(--bs-primary); outline-offset: 1px; }
+
+table.bs-table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 1.5rem;
+  background: #fff;
+  border: 1px solid var(--bs-border-color);
+  border-radius: 0.375rem;
+  overflow: hidden;
+}
+table.bs-table th, table.bs-table td {
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+  vertical-align: top;
+  border-top: 1px solid var(--bs-border-color);
+}
+table.bs-table thead th { background: #f1f3f5; border-top: none; border-bottom: 2px solid var(--bs-border-color); }
+table.bs-table tbody tr:nth-child(odd) { background: rgba(0, 0, 0, 0.02); }
+table.bs-table tbody tr:hover { background: rgba(13, 110, 253, 0.06); }
+table.bs-table tbody tr.row-fail, table.bs-table tbody tr.row-error { background: rgba(220, 53, 69, 0.07); }
+table.bs-table tbody tr.row-skipped { color: var(--bs-secondary); }
+
+.badge {
+  display: inline-block;
+  padding: 0.3em 0.65em;
+  border-radius: 10rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #fff;
+}
+.badge-pass { background: var(--bs-success); }
+.badge-fail { background: var(--bs-danger); }
+.badge-error { background: var(--bs-warning); }
+.badge-skipped { background: var(--bs-secondary); }
+
+pre { white-space: pre-wrap; margin: 0; font-size: 0.85em; }
+.parse-error { color: var(--bs-danger); font-weight: bold; }
+.suite-status-links { margin: 0 0 1rem; font-size: 0.9rem; }
+
+.nav-pane { padding: 0.75rem; }
+.nav-section-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.03em; color: var(--bs-secondary); margin: 1rem 0 0.4rem; }
+.nav-list { list-style: none; margin: 0; padding: 0; border: 1px solid var(--bs-border-color); border-radius: 0.375rem; overflow: hidden; }
+.nav-list li { border-top: 1px solid var(--bs-border-color); }
+.nav-list li:first-child { border-top: none; }
+.nav-link { display: block; padding: 0.5rem 0.9rem; color: #212529; text-decoration: none; }
+.nav-link:hover { background: rgba(13, 110, 253, 0.08); }
+'''
+}
+
+def modernReportJs() {
+    '''
+function applyFilters() {
+    var showPass = document.getElementById('filter-pass').checked;
+    var showFail = document.getElementById('filter-fail').checked;
+    var showError = document.getElementById('filter-error').checked;
+    var showSkipped = document.getElementById('filter-skipped').checked;
+    var rows = document.querySelectorAll('table.detail tbody tr');
+    rows.forEach(function(row) {
+        var visible = (row.classList.contains('row-pass') && showPass)
+            || (row.classList.contains('row-fail') && showFail)
+            || (row.classList.contains('row-error') && showError)
+            || (row.classList.contains('row-skipped') && showSkipped);
+        row.style.display = visible ? '' : 'none';
+    });
+}
+['filter-pass', 'filter-fail', 'filter-error', 'filter-skipped'].forEach(function(id) {
+    document.getElementById(id).addEventListener('change', applyFilters);
+});
+applyFilters();
+
+// The Summary section's Tests/Failures/Errors/Skipped counts link here as "#status-<name>"
+// (same-page) or "<page>.html#status-<name>" (cross-page, e.g. the framed report's overview
+// linking to all-tests.html) - on arrival, set the checkboxes to match and jump to the results.
+var STATUS_HASH_CHECKS = {
+    'status-tests': ['filter-pass', 'filter-fail', 'filter-error', 'filter-skipped'],
+    'status-failures': ['filter-fail'],
+    'status-errors': ['filter-error'],
+    'status-skipped': ['filter-skipped']
+};
+function applyStatusHash() {
+    var checksToEnable = STATUS_HASH_CHECKS[window.location.hash.replace('#', '')];
+    if (!checksToEnable) {
+        return;
+    }
+    ['filter-pass', 'filter-fail', 'filter-error', 'filter-skipped'].forEach(function(id) {
+        document.getElementById(id).checked = checksToEnable.indexOf(id) !== -1;
+    });
+    applyFilters();
+    var filters = document.getElementById('filters');
+    if (filters) {
+        filters.scrollIntoView();
+    }
+}
+window.addEventListener('hashchange', applyStatusHash);
+applyStatusHash();
+'''
+}
+
+def suiteSlug(String name) {
+    (name ?: '').replaceAll('[^A-Za-z0-9_-]', '_')
+}
+
+def escapeHtmlText(String s) {
+    // Everywhere else a suite/test name reaches these reports it's passed as a MarkupBuilder
+    // element-content argument, which escapes it automatically. renderFramedSuitePage's
+    // <title>/<h1> are the one spot that interpolates a raw value straight into a GString HTML
+    // shell instead - suite.name is developer-authored (testdef suite-name attribute), not user
+    // input, but an "&" or "<" in it would still produce broken HTML on that one page unescaped.
+    (s ?: '').replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
+}
+
+def renderStatCards(Map counts, Closure statusHrefFn, List extraCards = [], String wrapperId = null) {
+    // Shared by buildOverallSummaryTable (Tests/Failures/Errors/Skipped/Success rate/Time summed
+    // across every suite) and buildSuiteDetailFragment (the same six, read off one suite instead
+    // of summed, plus that suite's own Time Stamp/Host as extraCards) - the two callers differ in
+    // where the numbers come from, not in how a stat card is rendered.
+    def writer = new StringWriter()
+    def html = new MarkupBuilder(writer)
+    def wrapperAttrs = wrapperId ? [id: wrapperId, 'class': 'stat-cards'] : ['class': 'stat-cards']
+    html.div(wrapperAttrs) {
+        // Tests/Failures/Errors/Skipped are links (matching the classic report's
+        // all-tests.html/alltests-fails.html/etc.) that filter the results below down to just
+        // that status, in-page or on a dedicated page depending on statusHrefFn. A null
+        // statusHrefFn means "this page can't be filtered" - it renders the same four cards as
+        // plain values instead, for the already-pre-filtered static status pages, which carry
+        // neither the #filters block nor junit-report.js a "#status-*" href would need.
+        [[status: 'tests', label: 'Tests', value: counts.tests, title: 'Show all tests'],
+         [status: 'failures', label: 'Failures', value: counts.failures, title: 'Show only failures'],
+         [status: 'errors', label: 'Errors', value: counts.errors, title: 'Show only errors'],
+         [status: 'skipped', label: 'Skipped', value: counts.skipped, title: 'Show only skipped']].each { card ->
+            div('class': 'stat-card') {
+                if (statusHrefFn) {
+                    a('class': 'stat-value', href: statusHrefFn(card.status), title: card.title, "${card.value}")
+                } else {
+                    div('class': 'stat-value', "${card.value}")
+                }
+                div('class': 'stat-label', card.label)
+            }
+        }
+        div('class': 'stat-card') {
+            div('class': 'stat-value', counts.successRate)
+            div('class': 'stat-label', 'Success rate')
+        }
+        div('class': 'stat-card') {
+            div('class': 'stat-value', counts.time)
+            div('class': 'stat-label', 'Time (s)')
+        }
+        extraCards.each { card ->
+            div('class': 'stat-card') {
+                div('class': 'stat-value', card.value)
+                div('class': 'stat-label', card.label)
+            }
+        }
+    }
+    writer.toString()
+}
+
+def buildOverallSummaryTable(List suites, Closure statusHrefFn) {
+    def toInt = { String s -> (s ==~ /\d+/) ? s.toInteger() : 0 }
+    def toSeconds = { String s -> (s ==~ /-?[0-9]*\.?[0-9]+/) ? s.toDouble() : 0.0 }
+    // List.sum(Closure) returns null (not 0) on an empty list, unlike the no-arg sum() - discovered
+    // live when a malformed CLI invocation purged runtime/logs/test-results/ (item 3's own fix) and
+    // then failed before any suite ran, leaving createTestReport/createFramedTestReport to
+    // parse zero suites and crash on "null as int" instead of just rendering "0 tests".
+    def totalTests = (suites.sum { toInt(it.tests) } ?: 0) as int
+    def totalFailures = (suites.sum { toInt(it.failures) } ?: 0) as int
+    def totalErrors = (suites.sum { toInt(it.errors) } ?: 0) as int
+    def totalSkipped = (suites.sum { toInt(it.skipped) } ?: 0) as int
+    def totalTime = (suites.sum { toSeconds(it.time) } ?: 0.0) as double
+    def successRate = totalTests > 0
+            ? String.format('%.2f%%', ((totalTests - totalFailures - totalErrors) / (double) totalTests) * 100)
+            : 'N/A'
+    renderStatCards([tests: totalTests, failures: totalFailures, errors: totalErrors,
+                      skipped: totalSkipped, successRate: successRate,
+                      time: String.format('%.3f', totalTime)],
+            statusHrefFn, [], 'overall-summary')
+}
+
+def buildSummaryTable(List suites, Closure hrefFn) {
+    def writer = new StringWriter()
+    def html = new MarkupBuilder(writer)
+    html.table(id: 'summary', 'class': 'bs-table') {
+        thead {
+            tr {
+                th('Suite'); th('Tests'); th('Failures'); th('Errors'); th('Skipped')
+                th('Time (s)'); th('Time Stamp'); th('Host')
+            }
+        }
+        tbody {
+            suites.each { s ->
+                tr {
+                    td { a(href: hrefFn(s), s.name) }
+                    td(s.tests)
+                    td(s.failures)
+                    td(s.errors)
+                    td(s.skipped)
+                    td(s.time)
+                    td(s.timestamp ?: '')
+                    td(s.hostname ?: '')
+                }
+            }
+        }
+    }
+    writer.toString()
+}
+
+def buildSuiteDetailFragment(Map suite, boolean linked = true) {
+    // linked = true (the default) is the live, JS-filterable suite page: stat cards link to
+    // "#status-*" and report the suite's own totals. linked = false is a static status page
+    // (renderFramedSuiteStatusPage), whose `suite` has already had its testcases filtered down to
+    // one status and which loads neither the #filters block nor junit-report.js - there the cards
+    // must be plain values (a "#status-*" href would be a dead link) counted off the filtered
+    // testcases actually rendered in the table below, not off the whole suite's attributes.
+    def writer = new StringWriter()
+    def html = new MarkupBuilder(writer)
+    html.div {
+        h2(id: "suite-${suiteSlug(suite.name)}", suite.name)
+        if (suite.parseError) {
+            p('class': 'parse-error', "Could not parse this suite's results: ${suite.parseError}")
+        } else {
+            // Suite-scoped counterpart to the report-wide Summary block (buildOverallSummaryTable)
+            // - shares renderStatCards with it, fed this one suite's own numbers directly (no
+            // summing needed) plus Time Stamp/Host as extraCards, meaningful for one suite but not
+            // for a sum across many.
+            def toInt = { String s -> (s ==~ /\d+/) ? s.toInteger() : 0 }
+            def toSeconds = { String s -> (s ==~ /-?[0-9]*\.?[0-9]+/) ? s.toDouble() : 0.0 }
+            def tests = linked ? toInt(suite.tests) : suite.testcases.size()
+            def failures = linked ? toInt(suite.failures) : suite.testcases.count { it.status == 'fail' }
+            def errors = linked ? toInt(suite.errors) : suite.testcases.count { it.status == 'error' }
+            def successRate = tests > 0
+                    ? String.format('%.2f%%', ((tests - failures - errors) / (double) tests) * 100)
+                    : 'N/A'
+            // Success rate and Time are derived from the same set of testcases as the four counts
+            // above, so a filtered page's cards stay internally consistent with its own table
+            // rather than mixing filtered counts with whole-suite figures.
+            def counts = linked
+                    ? [tests: suite.tests, failures: suite.failures, errors: suite.errors,
+                       skipped: suite.skipped, successRate: successRate, time: suite.time]
+                    : [tests: tests, failures: failures, errors: errors,
+                       skipped: suite.testcases.count { it.status == 'skipped' }, successRate: successRate,
+                       time: String.format('%.3f', (suite.testcases.sum { toSeconds(it.time) } ?: 0.0) as double)]
+            def statusHrefFn = linked ? { String status -> "#status-${status}" } : null
+            mkp.yieldUnescaped(renderStatCards(counts, statusHrefFn,
+                    [[label: 'Time Stamp', value: suite.timestamp ?: 'N/A'],
+                     [label: 'Host', value: suite.hostname ?: 'N/A']]))
+            table('class': 'detail bs-table') {
+                thead { tr { th('Test'); th('Status'); th('Time (s)'); th('Failure Reason') } }
+                tbody {
+                    suite.testcases.each { tc ->
+                        tr('class': "row-${tc.status}") {
+                            // tc.name is the report-facing test identity JupiterTestSuite.reportingName()
+                            // already builds as "ClassName.methodName - Display Name" (or the bare method
+                            // name for plain JUnit 3 suites) - tc.classname is a synthetic bridge class
+                            // (e.g. JupiterTestExtension$JupiterTestSuite$JupiterLeafTest for Jupiter-backed
+                            // suites) that's meaningless to a reader, so it's deliberately not shown here.
+                            td(tc.name)
+                            td { span('class': "badge badge-${tc.status}", tc.status) }
+                            td(tc.time)
+                            td { pre(tc.failureReason ?: '') }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    writer.toString()
+}
+
+def buildBodyFragment(List suites) {
+    def summary = buildSummaryTable(suites) { s -> "#suite-${suiteSlug(s.name)}" }
+    def details = suites.collect { s -> buildSuiteDetailFragment(s) }.join()
+    "<div>${summary}${details}</div>"
+}
+
+def renderModernReport(List suites) {
+    def overallSummary = buildOverallSummaryTable(suites) { status -> "#status-${status}" }
+    def bodyFragment = buildBodyFragment(suites)
+    def css = modernReportCss()
+    def js = modernReportJs()
+    """<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Apache OFBiz JUnit (Jupiter) Integration Test Report</title>
+<style>
+${css}
+</style>
+</head>
+<body>
+<div class="navbar-report"><h1>Apache OFBiz JUnit (Jupiter) Integration Test Report</h1></div>
+<div class="container">
+<h2>Summary</h2>
+${overallSummary}
+${filterControlsHtml()}
+${bodyFragment}
+</div>
+<script>
+${js}
+</script>
+</body>
+</html>
+"""
+}
+
+def renderFramedIndexPage() {
+    '''<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Apache OFBiz JUnit (Jupiter) Integration Test Report</title>
+</head>
+<frameset cols="20%,80%">
+<frame src="nav.html" name="nav">
+<frame src="overview.html" name="detail">
+<noframes>
+<body>
+<p>This report is designed to be viewed using the frames feature. If you see this
+message, you are using a non-frame-capable web client &mdash; use
+<a href="../test-report.html">test-report.html</a> instead.</p>
+</body>
+</noframes>
+</frameset>
+</html>
+'''
+}
+
+def renderFramedNavPage(List suites) {
+    def writer = new StringWriter()
+    def html = new MarkupBuilder(writer)
+    html.html {
+        head {
+            meta(charset: 'UTF-8')
+            title('Apache OFBiz JUnit (Jupiter) Integration Test Report: Suites')
+            link(rel: 'stylesheet', href: 'junit-report.css')
+        }
+        body('class': 'nav-pane') {
+            ul('class': 'nav-list') {
+                li { a('class': 'nav-link', href: 'overview.html', target: 'detail', 'Overview') }
+                li { a('class': 'nav-link', href: 'all-tests.html', target: 'detail', 'All Tests') }
+                li { a('class': 'nav-link', href: 'all-tests-fails.html', target: 'detail', 'All Failures') }
+                li { a('class': 'nav-link', href: 'all-tests-errors.html', target: 'detail', 'All Errors') }
+                li { a('class': 'nav-link', href: 'all-tests-skipped.html', target: 'detail', 'All Skipped') }
+            }
+            div('class': 'nav-section-label', 'Suites')
+            ul('class': 'nav-list') {
+                suites.each { s ->
+                    li { a('class': 'nav-link', href: "suite-${suiteSlug(s.name)}.html", target: 'detail', s.name) }
+                }
+            }
+        }
+    }
+    "<!DOCTYPE html>\n${writer}"
+}
+
+def renderFramedOverviewPage(List suites) {
+    def overallSummary = buildOverallSummaryTable(suites) { status -> "all-tests.html#status-${status}" }
+    def summary = buildSummaryTable(suites) { s -> "suite-${suiteSlug(s.name)}.html" }
+    """<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Apache OFBiz JUnit (Jupiter) Integration Test Report: Overview</title>
+<link rel="stylesheet" href="junit-report.css">
+</head>
+<body>
+<div class="navbar-report"><h1>Apache OFBiz JUnit (Jupiter) Integration Test Report</h1></div>
+<div class="container">
+<h2>Summary</h2>
+${overallSummary}
+${summary}
+</div>
+</body>
+</html>
+"""
+}
+
+def filterControlsHtml() {
+    // Same #filter-pass/-fail/-error/-skipped checkbox elements and change listeners the JS
+    // already targets - only the visual presentation changes (hidden checkbox + a same-colored
+    // adjacent label styled as a toggle button, via the .btn-check:checked + .btn-toggle-* CSS).
+    '''<div id="filters" class="filter-group">
+<input type="checkbox" id="filter-pass" class="btn-check" checked><label class="btn-toggle btn-toggle-pass" for="filter-pass">Pass</label>
+<input type="checkbox" id="filter-fail" class="btn-check" checked><label class="btn-toggle btn-toggle-fail" for="filter-fail">Fail</label>
+<input type="checkbox" id="filter-error" class="btn-check" checked><label class="btn-toggle btn-toggle-error" for="filter-error">Error</label>
+<input type="checkbox" id="filter-skipped" class="btn-check" checked><label class="btn-toggle btn-toggle-skipped" for="filter-skipped">Skipped</label>
+</div>'''
+}
+
+def renderFramedSuiteStatusLinksHtml(boolean hasFailsPage, boolean hasErrorsPage, String slug) {
+    def links = []
+    if (hasFailsPage) {
+        links << "<a href=\"suite-${slug}-fails.html\">Failures only</a>"
+    }
+    if (hasErrorsPage) {
+        links << "<a href=\"suite-${slug}-errors.html\">Errors only</a>"
+    }
+    links ? "<p class=\"suite-status-links\">${links.join(' | ')}</p>" : ''
+}
+
+def renderFramedSuitePage(Map suite, boolean hasFailsPage, boolean hasErrorsPage) {
+    def detail = buildSuiteDetailFragment(suite)
+    def suiteNameHtml = escapeHtmlText(suite.name)
+    def statusLinks = renderFramedSuiteStatusLinksHtml(hasFailsPage, hasErrorsPage, suiteSlug(suite.name))
+    """<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Apache OFBiz JUnit (Jupiter) Integration Test Report: ${suiteNameHtml}</title>
+<link rel="stylesheet" href="junit-report.css">
+</head>
+<body>
+<div class="navbar-report"><h1>${suiteNameHtml}</h1></div>
+<div class="container">
+${statusLinks}
+${filterControlsHtml()}
+${detail}
+</div>
+<script src="junit-report.js"></script>
+</body>
+</html>
+"""
+}
+
+def renderFramedSuiteStatusPage(Map suite, String status, String statusLabel) {
+    // Per-suite equivalent of renderFramedStatusPage, generated only when the suite actually has
+    // a test in that status - mirrors the old Ant report's per-class -fails/-errors pages, which
+    // only existed for classes with a failure/error.
+    def filteredSuite = suite + [testcases: suite.testcases.findAll { it.status == status }]
+    // linked = false: this page is already filtered and has no filter controls or JS, so its stat
+    // cards render as plain values counted off filteredSuite.testcases - see buildSuiteDetailFragment.
+    def detail = buildSuiteDetailFragment(filteredSuite, false)
+    def suiteNameHtml = escapeHtmlText(suite.name)
+    """<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Apache OFBiz JUnit (Jupiter) Integration Test Report: ${suiteNameHtml} - ${statusLabel}</title>
+<link rel="stylesheet" href="junit-report.css">
+</head>
+<body>
+<div class="navbar-report"><h1>${suiteNameHtml} - ${statusLabel}</h1></div>
+<div class="container">
+<p class="suite-status-links"><a href="suite-${suiteSlug(suite.name)}.html">&larr; Back to suite</a></p>
+${detail}
+</div>
+</body>
+</html>
+"""
+}
+
+def buildAllTestsFragment(List suites) {
+    def writer = new StringWriter()
+    def html = new MarkupBuilder(writer)
+    html.table('class': 'detail bs-table') {
+        thead { tr { th('Suite'); th('Test'); th('Status'); th('Time (s)'); th('Failure Reason') } }
+        tbody {
+            suites.each { s ->
+                if (!s.parseError) {
+                    s.testcases.each { tc ->
+                        tr('class': "row-${tc.status}") {
+                            td { a(href: "suite-${suiteSlug(s.name)}.html", s.name) }
+                            td(tc.name)
+                            td { span('class': "badge badge-${tc.status}", tc.status) }
+                            td(tc.time)
+                            td { pre(tc.failureReason ?: '') }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    writer.toString()
+}
+
+def suitesFilteredByStatus(List suites, String status) {
+    // Keeps every suite (even ones with zero matches) so buildAllTestsFragment's normal
+    // iteration just emits no rows for them - simpler than special-casing an empty suite list,
+    // and matches how the unfiltered all-tests.html already handles a suite with a parseError
+    // (skipped, not removed from the list).
+    suites.collect { s -> s.parseError ? s : s + [testcases: s.testcases.findAll { it.status == status }] }
+}
+
+def renderFramedStatusPage(String status, String title, List suites) {
+    // Pre-filtered, static equivalent of all-tests.html's JS checkbox filter - unlike that page,
+    // this has a stable URL and needs no JavaScript, matching the old Ant report's
+    // alltests-fails.html/alltests-errors.html/alltests-skipped.html.
+    def detail = buildAllTestsFragment(suitesFilteredByStatus(suites, status))
+    """<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Apache OFBiz JUnit (Jupiter) Integration Test Report: ${title}</title>
+<link rel="stylesheet" href="junit-report.css">
+</head>
+<body>
+<div class="navbar-report"><h1>${title}</h1></div>
+<div class="container">
+${detail}
+</div>
+</body>
+</html>
+"""
+}
+
+def renderFramedAllTestsPage(List suites) {
+    def detail = buildAllTestsFragment(suites)
+    """<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Apache OFBiz JUnit (Jupiter) Integration Test Report: All Tests</title>
+<link rel="stylesheet" href="junit-report.css">
+</head>
+<body>
+<div class="navbar-report"><h1>All Tests</h1></div>
+<div class="container">
+${filterControlsHtml()}
+${detail}
+</div>
+<script src="junit-report.js"></script>
+</body>
+</html>
+"""
+}
+
+def buildFramedReportFiles(List suites) {
+    def files = [
+            // Written once and referenced by every page below via a same-directory relative
+            // <link>/<script src> instead of each page inlining its own copy - see modernReportCss()'s
+            // comment. test-report.html (the single-page report) still inlines both directly, since
+            // staying one portable file is the point there.
+            'junit-report.css': modernReportCss(),
+            'junit-report.js': modernReportJs(),
+            'index.html': renderFramedIndexPage(),
+            'nav.html': renderFramedNavPage(suites),
+            'overview.html': renderFramedOverviewPage(suites),
+            'all-tests.html': renderFramedAllTestsPage(suites),
+            'all-tests-fails.html': renderFramedStatusPage('fail', 'All Failures', suites),
+            'all-tests-errors.html': renderFramedStatusPage('error', 'All Errors', suites),
+            'all-tests-skipped.html': renderFramedStatusPage('skipped', 'All Skipped', suites)
+    ]
+    suites.each { s ->
+        def slug = suiteSlug(s.name)
+        def hasFails = !s.parseError && s.testcases.any { it.status == 'fail' }
+        def hasErrors = !s.parseError && s.testcases.any { it.status == 'error' }
+        files["suite-${slug}.html"] = renderFramedSuitePage(s, hasFails, hasErrors)
+        if (hasFails) {
+            files["suite-${slug}-fails.html"] = renderFramedSuiteStatusPage(s, 'fail', 'Failures')
+        }
+        if (hasErrors) {
+            files["suite-${slug}-errors.html"] = renderFramedSuiteStatusPage(s, 'error', 'Errors')
+        }
+    }
+    files
+}
+
+def parseSuiteXml(File xmlFile) {
+    try {
+        def suite = new XmlSlurper().parse(xmlFile)
+        def testcases = suite.testcase.collect { tc ->
+            def status = 'pass'
+            def failureReason = null
+            if (tc.failure.size() > 0) {
+                status = 'fail'
+                failureReason = tc.failure[0].text().trim() ?: (tc.failure[0].@message as String)
+            } else if (tc.error.size() > 0) {
+                status = 'error'
+                failureReason = tc.error[0].text().trim() ?: (tc.error[0].@message as String)
+            } else if (tc.skipped.size() > 0) {
+                status = 'skipped'
+            }
+            [
+                    classname: tc.@classname as String,
+                    name: tc.@name as String,
+                    time: (tc.@time as String) ?: '0',
+                    status: status,
+                    failureReason: failureReason
+            ]
+        }
+        [
+                name: suite.@name as String,
+                tests: (suite.@tests as String) ?: '0',
+                failures: (suite.@failures as String) ?: '0',
+                errors: (suite.@errors as String) ?: '0',
+                skipped: (suite.@skipped as String) ?: '0',
+                time: (suite.@time as String) ?: '0',
+                timestamp: (suite.@timestamp as String) ?: '',
+                hostname: (suite.@hostname as String) ?: '',
+                testcases: testcases,
+                parseError: null
+        ]
+    } catch (Exception e) {
+        [
+                name: xmlFile.name,
+                tests: '?', failures: '?', errors: '?', skipped: '?', time: '?',
+                timestamp: '', hostname: '',
+                testcases: [],
+                parseError: e.message
+        ]
+    }
+}
+
+task createTestReport(group: sysadminGroup,
+        description: 'Generate a single-page HTML test report') {
+    doLast {
+        def suiteFiles = fileTree('./runtime/logs/test-results') {
+            include '*.xml'
+            exclude 'TESTS-TestSuites.xml'
+        }
+        // Sort by the suite's own reported name, not the XML file's on-disk name: testdef
+        // suite-name and the output filename (TestRunContainer writes "<suite.getName()>.xml")
+        // are supposed to track each other, but a case-only rename can leave them out of sync on
+        // a case-insensitive-but-preserving filesystem (macOS default) - sorting on the parsed
+        // name keeps ordering correct regardless, and case-insensitively so a capitalization
+        // quirk in either one can't bump a suite out of alphabetical order.
+        def suites = suiteFiles.collect { xmlFile -> parseSuiteXml(xmlFile) }
+                .sort { it.name?.toLowerCase() }
+
+        def reportFile = file('./runtime/logs/test-results/test-report.html')
+        reportFile.parentFile.mkdirs()
+        // A checkout upgrading from before the rename still has the previous run's
+        // modern-report.html sitting here with nothing to mark it stale - drop it so only the
+        // report this run just generated is left behind (the framed task self-cleans its whole
+        // output directory, and clears the old modern-report-framed/ the same way).
+        delete file('./runtime/logs/test-results/modern-report.html')
+        reportFile.text = renderModernReport(suites)
+        println "Test report written to ${reportFile}"
+    }
+}
+
+task createFramedTestReport(group: sysadminGroup,
+        description: 'Generate a navigable, frameset-based HTML test report') {
+    doLast {
+        def suiteFiles = fileTree('./runtime/logs/test-results') {
+            include '*.xml'
+            exclude 'TESTS-TestSuites.xml'
+        }
+        // See createTestReport's matching comment: sort by parsed suite name, not filename.
+        def suites = suiteFiles.collect { xmlFile -> parseSuiteXml(xmlFile) }
+                .sort { it.name?.toLowerCase() }
+
+        def outDir = file('./runtime/logs/test-results/html')
+        if (outDir.exists()) {
+            outDir.deleteDir()
+        }
+        // Same stale-output cleanup createTestReport does for modern-report.html: a checkout
+        // upgrading from before the rename still has the pre-rename framed output directory here.
+        delete file('./runtime/logs/test-results/modern-report-framed')
+        outDir.mkdirs()
+        buildFramedReportFiles(suites).each { name, content -> file("${outDir}/${name}").text = content }
+        println "Framed test report written to ${outDir}/index.html"
+    }
+}
+
+def gradleReportReskinCss() {
+    // Layered on top of Gradle's own built-in test report (build/reports/tests/test/), which is
+    // baked into the Gradle distribution itself and has no supported theming hook - this targets
+    // that report's existing, stable class/id names (.infoBox, .tabLinks, td.success, etc.)
+    // rather than replacing the report wholesale, so the native per-class stdout/stderr tab,
+    // breadcrumbs and tab-switching JS all keep working untouched. Deliberately not shared with
+    // modernReportCss() above: that one styles markup this file itself renders, this one only
+    // overrides selectors Gradle renders, and the two happen to converge on the same palette.
+    '''
+:root {
+  --bs-primary: #0d6efd;
+  --bs-success: #198754;
+  --bs-danger: #dc3545;
+  --bs-secondary: #6c757d;
+  --bs-body-bg: #f8f9fa;
+  --bs-border-color: #dee2e6;
+}
+html, body { background: var(--bs-body-bg) !important; }
+body, body a, body a:visited {
+  font-family: -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+  color: #212529 !important;
+}
+#content > h1 {
+  /* Bleeds edge-to-edge by canceling out #content's native 30px/50px padding (left
+     untouched here) with an equal negative margin, then reapplying its own padding so the
+     title text still lines up with the rest of the page's left/right margin. */
+  margin: -30px -50px 1.5rem !important;
+  padding: 0.9rem 50px !important;
+  background: var(--bs-primary);
+  color: #fff !important;
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+.breadcrumbs, .breadcrumbs a { color: var(--bs-secondary) !important; font-size: 0.85rem; }
+.breadcrumbs { margin: -1rem 0 1.5rem !important; }
+
+.summaryGroup, #successRate.infoBox {
+  border: 1px solid var(--bs-border-color) !important;
+  border-radius: 0.5rem !important;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+}
+.infoBox { padding: 1rem !important; }
+.counter, .percent { font-size: 1.6rem !important; font-weight: 700 !important; color: #212529; }
+.infoBox p { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.03em; color: var(--bs-secondary); margin-top: 0.35rem !important; }
+#failures .counter { color: var(--bs-danger); }
+#tests .counter { color: var(--bs-primary); }
+#ignored .counter { color: var(--bs-secondary); }
+div.success, #successRate.success { background: #fff !important; border-color: var(--bs-success) !important; }
+div.success .percent, #successRate.success .percent { color: var(--bs-success) !important; }
+div.failures, #successRate.failures { background: #fff !important; border-color: var(--bs-danger) !important; }
+div.failures .percent, #successRate.failures .percent { color: var(--bs-danger) !important; }
+
+ul.tabLinks { border-bottom: 1px solid var(--bs-border-color) !important; min-width: 0 !important; }
+ul.tabLinks li {
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 0.6rem 0.2rem !important;
+  margin-right: 1.5rem !important;
+}
+ul.tabLinks li a { font-size: 0.95rem !important; color: var(--bs-secondary); font-weight: 500; }
+ul.tabLinks li.selected { background: transparent !important; border-bottom: 2px solid var(--bs-primary) !important; }
+ul.tabLinks li.selected a { color: var(--bs-primary) !important; }
+
+div.tab table {
+  width: 100% !important;
+  min-width: 0 !important;
+  background: #fff;
+  border: 1px solid var(--bs-border-color);
+  border-radius: 0.5rem;
+  border-collapse: separate !important;
+  border-spacing: 0;
+}
+div.tab th {
+  background: #f1f3f5 !important;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  letter-spacing: 0.03em;
+  color: var(--bs-secondary);
+  padding: 0.6rem 0.9rem !important;
+  white-space: nowrap;
+}
+div.tab td { padding: 0.55rem 0.9rem !important; white-space: normal !important; border-top: 1px solid var(--bs-border-color) !important; }
+div.tab tr:nth-child(even) td { background: rgba(0, 0, 0, 0.015); }
+div.tab tr:hover td { background: rgba(13, 110, 253, 0.06); }
+td.success { color: var(--bs-success) !important; }
+td.failures { color: var(--bs-danger) !important; }
+
+span.code pre {
+  background: #f8f9fa !important;
+  border: 1px solid var(--bs-border-color) !important;
+  border-radius: 0.5rem !important;
+  padding: 1rem !important;
+  font-size: 0.82rem !important;
+  color: #333;
+}
+
+#footer, #footer a { color: var(--bs-secondary) !important; }
+#footer { border-top: 1px solid var(--bs-border-color); padding-top: 1rem; }
+'''
+}
+
+task reskinGradleTestReport(group: sysadminGroup,
+        description: "Layer a Bootstrap-style stylesheet onto Gradle's native build/reports/tests/test HTML report") {
+    doLast {
+        def outDir = file('./build/reports/tests/test')
+        if (!outDir.exists()) {
+            return
+        }
+        def cssFile = file("${outDir}/junit-report-reskin.css")
+        cssFile.text = gradleReportReskinCss()
+        def linkTag = { String href -> "<link rel=\"stylesheet\" href=\"${href}\">\n</head>" }
+        def reportTitle = 'Apache OFBiz JUnit (Jupiter) Test Report'
+        fileTree(outDir) { include '**/*.html' }.each { htmlFile ->
+            def content = htmlFile.text
+            def updated = content
+            // Retitle just the top-level overview page so it doesn't read like a bare Gradle
+            // report; per-package/class pages keep Gradle's own "... Summary" headings untouched.
+            // Matched by regex rather than the literal old text ("Test Summary" the first time
+            // Gradle generates it, but whatever reportTitle was last set to on every run after
+            // that) so re-running with a new reportTitle always lands, without needing a full
+            // regenerate of build/reports/tests/test first.
+            if (htmlFile.name == 'index.html'
+                    && outDir.toPath().relativize(htmlFile.toPath()).nameCount == 1) {
+                updated = updated
+                    .replaceFirst(/<title>Test results - [^<]*<\/title>/,
+                                  "<title>Test results - ${reportTitle}</title>")
+                    .replaceFirst(/<h1>[^<]*<\/h1>/, "<h1>${reportTitle}</h1>")
+            }
+            // Idempotency guard: 'test' being UP-TO-DATE still runs this finalizedBy task (it
+            // carries no declared inputs/outputs of its own), which would otherwise re-inject the
+            // <link> into HTML Gradle didn't regenerate and left already-reskinned from last time.
+            if (!updated.contains('junit-report-reskin.css') && updated.contains('</head>')) {
+                def depth = outDir.toPath().relativize(htmlFile.toPath()).nameCount - 1
+                def href = ('../' * depth) + 'junit-report-reskin.css'
+                updated = updated.replace('</head>', linkTag(href))
+            }
+            if (updated != content) {
+                htmlFile.text = updated
+            }
+        }
+        println "Reskinned Gradle test report at ${outDir}/index.html"
+    }
+}

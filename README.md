@@ -496,7 +496,7 @@ parameters are passed:
 
 ### Testing tasks
 
-<!-- tag: testingtasks -->
+<!-- tag::testingtasks[] -->
 
 #### Execute all unit tests (no need access to the DB)
 
@@ -565,7 +565,7 @@ Listens on port **5005**
 
 `gradlew "ofbiz --test component=entity" --debug-jvm`
 
-<!-- endtag: testingtasks -->
+<!-- end::testingtasks[] -->
 
 
 ### Miscellaneous tasks

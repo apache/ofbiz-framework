@@ -1022,7 +1022,7 @@ public class SecuredUpload {
         }
         File file = new File(fileName);
         boolean safeState = false;
-        boolean canParseZUGFeRD = true;
+        boolean canParseZUGFeRD = false;
         try {
             if (Objects.isNull(file) || !file.exists()) {
                 return safeState;
@@ -1061,6 +1061,8 @@ public class SecuredUpload {
                                         + " is not a readable (valid and secure) PDF file. For security reason it's not accepted as a such file",
                                         MODULE);
 
+                            } else {
+                                canParseZUGFeRD = true;
                             }
                         } catch (SAXException | ParserConfigurationException | IOException e) {
                             safeState = false;
@@ -1128,12 +1130,18 @@ public class SecuredUpload {
             Debug.logError("The file " + fileName + " is a Windows executable, for security reason it's not accepted", MODULE);
             return true;
         }
-        // Check for ELF (Linux) and scripts
+        // Check for ELF (Linux) and scripts. Tika reports the generic application/x-elf only for
+        // ELF files it can't further classify; real-world binaries are detected as one of its
+        // more specific sub-types below (e.g. every PIE-compiled executable or shared library).
         if ("application/x-elf".equals(mimeType)
+                || "application/x-executable".equals(mimeType)
+                || "application/x-sharedlib".equals(mimeType)
+                || "application/x-object".equals(mimeType)
+                || "application/x-coredump".equals(mimeType)
                 || "application/x-sh".equals(mimeType)
-                || "application/text/x-perl".equals(mimeType)
-                || "application/text/x-ruby".equals(mimeType)
-                || "application/text/x-python".equals(mimeType)) {
+                || "text/x-perl".equals(mimeType)
+                || "text/x-ruby".equals(mimeType)
+                || "text/x-python".equals(mimeType)) {
             Debug.logError("The file " + fileName + " is a Linux executable, for security reason it's not accepted", MODULE);
             return true;
         }

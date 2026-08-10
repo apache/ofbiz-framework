@@ -365,6 +365,7 @@ public class JupiterTestExtension implements ParameterResolver, TestInstancePost
                     @Override
                     public void executionFinished(TestIdentifier testIdentifier, TestExecutionResult testExecutionResult) {
                         if (!testIdentifier.isTest()) {
+                            reportContainerFailure(testIdentifier, testExecutionResult, result);
                             return;
                         }
                         Test leaf = leafTests.get(testIdentifier.getUniqueId());
@@ -396,14 +397,53 @@ public class JupiterTestExtension implements ParameterResolver, TestInstancePost
         }
 
         /**
-         * getLegacyReportingName() reports plain @Test methods as "methodName(ParamType1, ParamType2)"
-         * and @ParameterizedTest invocations as "methodName(ParamType1, ParamType2)[index]" - the
-         * parameter types come from JUnit 5's own default display name, not from anything meaningful to
-         * a report reader here (they're always the JupiterTestExtension-injected Delegator/LocalDispatcher,
-         * or CSV-provided arguments already visible elsewhere in the name). Stripping them leaves plain
-         * JUnit 3 test methods ("testCreateExample") and Jupiter ones ("shouldCreateExample") looking
-         * consistent. For @ParameterizedTest invocations, the bare "[index]" from getLegacyReportingName()
-         * is replaced with the test's own @ParameterizedTest(name=...) display text (e.g. "[1] exampleTypeId=CONTRIVED"
+         * Without this, a container-level failure - a static {@literal @}BeforeAll (or any other
+         * class-level setup JUnit 5 runs before its children) throwing - is silently discarded:
+         * executionFinished() above returns before doing anything for a non-test identifier, so the
+         * FAILED/ABORTED result JUnit 5 reports once, on the container, never reaches
+         * result.addError()/addFailure(). That would leave every {@literal @}Test method in the class
+         * never individually started, results.wasSuccessful() still true, and testIntegration reporting
+         * full success for a class whose tests never actually ran. Reported as a synthetic leaf (mirroring
+         * JupiterLeafTest's own "reporting handle only" pattern below) since TestResult has no native
+         * concept of a class-level failure with no associated test case.
+         */
+        private void reportContainerFailure(TestIdentifier testIdentifier, TestExecutionResult testExecutionResult, TestResult result) {
+            TestExecutionResult.Status status = testExecutionResult.getStatus();
+            if (status != TestExecutionResult.Status.FAILED && status != TestExecutionResult.Status.ABORTED) {
+                return;
+            }
+            Test leaf = new JupiterLeafTest(testClass.getSimpleName() + ".initializationError", testClass.getName());
+            Throwable throwable = testExecutionResult.getThrowable()
+                    .orElseGet(() -> new AssertionError("Container '" + testIdentifier.getDisplayName()
+                            + "' reported " + status + " with no throwable"));
+            result.startTest(leaf);
+            result.addError(leaf, throwable);
+            result.endTest(leaf);
+        }
+
+        /**
+         * For a plain @Test method, the base name is the method name itself ("testCreateExample",
+         * "shouldCreateExample") - a report reader needs that to go straight from the report to the
+         * source, and losing it behind a @DisplayName's prose was a real readability regression once
+         * @DisplayName started being used. getLegacyReportingName() supplies that raw
+         * "methodName(ParamType1, ParamType2)" signature unconditionally, regardless of any
+         * @DisplayName on the method (Jupiter's MethodBasedTestDescriptor overrides
+         * getLegacyReportingBaseName() as final, always returning it). The parameter types aren't
+         * meaningful to a report reader here (they're always the JupiterTestExtension-injected
+         * Delegator/LocalDispatcher, or CSV-provided arguments already visible elsewhere in the name),
+         * so they're stripped. When the method also carries a real @DisplayName - detected by
+         * getDisplayName() differing from the same method-name shape JUnit 5's default Standard
+         * display name generator would otherwise produce - that text is appended after " - ", e.g.
+         * "testTestEntityModels - Test entity models". A method with no @DisplayName is unaffected:
+         * getDisplayName() falls back to that identical default shape, so the two sides match and only
+         * the bare method name is used.
+         *
+         * <p>For an @ParameterizedTest invocation, getDisplayName()'s shape is controlled entirely by the
+         * developer's @ParameterizedTest(name=...) pattern - the index can be anywhere, or absent - so it
+         * can't be used to detect that an identifier is a parameterized invocation. getLegacyReportingName()
+         * is used for that detection instead: it reliably ends in "[index]" for every parameterized
+         * invocation regardless of the display-name pattern in use. Once detected, the bare "[index]" is
+         * replaced with the invocation's own getDisplayName() text (e.g. "[1] exampleTypeId=CONTRIVED"
          * becomes "shouldCreateExampleAcrossTypes[exampleTypeId=CONTRIVED]"), so each row is identifiable
          * without needing to click into it.
          *
@@ -421,12 +461,32 @@ public class JupiterTestExtension implements ParameterResolver, TestInstancePost
          * prefix, since {@code classname} can't carry it and bare {@code name} previously didn't either.
          */
         private static String reportingName(TestIdentifier testIdentifier, Class<?> testClass) {
-            String withoutParamTypes = testIdentifier.getLegacyReportingName().replaceAll("\\([^)]*\\)", "");
-            Matcher indexSuffix = INDEX_SUFFIX.matcher(withoutParamTypes);
-            String bareName = withoutParamTypes;
+            // getLegacyReportingName() reliably ends in "[index]" for a parameterized
+            // invocation regardless of whatever @ParameterizedTest(name=...) pattern the
+            // developer used (unlike getDisplayName(), whose shape is entirely controlled by
+            // that pattern and may put the index anywhere, or omit it) - so it's kept here
+            // purely as a structural signal for "is this a parameterized invocation", not as
+            // the source of the visible name text.
+            String legacyReportingName = testIdentifier.getLegacyReportingName().replaceAll("\\([^)]*\\)", "");
+            Matcher indexSuffix = INDEX_SUFFIX.matcher(legacyReportingName);
+            String bareName;
             if (indexSuffix.matches()) {
+                // Parameterized invocation: the invocation's own display text (its
+                // @ParameterizedTest(name=...) text, e.g. "[1] exampleTypeId=CONTRIVED")
+                // replaces the bare "[index]", so each row is identifiable without clicking in.
+                // A @DisplayName on the parameterized method itself has no effect here - use
+                // @ParameterizedTest(name = ...) instead to control this text.
                 String invocationLabel = testIdentifier.getDisplayName().replaceFirst("^\\[\\d+]\\s*", "");
                 bareName = indexSuffix.group(1) + "[" + invocationLabel + "]";
+            } else {
+                // Plain @Test method: the method name stays the primary, always-present part of
+                // the reported name. getDisplayName() is the API that actually honors a custom
+                // @DisplayName - append its text after " - " only when it's real, i.e. differs
+                // from the default-generated "methodName(ParamTypes)" shape a method with no
+                // @DisplayName would otherwise get.
+                String methodName = legacyReportingName;
+                String displayNameText = testIdentifier.getDisplayName().replaceAll("\\([^)]*\\)$", "");
+                bareName = displayNameText.equals(methodName) ? methodName : methodName + " - " + displayNameText;
             }
             return testClass.getSimpleName() + "." + bareName;
         }

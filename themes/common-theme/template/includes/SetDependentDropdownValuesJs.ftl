@@ -17,13 +17,19 @@ specific language governing permissions and limitations
 under the License.
 -->
 <#assign requestName><@ofbizUrl>${requestName}</@ofbizUrl></#assign>
+<#-- mainId may list several parent fields, comma separated, when the dependent drop-down
+     depends on more than one input. The form name prefix has to be applied to each field
+     in turn: applying it once to the whole list leaves every field after the first
+     without a prefix, so its value never reaches the service (OFBIZ-11724). -->
+<#assign mainFieldIds><#list mainId?split(",") as fieldId>${dependentForm}_${fieldId?trim}<#sep>,</#sep></#list></#assign>
+<#assign mainFieldSelector><#list mainId?split(",") as fieldId>#${dependentForm}_${fieldId?trim}<#sep>,</#sep></#list></#assign>
 <script type="text/javascript">
     jQuery(document).ready(function () {
-        if (jQuery('#${dependentForm}_${mainId}').length) {
-            jQuery('#${dependentForm}_${mainId}').change(function (e, data) {
-                getDependentDropdownValues('${requestName}', '${paramKey}', '${dependentForm}_${mainId}', '${dependentForm}_${dependentId}', '${responseName}', '${dependentKeyName}', '${descName}');
+        if (jQuery('${mainFieldSelector}').length) {
+            jQuery('${mainFieldSelector}').change(function (e, data) {
+                getDependentDropdownValues('${requestName}', '${paramKey}', '${mainFieldIds}', '${dependentForm}_${dependentId}', '${responseName}', '${dependentKeyName}', '${descName}');
             });
-            getDependentDropdownValues('${requestName}', '${paramKey}', '${dependentForm}_${mainId}', '${dependentForm}_${dependentId}', '${responseName}', '${dependentKeyName}', '${descName}', '${selectedDependentOption}');
+            getDependentDropdownValues('${requestName}', '${paramKey}', '${mainFieldIds}', '${dependentForm}_${dependentId}', '${responseName}', '${dependentKeyName}', '${descName}', '${selectedDependentOption}');
         <#if focusFieldName??>
             jQuery('#${focusFieldName}').focus();
         </#if>

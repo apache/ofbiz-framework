@@ -33,6 +33,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.service.ModelService;
@@ -44,9 +45,11 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.MultivaluedMap;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.ResponseBuilder;
+import jakarta.ws.rs.core.Response.StatusType;
 
 public final class RestApiUtil {
 
+    public static final String RESPONSE_STATUS_KEY = "httpResponseStatus";
     private static final String DEFAULT_MSG_UI_LABEL_RESOURCE = "ApiUiLabels";
     private static final String QUERY_STRING_SEPARATOR = "&";
 
@@ -55,15 +58,22 @@ public final class RestApiUtil {
     }
 
     /**
-     * Builds a JSON success response with HTTP 200 and the given message and data.
+     * Builds a JSON success response with HTTP 200 / CUSTOM-STATUS-CODE and the given message and data.
+     * Checks for a custom status code within data. Defaults to HTTP 200 if non present.
      *
      * @param message a human-readable success message
      * @param data    the response payload
      * @return a JAX-RS {@link Response} with status 200 and a JSON {@link Success} body
      */
     public static Response success(String message, Object data) {
-        Success success = new Success(Response.Status.OK.getStatusCode(), Response.Status.OK.getReasonPhrase(), message, data);
-        ResponseBuilder builder = Response.status(Response.Status.OK).type(MediaType.APPLICATION_JSON).entity(success);
+        StatusType status = extractResponseCode(data);
+
+        if (status == null) {
+            status = Response.Status.OK;
+        }
+
+        Success success = new Success(status.getStatusCode(), status.getReasonPhrase(), message, data);
+        ResponseBuilder builder = Response.status(status.getStatusCode()).type(MediaType.APPLICATION_JSON).entity(success);
         String linkHeaderValue = getPaginationLinkHeaderValue(data);
         if (UtilValidate.isNotEmpty(linkHeaderValue)) {
             builder.header("Link", linkHeaderValue);
@@ -168,9 +178,19 @@ public final class RestApiUtil {
                 additionalErrorMessages.add(errorMessageList.get(i));
             }
         }
-        Error error = new Error().type("ServiceError").code(ResponseStatus.Custom.UNPROCESSABLE_ENTITY.getStatusCode())
+        String errorCode = null;
+        if (!UtilValidate.isEmpty(result.get(ModelService.ERROR_CODE))) {
+            errorCode = result.get(ModelService.ERROR_CODE).toString();
+        }
+        StatusType status = extractResponseCode(result);
+        if (status == null) {
+            status = ResponseStatus.Custom.UNPROCESSABLE_ENTITY;
+        }
+
+        Error error = new Error().type("ServiceError").statusCode(status.getStatusCode())
                 .description(ResponseStatus.Custom.UNPROCESSABLE_ENTITY.getReasonPhrase())
-                .message(getErrorMessage(service, "GenericServiceErrorMessage", locale)).errorDesc(errorMessage);
+                .message(getErrorMessage(service, "GenericServiceErrorMessage", locale))
+                .errorDescription(errorMessage).errorCode(errorCode);
         if (!additionalErrorMessages.isEmpty()) {
             error.setAdditionalErrors(additionalErrorMessages);
         }
@@ -360,6 +380,55 @@ public final class RestApiUtil {
             validatedFields.add(candidate);
         }
         return validatedFields;
+    }
+
+    /**
+     * Resolves a REST sort expression into EntityQuery order-by fields.
+     * Endpoint contracts can expose semantic sort names while entities use
+     * different field names, so public names are validated before mapping.
+     *
+     * @param sortExpression the requested sort expression
+     * @param sortFieldMap endpoint-supported sort fields mapped to entity fields
+     * @param defaultOrderBy fallback order fields and stable tie-breakers
+     * @return entity order-by fields suitable for {@code EntityQuery.orderBy}
+     * @throws IllegalArgumentException when a token is malformed, unsupported,
+     *         or maps to a duplicate entity field
+     */
+    public static List<String> resolveOrderBy(String sortExpression, Map<String, String> sortFieldMap, List<String> defaultOrderBy) {
+        List<String> orderBy = new ArrayList<>();
+        if (UtilValidate.isEmpty(sortExpression)) {
+            if (UtilValidate.isNotEmpty(defaultOrderBy)) {
+                orderBy.addAll(defaultOrderBy);
+            }
+            return orderBy;
+        }
+
+        Set<String> allowedFields = UtilValidate.isNotEmpty(sortFieldMap) ? sortFieldMap.keySet() : null;
+        List<String> validatedFields = validateSortFields(sortExpression, allowedFields);
+        Set<String> seenEntityFields = new HashSet<>();
+        for (String requestedField : validatedFields) {
+            boolean descending = requestedField.startsWith("-");
+            String sortKey = descending ? requestedField.substring(1) : requestedField;
+            String entityField = UtilValidate.isNotEmpty(sortFieldMap) ? sortFieldMap.get(sortKey) : sortKey;
+            if (UtilValidate.isEmpty(entityField)) {
+                throw new IllegalArgumentException("Unsupported sort field: " + sortKey);
+            }
+            if (!seenEntityFields.add(entityField)) {
+                throw new IllegalArgumentException("Duplicate sort field: " + entityField);
+            }
+            orderBy.add((descending ? "-" : "") + entityField);
+        }
+
+        if (UtilValidate.isNotEmpty(defaultOrderBy)) {
+            for (String defaultField : defaultOrderBy) {
+                String normalizedDefaultField = defaultField.startsWith("-") ? defaultField.substring(1) : defaultField;
+                if (!seenEntityFields.contains(normalizedDefaultField)) {
+                    orderBy.add(defaultField);
+                    seenEntityFields.add(normalizedDefaultField);
+                }
+            }
+        }
+        return orderBy;
     }
 
     /**
@@ -574,5 +643,33 @@ public final class RestApiUtil {
         public String getValue() {
             return value;
         }
+    }
+
+    /**
+     * Extracts the http status code from the service result to override the default.
+     * The parameter is removed from the resultMap to not show in the resulting data.
+     * @param data
+     * @return
+     */
+    public static StatusType extractResponseCode(Object data) {
+        Map<String, ? extends Object> resultMap = UtilGenerics.<String, Object>checkMap(data, String.class, Object.class);
+        Integer statusCode = null;
+
+        try {
+            statusCode = (Integer) resultMap.get(RESPONSE_STATUS_KEY);
+        } catch (ClassCastException e) {
+            // do nothing
+        }
+
+        if (statusCode == null) {
+            return null;
+        }
+        resultMap.remove(RESPONSE_STATUS_KEY);
+
+        StatusType statusType = Response.Status.fromStatusCode(statusCode);
+        if (statusType == null) {
+            statusType = ResponseStatus.Custom.fromStatusCode(statusCode);
+        }
+        return statusType;
     }
 }

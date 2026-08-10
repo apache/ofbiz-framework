@@ -17,6 +17,11 @@
  * under the License.
  *******************************************************************************/
 package org.apache.ofbiz.ws.rs.model;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.ofbiz.base.util.StringUtil;
+import org.apache.ofbiz.base.util.UtilValidate;
 
 public class ModelOperation {
 
@@ -27,6 +32,7 @@ public class ModelOperation {
     private String path;
     private String description;
     private boolean auth;
+    private String addApiResponses;
 
     /**
      * Returns whether the user is authenticated.
@@ -45,6 +51,39 @@ public class ModelOperation {
     public void setAuth(boolean auth) {
         this.auth = auth;
     }
+
+    /**
+     * @return the addApiResponses
+     */
+    public String getAddApiResponses() {
+        return addApiResponses;
+    }
+
+    /**
+     * @param addApiResponses the addApiResponses to set
+     */
+    public void setAddApiResponses(String addApiResponses) {
+        this.addApiResponses = addApiResponses;
+    }
+
+    /**
+     * @param addApiResponses the addApiResponses to set
+     */
+    public ModelOperation addApiResponses(String addApiResponses) {
+        this.addApiResponses = addApiResponses;
+        return this;
+    }
+
+    /**
+     * @return the addApiResponses as list
+     */
+    public List<String> getAddApiResponsesList() {
+        if (UtilValidate.isEmpty(addApiResponses)) {
+            return new ArrayList<>();
+        }
+        return StringUtil.split(addApiResponses, ",");
+    }
+
 
     /**
      * Sets whether this operation requires JWT authentication and returns
@@ -235,7 +274,7 @@ public class ModelOperation {
     @Override
     public String toString() {
         return "service: " + service + ", path: " + path + ", verb: " + verb + ", description: " + description
-                + ", produces: " + produces;
+                + ", produces: " + produces + ", addApiResponses:" + addApiResponses;
     }
 
 }

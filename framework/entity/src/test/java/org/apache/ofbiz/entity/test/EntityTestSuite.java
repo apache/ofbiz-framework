@@ -70,6 +70,7 @@ import org.apache.ofbiz.entity.util.EntitySaxReader;
 import org.apache.ofbiz.entity.util.SequenceUtil;
 import org.apache.ofbiz.testtools.JunitJupiterTest;
 import org.apache.ofbiz.testtools.JupiterTestHelper;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 
@@ -92,6 +93,7 @@ public class EntityTestSuite implements JupiterTestHelper {
      * Test models.
      * @throws Exception the exception
      */
+    @DisplayName("Test entity models")
     @Test
     @Order(1)
     public void testModels() throws Exception {
@@ -112,6 +114,7 @@ public class EntityTestSuite implements JupiterTestHelper {
     /**
      * Tests storing values with the delegator's .create, .makeValue, and .storeAll methods
      */
+    @DisplayName("Store values via create, makeValue, and storeAll")
     @Test
     @Order(2)
     public void testMakeValue() throws Exception {
@@ -140,6 +143,7 @@ public class EntityTestSuite implements JupiterTestHelper {
     /**
      * Tests updating entities by doing a GenericValue .put(key, value) and .store()
      */
+    @DisplayName("Update an entity via put and store")
     @Test
     @Order(3)
     public void testUpdateValue() throws Exception {
@@ -172,6 +176,7 @@ public class EntityTestSuite implements JupiterTestHelper {
      * Test remove value.
      * @throws Exception the exception
      */
+    @DisplayName("Remove a value and reject further mutation")
     @Test
     @Order(4)
     public void testRemoveValue() throws Exception {
@@ -203,6 +208,7 @@ public class EntityTestSuite implements JupiterTestHelper {
      * Test to load huge entity
      * @throws Exception the exception
      */
+    @DisplayName("Batch-create many values at once")
     @Test
     @Order(5)
     public void testCreateAllValues() throws Exception {
@@ -226,6 +232,7 @@ public class EntityTestSuite implements JupiterTestHelper {
      * Tests the entity cache
      * @throws Exception the exception
      */
+    @DisplayName("Entity cache reflects create, update, and remove")
     @Test
     @Order(6)
     public void testEntityCache() throws Exception {
@@ -361,6 +368,7 @@ public class EntityTestSuite implements JupiterTestHelper {
      * Test xml serialization.
      * @throws Exception the exception
      */
+    @DisplayName("Round-trip a value through XML serialization")
     @Test
     @Order(7)
     public void testXmlSerialization() throws Exception {
@@ -412,6 +420,7 @@ public class EntityTestSuite implements JupiterTestHelper {
     /**
      * Tests storing data with the delegator's .create method.  Also tests .findCountByCondition and .getNextSeqId
      */
+    @DisplayName("Create a node tree and verify the count")
     @Test
     @Order(8)
     public void testCreateTree() throws Exception {
@@ -429,6 +438,7 @@ public class EntityTestSuite implements JupiterTestHelper {
     /**
      * More tests of storing data with .storeAll.  Also prepares data for testing view-entities (see below.)
      */
+    @DisplayName("Add members to the tree via storeAll")
     @Test
     @Order(9)
     public void testAddMembersToTree() throws Exception {
@@ -518,6 +528,7 @@ public class EntityTestSuite implements JupiterTestHelper {
     /**
      * Tests findByCondition and tests searching on a view-entity
      */
+    @DisplayName("Count matches on a view-entity")
     @Test
     @Order(10)
     public void testCountViews() throws Exception {
@@ -549,6 +560,7 @@ public class EntityTestSuite implements JupiterTestHelper {
     /**
      * Tests findByCondition and a find by distinct
      */
+    @DisplayName("Find distinct values by condition")
     @Test
     @Order(11)
     public void testFindDistinct() throws Exception {
@@ -589,6 +601,7 @@ public class EntityTestSuite implements JupiterTestHelper {
     /**
      * Tests a findByCondition using not like
      */
+    @DisplayName("Find by condition using NOT LIKE")
     @Test
     @Order(12)
     public void testNotLike() throws Exception {
@@ -608,6 +621,7 @@ public class EntityTestSuite implements JupiterTestHelper {
     /**
      * Tests foreign key integrity by trying to remove an entity which has foreign-key dependencies.  Should cause an exception.
      */
+    @DisplayName("Reject create referencing a non-existent foreign key")
     @Test
     @Order(13)
     public void testForeignKeyCreate() {
@@ -634,6 +648,7 @@ public class EntityTestSuite implements JupiterTestHelper {
     /**
      * Tests foreign key integrity by trying to remove an entity which has foreign-key dependencies.  Should cause an exception.
      */
+    @DisplayName("Reject removal of a node still referenced by children")
     @Test
     @Order(14)
     public void testForeignKeyRemove() throws Exception {
@@ -670,6 +685,7 @@ public class EntityTestSuite implements JupiterTestHelper {
     /**
      * Tests the .getRelatedOne method and removeAll for removing entities
      */
+    @DisplayName("Remove related entities via getRelatedOne and removeAll")
     @Test
     @Order(15)
     public void testRemoveNodeMemberAndTesting() throws Exception {
@@ -708,6 +724,7 @@ public class EntityTestSuite implements JupiterTestHelper {
     /**
      * Tests the storeByCondition operation
      */
+    @DisplayName("Update matching rows via storeByCondition")
     @Test
     @Order(16)
     public void testStoreByCondition() throws Exception {
@@ -725,6 +742,7 @@ public class EntityTestSuite implements JupiterTestHelper {
     /**
      * Tests the .removeByCondition method for removing entities directly
      */
+    @DisplayName("Remove matching rows via removeByCondition")
     @Test
     @Order(17)
     public void testRemoveByCondition() throws Exception {
@@ -740,6 +758,7 @@ public class EntityTestSuite implements JupiterTestHelper {
     /**
      * Test the .removeByPrimaryKey by using findByCondition and then retrieving the GenericPk from a GenericValue
      */
+    @DisplayName("Remove rows by primary key")
     @Test
     @Order(18)
     public void testRemoveByPK() throws Exception {
@@ -770,6 +789,7 @@ public class EntityTestSuite implements JupiterTestHelper {
     /**
      * Tests the .removeAll method only.
      */
+    @DisplayName("Remove all rows of a type via removeAll")
     @Test
     @Order(19)
     public void testRemoveType() throws Exception {
@@ -794,6 +814,7 @@ public class EntityTestSuite implements JupiterTestHelper {
     /**
      * This test will create a large number of unique items and add them to the delegator at once
      */
+    @DisplayName("Create many values and store them all at once")
     @Test
     @Order(20)
     public void testCreateManyAndStoreAtOnce() throws Exception {
@@ -823,6 +844,7 @@ public class EntityTestSuite implements JupiterTestHelper {
     /**
      * This test will create a large number of unique items and add them to the delegator at once
      */
+    @DisplayName("Create many values and store them one at a time")
     @Test
     @Order(21)
     public void testCreateManyAndStoreOneAtATime() throws Exception {
@@ -850,6 +872,7 @@ public class EntityTestSuite implements JupiterTestHelper {
     /**
      * This test will use the large number of unique items from above and test the EntityListIterator looping through the list
      */
+    @DisplayName("Iterate query results with EntityListIterator")
     @Test
     @Order(22)
     public void testEntityListIterator() throws Exception {
@@ -904,6 +927,7 @@ public class EntityTestSuite implements JupiterTestHelper {
     /**
      * This test will verify transaction rollbacks using TransactionUtil.
      */
+    @DisplayName("Roll back a transaction via TransactionUtil")
     @Test
     @Order(23)
     public void testTransactionUtilRollback() throws Exception {
@@ -919,6 +943,7 @@ public class EntityTestSuite implements JupiterTestHelper {
     /**
      * This test will verify that a transaction which takes longer than the pre-set timeout are rolled back.
      */
+    @DisplayName("Roll back a transaction that exceeds its timeout")
     @Test
     @Order(24)
     public void testTransactionUtilMoreThanTimeout() throws Exception {
@@ -941,6 +966,7 @@ public class EntityTestSuite implements JupiterTestHelper {
     /**
      * This test will verify that the same transaction transaction which takes less time than timeout will be committed.
      */
+    @DisplayName("Commit a transaction that finishes within its timeout")
     @Test
     @Order(25)
     public void testTransactionUtilLessThanTimeout() throws Exception {
@@ -960,6 +986,7 @@ public class EntityTestSuite implements JupiterTestHelper {
     /**
      * Tests field types.
      */
+    @DisplayName("Round-trip every supported field type")
     @Test
     @Order(26)
     public void testFieldTypes() throws Exception {
@@ -1076,6 +1103,7 @@ public class EntityTestSuite implements JupiterTestHelper {
     /**
      * Tests EntitySaxReader, verification loading data with tag create, create-update, create-replace, delete
      */
+    @DisplayName("Load data via EntitySaxReader's create tag")
     @Test
     @Order(27)
     public void testEntitySaxReaderCreation() throws Exception {
@@ -1113,6 +1141,7 @@ public class EntityTestSuite implements JupiterTestHelper {
      * Test entity sax reader create skip.
      * @throws Exception the exception
      */
+    @DisplayName("EntitySaxReader's create tag skips an existing row")
     @Test
     @Order(28)
     public void testEntitySaxReaderCreateSkip() throws Exception {
@@ -1145,6 +1174,7 @@ public class EntityTestSuite implements JupiterTestHelper {
      * Test entity sax reader update.
      * @throws Exception the exception
      */
+    @DisplayName("Load data via EntitySaxReader's create-update tag")
     @Test
     @Order(29)
     public void testEntitySaxReaderUpdate() throws Exception {
@@ -1184,6 +1214,7 @@ public class EntityTestSuite implements JupiterTestHelper {
      * Test entity sax reader replace.
      * @throws Exception the exception
      */
+    @DisplayName("Load data via EntitySaxReader's create-replace tag")
     @Test
     @Order(30)
     public void testEntitySaxReaderReplace() throws Exception {
@@ -1221,6 +1252,7 @@ public class EntityTestSuite implements JupiterTestHelper {
      * Test entity sax reader delete.
      * @throws Exception the exception
      */
+    @DisplayName("Load data via EntitySaxReader's delete tag")
     @Test
     @Order(31)
     public void testEntitySaxReaderDelete() throws Exception {
@@ -1251,6 +1283,7 @@ public class EntityTestSuite implements JupiterTestHelper {
     /**
      * Test sequence value item.
      */
+    @DisplayName("Sequence generator returns increasing ids across a bank refresh")
     @Test
     @Order(32)
     public void testSequenceValueItem() {
@@ -1272,6 +1305,7 @@ public class EntityTestSuite implements JupiterTestHelper {
     /**
      * Test sequence value item with concurrent threads.
      */
+    @DisplayName("Sequence generator returns unique ids under concurrent access")
     @Test
     @Order(33)
     public void testSequenceValueItemWithConcurrentThreads() {
@@ -1328,6 +1362,7 @@ public class EntityTestSuite implements JupiterTestHelper {
         This test assess that running the same number of sql statements withing one transaction is faster than running
         them with individual transactions.
      */
+    @DisplayName("One big transaction is faster than many small ones")
     @Test
     @Order(34)
     public void testOneBigTransactionIsFasterThanSeveralSmallOnes() {

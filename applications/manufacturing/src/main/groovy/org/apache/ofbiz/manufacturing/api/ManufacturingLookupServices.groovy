@@ -24,6 +24,7 @@ import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.entity.condition.EntityOperator
 import org.apache.ofbiz.entity.util.EntityQuery
 import org.apache.ofbiz.entity.util.EntityUtil
+import org.apache.ofbiz.party.party.PartyHelper
 import org.apache.ofbiz.service.ServiceUtil
 import org.apache.ofbiz.ws.rs.util.RestApiUtil
 import org.apache.ofbiz.ws.rs.util.RestQueryOptions
@@ -59,6 +60,127 @@ Map findProductLookupOptions() {
         ]
     }
     return success(RestApiUtil.getPagedResult('products', products, queryOptions, totalCount, null))
+}
+
+Map searchProducts() {
+    return findProductLookupOptions()
+}
+
+Map searchParties() {
+    RestQueryOptions queryOptions
+    try {
+        queryOptions = RestQueryOptions.fromParameters(parameters)
+    } catch (IllegalArgumentException e) {
+        return ServiceUtil.returnError(e.message)
+    }
+    Map filters = queryOptions.filters
+    List orderBy
+    try {
+        orderBy = RestApiUtil.resolveOrderBy(queryOptions.sort, [
+                partyId: 'partyId',
+                partyName: 'groupName',
+                groupName: 'groupName',
+                firstName: 'firstName',
+                lastName: 'lastName'
+        ], ['partyId'])
+    } catch (IllegalArgumentException e) {
+        return ServiceUtil.returnError(e.message)
+    }
+    String queryText = filters.query?.trim()
+    if (UtilValidate.isEmpty(queryText)) {
+        return success(RestApiUtil.getPagedResult('parties', [], queryOptions, 0L, null))
+    }
+
+    EntityCondition searchCondition = EntityUtil.upperLikeAny(['partyId', 'firstName', 'lastName', 'groupName'], queryText)
+    EntityQuery partyQuery = from('PartyNameView')
+            .select('partyId', 'partyTypeId', 'firstName', 'middleName', 'lastName', 'groupName')
+            .where(searchCondition)
+    long totalCount = partyQuery.queryCount()
+    List partyRows = partyQuery.orderBy(orderBy)
+            .queryPagedList(queryOptions.pageIndex, queryOptions.pageSize).getData()
+    List parties = partyRows.collect { GenericValue party ->
+        String partyName = PartyHelper.getPartyName(party, false) ?: party.partyId
+        [
+                partyId: party.partyId,
+                partyTypeId: party.partyTypeId,
+                partyName: partyName,
+                label: partyName
+        ]
+    }
+    return success(RestApiUtil.getPagedResult('parties', parties, queryOptions, totalCount, null))
+}
+
+Map findFixedAssets() {
+    RestQueryOptions queryOptions
+    try {
+        queryOptions = RestQueryOptions.fromParameters(parameters)
+    } catch (IllegalArgumentException e) {
+        return ServiceUtil.returnError(e.message)
+    }
+    Map filters = queryOptions.filters
+    List orderBy
+    try {
+        orderBy = RestApiUtil.resolveOrderBy(queryOptions.sort, [
+                fixedAssetId: 'fixedAssetId',
+                fixedAssetName: 'fixedAssetName',
+                fixedAssetTypeId: 'fixedAssetTypeId'
+        ], ['fixedAssetName', 'fixedAssetId'])
+    } catch (IllegalArgumentException e) {
+        return ServiceUtil.returnError(e.message)
+    }
+    List conditions = []
+    if (UtilValidate.isNotEmpty(filters.fixedAssetTypeId)) {
+        conditions.add(EntityCondition.makeCondition('fixedAssetTypeId', filters.fixedAssetTypeId))
+    }
+    EntityQuery query = from('FixedAsset')
+            .select('fixedAssetId', 'fixedAssetName', 'fixedAssetTypeId')
+    if (conditions) {
+        query.where(EntityCondition.makeCondition(conditions, EntityOperator.AND))
+    }
+    long totalCount = query.queryCount()
+    List fixedAssets = query.orderBy(orderBy)
+            .queryPagedList(queryOptions.pageIndex, queryOptions.pageSize).getData()
+            .collect { GenericValue fixedAsset ->
+                String fixedAssetName = ManufacturingServiceUtil.displayFixedAssetName(fixedAsset)
+                [
+                        fixedAssetId: fixedAsset.fixedAssetId,
+                        fixedAssetName: fixedAssetName,
+                        fixedAssetTypeId: fixedAsset.fixedAssetTypeId,
+                        label: fixedAssetName
+                ]
+            }
+    return success(RestApiUtil.getPagedResult('fixedAssets', fixedAssets, queryOptions, totalCount, null))
+}
+
+Map findCostComponentOptions() {
+    List costComponentTypes = from('CostComponentType')
+            .select('costComponentTypeId', 'description')
+            .orderBy('description', 'costComponentTypeId')
+            .cache(true)
+            .queryList()
+            .collect { GenericValue type ->
+                [
+                        costComponentTypeId: type.costComponentTypeId,
+                        description: type.description,
+                        label: type.description ?: type.costComponentTypeId
+                ]
+            }
+    List costComponentCalcs = from('CostComponentCalc')
+            .select('costComponentCalcId', 'description', 'costCustomMethodId', 'fixedCost', 'variableCost', 'currencyUomId')
+            .orderBy('description', 'costComponentCalcId')
+            .queryList()
+            .collect { GenericValue calc ->
+                [
+                        costComponentCalcId: calc.costComponentCalcId,
+                        description: calc.description,
+                        costCustomMethodId: calc.costCustomMethodId,
+                        fixedCost: calc.fixedCost,
+                        variableCost: calc.variableCost,
+                        currencyUomId: calc.currencyUomId,
+                        label: calc.description ?: calc.costComponentCalcId
+                ]
+            }
+    return success(costComponentTypes: costComponentTypes, costComponentCalcs: costComponentCalcs)
 }
 
 Map findWarehouses() {

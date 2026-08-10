@@ -111,6 +111,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
     public static final String RESPOND_SUCCESS = "success";
     public static final String RESPOND_ERROR = "error";
     public static final String RESPOND_FAIL = "fail";
+    public static final String ERROR_CODE = "errorCode";
     public static final String ERROR_MESSAGE = "errorMessage";
     public static final String ERROR_MESSAGE_LIST = "errorMessageList";
     public static final String ERROR_MESSAGE_MAP = "errorMessageMap";

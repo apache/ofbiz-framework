@@ -24,11 +24,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import jakarta.servlet.ServletContext;
-import jakarta.ws.rs.HttpMethod;
-import jakarta.ws.rs.core.HttpHeaders;
-import jakarta.ws.rs.core.Response;
-
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.GenericServiceException;
@@ -37,8 +32,10 @@ import org.apache.ofbiz.service.ModelParam;
 import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.webapp.WebAppUtil;
 import org.apache.ofbiz.ws.rs.core.OFBizApiConfig;
+import org.apache.ofbiz.ws.rs.core.ResponseStatus;
 import org.apache.ofbiz.ws.rs.listener.ApiContextListener;
 import org.apache.ofbiz.ws.rs.model.ModelApi;
+import org.apache.ofbiz.ws.rs.model.ModelMapping;
 import org.apache.ofbiz.ws.rs.model.ModelOperation;
 import org.apache.ofbiz.ws.rs.model.ModelResource;
 import org.apache.ofbiz.ws.rs.util.OpenApiUtil;
@@ -65,6 +62,11 @@ import io.swagger.v3.oas.models.responses.ApiResponse;
 import io.swagger.v3.oas.models.responses.ApiResponses;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.tags.Tag;
+import jakarta.servlet.ServletContext;
+import jakarta.ws.rs.HttpMethod;
+import jakarta.ws.rs.core.HttpHeaders;
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.Response.StatusType;
 
 public final class OFBizOpenApiReader extends Reader implements OpenApiReader {
     private static final String MODULE = OFBizOpenApiReader.class.getName();
@@ -108,6 +110,10 @@ public final class OFBizOpenApiReader extends Reader implements OpenApiReader {
         apis.forEach((k, api) -> {
             if (!api.isPublish()) return;
 
+            List<ModelMapping> mappings = api.getMappings();
+            mappings.forEach(modelMapping -> {
+                OpenApiUtil.getListTypes().put(modelMapping.getName(), modelMapping.getClassName());
+            });
             List<String> baseSegments = new ArrayList<>();
             baseSegments.add(api.getPath());
 
@@ -183,8 +189,9 @@ public final class OFBizOpenApiReader extends Reader implements OpenApiReader {
             }
 
             addServiceOutSchema(service);
-            addServiceInSchema(service);
+            addServiceInSchema(service, op);
             addServiceOperationApiResponses(service, operation);
+            addAdditionalOperationApiResponses(service, op, operation);
             setPathItemOperation(pathItemObject, verb.toUpperCase(), operation);
 
             if (!pathExists) {
@@ -298,8 +305,12 @@ public final class OFBizOpenApiReader extends Reader implements OpenApiReader {
         schemas.put("api.response." + service.getName() + ".success", OpenApiUtil.getOutSchema(service));
     }
 
+    private void addServiceInSchema(ModelService service, ModelOperation op) {
+        schemas.put("api.request." + service.getName(), OpenApiUtil.getInSchema(service, op));
+    }
+
     private void addServiceInSchema(ModelService service) {
-        schemas.put("api.request." + service.getName(), OpenApiUtil.getInSchema(service));
+        schemas.put("api.request." + service.getName(), OpenApiUtil.getInSchema(service, null));
     }
 
     private void addPredefinedSchemas() {
@@ -316,6 +327,51 @@ public final class OFBizOpenApiReader extends Reader implements OpenApiReader {
             apiResponsesObject.addApiResponse(code, response);
         });
         operation.setResponses(apiResponsesObject);
+    }
+
+    private void addAdditionalOperationApiResponses(ModelService service, ModelOperation op, Operation operation) {
+        ApiResponses apiResponsesObject = operation.getResponses();
+
+        if (apiResponsesObject == null) {
+            apiResponsesObject = new ApiResponses();
+        }
+
+        final ApiResponses apiResponsesObjectCopy = apiResponsesObject;
+        op.getAddApiResponsesList().forEach((statusCode) -> {
+
+            StatusType statusType = Response.Status.fromStatusCode(Integer.valueOf(statusCode));
+            if (statusType == null) {
+                statusType = ResponseStatus.Custom.fromStatusCode(Integer.valueOf(statusCode));
+            }
+
+            if (statusType != null) {
+                String schemaName = "";
+                ApiResponse customResponse = OpenApiUtil.getCustomApiResponseByStatusCode(statusCode);
+                if (customResponse != null) {
+                    apiResponsesObjectCopy.addApiResponse(statusCode, customResponse);
+                    Schema<?> schema = customResponse.getContent()
+                            .get(jakarta.ws.rs.core.MediaType.APPLICATION_JSON)
+                            .getSchema();
+
+                    String ref = schema.get$ref();
+                    schemaName = ref.substring(ref.lastIndexOf('/') + 1);
+                } else {
+                    schemaName = "api.response.service.".concat(service.getName()).concat(".").concat(String.valueOf(statusType.getStatusCode()));
+
+                    ApiResponse response = new ApiResponse().description(statusType.getReasonPhrase()).content(new Content().addMediaType(
+                            javax.ws.rs.core.MediaType.APPLICATION_JSON,
+                            new MediaType().schema(new Schema<>().$ref("#/components/schemas/" + schemaName))));
+                    apiResponsesObjectCopy.addApiResponse(statusCode, response);
+                }
+
+                if (statusType.getStatusCode() > 399) {
+                    schemas.put(schemaName, OpenApiUtil.getGenericErrorSchema(null));
+                } else {
+                    schemas.put(schemaName, OpenApiUtil.getOutSchema(service));
+                }
+
+            }
+        });
     }
 
 }

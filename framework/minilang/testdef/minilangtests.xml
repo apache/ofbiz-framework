@@ -18,11 +18,11 @@
   under the License.
   -->
 
-<test-suite suite-name="MinilangTests"
+<test-suite suite-name="minilangtests"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/test-suite.xsd">
 
-    <test-case case-name="MiniLangUnitTests">
+    <test-case case-name="minilangunittests">
         <jupiter-test-suite class-name="org.apache.ofbiz.minilang.test.MiniLangTests"/>
     </test-case>
 
