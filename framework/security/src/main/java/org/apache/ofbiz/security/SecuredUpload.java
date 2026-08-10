@@ -686,6 +686,7 @@ public class SecuredUpload {
             metadata = ImageMetadataReader.readMetadata(file);
         } catch (ImageProcessingException | IOException error) {
             Debug.logError("================== Not saved for security reason ==================" + error, MODULE);
+            return false;
         }
 
         for (Directory directory : metadata.getDirectories()) {
