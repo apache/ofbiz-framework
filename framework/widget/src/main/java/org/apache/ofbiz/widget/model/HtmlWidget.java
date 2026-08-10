@@ -42,6 +42,7 @@ import org.apache.ofbiz.base.util.cache.UtilCache;
 import org.apache.ofbiz.base.util.collections.MapStack;
 import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
 import org.apache.ofbiz.base.util.template.FreeMarkerWorker;
+import org.apache.ofbiz.base.util.template.OfbizBeansWrapper;
 import org.apache.ofbiz.widget.renderer.ScreenRenderer;
 import org.apache.ofbiz.widget.renderer.ScreenStringRenderer;
 import org.apache.ofbiz.widget.renderer.html.HtmlWidgetRenderer;
@@ -77,7 +78,7 @@ public class HtmlWidget extends ModelScreenWidget {
         SPECIAL_CONFIG_SQUARE_INTERPOLATION.setInterpolationSyntax(Configuration.SQUARE_BRACKET_INTERPOLATION_SYNTAX);
     }
     // not sure if this is the best way to get FTL to use my fancy MapModel derivative, but should work at least...
-    public static class ExtendedWrapper extends BeansWrapper {
+    public static class ExtendedWrapper extends OfbizBeansWrapper {
         public ExtendedWrapper(Version version) {
             super(version);
         }
