@@ -65,7 +65,7 @@ shiro-crypto-cipher = "2.1.0"
 # Shared by sshd-core, sshd-sftp.
 sshd = "2.17.1"
 # Shared by tika-core, tika-parsers, tika-parser-pdf-module.
-tika = "3.3.1"
+tika = "3.3.2"
 cxf-rt-frontend-jaxrs = "4.2.0"
 # Remember to change the version number (10 now) in javadoc block if needed. Shared by
 # tomcat-catalina-ha, tomcat-jasper.
