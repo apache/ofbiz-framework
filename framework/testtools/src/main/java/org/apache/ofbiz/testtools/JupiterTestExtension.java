@@ -18,17 +18,20 @@
  *******************************************************************************/
 package org.apache.ofbiz.testtools;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.service.LocalDispatcher;
-import org.junit.jupiter.api.Disabled;
+import org.apache.ofbiz.testtools.SuiteReportSink.Outcome;
 import org.junit.jupiter.api.extension.ConditionEvaluationResult;
 import org.junit.jupiter.api.extension.ExecutionCondition;
 import org.junit.jupiter.api.extension.ExtensionContext;
@@ -37,7 +40,6 @@ import org.junit.jupiter.api.extension.ParameterResolutionException;
 import org.junit.jupiter.api.extension.ParameterResolver;
 import org.junit.jupiter.api.extension.TestInstancePostProcessor;
 import org.junit.platform.engine.TestExecutionResult;
-import org.junit.platform.engine.support.descriptor.MethodSource;
 import org.junit.platform.launcher.Launcher;
 import org.junit.platform.launcher.LauncherDiscoveryRequest;
 import org.junit.platform.launcher.TestExecutionListener;
@@ -45,16 +47,11 @@ import org.junit.platform.launcher.TestIdentifier;
 import org.junit.platform.launcher.core.LauncherDiscoveryRequestBuilder;
 import org.junit.platform.launcher.core.LauncherFactory;
 
-import junit.framework.AssertionFailedError;
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestResult;
-
 import static org.junit.platform.engine.discovery.DiscoverySelectors.selectClass;
 
 /**
  * Injects the per-suite Delegator/LocalDispatcher that ModelTestSuite already builds for JUnit 3
- * test-cases into Jupiter test classes run through JupiterTestSuite.
+ * test-cases into Jupiter test classes run through JupiterClassRunner.
  *
  * <p>The recommended pattern - the one both reference examples use ({@code ExampleTests} and
  * {@code ExampleJupiterTests} in {@code plugins/example/.../test}) - is to {@code implements
@@ -92,8 +89,8 @@ import static org.junit.platform.engine.discovery.DiscoverySelectors.selectClass
  * fills them left-to-right, then resolves the remaining parameters via registered
  * ParameterResolvers.
  *
- * <p>JupiterTestSuite.run() executes tests synchronously on the calling thread. This is pinned, not
- * merely assumed of Jupiter's default: the discovery request built in JupiterTestSuite's
+ * <p>JupiterClassRunner.run() executes tests synchronously on the calling thread. This is pinned, not
+ * merely assumed of Jupiter's default: the discovery request built in JupiterClassRunner's
  * constructor sets {@code configurationParameter("junit.jupiter.execution.parallel.enabled",
  * "false")} on the {@code LauncherDiscoveryRequest} itself, which is the highest-precedence
  * configuration source in the JUnit Platform - it wins over a {@code junit-platform.properties}
@@ -122,12 +119,14 @@ import static org.junit.platform.engine.discovery.DiscoverySelectors.selectClass
  *
  * <p><b>Not per-test isolation.</b> JUnit 5 creates a fresh test instance per {@literal @}Test
  * method by default, which can suggest each method also gets a fresh Delegator/LocalDispatcher -
- * it doesn't. The Delegator/LocalDispatcher injected here are the single instances
- * ModelTestSuite.prepareTest() builds once for the whole {@code <test-suite>}, shared across every
- * test method and every Jupiter/JUnit 3 class in that suite, exactly as JUnit 3 test-cases already
- * share them today. TestRunContainer rolls back all accumulated mutations once, after the entire
- * suite finishes - not per test method - so a test can observe data created by an earlier test in
- * the same suite, and ordering between test-cases in the suite's testdef XML can matter.
+ * it doesn't. The Delegator/LocalDispatcher injected here are the single instances ModelTestSuite's
+ * constructor builds once for the whole {@code <test-suite>}, passed straight into each
+ * JupiterClassRunner by TestRunContainer, shared across every test method and every Jupiter/JUnit 3
+ * entry in that suite, exactly as JUnit 3 test-cases already share them today via
+ * ModelTestSuite.getPreparedTestList()'s injection. TestRunContainer rolls back all accumulated
+ * mutations once, after the entire suite finishes - not per test method - so a test can observe data
+ * created by an earlier test in the same suite, and ordering between test-cases in the suite's
+ * testdef XML can matter.
  */
 public class JupiterTestExtension implements ParameterResolver, TestInstancePostProcessor, ExecutionCondition {
 
@@ -143,7 +142,7 @@ public class JupiterTestExtension implements ParameterResolver, TestInstancePost
      * NullPointerException from a getDelegator()/getDispatcher() caller). Both ThreadLocals are
      * checked rather than just one so a class relying on only a Delegator or only a
      * LocalDispatcher isn't disabled by a coincidentally-unset ThreadLocal it never actually reads
-     * - in practice JupiterTestSuite.run() arms both together.
+     * - in practice JupiterClassRunner.run() arms both together.
      */
     @Override
     public ConditionEvaluationResult evaluateExecutionCondition(ExtensionContext extensionContext) {
@@ -230,7 +229,7 @@ public class JupiterTestExtension implements ParameterResolver, TestInstancePost
      */
     private static String unavailableMessage(String typeName, String target) {
         return "No " + typeName + " available to inject into " + target + ". JupiterTestExtension's ThreadLocal "
-                + "bridge is only populated on the thread that calls JupiterTestSuite.run(), and only for classes "
+                + "bridge is only populated on the thread that calls JupiterClassRunner.run(), and only for classes "
                 + "run through the ofbiz --test container (jupiter-test-suite in a testdef XML). This is null "
                 + "because either this class ran outside that container (e.g. plain gradlew test), or JUnit 5 "
                 + "parallel execution is enabled for it - both unsupported for delegator/dispatcher injection.";
@@ -245,39 +244,48 @@ public class JupiterTestExtension implements ParameterResolver, TestInstancePost
     }
 
     /**
-     * Adapts a JUnit 5 Jupiter test class to the JUnit 3 junit.framework.Test contract so it can run
-     * inside TestRunContainer/ModelTestSuite side-by-side with junit-test-suite (JUnit 3) test-cases,
-     * sharing the same suite-level Delegator/LocalDispatcher and reporting through the same
-     * TestResult/TestListener/XML pipeline TestRunContainer already has. Execution goes through the
-     * real JUnit Platform Launcher, so @Test/@ParameterizedTest/@Disabled behave exactly as they
-     * would under `./gradlew test`. The discovery request pins the default method orderer to
-     * {@code MethodOrderer.OrderAnnotation}, replacing Jupiter's own unordered default so a class's
-     * execution order is always whatever its {@code @Order} annotations say (or unspecified only
-     * among methods that declare none) rather than an unpredictable per-run default. It also pins
-     * {@code junit.jupiter.execution.parallel.enabled} to {@code false}, so every test method
-     * executes on the calling thread regardless of any system property or properties file that
-     * might otherwise request parallelism - see the class-level javadoc above for why that matters
-     * to the ThreadLocal bridge.
+     * Executes one Jupiter test class through the real JUnit Platform Launcher and reports its
+     * results directly to one or more {@link SuiteReportSink}s - replacing JupiterTestSuite/
+     * JupiterLeafTest, which used to adapt a Jupiter class to the JUnit 3 junit.framework.Test
+     * contract purely so it could plug into TestRunContainer's junit.framework.TestSuite/TestResult
+     * pipeline. That impersonation is gone: TestRunContainer now runs a JupiterClassRunner directly
+     * for each JupiterEntry in a ModelTestSuite's prepared test list, side-by-side in the same loop
+     * as JUnit 3 entries (run through Junit3ResultBridge instead), both feeding the same sink(s) in
+     * real execution order.
+     *
+     * <p>The discovery request pins the default method orderer to {@code MethodOrderer.OrderAnnotation},
+     * replacing Jupiter's own unordered default so a class's execution order is always whatever its
+     * {@code @Order} annotations say (or unspecified only among methods that declare none) rather than
+     * an unpredictable per-run default. It also pins {@code junit.jupiter.execution.parallel.enabled}
+     * to {@code false}, so every test method executes on the calling thread regardless of any system
+     * property or properties file that might otherwise request parallelism - see the class-level
+     * javadoc above for why that matters to the ThreadLocal bridge.
+     *
+     * <p>Reports real class/method names directly - no synthetic shared reporting handle is needed
+     * anymore, since {@link SuiteReportSink#testStarted}/{@link SuiteReportSink#testFinished} take a
+     * classname/name pair rather than a junit.framework.Test object. Two same-named methods in
+     * different Jupiter classes bundled into the same {@code <test-suite>} (a real collision:
+     * {@code AutoAcctgAdminTests} and {@code AutoAcctgAgreementTests} both have a
+     * {@code testAddPaymentMethodTypeGlAssignment}) are still distinguishable in the report, now via
+     * the {@code classname} attribute itself rather than a name-prefix workaround.
      */
-    static final class JupiterTestSuite implements Test {
+    static final class JupiterClassRunner {
 
-        private static final String MODULE = JupiterTestSuite.class.getName();
+        private static final String MODULE = JupiterClassRunner.class.getName();
         private static final Pattern INDEX_SUFFIX = Pattern.compile("(.*)\\[\\d+\\]$");
 
         private final Class<?> testClass;
+        private final Delegator delegator;
+        private final LocalDispatcher dispatcher;
+        private final List<SuiteReportSink> sinks;
         private final Launcher launcher;
         private final LauncherDiscoveryRequest request;
-        private final int testCaseCount;
-        // Stored, not applied immediately: ModelTestSuite.prepareTest() calls setDelegator()/
-        // setDispatcher() once for every JupiterTestSuite in a <test-suite>, before any of them run.
-        // Pushing straight to the shared ThreadLocal there would let one instance's post-run cleanup
-        // (see run() below) wipe state a sibling instance still needs. Applying them in run() instead
-        // means each instance re-arms its own state right before it executes.
-        private Delegator delegator;
-        private LocalDispatcher dispatcher;
 
-        JupiterTestSuite(Class<?> testClass) {
+        JupiterClassRunner(Class<?> testClass, Delegator delegator, LocalDispatcher dispatcher, SuiteReportSink... sinks) {
             this.testClass = testClass;
+            this.delegator = delegator;
+            this.dispatcher = dispatcher;
+            this.sinks = List.of(sinks);
             this.launcher = LauncherFactory.create();
             this.request = LauncherDiscoveryRequestBuilder.request()
                     .selectors(selectClass(testClass))
@@ -286,71 +294,29 @@ public class JupiterTestExtension implements ParameterResolver, TestInstancePost
                             "org.junit.jupiter.api.MethodOrderer$OrderAnnotation")
                     .configurationParameter("junit.jupiter.execution.parallel.enabled", "false")
                     .build();
-            this.testCaseCount = (int) launcher.discover(request).countTestIdentifiers(
-                    id -> id.isTest() && !isStaticallyDisabled(id));
         }
 
         /**
-         * Excludes {@literal @}Disabled methods/classes from countTestCases() so it agrees with the
-         * TestResult.runCount() TestRunContainer actually logs: run() below never calls startTest()
-         * for a disabled test (see executionSkipped()), so runCount() never counts it either. Discovery
-         * alone can't see every reason a test might not run - an ExecutionCondition like this class's own
-         * evaluateExecutionCondition() is only evaluated at execution time - but a bare {@literal @}Disabled
-         * is visible right here via reflection on the MethodSource, which covers the common case cheaply.
-         * Any resolution failure falls back to "not disabled" (matches the old, over-counting behavior)
-         * rather than risk hiding a test that actually runs.
+         * Runs this class's tests, reporting to every configured sink as JUnit 5 execution events
+         * arrive. Isolated per class (tightens item 14 of the JUnit5 improvements catalog): an
+         * exception escaping launcher.execute() itself - a JUnitException from a discovery/
+         * engine-registration problem, a PreconditionViolationException, or a bug in the listener
+         * below - is caught here and reported as this one class's error, so a problem in one Jupiter
+         * class can no longer take down sibling entries (JUnit 3 or Jupiter) declared after it in the
+         * same testdef {@code <test-suite>}. TestRunContainer's own outer per-suite try/catch remains
+         * as a last-resort net for anything escaping the SuiteEntry loop itself.
          */
-        private static boolean isStaticallyDisabled(TestIdentifier identifier) {
-            return identifier.getSource()
-                    .filter(MethodSource.class::isInstance)
-                    .map(MethodSource.class::cast)
-                    .map(JupiterTestSuite::isDisabledMethodSource)
-                    .orElse(false);
-        }
-
-        private static boolean isDisabledMethodSource(MethodSource source) {
-            try {
-                Class<?> testClass = Class.forName(source.getClassName());
-                if (testClass.isAnnotationPresent(Disabled.class)) {
-                    return true;
-                }
-                for (Method method : testClass.getDeclaredMethods()) {
-                    if (method.getName().equals(source.getMethodName()) && method.isAnnotationPresent(Disabled.class)) {
-                        return true;
-                    }
-                }
-            } catch (ClassNotFoundException e) {
-                return false;
-            }
-            return false;
-        }
-
-        void setDelegator(Delegator delegator) {
-            this.delegator = delegator;
-        }
-
-        void setDispatcher(LocalDispatcher dispatcher) {
-            this.dispatcher = dispatcher;
-        }
-
-        @Override
-        public int countTestCases() {
-            return testCaseCount;
-        }
-
-        @Override
-        public void run(TestResult result) {
+        void run() {
             JupiterTestExtension.CURRENT_DELEGATOR.set(delegator);
             JupiterTestExtension.CURRENT_DISPATCHER.set(dispatcher);
-            Map<String, Test> leafTests = new HashMap<>();
+            Map<String, Long> startTimes = new HashMap<>();
             try {
                 launcher.execute(request, new TestExecutionListener() {
                     @Override
                     public void executionStarted(TestIdentifier testIdentifier) {
                         if (testIdentifier.isTest()) {
-                            Test leaf = new JupiterLeafTest(reportingName(testIdentifier, testClass), testClass.getName());
-                            leafTests.put(testIdentifier.getUniqueId(), leaf);
-                            result.startTest(leaf);
+                            startTimes.put(testIdentifier.getUniqueId(), System.currentTimeMillis());
+                            dispatch(sink -> sink.testStarted(testClass.getName(), reportingName(testIdentifier)));
                         }
                     }
 
@@ -365,31 +331,34 @@ public class JupiterTestExtension implements ParameterResolver, TestInstancePost
                     @Override
                     public void executionFinished(TestIdentifier testIdentifier, TestExecutionResult testExecutionResult) {
                         if (!testIdentifier.isTest()) {
-                            reportContainerFailure(testIdentifier, testExecutionResult, result);
+                            reportContainerFailure(testIdentifier, testExecutionResult);
                             return;
                         }
-                        Test leaf = leafTests.get(testIdentifier.getUniqueId());
+                        String name = reportingName(testIdentifier);
+                        long elapsed = System.currentTimeMillis() - startTimes.get(testIdentifier.getUniqueId());
                         if (testExecutionResult.getStatus() == TestExecutionResult.Status.ABORTED) {
-                            // A JUnit 5 Assumptions.assumeTrue/assumeFalse failure: a deliberate skip, not a
-                            // defect, so it is reported the same way executionSkipped() reports a @Disabled
-                            // test - logged, not routed through addFailure()/addError() - even though, unlike
-                            // a @Disabled test, startTest() already ran for it and endTest() still must too.
+                            // A JUnit 5 Assumptions.assumeTrue/assumeFalse failure: a deliberate skip,
+                            // not a defect - logged, not reported as a failure/error, the same way a
+                            // @Disabled test is reported via executionSkipped() above, except that
+                            // testStarted()/testFinished() must still fire here since the test already
+                            // started (see SuiteReportSink.Outcome's javadoc for why this reports Passed).
                             testExecutionResult.getThrowable().ifPresent(throwable ->
                                     Debug.logInfo("[JUNIT] ABORTED: " + testIdentifier.getDisplayName()
                                             + " (" + testClass.getName() + ") - " + throwable.getMessage(), MODULE));
-                            result.endTest(leaf);
+                            dispatch(sink -> sink.testFinished(testClass.getName(), name, elapsed, Outcome.passed()));
                             return;
                         }
-                        testExecutionResult.getThrowable().ifPresent(throwable -> {
-                            if (throwable instanceof AssertionError) {
-                                result.addFailure(leaf, new AssertionFailedError(throwable.getMessage()));
-                            } else {
-                                result.addError(leaf, throwable);
-                            }
-                        });
-                        result.endTest(leaf);
+                        Outcome outcome = testExecutionResult.getThrowable()
+                                .map(throwable -> throwable instanceof AssertionError
+                                        ? Outcome.failure(throwable.getMessage(), throwable.getClass().getName(),
+                                                stackTraceOf(throwable))
+                                        : Outcome.error(throwable))
+                                .orElseGet(Outcome::passed);
+                        dispatch(sink -> sink.testFinished(testClass.getName(), name, elapsed, outcome));
                     }
                 });
+            } catch (Throwable t) {
+                reportClassExecutionFailure(t);
             } finally {
                 JupiterTestExtension.CURRENT_DELEGATOR.remove();
                 JupiterTestExtension.CURRENT_DISPATCHER.remove();
@@ -400,25 +369,53 @@ public class JupiterTestExtension implements ParameterResolver, TestInstancePost
          * Without this, a container-level failure - a static {@literal @}BeforeAll (or any other
          * class-level setup JUnit 5 runs before its children) throwing - is silently discarded:
          * executionFinished() above returns before doing anything for a non-test identifier, so the
-         * FAILED/ABORTED result JUnit 5 reports once, on the container, never reaches
-         * result.addError()/addFailure(). That would leave every {@literal @}Test method in the class
-         * never individually started, results.wasSuccessful() still true, and testIntegration reporting
-         * full success for a class whose tests never actually ran. Reported as a synthetic leaf (mirroring
-         * JupiterLeafTest's own "reporting handle only" pattern below) since TestResult has no native
-         * concept of a class-level failure with no associated test case.
+         * FAILED/ABORTED result JUnit 5 reports once, on the container, never reaches any sink. That
+         * would leave every {@literal @}Test method in the class never individually started, and this
+         * class contributing nothing to the report, for a class whose tests never actually ran.
+         * Reported as a synthetic entry attributed to this class via the {@code classname} argument
+         * to testStarted()/testFinished() - {@code name} itself is the fixed literal
+         * "initializationError", not derived from the class name - the same "reporting handle only"
+         * pattern JupiterLeafTest used to serve, now going straight through the sink instead of a
+         * fake junit.framework.Test.
          */
-        private void reportContainerFailure(TestIdentifier testIdentifier, TestExecutionResult testExecutionResult, TestResult result) {
+        private void reportContainerFailure(TestIdentifier testIdentifier, TestExecutionResult testExecutionResult) {
             TestExecutionResult.Status status = testExecutionResult.getStatus();
             if (status != TestExecutionResult.Status.FAILED && status != TestExecutionResult.Status.ABORTED) {
                 return;
             }
-            Test leaf = new JupiterLeafTest(testClass.getSimpleName() + ".initializationError", testClass.getName());
+            String name = "initializationError";
             Throwable throwable = testExecutionResult.getThrowable()
                     .orElseGet(() -> new AssertionError("Container '" + testIdentifier.getDisplayName()
                             + "' reported " + status + " with no throwable"));
-            result.startTest(leaf);
-            result.addError(leaf, throwable);
-            result.endTest(leaf);
+            dispatch(sink -> sink.testStarted(testClass.getName(), name));
+            dispatch(sink -> sink.testFinished(testClass.getName(), name, 0, Outcome.error(throwable)));
+        }
+
+        /**
+         * Reports an exception that escaped launcher.execute() itself - see run()'s javadoc - as a
+         * synthetic entry attributed to this class via the {@code classname} argument to
+         * testStarted()/testFinished(); {@code name} itself is the fixed literal
+         * "classExecutionError", not derived from the class name.
+         *
+         * <p>Package-private rather than private so JupiterClassRunnerTest can exercise it directly
+         * without needing to force a real JUnit Platform internal failure.
+         * @param throwable the exception that escaped launcher.execute()
+         */
+        void reportClassExecutionFailure(Throwable throwable) {
+            Debug.logError(throwable, "[JUNIT] Class '" + testClass.getName() + "' failed to execute: " + throwable, MODULE);
+            String name = "classExecutionError";
+            dispatch(sink -> sink.testStarted(testClass.getName(), name));
+            dispatch(sink -> sink.testFinished(testClass.getName(), name, 0, Outcome.error(throwable)));
+        }
+
+        private void dispatch(Consumer<SuiteReportSink> action) {
+            sinks.forEach(action);
+        }
+
+        private static String stackTraceOf(Throwable throwable) {
+            StringWriter stringWriter = new StringWriter();
+            throwable.printStackTrace(new PrintWriter(stringWriter));
+            return stringWriter.toString();
         }
 
         /**
@@ -447,79 +444,21 @@ public class JupiterTestExtension implements ParameterResolver, TestInstancePost
          * becomes "shouldCreateExampleAcrossTypes[exampleTypeId=CONTRIVED]"), so each row is identifiable
          * without needing to click into it.
          *
-         * <p>Prefixed with the test class's simple name ("AutoAcctgAdminTests.testXxx") because that class
-         * is otherwise invisible in the JUnit XML/HTML report: every Jupiter-sourced {@code <testcase>} in a
-         * suite shares one {@code classname}, {@code JupiterLeafTest}'s own class
-         * ({@code org.apache.ofbiz.testtools.JupiterTestExtension$JupiterTestSuite$JupiterLeafTest}), since
-         * Ant's {@code JUnitVersionHelper.getTestCaseClassName()} derives {@code classname} from
-         * {@code test.getClass().getName()} with no hook to override it - the only exception is a test
-         * object that literally is {@code junit.framework.JUnit4TestCaseFacade}, whose package-private
-         * constructor rules out subclassing it from this package. Two different Jupiter classes bundled into
-         * the same {@code <test-suite>} can therefore define same-named methods (a real collision:
-         * {@code AutoAcctgAdminTests} and {@code AutoAcctgAgreementTests} both have a
-         * {@code testAddPaymentMethodTypeGlAssignment}) and be indistinguishable in the report without this
-         * prefix, since {@code classname} can't carry it and bare {@code name} previously didn't either.
+         * <p>Unlike the old JupiterLeafTest-based reporting, this name carries no class-name prefix - the
+         * real class name is now reported separately as {@code classname} (see {@link #run()}), since
+         * SuiteReportSink's testStarted()/testFinished() take a classname/name pair directly instead of a
+         * single junit.framework.Test whose class was always the shared JupiterLeafTest.
          */
-        private static String reportingName(TestIdentifier testIdentifier, Class<?> testClass) {
-            // getLegacyReportingName() reliably ends in "[index]" for a parameterized
-            // invocation regardless of whatever @ParameterizedTest(name=...) pattern the
-            // developer used (unlike getDisplayName(), whose shape is entirely controlled by
-            // that pattern and may put the index anywhere, or omit it) - so it's kept here
-            // purely as a structural signal for "is this a parameterized invocation", not as
-            // the source of the visible name text.
+        private String reportingName(TestIdentifier testIdentifier) {
             String legacyReportingName = testIdentifier.getLegacyReportingName().replaceAll("\\([^)]*\\)", "");
             Matcher indexSuffix = INDEX_SUFFIX.matcher(legacyReportingName);
-            String bareName;
             if (indexSuffix.matches()) {
-                // Parameterized invocation: the invocation's own display text (its
-                // @ParameterizedTest(name=...) text, e.g. "[1] exampleTypeId=CONTRIVED")
-                // replaces the bare "[index]", so each row is identifiable without clicking in.
-                // A @DisplayName on the parameterized method itself has no effect here - use
-                // @ParameterizedTest(name = ...) instead to control this text.
                 String invocationLabel = testIdentifier.getDisplayName().replaceFirst("^\\[\\d+]\\s*", "");
-                bareName = indexSuffix.group(1) + "[" + invocationLabel + "]";
-            } else {
-                // Plain @Test method: the method name stays the primary, always-present part of
-                // the reported name. getDisplayName() is the API that actually honors a custom
-                // @DisplayName - append its text after " - " only when it's real, i.e. differs
-                // from the default-generated "methodName(ParamTypes)" shape a method with no
-                // @DisplayName would otherwise get.
-                String methodName = legacyReportingName;
-                String displayNameText = testIdentifier.getDisplayName().replaceAll("\\([^)]*\\)$", "");
-                bareName = displayNameText.equals(methodName) ? methodName : methodName + " - " + displayNameText;
+                return indexSuffix.group(1) + "[" + invocationLabel + "]";
             }
-            return testClass.getSimpleName() + "." + bareName;
+            String methodName = legacyReportingName;
+            String displayNameText = testIdentifier.getDisplayName().replaceAll("\\([^)]*\\)$", "");
+            return displayNameText.equals(methodName) ? methodName : methodName + " - " + displayNameText;
         }
-
-        /**
-         * Extends junit.framework.TestCase (not a bare Test implementation) so Ant's
-         * XMLJUnitResultFormatter resolves the reporting name through JUnitVersionHelper's
-         * {@code instanceof TestCase} branch: a Method handle fixed once, at class-init, to
-         * {@code TestCase.class.getMethod("getName")} - the stable, public JUnit 3 API this file
-         * already depends on - rather than the duck-typed {@code t.getClass().getMethod("getName")}
-         * fallback used for arbitrary Test implementors. That fallback is why this class doesn't need
-         * to be public: the resolved Method's declaring class is TestCase, so reflection.invoke()
-         * succeeds regardless of this nested class's own visibility.
-         */
-        static final class JupiterLeafTest extends TestCase {
-            private final String className;
-
-            JupiterLeafTest(String name, String className) {
-                super(name);
-                this.className = className;
-            }
-
-            @Override
-            public void run(TestResult result) {
-                throw new UnsupportedOperationException("JupiterLeafTest is a reporting handle only, it cannot be run directly");
-            }
-
-            @Override
-            public String toString() {
-                return getName() + "(" + className + ")";
-            }
-        }
-
     }
-
 }
