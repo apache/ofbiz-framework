@@ -169,6 +169,14 @@ public class ModelTestSuite {
     }
 
     /**
+     * Gets dispatcher.
+     * @return the dispatcher
+     */
+    LocalDispatcher getDispatcher() {
+        return this.dispatcher;
+    }
+
+    /**
      * Gets test list.
      * @return the test list
      */
