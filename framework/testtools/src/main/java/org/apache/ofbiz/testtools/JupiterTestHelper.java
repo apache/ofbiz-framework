@@ -39,11 +39,12 @@ import org.apache.ofbiz.service.LocalDispatcher;
  *
  * <p>Every delegator/dispatcher-backed method here - getUserLogin(), from(), select(),
  * getDelegator(), getDispatcher() - reads CURRENT_DELEGATOR/CURRENT_DISPATCHER, which are only
- * armed on the thread that {@code JupiterTestSuite.run()} executes on. (logInfo/logError/
- * logWarning read no ThreadLocal at all; they just delegate to {@code Debug.log*} with
- * {@code getClass().getName()}.) Relying on these ThreadLocals is safe under the current,
- * single-threaded, synchronous execution model (the default JUnit Platform mode, and the only one
- * {@code JupiterTestSuite}/{@code TestRunContainer} support). Under that model, a class run
+ * armed on the thread that {@code JupiterTestExtension.JupiterClassRunner.run()} executes on.
+ * (logInfo/logError/logWarning read no ThreadLocal at all; they just delegate to
+ * {@code Debug.log*} with {@code getClass().getName()}.) Relying on these ThreadLocals is safe
+ * under the current, single-threaded, synchronous execution model (the default JUnit Platform
+ * mode, and the only one {@code JupiterClassRunner}/{@code TestRunContainer} support). Under that
+ * model, a class run
  * outside the container still reaches these methods only via a ThreadLocal that reads back
  * {@code null} - unless {@code JupiterTestExtension}'s {@code evaluateExecutionCondition()} gets a
  * chance to disable it first, reporting a skip instead of letting a null ThreadLocal read through
