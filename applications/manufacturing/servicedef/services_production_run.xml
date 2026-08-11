@@ -39,8 +39,11 @@ under the License.
         <attribute name="facilityId" type="String" mode="IN" optional="true"/>
         <attribute name="statusId" type="String" mode="IN" optional="true"/>
         <attribute name="currentStatusId" type="String" mode="IN" optional="true"/>
+        <attribute name="estimatedStartDateFrom" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="estimatedStartDateThru" type="Timestamp" mode="IN" optional="true"/>
         <attribute name="sort" type="String" mode="IN" optional="true"/>
         <attribute name="totalCount" type="Long" mode="OUT" optional="false"/>
+        <attribute name="totalPages" type="Long" mode="OUT" optional="false"/>
         <attribute name="hasNext" type="Boolean" mode="OUT" optional="false"/>
         <attribute name="productionRuns" type="List" mode="OUT" optional="false"/>
     </service>

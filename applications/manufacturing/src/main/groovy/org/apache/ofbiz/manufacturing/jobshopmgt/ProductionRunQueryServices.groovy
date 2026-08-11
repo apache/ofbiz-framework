@@ -18,30 +18,28 @@
  */
 package org.apache.ofbiz.manufacturing.jobshopmgt
 
-import org.apache.ofbiz.base.util.UtilMisc
 import org.apache.ofbiz.base.util.UtilValidate
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.entity.condition.EntityOperator
 import org.apache.ofbiz.entity.util.EntityQuery
-import org.apache.ofbiz.entity.util.EntityListIterator
+import org.apache.ofbiz.entity.util.EntityUtil
+import org.apache.ofbiz.manufacturing.api.ManufacturingServiceUtil
 import org.apache.ofbiz.party.party.PartyHelper
 import org.apache.ofbiz.service.ServiceUtil
+import org.apache.ofbiz.ws.rs.util.RestApiUtil
+import org.apache.ofbiz.ws.rs.util.RestQueryOptions
 
 Map findProductionRuns() {
-    // Keep paging defensive so API callers cannot request pathological windows.
-    Integer pageIndexValue = UtilMisc.toIntegerObject(parameters.pageIndex)
-    Integer pageSizeValue = UtilMisc.toIntegerObject(parameters.pageSize)
-    int pageIndex = pageIndexValue != null ? pageIndexValue : 0
-    int pageSize = pageSizeValue != null ? pageSizeValue : 20
-    if (pageIndex < 0) {
-        pageIndex = 0
+    RestQueryOptions queryOptions
+    try {
+        queryOptions = RestQueryOptions.fromParameters(parameters)
+    } catch (IllegalArgumentException e) {
+        return ServiceUtil.returnError(e.message)
     }
-    if (pageSize < 1 || pageSize > 100) {
-        pageSize = 20
-    }
+    Map filters = queryOptions.filters
 
-    String productionRunId = parameters.productionRunId ?: parameters.workEffortId
+    String productionRunId = filters.productionRunId ?: filters.workEffortId
     List conditions = [
             EntityCondition.makeCondition('workEffortTypeId', 'PROD_ORDER_HEADER'),
             EntityCondition.makeCondition('workEffortGoodStdTypeId', 'PRUN_PROD_DELIV')
@@ -49,69 +47,71 @@ Map findProductionRuns() {
     if (UtilValidate.isNotEmpty(productionRunId)) {
         conditions.add(EntityCondition.makeCondition('workEffortId', productionRunId))
     }
-    if (UtilValidate.isNotEmpty(parameters.productId)) {
-        conditions.add(EntityCondition.makeCondition('productId', parameters.productId))
+    if (UtilValidate.isNotEmpty(filters.productId)) {
+        conditions.add(EntityCondition.makeCondition('productId', filters.productId))
     }
-    if (UtilValidate.isNotEmpty(parameters.facilityId)) {
-        conditions.add(EntityCondition.makeCondition('facilityId', parameters.facilityId))
+    if (UtilValidate.isNotEmpty(filters.facilityId)) {
+        conditions.add(EntityCondition.makeCondition('facilityId', filters.facilityId))
     }
-    String currentStatusId = parameters.statusId ?: parameters.currentStatusId
+    String currentStatusId = filters.statusId ?: filters.currentStatusId
     if (UtilValidate.isNotEmpty(currentStatusId)) {
         conditions.add(EntityCondition.makeCondition('currentStatusId', currentStatusId))
     }
-
-    if (UtilValidate.isNotEmpty(parameters.workEffortName)) {
-        conditions.add(EntityCondition.makeCondition('workEffortName', EntityOperator.LIKE, '%' + parameters.workEffortName + '%'))
+    if (filters.estimatedStartDateFrom != null) {
+        conditions.add(EntityCondition.makeCondition('estimatedStartDate', EntityOperator.GREATER_THAN_EQUAL_TO,
+                filters.estimatedStartDateFrom))
+    }
+    if (filters.estimatedStartDateThru != null) {
+        conditions.add(EntityCondition.makeCondition('estimatedStartDate', EntityOperator.LESS_THAN_EQUAL_TO,
+                filters.estimatedStartDateThru))
     }
 
-    String queryText = parameters.query
+    if (UtilValidate.isNotEmpty(filters.workEffortName)) {
+        conditions.add(EntityUtil.upperLikeAny(['workEffortName'], filters.workEffortName))
+    }
+
+    String queryText = filters.query
     if (UtilValidate.isNotEmpty(queryText)) {
-        String likeQuery = '%' + queryText.trim() + '%'
-        List queryConditions = [
-                EntityCondition.makeCondition('workEffortId', EntityOperator.LIKE, likeQuery),
-                EntityCondition.makeCondition('workEffortName', EntityOperator.LIKE, likeQuery)
-        ]
+        List queryConditions = [EntityUtil.upperLikeAny(['workEffortId', 'workEffortName'], queryText)]
+        Set matchingProductIds = EntityUtil.searchIds(delegator, 'Product', 'productId',
+                ['productId', 'productName', 'internalName'], queryText, 500)
+        if (matchingProductIds) {
+            queryConditions.add(EntityCondition.makeCondition('productId', EntityOperator.IN, matchingProductIds as List))
+        }
         conditions.add(EntityCondition.makeCondition(queryConditions, EntityOperator.OR))
     }
 
-    if (UtilValidate.isNotEmpty(parameters.productName)) {
-        // Product name search is resolved through Product so we can match both display and internal names.
-        List productConditions = [
-                EntityCondition.makeCondition('productName', EntityOperator.LIKE, '%' + parameters.productName + '%'),
-                EntityCondition.makeCondition('internalName', EntityOperator.LIKE, '%' + parameters.productName + '%')
-        ]
-        List productIds = from('Product')
-                .where(EntityCondition.makeCondition(productConditions, EntityOperator.OR))
-                .getFieldList('productId')
-                .unique()
+    if (UtilValidate.isNotEmpty(filters.productName)) {
+        Set productIds = EntityUtil.searchIds(delegator, 'Product', 'productId',
+                ['productId', 'productName', 'internalName'], filters.productName, 500)
         if (!productIds) {
-            return success(pageIndex: pageIndex, pageSize: pageSize, totalCount: 0L, hasNext: false, productionRuns: [])
+            return success(RestApiUtil.getPagedResult('productionRuns', [], queryOptions, 0L, null))
         }
-        conditions.add(EntityCondition.makeCondition('productId', EntityOperator.IN, productIds))
+        conditions.add(EntityCondition.makeCondition('productId', EntityOperator.IN, productIds as List))
     }
 
     EntityCondition whereCondition = EntityCondition.makeCondition(conditions, EntityOperator.AND)
-    List orderBy = resolveProductionRunSort(parameters.sort)
-    if (!orderBy) {
-        return ServiceUtil.returnError('Unsupported production run sort field: ' + parameters.sort)
+    List orderBy
+    try {
+        orderBy = RestApiUtil.resolveOrderBy(queryOptions.sort, [
+                estimatedStartDate: 'estimatedStartDate',
+                actualStartDate: 'actualStartDate',
+                status: 'currentStatusId',
+                currentStatusId: 'currentStatusId',
+                productId: 'productId',
+                facilityId: 'facilityId',
+                productionRunId: 'workEffortId',
+                workEffortId: 'workEffortId',
+                workEffortName: 'workEffortName'
+        ], ['-estimatedStartDate', 'workEffortId'])
+    } catch (IllegalArgumentException e) {
+        return ServiceUtil.returnError(e.message)
     }
 
     EntityQuery productionRunQuery = from('WorkEffortAndGoods').where(whereCondition)
     long totalCount = productionRunQuery.queryCount()
-    int lowIndex = (pageIndex * pageSize) + 1
-    int highIndex = (pageIndex + 1) * pageSize
-    List productionRunValues = []
-    EntityListIterator iterator = null
-    try {
-        iterator = productionRunQuery
-                .orderBy(orderBy)
-                .cursorScrollInsensitive()
-                .maxRows(highIndex)
-                .queryIterator()
-        productionRunValues = iterator.getPartialList(lowIndex, pageSize) ?: []
-    } finally {
-        iterator?.close()
-    }
+    List productionRunValues = productionRunQuery.orderBy(orderBy)
+            .queryPagedList(queryOptions.pageIndex, queryOptions.pageSize).getData()
 
     // Batch-load display data once, then map each row in memory to avoid N+1 lookups.
     Map lookups = buildProductionRunLookups([], productionRunValues, [], [], [], [])
@@ -119,8 +119,7 @@ Map findProductionRuns() {
         productionRunSummaryMap(productionRun, lookups)
     }
 
-    return success(pageIndex: pageIndex, pageSize: pageSize, totalCount: totalCount,
-            hasNext: ((pageIndex + 1) * pageSize) < totalCount, productionRuns: productionRuns)
+    return success(RestApiUtil.getPagedResult('productionRuns', productionRuns, queryOptions, totalCount, null))
 }
 
 Map getProductionRunDetails() {
@@ -197,24 +196,6 @@ Map getProductionRunDetails() {
     return success(detail)
 }
 
-List resolveProductionRunSort(Object sortValue) {
-    Map sortFieldMap = [
-            estimatedStartDate: 'estimatedStartDate',
-            actualStartDate: 'actualStartDate',
-            status: 'currentStatusId',
-            productId: 'productId',
-            workEffortId: 'workEffortId'
-    ]
-    if (!sortValue) {
-        return ['-estimatedStartDate', 'workEffortId']
-    }
-    String sort = sortValue
-    boolean descending = sort.startsWith('-')
-    String sortKey = descending ? sort.substring(1) : sort
-    String entityField = sortFieldMap[sortKey]
-    return entityField ? [(descending ? '-' : '') + entityField, 'workEffortId'] : []
-}
-
 Map buildProductionRunLookups(List productionRuns, List productionRunGoods, List tasks, List components,
                               List parties, List fixedAssets, List products = []) {
     // Centralize related lookups so list/detail mapping can reuse one batch of reference data.
@@ -288,7 +269,7 @@ Map buildProductionRunLookups(List productionRuns, List productionRunGoods, List
     }
 
     // Once the ids are collected, load each reference entity once and reuse it everywhere below.
-    Map productMap = lookupById('Product', 'productId', productIds)
+    Map productMap = EntityUtil.lookupById(delegator, 'Product', 'productId', productIds)
     productMap.values().each { GenericValue product ->
         if (UtilValidate.isNotEmpty(product.quantityUomId)) {
             uomIds.add(product.quantityUomId)
@@ -297,23 +278,11 @@ Map buildProductionRunLookups(List productionRuns, List productionRunGoods, List
 
     return [
             products: productMap,
-            facilities: lookupById('Facility', 'facilityId', facilityIds),
-            statuses: lookupById('StatusItem', 'statusId', statusIds),
-            uoms: lookupById('Uom', 'uomId', uomIds),
-            roles: lookupById('RoleType', 'roleTypeId', roleTypeIds)
+            facilities: EntityUtil.lookupById(delegator, 'Facility', 'facilityId', facilityIds),
+            statuses: EntityUtil.lookupById(delegator, 'StatusItem', 'statusId', statusIds),
+            uoms: EntityUtil.lookupById(delegator, 'Uom', 'uomId', uomIds),
+            roles: EntityUtil.lookupById(delegator, 'RoleType', 'roleTypeId', roleTypeIds)
     ]
-}
-
-Map lookupById(String entityName, String fieldName, Collection ids) {
-    List idList = new ArrayList(ids.findAll { UtilValidate.isNotEmpty(it) }.unique())
-    if (!idList) {
-        return [:]
-    }
-    return from(entityName)
-            .where(EntityCondition.makeCondition(fieldName, EntityOperator.IN, idList))
-            .cache(true)
-            .queryList()
-            .collectEntries { GenericValue value -> [(value.getString(fieldName)): value] }
 }
 
 Map productionRunSummaryMap(GenericValue productionRun, Map lookups) {
@@ -326,14 +295,14 @@ Map productionRunSummaryMap(GenericValue productionRun, Map lookups) {
             productionRunId: productionRun.workEffortId,
             workEffortId: productionRun.workEffortId,
             productId: productionRun.productId,
-            productName: productDisplayName(product),
+            productName: ManufacturingServiceUtil.displayProductName(product),
             facilityId: productionRun.facilityId,
-            facilityName: facility?.facilityName,
+            facilityName: ManufacturingServiceUtil.displayFacilityName(facility),
             statusId: productionRun.currentStatusId,
-            statusDescription: status?.description,
+            statusDescription: ManufacturingServiceUtil.displayStatusDescription(status),
             quantity: productionRun.estimatedQuantity,
             quantityUomId: product?.quantityUomId,
-            quantityUomDescription: uom?.description,
+            quantityUomDescription: ManufacturingServiceUtil.displayUomDescription(uom),
             estimatedStartDate: productionRun.estimatedStartDate,
             actualStartDate: productionRun.actualStartDate,
             estimatedCompletionDate: productionRun.estimatedCompletionDate,
@@ -351,18 +320,18 @@ Map productionRunHeaderMap(GenericValue productionRun, GenericValue producedProd
             productionRunId: productionRun.workEffortId,
             workEffortId: productionRun.workEffortId,
             productId: product?.productId,
-            productName: productDisplayName(product),
+            productName: ManufacturingServiceUtil.displayProductName(product),
             facilityId: productionRun.facilityId,
-            facilityName: facility?.facilityName,
+            facilityName: ManufacturingServiceUtil.displayFacilityName(facility),
             statusId: productionRun.currentStatusId,
-            statusDescription: status?.description,
+            statusDescription: ManufacturingServiceUtil.displayStatusDescription(status),
             workEffortName: productionRun.workEffortName,
             description: productionRun.description,
             quantity: productionRunQuantity ?: productionRun.quantityToProduce,
             quantityProduced: productionRun.quantityProduced ?: BigDecimal.ZERO,
             quantityRejected: productionRun.quantityRejected ?: BigDecimal.ZERO,
             quantityUomId: product?.quantityUomId,
-            quantityUomDescription: uom?.description,
+            quantityUomDescription: ManufacturingServiceUtil.displayUomDescription(uom),
             estimatedStartDate: productionRun.estimatedStartDate,
             estimatedCompletionDate: productionRun.estimatedCompletionDate,
             actualStartDate: productionRun.actualStartDate,
@@ -381,9 +350,9 @@ Map taskMap(GenericValue task, String productionRunId, List parties, List fixedA
             workEffortName: task.workEffortName,
             description: task.description,
             statusId: task.currentStatusId,
-            statusDescription: status?.description,
+            statusDescription: ManufacturingServiceUtil.displayStatusDescription(status),
             facilityId: task.facilityId,
-            facilityName: facility?.facilityName,
+            facilityName: ManufacturingServiceUtil.displayFacilityName(facility),
             estimatedStartDate: task.estimatedStartDate,
             estimatedCompletionDate: task.estimatedCompletionDate,
             actualStartDate: task.actualStartDate,
@@ -405,14 +374,14 @@ Map componentMap(GenericValue component, GenericValue task, Map issuedQuantityBy
     BigDecimal issuedQuantity = issuedQuantityByTaskProduct[component.workEffortId + '::' + component.productId] ?: BigDecimal.ZERO
     return [
             componentProductId: component.productId,
-            componentProductName: productDisplayName(product),
+            componentProductName: ManufacturingServiceUtil.displayProductName(product),
             requiredQuantity: requiredQuantity,
             issuedQuantity: issuedQuantity,
             remainingQuantity: requiredQuantity - issuedQuantity,
             quantityUomId: product?.quantityUomId,
-            quantityUomDescription: uom?.description,
+            quantityUomDescription: ManufacturingServiceUtil.displayUomDescription(uom),
             statusId: component.statusId,
-            statusDescription: status?.description,
+            statusDescription: ManufacturingServiceUtil.displayStatusDescription(status),
             workEffortId: component.workEffortId,
             taskSequence: task?.priority,
             taskName: task?.workEffortName,
@@ -430,11 +399,11 @@ Map partyMap(GenericValue party, Map lookups) {
             partyId: party.partyId,
             partyName: PartyHelper.getPartyName(party),
             roleTypeId: party.roleTypeId,
-            roleTypeDescription: role?.description,
+            roleTypeDescription: ManufacturingServiceUtil.displayRoleTypeDescription(role),
             statusId: party.assignmentStatusId,
-            statusDescription: status?.description,
+            statusDescription: ManufacturingServiceUtil.displayStatusDescription(status),
             facilityId: party.facilityId,
-            facilityName: facility?.facilityName,
+            facilityName: ManufacturingServiceUtil.displayFacilityName(facility),
             fromDate: party.fromDate,
             thruDate: party.thruDate
     ]
@@ -447,11 +416,11 @@ Map fixedAssetMap(GenericValue fixedAsset, Map lookups) {
     return [
             workEffortId: fixedAsset.workEffortId,
             fixedAssetId: fixedAsset.fixedAssetId,
-            fixedAssetName: fixedAsset.fixedAssetName,
+            fixedAssetName: ManufacturingServiceUtil.displayFixedAssetName(fixedAsset),
             statusId: fixedAsset.statusId,
-            statusDescription: status?.description,
+            statusDescription: ManufacturingServiceUtil.displayStatusDescription(status),
             availabilityStatusId: fixedAsset.availabilityStatusId,
-            availabilityStatusDescription: availabilityStatus?.description,
+            availabilityStatusDescription: ManufacturingServiceUtil.displayStatusDescription(availabilityStatus),
             fromDate: fixedAsset.fromDate,
             thruDate: fixedAsset.thruDate
     ]
@@ -467,12 +436,4 @@ Map noteMap(GenericValue note) {
             noteDateTime: note.noteDateTime,
             internalNote: note.internalNote
     ]
-}
-
-String productDisplayName(GenericValue product) {
-    if (!product) {
-        return null
-    }
-    // Prefer the product display name, then fall back to internal name and finally the id.
-    return product.productName ?: product.internalName ?: product.productId
 }
