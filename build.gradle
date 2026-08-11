@@ -193,6 +193,13 @@ tasks.withType(JavaCompile) {
 // Enables Zip larger than 4 GB and more than 65535 entries
 tasks.withType(Zip) { zip64 = true }
 
+// Multiple SecretProvider plugins each contribute the same META-INF/services/ filename.
+// Only one provider should be enabled at a time (via ofbiz-component.xml enabled="true/false").
+// FIRST keeps the alphabetically first file during transitional states where two are temporarily enabled.
+processResources {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
 // Only used for release branches
 def getCurrentGitBranch() {
     return "git branch --show-current".execute().text.trim()
@@ -954,6 +961,134 @@ task gitInfoFooter(group: sysadminGroup, description: 'Update the Git Branch-rev
         gitFooterFile << '${uiLabelMap.CommonRevision} : ' + "${revision}" + System.lineSeparator()
         gitFooterFile << '${uiLabelMap.CommonBuiltOn} : ' + "${timestamp}" + System.lineSeparator()
         gitFooterFile << '${uiLabelMap.CommonJavaVersion} : ' + "${org.gradle.internal.jvm.Jvm.current()}"
+    }
+}
+
+// System.console() is unreliable under Gradle (it is almost always null, even with
+// --console=plain), so read directly from stdin instead. This still requires --no-daemon,
+// since the Gradle daemon is detached from the terminal and stdin is not forwarded to it.
+def stdinReader = new BufferedReader(new InputStreamReader(System.in))
+
+// Reads a non-sensitive value (e.g. a lookup key) from stdin.
+def promptValue = { String prompt ->
+    print prompt
+    System.out.flush()
+    def line = stdinReader.readLine()
+    if (!line) {
+        throw new GradleException("No value entered. Re-run with --no-daemon from an interactive "
+                + "terminal, or pass the value via -P.")
+    }
+    line
+}
+
+// Reads a sensitive value (password/master key) from stdin, masking the terminal echo via
+// `stty` (when a tty is available) so it never appears in shell history, `ps`, or CI logs.
+def promptSecret = { String prompt ->
+    print prompt
+    System.out.flush()
+    def ttyAvailable = new File('/dev/tty').exists()
+    if (ttyAvailable) {
+        ['sh', '-c', 'stty -echo < /dev/tty'].execute().waitFor()
+    }
+    try {
+        def line = stdinReader.readLine()
+        if (!line) {
+            throw new GradleException("No value entered. Re-run with --no-daemon from an interactive "
+                    + "terminal, or pass the value via -P.")
+        }
+        return line
+    } finally {
+        if (ttyAvailable) {
+            ['sh', '-c', 'stty echo < /dev/tty'].execute().waitFor()
+        }
+        println()
+    }
+}
+
+task generateDBPassword(group: sysadminGroup,
+        description: 'Write a plain or encrypted (ENC(...)) database password into passwords.properties. '
+                + 'Usage: ./gradlew generateDBPassword -PdbPassword=<password> -PlookupKey=<e.g. mysql-ofbiz> [-PmasterKey=<key>]. '
+                + 'If -PdbPassword is omitted, you will be prompted for it via masked console input '
+                + '(run with --no-daemon --console=plain). The master key is taken from -PmasterKey, '
+                + 'falling back to the OFBIZ_MASTER_KEY environment variable.') {
+    doLast {
+        def secret = project.hasProperty('dbPassword') ? project.property('dbPassword')
+                : promptSecret('Enter database password: ')
+        def masterKey = project.hasProperty('masterKey') ? project.property('masterKey') : System.getenv('OFBIZ_MASTER_KEY')
+        if (masterKey) {
+            def output = new java.io.ByteArrayOutputStream()
+            javaexec {
+                classpath = sourceSets.main.runtimeClasspath
+                mainClass = 'org.apache.ofbiz.base.crypto.ConfigCryptoUtil'
+                args masterKey, secret
+                standardOutput = output
+            }
+            secret = output.toString().trim()
+        }
+        def propertyName = "jdbc-password.${project.property('lookupKey')}"
+        def newLine = "${propertyName}=${secret}"
+        def passwordsFile = file('framework/base/config/passwords.properties')
+        def lines = passwordsFile.readLines()
+        def index = lines.findIndexOf { it.startsWith("${propertyName}=") }
+        if (index >= 0) lines[index] = newLine else lines << newLine
+        passwordsFile.text = lines.join(System.lineSeparator()) + System.lineSeparator()
+        println "Stored ${newLine} in passwords.properties"
+    }
+}
+
+task generateEncryptedSecret(group: sysadminGroup,
+        description: 'Generate an encrypted secret (ENC(...)) and its systemPropertyLookup marker, for pasting '
+                + 'into a SystemProperty record (e.g. payment/SMS/shipment gateway credentials). '
+                + 'Usage: ./gradlew generateEncryptedSecret -PsecretPassword=<value> -PlookupKey=<key> -PmasterKey=<key>. '
+                + 'Any of -PsecretPassword/-PlookupKey/-PmasterKey may be omitted to be prompted for '
+                + 'interactively (run with --no-daemon --console=plain); the master key also falls back '
+                + 'to the OFBIZ_MASTER_KEY environment variable.') {
+    doLast {
+        def secret = project.hasProperty('secretPassword') ? project.property('secretPassword')
+                : promptSecret('Enter secret value: ')
+        def lookupKey = project.hasProperty('lookupKey') ? project.property('lookupKey')
+                : promptValue('Enter lookup key: ')
+        def masterKey = project.hasProperty('masterKey') ? project.property('masterKey')
+                : (System.getenv('OFBIZ_MASTER_KEY') ?: promptSecret('Enter master key: '))
+
+        def markerName = 'SECRET'
+        def generalPropsFile = file('framework/common/config/general.properties')
+        if (generalPropsFile.exists()) {
+            def generalProps = new Properties()
+            generalPropsFile.withInputStream { generalProps.load(it) }
+            markerName = generalProps.getProperty('secret.value.marker', markerName)
+        }
+
+        def output = new java.io.ByteArrayOutputStream()
+        javaexec {
+            classpath = sourceSets.main.runtimeClasspath
+            mainClass = 'org.apache.ofbiz.base.crypto.ConfigCryptoUtil'
+            args masterKey, secret
+            standardOutput = output
+        }
+        println "systemPropertyLookup=${markerName}(${lookupKey})"
+        println "systemPropertyValue=${output.toString().trim()}"
+    }
+}
+
+task reEncryptAllSecrets(group: sysadminGroup,
+        description: 'Re-encrypts every ENC(...) blob in passwords.properties and SystemProperty DB rows '
+                + 'with a new master AES key. All decryptions are validated before any writes occur. '
+                + 'Usage: ./gradlew reEncryptAllSecrets -PoldMasterKey=<old> -PnewMasterKey=<new> [-PdryRun=true]. '
+                + 'Keys may also be supplied via the OFBIZ_OLD_MASTER_KEY / OFBIZ_NEW_MASTER_KEY env vars '
+                + 'or entered interactively (run with --no-daemon --console=plain).') {
+    dependsOn classes
+    doLast {
+        def oldKey = project.hasProperty('oldMasterKey') ? project.property('oldMasterKey')
+                : (System.getenv('OFBIZ_OLD_MASTER_KEY') ?: promptSecret('Enter OLD master key: '))
+        def newKey = project.hasProperty('newMasterKey') ? project.property('newMasterKey')
+                : (System.getenv('OFBIZ_NEW_MASTER_KEY') ?: promptSecret('Enter NEW master key: '))
+        def dryRun = project.hasProperty('dryRun') ? project.property('dryRun') : 'false'
+        javaexec {
+            classpath = sourceSets.main.runtimeClasspath
+            mainClass = 'org.apache.ofbiz.base.crypto.ReEncryptSecretsMain'
+            args oldKey, newKey, dryRun
+        }
     }
 }
 
