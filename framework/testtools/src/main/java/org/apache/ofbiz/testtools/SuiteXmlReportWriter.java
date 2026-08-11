@@ -20,8 +20,6 @@ package org.apache.ofbiz.testtools;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.nio.charset.StandardCharsets;
@@ -128,7 +126,7 @@ class SuiteXmlReportWriter implements SuiteReportSink {
         } else if (testCase.outcome() instanceof Outcome.Error error) {
             Throwable throwable = error.throwable();
             appendFailureOrError(xml, "error", throwable.getMessage(), throwable.getClass().getName(),
-                    stackTraceOf(throwable));
+                    ReportingSupport.stackTraceOf(throwable));
         }
         xml.append("  </testcase>\n");
     }
@@ -167,12 +165,6 @@ class SuiteXmlReportWriter implements SuiteReportSink {
         }
     }
 
-    private static String stackTraceOf(Throwable throwable) {
-        StringWriter stringWriter = new StringWriter();
-        throwable.printStackTrace(new PrintWriter(stringWriter));
-        return stringWriter.toString();
-    }
-
     private static String escapeXml(String s) {
         if (s == null) {
             return "";
@@ -194,10 +186,27 @@ class SuiteXmlReportWriter implements SuiteReportSink {
                 sb.append("&quot;");
                 break;
             default:
-                sb.append(c);
+                if (isLegalXmlChar(c)) {
+                    sb.append(c);
+                }
             }
         }
         return sb.toString();
+    }
+
+    /**
+     * Whether {@code c} is legal in an XML 1.0 document, matching Ant's own
+     * {@code DOMElementWriter.isLegalCharacter(char)}. Illegal characters (e.g. most C0 control
+     * characters, such as ESC/0x1B) are silently dropped by {@link #escapeXml(String)} rather than
+     * escaped or replaced - the same per-{@code char} approach Ant's formatter used, deliberately not
+     * attempting to special-case surrogate pairs.
+     * @param c the character to check
+     * @return true if {@code c} may appear in XML 1.0 content
+     */
+    private static boolean isLegalXmlChar(char c) {
+        return c == 0x9 || c == 0xA || c == 0xD
+                || (c >= 0x20 && c <= 0xD7FF)
+                || (c >= 0xE000 && c <= 0xFFFD);
     }
 
     private record TestCaseResult(String classname, String name, long elapsedMillis, Outcome outcome) {

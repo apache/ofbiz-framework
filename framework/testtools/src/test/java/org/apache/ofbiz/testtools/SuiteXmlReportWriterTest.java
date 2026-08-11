@@ -114,6 +114,29 @@ class SuiteXmlReportWriterTest {
     }
 
     @Test
+    void dropsXml10IllegalControlCharactersSoTheOutputStillParses() throws Exception {
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        SuiteXmlReportWriter writer = new SuiteXmlReportWriter(out);
+        writer.startSuite("mysuite");
+        // 0x1B is ESC, an XML 1.0 illegal control character - plausible in an arbitrary exception message.
+        String esc = "\u001B";
+        writer.testFinished("com.example.Foo", "testA", 1,
+                SuiteReportSink.Outcome.failure("bad" + esc + "message", "java.lang.AssertionError",
+                        "stack" + esc + "trace"));
+        writer.endSuite();
+
+        // A real DOM parse - not a string check - is the assertion that matters here: before the fix,
+        // the ESC character above made this an XmlSlurper/DocumentBuilder parse failure exactly the way
+        // test-reports.gradle's parseSuiteXml() would hit it.
+        Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder()
+                .parse(new ByteArrayInputStream(out.toByteArray()));
+        Element failure = (Element) doc.getElementsByTagName("failure").item(0);
+
+        assertThat(failure.getAttribute("message"), is("badmessage"));
+        assertThat(failure.getTextContent(), is("stacktrace"));
+    }
+
+    @Test
     void messageAttributeIsOmittedWhenNull() throws Exception {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         SuiteXmlReportWriter writer = new SuiteXmlReportWriter(out);
