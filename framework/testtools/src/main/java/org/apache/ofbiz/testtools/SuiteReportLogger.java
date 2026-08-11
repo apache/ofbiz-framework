@@ -51,23 +51,24 @@ final class SuiteReportLogger implements SuiteReportSink {
 
     @Override
     public void testStarted(String classname, String name) {
-        Debug.logInfo("[JUNIT] : " + name + " starting...", MODULE);
+        Debug.logInfo("[JUNIT] : " + label(classname, name) + " starting...", MODULE);
     }
 
     @Override
     public void testFinished(String classname, String name, long elapsedMillis, Outcome outcome) {
         testCount++;
+        String label = label(classname, name);
         if (outcome instanceof Outcome.Failure failure) {
             failureCount++;
-            Debug.logWarning("[JUNIT (failure)] - " + name + " : " + failure.message(), MODULE);
-            Debug.logWarning("[JUNIT (failure)] - " + name + " stack trace:\n" + failure.stackTrace(), MODULE);
-            failureRecap.add(name + " : " + failure.message());
+            Debug.logWarning("[JUNIT (failure)] - " + label + " : " + failure.message(), MODULE);
+            Debug.logWarning("[JUNIT (failure)] - " + label + " stack trace:\n" + failure.stackTrace(), MODULE);
+            failureRecap.add(label + " : " + failure.message());
         } else if (outcome instanceof Outcome.Error error) {
             errorCount++;
-            Debug.logWarning(error.throwable(), "[JUNIT (error)] - " + name + " : " + error.throwable(), MODULE);
-            errorRecap.add(name + " : " + error.throwable());
+            Debug.logWarning(error.throwable(), "[JUNIT (error)] - " + label + " : " + error.throwable(), MODULE);
+            errorRecap.add(label + " : " + error.throwable());
         }
-        Debug.logInfo("[JUNIT] : " + name + " finished.", MODULE);
+        Debug.logInfo("[JUNIT] : " + label + " finished.", MODULE);
     }
 
     @Override
@@ -93,5 +94,20 @@ final class SuiteReportLogger implements SuiteReportSink {
         } else {
             recap.forEach(line -> Debug.logInfo("--> " + line, MODULE));
         }
+    }
+
+    /**
+     * Derives a "SimpleClassName.name" label from a fully-qualified classname and a test name, the
+     * same idea test-reports.gradle's {@code simpleClassName} helper applies on the HTML side, so two
+     * same-named methods in different classes in the same suite remain distinguishable in the Debug
+     * log too.
+     * @param classname the test's declaring class name, possibly fully-qualified
+     * @param name the test's method/case name
+     * @return "{@code SimpleClassName.name}"
+     */
+    private static String label(String classname, String name) {
+        int lastDot = classname.lastIndexOf('.');
+        String simpleClassName = lastDot >= 0 ? classname.substring(lastDot + 1) : classname;
+        return simpleClassName + "." + name;
     }
 }
