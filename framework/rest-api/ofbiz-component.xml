@@ -26,8 +26,12 @@ under the License.
 
     <!-- place the config directory on the classpath to access configuration files -->
     <classpath type="dir" location="config"/>
-    
-    <!-- service resources: model(s), eca(s) and group definitions -->
+
+    <classpath type="dir" location="dtd"/>
+
+    <!-- entity resources: model(s), eca(s), group, and data definitions -->
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/RestSecurityPermissionSeedData.xml"/>
+
     <service-resource type="model" loader="main" location="servicedef/services.xml"/>
 
     <test-suite loader="main" location="testdef/rest-apiTests.xml"/>

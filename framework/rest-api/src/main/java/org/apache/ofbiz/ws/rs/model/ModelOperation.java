@@ -32,6 +32,8 @@ public class ModelOperation {
     private String path;
     private String description;
     private boolean auth;
+    private String primaryPermission;
+    private String mainAction;
     private String addApiResponses;
     private String customHeaders;
 
@@ -51,6 +53,65 @@ public class ModelOperation {
      */
     public void setAuth(boolean auth) {
         this.auth = auth;
+    }
+
+    /**
+     * Gets the primary permission
+     *
+     * @return the primaryPermission
+     */
+    public String getPrimaryPermission() {
+        return primaryPermission;
+    }
+
+    /**
+     * Sets the primary permission
+     *
+     * @param primaryPermission the primaryPermission to set
+     */
+    public void setPrimaryPermission(String primaryPermission) {
+        this.primaryPermission = primaryPermission;
+    }
+
+    /**
+     * Sets the primaryPermission and returns this ModelOperation
+     *
+     * @param primaryPermission
+     * @return this ModelOperation
+     */
+    public ModelOperation primaryPermission(String primaryPermission) {
+        this.primaryPermission = primaryPermission;
+        return this;
+    }
+
+    /**
+     * Sets the mainAction (VIEW, CREATE, UPDATE, DELETE, ADMIN)
+     *
+     * @return the mainAction
+     */
+    public String getMainAction() {
+        return mainAction;
+    }
+
+    /**
+     * Gets the mainAction (VIEW, CREATE, UPDATE, DELETE, ADMIN)
+     *
+     * @param mainAction the mainAction to set
+     */
+    public void setMainAction(String mainAction) {
+        this.mainAction = mainAction;
+    }
+
+    /**
+     * Sets the mainAction (VIEW, CREATE, UPDATE, DELETE, ADMIN)
+     * and returns this instance
+     *
+     * @param mainAction
+     * @return this ModelOperation
+     */
+    public ModelOperation mainAction(String mainAction) {
+        this.mainAction = mainAction;
+        return this;
     }
 
     /**
@@ -319,8 +380,8 @@ public class ModelOperation {
     @Override
     public String toString() {
         return "service: " + service + ", path: " + path + ", verb: " + verb + ", description: " + description
-                + ", produces: " + produces + ", addApiResponses:" + addApiResponses + ", customHeaders: "
-                + customHeaders;
+                + ", produces: " + produces + ", primaryPermission: " + primaryPermission + ", mainAction:  "
+                + mainAction + ", addApiResponses:" + addApiResponses + ", customHeaders: " + customHeaders;
     }
 
 }
