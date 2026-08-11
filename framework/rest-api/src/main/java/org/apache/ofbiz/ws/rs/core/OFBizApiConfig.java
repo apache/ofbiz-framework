@@ -149,6 +149,9 @@ public class OFBizApiConfig extends ResourceConfig {
                 .name(modelResource.getName());
 
         for (ModelOperation op : modelResource.getOperations()) {
+            String serviceName = op.getService();
+            ServiceRequestHandler requestHandler = new ServiceRequestHandler(serviceName, op.getPrimaryPermission(), op.getMainAction());
+
             String verb = op.getVerb().toUpperCase();
             boolean isOtherThanGet = verb.matches(HttpMethod.POST + "|" + HttpMethod.PUT + "|" + HttpMethod.PATCH);
             String opPath = op.getPath();
@@ -168,7 +171,7 @@ public class OFBizApiConfig extends ResourceConfig {
             if (op.isAuth()) {
                 methodBuilder.nameBindings(Secured.class);
             }
-            methodBuilder.handledBy(new ServiceRequestHandler(op.getService()));
+            methodBuilder.handledBy(requestHandler);
         }
 
         // Register the current resource

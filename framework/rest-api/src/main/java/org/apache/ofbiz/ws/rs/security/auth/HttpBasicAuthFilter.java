@@ -25,7 +25,11 @@ import java.util.Map;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilMisc;
+import org.apache.ofbiz.base.util.UtilValidate;
+import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericValue;
+import org.apache.ofbiz.entity.util.EntityUtilProperties;
+import org.apache.ofbiz.security.Security;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ServiceUtil;
@@ -122,6 +126,17 @@ public class HttpBasicAuthFilter implements ContainerRequestFilter {
             Debug.logError(ServiceUtil.getErrorMessage(result), MODULE);
             throw new ForbiddenException(ServiceUtil.getErrorMessage(result));
         }
+
+        String securityGroupPermission = EntityUtilProperties.getPropertyValue("rest-api", "rest-api.auth.baseSecurityGroupPermission",
+                (Delegator) servletContext.getAttribute("delegator"));
+        if (UtilValidate.isNotEmpty(securityGroupPermission)) {
+            Security security = (Security) servletContext.getAttribute("security");
+            if (security != null && !security.hasPermission(securityGroupPermission, (GenericValue) result.get("userLogin"))) {
+                Debug.logInfo("The specified user has no base permission to use the REST-API.", MODULE);
+                throw new ForbiddenException(ServiceUtil.getErrorMessage(result));
+            }
+        }
+
 
         GenericValue userLogin = (GenericValue) result.get("userLogin");
         httpRequest.setAttribute("userLogin", userLogin);
