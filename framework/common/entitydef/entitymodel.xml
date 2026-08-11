@@ -939,4 +939,25 @@ under the License.
         <field name="oauth2Scope" type="value"></field>
         <prim-key field="mailSmtpConfigId"/>
     </entity>
+    <entity entity-name="MailDkimConfig"
+            package-name="org.apache.ofbiz.common.email"
+            title="Mail DKIM Signing Configuration">
+        <field name="mailDkimConfigId" type="id"></field>
+        <field name="mailSmtpConfigId" type="id">
+            <description>Optional link to a MailSmtpConfig row; unset today, ready for per-relay DKIM
+            once multi-SMTP-config support exists</description>
+        </field>
+        <field name="domain" type="value"><description>Signing domain, e.g. example.com</description></field>
+        <field name="selector" type="value"><description>DKIM selector, e.g. ofbiz</description></field>
+        <field name="privateKey" type="very-long" encrypt="true">
+            <description>PKCS#8 PEM RSA private key</description>
+        </field>
+        <field name="enabled" type="indicator">
+            <description>Y signs outgoing mail; N/unset leaves mail unsigned even if key material is present</description>
+        </field>
+        <prim-key field="mailDkimConfigId"/>
+        <relation type="one" fk-name="MAIL_DKIM_SMTP" rel-entity-name="MailSmtpConfig">
+            <key-map field-name="mailSmtpConfigId"/>
+        </relation>
+    </entity>
 </entitymodel>

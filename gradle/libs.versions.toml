@@ -29,6 +29,7 @@ icu4j = "76.1"
 openpdf = "1.4.2"
 jakarta-mail-api = "2.1.5"
 angus-mail = "2.0.5"
+utils-mail-dkim = "3.2.2"
 rome = "2.1.0"
 xstream = "1.4.21"
 commons-cli = "1.11.0"
@@ -127,6 +128,7 @@ icu4j = { module = "com.ibm.icu:icu4j", version.ref = "icu4j" }
 openpdf = { module = "com.github.librepdf:openpdf", version.ref = "openpdf" }
 jakarta-mail-api = { module = "jakarta.mail:jakarta.mail-api", version.ref = "jakarta-mail-api" }
 angus-mail = { module = "org.eclipse.angus:angus-mail", version.ref = "angus-mail" }
+utils-mail-dkim = { module = "org.simplejavamail:utils-mail-dkim", version.ref = "utils-mail-dkim" }
 rome = { module = "com.rometools:rome", version.ref = "rome" }
 xstream = { module = "com.thoughtworks.xstream:xstream", version.ref = "xstream" }
 commons-cli = { module = "commons-cli:commons-cli", version.ref = "commons-cli" }
