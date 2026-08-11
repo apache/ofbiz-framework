@@ -188,6 +188,14 @@ def suiteSlug(String name) {
     (name ?: '').replaceAll('[^A-Za-z0-9_-]', '_')
 }
 
+def simpleClassName(String fqcn) {
+    if (!fqcn) {
+        return ''
+    }
+    int lastDot = fqcn.lastIndexOf('.')
+    lastDot >= 0 ? fqcn.substring(lastDot + 1) : fqcn
+}
+
 def escapeHtmlText(String s) {
     // Everywhere else a suite/test name reaches these reports it's passed as a MarkupBuilder
     // element-content argument, which escapes it automatically. renderFramedSuitePage's
@@ -336,12 +344,13 @@ def buildSuiteDetailFragment(Map suite, boolean linked = true) {
                 tbody {
                     suite.testcases.each { tc ->
                         tr('class': "row-${tc.status}") {
-                            // tc.name is the report-facing test identity JupiterTestSuite.reportingName()
-                            // already builds as "ClassName.methodName - Display Name" (or the bare method
-                            // name for plain JUnit 3 suites) - tc.classname is a synthetic bridge class
-                            // (e.g. JupiterTestExtension$JupiterTestSuite$JupiterLeafTest for Jupiter-backed
-                            // suites) that's meaningless to a reader, so it's deliberately not shown here.
-                            td(tc.name)
+                            // tc.classname is a real class name for both engines (JUnit 3 always
+                            // reported one; Jupiter's JupiterClassRunner reports the real Jupiter class
+                            // directly, no synthetic bridge class involved) - shown as its simple name
+                            // ahead of tc.name (the bare method name, plus " - Display Name" when a
+                            // @DisplayName is present) so a report reader can tell which class a row
+                            // belongs to at a glance.
+                            td("${simpleClassName(tc.classname)}.${tc.name}")
                             td { span('class': "badge badge-${tc.status}", tc.status) }
                             td(tc.time)
                             td { pre(tc.failureReason ?: '') }
@@ -547,7 +556,7 @@ def buildAllTestsFragment(List suites) {
                     s.testcases.each { tc ->
                         tr('class': "row-${tc.status}") {
                             td { a(href: "suite-${suiteSlug(s.name)}.html", s.name) }
-                            td(tc.name)
+                            td("${simpleClassName(tc.classname)}.${tc.name}")
                             td { span('class': "badge badge-${tc.status}", tc.status) }
                             td(tc.time)
                             td { pre(tc.failureReason ?: '') }
