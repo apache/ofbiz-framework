@@ -79,6 +79,7 @@ under the License.
     <service name="createProductionRun" engine="java"
             location="org.apache.ofbiz.manufacturing.jobshopmgt.ProductionRunServices" invoke="createProductionRun" auth="true">
         <description>Create a Production Run</description>
+        <permission-service service-name="manufacturingPermissionService" main-action="CREATE"/>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="pRQuantity" type="BigDecimal" mode="IN" optional="false"/>
         <attribute name="startDate" type="java.sql.Timestamp" mode="IN" optional="false"/>
