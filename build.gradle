@@ -91,6 +91,9 @@ application {
 
 distributions.main.contents.from(rootDir) {
     include 'framework/**', 'applications/**', 'themes/**', 'plugins/**'
+    // Excludes each node-gradle subproject's downloaded Node.js runtime cache --
+    // it's build-tool cache, never read at runtime.
+    exclude '**/.gradle/**'
 }
 
 javadoc {
