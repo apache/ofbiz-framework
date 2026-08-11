@@ -31,6 +31,9 @@ import org.apache.ofbiz.ws.rs.util.RestApiUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.ServletContext;
@@ -87,8 +90,23 @@ public class AuthenticationResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/token")
     @AuthToken
-    @Operation(security = @SecurityRequirement(name = "basicAuth"),
-            operationId = "getAuthToken", description = "Generates JWT token for subsequent API calles.")
+    @Operation(security = @SecurityRequirement(name = "basicAuth"), operationId = "getAuthToken",
+            description = "Generates JWT token for subsequent API calls.",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "OK, token generated.",
+                            content = @Content(mediaType = "application/json",
+                            examples = @ExampleObject(value = "{ \"statusCode\" : 200, \"statusDescription\" : \"OK\", "
+                            + "\"successMessage\" : \"Token granted.\", \"data\" : { \"access_token\" : \"eyJ0eXAiOi...Ha3lpL19ag\", "
+                            + "\"token_type\" : \"Bearer\", \"expires_in\" : \"86400000\" } }"))),
+                    @ApiResponse(responseCode = "401", description = "Unauthorized.",
+                            content = @Content(mediaType = "application/json",
+                            examples = @ExampleObject(value = "{ \"statusCode\" : 401, \"statusDescription\" : \"Unauthorized\", "
+                            + "\"errorMessage\" : \"Unauthorized: Access is denied due to invalid or absent Authorization header\" }"))),
+                    @ApiResponse(responseCode = "403", description = "Forbidden.",
+                            content = @Content(mediaType = "application/json",
+                            examples = @ExampleObject(value = "{ \"statusCode\" : 403, \"statusDescription\" : \"Forbidden\", "
+                            + "\"errorMessage\" : \"Access Denied: User not found.\" }")))
+            })
     public Response getAuthToken(@Parameter(in = ParameterIn.HEADER, name = "Authorization",
             description = "Authorization header using Basic Authentication", example = HttpHeaders.AUTHORIZATION + ": Basic YWRtaW46b2ZiaXo=")
             @HeaderParam(HttpHeaders.AUTHORIZATION) String creds) {
