@@ -21,9 +21,6 @@ package org.apache.ofbiz.testtools;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.OutputStream;
-import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -32,17 +29,13 @@ import org.apache.ofbiz.base.container.ContainerException;
 import org.apache.ofbiz.base.start.StartupCommand;
 import org.apache.ofbiz.base.start.StartupCommandUtil;
 import org.apache.ofbiz.base.util.Debug;
-import org.apache.tools.ant.BuildException;
-import org.apache.tools.ant.taskdefs.optional.junit.JUnitTest;
-import org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter;
+import org.apache.ofbiz.entity.Delegator;
+import org.apache.ofbiz.service.LocalDispatcher;
+import org.apache.ofbiz.testtools.SuiteEntry.Junit3Entry;
+import org.apache.ofbiz.testtools.SuiteEntry.JupiterEntry;
+import org.apache.ofbiz.testtools.SuiteReportSink.Outcome;
 
-import junit.framework.AssertionFailedError;
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestFailure;
-import junit.framework.TestListener;
 import junit.framework.TestResult;
-import junit.framework.TestSuite;
 
 /**
  * A Container implementation to run the tests configured through this testtools stuff.
@@ -76,37 +69,30 @@ public class TestRunContainer implements Container {
     public boolean start() throws ContainerException {
         boolean failedRun = false;
         for (ModelTestSuite modelSuite: jsWrapper.getModelTestSuites()) {
+            String suiteName = modelSuite.getSuiteName();
+            SuiteXmlReportWriter xmlSink = createXmlReportWriter(suiteName);
+            SuiteReportLogger logSink = new SuiteReportLogger();
+            xmlSink.startSuite(suiteName);
+            logSink.startSuite(suiteName);
 
-            // prepare
-            TestSuite suite = modelSuite.makeTestSuite();
-            JUnitTest test = new JUnitTest(suite.getName());
-            JunitXmlListener xml = createJunitXmlListener(suite, LOG_DIR);
-            TestResult results = new TestResult();
-            results.addListener(new JunitListener());
-            results.addListener(xml);
-
-            // test
-            xml.startTestSuite(test);
             try {
-                suite.run(results);
+                runSuiteEntries(modelSuite.getPreparedTestList(), modelSuite.getDelegator(),
+                        modelSuite.getDispatcher(), xmlSink, logSink);
             } catch (Throwable t) {
-                // An individual test's exception is always caught by TestCase.runBare()/TestResult's
-                // own protected-invocation machinery and reported as that one test's error - it can
-                // never take down sibling suites. JupiterTestSuite.run() (the JUnit 3 bridge for
-                // Jupiter classes) doesn't have that same guarantee: anything escaping its
-                // launcher.execute() call - a JUnitException from a discovery/engine-registration problem,
-                // a PreconditionViolationException, or a bug in its own TestExecutionListener callback code
-                // - propagates straight out of suite.run() here. Without this catch, that would abort every
-                // remaining testdef suite in this loop, not just the one that hit the problem.
-                reportSuiteExecutionFailure(suite, results, t);
+                // Everything inside runSuiteEntries() is per-entry isolated already: a JUnit 3 test's
+                // own exception is always caught by TestCase.runBare()/TestResult's own
+                // protected-invocation machinery, and JupiterClassRunner.run() catches anything
+                // escaping its own launcher.execute() call. This is a last-resort net for anything
+                // that still escapes the loop itself - without it, that would abort every remaining
+                // testdef suite in this loop, not just the one that hit the problem.
+                reportSuiteExecutionFailure(suiteName, t, xmlSink, logSink);
             }
-            test.setCounts(results.runCount(), results.failureCount(), results.errorCount());
+
             modelSuite.getDelegator().rollback(); // rollback all entity operations
-            xml.endTestSuite(test);
+            xmlSink.endSuite();
+            logSink.endSuite();
 
-            logTestSuiteResults(suite, results);
-
-            failedRun = !results.wasSuccessful() ? true : failedRun;
+            failedRun = !xmlSink.wasSuccessful() || failedRun;
         }
 
         if (failedRun) {
@@ -124,6 +110,32 @@ public class TestRunContainer implements Container {
         return name;
     }
 
+    /**
+     * Runs one suite's ordered SuiteEntry list, JUnit 3 entries through junit.framework.TestResult
+     * (translated via Junit3ResultBridge) and Jupiter entries through JupiterTestExtension.JupiterClassRunner
+     * directly, both feeding the same sink(s) in declared order - so a suite mixing both kinds of
+     * entries produces one merged report with no separate merge step.
+     *
+     * <p>Package-private and static, taking its dependencies as plain parameters, so
+     * TestRunContainerTest can exercise it directly without a full ofbiz --test container bootstrap.
+     * @param entries the suite's prepared, ordered test entries
+     * @param delegator the suite's Delegator, shared by every entry
+     * @param dispatcher the suite's LocalDispatcher, shared by every entry
+     * @param sinks where to report results
+     */
+    static void runSuiteEntries(List<SuiteEntry> entries, Delegator delegator, LocalDispatcher dispatcher,
+            SuiteReportSink... sinks) {
+        TestResult junit3Result = new TestResult();
+        junit3Result.addListener(new Junit3ResultBridge(sinks));
+        for (SuiteEntry entry : entries) {
+            if (entry instanceof Junit3Entry junit3Entry) {
+                junit3Entry.test().run(junit3Result);
+            } else if (entry instanceof JupiterEntry jupiterEntry) {
+                new JupiterTestExtension.JupiterClassRunner(jupiterEntry.testClass(), delegator, dispatcher, sinks).run();
+            }
+        }
+    }
+
     private static void setLoggerLevel(String logLevel) {
         if (logLevel != null) {
             int selectedLogLevel = Debug.getLevelFromString(logLevel);
@@ -136,27 +148,26 @@ public class TestRunContainer implements Container {
     }
 
     /**
-     * Reports an exception that escaped suite.run() itself as a synthetic suite-level error instead of
-     * letting it propagate out of start()'s for loop - see the try/catch around suite.run() above for
-     * why that would otherwise abort every remaining testdef suite in the run, not just this one.
-     * Reported through the same TestResult/listener pipeline (JunitListener, the XML formatter) a normal
-     * addError() would use, so it shows up in the suite's report and results.wasSuccessful() correctly
-     * flips to false, rather than this suite silently contributing zero tests to the run.
+     * Reports an exception that escaped runSuiteEntries() itself as a synthetic suite-level error
+     * instead of letting it propagate out of start()'s for loop - see the try/catch around
+     * runSuiteEntries() above for why that would otherwise abort every remaining testdef suite in the
+     * run. Reported through the same sinks a normal test's testStarted()/testFinished() calls use, so
+     * it shows up in the suite's report and a sink's own wasSuccessful()-equivalent state correctly
+     * reflects it, rather than this suite silently contributing zero tests to the run.
      *
      * <p>Package-private rather than private so TestRunContainerTest can exercise it directly without
      * needing a full ofbiz --test container bootstrap.
+     * @param suiteName the suite that failed to execute
+     * @param throwable the exception that escaped
+     * @param sinks where to report the synthetic failure
      */
-    static void reportSuiteExecutionFailure(TestSuite suite, TestResult results, Throwable throwable) {
-        Debug.logError(throwable, "[JUNIT] Suite '" + suite.getName() + "' failed to execute: " + throwable, MODULE);
-        Test failureMarker = new TestCase(suite.getName() + ".suiteExecutionError") {
-            @Override
-            public void run(TestResult result) {
-                throw new UnsupportedOperationException("reporting handle only, cannot be run directly");
-            }
-        };
-        results.startTest(failureMarker);
-        results.addError(failureMarker, throwable);
-        results.endTest(failureMarker);
+    static void reportSuiteExecutionFailure(String suiteName, Throwable throwable, SuiteReportSink... sinks) {
+        Debug.logError(throwable, "[JUNIT] Suite '" + suiteName + "' failed to execute: " + throwable, MODULE);
+        String name = "suiteExecutionError";
+        for (SuiteReportSink sink : sinks) {
+            sink.testStarted(suiteName, name);
+            sink.testFinished(suiteName, name, 0, Outcome.error(throwable));
+        }
     }
 
     private static JunitSuiteWrapper prepareJunitSuiteWrapper(Map<String, String> testProps) throws ContainerException {
@@ -165,99 +176,18 @@ public class TestRunContainer implements Container {
         String testCase = testProps.get("case");
 
         JunitSuiteWrapper jsWrapper = new JunitSuiteWrapper(component, suiteName, testCase);
-        if (jsWrapper.getAllTestList().size() == 0) {
+        if (jsWrapper.getAllTestList().isEmpty()) {
             throw new ContainerException("No tests found (" + component + " / " + suiteName + " / " + testCase + ")");
         }
 
         return jsWrapper;
     }
 
-    private JunitXmlListener createJunitXmlListener(TestSuite suite, String logDir) throws ContainerException {
+    private static SuiteXmlReportWriter createXmlReportWriter(String suiteName) throws ContainerException {
         try {
-            return new JunitXmlListener(new FileOutputStream(logDir + suite.getName() + ".xml"));
+            return new SuiteXmlReportWriter(new FileOutputStream(LOG_DIR + suiteName + ".xml"));
         } catch (FileNotFoundException e) {
             throw new ContainerException(e);
-        }
-    }
-
-    private static void logTestSuiteResults(TestSuite suite, TestResult results) {
-        Debug.logInfo("[JUNIT] Results for test suite: " + suite.getName(), MODULE);
-        Debug.logInfo("[JUNIT] Pass: " + results.wasSuccessful() + " | # Tests: " + results.runCount() + " | # Failed: "
-                + results.failureCount() + " # Errors: " + results.errorCount(), MODULE);
-        if (Debug.importantOn() && !results.wasSuccessful()) {
-            Debug.logInfo("[JUNIT] ----------------------------- ERRORS ----------------------------- [JUNIT]", MODULE);
-            logErrorsOrFailures(results.errors());
-            Debug.logInfo("[JUNIT] ------------------------------------------------------------------ [JUNIT]", MODULE);
-
-            Debug.logInfo("[JUNIT] ---------------------------- FAILURES ---------------------------- [JUNIT]", MODULE);
-            logErrorsOrFailures(results.failures());
-            Debug.logInfo("[JUNIT] ------------------------------------------------------------------ [JUNIT]", MODULE);
-        }
-    }
-
-    private static void logErrorsOrFailures(Enumeration<TestFailure> errorsOrFailures) {
-        if (!errorsOrFailures.hasMoreElements()) {
-            Debug.logInfo("None", MODULE);
-        } else {
-            while (errorsOrFailures.hasMoreElements()) {
-                TestFailure testFailure = errorsOrFailures.nextElement();
-                Debug.logInfo("--> " + testFailure, MODULE);
-                Debug.logInfo(testFailure.trace(), MODULE);
-            }
-        }
-    }
-
-    class JunitXmlListener extends XMLJUnitResultFormatter {
-
-        private Map<String, Long> startTimes = new HashMap<>();
-
-        JunitXmlListener(OutputStream out) {
-            this.setOutput(out);
-        }
-
-        @Override
-        public void startTestSuite(JUnitTest suite) {
-            startTimes.put(suite.getName(), System.currentTimeMillis());
-            super.startTestSuite(suite);
-        }
-
-        @Override
-        public void endTestSuite(JUnitTest suite) throws BuildException {
-            long startTime = startTimes.get(suite.getName());
-            suite.setRunTime((System.currentTimeMillis() - startTime));
-            super.endTestSuite(suite);
-        }
-    }
-
-    class JunitListener implements TestListener {
-
-        @Override
-        public void addError(Test test, Throwable throwable) {
-            Debug.logWarning(throwable, "[JUNIT (error)] - " + getTestName(test) + " : " + throwable.toString(), MODULE);
-        }
-
-        @Override
-        public void addFailure(Test test, AssertionFailedError assertionFailedError) {
-            Debug.logWarning("[JUNIT (failure)] - " + getTestName(test) + " : " + assertionFailedError.getMessage(), MODULE);
-        }
-
-        @Override
-        public void endTest(Test test) {
-            Debug.logInfo("[JUNIT] : " + getTestName(test) + " finished.", MODULE);
-        }
-
-        @Override
-        public void startTest(Test test) {
-            Debug.logInfo("[JUNIT] : " + getTestName(test) + " starting...", MODULE);
-        }
-
-        private String getTestName(Test test) {
-            if (test instanceof TestCase) {
-                return ((TestCase) test).getName();
-            } else {
-                return test.getClass().getName();
-            }
-
         }
     }
 }
