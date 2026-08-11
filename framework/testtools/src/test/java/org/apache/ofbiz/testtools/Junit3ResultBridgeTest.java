@@ -20,6 +20,7 @@ package org.apache.ofbiz.testtools;
 
 import org.junit.jupiter.api.Test;
 
+import junit.framework.AssertionFailedError;
 import junit.framework.TestCase;
 import junit.framework.TestResult;
 
@@ -66,6 +67,40 @@ class Junit3ResultBridgeTest {
 
         assertThat(sinkA.testFinishedCalls.size(), is(1));
         assertThat(sinkB.testFinishedCalls.size(), is(1));
+    }
+
+    @Test
+    void reportsExactlyOneTestFinishedForATestWithMultipleAccumulatedFailures() {
+        RecordingSink sink = new RecordingSink();
+        TestResult result = new TestResult();
+        result.addListener(new Junit3ResultBridge(sink));
+
+        new MultiFailureCase().run(result);
+
+        assertThat(sink.testFinishedCalls.size(), is(1));
+        SuiteReportSink.Outcome.Failure failure = (SuiteReportSink.Outcome.Failure) sink.testFinishedCalls.get(0).outcome();
+        assertThat(failure.message(), is("first failure"));
+    }
+
+    /**
+     * Mirrors how ServiceTest/SimpleMethodTest/EntityXmlAssertTest override run(TestResult) directly -
+     * calling result.startTest(this), then multiple result.addFailure(this, ...) calls for one logical
+     * test, then result.endTest(this) - rather than going through JUnit 3's default reflection-based
+     * single-assertion dispatch.
+     */
+    public static class MultiFailureCase extends TestCase {
+        MultiFailureCase() {
+            super("testMultiFailure");
+        }
+
+        @Override
+        public void run(TestResult result) {
+            result.startTest(this);
+            result.addFailure(this, new AssertionFailedError("first failure"));
+            result.addFailure(this, new AssertionFailedError("second failure"));
+            result.addFailure(this, new AssertionFailedError("third failure"));
+            result.endTest(this);
+        }
     }
 
     public static class PassingCase extends TestCase {

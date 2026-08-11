@@ -18,14 +18,9 @@
  *******************************************************************************/
 package org.apache.ofbiz.testtools;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.util.HashSet;
 import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.function.Consumer;
 
 import org.apache.ofbiz.testtools.SuiteReportSink.Outcome;
 
@@ -41,12 +36,23 @@ import junit.framework.TestListener;
  * execution itself is unchanged (still {@code junit.framework.TestSuite}/{@code TestResult}), only its
  * reporting output is redirected here, into the same sink(s) {@link JupiterTestExtension.JupiterClassRunner}
  * reports Jupiter entries to.
+ *
+ * <p>Some OFBiz JUnit-3 test engines - {@link ServiceTest}, {@link SimpleMethodTest},
+ * {@link EntityXmlAssertTest} - override {@code run(TestResult)} and can call
+ * {@code result.addFailure(this, ...)}/{@code result.addError(this, ...)} more than once for the same
+ * {@code Test} object (once per accumulated error message), before calling {@code result.endTest(this)}
+ * exactly once. {@code testFinished()} must therefore be dispatched exactly once per test, at
+ * {@code endTest()} time, not from addFailure()/addError() directly - {@link #outcomes} records at most
+ * one {@link Outcome} per test (the first reported failure/error; later ones for the same
+ * already-recorded test are deliberately dropped, since {@link Outcome} carries only one
+ * failure/error per test by design) and {@link #endTest(Test)} is the single place that reads it back
+ * out and reports.
  */
 final class Junit3ResultBridge implements TestListener {
 
     private final List<SuiteReportSink> sinks;
     private final Map<Test, Long> startTimes = new IdentityHashMap<>();
-    private final Set<Test> finished = new HashSet<>();
+    private final Map<Test, Outcome> outcomes = new IdentityHashMap<>();
 
     Junit3ResultBridge(SuiteReportSink... sinks) {
         this.sinks = List.of(sinks);
@@ -55,39 +61,34 @@ final class Junit3ResultBridge implements TestListener {
     @Override
     public void startTest(Test test) {
         startTimes.put(test, System.currentTimeMillis());
-        dispatch(sink -> sink.testStarted(classnameOf(test), nameOf(test)));
+        ReportingSupport.dispatch(sinks, sink -> sink.testStarted(classnameOf(test), nameOf(test)));
     }
 
     @Override
     public void addFailure(Test test, AssertionFailedError error) {
-        report(test, Outcome.failure(error.getMessage(), error.getClass().getName(), stackTraceOf(error)));
+        outcomes.putIfAbsent(test,
+                Outcome.failure(error.getMessage(), error.getClass().getName(), ReportingSupport.stackTraceOf(error)));
     }
 
     @Override
     public void addError(Test test, Throwable error) {
-        report(test, Outcome.error(error));
+        outcomes.putIfAbsent(test, Outcome.error(error));
     }
 
     @Override
     public void endTest(Test test) {
-        // JUnit 3's dispatch order is always startTest -> [addFailure|addError] -> endTest, so a test
-        // reaching here already marked finished was a failure/error already reported by one of the two
-        // methods above - only a still-unmarked test here is a genuine pass.
-        if (!finished.contains(test)) {
-            report(test, Outcome.passed());
-        }
+        // JUnit 3's dispatch order is always startTest -> [addFailure|addError]* -> endTest, with
+        // endTest() called exactly once per test regardless of how many addFailure()/addError() calls
+        // preceded it - so this is the single dispatch point for testFinished().
+        Outcome outcome = outcomes.remove(test);
+        report(test, outcome != null ? outcome : Outcome.passed());
     }
 
     private void report(Test test, Outcome outcome) {
-        finished.add(test);
         long elapsed = System.currentTimeMillis() - startTimes.getOrDefault(test, System.currentTimeMillis());
         String classname = classnameOf(test);
         String name = nameOf(test);
-        dispatch(sink -> sink.testFinished(classname, name, elapsed, outcome));
-    }
-
-    private void dispatch(Consumer<SuiteReportSink> action) {
-        sinks.forEach(action);
+        ReportingSupport.dispatch(sinks, sink -> sink.testFinished(classname, name, elapsed, outcome));
     }
 
     private static String classnameOf(Test test) {
@@ -96,11 +97,5 @@ final class Junit3ResultBridge implements TestListener {
 
     private static String nameOf(Test test) {
         return test instanceof TestCase ? ((TestCase) test).getName() : "unknown";
-    }
-
-    private static String stackTraceOf(Throwable throwable) {
-        StringWriter stringWriter = new StringWriter();
-        throwable.printStackTrace(new PrintWriter(stringWriter));
-        return stringWriter.toString();
     }
 }
