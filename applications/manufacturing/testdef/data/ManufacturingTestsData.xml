@@ -38,6 +38,7 @@ under the License.
     <UserLoginSecurityGroup userLoginId="TestManufAdmin" groupId="MANUFADMIN" fromDate="2001-05-13 00:00:00"/>
     <SecurityGroup groupId="SUPPLYADMIN" description="Supply Chain Admin group, has permissions to execute requirement based manufacturing tasks." groupName="Supply Admin"/>
     <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPPLYADMIN" permissionId="MANUFACTURING_VIEW"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPPLYADMIN" permissionId="MANUFACTURING_CREATE"/>
     <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPPLYADMIN" permissionId="WORKEFFORTMGR_CREATE"/>
     <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPPLYADMIN" permissionId="WORKEFFORTMGR_UPDATE"/>
     <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPPLYADMIN" permissionId="ACCOUNTING_CREATE"/>
