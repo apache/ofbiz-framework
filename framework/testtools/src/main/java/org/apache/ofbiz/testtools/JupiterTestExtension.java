@@ -18,13 +18,10 @@
  *******************************************************************************/
 package org.apache.ofbiz.testtools;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Consumer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -316,7 +313,7 @@ public class JupiterTestExtension implements ParameterResolver, TestInstancePost
                     public void executionStarted(TestIdentifier testIdentifier) {
                         if (testIdentifier.isTest()) {
                             startTimes.put(testIdentifier.getUniqueId(), System.currentTimeMillis());
-                            dispatch(sink -> sink.testStarted(testClass.getName(), reportingName(testIdentifier)));
+                            ReportingSupport.dispatch(sinks, sink -> sink.testStarted(testClass.getName(), reportingName(testIdentifier)));
                         }
                     }
 
@@ -335,7 +332,8 @@ public class JupiterTestExtension implements ParameterResolver, TestInstancePost
                             return;
                         }
                         String name = reportingName(testIdentifier);
-                        long elapsed = System.currentTimeMillis() - startTimes.get(testIdentifier.getUniqueId());
+                        long elapsed = System.currentTimeMillis()
+                                - startTimes.getOrDefault(testIdentifier.getUniqueId(), System.currentTimeMillis());
                         if (testExecutionResult.getStatus() == TestExecutionResult.Status.ABORTED) {
                             // A JUnit 5 Assumptions.assumeTrue/assumeFalse failure: a deliberate skip,
                             // not a defect - logged, not reported as a failure/error, the same way a
@@ -345,16 +343,16 @@ public class JupiterTestExtension implements ParameterResolver, TestInstancePost
                             testExecutionResult.getThrowable().ifPresent(throwable ->
                                     Debug.logInfo("[JUNIT] ABORTED: " + testIdentifier.getDisplayName()
                                             + " (" + testClass.getName() + ") - " + throwable.getMessage(), MODULE));
-                            dispatch(sink -> sink.testFinished(testClass.getName(), name, elapsed, Outcome.passed()));
+                            ReportingSupport.dispatch(sinks, sink -> sink.testFinished(testClass.getName(), name, elapsed, Outcome.passed()));
                             return;
                         }
                         Outcome outcome = testExecutionResult.getThrowable()
                                 .map(throwable -> throwable instanceof AssertionError
                                         ? Outcome.failure(throwable.getMessage(), throwable.getClass().getName(),
-                                                stackTraceOf(throwable))
+                                                ReportingSupport.stackTraceOf(throwable))
                                         : Outcome.error(throwable))
                                 .orElseGet(Outcome::passed);
-                        dispatch(sink -> sink.testFinished(testClass.getName(), name, elapsed, outcome));
+                        ReportingSupport.dispatch(sinks, sink -> sink.testFinished(testClass.getName(), name, elapsed, outcome));
                     }
                 });
             } catch (Throwable t) {
@@ -387,8 +385,8 @@ public class JupiterTestExtension implements ParameterResolver, TestInstancePost
             Throwable throwable = testExecutionResult.getThrowable()
                     .orElseGet(() -> new AssertionError("Container '" + testIdentifier.getDisplayName()
                             + "' reported " + status + " with no throwable"));
-            dispatch(sink -> sink.testStarted(testClass.getName(), name));
-            dispatch(sink -> sink.testFinished(testClass.getName(), name, 0, Outcome.error(throwable)));
+            ReportingSupport.dispatch(sinks, sink -> sink.testStarted(testClass.getName(), name));
+            ReportingSupport.dispatch(sinks, sink -> sink.testFinished(testClass.getName(), name, 0, Outcome.error(throwable)));
         }
 
         /**
@@ -404,18 +402,8 @@ public class JupiterTestExtension implements ParameterResolver, TestInstancePost
         void reportClassExecutionFailure(Throwable throwable) {
             Debug.logError(throwable, "[JUNIT] Class '" + testClass.getName() + "' failed to execute: " + throwable, MODULE);
             String name = "classExecutionError";
-            dispatch(sink -> sink.testStarted(testClass.getName(), name));
-            dispatch(sink -> sink.testFinished(testClass.getName(), name, 0, Outcome.error(throwable)));
-        }
-
-        private void dispatch(Consumer<SuiteReportSink> action) {
-            sinks.forEach(action);
-        }
-
-        private static String stackTraceOf(Throwable throwable) {
-            StringWriter stringWriter = new StringWriter();
-            throwable.printStackTrace(new PrintWriter(stringWriter));
-            return stringWriter.toString();
+            ReportingSupport.dispatch(sinks, sink -> sink.testStarted(testClass.getName(), name));
+            ReportingSupport.dispatch(sinks, sink -> sink.testFinished(testClass.getName(), name, 0, Outcome.error(throwable)));
         }
 
         /**

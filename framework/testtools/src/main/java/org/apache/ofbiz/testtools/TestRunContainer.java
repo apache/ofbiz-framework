@@ -132,6 +132,12 @@ public class TestRunContainer implements Container {
                 junit3Entry.test().run(junit3Result);
             } else if (entry instanceof JupiterEntry jupiterEntry) {
                 new JupiterTestExtension.JupiterClassRunner(jupiterEntry.testClass(), delegator, dispatcher, sinks).run();
+            } else {
+                // SuiteEntry is sealed permits Junit3Entry, JupiterEntry, so this is unreachable today -
+                // but Java 17 doesn't support exhaustive switch over sealed types without preview
+                // features, so this explicit throw is the substitute: a future third variant fails loudly
+                // here instead of being silently skipped.
+                throw new IllegalStateException("Unknown SuiteEntry type: " + entry.getClass());
             }
         }
     }
