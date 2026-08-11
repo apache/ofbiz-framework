@@ -59,4 +59,10 @@ under the License.
         <attribute name="httpResponseStatus" type="java.lang.Integer" mode="OUT" optional="false"/>
     </service>
 
+    <service name="useCustomHeaderAsServiceParameter" engine="java"
+            location="org.apache.ofbiz.ws.rs.test.RestTestServices" invoke="useCustomHeaderAsServiceParameter">
+        <description>TestService that returns success, but overwrites it with a custom http status code</description>
+        <attribute name="x-custom-header" type="String" mode="INOUT" optional="true"/>
+    </service>
+
 </services>

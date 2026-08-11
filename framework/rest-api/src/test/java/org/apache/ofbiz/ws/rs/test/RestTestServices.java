@@ -20,6 +20,7 @@ package org.apache.ofbiz.ws.rs.test;
 
 import java.util.Map;
 
+import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.service.ServiceUtil;
@@ -63,6 +64,23 @@ public class RestTestServices {
     public static Map<String, Object> returnSuccessButOverwriteStatusCode(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map<String, Object> result = ServiceUtil.returnSuccess();
         result.put(RestApiUtil.RESPONSE_STATUS_KEY, 201);
+        return result;
+    }
+
+    /**
+     * TestService requiring a customHeader 'x-custom-header' to be present
+     *
+     * @param dctx
+     * @param context
+     * @return result
+     */
+    public static Map<String, Object> useCustomHeaderAsServiceParameter(DispatchContext dctx, Map<String, ? extends Object> context) {
+        String customHeader = (String) context.get("x-custom-header");
+        if (UtilValidate.isEmpty(customHeader)) {
+            return ServiceUtil.returnError("Missing custom header 'x-custom-header'");
+        }
+        Map<String, Object> result = ServiceUtil.returnSuccess();
+        result.put("x-custom-header", customHeader);
         return result;
     }
 }
