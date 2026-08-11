@@ -62,7 +62,7 @@ class RestTestHttpRequest implements JupiterTestHelper {
         try {
             response = fetchClient.post();
         } catch (HttpClientException e) {
-            Debug.logError(e, "Error returning rest access token", "MODULE");
+            Debug.logError(e, "Error returning rest access token", MODULE);
             return;
         }
 
@@ -70,7 +70,7 @@ class RestTestHttpRequest implements JupiterTestHelper {
             JsonNode root = mapper.readTree(response);
             accessToken = root.get("data").get("access_token").asText();
         } catch (JsonProcessingException | NullPointerException e) {
-            Debug.logError(e, "Error parsing rest auth response", "MODULE");
+            Debug.logError(e, "Error parsing rest auth response", MODULE);
         }
     }
 
@@ -85,14 +85,14 @@ class RestTestHttpRequest implements JupiterTestHelper {
         try {
             response = client.post();
         } catch (HttpClientException e) {
-            Debug.logError(e, "Error returning rest access token", "MODULE");
+            Debug.logError(e, "Error during rest POST to /exampleApi/returnSuccess", MODULE);
         }
         int statusCode = 0;
         try {
             JsonNode root = mapper.readTree(response);
             statusCode = root.get("statusCode").asInt(999999999);
         } catch (JsonProcessingException | NullPointerException e) {
-            Debug.logError(e, "Error parsing rest auth response", "MODULE");
+            Debug.logError(e, "Error parsing rest auth response", MODULE);
         }
 
         assertEquals(200, statusCode);
@@ -104,22 +104,47 @@ class RestTestHttpRequest implements JupiterTestHelper {
         HttpClient client = initHttpClient();
         client.setHeader("Content-Type", "application/json");
         client.setHeader("Authorization", "Bearer " + accessToken);
-        client.setUrl(BASE_URL + "/exampleApi//returnSuccessButOverwriteStatusCode");
+        client.setUrl(BASE_URL + "/exampleApi/returnSuccessButOverwriteStatusCode");
 
         String response = "";
         try {
             response = client.post();
         } catch (HttpClientException e) {
-            Debug.logError(e, "Error returning rest access token", "AAAA");
+            Debug.logError(e, "Error during rest POST to /exampleApi/returnSuccessButOverwriteStatusCode", MODULE);
         }
         int statusCode = 0;
         try {
             JsonNode root = mapper.readTree(response);
             statusCode = root.get("statusCode").asInt(999999999);
         } catch (JsonProcessingException | NullPointerException e) {
-            Debug.logError(e, "Error parsing rest auth response", "MODULE");
+            Debug.logError(e, "Error parsing rest auth response", MODULE);
         }
 
         assertEquals(201, statusCode);
+    }
+
+    @Test
+    void useCustomHeaderAsServiceParameter() throws Exception {
+        HttpClient client = initHttpClient();
+        client.setHeader("Content-Type", "application/json");
+        client.setHeader("Authorization", "Bearer " + accessToken);
+        client.setHeader("x-custom-header", "Foo");
+        client.setUrl(BASE_URL + "/exampleApi/useCustomHeaderAsServiceParameter");
+
+        String response = "";
+        try {
+            response = client.post();
+        } catch (HttpClientException e) {
+            Debug.logError(e, "Error during rest POST to /exampleApi/useCustomHeaderAsServiceParameter", MODULE);
+        }
+        String customHeaderValue = "";
+        try {
+            JsonNode root = mapper.readTree(response);
+            customHeaderValue = root.get("data").get("x-custom-header").asText();
+        } catch (JsonProcessingException | NullPointerException e) {
+            Debug.logError(e, "Error parsing rest auth response", MODULE);
+        }
+
+        assertEquals("Foo", customHeaderValue);
     }
 }

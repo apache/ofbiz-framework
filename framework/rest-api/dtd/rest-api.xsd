@@ -44,6 +44,7 @@ under the License.
             <xs:attribute name="description" type="xs:string"/>
             <xs:attribute name="publish" type="xs:boolean" default="true"/>
             <xs:attribute name="auth" type="xs:boolean" default="true"/>
+            <xs:attribute name="customHeaders" type="xs:string"/>
         </xs:complexType>
     </xs:element>
     <xs:element name="operation">
@@ -82,6 +83,7 @@ under the License.
             <xs:attribute name="description" type="xs:string"/>
             <xs:attribute name="auth" type="xs:boolean" default="true"/>
             <xs:attribute name="addApiResponses" type="xs:string"/>
+            <xs:attribute name="customHeaders" type="xs:string"/>
         </xs:complexType>
     </xs:element>
     <xs:element name="service">

@@ -192,6 +192,7 @@ public final class OFBizOpenApiReader extends Reader implements OpenApiReader {
             addServiceInSchema(service, op);
             addServiceOperationApiResponses(service, operation);
             addAdditionalOperationApiResponses(service, op, operation);
+            addCustomHeaders(op, operation);
             setPathItemOperation(pathItemObject, verb.toUpperCase(), operation);
 
             if (!pathExists) {
@@ -374,4 +375,9 @@ public final class OFBizOpenApiReader extends Reader implements OpenApiReader {
         });
     }
 
+    private void addCustomHeaders(ModelOperation op, Operation operation) {
+        op.getCustomHeadersList().forEach((headerName) -> {
+            operation.addParametersItem(new HeaderParameter().name(headerName).schema(new StringSchema()).required(true));
+        });
+    }
 }

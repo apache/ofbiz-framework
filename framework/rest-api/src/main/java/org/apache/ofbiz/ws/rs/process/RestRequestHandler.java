@@ -213,6 +213,16 @@ public abstract class RestRequestHandler implements Inflector<ContainerRequestCo
     }
 
     /**
+     * Extracts the header Parameters
+     *
+     * @param requestContext the request context
+     * @return a map containing headers
+     */
+    protected Map<String, Object> extractHeaderParameters(ContainerRequestContext requestContext) {
+        return extract(requestContext.getHeaders());
+    }
+
+    /**
      * Converts a multivalued parameter map into a standard argument map.
      *
      * <p>Single-value parameters are stored as strings, while parameters with
@@ -248,6 +258,7 @@ public abstract class RestRequestHandler implements Inflector<ContainerRequestCo
         Map<String, Object> arguments = new HashMap<>();
         arguments.putAll(extractPathParameters(requestContext));
         arguments.putAll(extractQueryParameters(requestContext));
+        arguments.putAll(extractHeaderParameters(requestContext));
         return execute(requestContext, arguments);
     }
 
@@ -256,6 +267,7 @@ public abstract class RestRequestHandler implements Inflector<ContainerRequestCo
         arguments.putAll(extractRequestBody(requestContext));
         arguments.putAll(extractPathParameters(requestContext));
         arguments.putAll(extractQueryParameters(requestContext));
+        arguments.putAll(extractHeaderParameters(requestContext));
         return execute(requestContext, arguments);
     }
 
@@ -264,6 +276,7 @@ public abstract class RestRequestHandler implements Inflector<ContainerRequestCo
         arguments.putAll(extractRequestBody(requestContext));
         arguments.putAll(extractPathParameters(requestContext));
         arguments.putAll(extractQueryParameters(requestContext));
+        arguments.putAll(extractHeaderParameters(requestContext));
         return execute(requestContext, arguments);
     }
 
@@ -272,6 +285,7 @@ public abstract class RestRequestHandler implements Inflector<ContainerRequestCo
         arguments.putAll(extractRequestBody(requestContext));
         arguments.putAll(extractPathParameters(requestContext));
         arguments.putAll(extractQueryParameters(requestContext));
+        arguments.putAll(extractHeaderParameters(requestContext));
         return execute(requestContext, arguments);
     }
 
@@ -279,6 +293,7 @@ public abstract class RestRequestHandler implements Inflector<ContainerRequestCo
         Map<String, Object> arguments = new HashMap<>();
         arguments.putAll(extractPathParameters(requestContext));
         arguments.putAll(extractQueryParameters(requestContext));
+        arguments.putAll(extractHeaderParameters(requestContext));
         return execute(requestContext, arguments);
     }
 

@@ -47,6 +47,12 @@ under the License.
         </operation>
     </resource>
 
+    <resource name="orders" path="/useCustomHeaderAsServiceParameter">
+        <operation verb="post" consumes="application/json" produces="application/json" customHeaders="x-custom-header">
+            <service name="useCustomHeaderAsServiceParameter"/>
+        </operation>
+    </resource>
+
     <mapping name="RestOrderExample" className="org.apache.ofbiz.ws.rs.examples.RestOrderExample"/>
 
 </api>
