@@ -40,7 +40,6 @@ javax-transaction-api = "1.3"
 ical4j = "1.0-rc4-atlassian-12"
 zip4j = "2.11.6"
 activiti-juel-jakarta = "8.1.0"
-ant-junit = "1.10.17"
 commons-collections4 = "4.5.0"
 commons-csv = "1.14.1"
 commons-dbcp2 = "2.14.0"
@@ -139,7 +138,6 @@ javax-transaction-api = { module = "javax.transaction:javax.transaction-api", ve
 ical4j = { module = "net.fortuna.ical4j:ical4j", version.ref = "ical4j" }
 zip4j = { module = "net.lingala.zip4j:zip4j", version.ref = "zip4j" }
 activiti-juel-jakarta = { module = "org.activiti:activiti-juel-jakarta", version.ref = "activiti-juel-jakarta" }
-ant-junit = { module = "org.apache.ant:ant-junit", version.ref = "ant-junit" }
 commons-collections4 = { module = "org.apache.commons:commons-collections4", version.ref = "commons-collections4" }
 commons-csv = { module = "org.apache.commons:commons-csv", version.ref = "commons-csv" }
 commons-dbcp2 = { module = "org.apache.commons:commons-dbcp2", version.ref = "commons-dbcp2" }

@@ -40,7 +40,6 @@ dependencies {
     implementation libs.ical4j
     implementation libs.zip4j
     implementation libs.activiti.juel.jakarta
-    implementation libs.ant.junit
     implementation libs.commons.collections4
     implementation libs.commons.csv
     implementation libs.commons.dbcp2
