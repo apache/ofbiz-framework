@@ -71,6 +71,7 @@ public class TypesafeConfigImplReader implements ConfigurationReaderInterface {
 
     @Override
     public void init(String resourceName) {
+        CONFIGURATION_CACHE.clear();
         globalConfig = UtilValidate.isNotEmpty(resourceName)
                 ? ConfigFactory.load(resourceName)
                 : ConfigFactory.load();
@@ -82,6 +83,7 @@ public class TypesafeConfigImplReader implements ConfigurationReaderInterface {
      * @param confFiles the list of files that will be loaded.
      */
     public void init(List<File> confFiles) {
+        CONFIGURATION_CACHE.clear();
         Debug.logInfo("Collect available configuration", MODULE);
         List<Config> configsToLoad = UtilMisc.toList(
                 ConfigFactory.systemEnvironment(),
@@ -127,7 +129,7 @@ public class TypesafeConfigImplReader implements ConfigurationReaderInterface {
      */
     public String getValue(String resourceName, String key) {
         String configMapKey = String.format("%s#%s", resourceName, key);
-        if (CONFIGURATION_CACHE.containsKey(configMapKey)) {
+        if (CONFIGURATION_CACHE.get(configMapKey) != null) {
             return CONFIGURATION_CACHE.get(configMapKey);
         }
 
