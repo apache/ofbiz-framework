@@ -18,6 +18,9 @@
  *******************************************************************************/
 package org.apache.ofbiz.ws.rs.spi.impl;
 
+import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.UtilProperties;
+
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
@@ -34,6 +37,11 @@ import jakarta.ws.rs.ext.Provider;
 @Provider
 public class JacksonConfig implements ContextResolver<ObjectMapper> {
 
+    private static final String MODULE = JacksonConfig.class.getName();
+    private static final String INCLUDE_VALUE = UtilProperties.getPropertyValue(
+            "rest-api", "rest-api.jackson.serialization.inclusion.value", "NON_NULL");
+    private static final String INCLUDE_CONTENT = UtilProperties.getPropertyValue(
+            "rest-api", "rest-api.jackson.serialization.inclusion.content", "NON_NULL");
     private final ObjectMapper objectMapper;
 
     /**
@@ -53,10 +61,13 @@ public class JacksonConfig implements ContextResolver<ObjectMapper> {
      * <p>Additionally, custom serializers are registered for REST link representations</p>
      */
     public JacksonConfig() {
+        JsonInclude.Include jsonIncludeValue = resolveInclude(INCLUDE_VALUE);
+        JsonInclude.Include jsonIncludeContent = resolveInclude(INCLUDE_CONTENT);
+
         objectMapper = JsonMapper.builder()
                 .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
                 .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
-                .defaultPropertyInclusion(JsonInclude.Value.construct(JsonInclude.Include.NON_NULL, JsonInclude.Include.NON_NULL))
+                .defaultPropertyInclusion(JsonInclude.Value.construct(jsonIncludeValue, jsonIncludeContent))
                 .visibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY)
                 .enable(SerializationFeature.INDENT_OUTPUT)
                 .build();
@@ -70,4 +81,17 @@ public class JacksonConfig implements ContextResolver<ObjectMapper> {
         return objectMapper;
     }
 
+    /**
+     * Small Helper to map from Include-Strings in .properties to valid JsonInclude
+     * @param String value equal to JsonInclude.Include enum
+     * @return JsonInclude.Include
+     */
+    private static JsonInclude.Include resolveInclude(String value) {
+        try {
+            return JsonInclude.Include.valueOf(value.trim().toUpperCase());
+        } catch (IllegalArgumentException e) {
+            Debug.logWarning("Invalid jackson inclusion value [%s], falling back to NON_NULL", MODULE, value);
+            return JsonInclude.Include.NON_NULL;
+        }
+    }
 }
