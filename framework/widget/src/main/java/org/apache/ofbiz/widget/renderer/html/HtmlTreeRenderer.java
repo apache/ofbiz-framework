@@ -249,9 +249,10 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
                 newURL.append(target);
                 writer.append(newURL.toString());
             } else if ("inter-app".equalsIgnoreCase(urlMode) && req != null) {
+                writer.append(target);
                 String externalLoginKey = (String) req.getAttribute("externalLoginKey");
-                if (UtilValidate.isNotEmpty(externalLoginKey)) {
-                    writer.append(target);
+                // Never attach the credential to a target that can point at another host.
+                if (UtilValidate.isNotEmpty(externalLoginKey) && !WidgetWorker.isAbsoluteTarget(target)) {
                     if (target.contains("?")) {
                         writer.append("&externalLoginKey=");
                     } else {

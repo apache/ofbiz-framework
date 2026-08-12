@@ -48,6 +48,7 @@ import org.jsoup.parser.Tag;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashMap;
+import java.util.regex.Pattern;
 
 import static org.apache.ofbiz.base.util.UtilValidate.isNotEmpty;
 
@@ -55,7 +56,22 @@ public final class WidgetWorker {
 
     private static final String MODULE = WidgetWorker.class.getName();
 
+    // Matches a target that carries a scheme (e.g. "https:", "javascript:") or is protocol-relative
+    // ("//host/..."), meaning it points off the current host rather than at another control servlet.
+    private static final Pattern ABSOLUTE_TARGET = Pattern.compile("^(//|[A-Za-z][A-Za-z0-9+.-]*:)");
+
     private WidgetWorker() { }
+
+    /**
+     * Checks whether an inter-app link target is absolute (carries a scheme or a network-path
+     * authority) rather than a relative control path. Used to keep the externalLoginKey
+     * credential off targets that can point at an attacker-chosen host.
+     * @param target the widget-supplied target, already HTML-entity-decoded
+     * @return true if the target has a scheme or starts with {@code //}
+     */
+    public static boolean isAbsoluteTarget(String target) {
+        return target != null && ABSOLUTE_TARGET.matcher(target).find();
+    }
 
     public static URI buildHyperlinkUri(String target, String targetType, Map<String, String> parameterMap,
                                         String prefix, boolean fullPath, boolean secure, boolean encode,
@@ -86,8 +102,13 @@ public final class WidgetWorker {
             }
         } else if ("inter-app".equals(targetType)) {
             uriString = localRequestName;
-            String externalLoginKey = (String) request.getAttribute("externalLoginKey");
-            additionalParameters.put("externalLoginKey", externalLoginKey);
+            // Never attach the credential to a target that can point at another host: the
+            // decoded target is checked here, not the original entity-encoded one, so an
+            // HTML-encoded scheme is caught too. See WidgetWorker#isAbsoluteTarget.
+            if (!isAbsoluteTarget(localRequestName)) {
+                String externalLoginKey = (String) request.getAttribute("externalLoginKey");
+                additionalParameters.put("externalLoginKey", externalLoginKey);
+            }
         } else if ("content".equals(targetType)) {
             uriString = getContentUrl(localRequestName, request);
         } else {
