@@ -200,7 +200,7 @@ public class ScreenFactory {
         if (UtilValidate.isNotEmpty(location)) {
             String sanitizedLocation = WidgetSecureLocation.sanitize(location);
             if (sanitizedLocation == null) {
-                Debug.logWarning("The location of screen [%s] isn't an allowed Path. Abort rendering. Raw location [%s]", MODULE, name, location);
+                Debug.logWarning("The location of screen [%s] isn't an allowed path. Abort rendering. Raw location [%s]", MODULE, name, location);
                 throw new IllegalArgumentException("Abort screen rendering due to unallowed screen location");
             }
             try {

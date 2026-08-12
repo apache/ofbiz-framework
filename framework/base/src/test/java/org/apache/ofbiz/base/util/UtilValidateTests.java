@@ -43,4 +43,21 @@ public class UtilValidateTests {
         assertTrue(UtilValidate.isUrlInString("https://foo/bar"));
         assertTrue(UtilValidate.isUrlInString("component://foo/bar?param=http://moo/far"));
     }
+
+    @Test
+    public void testIsAllowedPathDefaultDenyWhenUnconfigured() throws Exception {
+        UtilProperties.setPropertyValueInMemory("security", "allowFilePaths", "");
+        assertFalse(UtilValidate.isAllowedPath("/opt/ofbiz/templates/foo.ftl"));
+        assertFalse(UtilValidate.isAllowedPath("/dev/fd/292"));
+        assertFalse(UtilValidate.isAllowedPath(""));
+    }
+
+    @Test
+    public void testIsAllowedPathHonorsConfiguredPattern() throws Exception {
+        UtilProperties.setPropertyValueInMemory("security", "allowFilePaths", "/opt/ofbiz/templates/.*");
+        assertTrue(UtilValidate.isAllowedPath("/opt/ofbiz/templates/foo.ftl"));
+        assertFalse(UtilValidate.isAllowedPath("/etc/passwd"));
+        // restore default-deny for other tests sharing the in-memory properties cache
+        UtilProperties.setPropertyValueInMemory("security", "allowFilePaths", "");
+    }
 }
