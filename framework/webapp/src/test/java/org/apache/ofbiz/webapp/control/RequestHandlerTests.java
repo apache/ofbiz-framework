@@ -39,6 +39,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.ofbiz.base.util.UtilXml;
 import org.apache.ofbiz.base.util.collections.MultivaluedMapContext;
 import org.apache.ofbiz.webapp.control.ConfigXMLReader.ControllerConfig;
 import org.apache.ofbiz.webapp.control.ConfigXMLReader.RequestMap;
@@ -218,6 +219,36 @@ public class RequestHandlerTests {
 
             when(req.getPathInfo()).thenReturn("/baz");
             assertTrue(RequestHandler.resolveURI(ccfg, req).isEmpty());
+        }
+
+        /**
+         * A view suffix must not let an anonymous request to an unrelated, unauthenticated
+         * request map (here "publicRequest") render a view that is only ever handed out as
+         * the response of an authenticated request map (here "protectedRequest") -
+         * path-suffix view substitution authorization bypass.
+         */
+        @Test
+        public void resolveURIOverrideViewAuth() throws Exception {
+            Element publicElement = UtilXml.readXmlDocument(
+                    "<request-map uri=\"publicRequest\">"
+                    + "<security https=\"true\" auth=\"false\"/>"
+                    + "<response name=\"success\" type=\"view\" value=\"publicView\"/>"
+                    + "</request-map>").getDocumentElement();
+            RequestMap publicRequest = new RequestMap(publicElement);
+
+            Element protectedElement = UtilXml.readXmlDocument(
+                    "<request-map uri=\"protectedRequest\">"
+                    + "<security https=\"true\" auth=\"true\"/>"
+                    + "<response name=\"success\" type=\"view\" value=\"protectedView\"/>"
+                    + "</request-map>").getDocumentElement();
+            RequestMap protectedRequest = new RequestMap(protectedElement);
+
+            reqMaps.putSingle("publicRequest", publicRequest);
+            reqMaps.putSingle("protectedRequest", protectedRequest);
+
+            assertTrue(RequestHandler.overrideViewRequiresAuth(ccfg, "protectedView"));
+            assertFalse(RequestHandler.overrideViewRequiresAuth(ccfg, "publicView"));
+            assertFalse(RequestHandler.overrideViewRequiresAuth(ccfg, null));
         }
     }
 
