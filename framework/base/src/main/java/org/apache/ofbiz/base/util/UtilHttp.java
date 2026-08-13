@@ -833,6 +833,19 @@ public final class UtilHttp {
     }
 
     /**
+     * Returns the relative request URI plus query string, without scheme, host, or port.
+     *
+     * @param request the servlet request to read
+     * @return the relative request URI with query string, or {@code null} when the request is unavailable
+     */
+    public static String getRelativeRequestPath(HttpServletRequest request) {
+        if (request == null || UtilValidate.isEmpty(request.getRequestURI())) {
+            return null;
+        }
+        return request.getRequestURI() + (UtilValidate.isNotEmpty(request.getQueryString()) ? "?" + request.getQueryString() : "");
+    }
+
+    /**
      * Resolve the method send with the request.
      * check first the parameter _method before return the request method
      * @param request

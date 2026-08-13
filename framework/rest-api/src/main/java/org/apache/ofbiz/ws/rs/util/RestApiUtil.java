@@ -24,6 +24,7 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -34,14 +35,18 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.ofbiz.base.util.UtilGenerics;
+import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
+import org.apache.ofbiz.base.util.collections.MapComparator;
 import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.ws.rs.core.ResponseStatus;
 import org.apache.ofbiz.ws.rs.response.Error;
 import org.apache.ofbiz.ws.rs.response.Success;
 
+import groovy.lang.Binding;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.MultivaluedMap;
 import jakarta.ws.rs.core.Response;
@@ -434,8 +439,106 @@ public final class RestApiUtil {
     }
 
     /**
+     * Returns a page slice from an already computed list.
+     * <p>
+     * Purpose: lets REST services apply framework-style pagination after they
+     * build derived rows that cannot be paged directly through EntityQuery.
+     *
+     * @param rows the complete in-memory result list
+     * @param pageIndex the zero-based page index
+     * @param pageSize the requested page size
+     * @param <T> the row type
+     * @return a new list containing the requested page, or an empty list when the page is beyond the result size
+     */
+    public static <T> List<T> pageList(List<T> rows, int pageIndex, int pageSize) {
+        if (UtilValidate.isEmpty(rows)) {
+            return Collections.emptyList();
+        }
+        long fromIndex = (long) pageIndex * pageSize;
+        if (fromIndex >= rows.size()) {
+            return Collections.emptyList();
+        }
+        int safeFromIndex = (int) fromIndex;
+        int toIndex = Math.min(safeFromIndex + pageSize, rows.size());
+        return new ArrayList<>(rows.subList(safeFromIndex, toIndex));
+    }
+
+    /**
+     * Sorts already computed map rows using REST sort-expression syntax.
+     * <p>
+     * Purpose: lets REST services expose the same {@code sort} contract for
+     * derived map rows that EntityQuery-backed endpoints expose for entity rows.
+     * The framework MapComparator performs the row comparison while this method
+     * handles REST sort validation and stable fallback ordering.
+     *
+     * @param rows the complete in-memory result rows
+     * @param sortExpression comma-separated REST sort tokens, optionally prefixed with {@code -}
+     * @param allowedFields endpoint-supported map fields, or {@code null}/empty to apply syntax-only validation
+     * @param fallbackComparator stable comparator used when no sort was requested or requested values tie
+     * @return a sorted list, or an empty list when no rows exist
+     * @throws IllegalArgumentException when a sort token is malformed or unsupported
+     */
+    public static List<Map<String, Object>> sortMapRows(List<Map<String, Object>> rows, String sortExpression,
+            Set<String> allowedFields, Comparator<Map<String, Object>> fallbackComparator) {
+        List<String> sortTokens = validateSortFields(sortExpression, allowedFields);
+        if (UtilValidate.isEmpty(rows)) {
+            return Collections.emptyList();
+        }
+        Comparator<Map<String, Object>> rowComparator = fallbackComparator;
+        if (UtilValidate.isNotEmpty(sortTokens)) {
+            MapComparator sortComparator = new MapComparator(sortTokens);
+            rowComparator = (left, right) -> {
+                int comparison = sortComparator.compare(UtilGenerics.cast(left), UtilGenerics.cast(right));
+                return comparison != 0 ? comparison : fallbackComparator.compare(left, right);
+            };
+        }
+        return new ArrayList<>(rows.stream()
+                .sorted(rowComparator)
+                .toList());
+    }
+
+    /**
+     * Extracts the relative request URI plus query string for pagination link generation.
+     * <p>
+     * Purpose: REST pagination links operate on the request path stored in
+     * {@link RestListResponseBuilder}, not on an absolute URL. This keeps API
+     * responses consistent with existing relative link output while avoiding
+     * repeated URI/query-string assembly in individual services. Use
+     * {@code UtilHttp.getFullRequestUrl(request)} when an absolute URL is needed.
+     *
+     * @param request the originating servlet request
+     * @return the relative request URI with query string, or {@code null} when the request is unavailable
+     */
+    public static String getRelativeRequestPath(HttpServletRequest request) {
+        return UtilHttp.getRelativeRequestPath(request);
+    }
+
+    /**
+     * Extracts the relative request path from a Groovy service binding when an
+     * HTTP request is available.
+     * <p>
+     * Purpose: REST-exposed Groovy services can be invoked through HTTP or
+     * directly through the service engine. Direct service calls do not bind a
+     * servlet request, so this helper centralizes the safe missing-request check
+     * while still letting HTTP calls generate pagination links.
+     *
+     * @param binding the Groovy service script binding
+     * @return the relative request URI with query string, or {@code null} when no servlet request is bound
+     */
+    public static String getRelativeRequestPath(Binding binding) {
+        if (binding == null || !binding.hasVariable("request")) {
+            return null;
+        }
+        Object request = binding.getVariable("request");
+        return request instanceof HttpServletRequest ? getRelativeRequestPath((HttpServletRequest) request) : null;
+    }
+
+    /**
      * Validates candidate filter parameters against an optional endpoint-defined
      * allowlist while preserving insertion order.
+     * <p>
+     * Purpose: lets REST services share framework filter validation instead of
+     * implementing endpoint-local allowlist checks.
      *
      * @param filters the candidate filter parameters collected from the request
      * @param allowedFields the endpoint-supported filter fields, or
@@ -443,13 +546,16 @@ public final class RestApiUtil {
      * @return the validated filter parameters in insertion order
      * @throws IllegalArgumentException when a filter field is unsupported
      */
-    static Map<String, Object> validateFilterParameters(Map<String, ?> filters, Set<String> allowedFields) {
+    public static Map<String, Object> validateFilterParameters(Map<String, ?> filters, Set<String> allowedFields) {
         return validateFilterParameters(filters, allowedFields, null, null);
     }
 
     /**
      * Validates candidate direct filter parameters against optional endpoint-defined
      * policies while preserving insertion order.
+     * <p>
+     * Purpose: lets REST services share filter allowlist, repeatable-parameter,
+     * and per-field value validation rules.
      *
      * @param filters the candidate filter parameters collected from the request
      * @param allowedFields the endpoint-supported filter fields, or
@@ -460,7 +566,7 @@ public final class RestApiUtil {
      * @return the validated filter parameters in insertion order
      * @throws IllegalArgumentException when a filter field or value is invalid
      */
-    static Map<String, Object> validateFilterParameters(Map<String, ?> filters, Set<String> allowedFields,
+    public static Map<String, Object> validateFilterParameters(Map<String, ?> filters, Set<String> allowedFields,
             Set<String> repeatableFields, Map<String, FilterValueValidator> valueValidators) {
         if (UtilValidate.isEmpty(filters)) {
             return Collections.emptyMap();
