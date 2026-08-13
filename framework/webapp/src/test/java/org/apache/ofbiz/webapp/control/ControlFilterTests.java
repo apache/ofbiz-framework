@@ -29,6 +29,7 @@ import org.junit.Test;
 
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -51,6 +52,8 @@ public class ControlFilterTests {
         req = mock(HttpServletRequest.class);
         when(req.getSession()).thenReturn(session);
         when(req.getContextPath()).thenReturn("");
+        // A real HttpServletRequest always has a ServletContext; LoginWorker.hasBasePermission() relies on this.
+        when(req.getServletContext()).thenReturn(mock(ServletContext.class));
         resp = mock(HttpServletResponse.class);
         next = mock(FilterChain.class);
         filter = new ControlFilter();
