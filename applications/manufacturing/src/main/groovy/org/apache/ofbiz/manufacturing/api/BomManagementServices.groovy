@@ -42,11 +42,17 @@ Map findBomProducts() {
     } catch (IllegalArgumentException e) {
         return ServiceUtil.returnError(e.message)
     }
+    List orderBy
+    try {
+        orderBy = bomProductOrderBy(queryOptions.sort)
+    } catch (IllegalArgumentException e) {
+        return ServiceUtil.returnError(e.message)
+    }
     List bomTypeIds = bomAssocTypeIds()
     if (!bomTypeIds) {
-        return success(RestApiUtil.getPagedResult('products', [], queryOptions, 0L, null))
+        return success(RestApiUtil.getPagedResult('products', [], queryOptions, 0L,
+                RestApiUtil.getRelativeRequestPath(binding)))
     }
-
     List selectedBomTypeIds = UtilValidate.isNotEmpty(parameters.productAssocTypeId)
             ? [parameters.productAssocTypeId]
             : bomTypeIds
@@ -61,7 +67,8 @@ Map findBomProducts() {
         Set matchingProductIds = EntityUtil.searchIds(delegator, 'Product', 'productId',
                 ['productId', 'productName', 'internalName'], parameters.query, 500)
         if (!matchingProductIds) {
-            return success(RestApiUtil.getPagedResult('products', [], queryOptions, 0L, null))
+            return success(RestApiUtil.getPagedResult('products', [], queryOptions, 0L,
+                    RestApiUtil.getRelativeRequestPath(binding)))
         }
         conditions.add(EntityCondition.makeCondition('productId', EntityOperator.IN, matchingProductIds as List))
     }
@@ -70,7 +77,7 @@ Map findBomProducts() {
     EntityQuery query = select('productId', 'productAssocTypeId').from('ProductAssoc')
             .where(whereCondition).filterByDate().distinct()
     long totalCount = query.queryCount()
-    List rows = query.orderBy('productId', 'productAssocTypeId')
+    List rows = query.orderBy(orderBy)
             .queryPagedList(queryOptions.pageIndex, queryOptions.pageSize).getData()
     Set productIds = rows*.productId.findAll { it } as Set
     Map productsById = EntityUtil.lookupById(delegator, 'Product', 'productId', productIds, false)
@@ -92,7 +99,8 @@ Map findBomProducts() {
                 activeFromDate: componentSummary.activeFromDate
         ]
     }
-    return success(RestApiUtil.getPagedResult('products', products, queryOptions, totalCount, null))
+    return success(RestApiUtil.getPagedResult('products', products, queryOptions, totalCount,
+            RestApiUtil.getRelativeRequestPath(binding)))
 }
 
 Map getBomSnapshot() {
@@ -355,12 +363,18 @@ Map findBomTypes() {
     } catch (IllegalArgumentException e) {
         return ServiceUtil.returnError(e.message)
     }
+    List orderBy
+    try {
+        orderBy = bomTypeOrderBy(queryOptions.sort)
+    } catch (IllegalArgumentException e) {
+        return ServiceUtil.returnError(e.message)
+    }
     EntityQuery query = from('ProductAssocType')
             .select('productAssocTypeId', 'description')
             .where(parentTypeId: 'PRODUCT_COMPONENT')
             .cache(true)
     long totalCount = query.queryCount()
-    List bomTypes = query.orderBy('description', 'productAssocTypeId')
+    List bomTypes = query.orderBy(orderBy)
             .queryPagedList(queryOptions.pageIndex, queryOptions.pageSize).getData()
             .collect { GenericValue productAssocType ->
                 String productAssocTypeId = productAssocType.productAssocTypeId
@@ -371,7 +385,23 @@ Map findBomTypes() {
                         label: description
                 ]
             }
-    return success(RestApiUtil.getPagedResult('bomTypes', bomTypes, queryOptions, totalCount, null))
+    return success(RestApiUtil.getPagedResult('bomTypes', bomTypes, queryOptions, totalCount,
+            RestApiUtil.getRelativeRequestPath(binding)))
+}
+
+List bomProductOrderBy(String sortExpression) {
+    return RestApiUtil.resolveOrderBy(sortExpression, [
+            productId: 'productId',
+            productAssocTypeId: 'productAssocTypeId',
+            bomType: 'productAssocTypeId'
+    ], ['productId', 'productAssocTypeId'])
+}
+
+List bomTypeOrderBy(String sortExpression) {
+    return RestApiUtil.resolveOrderBy(sortExpression, [
+            productAssocTypeId: 'productAssocTypeId',
+            description: 'description'
+    ], ['description', 'productAssocTypeId'])
 }
 
 List bomAssocTypeIds() {
