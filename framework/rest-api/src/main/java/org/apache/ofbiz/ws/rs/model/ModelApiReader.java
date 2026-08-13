@@ -108,7 +108,10 @@ public final class ModelApiReader {
                 .displayName(UtilXml.checkEmpty(resourceEle.getAttribute("displayName")).intern())
                 .path(UtilXml.checkEmpty(resourceEle.getAttribute("path")).intern())
                 .publish(Boolean.parseBoolean(UtilXml.checkEmpty(resourceEle.getAttribute("publish")).intern()))
-                .auth(Boolean.parseBoolean(UtilXml.checkEmpty(resourceEle.getAttribute("auth")).intern()));
+                .auth(Boolean.parseBoolean(UtilXml.checkEmpty(resourceEle.getAttribute("auth")).intern()))
+                .primaryPermission(UtilXml.checkEmpty(resourceEle.getAttribute("primaryPermission")).intern())
+                .mainAction(UtilXml.checkEmpty(resourceEle.getAttribute("mainAction")).intern())
+                .customHeaders(UtilXml.checkEmpty(resourceEle.getAttribute("customHeaders")).intern());
     }
 
     private static void createOperations(Element resourceEle, ModelResource resource) {
@@ -123,7 +126,13 @@ public final class ModelApiReader {
                         .consumes(UtilXml.checkEmpty(operationEle.getAttribute("consumes")).intern())
                         .description(UtilXml.checkEmpty(operationEle.getAttribute("description")).intern())
                         .auth(Boolean.parseBoolean(UtilXml.checkEmpty(operationEle.getAttribute("auth")).intern()))
-                        .addApiResponses(UtilXml.checkEmpty(operationEle.getAttribute("addApiResponses")).intern());
+                        .primaryPermission(UtilXml.checkEmpty(operationEle.getAttribute("primaryPermission"),
+                                resourceEle.getAttribute("primaryPermission")).intern())
+                        .mainAction(UtilXml.checkEmpty(operationEle.getAttribute("mainAction"),
+                                resourceEle.getAttribute("mainAction")).intern())
+                        .addApiResponses(UtilXml.checkEmpty(operationEle.getAttribute("addApiResponses")).intern())
+                        .customHeaders(UtilXml.checkEmpty(operationEle.getAttribute("customHeaders"),
+                                resourceEle.getAttribute("customHeaders")).intern());
                 resource.addOperation(op);
             } else {
                 Debug.logWarning("Error during creation of ModelApi, due to missing 'service' Attribute in ApiModelXml for"

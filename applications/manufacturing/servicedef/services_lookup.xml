@@ -28,6 +28,32 @@ under the License.
         <attribute mode="OUT" name="costComponentTypes" optional="false" type="java.util.List"/>
         <attribute mode="OUT" name="costComponentCalcs" optional="false" type="java.util.List"/>
     </service>
+    <service name="findManufacturingFacilities" engine="groovy" auth="true"
+            location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/api/ManufacturingLookupServices.groovy" invoke="findManufacturingFacilities">
+        <description>Find warehouse and plant facilities available for manufacturing application workflows.</description>
+        <permission-service service-name="manufacturingPermissionService" main-action="VIEW"/>
+        <attribute mode="IN" name="pageIndex" optional="true" type="Integer"/>
+        <attribute mode="IN" name="pageSize" optional="true" type="Integer"/>
+        <attribute mode="OUT" name="pageIndex" optional="false" type="Integer"/>
+        <attribute mode="OUT" name="pageSize" optional="false" type="Integer"/>
+        <attribute mode="OUT" name="totalCount" optional="false" type="Long"/>
+        <attribute mode="OUT" name="totalPages" optional="false" type="Long"/>
+        <attribute mode="OUT" name="hasNext" optional="false" type="Boolean"/>
+        <attribute mode="OUT" name="facilities" optional="false" type="java.util.List"/>
+    </service>
+    <service name="findManufacturingPlants" engine="groovy" auth="true"
+            location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/api/ManufacturingLookupServices.groovy" invoke="findManufacturingPlants">
+        <description>Find plant facilities available for manufacturing application workflows.</description>
+        <permission-service service-name="manufacturingPermissionService" main-action="VIEW"/>
+        <attribute mode="IN" name="pageIndex" optional="true" type="Integer"/>
+        <attribute mode="IN" name="pageSize" optional="true" type="Integer"/>
+        <attribute mode="OUT" name="pageIndex" optional="false" type="Integer"/>
+        <attribute mode="OUT" name="pageSize" optional="false" type="Integer"/>
+        <attribute mode="OUT" name="totalCount" optional="false" type="Long"/>
+        <attribute mode="OUT" name="totalPages" optional="false" type="Long"/>
+        <attribute mode="OUT" name="hasNext" optional="false" type="Boolean"/>
+        <attribute mode="OUT" name="facilities" optional="false" type="java.util.List"/>
+    </service>
     <service name="findFixedAssets" engine="groovy" auth="true"
             location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/api/ManufacturingLookupServices.groovy" invoke="findFixedAssets">
         <description>Find fixed assets available to manufacturing workflows, with REST paging and sorting, so routing and other manufacturing applications can select equipment or tool references from a stable lookup payload.</description>

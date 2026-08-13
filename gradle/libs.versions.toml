@@ -85,7 +85,7 @@ spring = "6.2.18"
 jackson-databind = "2.21.3"
 # Shared by jersey-container-servlet, jersey-hk2, jersey-media-multipart, jersey-media-json-jackson.
 jersey = "3.1.11"
-# Shared by swagger-jaxrs2-core, swagger-jaxrs2-servlet-initializer, swagger-annotations.
+# Shared by swagger-jaxrs2-core-jakarta, swagger-jaxrs2-servlet-initializer-jakarta, swagger-annotations-jakarta.
 swagger = "2.2.50"
 oro = "2.0.8"
 wsdl4j = "1.6.3"
@@ -179,9 +179,9 @@ jersey-container-servlet = { module = "org.glassfish.jersey.containers:jersey-co
 jersey-hk2 = { module = "org.glassfish.jersey.inject:jersey-hk2", version.ref = "jersey" }
 jersey-media-multipart = { module = "org.glassfish.jersey.media:jersey-media-multipart", version.ref = "jersey" }
 jersey-media-json-jackson = { module = "org.glassfish.jersey.media:jersey-media-json-jackson", version.ref = "jersey" }
-swagger-jaxrs2-core = { module = "io.swagger.core.v3:swagger-jaxrs2", version.ref = "swagger" }
-swagger-jaxrs2-servlet-initializer = { module = "io.swagger.core.v3:swagger-jaxrs2-servlet-initializer", version.ref = "swagger" }
-swagger-annotations = { module = "io.swagger.core.v3:swagger-annotations", version.ref = "swagger" }
+swagger-jaxrs2-core = { module = "io.swagger.core.v3:swagger-jaxrs2-jakarta", version.ref = "swagger" }
+swagger-jaxrs2-servlet-initializer = { module = "io.swagger.core.v3:swagger-jaxrs2-servlet-initializer-jakarta", version.ref = "swagger" }
+swagger-annotations = { module = "io.swagger.core.v3:swagger-annotations-jakarta", version.ref = "swagger" }
 oro = { module = "oro:oro", version.ref = "oro" }
 wsdl4j = { module = "wsdl4j:wsdl4j", version.ref = "wsdl4j" }
 java-jwt = { module = "com.auth0:java-jwt", version.ref = "java-jwt" }

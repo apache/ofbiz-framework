@@ -32,7 +32,10 @@ public class ModelOperation {
     private String path;
     private String description;
     private boolean auth;
+    private String primaryPermission;
+    private String mainAction;
     private String addApiResponses;
+    private String customHeaders;
 
     /**
      * Returns whether the user is authenticated.
@@ -50,6 +53,65 @@ public class ModelOperation {
      */
     public void setAuth(boolean auth) {
         this.auth = auth;
+    }
+
+    /**
+     * Gets the primary permission
+     *
+     * @return the primaryPermission
+     */
+    public String getPrimaryPermission() {
+        return primaryPermission;
+    }
+
+    /**
+     * Sets the primary permission
+     *
+     * @param primaryPermission the primaryPermission to set
+     */
+    public void setPrimaryPermission(String primaryPermission) {
+        this.primaryPermission = primaryPermission;
+    }
+
+    /**
+     * Sets the primaryPermission and returns this ModelOperation
+     *
+     * @param primaryPermission
+     * @return this ModelOperation
+     */
+    public ModelOperation primaryPermission(String primaryPermission) {
+        this.primaryPermission = primaryPermission;
+        return this;
+    }
+
+    /**
+     * Sets the mainAction (VIEW, CREATE, UPDATE, DELETE, ADMIN)
+     *
+     * @return the mainAction
+     */
+    public String getMainAction() {
+        return mainAction;
+    }
+
+    /**
+     * Gets the mainAction (VIEW, CREATE, UPDATE, DELETE, ADMIN)
+     *
+     * @param mainAction the mainAction to set
+     */
+    public void setMainAction(String mainAction) {
+        this.mainAction = mainAction;
+    }
+
+    /**
+     * Sets the mainAction (VIEW, CREATE, UPDATE, DELETE, ADMIN)
+     * and returns this instance
+     *
+     * @param mainAction
+     * @return this ModelOperation
+     */
+    public ModelOperation mainAction(String mainAction) {
+        this.mainAction = mainAction;
+        return this;
     }
 
     /**
@@ -271,10 +333,55 @@ public class ModelOperation {
         return this;
     }
 
+    /**
+     * Gets the raw, comma-separated custom headers string configured for this resource.
+     *
+     * @return the customHeaders as a raw comma-separated string, or {@code null} if unset
+     */
+    public String getCustomHeaders() {
+        return customHeaders;
+    }
+
+    /**
+     * Sets the raw custom headers for this resource, as a comma-separated string.
+     *
+     * @param customHeaders the customHeaders to set, expected as a comma-separated list
+     */
+    public void setCustomHeaders(String customHeaders) {
+        this.customHeaders = customHeaders;
+    }
+
+    /**
+     * Fluent-style setter for customHeaders, allowing method chaining when building
+     * a {@link ModelOperation}.
+     *
+     * @param customHeaders the comma-separated custom headers to set
+     * @return this {@link ModelOperation} instance, for chaining
+     */
+    public ModelOperation customHeaders(String customHeaders) {
+        this.customHeaders = customHeaders;
+        return this;
+    }
+
+    /**
+     * Parses the raw {@link #customHeaders} string into a list of individual header names,
+     * splitting on commas.
+     *
+     * @return a {@link List} of individual custom header names; an empty list if
+     * {@link #customHeaders} is unset or empty
+     */
+    public List<String> getCustomHeadersList() {
+        if (UtilValidate.isEmpty(customHeaders)) {
+            return new ArrayList<>();
+        }
+        return StringUtil.split(customHeaders, ",");
+    }
+
     @Override
     public String toString() {
         return "service: " + service + ", path: " + path + ", verb: " + verb + ", description: " + description
-                + ", produces: " + produces + ", addApiResponses:" + addApiResponses;
+                + ", produces: " + produces + ", primaryPermission: " + primaryPermission + ", mainAction:  "
+                + mainAction + ", addApiResponses:" + addApiResponses + ", customHeaders: " + customHeaders;
     }
 
 }

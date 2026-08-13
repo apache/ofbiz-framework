@@ -34,6 +34,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.ofbiz.base.util.UtilGenerics;
+import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.service.ModelService;
@@ -50,6 +51,7 @@ import jakarta.ws.rs.core.Response.StatusType;
 public final class RestApiUtil {
 
     public static final String RESPONSE_STATUS_KEY = "httpResponseStatus";
+    public static final List<String> SECURITY_PARAMS = UtilMisc.toList("primaryPermission", "mainAction");
     private static final String DEFAULT_MSG_UI_LABEL_RESOURCE = "ApiUiLabels";
     private static final String QUERY_STRING_SEPARATOR = "&";
 

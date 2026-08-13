@@ -21,6 +21,9 @@ package org.apache.ofbiz.ws.rs.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.ofbiz.base.util.StringUtil;
+import org.apache.ofbiz.base.util.UtilValidate;
+
 public class ModelResource {
 
     private List<ModelOperation> operations;
@@ -31,6 +34,10 @@ public class ModelResource {
     private String description;
     private boolean publish;
     private boolean auth;
+    private String primaryPermission;
+    private String mainAction;
+    private String customHeaders;
+
 
     /**
      * Returns whether the user is authenticated.
@@ -61,6 +68,64 @@ public class ModelResource {
         this.auth = auth;
         return this;
     }
+    /**
+     * Gets the primary permission
+     *
+     * @return the primaryPermission
+     */
+    public String getPrimaryPermission() {
+        return primaryPermission;
+    }
+
+    /**
+     * Sets the primary permission
+     *
+     * @param primaryPermission the primaryPermission to set
+     */
+    public void setPrimaryPermission(String primaryPermission) {
+        this.primaryPermission = primaryPermission;
+    }
+
+    /**
+     * Sets the primaryPermission and returns this ModelOperation
+     *
+     * @param primaryPermission
+     * @return this ModelResource
+     */
+    public ModelResource primaryPermission(String primaryPermission) {
+        this.primaryPermission = primaryPermission;
+        return this;
+    }
+
+    /**
+     * Sets the mainAction (VIEW, CREATE, UPDATE, DELETE, ADMIN)
+     *
+     * @return the mainAction
+     */
+    public String getMainAction() {
+        return mainAction;
+    }
+
+    /**
+     * Gets the mainAction (VIEW, CREATE, UPDATE, DELETE, ADMIN)
+     *
+     * @param mainAction the mainAction to set
+     */
+    public void setMainAction(String mainAction) {
+        this.mainAction = mainAction;
+    }
+
+    /**
+     * Sets the mainAction (VIEW, CREATE, UPDATE, DELETE, ADMIN)
+     * and returns this instance
+     *
+     * @param mainAction
+     * @return this ModelResource
+     */
+    public ModelResource mainAction(String mainAction) {
+        this.mainAction = mainAction;
+        return this;
+    }
 
     /**
      * Sets whether the item is published.
@@ -85,7 +150,7 @@ public class ModelResource {
      * Adds an operation to this resource and returns this instance
      * to support method chaining.
      *
-     * @param operation the {@link ModelOperation} to add
+     * @param operation the {@link ModelResource} to add
      * @return this {@link ModelResource} instance
      */
     public ModelResource addOperation(ModelOperation operation) {
@@ -255,11 +320,56 @@ public class ModelResource {
         return this;
     }
 
+    /**
+     * Gets the raw, comma-separated custom headers string configured for this resource.
+     *
+     * @return the customHeaders as a raw comma-separated string, or {@code null} if unset
+     */
+    public String getCustomHeaders() {
+        return customHeaders;
+    }
+
+    /**
+     * Sets the raw custom headers for this resource, as a comma-separated string.
+     *
+     * @param customHeaders the customHeaders to set, expected as a comma-separated list
+     */
+    public void setCustomHeaders(String customHeaders) {
+        this.customHeaders = customHeaders;
+    }
+
+    /**
+     * Fluent-style setter for customHeaders, allowing method chaining when building
+     * a {@link ModelResource}.
+     *
+     * @param customHeaders the comma-separated custom headers to set
+     * @return this {@link ModelResource} instance, for chaining
+     */
+    public ModelResource customHeaders(String customHeaders) {
+        this.customHeaders = customHeaders;
+        return this;
+    }
+
+    /**
+     * Parses the raw {@link #customHeaders} string into a list of individual header names,
+     * splitting on commas.
+     *
+     * @return a {@link List} of individual custom header names; an empty list if
+     * {@link #customHeaders} is unset or empty
+     */
+    public List<String> getCustomHeadersList() {
+        if (UtilValidate.isEmpty(customHeaders)) {
+            return new ArrayList<>();
+        }
+        return StringUtil.split(customHeaders, ",");
+    }
+
     @Override
     public String toString() {
         // TODO Auto-generated method stub
         return "name: " + name + ", path: " + path + ", displayName: " + displayName + ", description: " + description
-                + ", publish: " + publish;
+                + ", publish: " + publish + ", primaryPermission: " + primaryPermission + ", mainAction: " + mainAction
+                + ", customHeaders: " + customHeaders;
     }
 
 }

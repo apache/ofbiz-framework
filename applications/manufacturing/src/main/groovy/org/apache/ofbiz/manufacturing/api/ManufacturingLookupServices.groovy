@@ -184,6 +184,14 @@ Map findCostComponentOptions() {
 }
 
 Map findWarehouses() {
+    return findFacilitiesByTypes(['WAREHOUSE'])
+}
+
+Map findManufacturingPlants() {
+    return findFacilitiesByTypes(['PLANT'])
+}
+
+Map findManufacturingFacilities() {
     return findFacilitiesByTypes(['WAREHOUSE', 'PLANT'])
 }
 
@@ -202,7 +210,7 @@ Map findFacilitiesByTypes(List facilityTypeIds) {
             .queryPagedList(queryOptions.pageIndex, queryOptions.pageSize).getData()
             .collect { GenericValue facility ->
                 String facilityId = facility.facilityId
-                String facilityName = facility.facilityName ?: facilityId
+                String facilityName = ManufacturingServiceUtil.displayFacilityName(facility)
                 String label = facilityName == facilityId ? facilityId : "${facilityName} [${facilityId}]".toString()
                 [
                         facilityId: facilityId,

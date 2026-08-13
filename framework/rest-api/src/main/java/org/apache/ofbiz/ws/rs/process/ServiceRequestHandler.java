@@ -40,9 +40,22 @@ public final class ServiceRequestHandler extends RestRequestHandler {
 
     private static final String MODULE = ServiceRequestHandler.class.getName();
     private String service;
+    private String primaryPermission;
+    private String mainAction;
 
     public ServiceRequestHandler(String service) {
         this.service = service;
+    }
+
+    public ServiceRequestHandler(String service, String primaryPermission) {
+        this.service = service;
+        this.primaryPermission = primaryPermission;
+    }
+
+    public ServiceRequestHandler(String service, String primaryPermission, String mainAction) {
+        this.service = service;
+        this.primaryPermission = primaryPermission;
+        this.mainAction = mainAction;
     }
 
     /**
@@ -66,6 +79,7 @@ public final class ServiceRequestHandler extends RestRequestHandler {
     @Override
     protected Response execute(ContainerRequestContext ctx, Map<String, Object> arguments) {
         ServiceNameContextHolder.set(service);
+        addSecurityParameters(arguments);
         LocalDispatcher dispatcher = (LocalDispatcher) getServletContext().getAttribute("dispatcher");
         Map<String, Object> serviceContext = null;
         try {
@@ -102,4 +116,20 @@ public final class ServiceRequestHandler extends RestRequestHandler {
         }
         return svc;
     }
+
+    /**
+     * Adds Security parameters to the the service parameters.
+     * @param arguments
+     */
+    private void addSecurityParameters(Map<String, Object> arguments) {
+        if (arguments != null) {
+            if (primaryPermission != null) {
+                arguments.put("primaryPermission", primaryPermission);
+            }
+            if (mainAction != null) {
+                arguments.put("mainAction", mainAction);
+            }
+        }
+    }
+
 }

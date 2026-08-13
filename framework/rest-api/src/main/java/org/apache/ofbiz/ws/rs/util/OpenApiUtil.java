@@ -354,13 +354,15 @@ public final class OpenApiUtil {
         parentSchema.setType("object");
         List<String> required = UtilMisc.toList();
         service.getInParamNamesMap().forEach((name, type) -> {
-            ModelParam param = service.getParam(name);
-            if (!param.isOptional()) {
-                required.add(name);
-            }
-            Schema<?> attrSchema = getAttributeSchema(service, param);
-            if (attrSchema != null) {
-                parentSchema.addProperty(name, getAttributeSchema(service, service.getParam(name)));
+            if (!RestApiUtil.SECURITY_PARAMS.contains(name) && (op == null || (op != null && !op.getCustomHeadersList().contains(name)))) {
+                ModelParam param = service.getParam(name);
+                if (!param.isOptional()) {
+                    required.add(name);
+                }
+                Schema<?> attrSchema = getAttributeSchema(service, param);
+                if (attrSchema != null) {
+                    parentSchema.addProperty(name, getAttributeSchema(service, service.getParam(name)));
+                }
             }
         });
         parentSchema.setRequired(required);

@@ -23,6 +23,7 @@ import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.DelegatorFactory;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ServiceContainer;
+import org.apache.ofbiz.webapp.WebAppUtil;
 
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletContextEvent;
@@ -62,6 +63,7 @@ public class ApiContextListener implements ServletContextListener {
         Debug.logInfo("Api Jersey Context initialized, delegator " + delegator + ", dispatcher", MODULE);
         servletContext.setAttribute("delegator", delegator);
         servletContext.setAttribute("dispatcher", dispatcher);
+        servletContext.setAttribute("security", WebAppUtil.getSecurity(servletContext));
     }
 
     /**
@@ -76,6 +78,7 @@ public class ApiContextListener implements ServletContextListener {
         Debug.logInfo("Api Jersey Context destroyed, removing delegator and dispatcher ", MODULE);
         context.removeAttribute("delegator");
         context.removeAttribute("dispatcher");
+        context.removeAttribute("security");
         context = null;
     }
 

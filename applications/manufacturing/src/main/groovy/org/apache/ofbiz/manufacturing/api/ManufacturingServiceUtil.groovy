@@ -32,4 +32,20 @@ final class ManufacturingServiceUtil {
         return fixedAsset?.fixedAssetName ?: fixedAsset?.fixedAssetId
     }
 
+    static String displayFacilityName(GenericValue facility) {
+        return facility?.facilityName ?: facility?.facilityId
+    }
+
+    static String displayRoleTypeDescription(GenericValue roleType) {
+        return roleType?.description ?: roleType?.roleTypeId
+    }
+
+    static String displayStatusDescription(GenericValue status) {
+        return status?.description ?: status?.statusId
+    }
+
+    static String displayUomDescription(GenericValue uom) {
+        return uom?.description ?: uom?.uomId
+    }
+
 }
