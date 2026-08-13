@@ -45,6 +45,9 @@ under the License.
         <attribute name="totalCount" type="Long" mode="OUT" optional="false"/>
         <attribute name="totalPages" type="Long" mode="OUT" optional="false"/>
         <attribute name="hasNext" type="Boolean" mode="OUT" optional="false"/>
+        <attribute name="previousPageCount" type="Long" mode="OUT" optional="true"/>
+        <attribute name="nextPageCount" type="Long" mode="OUT" optional="true"/>
+        <attribute name="links" type="Map" mode="OUT" optional="true"/>
         <attribute name="productionRuns" type="List" mode="OUT" optional="false"/>
     </service>
     <service name="getProductionRunDetails" engine="groovy"
