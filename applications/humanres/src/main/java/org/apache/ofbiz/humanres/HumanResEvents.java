@@ -28,6 +28,8 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilGenerics;
+import org.apache.ofbiz.base.util.UtilHttp;
+import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
@@ -36,6 +38,7 @@ import org.apache.ofbiz.entity.condition.EntityCondition;
 import org.apache.ofbiz.entity.condition.EntityOperator;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.party.party.PartyHelper;
+import org.apache.ofbiz.security.Security;
 
 public class HumanResEvents {
     private static final String MODULE = HumanResEvents.class.getName();
@@ -43,6 +46,15 @@ public class HumanResEvents {
 
     // Please note : the structure of map in this function is according to the JSON data map of the jsTree
     public static String getChildHRCategoryTree(HttpServletRequest request, HttpServletResponse response) {
+        Security security = (Security) request.getAttribute("security");
+        if (security == null || !security.hasEntityPermission("HUMANRES", "_VIEW", request.getSession())) {
+            String errMsg = UtilProperties.getMessage(RES_ERROR, "HumanResViewPermissionError", UtilHttp.getLocale(request));
+            request.setAttribute("_ERROR_MESSAGE_", errMsg);
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            Debug.logWarning("Unauthorized attempt to access getHRChild by partyId param [" + request.getParameter("partyId") + "]",
+                    MODULE);
+            return "error";
+        }
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         String partyId = request.getParameter("partyId");
         String onclickFunction = request.getParameter("onclickFunction");
