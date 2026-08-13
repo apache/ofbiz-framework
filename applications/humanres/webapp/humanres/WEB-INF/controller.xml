@@ -1052,7 +1052,7 @@ under the License.
         <response name="error" type="view" value="EditEmplLeaveStatus"/>
     </request-map>
     <request-map uri="getHRChild">
-        <security auth="false" https="true"/>
+        <security auth="true" https="true"/>
         <event type="java" path="org.apache.ofbiz.humanres.HumanResEvents" invoke="getChildHRCategoryTree"/>
         <response name="success" type="request" value="json"/>
         <response name="error" type="request" value="json"/>
