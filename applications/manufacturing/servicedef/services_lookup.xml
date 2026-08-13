@@ -25,6 +25,7 @@ under the License.
     <service name="findCostComponentOptions" engine="groovy" auth="true"
             location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/api/ManufacturingLookupServices.groovy" invoke="findCostComponentOptions">
         <description>Find cost component types and calculation records used by manufacturing setup screens, so REST clients can populate cost-rate selectors without issuing separate generic entity queries.</description>
+        <permission-service service-name="manufacturingPermissionService" main-action="VIEW"/>
         <attribute mode="OUT" name="costComponentTypes" optional="false" type="java.util.List"/>
         <attribute mode="OUT" name="costComponentCalcs" optional="false" type="java.util.List"/>
     </service>
@@ -34,11 +35,15 @@ under the License.
         <permission-service service-name="manufacturingPermissionService" main-action="VIEW"/>
         <attribute mode="IN" name="pageIndex" optional="true" type="Integer"/>
         <attribute mode="IN" name="pageSize" optional="true" type="Integer"/>
+        <attribute mode="IN" name="sort" optional="true" type="String"/>
         <attribute mode="OUT" name="pageIndex" optional="false" type="Integer"/>
         <attribute mode="OUT" name="pageSize" optional="false" type="Integer"/>
         <attribute mode="OUT" name="totalCount" optional="false" type="Long"/>
         <attribute mode="OUT" name="totalPages" optional="false" type="Long"/>
         <attribute mode="OUT" name="hasNext" optional="false" type="Boolean"/>
+        <attribute mode="OUT" name="previousPageCount" optional="true" type="Long"/>
+        <attribute mode="OUT" name="nextPageCount" optional="true" type="Long"/>
+        <attribute mode="OUT" name="links" optional="true" type="Map"/>
         <attribute mode="OUT" name="facilities" optional="false" type="java.util.List"/>
     </service>
     <service name="findManufacturingPlants" engine="groovy" auth="true"
@@ -47,16 +52,21 @@ under the License.
         <permission-service service-name="manufacturingPermissionService" main-action="VIEW"/>
         <attribute mode="IN" name="pageIndex" optional="true" type="Integer"/>
         <attribute mode="IN" name="pageSize" optional="true" type="Integer"/>
+        <attribute mode="IN" name="sort" optional="true" type="String"/>
         <attribute mode="OUT" name="pageIndex" optional="false" type="Integer"/>
         <attribute mode="OUT" name="pageSize" optional="false" type="Integer"/>
         <attribute mode="OUT" name="totalCount" optional="false" type="Long"/>
         <attribute mode="OUT" name="totalPages" optional="false" type="Long"/>
         <attribute mode="OUT" name="hasNext" optional="false" type="Boolean"/>
+        <attribute mode="OUT" name="previousPageCount" optional="true" type="Long"/>
+        <attribute mode="OUT" name="nextPageCount" optional="true" type="Long"/>
+        <attribute mode="OUT" name="links" optional="true" type="Map"/>
         <attribute mode="OUT" name="facilities" optional="false" type="java.util.List"/>
     </service>
     <service name="findFixedAssets" engine="groovy" auth="true"
             location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/api/ManufacturingLookupServices.groovy" invoke="findFixedAssets">
         <description>Find fixed assets available to manufacturing workflows, with REST paging and sorting, so routing and other manufacturing applications can select equipment or tool references from a stable lookup payload.</description>
+        <permission-service service-name="manufacturingPermissionService" main-action="VIEW"/>
         <attribute mode="IN" name="fixedAssetTypeId" optional="true" type="String"/>
         <attribute mode="IN" name="pageIndex" optional="true" type="Integer"/>
         <attribute mode="IN" name="pageSize" optional="true" type="Integer"/>
@@ -66,24 +76,15 @@ under the License.
         <attribute mode="OUT" name="totalCount" optional="false" type="Long"/>
         <attribute mode="OUT" name="totalPages" optional="false" type="Long"/>
         <attribute mode="OUT" name="hasNext" optional="false" type="Boolean"/>
+        <attribute mode="OUT" name="previousPageCount" optional="true" type="Long"/>
+        <attribute mode="OUT" name="nextPageCount" optional="true" type="Long"/>
+        <attribute mode="OUT" name="links" optional="true" type="Map"/>
         <attribute mode="OUT" name="fixedAssets" optional="false" type="java.util.List"/>
     </service>
     <service name="searchProducts" engine="groovy" auth="true"
             location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/api/ManufacturingLookupServices.groovy" invoke="searchProducts">
         <description>Search products by ID, product name, or internal name using the shared manufacturing product lookup shape, so REST clients can reuse one product picker contract across BOM, routing, and related manufacturing flows.</description>
-        <attribute mode="IN" name="query" optional="true" type="String"/>
-        <attribute mode="IN" name="pageIndex" optional="true" type="Integer"/>
-        <attribute mode="IN" name="pageSize" optional="true" type="Integer"/>
-        <attribute mode="OUT" name="pageIndex" optional="false" type="Integer"/>
-        <attribute mode="OUT" name="pageSize" optional="false" type="Integer"/>
-        <attribute mode="OUT" name="totalCount" optional="false" type="Long"/>
-        <attribute mode="OUT" name="totalPages" optional="false" type="Long"/>
-        <attribute mode="OUT" name="hasNext" optional="false" type="Boolean"/>
-        <attribute mode="OUT" name="products" optional="false" type="java.util.List"/>
-    </service>
-    <service name="searchParties" engine="groovy" auth="true"
-            location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/api/ManufacturingLookupServices.groovy" invoke="searchParties">
-        <description>Search parties by ID or display name with REST paging and sorting, so manufacturing applications can assign people or groups to operations without depending on UI-specific party lookup screens.</description>
+        <permission-service service-name="manufacturingPermissionService" main-action="VIEW"/>
         <attribute mode="IN" name="query" optional="true" type="String"/>
         <attribute mode="IN" name="pageIndex" optional="true" type="Integer"/>
         <attribute mode="IN" name="pageSize" optional="true" type="Integer"/>
@@ -93,6 +94,27 @@ under the License.
         <attribute mode="OUT" name="totalCount" optional="false" type="Long"/>
         <attribute mode="OUT" name="totalPages" optional="false" type="Long"/>
         <attribute mode="OUT" name="hasNext" optional="false" type="Boolean"/>
+        <attribute mode="OUT" name="previousPageCount" optional="true" type="Long"/>
+        <attribute mode="OUT" name="nextPageCount" optional="true" type="Long"/>
+        <attribute mode="OUT" name="links" optional="true" type="Map"/>
+        <attribute mode="OUT" name="products" optional="false" type="java.util.List"/>
+    </service>
+    <service name="searchParties" engine="groovy" auth="true"
+            location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/api/ManufacturingLookupServices.groovy" invoke="searchParties">
+        <description>Search parties by ID or display name with REST paging and sorting, so manufacturing applications can assign people or groups to operations without depending on UI-specific party lookup screens.</description>
+        <permission-service service-name="manufacturingPermissionService" main-action="VIEW"/>
+        <attribute mode="IN" name="query" optional="true" type="String"/>
+        <attribute mode="IN" name="pageIndex" optional="true" type="Integer"/>
+        <attribute mode="IN" name="pageSize" optional="true" type="Integer"/>
+        <attribute mode="IN" name="sort" optional="true" type="String"/>
+        <attribute mode="OUT" name="pageIndex" optional="false" type="Integer"/>
+        <attribute mode="OUT" name="pageSize" optional="false" type="Integer"/>
+        <attribute mode="OUT" name="totalCount" optional="false" type="Long"/>
+        <attribute mode="OUT" name="totalPages" optional="false" type="Long"/>
+        <attribute mode="OUT" name="hasNext" optional="false" type="Boolean"/>
+        <attribute mode="OUT" name="previousPageCount" optional="true" type="Long"/>
+        <attribute mode="OUT" name="nextPageCount" optional="true" type="Long"/>
+        <attribute mode="OUT" name="links" optional="true" type="Map"/>
         <attribute mode="OUT" name="parties" optional="false" type="java.util.List"/>
     </service>
 </services>
