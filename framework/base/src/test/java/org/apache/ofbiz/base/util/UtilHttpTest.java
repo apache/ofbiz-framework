@@ -156,6 +156,19 @@ public final class UtilHttpTest {
     }
 
     @Test
+    public void getRelativeRequestPathIncludesQueryString() {
+        when(req.getRequestURI()).thenReturn("/rest/items");
+        when(req.getQueryString()).thenReturn("pageIndex=1&pageSize=1");
+
+        assertThat(UtilHttp.getRelativeRequestPath(req), equalTo("/rest/items?pageIndex=1&pageSize=1"));
+    }
+
+    @Test
+    public void getRelativeRequestPathReturnsNullWhenRequestMissing() {
+        assertNull(UtilHttp.getRelativeRequestPath(null));
+    }
+
+    @Test
     public void ampmMakeParamValueFromComposite() {
         when(req.getParameter("meetingDate_c_compositeType")).thenReturn("Timestamp");
 

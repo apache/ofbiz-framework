@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,7 +12,10 @@ import java.util.Set;
 
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.junit.jupiter.api.Test;
+import org.springframework.mock.web.MockHttpServletRequest;
 
+import groovy.lang.Binding;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.ws.rs.core.Response;
 
 public final class RestApiUtilPaginationTest {
@@ -107,6 +111,69 @@ public final class RestApiUtilPaginationTest {
     }
 
     @Test
+    public void sortsMapRowsByRestSortExpression() {
+        List<Map<String, Object>> rows = List.of(
+                UtilMisc.toMap("itemId", "ITEM-A", "locationId", "LOC1"),
+                UtilMisc.toMap("itemId", "ITEM-C", "locationId", "LOC1"),
+                UtilMisc.toMap("itemId", "ITEM-B", "locationId", "LOC1"));
+
+        List<Map<String, Object>> sortedRows = RestApiUtil.sortMapRows(rows, "-itemId",
+                Set.of("itemId", "locationId"), Comparator.comparing(row -> (String) row.get("itemId")));
+
+        assertEquals(List.of("ITEM-C", "ITEM-B", "ITEM-A"), sortedRows.stream().map(row -> row.get("itemId")).toList());
+    }
+
+    @Test
+    public void rejectsUnsupportedMapRowSortFields() {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () ->
+                RestApiUtil.sortMapRows(List.of(Map.of("itemId", "ITEM-A")), "notAField",
+                        Set.of("itemId"), Comparator.comparing(row -> (String) row.get("itemId"))));
+
+        assertEquals("Unsupported sort field: notAField", exception.getMessage());
+    }
+
+    @Test
+    public void rejectsUnsupportedMapRowSortFieldsWhenRowsEmpty() {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () ->
+                RestApiUtil.sortMapRows(List.of(), "notAField",
+                        Set.of("itemId"), Comparator.comparing(row -> (String) row.get("itemId"))));
+
+        assertEquals("Unsupported sort field: notAField", exception.getMessage());
+    }
+
+    @Test
+    public void returnsMutableSortedMapRows() {
+        List<Map<String, Object>> rows = List.of(Map.of("itemId", "ITEM-A"));
+        List<Map<String, Object>> sortedRows = RestApiUtil.sortMapRows(rows, "itemId",
+                Set.of("itemId"), Comparator.comparing(row -> (String) row.get("itemId")));
+
+        sortedRows.add(Map.of("itemId", "ITEM-B"));
+
+        assertEquals(2, sortedRows.size());
+    }
+
+    @Test
+    public void pagesAlreadyComputedLists() {
+        List<String> page = RestApiUtil.pageList(List.of("a", "b", "c", "d"), 1, 2);
+
+        assertEquals(List.of("c", "d"), page);
+    }
+
+    @Test
+    public void returnsEmptyPageWhenComputedPageStartsAfterListEnd() {
+        List<String> page = RestApiUtil.pageList(List.of("a", "b"), 2, 2);
+
+        assertEquals(List.of(), page);
+    }
+
+    @Test
+    public void returnsEmptyPageWhenComputedPageIndexOverflowsIntMultiplication() {
+        List<String> page = RestApiUtil.pageList(List.of("a", "b"), Integer.MAX_VALUE, 100);
+
+        assertEquals(List.of(), page);
+    }
+
+    @Test
     public void serializesAvailableRelationsAsHttpLinkHeader() {
         Map<String, Object> links = new LinkedHashMap<>();
         links.put("first", RestApiUtil.makeLinkMap("/rest/items?pageIndex=0&pageSize=20", Map.of("rel", "first")));
@@ -164,7 +231,7 @@ public final class RestApiUtilPaginationTest {
     public void rejectsRepeatedFilterValuesWhenFieldIsNotRepeatable() {
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () ->
                 RestApiUtil.validateFilterParameters(
-                        UtilMisc.toMap("statusId", List.of("PRUN_CREATED", "PRUN_RUNNING")),
+                        UtilMisc.toMap("statusId", List.of("STATE_CREATED", "STATE_RUNNING")),
                         Set.of("statusId"), null, null));
 
         assertEquals("Filter parameter does not support repeated values: statusId", exception.getMessage());
@@ -173,10 +240,10 @@ public final class RestApiUtilPaginationTest {
     @Test
     public void preservesRepeatedFilterValuesWhenFieldIsRepeatable() {
         Map<String, Object> validatedFilters = RestApiUtil.validateFilterParameters(
-                UtilMisc.toMap("statusId", List.of("PRUN_CREATED", "PRUN_RUNNING")),
+                UtilMisc.toMap("statusId", List.of("STATE_CREATED", "STATE_RUNNING")),
                 Set.of("statusId"), Set.of("statusId"), null);
 
-        assertEquals(List.of("PRUN_CREATED", "PRUN_RUNNING"), validatedFilters.get("statusId"));
+        assertEquals(List.of("STATE_CREATED", "STATE_RUNNING"), validatedFilters.get("statusId"));
     }
 
     @Test
@@ -212,5 +279,39 @@ public final class RestApiUtilPaginationTest {
         Response response = RestApiUtil.success("Success", Map.of("items", List.of()));
 
         assertNull(response.getHeaderString("Link"));
+    }
+
+    @Test
+    public void buildsRelativeRequestPathWithQueryString() {
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        request.setRequestURI("/rest/items");
+        request.setQueryString("pageIndex=1&pageSize=1");
+
+        assertEquals("/rest/items?pageIndex=1&pageSize=1", RestApiUtil.getRelativeRequestPath(request));
+    }
+
+    @Test
+    public void returnsNullRelativeRequestPathWhenRequestMissing() {
+        assertNull(RestApiUtil.getRelativeRequestPath((HttpServletRequest) null));
+    }
+
+    @Test
+    public void buildsRelativeRequestPathFromGroovyBinding() {
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        request.setRequestURI("/rest/items");
+        request.setQueryString("pageIndex=1&pageSize=1");
+        Binding binding = new Binding(Map.of("request", request));
+
+        assertEquals("/rest/items?pageIndex=1&pageSize=1", RestApiUtil.getRelativeRequestPath(binding));
+    }
+
+    @Test
+    public void returnsNullRelativeRequestPathWhenGroovyBindingHasNoRequest() {
+        assertNull(RestApiUtil.getRelativeRequestPath(new Binding()));
+    }
+
+    @Test
+    public void returnsNullRelativeRequestPathWhenGroovyBindingHasNonServletRequest() {
+        assertNull(RestApiUtil.getRelativeRequestPath(new Binding(Map.of("request", "notARequest"))));
     }
 }
