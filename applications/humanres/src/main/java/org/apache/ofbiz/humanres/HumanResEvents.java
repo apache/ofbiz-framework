@@ -51,8 +51,7 @@ public class HumanResEvents {
             String errMsg = UtilProperties.getMessage(RES_ERROR, "HumanResViewPermissionError", UtilHttp.getLocale(request));
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-            Debug.logWarning("Unauthorized attempt to access getHRChild by partyId param [" + request.getParameter("partyId") + "]",
-                    MODULE);
+            Debug.logWarning("Unauthorized attempt to access getHRChild by partyId param [%s]", MODULE, request.getParameter("partyId"));
             return "error";
         }
         Delegator delegator = (Delegator) request.getAttribute("delegator");
