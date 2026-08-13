@@ -65,4 +65,9 @@ under the License.
         <attribute name="x-custom-header" type="String" mode="INOUT" optional="true"/>
     </service>
 
+    <service name="useLocaleSetInRequestHeader" engine="java"
+            location="org.apache.ofbiz.ws.rs.test.RestTestServices" invoke="useLocaleSetInRequestHeader">
+        <description>TestService that returns its locale</description>
+        <attribute name="localeAsString" type="String" mode="OUT" optional="false"/>
+    </service>
 </services>

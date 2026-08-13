@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.apache.ofbiz.ws.rs.process;
 
+import java.util.Locale;
 import java.util.Map;
 
 import org.apache.ofbiz.base.util.Debug;
@@ -91,7 +92,9 @@ public final class ServiceRequestHandler extends RestRequestHandler {
         }
         ModelService svc = getModelService(dispatcher.getDispatchContext());
         GenericValue userLogin = (GenericValue) getHttpRequest().getAttribute("userLogin");
+        Locale locale = getHttpRequest().getLocale();
         serviceContext.put("userLogin", userLogin);
+        serviceContext.put("locale", locale);
         Map<String, Object> result = null;
         try {
             result = dispatcher.runSync(service, serviceContext);
@@ -104,7 +107,7 @@ public final class ServiceRequestHandler extends RestRequestHandler {
             Map<String, Object> responseData = ServiceRequestWorker.extractResponseData(svc, result);
             return RestApiUtil.success((String) result.get(ModelService.SUCCESS_MESSAGE), responseData);
         }
-        return RestApiUtil.buildErrorFromServiceResult(service, result, getHttpRequest().getLocale());
+        return RestApiUtil.buildErrorFromServiceResult(service, result, locale);
     }
 
     private ModelService getModelService(DispatchContext dispatchContext) {

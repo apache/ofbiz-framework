@@ -53,6 +53,12 @@ under the License.
         </operation>
     </resource>
 
+    <resource name="orders" path="/useLocaleSetInRequestHeader">
+        <operation verb="post" consumes="application/json" produces="application/json">
+            <service name="useLocaleSetInRequestHeader"/>
+        </operation>
+    </resource>
+
     <mapping name="RestOrderExample" className="org.apache.ofbiz.ws.rs.examples.RestOrderExample"/>
 
 </api>

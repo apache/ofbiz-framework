@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.apache.ofbiz.ws.rs.test;
 
+import java.util.Locale;
 import java.util.Map;
 
 import org.apache.ofbiz.base.util.UtilValidate;
@@ -81,6 +82,21 @@ public class RestTestServices {
         }
         Map<String, Object> result = ServiceUtil.returnSuccess();
         result.put("x-custom-header", customHeader);
+        return result;
+    }
+
+    /**
+     * TestService returning the received locale as a String
+     *
+     * @param dctx
+     * @param context
+     * @return
+     */
+    public static Map<String, Object> useLocaleSetInRequestHeader(DispatchContext dctx, Map<String, ? extends Object> context) {
+        Locale locale = (Locale) context.get("locale");
+        Map<String, Object> result = ServiceUtil.returnSuccess();
+        String localeAsString = locale.toString();
+        result.put("localeAsString", localeAsString);
         return result;
     }
 }

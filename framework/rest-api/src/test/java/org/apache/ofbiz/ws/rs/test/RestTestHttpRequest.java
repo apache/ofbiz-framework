@@ -147,4 +147,29 @@ class RestTestHttpRequest implements JupiterTestHelper {
 
         assertEquals("Foo", customHeaderValue);
     }
+
+    @Test
+    void testUseLocaleSetInRequestHeader() throws Exception {
+        HttpClient client = initHttpClient();
+        client.setHeader("Content-Type", "application/json");
+        client.setHeader("Authorization", "Bearer " + accessToken);
+        client.setHeader("Accept-Language", "fr");
+        client.setUrl(BASE_URL + "/exampleApi/useLocaleSetInRequestHeader");
+
+        String response = "";
+        try {
+            response = client.post();
+        } catch (HttpClientException e) {
+            Debug.logError(e, "Error during rest POST to /exampleApi/useLocaleSetInRequestHeader", MODULE);
+        }
+        String localeSentViaAcceptLanguageHeader = "";
+        try {
+            JsonNode root = mapper.readTree(response);
+            localeSentViaAcceptLanguageHeader = root.get("data").get("localeAsString").asText();
+        } catch (JsonProcessingException | NullPointerException e) {
+            Debug.logError(e, "Error parsing rest auth response", MODULE);
+        }
+
+        assertEquals("fr", localeSentViaAcceptLanguageHeader);
+    }
 }
