@@ -197,6 +197,39 @@ public final class RequestHandler {
         return Collections.emptyList();
     }
 
+    /**
+     * Determines whether {@code overrideViewUri} must not be reachable anonymously
+     * because it is the declared view response of at least one authenticated request map.
+     * <p>{@link #resolveURI} lets a client-supplied path suffix substitute the view
+     * rendered by a matched request map (see {@link #getOverrideViewUri}), and the
+     * substituted view is later authorized only against its own, often-unset,
+     * {@code ViewMap.auth} flag. Without this check, an anonymous request to any
+     * unauthenticated request map could render a view that is otherwise only ever
+     * reached through an authenticated request map, bypassing that request map's
+     * {@code security auth="true"} declaration entirely.
+     * @param ccfg the controller containing the current configuration
+     * @param overrideViewUri the view suffix taken from the request path, may be {@code null}
+     * @return true if {@code overrideViewUri} must not be rendered anonymously
+     */
+    static boolean overrideViewRequiresAuth(ControllerConfig ccfg, String overrideViewUri) {
+        if (overrideViewUri == null) {
+            return false;
+        }
+        for (List<RequestMap> maps : ccfg.getRequestMapMultiMap().values()) {
+            for (RequestMap requestMap : maps) {
+                if (!requestMap.isSecurityAuth()) {
+                    continue;
+                }
+                for (ConfigXMLReader.RequestResponse response : requestMap.getRequestResponseMap().values()) {
+                    if ("view".equals(response.getType()) && overrideViewUri.equals(response.getValue())) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
     public static String getRequestUri(String path) {
         List<String> pathInfo = StringUtil.split(path, "/");
         if (UtilValidate.isEmpty(pathInfo)) {
@@ -606,7 +639,10 @@ public final class RequestHandler {
         }
 
         // Perform security check.
-        if (requestMap.isSecurityAuth()) {
+        // A view-suffix override (see resolveURI/getOverrideViewUri) must not let an anonymous
+        // request map render a view that is otherwise only ever handed out by an authenticated
+        // request map: treat that case as if this request map itself required auth.
+        if (requestMap.isSecurityAuth() || overrideViewRequiresAuth(ccfg, overrideViewUri)) {
             // Invoke the security handler
             // catch exceptions and throw RequestHandlerException if failed.
             if (Debug.verboseOn()) {
