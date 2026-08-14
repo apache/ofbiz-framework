@@ -18,11 +18,11 @@
  *******************************************************************************/
 package org.apache.ofbiz.base.util;
 
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import org.apache.commons.validator.routines.EmailValidator;
 import org.apache.commons.validator.routines.UrlValidator;
@@ -154,9 +154,6 @@ public final class UtilValidate {
     /** Valid contiguous U.S. postal codes */
     public static final String CONTIGUOUS_US_STATE_CODES = "AL|AZ|AR|CA|CO|CT|DE|DC|FL|GA|ID|IL|IN|IA|KS|KY|LA|ME|MD|MA|MI|MN|MS|MO|MT|NE|NV|NH|"
             + "NJ|NM|NY|NC|ND|OH|OK|OR|PA|RI|SC|SD|TN|TX|UT|VT|VA|WA|WV|WI|WY";
-
-    /** Paths from which loading files should be prevented */
-    public static final String[] BLOCKED_PATHS = {"proc/self/fd"};
 
     /** Check whether an object is empty, will see if it is a String, Map, Collection, etc. */
     public static boolean isEmpty(Object o) {
@@ -662,22 +659,23 @@ public final class UtilValidate {
     }
 
     /**
-     * isBlockedPath takes a String representing a filePath, normalizes it and checks it against a Blacklist
+     * isAllowedPath takes a String representing a non-component widget resource path, normalizes it and
+     * checks it against the administrator-configured <code>security.allowFilePaths</code> regular
+     * expression. Unset or blank configuration denies every path (secure by default): an administrator
+     * must explicitly opt in to loading widget resources from outside a <code>component://</code> location.
      * @param rawPathString
-     * @return true if its a blocked path, false otherwise or if it is empty
+     * @return true if it's an allowed path, false otherwise (including when unconfigured)
      */
-    public static boolean isBlockedPath(String rawPathString) {
+    public static boolean isAllowedPath(String rawPathString) {
         if (UtilValidate.isEmpty(rawPathString)) {
             return false;
         }
-        Path normalized = Paths.get(rawPathString).normalize();
-        String normalizedPath = normalized.toString();
-        for (String blocked : BLOCKED_PATHS) {
-            if (normalizedPath.contains(blocked)) {
-                return true;
-            }
+        String allowFilePaths = UtilProperties.getPropertyValue("security", "allowFilePaths", "");
+        if (UtilValidate.isEmpty(allowFilePaths)) {
+            return false;
         }
-        return false;
+        String normalizedPath = Paths.get(rawPathString).normalize().toString();
+        return Pattern.compile(allowFilePaths).matcher(normalizedPath).matches();
     }
 
     /** isYear returns true if string s is a valid

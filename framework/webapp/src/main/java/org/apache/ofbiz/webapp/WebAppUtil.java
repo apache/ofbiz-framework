@@ -159,8 +159,18 @@ public final class WebAppUtil {
             Debug.logWarning(ioe, MODULE);
         }
         if (requestBodyMap != null) {
+            ServletContext servletContext = request.getServletContext();
             Set<String> parameterNames = requestBodyMap.keySet();
             for (String parameterName: parameterNames) {
+                // A request body is anonymous, attacker-controlled input. Never let it shadow a name
+                // the webapp already exposes as a trusted, application-owned ServletContext attribute
+                // (e.g. mainDecoratorLocation, set from web.xml at filter init) - doing so let an
+                // unauthenticated JSON request redirect trusted widget/screen locations.
+                if (servletContext.getAttribute(parameterName) != null) {
+                    Debug.logWarning("Ignoring request body attribute [%s]: it shadows an existing"
+                            + " ServletContext attribute of the same name", MODULE, parameterName);
+                    continue;
+                }
                 request.setAttribute(parameterName, requestBodyMap.get(parameterName));
             }
         }
