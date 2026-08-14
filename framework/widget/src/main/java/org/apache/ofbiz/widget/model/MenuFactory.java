@@ -28,6 +28,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.ofbiz.base.location.FlexibleLocation;
+import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.UtilXml;
@@ -65,7 +66,13 @@ public class MenuFactory {
         if (modelMenuMap == null) {
             ServletContext servletContext = request.getServletContext();
 
-            URL menuFileUrl = servletContext.getResource(resourceName);
+            String sanitizedLocation = WidgetSecureLocation.sanitize(resourceName);
+            if (sanitizedLocation == null) {
+                Debug.logWarning("The location of menu [%s] isn't an allowed path. Abort rendering. Raw location [%s]",
+                        MODULE, menuName, resourceName);
+                throw new IllegalArgumentException("Abort menu rendering due to unallowed menu location");
+            }
+            URL menuFileUrl = servletContext.getResource(sanitizedLocation);
             Document menuFileDoc = UtilXml.readXmlDocument(menuFileUrl, true, true);
             modelMenuMap = readMenuDocument(menuFileDoc, location, visualTheme);
             MENU_WEBAPP_CACHE.putIfAbsent(cacheKey, modelMenuMap);
@@ -106,7 +113,13 @@ public class MenuFactory {
         String keyName = resourceName + "::" + visualTheme.getVisualThemeId();
         Map<String, ModelMenu> modelMenuMap = MENU_LOCATION_CACHE.get(keyName);
         if (modelMenuMap == null) {
-            URL menuFileUrl = FlexibleLocation.resolveLocation(resourceName);
+            String sanitizedLocation = WidgetSecureLocation.sanitize(resourceName);
+            if (sanitizedLocation == null) {
+                Debug.logWarning("The location of menu [%s] isn't an allowed path. Abort rendering. Raw location [%s]",
+                        MODULE, menuName, resourceName);
+                throw new IllegalArgumentException("Abort menu rendering due to unallowed menu location");
+            }
+            URL menuFileUrl = FlexibleLocation.resolveLocation(sanitizedLocation);
             if (menuFileUrl == null || UtilValidate.isUrlInStringAndDoesNotStartByComponentProtocol(menuFileUrl.toString())) {
                 throw new IllegalArgumentException("Could not resolve location to URL: " + resourceName);
             }
