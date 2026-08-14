@@ -998,8 +998,13 @@ public final class RequestHandler {
                 if (urlParams != null) {
                     for (Map.Entry<String, Object> urlParamEntry : urlParams.entrySet()) {
                         String key = urlParamEntry.getKey();
-                        // Don't overwrite messages coming from the current event
-                        if (!("_EVENT_MESSAGE_".equals(key) || "_ERROR_MESSAGE_".equals(key)
+                        // Filter out event messages and dynamic resource/location override parameters
+                        if (key != null && !key.startsWith("_")
+                                && !key.endsWith("Location")
+                                && !key.endsWith("Screen")
+                                && !key.endsWith("Template")
+                                && !key.endsWith("Uri")
+                                && !("_EVENT_MESSAGE_".equals(key) || "_ERROR_MESSAGE_".equals(key)
                                 || "_EVENT_MESSAGE_LIST_".equals(key) || "_ERROR_MESSAGE_LIST_".equals(key))) {
                             request.setAttribute(key, urlParamEntry.getValue());
                         }
@@ -1207,22 +1212,48 @@ public final class RequestHandler {
         // add in the attributes as well so everything needed for the rendering context will be in place if/when we get back to this view
         paramMap.putAll(UtilHttp.getAttributeMap(req));
         UtilMisc.makeMapSerializable(paramMap);
-        // Used by lookups to keep the real view (request); accept the request parameter only if it is a safe view name (alphanumeric/dash/underscore)
-        String lastViewNameParam = (String) paramMap.get("_LAST_VIEW_NAME_");
-        String lastViewName = (lastViewNameParam != null && lastViewNameParam.matches("[\\w\\-]+")) ? lastViewNameParam : view;
-        req.getSession().setAttribute("_LAST_VIEW_NAME_", lastViewName);
-        req.getSession().setAttribute("_LAST_VIEW_PARAMS_", paramMap);
+
+        // Used by lookups to keep the real view (request); validate candidate last view against controller authorization policy
+        String candidateLastView = (String) paramMap.get("_LAST_VIEW_NAME_");
+        String safeLastView = view;
+        if (UtilValidate.isNotEmpty(candidateLastView) && candidateLastView.matches("[\\w\\-]+")) {
+            ConfigXMLReader.ControllerConfig cConfig = getControllerConfig();
+            if (cConfig != null) {
+                ConfigXMLReader.ViewMap candidateViewMap = cConfig.getViewMapMap().get(candidateLastView);
+                ConfigXMLReader.RequestMap candidateReqMap = cConfig.getRequestMapMap().get(candidateLastView);
+                if (candidateViewMap != null) {
+                    boolean requiresAuth = candidateViewMap.isSecurityAuth()
+                            || (candidateReqMap != null && candidateReqMap.isSecurityAuth());
+                    if (!requiresAuth || UtilValidate.isNotEmpty(userLogin)) {
+                        safeLastView = candidateLastView;
+                    } else {
+                        Debug.logWarning("Blocked unauthorized _LAST_VIEW_NAME_ attempt: [" + candidateLastView
+                                + "] for unauthenticated session " + showSessionId(req), MODULE);
+                    }
+                }
+            }
+        }
+        req.getSession().setAttribute("_LAST_VIEW_NAME_", safeLastView);
+
+        // Filter out sensitive dynamic location/template override parameters from persisted session params
+        Map<String, Object> sanitizedParamMap = new HashMap<>(paramMap);
+        sanitizedParamMap.keySet().removeIf(key -> key != null && (
+                key.endsWith("Location")
+                || key.endsWith("Screen")
+                || key.endsWith("Template")
+                || key.endsWith("Uri")));
+        req.getSession().setAttribute("_LAST_VIEW_PARAMS_", sanitizedParamMap);
 
         if ("SAVED".equals(saveName)) {
             //Debug.logInfo("======save current view: " + view);
             req.getSession().setAttribute("_SAVED_VIEW_NAME_", view);
-            req.getSession().setAttribute("_SAVED_VIEW_PARAMS_", paramMap);
+            req.getSession().setAttribute("_SAVED_VIEW_PARAMS_", sanitizedParamMap);
         }
 
         if ("HOME".equals(saveName)) {
             //Debug.logInfo("======save home view: " + view);
             req.getSession().setAttribute("_HOME_VIEW_NAME_", view);
-            req.getSession().setAttribute("_HOME_VIEW_PARAMS_", paramMap);
+            req.getSession().setAttribute("_HOME_VIEW_PARAMS_", sanitizedParamMap);
             // clear other saved views
             req.getSession().removeAttribute("_SAVED_VIEW_NAME_");
             req.getSession().removeAttribute("_SAVED_VIEW_PARAMS_");
