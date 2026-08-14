@@ -28,9 +28,6 @@ import org.apache.ofbiz.base.util.Debug;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
-
 /**
  * Use this class in a JUnit test runner to prepare the TestSuite.
  */
@@ -71,19 +68,6 @@ public class JunitSuiteWrapper {
     }
 
     /**
-     * Populate test suite.
-     * @param suite the suite
-     */
-    @Deprecated
-    public void populateTestSuite(TestSuite suite) {
-        for (ModelTestSuite modelTestSuite: this.modelTestSuiteList) {
-            for (Test tst: modelTestSuite.getTestList()) {
-                suite.addTest(tst);
-            }
-        }
-    }
-
-    /**
      * Gets model test suites.
      * @return the model test suites
      */
@@ -95,13 +79,11 @@ public class JunitSuiteWrapper {
      * Gets all test list.
      * @return the all test list
      */
-    public List<Test> getAllTestList() {
-        List<Test> allTestList = new LinkedList<>();
+    public List<SuiteEntry> getAllTestList() {
+        List<SuiteEntry> allTestList = new LinkedList<>();
 
         for (ModelTestSuite modelTestSuite: this.modelTestSuiteList) {
-            for (Test tst: modelTestSuite.getTestList()) {
-                allTestList.add(tst);
-            }
+            allTestList.addAll(modelTestSuite.getTestList());
         }
 
         return allTestList;

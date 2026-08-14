@@ -18,50 +18,109 @@
  *******************************************************************************/
 package org.apache.ofbiz.testtools;
 
+import java.util.List;
+
+import org.apache.ofbiz.entity.Delegator;
+import org.apache.ofbiz.service.LocalDispatcher;
 import org.junit.jupiter.api.Test;
 
-import junit.framework.TestResult;
-import junit.framework.TestSuite;
+import junit.framework.TestCase;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.contains;
+import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.is;
+import static org.mockito.Mockito.mock;
 
 /**
- * Exercises reportSuiteExecutionFailure() directly rather than through start()'s for loop, which
- * needs a full ofbiz --test container bootstrap (StartupCommand, a real ModelTestSuite/Delegator,
- * ...) to construct. The loop's own try/catch wiring around suite.run(results) is a single,
- * low-risk control-flow change; this test covers the part that actually has behavior worth
- * verifying - that an escaped exception is turned into a proper suite-level error report instead
- * of a silently-empty, still-"successful" TestResult.
+ * Exercises TestRunContainer.runSuiteEntries() and reportSuiteExecutionFailure() directly, rather than
+ * through start()'s for loop, which needs a full ofbiz --test container bootstrap (StartupCommand, a
+ * real ModelTestSuite/Delegator, ...) to construct.
  */
 class TestRunContainerTest {
 
     @Test
     void escapedExceptionIsReportedAsASuiteLevelError() {
-        TestSuite suite = new TestSuite("myFakeSuite");
-        TestResult results = new TestResult();
+        RecordingSink sink = new RecordingSink();
         RuntimeException thrown = new RuntimeException("boom");
 
-        TestRunContainer.reportSuiteExecutionFailure(suite, results, thrown);
+        TestRunContainer.reportSuiteExecutionFailure("myFakeSuite", thrown, sink);
 
-        // Without this reporting, an exception escaping suite.run() itself (a JUnitException from
-        // Jupiter's launcher.execute(), for example) would leave `results` with zero tests recorded
-        // and wasSuccessful() still true - the same false-positive "all green" class of bug as a
-        // silently-discarded container failure.
-        assertThat(results.runCount(), is(1));
-        assertThat(results.errorCount(), is(1));
-        assertThat(results.wasSuccessful(), is(false));
-        assertThat(results.errors().nextElement().thrownException(), is(thrown));
+        assertThat(sink.testFinishedCalls, contains(new RecordingSink.FinishedCall(
+                "myFakeSuite", "suiteExecutionError", SuiteReportSink.Outcome.error(thrown))));
     }
 
     @Test
     void syntheticFailureMarkerIsNamedAfterTheSuite() {
-        TestSuite suite = new TestSuite("myFakeSuite");
-        TestResult results = new TestResult();
+        RecordingSink sink = new RecordingSink();
 
-        TestRunContainer.reportSuiteExecutionFailure(suite, results, new RuntimeException("boom"));
+        TestRunContainer.reportSuiteExecutionFailure("myFakeSuite", new RuntimeException("boom"), sink);
 
-        assertThat(results.errors().nextElement().failedTest().toString(), containsString("myFakeSuite.suiteExecutionError"));
+        assertThat(sink.testStartedCalls, contains("myFakeSuite#suiteExecutionError"));
+    }
+
+    @Test
+    void reportSuiteExecutionFailureDispatchesToEverySink() {
+        RecordingSink sinkA = new RecordingSink();
+        RecordingSink sinkB = new RecordingSink();
+
+        TestRunContainer.reportSuiteExecutionFailure("myFakeSuite", new RuntimeException("boom"), sinkA, sinkB);
+
+        assertThat(sinkA.testFinishedCalls.size(), is(1));
+        assertThat(sinkB.testFinishedCalls.size(), is(1));
+    }
+
+    @Test
+    void runSuiteEntriesVisitsEntriesInDeclaredOrderAcrossBothEngines() {
+        RecordingSink sink = new RecordingSink();
+        List<SuiteEntry> entries = List.of(
+                new SuiteEntry.Junit3Entry(new NamedCase("first")),
+                new SuiteEntry.JupiterEntry(OneTestFixture.class),
+                new SuiteEntry.Junit3Entry(new NamedCase("third")));
+
+        TestRunContainer.runSuiteEntries(entries, mock(Delegator.class), mock(LocalDispatcher.class), sink);
+
+        assertThat(sink.testStartedCalls, contains(
+                NamedCase.class.getName() + "#first",
+                OneTestFixture.class.getName() + "#onlyTest",
+                NamedCase.class.getName() + "#third"));
+    }
+
+    @Test
+    void runSuiteEntriesReportsAJunit3FailureThroughTheSameSink() {
+        RecordingSink sink = new RecordingSink();
+        List<SuiteEntry> entries = List.of(new SuiteEntry.Junit3Entry(new FailingCase()));
+
+        TestRunContainer.runSuiteEntries(entries, mock(Delegator.class), mock(LocalDispatcher.class), sink);
+
+        assertThat(sink.testFinishedCalls.get(0).outcome(), instanceOf(SuiteReportSink.Outcome.Failure.class));
+    }
+
+    static class NamedCase extends TestCase {
+        NamedCase(String name) {
+            super(name);
+        }
+
+        @Override
+        protected void runTest() {
+        }
+    }
+
+    static class FailingCase extends TestCase {
+        FailingCase() {
+            super("failing");
+        }
+
+        @Override
+        protected void runTest() {
+            fail("expected false");
+        }
+    }
+
+    @org.junit.jupiter.api.Tag(JupiterTestExtension.INTEGRATION_TAG)
+    static class OneTestFixture {
+        @Test
+        void onlyTest() {
+        }
     }
 }

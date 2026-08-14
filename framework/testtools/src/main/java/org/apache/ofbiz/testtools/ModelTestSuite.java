@@ -38,7 +38,6 @@ import org.apache.ofbiz.minilang.SimpleMethod;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ServiceContainer;
 import org.apache.ofbiz.service.testtools.OFBizTestCase;
-import org.apache.ofbiz.testtools.JupiterTestExtension.JupiterTestSuite;
 import org.w3c.dom.Element;
 
 import junit.framework.Test;
@@ -56,7 +55,7 @@ public class ModelTestSuite {
     private String suiteName;
     private Delegator delegator;
     private LocalDispatcher dispatcher;
-    private List<Test> testList = new ArrayList<>();
+    private List<SuiteEntry> testList = new ArrayList<>();
 
     public ModelTestSuite(Element mainElement, String testCase) {
         String uniqueSuffix = "-" + RandomStringUtils.randomAlphanumeric(10);
@@ -96,7 +95,7 @@ public class ModelTestSuite {
                 int casesAdded = 0;
                 while (testEnum.hasMoreElements()) {
                     Test tst = (Test) testEnum.nextElement();
-                    this.testList.add(tst);
+                    this.testList.add(new SuiteEntry.Junit3Entry(tst));
                     casesAdded += tst.countTestCases();
                     testsAdded++;
                 }
@@ -106,10 +105,10 @@ public class ModelTestSuite {
                 Debug.logError(e, errMsg, MODULE);
             }
         } else if ("service-test".equals(nodeName)) {
-            this.testList.add(new ServiceTest(caseName, testElement));
+            this.testList.add(new SuiteEntry.Junit3Entry(new ServiceTest(caseName, testElement)));
         } else if ("simple-method-test".equals(nodeName)) {
             if (UtilValidate.isNotEmpty(testElement.getAttribute("name"))) {
-                this.testList.add(new SimpleMethodTest(caseName, testElement));
+                this.testList.add(new SuiteEntry.Junit3Entry(new SimpleMethodTest(caseName, testElement)));
             } else {
                 String methodLocation = testElement.getAttribute("location");
                 List<SimpleMethod> simpleMethods;
@@ -118,7 +117,8 @@ public class ModelTestSuite {
                     for (SimpleMethod simpleMethod : simpleMethods) {
                         String methodName = simpleMethod.getMethodName();
                         if (methodName.startsWith("test")) {
-                            this.testList.add(new SimpleMethodTest(caseName + "." + methodName, methodLocation, methodName));
+                            this.testList.add(new SuiteEntry.Junit3Entry(
+                                    new SimpleMethodTest(caseName + "." + methodName, methodLocation, methodName)));
                         }
                     }
                 } catch (MiniLangException e) {
@@ -129,7 +129,7 @@ public class ModelTestSuite {
             String className = testElement.getAttribute("class-name");
             try {
                 Class<?> clz = ObjectType.loadClass(className);
-                this.testList.add(new JupiterTestSuite(clz));
+                this.testList.add(new SuiteEntry.JupiterEntry(clz));
                 Debug.logInfo("Added Jupiter test class: " + className, MODULE);
             } catch (Exception e) {
                 Debug.logError(e, "Unable to load jupiter test suite class : " + className, MODULE);
@@ -140,15 +140,15 @@ public class ModelTestSuite {
                 Class<?> cl;
                 cl = Class.forName(className);
                 Constructor<?> con = cl.getConstructor(String.class, Element.class);
-                this.testList.add((Test) con.newInstance(caseName, testElement));
+                this.testList.add(new SuiteEntry.Junit3Entry((Test) con.newInstance(caseName, testElement)));
             } catch (Exception e) {
                 Debug.logError(e, MODULE);
             }
         } else if ("entity-xml".equals(nodeName)) {
-            this.testList.add(new EntityXmlAssertTest(caseName, testElement));
+            this.testList.add(new SuiteEntry.Junit3Entry(new EntityXmlAssertTest(caseName, testElement)));
         } else if ("entity-xml-assert".equals(nodeName)) {
             // this is the old, deprecated name for the element, changed because it now does assert or load
-            this.testList.add(new EntityXmlAssertTest(caseName, testElement));
+            this.testList.add(new SuiteEntry.Junit3Entry(new EntityXmlAssertTest(caseName, testElement)));
         }
     }
 
@@ -169,34 +169,48 @@ public class ModelTestSuite {
     }
 
     /**
+     * Gets dispatcher.
+     * @return the dispatcher
+     */
+    LocalDispatcher getDispatcher() {
+        return this.dispatcher;
+    }
+
+    /**
      * Gets test list.
      * @return the test list
      */
-    List<Test> getTestList() {
+    List<SuiteEntry> getTestList() {
         return testList;
     }
 
 
     /**
-     * Make test suite test suite.
-     * @return the test suite
+     * Gets the suite's ordered, delegator/dispatcher-prepared test entries, ready to execute.
+     * Replaces makeTestSuite(), which built a junit.framework.TestSuite purely so the result could
+     * satisfy junit.framework.Test's contract - no longer needed now that TestRunContainer executes
+     * SuiteEntry.Junit3Entry/SuiteEntry.JupiterEntry directly instead of running everything through
+     * one shared TestSuite.
+     * @return the ordered, prepared test entries
      */
-    public TestSuite makeTestSuite() {
-        TestSuite suite = new TestSuite();
-        suite.setName(this.getSuiteName());
-        for (Test tst: this.getTestList()) {
-            prepareTest(tst);
-            suite.addTest(tst);
-        }
-
-        return suite;
+    public List<SuiteEntry> getPreparedTestList() {
+        testList.forEach(this::prepareTest);
+        return testList;
     }
 
-    private void prepareTest(Test test) {
+    private void prepareTest(SuiteEntry entry) {
+        if (entry instanceof SuiteEntry.Junit3Entry junit3Entry) {
+            prepareJunit3Test(junit3Entry.test());
+        }
+        // SuiteEntry.JupiterEntry: nothing to prepare here - TestRunContainer arms JupiterClassRunner
+        // with the delegator/dispatcher directly, immediately before running that one entry.
+    }
+
+    private void prepareJunit3Test(Test test) {
         if (test instanceof TestSuite) {
             Enumeration<Test> subTests = UtilGenerics.cast(((TestSuite) test).tests());
             while (subTests.hasMoreElements()) {
-                prepareTest(subTests.nextElement());
+                prepareJunit3Test(subTests.nextElement());
             }
         } else if (test instanceof EntityTestCase) {
             // CHECKSTYLE_OFF: ALMOST_ALL
@@ -207,11 +221,6 @@ public class ModelTestSuite {
             // CHECKSTYLE_ON: ALMOST_ALL
         } else if (test instanceof GroovyScriptAssert) {
             prepareGroovyScriptAssert((GroovyScriptAssert) test);
-        } else if (test instanceof JupiterTestSuite) {
-            // CHECKSTYLE_OFF: ALMOST_ALL
-            ((JupiterTestSuite) test).setDelegator(delegator);
-            ((JupiterTestSuite) test).setDispatcher(dispatcher);
-            // CHECKSTYLE_ON: ALMOST_ALL
         }
     }
 
