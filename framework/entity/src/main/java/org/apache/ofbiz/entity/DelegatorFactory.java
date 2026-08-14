@@ -39,10 +39,13 @@ public abstract class DelegatorFactory implements Factory<Delegator, String> {
             Runtime.getRuntime().availableProcessors(), 10, true);
 
     public static Delegator getDelegator(String delegatorName) {
-        Future<Delegator> future = getDelegatorFuture(delegatorName);
+        String cacheKey = delegatorName == null ? "default" : delegatorName;
+        Future<Delegator> future = getDelegatorFuture(cacheKey);
         try {
             return future.get();
         } catch (ExecutionException | InterruptedException e) {
+            // do not let a failed lookup permanently occupy the cache under its (possibly caller-supplied) key
+            DELEGATORS.remove(cacheKey, future);
             Debug.logError(e, MODULE);
             return null;
         }
