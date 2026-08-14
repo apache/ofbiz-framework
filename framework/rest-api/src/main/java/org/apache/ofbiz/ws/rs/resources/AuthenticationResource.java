@@ -20,11 +20,17 @@ package org.apache.ofbiz.ws.rs.resources;
 
 import java.util.Map;
 
+import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilMisc;
+import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
+import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
+import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.entity.util.EntityUtilProperties;
+import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.webapp.control.JWTManager;
+import org.apache.ofbiz.webapp.control.LoginWorker;
 import org.apache.ofbiz.ws.rs.annotation.AuthToken;
 import org.apache.ofbiz.ws.rs.util.RestApiUtil;
 
@@ -52,6 +58,8 @@ import jakarta.ws.rs.core.Response;
 @Path("/auth")
 @Tag(name = "Authentication Token Generating Resource", description = "Intended to provide generation of authentication tokens.")
 public class AuthenticationResource {
+
+    private static final String MODULE = AuthenticationResource.class.getName();
 
     @Context
     private ServletContext servletContext;
@@ -146,12 +154,17 @@ public class AuthenticationResource {
         httpRequest.setAttribute("dispatcher", delegator);
         Map<String, Object> claims = JWTManager.validateRefreshToken(delegator, refreshToken);
 
-        // Fetch delegator, dispatcher, and userLogin
-        if (claims.containsKey("errorMessage")) {
-            System.out.println("Error with JWT token: ");
+        if (claims.containsKey(ModelService.ERROR_MESSAGE)) {
+            return RestApiUtil.error(Response.Status.UNAUTHORIZED.getStatusCode(), Response.Status.UNAUTHORIZED.getReasonPhrase(),
+                    "Unauthorized: " + claims.get(ModelService.ERROR_MESSAGE));
         }
 
         String userLoginId = (String) claims.get("userLoginId");
+        GenericValue userLogin = getActiveUserLogin(delegator, userLoginId);
+        if (userLogin == null) {
+            return RestApiUtil.error(Response.Status.UNAUTHORIZED.getStatusCode(), Response.Status.UNAUTHORIZED.getReasonPhrase(),
+                    "Unauthorized: Invalid refresh token.");
+        }
 
         String newAccessToken = JWTManager.createJwt(delegator, UtilMisc.toMap("userLoginId", userLoginId));
         String newRefreshToken = JWTManager.createRefreshToken(delegator, userLoginId);
@@ -160,5 +173,30 @@ public class AuthenticationResource {
                 EntityUtilProperties.getPropertyValue("security", "security.jwt.token.expireTime", "1800", delegator), "token_type", "Bearer");
 
         return RestApiUtil.success("Token refreshed.", tokenPayload);
+    }
+
+    /**
+     * Looks up the {@code UserLogin} named by a validated refresh token's claims and confirms
+     * the account is still present and active, so a disabled or deleted account cannot keep
+     * renewing tokens on the strength of a refresh token issued before the account changed.
+     * @param delegator the delegator
+     * @param userLoginId the userLoginId claim from a cryptographically validated refresh token
+     * @return the active userLogin, or {@code null} if it is missing, deleted, or disabled
+     */
+    private GenericValue getActiveUserLogin(Delegator delegator, String userLoginId) {
+        if (UtilValidate.isEmpty(userLoginId)) {
+            return null;
+        }
+        GenericValue userLogin;
+        try {
+            userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", userLoginId).queryOne();
+        } catch (GenericEntityException e) {
+            Debug.logError(e, "Unable to get UserLogin information from refresh token: " + e.getMessage(), MODULE);
+            return null;
+        }
+        if (userLogin == null || !LoginWorker.isUserLoginActive(userLogin)) {
+            return null;
+        }
+        return userLogin;
     }
 }
