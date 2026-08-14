@@ -476,8 +476,12 @@ public final class LoginWorker {
             if (delegatorNameHashIndex == -1 || (currentDelegatorTenantId != null && !tenantId.equals(currentDelegatorTenantId))) {
                 // make that tenant active, setup a new delegator and a new dispatcher
                 String delegatorName = delegator.getDelegatorBaseName() + "#" + tenantId;
+                Delegator baseDelegator = DelegatorFactory.getDelegator(delegator.getDelegatorBaseName());
 
                 try {
+                    if (!WebAppUtil.isValidTenantId(baseDelegator, tenantId)) {
+                        throw new NullPointerException("Tenant [" + tenantId + "] not found");
+                    }
                     // after this line the delegator is replaced with the new per-tenant delegator
                     delegator = DelegatorFactory.getDelegator(delegatorName);
                     dispatcher = WebAppUtil.makeWebappDispatcher(servletContext, delegator);

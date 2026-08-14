@@ -139,6 +139,9 @@ public class ContextFilter implements Filter {
                 if (UtilValidate.isEmpty(tenantId)) {
                     tenantId = httpRequest.getParameter("userTenantId");
                 }
+                if (UtilValidate.isNotEmpty(tenantId) && !WebAppUtil.isValidTenantId(baseDelegator, tenantId)) {
+                    tenantId = null;
+                }
                 if (UtilValidate.isNotEmpty(tenantId)) {
                     // if the request path is a root mount then redirect to the initial path
                     if ("".equals(httpRequest.getContextPath()) && "".equals(httpRequest.getServletPath())) {
