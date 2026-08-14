@@ -68,10 +68,11 @@ under the License.
         <attribute mode="OUT" name="setupTime" type="BigDecimal" optional="true"/>
         <attribute mode="OUT" name="taskUnitTime" type="BigDecimal" optional="true"/>
     </service>
-    <!-- API wrappers for the manufacturing suite Routing and Cost Management PWA -->
+    <!-- Routing and cost management services for reusable list and detail data. -->
     <service name="findProductRoutings" engine="groovy" auth="true"
             location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/api/RoutingCostManagementServices.groovy" invoke="findProductRoutings">
         <description>Find routing templates with product-link and task-count summary fields needed by routing management list views, while keeping create and update operations delegated to native WorkEffort services.</description>
+        <permission-service service-name="manufacturingPermissionService" main-action="VIEW"/>
         <attribute mode="IN" name="query" optional="true" type="String"/>
         <attribute mode="IN" name="productId" optional="true" type="String"/>
         <attribute mode="IN" name="routingId" optional="true" type="String"/>
@@ -86,11 +87,15 @@ under the License.
         <attribute mode="OUT" name="totalCount" optional="false" type="Long"/>
         <attribute mode="OUT" name="totalPages" optional="false" type="Long"/>
         <attribute mode="OUT" name="hasNext" optional="false" type="Boolean"/>
+        <attribute mode="OUT" name="previousPageCount" optional="true" type="Long"/>
+        <attribute mode="OUT" name="nextPageCount" optional="true" type="Long"/>
+        <attribute mode="OUT" name="links" optional="true" type="Map"/>
         <attribute mode="OUT" name="routings" optional="false" type="java.util.List"/>
     </service>
     <service name="findRoutingTaskPurposeTypeOptions" engine="groovy" auth="true"
             location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/api/RoutingCostManagementServices.groovy" invoke="findRoutingTaskPurposeTypeOptions">
         <description>Find routing task purpose type options from WorkEffortPurposeType using the same paged REST response shape as other manufacturing lookups, so routing task forms can load valid operation-purpose values from OFBiz data.</description>
+        <permission-service service-name="manufacturingPermissionService" main-action="VIEW"/>
         <attribute mode="IN" name="pageIndex" optional="true" type="Integer"/>
         <attribute mode="IN" name="pageSize" optional="true" type="Integer"/>
         <attribute mode="IN" name="sort" optional="true" type="String"/>
@@ -99,11 +104,15 @@ under the License.
         <attribute mode="OUT" name="totalCount" optional="false" type="Long"/>
         <attribute mode="OUT" name="totalPages" optional="false" type="Long"/>
         <attribute mode="OUT" name="hasNext" optional="false" type="Boolean"/>
+        <attribute mode="OUT" name="previousPageCount" optional="true" type="Long"/>
+        <attribute mode="OUT" name="nextPageCount" optional="true" type="Long"/>
+        <attribute mode="OUT" name="links" optional="true" type="Map"/>
         <attribute mode="OUT" name="purposeTypes" optional="false" type="java.util.List"/>
     </service>
     <service name="searchRoutingTasksForRouting" engine="groovy" auth="true"
             location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/api/RoutingCostManagementServices.groovy" invoke="searchRoutingTasksForRouting">
         <description>Search reusable routing task definitions by ID or name for operation selection, returning only task records suitable for linking into a routing through native WorkEffortAssoc services.</description>
+        <permission-service service-name="manufacturingPermissionService" main-action="VIEW"/>
         <attribute mode="IN" name="query" optional="true" type="String"/>
         <attribute mode="IN" name="pageIndex" optional="true" type="Integer"/>
         <attribute mode="IN" name="pageSize" optional="true" type="Integer"/>
@@ -113,11 +122,15 @@ under the License.
         <attribute mode="OUT" name="totalCount" optional="false" type="Long"/>
         <attribute mode="OUT" name="totalPages" optional="false" type="Long"/>
         <attribute mode="OUT" name="hasNext" optional="false" type="Boolean"/>
+        <attribute mode="OUT" name="previousPageCount" optional="true" type="Long"/>
+        <attribute mode="OUT" name="nextPageCount" optional="true" type="Long"/>
+        <attribute mode="OUT" name="links" optional="true" type="Map"/>
         <attribute mode="OUT" name="tasks" optional="false" type="java.util.List"/>
     </service>
     <service name="getRoutingDetails" engine="groovy" auth="true"
             location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/api/RoutingCostManagementServices.groovy" invoke="getRoutingDetails">
         <description>Get one routing template with its product outputs, associated operations, available task choices, and cost rows in one response, reducing REST round trips for routing detail screens without replacing native write services.</description>
+        <permission-service service-name="manufacturingPermissionService" main-action="VIEW"/>
         <attribute mode="IN" name="routingId" optional="true" type="String"/>
         <attribute mode="IN" name="workEffortId" optional="true" type="String"/>
         <attribute mode="OUT" name="routingId" optional="false" type="String"/>
@@ -134,6 +147,7 @@ under the License.
     <service name="expireRoutingGoodStandard" engine="groovy" auth="true"
             location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/api/RoutingCostManagementServices.groovy" invoke="expireRoutingGoodStandard">
         <description>Expire a routing product or task output association by setting WorkEffortGoodStandard.thruDate, preserving historical routing data while giving REST delete operations an explicit service for the native composite key.</description>
+        <permission-service service-name="manufacturingPermissionService" main-action="UPDATE"/>
         <attribute mode="IN" name="workEffortId" optional="false" type="String"/>
         <attribute mode="IN" name="productId" optional="false" type="String"/>
         <attribute mode="IN" name="workEffortGoodStdTypeId" optional="false" type="String"/>
@@ -148,6 +162,7 @@ under the License.
     <service name="findRoutingTasks" engine="groovy" auth="true"
             location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/api/RoutingCostManagementServices.groovy" invoke="findRoutingTasks">
         <description>Find routing task definitions with work center, cost, output, tool, and operator summary data needed by routing operation list views, while keeping task maintenance backed by native WorkEffort services.</description>
+        <permission-service service-name="manufacturingPermissionService" main-action="VIEW"/>
         <attribute mode="IN" name="query" optional="true" type="String"/>
         <attribute mode="IN" name="workEffortId" optional="true" type="String"/>
         <attribute mode="IN" name="routingTaskId" optional="true" type="String"/>
@@ -161,11 +176,15 @@ under the License.
         <attribute mode="OUT" name="totalCount" optional="false" type="Long"/>
         <attribute mode="OUT" name="totalPages" optional="false" type="Long"/>
         <attribute mode="OUT" name="hasNext" optional="false" type="Boolean"/>
+        <attribute mode="OUT" name="previousPageCount" optional="true" type="Long"/>
+        <attribute mode="OUT" name="nextPageCount" optional="true" type="Long"/>
+        <attribute mode="OUT" name="links" optional="true" type="Map"/>
         <attribute mode="OUT" name="tasks" optional="false" type="java.util.List"/>
     </service>
     <service name="getRoutingTaskDetails" engine="groovy" auth="true"
             location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/api/RoutingCostManagementServices.groovy" invoke="getRoutingTaskDetails">
         <description>Get one routing task definition with routing usage, cost rates, outputs, tool standards, operator assignments, and fixed asset context in one response, giving operation detail screens a complete read model without adding write wrappers for native child services.</description>
+        <permission-service service-name="manufacturingPermissionService" main-action="VIEW"/>
         <attribute mode="IN" name="routingTaskId" optional="true" type="String"/>
         <attribute mode="IN" name="taskId" optional="true" type="String"/>
         <attribute mode="IN" name="workEffortId" optional="true" type="String"/>

@@ -18,10 +18,9 @@
  *******************************************************************************/
 package org.apache.ofbiz.ws.rs.util;
 
-import java.util.Map;
 import java.util.LinkedHashMap;
+import java.util.Map;
 
-import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.service.ModelParam;
 import org.apache.ofbiz.service.ModelService;
 
@@ -32,9 +31,7 @@ public final class ServiceRequestWorker {
             ModelParam outParam = service.getParam(outParamName);
             if (!outParam.isInternal()) {
                 Object value = result.get(outParamName);
-                if (UtilValidate.isNotEmpty(value)) {
-                    responseData.put(outParamName, value);
-                }
+                responseData.put(outParamName, value);
             }
         }
         return responseData;

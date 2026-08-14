@@ -158,11 +158,15 @@ under the License.
         <attribute mode="IN" name="productAssocTypeId" optional="true" type="String"/>
         <attribute mode="IN" name="pageIndex" optional="true" type="Integer"/>
         <attribute mode="IN" name="pageSize" optional="true" type="Integer"/>
+        <attribute mode="IN" name="sort" optional="true" type="String"/>
         <attribute mode="OUT" name="pageIndex" optional="false" type="Integer"/>
         <attribute mode="OUT" name="pageSize" optional="false" type="Integer"/>
         <attribute mode="OUT" name="totalCount" optional="false" type="Long"/>
         <attribute mode="OUT" name="totalPages" optional="false" type="Long"/>
         <attribute mode="OUT" name="hasNext" optional="false" type="Boolean"/>
+        <attribute mode="OUT" name="previousPageCount" optional="true" type="Long"/>
+        <attribute mode="OUT" name="nextPageCount" optional="true" type="Long"/>
+        <attribute mode="OUT" name="links" optional="true" type="Map"/>
         <attribute mode="OUT" name="products" optional="false" type="java.util.List"/>
     </service>
     <service name="findProductLookupOptions" engine="groovy" auth="true"
@@ -172,11 +176,15 @@ under the License.
         <attribute mode="IN" name="query" optional="true" type="String"/>
         <attribute mode="IN" name="pageIndex" optional="true" type="Integer"/>
         <attribute mode="IN" name="pageSize" optional="true" type="Integer"/>
+        <attribute mode="IN" name="sort" optional="true" type="String"/>
         <attribute mode="OUT" name="pageIndex" optional="false" type="Integer"/>
         <attribute mode="OUT" name="pageSize" optional="false" type="Integer"/>
         <attribute mode="OUT" name="totalCount" optional="false" type="Long"/>
         <attribute mode="OUT" name="totalPages" optional="false" type="Long"/>
         <attribute mode="OUT" name="hasNext" optional="false" type="Boolean"/>
+        <attribute mode="OUT" name="previousPageCount" optional="true" type="Long"/>
+        <attribute mode="OUT" name="nextPageCount" optional="true" type="Long"/>
+        <attribute mode="OUT" name="links" optional="true" type="Map"/>
         <attribute mode="OUT" name="products" optional="false" type="java.util.List"/>
     </service>
     <service name="getBomSnapshot" engine="groovy" auth="true"
@@ -269,11 +277,15 @@ under the License.
         <permission-service service-name="manufacturingPermissionService" main-action="VIEW"/>
         <attribute mode="IN" name="pageIndex" optional="true" type="Integer"/>
         <attribute mode="IN" name="pageSize" optional="true" type="Integer"/>
+        <attribute mode="IN" name="sort" optional="true" type="String"/>
         <attribute mode="OUT" name="pageIndex" optional="false" type="Integer"/>
         <attribute mode="OUT" name="pageSize" optional="false" type="Integer"/>
         <attribute mode="OUT" name="totalCount" optional="false" type="Long"/>
         <attribute mode="OUT" name="totalPages" optional="false" type="Long"/>
         <attribute mode="OUT" name="hasNext" optional="false" type="Boolean"/>
+        <attribute mode="OUT" name="previousPageCount" optional="true" type="Long"/>
+        <attribute mode="OUT" name="nextPageCount" optional="true" type="Long"/>
+        <attribute mode="OUT" name="links" optional="true" type="Map"/>
         <attribute mode="OUT" name="facilities" optional="false" type="java.util.List"/>
     </service>
     <service name="findBomTypes" engine="groovy" auth="true"
@@ -282,11 +294,15 @@ under the License.
         <permission-service service-name="manufacturingPermissionService" main-action="VIEW"/>
         <attribute mode="IN" name="pageIndex" optional="true" type="Integer"/>
         <attribute mode="IN" name="pageSize" optional="true" type="Integer"/>
+        <attribute mode="IN" name="sort" optional="true" type="String"/>
         <attribute mode="OUT" name="pageIndex" optional="false" type="Integer"/>
         <attribute mode="OUT" name="pageSize" optional="false" type="Integer"/>
         <attribute mode="OUT" name="totalCount" optional="false" type="Long"/>
         <attribute mode="OUT" name="totalPages" optional="false" type="Long"/>
         <attribute mode="OUT" name="hasNext" optional="false" type="Boolean"/>
+        <attribute mode="OUT" name="previousPageCount" optional="true" type="Long"/>
+        <attribute mode="OUT" name="nextPageCount" optional="true" type="Long"/>
+        <attribute mode="OUT" name="links" optional="true" type="Map"/>
         <attribute mode="OUT" name="bomTypes" optional="false" type="java.util.List"/>
     </service>
 </services>

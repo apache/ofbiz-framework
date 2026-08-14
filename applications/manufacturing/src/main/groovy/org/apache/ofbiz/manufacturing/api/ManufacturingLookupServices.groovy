@@ -36,9 +36,16 @@ Map findProductLookupOptions() {
     } catch (IllegalArgumentException e) {
         return ServiceUtil.returnError(e.message)
     }
+    List orderBy
+    try {
+        orderBy = productLookupOrderBy(queryOptions.sort)
+    } catch (IllegalArgumentException e) {
+        return ServiceUtil.returnError(e.message)
+    }
     String queryText = parameters.query?.trim()
     if (UtilValidate.isEmpty(queryText)) {
-        return success(RestApiUtil.getPagedResult('products', [], queryOptions, 0L, null))
+        return success(RestApiUtil.getPagedResult('products', [], queryOptions, 0L,
+                RestApiUtil.getRelativeRequestPath(binding)))
     }
 
     EntityCondition searchCondition = EntityUtil.upperLikeAny(['productId', 'productName', 'internalName'], queryText)
@@ -46,7 +53,7 @@ Map findProductLookupOptions() {
             .select('productId', 'productName', 'internalName', 'productTypeId', 'quantityUomId')
             .where(searchCondition)
     long totalCount = productQuery.queryCount()
-    List productRows = productQuery.orderBy('productId')
+    List productRows = productQuery.orderBy(orderBy)
             .queryPagedList(queryOptions.pageIndex, queryOptions.pageSize).getData()
     List products = productRows.collect { GenericValue product ->
         String productName = ManufacturingServiceUtil.displayProductName(product)
@@ -59,7 +66,8 @@ Map findProductLookupOptions() {
                 label: productName
         ]
     }
-    return success(RestApiUtil.getPagedResult('products', products, queryOptions, totalCount, null))
+    return success(RestApiUtil.getPagedResult('products', products, queryOptions, totalCount,
+            RestApiUtil.getRelativeRequestPath(binding)))
 }
 
 Map searchProducts() {
@@ -76,19 +84,14 @@ Map searchParties() {
     Map filters = queryOptions.filters
     List orderBy
     try {
-        orderBy = RestApiUtil.resolveOrderBy(queryOptions.sort, [
-                partyId: 'partyId',
-                partyName: 'groupName',
-                groupName: 'groupName',
-                firstName: 'firstName',
-                lastName: 'lastName'
-        ], ['partyId'])
+        orderBy = partyLookupOrderBy(queryOptions.sort)
     } catch (IllegalArgumentException e) {
         return ServiceUtil.returnError(e.message)
     }
     String queryText = filters.query?.trim()
     if (UtilValidate.isEmpty(queryText)) {
-        return success(RestApiUtil.getPagedResult('parties', [], queryOptions, 0L, null))
+        return success(RestApiUtil.getPagedResult('parties', [], queryOptions, 0L,
+                RestApiUtil.getRelativeRequestPath(binding)))
     }
 
     EntityCondition searchCondition = EntityUtil.upperLikeAny(['partyId', 'firstName', 'lastName', 'groupName'], queryText)
@@ -107,7 +110,8 @@ Map searchParties() {
                 label: partyName
         ]
     }
-    return success(RestApiUtil.getPagedResult('parties', parties, queryOptions, totalCount, null))
+    return success(RestApiUtil.getPagedResult('parties', parties, queryOptions, totalCount,
+            RestApiUtil.getRelativeRequestPath(binding)))
 }
 
 Map findFixedAssets() {
@@ -120,11 +124,7 @@ Map findFixedAssets() {
     Map filters = queryOptions.filters
     List orderBy
     try {
-        orderBy = RestApiUtil.resolveOrderBy(queryOptions.sort, [
-                fixedAssetId: 'fixedAssetId',
-                fixedAssetName: 'fixedAssetName',
-                fixedAssetTypeId: 'fixedAssetTypeId'
-        ], ['fixedAssetName', 'fixedAssetId'])
+        orderBy = fixedAssetLookupOrderBy(queryOptions.sort)
     } catch (IllegalArgumentException e) {
         return ServiceUtil.returnError(e.message)
     }
@@ -149,7 +149,8 @@ Map findFixedAssets() {
                         label: fixedAssetName
                 ]
             }
-    return success(RestApiUtil.getPagedResult('fixedAssets', fixedAssets, queryOptions, totalCount, null))
+    return success(RestApiUtil.getPagedResult('fixedAssets', fixedAssets, queryOptions, totalCount,
+            RestApiUtil.getRelativeRequestPath(binding)))
 }
 
 Map findCostComponentOptions() {
@@ -202,11 +203,17 @@ Map findFacilitiesByTypes(List facilityTypeIds) {
     } catch (IllegalArgumentException e) {
         return ServiceUtil.returnError(e.message)
     }
+    List orderBy
+    try {
+        orderBy = facilityLookupOrderBy(queryOptions.sort)
+    } catch (IllegalArgumentException e) {
+        return ServiceUtil.returnError(e.message)
+    }
     EntityQuery query = from('Facility')
             .select('facilityId', 'facilityName', 'facilityTypeId')
             .where(EntityCondition.makeCondition('facilityTypeId', EntityOperator.IN, facilityTypeIds))
     long totalCount = query.queryCount()
-    List facilities = query.orderBy('facilityName', 'facilityId')
+    List facilities = query.orderBy(orderBy)
             .queryPagedList(queryOptions.pageIndex, queryOptions.pageSize).getData()
             .collect { GenericValue facility ->
                 String facilityId = facility.facilityId
@@ -219,5 +226,42 @@ Map findFacilitiesByTypes(List facilityTypeIds) {
                         label: label
                 ]
     }
-    return success(RestApiUtil.getPagedResult('facilities', facilities, queryOptions, totalCount, null))
+    return success(RestApiUtil.getPagedResult('facilities', facilities, queryOptions, totalCount,
+            RestApiUtil.getRelativeRequestPath(binding)))
+}
+
+List productLookupOrderBy(String sortExpression) {
+    return RestApiUtil.resolveOrderBy(sortExpression, [
+            productId: 'productId',
+            productName: 'productName',
+            internalName: 'internalName',
+            productTypeId: 'productTypeId',
+            quantityUomId: 'quantityUomId'
+    ], ['productId'])
+}
+
+List partyLookupOrderBy(String sortExpression) {
+    return RestApiUtil.resolveOrderBy(sortExpression, [
+            partyId: 'partyId',
+            partyName: 'groupName',
+            groupName: 'groupName',
+            firstName: 'firstName',
+            lastName: 'lastName'
+    ], ['partyId'])
+}
+
+List fixedAssetLookupOrderBy(String sortExpression) {
+    return RestApiUtil.resolveOrderBy(sortExpression, [
+            fixedAssetId: 'fixedAssetId',
+            fixedAssetName: 'fixedAssetName',
+            fixedAssetTypeId: 'fixedAssetTypeId'
+    ], ['fixedAssetName', 'fixedAssetId'])
+}
+
+List facilityLookupOrderBy(String sortExpression) {
+    return RestApiUtil.resolveOrderBy(sortExpression, [
+            facilityId: 'facilityId',
+            facilityName: 'facilityName',
+            facilityTypeId: 'facilityTypeId'
+    ], ['facilityName', 'facilityId'])
 }

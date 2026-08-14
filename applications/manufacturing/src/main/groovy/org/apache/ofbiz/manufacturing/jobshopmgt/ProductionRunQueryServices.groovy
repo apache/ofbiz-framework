@@ -38,6 +38,12 @@ Map findProductionRuns() {
         return ServiceUtil.returnError(e.message)
     }
     Map filters = queryOptions.filters
+    List orderBy
+    try {
+        orderBy = productionRunOrderBy(queryOptions.sort)
+    } catch (IllegalArgumentException e) {
+        return ServiceUtil.returnError(e.message)
+    }
 
     String productionRunId = filters.productionRunId ?: filters.workEffortId
     List conditions = [
@@ -85,28 +91,13 @@ Map findProductionRuns() {
         Set productIds = EntityUtil.searchIds(delegator, 'Product', 'productId',
                 ['productId', 'productName', 'internalName'], filters.productName, 500)
         if (!productIds) {
-            return success(RestApiUtil.getPagedResult('productionRuns', [], queryOptions, 0L, null))
+            return success(RestApiUtil.getPagedResult('productionRuns', [], queryOptions, 0L,
+                    RestApiUtil.getRelativeRequestPath(binding)))
         }
         conditions.add(EntityCondition.makeCondition('productId', EntityOperator.IN, productIds as List))
     }
 
     EntityCondition whereCondition = EntityCondition.makeCondition(conditions, EntityOperator.AND)
-    List orderBy
-    try {
-        orderBy = RestApiUtil.resolveOrderBy(queryOptions.sort, [
-                estimatedStartDate: 'estimatedStartDate',
-                actualStartDate: 'actualStartDate',
-                status: 'currentStatusId',
-                currentStatusId: 'currentStatusId',
-                productId: 'productId',
-                facilityId: 'facilityId',
-                productionRunId: 'workEffortId',
-                workEffortId: 'workEffortId',
-                workEffortName: 'workEffortName'
-        ], ['-estimatedStartDate', 'workEffortId'])
-    } catch (IllegalArgumentException e) {
-        return ServiceUtil.returnError(e.message)
-    }
 
     EntityQuery productionRunQuery = from('WorkEffortAndGoods').where(whereCondition)
     long totalCount = productionRunQuery.queryCount()
@@ -119,7 +110,8 @@ Map findProductionRuns() {
         productionRunSummaryMap(productionRun, lookups)
     }
 
-    return success(RestApiUtil.getPagedResult('productionRuns', productionRuns, queryOptions, totalCount, null))
+    return success(RestApiUtil.getPagedResult('productionRuns', productionRuns, queryOptions, totalCount,
+            RestApiUtil.getRelativeRequestPath(binding)))
 }
 
 Map getProductionRunDetails() {
@@ -283,6 +275,20 @@ Map buildProductionRunLookups(List productionRuns, List productionRunGoods, List
             uoms: EntityUtil.lookupById(delegator, 'Uom', 'uomId', uomIds),
             roles: EntityUtil.lookupById(delegator, 'RoleType', 'roleTypeId', roleTypeIds)
     ]
+}
+
+List productionRunOrderBy(String sortExpression) {
+    return RestApiUtil.resolveOrderBy(sortExpression, [
+            estimatedStartDate: 'estimatedStartDate',
+            actualStartDate: 'actualStartDate',
+            status: 'currentStatusId',
+            currentStatusId: 'currentStatusId',
+            productId: 'productId',
+            facilityId: 'facilityId',
+            productionRunId: 'workEffortId',
+            workEffortId: 'workEffortId',
+            workEffortName: 'workEffortName'
+    ], ['-estimatedStartDate', 'workEffortId'])
 }
 
 Map productionRunSummaryMap(GenericValue productionRun, Map lookups) {

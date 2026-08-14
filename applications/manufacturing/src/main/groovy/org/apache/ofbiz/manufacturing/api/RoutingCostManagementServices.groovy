@@ -42,14 +42,7 @@ Map findProductRoutings() {
     Map filters = queryOptions.filters
     List orderBy
     try {
-        orderBy = RestApiUtil.resolveOrderBy(queryOptions.sort, [
-                routingId: 'workEffortId',
-                workEffortId: 'workEffortId',
-                workEffortName: 'workEffortName',
-                currentStatusId: 'currentStatusId',
-                status: 'currentStatusId',
-                quantityToProduce: 'quantityToProduce'
-        ], ['workEffortId'])
+        orderBy = routingOrderBy(queryOptions.sort)
     } catch (IllegalArgumentException e) {
         return ServiceUtil.returnError(e.message)
     }
@@ -57,7 +50,8 @@ Map findProductRoutings() {
     if (UtilValidate.isNotEmpty(filters.productId)) {
         Set productRoutingIds = routingIdsForProducts([filters.productId] as Set)
         if (!productRoutingIds) {
-            return success(RestApiUtil.getPagedResult('routings', [], queryOptions, 0L, null))
+            return success(RestApiUtil.getPagedResult('routings', [], queryOptions, 0L,
+                    RestApiUtil.getRelativeRequestPath(binding)))
         }
         conditions.add(EntityCondition.makeCondition('workEffortId', EntityOperator.IN, productRoutingIds as List))
     }
@@ -74,7 +68,8 @@ Map findProductRoutings() {
             matchingRoutingIds.addAll(routingIdsForProducts(matchingProductIds))
         }
         if (!matchingRoutingIds) {
-            return success(RestApiUtil.getPagedResult('routings', [], queryOptions, 0L, null))
+            return success(RestApiUtil.getPagedResult('routings', [], queryOptions, 0L,
+                    RestApiUtil.getRelativeRequestPath(binding)))
         }
         conditions.add(EntityCondition.makeCondition('workEffortId', EntityOperator.IN, matchingRoutingIds as List))
     }
@@ -107,7 +102,8 @@ Map findProductRoutings() {
                 taskCount: taskCounts[routing.workEffortId] ?: 0
         ]
     }
-    return success(RestApiUtil.getPagedResult('routings', routingList, queryOptions, totalCount, null))
+    return success(RestApiUtil.getPagedResult('routings', routingList, queryOptions, totalCount,
+            RestApiUtil.getRelativeRequestPath(binding)))
 }
 
 Map getRoutingDetails() {
@@ -203,19 +199,14 @@ Map routingTaskList(boolean requireQuery) {
     Map filters = queryOptions.filters
     List orderBy
     try {
-        orderBy = RestApiUtil.resolveOrderBy(queryOptions.sort, [
-                routingTaskId: 'workEffortId',
-                workEffortId: 'workEffortId',
-                workEffortName: 'workEffortName',
-                workEffortPurposeTypeId: 'workEffortPurposeTypeId',
-                fixedAssetId: 'fixedAssetId'
-        ], ['workEffortName', 'workEffortId'])
+        orderBy = routingTaskOrderBy(queryOptions.sort)
     } catch (IllegalArgumentException e) {
         return ServiceUtil.returnError(e.message)
     }
     String queryText = filters.query?.toString()?.trim()
     if (requireQuery && UtilValidate.isEmpty(queryText)) {
-        return RestApiUtil.getPagedResult('tasks', [], queryOptions, 0L, null)
+        return RestApiUtil.getPagedResult('tasks', [], queryOptions, 0L,
+                RestApiUtil.getRelativeRequestPath(binding))
     }
 
     List conditions = [EntityCondition.makeCondition('workEffortTypeId', 'ROU_TASK')]
@@ -243,7 +234,8 @@ Map routingTaskList(boolean requireQuery) {
             'workEffortPurposeTypeId', rows*.workEffortPurposeTypeId.findAll { it } as Set)
     List tasks = rows.collect { GenericValue task -> taskMap(task, null, workCenters, purposeTypes) }
 
-    return RestApiUtil.getPagedResult('tasks', tasks, queryOptions, totalCount, null)
+    return RestApiUtil.getPagedResult('tasks', tasks, queryOptions, totalCount,
+            RestApiUtil.getRelativeRequestPath(binding))
 }
 
 Map getRoutingTaskDetails() {
@@ -267,10 +259,7 @@ Map findRoutingTaskPurposeTypeOptions() {
     }
     List orderBy
     try {
-        orderBy = RestApiUtil.resolveOrderBy(queryOptions.sort, [
-                workEffortPurposeTypeId: 'workEffortPurposeTypeId',
-                description: 'description'
-        ], ['workEffortPurposeTypeId'])
+        orderBy = routingPurposeTypeOrderBy(queryOptions.sort)
     } catch (IllegalArgumentException e) {
         return ServiceUtil.returnError(e.message)
     }
@@ -291,7 +280,36 @@ Map findRoutingTaskPurposeTypeOptions() {
                 ]
             }
 
-    return success(RestApiUtil.getPagedResult('purposeTypes', purposeTypes, queryOptions, totalCount, null))
+    return success(RestApiUtil.getPagedResult('purposeTypes', purposeTypes, queryOptions, totalCount,
+            RestApiUtil.getRelativeRequestPath(binding)))
+}
+
+List routingOrderBy(String sortExpression) {
+    return RestApiUtil.resolveOrderBy(sortExpression, [
+            routingId: 'workEffortId',
+            workEffortId: 'workEffortId',
+            workEffortName: 'workEffortName',
+            currentStatusId: 'currentStatusId',
+            status: 'currentStatusId',
+            quantityToProduce: 'quantityToProduce'
+    ], ['workEffortId'])
+}
+
+List routingTaskOrderBy(String sortExpression) {
+    return RestApiUtil.resolveOrderBy(sortExpression, [
+            routingTaskId: 'workEffortId',
+            workEffortId: 'workEffortId',
+            workEffortName: 'workEffortName',
+            workEffortPurposeTypeId: 'workEffortPurposeTypeId',
+            fixedAssetId: 'fixedAssetId'
+    ], ['workEffortName', 'workEffortId'])
+}
+
+List routingPurposeTypeOrderBy(String sortExpression) {
+    return RestApiUtil.resolveOrderBy(sortExpression, [
+            workEffortPurposeTypeId: 'workEffortPurposeTypeId',
+            description: 'description'
+    ], ['workEffortPurposeTypeId'])
 }
 
 Map taskDetailMap(GenericValue task) {
