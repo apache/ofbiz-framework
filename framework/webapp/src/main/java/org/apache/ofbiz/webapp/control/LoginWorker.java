@@ -1429,9 +1429,14 @@ public final class LoginWorker {
     }
 
     public static boolean hasBasePermission(GenericValue userLogin, HttpServletRequest request) {
+        ServletContext context = request.getServletContext();
         Security security = (Security) request.getAttribute("security");
+        if (security == null) {
+            // ContextFilter may not have run yet for this request (e.g. when ControlFilter is mapped
+            // before ContextFilter); the same Security instance is already cached on the ServletContext.
+            security = (Security) context.getAttribute("security");
+        }
         if (security != null) {
-            ServletContext context = request.getServletContext();
             String serverId = (String) context.getAttribute("_serverId");
             // get a context path from the request, if it is empty then assume it is the root mount point
             String contextPath = request.getContextPath();

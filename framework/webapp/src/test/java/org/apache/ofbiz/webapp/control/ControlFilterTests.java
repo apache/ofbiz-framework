@@ -30,6 +30,7 @@ import org.junit.jupiter.api.Test;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.FilterConfig;
+import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -52,6 +53,8 @@ public final class ControlFilterTests {
         req = mock(HttpServletRequest.class);
         when(req.getSession()).thenReturn(session);
         when(req.getContextPath()).thenReturn("");
+        // A real HttpServletRequest always has a ServletContext; LoginWorker.hasBasePermission() relies on this.
+        when(req.getServletContext()).thenReturn(mock(ServletContext.class));
         resp = mock(HttpServletResponse.class);
         next = mock(FilterChain.class);
         System.setProperty("ControlFilterTests", "bypassPreventsStreamExploitation");
