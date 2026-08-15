@@ -445,13 +445,27 @@ under the License.
 
     <request-map uri="RunTest/{compName}/{suiteName}">
         <security https="true" auth="true"/>
-        <event type="java" path="org.apache.ofbiz.webtools.artifactinfo.RunTestEvents" invoke="runTest"/>
+        <!-- TestRunContainer runs a whole testdef suite's worth of otherwise-independent
+             test-cases; each manages its own transaction the same way it does when run via
+             the ofbiz command line's own test option, which never runs inside an event's
+             ambient transaction to begin with. Without global-transaction="false" here,
+             JavaEventHandler's default whole-invoke() transaction folds every one of those
+             test-cases into a single ambient transaction instead, breaking both data
+             visibility between test-cases and per-suite rollback-only isolation. -->
+        <event type="java" path="org.apache.ofbiz.webtools.artifactinfo.RunTestEvents" invoke="runTest" global-transaction="false"/>
         <response name="success" type="request" value="TestSuiteInfo"/>
         <response name="error" type="request" value="TestSuiteInfo"/>
     </request-map>
     <request-map uri="RunTest/{compName}/{suiteName}/{caseName}">
         <security https="true" auth="true"/>
-        <event type="java" path="org.apache.ofbiz.webtools.artifactinfo.RunTestEvents" invoke="runTest"/>
+        <!-- TestRunContainer runs a whole testdef suite's worth of otherwise-independent
+             test-cases; each manages its own transaction the same way it does when run via
+             the ofbiz command line's own test option, which never runs inside an event's
+             ambient transaction to begin with. Without global-transaction="false" here,
+             JavaEventHandler's default whole-invoke() transaction folds every one of those
+             test-cases into a single ambient transaction instead, breaking both data
+             visibility between test-cases and per-suite rollback-only isolation. -->
+        <event type="java" path="org.apache.ofbiz.webtools.artifactinfo.RunTestEvents" invoke="runTest" global-transaction="false"/>
         <response name="success" type="request" value="TestSuiteInfo"/>
         <response name="error" type="request" value="TestSuiteInfo"/>
     </request-map>

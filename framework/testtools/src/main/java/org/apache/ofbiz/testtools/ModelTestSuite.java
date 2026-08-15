@@ -63,21 +63,110 @@ public class ModelTestSuite {
         this.delegator = DelegatorFactory.getDelegator(DELEGATOR_NAME).makeTestDelegator(DELEGATOR_NAME + uniqueSuffix);
         this.dispatcher = ServiceContainer.getLocalDispatcher(DISPATCHER_NAME + uniqueSuffix, delegator);
 
-        for (Element testCaseElement : UtilXml.childElementList(mainElement, UtilMisc.toSet("test-case", "test-group"))) {
+        List<Element> testCaseElements = List.copyOf(UtilXml.childElementList(mainElement, UtilMisc.toSet("test-case", "test-group")));
+        for (Element testCaseElement : selectTestCaseElements(testCaseElements, testCase)) {
             String caseName = testCaseElement.getAttribute("case-name");
             String nodeName = testCaseElement.getNodeName();
-            if (testCase == null || caseName.equals(testCase)) {
-                if ("test-case".equals(nodeName)) {
-                    parseTestElement(caseName, UtilXml.firstChildElement(testCaseElement));
-                } else if ("test-group".equals(nodeName)) {
-                    int i = 0;
-                    for (Element childElement: UtilXml.childElementList(testCaseElement)) {
-                        parseTestElement(caseName + '-' + i, childElement);
-                        i++;
-                    }
+            if ("test-case".equals(nodeName)) {
+                parseTestElement(caseName, UtilXml.firstChildElement(testCaseElement));
+            } else if ("test-group".equals(nodeName)) {
+                int i = 0;
+                for (Element childElement: UtilXml.childElementList(testCaseElement)) {
+                    parseTestElement(caseName + '-' + i, childElement);
+                    i++;
                 }
             }
         }
+    }
+
+    /**
+     * Selects which of a suite's ordered test-case/test-group elements should run for a given
+     * {@code case=} filter.
+     *
+     * <p>A single case is rarely self-contained: every testdef file in this repo follows the
+     * convention of a data-load case (an {@code entity-xml action="load"}, typically named
+     * {@code *-data-load}/{@code load*TestData}) declared immediately before the case(s) that consume
+     * it - see e.g. applications/party/testdef/PartyTests.xml's {@code party-tests-data-load} feeding
+     * {@code party-tests}. Filtering down to only the exact requested case-name, the way this method
+     * used to work, silently drops that prerequisite and leaves the requested case failing for lack of
+     * data it never asked to be responsible for loading itself.
+     *
+     * <p>Only that one shape - an {@code entity-xml}/{@code entity-xml-assert} case whose
+     * {@code action} is {@code "load"} - is auto-included as a prerequisite; every other preceding
+     * case is skipped unless it is itself the requested case. That is deliberately narrower than
+     * "run everything declared before the requested case": a {@code load} is additive and
+     * side-effect-free relative to every other case in the suite, so running it unconditionally is
+     * safe, but nothing else in a testdef file has that property -
+     * <ul>
+     * <li>A {@code jupiter-test-suite}/{@code junit-test-suite} case, or a {@code test-group} (a
+     * repo-wide scan found 14 of 15 {@code test-group} children are themselves
+     * {@code jupiter-test-suite}), is a whole independent test class in its own right. Several
+     * testdef files (e.g. framework/entity/testdef/entitytests.xml) bundle multiple such classes into
+     * one {@code <test-suite>} purely for organization, with no data relationship between them -
+     * requesting entity-crypto-tests (declared third) used to also run the unrelated, much larger and
+     * deliberately slow entity-tests/entity-util-tests classes ahead of it, turning a single-case
+     * request into most of the suite's runtime.</li>
+     * <li>A {@code service-test} is always a real functional test in every testdef file in this repo,
+     * never data loading (see framework/service/testdef/servicetests.xml's
+     * service-dead-lock-retry-test and friends).</li>
+     * <li>An {@code entity-xml} whose action is {@code "assert"} (the default when unset) is a check,
+     * not a load - in servicetests.xml, service-eca-global-event-exec-assert-data verifies the side
+     * effects of the service-test case declared immediately before it. Auto-including an assert case
+     * without the real test whose effects it checks would assert against data that was never
+     * created - trading one bug (a missing prerequisite) for another (a spurious failure) rather than
+     * fixing it.</li>
+     * </ul>
+     *
+     * <p>Nothing declared after the requested case runs, so this is not simply "ignore the filter":
+     * a case still can't see data set up by a case that only runs after it in the suite's own
+     * declared order.
+     *
+     * <p>When {@code testCase} is {@code null} (no filter - run the whole suite), every element is
+     * selected unchanged. When {@code testCase} names a case-name that isn't present in this
+     * particular document at all, nothing is selected - unchanged from the old exact-match
+     * behavior, and still what lets JunitSuiteWrapper's suite-name filtering keep a testdef file
+     * that simply doesn't define the requested case from contributing anything.
+     * @param testCaseElements the suite's test-case/test-group elements, in declared order
+     * @param testCase the requested case-name, or {@code null} to select every element
+     * @return the elements to run, in the same order
+     */
+    static List<Element> selectTestCaseElements(List<Element> testCaseElements, String testCase) {
+        if (testCase == null) {
+            return testCaseElements;
+        }
+        List<Element> selected = new ArrayList<>();
+        for (Element element : testCaseElements) {
+            boolean isTarget = testCase.equals(element.getAttribute("case-name"));
+            if (isTarget) {
+                selected.add(element);
+                return selected;
+            }
+            if (isDataLoadCase(element)) {
+                selected.add(element);
+            }
+        }
+        return List.of();
+    }
+
+    /**
+     * True for a {@code <test-case>} whose sole child is an {@code entity-xml}/{@code entity-xml-assert}
+     * element with {@code action="load"}: the one shape safe to auto-include as a prerequisite ahead
+     * of a requested case. See selectTestCaseElements()'s javadoc for why every other shape - including
+     * the same elements with a different action - is excluded instead.
+     * @param testCaseElement one of a suite's test-case/test-group elements
+     * @return true if this element is a genuine data-load case
+     */
+    private static boolean isDataLoadCase(Element testCaseElement) {
+        if (!"test-case".equals(testCaseElement.getNodeName())) {
+            return false;
+        }
+        Element child = UtilXml.firstChildElement(testCaseElement);
+        if (child == null) {
+            return false;
+        }
+        String nodeName = child.getNodeName();
+        boolean isEntityXml = "entity-xml".equals(nodeName) || "entity-xml-assert".equals(nodeName);
+        return isEntityXml && "load".equals(child.getAttribute("action"));
     }
 
     private void parseTestElement(String caseName, Element testElement) {

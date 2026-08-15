@@ -76,10 +76,24 @@ public class JavaEventHandler implements EventHandler {
         if (Debug.verboseOn()) {
             Debug.logVerbose("[Processing]: Java Event", MODULE);
         }
+        // A type="java" event defaults to running inside one transaction spanning the whole
+        // invoke() call - the same global-transaction="false" opt-out ServiceMultiEventHandler
+        // already honors for type="service-multi" events. Without it, an event whose own method
+        // deliberately manages several independent units of work (e.g. RunTestEvents running a
+        // whole testdef suite's worth of otherwise-independent test-cases through TestRunContainer)
+        // has every one of those units silently folded into this one ambient transaction instead:
+        // an entity-xml load's own begin()/commit() inside that event becomes a no-op participant
+        // rather than a real commit, so a require-new-transaction service called by a later,
+        // unrelated test-case in the same suite can't see data an earlier one just "committed",
+        // and one test-case marking the transaction rollback-only poisons every test-case after it
+        // in the same event invocation - see the 2026-08-15 ecommerce/entity/service RunTest
+        // investigation this comment was added for.
         boolean began = false;
         try {
-            int timeout = Integer.max(event.getTransactionTimeout(), 0);
-            began = TransactionUtil.begin(timeout);
+            if (event.isGlobalTransaction()) {
+                int timeout = Integer.max(event.getTransactionTimeout(), 0);
+                began = TransactionUtil.begin(timeout);
+            }
             Method m = k.getMethod(event.getInvoke(), HttpServletRequest.class,
                                    HttpServletResponse.class);
             String ret = (String) m.invoke(null, request, response);
