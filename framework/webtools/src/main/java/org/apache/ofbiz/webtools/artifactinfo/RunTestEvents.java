@@ -43,7 +43,7 @@ public class RunTestEvents {
 
         List<StartupCommand> ofbizCommands = new ArrayList<>();
         Map<String, String> cmdArgs = UtilMisc.toMap("component", component, "suitename", suiteName);
-        if (caseName == null) {
+        if (caseName != null) {
             cmdArgs.put("case", caseName);
         }
         ofbizCommands.add(new StartupCommand.Builder("test").properties(cmdArgs).build());
