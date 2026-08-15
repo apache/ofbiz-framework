@@ -1004,11 +1004,28 @@ tasks.addRule('Pattern: ofbizBackground <Commands>: Execute OFBiz startup comman
 def createOfbizCommandTask(taskName, arguments) {
     task(type: JavaExec, dependsOn: classes, taskName) {
         jvmArgs(application.applicationDefaultJvmArgs)
+        // Every ofbiz-launched dev server needs test classes on its classpath, not just one
+        // started with --test/-t: webtools' "Run Test" screen (RunTestEvents -> TestRunContainer)
+        // loads jupiter-test-suite/junit-test-suite classes by name inside whatever JVM is already
+        // running, regardless of how that JVM was started. OFBIZ-13402 moved those classes out of
+        // src/main/* (and so out of sourceSets.main) to keep them out of release artifacts; this
+        // task is a local dev-run launcher, never a release-packaging task, so widening its
+        // classpath here doesn't reintroduce test code into anything that gets distributed.
+        classpath = sourceSets.main.runtimeClasspath + sourceSets.test.runtimeClasspath
         if (taskName ==~ /^ofbiz.*(--test|-t).*/) {
-            classpath = sourceSets.main.runtimeClasspath + sourceSets.test.runtimeClasspath
+            // TestRunContainer.java writes one XML per suite as "<suite.getName()>.xml" and only
+            // ever overwrites the suites a run actually re-executes - nothing here deletes the
+            // rest first. Left alone, a narrower run (suitename=... filtering to one component) or
+            // a renamed/removed suite leaves other suites' XML sitting in this directory from
+            // whenever they last ran, and createTestReports below just globs whatever *.xml
+            // files exist at generation time - so the report would silently blend fresh results
+            // with stale ones from an earlier run into what looks like one coherent run. Clearing
+            // the directory before the run starts guarantees every report reflects exactly this
+            // run's suites, nothing left over from before.
+            doFirst {
+                delete fileTree('./runtime/logs/test-results') { include '*.xml' }
+            }
             finalizedBy(createTestReports)
-        } else {
-            classpath = sourceSets.main.runtimeClasspath
         }
         mainClass = application.mainClass
         args arguments
