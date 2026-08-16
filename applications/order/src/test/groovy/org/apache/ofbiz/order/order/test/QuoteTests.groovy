@@ -18,13 +18,7 @@
  */
 package org.apache.ofbiz.order.order.test
 
-import static org.apache.ofbiz.entity.condition.EntityComparisonOperator.GREATER_THAN_EQUAL_TO
-
-import java.sql.Timestamp
-
-import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.entity.GenericValue
-import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.order.shoppingcart.ShoppingCart
 import org.apache.ofbiz.service.ServiceUtil
 import org.apache.ofbiz.testtools.JunitJupiterTest
@@ -60,11 +54,15 @@ class QuoteTests implements JupiterTestHelper {
     @Test
     @Order(2)
     void testCreateQuoteWorkEffortFail() {
-        Timestamp startTime = UtilDateTime.nowTimestamp()
         GenericValue userLogin = getUserLogin('DemoRepStore')
 
         String quoteId = '9001'
         String workEffortId = '9007'
+
+        // Capture the record as it stands before this test's own call, so the comparison below
+        // doesn't depend on wall-clock timestamps (racy when tests run within the same millisecond)
+        GenericValue quoteWorkEffortBefore = from('QuoteWorkEffort')
+                .where(quoteId: quoteId, workEffortId: workEffortId).queryOne()
 
         // Execute the service, note break-on-error is false so that the test
         // itself doesn't fail and we also need a separate transaction so our
@@ -79,12 +77,10 @@ class QuoteTests implements JupiterTestHelper {
         assert ServiceUtil.isError(serviceResult)
 
         // Confirm the database changes, in this case nothing should have changed
-        GenericValue quoteWorkEffort = from('QuoteWorkEffort').where(
-                EntityCondition.makeCondition(quoteId: quoteId, workEffortId: workEffortId),
-                EntityCondition.makeCondition('lastUpdatedStamp', GREATER_THAN_EQUAL_TO, startTime)
-                ).queryOne()
+        GenericValue quoteWorkEffort = from('QuoteWorkEffort')
+                .where(quoteId: quoteId, workEffortId: workEffortId).queryOne()
 
-        assert !quoteWorkEffort
+        assert quoteWorkEffort == quoteWorkEffortBefore
     }
 
     @Test
