@@ -794,7 +794,7 @@ public class EmailServices {
         if (config == null || !"Y".equals(config.getString("enabled"))) {
             return mail;
         }
-        String domain = config.getString("domain");
+        String domain = config.getString("signingDomain");
         String selector = config.getString("selector");
         String privateKeyPem = config.getString("privateKey");
         if (UtilValidate.isEmpty(domain) || UtilValidate.isEmpty(selector) || UtilValidate.isEmpty(privateKeyPem)) {
@@ -840,7 +840,7 @@ public class EmailServices {
         if (config == null) {
             return ServiceUtil.returnError("No MailDkimConfig found for ID [" + mailDkimConfigId + "]");
         }
-        String domain = config.getString("domain");
+        String domain = config.getString("signingDomain");
         String selector = config.getString("selector");
         String privateKeyPem = config.getString("privateKey");
         if (UtilValidate.isEmpty(domain) || UtilValidate.isEmpty(selector) || UtilValidate.isEmpty(privateKeyPem)) {
