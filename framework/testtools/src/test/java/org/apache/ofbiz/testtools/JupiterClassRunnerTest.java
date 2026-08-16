@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.apache.logging.log4j.ThreadContext;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.junit.jupiter.api.AfterEach;
@@ -144,6 +145,15 @@ class JupiterClassRunnerTest {
     }
 
     @Test
+    void tagsLogContextWithTestCaseDuringExecutionAndClearsItAfter() {
+        new JupiterTestExtension.JupiterClassRunner(MdcCapturingFixture.class, mock(Delegator.class),
+                mock(LocalDispatcher.class), new RecordingSink()).run();
+
+        assertThat(MdcCapturingFixture.capturedTestCase, is("MdcCapturingFixture#capturesMdc"));
+        assertThat(ThreadContext.get("testCase"), nullValue());
+    }
+
+    @Test
     void reportsRealClassAndMethodNamesNotASharedSyntheticClass() {
         RecordingSink sink = new RecordingSink();
 
@@ -228,6 +238,16 @@ class JupiterClassRunnerTest {
         @Test
         void methodD() {
             EXECUTED_ON.add(Thread.currentThread());
+        }
+    }
+
+    @Tag(JupiterTestExtension.INTEGRATION_TAG)
+    static class MdcCapturingFixture {
+        static String capturedTestCase;
+
+        @Test
+        void capturesMdc() {
+            capturedTestCase = ThreadContext.get("testCase");
         }
     }
 
