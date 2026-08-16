@@ -92,7 +92,7 @@ class Junit3ResultBridgeTest {
 
         new MdcCapturingCase().run(result);
 
-        assertThat(MdcCapturingCase.capturedTestCase, is("MdcCapturingCase#testCaptureMdc"));
+        assertThat(MdcCapturingCase.capturedTestCase(), is("MdcCapturingCase#testCaptureMdc"));
         assertThat(ThreadContext.get("testCase"), nullValue());
     }
 
@@ -118,7 +118,7 @@ class Junit3ResultBridgeTest {
     }
 
     public static class MdcCapturingCase extends TestCase {
-        static String capturedTestCase;
+        private static String capturedTestCase;
 
         MdcCapturingCase() {
             super("testCaptureMdc");
@@ -126,6 +126,10 @@ class Junit3ResultBridgeTest {
 
         public void testCaptureMdc() {
             capturedTestCase = ThreadContext.get("testCase");
+        }
+
+        static String capturedTestCase() {
+            return capturedTestCase;
         }
     }
 
