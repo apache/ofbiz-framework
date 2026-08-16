@@ -6477,32 +6477,6 @@
         <value xml:lang="zh">没有有效地址</value>
         <value xml:lang="zh-TW">沒有有效位址</value>
     </property>
-    <property key="OrderNoAgreementFoundWithIdNotDoingPromotions">
-        <value xml:lang="ar">لا يوجد اتفاقية ذات دليل ليس بها ترويجات</value>
-        <value xml:lang="de">Keine Vereinbarung mit dieser ID gefunden. Es werden keine Aktionen angewendet</value>
-        <value xml:lang="en">No Agreement Found With Id Not Doing Promotions</value>
-        <value xml:lang="fr">Pas d'accord trouvé avec cette référence. Aucune promotion activée</value>
-        <value xml:lang="it">Nessun contratto trovato con questo id nessuna promozione verrà creata</value>
-        <value xml:lang="ja">プロモーションをしていないIDで同意書はありません</value>
-        <value xml:lang="nl">Geen contract gevonden; promos worden niet toegepast</value>
-        <value xml:lang="pt-BR">Nenhum acordo encontrado com ID sem fazer promoções</value>
-        <value xml:lang="vi">Không có 'thỏa thuận' nào với Id và không thực hiện Khuyến mãi</value>
-        <value xml:lang="zh">没有找到带有不做促销的标识的合同</value>
-        <value xml:lang="zh-TW">找不到帶有不做促銷識別的合約</value>
-    </property>
-    <property key="OrderNoAgreementItemFoundForAgreementWithIdNotDoingPromotions">
-        <value xml:lang="ar">لا يوجد بند اتفاقية ذو دليل ليس به ترويجات</value>
-        <value xml:lang="de">Kein Vereinbarungselement mit dieser ID gefunden. Es werden keine Aktionen angewendet</value>
-        <value xml:lang="en">No Agreement Item Found With Id Not Doing Promotions</value>
-        <value xml:lang="fr">Pas ligne d'accord trouvée avec cette référence. Aucune promotion activée</value>
-        <value xml:lang="it">Nessuna riga contratto trovata con questo id nessuna promozione verrà creata</value>
-        <value xml:lang="ja">プロモーションをしていないIDで同意書はありません</value>
-        <value xml:lang="nl">Geen contractregel gevonden; promos worden niet toegepast</value>
-        <value xml:lang="pt-BR">Nenhum artigo encontrado com ID sem fazer promoções</value>
-        <value xml:lang="vi">Không có 'điều khoản thỏa thuận' nào với Id và không thực hiện Khuyến mãi</value>
-        <value xml:lang="zh">没有找到带有不做促销的标识的合同条款</value>
-        <value xml:lang="zh-TW">找不到帶有不做促銷的識別的合約條款</value>
-    </property>
     <property key="OrderNoChannel">
         <value xml:lang="ar">لا يوجد قناة</value>
         <value xml:lang="de">Kein Kanal</value>

@@ -57,7 +57,7 @@ under the License.
     <Agreement agreementId="1010" agreementTypeId="COMMISSION_AGREEMENT" description="Commission Agreement" partyIdFrom="DEMO_COMPANY" partyIdTo="DEMO_COMPANY1" roleTypeIdFrom="SUPPLIER" roleTypeIdTo="DISTRIBUTOR" fromDate="2016-09-29 00:00:00"/>
     <AgreementItem agreementId="1010" agreementItemSeqId="0001" currencyUomId="USD" agreementItemTypeId="AGREEMENT_COMMISSION" agreementText="Commission in USD"/>
     <AgreementProductAppl agreementId="1010" agreementItemSeqId="0001" productId="TestProduct2"/>
-    <AgreementTerm agreementTermId="1010" termTypeId="FIN_COMM_VARIABLE" agreementId="1010" agreementItemSeqId="0001" productId="TestProduct2" invoiceItemTypeId="COMM_INV_ITEM" fromDate="2016-09-29 00:00:00" thruDate="2017-09-29 00:00:00" termValue="10" termDays="30" minQuantity="1" maxQuantity="100" description="Agreement Term for Test Product 2 Commission"/>
+    <AgreementTerm agreementTermId="1010" termTypeId="FIN_COMM_VARIABLE" agreementId="1010" agreementItemSeqId="0001" invoiceItemTypeId="COMM_INV_ITEM" fromDate="2016-09-29 00:00:00" thruDate="2017-09-29 00:00:00" termValue="10" termDays="30" minQuantity="1" maxQuantity="100" description="Agreement Term for Test Product 2 Commission"/>
     <!-- For Testing service updateBudgetStatus -->
     <Budget budgetId="9999" budgetTypeId="CAPITAL_BUDGET" comments="This is the capital budget"/>
     <BudgetStatus budgetId="9999" statusId="BG_CREATED" statusDate="2016-09-29 00:00:00"/>
