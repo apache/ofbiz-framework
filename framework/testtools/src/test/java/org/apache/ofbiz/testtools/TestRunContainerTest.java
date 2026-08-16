@@ -20,16 +20,20 @@ package org.apache.ofbiz.testtools;
 
 import java.util.List;
 
+import org.apache.logging.log4j.ThreadContext;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.junit.jupiter.api.Test;
 
 import junit.framework.TestCase;
+import junit.framework.TestResult;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.nullValue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 
 /**
@@ -96,6 +100,17 @@ class TestRunContainerTest {
         assertThat(sink.testFinishedCalls.get(0).outcome(), instanceOf(SuiteReportSink.Outcome.Failure.class));
     }
 
+    @Test
+    void runSuiteEntriesClearsTheTestCaseMdcFieldEvenWhenAJunit3EngineEscapesBeforeEndTest() {
+        RecordingSink sink = new RecordingSink();
+        List<SuiteEntry> entries = List.of(new SuiteEntry.Junit3Entry(new StartsThenThrowsBeforeEndTestCase()));
+
+        assertThrows(RuntimeException.class, () ->
+                TestRunContainer.runSuiteEntries(entries, mock(Delegator.class), mock(LocalDispatcher.class), sink));
+
+        assertThat(ThreadContext.get(JupiterTestExtension.TEST_CASE_MDC_KEY), nullValue());
+    }
+
     static class NamedCase extends TestCase {
         NamedCase(String name) {
             super(name);
@@ -121,6 +136,26 @@ class TestRunContainerTest {
     static class OneTestFixture {
         @Test
         void onlyTest() {
+        }
+    }
+
+    /**
+     * Mirrors how ServiceTest/SimpleMethodTest/EntityXmlAssertTest override run(TestResult) directly -
+     * calling result.startTest(this) (which arms the testCase MDC field via Junit3ResultBridge.startTest())
+     * themselves, then running the test's own logic before reaching result.endTest(this). An unchecked
+     * exception thrown from that logic - as opposed to the addFailure()/addError() calls those engines
+     * normally make - propagates straight out of run(TestResult), skipping endTest() (and therefore
+     * Junit3ResultBridge.endTest()'s ThreadContext.remove()) entirely.
+     */
+    static class StartsThenThrowsBeforeEndTestCase extends TestCase {
+        StartsThenThrowsBeforeEndTestCase() {
+            super("startsThenThrows");
+        }
+
+        @Override
+        public void run(TestResult result) {
+            result.startTest(this);
+            throw new RuntimeException("escaped before endTest()");
         }
     }
 }

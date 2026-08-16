@@ -367,6 +367,7 @@ public class JupiterTestExtension implements ParameterResolver, TestInstancePost
             } catch (Throwable t) {
                 reportClassExecutionFailure(t);
             } finally {
+                ThreadContext.remove(TEST_CASE_MDC_KEY);
                 JupiterTestExtension.CURRENT_DELEGATOR.remove();
                 JupiterTestExtension.CURRENT_DISPATCHER.remove();
             }
