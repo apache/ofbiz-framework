@@ -22,6 +22,7 @@ import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.logging.log4j.ThreadContext;
 import org.apache.ofbiz.testtools.SuiteReportSink.Outcome;
 
 import junit.framework.AssertionFailedError;
@@ -54,6 +55,9 @@ final class Junit3ResultBridge implements TestListener {
     private final Map<Test, Long> startTimes = new IdentityHashMap<>();
     private final Map<Test, Outcome> outcomes = new IdentityHashMap<>();
 
+    // Must match the %X{testCase} reference in framework/base/config/log4j2.xml's logPattern.
+    private static final String TEST_CASE_MDC_KEY = "testCase";
+
     Junit3ResultBridge(SuiteReportSink... sinks) {
         this.sinks = List.of(sinks);
     }
@@ -61,6 +65,7 @@ final class Junit3ResultBridge implements TestListener {
     @Override
     public void startTest(Test test) {
         startTimes.put(test, System.currentTimeMillis());
+        ThreadContext.put(TEST_CASE_MDC_KEY, test.getClass().getSimpleName() + "#" + nameOf(test));
         ReportingSupport.dispatch(sinks, sink -> sink.testStarted(classnameOf(test), nameOf(test)));
     }
 
@@ -80,8 +85,12 @@ final class Junit3ResultBridge implements TestListener {
         // JUnit 3's dispatch order is always startTest -> [addFailure|addError]* -> endTest, with
         // endTest() called exactly once per test regardless of how many addFailure()/addError() calls
         // preceded it - so this is the single dispatch point for testFinished().
-        Outcome outcome = outcomes.remove(test);
-        report(test, outcome != null ? outcome : Outcome.passed());
+        try {
+            Outcome outcome = outcomes.remove(test);
+            report(test, outcome != null ? outcome : Outcome.passed());
+        } finally {
+            ThreadContext.remove(TEST_CASE_MDC_KEY);
+        }
     }
 
     private void report(Test test, Outcome outcome) {

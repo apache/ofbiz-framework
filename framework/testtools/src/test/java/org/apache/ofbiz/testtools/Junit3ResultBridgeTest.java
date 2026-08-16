@@ -19,6 +19,7 @@
 package org.apache.ofbiz.testtools;
 
 import org.junit.jupiter.api.Test;
+import org.apache.logging.log4j.ThreadContext;
 
 import junit.framework.AssertionFailedError;
 import junit.framework.TestCase;
@@ -28,6 +29,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.nullValue;
 
 class Junit3ResultBridgeTest {
 
@@ -82,6 +84,18 @@ class Junit3ResultBridgeTest {
         assertThat(failure.message(), is("first failure"));
     }
 
+    @Test
+    void tagsLogContextWithTestCaseDuringExecutionAndClearsItAfter() {
+        RecordingSink sink = new RecordingSink();
+        TestResult result = new TestResult();
+        result.addListener(new Junit3ResultBridge(sink));
+
+        new MdcCapturingCase().run(result);
+
+        assertThat(MdcCapturingCase.capturedTestCase, is("MdcCapturingCase#testCaptureMdc"));
+        assertThat(ThreadContext.get("testCase"), nullValue());
+    }
+
     /**
      * Mirrors how ServiceTest/SimpleMethodTest/EntityXmlAssertTest override run(TestResult) directly -
      * calling result.startTest(this), then multiple result.addFailure(this, ...) calls for one logical
@@ -100,6 +114,18 @@ class Junit3ResultBridgeTest {
             result.addFailure(this, new AssertionFailedError("second failure"));
             result.addFailure(this, new AssertionFailedError("third failure"));
             result.endTest(this);
+        }
+    }
+
+    public static class MdcCapturingCase extends TestCase {
+        static String capturedTestCase;
+
+        MdcCapturingCase() {
+            super("testCaptureMdc");
+        }
+
+        public void testCaptureMdc() {
+            capturedTestCase = ThreadContext.get("testCase");
         }
     }
 
