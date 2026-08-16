@@ -25,6 +25,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.logging.log4j.ThreadContext;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.service.LocalDispatcher;
@@ -129,6 +130,9 @@ public class JupiterTestExtension implements ParameterResolver, TestInstancePost
 
     /** Read by build.gradle's `test` task ({@code excludeTags}) and by {@link JunitJupiterTest}. */
     public static final String INTEGRATION_TAG = "jupiterIntegration";
+
+    // Must match the %X{testCase} reference in framework/base/config/log4j2.xml's logPattern.
+    static final String TEST_CASE_MDC_KEY = "testCase";
 
     static final ThreadLocal<Delegator> CURRENT_DELEGATOR = new ThreadLocal<>();
     static final ThreadLocal<LocalDispatcher> CURRENT_DISPATCHER = new ThreadLocal<>();
@@ -313,6 +317,7 @@ public class JupiterTestExtension implements ParameterResolver, TestInstancePost
                     public void executionStarted(TestIdentifier testIdentifier) {
                         if (testIdentifier.isTest()) {
                             startTimes.put(testIdentifier.getUniqueId(), System.currentTimeMillis());
+                            ThreadContext.put(TEST_CASE_MDC_KEY, testClass.getSimpleName() + "#" + reportingName(testIdentifier));
                             ReportingSupport.dispatch(sinks, sink -> sink.testStarted(testClass.getName(), reportingName(testIdentifier)));
                         }
                     }
@@ -331,33 +336,38 @@ public class JupiterTestExtension implements ParameterResolver, TestInstancePost
                             reportContainerFailure(testIdentifier, testExecutionResult);
                             return;
                         }
-                        String name = reportingName(testIdentifier);
-                        long elapsed = System.currentTimeMillis()
-                                - startTimes.getOrDefault(testIdentifier.getUniqueId(), System.currentTimeMillis());
-                        if (testExecutionResult.getStatus() == TestExecutionResult.Status.ABORTED) {
-                            // A JUnit 5 Assumptions.assumeTrue/assumeFalse failure: a deliberate skip,
-                            // not a defect - logged, not reported as a failure/error, the same way a
-                            // @Disabled test is reported via executionSkipped() above, except that
-                            // testStarted()/testFinished() must still fire here since the test already
-                            // started (see SuiteReportSink.Outcome's javadoc for why this reports Passed).
-                            testExecutionResult.getThrowable().ifPresent(throwable ->
-                                    Debug.logInfo("[JUNIT] ABORTED: " + testIdentifier.getDisplayName()
-                                            + " (" + testClass.getName() + ") - " + throwable.getMessage(), MODULE));
-                            ReportingSupport.dispatch(sinks, sink -> sink.testFinished(testClass.getName(), name, elapsed, Outcome.passed()));
-                            return;
+                        try {
+                            String name = reportingName(testIdentifier);
+                            long elapsed = System.currentTimeMillis()
+                                    - startTimes.getOrDefault(testIdentifier.getUniqueId(), System.currentTimeMillis());
+                            if (testExecutionResult.getStatus() == TestExecutionResult.Status.ABORTED) {
+                                // A JUnit 5 Assumptions.assumeTrue/assumeFalse failure: a deliberate skip,
+                                // not a defect - logged, not reported as a failure/error, the same way a
+                                // @Disabled test is reported via executionSkipped() above, except that
+                                // testStarted()/testFinished() must still fire here since the test already
+                                // started (see SuiteReportSink.Outcome's javadoc for why this reports Passed).
+                                testExecutionResult.getThrowable().ifPresent(throwable ->
+                                        Debug.logInfo("[JUNIT] ABORTED: " + testIdentifier.getDisplayName()
+                                                + " (" + testClass.getName() + ") - " + throwable.getMessage(), MODULE));
+                                ReportingSupport.dispatch(sinks, sink -> sink.testFinished(testClass.getName(), name, elapsed, Outcome.passed()));
+                                return;
+                            }
+                            Outcome outcome = testExecutionResult.getThrowable()
+                                    .map(throwable -> throwable instanceof AssertionError
+                                            ? Outcome.failure(throwable.getMessage(), throwable.getClass().getName(),
+                                                    ReportingSupport.stackTraceOf(throwable))
+                                            : Outcome.error(throwable))
+                                    .orElseGet(Outcome::passed);
+                            ReportingSupport.dispatch(sinks, sink -> sink.testFinished(testClass.getName(), name, elapsed, outcome));
+                        } finally {
+                            ThreadContext.remove(TEST_CASE_MDC_KEY);
                         }
-                        Outcome outcome = testExecutionResult.getThrowable()
-                                .map(throwable -> throwable instanceof AssertionError
-                                        ? Outcome.failure(throwable.getMessage(), throwable.getClass().getName(),
-                                                ReportingSupport.stackTraceOf(throwable))
-                                        : Outcome.error(throwable))
-                                .orElseGet(Outcome::passed);
-                        ReportingSupport.dispatch(sinks, sink -> sink.testFinished(testClass.getName(), name, elapsed, outcome));
                     }
                 });
             } catch (Throwable t) {
                 reportClassExecutionFailure(t);
             } finally {
+                ThreadContext.remove(TEST_CASE_MDC_KEY);
                 JupiterTestExtension.CURRENT_DELEGATOR.remove();
                 JupiterTestExtension.CURRENT_DISPATCHER.remove();
             }

@@ -24,6 +24,7 @@ import java.io.FileOutputStream;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.logging.log4j.ThreadContext;
 import org.apache.ofbiz.base.container.Container;
 import org.apache.ofbiz.base.container.ContainerException;
 import org.apache.ofbiz.base.start.StartupCommand;
@@ -128,16 +129,25 @@ public class TestRunContainer implements Container {
         TestResult junit3Result = new TestResult();
         junit3Result.addListener(new Junit3ResultBridge(sinks));
         for (SuiteEntry entry : entries) {
-            if (entry instanceof Junit3Entry junit3Entry) {
-                junit3Entry.test().run(junit3Result);
-            } else if (entry instanceof JupiterEntry jupiterEntry) {
-                new JupiterTestExtension.JupiterClassRunner(jupiterEntry.testClass(), delegator, dispatcher, sinks).run();
-            } else {
-                // SuiteEntry is sealed permits Junit3Entry, JupiterEntry, so this is unreachable today -
-                // but Java 17 doesn't support exhaustive switch over sealed types without preview
-                // features, so this explicit throw is the substitute: a future third variant fails loudly
-                // here instead of being silently skipped.
-                throw new IllegalStateException("Unknown SuiteEntry type: " + entry.getClass());
+            try {
+                if (entry instanceof Junit3Entry junit3Entry) {
+                    junit3Entry.test().run(junit3Result);
+                } else if (entry instanceof JupiterEntry jupiterEntry) {
+                    new JupiterTestExtension.JupiterClassRunner(jupiterEntry.testClass(), delegator, dispatcher, sinks).run();
+                } else {
+                    // SuiteEntry is sealed permits Junit3Entry, JupiterEntry, so this is unreachable today -
+                    // but Java 17 doesn't support exhaustive switch over sealed types without preview
+                    // features, so this explicit throw is the substitute: a future third variant fails loudly
+                    // here instead of being silently skipped.
+                    throw new IllegalStateException("Unknown SuiteEntry type: " + entry.getClass());
+                }
+            } finally {
+                // Net for JUnit 3 test engines (ServiceTest/SimpleMethodTest/EntityXmlAssertTest) whose
+                // own run(TestResult) overrides can let an unchecked exception escape before reaching
+                // Junit3ResultBridge.endTest() - without this, testCase would stay armed on this thread
+                // for every subsequent log line until the next test overwrites it. Also correct (a no-op
+                // clearing an already-cleared key) for the two paths that already clear it themselves.
+                ThreadContext.remove(JupiterTestExtension.TEST_CASE_MDC_KEY);
             }
         }
     }
