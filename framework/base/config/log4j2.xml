@@ -27,7 +27,7 @@ under the License.
         <Property name="lineToken_prod"></Property>
         <Property name="includeLocation_dev">true</Property>
         <Property name="includeLocation_prod">false</Property>
-        <Property name="logPattern">%date{DEFAULT} |%-20.20thread |%-30.30logger{1}${lineToken_${sys:ofbiz.env:-dev}}|%level{length=1}| %message%n</Property>
+        <Property name="logPattern">%date{DEFAULT} |%-20.20thread |%-30.30logger{1}${lineToken_${sys:ofbiz.env:-dev}}|%level{length=1}| %notEmpty{[TEST:%X{testCase}] }%message%n</Property>
         <Property name="includeLocation">${includeLocation_${sys:ofbiz.env:-dev}}</Property>
         <!--
           Placeholder for the JSON event template used by the opt-in structured logging appender
