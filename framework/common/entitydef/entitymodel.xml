@@ -947,7 +947,7 @@ under the License.
             <description>Optional link to a MailSmtpConfig row; unset today, ready for per-relay DKIM
             once multi-SMTP-config support exists</description>
         </field>
-        <field name="domain" type="value"><description>Signing domain, e.g. example.com</description></field>
+        <field name="signingDomain" type="value"><description>Signing domain, e.g. example.com</description></field>
         <field name="selector" type="value"><description>DKIM selector, e.g. ofbiz</description></field>
         <field name="privateKey" type="very-long" encrypt="true">
             <description>PKCS#8 PEM RSA private key</description>

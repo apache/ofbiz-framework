@@ -131,7 +131,7 @@ public final class EmailServicesDkimTests {
     public void dkimSignReturnsOriginalWhenIncompleteConfig() throws Exception {
         GenericValue config = mock(GenericValue.class);
         when(config.getString("enabled")).thenReturn("Y");
-        when(config.getString("domain")).thenReturn("example.com");
+        when(config.getString("signingDomain")).thenReturn("example.com");
         when(config.getString("selector")).thenReturn("");
         when(config.getString("privateKey")).thenReturn("");
         when(config.getString("mailDkimConfigId")).thenReturn("TEST_DKIM_1");
@@ -144,7 +144,7 @@ public final class EmailServicesDkimTests {
     public void dkimSignReturnsOriginalWhenPrivateKeyIsGarbage() throws Exception {
         GenericValue config = mock(GenericValue.class);
         when(config.getString("enabled")).thenReturn("Y");
-        when(config.getString("domain")).thenReturn("example.com");
+        when(config.getString("signingDomain")).thenReturn("example.com");
         when(config.getString("selector")).thenReturn("ofbiz");
         when(config.getString("privateKey")).thenReturn("not a real key");
         when(config.getString("mailDkimConfigId")).thenReturn("TEST_DKIM_1");
@@ -157,7 +157,7 @@ public final class EmailServicesDkimTests {
     public void dkimSignWrapsAndSignsWhenFullyConfigured() throws Exception {
         GenericValue config = mock(GenericValue.class);
         when(config.getString("enabled")).thenReturn("Y");
-        when(config.getString("domain")).thenReturn("example.com");
+        when(config.getString("signingDomain")).thenReturn("example.com");
         when(config.getString("selector")).thenReturn("ofbiz");
         when(config.getString("privateKey")).thenReturn(testPrivateKeyPem);
         when(config.getString("mailDkimConfigId")).thenReturn("TEST_DKIM_1");
@@ -184,7 +184,7 @@ public final class EmailServicesDkimTests {
     public void dkimSignatureVerifiesAgainstDerivedPublicKey() throws Exception {
         GenericValue config = mock(GenericValue.class);
         when(config.getString("enabled")).thenReturn("Y");
-        when(config.getString("domain")).thenReturn("example.com");
+        when(config.getString("signingDomain")).thenReturn("example.com");
         when(config.getString("selector")).thenReturn("ofbiz");
         when(config.getString("privateKey")).thenReturn(testPrivateKeyPem);
         when(config.getString("mailDkimConfigId")).thenReturn("TEST_DKIM_1");
