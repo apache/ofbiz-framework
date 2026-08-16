@@ -96,7 +96,12 @@ the location of this file.
           <font-triplet name="ArialMT" style="normal" weight="bold"/>
         </font>
         -->
-          <auto-detect/>
+          <!-- auto-detect is intentionally omitted: it scans every OS-installed font (including
+               ones FOP's parser can't read, e.g. macOS .ttc/CFF-OpenType files), which only adds
+               noisy WARN/ERROR log lines. All OFBiz FO templates use either the bundled NotoSans
+               font below or one of FOP's built-in base-14 fonts (Helvetica, Times, Courier,
+               Symbol, ZapfDingbats), so OS font discovery isn't needed. If a custom template
+               needs to resolve an OS-installed font by name, re-add <auto-detect/> here. -->
           <directory>framework/resources/fonts/NotoSans</directory>
           <auto-embed/>
       </fonts>
