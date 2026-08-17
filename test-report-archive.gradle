@@ -1,0 +1,57 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+
+// Test report persistence: archives test/testIntegration output into runtime/test-reports/ so it
+// survives gradle clean and multiple runs/day - both build/test-results/test and
+// runtime/logs/test-results are overwritten on every run (see TestReportArchiver's class
+// javadoc). Split into its own file for the same reason test-reports.gradle is: self-contained
+// and easiest to find as a unit; applied from build.gradle so it behaves exactly as if declared
+// inline there.
+//
+// Two separate archiver tasks (not one shared task) so that running both `test` and
+// `testIntegration` in a single gradle invocation can't have one run's doFirst-set system
+// properties overwrite the other's before the (would-be-shared) task actually executes.
+
+def testReportsBaseDir = project.hasProperty('testReportBaseDir')
+        ? file(testReportBaseDir)
+        : file("$rootDir/runtime/test-reports")
+
+// baseDir is passed in explicitly (rather than read from the enclosing script scope) because
+// top-level `def` variables in a Gradle script are local to the script's own run() method - a
+// separately-declared method like this one can't see them, and referencing testReportsBaseDir
+// directly here fails at task-execution time with "unknown property".
+def registerArchiveTestReportTask(String taskName, File baseDir) {
+    tasks.register(taskName, JavaExec) {
+        group = 'verification'
+        description = 'Archives a test run into runtime/test-reports (manifest.json + copied output)'
+
+        classpath = sourceSets.main.runtimeClasspath
+        mainClass = 'org.apache.ofbiz.testtools.report.TestReportArchiverCli'
+
+        systemProperty 'test.report.base.dir', baseDir.absolutePath
+        systemProperty 'test.report.project.dir', rootDir.absolutePath
+
+        // TestReportArchiverCli catches everything itself; ignoreExitValue covers the
+        // (should-never-happen) case of the JVM failing to start at all.
+        ignoreExitValue = true
+    }
+}
+
+registerArchiveTestReportTask('archiveUnitTestReport', testReportsBaseDir)
+registerArchiveTestReportTask('archiveIntegrationTestReport', testReportsBaseDir)
