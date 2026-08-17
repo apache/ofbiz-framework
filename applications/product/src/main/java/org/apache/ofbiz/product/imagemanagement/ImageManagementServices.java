@@ -79,7 +79,7 @@ public class ImageManagementServices {
      * traversal sequences, no denied extensions) and must resolve, once normalized, directly
      * inside the given product image directory.
      */
-    private static boolean isValidProductImageFileName(String fileName, Path resolvedProductDir, Delegator delegator) {
+    static boolean isValidProductImageFileName(String fileName, Path resolvedProductDir, Delegator delegator) {
         if (UtilValidate.isEmpty(fileName)) {
             return false;
         }
