@@ -21,6 +21,8 @@ package org.apache.ofbiz.product.imagemanagement;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -29,6 +31,7 @@ import java.util.Map;
 import javax.imageio.ImageIO;
 
 import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
@@ -37,6 +40,7 @@ import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.entity.util.EntityUtilProperties;
+import org.apache.ofbiz.security.Security;
 import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
@@ -61,6 +65,14 @@ public class ReplaceImage {
         String dataResourceNameExist = (String) context.get("dataResourceNameExist");
         String dataResourceNameReplace = (String) context.get("dataResourceNameReplace");
 
+        Security security = dctx.getSecurity();
+        if (!security.hasEntityPermission("CATALOG", "_UPDATE", userLogin)) {
+            String errMsg = UtilProperties.getMessage(RES_ERROR, "productevents.not_sufficient_permissions",
+                    UtilMisc.toMap("updateMode", "UPDATE"), locale);
+            Debug.logError(errMsg, MODULE);
+            return ServiceUtil.returnError(errMsg);
+        }
+
         if (UtilValidate.isNotEmpty(dataResourceNameExist)) {
             if (UtilValidate.isNotEmpty(contentIdReplace)) {
                 if (contentIdExist.equals(contentIdReplace)) {
@@ -77,6 +89,21 @@ public class ReplaceImage {
             String errMsg = UtilProperties.getMessage(RES_ERROR, "ProductPleaseChooseReplacementImage", locale);
             Debug.logError(errMsg, MODULE);
             return ServiceUtil.returnError(errMsg);
+        }
+
+        Path imageServerNormalizedPath = Paths.get(imageServerPath).normalize();
+        Path resolvedProductDir = Paths.get(imageServerPath, productId).normalize();
+        if (!resolvedProductDir.startsWith(imageServerNormalizedPath)) {
+            Debug.logError("Path traversal attempt detected in replace image, productId: " + productId, MODULE);
+            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+                    "ProductImageViewUnableWriteFile", UtilMisc.toMap("fileName", resolvedProductDir.toString()), locale));
+        }
+        if (!ImageManagementServices.isValidProductImageFileName(dataResourceNameReplace, resolvedProductDir, delegator)
+                || !ImageManagementServices.isValidProductImageFileName(dataResourceNameExist, resolvedProductDir, delegator)) {
+            Debug.logError("Path traversal attempt detected in replace image, dataResourceNameReplace: " + dataResourceNameReplace
+                    + ", dataResourceNameExist: " + dataResourceNameExist, MODULE);
+            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+                    "ProductImageViewUnableWriteFile", UtilMisc.toMap("fileName", dataResourceNameExist), locale));
         }
 
         try {
