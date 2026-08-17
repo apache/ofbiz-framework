@@ -423,6 +423,11 @@ archiveUnitTestReportProvider.configure {
     // Run after reskinGradleTestReport so the copied html-report/ includes the Bootstrap-style
     // reskin, not Gradle's bare default HTML.
     mustRunAfter(reskinGradleTestReport)
+    // Skip archiving when 'test' was UP-TO-DATE (or skipped): finalizedBy still runs this task
+    // in that case (see test-reports.gradle's "Idempotency guard" comment for the same Gradle
+    // behavior elsewhere), which would otherwise re-archive the previous run's
+    // build/test-results/test output under a manifest stamped with the *current* git commit.
+    onlyIf { testTaskProvider.get().didWork }
     doFirst {
         systemProperty 'test.report.suite.name', 'unit'
         systemProperty 'test.report.source.task', 'test'

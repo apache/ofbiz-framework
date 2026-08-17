@@ -80,7 +80,6 @@ public final class TestReportArchiver {
 
         TestRunManifest manifest = new TestRunManifest();
         manifest.setRunId(dateFolder + "_" + timeFolder + "_" + request.getSuiteName());
-        manifest.setTestType("unit");
         manifest.setSuiteName(request.getSuiteName());
         manifest.setArchivedAt(DateTimeFormatter.ISO_INSTANT.format(now));
         manifest.setGradleTask(request.getSourceTask());

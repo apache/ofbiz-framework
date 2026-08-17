@@ -29,7 +29,6 @@ import java.util.Map;
 public final class TestRunManifest {
 
     private String runId;
-    private String testType;
     private String suiteName;
     private String archivedAt;
     private String gradleTask;
@@ -46,14 +45,6 @@ public final class TestRunManifest {
 
     public void setRunId(String runId) {
         this.runId = runId;
-    }
-
-    public String getTestType() {
-        return testType;
-    }
-
-    public void setTestType(String testType) {
-        this.testType = testType;
     }
 
     public String getSuiteName() {
