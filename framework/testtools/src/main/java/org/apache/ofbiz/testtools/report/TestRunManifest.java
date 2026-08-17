@@ -26,7 +26,7 @@ import java.util.Map;
  * back by {@link TestReportPurgePlanner}, via {@link org.apache.ofbiz.base.lang.JSON}'s
  * Jackson-backed bean (de)serialization. Field/getter names form the manifest schema.
  */
-public class TestRunManifest {
+public final class TestRunManifest {
 
     private String runId;
     private String testType;
@@ -129,7 +129,7 @@ public class TestRunManifest {
     }
 
     /** Pass/fail/skip totals for one archived run. */
-    public static class Counts {
+    public static final class Counts {
         private int total;
         private int passed;
         private int failed;
