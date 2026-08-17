@@ -54,7 +54,7 @@ public final class TestReportPurgeService {
         int retentionDays = readIntProperty(delegator, "test.report.retention.days", 30);
         int keepLastGreen = readIntProperty(delegator, "test.report.retention.keep.last.n.green", 5);
 
-        File baseDir = new File(baseDirPath);
+        File baseDir = resolveBaseDir(baseDirPath, System.getProperty("ofbiz.home"));
         if (!baseDir.isDirectory()) {
             return ServiceUtil.returnSuccess("test report base dir '" + baseDirPath + "' does not exist yet, nothing to purge");
         }
@@ -79,6 +79,21 @@ public final class TestReportPurgeService {
         Map<String, Object> result = ServiceUtil.returnSuccess(message);
         result.put("deletedCount", deletedCount);
         return result;
+    }
+
+    /**
+     * Resolves {@code configuredPath} against {@code ofbizHome} when it's a relative path, matching
+     * the pattern used elsewhere in this codebase for {@code runtime/...} paths (see
+     * {@code UtilURL.fromOfbizHomePath} and {@code CatalinaContainer}) rather than leaving it to
+     * resolve against whatever the JVM's working directory happens to be. Falls back to resolving
+     * as-is (relative to JVM cwd) when {@code ofbizHome} is unset.
+     */
+    static File resolveBaseDir(String configuredPath, String ofbizHome) {
+        File configured = new File(configuredPath);
+        if (configured.isAbsolute() || UtilValidate.isEmpty(ofbizHome)) {
+            return configured;
+        }
+        return new File(ofbizHome, configuredPath);
     }
 
     private static String readStringProperty(Delegator delegator, String propertyName, String defaultValue) {
