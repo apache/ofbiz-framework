@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entity-engine-xml>
+    <!-- Daily purge of old runtime/test-reports/ run folders - keeps disk usage bounded while
+         always retaining each suite's last N green runs as a safety net. Reuses the shared
+         MIDNIGHT_DAILY TemporalExpression already seeded by framework/service
+         (ServiceSeedData.xml) and used by several other daily jobs (see e.g.
+         framework/entityext/data/EntityScheduledServices.xml). -->
+    <JobSandbox jobId="TESTREPORT_PURGE" jobName="Purge old test report runs"
+            runTime="2000-01-01 00:00:00.000" serviceName="purgeOldTestReports"
+            poolId="pool" runAsUser="system" tempExprId="MIDNIGHT_DAILY" maxRecurrenceCount="-1"/>
+
+    <SystemProperty systemResourceId="testtools" systemPropertyId="test.report.base.dir"
+            systemPropertyValue="runtime/test-reports"
+            description="Directory archived test run manifests and copied output are written under."/>
+    <SystemProperty systemResourceId="testtools" systemPropertyId="test.report.retention.days"
+            systemPropertyValue="30"
+            description="Days to retain a runtime/test-reports run folder before the daily purge job removes it."/>
+    <SystemProperty systemResourceId="testtools" systemPropertyId="test.report.retention.keep.last.n.green"
+            systemPropertyValue="5"
+            description="Number of most-recent fully-passing runs per suite the purge job always keeps, regardless of age."/>
+</entity-engine-xml>

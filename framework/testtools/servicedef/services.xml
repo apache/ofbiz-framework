@@ -34,4 +34,15 @@ under the License.
         <attribute name="test" type="junit.framework.Test" mode="IN" optional="false"/>
         <attribute name="testResult" type="junit.framework.TestResult" mode="IN" optional="false"/>
     </service>
+
+    <service name="purgeOldTestReports" engine="java"
+            location="org.apache.ofbiz.testtools.report.TestReportPurgeService" invoke="purgeOldTestReports"
+            auth="true" use-transaction="false">
+        <description>Deletes runtime/test-reports/&lt;date&gt;/&lt;run&gt; folders older than the
+            test.report.retention.days SystemProperty (default 30), always keeping the last
+            test.report.retention.keep.last.n.green (default 5) fully-passing runs per suite.
+            Scheduled daily by the TESTREPORT_PURGE JobSandbox entry seeded in
+            TestReportsScheduledServiceData.xml.</description>
+        <attribute name="deletedCount" type="Long" mode="OUT" optional="true"/>
+    </service>
 </services>
