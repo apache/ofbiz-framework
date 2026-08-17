@@ -19,21 +19,37 @@
 package org.apache.ofbiz.testtools.report;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.apache.ofbiz.base.lang.JSON;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
 
 class TestReportPurgePlannerTest {
 
     private static TestReportPurgePlanner.RunFolder runFolder(String path, String date, String suite, boolean green) {
         return new TestReportPurgePlanner.RunFolder(new File(path), LocalDate.parse(date), suite, green);
+    }
+
+    private static void writeManifest(File runDir, String suiteName, String outcome, int total, int failed)
+            throws IOException {
+        Files.createDirectories(runDir.toPath());
+        TestRunManifest manifest = new TestRunManifest();
+        manifest.setRunId(runDir.getName());
+        manifest.setSuiteName(suiteName);
+        manifest.setOutcome(outcome);
+        manifest.setCounts(new TestRunManifest.Counts(total, total - failed, failed, 0));
+        Files.writeString(new File(runDir, "manifest.json").toPath(), JSON.from(manifest).toString());
     }
 
     @Test
@@ -84,5 +100,41 @@ class TestReportPurgePlannerTest {
         List<File> toDelete = TestReportPurgePlanner.planDeletions(runFolders, 30, 0, today);
 
         assertThat(toDelete, hasSize(0));
+    }
+
+    @Test
+    void anEmptyRunWithZeroTotalIsNotTreatedAsGreenEvenThoughFailedIsZero(@TempDir File tmp) throws IOException {
+        File dateDir = new File(tmp, "2026-01-01");
+        File emptyRunDir = new File(dateDir, "00-00-00_unit");
+        writeManifest(emptyRunDir, "unit", "PASSED", 0, 0);
+
+        List<TestReportPurgePlanner.RunFolder> runFolders = TestReportPurgePlanner.discoverRunFolders(tmp);
+
+        assertThat(runFolders, hasSize(1));
+        assertThat(runFolders.get(0).isGreen(), is(false));
+    }
+
+    @Test
+    void aRunWithOutcomeFailedIsNotTreatedAsGreenEvenThoughFailedCountIsZero(@TempDir File tmp) throws IOException {
+        File dateDir = new File(tmp, "2026-01-01");
+        File failedRunDir = new File(dateDir, "00-00-00_unit");
+        writeManifest(failedRunDir, "unit", "FAILED", 5, 0);
+
+        List<TestReportPurgePlanner.RunFolder> runFolders = TestReportPurgePlanner.discoverRunFolders(tmp);
+
+        assertThat(runFolders, hasSize(1));
+        assertThat(runFolders.get(0).isGreen(), is(false));
+    }
+
+    @Test
+    void aGenuinePassingRunIsStillTreatedAsGreen(@TempDir File tmp) throws IOException {
+        File dateDir = new File(tmp, "2026-01-01");
+        File passingRunDir = new File(dateDir, "00-00-00_unit");
+        writeManifest(passingRunDir, "unit", "PASSED", 5, 0);
+
+        List<TestReportPurgePlanner.RunFolder> runFolders = TestReportPurgePlanner.discoverRunFolders(tmp);
+
+        assertThat(runFolders, hasSize(1));
+        assertThat(runFolders.get(0).isGreen(), is(true));
     }
 }
