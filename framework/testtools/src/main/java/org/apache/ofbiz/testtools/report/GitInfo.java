@@ -22,6 +22,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicReference;
 
 import org.apache.ofbiz.base.util.Debug;
 
@@ -52,12 +53,23 @@ public final class GitInfo {
                     .directory(workingDir)
                     .redirectErrorStream(true)
                     .start();
-            String output = new String(process.getInputStream().readAllBytes(), StandardCharsets.UTF_8);
+            AtomicReference<String> outputRef = new AtomicReference<>("");
+            Thread reader = new Thread(() -> {
+                try {
+                    outputRef.set(new String(process.getInputStream().readAllBytes(), StandardCharsets.UTF_8));
+                } catch (IOException e) {
+                    Debug.logInfo(e, "GitInfo: error reading git output, using '" + UNKNOWN + "'", MODULE);
+                }
+            }, "GitInfo-stdout-reader");
+            reader.setDaemon(true);
+            reader.start();
             boolean finished = process.waitFor(TIMEOUT_SECONDS, TimeUnit.SECONDS);
             if (!finished) {
                 process.destroyForcibly();
                 return UNKNOWN;
             }
+            reader.join(1000);
+            String output = outputRef.get();
             if (process.exitValue() != 0 || output.trim().isEmpty()) {
                 return UNKNOWN;
             }
