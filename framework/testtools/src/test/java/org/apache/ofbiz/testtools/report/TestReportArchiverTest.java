@@ -29,8 +29,8 @@ import org.junit.jupiter.api.io.TempDir;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.matchesPattern;
 import static org.hamcrest.Matchers.notNullValue;
-import static org.hamcrest.Matchers.startsWith;
 
 class TestReportArchiverTest {
 
@@ -96,7 +96,9 @@ class TestReportArchiverTest {
         TestRunManifest manifest = TestReportArchiver.archive(request);
 
         assertThat(manifest.getRunId(), notNullValue());
-        assertThat(new File(manifest.getResultsLocation()).getParentFile().getParentFile(), equalTo(baseDir));
-        assertThat(new File(manifest.getResultsLocation()).getName(), startsWith(""));
+        File runFolder = new File(manifest.getResultsLocation());
+        assertThat(runFolder.getParentFile().getParentFile(), equalTo(baseDir));
+        assertThat(runFolder.getName(), matchesPattern("\\d{2}-\\d{2}-\\d{2}_unit"));
+        assertThat(runFolder.getParentFile().getName(), matchesPattern("\\d{4}-\\d{2}-\\d{2}"));
     }
 }
