@@ -79,7 +79,7 @@ public final class TestReportPurgePlanner {
         }
     }
 
-    /** Walks {@code baseDir}/<yyyy-MM-dd>/<run>/manifest.json and builds the RunFolder list. */
+    /** Walks {@code baseDir/<yyyy-MM-dd>/<run>/manifest.json} and builds the RunFolder list. */
     public static List<RunFolder> discoverRunFolders(File baseDir) {
         List<RunFolder> runFolders = new ArrayList<>();
         File[] dateDirs = baseDir.listFiles(File::isDirectory);
