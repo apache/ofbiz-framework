@@ -19,22 +19,19 @@ under the License.
 -->
 
 <entity-engine-xml>
-    <!-- Daily purge of old runtime/test-reports/ run folders - keeps disk usage bounded while
-         always retaining each suite's last N green runs as a safety net. Reuses the shared
-         MIDNIGHT_DAILY TemporalExpression already seeded by framework/service
-         (ServiceSeedData.xml) and used by several other daily jobs (see e.g.
-         framework/entityext/data/EntityScheduledServices.xml). -->
+    <!-- Daily purge of dated test-run history folders (build/test-reports-history/ and
+         runtime/logs/test-reports-history/) - keeps disk usage bounded while always retaining
+         each suite's last few green runs as a safety net. Reuses the shared MIDNIGHT_DAILY
+         TemporalExpression already seeded by framework/service (ServiceSeedData.xml) and used by
+         several other daily jobs (see e.g. framework/entityext/data/EntityScheduledServices.xml).
+
+         Seeded unconditionally so it's visible/manageable from the admin Scheduler screen, but
+         purgeOldTestReports itself no-ops unless test.history=true is set in general.properties
+         (and skips purging, without erroring, if test.history.days is left unset) - mirroring how
+         autoSyncRotatedSecrets is seeded but no-ops unless secret.rotation.autosync.enabled=true
+         (see SecretManagerScheduledServiceData.xml). Config lives in general.properties, not a
+         SystemProperty row here - see general.properties' test.history / test.history.days. -->
     <JobSandbox jobId="TESTREPORT_PURGE" jobName="Purge old test report runs"
             runTime="2000-01-01 00:00:00.000" serviceName="purgeOldTestReports"
             poolId="pool" runAsUser="system" tempExprId="MIDNIGHT_DAILY" maxRecurrenceCount="-1"/>
-
-    <SystemProperty systemResourceId="testtools" systemPropertyId="test.report.base.dir"
-            systemPropertyValue="runtime/test-reports"
-            description="Directory archived test run manifests and copied output are written under."/>
-    <SystemProperty systemResourceId="testtools" systemPropertyId="test.report.retention.days"
-            systemPropertyValue="30"
-            description="Days to retain a runtime/test-reports run folder before the daily purge job removes it."/>
-    <SystemProperty systemResourceId="testtools" systemPropertyId="test.report.retention.keep.last.n.green"
-            systemPropertyValue="5"
-            description="Number of most-recent fully-passing runs per suite the purge job always keeps, regardless of age."/>
 </entity-engine-xml>

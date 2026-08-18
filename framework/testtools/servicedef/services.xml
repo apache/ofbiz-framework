@@ -38,10 +38,13 @@ under the License.
     <service name="purgeOldTestReports" engine="java"
             location="org.apache.ofbiz.testtools.report.TestReportPurgeService" invoke="purgeOldTestReports"
             auth="true" use-transaction="false">
-        <description>Deletes runtime/test-reports/&lt;date&gt;/&lt;run&gt; folders older than the
-            test.report.retention.days SystemProperty (default 30), always keeping the last
-            test.report.retention.keep.last.n.green (default 5) fully-passing runs per suite.
-            Scheduled daily by the TESTREPORT_PURGE JobSandbox entry seeded in
+        <description>No-ops unless test.history=true is set in general.properties. When enabled,
+            deletes dated run folders under build/test-reports-history/ and
+            runtime/logs/test-reports-history/ (or their general.properties
+            test.history.unit.dir/test.history.integration.dir overrides, if set) older than the
+            general.properties test.history.days setting (skips purging, without erroring, if
+            that setting is left unset/commented), always keeping the last 5 fully-passing runs
+            per suite. Scheduled daily by the TESTREPORT_PURGE JobSandbox entry seeded in
             TestReportsScheduledServiceData.xml.</description>
         <attribute name="deletedCount" type="Long" mode="OUT" optional="true"/>
     </service>

@@ -34,15 +34,29 @@ import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.ServiceUtil;
 
 /**
- * Deletes {@code runtime/test-reports/<date>/<run>} folders older than the configured retention
- * window, always keeping each suite's last N green (fully-passing) runs regardless of age.
- * Scheduled daily via the TESTREPORT_PURGE JobSandbox entry seeded in
- * TestReportsScheduledServiceData.xml.
+ * Deletes dated test-run history folders older than the configured retention window, always
+ * keeping each suite's last N green (fully-passing) runs regardless of age. Covers both history
+ * roots the archiver writes (see {@code test-report-archive.gradle}), defaulting to
+ * {@code build/test-reports-history/} (unit) and {@code runtime/logs/test-reports-history/}
+ * (integration) but following {@code general.properties}' {@code test.history.unit.dir}/
+ * {@code test.history.integration.dir} overrides if either is set, so purge always targets
+ * wherever the archiver is actually writing.
+ *
+ * <p>Entirely opt-in, driven by {@code general.properties}: no-ops unless {@code test.history=true}
+ * is set there, and skips purging (but not archiving) if {@code test.history=true} but
+ * {@code test.history.days} is left unset/commented - history then just accumulates until a
+ * retention window is explicitly configured. Scheduled daily regardless (visible/manageable from
+ * the admin Scheduler screen) via the TESTREPORT_PURGE JobSandbox entry seeded in
+ * TestReportsScheduledServiceData.xml, mirroring how autoSyncRotatedSecrets is seeded but no-ops
+ * unless secret.rotation.autosync.enabled=true (see SecretManagerScheduledServiceData.xml).
  */
 public final class TestReportPurgeService {
 
     private static final String MODULE = TestReportPurgeService.class.getName();
-    private static final String RESOURCE = "testtools";
+    private static final String RESOURCE = "general";
+    private static final String DEFAULT_UNIT_HISTORY_PATH = "build/test-reports-history";
+    private static final String DEFAULT_INTEGRATION_HISTORY_PATH = "runtime/logs/test-reports-history";
+    private static final int DEFAULT_KEEP_LAST_GREEN = 5;
 
     private TestReportPurgeService() {
     }
@@ -50,13 +64,46 @@ public final class TestReportPurgeService {
     public static Map<String, Object> purgeOldTestReports(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
 
-        String baseDirPath = readStringProperty(delegator, "test.report.base.dir", "runtime/test-reports");
-        int retentionDays = readIntProperty(delegator, "test.report.retention.days", 30);
-        int keepLastGreen = readIntProperty(delegator, "test.report.retention.keep.last.n.green", 5);
+        String testHistory = readStringProperty(delegator, "test.history", "false");
+        if (!"true".equalsIgnoreCase(testHistory)) {
+            return ServiceUtil.returnSuccess("test.history is not enabled in general.properties, nothing to purge");
+        }
 
-        File baseDir = resolveBaseDir(baseDirPath, System.getProperty("ofbiz.home"));
+        String retentionDaysValue = readStringProperty(delegator, "test.history.days", null);
+        if (UtilValidate.isEmpty(retentionDaysValue)) {
+            return ServiceUtil.returnSuccess(
+                    "test.history.days is not configured in general.properties, skipping purge (history retained indefinitely)");
+        }
+        int retentionDays;
+        try {
+            retentionDays = Integer.parseInt(retentionDaysValue.trim());
+        } catch (NumberFormatException e) {
+            return ServiceUtil.returnError("test.history.days is not a valid integer: '" + retentionDaysValue + "'");
+        }
+
+        String unitHistoryPath = readStringProperty(delegator, "test.history.unit.dir", DEFAULT_UNIT_HISTORY_PATH);
+        String integrationHistoryPath = readStringProperty(delegator, "test.history.integration.dir",
+                DEFAULT_INTEGRATION_HISTORY_PATH);
+
+        String ofbizHome = System.getProperty("ofbiz.home");
+        File unitHistoryDir = resolveBaseDir(unitHistoryPath, ofbizHome);
+        File integrationHistoryDir = resolveBaseDir(integrationHistoryPath, ofbizHome);
+
+        long deletedCount = purgeOneHistoryDir(unitHistoryDir, retentionDays, DEFAULT_KEEP_LAST_GREEN)
+                + purgeOneHistoryDir(integrationHistoryDir, retentionDays, DEFAULT_KEEP_LAST_GREEN);
+
+        String message = "Purged " + deletedCount + " test report run(s) older than " + retentionDays
+                + " days across " + unitHistoryDir + " and " + integrationHistoryDir
+                + " (kept last " + DEFAULT_KEEP_LAST_GREEN + " green run(s) per suite)";
+        Debug.logInfo("purgeOldTestReports: " + message, MODULE);
+        Map<String, Object> result = ServiceUtil.returnSuccess(message);
+        result.put("deletedCount", deletedCount);
+        return result;
+    }
+
+    private static long purgeOneHistoryDir(File baseDir, int retentionDays, int keepLastGreen) {
         if (!baseDir.isDirectory()) {
-            return ServiceUtil.returnSuccess("test report base dir '" + baseDirPath + "' does not exist yet, nothing to purge");
+            return 0;
         }
 
         List<TestReportPurgePlanner.RunFolder> runFolders = TestReportPurgePlanner.discoverRunFolders(baseDir);
@@ -72,13 +119,7 @@ public final class TestReportPurgeService {
             }
         }
         deleteEmptyDateFolders(baseDir);
-
-        String message = "Purged " + deletedCount + " test report run(s) older than " + retentionDays
-                + " days (kept last " + keepLastGreen + " green run(s) per suite)";
-        Debug.logInfo("purgeOldTestReports: " + message, MODULE);
-        Map<String, Object> result = ServiceUtil.returnSuccess(message);
-        result.put("deletedCount", deletedCount);
-        return result;
+        return deletedCount;
     }
 
     /**
@@ -105,21 +146,6 @@ public final class TestReportPurgeService {
                     + defaultValue + "'", MODULE);
             return defaultValue;
         }
-    }
-
-    private static int readIntProperty(Delegator delegator, String propertyName, int defaultValue) {
-        try {
-            String value = EntityUtilProperties.getPropertyValue(RESOURCE, propertyName, delegator);
-            if (UtilValidate.isNotEmpty(value)) {
-                return Integer.parseInt(value.trim());
-            }
-        } catch (NumberFormatException e) {
-            Debug.logWarning(propertyName + " is not a valid integer - using default " + defaultValue, MODULE);
-        } catch (Exception e) {
-            Debug.logWarning(e, "purgeOldTestReports: could not read " + propertyName + ", using default "
-                    + defaultValue, MODULE);
-        }
-        return defaultValue;
     }
 
     private static void deleteRecursive(Path path) throws IOException {
