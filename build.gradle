@@ -113,7 +113,7 @@ useLatestVersions {
 apply from: 'common.gradle'
 apply from: 'dependencies.gradle'
 apply from: 'test-reports.gradle'
-apply from: 'test-report-archive.gradle'
+apply from: 'framework/testtools/test-report-archive.gradle'
 
 // global properties
 ext.os = System.getProperty('os.name').toLowerCase()
