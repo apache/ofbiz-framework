@@ -18,11 +18,15 @@
  *******************************************************************************/
 package org.apache.ofbiz.ws.rs.test;
 
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.InflaterInputStream;
@@ -35,18 +39,22 @@ import org.apache.ofbiz.base.util.SSLUtil;
 import org.apache.ofbiz.testtools.JunitJupiterTest;
 import org.apache.ofbiz.testtools.JupiterTestHelper;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import jakarta.ws.rs.HttpMethod;
+
 @JunitJupiterTest
 class RestTestHttpRequest implements JupiterTestHelper {
 
     private static final String MODULE = RestTestHttpRequest.class.getName();
     private static final String BASE_URL = "https://localhost:8443/rest";
+    private static final ObjectMapper MAPPER = new ObjectMapper();
     private static String accessToken;
-    private static ObjectMapper mapper = new ObjectMapper();
 
     private static HttpClient initHttpClient() {
         HttpClient http = new HttpClient();
@@ -56,225 +64,255 @@ class RestTestHttpRequest implements JupiterTestHelper {
         return http;
     }
 
+    private static HttpClient createAuthorizedClient(String path) {
+        HttpClient client = initHttpClient();
+        client.setHeader("Content-Type", "application/json");
+        client.setHeader("Authorization", "Bearer " + accessToken);
+        client.setUrl(BASE_URL + path);
+        return client;
+    }
+
+    private static JsonNode requestForJson(HttpClient client, String errorContext, String verb) {
+        String response = "";
+        try {
+            response = switch (verb) {
+            case "GET" -> client.get();
+            case "POST" -> client.post();
+            default -> "";
+            };
+        } catch (HttpClientException e) {
+            Debug.logError(e, "Error during rest POST to " + errorContext, MODULE);
+            fail("HTTP POST failed for " + errorContext + ": " + e.getMessage());
+        }
+        try {
+            return MAPPER.readTree(response);
+        } catch (JsonProcessingException e) {
+            Debug.logError(e, "Error parsing rest response for " + errorContext, MODULE);
+            fail("Error parsing rest response: " + e.getMessage());
+            return null;
+        }
+    }
+
+    private static byte[] postRawBytes(HttpClient client) throws Exception {
+        try (InputStream responseStream = client.postStream()) {
+            return responseStream.readAllBytes();
+        }
+    }
+
+    private static String padBase64(String input) {
+        int padding = (4 - input.length() % 4) % 4;
+        StringBuilder sb = new StringBuilder(input);
+        for (int i = 0; i < padding; i++) {
+            sb.append('=');
+        }
+        return sb.toString();
+    }
+
+    private static JsonNode decodeJwtPayload(String jwt) {
+        String[] parts = jwt.split("\\.");
+        assertEquals(3, parts.length, "JWT should have 3 parts (header.payload.signature)");
+
+        byte[] decodedBytes = Base64.getUrlDecoder().decode(padBase64(parts[1]));
+        String payloadJson = new String(decodedBytes, StandardCharsets.UTF_8);
+        try {
+            return MAPPER.readTree(payloadJson);
+        } catch (JsonProcessingException e) {
+            fail("Error parsing JWT payload: " + e.getMessage());
+            return null;
+        }
+    }
+
+    private static JsonNode decompress(byte[] rawBytes, String encoding) throws Exception {
+        InputStream decompressStream = "gzip".equals(encoding)
+                ? new GZIPInputStream(new ByteArrayInputStream(rawBytes))
+                : new InflaterInputStream(new ByteArrayInputStream(rawBytes));
+
+        try (InputStream is = decompressStream) {
+            return MAPPER.readTree(is);
+        } catch (JsonProcessingException | ZipException e) {
+            fail("Error parsing " + encoding + " response: " + e.getMessage());
+            return null;
+        }
+    }
+
+    private static JsonNode requestAuthToken(String username, String password) {
+        String creds = Base64.getEncoder().encodeToString((username + ":" + password).getBytes(StandardCharsets.UTF_8));
+
+        HttpClient client = initHttpClient();
+        client.setUrl(BASE_URL + "/auth/token");
+        client.setHeader("Authorization", "Basic " + creds);
+        client.setHeader("Accept", "application/json");
+
+        return requestForJson(client, "/auth/token (" + username + ")", HttpMethod.POST);
+    }
+
+    private static JsonNode requestAuthTokenAsAdmin() {
+        return requestAuthToken("admin", "ofbiz");
+    }
+
     @BeforeAll
     public static void init() {
-        String creds = Base64.getEncoder().encodeToString(("admin:ofbiz").getBytes());
+        JsonNode root = requestAuthTokenAsAdmin();
+        accessToken = root.path("data").path("access_token").asText();
+    }
 
-        HttpClient fetchClient = initHttpClient();
-        fetchClient.setUrl(BASE_URL + "/auth/token");
-        fetchClient.setHeader("Authorization", "Basic " + creds);
-        fetchClient.setHeader("Accept", "application/json");
-        String response = "";
-        try {
-            response = fetchClient.post();
-        } catch (HttpClientException e) {
-            Debug.logError(e, "Error returning rest access token", MODULE);
-            return;
-        }
+    // ---- auth token tests ----
 
-        try {
-            JsonNode root = mapper.readTree(response);
-            accessToken = root.get("data").get("access_token").asText();
-        } catch (JsonProcessingException | NullPointerException e) {
-            Debug.logError(e, "Error parsing rest auth response", MODULE);
-        }
+    @Test
+    @Order(1)
+    void testGenerateAuthTokenReturnsSuccess() {
+        JsonNode root = requestAuthTokenAsAdmin();
+        assertEquals(200, root.path("statusCode").asInt(), "Endpoint should return success status code");
     }
 
     @Test
-    void returnSuccessreturnsExpectedStatusCode() throws Exception {
-        HttpClient client = initHttpClient();
-        client.setHeader("Content-Type", "application/json");
-        client.setHeader("Authorization", "Bearer " + accessToken);
-        client.setUrl(BASE_URL + "/exampleApi/returnSuccess");
+    @Order(2)
+    void testGenerateAuthTokenAccessTokenPresent() {
+        JsonNode root = requestAuthTokenAsAdmin();
+        String token = root.path("data").path("access_token").asText(null);
 
-        String response = "";
-        try {
-            response = client.post();
-        } catch (HttpClientException e) {
-            Debug.logError(e, "Error during rest POST to /exampleApi/returnSuccess", MODULE);
-        }
-        int statusCode = 0;
-        try {
-            JsonNode root = mapper.readTree(response);
-            statusCode = root.get("statusCode").asInt(999999999);
-        } catch (JsonProcessingException | NullPointerException e) {
-            Debug.logError(e, "Error parsing rest auth response", MODULE);
-        }
-
-        assertEquals(200, statusCode);
+        assertNotNull(token, "access_token should not be null");
+        assertFalse(token.isEmpty(), "access_token should not be empty");
     }
 
-    //Corresponding service overwrites statusCode with 201
+    @Test
+    @Order(3)
+    void testGenerateAuthTokenTokenTypeIsBearer() {
+        JsonNode root = requestAuthTokenAsAdmin();
+        assertEquals("Bearer", root.path("data").path("token_type").asText(null), "token_type should be Bearer");
+    }
+
+    @Test
+    @Order(4)
+    void testGenerateAuthTokenExpiresInIsValid() {
+        JsonNode root = requestAuthTokenAsAdmin();
+        JsonNode expiresInNode = root.path("data").path("expires_in");
+
+        assertFalse(expiresInNode.isMissingNode(), "expires_in should be present");
+
+        int expiresCurrent = expiresInNode.asInt();
+        assertTrue(expiresCurrent > 0, "expires_in should be a positive number");
+        assertEquals(1800, expiresCurrent, "expires_in should match the configured amount");
+    }
+
+    @Test
+    @Order(5)
+    void testGenerateAuthTokenTokenIsValidJwtFormat() {
+        JsonNode root = requestAuthTokenAsAdmin();
+        String token = root.path("data").path("access_token").asText(null);
+
+        String[] parts = token.split("\\.");
+        assertEquals(3, parts.length, "JWT should have 3 parts (header.payload.signature)");
+    }
+
+    @Test
+    @Order(6)
+    void testGenerateAuthTokenDifferentUsersGetDifferentTokens() {
+        JsonNode adminRoot = requestAuthToken("admin", "ofbiz");
+        JsonNode systemRoot = requestAuthToken("REST_API_TEST_USER", "ofbiz");
+
+        String adminToken = adminRoot.path("data").path("access_token").asText(null);
+        String systemToken = systemRoot.path("data").path("access_token").asText(null);
+
+        assertNotNull(adminToken, "admin access_token should not be null");
+        assertNotNull(systemToken, "REST_API_TEST_USER access_token should not be null");
+        assertFalse(adminToken.equals(systemToken), "Different users should receive different tokens");
+    }
+
+    @Test
+    @Order(7)
+    void testGenerateAuthTokenIssuerAndUserLoginIdInPayload() {
+        JsonNode root = requestAuthTokenAsAdmin();
+        String token = root.path("data").path("access_token").asText(null);
+
+        JsonNode claims = decodeJwtPayload(token);
+
+        assertEquals("ApacheOFBiz", claims.path("iss").asText(null), "Issuer should be ApacheOFBiz");
+        assertEquals("admin", claims.path("userLoginId").asText(null), "userLoginId should be admin");
+    }
+
+    @Test
+    @Order(8)
+    void testGenerateAuthTokenInvalidCredentialsFail() {
+        JsonNode root = requestAuthToken("admin", "wrong-password");
+        int statusCode = root.path("statusCode").asInt(200);
+        assertFalse(statusCode == 200, "Invalid credentials should not return a success status code");
+    }
+
+    /* ========= generall tests - these rely on the Endpoints
+    specified via exampleApiDefinition.rest.xml ============ */
+
+    @Test
+    void returnSuccessReturnsExpectedStatusCode() throws Exception {
+        HttpClient client = createAuthorizedClient("/exampleApi/returnSuccess");
+        JsonNode root = requestForJson(client, "/exampleApi/returnSuccess", HttpMethod.POST);
+        assertEquals(200, root.path("statusCode").asInt());
+    }
+
+    // Corresponding service overwrites statusCode with 201
     @Test
     void returnSuccessOverwriteStatusCode() throws Exception {
-        HttpClient client = initHttpClient();
-        client.setHeader("Content-Type", "application/json");
-        client.setHeader("Authorization", "Bearer " + accessToken);
-        client.setUrl(BASE_URL + "/exampleApi/returnSuccessButOverwriteStatusCode");
-
-        String response = "";
-        try {
-            response = client.post();
-        } catch (HttpClientException e) {
-            Debug.logError(e, "Error during rest POST to /exampleApi/returnSuccessButOverwriteStatusCode", MODULE);
-        }
-        int statusCode = 0;
-        try {
-            JsonNode root = mapper.readTree(response);
-            statusCode = root.get("statusCode").asInt(999999999);
-        } catch (JsonProcessingException | NullPointerException e) {
-            Debug.logError(e, "Error parsing rest auth response", MODULE);
-        }
-
-        assertEquals(201, statusCode);
+        HttpClient client = createAuthorizedClient("/exampleApi/returnSuccessButOverwriteStatusCode");
+        JsonNode root = requestForJson(client, "/exampleApi/returnSuccessButOverwriteStatusCode", HttpMethod.POST);
+        assertEquals(201, root.path("statusCode").asInt());
     }
 
     @Test
     void useCustomHeaderAsServiceParameter() throws Exception {
-        HttpClient client = initHttpClient();
-        client.setHeader("Content-Type", "application/json");
-        client.setHeader("Authorization", "Bearer " + accessToken);
+        HttpClient client = createAuthorizedClient("/exampleApi/useCustomHeaderAsServiceParameter");
         client.setHeader("x-custom-header", "Foo");
-        client.setUrl(BASE_URL + "/exampleApi/useCustomHeaderAsServiceParameter");
-
-        String response = "";
-        try {
-            response = client.post();
-        } catch (HttpClientException e) {
-            Debug.logError(e, "Error during rest POST to /exampleApi/useCustomHeaderAsServiceParameter", MODULE);
-        }
-        String customHeaderValue = "";
-        try {
-            JsonNode root = mapper.readTree(response);
-            customHeaderValue = root.get("data").get("x-custom-header").asText();
-        } catch (JsonProcessingException | NullPointerException e) {
-            Debug.logError(e, "Error parsing rest auth response", MODULE);
-        }
-
-        assertEquals("Foo", customHeaderValue);
+        JsonNode root = requestForJson(client, "/exampleApi/useCustomHeaderAsServiceParameter", HttpMethod.POST);
+        assertEquals("Foo", root.path("data").path("x-custom-header").asText());
     }
 
     @Test
     void testUseLocaleSetInRequestHeader() throws Exception {
-        HttpClient client = initHttpClient();
-        client.setHeader("Content-Type", "application/json");
-        client.setHeader("Authorization", "Bearer " + accessToken);
+        HttpClient client = createAuthorizedClient("/exampleApi/useLocaleSetInRequestHeader");
         client.setHeader("Accept-Language", "fr");
-        client.setUrl(BASE_URL + "/exampleApi/useLocaleSetInRequestHeader");
-
-        String response = "";
-        try {
-            response = client.post();
-        } catch (HttpClientException e) {
-            Debug.logError(e, "Error during rest POST to /exampleApi/useLocaleSetInRequestHeader", MODULE);
-        }
-        String localeSentViaAcceptLanguageHeader = "";
-        try {
-            JsonNode root = mapper.readTree(response);
-            localeSentViaAcceptLanguageHeader = root.get("data").get("localeAsString").asText();
-        } catch (JsonProcessingException | NullPointerException e) {
-            Debug.logError(e, "Error parsing rest auth response", MODULE);
-        }
-
-        assertEquals("fr", localeSentViaAcceptLanguageHeader);
+        JsonNode root = requestForJson(client, "/exampleApi/useLocaleSetInRequestHeader", HttpMethod.POST);
+        assertEquals("fr", root.path("data").path("localeAsString").asText());
     }
 
     @Test
     void testGZipCompression() throws Exception {
-        HttpClient client = initHttpClient();
-        client.setHeader("Content-Type", "application/json");
-        client.setHeader("Authorization", "Bearer " + accessToken);
-        client.setHeader("Accept-Language", "fr");
+        HttpClient client = createAuthorizedClient("/exampleApi/returnSuccess");
         client.setHeader("Accept-Encoding", "gzip");
-        client.setUrl(BASE_URL + "/exampleApi/returnSuccess");
 
-        byte[] rawBytes;
-        try (InputStream responseStream = client.postStream()) {
-            rawBytes = responseStream.readAllBytes();
-        }
+        byte[] rawBytes = postRawBytes(client);
 
-        // magic bytes for gzip
+        // gzip magic bytes
         assertEquals((byte) 0x1f, rawBytes[0]);
         assertEquals((byte) 0x8b, rawBytes[1]);
 
-        try (GZIPInputStream gis = new GZIPInputStream(new ByteArrayInputStream(rawBytes))) {
-            JsonNode root = mapper.readTree(gis);
-            assertEquals(200, root.path("statusCode").asInt());
-        } catch (JsonProcessingException e) {
-            fail("Error parsing rest auth response: " + e.getMessage());
-        }
+        JsonNode root = decompress(rawBytes, "gzip");
+        assertEquals(200, root.path("statusCode").asInt());
     }
 
     @Test
     void testDeflateCompression() throws Exception {
-        HttpClient client = initHttpClient();
-        client.setHeader("Content-Type", "application/json");
-        client.setHeader("Authorization", "Bearer " + accessToken);
-        client.setHeader("Accept-Language", "fr");
+        HttpClient client = createAuthorizedClient("/exampleApi/returnSuccess");
         client.setHeader("Accept-Encoding", "deflate");
-        client.setUrl(BASE_URL + "/exampleApi/returnSuccess");
 
-        byte[] rawBytes;
-        try (InputStream responseStream = client.postStream()) {
-            rawBytes = responseStream.readAllBytes();
-        }
+        byte[] rawBytes = postRawBytes(client);
 
-        try (InflaterInputStream iis = new InflaterInputStream(new ByteArrayInputStream(rawBytes))) {
-            JsonNode root = mapper.readTree(iis);
-            assertEquals(200, root.path("statusCode").asInt());
-        } catch (JsonProcessingException | ZipException e) {
-            fail("Error parsing rest auth response: " + e.getMessage());
-        }
+        JsonNode root = decompress(rawBytes, "deflate");
+        assertEquals(200, root.path("statusCode").asInt());
     }
 
     @Test
     void testServiceInputParametersAsPath() throws Exception {
-        HttpClient client = initHttpClient();
-        client.setHeader("Content-Type", "application/json");
-        client.setHeader("Authorization", "Bearer " + accessToken);
-        client.setHeader("Accept-Language", "fr");
-        client.setUrl(BASE_URL + "/exampleApi/foo/testServiceInputParametersAsPath/");
+        HttpClient client = createAuthorizedClient("/exampleApi/foo/testServiceInputParametersAsPath/");
 
-        String response = "";
-        try {
-            response = client.get();
-        } catch (HttpClientException e) {
-            Debug.logError(e, "Error during rest GET to /exampleApi/foo/testServiceInputParametersAsPath/", MODULE);
-        }
-        String serviceInputParameter = "";
-        try {
-            JsonNode root = mapper.readTree(response);
-            serviceInputParameter = root.get("data").get("myInput").asText();
-        } catch (JsonProcessingException | NullPointerException e) {
-            Debug.logError(e, "Error parsing rest auth response", MODULE);
-        }
-
-        assertEquals("foo", serviceInputParameter);
+        JsonNode root = requestForJson(client, "/exampleApi/foo/testServiceInputParametersAsPath/", HttpMethod.GET);
+        assertEquals("foo", root.path("data").path("myInput").asText());
     }
 
     @Test
     void testServiceInputParametersAsQueryParam() throws Exception {
-        HttpClient client = initHttpClient();
-        client.setHeader("Content-Type", "application/json");
-        client.setHeader("Authorization", "Bearer " + accessToken);
-        client.setHeader("Accept-Language", "fr");
-        client.setUrl(BASE_URL + "/exampleApi/testServiceInputParametersAsQueryParam");
+        HttpClient client = createAuthorizedClient("/exampleApi/testServiceInputParametersAsQueryParam/");
         client.setParameter("myInput", "foo");
 
-        String response = "";
-        try {
-            response = client.get();
-        } catch (HttpClientException e) {
-            Debug.logError(e, "Error during rest GET to /exampleApi/testServiceInputParametersAsQueryParam", MODULE);
-        }
-        String serviceInputParameter = "";
-        try {
-            JsonNode root = mapper.readTree(response);
-            serviceInputParameter = root.get("data").get("myInput").asText();
-        } catch (JsonProcessingException | NullPointerException e) {
-            Debug.logError(e, "Error parsing rest auth response", MODULE);
-        }
-
-        assertEquals("foo", serviceInputParameter);
+        JsonNode root = requestForJson(client, "/exampleApi/testServiceInputParametersAsQueryParam/", HttpMethod.GET);
+        assertEquals("foo", root.path("data").path("myInput").asText());
     }
 }

@@ -21,9 +21,6 @@ under the License.
 <test-suite suite-name="rest-api-tests"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/test-suite.xsd">
-    <test-case case-name="rest-api-services-tests">
-        <jupiter-test-suite class-name="org.apache.ofbiz.ws.rs.test.RestServicesTests"/>
-    </test-case>
     <test-case case-name="rest-api-http-requests">
         <jupiter-test-suite class-name="org.apache.ofbiz.ws.rs.test.RestTestHttpRequest"/>
     </test-case>
