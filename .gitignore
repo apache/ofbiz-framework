@@ -12,6 +12,7 @@ runtime/logs/access_log.*
 runtime/logs/*.log*
 runtime/logs/*.html*
 runtime/logs/test-results/*
+runtime/logs/test-reports-history/
 runtime/logs/birt
 runtime/data/h2/*
 runtime/data/utilcache.*

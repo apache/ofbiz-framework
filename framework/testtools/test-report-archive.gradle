@@ -1,0 +1,111 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+
+// Test report persistence: archives test/testIntegration output into a dated history folder, by
+// default sitting right next to each task's own default output, so it survives gradle clean and
+// multiple runs/day - both build/test-results/test and runtime/logs/test-results are overwritten
+// on every run (see TestReportArchiver's class javadoc). Split into its own file for the same
+// reason test-reports.gradle is: self-contained and easiest to find as a unit; applied from
+// build.gradle so it behaves exactly as if declared inline there.
+//
+// Everything here is opt-in and configured via the plain testtools.properties config file
+// (test.history / test.history.unit.dir / test.history.integration.dir), not a gradle command
+// line flag - same `gradlew test`/`gradlew testIntegration` invocations either way. Read directly
+// as a flat properties file here (no OFBiz runtime/container needed for that) so the archiver
+// tasks' onlyIf can gate on it at configuration time.
+def testtoolsPropertiesFile = file("$rootDir/framework/testtools/config/testtools.properties")
+def testtoolsProperties = new Properties()
+if (testtoolsPropertiesFile.exists()) {
+    testtoolsPropertiesFile.withInputStream { testtoolsProperties.load(it) }
+}
+def testHistoryEnabled = Boolean.parseBoolean(testtoolsProperties.getProperty('test.history', 'false').trim())
+
+// Resolves a testtools.properties path value (relative paths resolve against the project root) to
+// a File. Shared by both history directories below.
+def resolveConfiguredDir = { String configuredPath ->
+    File configured = file(configuredPath)
+    configured.isAbsolute() ? configured : file("$rootDir/$configuredPath")
+}
+
+// Defaults are siblings of each task's own default output directory, not nested inside it:
+//   build/test-reports-history/            next to build/test-results/test/ + build/reports/tests/test/
+//   runtime/logs/test-reports-history/     next to runtime/logs/test-results/
+// Deliberately NOT nested inside runtime/logs/test-results/ or build/test-results/test/ by
+// default - both of those are targets of pre-existing, unrelated `include '*.xml'` glob patterns
+// (the pre-run `delete fileTree(...)` step and the createTestReport/createFramedTestReport report
+// generators in test-reports.gradle) that match at any depth by default; nesting history there
+// would get it deleted before the next run and/or blended into every future report as stale
+// duplicate data. Sibling placement also keeps history outside `test`'s own declared
+// @OutputDirectory, so Gradle's own stale-output cleanup for that task has no reason to touch it.
+// Both are overridable via testtools.properties if you want history stored elsewhere instead
+// (e.g. entirely under runtime/) - see that file's test.history.unit.dir/
+// test.history.integration.dir comments for the trade-offs of moving the unit-side one
+// specifically.
+def unitHistoryBaseDir = resolveConfiguredDir(testtoolsProperties.getProperty('test.history.unit.dir', 'build/test-reports-history').trim())
+def integrationHistoryBaseDir = resolveConfiguredDir(testtoolsProperties.getProperty('test.history.integration.dir', 'runtime/logs/test-reports-history').trim())
+
+// baseDir is passed in explicitly (rather than read from the enclosing script scope) because
+// top-level `def` variables in a Gradle script are local to the script's own run() method - a
+// separately-declared method like this one can't see them, and referencing them directly here
+// fails at task-execution time with "unknown property".
+def registerArchiveTestReportTask(String taskName, File baseDir, boolean historyEnabled) {
+    tasks.register(taskName, JavaExec) {
+        group = 'verification'
+        description = 'Archives a test run into a dated history folder (manifest.json + copied output)'
+
+        classpath = sourceSets.main.runtimeClasspath
+        mainClass = 'org.apache.ofbiz.testtools.report.TestReportArchiverCli'
+
+        systemProperty 'test.report.base.dir', baseDir.absolutePath
+        systemProperty 'test.report.project.dir', rootDir.absolutePath
+
+        // Opt-in gate: testtools.properties' test.history flag, read once above. Off by default -
+        // current behavior (no history, each run's output is simply overwritten in place, as it
+        // always has been).
+        onlyIf { historyEnabled }
+
+        // TestReportArchiverCli catches everything itself; ignoreExitValue covers the
+        // (should-never-happen) case of the JVM failing to start at all.
+        ignoreExitValue = true
+    }
+}
+
+registerArchiveTestReportTask('archiveUnitTestReport', unitHistoryBaseDir, testHistoryEnabled)
+registerArchiveTestReportTask('archiveIntegrationTestReport', integrationHistoryBaseDir, testHistoryEnabled)
+
+// Preserve archived unit-test history across `gradle clean`, but only when the configured history
+// directory actually sits inside buildDir (true for the default; if test.history.unit.dir has
+// been redirected outside build/ - e.g. under runtime/ - there's nothing under buildDir to
+// protect, so clean's normal full-wipe behavior is left alone). The default `clean` task deletes
+// all of buildDir wholesale, which would otherwise wipe the history folder along with it -
+// exactly the "wiped on gradle clean" problem this feature exists to solve, just one level
+// deeper. Exclusion path is derived from the actual configured directory, not hardcoded, so a
+// redirect to another build/-relative subfolder still gets protected correctly.
+// (No equivalent change is ever needed for the integration side: nothing in this project deletes
+// all of runtime/logs/ by default, so its default location is already safe as-is regardless.)
+def buildDirPath = buildDir.toPath().normalize()
+def unitHistoryPath = unitHistoryBaseDir.toPath().normalize()
+if (unitHistoryPath.startsWith(buildDirPath)) {
+    def excludePattern = buildDirPath.relativize(unitHistoryPath).toString().replace(File.separator, '/') + '/**'
+    tasks.named('clean') {
+        delete = fileTree(buildDir) {
+            exclude excludePattern
+        }
+    }
+}

@@ -113,6 +113,7 @@ useLatestVersions {
 apply from: 'common.gradle'
 apply from: 'dependencies.gradle'
 apply from: 'test-reports.gradle'
+apply from: 'framework/testtools/test-report-archive.gradle'
 
 // global properties
 ext.os = System.getProperty('os.name').toLowerCase()
@@ -409,6 +410,35 @@ test {
         events "passed", "skipped", "failed"
     }
     finalizedBy(reskinGradleTestReport)
+}
+
+// The archiveUnitTestReport provider is looked up and configured here, outside the test task's
+// own configuration closure below: calling tasks.named(String, Action) while already inside
+// another task's configuration closure fails at evaluation time with "DefaultTaskContainer#named
+// (String, Action) on task set cannot be executed in the current context" (Gradle disallows that
+// reentrant container mutation), so the two lookups have to stay separate statements.
+def testTaskProvider = tasks.named('test')
+def archiveUnitTestReportProvider = tasks.named('archiveUnitTestReport')
+archiveUnitTestReportProvider.configure {
+    // Run after reskinGradleTestReport so the copied html-report/ includes the Bootstrap-style
+    // reskin, not Gradle's bare default HTML.
+    mustRunAfter(reskinGradleTestReport)
+    // Skip archiving when 'test' was UP-TO-DATE (or skipped): finalizedBy still runs this task
+    // in that case (see test-reports.gradle's "Idempotency guard" comment for the same Gradle
+    // behavior elsewhere), which would otherwise re-archive the previous run's
+    // build/test-results/test output under a manifest stamped with the *current* git commit.
+    onlyIf { testTaskProvider.get().didWork }
+    doFirst {
+        systemProperty 'test.report.suite.name', 'unit'
+        systemProperty 'test.report.source.task', 'test'
+        systemProperty 'test.report.task.outcome',
+                testTaskProvider.get().state.failure != null ? 'FAILED' : 'PASSED'
+        systemProperty 'test.report.results.dir', file("$buildDir/test-results/test").absolutePath
+        systemProperty 'test.report.html.dir', file("$buildDir/reports/tests/test").absolutePath
+    }
+}
+testTaskProvider.configure {
+    finalizedBy(archiveUnitTestReportProvider)
 }
 
 // 'gradlew test --tests <ClassName>' against a @JunitJupiterTest class fails with Gradle's generic
@@ -1419,6 +1449,18 @@ def createOfbizCommandTask(taskName, arguments) {
             }
             finalizedBy(createTestReport)
             finalizedBy(createFramedTestReport)
+            finalizedBy(tasks.named('archiveIntegrationTestReport') {
+                // Run after both report tasks so the copied results/ includes test-report.html
+                // and the framed html/ report, not just the raw JUnit XML.
+                mustRunAfter(createTestReport, createFramedTestReport)
+                doFirst {
+                    systemProperty 'test.report.suite.name', 'testIntegration'
+                    systemProperty 'test.report.source.task', taskName
+                    systemProperty 'test.report.task.outcome',
+                            tasks.named(taskName).get().state.failure != null ? 'FAILED' : 'PASSED'
+                    systemProperty 'test.report.results.dir', file('./runtime/logs/test-results').absolutePath
+                }
+            })
         }
         mainClass = application.mainClass
         args arguments
