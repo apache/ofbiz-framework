@@ -66,9 +66,8 @@ public class ReplaceImage {
         String dataResourceNameReplace = (String) context.get("dataResourceNameReplace");
 
         Security security = dctx.getSecurity();
-        if (!security.hasEntityPermission("CATALOG", "_UPDATE", userLogin)) {
-            String errMsg = UtilProperties.getMessage(RES_ERROR, "productevents.not_sufficient_permissions",
-                    UtilMisc.toMap("updateMode", "UPDATE"), locale);
+        if (!security.hasPermission("IMAGE_MANAGEMENT_ADMIN", userLogin)) {
+            String errMsg = UtilProperties.getMessage(RES_ERROR, "ProductImageManagementPermissionError", locale);
             Debug.logError(errMsg, MODULE);
             return ServiceUtil.returnError(errMsg);
         }
@@ -95,14 +94,14 @@ public class ReplaceImage {
         Path resolvedProductDir = Paths.get(imageServerPath, productId).normalize();
         if (!resolvedProductDir.startsWith(imageServerNormalizedPath)) {
             Debug.logError("Path traversal attempt detected in replace image, productId: " + productId, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "ProductImageViewUnableWriteFile", UtilMisc.toMap("fileName", resolvedProductDir.toString()), locale));
         }
         if (!ImageManagementServices.isValidProductImageFileName(dataResourceNameReplace, resolvedProductDir, delegator)
                 || !ImageManagementServices.isValidProductImageFileName(dataResourceNameExist, resolvedProductDir, delegator)) {
             Debug.logError("Path traversal attempt detected in replace image, dataResourceNameReplace: " + dataResourceNameReplace
                     + ", dataResourceNameExist: " + dataResourceNameExist, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "ProductImageViewUnableWriteFile", UtilMisc.toMap("fileName", dataResourceNameExist), locale));
         }
 
