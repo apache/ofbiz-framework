@@ -98,7 +98,7 @@ class TestReportArchiverTest {
         assertThat(manifest.getRunId(), notNullValue());
         File runFolder = new File(manifest.getResultsLocation());
         assertThat(runFolder.getParentFile().getParentFile(), equalTo(baseDir));
-        assertThat(runFolder.getName(), matchesPattern("\\d{2}-\\d{2}-\\d{2}_unit"));
+        assertThat(runFolder.getName(), matchesPattern("\\d{2}h\\d{2}m\\d{2}s_unit"));
         assertThat(runFolder.getParentFile().getName(), matchesPattern("\\d{4}-\\d{2}-\\d{2}"));
     }
 }

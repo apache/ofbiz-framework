@@ -42,8 +42,12 @@ public final class TestReportArchiver {
 
     private static final DateTimeFormatter DATE_FOLDER =
             DateTimeFormatter.ofPattern("yyyy-MM-dd").withZone(ZoneOffset.UTC);
+    // Unit-suffixed (04h16m23s) rather than plain-hyphenated (04-16-23) so the segment reads as
+    // a time-of-day on its own, without relying on its position under the date folder for
+    // context. Still filesystem-safe (no colons) and sorts identically to the hyphenated form,
+    // since every field stays zero-padded and the literal h/m/s separators are constant.
     private static final DateTimeFormatter TIME_FOLDER =
-            DateTimeFormatter.ofPattern("HH-mm-ss").withZone(ZoneOffset.UTC);
+            DateTimeFormatter.ofPattern("HH'h'mm'm'ss's'").withZone(ZoneOffset.UTC);
 
     private TestReportArchiver() {
     }
