@@ -38,22 +38,23 @@ import org.apache.ofbiz.service.ServiceUtil;
  * keeping each suite's last N green (fully-passing) runs regardless of age. Covers both history
  * roots the archiver writes (see {@code test-report-archive.gradle}), defaulting to
  * {@code build/test-reports-history/} (unit) and {@code runtime/logs/test-reports-history/}
- * (integration) but following {@code general.properties}' {@code test.history.unit.dir}/
+ * (integration) but following {@code testtools.properties}' {@code test.history.unit.dir}/
  * {@code test.history.integration.dir} overrides if either is set, so purge always targets
  * wherever the archiver is actually writing.
  *
- * <p>Entirely opt-in, driven by {@code general.properties}: no-ops unless {@code test.history=true}
- * is set there, and skips purging (but not archiving) if {@code test.history=true} but
- * {@code test.history.days} is left unset/commented - history then just accumulates until a
- * retention window is explicitly configured. Scheduled daily regardless (visible/manageable from
- * the admin Scheduler screen) via the TESTREPORT_PURGE JobSandbox entry seeded in
- * TestReportsScheduledServiceData.xml, mirroring how autoSyncRotatedSecrets is seeded but no-ops
- * unless secret.rotation.autosync.enabled=true (see SecretManagerScheduledServiceData.xml).
+ * <p>Entirely opt-in, driven by {@code framework/testtools/config/testtools.properties}: no-ops
+ * unless {@code test.history=true} is set there, and skips purging (but not archiving) if
+ * {@code test.history=true} but {@code test.history.days} is left unset/commented - history then
+ * just accumulates until a retention window is explicitly configured. Scheduled daily regardless
+ * (visible/manageable from the admin Scheduler screen) via the TESTREPORT_PURGE JobSandbox entry
+ * seeded in TestReportsScheduledServiceData.xml, mirroring how autoSyncRotatedSecrets is seeded
+ * but no-ops unless secret.rotation.autosync.enabled=true (see
+ * SecretManagerScheduledServiceData.xml).
  */
 public final class TestReportPurgeService {
 
     private static final String MODULE = TestReportPurgeService.class.getName();
-    private static final String RESOURCE = "general";
+    private static final String RESOURCE = "testtools";
     private static final String DEFAULT_UNIT_HISTORY_PATH = "build/test-reports-history";
     private static final String DEFAULT_INTEGRATION_HISTORY_PATH = "runtime/logs/test-reports-history";
     private static final int DEFAULT_KEEP_LAST_GREEN = 5;

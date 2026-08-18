@@ -26,12 +26,13 @@ under the License.
          several other daily jobs (see e.g. framework/entityext/data/EntityScheduledServices.xml).
 
          Seeded unconditionally so it's visible/manageable from the admin Scheduler screen, but
-         purgeOldTestReports itself no-ops unless test.history=true is set in general.properties
-         (and skips purging, without erroring, if test.history.days is left unset) - mirroring how
-         autoSyncRotatedSecrets is seeded but no-ops unless secret.rotation.autosync.enabled=true
-         (see SecretManagerScheduledServiceData.xml). Config lives in general.properties, not a
-         SystemProperty row here - see general.properties' test.history / test.history.days. -->
+         purgeOldTestReports itself no-ops unless test.history=true is set in
+         framework/testtools/config/testtools.properties (and skips purging, without erroring, if
+         test.history.days is left unset) - mirroring how autoSyncRotatedSecrets is seeded but
+         no-ops unless secret.rotation.autosync.enabled=true (see
+         SecretManagerScheduledServiceData.xml). Config lives in testtools.properties, not a
+         SystemProperty row here - see that file's test.history / test.history.days. -->
     <JobSandbox jobId="TESTREPORT_PURGE" jobName="Purge old test report runs"
-            runTime="2000-01-01 00:00:00.000" serviceName="purgeOldTestReports"
+            runTime="2000-01-01 00:30:00.000" serviceName="purgeOldTestReports"
             poolId="pool" runAsUser="system" tempExprId="MIDNIGHT_DAILY" maxRecurrenceCount="-1"/>
 </entity-engine-xml>

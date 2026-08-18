@@ -24,19 +24,19 @@
 // reason test-reports.gradle is: self-contained and easiest to find as a unit; applied from
 // build.gradle so it behaves exactly as if declared inline there.
 //
-// Everything here is opt-in and configured via the plain general.properties config file
+// Everything here is opt-in and configured via the plain testtools.properties config file
 // (test.history / test.history.unit.dir / test.history.integration.dir), not a gradle command
 // line flag - same `gradlew test`/`gradlew testIntegration` invocations either way. Read directly
 // as a flat properties file here (no OFBiz runtime/container needed for that) so the archiver
 // tasks' onlyIf can gate on it at configuration time.
-def generalPropertiesFile = file("$rootDir/framework/common/config/general.properties")
-def generalProperties = new Properties()
-if (generalPropertiesFile.exists()) {
-    generalPropertiesFile.withInputStream { generalProperties.load(it) }
+def testtoolsPropertiesFile = file("$rootDir/framework/testtools/config/testtools.properties")
+def testtoolsProperties = new Properties()
+if (testtoolsPropertiesFile.exists()) {
+    testtoolsPropertiesFile.withInputStream { testtoolsProperties.load(it) }
 }
-def testHistoryEnabled = Boolean.parseBoolean(generalProperties.getProperty('test.history', 'false').trim())
+def testHistoryEnabled = Boolean.parseBoolean(testtoolsProperties.getProperty('test.history', 'false').trim())
 
-// Resolves a general.properties path value (relative paths resolve against the project root) to
+// Resolves a testtools.properties path value (relative paths resolve against the project root) to
 // a File. Shared by both history directories below.
 def resolveConfiguredDir = { String configuredPath ->
     File configured = file(configuredPath)
@@ -53,11 +53,12 @@ def resolveConfiguredDir = { String configuredPath ->
 // would get it deleted before the next run and/or blended into every future report as stale
 // duplicate data. Sibling placement also keeps history outside `test`'s own declared
 // @OutputDirectory, so Gradle's own stale-output cleanup for that task has no reason to touch it.
-// Both are overridable via general.properties if you want history stored elsewhere instead (e.g.
-// entirely under runtime/) - see that file's test.history.unit.dir/test.history.integration.dir
-// comments for the trade-offs of moving the unit-side one specifically.
-def unitHistoryBaseDir = resolveConfiguredDir(generalProperties.getProperty('test.history.unit.dir', 'build/test-reports-history').trim())
-def integrationHistoryBaseDir = resolveConfiguredDir(generalProperties.getProperty('test.history.integration.dir', 'runtime/logs/test-reports-history').trim())
+// Both are overridable via testtools.properties if you want history stored elsewhere instead
+// (e.g. entirely under runtime/) - see that file's test.history.unit.dir/
+// test.history.integration.dir comments for the trade-offs of moving the unit-side one
+// specifically.
+def unitHistoryBaseDir = resolveConfiguredDir(testtoolsProperties.getProperty('test.history.unit.dir', 'build/test-reports-history').trim())
+def integrationHistoryBaseDir = resolveConfiguredDir(testtoolsProperties.getProperty('test.history.integration.dir', 'runtime/logs/test-reports-history').trim())
 
 // baseDir is passed in explicitly (rather than read from the enclosing script scope) because
 // top-level `def` variables in a Gradle script are local to the script's own run() method - a
@@ -74,7 +75,7 @@ def registerArchiveTestReportTask(String taskName, File baseDir, boolean history
         systemProperty 'test.report.base.dir', baseDir.absolutePath
         systemProperty 'test.report.project.dir', rootDir.absolutePath
 
-        // Opt-in gate: general.properties' test.history flag, read once above. Off by default -
+        // Opt-in gate: testtools.properties' test.history flag, read once above. Off by default -
         // current behavior (no history, each run's output is simply overwritten in place, as it
         // always has been).
         onlyIf { historyEnabled }
