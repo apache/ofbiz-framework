@@ -40,7 +40,10 @@ import org.apache.ofbiz.ws.rs.process.ServiceRequestHandler;
 import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.logging.LoggingFeature;
 import org.glassfish.jersey.media.multipart.MultiPartFeature;
+import org.glassfish.jersey.message.DeflateEncoder;
+import org.glassfish.jersey.message.GZipEncoder;
 import org.glassfish.jersey.server.ResourceConfig;
+import org.glassfish.jersey.server.filter.EncodingFilter;
 import org.glassfish.jersey.server.model.Resource;
 import org.glassfish.jersey.server.model.ResourceMethod;
 
@@ -73,6 +76,8 @@ public class OFBizApiConfig extends ResourceConfig {
                     LoggingFeature.Verbosity.PAYLOAD_ANY, 10000));
         }
         registerDSLResources();
+        EncodingFilter.enableFor(this, GZipEncoder.class);
+        EncodingFilter.enableFor(this, DeflateEncoder.class);
     }
 
     /**
