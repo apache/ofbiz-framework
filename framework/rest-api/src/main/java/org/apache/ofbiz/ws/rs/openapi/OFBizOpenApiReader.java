@@ -25,6 +25,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
@@ -37,6 +38,7 @@ import org.apache.ofbiz.ws.rs.listener.ApiContextListener;
 import org.apache.ofbiz.ws.rs.model.ModelApi;
 import org.apache.ofbiz.ws.rs.model.ModelMapping;
 import org.apache.ofbiz.ws.rs.model.ModelOperation;
+import org.apache.ofbiz.ws.rs.model.ModelQueryParam;
 import org.apache.ofbiz.ws.rs.model.ModelResource;
 import org.apache.ofbiz.ws.rs.util.OpenApiUtil;
 import org.apache.ofbiz.ws.rs.util.RestApiUtil;
@@ -157,24 +159,6 @@ public final class OFBizOpenApiReader extends Reader implements OpenApiReader {
                     .deprecated(false)
                     .addSecurityItem(security);
 
-            String verb = op.getVerb().toUpperCase();
-            if (verb.equalsIgnoreCase(HttpMethod.GET)) {
-                QueryParameter serviceInParam = (QueryParameter) new QueryParameter().required(true)
-                        .description("Operation Input Parameters in JSON").name("input");
-
-                Schema<?> refSchema = new Schema<>().$ref("#/components/schemas/api.request." + service.getName());
-                serviceInParam.content(new Content().addMediaType(jakarta.ws.rs.core.MediaType.APPLICATION_JSON,
-                        new MediaType().schema(refSchema)));
-                operation.addParametersItem(serviceInParam);
-            } else if (verb.matches(HttpMethod.POST + "|" + HttpMethod.PUT + "|" + HttpMethod.PATCH)) {
-                RequestBody request = new RequestBody()
-                        .description("Request Body for operation " + op.getDescription())
-                        .content(new Content().addMediaType(jakarta.ws.rs.core.MediaType.APPLICATION_JSON,
-                                new MediaType().schema(new Schema<>().$ref("#/components/schemas/api.request." + service.getName()))));
-                operation.setRequestBody(request);
-                operation.addParametersItem(HEADER_CONTENT_TYPE_JSON);
-            }
-
             List<String> pathParams = RestApiUtil.getPathParameters(uri);
             for (String pathParam : pathParams) {
                 ModelParam mdParam = service.getInModelParamList().stream()
@@ -187,10 +171,44 @@ public final class OFBizOpenApiReader extends Reader implements OpenApiReader {
                 pathParameter.setSchema(OpenApiUtil.getAttributeSchema(service, mdParam));
                 operation.addParametersItem(pathParameter);
             }
+            String verb = op.getVerb().toUpperCase();
+            if (verb.equalsIgnoreCase(HttpMethod.GET)) {
+                List<ModelQueryParam> queryParams = op.getQueryParams();
+
+                for (ModelQueryParam queryParam : queryParams) {
+                    if (pathParams.contains(queryParam.getName())) {
+                        Debug.logWarning("Query parameter '%s' for Service '%s' is already defined as path parameter, ignoring.", MODULE,
+                                queryParam.getName(), service.getName());
+                    } else {
+                        ModelParam mdParam = service.getInModelParamList().stream().filter(param -> (
+                                        !param.getInternal() && queryParam.getName().equals(param.getName()))).findFirst().orElse(null);
+                        if (mdParam != null) {
+                            final QueryParameter serviceInParam = (QueryParameter) new QueryParameter()
+                                    .required(!mdParam.isOptional())
+                                    .description(UtilValidate.isNotEmpty(queryParam.getDescription())
+                                            ? queryParam.getDescription() : mdParam.getDescription())
+                                    .name(queryParam.getName())
+                                    .schema(new Schema<>().type(queryParam.getType()));
+                            operation.addParametersItem(serviceInParam);
+                        } else {
+                            Debug.logWarning("Query parameter '%s' for Service '%s' not found in service definition, ignoring.", MODULE,
+                                    queryParam.getName(), service.getName());
+                        }
+                    }
+                }
+            } else if (verb.matches(HttpMethod.POST + "|" + HttpMethod.PUT + "|" + HttpMethod.PATCH)) {
+                RequestBody request = new RequestBody()
+                        .description("Request Body for operation " + op.getDescription())
+                        .content(new Content().addMediaType(jakarta.ws.rs.core.MediaType.APPLICATION_JSON,
+                                new MediaType().schema(new Schema<>().$ref("#/components/schemas/api.request." + service.getName()))));
+                operation.setRequestBody(request);
+                operation.addParametersItem(HEADER_CONTENT_TYPE_JSON);
+            }
+
 
             addServiceOutSchema(service);
             addServiceInSchema(service, op);
-            addServiceOperationApiResponses(service, operation);
+            addServiceOperationApiResponses(service, op, operation);
             addAdditionalOperationApiResponses(service, op, operation);
             addCustomHeaders(op, operation);
             setPathItemOperation(pathItemObject, verb.toUpperCase(), operation);
@@ -247,7 +265,7 @@ public final class OFBizOpenApiReader extends Reader implements OpenApiReader {
 
                 addServiceOutSchema(service);
                 addServiceInSchema(service);
-                addServiceOperationApiResponses(service, operation);
+                addServiceOperationApiResponses(service, null, operation);
                 setPathItemOperation(pathItemObject, HttpMethod.POST, operation);
                 paths.addPathItem("/services/" + service.getName(), pathItemObject);
             }
@@ -320,9 +338,9 @@ public final class OFBizOpenApiReader extends Reader implements OpenApiReader {
         });
     }
 
-    private void addServiceOperationApiResponses(ModelService service, Operation operation) {
+    private void addServiceOperationApiResponses(ModelService service, ModelOperation op, Operation operation) {
         ApiResponses apiResponsesObject = new ApiResponses();
-        ApiResponse successResponse = OpenApiUtil.buildSuccessResponse(service);
+        ApiResponse successResponse = OpenApiUtil.buildSuccessResponse(service, op);
         apiResponsesObject.addApiResponse(String.valueOf(Response.Status.OK.getStatusCode()), successResponse);
         OpenApiUtil.getStandardApiResponses().forEach((code, response) -> {
             apiResponsesObject.addApiResponse(code, response);
@@ -359,9 +377,12 @@ public final class OFBizOpenApiReader extends Reader implements OpenApiReader {
                 } else {
                     schemaName = "api.response.service.".concat(service.getName()).concat(".").concat(String.valueOf(statusType.getStatusCode()));
 
-                    ApiResponse response = new ApiResponse().description(statusType.getReasonPhrase()).content(new Content().addMediaType(
-                            javax.ws.rs.core.MediaType.APPLICATION_JSON,
-                            new MediaType().schema(new Schema<>().$ref("#/components/schemas/" + schemaName))));
+                    ApiResponse response = new ApiResponse()
+                            .description(statusType.getReasonPhrase())
+                            .content(new Content()
+                                    .addMediaType(javax.ws.rs.core.MediaType.APPLICATION_JSON, new MediaType()
+                                            .schema(new Schema<>().$ref("#/components/schemas/" + schemaName))
+                                            .example(op.getExampleObject("response", String.valueOf(statusType.getStatusCode())))));
                     apiResponsesObjectCopy.addApiResponse(statusCode, response);
                 }
 

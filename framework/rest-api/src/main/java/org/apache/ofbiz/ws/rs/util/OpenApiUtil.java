@@ -361,7 +361,7 @@ public final class OpenApiUtil {
                 }
                 Schema<?> attrSchema = getAttributeSchema(service, param);
                 if (attrSchema != null) {
-                    parentSchema.addProperty(name, getAttributeSchema(service, service.getParam(name)));
+                    parentSchema.addProperty(name, attrSchema);
                 }
             }
         });
@@ -517,6 +517,34 @@ public final class OpenApiUtil {
                 }
                 try {
                     schema = (Schema<?>) schemaClass.getDeclaredConstructor().newInstance();
+                    //@Schema(minLength = 1, maxLength = 20, nullable = false, example="10001", description = "Interne Party ID")
+                    io.swagger.v3.oas.annotations.media.Schema fieldAnnotation =
+                            field.getAnnotation(io.swagger.v3.oas.annotations.media.Schema.class);
+                    if (fieldAnnotation != null) {
+                        if (UtilValidate.isNotEmpty(fieldAnnotation.name())) {
+                            schema.setName(fieldAnnotation.name());
+                        }
+                        schema.setDescription(fieldAnnotation.description() != null ? fieldAnnotation.description() : fieldNm);
+                        if (UtilValidate.isNotEmpty(fieldAnnotation.example())) {
+                            schema.setExample(fieldAnnotation.example());
+                        }
+                        if (UtilValidate.isNotEmpty(fieldAnnotation.minLength())) {
+                            schema.setMinLength(fieldAnnotation.minLength());
+                        }
+                        if (UtilValidate.isNotEmpty(fieldAnnotation.maxLength())) {
+                            schema.setMaxLength(fieldAnnotation.maxLength());
+                        }
+                        if (UtilValidate.isNotEmpty(fieldAnnotation.defaultValue())) {
+                            schema.setDefault(fieldAnnotation.defaultValue());
+                        }
+                        if (UtilValidate.isNotEmpty(fieldAnnotation.format())) {
+                            schema.setFormat(fieldAnnotation.format());
+                        }
+                        if (UtilValidate.isNotEmpty(fieldAnnotation.nullable())) {
+                            schema.setNullable(fieldAnnotation.nullable());
+                        }
+                    }
+
                     if (schema instanceof ArraySchema) {
                         ParameterizedType genericType = (ParameterizedType) field.getGenericType();
                         Class<? extends Type> genericClass = (Class<? extends Type>) genericType.getActualTypeArguments()[0];
@@ -540,11 +568,11 @@ public final class OpenApiUtil {
                     }
                 } catch (InstantiationException | IllegalAccessException | NoSuchMethodException
                         | InvocationTargetException e) {
-                    e.printStackTrace();
+                    Debug.logError(e, "Error evaluating class [%s].", MODULE, className);
                 }
             }
         } catch (ClassNotFoundException e1) {
-            e1.printStackTrace();
+            Debug.logError(e1, "Error evaluating class [%s].", MODULE, className);
         }
         return dataSchema;
     }
@@ -591,15 +619,21 @@ public final class OpenApiUtil {
      * OpenAPI response schema for the given service.
      *
      * @param service the {@link ModelService} for which to build the success response
+     * @param op {@link ModelOperation}
      * @return an {@link ApiResponse} with a JSON media type and a schema reference
      *         to {@code #/components/schemas/api.response.<serviceName>.success}
      */
-    public static ApiResponse buildSuccessResponse(ModelService service) {
-        final ApiResponse success = new ApiResponse()
+    public static ApiResponse buildSuccessResponse(ModelService service, ModelOperation op) {
+        final MediaType mediaType = new MediaType()
+                .schema(new Schema<>().$ref("#/components/schemas/" + "api.response." + service.getName() + ".success"));
+
+        if (op != null) {
+            mediaType.setExample(op.getExampleObject("response", "200"));
+        }
+
+        return new ApiResponse()
                 .description("Success response for the API call.")
                 .content(new Content()
-                        .addMediaType(jakarta.ws.rs.core.MediaType.APPLICATION_JSON, new MediaType()
-                                .schema(new Schema<>().$ref("#/components/schemas/" + "api.response." + service.getName() + ".success"))));
-        return success;
+                        .addMediaType(javax.ws.rs.core.MediaType.APPLICATION_JSON, mediaType));
     }
 }

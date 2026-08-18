@@ -70,4 +70,11 @@ under the License.
         <description>TestService that returns its locale</description>
         <attribute name="localeAsString" type="String" mode="OUT" optional="false"/>
     </service>
+
+    <service name="testServiceInputParameters" engine="java"
+            location="org.apache.ofbiz.ws.rs.test.RestTestServices" invoke="testServiceInputParameters">
+        <description>TestService that returns its locale</description>
+        <attribute name="myInput" type="String" mode="INOUT" optional="false"/>
+    </service>
+
 </services>

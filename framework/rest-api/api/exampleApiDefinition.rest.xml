@@ -28,6 +28,17 @@ under the License.
     <resource name="orders" path="/createRestOrderExample">
         <operation verb="post" consumes="application/json" produces="application/json">
             <service name="createRestOrderExample"/>
+            <example type="response" code="200">
+                <![CDATA[
+                    {
+                      "statusCode": 200,
+                      "statusDescription": "OK",
+                      "data": {
+                        "orderId": "DEMO-001"
+                      }
+                    }
+                ]]>
+            </example>
         </operation>
     </resource>
 
@@ -56,6 +67,19 @@ under the License.
     <resource name="orders" path="/useLocaleSetInRequestHeader">
         <operation verb="post" consumes="application/json" produces="application/json">
             <service name="useLocaleSetInRequestHeader"/>
+        </operation>
+    </resource>
+
+    <resource name="orders" path="/{myInput}/testServiceInputParametersAsPath/">
+        <operation verb="get" consumes="application/json" produces="application/json">
+            <service name="testServiceInputParameters"/>
+        </operation>
+    </resource>
+
+    <resource name="orders" path="/testServiceInputParametersAsQueryParam/">
+        <operation verb="get" consumes="application/json" produces="application/json">
+            <service name="testServiceInputParameters"/>
+            <queryParam name="myInput" type="string" description="example input" />
         </operation>
     </resource>
 

@@ -133,11 +133,34 @@ public final class ModelApiReader {
                         .addApiResponses(UtilXml.checkEmpty(operationEle.getAttribute("addApiResponses")).intern())
                         .customHeaders(UtilXml.checkEmpty(operationEle.getAttribute("customHeaders"),
                                 resourceEle.getAttribute("customHeaders")).intern());
+                createQueryParams(operationEle, op);
+                createExamples(operationEle, op);
                 resource.addOperation(op);
             } else {
                 Debug.logWarning("Error during creation of ModelApi, due to missing 'service' Attribute in ApiModelXml for"
                         + "ModelResource [%s]", MODULE, resource.getName());
             }
+        }
+    }
+
+
+    private static void createQueryParams(Element operationEle, ModelOperation operation) {
+        for (Element queryParamEle : UtilXml.childElementList(operationEle, "queryParam")) {
+            ModelQueryParam qp = new ModelQueryParam()
+                    .name(UtilXml.checkEmpty(queryParamEle.getAttribute("name")).intern())
+                    .type(UtilXml.checkEmpty(queryParamEle.getAttribute("type")).intern())
+                    .description(UtilXml.checkEmpty(queryParamEle.getAttribute("description")).intern());
+            operation.addQueryParam(qp);
+        }
+    }
+
+    private static void createExamples(Element operationEle, ModelOperation operation) {
+        for (Element queryParamEle : UtilXml.childElementList(operationEle, "example")) {
+            ModelExample example = new ModelExample()
+                    .type(UtilXml.checkEmpty(queryParamEle.getAttribute("type")).intern())
+                    .code(UtilXml.checkEmpty(queryParamEle.getAttribute("code")).intern())
+                    .exampleText(UtilXml.checkEmpty(queryParamEle.getTextContent()).intern());
+            operation.addExample(example);
         }
     }
 

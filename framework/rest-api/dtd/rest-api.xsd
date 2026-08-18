@@ -53,6 +53,8 @@ under the License.
         <xs:complexType>
             <xs:sequence>
                 <xs:element minOccurs="1" maxOccurs="1" ref="service"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="queryParam"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="example"/>
             </xs:sequence>
             <xs:attribute name="verb" use="required">
                 <xs:simpleType>
@@ -93,6 +95,41 @@ under the License.
     <xs:element name="service">
         <xs:complexType>
             <xs:attribute name="name" type="xs:string" use="required"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="queryParam">
+        <xs:complexType>
+            <xs:attribute name="name" type="xs:string" use="required"/>
+            <xs:attribute name="description" use="optional"/>
+            <xs:attribute name="type" use="optional" default="string">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="string"/>
+                        <xs:enumeration value="number"/>
+                        <xs:enumeration value="integer"/>
+                        <xs:enumeration value="boolean"/>
+                        <xs:enumeration value="array"/>
+                        <xs:enumeration value="object"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="example">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attribute name="type" use="optional" default="response">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:token">
+                                <xs:enumeration value="response"/>
+                                <xs:enumeration value="parameter"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:attribute>
+                <xs:attribute name="code" type="xs:string" use="required"/>
+                </xs:extension>
+            </xs:simpleContent>
         </xs:complexType>
     </xs:element>
     <xs:element name="mapping">
