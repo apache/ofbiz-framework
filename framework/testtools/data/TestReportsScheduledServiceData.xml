@@ -21,9 +21,14 @@ under the License.
 <entity-engine-xml>
     <!-- Daily purge of dated test-run history folders (build/test-reports-history/ and
          runtime/logs/test-reports-history/) - keeps disk usage bounded while always retaining
-         each suite's last few green runs as a safety net. Reuses the shared MIDNIGHT_DAILY
-         TemporalExpression already seeded by framework/service (ServiceSeedData.xml) and used by
-         several other daily jobs (see e.g. framework/entityext/data/EntityScheduledServices.xml).
+         each suite's last few green runs as a safety net. Runs at 11:30 PM daily via its own
+         TESTREPORT_2330 TemporalExpression below, rather than the shared MIDNIGHT_DAILY
+         one (framework/service/data/ServiceSeedData.xml, reused by several other unrelated daily
+         jobs - see e.g. framework/entityext/data/EntityScheduledServices.xml) - a
+         TemporalExpression's date1 timestamp carries its time-of-day into every computed
+         occurrence (TemporalExpressions.Frequency#prepareCal sets the calendar directly from
+         date1, then only ever adds whole days), so a dedicated expression is what actually
+         controls the time-of-day; changing JobSandbox.runTime's own clock time would not.
 
          Seeded unconditionally so it's visible/manageable from the admin Scheduler screen, but
          purgeOldTestReports itself no-ops unless test.history=true is set in
@@ -32,7 +37,10 @@ under the License.
          no-ops unless secret.rotation.autosync.enabled=true (see
          SecretManagerScheduledServiceData.xml). Config lives in testtools.properties, not a
          SystemProperty row here - see that file's test.history / test.history.days. -->
+    <TemporalExpression tempExprId="TESTREPORT_2330" tempExprTypeId="FREQUENCY"
+            description="Every day at 11:30 PM"
+            date1="2020-01-01 23:30:00.000" integer1="5" integer2="1"/>
     <JobSandbox jobId="TESTREPORT_PURGE" jobName="Purge old test report runs"
-            runTime="2000-01-01 00:30:00.000" serviceName="purgeOldTestReports"
-            poolId="pool" runAsUser="system" tempExprId="MIDNIGHT_DAILY" maxRecurrenceCount="-1"/>
+            runTime="2020-01-01 23:30:00.000" serviceName="purgeOldTestReports"
+            poolId="pool" runAsUser="system" tempExprId="TESTREPORT_2330" maxRecurrenceCount="-1"/>
 </entity-engine-xml>
