@@ -18,9 +18,15 @@
  *******************************************************************************/
 package org.apache.ofbiz.ws.rs.test;
 
+import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.util.Base64;
+import java.util.zip.GZIPInputStream;
+import java.util.zip.InflaterInputStream;
+import java.util.zip.ZipException;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.HttpClient;
@@ -171,6 +177,54 @@ class RestTestHttpRequest implements JupiterTestHelper {
         }
 
         assertEquals("fr", localeSentViaAcceptLanguageHeader);
+    }
+
+    @Test
+    void testGZipCompression() throws Exception {
+        HttpClient client = initHttpClient();
+        client.setHeader("Content-Type", "application/json");
+        client.setHeader("Authorization", "Bearer " + accessToken);
+        client.setHeader("Accept-Language", "fr");
+        client.setHeader("Accept-Encoding", "gzip");
+        client.setUrl(BASE_URL + "/exampleApi/returnSuccess");
+
+        byte[] rawBytes;
+        try (InputStream responseStream = client.postStream()) {
+            rawBytes = responseStream.readAllBytes();
+        }
+
+        // magic bytes for gzip
+        assertEquals((byte) 0x1f, rawBytes[0]);
+        assertEquals((byte) 0x8b, rawBytes[1]);
+
+        try (GZIPInputStream gis = new GZIPInputStream(new ByteArrayInputStream(rawBytes))) {
+            JsonNode root = mapper.readTree(gis);
+            assertEquals(200, root.path("statusCode").asInt());
+        } catch (JsonProcessingException e) {
+            fail("Error parsing rest auth response: " + e.getMessage());
+        }
+    }
+
+    @Test
+    void testDeflateCompression() throws Exception {
+        HttpClient client = initHttpClient();
+        client.setHeader("Content-Type", "application/json");
+        client.setHeader("Authorization", "Bearer " + accessToken);
+        client.setHeader("Accept-Language", "fr");
+        client.setHeader("Accept-Encoding", "deflate");
+        client.setUrl(BASE_URL + "/exampleApi/returnSuccess");
+
+        byte[] rawBytes;
+        try (InputStream responseStream = client.postStream()) {
+            rawBytes = responseStream.readAllBytes();
+        }
+
+        try (InflaterInputStream iis = new InflaterInputStream(new ByteArrayInputStream(rawBytes))) {
+            JsonNode root = mapper.readTree(iis);
+            assertEquals(200, root.path("statusCode").asInt());
+        } catch (JsonProcessingException | ZipException e) {
+            fail("Error parsing rest auth response: " + e.getMessage());
+        }
     }
 
     @Test
