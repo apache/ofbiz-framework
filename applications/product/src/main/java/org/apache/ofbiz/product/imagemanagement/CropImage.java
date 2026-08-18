@@ -22,6 +22,8 @@ import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -30,12 +32,14 @@ import javax.imageio.ImageIO;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilDateTime;
+import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.util.EntityUtilProperties;
+import org.apache.ofbiz.security.Security;
 import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
@@ -64,7 +68,32 @@ public class CropImage {
         String imageW = (String) context.get("imageW");
         String imageH = (String) context.get("imageH");
 
+        Security security = dctx.getSecurity();
+        if (!security.hasPermission("IMAGE_MANAGEMENT_ADMIN", userLogin)) {
+            String errMsg = UtilProperties.getMessage(RES_ERROR, "ProductImageManagementPermissionError", locale);
+            Debug.logError(errMsg, MODULE);
+            return ServiceUtil.returnError(errMsg);
+        }
+
+        String imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog",
+                "image.management.path", delegator), context);
+        String imageServerUrl = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog",
+                "image.management.url", delegator), context);
+
         if (UtilValidate.isNotEmpty(imageName)) {
+            Path imageServerNormalizedPath = Paths.get(imageServerPath).normalize();
+            Path resolvedProductDir = Paths.get(imageServerPath, productId).normalize();
+            if (!resolvedProductDir.startsWith(imageServerNormalizedPath)) {
+                Debug.logError("Path traversal attempt detected in image crop, productId: " + productId, MODULE);
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
+                        "ProductImageViewUnableWriteFile", UtilMisc.toMap("fileName", resolvedProductDir.toString()), locale));
+            }
+            if (!ImageManagementServices.isValidProductImageFileName(imageName, resolvedProductDir, delegator)) {
+                Debug.logError("Path traversal attempt detected in image crop, imageName: " + imageName, MODULE);
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
+                        "ProductImageViewUnableWriteFile", UtilMisc.toMap("fileName", imageName), locale));
+            }
+
             Map<String, Object> contentCtx = new HashMap<>();
             contentCtx.put("contentTypeId", "DOCUMENT");
             contentCtx.put("userLogin", userLogin);
@@ -98,10 +127,6 @@ public class CropImage {
             String filenameToUse = (String) contentResult.get("contentId") + ".jpg";
             String filenameTouseThumb = (String) contentResult.get("contentId") + nameOfThumb + ".jpg";
 
-            String imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog",
-                    "image.management.path", delegator), context);
-            String imageServerUrl = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog",
-                    "image.management.url", delegator), context);
             BufferedImage bufImg = ImageIO.read(new File(imageServerPath + "/" + productId + "/" + imageName));
 
             int x = Integer.parseInt(imageX);
