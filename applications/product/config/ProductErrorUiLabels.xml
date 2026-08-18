@@ -183,6 +183,9 @@
     <property key="ProductCannotReplaceImage">
         <value xml:lang="en">Cannot replace image.</value>
     </property>
+    <property key="ProductImageManagementPermissionError">
+        <value xml:lang="en">You do not have permission to manage images ("IMAGE_MANAGEMENT_ADMIN" needed).</value>
+    </property>
     <property key="ProductCreateCommunicationEventProductPermissionError">
         <value xml:lang="de">Berechtigungsfehler beim Erstellen des Produkt Communication Events</value>
         <value xml:lang="en">Create Communication Event Product Permission Error</value>
