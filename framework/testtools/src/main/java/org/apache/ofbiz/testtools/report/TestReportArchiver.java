@@ -18,6 +18,7 @@
  */
 package org.apache.ofbiz.testtools.report;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -60,23 +61,23 @@ public final class TestReportArchiver {
         Instant now = Instant.now();
         String dateFolder = DATE_FOLDER.format(now);
         String timeFolder = TIME_FOLDER.format(now);
-        java.io.File runFolder = new java.io.File(request.getBaseDir(),
-                dateFolder + java.io.File.separator + timeFolder + "_" + request.getSuiteName());
+        File runFolder = new File(request.getBaseDir(),
+                dateFolder + File.separator + timeFolder + "_" + request.getSuiteName());
         Files.createDirectories(runFolder.toPath());
 
         TestRunManifest.Counts counts = JUnitXmlCounter.count(request.getResultsDir());
 
         Map<String, String> artifacts = new LinkedHashMap<>();
-        java.io.File resultsDest = new java.io.File(runFolder, "results");
+        File resultsDest = new File(runFolder, "results");
         if (copyIfExists(request.getResultsDir(), resultsDest)) {
             artifacts.put("junitXml", "results/");
-            java.io.File innerHtmlReport = new java.io.File(resultsDest, "test-report.html");
+            File innerHtmlReport = new File(resultsDest, "test-report.html");
             if (innerHtmlReport.exists()) {
                 artifacts.put("htmlReport", "results/test-report.html");
             }
         }
         if (request.getHtmlReportDir() != null) {
-            java.io.File htmlDest = new java.io.File(runFolder, "html-report");
+            File htmlDest = new File(runFolder, "html-report");
             if (copyIfExists(request.getHtmlReportDir(), htmlDest)) {
                 artifacts.put("htmlReport", "html-report/index.html");
             }
@@ -98,12 +99,12 @@ public final class TestReportArchiver {
         return manifest;
     }
 
-    private static void writeManifest(java.io.File runFolder, TestRunManifest manifest) throws IOException {
+    private static void writeManifest(File runFolder, TestRunManifest manifest) throws IOException {
         String json = JSON.from(manifest).toString();
-        Files.writeString(new java.io.File(runFolder, "manifest.json").toPath(), json);
+        Files.writeString(new File(runFolder, "manifest.json").toPath(), json);
     }
 
-    private static boolean copyIfExists(java.io.File source, java.io.File dest) throws IOException {
+    private static boolean copyIfExists(File source, File dest) throws IOException {
         if (source == null || !source.exists()) {
             return false;
         }
@@ -121,6 +122,57 @@ public final class TestReportArchiver {
             }
         } else {
             Files.copy(source, dest, StandardCopyOption.REPLACE_EXISTING);
+        }
+    }
+
+    /** Immutable parameters for one {@link TestReportArchiver#archive} call. */
+    public static final class ArchiveRequest {
+
+        private final File baseDir;
+        private final File projectDir;
+        private final String suiteName;
+        private final String sourceTask;
+        private final String outcome;
+        private final File resultsDir;
+        private final File htmlReportDir;
+
+        public ArchiveRequest(File baseDir, File projectDir, String suiteName, String sourceTask, String outcome,
+                File resultsDir, File htmlReportDir) {
+            this.baseDir = baseDir;
+            this.projectDir = projectDir;
+            this.suiteName = suiteName;
+            this.sourceTask = sourceTask;
+            this.outcome = outcome;
+            this.resultsDir = resultsDir;
+            this.htmlReportDir = htmlReportDir;
+        }
+
+        public File getBaseDir() {
+            return baseDir;
+        }
+
+        public File getProjectDir() {
+            return projectDir;
+        }
+
+        public String getSuiteName() {
+            return suiteName;
+        }
+
+        public String getSourceTask() {
+            return sourceTask;
+        }
+
+        public String getOutcome() {
+            return outcome;
+        }
+
+        public File getResultsDir() {
+            return resultsDir;
+        }
+
+        public File getHtmlReportDir() {
+            return htmlReportDir;
         }
     }
 }

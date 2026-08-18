@@ -53,7 +53,7 @@ public final class TestReportArchiverCli {
             File htmlDir = (htmlDirProperty == null || htmlDirProperty.isBlank())
                     ? null : new File(htmlDirProperty);
 
-            ArchiveRequest request = new ArchiveRequest(
+            TestReportArchiver.ArchiveRequest request = new TestReportArchiver.ArchiveRequest(
                     new File(baseDir),
                     new File(System.getProperty("test.report.project.dir", ".")),
                     suiteName,

@@ -45,7 +45,8 @@ class TestReportArchiverTest {
                 "<testsuite name=\"x\" tests=\"2\" failures=\"1\" errors=\"0\" skipped=\"0\"></testsuite>");
         Files.writeString(new File(htmlDir, "index.html").toPath(), "<html>report</html>");
 
-        ArchiveRequest request = new ArchiveRequest(baseDir, tmp, "unit", "test", "FAILED", resultsDir, htmlDir);
+        TestReportArchiver.ArchiveRequest request = new TestReportArchiver.ArchiveRequest(
+                baseDir, tmp, "unit", "test", "FAILED", resultsDir, htmlDir);
         TestRunManifest manifest = TestReportArchiver.archive(request);
 
         assertThat(manifest.getSuiteName(), is("unit"));
@@ -75,8 +76,8 @@ class TestReportArchiverTest {
                 "<testsuite name=\"x\" tests=\"3\" failures=\"0\" errors=\"0\" skipped=\"1\"></testsuite>");
         Files.writeString(new File(resultsDir, "test-report.html").toPath(), "<html>combined</html>");
 
-        ArchiveRequest request = new ArchiveRequest(baseDir, tmp, "testIntegration", "testIntegration", "PASSED",
-                resultsDir, null);
+        TestReportArchiver.ArchiveRequest request = new TestReportArchiver.ArchiveRequest(
+                baseDir, tmp, "testIntegration", "testIntegration", "PASSED", resultsDir, null);
         TestRunManifest manifest = TestReportArchiver.archive(request);
 
         assertThat(manifest.getArtifacts().get("junitXml"), is("results/"));
@@ -92,7 +93,7 @@ class TestReportArchiverTest {
         File resultsDir = new File(tmp, "empty-results");
         resultsDir.mkdirs();
 
-        ArchiveRequest request = new ArchiveRequest(baseDir, tmp, "unit", "test", "PASSED", resultsDir, null);
+        TestReportArchiver.ArchiveRequest request = new TestReportArchiver.ArchiveRequest(baseDir, tmp, "unit", "test", "PASSED", resultsDir, null);
         TestRunManifest manifest = TestReportArchiver.archive(request);
 
         assertThat(manifest.getRunId(), notNullValue());
