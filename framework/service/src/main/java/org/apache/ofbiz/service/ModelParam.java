@@ -220,6 +220,14 @@ public class ModelParam implements Serializable {
     }
 
     /**
+     * Returns the description
+     * @return the description
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
      * Sets override optional.
      * @param overrideOptional the override optional
      */

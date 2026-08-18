@@ -21,6 +21,7 @@ package org.apache.ofbiz.ws.rs.test;
 import java.util.Locale;
 import java.util.Map;
 
+import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.ModelService;
@@ -97,6 +98,13 @@ public class RestTestServices {
         Map<String, Object> result = ServiceUtil.returnSuccess();
         String localeAsString = locale.toString();
         result.put("localeAsString", localeAsString);
+        return result;
+    }
+
+    public static Map<String, Object> testServiceInputParameters(DispatchContext dctx, Map<String, ? extends Object> context) {
+        Map<String, Object> result = ServiceUtil.returnSuccess();
+        Debug.logInfo("My value" + (String) context.get("myInput"), null);
+        result.put("myInput", (String) context.get("myInput"));
         return result;
     }
 }

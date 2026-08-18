@@ -172,4 +172,55 @@ class RestTestHttpRequest implements JupiterTestHelper {
 
         assertEquals("fr", localeSentViaAcceptLanguageHeader);
     }
+
+    @Test
+    void testServiceInputParametersAsPath() throws Exception {
+        HttpClient client = initHttpClient();
+        client.setHeader("Content-Type", "application/json");
+        client.setHeader("Authorization", "Bearer " + accessToken);
+        client.setHeader("Accept-Language", "fr");
+        client.setUrl(BASE_URL + "/exampleApi/foo/testServiceInputParametersAsPath/");
+
+        String response = "";
+        try {
+            response = client.get();
+        } catch (HttpClientException e) {
+            Debug.logError(e, "Error during rest GET to /exampleApi/foo/testServiceInputParametersAsPath/", MODULE);
+        }
+        String serviceInputParameter = "";
+        try {
+            JsonNode root = mapper.readTree(response);
+            serviceInputParameter = root.get("data").get("myInput").asText();
+        } catch (JsonProcessingException | NullPointerException e) {
+            Debug.logError(e, "Error parsing rest auth response", MODULE);
+        }
+
+        assertEquals("foo", serviceInputParameter);
+    }
+
+    @Test
+    void testServiceInputParametersAsQueryParam() throws Exception {
+        HttpClient client = initHttpClient();
+        client.setHeader("Content-Type", "application/json");
+        client.setHeader("Authorization", "Bearer " + accessToken);
+        client.setHeader("Accept-Language", "fr");
+        client.setUrl(BASE_URL + "/exampleApi/testServiceInputParametersAsQueryParam");
+        client.setParameter("myInput", "foo");
+
+        String response = "";
+        try {
+            response = client.get();
+        } catch (HttpClientException e) {
+            Debug.logError(e, "Error during rest GET to /exampleApi/testServiceInputParametersAsQueryParam", MODULE);
+        }
+        String serviceInputParameter = "";
+        try {
+            JsonNode root = mapper.readTree(response);
+            serviceInputParameter = root.get("data").get("myInput").asText();
+        } catch (JsonProcessingException | NullPointerException e) {
+            Debug.logError(e, "Error parsing rest auth response", MODULE);
+        }
+
+        assertEquals("foo", serviceInputParameter);
+    }
 }
