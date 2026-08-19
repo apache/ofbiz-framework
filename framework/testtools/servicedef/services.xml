@@ -48,4 +48,25 @@ under the License.
             TESTREPORT_PURGE JobSandbox entry seeded in TestReportsScheduledServiceData.xml.</description>
         <attribute name="deletedCount" type="Long" mode="OUT" optional="true"/>
     </service>
+
+    <service name="runTestSuite" engine="java" auth="true"
+             location="org.apache.ofbiz.testtools.TestRunServices" invoke="runTestSuite">
+        <description>Kicks off a testdef test-suite run asynchronously via the in-JVM Jupiter test
+            engine and returns a runId immediately; poll getTestRunStatus for progress/results.
+            Gated by the test.api.enabled config flag and the TESTEXEC_ADMIN permission.</description>
+        <attribute name="componentName" type="String" mode="IN" optional="true"/>
+        <attribute name="suiteName" type="String" mode="IN" optional="false"/>
+        <attribute name="testCaseName" type="String" mode="IN" optional="true"/>
+        <attribute name="testParams" type="Map" mode="IN" optional="true"/>
+        <attribute name="runId" type="String" mode="OUT" optional="true"/>
+    </service>
+
+    <service name="getTestRunStatus" engine="java" auth="true"
+             location="org.apache.ofbiz.testtools.TestRunServices" invoke="getTestRunStatus">
+        <description>Reads a runTestSuite-triggered run's current status (QUEUED/RUNNING/PASSED/
+            FAILED/ERROR) and result summary from the in-memory TestRunTracker.</description>
+        <attribute name="runId" type="String" mode="IN" optional="false"/>
+        <attribute name="status" type="String" mode="OUT" optional="true"/>
+        <attribute name="resultSummary" type="Map" mode="OUT" optional="true"/>
+    </service>
 </services>
