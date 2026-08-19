@@ -29,6 +29,7 @@ import java.util.concurrent.Executors;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilMisc;
+import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericValue;
@@ -194,14 +195,18 @@ public final class TestRunServices {
         // already checks) rather than introducing a second, separate toggle for the API-triggered
         // path - if you haven't opted into persisted history at all, an API-triggered run's tracker
         // entry (in-memory, for polling) is still fully functional, it's just not also archived.
-        Delegator delegator = null;
-        String testHistory = readStringProperty(delegator, "test.history", "false");
+        // Note for the implementer: unlike test.api.enabled above (read via EntityUtilProperties,
+        // delegator-aware, so a live SystemProperty override applies), test.history here is read with
+        // delegator=null - this method runs on the EXECUTOR's background thread, not a request thread
+        // with a live Delegator in hand - so it is file-only: a SystemProperty override of test.history
+        // will NOT apply to API-triggered runs. Intentional, but worth knowing before relying on it.
+        String testHistory = readStringProperty(null, "test.history", "false");
         if (!"true".equalsIgnoreCase(testHistory)) {
             return UtilMisc.toMap("archived", false);
         }
         try {
             String ofbizHome = System.getProperty("ofbiz.home", ".");
-            String integrationHistoryPath = readStringProperty(delegator, "test.history.integration.dir",
+            String integrationHistoryPath = readStringProperty(null, "test.history.integration.dir",
                     "runtime/logs/test-reports-history");
             File baseDir = new File(integrationHistoryPath);
             if (!baseDir.isAbsolute()) {
@@ -254,7 +259,7 @@ public final class TestRunServices {
     private static String readStringProperty(Delegator delegator, String propertyName, String defaultValue) {
         try {
             String value = delegator == null
-                    ? org.apache.ofbiz.base.util.UtilProperties.getPropertyValue(RESOURCE, propertyName, defaultValue)
+                    ? UtilProperties.getPropertyValue(RESOURCE, propertyName, defaultValue)
                     : EntityUtilProperties.getPropertyValue(RESOURCE, propertyName, delegator);
             return UtilValidate.isNotEmpty(value) ? value.trim() : defaultValue;
         } catch (Exception e) {
