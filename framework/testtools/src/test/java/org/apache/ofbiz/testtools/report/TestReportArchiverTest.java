@@ -21,6 +21,7 @@ package org.apache.ofbiz.testtools.report;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.Map;
 
 import org.apache.ofbiz.base.lang.JSON;
 import org.junit.jupiter.api.Test;
@@ -101,5 +102,36 @@ class TestReportArchiverTest {
         assertThat(runFolder.getParentFile().getParentFile(), equalTo(baseDir));
         assertThat(runFolder.getName(), matchesPattern("\\d{2}h\\d{2}m\\d{2}s_unit"));
         assertThat(runFolder.getParentFile().getName(), matchesPattern("\\d{4}-\\d{2}-\\d{2}"));
+    }
+
+    @Test
+    void archiveRecordsTriggerAndParamsUsedWhenSupplied(@TempDir File tmp) throws IOException {
+        File baseDir = new File(tmp, "runtime/test-reports");
+        File resultsDir = new File(tmp, "runtime/logs/test-results");
+        resultsDir.mkdirs();
+        Files.writeString(new File(resultsDir, "example-tests.xml").toPath(),
+                "<testsuite name=\"x\" tests=\"1\" failures=\"0\" errors=\"0\" skipped=\"0\"></testsuite>");
+
+        TestRunManifest manifest = TestReportArchiver.archive(new TestReportArchiver.ArchiveRequest(
+                baseDir, tmp, "example-tests", "api", "PASSED", resultsDir, null,
+                "api", Map.of("exampleName", "Caller Supplied Name")));
+
+        assertThat(manifest.getTrigger(), is("api"));
+        assertThat(manifest.getParamsUsed(), is(Map.of("exampleName", "Caller Supplied Name")));
+    }
+
+    @Test
+    void archiveDefaultsTriggerToGradleWhenNotSupplied(@TempDir File tmp) throws IOException {
+        File baseDir = new File(tmp, "runtime/test-reports");
+        File resultsDir = new File(tmp, "runtime/logs/test-results");
+        resultsDir.mkdirs();
+        Files.writeString(new File(resultsDir, "example-tests.xml").toPath(),
+                "<testsuite name=\"x\" tests=\"1\" failures=\"0\" errors=\"0\" skipped=\"0\"></testsuite>");
+
+        TestRunManifest manifest = TestReportArchiver.archive(new TestReportArchiver.ArchiveRequest(
+                baseDir, tmp, "example-tests", "testIntegration", "PASSED", resultsDir, null));
+
+        assertThat(manifest.getTrigger(), is("gradle"));
+        assertThat(manifest.getParamsUsed(), is(Map.of()));
     }
 }

@@ -94,6 +94,8 @@ public final class TestReportArchiver {
         manifest.setCounts(counts);
         manifest.setResultsLocation(runFolder.getAbsolutePath());
         manifest.setArtifacts(artifacts);
+        manifest.setTrigger(request.getTrigger());
+        manifest.setParamsUsed(request.getParamsUsed());
 
         writeManifest(runFolder, manifest);
         return manifest;
@@ -135,9 +137,16 @@ public final class TestReportArchiver {
         private final String outcome;
         private final File resultsDir;
         private final File htmlReportDir;
+        private final String trigger;
+        private final Map<String, String> paramsUsed;
 
         public ArchiveRequest(File baseDir, File projectDir, String suiteName, String sourceTask, String outcome,
                 File resultsDir, File htmlReportDir) {
+            this(baseDir, projectDir, suiteName, sourceTask, outcome, resultsDir, htmlReportDir, "gradle", Map.of());
+        }
+
+        public ArchiveRequest(File baseDir, File projectDir, String suiteName, String sourceTask, String outcome,
+                File resultsDir, File htmlReportDir, String trigger, Map<String, String> paramsUsed) {
             this.baseDir = baseDir;
             this.projectDir = projectDir;
             this.suiteName = suiteName;
@@ -145,6 +154,8 @@ public final class TestReportArchiver {
             this.outcome = outcome;
             this.resultsDir = resultsDir;
             this.htmlReportDir = htmlReportDir;
+            this.trigger = trigger;
+            this.paramsUsed = paramsUsed;
         }
 
         public File getBaseDir() {
@@ -173,6 +184,14 @@ public final class TestReportArchiver {
 
         public File getHtmlReportDir() {
             return htmlReportDir;
+        }
+
+        public String getTrigger() {
+            return trigger;
+        }
+
+        public Map<String, String> getParamsUsed() {
+            return paramsUsed;
         }
     }
 }
