@@ -20,6 +20,7 @@ package org.apache.ofbiz.testtools;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -97,6 +98,11 @@ public final class TestRunServices {
         if (testParams == null) {
             testParams = Map.of();
         }
+        // Normalize to an immutable, null-tolerant copy from here on: this prevents any mutation
+        // by downstream code (executor/test/archiver) from corrupting the caller's map or causing
+        // NPE inside Map.copyOf(...) if a test param value is null. LinkedHashMap+unmodifiableMap
+        // tolerates null values, unlike Map.copyOf.
+        testParams = Collections.unmodifiableMap(new LinkedHashMap<>(testParams));
 
         if (!dctx.getSecurity().hasPermission(TESTEXEC_PERMISSION, userLogin)) {
             Debug.logWarning("runTestSuite: DENIED for user '" + userLoginId + "', suite '" + suiteName + "'"

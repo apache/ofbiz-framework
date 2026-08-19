@@ -98,6 +98,21 @@ class TestRunTrackerTest {
     }
 
     @Test
+    void registerHandlesNullValuesInParamsWithoutThrowingNpe() {
+        TestRunTracker tracker = new TestRunTracker();
+        Map<String, Object> callerParams = new HashMap<>();
+        callerParams.put("exampleName", "value");
+        callerParams.put("nullParam", null);
+
+        tracker.register("run-1", "example-tests", "system", callerParams);
+
+        TestRunRecord record = tracker.get("run-1");
+        assertThat(record, notNullValue());
+        assertThat(record.paramsUsed().get("exampleName"), is("value"));
+        assertThat(record.paramsUsed().get("nullParam"), nullValue());
+    }
+
+    @Test
     void registerDefensivelyCopiesTheCallersParamsMap() {
         TestRunTracker tracker = new TestRunTracker();
         Map<String, Object> callerParams = new HashMap<>();

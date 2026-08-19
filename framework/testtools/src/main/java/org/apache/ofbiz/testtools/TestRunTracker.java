@@ -18,6 +18,8 @@
  *******************************************************************************/
 package org.apache.ofbiz.testtools;
 
+import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -32,12 +34,15 @@ final class TestRunTracker {
     private final Map<String, TestRunRecord> records = new ConcurrentHashMap<>();
 
     TestRunRecord register(String runId, String suiteName, String triggeredBy, Map<String, Object> paramsUsed) {
-        // Defensively copies the caller's map: this same map instance later gets armed into
-        // JupiterTestExtension.CURRENT_TEST_PARAMS and is directly readable/mutable inside the
-        // running Jupiter test class (as testParameters). Without this copy, a test that mutated
-        // testParameters would corrupt both this tracker's stored record and, eventually, the
-        // archived manifest.json's paramsUsed.
-        TestRunRecord record = TestRunRecord.queued(runId, suiteName, triggeredBy, Map.copyOf(paramsUsed));
+        // Defensively copies the caller's map: this provides a defense-in-depth isolation layer
+        // for the tracker's own stored record. The primary caller (TestRunServices.runTestSuite)
+        // already normalizes to an immutable, null-tolerant copy before passing here, protecting
+        // both the downstream executor/test (which receives the normalized map as finalTestParams
+        // and arms it into JupiterTestExtension.CURRENT_TEST_PARAMS) and the archiver. Using
+        // LinkedHashMap+unmodifiableMap instead of Map.copyOf ensures compatibility with callers
+        // that may have null param values (Map.copyOf throws NullPointerException on null).
+        TestRunRecord record = TestRunRecord.queued(runId, suiteName, triggeredBy,
+                Collections.unmodifiableMap(new LinkedHashMap<>(paramsUsed)));
         records.put(runId, record);
         return record;
     }
