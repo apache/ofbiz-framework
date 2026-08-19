@@ -456,17 +456,18 @@ public class HttpClient {
         }
 
         // Append the arguments to the query string if GET.
+        String localUrl = url;
         if ("get".equalsIgnoreCase(method) && arguments != null) {
-            if (url.contains("?")) {
-                url = url + "&" + arguments;
+            if (localUrl.contains("?")) {
+                localUrl = localUrl + "&" + arguments;
             } else {
-                url = url + "?" + arguments;
+                localUrl = localUrl + "?" + arguments;
             }
         }
 
         // Create the URL and open the connection.
         try {
-            requestUrl = UtilURL.fromUrlString(url);
+            requestUrl = UtilURL.fromUrlString(localUrl);
             if (overrideTrust) {
                 con = URLConnector.openUntrustedConnection(requestUrl, timeout, clientCertAlias, hostVerification);
             } else {
