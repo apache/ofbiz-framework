@@ -18,16 +18,9 @@
  *******************************************************************************/
 package org.apache.ofbiz.ws.rs.openapi;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import org.apache.ofbiz.base.util.UtilValidate;
-
 import io.swagger.v3.jaxrs2.integration.JaxrsApplicationAndResourcePackagesAnnotationScanner;
 
 public class OFBizResourceScanner extends JaxrsApplicationAndResourcePackagesAnnotationScanner {
-
-    private static final Set<String> IGNORED = new HashSet<>();
 
     /**
      * Constructs a new {@link OFBizResourceScanner} configured to scan only
@@ -35,41 +28,6 @@ public class OFBizResourceScanner extends JaxrsApplicationAndResourcePackagesAnn
      */
     public OFBizResourceScanner() {
         onlyConsiderResourcePackages = true;
-    }
-
-    /**
-     * Returns the set of resource classes discovered by the parent scanner,
-     * excluding classes configured in the ignore list.
-     *
-     * @return the filtered set of resource classes
-     */
-    public Set<Class<?>> classes() {
-        Set<Class<?>> classes = super.classes();
-        Set<Class<?>> outputClasses = new HashSet<>();
-        for (Class<?> clz : classes) {
-            if (!isIgnored(clz.getName())) {
-                outputClasses.add(clz);
-            }
-        }
-        return outputClasses;
-    }
-
-    /**
-     * Determines whether a class or package name should be excluded from
-     * OpenAPI resource scanning.
-     *
-     * <p>A name is considered ignored if it is empty or starts with one of the
-     * configured ignore prefixes.</p>
-     *
-     * @param classOrPackageName the fully qualified class or package name
-     * @return {@code true} if the name should be ignored; {@code false} otherwise
-     */
-    protected boolean isIgnored(String classOrPackageName) {
-        if (UtilValidate.isEmpty(classOrPackageName)) {
-            return true;
-        }
-        boolean isIgnored = IGNORED.stream().anyMatch(classOrPackageName::startsWith);
-        return isIgnored;
     }
 
 }

@@ -163,7 +163,6 @@ class OFBizOpenApiReaderTest {
                     mock(org.apache.ofbiz.service.ModelService.class);
             when(service.getName()).thenReturn("testService");
             when(service.getInModelParamList()).thenReturn(List.of());
-            when(service.isExport()).thenReturn(true);
             when(dctx.getModelService("testService")).thenReturn(service);
 
             return reader.read(Set.of(), Map.of());
