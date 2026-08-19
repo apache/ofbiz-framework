@@ -204,6 +204,7 @@ class JupiterClassRunnerTest {
                 ParamsRecordingFixture.class, mock(Delegator.class), mock(LocalDispatcher.class), sink)
                 .run();
 
+        assertThat(ParamsRecordingFixture.paramsWasNull, is(false));
         assertThat(ParamsRecordingFixture.seenValue, is(nullValue()));
     }
 
@@ -349,10 +350,12 @@ class JupiterClassRunnerTest {
     @Tag(JupiterTestExtension.INTEGRATION_TAG)
     static class ParamsRecordingFixture {
         static String seenValue;
+        static Boolean paramsWasNull;
 
         @Test
         void onlyTest() {
             Map<String, Object> params = JupiterTestExtension.CURRENT_TEST_PARAMS.get();
+            paramsWasNull = (params == null);
             seenValue = params == null ? null : (String) params.get("greeting");
         }
     }
