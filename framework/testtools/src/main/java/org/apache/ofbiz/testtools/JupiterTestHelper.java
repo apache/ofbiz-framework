@@ -90,14 +90,15 @@ public interface JupiterTestHelper {
      * Returns this run's caller-supplied test parameters verbatim - the exact Map a runTestSuite
      * REST/service call's testParams argument carried in, or an empty map for a plain
      * gradlew test/testIntegration run (which never supplies one) or an API-triggered run with no
-     * overrides. Never null, so every call site can write testParameters.someKey ?: someDefault
+     * overrides. Never null, so every call site can write testParams.someKey ?: someDefault
      * (Groovy) without a separate null check on the map itself. Each test decides its own per-field
      * defaulting this way, in the test method itself, rather than through a second lookup layer -
      * see JupiterTestExtension's CURRENT_TEST_PARAMS javadoc for why an intermediate properties-file
-     * fallback tier was tried and dropped.
+     * fallback tier was tried and dropped. Named to match the wire-level runTestSuite service
+     * attribute (testParams), not testParameters - one name for the concept everywhere.
      * @return the current run's test parameters, never null
      */
-    default Map<String, Object> getTestParameters() {
+    default Map<String, Object> getTestParams() {
         Map<String, Object> params = JupiterTestExtension.CURRENT_TEST_PARAMS.get();
         return params == null ? Map.of() : params;
     }
