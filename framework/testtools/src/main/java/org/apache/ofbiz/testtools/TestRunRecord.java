@@ -33,6 +33,7 @@ final class TestRunRecord {
 
     private final String runId;
     private final String suiteName;
+    private final String componentName;
     private final Status status;
     private final Instant startedAt;
     private final Instant completedAt;
@@ -41,10 +42,12 @@ final class TestRunRecord {
     private final Map<String, Object> resultSummary;
     private final String errorMessage;
 
-    private TestRunRecord(String runId, String suiteName, Status status, Instant startedAt, Instant completedAt,
-            String triggeredBy, Map<String, Object> paramsUsed, Map<String, Object> resultSummary, String errorMessage) {
+    private TestRunRecord(String runId, String suiteName, String componentName, Status status, Instant startedAt,
+            Instant completedAt, String triggeredBy, Map<String, Object> paramsUsed, Map<String, Object> resultSummary,
+            String errorMessage) {
         this.runId = runId;
         this.suiteName = suiteName;
+        this.componentName = componentName;
         this.status = status;
         this.startedAt = startedAt;
         this.completedAt = completedAt;
@@ -54,27 +57,30 @@ final class TestRunRecord {
         this.errorMessage = errorMessage;
     }
 
-    static TestRunRecord queued(String runId, String suiteName, String triggeredBy, Map<String, Object> paramsUsed) {
-        return new TestRunRecord(runId, suiteName, Status.QUEUED, Instant.now(), null, triggeredBy, paramsUsed, null, null);
+    static TestRunRecord queued(String runId, String suiteName, String componentName, String triggeredBy,
+            Map<String, Object> paramsUsed) {
+        return new TestRunRecord(runId, suiteName, componentName, Status.QUEUED, Instant.now(), null, triggeredBy,
+                paramsUsed, null, null);
     }
 
     TestRunRecord running() {
-        return new TestRunRecord(runId, suiteName, Status.RUNNING, startedAt, null, triggeredBy, paramsUsed, null, null);
+        return new TestRunRecord(runId, suiteName, componentName, Status.RUNNING, startedAt, null, triggeredBy,
+                paramsUsed, null, null);
     }
 
     TestRunRecord passed(Map<String, Object> resultSummary) {
-        return new TestRunRecord(runId, suiteName, Status.PASSED, startedAt, Instant.now(), triggeredBy, paramsUsed,
-                resultSummary, null);
+        return new TestRunRecord(runId, suiteName, componentName, Status.PASSED, startedAt, Instant.now(), triggeredBy,
+                paramsUsed, resultSummary, null);
     }
 
     TestRunRecord failed(Map<String, Object> resultSummary) {
-        return new TestRunRecord(runId, suiteName, Status.FAILED, startedAt, Instant.now(), triggeredBy, paramsUsed,
-                resultSummary, null);
+        return new TestRunRecord(runId, suiteName, componentName, Status.FAILED, startedAt, Instant.now(), triggeredBy,
+                paramsUsed, resultSummary, null);
     }
 
     TestRunRecord error(Throwable throwable) {
-        return new TestRunRecord(runId, suiteName, Status.ERROR, startedAt, Instant.now(), triggeredBy, paramsUsed,
-                null, throwable.getMessage());
+        return new TestRunRecord(runId, suiteName, componentName, Status.ERROR, startedAt, Instant.now(), triggeredBy,
+                paramsUsed, null, throwable.getMessage());
     }
 
     String runId() {
@@ -83,6 +89,10 @@ final class TestRunRecord {
 
     String suiteName() {
         return suiteName;
+    }
+
+    String componentName() {
+        return componentName;
     }
 
     Status status() {

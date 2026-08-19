@@ -33,7 +33,8 @@ final class TestRunTracker {
 
     private final Map<String, TestRunRecord> records = new ConcurrentHashMap<>();
 
-    TestRunRecord register(String runId, String suiteName, String triggeredBy, Map<String, Object> paramsUsed) {
+    TestRunRecord register(String runId, String suiteName, String componentName, String triggeredBy,
+            Map<String, Object> paramsUsed) {
         // Defensively copies the caller's map: this provides a defense-in-depth isolation layer
         // for the tracker's own stored record. The primary caller (TestRunServices.runTestSuite)
         // already normalizes to an immutable, null-tolerant copy before passing here, protecting
@@ -41,7 +42,7 @@ final class TestRunTracker {
         // and arms it into JupiterTestExtension.CURRENT_TEST_PARAMS) and the archiver. Using
         // LinkedHashMap+unmodifiableMap instead of Map.copyOf ensures compatibility with callers
         // that may have null param values (Map.copyOf throws NullPointerException on null).
-        TestRunRecord record = TestRunRecord.queued(runId, suiteName, triggeredBy,
+        TestRunRecord record = TestRunRecord.queued(runId, suiteName, componentName, triggeredBy,
                 Collections.unmodifiableMap(new LinkedHashMap<>(paramsUsed)));
         records.put(runId, record);
         return record;

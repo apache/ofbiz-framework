@@ -34,12 +34,13 @@ class TestRunTrackerTest {
     void registerStartsARunInQueuedState() {
         TestRunTracker tracker = new TestRunTracker();
 
-        tracker.register("run-1", "example-tests", "system", Map.of("exampleName", "custom"));
+        tracker.register("run-1", "example-tests", "example", "system", Map.of("exampleName", "custom"));
 
         TestRunRecord record = tracker.get("run-1");
         assertThat(record, notNullValue());
         assertThat(record.status(), is(TestRunRecord.Status.QUEUED));
         assertThat(record.suiteName(), is("example-tests"));
+        assertThat(record.componentName(), is("example"));
         assertThat(record.triggeredBy(), is("system"));
         assertThat(record.paramsUsed(), is(Map.of("exampleName", "custom")));
     }
@@ -47,7 +48,7 @@ class TestRunTrackerTest {
     @Test
     void markRunningTransitionsFromQueuedToRunning() {
         TestRunTracker tracker = new TestRunTracker();
-        tracker.register("run-1", "example-tests", "system", Map.of());
+        tracker.register("run-1", "example-tests", "example", "system", Map.of());
 
         tracker.markRunning("run-1");
 
@@ -57,7 +58,7 @@ class TestRunTrackerTest {
     @Test
     void markPassedRecordsTerminalStateAndSummary() {
         TestRunTracker tracker = new TestRunTracker();
-        tracker.register("run-1", "example-tests", "system", Map.of());
+        tracker.register("run-1", "example-tests", "example", "system", Map.of());
         tracker.markRunning("run-1");
 
         tracker.markPassed("run-1", Map.of("total", 3, "passed", 3, "failed", 0));
@@ -71,7 +72,7 @@ class TestRunTrackerTest {
     @Test
     void markFailedRecordsTerminalStateAndSummary() {
         TestRunTracker tracker = new TestRunTracker();
-        tracker.register("run-1", "example-tests", "system", Map.of());
+        tracker.register("run-1", "example-tests", "example", "system", Map.of());
 
         tracker.markFailed("run-1", Map.of("total", 3, "passed", 2, "failed", 1));
 
@@ -81,7 +82,7 @@ class TestRunTrackerTest {
     @Test
     void markErrorRecordsTerminalStateWithNoSummary() {
         TestRunTracker tracker = new TestRunTracker();
-        tracker.register("run-1", "example-tests", "system", Map.of());
+        tracker.register("run-1", "example-tests", "example", "system", Map.of());
 
         tracker.markError("run-1", new RuntimeException("suite blew up"));
 
@@ -104,7 +105,7 @@ class TestRunTrackerTest {
         callerParams.put("exampleName", "value");
         callerParams.put("nullParam", null);
 
-        tracker.register("run-1", "example-tests", "system", callerParams);
+        tracker.register("run-1", "example-tests", "example", "system", callerParams);
 
         TestRunRecord record = tracker.get("run-1");
         assertThat(record, notNullValue());
@@ -118,10 +119,21 @@ class TestRunTrackerTest {
         Map<String, Object> callerParams = new HashMap<>();
         callerParams.put("exampleName", "original");
 
-        tracker.register("run-1", "example-tests", "system", callerParams);
+        tracker.register("run-1", "example-tests", "example", "system", callerParams);
         callerParams.put("exampleName", "mutated-after-register");
         callerParams.put("extraKey", "should-not-appear");
 
         assertThat(tracker.get("run-1").paramsUsed(), is(Map.of("exampleName", "original")));
+    }
+
+    @Test
+    void componentNameSurvivesStatusTransitions() {
+        TestRunTracker tracker = new TestRunTracker();
+        tracker.register("run-1", "example-tests", "example", "system", Map.of());
+
+        tracker.markRunning("run-1");
+        tracker.markPassed("run-1", Map.of());
+
+        assertThat(tracker.get("run-1").componentName(), is("example"));
     }
 }

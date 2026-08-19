@@ -161,7 +161,7 @@ public final class TestRunServices {
 
         String runId = UUID.randomUUID().toString();
         Map<String, Object> finalTestParams = testParams;
-        TRACKER.register(runId, suiteName, userLoginId, testParams);
+        TRACKER.register(runId, suiteName, componentName, userLoginId, testParams);
         Debug.logInfo("runTestSuite: STARTED runId=" + runId + " user='" + userLoginId + "' suite='" + suiteName
                 + "' testCaseName='" + testCaseName + "' testParams=" + testParams, MODULE);
 
