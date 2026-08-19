@@ -195,4 +195,102 @@ class TestRunServicesTest {
         assertThat(result.get("responseMessage"), is("error"));
         assertThat(result.get("runId"), nullValue());
     }
+
+    @Test
+    void runScopedTestSuiteReturnsErrorForANullFixedComponentName() {
+        // Must fail closed, not open: ComponentConfig.matchingComponentName treats a null cname as
+        // "match every component", so skipping this guard would silently turn a null
+        // fixedComponentName into fully unscoped behavior instead of an error. Uses a permissive
+        // security mock so the guard - not the permission check - is what's actually exercised.
+        DispatchContext dctx = mock(DispatchContext.class);
+        Security security = mock(Security.class);
+        Delegator delegator = mock(Delegator.class);
+        GenericValue userLogin = mock(GenericValue.class);
+        when(dctx.getSecurity()).thenReturn(security);
+        when(dctx.getDelegator()).thenReturn(delegator);
+        when(userLogin.getString("userLoginId")).thenReturn("admin");
+        when(security.hasPermission("TESTEXEC_ADMIN", userLogin)).thenReturn(true);
+
+        Map<String, Object> result = TestRunServices.runScopedTestSuite(dctx,
+                Map.of("suiteName", "example-tests", "userLogin", userLogin), null);
+
+        assertThat(result.get("responseMessage"), is("error"));
+        assertThat(result.get("errorMessage"), is("runScopedTestSuite requires a fixed componentName"));
+        assertThat(result.get("runId"), nullValue());
+    }
+
+    @Test
+    void runScopedTestSuiteReturnsErrorForAnEmptyFixedComponentName() {
+        DispatchContext dctx = mock(DispatchContext.class);
+        Security security = mock(Security.class);
+        Delegator delegator = mock(Delegator.class);
+        GenericValue userLogin = mock(GenericValue.class);
+        when(dctx.getSecurity()).thenReturn(security);
+        when(dctx.getDelegator()).thenReturn(delegator);
+        when(userLogin.getString("userLoginId")).thenReturn("admin");
+        when(security.hasPermission("TESTEXEC_ADMIN", userLogin)).thenReturn(true);
+
+        Map<String, Object> result = TestRunServices.runScopedTestSuite(dctx,
+                Map.of("suiteName", "example-tests", "userLogin", userLogin), "");
+
+        assertThat(result.get("responseMessage"), is("error"));
+        assertThat(result.get("errorMessage"), is("runScopedTestSuite requires a fixed componentName"));
+        assertThat(result.get("runId"), nullValue());
+    }
+
+    @Test
+    void getScopedTestRunStatusReturnsErrorForANullExpectedComponentName() {
+        // Without this guard, expectedComponentName.equals(...) would throw a raw
+        // NullPointerException instead of returning a clean error - a different (and equally
+        // unacceptable) failure mode than runScopedTestSuite's fail-open risk.
+        DispatchContext dctx = mock(DispatchContext.class);
+        Security security = mock(Security.class);
+        GenericValue userLogin = mock(GenericValue.class);
+        when(dctx.getSecurity()).thenReturn(security);
+        when(userLogin.getString("userLoginId")).thenReturn("admin");
+        when(security.hasPermission("TESTEXEC_ADMIN", userLogin)).thenReturn(true);
+
+        Map<String, Object> result = TestRunServices.getScopedTestRunStatus(dctx,
+                Map.of("runId", "any-run", "userLogin", userLogin), null);
+
+        assertThat(result.get("responseMessage"), is("error"));
+        assertThat(result.get("errorMessage"), is("getScopedTestRunStatus requires an expectedComponentName"));
+    }
+
+    @Test
+    void getScopedTestRunStatusReturnsErrorForAnEmptyExpectedComponentName() {
+        DispatchContext dctx = mock(DispatchContext.class);
+        Security security = mock(Security.class);
+        GenericValue userLogin = mock(GenericValue.class);
+        when(dctx.getSecurity()).thenReturn(security);
+        when(userLogin.getString("userLoginId")).thenReturn("admin");
+        when(security.hasPermission("TESTEXEC_ADMIN", userLogin)).thenReturn(true);
+
+        Map<String, Object> result = TestRunServices.getScopedTestRunStatus(dctx,
+                Map.of("runId", "any-run", "userLogin", userLogin), "");
+
+        assertThat(result.get("responseMessage"), is("error"));
+        assertThat(result.get("errorMessage"), is("getScopedTestRunStatus requires an expectedComponentName"));
+    }
+
+    @Test
+    void getScopedTestRunStatusMasksANullComponentNameRunAsUnknownRunId() {
+        // Proves the fail-closed guarantee for a run registered with componentName=null (e.g. a
+        // hypothetical future unscoped internal registration path): the scoped wrapper's equality
+        // check must still deny it, returning the same masked "No such runId" response a genuine
+        // mismatch gets - never a crash, never real data.
+        DispatchContext dctx = mock(DispatchContext.class);
+        Security security = mock(Security.class);
+        GenericValue userLogin = mock(GenericValue.class);
+        when(dctx.getSecurity()).thenReturn(security);
+        when(userLogin.getString("userLoginId")).thenReturn("admin");
+        when(security.hasPermission("TESTEXEC_ADMIN", userLogin)).thenReturn(true);
+        TestRunServices.TRACKER.register("scoped-run-null-component", "content-tests", null, "admin", Map.of());
+
+        Map<String, Object> result = TestRunServices.getScopedTestRunStatus(dctx,
+                Map.of("runId", "scoped-run-null-component", "userLogin", userLogin), "example");
+
+        assertThat(result.get("responseMessage"), is("error"));
+        assertThat(result.get("errorMessage"), is("No such runId: scoped-run-null-component"));
+    }
 }

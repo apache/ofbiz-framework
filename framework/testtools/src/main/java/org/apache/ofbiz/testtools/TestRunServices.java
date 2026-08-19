@@ -92,6 +92,14 @@ import org.apache.ofbiz.testtools.report.TestRunManifest;
  * side effect a test performs outside that delegator's own transaction (e.g. a service that commits
  * independently) is not undone. Anyone deciding whether to enable {@code test.api.enabled} (see
  * testtools.properties) should weigh both of the limitations above.
+ *
+ * <p><b>Do not expose {@link #runTestSuite}/{@link #getTestRunStatus} directly in a component's own
+ * {@code *.rest.xml}.</b> Both accept/report an arbitrary {@code componentName} and so can trigger or
+ * poll any component's tests, not just the exposing component's own - a component-branded REST
+ * endpoint must instead wrap {@link #runScopedTestSuite}/{@link #getScopedTestRunStatus} with its own
+ * fixed component name, the way {@code plugins/example}'s {@code ExampleTestRunServices} does. Writing
+ * {@code <service name="runTestSuite"/>} straight into a {@code *.rest.xml} reproduces the exact
+ * cross-component-reach problem the scoped wrappers exist to close.
  */
 public final class TestRunServices {
 
@@ -187,6 +195,13 @@ public final class TestRunServices {
      */
     public static Map<String, Object> runScopedTestSuite(DispatchContext dctx, Map<String, ?> context,
             String fixedComponentName) {
+        // Fail closed, not open: an empty/null fixedComponentName must never reach runTestSuite's
+        // context map. ComponentConfig.matchingComponentName treats a null cname as "match every
+        // component" - if this guard were skipped, the entire scoping mechanism runScopedTestSuite
+        // exists for would silently degrade to fully unscoped behavior instead of erroring out.
+        if (UtilValidate.isEmpty(fixedComponentName)) {
+            return ServiceUtil.returnError("runScopedTestSuite requires a fixed componentName");
+        }
         Map<String, Object> scopedContext = new HashMap<>(context);
         scopedContext.put("componentName", fixedComponentName);
         return runTestSuite(dctx, scopedContext);
@@ -381,6 +396,14 @@ public final class TestRunServices {
      */
     public static Map<String, Object> getScopedTestRunStatus(DispatchContext dctx, Map<String, ?> context,
             String expectedComponentName) {
+        // Fail closed, not open: an empty/null expectedComponentName must never reach the
+        // equality check below - unlike runScopedTestSuite's fixedComponentName (which fails open
+        // by matching every component), a null here would instead throw a raw NullPointerException
+        // out of expectedComponentName.equals(...), a different and equally unacceptable failure
+        // mode. Guard against both up front so this helper always fails the same clean way.
+        if (UtilValidate.isEmpty(expectedComponentName)) {
+            return ServiceUtil.returnError("getScopedTestRunStatus requires an expectedComponentName");
+        }
         Map<String, Object> result = getTestRunStatus(dctx, context);
         if (ServiceUtil.isError(result)) {
             return result;
