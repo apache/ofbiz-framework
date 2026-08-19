@@ -209,6 +209,29 @@ class JupiterClassRunnerTest {
     }
 
     @Test
+    void testParametersExposesCallerSuppliedMapVerbatim() {
+        RecordingSink sink = new RecordingSink();
+        Map<String, Object> testParams = Map.of("exampleTypeId", "REAL_WORLD");
+
+        new JupiterTestExtension.JupiterClassRunner(
+                TestParametersFixture.class, mock(Delegator.class), mock(LocalDispatcher.class), testParams, sink)
+                .run();
+
+        assertThat(TestParametersFixture.seenValue, is("REAL_WORLD"));
+    }
+
+    @Test
+    void testParametersIsEmptyMapWhenNoOverridesSupplied() {
+        RecordingSink sink = new RecordingSink();
+
+        new JupiterTestExtension.JupiterClassRunner(
+                TestParametersFixture.class, mock(Delegator.class), mock(LocalDispatcher.class), sink)
+                .run();
+
+        assertThat(TestParametersFixture.seenValue, is(nullValue()));
+    }
+
+    @Test
     void failedAssertionInsideATestMethodIsReportedAsAFailureWithRealTypeAndStackTrace() {
         RecordingSink sink = new RecordingSink();
 
@@ -357,6 +380,16 @@ class JupiterClassRunnerTest {
             Map<String, Object> params = JupiterTestExtension.CURRENT_TEST_PARAMS.get();
             paramsWasNull = (params == null);
             seenValue = params == null ? null : (String) params.get("greeting");
+        }
+    }
+
+    @Tag(JupiterTestExtension.INTEGRATION_TAG)
+    static class TestParametersFixture implements JupiterTestHelper {
+        static Object seenValue;
+
+        @Test
+        void onlyTest() {
+            seenValue = getTestParameters().get("exampleTypeId");
         }
     }
     //FORBID PUBLIC FIELDS

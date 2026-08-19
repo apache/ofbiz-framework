@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.apache.ofbiz.testtools;
 
+import java.util.Map;
 import java.util.Set;
 
 import org.apache.ofbiz.base.util.Debug;
@@ -83,6 +84,22 @@ public interface JupiterTestHelper {
      */
     default LocalDispatcher getDispatcher() {
         return JupiterTestExtension.CURRENT_DISPATCHER.get();
+    }
+
+    /**
+     * Returns this run's caller-supplied test parameters verbatim - the exact Map a runTestSuite
+     * REST/service call's testParams argument carried in, or an empty map for a plain
+     * gradlew test/testIntegration run (which never supplies one) or an API-triggered run with no
+     * overrides. Never null, so every call site can write testParameters.someKey ?: someDefault
+     * (Groovy) without a separate null check on the map itself. Each test decides its own per-field
+     * defaulting this way, in the test method itself, rather than through a second lookup layer -
+     * see JupiterTestExtension's CURRENT_TEST_PARAMS javadoc for why an intermediate properties-file
+     * fallback tier was tried and dropped.
+     * @return the current run's test parameters, never null
+     */
+    default Map<String, Object> getTestParameters() {
+        Map<String, Object> params = JupiterTestExtension.CURRENT_TEST_PARAMS.get();
+        return params == null ? Map.of() : params;
     }
 
     /**
