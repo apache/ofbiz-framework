@@ -75,21 +75,25 @@ public class ImageManagementServices {
     private static String imagePath;
 
     /**
-     * Ensures a user-supplied image file name is safe to use as a rename target: it must pass
+     * Ensures a user-supplied image file name is safe to use as a rename target: it must resolve,
+     * once normalized, directly inside the given product image directory, and must pass
      * {@link org.apache.ofbiz.security.SecuredUpload#isValidFileName} (no path separators, no
-     * traversal sequences, no denied extensions) and must resolve, once normalized, directly
-     * inside the given product image directory.
+     * traversal sequences, no denied extensions). The containment check runs first and only calls
+     * into {@code isValidFileName} once containment is confirmed, because that helper is not
+     * side-effect free: for a denied extension it deletes the file at the supplied path, and an
+     * absolute or traversal path checked before containment would let that delete escape the
+     * product directory entirely.
      */
     static boolean isValidProductImageFileName(String fileName, Path resolvedProductDir, Delegator delegator) {
         if (UtilValidate.isEmpty(fileName)) {
             return false;
         }
         try {
-            if (!org.apache.ofbiz.security.SecuredUpload.isValidFileName(fileName, delegator)) {
+            Path resolvedFilePath = resolvedProductDir.resolve(fileName).normalize();
+            if (resolvedFilePath.getParent() == null || !resolvedFilePath.getParent().equals(resolvedProductDir)) {
                 return false;
             }
-            Path resolvedFilePath = resolvedProductDir.resolve(fileName).normalize();
-            return resolvedFilePath.getParent() != null && resolvedFilePath.getParent().equals(resolvedProductDir);
+            return org.apache.ofbiz.security.SecuredUpload.isValidFileName(fileName, delegator);
         } catch (IOException | InvalidPathException e) {
             Debug.logError(e, MODULE);
             return false;
