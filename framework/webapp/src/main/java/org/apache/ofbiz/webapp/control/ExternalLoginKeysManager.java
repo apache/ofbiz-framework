@@ -19,6 +19,7 @@
 package org.apache.ofbiz.webapp.control;
 
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -45,9 +46,12 @@ public class ExternalLoginKeysManager {
     // (address bar, browser history, Referer header, proxy log) is worth anything to an attacker.
     private static final long EXTERNAL_LOGIN_KEY_TTL_MILLIS = 2 * 60 * 1000;
     // This Map is keyed by the randomly generated externalLoginKey and the value is the ticket
-    // describing who it authenticates as and until when. A ticket is consumed (removed) the
-    // first time it is looked up in checkExternalLoginKey, whether or not it turns out valid, so
-    // it can never be replayed.
+    // describing who it authenticates as and until when. One render mints one key and embeds it
+    // in every cross-webapp link on that page (see getExternalLoginKey's request-attribute
+    // cache), so a ticket is redeemable once per distinct destination webapp -- see
+    // ExternalLoginTicket#redeemFor -- rather than once globally: that keeps the ordinary
+    // app-switcher workflow (open two different apps from the same page) working while still
+    // rejecting a second redemption against the same webapp.
     private static final Map<String, ExternalLoginTicket> EXTERNAL_LOGIN_KEYS = new ConcurrentHashMap<>();
 
     // This variable is set to empty so we know need to read from the properties file.
@@ -63,6 +67,11 @@ public class ExternalLoginKeysManager {
         private final GenericValue userLogin;
         private final String targetContextPath;
         private final long expiresAtMillis;
+        // Context paths this ticket has already been redeemed for. A single render shares one
+        // key across every cross-webapp link it emits, so the same key legitimately needs to
+        // authenticate into several different webapps; this set is what stops it authenticating
+        // into the *same* webapp twice, which is the actual replay this ticket must prevent.
+        private final Set<String> redeemedContextPaths = ConcurrentHashMap.newKeySet();
 
         ExternalLoginTicket(GenericValue userLogin, String targetContextPath) {
             this.userLogin = userLogin;
@@ -79,6 +88,16 @@ public class ExternalLoginKeysManager {
                 return false;
             }
             return targetContextPath == null || targetContextPath.equals(request.getServletContext().getContextPath());
+        }
+
+        /**
+         * Atomically marks this ticket as redeemed for the request's webapp.
+         * @param request the request presenting this ticket's key
+         * @return true the first time this webapp redeems this ticket, false on any repeat
+         *     (replay) for the same webapp
+         */
+        boolean redeemFor(HttpServletRequest request) {
+            return redeemedContextPaths.add(request.getServletContext().getContextPath());
         }
     }
 
@@ -145,11 +164,13 @@ public class ExternalLoginKeysManager {
         String externalKey = request.getParameter(EXTERNAL_LOGIN_KEY_ATTR);
         if (externalKey == null) return "success";
 
-        // Consume the ticket unconditionally: a key is redeemable exactly once, whatever the
-        // outcome of the checks below, so it can never be replayed even if it turns out invalid.
-        ExternalLoginTicket ticket = EXTERNAL_LOGIN_KEYS.remove(externalKey);
-        if (ticket == null || !ticket.isValidFor(request)) {
-            Debug.logWarning("Could not find a valid userLogin for external login key: " + externalKey, MODULE);
+        // Look up without removing: the same key is shared across every cross-webapp link one
+        // render emits, so it must stay valid for whichever *other* destination webapps the
+        // user still hasn't visited yet. redeemFor(), below, is what actually stops replay --
+        // it rejects a second redemption against a webapp this exact ticket already logged into.
+        ExternalLoginTicket ticket = EXTERNAL_LOGIN_KEYS.get(externalKey);
+        if (ticket == null || !ticket.isValidFor(request) || !ticket.redeemFor(request)) {
+            Debug.logWarning("Could not find a valid, not-yet-redeemed userLogin for external login key: " + externalKey, MODULE);
             // make sure the autoUserLogin is set to the same and that the client cookie has the correct userLoginId
             LoginWorker.autoLoginSet(request, response);
             return "success";
