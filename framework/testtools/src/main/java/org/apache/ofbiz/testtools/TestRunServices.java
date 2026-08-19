@@ -48,6 +48,27 @@ import org.apache.ofbiz.testtools.report.TestRunManifest;
  *
  * <p>Runs execute one at a time on a dedicated single-threaded executor: a second runTestSuite
  * call while one is in progress queues behind it rather than running concurrently.
+ *
+ * <p><b>Known POC limitation - dispatcher/delegator resource leak.</b> {@code new JunitSuiteWrapper(...)}
+ * reuses {@code ModelTestSuite}'s constructor, which unconditionally creates a fresh test
+ * {@code Delegator}/{@code LocalDispatcher} via {@code ServiceContainer.getLocalDispatcher(...)} - the
+ * exact same construction path the {@code ofbiz --test} CLI already uses once per process. That
+ * construction permanently registers the new dispatcher in {@code ServiceContainer}'s static
+ * dispatcher cache and re-runs startup services. For the CLI this is harmless: the JVM exits right
+ * after. Here, every API-triggered {@code runTestSuite} call goes through that same path inside a
+ * long-lived server process with no corresponding cleanup/deregistration - so each call grows
+ * {@code ServiceContainer}'s dispatcher-cache and re-fires startup services again. This is a known,
+ * accepted limitation of this feature as a POC, not an oversight: a real fix would touch shared
+ * static server-engine internals ({@code ServiceContainer} deregistration) that can't be safely
+ * validated without a live running instance, so it is deliberately left as future work rather than
+ * attempted here.
+ *
+ * <p><b>Runs execute against the live server's database.</b> An API-triggered run is not an isolated
+ * sandbox: {@code modelSuite.getDelegator().rollback()} is called after each suite as a best-effort
+ * cleanup, but there is no transactional isolation from the rest of the running server, and any
+ * side effect a test performs outside that delegator's own transaction (e.g. a service that commits
+ * independently) is not undone. Anyone deciding whether to enable {@code test.api.enabled} (see
+ * testtools.properties) should weigh both of the limitations above.
  */
 public final class TestRunServices {
 
