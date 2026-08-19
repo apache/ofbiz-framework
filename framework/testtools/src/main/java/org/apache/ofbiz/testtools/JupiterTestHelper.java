@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.apache.ofbiz.testtools;
 
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -87,20 +88,49 @@ public interface JupiterTestHelper {
     }
 
     /**
-     * Returns this run's caller-supplied test parameters verbatim - the exact Map a runTestSuite
-     * REST/service call's testParams argument carried in, or an empty map for a plain
-     * gradlew test/testIntegration run (which never supplies one) or an API-triggered run with no
-     * overrides. Never null, so every call site can write testParams.someKey ?: someDefault
-     * (Groovy) without a separate null check on the map itself. Each test decides its own per-field
-     * defaulting this way, in the test method itself, rather than through a second lookup layer -
-     * see JupiterTestExtension's CURRENT_TEST_PARAMS javadoc for why an intermediate properties-file
-     * fallback tier was tried and dropped. Named to match the wire-level runTestSuite service
-     * attribute (testParams), not testParameters - one name for the concept everywhere.
-     * @return the current run's test parameters, never null
+     * Returns this run's caller-supplied test parameters, merged for the test method currently
+     * executing on this thread - the exact Map a runTestSuite REST/service call's testParams
+     * argument carried in, or an empty map for a plain gradlew test/testIntegration run (which
+     * never supplies one) or an API-triggered run with no overrides. Never null, so every call site
+     * can write testParams.someKey ?: someDefault (Groovy) without a separate null check on the map
+     * itself. Each test decides its own per-field defaulting this way, in the test method itself,
+     * rather than through a second lookup layer - see JupiterTestExtension's CURRENT_TEST_PARAMS
+     * javadoc for why an intermediate properties-file fallback tier was tried and dropped. Named to
+     * match the wire-level runTestSuite service attribute (testParams), not testParameters - one
+     * name for the concept everywhere.
+     *
+     * <p>The caller's testParams map can carry both flat/common keys and nested per-test-method
+     * override objects, keyed by the exact test method name (e.g.
+     * {@code {"exampleTypeId": "CONTRIVED", "shouldUpdateExample": {"exampleTypeId": "INSPIRED"}}}).
+     * This method resolves that down to one flat map for the currently-running method: start from
+     * every top-level entry whose value is not itself a Map (nested objects are namespace
+     * containers, never a real field value in their own right, so none of them - not just the
+     * current method's own - belong in this common base); if the raw map has an entry for the
+     * current method name whose value is a Map, merge it on top (its keys win on conflict). A
+     * missing or malformed (non-Map-valued) namespaced entry simply falls back to the common base.
+     * For a parameterized test method, the current-method name is decorated (e.g.
+     * "methodName[exampleTypeId=CONTRIVED]") and so will never match a plain method-name key -
+     * namespacing only cleanly targets plain, non-parameterized @Test methods.
+     * @return the current run's merged test parameters, never null
      */
     default Map<String, Object> getTestParams() {
         Map<String, Object> params = JupiterTestExtension.CURRENT_TEST_PARAMS.get();
-        return params == null ? Map.of() : params;
+        if (params == null) {
+            return Map.of();
+        }
+        Map<String, Object> commonBase = new LinkedHashMap<>();
+        for (Map.Entry<String, Object> entry : params.entrySet()) {
+            if (!(entry.getValue() instanceof Map)) {
+                commonBase.put(entry.getKey(), entry.getValue());
+            }
+        }
+        String currentMethodName = JupiterTestExtension.CURRENT_TEST_METHOD_NAME.get();
+        if (currentMethodName != null && params.get(currentMethodName) instanceof Map<?, ?> override) {
+            for (Map.Entry<?, ?> entry : override.entrySet()) {
+                commonBase.put((String) entry.getKey(), entry.getValue());
+            }
+        }
+        return commonBase;
     }
 
     /**

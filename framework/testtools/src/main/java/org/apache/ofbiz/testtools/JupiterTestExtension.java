@@ -139,6 +139,18 @@ public class JupiterTestExtension implements ParameterResolver, TestInstancePost
     static final ThreadLocal<Map<String, Object>> CURRENT_TEST_PARAMS = new ThreadLocal<>();
 
     /**
+     * The bare, undecorated method name of the Jupiter {@literal @}Test currently executing on this
+     * thread (e.g. "shouldCreateExample") - armed/cleared in JupiterClassRunner's
+     * executionStarted()/executionFinished() listener callbacks, the same lifecycle already used for
+     * TEST_CASE_MDC_KEY. Lets JupiterTestHelper.getTestParams() look up a namespaced per-method
+     * override in CURRENT_TEST_PARAMS without every test method having to identify itself. For a
+     * parameterized test, reportingName() returns a decorated name (e.g.
+     * "methodName[exampleTypeId=CONTRIVED]"), so namespacing only cleanly targets plain,
+     * non-parameterized @Test methods - see JupiterTestHelper.getTestParams()'s javadoc.
+     */
+    static final ThreadLocal<String> CURRENT_TEST_METHOD_NAME = new ThreadLocal<>();
+
+    /**
      * Disables classes/methods run outside the ofbiz --test container instead of letting them reach
      * postProcessTestInstance()/resolveParameter() (or, for JupiterTestHelper-based classes, a
      * NullPointerException from a getDelegator()/getDispatcher() caller). Both ThreadLocals are
@@ -327,6 +339,7 @@ public class JupiterTestExtension implements ParameterResolver, TestInstancePost
                         if (testIdentifier.isTest()) {
                             startTimes.put(testIdentifier.getUniqueId(), System.currentTimeMillis());
                             ThreadContext.put(TEST_CASE_MDC_KEY, testClass.getSimpleName() + "#" + reportingName(testIdentifier));
+                            JupiterTestExtension.CURRENT_TEST_METHOD_NAME.set(reportingName(testIdentifier));
                             ReportingSupport.dispatch(sinks, sink -> sink.testStarted(testClass.getName(), reportingName(testIdentifier)));
                         }
                     }
@@ -370,6 +383,7 @@ public class JupiterTestExtension implements ParameterResolver, TestInstancePost
                             ReportingSupport.dispatch(sinks, sink -> sink.testFinished(testClass.getName(), name, elapsed, outcome));
                         } finally {
                             ThreadContext.remove(TEST_CASE_MDC_KEY);
+                            JupiterTestExtension.CURRENT_TEST_METHOD_NAME.remove();
                         }
                     }
                 });
@@ -380,6 +394,7 @@ public class JupiterTestExtension implements ParameterResolver, TestInstancePost
                 JupiterTestExtension.CURRENT_DELEGATOR.remove();
                 JupiterTestExtension.CURRENT_DISPATCHER.remove();
                 JupiterTestExtension.CURRENT_TEST_PARAMS.remove();
+                JupiterTestExtension.CURRENT_TEST_METHOD_NAME.remove();
             }
         }
 

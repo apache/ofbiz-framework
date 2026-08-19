@@ -62,6 +62,7 @@ class JupiterClassRunnerTest {
         JupiterTestExtension.CURRENT_DELEGATOR.remove();
         JupiterTestExtension.CURRENT_DISPATCHER.remove();
         JupiterTestExtension.CURRENT_TEST_PARAMS.remove();
+        JupiterTestExtension.CURRENT_TEST_METHOD_NAME.remove();
     }
 
     @Test
@@ -232,6 +233,64 @@ class JupiterClassRunnerTest {
     }
 
     @Test
+    void namespacedTestParamOverridesFlatKeyForCurrentMethodOnlyOtherMethodsSeeFlat() {
+        RecordingSink sink = new RecordingSink();
+        Map<String, Object> testParams = Map.of(
+                "color", "red",
+                "shape", "square",
+                "methodOne", Map.of("color", "blue"));
+
+        new JupiterTestExtension.JupiterClassRunner(
+                NamespacedTestParamsFixture.class, mock(Delegator.class), mock(LocalDispatcher.class), testParams, sink)
+                .run();
+
+        assertThat(NamespacedTestParamsFixture.methodOneSeenColor, is("blue"));
+        assertThat(NamespacedTestParamsFixture.methodOneSeenShape, is("square"));
+        assertThat(NamespacedTestParamsFixture.methodTwoSeenColor, is("red"));
+    }
+
+    @Test
+    void siblingNamespacedEntryIsExcludedFromCommonBaseAndDoesNotLeakAcrossMethods() {
+        RecordingSink sink = new RecordingSink();
+        Map<String, Object> testParams = Map.of(
+                "methodOne", Map.of("color", "blue"),
+                "methodTwo", Map.of("color", "green"));
+
+        new JupiterTestExtension.JupiterClassRunner(
+                NamespacedTestParamsFixture.class, mock(Delegator.class), mock(LocalDispatcher.class), testParams, sink)
+                .run();
+
+        assertThat(NamespacedTestParamsFixture.methodOneSeenColor, is("blue"));
+        assertThat(NamespacedTestParamsFixture.methodOneSeenMethodTwoRawValue, is(nullValue()));
+        assertThat(NamespacedTestParamsFixture.methodTwoSeenColor, is("green"));
+    }
+
+    @Test
+    void malformedNamespacedEntryFallsBackToCommonBase() {
+        RecordingSink sink = new RecordingSink();
+        Map<String, Object> testParams = Map.of(
+                "color", "red",
+                "methodOne", "not-a-map");
+
+        new JupiterTestExtension.JupiterClassRunner(
+                NamespacedTestParamsFixture.class, mock(Delegator.class), mock(LocalDispatcher.class), testParams, sink)
+                .run();
+
+        assertThat(NamespacedTestParamsFixture.methodOneSeenColor, is("red"));
+    }
+
+    @Test
+    void currentTestMethodNameThreadLocalIsClearedAfterRun() {
+        RecordingSink sink = new RecordingSink();
+
+        new JupiterTestExtension.JupiterClassRunner(
+                NamespacedTestParamsFixture.class, mock(Delegator.class), mock(LocalDispatcher.class), sink)
+                .run();
+
+        assertThat(JupiterTestExtension.CURRENT_TEST_METHOD_NAME.get(), nullValue());
+    }
+
+    @Test
     void failedAssertionInsideATestMethodIsReportedAsAFailureWithRealTypeAndStackTrace() {
         RecordingSink sink = new RecordingSink();
 
@@ -390,6 +449,26 @@ class JupiterClassRunnerTest {
         @Test
         void onlyTest() {
             seenValue = getTestParams().get("exampleTypeId");
+        }
+    }
+
+    @Tag(JupiterTestExtension.INTEGRATION_TAG)
+    static class NamespacedTestParamsFixture implements JupiterTestHelper {
+        static Object methodOneSeenColor;
+        static Object methodOneSeenShape;
+        static Object methodOneSeenMethodTwoRawValue;
+        static Object methodTwoSeenColor;
+
+        @Test
+        void methodOne() {
+            methodOneSeenColor = getTestParams().get("color");
+            methodOneSeenShape = getTestParams().get("shape");
+            methodOneSeenMethodTwoRawValue = getTestParams().get("methodTwo");
+        }
+
+        @Test
+        void methodTwo() {
+            methodTwoSeenColor = getTestParams().get("color");
         }
     }
     //FORBID PUBLIC FIELDS
