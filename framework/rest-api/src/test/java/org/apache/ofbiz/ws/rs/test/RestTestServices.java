@@ -24,9 +24,8 @@ import java.util.Map;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.service.DispatchContext;
-import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.service.ServiceUtil;
-import org.apache.ofbiz.ws.rs.util.RestApiUtil;
+import org.apache.ofbiz.ws.rs.util.RestServiceUtil;
 
 public class RestTestServices {
 
@@ -38,8 +37,7 @@ public class RestTestServices {
      * @return result
      */
     public static Map<String, Object> returnCustomErrorTest(DispatchContext dctx, Map<String, ? extends Object> context) {
-        Map<String, Object> result = ServiceUtil.returnError("Some error");
-        result.put(ModelService.ERROR_CODE, 999);
+        Map<String, Object> result = RestServiceUtil.returnError("Planned test-error, can be ignored", 999);
         return result;
     }
 
@@ -64,9 +62,7 @@ public class RestTestServices {
      * @return result
      */
     public static Map<String, Object> returnSuccessButOverwriteStatusCode(DispatchContext dctx, Map<String, ? extends Object> context) {
-        Map<String, Object> result = ServiceUtil.returnSuccess();
-        result.put(RestApiUtil.RESPONSE_STATUS_KEY, 201);
-        return result;
+        return RestServiceUtil.returnSuccess(null, 201);
     }
 
     /**
