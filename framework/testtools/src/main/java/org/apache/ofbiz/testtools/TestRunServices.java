@@ -89,10 +89,18 @@ public final class TestRunServices {
             return ServiceUtil.returnError("The test execution API is disabled in this environment (test.api.enabled=false)");
         }
 
-        JunitSuiteWrapper wrapper = new JunitSuiteWrapper(componentName, suiteName, testCaseName);
-        if (wrapper.getAllTestList().isEmpty()) {
-            return ServiceUtil.returnError("No tests found (component=" + componentName + ", suiteName=" + suiteName
-                    + ", testCaseName=" + testCaseName + ")");
+        JunitSuiteWrapper wrapper;
+        try {
+            wrapper = new JunitSuiteWrapper(componentName, suiteName, testCaseName);
+            if (wrapper.getAllTestList().isEmpty()) {
+                return ServiceUtil.returnError("No tests found (component=" + componentName + ", suiteName=" + suiteName
+                        + ", testCaseName=" + testCaseName + ")");
+            }
+        } catch (Exception e) {
+            Debug.logError(e, "runTestSuite: failed to resolve suite '" + suiteName + "' (component=" + componentName
+                    + ", testCaseName=" + testCaseName + ")", MODULE);
+            return ServiceUtil.returnError("Unable to resolve the requested test suite (component=" + componentName
+                    + ", suiteName=" + suiteName + ", testCaseName=" + testCaseName + "): " + e.getMessage());
         }
 
         String runId = UUID.randomUUID().toString();
@@ -127,10 +135,17 @@ public final class TestRunServices {
                 File xmlFile = new File(runDir, modelSuite.getSuiteName() + ".xml");
                 SuiteXmlReportWriter xmlSink = new SuiteXmlReportWriter(new FileOutputStream(xmlFile));
                 xmlSink.startSuite(modelSuite.getSuiteName());
-                TestRunContainer.runSuiteEntries(modelSuite.getPreparedTestList(), modelSuite.getDelegator(),
-                        modelSuite.getDispatcher(), testParams, xmlSink);
-                modelSuite.getDelegator().rollback();
-                xmlSink.endSuite();
+                try {
+                    TestRunContainer.runSuiteEntries(modelSuite.getPreparedTestList(), modelSuite.getDelegator(),
+                            modelSuite.getDispatcher(), testParams, xmlSink);
+                    modelSuite.getDelegator().rollback();
+                } finally {
+                    // endSuite() is the only place that actually flushes/writes/closes the underlying
+                    // FileOutputStream (see SuiteXmlReportWriter#writeAndClose) - without this finally,
+                    // an exception from runSuiteEntries()/rollback() would leak the stream (a real
+                    // file-descriptor leak in this long-lived server) and leave a 0-byte XML on disk.
+                    xmlSink.endSuite();
+                }
                 allPassed = allPassed && xmlSink.wasSuccessful();
             }
 
@@ -141,9 +156,14 @@ public final class TestRunServices {
                 TRACKER.markFailed(runId, resultSummary);
             }
             Debug.logInfo("runTestSuite: " + (allPassed ? "PASSED" : "FAILED") + " runId=" + runId, MODULE);
-        } catch (Exception e) {
-            Debug.logError(e, "runTestSuite: ERROR runId=" + runId, MODULE);
-            TRACKER.markError(runId, e);
+        } catch (Throwable t) {
+            // Catches Throwable, not just Exception - matching TestRunContainer.start()'s own
+            // last-resort net around runSuiteEntries() - so a test class's Error (NoClassDefFoundError,
+            // StackOverflowError, OOM, ...) can't escape uncaught here. Left as Exception, such an Error
+            // would bypass TRACKER.markError(...) entirely, leaving this run's tracked status stuck at
+            // RUNNING forever - a polling caller would hang indefinitely with no timeout to save it.
+            Debug.logError(t, "runTestSuite: ERROR runId=" + runId, MODULE);
+            TRACKER.markError(runId, t);
         }
     }
 
