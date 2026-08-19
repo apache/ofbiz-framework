@@ -32,7 +32,12 @@ final class TestRunTracker {
     private final Map<String, TestRunRecord> records = new ConcurrentHashMap<>();
 
     TestRunRecord register(String runId, String suiteName, String triggeredBy, Map<String, Object> paramsUsed) {
-        TestRunRecord record = TestRunRecord.queued(runId, suiteName, triggeredBy, paramsUsed);
+        // Defensively copies the caller's map: this same map instance later gets armed into
+        // JupiterTestExtension.CURRENT_TEST_PARAMS and is directly readable/mutable inside the
+        // running Jupiter test class (as testParameters). Without this copy, a test that mutated
+        // testParameters would corrupt both this tracker's stored record and, eventually, the
+        // archived manifest.json's paramsUsed.
+        TestRunRecord record = TestRunRecord.queued(runId, suiteName, triggeredBy, Map.copyOf(paramsUsed));
         records.put(runId, record);
         return record;
     }

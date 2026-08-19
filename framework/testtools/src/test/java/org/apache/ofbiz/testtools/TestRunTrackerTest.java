@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.apache.ofbiz.testtools;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.junit.jupiter.api.Test;
@@ -94,5 +95,18 @@ class TestRunTrackerTest {
         TestRunTracker tracker = new TestRunTracker();
 
         assertThat(tracker.get("no-such-run"), nullValue());
+    }
+
+    @Test
+    void registerDefensivelyCopiesTheCallersParamsMap() {
+        TestRunTracker tracker = new TestRunTracker();
+        Map<String, Object> callerParams = new HashMap<>();
+        callerParams.put("exampleName", "original");
+
+        tracker.register("run-1", "example-tests", "system", callerParams);
+        callerParams.put("exampleName", "mutated-after-register");
+        callerParams.put("extraKey", "should-not-appear");
+
+        assertThat(tracker.get("run-1").paramsUsed(), is(Map.of("exampleName", "original")));
     }
 }
