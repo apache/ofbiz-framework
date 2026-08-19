@@ -21,6 +21,7 @@ package org.apache.ofbiz.testtools;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.logging.log4j.ThreadContext;
 import org.apache.ofbiz.entity.Delegator;
@@ -60,6 +61,7 @@ class JupiterClassRunnerTest {
     void clearThreadLocals() {
         JupiterTestExtension.CURRENT_DELEGATOR.remove();
         JupiterTestExtension.CURRENT_DISPATCHER.remove();
+        JupiterTestExtension.CURRENT_TEST_PARAMS.remove();
     }
 
     @Test
@@ -179,6 +181,30 @@ class JupiterClassRunnerTest {
         assertThat(sink.testStartedCalls, contains(DisabledCountFixture.class.getName() + "#classExecutionError"));
         SuiteReportSink.Outcome.Error error = (SuiteReportSink.Outcome.Error) sink.testFinishedCalls.get(0).outcome();
         assertThat(error.throwable().getMessage(), is("boom"));
+    }
+
+    @Test
+    void testParamsThreadLocalIsArmedDuringExecutionAndClearedAfter() {
+        RecordingSink sink = new RecordingSink();
+        Map<String, Object> testParams = Map.of("greeting", "hello-from-caller");
+
+        new JupiterTestExtension.JupiterClassRunner(
+                ParamsRecordingFixture.class, mock(Delegator.class), mock(LocalDispatcher.class), testParams, sink)
+                .run();
+
+        assertThat(ParamsRecordingFixture.seenValue, is("hello-from-caller"));
+        assertThat(JupiterTestExtension.CURRENT_TEST_PARAMS.get(), nullValue());
+    }
+
+    @Test
+    void testParamsThreadLocalDefaultsToEmptyMapWhenOmitted() {
+        RecordingSink sink = new RecordingSink();
+
+        new JupiterTestExtension.JupiterClassRunner(
+                ParamsRecordingFixture.class, mock(Delegator.class), mock(LocalDispatcher.class), sink)
+                .run();
+
+        assertThat(ParamsRecordingFixture.seenValue, is(nullValue()));
     }
 
     @Test
@@ -317,6 +343,17 @@ class JupiterClassRunnerTest {
         @Test
         void throwsARuntimeException() {
             throw new RuntimeException("boom");
+        }
+    }
+
+    @Tag(JupiterTestExtension.INTEGRATION_TAG)
+    static class ParamsRecordingFixture {
+        static String seenValue;
+
+        @Test
+        void onlyTest() {
+            Map<String, Object> params = JupiterTestExtension.CURRENT_TEST_PARAMS.get();
+            seenValue = params == null ? null : (String) params.get("greeting");
         }
     }
     //FORBID PUBLIC FIELDS

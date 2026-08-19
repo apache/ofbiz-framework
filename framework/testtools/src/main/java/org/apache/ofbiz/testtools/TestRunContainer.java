@@ -111,6 +111,11 @@ public class TestRunContainer implements Container {
         return name;
     }
 
+    static void runSuiteEntries(List<SuiteEntry> entries, Delegator delegator, LocalDispatcher dispatcher,
+            SuiteReportSink... sinks) {
+        runSuiteEntries(entries, delegator, dispatcher, Map.of(), sinks);
+    }
+
     /**
      * Runs one suite's ordered SuiteEntry list, JUnit 3 entries through junit.framework.TestResult
      * (translated via Junit3ResultBridge) and Jupiter entries through JupiterTestExtension.JupiterClassRunner
@@ -122,10 +127,12 @@ public class TestRunContainer implements Container {
      * @param entries the suite's prepared, ordered test entries
      * @param delegator the suite's Delegator, shared by every entry
      * @param dispatcher the suite's LocalDispatcher, shared by every entry
+     * @param testParams caller-supplied parameter overrides for Jupiter entries (empty for a plain
+     *     {@code gradlew test}/{@code testIntegration} run - see TestRunServices for the API-triggered path)
      * @param sinks where to report results
      */
     static void runSuiteEntries(List<SuiteEntry> entries, Delegator delegator, LocalDispatcher dispatcher,
-            SuiteReportSink... sinks) {
+            Map<String, Object> testParams, SuiteReportSink... sinks) {
         TestResult junit3Result = new TestResult();
         junit3Result.addListener(new Junit3ResultBridge(sinks));
         for (SuiteEntry entry : entries) {
@@ -133,7 +140,7 @@ public class TestRunContainer implements Container {
                 if (entry instanceof Junit3Entry junit3Entry) {
                     junit3Entry.test().run(junit3Result);
                 } else if (entry instanceof JupiterEntry jupiterEntry) {
-                    new JupiterTestExtension.JupiterClassRunner(jupiterEntry.testClass(), delegator, dispatcher, sinks).run();
+                    new JupiterTestExtension.JupiterClassRunner(jupiterEntry.testClass(), delegator, dispatcher, testParams, sinks).run();
                 } else {
                     // SuiteEntry is sealed permits Junit3Entry, JupiterEntry, so this is unreachable today -
                     // but Java 17 doesn't support exhaustive switch over sealed types without preview

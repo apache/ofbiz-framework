@@ -136,6 +136,7 @@ public class JupiterTestExtension implements ParameterResolver, TestInstancePost
 
     static final ThreadLocal<Delegator> CURRENT_DELEGATOR = new ThreadLocal<>();
     static final ThreadLocal<LocalDispatcher> CURRENT_DISPATCHER = new ThreadLocal<>();
+    static final ThreadLocal<Map<String, Object>> CURRENT_TEST_PARAMS = new ThreadLocal<>();
 
     /**
      * Disables classes/methods run outside the ofbiz --test container instead of letting them reach
@@ -278,14 +279,21 @@ public class JupiterTestExtension implements ParameterResolver, TestInstancePost
         private final Class<?> testClass;
         private final Delegator delegator;
         private final LocalDispatcher dispatcher;
+        private final Map<String, Object> testParams;
         private final List<SuiteReportSink> sinks;
         private final Launcher launcher;
         private final LauncherDiscoveryRequest request;
 
         JupiterClassRunner(Class<?> testClass, Delegator delegator, LocalDispatcher dispatcher, SuiteReportSink... sinks) {
+            this(testClass, delegator, dispatcher, Map.of(), sinks);
+        }
+
+        JupiterClassRunner(Class<?> testClass, Delegator delegator, LocalDispatcher dispatcher,
+                Map<String, Object> testParams, SuiteReportSink... sinks) {
             this.testClass = testClass;
             this.delegator = delegator;
             this.dispatcher = dispatcher;
+            this.testParams = testParams;
             this.sinks = List.of(sinks);
             this.launcher = LauncherFactory.create();
             this.request = LauncherDiscoveryRequestBuilder.request()
@@ -310,6 +318,7 @@ public class JupiterTestExtension implements ParameterResolver, TestInstancePost
         void run() {
             JupiterTestExtension.CURRENT_DELEGATOR.set(delegator);
             JupiterTestExtension.CURRENT_DISPATCHER.set(dispatcher);
+            JupiterTestExtension.CURRENT_TEST_PARAMS.set(testParams);
             Map<String, Long> startTimes = new HashMap<>();
             try {
                 launcher.execute(request, new TestExecutionListener() {
@@ -370,6 +379,7 @@ public class JupiterTestExtension implements ParameterResolver, TestInstancePost
                 ThreadContext.remove(TEST_CASE_MDC_KEY);
                 JupiterTestExtension.CURRENT_DELEGATOR.remove();
                 JupiterTestExtension.CURRENT_DISPATCHER.remove();
+                JupiterTestExtension.CURRENT_TEST_PARAMS.remove();
             }
         }
 
