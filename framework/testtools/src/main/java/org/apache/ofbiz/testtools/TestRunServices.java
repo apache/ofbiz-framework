@@ -22,6 +22,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.util.Collections;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ExecutorService;
@@ -52,26 +53,37 @@ import org.apache.ofbiz.testtools.report.TestRunManifest;
  * <p>Runs execute one at a time on a dedicated single-threaded executor: a second runTestSuite
  * call while one is in progress queues behind it rather than running concurrently.
  *
- * <p><b>Known POC limitation - dispatcher/delegator resource leak (partially mitigated).</b>
- * {@code new JunitSuiteWrapper(...)} reuses {@code ModelTestSuite}'s constructor, which
+ * <p><b>Known POC limitation - dispatcher/delegator resource leak (one piece mitigated; the rest is
+ * not).</b> {@code new JunitSuiteWrapper(...)} reuses {@code ModelTestSuite}'s constructor, which
  * unconditionally creates a fresh test {@code Delegator}/{@code LocalDispatcher} via
  * {@code ServiceContainer.getLocalDispatcher(...)} - the exact same construction path the
  * {@code ofbiz --test} CLI already uses once per process. For the CLI this is harmless: the JVM
  * exits right after. Here, every API-triggered {@code runTestSuite} call goes through that same
- * path inside a long-lived server process, so {@code executeRun} now deregisters each suite's
- * dispatcher ({@code ServiceContainer.deregister(name)}) once that suite is done, regardless of
- * outcome. That call removes the dispatcher's entry from {@code ServiceContainer}'s static
- * dispatcher cache and closes its JMS listeners, so those two things no longer accumulate forever.
- * It does <b>not</b> fully close the leak, though: the heavier {@code ServiceDispatcher} instance
- * backing each run (its {@code Security}, {@code JobManager} reference, now-empty
- * {@code localContext}) stays in {@code ServiceDispatcher}'s own separate static cache
- * indefinitely - no public API anywhere in the framework removes an entry from that map, and
- * adding one would mean modifying {@code ServiceDispatcher} itself, which is out of scope for this
- * fix. Startup services also still re-run on every single {@code runTestSuite} call regardless of
- * this fix: {@code ModelTestSuite}'s constructor gives each run's delegator a unique name, so
+ * path inside a long-lived server process, so {@code executeRun} now removes each suite's
+ * dispatcher entry from {@code ServiceContainer}'s static dispatcher cache
+ * ({@code ServiceContainer.removeFromCache(name)}) once that suite is done, regardless of outcome -
+ * including suites {@code JunitSuiteWrapper} itself discarded for having no matching tests (see
+ * {@code JunitSuiteWrapper#getDiscardedModelTestSuites}), which {@code runTestSuite} also cleans up
+ * before returning its "no tests found" error. <b>Deliberately {@code removeFromCache}, not
+ * {@code ServiceContainer.deregister}</b>: {@code deregister} calls {@code LocalDispatcher.deregister()},
+ * which shuts the backing {@code ServiceDispatcher} down as soon as its {@code localContext} empties
+ * out - always true immediately for a dispatcher used by exactly one test run - and that shutdown
+ * closes JMS listeners through a process-wide singleton ({@code JmsListenerFactory}) shared by every
+ * dispatcher in the JVM, including the live server's real one. See
+ * {@code deregisterTestDispatcher}'s own javadoc for the full chain.
+ *
+ * <p>What this fix does <b>not</b> touch, at all: the heavier {@code ServiceDispatcher} instance
+ * backing each run - its {@code Security}, {@code JobManager} reference, now-empty
+ * {@code localContext} - stays in {@code ServiceDispatcher}'s own separate static
+ * {@code dispatchers} cache indefinitely, and so does the test {@code Delegator} itself, since
+ * {@code ServiceDispatcher} pins its delegator reference for as long as that instance remains
+ * cached. No public API anywhere in the framework removes an entry from that map, and adding one
+ * would mean modifying {@code ServiceDispatcher} itself, which is out of scope for this fix.
+ * Startup services also still re-run on every single {@code runTestSuite} call regardless of this
+ * fix: {@code ModelTestSuite}'s constructor gives each run's delegator a unique name, so
  * {@code ServiceDispatcher.getInstance(delegator)} always misses that cache and initializes a new
- * {@code ServiceDispatcher} - deregistering the previous run's dispatcher does not change that,
- * since the next run's key never collided with it in the first place.
+ * {@code ServiceDispatcher} - removing the previous run's dispatcher cache entry does not change
+ * that, since the next run's key never collided with it in the first place.
  *
  * <p><b>Runs execute against the live server's database.</b> An API-triggered run is not an isolated
  * sandbox: {@code modelSuite.getDelegator().rollback()} is called after each suite as a best-effort
@@ -129,6 +141,14 @@ public final class TestRunServices {
         try {
             wrapper = new JunitSuiteWrapper(componentName, suiteName, testCaseName);
             if (wrapper.getAllTestList().isEmpty()) {
+                // The wrapper's constructor still creates a dispatcher/delegator pair for every
+                // <test-suite> element it discarded along the way (see
+                // JunitSuiteWrapper#getDiscardedModelTestSuites) - unlike the per-suite loop in
+                // executeRun(), nothing else will ever reach these, so deregister them here before
+                // returning the error, or every "no tests found" request leaks one dispatcher.
+                for (ModelTestSuite discarded : wrapper.getDiscardedModelTestSuites()) {
+                    deregisterTestDispatcher(discarded);
+                }
                 return ServiceUtil.returnError("No tests found (component=" + componentName + ", suiteName=" + suiteName
                         + ", testCaseName=" + testCaseName + ")");
             }
@@ -167,26 +187,50 @@ public final class TestRunServices {
 
         try {
             boolean allPassed = true;
-            for (ModelTestSuite modelSuite : wrapper.getModelTestSuites()) {
-                File xmlFile = new File(runDir, modelSuite.getSuiteName() + ".xml");
-                SuiteXmlReportWriter xmlSink = new SuiteXmlReportWriter(new FileOutputStream(xmlFile));
-                xmlSink.startSuite(modelSuite.getSuiteName());
-                try {
-                    TestRunContainer.runSuiteEntries(modelSuite.getPreparedTestList(), modelSuite.getDelegator(),
-                            modelSuite.getDispatcher(), testParams, xmlSink);
-                    modelSuite.getDelegator().rollback();
-                } finally {
-                    // endSuite() is the only place that actually flushes/writes/closes the underlying
-                    // FileOutputStream (see SuiteXmlReportWriter#writeAndClose) - without this finally,
-                    // an exception from runSuiteEntries()/rollback() would leak the stream (a real
-                    // file-descriptor leak in this long-lived server) and leave a 0-byte XML on disk.
-                    xmlSink.endSuite();
-                    // Best-effort dispatcher cleanup - see this class's javadoc for exactly what this
-                    // does and does not close. Runs regardless of the suite's outcome, same as endSuite()
-                    // above.
-                    deregisterTestDispatcher(modelSuite);
+            List<ModelTestSuite> modelTestSuites = wrapper.getModelTestSuites();
+            // Count of suites the loop below has entered (i.e. reached its own try/finally, which
+            // deregisters that suite's dispatcher on any outcome). Used by the outer finally to
+            // deregister whichever suites the loop never got to reach at all, in case some suite's
+            // exception escaped its own try/finally and aborted the loop early.
+            int startedCount = 0;
+            try {
+                for (ModelTestSuite modelSuite : modelTestSuites) {
+                    startedCount++;
+                    SuiteXmlReportWriter xmlSink = null;
+                    try {
+                        // FileOutputStream/startSuite are inside this try (not before it) so that a
+                        // failure creating/starting the report for this suite still reaches the
+                        // finally below and deregisters this suite's dispatcher, instead of leaking it
+                        // and aborting the loop with every later suite's dispatcher still registered too.
+                        File xmlFile = new File(runDir, modelSuite.getSuiteName() + ".xml");
+                        xmlSink = new SuiteXmlReportWriter(new FileOutputStream(xmlFile));
+                        xmlSink.startSuite(modelSuite.getSuiteName());
+                        TestRunContainer.runSuiteEntries(modelSuite.getPreparedTestList(), modelSuite.getDelegator(),
+                                modelSuite.getDispatcher(), testParams, xmlSink);
+                        modelSuite.getDelegator().rollback();
+                    } finally {
+                        // endSuite() is the only place that actually flushes/writes/closes the underlying
+                        // FileOutputStream (see SuiteXmlReportWriter#writeAndClose) - without this finally,
+                        // an exception from runSuiteEntries()/rollback() would leak the stream (a real
+                        // file-descriptor leak in this long-lived server) and leave a 0-byte XML on disk.
+                        if (xmlSink != null) {
+                            xmlSink.endSuite();
+                        }
+                        // Best-effort dispatcher cleanup - see this class's javadoc for exactly what this
+                        // does and does not remove. Runs regardless of the suite's outcome, same as
+                        // endSuite() above.
+                        deregisterTestDispatcher(modelSuite);
+                    }
+                    allPassed = allPassed && xmlSink.wasSuccessful();
                 }
-                allPassed = allPassed && xmlSink.wasSuccessful();
+            } finally {
+                // If an exception unwound out of the loop above (e.g. FileOutputStream/startSuite
+                // failing on a suite past the first), every suite at or after startedCount never got
+                // a chance to run its own finally. Deregister those here so one bad suite doesn't
+                // leave every suite queued after it permanently registered.
+                for (int i = startedCount; i < modelTestSuites.size(); i++) {
+                    deregisterTestDispatcher(modelTestSuites.get(i));
+                }
             }
 
             Map<String, Object> resultSummary = archiveIfEnabled(runId, suiteName, testParams, runDir, allPassed);
@@ -208,20 +252,29 @@ public final class TestRunServices {
     }
 
     /**
-     * Deregisters the test dispatcher {@code ModelTestSuite}'s constructor created for this suite,
-     * removing its entry from {@code ServiceContainer}'s static dispatcher cache and closing its JMS
-     * listeners (see {@code ServiceContainer.deregister}/{@code GenericAbstractDispatcher.deregister}).
-     * Best-effort only: a failure here is logged, not rethrown, since a cleanup failure must never turn
-     * an otherwise-passing test run into a reported failure/error. Does not (and cannot, via any public
-     * API) remove the underlying {@code ServiceDispatcher} instance from its own separate static cache -
-     * see this class's javadoc.
+     * Removes the {@code ServiceContainer.DISPATCHER_CACHE} entry for the test dispatcher
+     * {@code ModelTestSuite}'s constructor created for this suite, via
+     * {@code ServiceContainer.removeFromCache} - <b>not</b> {@code ServiceContainer.deregister}. This
+     * distinction matters: {@code deregister} calls {@code LocalDispatcher.deregister()}, which (via
+     * {@code ServiceDispatcher.deregister}) shuts the {@code ServiceDispatcher} down once its
+     * {@code localContext} map empties out - and for a dispatcher used by exactly one test run, that is
+     * always immediately. Shutdown calls {@code JmsListenerFactory.closeListeners()}, and
+     * {@code JmsListenerFactory} is a process-wide singleton over a static listener map shared by every
+     * dispatcher in the JVM - so {@code deregister} here would close the live server's real JMS listeners
+     * on every single test run, not just this run's own (nonexistent) ones. {@code removeFromCache} only
+     * removes the cache entry and touches none of that - see this class's javadoc for exactly what is and
+     * is not cleaned up as a result.
+     *
+     * <p>Best-effort only: any failure or error here is logged, never rethrown - including an
+     * {@code Error}, not just an {@code Exception} - since a cleanup failure must never turn an otherwise
+     * passing test run into a reported failure/error.
      */
     private static void deregisterTestDispatcher(ModelTestSuite modelSuite) {
-        String dispatcherName = modelSuite.getDispatcher().getName();
         try {
-            ServiceContainer.deregister(dispatcherName);
-        } catch (Exception e) {
-            Debug.logWarning(e, "runTestSuite: failed to deregister test dispatcher '" + dispatcherName
+            String dispatcherName = modelSuite.getDispatcher().getName();
+            ServiceContainer.removeFromCache(dispatcherName);
+        } catch (Throwable t) {
+            Debug.logWarning(t, "runTestSuite: failed to deregister test dispatcher for suite '" + modelSuite.getSuiteName()
                     + "' (best-effort cleanup only, run result is unaffected)", MODULE);
         }
     }
