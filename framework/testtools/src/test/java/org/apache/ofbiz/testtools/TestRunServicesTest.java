@@ -103,4 +103,96 @@ class TestRunServicesTest {
 
         assertThat(result.get("responseMessage"), is("error"));
     }
+
+    @Test
+    void getTestRunStatusIncludesComponentName() {
+        DispatchContext dctx = mock(DispatchContext.class);
+        Security security = mock(Security.class);
+        GenericValue userLogin = mock(GenericValue.class);
+        when(dctx.getSecurity()).thenReturn(security);
+        when(userLogin.getString("userLoginId")).thenReturn("admin");
+        when(security.hasPermission("TESTEXEC_ADMIN", userLogin)).thenReturn(true);
+        TestRunServices.TRACKER.register("component-check-run", "example-tests", "example", "admin", Map.of());
+
+        Map<String, Object> result = TestRunServices.getTestRunStatus(dctx,
+                Map.of("runId", "component-check-run", "userLogin", userLogin));
+
+        assertThat(result.get("componentName"), is("example"));
+    }
+
+    @Test
+    void getScopedTestRunStatusReturnsRealDataWhenComponentMatches() {
+        DispatchContext dctx = mock(DispatchContext.class);
+        Security security = mock(Security.class);
+        GenericValue userLogin = mock(GenericValue.class);
+        when(dctx.getSecurity()).thenReturn(security);
+        when(userLogin.getString("userLoginId")).thenReturn("admin");
+        when(security.hasPermission("TESTEXEC_ADMIN", userLogin)).thenReturn(true);
+        TestRunServices.TRACKER.register("scoped-run-match", "example-tests", "example", "admin", Map.of());
+
+        Map<String, Object> result = TestRunServices.getScopedTestRunStatus(dctx,
+                Map.of("runId", "scoped-run-match", "userLogin", userLogin), "example");
+
+        assertThat(result.get("responseMessage"), is("success"));
+        assertThat(result.get("componentName"), is("example"));
+    }
+
+    @Test
+    void getScopedTestRunStatusMasksAMismatchedComponentAsUnknownRunId() {
+        DispatchContext dctx = mock(DispatchContext.class);
+        Security security = mock(Security.class);
+        GenericValue userLogin = mock(GenericValue.class);
+        when(dctx.getSecurity()).thenReturn(security);
+        when(userLogin.getString("userLoginId")).thenReturn("admin");
+        when(security.hasPermission("TESTEXEC_ADMIN", userLogin)).thenReturn(true);
+        TestRunServices.TRACKER.register("scoped-run-mismatch", "content-tests", "content", "admin", Map.of());
+
+        Map<String, Object> result = TestRunServices.getScopedTestRunStatus(dctx,
+                Map.of("runId", "scoped-run-mismatch", "userLogin", userLogin), "example");
+
+        assertThat(result.get("responseMessage"), is("error"));
+        assertThat(result.get("errorMessage"), is("No such runId: scoped-run-mismatch"));
+    }
+
+    @Test
+    void getScopedTestRunStatusPassesThroughPermissionDenialUnchanged() {
+        DispatchContext dctx = mock(DispatchContext.class);
+        Security security = mock(Security.class);
+        GenericValue userLogin = mock(GenericValue.class);
+        when(dctx.getSecurity()).thenReturn(security);
+        when(userLogin.getString("userLoginId")).thenReturn("nobody");
+        when(security.hasPermission("TESTEXEC_ADMIN", userLogin)).thenReturn(false);
+
+        Map<String, Object> result = TestRunServices.getScopedTestRunStatus(dctx,
+                Map.of("runId", "any-run", "userLogin", userLogin), "example");
+
+        assertThat(result.get("responseMessage"), is("error"));
+        assertThat(result.get("errorMessage"), is("You do not have permission to view test run status (TESTEXEC_ADMIN)"));
+    }
+
+    @Test
+    void runScopedTestSuitePassesThroughPermissionDenialUnchanged() {
+        // Cannot unit-test the componentName-forcing behavior itself in isolation - like
+        // runTestSuite's own suite-resolution path, that needs a real bootstrapped ComponentConfig
+        // (see this file's existing tests' pattern, and TestRunServices' own "Design note on
+        // testability"). This test only confirms the delegation is wired correctly: a permission
+        // denial passes straight through, and passing a deliberately mismatched componentName
+        // ("content") in the caller's context doesn't cause a crash before the permission check
+        // - proving nothing about whether the override happens, only that the wrapper doesn't
+        // reject/mangle the call. The override itself is verified by manual/live validation (Task 5).
+        DispatchContext dctx = mock(DispatchContext.class);
+        Security security = mock(Security.class);
+        Delegator delegator = mock(Delegator.class);
+        GenericValue userLogin = mock(GenericValue.class);
+        when(dctx.getSecurity()).thenReturn(security);
+        when(dctx.getDelegator()).thenReturn(delegator);
+        when(userLogin.getString("userLoginId")).thenReturn("nobody");
+        when(security.hasPermission("TESTEXEC_ADMIN", userLogin)).thenReturn(false);
+
+        Map<String, Object> result = TestRunServices.runScopedTestSuite(dctx,
+                Map.of("suiteName", "example-tests", "componentName", "content", "userLogin", userLogin), "example");
+
+        assertThat(result.get("responseMessage"), is("error"));
+        assertThat(result.get("runId"), nullValue());
+    }
 }

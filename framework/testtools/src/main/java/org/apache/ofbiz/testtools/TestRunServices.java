@@ -21,6 +21,7 @@ package org.apache.ofbiz.testtools;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -170,6 +171,25 @@ public final class TestRunServices {
         Map<String, Object> result = ServiceUtil.returnSuccess();
         result.put("runId", runId);
         return result;
+    }
+
+    /**
+     * Runs {@link #runTestSuite} with {@code componentName} forced to {@code fixedComponentName},
+     * regardless of whatever value (if any) the caller's own context map contains - a caller-supplied
+     * componentName is silently overwritten, never honored. Built for component-scoped wrapper
+     * services (e.g. plugins/example's runExampleTestSuite): builds a new context map rather than
+     * mutating the one it's given, the same defensive-copy discipline runTestSuite itself already
+     * applies to testParams - a caller-controlled map must never be assumed safe to mutate in place.
+     * @param dctx the dispatch context
+     * @param context the caller's service context - not mutated
+     * @param fixedComponentName the only component this call is allowed to resolve suites from
+     * @return the runTestSuite result
+     */
+    public static Map<String, Object> runScopedTestSuite(DispatchContext dctx, Map<String, ?> context,
+            String fixedComponentName) {
+        Map<String, Object> scopedContext = new HashMap<>(context);
+        scopedContext.put("componentName", fixedComponentName);
+        return runTestSuite(dctx, scopedContext);
     }
 
     /**
@@ -335,6 +355,7 @@ public final class TestRunServices {
 
         Map<String, Object> result = ServiceUtil.returnSuccess();
         result.put("status", record.status().name());
+        result.put("componentName", record.componentName());
         Map<String, Object> resultSummary = new LinkedHashMap<>();
         if (record.resultSummary() != null) {
             resultSummary.putAll(record.resultSummary());
@@ -343,6 +364,31 @@ public final class TestRunServices {
             resultSummary.put("errorMessage", record.errorMessage());
         }
         result.put("resultSummary", resultSummary);
+        return result;
+    }
+
+    /**
+     * Runs {@link #getTestRunStatus} and, if the run exists, checks its recorded componentName
+     * against {@code expectedComponentName} - on a mismatch, returns the exact same "No such runId"
+     * error a genuinely unknown runId would produce (never a distinguishable "wrong component"
+     * message), so polling can't be used to detect the mere existence of another component's runs. A
+     * permission-denied result from the underlying call passes through unchanged - the permission
+     * check still runs first, exactly as it does for the unscoped getTestRunStatus.
+     * @param dctx the dispatch context
+     * @param context the caller's service context
+     * @param expectedComponentName the only component this call is allowed to report on
+     * @return the getTestRunStatus result, or a masked "No such runId" error on a component mismatch
+     */
+    public static Map<String, Object> getScopedTestRunStatus(DispatchContext dctx, Map<String, ?> context,
+            String expectedComponentName) {
+        Map<String, Object> result = getTestRunStatus(dctx, context);
+        if (ServiceUtil.isError(result)) {
+            return result;
+        }
+        if (!expectedComponentName.equals(result.get("componentName"))) {
+            String runId = (String) context.get("runId");
+            return ServiceUtil.returnError("No such runId: " + runId);
+        }
         return result;
     }
 

@@ -67,6 +67,7 @@ under the License.
             FAILED/ERROR) and result summary from the in-memory TestRunTracker.</description>
         <attribute name="runId" type="String" mode="IN" optional="false"/>
         <attribute name="status" type="String" mode="OUT" optional="true"/>
+        <attribute name="componentName" type="String" mode="OUT" optional="true"/>
         <attribute name="resultSummary" type="Map" mode="OUT" optional="true"/>
     </service>
 </services>
