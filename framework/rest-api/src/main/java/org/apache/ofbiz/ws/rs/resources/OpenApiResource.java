@@ -21,6 +21,7 @@ package org.apache.ofbiz.ws.rs.resources;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.ws.rs.openapi.OFBizOpenApiReader;
 import org.apache.ofbiz.ws.rs.openapi.OFBizResourceScanner;
@@ -135,26 +136,31 @@ public final class OpenApiResource {
 
 
     private Info buildOpenApiInfo() {
-        Info info = new Info().version("1.0.0").title("OFBiz REST APIs")
-                .description("Open API specification for OFBiz RESTful APIs.").contact(buildOpenApiContact())
-                .termsOfService("http://www.apache.org/licenses/LICENSE-2.0.html")
+        Info info = new Info()
+                .version(UtilProperties.getPropertyValue("rest-api", "rest-api.info.version"))
+                .title(UtilProperties.getPropertyValue("rest-api", "rest-api.info.title"))
+                .description(UtilProperties.getPropertyValue("rest-api", "rest-api.info.description"))
+                .contact(buildOpenApiContact())
+                .termsOfService(UtilProperties.getPropertyValue("rest-api", "rest-api.info.termsOfService"))
                 .license(new License()
-                        .name("Apache 2.0")
-                        .url("http://www.apache.org/licenses/LICENSE-2.0.txt"));
+                        .name(UtilProperties.getPropertyValue("rest-api", "rest-api.info.license.name"))
+                        .url(UtilProperties.getPropertyValue("rest-api", "rest-api.info.license.url")));
 
         return info;
     }
 
     private Contact buildOpenApiContact() {
-        Contact contact = new Contact().name("OFBiz DEV API Team").email("dev@ofbiz.apache.org")
-                .url("https://ofbiz.apache.org/");
+        Contact contact = new Contact()
+                .name(UtilProperties.getPropertyValue("rest-api", "rest-api.info.contact.name"))
+                .email(UtilProperties.getPropertyValue("rest-api", "rest-api.info.contact.email"))
+                .url(UtilProperties.getPropertyValue("rest-api", "rest-api.info.contact.url"));
         return contact;
     }
 
     private Server buildOpenApiServer() {
         Server serverItem =
                 new Server().url(request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath())
-                        .description("Server Hosting the REST API");
+                        .description(UtilProperties.getPropertyValue("rest-api", "rest-api.server.description"));
         return serverItem;
     }
 }
