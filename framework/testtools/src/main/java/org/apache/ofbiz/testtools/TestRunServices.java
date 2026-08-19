@@ -36,6 +36,7 @@ import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.ofbiz.service.DispatchContext;
+import org.apache.ofbiz.service.ServiceContainer;
 import org.apache.ofbiz.service.ServiceUtil;
 import org.apache.ofbiz.testtools.report.TestReportArchiver;
 import org.apache.ofbiz.testtools.report.TestRunManifest;
@@ -51,19 +52,26 @@ import org.apache.ofbiz.testtools.report.TestRunManifest;
  * <p>Runs execute one at a time on a dedicated single-threaded executor: a second runTestSuite
  * call while one is in progress queues behind it rather than running concurrently.
  *
- * <p><b>Known POC limitation - dispatcher/delegator resource leak.</b> {@code new JunitSuiteWrapper(...)}
- * reuses {@code ModelTestSuite}'s constructor, which unconditionally creates a fresh test
- * {@code Delegator}/{@code LocalDispatcher} via {@code ServiceContainer.getLocalDispatcher(...)} - the
- * exact same construction path the {@code ofbiz --test} CLI already uses once per process. That
- * construction permanently registers the new dispatcher in {@code ServiceContainer}'s static
- * dispatcher cache and re-runs startup services. For the CLI this is harmless: the JVM exits right
- * after. Here, every API-triggered {@code runTestSuite} call goes through that same path inside a
- * long-lived server process with no corresponding cleanup/deregistration - so each call grows
- * {@code ServiceContainer}'s dispatcher-cache and re-fires startup services again. This is a known,
- * accepted limitation of this feature as a POC, not an oversight: a real fix would touch shared
- * static server-engine internals ({@code ServiceContainer} deregistration) that can't be safely
- * validated without a live running instance, so it is deliberately left as future work rather than
- * attempted here.
+ * <p><b>Known POC limitation - dispatcher/delegator resource leak (partially mitigated).</b>
+ * {@code new JunitSuiteWrapper(...)} reuses {@code ModelTestSuite}'s constructor, which
+ * unconditionally creates a fresh test {@code Delegator}/{@code LocalDispatcher} via
+ * {@code ServiceContainer.getLocalDispatcher(...)} - the exact same construction path the
+ * {@code ofbiz --test} CLI already uses once per process. For the CLI this is harmless: the JVM
+ * exits right after. Here, every API-triggered {@code runTestSuite} call goes through that same
+ * path inside a long-lived server process, so {@code executeRun} now deregisters each suite's
+ * dispatcher ({@code ServiceContainer.deregister(name)}) once that suite is done, regardless of
+ * outcome. That call removes the dispatcher's entry from {@code ServiceContainer}'s static
+ * dispatcher cache and closes its JMS listeners, so those two things no longer accumulate forever.
+ * It does <b>not</b> fully close the leak, though: the heavier {@code ServiceDispatcher} instance
+ * backing each run (its {@code Security}, {@code JobManager} reference, now-empty
+ * {@code localContext}) stays in {@code ServiceDispatcher}'s own separate static cache
+ * indefinitely - no public API anywhere in the framework removes an entry from that map, and
+ * adding one would mean modifying {@code ServiceDispatcher} itself, which is out of scope for this
+ * fix. Startup services also still re-run on every single {@code runTestSuite} call regardless of
+ * this fix: {@code ModelTestSuite}'s constructor gives each run's delegator a unique name, so
+ * {@code ServiceDispatcher.getInstance(delegator)} always misses that cache and initializes a new
+ * {@code ServiceDispatcher} - deregistering the previous run's dispatcher does not change that,
+ * since the next run's key never collided with it in the first place.
  *
  * <p><b>Runs execute against the live server's database.</b> An API-triggered run is not an isolated
  * sandbox: {@code modelSuite.getDelegator().rollback()} is called after each suite as a best-effort
@@ -173,6 +181,10 @@ public final class TestRunServices {
                     // an exception from runSuiteEntries()/rollback() would leak the stream (a real
                     // file-descriptor leak in this long-lived server) and leave a 0-byte XML on disk.
                     xmlSink.endSuite();
+                    // Best-effort dispatcher cleanup - see this class's javadoc for exactly what this
+                    // does and does not close. Runs regardless of the suite's outcome, same as endSuite()
+                    // above.
+                    deregisterTestDispatcher(modelSuite);
                 }
                 allPassed = allPassed && xmlSink.wasSuccessful();
             }
@@ -192,6 +204,25 @@ public final class TestRunServices {
             // RUNNING forever - a polling caller would hang indefinitely with no timeout to save it.
             Debug.logError(t, "runTestSuite: ERROR runId=" + runId, MODULE);
             TRACKER.markError(runId, t);
+        }
+    }
+
+    /**
+     * Deregisters the test dispatcher {@code ModelTestSuite}'s constructor created for this suite,
+     * removing its entry from {@code ServiceContainer}'s static dispatcher cache and closing its JMS
+     * listeners (see {@code ServiceContainer.deregister}/{@code GenericAbstractDispatcher.deregister}).
+     * Best-effort only: a failure here is logged, not rethrown, since a cleanup failure must never turn
+     * an otherwise-passing test run into a reported failure/error. Does not (and cannot, via any public
+     * API) remove the underlying {@code ServiceDispatcher} instance from its own separate static cache -
+     * see this class's javadoc.
+     */
+    private static void deregisterTestDispatcher(ModelTestSuite modelSuite) {
+        String dispatcherName = modelSuite.getDispatcher().getName();
+        try {
+            ServiceContainer.deregister(dispatcherName);
+        } catch (Exception e) {
+            Debug.logWarning(e, "runTestSuite: failed to deregister test dispatcher '" + dispatcherName
+                    + "' (best-effort cleanup only, run result is unaffected)", MODULE);
         }
     }
 
