@@ -2014,6 +2014,7 @@ under the License.
         <response name="success" type="view" value="BankReconciliation"/>
     </request-map>
     <request-map uri="getFinAccountTransRunningTotalAndBalances">
+        <security https="true" auth="true"/>
         <event type="service-multi" invoke="getFinAccountTransRunningTotalAndBalances"/>
         <response name="success" type="request" value="json"/>
         <response name="error" type="request" value="json"/>
