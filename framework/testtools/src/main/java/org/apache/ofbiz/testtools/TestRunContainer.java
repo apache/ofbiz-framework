@@ -64,7 +64,7 @@ public class TestRunContainer implements Container {
         // set selected log level if passed by user
         setLoggerLevel(testProps.get("loglevel"));
 
-        this.methodName = testProps.get("method");
+        this.methodName = normalizeMethodName(testProps.get("method"));
         validateMethodRequiresCase(this.methodName, testProps.get("case"));
 
         this.jsWrapper = prepareJunitSuiteWrapper(testProps);
@@ -72,15 +72,26 @@ public class TestRunContainer implements Container {
 
     @Override
     public boolean start() throws ContainerException {
+        // Validated for every resolved suite up front, before any of them run - case= given without
+        // suitename= can resolve to suites in more than one testdef document; without this pre-pass,
+        // a validation failure on the second (or later) suite would only surface after the first has
+        // already executed and written its report, undermining the "method= without a valid target
+        // fails before anything runs" guarantee for that (rare, but real) multi-suite case. Guarded on
+        // methodName != null so a plain gradlew test/testIntegration run (no method= at all) doesn't
+        // pay for this pass or risk it changing behavior - getPreparedTestList() is idempotent to call
+        // again in the loop below, but a prepare-time throw from it would otherwise now abort the
+        // whole run before any suite executes, instead of after however many already had, which is a
+        // real (if narrow) behavior change for a run that never touched method= in the first place.
+        if (methodName != null) {
+            for (ModelTestSuite modelSuite: jsWrapper.getModelTestSuites()) {
+                validateMethodAppliesToSuite(methodName, modelSuite.getSuiteName(), modelSuite.getPreparedTestList());
+            }
+        }
+
         boolean failedRun = false;
         for (ModelTestSuite modelSuite: jsWrapper.getModelTestSuites()) {
             String suiteName = modelSuite.getSuiteName();
             List<SuiteEntry> preparedTestList = modelSuite.getPreparedTestList();
-            // Validated before createXmlReportWriter()/startSuite() below open and write to this
-            // suite's report file - a ContainerException here must not leave an empty, never-closed
-            // XML file behind (endSuite(), the only thing that closes it, would never run on this
-            // path otherwise).
-            validateMethodAppliesToSuite(methodName, suiteName, preparedTestList);
 
             SuiteXmlReportWriter xmlSink = createXmlReportWriter(suiteName);
             SuiteReportLogger logSink = new SuiteReportLogger();
@@ -234,6 +245,23 @@ public class TestRunContainer implements Container {
     }
 
     /**
+     * Normalizes a blank {@code --test method=} value (e.g. the trailing-{@code =} shape
+     * {@code --test method=} produces) to null, so it's indistinguishable from method= not having
+     * been given at all - a blank string would otherwise pass both validateMethodRequiresCase() and
+     * validateMethodAppliesToSuite() (neither checks for blank, only null) and then fail deep inside
+     * JUnit Platform's own precondition check as an opaque suiteExecutionError instead of this
+     * feature's own clean ContainerException.
+     *
+     * <p>Package-private and static so TestRunContainerTest can exercise it directly without a full
+     * ofbiz --test container bootstrap.
+     * @param rawMethodName the raw --test method= value from the command line, or null if not given
+     * @return rawMethodName unchanged if non-null and non-blank, otherwise null
+     */
+    static String normalizeMethodName(String rawMethodName) {
+        return (rawMethodName == null || rawMethodName.isBlank()) ? null : rawMethodName;
+    }
+
+    /**
      * Validates that {@code --test method=} was not given without {@code --test case=} - method=
      * scopes a single case's resolved class down to one @Test method, so it's meaningless without
      * case= to say which class that is.
@@ -266,6 +294,11 @@ public class TestRunContainer implements Container {
      * @param preparedTestList the resolved suite's prepared entries
      * @throws ContainerException if methodName is non-null and no entry in preparedTestList is a JupiterEntry
      */
+    // This checks "at least one JupiterEntry", not "exactly one": every testdef file in this repo
+    // resolves case= to at most one jupiter-test-suite entry today, but test-suite.xsd's test-group
+    // element technically allows more than one jupiter-test-suite child - if a future testdef file
+    // used that shape, method= would be applied to every one of them via runSuiteEntries(), silently
+    // failing whichever one doesn't happen to declare the named method.
     static void validateMethodAppliesToSuite(String methodName, String suiteName, List<SuiteEntry> preparedTestList)
             throws ContainerException {
         if (methodName != null && preparedTestList.stream().noneMatch(JupiterEntry.class::isInstance)) {

@@ -34,6 +34,8 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
@@ -369,6 +371,22 @@ class JupiterClassRunnerTest {
         assertThat(error.throwable().getMessage(), containsString("noSuchMethod"));
     }
 
+    @Test
+    void methodNameSelectsAllInvocationsOfAParameterizedMethod() {
+        // Regression test for the bug Fix 1 (JupiterClassRunner.selectMethodByName) resolves:
+        // DiscoverySelectors.selectMethod(Class, String) alone can never match a method that
+        // declares a parameter, which every @ParameterizedTest method does by definition - it would
+        // fail with the same "could not find method" error a typo produces.
+        ParameterizedMethodFixture.invocationCount = 0;
+        RecordingSink sink = new RecordingSink();
+
+        new JupiterTestExtension.JupiterClassRunner(ParameterizedMethodFixture.class, mock(Delegator.class),
+                mock(LocalDispatcher.class), Map.of(), "parameterized", sink).run();
+
+        assertThat(ParameterizedMethodFixture.invocationCount, is(3));
+        assertThat(sink.testFinishedCalls, hasSize(3));
+    }
+
     //ALLOW PUBLIC FIELDS
     @Tag(JupiterTestExtension.INTEGRATION_TAG)
     static class ThreadRecordingFixture {
@@ -488,6 +506,17 @@ class JupiterClassRunnerTest {
         @Test
         void methodTwo() {
             methodTwoRunCount++;
+        }
+    }
+
+    @Tag(JupiterTestExtension.INTEGRATION_TAG)
+    static class ParameterizedMethodFixture {
+        static int invocationCount;
+
+        @ParameterizedTest
+        @CsvSource({"a", "b", "c"})
+        void parameterized(String value) {
+            invocationCount++;
         }
     }
 

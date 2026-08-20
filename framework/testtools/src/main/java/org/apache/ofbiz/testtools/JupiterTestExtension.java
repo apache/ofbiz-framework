@@ -19,6 +19,7 @@
 package org.apache.ofbiz.testtools;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,6 +38,9 @@ import org.junit.jupiter.api.extension.ParameterContext;
 import org.junit.jupiter.api.extension.ParameterResolutionException;
 import org.junit.jupiter.api.extension.ParameterResolver;
 import org.junit.jupiter.api.extension.TestInstancePostProcessor;
+import org.junit.platform.commons.support.HierarchyTraversalMode;
+import org.junit.platform.commons.support.ReflectionSupport;
+import org.junit.platform.engine.DiscoverySelector;
 import org.junit.platform.engine.TestExecutionResult;
 import org.junit.platform.launcher.Launcher;
 import org.junit.platform.launcher.LauncherDiscoveryRequest;
@@ -331,13 +335,48 @@ public class JupiterTestExtension implements ParameterResolver, TestInstancePost
             this.testParams = testParams;
             this.sinks = List.of(sinks);
             this.launcher = LauncherFactory.create();
+            DiscoverySelector[] selectors = methodName != null
+                    ? selectMethodByName(testClass, methodName)
+                    : new DiscoverySelector[] {selectClass(testClass)};
             this.request = LauncherDiscoveryRequestBuilder.request()
-                    .selectors(methodName != null ? selectMethod(testClass, methodName) : selectClass(testClass))
+                    .selectors(selectors)
                     .configurationParameter(
                             "junit.jupiter.testmethod.order.default",
                             "org.junit.jupiter.api.MethodOrderer$OrderAnnotation")
                     .configurationParameter("junit.jupiter.execution.parallel.enabled", "false")
                     .build();
+        }
+
+        /**
+         * Resolves {@code methodName} against every declared/inherited method of that name on
+         * {@code testClass} and builds one {@code selectMethod} selector per match, instead of relying
+         * on {@code DiscoverySelectors.selectMethod(Class, String)} alone.
+         *
+         * <p>That two-argument overload only matches a zero-parameter method - it delegates to the
+         * three-argument overload with an empty parameter-type list, so it can never resolve a
+         * {@literal @}ParameterizedTest method (which always declares at least one parameter) or any
+         * {@literal @}Test method taking a JupiterTestExtension-resolved Delegator/LocalDispatcher
+         * parameter; both fail with the same "could not find method" discovery error a genuine typo
+         * produces, silently misreporting a real method as nonexistent. Resolving by reflection first
+         * and selecting by {@code Method} instead of by name alone sidesteps that restriction.
+         *
+         * <p>When no method of that name exists at all, falls back to the plain by-name selector so
+         * the same clean "could not find method" discovery failure (routed through
+         * reportContainerFailure() below as this class's initializationError) still fires for a
+         * genuine typo - this method never throws for an unresolved name itself.
+         * @param testClass the class methodName is resolved against
+         * @param methodName the requested method name
+         * @return one selector per overload/match found, or a single by-name selector if none matched
+         */
+        private static DiscoverySelector[] selectMethodByName(Class<?> testClass, String methodName) {
+            List<Method> matches = ReflectionSupport.findMethods(testClass,
+                    method -> method.getName().equals(methodName), HierarchyTraversalMode.TOP_DOWN);
+            if (matches.isEmpty()) {
+                return new DiscoverySelector[] {selectMethod(testClass, methodName)};
+            }
+            return matches.stream()
+                    .map(method -> (DiscoverySelector) selectMethod(testClass, method))
+                    .toArray(DiscoverySelector[]::new);
         }
 
         /**

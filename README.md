@@ -545,6 +545,19 @@ Listens on port **5005**
 
 `gradlew "ofbiz --test component=entity --test loglevel=verbose" --debug-jvm`
 
+#### Execute a single test method within an integration test case
+
+Requires `case=` (method= narrows that case's class down to one method, so case= is
+needed to identify which class that is), and only applies when `case=` resolves to a
+`jupiter-test-suite` (JUnit 5) class.
+
+> **Warning** -
+> A method run alone this way can behave differently than it does as part of the whole
+> class, if that class has methods that implicitly depend on declaration order or on a
+> sibling method's side effects.
+
+`gradlew "ofbiz --test component=entity --test suitename=entitytests --test case=entity-query-tests --test method=testSpecificMethod"`
+
 #### Execute an integration test suite
 
 `gradlew "ofbiz --test component=entity --test suitename=entitytests"`

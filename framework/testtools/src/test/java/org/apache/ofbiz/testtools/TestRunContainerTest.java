@@ -144,6 +144,22 @@ class TestRunContainerTest {
     }
 
     @Test
+    void normalizeMethodNameTreatsBlankAsAbsent() {
+        assertThat(TestRunContainer.normalizeMethodName(""), nullValue());
+        assertThat(TestRunContainer.normalizeMethodName("   "), nullValue());
+    }
+
+    @Test
+    void normalizeMethodNamePassesThroughNonBlankValue() {
+        assertThat(TestRunContainer.normalizeMethodName("testFindPartiesById"), is("testFindPartiesById"));
+    }
+
+    @Test
+    void normalizeMethodNamePassesThroughNull() {
+        assertThat(TestRunContainer.normalizeMethodName(null), nullValue());
+    }
+
+    @Test
     void validateMethodRequiresCaseThrowsWhenMethodGivenWithoutCase() {
         ContainerException thrown = assertThrows(ContainerException.class, () ->
                 TestRunContainer.validateMethodRequiresCase("testFindPartiesById", null));
