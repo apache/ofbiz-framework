@@ -19,6 +19,7 @@
 package org.apache.ofbiz.webtools.entity
 
 import org.apache.ofbiz.base.util.Debug
+import org.apache.ofbiz.base.util.GeneralException
 import org.apache.ofbiz.base.util.UtilFormatOut
 import org.apache.ofbiz.entity.condition.EntityComparisonOperator
 import org.apache.ofbiz.entity.condition.EntityCondition
@@ -26,6 +27,15 @@ import org.apache.ofbiz.entity.condition.EntityJoinOperator
 import org.apache.ofbiz.entity.model.ModelViewEntity
 import org.apache.ofbiz.entity.transaction.TransactionUtil
 import org.apache.ofbiz.entity.util.EntityQuery
+import org.apache.ofbiz.security.SecurityUtil
+
+// Kept in sync with the permission check the page's own decorator and template already
+// perform (CommonScreens.xml#CommonImportExportDecorator, XmlDsDump.ftl); this script must
+// not run its logic -- especially the file/directory writes further down -- ahead of that
+// check, since screen actions run unconditionally, before any widget-level permission gate.
+if (!security.hasPermission('ENTITY_MAINT', session)) {
+    return
+}
 
 outpath = parameters.outpath
 filename = parameters.filename
@@ -197,49 +207,59 @@ if (passedEntityNames) {
             if (outpath && !(filename.contains('/') && filename.contains('\\'))) {
                 filename = outpath + File.separator + filename
             }
-            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filename), 'UTF-8')))
-            writer.println('<?xml version="1.0" encoding="UTF-8"?>')
-            writer.println('<entity-engine-xml>')
+            File outfile = new File(filename)
+            outfileAllowed = true
+            try {
+                SecurityUtil.checkOfbizFileAllowList(outfile)
+            } catch (GeneralException e) {
+                context.errorMessage = e.getMessage()
+                outfileAllowed = false
+            }
+            if (outfileAllowed) {
+                writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(outfile), 'UTF-8')))
+                writer.println('<?xml version="1.0" encoding="UTF-8"?>')
+                writer.println('<entity-engine-xml>')
 
-            passedEntityNames.each { curEntityName ->
-                if (entityFrom) {
-                    curModelEntity = reader.getModelEntity(curEntityName)
-                    if (curModelEntity instanceof ModelViewEntity) {
-                        return
-                    }
-                }
-
-                beganTransaction = TransactionUtil.begin(3600)
-                try {
-                    me = reader.getModelEntity(curEntityName)
-                    entityQuery = EntityQuery.use(delegator).from(curEntityName).cursorScrollInsensitive()
-                    if (!me.getNoAutoStamp() && !(me instanceof ModelViewEntity) && entityDateCond) {
-                        entityQuery.where(entityDateCond)
-                    }
-
-                    curNumberWritten = 0
-                    entityQuery.queryIterator().withCloseable { values ->
-                        while ((value = values.next()) != null) {
-                            value.writeXmlText(writer, '')
-                            numberWritten++
-                            curNumberWritten++
-                            if (curNumberWritten % 500 == 0 || curNumberWritten == 1) {
-                                Debug.log("Records written [$curEntityName]: $curNumberWritten Total: $numberWritten")
-                            }
+                passedEntityNames.each { curEntityName ->
+                    if (entityFrom) {
+                        curModelEntity = reader.getModelEntity(curEntityName)
+                        if (curModelEntity instanceof ModelViewEntity) {
+                            return
                         }
                     }
-                    Debug.log("Wrote [$curNumberWritten] from entity : $curEntityName")
-                    TransactionUtil.commit(beganTransaction)
-                } catch (Exception e) {
-                    errMsg = 'Error reading data for XML export:'
-                    logError(e, errMsg)
-                    TransactionUtil.rollback(beganTransaction, errMsg, e)
+
+                    beganTransaction = TransactionUtil.begin(3600)
+                    try {
+                        me = reader.getModelEntity(curEntityName)
+                        entityQuery = EntityQuery.use(delegator).from(curEntityName).cursorScrollInsensitive()
+                        if (!me.getNoAutoStamp() && !(me instanceof ModelViewEntity) && entityDateCond) {
+                            entityQuery.where(entityDateCond)
+                        }
+
+                        curNumberWritten = 0
+                        entityQuery.queryIterator().withCloseable { values ->
+                            while ((value = values.next()) != null) {
+                                value.writeXmlText(writer, '')
+                                numberWritten++
+                                curNumberWritten++
+                                if (curNumberWritten % 500 == 0 || curNumberWritten == 1) {
+                                    Debug.log("Records written [$curEntityName]: $curNumberWritten Total: $numberWritten")
+                                }
+                            }
+                        }
+                        Debug.log("Wrote [$curNumberWritten] from entity : $curEntityName")
+                        TransactionUtil.commit(beganTransaction)
+                    } catch (Exception e) {
+                        errMsg = 'Error reading data for XML export:'
+                        logError(e, errMsg)
+                        TransactionUtil.rollback(beganTransaction, errMsg, e)
+                    }
                 }
+                writer.println('</entity-engine-xml>')
+                writer.close()
+                Debug.log("Total records written from all entities: $numberWritten")
+                context.numberWritten = numberWritten
             }
-            writer.println('</entity-engine-xml>')
-            writer.close()
-            Debug.log("Total records written from all entities: $numberWritten")
-            context.numberWritten = numberWritten
         }
 
         // multiple files in a directory
@@ -248,10 +268,17 @@ if (passedEntityNames) {
         context.results = results
         if (outpath && !filename) {
             outdir = new File(outpath)
-            if (!outdir.exists()) {
+            outdirAllowed = true
+            try {
+                SecurityUtil.checkOfbizFileAllowList(outdir)
+            } catch (GeneralException e) {
+                context.errorMessage = e.getMessage()
+                outdirAllowed = false
+            }
+            if (outdirAllowed && !outdir.exists()) {
                 outdir.mkdir()
             }
-            if (outdir.isDirectory() && outdir.canWrite()) {
+            if (outdirAllowed && outdir.isDirectory() && outdir.canWrite()) {
                 passedEntityNames.each { curEntityName ->
                     numberWritten = 0
                     fileName = preConfiguredSetName ? UtilFormatOut.formatPaddedNumber((long) fileNumber, 3) + '_' : ''
