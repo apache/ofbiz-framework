@@ -29,6 +29,7 @@ import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import org.apache.ofbiz.base.container.ContainerException;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilMisc;
@@ -50,6 +51,13 @@ import org.apache.ofbiz.testtools.report.TestRunManifest;
  * TestRunContainer.runSuiteEntries() - unchanged; the only new execution-side behavior is arming
  * JupiterTestExtension.CURRENT_TEST_PARAMS with the caller's testParams map (see
  * TestRunContainer's new runSuiteEntries() overload).
+ *
+ * <p>runTestSuite also accepts an optional {@code testMethodName}, reusing the exact same
+ * fail-closed validators and method-scoped selection the {@code ofbiz --test method=} CLI path
+ * built (see {@link TestRunContainer#validateMethodRequiresCase},
+ * {@link TestRunContainer#validateMethodAppliesToSuite}) - both run synchronously inside
+ * runTestSuite itself, before a run is ever queued, so a bad testMethodName/testCaseName
+ * combination never receives a runId.
  *
  * <p>Runs execute one at a time on a dedicated single-threaded executor: a second runTestSuite
  * call while one is in progress queues behind it rather than running concurrently.
@@ -123,6 +131,7 @@ public final class TestRunServices {
         String suiteName = (String) context.get("suiteName");
         String componentName = (String) context.get("componentName");
         String testCaseName = (String) context.get("testCaseName");
+        String testMethodName = TestRunContainer.normalizeMethodName((String) context.get("testMethodName"));
         Map<String, Object> testParams = UtilGenerics.cast(context.get("testParams"));
         if (testParams == null) {
             testParams = Map.of();
@@ -146,7 +155,28 @@ public final class TestRunServices {
             return ServiceUtil.returnError("The test execution API is disabled in this environment (test.api.enabled=false)");
         }
 
-        JunitSuiteWrapper wrapper;
+        // testMethodName reuses the exact same fail-closed validators the ofbiz --test method=
+        // CLI path already built (TestRunContainer, same package - see its javadoc for the full
+        // rationale). This first check needs only the two raw strings, not any resolved suite, so
+        // it runs before JunitSuiteWrapper is even constructed: it fails faster (no wasted
+        // dispatcher/delegator construction for a malformed request) and mirrors how the CLI's own
+        // init() validates before start() resolves anything.
+        try {
+            TestRunContainer.validateMethodRequiresCase(testMethodName, testCaseName);
+        } catch (ContainerException e) {
+            Debug.logWarning("runTestSuite: rejected for user '" + userLoginId + "', suite '" + suiteName + "'"
+                    + " - " + e.getMessage(), MODULE);
+            return ServiceUtil.returnError(e.getMessage());
+        }
+
+        // Initialized to null (not left blank) purely to satisfy javac's definite-assignment
+        // analysis for the catch (ContainerException e) block below: javac's checked-exception flow
+        // analysis is not statement-order-sensitive, so because validateMethodAppliesToSuite (called
+        // further down, after wrapper is already assigned) can throw ContainerException, javac
+        // conservatively treats the whole try block - including this assignment itself - as a
+        // possible ContainerException source, and would otherwise reject wrapper as "might not have
+        // been initialized" inside that catch block even though it always is by then in practice.
+        JunitSuiteWrapper wrapper = null;
         try {
             wrapper = new JunitSuiteWrapper(componentName, suiteName, testCaseName);
             if (wrapper.getAllTestList().isEmpty()) {
@@ -161,6 +191,27 @@ public final class TestRunServices {
                 return ServiceUtil.returnError("No tests found (component=" + componentName + ", suiteName=" + suiteName
                         + ", testCaseName=" + testCaseName + ")");
             }
+            // Second half of the method= validation: this one needs each resolved suite's actual
+            // entries, so it can only run once the wrapper above has resolved them. Still entirely
+            // synchronous, before EXECUTOR.submit below - a bad testMethodName/testCaseName
+            // combination must never reach a queued run, matching the CLI's "fails before anything
+            // runs" guarantee.
+            for (ModelTestSuite modelSuite : wrapper.getModelTestSuites()) {
+                TestRunContainer.validateMethodAppliesToSuite(testMethodName, modelSuite.getSuiteName(),
+                        modelSuite.getPreparedTestList());
+            }
+        } catch (ContainerException e) {
+            // Only validateMethodAppliesToSuite (above) can reach this - JunitSuiteWrapper's own
+            // constructor declares no checked exception, so wrapper is always assigned by the time
+            // this catch block can run. These suites are not discarded (they have real tests, just
+            // not the requested method), so their dispatchers need the same cleanup treatment the
+            // "no tests found" branch above gives its own discarded suites.
+            for (ModelTestSuite modelSuite : wrapper.getModelTestSuites()) {
+                deregisterTestDispatcher(modelSuite);
+            }
+            Debug.logWarning("runTestSuite: rejected for user '" + userLoginId + "', suite '" + suiteName + "'"
+                    + " - " + e.getMessage(), MODULE);
+            return ServiceUtil.returnError(e.getMessage());
         } catch (Exception e) {
             Debug.logError(e, "runTestSuite: failed to resolve suite '" + suiteName + "' (component=" + componentName
                     + ", testCaseName=" + testCaseName + ")", MODULE);
@@ -170,11 +221,16 @@ public final class TestRunServices {
 
         String runId = UUID.randomUUID().toString();
         Map<String, Object> finalTestParams = testParams;
+        // wrapper is only ever assigned once for real (the "= null" initializer above exists
+        // solely so the catch (ContainerException e) block above compiles - see its comment); this
+        // second, single-assignment copy is what the EXECUTOR.submit lambda below actually
+        // captures, the same effectively-final-copy pattern finalTestParams uses above.
+        JunitSuiteWrapper finalWrapper = wrapper;
         TRACKER.register(runId, suiteName, componentName, userLoginId, testParams);
         Debug.logInfo("runTestSuite: STARTED runId=" + runId + " user='" + userLoginId + "' suite='" + suiteName
                 + "' testCaseName='" + testCaseName + "' testParams=" + testParams, MODULE);
 
-        EXECUTOR.submit(() -> executeRun(runId, suiteName, finalTestParams, wrapper));
+        EXECUTOR.submit(() -> executeRun(runId, suiteName, finalTestParams, testMethodName, finalWrapper));
 
         Map<String, Object> result = ServiceUtil.returnSuccess();
         result.put("runId", runId);
@@ -213,8 +269,13 @@ public final class TestRunServices {
      * so JUnitXmlCounter/TestReportArchiver see only this run's results, then updates the tracker
      * and - when test.history is enabled - archives into the same manifest.json history
      * gradlew test/testIntegration already write to, tagged trigger="api".
+     *
+     * @param testMethodName when non-null (already validated against every suite by
+     *     runTestSuite() before this was ever queued), scopes each suite's Jupiter entry to this
+     *     one method - see TestRunContainer's 6-arg runSuiteEntries() overload
      */
-    private static void executeRun(String runId, String suiteName, Map<String, Object> testParams, JunitSuiteWrapper wrapper) {
+    private static void executeRun(String runId, String suiteName, Map<String, Object> testParams, String testMethodName,
+            JunitSuiteWrapper wrapper) {
         TRACKER.markRunning(runId);
         String ofbizHome = System.getProperty("ofbiz.home", ".");
         File runDir = new File(ofbizHome, "runtime/logs/test-results/api-runs/" + runId);
@@ -241,7 +302,7 @@ public final class TestRunServices {
                         xmlSink = new SuiteXmlReportWriter(new FileOutputStream(xmlFile));
                         xmlSink.startSuite(modelSuite.getSuiteName());
                         TestRunContainer.runSuiteEntries(modelSuite.getPreparedTestList(), modelSuite.getDelegator(),
-                                modelSuite.getDispatcher(), testParams, xmlSink);
+                                modelSuite.getDispatcher(), testParams, testMethodName, xmlSink);
                         modelSuite.getDelegator().rollback();
                     } finally {
                         // endSuite() is the only place that actually flushes/writes/closes the underlying

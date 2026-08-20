@@ -61,6 +61,7 @@ under the License.
         <attribute name="componentName" type="String" mode="IN" optional="true"/>
         <attribute name="suiteName" type="String" mode="IN" optional="false"/>
         <attribute name="testCaseName" type="String" mode="IN" optional="true"/>
+        <attribute name="testMethodName" type="String" mode="IN" optional="true"/>
         <attribute name="testParams" type="Map" mode="IN" optional="true"/>
         <attribute name="runId" type="String" mode="OUT" optional="true"/>
     </service>
