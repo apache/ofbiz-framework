@@ -152,7 +152,13 @@ public final class StartupCommandUtil {
                     + System.lineSeparator()
                     + "--test case=entity-query-tests"
                     + System.lineSeparator()
-                    + "--test loglevel=warning")
+                    + "--test loglevel=warning"
+                    + System.lineSeparator()
+                    + "--test case=entity-query-tests --test method=testSpecificMethod (requires case=; only "
+                    + "applies when case= resolves to a jupiter-test-suite - scopes the run to that one "
+                    + "@Test method instead of the whole class. Caution: a method run alone may behave "
+                    + "differently than as part of the full class if it implicitly depends on a sibling "
+                    + "method - see JupiterClassRunner's javadoc)")
             .numberOfArgs(2)
             .valueSeparator('=')
             .optionalArg(true)
