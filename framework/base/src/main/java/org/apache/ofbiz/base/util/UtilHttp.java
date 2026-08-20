@@ -411,6 +411,18 @@ public final class UtilHttp {
                         UtilHttp::canonicalizeParameterMap));
     }
 
+    /**
+     * Return pathInfo without parameters passed as query
+     * @param request
+     */
+    public static String getPathInfoWithoutQuery(HttpServletRequest request) {
+        String pathInfo = request.getPathInfo();
+        pathInfo = pathInfo.indexOf('?') > -1
+                ? pathInfo.substring(0, pathInfo.indexOf('?'))
+                : pathInfo;
+        return pathInfo.replaceAll("[^\\p{Alnum}/\\-_]", ""); // TODO find better place
+    }
+
     public static Map<String, Object> getUrlOnlyParameterMap(HttpServletRequest request) {
         // NOTE: these have already been through canonicalizeParameterMap, so not doing it again here
         Map<String, Object> paramMap = getQueryStringOnlyParameterMap(request.getQueryString());
@@ -1833,4 +1845,22 @@ public final class UtilHttp {
         return allowedProtocolList;
     }
 
+    /**
+     * Return true if the request is identified as AjaxRequest
+     * @param request
+     */
+    public static boolean isAjaxCall(HttpServletRequest request) {
+        return "XMLHttpRequest".equalsIgnoreCase(request.getHeader("X-Requested-With"));
+    }
+
+    /**
+     * Return true if the request match logins uri present en security properties
+     * @param request
+     */
+    public static boolean isLoginRequest(HttpServletRequest request) {
+        List<String> loginUris = StringUtil.split(EntityUtilProperties.getPropertyValue("security", "login.uris",
+                (Delegator) request.getAttribute("delegator")), ",");
+        return loginUris.stream()
+                .anyMatch(uri -> UtilValidate.isUriEquals(getPathInfoWithoutQuery(request), uri));
+    }
 }

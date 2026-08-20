@@ -33,7 +33,6 @@ import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.service.LocalDispatcher;
-import org.apache.ofbiz.webapp.control.ConfigXMLReader;
 import org.apache.ofbiz.webapp.control.RequestHandler;
 import org.apache.ofbiz.webapp.taglib.ContentUrlTag;
 import org.apache.ofbiz.widget.model.CommonWidgetModels;
@@ -234,14 +233,8 @@ public final class WidgetWorker {
 
     public static String determineAutoLinkType(String linkType, String target, String targetType, HttpServletRequest request) {
         if ("auto".equals(linkType)) {
-            if ("intra-app".equals(targetType)) {
-                String requestUri = (target.indexOf('?') > -1) ? target.substring(0, target.indexOf('?')) : target;
-                ServletContext servletContext = request.getSession().getServletContext();
-                RequestHandler rh = (RequestHandler) servletContext.getAttribute("_REQUEST_HANDLER_");
-                ConfigXMLReader.RequestMap requestMap = rh.getControllerConfig().getRequestMapMap().get(requestUri);
-                if (requestMap != null && requestMap.getEvent() != null) {
-                    return "hidden-form";
-                }
+            if ("intra-app".equals(targetType) && RequestHandler.isRequestWithEvent(request)) {
+                return "hidden-form";
             }
             return "anchor";
         }

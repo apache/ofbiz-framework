@@ -26,7 +26,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Enumeration;
@@ -379,6 +378,26 @@ public final class RequestHandler {
         return UtilGenerics.cast(request.getServletContext().getAttribute("_REQUEST_HANDLER_"));
     }
 
+    /**
+     * check if HTTP request match requestMaps with a security auth at true.
+     * @param request the HTTP request containing the request handler
+     * @return true if all requestMap linked are security auth at true
+     */
+    public static boolean isSecurityAuthRequest(HttpServletRequest request) {
+        Collection<RequestMap> requestMaps = resolveURI(Objects.requireNonNull(from(request).getControllerConfig()), request);
+        return requestMaps.stream().allMatch(RequestMap::isSecurityAuth);
+    }
+
+    /**
+     * check if HTTP request match requestMaps with a event.
+     * @param request the HTTP request containing the request handler
+     * @return true if all requestMap linked are security auth at true
+     */
+    public static boolean isRequestWithEvent(HttpServletRequest request) {
+        Collection<RequestMap> requestMaps = resolveURI(Objects.requireNonNull(from(request).getControllerConfig()), request);
+        return requestMaps.stream().anyMatch(requestMap -> requestMap.getEvent() != null);
+    }
+
     public ConfigXMLReader.ControllerConfig getControllerConfig() {
         try {
             return ConfigXMLReader.getControllerConfig(this.controllerConfigURL);
@@ -418,8 +437,7 @@ public final class RequestHandler {
         // Grab data from request object to process
         String defaultRequestUri = RequestHandler.getRequestUri(request.getPathInfo());
 
-        String requestMissingErrorMessage = "Unknown request ["
-                + defaultRequestUri
+        String requestMissingErrorMessage = "Unknown request [" + UtilHttp.getPathInfoWithoutQuery(request)
                 + "]; this request does not exist or cannot be called directly.";
 
         String path = request.getPathInfo();
@@ -660,17 +678,10 @@ public final class RequestHandler {
                 // previous URL already saved by event, so just do as the return says...
                 eventReturn = checkLoginReturnString;
                 // if the request is an ajax request we don't want to return the default login check
-                if (!"XMLHttpRequest".equals(request.getHeader("X-Requested-With"))) {
-                    requestMap = ccfg.getRequestMapMap().get("checkLogin");
-                } else {
-                    requestMap = ccfg.getRequestMapMap().get("ajaxCheckLogin");
-                }
-            }
-        } else if (requestUri != null) {
-            String[] loginUris = EntityUtilProperties.getPropertyValue("security", "login.uris", delegator).split(",");
-            if (Arrays.asList(loginUris).contains(requestUri)) {
-                // Remove previous request attribute on navigation to non-authenticated request
-                request.getSession().removeAttribute("_PREVIOUS_REQUEST_");
+                requestMap = ccfg.getRequestMapMap()
+                        .get(UtilHttp.isAjaxCall(request)
+                                ? "ajaxCheckLogin"
+                                : "checkLogin");
             }
         }
 
@@ -807,38 +818,31 @@ public final class RequestHandler {
         }
 
         // if previous request exists, and a login just succeeded, do that now.
-        if (previousRequest != null && loginPass != null && "TRUE".equalsIgnoreCase(loginPass)) {
+        if (previousRequest != null && "TRUE".equalsIgnoreCase(loginPass)) {
             request.getSession().removeAttribute("_PREVIOUS_REQUEST_");
             // special case to avoid login/logout looping: if request was "logout" before the login, change to null for default success view; do
             // the same for "login" to avoid going back to the same page
-            if ("logout".equals(previousRequest) || "/logout".equals(previousRequest) || "login".equals(previousRequest)
-                    || "/login".equals(previousRequest) || "checkLogin".equals(previousRequest) || "/checkLogin".equals(previousRequest)
-                    || "/checkLogin/login".equals(previousRequest)) {
-                Debug.logWarning("Found special _PREVIOUS_REQUEST_ of [" + previousRequest + "], setting to null to avoid problems, not running "
-                        + "request again", MODULE);
-            } else {
-                if (Debug.infoOn()) {
-                    Debug.logInfo("[Doing Previous Request]: " + previousRequest + showSessionId(request), MODULE);
-                }
-
-                // note that the previous form parameters are not setup (only the URL ones here), they will be found in the session later and
-                // handled when the old request redirect comes back
-                Map<String, Object> previousParamMap = UtilGenerics.checkMap(request.getSession().getAttribute("_PREVIOUS_PARAM_MAP_URL_"),
-                        String.class, Object.class);
-                String queryString = UtilHttp.urlEncodeArgs(previousParamMap, false);
-                String redirectTarget = previousRequest;
-                if (UtilValidate.isNotEmpty(queryString)) {
-                    redirectTarget += "?" + queryString;
-                }
-                String link = makeLink(request, response, redirectTarget);
-
-                // add / update csrf token to link when required
-                String tokenValue = CsrfUtil.generateTokenForNonAjax(request, redirectTarget);
-                link = CsrfUtil.addOrUpdateTokenInUrl(link, tokenValue);
-
-                callRedirect(link, response, request, ccfg.getStatusCode());
-                return;
+            if (Debug.infoOn()) {
+                Debug.logInfo("[Doing Previous Request]: " + previousRequest + showSessionId(request), MODULE);
             }
+
+            // note that the previous form parameters are not setup (only the URL ones here), they will be found in the session later and
+            // handled when the old request redirect comes back
+            Map<String, Object> previousParamMap = UtilGenerics.checkMap(request.getSession().getAttribute("_PREVIOUS_PARAM_MAP_URL_"),
+                    String.class, Object.class);
+            String queryString = UtilHttp.urlEncodeArgs(previousParamMap, false);
+            String redirectTarget = previousRequest;
+            if (UtilValidate.isNotEmpty(queryString)) {
+                redirectTarget += "?" + queryString;
+            }
+            String link = makeLink(request, response, redirectTarget);
+
+            // add / update csrf token to link when required
+            String tokenValue = CsrfUtil.generateTokenForNonAjax(request, redirectTarget);
+            link = CsrfUtil.addOrUpdateTokenInUrl(link, tokenValue);
+
+            callRedirect(link, response, request, ccfg.getStatusCode());
+            return;
         }
 
         ConfigXMLReader.RequestResponse successResponse = requestMap.getRequestResponseMap().get("success");
