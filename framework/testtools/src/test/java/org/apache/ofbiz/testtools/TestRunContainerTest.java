@@ -234,8 +234,10 @@ class TestRunContainerTest {
 
     @org.junit.jupiter.api.Tag(JupiterTestExtension.INTEGRATION_TAG)
     static class TwoTestFixture {
+        //ALLOW PUBLIC FIELDS
         static int firstRunCount;
         static int secondRunCount;
+        //FORBID PUBLIC FIELDS
 
         @Test
         void first() {
