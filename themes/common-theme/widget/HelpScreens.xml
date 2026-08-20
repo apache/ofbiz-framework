@@ -144,10 +144,12 @@ under the License.
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonExtUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="contentId" from-field="parameters.contentId" default-value="${contentId}"/>
-                <entity-one entity-name="Content" value-field="showDocumentHelpContent"/>
-                <entity-one entity-name="DataResource" value-field="showDocumentHelpDataResource" auto-field-map="false">
-                    <field-map field-name="dataResourceId" from-field="showDocumentHelpContent.dataResourceId"/>
-                </entity-one>
+                <!-- must check the DataResource that will actually be rendered below, not just contentId's
+                     own: content rendering can silently substitute a different record (WEB_SITE_PUB_PT
+                     publish-point redirection, ALTERNATE_LOCALE substitution); see
+                     ResolveRenderedDataResource.groovy -->
+                <script location="component://content/src/main/groovy/org/apache/ofbiz/content/content/ResolveRenderedDataResource.groovy"/>
+                <set field="showDocumentHelpDataResource" from-field="renderedDataResource"/>
             </actions>
             <widgets>
                 <!-- an unauthenticated caller (e.g. via showHelpPublic) must not be able to pull an arbitrary
