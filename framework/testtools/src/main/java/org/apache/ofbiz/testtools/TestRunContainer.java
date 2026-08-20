@@ -75,13 +75,17 @@ public class TestRunContainer implements Container {
         boolean failedRun = false;
         for (ModelTestSuite modelSuite: jsWrapper.getModelTestSuites()) {
             String suiteName = modelSuite.getSuiteName();
+            List<SuiteEntry> preparedTestList = modelSuite.getPreparedTestList();
+            // Validated before createXmlReportWriter()/startSuite() below open and write to this
+            // suite's report file - a ContainerException here must not leave an empty, never-closed
+            // XML file behind (endSuite(), the only thing that closes it, would never run on this
+            // path otherwise).
+            validateMethodAppliesToSuite(methodName, suiteName, preparedTestList);
+
             SuiteXmlReportWriter xmlSink = createXmlReportWriter(suiteName);
             SuiteReportLogger logSink = new SuiteReportLogger();
             xmlSink.startSuite(suiteName);
             logSink.startSuite(suiteName);
-
-            List<SuiteEntry> preparedTestList = modelSuite.getPreparedTestList();
-            validateMethodAppliesToSuite(methodName, suiteName, preparedTestList);
 
             try {
                 runSuiteEntries(preparedTestList, modelSuite.getDelegator(),
