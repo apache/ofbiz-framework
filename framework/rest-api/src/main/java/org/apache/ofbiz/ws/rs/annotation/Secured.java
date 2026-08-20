@@ -35,8 +35,7 @@ import jakarta.ws.rs.NameBinding;
  * validating the Bearer JWT token in the {@code Authorization} header.
  * Requests without a valid token are rejected with HTTP 401 Unauthorized.</p>
  *
- * <p>This annotation is applied to all protected API endpoints, such as
- * {@link org.apache.ofbiz.ws.rs.resources.OFBizServiceResource}, which require a valid JWT obtained from
+ * <p>This annotation is applied to all protected API endpoints which require a valid JWT obtained from
  * {@code POST /auth/token}.</p>
  *
  * @see org.apache.ofbiz.ws.rs.security.auth.APIAuthFilter
