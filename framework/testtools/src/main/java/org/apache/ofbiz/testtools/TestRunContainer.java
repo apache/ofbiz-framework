@@ -48,6 +48,7 @@ public class TestRunContainer implements Container {
 
     private String name;
     private JunitSuiteWrapper jsWrapper;
+    private String methodName;
 
     @Override
     public void init(List<StartupCommand> ofbizCommands, String name, String configFile) throws ContainerException {
@@ -63,22 +64,43 @@ public class TestRunContainer implements Container {
         // set selected log level if passed by user
         setLoggerLevel(testProps.get("loglevel"));
 
+        this.methodName = normalizeMethodName(testProps.get("method"));
+        validateMethodRequiresCase(this.methodName, testProps.get("case"));
+
         this.jsWrapper = prepareJunitSuiteWrapper(testProps);
     }
 
     @Override
     public boolean start() throws ContainerException {
+        // Validated for every resolved suite up front, before any of them run - case= given without
+        // suitename= can resolve to suites in more than one testdef document; without this pre-pass,
+        // a validation failure on the second (or later) suite would only surface after the first has
+        // already executed and written its report, undermining the "method= without a valid target
+        // fails before anything runs" guarantee for that (rare, but real) multi-suite case. Guarded on
+        // methodName != null so a plain gradlew test/testIntegration run (no method= at all) doesn't
+        // pay for this pass or risk it changing behavior - getPreparedTestList() is idempotent to call
+        // again in the loop below, but a prepare-time throw from it would otherwise now abort the
+        // whole run before any suite executes, instead of after however many already had, which is a
+        // real (if narrow) behavior change for a run that never touched method= in the first place.
+        if (methodName != null) {
+            for (ModelTestSuite modelSuite: jsWrapper.getModelTestSuites()) {
+                validateMethodAppliesToSuite(methodName, modelSuite.getSuiteName(), modelSuite.getPreparedTestList());
+            }
+        }
+
         boolean failedRun = false;
         for (ModelTestSuite modelSuite: jsWrapper.getModelTestSuites()) {
             String suiteName = modelSuite.getSuiteName();
+            List<SuiteEntry> preparedTestList = modelSuite.getPreparedTestList();
+
             SuiteXmlReportWriter xmlSink = createXmlReportWriter(suiteName);
             SuiteReportLogger logSink = new SuiteReportLogger();
             xmlSink.startSuite(suiteName);
             logSink.startSuite(suiteName);
 
             try {
-                runSuiteEntries(modelSuite.getPreparedTestList(), modelSuite.getDelegator(),
-                        modelSuite.getDispatcher(), xmlSink, logSink);
+                runSuiteEntries(preparedTestList, modelSuite.getDelegator(),
+                        modelSuite.getDispatcher(), Map.of(), methodName, xmlSink, logSink);
             } catch (Throwable t) {
                 // Everything inside runSuiteEntries() is per-entry isolated already: a JUnit 3 test's
                 // own exception is always caught by TestCase.runBare()/TestResult's own
@@ -111,6 +133,21 @@ public class TestRunContainer implements Container {
         return name;
     }
 
+    static void runSuiteEntries(List<SuiteEntry> entries, Delegator delegator, LocalDispatcher dispatcher,
+            SuiteReportSink... sinks) {
+        runSuiteEntries(entries, delegator, dispatcher, Map.of(), sinks);
+    }
+
+    /**
+     * @param testParams caller-supplied parameter overrides for Jupiter entries (empty for a plain
+     *     {@code gradlew test}/{@code testIntegration} run - see TestRunServices for the API-triggered path)
+     * @param sinks where to report results
+     */
+    static void runSuiteEntries(List<SuiteEntry> entries, Delegator delegator, LocalDispatcher dispatcher,
+            Map<String, Object> testParams, SuiteReportSink... sinks) {
+        runSuiteEntries(entries, delegator, dispatcher, testParams, null, sinks);
+    }
+
     /**
      * Runs one suite's ordered SuiteEntry list, JUnit 3 entries through junit.framework.TestResult
      * (translated via Junit3ResultBridge) and Jupiter entries through JupiterTestExtension.JupiterClassRunner
@@ -122,10 +159,18 @@ public class TestRunContainer implements Container {
      * @param entries the suite's prepared, ordered test entries
      * @param delegator the suite's Delegator, shared by every entry
      * @param dispatcher the suite's LocalDispatcher, shared by every entry
+     * @param testParams caller-supplied parameter overrides for Jupiter entries (empty for a plain
+     *     {@code gradlew test}/{@code testIntegration} run - see TestRunServices for the API-triggered path)
+     * @param methodName when non-null, scopes every JupiterEntry in this call to exactly this
+     *     {@literal @}Test/{@literal @}ParameterizedTest method instead of running the whole class -
+     *     supplied by the {@code ofbiz --test method=} CLI path (see start() below) and by
+     *     TestRunServices' {@code testMethodName}-scoped API-triggered path; null for a plain
+     *     {@code gradlew test}/{@code testIntegration} run and for an API-triggered run that omits
+     *     testMethodName, both of which run whole classes
      * @param sinks where to report results
      */
     static void runSuiteEntries(List<SuiteEntry> entries, Delegator delegator, LocalDispatcher dispatcher,
-            SuiteReportSink... sinks) {
+            Map<String, Object> testParams, String methodName, SuiteReportSink... sinks) {
         TestResult junit3Result = new TestResult();
         junit3Result.addListener(new Junit3ResultBridge(sinks));
         for (SuiteEntry entry : entries) {
@@ -133,7 +178,8 @@ public class TestRunContainer implements Container {
                 if (entry instanceof Junit3Entry junit3Entry) {
                     junit3Entry.test().run(junit3Result);
                 } else if (entry instanceof JupiterEntry jupiterEntry) {
-                    new JupiterTestExtension.JupiterClassRunner(jupiterEntry.testClass(), delegator, dispatcher, sinks).run();
+                    new JupiterTestExtension.JupiterClassRunner(
+                            jupiterEntry.testClass(), delegator, dispatcher, testParams, methodName, sinks).run();
                 } else {
                     // SuiteEntry is sealed permits Junit3Entry, JupiterEntry, so this is unreachable today -
                     // but Java 17 doesn't support exhaustive switch over sealed types without preview
@@ -197,6 +243,70 @@ public class TestRunContainer implements Container {
         }
 
         return jsWrapper;
+    }
+
+    /**
+     * Normalizes a blank {@code --test method=} value (e.g. the trailing-{@code =} shape
+     * {@code --test method=} produces) to null, so it's indistinguishable from method= not having
+     * been given at all - a blank string would otherwise pass both validateMethodRequiresCase() and
+     * validateMethodAppliesToSuite() (neither checks for blank, only null) and then fail deep inside
+     * JUnit Platform's own precondition check as an opaque suiteExecutionError instead of this
+     * feature's own clean ContainerException.
+     *
+     * <p>Package-private and static so TestRunContainerTest can exercise it directly without a full
+     * ofbiz --test container bootstrap.
+     * @param rawMethodName the raw --test method= value from the command line, or null if not given
+     * @return rawMethodName unchanged if non-null and non-blank, otherwise null
+     */
+    static String normalizeMethodName(String rawMethodName) {
+        return (rawMethodName == null || rawMethodName.isBlank()) ? null : rawMethodName;
+    }
+
+    /**
+     * Validates that {@code --test method=} was not given without {@code --test case=} - method=
+     * scopes a single case's resolved class down to one @Test method, so it's meaningless without
+     * case= to say which class that is.
+     *
+     * <p>Package-private and static so TestRunContainerTest can exercise it directly without a full
+     * ofbiz --test container bootstrap.
+     * @param methodName the --test method= value, or null if not given
+     * @param caseName the --test case= value, or null if not given
+     * @throws ContainerException if methodName is non-null and caseName is null
+     */
+    static void validateMethodRequiresCase(String methodName, String caseName) throws ContainerException {
+        if (methodName != null && caseName == null) {
+            throw new ContainerException("--test method=" + methodName + " requires --test case=<case-name> to "
+                    + "also be specified - method= scopes a single case's class down to one @Test method, so "
+                    + "case= is needed to identify which class that is.");
+        }
+    }
+
+    /**
+     * Validates that {@code --test method=} (when given) has something to apply to - a resolved
+     * suite with no JupiterEntry at all (a service-test/entity-xml/JUnit 3 case) means case= named
+     * something method= can never apply to. The data-load prerequisite
+     * ModelTestSuite.selectTestCaseElements() may have auto-included is always a Junit3Entry, so its
+     * presence alone never satisfies this check.
+     *
+     * <p>Package-private and static so TestRunContainerTest can exercise it directly without a full
+     * ofbiz --test container bootstrap.
+     * @param methodName the --test method= value, or null if not given
+     * @param suiteName the resolved suite's name, used only for the exception message
+     * @param preparedTestList the resolved suite's prepared entries
+     * @throws ContainerException if methodName is non-null and no entry in preparedTestList is a JupiterEntry
+     */
+    // This checks "at least one JupiterEntry", not "exactly one": every testdef file in this repo
+    // resolves case= to at most one jupiter-test-suite entry today, but test-suite.xsd's test-group
+    // element technically allows more than one jupiter-test-suite child - if a future testdef file
+    // used that shape, method= would be applied to every one of them via runSuiteEntries(), silently
+    // failing whichever one doesn't happen to declare the named method.
+    static void validateMethodAppliesToSuite(String methodName, String suiteName, List<SuiteEntry> preparedTestList)
+            throws ContainerException {
+        if (methodName != null && preparedTestList.stream().noneMatch(JupiterEntry.class::isInstance)) {
+            throw new ContainerException("--test method=" + methodName + " was given, but the resolved case= "
+                    + "did not include a jupiter-test-suite entry in suite '" + suiteName + "' - method= only "
+                    + "applies to Jupiter (JUnit 5) test classes.");
+        }
     }
 
     private static SuiteXmlReportWriter createXmlReportWriter(String suiteName) throws ContainerException {

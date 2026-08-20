@@ -35,6 +35,12 @@ public class JunitSuiteWrapper {
 
     private static final String MODULE = JunitSuiteWrapper.class.getName();
     private List<ModelTestSuite> modelTestSuiteList = new LinkedList<>();
+    // Every ModelTestSuite the constructor builds but then discards below (empty test list, so it
+    // never makes it into modelTestSuiteList / getAllTestList()). The constructor still creates a
+    // real test Delegator/LocalDispatcher for each of these - see getDiscardedModelTestSuites() -
+    // so a caller that treats "no tests found" as a plain error must still deregister these, or
+    // that dispatcher leaks with no other path ever reaching it.
+    private List<ModelTestSuite> discardedModelTestSuiteList = new LinkedList<>();
 
     public JunitSuiteWrapper(String componentName, String suiteName, String testCase) {
         for (ComponentConfig.TestSuiteInfo testSuiteInfo: ComponentConfig.getAllTestSuiteInfos(componentName)) {
@@ -58,6 +64,8 @@ public class JunitSuiteWrapper {
                 ModelTestSuite modelTestSuite = new ModelTestSuite(documentElement, testCase);
                 if (modelTestSuite.getTestList().size() > 0) {
                     this.modelTestSuiteList.add(modelTestSuite);
+                } else {
+                    this.discardedModelTestSuiteList.add(modelTestSuite);
                 }
             } catch (GenericConfigException e) {
                 String errMsg = "Error reading XML document from ResourceHandler for loader [" + testSuiteResource.getLoaderName()
@@ -87,5 +95,18 @@ public class JunitSuiteWrapper {
         }
 
         return allTestList;
+    }
+
+    /**
+     * Gets the ModelTestSuites the constructor built but discarded because they had no matching
+     * test cases (e.g. a testCaseName/suiteName that matched a {@code <test-suite>} element with
+     * zero resulting entries). These are not reachable via {@link #getModelTestSuites()} or
+     * {@link #getAllTestList()}, but each one still holds a real dispatcher/delegator pair the
+     * constructor created - callers that reject this wrapper outright (e.g. "no tests found")
+     * still need this list to avoid leaking those.
+     * @return the discarded model test suites
+     */
+    List<ModelTestSuite> getDiscardedModelTestSuites() {
+        return this.discardedModelTestSuiteList;
     }
 }

@@ -26,6 +26,10 @@
 
     <!-- seed data for the daily test-report purge job's JobSandbox/TemporalExpression rows -->
     <entity-resource type="data" reader-name="seed" loader="main" location="data/TestReportsScheduledServiceData.xml"/>
+    <!-- declares the TESTEXEC_ADMIN permission ID (runTestSuite/getTestRunStatus) -->
+    <entity-resource type="data" reader-name="seed" loader="main" location="data/TestToolsSecurityPermissionSeedData.xml"/>
+    <!-- grants TESTEXEC_ADMIN (runTestSuite/getTestRunStatus) to FULLADMIN -->
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/TestToolsSecurityGroupDemoData.xml"/>
 
     <!-- service resources: model(s), eca(s) and group definitions -->
     <service-resource type="model" loader="main" location="servicedef/services.xml"/>

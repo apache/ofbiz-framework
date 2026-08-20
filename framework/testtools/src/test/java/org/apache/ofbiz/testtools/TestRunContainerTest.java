@@ -19,8 +19,10 @@
 package org.apache.ofbiz.testtools;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.logging.log4j.ThreadContext;
+import org.apache.ofbiz.base.container.ContainerException;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.junit.jupiter.api.Test;
@@ -30,9 +32,11 @@ import junit.framework.TestResult;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
+import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 
@@ -111,6 +115,95 @@ class TestRunContainerTest {
         assertThat(ThreadContext.get(JupiterTestExtension.TEST_CASE_MDC_KEY), nullValue());
     }
 
+    @Test
+    void runSuiteEntriesWithAMethodNameOnlyRunsThatOneMethod() {
+        TwoTestFixture.firstRunCount = 0;
+        TwoTestFixture.secondRunCount = 0;
+        RecordingSink sink = new RecordingSink();
+        List<SuiteEntry> entries = List.of(new SuiteEntry.JupiterEntry(TwoTestFixture.class));
+
+        TestRunContainer.runSuiteEntries(
+                entries, mock(Delegator.class), mock(LocalDispatcher.class), Map.of(), "first", sink);
+
+        assertThat(TwoTestFixture.firstRunCount, is(1));
+        assertThat(TwoTestFixture.secondRunCount, is(0));
+        assertThat(sink.testStartedCalls, contains(TwoTestFixture.class.getName() + "#first"));
+    }
+
+    @Test
+    void runSuiteEntriesWithNoMethodNameStillRunsTheWholeClass() {
+        TwoTestFixture.firstRunCount = 0;
+        TwoTestFixture.secondRunCount = 0;
+        RecordingSink sink = new RecordingSink();
+        List<SuiteEntry> entries = List.of(new SuiteEntry.JupiterEntry(TwoTestFixture.class));
+
+        TestRunContainer.runSuiteEntries(entries, mock(Delegator.class), mock(LocalDispatcher.class), sink);
+
+        assertThat(TwoTestFixture.firstRunCount, is(1));
+        assertThat(TwoTestFixture.secondRunCount, is(1));
+    }
+
+    @Test
+    void normalizeMethodNameTreatsBlankAsAbsent() {
+        assertThat(TestRunContainer.normalizeMethodName(""), nullValue());
+        assertThat(TestRunContainer.normalizeMethodName("   "), nullValue());
+    }
+
+    @Test
+    void normalizeMethodNamePassesThroughNonBlankValue() {
+        assertThat(TestRunContainer.normalizeMethodName("testFindPartiesById"), is("testFindPartiesById"));
+    }
+
+    @Test
+    void normalizeMethodNamePassesThroughNull() {
+        assertThat(TestRunContainer.normalizeMethodName(null), nullValue());
+    }
+
+    @Test
+    void validateMethodRequiresCaseThrowsWhenMethodGivenWithoutCase() {
+        ContainerException thrown = assertThrows(ContainerException.class, () ->
+                TestRunContainer.validateMethodRequiresCase("testFindPartiesById", null));
+
+        assertThat(thrown.getMessage(), containsString("method=testFindPartiesById"));
+        assertThat(thrown.getMessage(), containsString("case="));
+    }
+
+    @Test
+    void validateMethodRequiresCaseAllowsMethodWithCase() {
+        assertDoesNotThrow(() -> TestRunContainer.validateMethodRequiresCase("testFindPartiesById", "party-tests"));
+    }
+
+    @Test
+    void validateMethodRequiresCaseAllowsNeitherGiven() {
+        assertDoesNotThrow(() -> TestRunContainer.validateMethodRequiresCase(null, null));
+    }
+
+    @Test
+    void validateMethodAppliesToSuiteThrowsWhenNoJupiterEntryResolved() {
+        List<SuiteEntry> entries = List.of(new SuiteEntry.Junit3Entry(new NamedCase("dataLoad")));
+
+        ContainerException thrown = assertThrows(ContainerException.class, () ->
+                TestRunContainer.validateMethodAppliesToSuite("testFindPartiesById", "partytests", entries));
+
+        assertThat(thrown.getMessage(), containsString("partytests"));
+    }
+
+    @Test
+    void validateMethodAppliesToSuiteAllowsAResolvedJupiterEntry() {
+        List<SuiteEntry> entries = List.of(
+                new SuiteEntry.Junit3Entry(new NamedCase("dataLoad")),
+                new SuiteEntry.JupiterEntry(OneTestFixture.class));
+
+        assertDoesNotThrow(() -> TestRunContainer.validateMethodAppliesToSuite("onlyTest", "partytests", entries));
+    }
+
+    @Test
+    void validateMethodAppliesToSuiteAllowsNullMethodName() {
+        List<SuiteEntry> entries = List.of(new SuiteEntry.Junit3Entry(new NamedCase("dataLoad")));
+
+        assertDoesNotThrow(() -> TestRunContainer.validateMethodAppliesToSuite(null, "partytests", entries));
+    }
+
     static class NamedCase extends TestCase {
         NamedCase(String name) {
             super(name);
@@ -136,6 +229,24 @@ class TestRunContainerTest {
     static class OneTestFixture {
         @Test
         void onlyTest() {
+        }
+    }
+
+    @org.junit.jupiter.api.Tag(JupiterTestExtension.INTEGRATION_TAG)
+    static class TwoTestFixture {
+        //ALLOW PUBLIC FIELDS
+        static int firstRunCount;
+        static int secondRunCount;
+        //FORBID PUBLIC FIELDS
+
+        @Test
+        void first() {
+            firstRunCount++;
+        }
+
+        @Test
+        void second() {
+            secondRunCount++;
         }
     }
 

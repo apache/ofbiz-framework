@@ -19,6 +19,7 @@
 package org.apache.ofbiz.testtools;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,6 +38,9 @@ import org.junit.jupiter.api.extension.ParameterContext;
 import org.junit.jupiter.api.extension.ParameterResolutionException;
 import org.junit.jupiter.api.extension.ParameterResolver;
 import org.junit.jupiter.api.extension.TestInstancePostProcessor;
+import org.junit.platform.commons.support.HierarchyTraversalMode;
+import org.junit.platform.commons.support.ReflectionSupport;
+import org.junit.platform.engine.DiscoverySelector;
 import org.junit.platform.engine.TestExecutionResult;
 import org.junit.platform.launcher.Launcher;
 import org.junit.platform.launcher.LauncherDiscoveryRequest;
@@ -46,6 +50,7 @@ import org.junit.platform.launcher.core.LauncherDiscoveryRequestBuilder;
 import org.junit.platform.launcher.core.LauncherFactory;
 
 import static org.junit.platform.engine.discovery.DiscoverySelectors.selectClass;
+import static org.junit.platform.engine.discovery.DiscoverySelectors.selectMethod;
 
 /**
  * Injects the per-suite Delegator/LocalDispatcher that ModelTestSuite already builds for JUnit 3
@@ -136,6 +141,19 @@ public class JupiterTestExtension implements ParameterResolver, TestInstancePost
 
     static final ThreadLocal<Delegator> CURRENT_DELEGATOR = new ThreadLocal<>();
     static final ThreadLocal<LocalDispatcher> CURRENT_DISPATCHER = new ThreadLocal<>();
+    static final ThreadLocal<Map<String, Object>> CURRENT_TEST_PARAMS = new ThreadLocal<>();
+
+    /**
+     * The bare, undecorated method name of the Jupiter {@literal @}Test currently executing on this
+     * thread (e.g. "shouldCreateExample") - armed/cleared in JupiterClassRunner's
+     * executionStarted()/executionFinished() listener callbacks, the same lifecycle already used for
+     * TEST_CASE_MDC_KEY. Lets JupiterTestHelper.getTestParams() look up a namespaced per-method
+     * override in CURRENT_TEST_PARAMS without every test method having to identify itself. For a
+     * parameterized test, reportingName() returns a decorated name (e.g.
+     * "methodName[exampleTypeId=CONTRIVED]"), so namespacing only cleanly targets plain,
+     * non-parameterized @Test methods - see JupiterTestHelper.getTestParams()'s javadoc.
+     */
+    static final ThreadLocal<String> CURRENT_TEST_METHOD_NAME = new ThreadLocal<>();
 
     /**
      * Disables classes/methods run outside the ofbiz --test container instead of letting them reach
@@ -278,23 +296,87 @@ public class JupiterTestExtension implements ParameterResolver, TestInstancePost
         private final Class<?> testClass;
         private final Delegator delegator;
         private final LocalDispatcher dispatcher;
+        private final Map<String, Object> testParams;
         private final List<SuiteReportSink> sinks;
         private final Launcher launcher;
         private final LauncherDiscoveryRequest request;
 
         JupiterClassRunner(Class<?> testClass, Delegator delegator, LocalDispatcher dispatcher, SuiteReportSink... sinks) {
+            this(testClass, delegator, dispatcher, Map.of(), null, sinks);
+        }
+
+        JupiterClassRunner(Class<?> testClass, Delegator delegator, LocalDispatcher dispatcher,
+                Map<String, Object> testParams, SuiteReportSink... sinks) {
+            this(testClass, delegator, dispatcher, testParams, null, sinks);
+        }
+
+        /**
+         * @param methodName when non-null, scopes discovery to exactly this {@literal @}Test/
+         *     {@literal @}ParameterizedTest method ({@code selectMethod}) instead of the whole class
+         *     ({@code selectClass}) - the {@code ofbiz --test method=} CLI path
+         *     (TestRunContainer.start()) supplies this; every other caller passes null and gets
+         *     today's whole-class behavior unchanged. Naming a {@literal @}ParameterizedTest method
+         *     here selects every invocation of that method, not one specific input row - JUnit
+         *     Platform's selectMethod() has no finer granularity than that.
+         *
+         *     <p><b>Caution:</b> a method run alone this way can behave differently than it does as
+         *     part of the whole class - flagUnorderedJupiterTests (build.gradle) exists precisely
+         *     because several classes in this codebase were found to have methods that implicitly
+         *     depend on declaration order or on a sibling method's side effects. A method scoped
+         *     this way may pass alone but fail as part of the full class, or the reverse - that is
+         *     not a bug in this parameter, it reflects a pre-existing lack of independence between
+         *     methods in the target class.
+         */
+        JupiterClassRunner(Class<?> testClass, Delegator delegator, LocalDispatcher dispatcher,
+                Map<String, Object> testParams, String methodName, SuiteReportSink... sinks) {
             this.testClass = testClass;
             this.delegator = delegator;
             this.dispatcher = dispatcher;
+            this.testParams = testParams;
             this.sinks = List.of(sinks);
             this.launcher = LauncherFactory.create();
+            DiscoverySelector[] selectors = methodName != null
+                    ? selectMethodByName(testClass, methodName)
+                    : new DiscoverySelector[] {selectClass(testClass)};
             this.request = LauncherDiscoveryRequestBuilder.request()
-                    .selectors(selectClass(testClass))
+                    .selectors(selectors)
                     .configurationParameter(
                             "junit.jupiter.testmethod.order.default",
                             "org.junit.jupiter.api.MethodOrderer$OrderAnnotation")
                     .configurationParameter("junit.jupiter.execution.parallel.enabled", "false")
                     .build();
+        }
+
+        /**
+         * Resolves {@code methodName} against every declared/inherited method of that name on
+         * {@code testClass} and builds one {@code selectMethod} selector per match, instead of relying
+         * on {@code DiscoverySelectors.selectMethod(Class, String)} alone.
+         *
+         * <p>That two-argument overload only matches a zero-parameter method - it delegates to the
+         * three-argument overload with an empty parameter-type list, so it can never resolve a
+         * {@literal @}ParameterizedTest method (which always declares at least one parameter) or any
+         * {@literal @}Test method taking a JupiterTestExtension-resolved Delegator/LocalDispatcher
+         * parameter; both fail with the same "could not find method" discovery error a genuine typo
+         * produces, silently misreporting a real method as nonexistent. Resolving by reflection first
+         * and selecting by {@code Method} instead of by name alone sidesteps that restriction.
+         *
+         * <p>When no method of that name exists at all, falls back to the plain by-name selector so
+         * the same clean "could not find method" discovery failure (routed through
+         * reportContainerFailure() below as this class's initializationError) still fires for a
+         * genuine typo - this method never throws for an unresolved name itself.
+         * @param testClass the class methodName is resolved against
+         * @param methodName the requested method name
+         * @return one selector per overload/match found, or a single by-name selector if none matched
+         */
+        private static DiscoverySelector[] selectMethodByName(Class<?> testClass, String methodName) {
+            List<Method> matches = ReflectionSupport.findMethods(testClass,
+                    method -> method.getName().equals(methodName), HierarchyTraversalMode.TOP_DOWN);
+            if (matches.isEmpty()) {
+                return new DiscoverySelector[] {selectMethod(testClass, methodName)};
+            }
+            return matches.stream()
+                    .map(method -> (DiscoverySelector) selectMethod(testClass, method))
+                    .toArray(DiscoverySelector[]::new);
         }
 
         /**
@@ -310,6 +392,7 @@ public class JupiterTestExtension implements ParameterResolver, TestInstancePost
         void run() {
             JupiterTestExtension.CURRENT_DELEGATOR.set(delegator);
             JupiterTestExtension.CURRENT_DISPATCHER.set(dispatcher);
+            JupiterTestExtension.CURRENT_TEST_PARAMS.set(testParams);
             Map<String, Long> startTimes = new HashMap<>();
             try {
                 launcher.execute(request, new TestExecutionListener() {
@@ -318,6 +401,7 @@ public class JupiterTestExtension implements ParameterResolver, TestInstancePost
                         if (testIdentifier.isTest()) {
                             startTimes.put(testIdentifier.getUniqueId(), System.currentTimeMillis());
                             ThreadContext.put(TEST_CASE_MDC_KEY, testClass.getSimpleName() + "#" + reportingName(testIdentifier));
+                            JupiterTestExtension.CURRENT_TEST_METHOD_NAME.set(reportingName(testIdentifier));
                             ReportingSupport.dispatch(sinks, sink -> sink.testStarted(testClass.getName(), reportingName(testIdentifier)));
                         }
                     }
@@ -361,6 +445,7 @@ public class JupiterTestExtension implements ParameterResolver, TestInstancePost
                             ReportingSupport.dispatch(sinks, sink -> sink.testFinished(testClass.getName(), name, elapsed, outcome));
                         } finally {
                             ThreadContext.remove(TEST_CASE_MDC_KEY);
+                            JupiterTestExtension.CURRENT_TEST_METHOD_NAME.remove();
                         }
                     }
                 });
@@ -370,6 +455,8 @@ public class JupiterTestExtension implements ParameterResolver, TestInstancePost
                 ThreadContext.remove(TEST_CASE_MDC_KEY);
                 JupiterTestExtension.CURRENT_DELEGATOR.remove();
                 JupiterTestExtension.CURRENT_DISPATCHER.remove();
+                JupiterTestExtension.CURRENT_TEST_PARAMS.remove();
+                JupiterTestExtension.CURRENT_TEST_METHOD_NAME.remove();
             }
         }
 

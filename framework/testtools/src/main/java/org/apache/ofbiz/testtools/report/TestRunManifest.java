@@ -38,6 +38,8 @@ public final class TestRunManifest {
     private Counts counts;
     private String resultsLocation;
     private Map<String, String> artifacts = new LinkedHashMap<>();
+    private String trigger = "gradle";
+    private Map<String, String> paramsUsed = new LinkedHashMap<>();
 
     public String getRunId() {
         return runId;
@@ -117,6 +119,22 @@ public final class TestRunManifest {
 
     public void setArtifacts(Map<String, String> artifacts) {
         this.artifacts = artifacts;
+    }
+
+    public String getTrigger() {
+        return trigger;
+    }
+
+    public void setTrigger(String trigger) {
+        this.trigger = trigger;
+    }
+
+    public Map<String, String> getParamsUsed() {
+        return paramsUsed;
+    }
+
+    public void setParamsUsed(Map<String, String> paramsUsed) {
+        this.paramsUsed = paramsUsed;
     }
 
     /** Pass/fail/skip totals for one archived run. */

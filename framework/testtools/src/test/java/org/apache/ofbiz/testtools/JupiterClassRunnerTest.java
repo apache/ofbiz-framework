@@ -21,6 +21,7 @@ package org.apache.ofbiz.testtools;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.logging.log4j.ThreadContext;
 import org.apache.ofbiz.entity.Delegator;
@@ -33,6 +34,8 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
@@ -60,6 +63,8 @@ class JupiterClassRunnerTest {
     void clearThreadLocals() {
         JupiterTestExtension.CURRENT_DELEGATOR.remove();
         JupiterTestExtension.CURRENT_DISPATCHER.remove();
+        JupiterTestExtension.CURRENT_TEST_PARAMS.remove();
+        JupiterTestExtension.CURRENT_TEST_METHOD_NAME.remove();
     }
 
     @Test
@@ -182,6 +187,112 @@ class JupiterClassRunnerTest {
     }
 
     @Test
+    void testParamsThreadLocalIsArmedDuringExecutionAndClearedAfter() {
+        RecordingSink sink = new RecordingSink();
+        Map<String, Object> testParams = Map.of("greeting", "hello-from-caller");
+
+        new JupiterTestExtension.JupiterClassRunner(
+                ParamsRecordingFixture.class, mock(Delegator.class), mock(LocalDispatcher.class), testParams, sink)
+                .run();
+
+        assertThat(ParamsRecordingFixture.seenValue, is("hello-from-caller"));
+        assertThat(JupiterTestExtension.CURRENT_TEST_PARAMS.get(), nullValue());
+    }
+
+    @Test
+    void testParamsThreadLocalDefaultsToEmptyMapWhenOmitted() {
+        RecordingSink sink = new RecordingSink();
+
+        new JupiterTestExtension.JupiterClassRunner(
+                ParamsRecordingFixture.class, mock(Delegator.class), mock(LocalDispatcher.class), sink)
+                .run();
+
+        assertThat(ParamsRecordingFixture.paramsWasNull, is(false));
+        assertThat(ParamsRecordingFixture.seenValue, is(nullValue()));
+    }
+
+    @Test
+    void testParamsExposesCallerSuppliedMapVerbatim() {
+        RecordingSink sink = new RecordingSink();
+        Map<String, Object> testParams = Map.of("exampleTypeId", "REAL_WORLD");
+
+        new JupiterTestExtension.JupiterClassRunner(
+                TestParamsFixture.class, mock(Delegator.class), mock(LocalDispatcher.class), testParams, sink)
+                .run();
+
+        assertThat(TestParamsFixture.seenValue, is("REAL_WORLD"));
+    }
+
+    @Test
+    void testParamsIsEmptyMapWhenNoOverridesSupplied() {
+        RecordingSink sink = new RecordingSink();
+
+        new JupiterTestExtension.JupiterClassRunner(
+                TestParamsFixture.class, mock(Delegator.class), mock(LocalDispatcher.class), sink)
+                .run();
+
+        assertThat(TestParamsFixture.seenValue, is(nullValue()));
+    }
+
+    @Test
+    void namespacedTestParamOverridesFlatKeyForCurrentMethodOnlyOtherMethodsSeeFlat() {
+        RecordingSink sink = new RecordingSink();
+        Map<String, Object> testParams = Map.of(
+                "color", "red",
+                "shape", "square",
+                "methodOne", Map.of("color", "blue"));
+
+        new JupiterTestExtension.JupiterClassRunner(
+                NamespacedTestParamsFixture.class, mock(Delegator.class), mock(LocalDispatcher.class), testParams, sink)
+                .run();
+
+        assertThat(NamespacedTestParamsFixture.methodOneSeenColor, is("blue"));
+        assertThat(NamespacedTestParamsFixture.methodOneSeenShape, is("square"));
+        assertThat(NamespacedTestParamsFixture.methodTwoSeenColor, is("red"));
+    }
+
+    @Test
+    void siblingNamespacedEntryIsExcludedFromCommonBaseAndDoesNotLeakAcrossMethods() {
+        RecordingSink sink = new RecordingSink();
+        Map<String, Object> testParams = Map.of(
+                "methodOne", Map.of("color", "blue"),
+                "methodTwo", Map.of("color", "green"));
+
+        new JupiterTestExtension.JupiterClassRunner(
+                NamespacedTestParamsFixture.class, mock(Delegator.class), mock(LocalDispatcher.class), testParams, sink)
+                .run();
+
+        assertThat(NamespacedTestParamsFixture.methodOneSeenColor, is("blue"));
+        assertThat(NamespacedTestParamsFixture.methodOneSeenMethodTwoRawValue, is(nullValue()));
+        assertThat(NamespacedTestParamsFixture.methodTwoSeenColor, is("green"));
+    }
+
+    @Test
+    void malformedNamespacedEntryFallsBackToCommonBase() {
+        RecordingSink sink = new RecordingSink();
+        Map<String, Object> testParams = Map.of(
+                "color", "red",
+                "methodOne", "not-a-map");
+
+        new JupiterTestExtension.JupiterClassRunner(
+                NamespacedTestParamsFixture.class, mock(Delegator.class), mock(LocalDispatcher.class), testParams, sink)
+                .run();
+
+        assertThat(NamespacedTestParamsFixture.methodOneSeenColor, is("red"));
+    }
+
+    @Test
+    void currentTestMethodNameThreadLocalIsClearedAfterRun() {
+        RecordingSink sink = new RecordingSink();
+
+        new JupiterTestExtension.JupiterClassRunner(
+                NamespacedTestParamsFixture.class, mock(Delegator.class), mock(LocalDispatcher.class), sink)
+                .run();
+
+        assertThat(JupiterTestExtension.CURRENT_TEST_METHOD_NAME.get(), nullValue());
+    }
+
+    @Test
     void failedAssertionInsideATestMethodIsReportedAsAFailureWithRealTypeAndStackTrace() {
         RecordingSink sink = new RecordingSink();
 
@@ -212,6 +323,68 @@ class JupiterClassRunnerTest {
         SuiteReportSink.Outcome.Error error = (SuiteReportSink.Outcome.Error) sink.testFinishedCalls.get(0).outcome();
         assertThat(error.throwable(), instanceOf(RuntimeException.class));
         assertThat(error.throwable().getMessage(), is("boom"));
+    }
+
+    @Test
+    void methodNameScopesDiscoveryToExactlyThatMethod() {
+        TwoMethodFixture.methodOneRunCount = 0;
+        TwoMethodFixture.methodTwoRunCount = 0;
+        RecordingSink sink = new RecordingSink();
+
+        new JupiterTestExtension.JupiterClassRunner(TwoMethodFixture.class, mock(Delegator.class),
+                mock(LocalDispatcher.class), Map.of(), "methodOne", sink).run();
+
+        assertThat(TwoMethodFixture.methodOneRunCount, is(1));
+        assertThat(TwoMethodFixture.methodTwoRunCount, is(0));
+        assertThat(sink.testStartedCalls, contains(TwoMethodFixture.class.getName() + "#methodOne"));
+    }
+
+    @Test
+    void nullMethodNameStillRunsTheWholeClassUnchanged() {
+        TwoMethodFixture.methodOneRunCount = 0;
+        TwoMethodFixture.methodTwoRunCount = 0;
+        RecordingSink sink = new RecordingSink();
+
+        new JupiterTestExtension.JupiterClassRunner(TwoMethodFixture.class, mock(Delegator.class),
+                mock(LocalDispatcher.class), Map.of(), (String) null, sink).run();
+
+        assertThat(TwoMethodFixture.methodOneRunCount, is(1));
+        assertThat(TwoMethodFixture.methodTwoRunCount, is(1));
+    }
+
+    @Test
+    void unknownMethodNameIsReportedAsAnInitializationErrorNotASilentNoOp() {
+        // JUnit Platform's selectMethod() validates lazily during launcher.execute(), not at
+        // selector-creation time - an unresolvable method surfaces as a FAILED container
+        // (isTest() == false), which JupiterClassRunner already routes through
+        // reportContainerFailure() (the same path a throwing @BeforeAll takes), reported as
+        // "#initializationError" - confirmed empirically against this project's JUnit Platform
+        // version rather than assumed.
+        RecordingSink sink = new RecordingSink();
+
+        new JupiterTestExtension.JupiterClassRunner(TwoMethodFixture.class, mock(Delegator.class),
+                mock(LocalDispatcher.class), Map.of(), "noSuchMethod", sink).run();
+
+        assertThat(sink.testStartedCalls, contains(TwoMethodFixture.class.getName() + "#initializationError"));
+        assertThat(sink.testFinishedCalls, hasSize(1));
+        SuiteReportSink.Outcome.Error error = (SuiteReportSink.Outcome.Error) sink.testFinishedCalls.get(0).outcome();
+        assertThat(error.throwable().getMessage(), containsString("noSuchMethod"));
+    }
+
+    @Test
+    void methodNameSelectsAllInvocationsOfAParameterizedMethod() {
+        // Regression test for the bug Fix 1 (JupiterClassRunner.selectMethodByName) resolves:
+        // DiscoverySelectors.selectMethod(Class, String) alone can never match a method that
+        // declares a parameter, which every @ParameterizedTest method does by definition - it would
+        // fail with the same "could not find method" error a typo produces.
+        ParameterizedMethodFixture.invocationCount = 0;
+        RecordingSink sink = new RecordingSink();
+
+        new JupiterTestExtension.JupiterClassRunner(ParameterizedMethodFixture.class, mock(Delegator.class),
+                mock(LocalDispatcher.class), Map.of(), "parameterized", sink).run();
+
+        assertThat(ParameterizedMethodFixture.invocationCount, is(3));
+        assertThat(sink.testFinishedCalls, hasSize(3));
     }
 
     //ALLOW PUBLIC FIELDS
@@ -317,6 +490,76 @@ class JupiterClassRunnerTest {
         @Test
         void throwsARuntimeException() {
             throw new RuntimeException("boom");
+        }
+    }
+
+    @Tag(JupiterTestExtension.INTEGRATION_TAG)
+    static class TwoMethodFixture {
+        static int methodOneRunCount;
+        static int methodTwoRunCount;
+
+        @Test
+        void methodOne() {
+            methodOneRunCount++;
+        }
+
+        @Test
+        void methodTwo() {
+            methodTwoRunCount++;
+        }
+    }
+
+    @Tag(JupiterTestExtension.INTEGRATION_TAG)
+    static class ParameterizedMethodFixture {
+        static int invocationCount;
+
+        @ParameterizedTest
+        @CsvSource({"a", "b", "c"})
+        void parameterized(String value) {
+            invocationCount++;
+        }
+    }
+
+    @Tag(JupiterTestExtension.INTEGRATION_TAG)
+    static class ParamsRecordingFixture {
+        static String seenValue;
+        static Boolean paramsWasNull;
+
+        @Test
+        void onlyTest() {
+            Map<String, Object> params = JupiterTestExtension.CURRENT_TEST_PARAMS.get();
+            paramsWasNull = (params == null);
+            seenValue = params == null ? null : (String) params.get("greeting");
+        }
+    }
+
+    @Tag(JupiterTestExtension.INTEGRATION_TAG)
+    static class TestParamsFixture implements JupiterTestHelper {
+        static Object seenValue;
+
+        @Test
+        void onlyTest() {
+            seenValue = getTestParams().get("exampleTypeId");
+        }
+    }
+
+    @Tag(JupiterTestExtension.INTEGRATION_TAG)
+    static class NamespacedTestParamsFixture implements JupiterTestHelper {
+        static Object methodOneSeenColor;
+        static Object methodOneSeenShape;
+        static Object methodOneSeenMethodTwoRawValue;
+        static Object methodTwoSeenColor;
+
+        @Test
+        void methodOne() {
+            methodOneSeenColor = getTestParams().get("color");
+            methodOneSeenShape = getTestParams().get("shape");
+            methodOneSeenMethodTwoRawValue = getTestParams().get("methodTwo");
+        }
+
+        @Test
+        void methodTwo() {
+            methodTwoSeenColor = getTestParams().get("color");
         }
     }
     //FORBID PUBLIC FIELDS
