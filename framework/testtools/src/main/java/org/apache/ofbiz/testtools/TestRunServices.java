@@ -160,22 +160,26 @@ public final class TestRunServices {
         // rationale). This first check needs only the two raw strings, not any resolved suite, so
         // it runs before JunitSuiteWrapper is even constructed: it fails faster (no wasted
         // dispatcher/delegator construction for a malformed request) and mirrors how the CLI's own
-        // init() validates before start() resolves anything.
+        // init() validates before start() resolves anything. The returned error text is REST's own
+        // wording (testMethodName/testCaseName), not e.getMessage()'s CLI phrasing (--test
+        // method=/case=) - a REST caller never typed --test, so that vocabulary would be confusing
+        // on this surface. The log line keeps e.getMessage() verbatim for CLI-consistent debugging.
         try {
             TestRunContainer.validateMethodRequiresCase(testMethodName, testCaseName);
         } catch (ContainerException e) {
             Debug.logWarning("runTestSuite: rejected for user '" + userLoginId + "', suite '" + suiteName + "'"
                     + " - " + e.getMessage(), MODULE);
-            return ServiceUtil.returnError(e.getMessage());
+            return ServiceUtil.returnError("testMethodName requires testCaseName to also be specified - "
+                    + "testMethodName scopes a single case's class down to one @Test method, so testCaseName "
+                    + "is needed to identify which class that is.");
         }
 
-        // Initialized to null (not left blank) purely to satisfy javac's definite-assignment
-        // analysis for the catch (ContainerException e) block below: javac's checked-exception flow
-        // analysis is not statement-order-sensitive, so because validateMethodAppliesToSuite (called
-        // further down, after wrapper is already assigned) can throw ContainerException, javac
-        // conservatively treats the whole try block - including this assignment itself - as a
-        // possible ContainerException source, and would otherwise reject wrapper as "might not have
-        // been initialized" inside that catch block even though it always is by then in practice.
+        // Initialized to null (not left blank): the catch (ContainerException e) block below reads
+        // wrapper, and per Java's definite-assignment rules a catch block never sees an assignment
+        // made inside its own try body - regardless of exception type or where in the block that
+        // assignment sits - unless the variable was already assigned before the try started. The
+        // pre-existing catch (Exception e) below compiled fine without this only because it never
+        // dereferences wrapper.
         JunitSuiteWrapper wrapper = null;
         try {
             wrapper = new JunitSuiteWrapper(componentName, suiteName, testCaseName);
@@ -195,24 +199,47 @@ public final class TestRunServices {
             // entries, so it can only run once the wrapper above has resolved them. Still entirely
             // synchronous, before EXECUTOR.submit below - a bad testMethodName/testCaseName
             // combination must never reach a queued run, matching the CLI's "fails before anything
-            // runs" guarantee.
-            for (ModelTestSuite modelSuite : wrapper.getModelTestSuites()) {
-                TestRunContainer.validateMethodAppliesToSuite(testMethodName, modelSuite.getSuiteName(),
-                        modelSuite.getPreparedTestList());
+            // runs" guarantee. Guarded on testMethodName != null, mirroring the identical guard on
+            // TestRunContainer.start()'s own pre-loop pass (CLI side): without it, every
+            // testMethodName-less request - the overwhelming majority of callers - would still pay
+            // for this pass, and a prepare-time throw from getPreparedTestList() would newly abort
+            // the request before any run is queued instead of leaving today's behavior unchanged.
+            if (testMethodName != null) {
+                for (ModelTestSuite modelSuite : wrapper.getModelTestSuites()) {
+                    TestRunContainer.validateMethodAppliesToSuite(testMethodName, modelSuite.getSuiteName(),
+                            modelSuite.getPreparedTestList());
+                }
             }
         } catch (ContainerException e) {
             // Only validateMethodAppliesToSuite (above) can reach this - JunitSuiteWrapper's own
             // constructor declares no checked exception, so wrapper is always assigned by the time
-            // this catch block can run. These suites are not discarded (they have real tests, just
-            // not the requested method), so their dispatchers need the same cleanup treatment the
-            // "no tests found" branch above gives its own discarded suites.
+            // this catch block can run. Both getModelTestSuites() (real tests, just not the
+            // requested method) and getDiscardedModelTestSuites() (zero-entry suites the wrapper's
+            // constructor still built a dispatcher for) need cleanup here, the same as the "no tests
+            // found" branch above gives its own discarded suites.
             for (ModelTestSuite modelSuite : wrapper.getModelTestSuites()) {
                 deregisterTestDispatcher(modelSuite);
             }
+            for (ModelTestSuite discarded : wrapper.getDiscardedModelTestSuites()) {
+                deregisterTestDispatcher(discarded);
+            }
             Debug.logWarning("runTestSuite: rejected for user '" + userLoginId + "', suite '" + suiteName + "'"
                     + " - " + e.getMessage(), MODULE);
-            return ServiceUtil.returnError(e.getMessage());
+            return ServiceUtil.returnError("testMethodName was given, but the resolved testCaseName did not "
+                    + "include a jupiter-test-suite entry in suite '" + suiteName + "' - testMethodName only "
+                    + "applies to Jupiter (JUnit 5) test classes.");
         } catch (Exception e) {
+            // wrapper may or may not be assigned here (a throw from "new JunitSuiteWrapper(...)"
+            // itself leaves it null; nothing else in this try block is a realistic throw source
+            // today, but the null-check costs nothing and keeps this branch correct regardless).
+            if (wrapper != null) {
+                for (ModelTestSuite modelSuite : wrapper.getModelTestSuites()) {
+                    deregisterTestDispatcher(modelSuite);
+                }
+                for (ModelTestSuite discarded : wrapper.getDiscardedModelTestSuites()) {
+                    deregisterTestDispatcher(discarded);
+                }
+            }
             Debug.logError(e, "runTestSuite: failed to resolve suite '" + suiteName + "' (component=" + componentName
                     + ", testCaseName=" + testCaseName + ")", MODULE);
             return ServiceUtil.returnError("Unable to resolve the requested test suite (component=" + componentName
@@ -228,7 +255,8 @@ public final class TestRunServices {
         JunitSuiteWrapper finalWrapper = wrapper;
         TRACKER.register(runId, suiteName, componentName, userLoginId, testParams);
         Debug.logInfo("runTestSuite: STARTED runId=" + runId + " user='" + userLoginId + "' suite='" + suiteName
-                + "' testCaseName='" + testCaseName + "' testParams=" + testParams, MODULE);
+                + "' testCaseName='" + testCaseName + "' testMethodName='" + testMethodName + "' testParams=" + testParams,
+                MODULE);
 
         EXECUTOR.submit(() -> executeRun(runId, suiteName, finalTestParams, testMethodName, finalWrapper));
 

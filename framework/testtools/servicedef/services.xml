@@ -57,7 +57,9 @@ under the License.
             intended for direct *.rest.xml exposure - a component-branded REST endpoint must wrap
             this with a component-scoped service (see TestRunServices.runScopedTestSuite and
             plugins/example's ExampleTestRunServices for the pattern), or the endpoint can trigger
-            any component's tests.</description>
+            any component's tests. testMethodName optionally scopes the run to one
+            @Test/@ParameterizedTest method within the class testCaseName resolves to - requires
+            testCaseName, and only applies when it resolves to a jupiter-test-suite.</description>
         <attribute name="componentName" type="String" mode="IN" optional="true"/>
         <attribute name="suiteName" type="String" mode="IN" optional="false"/>
         <attribute name="testCaseName" type="String" mode="IN" optional="true"/>
