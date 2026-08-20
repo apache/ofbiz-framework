@@ -163,9 +163,10 @@ public class TestRunContainer implements Container {
      *     {@code gradlew test}/{@code testIntegration} run - see TestRunServices for the API-triggered path)
      * @param methodName when non-null, scopes every JupiterEntry in this call to exactly this
      *     {@literal @}Test/{@literal @}ParameterizedTest method instead of running the whole class -
-     *     supplied only by the {@code ofbiz --test method=} CLI path (see start() below); null for a
-     *     plain {@code gradlew test}/{@code testIntegration} run and for the TestRunServices
-     *     API-triggered path, both of which run whole classes
+     *     supplied by the {@code ofbiz --test method=} CLI path (see start() below) and by
+     *     TestRunServices' {@code testMethodName}-scoped API-triggered path; null for a plain
+     *     {@code gradlew test}/{@code testIntegration} run and for an API-triggered run that omits
+     *     testMethodName, both of which run whole classes
      * @param sinks where to report results
      */
     static void runSuiteEntries(List<SuiteEntry> entries, Delegator delegator, LocalDispatcher dispatcher,
