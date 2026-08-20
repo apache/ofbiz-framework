@@ -323,6 +323,52 @@ class JupiterClassRunnerTest {
         assertThat(error.throwable().getMessage(), is("boom"));
     }
 
+    @Test
+    void methodNameScopesDiscoveryToExactlyThatMethod() {
+        TwoMethodFixture.methodOneRunCount = 0;
+        TwoMethodFixture.methodTwoRunCount = 0;
+        RecordingSink sink = new RecordingSink();
+
+        new JupiterTestExtension.JupiterClassRunner(TwoMethodFixture.class, mock(Delegator.class),
+                mock(LocalDispatcher.class), Map.of(), "methodOne", sink).run();
+
+        assertThat(TwoMethodFixture.methodOneRunCount, is(1));
+        assertThat(TwoMethodFixture.methodTwoRunCount, is(0));
+        assertThat(sink.testStartedCalls, contains(TwoMethodFixture.class.getName() + "#methodOne"));
+    }
+
+    @Test
+    void nullMethodNameStillRunsTheWholeClassUnchanged() {
+        TwoMethodFixture.methodOneRunCount = 0;
+        TwoMethodFixture.methodTwoRunCount = 0;
+        RecordingSink sink = new RecordingSink();
+
+        new JupiterTestExtension.JupiterClassRunner(TwoMethodFixture.class, mock(Delegator.class),
+                mock(LocalDispatcher.class), Map.of(), (String) null, sink).run();
+
+        assertThat(TwoMethodFixture.methodOneRunCount, is(1));
+        assertThat(TwoMethodFixture.methodTwoRunCount, is(1));
+    }
+
+    @Test
+    void unknownMethodNameIsReportedAsAnInitializationErrorNotASilentNoOp() {
+        // JUnit Platform's selectMethod() validates lazily during launcher.execute(), not at
+        // selector-creation time - an unresolvable method surfaces as a FAILED container
+        // (isTest() == false), which JupiterClassRunner already routes through
+        // reportContainerFailure() (the same path a throwing @BeforeAll takes), reported as
+        // "#initializationError" - confirmed empirically against this project's JUnit Platform
+        // version rather than assumed.
+        RecordingSink sink = new RecordingSink();
+
+        new JupiterTestExtension.JupiterClassRunner(TwoMethodFixture.class, mock(Delegator.class),
+                mock(LocalDispatcher.class), Map.of(), "noSuchMethod", sink).run();
+
+        assertThat(sink.testStartedCalls, contains(TwoMethodFixture.class.getName() + "#initializationError"));
+        assertThat(sink.testFinishedCalls, hasSize(1));
+        SuiteReportSink.Outcome.Error error = (SuiteReportSink.Outcome.Error) sink.testFinishedCalls.get(0).outcome();
+        assertThat(error.throwable().getMessage(), containsString("noSuchMethod"));
+    }
+
     //ALLOW PUBLIC FIELDS
     @Tag(JupiterTestExtension.INTEGRATION_TAG)
     static class ThreadRecordingFixture {
@@ -426,6 +472,22 @@ class JupiterClassRunnerTest {
         @Test
         void throwsARuntimeException() {
             throw new RuntimeException("boom");
+        }
+    }
+
+    @Tag(JupiterTestExtension.INTEGRATION_TAG)
+    static class TwoMethodFixture {
+        static int methodOneRunCount;
+        static int methodTwoRunCount;
+
+        @Test
+        void methodOne() {
+            methodOneRunCount++;
+        }
+
+        @Test
+        void methodTwo() {
+            methodTwoRunCount++;
         }
     }
 

@@ -46,6 +46,7 @@ import org.junit.platform.launcher.core.LauncherDiscoveryRequestBuilder;
 import org.junit.platform.launcher.core.LauncherFactory;
 
 import static org.junit.platform.engine.discovery.DiscoverySelectors.selectClass;
+import static org.junit.platform.engine.discovery.DiscoverySelectors.selectMethod;
 
 /**
  * Injects the per-suite Delegator/LocalDispatcher that ModelTestSuite already builds for JUnit 3
@@ -297,11 +298,33 @@ public class JupiterTestExtension implements ParameterResolver, TestInstancePost
         private final LauncherDiscoveryRequest request;
 
         JupiterClassRunner(Class<?> testClass, Delegator delegator, LocalDispatcher dispatcher, SuiteReportSink... sinks) {
-            this(testClass, delegator, dispatcher, Map.of(), sinks);
+            this(testClass, delegator, dispatcher, Map.of(), null, sinks);
         }
 
         JupiterClassRunner(Class<?> testClass, Delegator delegator, LocalDispatcher dispatcher,
                 Map<String, Object> testParams, SuiteReportSink... sinks) {
+            this(testClass, delegator, dispatcher, testParams, null, sinks);
+        }
+
+        /**
+         * @param methodName when non-null, scopes discovery to exactly this {@literal @}Test/
+         *     {@literal @}ParameterizedTest method ({@code selectMethod}) instead of the whole class
+         *     ({@code selectClass}) - the {@code ofbiz --test method=} CLI path
+         *     (TestRunContainer.start()) supplies this; every other caller passes null and gets
+         *     today's whole-class behavior unchanged. Naming a {@literal @}ParameterizedTest method
+         *     here selects every invocation of that method, not one specific input row - JUnit
+         *     Platform's selectMethod() has no finer granularity than that.
+         *
+         *     <p><b>Caution:</b> a method run alone this way can behave differently than it does as
+         *     part of the whole class - flagUnorderedJupiterTests (build.gradle) exists precisely
+         *     because several classes in this codebase were found to have methods that implicitly
+         *     depend on declaration order or on a sibling method's side effects. A method scoped
+         *     this way may pass alone but fail as part of the full class, or the reverse - that is
+         *     not a bug in this parameter, it reflects a pre-existing lack of independence between
+         *     methods in the target class.
+         */
+        JupiterClassRunner(Class<?> testClass, Delegator delegator, LocalDispatcher dispatcher,
+                Map<String, Object> testParams, String methodName, SuiteReportSink... sinks) {
             this.testClass = testClass;
             this.delegator = delegator;
             this.dispatcher = dispatcher;
@@ -309,7 +332,7 @@ public class JupiterTestExtension implements ParameterResolver, TestInstancePost
             this.sinks = List.of(sinks);
             this.launcher = LauncherFactory.create();
             this.request = LauncherDiscoveryRequestBuilder.request()
-                    .selectors(selectClass(testClass))
+                    .selectors(methodName != null ? selectMethod(testClass, methodName) : selectClass(testClass))
                     .configurationParameter(
                             "junit.jupiter.testmethod.order.default",
                             "org.junit.jupiter.api.MethodOrderer$OrderAnnotation")
