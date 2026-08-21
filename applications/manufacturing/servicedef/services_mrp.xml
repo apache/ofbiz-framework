@@ -29,6 +29,7 @@ under the License.
             location="org.apache.ofbiz.manufacturing.mrp.MrpServices" invoke="executeMrp" auth="true"
             transaction-timeout="7200" max-retry="0">
         <description>Performs a run of Mrp</description>
+        <permission-service service-name="manufacturingPermissionService" main-action="CREATE"/>
         <attribute name="facilityGroupId" type="String" mode="IN" optional="true"/>
         <attribute name="facilityId" type="String" mode="IN" optional="true"/>
         <attribute name="mrpName" type="String" mode="IN" optional="true"/>
@@ -46,6 +47,48 @@ under the License.
         <description>Update durable metadata for an MRP execution.</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="createMrpRunLogAndTrackerBeforeQueueingMrp" engine="java"
+            location="org.apache.ofbiz.manufacturing.mrp.MrpServices" invoke="createMrpRunLogAndTrackerBeforeQueueingMrp" auth="true"
+            require-new-transaction="true">
+        <description>Create the durable MrpRunLog, RuntimeData, and JobTracker records before launchMrpRun queues
+            MRP through executeMrp. Runs in a new transaction so the persisted async executeMrp job can reference committed tracking records.</description>
+        <permission-service service-name="manufacturingPermissionService" main-action="CREATE"/>
+        <attribute name="mrpRunLogId" type="String" mode="INOUT" optional="true"/>
+        <attribute name="jobTrackerId" type="String" mode="IN" optional="true"/>
+        <attribute name="mrpName" type="String" mode="IN" optional="true"/>
+        <attribute name="facilityId" type="String" mode="IN" optional="true"/>
+        <attribute name="facilityGroupId" type="String" mode="IN" optional="true"/>
+        <attribute name="defaultYearsOffset" type="Integer" mode="IN" optional="true"/>
+        <attribute name="runStatusId" type="String" mode="IN" optional="true"/>
+        <attribute name="startedAt" type="Timestamp" mode="IN" optional="true"/>
+    </service>
+    <service name="launchMrpRun" engine="java"
+            location="org.apache.ofbiz.manufacturing.mrp.MrpServices" invoke="launchMrpRun" auth="true">
+        <description>Launch an async MRP run using generic MRP infrastructure. This service owns queued JobSandbox
+            attachment and queue-failure logging so manufacturing screens and API clients share the same durable run tracking behavior.</description>
+        <permission-service service-name="manufacturingPermissionService" main-action="CREATE"/>
+        <attribute name="facilityGroupId" type="String" mode="IN" optional="true"/>
+        <attribute name="facilityId" type="String" mode="IN" optional="true"/>
+        <attribute name="mrpName" type="String" mode="IN" optional="true"/>
+        <attribute name="defaultYearsOffset" type="Integer" mode="IN" optional="true"/>
+        <attribute name="runId" type="String" mode="OUT" optional="false"/>
+        <attribute name="mrpRunLogId" type="String" mode="OUT" optional="false"/>
+        <attribute name="jobId" type="String" mode="OUT" optional="true"/>
+        <attribute name="mrpId" type="String" mode="OUT" optional="true"/>
+        <attribute name="mrpName" type="String" mode="OUT" optional="true"/>
+        <attribute name="facilityGroupId" type="String" mode="OUT" optional="true"/>
+        <attribute name="facilityId" type="String" mode="OUT" optional="true"/>
+        <attribute name="defaultYearsOffset" type="Integer" mode="OUT" optional="true"/>
+        <attribute name="statusId" type="String" mode="OUT" optional="true"/>
+        <attribute name="statusDescription" type="String" mode="OUT" optional="true"/>
+        <attribute name="failureReason" type="String" mode="OUT" optional="true"/>
+        <attribute name="failureMessage" type="String" mode="OUT" optional="true"/>
+        <attribute name="runTime" type="String" mode="OUT" optional="true"/>
+        <attribute name="durationMillis" type="Long" mode="OUT" optional="true"/>
+        <attribute name="startDateTime" type="Timestamp" mode="OUT" optional="true"/>
+        <attribute name="finishDateTime" type="Timestamp" mode="OUT" optional="true"/>
+        <attribute name="runAsUser" type="String" mode="OUT" optional="true"/>
     </service>
     <service name="initMrpEvents" engine="java"
             location="org.apache.ofbiz.manufacturing.mrp.MrpServices" invoke="initMrpEvents" auth="true">

@@ -468,7 +468,7 @@ under the License.
     </request-map>
     <request-map uri="runMrpGo">
         <security https="true" auth="true"/>
-        <event type="service" invoke="executeMrp" path="async"/>
+        <event type="service" invoke="launchMrpRun"/>
         <response name="success" type="view" value="RunMrpGo"/>
         <response name="error" type="view" value="MrpExecution"/>
     </request-map>

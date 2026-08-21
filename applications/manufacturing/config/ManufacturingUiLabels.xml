@@ -3131,6 +3131,9 @@
         <value xml:lang="zh">上一个工作</value>
         <value xml:lang="zh-TW">上一個工作</value>
     </property>
+    <property key="ManufacturingMrpJobQueueError">
+        <value xml:lang="en">MRP job could not be queued: ${errorString}</value>
+    </property>
     <property key="ManufacturingMrpJobScheduledOrRunning">
         <value xml:lang="de">Geplanter oder aktiver MRP-Lauf</value>
         <value xml:lang="en">Scheduled or running Jobs</value>
@@ -3170,6 +3173,15 @@
         <value xml:lang="vi">Tên</value>
         <value xml:lang="zh">生产资源计划名称</value>
         <value xml:lang="zh-TW">生產資源計劃名稱</value>
+    </property>
+    <property key="ManufacturingMrpRunDefaultName">
+        <value xml:lang="en">MRP run</value>
+    </property>
+    <property key="ManufacturingMrpRunLogAndTrackerCreateError">
+        <value xml:lang="en">MRP run log and tracker could not be created: ${errorString}</value>
+    </property>
+    <property key="ManufacturingMrpRunOutcomeSummary">
+        <value xml:lang="en">Created ${mrpEventCount} MRP events and ${proposedRequirementCount} proposed requirements</value>
     </property>
     <property key="ManufacturingMrpRunScheduledSuccessfully">
         <value xml:lang="en">Mrp run scheduled successfully</value>

@@ -19,8 +19,10 @@
 
 package org.apache.ofbiz.manufacturing.mrp;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -29,6 +31,7 @@ import java.util.ListIterator;
 import java.util.Locale;
 import java.util.Map;
 
+import org.apache.ofbiz.base.util.DateRange;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilGenerics;
@@ -40,6 +43,8 @@ import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.condition.EntityCondition;
 import org.apache.ofbiz.entity.condition.EntityOperator;
+import org.apache.ofbiz.entity.serialize.SerializeException;
+import org.apache.ofbiz.entity.serialize.XmlSerializer;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.entity.util.EntityUtil;
 import org.apache.ofbiz.manufacturing.bom.BOMNode;
@@ -675,13 +680,278 @@ public class MrpServices {
         }
     }
 
-    private static String mrpRunLogIdFromContext(Delegator delegator, Map<String, ? extends Object> context) {
+    private static String getMrpRunLogIdFromContext(Delegator delegator, Map<String, ? extends Object> context) {
         String mrpRunLogId = (String) context.get("mrpRunLogId");
         if (UtilValidate.isNotEmpty(mrpRunLogId)) {
             return mrpRunLogId;
         }
         mrpRunLogId = (String) context.get("jobTrackerId");
         return UtilValidate.isNotEmpty(mrpRunLogId) ? mrpRunLogId : delegator.getNextSeqId("MrpRunLog");
+    }
+
+    /**
+     * Create queue-time run log and tracker metadata before queueing MRP through executeMrp.
+     */
+    public static Map<String, Object> createMrpRunLogAndTrackerBeforeQueueingMrp(DispatchContext ctx, Map<String, ? extends Object> context) {
+        Delegator delegator = ctx.getDelegator();
+        LocalDispatcher dispatcher = ctx.getDispatcher();
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        Locale locale = (Locale) context.get("locale");
+        Timestamp startedAt = (Timestamp) context.get("startedAt");
+        if (startedAt == null) {
+            startedAt = UtilDateTime.nowTimestamp();
+        }
+        String mrpRunLogId = getMrpRunLogIdFromContext(delegator, context);
+        Map<String, Object> createMrpRunLogContext = new HashMap<>();
+        createMrpRunLogContext.put("mrpRunLogId", mrpRunLogId);
+        createMrpRunLogContext.put("mrpName", UtilValidate.isNotEmpty((String) context.get("mrpName")) ? context.get("mrpName")
+                : UtilProperties.getMessage(RESOURCE, "ManufacturingMrpRunDefaultName", locale));
+        if (UtilValidate.isNotEmpty((String) context.get("facilityId"))) {
+            createMrpRunLogContext.put("facilityId", context.get("facilityId"));
+        }
+        if (UtilValidate.isNotEmpty((String) context.get("facilityGroupId"))) {
+            createMrpRunLogContext.put("facilityGroupId", context.get("facilityGroupId"));
+        }
+        if (context.get("defaultYearsOffset") != null) {
+            createMrpRunLogContext.put("defaultYearsOffset", context.get("defaultYearsOffset"));
+        }
+        if (userLogin != null && UtilValidate.isNotEmpty(userLogin.getString("userLoginId"))) {
+            createMrpRunLogContext.put("runByUserLoginId", userLogin.getString("userLoginId"));
+        }
+        createMrpRunLogContext.put("runStatusId",
+                UtilValidate.isNotEmpty((String) context.get("runStatusId")) ? context.get("runStatusId") : "SERVICE_PENDING");
+        createMrpRunLogContext.put("startedAt", startedAt);
+        createMrpRunLogContext.put("userLogin", userLogin);
+        try {
+            createMrpRunLogContext = ctx.makeValidContext("createMrpRunLog", ModelService.IN_PARAM, createMrpRunLogContext);
+            Map<String, Object> response = dispatcher.runSync("createMrpRunLog", createMrpRunLogContext);
+            if (ServiceUtil.isError(response)) {
+                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(response));
+            }
+            String jobTrackerId = (String) context.get("jobTrackerId");
+            if (mrpRunLogId.equals(jobTrackerId)) {
+                GenericValue existingJobTracker = EntityQuery.use(delegator).from("JobTracker").where("jobTrackerId", mrpRunLogId).queryOne();
+                if (existingJobTracker == null) {
+                    Map<String, Object> trackedParameters = new HashMap<>(context);
+                    trackedParameters.remove("timeZone");
+                    String runtimeDataId = delegator.getNextSeqId("RuntimeData");
+                    delegator.create("RuntimeData", UtilMisc.toMap("runtimeDataId", runtimeDataId,
+                            "runtimeInfo", XmlSerializer.serialize(trackedParameters)));
+
+                    String userLoginId = userLogin != null ? userLogin.getString("userLoginId") : null;
+                    Map<String, Object> createJobTrackerContext = new HashMap<>();
+                    createJobTrackerContext.put("jobTrackerId", mrpRunLogId);
+                    createJobTrackerContext.put("serviceName", "executeMrp");
+                    createJobTrackerContext.put("runtimeDataId", runtimeDataId);
+                    createJobTrackerContext.put("statusId", "JOB_T_SCHEDULED");
+                    createJobTrackerContext.put("jobsTotalQty", 1L);
+                    createJobTrackerContext.put("persistResult", "Y");
+                    if (UtilValidate.isNotEmpty(userLoginId)) {
+                        createJobTrackerContext.put("runAsUser", userLoginId);
+                    }
+                    createJobTrackerContext.put("startDate", startedAt);
+                    createJobTrackerContext.put("createdDate", startedAt);
+                    if (UtilValidate.isNotEmpty(userLoginId)) {
+                        createJobTrackerContext.put("createdByUserLogin", userLoginId);
+                    }
+                    createJobTrackerContext.put("lastModifiedDate", startedAt);
+                    if (UtilValidate.isNotEmpty(userLoginId)) {
+                        createJobTrackerContext.put("lastModifiedByUserLogin", userLoginId);
+                    }
+                    createJobTrackerContext.put("userLogin", userLogin);
+                    createJobTrackerContext = ctx.makeValidContext("createJobTracker", ModelService.IN_PARAM, createJobTrackerContext);
+                    response = dispatcher.runSync("createJobTracker", createJobTrackerContext);
+                    if (ServiceUtil.isError(response)) {
+                        return ServiceUtil.returnError(ServiceUtil.getErrorMessage(response));
+                    }
+                }
+            }
+        } catch (GenericEntityException | GenericServiceException e) {
+            Debug.logError(e, "Unable to create or refresh MrpRunLog [" + mrpRunLogId + "]", MODULE);
+            return ServiceUtil.returnError(e.getMessage());
+        } catch (SerializeException | IOException e) {
+            Debug.logError(e, "Unable to prepare JobTracker for MrpRunLog [" + mrpRunLogId + "]", MODULE);
+            return ServiceUtil.returnError(e.getMessage());
+        }
+        Map<String, Object> result = ServiceUtil.returnSuccess();
+        result.put("mrpRunLogId", mrpRunLogId);
+        return result;
+    }
+
+    /**
+     * Launch executeMrp through generic MRP infrastructure so API and direct callers share durable run tracking.
+     *
+     * MrpRunLog is the execution history record for the MRP run. It stays available even if later MRP events
+     * are re-created or deleted, and it keeps the JobSandbox jobId that shows which persisted async job did
+     * the work. This method starts the lifecycle and executeMrp completes it:
+     * 1. Create MrpRunLog as SERVICE_PENDING, plus RuntimeData and JobTracker for the queued executeMrp job.
+     * 2. Queue executeMrp as persisted async work.
+     * 3. When executeMrp starts, startMrpRunLog marks MrpRunLog as SERVICE_RUNNING.
+     * 4. When executeMrp ends, finishMrpRunLog marks MrpRunLog as SERVICE_FINISHED or SERVICE_FAILED.
+     * 5. If queueing fails and executeMrp never runs, mark MrpRunLog as SERVICE_FAILED.
+     * 6. If queueing succeeds, attach JobSandbox.jobId to MrpRunLog so the run history identifies the job.
+     */
+    public static Map<String, Object> launchMrpRun(DispatchContext ctx, Map<String, ? extends Object> context) {
+        Delegator delegator = ctx.getDelegator();
+        LocalDispatcher dispatcher = ctx.getDispatcher();
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        Locale locale = (Locale) context.get("locale");
+        String facilityId = (String) context.get("facilityId");
+        String facilityGroupId = (String) context.get("facilityGroupId");
+        if (UtilValidate.isEmpty(facilityId) && UtilValidate.isEmpty(facilityGroupId)) {
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpFacilityNotAvailable", locale));
+        }
+        Timestamp queuedAfter = UtilDateTime.nowTimestamp();
+        String mrpRunLogId = delegator.getNextSeqId("MrpRunLog");
+        Map<String, Object> executeMrpContext = new HashMap<>(context);
+        executeMrpContext.put("mrpRunLogId", mrpRunLogId);
+        executeMrpContext.put("jobTrackerId", mrpRunLogId);
+        executeMrpContext.put("userLogin", userLogin);
+
+        try {
+            executeMrpContext = ctx.makeValidContext("executeMrp", ModelService.IN_PARAM, executeMrpContext);
+            // Step 1: create durable pending run metadata before persisted async queueing can reference it.
+            /*
+             * createMrpRunLogAndTrackerBeforeQueueingMrp creates the durable MrpRunLog row and, when jobTrackerId matches,
+             * prepares RuntimeData and JobTracker for the upcoming executeMrp job. It requires a new transaction
+             * because the next step calls dispatcher.runAsync("executeMrp", executeMrpContext, true): persisted async
+             * execution creates a JobSandbox row and may start executeMrp before launchMrpRun commits.
+             * Without createMrpRunLogAndTrackerBeforeQueueingMrp's new-transaction boundary, executeMrp can race
+             * ahead of the metadata rows it needs for durable run tracking.
+             */
+            Map<String, Object> createMrpRunLogAndTrackerBeforeQueueingMrpContext =
+                    ctx.makeValidContext("createMrpRunLogAndTrackerBeforeQueueingMrp", ModelService.IN_PARAM, executeMrpContext);
+            Map<String, Object> createMrpRunLogAndTrackerResponse = dispatcher.runSync("createMrpRunLogAndTrackerBeforeQueueingMrp",
+                    createMrpRunLogAndTrackerBeforeQueueingMrpContext, 60, true);
+            if (ServiceUtil.isError(createMrpRunLogAndTrackerResponse)) {
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpRunLogAndTrackerCreateError",
+                        UtilMisc.toMap("errorString", ServiceUtil.getErrorMessage(createMrpRunLogAndTrackerResponse)), locale));
+            }
+        } catch (GenericServiceException e) {
+            Debug.logError(e, "Unable to create MrpRunLog and tracker before queueing executeMrp", MODULE);
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpRunLogAndTrackerCreateError",
+                    UtilMisc.toMap("errorString", e.getMessage()), locale));
+        }
+
+        try {
+            // Step 2: queue executeMrp as a persisted async job so the long-running MRP work can be tracked.
+            dispatcher.runAsync("executeMrp", executeMrpContext, true);
+            // Steps 3 and 4 happen inside executeMrp when the queued job starts and finishes.
+        } catch (GenericServiceException e) {
+            Timestamp failedAt = UtilDateTime.nowTimestamp();
+            Map<String, Object> updateMrpRunLogContext = UtilMisc.toMap("mrpRunLogId", mrpRunLogId, "runStatusId", "SERVICE_FAILED",
+                    "finishedAt", failedAt, "failureReason", "QUEUE_ERROR", "failureMessage", e.getMessage(), "userLogin", userLogin);
+            try {
+                GenericValue runLog = EntityQuery.use(delegator).from("MrpRunLog").where("mrpRunLogId", mrpRunLogId).queryOne();
+                if (runLog != null && runLog.getTimestamp("startedAt") != null) {
+                    updateMrpRunLogContext.put("durationMillis", new DateRange(runLog.getTimestamp("startedAt"), failedAt).durationInMillis());
+                }
+                // Step 5: record SERVICE_FAILED when executeMrp never starts because async queueing failed.
+                /*
+                 * updateMrpRunLog uses a new transaction to mark the queued MrpRunLog as failed because
+                 * dispatcher.runAsync("executeMrp", ...) failed and executeMrp will not run at all. Because
+                 * finishMrpRunLog only runs inside executeMrp, this update records the queue failure before
+                 * launchMrpRun returns an error.
+                 */
+                updateMrpRunLogContext = ctx.makeValidContext("updateMrpRunLog", ModelService.IN_PARAM, updateMrpRunLogContext);
+                Map<String, Object> updateMrpRunLogResponse = dispatcher.runSync("updateMrpRunLog", updateMrpRunLogContext, 60, true);
+                if (ServiceUtil.isError(updateMrpRunLogResponse)) {
+                    Debug.logWarning("Unable to mark queued MrpRunLog [" + mrpRunLogId + "] failed: "
+                            + ServiceUtil.getErrorMessage(updateMrpRunLogResponse), MODULE);
+                }
+            } catch (GenericEntityException | GenericServiceException updateMrpRunLogException) {
+                Debug.logWarning(updateMrpRunLogException,
+                        "Unable to call updateMrpRunLog to mark queued run failed for [" + mrpRunLogId + "]", MODULE);
+            }
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpJobQueueError",
+                    UtilMisc.toMap("errorString", e.getMessage()), locale));
+        }
+
+        // Step 6: find the persisted async executeMrp JobSandbox row so MrpRunLog records which job did the work.
+        GenericValue queuedJob = findLaunchedMrpJob(delegator, queuedAfter, mrpRunLogId, userLogin);
+        if (queuedJob != null && UtilValidate.isNotEmpty(queuedJob.getString("jobId"))) {
+            Map<String, Object> updateMrpRunLogContext = UtilMisc.toMap("mrpRunLogId", mrpRunLogId, "jobId", queuedJob.getString("jobId"),
+                    "userLogin", userLogin);
+            try {
+                /*
+                 * updateMrpRunLog uses a new transaction so the JobSandbox link is retained even if
+                 * launchMrpRun later fails while reading status or shaping the response.
+                 */
+                updateMrpRunLogContext = ctx.makeValidContext("updateMrpRunLog", ModelService.IN_PARAM, updateMrpRunLogContext);
+                Map<String, Object> updateMrpRunLogResponse = dispatcher.runSync("updateMrpRunLog", updateMrpRunLogContext, 60, true);
+                if (ServiceUtil.isError(updateMrpRunLogResponse)) {
+                    Debug.logWarning("Unable to attach JobSandbox [" + queuedJob.getString("jobId") + "] to MrpRunLog [" + mrpRunLogId + "]: "
+                            + ServiceUtil.getErrorMessage(updateMrpRunLogResponse), MODULE);
+                }
+            } catch (GenericServiceException updateMrpRunLogException) {
+                Debug.logWarning(updateMrpRunLogException, "Unable to call updateMrpRunLog to attach job for [" + mrpRunLogId + "]", MODULE);
+            }
+        }
+        // Return the durable run state that was just queued. Steps 3 and 4 happen later inside executeMrp.
+        Map<String, Object> result = ServiceUtil.returnSuccess();
+        GenericValue runLog = null;
+        try {
+            runLog = EntityQuery.use(delegator).from("MrpRunLog").where("mrpRunLogId", mrpRunLogId).queryOne();
+        } catch (GenericEntityException e) {
+            Debug.logWarning(e, "Unable to read MrpRunLog [" + mrpRunLogId + "] after queueing executeMrp", MODULE);
+        }
+        GenericValue status = null;
+        try {
+            if (runLog != null && UtilValidate.isNotEmpty(runLog.getString("runStatusId"))) {
+                status = EntityQuery.use(delegator).from("StatusItem").where("statusId", runLog.getString("runStatusId")).cache(true).queryOne();
+            }
+        } catch (GenericEntityException e) {
+            Debug.logWarning(e, "Unable to read status for MrpRunLog [" + mrpRunLogId + "]", MODULE);
+        }
+        Map<String, Object> resultFields = new HashMap<>();
+        resultFields.put("runId", mrpRunLogId);
+        resultFields.put("mrpRunLogId", mrpRunLogId);
+        resultFields.put("jobId", runLog != null ? runLog.getString("jobId") : null);
+        resultFields.put("mrpId", runLog != null ? runLog.getString("mrpId") : null);
+        resultFields.put("mrpName", runLog != null ? runLog.getString("mrpName") : context.get("mrpName"));
+        resultFields.put("facilityGroupId", runLog != null ? runLog.getString("facilityGroupId") : context.get("facilityGroupId"));
+        resultFields.put("facilityId", runLog != null ? runLog.getString("facilityId") : context.get("facilityId"));
+        resultFields.put("defaultYearsOffset", runLog != null && runLog.getLong("defaultYearsOffset") != null
+                ? runLog.getLong("defaultYearsOffset").intValue() : context.get("defaultYearsOffset"));
+        resultFields.put("statusId", runLog != null ? runLog.getString("runStatusId") : "SERVICE_PENDING");
+        resultFields.put("statusDescription", status != null ? status.getString("description") : null);
+        resultFields.put("failureReason", runLog != null ? runLog.getString("failureReason") : null);
+        resultFields.put("failureMessage", runLog != null ? runLog.getString("failureMessage") : null);
+        Timestamp startedAt = runLog != null ? runLog.getTimestamp("startedAt") : null;
+        Timestamp finishedAt = runLog != null ? runLog.getTimestamp("finishedAt") : null;
+        Long durationMillis = runLog != null ? runLog.getLong("durationMillis") : null;
+        if (durationMillis == null && startedAt != null && finishedAt != null) {
+            durationMillis = new DateRange(startedAt, finishedAt).durationInMillis();
+        }
+        resultFields.put("runTime", durationMillis != null ? Duration.ofMillis(durationMillis).toString() : null);
+        resultFields.put("durationMillis", durationMillis);
+        resultFields.put("startDateTime", startedAt);
+        resultFields.put("finishDateTime", finishedAt);
+        resultFields.put("runAsUser", runLog != null ? runLog.getString("runByUserLoginId") : null);
+        result.putAll(resultFields);
+        return result;
+    }
+
+    private static GenericValue findLaunchedMrpJob(Delegator delegator, Timestamp queuedAfter, String jobTrackerId, GenericValue userLogin) {
+        List<EntityCondition> conditions = new ArrayList<>();
+        conditions.add(EntityCondition.makeCondition("serviceName", "executeMrp"));
+        if (UtilValidate.isNotEmpty(jobTrackerId)) {
+            conditions.add(EntityCondition.makeCondition("jobTrackerId", jobTrackerId));
+        } else if (queuedAfter != null) {
+            conditions.add(EntityCondition.makeCondition("createdStamp", EntityOperator.GREATER_THAN_EQUAL_TO, queuedAfter));
+        }
+        if (userLogin != null && UtilValidate.isNotEmpty(userLogin.getString("userLoginId"))) {
+            conditions.add(EntityCondition.makeCondition("authUserLoginId", userLogin.getString("userLoginId")));
+        }
+        try {
+            return EntityQuery.use(delegator).from("JobSandbox")
+                    .where(EntityCondition.makeCondition(conditions, EntityOperator.AND))
+                    .orderBy("-createdStamp")
+                    .queryFirst();
+        } catch (GenericEntityException e) {
+            Debug.logWarning(e, "Unable to find queued executeMrp JobSandbox for MrpRunLog [" + jobTrackerId + "]", MODULE);
+            return null;
+        }
     }
 
     private static String startMrpRunLog(DispatchContext ctx, Map<String, ? extends Object> context, GenericValue userLogin, String mrpRunLogId,
@@ -691,31 +961,19 @@ public class MrpServices {
         }
         LocalDispatcher dispatcher = ctx.getDispatcher();
         Delegator delegator = ctx.getDelegator();
-        String userLoginId = userLogin != null ? userLogin.getString("userLoginId") : null;
         try {
             GenericValue existingMrpRunLog = EntityQuery.use(delegator).from("MrpRunLog").where("mrpRunLogId", mrpRunLogId).queryOne();
             if (existingMrpRunLog == null) {
-                Map<String, Object> createParameters = UtilMisc.toMap("mrpRunLogId", mrpRunLogId, "runStatusId", "SERVICE_RUNNING",
-                        "startedAt", startedAt, "userLogin", userLogin);
-                if (UtilValidate.isNotEmpty((String) context.get("mrpName"))) {
-                    createParameters.put("mrpName", context.get("mrpName"));
-                }
-                if (UtilValidate.isNotEmpty((String) context.get("facilityId"))) {
-                    createParameters.put("facilityId", context.get("facilityId"));
-                }
-                if (UtilValidate.isNotEmpty((String) context.get("facilityGroupId"))) {
-                    createParameters.put("facilityGroupId", context.get("facilityGroupId"));
-                }
-                if (context.get("defaultYearsOffset") != null) {
-                    createParameters.put("defaultYearsOffset", context.get("defaultYearsOffset"));
-                }
-                if (UtilValidate.isNotEmpty((String) context.get("jobId"))) {
-                    createParameters.put("jobId", context.get("jobId"));
-                }
-                if (UtilValidate.isNotEmpty(userLoginId)) {
-                    createParameters.put("runByUserLoginId", userLoginId);
-                }
-                Map<String, Object> createResponse = dispatcher.runSync("createMrpRunLog", createParameters, 60, true);
+                Map<String, Object> createParameters = new HashMap<>();
+                createParameters.put("mrpRunLogId", mrpRunLogId);
+                createParameters.put("mrpName", context.get("mrpName"));
+                createParameters.put("facilityId", context.get("facilityId"));
+                createParameters.put("facilityGroupId", context.get("facilityGroupId"));
+                createParameters.put("defaultYearsOffset", context.get("defaultYearsOffset"));
+                createParameters.put("runStatusId", "SERVICE_RUNNING");
+                createParameters.put("startedAt", startedAt);
+                createParameters.put("userLogin", userLogin);
+                Map<String, Object> createResponse = dispatcher.runSync("createMrpRunLogAndTrackerBeforeQueueingMrp", createParameters, 60, true);
                 if (ServiceUtil.isError(createResponse)) {
                     Debug.logWarning("Unable to create MrpRunLog [" + mrpRunLogId + "]: " + ServiceUtil.getErrorMessage(createResponse), MODULE);
                 } else {
@@ -727,8 +985,46 @@ public class MrpServices {
         } catch (GenericServiceException e) {
             Debug.logWarning(e, "Unable to call createMrpRunLog for [" + mrpRunLogId + "]", MODULE);
         }
-        updateMrpRunLog(dispatcher, UtilMisc.toMap("mrpRunLogId", mrpRunLogId, "runStatusId", "SERVICE_RUNNING",
-                "startedAt", startedAt, "userLogin", userLogin), "mark as running", mrpRunLogId);
+        Map<String, Object> updateMrpRunLogContext = UtilMisc.toMap("mrpRunLogId", mrpRunLogId, "runStatusId", "SERVICE_RUNNING",
+                "startedAt", startedAt, "userLogin", userLogin);
+        try {
+            /*
+             * updateMrpRunLog uses a new transaction so executeMrp records that the durable run log started,
+             * even if later MRP processing fails and executeMrp returns an error.
+             */
+            Map<String, Object> updateMrpRunLogResponse = dispatcher.runSync("updateMrpRunLog", updateMrpRunLogContext, 60, true);
+            if (ServiceUtil.isError(updateMrpRunLogResponse)) {
+                Debug.logWarning("Unable to mark as running MrpRunLog [" + mrpRunLogId + "]: "
+                        + ServiceUtil.getErrorMessage(updateMrpRunLogResponse), MODULE);
+            }
+        } catch (GenericServiceException e) {
+            Debug.logWarning(e, "Unable to call updateMrpRunLog to mark as running [" + mrpRunLogId + "]", MODULE);
+        }
+        String jobTrackerId = (String) context.get("jobTrackerId");
+        if (UtilValidate.isNotEmpty(jobTrackerId)) {
+            try {
+                GenericValue jobTracker = EntityQuery.use(delegator).from("JobTracker").where("jobTrackerId", jobTrackerId).queryOne();
+                if (jobTracker != null && "JOB_T_SCHEDULED".equals(jobTracker.getString("statusId"))) {
+                    Map<String, Object> updateJobTrackerContext = UtilMisc.toMap("jobTrackerId", jobTrackerId, "statusId", "JOB_T_RUNNING",
+                            "startDate", startedAt, "userLogin", userLogin);
+                    /*
+                     * updateJobTracker uses a new transaction because executeMrp is the queued service that moves the
+                     * durable MRP job from scheduled to running. If executeMrp later fails and rolls back, the service
+                     * engine still needs the committed JOB_T_RUNNING state so it can complete the tracker with OFBiz's
+                     * valid JOB_T_RUNNING to JOB_T_FINISHED or JOB_T_FAILED transition.
+                     */
+                    Map<String, Object> updateJobTrackerResponse = dispatcher.runSync("updateJobTracker", updateJobTrackerContext, 60, true);
+                    if (ServiceUtil.isError(updateJobTrackerResponse)) {
+                        Debug.logWarning("Unable to mark JobTracker [" + jobTrackerId + "] as running for MrpRunLog [" + mrpRunLogId + "]: "
+                                + ServiceUtil.getErrorMessage(updateJobTrackerResponse), MODULE);
+                    }
+                }
+            } catch (GenericEntityException e) {
+                Debug.logWarning(e, "Unable to query JobTracker [" + jobTrackerId + "] before starting MrpRunLog [" + mrpRunLogId + "]", MODULE);
+            } catch (GenericServiceException e) {
+                Debug.logWarning(e, "Unable to call updateJobTracker to mark as running [" + jobTrackerId + "]", MODULE);
+            }
+        }
         return mrpRunLogId;
     }
 
@@ -787,11 +1083,12 @@ public class MrpServices {
         }
     }
 
-    private static String buildOutcomeMessage(Long mrpEventCount, long proposedRequirementCount) {
+    private static String buildOutcomeMessage(Long mrpEventCount, long proposedRequirementCount, Locale locale) {
         if (mrpEventCount == null) {
             return null;
         }
-        return "Created " + mrpEventCount + " MRP events and " + proposedRequirementCount + " proposed requirements";
+        return UtilProperties.getMessage(RESOURCE, "ManufacturingMrpRunOutcomeSummary",
+                UtilMisc.toMap("mrpEventCount", mrpEventCount, "proposedRequirementCount", proposedRequirementCount), locale);
     }
 
     private static Map<String, Object> finishMrpRunLog(LocalDispatcher dispatcher, GenericValue userLogin, String mrpRunLogId, Timestamp startedAt,
@@ -826,24 +1123,23 @@ public class MrpServices {
                 parameters.put("outcomeMessage", outcomeMessage);
             }
             if (startedAt != null && finishedAt != null) {
-                parameters.put("durationMillis", finishedAt.getTime() - startedAt.getTime());
+                parameters.put("durationMillis", new DateRange(startedAt, finishedAt).durationInMillis());
             }
-            updateMrpRunLog(dispatcher, parameters, "finish", mrpRunLogId);
+            /*
+             * updateMrpRunLog uses a new transaction so executeMrp preserves the final run status and counts,
+             * even when executeMrp returns an error result that rolls back the MRP processing transaction.
+             */
+            Map<String, Object> updateMrpRunLogResponse = dispatcher.runSync("updateMrpRunLog", parameters, 60, true);
+            if (ServiceUtil.isError(updateMrpRunLogResponse)) {
+                Debug.logWarning("Unable to finish MrpRunLog [" + mrpRunLogId + "]: "
+                        + ServiceUtil.getErrorMessage(updateMrpRunLogResponse), MODULE);
+            }
         } catch (RuntimeException e) {
             Debug.logWarning(e, "Unable to prepare MrpRunLog finish parameters for [" + mrpRunLogId + "]", MODULE);
+        } catch (GenericServiceException e) {
+            Debug.logWarning(e, "Unable to call updateMrpRunLog to finish [" + mrpRunLogId + "]", MODULE);
         }
         return result;
-    }
-
-    private static void updateMrpRunLog(LocalDispatcher dispatcher, Map<String, Object> parameters, String action, String mrpRunLogId) {
-        try {
-            Map<String, Object> response = dispatcher.runSync("updateMrpRunLog", parameters, 60, true);
-            if (ServiceUtil.isError(response)) {
-                Debug.logWarning("Unable to " + action + " MrpRunLog [" + mrpRunLogId + "]: " + ServiceUtil.getErrorMessage(response), MODULE);
-            }
-        } catch (GenericServiceException e) {
-            Debug.logWarning(e, "Unable to call updateMrpRunLog to " + action + " [" + mrpRunLogId + "]", MODULE);
-        }
     }
 
     /**
@@ -864,7 +1160,7 @@ public class MrpServices {
         LocalDispatcher dispatcher = ctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Timestamp now = UtilDateTime.nowTimestamp();
-        String mrpRunLogId = mrpRunLogIdFromContext(delegator, context);
+        String mrpRunLogId = getMrpRunLogIdFromContext(delegator, context);
         mrpRunLogId = startMrpRunLog(ctx, context, userLogin, mrpRunLogId, now);
         Locale locale = (Locale) context.get("locale");
         String mrpName = (String) context.get("mrpName");
@@ -1203,7 +1499,7 @@ public class MrpServices {
             Debug.logInfo("return from executeMrp", MODULE);
             Long mrpEventCount = countMrpEventsForRun(delegator, mrpId);
             Long requirementCount = proposedRequirementCount;
-            String outcomeMessage = buildOutcomeMessage(mrpEventCount, proposedRequirementCount);
+            String outcomeMessage = buildOutcomeMessage(mrpEventCount, proposedRequirementCount, locale);
             return finishMrpRunLog(dispatcher, userLogin, mrpRunLogId, now, mrpId, null, null, mrpEventCount, requirementCount,
                     outcomeMessage, result);
         } catch (RuntimeException e) {
