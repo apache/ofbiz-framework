@@ -208,58 +208,55 @@ if (passedEntityNames) {
                 filename = outpath + File.separator + filename
             }
             File outfile = new File(filename)
-            outfileAllowed = true
             try {
                 SecurityUtil.checkOfbizFileAllowList(outfile)
             } catch (GeneralException e) {
                 context.errorMessage = e.getMessage()
-                outfileAllowed = false
+                return
             }
-            if (outfileAllowed) {
-                writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(outfile), 'UTF-8')))
-                writer.println('<?xml version="1.0" encoding="UTF-8"?>')
-                writer.println('<entity-engine-xml>')
+            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(outfile), 'UTF-8')))
+            writer.println('<?xml version="1.0" encoding="UTF-8"?>')
+            writer.println('<entity-engine-xml>')
 
-                passedEntityNames.each { curEntityName ->
-                    if (entityFrom) {
-                        curModelEntity = reader.getModelEntity(curEntityName)
-                        if (curModelEntity instanceof ModelViewEntity) {
-                            return
-                        }
-                    }
-
-                    beganTransaction = TransactionUtil.begin(3600)
-                    try {
-                        me = reader.getModelEntity(curEntityName)
-                        entityQuery = EntityQuery.use(delegator).from(curEntityName).cursorScrollInsensitive()
-                        if (!me.getNoAutoStamp() && !(me instanceof ModelViewEntity) && entityDateCond) {
-                            entityQuery.where(entityDateCond)
-                        }
-
-                        curNumberWritten = 0
-                        entityQuery.queryIterator().withCloseable { values ->
-                            while ((value = values.next()) != null) {
-                                value.writeXmlText(writer, '')
-                                numberWritten++
-                                curNumberWritten++
-                                if (curNumberWritten % 500 == 0 || curNumberWritten == 1) {
-                                    Debug.log("Records written [$curEntityName]: $curNumberWritten Total: $numberWritten")
-                                }
-                            }
-                        }
-                        Debug.log("Wrote [$curNumberWritten] from entity : $curEntityName")
-                        TransactionUtil.commit(beganTransaction)
-                    } catch (Exception e) {
-                        errMsg = 'Error reading data for XML export:'
-                        logError(e, errMsg)
-                        TransactionUtil.rollback(beganTransaction, errMsg, e)
+            passedEntityNames.each { curEntityName ->
+                if (entityFrom) {
+                    curModelEntity = reader.getModelEntity(curEntityName)
+                    if (curModelEntity instanceof ModelViewEntity) {
+                        return
                     }
                 }
-                writer.println('</entity-engine-xml>')
-                writer.close()
-                Debug.log("Total records written from all entities: $numberWritten")
-                context.numberWritten = numberWritten
+
+                beganTransaction = TransactionUtil.begin(3600)
+                try {
+                    me = reader.getModelEntity(curEntityName)
+                    entityQuery = EntityQuery.use(delegator).from(curEntityName).cursorScrollInsensitive()
+                    if (!me.getNoAutoStamp() && !(me instanceof ModelViewEntity) && entityDateCond) {
+                        entityQuery.where(entityDateCond)
+                    }
+
+                    curNumberWritten = 0
+                    entityQuery.queryIterator().withCloseable { values ->
+                        while ((value = values.next()) != null) {
+                            value.writeXmlText(writer, '')
+                            numberWritten++
+                            curNumberWritten++
+                            if (curNumberWritten % 500 == 0 || curNumberWritten == 1) {
+                                Debug.log("Records written [$curEntityName]: $curNumberWritten Total: $numberWritten")
+                            }
+                        }
+                    }
+                    Debug.log("Wrote [$curNumberWritten] from entity : $curEntityName")
+                    TransactionUtil.commit(beganTransaction)
+                } catch (Exception e) {
+                    errMsg = 'Error reading data for XML export:'
+                    logError(e, errMsg)
+                    TransactionUtil.rollback(beganTransaction, errMsg, e)
+                }
             }
+            writer.println('</entity-engine-xml>')
+            writer.close()
+            Debug.log("Total records written from all entities: $numberWritten")
+            context.numberWritten = numberWritten
         }
 
         // multiple files in a directory
@@ -268,17 +265,16 @@ if (passedEntityNames) {
         context.results = results
         if (outpath && !filename) {
             outdir = new File(outpath)
-            outdirAllowed = true
             try {
                 SecurityUtil.checkOfbizFileAllowList(outdir)
             } catch (GeneralException e) {
                 context.errorMessage = e.getMessage()
-                outdirAllowed = false
+                return
             }
-            if (outdirAllowed && !outdir.exists()) {
+            if (!outdir.exists()) {
                 outdir.mkdir()
             }
-            if (outdirAllowed && outdir.isDirectory() && outdir.canWrite()) {
+            if (outdir.isDirectory() && outdir.canWrite()) {
                 passedEntityNames.each { curEntityName ->
                     numberWritten = 0
                     fileName = preConfiguredSetName ? UtilFormatOut.formatPaddedNumber((long) fileNumber, 3) + '_' : ''
