@@ -2339,6 +2339,10 @@ under the License.
         <security auth="true" https="true"/>
         <response name="success" type="view" value="LookupSupplier"/>
     </request-map>
+    <request-map uri="LookupTaxAuthority">
+        <security auth="true" https="true"/>
+        <response name="success" type="view" value="LookupTaxAuthority"/>
+    </request-map>
     <request-map uri="depositWithdrawPayments">
         <security auth="true" https="true"/>
         <event type="service" invoke="depositWithdrawPayments"/>
@@ -2897,6 +2901,7 @@ under the License.
     <view-map name="PaymentsDepositWithdraw" type="screen" page="component://accounting/widget/FinAccountScreens.xml#PaymentsDepositWithdraw"/>
     <view-map name="LookupCustomerName" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupCustomerName"/>
     <view-map name="LookupSupplier" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupSupplier"/>
+    <view-map name="LookupTaxAuthority" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupTaxAuthority"/>
     <view-map name="NewDepositSlip" type="screen" page="component://accounting/widget/FinAccountScreens.xml#NewDepositSlip"/>
     <view-map name="InventoryValuation" type="screen" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#InventoryValuation"/>
     <view-map name="InventoryValuationPdf" type="screenfop" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#InventoryValuationPdf" content-type="application/pdf" encoding="none"/>
