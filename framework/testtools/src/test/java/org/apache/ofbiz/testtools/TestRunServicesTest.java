@@ -22,14 +22,22 @@ import java.util.Map;
 
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericValue;
+import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.ofbiz.security.Security;
 import org.apache.ofbiz.service.DispatchContext;
 import org.junit.jupiter.api.Test;
+import org.mockito.MockedStatic;
+import org.mockito.Mockito;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.nullValue;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.ArgumentMatchers.startsWith;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.when;
 
 class TestRunServicesTest {
@@ -292,5 +300,102 @@ class TestRunServicesTest {
 
         assertThat(result.get("responseMessage"), is("error"));
         assertThat(result.get("errorMessage"), is("No such runId: scoped-run-null-component"));
+    }
+
+    @Test
+    void runTestSuiteReturnsErrorWhenComponentApiDisabled() {
+        // Mocks EntityUtilProperties directly (rather than relying on the classpath testtools.properties
+        // file, the way runTestSuiteReturnsErrorWhenApiDisabled does for the global flag) because this
+        // test needs two different property values at once - the global flag true, the per-component
+        // override false - which a single checked-in file can't express for an arbitrary test-only
+        // component name. CALLS_REAL_METHODS means every other EntityUtilProperties call not explicitly
+        // stubbed below still behaves normally.
+        DispatchContext dctx = mock(DispatchContext.class);
+        Security security = mock(Security.class);
+        Delegator delegator = mock(Delegator.class);
+        GenericValue userLogin = mock(GenericValue.class);
+        when(dctx.getSecurity()).thenReturn(security);
+        when(dctx.getDelegator()).thenReturn(delegator);
+        when(userLogin.getString("userLoginId")).thenReturn("admin");
+        when(security.hasPermission("TESTEXEC_ADMIN", userLogin)).thenReturn(true);
+
+        try (MockedStatic<EntityUtilProperties> entityUtilProperties =
+                Mockito.mockStatic(EntityUtilProperties.class, Mockito.CALLS_REAL_METHODS)) {
+            entityUtilProperties.when(() -> EntityUtilProperties.getPropertyValue("testtools", "test.api.enabled", delegator))
+                    .thenReturn("true");
+            entityUtilProperties.when(() -> EntityUtilProperties.getPropertyValue("testtools", "test.api.enabled.example", delegator))
+                    .thenReturn("false");
+
+            Map<String, Object> result = TestRunServices.runTestSuite(dctx,
+                    Map.of("suiteName", "example-tests", "componentName", "example", "userLogin", userLogin));
+
+            assertThat(result.get("responseMessage"), is("error"));
+            assertThat(result.get("errorMessage"), is("The test execution API is disabled for component 'example' "
+                    + "in this environment (test.api.enabled.example=false)"));
+            assertThat(result.get("runId"), nullValue());
+        }
+    }
+
+    @Test
+    void runTestSuiteDoesNotRejectWhenComponentApiIsNotDisabled() {
+        // Cannot verify a full successful run here - like runScopedTestSuite's componentName-forcing
+        // behavior (see runScopedTestSuitePassesThroughPermissionDenialUnchanged above), resolving a
+        // real suite needs a bootstrapped ComponentConfig this test module doesn't have, so
+        // JunitSuiteWrapper's constructor still throws and this call still ends in error - just not
+        // the new component-disabled error this test exists to rule out (proving the gate was passed,
+        // not that a run actually completed). Full enabled-path behavior is verified by manual/live
+        // validation (Task 3).
+        DispatchContext dctx = mock(DispatchContext.class);
+        Security security = mock(Security.class);
+        Delegator delegator = mock(Delegator.class);
+        GenericValue userLogin = mock(GenericValue.class);
+        when(dctx.getSecurity()).thenReturn(security);
+        when(dctx.getDelegator()).thenReturn(delegator);
+        when(userLogin.getString("userLoginId")).thenReturn("admin");
+        when(security.hasPermission("TESTEXEC_ADMIN", userLogin)).thenReturn(true);
+
+        try (MockedStatic<EntityUtilProperties> entityUtilProperties =
+                Mockito.mockStatic(EntityUtilProperties.class, Mockito.CALLS_REAL_METHODS)) {
+            entityUtilProperties.when(() -> EntityUtilProperties.getPropertyValue("testtools", "test.api.enabled", delegator))
+                    .thenReturn("true");
+            // test.api.enabled.example deliberately left unstubbed: CALLS_REAL_METHODS falls through to
+            // the real EntityUtilProperties -> mock delegator (findList unstubbed, returns null) ->
+            // properties-file fallback, which has no such key either, landing on readStringProperty's own
+            // default ("true") - proving the opt-out default, not an explicit override.
+
+            Map<String, Object> result = TestRunServices.runTestSuite(dctx,
+                    Map.of("suiteName", "example-tests", "componentName", "example", "userLogin", userLogin));
+
+            assertThat(result.get("responseMessage"), is("error"));
+            assertThat((String) result.get("errorMessage"), not(containsString("is disabled for component")));
+        }
+    }
+
+    @Test
+    void runTestSuiteSkipsComponentCheckWhenComponentNameIsBlank() {
+        // No componentName in context at all - mirrors runTestSuiteReturnsErrorWhenApiDisabled's own
+        // context map. The per-component override must never be consulted for an unscoped call; this
+        // proves EntityUtilProperties.getPropertyValue is never invoked with a "test.api.enabled."-
+        // prefixed property name (the global "test.api.enabled" key itself does not match that prefix,
+        // since it has no trailing dot).
+        DispatchContext dctx = mock(DispatchContext.class);
+        Security security = mock(Security.class);
+        Delegator delegator = mock(Delegator.class);
+        GenericValue userLogin = mock(GenericValue.class);
+        when(dctx.getSecurity()).thenReturn(security);
+        when(dctx.getDelegator()).thenReturn(delegator);
+        when(userLogin.getString("userLoginId")).thenReturn("admin");
+        when(security.hasPermission("TESTEXEC_ADMIN", userLogin)).thenReturn(true);
+
+        try (MockedStatic<EntityUtilProperties> entityUtilProperties =
+                Mockito.mockStatic(EntityUtilProperties.class, Mockito.CALLS_REAL_METHODS)) {
+            entityUtilProperties.when(() -> EntityUtilProperties.getPropertyValue("testtools", "test.api.enabled", delegator))
+                    .thenReturn("true");
+
+            TestRunServices.runTestSuite(dctx, Map.of("suiteName", "example-tests", "userLogin", userLogin));
+
+            entityUtilProperties.verify(() -> EntityUtilProperties.getPropertyValue(eq("testtools"),
+                    startsWith("test.api.enabled."), eq(delegator)), never());
+        }
     }
 }

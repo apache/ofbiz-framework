@@ -155,6 +155,23 @@ public final class TestRunServices {
             return ServiceUtil.returnError("The test execution API is disabled in this environment (test.api.enabled=false)");
         }
 
+        // Per-component override of the global flag above: lets one component's REST-triggered test
+        // run be disabled (or re-enabled) live via a SystemProperty row, without touching every other
+        // component's access. Defaults to enabled ("true") when unset, so a component that never sets
+        // this behaves exactly as it did before this check existed. Skipped when componentName is
+        // blank - an unscoped multi-component suite-name lookup isn't attributable to one component's
+        // flag. See plugins/supporting-docs/specs/2026-08-21-per-component-test-api-toggle-design.md.
+        if (UtilValidate.isNotEmpty(componentName)) {
+            boolean componentEnabled = "true".equalsIgnoreCase(
+                    readStringProperty(dctx.getDelegator(), "test.api.enabled." + componentName, "true"));
+            if (!componentEnabled) {
+                Debug.logWarning("runTestSuite: rejected for user '" + userLoginId + "', suite '" + suiteName + "'"
+                        + " - test.api.enabled." + componentName + " is false", MODULE);
+                return ServiceUtil.returnError("The test execution API is disabled for component '" + componentName
+                        + "' in this environment (test.api.enabled." + componentName + "=false)");
+            }
+        }
+
         // testMethodName reuses the exact same fail-closed validators the ofbiz --test method=
         // CLI path already built (TestRunContainer, same package - see its javadoc for the full
         // rationale). This first check needs only the two raw strings, not any resolved suite, so
