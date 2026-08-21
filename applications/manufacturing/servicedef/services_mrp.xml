@@ -166,6 +166,29 @@ under the License.
         <attribute mode="OUT" name="links" optional="true" type="Map"/>
         <attribute mode="OUT" name="eventPlans" optional="false" type="java.util.List"/>
     </service>
+    <service name="findMrpRuns" engine="groovy" auth="true"
+            location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/mrp/MrpRunLogServices.groovy" invoke="findMrpRuns">
+        <description>Find durable MRP run history from MRP run log records.</description>
+        <permission-service service-name="manufacturingPermissionService" main-action="VIEW"/>
+        <attribute mode="IN" name="jobId" optional="true" type="String"/>
+        <attribute mode="IN" name="mrpId" optional="true" type="String"/>
+        <attribute mode="IN" name="statusId" optional="true" type="String"/>
+        <attribute mode="IN" name="fromDate" optional="true" type="Timestamp"/>
+        <attribute mode="IN" name="daysBack" optional="true" type="Integer"/>
+        <attribute mode="IN" name="pageIndex" optional="true" type="Integer"/>
+        <attribute mode="IN" name="pageSize" optional="true" type="Integer"/>
+        <attribute mode="IN" name="sort" optional="true" type="String"/>
+        <attribute mode="IN" name="orderBy" optional="true" type="String"/>
+        <attribute mode="OUT" name="pageIndex" optional="false" type="Integer"/>
+        <attribute mode="OUT" name="pageSize" optional="false" type="Integer"/>
+        <attribute mode="OUT" name="totalCount" optional="false" type="Long"/>
+        <attribute mode="OUT" name="totalPages" optional="false" type="Long"/>
+        <attribute mode="OUT" name="hasNext" optional="false" type="Boolean"/>
+        <attribute mode="OUT" name="previousPageCount" optional="true" type="Long"/>
+        <attribute mode="OUT" name="nextPageCount" optional="true" type="Long"/>
+        <attribute mode="OUT" name="links" optional="true" type="Map"/>
+        <attribute mode="OUT" name="runs" optional="false" type="java.util.List"/>
+    </service>
     <service name="findPlanningFacilities" engine="groovy" auth="true"
             location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/api/ManufacturingLookupServices.groovy" invoke="findManufacturingFacilities">
         <description>Find warehouse and plant facilities available for MRP planning.</description>
