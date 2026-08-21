@@ -185,7 +185,7 @@ public class OFBizApplicationSecurity implements Security {
         String entityName = null;
         EntityCondition condition = null;
         Map<String, String> simpleRoleMap = SIMPLE_ROLE_ENT.get(application);
-        if (simpleRoleMap != null && roles != null) {
+        if (simpleRoleMap != null && roles != null && !roles.isEmpty()) {
             entityName = simpleRoleMap.get("name");
             String pkey = simpleRoleMap.get("pkey");
             if (pkey != null) {
