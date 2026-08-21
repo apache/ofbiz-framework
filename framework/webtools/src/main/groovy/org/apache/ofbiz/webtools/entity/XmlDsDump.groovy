@@ -208,10 +208,14 @@ if (passedEntityNames) {
                 filename = outpath + File.separator + filename
             }
             File outfile = new File(filename)
+            allowedPath = true
             try {
                 SecurityUtil.checkOfbizFileAllowList(outfile)
             } catch (GeneralException e) {
                 context.errorMessage = e.getMessage()
+                allowedPath = false
+            }
+            if (!allowedPath) {
                 return
             }
             writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(outfile), 'UTF-8')))
@@ -265,10 +269,14 @@ if (passedEntityNames) {
         context.results = results
         if (outpath && !filename) {
             outdir = new File(outpath)
+            allowedPath = true
             try {
                 SecurityUtil.checkOfbizFileAllowList(outdir)
             } catch (GeneralException e) {
                 context.errorMessage = e.getMessage()
+                allowedPath = false
+            }
+            if (!allowedPath) {
                 return
             }
             if (!outdir.exists()) {
