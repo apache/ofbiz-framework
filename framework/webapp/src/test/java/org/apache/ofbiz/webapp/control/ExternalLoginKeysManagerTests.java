@@ -28,6 +28,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -118,6 +119,10 @@ public class ExternalLoginKeysManagerTests {
         when(mintRequest.getAttribute("userLogin")).thenReturn(userLogin);
         String key = ExternalLoginKeysManager.getExternalLoginKey(mintRequest);
 
+        // Both redemptions target the same webapp, so the second one is the actual replay case.
+        ServletContext servletContext = mock(ServletContext.class);
+        when(servletContext.getContextPath()).thenReturn("/partymgr");
+
         try (MockedStatic<LoginWorker> loginWorker = mockStatic(LoginWorker.class)) {
             loginWorker.when(() -> LoginWorker.checkLogout(any(), any())).thenReturn(userLogin);
 
@@ -128,19 +133,21 @@ public class ExternalLoginKeysManagerTests {
             when(firstUse.getParameter("externalLoginKey")).thenReturn(key);
             when(firstUse.getAttribute("delegator")).thenReturn(delegator);
             when(firstUse.getSession()).thenReturn(firstSession);
+            when(firstUse.getServletContext()).thenReturn(servletContext);
 
             String firstResult = ExternalLoginKeysManager.checkExternalLoginKey(firstUse, firstResponse);
 
             assertEquals("success", firstResult);
             loginWorker.verify(() -> LoginWorker.doBasicLogin(userLogin, firstUse, firstResponse), times(1));
 
-            // Replay: a second client presents the very same key value.
+            // Replay: a second client presents the very same key value, against the same webapp.
             HttpServletRequest replay = mock(HttpServletRequest.class);
             HttpServletResponse replayResponse = mock(HttpServletResponse.class);
             HttpSession replaySession = mock(HttpSession.class);
             when(replay.getParameter("externalLoginKey")).thenReturn(key);
             when(replay.getAttribute("delegator")).thenReturn(delegator);
             when(replay.getSession()).thenReturn(replaySession);
+            when(replay.getServletContext()).thenReturn(servletContext);
 
             String replayResult = ExternalLoginKeysManager.checkExternalLoginKey(replay, replayResponse);
 
