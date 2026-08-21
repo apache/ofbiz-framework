@@ -135,4 +135,53 @@ under the License.
         <description>Delete a MrpEventType record</description>
         <auto-attributes include="pk" mode="IN"/>
     </service>
+    <!-- MRP planning read services for event plans, run history, and planning facilities. -->
+    <service name="findMrpEventPlans" engine="groovy" auth="true"
+            location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/mrp/MrpEventPlanServices.groovy" invoke="findMrpEventPlans">
+        <description>Find product-centric MRP event plans with grouped facility timelines and attention metadata.</description>
+        <permission-service service-name="manufacturingPermissionService" main-action="VIEW"/>
+        <attribute mode="IN" name="facilityId" optional="true" type="String"/>
+        <attribute mode="IN" name="facilityGroupId" optional="true" type="String"/>
+        <attribute mode="IN" name="mrpId" optional="true" type="String"/>
+        <attribute mode="IN" name="productId" optional="true" type="String"/>
+        <attribute mode="IN" name="eventDate" optional="true" type="String"/>
+        <attribute mode="IN" name="dateFrom" optional="true" type="String"/>
+        <attribute mode="IN" name="dateTo" optional="true" type="String"/>
+        <attribute mode="IN" name="mrpEventTypeId" optional="true" type="String"/>
+        <attribute mode="IN" name="query" optional="true" type="String"/>
+        <attribute mode="IN" name="attentionOnly" optional="true" type="String"/>
+        <attribute mode="IN" name="attentionType" optional="true" type="String"/>
+        <attribute mode="IN" name="search" optional="true" type="String"/>
+        <attribute mode="IN" name="pageIndex" optional="true" type="Integer"/>
+        <attribute mode="IN" name="pageSize" optional="true" type="Integer"/>
+        <attribute mode="IN" name="sort" optional="true" type="String"/>
+        <attribute mode="IN" name="orderBy" optional="true" type="String"/>
+        <attribute mode="OUT" name="pageIndex" optional="false" type="Integer"/>
+        <attribute mode="OUT" name="pageSize" optional="false" type="Integer"/>
+        <attribute mode="OUT" name="totalCount" optional="false" type="Long"/>
+        <attribute mode="OUT" name="totalPages" optional="false" type="Long"/>
+        <attribute mode="OUT" name="hasNext" optional="false" type="Boolean"/>
+        <attribute mode="OUT" name="previousPageCount" optional="true" type="Long"/>
+        <attribute mode="OUT" name="nextPageCount" optional="true" type="Long"/>
+        <attribute mode="OUT" name="links" optional="true" type="Map"/>
+        <attribute mode="OUT" name="eventPlans" optional="false" type="java.util.List"/>
+    </service>
+    <service name="findPlanningFacilities" engine="groovy" auth="true"
+            location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/api/ManufacturingLookupServices.groovy" invoke="findManufacturingFacilities">
+        <description>Find warehouse and plant facilities available for MRP planning.</description>
+        <permission-service service-name="manufacturingPermissionService" main-action="VIEW"/>
+        <attribute mode="IN" name="pageIndex" optional="true" type="Integer"/>
+        <attribute mode="IN" name="pageSize" optional="true" type="Integer"/>
+        <attribute mode="IN" name="sort" optional="true" type="String"/>
+        <attribute mode="IN" name="orderBy" optional="true" type="String"/>
+        <attribute mode="OUT" name="pageIndex" optional="false" type="Integer"/>
+        <attribute mode="OUT" name="pageSize" optional="false" type="Integer"/>
+        <attribute mode="OUT" name="totalCount" optional="false" type="Long"/>
+        <attribute mode="OUT" name="totalPages" optional="false" type="Long"/>
+        <attribute mode="OUT" name="hasNext" optional="false" type="Boolean"/>
+        <attribute mode="OUT" name="previousPageCount" optional="true" type="Long"/>
+        <attribute mode="OUT" name="nextPageCount" optional="true" type="Long"/>
+        <attribute mode="OUT" name="links" optional="true" type="Map"/>
+        <attribute mode="OUT" name="facilities" optional="false" type="java.util.List"/>
+    </service>
 </services>

@@ -3004,6 +3004,18 @@
         <value xml:lang="zh">创建或更新生产资源计划事件（MrpEvent）时出错，参数：${parameters}</value>
         <value xml:lang="zh-TW">新建或更新生產資源計劃事件(MrpEvent)時出錯,參數:${parameters}</value>
     </property>
+    <property key="ManufacturingMrpCurrentBelowSafetyStock">
+        <value xml:lang="en">Current below safety stock</value>
+    </property>
+    <property key="ManufacturingMrpCurrentBelowSafetyStockGuidance">
+        <value xml:lang="en">Review proposed supply because current inventory is below the minimum stock policy.</value>
+    </property>
+    <property key="ManufacturingMrpEngineError">
+        <value xml:lang="en">MRP engine error</value>
+    </property>
+    <property key="ManufacturingMrpEngineErrorGuidance">
+        <value xml:lang="en">Review the MRP event ledger error before relying on this plan.</value>
+    </property>
     <property key="ManufacturingMrpErrorExplodingProduct">
         <value xml:lang="en">An error occurred exploding the product ${productId}</value>
         <value xml:lang="it">E' successo un'errore durante l'espolosizione del prodotto ${productId}</value>
@@ -3027,6 +3039,9 @@
         <value xml:lang="zh">运行初始化生产资源计划事件（initMrpEvents）服务时出错：${errorString}</value>
         <value xml:lang="zh-TW">執行初始化生產資源計劃事件(initMrpEvents)服務時出錯:${errorString}</value>
     </property>
+    <property key="ManufacturingMrpEventDateFilterInvalid">
+        <value xml:lang="en">Invalid MRP event date filter: ${value}</value>
+    </property>
     <property key="ManufacturingMrpEventFindError">
         <value xml:lang="en">Problem, we can not find all the items of MrpEvent, for more detail look at the log</value>
         <value xml:lang="it">Problema, non possaimo trovare tutte le righe di MrpEvent, per più dettagli controllare il log</value>
@@ -3042,6 +3057,9 @@
         <value xml:lang="vi">Lỗi xảy ra khi khởi tạo thực thể MrpEvent : ${mrpEventTypeId}</value>
         <value xml:lang="zh">初始化生产资源计划事件（MrpEvent）实体（${mrpEventTypeId}）时出问题了</value>
         <value xml:lang="zh-TW">初始化生產資源計劃事件(MrpEvent)資料實體(${mrpEventTypeId})時出問題了</value>
+    </property>
+    <property key="ManufacturingMrpEventLedgerSource">
+        <value xml:lang="en">OFBiz MRP event ledger</value>
     </property>
     <property key="ManufacturingMrpEventRemoveError">
         <value xml:lang="en">Problem, we can not remove the MrpEvent items, for more detail look at the log</value>
@@ -3090,6 +3108,12 @@
         <value xml:lang="vi">Chi nhánh / Cơ sở và Chi nhánh / Cơ sở sản xuất không thể cùng rỗng</value>
         <value xml:lang="zh">场所标识（facilityId）和生产场所标识（manufacturingFacilityId）不能为空</value>
         <value xml:lang="zh-TW">場所標識(facilityId)和生產場所標識(manufacturingFacilityId)不能為空</value>
+    </property>
+    <property key="ManufacturingMrpForecastAllocation">
+        <value xml:lang="en">Forecast allocation</value>
+    </property>
+    <property key="ManufacturingMrpForecastAllocationGuidance">
+        <value xml:lang="en">Allocate this organization-level forecast to a warehouse or review forecast setup.</value>
     </property>
     <property key="ManufacturingMrpInitialisation">
         <value xml:lang="de">MRP-Initialisierung</value>
@@ -3160,6 +3184,12 @@
         <value xml:lang="zh">生产资源计划日志</value>
         <value xml:lang="zh-TW">生產資源計劃日誌</value>
     </property>
+    <property key="ManufacturingMrpLateProposedSupply">
+        <value xml:lang="en">Proposed supply is late</value>
+    </property>
+    <property key="ManufacturingMrpLateProposedSupplyGuidance">
+        <value xml:lang="en">Review the late event date and source before relying on the plan.</value>
+    </property>
     <property key="ManufacturingMrpName">
         <value xml:lang="de">MRP-Name</value>
         <value xml:lang="en">Mrp Name</value>
@@ -3174,6 +3204,21 @@
         <value xml:lang="zh">生产资源计划名称</value>
         <value xml:lang="zh-TW">生產資源計劃名稱</value>
     </property>
+    <property key="ManufacturingMrpNeedsAttention">
+        <value xml:lang="en">Needs attention</value>
+    </property>
+    <property key="ManufacturingMrpOnTrack">
+        <value xml:lang="en">On track</value>
+    </property>
+    <property key="ManufacturingMrpOpen">
+        <value xml:lang="en">Open</value>
+    </property>
+    <property key="ManufacturingMrpProjectedBelowSafetyStock">
+        <value xml:lang="en">Projected below safety stock</value>
+    </property>
+    <property key="ManufacturingMrpProjectedBelowSafetyStockGuidance">
+        <value xml:lang="en">Review projected inventory because the running balance falls below minimum stock.</value>
+    </property>
     <property key="ManufacturingMrpRunDefaultName">
         <value xml:lang="en">MRP run</value>
     </property>
@@ -3186,6 +3231,18 @@
     <property key="ManufacturingMrpRunScheduledSuccessfully">
         <value xml:lang="en">Mrp run scheduled successfully</value>
         <value xml:lang="fr">Exécution de Mrp programmée avec succès</value>
+    </property>
+    <property key="ManufacturingMrpSetupIssue">
+        <value xml:lang="en">Setup issue</value>
+    </property>
+    <property key="ManufacturingMrpSetupIssueGuidance">
+        <value xml:lang="en">Review product-facility, BOM, routing, supplier, or inventory setup.</value>
+    </property>
+    <property key="ManufacturingMrpStockPolicyTrigger">
+        <value xml:lang="en">Stock policy trigger</value>
+    </property>
+    <property key="ManufacturingMrpStockPolicyTriggerDescription">
+        <value xml:lang="en">Current inventory is below minimum stock; MRP created this marker to trigger replenishment.</value>
     </property>
     <property key="ManufacturingProductionRunTaskIssuedSuccessfully">
         <value xml:lang="en">Issued Inventory for Production Run Task [${workEffortId}]</value>
