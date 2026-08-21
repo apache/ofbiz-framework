@@ -467,14 +467,14 @@ public class JWTManager {
     }
 
     /**
-     * Validate the token usingJWTManager::validateToken
+     * Validate the token usingJWTManager::validateAccessToken
      * If it fails, returns a ModelService.ERROR_MESSAGE in the result
      * @param jwtToken The JWT which normally contains the userLoginId
      * @param key the secret key to decrypt the token
      * @return Map of name, value pairs composing the result
      */
     private static Map<String, Object> validateJwtToken(Delegator delegator, String jwtToken) {
-        Map<String, Object> result = validateToken(delegator, jwtToken);
+        Map<String, Object> result = validateAccessToken(delegator, jwtToken);
         if (result.containsKey(ModelService.ERROR_MESSAGE)) {
             // Something unexpected happened here
             Debug.logWarning("There was a problem with the JWT token, no single sign on user login possible.", MODULE);
@@ -492,6 +492,22 @@ public class JWTManager {
         Map<String, Object> claims = validateToken(delegator, refreshToken);
         if (!claims.containsKey("type") || !"refresh".equals(claims.get("type"))) {
             return ServiceUtil.returnError("Invalid refresh token.");
+        }
+        return claims;
+    }
+
+    /**
+     * Validates a JWT for use as an access credential, rejecting it if it is a refresh token.
+     * Refresh tokens are signed with the same key as access tokens but carry a much longer
+     * expiration, so they must never be accepted outside the dedicated refresh flow.
+     * @param delegator the delegator
+     * @param jwtToken the JWT to validate
+     * @return the token claims if it is a valid, non-refresh token, or an error entry otherwise
+     */
+    public static Map<String, Object> validateAccessToken(Delegator delegator, String jwtToken) {
+        Map<String, Object> claims = validateToken(delegator, jwtToken);
+        if (!claims.containsKey(ModelService.ERROR_MESSAGE) && "refresh".equals(claims.get("type"))) {
+            return ServiceUtil.returnError("Invalid access token.");
         }
         return claims;
     }
