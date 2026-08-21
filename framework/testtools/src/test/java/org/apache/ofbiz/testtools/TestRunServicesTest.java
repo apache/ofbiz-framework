@@ -62,10 +62,11 @@ class TestRunServicesTest {
 
     @Test
     void runTestSuiteReturnsErrorWhenApiDisabled() {
-        // No stubbing of testtools.properties overrides: the real classpath resource
-        // framework/testtools/config/testtools.properties ships test.api.enabled=false (Task 3),
-        // and EntityUtilProperties falls through to it when delegator.findOne("SystemProperty", ...)
-        // - unstubbed on this mock - returns null.
+        // Mocks EntityUtilProperties directly (rather than relying on the classpath testtools.properties
+        // file's actual value, which may legitimately vary between environments) so this test asserts
+        // the exact global-disabled error message, not just a generic error that could equally be the
+        // unrelated suite-resolution failure path. Same pattern as
+        // runTestSuiteReturnsErrorWhenComponentApiDisabled below.
         DispatchContext dctx = mock(DispatchContext.class);
         Security security = mock(Security.class);
         Delegator delegator = mock(Delegator.class);
@@ -75,11 +76,18 @@ class TestRunServicesTest {
         when(userLogin.getString("userLoginId")).thenReturn("admin");
         when(security.hasPermission("TESTEXEC_ADMIN", userLogin)).thenReturn(true);
 
-        Map<String, Object> result = TestRunServices.runTestSuite(dctx,
-                Map.of("suiteName", "example-tests", "userLogin", userLogin));
+        try (MockedStatic<EntityUtilProperties> entityUtilProperties =
+                Mockito.mockStatic(EntityUtilProperties.class, Mockito.CALLS_REAL_METHODS)) {
+            entityUtilProperties.when(() -> EntityUtilProperties.getPropertyValue("testtools", "test.api.enabled", delegator))
+                    .thenReturn("false");
 
-        assertThat(result.get("responseMessage"), is("error"));
-        assertThat(result.get("runId"), nullValue());
+            Map<String, Object> result = TestRunServices.runTestSuite(dctx,
+                    Map.of("suiteName", "example-tests", "userLogin", userLogin));
+
+            assertThat(result.get("responseMessage"), is("error"));
+            assertThat(result.get("errorMessage"), is("The test execution API is disabled in this environment (test.api.enabled=false)"));
+            assertThat(result.get("runId"), nullValue());
+        }
     }
 
     @Test
@@ -344,7 +352,9 @@ class TestRunServicesTest {
         // JunitSuiteWrapper's constructor still throws and this call still ends in error - just not
         // the new component-disabled error this test exists to rule out (proving the gate was passed,
         // not that a run actually completed). Full enabled-path behavior is verified by manual/live
-        // validation (Task 3).
+        // validation (Task 3). Only the absence of the component-disabled error is asserted below -
+        // asserting the error response itself would couple this test to the unrelated
+        // un-bootstrapped-ComponentConfig failure mode, not the gate this test exists to verify.
         DispatchContext dctx = mock(DispatchContext.class);
         Security security = mock(Security.class);
         Delegator delegator = mock(Delegator.class);
@@ -366,7 +376,6 @@ class TestRunServicesTest {
             Map<String, Object> result = TestRunServices.runTestSuite(dctx,
                     Map.of("suiteName", "example-tests", "componentName", "example", "userLogin", userLogin));
 
-            assertThat(result.get("responseMessage"), is("error"));
             assertThat((String) result.get("errorMessage"), not(containsString("is disabled for component")));
         }
     }
