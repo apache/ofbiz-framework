@@ -45,24 +45,27 @@ class CustRequestTests implements JupiterTestHelper {
     @Test
     @Order(2)
     void testUpdateCustRequest() {
+        String custRequestId = testParams.custRequestId ?: '9000'
+        String custRequestName = testParams.custRequestName ?: 'Updated Test Request'
         Map serviceCtx = [
-                custRequestId: '9000',
-                custRequestName: 'Updated Test Request',
+                custRequestId: custRequestId,
+                custRequestName: custRequestName,
                 userLogin: userLogin,
         ]
         Map serviceResult = dispatcher.runSync('updateCustRequest', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue custRequest = from('CustRequest').where('custRequestId', '9000').queryOne()
+        GenericValue custRequest = from('CustRequest').where('custRequestId', custRequestId).queryOne()
         assert custRequest
-        assert custRequest.custRequestName == 'Updated Test Request'
+        assert custRequest.custRequestName == custRequestName
     }
 
     @Test
     @Order(3)
     void testCreateCustRequestItem() {
+        String custRequestId = testParams.custRequestId ?: '9000'
         Map serviceCtx = [
-                custRequestId: '9000',
+                custRequestId: custRequestId,
                 userLogin: userLogin,
         ]
         Map serviceResult = dispatcher.runSync('createCustRequestItem', serviceCtx)
@@ -74,10 +77,13 @@ class CustRequestTests implements JupiterTestHelper {
     @Test
     @Order(4)
     void testCreateCustRequestItemNote() {
+        String custRequestId = testParams.custRequestId ?: '9000'
+        String custRequestItemSeqId = testParams.custRequestItemSeqId ?: '00001'
+        String note = testParams.note ?: 'Test'
         Map serviceCtx = [
-                custRequestId: '9000',
-                custRequestItemSeqId: '00001',
-                note: 'Test',
+                custRequestId: custRequestId,
+                custRequestItemSeqId: custRequestItemSeqId,
+                note: note,
                 userLogin: userLogin,
         ]
         Map serviceResult = dispatcher.runSync('createCustRequestItemNote', serviceCtx)
@@ -89,9 +95,11 @@ class CustRequestTests implements JupiterTestHelper {
     @Test
     @Order(5)
     void testCreateCustRequestNote() {
+        String custRequestId = testParams.custRequestId ?: '9000'
+        String noteInfo = testParams.noteInfo ?: 'Test'
         Map serviceCtx = [
-                custRequestId: '9000',
-                noteInfo: 'Test',
+                custRequestId: custRequestId,
+                noteInfo: noteInfo,
                 userLogin: userLogin,
         ]
         Map serviceResult = dispatcher.runSync('createCustRequestNote', serviceCtx)
@@ -104,17 +112,20 @@ class CustRequestTests implements JupiterTestHelper {
     @Test
     @Order(6)
     void testCreateCustRequestParty() {
+        String custRequestId = testParams.custRequestId ?: '9000'
+        String partyId = testParams.partyId ?: 'Company'
+        String roleTypeId = testParams.roleTypeId ?: 'OWNER'
         Map serviceCtx = [
-                custRequestId: '9000',
-                partyId: 'Company',
-                roleTypeId: 'OWNER',
+                custRequestId: custRequestId,
+                partyId: partyId,
+                roleTypeId: roleTypeId,
                 userLogin: userLogin,
         ]
         Map serviceResult = dispatcher.runSync('createCustRequestParty', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
         GenericValue custRequestParty = from('CustRequestParty')
-                .where('custRequestId', '9000', 'partyId', 'Company', 'roleTypeId', 'OWNER')
+                .where('custRequestId', custRequestId, 'partyId', partyId, 'roleTypeId', roleTypeId)
                 .filterByDate().queryFirst()
         assert custRequestParty
     }
@@ -122,10 +133,13 @@ class CustRequestTests implements JupiterTestHelper {
     @Test
     @Order(7)
     void testCreateCustRequestStatus() {
+        String custRequestId = testParams.custRequestId ?: '9000'
+        String custRequestItemSeqId = testParams.custRequestItemSeqId ?: '00001'
+        String statusId = testParams.statusId ?: 'CRQ_ACCEPTED'
         Map serviceCtx = [
-                custRequestId: '9000',
-                custRequestItemSeqId: '00001',
-                statusId: 'CRQ_ACCEPTED',
+                custRequestId: custRequestId,
+                custRequestItemSeqId: custRequestItemSeqId,
+                statusId: statusId,
                 userLogin: userLogin,
         ]
         Map serviceResult = dispatcher.runSync('createCustRequestStatus', serviceCtx)
@@ -137,9 +151,11 @@ class CustRequestTests implements JupiterTestHelper {
     @Test
     @Order(8)
     void testSetCustRequestStatus() {
+        String custRequestId = testParams.custRequestId ?: '9000'
+        String statusId = testParams.statusId ?: 'CRQ_ACCEPTED'
         Map serviceCtx = [
-                custRequestId: '9000',
-                statusId: 'CRQ_ACCEPTED',
+                custRequestId: custRequestId,
+                statusId: statusId,
                 userLogin: userLogin,
         ]
         Map serviceResult = dispatcher.runSync('setCustRequestStatus', serviceCtx)
@@ -151,8 +167,9 @@ class CustRequestTests implements JupiterTestHelper {
     @Test
     @Order(9)
     void testGetCustRequestsByRole() {
+        String roleTypeId = testParams.roleTypeId ?: 'OWNER'
         Map serviceCtx = [
-                roleTypeId: 'OWNER',
+                roleTypeId: roleTypeId,
                 userLogin: userLogin,
         ]
         Map serviceResult = dispatcher.runSync('getCustRequestsByRole', serviceCtx)
@@ -164,16 +181,18 @@ class CustRequestTests implements JupiterTestHelper {
     @Test
     @Order(10)
     void testCreateCustRequestContent() {
+        String custRequestId = testParams.custRequestId ?: '9000'
+        String contentId = testParams.contentId ?: '100-ALT'
         Map serviceCtx = [
-                custRequestId: '9000',
-                contentId: '100-ALT',
+                custRequestId: custRequestId,
+                contentId: contentId,
                 userLogin: userLogin,
         ]
         Map serviceResult = dispatcher.runSync('createCustRequestContent', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
         GenericValue custRequestContent = from('CustRequestContent')
-                .where('custRequestId', '9000', 'contentId', '100-ALT')
+                .where('custRequestId', custRequestId, 'contentId', contentId)
                 .filterByDate().queryFirst()
         assert custRequestContent
     }
@@ -181,34 +200,39 @@ class CustRequestTests implements JupiterTestHelper {
     @Test
     @Order(11)
     void testCreateCustRequestAttribute() {
+        String attrName = testParams.attrName ?: 'Test Name'
+        String attrValue = testParams.attrValue ?: 'Test Value'
+        String custRequestId = testParams.custRequestId ?: '9000'
         Map serviceCtx = [
-                attrName: 'Test Name',
-                attrValue: 'Test Value',
-                custRequestId: '9000',
+                attrName: attrName,
+                attrValue: attrValue,
+                custRequestId: custRequestId,
                 userLogin: userLogin,
         ]
         Map serviceResult = dispatcher.runSync('createCustRequestAttribute', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
         GenericValue custRequestAttribute = from('CustRequestAttribute')
-                .where('custRequestId', '9000', 'attrName', 'Test Name')
+                .where('custRequestId', custRequestId, 'attrName', attrName)
                 .queryOne()
         assert custRequestAttribute
-        assert custRequestAttribute.attrValue == 'Test Value'
+        assert custRequestAttribute.attrValue == attrValue
     }
 
     @Test
     @Order(12)
     void testCopyCustRequestItem() {
+        String custRequestId = testParams.custRequestId ?: '9000'
+        String custRequestItemSeqId = testParams.custRequestItemSeqId ?: '00001'
         Map serviceCtx = [
-                custRequestId: '9000',
-                custRequestItemSeqId: '00001',
+                custRequestId: custRequestId,
+                custRequestItemSeqId: custRequestItemSeqId,
                 userLogin: userLogin,
         ]
         Map serviceResult = dispatcher.runSync('copyCustRequestItem', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        List<GenericValue> custRequestItems = from('CustRequestItem').where('custRequestId', '9000').queryList()
+        List<GenericValue> custRequestItems = from('CustRequestItem').where('custRequestId', custRequestId).queryList()
         assert custRequestItems.size() > 1
     }
 

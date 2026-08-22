@@ -29,55 +29,75 @@ class PurchaseOrderTest implements JupiterTestHelper {
 
     @Test
     void testCreatePurchaseOrder() {
+        String orderItemSeqId = testParams.orderItemSeqId ?: '00001'
+        String orderItemTypeId = testParams.orderItemTypeId ?: 'PRODUCT_ORDER_ITEM'
+        String prodCatalogId = testParams.prodCatalogId ?: 'DemoCatalog'
+        String productId = testParams.productId ?: 'GZ-1000'
+        String isPromo = testParams.isPromo ?: 'N'
+        String contactMechPurposeTypeId = testParams.contactMechPurposeTypeId ?: 'SHIPPING_LOCATION'
+        String contactMechId = testParams.contactMechId ?: '9000'
+        String carrierPartyId = testParams.carrierPartyId ?: 'UPS'
+        String isGift = testParams.isGift ?: 'N'
+        String maySplit = testParams.maySplit ?: 'N'
+        String shipGroupSeqId = testParams.shipGroupSeqId ?: '00001'
+        String shipmentMethodTypeId = testParams.shipmentMethodTypeId ?: 'NEXT_DAY'
+        String partyId = testParams.partyId ?: 'Company'
+        String orderTypeId = testParams.orderTypeId ?: 'PURCHASE_ORDER'
+        String currencyUom = testParams.currencyUom ?: 'USD'
+        String productStoreId = testParams.productStoreId ?: '9000'
+        String billToCustomerPartyId = testParams.billToCustomerPartyId ?: 'Company'
+        String billFromVendorPartyId = testParams.billFromVendorPartyId ?: 'DemoSupplier'
+        String shipFromVendorPartyId = testParams.shipFromVendorPartyId ?: 'Company'
+        String supplierAgentPartyId = testParams.supplierAgentPartyId ?: 'DemoSupplier'
         GenericValue orderItem = delegator.makeValue('OrderItem', [
-                orderItemSeqId: '00001',
-                orderItemTypeId: 'PRODUCT_ORDER_ITEM',
-                prodCatalogId: 'DemoCatalog',
-                productId: 'GZ-1000',
+                orderItemSeqId: orderItemSeqId,
+                orderItemTypeId: orderItemTypeId,
+                prodCatalogId: prodCatalogId,
+                productId: productId,
                 quantity: new BigDecimal('2'),
-                isPromo: 'N'
+                isPromo: isPromo
         ])
         orderItem.unitPrice = 1399.5
         orderItem.unitListPrice = BigDecimal.ZERO
-        orderItem.isModifiedPrice = 'N'
+        orderItem.isModifiedPrice = isPromo
         orderItem.statusId = 'ITEM_CREATED'
 
         GenericValue orderContactMech = delegator.makeValue('OrderContactMech', [
-                contactMechPurposeTypeId: 'SHIPPING_LOCATION',
-                contactMechId: '9000'
+                contactMechPurposeTypeId: contactMechPurposeTypeId,
+                contactMechId: contactMechId
         ])
 
         GenericValue orderItemContactMech = delegator.makeValue('OrderItemContactMech', [
-                contactMechPurposeTypeId: 'SHIPPING_LOCATION',
-                contactMechId: '9000',
-                orderItemSeqId: '00001'
+                contactMechPurposeTypeId: contactMechPurposeTypeId,
+                contactMechId: contactMechId,
+                orderItemSeqId: orderItemSeqId
         ])
 
         GenericValue orderItemShipGroup = delegator.makeValue('OrderItemShipGroup', [
-                carrierPartyId: 'UPS',
-                contactMechId: '9000',
-                isGift: 'N',
-                maySplit: 'N',
-                shipGroupSeqId: '00001',
-                shipmentMethodTypeId: 'NEXT_DAY'
+                carrierPartyId: carrierPartyId,
+                contactMechId: contactMechId,
+                isGift: isGift,
+                maySplit: maySplit,
+                shipGroupSeqId: shipGroupSeqId,
+                shipmentMethodTypeId: shipmentMethodTypeId
         ])
         orderItemShipGroup.carrierRoleTypeId = 'CARRIER'
 
         Map serviceCtx = [
-                partyId: 'Company',
-                orderTypeId: 'PURCHASE_ORDER',
-                currencyUom: 'USD',
-                productStoreId: '9000',
+                partyId: partyId,
+                orderTypeId: orderTypeId,
+                currencyUom: currencyUom,
+                productStoreId: productStoreId,
                 orderItems: [orderItem],
                 orderContactMechs: [orderContactMech],
                 orderItemContactMechs: [orderItemContactMech],
                 orderItemShipGroupInfo: [orderItemShipGroup],
                 orderTerms: [],
                 orderAdjustments: [],
-                billToCustomerPartyId: 'Company',
-                billFromVendorPartyId: 'DemoSupplier',
-                shipFromVendorPartyId: 'Company',
-                supplierAgentPartyId: 'DemoSupplier',
+                billToCustomerPartyId: billToCustomerPartyId,
+                billFromVendorPartyId: billFromVendorPartyId,
+                shipFromVendorPartyId: shipFromVendorPartyId,
+                supplierAgentPartyId: supplierAgentPartyId,
                 userLogin: userLogin
         ]
 

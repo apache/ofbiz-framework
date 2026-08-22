@@ -30,7 +30,8 @@ class OrderTest implements JupiterTestHelper {
     @Test
     @Order(1)
     void testAdminGetNextOrderSeqId() {
-        Map serviceCtx = [partyId: 'admin'] // party with no AcctgPref prefix
+        String partyId = testParams.partyId ?: 'admin'
+        Map serviceCtx = [partyId: partyId] // party with no AcctgPref prefix
         Map resp = dispatcher.runSync('getNextOrderId', serviceCtx)
         if (ServiceUtil.isError(resp)) {
             logError(ServiceUtil.getErrorMessage(resp))
@@ -44,7 +45,8 @@ class OrderTest implements JupiterTestHelper {
     @Test
     @Order(2)
     void testCompanyGetNextOrderSeqId() {
-        Map serviceCtx = [partyId: 'Company'] // party with AcctgPref prefix : CO
+        String partyId = testParams.partyId ?: 'Company'
+        Map serviceCtx = [partyId: partyId] // party with AcctgPref prefix : CO
         Map resp = dispatcher.runSync('getNextOrderId', serviceCtx)
         if (ServiceUtil.isError(resp)) {
             logError(ServiceUtil.getErrorMessage(resp))
@@ -58,9 +60,11 @@ class OrderTest implements JupiterTestHelper {
     @Test
     @Order(3)
     void testCompleteGetNextOrderSeqId() {
+        String partyId = testParams.partyId ?: 'Company'
+        String productStoreId = testParams.productStoreId ?: '9000'
         Map serviceCtx = [
-                partyId: 'Company', // party with AcctgPref prefix : CO
-                productStoreId: '9000' // prefix WS
+                partyId: partyId, // party with AcctgPref prefix : CO
+                productStoreId: productStoreId // prefix WS
         ]
         Map resp = dispatcher.runSync('getNextOrderId', serviceCtx)
         if (ServiceUtil.isError(resp)) {

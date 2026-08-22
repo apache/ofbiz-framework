@@ -86,14 +86,15 @@ class QuoteTests implements JupiterTestHelper {
     @Test
     @Order(3)
     void testCheckUpdateQuotestatus() {
+        String quoteId = testParams.quoteId ?: '9001'
         Map serviceCtx = [
                 userLogin: userLogin,
-                quoteId: '9001',
+                quoteId: quoteId,
         ]
 
         Map serviceResult = dispatcher.runSync('checkUpdateQuoteStatus', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
-        GenericValue quote = from('Quote').where(quoteId: '9001').queryOne()
+        GenericValue quote = from('Quote').where(quoteId: quoteId).queryOne()
         assert quote.statusId == 'QUO_ORDERED'
     }
 
@@ -102,15 +103,19 @@ class QuoteTests implements JupiterTestHelper {
     @Test
     @Order(4)
     void testCreateWorkEffortAndQuoteWorkEffort() {
+        String currentStatusId = testParams.currentStatusId ?: 'ROU_ACTIVE'
+        String workEffortName = testParams.workEffortName ?: 'Test WorkEffort'
+        String workEffortTypeId = testParams.workEffortTypeId ?: 'ROUTING'
+        String quoteId = testParams.quoteId ?: '9000'
         GenericValue userLogin = getUserLogin('system')
 
         // Use the bare minimum inputs necessary to create the work effort as we
         // aren't testing that service, only that it plays well as an ECA.
         Map serviceCtx = [
-            currentStatusId: 'ROU_ACTIVE',
-            workEffortName: 'Test WorkEffort',
-            workEffortTypeId: 'ROUTING',
-            quoteId: '9000',
+            currentStatusId: currentStatusId,
+            workEffortName: workEffortName,
+            workEffortTypeId: workEffortTypeId,
+            quoteId: quoteId,
             userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('ensureWorkEffortAndCreateQuoteWorkEffort', serviceCtx)
@@ -135,9 +140,10 @@ class QuoteTests implements JupiterTestHelper {
     @Test
     @Order(5)
     void testCreateQuote() {
+        String partyId = testParams.partyId ?: 'Company'
         Map serviceCtx = [
                 userLogin: userLogin,
-                partyId: 'Company'
+                partyId: partyId
         ]
         Map serviceResult = dispatcher.runSync('createQuote', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
@@ -149,15 +155,17 @@ class QuoteTests implements JupiterTestHelper {
     @Test
     @Order(6)
     void testUpdateQuote() {
+        String quoteId = testParams.quoteId ?: '9000'
+        String statusId = testParams.statusId ?: 'QUO_APPROVED'
         Map serviceCtx = [
                 userLogin: userLogin,
-                quoteId: '9000',
-                statusId: 'QUO_APPROVED'
+                quoteId: quoteId,
+                statusId: statusId
         ]
         Map serviceResult = dispatcher.runSync('updateQuote', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
-        GenericValue quote = from('Quote').where(quoteId: '9000').queryOne()
-        assert quote.statusId == 'QUO_APPROVED'
+        GenericValue quote = from('Quote').where(quoteId: quoteId).queryOne()
+        assert quote.statusId == statusId
 
         serviceCtx.statusId = 'QUO_CREATED'
         serviceResult = dispatcher.runSync('updateQuote', serviceCtx)
@@ -167,9 +175,10 @@ class QuoteTests implements JupiterTestHelper {
     @Test
     @Order(7)
     void testCopyQuote() {
+        String quoteId = testParams.quoteId ?: '9000'
         Map serviceCtx = [
                 userLogin: userLogin,
-                quoteId: '9000'
+                quoteId: quoteId
         ]
         Map serviceResult = dispatcher.runSync('copyQuote', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
@@ -179,31 +188,37 @@ class QuoteTests implements JupiterTestHelper {
     @Test
     @Order(8)
     void testCreateQuoteItem() {
+        String quoteId = testParams.quoteId ?: '9000'
+        String quoteItemSeqId = testParams.quoteItemSeqId ?: '00004'
+        String productId = testParams.productId ?: 'GZ-1001'
         Map serviceCtx = [
                 userLogin: userLogin,
-                quoteId: '9000',
-                quoteItemSeqId: '00004',
-                productId: 'GZ-1001'
+                quoteId: quoteId,
+                quoteItemSeqId: quoteItemSeqId,
+                productId: productId
         ]
         Map serviceResult = dispatcher.runSync('createQuoteItem', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
-        GenericValue quoteItem = from('QuoteItem').where(quoteId: '9000', quoteItemSeqId: '00004').queryOne()
+        GenericValue quoteItem = from('QuoteItem').where(quoteId: quoteId, quoteItemSeqId: quoteItemSeqId).queryOne()
         assert quoteItem.quoteUnitPrice
     }
 
     @Test
     @Order(9)
     void testUpdateQuoteItem() {
+        String quoteId = testParams.quoteId ?: '9000'
+        String quoteItemSeqId = testParams.quoteItemSeqId ?: '00002'
+        String productId = testParams.productId ?: 'GZ-1001'
         Map serviceCtx = [
                 userLogin: userLogin,
-                quoteId: '9000',
-                quoteItemSeqId: '00002',
-                productId: 'GZ-1001'
+                quoteId: quoteId,
+                quoteItemSeqId: quoteItemSeqId,
+                productId: productId
         ]
         Map serviceResult = dispatcher.runSync('updateQuoteItem', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
-        GenericValue quoteItem = from('QuoteItem').where(quoteId: '9000', quoteItemSeqId: '00002').queryOne()
-        assert quoteItem.productId == 'GZ-1001'
+        GenericValue quoteItem = from('QuoteItem').where(quoteId: quoteId, quoteItemSeqId: quoteItemSeqId).queryOne()
+        assert quoteItem.productId == productId
     }
 
     @Test
@@ -212,36 +227,44 @@ class QuoteTests implements JupiterTestHelper {
     // ("Value not found, cannot update") if it no longer exists.
     @Order(12)
     void testRemoveQuoteItem() {
+        String quoteId = testParams.quoteId ?: '9000'
+        String quoteItemSeqId = testParams.quoteItemSeqId ?: '00002'
+        String termTypeId = testParams.termTypeId ?: 'FIN_PAYMENT_DISC'
         Map serviceCtx = [
                 userLogin: userLogin,
-                quoteId: '9000',
-                quoteItemSeqId: '00002'
+                quoteId: quoteId,
+                quoteItemSeqId: quoteItemSeqId
         ]
         Map serviceResult = dispatcher.runSync('removeQuoteItem', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
-        GenericValue quoteItem = from('QuoteItem').where(quoteId: '9000', quoteItemSeqId: '00002').queryOne()
+        GenericValue quoteItem = from('QuoteItem').where(quoteId: quoteId, quoteItemSeqId: quoteItemSeqId).queryOne()
         assert !quoteItem
-        GenericValue quoteTerm = from('QuoteTerm').where(quoteId: '9000', quoteItemSeqId: '00002', termTypeId: 'FIN_PAYMENT_DISC').queryOne()
+        GenericValue quoteTerm = from('QuoteTerm').where(quoteId: quoteId, quoteItemSeqId: quoteItemSeqId, termTypeId: termTypeId).queryOne()
         assert !quoteTerm
     }
 
     @Test
     @Order(11)
     void testCreateQuoteTerm() {
+        String termTypeId = testParams.termTypeId ?: 'FIN_PAYMENT_DISC'
+        String quoteId = testParams.quoteId ?: '9000'
+        String quoteItemSeqId = testParams.quoteItemSeqId ?: '00001'
+        String uomId = testParams.uomId ?: 'CNY'
+        String description = testParams.description ?: 'create quoteTerm'
         Map serviceCtx = [
                 userLogin: userLogin,
-                termTypeId: 'FIN_PAYMENT_DISC',
-                quoteId: '9000',
-                quoteItemSeqId: '00001',
+                termTypeId: termTypeId,
+                quoteId: quoteId,
+                quoteItemSeqId: quoteItemSeqId,
                 termValue: 40L,
                 termDays: 4L,
-                uomId: 'CNY',
-                description: 'create quoteTerm'
+                uomId: uomId,
+                description: description
         ]
 
         Map serviceResult = dispatcher.runSync('createQuoteTerm', serviceCtx)
         List<GenericValue> terms = from('QuoteTerm')
-                .where(termTypeId: 'FIN_PAYMENT_DISC', quoteId: '9000', quoteItemSeqId: '00001').queryList()
+                .where(termTypeId: termTypeId, quoteId: quoteId, quoteItemSeqId: quoteItemSeqId).queryList()
 
         assert ServiceUtil.isSuccess(serviceResult)
         assert terms
@@ -256,14 +279,19 @@ class QuoteTests implements JupiterTestHelper {
     @Test
     @Order(10)
     void testUpdateQuoteTerm() {
+        String termTypeId = testParams.termTypeId ?: 'FIN_PAYMENT_DISC'
+        String quoteId = testParams.quoteId ?: '9000'
+        String quoteItemSeqId = testParams.quoteItemSeqId ?: '00002'
+        String uomId = testParams.uomId ?: 'CNY'
+        String description = testParams.description ?: 'update quoteterm'
         Map serviceCtx = [
-            termTypeId: 'FIN_PAYMENT_DISC',
-            quoteId: '9000',
-            quoteItemSeqId: '00002',
+            termTypeId: termTypeId,
+            quoteId: quoteId,
+            quoteItemSeqId: quoteItemSeqId,
             termValue: 30L,
             termDays: 3L,
-            uomId: 'CNY',
-            description: 'update quoteterm',
+            uomId: uomId,
+            description: description,
             userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('updateQuoteTerm', serviceCtx)
@@ -288,11 +316,14 @@ class QuoteTests implements JupiterTestHelper {
     @Test
     @Order(13)
     void testDeleteQuoteTerm() {
+        String termTypeId = testParams.termTypeId ?: 'FIN_PAYMENT_DISC'
+        String quoteId = testParams.quoteId ?: '9000'
+        String quoteItemSeqId = testParams.quoteItemSeqId ?: '00003'
         Map serviceCtx = [
                 userLogin: userLogin,
-                termTypeId: 'FIN_PAYMENT_DISC',
-                quoteId: '9000',
-                quoteItemSeqId: '00003'
+                termTypeId: termTypeId,
+                quoteId: quoteId,
+                quoteItemSeqId: quoteItemSeqId
         ]
 
         Map serviceResult = dispatcher.runSync('deleteQuoteTerm', serviceCtx)
@@ -305,10 +336,12 @@ class QuoteTests implements JupiterTestHelper {
     @Test
     @Order(14)
     void testCreateQuoteAttribute() {
+        String quoteId = testParams.quoteId ?: '9001'
+        String attrName = testParams.attrName ?: 'Test'
         Map serviceCtx = [
                 userLogin: userLogin,
-                quoteId: '9001',
-                attrName: 'Test'
+                quoteId: quoteId,
+                attrName: attrName
         ]
 
         Map serviceResult = dispatcher.runSync('createQuoteAttribute', serviceCtx)
@@ -318,10 +351,12 @@ class QuoteTests implements JupiterTestHelper {
     @Test
     @Order(15)
     void testCreateQuoteCoefficient() {
+        String quoteId = testParams.quoteId ?: '9001'
+        String coeffName = testParams.coeffName ?: 'Test'
         Map serviceCtx = [
                 userLogin: userLogin,
-                quoteId: '9001',
-                coeffName: 'Test'
+                quoteId: quoteId,
+                coeffName: coeffName
         ]
 
         Map serviceResult = dispatcher.runSync('createQuoteCoefficient', serviceCtx)
@@ -331,9 +366,10 @@ class QuoteTests implements JupiterTestHelper {
     @Test
     @Order(16)
     void testGetNextQuoteId() {
+        String partyId = testParams.partyId ?: 'DemoCustomer-1'
         Map serviceCtx = [
                 userLogin: userLogin,
-                partyId: 'DemoCustomer-1'
+                partyId: partyId
         ]
 
         Map serviceResult = dispatcher.runSync('getNextQuoteId', serviceCtx)
@@ -344,12 +380,13 @@ class QuoteTests implements JupiterTestHelper {
     @Test
     @Order(17)
     void testQuoteSequenceEnforced() {
-        GenericValue partyAcctgPreference = from('PartyAcctgPreference').where('partyId', 'DemoCustomer').queryOne()
+        String partyId = testParams.partyId ?: 'DemoCustomer'
+        GenericValue partyAcctgPreference = from('PartyAcctgPreference').where('partyId', partyId).queryOne()
         Long lastQuoteNumber = partyAcctgPreference.lastQuoteNumber ?: 0
 
         Map serviceCtx = [
                 userLogin: userLogin,
-                partyId: 'DemoCustomer',
+                partyId: partyId,
                 partyAcctgPreference: partyAcctgPreference
         ]
 
@@ -361,33 +398,40 @@ class QuoteTests implements JupiterTestHelper {
     @Test
     @Order(18)
     void testCopyQuoteItem() {
+        String quoteId = testParams.quoteId ?: '9001'
+        String quoteItemSeqId = testParams.quoteItemSeqId ?: '00001'
+        String quoteIdTo = testParams.quoteIdTo ?: '9001'
+        String quoteItemSeqIdTo = testParams.quoteItemSeqIdTo ?: '00002'
+        String copyQuoteAdjustments = testParams.copyQuoteAdjustments ?: 'Y'
         Map serviceCtx = [
                 userLogin: userLogin,
-                quoteId: '9001',
-                quoteItemSeqId: '00001',
-                quoteIdTo: '9001',
-                quoteItemSeqIdTo: '00002',
-                copyQuoteAdjustments: 'Y'
+                quoteId: quoteId,
+                quoteItemSeqId: quoteItemSeqId,
+                quoteIdTo: quoteIdTo,
+                quoteItemSeqIdTo: quoteItemSeqIdTo,
+                copyQuoteAdjustments: copyQuoteAdjustments
         ]
 
         Map serviceResult = dispatcher.runSync('copyQuoteItem', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
         GenericValue quoteAdjustment = from('QuoteAdjustment')
-                .where('quoteId', '9001', 'quoteItemSeqId', '00002', 'quoteAdjustmentTypeId', 'SALES_TAX').queryFirst()
+                .where('quoteId', quoteId, 'quoteItemSeqId', quoteItemSeqIdTo, 'quoteAdjustmentTypeId', 'SALES_TAX').queryFirst()
         assert quoteAdjustment
     }
 
     @Test
     @Order(19)
     void testCreateQuoteAndQuoteItemForRequest() {
+        String custRequestId = testParams.custRequestId ?: '9000'
+        String custRequestItemSeqId = testParams.custRequestItemSeqId ?: '00001'
         Map serviceCtx = [
                 userLogin: userLogin,
-                custRequestId: '9000',
-                custRequestItemSeqId: '00001'
+                custRequestId: custRequestId,
+                custRequestItemSeqId: custRequestItemSeqId
         ]
         Map serviceResult = dispatcher.runSync('createQuoteAndQuoteItemForRequest', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
-        GenericValue quoteItem = from('QuoteItem').where('quoteId', serviceResult.quoteId, 'custRequestItemSeqId', '00001').queryFirst()
+        GenericValue quoteItem = from('QuoteItem').where('quoteId', serviceResult.quoteId, 'custRequestItemSeqId', custRequestItemSeqId).queryFirst()
         assert quoteItem
     }
 
@@ -395,6 +439,7 @@ class QuoteTests implements JupiterTestHelper {
     @Test
     @Order(20)
     void testCreateQuoteFromCart() {
+        String applyStorePromotions = testParams.applyStorePromotions ?: 'Y'
         String productId = 'SV-1001'
         String partyId = 'DemoCustomer'
 
@@ -414,7 +459,7 @@ class QuoteTests implements JupiterTestHelper {
         Map serviceCtx = [
             userLogin: userLogin,
             cart: cart,
-            applyStorePromotions: 'Y'
+            applyStorePromotions: applyStorePromotions
         ]
         Map serviceResult = dispatcher.runSync('createQuoteFromCart', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
@@ -427,10 +472,12 @@ class QuoteTests implements JupiterTestHelper {
     @Test
     @Order(21)
     void testCreateQuoteFromShoppingList() {
+        String shoppingListId = testParams.shoppingListId ?: '9000'
+        String applyStorePromotions = testParams.applyStorePromotions ?: 'Y'
         Map serviceCtx = [
             userLogin: userLogin,
-            shoppingListId: '9000',
-            applyStorePromotions: 'Y'
+            shoppingListId: shoppingListId,
+            applyStorePromotions: applyStorePromotions
         ]
         Map serviceResult = dispatcher.runSync('createQuoteFromShoppingList', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
@@ -443,53 +490,60 @@ class QuoteTests implements JupiterTestHelper {
     @Test
     @Order(22)
     void testAutoUpdateQuotePrice() {
+        String quoteId = testParams.quoteId ?: '9000'
+        String quoteItemSeqId = testParams.quoteItemSeqId ?: '00001'
         Map serviceCtx = [
             userLogin: userLogin,
-            quoteId: '9000',
-            quoteItemSeqId: '00001',
+            quoteId: quoteId,
+            quoteItemSeqId: quoteItemSeqId,
             defaultQuoteUnitPrice: BigDecimal.valueOf(12)
         ]
         Map serviceResult = dispatcher.runSync('autoUpdateQuotePrice', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
-        GenericValue quoteItem = from('QuoteItem').where('quoteId', '9000', 'quoteItemSeqId', '00001').queryOne()
+        GenericValue quoteItem = from('QuoteItem').where('quoteId', quoteId, 'quoteItemSeqId', quoteItemSeqId).queryOne()
         assert quoteItem.quoteUnitPrice == 12
     }
 
     @Test
     @Order(23)
     void testCreateQuoteFromCustRequest() {
+        String custRequestId = testParams.custRequestId ?: '9000'
         Map serviceCtx = [
                 userLogin: userLogin,
-                custRequestId: '9000'
+                custRequestId: custRequestId
         ]
         Map serviceResult = dispatcher.runSync('createQuoteFromCustRequest', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
-        GenericValue quoteItem = from('QuoteItem').where('quoteId', serviceResult.quoteId, 'custRequestId', '9000').queryFirst()
+        GenericValue quoteItem = from('QuoteItem').where('quoteId', serviceResult.quoteId, 'custRequestId', custRequestId).queryFirst()
         assert quoteItem
     }
 
     @Test
     @Order(24)
     void testAutoCreateQuoteAdjustments() {
+        String quoteId = testParams.quoteId ?: '9001'
         Map serviceCtx = [
             userLogin: userLogin,
-            quoteId: '9001'
+            quoteId: quoteId
         ]
         Map serviceResult = dispatcher.runSync('autoCreateQuoteAdjustments', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
         GenericValue promoQuoteAdjustment = from('QuoteAdjustment')
-                .where('quoteId', '9001', 'quoteAdjustmentTypeId', 'PROMOTION_ADJUSTMENT').queryFirst()
+                .where('quoteId', quoteId, 'quoteAdjustmentTypeId', 'PROMOTION_ADJUSTMENT').queryFirst()
         assert promoQuoteAdjustment
     }
 
     @Test
     @Order(25)
     void testCreateQuoteNote() {
+        String quoteId = testParams.quoteId ?: '9001'
+        String noteName = testParams.noteName ?: 'Test Note'
+        String noteInfo = testParams.noteInfo ?: 'This is a test'
         Map serviceCtx = [
                 userLogin: userLogin,
-                quoteId: '9001',
-                noteName: 'Test Note',
-                noteInfo: 'This is a test'
+                quoteId: quoteId,
+                noteName: noteName,
+                noteInfo: noteInfo
         ]
 
         Map serviceResult = dispatcher.runSync('createQuoteNote', serviceCtx)

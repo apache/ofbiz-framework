@@ -30,6 +30,8 @@ class RequirementStatusEcaTests implements JupiterTestHelper {
 
     @Test
     void testCreateRequirementStatusAfterOuterTransactionCommit() {
+        String requirementTypeId = testParams.requirementTypeId ?: 'CUSTOMER_REQUIREMENT'
+        String statusId = testParams.statusId ?: 'REQ_PROPOSED'
         ensureRequirementReferenceData()
         GenericValue userLogin = ensureUserLogin('mrpRequirementStatusTest')
         assert userLogin
@@ -40,8 +42,8 @@ class RequirementStatusEcaTests implements JupiterTestHelper {
         try {
             beganTransaction = TransactionUtil.begin()
             Map serviceCtx = [
-                requirementTypeId: 'CUSTOMER_REQUIREMENT',
-                statusId: 'REQ_PROPOSED',
+                requirementTypeId: requirementTypeId,
+                statusId: statusId,
                 userLogin: userLogin
             ]
             Map serviceResult = dispatcher.runSync('createRequirement', serviceCtx)
@@ -52,7 +54,7 @@ class RequirementStatusEcaTests implements JupiterTestHelper {
             assert from('Requirement').where('requirementId', requirementId).queryCount() == 1
 
             sleep(500L)
-            assert from('RequirementStatus').where('requirementId', requirementId, 'statusId', 'REQ_PROPOSED').queryCount() == 0
+            assert from('RequirementStatus').where('requirementId', requirementId, 'statusId', statusId).queryCount() == 0
 
             TransactionUtil.commit(beganTransaction)
             beganTransaction = false
@@ -62,7 +64,7 @@ class RequirementStatusEcaTests implements JupiterTestHelper {
             }
         }
 
-        assert waitForRequirementStatus(requirementId, 'REQ_PROPOSED')
+        assert waitForRequirementStatus(requirementId, statusId)
     }
 
     private boolean waitForRequirementStatus(String requirementId, String statusId) {

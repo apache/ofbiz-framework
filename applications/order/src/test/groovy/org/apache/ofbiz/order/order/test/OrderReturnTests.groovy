@@ -30,9 +30,11 @@ class OrderReturnTests implements JupiterTestHelper {
     @Test
     @Order(1)
     void testQuickReturnOrder() {
+        String orderId = testParams.orderId ?: 'TEST_DEMO10090'
+        String returnHeaderTypeId = testParams.returnHeaderTypeId ?: 'CUSTOMER_RETURN'
         Map serviceCtx = [
-            orderId: 'TEST_DEMO10090',
-            returnHeaderTypeId: 'CUSTOMER_RETURN',
+            orderId: orderId,
+            returnHeaderTypeId: returnHeaderTypeId,
             userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('quickReturnOrder', serviceCtx)
@@ -42,8 +44,9 @@ class OrderReturnTests implements JupiterTestHelper {
     @Test
     @Order(2)
     void testProcessCreditReturn() {
+        String returnId = testParams.returnId ?: '1009'
         Map serviceCtx = [
-                returnId: '1009',
+                returnId: returnId,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('processCreditReturn', serviceCtx)
@@ -52,8 +55,9 @@ class OrderReturnTests implements JupiterTestHelper {
     @Test
     @Order(3)
     void testProcessCrossShipReplacementReturn() {
+        String returnId = testParams.returnId ?: '1009'
         Map serviceCtx = [
-                returnId: '1009',
+                returnId: returnId,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('processCrossShipReplacementReturn', serviceCtx)
@@ -62,8 +66,9 @@ class OrderReturnTests implements JupiterTestHelper {
     @Test
     @Order(4)
     void testProcessRefundImmediatelyReturn() {
+        String returnId = testParams.returnId ?: '1009'
         Map serviceCtx = [
-                returnId: '1009',
+                returnId: returnId,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('processRefundImmediatelyReturn', serviceCtx)
@@ -72,9 +77,11 @@ class OrderReturnTests implements JupiterTestHelper {
     @Test
     @Order(5)
     void testGetReturnItemInitialCost() {
+        String returnId = testParams.returnId ?: '1009'
+        String returnItemSeqId = testParams.returnItemSeqId ?: '00001'
         Map serviceCtx = [
-                returnId: '1009',
-                returnItemSeqId: '00001',
+                returnId: returnId,
+                returnItemSeqId: returnItemSeqId,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('getReturnItemInitialCost', serviceCtx)
@@ -84,9 +91,11 @@ class OrderReturnTests implements JupiterTestHelper {
     @Test
     @Order(6)
     void testProcessRefundReturn() {
+        String returnId = testParams.returnId ?: '1009'
+        String returnTypeId = testParams.returnTypeId ?: 'RTN_REFUND'
         Map serviceCtx = [
-                returnId: '1009',
-                returnTypeId: 'RTN_REFUND',
+                returnId: returnId,
+                returnTypeId: returnTypeId,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('processRefundReturn', serviceCtx)
@@ -95,9 +104,11 @@ class OrderReturnTests implements JupiterTestHelper {
     @Test
     @Order(7)
     void testProcessReplacementReturn() {
+        String returnId = testParams.returnId ?: '1009'
+        String returnTypeId = testParams.returnTypeId ?: 'RTN_REFUND'
         Map serviceCtx = [
-                returnId: '1009',
-                returnTypeId: 'RTN_REFUND',
+                returnId: returnId,
+                returnTypeId: returnTypeId,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('processReplacementReturn', serviceCtx)
@@ -106,9 +117,11 @@ class OrderReturnTests implements JupiterTestHelper {
     @Test
     @Order(8)
     void testProcessReplaceImmediatelyReturn() {
+        String returnId = testParams.returnId ?: '1009'
+        String orderItemSeqId = testParams.orderItemSeqId ?: '00001'
         Map serviceCtx = [
-                returnId: '1009',
-                orderItemSeqId: '00001',
+                returnId: returnId,
+                orderItemSeqId: orderItemSeqId,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('processReplaceImmediatelyReturn', serviceCtx)
@@ -117,8 +130,9 @@ class OrderReturnTests implements JupiterTestHelper {
     @Test
     @Order(9)
     void testProcessRefundOnlyReturn() {
+        String returnId = testParams.returnId ?: '1009'
         Map serviceCtx = [
-                returnId: '1009',
+                returnId: returnId,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('processRefundOnlyReturn', serviceCtx)
@@ -127,8 +141,9 @@ class OrderReturnTests implements JupiterTestHelper {
     @Test
     @Order(10)
     void testProcessWaitReplacementReturn() {
+        String returnId = testParams.returnId ?: '1009'
         Map serviceCtx = [
-                returnId: '1009',
+                returnId: returnId,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('processWaitReplacementReturn', serviceCtx)
@@ -137,8 +152,9 @@ class OrderReturnTests implements JupiterTestHelper {
     @Test
     @Order(11)
     void testProcessWaitReplacementReservedReturn() {
+        String returnId = testParams.returnId ?: '1009'
         Map serviceCtx = [
-                returnId: '1009',
+                returnId: returnId,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('processWaitReplacementReservedReturn', serviceCtx)
@@ -148,8 +164,9 @@ class OrderReturnTests implements JupiterTestHelper {
     @Test
     @Order(12)
     void testProcessSubscriptionReturn() {
+        String returnId = testParams.returnId ?: '1009'
         Map serviceCtx = [
-                returnId: '1009',
+                returnId: returnId,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('processSubscriptionReturn', serviceCtx)
@@ -158,9 +175,11 @@ class OrderReturnTests implements JupiterTestHelper {
     @Test
     @Order(13)
     void testCreateReturnAndItemOrAdjustment() {
+        String orderId = testParams.orderId ?: 'DEMO10090'
+        String returnId = testParams.returnId ?: '1009'
         Map serviceCtx = [
-                orderId: 'DEMO10090',
-                returnId: '1009',
+                orderId: orderId,
+                returnId: returnId,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('createReturnAndItemOrAdjustment', serviceCtx)
@@ -170,9 +189,11 @@ class OrderReturnTests implements JupiterTestHelper {
     @Test
     @Order(14)
     void testCreateReturnAdjustment() {
+        String amount = testParams.amount ?: '2.0000'
+        String returnId = testParams.returnId ?: '1009'
         Map serviceCtx = [
-                amount: '2.0000',
-                returnId: '1009',
+                amount: amount,
+                returnId: returnId,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('createReturnAdjustment', serviceCtx)
@@ -182,9 +203,11 @@ class OrderReturnTests implements JupiterTestHelper {
     @Test
     @Order(15)
     void testCheckReturnComplete() {
+        String amount = testParams.amount ?: '2.0000'
+        String returnId = testParams.returnId ?: '1009'
         Map serviceCtx = [
-                amount: '2.0000',
-                returnId: '1009',
+                amount: amount,
+                returnId: returnId,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('checkReturnComplete', serviceCtx)
@@ -194,8 +217,9 @@ class OrderReturnTests implements JupiterTestHelper {
     @Test
     @Order(16)
     void testCheckPaymentAmountForRefund() {
+        String returnId = testParams.returnId ?: '1009'
         Map serviceCtx = [
-                returnId: '1009',
+                returnId: returnId,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('checkPaymentAmountForRefund', serviceCtx)
@@ -204,11 +228,15 @@ class OrderReturnTests implements JupiterTestHelper {
     @Test
     @Order(17)
     void testCreateReturnItemShipment() {
+        String shipmentId = testParams.shipmentId ?: '1014'
+        String shipmentItemSeqId = testParams.shipmentItemSeqId ?: '00001'
+        String returnId = testParams.returnId ?: '1009'
+        String returnItemSeqId = testParams.returnItemSeqId ?: '00001'
         Map serviceCtx = [
-                shipmentId: '1014',
-                shipmentItemSeqId: '00001',
-                returnId: '1009',
-                returnItemSeqId: '00001',
+                shipmentId: shipmentId,
+                shipmentItemSeqId: shipmentItemSeqId,
+                returnId: returnId,
+                returnItemSeqId: returnItemSeqId,
                 quantity: 2.0000,
                 userLogin: userLogin
         ]
@@ -218,8 +246,9 @@ class OrderReturnTests implements JupiterTestHelper {
     @Test
     @Order(18)
     void testCreateReturnStatus() {
+        String returnId = testParams.returnId ?: '1009'
         Map serviceCtx = [
-                returnId: '1009',
+                returnId: returnId,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('createReturnStatus', serviceCtx)
@@ -228,8 +257,9 @@ class OrderReturnTests implements JupiterTestHelper {
     @Test
     @Order(19)
     void testGetReturnAmountByOrder() {
+        String returnId = testParams.returnId ?: '1009'
         Map serviceCtx = [
-                returnId: '1009',
+                returnId: returnId,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('getReturnAmountByOrder', serviceCtx)
@@ -238,9 +268,11 @@ class OrderReturnTests implements JupiterTestHelper {
     @Test
     @Order(20)
     void testCreateReturnHeader() {
+        String toPartyId = testParams.toPartyId ?: 'Company'
+        String returnHeaderTypeId = testParams.returnHeaderTypeId ?: 'CUSTOMER_RETURN'
         Map serviceCtx = [
-                toPartyId: 'Company',
-                returnHeaderTypeId: 'CUSTOMER_RETURN',
+                toPartyId: toPartyId,
+                returnHeaderTypeId: returnHeaderTypeId,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('createReturnHeader', serviceCtx)
@@ -250,8 +282,9 @@ class OrderReturnTests implements JupiterTestHelper {
     @Test
     @Order(21)
     void testProcessRefundReturnForReplacement() {
+        String orderId = testParams.orderId ?: 'TEST_DEMO10090'
         Map serviceCtx = [
-                orderId: 'TEST_DEMO10090',
+                orderId: orderId,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('processRefundReturnForReplacement', serviceCtx)
@@ -260,8 +293,9 @@ class OrderReturnTests implements JupiterTestHelper {
     @Test
     @Order(22)
     void testProcessRepairReplacementReturn() {
+        String returnId = testParams.returnId ?: '1009'
         Map serviceCtx = [
-                returnId: '1009',
+                returnId: returnId,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('processRepairReplacementReturn', serviceCtx)

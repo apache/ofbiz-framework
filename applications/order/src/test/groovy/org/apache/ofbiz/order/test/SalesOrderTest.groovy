@@ -29,25 +29,56 @@ class SalesOrderTest implements JupiterTestHelper {
 
     @Test
     void testCreateSalesOrder() {
+        String partyId = testParams.partyId ?: 'DemoCustomer'
+        String orderTypeId = testParams.orderTypeId ?: 'SALES_ORDER'
+        String currencyUom = testParams.currencyUom ?: 'USD'
+        String productStoreId = testParams.productStoreId ?: '9000'
+        String contactMechId = testParams.contactMechId ?: '9015'
+        String contactMechPurposeTypeId = testParams.contactMechPurposeTypeId ?: 'BILLING_LOCATION'
+        String paymentMethodId = testParams.paymentMethodId ?: '9015'
+        String paymentMethodTypeId = testParams.paymentMethodTypeId ?: 'CREDIT_CARD'
+        String statusId = testParams.statusId ?: 'PAYMENT_NOT_AUTH'
+        String overflowFlag = testParams.overflowFlag ?: 'N'
+        String carrierPartyId = testParams.carrierPartyId ?: 'UPS'
+        String isGift = testParams.isGift ?: 'N'
+        String shipGroupSeqId = testParams.shipGroupSeqId ?: '00001'
+        String shipmentMethodTypeId = testParams.shipmentMethodTypeId ?: 'NEXT_DAY'
+        String orderItemSeqId = testParams.orderItemSeqId ?: '00001'
+        String orderAdjustmentTypeId = testParams.orderAdjustmentTypeId ?: 'SHIPPING_CHARGES'
+        String orderAdjustmentTypeId1 = testParams.orderAdjustmentTypeId1 ?: 'SALES_TAX'
+        String overrideGlAccountId = testParams.overrideGlAccountId ?: '224153'
+        String primaryGeoId = testParams.primaryGeoId ?: 'UT'
+        String primaryGeoId1 = testParams.primaryGeoId1 ?: 'UT-UTAH'
+        String overrideGlAccountId1 = testParams.overrideGlAccountId1 ?: '224000'
+        String primaryGeoId2 = testParams.primaryGeoId2 ?: '_NA_'
+        String orderAdjustmentTypeId4 = testParams.orderAdjustmentTypeId4 ?: 'PROMOTION_ADJUSTMENT'
+        String productPromoActionSeqId = testParams.productPromoActionSeqId ?: '01'
+        String productPromoId = testParams.productPromoId ?: '9011'
+        String productPromoRuleId = testParams.productPromoRuleId ?: '01'
+        String orderItemTypeId = testParams.orderItemTypeId ?: 'PRODUCT_ORDER_ITEM'
+        String prodCatalogId = testParams.prodCatalogId ?: 'DemoCatalog'
+        String productId = testParams.productId ?: 'GZ-2644'
+        String orderItemSeqId1 = testParams.orderItemSeqId1 ?: '00002'
+        String productId1 = testParams.productId1 ?: 'GZ-1006-1'
         Map serviceCtx = [
-                partyId: 'DemoCustomer',
-                orderTypeId: 'SALES_ORDER',
-                currencyUom: 'USD',
-                productStoreId: '9000'
+                partyId: partyId,
+                orderTypeId: orderTypeId,
+                currencyUom: currencyUom,
+                productStoreId: productStoreId
         ]
 
         List orderPaymentInfo = []
         GenericValue orderContactMech = delegator.makeValue('OrderContactMech', [
-                contactMechId: '9015',
-                contactMechPurposeTypeId: 'BILLING_LOCATION'
+                contactMechId: contactMechId,
+                contactMechPurposeTypeId: contactMechPurposeTypeId
         ])
         orderPaymentInfo << orderContactMech
 
         GenericValue orderPaymentPreference = delegator.makeValue('OrderPaymentPreference', [
-                paymentMethodId: '9015',
-                paymentMethodTypeId: 'CREDIT_CARD',
-                statusId: 'PAYMENT_NOT_AUTH',
-                overflowFlag: 'N',
+                paymentMethodId: paymentMethodId,
+                paymentMethodTypeId: paymentMethodTypeId,
+                statusId: statusId,
+                overflowFlag: overflowFlag,
                 maxAmount: 49.26
         ])
         orderPaymentInfo << orderPaymentPreference
@@ -58,37 +89,37 @@ class SalesOrderTest implements JupiterTestHelper {
         orderItemShipGroupInfo << orderContactMech
 
         GenericValue orderItemShipGroup = delegator.makeValue('OrderItemShipGroup', [
-                carrierPartyId: 'UPS',
-                contactMechId: '9015',
-                isGift: 'N',
-                shipGroupSeqId: '00001',
-                shipmentMethodTypeId: 'NEXT_DAY'
+                carrierPartyId: carrierPartyId,
+                contactMechId: contactMechId,
+                isGift: isGift,
+                shipGroupSeqId: shipGroupSeqId,
+                shipmentMethodTypeId: shipmentMethodTypeId
         ])
         orderItemShipGroupInfo << orderItemShipGroup
 
         GenericValue orderItemShipGroupAssoc = delegator.makeValue('OrderItemShipGroupAssoc', [
-                orderItemSeqId: '00001',
+                orderItemSeqId: orderItemSeqId,
                 quantity: BigDecimal.ONE,
-                shipGroupSeqId: '00001'
+                shipGroupSeqId: shipGroupSeqId
         ])
         orderItemShipGroupInfo << orderItemShipGroupAssoc
 
         GenericValue shippingCharges = delegator.makeValue('OrderAdjustment', [
-                orderAdjustmentTypeId: 'SHIPPING_CHARGES',
-                shipGroupSeqId: '00001',
+                orderAdjustmentTypeId: orderAdjustmentTypeId,
+                shipGroupSeqId: shipGroupSeqId,
                 amount: 12.45
         ])
         orderItemShipGroupInfo << shippingCharges
 
         GenericValue salesTaxUt = delegator.makeValue('OrderAdjustment', [
-                orderAdjustmentTypeId: 'SALES_TAX',
-                orderItemSeqId: '00001',
-                overrideGlAccountId: '224153',
-                primaryGeoId: 'UT',
-                shipGroupSeqId: '00001',
+                orderAdjustmentTypeId: orderAdjustmentTypeId1,
+                orderItemSeqId: orderItemSeqId,
+                overrideGlAccountId: overrideGlAccountId,
+                primaryGeoId: primaryGeoId,
+                shipGroupSeqId: shipGroupSeqId,
                 sourcePercentage: BigDecimal.valueOf(4.7)
         ])
-        salesTaxUt.taxAuthGeoId = 'UT'
+        salesTaxUt.taxAuthGeoId = primaryGeoId
         salesTaxUt.taxAuthPartyId = 'UT_TAXMAN'
         salesTaxUt.taxAuthorityRateSeqId = '9004'
         salesTaxUt.amount = BigDecimal.valueOf(1.824)
@@ -96,14 +127,14 @@ class SalesOrderTest implements JupiterTestHelper {
         orderItemShipGroupInfo << salesTaxUt
 
         GenericValue salesTaxUtahCounty = delegator.makeValue('OrderAdjustment', [
-                orderAdjustmentTypeId: 'SALES_TAX',
-                orderItemSeqId: '00001',
-                overrideGlAccountId: '224153',
-                primaryGeoId: 'UT-UTAH',
-                shipGroupSeqId: '00001',
+                orderAdjustmentTypeId: orderAdjustmentTypeId1,
+                orderItemSeqId: orderItemSeqId,
+                overrideGlAccountId: overrideGlAccountId,
+                primaryGeoId: primaryGeoId1,
+                shipGroupSeqId: shipGroupSeqId,
                 sourcePercentage: BigDecimal.valueOf(0.1)
         ])
-        salesTaxUtahCounty.taxAuthGeoId = 'UT-UTAH'
+        salesTaxUtahCounty.taxAuthGeoId = primaryGeoId1
         salesTaxUtahCounty.taxAuthPartyId = 'UT_UTAH_TAXMAN'
         salesTaxUtahCounty.taxAuthorityRateSeqId = '9005'
         salesTaxUtahCounty.amount = BigDecimal.valueOf(0.039)
@@ -111,16 +142,16 @@ class SalesOrderTest implements JupiterTestHelper {
         orderItemShipGroupInfo << salesTaxUtahCounty
 
         GenericValue ofbTax = delegator.makeValue('OrderAdjustment', [
-                orderAdjustmentTypeId: 'SALES_TAX',
-                orderItemSeqId: '00001',
-                overrideGlAccountId: '224000',
-                primaryGeoId: '_NA_',
-                shipGroupSeqId: '00001',
+                orderAdjustmentTypeId: orderAdjustmentTypeId1,
+                orderItemSeqId: orderItemSeqId,
+                overrideGlAccountId: overrideGlAccountId1,
+                primaryGeoId: primaryGeoId2,
+                shipGroupSeqId: shipGroupSeqId,
                 sourcePercentage: BigDecimal.valueOf(1)
         ])
-        ofbTax.taxAuthGeoId = '_NA_'
-        ofbTax.taxAuthPartyId = '_NA_'
-        ofbTax.taxAuthorityRateSeqId = '9000'
+        ofbTax.taxAuthGeoId = primaryGeoId2
+        ofbTax.taxAuthPartyId = primaryGeoId2
+        ofbTax.taxAuthorityRateSeqId = productStoreId
         ofbTax.amount = BigDecimal.valueOf(0.384)
         ofbTax.comments = '1% OFB _NA_ Tax'
         orderItemShipGroupInfo << ofbTax
@@ -128,38 +159,38 @@ class SalesOrderTest implements JupiterTestHelper {
         serviceCtx.orderItemShipGroupInfo = orderItemShipGroupInfo
 
         GenericValue promoAdjustment = delegator.makeValue('OrderAdjustment', [
-                orderAdjustmentTypeId: 'PROMOTION_ADJUSTMENT',
-                productPromoActionSeqId: '01',
-                productPromoId: '9011',
-                productPromoRuleId: '01',
+                orderAdjustmentTypeId: orderAdjustmentTypeId4,
+                productPromoActionSeqId: productPromoActionSeqId,
+                productPromoId: productPromoId,
+                productPromoRuleId: productPromoRuleId,
                 amount: BigDecimal.valueOf(-3.84)
         ])
         serviceCtx.orderAdjustments = [promoAdjustment]
 
         GenericValue orderItem1 = delegator.makeValue('OrderItem', [
-                orderItemSeqId: '00001',
-                orderItemTypeId: 'PRODUCT_ORDER_ITEM',
-                prodCatalogId: 'DemoCatalog',
-                productId: 'GZ-2644',
+                orderItemSeqId: orderItemSeqId,
+                orderItemTypeId: orderItemTypeId,
+                prodCatalogId: prodCatalogId,
+                productId: productId,
                 quantity: BigDecimal.ONE,
                 selectedAmount: BigDecimal.ZERO
         ])
-        orderItem1.isPromo = 'N'
-        orderItem1.isModifiedPrice = 'N'
+        orderItem1.isPromo = overflowFlag
+        orderItem1.isModifiedPrice = overflowFlag
         orderItem1.unitPrice = 38.4
         orderItem1.unitListPrice = 48.0
         orderItem1.statusId = 'ITEM_CREATED'
 
         GenericValue orderItem2 = delegator.makeValue('OrderItem', [
-                orderItemSeqId: '00002',
-                orderItemTypeId: 'PRODUCT_ORDER_ITEM',
-                prodCatalogId: 'DemoCatalog',
-                productId: 'GZ-1006-1',
+                orderItemSeqId: orderItemSeqId1,
+                orderItemTypeId: orderItemTypeId,
+                prodCatalogId: prodCatalogId,
+                productId: productId1,
                 quantity: BigDecimal.ONE,
                 selectedAmount: BigDecimal.ZERO
         ])
-        orderItem2.isPromo = 'N'
-        orderItem2.isModifiedPrice = 'N'
+        orderItem2.isPromo = overflowFlag
+        orderItem2.isModifiedPrice = overflowFlag
         orderItem2.unitPrice = 1.99
         orderItem2.unitListPrice = 5.99
         orderItem2.statusId = 'ITEM_CREATED'
@@ -167,10 +198,10 @@ class SalesOrderTest implements JupiterTestHelper {
         serviceCtx.orderItems = [orderItem1, orderItem2]
         serviceCtx.orderTerms = []
 
-        serviceCtx.placingCustomerPartyId = 'DemoCustomer'
-        serviceCtx.endUserCustomerPartyId = 'DemoCustomer'
-        serviceCtx.shipToCustomerPartyId = 'DemoCustomer'
-        serviceCtx.billToCustomerPartyId = 'DemoCustomer'
+        serviceCtx.placingCustomerPartyId = partyId
+        serviceCtx.endUserCustomerPartyId = partyId
+        serviceCtx.shipToCustomerPartyId = partyId
+        serviceCtx.billToCustomerPartyId = partyId
         serviceCtx.billFromVendorPartyId = 'Company'
         serviceCtx.userLogin = userLogin
 
