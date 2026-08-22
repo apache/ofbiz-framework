@@ -21,7 +21,6 @@ package org.apache.ofbiz.testtools;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -101,13 +100,15 @@ import org.apache.ofbiz.testtools.report.TestRunManifest;
  * independently) is not undone. Anyone deciding whether to enable {@code test.api.enabled} (see
  * testtools.properties) should weigh both of the limitations above.
  *
- * <p><b>Do not expose {@link #runTestSuite}/{@link #getTestRunStatus} directly in a component's own
- * {@code *.rest.xml}.</b> Both accept/report an arbitrary {@code componentName} and so can trigger or
- * poll any component's tests, not just the exposing component's own - a component-branded REST
- * endpoint must instead wrap {@link #runScopedTestSuite}/{@link #getScopedTestRunStatus} with its own
- * fixed component name, the way {@code plugins/example}'s {@code ExampleTestRunServices} does. Writing
- * {@code <service name="runTestSuite"/>} straight into a {@code *.rest.xml} reproduces the exact
- * cross-component-reach problem the scoped wrappers exist to close.
+ * <p><b>{@link #runTestSuite}/{@link #getTestRunStatus} are exposed directly</b>, via the single,
+ * generic, framework-owned {@code framework/testtools/api/testruns.rest.xml} endpoint
+ * ({@code POST /rest/testtools/testruns/{componentName}}, {@code GET /rest/testtools/testruns/{runId}}) -
+ * {@code componentName} comes from that URL's path parameter, not a hard-coded literal, so this one
+ * endpoint can trigger or poll any component's tests by design. <b>Do not</b>, however, write
+ * {@code <service name="runTestSuite"/>} (or {@code getTestRunStatus}) into a *component's own*
+ * {@code *.rest.xml}: doing so would let that component's branded URL accept an arbitrary
+ * {@code componentName} too, reaching every other component's tests through a URL that looks scoped
+ * to just this one.
  */
 public final class TestRunServices {
 
@@ -288,32 +289,6 @@ public final class TestRunServices {
     }
 
     /**
-     * Runs {@link #runTestSuite} with {@code componentName} forced to {@code fixedComponentName},
-     * regardless of whatever value (if any) the caller's own context map contains - a caller-supplied
-     * componentName is silently overwritten, never honored. Built for component-scoped wrapper
-     * services (e.g. plugins/example's runExampleTestSuite): builds a new context map rather than
-     * mutating the one it's given, the same defensive-copy discipline runTestSuite itself already
-     * applies to testParams - a caller-controlled map must never be assumed safe to mutate in place.
-     * @param dctx the dispatch context
-     * @param context the caller's service context - not mutated
-     * @param fixedComponentName the only component this call is allowed to resolve suites from
-     * @return the runTestSuite result
-     */
-    public static Map<String, Object> runScopedTestSuite(DispatchContext dctx, Map<String, ?> context,
-            String fixedComponentName) {
-        // Fail closed, not open: an empty/null fixedComponentName must never reach runTestSuite's
-        // context map. ComponentConfig.matchingComponentName treats a null cname as "match every
-        // component" - if this guard were skipped, the entire scoping mechanism runScopedTestSuite
-        // exists for would silently degrade to fully unscoped behavior instead of erroring out.
-        if (UtilValidate.isEmpty(fixedComponentName)) {
-            return ServiceUtil.returnError("runScopedTestSuite requires a fixed componentName");
-        }
-        Map<String, Object> scopedContext = new HashMap<>(context);
-        scopedContext.put("componentName", fixedComponentName);
-        return runTestSuite(dctx, scopedContext);
-    }
-
-    /**
      * Runs every ModelTestSuite the wrapper resolved (normally exactly one - see
      * JunitSuiteWrapper's suite-name filtering), reporting through a per-run SuiteXmlReportWriter
      * so JUnitXmlCounter/TestReportArchiver see only this run's results, then updates the tracker
@@ -490,39 +465,6 @@ public final class TestRunServices {
             resultSummary.put("errorMessage", record.errorMessage());
         }
         result.put("resultSummary", resultSummary);
-        return result;
-    }
-
-    /**
-     * Runs {@link #getTestRunStatus} and, if the run exists, checks its recorded componentName
-     * against {@code expectedComponentName} - on a mismatch, returns the exact same "No such runId"
-     * error a genuinely unknown runId would produce (never a distinguishable "wrong component"
-     * message), so polling can't be used to detect the mere existence of another component's runs. A
-     * permission-denied result from the underlying call passes through unchanged - the permission
-     * check still runs first, exactly as it does for the unscoped getTestRunStatus.
-     * @param dctx the dispatch context
-     * @param context the caller's service context
-     * @param expectedComponentName the only component this call is allowed to report on
-     * @return the getTestRunStatus result, or a masked "No such runId" error on a component mismatch
-     */
-    public static Map<String, Object> getScopedTestRunStatus(DispatchContext dctx, Map<String, ?> context,
-            String expectedComponentName) {
-        // Fail closed, not open: an empty/null expectedComponentName must never reach the
-        // equality check below - unlike runScopedTestSuite's fixedComponentName (which fails open
-        // by matching every component), a null here would instead throw a raw NullPointerException
-        // out of expectedComponentName.equals(...), a different and equally unacceptable failure
-        // mode. Guard against both up front so this helper always fails the same clean way.
-        if (UtilValidate.isEmpty(expectedComponentName)) {
-            return ServiceUtil.returnError("getScopedTestRunStatus requires an expectedComponentName");
-        }
-        Map<String, Object> result = getTestRunStatus(dctx, context);
-        if (ServiceUtil.isError(result)) {
-            return result;
-        }
-        if (!expectedComponentName.equals(result.get("componentName"))) {
-            String runId = (String) context.get("runId");
-            return ServiceUtil.returnError("No such runId: " + runId);
-        }
         return result;
     }
 

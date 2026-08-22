@@ -55,11 +55,12 @@ under the License.
             engine and returns a runId immediately; poll getTestRunStatus for progress/results.
             Gated by the test.api.enabled config flag and the TESTEXEC_ADMIN permission. When
             componentName is set, the per-component test.api.enabled.&lt;componentName&gt;
-            override (SystemProperty-overridable, defaults to enabled) is also consulted. Not
-            intended for direct *.rest.xml exposure - a component-branded REST endpoint must wrap
-            this with a component-scoped service (see TestRunServices.runScopedTestSuite and
-            plugins/example's ExampleTestRunServices for the pattern), or the endpoint can trigger
-            any component's tests. testMethodName optionally scopes the run to one
+            override (SystemProperty-overridable, defaults to enabled) is also consulted.
+            Exposed directly via the generic, framework-owned framework/testtools/api/testruns.rest.xml
+            endpoint (POST /rest/testtools/testruns/{componentName}) - a component's own *.rest.xml must
+            never expose this service directly, since componentName would then be freely caller-suppliable
+            through that component's branded URL, letting it trigger any other component's tests too.
+            testMethodName optionally scopes the run to one
             @Test/@ParameterizedTest method within the class testCaseName resolves to - requires
             testCaseName, and only applies when it resolves to a jupiter-test-suite.</description>
         <attribute name="componentName" type="String" mode="IN" optional="true"/>
@@ -73,11 +74,10 @@ under the License.
     <service name="getTestRunStatus" engine="java" auth="true"
              location="org.apache.ofbiz.testtools.TestRunServices" invoke="getTestRunStatus">
         <description>Reads a runTestSuite-triggered run's current status (QUEUED/RUNNING/PASSED/
-            FAILED/ERROR) and result summary from the in-memory TestRunTracker. Not intended for
-            direct *.rest.xml exposure - a component-branded REST endpoint must wrap this with a
-            component-scoped service (see TestRunServices.getScopedTestRunStatus and
-            plugins/example's ExampleTestRunServices for the pattern), or the endpoint can poll any
-            component's tests.</description>
+            FAILED/ERROR) and result summary from the in-memory TestRunTracker.
+            Exposed directly via the generic, framework-owned framework/testtools/api/testruns.rest.xml
+            endpoint (GET /rest/testtools/testruns/{runId}) - same caution as runTestSuite above applies to
+            any component-owned *.rest.xml.</description>
         <attribute name="runId" type="String" mode="IN" optional="false"/>
         <attribute name="status" type="String" mode="OUT" optional="true"/>
         <attribute name="componentName" type="String" mode="OUT" optional="true"/>
