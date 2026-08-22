@@ -31,15 +31,23 @@ class WorkEffortTests implements JupiterTestHelper {
     @Test
     @Order(1)
     void testCreateWorkEffortAndPartyAssign() {
+        String partyId = testParams.partyId ?: 'TestParty-1'
+        String roleTypeId = testParams.roleTypeId ?: 'CAL_OWNER'
+        String statusId = testParams.statusId ?: 'PRTYASGN_ASSIGNED'
+        String workEffortId = testParams.workEffortId ?: 'TestWorkEffort-99'
+        String partyTypeId = testParams.partyTypeId ?: 'PARTY_GROUP'
+        String workEffortName = testParams.workEffortName ?: 'Test WorkEffort Event'
+        String workEffortTypeId = testParams.workEffortTypeId ?: 'TASK'
+        String currentStatusId = testParams.currentStatusId ?: 'CAL_ACCEPTED'
         Map serviceCtx = [
-                partyId: 'TestParty-1',
-                roleTypeId: 'CAL_OWNER',
-                statusId: 'PRTYASGN_ASSIGNED',
-                workEffortId: 'TestWorkEffort-99',
-                partyTypeId: 'PARTY_GROUP',
-                workEffortName: 'Test WorkEffort Event',
-                workEffortTypeId: 'TASK',
-                currentStatusId: 'CAL_ACCEPTED',
+                partyId: partyId,
+                roleTypeId: roleTypeId,
+                statusId: statusId,
+                workEffortId: workEffortId,
+                partyTypeId: partyTypeId,
+                workEffortName: workEffortName,
+                workEffortTypeId: workEffortTypeId,
+                currentStatusId: currentStatusId,
                 userLogin: userLogin,
         ]
         Map serviceResult = dispatcher.runSync('createWorkEffortAndPartyAssign', serviceCtx)
@@ -49,46 +57,51 @@ class WorkEffortTests implements JupiterTestHelper {
         List<GenericValue> workEffortPartyAssignmentList = from('WorkEffortPartyAssignment').where('workEffortId',
                                                                                                    serviceResult.workEffortId,
                                                                                                    'partyId',
-                                                                                                   'TestParty-1',
+                                                                                                   partyId,
                                                                                                    'roleTypeId',
-                                                                                                   'CAL_OWNER').queryList()
+                                                                                                   roleTypeId).queryList()
         GenericValue workEffortPartyAssignment = workEffortPartyAssignmentList ? workEffortPartyAssignmentList[0] : null
         GenericValue workEffort = from('WorkEffort').where('workEffortId', serviceResult.workEffortId).queryOne()
         assert workEffort
         assert workEffortPartyAssignment
-        assert workEffort.workEffortTypeId == 'TASK'
-        assert workEffort.currentStatusId == 'CAL_ACCEPTED'
-        assert workEffortPartyAssignment.statusId == 'PRTYASGN_ASSIGNED'
+        assert workEffort.workEffortTypeId == workEffortTypeId
+        assert workEffort.currentStatusId == currentStatusId
+        assert workEffortPartyAssignment.statusId == statusId
     }
 
     @Test
     @Order(2)
     void testDeleteWorkEffort() {
+        String workEffortId = testParams.workEffortId ?: 'TestWorkEffort-98'
+        String workEffortName = testParams.workEffortName ?: 'Delete Me'
+        String workEffortTypeId = testParams.workEffortTypeId ?: 'TASK'
+        String currentStatusId = testParams.currentStatusId ?: 'CAL_TENTATIVE'
         Map createCtx = [
-                workEffortId: 'TestWorkEffort-98',
-                workEffortName: 'Delete Me',
-                workEffortTypeId: 'TASK',
-                currentStatusId: 'CAL_TENTATIVE',
+                workEffortId: workEffortId,
+                workEffortName: workEffortName,
+                workEffortTypeId: workEffortTypeId,
+                currentStatusId: currentStatusId,
                 userLogin: userLogin,
         ]
         dispatcher.runSync('createWorkEffort', createCtx)
 
         Map serviceCtx = [
-                workEffortId: 'TestWorkEffort-98',
+                workEffortId: workEffortId,
                 userLogin: userLogin,
         ]
         Map serviceResult = dispatcher.runSync('deleteWorkEffort', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue workEffort = from('WorkEffort').where('workEffortId', 'TestWorkEffort-98').queryOne()
+        GenericValue workEffort = from('WorkEffort').where('workEffortId', workEffortId).queryOne()
         assert !workEffort
     }
 
     @Test
     @Order(3)
     void testCopyWorkEffort() {
+        String sourceWorkEffortId = testParams.sourceWorkEffortId ?: 'TestWorkeffort-3'
         Map serviceCtx = [
-                sourceWorkEffortId: 'TestWorkeffort-3',
+                sourceWorkEffortId: sourceWorkEffortId,
                 userLogin: userLogin,
         ]
         Map serviceResult = dispatcher.runSync('copyWorkEffort', serviceCtx)
@@ -103,8 +116,9 @@ class WorkEffortTests implements JupiterTestHelper {
     @Test
     @Order(4)
     void testDuplicateWorkEffort() {
+        String oldWorkEffortId = testParams.oldWorkEffortId ?: 'TestWorkeffort-3'
         Map serviceCtx = [
-                oldWorkEffortId: 'TestWorkeffort-3',
+                oldWorkEffortId: oldWorkEffortId,
                 userLogin: userLogin,
         ]
         Map serviceResult = dispatcher.runSync('duplicateWorkEffort', serviceCtx)
@@ -119,9 +133,11 @@ class WorkEffortTests implements JupiterTestHelper {
     @Test
     @Order(5)
     void testMakeCommunicationEventWorkEffort() {
+        String communicationEventId = testParams.communicationEventId ?: 'TestEvent-1'
+        String workEffortId = testParams.workEffortId ?: 'TestWorkeffort-3'
         Map serviceCtx = [
-                communicationEventId: 'TestEvent-1',
-                workEffortId: 'TestWorkeffort-3',
+                communicationEventId: communicationEventId,
+                workEffortId: workEffortId,
                 userLogin: userLogin,
         ]
         Map serviceResult = dispatcher.runSync('makeCommunicationEventWorkEffort', serviceCtx)
@@ -139,11 +155,15 @@ class WorkEffortTests implements JupiterTestHelper {
     @Test
     @Order(6)
     void testAssignPartyToWorkEffort() {
+        String partyId = testParams.partyId ?: 'TestParty'
+        String roleTypeId = testParams.roleTypeId ?: 'CONTENT_AUTHOR'
+        String statusId = testParams.statusId ?: 'PRTYASGN_ASSIGNED'
+        String workEffortId = testParams.workEffortId ?: 'TestWorkeffort-3'
         Map serviceCtx = [
-                partyId: 'TestParty',
-                roleTypeId: 'CONTENT_AUTHOR',
-                statusId: 'PRTYASGN_ASSIGNED',
-                workEffortId: 'TestWorkeffort-3',
+                partyId: partyId,
+                roleTypeId: roleTypeId,
+                statusId: statusId,
+                workEffortId: workEffortId,
                 fromDate: java.sql.Timestamp.valueOf('2009-09-09 01:01:01'),
                 userLogin: userLogin,
         ]
@@ -152,11 +172,11 @@ class WorkEffortTests implements JupiterTestHelper {
         assert serviceResult.fromDate
 
         GenericValue workEffortPartyAssignment = from('WorkEffortPartyAssignment').where('partyId',
-                                                                                         'TestParty',
+                                                                                         partyId,
                                                                                          'roleTypeId',
-                                                                                         'CONTENT_AUTHOR',
+                                                                                         roleTypeId,
                                                                                          'workEffortId',
-                                                                                         'TestWorkeffort-3',
+                                                                                         workEffortId,
                                                                                          'fromDate',
                                                                                          serviceResult.fromDate).queryOne()
         assert workEffortPartyAssignment
@@ -165,11 +185,15 @@ class WorkEffortTests implements JupiterTestHelper {
     @Test
     @Order(7)
     void testUpdatePartyToWorkEffortAssignment() {
+        String partyId = testParams.partyId ?: 'TestParty'
+        String roleTypeId = testParams.roleTypeId ?: 'CUSTOMER'
+        String statusId = testParams.statusId ?: 'PRTYASGN_ASSIGNED'
+        String workEffortId = testParams.workEffortId ?: 'TestWorkeffort-3'
         Map serviceCtx = [
-                partyId: 'TestParty',
-                roleTypeId: 'CUSTOMER',
-                statusId: 'PRTYASGN_ASSIGNED',
-                workEffortId: 'TestWorkeffort-3',
+                partyId: partyId,
+                roleTypeId: roleTypeId,
+                statusId: statusId,
+                workEffortId: workEffortId,
                 fromDate: java.sql.Timestamp.valueOf('2009-09-09 02:02:02'),
                 userLogin: userLogin,
         ]
@@ -177,24 +201,27 @@ class WorkEffortTests implements JupiterTestHelper {
         assert ServiceUtil.isSuccess(serviceResult)
 
         GenericValue workEffortPartyAssignment = from('WorkEffortPartyAssignment').where('partyId',
-                                                                                         'TestParty',
+                                                                                         partyId,
                                                                                          'roleTypeId',
-                                                                                         'CUSTOMER',
+                                                                                         roleTypeId,
                                                                                          'workEffortId',
-                                                                                         'TestWorkeffort-3',
+                                                                                         workEffortId,
                                                                                          'fromDate',
                                                                                          java.sql.Timestamp.valueOf('2009-09-09 02:02:02')).queryOne()
         assert workEffortPartyAssignment
-        assert workEffortPartyAssignment.statusId == 'PRTYASGN_ASSIGNED'
+        assert workEffortPartyAssignment.statusId == statusId
     }
 
     @Test
     @Order(8)
     void testDeletePartyToWorkEffortAssignment() {
+        String partyId = testParams.partyId ?: 'TestParty'
+        String roleTypeId = testParams.roleTypeId ?: 'ACCOUNTANT'
+        String workEffortId = testParams.workEffortId ?: 'TestWorkeffort-3'
         Map serviceCtx = [
-                partyId: 'TestParty',
-                roleTypeId: 'ACCOUNTANT',
-                workEffortId: 'TestWorkeffort-3',
+                partyId: partyId,
+                roleTypeId: roleTypeId,
+                workEffortId: workEffortId,
                 fromDate: java.sql.Timestamp.valueOf('2009-09-09 02:02:02'),
                 userLogin: userLogin,
         ]
@@ -202,11 +229,11 @@ class WorkEffortTests implements JupiterTestHelper {
         assert ServiceUtil.isSuccess(serviceResult)
 
         GenericValue workEffortPartyAssignment = from('WorkEffortPartyAssignment').where('partyId',
-                                                                                         'TestParty',
+                                                                                         partyId,
                                                                                          'roleTypeId',
-                                                                                         'ACCOUNTANT',
+                                                                                         roleTypeId,
                                                                                          'workEffortId',
-                                                                                         'TestWorkeffort-3',
+                                                                                         workEffortId,
                                                                                          'fromDate',
                                                                                          java.sql.Timestamp.valueOf('2009-09-09 02:02:02')).queryOne()
         assert workEffortPartyAssignment
@@ -216,18 +243,20 @@ class WorkEffortTests implements JupiterTestHelper {
     @Test
     @Order(9)
     void testQuickAssignPartyToWorkEffort() {
+        String quickAssignPartyId = testParams.quickAssignPartyId ?: 'TestCompany'
+        String workEffortId = testParams.workEffortId ?: 'TestWorkeffort-3'
         Map serviceCtx = [
-                quickAssignPartyId: 'TestCompany',
-                workEffortId: 'TestWorkeffort-3',
+                quickAssignPartyId: quickAssignPartyId,
+                workEffortId: workEffortId,
                 userLogin: userLogin,
         ]
         Map serviceResult = dispatcher.runSync('quickAssignPartyToWorkEffort', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
         List<GenericValue> workEffortPartyAssignmentList = from('WorkEffortPartyAssignment').where('workEffortId',
-                                                                                                   'TestWorkeffort-3',
+                                                                                                   workEffortId,
                                                                                                    'partyId',
-                                                                                                   'TestCompany').queryList()
+                                                                                                   quickAssignPartyId).queryList()
         GenericValue workEffortPartyAssignment = workEffortPartyAssignmentList ? workEffortPartyAssignmentList[0] : null
         assert workEffortPartyAssignment
     }
@@ -235,21 +264,24 @@ class WorkEffortTests implements JupiterTestHelper {
     @Test
     @Order(10)
     void testQuickAssignPartyToWorkEffortWithRole() {
+        String quickAssignPartyId = testParams.quickAssignPartyId ?: 'TestParty-1'
+        String roleTypeId = testParams.roleTypeId ?: 'BILL_FROM_VENDOR'
+        String workEffortId = testParams.workEffortId ?: 'TestWorkeffort-3'
         Map serviceCtx = [
-                quickAssignPartyId: 'TestParty-1',
-                roleTypeId: 'BILL_FROM_VENDOR',
-                workEffortId: 'TestWorkeffort-3',
+                quickAssignPartyId: quickAssignPartyId,
+                roleTypeId: roleTypeId,
+                workEffortId: workEffortId,
                 userLogin: userLogin,
         ]
         Map serviceResult = dispatcher.runSync('quickAssignPartyToWorkEffortWithRole', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
         List<GenericValue> workEffortPartyAssignmentList = from('WorkEffortPartyAssignment').where('workEffortId',
-                                                                                                   'TestWorkeffort-3',
+                                                                                                   workEffortId,
                                                                                                    'partyId',
-                                                                                                   'TestParty-1',
+                                                                                                   quickAssignPartyId,
                                                                                                    'roleTypeId',
-                                                                                                   'BILL_FROM_VENDOR').queryList()
+                                                                                                   roleTypeId).queryList()
         GenericValue workEffortPartyAssignment = workEffortPartyAssignmentList ? workEffortPartyAssignmentList[0] : null
         assert workEffortPartyAssignment
     }
@@ -257,47 +289,54 @@ class WorkEffortTests implements JupiterTestHelper {
     @Test
     @Order(11)
     void testCreateWorkEffortNote() {
+        String workEffortId = testParams.workEffortId ?: 'TestWorkeffort-3'
+        String noteInfo = testParams.noteInfo ?: 'This is test note.'
         Map serviceCtx = [
-                workEffortId: 'TestWorkeffort-3',
-                noteInfo: 'This is test note.',
+                workEffortId: workEffortId,
+                noteInfo: noteInfo,
                 userLogin: userLogin,
         ]
         Map serviceResult = dispatcher.runSync('createWorkEffortNote', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
         assert serviceResult.noteId
 
-        GenericValue workEffortNote = from('WorkEffortNote').where('workEffortId', 'TestWorkeffort-3', 'noteId', serviceResult.noteId).queryOne()
+        GenericValue workEffortNote = from('WorkEffortNote').where('workEffortId', workEffortId, 'noteId', serviceResult.noteId).queryOne()
         GenericValue noteData = from('NoteData').where('noteId', serviceResult.noteId).queryOne()
         assert workEffortNote
         assert noteData
-        assert noteData.noteInfo == 'This is test note.'
+        assert noteData.noteInfo == noteInfo
     }
 
     @Test
     @Order(12)
     void testUpdateWorkEffortNote() {
+        String workEffortId = testParams.workEffortId ?: 'TestWorkeffort-3'
+        String noteId = testParams.noteId ?: 'TestNote-1'
+        String internalNote = testParams.internalNote ?: 'Y'
+        String noteInfo = testParams.noteInfo ?: 'This is updated test note.'
         Map serviceCtx = [
-                workEffortId: 'TestWorkeffort-3',
-                noteId: 'TestNote-1',
-                internalNote: 'Y',
-                noteInfo: 'This is updated test note.',
+                workEffortId: workEffortId,
+                noteId: noteId,
+                internalNote: internalNote,
+                noteInfo: noteInfo,
                 userLogin: userLogin,
         ]
         Map serviceResult = dispatcher.runSync('updateWorkEffortNote', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue workEffortNote = from('WorkEffortNote').where('workEffortId', 'TestWorkeffort-3', 'noteId', 'TestNote-1').queryOne()
-        GenericValue noteData = from('NoteData').where('noteId', 'TestNote-1').queryOne()
+        GenericValue workEffortNote = from('WorkEffortNote').where('workEffortId', workEffortId, 'noteId', noteId).queryOne()
+        GenericValue noteData = from('NoteData').where('noteId', noteId).queryOne()
         assert workEffortNote
         assert noteData
-        assert noteData.noteInfo == 'This is updated test note.'
+        assert noteData.noteInfo == noteInfo
     }
 
     @Test
     @Order(13)
     void testGetWorkEffort() {
+        String workEffortId = testParams.workEffortId ?: 'TestWorkeffort-3'
         Map serviceCtx = [
-                workEffortId: 'TestWorkeffort-3',
+                workEffortId: workEffortId,
                 userLogin: userLogin,
         ]
         Map serviceResult = dispatcher.runSync('getWorkEffort', serviceCtx)
@@ -308,10 +347,13 @@ class WorkEffortTests implements JupiterTestHelper {
     @Test
     @Order(14)
     void testCreateWorkEffortAssoc() {
+        String workEffortIdFrom = testParams.workEffortIdFrom ?: 'TestWorkeffort-2'
+        String workEffortIdTo = testParams.workEffortIdTo ?: 'TestWorkeffort-3'
+        String workEffortAssocTypeId = testParams.workEffortAssocTypeId ?: 'ROUTING_COMPONENT'
         Map serviceCtx = [
-                workEffortIdFrom: 'TestWorkeffort-2',
-                workEffortIdTo: 'TestWorkeffort-3',
-                workEffortAssocTypeId: 'ROUTING_COMPONENT',
+                workEffortIdFrom: workEffortIdFrom,
+                workEffortIdTo: workEffortIdTo,
+                workEffortAssocTypeId: workEffortAssocTypeId,
                 fromDate: java.sql.Timestamp.valueOf('2009-09-09 02:02:02'),
                 userLogin: userLogin,
         ]
@@ -319,11 +361,11 @@ class WorkEffortTests implements JupiterTestHelper {
         assert ServiceUtil.isSuccess(serviceResult)
 
         GenericValue workEffortAssoc = from('WorkEffortAssoc').where('workEffortIdFrom',
-                                                                     'TestWorkeffort-2',
+                                                                     workEffortIdFrom,
                                                                      'workEffortIdTo',
-                                                                     'TestWorkeffort-3',
+                                                                     workEffortIdTo,
                                                                      'workEffortAssocTypeId',
-                                                                     'ROUTING_COMPONENT',
+                                                                     workEffortAssocTypeId,
                                                                      'fromDate',
                                                                      java.sql.Timestamp.valueOf('2009-09-09 02:02:02')).queryOne()
         assert workEffortAssoc
@@ -332,24 +374,28 @@ class WorkEffortTests implements JupiterTestHelper {
     @Test
     @Order(15)
     void testCopyWorkEffortAssocs() {
+        String sourceWorkEffortId = testParams.sourceWorkEffortId ?: 'TestWorkeffort-2'
+        String targetWorkEffortId = testParams.targetWorkEffortId ?: 'TestWorkeffort-4'
         Map serviceCtx = [
-                sourceWorkEffortId: 'TestWorkeffort-2',
-                targetWorkEffortId: 'TestWorkeffort-4',
+                sourceWorkEffortId: sourceWorkEffortId,
+                targetWorkEffortId: targetWorkEffortId,
                 userLogin: userLogin,
         ]
         Map serviceResult = dispatcher.runSync('copyWorkEffortAssocs', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        List<GenericValue> workEffortAssocList = from('WorkEffortAssoc').where('workEffortIdFrom', 'TestWorkeffort-4').queryList()
+        List<GenericValue> workEffortAssocList = from('WorkEffortAssoc').where('workEffortIdFrom', targetWorkEffortId).queryList()
         assert workEffortAssocList
     }
 
     @Test
     @Order(16)
     void testCreateWorkEffortKeyword() {
+        String workEffortId = testParams.workEffortId ?: 'TestWorkeffort-2'
+        String keyword = testParams.keyword ?: 'new test keyword for workeffort'
         Map serviceCtx = [
-                workEffortId: 'TestWorkeffort-2',
-                keyword: 'new test keyword for workeffort',
+                workEffortId: workEffortId,
+                keyword: keyword,
                 relevancyWeight: 1L,
                 userLogin: userLogin,
         ]
@@ -357,48 +403,54 @@ class WorkEffortTests implements JupiterTestHelper {
         assert ServiceUtil.isSuccess(serviceResult)
 
         GenericValue workEffortKeyword = from('WorkEffortKeyword').where('workEffortId',
-                                                                         'TestWorkeffort-2',
+                                                                         workEffortId,
                                                                          'keyword',
-                                                                         'new test keyword for workeffort').queryOne()
+                                                                         keyword).queryOne()
         assert workEffortKeyword
     }
 
     @Test
     @Order(17)
     void testDeleteWorkEffortKeyword() {
+        String workEffortId = testParams.workEffortId ?: 'TestWorkeffort-3'
+        String keyword = testParams.keyword ?: 'test keyword'
         Map serviceCtx = [
-                workEffortId: 'TestWorkeffort-3',
-                keyword: 'test keyword',
+                workEffortId: workEffortId,
+                keyword: keyword,
                 userLogin: userLogin,
         ]
         Map serviceResult = dispatcher.runSync('deleteWorkEffortKeyword', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue workEffortKeyword = from('WorkEffortKeyword').where('workEffortId', 'TestWorkeffort-3', 'keyword', 'test keyword').queryOne()
+        GenericValue workEffortKeyword = from('WorkEffortKeyword').where('workEffortId', workEffortId, 'keyword', keyword).queryOne()
         assert !workEffortKeyword
     }
 
     @Test
     @Order(18)
     void testDeleteWorkEffortKeywords() {
+        String workEffortId = testParams.workEffortId ?: 'TestWorkeffort-2'
         Map serviceCtx = [
-                workEffortId: 'TestWorkeffort-2',
+                workEffortId: workEffortId,
                 userLogin: userLogin,
         ]
         Map serviceResult = dispatcher.runSync('deleteWorkEffortKeywords', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        List<GenericValue> workEffortKeywordList = from('WorkEffortKeyword').where('workEffortId', 'TestWorkeffort-2').queryList()
+        List<GenericValue> workEffortKeywordList = from('WorkEffortKeyword').where('workEffortId', workEffortId).queryList()
         assert !workEffortKeywordList
     }
 
     @Test
     @Order(19)
     void testCreateTimesheet() {
+        String partyId = testParams.partyId ?: 'TestParty'
+        String comments = testParams.comments ?: 'Test timesheet'
+        String statusId = testParams.statusId ?: 'TIMESHEET_IN_PROCESS'
         Map serviceCtx = [
-                partyId: 'TestParty',
-                comments: 'Test timesheet',
-                statusId: 'TIMESHEET_IN_PROCESS',
+                partyId: partyId,
+                comments: comments,
+                statusId: statusId,
                 userLogin: userLogin,
         ]
         Map serviceResult = dispatcher.runSync('createTimesheet', serviceCtx)
@@ -407,50 +459,55 @@ class WorkEffortTests implements JupiterTestHelper {
 
         GenericValue timesheet = from('Timesheet').where('timesheetId', serviceResult.timesheetId).queryOne()
         assert timesheet
-        assert timesheet.partyId == 'TestParty'
-        assert timesheet.statusId == 'TIMESHEET_IN_PROCESS'
-        assert timesheet.comments == 'Test timesheet'
+        assert timesheet.partyId == partyId
+        assert timesheet.statusId == statusId
+        assert timesheet.comments == comments
     }
 
     @Test
     @Order(20)
     void testUpdateTimesheet() {
+        String timesheetId = testParams.timesheetId ?: 'TestTimesheet-2'
+        String clientPartyId = testParams.clientPartyId ?: 'TestParty'
+        String statusId = testParams.statusId ?: 'TIMESHEET_COMPLETED'
         Map serviceCtx = [
-                timesheetId: 'TestTimesheet-2',
-                clientPartyId: 'TestParty',
-                statusId: 'TIMESHEET_COMPLETED',
+                timesheetId: timesheetId,
+                clientPartyId: clientPartyId,
+                statusId: statusId,
                 userLogin: userLogin,
         ]
         Map serviceResult = dispatcher.runSync('updateTimesheet', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue timesheet = from('Timesheet').where('timesheetId', 'TestTimesheet-2').queryOne()
+        GenericValue timesheet = from('Timesheet').where('timesheetId', timesheetId).queryOne()
         assert timesheet
-        assert timesheet.clientPartyId == 'TestParty'
-        assert timesheet.statusId == 'TIMESHEET_COMPLETED'
+        assert timesheet.clientPartyId == clientPartyId
+        assert timesheet.statusId == statusId
     }
 
     @Test
     @Order(21)
     void testDeleteTimesheet() {
+        String timesheetId = testParams.timesheetId ?: 'TestTimesheet-3'
         Map serviceCtx = [
-                timesheetId: 'TestTimesheet-3',
+                timesheetId: timesheetId,
                 userLogin: userLogin,
         ]
         Map serviceResult = dispatcher.runSync('deleteTimesheet', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue timesheet = from('Timesheet').where('timesheetId', 'TestTimesheet-3').queryOne()
+        GenericValue timesheet = from('Timesheet').where('timesheetId', timesheetId).queryOne()
         assert !timesheet
     }
 
     @Test
     @Order(22)
     void testCreateTimesheets() {
+        String comments = testParams.comments ?: 'Test timesheet for test parties'
         List partyIdList = ['TestParty', 'TestParty-1']
         Map serviceCtx = [
                 partyIdList: partyIdList,
-                comments: 'Test timesheet for test parties',
+                comments: comments,
                 userLogin: userLogin,
         ]
         Map serviceResult = dispatcher.runSync('createTimesheets', serviceCtx)
@@ -458,7 +515,7 @@ class WorkEffortTests implements JupiterTestHelper {
 
         for (String partyId : partyIdList) {
             List<GenericValue> timesheetList = from('Timesheet')
-                .where('partyId', partyId, 'comments', 'Test timesheet for test parties')
+                .where('partyId', partyId, 'comments', comments)
                 .queryList()
             assert timesheetList
         }
@@ -467,9 +524,11 @@ class WorkEffortTests implements JupiterTestHelper {
     @Test
     @Order(23)
     void testCreateTimesheetForThisWeek() {
+        String partyId = testParams.partyId ?: 'TestParty-1'
+        String comments = testParams.comments ?: 'Test timesheet'
         Map serviceCtx = [
-                partyId: 'TestParty-1',
-                comments: 'Test timesheet',
+                partyId: partyId,
+                comments: comments,
                 requiredDate: java.sql.Timestamp.valueOf('2009-09-06 00:00:00.0'),
                 userLogin: userLogin,
         ]
@@ -479,17 +538,20 @@ class WorkEffortTests implements JupiterTestHelper {
 
         GenericValue timesheet = from('Timesheet').where('timesheetId', serviceResult.timesheetId).queryOne()
         assert timesheet
-        assert timesheet.partyId == 'TestParty-1'
+        assert timesheet.partyId == partyId
         assert timesheet.fromDate == java.sql.Timestamp.valueOf('2009-09-06 00:00:00.0')
     }
 
     @Test
     @Order(24)
     void testAddTimesheetToNewInvoice() {
+        String partyId = testParams.partyId ?: 'TestParty-1'
+        String partyIdFrom = testParams.partyIdFrom ?: 'TestCompany'
+        String timesheetId = testParams.timesheetId ?: 'TestTimesheet-2'
         Map serviceCtx = [
-                partyId: 'TestParty-1',
-                partyIdFrom: 'TestCompany',
-                timesheetId: 'TestTimesheet-2',
+                partyId: partyId,
+                partyIdFrom: partyIdFrom,
+                timesheetId: timesheetId,
                 userLogin: userLogin,
         ]
         Map serviceResult = dispatcher.runSync('addTimesheetToNewInvoice', serviceCtx)
@@ -498,15 +560,17 @@ class WorkEffortTests implements JupiterTestHelper {
 
         GenericValue invoice = from('Invoice').where('invoiceId', serviceResult.invoiceId).queryOne()
         assert invoice
-        assert invoice.partyId == 'TestParty-1'
+        assert invoice.partyId == partyId
     }
 
     @Test
     @Order(25)
     void testCreateTimeEntry() {
+        String workEffortId = testParams.workEffortId ?: 'TestWorkeffort-2'
+        String comments = testParams.comments ?: 'Test Time Entry'
         Map serviceCtx = [
-                workEffortId: 'TestWorkeffort-2',
-                comments: 'Test Time Entry',
+                workEffortId: workEffortId,
+                comments: comments,
                 userLogin: userLogin,
         ]
         Map serviceResult = dispatcher.runSync('createTimeEntry', serviceCtx)
@@ -515,49 +579,58 @@ class WorkEffortTests implements JupiterTestHelper {
 
         GenericValue timeEntry = from('TimeEntry').where('timeEntryId', serviceResult.timeEntryId).queryOne()
         assert timeEntry
-        assert timeEntry.workEffortId == 'TestWorkeffort-2'
-        assert timeEntry.comments == 'Test Time Entry'
+        assert timeEntry.workEffortId == workEffortId
+        assert timeEntry.comments == comments
     }
 
     @Test
     @Order(26)
     void testUpdateTimeEntry() {
+        String timeEntryId = testParams.timeEntryId ?: 'TestTimeEntry-1'
+        String timesheetId = testParams.timesheetId ?: 'TestTimesheet-4'
         Map serviceCtx = [
-                timeEntryId: 'TestTimeEntry-1',
-                timesheetId: 'TestTimesheet-4',
+                timeEntryId: timeEntryId,
+                timesheetId: timesheetId,
                 userLogin: userLogin,
         ]
         Map serviceResult = dispatcher.runSync('updateTimeEntry', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue timeEntry = from('TimeEntry').where('timeEntryId', 'TestTimeEntry-1').queryOne()
+        GenericValue timeEntry = from('TimeEntry').where('timeEntryId', timeEntryId).queryOne()
         assert timeEntry
-        assert timeEntry.timesheetId == 'TestTimesheet-4'
+        assert timeEntry.timesheetId == timesheetId
     }
 
     @Test
     @Order(27)
     void testDeleteTimeEntry() {
+        String timeEntryId = testParams.timeEntryId ?: 'TestTimeEntry-2'
         Map serviceCtx = [
-                timeEntryId: 'TestTimeEntry-2',
+                timeEntryId: timeEntryId,
                 userLogin: userLogin,
         ]
         Map serviceResult = dispatcher.runSync('deleteTimeEntry', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue timeEntry = from('TimeEntry').where('timeEntryId', 'TestTimeEntry-2').queryOne()
+        GenericValue timeEntry = from('TimeEntry').where('timeEntryId', timeEntryId).queryOne()
         assert !timeEntry
     }
 
     @Test
     @Order(28)
     void testCreateEventService() {
+        String workEffortTypeId = testParams.workEffortTypeId ?: 'EVENT'
+        String quickAssignPartyId = testParams.quickAssignPartyId ?: 'DemoCustomer'
+        String workEffortName = testParams.workEffortName ?: 'Create Work Effort'
+        String currentStatusId = testParams.currentStatusId ?: 'CAL_TENTATIVE'
+        String workEffortName1 = testParams.workEffortName1 ?: 'Update an event'
+        String currentStatusId1 = testParams.currentStatusId1 ?: 'CAL_ACCEPTED'
         GenericValue systemLogin = from('UserLogin').where('userLoginId', 'system').queryOne()
         Map createCtx = [
-                workEffortTypeId: 'EVENT',
-                quickAssignPartyId: 'DemoCustomer',
-                workEffortName: 'Create Work Effort',
-                currentStatusId: 'CAL_TENTATIVE',
+                workEffortTypeId: workEffortTypeId,
+                quickAssignPartyId: quickAssignPartyId,
+                workEffortName: workEffortName,
+                currentStatusId: currentStatusId,
                 userLogin: systemLogin,
         ]
         Map createResult = dispatcher.runSync('createWorkEffort', createCtx)
@@ -567,9 +640,9 @@ class WorkEffortTests implements JupiterTestHelper {
 
         Map updateCtx = [
                 workEffortId: workEffortId,
-                workEffortTypeId: 'EVENT',
-                workEffortName: 'Update an event',
-                currentStatusId: 'CAL_ACCEPTED',
+                workEffortTypeId: workEffortTypeId,
+                workEffortName: workEffortName1,
+                currentStatusId: currentStatusId1,
                 userLogin: systemLogin,
         ]
         Map updateResult = dispatcher.runSync('updateWorkEffort', updateCtx)
@@ -577,20 +650,28 @@ class WorkEffortTests implements JupiterTestHelper {
 
         GenericValue workEffort = from('WorkEffort').where('workEffortId', workEffortId).queryOne()
         assert workEffort
-        assert workEffort.workEffortTypeId == 'EVENT'
-        assert workEffort.workEffortName == 'Update an event'
-        assert workEffort.currentStatusId == 'CAL_ACCEPTED'
+        assert workEffort.workEffortTypeId == workEffortTypeId
+        assert workEffort.workEffortName == workEffortName1
+        assert workEffort.currentStatusId == currentStatusId1
     }
 
     @Test
     @Order(29)
     void testCreateProjectService() {
+        String workEffortTypeId = testParams.workEffortTypeId ?: 'PROJECT'
+        String quickAssignPartyId = testParams.quickAssignPartyId ?: 'DemoCustomer'
+        String workEffortName = testParams.workEffortName ?: 'Create a project'
+        String currentStatusId = testParams.currentStatusId ?: 'CAL_TENTATIVE'
+        String workEffortName1 = testParams.workEffortName1 ?: 'Update a project'
+        String currentStatusId1 = testParams.currentStatusId1 ?: 'CAL_ACCEPTED'
+        String noteParty = testParams.noteParty ?: 'DemoCustomer'
+        String noteInfo = testParams.noteInfo ?: "This is a note for party '${noteParty}'"
         GenericValue systemLogin = from('UserLogin').where('userLoginId', 'system').queryOne()
         Map createCtx = [
-                workEffortTypeId: 'PROJECT',
-                quickAssignPartyId: 'DemoCustomer',
-                workEffortName: 'Create a project',
-                currentStatusId: 'CAL_TENTATIVE',
+                workEffortTypeId: workEffortTypeId,
+                quickAssignPartyId: quickAssignPartyId,
+                workEffortName: workEffortName,
+                currentStatusId: currentStatusId,
                 userLogin: systemLogin,
         ]
         Map createResult = dispatcher.runSync('createWorkEffort', createCtx)
@@ -600,9 +681,9 @@ class WorkEffortTests implements JupiterTestHelper {
 
         Map updateCtx = [
                 workEffortId: workEffortId,
-                workEffortTypeId: 'PROJECT',
-                workEffortName: 'Update a project',
-                currentStatusId: 'CAL_ACCEPTED',
+                workEffortTypeId: workEffortTypeId,
+                workEffortName: workEffortName1,
+                currentStatusId: currentStatusId1,
                 userLogin: systemLogin,
         ]
         Map updateResult = dispatcher.runSync('updateWorkEffort', updateCtx)
@@ -610,8 +691,8 @@ class WorkEffortTests implements JupiterTestHelper {
 
         Map noteCtx = [
                 workEffortId: workEffortId,
-                noteParty: 'DemoCustomer',
-                noteInfo: "This is a note for party 'DemoCustomer'",
+                noteParty: noteParty,
+                noteInfo: noteInfo,
                 userLogin: systemLogin,
         ]
         Map noteResult = dispatcher.runSync('createWorkEffortNote', noteCtx)
@@ -619,22 +700,24 @@ class WorkEffortTests implements JupiterTestHelper {
 
         GenericValue workEffort = from('WorkEffort').where('workEffortId', workEffortId).queryOne()
         assert workEffort
-        assert workEffort.workEffortTypeId == 'PROJECT'
-        assert workEffort.workEffortName == 'Update a project'
-        assert workEffort.currentStatusId == 'CAL_ACCEPTED'
+        assert workEffort.workEffortTypeId == workEffortTypeId
+        assert workEffort.workEffortName == workEffortName1
+        assert workEffort.currentStatusId == currentStatusId1
 
         GenericValue noteData = from('NoteData').where('noteId', noteResult.noteId).queryOne()
         assert noteData
-        assert noteData.noteParty == 'DemoCustomer'
-        assert noteData.noteInfo == "This is a note for party 'DemoCustomer'"
+        assert noteData.noteParty == noteParty
+        assert noteData.noteInfo == noteInfo
     }
 
     @Test
     @Order(30)
     void testGetTimeEntryRate() {
+        String timeEntryId = testParams.timeEntryId ?: 'TestTimeEntry-3'
+        String currencyUomId = testParams.currencyUomId ?: 'USD'
         Map serviceCtx = [
-                timeEntryId: 'TestTimeEntry-3',
-                currencyUomId: 'USD',
+                timeEntryId: timeEntryId,
+                currencyUomId: currencyUomId,
                 userLogin: userLogin,
         ]
         Map serviceResult = dispatcher.runSync('getTimeEntryRate', serviceCtx)
@@ -646,7 +729,7 @@ class WorkEffortTests implements JupiterTestHelper {
                                                                      'rateTypeId',
                                                                      'STANDARD',
                                                                      'rateCurrencyUomId',
-                                                                     'USD').queryList()
+                                                                     currencyUomId).queryList()
         GenericValue rateAmount = rateAmountList ? rateAmountList[0] : null
         assert rateAmount
     }
