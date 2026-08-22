@@ -37,8 +37,8 @@ class AutoPaymentTests implements JupiterTestHelper {
     @Test
     @Order(1)
     void testCreatePaymentGroupAndMember() {
-        String paymentGroupTypeId = 'BATCH_PAYMENT'
-        String paymentGroupName = 'Payment Batch'
+        String paymentGroupTypeId = testParams.paymentGroupTypeId ?: 'BATCH_PAYMENT'
+        String paymentGroupName = testParams.paymentGroupName ?: 'Payment Batch'
         List paymentIds = ['demo10000', 'demo10001']
 
         Map serviceCtx = [
@@ -82,7 +82,7 @@ class AutoPaymentTests implements JupiterTestHelper {
                              Credit in account 210000- ACCOUNTS PAYABLE
                              Debit in account 213000 - CUSTOMER CREDIT
         */
-        String paymentId = '8000'
+        String paymentId = testParams.paymentId ?: '8000'
 
         Map serviceCtx = [
                 paymentId: paymentId,
@@ -131,11 +131,12 @@ class AutoPaymentTests implements JupiterTestHelper {
                              Credit in account 516100
                              Debit in account 210000 - ACCOUNTS PAYABLE
         */
-        String invoiceId = '8001'
+        String invoiceId = testParams.invoiceId ?: '8001'
+        String statusId = testParams.statusId ?: 'INVOICE_CANCELLED'
 
         Map serviceCtx = [
                 invoiceId: invoiceId,
-                statusId: 'INVOICE_CANCELLED',
+                statusId: statusId,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('setInvoiceStatus', serviceCtx)
@@ -145,7 +146,7 @@ class AutoPaymentTests implements JupiterTestHelper {
                 .where('invoiceId', invoiceId)
                 .queryOne()
         assert invoice
-        assert invoice.statusId == 'INVOICE_CANCELLED'
+        assert invoice.statusId == statusId
 
         GenericValue acctgTrans = from('AcctgTrans')
                 .where('invoiceId', invoiceId)
@@ -184,12 +185,15 @@ class AutoPaymentTests implements JupiterTestHelper {
                              Payment should be created with PaymentApplications.
                              PaymentGroup and PaymentGroupMembers should be created.
         */
+        String organizationPartyId = testParams.organizationPartyId ?: 'Company'
+        String paymentMethodTypeId = testParams.paymentMethodTypeId ?: 'COMPANY_CHECK'
+        String paymentMethodId = testParams.paymentMethodId ?: 'SC_CHECKING'
         Map serviceCtx = [
-                organizationPartyId: 'Company',
+                organizationPartyId: organizationPartyId,
                 checkStartNumber: 100101L,
                 invoiceIds: ['8000', '8008'],
-                paymentMethodTypeId: 'COMPANY_CHECK',
-                paymentMethodId: 'SC_CHECKING',
+                paymentMethodTypeId: paymentMethodTypeId,
+                paymentMethodId: paymentMethodId,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('createPaymentAndPaymentGroupForInvoices', serviceCtx)
@@ -220,7 +224,7 @@ class AutoPaymentTests implements JupiterTestHelper {
             Post condition : thruDate for PaymentGroupMember should be Not Null
                              payment status should be changed to PMNT_VOID.
         */
-        String paymentGroupId = '9001'
+        String paymentGroupId = testParams.paymentGroupId ?: '9001'
 
         Map serviceCtx = [
                 paymentGroupId: paymentGroupId,
@@ -247,10 +251,11 @@ class AutoPaymentTests implements JupiterTestHelper {
     void testDepositWithdrawPayments() {
         //List paymentIds = ['demo10001', 'demo10010']
         List paymentIds = ['demo10010']
+        String finAccountId = testParams.finAccountId ?: 'SC_CHECKING'
 
         Map serviceCtx = [
                 paymentIds: paymentIds,
-                finAccountId: 'SC_CHECKING',
+                finAccountId: finAccountId,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('depositWithdrawPayments', serviceCtx)
@@ -276,12 +281,15 @@ class AutoPaymentTests implements JupiterTestHelper {
     void testDepositWithdrawPaymentsInSingleTrans() {
         List paymentIds = ['8004']
         BigDecimal paymentRunningTotal = new BigDecimal('0')
+        String finAccountId = testParams.finAccountId ?: 'SC_CHECKING'
+        String groupInOneTransaction = testParams.groupInOneTransaction ?: 'Y'
+        String paymentGroupTypeId = testParams.paymentGroupTypeId ?: 'BATCH_PAYMENT'
 
         Map serviceCtx = [
                 paymentIds: paymentIds,
-                finAccountId: 'SC_CHECKING',
-                groupInOneTransaction: 'Y',
-                paymentGroupTypeId: 'BATCH_PAYMENT',
+                finAccountId: finAccountId,
+                groupInOneTransaction: groupInOneTransaction,
+                paymentGroupTypeId: paymentGroupTypeId,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('depositWithdrawPayments', serviceCtx)
@@ -312,11 +320,12 @@ class AutoPaymentTests implements JupiterTestHelper {
             Post condition : FinAccountTrans status changes to CANCELED
                              Clear finAccountTransId field and update associated Payment record
         */
-        String finAccountTransId = '9102'
+        String finAccountTransId = testParams.finAccountTransId ?: '9102'
+        String statusId = testParams.statusId ?: 'FINACT_TRNS_CANCELED'
 
         Map serviceCtx = [
                 finAccountTransId: finAccountTransId,
-                statusId: 'FINACT_TRNS_CANCELED',
+                statusId: statusId,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('setFinAccountTransStatus', serviceCtx)
@@ -326,7 +335,7 @@ class AutoPaymentTests implements JupiterTestHelper {
                 .where('finAccountTransId', finAccountTransId)
                 .queryOne()
         assert finAccountTrans
-        assert finAccountTrans.statusId == 'FINACT_TRNS_CANCELED'
+        assert finAccountTrans.statusId == statusId
 
         GenericValue payment = from('Payment')
                 .where('paymentId', finAccountTrans.paymentId)
@@ -350,8 +359,9 @@ class AutoPaymentTests implements JupiterTestHelper {
               * Credit in account 112000- UNDEPOSITED RECEIPTS  ;debitTotal :$136.85 ; creditTotal: $136.85 ; debitCreditDifference : $0
               * Debit in account 120000 - ACCOUNTS RECEVABLE debitTotal :$774.17 ; creditTotal: $274.18 ; debitCreditDifference : $ 499.99
         */
+        String organizationPartyId = testParams.organizationPartyId ?: 'Company'
         Map serviceCtx = [
-                organizationPartyId: 'Company',
+                organizationPartyId: organizationPartyId,
                 findDate: UtilDateTime.nowTimestamp(),
                 userLogin: userLogin
         ]
@@ -363,10 +373,10 @@ class AutoPaymentTests implements JupiterTestHelper {
         serviceCtx.clear()
         serviceResult.clear()
         serviceCtx = [
-                organizationPartyId: 'Company',
+                organizationPartyId: organizationPartyId,
                 customTimePeriodStartDate: customTimePeriod.fromDate,
                 customTimePeriodEndDate: customTimePeriod.thruDate,
-                glAccountId: '120000',
+                glAccountId: testParams.glAccountId ?: '120000',
                 userLogin: userLogin
         ]
         serviceResult = dispatcher.runSync('getAcctgTransEntriesAndTransTotal', serviceCtx)
@@ -375,15 +385,16 @@ class AutoPaymentTests implements JupiterTestHelper {
         BigDecimal receivableDebitCreditDifference = serviceResult.debitCreditDifference
 
         serviceResult.clear()
-        serviceCtx.glAccountId = '112000'
+        serviceCtx.glAccountId = testParams.glAccountId ?: '112000'
         serviceResult = dispatcher.runSync('getAcctgTransEntriesAndTransTotal', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
         BigDecimal undepositedCreditTotal = serviceResult.creditTotal
         BigDecimal undepositedDebitCreditDifference = serviceResult.debitCreditDifference
 
         serviceResult.clear()
+        String paymentId = testParams.paymentId ?: '8003'
         Map voidPaymentCtx = [
-                paymentId: '8003',
+                paymentId: paymentId,
                 userLogin: userLogin
         ]
         serviceResult = dispatcher.runSync('voidPayment', voidPaymentCtx)
@@ -392,7 +403,7 @@ class AutoPaymentTests implements JupiterTestHelper {
         BigDecimal totalReceivableDebitAmount = receivableDebitTotal.add(new BigDecimal('20'))
         BigDecimal totalReceivableDebitCreditDifference = receivableDebitCreditDifference.add(new BigDecimal('20'))
         serviceResult.clear()
-        serviceCtx.glAccountId = '120000'
+        serviceCtx.glAccountId = testParams.glAccountId ?: '120000'
         serviceResult = dispatcher.runSync('getAcctgTransEntriesAndTransTotal', serviceCtx)
         assert serviceResult
         assert totalReceivableDebitAmount == serviceResult.debitTotal
@@ -401,7 +412,7 @@ class AutoPaymentTests implements JupiterTestHelper {
         BigDecimal totalUndepositedCreditAmount = undepositedCreditTotal.add(new BigDecimal('20'))
         BigDecimal totalUndepositedDebitCreditDifference = undepositedDebitCreditDifference.subtract(new BigDecimal('20'))
         serviceResult.clear()
-        serviceCtx.glAccountId = '112000'
+        serviceCtx.glAccountId = testParams.glAccountId ?: '112000'
         serviceResult = dispatcher.runSync('getAcctgTransEntriesAndTransTotal', serviceCtx)
         assert serviceResult
         assert totalUndepositedCreditAmount == serviceResult.creditTotal
@@ -427,8 +438,9 @@ class AutoPaymentTests implements JupiterTestHelper {
               * UNINVOICED ITEM RECEIPTS 214000 - debitTotal :$408 ; creditTotal:$48 ; debitCreditDifference : $360
               * GENERAL CHECKING ACCOUNT 111100 (for payment)- debitTotal :$136.85 ; creditTotal:$173.28 ; debitCreditDifference : $ -36.43
         */
+        String organizationPartyId = testParams.organizationPartyId ?: 'Company'
         Map serviceCtx = [
-                organizationPartyId: 'Company',
+                organizationPartyId: organizationPartyId,
                 findDate: UtilDateTime.nowTimestamp(),
                 userLogin: userLogin
         ]
@@ -440,10 +452,10 @@ class AutoPaymentTests implements JupiterTestHelper {
         serviceCtx.clear()
         serviceResult.clear()
         serviceCtx = [
-                organizationPartyId: 'Company',
+                organizationPartyId: organizationPartyId,
                 customTimePeriodStartDate: customTimePeriod.fromDate,
                 customTimePeriodEndDate: customTimePeriod.thruDate,
-                glAccountId: '210000',
+                glAccountId: testParams.glAccountId ?: '210000',
                 userLogin: userLogin
         ]
         serviceResult = dispatcher.runSync('getAcctgTransEntriesAndTransTotal', serviceCtx)
@@ -453,7 +465,7 @@ class AutoPaymentTests implements JupiterTestHelper {
         BigDecimal payableDebitCreditDifference = serviceResult.debitCreditDifference
 
         serviceResult.clear()
-        serviceCtx.glAccountId = '111100'
+        serviceCtx.glAccountId = testParams.glAccountId ?: '111100'
         serviceResult = dispatcher.runSync('getAcctgTransEntriesAndTransTotal', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
         BigDecimal undepositedDebitTotal = serviceResult.debitTotal
@@ -461,12 +473,14 @@ class AutoPaymentTests implements JupiterTestHelper {
         BigDecimal undepositedDebitCreditDifference = serviceResult.debitCreditDifference
 
         serviceResult.clear()
+        String paymentMethodTypeId = testParams.paymentMethodTypeId ?: 'COMPANY_CHECK'
+        String paymentMethodId = testParams.paymentMethodId ?: 'SC_CHECKING'
         Map invoiceServiceCtx = [
-                organizationPartyId: 'Company',
+                organizationPartyId: organizationPartyId,
                 checkStartNumber: 100100L,
                 invoiceIds: ['8007'],
-                paymentMethodTypeId: 'COMPANY_CHECK',
-                paymentMethodId: 'SC_CHECKING',
+                paymentMethodTypeId: paymentMethodTypeId,
+                paymentMethodId: paymentMethodId,
                 userLogin: userLogin
         ]
         serviceResult = dispatcher.runSync('createPaymentAndPaymentGroupForInvoices', invoiceServiceCtx)
@@ -479,7 +493,7 @@ class AutoPaymentTests implements JupiterTestHelper {
         BigDecimal totalPayableDebitAmount = tempBig.add(payableDebitTotal)
         BigDecimal totalPayableDebitCreditDifference = tempBig.add(payableDebitCreditDifference)
         serviceResult.clear()
-        serviceCtx.glAccountId = '210000'
+        serviceCtx.glAccountId = testParams.glAccountId ?: '210000'
         serviceResult = dispatcher.runSync('getAcctgTransEntriesAndTransTotal', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
         assert totalPayableDebitAmount == serviceResult.debitTotal
@@ -489,7 +503,7 @@ class AutoPaymentTests implements JupiterTestHelper {
         BigDecimal totalUndepositedCreditAmount = tempBig.add(undepositedCreditTotal)
         BigDecimal totalUndepositedDebitCreditDifference = undepositedDebitCreditDifference.subtract(tempBig)
         serviceResult.clear()
-        serviceCtx.glAccountId = '111100'
+        serviceCtx.glAccountId = testParams.glAccountId ?: '111100'
         serviceResult = dispatcher.runSync('getAcctgTransEntriesAndTransTotal', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
         assert undepositedDebitTotal == serviceResult.debitTotal

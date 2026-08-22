@@ -33,10 +33,11 @@ class FixedAssetTests implements JupiterTestHelper {
     @Test
     @Order(1)
     void testCreateFixedAssetRegistration() {
+        String fixedAssetId = testParams.fixedAssetId ?: 'DEMO_VEHICLE_01'
         Map serviceCtx = [
-                fixedAssetId: 'DEMO_VEHICLE_01',
-                licenseNumber: '123456',
-                registrationNumber: 'abcdef',
+                fixedAssetId: fixedAssetId,
+                licenseNumber: testParams.licenseNumber ?: '123456',
+                registrationNumber: testParams.registrationNumber ?: 'abcdef',
                 registrationDate: UtilDateTime.toTimestamp('01/01/2020 00:00:00'),
                 fromDate: UtilDateTime.nowTimestamp(),
                 userLogin: userLogin
@@ -45,7 +46,7 @@ class FixedAssetTests implements JupiterTestHelper {
         assert ServiceUtil.isSuccess(serviceResult)
 
         GenericValue fixedAssetRegistration = from('FixedAssetRegistration')
-                .where('fixedAssetId', 'DEMO_VEHICLE_01')
+                .where('fixedAssetId', fixedAssetId)
                 .filterByDate().queryFirst()
         assert fixedAssetRegistration
     }
@@ -53,10 +54,11 @@ class FixedAssetTests implements JupiterTestHelper {
     @Order(2)
     void testUpdateFixedAssetRegistration() {
         Timestamp fromDate = UtilDateTime.toTimestamp('04/01/2020 00:00:00')
+        String fixedAssetId = testParams.fixedAssetId ?: 'DEMO_VEHICLE_01'
         Map serviceCtx = [
-                fixedAssetId: 'DEMO_VEHICLE_01',
-                licenseNumber: 'updated-123456',
-                registrationNumber: 'updated-abcdef',
+                fixedAssetId: fixedAssetId,
+                licenseNumber: testParams.licenseNumber ?: 'updated-123456',
+                registrationNumber: testParams.registrationNumber ?: 'updated-abcdef',
                 registrationDate: UtilDateTime.toTimestamp('01/01/2020 00:00:00'),
                 fromDate: fromDate,
                 thruDate: UtilDateTime.nowTimestamp(),
@@ -66,7 +68,7 @@ class FixedAssetTests implements JupiterTestHelper {
         assert ServiceUtil.isSuccess(serviceResult)
 
         GenericValue fixedAssetRegistration = from('FixedAssetRegistration')
-                .where('fixedAssetId', 'DEMO_VEHICLE_01', 'fromDate', fromDate)
+                .where('fixedAssetId', fixedAssetId, 'fromDate', fromDate)
                 .filterByDate().queryOne()
         assert !fixedAssetRegistration
     }
@@ -74,8 +76,9 @@ class FixedAssetTests implements JupiterTestHelper {
     @Order(3)
     void testDeleteFixedAssetRegistration() {
         Timestamp fromDate = UtilDateTime.toTimestamp('04/01/2020 00:00:00')
+        String fixedAssetId = testParams.fixedAssetId ?: 'DEMO_VEHICLE_01'
         Map serviceCtx = [
-                fixedAssetId: 'DEMO_VEHICLE_01',
+                fixedAssetId: fixedAssetId,
                 fromDate: fromDate,
                 userLogin: userLogin
         ]
@@ -83,16 +86,18 @@ class FixedAssetTests implements JupiterTestHelper {
         assert ServiceUtil.isSuccess(serviceResult)
 
         GenericValue fixedAssetRegistration = from('FixedAssetRegistration')
-                .where('fixedAssetId', 'DEMO_VEHICLE_01', 'fromDate', fromDate)
+                .where('fixedAssetId', fixedAssetId, 'fromDate', fromDate)
                 .queryOne()
         assert !fixedAssetRegistration
     }
     @Test
     @Order(4)
     void testCreateFixedAssetMeter() {
+        String fixedAssetId = testParams.fixedAssetId ?: 'DEMO_VEHICLE_01'
+        String productMeterTypeId = testParams.productMeterTypeId ?: 'ODOMETER'
         Map serviceCtx = [
-                fixedAssetId: 'DEMO_VEHICLE_01',
-                productMeterTypeId: 'ODOMETER',
+                fixedAssetId: fixedAssetId,
+                productMeterTypeId: productMeterTypeId,
                 readingDate: UtilDateTime.nowTimestamp(),
                 meterValue: BigDecimal.valueOf(65),
                 userLogin: userLogin
@@ -101,7 +106,7 @@ class FixedAssetTests implements JupiterTestHelper {
         assert ServiceUtil.isSuccess(serviceResult)
 
         GenericValue fixedAssetMeter = from('FixedAssetMeter')
-                .where('fixedAssetId', 'DEMO_VEHICLE_01', 'productMeterTypeId', 'ODOMETER')
+                .where('fixedAssetId', fixedAssetId, 'productMeterTypeId', productMeterTypeId)
                 .queryFirst()
         assert fixedAssetMeter
     }
@@ -109,9 +114,11 @@ class FixedAssetTests implements JupiterTestHelper {
     @Order(5)
     void testUpdateFixedAssetMeter() {
         Timestamp readingDate = UtilDateTime.toTimestamp('04/01/2020 00:00:00')
+        String fixedAssetId = testParams.fixedAssetId ?: 'DEMO_VEHICLE_01'
+        String productMeterTypeId = testParams.productMeterTypeId ?: 'ODOMETER'
         Map serviceCtx = [
-                fixedAssetId: 'DEMO_VEHICLE_01',
-                productMeterTypeId: 'ODOMETER',
+                fixedAssetId: fixedAssetId,
+                productMeterTypeId: productMeterTypeId,
                 readingDate: readingDate,
                 meterValue: BigDecimal.valueOf(85),
                 userLogin: userLogin
@@ -120,7 +127,7 @@ class FixedAssetTests implements JupiterTestHelper {
         assert ServiceUtil.isSuccess(serviceResult)
 
         GenericValue fixedAssetMeter = from('FixedAssetMeter')
-                .where('fixedAssetId', 'DEMO_VEHICLE_01', 'productMeterTypeId', 'ODOMETER', 'readingDate', readingDate)
+                .where('fixedAssetId', fixedAssetId, 'productMeterTypeId', productMeterTypeId, 'readingDate', readingDate)
                 .queryOne()
         assert fixedAssetMeter
     }
@@ -128,9 +135,11 @@ class FixedAssetTests implements JupiterTestHelper {
     @Order(6)
     void testDeleteFixedAssetMeter() {
         Timestamp readingDate = UtilDateTime.toTimestamp('04/01/2020 00:00:00')
+        String fixedAssetId = testParams.fixedAssetId ?: 'DEMO_VEHICLE_01'
+        String productMeterTypeId = testParams.productMeterTypeId ?: 'ODOMETER'
         Map serviceCtx = [
-                fixedAssetId: 'DEMO_VEHICLE_01',
-                productMeterTypeId: 'ODOMETER',
+                fixedAssetId: fixedAssetId,
+                productMeterTypeId: productMeterTypeId,
                 readingDate: readingDate,
                 userLogin: userLogin
         ]
@@ -138,23 +147,25 @@ class FixedAssetTests implements JupiterTestHelper {
         assert ServiceUtil.isSuccess(serviceResult)
 
         GenericValue fixedAssetMeter = from('FixedAssetMeter')
-                .where('fixedAssetId', 'DEMO_VEHICLE_01', 'productMeterTypeId', 'ODOMETER', 'readingDate', readingDate)
+                .where('fixedAssetId', fixedAssetId, 'productMeterTypeId', productMeterTypeId, 'readingDate', readingDate)
                 .queryOne()
         assert !fixedAssetMeter
     }
     @Test
     @Order(7)
     void testCreateFixedAssetGeoPoint() {
+        String fixedAssetId = testParams.fixedAssetId ?: 'DEMO_VEHICLE_01'
+        String geoPointId = testParams.geoPointId ?: '9000'
         Map serviceCtx = [
-                fixedAssetId: 'DEMO_VEHICLE_01',
-                geoPointId: '9000',
+                fixedAssetId: fixedAssetId,
+                geoPointId: geoPointId,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('createFixedAssetGeoPoint', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
         GenericValue fixedAssetGeoPoint = from('FixedAssetGeoPoint')
-                .where('fixedAssetId', 'DEMO_VEHICLE_01', 'geoPointId', '9000')
+                .where('fixedAssetId', fixedAssetId, 'geoPointId', geoPointId)
                 .filterByDate().queryFirst()
         assert fixedAssetGeoPoint
     }

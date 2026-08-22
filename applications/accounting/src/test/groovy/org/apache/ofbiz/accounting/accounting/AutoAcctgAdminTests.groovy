@@ -31,9 +31,11 @@ class AutoAcctgAdminTests implements JupiterTestHelper {
     @Test
     @Order(1)
     void testGetFXConversion() {
+        String uomId = testParams.uomId ?: 'EUR'
+        String uomIdTo = testParams.uomIdTo ?: 'USD'
         Map serviceCtx = [
-                uomId: 'EUR',
-                uomIdTo: 'USD',
+                uomId: uomId,
+                uomIdTo: uomIdTo,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('getFXConversion', serviceCtx)
@@ -43,37 +45,42 @@ class AutoAcctgAdminTests implements JupiterTestHelper {
     @Test
     @Order(2)
     void testAddPaymentMethodTypeGlAssignment() {
+        String paymentMethodTypeId = testParams.paymentMethodTypeId ?: 'GIFT_CARD'
+        String organizationPartyId = testParams.organizationPartyId ?: 'DEMO_COMPANY1'
+        String glAccountId = testParams.glAccountId ?: '999999'
         Map serviceCtx = [
-            paymentMethodTypeId: 'GIFT_CARD',
-            organizationPartyId: 'DEMO_COMPANY1',
-            glAccountId: '999999',
+            paymentMethodTypeId: paymentMethodTypeId,
+            organizationPartyId: organizationPartyId,
+            glAccountId: glAccountId,
             userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('addPaymentMethodTypeGlAssignment', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
         GenericValue paymentMethodTypeGlAccount = from('PaymentMethodTypeGlAccount')
-                .where('paymentMethodTypeId', 'GIFT_CARD',
-                        'organizationPartyId', 'DEMO_COMPANY1')
+                .where('paymentMethodTypeId', paymentMethodTypeId,
+                        'organizationPartyId', organizationPartyId)
                 .queryOne()
         assert paymentMethodTypeGlAccount
-        assert paymentMethodTypeGlAccount.glAccountId == '999999'
+        assert paymentMethodTypeGlAccount.glAccountId == glAccountId
     }
 
     @Test
     @Order(3)
     void testRemovePaymentTypeGlAssignment() {
+        String paymentTypeId = testParams.paymentTypeId ?: 'COMMISSION_PAYMENT'
+        String organizationPartyId = testParams.organizationPartyId ?: 'DEMO_COMPANY1'
         Map serviceCtx = [
-                paymentTypeId: 'COMMISSION_PAYMENT',
-                organizationPartyId: 'DEMO_COMPANY1',
+                paymentTypeId: paymentTypeId,
+                organizationPartyId: organizationPartyId,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('removePaymentTypeGlAssignment', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
         GenericValue paymentMethodTypeGlAccount = from('PaymentGlAccountTypeMap')
-                .where('paymentTypeId', 'COMMISSION_PAYMENT',
-                        'organizationPartyId', 'DEMO_COMPANY1')
+                .where('paymentTypeId', paymentTypeId,
+                        'organizationPartyId', organizationPartyId)
                 .queryOne()
         assert !paymentMethodTypeGlAccount
     }
@@ -81,45 +88,50 @@ class AutoAcctgAdminTests implements JupiterTestHelper {
     @Test
     @Order(4)
     void testCreatePartyAcctgPreference() {
+        String partyId = testParams.partyId ?: 'DEMO_COMPANY'
+        String refundPaymentMethodId = testParams.refundPaymentMethodId ?: '9020'
         Map serviceCtx = [
-                partyId: 'DEMO_COMPANY',
-                refundPaymentMethodId: '9020',
+                partyId: partyId,
+                refundPaymentMethodId: refundPaymentMethodId,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('createPartyAcctgPreference', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
         GenericValue partyAcctgPreference = from('PartyAcctgPreference')
-                .where('partyId', 'DEMO_COMPANY')
+                .where('partyId', partyId)
                 .queryOne()
         assert partyAcctgPreference
-        assert partyAcctgPreference.partyId == 'DEMO_COMPANY'
-        assert partyAcctgPreference.refundPaymentMethodId == '9020'
+        assert partyAcctgPreference.partyId == partyId
+        assert partyAcctgPreference.refundPaymentMethodId == refundPaymentMethodId
     }
 
     @Test
     @Order(5)
     void testUpdatePartyAcctgPreference() {
+        String partyId = testParams.partyId ?: 'DEMO_COMPANY1'
+        String refundPaymentMethodId = testParams.refundPaymentMethodId ?: '9020'
         Map serviceCtx = [
-                partyId: 'DEMO_COMPANY1',
-                refundPaymentMethodId: '9020',
+                partyId: partyId,
+                refundPaymentMethodId: refundPaymentMethodId,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('updatePartyAcctgPreference', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
         GenericValue partyAcctgPreference = from('PartyAcctgPreference')
-                .where('partyId', 'DEMO_COMPANY1')
+                .where('partyId', partyId)
                 .queryOne()
         assert partyAcctgPreference
-        assert partyAcctgPreference.refundPaymentMethodId == '9020'
+        assert partyAcctgPreference.refundPaymentMethodId == refundPaymentMethodId
     }
 
     @Test
     @Order(6)
     void testGetPartyAccountingPreferences() {
+        String organizationPartyId = testParams.organizationPartyId ?: 'DEMO_COMPANY1'
         Map serviceCtx = [
-                organizationPartyId: 'DEMO_COMPANY1',
+                organizationPartyId: organizationPartyId,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('getPartyAccountingPreferences', serviceCtx)
@@ -130,15 +142,16 @@ class AutoAcctgAdminTests implements JupiterTestHelper {
     @Test
     @Order(7)
     void testSetAcctgCompany() {
+        String organizationPartyId = testParams.organizationPartyId ?: 'DEMO_COMPANY1'
         Map serviceCtx = [
-                organizationPartyId: 'DEMO_COMPANY1',
+                organizationPartyId: organizationPartyId,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('setAcctgCompany', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
         GenericValue userPreference = from('UserPreference')
-                .where('userPrefValue', 'DEMO_COMPANY1')
+                .where('userPrefValue', organizationPartyId)
                 .queryFirst()
         assert userPreference
         assert userPreference.userPrefGroupTypeId == 'GLOBAL_PREFERENCES'
@@ -148,9 +161,11 @@ class AutoAcctgAdminTests implements JupiterTestHelper {
     @Test
     @Order(8)
     void testUpdateFXConversion() {
+        String uomId = testParams.uomId ?: 'INR'
+        String uomIdTo = testParams.uomIdTo ?: 'USD'
         Map serviceCtx = [
-                uomId: 'INR',
-                uomIdTo: 'USD',
+                uomId: uomId,
+                uomIdTo: uomIdTo,
                 conversionFactor: 2.0,
                 userLogin: userLogin
         ]
@@ -158,7 +173,7 @@ class AutoAcctgAdminTests implements JupiterTestHelper {
         assert ServiceUtil.isSuccess(serviceResult)
 
         GenericValue uomConversionDated = from('UomConversionDated')
-                .where('uomId', 'INR', 'uomIdTo', 'USD')
+                .where('uomId', uomId, 'uomIdTo', uomIdTo)
                 .queryFirst()
         assert uomConversionDated
         assert uomConversionDated.conversionFactor == 2.0
@@ -167,37 +182,43 @@ class AutoAcctgAdminTests implements JupiterTestHelper {
     @Test
     @Order(9)
     void testCreateGlAccountTypeDefault() {
+        String glAccountTypeId = testParams.glAccountTypeId ?: 'BALANCE_ACCOUNT'
+        String organizationPartyId = testParams.organizationPartyId ?: 'DEMO_COMPANY1'
+        String glAccountId = testParams.glAccountId ?: '999999'
         Map serviceCtx = [
-                glAccountTypeId: 'BALANCE_ACCOUNT',
-                organizationPartyId: 'DEMO_COMPANY1',
-                glAccountId: '999999',
+                glAccountTypeId: glAccountTypeId,
+                organizationPartyId: organizationPartyId,
+                glAccountId: glAccountId,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('createGlAccountTypeDefault', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
         GenericValue glAccountTypeDefault = from('GlAccountTypeDefault')
-                .where('glAccountTypeId', 'BALANCE_ACCOUNT', 'organizationPartyId', 'DEMO_COMPANY1')
+                .where('glAccountTypeId', glAccountTypeId, 'organizationPartyId', organizationPartyId)
                 .queryOne()
         assert glAccountTypeDefault
-        assert glAccountTypeDefault.glAccountId == '999999'
+        assert glAccountTypeDefault.glAccountId == glAccountId
     }
 
     @Test
     @Order(10)
     void testRemoveGlAccountTypeDefault() {
+        String glAccountTypeId = testParams.glAccountTypeId ?: 'ACCOUNTS_PAYABLE'
+        String organizationPartyId = testParams.organizationPartyId ?: 'DEMO_COMPANY1'
+        String glAccountId = testParams.glAccountId ?: '999999'
         Map serviceCtx = [
-                glAccountTypeId: 'ACCOUNTS_PAYABLE',
-                organizationPartyId: 'DEMO_COMPANY1',
-                glAccountId: '999999',
+                glAccountTypeId: glAccountTypeId,
+                organizationPartyId: organizationPartyId,
+                glAccountId: glAccountId,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('removeGlAccountTypeDefault', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
         GenericValue glAccountTypeDefault = from('GlAccountTypeDefault')
-                .where('glAccountTypeId', 'ACCOUNTS_PAYABLE',
-                        'organizationPartyId', 'DEMO_COMPANY1')
+                .where('glAccountTypeId', glAccountTypeId,
+                        'organizationPartyId', organizationPartyId)
                 .queryOne()
         assert !glAccountTypeDefault
     }
@@ -205,37 +226,42 @@ class AutoAcctgAdminTests implements JupiterTestHelper {
     @Test
     @Order(11)
     void testAddInvoiceItemTypeGlAssignment() {
+        String invoiceItemTypeId = testParams.invoiceItemTypeId ?: 'PINV_FPROD_ITEM'
+        String organizationPartyId = testParams.organizationPartyId ?: 'DEMO_COMPANY1'
+        String glAccountId = testParams.glAccountId ?: '999999'
         Map serviceCtx = [
-                invoiceItemTypeId: 'PINV_FPROD_ITEM',
-                organizationPartyId: 'DEMO_COMPANY1',
-                glAccountId: '999999',
+                invoiceItemTypeId: invoiceItemTypeId,
+                organizationPartyId: organizationPartyId,
+                glAccountId: glAccountId,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('addInvoiceItemTypeGlAssignment', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
         GenericValue invoiceItemTypeGlAccount = from('InvoiceItemTypeGlAccount')
-                .where('invoiceItemTypeId', 'PINV_FPROD_ITEM',
-                        'organizationPartyId', 'DEMO_COMPANY1')
+                .where('invoiceItemTypeId', invoiceItemTypeId,
+                        'organizationPartyId', organizationPartyId)
                 .queryOne()
         assert invoiceItemTypeGlAccount
-        assert invoiceItemTypeGlAccount.glAccountId == '999999'
+        assert invoiceItemTypeGlAccount.glAccountId == glAccountId
     }
 
     @Test
     @Order(12)
     void testRemoveInvoiceItemTypeGlAssignment() {
+        String invoiceItemTypeId = testParams.invoiceItemTypeId ?: 'PINV_SALES_TAX'
+        String organizationPartyId = testParams.organizationPartyId ?: 'DEMO_COMPANY1'
         Map serviceCtx = [
-                invoiceItemTypeId: 'PINV_SALES_TAX',
-                organizationPartyId: 'DEMO_COMPANY1',
+                invoiceItemTypeId: invoiceItemTypeId,
+                organizationPartyId: organizationPartyId,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('removeInvoiceItemTypeGlAssignment', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
         GenericValue invoiceItemTypeGlAccount = from('InvoiceItemTypeGlAccount')
-                .where('invoiceItemTypeId', 'PINV_SALES_TAX',
-                        'organizationPartyId', 'DEMO_COMPANY1')
+                .where('invoiceItemTypeId', invoiceItemTypeId,
+                        'organizationPartyId', organizationPartyId)
                 .queryOne()
         assert !invoiceItemTypeGlAccount
     }
@@ -243,37 +269,42 @@ class AutoAcctgAdminTests implements JupiterTestHelper {
     @Test
     @Order(13)
     void testAddPaymentTypeGlAssignment() {
+        String paymentTypeId = testParams.paymentTypeId ?: 'TAX_PAYMENT'
+        String organizationPartyId = testParams.organizationPartyId ?: 'DEMO_COMPANY1'
+        String glAccountTypeId = testParams.glAccountTypeId ?: 'TAX_ACCOUNT'
         Map serviceCtx = [
-                paymentTypeId: 'TAX_PAYMENT',
-                organizationPartyId: 'DEMO_COMPANY1',
-                glAccountTypeId: 'TAX_ACCOUNT',
+                paymentTypeId: paymentTypeId,
+                organizationPartyId: organizationPartyId,
+                glAccountTypeId: glAccountTypeId,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('addPaymentTypeGlAssignment', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
         GenericValue paymentGlAccountTypeMap = from('PaymentGlAccountTypeMap')
-                .where('paymentTypeId', 'TAX_PAYMENT',
-                        'organizationPartyId', 'DEMO_COMPANY1')
+                .where('paymentTypeId', paymentTypeId,
+                        'organizationPartyId', organizationPartyId)
                 .queryOne()
         assert paymentGlAccountTypeMap
-        assert paymentGlAccountTypeMap.glAccountTypeId == 'TAX_ACCOUNT'
+        assert paymentGlAccountTypeMap.glAccountTypeId == glAccountTypeId
     }
 
     @Test
     @Order(14)
     void testRemovePaymentMethodTypeGlAssignment() {
+        String paymentMethodTypeId = testParams.paymentMethodTypeId ?: 'CASH'
+        String organizationPartyId = testParams.organizationPartyId ?: 'DEMO_COMPANY1'
         Map serviceCtx = [
-                paymentMethodTypeId: 'CASH',
-                organizationPartyId: 'DEMO_COMPANY1',
+                paymentMethodTypeId: paymentMethodTypeId,
+                organizationPartyId: organizationPartyId,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('removePaymentMethodTypeGlAssignment', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
         GenericValue paymentMethodTypeGlAccount = from('PaymentMethodTypeGlAccount')
-                .where('paymentMethodTypeId', 'CASH',
-                        'organizationPartyId', 'DEMO_COMPANY1')
+                .where('paymentMethodTypeId', paymentMethodTypeId,
+                        'organizationPartyId', organizationPartyId)
                 .queryOne()
         assert !paymentMethodTypeGlAccount
     }

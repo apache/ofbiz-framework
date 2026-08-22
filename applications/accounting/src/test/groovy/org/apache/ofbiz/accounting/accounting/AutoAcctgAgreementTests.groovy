@@ -31,15 +31,16 @@ class AutoAcctgAgreementTests implements JupiterTestHelper {
     @Test
     @Order(1)
     void testAddPaymentMethodTypeGlAssignment() {
+        String agreementId = testParams.agreementId ?: '1000'
         Map serviceCtx = [
-                agreementId: '1000',
+                agreementId: agreementId,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('expireAgreement', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
         GenericValue agreement = from('Agreement')
-                .where('agreementId', '1000')
+                .where('agreementId', agreementId)
                 .filterByDate()
                 .queryOne()
         assert agreement == null
@@ -48,10 +49,13 @@ class AutoAcctgAgreementTests implements JupiterTestHelper {
     @Test
     @Order(2)
     void testCopyAgreement() {
+        String agreementId = testParams.agreementId ?: '1010'
+        String copyAgreementTerms = testParams.copyAgreementTerms ?: 'N'
+        String copyAgreementProducts = testParams.copyAgreementProducts ?: 'Y'
         Map serviceCtx = [
-                agreementId: '1010',
-                copyAgreementTerms: 'N',
-                copyAgreementProducts: 'Y',
+                agreementId: agreementId,
+                copyAgreementTerms: copyAgreementTerms,
+                copyAgreementProducts: copyAgreementProducts,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('copyAgreement', serviceCtx)
@@ -73,10 +77,13 @@ class AutoAcctgAgreementTests implements JupiterTestHelper {
     @Test
     @Order(3)
     void testGetCommissionForProduct() {
+        String productId = testParams.productId ?: 'TestProduct2'
+        String invoiceItemSeqId = testParams.invoiceItemSeqId ?: 'COMM_INV_ITEM'
+        String invoiceItemTypeId = testParams.invoiceItemTypeId ?: 'COMM_INV_ITEM'
         Map serviceCtx = [
-                productId: 'TestProduct2',
-                invoiceItemSeqId: 'COMM_INV_ITEM',
-                invoiceItemTypeId: 'COMM_INV_ITEM',
+                productId: productId,
+                invoiceItemSeqId: invoiceItemSeqId,
+                invoiceItemTypeId: invoiceItemTypeId,
                 amount: 100.00,
                 userLogin: userLogin
         ]

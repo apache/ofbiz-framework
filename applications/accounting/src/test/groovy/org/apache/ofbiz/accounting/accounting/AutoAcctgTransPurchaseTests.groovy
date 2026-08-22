@@ -42,19 +42,19 @@ class AutoAcctgTransPurchaseTests implements JupiterTestHelper {
             Post condition : Credit in account 214000 - UNINVOICED ITEM RECEIPT amount = grand total of order.
                              Debit in account 140000- INVENTORY amount = grand total of order.
         */
-        String orderId = 'DEMO10091'
-        String shipmentId = '9999'
-        String productId = 'GZ-2644'
+        String orderId = testParams.orderId ?: 'DEMO10091'
+        String shipmentId = testParams.shipmentId ?: '9999'
+        String productId = testParams.productId ?: 'GZ-2644'
 
         Map serviceCtx = [
-                inventoryItemTypeId: 'NON_SERIAL_INV_ITEM',
+                inventoryItemTypeId: testParams.inventoryItemTypeId ?: 'NON_SERIAL_INV_ITEM',
                 productId: productId,
-                facilityId: 'WebStoreWarehouse',
+                facilityId: testParams.facilityId ?: 'WebStoreWarehouse',
                 quantityAccepted: new BigDecimal('5'),
                 quantityRejected: new BigDecimal('0'),
                 shipmentId: shipmentId,
                 orderId: orderId,
-                orderItemSeqId: '00001',
+                orderItemSeqId: testParams.orderItemSeqId ?: '00001',
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('receiveInventoryProduct', serviceCtx)
@@ -112,7 +112,7 @@ class AutoAcctgTransPurchaseTests implements JupiterTestHelper {
         assert orderItemBilling
 
         Map serviceCtx = [
-                statusId: 'INVOICE_READY',
+                statusId: testParams.statusId ?: 'INVOICE_READY',
                 invoiceId: orderItemBilling.invoiceId,
                 userLogin: userLogin
         ]
@@ -151,10 +151,10 @@ class AutoAcctgTransPurchaseTests implements JupiterTestHelper {
                 * Credit; in account 111100 - "GENERAL CHECKING ACCOUNT"; amount: 290$; however this depends on the "Payment method type" selected;
                 * Debit; in account 216000 - "ACCOUNTS PAYABLE - UNAPPLIED PAYMENTS"; amount: 290$
          */
-        String paymentId = '9000'
+        String paymentId = testParams.paymentId ?: '9000'
 
         Map serviceCtx = [
-                statusId: 'PMNT_SENT',
+                statusId: testParams.statusId ?: 'PMNT_SENT',
                 paymentId: paymentId,
                 userLogin: userLogin
         ]

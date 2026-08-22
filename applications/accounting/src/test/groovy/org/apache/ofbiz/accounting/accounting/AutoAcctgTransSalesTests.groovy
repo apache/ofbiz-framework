@@ -49,15 +49,15 @@ class AutoAcctgTransSalesTests implements JupiterTestHelper {
               * Credit; in account:140000 - Account Type:"INVENTORY_ACCOUNT"
               * Debit; in account:500000 - Account Type:"COGS_ACCOUNT"
         */
-        String shipmentId = '9998'
+        String shipmentId = testParams.shipmentId ?: '9998'
 
         Map serviceCtx = [
                 shipmentId: shipmentId,
-                shipGroupSeqId: '00001',
-                orderId: 'DEMO10090',
-                orderItemSeqId: '00001',
-                inventoryItemId: '9001',
-                productId: 'GZ-2644',
+                shipGroupSeqId: testParams.shipGroupSeqId ?: '00001',
+                orderId: testParams.orderId ?: 'DEMO10090',
+                orderItemSeqId: testParams.orderItemSeqId ?: '00001',
+                inventoryItemId: testParams.inventoryItemId ?: '9001',
+                productId: testParams.productId ?: 'GZ-2644',
                 quantity: new BigDecimal('2'),
                 userLogin: userLogin
         ]
@@ -116,11 +116,11 @@ class AutoAcctgTransSalesTests implements JupiterTestHelper {
                   shipment to the packed status (precondition 4).  Additionally it doesn't seem to be necessary to set the invoice status
                   to ready because the invoice is created in that state.
         */
-        String shipmentId = '9998'
+        String shipmentId = testParams.shipmentId ?: '9998'
 
         Map serviceCtx = [
                 shipmentId: shipmentId,
-                statusId: 'SHIPMENT_PACKED',
+                statusId: testParams.statusId ?: 'SHIPMENT_PACKED',
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('updateShipment', serviceCtx)
@@ -199,10 +199,10 @@ class AutoAcctgTransSalesTests implements JupiterTestHelper {
         Map serviceCtx = [
                 partyIdFrom: customerRole.partyId,
                 amount: new BigDecimal('100'),
-                partyIdTo: 'Company',
-                paymentMethodTypeId: 'EFT_ACCOUNT',
-                paymentTypeId: 'CUSTOMER_PAYMENT',
-                statusId: 'PMNT_RECEIVED',
+                partyIdTo: testParams.partyIdTo ?: 'Company',
+                paymentMethodTypeId: testParams.paymentMethodTypeId ?: 'EFT_ACCOUNT',
+                paymentTypeId: testParams.paymentTypeId ?: 'CUSTOMER_PAYMENT',
+                statusId: testParams.statusId ?: 'PMNT_RECEIVED',
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('createPayment', serviceCtx)

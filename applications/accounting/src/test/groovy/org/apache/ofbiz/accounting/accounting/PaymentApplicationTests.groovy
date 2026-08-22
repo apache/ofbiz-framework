@@ -36,8 +36,10 @@ class PaymentApplicationTests implements JupiterTestHelper {
     void testInvoiceAppl() {
         Map serviceInMap = [:]
         //from the test data
-        serviceInMap.invoiceId = 'appltest10000'
-        serviceInMap.paymentId = 'appltest10000'
+        String invoiceId = testParams.invoiceId ?: 'appltest10000'
+        String paymentId = testParams.paymentId ?: 'appltest10000'
+        serviceInMap.invoiceId = invoiceId
+        serviceInMap.paymentId = paymentId
         serviceInMap.userLogin = userLogin
         Map serviceResult = dispatcher.runSync('createPaymentApplication', serviceInMap)
         assert ServiceUtil.isSuccess(serviceResult)
@@ -66,8 +68,10 @@ class PaymentApplicationTests implements JupiterTestHelper {
     @Order(2)
     void testToPayment() {
         Map serviceInMap = [:]
-        serviceInMap.paymentId = 'appltest10000'
-        serviceInMap.toPaymentId = 'appltest10001'
+        String paymentId = testParams.paymentId ?: 'appltest10000'
+        String toPaymentId = testParams.toPaymentId ?: 'appltest10001'
+        serviceInMap.paymentId = paymentId
+        serviceInMap.toPaymentId = toPaymentId
         serviceInMap.userLogin = userLogin
         Map serviceResult = dispatcher.runSync('createPaymentApplication', serviceInMap)
         assert ServiceUtil.isSuccess(serviceResult)
@@ -99,8 +103,10 @@ class PaymentApplicationTests implements JupiterTestHelper {
     void testBillingAppl() {
         Map serviceInMap = [:]
         //from the test data
-        serviceInMap.paymentId = 'appltest10000'
-        serviceInMap.billingAccountId = 'appltest10000'
+        String paymentId = testParams.paymentId ?: 'appltest10000'
+        String billingAccountId = testParams.billingAccountId ?: 'appltest10000'
+        serviceInMap.paymentId = paymentId
+        serviceInMap.billingAccountId = billingAccountId
         serviceInMap.userLogin = userLogin
         Map serviceResult = dispatcher.runSync('createPaymentApplication', serviceInMap)
         assert ServiceUtil.isSuccess(serviceResult)
@@ -134,8 +140,10 @@ class PaymentApplicationTests implements JupiterTestHelper {
     void testTaxGeoId() {
         Map serviceInMap = [:]
         //from the test data
-        serviceInMap.paymentId = 'appltest10000'
-        serviceInMap.taxAuthGeoId = 'UT'
+        String paymentId = testParams.paymentId ?: 'appltest10000'
+        String taxAuthGeoId = testParams.taxAuthGeoId ?: 'UT'
+        serviceInMap.paymentId = paymentId
+        serviceInMap.taxAuthGeoId = taxAuthGeoId
         serviceInMap.userLogin = userLogin
         Map serviceResult = dispatcher.runSync('createPaymentApplication', serviceInMap)
         assert ServiceUtil.isSuccess(serviceResult)

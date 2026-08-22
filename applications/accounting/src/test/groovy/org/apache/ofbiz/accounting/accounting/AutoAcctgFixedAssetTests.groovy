@@ -32,16 +32,17 @@ class AutoAcctgFixedAssetTests implements JupiterTestHelper {
     @Test
     @Order(1)
     void testCreateFixedAssetMaint() {
+        String fixedAssetId = testParams.fixedAssetId ?: '1000'
         Map serviceCtx = [
-                fixedAssetId: '1000',
-                statusId: 'FAM_CREATED',
+                fixedAssetId: fixedAssetId,
+                statusId: testParams.statusId ?: 'FAM_CREATED',
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('createFixedAssetMaint', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
         GenericValue fixedAssetMaint = from('FixedAssetMaint')
-                .where('fixedAssetId', '1000')
+                .where('fixedAssetId', fixedAssetId)
                 .queryFirst()
 
         assert fixedAssetMaint
@@ -51,9 +52,11 @@ class AutoAcctgFixedAssetTests implements JupiterTestHelper {
     @Test
     @Order(2)
     void testCreateFixedAssetMeter() {
+        String fixedAssetId = testParams.fixedAssetId ?: '1000'
+        String productMeterTypeId = testParams.productMeterTypeId ?: 'DISTANCE'
         Map serviceCtx = [
-                   fixedAssetId: '1000',
-                   productMeterTypeId: 'DISTANCE',
+                   fixedAssetId: fixedAssetId,
+                   productMeterTypeId: productMeterTypeId,
                    readingDate: UtilDateTime.nowTimestamp(),
                    meterValue: new BigDecimal('10'),
                    userLogin: userLogin
@@ -61,7 +64,7 @@ class AutoAcctgFixedAssetTests implements JupiterTestHelper {
         Map serviceResult = dispatcher.runSync('createFixedAssetMeter', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
         GenericValue fixedAssetMeter = from('FixedAssetMeter')
-                       .where('fixedAssetId', '1000', 'productMeterTypeId', 'DISTANCE')
+                       .where('fixedAssetId', fixedAssetId, 'productMeterTypeId', productMeterTypeId)
                        .queryFirst()
         assert fixedAssetMeter
         assert fixedAssetMeter.meterValue == BigDecimal.TEN
@@ -70,9 +73,11 @@ class AutoAcctgFixedAssetTests implements JupiterTestHelper {
     @Test
     @Order(3)
     void testCancelFixedAssetStdCost() {
+        String fixedAssetId = testParams.fixedAssetId ?: '1000'
+        String fixedAssetStdCostTypeId = testParams.fixedAssetStdCostTypeId ?: 'SETUP_COST'
         Map serviceCtx = [
-                        fixedAssetId: '1000',
-                        fixedAssetStdCostTypeId: 'SETUP_COST',
+                        fixedAssetId: fixedAssetId,
+                        fixedAssetStdCostTypeId: fixedAssetStdCostTypeId,
                         fromDate: UtilDateTime.toTimestamp('11/03/2016 00:00:00'),
                         userLogin: userLogin
         ]
@@ -80,7 +85,9 @@ class AutoAcctgFixedAssetTests implements JupiterTestHelper {
         assert ServiceUtil.isSuccess(serviceResult)
 
         GenericValue fixedAssetStdCost = from('FixedAssetStdCost')
-                .where('fixedAssetId', '1000', 'fixedAssetStdCostTypeId', 'SETUP_COST', 'fromDate', UtilDateTime.toTimestamp('11/03/2016 00:00:00'))
+                .where('fixedAssetId', fixedAssetId,
+                       'fixedAssetStdCostTypeId', fixedAssetStdCostTypeId,
+                       'fromDate', UtilDateTime.toTimestamp('11/03/2016 00:00:00'))
                 .queryFirst()
 
         assert fixedAssetStdCost
