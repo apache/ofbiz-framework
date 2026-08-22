@@ -31,25 +31,29 @@ class PartyAddressTests implements JupiterTestHelper {
     @Test
     @Order(1)
     void testCreateContactMech() {
+        String contactMechId = testParams.contactMechId ?: 'TestEmailConactMech'
+        String contactMechTypeId = testParams.contactMechTypeId ?: 'EMAIL_ADDRESS'
+        String infoString = testParams.infoString ?: 'test_email@example.com'
         Map serviceCtx = [
-                contactMechId: 'TestEmailConactMech',
-                contactMechTypeId: 'EMAIL_ADDRESS',
-                infoString: 'test_email@example.com',
+                contactMechId: contactMechId,
+                contactMechTypeId: contactMechTypeId,
+                infoString: infoString,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('createContactMech', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue contactMech = from('ContactMech').where('contactMechId', 'TestEmailConactMech').queryOne()
+        GenericValue contactMech = from('ContactMech').where('contactMechId', contactMechId).queryOne()
         assert contactMech
-        assert contactMech.infoString == 'test_email@example.com'
+        assert contactMech.infoString == infoString
     }
 
     @Test
     @Order(2)
     void testCreateEmailAddress() {
+        String emailAddress = testParams.emailAddress ?: 'test.email123@example.com'
         Map serviceCtx = [
-                emailAddress: 'test.email123@example.com',
+                emailAddress: emailAddress,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('createEmailAddress', serviceCtx)
@@ -57,24 +61,28 @@ class PartyAddressTests implements JupiterTestHelper {
 
         GenericValue contactMech = from('ContactMech').where('contactMechId', serviceResult.contactMechId).queryOne()
         assert contactMech
-        assert contactMech.infoString == 'test.email123@example.com'
+        assert contactMech.infoString == emailAddress
     }
 
     @Test
     @Order(3)
     void testCreatePartyContactMech() {
+        String contactMechId = testParams.contactMechId ?: 'TestContactMech3'
+        String partyId = testParams.partyId ?: 'TestCustomer'
+        String contactMechPurposeTypeId = testParams.contactMechPurposeTypeId ?: 'PRIMARY_EMAIL'
+        String contactMechTypeId = testParams.contactMechTypeId ?: 'EMAIL_ADDRESS'
         Map serviceCtx = [
-                contactMechId: 'TestContactMech3',
-                partyId: 'TestCustomer',
-                contactMechPurposeTypeId: 'PRIMARY_EMAIL',
-                contactMechTypeId: 'EMAIL_ADDRESS',
+                contactMechId: contactMechId,
+                partyId: partyId,
+                contactMechPurposeTypeId: contactMechPurposeTypeId,
+                contactMechTypeId: contactMechTypeId,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('createPartyContactMech', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
         GenericValue partyContactMech = from('PartyContactMech')
-            .where('contactMechId', 'TestContactMech3', 'partyId', 'TestCustomer')
+            .where('contactMechId', contactMechId, 'partyId', partyId)
             .queryFirst()
         assert partyContactMech
     }
@@ -85,10 +93,13 @@ class PartyAddressTests implements JupiterTestHelper {
     // otherwise createPartyContactMechPurpose fails ("a purpose with that type already exists").
     @Order(9)
     void testCreatePartyContactMechPurpose() {
+        String partyId = testParams.partyId ?: 'TestCustomer'
+        String contactMechId = testParams.contactMechId ?: 'TestContactMech'
+        String contactMechPurposeTypeId = testParams.contactMechPurposeTypeId ?: 'PRIMARY_EMAIL'
         Map serviceCtx = [
-                partyId: 'TestCustomer',
-                contactMechId: 'TestContactMech',
-                contactMechPurposeTypeId: 'PRIMARY_EMAIL',
+                partyId: partyId,
+                contactMechId: contactMechId,
+                contactMechPurposeTypeId: contactMechPurposeTypeId,
                 fromDate: java.sql.Timestamp.valueOf('2009-09-09 01:01:01'),
                 userLogin: userLogin
         ]
@@ -97,11 +108,11 @@ class PartyAddressTests implements JupiterTestHelper {
 
         GenericValue partyContactMechPurpose = from('PartyContactMechPurpose')
             .where('partyId',
-                   'TestCustomer',
+                   partyId,
                    'contactMechId',
-                   'TestContactMech',
+                   contactMechId,
                    'contactMechPurposeTypeId',
-                   'PRIMARY_EMAIL',
+                   contactMechPurposeTypeId,
                    'fromDate',
                    java.sql.Timestamp.valueOf('2009-09-09 01:01:01'))
             .queryOne()
@@ -111,9 +122,11 @@ class PartyAddressTests implements JupiterTestHelper {
     @Test
     @Order(5)
     void testCreatePartyDataSource() {
+        String partyId = testParams.partyId ?: 'TestCustomer'
+        String dataSourceId = testParams.dataSourceId ?: 'MY_PORTAL'
         Map serviceCtx = [
-                partyId: 'TestCustomer',
-                dataSourceId: 'MY_PORTAL',
+                partyId: partyId,
+                dataSourceId: dataSourceId,
                 fromDate: java.sql.Timestamp.valueOf('2009-09-09 01:01:01'),
                 userLogin: userLogin
         ]
@@ -121,7 +134,7 @@ class PartyAddressTests implements JupiterTestHelper {
         assert ServiceUtil.isSuccess(serviceResult)
 
         GenericValue partyDataSource = from('PartyDataSource')
-            .where('partyId', 'TestCustomer', 'dataSourceId', 'MY_PORTAL', 'fromDate', java.sql.Timestamp.valueOf('2009-09-09 01:01:01'))
+            .where('partyId', partyId, 'dataSourceId', dataSourceId, 'fromDate', java.sql.Timestamp.valueOf('2009-09-09 01:01:01'))
             .queryOne()
         assert partyDataSource
     }
@@ -129,9 +142,11 @@ class PartyAddressTests implements JupiterTestHelper {
     @Test
     @Order(6)
     void testCreatePartyEmailAddress() {
+        String partyId = testParams.partyId ?: 'TestCustomer'
+        String emailAddress = testParams.emailAddress ?: 'test.email1234@example.com'
         Map serviceCtx = [
-                partyId: 'TestCustomer',
-                emailAddress: 'test.email1234@example.com',
+                partyId: partyId,
+                emailAddress: emailAddress,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('createPartyEmailAddress', serviceCtx)
@@ -139,19 +154,25 @@ class PartyAddressTests implements JupiterTestHelper {
 
         GenericValue contactMech = from('ContactMech').where('contactMechId', serviceResult.contactMechId).queryOne()
         assert contactMech
-        assert contactMech.infoString == 'test.email1234@example.com'
+        assert contactMech.infoString == emailAddress
     }
 
     @Test
     @Order(7)
     void testCreatePostalAddress() {
+        String toName = testParams.toName ?: 'Test Address'
+        String address1 = testParams.address1 ?: '2004 Factory Blvd'
+        String city = testParams.city ?: 'City of Industry'
+        String countryGeoId = testParams.countryGeoId ?: 'USA'
+        String stateProvinceGeoId = testParams.stateProvinceGeoId ?: 'CA'
+        String postalCode = testParams.postalCode ?: '90000'
         Map serviceCtx = [
-                toName: 'Test Address',
-                address1: '2004 Factory Blvd',
-                city: 'City of Industry',
-                countryGeoId: 'USA',
-                stateProvinceGeoId: 'CA',
-                postalCode: '90000',
+                toName: toName,
+                address1: address1,
+                city: city,
+                countryGeoId: countryGeoId,
+                stateProvinceGeoId: stateProvinceGeoId,
+                postalCode: postalCode,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('createPostalAddress', serviceCtx)
@@ -159,18 +180,21 @@ class PartyAddressTests implements JupiterTestHelper {
 
         GenericValue postalAddress = from('PostalAddress').where('contactMechId', serviceResult.contactMechId).queryOne()
         assert postalAddress
-        assert postalAddress.address1 == '2004 Factory Blvd'
-        assert postalAddress.city == 'City of Industry'
-        assert postalAddress.postalCode == '90000'
+        assert postalAddress.address1 == address1
+        assert postalAddress.city == city
+        assert postalAddress.postalCode == postalCode
     }
 
     @Test
     @Order(8)
     void testCreateTelecomNumber() {
+        String contactMechId = testParams.contactMechId ?: 'TestTelecomNumber'
+        String areaCode = testParams.areaCode ?: '801'
+        String contactNumber = testParams.contactNumber ?: '1111111'
         Map serviceCtx = [
-                contactMechId: 'TestTelecomNumber',
-                areaCode: '801',
-                contactNumber: '1111111',
+                contactMechId: contactMechId,
+                areaCode: areaCode,
+                contactNumber: contactNumber,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('createTelecomNumber', serviceCtx)
@@ -178,17 +202,20 @@ class PartyAddressTests implements JupiterTestHelper {
 
         GenericValue telecomNumber = from('TelecomNumber').where('contactMechId', serviceResult.contactMechId).queryOne()
         assert telecomNumber
-        assert telecomNumber.areaCode == '801'
-        assert telecomNumber.contactNumber == '1111111'
+        assert telecomNumber.areaCode == areaCode
+        assert telecomNumber.contactNumber == contactNumber
     }
 
     @Test
     @Order(4)
     void testExpirePartyContactMechPurpose() {
+        String partyId = testParams.partyId ?: 'TestCustomer'
+        String contactMechId = testParams.contactMechId ?: 'TestContactMech'
+        String contactMechPurposeTypeId = testParams.contactMechPurposeTypeId ?: 'PRIMARY_EMAIL'
         Map serviceCtx = [
-                partyId: 'TestCustomer',
-                contactMechId: 'TestContactMech',
-                contactMechPurposeTypeId: 'PRIMARY_EMAIL',
+                partyId: partyId,
+                contactMechId: contactMechId,
+                contactMechPurposeTypeId: contactMechPurposeTypeId,
                 fromDate: java.sql.Timestamp.valueOf('2000-01-01 00:00:00'),
                 userLogin: userLogin
         ]
@@ -197,11 +224,11 @@ class PartyAddressTests implements JupiterTestHelper {
 
         GenericValue partyContactMechPurpose = from('PartyContactMechPurpose')
             .where('partyId',
-                   'TestCustomer',
+                   partyId,
                    'contactMechId',
-                   'TestContactMech',
+                   contactMechId,
                    'contactMechPurposeTypeId',
-                   'PRIMARY_EMAIL',
+                   contactMechPurposeTypeId,
                    'fromDate',
                    java.sql.Timestamp.valueOf('2000-01-01 00:00:00'))
             .queryOne()
@@ -212,8 +239,9 @@ class PartyAddressTests implements JupiterTestHelper {
     @Test
     @Order(10)
     void testGetPartyEmail() {
+        String partyId = testParams.partyId ?: 'TestCustomer'
         Map serviceCtx = [
-                partyId: 'TestCustomer',
+                partyId: partyId,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('getPartyEmail', serviceCtx)
@@ -226,8 +254,9 @@ class PartyAddressTests implements JupiterTestHelper {
     @Test
     @Order(11)
     void testGetPartyPostalAddress() {
+        String partyId = testParams.partyId ?: 'TestCustomer'
         Map serviceCtx = [
-                partyId: 'TestCustomer',
+                partyId: partyId,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('getPartyPostalAddress', serviceCtx)
@@ -241,8 +270,9 @@ class PartyAddressTests implements JupiterTestHelper {
     @Test
     @Order(12)
     void testGetPartyTelephone() {
+        String partyId = testParams.partyId ?: 'TestCustomer'
         Map serviceCtx = [
-                partyId: 'TestCustomer',
+                partyId: partyId,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('getPartyTelephone', serviceCtx)
@@ -255,10 +285,13 @@ class PartyAddressTests implements JupiterTestHelper {
     @Test
     @Order(13)
     void testUpdateContactMech() {
+        String contactMechId = testParams.contactMechId ?: 'TestContactMech'
+        String contactMechTypeId = testParams.contactMechTypeId ?: 'EMAIL_ADDRESS'
+        String infoString = testParams.infoString ?: 'demo_email@example.com'
         Map serviceCtx = [
-                contactMechId: 'TestContactMech',
-                contactMechTypeId: 'EMAIL_ADDRESS',
-                infoString: 'demo_email@example.com',
+                contactMechId: contactMechId,
+                contactMechTypeId: contactMechTypeId,
+                infoString: infoString,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('updateContactMech', serviceCtx)
@@ -266,15 +299,17 @@ class PartyAddressTests implements JupiterTestHelper {
 
         GenericValue contactMech = from('ContactMech').where('contactMechId', serviceResult.contactMechId).queryOne()
         assert contactMech
-        assert contactMech.infoString == 'demo_email@example.com'
+        assert contactMech.infoString == infoString
     }
 
     @Test
     @Order(14)
     void testUpdateEmailAddress() {
+        String contactMechId = testParams.contactMechId ?: 'TestContactMech'
+        String emailAddress = testParams.emailAddress ?: 'test.email123@example.com'
         Map serviceCtx = [
-                contactMechId: 'TestContactMech',
-                emailAddress: 'test.email123@example.com',
+                contactMechId: contactMechId,
+                emailAddress: emailAddress,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('updateEmailAddress', serviceCtx)
@@ -282,16 +317,19 @@ class PartyAddressTests implements JupiterTestHelper {
 
         GenericValue contactMech = from('ContactMech').where('contactMechId', serviceResult.contactMechId).queryOne()
         assert contactMech
-        assert contactMech.infoString == 'test.email123@example.com'
+        assert contactMech.infoString == emailAddress
     }
 
     @Test
     @Order(15)
     void testUpdatePartyEmailAddress() {
+        String partyId = testParams.partyId ?: 'TestCustomer'
+        String contactMechId = testParams.contactMechId ?: 'TestContactMech'
+        String emailAddress = testParams.emailAddress ?: 'test.email12345@example.com'
         Map serviceCtx = [
-                partyId: 'TestCustomer',
-                contactMechId: 'TestContactMech',
-                emailAddress: 'test.email12345@example.com',
+                partyId: partyId,
+                contactMechId: contactMechId,
+                emailAddress: emailAddress,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('updatePartyEmailAddress', serviceCtx)
@@ -299,39 +337,50 @@ class PartyAddressTests implements JupiterTestHelper {
 
         GenericValue contactMech = from('ContactMech').where('contactMechId', serviceResult.contactMechId).queryOne()
         assert contactMech
-        assert contactMech.infoString == 'test.email12345@example.com'
+        assert contactMech.infoString == emailAddress
     }
 
     @Test
     @Order(16)
     void testUpdatePartyGroup() {
+        String partyId = testParams.partyId ?: 'TestGroup-1'
+        String groupName = testParams.groupName ?: 'Test Party Group'
+        String logoImageUrl = testParams.logoImageUrl ?: '/images/ofbiz_logo.png'
         Map serviceCtx = [
-                partyId: 'TestGroup-1',
-                groupName: 'Test Party Group',
-                logoImageUrl: '/images/ofbiz_logo.png',
+                partyId: partyId,
+                groupName: groupName,
+                logoImageUrl: logoImageUrl,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('updatePartyGroup', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue partyGroup = from('PartyGroup').where('partyId', 'TestGroup-1').queryOne()
+        GenericValue partyGroup = from('PartyGroup').where('partyId', partyId).queryOne()
         assert partyGroup
-        assert partyGroup.groupName == 'Test Party Group'
-        assert partyGroup.logoImageUrl == '/images/ofbiz_logo.png'
+        assert partyGroup.groupName == groupName
+        assert partyGroup.logoImageUrl == logoImageUrl
     }
 
     @Test
     @Order(17)
     void testUpdatePartyPostalAddress() {
+        String contactMechId = testParams.contactMechId ?: 'TestPostalAdd2'
+        String partyId = testParams.partyId ?: 'TestCustomer'
+        String toName = testParams.toName ?: 'Test Address'
+        String address1 = testParams.address1 ?: '2004 Factory Blvd'
+        String city = testParams.city ?: 'City of Industry'
+        String countryGeoId = testParams.countryGeoId ?: 'USA'
+        String stateProvinceGeoId = testParams.stateProvinceGeoId ?: 'CA'
+        String postalCode = testParams.postalCode ?: '90000'
         Map serviceCtx = [
-                contactMechId: 'TestPostalAdd2',
-                partyId: 'TestCustomer',
-                toName: 'Test Address',
-                address1: '2004 Factory Blvd',
-                city: 'City of Industry',
-                countryGeoId: 'USA',
-                stateProvinceGeoId: 'CA',
-                postalCode: '90000',
+                contactMechId: contactMechId,
+                partyId: partyId,
+                toName: toName,
+                address1: address1,
+                city: city,
+                countryGeoId: countryGeoId,
+                stateProvinceGeoId: stateProvinceGeoId,
+                postalCode: postalCode,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('updatePartyPostalAddress', serviceCtx)
@@ -339,19 +388,23 @@ class PartyAddressTests implements JupiterTestHelper {
 
         GenericValue postalAddress = from('PostalAddress').where('contactMechId', serviceResult.contactMechId).queryOne()
         assert postalAddress
-        assert postalAddress.address1 == '2004 Factory Blvd'
-        assert postalAddress.city == 'City of Industry'
-        assert postalAddress.postalCode == '90000'
+        assert postalAddress.address1 == address1
+        assert postalAddress.city == city
+        assert postalAddress.postalCode == postalCode
     }
 
     @Test
     @Order(18)
     void testUpdatePartyTelecomNumber() {
+        String partyId = testParams.partyId ?: 'TestCustomer'
+        String contactMechId = testParams.contactMechId ?: 'TestContactMech1'
+        String areaCode = testParams.areaCode ?: '801'
+        String contactNumber = testParams.contactNumber ?: '1111111'
         Map serviceCtx = [
-                partyId: 'TestCustomer',
-                contactMechId: 'TestContactMech1',
-                areaCode: '801',
-                contactNumber: '1111111',
+                partyId: partyId,
+                contactMechId: contactMechId,
+                areaCode: areaCode,
+                contactNumber: contactNumber,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('updatePartyTelecomNumber', serviceCtx)
@@ -359,39 +412,49 @@ class PartyAddressTests implements JupiterTestHelper {
 
         GenericValue telecomNumber = from('TelecomNumber').where('contactMechId', serviceResult.contactMechId).queryOne()
         assert telecomNumber
-        assert telecomNumber.areaCode == '801'
-        assert telecomNumber.contactNumber == '1111111'
+        assert telecomNumber.areaCode == areaCode
+        assert telecomNumber.contactNumber == contactNumber
     }
 
     @Test
     @Order(19)
     void testUpdatePerson() {
+        String partyId = testParams.partyId ?: 'TestCustomer'
+        String firstName = testParams.firstName ?: 'New Test'
+        String lastName = testParams.lastName ?: 'Person'
         Map serviceCtx = [
-                partyId: 'TestCustomer',
-                firstName: 'New Test',
-                lastName: 'Person',
+                partyId: partyId,
+                firstName: firstName,
+                lastName: lastName,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('updatePerson', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue person = from('Person').where('partyId', 'TestCustomer').queryOne()
+        GenericValue person = from(lastName).where('partyId', partyId).queryOne()
         assert person
-        assert person.firstName == 'New Test'
-        assert person.lastName == 'Person'
+        assert person.firstName == firstName
+        assert person.lastName == lastName
     }
 
     @Test
     @Order(20)
     void testUpdatePostalAddress() {
+        String contactMechId = testParams.contactMechId ?: 'TestPostalAdd1'
+        String toName = testParams.toName ?: 'Test Address'
+        String address1 = testParams.address1 ?: '2004 Factory Blvd'
+        String city = testParams.city ?: 'City of Industry'
+        String countryGeoId = testParams.countryGeoId ?: 'USA'
+        String stateProvinceGeoId = testParams.stateProvinceGeoId ?: 'CA'
+        String postalCode = testParams.postalCode ?: '90000'
         Map serviceCtx = [
-                contactMechId: 'TestPostalAdd1',
-                toName: 'Test Address',
-                address1: '2004 Factory Blvd',
-                city: 'City of Industry',
-                countryGeoId: 'USA',
-                stateProvinceGeoId: 'CA',
-                postalCode: '90000',
+                contactMechId: contactMechId,
+                toName: toName,
+                address1: address1,
+                city: city,
+                countryGeoId: countryGeoId,
+                stateProvinceGeoId: stateProvinceGeoId,
+                postalCode: postalCode,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('updatePostalAddress', serviceCtx)
@@ -399,24 +462,32 @@ class PartyAddressTests implements JupiterTestHelper {
 
         GenericValue postalAddress = from('PostalAddress').where('contactMechId', serviceResult.contactMechId).queryOne()
         assert postalAddress
-        assert postalAddress.address1 == '2004 Factory Blvd'
-        assert postalAddress.city == 'City of Industry'
-        assert postalAddress.postalCode == '90000'
+        assert postalAddress.address1 == address1
+        assert postalAddress.city == city
+        assert postalAddress.postalCode == postalCode
         assert serviceResult.contactMechId != serviceResult.oldContactMechId
     }
 
     @Test
     @Order(21)
     void testUpdatePostalAddressAndPurposes() {
+        String partyId = testParams.partyId ?: 'TestCustomer'
+        String contactMechId = testParams.contactMechId ?: 'TestPostalAdd3'
+        String toName = testParams.toName ?: 'Test Address'
+        String address1 = testParams.address1 ?: '2004 Factory Blvd'
+        String city = testParams.city ?: 'City of Industry'
+        String countryGeoId = testParams.countryGeoId ?: 'USA'
+        String stateProvinceGeoId = testParams.stateProvinceGeoId ?: 'CA'
+        String postalCode = testParams.postalCode ?: '90000'
         Map serviceCtx = [
-                partyId: 'TestCustomer',
-                contactMechId: 'TestPostalAdd3',
-                toName: 'Test Address',
-                address1: '2004 Factory Blvd',
-                city: 'City of Industry',
-                countryGeoId: 'USA',
-                stateProvinceGeoId: 'CA',
-                postalCode: '90000',
+                partyId: partyId,
+                contactMechId: contactMechId,
+                toName: toName,
+                address1: address1,
+                city: city,
+                countryGeoId: countryGeoId,
+                stateProvinceGeoId: stateProvinceGeoId,
+                postalCode: postalCode,
                 fromDate: java.sql.Timestamp.valueOf('2001-05-13 00:00:00.000'),
                 userLogin: userLogin
         ]
@@ -425,18 +496,21 @@ class PartyAddressTests implements JupiterTestHelper {
 
         GenericValue postalAddress = from('PostalAddress').where('contactMechId', serviceResult.contactMechId).queryOne()
         assert postalAddress
-        assert postalAddress.address1 == '2004 Factory Blvd'
-        assert postalAddress.city == 'City of Industry'
-        assert postalAddress.postalCode == '90000'
+        assert postalAddress.address1 == address1
+        assert postalAddress.city == city
+        assert postalAddress.postalCode == postalCode
     }
 
     @Test
     @Order(22)
     void testUpdateTelecomNumber() {
+        String contactMechId = testParams.contactMechId ?: 'TestContactMech1'
+        String areaCode = testParams.areaCode ?: '801'
+        String contactNumber = testParams.contactNumber ?: '1111111'
         Map serviceCtx = [
-                contactMechId: 'TestContactMech1',
-                areaCode: '801',
-                contactNumber: '1111111',
+                contactMechId: contactMechId,
+                areaCode: areaCode,
+                contactNumber: contactNumber,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('updateTelecomNumber', serviceCtx)
@@ -444,8 +518,8 @@ class PartyAddressTests implements JupiterTestHelper {
 
         GenericValue telecomNumber = from('TelecomNumber').where('contactMechId', serviceResult.contactMechId).queryOne()
         assert telecomNumber
-        assert telecomNumber.areaCode == '801'
-        assert telecomNumber.contactNumber == '1111111'
+        assert telecomNumber.areaCode == areaCode
+        assert telecomNumber.contactNumber == contactNumber
         assert serviceResult.contactMechId != serviceResult.oldContactMechId
     }
 
