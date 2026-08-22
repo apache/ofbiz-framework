@@ -102,13 +102,19 @@ import org.apache.ofbiz.testtools.report.TestRunManifest;
  *
  * <p><b>{@link #runTestSuite}/{@link #getTestRunStatus} are exposed directly</b>, via the single,
  * generic, framework-owned {@code framework/testtools/api/testruns.rest.xml} endpoint
- * ({@code POST /rest/testtools/testruns/{componentName}}, {@code GET /rest/testtools/testruns/{runId}}) -
- * {@code componentName} comes from that URL's path parameter, not a hard-coded literal, so this one
- * endpoint can trigger or poll any component's tests by design. <b>Do not</b>, however, write
- * {@code <service name="runTestSuite"/>} (or {@code getTestRunStatus}) into a *component's own*
- * {@code *.rest.xml}: doing so would let that component's branded URL accept an arbitrary
- * {@code componentName} too, reaching every other component's tests through a URL that looks scoped
- * to just this one.
+ * ({@code POST /rest/testtools/testruns/{componentName}}, {@code GET /rest/testtools/testruns/{runId}}).
+ * {@code componentName} normally comes from that URL's path parameter, but REST attribute binding
+ * merges body/path/query/header sources onto the same context map, so a caller can still send a
+ * different value (e.g. a same-named query parameter) or an empty one. Neither is a vulnerability
+ * this endpoint needs to close: it is deliberately unscoped, so resolving a *different, real*
+ * componentName than the URL implies is exactly what it's for, not a bypass of anything. An *empty*
+ * componentName is the one case {@link #runTestSuite} does reject outright (see the check near the
+ * top of that method) - left unchecked, it would silently degrade into an unscoped sweep across every
+ * component's tests, bypassing the per-component {@code test.api.enabled.<componentName>} gate below
+ * entirely. <b>Do not</b> write {@code <service name="runTestSuite"/>} (or {@code getTestRunStatus})
+ * into a *component's own* {@code *.rest.xml}: doing so would make an intentionally generic service
+ * masquerade as scoped to just that component's branded URL, which is exactly the confusion this
+ * class's single generic endpoint exists to avoid.
  */
 public final class TestRunServices {
 
@@ -161,21 +167,35 @@ public final class TestRunServices {
             return ServiceUtil.returnError(API_DISABLED_MESSAGE);
         }
 
+        // componentName is required, not merely conventional: the only REST route to this service is
+        // the generic framework/testtools/api/testruns.rest.xml endpoint, which supplies it as a URL
+        // path parameter - but REST attribute binding still lets a caller override that with an empty
+        // value (e.g. a same-named query parameter). Failing closed here, not open: skipping this
+        // check would let componentName reach ComponentConfig.matchingComponentName as null/blank,
+        // which matches every component - silently turning a request into an unscoped sweep across
+        // every component's tests and bypassing the per-component test.api.enabled.<componentName>
+        // gate immediately below entirely. See this class's javadoc for the broader
+        // caller-suppliable-componentName discussion this guard is part of.
+        if (UtilValidate.isEmpty(componentName)) {
+            Debug.logWarning("runTestSuite: rejected for user '" + userLoginId + "', suite '" + suiteName + "'"
+                    + " - componentName is required", MODULE);
+            return ServiceUtil.returnError("runTestSuite requires a componentName");
+        }
+
         // Per-component override of the global flag above: lets one component's REST-triggered test
         // run be disabled (or re-enabled) live via a SystemProperty row, without touching every other
         // component's access. Defaults to enabled ("true") when unset, so a component that never sets
-        // this behaves exactly as it did before this check existed. Skipped when componentName is
-        // blank - an unscoped multi-component suite-name lookup isn't attributable to one component's
-        // flag. See plugins/supporting-docs/specs/2026-08-21-per-component-test-api-toggle-design.md.
-        if (UtilValidate.isNotEmpty(componentName)) {
-            boolean componentEnabled = "true".equalsIgnoreCase(
-                    readStringProperty(dctx.getDelegator(), "test.api.enabled." + componentName, "true"));
-            if (!componentEnabled) {
-                Debug.logWarning("runTestSuite: rejected for user '" + userLoginId + "', suite '" + suiteName + "'"
-                        + " - test.api.enabled." + componentName + " is false", MODULE);
-                return ServiceUtil.returnError("The test execution API is disabled for component '" + componentName
-                        + "' in this environment.");
-            }
+        // this behaves exactly as it did before this check existed. componentName is guaranteed
+        // non-blank by the guard above, so this always runs now - there is no longer an unscoped,
+        // no-componentName path through this method to skip it for.
+        // See plugins/supporting-docs/specs/2026-08-21-per-component-test-api-toggle-design.md.
+        boolean componentEnabled = "true".equalsIgnoreCase(
+                readStringProperty(dctx.getDelegator(), "test.api.enabled." + componentName, "true"));
+        if (!componentEnabled) {
+            Debug.logWarning("runTestSuite: rejected for user '" + userLoginId + "', suite '" + suiteName + "'"
+                    + " - test.api.enabled." + componentName + " is false", MODULE);
+            return ServiceUtil.returnError("The test execution API is disabled for component '" + componentName
+                    + "' in this environment.");
         }
 
         // testMethodName reuses the exact same fail-closed validators the ofbiz --test method=

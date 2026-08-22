@@ -53,13 +53,13 @@ under the License.
              location="org.apache.ofbiz.testtools.TestRunServices" invoke="runTestSuite">
         <description>Kicks off a testdef test-suite run asynchronously via the in-JVM Jupiter test
             engine and returns a runId immediately; poll getTestRunStatus for progress/results.
-            Gated by the test.api.enabled config flag and the TESTEXEC_ADMIN permission. When
-            componentName is set, the per-component test.api.enabled.&lt;componentName&gt;
-            override (SystemProperty-overridable, defaults to enabled) is also consulted.
+            Gated by the test.api.enabled config flag and the TESTEXEC_ADMIN permission. componentName
+            is required (rejected if blank) - the per-component test.api.enabled.&lt;componentName&gt;
+            override (SystemProperty-overridable, defaults to enabled) is always consulted as a result.
             Exposed directly via the generic, framework-owned framework/testtools/api/testruns.rest.xml
             endpoint (POST /rest/testtools/testruns/{componentName}) - a component's own *.rest.xml must
-            never expose this service directly, since componentName would then be freely caller-suppliable
-            through that component's branded URL, letting it trigger any other component's tests too.
+            never expose this service directly, since that would make an intentionally generic,
+            multi-component service masquerade as scoped to just that one component's branded URL.
             testMethodName optionally scopes the run to one
             @Test/@ParameterizedTest method within the class testCaseName resolves to - requires
             testCaseName, and only applies when it resolves to a jupiter-test-suite.</description>

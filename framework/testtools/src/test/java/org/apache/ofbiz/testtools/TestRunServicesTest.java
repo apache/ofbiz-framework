@@ -172,8 +172,7 @@ class TestRunServicesTest {
 
     @Test
     void runTestSuiteDoesNotRejectWhenComponentApiIsNotDisabled() {
-        // Cannot verify a full successful run here - like runScopedTestSuite's componentName-forcing
-        // behavior (see runScopedTestSuitePassesThroughPermissionDenialUnchanged above), resolving a
+        // Cannot verify a full successful run here - resolving a
         // real suite needs a bootstrapped ComponentConfig this test module doesn't have, so
         // JunitSuiteWrapper's constructor still throws and this call still ends in error - just not
         // the new component-disabled error this test exists to rule out (proving the gate was passed,
@@ -207,12 +206,19 @@ class TestRunServicesTest {
     }
 
     @Test
-    void runTestSuiteSkipsComponentCheckWhenComponentNameIsBlank() {
+    void runTestSuiteRejectsBlankComponentName() {
         // No componentName in context at all - mirrors runTestSuiteReturnsErrorWhenApiDisabled's own
-        // context map. The per-component override must never be consulted for an unscoped call; this
-        // proves EntityUtilProperties.getPropertyValue is never invoked with a "test.api.enabled."-
-        // prefixed property name (the global "test.api.enabled" key itself does not match that prefix,
-        // since it has no trailing dot).
+        // context map. Fail closed, not open: this is the only REST route to runTestSuite (the generic
+        // framework/testtools/api/testruns.rest.xml endpoint), and REST attribute binding merges
+        // body/path/query/header sources onto the same context map, so a caller can still send an
+        // empty componentName (e.g. an empty query parameter) despite the URL's path parameter
+        // normally supplying a real one. Without this guard, componentName would reach
+        // ComponentConfig.matchingComponentName as null/blank - which matches every component -
+        // silently turning the request into an unscoped sweep across every component's tests. Also
+        // proves the per-component override is never even consulted for a rejected call: verifies
+        // EntityUtilProperties.getPropertyValue is never invoked with a "test.api.enabled."-prefixed
+        // property name (the global "test.api.enabled" key itself does not match that prefix, since
+        // it has no trailing dot).
         DispatchContext dctx = mock(DispatchContext.class);
         Security security = mock(Security.class);
         Delegator delegator = mock(Delegator.class);
@@ -227,10 +233,42 @@ class TestRunServicesTest {
             entityUtilProperties.when(() -> EntityUtilProperties.getPropertyValue("testtools", "test.api.enabled", delegator))
                     .thenReturn("true");
 
-            TestRunServices.runTestSuite(dctx, Map.of("suiteName", "example-tests", "userLogin", userLogin));
+            Map<String, Object> result = TestRunServices.runTestSuite(dctx,
+                    Map.of("suiteName", "example-tests", "userLogin", userLogin));
 
+            assertThat(result.get("responseMessage"), is("error"));
+            assertThat(result.get("errorMessage"), is("runTestSuite requires a componentName"));
+            assertThat(result.get("runId"), nullValue());
             entityUtilProperties.verify(() -> EntityUtilProperties.getPropertyValue(eq("testtools"),
                     startsWith("test.api.enabled."), eq(delegator)), never());
+        }
+    }
+
+    @Test
+    void runTestSuiteRejectsAnEmptyStringComponentName() {
+        // Distinct from the null/absent case above: an explicitly empty string (e.g. what a REST
+        // caller sending "?componentName=" produces) must be rejected the same way, not treated as
+        // "present" merely because the key exists in the context map.
+        DispatchContext dctx = mock(DispatchContext.class);
+        Security security = mock(Security.class);
+        Delegator delegator = mock(Delegator.class);
+        GenericValue userLogin = mock(GenericValue.class);
+        when(dctx.getSecurity()).thenReturn(security);
+        when(dctx.getDelegator()).thenReturn(delegator);
+        when(userLogin.getString("userLoginId")).thenReturn("admin");
+        when(security.hasPermission("TESTEXEC_ADMIN", userLogin)).thenReturn(true);
+
+        try (MockedStatic<EntityUtilProperties> entityUtilProperties =
+                Mockito.mockStatic(EntityUtilProperties.class, Mockito.CALLS_REAL_METHODS)) {
+            entityUtilProperties.when(() -> EntityUtilProperties.getPropertyValue("testtools", "test.api.enabled", delegator))
+                    .thenReturn("true");
+
+            Map<String, Object> result = TestRunServices.runTestSuite(dctx,
+                    Map.of("suiteName", "example-tests", "componentName", "", "userLogin", userLogin));
+
+            assertThat(result.get("responseMessage"), is("error"));
+            assertThat(result.get("errorMessage"), is("runTestSuite requires a componentName"));
+            assertThat(result.get("runId"), nullValue());
         }
     }
 }
