@@ -604,13 +604,15 @@ public class Record implements Serializable {
             try {
                 record.setString(modelField.getName(), strVal);
             } catch (java.text.ParseException e) {
+                // Note: deliberately not including strVal here; it is unvalidated content read from
+                // the target file/URL and this message can reach the requesting user and the log.
                 throw new DataFileException(
-                        "Could not parse field " + modelField.getName() + ", format string \"" + modelField.getFormat() + "\" with value " + strVal
-                                + " on line " + lineNum, e);
+                        "Could not parse field " + modelField.getName() + ", format string \"" + modelField.getFormat()
+                                + "\" on line " + lineNum, e);
             } catch (java.lang.NumberFormatException e) {
                 throw new DataFileException(
-                        "Number not valid for field " + modelField.getName() + ", format string \"" + modelField.getFormat() + "\" with value "
-                                + strVal + " on line " + lineNum, e);
+                        "Number not valid for field " + modelField.getName() + ", format string \"" + modelField.getFormat()
+                                + "\" on line " + lineNum, e);
             }
         }
         return record;
@@ -674,13 +676,14 @@ public class Record implements Serializable {
                 }
                 record.setString(modelField.getName(), strVal);
             } catch (java.text.ParseException e) {
+                // Note: deliberately not including strVal here; see createRecord above.
                 throw new DataFileException(
-                        "Could not parse field " + modelField.getName() + ", format string \"" + modelField.getFormat() + "\" with value " + strVal
-                                + " on line " + lineNum, e);
+                        "Could not parse field " + modelField.getName() + ", format string \"" + modelField.getFormat()
+                                + "\" on line " + lineNum, e);
             } catch (java.lang.NumberFormatException e) {
                 throw new DataFileException(
-                        "Number not valid for field " + modelField.getName() + ", format string \"" + modelField.getFormat() + "\" with value "
-                                + strVal + " on line " + lineNum, e);
+                        "Number not valid for field " + modelField.getName() + ", format string \"" + modelField.getFormat()
+                                + "\" on line " + lineNum, e);
             }
         }
         return record;
