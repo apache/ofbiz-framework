@@ -21,7 +21,6 @@ package org.apache.ofbiz.testtools;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -101,19 +100,32 @@ import org.apache.ofbiz.testtools.report.TestRunManifest;
  * independently) is not undone. Anyone deciding whether to enable {@code test.api.enabled} (see
  * testtools.properties) should weigh both of the limitations above.
  *
- * <p><b>Do not expose {@link #runTestSuite}/{@link #getTestRunStatus} directly in a component's own
- * {@code *.rest.xml}.</b> Both accept/report an arbitrary {@code componentName} and so can trigger or
- * poll any component's tests, not just the exposing component's own - a component-branded REST
- * endpoint must instead wrap {@link #runScopedTestSuite}/{@link #getScopedTestRunStatus} with its own
- * fixed component name, the way {@code plugins/example}'s {@code ExampleTestRunServices} does. Writing
- * {@code <service name="runTestSuite"/>} straight into a {@code *.rest.xml} reproduces the exact
- * cross-component-reach problem the scoped wrappers exist to close.
+ * <p><b>{@link #runTestSuite}/{@link #getTestRunStatus} are exposed directly</b>, via the single,
+ * generic, framework-owned {@code framework/testtools/api/testruns.rest.xml} endpoint
+ * ({@code POST /rest/testtools/testruns/{componentName}}, {@code GET /rest/testtools/testruns/{runId}}).
+ * {@code componentName} normally comes from that URL's path parameter, but REST attribute binding
+ * merges body/path/query/header sources onto the same context map, so a caller can still send a
+ * different value (e.g. a same-named query parameter) or an empty one. Neither is a vulnerability
+ * this endpoint needs to close: it is deliberately unscoped, so resolving a *different, real*
+ * componentName than the URL implies is exactly what it's for, not a bypass of anything. An *empty*
+ * componentName is the one case {@link #runTestSuite} does reject outright (see the check near the
+ * top of that method) - left unchecked, it would silently degrade into an unscoped sweep across every
+ * component's tests, bypassing the per-component {@code test.api.enabled.<componentName>} gate below
+ * entirely. <b>Do not</b> write {@code <service name="runTestSuite"/>} (or {@code getTestRunStatus})
+ * into a *component's own* {@code *.rest.xml}: doing so would make an intentionally generic service
+ * masquerade as scoped to just that component's branded URL, which is exactly the confusion this
+ * class's single generic endpoint exists to avoid.
  */
 public final class TestRunServices {
 
     private static final String MODULE = TestRunServices.class.getName();
     private static final String RESOURCE = "testtools";
     private static final String TESTEXEC_PERMISSION = "TESTEXEC_ADMIN";
+    // Client-facing text for both disabled-API rejections below deliberately omits the config
+    // property name/value (e.g. "test.api.enabled.example=false") - that detail would let a REST
+    // caller enumerate/guess the per-component toggle naming convention. The full detail is still
+    // captured server-side via the Debug.logWarning calls at each rejection site.
+    private static final String API_DISABLED_MESSAGE = "The test execution API is disabled in this environment.";
 
     static final TestRunTracker TRACKER = new TestRunTracker();
     private static final ExecutorService EXECUTOR = Executors.newSingleThreadExecutor(runnable -> {
@@ -152,24 +164,38 @@ public final class TestRunServices {
         if (!apiEnabled) {
             Debug.logWarning("runTestSuite: rejected for user '" + userLoginId + "', suite '" + suiteName + "'"
                     + " - test.api.enabled is false", MODULE);
-            return ServiceUtil.returnError("The test execution API is disabled in this environment (test.api.enabled=false)");
+            return ServiceUtil.returnError(API_DISABLED_MESSAGE);
+        }
+
+        // componentName is required, not merely conventional: the only REST route to this service is
+        // the generic framework/testtools/api/testruns.rest.xml endpoint, which supplies it as a URL
+        // path parameter - but REST attribute binding still lets a caller override that with an empty
+        // value (e.g. a same-named query parameter). Failing closed here, not open: skipping this
+        // check would let componentName reach ComponentConfig.matchingComponentName as null/blank,
+        // which matches every component - silently turning a request into an unscoped sweep across
+        // every component's tests and bypassing the per-component test.api.enabled.<componentName>
+        // gate immediately below entirely. See this class's javadoc for the broader
+        // caller-suppliable-componentName discussion this guard is part of.
+        if (UtilValidate.isEmpty(componentName)) {
+            Debug.logWarning("runTestSuite: rejected for user '" + userLoginId + "', suite '" + suiteName + "'"
+                    + " - componentName is required", MODULE);
+            return ServiceUtil.returnError("runTestSuite requires a componentName");
         }
 
         // Per-component override of the global flag above: lets one component's REST-triggered test
         // run be disabled (or re-enabled) live via a SystemProperty row, without touching every other
         // component's access. Defaults to enabled ("true") when unset, so a component that never sets
-        // this behaves exactly as it did before this check existed. Skipped when componentName is
-        // blank - an unscoped multi-component suite-name lookup isn't attributable to one component's
-        // flag. See plugins/supporting-docs/specs/2026-08-21-per-component-test-api-toggle-design.md.
-        if (UtilValidate.isNotEmpty(componentName)) {
-            boolean componentEnabled = "true".equalsIgnoreCase(
-                    readStringProperty(dctx.getDelegator(), "test.api.enabled." + componentName, "true"));
-            if (!componentEnabled) {
-                Debug.logWarning("runTestSuite: rejected for user '" + userLoginId + "', suite '" + suiteName + "'"
-                        + " - test.api.enabled." + componentName + " is false", MODULE);
-                return ServiceUtil.returnError("The test execution API is disabled for component '" + componentName
-                        + "' in this environment (test.api.enabled." + componentName + "=false)");
-            }
+        // this behaves exactly as it did before this check existed. componentName is guaranteed
+        // non-blank by the guard above, so this always runs now - there is no longer an unscoped,
+        // no-componentName path through this method to skip it for.
+        // See plugins/supporting-docs/specs/2026-08-21-per-component-test-api-toggle-design.md.
+        boolean componentEnabled = "true".equalsIgnoreCase(
+                readStringProperty(dctx.getDelegator(), "test.api.enabled." + componentName, "true"));
+        if (!componentEnabled) {
+            Debug.logWarning("runTestSuite: rejected for user '" + userLoginId + "', suite '" + suiteName + "'"
+                    + " - test.api.enabled." + componentName + " is false", MODULE);
+            return ServiceUtil.returnError("The test execution API is disabled for component '" + componentName
+                    + "' in this environment.");
         }
 
         // testMethodName reuses the exact same fail-closed validators the ofbiz --test method=
@@ -280,32 +306,6 @@ public final class TestRunServices {
         Map<String, Object> result = ServiceUtil.returnSuccess();
         result.put("runId", runId);
         return result;
-    }
-
-    /**
-     * Runs {@link #runTestSuite} with {@code componentName} forced to {@code fixedComponentName},
-     * regardless of whatever value (if any) the caller's own context map contains - a caller-supplied
-     * componentName is silently overwritten, never honored. Built for component-scoped wrapper
-     * services (e.g. plugins/example's runExampleTestSuite): builds a new context map rather than
-     * mutating the one it's given, the same defensive-copy discipline runTestSuite itself already
-     * applies to testParams - a caller-controlled map must never be assumed safe to mutate in place.
-     * @param dctx the dispatch context
-     * @param context the caller's service context - not mutated
-     * @param fixedComponentName the only component this call is allowed to resolve suites from
-     * @return the runTestSuite result
-     */
-    public static Map<String, Object> runScopedTestSuite(DispatchContext dctx, Map<String, ?> context,
-            String fixedComponentName) {
-        // Fail closed, not open: an empty/null fixedComponentName must never reach runTestSuite's
-        // context map. ComponentConfig.matchingComponentName treats a null cname as "match every
-        // component" - if this guard were skipped, the entire scoping mechanism runScopedTestSuite
-        // exists for would silently degrade to fully unscoped behavior instead of erroring out.
-        if (UtilValidate.isEmpty(fixedComponentName)) {
-            return ServiceUtil.returnError("runScopedTestSuite requires a fixed componentName");
-        }
-        Map<String, Object> scopedContext = new HashMap<>(context);
-        scopedContext.put("componentName", fixedComponentName);
-        return runTestSuite(dctx, scopedContext);
     }
 
     /**
@@ -485,39 +485,6 @@ public final class TestRunServices {
             resultSummary.put("errorMessage", record.errorMessage());
         }
         result.put("resultSummary", resultSummary);
-        return result;
-    }
-
-    /**
-     * Runs {@link #getTestRunStatus} and, if the run exists, checks its recorded componentName
-     * against {@code expectedComponentName} - on a mismatch, returns the exact same "No such runId"
-     * error a genuinely unknown runId would produce (never a distinguishable "wrong component"
-     * message), so polling can't be used to detect the mere existence of another component's runs. A
-     * permission-denied result from the underlying call passes through unchanged - the permission
-     * check still runs first, exactly as it does for the unscoped getTestRunStatus.
-     * @param dctx the dispatch context
-     * @param context the caller's service context
-     * @param expectedComponentName the only component this call is allowed to report on
-     * @return the getTestRunStatus result, or a masked "No such runId" error on a component mismatch
-     */
-    public static Map<String, Object> getScopedTestRunStatus(DispatchContext dctx, Map<String, ?> context,
-            String expectedComponentName) {
-        // Fail closed, not open: an empty/null expectedComponentName must never reach the
-        // equality check below - unlike runScopedTestSuite's fixedComponentName (which fails open
-        // by matching every component), a null here would instead throw a raw NullPointerException
-        // out of expectedComponentName.equals(...), a different and equally unacceptable failure
-        // mode. Guard against both up front so this helper always fails the same clean way.
-        if (UtilValidate.isEmpty(expectedComponentName)) {
-            return ServiceUtil.returnError("getScopedTestRunStatus requires an expectedComponentName");
-        }
-        Map<String, Object> result = getTestRunStatus(dctx, context);
-        if (ServiceUtil.isError(result)) {
-            return result;
-        }
-        if (!expectedComponentName.equals(result.get("componentName"))) {
-            String runId = (String) context.get("runId");
-            return ServiceUtil.returnError("No such runId: " + runId);
-        }
         return result;
     }
 

@@ -85,7 +85,7 @@ class TestRunServicesTest {
                     Map.of("suiteName", "example-tests", "userLogin", userLogin));
 
             assertThat(result.get("responseMessage"), is("error"));
-            assertThat(result.get("errorMessage"), is("The test execution API is disabled in this environment (test.api.enabled=false)"));
+            assertThat(result.get("errorMessage"), is("The test execution API is disabled in this environment."));
             assertThat(result.get("runId"), nullValue());
         }
     }
@@ -137,180 +137,6 @@ class TestRunServicesTest {
     }
 
     @Test
-    void getScopedTestRunStatusReturnsRealDataWhenComponentMatches() {
-        DispatchContext dctx = mock(DispatchContext.class);
-        Security security = mock(Security.class);
-        GenericValue userLogin = mock(GenericValue.class);
-        when(dctx.getSecurity()).thenReturn(security);
-        when(userLogin.getString("userLoginId")).thenReturn("admin");
-        when(security.hasPermission("TESTEXEC_ADMIN", userLogin)).thenReturn(true);
-        TestRunServices.TRACKER.register("scoped-run-match", "example-tests", "example", "admin", Map.of());
-
-        Map<String, Object> result = TestRunServices.getScopedTestRunStatus(dctx,
-                Map.of("runId", "scoped-run-match", "userLogin", userLogin), "example");
-
-        assertThat(result.get("responseMessage"), is("success"));
-        assertThat(result.get("componentName"), is("example"));
-    }
-
-    @Test
-    void getScopedTestRunStatusMasksAMismatchedComponentAsUnknownRunId() {
-        DispatchContext dctx = mock(DispatchContext.class);
-        Security security = mock(Security.class);
-        GenericValue userLogin = mock(GenericValue.class);
-        when(dctx.getSecurity()).thenReturn(security);
-        when(userLogin.getString("userLoginId")).thenReturn("admin");
-        when(security.hasPermission("TESTEXEC_ADMIN", userLogin)).thenReturn(true);
-        TestRunServices.TRACKER.register("scoped-run-mismatch", "content-tests", "content", "admin", Map.of());
-
-        Map<String, Object> result = TestRunServices.getScopedTestRunStatus(dctx,
-                Map.of("runId", "scoped-run-mismatch", "userLogin", userLogin), "example");
-
-        assertThat(result.get("responseMessage"), is("error"));
-        assertThat(result.get("errorMessage"), is("No such runId: scoped-run-mismatch"));
-    }
-
-    @Test
-    void getScopedTestRunStatusPassesThroughPermissionDenialUnchanged() {
-        DispatchContext dctx = mock(DispatchContext.class);
-        Security security = mock(Security.class);
-        GenericValue userLogin = mock(GenericValue.class);
-        when(dctx.getSecurity()).thenReturn(security);
-        when(userLogin.getString("userLoginId")).thenReturn("nobody");
-        when(security.hasPermission("TESTEXEC_ADMIN", userLogin)).thenReturn(false);
-
-        Map<String, Object> result = TestRunServices.getScopedTestRunStatus(dctx,
-                Map.of("runId", "any-run", "userLogin", userLogin), "example");
-
-        assertThat(result.get("responseMessage"), is("error"));
-        assertThat(result.get("errorMessage"), is("You do not have permission to view test run status (TESTEXEC_ADMIN)"));
-    }
-
-    @Test
-    void runScopedTestSuitePassesThroughPermissionDenialUnchanged() {
-        // Cannot unit-test the componentName-forcing behavior itself in isolation - like
-        // runTestSuite's own suite-resolution path, that needs a real bootstrapped ComponentConfig
-        // (see this file's existing tests' pattern, and TestRunServices' own "Design note on
-        // testability"). This test only confirms the delegation is wired correctly: a permission
-        // denial passes straight through, and passing a deliberately mismatched componentName
-        // ("content") in the caller's context doesn't cause a crash before the permission check
-        // - proving nothing about whether the override happens, only that the wrapper doesn't
-        // reject/mangle the call. The override itself is verified by manual/live validation (Task 5).
-        DispatchContext dctx = mock(DispatchContext.class);
-        Security security = mock(Security.class);
-        Delegator delegator = mock(Delegator.class);
-        GenericValue userLogin = mock(GenericValue.class);
-        when(dctx.getSecurity()).thenReturn(security);
-        when(dctx.getDelegator()).thenReturn(delegator);
-        when(userLogin.getString("userLoginId")).thenReturn("nobody");
-        when(security.hasPermission("TESTEXEC_ADMIN", userLogin)).thenReturn(false);
-
-        Map<String, Object> result = TestRunServices.runScopedTestSuite(dctx,
-                Map.of("suiteName", "example-tests", "componentName", "content", "userLogin", userLogin), "example");
-
-        assertThat(result.get("responseMessage"), is("error"));
-        assertThat(result.get("runId"), nullValue());
-    }
-
-    @Test
-    void runScopedTestSuiteReturnsErrorForANullFixedComponentName() {
-        // Must fail closed, not open: ComponentConfig.matchingComponentName treats a null cname as
-        // "match every component", so skipping this guard would silently turn a null
-        // fixedComponentName into fully unscoped behavior instead of an error. Uses a permissive
-        // security mock so the guard - not the permission check - is what's actually exercised.
-        DispatchContext dctx = mock(DispatchContext.class);
-        Security security = mock(Security.class);
-        Delegator delegator = mock(Delegator.class);
-        GenericValue userLogin = mock(GenericValue.class);
-        when(dctx.getSecurity()).thenReturn(security);
-        when(dctx.getDelegator()).thenReturn(delegator);
-        when(userLogin.getString("userLoginId")).thenReturn("admin");
-        when(security.hasPermission("TESTEXEC_ADMIN", userLogin)).thenReturn(true);
-
-        Map<String, Object> result = TestRunServices.runScopedTestSuite(dctx,
-                Map.of("suiteName", "example-tests", "userLogin", userLogin), null);
-
-        assertThat(result.get("responseMessage"), is("error"));
-        assertThat(result.get("errorMessage"), is("runScopedTestSuite requires a fixed componentName"));
-        assertThat(result.get("runId"), nullValue());
-    }
-
-    @Test
-    void runScopedTestSuiteReturnsErrorForAnEmptyFixedComponentName() {
-        DispatchContext dctx = mock(DispatchContext.class);
-        Security security = mock(Security.class);
-        Delegator delegator = mock(Delegator.class);
-        GenericValue userLogin = mock(GenericValue.class);
-        when(dctx.getSecurity()).thenReturn(security);
-        when(dctx.getDelegator()).thenReturn(delegator);
-        when(userLogin.getString("userLoginId")).thenReturn("admin");
-        when(security.hasPermission("TESTEXEC_ADMIN", userLogin)).thenReturn(true);
-
-        Map<String, Object> result = TestRunServices.runScopedTestSuite(dctx,
-                Map.of("suiteName", "example-tests", "userLogin", userLogin), "");
-
-        assertThat(result.get("responseMessage"), is("error"));
-        assertThat(result.get("errorMessage"), is("runScopedTestSuite requires a fixed componentName"));
-        assertThat(result.get("runId"), nullValue());
-    }
-
-    @Test
-    void getScopedTestRunStatusReturnsErrorForANullExpectedComponentName() {
-        // Without this guard, expectedComponentName.equals(...) would throw a raw
-        // NullPointerException instead of returning a clean error - a different (and equally
-        // unacceptable) failure mode than runScopedTestSuite's fail-open risk.
-        DispatchContext dctx = mock(DispatchContext.class);
-        Security security = mock(Security.class);
-        GenericValue userLogin = mock(GenericValue.class);
-        when(dctx.getSecurity()).thenReturn(security);
-        when(userLogin.getString("userLoginId")).thenReturn("admin");
-        when(security.hasPermission("TESTEXEC_ADMIN", userLogin)).thenReturn(true);
-
-        Map<String, Object> result = TestRunServices.getScopedTestRunStatus(dctx,
-                Map.of("runId", "any-run", "userLogin", userLogin), null);
-
-        assertThat(result.get("responseMessage"), is("error"));
-        assertThat(result.get("errorMessage"), is("getScopedTestRunStatus requires an expectedComponentName"));
-    }
-
-    @Test
-    void getScopedTestRunStatusReturnsErrorForAnEmptyExpectedComponentName() {
-        DispatchContext dctx = mock(DispatchContext.class);
-        Security security = mock(Security.class);
-        GenericValue userLogin = mock(GenericValue.class);
-        when(dctx.getSecurity()).thenReturn(security);
-        when(userLogin.getString("userLoginId")).thenReturn("admin");
-        when(security.hasPermission("TESTEXEC_ADMIN", userLogin)).thenReturn(true);
-
-        Map<String, Object> result = TestRunServices.getScopedTestRunStatus(dctx,
-                Map.of("runId", "any-run", "userLogin", userLogin), "");
-
-        assertThat(result.get("responseMessage"), is("error"));
-        assertThat(result.get("errorMessage"), is("getScopedTestRunStatus requires an expectedComponentName"));
-    }
-
-    @Test
-    void getScopedTestRunStatusMasksANullComponentNameRunAsUnknownRunId() {
-        // Proves the fail-closed guarantee for a run registered with componentName=null (e.g. a
-        // hypothetical future unscoped internal registration path): the scoped wrapper's equality
-        // check must still deny it, returning the same masked "No such runId" response a genuine
-        // mismatch gets - never a crash, never real data.
-        DispatchContext dctx = mock(DispatchContext.class);
-        Security security = mock(Security.class);
-        GenericValue userLogin = mock(GenericValue.class);
-        when(dctx.getSecurity()).thenReturn(security);
-        when(userLogin.getString("userLoginId")).thenReturn("admin");
-        when(security.hasPermission("TESTEXEC_ADMIN", userLogin)).thenReturn(true);
-        TestRunServices.TRACKER.register("scoped-run-null-component", "content-tests", null, "admin", Map.of());
-
-        Map<String, Object> result = TestRunServices.getScopedTestRunStatus(dctx,
-                Map.of("runId", "scoped-run-null-component", "userLogin", userLogin), "example");
-
-        assertThat(result.get("responseMessage"), is("error"));
-        assertThat(result.get("errorMessage"), is("No such runId: scoped-run-null-component"));
-    }
-
-    @Test
     void runTestSuiteReturnsErrorWhenComponentApiDisabled() {
         // Mocks EntityUtilProperties directly (rather than relying on the classpath testtools.properties
         // file, the way runTestSuiteReturnsErrorWhenApiDisabled does for the global flag) because this
@@ -339,15 +165,14 @@ class TestRunServicesTest {
 
             assertThat(result.get("responseMessage"), is("error"));
             assertThat(result.get("errorMessage"), is("The test execution API is disabled for component 'example' "
-                    + "in this environment (test.api.enabled.example=false)"));
+                    + "in this environment."));
             assertThat(result.get("runId"), nullValue());
         }
     }
 
     @Test
     void runTestSuiteDoesNotRejectWhenComponentApiIsNotDisabled() {
-        // Cannot verify a full successful run here - like runScopedTestSuite's componentName-forcing
-        // behavior (see runScopedTestSuitePassesThroughPermissionDenialUnchanged above), resolving a
+        // Cannot verify a full successful run here - resolving a
         // real suite needs a bootstrapped ComponentConfig this test module doesn't have, so
         // JunitSuiteWrapper's constructor still throws and this call still ends in error - just not
         // the new component-disabled error this test exists to rule out (proving the gate was passed,
@@ -381,12 +206,19 @@ class TestRunServicesTest {
     }
 
     @Test
-    void runTestSuiteSkipsComponentCheckWhenComponentNameIsBlank() {
+    void runTestSuiteRejectsBlankComponentName() {
         // No componentName in context at all - mirrors runTestSuiteReturnsErrorWhenApiDisabled's own
-        // context map. The per-component override must never be consulted for an unscoped call; this
-        // proves EntityUtilProperties.getPropertyValue is never invoked with a "test.api.enabled."-
-        // prefixed property name (the global "test.api.enabled" key itself does not match that prefix,
-        // since it has no trailing dot).
+        // context map. Fail closed, not open: this is the only REST route to runTestSuite (the generic
+        // framework/testtools/api/testruns.rest.xml endpoint), and REST attribute binding merges
+        // body/path/query/header sources onto the same context map, so a caller can still send an
+        // empty componentName (e.g. an empty query parameter) despite the URL's path parameter
+        // normally supplying a real one. Without this guard, componentName would reach
+        // ComponentConfig.matchingComponentName as null/blank - which matches every component -
+        // silently turning the request into an unscoped sweep across every component's tests. Also
+        // proves the per-component override is never even consulted for a rejected call: verifies
+        // EntityUtilProperties.getPropertyValue is never invoked with a "test.api.enabled."-prefixed
+        // property name (the global "test.api.enabled" key itself does not match that prefix, since
+        // it has no trailing dot).
         DispatchContext dctx = mock(DispatchContext.class);
         Security security = mock(Security.class);
         Delegator delegator = mock(Delegator.class);
@@ -401,10 +233,42 @@ class TestRunServicesTest {
             entityUtilProperties.when(() -> EntityUtilProperties.getPropertyValue("testtools", "test.api.enabled", delegator))
                     .thenReturn("true");
 
-            TestRunServices.runTestSuite(dctx, Map.of("suiteName", "example-tests", "userLogin", userLogin));
+            Map<String, Object> result = TestRunServices.runTestSuite(dctx,
+                    Map.of("suiteName", "example-tests", "userLogin", userLogin));
 
+            assertThat(result.get("responseMessage"), is("error"));
+            assertThat(result.get("errorMessage"), is("runTestSuite requires a componentName"));
+            assertThat(result.get("runId"), nullValue());
             entityUtilProperties.verify(() -> EntityUtilProperties.getPropertyValue(eq("testtools"),
                     startsWith("test.api.enabled."), eq(delegator)), never());
+        }
+    }
+
+    @Test
+    void runTestSuiteRejectsAnEmptyStringComponentName() {
+        // Distinct from the null/absent case above: an explicitly empty string (e.g. what a REST
+        // caller sending "?componentName=" produces) must be rejected the same way, not treated as
+        // "present" merely because the key exists in the context map.
+        DispatchContext dctx = mock(DispatchContext.class);
+        Security security = mock(Security.class);
+        Delegator delegator = mock(Delegator.class);
+        GenericValue userLogin = mock(GenericValue.class);
+        when(dctx.getSecurity()).thenReturn(security);
+        when(dctx.getDelegator()).thenReturn(delegator);
+        when(userLogin.getString("userLoginId")).thenReturn("admin");
+        when(security.hasPermission("TESTEXEC_ADMIN", userLogin)).thenReturn(true);
+
+        try (MockedStatic<EntityUtilProperties> entityUtilProperties =
+                Mockito.mockStatic(EntityUtilProperties.class, Mockito.CALLS_REAL_METHODS)) {
+            entityUtilProperties.when(() -> EntityUtilProperties.getPropertyValue("testtools", "test.api.enabled", delegator))
+                    .thenReturn("true");
+
+            Map<String, Object> result = TestRunServices.runTestSuite(dctx,
+                    Map.of("suiteName", "example-tests", "componentName", "", "userLogin", userLogin));
+
+            assertThat(result.get("responseMessage"), is("error"));
+            assertThat(result.get("errorMessage"), is("runTestSuite requires a componentName"));
+            assertThat(result.get("runId"), nullValue());
         }
     }
 }
