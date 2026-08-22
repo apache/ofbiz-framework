@@ -239,8 +239,9 @@ class ProductTest implements JupiterTestHelper {
     @Test
     @Order(9)
     void testFindProductById() {
+        String idToFind = testParams.idToFind ?: 'Test_product_C'
         Map serviceCtx = [
-                idToFind: 'Test_product_C',
+                idToFind: idToFind,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('findProductById', serviceCtx)
@@ -287,6 +288,8 @@ class ProductTest implements JupiterTestHelper {
     @Test
     @Order(11)
     void testUpdateProductPrice() {
+        String internalName = testParams.internalName ?: 'Test update product price'
+        String productTypeId = testParams.productTypeId ?: 'Test_type'
         String productId = 'Test_prod_price_up'
         String productPriceTypeId = 'AVERAGE_COST'
         String productPricePurposeId = 'COMPONENT_PRICE'
@@ -297,8 +300,8 @@ class ProductTest implements JupiterTestHelper {
 
         Map serviceCtx = [
                 productId: productId,
-                internalName: 'Test update product price',
-                productTypeId: 'Test_type',
+                internalName: internalName,
+                productTypeId: productTypeId,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('createProduct', serviceCtx)

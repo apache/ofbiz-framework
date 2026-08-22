@@ -30,9 +30,11 @@ class InventoryTests implements JupiterTestHelper {
     @Test
     @Order(1)
     void testGetInventoryAvailableByFacility() {
+        String productId = testParams.productId ?: 'GZ-2644'
+        String facilityId = testParams.facilityId ?: 'WebStoreWarehouse'
         Map serviceCtx = [
-                productId: 'GZ-2644',
-                facilityId: 'WebStoreWarehouse',
+                productId: productId,
+                facilityId: facilityId,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('getInventoryAvailableByFacility', serviceCtx)
@@ -45,9 +47,11 @@ class InventoryTests implements JupiterTestHelper {
     @Test
     @Order(2)
     void testCreatePhysicalInventoryAndVariance() {
+        String inventoryItemId = testParams.inventoryItemId ?: '9024'
+        String varianceReasonId = testParams.varianceReasonId ?: 'VAR_LOST'
         Map serviceCtx = [
-                inventoryItemId: '9024',
-                varianceReasonId: 'VAR_LOST',
+                inventoryItemId: inventoryItemId,
+                varianceReasonId: varianceReasonId,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('createPhysicalInventoryAndVariance', serviceCtx)

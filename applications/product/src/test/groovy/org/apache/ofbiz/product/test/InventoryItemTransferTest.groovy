@@ -28,14 +28,19 @@ class InventoryItemTransferTest implements JupiterTestHelper {
 
     @Test
     void testCreateInventoryItemsTransfer() {
+        String inventoryItemId = testParams.inventoryItemId ?: '9005'
+        String statusId = testParams.statusId ?: 'IXF_REQUESTED'
+        String facilityId = testParams.facilityId ?: 'WebStoreWarehouse'
+        String facilityIdTo = testParams.facilityIdTo ?: 'WebStoreWarehouse'
+        String statusId1 = testParams.statusId1 ?: 'IXF_COMPLETE'
         BigDecimal transferQty = BigDecimal.ONE
 
         // create
         Map createCtx = [
-                inventoryItemId: '9005',
-                statusId: 'IXF_REQUESTED',
-                facilityId: 'WebStoreWarehouse',
-                facilityIdTo: 'WebStoreWarehouse',
+                inventoryItemId: inventoryItemId,
+                statusId: statusId,
+                facilityId: facilityId,
+                facilityIdTo: facilityIdTo,
                 receiveDate: UtilDateTime.nowTimestamp(),
                 xferQty: transferQty,
                 userLogin: userLogin
@@ -47,8 +52,8 @@ class InventoryItemTransferTest implements JupiterTestHelper {
         // transfer
         Map updateCtx = [
                 inventoryTransferId: inventoryTransferId,
-                inventoryItemId: '9005',
-                statusId: 'IXF_COMPLETE',
+                inventoryItemId: inventoryItemId,
+                statusId: statusId1,
                 userLogin: userLogin
         ]
         Map updateResp = dispatcher.runSync('updateInventoryTransfer', updateCtx)

@@ -32,6 +32,10 @@ class ProductTagTest implements JupiterTestHelper {
 
     @Test
     void testProductTag() {
+        String productId = testParams.productId ?: 'GZ-1000'
+        String keyword = testParams.keyword ?: 'test'
+        String keywordTypeId = testParams.keywordTypeId ?: 'KWT_TAG'
+        String statusId = testParams.statusId ?: 'KW_APPROVED'
         /*Test Product Tag
         Step 1) Create a product tag.
         Step 2) Check a product tag is created.
@@ -48,62 +52,64 @@ class ProductTagTest implements JupiterTestHelper {
         request.setAttribute('delegator', delegator)
         request.setAttribute('dispatcher', dispatcher)
         // Step 1
-        request.setParameter('productId', 'GZ-1000')
-        request.setParameter('productTags', 'test')
+        request.setParameter('productId', productId)
+        request.setParameter('productTags', keyword)
         ProductEvents.addProductTags(request, response)
 
         // Step 2
-        GenericValue productKeyword = from('ProductKeyword').where('productId', 'GZ-1000', 'keyword', 'test', 'keywordTypeId', 'KWT_TAG').queryOne()
+        GenericValue productKeyword = from('ProductKeyword')
+                .where('productId', productId, 'keyword', keyword, 'keywordTypeId', keywordTypeId)
+                .queryOne()
         assert productKeyword != null
         assert productKeyword.statusId == 'KW_PENDING'
         // Step 3
         Map updateProductKeywordMap = [
                 userLogin: systemUserLogin,
-                productId: 'GZ-1000',
-                keyword: 'test',
-                keywordTypeId: 'KWT_TAG',
-                statusId: 'KW_APPROVED',
+                productId: productId,
+                keyword: keyword,
+                keywordTypeId: keywordTypeId,
+                statusId: statusId,
         ]
         Map resultMap = dispatcher.runSync('updateProductKeyword', updateProductKeywordMap)
         assert ServiceUtil.isSuccess(resultMap)
 
         // Step 4
         GenericValue checkProductKeywordApprove = from('ProductKeyword')
-                .where('productId', 'GZ-1000', 'keyword', 'test', 'keywordTypeId', 'KWT_TAG').queryOne()
+                .where('productId', productId, 'keyword', keyword, 'keywordTypeId', keywordTypeId).queryOne()
         assert checkProductKeywordApprove != null
-        assert checkProductKeywordApprove.statusId == 'KW_APPROVED'
+        assert checkProductKeywordApprove.statusId == statusId
 
         // Step 5
-        request.setParameter('productId', 'GZ-1000')
+        request.setParameter('productId', productId)
         request.setParameter('productTags', '\'rock and roll\' t-shirt red')
         ProductEvents.addProductTags(request, response)
 
         // Step 6
         GenericValue checkProductKeyword1 = from('ProductKeyword')
-                .where('productId', 'GZ-1000', 'keyword', 'rock and roll', 'keywordTypeId', 'KWT_TAG').queryOne()
+                .where('productId', productId, 'keyword', 'rock and roll', 'keywordTypeId', keywordTypeId).queryOne()
         assert checkProductKeyword1 != null
         assert checkProductKeyword1.statusId == 'KW_PENDING'
 
         GenericValue checkProductKeyword2 = from('ProductKeyword')
-                .where('productId', 'GZ-1000', 'keyword', 't-shirt', 'keywordTypeId', 'KWT_TAG').queryOne()
+                .where('productId', productId, 'keyword', 't-shirt', 'keywordTypeId', keywordTypeId).queryOne()
         assert checkProductKeyword2 != null
         assert checkProductKeyword2.statusId == 'KW_PENDING'
 
         GenericValue checkProductKeyword3 = from('ProductKeyword')
-                .where('productId', 'GZ-1000', 'keyword', 'red', 'keywordTypeId', 'KWT_TAG').queryOne()
+                .where('productId', productId, 'keyword', 'red', 'keywordTypeId', keywordTypeId).queryOne()
         assert checkProductKeyword3 != null
         assert checkProductKeyword3.statusId == 'KW_PENDING'
 
         // Step 7
         List<GenericValue> checkAllProductKeywordApproveList = from('ProductKeyword')
-                .where('productId', 'GZ-1000', 'statusId', 'KW_PENDING', 'keywordTypeId', 'KWT_TAG').queryList()
+                .where('productId', productId, 'statusId', 'KW_PENDING', 'keywordTypeId', keywordTypeId).queryList()
         for (GenericValue checkAllProductKeywordApprove : checkAllProductKeywordApproveList) {
             updateProductKeywordMap = [
                     userLogin: systemUserLogin,
                     productId: checkAllProductKeywordApprove.productId,
                     keyword: checkAllProductKeywordApprove.keyword,
                     keywordTypeId: checkAllProductKeywordApprove.keywordTypeId,
-                    statusId: 'KW_APPROVED',
+                    statusId: statusId,
             ]
             resultMap = dispatcher.runSync('updateProductKeyword', updateProductKeywordMap)
             assert ServiceUtil.isSuccess(resultMap)
@@ -111,19 +117,19 @@ class ProductTagTest implements JupiterTestHelper {
 
         // Step 8
         GenericValue checkProductKeywordApprove1 = from('ProductKeyword')
-                .where('productId', 'GZ-1000', 'keyword', 'rock and roll', 'keywordTypeId', 'KWT_TAG').queryOne()
+                .where('productId', productId, 'keyword', 'rock and roll', 'keywordTypeId', keywordTypeId).queryOne()
         assert checkProductKeywordApprove1 != null
-        assert checkProductKeywordApprove1.statusId == 'KW_APPROVED'
+        assert checkProductKeywordApprove1.statusId == statusId
 
         GenericValue checkProductKeywordApprove2 = from('ProductKeyword')
-                .where('productId', 'GZ-1000', 'keyword', 't-shirt', 'keywordTypeId', 'KWT_TAG').queryOne()
+                .where('productId', productId, 'keyword', 't-shirt', 'keywordTypeId', keywordTypeId).queryOne()
         assert checkProductKeywordApprove2 != null
-        assert checkProductKeywordApprove2.statusId == 'KW_APPROVED'
+        assert checkProductKeywordApprove2.statusId == statusId
 
         GenericValue checkProductKeywordApprove3 = from('ProductKeyword')
-                .where('productId', 'GZ-1000', 'keyword', 'red', 'keywordTypeId', 'KWT_TAG').queryOne()
+                .where('productId', productId, 'keyword', 'red', 'keywordTypeId', keywordTypeId).queryOne()
         assert checkProductKeywordApprove3 != null
-        assert checkProductKeywordApprove3.statusId == 'KW_APPROVED'
+        assert checkProductKeywordApprove3.statusId == statusId
     }
 
 }

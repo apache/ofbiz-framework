@@ -34,6 +34,8 @@ class GroupOrderTests implements JupiterTestHelper {
     @Test
     @Order(1)
     void testGroupOrderLimitReached() {
+        String productId = testParams.productId ?: 'GZ-1000'
+        String statusId = testParams.statusId ?: 'GO_CREATED'
         GenericValue systemUserLogin = from('UserLogin').where('userLoginId', 'system').queryOne()
         GenericValue adminUserLogin = from('UserLogin').where('userLoginId', 'admin').queryOne()
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp()
@@ -41,10 +43,10 @@ class GroupOrderTests implements JupiterTestHelper {
 
         Map createGroupOrderCtx = [
                 userLogin: systemUserLogin,
-                productId: 'GZ-1000',
+                productId: productId,
                 fromDate: nowTimestamp,
                 thruDate: thruDate,
-                statusId: 'GO_CREATED',
+                statusId: statusId,
                 reqOrderQty: 1.0,
                 soldOrderQty: 0.0
         ]
@@ -54,7 +56,7 @@ class GroupOrderTests implements JupiterTestHelper {
         assert groupOrderId
 
         // Create an order using the createTestSalesOrderSingle service
-        Map orderResult = dispatcher.runSync('createTestSalesOrderSingle', [userLogin: adminUserLogin, productId: 'GZ-1000'])
+        Map orderResult = dispatcher.runSync('createTestSalesOrderSingle', [userLogin: adminUserLogin, productId: productId])
         assert ServiceUtil.isSuccess(orderResult)
 
         GenericValue productGroupOrder = from('ProductGroupOrder').where('groupOrderId', groupOrderId).queryOne()
@@ -78,6 +80,8 @@ class GroupOrderTests implements JupiterTestHelper {
     @Test
     @Order(2)
     void testGroupOrderLimitNotReached() {
+        String productId = testParams.productId ?: 'GZ-1001'
+        String statusId = testParams.statusId ?: 'GO_CREATED'
         GenericValue systemUserLogin = from('UserLogin').where('userLoginId', 'system').queryOne()
         GenericValue adminUserLogin = from('UserLogin').where('userLoginId', 'admin').queryOne()
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp()
@@ -85,10 +89,10 @@ class GroupOrderTests implements JupiterTestHelper {
 
         Map createGroupOrderCtx = [
                 userLogin: systemUserLogin,
-                productId: 'GZ-1001',
+                productId: productId,
                 fromDate: nowTimestamp,
                 thruDate: thruDate,
-                statusId: 'GO_CREATED',
+                statusId: statusId,
                 reqOrderQty: 2.0,
                 soldOrderQty: 0.0
         ]
@@ -98,7 +102,7 @@ class GroupOrderTests implements JupiterTestHelper {
         assert groupOrderId
 
         // Create an order using the createTestSalesOrderSingle service
-        Map orderResult = dispatcher.runSync('createTestSalesOrderSingle', [userLogin: adminUserLogin, productId: 'GZ-1001'])
+        Map orderResult = dispatcher.runSync('createTestSalesOrderSingle', [userLogin: adminUserLogin, productId: productId])
         assert ServiceUtil.isSuccess(orderResult)
 
         GenericValue productGroupOrder = from('ProductGroupOrder').where('groupOrderId', groupOrderId).queryOne()

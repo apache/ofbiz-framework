@@ -66,12 +66,13 @@ class ProductPromoCondTests implements JupiterTestHelper {
     @Test
     @Order(2)
     void testNewACCTPromo() {
+        String partyId = testParams.partyId ?: 'FrenchCustomer'
         String condValue = '1095'
-        GenericValue frenchCustomer = delegator.makeValue('Party', [partyId: 'FrenchCustomer', createdDate: Timestamp.valueOf('2010-01-01 00:00:00')])
+        GenericValue frenchCustomer = delegator.makeValue('Party', [partyId: partyId, createdDate: Timestamp.valueOf('2010-01-01 00:00:00')])
         frenchCustomer.store()
         ShoppingCart cart = new ShoppingCart(delegator, '9000', Locale.getDefault(), 'EUR')
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp()
-        cart.setOrderPartyId('FrenchCustomer')
+        cart.setOrderPartyId(partyId)
         cart.getPartyDaysSinceCreated(nowTimestamp)
         Map<String, Object> serviceContext = prepareConditionMap(cart, condValue)
         Map<String, Object> serviceResult = dispatcher.runSync('productPromoCondNewACCT', serviceContext)
@@ -97,16 +98,17 @@ class ProductPromoCondTests implements JupiterTestHelper {
     @Test
     @Order(3)
     void testPartyClassPromo() {
+        String partyId = testParams.partyId ?: 'FrenchCustomer'
         String condValue = 'PROMO_TEST'
         GenericValue partyClassGroup = delegator.makeValue('PartyClassificationGroup', [partyClassificationGroupId: condValue])
         delegator.createOrStore(partyClassGroup)
         GenericValue partyClassification = delegator.makeValue('PartyClassification',
-                [partyId: 'FrenchCustomer', partyClassificationGroupId: condValue,
+                [partyId: partyId, partyClassificationGroupId: condValue,
                  fromDate: Timestamp.valueOf('2010-01-01 00:00:00'),
                  thruDate: null])
         delegator.createOrStore(partyClassification)
         ShoppingCart cart = new ShoppingCart(delegator, '9000', Locale.getDefault(), 'EUR')
-        cart.setOrderPartyId('FrenchCustomer')
+        cart.setOrderPartyId(partyId)
 
         // call service promo
         Map<String, Object> serviceContext = prepareConditionMap(cart, condValue)
@@ -133,17 +135,23 @@ class ProductPromoCondTests implements JupiterTestHelper {
     @Test
     @Order(4)
     void testPartyGMPromo() {
+        String partyId = testParams.partyId ?: 'FrenchCustomer'
+        String roleTypeId = testParams.roleTypeId ?: '_NA_'
+        String partyIdFrom = testParams.partyIdFrom ?: 'FrenchCustomer'
+        String roleTypeIdFrom = testParams.roleTypeIdFrom ?: '_NA_'
+        String roleTypeIdTo = testParams.roleTypeIdTo ?: '_NA_'
+        String partyRelationshipTypeId = testParams.partyRelationshipTypeId ?: 'GROUP_ROLLUP'
         String condValue = 'HUMAN_RES'
         ShoppingCart cart = new ShoppingCart(delegator, '9000', Locale.getDefault(), 'EUR')
         cart.setOrderPartyId(condValue)
-        GenericValue partyRole = delegator.makeValue('PartyRole', [partyId: 'FrenchCustomer', roleTypeId: '_NA_'])
+        GenericValue partyRole = delegator.makeValue('PartyRole', [partyId: partyId, roleTypeId: roleTypeId])
         delegator.createOrStore(partyRole)
         partyRole.partyId = condValue
         delegator.createOrStore(partyRole)
-        GenericValue relation = delegator.makeValue('PartyRelationship', [partyIdFrom: 'FrenchCustomer', roleTypeIdFrom: '_NA_',
-                                               partyIdTo: condValue, roleTypeIdTo: '_NA_',
+        GenericValue relation = delegator.makeValue('PartyRelationship', [partyIdFrom: partyIdFrom, roleTypeIdFrom: roleTypeIdFrom,
+                                               partyIdTo: condValue, roleTypeIdTo: roleTypeIdTo,
                                                fromDate: Timestamp.valueOf('2010-01-01 00:00:00'),
-                                               partyRelationshipTypeId: 'GROUP_ROLLUP'])
+                                               partyRelationshipTypeId: partyRelationshipTypeId])
         delegator.createOrStore(relation)
 
         // call service promo
@@ -169,10 +177,11 @@ class ProductPromoCondTests implements JupiterTestHelper {
     @Test
     @Order(5)
     void testRoleTypePromo() {
+        String partyId = testParams.partyId ?: 'FrenchCustomer'
         String condValue = 'APPROVER'
         ShoppingCart cart = new ShoppingCart(delegator, '9000', Locale.getDefault(), 'EUR')
-        cart.setOrderPartyId('FrenchCustomer')
-        GenericValue partyRole = delegator.makeValue('PartyRole', [partyId: 'FrenchCustomer', roleTypeId: condValue])
+        cart.setOrderPartyId(partyId)
+        GenericValue partyRole = delegator.makeValue('PartyRole', [partyId: partyId, roleTypeId: condValue])
         delegator.createOrStore(partyRole)
 
         // call service promo
@@ -252,10 +261,12 @@ class ProductPromoCondTests implements JupiterTestHelper {
     @Test
     @Order(8)
     void testRecurrencePromo() {
+        String frequency = testParams.frequency ?: 'DAILY'
+        String byDayList = testParams.byDayList ?: 'MO,TU,WE,TH,FR,SA,SU'
         String condValue = 'TEST_PROMO'
         ShoppingCart cart = new ShoppingCart(delegator, '9000', Locale.getDefault(), 'EUR')
-        GenericValue reccurenceRule = delegator.makeValue('RecurrenceRule', [recurrenceRuleId: condValue, frequency: 'DAILY', intervalNumber: 1L,
-                                                                       countNumber: -1L, byDayList: 'MO,TU,WE,TH,FR,SA,SU'])
+        GenericValue reccurenceRule = delegator.makeValue('RecurrenceRule', [recurrenceRuleId: condValue, frequency: frequency, intervalNumber: 1L,
+                                                                       countNumber: -1L, byDayList: byDayList])
         delegator.createOrStore(reccurenceRule)
         GenericValue reccurenceInfo = delegator.makeValue('RecurrenceInfo',
                 [recurrenceInfoId: condValue, startDateTime: Timestamp.valueOf('2008-01-01 00:00:00.000'),
@@ -315,6 +326,12 @@ class ProductPromoCondTests implements JupiterTestHelper {
     @Test
     @Order(10)
     void testProductAmountPromo() {
+        String productPromoId = testParams.productPromoId ?: 'TEST'
+        String productPromoRuleId = testParams.productPromoRuleId ?: '01'
+        String productPromoCondSeqId = testParams.productPromoCondSeqId ?: '01'
+        String productId = testParams.productId ?: 'GZ-2644'
+        String productPromoApplEnumId = testParams.productPromoApplEnumId ?: 'PPPA_INCLUDE'
+        String productPromoActionSeqId = testParams.productPromoActionSeqId ?: '_NA_'
         String condValue = '30'
         String orderId = 'DEMO10090'
         ShoppingCart cart = loadOrder(orderId)
@@ -322,8 +339,8 @@ class ProductPromoCondTests implements JupiterTestHelper {
         // call service promo
         Map<String, Object> serviceContext = prepareConditionMap(cart, condValue, true)
         GenericValue productPromoProduct = delegator.makeValue('ProductPromoProduct',
-                [productPromoId: 'TEST', productPromoRuleId: '01', productPromoCondSeqId: '01',
-                 productId: 'GZ-2644', productPromoApplEnumId: 'PPPA_INCLUDE', productPromoActionSeqId: '_NA_'])
+                [productPromoId: productPromoId, productPromoRuleId: productPromoRuleId, productPromoCondSeqId: productPromoCondSeqId,
+                 productId: productId, productPromoApplEnumId: productPromoApplEnumId, productPromoActionSeqId: productPromoActionSeqId])
         delegator.createOrStore(productPromoProduct)
         Map<String, Object> serviceResult = dispatcher.runSync('productPromoCondProductAmount', serviceContext)
 
@@ -347,14 +364,20 @@ class ProductPromoCondTests implements JupiterTestHelper {
     @Test
     @Order(11)
     void testProductTotalPromo() {
+        String productPromoId = testParams.productPromoId ?: 'TEST'
+        String productPromoRuleId = testParams.productPromoRuleId ?: '01'
+        String productPromoCondSeqId = testParams.productPromoCondSeqId ?: '01'
+        String productId = testParams.productId ?: 'WG-1111'
+        String productPromoApplEnumId = testParams.productPromoApplEnumId ?: 'PPPA_INCLUDE'
+        String productPromoActionSeqId = testParams.productPromoActionSeqId ?: '_NA_'
         String orderId = 'Demo1002'
         ShoppingCart cart = loadOrder(orderId)
 
         // call service promo
         Map<String, Object> serviceContext = prepareConditionMap(cart, '50', true)
         GenericValue productPromoProduct = delegator.makeValue('ProductPromoProduct',
-            [productPromoId: 'TEST', productPromoRuleId: '01', productPromoCondSeqId: '01',
-             productId: 'WG-1111', productPromoApplEnumId: 'PPPA_INCLUDE', productPromoActionSeqId: '_NA_'])
+            [productPromoId: productPromoId, productPromoRuleId: productPromoRuleId, productPromoCondSeqId: productPromoCondSeqId,
+             productId: productId, productPromoApplEnumId: productPromoApplEnumId, productPromoActionSeqId: productPromoActionSeqId])
         delegator.createOrStore(productPromoProduct)
         Map<String, Object> serviceResult = dispatcher.runSync('productPromoCondProductTotal', serviceContext)
 

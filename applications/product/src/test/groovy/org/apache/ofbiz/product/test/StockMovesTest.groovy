@@ -30,8 +30,12 @@ class StockMovesTest implements JupiterTestHelper {
 
     @Test
     void testStockMoves() {
+        String facilityId = testParams.facilityId ?: 'WebStoreWarehouse'
+        String productId = testParams.productId ?: 'GZ-2644'
+        String locationSeqId = testParams.locationSeqId ?: 'TLTLTLUL01'
+        String targetLocationSeqId = testParams.targetLocationSeqId ?: 'TLTLTLLL01'
         Map fsmnCtx = [
-                facilityId: 'WebStoreWarehouse',
+                facilityId: facilityId,
                 userLogin: userLogin
         ]
         Map respMap1 = dispatcher.runSync('findStockMovesNeeded', fsmnCtx)
@@ -44,10 +48,10 @@ class StockMovesTest implements JupiterTestHelper {
         assert !respMap2.warningMessageList
 
         Map ppsmCtx = [
-                productId: 'GZ-2644',
-                facilityId: 'WebStoreWarehouse',
-                locationSeqId: 'TLTLTLUL01',
-                targetLocationSeqId: 'TLTLTLLL01',
+                productId: productId,
+                facilityId: facilityId,
+                locationSeqId: locationSeqId,
+                targetLocationSeqId: targetLocationSeqId,
                 quantityMoved: new BigDecimal('5'),
                 userLogin: userLogin
         ]
