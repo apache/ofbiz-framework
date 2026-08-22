@@ -33,6 +33,7 @@ class PartyContactMechTests implements JupiterTestHelper {
     @Test
     @Order(1)
     void testUpdatePartyEmailAddress() {
+        String contactMechIdParam = testParams.contactMechIdParam ?: '9026'
         String partyId = 'DemoCustomer'
         String contactMechTypeId = 'EMAIL_ADDRESS'
         String emailAddress = 'ofbiztest@example.com'
@@ -42,7 +43,7 @@ class PartyContactMechTests implements JupiterTestHelper {
                 partyId: partyId,
                 contactMechTypeId: contactMechTypeId,
                 emailAddress: emailAddress,
-                contactMechId: '9026',
+                contactMechId: contactMechIdParam,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('updatePartyEmailAddress', serviceCtx)
@@ -77,15 +78,19 @@ class PartyContactMechTests implements JupiterTestHelper {
     @Test
     @Order(2)
     void testUpdatePartyTelecomNumber() {
+        String contactMechIdParam = testParams.contactMechIdParam ?: '9025'
+        String countryCode = testParams.countryCode ?: '1'
+        String areaCode = testParams.areaCode ?: '801'
+        String contactNumber = testParams.contactNumber ?: '555-5555'
         String partyId = 'DemoCustomer'
 
         // first try with just updating without changing the email address
         Map serviceCtx = [
                 partyId: partyId,
-                contactMechId: '9025',
-                countryCode: '1',
-                areaCode: '801',
-                contactNumber: '555-5555',
+                contactMechId: contactMechIdParam,
+                countryCode: countryCode,
+                areaCode: areaCode,
+                contactNumber: contactNumber,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('updatePartyTelecomNumber', serviceCtx)
@@ -321,6 +326,7 @@ class PartyContactMechTests implements JupiterTestHelper {
     @Test
     @Order(7)
     void testCreateUpdatePartyTelecomNumberWithUpdate() {
+        String contactMechIdParam = testParams.contactMechIdParam ?: '9125'
         String partyId = 'DemoCustomer'
         String contactMechPurposeTypeId = 'PHONE_HOME'
         String areaCode = '802'
@@ -328,7 +334,7 @@ class PartyContactMechTests implements JupiterTestHelper {
 
         Map serviceCtx = [
                 partyId: partyId,
-                contactMechId: '9125',
+                contactMechId: contactMechIdParam,
                 contactMechPurposeTypeId: contactMechPurposeTypeId,
                 areaCode: areaCode,
                 contactNumber: contactNumber,
@@ -337,10 +343,10 @@ class PartyContactMechTests implements JupiterTestHelper {
         Map serviceResult = dispatcher.runSync('createUpdatePartyTelecomNumber', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
         String contactMechId = serviceResult.contactMechId
-        assert contactMechId != '9125'
+        assert contactMechId != contactMechIdParam
 
         GenericValue partyContactMechPurpose = from('PartyContactMechPurpose')
-                .where('contactMechId', '9125')
+                .where('contactMechId', contactMechIdParam)
                 .queryFirst()
         assert partyContactMechPurpose
         assert partyContactMechPurpose.thruDate
@@ -408,13 +414,14 @@ class PartyContactMechTests implements JupiterTestHelper {
     @Test
     @Order(9)
     void testCreateUpdatePartyEmailAddressWithUpdate() {
+        String contactMechIdParam = testParams.contactMechIdParam ?: '9126'
         String partyId = 'DemoCustomer'
         String contactMechPurposeTypeId = 'PRIMARY_EMAIL'
         String emailAddress = 'demo.customer@foo.com'
 
         Map serviceCtx = [
                 partyId: partyId,
-                contactMechId: '9126',
+                contactMechId: contactMechIdParam,
                 contactMechPurposeTypeId: contactMechPurposeTypeId,
                 emailAddress: emailAddress,
                 userLogin: userLogin
@@ -423,11 +430,11 @@ class PartyContactMechTests implements JupiterTestHelper {
         assert ServiceUtil.isSuccess(serviceResult)
         String contactMechId = serviceResult.contactMechId
         assert contactMechId
-        assert contactMechId != '9126'
+        assert contactMechId != contactMechIdParam
         assert emailAddress == serviceResult.emailAddress
 
         GenericValue partyContactMechPurpose = from('PartyContactMechPurpose')
-                .where('contactMechId', '9126')
+                .where('contactMechId', contactMechIdParam)
                 .queryFirst()
         assert partyContactMechPurpose
         assert partyContactMechPurpose.thruDate != null

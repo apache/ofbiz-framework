@@ -30,8 +30,9 @@ class OrderTests implements JupiterTestHelper {
     @Test
     @Order(1)
     void testCreateOrderDeliverySchedule() {
+        String orderId = testParams.orderId ?: 'TEST_DEMO10090'
         Map serviceCtx = [
-                orderId: 'TEST_DEMO10090',
+                orderId: orderId,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('createOrderDeliverySchedule', serviceCtx)
@@ -41,10 +42,13 @@ class OrderTests implements JupiterTestHelper {
     @Test
     @Order(2)
     void testCreateOrderItemChange() {
+        String changeTypeEnumId = testParams.changeTypeEnumId ?: 'ODR_ITM_APPEND'
+        String orderId = testParams.orderId ?: 'TEST_DEMO10090'
+        String orderItemSeqId = testParams.orderItemSeqId ?: '00001'
         Map serviceCtx = [
-                changeTypeEnumId: 'ODR_ITM_APPEND',
-                orderId: 'TEST_DEMO10090',
-                orderItemSeqId: '00001',
+                changeTypeEnumId: changeTypeEnumId,
+                orderId: orderId,
+                orderItemSeqId: orderItemSeqId,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('createOrderItemChange', serviceCtx)
@@ -55,8 +59,9 @@ class OrderTests implements JupiterTestHelper {
     @Test
     @Order(3)
     void testCreateOrderPaymentApplication() {
+        String paymentId = testParams.paymentId ?: '1014'
         Map serviceCtx = [
-                paymentId: '1014',
+                paymentId: paymentId,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('createOrderPaymentApplication', serviceCtx)
@@ -66,9 +71,11 @@ class OrderTests implements JupiterTestHelper {
     @Test
     @Order(4)
     void testCreateRequirement() {
+        String custRequestId = testParams.custRequestId ?: '9000'
+        String requirementTypeId = testParams.requirementTypeId ?: 'CUSTOMER_REQUIREMENT'
         Map serviceCtx = [
-                custRequestId: '9000',
-                requirementTypeId: 'CUSTOMER_REQUIREMENT',
+                custRequestId: custRequestId,
+                requirementTypeId: requirementTypeId,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('createRequirement', serviceCtx)
@@ -78,8 +85,9 @@ class OrderTests implements JupiterTestHelper {
     @Test
     @Order(5)
     void testGetRequirementsForSupplier() {
+        String partyId = testParams.partyId ?: 'Company'
         Map serviceCtx = [
-                partyId: 'Company',
+                partyId: partyId,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('getRequirementsForSupplier', serviceCtx)
@@ -89,10 +97,13 @@ class OrderTests implements JupiterTestHelper {
     @Test
     @Order(6)
     void testCreateRequirementRole() {
+        String requirementId = testParams.requirementId ?: '1000'
+        String partyId = testParams.partyId ?: 'Company'
+        String roleTypeId = testParams.roleTypeId ?: 'OWNER'
         Map serviceCtx = [
-                requirementId: '1000',
-                partyId: 'Company',
-                roleTypeId: 'OWNER',
+                requirementId: requirementId,
+                partyId: partyId,
+                roleTypeId: roleTypeId,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('createRequirementRole', serviceCtx)
@@ -102,8 +113,9 @@ class OrderTests implements JupiterTestHelper {
     @Test
     @Order(7)
     void testCreateAutoRequirementsForOrder() {
+        String orderId = testParams.orderId ?: 'TEST_DEMO10090'
         Map serviceCtx = [
-                orderId: 'TEST_DEMO10090',
+                orderId: orderId,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('createAutoRequirementsForOrder', serviceCtx)
@@ -113,8 +125,9 @@ class OrderTests implements JupiterTestHelper {
     @Test
     @Order(8)
     void testCreateATPRequirementsForOrder() {
+        String orderId = testParams.orderId ?: 'TEST_DEMO10090'
         Map serviceCtx = [
-                orderId: 'TEST_DEMO10090',
+                orderId: orderId,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('createATPRequirementsForOrder', serviceCtx)

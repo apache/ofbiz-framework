@@ -32,9 +32,11 @@ class CategoryTests implements JupiterTestHelper {
     @Test
     @Order(1)
     void testAddProductCategoryToCategory() {
+        String productCategoryId = testParams.productCategoryId ?: 'TPC'
+        String parentProductCategoryId = testParams.parentProductCategoryId ?: 'TPCP'
         Map serviceCtx = [
-                productCategoryId: 'TPC',
-                parentProductCategoryId: 'TPCP',
+                productCategoryId: productCategoryId,
+                parentProductCategoryId: parentProductCategoryId,
                 fromDate: UtilDateTime.nowTimestamp(),
                 userLogin: userLogin
         ]
@@ -42,16 +44,20 @@ class CategoryTests implements JupiterTestHelper {
         Map serviceResult = dispatcher.runSync('addProductCategoryToCategory', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue prodCategory = from('ProductCategoryRollup').where('productCategoryId', 'TPC', 'parentProductCategoryId', 'TPCP').queryFirst()
+        GenericValue prodCategory = from('ProductCategoryRollup')
+                .where('productCategoryId', productCategoryId, 'parentProductCategoryId', parentProductCategoryId)
+                .queryFirst()
         assert prodCategory != null
     }
 
     @Test
     @Order(2)
     void testGetProductCategoryAndLimitedMembers() {
+        String productCategoryId = testParams.productCategoryId ?: '101'
+        String prodCatalogId = testParams.prodCatalogId ?: 'DemoCatalog'
         Map serviceCtx = [
-                productCategoryId: '101',
-                prodCatalogId: 'DemoCatalog',
+                productCategoryId: productCategoryId,
+                prodCatalogId: prodCatalogId,
                 defaultViewSize: 10,
                 limitView: true,
                 userLogin: userLogin
@@ -62,9 +68,9 @@ class CategoryTests implements JupiterTestHelper {
 
         assert serviceResult.productCategoryMembers != null
         assert serviceResult.productCategory != null
-        assert serviceResult.productCategory.productCategoryId == '101'
+        assert serviceResult.productCategory.productCategoryId == productCategoryId
 
-        List<GenericValue> productCategoryMemberList = from('ProductCategoryMember').where('productCategoryId', '101').queryList()
+        List<GenericValue> productCategoryMemberList = from('ProductCategoryMember').where('productCategoryId', productCategoryId).queryList()
         assert productCategoryMemberList.containsAll(serviceResult.productCategoryMembers)
     }
 

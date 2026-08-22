@@ -34,8 +34,8 @@ class ProductionRunTests implements JupiterTestHelper {
     @Order(7)
     void testProductionRunCreation() {
         GenericValue userLogin = from('UserLogin').where('userLoginId', 'TestManufAdmin').queryOne()
-        String productId = 'PROD_MANUF'
-        String facilityId = 'WebStoreWarehouse'
+        String productId = testParams.productId ?: 'PROD_MANUF'
+        String facilityId = testParams.facilityId ?: 'WebStoreWarehouse'
         BigDecimal quantity = 5.0
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp()
         Timestamp productionRunStartDate = UtilDateTime.addDaysToTimestamp(nowTimestamp, 1)
@@ -98,8 +98,10 @@ class ProductionRunTests implements JupiterTestHelper {
     @Order(5)
     void testProductionRunScheduleConfirm() {
         GenericValue userLogin = from('UserLogin').where('userLoginId', 'TestManufAdmin').queryOne()
-        String productId = 'PROD_MANUF'
-        String facilityId = 'WebStoreWarehouse'
+        String productId = testParams.productId ?: 'PROD_MANUF'
+        String facilityId = testParams.facilityId ?: 'WebStoreWarehouse'
+        String scheduledStatusId = testParams.scheduledStatusId ?: 'PRUN_SCHEDULED'
+        String printedStatusId = testParams.printedStatusId ?: 'PRUN_DOC_PRINTED'
         BigDecimal quantity = 5.0
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp()
         Timestamp productionRunStartDate = UtilDateTime.addDaysToTimestamp(nowTimestamp, 1)
@@ -116,7 +118,7 @@ class ProductionRunTests implements JupiterTestHelper {
         String productionRunId = serviceResult.productionRunId
 
         Map scheduleResult = dispatcher.runSync('changeProductionRunStatus',
-                [userLogin: userLogin, productionRunId: productionRunId, statusId: 'PRUN_SCHEDULED'])
+                [userLogin: userLogin, productionRunId: productionRunId, statusId: scheduledStatusId])
         assert ServiceUtil.isSuccess(scheduleResult)
 
         GenericValue productionRunHeader = from('WorkEffort').where('workEffortId', productionRunId).queryOne()
@@ -128,7 +130,7 @@ class ProductionRunTests implements JupiterTestHelper {
         assert productionRunTask.currentStatusId == 'PRUN_SCHEDULED'
 
         Map printResult = dispatcher.runSync('changeProductionRunStatus',
-                [userLogin: userLogin, productionRunId: productionRunId, statusId: 'PRUN_DOC_PRINTED'])
+                [userLogin: userLogin, productionRunId: productionRunId, statusId: printedStatusId])
         assert ServiceUtil.isSuccess(printResult)
 
         productionRunHeader = from('WorkEffort').where('workEffortId', productionRunId).queryOne()
@@ -144,8 +146,9 @@ class ProductionRunTests implements JupiterTestHelper {
     @Order(1)
     void testProductionRunDateChange() {
         GenericValue userLogin = from('UserLogin').where('userLoginId', 'TestManufAdmin').queryOne()
-        String productId = 'PROD_MANUF'
-        String facilityId = 'WebStoreWarehouse'
+        String productId = testParams.productId ?: 'PROD_MANUF'
+        String facilityId = testParams.facilityId ?: 'WebStoreWarehouse'
+        String scheduledStatusId = testParams.scheduledStatusId ?: 'PRUN_SCHEDULED'
         BigDecimal quantity = 5.0
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp()
         Timestamp productionRunStartDate = UtilDateTime.addDaysToTimestamp(nowTimestamp, 1)
@@ -162,7 +165,7 @@ class ProductionRunTests implements JupiterTestHelper {
         String productionRunId = serviceResult.productionRunId
 
         Map scheduleResult = dispatcher.runSync('changeProductionRunStatus',
-                [userLogin: userLogin, productionRunId: productionRunId, statusId: 'PRUN_SCHEDULED'])
+                [userLogin: userLogin, productionRunId: productionRunId, statusId: scheduledStatusId])
         assert ServiceUtil.isSuccess(scheduleResult)
 
         Timestamp productionRunNewStartDate = UtilDateTime.addDaysToTimestamp(nowTimestamp, 2)
@@ -187,8 +190,9 @@ class ProductionRunTests implements JupiterTestHelper {
     @Order(2)
     void testProductionRunCancelled() {
         GenericValue userLogin = from('UserLogin').where('userLoginId', 'TestManufAdmin').queryOne()
-        String productId = 'PROD_MANUF'
-        String facilityId = 'WebStoreWarehouse'
+        String productId = testParams.productId ?: 'PROD_MANUF'
+        String facilityId = testParams.facilityId ?: 'WebStoreWarehouse'
+        String scheduledStatusId = testParams.scheduledStatusId ?: 'PRUN_SCHEDULED'
         BigDecimal quantity = 5.0
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp()
         Timestamp productionRunStartDate = UtilDateTime.addDaysToTimestamp(nowTimestamp, 1)
@@ -205,7 +209,7 @@ class ProductionRunTests implements JupiterTestHelper {
         String productionRunId = serviceResult.productionRunId
 
         Map scheduleResult = dispatcher.runSync('quickChangeProductionRunStatus',
-                [userLogin: userLogin, productionRunId: productionRunId, statusId: 'PRUN_SCHEDULED'])
+                [userLogin: userLogin, productionRunId: productionRunId, statusId: scheduledStatusId])
         assert ServiceUtil.isSuccess(scheduleResult)
         Map cancelResult = dispatcher.runSync('cancelProductionRun', [userLogin: userLogin, productionRunId: productionRunId])
         assert ServiceUtil.isSuccess(cancelResult)
@@ -239,8 +243,12 @@ class ProductionRunTests implements JupiterTestHelper {
     @Order(8)
     void testProductionRunQuickIssueAndProduce() {
         GenericValue userLogin = from('UserLogin').where('userLoginId', 'TestManufAdmin').queryOne()
-        String productId = 'PROD_MANUF'
-        String facilityId = 'WebStoreWarehouse'
+        String productId = testParams.productId ?: 'PROD_MANUF'
+        String facilityId = testParams.facilityId ?: 'WebStoreWarehouse'
+        String printedStatusId = testParams.printedStatusId ?: 'PRUN_DOC_PRINTED'
+        String completedStatusId = testParams.completedStatusId ?: 'PRUN_COMPLETED'
+        String inventoryItemTypeId = testParams.inventoryItemTypeId ?: 'NON_SERIAL_INV_ITEM'
+        String lotId = testParams.lotId ?: 'LOT12345'
         BigDecimal quantity = 2.0
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp()
         Timestamp productionRunStartDate = UtilDateTime.addDaysToTimestamp(nowTimestamp, 1)
@@ -257,7 +265,7 @@ class ProductionRunTests implements JupiterTestHelper {
         String productionRunId = serviceResult.productionRunId
 
         Map printResult = dispatcher.runSync('quickChangeProductionRunStatus',
-                [userLogin: userLogin, productionRunId: productionRunId, statusId: 'PRUN_DOC_PRINTED'])
+                [userLogin: userLogin, productionRunId: productionRunId, statusId: printedStatusId])
         assert ServiceUtil.isSuccess(printResult)
         Map startResult = dispatcher.runSync('quickStartAllProductionRunTasks', [userLogin: userLogin, productionRunId: productionRunId])
         assert ServiceUtil.isSuccess(startResult)
@@ -279,8 +287,8 @@ class ProductionRunTests implements JupiterTestHelper {
         Map issueAndProduceCtx = [
             userLogin: userLogin,
             workEffortId: productionRunId,
-            inventoryItemTypeId: 'NON_SERIAL_INV_ITEM',
-            lotId: 'LOT12345',
+            inventoryItemTypeId: inventoryItemTypeId,
+            lotId: lotId,
             componentsLocationMap: componentsLocationMap,
             quantity: 1.0
         ]
@@ -321,7 +329,7 @@ class ProductionRunTests implements JupiterTestHelper {
         Map produceResult2 = dispatcher.runSync('productionRunDeclareAndProduce', issueAndProduceCtx)
         assert ServiceUtil.isSuccess(produceResult2)
         Map completeResult = dispatcher.runSync('quickChangeProductionRunStatus',
-                [userLogin: userLogin, productionRunId: productionRunId, statusId: 'PRUN_COMPLETED'])
+                [userLogin: userLogin, productionRunId: productionRunId, statusId: completedStatusId])
         assert ServiceUtil.isSuccess(completeResult)
 
         productionRunHeader = from('WorkEffort').where('workEffortId', productionRunId).queryOne()
@@ -366,8 +374,10 @@ class ProductionRunTests implements JupiterTestHelper {
     @Order(9)
     void testQuickRunProductionRun() {
         GenericValue userLogin = from('UserLogin').where('userLoginId', 'TestManufAdmin').queryOne()
-        String productId = 'PROD_MANUF'
-        String facilityId = 'WebStoreWarehouse'
+        String productId = testParams.productId ?: 'PROD_MANUF'
+        String facilityId = testParams.facilityId ?: 'WebStoreWarehouse'
+        String printedStatusId = testParams.printedStatusId ?: 'PRUN_DOC_PRINTED'
+        String completedStatusId = testParams.completedStatusId ?: 'PRUN_COMPLETED'
         BigDecimal quantity = 1.0
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp()
         Timestamp productionRunStartDate = UtilDateTime.addDaysToTimestamp(nowTimestamp, 1)
@@ -384,10 +394,10 @@ class ProductionRunTests implements JupiterTestHelper {
         String productionRunId = serviceResult.productionRunId
 
         Map printResult = dispatcher.runSync('quickChangeProductionRunStatus',
-                [userLogin: userLogin, productionRunId: productionRunId, statusId: 'PRUN_DOC_PRINTED'])
+                [userLogin: userLogin, productionRunId: productionRunId, statusId: printedStatusId])
         assert ServiceUtil.isSuccess(printResult)
         Map completeResult = dispatcher.runSync('quickChangeProductionRunStatus',
-                [userLogin: userLogin, productionRunId: productionRunId, statusId: 'PRUN_COMPLETED'])
+                [userLogin: userLogin, productionRunId: productionRunId, statusId: completedStatusId])
         assert ServiceUtil.isSuccess(completeResult)
 
         GenericValue productionRunHeader = from('WorkEffort').where('workEffortId', productionRunId).queryOne()
@@ -406,8 +416,10 @@ class ProductionRunTests implements JupiterTestHelper {
     @Order(6)
     void testQuickCloseProductionRun() {
         GenericValue userLogin = from('UserLogin').where('userLoginId', 'TestManufAdmin').queryOne()
-        String productId = 'PROD_MANUF'
-        String facilityId = 'WebStoreWarehouse'
+        String productId = testParams.productId ?: 'PROD_MANUF'
+        String facilityId = testParams.facilityId ?: 'WebStoreWarehouse'
+        String printedStatusId = testParams.printedStatusId ?: 'PRUN_DOC_PRINTED'
+        String closedStatusId = testParams.closedStatusId ?: 'PRUN_CLOSED'
         BigDecimal quantity = 1.0
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp()
         Timestamp productionRunStartDate = UtilDateTime.addDaysToTimestamp(nowTimestamp, 1)
@@ -424,10 +436,10 @@ class ProductionRunTests implements JupiterTestHelper {
         String productionRunId = serviceResult.productionRunId
 
         Map printResult = dispatcher.runSync('quickChangeProductionRunStatus',
-                [userLogin: userLogin, productionRunId: productionRunId, statusId: 'PRUN_DOC_PRINTED'])
+                [userLogin: userLogin, productionRunId: productionRunId, statusId: printedStatusId])
         assert ServiceUtil.isSuccess(printResult)
         Map closeResult = dispatcher.runSync('quickChangeProductionRunStatus',
-                [userLogin: userLogin, productionRunId: productionRunId, statusId: 'PRUN_CLOSED'])
+                [userLogin: userLogin, productionRunId: productionRunId, statusId: closedStatusId])
         assert ServiceUtil.isSuccess(closeResult)
 
         GenericValue productionRunHeader = from('WorkEffort').where('workEffortId', productionRunId).queryOne()
@@ -447,7 +459,9 @@ class ProductionRunTests implements JupiterTestHelper {
     @Order(4)
     void testCreateProductionRunForOrder() {
         GenericValue userLogin = from('UserLogin').where('userLoginId', 'admin').queryOne()
-        String productId = 'PROD_MANUF'
+        String productId = testParams.productId ?: 'PROD_MANUF'
+        String printedStatusId = testParams.printedStatusId ?: 'PRUN_DOC_PRINTED'
+        String closedStatusId = testParams.closedStatusId ?: 'PRUN_CLOSED'
 
         Map serviceResult = dispatcher.runSync('createTestSalesOrderSingle', [userLogin: userLogin, productId: productId])
         assert ServiceUtil.isSuccess(serviceResult)
@@ -497,10 +511,10 @@ class ProductionRunTests implements JupiterTestHelper {
         assert workOrderItemFulfillment.orderItemSeqId
 
         Map printResult = dispatcher.runSync('quickChangeProductionRunStatus',
-                [userLogin: userLogin, productionRunId: productionRunId, statusId: 'PRUN_DOC_PRINTED'])
+                [userLogin: userLogin, productionRunId: productionRunId, statusId: printedStatusId])
         assert ServiceUtil.isSuccess(printResult)
         Map closeResult = dispatcher.runSync('quickChangeProductionRunStatus',
-                [userLogin: userLogin, productionRunId: productionRunId, statusId: 'PRUN_CLOSED'])
+                [userLogin: userLogin, productionRunId: productionRunId, statusId: closedStatusId])
         assert ServiceUtil.isSuccess(closeResult)
 
         GenericValue producedMaterial = from('WorkEffortAndInventoryProduced').where('workEffortId', productionRunHeader.workEffortId).queryFirst()
@@ -518,22 +532,25 @@ class ProductionRunTests implements JupiterTestHelper {
     @Order(3)
     void testCreateProductionRunForRequirement() {
         GenericValue userLogin = from('UserLogin').where('userLoginId', 'TestSupplyAdmin').queryOne()
-        String productId = 'PROD_MANUF'
+        String productId = testParams.productId ?: 'PROD_MANUF'
+        String requirementTypeId = testParams.requirementTypeId ?: 'INTERNAL_REQUIREMENT'
+        String facilityId = testParams.facilityId ?: 'WebStoreWarehouse'
+        String approvedStatusId = testParams.approvedStatusId ?: 'REQ_APPROVED'
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp()
         Timestamp startDate = UtilDateTime.addDaysToTimestamp(nowTimestamp, 1)
 
         Map reqCtx = [
             userLogin: userLogin,
             productId: productId,
-            requirementTypeId: 'INTERNAL_REQUIREMENT',
-            facilityId: 'WebStoreWarehouse',
+            requirementTypeId: requirementTypeId,
+            facilityId: facilityId,
             requirementStartDate: startDate
         ]
         Map reqResult = dispatcher.runSync('createRequirement', reqCtx)
         assert ServiceUtil.isSuccess(reqResult)
         String requirementId = reqResult.requirementId
 
-        Map updateResult = dispatcher.runSync('updateRequirement', [userLogin: userLogin, requirementId: requirementId, statusId: 'REQ_APPROVED'])
+        Map updateResult = dispatcher.runSync('updateRequirement', [userLogin: userLogin, requirementId: requirementId, statusId: approvedStatusId])
         assert ServiceUtil.isSuccess(updateResult)
 
         // Manually trigger the ECA service because tests run in an uncommitted transaction

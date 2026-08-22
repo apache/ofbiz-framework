@@ -31,95 +31,123 @@ class PartyCommunicationEventTests implements JupiterTestHelper {
     @Test
     @Order(1)
     void testCreateCommunicationEvent() {
+        String communicationEventId = testParams.communicationEventId ?: 'TestEvent-3'
+        String communicationEventTypeId = testParams.communicationEventTypeId ?: 'EMAIL_COMMUNICATION'
+        String statusId = testParams.statusId ?: 'COM_COMPLETE'
+        String fromString = testParams.fromString ?: 'send@example.com'
+        String toString = testParams.toString ?: 'receive@example.com'
+        String subject = testParams.subject ?: 'Why i would use the OFBiz system'
         Map serviceCtx = [
-                communicationEventId: 'TestEvent-3',
-                communicationEventTypeId: 'EMAIL_COMMUNICATION',
-                statusId: 'COM_COMPLETE',
-                fromString: 'send@example.com',
-                toString: 'receive@example.com',
-                subject: 'Why i would use the OFBiz system',
+                communicationEventId: communicationEventId,
+                communicationEventTypeId: communicationEventTypeId,
+                statusId: statusId,
+                fromString: fromString,
+                toString: toString,
+                subject: subject,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('createCommunicationEvent', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue communicationEvent = from('CommunicationEvent').where('communicationEventId', 'TestEvent-3').queryOne()
+        GenericValue communicationEvent = from('CommunicationEvent').where('communicationEventId', communicationEventId).queryOne()
         assert communicationEvent
-        assert communicationEvent.statusId == 'COM_COMPLETE'
-        assert communicationEvent.subject == 'Why i would use the OFBiz system'
+        assert communicationEvent.statusId == statusId
+        assert communicationEvent.subject == subject
     }
 
     @Test
     @Order(2)
     void testCreateCommunicationEventRole() {
+        String communicationEventId = testParams.communicationEventId ?: 'TestEvent-6'
+        String partyId = testParams.partyId ?: 'TestCompany'
+        String roleTypeId = testParams.roleTypeId ?: 'ADDRESSEE'
+        String statusId = testParams.statusId ?: 'COM_ROLE_CREATED'
         Map serviceCtx = [
-                communicationEventId: 'TestEvent-6',
-                partyId: 'TestCompany',
-                roleTypeId: 'ADDRESSEE',
-                statusId: 'COM_ROLE_CREATED',
+                communicationEventId: communicationEventId,
+                partyId: partyId,
+                roleTypeId: roleTypeId,
+                statusId: statusId,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('createCommunicationEventRole', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
         GenericValue communicationEventRole = from('CommunicationEventRole')
-            .where('communicationEventId', 'TestEvent-6', 'roleTypeId', 'ADDRESSEE', 'partyId', 'TestCompany')
+            .where('communicationEventId', communicationEventId, 'roleTypeId', roleTypeId, 'partyId', partyId)
             .queryOne()
 
         assert communicationEventRole
-        assert communicationEventRole.statusId == 'COM_ROLE_CREATED'
+        assert communicationEventRole.statusId == statusId
     }
 
     @Test
     @Order(3)
     void testCreateCommunicationEventRoleWithoutPermission() {
+        String communicationEventId = testParams.communicationEventId ?: 'TestEvent-6'
+        String partyId = testParams.partyId ?: 'TestCompany'
+        String roleTypeId = testParams.roleTypeId ?: 'INTERNAL_ORGANIZATIO'
+        String statusId = testParams.statusId ?: 'COM_ROLE_CREATED'
         Map serviceCtx = [
-                communicationEventId: 'TestEvent-6',
-                partyId: 'TestCompany',
-                roleTypeId: 'INTERNAL_ORGANIZATIO',
-                statusId: 'COM_ROLE_CREATED',
+                communicationEventId: communicationEventId,
+                partyId: partyId,
+                roleTypeId: roleTypeId,
+                statusId: statusId,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('createCommunicationEventRoleWithoutPermission', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
         GenericValue communicationEventRole = from('CommunicationEventRole')
-            .where('communicationEventId', 'TestEvent-6', 'roleTypeId', 'INTERNAL_ORGANIZATIO', 'partyId', 'TestCompany')
+            .where('communicationEventId', communicationEventId, 'roleTypeId', roleTypeId, 'partyId', partyId)
             .queryOne()
 
         assert communicationEventRole
-        assert communicationEventRole.statusId == 'COM_ROLE_CREATED'
+        assert communicationEventRole.statusId == statusId
     }
 
     @Test
     @Order(4)
     void testCreateCommunicationEventWithoutPermission() {
+        String communicationEventId = testParams.communicationEventId ?: 'TestEvent-4'
+        String communicationEventTypeId = testParams.communicationEventTypeId ?: 'EMAIL_COMMUNICATION'
+        String statusId = testParams.statusId ?: 'COM_COMPLETE'
+        String fromString = testParams.fromString ?: 'send@example.com'
+        String toString = testParams.toString ?: 'receive@example.com'
+        String subject = testParams.subject ?: 'Why i would use the OFBiz system'
         Map serviceCtx = [
-                communicationEventId: 'TestEvent-4',
-                communicationEventTypeId: 'EMAIL_COMMUNICATION',
-                statusId: 'COM_COMPLETE',
-                fromString: 'send@example.com',
-                toString: 'receive@example.com',
-                subject: 'Why i would use the OFBiz system',
+                communicationEventId: communicationEventId,
+                communicationEventTypeId: communicationEventTypeId,
+                statusId: statusId,
+                fromString: fromString,
+                toString: toString,
+                subject: subject,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('createCommunicationEventWithoutPermission', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue communicationEvent = from('CommunicationEvent').where('communicationEventId', 'TestEvent-4').queryOne()
+        GenericValue communicationEvent = from('CommunicationEvent').where('communicationEventId', communicationEventId).queryOne()
         assert communicationEvent
-        assert communicationEvent.statusId == 'COM_COMPLETE'
-        assert communicationEvent.subject == 'Why i would use the OFBiz system'
+        assert communicationEvent.statusId == statusId
+        assert communicationEvent.subject == subject
     }
 
     @Test
     @Order(5)
     void testCreateNewCommEvent() {
+        String communicationEventTypeId = testParams.communicationEventTypeId ?: 'EMAIL_COMMUNICATION'
+        String statusId = testParams.statusId ?: 'COM_ENTERED'
+        String partyIdFrom = testParams.partyIdFrom ?: 'DemoCustomer'
+        String contactMechTypeId = testParams.contactMechTypeId ?: 'EMAIL_ADDRESS'
+        String communicationEventTypeId1 = testParams.communicationEventTypeId1 ?: 'AUTO_EMAIL_COMM'
+        String statusId1 = testParams.statusId1 ?: 'COM_COMPLETE'
+        String partyIdFrom1 = testParams.partyIdFrom1 ?: 'admin'
+        String contactMechTypeId1 = testParams.contactMechTypeId1 ?: 'ELECTRONIC_ADDRESS'
         Map createNewCommEventMap = [
-                communicationEventTypeId: 'EMAIL_COMMUNICATION',
-                statusId: 'COM_ENTERED',
-                partyIdFrom: 'DemoCustomer',
-                contactMechTypeId: 'EMAIL_ADDRESS',
+                communicationEventTypeId: communicationEventTypeId,
+                statusId: statusId,
+                partyIdFrom: partyIdFrom,
+                contactMechTypeId: contactMechTypeId,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('createCommunicationEvent', createNewCommEventMap)
@@ -128,10 +156,10 @@ class PartyCommunicationEventTests implements JupiterTestHelper {
 
         Map updateCommEventMap = [
                 communicationEventId: communicationEventId,
-                communicationEventTypeId: 'AUTO_EMAIL_COMM',
-                statusId: 'COM_COMPLETE',
-                partyIdFrom: 'admin',
-                contactMechTypeId: 'ELECTRONIC_ADDRESS',
+                communicationEventTypeId: communicationEventTypeId1,
+                statusId: statusId1,
+                partyIdFrom: partyIdFrom1,
+                contactMechTypeId: contactMechTypeId1,
                 userLogin: userLogin
         ]
         Map serviceResult2 = dispatcher.runSync('updateCommunicationEvent', updateCommEventMap)
@@ -148,49 +176,57 @@ class PartyCommunicationEventTests implements JupiterTestHelper {
     @Test
     @Order(6)
     void testDeleteCommunicationEvent() {
+        String communicationEventId = testParams.communicationEventId ?: 'TestEvent-1'
         Map serviceCtx = [
-                communicationEventId: 'TestEvent-1',
+                communicationEventId: communicationEventId,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('deleteCommunicationEvent', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue communicationEvent = from('CommunicationEvent').where('communicationEventId', 'TestEvent-1').queryOne()
+        GenericValue communicationEvent = from('CommunicationEvent').where('communicationEventId', communicationEventId).queryOne()
         assert !communicationEvent
     }
 
     @Test
     @Order(7)
     void testDeleteCommunicationEventWorkEffort() {
+        String communicationEventId = testParams.communicationEventId ?: 'TestEvent-5'
         Map serviceCtx = [
-                communicationEventId: 'TestEvent-5',
+                communicationEventId: communicationEventId,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('deleteCommunicationEventWorkEffort', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue communicationEvent = from('CommunicationEvent').where('communicationEventId', 'TestEvent-5').queryOne()
+        GenericValue communicationEvent = from('CommunicationEvent').where('communicationEventId', communicationEventId).queryOne()
         assert !communicationEvent
 
-        List<GenericValue> communicationEventWorkEff = from('CommunicationEventWorkEff').where('communicationEventId', 'TestEvent-5').queryList()
+        List<GenericValue> communicationEventWorkEff = from('CommunicationEventWorkEff')
+                .where('communicationEventId', communicationEventId)
+                .queryList()
         assert !communicationEventWorkEff
     }
 
     @Test
     @Order(8)
     void testRemoveCommunicationEventRole() {
+        String communicationEventId = testParams.communicationEventId ?: 'TestEvent-5'
+        String partyId = testParams.partyId ?: 'TestCompany'
+        String roleTypeId = testParams.roleTypeId ?: 'ADDRESSEE'
+        String statusId = testParams.statusId ?: 'COM_ROLE_CREATED'
         Map serviceCtx = [
-                communicationEventId: 'TestEvent-5',
-                partyId: 'TestCompany',
-                roleTypeId: 'ADDRESSEE',
-                statusId: 'COM_ROLE_CREATED',
+                communicationEventId: communicationEventId,
+                partyId: partyId,
+                roleTypeId: roleTypeId,
+                statusId: statusId,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('removeCommunicationEventRole', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
         GenericValue communicationEventRole = from('CommunicationEventRole')
-            .where('communicationEventId', 'TestEvent-5', 'partyId', 'TestCompany', 'roleTypeId', 'ADDRESSEE')
+            .where('communicationEventId', communicationEventId, 'partyId', partyId, 'roleTypeId', roleTypeId)
             .queryOne()
         assert !communicationEventRole
     }
@@ -198,14 +234,15 @@ class PartyCommunicationEventTests implements JupiterTestHelper {
     @Test
     @Order(9)
     void testSetCommEventComplete() {
+        String communicationEventId = testParams.communicationEventId ?: 'TestEvent-6'
         Map serviceCtx = [
-                communicationEventId: 'TestEvent-6',
+                communicationEventId: communicationEventId,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('setCommEventComplete', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue communicationEvent = from('CommunicationEvent').where('communicationEventId', 'TestEvent-6').queryOne()
+        GenericValue communicationEvent = from('CommunicationEvent').where('communicationEventId', communicationEventId).queryOne()
         assert communicationEvent
         assert communicationEvent.statusId == 'COM_COMPLETE'
     }
@@ -213,17 +250,20 @@ class PartyCommunicationEventTests implements JupiterTestHelper {
     @Test
     @Order(10)
     void testSetCommEventRoleToRead() {
+        String communicationEventId = testParams.communicationEventId ?: 'TestEvent-7'
+        String partyId = testParams.partyId ?: 'TestCompany'
+        String roleTypeId = testParams.roleTypeId ?: 'ADDRESSEE'
         Map serviceCtx = [
-                communicationEventId: 'TestEvent-7',
-                partyId: 'TestCompany',
-                roleTypeId: 'ADDRESSEE',
+                communicationEventId: communicationEventId,
+                partyId: partyId,
+                roleTypeId: roleTypeId,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('setCommEventRoleToRead', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
         GenericValue communicationEventRole = from('CommunicationEventRole')
-            .where('communicationEventId', 'TestEvent-7', 'partyId', 'TestCompany', 'roleTypeId', 'ADDRESSEE', 'statusId', 'COM_ROLE_READ')
+            .where('communicationEventId', communicationEventId, 'partyId', partyId, 'roleTypeId', roleTypeId, 'statusId', 'COM_ROLE_READ')
             .queryOne()
         assert communicationEventRole
     }
@@ -234,18 +274,22 @@ class PartyCommunicationEventTests implements JupiterTestHelper {
     // valid transition, which is what testUpdateCommunicationEventRole needs to do to that role.
     @Order(14)
     void testSetCommunicationEventRoleStatus() {
+        String communicationEventId = testParams.communicationEventId ?: 'TestEvent-2'
+        String partyId = testParams.partyId ?: 'TestCompany'
+        String roleTypeId = testParams.roleTypeId ?: 'ADDRESSEE'
+        String statusId = testParams.statusId ?: 'COM_ROLE_COMPLETED'
         Map serviceCtx = [
-                communicationEventId: 'TestEvent-2',
-                partyId: 'TestCompany',
-                roleTypeId: 'ADDRESSEE',
-                statusId: 'COM_ROLE_COMPLETED',
+                communicationEventId: communicationEventId,
+                partyId: partyId,
+                roleTypeId: roleTypeId,
+                statusId: statusId,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('setCommunicationEventRoleStatus', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
         GenericValue communicationEventRole = from('CommunicationEventRole')
-            .where('communicationEventId', 'TestEvent-2', 'partyId', 'TestCompany', 'roleTypeId', 'ADDRESSEE', 'statusId', 'COM_ROLE_COMPLETED')
+            .where('communicationEventId', communicationEventId, 'partyId', partyId, 'roleTypeId', roleTypeId, 'statusId', statusId)
             .queryOne()
         assert communicationEventRole
     }
@@ -253,53 +297,61 @@ class PartyCommunicationEventTests implements JupiterTestHelper {
     @Test
     @Order(12)
     void testSetCommunicationEventStatus() {
+        String communicationEventId = testParams.communicationEventId ?: 'TestEvent-6'
+        String statusId = testParams.statusId ?: 'COM_COMPLETE'
         Map serviceCtx = [
-                communicationEventId: 'TestEvent-6',
-                statusId: 'COM_COMPLETE',
+                communicationEventId: communicationEventId,
+                statusId: statusId,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('setCommunicationEventStatus', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue communicationEvent = from('CommunicationEvent').where('communicationEventId', 'TestEvent-6').queryOne()
+        GenericValue communicationEvent = from('CommunicationEvent').where('communicationEventId', communicationEventId).queryOne()
         assert communicationEvent
-        assert communicationEvent.statusId == 'COM_COMPLETE'
+        assert communicationEvent.statusId == statusId
     }
 
     @Test
     @Order(13)
     void testUpdateCommunicationEvent() {
+        String communicationEventId = testParams.communicationEventId ?: 'TestEvent-7'
+        String statusId = testParams.statusId ?: 'COM_COMPLETE'
         Map serviceCtx = [
-                communicationEventId: 'TestEvent-7',
-                statusId: 'COM_COMPLETE',
+                communicationEventId: communicationEventId,
+                statusId: statusId,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('updateCommunicationEvent', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue communicationEvent = from('CommunicationEvent').where('communicationEventId', 'TestEvent-7').queryOne()
+        GenericValue communicationEvent = from('CommunicationEvent').where('communicationEventId', communicationEventId).queryOne()
         assert communicationEvent
-        assert communicationEvent.statusId == 'COM_COMPLETE'
+        assert communicationEvent.statusId == statusId
     }
 
     @Test
     @Order(11)
     void testUpdateCommunicationEventRole() {
+        String communicationEventId = testParams.communicationEventId ?: 'TestEvent-2'
+        String partyId = testParams.partyId ?: 'TestCompany'
+        String roleTypeId = testParams.roleTypeId ?: 'ADDRESSEE'
+        String statusId = testParams.statusId ?: 'COM_ROLE_READ'
         Map serviceCtx = [
-                communicationEventId: 'TestEvent-2',
-                partyId: 'TestCompany',
-                roleTypeId: 'ADDRESSEE',
-                statusId: 'COM_ROLE_READ',
+                communicationEventId: communicationEventId,
+                partyId: partyId,
+                roleTypeId: roleTypeId,
+                statusId: statusId,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('updateCommunicationEventRole', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
         GenericValue communicationEventRole = from('CommunicationEventRole')
-            .where('communicationEventId', 'TestEvent-2', 'partyId', 'TestCompany', 'roleTypeId', 'ADDRESSEE')
+            .where('communicationEventId', communicationEventId, 'partyId', partyId, 'roleTypeId', roleTypeId)
             .queryOne()
         assert communicationEventRole
-        assert communicationEventRole.statusId == 'COM_ROLE_READ'
+        assert communicationEventRole.statusId == statusId
     }
 
 }

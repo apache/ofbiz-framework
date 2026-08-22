@@ -48,11 +48,17 @@ class MarketingTests implements JupiterTestHelper {
         Post condition: Contact list should be created and updated successfully
         */
 
+        String contactListTypeId = testParams.contactListTypeId ?: 'ANNOUNCEMENT'
+        String contactListName = testParams.contactListName ?: 'Announcement List'
+        String contactMechTypeId = testParams.contactMechTypeId ?: 'EMAIL_ADDRESS'
+        String updatedContactListName = testParams.updatedContactListName ?: 'Announcement Records'
+        String updatedContactMechTypeId = testParams.updatedContactMechTypeId ?: 'POSTAL_ADDRESS'
+
         //create contact list
         Map serviceCtx = [
-                contactListTypeId: 'ANNOUNCEMENT',
-                contactListName: 'Announcement List',
-                contactMechTypeId: 'EMAIL_ADDRESS',
+                contactListTypeId: contactListTypeId,
+                contactListName: contactListName,
+                contactMechTypeId: contactMechTypeId,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('createContactList', serviceCtx)
@@ -61,13 +67,13 @@ class MarketingTests implements JupiterTestHelper {
 
         GenericValue contactList = from('ContactList').where('contactListId', contactListId).queryOne()
         assert contactList != null
-        assert contactList.contactMechTypeId == 'EMAIL_ADDRESS'
+        assert contactList.contactMechTypeId == contactMechTypeId
 
         //update contact list
         serviceCtx = [
-                contactListTypeId: 'ANNOUNCEMENT',
-                contactListName: 'Announcement Records',
-                contactMechTypeId: 'POSTAL_ADDRESS',
+                contactListTypeId: contactListTypeId,
+                contactListName: updatedContactListName,
+                contactMechTypeId: updatedContactMechTypeId,
                 contactListId: contactListId,
                 userLogin: userLogin
         ]
@@ -77,7 +83,7 @@ class MarketingTests implements JupiterTestHelper {
         contactList.refresh()
 
         assert contactList != null
-        assert contactList.contactMechTypeId == 'POSTAL_ADDRESS'
+        assert contactList.contactMechTypeId == updatedContactMechTypeId
     }
 
 }

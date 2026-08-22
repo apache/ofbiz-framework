@@ -29,16 +29,18 @@ class AutoAcctgPaymentGatewayTests implements JupiterTestHelper {
 
     @Test
     void testUpdatePaymentGatewayConfig() {
+        String paymentGatewayConfigId = testParams.paymentGatewayConfigId ?: 'TEST_GATEWAY_CONFIG'
+        String description = testParams.description ?: 'Test Payment Gateway Config Id'
         Map serviceCtx = [:]
-        serviceCtx.paymentGatewayConfigId = 'TEST_GATEWAY_CONFIG'
-        serviceCtx.description = 'Test Payment Gateway Config Id'
+        serviceCtx.paymentGatewayConfigId = paymentGatewayConfigId
+        serviceCtx.description = description
         serviceCtx.userLogin = userLogin
         Map serviceResult = dispatcher.runSync('updatePaymentGatewayConfig', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue paymentGatewayConfig = from('PaymentGatewayConfig').where('paymentGatewayConfigId', 'TEST_GATEWAY_CONFIG').queryOne()
+        GenericValue paymentGatewayConfig = from('PaymentGatewayConfig').where('paymentGatewayConfigId', paymentGatewayConfigId).queryOne()
         assert paymentGatewayConfig
-        assert paymentGatewayConfig.description  == 'Test Payment Gateway Config Id'
+        assert paymentGatewayConfig.description  == description
     }
 
 }

@@ -35,9 +35,11 @@ class RateTests implements JupiterTestHelper {
     @Order(1)
     void testExpirePartyRate() {
         Timestamp fromDate = UtilDateTime.toTimestamp('07/04/2013 00:00:00')
+        String partyId = testParams.partyId ?: 'TEST_PARTY'
+        String rateTypeId = testParams.rateTypeId ?: 'AVERAGE_PAY_RATE'
         Map serviceCtx = [
-                partyId: 'TEST_PARTY',
-                rateTypeId: 'AVERAGE_PAY_RATE',
+                partyId: partyId,
+                rateTypeId: rateTypeId,
                 rateAmountFromDate: fromDate,
                 fromDate: fromDate,
                 userLogin: userLogin
@@ -45,7 +47,7 @@ class RateTests implements JupiterTestHelper {
         Map serviceResult = dispatcher.runSync('expirePartyRate', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue partyRate = from('PartyRate').where('rateTypeId', 'AVERAGE_PAY_RATE', 'partyId', 'TEST_PARTY', 'fromDate', fromDate).queryOne()
+        GenericValue partyRate = from('PartyRate').where('rateTypeId', rateTypeId, 'partyId', partyId, 'fromDate', fromDate).queryOne()
         assert partyRate
         assert partyRate.thruDate
     }
@@ -54,12 +56,16 @@ class RateTests implements JupiterTestHelper {
     @Order(2)
     void testUpdateRateAmount() {
         Timestamp fromDate = UtilDateTime.toTimestamp('04/07/2013 00:00:00')
+        String periodTypeId = testParams.periodTypeId ?: 'RATE_HOUR'
+        String rateTypeId = testParams.rateTypeId ?: 'OVERTIME'
+        String rateCurrencyUomId = testParams.rateCurrencyUomId ?: 'USD'
+        String emplPositionTypeId = testParams.emplPositionTypeId ?: 'TEST_EMPLOYEE'
         Map serviceCtx = [
-                periodTypeId: 'RATE_HOUR',
-                rateTypeId: 'OVERTIME',
-                rateCurrencyUomId: 'USD',
+                periodTypeId: periodTypeId,
+                rateTypeId: rateTypeId,
+                rateCurrencyUomId: rateCurrencyUomId,
                 rateAmount: BigDecimal.valueOf(25),
-                emplPositionTypeId: 'TEST_EMPLOYEE',
+                emplPositionTypeId: emplPositionTypeId,
                 fromDate: fromDate,
                 userLogin: userLogin
         ]
@@ -67,8 +73,13 @@ class RateTests implements JupiterTestHelper {
         assert ServiceUtil.isSuccess(serviceResult)
 
         GenericValue rateAmount = from('RateAmount')
-                .where('rateTypeId', 'OVERTIME', 'workEffortId', '_NA_', 'rateCurrencyUomId', 'USD', 'emplPositionTypeId', 'TEST_EMPLOYEE',
-                        'partyId', '_NA_', 'periodTypeId', 'RATE_HOUR', 'fromDate', fromDate).queryOne()
+                .where('rateTypeId', rateTypeId,
+                       'workEffortId', '_NA_',
+                       'rateCurrencyUomId', rateCurrencyUomId,
+                       'emplPositionTypeId', emplPositionTypeId,
+                       'partyId', '_NA_',
+                       'periodTypeId', periodTypeId,
+                       'fromDate', fromDate).queryOne()
         assert rateAmount
         assert rateAmount.rateAmount == 25
     }
@@ -76,9 +87,11 @@ class RateTests implements JupiterTestHelper {
     @Test
     @Order(3)
     void testGetRateAmount() {
+        String rateTypeId = testParams.rateTypeId ?: 'AVERAGE_PAY_RATE'
+        String workEffortId = testParams.workEffortId ?: 'Test_effort'
         Map serviceCtx = [
-                rateTypeId: 'AVERAGE_PAY_RATE',
-                workEffortId: 'Test_effort',
+                rateTypeId: rateTypeId,
+                workEffortId: workEffortId,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('getRateAmount', serviceCtx)
@@ -89,11 +102,15 @@ class RateTests implements JupiterTestHelper {
     @Test
     @Order(4)
     void testGetRatesAmountsFromWorkEffortId() {
+        String periodTypeId = testParams.periodTypeId ?: 'RATE_HOUR'
+        String rateCurrencyUomId = testParams.rateCurrencyUomId ?: 'USD'
+        String rateTypeId = testParams.rateTypeId ?: 'AVERAGE_PAY_RATE'
+        String workEffortId = testParams.workEffortId ?: 'Test_effort'
         Map serviceCtx = [
-                periodTypeId: 'RATE_HOUR',
-                rateCurrencyUomId: 'USD',
-                rateTypeId: 'AVERAGE_PAY_RATE',
-                workEffortId: 'Test_effort',
+                periodTypeId: periodTypeId,
+                rateCurrencyUomId: rateCurrencyUomId,
+                rateTypeId: rateTypeId,
+                workEffortId: workEffortId,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('getRatesAmountsFromWorkEffortId', serviceCtx)
@@ -104,11 +121,15 @@ class RateTests implements JupiterTestHelper {
     @Test
     @Order(5)
     void testGetRatesAmountsFromPartyId() {
+        String periodTypeId = testParams.periodTypeId ?: 'RATE_HOUR'
+        String rateCurrencyUomId = testParams.rateCurrencyUomId ?: 'USD'
+        String rateTypeId = testParams.rateTypeId ?: 'AVERAGE_PAY_RATE'
+        String partyId = testParams.partyId ?: 'TEST_PARTY'
         Map serviceCtx = [
-                periodTypeId: 'RATE_HOUR',
-                rateCurrencyUomId: 'USD',
-                rateTypeId: 'AVERAGE_PAY_RATE',
-                partyId: 'TEST_PARTY',
+                periodTypeId: periodTypeId,
+                rateCurrencyUomId: rateCurrencyUomId,
+                rateTypeId: rateTypeId,
+                partyId: partyId,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('getRatesAmountsFromPartyId', serviceCtx)
@@ -119,11 +140,15 @@ class RateTests implements JupiterTestHelper {
     @Test
     @Order(6)
     void testGetRatesAmountsFromEmplPositionTypeId() {
+        String periodTypeId = testParams.periodTypeId ?: 'RATE_HOUR'
+        String rateCurrencyUomId = testParams.rateCurrencyUomId ?: 'USD'
+        String rateTypeId = testParams.rateTypeId ?: 'AVERAGE_PAY_RATE'
+        String emplPositionTypeId = testParams.emplPositionTypeId ?: 'TEST_EMPLOYEE'
         Map serviceCtx = [
-                periodTypeId: 'RATE_HOUR',
-                rateCurrencyUomId: 'USD',
-                rateTypeId: 'AVERAGE_PAY_RATE',
-                emplPositionTypeId: 'TEST_EMPLOYEE',
+                periodTypeId: periodTypeId,
+                rateCurrencyUomId: rateCurrencyUomId,
+                rateTypeId: rateTypeId,
+                emplPositionTypeId: emplPositionTypeId,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('getRatesAmountsFromEmplPositionTypeId', serviceCtx)
@@ -135,10 +160,13 @@ class RateTests implements JupiterTestHelper {
     @Order(7)
     void testUpdatePartyRate() {
         Timestamp fromDate = UtilDateTime.toTimestamp('04/07/2013 00:00:00')
+        String partyId = testParams.partyId ?: 'TEST_PARTY'
+        String periodTypeId = testParams.periodTypeId ?: 'RATE_MONTH'
+        String rateTypeId = testParams.rateTypeId ?: 'DISCOUNTED'
         Map serviceCtx = [
-                partyId: 'TEST_PARTY',
-                periodTypeId: 'RATE_MONTH',
-                rateTypeId: 'DISCOUNTED',
+                partyId: partyId,
+                periodTypeId: periodTypeId,
+                rateTypeId: rateTypeId,
                 rateAmount: BigDecimal.valueOf(75),
                 fromDate: fromDate,
                 userLogin: userLogin
@@ -148,9 +176,9 @@ class RateTests implements JupiterTestHelper {
         assert ServiceUtil.isSuccess(serviceResult)
 
         GenericValue rateAmount = from('RateAmount')
-                .where('rateTypeId', 'DISCOUNTED', 'workEffortId', '_NA_', 'rateCurrencyUomId', 'USD', 'emplPositionTypeId', '_NA_',
-                        'partyId', 'TEST_PARTY', 'periodTypeId', 'RATE_MONTH', 'fromDate', fromDate).queryOne()
-        GenericValue partyRate = from('PartyRate').where('rateTypeId', 'DISCOUNTED', 'partyId', 'TEST_PARTY', 'fromDate', fromDate).queryOne()
+                .where('rateTypeId', rateTypeId, 'workEffortId', '_NA_', 'rateCurrencyUomId', 'USD', 'emplPositionTypeId', '_NA_',
+                        'partyId', partyId, 'periodTypeId', periodTypeId, 'fromDate', fromDate).queryOne()
+        GenericValue partyRate = from('PartyRate').where('rateTypeId', rateTypeId, 'partyId', partyId, 'fromDate', fromDate).queryOne()
 
         assert rateAmount
         assert partyRate
@@ -160,10 +188,11 @@ class RateTests implements JupiterTestHelper {
     @Test
     @Order(8)
     void testFilterRateAmountList() {
-        List<GenericValue> amountList = from('RateAmount').where('rateTypeId', 'AVERAGE_PAY_RATE', 'rateCurrencyUomId', 'USD').queryList()
+        String rateTypeId = testParams.rateTypeId ?: 'AVERAGE_PAY_RATE'
+        List<GenericValue> amountList = from('RateAmount').where('rateTypeId', rateTypeId, 'rateCurrencyUomId', 'USD').queryList()
         Map serviceCtx = [
                 ratesList: amountList,
-                rateTypeId: 'AVERAGE_PAY_RATE',
+                rateTypeId: rateTypeId,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('filterRateAmountList', serviceCtx)
@@ -175,10 +204,13 @@ class RateTests implements JupiterTestHelper {
     @Order(9)
     void testExpireRateAmount() {
         Timestamp fromDate = UtilDateTime.toTimestamp('07/04/2013 00:00:00')
+        String emplPositionTypeId = testParams.emplPositionTypeId ?: 'TEST_EMPLOYEE'
+        String rateTypeId = testParams.rateTypeId ?: 'AVERAGE_PAY_RATE'
+        String periodTypeId = testParams.periodTypeId ?: 'RATE_MONTH'
         Map serviceCtx = [
-                emplPositionTypeId: 'TEST_EMPLOYEE',
-                rateTypeId: 'AVERAGE_PAY_RATE',
-                periodTypeId: 'RATE_MONTH',
+                emplPositionTypeId: emplPositionTypeId,
+                rateTypeId: rateTypeId,
+                periodTypeId: periodTypeId,
                 fromDate: fromDate,
                 userLogin: userLogin
 
@@ -187,8 +219,8 @@ class RateTests implements JupiterTestHelper {
         assert ServiceUtil.isSuccess(serviceResult)
 
         GenericValue rateAmount = from('RateAmount')
-                .where('rateTypeId', 'AVERAGE_PAY_RATE', 'workEffortId', '_NA_', 'rateCurrencyUomId', 'USD',
-                        'emplPositionTypeId', 'TEST_EMPLOYEE', 'partyId', '_NA_', 'periodTypeId', 'RATE_MONTH', 'fromDate', fromDate).queryOne()
+                .where('rateTypeId', rateTypeId, 'workEffortId', '_NA_', 'rateCurrencyUomId', 'USD',
+                        'emplPositionTypeId', emplPositionTypeId, 'partyId', '_NA_', 'periodTypeId', periodTypeId, 'fromDate', fromDate).queryOne()
         assert rateAmount
         assert rateAmount.thruDate
     }

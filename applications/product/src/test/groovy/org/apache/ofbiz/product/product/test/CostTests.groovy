@@ -31,11 +31,13 @@ class CostTests implements JupiterTestHelper {
     @Test
     @Order(1)
     void testCalculateProductStandardCosts() {
+        String currencyUomId = testParams.currencyUomId ?: 'USD'
+        String costComponentTypePrefix = testParams.costComponentTypePrefix ?: 'EST_STD'
         String productId = 'PROD_MANUF'
         Map serviceCtx = [
                 productId: productId,
-                currencyUomId: 'USD',
-                costComponentTypePrefix: 'EST_STD',
+                currencyUomId: currencyUomId,
+                costComponentTypePrefix: costComponentTypePrefix,
                 userLogin: userLogin
         ]
         Map resultMap = dispatcher.runSync('calculateProductCosts', serviceCtx)
@@ -45,7 +47,7 @@ class CostTests implements JupiterTestHelper {
         BigDecimal costTotalAmount = BigDecimal.ZERO
 
         for (GenericValue costComponent : costComponents) {
-            assert costComponent.costUomId == 'USD'
+            assert costComponent.costUomId == currencyUomId
             switch (costComponent.costComponentTypeId) {
                 case 'EST_STD_ROUTE_COST':
                     assert costComponent.cost == 10
@@ -68,11 +70,13 @@ class CostTests implements JupiterTestHelper {
     @Test
     @Order(2)
     void testGetProductCost() {
+        String currencyUomId = testParams.currencyUomId ?: 'USD'
+        String costComponentTypePrefix = testParams.costComponentTypePrefix ?: 'EST_STD'
         String productId = 'PROD_MANUF'
         Map serviceCtx = [
                 productId: productId,
-                currencyUomId: 'USD',
-                costComponentTypePrefix: 'EST_STD',
+                currencyUomId: currencyUomId,
+                costComponentTypePrefix: costComponentTypePrefix,
                 userLogin: userLogin
         ]
         Map resultMap = dispatcher.runSync('getProductCost', serviceCtx)

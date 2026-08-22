@@ -48,24 +48,28 @@ class PartyMiscTests implements JupiterTestHelper {
     @Test
     @Order(1)
     void testCreateAddressMatchMap() {
+        String mapKey = testParams.mapKey ?: 'TEST_KEY'
+        String mapValue = testParams.mapValue ?: 'TEST VALUE'
         Map serviceCtx = [
-                mapKey: 'TEST_KEY',
-                mapValue: 'TEST VALUE',
+                mapKey: mapKey,
+                mapValue: mapValue,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('createAddressMatchMap', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue addressMatchMap = from('AddressMatchMap').where('mapKey', 'TEST_KEY', 'mapValue', 'TEST VALUE').queryOne()
+        GenericValue addressMatchMap = from('AddressMatchMap').where('mapKey', mapKey, 'mapValue', mapValue).queryOne()
         assert addressMatchMap
     }
 
     @Test
     @Order(2)
     void testCreateAffiliate() {
+        String partyId = testParams.partyId ?: 'TestCompany'
+        String affiliateName = testParams.affiliateName ?: 'Test Affiliate'
         Map serviceCtx = [
-                partyId: 'TestCompany',
-                affiliateName: 'Test Affiliate',
+                partyId: partyId,
+                affiliateName: affiliateName,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('createAffiliate', serviceCtx)
@@ -73,20 +77,21 @@ class PartyMiscTests implements JupiterTestHelper {
 
         GenericValue affiliate = from('Affiliate').where('partyId', serviceResult.partyId).queryOne()
         assert affiliate
-        assert affiliate.affiliateName == 'Test Affiliate'
+        assert affiliate.affiliateName == affiliateName
     }
 
     @Test
     @Order(3)
     void testCreateEmailAddressVerification() {
+        String emailAddress = testParams.emailAddress ?: 'test_email@example.com'
         Map serviceCtx = [
-                emailAddress: 'test_email@example.com',
+                emailAddress: emailAddress,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('createEmailAddressVerification', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue emailAddressVerification = from('EmailAddressVerification').where('emailAddress', 'test_email@example.com').queryOne()
+        GenericValue emailAddressVerification = from('EmailAddressVerification').where('emailAddress', emailAddress).queryOne()
         assert emailAddressVerification
         assert emailAddressVerification.verifyHash == serviceResult.verifyHash
     }
@@ -94,11 +99,14 @@ class PartyMiscTests implements JupiterTestHelper {
     @Test
     @Order(4)
     void testCreatePartyIdentifications() {
+        String partyId = testParams.partyId ?: 'TestCustomer'
+        String partyIdentificationTypeId = testParams.partyIdentificationTypeId ?: 'CARD_ID'
+        String idValue = testParams.idValue ?: '123456789'
         Map serviceCtx = [
-                partyId: 'TestCustomer',
+                partyId: partyId,
                 identifications: [
-                partyIdentificationTypeId: 'CARD_ID',
-                CARD_ID: '123456789'
+                partyIdentificationTypeId: partyIdentificationTypeId,
+                (partyIdentificationTypeId): idValue
             ],
             userLogin: userLogin
         ]
@@ -106,19 +114,22 @@ class PartyMiscTests implements JupiterTestHelper {
         assert ServiceUtil.isSuccess(serviceResult)
 
         GenericValue partyIdentification = from('PartyIdentification')
-            .where('partyId', 'TestCustomer', 'partyIdentificationTypeId', 'CARD_ID')
+            .where('partyId', partyId, 'partyIdentificationTypeId', partyIdentificationTypeId)
             .queryOne()
         assert partyIdentification
-        assert partyIdentification.idValue == '123456789'
+        assert partyIdentification.idValue == idValue
     }
 
     @Test
     @Order(5)
     void testCreatePartyInvitation() {
+        String partyIdFrom = testParams.partyIdFrom ?: 'TestCompany'
+        String partyId = testParams.partyId ?: 'TestCustomer'
+        String emailAddress = testParams.emailAddress ?: 'test_email@example.com'
         Map serviceCtx = [
-                partyIdFrom: 'TestCompany',
-                partyId: 'TestCustomer',
-                emailAddress: 'test_email@example.com',
+                partyIdFrom: partyIdFrom,
+                partyId: partyId,
+                emailAddress: emailAddress,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('createPartyInvitation', serviceCtx)
@@ -126,168 +137,188 @@ class PartyMiscTests implements JupiterTestHelper {
 
         GenericValue partyInvitation = from('PartyInvitation').where('partyInvitationId', serviceResult.partyInvitationId).queryOne()
         assert partyInvitation
-        assert partyInvitation.emailAddress == 'test_email@example.com'
+        assert partyInvitation.emailAddress == emailAddress
     }
 
     @Test
     @Order(6)
     void testCreatePartyInvitationGroupAssoc() {
+        String partyInvitationId = testParams.partyInvitationId ?: 'TEST_INVITE'
+        String partyIdTo = testParams.partyIdTo ?: 'TestCompany'
         Map serviceCtx = [
-                partyInvitationId: 'TEST_INVITE',
-                partyIdTo: 'TestCompany',
+                partyInvitationId: partyInvitationId,
+                partyIdTo: partyIdTo,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('createPartyInvitationGroupAssoc', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
         GenericValue partyInvitationGroupAssoc = from('PartyInvitationGroupAssoc').where('partyInvitationId',
-                                                                                         'TEST_INVITE',
+                                                                                         partyInvitationId,
                                                                                          'partyIdTo',
-                                                                                         'TestCompany').queryOne()
+                                                                                         partyIdTo).queryOne()
         assert partyInvitationGroupAssoc
     }
 
     @Test
     @Order(7)
     void testCreatePartyInvitationRoleAssoc() {
+        String partyInvitationId = testParams.partyInvitationId ?: 'TEST_INVITE'
+        String roleTypeId = testParams.roleTypeId ?: 'COMMEVENT_ROLE'
         Map serviceCtx = [
-                partyInvitationId: 'TEST_INVITE',
-                roleTypeId: 'COMMEVENT_ROLE',
+                partyInvitationId: partyInvitationId,
+                roleTypeId: roleTypeId,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('createPartyInvitationRoleAssoc', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
         GenericValue partyInvitationRoleAssoc = from('PartyInvitationRoleAssoc').where('partyInvitationId',
-                                                                                       'TEST_INVITE',
+                                                                                       partyInvitationId,
                                                                                        'roleTypeId',
-                                                                                       'COMMEVENT_ROLE').queryOne()
+                                                                                       roleTypeId).queryOne()
         assert partyInvitationRoleAssoc
     }
 
     @Test
     @Order(8)
     void testCreatePartyNote() {
+        String partyId = testParams.partyId ?: 'DemoCustomer'
+        String noteName = testParams.noteName ?: 'Demo Note'
+        String note = testParams.note ?: 'This is demo note to test createPartyNote service'
         Map serviceCtx = [
-                partyId: 'DemoCustomer',
-                noteName: 'Demo Note',
-                note: 'This is demo note to test createPartyNote service',
+                partyId: partyId,
+                noteName: noteName,
+                note: note,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('createPartyNote', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue partyNote = from('PartyNote').where('partyId', 'DemoCustomer', 'noteId', serviceResult.noteId).queryOne()
+        GenericValue partyNote = from('PartyNote').where('partyId', partyId, 'noteId', serviceResult.noteId).queryOne()
         assert partyNote
 
         GenericValue noteData = from('NoteData').where('noteId', serviceResult.noteId).queryOne()
         assert noteData
-        assert noteData.noteName == 'Demo Note'
-        assert noteData.noteInfo == 'This is demo note to test createPartyNote service'
+        assert noteData.noteName == noteName
+        assert noteData.noteInfo == note
     }
 
     @Test
     @Order(9)
     void testDeletePartyInvitation() {
+        String partyInvitationId = testParams.partyInvitationId ?: 'TEST_INVITE-1'
         Map serviceCtx = [
-                partyInvitationId: 'TEST_INVITE-1',
+                partyInvitationId: partyInvitationId,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('deletePartyInvitation', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue partyInvitation = from('PartyInvitation').where('partyInvitationId', 'TEST_INVITE-1').queryOne()
+        GenericValue partyInvitation = from('PartyInvitation').where('partyInvitationId', partyInvitationId).queryOne()
         assert !partyInvitation
     }
 
     @Test
     @Order(10)
     void testDeletePartyInvitationGroupAssoc() {
+        String partyInvitationId = testParams.partyInvitationId ?: 'TEST_INVITE-2'
+        String partyIdTo = testParams.partyIdTo ?: 'TestCompany'
         Map serviceCtx = [
-                partyInvitationId: 'TEST_INVITE-2',
-                partyIdTo: 'TestCompany',
+                partyInvitationId: partyInvitationId,
+                partyIdTo: partyIdTo,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('deletePartyInvitationGroupAssoc', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
         GenericValue partyInvitationGroupAssoc = from('PartyInvitationGroupAssoc').where('partyInvitationId',
-                                                                                         'TEST_INVITE-2',
+                                                                                         partyInvitationId,
                                                                                          'partyIdTo',
-                                                                                         'TestCompany').queryOne()
+                                                                                         partyIdTo).queryOne()
         assert !partyInvitationGroupAssoc
     }
 
     @Test
     @Order(11)
     void testDeletePartyInvitationRoleAssoc() {
+        String partyInvitationId = testParams.partyInvitationId ?: 'TEST_INVITE-2'
+        String roleTypeId = testParams.roleTypeId ?: 'COMMEVENT_ROLE'
         Map serviceCtx = [
-                partyInvitationId: 'TEST_INVITE-2',
-                roleTypeId: 'COMMEVENT_ROLE',
+                partyInvitationId: partyInvitationId,
+                roleTypeId: roleTypeId,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('deletePartyInvitationRoleAssoc', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
         GenericValue partyInvitationRoleAssoc = from('PartyInvitationRoleAssoc').where('partyInvitationId',
-                                                                                       'TEST_INVITE-2',
+                                                                                       partyInvitationId,
                                                                                        'roleTypeId',
-                                                                                       'COMMEVENT_ROLE').queryOne()
+                                                                                       roleTypeId).queryOne()
         assert !partyInvitationRoleAssoc
     }
 
     @Test
     @Order(12)
     void testRemoveAddressMatchMap() {
+        String mapKey = testParams.mapKey ?: 'TESTKEY-1'
+        String mapValue = testParams.mapValue ?: 'Test Value 1'
         // Create the record first so this test is independent of seed data and execution order
-        dispatcher.runSync('createAddressMatchMap', [mapKey: 'TESTKEY-1', mapValue: 'Test Value 1', userLogin: userLogin])
+        dispatcher.runSync('createAddressMatchMap', [mapKey: mapKey, mapValue: mapValue, userLogin: userLogin])
 
         Map serviceCtx = [
-                mapKey: 'TESTKEY-1',
-                mapValue: 'Test Value 1',
+                mapKey: mapKey,
+                mapValue: mapValue,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('removeAddressMatchMap', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue addressMatchMap = from('AddressMatchMap').where('mapKey', 'TESTKEY-1', 'mapValue', 'Test Value 1').queryOne()
+        GenericValue addressMatchMap = from('AddressMatchMap').where('mapKey', mapKey, 'mapValue', mapValue).queryOne()
         assert !addressMatchMap
     }
 
     @Test
     @Order(13)
     void testUpdateAffiliate() {
+        String partyId = testParams.partyId ?: 'TestGroup-1'
+        String affiliateName = testParams.affiliateName ?: 'Test Affiliate'
+        String siteType = testParams.siteType ?: 'Main Site'
+        String siteVisitors = testParams.siteVisitors ?: '2000'
         Map serviceCtx = [
-                partyId: 'TestGroup-1',
-                affiliateName: 'Test Affiliate',
-                siteType: 'Main Site',
-                siteVisitors: '2000',
+                partyId: partyId,
+                affiliateName: affiliateName,
+                siteType: siteType,
+                siteVisitors: siteVisitors,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('updateAffiliate', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue affiliate = from('Affiliate').where('partyId', 'TestGroup-1').queryOne()
+        GenericValue affiliate = from('Affiliate').where('partyId', partyId).queryOne()
         assert affiliate
-        assert affiliate.affiliateName == 'Test Affiliate'
-        assert affiliate.siteType == 'Main Site'
-        assert affiliate.siteVisitors == '2000'
+        assert affiliate.affiliateName == affiliateName
+        assert affiliate.siteType == siteType
+        assert affiliate.siteVisitors == siteVisitors
     }
 
     @Test
     @Order(14)
     void testUpdatePartyInvitation() {
+        String partyInvitationId = testParams.partyInvitationId ?: 'TEST_INVITE'
+        String emailAddress = testParams.emailAddress ?: 'test_email@example.com'
         Map serviceCtx = [
-                partyInvitationId: 'TEST_INVITE',
-                emailAddress: 'test_email@example.com',
+                partyInvitationId: partyInvitationId,
+                emailAddress: emailAddress,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('updatePartyInvitation', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue partyInvitation = from('PartyInvitation').where('partyInvitationId', 'TEST_INVITE').queryOne()
+        GenericValue partyInvitation = from('PartyInvitation').where('partyInvitationId', partyInvitationId).queryOne()
         assert partyInvitation
-        assert partyInvitation.emailAddress == 'test_email@example.com'
+        assert partyInvitation.emailAddress == emailAddress
     }
 
 }

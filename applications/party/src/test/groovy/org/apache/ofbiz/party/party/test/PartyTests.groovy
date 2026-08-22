@@ -31,26 +31,32 @@ class PartyTests implements JupiterTestHelper {
     @Test
     @Order(1)
     void testCopyPartyContactMechs() {
+        String partyIdFrom = testParams.partyIdFrom ?: 'TestCustomer'
+        String partyIdTo = testParams.partyIdTo ?: 'TestParty'
         Map serviceCtx = [
-                partyIdFrom: 'TestCustomer',
-                partyIdTo: 'TestParty',
+                partyIdFrom: partyIdFrom,
+                partyIdTo: partyIdTo,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('copyPartyContactMechs', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        List<GenericValue> partyContactMechList = from('PartyContactMech').where('partyId', 'TestParty').queryList()
+        List<GenericValue> partyContactMechList = from('PartyContactMech').where('partyId', partyIdTo).queryList()
         assert partyContactMechList
     }
 
     @Test
     @Order(2)
     void testCreatePartyGroup() {
+        String partyId = testParams.partyId ?: 'DemoGroup1'
+        String groupName = testParams.groupName ?: 'Demo Group'
+        String partyTypeId = testParams.partyTypeId ?: 'PARTY_GROUP'
+        String statusId = testParams.statusId ?: 'PARTY_ENABLED'
         Map serviceCtx = [
-                partyId: 'DemoGroup1',
-                groupName: 'Demo Group',
-                partyTypeId: 'PARTY_GROUP',
-                statusId: 'PARTY_ENABLED',
+                partyId: partyId,
+                groupName: groupName,
+                partyTypeId: partyTypeId,
+                statusId: statusId,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('createPartyGroup', serviceCtx)
@@ -59,22 +65,30 @@ class PartyTests implements JupiterTestHelper {
         GenericValue partyGroup = from('PartyGroup').where('partyId', serviceResult.partyId).queryOne()
 
         assert partyGroup
-        assert partyGroup.partyId == 'DemoGroup1'
-        assert partyGroup.groupName == 'Demo Group'
+        assert partyGroup.partyId == partyId
+        assert partyGroup.groupName == groupName
     }
 
     @Test
     @Order(3)
     void testCreatePartyPostalAddress() {
+        String contactMechId = testParams.contactMechId ?: 'TestPostalAddress'
+        String partyId = testParams.partyId ?: 'TestCustomer'
+        String toName = testParams.toName ?: 'Test Address'
+        String address1 = testParams.address1 ?: '2004 Factory Blvd'
+        String city = testParams.city ?: 'City of Industry'
+        String countryGeoId = testParams.countryGeoId ?: 'USA'
+        String stateProvinceGeoId = testParams.stateProvinceGeoId ?: 'CA'
+        String postalCode = testParams.postalCode ?: '90000'
         Map serviceCtx = [
-                contactMechId: 'TestPostalAddress',
-                partyId: 'TestCustomer',
-                toName: 'Test Address',
-                address1: '2004 Factory Blvd',
-                city: 'City of Industry',
-                countryGeoId: 'USA',
-                stateProvinceGeoId: 'CA',
-                postalCode: '90000',
+                contactMechId: contactMechId,
+                partyId: partyId,
+                toName: toName,
+                address1: address1,
+                city: city,
+                countryGeoId: countryGeoId,
+                stateProvinceGeoId: stateProvinceGeoId,
+                postalCode: postalCode,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('createPartyPostalAddress', serviceCtx)
@@ -82,17 +96,21 @@ class PartyTests implements JupiterTestHelper {
 
         GenericValue postalAddress = from('PostalAddress').where('contactMechId', serviceResult.contactMechId).queryOne()
         assert postalAddress != null
-        assert postalAddress.city == 'City of Industry'
+        assert postalAddress.city == city
     }
 
     @Test
     @Order(4)
     void testCreatePartyRelationship() {
+        String partyIdFrom = testParams.partyIdFrom ?: 'TestCompany'
+        String partyIdTo = testParams.partyIdTo ?: 'TestCustomer'
+        String roleTypeIdFrom = testParams.roleTypeIdFrom ?: 'INTERNAL_ORGANIZATIO'
+        String roleTypeIdTo = testParams.roleTypeIdTo ?: 'CONTACT'
         Map serviceCtx = [
-                partyIdFrom: 'TestCompany',
-                partyIdTo: 'TestCustomer',
-                roleTypeIdFrom: 'INTERNAL_ORGANIZATIO',
-                roleTypeIdTo: 'CONTACT',
+                partyIdFrom: partyIdFrom,
+                partyIdTo: partyIdTo,
+                roleTypeIdFrom: roleTypeIdFrom,
+                roleTypeIdTo: roleTypeIdTo,
                 fromDate: java.sql.Timestamp.valueOf('2009-09-09 01:01:01'),
                 userLogin: userLogin
         ]
@@ -101,13 +119,13 @@ class PartyTests implements JupiterTestHelper {
 
         GenericValue partyRelationship = from('PartyRelationship')
             .where('partyIdFrom',
-                   'TestCompany',
+                   partyIdFrom,
                    'partyIdTo',
-                   'TestCustomer',
+                   partyIdTo,
                    'roleTypeIdFrom',
-                   'INTERNAL_ORGANIZATIO',
+                   roleTypeIdFrom,
                    'roleTypeIdTo',
-                   'CONTACT',
+                   roleTypeIdTo,
                    'fromDate',
                    java.sql.Timestamp.valueOf('2009-09-09 01:01:01'))
             .queryOne()
@@ -117,29 +135,33 @@ class PartyTests implements JupiterTestHelper {
     @Test
     @Order(5)
     void testCreatePartyRelationshipAndRole() {
+        String partyIdFrom = testParams.partyIdFrom ?: 'TestCompany'
+        String partyIdTo = testParams.partyIdTo ?: 'TestCustomer'
+        String roleTypeIdFrom = testParams.roleTypeIdFrom ?: 'BUYER'
+        String roleTypeIdTo = testParams.roleTypeIdTo ?: 'ACCOUNT_LEAD'
         Map serviceCtx = [
-                partyIdFrom: 'TestCompany',
-                partyIdTo: 'TestCustomer',
-                roleTypeIdFrom: 'BUYER',
-                roleTypeIdTo: 'ACCOUNT_LEAD',
+                partyIdFrom: partyIdFrom,
+                partyIdTo: partyIdTo,
+                roleTypeIdFrom: roleTypeIdFrom,
+                roleTypeIdTo: roleTypeIdTo,
                 fromDate: java.sql.Timestamp.valueOf('2009-09-09 01:01:01'),
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('createPartyRelationshipAndRole', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue partyRole = from('PartyRole').where('partyId', 'TestCompany', 'roleTypeId', 'BUYER').queryOne()
+        GenericValue partyRole = from('PartyRole').where('partyId', partyIdFrom, 'roleTypeId', roleTypeIdFrom).queryOne()
         assert partyRole
 
         GenericValue partyRelationship = from('PartyRelationship')
             .where('partyIdFrom',
-                   'TestCompany',
+                   partyIdFrom,
                    'partyIdTo',
-                   'TestCustomer',
+                   partyIdTo,
                    'roleTypeIdFrom',
-                   'BUYER',
+                   roleTypeIdFrom,
                    'roleTypeIdTo',
-                   'ACCOUNT_LEAD',
+                   roleTypeIdTo,
                    'fromDate',
                    java.sql.Timestamp.valueOf('2009-09-09 01:01:01'))
             .queryOne()
@@ -149,17 +171,20 @@ class PartyTests implements JupiterTestHelper {
     @Test
     @Order(6)
     void testCreatePartyRelationshipContactAccount() {
+        String accountPartyId = testParams.accountPartyId ?: 'TestParty'
+        String contactPartyId = testParams.contactPartyId ?: 'TestCustomer'
+        String comments = testParams.comments ?: 'This is a test party contact account relationship'
         Map serviceCtx = [
-                accountPartyId: 'TestParty',
-                contactPartyId: 'TestCustomer',
-                comments: 'This is a test party contact account relationship',
+                accountPartyId: accountPartyId,
+                contactPartyId: contactPartyId,
+                comments: comments,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('createPartyRelationshipContactAccount', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
         List<GenericValue> partyRelationshipList = from('PartyRelationship')
-            .where('partyIdFrom', 'TestParty', 'partyIdTo', 'TestCustomer', 'roleTypeIdFrom', 'ACCOUNT', 'roleTypeIdTo', 'CONTACT')
+            .where('partyIdFrom', accountPartyId, 'partyIdTo', contactPartyId, 'roleTypeIdFrom', 'ACCOUNT', 'roleTypeIdTo', 'CONTACT')
             .queryList()
         assert partyRelationshipList
     }
@@ -167,32 +192,39 @@ class PartyTests implements JupiterTestHelper {
     @Test
     @Order(7)
     void testCreatePartyRole() {
+        String partyId = testParams.partyId ?: 'DemoCustomer'
+        String roleTypeId = testParams.roleTypeId ?: 'CLIENT'
         Map serviceCtx = [
-                partyId: 'DemoCustomer',
-                roleTypeId: 'CLIENT',
+                partyId: partyId,
+                roleTypeId: roleTypeId,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('createPartyRole', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
         GenericValue partyRole = from('PartyRole')
-            .where('partyId', 'DemoCustomer', 'roleTypeId', 'CLIENT')
+            .where('partyId', partyId, 'roleTypeId', roleTypeId)
             .queryOne()
 
         assert partyRole
-        assert partyRole.partyId == 'DemoCustomer'
-        assert partyRole.roleTypeId == 'CLIENT'
+        assert partyRole.partyId == partyId
+        assert partyRole.roleTypeId == roleTypeId
     }
 
     @Test
     @Order(8)
     void testCreatePartyTelecomNumber() {
+        String partyId = testParams.partyId ?: 'DemoCustomer'
+        String contactMechPurposeTypeId = testParams.contactMechPurposeTypeId ?: 'PRIMARY_PHONE'
+        String countryCode = testParams.countryCode ?: '1'
+        String areaCode = testParams.areaCode ?: '801'
+        String contactNumber = testParams.contactNumber ?: '888-8888'
         Map serviceCtx = [
-                partyId: 'DemoCustomer',
-                contactMechPurposeTypeId: 'PRIMARY_PHONE',
-                countryCode: '1',
-                areaCode: '801',
-                contactNumber: '888-8888',
+                partyId: partyId,
+                contactMechPurposeTypeId: contactMechPurposeTypeId,
+                countryCode: countryCode,
+                areaCode: areaCode,
+                contactNumber: contactNumber,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('createPartyTelecomNumber', serviceCtx)
@@ -205,32 +237,34 @@ class PartyTests implements JupiterTestHelper {
 
         GenericValue telecomNumber = from('TelecomNumber').where('contactMechId', contactMechId).queryOne()
         assert telecomNumber
-        assert telecomNumber.countryCode == '1'
-        assert telecomNumber.areaCode == '801'
-        assert telecomNumber.contactNumber == '888-8888'
+        assert telecomNumber.countryCode == countryCode
+        assert telecomNumber.areaCode == areaCode
+        assert telecomNumber.contactNumber == contactNumber
 
         List<GenericValue> pcmList = from('PartyContactMech')
-            .where('partyId', 'DemoCustomer', 'contactMechId', contactMechId)
+            .where('partyId', partyId, 'contactMechId', contactMechId)
             .filterByDate()
             .queryList()
         assert pcmList
 
         List<GenericValue> pcmpList = from('PartyContactMechPurpose')
-            .where('partyId', 'DemoCustomer', 'contactMechId', contactMechId)
+            .where('partyId', partyId, 'contactMechId', contactMechId)
             .filterByDate()
             .queryList()
         assert pcmpList
 
         GenericValue pcmp = pcmpList.first()
-        assert pcmp.contactMechPurposeTypeId == 'PRIMARY_PHONE'
+        assert pcmp.contactMechPurposeTypeId == contactMechPurposeTypeId
     }
 
     @Test
     @Order(9)
     void testCreatePerson() {
+        String firstName = testParams.firstName ?: 'Demo'
+        String lastName = testParams.lastName ?: 'Person'
         Map serviceCtx = [
-                firstName: 'Demo',
-                lastName: 'Person',
+                firstName: firstName,
+                lastName: lastName,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('createPerson', serviceCtx)
@@ -241,22 +275,28 @@ class PartyTests implements JupiterTestHelper {
         assert party
         assert party.partyTypeId == 'PERSON'
 
-        GenericValue person = from('Person').where('partyId', partyId).queryOne()
+        GenericValue person = from(lastName).where('partyId', partyId).queryOne()
         assert person
-        assert person.firstName == 'Demo'
-        assert person.lastName == 'Person'
+        assert person.firstName == firstName
+        assert person.lastName == lastName
     }
 
     @Test
     @Order(10)
     void testCreatePersonAndUserLogin() {
+        String partyId = testParams.partyId ?: 'DemoPerson'
+        String firstName = testParams.firstName ?: 'Demo'
+        String lastName = testParams.lastName ?: 'Person'
+        String userLoginId = testParams.userLoginId ?: 'demo.person'
+        String currentPassword = testParams.currentPassword ?: 'ofbiz'
+        String currentPasswordVerify = testParams.currentPasswordVerify ?: 'ofbiz'
         Map serviceCtx = [
-                partyId: 'DemoPerson',
-                firstName: 'Demo',
-                lastName: 'Person',
-                userLoginId: 'demo.person',
-                currentPassword: 'ofbiz',
-                currentPasswordVerify: 'ofbiz',
+                partyId: partyId,
+                firstName: firstName,
+                lastName: lastName,
+                userLoginId: userLoginId,
+                currentPassword: currentPassword,
+                currentPasswordVerify: currentPasswordVerify,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('createPersonAndUserLogin', serviceCtx)
@@ -264,78 +304,90 @@ class PartyTests implements JupiterTestHelper {
 
         GenericValue newUserLogin = serviceResult.newUserLogin
         assert newUserLogin
-        assert newUserLogin.partyId == 'DemoPerson'
-        assert newUserLogin.userLoginId == 'demo.person'
+        assert newUserLogin.partyId == partyId
+        assert newUserLogin.userLoginId == userLoginId
 
-        GenericValue person = from('Person').where('partyId', 'DemoPerson').queryOne()
+        GenericValue person = from(lastName).where('partyId', partyId).queryOne()
         assert person
-        assert person.firstName == 'Demo'
-        assert person.lastName == 'Person'
+        assert person.firstName == firstName
+        assert person.lastName == lastName
     }
 
     @Test
     @Order(11)
     void testCreateUpdatePartyRelationshipAndRoles() {
+        String partyId = testParams.partyId ?: 'TestCompany'
+        String partyIdFrom = testParams.partyIdFrom ?: 'TestCompany'
+        String partyIdTo = testParams.partyIdTo ?: 'TestCustomer'
+        String roleTypeIdFrom = testParams.roleTypeIdFrom ?: 'BUYER'
+        String roleTypeIdTo = testParams.roleTypeIdTo ?: 'ACCOUNT_LEAD'
+        String partyRelationshipTypeId = testParams.partyRelationshipTypeId ?: 'AGENT'
         Map serviceCtx = [
-                partyId: 'TestCompany',
-                partyIdFrom: 'TestCompany',
-                partyIdTo: 'TestCustomer',
-                roleTypeIdFrom: 'BUYER',
-                roleTypeIdTo: 'ACCOUNT_LEAD',
+                partyId: partyId,
+                partyIdFrom: partyIdFrom,
+                partyIdTo: partyIdTo,
+                roleTypeIdFrom: roleTypeIdFrom,
+                roleTypeIdTo: roleTypeIdTo,
                 fromDate: java.sql.Timestamp.valueOf('2009-09-09 01:01:01'),
-                partyRelationshipTypeId: 'AGENT',
+                partyRelationshipTypeId: partyRelationshipTypeId,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('createUpdatePartyRelationshipAndRoles', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue partyRole = from('PartyRole').where('partyId', 'TestCompany', 'roleTypeId', 'BUYER').queryOne()
+        GenericValue partyRole = from('PartyRole').where('partyId', partyId, 'roleTypeId', roleTypeIdFrom).queryOne()
         assert partyRole
 
         GenericValue partyRelationship = from('PartyRelationship')
             .where('partyIdFrom',
-                   'TestCompany',
+                   partyIdFrom,
                    'partyIdTo',
-                   'TestCustomer',
+                   partyIdTo,
                    'roleTypeIdFrom',
-                   'BUYER',
+                   roleTypeIdFrom,
                    'roleTypeIdTo',
-                   'ACCOUNT_LEAD',
+                   roleTypeIdTo,
                    'fromDate',
                    java.sql.Timestamp.valueOf('2009-09-09 01:01:01'))
             .queryOne()
         assert partyRelationship
-        assert serviceCtx.partyRelationshipTypeId == 'AGENT'
+        assert serviceCtx.partyRelationshipTypeId == partyRelationshipTypeId
     }
 
     @Test
     @Order(12)
     void testCreateUpdatePersonWithCreate() {
+        String partyId = testParams.partyId ?: 'DemoPerson1'
+        String firstName = testParams.firstName ?: 'Demo'
+        String lastName = testParams.lastName ?: 'Person1'
         Map serviceCtx = [
-                partyId: 'DemoPerson1',
-                firstName: 'Demo',
-                lastName: 'Person1',
+                partyId: partyId,
+                firstName: firstName,
+                lastName: lastName,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('createUpdatePerson', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue party = from('Party').where('partyId', 'DemoPerson1').queryOne()
+        GenericValue party = from('Party').where('partyId', partyId).queryOne()
         assert party
 
-        GenericValue person = from('Person').where('partyId', 'DemoPerson1').queryOne()
+        GenericValue person = from('Person').where('partyId', partyId).queryOne()
         assert person
-        assert person.firstName == 'Demo'
-        assert person.lastName == 'Person1'
+        assert person.firstName == firstName
+        assert person.lastName == lastName
     }
 
     @Test
     @Order(13)
     void testCreateUpdatePersonWithUpdate() {
+        String partyId = testParams.partyId ?: 'DemoPerson1'
+        String firstName = testParams.firstName ?: 'Demo'
+        String lastName = testParams.lastName ?: 'Person2'
         Map serviceCtx = [
-                partyId: 'DemoPerson1',
-                firstName: 'Demo',
-                lastName: 'Person2',
+                partyId: partyId,
+                firstName: firstName,
+                lastName: lastName,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('createUpdatePerson', serviceCtx)
@@ -346,18 +398,22 @@ class PartyTests implements JupiterTestHelper {
 
         assert party
         assert person
-        assert person.firstName == 'Demo'
-        assert person.lastName == 'Person2'
+        assert person.firstName == firstName
+        assert person.lastName == lastName
     }
 
     @Test
     @Order(14)
     void testDeletePartyRelationship() {
+        String partyIdFrom = testParams.partyIdFrom ?: 'TestCompany'
+        String partyIdTo = testParams.partyIdTo ?: 'TestCustomer'
+        String roleTypeIdFrom = testParams.roleTypeIdFrom ?: '_NA_'
+        String roleTypeIdTo = testParams.roleTypeIdTo ?: 'CONTACT'
         Map serviceCtx = [
-                partyIdFrom: 'TestCompany',
-                partyIdTo: 'TestCustomer',
-                roleTypeIdFrom: '_NA_',
-                roleTypeIdTo: 'CONTACT',
+                partyIdFrom: partyIdFrom,
+                partyIdTo: partyIdTo,
+                roleTypeIdFrom: roleTypeIdFrom,
+                roleTypeIdTo: roleTypeIdTo,
                 fromDate: java.sql.Timestamp.valueOf('2000-01-01 00:00:00'),
                 userLogin: userLogin
         ]
@@ -366,13 +422,13 @@ class PartyTests implements JupiterTestHelper {
 
         GenericValue partyRelationship = from('PartyRelationship')
             .where('partyIdFrom',
-                   'TestCompany',
+                   partyIdFrom,
                    'partyIdTo',
-                   'TestCustomer',
+                   partyIdTo,
                    'roleTypeIdFrom',
-                   '_NA_',
+                   roleTypeIdFrom,
                    'roleTypeIdTo',
-                   'CONTACT',
+                   roleTypeIdTo,
                    'fromDate',
                    java.sql.Timestamp.valueOf('2000-01-01 00:00:00'))
             .queryOne()
@@ -382,74 +438,83 @@ class PartyTests implements JupiterTestHelper {
     @Test
     @Order(15)
     void testDeletePartyRole() {
+        String partyId = testParams.partyId ?: 'TestCustomer'
+        String roleTypeId = testParams.roleTypeId ?: 'ACCOUNTANT'
         Map serviceCtx = [
-                partyId: 'TestCustomer',
-                roleTypeId: 'ACCOUNTANT',
+                partyId: partyId,
+                roleTypeId: roleTypeId,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('deletePartyRole', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue partyRole = from('PartyRole').where('partyId', 'TestCustomer', 'roleTypeId', 'ACCOUNTANT').queryOne()
+        GenericValue partyRole = from('PartyRole').where('partyId', partyId, 'roleTypeId', roleTypeId).queryOne()
         assert !partyRole
     }
 
     @Test
     @Order(16)
     void testEnsurePartyRole() {
+        String partyId = testParams.partyId ?: 'DemoCustomer'
+        String roleTypeId = testParams.roleTypeId ?: 'VENDOR'
+        String partyIdFrom = testParams.partyIdFrom ?: 'DemoCustomer'
+        String roleTypeIdFrom = testParams.roleTypeIdFrom ?: 'CONTRACTOR'
+        String partyIdTo = testParams.partyIdTo ?: 'DemoCustomer'
+        String roleTypeIdTo = testParams.roleTypeIdTo ?: 'MANUFACTURER'
         Map serviceCtx = [
-                partyId: 'DemoCustomer',
-                roleTypeId: 'VENDOR',
+                partyId: partyId,
+                roleTypeId: roleTypeId,
                 userLogin: userLogin
         ]
 
         Map serviceResult = dispatcher.runSync('ensurePartyRole', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue partyRole = from('PartyRole').where('partyId', 'DemoCustomer', 'roleTypeId', 'VENDOR').queryOne()
+        GenericValue partyRole = from('PartyRole').where('partyId', partyId, 'roleTypeId', roleTypeId).queryOne()
         assert partyRole
 
         serviceCtx.roleTypeId = 'EMPLOYEE'
-        partyRole = from('PartyRole').where('partyId', 'DemoCustomer', 'roleTypeId', 'EMPLOYEE').queryOne()
+        partyRole = from('PartyRole').where('partyId', partyId, 'roleTypeId', 'EMPLOYEE').queryOne()
         assert !partyRole
 
         serviceResult = dispatcher.runSync('ensurePartyRole', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
-        partyRole = from('PartyRole').where('partyId', 'DemoCustomer', 'roleTypeId', 'EMPLOYEE').queryOne()
+        partyRole = from('PartyRole').where('partyId', partyId, 'roleTypeId', 'EMPLOYEE').queryOne()
         assert partyRole
 
         Map ensurePartyRoleFromCtx = [
-                partyIdFrom: 'DemoCustomer',
-                roleTypeIdFrom: 'CONTRACTOR',
+                partyIdFrom: partyIdFrom,
+                roleTypeIdFrom: roleTypeIdFrom,
                 userLogin: userLogin
         ]
-        partyRole = from('PartyRole').where('partyId', 'DemoCustomer', 'roleTypeId', 'CONTRACTOR').queryOne()
+        partyRole = from('PartyRole').where('partyId', partyId, 'roleTypeId', roleTypeIdFrom).queryOne()
         assert !partyRole
 
         serviceResult = dispatcher.runSync('ensurePartyRoleFrom', ensurePartyRoleFromCtx)
         assert ServiceUtil.isSuccess(serviceResult)
-        partyRole = from('PartyRole').where('partyId', 'DemoCustomer', 'roleTypeId', 'CONTRACTOR').queryOne()
+        partyRole = from('PartyRole').where('partyId', partyId, 'roleTypeId', roleTypeIdFrom).queryOne()
         assert partyRole
 
         Map ensurePartyRoleToCtx = [
-                partyIdTo: 'DemoCustomer',
-                roleTypeIdTo: 'MANUFACTURER',
+                partyIdTo: partyIdTo,
+                roleTypeIdTo: roleTypeIdTo,
                 userLogin: userLogin
         ]
-        partyRole = from('PartyRole').where('partyId', 'DemoCustomer', 'roleTypeId', 'MANUFACTURER').queryOne()
+        partyRole = from('PartyRole').where('partyId', partyId, 'roleTypeId', roleTypeIdTo).queryOne()
         assert !partyRole
 
         serviceResult = dispatcher.runSync('ensurePartyRoleTo', ensurePartyRoleToCtx)
         assert ServiceUtil.isSuccess(serviceResult)
-        partyRole = from('PartyRole').where('partyId', 'DemoCustomer', 'roleTypeId', 'MANUFACTURER').queryOne()
+        partyRole = from('PartyRole').where('partyId', partyId, 'roleTypeId', roleTypeIdTo).queryOne()
         assert partyRole
     }
 
     @Test
     @Order(17)
     void testFindPartiesById() {
+        String idToFind = testParams.idToFind ?: 'TestCustomer'
         Map serviceCtx = [
-                idToFind: 'TestCustomer',
+                idToFind: idToFind,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('findPartiesById', serviceCtx)
@@ -457,14 +522,15 @@ class PartyTests implements JupiterTestHelper {
 
         GenericValue party = serviceResult.party
         assert party
-        assert party.partyId == 'TestCustomer'
+        assert party.partyId == idToFind
     }
 
     @Test
     @Order(18)
     void testFindPartyFromEmailAddress() {
+        String address = testParams.address ?: 'newtest_email@example.com'
         Map serviceCtx = [
-                address: 'newtest_email@example.com',
+                address: address,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('findPartyFromEmailAddress', serviceCtx)
@@ -479,8 +545,9 @@ class PartyTests implements JupiterTestHelper {
     @Test
     @Order(19)
     void testFindPartyFromTelephone() {
+        String telno = testParams.telno ?: '801555-5555'
         Map serviceCtx = [
-                telno: '801555-5555',
+                telno: telno,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('findPartyFromTelephone', serviceCtx)
@@ -493,8 +560,9 @@ class PartyTests implements JupiterTestHelper {
     @Test
     @Order(20)
     void testFindPartyFromTelephoneComplete() {
+        String telno = testParams.telno ?: '801555-5555'
         Map serviceCtx = [
-                telno: '801555-5555',
+                telno: telno,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('findPartyFromTelephoneComplete', serviceCtx)
@@ -507,8 +575,9 @@ class PartyTests implements JupiterTestHelper {
     @Test
     @Order(21)
     void testFindPartyWithNoSearchParameters() {
+        String lookupFlag = testParams.lookupFlag ?: 'Y'
         Map serviceCtx = [
-                lookupFlag: 'Y',
+                lookupFlag: lookupFlag,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('findParty', serviceCtx)
@@ -525,17 +594,20 @@ class PartyTests implements JupiterTestHelper {
     @Test
     @Order(22)
     void testFindPartyWithSearchParameters() {
+        String partyId = testParams.partyId ?: 'DemoCustomer'
+        String roleTypeId = testParams.roleTypeId ?: 'CUSTOMER'
+        String lookupFlag = testParams.lookupFlag ?: 'Y'
         Map serviceCtx = [
-                partyId: 'DemoCustomer',
-                roleTypeId: 'CUSTOMER',
-                lookupFlag: 'Y',
+                partyId: partyId,
+                roleTypeId: roleTypeId,
+                lookupFlag: lookupFlag,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('findParty', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
         GenericValue partyRoleDetailAndPartyDetail = from('PartyRoleDetailAndPartyDetail')
-            .where('partyId', 'DemoCustomer', 'roleTypeId', 'CUSTOMER')
+            .where('partyId', partyId, 'roleTypeId', roleTypeId)
             .queryOne()
 
         try {
@@ -554,22 +626,24 @@ class PartyTests implements JupiterTestHelper {
     @Test
     @Order(23)
     void testGetPartyMainRole() {
+        String partyId = testParams.partyId ?: 'TestCustomer'
         Map serviceCtx = [
-                partyId: 'TestCustomer',
+                partyId: partyId,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('getPartyMainRole', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue partyRole = from('PartyRole').where('partyId', 'TestCustomer', 'roleTypeId', serviceResult.roleTypeId).queryOne()
+        GenericValue partyRole = from('PartyRole').where('partyId', partyId, 'roleTypeId', serviceResult.roleTypeId).queryOne()
         assert partyRole
     }
 
     @Test
     @Order(24)
     void testLookupParty() {
+        String firstName = testParams.firstName ?: 'Test'
         Map serviceCtx = [
-                firstName: 'Test',
+                firstName: firstName,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('lookupParty', serviceCtx)
@@ -581,10 +655,13 @@ class PartyTests implements JupiterTestHelper {
     @Test
     @Order(25)
     void testQuickCreateCustomer() {
+        String firstName = testParams.firstName ?: 'Test'
+        String lastName = testParams.lastName ?: 'Customer'
+        String emailAddress = testParams.emailAddress ?: 'test.customer@example.com'
         Map serviceCtx = [
-                firstName: 'Test',
-                lastName: 'Customer',
-                emailAddress: 'test.customer@example.com',
+                firstName: firstName,
+                lastName: lastName,
+                emailAddress: emailAddress,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('quickCreateCustomer', serviceCtx)
@@ -592,8 +669,8 @@ class PartyTests implements JupiterTestHelper {
 
         GenericValue person = from('Person').where('partyId', serviceResult.partyId).queryOne()
         assert person
-        assert person.firstName == 'Test'
-        assert person.lastName == 'Customer'
+        assert person.firstName == firstName
+        assert person.lastName == lastName
 
         GenericValue partyRole = from('PartyRole').where('partyId', serviceResult.partyId, 'roleTypeId', 'CUSTOMER').queryOne()
         assert partyRole
@@ -602,12 +679,13 @@ class PartyTests implements JupiterTestHelper {
     @Test
     @Order(26)
     void testUpdatePartyCreditCard() {
+        String partyId = testParams.partyId ?: 'DemoCustomer'
         Map serviceCtx = [
-                partyId: 'DemoCustomer',
+                partyId: partyId,
                 userLogin: userLogin
         ]
         List<GenericValue> paymentMethodAndCreditCards = from('PaymentMethodAndCreditCard')
-            .where('partyId', 'DemoCustomer')
+            .where('partyId', partyId)
             .filterByDate()
             .queryList()
         GenericValue paymentMethodAndCreditCard = paymentMethodAndCreditCards.first()
@@ -649,13 +727,18 @@ class PartyTests implements JupiterTestHelper {
     @Test
     @Order(27)
     void testUpdatePartyRelationship() {
+        String partyIdFrom = testParams.partyIdFrom ?: 'TestCompany'
+        String partyIdTo = testParams.partyIdTo ?: 'TestParty'
+        String roleTypeIdFrom = testParams.roleTypeIdFrom ?: '_NA_'
+        String roleTypeIdTo = testParams.roleTypeIdTo ?: 'CONTACT'
+        String partyRelationshipTypeId = testParams.partyRelationshipTypeId ?: 'AGENT'
         Map serviceCtx = [
-                partyIdFrom: 'TestCompany',
-                partyIdTo: 'TestParty',
-                roleTypeIdFrom: '_NA_',
-                roleTypeIdTo: 'CONTACT',
+                partyIdFrom: partyIdFrom,
+                partyIdTo: partyIdTo,
+                roleTypeIdFrom: roleTypeIdFrom,
+                roleTypeIdTo: roleTypeIdTo,
                 fromDate: java.sql.Timestamp.valueOf('2000-01-01 00:00:00'),
-                partyRelationshipTypeId: 'AGENT',
+                partyRelationshipTypeId: partyRelationshipTypeId,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('updatePartyRelationship', serviceCtx)
@@ -663,18 +746,18 @@ class PartyTests implements JupiterTestHelper {
 
         GenericValue partyRelationship = from('PartyRelationship')
             .where('partyIdFrom',
-                   'TestCompany',
+                   partyIdFrom,
                    'partyIdTo',
-                   'TestParty',
+                   partyIdTo,
                    'roleTypeIdFrom',
-                   '_NA_',
+                   roleTypeIdFrom,
                    'roleTypeIdTo',
-                   'CONTACT',
+                   roleTypeIdTo,
                    'fromDate',
                    java.sql.Timestamp.valueOf('2000-01-01 00:00:00'))
             .queryOne()
         assert partyRelationship
-        assert partyRelationship.partyRelationshipTypeId == 'AGENT'
+        assert partyRelationship.partyRelationshipTypeId == partyRelationshipTypeId
     }
 
     @Test

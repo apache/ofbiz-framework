@@ -33,15 +33,20 @@ class ShipmentTests implements JupiterTestHelper {
     @Test
     @Order(1)
     void testPackingServices() {
+        String productId = testParams.productId ?: 'GZ-2644'
+        String orderId = testParams.orderId ?: 'DEMO10090'
+        String shipGroupSeqId = testParams.shipGroupSeqId ?: '00001'
+        String pickerPartyId = testParams.pickerPartyId ?: 'DemoCustomer'
+        String handlingInstructions = testParams.handlingInstructions ?: 'Handle with care'
         PackingSession packingSession = new PackingSession(dispatcher, userLogin)
         Map serviceCtx = [
-                productId: 'GZ-2644',
-                orderId: 'DEMO10090',
-                shipGroupSeqId: '00001',
+                productId: productId,
+                orderId: orderId,
+                shipGroupSeqId: shipGroupSeqId,
                 quantity: new BigDecimal('2'),
                 packageSeq: 1,
-                pickerPartyId: 'DemoCustomer',
-                handlingInstructions: 'Handle with care',
+                pickerPartyId: pickerPartyId,
+                handlingInstructions: handlingInstructions,
                 packingSession: packingSession,
                 userLogin: userLogin
         ]
@@ -53,10 +58,10 @@ class ShipmentTests implements JupiterTestHelper {
         serviceResult.clear()
         serviceCtx = [
                 updateQuantity: true,
-                orderId: 'DEMO10090',
-                shipGroupSeqId: '00001',
-                pickerPartyId: 'DemoCustomer',
-                handlingInstructions: 'Handle with care',
+                orderId: orderId,
+                shipGroupSeqId: shipGroupSeqId,
+                pickerPartyId: pickerPartyId,
+                handlingInstructions: handlingInstructions,
                 nextPackageSeq: 1,
                 packingSession: packingSession,
                 userLogin: userLogin
@@ -67,9 +72,9 @@ class ShipmentTests implements JupiterTestHelper {
         serviceCtx.clear()
         serviceResult.clear()
         serviceCtx = [
-                orderId: 'DEMO10090',
-                pickerPartyId: 'DemoCustomer',
-                handlingInstructions: 'Handle with care',
+                orderId: orderId,
+                pickerPartyId: pickerPartyId,
+                handlingInstructions: handlingInstructions,
                 packingSession: packingSession,
                 additionalShippingCharge: new BigDecimal('10'),
                 forceComplete: true,
@@ -107,12 +112,18 @@ class ShipmentTests implements JupiterTestHelper {
     @Test
     @Order(2)
     void testShipmentServices() {
+        String shipmentTypeId = testParams.shipmentTypeId ?: 'SALES_SHIPMENT'
+        String statusId = testParams.statusId ?: 'SHIPMENT_INPUT'
+        String primaryOrderId = testParams.primaryOrderId ?: 'DEMO10090'
+        String partyIdTo = testParams.partyIdTo ?: 'DemoCustomer'
+        String originFacilityId = testParams.originFacilityId ?: 'WebStoreWarehouse'
+        String statusId1 = testParams.statusId1 ?: 'SHIPMENT_PACKED'
         Map serviceCtx = [
-                shipmentTypeId: 'SALES_SHIPMENT',
-                statusId: 'SHIPMENT_INPUT',
-                primaryOrderId: 'DEMO10090',
-                partyIdTo: 'DemoCustomer',
-                originFacilityId: 'WebStoreWarehouse',
+                shipmentTypeId: shipmentTypeId,
+                statusId: statusId,
+                primaryOrderId: primaryOrderId,
+                partyIdTo: partyIdTo,
+                originFacilityId: originFacilityId,
                 userLogin: userLogin
         ]
 
@@ -125,7 +136,7 @@ class ShipmentTests implements JupiterTestHelper {
         serviceResult.clear()
         serviceCtx = [
                 shipmentId: shipmentId,
-                statusId: 'SHIPMENT_PACKED',
+                statusId: statusId1,
                 userLogin: userLogin
         ]
         serviceResult = dispatcher.runSync('updateShipment', serviceCtx)
@@ -145,13 +156,16 @@ class ShipmentTests implements JupiterTestHelper {
     @Test
     @Order(3)
     void testReceiveInventoryNonSerialized() {
+        String facilityId = testParams.facilityId ?: 'WebStoreWarehouse'
+        String productId = testParams.productId ?: 'GZ-2644'
+        String inventoryItemTypeId = testParams.inventoryItemTypeId ?: 'NON_SERIAL_INV_ITEM'
         Map serviceCtx = [
-                facilityId: 'WebStoreWarehouse',
-                productId: 'GZ-2644',
+                facilityId: facilityId,
+                productId: productId,
                 quantityAccepted: new BigDecimal('2'),
                 quantityRejected: BigDecimal.ZERO,
                 unitCost: new BigDecimal('24'),
-                inventoryItemTypeId: 'NON_SERIAL_INV_ITEM',
+                inventoryItemTypeId: inventoryItemTypeId,
                 datetimeReceived: UtilDateTime.nowTimestamp(),
                 userLogin: userLogin
         ]
@@ -186,8 +200,14 @@ class ShipmentTests implements JupiterTestHelper {
     @Test
     @Order(4)
     void testIssueOrderItemShipGrpInvResToShipmentRejectsMixedDestinations() {
+        String productId = testParams.productId ?: 'GZ-2644'
+        String shipmentTypeId = testParams.shipmentTypeId ?: 'SALES_SHIPMENT'
+        String statusId = testParams.statusId ?: 'SHIPMENT_INPUT'
+        String primaryShipGroupSeqId = testParams.primaryShipGroupSeqId ?: '00001'
+        String originFacilityId = testParams.originFacilityId ?: 'WebStoreWarehouse'
+        String shipGroupSeqId = testParams.shipGroupSeqId ?: '00002'
         Map orderResult = dispatcher.runSync('createTestSalesOrderSingle',
-                [userLogin: userLogin, productId: 'GZ-2644'])
+                [userLogin: userLogin, productId: productId])
         assert ServiceUtil.isSuccess(orderResult)
         String orderId = orderResult.orderId
         assert orderId
@@ -197,17 +217,17 @@ class ShipmentTests implements JupiterTestHelper {
         String orderItemSeqId = orderItem.orderItemSeqId
 
         GenericValue shipGroup1 = from('OrderItemShipGroup')
-                .where('orderId', orderId, 'shipGroupSeqId', '00001')
+                .where('orderId', orderId, 'shipGroupSeqId', primaryShipGroupSeqId)
                 .queryOne()
         assert shipGroup1
         assert shipGroup1.contactMechId
 
         Map createShipmentCtx = [
-                shipmentTypeId: 'SALES_SHIPMENT',
-                statusId: 'SHIPMENT_INPUT',
+                shipmentTypeId: shipmentTypeId,
+                statusId: statusId,
                 primaryOrderId: orderId,
-                primaryShipGroupSeqId: '00001',
-                originFacilityId: 'WebStoreWarehouse',
+                primaryShipGroupSeqId: primaryShipGroupSeqId,
+                originFacilityId: originFacilityId,
                 userLogin: userLogin
         ]
         Map createShipmentResult = dispatcher.runSync('createShipment', createShipmentCtx)
@@ -220,15 +240,15 @@ class ShipmentTests implements JupiterTestHelper {
 
         String differentContactMechId = resolveDifferentDestinationAddress('789 Different St')
         assert differentContactMechId != shipGroup1.contactMechId
-        addShipGroup(orderId, '00002', differentContactMechId)
+        addShipGroup(orderId, shipGroupSeqId, differentContactMechId)
         GenericValue inventoryItem = findGz2644InventoryItem()
-        associateItemWithShipGroup(orderId, orderItemSeqId, '00002', new BigDecimal('1'))
-        reserveInventoryToShipGroup(orderId, orderItemSeqId, '00002', inventoryItem.inventoryItemId, new BigDecimal('1'))
+        associateItemWithShipGroup(orderId, orderItemSeqId, shipGroupSeqId, new BigDecimal('1'))
+        reserveInventoryToShipGroup(orderId, orderItemSeqId, shipGroupSeqId, inventoryItem.inventoryItemId, new BigDecimal('1'))
 
         Map issueCtx = [
                 shipmentId: shipmentId,
                 orderId: orderId,
-                shipGroupSeqId: '00002',
+                shipGroupSeqId: shipGroupSeqId,
                 orderItemSeqId: orderItemSeqId,
                 inventoryItemId: inventoryItem.inventoryItemId,
                 quantity: new BigDecimal('1'),
@@ -242,24 +262,30 @@ class ShipmentTests implements JupiterTestHelper {
     @Test
     @Order(5)
     void testIssueOrderItemShipGrpInvResToShipmentRejectsMixedDestinationsAcrossOrders() {
+        String productId = testParams.productId ?: 'GZ-2644'
+        String shipmentTypeId = testParams.shipmentTypeId ?: 'SALES_SHIPMENT'
+        String statusId = testParams.statusId ?: 'SHIPMENT_INPUT'
+        String primaryShipGroupSeqId = testParams.primaryShipGroupSeqId ?: '00001'
+        String originFacilityId = testParams.originFacilityId ?: 'WebStoreWarehouse'
+        String contactMechPurposeTypeId = testParams.contactMechPurposeTypeId ?: 'SHIPPING_LOCATION'
         Map orderResult1 = dispatcher.runSync('createTestSalesOrderSingle',
-                [userLogin: userLogin, productId: 'GZ-2644'])
+                [userLogin: userLogin, productId: productId])
         assert ServiceUtil.isSuccess(orderResult1)
         String orderId1 = orderResult1.orderId
         assert orderId1
 
         GenericValue shipGroup1 = from('OrderItemShipGroup')
-                .where('orderId', orderId1, 'shipGroupSeqId', '00001')
+                .where('orderId', orderId1, 'shipGroupSeqId', primaryShipGroupSeqId)
                 .queryOne()
         assert shipGroup1
         assert shipGroup1.contactMechId
 
         Map createShipmentCtx = [
-                shipmentTypeId: 'SALES_SHIPMENT',
-                statusId: 'SHIPMENT_INPUT',
+                shipmentTypeId: shipmentTypeId,
+                statusId: statusId,
                 primaryOrderId: orderId1,
-                primaryShipGroupSeqId: '00001',
-                originFacilityId: 'WebStoreWarehouse',
+                primaryShipGroupSeqId: primaryShipGroupSeqId,
+                originFacilityId: originFacilityId,
                 userLogin: userLogin
         ]
         Map createShipmentResult = dispatcher.runSync('createShipment', createShipmentCtx)
@@ -267,9 +293,9 @@ class ShipmentTests implements JupiterTestHelper {
         String shipmentId = createShipmentResult.shipmentId
         assert shipmentId
 
-        // second, independent order; also uses shipGroupSeqId '00001' but a different destination
+        // second, independent order; also uses shipGroupSeqId primaryShipGroupSeqId but a different destination
         Map orderResult2 = dispatcher.runSync('createTestSalesOrderSingle',
-                [userLogin: userLogin, productId: 'GZ-2644'])
+                [userLogin: userLogin, productId: productId])
         assert ServiceUtil.isSuccess(orderResult2)
         String orderId2 = orderResult2.orderId
         assert orderId2
@@ -284,9 +310,9 @@ class ShipmentTests implements JupiterTestHelper {
 
         Map updateShipGroupCtx = [
                 orderId: orderId2,
-                shipGroupSeqId: '00001',
+                shipGroupSeqId: primaryShipGroupSeqId,
                 contactMechId: differentContactMechId,
-                contactMechPurposeTypeId: 'SHIPPING_LOCATION',
+                contactMechPurposeTypeId: contactMechPurposeTypeId,
                 userLogin: userLogin
         ]
         Map updateShipGroupResult = dispatcher.runSync('updateOrderItemShipGroup', updateShipGroupCtx)
@@ -294,12 +320,12 @@ class ShipmentTests implements JupiterTestHelper {
 
         // order2's item is already associated with ship group 00001 from checkout; only reserve
         GenericValue inventoryItem = findGz2644InventoryItem()
-        reserveInventoryToShipGroup(orderId2, orderItemSeqId2, '00001', inventoryItem.inventoryItemId, new BigDecimal('1'))
+        reserveInventoryToShipGroup(orderId2, orderItemSeqId2, primaryShipGroupSeqId, inventoryItem.inventoryItemId, new BigDecimal('1'))
 
         Map issueCtx = [
                 shipmentId: shipmentId,
                 orderId: orderId2,
-                shipGroupSeqId: '00001',
+                shipGroupSeqId: primaryShipGroupSeqId,
                 orderItemSeqId: orderItemSeqId2,
                 inventoryItemId: inventoryItem.inventoryItemId,
                 quantity: new BigDecimal('1'),
@@ -313,8 +339,12 @@ class ShipmentTests implements JupiterTestHelper {
     @Test
     @Order(6)
     void testPackingSessionRejectsMixedShipGroupDestinations() {
+        String productId = testParams.productId ?: 'GZ-2644'
+        String shipGroupSeqId = testParams.shipGroupSeqId ?: '00001'
+        String pickerPartyId = testParams.pickerPartyId ?: 'DemoCustomer'
+        String shipGroupSeqId1 = testParams.shipGroupSeqId1 ?: '00002'
         Map orderResult = dispatcher.runSync('createTestSalesOrderSingle',
-                [userLogin: userLogin, productId: 'GZ-2644'])
+                [userLogin: userLogin, productId: productId])
         assert ServiceUtil.isSuccess(orderResult)
         String orderId = orderResult.orderId
         assert orderId
@@ -324,20 +354,20 @@ class ShipmentTests implements JupiterTestHelper {
         String orderItemSeqId = orderItem.orderItemSeqId
 
         String differentContactMechId = resolveDifferentDestinationAddress('456 Other Ave')
-        addShipGroup(orderId, '00002', differentContactMechId)
+        addShipGroup(orderId, shipGroupSeqId1, differentContactMechId)
         GenericValue inventoryItem = findGz2644InventoryItem()
-        associateItemWithShipGroup(orderId, orderItemSeqId, '00002', new BigDecimal('1'))
-        reserveInventoryToShipGroup(orderId, orderItemSeqId, '00002', inventoryItem.inventoryItemId, new BigDecimal('1'))
+        associateItemWithShipGroup(orderId, orderItemSeqId, shipGroupSeqId1, new BigDecimal('1'))
+        reserveInventoryToShipGroup(orderId, orderItemSeqId, shipGroupSeqId1, inventoryItem.inventoryItemId, new BigDecimal('1'))
 
         PackingSession packingSession = new PackingSession(dispatcher, userLogin)
 
         Map packLine1Ctx = [
-                productId: 'GZ-2644',
+                productId: productId,
                 orderId: orderId,
-                shipGroupSeqId: '00001',
+                shipGroupSeqId: shipGroupSeqId,
                 quantity: new BigDecimal('1'),
                 packageSeq: 1,
-                pickerPartyId: 'DemoCustomer',
+                pickerPartyId: pickerPartyId,
                 packingSession: packingSession,
                 userLogin: userLogin
         ]
@@ -345,12 +375,12 @@ class ShipmentTests implements JupiterTestHelper {
         assert ServiceUtil.isSuccess(packLine1Result)
 
         Map packLine2Ctx = [
-                productId: 'GZ-2644',
+                productId: productId,
                 orderId: orderId,
-                shipGroupSeqId: '00002',
+                shipGroupSeqId: shipGroupSeqId1,
                 quantity: new BigDecimal('1'),
                 packageSeq: 1,
-                pickerPartyId: 'DemoCustomer',
+                pickerPartyId: pickerPartyId,
                 packingSession: packingSession,
                 userLogin: userLogin
         ]
@@ -359,7 +389,7 @@ class ShipmentTests implements JupiterTestHelper {
 
         Map completeCtx = [
                 orderId: orderId,
-                pickerPartyId: 'DemoCustomer',
+                pickerPartyId: pickerPartyId,
                 packingSession: packingSession,
                 forceComplete: true,
                 userLogin: userLogin
@@ -372,6 +402,7 @@ class ShipmentTests implements JupiterTestHelper {
     @Test
     @Order(7)
     void testCreateShipmentRouteSegment() {
+        String shipmentRouteSegmentIdParam = testParams.shipmentRouteSegmentIdParam ?: '0001'
         GenericValue shipment = from('Shipment')
                 .where('shipmentId', '9998')
                 .queryOne()
@@ -379,7 +410,7 @@ class ShipmentTests implements JupiterTestHelper {
 
         Map serviceCtx = [
                 shipmentId: shipment.shipmentId,
-                shipmentRouteSegmentId: '0001',
+                shipmentRouteSegmentId: shipmentRouteSegmentIdParam,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('createShipmentRouteSegment', serviceCtx)
@@ -398,8 +429,9 @@ class ShipmentTests implements JupiterTestHelper {
     @Test
     @Order(8)
     void testQuickShipEntireOrderDoesNotMixShipGroupDestinations() {
+        String productId = testParams.productId ?: 'GZ-2644'
         Map orderResult = dispatcher.runSync('createTestSalesOrderSingle',
-                [userLogin: userLogin, productId: 'GZ-2644'])
+                [userLogin: userLogin, productId: productId])
         assert ServiceUtil.isSuccess(orderResult)
         String orderId = orderResult.orderId
         assert orderId
@@ -431,8 +463,9 @@ class ShipmentTests implements JupiterTestHelper {
     @Test
     @Order(9)
     void testQuickShipEntireOrderSkipsShipGroupWithNothingToShip() {
+        String productId = testParams.productId ?: 'GZ-2644'
         Map orderResult = dispatcher.runSync('createTestSalesOrderSingle',
-                [userLogin: userLogin, productId: 'GZ-2644'])
+                [userLogin: userLogin, productId: productId])
         assert ServiceUtil.isSuccess(orderResult)
         String orderId = orderResult.orderId
         assert orderId

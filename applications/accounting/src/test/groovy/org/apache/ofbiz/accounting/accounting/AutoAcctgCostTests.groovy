@@ -31,17 +31,20 @@ class AutoAcctgCostTests implements JupiterTestHelper {
     @Test
     @Order(1)
     void testUpdateProductAverageCostOnReceiveInventory() {
+        String facilityId = testParams.facilityId ?: 'DemoFacility1'
+        String productId = testParams.productId ?: 'TestProduct3'
+        String inventoryItemId = testParams.inventoryItemId ?: '9999'
         Map serviceCtx = [:]
-        serviceCtx.facilityId = 'DemoFacility1'
+        serviceCtx.facilityId = facilityId
         serviceCtx.quantityAccepted = new BigDecimal('10')
-        serviceCtx.productId = 'TestProduct3'
-        serviceCtx.inventoryItemId = '9999'
+        serviceCtx.productId = productId
+        serviceCtx.inventoryItemId = inventoryItemId
         serviceCtx.userLogin = userLogin
         Map result = dispatcher.runSync('updateProductAverageCostOnReceiveInventory', serviceCtx)
         assert ServiceUtil.isSuccess(result)
 
         GenericValue productAverageCost = from('ProductAverageCost').filterByDate()
-                                .where('productId', 'TestProduct3', 'facilityId', 'DemoFacility1').queryFirst()
+                                .where('productId', productId, 'facilityId', facilityId).queryFirst()
         assert productAverageCost
         assert productAverageCost.productAverageCostTypeId == 'SIMPLE_AVG_COST'
         assert productAverageCost.averageCost == 9

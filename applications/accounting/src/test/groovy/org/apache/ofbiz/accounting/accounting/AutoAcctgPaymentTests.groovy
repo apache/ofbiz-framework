@@ -34,44 +34,48 @@ class AutoAcctgPaymentTests implements JupiterTestHelper {
     @Test
     @Order(1)
     void testCreatePayment() {
+        String paymentTypeId = testParams.paymentTypeId ?: 'CUSTOMER_PAYMENT'
+        String paymentMethodTypeId = testParams.paymentMethodTypeId ?: 'COMPANY_CHECK'
         Map serviceCtx = [:]
-        serviceCtx.paymentTypeId = 'CUSTOMER_PAYMENT'
-        serviceCtx.partyIdFrom = 'Company'
-        serviceCtx.partyIdTo = 'DemoCustCompany'
+        serviceCtx.paymentTypeId = paymentTypeId
+        serviceCtx.partyIdFrom = testParams.partyIdFrom ?: 'Company'
+        serviceCtx.partyIdTo = testParams.partyIdTo ?: 'DemoCustCompany'
         serviceCtx.amount = 100.00
-        serviceCtx.paymentMethodTypeId = 'COMPANY_CHECK'
+        serviceCtx.paymentMethodTypeId = paymentMethodTypeId
         serviceCtx.userLogin = userLogin
         Map serviceResult = dispatcher.runSync('createPayment', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
         GenericValue payment = from('Payment').where('paymentId', serviceResult.paymentId).queryOne()
-        assert payment.paymentTypeId == 'CUSTOMER_PAYMENT'
-        assert payment.paymentMethodTypeId == 'COMPANY_CHECK'
+        assert payment.paymentTypeId == paymentTypeId
+        assert payment.paymentMethodTypeId == paymentMethodTypeId
     }
     @Test
     @Order(2)
     void testSetPaymentStatus() {
+        String paymentId = testParams.paymentId ?: '1000'
         Map serviceCtx = [:]
-        serviceCtx.paymentId = '1000'
-        serviceCtx.statusId = 'PAYMENT_AUTHORIZED'
+        serviceCtx.paymentId = paymentId
+        serviceCtx.statusId = testParams.statusId ?: 'PAYMENT_AUTHORIZED'
         serviceCtx.userLogin = userLogin
         Map serviceResult = dispatcher.runSync('setPaymentStatus', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue payment = from('Payment').where('paymentId', '1000').queryOne()
+        GenericValue payment = from('Payment').where('paymentId', paymentId).queryOne()
         assert payment
         assert serviceResult.oldStatusId == 'PAYMENT_NOT_AUTH'
     }
     @Test
     @Order(3)
     void testQuickSendPayment() {
+        String paymentId = testParams.paymentId ?: '1001'
         Map serviceCtx = [:]
-        serviceCtx.paymentId = '1001'
+        serviceCtx.paymentId = paymentId
         serviceCtx.userLogin = userLogin
         Map serviceResult = dispatcher.runSync('quickSendPayment', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue payment = from('Payment').where('paymentId', '1001').queryOne()
+        GenericValue payment = from('Payment').where('paymentId', paymentId).queryOne()
         assert payment
         assert payment.statusId == 'PMNT_SENT'
     }
@@ -79,7 +83,7 @@ class AutoAcctgPaymentTests implements JupiterTestHelper {
     @Order(4)
     void testGetPayments() {
         Map serviceCtx = [
-            finAccountTransId: '1001',
+            finAccountTransId: testParams.finAccountTransId ?: '1001',
             userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('getPayments', serviceCtx)
@@ -90,16 +94,19 @@ class AutoAcctgPaymentTests implements JupiterTestHelper {
     @Order(5)
     void testCreatePaymentContent() {
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp()
+        String paymentId = testParams.paymentId ?: '1006'
+        String paymentContentTypeId = testParams.paymentContentTypeId ?: 'COMMENTS'
+        String contentId = testParams.contentId ?: '1006'
         Map serviceCtx = [
-            paymentId: '1006',
-            paymentContentTypeId: 'COMMENTS',
-            contentId: '1006',
+            paymentId: paymentId,
+            paymentContentTypeId: paymentContentTypeId,
+            contentId: contentId,
             fromDate: nowTimestamp,
             userLogin: userLogin
         ]
         dispatcher.runSync('createPaymentContent', serviceCtx)
         GenericValue paymentContent = from('PaymentContent')
-                .where(paymentId: '1006', paymentContentTypeId: 'COMMENTS', contentId: '1006').filterByDate().queryFirst()
+                .where(paymentId: paymentId, paymentContentTypeId: paymentContentTypeId, contentId: contentId).filterByDate().queryFirst()
         assert paymentContent
     }
 

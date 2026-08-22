@@ -110,18 +110,32 @@ class ShoppingCartTests implements JupiterTestHelper {
     @Test
     @Order(4)
     void testLoadCartFromQuote() {
+        String partyId = testParams.partyId ?: 'DemoCustomer'
+        String currencyUomId = testParams.currencyUomId ?: 'USD'
+        String description = testParams.description ?: 'Test quote'
+        String productStoreId = testParams.productStoreId ?: '9000'
+        String quoteName = testParams.quoteName ?: 'Test quote'
+        String quoteTypeId = testParams.quoteTypeId ?: 'PRODUCT_QUOTE'
+        String statusId = testParams.statusId ?: 'QUO_APPROVED'
+        String productId = testParams.productId ?: 'GZ-1000'
+        String includeInShipping = testParams.includeInShipping ?: 'N'
+        String includeInTax = testParams.includeInTax ?: 'Y'
+        String quoteAdjustmentTypeId = testParams.quoteAdjustmentTypeId ?: 'SALES_TAX'
+        String taxAuthGeoId = testParams.taxAuthGeoId ?: 'UT'
+        String taxAuthPartyId = testParams.taxAuthPartyId ?: 'UT_TAXMAN'
+        String applyQuoteAdjustments = testParams.applyQuoteAdjustments ?: 'true'
         GenericValue systemLogin = from('UserLogin').where('userLoginId', 'system').queryOne()
 
         Map createQuoteMap = [
                 userLogin: systemLogin,
-                partyId: 'DemoCustomer',
-                currencyUomId: 'USD',
-                description: 'Test quote',
+                partyId: partyId,
+                currencyUomId: currencyUomId,
+                description: description,
                 issueDate: UtilDateTime.toTimestamp('11/01/2011 10:00:00'),
-                productStoreId: '9000',
-                quoteName: 'Test quote',
-                quoteTypeId: 'PRODUCT_QUOTE',
-                statusId: 'QUO_APPROVED',
+                productStoreId: productStoreId,
+                quoteName: quoteName,
+                quoteTypeId: quoteTypeId,
+                statusId: statusId,
                 validFromDate: UtilDateTime.toTimestamp('11/01/2011 10:00:00')
         ]
         Map createQuoteResult = dispatcher.runSync('createQuote', createQuoteMap)
@@ -130,7 +144,7 @@ class ShoppingCartTests implements JupiterTestHelper {
         Map createQuoteItemMap = [
                 userLogin: systemLogin,
                 quoteId: quoteId,
-                productId: 'GZ-1000',
+                productId: productId,
                 quantity: 10,
                 quoteUnitPrice: 15.00
         ]
@@ -142,18 +156,18 @@ class ShoppingCartTests implements JupiterTestHelper {
                 quoteId: quoteId,
                 quoteItemSeqId: quoteItemSeqId,
                 amount: 15.00,
-                includeInShipping: 'N',
-                includeInTax: 'Y',
-                quoteAdjustmentTypeId: 'SALES_TAX',
-                taxAuthGeoId: 'UT',
-                taxAuthPartyId: 'UT_TAXMAN'
+                includeInShipping: includeInShipping,
+                includeInTax: includeInTax,
+                quoteAdjustmentTypeId: quoteAdjustmentTypeId,
+                taxAuthGeoId: taxAuthGeoId,
+                taxAuthPartyId: taxAuthPartyId
         ]
         dispatcher.runSync('createQuoteAdjustment', createQuoteAdjustmentMap)
 
         Map loadCartFromQuoteMap = [
                 userLogin: systemLogin,
                 quoteId: quoteId,
-                applyQuoteAdjustments: 'true'
+                applyQuoteAdjustments: applyQuoteAdjustments
         ]
         Map loadCartResult = dispatcher.runSync('loadCartFromQuote', loadCartFromQuoteMap)
         ShoppingCart shoppingCart = (ShoppingCart) loadCartResult.shoppingCart
@@ -213,6 +227,11 @@ class ShoppingCartTests implements JupiterTestHelper {
     @Test
     @Order(6)
     void testOrderMoveItemBetweenShipGoups() {
+        String contactMechId = testParams.contactMechId ?: '9015'
+        String carrierPartyId = testParams.carrierPartyId ?: 'UPS'
+        String shipmentMethodTypeId = testParams.shipmentMethodTypeId ?: 'NEXT_DAY'
+        String fromGroupIndex = testParams.fromGroupIndex ?: '00001'
+        String toGroupIndex = testParams.toGroupIndex ?: '00002'
         GenericValue userLogin = from('UserLogin').where('userLoginId', 'system').queryOne()
         Locale locale = Locale.getDefault()
         Map orderMap = createShoppinCartAndOrder(userLogin, locale)
@@ -224,9 +243,9 @@ class ShoppingCartTests implements JupiterTestHelper {
         Map createShipGroupMap = [
                 userLogin: userLogin,
                 orderId: orderId,
-                contactMechId: '9015',
-                carrierPartyId: 'UPS',
-                shipmentMethodTypeId: 'NEXT_DAY'
+                contactMechId: contactMechId,
+                carrierPartyId: carrierPartyId,
+                shipmentMethodTypeId: shipmentMethodTypeId
         ]
         dispatcher.runSync('createOrderItemShipGroup', createShipGroupMap)
 
@@ -234,8 +253,8 @@ class ShoppingCartTests implements JupiterTestHelper {
                 userLogin: userLogin,
                 orderId: orderId,
                 orderItemSeqId: orderItem.orderItemSeqId,
-                fromGroupIndex: '00001',
-                toGroupIndex: '00002',
+                fromGroupIndex: fromGroupIndex,
+                toGroupIndex: toGroupIndex,
                 quantity: 2
         ]
         dispatcher.runSync('moveItemBetweenShipGroups', moveItemMap)
@@ -245,7 +264,7 @@ class ShoppingCartTests implements JupiterTestHelper {
                                                                                       'orderItemSeqId',
                                                                                       orderItem.orderItemSeqId,
                                                                                       'shipGroupSeqId',
-                                                                                      '00001').queryOne()
+                                                                                      fromGroupIndex).queryOne()
         assert orderItemShipGroupAssoc1.quantity == 3
 
         GenericValue orderItemShipGroupAssoc2 = from('OrderItemShipGroupAssoc').where('orderId',
@@ -253,15 +272,15 @@ class ShoppingCartTests implements JupiterTestHelper {
                                                                                       'orderItemSeqId',
                                                                                       orderItem.orderItemSeqId,
                                                                                       'shipGroupSeqId',
-                                                                                      '00002').queryOne()
+                                                                                      toGroupIndex).queryOne()
         assert orderItemShipGroupAssoc2.quantity == 2
 
         dispatcher.runSync('deleteOrderItemShipGroupAssoc',
                             [userLogin: userLogin,
                             orderId: orderId,
                             orderItemSeqId: orderItem.orderItemSeqId,
-                            shipGroupSeqId: '00002'])
-        dispatcher.runSync('deleteOrderItemShipGroup', [userLogin: userLogin, orderId: orderId, shipGroupSeqId: '00002'])
+                            shipGroupSeqId: toGroupIndex])
+        dispatcher.runSync('deleteOrderItemShipGroup', [userLogin: userLogin, orderId: orderId, shipGroupSeqId: toGroupIndex])
 
         long orderItemShipGroupCount = from('OrderItemShipGroup').where('orderId', orderId).queryCount()
         assert orderItemShipGroupCount == 1

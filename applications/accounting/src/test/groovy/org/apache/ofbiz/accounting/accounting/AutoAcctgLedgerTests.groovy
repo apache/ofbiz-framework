@@ -32,31 +32,33 @@ class AutoAcctgLedgerTests implements JupiterTestHelper {
     @Test
     @Order(1)
     void testCreateAcctgTrans() {
+        String acctgTransTypeId = testParams.acctgTransTypeId ?: 'CREDIT_MEMO'
         Map serviceCtx = [:]
-        serviceCtx.acctgTransTypeId = 'CREDIT_MEMO'
-        serviceCtx.description = 'Test Credit Memo Transaction'
+        serviceCtx.acctgTransTypeId = acctgTransTypeId
+        serviceCtx.description = testParams.description ?: 'Test Credit Memo Transaction'
         serviceCtx.transactionDate = UtilDateTime.nowTimestamp()
-        serviceCtx.glFiscalTypeId = 'BUDGET'
+        serviceCtx.glFiscalTypeId = testParams.glFiscalTypeId ?: 'BUDGET'
         serviceCtx.userLogin = userLogin
         Map serviceResult = dispatcher.runSync('createAcctgTrans', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
         GenericValue acctgTrans = from('AcctgTrans').where('acctgTransId', serviceResult.acctgTransId).queryOne()
         assert acctgTrans.acctgTransId == serviceResult.acctgTransId
-        assert acctgTrans.acctgTransTypeId == 'CREDIT_MEMO'
+        assert acctgTrans.acctgTransTypeId == acctgTransTypeId
     }
     @Test
     @Order(2)
     void testCreateAcctgTransEntry() {
+        String acctgTransId = testParams.acctgTransId ?: '1000'
         Map serviceCtx = [
-            acctgTransId: '1000',
-            organizationPartyId: 'DEMO_COMPANY',
-            debitCreditFlag: 'C',
+            acctgTransId: acctgTransId,
+            organizationPartyId: testParams.organizationPartyId ?: 'DEMO_COMPANY',
+            debitCreditFlag: testParams.debitCreditFlag ?: 'C',
             userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('createAcctgTransEntry', serviceCtx)
         GenericValue acctgTransEntry = from('AcctgTransEntry')
-                .where('acctgTransId', '1000', 'acctgTransEntrySeqId', serviceResult.acctgTransEntrySeqId).queryOne()
+                .where('acctgTransId', acctgTransId, 'acctgTransEntrySeqId', serviceResult.acctgTransEntrySeqId).queryOne()
         assert acctgTransEntry != null
     }
 

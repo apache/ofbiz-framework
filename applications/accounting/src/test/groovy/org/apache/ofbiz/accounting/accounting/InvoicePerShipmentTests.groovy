@@ -47,7 +47,9 @@ class InvoicePerShipmentTests implements JupiterTestHelper {
          Step 3) Pack Shipment For Ship Group.
          Step 4) Check invoice should not created.
          */
-        List invoices = testInvoicePerShipment('GZ-1000', 'N')
+        String productId = testParams.productId ?: 'GZ-1000'
+        String invoicePerShipment = testParams.invoicePerShipment ?: 'N'
+        List invoices = testInvoicePerShipment(productId, invoicePerShipment)
         assert !invoices
     }
 
@@ -60,7 +62,9 @@ class InvoicePerShipmentTests implements JupiterTestHelper {
          Step 3) Pack Shipment For Ship Group.
          Step 4) Check invoice should be created.
          */
-        List invoices = testInvoicePerShipment('GZ-1000', 'Y')
+        String productId = testParams.productId ?: 'GZ-1000'
+        String invoicePerShipment = testParams.invoicePerShipment ?: 'Y'
+        List invoices = testInvoicePerShipment(productId, invoicePerShipment)
         assert invoices
     }
 
@@ -72,7 +76,9 @@ class InvoicePerShipmentTests implements JupiterTestHelper {
          Step 2) Pack Shipment For Ship Group.
          Step 3) Check invoice should not be created.
          */
-        List invoices = testInvoicePerShipment('GZ-2644', 'N')
+        String productId = testParams.productId ?: 'GZ-2644'
+        String invoicePerShipment = testParams.invoicePerShipment ?: 'N'
+        List invoices = testInvoicePerShipment(productId, invoicePerShipment)
         assert !invoices
     }
 
@@ -84,7 +90,9 @@ class InvoicePerShipmentTests implements JupiterTestHelper {
          Step 2) Pack Shipment For Ship Group.
          Step 3) Check invoice should be created.
          */
-        List invoices = testInvoicePerShipment('GZ-2644', 'Y')
+        String productId = testParams.productId ?: 'GZ-2644'
+        String invoicePerShipment = testParams.invoicePerShipment ?: 'Y'
+        List invoices = testInvoicePerShipment(productId, invoicePerShipment)
         assert invoices
     }
 
@@ -102,10 +110,10 @@ class InvoicePerShipmentTests implements JupiterTestHelper {
         String result = ShoppingCartEvents.routeOrderEntry(request, response)
         logInfo('===== >>> Event : routeOrderEntry, Response : ' + result)
 
-        request.setParameter('orderMode', 'SALES_ORDER')
-        request.setParameter('productStoreId', '9000')
-        request.setParameter('partyId', 'DemoCustomer')
-        request.setParameter('currencyUom', 'USD')
+        request.setParameter('orderMode', testParams.orderMode ?: 'SALES_ORDER')
+        request.setParameter('productStoreId', testParams.productStoreId ?: '9000')
+        request.setParameter('partyId', testParams.partyId ?: 'DemoCustomer')
+        request.setParameter('currencyUom', testParams.currencyUomId ?: 'USD')
         session.setAttribute('userLogin', userLogin)
 
         result = ShoppingCartEvents.initializeOrderEntry(request, response)
@@ -119,12 +127,12 @@ class InvoicePerShipmentTests implements JupiterTestHelper {
         result = ShoppingCartEvents.addToCart(request, response)
         logInfo('===== >>> Event : addToCart, Response : ' + result)
 
-        request.setParameter('checkoutpage', 'quick')
-        request.setParameter('shipping_contact_mech_id', '9015')
-        request.setParameter('shipping_method', 'GROUND@UPS')
-        request.setParameter('checkOutPaymentId', 'EXT_COD')
-        request.setParameter('is_gift', 'false')
-        request.setParameter('may_split', 'false')
+        request.setParameter('checkoutpage', testParams.checkoutpage ?: 'quick')
+        request.setParameter('shipping_contact_mech_id', testParams.shipping_contact_mech_id ?: '9015')
+        request.setParameter('shipping_method', testParams.shipping_method ?: 'GROUND@UPS')
+        request.setParameter('checkOutPaymentId', testParams.checkOutPaymentId ?: 'EXT_COD')
+        request.setParameter('is_gift', testParams.is_gift ?: 'false')
+        request.setParameter('may_split', testParams.may_split ?: 'false')
         request.setAttribute('shoppingCart', null)
 
         result = CheckOutEvents.setQuickCheckOutOptions(request, response)
@@ -158,21 +166,22 @@ class InvoicePerShipmentTests implements JupiterTestHelper {
         PackingSession packingSession = new PackingSession(dispatcher, userLogin)
         session.setAttribute('packingSession', packingSession)
         packingSession.setPrimaryOrderId(orderHeader.orderId)
-        packingSession.setPrimaryShipGroupSeqId('00001')
+        String shipGroupSeqId = testParams.shipGroupSeqId ?: '00001'
+        packingSession.setPrimaryShipGroupSeqId(shipGroupSeqId)
 
         Map packInput = [
                 orderId: orderHeader.orderId,
-                shipGroupSeqId: '00001',
+                shipGroupSeqId: shipGroupSeqId,
                 packingSession: packingSession,
                 nextPackageSeq: 1,
                 userLogin: userLogin,
-                selInfo: [_1: 'Y'],
-                pkgInfo: [_1: '1'],
-                qtyInfo: [_1: '1'],
+                selInfo: [_1: testParams.selInfo ?: 'Y'],
+                pkgInfo: [_1: testParams.pkgInfo ?: '1'],
+                qtyInfo: [_1: testParams.qtyInfo ?: '1'],
                 prdInfo: [_1: productId],
-                iteInfo: [_1: '00001'],
-                wgtInfo: [_1: '0'],
-                numPackagesInfo: [_1: '1']
+                iteInfo: [_1: testParams.iteInfo ?: '00001'],
+                wgtInfo: [_1: testParams.wgtInfo ?: '0'],
+                numPackagesInfo: [_1: testParams.numPackagesInfo ?: '1']
         ]
 
         Map serviceResult = dispatcher.runSync('packBulkItems', packInput)

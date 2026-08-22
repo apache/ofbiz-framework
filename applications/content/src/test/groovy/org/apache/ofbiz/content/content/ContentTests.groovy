@@ -32,56 +32,63 @@ class ContentTests implements JupiterTestHelper {
     @Test
     @Order(1)
     void testGetDataResource() {
+        String dataResourceId = testParams.dataResourceId ?: 'TEST_RESOURCE'
         Map serviceCtx = [:]
-        serviceCtx.dataResourceId = 'TEST_RESOURCE'
+        serviceCtx.dataResourceId = dataResourceId
         serviceCtx.userLogin = userLogin
         Map serviceResult = dispatcher.runSync('getDataResource', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
-        assert serviceResult.resultData.dataResource.dataResourceId == 'TEST_RESOURCE'
+        assert serviceResult.resultData.dataResource.dataResourceId == dataResourceId
         assert serviceResult.resultData.dataResource.dataResourceTypeId == 'TEST_RESOURCE_TYPE'
     }
 
     @Test
     @Order(2)
     void testCreateDataCategory() {
+        String dataCategoryId = testParams.dataCategoryId ?: 'TEST_DATA_CATEGORY_1'
+        String categoryName = testParams.categoryName ?: 'Test Data Category 1'
         Map serviceCtx = [:]
-        serviceCtx.dataCategoryId = 'TEST_DATA_CATEGORY_1'
-        serviceCtx.categoryName = 'Test Data Category 1'
+        serviceCtx.dataCategoryId = dataCategoryId
+        serviceCtx.categoryName = categoryName
         serviceCtx.userLogin = userLogin
         Map serviceResult = dispatcher.runSync('createDataCategory', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
         GenericValue dataCategory = from('DataCategory')
-                .where('dataCategoryId', 'TEST_DATA_CATEGORY_1')
+                .where('dataCategoryId', dataCategoryId)
                 .queryOne()
         assert dataCategory
-        assert dataCategory.categoryName == 'Test Data Category 1'
+        assert dataCategory.categoryName == categoryName
     }
 
     @Test
     @Order(3)
     void testUpdateDataCategory() {
+        String dataCategoryId = testParams.dataCategoryId ?: 'TEST_DATA_CATEGORY_2'
+        String categoryName = testParams.categoryName ?: 'Test Data Category 2'
+        String updatedCategoryName = testParams.updatedCategoryName ?: 'Test Data Category 20'
+
         Map serviceCtx = [:]
-        serviceCtx.dataCategoryId = 'TEST_DATA_CATEGORY_2'
-        serviceCtx.categoryName = 'Test Data Category 2'
+        serviceCtx.dataCategoryId = dataCategoryId
+        serviceCtx.categoryName = categoryName
         serviceCtx.userLogin = userLogin
         Map serviceResult = dispatcher.runSync('createDataCategory', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
         serviceCtx.clear()
-        serviceCtx.dataCategoryId = 'TEST_DATA_CATEGORY_2'
-        serviceCtx.categoryName = 'Test Data Category 20'
+        serviceCtx.dataCategoryId = dataCategoryId
+        serviceCtx.categoryName = updatedCategoryName
         serviceCtx.userLogin = userLogin
         serviceResult = dispatcher.runSync('updateDataCategory', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
         GenericValue dataCategory = from('DataCategory')
-                .where('categoryName', 'Test Data Category 2')
+                .where('categoryName', categoryName)
                 .queryFirst()
         assert !dataCategory
 
         dataCategory = from('DataCategory')
-                .where('categoryName', 'Test Data Category 20')
+                .where('categoryName', updatedCategoryName)
                 .queryFirst()
         assert dataCategory
     }
@@ -89,21 +96,23 @@ class ContentTests implements JupiterTestHelper {
     @Test
     @Order(4)
     void testDeleteDataCategory() {
+        String dataCategoryId = testParams.dataCategoryId ?: 'TEST_DATA_CATEGORY_3'
+        String categoryName = testParams.categoryName ?: 'Test Data Category 3'
         Map serviceCtx = [:]
-        serviceCtx.dataCategoryId = 'TEST_DATA_CATEGORY_3'
-        serviceCtx.categoryName = 'Test Data Category 3'
+        serviceCtx.dataCategoryId = dataCategoryId
+        serviceCtx.categoryName = categoryName
         serviceCtx.userLogin = userLogin
         Map serviceResult = dispatcher.runSync('createDataCategory', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
         serviceCtx.clear()
-        serviceCtx.dataCategoryId = 'TEST_DATA_CATEGORY_3'
+        serviceCtx.dataCategoryId = dataCategoryId
         serviceCtx.userLogin = userLogin
         serviceResult = dispatcher.runSync('removeDataCategory', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
         GenericValue dataCategory = from('DataCategory')
-                .where('dataCategoryId', 'TEST_DATA_CATEGORY_3')
+                .where('dataCategoryId', dataCategoryId)
                 .queryOne()
         assert !dataCategory
     }
@@ -111,20 +120,23 @@ class ContentTests implements JupiterTestHelper {
     @Test
     @Order(5)
     void testCreateDataResourceRole() {
+        String dataResourceId = testParams.dataResourceId ?: 'TEST_DATA_RESOURCE_1'
+        String partyId = testParams.partyId ?: 'admin'
+        String roleTypeId = testParams.roleTypeId ?: 'OWNER'
         Map serviceCtx = [:]
-        serviceCtx.dataResourceId = 'TEST_DATA_RESOURCE_1'
+        serviceCtx.dataResourceId = dataResourceId
         serviceCtx.userLogin = userLogin
         Map serviceResult = dispatcher.runSync('createDataResource', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        serviceCtx.partyId = 'admin'
-        serviceCtx.roleTypeId = 'OWNER'
+        serviceCtx.partyId = partyId
+        serviceCtx.roleTypeId = roleTypeId
         serviceCtx.fromDate = UtilDateTime.toTimestamp('11/03/2016 00:00:00')
         serviceResult = dispatcher.runSync('createDataResourceRole', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
         GenericValue dataResourceRole = from('DataResourceRole')
-                .where('dataResourceId', 'TEST_DATA_RESOURCE_1', 'partyId', 'admin', 'roleTypeId', 'OWNER',
+                .where('dataResourceId', dataResourceId, 'partyId', partyId, 'roleTypeId', roleTypeId,
                 'fromDate', UtilDateTime.toTimestamp('11/03/2016 00:00:00'))
                 .queryOne()
         assert dataResourceRole
@@ -133,20 +145,23 @@ class ContentTests implements JupiterTestHelper {
     @Test
     @Order(6)
     void testUpdateDataResourceRole() {
+        String dataResourceId = testParams.dataResourceId ?: 'TEST_DATA_RESOURCE_2'
+        String partyId = testParams.partyId ?: 'admin'
+        String roleTypeId = testParams.roleTypeId ?: 'OWNER'
         Map serviceCtx = [:]
-        serviceCtx.dataResourceId = 'TEST_DATA_RESOURCE_2'
+        serviceCtx.dataResourceId = dataResourceId
         serviceCtx.userLogin = userLogin
         Map serviceResult = dispatcher.runSync('createDataResource', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        serviceCtx.partyId = 'admin'
-        serviceCtx.roleTypeId = 'OWNER'
+        serviceCtx.partyId = partyId
+        serviceCtx.roleTypeId = roleTypeId
         serviceCtx.fromDate = UtilDateTime.toTimestamp('11/03/2016 00:00:00')
         serviceResult = dispatcher.runSync('createDataResourceRole', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
         GenericValue dataResourceRole = from('DataResourceRole')
-                .where('dataResourceId', 'TEST_DATA_RESOURCE_2', 'partyId', 'admin')
+                .where('dataResourceId', dataResourceId, 'partyId', partyId)
                 .queryOne()
         assert dataResourceRole
         assert !dataResourceRole.thruDate
@@ -156,7 +171,7 @@ class ContentTests implements JupiterTestHelper {
         assert ServiceUtil.isSuccess(serviceResult)
 
         dataResourceRole = from('DataResourceRole')
-                .where('dataResourceId', 'TEST_DATA_RESOURCE_2', 'partyId', 'admin')
+                .where('dataResourceId', dataResourceId, 'partyId', partyId)
                 .queryOne()
         assert dataResourceRole
         assert dataResourceRole.thruDate
@@ -165,20 +180,23 @@ class ContentTests implements JupiterTestHelper {
     @Test
     @Order(7)
     void testRemoveDataResourceRole() {
+        String dataResourceId = testParams.dataResourceId ?: 'TEST_DATA_RESOURCE_3'
+        String partyId = testParams.partyId ?: 'admin'
+        String roleTypeId = testParams.roleTypeId ?: 'OWNER'
         Map serviceCtx = [:]
-        serviceCtx.dataResourceId = 'TEST_DATA_RESOURCE_3'
+        serviceCtx.dataResourceId = dataResourceId
         serviceCtx.userLogin = userLogin
         Map serviceResult = dispatcher.runSync('createDataResource', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        serviceCtx.partyId = 'admin'
-        serviceCtx.roleTypeId = 'OWNER'
+        serviceCtx.partyId = partyId
+        serviceCtx.roleTypeId = roleTypeId
         serviceCtx.fromDate = UtilDateTime.nowTimestamp()
         serviceResult = dispatcher.runSync('createDataResourceRole', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
         GenericValue dataResourceRole = from('DataResourceRole')
-                .where('dataResourceId', 'TEST_DATA_RESOURCE_3', 'partyId', 'admin')
+                .where('dataResourceId', dataResourceId, 'partyId', partyId)
                 .queryFirst()
         assert dataResourceRole
 
@@ -186,7 +204,7 @@ class ContentTests implements JupiterTestHelper {
         assert ServiceUtil.isSuccess(serviceResult)
 
         dataResourceRole = from('DataResourceRole')
-                .where('dataResourceId', 'TEST_DATA_RESOURCE_3', 'partyId', 'admin')
+                .where('dataResourceId', dataResourceId, 'partyId', partyId)
                 .queryFirst()
         assert !dataResourceRole
     }
@@ -194,8 +212,9 @@ class ContentTests implements JupiterTestHelper {
     @Test
     @Order(8)
     void testGetContent() {
+        String contentId = testParams.contentId ?: 'TEST_CONTENT4'
         Map serviceCtx = [:]
-        serviceCtx.contentId = 'TEST_CONTENT4'
+        serviceCtx.contentId = contentId
         serviceCtx.userLogin = userLogin
         Map serviceResult = dispatcher.runSync('getContent', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)

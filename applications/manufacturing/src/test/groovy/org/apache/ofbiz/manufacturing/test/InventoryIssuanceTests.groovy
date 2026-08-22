@@ -58,6 +58,7 @@ class InventoryIssuanceTests extends InventoryIssuanceTestSupport {
     @Test
     @Order(1)
     void testS1_1_StrictIssuanceFailure() {
+        String failIfItemsAreNotAvailable = testParams.failIfItemsAreNotAvailable ?: 'Y'
         String facId = 'WH_S1_1'
         storeFacility([facilityId: facId, facilityName: facId, facilityTypeId: 'WAREHOUSE',
             ownerPartyId: 'II_COMPANY', autoReservePrun: 'Y', allowInventoryReallocation: 'Y', reconcilePrunBackorders: 'N'])
@@ -67,7 +68,7 @@ class InventoryIssuanceTests extends InventoryIssuanceTestSupport {
 
         // Run in a new transaction so an error-return does NOT poison the outer tx.
         Map result = dispatcher.runSync('issueProductionRunTask', [
-                workEffortId: weId, failIfItemsAreNotAvailable: 'Y', userLogin: userLogin
+                workEffortId: weId, failIfItemsAreNotAvailable: failIfItemsAreNotAvailable, userLogin: userLogin
         ], 0, true)
         assert ServiceUtil.isError(result)
     }
@@ -75,6 +76,7 @@ class InventoryIssuanceTests extends InventoryIssuanceTestSupport {
     @Test
     @Order(2)
     void testS1_2_ForceWithReallocation() {
+        String failIfItemsAreNotAvailable = testParams.failIfItemsAreNotAvailable ?: 'N'
         String facId = 'WH_S1_2'
         storeFacility([facilityId: facId, facilityName: facId, facilityTypeId: 'WAREHOUSE',
             ownerPartyId: 'II_COMPANY', autoReservePrun: 'Y', allowInventoryReallocation: 'Y', reconcilePrunBackorders: 'N'])
@@ -89,7 +91,7 @@ class InventoryIssuanceTests extends InventoryIssuanceTestSupport {
 
         // Action: Force issue. Should reallocate 50 from affected reservation.
         Map result = dispatcher.runSync('issueProductionRunTask', [
-                workEffortId: issuingWeId, failIfItemsAreNotAvailable: 'N', userLogin: userLogin
+                workEffortId: issuingWeId, failIfItemsAreNotAvailable: failIfItemsAreNotAvailable, userLogin: userLogin
         ])
         assert ServiceUtil.isSuccess(result)
 
@@ -148,6 +150,8 @@ class InventoryIssuanceTests extends InventoryIssuanceTestSupport {
     @Test
     @Order(4)
     void testS4_2_ProductionChainAutoSatisfaction() {
+        String statusId = testParams.statusId ?: 'PRUN_RUNNING'
+        String statusId1 = testParams.statusId1 ?: 'PRUN_COMPLETED'
         String facId = 'WH_CHAIN_RECON'
         storeFacility([facilityId: facId, facilityName: facId, facilityTypeId: 'WAREHOUSE',
             ownerPartyId: 'II_COMPANY', autoReservePrun: 'Y', allowInventoryReallocation: 'Y', reconcilePrunBackorders: 'Y'])
@@ -168,7 +172,7 @@ class InventoryIssuanceTests extends InventoryIssuanceTestSupport {
 
         dispatcher.runSync('changeProductionRunTaskStatus', [
             productionRunId: prBId, workEffortId: prBTaskId,
-            statusId: 'PRUN_RUNNING', userLogin: userLogin
+            statusId: statusId, userLogin: userLogin
         ])
 
         GenericValue resB = from('WorkEffortInvRes').where('workEffortId', prBTaskId, 'productId', 'II_MAT_E_RAW').queryFirst()
@@ -181,7 +185,7 @@ class InventoryIssuanceTests extends InventoryIssuanceTestSupport {
 
         dispatcher.runSync('changeProductionRunTaskStatus', [
             productionRunId: prBId, workEffortId: prBTaskId,
-            statusId: 'PRUN_COMPLETED', userLogin: userLogin
+            statusId: statusId1, userLogin: userLogin
         ])
 
         Map produceResult = dispatcher.runSync('productionRunProduce', [
@@ -203,6 +207,8 @@ class InventoryIssuanceTests extends InventoryIssuanceTestSupport {
     @Test
     @Order(5)
     void testS3_2_NegativeReservationResolution() {
+        String inventoryItemId = testParams.inventoryItemId ?: 'II_MAT_C_S3_2'
+        String failIfItemsAreNotAvailable = testParams.failIfItemsAreNotAvailable ?: 'N'
         String facId = 'WH_S3_2'
         storeFacility([facilityId: facId, facilityName: facId, facilityTypeId: 'WAREHOUSE',
             ownerPartyId: 'II_COMPANY', autoReservePrun: 'Y', allowInventoryReallocation: 'Y', reconcilePrunBackorders: 'N'])
@@ -216,12 +222,12 @@ class InventoryIssuanceTests extends InventoryIssuanceTestSupport {
                 'Initial state should be 20 backordered'
 
         dispatcher.runSync('createInventoryItemDetail', [
-                inventoryItemId: 'II_MAT_C_S3_2', quantityOnHandDiff: 50.0,
+                inventoryItemId: inventoryItemId, quantityOnHandDiff: 50.0,
                 availableToPromiseDiff: 50.0, accountingQuantityDiff: 50.0, userLogin: userLogin
         ])
 
         Map result = dispatcher.runSync('issueProductionRunTask', [
-                workEffortId: weId, failIfItemsAreNotAvailable: 'N', userLogin: userLogin
+                workEffortId: weId, failIfItemsAreNotAvailable: failIfItemsAreNotAvailable, userLogin: userLogin
         ])
         assert ServiceUtil.isSuccess(result)
 
@@ -231,6 +237,7 @@ class InventoryIssuanceTests extends InventoryIssuanceTestSupport {
     @Test
     @Order(6)
     void testS3_4_ImpactPlanAudit() {
+        String productId = testParams.productId ?: 'II_MAT_A_COST'
         String facId = 'WH_S3_4'
         storeFacility([facilityId: facId, facilityName: facId, facilityTypeId: 'WAREHOUSE',
             ownerPartyId: 'II_COMPANY', autoReservePrun: 'Y', allowInventoryReallocation: 'Y', reconcilePrunBackorders: 'N'])
@@ -244,7 +251,7 @@ class InventoryIssuanceTests extends InventoryIssuanceTestSupport {
         String t4 = setUpProductionRun('II_PROD_MANUF', 7.5, facId)
 
         Map impactResult = dispatcher.runSync('getProductionRunTaskForceIssueImpact', [
-            workEffortId: t4, facilityId: facId, productId: 'II_MAT_A_COST', userLogin: userLogin
+            workEffortId: t4, facilityId: facId, productId: productId, userLogin: userLogin
         ])
         assert ServiceUtil.isSuccess(impactResult)
 
@@ -263,6 +270,8 @@ class InventoryIssuanceTests extends InventoryIssuanceTestSupport {
     @Test
     @Order(7)
     void testS3_5_AffectedReservationSanityGuard() {
+        String productId = testParams.productId ?: 'II_MAT_A_COST'
+        String requireInventory = testParams.requireInventory ?: 'N'
         String facId = 'WH_S3_5'
         storeFacility([facilityId: facId, facilityName: facId, facilityTypeId: 'WAREHOUSE',
             ownerPartyId: 'II_COMPANY', autoReservePrun: 'Y', allowInventoryReallocation: 'Y', reconcilePrunBackorders: 'N'])
@@ -270,9 +279,9 @@ class InventoryIssuanceTests extends InventoryIssuanceTestSupport {
         setUpInventory(facId, 'II_MAT_C_COST', 'II_MAT_C_S3_5', 100.0)
         String affectedWeId = setUpProductionRun('II_PROD_MANUF', 10.0, facId)
         dispatcher.runSync('reserveWorkEffortInventoryItem', [
-            workEffortId: affectedWeId, productId: 'II_MAT_A_COST', facilityId: facId,
+            workEffortId: affectedWeId, productId: productId, facilityId: facId,
             inventoryItemId: null, quantity: 20.0, quantityNotAvailable: 20.0,
-            requireInventory: 'N', userLogin: userLogin
+            requireInventory: requireInventory, userLogin: userLogin
         ])
 
         int resCount = from('WorkEffortInvRes').where('workEffortId', affectedWeId, 'productId', 'II_MAT_A_COST').queryCount()
@@ -281,7 +290,7 @@ class InventoryIssuanceTests extends InventoryIssuanceTestSupport {
         String issuingWeId = setUpProductionRun('II_PROD_MANUF', 5.0, facId)
 
         List impactList = [[
-            productId: 'II_MAT_A_COST', impactType: 'Production Task', impactId: affectedWeId,
+            productId: productId, impactType: 'Production Task', impactId: affectedWeId,
             inventoryItemId: 'II_MAT_A_S3_5', quantity: 10.0, type: 'REALLOCATED', impactedWorkEffortId: affectedWeId
         ]]
 
@@ -339,6 +348,8 @@ class InventoryIssuanceTests extends InventoryIssuanceTestSupport {
     @Test
     @Order(9)
     void testS4_1_ReleaseWithRestore() {
+        String productId = testParams.productId ?: 'II_MAT_A_COST'
+        String inventoryItemId = testParams.inventoryItemId ?: 'II_MAT_A_S4_1'
         String facId = 'WH_S4_1'
         storeFacility([facilityId: facId, facilityName: facId, facilityTypeId: 'WAREHOUSE',
             ownerPartyId: 'II_COMPANY', autoReservePrun: 'Y', allowInventoryReallocation: 'Y', reconcilePrunBackorders: 'N'])
@@ -348,8 +359,8 @@ class InventoryIssuanceTests extends InventoryIssuanceTestSupport {
         long countBefore = from('InventoryItemDetail').where('inventoryItemId', 'II_MAT_A_S4_1').queryCount()
 
         Map result = dispatcher.runSync('releaseProductionRunTaskComponent', [
-                workEffortId: weId, productId: 'II_MAT_A_COST',
-                inventoryItemId: 'II_MAT_A_S4_1', appendInventoryItemDetail: true, userLogin: userLogin
+                workEffortId: weId, productId: productId,
+                inventoryItemId: inventoryItemId, appendInventoryItemDetail: true, userLogin: userLogin
         ])
         assert ServiceUtil.isSuccess(result)
 
@@ -363,6 +374,7 @@ class InventoryIssuanceTests extends InventoryIssuanceTestSupport {
     @Test
     @Order(10)
     void testS4_2_ReleaseSatisfaction() {
+        String productId = testParams.productId ?: 'II_MAT_A_COST'
         String weId = setUpProductionRun('II_PROD_MANUF', 10.0)
 
         GenericValue resRecord = from('WorkEffortInvRes').where('workEffortId', weId, 'productId', 'II_MAT_A_COST').queryFirst()
@@ -372,7 +384,7 @@ class InventoryIssuanceTests extends InventoryIssuanceTestSupport {
         long countBefore = from('InventoryItemDetail').where('inventoryItemId', reservedItemId).queryCount()
 
         Map result = dispatcher.runSync('releaseProductionRunTaskComponent', [
-                workEffortId: weId, productId: 'II_MAT_A_COST',
+                workEffortId: weId, productId: productId,
                 inventoryItemId: reservedItemId, appendInventoryItemDetail: false, userLogin: userLogin
         ])
         assert ServiceUtil.isSuccess(result)
@@ -389,6 +401,7 @@ class InventoryIssuanceTests extends InventoryIssuanceTestSupport {
     @Test
     @Order(11)
     void testS5_1_PolicyGateFail() {
+        String failIfItemsAreNotAvailable = testParams.failIfItemsAreNotAvailable ?: 'N'
         String itemId = 'II_INV_TRAD_S5_1'
         setUpInventory('WH_TRADITIONAL', 'II_MAT_A_COST', itemId, 100.0)
         setUpInventory('WH_TRADITIONAL', 'II_MAT_C_COST', 'II_INV_TRAD_C_S5_1', 100.0)
@@ -399,7 +412,7 @@ class InventoryIssuanceTests extends InventoryIssuanceTestSupport {
         String issuingWeId = setUpProductionRun('II_PROD_MANUF', 10.0, 'WH_TRADITIONAL')
 
         Map result = dispatcher.runSync('issueProductionRunTask', [
-                workEffortId: issuingWeId, failIfItemsAreNotAvailable: 'N', userLogin: userLogin
+                workEffortId: issuingWeId, failIfItemsAreNotAvailable: failIfItemsAreNotAvailable, userLogin: userLogin
         ], 0, true)
 
         assert ServiceUtil.isError(result)
@@ -410,6 +423,7 @@ class InventoryIssuanceTests extends InventoryIssuanceTestSupport {
     @Test
     @Order(12)
     void testS5_2_APIPolicyEnforcement() {
+        String facilityId = testParams.facilityId ?: 'WH_TRADITIONAL'
         String itemId = 'II_INV_TRAD_S5_2'
         String issuingWeId = setUpProductionRun('II_PROD_MANUF', 10.0, 'WH_TRADITIONAL')
         setUpInventory('WH_TRADITIONAL', 'II_MAT_A_COST', itemId, 100.0)
@@ -421,7 +435,7 @@ class InventoryIssuanceTests extends InventoryIssuanceTestSupport {
         ]]
 
         Map reallocResult = dispatcher.runSync('reallocateAndIssueInventory', [
-                workEffortId: issuingWeId, impactList: impactList, facilityId: 'WH_TRADITIONAL', userLogin: userLogin
+                workEffortId: issuingWeId, impactList: impactList, facilityId: facilityId, userLogin: userLogin
         ], 0, true)
 
         assert ServiceUtil.isError(reallocResult)
@@ -431,15 +445,18 @@ class InventoryIssuanceTests extends InventoryIssuanceTestSupport {
     @Test
     @Order(13)
     void testS5_3_NightlyReconciliation() {
+        String productId = testParams.productId ?: 'II_MAT_A_COST'
+        String facilityId = testParams.facilityId ?: 'WH_FLUID'
+        String requireInventory = testParams.requireInventory ?: 'N'
         String itemIdA = 'II_INV_FLUID_A_S5_3'
         String itemIdC = 'II_INV_FLUID_C_S5_3'
         setUpInventory('WH_FLUID', 'II_MAT_A_COST', itemIdA, 100.0)
         setUpInventory('WH_FLUID', 'II_MAT_C_COST', itemIdC, 0.0)
         String affectedWeId = setUpProductionRun('II_PROD_MANUF', 10.0, 'WH_FLUID')
         dispatcher.runSync('reserveWorkEffortInventoryItem', [
-            workEffortId: affectedWeId, productId: 'II_MAT_A_COST', facilityId: 'WH_FLUID',
+            workEffortId: affectedWeId, productId: productId, facilityId: facilityId,
             inventoryItemId: itemIdA, quantity: 20.0, quantityNotAvailable: 20.0,
-            requireInventory: 'N', userLogin: userLogin
+            requireInventory: requireInventory, userLogin: userLogin
         ])
 
         String backorderWeId = setUpProductionRun('II_PROD_MANUF', 5.0, 'WH_FLUID')
@@ -469,6 +486,11 @@ class InventoryIssuanceTests extends InventoryIssuanceTestSupport {
     @Test
     @Order(14)
     void testS5_4_ReconFluidPolicy() {
+        String productId = testParams.productId ?: 'II_MAT_A_COST'
+        String failIfItemsAreNotAvailable = testParams.failIfItemsAreNotAvailable ?: 'N'
+        String facilityId = testParams.facilityId ?: 'WH_FLUID'
+        String requireInventory = testParams.requireInventory ?: 'N'
+        String inventoryItemId = testParams.inventoryItemId ?: 'II_INV_FLUID_B_S5_4'
         String itemId = 'II_INV_FLUID_A_S5_4'
         setUpInventory('WH_FLUID', 'II_MAT_A_COST', itemId, 5.0)
         setUpInventory('WH_FLUID', 'II_MAT_C_COST', 'II_INV_FLUID_C_S5_4', 100.0)
@@ -477,15 +499,15 @@ class InventoryIssuanceTests extends InventoryIssuanceTestSupport {
         String affectedWeId = setUpProductionRun('II_PROD_MANUF', 5.0, 'WH_FLUID')
 
         Map issueAffectedResult = dispatcher.runSync('issueProductionRunTaskComponent', [
-            workEffortId: affectedWeId, productId: 'II_MAT_A_COST', quantity: 5.0,
-            failIfItemsAreNotAvailable: 'N', userLogin: userLogin
+            workEffortId: affectedWeId, productId: productId, quantity: 5.0,
+            failIfItemsAreNotAvailable: failIfItemsAreNotAvailable, userLogin: userLogin
         ])
         assert ServiceUtil.isSuccess(issueAffectedResult)
 
         dispatcher.runSync('reserveWorkEffortInventoryItem', [
-            workEffortId: affectedWeId, productId: 'II_MAT_A_COST', facilityId: 'WH_FLUID',
+            workEffortId: affectedWeId, productId: productId, facilityId: facilityId,
             inventoryItemId: itemId, quantity: 7.0, quantityNotAvailable: 7.0,
-            requireInventory: 'N', userLogin: userLogin
+            requireInventory: requireInventory, userLogin: userLogin
         ])
 
         String boWeId = setUpProductionRun('II_PROD_MANUF', 5.0, 'WH_FLUID')
@@ -497,7 +519,7 @@ class InventoryIssuanceTests extends InventoryIssuanceTestSupport {
         assert scaleQuantity(totalQna) == scaleQuantity(5.0) : 'Aggressive Auditor should have purged excess logical debt to match estimate ceiling'
 
         dispatcher.runSync('createInventoryItemDetail', [
-                inventoryItemId: 'II_INV_FLUID_B_S5_4', quantityOnHandDiff: 20.0,
+                inventoryItemId: inventoryItemId, quantityOnHandDiff: 20.0,
                 availableToPromiseDiff: 20.0, accountingQuantityDiff: 20.0, userLogin: userLogin
         ])
         dispatcher.runSync('reconcileInventoryForProductionJobs', [userLogin: userLogin])
@@ -511,6 +533,11 @@ class InventoryIssuanceTests extends InventoryIssuanceTestSupport {
     @Test
     @Order(15)
     void testS5_5_ReconTraditionalPolicy() {
+        String productId = testParams.productId ?: 'II_MAT_A_COST'
+        String failIfItemsAreNotAvailable = testParams.failIfItemsAreNotAvailable ?: 'Y'
+        String facilityId = testParams.facilityId ?: 'WH_TRADITIONAL'
+        String requireInventory = testParams.requireInventory ?: 'N'
+        String inventoryItemId = testParams.inventoryItemId ?: 'II_INV_TRAD_B_S5_5'
         String itemId = 'II_INV_TRAD_A_S5_5'
         setUpInventory('WH_TRADITIONAL', 'II_MAT_A_COST', itemId, 20.0)
         setUpInventory('WH_TRADITIONAL', 'II_MAT_C_COST', 'II_INV_TRAD_C_S5_5', 100.0)
@@ -519,21 +546,21 @@ class InventoryIssuanceTests extends InventoryIssuanceTestSupport {
         String weId = setUpProductionRun('II_PROD_MANUF', 5.0, 'WH_TRADITIONAL')
 
         Map issueScrapResult = dispatcher.runSync('issueProductionRunTaskComponent', [
-            workEffortId: weId, productId: 'II_MAT_A_COST', quantity: 12.0,
-            failIfItemsAreNotAvailable: 'Y', userLogin: userLogin
+            workEffortId: weId, productId: productId, quantity: 12.0,
+            failIfItemsAreNotAvailable: failIfItemsAreNotAvailable, userLogin: userLogin
         ])
         assert ServiceUtil.isSuccess(issueScrapResult)
 
         dispatcher.runSync('reserveWorkEffortInventoryItem', [
-            workEffortId: weId, productId: 'II_MAT_A_COST', facilityId: 'WH_TRADITIONAL',
+            workEffortId: weId, productId: productId, facilityId: facilityId,
             inventoryItemId: itemId, quantity: 2.0, quantityNotAvailable: 2.0,
-            requireInventory: 'N', userLogin: userLogin
+            requireInventory: requireInventory, userLogin: userLogin
         ])
 
         String boWeId = setUpProductionRun('II_PROD_MANUF', 5.0, 'WH_TRADITIONAL')
         dispatcher.runSync('issueProductionRunTask', [workEffortId: boWeId, userLogin: userLogin])
         dispatcher.runSync('createInventoryItemDetail', [
-                inventoryItemId: 'II_INV_TRAD_B_S5_5', quantityOnHandDiff: 20.0,
+                inventoryItemId: inventoryItemId, quantityOnHandDiff: 20.0,
                 availableToPromiseDiff: 20.0, accountingQuantityDiff: 20.0, userLogin: userLogin
         ])
 
@@ -554,24 +581,30 @@ class InventoryIssuanceTests extends InventoryIssuanceTestSupport {
     @Test
     @Order(16)
     void testS5_6_ReconSafePolicy() {
+        String productId = testParams.productId ?: 'II_MAT_A_COST'
+        String failIfItemsAreNotAvailable = testParams.failIfItemsAreNotAvailable ?: 'Y'
+        String facilityId = testParams.facilityId ?: 'WH_SAFE'
+        String inventoryItemId = testParams.inventoryItemId ?: 'INV_SAFE_A'
+        String requireInventory = testParams.requireInventory ?: 'N'
+        String inventoryItemId1 = testParams.inventoryItemId1 ?: 'INV_SAFE_C_HEAL'
         setUpInventory('WH_SAFE', 'II_MAT_A_COST', 'INV_SAFE_A', 20.0)
         setUpInventory('WH_SAFE', 'II_MAT_C_COST', 'INV_SAFE_C_HEAL', 0.0)
         String weId = setUpProductionRun('II_PROD_MANUF', 5.0, 'WH_SAFE')
         Map issueScrapResult = dispatcher.runSync('issueProductionRunTaskComponent', [
-            workEffortId: weId, productId: 'II_MAT_A_COST', quantity: 12.0,
-            failIfItemsAreNotAvailable: 'Y', userLogin: userLogin
+            workEffortId: weId, productId: productId, quantity: 12.0,
+            failIfItemsAreNotAvailable: failIfItemsAreNotAvailable, userLogin: userLogin
         ])
         assert ServiceUtil.isSuccess(issueScrapResult)
         dispatcher.runSync('reserveWorkEffortInventoryItem', [
-            workEffortId: weId, productId: 'II_MAT_A_COST', facilityId: 'WH_SAFE',
-            inventoryItemId: 'INV_SAFE_A', quantity: 5.0, quantityNotAvailable: 5.0,
-            requireInventory: 'N', userLogin: userLogin
+            workEffortId: weId, productId: productId, facilityId: facilityId,
+            inventoryItemId: inventoryItemId, quantity: 5.0, quantityNotAvailable: 5.0,
+            requireInventory: requireInventory, userLogin: userLogin
         ])
 
         String boWeId = setUpProductionRun('II_PROD_MANUF', 5.0, 'WH_SAFE')
         dispatcher.runSync('issueProductionRunTask', [workEffortId: boWeId, userLogin: userLogin])
         dispatcher.runSync('createInventoryItemDetail', [
-                inventoryItemId: 'INV_SAFE_C_HEAL', quantityOnHandDiff: 20.0,
+                inventoryItemId: inventoryItemId1, quantityOnHandDiff: 20.0,
                 availableToPromiseDiff: 20.0, accountingQuantityDiff: 20.0, userLogin: userLogin
         ])
 
@@ -589,6 +622,13 @@ class InventoryIssuanceTests extends InventoryIssuanceTestSupport {
     @Test
     @Order(17)
     void testM1_ManualLotReallocationSuccess() {
+        String workEffortId = testParams.workEffortId ?: 'WE_AFFECTED'
+        String productId = testParams.productId ?: 'II_MAT_A_COST'
+        String facilityId = testParams.facilityId ?: 'WH_FLUID'
+        String inventoryItemId = testParams.inventoryItemId ?: 'II_MAN_FLUID'
+        String workEffortId1 = testParams.workEffortId1 ?: 'WE_ISSUING_FLUID'
+        String lotId = testParams.lotId ?: 'LOT_MANUAL_01'
+        String failIfItemsAreNotAvailable = testParams.failIfItemsAreNotAvailable ?: 'N'
         setUpInventory('WH_FLUID', 'II_MAT_A_COST', 'II_MAN_FLUID', 10.0)
         GenericValue item = from('InventoryItem').where('inventoryItemId', 'II_MAN_FLUID').queryOne()
         item.set('locationSeqId', 'FLOC_01')
@@ -596,18 +636,18 @@ class InventoryIssuanceTests extends InventoryIssuanceTestSupport {
         item.store()
 
         dispatcher.runSync('reserveWorkEffortInventoryItem', [
-            workEffortId: 'WE_AFFECTED', productId: 'II_MAT_A_COST', facilityId: 'WH_FLUID',
-            inventoryItemId: 'II_MAN_FLUID', quantity: 10.0, userLogin: userLogin
+            workEffortId: workEffortId, productId: productId, facilityId: facilityId,
+            inventoryItemId: inventoryItemId, quantity: 10.0, userLogin: userLogin
         ])
 
         Map result = dispatcher.runSync('issueProductionRunTaskComponent', [
-            workEffortId: 'WE_ISSUING_FLUID', productId: 'II_MAT_A_COST',
-            lotId: 'LOT_MANUAL_01', quantity: 5.0, failIfItemsAreNotAvailable: 'N', userLogin: userLogin
+            workEffortId: workEffortId1, productId: productId,
+            lotId: lotId, quantity: 5.0, failIfItemsAreNotAvailable: failIfItemsAreNotAvailable, userLogin: userLogin
         ])
         assert ServiceUtil.isSuccess(result)
 
         assertInventoryIntegrity('II_MAT_A_COST', 'WE_ISSUING_FLUID', 5.0, 0.0, 0.0, 'WH_FLUID')
-        GenericValue affectedRes = from('WorkEffortInvRes').where(workEffortId: 'WE_AFFECTED').queryFirst()
+        GenericValue affectedRes = from('WorkEffortInvRes').where(workEffortId: workEffortId).queryFirst()
         assert scaleQuantity(affectedRes.getBigDecimal('quantityNotAvailable')) == scaleQuantity(5.0) :
                 'Affected reservation should be backordered by 5'
     }
@@ -615,34 +655,46 @@ class InventoryIssuanceTests extends InventoryIssuanceTestSupport {
     @Test
     @Order(18)
     void testM2_ManualForceNegative() {
+        String workEffortId = testParams.workEffortId ?: 'WE_ISSUING_FLUID'
+        String productId = testParams.productId ?: 'II_MAT_A_COST'
+        String inventoryItemId = testParams.inventoryItemId ?: 'II_MAN_FLUID'
+        String failIfItemsAreNotAvailable = testParams.failIfItemsAreNotAvailable ?: 'N'
+        String failIfItemsAreNotOnHand = testParams.failIfItemsAreNotOnHand ?: 'N'
         setUpInventory('WH_FLUID', 'II_MAT_A_COST', 'II_MAN_FLUID', 0.0)
 
         Map result = dispatcher.runSync('issueProductionRunTaskComponent', [
-            workEffortId: 'WE_ISSUING_FLUID', productId: 'II_MAT_A_COST',
-            inventoryItemId: 'II_MAN_FLUID', quantity: 10.0,
-            failIfItemsAreNotAvailable: 'N', failIfItemsAreNotOnHand: 'N', userLogin: userLogin
+            workEffortId: workEffortId, productId: productId,
+            inventoryItemId: inventoryItemId, quantity: 10.0,
+            failIfItemsAreNotAvailable: failIfItemsAreNotAvailable, failIfItemsAreNotOnHand: failIfItemsAreNotOnHand, userLogin: userLogin
         ])
         assert ServiceUtil.isSuccess(result)
 
-        GenericValue item = from('InventoryItem').where(inventoryItemId: 'II_MAN_FLUID').queryOne()
+        GenericValue item = from('InventoryItem').where(inventoryItemId: inventoryItemId).queryOne()
         assert scaleQuantity(item.getBigDecimal('quantityOnHandTotal')) == scaleQuantity(-10.0) : 'QOH should be -10'
     }
 
     @Test
     @Order(19)
     void testM3_UserStrictnessOverridesFacilityFluidity() {
+        String workEffortId = testParams.workEffortId ?: 'WE_AFFECTED'
+        String productId = testParams.productId ?: 'II_MAT_A_COST'
+        String facilityId = testParams.facilityId ?: 'WH_FLUID'
+        String inventoryItemId = testParams.inventoryItemId ?: 'II_MAN_FLUID'
+        String workEffortId1 = testParams.workEffortId1 ?: 'WE_ISSUING_FLUID'
+        String lotId = testParams.lotId ?: 'LOT_MANUAL_01'
+        String failIfItemsAreNotAvailable = testParams.failIfItemsAreNotAvailable ?: 'Y'
         setUpInventory('WH_FLUID', 'II_MAT_A_COST', 'II_MAN_FLUID', 10.0)
         GenericValue item = from('InventoryItem').where('inventoryItemId', 'II_MAN_FLUID').queryOne()
         item.set('lotId', 'LOT_MANUAL_01')
         item.store()
         dispatcher.runSync('reserveWorkEffortInventoryItem', [
-            workEffortId: 'WE_AFFECTED', productId: 'II_MAT_A_COST', facilityId: 'WH_FLUID',
-            inventoryItemId: 'II_MAN_FLUID', quantity: 10.0, userLogin: userLogin
+            workEffortId: workEffortId, productId: productId, facilityId: facilityId,
+            inventoryItemId: inventoryItemId, quantity: 10.0, userLogin: userLogin
         ])
 
         Map result = dispatcher.runSync('issueProductionRunTaskComponent', [
-            workEffortId: 'WE_ISSUING_FLUID', productId: 'II_MAT_A_COST',
-            lotId: 'LOT_MANUAL_01', quantity: 5.0, failIfItemsAreNotAvailable: 'Y', userLogin: userLogin
+            workEffortId: workEffortId1, productId: productId,
+            lotId: lotId, quantity: 5.0, failIfItemsAreNotAvailable: failIfItemsAreNotAvailable, userLogin: userLogin
         ], 0, true)
 
         assert ServiceUtil.isError(result)
@@ -656,18 +708,25 @@ class InventoryIssuanceTests extends InventoryIssuanceTestSupport {
     @Test
     @Order(20)
     void testM4_FacilityStrictnessOverridesUserFluidity() {
+        String workEffortId = testParams.workEffortId ?: 'WE_AFFECTED'
+        String productId = testParams.productId ?: 'II_MAT_A_COST'
+        String facilityId = testParams.facilityId ?: 'WH_TRADITIONAL'
+        String inventoryItemId = testParams.inventoryItemId ?: 'II_MAN_STRICT'
+        String workEffortId1 = testParams.workEffortId1 ?: 'WE_ISSUING_STRICT'
+        String locationSeqId = testParams.locationSeqId ?: 'TLOC_01'
+        String failIfItemsAreNotAvailable = testParams.failIfItemsAreNotAvailable ?: 'N'
         setUpInventory('WH_TRADITIONAL', 'II_MAT_A_COST', 'II_MAN_STRICT', 10.0)
         GenericValue item = from('InventoryItem').where('inventoryItemId', 'II_MAN_STRICT').queryOne()
         item.set('locationSeqId', 'TLOC_01')
         item.store()
         dispatcher.runSync('reserveWorkEffortInventoryItem', [
-            workEffortId: 'WE_AFFECTED', productId: 'II_MAT_A_COST', facilityId: 'WH_TRADITIONAL',
-            inventoryItemId: 'II_MAN_STRICT', quantity: 10.0, userLogin: userLogin
+            workEffortId: workEffortId, productId: productId, facilityId: facilityId,
+            inventoryItemId: inventoryItemId, quantity: 10.0, userLogin: userLogin
         ])
 
         Map result = dispatcher.runSync('issueProductionRunTaskComponent', [
-            workEffortId: 'WE_ISSUING_STRICT', productId: 'II_MAT_A_COST',
-            locationSeqId: 'TLOC_01', quantity: 5.0, failIfItemsAreNotAvailable: 'N', userLogin: userLogin
+            workEffortId: workEffortId1, productId: productId,
+            locationSeqId: locationSeqId, quantity: 5.0, failIfItemsAreNotAvailable: failIfItemsAreNotAvailable, userLogin: userLogin
         ], 0, true)
 
         assert ServiceUtil.isError(result)
@@ -681,16 +740,21 @@ class InventoryIssuanceTests extends InventoryIssuanceTestSupport {
     @Test
     @Order(21)
     void testM6_SelfConsumptionSuccessInStrictMode() {
+        String workEffortId = testParams.workEffortId ?: 'WE_ISSUING_STRICT'
+        String productId = testParams.productId ?: 'II_MAT_A_COST'
+        String facilityId = testParams.facilityId ?: 'WH_TRADITIONAL'
+        String inventoryItemId = testParams.inventoryItemId ?: 'II_MAN_STRICT'
+        String failIfItemsAreNotAvailable = testParams.failIfItemsAreNotAvailable ?: 'Y'
         setUpInventory('WH_TRADITIONAL', 'II_MAT_A_COST', 'II_MAN_STRICT', 10.0)
 
         dispatcher.runSync('reserveWorkEffortInventoryItem', [
-            workEffortId: 'WE_ISSUING_STRICT', productId: 'II_MAT_A_COST', facilityId: 'WH_TRADITIONAL',
-            inventoryItemId: 'II_MAN_STRICT', quantity: 10.0, userLogin: userLogin
+            workEffortId: workEffortId, productId: productId, facilityId: facilityId,
+            inventoryItemId: inventoryItemId, quantity: 10.0, userLogin: userLogin
         ])
 
         Map result = dispatcher.runSync('issueProductionRunTaskComponent', [
-            workEffortId: 'WE_ISSUING_STRICT', productId: 'II_MAT_A_COST',
-            inventoryItemId: 'II_MAN_STRICT', quantity: 5.0, failIfItemsAreNotAvailable: 'Y', userLogin: userLogin
+            workEffortId: workEffortId, productId: productId,
+            inventoryItemId: inventoryItemId, quantity: 5.0, failIfItemsAreNotAvailable: failIfItemsAreNotAvailable, userLogin: userLogin
         ])
 
         assert ServiceUtil.isSuccess(result)
@@ -700,6 +764,7 @@ class InventoryIssuanceTests extends InventoryIssuanceTestSupport {
     @Test
     @Order(22)
     void testS5_7_NullPolicyDefaultsToStrict() {
+        String productId = testParams.productId ?: 'II_MAT_A_COST'
         String facId = 'WH_NULL_POLICY'
         storeFacility([
             facilityId: facId, facilityName: facId, facilityTypeId: 'WAREHOUSE',
@@ -709,7 +774,7 @@ class InventoryIssuanceTests extends InventoryIssuanceTestSupport {
         String issuingWeId = setUpProductionRun('II_PROD_MANUF', 10.0, facId)
 
         Map impactResult = dispatcher.runSync('getProductionRunTaskForceIssueImpact', [
-            workEffortId: issuingWeId, facilityId: facId, productId: 'II_MAT_A_COST', userLogin: userLogin
+            workEffortId: issuingWeId, facilityId: facId, productId: productId, userLogin: userLogin
         ])
 
         assert ServiceUtil.isSuccess(impactResult)
@@ -769,10 +834,13 @@ class InventoryIssuancePolicyMatrixTests extends InventoryIssuanceTestSupport {
     @Test
     @Order(1)
     void testS6_1_ManualReserve_IssueDefault_Success() {
+        String productId = testParams.productId ?: 'II_MAT_A_COST'
+        String facilityId = testParams.facilityId ?: 'WH_NO_AUTO_RES'
+        String inventoryItemId = testParams.inventoryItemId ?: 'II_S6_1'
         String weId = setUpNoAutoReserveProductionRun('II_S6_1', 100.0)
         dispatcher.runSync('reserveWorkEffortInventoryItem', [
-            workEffortId: weId, productId: 'II_MAT_A_COST', facilityId: 'WH_NO_AUTO_RES',
-            inventoryItemId: 'II_S6_1', quantity: 20.0, userLogin: userLogin
+            workEffortId: weId, productId: productId, facilityId: facilityId,
+            inventoryItemId: inventoryItemId, quantity: 20.0, userLogin: userLogin
         ])
 
         Map result = dispatcher.runSync('issueProductionRunTask', [workEffortId: weId, userLogin: userLogin])
@@ -783,14 +851,18 @@ class InventoryIssuancePolicyMatrixTests extends InventoryIssuanceTestSupport {
     @Test
     @Order(2)
     void testS6_2_ManualReserve_IssueFailIfAvail_Y_Success() {
+        String productId = testParams.productId ?: 'II_MAT_A_COST'
+        String facilityId = testParams.facilityId ?: 'WH_NO_AUTO_RES'
+        String inventoryItemId = testParams.inventoryItemId ?: 'II_S6_2'
+        String failIfItemsAreNotAvailable = testParams.failIfItemsAreNotAvailable ?: 'Y'
         String weId = setUpNoAutoReserveProductionRun('II_S6_2', 100.0)
         dispatcher.runSync('reserveWorkEffortInventoryItem', [
-            workEffortId: weId, productId: 'II_MAT_A_COST', facilityId: 'WH_NO_AUTO_RES',
-            inventoryItemId: 'II_S6_2', quantity: 20.0, userLogin: userLogin
+            workEffortId: weId, productId: productId, facilityId: facilityId,
+            inventoryItemId: inventoryItemId, quantity: 20.0, userLogin: userLogin
         ])
 
         Map result = dispatcher.runSync('issueProductionRunTask', [
-            workEffortId: weId, failIfItemsAreNotAvailable: 'Y', userLogin: userLogin
+            workEffortId: weId, failIfItemsAreNotAvailable: failIfItemsAreNotAvailable, userLogin: userLogin
         ])
         assert ServiceUtil.isSuccess(result)
         assertInventoryIntegrity('II_MAT_A_COST', weId, 20.0, 0.0, 80.0, 'WH_NO_AUTO_RES')
@@ -799,14 +871,20 @@ class InventoryIssuancePolicyMatrixTests extends InventoryIssuanceTestSupport {
     @Test
     @Order(3)
     void testS6_3_ManualReserve_IssueFailIfAvail_N_Success() {
+        String productId = testParams.productId ?: 'II_MAT_A_COST'
+        String facilityId = testParams.facilityId ?: 'WH_NO_AUTO_RES'
+        String inventoryItemId = testParams.inventoryItemId ?: 'II_S6_3'
+        String failIfItemsAreNotAvailable = testParams.failIfItemsAreNotAvailable ?: 'N'
+        String failIfItemsAreNotOnHand = testParams.failIfItemsAreNotOnHand ?: 'N'
         String weId = setUpNoAutoReserveProductionRun('II_S6_3', 100.0)
         dispatcher.runSync('reserveWorkEffortInventoryItem', [
-            workEffortId: weId, productId: 'II_MAT_A_COST', facilityId: 'WH_NO_AUTO_RES',
-            inventoryItemId: 'II_S6_3', quantity: 20.0, userLogin: userLogin
+            workEffortId: weId, productId: productId, facilityId: facilityId,
+            inventoryItemId: inventoryItemId, quantity: 20.0, userLogin: userLogin
         ])
 
         Map result = dispatcher.runSync('issueProductionRunTask', [
-            workEffortId: weId, failIfItemsAreNotAvailable: 'N', failIfItemsAreNotOnHand: 'N', userLogin: userLogin
+            workEffortId: weId, failIfItemsAreNotAvailable: failIfItemsAreNotAvailable,
+            failIfItemsAreNotOnHand: failIfItemsAreNotOnHand, userLogin: userLogin
         ])
         assert ServiceUtil.isSuccess(result)
         assertInventoryIntegrity('II_MAT_A_COST', weId, 20.0, 0.0, 80.0, 'WH_NO_AUTO_RES')
@@ -825,10 +903,11 @@ class InventoryIssuancePolicyMatrixTests extends InventoryIssuanceTestSupport {
     @Test
     @Order(5)
     void testS6_5_NoReserve_DirectIssueFailIfAvail_Y_Success() {
+        String failIfItemsAreNotAvailable = testParams.failIfItemsAreNotAvailable ?: 'Y'
         String weId = setUpNoAutoReserveProductionRun('II_S6_5', 100.0)
 
         Map result = dispatcher.runSync('issueProductionRunTask', [
-            workEffortId: weId, failIfItemsAreNotAvailable: 'Y', userLogin: userLogin
+            workEffortId: weId, failIfItemsAreNotAvailable: failIfItemsAreNotAvailable, userLogin: userLogin
         ])
         assert ServiceUtil.isSuccess(result)
         assertInventoryIntegrity('II_MAT_A_COST', weId, 20.0, 0.0, 80.0, 'WH_NO_AUTO_RES')
@@ -837,10 +916,13 @@ class InventoryIssuancePolicyMatrixTests extends InventoryIssuanceTestSupport {
     @Test
     @Order(6)
     void testS6_6_NoReserve_DirectIssueFailIfAvail_N_Success() {
+        String failIfItemsAreNotAvailable = testParams.failIfItemsAreNotAvailable ?: 'N'
+        String failIfItemsAreNotOnHand = testParams.failIfItemsAreNotOnHand ?: 'N'
         String weId = setUpNoAutoReserveProductionRun('II_S6_6', 100.0)
 
         Map result = dispatcher.runSync('issueProductionRunTask', [
-            workEffortId: weId, failIfItemsAreNotAvailable: 'N', failIfItemsAreNotOnHand: 'N', userLogin: userLogin
+            workEffortId: weId, failIfItemsAreNotAvailable: failIfItemsAreNotAvailable,
+            failIfItemsAreNotOnHand: failIfItemsAreNotOnHand, userLogin: userLogin
         ])
         assert ServiceUtil.isSuccess(result)
         assertInventoryIntegrity('II_MAT_A_COST', weId, 20.0, 0.0, 80.0, 'WH_NO_AUTO_RES')
@@ -849,10 +931,13 @@ class InventoryIssuancePolicyMatrixTests extends InventoryIssuanceTestSupport {
     @Test
     @Order(7)
     void testS6_7_Insufficient_ManualReserve_IssueDefault_Fail() {
+        String productId = testParams.productId ?: 'II_MAT_A_COST'
+        String facilityId = testParams.facilityId ?: 'WH_NO_AUTO_RES'
+        String inventoryItemId = testParams.inventoryItemId ?: 'II_S6_7'
         String weId = setUpNoAutoReserveProductionRun('II_S6_7', 0.0)
         dispatcher.runSync('reserveWorkEffortInventoryItem', [
-            workEffortId: weId, productId: 'II_MAT_A_COST', facilityId: 'WH_NO_AUTO_RES',
-            inventoryItemId: 'II_S6_7', quantity: 20.0, userLogin: userLogin
+            workEffortId: weId, productId: productId, facilityId: facilityId,
+            inventoryItemId: inventoryItemId, quantity: 20.0, userLogin: userLogin
         ])
 
         Map result = dispatcher.runSync('issueProductionRunTask', [workEffortId: weId, userLogin: userLogin], 0, true)
@@ -862,14 +947,18 @@ class InventoryIssuancePolicyMatrixTests extends InventoryIssuanceTestSupport {
     @Test
     @Order(8)
     void testS6_8_Insufficient_ManualReserve_IssueFailIfAvail_Y_Fail() {
+        String productId = testParams.productId ?: 'II_MAT_A_COST'
+        String facilityId = testParams.facilityId ?: 'WH_NO_AUTO_RES'
+        String inventoryItemId = testParams.inventoryItemId ?: 'II_S6_8'
+        String failIfItemsAreNotAvailable = testParams.failIfItemsAreNotAvailable ?: 'Y'
         String weId = setUpNoAutoReserveProductionRun('II_S6_8', 0.0)
         dispatcher.runSync('reserveWorkEffortInventoryItem', [
-            workEffortId: weId, productId: 'II_MAT_A_COST', facilityId: 'WH_NO_AUTO_RES',
-            inventoryItemId: 'II_S6_8', quantity: 20.0, userLogin: userLogin
+            workEffortId: weId, productId: productId, facilityId: facilityId,
+            inventoryItemId: inventoryItemId, quantity: 20.0, userLogin: userLogin
         ])
 
         Map result = dispatcher.runSync('issueProductionRunTask', [
-            workEffortId: weId, failIfItemsAreNotAvailable: 'Y', userLogin: userLogin
+            workEffortId: weId, failIfItemsAreNotAvailable: failIfItemsAreNotAvailable, userLogin: userLogin
         ], 0, true)
         assert ServiceUtil.isError(result)
     }
@@ -877,14 +966,20 @@ class InventoryIssuancePolicyMatrixTests extends InventoryIssuanceTestSupport {
     @Test
     @Order(9)
     void testS6_9_Insufficient_ManualReserve_IssueFailIfAvail_N_Success() {
+        String productId = testParams.productId ?: 'II_MAT_A_COST'
+        String facilityId = testParams.facilityId ?: 'WH_NO_AUTO_RES'
+        String inventoryItemId = testParams.inventoryItemId ?: 'II_S6_9'
+        String failIfItemsAreNotAvailable = testParams.failIfItemsAreNotAvailable ?: 'N'
+        String failIfItemsAreNotOnHand = testParams.failIfItemsAreNotOnHand ?: 'N'
         String weId = setUpNoAutoReserveProductionRun('II_S6_9', 0.0)
         dispatcher.runSync('reserveWorkEffortInventoryItem', [
-            workEffortId: weId, productId: 'II_MAT_A_COST', facilityId: 'WH_NO_AUTO_RES',
-            inventoryItemId: 'II_S6_9', quantity: 20.0, userLogin: userLogin
+            workEffortId: weId, productId: productId, facilityId: facilityId,
+            inventoryItemId: inventoryItemId, quantity: 20.0, userLogin: userLogin
         ])
 
         Map result = dispatcher.runSync('issueProductionRunTask', [
-            workEffortId: weId, failIfItemsAreNotAvailable: 'N', failIfItemsAreNotOnHand: 'N', userLogin: userLogin
+            workEffortId: weId, failIfItemsAreNotAvailable: failIfItemsAreNotAvailable,
+            failIfItemsAreNotOnHand: failIfItemsAreNotOnHand, userLogin: userLogin
         ])
         assert ServiceUtil.isSuccess(result)
         assertInventoryIntegrity('II_MAT_A_COST', weId, 20.0, 0.0, -20.0, 'WH_NO_AUTO_RES')
@@ -901,9 +996,10 @@ class InventoryIssuancePolicyMatrixTests extends InventoryIssuanceTestSupport {
     @Test
     @Order(11)
     void testS6_11_Insufficient_NoReserve_DirectIssueFailIfAvail_Y_Fail() {
+        String failIfItemsAreNotAvailable = testParams.failIfItemsAreNotAvailable ?: 'Y'
         String weId = setUpNoAutoReserveProductionRun('II_S6_11', 0.0)
         Map result = dispatcher.runSync('issueProductionRunTask', [
-            workEffortId: weId, failIfItemsAreNotAvailable: 'Y', userLogin: userLogin
+            workEffortId: weId, failIfItemsAreNotAvailable: failIfItemsAreNotAvailable, userLogin: userLogin
         ], 0, true)
         assert ServiceUtil.isError(result)
     }
@@ -911,9 +1007,12 @@ class InventoryIssuancePolicyMatrixTests extends InventoryIssuanceTestSupport {
     @Test
     @Order(12)
     void testS6_12_Insufficient_NoReserve_DirectIssueFailIfAvail_N_Success() {
+        String failIfItemsAreNotAvailable = testParams.failIfItemsAreNotAvailable ?: 'N'
+        String failIfItemsAreNotOnHand = testParams.failIfItemsAreNotOnHand ?: 'N'
         String weId = setUpNoAutoReserveProductionRun('II_S6_12', 0.0)
         Map result = dispatcher.runSync('issueProductionRunTask', [
-            workEffortId: weId, failIfItemsAreNotAvailable: 'N', failIfItemsAreNotOnHand: 'N', userLogin: userLogin
+            workEffortId: weId, failIfItemsAreNotAvailable: failIfItemsAreNotAvailable,
+            failIfItemsAreNotOnHand: failIfItemsAreNotOnHand, userLogin: userLogin
         ])
         assert ServiceUtil.isSuccess(result)
         assertInventoryIntegrity('II_MAT_A_COST', weId, 20.0, 0.0, -20.0, 'WH_NO_AUTO_RES')

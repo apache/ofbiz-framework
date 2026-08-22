@@ -31,31 +31,35 @@ class AutoAcctgBudgetTests implements JupiterTestHelper {
     @Test
     @Order(1)
     void testCreateBudget() {
+        String budgetTypeId = testParams.budgetTypeId ?: 'CAPITAL_BUDGET'
+        String comments = testParams.comments ?: 'Capital Budget'
         Map serviceCtx = [:]
-        serviceCtx.budgetTypeId = 'CAPITAL_BUDGET'
-        serviceCtx.comments = 'Capital Budget'
+        serviceCtx.budgetTypeId = budgetTypeId
+        serviceCtx.comments = comments
         serviceCtx.userLogin = userLogin
         Map result = dispatcher.runSync('createBudget', serviceCtx)
         assert ServiceUtil.isSuccess(result)
 
         GenericValue budget = from('Budget').where(result).queryOne()
         assert budget
-        assert budget.budgetTypeId == 'CAPITAL_BUDGET'
-        assert budget.comments == 'Capital Budget'
+        assert budget.budgetTypeId == budgetTypeId
+        assert budget.comments == comments
     }
 
     @Test
     @Order(2)
     void testUpdateBudgetStatus() {
+        String budgetId = testParams.budgetId ?: '9999'
+        String statusId = testParams.statusId ?: 'BG_APPROVED'
         Map serviceCtx = [:]
-        serviceCtx.budgetId = '9999'
-        serviceCtx.statusId = 'BG_APPROVED'
+        serviceCtx.budgetId = budgetId
+        serviceCtx.statusId = statusId
         serviceCtx.userLogin = userLogin
         dispatcher.runSync('updateBudgetStatus', serviceCtx)
 
-        List<GenericValue> budgetStatuses = from('BudgetStatus').where('budgetId', '9999').orderBy('-statusDate').queryList()
+        List<GenericValue> budgetStatuses = from('BudgetStatus').where('budgetId', budgetId).orderBy('-statusDate').queryList()
         assert ! budgetStatuses?.isEmpty()
-        assert budgetStatuses[0].statusId == 'BG_APPROVED'
+        assert budgetStatuses[0].statusId == statusId
     }
 
 }

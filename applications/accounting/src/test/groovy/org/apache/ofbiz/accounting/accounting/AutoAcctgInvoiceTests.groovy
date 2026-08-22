@@ -35,9 +35,9 @@ class AutoAcctgInvoiceTests implements JupiterTestHelper {
     @Order(1)
     void testCreateInvoiceContent() {
         Map serviceCtx = [
-            invoiceId: '1008',
-            contentId: '1000',
-            invoiceContentTypeId: 'COMMENTS',
+            invoiceId: testParams.invoiceId ?: '1008',
+            contentId: testParams.contentId ?: '1000',
+            invoiceContentTypeId: testParams.invoiceContentTypeId ?: 'COMMENTS',
             fromDate: UtilDateTime.nowTimestamp(),
             userLogin: userLogin
         ]
@@ -55,11 +55,13 @@ class AutoAcctgInvoiceTests implements JupiterTestHelper {
     @Test
     @Order(2)
     void testCreateSimpleTextContentForInvoice() {
+        String invoiceId = testParams.invoiceId ?: '1009'
+        String invoiceContentTypeId = testParams.invoiceContentTypeId ?: 'COMMENTS'
         Map serviceCtx = [
-                invoiceId: '1009',
-                contentTypeId: 'DOCUMENT',
-                invoiceContentTypeId: 'COMMENTS',
-                text: 'Content for invoice # 1009',
+                invoiceId: invoiceId,
+                contentTypeId: testParams.contentTypeId ?: 'DOCUMENT',
+                invoiceContentTypeId: invoiceContentTypeId,
+                text: testParams.text ?: 'Content for invoice # 1009',
                 fromDate: UtilDateTime.nowTimestamp(),
                 userLogin: userLogin
         ]
@@ -67,8 +69,8 @@ class AutoAcctgInvoiceTests implements JupiterTestHelper {
         assert ServiceUtil.isSuccess(serviceResult)
 
         GenericValue invoiceContent = from('InvoiceContent')
-                .where('invoiceId', '1009',
-                'invoiceContentTypeId', 'COMMENTS')
+                .where('invoiceId', invoiceId,
+                'invoiceContentTypeId', invoiceContentTypeId)
                 .queryFirst()
 
         assert invoiceContent
@@ -78,7 +80,7 @@ class AutoAcctgInvoiceTests implements JupiterTestHelper {
     @Order(3)
     void testCopyInvoice() {
         Map serviceCtx = [
-                invoiceIdToCopyFrom: '1000',
+                invoiceIdToCopyFrom: testParams.invoiceIdToCopyFrom ?: '1000',
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('copyInvoice', serviceCtx)
@@ -91,9 +93,9 @@ class AutoAcctgInvoiceTests implements JupiterTestHelper {
     @Order(4)
     void testCreateInvoice() {
         Map serviceCtx = [
-                invoiceTypeId: 'PURCHASE_INVOICE',
-                partyIdFrom: 'DEMO_COMPANY',
-                partyId: 'DEMO_COMPANY1',
+                invoiceTypeId: testParams.invoiceTypeId ?: 'PURCHASE_INVOICE',
+                partyIdFrom: testParams.partyIdFrom ?: 'DEMO_COMPANY',
+                partyId: testParams.partyId ?: 'DEMO_COMPANY1',
                 invoiceDate: UtilDateTime.nowTimestamp(),
                 userLogin: userLogin
         ]
@@ -107,7 +109,7 @@ class AutoAcctgInvoiceTests implements JupiterTestHelper {
     @Order(5)
     void testGetInvoice() {
         Map serviceCtx = [
-                invoiceId: '1001',
+                invoiceId: testParams.invoiceId ?: '1001',
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('getInvoice', serviceCtx)
@@ -120,28 +122,30 @@ class AutoAcctgInvoiceTests implements JupiterTestHelper {
     @Test
     @Order(6)
     void testSetInvoiceStatus() {
+        String invoiceId = testParams.invoiceId ?: '1002'
+        String statusId = testParams.statusId ?: 'INVOICE_APPROVED'
         Map serviceCtx = [
-                invoiceId: '1002',
-                statusId: 'INVOICE_APPROVED',
+                invoiceId: invoiceId,
+                statusId: statusId,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('setInvoiceStatus', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
         GenericValue invoice = from('Invoice')
-                .where('invoiceId', '1002')
+                .where('invoiceId', invoiceId)
                 .queryOne()
 
         assert invoice
-        assert invoice.statusId == 'INVOICE_APPROVED'
+        assert invoice.statusId == statusId
     }
 
     @Test
     @Order(7)
     void testCopyInvoiceToTemplate() {
         Map serviceCtx = [
-                invoiceId: '1002',
-                invoiceTypeId: 'PURCHASE_INVOICE',
+                invoiceId: testParams.invoiceId ?: '1002',
+                invoiceTypeId: testParams.invoiceTypeId ?: 'PURCHASE_INVOICE',
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('copyInvoiceToTemplate', serviceCtx)
@@ -154,8 +158,8 @@ class AutoAcctgInvoiceTests implements JupiterTestHelper {
     @Order(8)
     void testCreateInvoiceItem() {
         Map serviceCtx = [
-                invoiceId: '1003',
-                invoiceItemTypeId: 'PINV_FXASTPRD_ITEM',
+                invoiceId: testParams.invoiceId ?: '1003',
+                invoiceItemTypeId: testParams.invoiceItemTypeId ?: 'PINV_FXASTPRD_ITEM',
                 amount: 1,
                 userLogin: userLogin
         ]
@@ -169,9 +173,11 @@ class AutoAcctgInvoiceTests implements JupiterTestHelper {
     @Order(9)
     void testCreateInvoiceStatus() {
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp()
+        String invoiceId = testParams.invoiceId ?: '1004'
+        String statusId = testParams.statusId ?: 'INVOICE_IN_PROCESS'
         Map serviceCtx = [
-                invoiceId: '1004',
-                statusId: 'INVOICE_IN_PROCESS',
+                invoiceId: invoiceId,
+                statusId: statusId,
                 statusDate: nowTimestamp,
                 userLogin: userLogin
         ]
@@ -179,8 +185,8 @@ class AutoAcctgInvoiceTests implements JupiterTestHelper {
         assert ServiceUtil.isSuccess(serviceResult)
 
         GenericValue invoiceStatus = from('InvoiceStatus')
-                .where('invoiceId', '1004',
-                        'statusId', 'INVOICE_IN_PROCESS',
+                .where('invoiceId', invoiceId,
+                        'statusId', statusId,
                         'statusDate', nowTimestamp)
                 .queryOne()
 
@@ -190,19 +196,22 @@ class AutoAcctgInvoiceTests implements JupiterTestHelper {
     @Test
     @Order(10)
     void testCreateInvoiceRole() {
+        String invoiceId = testParams.invoiceId ?: '1006'
+        String partyId = testParams.partyId ?: 'DEMO_COMPANY'
+        String roleTypeId = testParams.roleTypeId ?: 'INTERNAL_ORGANIZATIO'
         Map serviceCtx = [
-                invoiceId: '1006',
-                partyId: 'DEMO_COMPANY',
-                roleTypeId: 'INTERNAL_ORGANIZATIO',
+                invoiceId: invoiceId,
+                partyId: partyId,
+                roleTypeId: roleTypeId,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('createInvoiceRole', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
         GenericValue invoiceRole = from('InvoiceRole')
-                .where('invoiceId', '1006',
-                        'partyId', 'DEMO_COMPANY',
-                        'roleTypeId', 'INTERNAL_ORGANIZATIO')
+                .where('invoiceId', invoiceId,
+                        'partyId', partyId,
+                        'roleTypeId', roleTypeId)
                 .queryOne()
 
         assert invoiceRole
@@ -212,9 +221,9 @@ class AutoAcctgInvoiceTests implements JupiterTestHelper {
     @Order(11)
     void testCreateInvoiceTerm() {
         Map serviceCtx = [
-                invoiceId: '1006',
-                invoiceItemSeqId: '00001',
-                termTypeId: 'FINANCIAL_TERM',
+                invoiceId: testParams.invoiceId ?: '1006',
+                invoiceItemSeqId: testParams.invoiceItemSeqId ?: '00001',
+                termTypeId: testParams.termTypeId ?: 'FINANCIAL_TERM',
                 termValue: 50.00,
                 termDays: 10,
                 userLogin: userLogin
@@ -233,7 +242,7 @@ class AutoAcctgInvoiceTests implements JupiterTestHelper {
     @Order(12)
     void testCancelInvoice() {
         Map serviceCtx = [
-                invoiceId: '1007',
+                invoiceId: testParams.invoiceId ?: '1007',
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('cancelInvoice', serviceCtx)

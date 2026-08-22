@@ -163,8 +163,12 @@ class AutoInvoiceTests implements JupiterTestHelper {
               * ACCOUNTS PAYABLE 210000  - debitTotal $351.41 ; creditTotal:$1651.7 ; debitCreditDifference : $ -1300
               * UNINVOICED ITEM RECEIPTS 214000 - debitTotal :$408 ; creditTotal:$96 ; debitCreditDifference : $312
         */
+        String organizationPartyId = testParams.organizationPartyId ?: 'Company'
+        String payableGlAccountId = testParams.payableGlAccountId ?: '210000'
+        String uninvoicedGlAccountId = testParams.uninvoicedGlAccountId ?: '214000'
+
         Map serviceCtx = [
-                organizationPartyId: 'Company',
+                organizationPartyId: organizationPartyId,
                 findDate: UtilDateTime.nowTimestamp(),
                 userLogin: userLogin
         ]
@@ -176,10 +180,10 @@ class AutoInvoiceTests implements JupiterTestHelper {
         serviceCtx.clear()
         serviceResult.clear()
         serviceCtx = [
-                organizationPartyId: 'Company',
+                organizationPartyId: organizationPartyId,
                 customTimePeriodStartDate: customTimePeriod.fromDate,
                 customTimePeriodEndDate: customTimePeriod.thruDate,
-                glAccountId: '210000',
+                glAccountId: payableGlAccountId,
                 userLogin: userLogin
         ]
         serviceResult = dispatcher.runSync('getAcctgTransEntriesAndTransTotal', serviceCtx)
@@ -188,7 +192,7 @@ class AutoInvoiceTests implements JupiterTestHelper {
         BigDecimal payableDebitCreditDifference = serviceResult.debitCreditDifference
 
         serviceResult.clear()
-        serviceCtx.glAccountId = '214000'
+        serviceCtx.glAccountId = uninvoicedGlAccountId
         serviceResult = dispatcher.runSync('getAcctgTransEntriesAndTransTotal', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
         BigDecimal uninvoicedCreditTotal = serviceResult.creditTotal
@@ -196,7 +200,7 @@ class AutoInvoiceTests implements JupiterTestHelper {
 
         serviceResult.clear()
         Map cancelInvoiceCtx = [
-                invoiceId: '8008',
+                invoiceId: testParams.invoiceId ?: '8008',
                 userLogin: userLogin
         ]
         serviceResult = dispatcher.runSync('cancelInvoice', cancelInvoiceCtx)
@@ -205,7 +209,7 @@ class AutoInvoiceTests implements JupiterTestHelper {
         BigDecimal totalPayableDebitAmount = payableDebitTotal.add(48)
         BigDecimal totalPayableDebitCreditDifference = payableDebitCreditDifference.add(48)
         serviceResult.clear()
-        serviceCtx.glAccountId = '210000'
+        serviceCtx.glAccountId = payableGlAccountId
         serviceResult = dispatcher.runSync('getAcctgTransEntriesAndTransTotal', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
         assert totalPayableDebitAmount == serviceResult.debitTotal
@@ -214,7 +218,7 @@ class AutoInvoiceTests implements JupiterTestHelper {
         BigDecimal totalUnInvoicedCreditAmount = uninvoicedCreditTotal.add(48)
         BigDecimal totalUnInvoicedDebitCreditDifference = uninvoicedDebitCreditDifference.subtract(48)
         serviceResult.clear()
-        serviceCtx.glAccountId = '214000'
+        serviceCtx.glAccountId = uninvoicedGlAccountId
         serviceResult = dispatcher.runSync('getAcctgTransEntriesAndTransTotal', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
         assert totalUnInvoicedCreditAmount == serviceResult.creditTotal
@@ -236,8 +240,13 @@ class AutoInvoiceTests implements JupiterTestHelper {
                                                                           ; debitCreditDifference decreased of $82.86
               * GENERAL CHECKING ACCOUNT 111100 - debitTotal increased of $82.86 ; debitCreditDifference increased of $82.86
         */
+        String organizationPartyId = testParams.organizationPartyId ?: 'Company'
+        String payableGlAccountId = testParams.payableGlAccountId ?: '210000'
+        String checkingGlAccountId = testParams.checkingGlAccountId ?: '111100'
+        String paymentGroupId = testParams.paymentGroupId ?: '9000'
+
         Map serviceCtx = [
-                organizationPartyId: 'Company',
+                organizationPartyId: organizationPartyId,
                 findDate: UtilDateTime.nowTimestamp(),
                 userLogin: userLogin
         ]
@@ -249,10 +258,10 @@ class AutoInvoiceTests implements JupiterTestHelper {
         serviceCtx.clear()
         serviceResult.clear()
         serviceCtx = [
-                organizationPartyId: 'Company',
+                organizationPartyId: organizationPartyId,
                 customTimePeriodStartDate: customTimePeriod.fromDate,
                 customTimePeriodEndDate: customTimePeriod.thruDate,
-                glAccountId: '210000',
+                glAccountId: payableGlAccountId,
                 userLogin: userLogin
         ]
         serviceResult = dispatcher.runSync('getAcctgTransEntriesAndTransTotal', serviceCtx)
@@ -262,7 +271,7 @@ class AutoInvoiceTests implements JupiterTestHelper {
         BigDecimal payableDebitCreditDifference = serviceResult.debitCreditDifference
 
         serviceResult.clear()
-        serviceCtx.glAccountId = '111100'
+        serviceCtx.glAccountId = checkingGlAccountId
         serviceResult = dispatcher.runSync('getAcctgTransEntriesAndTransTotal', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
         BigDecimal undepositedDebitTotal = serviceResult.debitTotal
@@ -270,14 +279,14 @@ class AutoInvoiceTests implements JupiterTestHelper {
 
         serviceResult.clear()
         Map cancelCheckRunPaymentsCtx = [
-                paymentGroupId: '9000',
+                paymentGroupId: paymentGroupId,
                 userLogin: userLogin
         ]
         serviceResult = dispatcher.runSync('cancelCheckRunPayments', cancelCheckRunPaymentsCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
         GenericValue paymentGroupMemberAndTrans = from('PmtGrpMembrPaymentAndFinAcctTrans')
-                .where('paymentGroupId', '9000')
+                .where('paymentGroupId', paymentGroupId)
                 .queryFirst()
         if (paymentGroupMemberAndTrans && 'FINACT_TRNS_APPROVED' != paymentGroupMemberAndTrans.finAccountTransStatusId) {
             BigDecimal tempBig = 82.86
@@ -286,7 +295,7 @@ class AutoInvoiceTests implements JupiterTestHelper {
             BigDecimal totalPayableCreditAmount = 165.72G.add(payableCreditTotal)
             BigDecimal totalPayableDebitCreditDifference = payableDebitCreditDifference.subtract(tempBig)
             serviceResult.clear()
-            serviceCtx.glAccountId = '210000'
+            serviceCtx.glAccountId = payableGlAccountId
             serviceResult = dispatcher.runSync('getAcctgTransEntriesAndTransTotal', serviceCtx)
             assert ServiceUtil.isSuccess(serviceResult)
             assert totalPayableDebitAmount == serviceResult.debitTotal
@@ -296,7 +305,7 @@ class AutoInvoiceTests implements JupiterTestHelper {
             BigDecimal totalUndepositedDebitAmount = tempBig.add(undepositedDebitTotal)
             BigDecimal totalUndepositedDebitCreditDifference = tempBig.add(undepositedDebitCreditDifference)
             serviceResult.clear()
-            serviceCtx.glAccountId = '111100'
+            serviceCtx.glAccountId = checkingGlAccountId
             serviceResult = dispatcher.runSync('getAcctgTransEntriesAndTransTotal', serviceCtx)
             assert ServiceUtil.isSuccess(serviceResult)
             assert totalUndepositedDebitAmount == serviceResult.debitTotal

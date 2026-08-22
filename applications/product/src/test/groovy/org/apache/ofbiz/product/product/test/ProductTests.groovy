@@ -29,20 +29,24 @@ class ProductTests implements JupiterTestHelper {
 
     @Test
     void testUpdateProductCategory() {
+        String categoryName = testParams.categoryName ?: 'Updated Test Product Category'
+        String longDescription = testParams.longDescription ?: 'Updated Long Test Product Category Description'
+        String productCategoryId = testParams.productCategoryId ?: 'CATALOG1_BEST_SELL'
+        String productCategoryTypeId = testParams.productCategoryTypeId ?: 'BEST_SELL_CATEGORY'
         Map serviceCtx = [
-                categoryName: 'Updated Test Product Category',
-                longDescription: 'Updated Long Test Product Category Description',
-                productCategoryId: 'CATALOG1_BEST_SELL',
-                productCategoryTypeId: 'BEST_SELL_CATEGORY',
+                categoryName: categoryName,
+                longDescription: longDescription,
+                productCategoryId: productCategoryId,
+                productCategoryTypeId: productCategoryTypeId,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('updateProductCategory', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue prodCategory = from('ProductCategory').where('productCategoryId', 'CATALOG1_BEST_SELL').queryOne()
+        GenericValue prodCategory = from('ProductCategory').where('productCategoryId', productCategoryId).queryOne()
         if (prodCategory) { // fails in framework integration tests only, data is in ecommerce
-            assert prodCategory.categoryName == 'Updated Test Product Category'
-            assert prodCategory.productCategoryTypeId == 'BEST_SELL_CATEGORY'
+            assert prodCategory.categoryName == categoryName
+            assert prodCategory.productCategoryTypeId == productCategoryTypeId
         }
     }
 
