@@ -114,6 +114,11 @@ public final class TestRunServices {
     private static final String MODULE = TestRunServices.class.getName();
     private static final String RESOURCE = "testtools";
     private static final String TESTEXEC_PERMISSION = "TESTEXEC_ADMIN";
+    // Client-facing text for both disabled-API rejections below deliberately omits the config
+    // property name/value (e.g. "test.api.enabled.example=false") - that detail would let a REST
+    // caller enumerate/guess the per-component toggle naming convention. The full detail is still
+    // captured server-side via the Debug.logWarning calls at each rejection site.
+    private static final String API_DISABLED_MESSAGE = "The test execution API is disabled in this environment.";
 
     static final TestRunTracker TRACKER = new TestRunTracker();
     private static final ExecutorService EXECUTOR = Executors.newSingleThreadExecutor(runnable -> {
@@ -152,7 +157,7 @@ public final class TestRunServices {
         if (!apiEnabled) {
             Debug.logWarning("runTestSuite: rejected for user '" + userLoginId + "', suite '" + suiteName + "'"
                     + " - test.api.enabled is false", MODULE);
-            return ServiceUtil.returnError("The test execution API is disabled in this environment (test.api.enabled=false)");
+            return ServiceUtil.returnError(API_DISABLED_MESSAGE);
         }
 
         // Per-component override of the global flag above: lets one component's REST-triggered test
@@ -168,7 +173,7 @@ public final class TestRunServices {
                 Debug.logWarning("runTestSuite: rejected for user '" + userLoginId + "', suite '" + suiteName + "'"
                         + " - test.api.enabled." + componentName + " is false", MODULE);
                 return ServiceUtil.returnError("The test execution API is disabled for component '" + componentName
-                        + "' in this environment (test.api.enabled." + componentName + "=false)");
+                        + "' in this environment.");
             }
         }
 

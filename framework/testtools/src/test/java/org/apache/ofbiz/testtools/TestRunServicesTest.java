@@ -85,7 +85,7 @@ class TestRunServicesTest {
                     Map.of("suiteName", "example-tests", "userLogin", userLogin));
 
             assertThat(result.get("responseMessage"), is("error"));
-            assertThat(result.get("errorMessage"), is("The test execution API is disabled in this environment (test.api.enabled=false)"));
+            assertThat(result.get("errorMessage"), is("The test execution API is disabled in this environment."));
             assertThat(result.get("runId"), nullValue());
         }
     }
@@ -339,7 +339,7 @@ class TestRunServicesTest {
 
             assertThat(result.get("responseMessage"), is("error"));
             assertThat(result.get("errorMessage"), is("The test execution API is disabled for component 'example' "
-                    + "in this environment (test.api.enabled.example=false)"));
+                    + "in this environment."));
             assertThat(result.get("runId"), nullValue());
         }
     }
