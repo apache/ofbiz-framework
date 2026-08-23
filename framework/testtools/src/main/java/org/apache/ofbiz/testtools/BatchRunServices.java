@@ -54,6 +54,14 @@ import org.apache.ofbiz.service.ServiceUtil;
  * per-component {@code testCaseName}/{@code testMethodName}/{@code testParams} scoping in this
  * endpoint.
  *
+ * <p>{@code runBatchTestSuite} fans a component list out with a plain sequential loop, each
+ * iteration calling {@code runTestSuite} synchronously before moving to the next - per the "no new
+ * concurrency" constraint, nothing here runs in parallel or off the caller's thread. Each
+ * {@code runTestSuite} call itself constructs a fresh test {@code Delegator}/{@code
+ * LocalDispatcher} and re-runs startup services (see {@link TestRunServices}' own javadoc), so a
+ * large auto-discovered component set can make the POST block for a while before a {@code batchId}
+ * comes back - this is a known characteristic of the current POC-level implementation, not a bug.
+ *
  * <p>Exposed directly via the generic, framework-owned
  * {@code framework/testtools/api/testruns.rest.xml} endpoint
  * ({@code POST /rest/testtools/testruns/batch}, {@code GET /rest/testtools/testruns/batch/{batchId}}).
@@ -129,8 +137,9 @@ public final class BatchRunServices {
         }
         BATCH_TRACKER.register(batchId, children);
 
+        List<String> queuedComponentNames = children.stream().map(BatchRunTracker.BatchChildRef::componentName).toList();
         Debug.logInfo("runBatchTestSuite: STARTED batchId=" + batchId + " user='" + userLoginId + "' components="
-                + componentNames, MODULE);
+                + queuedComponentNames, MODULE);
 
         Map<String, Object> response = ServiceUtil.returnSuccess();
         response.put("batchId", batchId);
