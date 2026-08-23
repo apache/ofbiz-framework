@@ -59,16 +59,31 @@ public final class GroovyUtil {
         if (!scriptBaseClass.isEmpty()) {
             CompilerConfiguration conf = new CompilerConfiguration();
             conf.setScriptBaseClass(scriptBaseClass);
+            // Same compile-time AST restrictions as SANDBOXED_COMPILER_CONFIG below, so that parseClass(),
+            // not just eval(), refuses OS-execution APIs and dynamic class-loading.
+            conf.addCompilationCustomizers(buildSecureAstCustomizer());
             groovyClassLoader = new GroovyClassLoader(GroovyUtil.class.getClassLoader(), conf);
         }
         GROOVY_CLASS_LOADER = groovyClassLoader;
     }
 
     static {
-        // Compile-time AST restrictions applied to eval() expressions.
-        // Blocks OS-execution APIs and dynamic class-loading as a defence-in-depth measure.
-        // Note: SecureASTCustomizer operates at compile time and does not constitute a
-        // complete sandbox; eval() expressions should never originate from untrusted input.
+        SANDBOXED_COMPILER_CONFIG = new CompilerConfiguration();
+        SANDBOXED_COMPILER_CONFIG.addCompilationCustomizers(buildSecureAstCustomizer());
+    }
+
+    /**
+     * Builds a fresh {@link SecureASTCustomizer} applying the compile-time AST restrictions used by both
+     * GROOVY_CLASS_LOADER and SANDBOXED_COMPILER_CONFIG. Blocks OS-execution APIs and dynamic class-loading
+     * as a defence-in-depth measure.
+     * <p>Returns a new instance on every call rather than a shared constant: {@code SecureASTCustomizer}
+     * visits the AST during compilation, so handing the same instance to two {@code CompilerConfiguration}s
+     * used concurrently would be unsafe.
+     * <p>Note: SecureASTCustomizer operates at compile time and does not constitute a complete sandbox;
+     * expressions compiled through either path should never originate from untrusted input.
+     * @return a new, independently-usable SecureASTCustomizer
+     */
+    private static SecureASTCustomizer buildSecureAstCustomizer() {
         SecureASTCustomizer secureAst = new SecureASTCustomizer();
         secureAst.setDisallowedImports(List.of(
                 "java.lang.Runtime",
@@ -88,8 +103,7 @@ public final class GroovyUtil {
                 Thread.class,
                 ClassLoader.class);
         secureAst.setDisallowedReceiversClasses(blockedReceivers);
-        SANDBOXED_COMPILER_CONFIG = new CompilerConfiguration();
-        SANDBOXED_COMPILER_CONFIG.addCompilationCustomizers(secureAst);
+        return secureAst;
     }
 
     /**
