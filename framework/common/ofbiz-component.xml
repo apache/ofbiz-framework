@@ -85,4 +85,5 @@ under the License.
 
     <test-suite loader="main" location="testdef/UserLoginTests.xml"/>
     <test-suite loader="main" location="testdef/PerformFindTests.xml"/>
+    <test-suite loader="main" location="testdef/EmailServicesInjectionTests.xml"/>
 </ofbiz-component>
