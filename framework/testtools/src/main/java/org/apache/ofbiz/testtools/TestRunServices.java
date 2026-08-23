@@ -160,7 +160,7 @@ public final class TestRunServices {
             return ServiceUtil.returnError("You do not have permission to trigger test runs (" + TESTEXEC_PERMISSION + ")");
         }
 
-        boolean apiEnabled = "true".equalsIgnoreCase(readStringProperty(dctx.getDelegator(), "test.api.enabled", "false"));
+        boolean apiEnabled = isTestApiGloballyEnabled(dctx.getDelegator());
         if (!apiEnabled) {
             Debug.logWarning("runTestSuite: rejected for user '" + userLoginId + "', suite '" + suiteName + "'"
                     + " - test.api.enabled is false", MODULE);
@@ -189,8 +189,7 @@ public final class TestRunServices {
         // non-blank by the guard above, so this always runs now - there is no longer an unscoped,
         // no-componentName path through this method to skip it for.
         // See plugins/supporting-docs/specs/2026-08-21-per-component-test-api-toggle-design.md.
-        boolean componentEnabled = "true".equalsIgnoreCase(
-                readStringProperty(dctx.getDelegator(), "test.api.enabled." + componentName, "true"));
+        boolean componentEnabled = isTestApiEnabledForComponent(dctx.getDelegator(), componentName);
         if (!componentEnabled) {
             Debug.logWarning("runTestSuite: rejected for user '" + userLoginId + "', suite '" + suiteName + "'"
                     + " - test.api.enabled." + componentName + " is false", MODULE);
@@ -515,5 +514,29 @@ public final class TestRunServices {
                     + defaultValue + "'", MODULE);
             return defaultValue;
         }
+    }
+
+    /**
+     * Whether the test execution API is enabled at all, server-wide - the same {@code
+     * test.api.enabled} flag {@link #runTestSuite}, {@code BatchRunServices.discoverEligibleComponents},
+     * and {@code BatchRunServices.validateRequestedComponents} all gate on identically.
+     * @param delegator the calling request's Delegator, for the live-overridable property read
+     * @return {@code true} only when the property resolves to the literal string {@code "true"}
+     */
+    static boolean isTestApiGloballyEnabled(Delegator delegator) {
+        return "true".equalsIgnoreCase(readStringProperty(delegator, "test.api.enabled", "false"));
+    }
+
+    /**
+     * Whether one component's own {@code test.api.enabled.<componentName>} override allows the test
+     * execution API for it - defaults to enabled ({@code true}) when unset. Only meaningful once
+     * {@link #isTestApiGloballyEnabled} is already {@code true}; callers are expected to check the
+     * global flag first, matching {@link #runTestSuite}'s own order.
+     * @param delegator the calling request's Delegator, for the live-overridable property read
+     * @param componentName the component to check
+     * @return {@code true} unless the property is explicitly set to something other than {@code "true"}
+     */
+    static boolean isTestApiEnabledForComponent(Delegator delegator, String componentName) {
+        return "true".equalsIgnoreCase(readStringProperty(delegator, "test.api.enabled." + componentName, "true"));
     }
 }

@@ -91,12 +91,15 @@ under the License.
             With no components list, auto-discovers every component that has a testdef and has both the
             global test.api.enabled and its own test.api.enabled.&lt;componentName&gt; on - if none
             qualify, the call is rejected rather than returning a batchId with nothing queued. With an
-            explicit components list, every named component must itself be known, have a testdef, and be
-            enabled, or the whole call is rejected naming which entries were invalid - no partial batch is
-            ever queued. Each queued component always runs its whole suite (no per-component suiteName/
-            testCaseName/testMethodName scoping in this endpoint). Exposed directly via the generic,
-            framework-owned framework/testtools/api/testruns.rest.xml endpoint
-            (POST /rest/testtools/testruns/batch).</description>
+            explicit components list, an empty list is rejected outright, and every named component must
+            itself be known, have a testdef, and be enabled, or the whole call is rejected up front naming
+            which entries were invalid - no batch is ever queued from an invalid or empty list. A
+            component that passes this upfront check but still fails its actual test run (e.g. a testdef
+            that resolves to zero tests) is omitted from the batch rather than failing the whole call, the
+            same way an auto-discovered component would be. Each queued component always runs its whole
+            suite (no per-component suiteName/testCaseName/testMethodName scoping in this endpoint).
+            Exposed directly via the generic, framework-owned framework/testtools/api/testruns.rest.xml
+            endpoint (POST /rest/testtools/testruns/batch).</description>
         <attribute name="components" type="List" mode="IN" optional="true"/>
         <attribute name="batchId" type="String" mode="OUT" optional="true"/>
     </service>

@@ -44,9 +44,12 @@ import org.apache.ofbiz.service.ServiceUtil;
  * <p>Two modes: with no {@code components} list, every component with a testdef where both the
  * global {@code test.api.enabled} and its own {@code test.api.enabled.<componentName>} (default
  * {@code true}) resolve {@code true} is queued (see {@link #discoverEligibleComponents}); with an
- * explicit {@code components} list, every named component must itself pass that same check or the
- * whole call is rejected before anything is queued - no partial batch is ever queued from a bad
- * list.
+ * explicit {@code components} list, an empty list is rejected outright, and every named component
+ * must itself pass that same check or the whole call is rejected before anything is queued - no
+ * batch is ever queued from an invalid or empty list. This upfront rejection is distinct from a
+ * component that passes it but still fails its actual {@link TestRunServices#runTestSuite} call
+ * (e.g. a testdef that resolves to zero tests): that component is simply omitted from the batch,
+ * the same as an auto-discovered one would be - see {@link #runBatchTestSuite}.
  *
  * <p>Each queued component always runs its whole suite - {@code runTestSuite} is called with only
  * {@code componentName} set, no {@code suiteName}, which {@link JunitSuiteWrapper} already treats
@@ -90,7 +93,7 @@ public final class BatchRunServices {
 
         List<String> requestedComponents = UtilGenerics.cast(context.get("components"));
         List<String> componentNames;
-        if (UtilValidate.isEmpty(requestedComponents)) {
+        if (requestedComponents == null) {
             componentNames = discoverEligibleComponents(dctx.getDelegator());
             if (componentNames.isEmpty()) {
                 Debug.logWarning("runBatchTestSuite: rejected for user '" + userLoginId
@@ -98,6 +101,11 @@ public final class BatchRunServices {
                 return ServiceUtil.returnError("No components are eligible for a batch test run - none have "
                         + "the test execution API enabled, or none have a testdef.");
             }
+        } else if (requestedComponents.isEmpty()) {
+            Debug.logWarning("runBatchTestSuite: rejected for user '" + userLoginId
+                    + "' - components list was explicitly empty", MODULE);
+            return ServiceUtil.returnError("The components list cannot be empty - omit the field entirely to "
+                    + "auto-discover eligible components, or name at least one component.");
         } else {
             List<String> invalid = validateRequestedComponents(requestedComponents, dctx.getDelegator());
             if (!invalid.isEmpty()) {
@@ -220,15 +228,13 @@ public final class BatchRunServices {
      *     each name appearing at most once even if it registers more than one testdef file
      */
     static List<String> discoverEligibleComponents(Delegator delegator) {
-        boolean apiEnabled = "true".equalsIgnoreCase(TestRunServices.readStringProperty(delegator, "test.api.enabled", "false"));
-        if (!apiEnabled) {
+        if (!TestRunServices.isTestApiGloballyEnabled(delegator)) {
             return List.of();
         }
         return ComponentConfig.getAllTestSuiteInfos(null).stream()
                 .map(info -> info.getComponentConfig().getComponentName())
                 .distinct()
-                .filter(name -> "true".equalsIgnoreCase(
-                        TestRunServices.readStringProperty(delegator, "test.api.enabled." + name, "true")))
+                .filter(name -> TestRunServices.isTestApiEnabledForComponent(delegator, name))
                 .collect(Collectors.toList());
     }
 
@@ -241,7 +247,7 @@ public final class BatchRunServices {
      * @return one human-readable reason string per invalid entry, empty if every entry is valid
      */
     static List<String> validateRequestedComponents(List<String> requested, Delegator delegator) {
-        boolean apiEnabled = "true".equalsIgnoreCase(TestRunServices.readStringProperty(delegator, "test.api.enabled", "false"));
+        boolean apiEnabled = TestRunServices.isTestApiGloballyEnabled(delegator);
         List<String> invalid = new ArrayList<>();
         for (String name : requested) {
             if (UtilValidate.isEmpty(name)) {
@@ -260,8 +266,7 @@ public final class BatchRunServices {
                 invalid.add(name + " (no testdef found)");
                 continue;
             }
-            boolean componentEnabled = "true".equalsIgnoreCase(
-                    TestRunServices.readStringProperty(delegator, "test.api.enabled." + name, "true"));
+            boolean componentEnabled = TestRunServices.isTestApiEnabledForComponent(delegator, name);
             if (!componentEnabled) {
                 invalid.add(name + " (test execution API is disabled for this component)");
             }

@@ -30,6 +30,13 @@ import java.util.concurrent.ConcurrentHashMap;
  * before it ever hands a batchId back to a caller, so there is nothing left to mutate here - a
  * batch's aggregate status is instead computed live, at read time, from each child's own tracked
  * TestRunRecord (see BatchRunServices.getBatchTestRunStatus).
+ *
+ * <p>Like TestRunTracker's own map, nothing ever removes an entry here either - every batch ever
+ * triggered stays resident in memory for the life of the server process. This is a much smaller
+ * per-entry footprint than the ServiceDispatcher/Delegator leak TestRunServices' own javadoc
+ * documents at length (each entry here is just a componentName/runId pair list, not a live
+ * dispatcher), but it is still unbounded growth with no TTL, cap, or purge mechanism - a known
+ * characteristic of this POC-level implementation, not a bug.
  */
 final class BatchRunTracker {
 

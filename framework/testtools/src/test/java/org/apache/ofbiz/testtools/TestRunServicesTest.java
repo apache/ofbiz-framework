@@ -311,4 +311,37 @@ class TestRunServicesTest {
 
         assertThat(result.get("runId"), is("run-id-check"));
     }
+
+    @Test
+    void isTestApiGloballyEnabledReadsTheGlobalFlag() {
+        Delegator delegator = mock(Delegator.class);
+        try (MockedStatic<EntityUtilProperties> entityUtilProperties =
+                Mockito.mockStatic(EntityUtilProperties.class, Mockito.CALLS_REAL_METHODS)) {
+            entityUtilProperties.when(() -> EntityUtilProperties.getPropertyValue("testtools", "test.api.enabled", delegator))
+                    .thenReturn("true");
+
+            assertThat(TestRunServices.isTestApiGloballyEnabled(delegator), is(true));
+        }
+    }
+
+    @Test
+    void isTestApiEnabledForComponentDefaultsToTrueWhenUnset() {
+        Delegator delegator = mock(Delegator.class);
+        try (MockedStatic<EntityUtilProperties> entityUtilProperties =
+                Mockito.mockStatic(EntityUtilProperties.class, Mockito.CALLS_REAL_METHODS)) {
+            assertThat(TestRunServices.isTestApiEnabledForComponent(delegator, "example"), is(true));
+        }
+    }
+
+    @Test
+    void isTestApiEnabledForComponentReflectsAnExplicitOverride() {
+        Delegator delegator = mock(Delegator.class);
+        try (MockedStatic<EntityUtilProperties> entityUtilProperties =
+                Mockito.mockStatic(EntityUtilProperties.class, Mockito.CALLS_REAL_METHODS)) {
+            entityUtilProperties.when(() -> EntityUtilProperties.getPropertyValue("testtools", "test.api.enabled.example", delegator))
+                    .thenReturn("false");
+
+            assertThat(TestRunServices.isTestApiEnabledForComponent(delegator, "example"), is(false));
+        }
+    }
 }

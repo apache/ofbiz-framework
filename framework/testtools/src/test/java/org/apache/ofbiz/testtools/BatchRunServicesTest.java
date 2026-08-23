@@ -289,6 +289,23 @@ class BatchRunServicesTest {
     }
 
     @Test
+    void runBatchTestSuiteRejectsAnExplicitlyEmptyComponentsList() {
+        DispatchContext dctx = mock(DispatchContext.class);
+        Security security = mock(Security.class);
+        GenericValue userLogin = mock(GenericValue.class);
+        when(dctx.getSecurity()).thenReturn(security);
+        when(userLogin.getString("userLoginId")).thenReturn("admin");
+        when(security.hasPermission("TESTEXEC_ADMIN", userLogin)).thenReturn(true);
+
+        Map<String, Object> result = BatchRunServices.runBatchTestSuite(dctx,
+                Map.of("userLogin", userLogin, "components", List.of()));
+
+        assertThat(result.get("responseMessage"), is("error"));
+        assertThat((String) result.get("errorMessage"), containsString("cannot be empty"));
+        assertThat(result.get("batchId"), nullValue());
+    }
+
+    @Test
     void runBatchTestSuiteRejectsWholeBatchWhenAnExplicitComponentIsInvalid() {
         DispatchContext dctx = mock(DispatchContext.class);
         Security security = mock(Security.class);
