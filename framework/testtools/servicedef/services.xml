@@ -78,7 +78,7 @@ under the License.
             Exposed directly via the generic, framework-owned framework/testtools/api/testruns.rest.xml
             endpoint (GET /rest/testtools/testruns/{runId}) - same caution as runTestSuite above applies to
             any component-owned *.rest.xml.</description>
-        <attribute name="runId" type="String" mode="IN" optional="false"/>
+        <attribute name="runId" type="String" mode="INOUT" optional="false"/>
         <attribute name="status" type="String" mode="OUT" optional="true"/>
         <attribute name="componentName" type="String" mode="OUT" optional="true"/>
         <attribute name="resultSummary" type="Map" mode="OUT" optional="true"/>
