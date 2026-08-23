@@ -144,11 +144,32 @@ under the License.
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonExtUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="contentId" from-field="parameters.contentId" default-value="${contentId}"/>
+                <!-- must check the DataResource that will actually be rendered below, not just contentId's
+                     own: content rendering can silently substitute a different record (WEB_SITE_PUB_PT
+                     publish-point redirection, ALTERNATE_LOCALE substitution); see
+                     ResolveRenderedDataResource.groovy -->
+                <script location="component://content/src/main/groovy/org/apache/ofbiz/content/content/ResolveRenderedDataResource.groovy"/>
+                <set field="showDocumentHelpDataResource" from-field="renderedDataResource"/>
             </actions>
             <widgets>
-                <container id="Document">
-                    <content content-id="${contentId}" />
-                </container>
+                <!-- an unauthenticated caller (e.g. via showHelpPublic) must not be able to pull an arbitrary
+                     contentId; only content whose DataResource is explicitly marked isPublic=Y may be shown -->
+                <section>
+                    <condition>
+                        <or>
+                            <not><if-empty field="userLogin"/></not>
+                            <if-compare field="showDocumentHelpDataResource.isPublic" operator="equals" value="Y"/>
+                        </or>
+                    </condition>
+                    <widgets>
+                        <container id="Document">
+                            <content content-id="${contentId}" />
+                        </container>
+                    </widgets>
+                    <fail-widgets>
+                        <label style="h3">${uiLabelMap.CommonPermissionError}</label>
+                    </fail-widgets>
+                </section>
             </widgets>
         </section>
     </screen>
