@@ -22,7 +22,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLConnection;
 import java.nio.charset.Charset;
 import java.util.Stack;
 
@@ -53,7 +55,15 @@ public class RecordIterator {
 
         InputStream urlStream = null;
         try {
-            urlStream = fileUrl.openStream();
+            // Don't follow redirects: the caller may have already validated fileUrl's host as safe
+            // to fetch from (see UtilURL.fromCheckedUrlString), and a redirect could point
+            // anywhere, bypassing that check.
+            URLConnection connection = fileUrl.openConnection();
+            if (connection instanceof HttpURLConnection) {
+                HttpURLConnection httpConnection = (HttpURLConnection) connection;
+                httpConnection.setInstanceFollowRedirects(false);
+            }
+            urlStream = connection.getInputStream();
         } catch (IOException e) {
             throw new DataFileException("Error open URL: " + fileUrl.toString(), e);
         }
