@@ -139,4 +139,111 @@ class BatchRunServicesTest {
             componentConfig.verifyNoInteractions();
         }
     }
+
+    @Test
+    void validateRequestedComponentsReturnsEmptyListWhenAllAreValid() {
+        Delegator delegator = mock(Delegator.class);
+        var party = testSuiteInfoFor("party");
+        try (MockedStatic<ComponentConfig> componentConfig = Mockito.mockStatic(ComponentConfig.class);
+             MockedStatic<EntityUtilProperties> entityUtilProperties =
+                     Mockito.mockStatic(EntityUtilProperties.class, Mockito.CALLS_REAL_METHODS)) {
+            componentConfig.when(() -> ComponentConfig.componentExists("party")).thenReturn(true);
+            componentConfig.when(() -> ComponentConfig.getAllTestSuiteInfos("party"))
+                    .thenReturn(List.of(party));
+            entityUtilProperties.when(() -> EntityUtilProperties.getPropertyValue("testtools", "test.api.enabled", delegator))
+                    .thenReturn("true");
+            entityUtilProperties.when(() -> EntityUtilProperties.getPropertyValue("testtools", "test.api.enabled.party", delegator))
+                    .thenReturn("true");
+
+            List<String> invalid = BatchRunServices.validateRequestedComponents(List.of("party"), delegator);
+
+            assertThat(invalid, is(List.of()));
+        }
+    }
+
+    @Test
+    void validateRequestedComponentsFlagsAnUnknownComponent() {
+        Delegator delegator = mock(Delegator.class);
+        try (MockedStatic<ComponentConfig> componentConfig = Mockito.mockStatic(ComponentConfig.class);
+             MockedStatic<EntityUtilProperties> entityUtilProperties =
+                     Mockito.mockStatic(EntityUtilProperties.class, Mockito.CALLS_REAL_METHODS)) {
+            componentConfig.when(() -> ComponentConfig.componentExists("nosuch")).thenReturn(false);
+            entityUtilProperties.when(() -> EntityUtilProperties.getPropertyValue("testtools", "test.api.enabled", delegator))
+                    .thenReturn("true");
+
+            List<String> invalid = BatchRunServices.validateRequestedComponents(List.of("nosuch"), delegator);
+
+            assertThat(invalid, contains("nosuch (unknown component)"));
+        }
+    }
+
+    @Test
+    void validateRequestedComponentsFlagsAComponentWithNoTestdef() {
+        Delegator delegator = mock(Delegator.class);
+        try (MockedStatic<ComponentConfig> componentConfig = Mockito.mockStatic(ComponentConfig.class);
+             MockedStatic<EntityUtilProperties> entityUtilProperties =
+                     Mockito.mockStatic(EntityUtilProperties.class, Mockito.CALLS_REAL_METHODS)) {
+            componentConfig.when(() -> ComponentConfig.componentExists("birt")).thenReturn(true);
+            componentConfig.when(() -> ComponentConfig.getAllTestSuiteInfos("birt")).thenReturn(List.of());
+            entityUtilProperties.when(() -> EntityUtilProperties.getPropertyValue("testtools", "test.api.enabled", delegator))
+                    .thenReturn("true");
+
+            List<String> invalid = BatchRunServices.validateRequestedComponents(List.of("birt"), delegator);
+
+            assertThat(invalid, contains("birt (no testdef found)"));
+        }
+    }
+
+    @Test
+    void validateRequestedComponentsFlagsADisabledComponent() {
+        Delegator delegator = mock(Delegator.class);
+        var accounting = testSuiteInfoFor("accounting");
+        try (MockedStatic<ComponentConfig> componentConfig = Mockito.mockStatic(ComponentConfig.class);
+             MockedStatic<EntityUtilProperties> entityUtilProperties =
+                     Mockito.mockStatic(EntityUtilProperties.class, Mockito.CALLS_REAL_METHODS)) {
+            componentConfig.when(() -> ComponentConfig.componentExists("accounting")).thenReturn(true);
+            componentConfig.when(() -> ComponentConfig.getAllTestSuiteInfos("accounting"))
+                    .thenReturn(List.of(accounting));
+            entityUtilProperties.when(() -> EntityUtilProperties.getPropertyValue("testtools", "test.api.enabled", delegator))
+                    .thenReturn("true");
+            entityUtilProperties.when(() -> EntityUtilProperties.getPropertyValue("testtools", "test.api.enabled.accounting", delegator))
+                    .thenReturn("false");
+
+            List<String> invalid = BatchRunServices.validateRequestedComponents(List.of("accounting"), delegator);
+
+            assertThat(invalid, contains("accounting (test execution API is disabled for this component)"));
+        }
+    }
+
+    @Test
+    void validateRequestedComponentsFlagsABlankEntryWithoutCallingComponentConfig() {
+        Delegator delegator = mock(Delegator.class);
+        try (MockedStatic<ComponentConfig> componentConfig = Mockito.mockStatic(ComponentConfig.class);
+             MockedStatic<EntityUtilProperties> entityUtilProperties =
+                     Mockito.mockStatic(EntityUtilProperties.class, Mockito.CALLS_REAL_METHODS)) {
+            entityUtilProperties.when(() -> EntityUtilProperties.getPropertyValue("testtools", "test.api.enabled", delegator))
+                    .thenReturn("true");
+
+            List<String> invalid = BatchRunServices.validateRequestedComponents(List.of(""), delegator);
+
+            assertThat(invalid, contains(" (blank component name)"));
+            componentConfig.verifyNoInteractions();
+        }
+    }
+
+    @Test
+    void validateRequestedComponentsFlagsEveryEntryWhenGlobalFlagIsOff() {
+        Delegator delegator = mock(Delegator.class);
+        try (MockedStatic<ComponentConfig> componentConfig = Mockito.mockStatic(ComponentConfig.class);
+             MockedStatic<EntityUtilProperties> entityUtilProperties =
+                     Mockito.mockStatic(EntityUtilProperties.class, Mockito.CALLS_REAL_METHODS)) {
+            entityUtilProperties.when(() -> EntityUtilProperties.getPropertyValue("testtools", "test.api.enabled", delegator))
+                    .thenReturn("false");
+
+            List<String> invalid = BatchRunServices.validateRequestedComponents(List.of("party"), delegator);
+
+            assertThat(invalid, contains("party (test execution API is disabled)"));
+            componentConfig.verifyNoInteractions();
+        }
+    }
 }

@@ -18,10 +18,12 @@
  *******************************************************************************/
 package org.apache.ofbiz.testtools;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.apache.ofbiz.base.component.ComponentConfig;
+import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 
 /**
@@ -76,5 +78,42 @@ public final class BatchRunServices {
                 .filter(name -> "true".equalsIgnoreCase(
                         TestRunServices.readStringProperty(delegator, "test.api.enabled." + name, "true")))
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * Validates every caller-named component up front, before any of them is queued - a bad entry
+     * must reject the whole call rather than silently running only the good ones (see this class's
+     * javadoc).
+     * @param requested the caller-supplied {@code components} list, as given (not yet validated)
+     * @param delegator the calling request's Delegator
+     * @return one human-readable reason string per invalid entry, empty if every entry is valid
+     */
+    static List<String> validateRequestedComponents(List<String> requested, Delegator delegator) {
+        boolean apiEnabled = "true".equalsIgnoreCase(TestRunServices.readStringProperty(delegator, "test.api.enabled", "false"));
+        List<String> invalid = new ArrayList<>();
+        for (String name : requested) {
+            if (UtilValidate.isEmpty(name)) {
+                invalid.add(name + " (blank component name)");
+                continue;
+            }
+            if (!apiEnabled) {
+                invalid.add(name + " (test execution API is disabled)");
+                continue;
+            }
+            if (!Boolean.TRUE.equals(ComponentConfig.componentExists(name))) {
+                invalid.add(name + " (unknown component)");
+                continue;
+            }
+            if (ComponentConfig.getAllTestSuiteInfos(name).isEmpty()) {
+                invalid.add(name + " (no testdef found)");
+                continue;
+            }
+            boolean componentEnabled = "true".equalsIgnoreCase(
+                    TestRunServices.readStringProperty(delegator, "test.api.enabled." + name, "true"));
+            if (!componentEnabled) {
+                invalid.add(name + " (test execution API is disabled for this component)");
+            }
+        }
+        return invalid;
     }
 }
