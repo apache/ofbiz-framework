@@ -19,12 +19,20 @@
 package org.apache.ofbiz.testtools;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.apache.ofbiz.base.component.ComponentConfig;
+import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
+import org.apache.ofbiz.entity.GenericValue;
+import org.apache.ofbiz.service.DispatchContext;
+import org.apache.ofbiz.service.ServiceUtil;
 
 /**
  * REST-triggered batch test execution: runBatchTestSuite fans a full-suite
@@ -54,7 +62,73 @@ import org.apache.ofbiz.entity.Delegator;
  */
 public final class BatchRunServices {
 
+    private static final String MODULE = BatchRunServices.class.getName();
+    private static final String TESTEXEC_PERMISSION = "TESTEXEC_ADMIN";
+
+    static final BatchRunTracker BATCH_TRACKER = new BatchRunTracker();
+
     private BatchRunServices() {
+    }
+
+    public static Map<String, Object> runBatchTestSuite(DispatchContext dctx, Map<String, ?> context) {
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        String userLoginId = userLogin == null ? "unknown" : userLogin.getString("userLoginId");
+
+        if (!dctx.getSecurity().hasPermission(TESTEXEC_PERMISSION, userLogin)) {
+            Debug.logWarning("runBatchTestSuite: DENIED for user '" + userLoginId + "' - missing "
+                    + TESTEXEC_PERMISSION, MODULE);
+            return ServiceUtil.returnError("You do not have permission to trigger test runs (" + TESTEXEC_PERMISSION + ")");
+        }
+
+        List<String> requestedComponents = UtilGenerics.cast(context.get("components"));
+        List<String> componentNames;
+        if (UtilValidate.isEmpty(requestedComponents)) {
+            componentNames = discoverEligibleComponents(dctx.getDelegator());
+            if (componentNames.isEmpty()) {
+                Debug.logWarning("runBatchTestSuite: rejected for user '" + userLoginId
+                        + "' - no components are eligible", MODULE);
+                return ServiceUtil.returnError("No components are eligible for a batch test run - none have "
+                        + "the test execution API enabled, or none have a testdef.");
+            }
+        } else {
+            List<String> invalid = validateRequestedComponents(requestedComponents, dctx.getDelegator());
+            if (!invalid.isEmpty()) {
+                Debug.logWarning("runBatchTestSuite: rejected for user '" + userLoginId + "' - invalid components: "
+                        + invalid, MODULE);
+                return ServiceUtil.returnError("The following components cannot be included in this batch run: "
+                        + String.join("; ", invalid));
+            }
+            componentNames = requestedComponents;
+        }
+
+        String batchId = UUID.randomUUID().toString();
+        List<BatchRunTracker.BatchChildRef> children = new ArrayList<>();
+        for (String componentName : componentNames) {
+            Map<String, Object> childContext = new LinkedHashMap<>();
+            childContext.put("componentName", componentName);
+            childContext.put("userLogin", userLogin);
+            Map<String, Object> result = TestRunServices.runTestSuite(dctx, childContext);
+            if (ServiceUtil.isError(result)) {
+                // Silently omitted, matching the "auto-discovered component has no testdef tests"
+                // edge case this same rule already covers - the only realistic ways an
+                // already-eligibility-checked component can still fail here are a genuinely empty
+                // testdef (registered but resolves to zero tests) or a live config change racing
+                // between this batch's own eligibility check above and this call, both of which
+                // mean there is no runId to show for this component either way.
+                Debug.logWarning("runBatchTestSuite: batchId=" + batchId + " skipped component '" + componentName
+                        + "' - " + ServiceUtil.getErrorMessage(result), MODULE);
+                continue;
+            }
+            children.add(new BatchRunTracker.BatchChildRef(componentName, (String) result.get("runId")));
+        }
+        BATCH_TRACKER.register(batchId, children);
+
+        Debug.logInfo("runBatchTestSuite: STARTED batchId=" + batchId + " user='" + userLoginId + "' components="
+                + componentNames, MODULE);
+
+        Map<String, Object> response = ServiceUtil.returnSuccess();
+        response.put("batchId", batchId);
+        return response;
     }
 
     /**
