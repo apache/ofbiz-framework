@@ -194,6 +194,16 @@ tasks.withType(JavaCompile) {
     }
 }
 
+// The Groovy compiler forks to an isolated worker process whose default heap (512m) is too
+// small to jointly compile the full framework + applications + plugins Groovy source set in one
+// pass; on Linux this reliably fails compileGroovy with a bare "parsing failed" (no further
+// detail) rather than an explicit OutOfMemoryError. Raise the worker heap to avoid it. See the
+// "Build and push framework with plugins docker image" job, which is the one that pulls in the
+// full plugins/ source tree and is where this was first observed.
+tasks.withType(GroovyCompile) {
+    groovyOptions.forkOptions.memoryMaximumSize = '2g'
+}
+
 // Enables Zip larger than 4 GB and more than 65535 entries
 tasks.withType(Zip) { zip64 = true }
 
