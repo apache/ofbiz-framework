@@ -475,8 +475,24 @@ public final class TestRunServices {
         }
 
         Map<String, Object> result = ServiceUtil.returnSuccess();
-        result.put("status", record.status().name());
+        result.putAll(describeRun(record));
+        return result;
+    }
+
+    /**
+     * Assembles one tracked run's runId/componentName/status/resultSummary into the exact shape
+     * getTestRunStatus returns for it - reused as-is by BatchRunServices.getBatchTestRunStatus so a
+     * batch's per-component entry is indistinguishable from what GET /testruns/{runId} would return
+     * for that same runId. resultSummary merges the tracked resultSummary map (if any) with an
+     * errorMessage key (if any), same as getTestRunStatus always did before this was extracted.
+     * @param record the tracked run to describe - never null for either caller (TRACKER.register
+     *     always creates one before any runId is handed to a caller, and nothing ever removes one)
+     */
+    static Map<String, Object> describeRun(TestRunRecord record) {
+        Map<String, Object> result = new LinkedHashMap<>();
+        result.put("runId", record.runId());
         result.put("componentName", record.componentName());
+        result.put("status", record.status().name());
         Map<String, Object> resultSummary = new LinkedHashMap<>();
         if (record.resultSummary() != null) {
             resultSummary.putAll(record.resultSummary());
@@ -488,7 +504,7 @@ public final class TestRunServices {
         return result;
     }
 
-    private static String readStringProperty(Delegator delegator, String propertyName, String defaultValue) {
+    static String readStringProperty(Delegator delegator, String propertyName, String defaultValue) {
         try {
             String value = delegator == null
                     ? UtilProperties.getPropertyValue(RESOURCE, propertyName, defaultValue)

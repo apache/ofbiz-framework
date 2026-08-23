@@ -271,4 +271,44 @@ class TestRunServicesTest {
             assertThat(result.get("runId"), nullValue());
         }
     }
+
+    @Test
+    void describeRunIncludesRunIdComponentNameStatusAndResultSummary() {
+        TestRunRecord record = TestRunRecord.queued("run-9", "example-tests", "example", "admin", Map.of())
+                .passed(Map.of("total", 2, "passed", 2, "failed", 0));
+
+        Map<String, Object> described = TestRunServices.describeRun(record);
+
+        assertThat(described.get("runId"), is("run-9"));
+        assertThat(described.get("componentName"), is("example"));
+        assertThat(described.get("status"), is("PASSED"));
+        assertThat(described.get("resultSummary"), is(Map.of("total", 2, "passed", 2, "failed", 0)));
+    }
+
+    @Test
+    void describeRunAddsErrorMessageIntoResultSummaryWhenPresent() {
+        TestRunRecord record = TestRunRecord.queued("run-9", "example-tests", "example", "admin", Map.of())
+                .error(new RuntimeException("boom"));
+
+        Map<String, Object> described = TestRunServices.describeRun(record);
+
+        assertThat(described.get("status"), is("ERROR"));
+        assertThat(((Map<?, ?>) described.get("resultSummary")).get("errorMessage"), is("boom"));
+    }
+
+    @Test
+    void getTestRunStatusIncludesRunId() {
+        DispatchContext dctx = mock(DispatchContext.class);
+        Security security = mock(Security.class);
+        GenericValue userLogin = mock(GenericValue.class);
+        when(dctx.getSecurity()).thenReturn(security);
+        when(userLogin.getString("userLoginId")).thenReturn("admin");
+        when(security.hasPermission("TESTEXEC_ADMIN", userLogin)).thenReturn(true);
+        TestRunServices.TRACKER.register("run-id-check", "example-tests", "example", "admin", Map.of());
+
+        Map<String, Object> result = TestRunServices.getTestRunStatus(dctx,
+                Map.of("runId", "run-id-check", "userLogin", userLogin));
+
+        assertThat(result.get("runId"), is("run-id-check"));
+    }
 }
