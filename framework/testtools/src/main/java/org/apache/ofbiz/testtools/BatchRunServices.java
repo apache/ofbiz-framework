@@ -175,11 +175,11 @@ public final class BatchRunServices {
             TestRunRecord record = TestRunServices.TRACKER.get(child.runId());
             componentResults.add(TestRunServices.describeRun(record));
             switch (record.status()) {
-                case PASSED -> passed++;
-                case FAILED -> failed++;
-                case ERROR -> errored++;
-                case RUNNING -> running++;
-                case QUEUED -> queued++;
+            case PASSED -> passed++;
+            case FAILED -> failed++;
+            case ERROR -> errored++;
+            case RUNNING -> running++;
+            case QUEUED -> queued++;
             }
         }
 
