@@ -59,8 +59,8 @@ class BatchRunServicesTest {
         var example = testSuiteInfoFor("example");
         var party = testSuiteInfoFor("party");
         try (MockedStatic<ComponentConfig> componentConfig = Mockito.mockStatic(ComponentConfig.class);
-             MockedStatic<EntityUtilProperties> entityUtilProperties =
-                     Mockito.mockStatic(EntityUtilProperties.class, Mockito.CALLS_REAL_METHODS)) {
+                MockedStatic<EntityUtilProperties> entityUtilProperties =
+                        Mockito.mockStatic(EntityUtilProperties.class, Mockito.CALLS_REAL_METHODS)) {
             componentConfig.when(() -> ComponentConfig.getAllTestSuiteInfos(null))
                     .thenReturn(List.of(example, party));
             entityUtilProperties.when(() -> EntityUtilProperties.getPropertyValue("testtools", "test.api.enabled", delegator))
@@ -83,8 +83,8 @@ class BatchRunServicesTest {
         var example = testSuiteInfoFor("example");
         var party = testSuiteInfoFor("party");
         try (MockedStatic<ComponentConfig> componentConfig = Mockito.mockStatic(ComponentConfig.class);
-             MockedStatic<EntityUtilProperties> entityUtilProperties =
-                     Mockito.mockStatic(EntityUtilProperties.class, Mockito.CALLS_REAL_METHODS)) {
+                MockedStatic<EntityUtilProperties> entityUtilProperties =
+                        Mockito.mockStatic(EntityUtilProperties.class, Mockito.CALLS_REAL_METHODS)) {
             componentConfig.when(() -> ComponentConfig.getAllTestSuiteInfos(null))
                     .thenReturn(List.of(example, party));
             entityUtilProperties.when(() -> EntityUtilProperties.getPropertyValue("testtools", "test.api.enabled", delegator))
@@ -108,8 +108,8 @@ class BatchRunServicesTest {
         var accounting2 = testSuiteInfoFor("accounting");
         var accounting3 = testSuiteInfoFor("accounting");
         try (MockedStatic<ComponentConfig> componentConfig = Mockito.mockStatic(ComponentConfig.class);
-             MockedStatic<EntityUtilProperties> entityUtilProperties =
-                     Mockito.mockStatic(EntityUtilProperties.class, Mockito.CALLS_REAL_METHODS)) {
+                MockedStatic<EntityUtilProperties> entityUtilProperties =
+                        Mockito.mockStatic(EntityUtilProperties.class, Mockito.CALLS_REAL_METHODS)) {
             componentConfig.when(() -> ComponentConfig.getAllTestSuiteInfos(null))
                     .thenReturn(List.of(accounting1, accounting2, accounting3));
             entityUtilProperties.when(() -> EntityUtilProperties.getPropertyValue("testtools", "test.api.enabled", delegator))
@@ -128,8 +128,8 @@ class BatchRunServicesTest {
         Delegator delegator = mock(Delegator.class);
 
         try (MockedStatic<ComponentConfig> componentConfig = Mockito.mockStatic(ComponentConfig.class);
-             MockedStatic<EntityUtilProperties> entityUtilProperties =
-                     Mockito.mockStatic(EntityUtilProperties.class, Mockito.CALLS_REAL_METHODS)) {
+                MockedStatic<EntityUtilProperties> entityUtilProperties =
+                        Mockito.mockStatic(EntityUtilProperties.class, Mockito.CALLS_REAL_METHODS)) {
             entityUtilProperties.when(() -> EntityUtilProperties.getPropertyValue("testtools", "test.api.enabled", delegator))
                     .thenReturn("false");
 
@@ -145,8 +145,8 @@ class BatchRunServicesTest {
         Delegator delegator = mock(Delegator.class);
         var party = testSuiteInfoFor("party");
         try (MockedStatic<ComponentConfig> componentConfig = Mockito.mockStatic(ComponentConfig.class);
-             MockedStatic<EntityUtilProperties> entityUtilProperties =
-                     Mockito.mockStatic(EntityUtilProperties.class, Mockito.CALLS_REAL_METHODS)) {
+                MockedStatic<EntityUtilProperties> entityUtilProperties =
+                        Mockito.mockStatic(EntityUtilProperties.class, Mockito.CALLS_REAL_METHODS)) {
             componentConfig.when(() -> ComponentConfig.componentExists("party")).thenReturn(true);
             componentConfig.when(() -> ComponentConfig.getAllTestSuiteInfos("party"))
                     .thenReturn(List.of(party));
@@ -165,8 +165,8 @@ class BatchRunServicesTest {
     void validateRequestedComponentsFlagsAnUnknownComponent() {
         Delegator delegator = mock(Delegator.class);
         try (MockedStatic<ComponentConfig> componentConfig = Mockito.mockStatic(ComponentConfig.class);
-             MockedStatic<EntityUtilProperties> entityUtilProperties =
-                     Mockito.mockStatic(EntityUtilProperties.class, Mockito.CALLS_REAL_METHODS)) {
+                MockedStatic<EntityUtilProperties> entityUtilProperties =
+                        Mockito.mockStatic(EntityUtilProperties.class, Mockito.CALLS_REAL_METHODS)) {
             componentConfig.when(() -> ComponentConfig.componentExists("nosuch")).thenReturn(false);
             entityUtilProperties.when(() -> EntityUtilProperties.getPropertyValue("testtools", "test.api.enabled", delegator))
                     .thenReturn("true");
@@ -181,8 +181,8 @@ class BatchRunServicesTest {
     void validateRequestedComponentsFlagsAComponentWithNoTestdef() {
         Delegator delegator = mock(Delegator.class);
         try (MockedStatic<ComponentConfig> componentConfig = Mockito.mockStatic(ComponentConfig.class);
-             MockedStatic<EntityUtilProperties> entityUtilProperties =
-                     Mockito.mockStatic(EntityUtilProperties.class, Mockito.CALLS_REAL_METHODS)) {
+                MockedStatic<EntityUtilProperties> entityUtilProperties =
+                        Mockito.mockStatic(EntityUtilProperties.class, Mockito.CALLS_REAL_METHODS)) {
             componentConfig.when(() -> ComponentConfig.componentExists("birt")).thenReturn(true);
             componentConfig.when(() -> ComponentConfig.getAllTestSuiteInfos("birt")).thenReturn(List.of());
             entityUtilProperties.when(() -> EntityUtilProperties.getPropertyValue("testtools", "test.api.enabled", delegator))
@@ -199,8 +199,8 @@ class BatchRunServicesTest {
         Delegator delegator = mock(Delegator.class);
         var accounting = testSuiteInfoFor("accounting");
         try (MockedStatic<ComponentConfig> componentConfig = Mockito.mockStatic(ComponentConfig.class);
-             MockedStatic<EntityUtilProperties> entityUtilProperties =
-                     Mockito.mockStatic(EntityUtilProperties.class, Mockito.CALLS_REAL_METHODS)) {
+                MockedStatic<EntityUtilProperties> entityUtilProperties =
+                        Mockito.mockStatic(EntityUtilProperties.class, Mockito.CALLS_REAL_METHODS)) {
             componentConfig.when(() -> ComponentConfig.componentExists("accounting")).thenReturn(true);
             componentConfig.when(() -> ComponentConfig.getAllTestSuiteInfos("accounting"))
                     .thenReturn(List.of(accounting));
@@ -219,8 +219,8 @@ class BatchRunServicesTest {
     void validateRequestedComponentsFlagsABlankEntryWithoutCallingComponentConfig() {
         Delegator delegator = mock(Delegator.class);
         try (MockedStatic<ComponentConfig> componentConfig = Mockito.mockStatic(ComponentConfig.class);
-             MockedStatic<EntityUtilProperties> entityUtilProperties =
-                     Mockito.mockStatic(EntityUtilProperties.class, Mockito.CALLS_REAL_METHODS)) {
+                MockedStatic<EntityUtilProperties> entityUtilProperties =
+                        Mockito.mockStatic(EntityUtilProperties.class, Mockito.CALLS_REAL_METHODS)) {
             entityUtilProperties.when(() -> EntityUtilProperties.getPropertyValue("testtools", "test.api.enabled", delegator))
                     .thenReturn("true");
 
@@ -235,8 +235,8 @@ class BatchRunServicesTest {
     void validateRequestedComponentsFlagsEveryEntryWhenGlobalFlagIsOff() {
         Delegator delegator = mock(Delegator.class);
         try (MockedStatic<ComponentConfig> componentConfig = Mockito.mockStatic(ComponentConfig.class);
-             MockedStatic<EntityUtilProperties> entityUtilProperties =
-                     Mockito.mockStatic(EntityUtilProperties.class, Mockito.CALLS_REAL_METHODS)) {
+                MockedStatic<EntityUtilProperties> entityUtilProperties =
+                        Mockito.mockStatic(EntityUtilProperties.class, Mockito.CALLS_REAL_METHODS)) {
             entityUtilProperties.when(() -> EntityUtilProperties.getPropertyValue("testtools", "test.api.enabled", delegator))
                     .thenReturn("false");
 
@@ -298,8 +298,8 @@ class BatchRunServicesTest {
         when(security.hasPermission("TESTEXEC_ADMIN", userLogin)).thenReturn(true);
 
         try (MockedStatic<ComponentConfig> componentConfig = Mockito.mockStatic(ComponentConfig.class);
-             MockedStatic<EntityUtilProperties> entityUtilProperties =
-                     Mockito.mockStatic(EntityUtilProperties.class, Mockito.CALLS_REAL_METHODS)) {
+                MockedStatic<EntityUtilProperties> entityUtilProperties =
+                        Mockito.mockStatic(EntityUtilProperties.class, Mockito.CALLS_REAL_METHODS)) {
             componentConfig.when(() -> ComponentConfig.componentExists("nosuch")).thenReturn(false);
             entityUtilProperties.when(() -> EntityUtilProperties.getPropertyValue("testtools", "test.api.enabled", delegator))
                     .thenReturn("true");
@@ -336,10 +336,10 @@ class BatchRunServicesTest {
 
         var exampleSuiteInfo = testSuiteInfoFor("example");
         try (MockedStatic<ComponentConfig> componentConfig = Mockito.mockStatic(ComponentConfig.class);
-             MockedStatic<EntityUtilProperties> entityUtilProperties =
-                     Mockito.mockStatic(EntityUtilProperties.class, Mockito.CALLS_REAL_METHODS);
-             MockedStatic<TestRunServices> testRunServices =
-                     Mockito.mockStatic(TestRunServices.class, Mockito.CALLS_REAL_METHODS)) {
+                MockedStatic<EntityUtilProperties> entityUtilProperties =
+                        Mockito.mockStatic(EntityUtilProperties.class, Mockito.CALLS_REAL_METHODS);
+                MockedStatic<TestRunServices> testRunServices =
+                        Mockito.mockStatic(TestRunServices.class, Mockito.CALLS_REAL_METHODS)) {
             componentConfig.when(() -> ComponentConfig.componentExists("example")).thenReturn(true);
             componentConfig.when(() -> ComponentConfig.getAllTestSuiteInfos("example"))
                     .thenReturn(List.of(exampleSuiteInfo));
@@ -374,10 +374,10 @@ class BatchRunServicesTest {
 
         var flakySuiteInfo = testSuiteInfoFor("flaky");
         try (MockedStatic<ComponentConfig> componentConfig = Mockito.mockStatic(ComponentConfig.class);
-             MockedStatic<EntityUtilProperties> entityUtilProperties =
-                     Mockito.mockStatic(EntityUtilProperties.class, Mockito.CALLS_REAL_METHODS);
-             MockedStatic<TestRunServices> testRunServices =
-                     Mockito.mockStatic(TestRunServices.class, Mockito.CALLS_REAL_METHODS)) {
+                MockedStatic<EntityUtilProperties> entityUtilProperties =
+                        Mockito.mockStatic(EntityUtilProperties.class, Mockito.CALLS_REAL_METHODS);
+                MockedStatic<TestRunServices> testRunServices =
+                        Mockito.mockStatic(TestRunServices.class, Mockito.CALLS_REAL_METHODS)) {
             componentConfig.when(() -> ComponentConfig.componentExists("flaky")).thenReturn(true);
             componentConfig.when(() -> ComponentConfig.getAllTestSuiteInfos("flaky"))
                     .thenReturn(List.of(flakySuiteInfo));

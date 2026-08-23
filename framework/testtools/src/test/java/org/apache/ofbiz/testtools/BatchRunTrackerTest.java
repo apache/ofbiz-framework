@@ -68,7 +68,7 @@ class BatchRunTrackerTest {
 
         List<BatchRunTracker.BatchChildRef> stored = tracker.get("batch-1");
 
-        assertThrows(UnsupportedOperationException.class,
-                () -> stored.add(new BatchRunTracker.BatchChildRef("party", "run-2")));
+        assertThrows(UnsupportedOperationException.class, () ->
+                stored.add(new BatchRunTracker.BatchChildRef("party", "run-2")));
     }
 }
