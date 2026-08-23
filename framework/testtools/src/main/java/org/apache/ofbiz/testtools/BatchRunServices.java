@@ -98,7 +98,7 @@ public final class BatchRunServices {
                 return ServiceUtil.returnError("The following components cannot be included in this batch run: "
                         + String.join("; ", invalid));
             }
-            componentNames = requestedComponents;
+            componentNames = requestedComponents.stream().distinct().toList();
         }
 
         String batchId = UUID.randomUUID().toString();
@@ -120,6 +120,12 @@ public final class BatchRunServices {
                 continue;
             }
             children.add(new BatchRunTracker.BatchChildRef(componentName, (String) result.get("runId")));
+        }
+        if (children.isEmpty()) {
+            Debug.logWarning("runBatchTestSuite: rejected for user '" + userLoginId
+                    + "' - every requested component's runTestSuite call failed, batchId=" + batchId, MODULE);
+            return ServiceUtil.returnError("No components were successfully queued for this batch - every "
+                    + "requested component's runTestSuite call failed.");
         }
         BATCH_TRACKER.register(batchId, children);
 

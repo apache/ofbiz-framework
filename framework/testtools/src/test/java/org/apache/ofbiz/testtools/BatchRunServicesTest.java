@@ -38,8 +38,10 @@ import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.Matchers.nullValue;
+import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.when;
 
 class BatchRunServicesTest {
@@ -362,7 +364,7 @@ class BatchRunServicesTest {
     }
 
     @Test
-    void runBatchTestSuiteOmitsAComponentWhoseRunTestSuiteCallErrors() {
+    void runBatchTestSuiteRejectsTheWholeBatchWhenEveryComponentsRunTestSuiteCallErrors() {
         DispatchContext dctx = mock(DispatchContext.class);
         Security security = mock(Security.class);
         Delegator delegator = mock(Delegator.class);
@@ -391,9 +393,94 @@ class BatchRunServicesTest {
             Map<String, Object> result = BatchRunServices.runBatchTestSuite(dctx,
                     Map.of("userLogin", userLogin, "components", List.of("flaky")));
 
+            assertThat(result.get("responseMessage"), is("error"));
+            assertThat(result.get("batchId"), nullValue());
+        }
+    }
+
+    @Test
+    void runBatchTestSuiteOmitsAFailingComponentButKeepsGoingWhenAtLeastOneSucceeds() {
+        DispatchContext dctx = mock(DispatchContext.class);
+        Security security = mock(Security.class);
+        Delegator delegator = mock(Delegator.class);
+        GenericValue userLogin = mock(GenericValue.class);
+        when(dctx.getSecurity()).thenReturn(security);
+        when(dctx.getDelegator()).thenReturn(delegator);
+        when(userLogin.getString("userLoginId")).thenReturn("admin");
+        when(security.hasPermission("TESTEXEC_ADMIN", userLogin)).thenReturn(true);
+
+        var exampleSuiteInfo = testSuiteInfoFor("example");
+        var flakySuiteInfo = testSuiteInfoFor("flaky");
+        try (MockedStatic<ComponentConfig> componentConfig = Mockito.mockStatic(ComponentConfig.class);
+                MockedStatic<EntityUtilProperties> entityUtilProperties =
+                        Mockito.mockStatic(EntityUtilProperties.class, Mockito.CALLS_REAL_METHODS);
+                MockedStatic<TestRunServices> testRunServices =
+                        Mockito.mockStatic(TestRunServices.class, Mockito.CALLS_REAL_METHODS)) {
+            componentConfig.when(() -> ComponentConfig.componentExists("example")).thenReturn(true);
+            componentConfig.when(() -> ComponentConfig.getAllTestSuiteInfos("example"))
+                    .thenReturn(List.of(exampleSuiteInfo));
+            componentConfig.when(() -> ComponentConfig.componentExists("flaky")).thenReturn(true);
+            componentConfig.when(() -> ComponentConfig.getAllTestSuiteInfos("flaky"))
+                    .thenReturn(List.of(flakySuiteInfo));
+            entityUtilProperties.when(() -> EntityUtilProperties.getPropertyValue("testtools", "test.api.enabled", delegator))
+                    .thenReturn("true");
+            entityUtilProperties.when(() -> EntityUtilProperties.getPropertyValue("testtools", "test.api.enabled.example", delegator))
+                    .thenReturn("true");
+            entityUtilProperties.when(() -> EntityUtilProperties.getPropertyValue("testtools", "test.api.enabled.flaky", delegator))
+                    .thenReturn("true");
+            testRunServices.when(() -> TestRunServices.runTestSuite(eq(dctx), argThat(ctx ->
+                    "example".equals(((Map<?, ?>) ctx).get("componentName")))))
+                    .thenReturn(successResult("run-example"));
+            testRunServices.when(() -> TestRunServices.runTestSuite(eq(dctx), argThat(ctx ->
+                    "flaky".equals(((Map<?, ?>) ctx).get("componentName")))))
+                    .thenReturn(errorResult("No tests found"));
+
+            Map<String, Object> result = BatchRunServices.runBatchTestSuite(dctx,
+                    Map.of("userLogin", userLogin, "components", List.of("example", "flaky")));
+
             assertThat(result.get("responseMessage"), is("success"));
             String batchId = (String) result.get("batchId");
-            assertThat(BatchRunServices.BATCH_TRACKER.get(batchId), is(List.of()));
+            assertThat(BatchRunServices.BATCH_TRACKER.get(batchId),
+                    is(List.of(new BatchRunTracker.BatchChildRef("example", "run-example"))));
+        }
+    }
+
+    @Test
+    void runBatchTestSuiteDedupesDuplicateComponentNamesInAnExplicitList() {
+        DispatchContext dctx = mock(DispatchContext.class);
+        Security security = mock(Security.class);
+        Delegator delegator = mock(Delegator.class);
+        GenericValue userLogin = mock(GenericValue.class);
+        when(dctx.getSecurity()).thenReturn(security);
+        when(dctx.getDelegator()).thenReturn(delegator);
+        when(userLogin.getString("userLoginId")).thenReturn("admin");
+        when(security.hasPermission("TESTEXEC_ADMIN", userLogin)).thenReturn(true);
+
+        var partySuiteInfo = testSuiteInfoFor("party");
+        try (MockedStatic<ComponentConfig> componentConfig = Mockito.mockStatic(ComponentConfig.class);
+                MockedStatic<EntityUtilProperties> entityUtilProperties =
+                        Mockito.mockStatic(EntityUtilProperties.class, Mockito.CALLS_REAL_METHODS);
+                MockedStatic<TestRunServices> testRunServices =
+                        Mockito.mockStatic(TestRunServices.class, Mockito.CALLS_REAL_METHODS)) {
+            componentConfig.when(() -> ComponentConfig.componentExists("party")).thenReturn(true);
+            componentConfig.when(() -> ComponentConfig.getAllTestSuiteInfos("party"))
+                    .thenReturn(List.of(partySuiteInfo));
+            entityUtilProperties.when(() -> EntityUtilProperties.getPropertyValue("testtools", "test.api.enabled", delegator))
+                    .thenReturn("true");
+            entityUtilProperties.when(() -> EntityUtilProperties.getPropertyValue("testtools", "test.api.enabled.party", delegator))
+                    .thenReturn("true");
+            testRunServices.when(() -> TestRunServices.runTestSuite(eq(dctx), Mockito.<Map<String, ?>>any()))
+                    .thenReturn(successResult("run-party"));
+
+            Map<String, Object> result = BatchRunServices.runBatchTestSuite(dctx,
+                    Map.of("userLogin", userLogin, "components", List.of("party", "party")));
+
+            assertThat(result.get("responseMessage"), is("success"));
+            String batchId = (String) result.get("batchId");
+            assertThat(BatchRunServices.BATCH_TRACKER.get(batchId),
+                    is(List.of(new BatchRunTracker.BatchChildRef("party", "run-party"))));
+            testRunServices.verify(() -> TestRunServices.runTestSuite(eq(dctx), Mockito.<Map<String, ?>>any()),
+                    times(1));
         }
     }
 
