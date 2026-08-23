@@ -285,6 +285,7 @@ under the License.
     <service name="sendInvoicePerEmail" engine="groovy"
         location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/invoice/InvoiceServicesScript.groovy" invoke="sendInvoicePerEmail">
         <description>Send an invoice per email</description>
+        <permission-service service-name="acctgInvoicePermissionCheck" main-action="VIEW"/>
         <attribute name="invoiceId" type="String" mode="IN"/>
         <attribute name="sendFrom" type="String" mode="IN"/>
         <attribute name="sendTo" type="String" mode="IN"/>
