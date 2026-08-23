@@ -396,4 +396,148 @@ class BatchRunServicesTest {
             assertThat(BatchRunServices.BATCH_TRACKER.get(batchId), is(List.of()));
         }
     }
+
+    @Test
+    void getBatchTestRunStatusReturnsErrorWhenPermissionDenied() {
+        DispatchContext dctx = mock(DispatchContext.class);
+        Security security = mock(Security.class);
+        GenericValue userLogin = mock(GenericValue.class);
+        when(dctx.getSecurity()).thenReturn(security);
+        when(userLogin.getString("userLoginId")).thenReturn("nobody");
+        when(security.hasPermission("TESTEXEC_ADMIN", userLogin)).thenReturn(false);
+
+        Map<String, Object> result = BatchRunServices.getBatchTestRunStatus(dctx,
+                Map.of("batchId", "batch-1", "userLogin", userLogin));
+
+        assertThat(result.get("responseMessage"), is("error"));
+    }
+
+    @Test
+    void getBatchTestRunStatusReturnsErrorForAnUnknownBatchId() {
+        DispatchContext dctx = mock(DispatchContext.class);
+        Security security = mock(Security.class);
+        GenericValue userLogin = mock(GenericValue.class);
+        when(dctx.getSecurity()).thenReturn(security);
+        when(userLogin.getString("userLoginId")).thenReturn("admin");
+        when(security.hasPermission("TESTEXEC_ADMIN", userLogin)).thenReturn(true);
+
+        Map<String, Object> result = BatchRunServices.getBatchTestRunStatus(dctx,
+                Map.of("batchId", "no-such-batch", "userLogin", userLogin));
+
+        assertThat(result.get("responseMessage"), is("error"));
+    }
+
+    @Test
+    void getBatchTestRunStatusIsRunningWhileAnyChildIsQueuedOrRunning() {
+        DispatchContext dctx = mock(DispatchContext.class);
+        Security security = mock(Security.class);
+        GenericValue userLogin = mock(GenericValue.class);
+        when(dctx.getSecurity()).thenReturn(security);
+        when(userLogin.getString("userLoginId")).thenReturn("admin");
+        when(security.hasPermission("TESTEXEC_ADMIN", userLogin)).thenReturn(true);
+        TestRunServices.TRACKER.register("run-passed", "example-tests", "example", "admin", Map.of());
+        TestRunServices.TRACKER.markRunning("run-passed");
+        TestRunServices.TRACKER.markPassed("run-passed", Map.of("total", 1, "passed", 1, "failed", 0));
+        TestRunServices.TRACKER.register("run-running", "party-tests", "party", "admin", Map.of());
+        TestRunServices.TRACKER.markRunning("run-running");
+        BatchRunServices.BATCH_TRACKER.register("batch-running", List.of(
+                new BatchRunTracker.BatchChildRef("example", "run-passed"),
+                new BatchRunTracker.BatchChildRef("party", "run-running")));
+
+        Map<String, Object> result = BatchRunServices.getBatchTestRunStatus(dctx,
+                Map.of("batchId", "batch-running", "userLogin", userLogin));
+
+        assertThat(result.get("status"), is("RUNNING"));
+        Map<?, ?> summary = (Map<?, ?>) result.get("summary");
+        assertThat(summary.get("total"), is(2));
+        assertThat(summary.get("passed"), is(1));
+        assertThat(summary.get("running"), is(1));
+    }
+
+    @Test
+    void getBatchTestRunStatusIsPassedWhenEveryChildPassed() {
+        DispatchContext dctx = mock(DispatchContext.class);
+        Security security = mock(Security.class);
+        GenericValue userLogin = mock(GenericValue.class);
+        when(dctx.getSecurity()).thenReturn(security);
+        when(userLogin.getString("userLoginId")).thenReturn("admin");
+        when(security.hasPermission("TESTEXEC_ADMIN", userLogin)).thenReturn(true);
+        TestRunServices.TRACKER.register("run-a", "example-tests", "example", "admin", Map.of());
+        TestRunServices.TRACKER.markPassed("run-a", Map.of("total", 1, "passed", 1, "failed", 0));
+        BatchRunServices.BATCH_TRACKER.register("batch-passed",
+                List.of(new BatchRunTracker.BatchChildRef("example", "run-a")));
+
+        Map<String, Object> result = BatchRunServices.getBatchTestRunStatus(dctx,
+                Map.of("batchId", "batch-passed", "userLogin", userLogin));
+
+        assertThat(result.get("status"), is("PASSED"));
+    }
+
+    @Test
+    void getBatchTestRunStatusIsFailedWhenAnyChildFailed() {
+        DispatchContext dctx = mock(DispatchContext.class);
+        Security security = mock(Security.class);
+        GenericValue userLogin = mock(GenericValue.class);
+        when(dctx.getSecurity()).thenReturn(security);
+        when(userLogin.getString("userLoginId")).thenReturn("admin");
+        when(security.hasPermission("TESTEXEC_ADMIN", userLogin)).thenReturn(true);
+        TestRunServices.TRACKER.register("run-a2", "example-tests", "example", "admin", Map.of());
+        TestRunServices.TRACKER.markPassed("run-a2", Map.of("total", 1, "passed", 1, "failed", 0));
+        TestRunServices.TRACKER.register("run-b2", "party-tests", "party", "admin", Map.of());
+        TestRunServices.TRACKER.markFailed("run-b2", Map.of("total", 1, "passed", 0, "failed", 1));
+        BatchRunServices.BATCH_TRACKER.register("batch-failed", List.of(
+                new BatchRunTracker.BatchChildRef("example", "run-a2"),
+                new BatchRunTracker.BatchChildRef("party", "run-b2")));
+
+        Map<String, Object> result = BatchRunServices.getBatchTestRunStatus(dctx,
+                Map.of("batchId", "batch-failed", "userLogin", userLogin));
+
+        assertThat(result.get("status"), is("FAILED"));
+    }
+
+    @Test
+    void getBatchTestRunStatusIsErrorWhenAnyChildErrored() {
+        DispatchContext dctx = mock(DispatchContext.class);
+        Security security = mock(Security.class);
+        GenericValue userLogin = mock(GenericValue.class);
+        when(dctx.getSecurity()).thenReturn(security);
+        when(userLogin.getString("userLoginId")).thenReturn("admin");
+        when(security.hasPermission("TESTEXEC_ADMIN", userLogin)).thenReturn(true);
+        TestRunServices.TRACKER.register("run-a3", "example-tests", "example", "admin", Map.of());
+        TestRunServices.TRACKER.markPassed("run-a3", Map.of("total", 1, "passed", 1, "failed", 0));
+        TestRunServices.TRACKER.register("run-b3", "party-tests", "party", "admin", Map.of());
+        TestRunServices.TRACKER.markError("run-b3", new RuntimeException("suite blew up"));
+        BatchRunServices.BATCH_TRACKER.register("batch-error", List.of(
+                new BatchRunTracker.BatchChildRef("example", "run-a3"),
+                new BatchRunTracker.BatchChildRef("party", "run-b3")));
+
+        Map<String, Object> result = BatchRunServices.getBatchTestRunStatus(dctx,
+                Map.of("batchId", "batch-error", "userLogin", userLogin));
+
+        assertThat(result.get("status"), is("ERROR"));
+    }
+
+    @Test
+    void getBatchTestRunStatusIncludesPerComponentResults() {
+        DispatchContext dctx = mock(DispatchContext.class);
+        Security security = mock(Security.class);
+        GenericValue userLogin = mock(GenericValue.class);
+        when(dctx.getSecurity()).thenReturn(security);
+        when(userLogin.getString("userLoginId")).thenReturn("admin");
+        when(security.hasPermission("TESTEXEC_ADMIN", userLogin)).thenReturn(true);
+        TestRunServices.TRACKER.register("run-a4", "example-tests", "example", "admin", Map.of());
+        TestRunServices.TRACKER.markPassed("run-a4", Map.of("total", 1, "passed", 1, "failed", 0));
+        BatchRunServices.BATCH_TRACKER.register("batch-components",
+                List.of(new BatchRunTracker.BatchChildRef("example", "run-a4")));
+
+        Map<String, Object> result = BatchRunServices.getBatchTestRunStatus(dctx,
+                Map.of("batchId", "batch-components", "userLogin", userLogin));
+
+        List<?> components = (List<?>) result.get("components");
+        assertThat(components.size(), is(1));
+        Map<?, ?> componentResult = (Map<?, ?>) components.get(0);
+        assertThat(componentResult.get("componentName"), is("example"));
+        assertThat(componentResult.get("runId"), is("run-a4"));
+        assertThat(componentResult.get("status"), is("PASSED"));
+    }
 }

@@ -131,6 +131,69 @@ public final class BatchRunServices {
         return response;
     }
 
+    public static Map<String, Object> getBatchTestRunStatus(DispatchContext dctx, Map<String, ?> context) {
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        String userLoginId = userLogin == null ? "unknown" : userLogin.getString("userLoginId");
+        if (!dctx.getSecurity().hasPermission(TESTEXEC_PERMISSION, userLogin)) {
+            Debug.logWarning("getBatchTestRunStatus: DENIED for user '" + userLoginId + "' - missing "
+                    + TESTEXEC_PERMISSION, MODULE);
+            return ServiceUtil.returnError("You do not have permission to view test run status (" + TESTEXEC_PERMISSION + ")");
+        }
+
+        String batchId = (String) context.get("batchId");
+        List<BatchRunTracker.BatchChildRef> children = BATCH_TRACKER.get(batchId);
+        if (children == null) {
+            return ServiceUtil.returnError("No such batchId: " + batchId);
+        }
+
+        List<Map<String, Object>> componentResults = new ArrayList<>();
+        int passed = 0;
+        int failed = 0;
+        int running = 0;
+        int queued = 0;
+        int errored = 0;
+        for (BatchRunTracker.BatchChildRef child : children) {
+            // TestRunServices.TRACKER always has an entry for this runId by construction: it was
+            // registered synchronously (TestRunServices.runTestSuite's own TRACKER.register call)
+            // before that call ever returned the runId this child was built from, and nothing ever
+            // removes an entry from that tracker.
+            TestRunRecord record = TestRunServices.TRACKER.get(child.runId());
+            componentResults.add(TestRunServices.describeRun(record));
+            switch (record.status()) {
+                case PASSED -> passed++;
+                case FAILED -> failed++;
+                case ERROR -> errored++;
+                case RUNNING -> running++;
+                case QUEUED -> queued++;
+            }
+        }
+
+        String batchStatus;
+        if (errored > 0) {
+            batchStatus = "ERROR";
+        } else if (failed > 0) {
+            batchStatus = "FAILED";
+        } else if (running > 0 || queued > 0) {
+            batchStatus = "RUNNING";
+        } else {
+            batchStatus = "PASSED";
+        }
+
+        Map<String, Object> summary = new LinkedHashMap<>();
+        summary.put("total", children.size());
+        summary.put("passed", passed);
+        summary.put("failed", failed);
+        summary.put("running", running);
+        summary.put("queued", queued);
+        summary.put("error", errored);
+
+        Map<String, Object> result = ServiceUtil.returnSuccess();
+        result.put("status", batchStatus);
+        result.put("summary", summary);
+        result.put("components", componentResults);
+        return result;
+    }
+
     /**
      * Every component with a testdef where both the global {@code test.api.enabled} and its own
      * {@code test.api.enabled.<componentName>} (default {@code true}) resolve {@code true} -
