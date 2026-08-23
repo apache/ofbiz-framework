@@ -271,4 +271,77 @@ class TestRunServicesTest {
             assertThat(result.get("runId"), nullValue());
         }
     }
+
+    @Test
+    void describeRunIncludesRunIdComponentNameStatusAndResultSummary() {
+        TestRunRecord record = TestRunRecord.queued("run-9", "example-tests", "example", "admin", Map.of())
+                .passed(Map.of("total", 2, "passed", 2, "failed", 0));
+
+        Map<String, Object> described = TestRunServices.describeRun(record);
+
+        assertThat(described.get("runId"), is("run-9"));
+        assertThat(described.get("componentName"), is("example"));
+        assertThat(described.get("status"), is("PASSED"));
+        assertThat(described.get("resultSummary"), is(Map.of("total", 2, "passed", 2, "failed", 0)));
+    }
+
+    @Test
+    void describeRunAddsErrorMessageIntoResultSummaryWhenPresent() {
+        TestRunRecord record = TestRunRecord.queued("run-9", "example-tests", "example", "admin", Map.of())
+                .error(new RuntimeException("boom"));
+
+        Map<String, Object> described = TestRunServices.describeRun(record);
+
+        assertThat(described.get("status"), is("ERROR"));
+        assertThat(((Map<?, ?>) described.get("resultSummary")).get("errorMessage"), is("boom"));
+    }
+
+    @Test
+    void getTestRunStatusIncludesRunId() {
+        DispatchContext dctx = mock(DispatchContext.class);
+        Security security = mock(Security.class);
+        GenericValue userLogin = mock(GenericValue.class);
+        when(dctx.getSecurity()).thenReturn(security);
+        when(userLogin.getString("userLoginId")).thenReturn("admin");
+        when(security.hasPermission("TESTEXEC_ADMIN", userLogin)).thenReturn(true);
+        TestRunServices.TRACKER.register("run-id-check", "example-tests", "example", "admin", Map.of());
+
+        Map<String, Object> result = TestRunServices.getTestRunStatus(dctx,
+                Map.of("runId", "run-id-check", "userLogin", userLogin));
+
+        assertThat(result.get("runId"), is("run-id-check"));
+    }
+
+    @Test
+    void isTestApiGloballyEnabledReadsTheGlobalFlag() {
+        Delegator delegator = mock(Delegator.class);
+        try (MockedStatic<EntityUtilProperties> entityUtilProperties =
+                Mockito.mockStatic(EntityUtilProperties.class, Mockito.CALLS_REAL_METHODS)) {
+            entityUtilProperties.when(() -> EntityUtilProperties.getPropertyValue("testtools", "test.api.enabled", delegator))
+                    .thenReturn("true");
+
+            assertThat(TestRunServices.isTestApiGloballyEnabled(delegator), is(true));
+        }
+    }
+
+    @Test
+    void isTestApiEnabledForComponentDefaultsToTrueWhenUnset() {
+        Delegator delegator = mock(Delegator.class);
+        try (MockedStatic<EntityUtilProperties> entityUtilProperties =
+                Mockito.mockStatic(EntityUtilProperties.class, Mockito.CALLS_REAL_METHODS)) {
+            assertThat(TestRunServices.isTestApiEnabledForComponent(delegator, "example"), is(true));
+        }
+    }
+
+    @Test
+    void isTestApiEnabledForComponentReflectsAnExplicitOverride() {
+        Delegator delegator = mock(Delegator.class);
+        try (MockedStatic<EntityUtilProperties> entityUtilProperties =
+                Mockito.mockStatic(EntityUtilProperties.class, Mockito.CALLS_REAL_METHODS)) {
+            entityUtilProperties.when(() -> EntityUtilProperties.getPropertyValue("testtools", "test.api.enabled.example", delegator))
+                    .thenReturn("false");
+
+            assertThat(TestRunServices.isTestApiEnabledForComponent(delegator, "example"), is(false));
+        }
+    }
 }

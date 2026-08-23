@@ -41,5 +41,14 @@ under the License.
         <operation verb="get" description="Get a test run's status" path="{runId}">
             <service name="getTestRunStatus"/>
         </operation>
+
+        <operation verb="post" description="Trigger a batch test-suite run across multiple components"
+                   path="batch" consumes="application/json">
+            <service name="runBatchTestSuite"/>
+        </operation>
+
+        <operation verb="get" description="Get a batch run's status" path="batch/{batchId}">
+            <service name="getBatchTestRunStatus"/>
+        </operation>
     </resource>
 </api>

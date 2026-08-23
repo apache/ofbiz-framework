@@ -78,9 +78,42 @@ under the License.
             Exposed directly via the generic, framework-owned framework/testtools/api/testruns.rest.xml
             endpoint (GET /rest/testtools/testruns/{runId}) - same caution as runTestSuite above applies to
             any component-owned *.rest.xml.</description>
-        <attribute name="runId" type="String" mode="IN" optional="false"/>
+        <attribute name="runId" type="String" mode="INOUT" optional="false"/>
         <attribute name="status" type="String" mode="OUT" optional="true"/>
         <attribute name="componentName" type="String" mode="OUT" optional="true"/>
         <attribute name="resultSummary" type="Map" mode="OUT" optional="true"/>
+    </service>
+
+    <service name="runBatchTestSuite" engine="java" auth="true"
+             location="org.apache.ofbiz.testtools.BatchRunServices" invoke="runBatchTestSuite">
+        <description>Fans out a full-suite runTestSuite call to multiple components in one call, tracked
+            under one batchId; poll getBatchTestRunStatus for the aggregate and per-component results.
+            With no components list, auto-discovers every component that has a testdef and has both the
+            global test.api.enabled and its own test.api.enabled.&lt;componentName&gt; on - if none
+            qualify, the call is rejected rather than returning a batchId with nothing queued. With an
+            explicit components list, an empty list is rejected outright, and every named component must
+            itself be known, have a testdef, and be enabled, or the whole call is rejected up front naming
+            which entries were invalid - no batch is ever queued from an invalid or empty list. A
+            component that passes this upfront check but still fails its actual test run (e.g. a testdef
+            that resolves to zero tests) is omitted from the batch rather than failing the whole call, the
+            same way an auto-discovered component would be. Each queued component always runs its whole
+            suite (no per-component suiteName/testCaseName/testMethodName scoping in this endpoint).
+            Exposed directly via the generic, framework-owned framework/testtools/api/testruns.rest.xml
+            endpoint (POST /rest/testtools/testruns/batch).</description>
+        <attribute name="components" type="List" mode="IN" optional="true"/>
+        <attribute name="batchId" type="String" mode="OUT" optional="true"/>
+    </service>
+
+    <service name="getBatchTestRunStatus" engine="java" auth="true"
+             location="org.apache.ofbiz.testtools.BatchRunServices" invoke="getBatchTestRunStatus">
+        <description>Reads a runBatchTestSuite-triggered batch's aggregate status (QUEUED/RUNNING/PASSED/
+            FAILED/ERROR, derived live from its children's own tracked statuses) plus each component's own
+            runId/status/resultSummary. Exposed directly via the generic, framework-owned
+            framework/testtools/api/testruns.rest.xml endpoint
+            (GET /rest/testtools/testruns/batch/{batchId}).</description>
+        <attribute name="batchId" type="String" mode="IN" optional="false"/>
+        <attribute name="status" type="String" mode="OUT" optional="true"/>
+        <attribute name="summary" type="Map" mode="OUT" optional="true"/>
+        <attribute name="components" type="List" mode="OUT" optional="true"/>
     </service>
 </services>
