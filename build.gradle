@@ -164,7 +164,7 @@ javadoc {
         links(
             'https://docs.oracle.com/en/java/javase/17/docs/api/',
             'https://tomcat.apache.org/tomcat-10.1-doc/servletapi/',
-            'http://docs.groovy-lang.org/docs/groovy-4.0.22/html/api',
+            'https://docs.groovy-lang.org/docs/groovy-4.0.22/html/api',
             'https://commons.apache.org/proper/commons-cli/apidocs'
         )
     }
