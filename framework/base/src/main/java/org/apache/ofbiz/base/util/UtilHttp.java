@@ -106,6 +106,8 @@ public final class UtilHttp {
     private static final String COMPOSITE_DELIMITER = "_c_";
     private static final int MULTI_ROW_DELIMITER_LENGTH = MULTI_ROW_DELIMITER.length();
     private static final int ROW_SUBMIT_PREFIX_LENGTH = ROW_SUBMIT_PREFIX.length();
+    private static final int MAX_MULTI_FORM_ROWS = UtilProperties.getPropertyAsInteger(
+            "general", "multiform.max.rows", 1000);
 
     private static final String SESSION_KEY_TIMEZONE = "timeZone";
     private static final String SESSION_KEY_THEME = "visualTheme";
@@ -1696,6 +1698,11 @@ public final class UtilHttp {
                 Debug.logWarning("Invalid value for row index found: " + maxRowIndex, MODULE);
             }
         }
+        if (rowCount > MAX_MULTI_FORM_ROWS) {
+            Debug.logWarning("Multi form row count " + rowCount + " exceeds the maximum "
+                    + MAX_MULTI_FORM_ROWS + ", clamping to it", MODULE);
+            rowCount = MAX_MULTI_FORM_ROWS;
+        }
         return rowCount;
     }
 
@@ -1833,4 +1840,7 @@ public final class UtilHttp {
         return allowedProtocolList;
     }
 
+    public static int getMaxMultiFormRowCount() {
+        return MAX_MULTI_FORM_ROWS;
+    }
 }

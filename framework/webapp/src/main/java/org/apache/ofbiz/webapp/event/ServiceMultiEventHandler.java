@@ -26,11 +26,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
 
-import jakarta.servlet.ServletContext;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilHttp;
@@ -49,6 +44,11 @@ import org.apache.ofbiz.service.ServiceUtil;
 import org.apache.ofbiz.service.ServiceValidationException;
 import org.apache.ofbiz.webapp.control.ConfigXMLReader.Event;
 import org.apache.ofbiz.webapp.control.ConfigXMLReader.RequestMap;
+
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 /**
  * ServiceMultiEventHandler - Event handler for running a service multiple times; for bulk forms
@@ -145,6 +145,11 @@ public class ServiceMultiEventHandler implements EventHandler {
         if (rowCount < 1) {
             throw new EventHandlerException("No rows to process");
         }
+        // The number of multi form rows excedes the configured maximum
+        if (rowCount > UtilHttp.getMaxMultiFormRowCount()) {
+            throw new EventHandlerException("Too many rows submitted: " + rowCount
+                    + ", maximum is " + UtilHttp.getMaxMultiFormRowCount());
+        }
 
         // some default message settings
         String errorPrefixStr = UtilProperties.getMessage("DefaultMessagesUiLabels", "service.error.prefix", locale);
@@ -165,7 +170,9 @@ public class ServiceMultiEventHandler implements EventHandler {
             if (eventGlobalTransaction) {
                 // start the global transaction
                 try {
-                    beganTrans = TransactionUtil.begin(modelService.getTransactionTimeout() * rowCount);
+                    long timeout = Math.min((long) modelService.getTransactionTimeout() * rowCount,
+                            Integer.MAX_VALUE);
+                    beganTrans = TransactionUtil.begin((int) timeout);
                 } catch (GenericTransactionException e) {
                     throw new EventHandlerException("Problem starting multi-service global transaction", e);
                 }
