@@ -29,11 +29,16 @@ import java.net.URI;
 import java.util.HashMap;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasProperty;
+import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.nullValue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.CALLS_REAL_METHODS;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.mockStatic;
+import static org.mockito.Mockito.when;
 
 public final class WidgetWorkerTest {
 
@@ -71,5 +76,41 @@ public final class WidgetWorkerTest {
 
         assertThat(withEncodedSpaces, hasProperty("scheme", equalTo("javascript")));
         assertThat(withEncodedSpaces, hasProperty("schemeSpecificPart", equalTo("set_value('system', 'system', '')")));
+    }
+
+    @Test
+    public void interAppTargetKeepsExternalLoginKeyForARelativeControlPath() {
+        HttpServletRequest request = mock(HttpServletRequest.class);
+        when(request.getAttribute("externalLoginKey")).thenReturn("ELsome-key");
+
+        final URI uri = WidgetWorker.buildHyperlinkUri(
+                "/marketing/control/EditMarketingCampaign", "inter-app", new HashMap<>(), null,
+                false, true, true, request, null);
+
+        assertThat(uri.getQuery(), containsString("externalLoginKey=ELsome-key"));
+    }
+
+    @Test
+    public void interAppTargetDropsExternalLoginKeyForAnAbsoluteUrl() {
+        HttpServletRequest request = mock(HttpServletRequest.class);
+        when(request.getAttribute("externalLoginKey")).thenReturn("ELsome-key");
+
+        final URI uri = WidgetWorker.buildHyperlinkUri(
+                "https://attacker.example/collect", "inter-app", new HashMap<>(), null,
+                false, true, true, request, null);
+
+        assertThat(uri.getQuery(), not(containsString("externalLoginKey")));
+    }
+
+    @Test
+    public void interAppTargetDropsExternalLoginKeyForAProtocolRelativeUrl() {
+        HttpServletRequest request = mock(HttpServletRequest.class);
+        when(request.getAttribute("externalLoginKey")).thenReturn("ELsome-key");
+
+        final URI uri = WidgetWorker.buildHyperlinkUri(
+                "//attacker.example/collect", "inter-app", new HashMap<>(), null,
+                false, true, true, request, null);
+
+        assertThat(uri.getQuery(), nullValue());
     }
 }
