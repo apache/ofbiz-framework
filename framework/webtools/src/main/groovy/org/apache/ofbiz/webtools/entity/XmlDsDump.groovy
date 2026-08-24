@@ -19,6 +19,7 @@
 package org.apache.ofbiz.webtools.entity
 
 import org.apache.ofbiz.base.util.Debug
+import org.apache.ofbiz.base.util.GeneralException
 import org.apache.ofbiz.base.util.UtilFormatOut
 import org.apache.ofbiz.entity.condition.EntityComparisonOperator
 import org.apache.ofbiz.entity.condition.EntityCondition
@@ -26,6 +27,15 @@ import org.apache.ofbiz.entity.condition.EntityJoinOperator
 import org.apache.ofbiz.entity.model.ModelViewEntity
 import org.apache.ofbiz.entity.transaction.TransactionUtil
 import org.apache.ofbiz.entity.util.EntityQuery
+import org.apache.ofbiz.security.SecurityUtil
+
+// Kept in sync with the permission check the page's own decorator and template already
+// perform (CommonScreens.xml#CommonImportExportDecorator, XmlDsDump.ftl); this script must
+// not run its logic -- especially the file/directory writes further down -- ahead of that
+// check, since screen actions run unconditionally, before any widget-level permission gate.
+if (!security.hasPermission('ENTITY_MAINT', session)) {
+    return
+}
 
 outpath = parameters.outpath
 filename = parameters.filename
@@ -197,7 +207,18 @@ if (passedEntityNames) {
             if (outpath && !(filename.contains('/') && filename.contains('\\'))) {
                 filename = outpath + File.separator + filename
             }
-            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filename), 'UTF-8')))
+            File outfile = new File(filename)
+            allowedPath = true
+            try {
+                SecurityUtil.checkOfbizFileAllowList(outfile)
+            } catch (GeneralException e) {
+                context.errorMessage = e.getMessage()
+                allowedPath = false
+            }
+            if (!allowedPath) {
+                return
+            }
+            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(outfile), 'UTF-8')))
             writer.println('<?xml version="1.0" encoding="UTF-8"?>')
             writer.println('<entity-engine-xml>')
 
@@ -248,6 +269,16 @@ if (passedEntityNames) {
         context.results = results
         if (outpath && !filename) {
             outdir = new File(outpath)
+            allowedPath = true
+            try {
+                SecurityUtil.checkOfbizFileAllowList(outdir)
+            } catch (GeneralException e) {
+                context.errorMessage = e.getMessage()
+                allowedPath = false
+            }
+            if (!allowedPath) {
+                return
+            }
             if (!outdir.exists()) {
                 outdir.mkdir()
             }
