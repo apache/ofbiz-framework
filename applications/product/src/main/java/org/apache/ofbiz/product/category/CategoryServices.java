@@ -32,6 +32,7 @@ import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilGenerics;
+import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
@@ -46,6 +47,7 @@ import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.entity.util.EntityUtil;
 import org.apache.ofbiz.product.catalog.CatalogWorker;
 import org.apache.ofbiz.product.product.ProductWorker;
+import org.apache.ofbiz.security.Security;
 import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ServiceUtil;
@@ -461,6 +463,15 @@ public class CategoryServices {
     // Please note : the structure of map in this function is according to the JSON data map of the jsTree
     @SuppressWarnings("unchecked")
     public static String getChildCategoryTree(HttpServletRequest request, HttpServletResponse response) {
+        Security security = (Security) request.getAttribute("security");
+        if (security == null || !security.hasEntityPermission("CATALOG", "_VIEW", request.getSession())) {
+            String errMsg = UtilProperties.getMessage(RES_ERROR, "CatalogViewPermissionError", UtilHttp.getLocale(request));
+            request.setAttribute("_ERROR_MESSAGE_", errMsg);
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            Debug.logWarning("Unauthorized attempt to access getChild by productCategoryId param [%s]", MODULE,
+                    request.getParameter("productCategoryId"));
+            return "error";
+        }
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         String productCategoryId = request.getParameter("productCategoryId");
         String isCatalog = request.getParameter("isCatalog");
