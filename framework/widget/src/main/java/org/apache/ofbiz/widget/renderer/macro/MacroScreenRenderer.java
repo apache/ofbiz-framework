@@ -125,7 +125,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
                 Object value = parameter.getValue();
                 if (value instanceof String) {
                     sb.append('"');
-                    sb.append(((String) value).replace("\\", "\\\\").replace("\"", "\\\"").replace("$", "\\$"));
+                    sb.append(((String) value).replace("\\", "\\\\").replace("\"", "\\\"").replace("{", "\\{"));
                     sb.append('"');
                 } else {
                     sb.append(value);
@@ -134,6 +134,10 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         }
         sb.append(" />");
         executeMacro(writer, sb.toString());
+    }
+
+    private static String escapeFtlSingleQuoted(String value) {
+        return value == null ? "" : value.replace("\\", "\\\\").replace("'", "\\'").replace("{", "\\{");
     }
 
     private Environment getEnvironment(Appendable writer) throws TemplateException, IOException {
@@ -298,10 +302,10 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
                     parameters.append(",");
                 }
                 parameters.append("{'name':'");
-                parameters.append(parameter.getKey());
+                parameters.append(escapeFtlSingleQuoted(parameter.getKey()));
                 parameters.append("'");
                 parameters.append(",'value':'");
-                parameters.append(parameter.getValue());
+                parameters.append(escapeFtlSingleQuoted(parameter.getValue()));
                 parameters.append("'}");
             }
             parameters.append("]");
