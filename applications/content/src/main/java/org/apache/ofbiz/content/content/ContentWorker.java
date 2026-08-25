@@ -29,6 +29,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.xml.XMLConstants;
+import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.ofbiz.base.util.Debug;
@@ -59,6 +61,7 @@ import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.service.ServiceUtil;
+import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
@@ -317,7 +320,24 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
                         if ("FTL".equals(templateDataResource.getString("dataTemplateTypeId"))) {
                             StringReader sr = new StringReader(textData);
                             try {
-                                NodeModel nodeModel = NodeModel.parse(new InputSource(sr));
+                                // NodeModel.parse(InputSource) uses FreeMarker's default, unhardened
+                                // DocumentBuilderFactory, which resolves external entities/DTDs (XXE, CWE-611).
+                                // Parse with a hardened factory ourselves and wrap the resulting DOM instead,
+                                // matching the entity-resolution lockdown already used by EntitySaxReader.
+                                // namespaceAware/ignoringElementContentWhitespace are kept identical to
+                                // FreeMarker's own NodeModel default factory to preserve existing template
+                                // behavior for namespaced or whitespace-sensitive XML content.
+                                DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+                                factory.setNamespaceAware(true);
+                                factory.setIgnoringElementContentWhitespace(true);
+                                factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+                                factory.setFeature("http://xml.org/sax/features/external-general-entities", false);
+                                factory.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
+                                factory.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
+                                factory.setXIncludeAware(false);
+                                factory.setExpandEntityReferences(false);
+                                Document document = factory.newDocumentBuilder().parse(new InputSource(sr));
+                                NodeModel nodeModel = NodeModel.wrap(document);
                                 templateContext.put("doc", nodeModel);
                             } catch (SAXException | ParserConfigurationException e) {
                                 throw new GeneralException(e.getMessage());
