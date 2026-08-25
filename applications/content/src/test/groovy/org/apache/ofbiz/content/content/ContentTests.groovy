@@ -18,6 +18,9 @@
  *******************************************************************************/
 package org.apache.ofbiz.content.content
 
+import static org.junit.jupiter.api.Assertions.assertThrows
+
+import org.apache.ofbiz.base.util.GeneralException
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.service.ServiceUtil
@@ -219,6 +222,82 @@ class ContentTests implements JupiterTestHelper {
         Map serviceResult = dispatcher.runSync('getContent', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
         assert serviceResult.view
+    }
+
+    // Regression coverage for the fix to renderContentAsText's service dispatch: Content.serviceName is a
+    // legacy, client-writable field (createContent/updateContent both let a plain content editor set it) that
+    // used to be looked up and run directly with the live HTTP request parameters as its input. Only a
+    // CustomMethod explicitly typed CONTENT_RENDER may be run there now.
+
+    // These three build their own Content/CustomMethod fixture rows inline (rather than relying on the
+    // testdef data-load test-case) since that data-load and this Jupiter suite are proven, in this class,
+    // not to share read-your-writes visibility of a row committed in between the two.
+
+    @Test
+    @Order(9)
+    void testRenderContentAsTextIgnoresServiceName() {
+        String contentId = testParams.contentId ?: 'TEST_CNT_SVCNAME'
+        String dataResourceId = testParams.dataResourceId ?: 'TEST_DR_SVCNAME'
+        delegator.create('DataResource', [dataResourceId: dataResourceId, dataResourceTypeId: 'ELECTRONIC_TEXT'])
+        delegator.create('ElectronicText', [dataResourceId: dataResourceId, textData: 'Test text for service name ignore check'])
+        delegator.create('Content', [contentId: contentId, contentTypeId: 'TEST_CONTENT_TYPE',
+                dataResourceId: dataResourceId, serviceName: 'aServiceThatDefinitelyDoesNotExist'])
+        GenericValue content = from('Content').where('contentId', contentId).queryOne()
+        assert content
+        assert content.serviceName
+
+        StringWriter out = new StringWriter()
+        Map<String, Object> templateContext = [userLogin: userLogin, requestParameters: [:]]
+        // must render the underlying data straight through, not attempt to resolve/run the bogus service name
+        ContentWorker.renderContentAsText(dispatcher, content, out, templateContext, Locale.US, 'text/plain', false, null)
+        assert out.toString().contains('Test text for service name ignore check')
+    }
+
+    @Test
+    @Order(10)
+    void testRenderContentAsTextRunsTypedCustomMethod() {
+        String contentId = testParams.contentId ?: 'TEST_CNT_CM_RENDER'
+        String customMethodId = testParams.customMethodId ?: 'TEST_CM_RENDER'
+        String dataResourceId = testParams.dataResourceId ?: 'TEST_DR_CM_RENDER'
+        delegator.create('DataResource', [dataResourceId: dataResourceId, dataResourceTypeId: 'ELECTRONIC_TEXT'])
+        delegator.create('ElectronicText', [dataResourceId: dataResourceId, textData: 'Test text for typed custom method check'])
+        // CONTENT_RENDER is shipped seed data (framework/common/data/CommonTypeData.xml)
+        delegator.create('CustomMethod', [customMethodId: customMethodId, customMethodTypeId: 'CONTENT_RENDER',
+                customMethodName: 'getDataResource'])
+        delegator.create('Content', [contentId: contentId, contentTypeId: 'TEST_CONTENT_TYPE',
+                dataResourceId: dataResourceId, customMethodId: customMethodId])
+        GenericValue content = from('Content').where('contentId', contentId).queryOne()
+        assert content
+
+        StringWriter out = new StringWriter()
+        Map<String, Object> templateContext = [userLogin: userLogin,
+                                                 requestParameters: [dataResourceId: dataResourceId]]
+        ContentWorker.renderContentAsText(dispatcher, content, out, templateContext, Locale.US, 'text/plain', false, null)
+        // the invoked service's OUT parameters were merged into templateContext
+        assert templateContext.resultData
+        assert out.toString().contains('Test text for typed custom method check')
+    }
+
+    @Test
+    @Order(11)
+    void testRenderContentAsTextRejectsCustomMethodOfWrongType() {
+        String contentId = testParams.contentId ?: 'TEST_CNT_CM_WRONG'
+        String customMethodId = testParams.customMethodId ?: 'TEST_CM_WRONG_TYPE'
+        // TELECOM_GATEWAY is shipped seed data (framework/common/data/CommonTypeData.xml), unrelated to
+        // content rendering - any type other than CONTENT_RENDER proves the point
+        delegator.create('CustomMethod', [customMethodId: customMethodId, customMethodTypeId: 'TELECOM_GATEWAY',
+                customMethodName: 'getDataResource'])
+        delegator.create('Content', [contentId: contentId, contentTypeId: 'TEST_CONTENT_TYPE',
+                dataResourceId: 'TEST_CONTENT_TEXT1', customMethodId: customMethodId])
+        GenericValue content = from('Content').where('contentId', contentId).queryOne()
+        assert content
+
+        StringWriter out = new StringWriter()
+        Map<String, Object> templateContext = [userLogin: userLogin, requestParameters: [:]]
+        GeneralException exception = assertThrows(GeneralException) {
+            ContentWorker.renderContentAsText(dispatcher, content, out, templateContext, Locale.US, 'text/plain', false, null)
+        }
+        assert exception.message.contains('not a content rendering method')
     }
 
 }
