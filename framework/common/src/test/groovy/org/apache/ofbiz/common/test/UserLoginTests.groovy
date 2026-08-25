@@ -47,4 +47,29 @@ class UserLoginTests implements JupiterTestHelper {
         assert createdUserLogin.enabled == 'Y'
     }
 
+    /*
+     * createUserLogin's duplicate-userLoginId check compares userLoginId ignoring case. A
+     * userLoginId containing quotes and parentheses should be compared literally, just like any
+     * other value, and match only an existing UserLogin with that exact id - so creating a new,
+     * not-yet-registered userLoginId built from such characters should still succeed.
+     */
+    @Test
+    void testCreateUserLoginIgnoreCaseDuplicateCheckComparesValueLiterally() {
+        String userLoginId = "\\') OR (1=1) OR ('"
+
+        Map serviceCtx = [
+                userLoginId: userLoginId,
+                enabled: 'Y',
+                currentPassword: 'ofbiz',
+                currentPasswordVerify: 'ofbiz'
+        ]
+        Map serviceResult = dispatcher.runSync('createUserLogin', serviceCtx)
+        assert ServiceUtil.isSuccess(serviceResult): serviceResult.errorMessage
+
+        GenericValue createdUserLogin = from('UserLogin')
+                .where('userLoginId', userLoginId)
+                .queryOne()
+        assert createdUserLogin
+    }
+
 }
