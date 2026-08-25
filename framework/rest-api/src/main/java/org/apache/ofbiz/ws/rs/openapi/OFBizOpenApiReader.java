@@ -104,22 +104,30 @@ public final class OFBizOpenApiReader extends Reader implements OpenApiReader {
     }
 
     private void addApiResources() {
-        Map<String, ModelApi> apis = OFBizApiConfig.getModelApis();
+        Map<String, List<ModelApi>> apis = OFBizApiConfig.getModelApis();
         SecurityRequirement security = new SecurityRequirement();
         security.addList("jwtToken");
 
-        apis.forEach((k, api) -> {
-            if (!api.isPublish()) return;
+        apis.forEach((k, apiList) -> {
+            for (ModelApi api : apiList) {
+<<<<<<< Updated upstream
+                if (!api.isPublish()) return;
+                
+=======
+                if (!api.isPublish()) continue;
+                if (UtilValidate.isEmpty(apiGroupPath) || !k.equals(apiGroupPath)) continue;
 
-            List<ModelMapping> mappings = api.getMappings();
-            mappings.forEach(modelMapping -> {
-                OpenApiUtil.getListTypes().put(modelMapping.getName(), modelMapping.getClassName());
-            });
-            List<String> baseSegments = new ArrayList<>();
-            baseSegments.add(api.getPath());
+>>>>>>> Stashed changes
+                List<ModelMapping> mappings = api.getMappings();
+                mappings.forEach(modelMapping -> {
+                    OpenApiUtil.getListTypes().put(modelMapping.getName(), modelMapping.getClassName());
+                });
+                List<String> baseSegments = new ArrayList<>();
+                baseSegments.add(api.getApiGroupPath());
 
-            for (ModelResource resource : api.getResources()) {
-                processResourceRecursive(resource, baseSegments, security);
+                for (ModelResource resource : api.getResources()) {
+                    processResourceRecursive(resource, baseSegments, security);
+                }
             }
         });
     }

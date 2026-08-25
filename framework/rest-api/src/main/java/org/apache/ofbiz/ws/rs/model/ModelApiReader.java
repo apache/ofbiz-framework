@@ -60,7 +60,7 @@ public final class ModelApiReader {
         api.setDisplayName(UtilXml.checkEmpty(docElement.getAttribute("displayName")).intern());
         api.setName(UtilXml.checkEmpty(docElement.getAttribute("name")).intern());
         api.setDescription(UtilXml.checkEmpty(docElement.getAttribute("description")).intern());
-        api.setPath(UtilXml.checkEmpty(docElement.getAttribute("path")).intern());
+        api.setApiGroupPath(UtilXml.checkEmpty(docElement.getAttribute("apiGroupPath")).intern());
         api.setPublish(Boolean.parseBoolean(UtilXml.checkEmpty(docElement.getAttribute("publish")).intern()));
         for (Element resourceEle : UtilXml.childElementList(docElement, "resource")) {
             createModelResource(resourceEle, api);
