@@ -217,8 +217,31 @@ class AutoAcctgInvoiceTests implements JupiterTestHelper {
         assert invoiceRole
     }
 
+    // OFBIZ-12370: DEMO_COMPANY does not hold the CARRIER role (only INTERNAL_ORGANIZATIO/SUPPLIER,
+    // see AccountingTestsData.xml), so this combination must be rejected instead of hitting the
+    // InvoiceRole/PartyRole foreign key constraint with a raw SQL error.
     @Test
     @Order(11)
+    void testCreateInvoiceRoleRejectsPartyWithoutRole() {
+        Map serviceCtx = [
+                invoiceId: testParams.invoiceId ?: '1006',
+                partyId: testParams.partyId ?: 'DEMO_COMPANY',
+                roleTypeId: 'CARRIER',
+                userLogin: userLogin
+        ]
+        Map serviceResult = dispatcher.runSync('createInvoiceRole', serviceCtx)
+        assert ServiceUtil.isError(serviceResult)
+
+        GenericValue invoiceRole = from('InvoiceRole')
+                .where('invoiceId', serviceCtx.invoiceId,
+                        'partyId', serviceCtx.partyId,
+                        'roleTypeId', 'CARRIER')
+                .queryOne()
+        assert !invoiceRole
+    }
+
+    @Test
+    @Order(12)
     void testCreateInvoiceTerm() {
         Map serviceCtx = [
                 invoiceId: testParams.invoiceId ?: '1006',
@@ -239,7 +262,7 @@ class AutoAcctgInvoiceTests implements JupiterTestHelper {
     }
 
     @Test
-    @Order(12)
+    @Order(13)
     void testCancelInvoice() {
         Map serviceCtx = [
                 invoiceId: testParams.invoiceId ?: '1007',
