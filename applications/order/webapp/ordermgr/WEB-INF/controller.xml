@@ -674,7 +674,7 @@ under the License.
         <response name="error" type="request" value="orderentry"/>
     </request-map>
     <request-map uri="quickadd">
-        <security https="false" auth="false"/>
+        <security https="true" auth="true"/>
         <response name="success" type="view" value="quickadd"/>
     </request-map>
 
@@ -2044,7 +2044,7 @@ under the License.
     <view-map name="category" type="screen" page="component://order/widget/ordermgr/OrderEntryCatalogScreens.xml#category"/>
     <view-map name="product" type="screen" page="component://order/widget/ordermgr/OrderEntryCatalogScreens.xml#product"/>
     <view-map name="compareProducts" type="screen" page="component://order/widget/ordermgr/OrderEntryCatalogScreens.xml#compareProducts"/>
-    <view-map name="quickadd" type="screen" page="component://order/widget/ordermgr/OrderEntryCatalogScreens.xml#quickadd" auth="false"/>
+    <view-map name="quickadd" type="screen" page="component://order/widget/ordermgr/OrderEntryCatalogScreens.xml#quickadd"/>
     <view-map name="AddGiftCertificate" type="screen" page="component://order/widget/ordermgr/OrderEntryCartScreens.xml#AddGiftCertificate"/>
 
     <view-map name="custsetting" type="screen" page="component://order/widget/ordermgr/OrderEntryOrderScreens.xml#CustSettings"/>
