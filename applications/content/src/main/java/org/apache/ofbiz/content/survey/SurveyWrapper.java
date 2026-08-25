@@ -175,6 +175,11 @@ public class SurveyWrapper {
      * @throws SurveyWrapperException
      */
     public Writer render(String templatePath) throws SurveyWrapperException {
+        if (UtilValidate.isUrlInStringAndDoesNotStartByComponentProtocol(templatePath)) {
+            String errMsg = "Problem getting the template for Survey from URL: " + templatePath;
+            Debug.logError(errMsg, MODULE);
+            throw new IllegalArgumentException(errMsg);
+        }
         URL templateUrl = null;
         try {
             templateUrl = FlexibleLocation.resolveLocation(templatePath);
