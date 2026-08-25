@@ -1614,4 +1614,7 @@
     <property key="ProductRequiredFieldMissingTotalIssuedQty">
         <value xml:lang="en">Required Field Missing :Total Issued Qty. </value>
     </property>
+    <property key="CatalogViewPermissionError">
+        <value xml:lang="en">You do not have permission to view Catalog Manager category data.</value>
+    </property>
 </resource>
