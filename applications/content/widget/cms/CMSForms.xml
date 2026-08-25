@@ -377,19 +377,19 @@ under the License.
             <display description=""/>
         </field>
         <field name="caContentIdTo" position="1"
-            use-when="&quot;${caContentIdTo}&quot;.length()>0" >
+            use-when="caContentIdTo!=null&amp;&amp;caContentIdTo.length()>0" >
             <display />
         </field>
         <field name="caContentIdTo" position="1"
-            use-when="&quot;${caContentIdTo}&quot;.length()==0" >
+            use-when="caContentIdTo==null||caContentIdTo.length()==0" >
             <text />
         </field>
         <field name="caMapKey" position="1"
-            use-when="&quot;${caMapKey}&quot;.length()==0" >
+            use-when="caMapKey==null||caMapKey.length()==0" >
             <text />
         </field>
         <field name="caMapKey" position="1"
-            use-when="&quot;${caMapKey}&quot;.length()>0" >
+            use-when="caMapKey!=null&amp;&amp;caMapKey.length()>0" >
             <text />
         </field>
         <field name="caContentAssocTypeId" position="1"
