@@ -313,8 +313,6 @@ public class ContentManagementServices {
                 ModelService contentModel = dispatcher.getDispatchContext().getModelService("createContent");
                 contentContext.putAll(contentModel.makeValid(content, ModelService.IN_PARAM));
                 contentContext.put("userLogin", userLogin);
-                contentContext.put("displayFailCond", bDisplayFailCond);
-                contentContext.put("skipPermissionCheck", context.get("skipPermissionCheck"));
                 Debug.logInfo("In persistContentAndAssoc calling createContent with content: " + contentContext, MODULE);
                 Map<String, Object> thisResult = dispatcher.runSync("createContent", contentContext);
                 if (ServiceUtil.isError(thisResult) || ServiceUtil.isFailure(thisResult)) {
@@ -377,8 +375,6 @@ public class ContentManagementServices {
             }
             Map<String, Object> contentAssocContext = new HashMap<>();
             contentAssocContext.put("userLogin", userLogin);
-            contentAssocContext.put("displayFailCond", bDisplayFailCond);
-            contentAssocContext.put("skipPermissionCheck", context.get("skipPermissionCheck"));
             Map<String, Object> thisResult = null;
             try {
                 GenericValue contentAssocExisting = EntityQuery.use(delegator).from("ContentAssoc").where(contentAssoc.getPrimaryKey()).queryOne();

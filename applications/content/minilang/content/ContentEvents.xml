@@ -45,8 +45,6 @@ under the License.
         <log level="info" message="currentContent: ${currentContent}"/>
 
         <set field="context.contentPurposeTypeId" from-field="parameters.contentPurposeTypeId"/>
-        <string-to-list list="targetOperationList" string="CONTENT_CREATE"/>
-        <set field="context.targetOperationList" from-field="targetOperationList"/>
         <session-to-field field="context.userLogin" session-name="userLogin"/>
 
         <call-service in-map-name="context" service-name="createContent">

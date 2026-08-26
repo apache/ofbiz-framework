@@ -221,4 +221,43 @@ class ContentTests implements JupiterTestHelper {
         assert serviceResult.view
     }
 
+    @Test
+    @Order(9)
+    void testCreateContent() {
+        Map serviceCtx = [:]
+        serviceCtx.contentName = 'Test Content'
+        serviceCtx.contentTypeId = 'DOCUMENT'
+        serviceCtx.statusId = 'CTNT_IN_PROGRESS'
+        serviceCtx.userLogin = userLogin
+        Map serviceResult = dispatcher.runSync('createContent', serviceCtx)
+        assert ServiceUtil.isSuccess(serviceResult)
+        assert serviceResult.contentId
+
+        GenericValue content = from('Content')
+                .where('contentId', serviceResult.contentId)
+                .queryOne()
+        assert content
+        assert content.contentName == 'Test Content'
+        assert content.contentTypeId == 'DOCUMENT'
+    }
+
+    @Test
+    @Order(10)
+    void testPersistContentAndAssoc() {
+        Map serviceCtx = [:]
+        serviceCtx.contentName = 'Test Content Persist'
+        serviceCtx.contentTypeId = 'DOCUMENT'
+        serviceCtx.statusId = 'CTNT_IN_PROGRESS'
+        serviceCtx.userLogin = userLogin
+        Map serviceResult = dispatcher.runSync('persistContentAndAssoc', serviceCtx)
+        assert ServiceUtil.isSuccess(serviceResult)
+        assert serviceResult.contentId
+
+        GenericValue content = from('Content')
+                .where('contentId', serviceResult.contentId)
+                .queryOne()
+        assert content
+        assert content.contentName == 'Test Content Persist'
+    }
+
 }
