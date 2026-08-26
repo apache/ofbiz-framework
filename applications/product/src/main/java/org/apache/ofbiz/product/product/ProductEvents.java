@@ -431,7 +431,21 @@ public class ProductEvents {
         return "success";
     }
 
+    private static String checkCatalogPermission(HttpServletRequest request, String updateMode) {
+        Security security = (Security) request.getAttribute("security");
+        if (!security.hasEntityPermission("CATALOG", "_" + updateMode, request.getSession())) {
+            Map<String, String> messageMap = UtilMisc.toMap("updateMode", updateMode);
+            return UtilProperties.getMessage(RESOURCE, "productevents.not_sufficient_permissions", messageMap, UtilHttp.getLocale(request));
+        }
+        return null;
+    }
+
     public static String updateProductQuickAdminShipping(HttpServletRequest request, HttpServletResponse response) {
+        String permError = checkCatalogPermission(request, "UPDATE");
+        if (permError != null) {
+            request.setAttribute("_ERROR_MESSAGE_", permError);
+            return "error";
+        }
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
         GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
@@ -606,6 +620,11 @@ public class ProductEvents {
     }
 
     public static String updateProductQuickAdminSelFeat(HttpServletRequest request, HttpServletResponse response) {
+        String permError = checkCatalogPermission(request, "UPDATE");
+        if (permError != null) {
+            request.setAttribute("_ERROR_MESSAGE_", permError);
+            return "error";
+        }
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
         String productId = request.getParameter("productId");
@@ -788,6 +807,11 @@ public class ProductEvents {
     }
 
     public static String removeFeatureApplsByFeatureTypeId(HttpServletRequest request, HttpServletResponse response) {
+        String permError = checkCatalogPermission(request, "DELETE");
+        if (permError != null) {
+            request.setAttribute("_ERROR_MESSAGE_", permError);
+            return "error";
+        }
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         String productId = request.getParameter("productId");
         String productFeatureTypeId = request.getParameter("productFeatureTypeId");
@@ -825,6 +849,11 @@ public class ProductEvents {
     }
 
     public static String removeProductFeatureAppl(HttpServletRequest request, HttpServletResponse response) {
+        String permError = checkCatalogPermission(request, "DELETE");
+        if (permError != null) {
+            request.setAttribute("_ERROR_MESSAGE_", permError);
+            return "error";
+        }
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         String productId = request.getParameter("productId");
         String productFeatureId = request.getParameter("productFeatureId");
@@ -847,6 +876,11 @@ public class ProductEvents {
     }
 
     public static String addProductToCategories(HttpServletRequest request, HttpServletResponse response) {
+        String permError = checkCatalogPermission(request, "CREATE");
+        if (permError != null) {
+            request.setAttribute("_ERROR_MESSAGE_", permError);
+            return "error";
+        }
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         String productId = request.getParameter("productId");
         String fromDateStr = request.getParameter("fromDate");
@@ -876,6 +910,11 @@ public class ProductEvents {
     }
 
     public static String updateProductCategoryMember(HttpServletRequest request, HttpServletResponse response) {
+        String permError = checkCatalogPermission(request, "UPDATE");
+        if (permError != null) {
+            request.setAttribute("_ERROR_MESSAGE_", permError);
+            return "error";
+        }
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         String productId = request.getParameter("productId");
         String productCategoryId = request.getParameter("productCategoryId");
@@ -902,6 +941,11 @@ public class ProductEvents {
     }
 
     public static String addProductFeatures(HttpServletRequest request, HttpServletResponse response) {
+        String permError = checkCatalogPermission(request, "CREATE");
+        if (permError != null) {
+            request.setAttribute("_ERROR_MESSAGE_", permError);
+            return "error";
+        }
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         String productId = request.getParameter("productId");
         String productFeatureApplTypeId = request.getParameter("productFeatureApplTypeId");
