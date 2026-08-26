@@ -28,5 +28,9 @@
     <test-case case-name="content-tests">
         <jupiter-test-suite class-name="org.apache.ofbiz.content.content.ContentTests"/>
     </test-case>
+
+    <test-case case-name="update-layout-permission-tests">
+        <jupiter-test-suite class-name="org.apache.ofbiz.content.permission.UpdateLayoutPermissionTests"/>
+    </test-case>
 </test-suite>
 
