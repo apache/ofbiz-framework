@@ -44,6 +44,9 @@ import org.apache.ofbiz.entity.util.EntityListIterator;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.product.product.ProductSearch.ProductSearchContext;
 import org.apache.ofbiz.product.product.ProductSearch.ResultSortOrder;
+import org.apache.ofbiz.service.GenericServiceException;
+import org.apache.ofbiz.service.LocalDispatcher;
+import org.apache.ofbiz.service.ServiceUtil;
 import org.apache.ofbiz.webapp.stats.VisitHandler;
 
 /**
@@ -56,6 +59,35 @@ public class ProductSearchEvents {
     private static final String RESOURCE = "ProductErrorUiLabels";
 
     /**
+     * Checks whether the current user may bulk-mutate the products in the current search
+     * results, using the same permission service the equivalent single-record catalog
+     * service already requires.
+     * @return null if permission is granted; otherwise the error message to show the user
+     */
+    private static String checkSearchMutationPermission(HttpServletRequest request, String permissionServiceName,
+            Map<String, Object> extraContext) {
+        LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
+        GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
+        Map<String, Object> permSvcCtx = new HashMap<>(extraContext);
+        permSvcCtx.put("userLogin", userLogin);
+        try {
+            Map<String, Object> permSvcResp = dispatcher.runSync(permissionServiceName, permSvcCtx);
+            if (ServiceUtil.isError(permSvcResp)) {
+                return ServiceUtil.getErrorMessage(permSvcResp);
+            }
+            if (!Boolean.TRUE.equals(permSvcResp.get("hasPermission"))) {
+                String failMessage = (String) permSvcResp.get("failMessage");
+                return UtilValidate.isNotEmpty(failMessage) ? failMessage
+                        : UtilProperties.getMessage("ProductUiLabels", "ProductPermissionError", UtilHttp.getLocale(request));
+            }
+        } catch (GenericServiceException e) {
+            Debug.logError(e, MODULE);
+            return e.getMessage();
+        }
+        return null;
+    }
+
+    /**
      * Removes the results of a search from the specified category
      * @param request  The HTTPRequest object for the current request
      * @param response The HTTPResponse object for the current request
@@ -65,6 +97,13 @@ public class ProductSearchEvents {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         String productCategoryId = request.getParameter("SE_SEARCH_CATEGORY_ID");
         String errMsg = null;
+
+        String permError = checkSearchMutationPermission(request, "checkCategoryPermissionWithViewPurchaseAllow",
+                UtilMisc.toMap("mainAction", "DELETE", "productCategoryId", productCategoryId));
+        if (permError != null) {
+            request.setAttribute("_ERROR_MESSAGE_", permError);
+            return "error";
+        }
 
         try {
             boolean beganTransaction = TransactionUtil.begin(DEFAULT_TX_TIMEOUT);
@@ -118,6 +157,13 @@ public class ProductSearchEvents {
         String productCategoryId = request.getParameter("SE_SEARCH_CATEGORY_ID");
         String thruDateStr = request.getParameter("thruDate");
         String errMsg = null;
+
+        String permError = checkSearchMutationPermission(request, "checkCategoryPermissionWithViewPurchaseAllow",
+                UtilMisc.toMap("mainAction", "UPDATE", "productCategoryId", productCategoryId));
+        if (permError != null) {
+            request.setAttribute("_ERROR_MESSAGE_", permError);
+            return "error";
+        }
 
         Timestamp thruDate;
         try {
@@ -195,6 +241,13 @@ public class ProductSearchEvents {
         Timestamp fromDate = null;
         String errMsg = null;
 
+        String permError = checkSearchMutationPermission(request, "checkCategoryPermissionWithViewPurchaseAllow",
+                UtilMisc.toMap("mainAction", "CREATE", "productCategoryId", productCategoryId));
+        if (permError != null) {
+            request.setAttribute("_ERROR_MESSAGE_", permError);
+            return "error";
+        }
+
         try {
             fromDate = Timestamp.valueOf(fromDateStr);
         } catch (RuntimeException e) {
@@ -263,6 +316,12 @@ public class ProductSearchEvents {
     public static String searchAddFeature(HttpServletRequest request, HttpServletResponse response) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         Locale locale = UtilHttp.getLocale(request);
+
+        String permError = checkSearchMutationPermission(request, "productGenericPermission", UtilMisc.toMap("mainAction", "CREATE"));
+        if (permError != null) {
+            request.setAttribute("_ERROR_MESSAGE_", permError);
+            return "error";
+        }
 
         String productFeatureId = request.getParameter("productFeatureId");
         String fromDateStr = request.getParameter("fromDate");
@@ -352,6 +411,12 @@ public class ProductSearchEvents {
     public static String searchRemoveFeature(HttpServletRequest request, HttpServletResponse response) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         Locale locale = UtilHttp.getLocale(request);
+
+        String permError = checkSearchMutationPermission(request, "productGenericPermission", UtilMisc.toMap("mainAction", "DELETE"));
+        if (permError != null) {
+            request.setAttribute("_ERROR_MESSAGE_", permError);
+            return "error";
+        }
 
         String productFeatureId = request.getParameter("productFeatureId");
 
