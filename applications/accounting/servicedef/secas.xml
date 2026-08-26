@@ -118,6 +118,13 @@ under the License.
     </eca>
 
     <!-- budget role ecas -->
+    <!-- reject an improbable party/role combination before it reaches ensurePartyRole below,
+         which would otherwise silently create a spurious PartyRole - OFBIZ-12371 -->
+    <eca service="createBudgetRole" event="in-validate">
+        <condition field-name="roleTypeId" operator="is-not-empty"/>
+        <condition field-name="partyId" operator="is-not-empty"/>
+        <action service="checkPartyRoleExists" mode="sync"/>
+    </eca>
     <eca service="createBudgetRole" event="invoke">
         <action service="ensurePartyRole" mode="sync" run-as-user="system"/>
     </eca>
