@@ -131,6 +131,7 @@ public class PerformFindTests implements JupiterTestHelper {
         performFindGroupOrAnd();
         performFindDateFindAndIgnoreCase();
         performFindFilterByDateWithDedicateDateField();
+        performFindIgnoreCaseComparesValueLiterally();
     }
 
     private void performFindConditionFieldEquals() throws Exception {
@@ -351,5 +352,29 @@ public class PerformFindTests implements JupiterTestHelper {
         assertTrue(ServiceUtil.isSuccess(result));
         foundElements = getCompleteList(result);
         assertEquals(4, foundElements.size(), "performFind search with filterDate Y and specific date field name");
+    }
+
+    /*
+     * An ignore-case search value should be compared literally, like any other search value: a
+     * value containing quotes and parentheses must only ever match a row whose field equals that
+     * exact string, never a broader set of rows.
+     */
+    private void performFindIgnoreCaseComparesValueLiterally() throws Exception {
+        GenericValue userLogin = getUserLogin("system");
+        prepareData();
+
+        LocalDispatcher dispatcher = getDispatcher();
+        String valueWithSpecialCharacters = "\\') OR (1=1) OR ('";
+        Map<String, Object> inputFields = UtilMisc.toMap(
+                "testingTypeId", "PERFOMFINDTEST",
+                "testingName", valueWithSpecialCharacters,
+                "testingName_ic", "Y");
+        Map<String, Object> performFindMap = UtilMisc.toMap("userLogin", userLogin, "entityName", "Testing", "inputFields", inputFields);
+        Map<String, Object> result = dispatcher.runSync("performFind", performFindMap);
+        assertTrue(ServiceUtil.isSuccess(result));
+        List<GenericValue> foundElements = getCompleteList(result);
+        assertTrue(foundElements.isEmpty(),
+                "performFind ignore-case search should only match rows whose testingName equals the search value exactly, found: "
+                        + foundElements);
     }
 }
