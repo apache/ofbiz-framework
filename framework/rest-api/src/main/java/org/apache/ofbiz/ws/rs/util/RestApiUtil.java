@@ -41,6 +41,7 @@ import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.collections.MapComparator;
 import org.apache.ofbiz.service.ModelService;
+import org.apache.ofbiz.ws.rs.core.OFBizApiConfig;
 import org.apache.ofbiz.ws.rs.core.ResponseStatus;
 import org.apache.ofbiz.ws.rs.response.Error;
 import org.apache.ofbiz.ws.rs.response.Success;
@@ -779,5 +780,17 @@ public final class RestApiUtil {
             statusType = ResponseStatus.Custom.fromStatusCode(statusCode);
         }
         return statusType;
+    }
+
+    public static String validateApiGroupPath(String providedApiGroupPath) {
+        if (providedApiGroupPath == null) {
+            return null;
+        }
+        for (String knownApiGroupPath : OFBizApiConfig.getModelApis().keySet()) {
+            if (knownApiGroupPath.equals(providedApiGroupPath)) {
+                return knownApiGroupPath;
+            }
+        }
+        return null;
     }
 }

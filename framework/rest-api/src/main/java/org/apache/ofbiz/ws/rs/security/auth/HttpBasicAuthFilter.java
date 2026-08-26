@@ -88,8 +88,14 @@ public class HttpBasicAuthFilter implements ContainerRequestFilter {
         String[] tokens = (new String(Base64.getDecoder().decode(authorizationHeader.split(" ")[1]), "UTF-8")).split(":");
         final String username = tokens[0];
         final String password = tokens[1];
+
+        String apiGroupPath = requestContext.getUriInfo().getPathParameters().getFirst("apiGroupPath");
+        String validatedApiGroupPath = RestApiUtil.validateApiGroupPath(apiGroupPath);
+        if (UtilValidate.isEmpty(validatedApiGroupPath)) {
+            abortWithUnauthorized(requestContext, true, "Access Denied: Unknown api.");
+        }
         try {
-            authenticate(username, password);
+            authenticate(username, password, validatedApiGroupPath);
         } catch (ForbiddenException fe) {
             abortWithUnauthorized(requestContext, true, "Access Denied: " + fe.getMessage());
         }
@@ -112,7 +118,7 @@ public class HttpBasicAuthFilter implements ContainerRequestFilter {
         }
     }
 
-    private void authenticate(String userName, String password) throws ForbiddenException {
+    private void authenticate(String userName, String password, String validatedApiGroupPath) throws ForbiddenException {
         Map<String, Object> result = null;
         LocalDispatcher dispatcher = (LocalDispatcher) servletContext.getAttribute("dispatcher");
         try {
@@ -127,19 +133,29 @@ public class HttpBasicAuthFilter implements ContainerRequestFilter {
             throw new ForbiddenException(ServiceUtil.getErrorMessage(result));
         }
 
-        String securityGroupPermission = EntityUtilProperties.getPropertyValue("rest-api", "rest-api.auth.baseSecurityGroupPermission",
-                (Delegator) servletContext.getAttribute("delegator"));
-        if (UtilValidate.isNotEmpty(securityGroupPermission)) {
-            Security security = (Security) servletContext.getAttribute("security");
-            if (security != null && !security.hasPermission(securityGroupPermission, (GenericValue) result.get("userLogin"))) {
-                Debug.logInfo("The specified user has no base permission to use the REST-API.", MODULE);
-                throw new ForbiddenException(ServiceUtil.getErrorMessage(result));
-            }
+        String securityGroupPermission = determineSecurityGroupPermission(validatedApiGroupPath);
+
+        if (UtilValidate.isEmpty(securityGroupPermission)) {
+            String errorMsg = String.format("No SecurityGroup configured for api: [%s]. Access denied.", validatedApiGroupPath);
+            Debug.logInfo(errorMsg, MODULE);
+            throw new ForbiddenException(errorMsg);
         }
 
+        Security security = (Security) servletContext.getAttribute("security");
+        if (security != null && !security.hasPermission(securityGroupPermission, (GenericValue) result.get("userLogin"))) {
+            String errorMsg = String.format("The specified user has no base permission to use api: [%s].", validatedApiGroupPath);
+            Debug.logInfo(errorMsg, MODULE);
+            throw new ForbiddenException(errorMsg);
+        }
 
         GenericValue userLogin = (GenericValue) result.get("userLogin");
         httpRequest.setAttribute("userLogin", userLogin);
     }
 
+    private String determineSecurityGroupPermission(String validatedApiGroupPath) {
+        String keyPrefix = "rest-api.auth.api-group.";
+        String keyPostfix = ".baseSecurityGroupPermission";
+        String fullKey = keyPrefix + validatedApiGroupPath + keyPostfix;
+        return EntityUtilProperties.getPropertyValue("rest-api", fullKey, (Delegator) servletContext.getAttribute("delegator"));
+    }
 }
