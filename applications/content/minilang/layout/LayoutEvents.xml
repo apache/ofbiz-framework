@@ -52,37 +52,34 @@ under the License.
     <simple-method login-required="true" method-name="updateLayout" short-description="Update Layout">
         <log level="info" message="in updateLayout."/>
 
-        <make-value entity-name="Content" value-field="currentContent"/>
-        <set-pk-fields map="parameters" value-field="currentContent"/>
-        <set-nonpk-fields map="parameters" value-field="currentContent"/>
-        <set field="context.currentContent" from-field="currentContent"/>
-        <set field="context.contentPurposeTypeId" from-field="parameters.contentPurposeTypeId"/>
-        <string-to-list list="targetOperationList" string="CONTENT_CREATE"/>
-        <set field="context.targetOperationList" from-field="targetOperationList"/>
-        <session-to-field field="context.userLogin" session-name="userLogin"/>
-        <call-service in-map-name="context" service-name="checkContentPermission">
-            <result-to-field result-name="permissionStatus" field="permissionStatus"/>
-        </call-service>
-        <if-compare field="permissionStatus" operator="not-equals" value="granted" type="String">
-            <add-error>
-                <fail-property resource="ContentUiLabels" property="ContentPermissionNotGranted"/>
-            </add-error>
-        </if-compare>
-        <check-errors/>
-        <set field="content.contentId" from-field="parameters.contentId"/>
-        <find-by-primary-key entity-name="Content" value-field="content" map="content"/>
+        <!-- Route the actual persistence through updateContent/updateDataResource so permission is
+             checked (via genericContentPermission/genericDataResourcePermission, main-action UPDATE)
+             against the real target Content and DataResource records identified by parameters.contentId
+             and parameters.dataResourceId, instead of against an attacker-constructed value under the
+             unrelated CONTENT_CREATE operation. This also ensures converting the target DataResource
+             into a template-bearing (e.g. FTL) resource is gated behind CONTENTMGR_SUPER, same as the
+             normal updateDataResource path. -->
+        <make-value entity-name="Content" value-field="content"/>
+        <set-pk-fields map="parameters" value-field="content"/>
         <set-nonpk-fields map="parameters" value-field="content"/>
         <log level="info" message="content: ${content}"/>
-        <store-value value-field="content"/>
+        <map-to-map map="content" to-map="context"/>
+        <set field="context.contentPurposeTypeId" from-field="parameters.contentPurposeTypeId"/>
+        <session-to-field field="context.userLogin" session-name="userLogin"/>
+        <call-service in-map-name="context" service-name="updateContent"/>
+        <check-errors/>
         <field-to-request field="content.contentId" request-name="contentId"/>
-        <set field="dataResource.dataResourceId" from-field="parameters.dataResourceId"/>
-        <find-by-primary-key entity-name="DataResource" value-field="dataResource" map="dataResource"/>
+
+        <make-value entity-name="DataResource" value-field="dataResource"/>
+        <set-pk-fields map="parameters" value-field="dataResource"/>
         <set-nonpk-fields map="parameters" value-field="dataResource"/>
         <set field="dataResource.objectInfo" from-field="parameters.drObjectInfo"/>
         <log level="info" message="dataResource: ${dataResource}"/>
-        <store-value value-field="dataResource"/>
-        <field-to-request field="dataResource.dataResourceId" request-name="drDataResourceId"/>
+        <map-to-map map="dataResource" to-map="context2"/>
+        <session-to-field field="context2.userLogin" session-name="userLogin"/>
+        <call-service in-map-name="context2" service-name="updateDataResource"/>
         <check-errors/>
+        <field-to-request field="dataResource.dataResourceId" request-name="drDataResourceId"/>
     </simple-method>
 
     <simple-method login-required="true" method-name="createLayoutText" short-description="Create Layout Text">
