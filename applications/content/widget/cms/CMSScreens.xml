@@ -26,9 +26,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleFindCMSContent"/>
                 <set field="entityName" value="ContentAssocDataResourceViewFrom"/>
-                <service service-name="urlEncodeArgs" result-map="result">
-                    <field-map field-name="mapIn" from-field="requestParameters"/>
-                </service>
+
                 <set field="viewIndex" from-field="requestParameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSize" from-field="requestParameters.VIEW_SIZE" type="Integer" default-value="20"/>
                 <set field="currentCMSMenuItemName" value="contentfind" to-scope="user"/>

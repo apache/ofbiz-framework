@@ -221,4 +221,48 @@ class ContentTests implements JupiterTestHelper {
         assert serviceResult.view
     }
 
+    @Test
+    @Order(9)
+    void testDeactivateContentAssoc() {
+        Map serviceCtx = [:]
+        serviceCtx.contentId = 'TEST_CONTENT1'
+        serviceCtx.contentIdTo = 'TEST_CONTENT2'
+        serviceCtx.contentAssocTypeId = 'SUB_CONTENT'
+        serviceCtx.fromDate = UtilDateTime.nowTimestamp()
+        serviceCtx.userLogin = userLogin
+        Map createResult = dispatcher.runSync('createContentAssoc', serviceCtx)
+        assert ServiceUtil.isSuccess(createResult)
+
+        Map deactivateCtx = [:]
+        deactivateCtx.contentId = 'TEST_CONTENT1'
+        deactivateCtx.contentIdTo = 'TEST_CONTENT2'
+        deactivateCtx.contentAssocTypeId = 'SUB_CONTENT'
+        deactivateCtx.fromDate = serviceCtx.fromDate
+        deactivateCtx.userLogin = userLogin
+        Map deactivateResult = dispatcher.runSync('deactivateContentAssoc', deactivateCtx)
+        assert ServiceUtil.isSuccess(deactivateResult)
+
+        GenericValue assoc = from('ContentAssoc')
+                .where('contentId', 'TEST_CONTENT1',
+                        'contentIdTo', 'TEST_CONTENT2',
+                        'contentAssocTypeId', 'SUB_CONTENT',
+                        'fromDate', serviceCtx.fromDate)
+                .queryOne()
+        assert assoc
+        assert assoc.thruDate != null
+    }
+
+    @Test
+    @Order(10)
+    void testFindRelatedContent() {
+        GenericValue content = from('Content').where('contentId', 'TEST_CONTENT1').queryOne()
+        assert content
+        Map serviceCtx = [:]
+        serviceCtx.currentContent = content
+        serviceCtx.userLogin = userLogin
+        Map serviceResult = dispatcher.runSync('findRelatedContent', serviceCtx)
+        assert ServiceUtil.isSuccess(serviceResult)
+        assert serviceResult.contentList != null
+    }
+
 }
