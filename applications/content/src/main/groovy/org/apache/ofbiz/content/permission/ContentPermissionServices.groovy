@@ -64,6 +64,13 @@ Map genericContentPermission() {
     // here we can use contentIdTo to check parent(s) ownership
     if (!parameters.ownerContentId && parameters.contentIdFrom) {
         ownerContentId = parameters.contentIdFrom
+    } else if (!parameters.ownerContentId && !parameters.contentIdFrom && parameters.roleTypeId && parameters.contentId) {
+        // establishing a role assignment (roleTypeId present, e.g. creating a ContentRole) with no
+        // owner/parent context supplied: anchor the ownership-based compensating check in
+        // createContentPermission/updateContentPermission against the actual target content instead
+        // of leaving it unbound, so only someone who already has standing on that content can grant
+        // a role on it.
+        ownerContentId = parameters.contentId
     }
 
     //  mainAction based call outs
@@ -412,6 +419,16 @@ Map checkContentOperationSecurity(String contentOperationId, String contentPurpo
                 }
             }
         }
+    } else if (parameters.roleTypeId) {
+        // there are no ContentPurposeOperation entries for this operation/purpose, and this call is
+        // establishing a role assignment (roleTypeId present, e.g. creating/updating a ContentRole).
+        // Granting by default here would let any caller assign themselves an arbitrary role - including
+        // OWNER or CONTENT_ADMIN - on any content whenever no explicit rule happens to be configured.
+        // Fail closed for role-assignment actions; the caller must instead satisfy the ownership-based
+        // compensating check in createContentPermission/updateContentPermission (see the ownerContentId
+        // fallback in genericContentPermission above).
+        logVerbose('No operations found for a role-assignment action; permission denied by default')
+        hasPermission = false
     } else {
         // there are no ContentPurposeOperation entries for this operation/purpose; default is approve permission
         logVerbose('No operations found; permission granted!')
@@ -527,7 +544,7 @@ Map findAllContentPurposes(String checkId) {
 /**
  * Finds all associated party Ids for a use
  */
-Map findAllAssociatedPartyIds () {
+List findAllAssociatedPartyIds () {
     Map serviceResult = run service: 'getRelatedParties', with: [partyIdFrom: userLogin.partyId,
                                                                  partyRelationshipTypeId: 'GROUP_ROLLUP',
                                                                  includeFromToSwitched: 'Y']
