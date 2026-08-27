@@ -22,6 +22,8 @@ import static org.apache.ofbiz.widget.model.ModelFormField.from;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
@@ -157,5 +159,78 @@ public final class ModelFormFieldTest {
         final List<String> targetParameterList = lookupField.getTargetParameterList(
                 ImmutableMap.of("prefix", "P1", "key1", "AA,BB , CC"));
         assertThat(targetParameterList, Matchers.contains("P1TargetParam", "AA", "BB", "CC"));
+    }
+
+    /**
+     * Regression test for the CMS caContentIdTo/caMapKey use-when handling (applications/content/widget/cms/CMSForms.xml).
+     * <p>{@code shouldUse} expands the {@code use-when} attribute with {@link org.apache.ofbiz.base.util.string.FlexibleStringExpander}
+     * before handing it to Groovy: a {@code use-when="&quot;${var}&quot;.length()>0"} template textually splices the
+     * <em>stringified value</em> of a context variable into the source string that is then compiled and executed. If that
+     * context variable is populated from an HTTP request parameter, a value containing a closing quote can escape the
+     * string literal and reach the surrounding Groovy source, which -- as demonstrated separately via reflection
+     * (Class.forName("java.lang.Runtime") + Method.invoke) -- is not stopped by GroovyUtil's compile-time
+     * SecureASTCustomizer sandbox. The fix (applied after this test is written) is to stop templating the value into a
+     * string literal and instead reference the context variable directly, the same safe idiom already used by the vast
+     * majority of use-when expressions elsewhere in the codebase (e.g. "currentValue==null").
+     */
+    @Test
+    public void useWhenDoesNotExecuteContextValueAsGroovyCode() throws Exception {
+        // A synchronous, in-JVM side effect (no OS process spawn) so the test is deterministic: no race waiting
+        // on an async subprocess to finish writing a file. Running arbitrary code is proof enough here; a
+        // separate, manually-verified reproduction additionally shows the same string literal escape reaching
+        // Runtime.exec() via reflection (Class.forName("java.lang.Runtime") + Method.invoke), bypassing
+        // GroovyUtil's compile-time SecureASTCustomizer sandbox -- that sandbox is irrelevant to *this* test,
+        // since the sandbox was never the defense that mattered: nothing should be textually splicing untrusted
+        // data into compiled source.
+        String marker = "ofbiz.usewhen.test.marker";
+        System.clearProperty(marker);
+        try {
+            // Matches the fixed use-when now in CMSForms.xml: a direct, unquoted binding reference instead of a
+            // FlexibleStringExpander "${var}" template spliced into a string literal.
+            ModelFormField field = from(b -> b.setName("caContentIdTo").setUseWhen("caContentIdTo!=null&&caContentIdTo.length()>0"));
+
+            HashMap<String, Object> legitimate = new HashMap<>();
+            legitimate.put("caContentIdTo", "LEGITIMATE_ID");
+            assertTrue(field.shouldUse(legitimate), "A non-empty legitimate value must still satisfy the use-when");
+
+            HashMap<String, Object> empty = new HashMap<>();
+            assertFalse(field.shouldUse(empty), "A missing value must not satisfy the use-when");
+
+            HashMap<String, Object> untrusted = new HashMap<>();
+            untrusted.put("caContentIdTo", "x\";System.setProperty(\"" + marker + "\",\"SIDE_EFFECT\");\"x");
+            // The untrusted text is still non-empty, so the field is legitimately shown -- that part
+            // is expected and harmless. What must NOT happen is the embedded statement executing as code.
+            assertTrue(field.shouldUse(untrusted), "The untrusted value is still non-empty text, so use-when legitimately evaluates true");
+            assertFalse(System.getProperty(marker) != null, "The embedded Groovy statement must not execute as code");
+        } finally {
+            System.clearProperty(marker);
+        }
+    }
+
+    /**
+     * Same handling, same fix, for the sibling caMapKey use-when in the same CMSForms.xml form.
+     * See {@link #useWhenDoesNotExecuteContextValueAsGroovyCode()} for the full explanation.
+     */
+    @Test
+    public void useWhenDoesNotExecuteContextValueAsGroovyCodeForCaMapKey() throws Exception {
+        String marker = "ofbiz.usewhen.test.marker.camapkey";
+        System.clearProperty(marker);
+        try {
+            ModelFormField field = from(b -> b.setName("caMapKey").setUseWhen("caMapKey!=null&&caMapKey.length()>0"));
+
+            HashMap<String, Object> legitimate = new HashMap<>();
+            legitimate.put("caMapKey", "LEGITIMATE_KEY");
+            assertTrue(field.shouldUse(legitimate), "A non-empty legitimate value must still satisfy the use-when");
+
+            HashMap<String, Object> empty = new HashMap<>();
+            assertFalse(field.shouldUse(empty), "A missing value must not satisfy the use-when");
+
+            HashMap<String, Object> untrusted = new HashMap<>();
+            untrusted.put("caMapKey", "x\";System.setProperty(\"" + marker + "\",\"SIDE_EFFECT\");\"x");
+            assertTrue(field.shouldUse(untrusted), "The untrusted value is still non-empty text, so use-when legitimately evaluates true");
+            assertFalse(System.getProperty(marker) != null, "The embedded Groovy statement must not execute as code");
+        } finally {
+            System.clearProperty(marker);
+        }
     }
 }
