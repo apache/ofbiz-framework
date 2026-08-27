@@ -24,6 +24,7 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
+    open-pull-requests-limit: 20
     #groups:
     #  all-dependencies:
     #    patterns:
@@ -38,6 +39,7 @@ updates:
     target-branch: "release24.09"
     schedule:
       interval: "daily"
+    open-pull-requests-limit: 20
     #groups:
     #  all-dependencies:
     #    patterns:
@@ -51,17 +53,20 @@ updates:
     directory: "themes/common-theme/webapp/common-theme/js"
     schedule:
       interval: "daily"
+    open-pull-requests-limit: 20
 
   - package-ecosystem: "npm"
     directory: "framework/rest-api"
     schedule:
       interval: "daily"
+    open-pull-requests-limit: 20
 
   - package-ecosystem: "npm"
     directory: "themes/common-theme/webapp/common-theme/js"
     target-branch: "release24.09"
     schedule:
       interval: "daily"
+    open-pull-requests-limit: 20
 
   - package-ecosystem: github-actions
     directory: /
