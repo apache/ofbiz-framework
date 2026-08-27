@@ -16,7 +16,7 @@
 # under the License.
 
 [versions]
-metadata-extractor = "2.20.0"
+metadata-extractor = "2.21.0"
 caffeine = "3.2.4"
 guava = "33.6.0-jre"
 zxing-core = "3.5.4"
