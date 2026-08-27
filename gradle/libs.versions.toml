@@ -75,7 +75,7 @@ axis2 = "1.8.2"
 # Shared by batik-anim, batik-util, batik-bridge.
 batik = "1.19"
 fop = "2.11"
-clojure = "1.12.4"
+clojure = "1.12.5"
 groovy-all = "5.0.5"
 # Remember to change the version number in FreeMarkerWorker class when upgrading. See OFBIZ-10019 if >= 2.4
 freemarker = "2.3.34"
