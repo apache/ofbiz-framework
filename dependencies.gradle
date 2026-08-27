@@ -38,7 +38,7 @@ dependencies {
     implementation 'net.fortuna.ical4j:ical4j:1.0-rc4-atlassian-12'
     implementation 'net.lingala.zip4j:zip4j:2.11.6'
     implementation 'org.apache.ant:ant-junit:1.10.17'
-    implementation 'org.apache.commons:commons-collections4:4.5.0'
+    implementation 'org.apache.commons:commons-collections4:4.6.0'
     implementation 'org.apache.commons:commons-csv:1.14.1'
     implementation 'org.apache.commons:commons-dbcp2:2.14.0'
     implementation 'org.apache.commons:commons-imaging:1.0-alpha3' // Alpha but OK, "Imaging was working and was used by a number of projects in production even before reaching its initial release as an Apache Commons component." Since 1.0.0-alpha4 (note the use of semver) the API has changed. Better wait an "official release" to rewrite OFBiz code...
