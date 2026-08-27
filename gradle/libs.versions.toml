@@ -86,7 +86,7 @@ jackson-databind = "2.21.3"
 # Shared by jersey-container-servlet, jersey-hk2, jersey-media-multipart, jersey-media-json-jackson.
 jersey = "3.1.12"
 # Shared by swagger-jaxrs2-core-jakarta, swagger-jaxrs2-servlet-initializer-jakarta, swagger-annotations-jakarta.
-swagger = "2.2.50"
+swagger = "2.2.54"
 oro = "2.0.8"
 wsdl4j = "1.6.3"
 java-jwt = "4.5.2"
