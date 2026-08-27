@@ -61,7 +61,7 @@ pdfbox = "3.0.8"
 # Got "Exception in thread "main" java.lang.UnsupportedOperationException: Cannot create a hash with
 # the given algorithm: argon2" with 2.0.2 in integration tests
 shiro-core = "1.13.0"
-shiro-crypto-cipher = "2.1.0"
+shiro-crypto-cipher = "2.2.1"
 # Shared by sshd-core, sshd-sftp.
 sshd = "2.17.1"
 # Shared by tika-core, tika-parsers, tika-parser-pdf-module.
