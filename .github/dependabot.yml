@@ -24,7 +24,7 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
-    open-pull-requests-limit: 20
+    open-pull-requests-limit: 40
     #groups:
     #  all-dependencies:
     #    patterns:
@@ -39,7 +39,7 @@ updates:
     target-branch: "release24.09"
     schedule:
       interval: "daily"
-    open-pull-requests-limit: 20
+    open-pull-requests-limit: 40
     #groups:
     #  all-dependencies:
     #    patterns:
