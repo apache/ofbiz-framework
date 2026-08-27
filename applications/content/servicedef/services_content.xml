@@ -47,6 +47,10 @@
         <override name="statusId" default-value="CTNT_IN_PROGRESS"/>
         <override name="contentName" allow-html="safe"/>
         <override name="description" allow-html="safe"/>
+        <!-- serviceName/customMethodId choose what code renderContentAsText runs against the live request
+             parameters; neither is set through this generic mass-assignment path (see ContentWorker.java) -->
+        <override name="serviceName" mode="OUT"/>
+        <override name="customMethodId" mode="OUT"/>
     </service>
 
     <service name="createTextAndUploadedContent" engine="groovy" auth="true"
@@ -140,6 +144,10 @@
         <!-- end of deprecated fields -->
         <override name="contentName" allow-html="safe"/>
         <override name="description" allow-html="safe"/>
+        <!-- serviceName/customMethodId choose what code renderContentAsText runs against the live request
+             parameters; neither is set through this generic mass-assignment path (see ContentWorker.java) -->
+        <override name="serviceName" mode="OUT"/>
+        <override name="customMethodId" mode="OUT"/>
     </service>
 
     <service name="updateTextContent" engine="group" auth="true">

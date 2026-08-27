@@ -366,6 +366,10 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <auto-attributes entity-name="Content" include="nonpk" mode="IN" optional="true"/>
         <override name="fromDate" default-value="${date:nowTimestamp()}"/>
+        <!-- serviceName/customMethodId choose what code renderContentAsText runs against the live request
+             parameters; neither is set through this generic mass-assignment path (see ContentWorker.java) -->
+        <override name="serviceName" mode="OUT"/>
+        <override name="customMethodId" mode="OUT"/>
     </service>
     <service name="updateProductContent" default-entity-name="ProductContent" engine="groovy"
         location="component://product/src/main/groovy/org/apache/ofbiz/product/product/product/ProductContentServicesScript.groovy" invoke="updateProductContent" auth="true">
@@ -373,6 +377,10 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <auto-attributes entity-name="Content" include="nonpk" mode="IN" optional="true"/>
+        <!-- serviceName/customMethodId choose what code renderContentAsText runs against the live request
+             parameters; neither is set through this generic mass-assignment path (see ContentWorker.java) -->
+        <override name="serviceName" mode="OUT"/>
+        <override name="customMethodId" mode="OUT"/>
     </service>
     <service name="removeProductContent" default-entity-name="ProductContent" engine="entity-auto" invoke="delete" auth="true">
         <description>Remove Content From Product</description>
