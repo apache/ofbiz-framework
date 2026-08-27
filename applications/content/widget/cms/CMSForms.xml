@@ -377,27 +377,27 @@ under the License.
             <display description=""/>
         </field>
         <field name="caContentIdTo" position="1"
-            use-when="&quot;${caContentIdTo}&quot;.length()>0" >
+            use-when="caContentIdTo!=null&amp;&amp;caContentIdTo.length()>0" >
             <display />
         </field>
         <field name="caContentIdTo" position="1"
-            use-when="&quot;${caContentIdTo}&quot;.length()==0" >
+            use-when="caContentIdTo==null||caContentIdTo.length()==0" >
             <text />
         </field>
         <field name="caMapKey" position="1"
-            use-when="&quot;${caMapKey}&quot;.length()==0" >
+            use-when="caMapKey==null||caMapKey.length()==0" >
             <text />
         </field>
         <field name="caMapKey" position="1"
-            use-when="&quot;${caMapKey}&quot;.length()>0" >
+            use-when="caMapKey!=null&amp;&amp;caMapKey.length()>0" >
             <text />
         </field>
         <field name="caContentAssocTypeId" position="1"
-            use-when="&quot;${caContentAssocTypeId}&quot;.length()>0" >
+            use-when="caContentAssocTypeId!=null&amp;&amp;caContentAssocTypeId.length()>0" >
             <display />
         </field>
         <field name="caContentAssocTypeId" position="1"
-            use-when="&quot;${caContentAssocTypeId}&quot;.length()==0" >
+            use-when="caContentAssocTypeId==null||caContentAssocTypeId.length()==0" >
             <drop-down allow-empty="true">
                 <entity-options entity-name="ContentAssocType" key-field-name="contentAssocTypeId"/>
             </drop-down>
@@ -407,28 +407,28 @@ under the License.
                 <entity-options entity-name="MetaDataPredicate" key-field-name="metaDataPredicateId"/>
             </drop-down>
         </field>
-        <field name="caFromDate" title="${uiLabelMap.CommonFromDate}" widget-style="buttontext" position="1" use-when="&quot;${caFromDate}&quot;.length()>0">
+        <field name="caFromDate" title="${uiLabelMap.CommonFromDate}" widget-style="buttontext" position="1" use-when="caFromDate!=null">
             <display default-value="${nowTimestamp}"/>
         </field>
-        <field name="caFromDate" title="${uiLabelMap.CommonFromDate}" widget-style="buttontext" position="1" use-when="&quot;${caFromDate}&quot;.length()==0">
+        <field name="caFromDate" title="${uiLabelMap.CommonFromDate}" widget-style="buttontext" position="1" use-when="caFromDate==null">
             <date-time default-value="${nowTimestamp}"/>
         </field>
-        <field name="caThruDate" title="${uiLabelMap.CommonThruDate}" widget-style="buttontext" position="1" use-when="&quot;${caThruDate}&quot;.length()>0">
+        <field name="caThruDate" title="${uiLabelMap.CommonThruDate}" widget-style="buttontext" position="1" use-when="caThruDate!=null">
             <date-time/>
         </field>
-        <field name="caThruDate" title="${uiLabelMap.CommonThruDate}" widget-style="buttontext" position="1" use-when="&quot;${caThruDate}&quot;.length()==0">
+        <field name="caThruDate" title="${uiLabelMap.CommonThruDate}" widget-style="buttontext" position="1" use-when="caThruDate==null">
             <date-time/>
         </field>
         <field name="contentTitle" title="${uiLabelMap.ContentContent}" title-style="h1" map-name="dummy">
             <display description=""/>
         </field>
         <field name="contentId" position="1"
-            use-when="&quot;${currentValue.contentId}&quot;.length()>0" >
+            use-when="currentValue.contentId!=null&amp;&amp;currentValue.contentId.length()>0" >
             <display />
         </field>
 
         <field name="contentId" position="1"
-            use-when="&quot;${currentValue.contentId}&quot;.length()==0" >
+            use-when="currentValue.contentId==null||currentValue.contentId.length()==0" >
             <text />
         </field>
         <field name="templateDataResourceId">
@@ -483,7 +483,7 @@ under the License.
         </field>
         <field name="dataResourceId" title="${uiLabelMap.ContentDataResourceId}">
             <lookup target-form-name="LookupDataResource">
-            <sub-hyperlink use-when="&quot;${currentValue.dataResourceId}&quot;.length()>0" link-style="buttontext" target-type="intra-app" target="gotoDataResource" description="${uiLabelMap.ContentGoToDataResource}">
+            <sub-hyperlink use-when="currentValue.dataResourceId!=null&amp;&amp;currentValue.dataResourceId.length()>0" link-style="buttontext" target-type="intra-app" target="gotoDataResource" description="${uiLabelMap.ContentGoToDataResource}">
                 <parameter param-name="dataResourceId" from-field="currentValue.dataResourceId"/>
             </sub-hyperlink>
 <!--
