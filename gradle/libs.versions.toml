@@ -69,7 +69,7 @@ tika = "3.3.2"
 cxf-rt-frontend-jaxrs = "4.2.0"
 # Remember to change the version number (10 now) in javadoc block if needed. Shared by
 # tomcat-catalina-ha, tomcat-jasper.
-tomcat = "10.1.56"
+tomcat = "10.1.59"
 # Shared by axis2-kernel, axis2-transport-http, axis2-transport-local.
 axis2 = "1.8.2"
 # Shared by batik-anim, batik-util, batik-bridge.
