@@ -82,7 +82,7 @@ freemarker = "2.3.34"
 esapi = "2.7.0.0"
 # Shared by spring-test, spring-web.
 spring = "6.2.19"
-jackson-databind = "2.21.3"
+jackson-databind = "2.22.2"
 # Shared by jersey-container-servlet, jersey-hk2, jersey-media-multipart, jersey-media-json-jackson.
 jersey = "3.1.12"
 # Shared by swagger-jaxrs2-core-jakarta, swagger-jaxrs2-servlet-initializer-jakarta, swagger-annotations-jakarta.
