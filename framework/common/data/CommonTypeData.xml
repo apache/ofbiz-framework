@@ -152,4 +152,7 @@ under the License.
     <TelecomMethodType telecomMethodTypeId="SMS" description="Short Messaging Service Method"/>
     <TelecomMethodType telecomMethodTypeId="WHATSAPP" description="WhatsApp Messaging Service Method"/>
     <CustomMethodType customMethodTypeId="TELECOM_GATEWAY" description="Telecom Gateway Custom Method"/>
+
+    <!-- Content Rendering Custom Method -->
+    <CustomMethodType customMethodTypeId="CONTENT_RENDER" description="Content Rendering Method"/>
 </entity-engine-xml>

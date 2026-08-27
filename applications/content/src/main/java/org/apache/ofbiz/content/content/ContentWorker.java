@@ -197,10 +197,22 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
         // if the content has a service attached run the service
 
         Delegator delegator = dispatcher.getDelegator();
-        String serviceName = content.getString("serviceName"); //Kept for backward compatibility
+        // NOTE: Content.serviceName is a legacy, client-writable field (createContent/updateContent both
+        // accept it as a plain non-PK attribute) that used to be resolved and run here directly; that let
+        // anyone able to write a Content row choose an arbitrary service to run with the live HTTP request
+        // parameters as its input. It is no longer honored. Only a CustomMethod explicitly typed for
+        // content rendering may be run, so arming a row requires a CustomMethod that was deliberately set
+        // up for this purpose, not just a string dropped into the Content row itself.
+        String serviceName = null;
         GenericValue custMethod = null;
         if (UtilValidate.isNotEmpty(content.getString("customMethodId"))) {
-            custMethod = EntityQuery.use(delegator).from("CustomMethod").where("customMethodId", content.get("customMethodId")).cache().queryOne();
+            custMethod = EntityQuery.use(delegator).from("CustomMethod")
+                    .where("customMethodId", content.get("customMethodId"), "customMethodTypeId", "CONTENT_RENDER")
+                    .cache().queryOne();
+            if (custMethod == null) {
+                throw new GeneralException("customMethodId [" + content.get("customMethodId")
+                        + "] on content [" + content.get("contentId") + "] is not a content rendering method");
+            }
         }
         if (custMethod != null) serviceName = custMethod.getString("customMethodName");
         if (UtilValidate.isNotEmpty(serviceName)) {
