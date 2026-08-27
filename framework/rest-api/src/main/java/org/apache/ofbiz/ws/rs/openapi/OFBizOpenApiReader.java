@@ -72,6 +72,7 @@ import jakarta.ws.rs.core.Response.StatusType;
 
 public final class OFBizOpenApiReader extends Reader implements OpenApiReader {
     private static final String MODULE = OFBizOpenApiReader.class.getName();
+
     private Components components;
     private Paths paths;
     @SuppressWarnings("rawtypes")
@@ -98,26 +99,25 @@ public final class OFBizOpenApiReader extends Reader implements OpenApiReader {
         initializeStdOpenApiComponents();
         addPredefinedSchemas();
         addApiResources();
+        injectApiGroupPathIntoExamples();
         openApi.setPaths(paths);
         openApi.setComponents(components);
         return openApi;
     }
 
     private void addApiResources() {
+        Map<String, Object> userDefinedOptions = config.getUserDefinedOptions();
+        String apiGroupPath = userDefinedOptions != null ? (String) userDefinedOptions.get("apiGroupPath") : null;
+
         Map<String, List<ModelApi>> apis = OFBizApiConfig.getModelApis();
         SecurityRequirement security = new SecurityRequirement();
         security.addList("jwtToken");
 
         apis.forEach((k, apiList) -> {
             for (ModelApi api : apiList) {
-<<<<<<< Updated upstream
-                if (!api.isPublish()) return;
-                
-=======
                 if (!api.isPublish()) continue;
                 if (UtilValidate.isEmpty(apiGroupPath) || !k.equals(apiGroupPath)) continue;
 
->>>>>>> Stashed changes
                 List<ModelMapping> mappings = api.getMappings();
                 mappings.forEach(modelMapping -> {
                     OpenApiUtil.getListTypes().put(modelMapping.getName(), modelMapping.getClassName());
@@ -374,5 +374,44 @@ public final class OFBizOpenApiReader extends Reader implements OpenApiReader {
         op.getCustomHeadersList().forEach((headerName) -> {
             operation.addParametersItem(new HeaderParameter().name(headerName).schema(new StringSchema()).required(true));
         });
+    }
+
+    /**
+     * Injects the current apiGroupPath into the example for any given endpoint
+     */
+    private void injectApiGroupPathIntoExamples() {
+        Map<String, Object> userDefinedOptions = config.getUserDefinedOptions();
+        String apiGroupPath = userDefinedOptions != null ? (String) userDefinedOptions.get("apiGroupPath") : null;
+
+        if (paths == null || paths.isEmpty() || apiGroupPath == null || apiGroupPath.isEmpty()) {
+            return;
+        }
+
+        for (Map.Entry<String, PathItem> pathEntry : paths.entrySet()) {
+            PathItem pathItem = pathEntry.getValue();
+            List<Operation> operations = pathItem.readOperations();
+            if (operations == null || operations.isEmpty()) {
+                continue;
+            }
+
+            for (Operation operation : operations) {
+                List<Parameter> parameters = operation.getParameters();
+                if (parameters == null || parameters.isEmpty()) {
+                    continue;
+                }
+
+                for (Parameter param : parameters) {
+                    String paramName = param.getName();
+                    if (!"apiGroupPath".equals(paramName)) {
+                        continue;
+                    }
+                    param.setExample(apiGroupPath);
+                    Schema<?> schema = param.getSchema();
+                    if (schema != null) {
+                        schema.setExample(apiGroupPath);
+                    }
+                }
+            }
+        }
     }
 }
