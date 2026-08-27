@@ -18,7 +18,7 @@
 [versions]
 metadata-extractor = "2.20.0"
 caffeine = "3.2.4"
-guava = "33.6.0-jre"
+guava = "33.7.1-jre"
 zxing-core = "3.5.4"
 concurrentlinkedhashmap-lru = "1.4.2"
 ez-vcard = "0.12.2"
