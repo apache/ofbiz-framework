@@ -50,6 +50,7 @@ import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.security.SecuredUpload;
+import org.apache.ofbiz.security.SecurityUtil;
 import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.ModelService;
@@ -253,12 +254,22 @@ public class DataServices {
             if (!file.isAbsolute()) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentLocalFileDoesNotPointToAbsoluteLocation", locale));
             }
+            try {
+                SecurityUtil.checkLocalFileAllowList(file);
+            } catch (GeneralException e) {
+                return ServiceUtil.returnError(e.getMessage());
+            }
         } else if ("OFBIZ_FILE".equals(dataResourceTypeId) || "OFBIZ_FILE_BIN".equals(dataResourceTypeId)) {
             prefix = System.getProperty("ofbiz.home");
             if (objectInfo.indexOf('/') != 0 && prefix.lastIndexOf('/') != (prefix.length() - 1)) {
                 sep = "/";
             }
             file = new File(prefix + sep + objectInfo);
+            try {
+                SecurityUtil.checkOfbizFileAllowList(file);
+            } catch (GeneralException e) {
+                return ServiceUtil.returnError(e.getMessage());
+            }
         } else if ("CONTEXT_FILE".equals(dataResourceTypeId) || "CONTEXT_FILE_BIN".equals(dataResourceTypeId)) {
             prefix = (String) context.get("rootDir");
             if (UtilValidate.isEmpty(prefix)) {
@@ -471,12 +482,22 @@ public class DataServices {
                 if (!file.isAbsolute()) {
                     throw new GenericServiceException("File: " + fileName + " is not absolute.");
                 }
+                try {
+                    SecurityUtil.checkLocalFileAllowList(file);
+                } catch (GeneralException e) {
+                    return ServiceUtil.returnError(e.getMessage());
+                }
             } else if (dataResourceTypeId.startsWith("OFBIZ_FILE")) {
                 prefix = System.getProperty("ofbiz.home");
                 if (objectInfo.indexOf('/') != 0 && prefix.lastIndexOf('/') != (prefix.length() - 1)) {
                     sep = "/";
                 }
                 file = new File(prefix + sep + objectInfo);
+                try {
+                    SecurityUtil.checkOfbizFileAllowList(file);
+                } catch (GeneralException e) {
+                    return ServiceUtil.returnError(e.getMessage());
+                }
             } else if (dataResourceTypeId.startsWith("CONTEXT_FILE")) {
                 prefix = (String) context.get("rootDir");
                 if (objectInfo.indexOf('/') != 0 && prefix.lastIndexOf('/') != (prefix.length() - 1)) {
