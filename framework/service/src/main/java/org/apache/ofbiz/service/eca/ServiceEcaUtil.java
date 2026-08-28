@@ -19,7 +19,6 @@
 package org.apache.ofbiz.service.eca;
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -27,6 +26,7 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.Future;
 
 import org.apache.ofbiz.base.component.ComponentConfig;
@@ -54,19 +54,49 @@ public final class ServiceEcaUtil {
     // new UtilCache("service.ServiceECAs", 0, 0, false);
     private static Map<String, Map<String, List<ServiceEcaRule>>> ecaCache = new ConcurrentHashMap<>();
 
+    // Guards every write to ecaCache (readConfig/reloadConfig/addEcaDefinitions, via mergeEcaDefinitions).
+    // ServiceDispatcher's constructor calls readConfig() unconditionally on every single dispatcher it
+    // creates, with no coordination between callers; every test suite creates its own dispatcher(s), so
+    // dozens of ServiceDispatcher constructions can land within the same few milliseconds at startup,
+    // all on different threads. Before this lock, readConfig()'s "if (isNotEmpty(ecaCache)) return;"
+    // guard was a plain check-then-act race: several of those threads could all observe an empty cache
+    // at once and all proceed to rebuild it concurrently. mergeEcaDefinitions() mutates ecaCache's
+    // per-service HashMap and per-event LinkedList in place (remove-then-add, and HashMap.put on a
+    // shared eventMap instance); with two threads doing that at once on the same List/Map, a third
+    // thread concurrently iterating that same List in evalRules() (any in-flight service call
+    // evaluating its ECA rules, which happens on essentially every service invocation) can observe a
+    // corrupted node link and throw a NullPointerException out of LinkedList$ListItr.next() - confirmed
+    // in a testIntegration run where one secas.xml file was independently reloaded 4 times, on 4
+    // different threads, within a ~300ms startup window, racing a live evalRules() call and crashing it.
+    private static final Object CONFIG_LOCK = new Object();
+
     private ServiceEcaUtil() { }
 
     public static void reloadConfig() {
-        ecaCache.clear();
-        readConfig();
+        synchronized (CONFIG_LOCK) {
+            ecaCache.clear();
+            readConfigInternal();
+        }
     }
 
     public static void readConfig() {
-        // Only proceed if the cache hasn't already been populated, caller should be using reloadConfig() in that situation
+        // Fast path: avoid the lock once startup has finished and every caller hits this on every
+        // dispatcher construction. Safe to read unlocked - ecaCache is a ConcurrentHashMap and this is
+        // only ever used to decide whether to (re)acquire the lock and check again below.
         if (UtilValidate.isNotEmpty(ecaCache)) {
             return;
         }
+        synchronized (CONFIG_LOCK) {
+            // Re-check under the lock: another thread may have already populated ecaCache while this
+            // one was waiting to enter this block, in which case there is nothing left to do.
+            if (UtilValidate.isNotEmpty(ecaCache)) {
+                return;
+            }
+            readConfigInternal();
+        }
+    }
 
+    private static void readConfigInternal() {
         List<Future<List<ServiceEcaRule>>> futures = new LinkedList<>();
         List<ServiceEcas> serviceEcasList = null;
         try {
@@ -98,7 +128,9 @@ public final class ServiceEcaUtil {
 
     public static void addEcaDefinitions(ResourceHandler handler) {
         List<ServiceEcaRule> handlerRules = getEcaDefinitions(handler);
-        mergeEcaDefinitions(handlerRules);
+        synchronized (CONFIG_LOCK) {
+            mergeEcaDefinitions(handlerRules);
+        }
     }
 
     private static List<ServiceEcaRule> getEcaDefinitions(ResourceHandler handler) {
@@ -134,14 +166,19 @@ public final class ServiceEcaUtil {
             List<ServiceEcaRule> rules = null;
 
             if (eventMap == null) {
-                eventMap = new HashMap<>();
-                rules = new LinkedList<>();
+                // ConcurrentHashMap/CopyOnWriteArrayList, not HashMap/LinkedList: evalRules() below
+                // reads these without taking CONFIG_LOCK (it runs on essentially every service call,
+                // so it can't pay lock overhead the way the rare writes above can), so the collections
+                // themselves - not just serializing the writers against each other - have to tolerate a
+                // reader iterating one of these while CONFIG_LOCK's holder concurrently mutates it.
+                eventMap = new ConcurrentHashMap<>();
+                rules = new CopyOnWriteArrayList<>();
                 ecaCache.put(serviceName, eventMap);
                 eventMap.put(eventName, rules);
             } else {
                 rules = eventMap.get(eventName);
                 if (rules == null) {
-                    rules = new LinkedList<>();
+                    rules = new CopyOnWriteArrayList<>();
                     eventMap.put(eventName, rules);
                 }
             }
