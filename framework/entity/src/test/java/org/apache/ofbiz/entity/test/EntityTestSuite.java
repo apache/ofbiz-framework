@@ -951,9 +951,12 @@ public class EntityTestSuite implements JupiterTestHelper {
         GenericTransactionException caught = null;
         try {
             GenericValue testValue = delegator.makeValue("Testing", "testingId", "timeout-test");
-            boolean transBegin = TransactionUtil.begin(10); // timeout set to 10 seconds
+            // Timeout and sleep only need to keep the same 2x margin the timeout is exceeded by;
+            // shrinking both by the same factor (was 10s/20s) keeps that margin while cutting
+            // this test's real wall-clock cost, which used to dominate the testIntegration run.
+            boolean transBegin = TransactionUtil.begin(2); // timeout set to 2 seconds
             delegator.create(testValue);
-            Thread.sleep(20 * 1000);
+            Thread.sleep(4 * 1000);
             TransactionUtil.commit(transBegin);
         } catch (GenericTransactionException e) {
             caught = e;
@@ -974,9 +977,11 @@ public class EntityTestSuite implements JupiterTestHelper {
         try {
             GenericValue testValue = delegator.makeValue("Testing", "testingId", "timeout-test");
             boolean transBegin = TransactionUtil.begin();
-            TransactionUtil.setTransactionTimeout(20); // now set timeout to 20 seconds
+            // Same 2x-under-the-timeout margin as before (was 20s/10s), scaled down for the same
+            // reason as testTransactionUtilMoreThanTimeout above.
+            TransactionUtil.setTransactionTimeout(4); // now set timeout to 4 seconds
             delegator.create(testValue);
-            Thread.sleep(10 * 1000);
+            Thread.sleep(2 * 1000);
             TransactionUtil.commit(transBegin);
         } finally {
             delegator.removeByAnd("Testing", "testingId", "timeout-test");
