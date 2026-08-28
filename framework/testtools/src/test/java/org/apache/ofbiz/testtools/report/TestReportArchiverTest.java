@@ -89,6 +89,35 @@ class TestReportArchiverTest {
     }
 
     @Test
+    void excludesApiRunsDirectoryFromCountsAndFromTheCopiedResults(@TempDir File tmp) throws IOException {
+        // Same scenario JUnitXmlCounterTest exercises at the counter level, checked end-to-end
+        // here: a testIntegration-style resultsDir (the whole runtime/logs/test-results/ tree)
+        // that happens to have api-runs/ sitting in it from earlier API-triggered runs must not
+        // let that unrelated history inflate this run's counts, nor get duplicated into this
+        // run's archived results/ directory.
+        File baseDir = new File(tmp, "runtime/test-reports");
+        File resultsDir = new File(tmp, "runtime/logs/test-results");
+        resultsDir.mkdirs();
+        Files.writeString(new File(resultsDir, "SomeSuite.xml").toPath(),
+                "<testsuite name=\"x\" tests=\"3\" failures=\"0\" errors=\"0\" skipped=\"0\"></testsuite>");
+        File apiRun = new File(resultsDir, "api-runs/11111111-1111-1111-1111-111111111111");
+        apiRun.mkdirs();
+        Files.writeString(new File(apiRun, "contenttests.xml").toPath(),
+                "<testsuite name=\"contenttests\" tests=\"12\" failures=\"4\" errors=\"2\" skipped=\"0\"></testsuite>");
+
+        TestReportArchiver.ArchiveRequest request = new TestReportArchiver.ArchiveRequest(
+                baseDir, tmp, "testIntegration", "testIntegration", "PASSED", resultsDir, null);
+        TestRunManifest manifest = TestReportArchiver.archive(request);
+
+        assertThat(manifest.getCounts().getTotal(), is(3));
+        assertThat(manifest.getCounts().getFailed(), is(0));
+
+        File runFolder = new File(manifest.getResultsLocation());
+        assertThat(new File(runFolder, "results/SomeSuite.xml").exists(), is(true));
+        assertThat(new File(runFolder, "results/api-runs").exists(), is(false));
+    }
+
+    @Test
     void runFolderNameFollowsDateTimeSuiteConvention(@TempDir File tmp) throws IOException {
         File baseDir = new File(tmp, "runtime/test-reports");
         File resultsDir = new File(tmp, "empty-results");

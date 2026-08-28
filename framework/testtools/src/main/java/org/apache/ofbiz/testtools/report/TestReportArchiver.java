@@ -119,6 +119,15 @@ public final class TestReportArchiver {
             Files.createDirectories(dest);
             try (var children = Files.list(source)) {
                 for (Path child : (Iterable<Path>) children::iterator) {
+                    // See JUnitXmlCounter.API_RUNS_DIR_NAME's javadoc: api-runs/ holds every past
+                    // API-triggered run's own results, already archived independently under its
+                    // own runId. Copying it into every gradle-triggered archive too would
+                    // duplicate that entire (ever-growing) history into results/ on every single
+                    // test/testIntegration run, on top of corrupting the counts JUnitXmlCounter
+                    // sums from this same tree.
+                    if (JUnitXmlCounter.API_RUNS_DIR_NAME.equals(child.getFileName().toString())) {
+                        continue;
+                    }
                     copyRecursive(child, dest.resolve(child.getFileName().toString()));
                 }
             }

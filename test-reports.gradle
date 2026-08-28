@@ -251,7 +251,9 @@ def renderStatCards(Map counts, Closure statusHrefFn, List extraCards = [], Stri
     writer.toString()
 }
 
-def buildOverallSummaryTable(List suites, Closure statusHrefFn) {
+// Shared by buildOverallSummaryTable (the HTML report's own summary cards) and createTestReport's
+// console println below, so the two can never disagree about what "the totals" are.
+def computeOverallCounts(List suites) {
     def toInt = { String s -> (s ==~ /\d+/) ? s.toInteger() : 0 }
     def toSeconds = { String s -> (s ==~ /-?[0-9]*\.?[0-9]+/) ? s.toDouble() : 0.0 }
     // List.sum(Closure) returns null (not 0) on an empty list, unlike the no-arg sum() - discovered
@@ -266,10 +268,12 @@ def buildOverallSummaryTable(List suites, Closure statusHrefFn) {
     def successRate = totalTests > 0
             ? String.format('%.2f%%', ((totalTests - totalFailures - totalErrors) / (double) totalTests) * 100)
             : 'N/A'
-    renderStatCards([tests: totalTests, failures: totalFailures, errors: totalErrors,
-                      skipped: totalSkipped, successRate: successRate,
-                      time: String.format('%.3f', totalTime)],
-            statusHrefFn, [], 'overall-summary')
+    [tests: totalTests, failures: totalFailures, errors: totalErrors, skipped: totalSkipped,
+     successRate: successRate, time: String.format('%.3f', totalTime)]
+}
+
+def buildOverallSummaryTable(List suites, Closure statusHrefFn) {
+    renderStatCards(computeOverallCounts(suites), statusHrefFn, [], 'overall-summary')
 }
 
 def buildSummaryTable(List suites, Closure hrefFn) {
@@ -722,6 +726,19 @@ task createTestReport(group: sysadminGroup,
         delete file('./runtime/logs/test-results/modern-report.html')
         reportFile.text = renderModernReport(suites)
         println "Test report written to ${reportFile}"
+
+        // Nothing else in this run's console/log output ever states the totals in one place - a
+        // reader otherwise has to open the HTML report, or hand-sum every suite's own logged
+        // result, to learn whether the run actually passed. Same counts the report's own overall
+        // summary cards show, via the same computeOverallCounts, so the two can never disagree.
+        def counts = computeOverallCounts(suites)
+        def passed = counts.tests - counts.failures - counts.errors
+        def parseErrorCount = suites.count { it.parseError }
+        def parseErrorNote = parseErrorCount > 0
+                ? " (${parseErrorCount} suite(s) could not be parsed and are not included in these counts - see the report)"
+                : ''
+        println "Tests: ${counts.tests}, Passed: ${passed}, Failed: ${counts.failures}, " +
+                "Errors: ${counts.errors}, Skipped: ${counts.skipped}${parseErrorNote}"
     }
 }
 
