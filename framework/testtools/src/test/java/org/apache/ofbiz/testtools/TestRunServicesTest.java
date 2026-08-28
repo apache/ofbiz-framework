@@ -327,10 +327,7 @@ class TestRunServicesTest {
     @Test
     void isTestApiEnabledForComponentDefaultsToTrueWhenUnset() {
         Delegator delegator = mock(Delegator.class);
-        try (MockedStatic<EntityUtilProperties> entityUtilProperties =
-                Mockito.mockStatic(EntityUtilProperties.class, Mockito.CALLS_REAL_METHODS)) {
-            assertThat(TestRunServices.isTestApiEnabledForComponent(delegator, "example"), is(true));
-        }
+        assertThat(TestRunServices.isTestApiEnabledForComponent(delegator, "example"), is(true));
     }
 
     @Test
