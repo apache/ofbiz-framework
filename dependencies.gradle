@@ -49,7 +49,7 @@ dependencies {
     implementation 'org.apache.logging.log4j:log4j-api:2.25.4' // the API of log4j 2
     implementation 'org.apache.logging.log4j:log4j-core:2.25.4' // Somehow needed by Buildbot to compile OFBizDynamicThresholdFilter.java
     implementation 'org.apache.poi:poi:4.1.2' // poi-ooxml-schemas-5.0.0.pom'. Received status code 401 from server
-    implementation 'org.apache.pdfbox:pdfbox:2.0.36' // 3.0.1 does not compile
+    implementation 'org.apache.pdfbox:pdfbox:2.0.37' // 3.0.1 does not compile
     implementation 'org.apache.shiro:shiro-core:1.13.0'
     implementation 'org.apache.shiro:shiro-crypto-cipher:2.1.0'
     implementation 'org.apache.sshd:sshd-core:2.17.1'
