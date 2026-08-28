@@ -43,6 +43,18 @@ public final class JUnitXmlCounter {
 
     private static final String MODULE = JUnitXmlCounter.class.getName();
 
+    /**
+     * Name of the directory {@code org.apache.ofbiz.testtools.TestRunServices} accumulates one
+     * subdirectory per API-triggered run under (each already archived independently, under its
+     * own runId). A gradle-triggered {@code test}/{@code testIntegration} run is handed the
+     * shared parent directory (e.g. {@code runtime/logs/test-results}) as its own resultsDir,
+     * which sits right next to this one - recursing into it here would keep summing every past
+     * API-triggered run's counts into every future gradle run's manifest too. {@link
+     * org.apache.ofbiz.testtools.report.TestReportArchiver#copyRecursive} skips it for the same
+     * reason when copying resultsDir into the archived run folder.
+     */
+    static final String API_RUNS_DIR_NAME = "api-runs";
+
     private JUnitXmlCounter() {
     }
 
@@ -106,6 +118,9 @@ public final class JUnitXmlCounter {
         }
         for (File child : children) {
             if (child.isDirectory()) {
+                if (API_RUNS_DIR_NAME.equals(child.getName())) {
+                    continue;
+                }
                 result.addAll(listXmlFilesRecursively(child));
             } else if (child.getName().endsWith(".xml")) {
                 result.add(child);

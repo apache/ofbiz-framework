@@ -60,6 +60,24 @@ class JUnitXmlCounterTest {
     }
 
     @Test
+    void excludesApiRunsDirectoryFromTheRecursiveWalk(@TempDir File resultsDir) throws IOException {
+        // runtime/logs/test-results/api-runs/<runId>/ accumulates one subdirectory per
+        // API-triggered run (TestRunServices), each already archived under its own runId. A
+        // gradle-triggered run (test/testIntegration) is handed the shared parent directory as
+        // its resultsDir, which sits right next to api-runs/ - without this exclusion, every past
+        // API run's counts would keep getting summed into every future gradle run's manifest too.
+        writeSuiteXml(new File(resultsDir, "SuiteA.xml"), 10, 1, 1, 0);
+        File apiRun = new File(resultsDir, "api-runs/11111111-1111-1111-1111-111111111111");
+        apiRun.mkdirs();
+        writeSuiteXml(new File(apiRun, "contenttests.xml"), 12, 4, 2, 0);
+
+        TestRunManifest.Counts counts = JUnitXmlCounter.count(resultsDir);
+
+        assertThat(counts.getTotal(), is(10));
+        assertThat(counts.getFailed(), is(2));
+    }
+
+    @Test
     void returnsAllZeroesWhenDirectoryDoesNotExist() {
         TestRunManifest.Counts counts = JUnitXmlCounter.count(new File("/no/such/dir"));
 
