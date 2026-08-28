@@ -49,14 +49,15 @@ dependencies {
     implementation 'org.apache.logging.log4j:log4j-api:2.25.4' // the API of log4j 2
     implementation 'org.apache.logging.log4j:log4j-core:2.25.4' // Somehow needed by Buildbot to compile OFBizDynamicThresholdFilter.java
     implementation 'org.apache.poi:poi:4.1.2' // poi-ooxml-schemas-5.0.0.pom'. Received status code 401 from server
-    implementation 'org.apache.pdfbox:pdfbox:2.0.37' // 3.0.1 does not compile
+    implementation 'org.apache.pdfbox:pdfbox:3.0.8'
+    implementation 'org.apache.pdfbox:pdfbox-io:3.0.8'
     implementation 'org.apache.shiro:shiro-core:1.13.0'
     implementation 'org.apache.shiro:shiro-crypto-cipher:2.1.0'
     implementation 'org.apache.sshd:sshd-core:2.17.1'
     implementation 'org.apache.sshd:sshd-sftp:2.17.1'
-    implementation 'org.apache.tika:tika-core:2.9.4'
-    implementation 'org.apache.tika:tika-parsers:2.9.4'
-    implementation 'org.apache.tika:tika-parser-pdf-module:2.9.4'
+    implementation 'org.apache.tika:tika-core:3.3.2'
+    implementation 'org.apache.tika:tika-parsers:3.3.2'
+    implementation 'org.apache.tika:tika-parser-pdf-module:3.3.2'
     implementation 'org.apache.cxf:cxf-rt-frontend-jaxrs:3.6.12' // 4.0.3 does not compile
     implementation 'org.apache.tomcat:tomcat-catalina-ha:9.0.121' // Remember to change the version number (9 now) in javadoc block if needed.
     implementation 'org.apache.tomcat:tomcat-jasper:9.0.121'
