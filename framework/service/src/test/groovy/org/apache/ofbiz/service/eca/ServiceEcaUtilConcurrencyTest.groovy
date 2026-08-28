@@ -68,7 +68,12 @@ class ServiceEcaUtilConcurrencyTest {
     // SEPARATE_THREAD so a genuine hang (e.g. a corrupted, cyclic rule list spinning
     // evalRules()/mergeEcaDefinitions() forever instead of throwing) still fails this test at
     // the deadline, rather than blocking until someone kills the build.
-    @Timeout(value = 30, threadMode = Timeout.ThreadMode.SEPARATE_THREAD)
+    //
+    // 120s gives generous headroom over CI: all writers serialize on CONFIG_LOCK, so the
+    // 24 000 addEcaDefinitions() calls are effectively single-threaded XML-parsing work that
+    // took ~12s on an idle 10-core dev machine - comfortably longer on a shared/throttled
+    // GitHub Actions runner. This bound exists to catch a genuine hang, not to pace the workload.
+    @Timeout(value = 120, threadMode = Timeout.ThreadMode.SEPARATE_THREAD)
     void evalRulesToleratesConcurrentAddEcaDefinitions() {
         String serviceName = "raceRegressionTestService${UUID.randomUUID()}"
         String eventName = 'raceRegressionTestEvent'
@@ -157,7 +162,9 @@ class ServiceEcaUtilConcurrencyTest {
             }
 
             startLatch.countDown()
-            futures.each { it.get(20, TimeUnit.SECONDS) }
+            // See the @Timeout comment above for why 90s: this bound only needs to be well clear
+            // of the observed ~12s local runtime, with room for slower/shared CI hardware.
+            futures.each { it.get(90, TimeUnit.SECONDS) }
         } finally {
             writers.shutdownNow()
             writers.awaitTermination(5, TimeUnit.SECONDS)
