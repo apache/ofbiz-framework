@@ -94,7 +94,7 @@ jwks-rsa = "0.24.1"
 jdom2 = "2.0.6.1"
 re2j = "1.8"
 xerces-impl = "2.12.2"
-mustangproject-library = "2.24.0"
+mustangproject-library = "2.25.0"
 # Shared by junit-jupiter-api, junit-platform-launcher, junit-jupiter-engine, junit-jupiter-params.
 junit = "6.1.3"
 hamcrest-library = "2.2"
