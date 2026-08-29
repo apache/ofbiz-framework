@@ -940,7 +940,7 @@ function ajaxAutoCompleter(areaCsvString, showDescription, defaultMinLength, def
             delay: defaultDelay,
             source: function (request, response) {
                 var queryArgs = { "term": request.term };
-                if (typeof args == "object" && jQuery.isArray(args)) {
+                if (typeof args == "object" && Array.isArray(args)) {
                     for (var i = 0; i < args.length; i++) {
                         queryArgs["parm" + i] = DOMPurify.sanitize(jQuery(args[i]).val())
                     }
