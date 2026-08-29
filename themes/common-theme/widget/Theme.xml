@@ -68,6 +68,8 @@ under the License.
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/node_modules/daterangepicker/daterangepicker.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/node_modules/trumbowyg/dist/trumbowyg.min.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/node_modules/trumbowyg/dist/plugins/indent/trumbowyg.indent.min.js"/>
+        <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/node_modules/jgrowl/jquery.jgrowl.min.js"/>
+        <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/node_modules/readmore-js/readmore.min.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/util/OfbizUtil.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/util/fieldlookup.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/plugins/date/date.timezone-min.js"/>
