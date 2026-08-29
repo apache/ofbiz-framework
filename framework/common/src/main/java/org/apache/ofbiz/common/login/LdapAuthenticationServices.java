@@ -26,6 +26,7 @@ import javax.naming.Context;
 import javax.naming.NamingException;
 import javax.naming.directory.DirContext;
 import javax.naming.directory.InitialDirContext;
+import javax.naming.ldap.Rdn;
 import javax.transaction.Transaction;
 
 import org.apache.ofbiz.base.crypto.HashCrypt;
@@ -75,7 +76,7 @@ public class LdapAuthenticationServices {
         if (UtilValidate.isEmpty(dn)) {
             String dnTemplate = (String) env.get("ldap.dn.template");
             if (dnTemplate != null) {
-                dn = dnTemplate.replace("%u", username);
+                dn = dnTemplate.replace("%u", Rdn.escapeValue(username));
             }
             if (Debug.verboseOn()) {
                 Debug.logVerbose("Using DN template: " + dn, MODULE);
@@ -122,7 +123,9 @@ public class LdapAuthenticationServices {
                 boolean beganTransaction = false;
                 try {
                     try {
-                        parentTx = TransactionUtil.suspend();
+                        if (TransactionUtil.isTransactionInPlace()) {
+                            parentTx = TransactionUtil.suspend();
+                        }
                     } catch (GenericTransactionException e) {
                         Debug.logError(e, "Could not suspend transaction: " + e.getMessage(), MODULE);
                     }

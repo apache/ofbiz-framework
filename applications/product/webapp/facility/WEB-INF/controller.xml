@@ -852,42 +852,6 @@ under the License.
         <response name="success" type="view" value="EditFacilityGeoPoint"/>
         <response name="error" type="view" value="EditFacilityGeoPoint"/>
     </request-map>
-    <!-- ================ Shipment Scheduling Requests ================= -->
-    <request-map uri="Scheduling">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="ScheduleShipmentRouteSegment"/>
-    </request-map>
-    <request-map uri="ScheduleShipmentRouteSegment">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="ScheduleShipmentRouteSegment"/>
-    </request-map>
-    <request-map uri="BatchScheduleShipmentRouteSegments">
-        <security https="true" auth="true"/>
-        <event type="service-multi" path="" invoke="updateShipmentRouteSegment"/>
-        <response name="error" type="view" value="ScheduleShipmentRouteSegment"/>
-        <response name="success" type="request" value="ScheduleShipmentsWithCarriers"/>
-    </request-map>
-    <request-map uri="BatchUpdateShipmentRouteSegments">
-        <security https="true" auth="true"/>
-        <event type="service-multi" path="" invoke="updateShipmentRouteSegment"/>
-        <response name="success" type="view" value="Labels"/>
-        <response name="error" type="view" value="Labels"/>
-    </request-map>
-    <request-map uri="ScheduleShipmentsWithCarriers">
-        <security https="true" auth="true" direct-request="false"/>
-        <event type="service-multi" path="" invoke="quickScheduleShipmentRouteSegment"/>
-        <response name="error" type="view" value="ScheduleShipmentRouteSegment"/>
-        <response name="success" type="view" value="Labels"/>
-    </request-map>
-    <request-map uri="Labels">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="Labels"/>
-    </request-map>
-    <request-map uri="BatchPrintShippingLabels">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="BatchPrintShippingLabels"/>
-    </request-map>
-
     <!-- ================ Shipment Requests ================= -->
     <request-map uri="FindShipment">
         <security https="true" auth="true"/>
@@ -954,27 +918,6 @@ under the License.
     <request-map uri="setQuickRouteInfo">
         <security https="true" auth="true"/>
         <event type="service" invoke="updateShipmentRouteSegment"/>
-        <response name="success" type="request" value="quickUpsConfirm"/>
-        <response name="error" type="view" value="QuickShipOrder"/>
-    </request-map>
-    <request-map uri="quickUpsConfirm">
-        <security https="true" auth="true" direct-request="false"/>
-        <event type="service" path="" invoke="upsShipmentConfirm"/>
-        <response name="success" type="request" value="quickUpsAccept"/>
-        <response name="error" type="view" value="QuickShipOrder"/>
-    </request-map>
-    <request-map uri="quickUpsAccept">
-        <security https="true" auth="true"/>
-        <event type="service" path="" invoke="upsShipmentAccept"/>
-        <response name="success" type="view" value="QuickShipOrder"/>
-        <response name="error" type="view" value="QuickShipOrder"/>
-    </request-map>
-
-    <!-- request to quick ship DHL.  Use this instead of quickUpsConfirm in the "success" response of setQuickRouteInfo, and your quick ship
-       orders will be routed to DHL instead of UPS -->
-    <request-map uri="quickDhlConfirm">
-        <security https="true" auth="true" direct-request="false"/>
-        <event type="service" path="" invoke="dhlShipmentConfirm"/>
         <response name="success" type="view" value="QuickShipOrder"/>
         <response name="error" type="view" value="QuickShipOrder"/>
     </request-map>
@@ -1117,40 +1060,6 @@ under the License.
         <response name="error" type="view" value="EditShipmentRouteSegments"/>
     </request-map>
 
-    <!-- UPS carrier requests -->
-    <request-map uri="upsShipmentConfirm">
-        <security https="true" auth="true"/>
-        <event type="service" path="" invoke="upsShipmentConfirm"/>
-        <response name="success" type="view" value="EditShipmentRouteSegments"/>
-        <response name="error" type="view" value="EditShipmentRouteSegments"/>
-    </request-map>
-    <request-map uri="upsShipmentAccept">
-        <security https="true" auth="true"/>
-        <event type="service" path="" invoke="upsShipmentAccept"/>
-        <response name="success" type="view" value="EditShipmentRouteSegments"/>
-        <response name="error" type="view" value="EditShipmentRouteSegments"/>
-    </request-map>
-    <request-map uri="upsVoidShipment">
-        <security https="true" auth="true"/>
-        <event type="service" path="" invoke="upsVoidShipment"/>
-        <response name="success" type="view" value="EditShipmentRouteSegments"/>
-        <response name="error" type="view" value="EditShipmentRouteSegments"/>
-    </request-map>
-    <request-map uri="upsTrackShipment">
-        <security https="true" auth="true"/>
-        <event type="service" path="" invoke="upsTrackShipment"/>
-        <response name="success" type="view" value="EditShipmentRouteSegments"/>
-        <response name="error" type="view" value="EditShipmentRouteSegments"/>
-    </request-map>
-
-    <!-- DHL carrier requests -->
-    <request-map uri="dhlShipmentConfirm">
-        <security https="true" auth="true"/>
-        <event type="service" path="" invoke="dhlShipmentConfirm"/>
-        <response name="success" type="request-redirect" value="EditShipmentRouteSegments"/>
-        <response name="error" type="view" value="EditShipmentRouteSegments"/>
-    </request-map>
-
     <request-map uri="viewShipmentPackageRouteSegLabelImage">
         <security https="true" auth="true"/>
         <event type="java" path="org.apache.ofbiz.shipment.shipment.ShipmentEvents" invoke="viewShipmentPackageRouteSegLabelImage"/>
@@ -1162,14 +1071,6 @@ under the License.
         <security https="false" auth="true"/>
         <event type="java" path="org.apache.ofbiz.shipment.shipment.ShipmentEvents" invoke="viewShipmentPackageRouteSegLabelImage"/>
         <response name="success" type="none" value=""/>
-        <response name="error" type="view" value="EditShipmentRouteSegments"/>
-    </request-map>
-
-    <!-- Fedex carrier requests -->
-    <request-map uri="fedexShipmentConfirm">
-        <security https="true" auth="true"/>
-        <event type="service" path="" invoke="fedexShipRequest"/>
-        <response name="success" type="request-redirect" value="EditShipmentRouteSegments"/>
         <response name="error" type="view" value="EditShipmentRouteSegments"/>
     </request-map>
 
@@ -1296,30 +1197,6 @@ under the License.
         <response name="success" type="view" value="EditShipmentGatewayConfig"/>
         <response name="error" type="view" value="EditShipmentGatewayConfig"/>
     </request-map>
-    <request-map uri="updateShipmentGatewayDhl">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="updateShipmentGatewayDhl"/>
-        <response name="success" type="view" value="EditShipmentGatewayConfig"/>
-        <response name="error" type="view" value="EditShipmentGatewayConfig"/>
-    </request-map>
-    <request-map uri="updateShipmentGatewayFedex">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="updateShipmentGatewayFedex"/>
-        <response name="success" type="view" value="EditShipmentGatewayConfig"/>
-        <response name="error" type="view" value="EditShipmentGatewayConfig"/>
-    </request-map>
-    <request-map uri="updateShipmentGatewayUps">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="updateShipmentGatewayUps"/>
-        <response name="success" type="view" value="EditShipmentGatewayConfig"/>
-        <response name="error" type="view" value="EditShipmentGatewayConfig"/>
-    </request-map>
-    <request-map uri="updateShipmentGatewayUsps">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="updateShipmentGatewayUsps"/>
-        <response name="success" type="view" value="EditShipmentGatewayConfig"/>
-        <response name="error" type="view" value="EditShipmentGatewayConfig"/>
-    </request-map>
     <request-map uri="FindShipmentGatewayConfigTypes">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="FindShipmentGatewayConfigTypes"/>
@@ -1428,9 +1305,6 @@ under the License.
     <view-map name="VerifyPick" type="screen" page="component://product/widget/facility/ShipmentScreens.xml#VerifyPick"/>
     <view-map name="WeightPackageOnly" type="screen" page="component://product/widget/facility/ShipmentScreens.xml#WeightPackageOnly"/>
 
-    <view-map name="ScheduleShipmentRouteSegment" type="screen" page="component://product/widget/facility/FacilityScreens.xml#ScheduleShipmentRouteSegment"/>
-    <view-map name="Labels" type="screen" page="component://product/widget/facility/FacilityScreens.xml#Labels"/>
-    <view-map name="BatchPrintShippingLabels" type="screenfop" page="component://product/widget/facility/FacilityScreens.xml#BatchPrintShippingLabels" content-type="application/pdf" encoding="none"/>
 
     <view-map name="EditFacilityContent" type="screen" page="component://product/widget/facility/FacilityScreens.xml#EditFacilityContent"/>
     <view-map name="EditFacilityGeoPoint" type="screen" page="component://product/widget/facility/FacilityScreens.xml#EditFacilityGeoPoint"/>
@@ -1442,7 +1316,7 @@ under the License.
     <view-map name="EditShipmentPlan" type="screen" page="component://product/widget/facility/ShipmentScreens.xml#EditShipmentPlan"/>
     <view-map name="ViewShipmentReceipts" type="screen" page="component://product/widget/facility/ShipmentScreens.xml#ViewShipmentReceipts"/>
     <view-map name="EditShipmentPackages" type="screen" page="component://product/widget/facility/ShipmentScreens.xml#EditShipmentPackages"/>
-    <view-map name="EditShipmentRouteSegments" type="screen" page="component://product/widget/facility/ShipmentScreens.xml#EditShipmentRouteSegments" auth="false"/>
+    <view-map name="EditShipmentRouteSegments" type="screen" page="component://product/widget/facility/ShipmentScreens.xml#EditShipmentRouteSegments" auth="true"/>
     <view-map name="AddItemsFromOrder" type="screen" page="component://product/widget/facility/ShipmentScreens.xml#AddItemsFromOrder"/>
     <view-map name="AddItemsFromInventory" type="screen" page="component://product/widget/facility/ShipmentScreens.xml#AddItemsFromInventory"/>
     <view-map name="ReceiveInventoryAgainstPurchaseOrder" type="screen" page="component://product/widget/facility/ShipmentScreens.xml#ReceiveInventoryAgainstPurchaseOrder"/>

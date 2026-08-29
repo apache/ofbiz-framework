@@ -86,14 +86,10 @@ under the License.
     </request-map>
 
     <!-- Begin Utility Requests -->
-    <!-- The 2 services below have been commented out for security reason, see OFBIZ-12212  -->
+    <!-- Commented out for security reason, see OFBIZ-12212  -->
     <!-- If you feel it's ok with you (e.g. totally secured Internet access, or rather
          no access at all which is safer!) you may uncomment and use. -->
-    <!-- <request-map uri="httpService">
-        <event type="java" path="org.apache.ofbiz.service.engine.HttpEngine" invoke="httpEngine"/>
-        <response name="success" type="none"/>
-        <response name="error" type="none"/>
-    </request-map>
+    <!--
     <request-map uri="SOAPService">
         <security https="false"/>
         <event type="soap"/>
@@ -334,6 +330,25 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="JobDetails"/>
     </request-map>
+    <request-map uri="FindJobTracker"><security/><response name="success" type="view" value="FindJobTracker"/></request-map>
+    <request-map uri="JobTrackerDetails"><security/><response name="success" type="view" value="JobTrackerDetails"/></request-map>
+    <request-map uri="FindJobTrackerResult"><security/><response name="success" type="view" value="FindJobTrackerResult"/></request-map>
+    <request-map uri="JobTrackerState"><security/><response name="success" type="view" value="JobTrackerState"/></request-map>
+    <request-map uri="pauseJobTracker"><security/>
+        <event type="service" invoke="pauseJobTracker"/>
+        <response name="success" type="view" value="JobTrackerDetails"/>
+        <response name="error" type="view" value="JobTrackerDetails"/>
+    </request-map>
+    <request-map uri="resumeJobTracker"><security/>
+        <event type="service" invoke="resumeJobTracker"/>
+        <response name="success" type="view" value="JobTrackerDetails"/>
+        <response name="error" type="view" value="JobTrackerDetails"/>
+    </request-map>
+    <request-map uri="cancelJobTracker"><security/>
+        <event type="service" invoke="cancelJobTracker"/>
+        <response name="success" type="view" value="JobTrackerDetails"/>
+        <response name="error" type="view" value="JobTrackerDetails"/>
+    </request-map>
     <request-map uri="cancelJob">
         <security https="true" auth="true"/>
         <event type="service" invoke="cancelScheduledJob"/>
@@ -430,13 +445,27 @@ under the License.
 
     <request-map uri="RunTest/{compName}/{suiteName}">
         <security https="true" auth="true"/>
-        <event type="java" path="org.apache.ofbiz.webtools.artifactinfo.RunTestEvents" invoke="runTest"/>
+        <!-- TestRunContainer runs a whole testdef suite's worth of otherwise-independent
+             test-cases; each manages its own transaction the same way it does when run via
+             the ofbiz command line's own test option, which never runs inside an event's
+             ambient transaction to begin with. Without global-transaction="false" here,
+             JavaEventHandler's default whole-invoke() transaction folds every one of those
+             test-cases into a single ambient transaction instead, breaking both data
+             visibility between test-cases and per-suite rollback-only isolation. -->
+        <event type="java" path="org.apache.ofbiz.webtools.artifactinfo.RunTestEvents" invoke="runTest" global-transaction="false"/>
         <response name="success" type="request" value="TestSuiteInfo"/>
         <response name="error" type="request" value="TestSuiteInfo"/>
     </request-map>
     <request-map uri="RunTest/{compName}/{suiteName}/{caseName}">
         <security https="true" auth="true"/>
-        <event type="java" path="org.apache.ofbiz.webtools.artifactinfo.RunTestEvents" invoke="runTest"/>
+        <!-- TestRunContainer runs a whole testdef suite's worth of otherwise-independent
+             test-cases; each manages its own transaction the same way it does when run via
+             the ofbiz command line's own test option, which never runs inside an event's
+             ambient transaction to begin with. Without global-transaction="false" here,
+             JavaEventHandler's default whole-invoke() transaction folds every one of those
+             test-cases into a single ambient transaction instead, breaking both data
+             visibility between test-cases and per-suite rollback-only isolation. -->
+        <event type="java" path="org.apache.ofbiz.webtools.artifactinfo.RunTestEvents" invoke="runTest" global-transaction="false"/>
         <response name="success" type="request" value="TestSuiteInfo"/>
         <response name="error" type="request" value="TestSuiteInfo"/>
     </request-map>
@@ -449,6 +478,80 @@ under the License.
     <request-map uri="ConnectionPoolStatus">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ConnectionPoolStatus"/>
+    </request-map>
+
+    <!-- Secret Manager requests -->
+    <request-map uri="EncryptValue">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EncryptValue"/>
+    </request-map>
+    <request-map uri="createEncryptedSecret">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="createEncryptedSecret"/>
+        <response name="success" type="view" value="EncryptValue"/>
+        <response name="error" type="view" value="EncryptValue"/>
+    </request-map>
+    <request-map uri="uploadEncryptedSecrets">
+        <security https="true" auth="true"/>
+        <event type="java" path="org.apache.ofbiz.webtools.secret.SecretManagerEvents" invoke="uploadEncryptedSecrets"/>
+        <response name="success" type="view" value="EncryptValue"/>
+        <response name="error" type="view" value="EncryptValue"/>
+    </request-map>
+    <request-map uri="flushSecretCache">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="flushSecretCache"/>
+        <response name="success" type="view" value="EncryptValue"/>
+        <response name="error" type="view" value="EncryptValue"/>
+    </request-map>
+    <request-map uri="reloadSecretProvider">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="reloadSecretProvider"/>
+        <response name="success" type="view" value="EncryptValue"/>
+        <response name="error" type="view" value="EncryptValue"/>
+    </request-map>
+    <request-map uri="syncSecretFromProvider">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="syncSecretFromProvider"/>
+        <response name="success" type="view" value="EncryptValue"/>
+        <response name="error" type="view" value="EncryptValue"/>
+    </request-map>
+    <request-map uri="testSecretProviderConnection">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="testSecretProviderConnection"/>
+        <response name="success" type="view" value="EncryptValue"/>
+        <response name="error" type="view" value="EncryptValue"/>
+    </request-map>
+    <request-map uri="getSecretUsageStats">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="getSecretUsageStats"/>
+        <response name="success" type="view" value="EncryptValue"/>
+        <response name="error" type="view" value="EncryptValue"/>
+    </request-map>
+    <request-map uri="resetSecretUsageStats">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="resetSecretUsageStats"/>
+        <response name="success" type="view" value="EncryptValue"/>
+        <response name="error" type="view" value="EncryptValue"/>
+    </request-map>
+    <request-map uri="SecretUsageStats">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="SecretUsageStats"/>
+    </request-map>
+    <request-map uri="SecretAuditLog">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="SecretAuditLog"/>
+    </request-map>
+    <request-map uri="exportSecretAuditLog">
+        <security https="true" auth="true"/>
+        <event type="java" path="org.apache.ofbiz.webtools.secret.SecretManagerEvents" invoke="exportSecretAuditLogs"/>
+        <response name="success" type="none"/>
+        <response name="error" type="view" value="SecretAuditLog"/>
+    </request-map>
+    <request-map uri="updateSecretAuditRetention">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="updateSecretAuditRetention"/>
+        <response name="success" type="view" value="SecretAuditLog"/>
+        <response name="error" type="view" value="SecretAuditLog"/>
     </request-map>
 
     <!-- ModelInducedFromDb requests-->
@@ -505,7 +608,9 @@ under the License.
     </request-map>
     <request-map uri="xmldsrawdump">
         <security https="true" auth="true"/>
-        <response name="success" type="view" value="xmldsrawdump"/>
+        <event type="groovy" path="component://webtools/src/main/groovy/org/apache/ofbiz/webtools/entity/XmlDsRawDump.groovy" transaction-timeout="3600"/>
+        <response name="success" type="none"/>
+        <response name="error" type="none"/>
     </request-map>
 
     <!-- EntitySync requests -->
@@ -637,6 +742,7 @@ under the License.
     <request-map uri="WebtoolsLayoutDemoCsv"><security https="true" auth="true"/><response name="success" type="view" value="WebtoolsLayoutDemoCsv"/></request-map>
     <request-map uri="WebtoolsLayoutDemoXls"><security https="true" auth="true"/><response name="success" type="view" value="WebtoolsLayoutDemoXls"/></request-map>
 
+    <request-map uri="AvailableUelList"><security https="true" auth="true"/><response name="success" type="view" value="AvailableUelList"/></request-map>
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
@@ -668,7 +774,6 @@ under the License.
 
     <view-map name="checkdb" type="screen" page="component://webtools/widget/EntityScreens.xml#CheckDb"/>
     <view-map name="xmldsdump" type="screen" page="component://webtools/widget/EntityScreens.xml#xmldsdump"/>
-    <view-map name="xmldsrawdump" page="template/entity/xmldsrawdump.jsp"/>
 
     <view-map name="FindUtilCache" type="screen" page="component://webtools/widget/CacheScreens.xml#FindUtilCache"/>
     <view-map name="FindUtilCacheElements" type="screen" page="component://webtools/widget/CacheScreens.xml#FindUtilCacheElements"/>
@@ -690,6 +795,10 @@ under the License.
     <view-map name="ServiceList" type="screen" page="component://webtools/widget/ServiceScreens.xml#ServiceList"/>
     <view-map name="FindJob" type="screen" page="component://webtools/widget/ServiceScreens.xml#FindJob"/>
     <view-map name="JobDetails" type="screen" page="component://webtools/widget/ServiceScreens.xml#JobDetails"/>
+    <view-map name="FindJobTracker" type="screen" page="component://webtools/widget/ServiceScreens.xml#FindJobTrackers"/>
+    <view-map name="JobTrackerDetails" type="screen" page="component://webtools/widget/ServiceScreens.xml#JobTrackerDetails"/>
+    <view-map name="JobTrackerState" type="screen" page="component://webtools/widget/ServiceScreens.xml#JobTrackerState"/>
+    <view-map name="FindJobTrackerResult" type="screen" page="component://webtools/widget/ServiceScreens.xml#FindJobTrackerResults"/>
     <view-map name="serviceResult" type="screen" page="component://webtools/widget/ServiceScreens.xml#ServiceResult"/>
     <view-map name="threadList" type="screen" page="component://webtools/widget/ServiceScreens.xml#ThreadList"/>
     <view-map name="scheduleJob" type="screen" page="component://webtools/widget/ServiceScreens.xml#ScheduleJob"/>
@@ -706,6 +815,9 @@ under the License.
     <view-map name="EntitySyncStatus" type="screen" page="component://webtools/widget/EntitySyncScreens.xml#EntitySyncStatus"/>
     <view-map name="EntitySQLProcessor" type="screen" page="component://webtools/widget/EntityScreens.xml#EntitySQLProcessor"/>
     <view-map name="ConnectionPoolStatus" type="screen" page="component://webtools/widget/EntityScreens.xml#ConnectionPoolStatus"/>
+    <view-map name="EncryptValue" type="screen" page="component://webtools/widget/SecretManagerScreens.xml#EncryptValue"/>
+    <view-map name="SecretUsageStats" type="screen" page="component://webtools/widget/SecretManagerScreens.xml#SecretUsageStats"/>
+    <view-map name="SecretAuditLog" type="screen" page="component://webtools/widget/SecretManagerScreens.xml#SecretAuditLog"/>
     <view-map name="EntityExportAll" type="screen" page="component://webtools/widget/EntityScreens.xml#EntityExportAll"/>
     <view-map name="ProgramExport" type="screen" page="component://webtools/widget/EntityScreens.xml#ProgramExport"/>
     <view-map name="EntityImportDir" type="screen" page="component://webtools/widget/EntityScreens.xml#EntityImportDir"/>
@@ -746,5 +858,6 @@ under the License.
     <view-map name="WebtoolsLayoutDemoCsv" type="screencsv" page="component://webtools/widget/MiscScreens.xml#WebtoolsLayoutDemoText" content-type="text/csv"/>
     <view-map name="WebtoolsLayoutDemoXls" type="screenxls" page="component://webtools/widget/MiscScreens.xml#WebtoolsLayoutDemoText" content-type="application/vnd.ms-excel"/>
 
+    <view-map name="AvailableUelList" type="screen" page="component://webtools/widget/MiscScreens.xml#AvailableUelList"/>
     <!-- end of view mappings -->
 </site-conf>

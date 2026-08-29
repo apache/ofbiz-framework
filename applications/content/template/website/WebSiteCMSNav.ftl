@@ -16,21 +16,7 @@
   specific language governing permissions and limitations
   under the License.
   -->
-<script type="text/javascript" src="<@ofbizContentUrl>/common/js/jquery/ui/js/jquery.cookie-1.4.0.js</@ofbizContentUrl>"></script>
-<script type="text/javascript" src="<@ofbizContentUrl>/common/js/jquery/plugins/jsTree/jquery.jstree.js</@ofbizContentUrl>"></script>
 <script type="text/javascript">
-    function modifyJstreeCookieToSelectNewPage() {
-        // core.initally_load and ui.initially_select don't work with the cookies plugin,
-        // so we have to modify the cookie to achieve the same.
-        // the newContentId is set in the global scope in WebSiteCmsContent.ftl because I could
-        // not get it into the context of this view using the ofbiz xml vodoofoo.
-        var contentIdFrom = '#${requestParameters.contentIdFrom!}';
-        if (typeof newContentId !== 'undefined' && contentIdFrom !== '#') {
-            $.cookie('jstree_open', $.cookie('jstree_open') + ',' + contentIdFrom);
-            $.cookie('jstree_select', '#' + newContentId);
-        }
-    };
-
     jQuery(document).ready(loadTrees);
 
     var contentRoot = '${contentRoot!}';
@@ -51,298 +37,233 @@
         return name.substring(0, leng);
     }
 
-<#-- creating the JSON Data -->
-<#macro fillTreeSubsites assocList>
-      <#if (assocList?has_content)>
-        <#list assocList as assoc>
-            <#assign content = assoc.getRelatedOne("ToContent", false)/>
-            {
-            "data": {"title" : cutNameLength("${content.contentName!assoc.contentIdTo}"), "attr": {"href": "javascript:void(0);", "onClick" : "callDocument('', '${assoc.contentIdTo}', jQuery('#${assoc.contentIdTo}'), '');"}},
-           
-            <#assign assocChilds  = content.getRelated("FromContentAssoc", null, null, false)!/>
-                "attr": {"id" : "${assoc.contentIdTo}", "contentId" : "${assoc.contentId}", "fromDate" : "${assoc.fromDate}", "contentAssocTypeId" : "${assoc.contentAssocTypeId}"}
-            <#if assocChilds?has_content>
-                ,"children": [
-                    <@fillTreeSubsites assocList = assocChilds/>
-                ]
-            </#if>
-            <#if assoc_has_next>
-            },
-            <#else>
-            }
-            </#if>
-        </#list>
-      </#if>
-</#macro>
-<#macro fillTreeMenus assocList>
-      <#if (assocList?has_content)>
-        <#list assocList as assoc>
-            <#assign content = assoc.getRelatedOne("ToContent", false)/>
-            {
-            "data": {"title" : cutNameLength("${content.contentName!assoc.contentIdTo}"), "attr": {"href": "javascript:void(0);", "onClick" : "callDocument('${assoc.contentIdTo}');"}},
-            <#assign assocChilds  = content.getRelated("FromContentAssoc", null, null, false)!/>
-                "attr": {"id" : "${assoc.contentIdTo}", "contentId" : "${assoc.contentId}", "fromDate" : "${assoc.fromDate}"}
-            <#if assocChilds?has_content>
-                ,"children": [
-                    <@fillTreeMenus assocList = assocChilds/>
-                ]
-            </#if>
-            <#if assoc_has_next>
-            },
-            <#else>
-            }
-            </#if>
-        </#list>
-      </#if>
-</#macro>
+ <#-- helper to transform jstree 1.x AJAX response nodes to 3.x format -->
+  function convertNodes(nodes) {
+      if (!nodes || !nodes.length) return [];
+      return jQuery.map(nodes, function(n) {
+          var result = {
+              id: (n.attr && n.attr.id) || n.id || '',
+              text: n.data ? (typeof n.data === 'string' ? n.data : n.data.title) : (n.text || ''),
+              children: (n.state === 'closed' || n.state === 'open') ? true : (n.children || false)
+          };
+          if (n.data && n.data.attr) result.a_attr = n.data.attr;
+          if (n.attr) {
+              result.li_attr = {};
+              for (var k in n.attr) { if (k !== 'id') result.li_attr[k] = n.attr[k]; }
+          }
+          return result;
+      });
+  }
 
-<#macro fillTreeError assocList>
-      <#if (assocList?has_content)>
-        <#list assocList as assoc>
-            <#assign content = assoc.getRelatedOne("ToContent", false)/>
-            {
-            "data": {"title" : cutNameLength("${content.contentName!assoc.contentIdTo}"), "attr": {"href": "javascript:void(0);", "onClick" : "callDocument('', '${assoc.contentIdTo}', '', '');"}},
-            <#assign assocChilds  = content.getRelated("FromContentAssoc", null, null, false)!/>
-                "attr": {"id" : "${assoc.contentIdTo}", "contentId" : "${assoc.contentId}", "fromDate" : "${assoc.fromDate}"}
-            <#if assocChilds?has_content>
-                ,"children": [
-                    <@fillTreeError assocList = assocChilds/>
-                ]
-            </#if>
-            <#if assoc_has_next>
-            },
-            <#else>
-            }
-            </#if>
-        </#list>
-      </#if>
-</#macro>
-
-var rawdata_subsites = [
-    <#if (subsites?has_content)>
-        <@fillTreeSubsites assocList = subsites/>
-    </#if>
-];
-
-var rawdata_menus = [
-    <#if (menus?has_content)>
-        <@fillTreeMenus assocList = menus/>
-    </#if>
-];
-
-var rawdata_errors = [
-    <#if (errors?has_content)>
-        <@fillTreeError assocList = errors/>
-    </#if>
-];
-
-var contextmenu = { 'items': {
-                    'ccp' : false,
-                    'create' : false,
-                    'rename' : false,
-                    'remove' : false,
+    var contextmenu = { 'items': function(node) {
+                    return {
                     'create1' : {
                         'label' : "${uiLabelMap.CommonNew} ${uiLabelMap.ContentResourceLongText}",
-                        'action' : function(obj) {
-                    callDocument(true, obj.attr('id'), '', 'ELECTRONIC_TEXT');
+                        'action' : function(data) {
+                            var ref = jQuery.jstree.reference(data.reference);
+                            var sel = ref.get_node(data.reference);
+                            callDocument(true, sel.id, null, 'ELECTRONIC_TEXT');
                         }
                     },
                     'create2' : {
                         'label' : "${uiLabelMap.CommonNew} ${uiLabelMap.ContentResourceShortText}",
-                        'action' : function(obj) {
-                    callDocument(true, obj.attr('id'), '', 'SHORT_TEXT');
+                        'action' : function(data) {
+                            var ref = jQuery.jstree.reference(data.reference);
+                            var sel = ref.get_node(data.reference);
+                            callDocument(true, sel.id, null, 'SHORT_TEXT');
                         }
                     },
                     'create3' : {
                         'label' : "${uiLabelMap.CommonNew} ${uiLabelMap.ContentResourceUrlResource}",
-                        'action' : function(obj) {
-                    callDocument(true, obj.attr('id'), '', 'URL_RESOURCE');
+                        'action' : function(data) {
+                            var ref = jQuery.jstree.reference(data.reference);
+                            var sel = ref.get_node(data.reference);
+                            callDocument(true, sel.id, null, 'URL_RESOURCE');
                         }
                     },
                     'create4' : {
                         'label' : "${uiLabelMap.CommonNew} ${uiLabelMap.ContentDataResourceImage}",
-                        'action' : function(obj) {
-                    callDocument(true, obj.attr('id'), '', 'IMAGE_OBJECT');
+                        'action' : function(data) {
+                            var ref = jQuery.jstree.reference(data.reference);
+                            var sel = ref.get_node(data.reference);
+                            callDocument(true, sel.id, null, 'IMAGE_OBJECT');
                         }
                     },
                     'create5' : {
                         'label' : "${uiLabelMap.CommonNew} ${uiLabelMap.ContentResourceVideo}",
-                        'action' : function(obj) {
-                    callDocument(true, obj.attr('id'), '', 'VIDEO_OBJECT');
+                        'action' : function(data) {
+                            var ref = jQuery.jstree.reference(data.reference);
+                            var sel = ref.get_node(data.reference);
+                            callDocument(true, sel.id, null, 'VIDEO_OBJECT');
                         }
                     },
                     'create6' : {
                         'label' : "${uiLabelMap.CommonNew} ${uiLabelMap.ContentResourceAudio}",
-                        'action' : function(obj) {
-                    callDocument(true, obj.attr('id'), '', 'AUDIO_OBJECT');
+                        'action' : function(data) {
+                            var ref = jQuery.jstree.reference(data.reference);
+                            var sel = ref.get_node(data.reference);
+                            callDocument(true, sel.id, null, 'AUDIO_OBJECT');
                         }
                     },
                     'create7' : {
                         'label' : "${uiLabelMap.CommonNew} ${uiLabelMap.ContentResourceOther}",
-                        'action' : function(obj) {
-                    callDocument(true, obj.attr('id'), '', 'OTHER_OBJECT');
+                        'action' : function(data) {
+                            var ref = jQuery.jstree.reference(data.reference);
+                            var sel = ref.get_node(data.reference);
+                            callDocument(true, sel.id, null, 'OTHER_OBJECT');
                         }
                     },
                     'delete' : {
                         'label'  : "${uiLabelMap.CommonDelete}",
-                        'action' : function (obj) {
+                        'action' : function(data) {
                             <#assign message=StringUtil.wrapString(uiLabelMap.ConfirmDeleteContent) />
                             if (!window.confirm('${message}')) { return false; }
-                            if(this.is_selected(obj)) { this.remove(); } else { this.remove(obj); }
+                            var ref = jQuery.jstree.reference(data.reference);
+                            var sel = ref.get_selected();
+                            if (!sel.length) { sel = [ref.get_node(data.reference).id]; }
+                            ref.delete_node(sel);
                         }
                     }
-                }
+                };
             }
+        }
 
 <#-------------------------------------------------------------------------------------create Tree-->
     function createSubsitesTree() {
         <#if contentRoot?has_content>
         jQuery("#${contentRoot}").jstree({
-            "plugins" : [ "themes", "json_data", "ui", "cookies", "contextmenu", "crrm", "dnd"],
-            "core" : {
-                "html_titles" : true
-            },
-            "json_data" : {
-                        "ajax" : {
-                            "url" : "<@ofbizUrl>/getContentAssocsJson</@ofbizUrl>",
-                            "type" : "GET",
-                            "data" : function (n) {
-                                return {
-                                    "contentId" : n.attr ? n.attr("id") : contentRoot
-                                };
-                            }
+            "core": {
+                "data": function(node, callback) {
+                    var inst = this;
+                    var contentId = node.id === '#' ? contentRoot : node.id;
+                    jQuery.ajax({
+                        url: "<@ofbizUrl>/getContentAssocsJson</@ofbizUrl>",
+                        type: "GET",
+                        data: {"contentId": contentId},
+                        success: function(data) {
+                            callback.call(inst, convertNodes(Array.isArray(data) ? data : []));
                         }
-            },
-            "ui" : {
-                select_limit: 1
-            },
-            "crrm": {
-                "move" : {
-                    "default_position" : "first",
-                    "check_move" : checkMove
+                    });
+                },
+                "check_callback": function(operation, node, parent, position, more) {
+                    if (operation === 'move_node') {
+                        if (more && more.dnd && more.dnd.is_copy) return false;
+                        var inst = jQuery.jstree.reference(node);
+                        var nodesToRoot = [];
+                        jQuery.merge(nodesToRoot, inst.get_path(node, false, true) || []);
+                        jQuery.merge(nodesToRoot, inst.get_path(parent, false, true) || []);
+                        if (position === -1 && jQuery.inArray(false, unmovableSubtrees) >= 0) return false;
+                        for (var i = 0; i < unmovableSubtrees.length; i++) {
+                            if (jQuery.inArray(unmovableSubtrees[i], nodesToRoot) >= 0) return false;
+                        }
+                    }
+                    return true;
                 }
             },
-            'contextmenu': contextmenu
-        }).bind("move_node.jstree", moveContent).bind("remove.jstree", deleteContent).bind("select_node.jstree", selectNode);
+            "state": {"key": "cms_subsites_tree"},
+            'contextmenu': contextmenu,
+            "plugins": ["themes", "state", "contextmenu", "dnd"]
+        }).on("move_node.jstree", moveContent)
+          .on("delete_node.jstree", deleteContent)
+          .on("select_node.jstree", selectNode);
+
+        jQuery("#${contentRoot}").on('ready.jstree', function() {
+            var contentIdFrom = '${requestParameters.contentIdFrom!}';
+            if (typeof newContentId !== 'undefined' && contentIdFrom) {
+                jQuery("#${contentRoot}").jstree(true).open_node(contentIdFrom, function() {
+                    jQuery("#${contentRoot}").jstree(true).select_node(newContentId);
+                });
+            }
+        });
         </#if>
     }
 
     function loadTrees() {
-        modifyJstreeCookieToSelectNewPage();
-        createSubsitesTree();
-        createMenusTree();
-        createErrorTree();
+        importLibrary(["/common/js/node_modules/jstree/dist/jstree.min.js",
+            "/common/js/node_modules/jstree/dist/themes/default/style.min.css"], function() {
+            createSubsitesTree();
+            createMenusTree();
+            createErrorTree();
+        });
     }
 
     function createMenusTree() {
         <#if menuRoot?has_content>
             jQuery(function () {
                 jQuery("#${menuRoot}").jstree({
-                    "plugins" : [ "themes", "json_data", "ui", "cookies", "contextmenu", "crrm", "dnd"],
-                    "core" : {
-                        "html_titles" : true
+                    "core": {
+                        "data": function(node, callback) {
+                            var inst = this;
+                            var contentId = node.id === '#' ? menuRoot : node.id;
+                            jQuery.ajax({
+                                url: "<@ofbizUrl>/getContentAssocsJson</@ofbizUrl>",
+                                type: "GET",
+                                data: {"contentId": contentId},
+                                success: function(data) {
+                                    callback.call(inst, convertNodes(Array.isArray(data) ? data : []));
+                                }
+                            });
+                        },
+                        "check_callback": true
                     },
-                    "json_data" : {
-                        "ajax" : {
-                            "url" : "<@ofbizUrl>/getContentAssocsJson</@ofbizUrl>",
-                            "type" : "GET",
-                            "data" : function (n) {
-                                return {
-                                    "contentId" : n.attr ? n.attr("id") : menuRoot
-                                };
-                        }
-                        }
-                    },
-                    "ui" : {
-                        select_limit: 1
-                    },
-                    'contextmenu': contextmenu
-                }).bind("move_node.jstree", moveContent).bind("remove.jstree", deleteContent).bind("select_node.jstree", selectNode);
-        });
+                    "state": {"key": "cms_menus_tree"},
+                    'contextmenu': contextmenu,
+                    "plugins": ["themes", "state", "contextmenu", "dnd"]
+                }).on("move_node.jstree", moveContent)
+                  .on("delete_node.jstree", deleteContent)
+                  .on("select_node.jstree", selectNode);
+            });
         </#if>
   }
 
   function createErrorTree() {
         <#if errorRoot?has_content>
-    jQuery(function () {
+        jQuery(function () {
                 jQuery("#${errorRoot}").jstree({
-                    "plugins" : [ "themes", "json_data", "ui", "cookies", "contextmenu", "crrm", "dnd"],
-            "core" : {
-                "html_titles" : true
-            },
-            "json_data" : {
-                        "ajax" : {
-                            "url" : "<@ofbizUrl>/getContentAssocsJson</@ofbizUrl>",
-                            "type" : "GET",
-                            "data" : function (n) {
-                                return {
-                                    "contentId" : n.attr ? n.attr("id") : errorRoot
-                                };
-                            }
-                        }
+                    "core": {
+                        "data": function(node, callback) {
+                            var inst = this;
+                            var contentId = node.id === '#' ? errorRoot : node.id;
+                            jQuery.ajax({
+                                url: "<@ofbizUrl>/getContentAssocsJson</@ofbizUrl>",
+                                type: "GET",
+                                data: {"contentId": contentId},
+                                success: function(data) {
+                                    callback.call(inst, convertNodes(Array.isArray(data) ? data : []));
+                                }
+                            });
+                        },
+                        "check_callback": true
                     },
-                    "ui" : {
-                        select_limit: 1
-            },
-                    'contextmenu': contextmenu
-                }).bind("move_node.jstree", moveContent).bind("remove.jstree", deleteContent).bind("select_node.jstree", selectNode);
+                    "state": {"key": "cms_errors_tree"},
+                    'contextmenu': contextmenu,
+                    "plugins": ["themes", "state", "contextmenu", "dnd"]
+                }).on("move_node.jstree", moveContent)
+                  .on("delete_node.jstree", deleteContent)
+                  .on("select_node.jstree", selectNode);
             });
         </#if>
     }
 
 <#-------------------------------------------------------------------------------------selectNode function-->
     function selectNode(event, data) {
-        var node = data.rslt.obj;
-
-        if (typeof node.attr === 'undefined') {
-            return;
-        }
-
-        callDocument('', node.attr('id'), node, '');
+        var node = data.node;
+        callDocument('', node.id, node.li_attr, '');
     }
 
-<#-------------------------------------------------------------------------------------checkMove function-->
-    function checkMove(move) {
-        // do not allow copies
-        if (move.cy == true) {
-            return false;
-        }
-
-        // determine all nodes in the paths to the root from the original and new position of the node in the tree
-        var nodesToRoot = [];
-        // move.o gives us the original position
-        nodesToRoot = jQuery.merge(nodesToRoot, move.ot.get_path(move.o, true));
-        // move.r gives us the new position
-        nodesToRoot = jQuery.merge(nodesToRoot, move.ot.get_path(move.r, true));
-
-        if (move.cr === -1 && jQuery.inArray(false, unmovableSubtrees) >= 0) {
-            return false;
-                        }
-
-        for (var i = 0; i < unmovableSubtrees.length; i++) {
-            if (jQuery.inArray(unmovableSubtrees[i], nodesToRoot) >= 0) {
-               return false;
-                        }
-                        }
-        return true;
-                        }
 <#-------------------------------------------------------------------------------------moveContent function-->
     function moveContent(event, data) {
-        var tree = data.inst;
-        var node = data.rslt.o;
-        var newParent = data.rslt.np;
-        var oldParent = data.rslt.op
-
-        if (typeof node.attr === 'undefined') {
-            return;
-        }
+        var node = data.node;
+        var treeId = '#' + jQuery(event.target).attr('id');
+        var inst = jQuery(treeId).jstree(true);
+        var newParentNode = inst.get_node(data.parent);
 
         var ctx = {};
-        ctx['contentIdTo'] = node.attr('id');
-        ctx['contentIdFrom'] = node.attr('contentId');
-        ctx['contentIdFromNew'] = newParent.attr('id');
-        ctx['fromDate'] = node.attr('fromDate');
-        ctx['contentAssocTypeId'] = node.attr('contentAssocTypeId');
+        ctx['contentIdTo'] = node.id;
+        ctx['contentIdFrom'] = node.li_attr ? node.li_attr.contentid : '';
+        ctx['contentIdFromNew'] = newParentNode ? newParentNode.id : '';
+        ctx['fromDate'] = node.li_attr ? node.li_attr.fromdate : '';
+        ctx['contentAssocTypeId'] = node.li_attr ? node.li_attr.contentassoctypeid : '';
 
         //jQuerry Ajax Request
         jQuery.ajax({
@@ -350,18 +271,20 @@ var contextmenu = { 'items': {
             type: 'POST',
             data: ctx,
             error: function(msg) {
-                jQuery.jstree.rollback(data.rlbk);
+                inst.refresh();
                 showErrorAlert("${uiLabelMap.CommonErrorMessage2}", "${uiLabelMap.ErrorMovingContent} : " + JSON.stringify(msg));
             },
             success: function(msg) {
                 if (msg._ERROR_MESSAGE_) {
-                    jQuery.jstree.rollback(data.rlbk);
+                    inst.refresh();
                     showErrorAlert("${uiLabelMap.CommonErrorMessage2}", "${uiLabelMap.ErrorMovingContent} : " + msg._ERROR_MESSAGE_);
                 } else {
                     var result = JSON.parse(msg);
-                    node.attr('fromDate', result.attr.fromDate);
-                    node.attr('contentId', result.attr.contentId);
-                    tree.select_node(node, true, null);
+                    if (node.li_attr) {
+                        node.li_attr.fromdate = result.attr.fromDate;
+                        node.li_attr.contentid = result.attr.contentId;
+                    }
+                    inst.select_node(node.id);
                 }
             }
         });
@@ -369,18 +292,13 @@ var contextmenu = { 'items': {
 
 <#-------------------------------------------------------------------------------------deleteDocument function-->
     function deleteContent(event, data) {
-        var tree = data.inst;
-        var node = data.rslt.obj;
-        var treeNode = jQuery(node).closest('div.jstree');
-
-        if (typeof node.attr === 'undefined') {
-            return;
-        }
+        var node = data.node;
+        var treeId = '#' + jQuery(event.target).attr('id');
 
         var ctx = {};
-        ctx['contentRoot'] = treeNode.attr('contentId');
+        ctx['contentRoot'] = treeId.replace('#', '');
         ctx['webSiteId'] = webSiteId;
-        ctx['contentId'] = node.attr('id');
+        ctx['contentId'] = node.id;
 
         //jQuerry Ajax Request
         jQuery.ajax({
@@ -389,16 +307,16 @@ var contextmenu = { 'items': {
             data: ctx,
             error: function(msg) {
                 showErrorAlert("${uiLabelMap.CommonErrorMessage2}","${uiLabelMap.ErrorDeletingContent} : " + JSON.stringify(msg));
-                jQuery.jstree.rollback(data.rlbk);
+                jQuery(treeId).jstree(true).refresh();
             },
             success: function(msg) {
-                callDocument(false, node.attr('contentId'), '', '')
+                callDocument(false, node.li_attr ? node.li_attr.contentid : '', null, '');
             }
         });
   }
 
 <#-------------------------------------------------------------------------------------callDocument function-->
-    function callDocument(sub, contentId, objstr, dataResourceTypeId) {
+    function callDocument(sub, contentId, nodeAttrs, dataResourceTypeId) {
         var ctx = {};
         ctx['contentRoot'] = contentRoot;
         ctx['webSiteId'] = webSiteId;
@@ -415,10 +333,10 @@ var contextmenu = { 'items': {
             if (contentId != null && contentId.length) {
                 ctx['contentId'] = contentId;
             }
-            if (objstr) {
-                ctx['contentIdFrom'] = objstr.attr('contentid');
-                ctx['fromDate'] = objstr.attr('fromdate');
-                ctx['contentAssocTypeId'] = objstr.attr('contentassoctypeid');
+            if (nodeAttrs) {
+                ctx['contentIdFrom'] = nodeAttrs.contentid;
+                ctx['fromDate'] = nodeAttrs.fromdate;
+                ctx['contentAssocTypeId'] = nodeAttrs.contentassoctypeid;
             }
         }
 
@@ -572,8 +490,8 @@ function callMetaInfo(contentId) {
                 success: function(data) {
                     // if the content id is set reload the contentScreen and tree
                     if (contentId && contentId.length) {
-                        callDocument('', contentId, '', '');
-                        jQuery("#${contentRoot}").jstree('refresh', '#'+form.contentIdFrom.value);
+                        callDocument('', contentId, null, '');
+                        jQuery("#${contentRoot}").jstree(true).refresh_node(form.contentIdFrom.value);
                     }
                 },
                 error: function(msg) {

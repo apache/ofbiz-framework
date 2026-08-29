@@ -883,12 +883,14 @@ under the License.
     <!-- ============================ -->
     <!-- org.apache.ofbiz.common.property -->
     <!-- ============================ -->
-    
+
     <entity entity-name="SystemProperty" package-name="org.apache.ofbiz.common.property" title="Defines a System Property">
         <field name="systemResourceId" type="id-long"></field>
         <field name="systemPropertyId" type="id-long"></field>
         <field name="systemPropertyValue" type="value"></field>
+        <field name="systemPropertyLookup" type="name"></field>
         <field name="description" type="description"></field>
+        <field name="lastRotatedDate" type="date-time"></field>
         <prim-key field="systemResourceId"/>
         <prim-key field="systemPropertyId"/>
     </entity>
@@ -910,5 +912,52 @@ under the License.
         <field name="telecomGatewayConfigId" type="id"></field>
         <field name="description" type="description"></field>
         <prim-key field="telecomGatewayConfigId"/>
+    </entity>
+
+    <!-- ============================ -->
+    <!-- org.apache.ofbiz.common.email -->
+    <!-- ============================ -->
+    <entity entity-name="MailSmtpConfig"
+            package-name="org.apache.ofbiz.common.email"
+            title="Mail SMTP Configuration">
+        <field name="mailSmtpConfigId" type="id"></field>
+        <field name="description" type="description"></field>
+        <field name="relayHost" type="value"><description>SMTP relay host, e.g. smtp.gmail.com</description></field>
+        <field name="port" type="value"><description>SMTP port, e.g. 587</description></field>
+        <field name="starttlsEnable" type="indicator"><description>Y enables STARTTLS</description></field>
+        <field name="socketFactoryPort" type="value"></field>
+        <field name="socketFactoryClass" type="value"></field>
+        <field name="socketFactoryFallback" type="value"></field>
+        <field name="sendPartial" type="indicator"><description>Y allows partial delivery on multi-recipient failures</description></field>
+        <field name="authMechanism" type="value"><description>NONE, BASIC, or XOAUTH2</description></field>
+        <field name="authUser" type="value"></field>
+        <field name="authPassword" type="value" encrypt="true"></field>
+        <field name="oauth2ClientId" type="value"></field>
+        <field name="oauth2ClientSecret" type="value" encrypt="true"></field>
+        <field name="oauth2RefreshToken" type="very-long" encrypt="true"><description>May be rewritten if the provider rotates it</description></field>
+        <field name="oauth2TokenEndpoint" type="value"><description>Must be https://</description></field>
+        <field name="oauth2Scope" type="value"></field>
+        <prim-key field="mailSmtpConfigId"/>
+    </entity>
+    <entity entity-name="MailDkimConfig"
+            package-name="org.apache.ofbiz.common.email"
+            title="Mail DKIM Signing Configuration">
+        <field name="mailDkimConfigId" type="id"></field>
+        <field name="mailSmtpConfigId" type="id">
+            <description>Optional link to a MailSmtpConfig row; unset today, ready for per-relay DKIM
+            once multi-SMTP-config support exists</description>
+        </field>
+        <field name="signingDomain" type="value"><description>Signing domain, e.g. example.com</description></field>
+        <field name="selector" type="value"><description>DKIM selector, e.g. ofbiz</description></field>
+        <field name="privateKey" type="very-long" encrypt="true">
+            <description>PKCS#8 PEM RSA private key</description>
+        </field>
+        <field name="enabled" type="indicator">
+            <description>Y signs outgoing mail; N/unset leaves mail unsigned even if key material is present</description>
+        </field>
+        <prim-key field="mailDkimConfigId"/>
+        <relation type="one" fk-name="MAIL_DKIM_SMTP" rel-entity-name="MailSmtpConfig">
+            <key-map field-name="mailSmtpConfigId"/>
+        </relation>
     </entity>
 </entitymodel>

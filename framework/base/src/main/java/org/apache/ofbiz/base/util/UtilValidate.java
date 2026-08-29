@@ -18,9 +18,11 @@
  *******************************************************************************/
 package org.apache.ofbiz.base.util;
 
+import java.nio.file.Paths;
 import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import org.apache.commons.validator.routines.EmailValidator;
 import org.apache.commons.validator.routines.UrlValidator;
@@ -656,6 +658,25 @@ public final class UtilValidate {
         return UrlValidator.getInstance().isValid(s);
     }
 
+    /**
+     * isAllowedPath takes a String representing a non-component widget resource path, normalizes it and
+     * checks it against the administrator-configured <code>security.allowFilePaths</code> regular
+     * expression. Unset or blank configuration denies every path (secure by default): an administrator
+     * must explicitly opt in to loading widget resources from outside a <code>component://</code> location.
+     * @param rawPathString
+     * @return true if it's an allowed path, false otherwise (including when unconfigured)
+     */
+    public static boolean isAllowedPath(String rawPathString) {
+        if (UtilValidate.isEmpty(rawPathString)) {
+            return false;
+        }
+        String allowFilePaths = UtilProperties.getPropertyValue("security", "allowFilePaths", "");
+        if (UtilValidate.isEmpty(allowFilePaths)) {
+            return false;
+        }
+        String normalizedPath = Paths.get(rawPathString).normalize().toString();
+        return Pattern.compile(allowFilePaths).matcher(normalizedPath).matches();
+    }
 
     /** isYear returns true if string s is a valid
      *  Year number.  Must be 2 or 4 digits only.
@@ -920,18 +941,6 @@ public final class UtilValidate {
         return isTime(hour, minute, second);
     }
 
-    /** Check to see if a card number is a valid ValueLink Gift Card
-     * @param stPassed a string representing a valuelink gift card
-     * @return true, if the number passed simple checks
-     */
-    public static boolean isValueLinkCard(String stPassed) {
-        if (isEmpty(stPassed)) {
-            return DEFAULT_EMPTY_OK;
-        }
-        String st = stripCharsInBag(stPassed, CREDIT_CARD_DELIMITERS);
-        return st.length() == 16 && (st.startsWith("7") || st.startsWith("6"));
-    }
-
     /** Check to see if a card number is a valid OFB Gift Card (Certifiicate)
      * @param stPassed a string representing a gift card
      * @return tru, if the number passed simple checks
@@ -949,7 +958,7 @@ public final class UtilValidate {
      * @return true, if the number passed simple checks
      */
     public static boolean isGiftCard(String stPassed) {
-        return isOFBGiftCard(stPassed) || isValueLinkCard(stPassed);
+        return isOFBGiftCard(stPassed);
     }
 
     public static int getLuhnSum(String stPassed) {

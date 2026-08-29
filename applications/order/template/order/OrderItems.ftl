@@ -660,9 +660,11 @@ under the License.
                                                class="buttontext">${shipmentReceipt.shipmentId}</a>:${shipmentReceipt.shipmentItemSeqId!}
                                         </#if>
                                         &nbsp;<#if shipmentReceipt.datetimeReceived?has_content>${Static["org.apache.ofbiz.base.util.UtilFormatOut"].formatDateTime(shipmentReceipt.datetimeReceived, "", locale, timeZone)!}</#if>&nbsp;
-                                        <span class="label">${uiLabelMap.CommonInventory}</span>&nbsp;
-                                        <a href="<@ofbizUrl controlPath="/facility/control">EditInventoryItem?inventoryItemId=${shipmentReceipt.inventoryItemId}</@ofbizUrl>"
-                                           class="buttontext">${shipmentReceipt.inventoryItemId}</a>
+                                        <#if shipmentReceipt.inventoryItemId?has_content>
+                                            <span class="label">${uiLabelMap.CommonInventory}</span>&nbsp;
+                                            <a href="<@ofbizUrl controlPath="/facility/control">EditInventoryItem?inventoryItemId=${shipmentReceipt.inventoryItemId}</@ofbizUrl>"
+                                            class="buttontext">${shipmentReceipt.inventoryItemId}</a>
+                                        </#if>
                                     </td>
                                     <td align="center">
                                         ${shipmentReceipt.quantityAccepted?string.number}&nbsp;/&nbsp;${shipmentReceipt.quantityRejected?default(0)?string.number}

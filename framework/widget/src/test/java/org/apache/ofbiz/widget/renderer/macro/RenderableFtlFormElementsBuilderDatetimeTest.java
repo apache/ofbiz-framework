@@ -19,70 +19,49 @@
 package org.apache.ofbiz.widget.renderer.macro;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.mockito.ArgumentMatchers.notNull;
+import static org.mockito.ArgumentMatchers.nullable;
+import static org.mockito.Mockito.RETURNS_DEEP_STUBS;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import java.util.HashMap;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 import org.apache.ofbiz.webapp.control.RequestHandler;
 import org.apache.ofbiz.widget.content.StaticContentUrlProvider;
 import org.apache.ofbiz.widget.model.ModelFormField;
-import org.apache.ofbiz.widget.model.ModelTheme;
 import org.apache.ofbiz.widget.renderer.VisualTheme;
 import org.apache.ofbiz.widget.renderer.macro.renderable.RenderableFtl;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import mockit.Expectations;
-import mockit.Injectable;
-import mockit.Mocked;
-import mockit.Tested;
+public final class RenderableFtlFormElementsBuilderDatetimeTest {
 
-public class RenderableFtlFormElementsBuilderDatetimeTest {
+    // Deep stubs: RenderableFtlFormElementsBuilder methods cascade through modelFormField.getModelForm()
+    // (via FormRenderer.getCurrentFormName()) even when a test doesn't care about the form itself -
+    // JMockit's @Mocked auto-cascaded that call to a fresh mock; Mockito needs it asked for explicitly.
+    private final ModelFormField modelFormField = mock(ModelFormField.class, RETURNS_DEEP_STUBS);
 
-    @Injectable
-    private VisualTheme visualTheme;
-
-    @Injectable
-    private RequestHandler requestHandler;
-
-    @Injectable
-    private HttpServletRequest request;
-
-    @Injectable
-    private HttpServletResponse response;
-
-    @Injectable
-    private StaticContentUrlProvider staticContentUrlProvider;
-
-    @Mocked
-    private HttpSession httpSession;
-
-    @Mocked
-    private ModelTheme modelTheme;
-
-    @Mocked
-    private ModelFormField.ContainerField containerField;
-
-    @Mocked
-    private ModelFormField modelFormField;
-
-    @Tested
     private RenderableFtlFormElementsBuilder renderableFtlFormElementsBuilder;
 
-    @Test
-    public void datetimeFieldSetsIdAndValue(@Mocked final ModelFormField.DateTimeField datetimeField) {
-        final int maxLength = 22;
-        new Expectations() {
-            {
-                modelFormField.getCurrentContainerId(withNotNull());
-                result = "CurrentDatetimeId";
+    @BeforeEach
+    public void createBuilder() {
+        renderableFtlFormElementsBuilder = new RenderableFtlFormElementsBuilder(
+                mock(VisualTheme.class), mock(RequestHandler.class),
+                mock(HttpServletRequest.class), mock(HttpServletResponse.class),
+                mock(StaticContentUrlProvider.class));
+    }
 
-                modelFormField.getEntry(withNotNull(), anyString);
-                result = "DATETIMEVALUE";
-            }
-        };
+    @Test
+    public void datetimeFieldSetsIdAndValue() {
+        final int maxLength = 22;
+        final ModelFormField.DateTimeField datetimeField = mock(ModelFormField.DateTimeField.class);
+        when(datetimeField.getModelFormField()).thenReturn(modelFormField);
+        when(modelFormField.getCurrentContainerId(notNull())).thenReturn("CurrentDatetimeId");
+        when(modelFormField.getEntry(notNull(), nullable(String.class))).thenReturn("DATETIMEVALUE");
 
         final HashMap<String, Object> context = new HashMap<>();
 
@@ -93,16 +72,11 @@ public class RenderableFtlFormElementsBuilderDatetimeTest {
     }
 
     @Test
-    public void datetimeFieldSetsDisabledParameters(@Mocked final ModelFormField.DateTimeField datetimeField) {
-        new Expectations() {
-            {
-                modelFormField.getDisabled(withNotNull());
-                result = true;
-
-                modelFormField.getEntry(withNotNull(), anyString);
-                result = "DATETIMEVALUE";
-            }
-        };
+    public void datetimeFieldSetsDisabledParameters() {
+        final ModelFormField.DateTimeField datetimeField = mock(ModelFormField.DateTimeField.class);
+        when(datetimeField.getModelFormField()).thenReturn(modelFormField);
+        when(modelFormField.getDisabled(notNull())).thenReturn(true);
+        when(modelFormField.getEntry(notNull(), nullable(String.class))).thenReturn("DATETIMEVALUE");
 
         final HashMap<String, Object> context = new HashMap<>();
 
@@ -112,19 +86,12 @@ public class RenderableFtlFormElementsBuilderDatetimeTest {
     }
 
     @Test
-    public void datetimeFieldSetsLengthAndMaskForDateType(@Mocked final ModelFormField.DateTimeField datetimeField) {
-        new Expectations() {
-            {
-                datetimeField.isDateType();
-                result = true;
-
-                datetimeField.useMask();
-                result = true;
-
-                modelFormField.getEntry(withNotNull(), anyString);
-                result = "DATETIMEVALUE";
-            }
-        };
+    public void datetimeFieldSetsLengthAndMaskForDateType() {
+        final ModelFormField.DateTimeField datetimeField = mock(ModelFormField.DateTimeField.class);
+        when(datetimeField.getModelFormField()).thenReturn(modelFormField);
+        when(datetimeField.isDateType()).thenReturn(true);
+        when(datetimeField.useMask()).thenReturn(true);
+        when(modelFormField.getEntry(notNull(), nullable(String.class))).thenReturn("DATETIMEVALUE");
 
         final HashMap<String, Object> context = new HashMap<>();
 
@@ -136,19 +103,12 @@ public class RenderableFtlFormElementsBuilderDatetimeTest {
     }
 
     @Test
-    public void datetimeFieldSetsLengthForTimeType(@Mocked final ModelFormField.DateTimeField datetimeField) {
-        new Expectations() {
-            {
-                datetimeField.isTimeType();
-                result = true;
-
-                datetimeField.useMask();
-                result = true;
-
-                modelFormField.getEntry(withNotNull(), anyString);
-                result = "DATETIMEVALUE";
-            }
-        };
+    public void datetimeFieldSetsLengthForTimeType() {
+        final ModelFormField.DateTimeField datetimeField = mock(ModelFormField.DateTimeField.class);
+        when(datetimeField.getModelFormField()).thenReturn(modelFormField);
+        when(datetimeField.isTimeType()).thenReturn(true);
+        when(datetimeField.useMask()).thenReturn(true);
+        when(modelFormField.getEntry(notNull(), nullable(String.class))).thenReturn("DATETIMEVALUE");
 
         final HashMap<String, Object> context = new HashMap<>();
 
@@ -160,20 +120,12 @@ public class RenderableFtlFormElementsBuilderDatetimeTest {
     }
 
     @Test
-    public void datetimeFieldSetsLengthForTimestampType(@Mocked final ModelFormField.DateTimeField datetimeField) {
-        new Expectations() {
-            {
-                datetimeField.isTimestampType();
-                result = true;
-                minTimes = 0;
-
-                datetimeField.useMask();
-                result = true;
-
-                modelFormField.getEntry(withNotNull(), anyString);
-                result = "DATETIMEVALUE";
-            }
-        };
+    public void datetimeFieldSetsLengthForTimestampType() {
+        final ModelFormField.DateTimeField datetimeField = mock(ModelFormField.DateTimeField.class);
+        when(datetimeField.getModelFormField()).thenReturn(modelFormField);
+        when(datetimeField.isTimestampType()).thenReturn(true);
+        when(datetimeField.useMask()).thenReturn(true);
+        when(modelFormField.getEntry(notNull(), nullable(String.class))).thenReturn("DATETIMEVALUE");
 
         final HashMap<String, Object> context = new HashMap<>();
 
@@ -185,19 +137,12 @@ public class RenderableFtlFormElementsBuilderDatetimeTest {
     }
 
     @Test
-    public void datetimeFieldSetsTimeValuesForStepSize1(@Mocked final ModelFormField.DateTimeField datetimeField) {
-        new Expectations() {
-            {
-                datetimeField.getStep();
-                result = 1;
-
-                datetimeField.getInputMethod();
-                result = "time-dropdown";
-
-                modelFormField.getEntry(withNotNull(), anyString);
-                result = "DATETIMEVALUE";
-            }
-        };
+    public void datetimeFieldSetsTimeValuesForStepSize1() {
+        final ModelFormField.DateTimeField datetimeField = mock(ModelFormField.DateTimeField.class);
+        when(datetimeField.getModelFormField()).thenReturn(modelFormField);
+        when(datetimeField.getStep()).thenReturn(1);
+        when(datetimeField.getInputMethod()).thenReturn("time-dropdown");
+        when(modelFormField.getEntry(notNull(), nullable(String.class))).thenReturn("DATETIMEVALUE");
 
         final HashMap<String, Object> context = new HashMap<>();
 
@@ -208,19 +153,12 @@ public class RenderableFtlFormElementsBuilderDatetimeTest {
     }
 
     @Test
-    public void datetimeFieldSetsTimeValuesForStepSize3(@Mocked final ModelFormField.DateTimeField datetimeField) {
-        new Expectations() {
-            {
-                datetimeField.getStep();
-                result = 3;
-
-                datetimeField.getInputMethod();
-                result = "time-dropdown";
-
-                modelFormField.getEntry(withNotNull(), anyString);
-                result = "DATETIMEVALUE";
-            }
-        };
+    public void datetimeFieldSetsTimeValuesForStepSize3() {
+        final ModelFormField.DateTimeField datetimeField = mock(ModelFormField.DateTimeField.class);
+        when(datetimeField.getModelFormField()).thenReturn(modelFormField);
+        when(datetimeField.getStep()).thenReturn(3);
+        when(datetimeField.getInputMethod()).thenReturn("time-dropdown");
+        when(modelFormField.getEntry(notNull(), nullable(String.class))).thenReturn("DATETIMEVALUE");
 
         final HashMap<String, Object> context = new HashMap<>();
 
@@ -231,22 +169,13 @@ public class RenderableFtlFormElementsBuilderDatetimeTest {
     }
 
     @Test
-    public void datetimeFieldSetsValuesFor12HourClock(@Mocked final ModelFormField.DateTimeField datetimeField) {
-        new Expectations() {
-            {
-                datetimeField.getStep();
-                result = 1;
-
-                datetimeField.getInputMethod();
-                result = "time-dropdown";
-
-                datetimeField.isTwelveHour();
-                result = true;
-
-                modelFormField.getEntry(withNotNull(), anyString);
-                result = "2022-05-18 16:44:57";
-            }
-        };
+    public void datetimeFieldSetsValuesFor12HourClock() {
+        final ModelFormField.DateTimeField datetimeField = mock(ModelFormField.DateTimeField.class);
+        when(datetimeField.getModelFormField()).thenReturn(modelFormField);
+        when(datetimeField.getStep()).thenReturn(1);
+        when(datetimeField.getInputMethod()).thenReturn("time-dropdown");
+        when(datetimeField.isTwelveHour()).thenReturn(true);
+        when(modelFormField.getEntry(notNull(), nullable(String.class))).thenReturn("2022-05-18 16:44:57");
 
         final HashMap<String, Object> context = new HashMap<>();
 

@@ -27,15 +27,16 @@ under the License.
     <!-- Bill of Materials services -->
     <service name="createBOMAssoc" default-entity-name="ProductAssoc" engine="simple"
                 location="component://manufacturing/minilang/bom/BomSimpleMethods.xml" invoke="createBOMAssoc" auth="true">
-        <description>Add Product to Product Association</description>
+        <description>Add a product to a BOM as a ProductAssoc component. Validates that a product is not added as its own component, rejects duplicate associations before create, and delegates the actual ProductAssoc create to the existing product association service.</description>
+        <permission-service service-name="manufacturingPermissionService" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <attribute name="errorMessage" type="String" optional="true" mode="OUT"/>
         <override name="fromDate" optional="true"/>
     </service>
     <service name="copyBOMAssocs" default-entity-name="ProductAssoc" engine="simple"
                 location="component://manufacturing/minilang/bom/BomSimpleMethods.xml" invoke="copyBOMAssocs" auth="true">
-        <description>Copy BOM associations from one product to another</description>
+        <description>Copy active BOM associations from one product to another. Reuses BOM association creation for each copied component, supports narrowing the source associations by BOM key fields, and preserves a supplied effective fromDate for REST/API copy workflows.</description>
+        <permission-service service-name="manufacturingPermissionService" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <attribute name="copyToProductId" type="String" optional="false" mode="IN"/>
         <override name="fromDate" optional="true"/>
@@ -144,5 +145,164 @@ under the License.
         <attribute mode="IN" name="amount" optional="true" type="BigDecimal"/>
         <attribute mode="IN" name="fromDate" optional="true" type="String"/>
         <attribute mode="OUT" name="notAssembledComponents" type="java.util.List"/>
+    </service>
+    <!-- API wrappers for BOM Management -->
+    <service name="findBomProducts" engine="groovy" auth="true"
+            location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/api/BomManagementServices.groovy" invoke="findBomProducts">
+        <description>Find BOM-managed products that have component associations and return BOM summary metadata for list views.</description>
+        <permission-service service-name="manufacturingPermissionService" main-action="VIEW"/>
+        <attribute mode="IN" name="query" optional="true" type="String"/>
+        <attribute mode="IN" name="productId" optional="true" type="String"/>
+        <attribute mode="IN" name="componentProductId" optional="true" type="String"/>
+        <attribute mode="IN" name="productIdTo" optional="true" type="String"/>
+        <attribute mode="IN" name="productAssocTypeId" optional="true" type="String"/>
+        <attribute mode="IN" name="pageIndex" optional="true" type="Integer"/>
+        <attribute mode="IN" name="pageSize" optional="true" type="Integer"/>
+        <attribute mode="IN" name="sort" optional="true" type="String"/>
+        <attribute mode="OUT" name="pageIndex" optional="false" type="Integer"/>
+        <attribute mode="OUT" name="pageSize" optional="false" type="Integer"/>
+        <attribute mode="OUT" name="totalCount" optional="false" type="Long"/>
+        <attribute mode="OUT" name="totalPages" optional="false" type="Long"/>
+        <attribute mode="OUT" name="hasNext" optional="false" type="Boolean"/>
+        <attribute mode="OUT" name="previousPageCount" optional="true" type="Long"/>
+        <attribute mode="OUT" name="nextPageCount" optional="true" type="Long"/>
+        <attribute mode="OUT" name="links" optional="true" type="Map"/>
+        <attribute mode="OUT" name="products" optional="false" type="java.util.List"/>
+    </service>
+    <service name="findProductLookupOptions" engine="groovy" auth="true"
+            location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/api/ManufacturingLookupServices.groovy" invoke="findProductLookupOptions">
+        <description>Find any product by id, name, or internal name for BOM picker and autocomplete workflows.</description>
+        <permission-service service-name="manufacturingPermissionService" main-action="VIEW"/>
+        <attribute mode="IN" name="query" optional="true" type="String"/>
+        <attribute mode="IN" name="pageIndex" optional="true" type="Integer"/>
+        <attribute mode="IN" name="pageSize" optional="true" type="Integer"/>
+        <attribute mode="IN" name="sort" optional="true" type="String"/>
+        <attribute mode="OUT" name="pageIndex" optional="false" type="Integer"/>
+        <attribute mode="OUT" name="pageSize" optional="false" type="Integer"/>
+        <attribute mode="OUT" name="totalCount" optional="false" type="Long"/>
+        <attribute mode="OUT" name="totalPages" optional="false" type="Long"/>
+        <attribute mode="OUT" name="hasNext" optional="false" type="Boolean"/>
+        <attribute mode="OUT" name="previousPageCount" optional="true" type="Long"/>
+        <attribute mode="OUT" name="nextPageCount" optional="true" type="Long"/>
+        <attribute mode="OUT" name="links" optional="true" type="Map"/>
+        <attribute mode="OUT" name="products" optional="false" type="java.util.List"/>
+    </service>
+    <service name="getBomSnapshot" engine="groovy" auth="true"
+            location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/api/BomManagementServices.groovy" invoke="getBomSnapshot">
+        <description>Get a frontend-friendly BOM snapshot for one product.</description>
+        <permission-service service-name="manufacturingPermissionService" main-action="VIEW"/>
+        <attribute mode="IN" name="productId" optional="false" type="String"/>
+        <attribute mode="IN" name="productAssocTypeId" optional="true" type="String"/>
+        <attribute mode="IN" name="fromDate" optional="true" type="Timestamp"/>
+        <attribute mode="IN" name="asOfDate" optional="true" type="Timestamp"/>
+        <attribute mode="IN" name="quantity" optional="true" type="BigDecimal"/>
+        <attribute mode="IN" name="amount" optional="true" type="BigDecimal"/>
+        <attribute mode="IN" name="type" optional="true" type="Integer"/>
+        <attribute mode="IN" name="facilityId" optional="true" type="String"/>
+        <attribute mode="IN" name="currencyUomId" optional="true" type="String"/>
+        <attribute mode="OUT" name="productId" optional="false" type="String"/>
+        <attribute mode="OUT" name="productName" optional="true" type="String"/>
+        <attribute mode="OUT" name="internalName" optional="true" type="String"/>
+        <attribute mode="OUT" name="productAssocTypeId" optional="false" type="String"/>
+        <attribute mode="OUT" name="bomType" optional="false" type="String"/>
+        <attribute mode="OUT" name="fromDate" optional="true" type="Timestamp"/>
+        <attribute mode="OUT" name="quantity" optional="true" type="BigDecimal"/>
+        <attribute mode="OUT" name="amount" optional="true" type="BigDecimal"/>
+        <attribute mode="OUT" name="type" optional="true" type="Integer"/>
+        <attribute mode="OUT" name="facilityId" optional="true" type="String"/>
+        <attribute mode="OUT" name="currencyUomId" optional="true" type="String"/>
+        <attribute mode="OUT" name="componentCount" optional="false" type="Integer"/>
+        <attribute mode="OUT" name="usedInCount" optional="false" type="Integer"/>
+        <attribute mode="OUT" name="usedInParents" optional="false" type="java.util.List"/>
+        <attribute mode="OUT" name="bomLevels" optional="false" type="java.util.List"/>
+        <attribute mode="OUT" name="components" optional="false" type="java.util.List"/>
+    </service>
+    <service name="removeBomAssociation" engine="groovy" auth="true"
+            location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/api/BomManagementServices.groovy" invoke="removeBomAssociation">
+        <description>Expire a BOM component association by setting ProductAssoc.thruDate instead of deleting either product. This REST-facing wrapper validates the association, defaults the BOM association type when omitted, delegates persistence to updateProductAssoc, and returns a BOM-shaped removal response.</description>
+        <permission-service service-name="manufacturingPermissionService" main-action="UPDATE"/>
+        <attribute mode="IN" name="productId" optional="false" type="String"/>
+        <attribute mode="IN" name="productIdTo" optional="false" type="String"/>
+        <attribute mode="IN" name="productAssocTypeId" optional="true" type="String"/>
+        <attribute mode="IN" name="fromDate" optional="false" type="Timestamp"/>
+        <attribute mode="OUT" name="removed" optional="false" type="Boolean"/>
+        <attribute mode="OUT" name="productId" optional="false" type="String"/>
+        <attribute mode="OUT" name="parentProductId" optional="true" type="String"/>
+        <attribute mode="OUT" name="productIdTo" optional="true" type="String"/>
+        <attribute mode="OUT" name="componentProductId" optional="true" type="String"/>
+        <attribute mode="OUT" name="productAssocTypeId" optional="true" type="String"/>
+        <attribute mode="OUT" name="fromDate" optional="true" type="Timestamp"/>
+        <attribute mode="OUT" name="thruDate" optional="true" type="Timestamp"/>
+    </service>
+    <service name="removeBomParentAssociation" engine="groovy" auth="true"
+            location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/api/BomManagementServices.groovy" invoke="removeBomParentAssociation">
+        <description>Expire a used-in parent association for a component product by setting ProductAssoc.thruDate. This REST-facing wrapper keeps the parent route contract explicit, maps componentProductId to the native ProductAssoc key fields, delegates persistence to updateProductAssoc, and returns the same BOM-shaped removal response as component removal.</description>
+        <permission-service service-name="manufacturingPermissionService" main-action="UPDATE"/>
+        <attribute mode="IN" name="componentProductId" optional="false" type="String"/>
+        <attribute mode="IN" name="productId" optional="false" type="String"/>
+        <attribute mode="IN" name="productAssocTypeId" optional="true" type="String"/>
+        <attribute mode="IN" name="fromDate" optional="false" type="Timestamp"/>
+        <attribute mode="OUT" name="removed" optional="false" type="Boolean"/>
+        <attribute mode="OUT" name="productId" optional="false" type="String"/>
+        <attribute mode="OUT" name="parentProductId" optional="true" type="String"/>
+        <attribute mode="OUT" name="productIdTo" optional="true" type="String"/>
+        <attribute mode="OUT" name="componentProductId" optional="true" type="String"/>
+        <attribute mode="OUT" name="productAssocTypeId" optional="true" type="String"/>
+        <attribute mode="OUT" name="fromDate" optional="true" type="Timestamp"/>
+        <attribute mode="OUT" name="thruDate" optional="true" type="Timestamp"/>
+    </service>
+    <service name="runBomSimulation" engine="groovy" auth="true"
+            location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/api/BomManagementServices.groovy" invoke="runBomSimulation">
+        <description>Run a BOM explosion simulation for REST/API clients. Delegates BOM traversal to getBOMTree and existing cost/availability services, then converts the internal BOMTree result into JSON-ready parameters, summary, availability rows, cost rows, and warnings.</description>
+        <permission-service service-name="manufacturingPermissionService" main-action="VIEW"/>
+        <attribute mode="IN" name="productId" optional="false" type="String"/>
+        <attribute mode="IN" name="productAssocTypeId" optional="true" type="String"/>
+        <attribute mode="IN" name="effectiveDate" optional="true" type="Timestamp"/>
+        <attribute mode="IN" name="fromDate" optional="true" type="Timestamp"/>
+        <attribute mode="IN" name="asOfDate" optional="true" type="Timestamp"/>
+        <attribute mode="IN" name="quantity" optional="true" type="BigDecimal"/>
+        <attribute mode="IN" name="simulationMode" optional="true" type="String"/>
+        <attribute mode="IN" name="type" optional="true" type="Integer"/>
+        <attribute mode="IN" name="facilityId" optional="true" type="String"/>
+        <attribute mode="IN" name="currencyUomId" optional="true" type="String"/>
+        <attribute mode="OUT" name="parameters" optional="false" type="Map"/>
+        <attribute mode="OUT" name="summary" optional="false" type="Map"/>
+        <attribute mode="OUT" name="availabilityRows" optional="false" type="java.util.List"/>
+        <attribute mode="OUT" name="costRows" optional="false" type="java.util.List"/>
+        <attribute mode="OUT" name="warnings" optional="false" type="java.util.List"/>
+    </service>
+    <service name="findWarehouses" engine="groovy" auth="true"
+            location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/api/ManufacturingLookupServices.groovy" invoke="findWarehouses">
+        <description>Find warehouse facilities available for manufacturing application workflows.</description>
+        <permission-service service-name="manufacturingPermissionService" main-action="VIEW"/>
+        <attribute mode="IN" name="pageIndex" optional="true" type="Integer"/>
+        <attribute mode="IN" name="pageSize" optional="true" type="Integer"/>
+        <attribute mode="IN" name="sort" optional="true" type="String"/>
+        <attribute mode="OUT" name="pageIndex" optional="false" type="Integer"/>
+        <attribute mode="OUT" name="pageSize" optional="false" type="Integer"/>
+        <attribute mode="OUT" name="totalCount" optional="false" type="Long"/>
+        <attribute mode="OUT" name="totalPages" optional="false" type="Long"/>
+        <attribute mode="OUT" name="hasNext" optional="false" type="Boolean"/>
+        <attribute mode="OUT" name="previousPageCount" optional="true" type="Long"/>
+        <attribute mode="OUT" name="nextPageCount" optional="true" type="Long"/>
+        <attribute mode="OUT" name="links" optional="true" type="Map"/>
+        <attribute mode="OUT" name="facilities" optional="false" type="java.util.List"/>
+    </service>
+    <service name="findBomTypes" engine="groovy" auth="true"
+            location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/api/BomManagementServices.groovy" invoke="findBomTypes">
+        <description>Find product association types available for BOM workflows.</description>
+        <permission-service service-name="manufacturingPermissionService" main-action="VIEW"/>
+        <attribute mode="IN" name="pageIndex" optional="true" type="Integer"/>
+        <attribute mode="IN" name="pageSize" optional="true" type="Integer"/>
+        <attribute mode="IN" name="sort" optional="true" type="String"/>
+        <attribute mode="OUT" name="pageIndex" optional="false" type="Integer"/>
+        <attribute mode="OUT" name="pageSize" optional="false" type="Integer"/>
+        <attribute mode="OUT" name="totalCount" optional="false" type="Long"/>
+        <attribute mode="OUT" name="totalPages" optional="false" type="Long"/>
+        <attribute mode="OUT" name="hasNext" optional="false" type="Boolean"/>
+        <attribute mode="OUT" name="previousPageCount" optional="true" type="Long"/>
+        <attribute mode="OUT" name="nextPageCount" optional="true" type="Long"/>
+        <attribute mode="OUT" name="links" optional="true" type="Map"/>
+        <attribute mode="OUT" name="bomTypes" optional="false" type="java.util.List"/>
     </service>
 </services>

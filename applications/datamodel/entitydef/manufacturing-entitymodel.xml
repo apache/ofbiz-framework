@@ -163,6 +163,39 @@ under the License.
       <prim-key field="mrpEventTypeId"/>
     </entity>
 
+    <entity entity-name="MrpRunLog"
+            package-name="org.apache.ofbiz.manufacturing.mrp"
+            title="MRP Run Log">
+      <description>Durable run-level provenance for MRP executions.</description>
+      <field name="mrpRunLogId" type="id"></field>
+      <field name="mrpId" type="id"></field>
+      <field name="jobId" type="id"></field>
+      <field name="mrpName" type="name"></field>
+      <field name="facilityId" type="id"></field>
+      <field name="facilityGroupId" type="id"></field>
+      <field name="defaultYearsOffset" type="numeric"></field>
+      <field name="runByUserLoginId" type="id-vlong"></field>
+      <field name="runStatusId" type="id"></field>
+      <field name="outcomeMessage" type="very-long"></field>
+      <field name="mrpEventCount" type="numeric"></field>
+      <field name="proposedRequirementCount" type="numeric"></field>
+      <field name="failureReason" type="name"></field>
+      <field name="failureMessage" type="very-long"></field>
+      <field name="startedAt" type="date-time"></field>
+      <field name="finishedAt" type="date-time"></field>
+      <field name="durationMillis" type="numeric"></field>
+      <prim-key field="mrpRunLogId"/>
+      <relation type="one" fk-name="MRPRUN_FAC" rel-entity-name="Facility">
+        <key-map field-name="facilityId"/>
+      </relation>
+      <relation type="one" fk-name="MRPRUN_STTS" rel-entity-name="StatusItem">
+        <key-map field-name="runStatusId" rel-field-name="statusId"/>
+      </relation>
+      <relation type="one" fk-name="MRPRUN_USER" rel-entity-name="UserLogin">
+        <key-map field-name="runByUserLoginId" rel-field-name="userLoginId"/>
+      </relation>
+    </entity>
+
     <entity entity-name="MrpEvent"
             package-name="org.apache.ofbiz.manufacturing.mrp"
             title="MRP Event">

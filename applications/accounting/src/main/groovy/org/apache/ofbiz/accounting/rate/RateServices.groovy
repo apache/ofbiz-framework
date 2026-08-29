@@ -224,9 +224,11 @@ Map getRatesAmountsFrom(String field) {
         GenericValue periodType = from('PeriodType').where(parameters).queryOne()
         GenericValue rateType = from('RateType').where(parameters).queryOne()
         GenericValue partyNameView = from('PartyNameView').where(parameters).queryOne()
-        logError('A valid rate entry could be found for rateType:' + rateType.description + ', ' + entityName + ':' + parameters.get(field)
-                + ', party: ' + partyNameView.lastName + partyNameView.middleName + partyNameView.firstName + partyNameView.groupName
-                + ' However.....not for the period:' + periodType.description + ' and currency:' + parameters.rateCurrencyUomId)
+        String partyName = partyNameView ? [partyNameView.lastName, partyNameView.middleName, partyNameView.firstName,
+                partyNameView.groupName].findAll { it }.join(' ') : ''
+        logError('A valid rate entry could be found for rateType:' + rateType?.description + ', ' + entityName + ':' + parameters.get(field)
+                + ', party: ' + partyName
+                + ' However.....not for the period:' + periodType?.description + ' and currency:' + parameters.rateCurrencyUomId)
     }
     Map result = success()
     result.ratesList = ratesList

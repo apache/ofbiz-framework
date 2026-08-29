@@ -60,7 +60,6 @@ under the License.
     <ProdCatalogCategoryType description="View Allow (One)" prodCatalogCategoryTypeId="PCCT_VIEW_ALLW"/>
     <ProdCatalogCategoryType description="Purchase Allow (One)" prodCatalogCategoryTypeId="PCCT_PURCH_ALLW"/>
     <ProdCatalogCategoryType description="Admin Allow (One)" prodCatalogCategoryTypeId="PCCT_ADMIN_ALLW"/>
-    <ProdCatalogCategoryType description="Ebay Root (One)" prodCatalogCategoryTypeId="PCCT_EBAY_ROOT"/>
     <ProdCatalogCategoryType description="Best Selling (One)" prodCatalogCategoryTypeId="PCCT_BEST_SELL"/>
 
     <ProductAssocType description="Also Bought" hasTable="N" productAssocTypeId="ALSO_BOUGHT"/>
@@ -425,6 +424,7 @@ under the License.
     <FacilityType description="Room" facilityTypeId="ROOM" hasTable="N"/>
     <FacilityType description="Retail Store" facilityTypeId="RETAIL_STORE" hasTable="N"/>
     <FacilityType description="Warehouse" facilityTypeId="WAREHOUSE" hasTable="N"/>
+    <FacilityCalendarType facilityCalendarTypeId="SHIPPING" description="Shipping/handling working calendar"/>
 
     <FacilityAssocType facilityAssocTypeId="BACKUP_WAREHOUSE" description="Facility that serves another facility in terms of inventory"/>
 
@@ -756,31 +756,9 @@ under the License.
     <StatusValidChange statusId="PICKITEM_PENDING" statusIdTo="PICKITEM_COMPLETED" transitionName="Complete"/>
     <StatusValidChange statusId="PICKITEM_PENDING" statusIdTo="PICKITEM_CANCELLED" transitionName="Cancel"/>
     
-    <!-- Shipment Gateway Config -->
-    <ShipmentGatewayConfigType shipmentGatewayConfTypeId="SHIP_GATEWAY_DHL" hasTable="Y" description="Shipment Gateway DHL"/>
-    <ShipmentGatewayConfig shipmentGatewayConfigId="DHL_CONFIG" shipmentGatewayConfTypeId="SHIP_GATEWAY_DHL" description="DHL Config"/>
-    <ShipmentGatewayDhl shipmentGatewayConfigId="DHL_CONFIG" connectUrl="https://eCommerce.airborne.com/ApiLandingTest.asp" connectTimeout="60" headVersion="1.1" headAction="Request" accessUserId="YOUR DHL ShipIT USER ID" accessPassword="YOUR DHL ShipIT ACCESS PASSWORD" accessAccountNbr="YOUR DHL ShipIT ACCOUNT NUMBER" accessShippingKey="YOUR DHL ShipIT SHIPPING KEY" labelImageFormat="PNG" rateEstimateTemplate="api.schema.DHL"/>
-    
-    <ShipmentGatewayConfigType shipmentGatewayConfTypeId="SHIP_GATEWAY_FEDEX" hasTable="Y" description="Shipment Gateway Fedex"/>
-    <ShipmentGatewayConfig shipmentGatewayConfigId="FEDEX_CONFIG" shipmentGatewayConfTypeId="SHIP_GATEWAY_FEDEX" description="Fedex Config"/>
-    <ShipmentGatewayFedex shipmentGatewayConfigId="FEDEX_CONFIG" connectUrl="https://gatewaybeta.fedex.com/GatewayDC" connectSoapUrl="https://gatewaybeta.fedex.com:443/web-services" connectTimeout="60" labelImageType="PNG" defaultDropoffType="REGULARPICKUP" defaultPackagingType="YOURPACKNG" templateShipment="component://product/template/shipment/FedexShipRequestTemplate.xml.ftl" templateSubscription="component://product/template/shipment/FedexSubscriptionRequestTemplate.xml.ftl" rateEstimateTemplate="component://product/template/shipment/FedexRateEstimateRequestTemplate.xml.ftl"/>
-    
-    <ShipmentGatewayConfigType shipmentGatewayConfTypeId="SHIP_GATEWAY_UPS" hasTable="Y" description="Shipment Gateway UPS"/>
-    <ShipmentGatewayConfig shipmentGatewayConfigId="UPS_CONFIG" shipmentGatewayConfTypeId="SHIP_GATEWAY_UPS" description="UPS Config"/>
-    <ShipmentGatewayUps shipmentGatewayConfigId="UPS_CONFIG" connectUrl="https://wwwcie.ups.com/ups.app/xml" connectTimeout="60" shipperNumber="12345E" billShipperAccountNumber="12345E" accessLicenseNumber="TEST262223144CAT" accessUserId="REG111111" accessPassword="REG111111" saveCertInfo="true" saveCertPath="${sys:getProperty('ofbiz.home')}/runtime/output/upscert" shipperPickupType="06" customerClassification="03" maxEstimateWeight="90" minEstimateWeight="0.1" codAllowCod="true" codSurchargeAmount="9" codSurchargeCurrencyUomId="USD" codSurchargeApplyToPackage="first" codFundsCode="0" defaultReturnLabelMemo="UPS Shipment Return Memo" defaultReturnLabelSubject="UPS Shipment Return Label"/>
-    
-    <ShipmentGatewayConfigType shipmentGatewayConfTypeId="SHIP_GATEWAY_USPS" hasTable="Y" description="Shipment Gateway USPS"/>
-    <ShipmentGatewayConfig shipmentGatewayConfigId="USPS_CONFIG" shipmentGatewayConfTypeId="SHIP_GATEWAY_USPS" description="USPS Config"/>
-    <ShipmentGatewayUsps shipmentGatewayConfigId="USPS_CONFIG" connectUrl="http://production.shippingapis.com/ShippingAPITest.dll" connectUrlLabels="http://production.shippingapis.com/ShippingAPITest.dll" connectTimeout="60" accessUserId="000000000000" accessPassword="999999999999" maxEstimateWeight="70" test="N"/>
-    
     <!-- Shipment Gateway custom methods by type -->
     <CustomMethodType customMethodTypeId="SHIP_EST" hasTable="N" description="Shipment Gateway rate estimate methods"/>
     
-    <CustomMethod customMethodId="SHIP_EST_DHL"      customMethodTypeId="SHIP_EST" customMethodName="dhlRateEstimate"   description="DHL rate estimate"/>
-    <CustomMethod customMethodId="SHIP_EST_FEDEX"    customMethodTypeId="SHIP_EST" customMethodName="fedexRateEstimate" description="FedEx rate estimate"/>
-    <CustomMethod customMethodId="SHIP_EST_UPS"      customMethodTypeId="SHIP_EST" customMethodName="upsRateEstimate"   description="UPS rate estimate"/>
-    <CustomMethod customMethodId="SHIP_EST_USPS"     customMethodTypeId="SHIP_EST" customMethodName="uspsRateInquire"   description="USPS rate estimate"/>
-    <CustomMethod customMethodId="SHIP_EST_USPS_INT" customMethodTypeId="SHIP_EST" customMethodName="uspsInternationalRateInquire"   description="USPS rate estimate international"/>
 
     <Enumeration description="Direct Store Delivery" enumCode="DIRECT_STORE_DELIVRY" enumId="DIRECT_STORE_DELIVRY" sequenceId="01"/>
 </entity-engine-xml>

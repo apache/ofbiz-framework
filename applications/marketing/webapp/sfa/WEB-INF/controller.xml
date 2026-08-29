@@ -145,7 +145,7 @@ under the License.
     </request-map>
     <request-map uri="createLeadFromVCard">
         <security https="true" auth="true"/>
-        <event type="service" invoke="importVCard"/>
+        <event type="service" invoke="createPartyLeadFromVCard"/>
         <response name="success" type="view" value="ViewPartiesCreatedByVCard"/>
         <response name="error" type="view" value="NewLeadFromVCard"/>
     </request-map>
@@ -205,7 +205,7 @@ under the License.
     </request-map>
     <request-map uri="createContactFromVCard">
         <security https="true" auth="true"/>
-        <event type="service" invoke="importVCard"/>
+        <event type="service" invoke="createPartyContactFromVCard"/>
         <response name="success" type="view" value="ViewPartiesCreatedByVCard"/>
         <response name="error" type="view" value="NewContactFromVCard"/>
     </request-map>

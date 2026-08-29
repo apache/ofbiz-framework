@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<api name="TestToolsApi"
+     displayName="Test Tools REST API"
+     path="testtools"
+     description="Generic, component-agnostic REST endpoint to trigger and poll testdef test-suite
+         runs for any component, identified by a componentName URL path parameter."
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/rest-api.xsd">
+
+    <resource name="TestRunResource"
+              path="testruns"
+              displayName="Test Run"
+              description="Trigger and poll a testdef test-suite run for any component."
+              primaryPermission="TESTEXEC"
+              mainAction="ADMIN">
+
+        <operation verb="post" description="Trigger a test suite run for the given component"
+                   path="{componentName}" consumes="application/json">
+            <service name="runTestSuite"/>
+        </operation>
+
+        <operation verb="get" description="Get a test run's status" path="{runId}">
+            <service name="getTestRunStatus"/>
+        </operation>
+
+        <operation verb="post" description="Trigger a batch test-suite run across multiple components"
+                   path="batch" consumes="application/json">
+            <service name="runBatchTestSuite"/>
+        </operation>
+
+        <operation verb="get" description="Get a batch run's status" path="batch/{batchId}">
+            <service name="getBatchTestRunStatus"/>
+        </operation>
+    </resource>
+</api>

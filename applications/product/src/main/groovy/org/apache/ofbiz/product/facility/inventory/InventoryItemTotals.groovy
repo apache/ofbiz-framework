@@ -22,6 +22,7 @@ import org.apache.ofbiz.entity.GenericEntityException
 import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.entity.condition.EntityOperator
 import org.apache.ofbiz.entity.transaction.TransactionUtil
+import org.apache.ofbiz.entity.util.EntityListIterator
 
 action = request.getParameter('action')
 
@@ -38,9 +39,8 @@ if (action) {
     conditions = [EntityCondition.makeCondition('statusId', EntityOperator.NOT_EQUAL, 'INV_DELIVERED')]
     conditions.add(EntityCondition.makeCondition('statusId', EntityOperator.EQUALS, null))
     conditionList = EntityCondition.makeCondition(conditions, EntityOperator.OR)
-    try {
-        beganTransaction = TransactionUtil.begin()
-        invItemListItr = from('InventoryItem').where(conditionList).orderBy('productId').queryIterator()
+    beganTransaction = TransactionUtil.begin()
+    try (EntityListIterator invItemListItr = from('InventoryItem').where(conditionList).orderBy('productId').queryIterator()) {
         while ((inventoryItem = invItemListItr.next()) != null) {
             productId = inventoryItem.productId
             product = from('Product').where('productId', productId).queryOne()
@@ -86,7 +86,6 @@ if (action) {
                 inventoryItemTotals.add(resultMap)
             }
         }
-        invItemListItr.close()
     } catch (GenericEntityException e) {
         errMsg = 'Failure in operation, rolling back transaction'
         logError(e, errMsg)

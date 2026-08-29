@@ -19,8 +19,10 @@
 
 package org.apache.ofbiz.manufacturing.mrp;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -29,6 +31,7 @@ import java.util.ListIterator;
 import java.util.Locale;
 import java.util.Map;
 
+import org.apache.ofbiz.base.util.DateRange;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilGenerics;
@@ -40,6 +43,8 @@ import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.condition.EntityCondition;
 import org.apache.ofbiz.entity.condition.EntityOperator;
+import org.apache.ofbiz.entity.serialize.SerializeException;
+import org.apache.ofbiz.entity.serialize.XmlSerializer;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.entity.util.EntityUtil;
 import org.apache.ofbiz.manufacturing.bom.BOMNode;
@@ -58,6 +63,15 @@ public class MrpServices {
 
     private static final String MODULE = MrpServices.class.getName();
     private static final String RESOURCE = "ManufacturingUiLabels";
+    private static final String MAIN_SUPPLIER_PREF_ORDER_ID = "10_MAIN_SUPPL";
+
+    private static boolean shouldApplyFacilityDaysToShip(String mrpEventTypeId) {
+        return "SALES_ORDER_SHIP".equals(mrpEventTypeId);
+    }
+
+    private static boolean shouldApplySupplierLeadTime(String mrpEventTypeId, boolean isBuilt) {
+        return !isBuilt && "SALES_ORDER_SHIP".equals(mrpEventTypeId);
+    }
 
     public static Map<String, Object> initMrpEvents(DispatchContext ctx, Map<String, ? extends Object> context) {
         Delegator delegator = ctx.getDelegator();
@@ -198,7 +212,8 @@ public class MrpServices {
             }
             parameters = UtilMisc.toMap("mrpId", mrpId, "productId", productId, "eventDate", requiredByDate, "mrpEventTypeId", "SALES_ORDER_SHIP");
             try {
-                InventoryEventPlannedServices.createOrUpdateMrpEvent(parameters, eventQuantityTmp, null,
+                String salesOrderFacilityId = genericResult.getString("facilityId");
+                InventoryEventPlannedServices.createOrUpdateMrpEvent(parameters, eventQuantityTmp, salesOrderFacilityId,
                         genericResult.getString("orderId") + "-" + genericResult.getString("orderItemSeqId"), false, delegator);
             } catch (GenericEntityException e) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpEventProblemInitializing", UtilMisc.toMap(
@@ -230,8 +245,9 @@ public class MrpServices {
 
             parameters = UtilMisc.toMap("mrpId", mrpId, "productId", productId, "eventDate", estimatedShipDate, "mrpEventTypeId", "PROD_REQ_RECP");
             try {
-                InventoryEventPlannedServices.createOrUpdateMrpEvent(parameters, eventQuantityTmp, null, genericResult.getString("requirementId"),
-                        false, delegator);
+                String requirementFacilityId = genericResult.getString("facilityId");
+                InventoryEventPlannedServices.createOrUpdateMrpEvent(parameters, eventQuantityTmp, requirementFacilityId,
+                        genericResult.getString("requirementId"), false, delegator);
             } catch (GenericEntityException e) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpEventProblemInitializing", UtilMisc.toMap(
                         "mrpEventTypeId", "PROD_REQ_RECP"), locale));
@@ -308,7 +324,8 @@ public class MrpServices {
 
                 parameters = UtilMisc.toMap("mrpId", mrpId, "productId", productId, "eventDate", estimatedShipDate, "mrpEventTypeId",
                         "PUR_ORDER_RECP");
-                InventoryEventPlannedServices.createOrUpdateMrpEvent(parameters, shipGroupQuantity, null,
+                String purchaseOrderFacilityId = UtilValidate.isNotEmpty(facilityId) ? facilityId : null;
+                InventoryEventPlannedServices.createOrUpdateMrpEvent(parameters, shipGroupQuantity, purchaseOrderFacilityId,
                         genericResult.getString("orderId") + "-" + genericResult.getString("orderItemSeqId"), false, delegator);
             } catch (GenericEntityException e) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpEventProblemInitializing", UtilMisc.toMap(
@@ -350,7 +367,9 @@ public class MrpServices {
                         "MANUF_ORDER_REQ");
                 String eventName = (UtilValidate.isEmpty(genericResult.getString("workEffortParentId")) ? genericResult.getString("workEffortId")
                         : genericResult.getString("workEffortParentId") + "-" + genericResult.getString("workEffortId"));
-                InventoryEventPlannedServices.createOrUpdateMrpEvent(parameters, eventQuantityTmp, null, eventName, false, delegator);
+                String productionFacilityId = genericResult.getString("facilityId");
+                InventoryEventPlannedServices.createOrUpdateMrpEvent(parameters, eventQuantityTmp, productionFacilityId, eventName, false,
+                        delegator);
             }
         } catch (GenericEntityException e) {
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpEventProblemInitializing", UtilMisc.toMap(
@@ -394,8 +413,9 @@ public class MrpServices {
 
                 parameters = UtilMisc.toMap("mrpId", mrpId, "productId", productId, "eventDate", estimatedShipDate, "mrpEventTypeId",
                         "MANUF_ORDER_RECP");
-                InventoryEventPlannedServices.createOrUpdateMrpEvent(parameters, eventQuantityTmp, null, genericResult.getString("workEffortId"),
-                        false, delegator);
+                String productionFacilityId = genericResult.getString("facilityId");
+                InventoryEventPlannedServices.createOrUpdateMrpEvent(parameters, eventQuantityTmp, productionFacilityId,
+                        genericResult.getString("workEffortId"), false, delegator);
             }
         } catch (GenericEntityException e) {
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpEventProblemInitializing", UtilMisc.toMap(
@@ -436,7 +456,8 @@ public class MrpServices {
             }
             parameters = UtilMisc.toMap("mrpId", mrpId, "productId", productId, "eventDate", now, "mrpEventTypeId", "REQUIRED_MRP");
             try {
-                InventoryEventPlannedServices.createOrUpdateMrpEvent(parameters, BigDecimal.ZERO, null, null, false, delegator);
+                String productFacilityId = genericResult.getString("facilityId");
+                InventoryEventPlannedServices.createOrUpdateMrpEvent(parameters, BigDecimal.ZERO, productFacilityId, null, false, delegator);
             } catch (GenericEntityException e) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpEventProblemInitializing", UtilMisc.toMap(
                         "mrpEventTypeId", "REQUIRED_MRP"), locale));
@@ -536,29 +557,84 @@ public class MrpServices {
             }
         } catch (GenericServiceException e) {
             Debug.logError(e, "Error calling getProductInventoryAvailableByFacility service", MODULE);
-            logMrpError(mrpId, productId, "Unable to count inventory", delegator);
+            logMrpError(mrpId, productId, facilityId, "Unable to count inventory", delegator);
             return BigDecimal.ZERO;
         }
         return ((BigDecimal) resultMap.get("quantityOnHandTotal"));
     }
 
+    private static int getSupplierProductLeadTimeDays(Delegator delegator, String productId, Timestamp effectiveDate)
+            throws GenericEntityException {
+        EntityQuery supplierProductQuery = EntityQuery.use(delegator)
+                .from("SupplierProduct")
+                .where("productId", productId)
+                .orderBy("availableFromDate", "supplierPrefOrderId", "partyId");
+        if (effectiveDate != null) {
+            supplierProductQuery.filterByDate(effectiveDate, "availableFromDate", "availableThruDate");
+        } else {
+            supplierProductQuery.filterByDate();
+        }
+
+        List<GenericValue> supplierProducts = supplierProductQuery.queryList();
+        if (UtilValidate.isEmpty(supplierProducts)) {
+            return 0;
+        }
+        GenericValue fallbackSupplierProduct = null;
+        for (GenericValue supplierProduct : supplierProducts) {
+            BigDecimal standardLeadTimeDays = supplierProduct.getBigDecimal("standardLeadTimeDays");
+            if (UtilValidate.isEmpty(standardLeadTimeDays)) {
+                continue;
+            }
+            if (MAIN_SUPPLIER_PREF_ORDER_ID.equals(supplierProduct.getString("supplierPrefOrderId"))) {
+                return standardLeadTimeDays.intValue();
+            }
+            if (fallbackSupplierProduct == null) {
+                fallbackSupplierProduct = supplierProduct;
+            }
+        }
+
+        return fallbackSupplierProduct != null
+                ? fallbackSupplierProduct.getBigDecimal("standardLeadTimeDays").intValue()
+                : 0;
+    }
+
     public static void logMrpError(String mrpId, String productId, String errorMessage, Delegator delegator) {
-        logMrpError(mrpId, productId, UtilDateTime.nowTimestamp(), errorMessage, delegator);
+        logMrpError(mrpId, productId, null, UtilDateTime.nowTimestamp(), errorMessage, delegator);
+    }
+
+    public static void logMrpError(String mrpId, String productId, String facilityId, String errorMessage, Delegator delegator) {
+        logMrpError(mrpId, productId, facilityId, UtilDateTime.nowTimestamp(), errorMessage, delegator);
     }
 
     public static void logMrpError(String mrpId, String productId, Timestamp eventDate, String errorMessage, Delegator delegator) {
+        logMrpError(mrpId, productId, null, eventDate, errorMessage, delegator);
+    }
+
+    public static void logMrpError(String mrpId, String productId, String facilityId, Timestamp eventDate, String errorMessage,
+            Delegator delegator) {
         try {
             if (UtilValidate.isNotEmpty(productId) && UtilValidate.isNotEmpty(errorMessage)) {
                 GenericValue inventoryEventError = delegator.makeValue("MrpEvent", UtilMisc.toMap("productId", productId,
                         "mrpId", mrpId,
                         "eventDate", eventDate,
                         "mrpEventTypeId", "ERROR",
+                        "facilityId", facilityId,
                         "eventName", errorMessage));
                 delegator.createOrStore(inventoryEventError);
             }
         } catch (GenericEntityException e) {
             Debug.logError(e, "Error calling logMrpError for productId [" + productId + "] and errorMessage [" + errorMessage + "]", MODULE);
         }
+    }
+
+    /**
+     * Returns whether a proposed supply order should be classified as late for the current MRP run.
+     */
+    public static boolean isProposedOrderLate(Timestamp requirementStartDate, Timestamp runStartedAt, GenericValue sourceEvent) {
+        if (sourceEvent != null && "REQUIRED_MRP".equals(sourceEvent.getString("mrpEventTypeId"))) {
+            return false;
+        }
+        return requirementStartDate.compareTo(runStartedAt) < 0;
     }
 
     /**
@@ -573,7 +649,7 @@ public class MrpServices {
      */
 
     public static void processBomComponent(String mrpId, GenericValue product, BigDecimal eventQuantity, Timestamp startDate,
-                                           Map<String, Object> routingTaskStartDate, List<BOMNode> listComponent) {
+                                           Map<String, Object> routingTaskStartDate, List<BOMNode> listComponent, String facilityId) {
         // TODO : change the return type to boolean to be able to test if all is ok or if it have had a exception
         Delegator delegator = product.getDelegator();
 
@@ -592,15 +668,478 @@ public class MrpServices {
                     parameters.put("mrpEventTypeId", "MRP_REQUIREMENT");
                     BigDecimal componentEventQuantity = node.getQuantity();
                     try {
-                        InventoryEventPlannedServices.createOrUpdateMrpEvent(parameters, componentEventQuantity.negate(), null, product.get(
+                        InventoryEventPlannedServices.createOrUpdateMrpEvent(parameters, componentEventQuantity.negate(), facilityId, product.get(
                                 "productId") + ": " + eventDate, false, delegator);
                     } catch (GenericEntityException e) {
                         Debug.logError("Error : findOne(\"MrpEvent\", parameters) =" + parameters + "--" + e.getMessage(), MODULE);
-                        logMrpError(mrpId, node.getProduct().getString("productId"), "Unable to create event (processBomComponent)", delegator);
+                        logMrpError(mrpId, node.getProduct().getString("productId"), facilityId,
+                                "Unable to create event (processBomComponent)", delegator);
                     }
                 }
             }
         }
+    }
+
+    private static String getMrpRunLogIdFromContext(Delegator delegator, Map<String, ? extends Object> context) {
+        String mrpRunLogId = (String) context.get("mrpRunLogId");
+        if (UtilValidate.isNotEmpty(mrpRunLogId)) {
+            return mrpRunLogId;
+        }
+        mrpRunLogId = (String) context.get("jobTrackerId");
+        return UtilValidate.isNotEmpty(mrpRunLogId) ? mrpRunLogId : delegator.getNextSeqId("MrpRunLog");
+    }
+
+    /**
+     * Create queue-time run log and tracker metadata before queueing MRP through executeMrp.
+     */
+    public static Map<String, Object> createMrpRunLogAndTrackerBeforeQueueingMrp(DispatchContext ctx, Map<String, ? extends Object> context) {
+        Delegator delegator = ctx.getDelegator();
+        LocalDispatcher dispatcher = ctx.getDispatcher();
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        Locale locale = (Locale) context.get("locale");
+        Timestamp startedAt = (Timestamp) context.get("startedAt");
+        if (startedAt == null) {
+            startedAt = UtilDateTime.nowTimestamp();
+        }
+        String mrpRunLogId = getMrpRunLogIdFromContext(delegator, context);
+        Map<String, Object> createMrpRunLogContext = new HashMap<>();
+        createMrpRunLogContext.put("mrpRunLogId", mrpRunLogId);
+        createMrpRunLogContext.put("mrpName", UtilValidate.isNotEmpty((String) context.get("mrpName")) ? context.get("mrpName")
+                : UtilProperties.getMessage(RESOURCE, "ManufacturingMrpRunDefaultName", locale));
+        if (UtilValidate.isNotEmpty((String) context.get("facilityId"))) {
+            createMrpRunLogContext.put("facilityId", context.get("facilityId"));
+        }
+        if (UtilValidate.isNotEmpty((String) context.get("facilityGroupId"))) {
+            createMrpRunLogContext.put("facilityGroupId", context.get("facilityGroupId"));
+        }
+        if (context.get("defaultYearsOffset") != null) {
+            createMrpRunLogContext.put("defaultYearsOffset", context.get("defaultYearsOffset"));
+        }
+        if (userLogin != null && UtilValidate.isNotEmpty(userLogin.getString("userLoginId"))) {
+            createMrpRunLogContext.put("runByUserLoginId", userLogin.getString("userLoginId"));
+        }
+        createMrpRunLogContext.put("runStatusId",
+                UtilValidate.isNotEmpty((String) context.get("runStatusId")) ? context.get("runStatusId") : "SERVICE_PENDING");
+        createMrpRunLogContext.put("startedAt", startedAt);
+        createMrpRunLogContext.put("userLogin", userLogin);
+        try {
+            createMrpRunLogContext = ctx.makeValidContext("createMrpRunLog", ModelService.IN_PARAM, createMrpRunLogContext);
+            Map<String, Object> response = dispatcher.runSync("createMrpRunLog", createMrpRunLogContext);
+            if (ServiceUtil.isError(response)) {
+                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(response));
+            }
+            String jobTrackerId = (String) context.get("jobTrackerId");
+            if (mrpRunLogId.equals(jobTrackerId)) {
+                GenericValue existingJobTracker = EntityQuery.use(delegator).from("JobTracker").where("jobTrackerId", mrpRunLogId).queryOne();
+                if (existingJobTracker == null) {
+                    Map<String, Object> trackedParameters = new HashMap<>(context);
+                    trackedParameters.remove("timeZone");
+                    String runtimeDataId = delegator.getNextSeqId("RuntimeData");
+                    delegator.create("RuntimeData", UtilMisc.toMap("runtimeDataId", runtimeDataId,
+                            "runtimeInfo", XmlSerializer.serialize(trackedParameters)));
+
+                    String userLoginId = userLogin != null ? userLogin.getString("userLoginId") : null;
+                    Map<String, Object> createJobTrackerContext = new HashMap<>();
+                    createJobTrackerContext.put("jobTrackerId", mrpRunLogId);
+                    createJobTrackerContext.put("serviceName", "executeMrp");
+                    createJobTrackerContext.put("runtimeDataId", runtimeDataId);
+                    createJobTrackerContext.put("statusId", "JOB_T_SCHEDULED");
+                    createJobTrackerContext.put("jobsTotalQty", 1L);
+                    createJobTrackerContext.put("persistResult", "Y");
+                    if (UtilValidate.isNotEmpty(userLoginId)) {
+                        createJobTrackerContext.put("runAsUser", userLoginId);
+                    }
+                    createJobTrackerContext.put("startDate", startedAt);
+                    createJobTrackerContext.put("createdDate", startedAt);
+                    if (UtilValidate.isNotEmpty(userLoginId)) {
+                        createJobTrackerContext.put("createdByUserLogin", userLoginId);
+                    }
+                    createJobTrackerContext.put("lastModifiedDate", startedAt);
+                    if (UtilValidate.isNotEmpty(userLoginId)) {
+                        createJobTrackerContext.put("lastModifiedByUserLogin", userLoginId);
+                    }
+                    createJobTrackerContext.put("userLogin", userLogin);
+                    createJobTrackerContext = ctx.makeValidContext("createJobTracker", ModelService.IN_PARAM, createJobTrackerContext);
+                    response = dispatcher.runSync("createJobTracker", createJobTrackerContext);
+                    if (ServiceUtil.isError(response)) {
+                        return ServiceUtil.returnError(ServiceUtil.getErrorMessage(response));
+                    }
+                }
+            }
+        } catch (GenericEntityException | GenericServiceException e) {
+            Debug.logError(e, "Unable to create or refresh MrpRunLog [" + mrpRunLogId + "]", MODULE);
+            return ServiceUtil.returnError(e.getMessage());
+        } catch (SerializeException | IOException e) {
+            Debug.logError(e, "Unable to prepare JobTracker for MrpRunLog [" + mrpRunLogId + "]", MODULE);
+            return ServiceUtil.returnError(e.getMessage());
+        }
+        Map<String, Object> result = ServiceUtil.returnSuccess();
+        result.put("mrpRunLogId", mrpRunLogId);
+        return result;
+    }
+
+    /**
+     * Launch executeMrp through generic MRP infrastructure so API and direct callers share durable run tracking.
+     *
+     * MrpRunLog is the execution history record for the MRP run. It stays available even if later MRP events
+     * are re-created or deleted, and it keeps the JobSandbox jobId that shows which persisted async job did
+     * the work. This method starts the lifecycle and executeMrp completes it:
+     * 1. Create MrpRunLog as SERVICE_PENDING, plus RuntimeData and JobTracker for the queued executeMrp job.
+     * 2. Queue executeMrp as persisted async work.
+     * 3. When executeMrp starts, startMrpRunLog marks MrpRunLog as SERVICE_RUNNING.
+     * 4. When executeMrp ends, finishMrpRunLog marks MrpRunLog as SERVICE_FINISHED or SERVICE_FAILED.
+     * 5. If queueing fails and executeMrp never runs, mark MrpRunLog as SERVICE_FAILED.
+     * 6. If queueing succeeds, attach JobSandbox.jobId to MrpRunLog so the run history identifies the job.
+     */
+    public static Map<String, Object> launchMrpRun(DispatchContext ctx, Map<String, ? extends Object> context) {
+        Delegator delegator = ctx.getDelegator();
+        LocalDispatcher dispatcher = ctx.getDispatcher();
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        Locale locale = (Locale) context.get("locale");
+        String facilityId = (String) context.get("facilityId");
+        String facilityGroupId = (String) context.get("facilityGroupId");
+        if (UtilValidate.isEmpty(facilityId) && UtilValidate.isEmpty(facilityGroupId)) {
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpFacilityNotAvailable", locale));
+        }
+        Timestamp queuedAfter = UtilDateTime.nowTimestamp();
+        String mrpRunLogId = delegator.getNextSeqId("MrpRunLog");
+        Map<String, Object> executeMrpContext = new HashMap<>(context);
+        executeMrpContext.put("mrpRunLogId", mrpRunLogId);
+        executeMrpContext.put("jobTrackerId", mrpRunLogId);
+        executeMrpContext.put("userLogin", userLogin);
+
+        try {
+            executeMrpContext = ctx.makeValidContext("executeMrp", ModelService.IN_PARAM, executeMrpContext);
+            // Step 1: create durable pending run metadata before persisted async queueing can reference it.
+            /*
+             * createMrpRunLogAndTrackerBeforeQueueingMrp creates the durable MrpRunLog row and, when jobTrackerId matches,
+             * prepares RuntimeData and JobTracker for the upcoming executeMrp job. It requires a new transaction
+             * because the next step calls dispatcher.runAsync("executeMrp", executeMrpContext, true): persisted async
+             * execution creates a JobSandbox row and may start executeMrp before launchMrpRun commits.
+             * Without createMrpRunLogAndTrackerBeforeQueueingMrp's new-transaction boundary, executeMrp can race
+             * ahead of the metadata rows it needs for durable run tracking.
+             */
+            Map<String, Object> createMrpRunLogAndTrackerBeforeQueueingMrpContext =
+                    ctx.makeValidContext("createMrpRunLogAndTrackerBeforeQueueingMrp", ModelService.IN_PARAM, executeMrpContext);
+            Map<String, Object> createMrpRunLogAndTrackerResponse = dispatcher.runSync("createMrpRunLogAndTrackerBeforeQueueingMrp",
+                    createMrpRunLogAndTrackerBeforeQueueingMrpContext, 60, true);
+            if (ServiceUtil.isError(createMrpRunLogAndTrackerResponse)) {
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpRunLogAndTrackerCreateError",
+                        UtilMisc.toMap("errorString", ServiceUtil.getErrorMessage(createMrpRunLogAndTrackerResponse)), locale));
+            }
+        } catch (GenericServiceException e) {
+            Debug.logError(e, "Unable to create MrpRunLog and tracker before queueing executeMrp", MODULE);
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpRunLogAndTrackerCreateError",
+                    UtilMisc.toMap("errorString", e.getMessage()), locale));
+        }
+
+        try {
+            // Step 2: queue executeMrp as a persisted async job so the long-running MRP work can be tracked.
+            dispatcher.runAsync("executeMrp", executeMrpContext, true);
+            // Steps 3 and 4 happen inside executeMrp when the queued job starts and finishes.
+        } catch (GenericServiceException e) {
+            Timestamp failedAt = UtilDateTime.nowTimestamp();
+            Map<String, Object> updateMrpRunLogContext = UtilMisc.toMap("mrpRunLogId", mrpRunLogId, "runStatusId", "SERVICE_FAILED",
+                    "finishedAt", failedAt, "failureReason", "QUEUE_ERROR", "failureMessage", e.getMessage(), "userLogin", userLogin);
+            try {
+                GenericValue runLog = EntityQuery.use(delegator).from("MrpRunLog").where("mrpRunLogId", mrpRunLogId).queryOne();
+                if (runLog != null && runLog.getTimestamp("startedAt") != null) {
+                    updateMrpRunLogContext.put("durationMillis", new DateRange(runLog.getTimestamp("startedAt"), failedAt).durationInMillis());
+                }
+                // Step 5: record SERVICE_FAILED when executeMrp never starts because async queueing failed.
+                /*
+                 * updateMrpRunLog uses a new transaction to mark the queued MrpRunLog as failed because
+                 * dispatcher.runAsync("executeMrp", ...) failed and executeMrp will not run at all. Because
+                 * finishMrpRunLog only runs inside executeMrp, this update records the queue failure before
+                 * launchMrpRun returns an error.
+                 */
+                updateMrpRunLogContext = ctx.makeValidContext("updateMrpRunLog", ModelService.IN_PARAM, updateMrpRunLogContext);
+                Map<String, Object> updateMrpRunLogResponse = dispatcher.runSync("updateMrpRunLog", updateMrpRunLogContext, 60, true);
+                if (ServiceUtil.isError(updateMrpRunLogResponse)) {
+                    Debug.logWarning("Unable to mark queued MrpRunLog [" + mrpRunLogId + "] failed: "
+                            + ServiceUtil.getErrorMessage(updateMrpRunLogResponse), MODULE);
+                }
+            } catch (GenericEntityException | GenericServiceException updateMrpRunLogException) {
+                Debug.logWarning(updateMrpRunLogException,
+                        "Unable to call updateMrpRunLog to mark queued run failed for [" + mrpRunLogId + "]", MODULE);
+            }
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpJobQueueError",
+                    UtilMisc.toMap("errorString", e.getMessage()), locale));
+        }
+
+        // Step 6: find the persisted async executeMrp JobSandbox row so MrpRunLog records which job did the work.
+        GenericValue queuedJob = findLaunchedMrpJob(delegator, queuedAfter, mrpRunLogId, userLogin);
+        if (queuedJob != null && UtilValidate.isNotEmpty(queuedJob.getString("jobId"))) {
+            Map<String, Object> updateMrpRunLogContext = UtilMisc.toMap("mrpRunLogId", mrpRunLogId, "jobId", queuedJob.getString("jobId"),
+                    "userLogin", userLogin);
+            try {
+                /*
+                 * updateMrpRunLog uses a new transaction so the JobSandbox link is retained even if
+                 * launchMrpRun later fails while reading status or shaping the response.
+                 */
+                updateMrpRunLogContext = ctx.makeValidContext("updateMrpRunLog", ModelService.IN_PARAM, updateMrpRunLogContext);
+                Map<String, Object> updateMrpRunLogResponse = dispatcher.runSync("updateMrpRunLog", updateMrpRunLogContext, 60, true);
+                if (ServiceUtil.isError(updateMrpRunLogResponse)) {
+                    Debug.logWarning("Unable to attach JobSandbox [" + queuedJob.getString("jobId") + "] to MrpRunLog [" + mrpRunLogId + "]: "
+                            + ServiceUtil.getErrorMessage(updateMrpRunLogResponse), MODULE);
+                }
+            } catch (GenericServiceException updateMrpRunLogException) {
+                Debug.logWarning(updateMrpRunLogException, "Unable to call updateMrpRunLog to attach job for [" + mrpRunLogId + "]", MODULE);
+            }
+        }
+        // Return the durable run state that was just queued. Steps 3 and 4 happen later inside executeMrp.
+        Map<String, Object> result = ServiceUtil.returnSuccess();
+        GenericValue runLog = null;
+        try {
+            runLog = EntityQuery.use(delegator).from("MrpRunLog").where("mrpRunLogId", mrpRunLogId).queryOne();
+        } catch (GenericEntityException e) {
+            Debug.logWarning(e, "Unable to read MrpRunLog [" + mrpRunLogId + "] after queueing executeMrp", MODULE);
+        }
+        GenericValue status = null;
+        try {
+            if (runLog != null && UtilValidate.isNotEmpty(runLog.getString("runStatusId"))) {
+                status = EntityQuery.use(delegator).from("StatusItem").where("statusId", runLog.getString("runStatusId")).cache(true).queryOne();
+            }
+        } catch (GenericEntityException e) {
+            Debug.logWarning(e, "Unable to read status for MrpRunLog [" + mrpRunLogId + "]", MODULE);
+        }
+        Map<String, Object> resultFields = new HashMap<>();
+        resultFields.put("runId", mrpRunLogId);
+        resultFields.put("mrpRunLogId", mrpRunLogId);
+        resultFields.put("jobId", runLog != null ? runLog.getString("jobId") : null);
+        resultFields.put("mrpId", runLog != null ? runLog.getString("mrpId") : null);
+        resultFields.put("mrpName", runLog != null ? runLog.getString("mrpName") : context.get("mrpName"));
+        resultFields.put("facilityGroupId", runLog != null ? runLog.getString("facilityGroupId") : context.get("facilityGroupId"));
+        resultFields.put("facilityId", runLog != null ? runLog.getString("facilityId") : context.get("facilityId"));
+        resultFields.put("defaultYearsOffset", runLog != null && runLog.getLong("defaultYearsOffset") != null
+                ? runLog.getLong("defaultYearsOffset").intValue() : context.get("defaultYearsOffset"));
+        resultFields.put("statusId", runLog != null ? runLog.getString("runStatusId") : "SERVICE_PENDING");
+        resultFields.put("statusDescription", status != null ? status.getString("description") : null);
+        resultFields.put("failureReason", runLog != null ? runLog.getString("failureReason") : null);
+        resultFields.put("failureMessage", runLog != null ? runLog.getString("failureMessage") : null);
+        Timestamp startedAt = runLog != null ? runLog.getTimestamp("startedAt") : null;
+        Timestamp finishedAt = runLog != null ? runLog.getTimestamp("finishedAt") : null;
+        Long durationMillis = runLog != null ? runLog.getLong("durationMillis") : null;
+        if (durationMillis == null && startedAt != null && finishedAt != null) {
+            durationMillis = new DateRange(startedAt, finishedAt).durationInMillis();
+        }
+        resultFields.put("runTime", durationMillis != null ? Duration.ofMillis(durationMillis).toString() : null);
+        resultFields.put("durationMillis", durationMillis);
+        resultFields.put("startDateTime", startedAt);
+        resultFields.put("finishDateTime", finishedAt);
+        resultFields.put("runAsUser", runLog != null ? runLog.getString("runByUserLoginId") : null);
+        result.putAll(resultFields);
+        return result;
+    }
+
+    private static GenericValue findLaunchedMrpJob(Delegator delegator, Timestamp queuedAfter, String jobTrackerId, GenericValue userLogin) {
+        List<EntityCondition> conditions = new ArrayList<>();
+        conditions.add(EntityCondition.makeCondition("serviceName", "executeMrp"));
+        if (UtilValidate.isNotEmpty(jobTrackerId)) {
+            conditions.add(EntityCondition.makeCondition("jobTrackerId", jobTrackerId));
+        } else if (queuedAfter != null) {
+            conditions.add(EntityCondition.makeCondition("createdStamp", EntityOperator.GREATER_THAN_EQUAL_TO, queuedAfter));
+        }
+        if (userLogin != null && UtilValidate.isNotEmpty(userLogin.getString("userLoginId"))) {
+            conditions.add(EntityCondition.makeCondition("authUserLoginId", userLogin.getString("userLoginId")));
+        }
+        try {
+            return EntityQuery.use(delegator).from("JobSandbox")
+                    .where(EntityCondition.makeCondition(conditions, EntityOperator.AND))
+                    .orderBy("-createdStamp")
+                    .queryFirst();
+        } catch (GenericEntityException e) {
+            Debug.logWarning(e, "Unable to find queued executeMrp JobSandbox for MrpRunLog [" + jobTrackerId + "]", MODULE);
+            return null;
+        }
+    }
+
+    private static String startMrpRunLog(DispatchContext ctx, Map<String, ? extends Object> context, GenericValue userLogin, String mrpRunLogId,
+                                         Timestamp startedAt) {
+        if (UtilValidate.isEmpty(mrpRunLogId)) {
+            return null;
+        }
+        LocalDispatcher dispatcher = ctx.getDispatcher();
+        Delegator delegator = ctx.getDelegator();
+        try {
+            GenericValue existingMrpRunLog = EntityQuery.use(delegator).from("MrpRunLog").where("mrpRunLogId", mrpRunLogId).queryOne();
+            if (existingMrpRunLog == null) {
+                Map<String, Object> createParameters = new HashMap<>();
+                createParameters.put("mrpRunLogId", mrpRunLogId);
+                createParameters.put("mrpName", context.get("mrpName"));
+                createParameters.put("facilityId", context.get("facilityId"));
+                createParameters.put("facilityGroupId", context.get("facilityGroupId"));
+                createParameters.put("defaultYearsOffset", context.get("defaultYearsOffset"));
+                createParameters.put("runStatusId", "SERVICE_RUNNING");
+                createParameters.put("startedAt", startedAt);
+                createParameters.put("userLogin", userLogin);
+                Map<String, Object> createResponse = dispatcher.runSync("createMrpRunLogAndTrackerBeforeQueueingMrp", createParameters, 60, true);
+                if (ServiceUtil.isError(createResponse)) {
+                    Debug.logWarning("Unable to create MrpRunLog [" + mrpRunLogId + "]: " + ServiceUtil.getErrorMessage(createResponse), MODULE);
+                } else {
+                    return mrpRunLogId;
+                }
+            }
+        } catch (GenericEntityException e) {
+            Debug.logWarning(e, "Unable to query MrpRunLog [" + mrpRunLogId + "] before starting", MODULE);
+        } catch (GenericServiceException e) {
+            Debug.logWarning(e, "Unable to call createMrpRunLog for [" + mrpRunLogId + "]", MODULE);
+        }
+        Map<String, Object> updateMrpRunLogContext = UtilMisc.toMap("mrpRunLogId", mrpRunLogId, "runStatusId", "SERVICE_RUNNING",
+                "startedAt", startedAt, "userLogin", userLogin);
+        try {
+            /*
+             * updateMrpRunLog uses a new transaction so executeMrp records that the durable run log started,
+             * even if later MRP processing fails and executeMrp returns an error.
+             */
+            Map<String, Object> updateMrpRunLogResponse = dispatcher.runSync("updateMrpRunLog", updateMrpRunLogContext, 60, true);
+            if (ServiceUtil.isError(updateMrpRunLogResponse)) {
+                Debug.logWarning("Unable to mark as running MrpRunLog [" + mrpRunLogId + "]: "
+                        + ServiceUtil.getErrorMessage(updateMrpRunLogResponse), MODULE);
+            }
+        } catch (GenericServiceException e) {
+            Debug.logWarning(e, "Unable to call updateMrpRunLog to mark as running [" + mrpRunLogId + "]", MODULE);
+        }
+        String jobTrackerId = (String) context.get("jobTrackerId");
+        if (UtilValidate.isNotEmpty(jobTrackerId)) {
+            try {
+                GenericValue jobTracker = EntityQuery.use(delegator).from("JobTracker").where("jobTrackerId", jobTrackerId).queryOne();
+                if (jobTracker != null && "JOB_T_SCHEDULED".equals(jobTracker.getString("statusId"))) {
+                    Map<String, Object> updateJobTrackerContext = UtilMisc.toMap("jobTrackerId", jobTrackerId, "statusId", "JOB_T_RUNNING",
+                            "startDate", startedAt, "userLogin", userLogin);
+                    /*
+                     * updateJobTracker uses a new transaction because executeMrp is the queued service that moves the
+                     * durable MRP job from scheduled to running. If executeMrp later fails and rolls back, the service
+                     * engine still needs the committed JOB_T_RUNNING state so it can complete the tracker with OFBiz's
+                     * valid JOB_T_RUNNING to JOB_T_FINISHED or JOB_T_FAILED transition.
+                     */
+                    Map<String, Object> updateJobTrackerResponse = dispatcher.runSync("updateJobTracker", updateJobTrackerContext, 60, true);
+                    if (ServiceUtil.isError(updateJobTrackerResponse)) {
+                        Debug.logWarning("Unable to mark JobTracker [" + jobTrackerId + "] as running for MrpRunLog [" + mrpRunLogId + "]: "
+                                + ServiceUtil.getErrorMessage(updateJobTrackerResponse), MODULE);
+                    }
+                }
+            } catch (GenericEntityException e) {
+                Debug.logWarning(e, "Unable to query JobTracker [" + jobTrackerId + "] before starting MrpRunLog [" + mrpRunLogId + "]", MODULE);
+            } catch (GenericServiceException e) {
+                Debug.logWarning(e, "Unable to call updateJobTracker to mark as running [" + jobTrackerId + "]", MODULE);
+            }
+        }
+        return mrpRunLogId;
+    }
+
+    private static String failureReasonFromResult(Map<String, Object> result) {
+        return ServiceUtil.isError(result) ? "SERVICE_ERROR" : null;
+    }
+
+    private static String failureReasonFromException(RuntimeException e) {
+        return "RUNTIME_EXCEPTION";
+    }
+
+    private static String cleanFailureMessage(Map<String, Object> result) {
+        return conciseFailureMessage(ServiceUtil.getErrorMessage(result));
+    }
+
+    private static String cleanFailureMessage(RuntimeException e) {
+        String errorMessage = e.getMessage();
+        return conciseFailureMessage(UtilValidate.isNotEmpty(errorMessage) ? errorMessage : e.toString());
+    }
+
+    private static String conciseFailureMessage(String errorMessage) {
+        if (UtilValidate.isEmpty(errorMessage)) {
+            return null;
+        }
+        String cleanedMessage = errorMessage.replaceAll("\\s+", " ").trim();
+        // Keep only the user-facing failure summary in MrpRunLog, not serialized debug payloads such as "{key=value}".
+        cleanedMessage = stripTrailingSerializedMap(cleanedMessage);
+        return UtilValidate.isNotEmpty(cleanedMessage) ? cleanedMessage : null;
+    }
+
+    private static String stripTrailingSerializedMap(String errorMessage) {
+        int mapStart = errorMessage.lastIndexOf('{');
+        if (mapStart < 0 || !errorMessage.endsWith("}")) {
+            return errorMessage;
+        }
+        String trailingValue = errorMessage.substring(mapStart);
+        if (!trailingValue.contains("=")) {
+            return errorMessage;
+        }
+        String prefix = errorMessage.substring(0, mapStart).trim();
+        while (!prefix.isEmpty() && ",;:".indexOf(prefix.charAt(prefix.length() - 1)) >= 0) {
+            prefix = prefix.substring(0, prefix.length() - 1).trim();
+        }
+        return prefix;
+    }
+
+    private static Long countMrpEventsForRun(Delegator delegator, String mrpId) {
+        if (UtilValidate.isEmpty(mrpId)) {
+            return null;
+        }
+        try {
+            return EntityQuery.use(delegator).from("MrpEvent").where("mrpId", mrpId).queryCount();
+        } catch (GenericEntityException e) {
+            Debug.logWarning(e, "Unable to count MrpEvent rows for mrpId [" + mrpId + "]", MODULE);
+            return null;
+        }
+    }
+
+    private static String buildOutcomeMessage(Long mrpEventCount, long proposedRequirementCount, Locale locale) {
+        if (mrpEventCount == null) {
+            return null;
+        }
+        return UtilProperties.getMessage(RESOURCE, "ManufacturingMrpRunOutcomeSummary",
+                UtilMisc.toMap("mrpEventCount", mrpEventCount, "proposedRequirementCount", proposedRequirementCount), locale);
+    }
+
+    private static Map<String, Object> finishMrpRunLog(LocalDispatcher dispatcher, GenericValue userLogin, String mrpRunLogId, Timestamp startedAt,
+                                                       String mrpId, String failureReason, String failureMessage, Long mrpEventCount,
+                                                       Long proposedRequirementCount, String outcomeMessage, Map<String, Object> result) {
+        if (UtilValidate.isEmpty(mrpRunLogId)) {
+            return result;
+        }
+        Timestamp finishedAt = UtilDateTime.nowTimestamp();
+        String statusId = ServiceUtil.isError(result) ? "SERVICE_FAILED" : "SERVICE_FINISHED";
+        try {
+            Map<String, Object> parameters = UtilMisc.toMap("mrpRunLogId", mrpRunLogId, "runStatusId", statusId, "startedAt", startedAt,
+                    "finishedAt", finishedAt, "userLogin", userLogin);
+            if (UtilValidate.isNotEmpty(mrpId)) {
+                parameters.put("mrpId", mrpId);
+            }
+            if (UtilValidate.isNotEmpty(failureReason)) {
+                parameters.put("failureReason", failureReason);
+            }
+            if (UtilValidate.isNotEmpty(failureMessage)) {
+                parameters.put("failureMessage", failureMessage);
+            }
+            if (!ServiceUtil.isError(result)) {
+                parameters.put("failureReason", null);
+                parameters.put("failureMessage", null);
+                parameters.put("mrpEventCount", mrpEventCount);
+                parameters.put("proposedRequirementCount", proposedRequirementCount);
+                parameters.put("outcomeMessage", outcomeMessage);
+            } else {
+                parameters.put("mrpEventCount", null);
+                parameters.put("proposedRequirementCount", null);
+                parameters.put("outcomeMessage", outcomeMessage);
+            }
+            if (startedAt != null && finishedAt != null) {
+                parameters.put("durationMillis", new DateRange(startedAt, finishedAt).durationInMillis());
+            }
+            /*
+             * updateMrpRunLog uses a new transaction so executeMrp preserves the final run status and counts,
+             * even when executeMrp returns an error result that rolls back the MRP processing transaction.
+             */
+            Map<String, Object> updateMrpRunLogResponse = dispatcher.runSync("updateMrpRunLog", parameters, 60, true);
+            if (ServiceUtil.isError(updateMrpRunLogResponse)) {
+                Debug.logWarning("Unable to finish MrpRunLog [" + mrpRunLogId + "]: "
+                        + ServiceUtil.getErrorMessage(updateMrpRunLogResponse), MODULE);
+            }
+        } catch (RuntimeException e) {
+            Debug.logWarning(e, "Unable to prepare MrpRunLog finish parameters for [" + mrpRunLogId + "]", MODULE);
+        } catch (GenericServiceException e) {
+            Debug.logWarning(e, "Unable to call updateMrpRunLog to finish [" + mrpRunLogId + "]", MODULE);
+        }
+        return result;
     }
 
     /**
@@ -621,278 +1160,353 @@ public class MrpServices {
         LocalDispatcher dispatcher = ctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Timestamp now = UtilDateTime.nowTimestamp();
+        String mrpRunLogId = getMrpRunLogIdFromContext(delegator, context);
+        mrpRunLogId = startMrpRunLog(ctx, context, userLogin, mrpRunLogId, now);
         Locale locale = (Locale) context.get("locale");
         String mrpName = (String) context.get("mrpName");
         Integer defaultYearsOffset = (Integer) context.get("defaultYearsOffset");
         String facilityGroupId = (String) context.get("facilityGroupId");
         String facilityId = (String) context.get("facilityId");
         String manufacturingFacilityId = null;
-        if (UtilValidate.isEmpty(facilityId) && UtilValidate.isEmpty(facilityGroupId)) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpFacilityNotAvailable", locale));
-        }
-        if (UtilValidate.isEmpty(facilityId)) {
-            try {
-                GenericValue facilityGroup = EntityQuery.use(delegator).from("FacilityGroup").where("facilityGroupId", facilityGroupId).queryOne();
-                if (UtilValidate.isEmpty(facilityGroup)) {
-                    return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpFacilityGroupIsNotValid", UtilMisc.toMap(
-                            "facilityGroupId", facilityGroupId), locale));
-                }
-                List<GenericValue> facilities = facilityGroup.getRelated("FacilityGroupMember", null, UtilMisc.toList("sequenceNum"), false);
-                if (UtilValidate.isEmpty(facilities)) {
-                    return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpFacilityGroupIsNotAssociatedToFacility",
-                            UtilMisc.toMap("facilityGroupId", facilityGroupId), locale));
-                }
-                for (GenericValue facilityMember : facilities) {
-                    GenericValue facility = facilityMember.getRelatedOne("Facility", false);
-                    if ("WAREHOUSE".equals(facility.getString("facilityTypeId")) && UtilValidate.isEmpty(facilityId)) {
-                        facilityId = facility.getString("facilityId");
-                    }
-                    if ("PLANT".equals(facility.getString("facilityTypeId")) && UtilValidate.isEmpty(manufacturingFacilityId)) {
-                        manufacturingFacilityId = facility.getString("facilityId");
-                    }
-                }
-            } catch (GenericEntityException e) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpFacilityGroupCannotBeLoad", UtilMisc.toMap(
-                        "errorString", e.getMessage()), locale));
-            }
-        } else {
-            manufacturingFacilityId = facilityId;
-        }
-
-        if (UtilValidate.isEmpty(facilityId) || UtilValidate.isEmpty(manufacturingFacilityId)) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpFacilityOrManufacturingFacilityNotAvailable",
-                    locale));
-        }
-
-        int bomLevelWithNoEvent = 0;
-        BigDecimal stockTmp = BigDecimal.ZERO;
-        String oldProductId = null;
-        String productId = null;
-        GenericValue product = null;
-        GenericValue productFacility = null;
-        BigDecimal eventQuantity = BigDecimal.ZERO;
-        Timestamp eventDate = null;
-        BigDecimal reorderQuantity = BigDecimal.ZERO;
-        BigDecimal minimumStock = BigDecimal.ZERO;
-        int daysToShip = 0;
-        List<BOMNode> components = null;
-        boolean isBuilt = false;
-        GenericValue routing = null;
-
-        String mrpId = delegator.getNextSeqId("MrpEvent");
-
-        Map<String, Object> result = null;
-        Map<String, Object> parameters = null;
-        List<GenericValue> listInventoryEventForMRP = null;
-        ListIterator<GenericValue> iteratorListInventoryEventForMRP = null;
-
-        // Initialization of the MrpEvent table, This table will contain the products we want to buy or build.
-        parameters = UtilMisc.<String, Object>toMap("mrpId", mrpId, "reInitialize", Boolean.TRUE, "defaultYearsOffset", defaultYearsOffset,
-                "userLogin", userLogin);
-        parameters.put("facilityId", facilityId);
-        parameters.put("manufacturingFacilityId", manufacturingFacilityId);
+        String mrpId = null;
+        long proposedRequirementCount = 0;
         try {
-            result = dispatcher.runSync("initMrpEvents", parameters);
-            if (ServiceUtil.isError(result)) {
-                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result));
+            if (UtilValidate.isEmpty(facilityId) && UtilValidate.isEmpty(facilityGroupId)) {
+                Map<String, Object> errorResult = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpFacilityNotAvailable",
+                        locale));
+                return finishMrpRunLog(dispatcher, userLogin, mrpRunLogId, now, mrpId, failureReasonFromResult(errorResult),
+                        cleanFailureMessage(errorResult), null, null, null, errorResult);
             }
-        } catch (GenericServiceException e) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpErrorRunningInitMrpEvents", UtilMisc.toMap(
-                    "errorString", e.getMessage()), locale));
-        }
-        long bomLevel = 0;
-        do {
-            // Find all products in MrpEventView, ordered by bom and eventDate
-            EntityCondition filterByConditions = null;
-            if (bomLevel == 0) {
-                filterByConditions = EntityCondition.makeCondition(EntityCondition.makeCondition("billOfMaterialLevel", EntityOperator.EQUALS, null),
-                        EntityOperator.OR,
-                        EntityCondition.makeCondition("billOfMaterialLevel", EntityOperator.EQUALS, bomLevel));
-            } else {
-                filterByConditions = EntityCondition.makeCondition("billOfMaterialLevel", EntityOperator.EQUALS, bomLevel);
-            }
-            try {
-                listInventoryEventForMRP = EntityQuery.use(delegator).from("MrpEventView")
-                        .where(filterByConditions)
-                        .orderBy("productId", "eventDate")
-                        .queryList();
-            } catch (GenericEntityException e) {
-                Long bomLevelToString = bomLevel;
-                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpErrorForBomLevel", UtilMisc.toMap("bomLevel",
-                        bomLevelToString.toString(), "errorString", e.getMessage()), locale));
-            }
-
-            if (UtilValidate.isNotEmpty(listInventoryEventForMRP)) {
-                bomLevelWithNoEvent = 0;
-
-                oldProductId = "";
-                int eventCount = 0;
-                for (GenericValue inventoryEventForMRP : listInventoryEventForMRP) {
-                    eventCount++;
-
-                    productId = inventoryEventForMRP.getString("productId");
-                    boolean isLastEvent = (eventCount == listInventoryEventForMRP.size()
-                            || !productId.equals(listInventoryEventForMRP.get(eventCount).getString("productId")));
-                    eventQuantity = inventoryEventForMRP.getBigDecimal("quantity");
-
-                    if (!productId.equals(oldProductId)) {
-                        BigDecimal positiveEventQuantity = eventQuantity.compareTo(BigDecimal.ZERO) > 0 ? eventQuantity : eventQuantity.negate();
-                        // It's a new product, so it's necessary to  read the MrpQoh
-                        try {
-                            product = inventoryEventForMRP.getRelatedOne("Product", true);
-                            productFacility = EntityUtil.getFirst(product.getRelated("ProductFacility", UtilMisc.toMap("facilityId", facilityId),
-                                    null, true));
-                        } catch (GenericEntityException e) {
-                            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpCannotFindProductForEvent", locale));
-                        }
-                        stockTmp = findProductMrpQoh(mrpId, product, facilityId, dispatcher, delegator);
-                        try {
-                            InventoryEventPlannedServices.createOrUpdateMrpEvent(UtilMisc.<String, Object>toMap("mrpId", mrpId,
-                                    "productId", product.getString("productId"),
-                                    "mrpEventTypeId", "INITIAL_QOH", "eventDate", now),
-                                    stockTmp, facilityId, null, false, delegator);
-                        } catch (GenericEntityException e) {
-                            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpCreateOrUpdateEvent",
-                                    UtilMisc.toMap("parameters", parameters), locale));
-                        }
-                        // days to ship is only relevant for sales order to plan for preparatory days to ship.  Otherwise MRP will push event dates
-                        // for manufacturing parts
-                        // as well and cause problems
-                        daysToShip = 0;
-                        if (productFacility != null) {
-                            reorderQuantity = (productFacility.getBigDecimal("reorderQuantity") != null ? productFacility.getBigDecimal(
-                                    "reorderQuantity") : BigDecimal.ONE.negate());
-                            minimumStock = (productFacility.getBigDecimal("minimumStock") != null ? productFacility.getBigDecimal("minimumStock")
-                                    : BigDecimal.ZERO);
-                            if ("SALES_ORDER_SHIP".equals(inventoryEventForMRP.getString("mrpEventTypeId"))) {
-                                daysToShip = (productFacility.getLong("daysToShip") != null ? productFacility.getLong("daysToShip").intValue() : 0);
-                            }
-                        } else {
-                            minimumStock = BigDecimal.ZERO;
-                            reorderQuantity = BigDecimal.ONE.negate();
-                        }
-                        // -----------------------------------------------------
-                        // The components are also loaded thru the configurator
-                        Map<String, Object> serviceResponse = null;
-                        try {
-                            serviceResponse = dispatcher.runSync("getManufacturingComponents", UtilMisc.<String, Object>toMap("productId",
-                                    product.getString("productId"), "quantity", positiveEventQuantity, "excludeWIPs", Boolean.FALSE, "userLogin",
-                                    userLogin));
-                            if (ServiceUtil.isError(serviceResponse)) {
-                                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResponse));
-                            }
-                        } catch (GenericServiceException e) {
-                            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpErrorExplodingProduct",
-                                    UtilMisc.toMap("productId", product.getString("productId")), locale));
-                        }
-                        components = UtilGenerics.cast(serviceResponse.get("components"));
-                        if (UtilValidate.isNotEmpty(components)) {
-                            BOMNode node = (components.get(0)).getParentNode();
-                            isBuilt = node.isManufactured();
-                        } else {
-                            isBuilt = false;
-                        }
-                        // #####################################################
-
-                        oldProductId = productId;
+            if (UtilValidate.isEmpty(facilityId)) {
+                try {
+                    GenericValue facilityGroup = EntityQuery.use(delegator)
+                            .from("FacilityGroup")
+                            .where("facilityGroupId", facilityGroupId)
+                            .queryOne();
+                    if (UtilValidate.isEmpty(facilityGroup)) {
+                        Map<String, Object> errorResult = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
+                                "ManufacturingMrpFacilityGroupIsNotValid", UtilMisc.toMap("facilityGroupId", facilityGroupId), locale));
+                        return finishMrpRunLog(dispatcher, userLogin, mrpRunLogId, now, mrpId, failureReasonFromResult(errorResult),
+                                cleanFailureMessage(errorResult), null, null, null, errorResult);
                     }
-
-                    stockTmp = stockTmp.add(eventQuantity);
-                    if (stockTmp.compareTo(minimumStock) < 0 && (eventQuantity.compareTo(BigDecimal.ZERO) < 0 || isLastEvent)) { // No need to
-                        // create a supply event/requirement if the current event is not a demand and there are other events to process
-                        BigDecimal qtyToStock = minimumStock.subtract(stockTmp);
-                        //need to buy or build the product as we have not enough stock
-                        eventDate = inventoryEventForMRP.getTimestamp("eventDate");
-                        // to be just before the requirement
-                        eventDate.setTime(eventDate.getTime() - 1);
-                        ProposedOrder proposedOrder = new ProposedOrder(product, facilityId, manufacturingFacilityId, isBuilt, eventDate, qtyToStock);
-                        proposedOrder.setMrpName(mrpName);
-                        // calculate the ProposedOrder quantity and update the quantity object property.
-                        proposedOrder.calculateQuantityToSupply(reorderQuantity, minimumStock, iteratorListInventoryEventForMRP);
-
-                        // -----------------------------------------------------
-                        // The components are also loaded thru the configurator
-                        Map<String, Object> serviceResponse = null;
-                        try {
-                            serviceResponse = dispatcher.runSync("getManufacturingComponents", UtilMisc.<String, Object>toMap("productId",
-                                    product.getString("productId"), "quantity", proposedOrder.getQuantity(), "excludeWIPs", Boolean.FALSE,
-                                    "userLogin", userLogin));
-                            if (ServiceUtil.isError(serviceResponse)) {
-                                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResponse));
-                            }
-                        } catch (GenericServiceException e) {
-                            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpErrorExplodingProduct",
-                                    UtilMisc.toMap("productId", product.getString("productId")), locale));
-                        }
-                        components = UtilGenerics.cast(serviceResponse.get("components"));
-                        String routingId = (String) serviceResponse.get("workEffortId");
-                        if (routingId != null) {
-                            try {
-                                routing = EntityQuery.use(delegator).from("WorkEffort").where("workEffortId", routingId).queryOne();
-                            } catch (GenericEntityException e) {
-                                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpCannotFindProductForEvent",
-                                        locale));
-                            }
-                        } else {
-                            routing = null;
-                        }
-                        if (UtilValidate.isNotEmpty(components)) {
-                            BOMNode node = (components.get(0)).getParentNode();
-                            isBuilt = node.isManufactured();
-                        } else {
-                            isBuilt = false;
-                        }
-                        // #####################################################
-
-                        // calculate the ProposedOrder requirementStartDate and update the requirementStartDate object property.
-                        Map<String, Object> routingTaskStartDate = proposedOrder.calculateStartDate(daysToShip, routing, delegator, dispatcher,
-                                userLogin);
-                        if (isBuilt) {
-                            // process the product components
-                            processBomComponent(mrpId, product, proposedOrder.getQuantity(), proposedOrder.getRequirementStartDate(),
-                                    routingTaskStartDate, components);
-                        }
-                        // create the  ProposedOrder (only if the product is warehouse managed), and the MrpEvent associated
-                        String requirementId = null;
-                        if (productFacility != null) {
-                            requirementId = proposedOrder.create(ctx, userLogin);
-                        }
-                        if (UtilValidate.isEmpty(productFacility) && !isBuilt) {
-                            logMrpError(mrpId, productId, now, "No ProductFacility record for [" + facilityId + "]; no requirement created.",
-                                    delegator);
-                        }
-                        String eventName = null;
-                        if (UtilValidate.isNotEmpty(requirementId)) {
-                            eventName = "*" + requirementId + " (" + proposedOrder.getRequirementStartDate() + ")*";
-                        }
-                        Map<String, Object> eventMap = UtilMisc.<String, Object>toMap("productId", product.getString("productId"),
-                                "mrpId", mrpId,
-                                "eventDate", eventDate,
-                                "mrpEventTypeId", (isBuilt ? "PROP_MANUF_O_RECP" : "PROP_PUR_O_RECP"));
-                        try {
-                            InventoryEventPlannedServices.createOrUpdateMrpEvent(eventMap, proposedOrder.getQuantity(), null,
-                                    eventName, (proposedOrder.getRequirementStartDate().compareTo(now) < 0), delegator);
-                        } catch (GenericEntityException e) {
-                            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingMrpCreateOrUpdateEvent",
-                                    UtilMisc.toMap("parameters", parameters), locale));
-                        }
-                        //
-                        stockTmp = stockTmp.add(proposedOrder.getQuantity());
+                    List<GenericValue> facilities = facilityGroup.getRelated("FacilityGroupMember", null, UtilMisc.toList("sequenceNum"), false);
+                    if (UtilValidate.isEmpty(facilities)) {
+                        Map<String, Object> errorResult = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
+                                "ManufacturingMrpFacilityGroupIsNotAssociatedToFacility",
+                                UtilMisc.toMap("facilityGroupId", facilityGroupId), locale));
+                        return finishMrpRunLog(dispatcher, userLogin, mrpRunLogId, now, mrpId, failureReasonFromResult(errorResult),
+                                cleanFailureMessage(errorResult), null, null, null, errorResult);
                     }
+                    for (GenericValue facilityMember : facilities) {
+                        GenericValue facility = facilityMember.getRelatedOne("Facility", false);
+                        if ("WAREHOUSE".equals(facility.getString("facilityTypeId")) && UtilValidate.isEmpty(facilityId)) {
+                            facilityId = facility.getString("facilityId");
+                        }
+                        if ("PLANT".equals(facility.getString("facilityTypeId")) && UtilValidate.isEmpty(manufacturingFacilityId)) {
+                            manufacturingFacilityId = facility.getString("facilityId");
+                        }
+                    }
+                } catch (GenericEntityException e) {
+                    Map<String, Object> errorResult = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
+                            "ManufacturingMrpFacilityGroupCannotBeLoad", UtilMisc.toMap("errorString", e.getMessage()), locale));
+                    return finishMrpRunLog(dispatcher, userLogin, mrpRunLogId, now, mrpId, failureReasonFromResult(errorResult),
+                            cleanFailureMessage(errorResult), null, null, null, errorResult);
                 }
             } else {
-                bomLevelWithNoEvent += 1;
+                manufacturingFacilityId = facilityId;
             }
 
-            bomLevel += 1;
-            // if there are 3 levels with no inventoryEvenPanned we stop
-        } while (bomLevelWithNoEvent < 3);
+            if (UtilValidate.isEmpty(facilityId) || UtilValidate.isEmpty(manufacturingFacilityId)) {
+                Map<String, Object> errorResult = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
+                        "ManufacturingMrpFacilityOrManufacturingFacilityNotAvailable", locale));
+                return finishMrpRunLog(dispatcher, userLogin, mrpRunLogId, now, mrpId, failureReasonFromResult(errorResult),
+                        cleanFailureMessage(errorResult), null, null, null, errorResult);
+            }
 
-        result = new HashMap<>();
-        List<Object> msgResult = new LinkedList<>();
-        result.put("msgResult", msgResult);
-        result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
-        Debug.logInfo("return from executeMrp", MODULE);
-        return result;
+            int bomLevelWithNoEvent = 0;
+            BigDecimal stockTmp = BigDecimal.ZERO;
+            String oldProductId = null;
+            String productId = null;
+            GenericValue product = null;
+            GenericValue productFacility = null;
+            BigDecimal eventQuantity = BigDecimal.ZERO;
+            Timestamp eventDate = null;
+            BigDecimal reorderQuantity = BigDecimal.ZERO;
+            BigDecimal minimumStock = BigDecimal.ZERO;
+            List<BOMNode> components = null;
+            boolean isBuilt = false;
+            GenericValue routing = null;
+
+            mrpId = delegator.getNextSeqId("MrpEvent");
+
+            Map<String, Object> result = null;
+            Map<String, Object> parameters = null;
+            List<GenericValue> listInventoryEventForMRP = null;
+            ListIterator<GenericValue> iteratorListInventoryEventForMRP = null;
+
+            // Initialization of the MrpEvent table, This table will contain the products we want to buy or build.
+            parameters = UtilMisc.<String, Object>toMap("mrpId", mrpId, "reInitialize", Boolean.TRUE, "defaultYearsOffset", defaultYearsOffset,
+                    "userLogin", userLogin);
+            parameters.put("facilityId", facilityId);
+            parameters.put("manufacturingFacilityId", manufacturingFacilityId);
+            try {
+                result = dispatcher.runSync("initMrpEvents", parameters);
+                if (ServiceUtil.isError(result)) {
+                    Map<String, Object> errorResult = ServiceUtil.returnError(ServiceUtil.getErrorMessage(result));
+                    return finishMrpRunLog(dispatcher, userLogin, mrpRunLogId, now, mrpId, failureReasonFromResult(errorResult),
+                            cleanFailureMessage(errorResult), null, null, null, errorResult);
+                }
+            } catch (GenericServiceException e) {
+                Map<String, Object> errorResult = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
+                        "ManufacturingMrpErrorRunningInitMrpEvents", UtilMisc.toMap("errorString", e.getMessage()), locale));
+                return finishMrpRunLog(dispatcher, userLogin, mrpRunLogId, now, mrpId, failureReasonFromResult(errorResult),
+                        cleanFailureMessage(errorResult), null, null, null, errorResult);
+            }
+            long bomLevel = 0;
+            do {
+                // Find all products in MrpEventView, ordered by bom and eventDate
+                EntityCondition filterByConditions = null;
+                if (bomLevel == 0) {
+                    filterByConditions = EntityCondition.makeCondition(
+                            EntityCondition.makeCondition("billOfMaterialLevel", EntityOperator.EQUALS, null),
+                            EntityOperator.OR,
+                            EntityCondition.makeCondition("billOfMaterialLevel", EntityOperator.EQUALS, bomLevel));
+                } else {
+                    filterByConditions = EntityCondition.makeCondition("billOfMaterialLevel", EntityOperator.EQUALS, bomLevel);
+                }
+                try {
+                    listInventoryEventForMRP = EntityQuery.use(delegator).from("MrpEventView")
+                            .where(filterByConditions)
+                            .orderBy("productId", "eventDate")
+                            .queryList();
+                } catch (GenericEntityException e) {
+                    Long bomLevelToString = bomLevel;
+                    Map<String, Object> errorResult = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
+                            "ManufacturingMrpErrorForBomLevel",
+                            UtilMisc.toMap("bomLevel", bomLevelToString.toString(), "errorString", e.getMessage()), locale));
+                    return finishMrpRunLog(dispatcher, userLogin, mrpRunLogId, now, mrpId, failureReasonFromResult(errorResult),
+                            cleanFailureMessage(errorResult), null, null, null, errorResult);
+                }
+
+                if (UtilValidate.isNotEmpty(listInventoryEventForMRP)) {
+                    bomLevelWithNoEvent = 0;
+
+                    oldProductId = "";
+                    int eventCount = 0;
+                    for (GenericValue inventoryEventForMRP : listInventoryEventForMRP) {
+                        eventCount++;
+
+                        productId = inventoryEventForMRP.getString("productId");
+                        boolean isLastEvent = (eventCount == listInventoryEventForMRP.size()
+                                || !productId.equals(listInventoryEventForMRP.get(eventCount).getString("productId")));
+                        eventQuantity = inventoryEventForMRP.getBigDecimal("quantity");
+
+                        if (!productId.equals(oldProductId)) {
+                            BigDecimal positiveEventQuantity = eventQuantity.compareTo(BigDecimal.ZERO) > 0
+                                    ? eventQuantity : eventQuantity.negate();
+                            // It's a new product, so it's necessary to  read the MrpQoh
+                            try {
+                                product = inventoryEventForMRP.getRelatedOne("Product", true);
+                                productFacility = EntityUtil.getFirst(product.getRelated("ProductFacility",
+                                        UtilMisc.toMap("facilityId", facilityId), null, true));
+                            } catch (GenericEntityException e) {
+                                Map<String, Object> errorResult = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
+                                        "ManufacturingMrpCannotFindProductForEvent", locale));
+                                return finishMrpRunLog(dispatcher, userLogin, mrpRunLogId, now, mrpId, failureReasonFromResult(errorResult),
+                                        cleanFailureMessage(errorResult), null, null, null, errorResult);
+                            }
+                            stockTmp = findProductMrpQoh(mrpId, product, facilityId, dispatcher, delegator);
+                            try {
+                                InventoryEventPlannedServices.createOrUpdateMrpEvent(UtilMisc.<String, Object>toMap("mrpId", mrpId,
+                                        "productId", product.getString("productId"),
+                                        "mrpEventTypeId", "INITIAL_QOH", "eventDate", now),
+                                        stockTmp, facilityId, null, false, delegator);
+                            } catch (GenericEntityException e) {
+                                Map<String, Object> errorResult = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
+                                        "ManufacturingMrpCreateOrUpdateEvent", UtilMisc.toMap("parameters", parameters), locale));
+                                return finishMrpRunLog(dispatcher, userLogin, mrpRunLogId, now, mrpId, failureReasonFromResult(errorResult),
+                                        cleanFailureMessage(errorResult), null, null, null, errorResult);
+                            }
+                            // days to ship is only relevant for sales order planning. Otherwise MRP will push event dates
+                            // for manufacturing parts
+                            // as well and cause problems
+                            if (productFacility != null) {
+                                reorderQuantity = (productFacility.getBigDecimal("reorderQuantity") != null
+                                        ? productFacility.getBigDecimal("reorderQuantity") : BigDecimal.ONE.negate());
+                                minimumStock = (productFacility.getBigDecimal("minimumStock") != null
+                                        ? productFacility.getBigDecimal("minimumStock") : BigDecimal.ZERO);
+                            } else {
+                                minimumStock = BigDecimal.ZERO;
+                                reorderQuantity = BigDecimal.ONE.negate();
+                            }
+                            // -----------------------------------------------------
+                            // The components are also loaded thru the configurator
+                            Map<String, Object> serviceResponse = null;
+                            try {
+                                serviceResponse = dispatcher.runSync("getManufacturingComponents", UtilMisc.<String, Object>toMap("productId",
+                                        product.getString("productId"), "quantity", positiveEventQuantity, "excludeWIPs", Boolean.FALSE,
+                                        "userLogin", userLogin));
+                                if (ServiceUtil.isError(serviceResponse)) {
+                                    Map<String, Object> errorResult = ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResponse));
+                                    return finishMrpRunLog(dispatcher, userLogin, mrpRunLogId, now, mrpId, failureReasonFromResult(errorResult),
+                                            cleanFailureMessage(errorResult), null, null, null, errorResult);
+                                }
+                            } catch (GenericServiceException e) {
+                                Map<String, Object> errorResult = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
+                                        "ManufacturingMrpErrorExplodingProduct",
+                                        UtilMisc.toMap("productId", product.getString("productId")), locale));
+                                return finishMrpRunLog(dispatcher, userLogin, mrpRunLogId, now, mrpId, failureReasonFromResult(errorResult),
+                                        cleanFailureMessage(errorResult), null, null, null, errorResult);
+                            }
+                            components = UtilGenerics.cast(serviceResponse.get("components"));
+                            if (UtilValidate.isNotEmpty(components)) {
+                                BOMNode node = components.get(0).getParentNode();
+                                isBuilt = node.isManufactured();
+                            } else {
+                                isBuilt = false;
+                            }
+                            // #####################################################
+
+                            oldProductId = productId;
+                        }
+
+                        stockTmp = stockTmp.add(eventQuantity);
+                        if (stockTmp.compareTo(minimumStock) < 0
+                                && (eventQuantity.compareTo(BigDecimal.ZERO) < 0 || isLastEvent)) { // No need to
+                            // create a supply event/requirement if the current event is not a demand and there are other events to process
+                            BigDecimal qtyToStock = minimumStock.subtract(stockTmp);
+                            //need to buy or build the product as we have not enough stock
+                            eventDate = inventoryEventForMRP.getTimestamp("eventDate");
+                            // to be just before the requirement
+                            eventDate.setTime(eventDate.getTime() - 1);
+                            ProposedOrder proposedOrder = new ProposedOrder(product, facilityId, manufacturingFacilityId, isBuilt,
+                                    eventDate, qtyToStock);
+                            proposedOrder.setMrpName(mrpName);
+                            // calculate the ProposedOrder quantity and update the quantity object property.
+                            proposedOrder.calculateQuantityToSupply(reorderQuantity, minimumStock, iteratorListInventoryEventForMRP);
+
+                            // -----------------------------------------------------
+                            // The components are also loaded thru the configurator
+                            Map<String, Object> serviceResponse = null;
+                            try {
+                                serviceResponse = dispatcher.runSync("getManufacturingComponents", UtilMisc.<String, Object>toMap("productId",
+                                        product.getString("productId"), "quantity", proposedOrder.getQuantity(), "excludeWIPs", Boolean.FALSE,
+                                        "userLogin", userLogin));
+                                if (ServiceUtil.isError(serviceResponse)) {
+                                    Map<String, Object> errorResult = ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResponse));
+                                    return finishMrpRunLog(dispatcher, userLogin, mrpRunLogId, now, mrpId, failureReasonFromResult(errorResult),
+                                            cleanFailureMessage(errorResult), null, null, null, errorResult);
+                                }
+                            } catch (GenericServiceException e) {
+                                Map<String, Object> errorResult = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
+                                        "ManufacturingMrpErrorExplodingProduct",
+                                        UtilMisc.toMap("productId", product.getString("productId")), locale));
+                                return finishMrpRunLog(dispatcher, userLogin, mrpRunLogId, now, mrpId, failureReasonFromResult(errorResult),
+                                        cleanFailureMessage(errorResult), null, null, null, errorResult);
+                            }
+                            components = UtilGenerics.cast(serviceResponse.get("components"));
+                            String routingId = (String) serviceResponse.get("workEffortId");
+                            if (routingId != null) {
+                                try {
+                                    routing = EntityQuery.use(delegator).from("WorkEffort").where("workEffortId", routingId).queryOne();
+                                } catch (GenericEntityException e) {
+                                    Map<String, Object> errorResult = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
+                                            "ManufacturingMrpCannotFindProductForEvent", locale));
+                                    return finishMrpRunLog(dispatcher, userLogin, mrpRunLogId, now, mrpId, failureReasonFromResult(errorResult),
+                                            cleanFailureMessage(errorResult), null, null, null, errorResult);
+                                }
+                            } else {
+                                routing = null;
+                            }
+                            if (UtilValidate.isNotEmpty(components)) {
+                                BOMNode node = components.get(0).getParentNode();
+                                isBuilt = node.isManufactured();
+                            } else {
+                                isBuilt = false;
+                            }
+                            // #####################################################
+
+                            String mrpEventTypeId = inventoryEventForMRP.getString("mrpEventTypeId");
+                            int facilityDaysToShip = 0;
+                            if (productFacility != null && shouldApplyFacilityDaysToShip(mrpEventTypeId)) {
+                                facilityDaysToShip = (productFacility.getLong("daysToShip") != null
+                                        ? productFacility.getLong("daysToShip").intValue() : 0);
+                            }
+                            int supplierLeadTimeDays = 0;
+                            if (shouldApplySupplierLeadTime(mrpEventTypeId, isBuilt)) {
+                                try {
+                                    supplierLeadTimeDays = getSupplierProductLeadTimeDays(delegator, product.getString("productId"), eventDate);
+                                } catch (GenericEntityException e) {
+                                    Map<String, Object> errorResult = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
+                                            "ManufacturingMrpCannotFindProductForEvent", locale));
+                                    return finishMrpRunLog(dispatcher, userLogin, mrpRunLogId, now, mrpId, failureReasonFromResult(errorResult),
+                                            cleanFailureMessage(errorResult), null, null, null, errorResult);
+                                }
+                            }
+
+                            // calculate the ProposedOrder requirementStartDate and update the requirementStartDate object property.
+                            Map<String, Object> routingTaskStartDate = proposedOrder.calculateStartDate(mrpEventTypeId, facilityDaysToShip,
+                                    supplierLeadTimeDays, routing, delegator, dispatcher, userLogin);
+                            if (isBuilt) {
+                                // process the product components
+                                processBomComponent(mrpId, product, proposedOrder.getQuantity(), proposedOrder.getRequirementStartDate(),
+                                        routingTaskStartDate, components, manufacturingFacilityId);
+                            }
+                            // create the  ProposedOrder (only if the product is warehouse managed), and the MrpEvent associated
+                            String requirementId = null;
+                            if (productFacility != null) {
+                                requirementId = proposedOrder.create(ctx, userLogin);
+                            }
+                            if (UtilValidate.isNotEmpty(requirementId)) {
+                                proposedRequirementCount += 1;
+                            }
+                            if (UtilValidate.isEmpty(productFacility) && !isBuilt) {
+                                logMrpError(mrpId, productId, now,
+                                        "No ProductFacility record for [" + facilityId + "]; no requirement created.", delegator);
+                            }
+                            String eventName = null;
+                            if (UtilValidate.isNotEmpty(requirementId)) {
+                                eventName = "*" + requirementId + " (" + proposedOrder.getRequirementStartDate() + ")*";
+                            }
+                            Map<String, Object> eventMap = UtilMisc.<String, Object>toMap("productId", product.getString("productId"),
+                                    "mrpId", mrpId,
+                                    "eventDate", eventDate,
+                                    "mrpEventTypeId", (isBuilt ? "PROP_MANUF_O_RECP" : "PROP_PUR_O_RECP"));
+                            try {
+                                InventoryEventPlannedServices.createOrUpdateMrpEvent(eventMap, proposedOrder.getQuantity(), null,
+                                        eventName, (proposedOrder.getRequirementStartDate().compareTo(now) < 0), delegator);
+                            } catch (GenericEntityException e) {
+                                Map<String, Object> errorResult = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
+                                        "ManufacturingMrpCreateOrUpdateEvent", UtilMisc.toMap("parameters", parameters), locale));
+                                return finishMrpRunLog(dispatcher, userLogin, mrpRunLogId, now, mrpId, failureReasonFromResult(errorResult),
+                                        cleanFailureMessage(errorResult), null, null, null, errorResult);
+                            }
+                            stockTmp = stockTmp.add(proposedOrder.getQuantity());
+                        }
+                    }
+                } else {
+                    bomLevelWithNoEvent += 1;
+                }
+
+                bomLevel += 1;
+                // if there are 3 levels with no inventoryEvenPanned we stop
+            } while (bomLevelWithNoEvent < 3);
+
+            result = new HashMap<>();
+            List<Object> msgResult = new LinkedList<>();
+            result.put("msgResult", msgResult);
+            result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
+            Debug.logInfo("return from executeMrp", MODULE);
+            Long mrpEventCount = countMrpEventsForRun(delegator, mrpId);
+            Long requirementCount = proposedRequirementCount;
+            String outcomeMessage = buildOutcomeMessage(mrpEventCount, proposedRequirementCount, locale);
+            return finishMrpRunLog(dispatcher, userLogin, mrpRunLogId, now, mrpId, null, null, mrpEventCount, requirementCount,
+                    outcomeMessage, result);
+        } catch (RuntimeException e) {
+            String errorMessage = cleanFailureMessage(e);
+            finishMrpRunLog(dispatcher, userLogin, mrpRunLogId, now, mrpId, failureReasonFromException(e), errorMessage,
+                    null, null, null, ServiceUtil.returnError(errorMessage));
+            throw e;
+        }
     }
 }

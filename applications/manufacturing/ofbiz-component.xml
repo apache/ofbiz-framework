@@ -29,10 +29,12 @@ under the License.
 
     <!-- entity resources: model(s), eca(s) and group definitions -->
     <entity-resource type="data" reader-name="seed" loader="main" location="data/ManufacturingSecurityPermissionSeedData.xml"/>
+
     <!--<entity-resource type="data" reader-name="seed-initial" loader="main" location="data/ManufacturingScheduledServices.xml"/>-->
 
     <!-- service resources: model(s) [definitions], eca(s) and group definitions -->
     <service-resource type="model" loader="main" location="servicedef/services.xml"/>
+    <service-resource type="model" loader="main" location="servicedef/services_lookup.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_calendar.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_routing.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_production_run.xml"/>
@@ -42,6 +44,8 @@ under the License.
     <service-resource type="eca" loader="main" location="servicedef/secas.xml"/>
 
     <test-suite loader="main" location="testdef/productionruntests.xml"/>
+    <test-suite loader="main" location="testdef/InventoryIssuanceTests.xml"/>
+    <test-suite loader="main" location="testdef/MrpTests.xml"/>
 
     <!-- web applications; will be mounted when using the embedded container -->
     <webapp name="manufacturing"
@@ -54,4 +58,3 @@ under the License.
         mount-point="/manufacturing"/>
 
 </ofbiz-component>
-

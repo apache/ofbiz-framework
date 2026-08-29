@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<api name="Manufacturing Routing and Cost API"
+        path="routing-cost"
+        displayName="Routing and Cost Management"
+        description="REST API for manufacturing routings, operations, products, and operation setup data"
+        publish="true">
+    <resource name="RoutingCost" path="" auth="true" publish="true">
+        <operation verb="get" produces="application/json" auth="true"
+                description="Find product routing templates">
+            <service name="findProductRoutings"/>
+        </operation>
+        <operation verb="post" consumes="application/json" produces="application/json" auth="true"
+                description="Create a routing">
+            <service name="createWorkEffort"/>
+        </operation>
+        <operation verb="get" path="/tasks" produces="application/json" auth="true"
+                description="Find routing tasks">
+            <service name="findRoutingTasks"/>
+        </operation>
+        <operation verb="get" path="/tasks/search" produces="application/json" auth="true"
+                description="Search routing tasks by ID or name for routing operation selection">
+            <service name="searchRoutingTasksForRouting"/>
+        </operation>
+        <operation verb="get" path="/cost-component-options" produces="application/json" auth="true"
+                description="Find cost component setup options">
+            <service name="findCostComponentOptions"/>
+        </operation>
+        <operation verb="get" path="/tasks/purpose-type-options" produces="application/json" auth="true"
+                description="Find dropdown options for routing task purpose types">
+            <service name="findRoutingTaskPurposeTypeOptions"/>
+        </operation>
+        <operation verb="get" path="/fixed-assets" produces="application/json" auth="true"
+                description="Find fixed assets">
+            <service name="findFixedAssets"/>
+        </operation>
+        <operation verb="get" path="/products/search" produces="application/json" auth="true"
+                description="Search products by ID or name">
+            <service name="searchProducts"/>
+        </operation>
+        <operation verb="get" path="/parties/search" produces="application/json" auth="true"
+                description="Search parties by ID or name">
+            <service name="searchParties"/>
+        </operation>
+        <operation verb="post" path="/tasks" consumes="application/json" produces="application/json" auth="true"
+                description="Create a routing task operation">
+            <service name="createWorkEffort"/>
+        </operation>
+        <operation verb="get" path="/tasks/{routingTaskId}" produces="application/json" auth="true"
+                description="Get routing task details">
+            <service name="getRoutingTaskDetails"/>
+        </operation>
+        <operation verb="put" path="/tasks/{routingTaskId}" consumes="application/json" produces="application/json" auth="true"
+                description="Update a routing task operation">
+            <service name="updateWorkEffort"/>
+        </operation>
+        <operation verb="post" path="/tasks/{routingTaskId}/cost-rates" consumes="application/json" produces="application/json" auth="true"
+                description="Create a routing task cost rate">
+            <service name="createWorkEffortCostCalc"/>
+        </operation>
+        <operation verb="delete" path="/tasks/{routingTaskId}/cost-rates" consumes="application/json" produces="application/json" auth="true"
+                description="Remove a routing task cost rate">
+            <service name="updateWorkEffortCostCalc"/>
+        </operation>
+        <operation verb="post" path="/tasks/{routingTaskId}/outputs" consumes="application/json" produces="application/json" auth="true"
+                description="Create a routing task output">
+            <service name="createWorkEffortGoodStandard"/>
+        </operation>
+        <operation verb="delete" path="/tasks/{routingTaskId}/outputs" consumes="application/json" produces="application/json" auth="true"
+                description="Remove a routing task output">
+            <service name="expireRoutingGoodStandard"/>
+        </operation>
+        <operation verb="post" path="/tasks/{routingTaskId}/tools" consumes="application/json" produces="application/json" auth="true"
+                description="Create a routing task tool">
+            <service name="createWorkEffortFixedAssetStd"/>
+        </operation>
+        <operation verb="delete" path="/tasks/{routingTaskId}/tools" consumes="application/json" produces="application/json" auth="true"
+                description="Remove a routing task tool">
+            <service name="removeWorkEffortFixedAssetStd"/>
+        </operation>
+        <operation verb="post" path="/tasks/{routingTaskId}/operators" consumes="application/json" produces="application/json" auth="true"
+                description="Create a routing task operator">
+            <service name="assignPartyToWorkEffort"/>
+        </operation>
+        <operation verb="delete" path="/tasks/{routingTaskId}/operators" consumes="application/json" produces="application/json" auth="true"
+                description="Remove a routing task operator">
+            <service name="expireWorkEffortPartyAssignment"/>
+        </operation>
+        <operation verb="get" path="/{routingId}" produces="application/json" auth="true"
+                description="Get routing details">
+            <service name="getRoutingDetails"/>
+        </operation>
+        <operation verb="put" path="/{routingId}" consumes="application/json" produces="application/json" auth="true"
+                description="Update a routing">
+            <service name="updateWorkEffort"/>
+        </operation>
+        <operation verb="post" path="/{routingId}/products" consumes="application/json" produces="application/json" auth="true"
+                description="Add a product link to a routing">
+            <service name="createWorkEffortGoodStandard"/>
+        </operation>
+        <operation verb="delete" path="/{routingId}/products" consumes="application/json" produces="application/json" auth="true"
+                description="Remove a product link from a routing">
+            <service name="expireRoutingGoodStandard"/>
+        </operation>
+        <operation verb="post" path="/{routingId}/tasks" consumes="application/json" produces="application/json" auth="true"
+                description="Add an operation to a routing">
+            <service name="createWorkEffortAssoc"/>
+        </operation>
+        <operation verb="put" path="/{routingId}/tasks" consumes="application/json" produces="application/json" auth="true"
+                description="Update a routing operation association">
+            <service name="updateWorkEffortAssoc"/>
+        </operation>
+        <operation verb="delete" path="/{routingId}/tasks" consumes="application/json" produces="application/json" auth="true"
+                description="Remove an operation from a routing">
+            <service name="updateWorkEffortAssoc"/>
+        </operation>
+    </resource>
+</api>

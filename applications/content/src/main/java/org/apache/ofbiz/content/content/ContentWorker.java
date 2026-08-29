@@ -29,11 +29,12 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.xml.XMLConstants;
+import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
-import org.apache.ofbiz.base.util.GroovyUtil;
 import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilCodec;
 import org.apache.ofbiz.base.util.UtilDateTime;
@@ -41,7 +42,6 @@ import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
 import org.apache.ofbiz.content.ContentManagementWorker;
 import org.apache.ofbiz.content.data.DataResourceWorker;
 import org.apache.ofbiz.entity.Delegator;
@@ -61,7 +61,7 @@ import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.service.ServiceUtil;
-import org.codehaus.groovy.control.CompilationFailedException;
+import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
@@ -197,10 +197,22 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
         // if the content has a service attached run the service
 
         Delegator delegator = dispatcher.getDelegator();
-        String serviceName = content.getString("serviceName"); //Kept for backward compatibility
+        // NOTE: Content.serviceName is a legacy, client-writable field (createContent/updateContent both
+        // accept it as a plain non-PK attribute) that used to be resolved and run here directly; that let
+        // anyone able to write a Content row choose an arbitrary service to run with the live HTTP request
+        // parameters as its input. It is no longer honored. Only a CustomMethod explicitly typed for
+        // content rendering may be run, so arming a row requires a CustomMethod that was deliberately set
+        // up for this purpose, not just a string dropped into the Content row itself.
+        String serviceName = null;
         GenericValue custMethod = null;
         if (UtilValidate.isNotEmpty(content.getString("customMethodId"))) {
-            custMethod = EntityQuery.use(delegator).from("CustomMethod").where("customMethodId", content.get("customMethodId")).cache().queryOne();
+            custMethod = EntityQuery.use(delegator).from("CustomMethod")
+                    .where("customMethodId", content.get("customMethodId"), "customMethodTypeId", "CONTENT_RENDER")
+                    .cache().queryOne();
+            if (custMethod == null) {
+                throw new GeneralException("customMethodId [" + content.get("customMethodId")
+                        + "] on content [" + content.get("contentId") + "] is not a content rendering method");
+            }
         }
         if (custMethod != null) serviceName = custMethod.getString("customMethodName");
         if (UtilValidate.isNotEmpty(serviceName)) {
@@ -320,7 +332,24 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
                         if ("FTL".equals(templateDataResource.getString("dataTemplateTypeId"))) {
                             StringReader sr = new StringReader(textData);
                             try {
-                                NodeModel nodeModel = NodeModel.parse(new InputSource(sr));
+                                // NodeModel.parse(InputSource) uses FreeMarker's default, unhardened
+                                // DocumentBuilderFactory, which resolves external entities/DTDs (XXE, CWE-611).
+                                // Parse with a hardened factory ourselves and wrap the resulting DOM instead,
+                                // matching the entity-resolution lockdown already used by EntitySaxReader.
+                                // namespaceAware/ignoringElementContentWhitespace are kept identical to
+                                // FreeMarker's own NodeModel default factory to preserve existing template
+                                // behavior for namespaced or whitespace-sensitive XML content.
+                                DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+                                factory.setNamespaceAware(true);
+                                factory.setIgnoringElementContentWhitespace(true);
+                                factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+                                factory.setFeature("http://xml.org/sax/features/external-general-entities", false);
+                                factory.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
+                                factory.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
+                                factory.setXIncludeAware(false);
+                                factory.setExpandEntityReferences(false);
+                                Document document = factory.newDocumentBuilder().parse(new InputSource(sr));
+                                NodeModel nodeModel = NodeModel.wrap(document);
                                 templateContext.put("doc", nodeModel);
                             } catch (SAXException | ParserConfigurationException e) {
                                 throw new GeneralException(e.getMessage());
@@ -497,96 +526,6 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
         }
 
         return contentAssocDataResourceViewFrom;
-    }
-
-    public static void traverse(Delegator delegator, GenericValue content, Timestamp fromDate, Timestamp thruDate, Map<String, Object> whenMap,
-            int depthIdx, Map<String, Object> masterNode, String contentAssocTypeId, List<GenericValue> pickList, String direction) {
-        String contentTypeId = null;
-        String contentId = null;
-        try {
-            if (contentAssocTypeId == null) {
-                contentAssocTypeId = "";
-            }
-            contentId = (String) content.get("contentId");
-            contentTypeId = (String) content.get("contentTypeId");
-            List<GenericValue> topicList = content.getRelated("ToContentAssoc", UtilMisc.toMap("contentAssocTypeId", "TOPIC"), null, false);
-            List<String> topics = new LinkedList<>();
-            for (GenericValue assoc : topicList) {
-                topics.add(assoc.getString("contentId"));
-            }
-            List<GenericValue> keywordList = content.getRelated("ToContentAssoc", UtilMisc.toMap("contentAssocTypeId", "KEYWORD"), null, false);
-            List<String> keywords = new LinkedList<>();
-            for (GenericValue assoc : keywordList) {
-                keywords.add(assoc.getString("contentId"));
-            }
-            List<GenericValue> purposeValueList = content.getRelated("ContentPurpose", null, null, true);
-            List<String> purposes = new LinkedList<>();
-            for (GenericValue purposeValue : purposeValueList) {
-                purposes.add(purposeValue.getString("contentPurposeTypeId"));
-            }
-            List<String> contentTypeAncestry = new LinkedList<>();
-            getContentTypeAncestry(delegator, contentTypeId, contentTypeAncestry);
-
-            Map<String, Object> context = new HashMap<>();
-            context.put("content", content);
-            context.put("contentAssocTypeId", contentAssocTypeId);
-            context.put("purposes", purposes);
-            context.put("topics", topics);
-            context.put("keywords", keywords);
-            context.put("typeAncestry", contentTypeAncestry);
-            boolean isPick = checkWhen(context, (String) whenMap.get("pickWhen"), true);
-            boolean isReturnBefore = checkWhen(context, (String) whenMap.get("returnBeforePickWhen"), false);
-            Map<String, Object> thisNode = null;
-            if (isPick || !isReturnBefore) {
-                thisNode = new HashMap<>();
-                thisNode.put("contentId", contentId);
-                thisNode.put("contentTypeId", contentTypeId);
-                thisNode.put("contentAssocTypeId", contentAssocTypeId);
-                List<Map<String, Object>> kids = UtilGenerics.cast(masterNode.get("kids"));
-                if (kids == null) {
-                    kids = new LinkedList<>();
-                    masterNode.put("kids", kids);
-                }
-                kids.add(thisNode);
-            }
-            if (isPick) {
-                pickList.add(content);
-                thisNode.put("value", content);
-            }
-            boolean isReturnAfter = checkWhen(context, (String) whenMap.get("returnAfterPickWhen"), false);
-            if (!isReturnAfter) {
-                List<String> assocTypes = new LinkedList<>();
-                List<GenericValue> relatedAssocs = getContentAssocsWithId(delegator, contentId, fromDate, thruDate, direction, assocTypes);
-                Map<String, Object> assocContext = new HashMap<>();
-                assocContext.put("related", relatedAssocs);
-                for (GenericValue assocValue : relatedAssocs) {
-                    contentAssocTypeId = (String) assocValue.get("contentAssocTypeId");
-                    assocContext.put("contentAssocTypeId", contentAssocTypeId);
-                    assocContext.put("parentContent", content);
-                    String assocRelation = null;
-                    // This needs to be the opposite
-                    String relatedDirection = null;
-                    if (direction != null && "From".equalsIgnoreCase(direction)) {
-                        assocContext.put("contentIdFrom", assocValue.get("contentId"));
-                        assocRelation = "ToContent";
-                        relatedDirection = "From";
-                    } else {
-                        assocContext.put("contentIdTo", assocValue.get("contentId"));
-                        assocRelation = "FromContent";
-                        relatedDirection = "To";
-                    }
-
-                    boolean isFollow = checkWhen(assocContext, (String) whenMap.get("followWhen"), true);
-                    if (isFollow) {
-                        GenericValue thisContent = assocValue.getRelatedOne(assocRelation, false);
-                        traverse(delegator, thisContent, fromDate, thruDate, whenMap, depthIdx + 1, thisNode, contentAssocTypeId, pickList,
-                                relatedDirection);
-                    }
-                }
-            }
-        } catch (GenericEntityException e) {
-            Debug.logError("Entity Error:" + e.getMessage(), null);
-        }
     }
 
     public static boolean traverseSubContent(Map<String, Object> ctx) {
@@ -774,6 +713,11 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
      */
     public static boolean checkWhen(Map<String, Object> context, String whenStr, boolean defaultReturn) {
         boolean isWhen = defaultReturn;
+        /*
+         * The logic has been commented out, as it represents a potential security risk.
+         * Moreover, the usage of this method is limited to a small group of custom Freemarker transforms,
+         * that can be removed since they are essentially old experiments.
+
         if (UtilValidate.isNotEmpty(whenStr)) {
             FlexibleStringExpander fse = FlexibleStringExpander.getInstance(whenStr);
             String newWhen = fse.expandString(context);
@@ -792,6 +736,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
                 throw new RuntimeException(e.getMessage());
             }
         }
+        */
         return isWhen;
     }
 

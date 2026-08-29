@@ -18,9 +18,9 @@
  */
 package org.apache.ofbiz.base.util;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -29,12 +29,13 @@ import java.nio.charset.Charset;
 import java.util.Locale;
 import java.util.Properties;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class UtilPropertiesTests {
 
     private static final String COUNTRY = "AU";
     private static final String LANGUAGE = "en";
+    @SuppressWarnings("deprecation")
     private final Locale locale = new Locale(LANGUAGE, COUNTRY);
 
     /**

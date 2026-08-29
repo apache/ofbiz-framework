@@ -38,7 +38,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
-import javax.mail.internet.MimeMessage;
+import jakarta.mail.internet.MimeMessage;
 
 import org.apache.ofbiz.base.metrics.Metrics;
 import org.apache.ofbiz.base.metrics.MetricsFactory;
@@ -173,8 +173,9 @@ public class CommonServices {
 
 
         // check for a party id
-        if (partyId == null) {
-            if (userLogin != null && userLogin.get("partyId") != null) {
+        if (partyId == null && userLogin != null) {
+            ModelEntity modelUserLogin = userLogin.getModelEntity();
+            if (modelUserLogin.isField("partyId") && userLogin.get("partyId") != null) {
                 partyId = userLogin.getString("partyId");
             }
         }

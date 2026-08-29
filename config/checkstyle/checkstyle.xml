@@ -30,6 +30,11 @@ under the License.
     <module name="BeforeExecutionExclusionFileFilter">
         <property name="fileNamePattern" value="module\-info\.java$"/>
     </module>
+    <module name="SuppressWithPlainTextCommentFilter">
+        <property name="offCommentFormat" value="CHECKSTYLE_OFF: LineLength"/>
+        <property name="onCommentFormat" value="CHECKSTYLE_ON: LineLength"/>
+        <property name="checkFormat" value="LineLength"/>
+    </module>
     <property name="fileExtensions" value="java, properties, xml"/>
 
     <!-- General file conventions -->

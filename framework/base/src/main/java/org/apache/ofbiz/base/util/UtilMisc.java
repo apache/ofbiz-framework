@@ -550,6 +550,7 @@ public final class UtilMisc {
      * @param localeString The locale string (en_US)
      * @return Locale The new Locale object or null if no valid locale can be interpreted
      */
+    @SuppressWarnings("deprecation")
     public static Locale parseLocale(String localeString) {
         if (UtilValidate.isEmpty(localeString)) {
             return null;
@@ -614,6 +615,21 @@ public final class UtilMisc {
             hostHeadersAllowed = Collections.unmodifiableList(hostHeadersAllowed);
         }
         return hostHeadersAllowed;
+    }
+
+    /**
+     * List of allowed origins for the API CORS policy, read from the
+     * {@code cors.origins.allowed} property in security.properties.
+     * Each entry must be a full origin (scheme + host + optional port),
+     * e.g. {@code https://app.example.com}.
+     * @return unmodifiable list of allowed CORS origins, or null if the property is empty
+     */
+    public static List<String> getCorsOriginsAllowed() {
+        String corsOriginsAllowedString = UtilProperties.getPropertyValue("security", "cors.origins.allowed");
+        if (UtilValidate.isEmpty(corsOriginsAllowedString)) {
+            return null;
+        }
+        return Collections.unmodifiableList(StringUtil.split(corsOriginsAllowedString, ","));
     }
 
     /**

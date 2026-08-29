@@ -17,8 +17,6 @@
 # under the License.
 #####################################################################
 
-version: "2.4"
-
 services:
   db:
     image: postgres:13

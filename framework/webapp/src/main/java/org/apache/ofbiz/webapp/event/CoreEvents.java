@@ -37,6 +37,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilProperties;
@@ -47,6 +48,7 @@ import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.security.Security;
+import org.apache.ofbiz.security.SecurityUtil;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ModelService;
@@ -111,6 +113,12 @@ public class CoreEvents {
         Locale locale = UtilHttp.getLocale(request);
         TimeZone timeZone = UtilHttp.getTimeZone(request);
 
+        if (!security.hasPermission("SERVICE_MAINT", userLogin)) {
+            String errMsg = UtilProperties.getMessage(ERR_RESOURCE, "coreEvents.not_authorized_to_call", locale);
+            request.setAttribute("_ERROR_MESSAGE_", errMsg);
+            return "error";
+        }
+
         Map<String, Object> params = UtilHttp.getParameterMap(request);
         // get the schedule parameters
         String jobName = (String) params.remove("JOB_NAME");
@@ -123,6 +131,9 @@ public class CoreEvents {
         String serviceCnt = (String) params.remove("SERVICE_COUNT");
         String retryCnt = (String) params.remove("SERVICE_MAXRETRY");
         String runAsSystemUser = (String) params.remove("SERVICE_RUN_AS_SYSTEM");
+        if (!security.hasPermission("SERVICE_RSAS_VIEW", userLogin)) {
+            runAsSystemUser = "N";
+        }
 
         // the frequency map
         Map<String, Integer> freqMap = new HashMap<>();
@@ -429,10 +440,18 @@ public class CoreEvents {
      * @return Response code string
      */
     public static String runService(HttpServletRequest request, HttpServletResponse response) {
+        Security security = (Security) request.getAttribute("security");
+        GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
         // get the mode and service name
         String serviceName = request.getParameter("serviceName");
         String mode = request.getParameter("mode");
         Locale locale = UtilHttp.getLocale(request);
+
+        if (!security.hasPermission("SERVICE_MAINT", userLogin)) {
+            String errMsg = UtilProperties.getMessage(ERR_RESOURCE, "coreEvents.not_authorized_to_call", locale);
+            request.setAttribute("_ERROR_MESSAGE_", errMsg);
+            return "error";
+        }
 
         if (UtilValidate.isEmpty(serviceName)) {
             String errMsg = UtilProperties.getMessage(ERR_RESOURCE, "coreEvents.must_specify_service_name", locale);
@@ -445,7 +464,6 @@ public class CoreEvents {
         }
 
         // now do a security check
-        Security security = (Security) request.getAttribute("security");
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
 
         //lookup the service definition to see if this service is externally available, if not require the SERVICE_INVOKE_ANY permission
@@ -489,13 +507,17 @@ public class CoreEvents {
 
         // load the file
         File file = new File(filePath);
+        try {
+            SecurityUtil.checkOfbizFileAllowList(file);
+        } catch (GeneralException e) {
+            Debug.logError(e.getMessage(), MODULE);
+            return "error";
+        }
         if (file.exists()) {
             Long longLen = file.length();
             int length = longLen.intValue();
-            try {
-                FileInputStream fis = new FileInputStream(file);
+            try (FileInputStream fis = new FileInputStream(file)) {
                 UtilHttp.streamContentToBrowser(response, fis, length, null);
-                fis.close();
             } catch (IOException e) {
                 Debug.logError(e, MODULE);
                 return "error";

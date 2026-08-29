@@ -18,45 +18,43 @@
  */
 package org.apache.ofbiz.base.conversion;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
 import org.apache.ofbiz.base.util.UtilGenerics;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class TestBooleanConverters {
 
     public static <T> void assertFromBoolean(String label, Converter<Boolean, T> converter, T trueResult, T falseResult)
             throws Exception {
-        assertTrue(label + " can convert", converter.canConvert(Boolean.class, trueResult.getClass()));
-        assertEquals(label + " registered", converter.getClass(),
-                Converters.getConverter(Boolean.class, trueResult.getClass()).getClass());
-        assertEquals(label + " converted", trueResult, converter.convert(true));
-        assertEquals(label + " converted", falseResult, converter.convert(false));
+        assertTrue(converter.canConvert(Boolean.class, trueResult.getClass()), label + " can convert");
+        assertEquals(converter.getClass(), Converters.getConverter(Boolean.class, trueResult.getClass()).getClass(), label + " registered");
+        assertEquals(trueResult, converter.convert(true), label + " converted");
+        assertEquals(falseResult, converter.convert(false), label + " converted");
     }
 
     public static <S> void assertToBoolean(String label, Converter<S, Boolean> converter, S trueSource, S falseSource)
             throws Exception {
-        assertTrue(label + " can convert", converter.canConvert(trueSource.getClass(), Boolean.class));
-        assertEquals(label + " registered", converter.getClass(),
-                Converters.getConverter(trueSource.getClass(), Boolean.class).getClass());
-        assertEquals(label + " converted", Boolean.TRUE, converter.convert(trueSource));
-        assertEquals(label + " converted", Boolean.FALSE, converter.convert(falseSource));
+        assertTrue(converter.canConvert(trueSource.getClass(), Boolean.class), label + " can convert");
+        assertEquals(converter.getClass(), Converters.getConverter(trueSource.getClass(), Boolean.class).getClass(), label + " registered");
+        assertEquals(Boolean.TRUE, converter.convert(trueSource), label + " converted");
+        assertEquals(Boolean.FALSE, converter.convert(falseSource), label + " converted");
     }
 
     public static <S> void assertToCollection(String label, S source) throws Exception {
         Converter<S, ? extends Collection<S>> toList =
                 UtilGenerics.cast(Converters.getConverter(source.getClass(), List.class));
         Collection<S> listResult = toList.convert(source);
-        assertEquals(label + " converted to List", source, listResult.toArray()[0]);
+        assertEquals(source, listResult.toArray()[0], label + " converted to List");
         Converter<S, ? extends Collection<S>> toSet =
                 UtilGenerics.cast(Converters.getConverter(source.getClass(), Set.class));
         Collection<S> setResult = toSet.convert(source);
-        assertEquals(label + " converted to Set", source, setResult.toArray()[0]);
+        assertEquals(source, setResult.toArray()[0], label + " converted to Set");
     }
 
     @Test

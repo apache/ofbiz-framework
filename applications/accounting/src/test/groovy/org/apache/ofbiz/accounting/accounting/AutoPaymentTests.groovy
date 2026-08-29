@@ -1,0 +1,514 @@
+/*******************************************************************************
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ *******************************************************************************/
+package org.apache.ofbiz.accounting.accounting
+
+import static org.apache.ofbiz.entity.condition.EntityComparisonOperator.IN
+import static org.apache.ofbiz.entity.condition.EntityCondition.makeCondition
+
+import org.apache.ofbiz.base.util.UtilDateTime
+import org.apache.ofbiz.entity.GenericValue
+import org.apache.ofbiz.entity.util.EntityUtil
+import org.apache.ofbiz.service.ServiceUtil
+import org.apache.ofbiz.testtools.JunitJupiterTest
+import org.apache.ofbiz.testtools.JupiterTestHelper
+import org.junit.jupiter.api.Order
+import org.junit.jupiter.api.Test
+
+@JunitJupiterTest
+class AutoPaymentTests implements JupiterTestHelper {
+
+    // Test case for Batching Payments process
+    @Test
+    @Order(1)
+    void testCreatePaymentGroupAndMember() {
+        String paymentGroupTypeId = testParams.paymentGroupTypeId ?: 'BATCH_PAYMENT'
+        String paymentGroupName = testParams.paymentGroupName ?: 'Payment Batch'
+        List paymentIds = ['demo10000', 'demo10001']
+
+        Map serviceCtx = [
+                paymentGroupTypeId: paymentGroupTypeId,
+                paymentGroupName: paymentGroupName,
+                paymentIds: paymentIds,
+                userLogin: userLogin
+        ]
+        Map serviceResult = dispatcher.runSync('createPaymentGroupAndMember', serviceCtx)
+        assert ServiceUtil.isSuccess(serviceResult)
+        String paymentGroupId = serviceResult.paymentGroupId
+
+        GenericValue paymentGroup = from('PaymentGroup')
+                .where('paymentGroupId', paymentGroupId)
+                .queryOne()
+        assert paymentGroup
+        assert paymentGroup.paymentGroupTypeId == paymentGroupTypeId
+        assert paymentGroup.paymentGroupName == paymentGroupName
+
+        List<GenericValue> paymentGroupMemberList = from('PaymentGroupMember')
+                .where('paymentGroupId', paymentGroupId)
+                .queryList()
+        assert paymentGroupMemberList
+
+        for (GenericValue paymentGroupMember : paymentGroupMemberList) {
+            assert paymentIds.contains(paymentGroupMember.paymentId)
+        }
+    }
+
+    // Test case for voiding payments
+    @Test
+    @Order(2)
+    void testVoidPayment() {
+        /*
+            Precondition : payment is in sent status and invoice is in ready for posting status
+                           Credit in account 213000 - CUSTOMER CREDIT
+                           Debit in account 210000 - ACCOUNTS PAYABLE
+
+            Post condition : payment status changes to void.
+                             removes PaymentApplication if any associated.
+                             Credit in account 210000- ACCOUNTS PAYABLE
+                             Debit in account 213000 - CUSTOMER CREDIT
+        */
+        String paymentId = testParams.paymentId ?: '8000'
+
+        Map serviceCtx = [
+                paymentId: paymentId,
+                userLogin: userLogin
+        ]
+        Map serviceResult = dispatcher.runSync('voidPayment', serviceCtx)
+        assert ServiceUtil.isSuccess(serviceResult)
+
+        GenericValue payment = from('Payment')
+                .where('paymentId', paymentId)
+                .queryOne()
+        assert payment
+        assert payment.statusId == 'PMNT_VOID'
+
+        GenericValue acctgTrans = from('AcctgTrans')
+                .where('paymentId', paymentId)
+                .orderBy('-transactionDate').queryFirst()
+        assert acctgTrans
+
+        List<GenericValue> acctgTransEntryList = from('AcctgTransEntry')
+                .where('acctgTransId', acctgTrans.acctgTransId)
+                .queryList()
+        assert acctgTransEntryList
+
+        for (GenericValue acctgTransEntry : acctgTransEntryList) {
+            if (acctgTransEntry.debitCreditFlag == 'C') {
+                assert acctgTransEntry.glAccountTypeId == 'ACCOUNTS_PAYABLE'
+                assert acctgTransEntry.glAccountId == '210000'
+            } else if (acctgTransEntry.debitCreditFlag == 'D') {
+                assert acctgTransEntry.glAccountId == '213000'
+            }
+        }
+    }
+
+    // Test case for canceling invoices
+    @Test
+    @Order(3)
+    void testCancelInvoice() {
+        /*
+            Precondition : invoice is in ready status
+                           Credit in account 210000 - ACCOUNTS PAYABLE
+                           Debit in account 516100 -->
+
+            Post condition : invoice status changes to cancelled.
+                             removes PaymentApplication if any associated.
+                             Credit in account 516100
+                             Debit in account 210000 - ACCOUNTS PAYABLE
+        */
+        String invoiceId = testParams.invoiceId ?: '8001'
+        String statusId = testParams.statusId ?: 'INVOICE_CANCELLED'
+
+        Map serviceCtx = [
+                invoiceId: invoiceId,
+                statusId: statusId,
+                userLogin: userLogin
+        ]
+        Map serviceResult = dispatcher.runSync('setInvoiceStatus', serviceCtx)
+        assert ServiceUtil.isSuccess(serviceResult)
+
+        GenericValue invoice = from('Invoice')
+                .where('invoiceId', invoiceId)
+                .queryOne()
+        assert invoice
+        assert invoice.statusId == statusId
+
+        GenericValue acctgTrans = from('AcctgTrans')
+                .where('invoiceId', invoiceId)
+                .orderBy('-transactionDate').queryFirst()
+        assert acctgTrans
+
+        List<GenericValue> acctgTransEntryList = from('AcctgTransEntry')
+                .where('acctgTransId', acctgTrans.acctgTransId)
+                .queryList()
+        assert acctgTransEntryList
+
+        for (GenericValue acctgTransEntry : acctgTransEntryList) {
+            if (acctgTransEntry.debitCreditFlag == 'C') {
+                assert acctgTransEntry.glAccountId == '516100'
+            } else if (acctgTransEntry.debitCreditFlag == 'D') {
+                assert acctgTransEntry.glAccountId == '210000'
+                assert acctgTransEntry.glAccountTypeId == 'ACCOUNTS_PAYABLE'
+            }
+        }
+    }
+
+    // Test case for process mass check run
+    @Test
+    @Order(4)
+    void testCreatePaymentAndPaymentGroupForInvoices() {
+        /*
+            Precondition : Invoice is in ready status.
+                           Invoice outstanding amount should be greater than zero -->
+
+            Following process is tested by test case:
+                This will call createPaymentAndPaymentGroupForInvoices service and return a paymentGroupId;
+                1. Checked for paymentGroupId for not empty
+                2. Checked for associated paymentGroupMembers for not empty -->
+
+            Post condition : Invoice status should be changed to paid.
+                             Payment should be created with PaymentApplications.
+                             PaymentGroup and PaymentGroupMembers should be created.
+        */
+        String organizationPartyId = testParams.organizationPartyId ?: 'Company'
+        String paymentMethodTypeId = testParams.paymentMethodTypeId ?: 'COMPANY_CHECK'
+        String paymentMethodId = testParams.paymentMethodId ?: 'SC_CHECKING'
+        Map serviceCtx = [
+                organizationPartyId: organizationPartyId,
+                checkStartNumber: 100101L,
+                invoiceIds: ['8000', '8008'],
+                paymentMethodTypeId: paymentMethodTypeId,
+                paymentMethodId: paymentMethodId,
+                userLogin: userLogin
+        ]
+        Map serviceResult = dispatcher.runSync('createPaymentAndPaymentGroupForInvoices', serviceCtx)
+        assert ServiceUtil.isSuccess(serviceResult)
+        String paymentGroupId = serviceResult.paymentGroupId
+        assert paymentGroupId
+
+        List<GenericValue> paymentGroupMemberList = from('PaymentGroupMember')
+                .where('paymentGroupId', paymentGroupId)
+                .queryList()
+        assert paymentGroupMemberList
+    }
+
+    // Test case for cancel check run
+    @Test
+    @Order(5)
+    void testCancelCheckRunPayments() {
+        /*
+            Pre condition : Invoice is in paid status.
+                            Payment should be present.
+                            thruDate for PaymentGroupMember should be Null -->
+
+            Following process is tested by test case:
+                This will call cancelCheckRunPayments service;
+                1. Checked for thruDate for not empty
+                2. Checked for associated payment status as PMNT_VOID -->
+
+            Post condition : thruDate for PaymentGroupMember should be Not Null
+                             payment status should be changed to PMNT_VOID.
+        */
+        String paymentGroupId = testParams.paymentGroupId ?: '9001'
+
+        Map serviceCtx = [
+                paymentGroupId: paymentGroupId,
+                userLogin: userLogin
+        ]
+        Map serviceResult = dispatcher.runSync('cancelCheckRunPayments', serviceCtx)
+        assert ServiceUtil.isSuccess(serviceResult)
+
+        List<GenericValue> paymentGroupMemberAndTransList = from('PmtGrpMembrPaymentAndFinAcctTrans')
+                .where('paymentGroupId', paymentGroupId)
+                .queryList()
+        GenericValue firstPaymentGroupMemberAndTrans = EntityUtil.getFirst(paymentGroupMemberAndTransList)
+        if (firstPaymentGroupMemberAndTrans && 'FINACT_TRNS_APPROVED' != firstPaymentGroupMemberAndTrans.finAccountTransStatusId) {
+            for (GenericValue aymentGroupMemberAndTrans : paymentGroupMemberAndTransList) {
+                assert aymentGroupMemberAndTrans.thruDate
+                assert aymentGroupMemberAndTrans.statusId == 'PMNT_VOID'
+            }
+        }
+    }
+
+    // Test case for deposit or withdraw payments
+    @Test
+    @Order(6)
+    void testDepositWithdrawPayments() {
+        //List paymentIds = ['demo10001', 'demo10010']
+        List paymentIds = ['demo10010']
+        String finAccountId = testParams.finAccountId ?: 'SC_CHECKING'
+
+        Map serviceCtx = [
+                paymentIds: paymentIds,
+                finAccountId: finAccountId,
+                userLogin: userLogin
+        ]
+        Map serviceResult = dispatcher.runSync('depositWithdrawPayments', serviceCtx)
+        assert ServiceUtil.isSuccess(serviceResult)
+        String
+
+        List<GenericValue> payments = from('Payment')
+                .where(makeCondition('paymentId', IN, paymentIds))
+                .queryList()
+
+        for (GenericValue payment : payments) {
+            GenericValue finAccountTrans = from('FinAccountTrans')
+                    .where('finAccountTransId', payment.finAccountTransId)
+                    .queryOne()
+            assert finAccountTrans
+            assert ['DEPOSIT', 'WITHDRAWAL'].contains(finAccountTrans.finAccountTransTypeId)
+            assert finAccountTrans.amount == payment.amount
+        }
+    }
+
+    @Test
+    @Order(7)
+    void testDepositWithdrawPaymentsInSingleTrans() {
+        List paymentIds = ['8004']
+        BigDecimal paymentRunningTotal = new BigDecimal('0')
+        String finAccountId = testParams.finAccountId ?: 'SC_CHECKING'
+        String groupInOneTransaction = testParams.groupInOneTransaction ?: 'Y'
+        String paymentGroupTypeId = testParams.paymentGroupTypeId ?: 'BATCH_PAYMENT'
+
+        Map serviceCtx = [
+                paymentIds: paymentIds,
+                finAccountId: finAccountId,
+                groupInOneTransaction: groupInOneTransaction,
+                paymentGroupTypeId: paymentGroupTypeId,
+                userLogin: userLogin
+        ]
+        Map serviceResult = dispatcher.runSync('depositWithdrawPayments', serviceCtx)
+        assert ServiceUtil.isSuccess(serviceResult)
+        String finAccountTransId = serviceResult.finAccountTransId
+
+        List<GenericValue> payments = from('Payment')
+                .where(makeCondition('paymentId', IN, paymentIds))
+                .queryList()
+        for (GenericValue payment : payments) {
+            assert finAccountTransId == payment.finAccountTransId
+            paymentRunningTotal = paymentRunningTotal.add(payment.amount)
+        }
+
+        GenericValue finAccountTrans = from('FinAccountTrans')
+                .where('finAccountTransId', finAccountTransId)
+                .queryOne()
+        assert paymentRunningTotal == finAccountTrans.amount
+    }
+
+    // Test case for fin account trans
+    @Test
+    @Order(8)
+    void testSetFinAccountTransStatus() {
+        /*
+            Precondition : FinAccountTrans should be in CREATED status
+
+            Post condition : FinAccountTrans status changes to CANCELED
+                             Clear finAccountTransId field and update associated Payment record
+        */
+        String finAccountTransId = testParams.finAccountTransId ?: '9102'
+        String statusId = testParams.statusId ?: 'FINACT_TRNS_CANCELED'
+
+        Map serviceCtx = [
+                finAccountTransId: finAccountTransId,
+                statusId: statusId,
+                userLogin: userLogin
+        ]
+        Map serviceResult = dispatcher.runSync('setFinAccountTransStatus', serviceCtx)
+        assert ServiceUtil.isSuccess(serviceResult)
+
+        GenericValue finAccountTrans = from('FinAccountTrans')
+                .where('finAccountTransId', finAccountTransId)
+                .queryOne()
+        assert finAccountTrans
+        assert finAccountTrans.statusId == statusId
+
+        GenericValue payment = from('Payment')
+                .where('paymentId', finAccountTrans.paymentId)
+                .queryOne()
+        assert payment
+    }
+
+    // Test case to verify GL postings for Void Payment process
+    @Test
+    @Order(9)
+    void testGlPostingsOnVoidPayment() {
+        /*
+            Precondition :
+              * Payment is in sent status so accounting transaction is already posted to the GL
+              * GL Account associated with Payment :8003 are ACCOUNTS RECEVABLE and UNDEPOSITED RECEIPTS
+              * Credit in account 120000 - ACCOUNTS RECEVABLE ;debitTotal :$754.17 ; creditTotal:$274.18 ; debitCreditDifference : $479.99
+              * Debit in account 112000 UNDEPOSITED RECEIPTS ;debitTotal :$136.85 ; creditTotal:$116.85 ; debitCreditDifference : $20
+
+            Post condition : When status is set to void, an reverse accounting transaction is automatically posted to the GL.
+              * Payment status changes to void.
+              * Credit in account 112000- UNDEPOSITED RECEIPTS  ;debitTotal :$136.85 ; creditTotal: $136.85 ; debitCreditDifference : $0
+              * Debit in account 120000 - ACCOUNTS RECEVABLE debitTotal :$774.17 ; creditTotal: $274.18 ; debitCreditDifference : $ 499.99
+        */
+        String organizationPartyId = testParams.organizationPartyId ?: 'Company'
+        Map serviceCtx = [
+                organizationPartyId: organizationPartyId,
+                findDate: UtilDateTime.nowTimestamp(),
+                userLogin: userLogin
+        ]
+        Map serviceResult = dispatcher.runSync('findCustomTimePeriods', serviceCtx)
+        assert ServiceUtil.isSuccess(serviceResult)
+        assert serviceResult.customTimePeriodList
+        GenericValue customTimePeriod = (serviceResult.customTimePeriodList).get(0)
+
+        serviceCtx.clear()
+        serviceResult.clear()
+        serviceCtx = [
+                organizationPartyId: organizationPartyId,
+                customTimePeriodStartDate: customTimePeriod.fromDate,
+                customTimePeriodEndDate: customTimePeriod.thruDate,
+                glAccountId: testParams.glAccountId ?: '120000',
+                userLogin: userLogin
+        ]
+        serviceResult = dispatcher.runSync('getAcctgTransEntriesAndTransTotal', serviceCtx)
+        assert ServiceUtil.isSuccess(serviceResult)
+        BigDecimal receivableDebitTotal = serviceResult.debitTotal
+        BigDecimal receivableDebitCreditDifference = serviceResult.debitCreditDifference
+
+        serviceResult.clear()
+        serviceCtx.glAccountId = testParams.glAccountId ?: '112000'
+        serviceResult = dispatcher.runSync('getAcctgTransEntriesAndTransTotal', serviceCtx)
+        assert ServiceUtil.isSuccess(serviceResult)
+        BigDecimal undepositedCreditTotal = serviceResult.creditTotal
+        BigDecimal undepositedDebitCreditDifference = serviceResult.debitCreditDifference
+
+        serviceResult.clear()
+        String paymentId = testParams.paymentId ?: '8003'
+        Map voidPaymentCtx = [
+                paymentId: paymentId,
+                userLogin: userLogin
+        ]
+        serviceResult = dispatcher.runSync('voidPayment', voidPaymentCtx)
+        assert ServiceUtil.isSuccess(serviceResult)
+
+        BigDecimal totalReceivableDebitAmount = receivableDebitTotal.add(new BigDecimal('20'))
+        BigDecimal totalReceivableDebitCreditDifference = receivableDebitCreditDifference.add(new BigDecimal('20'))
+        serviceResult.clear()
+        serviceCtx.glAccountId = testParams.glAccountId ?: '120000'
+        serviceResult = dispatcher.runSync('getAcctgTransEntriesAndTransTotal', serviceCtx)
+        assert serviceResult
+        assert totalReceivableDebitAmount == serviceResult.debitTotal
+        assert totalReceivableDebitCreditDifference == serviceResult.debitCreditDifference
+
+        BigDecimal totalUndepositedCreditAmount = undepositedCreditTotal.add(new BigDecimal('20'))
+        BigDecimal totalUndepositedDebitCreditDifference = undepositedDebitCreditDifference.subtract(new BigDecimal('20'))
+        serviceResult.clear()
+        serviceCtx.glAccountId = testParams.glAccountId ?: '112000'
+        serviceResult = dispatcher.runSync('getAcctgTransEntriesAndTransTotal', serviceCtx)
+        assert serviceResult
+        assert totalUndepositedCreditAmount == serviceResult.creditTotal
+        assert totalUndepositedDebitCreditDifference == serviceResult.debitCreditDifference
+    }
+
+    // Test case to verify GL postings for Check Run process
+    @Test
+    @Order(10)
+    void testGlPostingOnCheckRun() {
+        /*
+            Precondition :
+              * Invoice is in ready status so accounting transaction is already posted to the GL
+              * GL Accounts associated with Invoice :8007 are ACCOUNTS PAYABLE and UNINVOICED ITEM RECEIPTS
+              * Credit in account 210000 - ACCOUNTS PAYABLE ;debitTotal $430 ; creditTotal:$1955.4 ; debitCreditDifference : $ -1524.85
+              * Debit in account 214000 - UNINVOICED ITEM RECEIPTS;debitTotal :$408 ; creditTotal:$48 ; debitCreditDifference : $360
+              * UNDEPOSITED RECEIPTS 112000 - debitTotal :$136.85 ; creditTotal:$136.85 ; debitCreditDifference : $0
+
+            Post condition : After Check Run process accounting transactions are automatically posted to the GL.
+              * Payment get associated with invoice.
+              * GL Accounts associated with Payment are ACCOUNTS PAYABLE and UNDEPOSITED RECEIPTS.
+              * ACCOUNTS PAYABLE 210000(for Invoice and Payment) - debitTotal $503.41 ; creditTotal:$1991.83 ; debitCreditDifference : $ -1488.42
+              * UNINVOICED ITEM RECEIPTS 214000 - debitTotal :$408 ; creditTotal:$48 ; debitCreditDifference : $360
+              * GENERAL CHECKING ACCOUNT 111100 (for payment)- debitTotal :$136.85 ; creditTotal:$173.28 ; debitCreditDifference : $ -36.43
+        */
+        String organizationPartyId = testParams.organizationPartyId ?: 'Company'
+        Map serviceCtx = [
+                organizationPartyId: organizationPartyId,
+                findDate: UtilDateTime.nowTimestamp(),
+                userLogin: userLogin
+        ]
+        Map serviceResult = dispatcher.runSync('findCustomTimePeriods', serviceCtx)
+        assert ServiceUtil.isSuccess(serviceResult)
+        assert serviceResult.customTimePeriodList
+        GenericValue customTimePeriod = (serviceResult.customTimePeriodList).get(0)
+
+        serviceCtx.clear()
+        serviceResult.clear()
+        serviceCtx = [
+                organizationPartyId: organizationPartyId,
+                customTimePeriodStartDate: customTimePeriod.fromDate,
+                customTimePeriodEndDate: customTimePeriod.thruDate,
+                glAccountId: testParams.glAccountId ?: '210000',
+                userLogin: userLogin
+        ]
+        serviceResult = dispatcher.runSync('getAcctgTransEntriesAndTransTotal', serviceCtx)
+        assert ServiceUtil.isSuccess(serviceResult)
+        BigDecimal payableDebitTotal = serviceResult.debitTotal
+        BigDecimal payableCreditTotal = serviceResult.creditTotal
+        BigDecimal payableDebitCreditDifference = serviceResult.debitCreditDifference
+
+        serviceResult.clear()
+        serviceCtx.glAccountId = testParams.glAccountId ?: '111100'
+        serviceResult = dispatcher.runSync('getAcctgTransEntriesAndTransTotal', serviceCtx)
+        assert ServiceUtil.isSuccess(serviceResult)
+        BigDecimal undepositedDebitTotal = serviceResult.debitTotal
+        BigDecimal undepositedCreditTotal = serviceResult.creditTotal
+        BigDecimal undepositedDebitCreditDifference = serviceResult.debitCreditDifference
+
+        serviceResult.clear()
+        String paymentMethodTypeId = testParams.paymentMethodTypeId ?: 'COMPANY_CHECK'
+        String paymentMethodId = testParams.paymentMethodId ?: 'SC_CHECKING'
+        Map invoiceServiceCtx = [
+                organizationPartyId: organizationPartyId,
+                checkStartNumber: 100100L,
+                invoiceIds: ['8007'],
+                paymentMethodTypeId: paymentMethodTypeId,
+                paymentMethodId: paymentMethodId,
+                userLogin: userLogin
+        ]
+        serviceResult = dispatcher.runSync('createPaymentAndPaymentGroupForInvoices', invoiceServiceCtx)
+        assert ServiceUtil.isSuccess(serviceResult)
+        String paymentGroupId = serviceResult.paymentGroupId
+        assert paymentGroupId
+
+        BigDecimal tempBig = 36.43
+
+        BigDecimal totalPayableDebitAmount = tempBig.add(payableDebitTotal)
+        BigDecimal totalPayableDebitCreditDifference = tempBig.add(payableDebitCreditDifference)
+        serviceResult.clear()
+        serviceCtx.glAccountId = testParams.glAccountId ?: '210000'
+        serviceResult = dispatcher.runSync('getAcctgTransEntriesAndTransTotal', serviceCtx)
+        assert ServiceUtil.isSuccess(serviceResult)
+        assert totalPayableDebitAmount == serviceResult.debitTotal
+        assert payableCreditTotal == serviceResult.creditTotal
+        assert totalPayableDebitCreditDifference == serviceResult.debitCreditDifference
+
+        BigDecimal totalUndepositedCreditAmount = tempBig.add(undepositedCreditTotal)
+        BigDecimal totalUndepositedDebitCreditDifference = undepositedDebitCreditDifference.subtract(tempBig)
+        serviceResult.clear()
+        serviceCtx.glAccountId = testParams.glAccountId ?: '111100'
+        serviceResult = dispatcher.runSync('getAcctgTransEntriesAndTransTotal', serviceCtx)
+        assert ServiceUtil.isSuccess(serviceResult)
+        assert undepositedDebitTotal == serviceResult.debitTotal
+        assert totalUndepositedCreditAmount == serviceResult.creditTotal
+        assert totalUndepositedDebitCreditDifference == serviceResult.debitCreditDifference
+    }
+
+}

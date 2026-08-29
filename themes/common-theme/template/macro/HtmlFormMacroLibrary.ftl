@@ -43,8 +43,8 @@ under the License.
 </#macro>
 <#macro renderHyperlinkField></#macro>
 
-<#macro renderTextField type step pattern name className alert value="" textSize="" maxlength="" id="" event="" action=""
-        disabled=false clientAutocomplete="" ajaxUrl="" ajaxEnabled="" mask="" tabindex="" readonly="" required=false
+<#macro renderTextField type step pattern name className alert min max value="" textSize="" maxlength="" id="" event=""
+        action="" disabled=false clientAutocomplete="" ajaxUrl="" ajaxEnabled="" mask="" tabindex="" readonly="" required=false
         placeholder="" delegatorName="default">
   <input type="${type}" name="${name?default("")?html}"<#t/>
   <#if ajaxEnabled?has_content && ajaxEnabled && ajaxUrl?has_content>
@@ -70,6 +70,8 @@ under the License.
     <#if required?has_content && required> required</#if>
     <#if pattern?has_content> pattern="${pattern}"</#if>
     <#if step?has_content> step="${step}"</#if>
+    <#if min?has_content> min="${min}"</#if>
+    <#if max?has_content> max="${max}"</#if>
   /><#t/>
 </#macro>
 

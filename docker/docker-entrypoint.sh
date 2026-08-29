@@ -62,7 +62,7 @@
 # Default value: <empty>
 #
 # OFBIZ_SKIP_DB_DRIVER_DOWNLOAD
-# When connecting to databases other than the OFBiz embedded Derby database a suitable driver will be needed.
+# When connecting to databases other than the OFBiz embedded H2 database a suitable driver will be needed.
 # This script will attempt to download a suitable driver unless the OFBIZ_SKIP_DB_DRIVER_DOWNLOAD contains a non-empty
 # value.
 #

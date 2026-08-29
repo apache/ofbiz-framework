@@ -152,6 +152,11 @@ public class DBCPConnectionFactory implements ConnectionFactory {
 
         GenericObjectPool<PoolableConnection> pool = new GenericObjectPool<>(factory, poolConfig);
         factory.setPool(pool);
+        try {
+            pool.preparePool();
+        } catch (Exception e) {
+            Debug.logWarning("Could not pre-warm connection pool: " + e.getMessage(), MODULE);
+        }
 
         mds = new DebugManagedDataSource<>(pool, xacf.getTransactionRegistry());
         mds.setAccessToUnderlyingConnectionAllowed(true);

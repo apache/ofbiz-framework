@@ -18,9 +18,10 @@
   -->
 
 <test-suite suite-name="basetests"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/test-suite.xsd">
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/test-suite.xsd">
     <test-case case-name="basesimpletests">
-        <junit-test-suite class-name="org.apache.ofbiz.base.test.SimpleTests"/>
+        <jupiter-test-suite class-name="org.apache.ofbiz.base.test.SimpleTests"/>
     </test-case>
+
 </test-suite>

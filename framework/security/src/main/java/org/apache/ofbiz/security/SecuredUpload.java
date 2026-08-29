@@ -23,6 +23,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Transparency;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -61,6 +62,7 @@ import java.util.zip.Inflater;
 import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -580,6 +582,12 @@ public class SecuredUpload {
         if (!noWebshellInPNG(file)) {
             return false;
         }
+        if (!noWebshellInJPEG(file)) {
+            return false;
+        }
+        if (!noWebshellInGIF(file)) {
+            return false;
+        }
 
         boolean safeState = false;
 
@@ -678,6 +686,7 @@ public class SecuredUpload {
             metadata = ImageMetadataReader.readMetadata(file);
         } catch (ImageProcessingException | IOException error) {
             Debug.logError("================== Not saved for security reason ==================" + error, MODULE);
+            return false;
         }
 
         for (Directory directory : metadata.getDirectories()) {
@@ -711,31 +720,195 @@ public class SecuredUpload {
             return false;
         }
 
-        try (DataInputStream stream = new DataInputStream(new FileInputStream(file));) {
-            byte[] data = new byte[8];
-            stream.readFully(data); //Read PNG Header
+        try (DataInputStream stream = new DataInputStream(new FileInputStream(file))) {
+            byte[] header = new byte[8];
+            stream.readFully(header); // Read PNG signature
+            ByteArrayOutputStream idatBuffer = new ByteArrayOutputStream();
+            byte[] nameBuf = new byte[4];
             while (true) {
-                data = new byte[4];
-                stream.readFully(data); //Read Length
-                int length = ((data[0] & 0xFF) << 24)
-                        | ((data[1] & 0xFF) << 16)
-                        | ((data[2] & 0xFF) << 8)
-                        | (data[3] & 0xFF); //Byte array to int
-                stream.readFully(data); //Read Name
-                String name = new String(data); //Byte array to String
+                byte[] lenBuf = new byte[4];
+                stream.readFully(lenBuf); // Read chunk length
+                int length = ((lenBuf[0] & 0xFF) << 24)
+                        | ((lenBuf[1] & 0xFF) << 16)
+                        | ((lenBuf[2] & 0xFF) << 8)
+                        | (lenBuf[3] & 0xFF);
+                stream.readFully(nameBuf); // Read chunk type
+                String name = new String(nameBuf);
                 if (name.equals("IDAT")) {
-                    data = new byte[length];
-                    stream.readFully(data); //Read Data
-                    return inflate(data);
-                } else { //Don't care about other chunks
-                    data = new byte[length + 4]; //Data length + 4 byte CRC
-                    stream.readFully(data); //Skip Data and CRC.
+                    byte[] chunkData = new byte[length];
+                    stream.readFully(chunkData); // Read data
+                    idatBuffer.write(chunkData);
+                    stream.readFully(new byte[4]); // Skip CRC
+                } else if (name.equals("IEND")) {
+                    stream.readFully(new byte[4]); // Skip CRC
+                    break; // IEND marks end of PNG datastream
+                } else {
+                    stream.readFully(new byte[length + 4]); // Skip data and CRC
                 }
             }
+            // Reject any bytes appended after IEND
+            if (stream.read() != -1) {
+                Debug.logError("================== Not saved for security reason, PNG has trailing bytes after IEND ==================", MODULE);
+                return false;
+            }
+            // Inflate all concatenated IDAT chunks
+            return inflate(idatBuffer.toByteArray());
         } catch (IOException error) {
             Debug.logError("================== Not saved for security reason, wrong PNG IDAT (weird) ==================" + error, MODULE);
             return false;
         }
+    }
+
+    private static boolean noWebshellInJPEG(File file) {
+        try {
+            byte[] bytes = Files.readAllBytes(file.toPath());
+            if (!Imaging.guessFormat(bytes).equals(ImageFormats.JPEG)) {
+                return true; // Not a JPEG file, it's OK so far
+            }
+            // SOI marker check
+            if (bytes.length < 4 || (bytes[0] & 0xFF) != 0xFF || (bytes[1] & 0xFF) != 0xD8) {
+                Debug.logError("================== Not saved for security reason, malformed JPEG ==================", MODULE);
+                return false;
+            }
+            int pos = 2;
+            while (pos < bytes.length) {
+                if ((bytes[pos] & 0xFF) != 0xFF) {
+                    Debug.logError("================== Not saved for security reason, malformed JPEG marker ==================", MODULE);
+                    return false;
+                }
+                // Skip 0xFF fill bytes (valid marker padding per JPEG spec)
+                while (pos < bytes.length && (bytes[pos] & 0xFF) == 0xFF) {
+                    pos++;
+                }
+                if (pos >= bytes.length) {
+                    Debug.logError("================== Not saved for security reason, JPEG missing EOI ==================", MODULE);
+                    return false;
+                }
+                int marker = bytes[pos++] & 0xFF;
+                if (marker == 0xD9) {
+                    // EOI — reject any trailing bytes
+                    if (pos != bytes.length) {
+                        Debug.logError("================ Not saved for security reason, JPEG has trailing bytes after EOI ================", MODULE);
+                        return false;
+                    }
+                    return true;
+                } else if (marker >= 0xD0 && marker <= 0xD8) {
+                    // SOI (0xD8) and RST0–RST7 (0xD0–0xD7) — no length field
+                    continue;
+                } else if (marker == 0xDA) {
+                    // SOS: length-prefixed header followed by entropy-coded scan data
+                    if (pos + 2 > bytes.length) return false;
+                    int len = ((bytes[pos] & 0xFF) << 8) | (bytes[pos + 1] & 0xFF);
+                    if (len < 2 || pos + len > bytes.length) return false;
+                    pos += len; // Skip SOS header
+                    // Scan entropy-coded data, respecting byte stuffing (FF 00) and restart markers
+                    while (pos < bytes.length - 1) {
+                        if ((bytes[pos] & 0xFF) == 0xFF) {
+                            int next = bytes[pos + 1] & 0xFF;
+                            if (next == 0x00 || (next >= 0xD0 && next <= 0xD7)) {
+                                pos += 2; // Stuffed 0xFF or RST — part of scan data
+                            } else {
+                                break; // Real marker — stop scanning scan data
+                            }
+                        } else {
+                            pos++;
+                        }
+                    }
+                } else {
+                    // Regular length-delimited segment
+                    if (pos + 2 > bytes.length) return false;
+                    int len = ((bytes[pos] & 0xFF) << 8) | (bytes[pos + 1] & 0xFF);
+                    if (len < 2 || pos + len > bytes.length) return false;
+                    pos += len;
+                }
+            }
+            Debug.logError("================== Not saved for security reason, JPEG missing EOI ==================", MODULE);
+            return false;
+        } catch (IOException error) {
+            Debug.logError("================== Not saved for security reason ==================" + error, MODULE);
+            return false;
+        }
+    }
+
+    private static boolean noWebshellInGIF(File file) {
+        try {
+            byte[] bytes = Files.readAllBytes(file.toPath());
+            if (!Imaging.guessFormat(bytes).equals(ImageFormats.GIF)) {
+                return true; // Not a GIF file, it's OK so far
+            }
+            // Header: "GIF87a" or "GIF89a"
+            if (bytes.length < 13) return false;
+            String gifHeader = new String(bytes, 0, 6, StandardCharsets.US_ASCII);
+            if (!"GIF87a".equals(gifHeader) && !"GIF89a".equals(gifHeader)) {
+                Debug.logError("================== Not saved for security reason, malformed GIF ==================", MODULE);
+                return false;
+            }
+            int pos = 6;
+            // Logical Screen Descriptor: packed byte at offset 4 within LSD
+            int packed = bytes[pos + 4] & 0xFF;
+            boolean hasGCT = (packed & 0x80) != 0;
+            int gctSize = packed & 0x07;
+            pos += 7;
+            // Skip Global Color Table
+            if (hasGCT) {
+                int gctBytes = 3 * (1 << (gctSize + 1));
+                if (pos + gctBytes > bytes.length) return false;
+                pos += gctBytes;
+            }
+            // Parse blocks until Trailer
+            while (pos < bytes.length) {
+                int blockType = bytes[pos++] & 0xFF;
+                if (blockType == 0x3B) {
+                    // Trailer — reject any trailing bytes
+                    if (pos != bytes.length) {
+                        Debug.logError("=============== Not saved for security reason, GIF has trailing bytes after Trailer ===============", MODULE);
+                        return false;
+                    }
+                    return true;
+                } else if (blockType == 0x21) {
+                    // Extension: label byte + sub-blocks
+                    if (pos >= bytes.length) return false;
+                    pos++; // Skip extension label
+                    pos = skipGIFSubBlocks(bytes, pos);
+                    if (pos < 0) return false;
+                } else if (blockType == 0x2C) {
+                    // Image Descriptor: 9 bytes
+                    if (pos + 9 > bytes.length) return false;
+                    int imagePacked = bytes[pos + 8] & 0xFF;
+                    boolean hasLCT = (imagePacked & 0x80) != 0;
+                    int lctSize = imagePacked & 0x07;
+                    pos += 9;
+                    if (hasLCT) {
+                        int lctBytes = 3 * (1 << (lctSize + 1));
+                        if (pos + lctBytes > bytes.length) return false;
+                        pos += lctBytes;
+                    }
+                    pos++; // LZW minimum code size
+                    pos = skipGIFSubBlocks(bytes, pos);
+                    if (pos < 0) return false;
+                } else {
+                    Debug.logError("================== Not saved for security reason, unknown GIF block type ==================", MODULE);
+                    return false;
+                }
+            }
+            Debug.logError("================== Not saved for security reason, GIF missing Trailer ==================", MODULE);
+            return false;
+        } catch (IOException error) {
+            Debug.logError("================== Not saved for security reason ==================" + error, MODULE);
+            return false;
+        }
+    }
+
+    private static int skipGIFSubBlocks(byte[] bytes, int pos) {
+        while (pos < bytes.length) {
+            int blockSize = bytes[pos++] & 0xFF;
+            if (blockSize == 0) {
+                return pos; // Block Terminator
+            }
+            pos += blockSize;
+            if (pos > bytes.length) return -1;
+        }
+        return -1; // Reached EOF without Block Terminator
     }
 
     private static boolean isPNG(File file) throws IOException {
@@ -850,7 +1023,7 @@ public class SecuredUpload {
         }
         File file = new File(fileName);
         boolean safeState = false;
-        boolean canParseZUGFeRD = true;
+        boolean canParseZUGFeRD = false;
         try {
             if (Objects.isNull(file) || !file.exists()) {
                 return safeState;
@@ -889,6 +1062,8 @@ public class SecuredUpload {
                                         + " is not a readable (valid and secure) PDF file. For security reason it's not accepted as a such file",
                                         MODULE);
 
+                            } else {
+                                canParseZUGFeRD = true;
                             }
                         } catch (SAXException | ParserConfigurationException | IOException e) {
                             safeState = false;
@@ -940,7 +1115,7 @@ public class SecuredUpload {
 
         // cf. https://commons.apache.org/proper/commons-csv/apidocs/org/apache/commons/csv/CSVFormat.html
         if (!content.contains("</svg>")) {
-            try (CSVParser parser = new CSVParser(in, cvsFormat)) {
+            try (CSVParser parser = cvsFormat.parse(in)) {
                 parser.getRecords();
             }
         } else {
@@ -956,12 +1131,18 @@ public class SecuredUpload {
             Debug.logError("The file " + fileName + " is a Windows executable, for security reason it's not accepted", MODULE);
             return true;
         }
-        // Check for ELF (Linux) and scripts
+        // Check for ELF (Linux) and scripts. Tika reports the generic application/x-elf only for
+        // ELF files it can't further classify; real-world binaries are detected as one of its
+        // more specific sub-types below (e.g. every PIE-compiled executable or shared library).
         if ("application/x-elf".equals(mimeType)
+                || "application/x-executable".equals(mimeType)
+                || "application/x-sharedlib".equals(mimeType)
+                || "application/x-object".equals(mimeType)
+                || "application/x-coredump".equals(mimeType)
                 || "application/x-sh".equals(mimeType)
-                || "application/text/x-perl".equals(mimeType)
-                || "application/text/x-ruby".equals(mimeType)
-                || "application/text/x-python".equals(mimeType)) {
+                || "text/x-perl".equals(mimeType)
+                || "text/x-ruby".equals(mimeType)
+                || "text/x-python".equals(mimeType)) {
             Debug.logError("The file " + fileName + " is a Linux executable, for security reason it's not accepted", MODULE);
             return true;
         }
@@ -1332,9 +1513,12 @@ public class SecuredUpload {
         try {
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             // Harden against XXE and DOCTYPE-based injection attacks
+            dbf.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
             dbf.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
             dbf.setFeature("http://xml.org/sax/features/external-general-entities", false);
             dbf.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
+            dbf.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
+            dbf.setXIncludeAware(false);
             dbf.setExpandEntityReferences(false);
             dbf.setNamespaceAware(true);
             DocumentBuilder db = dbf.newDocumentBuilder();

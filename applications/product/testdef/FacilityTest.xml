@@ -22,22 +22,22 @@ under the License.
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/test-suite.xsd">
     <test-case case-name="stockMove-test">
-        <junit-test-suite class-name="org.apache.ofbiz.product.test.StockMovesTest"/>
+        <jupiter-test-suite class-name="org.apache.ofbiz.product.test.StockMovesTest"/>
     </test-case>
     <test-case case-name="inventoryItemTransfer-test">
-        <junit-test-suite class-name="org.apache.ofbiz.product.test.InventoryItemTransferTest"/>
+        <jupiter-test-suite class-name="org.apache.ofbiz.product.test.InventoryItemTransferTest"/>
     </test-case>
     <test-case case-name="inventory-tests">
-        <junit-test-suite class-name="org.apache.ofbiz.product.product.test.InventoryTests"/>
+        <jupiter-test-suite class-name="org.apache.ofbiz.product.product.test.InventoryTests"/>
     </test-case>
 
     <test-case case-name="shipment-tests">
-        <junit-test-suite class-name="org.apache.ofbiz.product.product.test.ShipmentTests"/>
+        <jupiter-test-suite class-name="org.apache.ofbiz.product.product.test.ShipmentTests"/>
     </test-case>
 
     <test-group case-name="shipmentcost-tests">
         <entity-xml action="load" entity-xml-url="component://product/testdef/data/ShipmentCostTestData.xml"/>
-        <junit-test-suite class-name="org.apache.ofbiz.product.shipment.test.ShipmentCostTests"/>
+        <jupiter-test-suite class-name="org.apache.ofbiz.product.shipment.test.ShipmentCostTests"/>
     </test-group>
 
     <test-case case-name="loadIssuanceTestData">
@@ -45,7 +45,7 @@ under the License.
     </test-case>
 
     <test-case case-name="issuance-tests">
-        <junit-test-suite class-name="org.apache.ofbiz.shipment.test.IssuanceTest"/>
+        <jupiter-test-suite class-name="org.apache.ofbiz.shipment.test.IssuanceTest"/>
     </test-case>
 
 </test-suite>

@@ -18,7 +18,7 @@
  */
 package org.apache.ofbiz.base.container;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -30,14 +30,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.apache.ofbiz.base.component.ComponentConfig;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 
-public class ComponentContainerTest {
-    private static final Path ORDER_CONFIG = Paths.get("applications", "order", "config");
-    private static final Path ACCOUNTING_CONFIG = Paths.get("applications", "accounting", "config");
+public final class ComponentContainerTest {
+    private static final Path ORDER_CONFIG = Paths.get("applications", "test-order", "config");
+    private static final Path ACCOUNTING_CONFIG = Paths.get("applications", "test-accounting", "config");
     private static final Path[] CONFIGS = {ORDER_CONFIG, ACCOUNTING_CONFIG};
 
     private Path ofbizHome = Paths.get(ComponentContainerTest.class.getResource("testsdata").toURI())
@@ -45,7 +45,7 @@ public class ComponentContainerTest {
 
     public ComponentContainerTest() throws URISyntaxException { }
 
-    @Before
+    @BeforeEach
     public void setUp() throws IOException {
         cleanUp();
         for (Path cfg : CONFIGS) {
@@ -53,7 +53,7 @@ public class ComponentContainerTest {
         }
     }
 
-    @After
+    @AfterEach
     public void cleanUp() throws IOException {
         for (Path cfg : CONFIGS) {
             Files.deleteIfExists(ofbizHome.resolve(cfg));
@@ -65,9 +65,17 @@ public class ComponentContainerTest {
         ComponentContainer containerObj = new ComponentContainer();
         containerObj.init("component-container", ofbizHome);
 
+        // ComponentConfig's cache is a single JVM-wide static shared with the rest of the test
+        // suite (e.g. the UEL bootstrap session listener also loads the real, ~90-component
+        // project into it). Filter down to just this test's own fixture names so the assertion
+        // stays a genuine, order-sensitive check of sortDependencies() - accounting depends on
+        // order, so a correct topological sort must place test-order before test-accounting even
+        // though alphabetical scan order would visit test-accounting first - regardless of
+        // whatever else has been loaded into the shared cache by other tests in this JVM.
         List<String> loadedComponents = ComponentConfig.components()
                 .map(ComponentConfig::getGlobalName)
+                .filter(name -> name.equals("test-order") || name.equals("test-accounting"))
                 .collect(Collectors.toList());
-        assertEquals(Arrays.asList("order", "accounting"), loadedComponents);
+        assertEquals(Arrays.asList("test-order", "test-accounting"), loadedComponents);
     }
 }

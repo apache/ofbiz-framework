@@ -19,13 +19,23 @@
 package org.apache.ofbiz.webtools.entity
 
 import org.apache.ofbiz.base.util.Debug
+import org.apache.ofbiz.base.util.GeneralException
 import org.apache.ofbiz.base.util.UtilFormatOut
 import org.apache.ofbiz.entity.condition.EntityComparisonOperator
 import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.entity.condition.EntityJoinOperator
 import org.apache.ofbiz.entity.model.ModelViewEntity
 import org.apache.ofbiz.entity.transaction.TransactionUtil
-import org.apache.ofbiz.entity.util.EntityFindOptions
+import org.apache.ofbiz.entity.util.EntityQuery
+import org.apache.ofbiz.security.SecurityUtil
+
+// Kept in sync with the permission check the page's own decorator and template already
+// perform (CommonScreens.xml#CommonImportExportDecorator, XmlDsDump.ftl); this script must
+// not run its logic -- especially the file/directory writes further down -- ahead of that
+// check, since screen actions run unconditionally, before any widget-level permission gate.
+if (!security.hasPermission('ENTITY_MAINT', session)) {
+    return
+}
 
 outpath = parameters.outpath
 filename = parameters.filename
@@ -188,7 +198,6 @@ if (passedEntityNames) {
         session.setAttribute('xmlrawdump_entitylist', passedEntityNames)
         session.setAttribute('entityDateCond', entityDateCond)
     } else {
-        efo = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, false)
         numberOfEntities = passedEntityNames?.size() ?: 0
         context.numberOfEntities = numberOfEntities
         numberWritten = 0
@@ -198,7 +207,18 @@ if (passedEntityNames) {
             if (outpath && !(filename.contains('/') && filename.contains('\\'))) {
                 filename = outpath + File.separator + filename
             }
-            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filename), 'UTF-8')))
+            File outfile = new File(filename)
+            allowedPath = true
+            try {
+                SecurityUtil.checkOfbizFileAllowList(outfile)
+            } catch (GeneralException e) {
+                context.errorMessage = e.getMessage()
+                allowedPath = false
+            }
+            if (!allowedPath) {
+                return
+            }
+            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(outfile), 'UTF-8')))
             writer.println('<?xml version="1.0" encoding="UTF-8"?>')
             writer.println('<entity-engine-xml>')
 
@@ -213,23 +233,22 @@ if (passedEntityNames) {
                 beganTransaction = TransactionUtil.begin(3600)
                 try {
                     me = reader.getModelEntity(curEntityName)
-                    if (me.getNoAutoStamp() || me instanceof ModelViewEntity) {
-                        values = delegator.find(curEntityName, null, null, null, null, efo)
-                    } else {
-                        values = delegator.find(curEntityName, entityDateCond, null, null, null, efo)
+                    entityQuery = EntityQuery.use(delegator).from(curEntityName).cursorScrollInsensitive()
+                    if (!me.getNoAutoStamp() && !(me instanceof ModelViewEntity) && entityDateCond) {
+                        entityQuery.where(entityDateCond)
                     }
 
                     curNumberWritten = 0
-                    while (values.hasNext()) {
-                        value = values.next()
-                        value.writeXmlText(writer, '')
-                        numberWritten++
-                        curNumberWritten++
-                        if (curNumberWritten % 500 == 0 || curNumberWritten == 1) {
-                            Debug.log("Records written [$curEntityName]: $curNumberWritten Total: $numberWritten")
+                    entityQuery.queryIterator().withCloseable { values ->
+                        while ((value = values.next()) != null) {
+                            value.writeXmlText(writer, '')
+                            numberWritten++
+                            curNumberWritten++
+                            if (curNumberWritten % 500 == 0 || curNumberWritten == 1) {
+                                Debug.log("Records written [$curEntityName]: $curNumberWritten Total: $numberWritten")
+                            }
                         }
                     }
-                    values.close()
                     Debug.log("Wrote [$curNumberWritten] from entity : $curEntityName")
                     TransactionUtil.commit(beganTransaction)
                 } catch (Exception e) {
@@ -250,6 +269,16 @@ if (passedEntityNames) {
         context.results = results
         if (outpath && !filename) {
             outdir = new File(outpath)
+            allowedPath = true
+            try {
+                SecurityUtil.checkOfbizFileAllowList(outdir)
+            } catch (GeneralException e) {
+                context.errorMessage = e.getMessage()
+                allowedPath = false
+            }
+            if (!allowedPath) {
+                return
+            }
             if (!outdir.exists()) {
                 outdir.mkdir()
             }
@@ -259,7 +288,6 @@ if (passedEntityNames) {
                     fileName = preConfiguredSetName ? UtilFormatOut.formatPaddedNumber((long) fileNumber, 3) + '_' : ''
                     fileName = fileName + curEntityName
 
-                    values = null
                     beganTransaction = false
                     try {
                         beganTransaction = TransactionUtil.begin(3600)
@@ -269,48 +297,48 @@ if (passedEntityNames) {
                             results.add("[$fileNumber] [vvv] $curEntityName skipping view entity")
                             return
                         }
-                        if (me.getNoAutoStamp() || me instanceof ModelViewEntity) {
-                            values = delegator.find(curEntityName, null, null, null, null, efo)
-                        } else {
-                            values = delegator.find(curEntityName, entityDateCond, null, null, null, efo)
+                        entityQuery = EntityQuery.use(delegator).from(curEntityName).cursorScrollInsensitive()
+                        if (!me.getNoAutoStamp() && !(me instanceof ModelViewEntity) && entityDateCond) {
+                            entityQuery.where(entityDateCond)
                         }
                         isFirst = true
                         writer = null
                         fileSplitNumber = 1
-                        while (values.hasNext()) {
-                            value = values.next()
-                            //Don't bother writing the file if there's nothing
-                            //to put into it
-                            if (isFirst) {
-                                writer = new PrintWriter(
-                                            new BufferedWriter(
-                                                new OutputStreamWriter(new FileOutputStream(new File(outdir, fileName + '.xml')), 'UTF-8')))
-                                writer.println('<?xml version="1.0" encoding="UTF-8"?>')
-                                writer.println('<entity-engine-xml>')
-                                isFirst = false
-                            }
-                            value.writeXmlText(writer, '')
-                            numberWritten++
+                        entityQuery.queryIterator().withCloseable { values ->
+                            while ((value = values.next()) != null) {
+                                //Don't bother writing the file if there's nothing
+                                //to put into it
+                                if (isFirst) {
+                                    writer = new PrintWriter(
+                                                new BufferedWriter(
+                                                    new OutputStreamWriter(new FileOutputStream(new File(outdir, fileName + '.xml')), 'UTF-8')))
+                                    writer.println('<?xml version="1.0" encoding="UTF-8"?>')
+                                    writer.println('<entity-engine-xml>')
+                                    isFirst = false
+                                }
+                                value.writeXmlText(writer, '')
+                                numberWritten++
 
-                            // split into small files
-                            if (maxRecordsPerFile > 0 && (numberWritten % maxRecordsPerFile == 0)) {
-                                fileSplitNumber++
-                                // close the file
-                                writer.println('</entity-engine-xml>')
-                                writer.close()
+                                // split into small files
+                                if (maxRecordsPerFile > 0 && (numberWritten % maxRecordsPerFile == 0)) {
+                                    fileSplitNumber++
+                                    // close the file
+                                    writer.println('</entity-engine-xml>')
+                                    writer.close()
 
-                                // create a new file
-                                splitNumStr = UtilFormatOut.formatPaddedNumber((long) fileSplitNumber, 3)
-                                writer = new PrintWriter(
-                                            new BufferedWriter(
-                                                new OutputStreamWriter(
-                                                        new FileOutputStream(new File(outdir, fileName + '_' + splitNumStr + '.xml')), 'UTF-8')))
-                                writer.println('<?xml version="1.0" encoding="UTF-8"?>')
-                                writer.println('<entity-engine-xml>')
-                            }
+                                    // create a new file
+                                    splitNumStr = UtilFormatOut.formatPaddedNumber((long) fileSplitNumber, 3)
+                                    writer = new PrintWriter(
+                                                new BufferedWriter(
+                                                    new OutputStreamWriter(
+                                                            new FileOutputStream(new File(outdir, fileName + '_' + splitNumStr + '.xml')), 'UTF-8')))
+                                    writer.println('<?xml version="1.0" encoding="UTF-8"?>')
+                                    writer.println('<entity-engine-xml>')
+                                }
 
-                            if (numberWritten % 500 == 0 || numberWritten == 1) {
-                                Debug.log("Records written [$curEntityName]: $numberWritten")
+                                if (numberWritten % 500 == 0 || numberWritten == 1) {
+                                    Debug.log("Records written [$curEntityName]: $numberWritten")
+                                }
                             }
                         }
                         if (writer) {
@@ -324,11 +352,7 @@ if (passedEntityNames) {
                             Debug.log(thisResult)
                             results.add(thisResult)
                         }
-                        values.close()
                     } catch (Exception ex) {
-                        if (values != null) {
-                            values.close()
-                        }
                         thisResult = "[$fileNumber] [xxx] Error when writing $curEntityName: $ex"
                         Debug.log(thisResult)
                         results.add(thisResult)

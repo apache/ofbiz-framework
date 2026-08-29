@@ -415,6 +415,7 @@ under the License.
                     <input type="hidden" name="productPromoId" value="${productPromoId}" />
                     <input type="hidden" name="productPromoRuleId" value="${productPromoAction.productPromoRuleId}" />
                     <input type="hidden" name="productPromoCondSeqId" value="_NA_" />
+                    <input type="hidden" name="productPromoActionSeqId" value="${(productPromoAction.productPromoActionSeqId)!}" />
                     <@htmlTemplate.lookupField formName="createProductPromoProductActions" name="productId" id="productId" fieldFormName="LookupProduct"/>
                     <select name="productPromoApplEnumId">
       <#list productPromoApplEnums as productPromoApplEnum>

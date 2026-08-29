@@ -84,7 +84,7 @@ under the License.
     </grid>
     <form name="EditShipment" type="single" target="updateShipment" title="" default-map-name="shipment"
         header-row-style="header-row" default-table-style="basic-table">
-        <alt-target use-when="shipment==null&amp;&amp;shipmentTypeId==null" target="createShipment"/>
+        <alt-target use-when="shipment==null&amp;&amp;(shipmentTypeId==null||!shipmentTypeId.equals(&quot;PURCHASE_RETURN&quot;))" target="createShipment"/>
         <alt-target use-when="shipment==null&amp;&amp;shipmentTypeId!=null&amp;&amp;shipmentTypeId.equals(&quot;PURCHASE_RETURN&quot;)" target="createShipmentAndItemsForVendorReturn"/>
 
         <auto-fields-service service-name="updateShipment"/>

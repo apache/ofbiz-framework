@@ -49,6 +49,7 @@ public class OFBizRealm extends RealmBase {
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     protected Principal getPrincipal(String username) {
         List<String> roles = new ArrayList<>();
         return new GenericPrincipal(username,

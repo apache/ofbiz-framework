@@ -29,11 +29,66 @@ under the License.
             location="org.apache.ofbiz.manufacturing.mrp.MrpServices" invoke="executeMrp" auth="true"
             transaction-timeout="7200" max-retry="0">
         <description>Performs a run of Mrp</description>
+        <permission-service service-name="manufacturingPermissionService" main-action="CREATE"/>
         <attribute name="facilityGroupId" type="String" mode="IN" optional="true"/>
         <attribute name="facilityId" type="String" mode="IN" optional="true"/>
         <attribute name="mrpName" type="String" mode="IN" optional="true"/>
         <attribute name="defaultYearsOffset" type="Integer" mode="IN" optional="true"/>
+        <attribute name="mrpRunLogId" type="String" mode="IN" optional="true"/>
+        <attribute name="jobTrackerId" type="String" mode="IN" optional="true"/>
         <attribute name="msgResult" type="List" mode="OUT" optional="false"/>
+    </service>
+    <service name="createMrpRunLog" default-entity-name="MrpRunLog" engine="entity-auto" invoke="create" auth="true">
+        <description>Create durable metadata for an MRP execution.</description>
+        <auto-attributes include="pk" mode="INOUT" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateMrpRunLog" default-entity-name="MrpRunLog" engine="entity-auto" invoke="update" auth="true">
+        <description>Update durable metadata for an MRP execution.</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="createMrpRunLogAndTrackerBeforeQueueingMrp" engine="java"
+            location="org.apache.ofbiz.manufacturing.mrp.MrpServices" invoke="createMrpRunLogAndTrackerBeforeQueueingMrp" auth="true"
+            require-new-transaction="true">
+        <description>Create the durable MrpRunLog, RuntimeData, and JobTracker records before launchMrpRun queues
+            MRP through executeMrp. Runs in a new transaction so the persisted async executeMrp job can reference committed tracking records.</description>
+        <permission-service service-name="manufacturingPermissionService" main-action="CREATE"/>
+        <attribute name="mrpRunLogId" type="String" mode="INOUT" optional="true"/>
+        <attribute name="jobTrackerId" type="String" mode="IN" optional="true"/>
+        <attribute name="mrpName" type="String" mode="IN" optional="true"/>
+        <attribute name="facilityId" type="String" mode="IN" optional="true"/>
+        <attribute name="facilityGroupId" type="String" mode="IN" optional="true"/>
+        <attribute name="defaultYearsOffset" type="Integer" mode="IN" optional="true"/>
+        <attribute name="runStatusId" type="String" mode="IN" optional="true"/>
+        <attribute name="startedAt" type="Timestamp" mode="IN" optional="true"/>
+    </service>
+    <service name="launchMrpRun" engine="java"
+            location="org.apache.ofbiz.manufacturing.mrp.MrpServices" invoke="launchMrpRun" auth="true">
+        <description>Launch an async MRP run using generic MRP infrastructure. This service owns queued JobSandbox
+            attachment and queue-failure logging so manufacturing screens and API clients share the same durable run tracking behavior.</description>
+        <permission-service service-name="manufacturingPermissionService" main-action="CREATE"/>
+        <attribute name="facilityGroupId" type="String" mode="IN" optional="true"/>
+        <attribute name="facilityId" type="String" mode="IN" optional="true"/>
+        <attribute name="mrpName" type="String" mode="IN" optional="true"/>
+        <attribute name="defaultYearsOffset" type="Integer" mode="IN" optional="true"/>
+        <attribute name="runId" type="String" mode="OUT" optional="false"/>
+        <attribute name="mrpRunLogId" type="String" mode="OUT" optional="false"/>
+        <attribute name="jobId" type="String" mode="OUT" optional="true"/>
+        <attribute name="mrpId" type="String" mode="OUT" optional="true"/>
+        <attribute name="mrpName" type="String" mode="OUT" optional="true"/>
+        <attribute name="facilityGroupId" type="String" mode="OUT" optional="true"/>
+        <attribute name="facilityId" type="String" mode="OUT" optional="true"/>
+        <attribute name="defaultYearsOffset" type="Integer" mode="OUT" optional="true"/>
+        <attribute name="statusId" type="String" mode="OUT" optional="true"/>
+        <attribute name="statusDescription" type="String" mode="OUT" optional="true"/>
+        <attribute name="failureReason" type="String" mode="OUT" optional="true"/>
+        <attribute name="failureMessage" type="String" mode="OUT" optional="true"/>
+        <attribute name="runTime" type="String" mode="OUT" optional="true"/>
+        <attribute name="durationMillis" type="Long" mode="OUT" optional="true"/>
+        <attribute name="startDateTime" type="Timestamp" mode="OUT" optional="true"/>
+        <attribute name="finishDateTime" type="Timestamp" mode="OUT" optional="true"/>
+        <attribute name="runAsUser" type="String" mode="OUT" optional="true"/>
     </service>
     <service name="initMrpEvents" engine="java"
             location="org.apache.ofbiz.manufacturing.mrp.MrpServices" invoke="initMrpEvents" auth="true">
@@ -79,5 +134,77 @@ under the License.
     <service name="deleteMrpEventType" default-entity-name="MrpEventType" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete a MrpEventType record</description>
         <auto-attributes include="pk" mode="IN"/>
+    </service>
+    <!-- MRP planning read services for event plans, run history, and planning facilities. -->
+    <service name="findMrpEventPlans" engine="groovy" auth="true"
+            location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/mrp/MrpEventPlanServices.groovy" invoke="findMrpEventPlans">
+        <description>Find product-centric MRP event plans with grouped facility timelines and attention metadata.</description>
+        <permission-service service-name="manufacturingPermissionService" main-action="VIEW"/>
+        <attribute mode="IN" name="facilityId" optional="true" type="String"/>
+        <attribute mode="IN" name="facilityGroupId" optional="true" type="String"/>
+        <attribute mode="IN" name="mrpId" optional="true" type="String"/>
+        <attribute mode="IN" name="productId" optional="true" type="String"/>
+        <attribute mode="IN" name="eventDate" optional="true" type="String"/>
+        <attribute mode="IN" name="dateFrom" optional="true" type="String"/>
+        <attribute mode="IN" name="dateTo" optional="true" type="String"/>
+        <attribute mode="IN" name="mrpEventTypeId" optional="true" type="String"/>
+        <attribute mode="IN" name="query" optional="true" type="String"/>
+        <attribute mode="IN" name="attentionOnly" optional="true" type="String"/>
+        <attribute mode="IN" name="attentionType" optional="true" type="String"/>
+        <attribute mode="IN" name="search" optional="true" type="String"/>
+        <attribute mode="IN" name="pageIndex" optional="true" type="Integer"/>
+        <attribute mode="IN" name="pageSize" optional="true" type="Integer"/>
+        <attribute mode="IN" name="sort" optional="true" type="String"/>
+        <attribute mode="IN" name="orderBy" optional="true" type="String"/>
+        <attribute mode="OUT" name="pageIndex" optional="false" type="Integer"/>
+        <attribute mode="OUT" name="pageSize" optional="false" type="Integer"/>
+        <attribute mode="OUT" name="totalCount" optional="false" type="Long"/>
+        <attribute mode="OUT" name="totalPages" optional="false" type="Long"/>
+        <attribute mode="OUT" name="hasNext" optional="false" type="Boolean"/>
+        <attribute mode="OUT" name="previousPageCount" optional="true" type="Long"/>
+        <attribute mode="OUT" name="nextPageCount" optional="true" type="Long"/>
+        <attribute mode="OUT" name="links" optional="true" type="Map"/>
+        <attribute mode="OUT" name="eventPlans" optional="false" type="java.util.List"/>
+    </service>
+    <service name="findMrpRuns" engine="groovy" auth="true"
+            location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/mrp/MrpRunLogServices.groovy" invoke="findMrpRuns">
+        <description>Find durable MRP run history from MRP run log records.</description>
+        <permission-service service-name="manufacturingPermissionService" main-action="VIEW"/>
+        <attribute mode="IN" name="jobId" optional="true" type="String"/>
+        <attribute mode="IN" name="mrpId" optional="true" type="String"/>
+        <attribute mode="IN" name="statusId" optional="true" type="String"/>
+        <attribute mode="IN" name="fromDate" optional="true" type="Timestamp"/>
+        <attribute mode="IN" name="daysBack" optional="true" type="Integer"/>
+        <attribute mode="IN" name="pageIndex" optional="true" type="Integer"/>
+        <attribute mode="IN" name="pageSize" optional="true" type="Integer"/>
+        <attribute mode="IN" name="sort" optional="true" type="String"/>
+        <attribute mode="IN" name="orderBy" optional="true" type="String"/>
+        <attribute mode="OUT" name="pageIndex" optional="false" type="Integer"/>
+        <attribute mode="OUT" name="pageSize" optional="false" type="Integer"/>
+        <attribute mode="OUT" name="totalCount" optional="false" type="Long"/>
+        <attribute mode="OUT" name="totalPages" optional="false" type="Long"/>
+        <attribute mode="OUT" name="hasNext" optional="false" type="Boolean"/>
+        <attribute mode="OUT" name="previousPageCount" optional="true" type="Long"/>
+        <attribute mode="OUT" name="nextPageCount" optional="true" type="Long"/>
+        <attribute mode="OUT" name="links" optional="true" type="Map"/>
+        <attribute mode="OUT" name="runs" optional="false" type="java.util.List"/>
+    </service>
+    <service name="findPlanningFacilities" engine="groovy" auth="true"
+            location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/api/ManufacturingLookupServices.groovy" invoke="findManufacturingFacilities">
+        <description>Find warehouse and plant facilities available for MRP planning.</description>
+        <permission-service service-name="manufacturingPermissionService" main-action="VIEW"/>
+        <attribute mode="IN" name="pageIndex" optional="true" type="Integer"/>
+        <attribute mode="IN" name="pageSize" optional="true" type="Integer"/>
+        <attribute mode="IN" name="sort" optional="true" type="String"/>
+        <attribute mode="IN" name="orderBy" optional="true" type="String"/>
+        <attribute mode="OUT" name="pageIndex" optional="false" type="Integer"/>
+        <attribute mode="OUT" name="pageSize" optional="false" type="Integer"/>
+        <attribute mode="OUT" name="totalCount" optional="false" type="Long"/>
+        <attribute mode="OUT" name="totalPages" optional="false" type="Long"/>
+        <attribute mode="OUT" name="hasNext" optional="false" type="Boolean"/>
+        <attribute mode="OUT" name="previousPageCount" optional="true" type="Long"/>
+        <attribute mode="OUT" name="nextPageCount" optional="true" type="Long"/>
+        <attribute mode="OUT" name="links" optional="true" type="Map"/>
+        <attribute mode="OUT" name="facilities" optional="false" type="java.util.List"/>
     </service>
 </services>

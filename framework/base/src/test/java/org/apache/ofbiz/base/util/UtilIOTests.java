@@ -19,15 +19,15 @@
 package org.apache.ofbiz.base.util;
 
 import static org.apache.ofbiz.base.util.UtilIO.readString;
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class UtilIOTests {
     private static final byte[] TRADEMARK_BYTES = new byte[] {
@@ -68,21 +68,15 @@ public class UtilIOTests {
     }
 
     private static void readStringTest1(String label, String wanted, byte[] toRead) throws IOException {
-        assertEquals("readString bytes default:" + label, wanted, readString(toRead));
-        assertEquals("readString bytes UTF-8:" + label, wanted, readString(toRead, "UTF-8"));
-        assertEquals("readString bytes UTF8:" + label, wanted, readString(toRead, StandardCharsets.UTF_8));
-        assertEquals("readString bytes offset/length default:" + label, wanted,
-                readString(toRead, 0, toRead.length));
-        assertEquals("readString bytes offset/length UTF-8:" + label, wanted,
-                readString(toRead, 0, toRead.length, "UTF-8"));
-        assertEquals("readString bytes offset/length UTF8:" + label, wanted,
-                readString(toRead, 0, toRead.length, StandardCharsets.UTF_8));
-        assertEquals("readString stream default:" + label, wanted,
-                readString(new ByteArrayInputStream(toRead)));
-        assertEquals("readString stream UTF-8:" + label, wanted,
-                readString(new ByteArrayInputStream(toRead), "UTF-8"));
-        assertEquals("readString stream UTF8:" + label, wanted,
-                readString(new ByteArrayInputStream(toRead), StandardCharsets.UTF_8));
+        assertEquals(wanted, readString(toRead), "readString bytes default:" + label);
+        assertEquals(wanted, readString(toRead, "UTF-8"), "readString bytes UTF-8:" + label);
+        assertEquals(wanted, readString(toRead, StandardCharsets.UTF_8), "readString bytes UTF8:" + label);
+        assertEquals(wanted, readString(toRead, 0, toRead.length), "readString bytes offset/length default:" + label);
+        assertEquals(wanted, readString(toRead, 0, toRead.length, "UTF-8"), "readString bytes offset/length UTF-8:" + label);
+        assertEquals(wanted, readString(toRead, 0, toRead.length, StandardCharsets.UTF_8), "readString bytes offset/length UTF8:" + label);
+        assertEquals(wanted, readString(new ByteArrayInputStream(toRead)), "readString stream default:" + label);
+        assertEquals(wanted, readString(new ByteArrayInputStream(toRead), "UTF-8"), "readString stream UTF-8:" + label);
+        assertEquals(wanted, readString(new ByteArrayInputStream(toRead), StandardCharsets.UTF_8), "readString stream UTF8:" + label);
     }
 
     @Test
@@ -107,12 +101,12 @@ public class UtilIOTests {
     private static void writeStringTest1(String label, byte[] wanted, String toWrite) throws IOException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         UtilIO.writeString(baos, toWrite);
-        assertArrayEquals("writeString default:" + label, wanted, baos.toByteArray());
+        assertArrayEquals(wanted, baos.toByteArray(), "writeString default:" + label);
         baos = new ByteArrayOutputStream();
         UtilIO.writeString(baos, "UTF-8", toWrite);
-        assertArrayEquals("writeString UTF-8:" + label, wanted, baos.toByteArray());
+        assertArrayEquals(wanted, baos.toByteArray(), "writeString UTF-8:" + label);
         baos = new ByteArrayOutputStream();
         UtilIO.writeString(baos, StandardCharsets.UTF_8, toWrite);
-        assertArrayEquals("writeString UTF8:" + label, wanted, baos.toByteArray());
+        assertArrayEquals(wanted, baos.toByteArray(), "writeString UTF8:" + label);
     }
 }

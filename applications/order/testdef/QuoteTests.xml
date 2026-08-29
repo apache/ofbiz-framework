@@ -25,9 +25,7 @@ under the License.
     <test-case case-name="loadQuoteTestData">
         <entity-xml action="load" entity-xml-url="component://order/testdef/data/QuoteTestData.xml"/>
     </test-case>
-    <!-- <test-case case-name="quote-tests"> <simple-method-test location="component://order/minilang/test/QuoteTests.xml"/> 
-        </test-case> -->
-     <test-case case-name="quoteTests">
-        <junit-test-suite class-name="org.apache.ofbiz.order.order.test.QuoteTests"/>
+    <test-case case-name="quoteTests">
+        <jupiter-test-suite class-name="org.apache.ofbiz.order.order.test.QuoteTests"/>
     </test-case>
 </test-suite>

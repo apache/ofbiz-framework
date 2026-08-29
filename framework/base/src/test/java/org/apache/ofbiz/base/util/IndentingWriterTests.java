@@ -18,12 +18,12 @@
  */
 package org.apache.ofbiz.base.util;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 import java.io.StringWriter;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class IndentingWriterTests {
 
@@ -45,14 +45,14 @@ public class IndentingWriterTests {
         iw.pop();
         iw.write("e");
         iw.close();
-        assertEquals(label, wanted, sw.toString());
+        assertEquals(wanted, sw.toString(), label);
     }
 
     @Test
     public void testIndentingWriter() throws Exception {
         StringWriter sw = new StringWriter();
         IndentingWriter iw = IndentingWriter.makeIndentingWriter(sw);
-        assertSame("makeIndentingWriter - pass-thru", iw, IndentingWriter.makeIndentingWriter(iw));
+        assertSame(iw, IndentingWriter.makeIndentingWriter(iw), "makeIndentingWriter - pass-thru");
         doTest("IndentingWriter doSpace:doNewline", true, true, "ab\n m\n 1\n 2 \n e");
         doTest("IndentingWriter doNewline", false, true, "ab\nm\n1\n2\ne");
         doTest("IndentingWriter doSpace", true, false, "ab\n m 1\n 2 \n e");

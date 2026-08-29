@@ -65,6 +65,20 @@ public class EntityJoinOperator extends EntityOperator<EntityCondition, EntityCo
      */
     public void addSqlValue(StringBuilder sql, ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams,
                             List<? extends EntityCondition> conditionList, Datasource datasourceInfo) {
+        addSqlValue(sql, modelEntity, entityConditionParams, conditionList, datasourceInfo, null);
+    }
+
+    /**
+     * Add sql value.
+     * @param sql the sql
+     * @param modelEntity the model entity
+     * @param entityConditionParams the entity condition params
+     * @param conditionList the condition list
+     * @param datasourceInfo the datasource info
+     * @param delegator the delegator actually being used to run this query, or {@code null} if unavailable
+     */
+    public void addSqlValue(StringBuilder sql, ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams,
+                            List<? extends EntityCondition> conditionList, Datasource datasourceInfo, Delegator delegator) {
         if (UtilValidate.isNotEmpty(conditionList)) {
             boolean hadSomething = false;
             Iterator<? extends EntityCondition> conditionIter = conditionList.iterator();
@@ -81,7 +95,7 @@ public class EntityJoinOperator extends EntityOperator<EntityCondition, EntityCo
                     hadSomething = true;
                     sql.append('(');
                 }
-                sql.append(condition.makeWhereString(modelEntity, entityConditionParams, datasourceInfo));
+                sql.append(condition.makeWhereString(modelEntity, entityConditionParams, datasourceInfo, delegator));
             }
             if (hadSomething) {
                 sql.append(')');

@@ -2174,7 +2174,7 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
     public void writeEoModelText(PrintWriter writer, String entityPrefix, String helperName, Set<String> entityNameIncludeSet,
                                  ModelReader entityModelReader) throws GenericEntityException {
         if (entityPrefix == null) entityPrefix = "";
-        if (helperName == null) helperName = "localderby";
+        if (helperName == null) helperName = "localh2";
 
         UtilPlist.writePlistPropertyMap(this.createEoModelMap(entityPrefix, helperName, entityNameIncludeSet, entityModelReader), 0, writer, false);
     }

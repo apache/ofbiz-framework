@@ -162,7 +162,7 @@ under the License.
     </request-map>
     <request-map uri="LookupPortalPage"><security https="true" auth="true"/><response name="success" type="view" value="LookupPortalPage"/></request-map>
     <!-- View Mappings -->
-    <view-map name="showPortalPage" type="screen" page="component://common/widget/PortalPageScreens.xml#showPortalPage" auth="false"/>
+    <view-map name="showPortalPage" type="screen" page="component://common/widget/PortalPageScreens.xml#showPortalPage" auth="true"/>
     <view-map name="showPortlet" type="screen" page="component://common/widget/PortalPageScreens.xml#showPortlet"/>
     <view-map name="showPortletMainDecorator" type="screen" page="component://common/widget/PortalPageScreens.xml#showPortletMainDecorator"/>
     <view-map name="showPortletSimpleDecorator" type="screen" page="component://common/widget/PortalPageScreens.xml#showPortletSimpleDecorator"/>

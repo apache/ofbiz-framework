@@ -229,6 +229,10 @@ include::applications/datamodel/DATAMODEL_CHANGES.adoc[leveloffset=+2]
 A description of the service engine can be found at the
 https://cwiki.apache.org/confluence/display/OFBIZ/Service+Engine+Guide[OFBiz wiki Service Engine Guide]
 
+== REST API
+
+include::framework/rest-api/src/docs/asciidoc/rest-api.adoc[leveloffset=+1]
+
 === Declaration and Implementation
 
 === Supported languages

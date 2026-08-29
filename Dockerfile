@@ -28,9 +28,9 @@ RUN apt-get update \
 WORKDIR /builder
 
 # Add and run the gradle wrapper to trigger a download if needed.
+COPY gradle/wrapper/gradle-wrapper.properties gradle/wrapper/
 COPY --chmod=755 gradle/init-gradle-wrapper.sh gradle/
 COPY --chmod=755 gradlew .
-RUN ["sed", "-i", "s/shasum/sha1sum/g", "gradle/init-gradle-wrapper.sh"]
 RUN ["gradle/init-gradle-wrapper.sh"]
 
 # Run gradlew to trigger downloading of the gradle distribution (if needed)
@@ -47,7 +47,7 @@ COPY lib/ lib/
 # We use a regex to match the plugins directory to avoid a build error when the directory doesn't exist.
 COPY plugin[s]/ plugins/
 COPY themes/ themes/
-COPY APACHE2_HEADER build.gradle common.gradle gradle.properties NOTICE settings.gradle dependencies.gradle .
+COPY APACHE2_HEADER build.gradle common.gradle gradle.properties NOTICE settings.gradle dependencies.gradle test-reports.gradle .
 
 # Build OFBiz while mounting a gradle cache
 RUN --mount=type=cache,id=gradle-cache,sharing=locked,target=/root/.gradle \
@@ -78,7 +78,7 @@ USER ofbiz
 WORKDIR /ofbiz
 
 # Extract the OFBiz tar distribution created by the builder stage.
-RUN --mount=type=bind,from=builder,source=/builder/build/distributions/ofbiz-unspecified.tar,target=/mnt/ofbiz.tar \
+RUN --mount=type=bind,from=builder,source=/builder/build/distributions/ofbiz.tar,target=/mnt/ofbiz.tar \
     ["tar", "--extract", "--strip-components=1", "--file=/mnt/ofbiz.tar"]
 
 # Create directories for OFBiz volume mountpoints.

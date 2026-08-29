@@ -19,6 +19,7 @@
 package org.apache.ofbiz.webtools.datafile
 
 import org.apache.ofbiz.base.util.Debug
+import org.apache.ofbiz.base.util.GeneralException
 import org.apache.ofbiz.base.util.UtilProperties
 import org.apache.ofbiz.base.util.UtilURL
 import org.apache.ofbiz.datafile.DataFile
@@ -28,78 +29,87 @@ import org.apache.ofbiz.datafile.ModelDataFileReader
 uiLabelMap = UtilProperties.getResourceBundleMap('WebtoolsUiLabels', locale)
 messages = []
 
-dataFileSave = request.getParameter('DATAFILE_SAVE')
+// This screen builds URLs from raw request parameters and dereferences them; that fetch must
+// never happen for a principal who lacks DATAFILE_MAINT, so the whole thing is gated here,
+// ahead of any parameter handling, rather than left to the screen/template permission checks
+// that only gate rendering after the fetch already ran.
+if (security.hasPermission('DATAFILE_MAINT', session)) {
+    dataFileSave = request.getParameter('DATAFILE_SAVE')
 
-entityXmlFileSave = request.getParameter('ENTITYXML_FILE_SAVE')
+    entityXmlFileSave = request.getParameter('ENTITYXML_FILE_SAVE')
 
-dataFileLoc = request.getParameter('DATAFILE_LOCATION')
-definitionLoc = request.getParameter('DEFINITION_LOCATION')
-definitionName = request.getParameter('DEFINITION_NAME')
-dataFileIsUrl = null != request.getParameter('DATAFILE_IS_URL')
-definitionIsUrl = null != request.getParameter('DEFINITION_IS_URL')
+    dataFileLoc = request.getParameter('DATAFILE_LOCATION')
+    definitionLoc = request.getParameter('DEFINITION_LOCATION')
+    definitionName = request.getParameter('DEFINITION_NAME')
+    dataFileIsUrl = null != request.getParameter('DATAFILE_IS_URL')
+    definitionIsUrl = null != request.getParameter('DEFINITION_IS_URL')
 
-try {
-    dataFileUrl = dataFileIsUrl ? UtilURL.fromUrlString(dataFileLoc) : UtilURL.fromFilename(dataFileLoc)
-}
-catch (java.net.MalformedURLException e) {
-    messages.add(e.getMessage())
-}
-
-try {
-    definitionUrl = definitionIsUrl ? UtilURL.fromUrlString(definitionLoc) : UtilURL.fromFilename(definitionLoc)
-}
-catch (java.net.MalformedURLException e) {
-    messages.add(e.getMessage())
-}
-
-definitionNames = null
-if (definitionUrl) {
+    dataFileUrl = null
     try {
-        ModelDataFileReader reader = ModelDataFileReader.getModelDataFileReader(definitionUrl)
-        if (reader) {
-            definitionNames = ((Collection)reader.getDataFileNames()).iterator()
-            context.put('definitionNames', definitionNames)
+        dataFileUrl = dataFileIsUrl ? UtilURL.fromCheckedUrlString(dataFileLoc) : UtilURL.fromFilename(dataFileLoc)
+    }
+    catch (java.net.MalformedURLException | GeneralException e) {
+        messages.add(e.getMessage())
+    }
+
+    definitionUrl = null
+    try {
+        definitionUrl = definitionIsUrl ? UtilURL.fromCheckedUrlString(definitionLoc) : UtilURL.fromFilename(definitionLoc)
+    }
+    catch (java.net.MalformedURLException | GeneralException e) {
+        messages.add(e.getMessage())
+    }
+
+    definitionNames = null
+    if (definitionUrl) {
+        try {
+            ModelDataFileReader reader = ModelDataFileReader.getModelDataFileReader(definitionUrl)
+            if (reader) {
+                definitionNames = ((Collection)reader.getDataFileNames()).iterator()
+                context.put('definitionNames', definitionNames)
+            }
+        }
+        catch (Exception e) {
+            messages.add(e.getMessage())
         }
     }
-    catch (Exception e) {
-        messages.add(e.getMessage())
-    }
-}
 
-dataFile = null
-if (dataFileUrl && definitionUrl && definitionNames) {
-    try {
-        dataFile = DataFile.readFile(dataFileUrl, definitionUrl, definitionName)
-        context.put('dataFile', dataFile)
+    dataFile = null
+    if (dataFileUrl && definitionUrl && definitionNames) {
+        try {
+            dataFile = DataFile.readFile(dataFileUrl, definitionUrl, definitionName)
+            context.put('dataFile', dataFile)
+        }
+        catch (Exception e) {
+            messages.add(e.getMessage())
+            Debug.logError(e, 'Error reading data file', 'ViewDataFile.groovy')
+        }
     }
-    catch (Exception e) {
-        messages.add(e.toString()); Debug.log(e)
-    }
-}
 
-if (dataFile) {
-    modelDataFile = dataFile.getModelDataFile()
-    context.put('modelDataFile', modelDataFile)
-}
+    if (dataFile) {
+        modelDataFile = dataFile.getModelDataFile()
+        context.put('modelDataFile', modelDataFile)
+    }
 
-if (dataFile && dataFileSave) {
-    try {
-        dataFile.writeDataFile(dataFileSave)
-        messages.add(uiLabelMap.WebtoolsDataFileSavedTo + dataFileSave)
+    if (dataFile && dataFileSave) {
+        try {
+            dataFile.writeDataFile(dataFileSave)
+            messages.add(uiLabelMap.WebtoolsDataFileSavedTo + dataFileSave)
+        }
+        catch (Exception e) {
+            messages.add(e.getMessage())
+        }
     }
-    catch (Exception e) {
-        messages.add(e.getMessage())
-    }
-}
 
-if (dataFile && entityXmlFileSave) {
-    try {
-        //dataFile.writeDataFile(entityXmlFileSave)
-        DataFile2EntityXml.writeToEntityXml(entityXmlFileSave, dataFile)
-        messages.add(uiLabelMap.WebtoolsDataEntityFileSavedTo + entityXmlFileSave)
-    }
-    catch (Exception e) {
-        messages.add(e.getMessage())
+    if (dataFile && entityXmlFileSave) {
+        try {
+            //dataFile.writeDataFile(entityXmlFileSave)
+            DataFile2EntityXml.writeToEntityXml(entityXmlFileSave, dataFile)
+            messages.add(uiLabelMap.WebtoolsDataEntityFileSavedTo + entityXmlFileSave)
+        }
+        catch (Exception e) {
+            messages.add(e.getMessage())
+        }
     }
 }
 context.messages = messages

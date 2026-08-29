@@ -106,6 +106,8 @@ public final class UtilHttp {
     private static final String COMPOSITE_DELIMITER = "_c_";
     private static final int MULTI_ROW_DELIMITER_LENGTH = MULTI_ROW_DELIMITER.length();
     private static final int ROW_SUBMIT_PREFIX_LENGTH = ROW_SUBMIT_PREFIX.length();
+    private static final int MAX_MULTI_FORM_ROWS = UtilProperties.getPropertyAsInteger(
+            "general", "multiform.max.rows", 1000);
 
     private static final String SESSION_KEY_TIMEZONE = "timeZone";
     private static final String SESSION_KEY_THEME = "visualTheme";
@@ -428,14 +430,19 @@ public final class UtilHttp {
                 if (stringValues.length > 0 && !paramEntry.getKey().equals("DUMMYPAGE")) {
                     for (String s : stringValues) {
                         // if the string contains only an URL beginning by http or ftp => no change to keep special chars
-                        if (UtilValidate.isValidUrl(s) && (s.indexOf("://") == 4 || s.indexOf("://") == 3)) {
+                        if (UtilValidate.isValidUrl(s)) {
                             params = params + s + " ";
                         } else if (UtilValidate.isUrlInString(s) && !s.isEmpty()) {
                             // if the string contains not only an URL => concatenate possible canonicalized before and after, w/o changing the URL
-                            String url = extractUrls(s).get(0); // There should be only 1 URL in a block, makes no sense else
-                            int start = s.indexOf(url);
-                            String after = (String) s.subSequence(start + url.length(), s.length());
-                            params = params + canonicalizeParameter((String) s.subSequence(0, start)) + url + canonicalizeParameter(after) + " ";
+                            List<String> extractedUrls = extractUrls(s);
+                            if (!extractedUrls.isEmpty()) {
+                                String url = extractedUrls.get(0); // There should be only 1 URL in a block, makes no sense else
+                                int start = s.indexOf(url);
+                                String after = (String) s.subSequence(start + url.length(), s.length());
+                                params = params + canonicalizeParameter((String) s.subSequence(0, start)) + url + canonicalizeParameter(after) + " ";
+                            } else {
+                                params = params + canonicalizeParameter(s) + " ";
+                            }
                         } else {
                             // Simple string to canonicalize
                             params = params + canonicalizeParameter(s) + " ";
@@ -825,6 +832,19 @@ public final class UtilHttp {
             requestUrl.append("?" + request.getQueryString());
         }
         return requestUrl.toString();
+    }
+
+    /**
+     * Returns the relative request URI plus query string, without scheme, host, or port.
+     *
+     * @param request the servlet request to read
+     * @return the relative request URI with query string, or {@code null} when the request is unavailable
+     */
+    public static String getRelativeRequestPath(HttpServletRequest request) {
+        if (request == null || UtilValidate.isEmpty(request.getRequestURI())) {
+            return null;
+        }
+        return request.getRequestURI() + (UtilValidate.isNotEmpty(request.getQueryString()) ? "?" + request.getQueryString() : "");
     }
 
     /**
@@ -1678,6 +1698,11 @@ public final class UtilHttp {
                 Debug.logWarning("Invalid value for row index found: " + maxRowIndex, MODULE);
             }
         }
+        if (rowCount > MAX_MULTI_FORM_ROWS) {
+            Debug.logWarning("Multi form row count " + rowCount + " exceeds the maximum "
+                    + MAX_MULTI_FORM_ROWS + ", clamping to it", MODULE);
+            rowCount = MAX_MULTI_FORM_ROWS;
+        }
         return rowCount;
     }
 
@@ -1774,9 +1799,7 @@ public final class UtilHttp {
 
         Pattern pattern = Pattern.compile(
                 "\\b(((ht|f)tp(s?)\\:\\/\\/|~\\/|\\/)|www.)"
-                        + "(\\w+:\\w+@)?(([-\\w]+\\.)+(com|org|net|gov"
-                        + "|mil|biz|info|mobi|name|aero|jobs|museum"
-                        + "|travel|[a-z]{2}))(:[\\d]{1,5})?"
+                        + "(\\w+:\\w+@)?(([-\\w]+\\.)+([a-zA-Z]{2,}))(:[\\d]{1,5})?"
                         + "(((\\/([-\\w~!$+|.,=]|%[a-f\\d]{2})+)+|\\/)+|\\?|#)?"
                         + "((\\?([-\\w~!$+|.,*:]|%[a-f\\d{2}])+=?"
                         + "([-\\w~!$+|.,*:=]|%[a-f\\d]{2})*)"
@@ -1794,7 +1817,10 @@ public final class UtilHttp {
         if (result.isEmpty()) {
             Matcher matcher = pattern.matcher(input);
             while (matcher.find()) {
-                result.add(matcher.group());
+                String candidate = matcher.group();
+                if (UtilValidate.isValidUrl(candidate)) {
+                    result.add(candidate);
+                }
             }
         }
 
@@ -1814,4 +1840,7 @@ public final class UtilHttp {
         return allowedProtocolList;
     }
 
+    public static int getMaxMultiFormRowCount() {
+        return MAX_MULTI_FORM_ROWS;
+    }
 }

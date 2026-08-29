@@ -3673,8 +3673,8 @@ public class InvoiceServices {
         String organizationPartyId = (String) context.get("organizationPartyId");
         String encoding = System.getProperty("file.encoding");
         String csvString = Charset.forName(encoding).decode(fileBytes).toString();
-        Builder csvFormatBuilder = Builder.create().setHeader();
-        CSVFormat fmt = csvFormatBuilder.build();
+        Builder csvFormatBuilder = Builder.create().setHeader().setAllowMissingColumnNames(true);
+        CSVFormat fmt = csvFormatBuilder.get();
         List<String> errMsgs = new LinkedList<>();
         List<String> newErrMsgs;
         String lastInvoiceId = null;

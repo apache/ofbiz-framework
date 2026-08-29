@@ -45,6 +45,7 @@ import org.apache.axiom.soap.SOAPEnvelope;
 import org.apache.axiom.soap.SOAPFactory;
 import org.apache.axiom.soap.SOAPModelBuilder;
 import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.UtilCodec;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilXml;
@@ -116,11 +117,13 @@ public class SOAPEventHandler implements EventHandler {
                     sb.append("<html><head><title>OFBiz SOAP/1.1 Services</title></head>");
                     sb.append("<body>No such service.").append("<p>Services:<ul>");
 
+                    String encodedLocationUri = UtilCodec.getEncoder("html").encode(locationUri);
                     for (String scvName: dctx.getAllServiceNames()) {
                         ModelService model = dctx.getModelService(scvName);
                         if (model.isExport()) {
-                            sb.append("<li><a href=\"").append(locationUri).append("/").append(model.getName()).append("?wsdl\">");
-                            sb.append(model.getName()).append("</a></li>");
+                            String encodedName = UtilCodec.getEncoder("html").encode(model.getName());
+                            sb.append("<li><a href=\"").append(encodedLocationUri).append("/").append(encodedName).append("?wsdl\">");
+                            sb.append(encodedName).append("</a></li>");
                         }
                     }
                     sb.append("</ul></p></body></html>");
@@ -237,7 +240,10 @@ public class SOAPEventHandler implements EventHandler {
             }
             String xmlResults = SoapSerializer.serialize(serviceResults);
             //Debug.logInfo("xmlResults ==================" + xmlResults, MODULE);
-            XMLStreamReader reader = XMLInputFactory.newInstance().createXMLStreamReader(new StringReader(xmlResults));
+            XMLInputFactory xmlInputFactory = XMLInputFactory.newInstance();
+            xmlInputFactory.setProperty(XMLInputFactory.IS_SUPPORTING_EXTERNAL_ENTITIES, false);
+            xmlInputFactory.setProperty(XMLInputFactory.SUPPORT_DTD, false);
+            XMLStreamReader reader = xmlInputFactory.createXMLStreamReader(new StringReader(xmlResults));
             OMXMLParserWrapper resultsBuilder = OMXMLBuilderFactory.createStAXOMBuilder(OMAbstractFactory.getOMFactory(),
                     reader);
             OMElement resultSer = resultsBuilder.getDocumentElement();
@@ -290,7 +296,10 @@ public class SOAPEventHandler implements EventHandler {
             // setup the response
             res.setContentType("text/xml");
             String xmlResults = SoapSerializer.serialize(object);
-            XMLStreamReader xmlReader = XMLInputFactory.newInstance().createXMLStreamReader(new StringReader(xmlResults));
+            XMLInputFactory xmlInputFactory = XMLInputFactory.newInstance();
+            xmlInputFactory.setProperty(XMLInputFactory.IS_SUPPORTING_EXTERNAL_ENTITIES, false);
+            xmlInputFactory.setProperty(XMLInputFactory.SUPPORT_DTD, false);
+            XMLStreamReader xmlReader = xmlInputFactory.createXMLStreamReader(new StringReader(xmlResults));
             OMXMLParserWrapper resultsBuilder = OMXMLBuilderFactory.createStAXOMBuilder(OMAbstractFactory.getOMFactory(), xmlReader);
             OMElement resultSer = resultsBuilder.getDocumentElement();
 

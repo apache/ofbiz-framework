@@ -26,6 +26,7 @@ import org.apache.ofbiz.entity.GenericEntity
 import org.apache.ofbiz.entity.model.ModelField
 import org.apache.ofbiz.entity.model.ModelEntity
 import org.apache.ofbiz.entity.model.ModelReader
+import org.apache.ofbiz.entity.util.EntityListIterator
 
 viewIndex = parameters.VIEW_INDEX ? Integer.valueOf(parameters.VIEW_INDEX) : 0
 viewSize = parameters.VIEW_SIZE ? Integer.valueOf(parameters.VIEW_SIZE) : 20
@@ -68,17 +69,17 @@ context.curFindString = curFindString
 context.viewSize = viewSize
 context.lowIndex = lowIndex
 int arraySize = 0
-List resultPartialList
+List resultPartialList = []
 
 if ((highIndex - lowIndex + 1) > 0) {
     // get the results as an entity list iterator
     boolean beganTransaction = false
-    try {
+    entityQuery = from('ContentAssocViewTo')
+            .where('contentIdStart', (String) parameters.get('contentId'))
+            .orderBy('contentId ASC')
+            .cursorScrollInsensitive().cache(true)
+    try (EntityListIterator listIt = entityQuery.queryIterator()) {
         beganTransaction = TransactionUtil.begin()
-        listIt = from('ContentAssocViewTo')
-                .where('contentIdStart', (String) parameters.get('contentId'))
-                .orderBy('contentId ASC')
-                .cursorScrollInsensitive().cache(true).queryIterator()
         resultPartialList = listIt.getPartialList(lowIndex, highIndex - lowIndex + 1)
 
         arraySize = listIt.getResultsSizeAfterPartialList()
@@ -96,7 +97,6 @@ if ((highIndex - lowIndex + 1) > 0) {
         // after rolling back, rethrow the exception
         throw e
     } finally {
-        listIt.close()
         // only commit the transaction if we started one... this will throw an exception if it fails
         TransactionUtil.commit(beganTransaction)
     }

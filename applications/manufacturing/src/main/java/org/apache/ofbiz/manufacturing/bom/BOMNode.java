@@ -656,7 +656,7 @@ public class BOMNode {
         Timestamp minStartDate = requiredBydate;
         if ("WIP".equals(getProduct().getString("productTypeId")) || allNodes) {
             ProposedOrder proposedOrder = new ProposedOrder(getProduct(), facilityId, facilityId, true, requiredBydate, getQuantity());
-            proposedOrder.calculateStartDate(0, null, delegator, dispatcher, userLogin);
+            proposedOrder.calculateStartDate(null, 0, 0, null, delegator, dispatcher, userLogin);
             Timestamp startDate = proposedOrder.getRequirementStartDate();
             minStartDate = startDate;
             for (BOMNode oneChildNode : childrenNodes) {
@@ -929,4 +929,3 @@ public class BOMNode {
     }
 
 }
-

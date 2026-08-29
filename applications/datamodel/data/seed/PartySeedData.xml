@@ -489,15 +489,7 @@ under the License.
     <SecurityPermission description="Can delete Email communication events for logged-in user." permissionId="PARTYMGR_CME-EMAIL_DELETE"/>
     <SecurityPermission description="Can create Internal note communication event for logged-in user." permissionId="PARTYMGR_CME-NOTE_CREATE"/>
 
-    <!-- Security Management security -->
-    <SecurityPermission description="View operations in the Security Management Screens." permissionId="SECURITY_VIEW"/>
-    <SecurityPermission description="Create operations in the Security Management Screens." permissionId="SECURITY_CREATE"/>
-    <SecurityPermission description="Update operations in the Security Management Screens." permissionId="SECURITY_UPDATE"/>
-    <SecurityPermission description="Delete operations in the Security Management Screens." permissionId="SECURITY_DELETE"/>
-    <SecurityPermission description="ALL operations in the Security Management Screens." permissionId="SECURITY_ADMIN"/>
-
     <!-- add admin to SUPER permission group -->
     <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="PARTYMGR_ADMIN"/>
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="SECURITY_ADMIN"/>
 
 </entity-engine-xml>

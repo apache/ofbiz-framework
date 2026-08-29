@@ -76,8 +76,14 @@ abstract class EntityConditionListBase<T extends EntityCondition> implements Ent
 
     @Override
     public String makeWhereString(ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams, Datasource datasourceInfo) {
+        return makeWhereString(modelEntity, entityConditionParams, datasourceInfo, null);
+    }
+
+    @Override
+    public String makeWhereString(ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams,
+            Datasource datasourceInfo, Delegator delegator) {
         StringBuilder sql = new StringBuilder();
-        operator.addSqlValue(sql, modelEntity, entityConditionParams, conditions, datasourceInfo);
+        operator.addSqlValue(sql, modelEntity, entityConditionParams, conditions, datasourceInfo, delegator);
         return sql.toString();
     }
 

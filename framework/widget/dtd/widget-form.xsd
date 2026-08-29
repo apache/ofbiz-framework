@@ -1525,8 +1525,7 @@ under the License.
             <xs:attribute type="xs:positiveInteger" name="size" default="25" />
             <xs:attribute type="xs:positiveInteger" name="maxlength" />
             <xs:attribute type="xs:string" name="default-value" />
-            <xs:attribute name="client-autocomplete-field"
-                          type="xs:boolean" default="true">
+            <xs:attribute name="client-autocomplete-field" type="xs:boolean" default="true">
                 <xs:annotation>
                     <xs:documentation>Tells the browser whether or not to try and autocomplete with values previously entered. Default to true.</xs:documentation>
                 </xs:annotation>
@@ -1557,17 +1556,38 @@ under the License.
                         <xs:enumeration value="email" />
                         <xs:enumeration value="url" />
                         <xs:enumeration value="tel" />
+                        <xs:enumeration value="color" />
+                        <xs:enumeration value="range" />
                     </xs:restriction>
                 </xs:simpleType>
             </xs:attribute>
             <xs:attribute name="step" type="xs:string">
                 <xs:annotation>
-                    <xs:documentation>Controls the "step" attribute of the input element. Ignored if the "type" attribute of the field is not "number". See https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/step</xs:documentation>
+                    <xs:documentation>
+                        Controls the "step" attribute of the input element. Ignored if the "type" attribute of the field is not "number" or "range".
+                        See https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/step
+                    </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
             <xs:attribute name="pattern" type="xs:string">
                 <xs:annotation>
                     <xs:documentation>Controls the pattern attribute of the input element. See https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/pattern</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="min" type="xs:float">
+                <xs:annotation>
+                    <xs:documentation>
+                        Defines the "min" attribute for "number" and "range" input types. The default value is 0 for range inputs.
+                        See https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/range#min)
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="max" type="xs:float">
+                <xs:annotation>
+                    <xs:documentation>
+                        Defines the "max" attribute for "number" and "range" input types. The default value is 100 for range inputs.
+                        See https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/range#max)
+                    </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
         </xs:complexType>

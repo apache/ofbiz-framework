@@ -44,11 +44,11 @@ import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.TreeSet;
 
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.ofbiz.base.location.FlexibleLocation;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
@@ -87,6 +87,7 @@ import org.apache.ofbiz.entity.util.EntitySaxReader;
 import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.ofbiz.entityext.EntityGroupUtil;
 import org.apache.ofbiz.security.Security;
+import org.apache.ofbiz.security.SecurityUtil;
 import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
@@ -121,6 +122,7 @@ public class WebToolsServices {
         String maintainTimeStamps = (String) context.get("maintainTimeStamps");
         String createDummyFks = (String) context.get("createDummyFks");
         String checkDataOnly = (String) context.get("checkDataOnly");
+        String disableEeca = (String) context.get("disableEeca");
         Map<String, Object> placeholderValues = UtilGenerics.cast(context.get("placeholderValues"));
 
         Integer txTimeout = (Integer) context.get("txTimeout");
@@ -160,6 +162,11 @@ public class WebToolsServices {
                         UtilMisc.toMap("filename", fmfilename, "errorString", "Template file not found."), locale));
             }
             try {
+                SecurityUtil.checkOfbizFileAllowList(fmFile);
+            } catch (GeneralException e) {
+                return ServiceUtil.returnError(e.getMessage());
+            }
+            try {
                 DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
                 factory.setValidating(true);
                 factory.setNamespaceAware(true);
@@ -167,6 +174,7 @@ public class WebToolsServices {
                 factory.setAttribute("http://xml.org/sax/features/validation", true);
                 factory.setAttribute("http://apache.org/xml/features/validation/schema", true);
 
+                factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
                 factory.setFeature("http://xml.org/sax/features/external-general-entities", false);
                 factory.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
                 factory.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
@@ -205,6 +213,7 @@ public class WebToolsServices {
                 Map<String, Object> inputMap = UtilMisc.toMap("onlyInserts", onlyInserts,
                         "createDummyFks", createDummyFks,
                         "checkDataOnly", checkDataOnly,
+                        "disableEeca", disableEeca,
                         "maintainTimeStamps", maintainTimeStamps,
                         "txTimeout", txTimeout,
                         "placeholderValues", placeholderValues,
@@ -246,6 +255,7 @@ public class WebToolsServices {
         String onlyInserts = (String) context.get("onlyInserts");
         String maintainTimeStamps = (String) context.get("maintainTimeStamps");
         String createDummyFks = (String) context.get("createDummyFks");
+        String disableEeca = (String) context.get("disableEeca");
         boolean deleteFiles = (String) context.get("deleteFiles") != null;
         String checkDataOnly = (String) context.get("checkDataOnly");
         Map<String, Object> placeholderValues = UtilGenerics.cast(context.get("placeholderValues"));
@@ -289,6 +299,7 @@ public class WebToolsServices {
                         Map<String, Object> parseEntityXmlFileArgs = UtilMisc.toMap("onlyInserts", onlyInserts,
                                 "createDummyFks", createDummyFks,
                                 "checkDataOnly", checkDataOnly,
+                                "disableEeca", disableEeca,
                                 "maintainTimeStamps", maintainTimeStamps,
                                 "txTimeout", txTimeout,
                                 "placeholderValues", placeholderValues,
@@ -407,7 +418,7 @@ public class WebToolsServices {
 
         List<Object> errorMessages = new LinkedList<>();
         List<String> infoMessages = new LinkedList<>();
-        int totalRowsChanged = 0;
+        long totalRowsChanged = 0;
         if (UtilValidate.isNotEmpty(urlList)) {
             messages.add("=-=-=-=-=-=-= Doing a data " + (checkDataOnly ? "check" : "load") + " with the following files:");
             for (URL dataUrl : urlList) {
@@ -418,7 +429,7 @@ public class WebToolsServices {
 
             for (URL dataUrl : urlList) {
                 try {
-                    int rowsChanged = 0;
+                    long rowsChanged = 0;
                     if (checkDataOnly) {
                         try {
                             errorMessages.add("Checking data in [" + dataUrl.toExternalForm() + "]");
@@ -472,6 +483,7 @@ public class WebToolsServices {
         boolean maintainTimeStamps = (String) context.get("maintainTimeStamps") != null;
         boolean createDummyFks = (String) context.get("createDummyFks") != null;
         boolean checkDataOnly = (String) context.get("checkDataOnly") != null;
+        boolean disableEeca = (String) context.get("disableEeca") != null;
         Integer txTimeout = (Integer) context.get("txTimeout");
         Map<String, Object> placeholderValues = UtilGenerics.cast(context.get("placeholderValues"));
 
@@ -488,6 +500,9 @@ public class WebToolsServices {
             reader.setCreateDummyFks(createDummyFks);
             reader.setCheckDataOnly(checkDataOnly);
             reader.setPlaceholderValues(placeholderValues);
+            if (disableEeca) {
+                reader.setDisableEeca(true);
+            }
 
             long numberRead = (url != null ? reader.parse(url) : reader.parse(xmltext));
             rowProcessed = numberRead;
@@ -515,6 +530,11 @@ public class WebToolsServices {
 
         if (UtilValidate.isNotEmpty(outpath)) {
             File outdir = new File(outpath);
+            try {
+                SecurityUtil.checkOfbizFileAllowList(outdir);
+            } catch (GeneralException e) {
+                return ServiceUtil.returnError(e.getMessage());
+            }
             if (!outdir.exists()) {
                 outdir.mkdir();
             }
@@ -815,7 +835,7 @@ public class WebToolsServices {
                         entityMap.put("title", entity.getTitle());
                         entityMap.put("description", entityDescription);
                         String entityLocation = entity.getLocation();
-                        entityLocation = StringUtils.replaceOnce(entityLocation, System.getProperty("ofbiz.home") + "/", "");
+                        entityLocation = entityLocation.replace(System.getProperty("ofbiz.home") + "/", "");
                         entityMap.put("location", entityLocation);
                         entityMap.put("javaNameList", javaNameList);
                         entityMap.put("relationsList", relationsList);
@@ -843,7 +863,7 @@ public class WebToolsServices {
         String datasourceName = (String) context.get("datasourceName");
         String entityNamePrefix = (String) context.get("entityNamePrefix");
         Locale locale = (Locale) context.get("locale");
-        if (datasourceName == null) datasourceName = "localderby";
+        if (datasourceName == null) datasourceName = "localh2";
 
         ModelReader reader = dctx.getDelegator().getModelReader();
 
@@ -947,6 +967,26 @@ public class WebToolsServices {
             resultMap = ServiceUtil.returnFailure(UtilProperties.getMessage(RESOURCE, "WebtoolsPermissionError", locale));
             resultMap.put("hasPermission", false);
         }
+        return resultMap;
+    }
+
+    /**
+     * Performs a secret management security check. Returns hasPermission=true if the user has
+     * the {@code SECRET_MAINT} permission or the broader {@code ENTITY_MAINT} permission
+     * (backward-compatible: existing admins with ENTITY_MAINT are not locked out).
+     */
+    public static Map<String, Object> secretMaintPermCheck(DispatchContext dctx, Map<String, ? extends Object> context) {
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        Locale locale = (Locale) context.get("locale");
+        Security security = dctx.getSecurity();
+        if (security.hasPermission("SECRET_MAINT", userLogin) || security.hasPermission("ENTITY_MAINT", userLogin)) {
+            Map<String, Object> resultMap = ServiceUtil.returnSuccess();
+            resultMap.put("hasPermission", true);
+            return resultMap;
+        }
+        Map<String, Object> resultMap = ServiceUtil.returnFailure(
+                UtilProperties.getMessage(RESOURCE, "WebtoolsSecretPermissionError", locale));
+        resultMap.put("hasPermission", false);
         return resultMap;
     }
 

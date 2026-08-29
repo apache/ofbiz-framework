@@ -35,6 +35,7 @@ import java.io.Writer;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import javax.imageio.ImageIO;
 import jakarta.servlet.http.HttpServletRequest;
@@ -46,6 +47,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.ofbiz.base.lang.JSON;
 import org.apache.ofbiz.base.location.FlexibleLocation;
 import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilProperties;
@@ -57,6 +59,7 @@ import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.ofbiz.webapp.control.JWTManager;
 import org.apache.ofbiz.webapp.control.LoginWorker;
+import org.apache.ofbiz.security.SecurityUtil;
 import org.apache.ofbiz.widget.model.ModelWidget;
 import org.apache.ofbiz.widget.model.ScriptLinkHelper;
 import org.apache.ofbiz.widget.model.ThemeFactory;
@@ -414,13 +417,14 @@ public class CommonEvents {
                     if (!platformSpecificPath.contains(File.separator) && "\\".equals(File.separator)) {
                         platformSpecificPath = platformSpecificPath.replace("/", "\\");
                     }
+                    SecurityUtil.checkOfbizFileAllowList(new File(platformSpecificPath));
                     // get line number
                     int lineNumber = 1;
                     if (UtilValidate.isNotEmpty(fragment)) {
                         try (LineNumberReader lnr = new LineNumberReader(new FileReader(platformSpecificPath))) {
                             String line;
                             while ((line = lnr.readLine()) != null) {
-                                if (line.matches(".*name=\"" + fragment + "\".*")) {
+                                if (line.matches(".*name=\"" + Pattern.quote(fragment) + "\".*")) {
                                     lineNumber = lnr.getLineNumber();
                                     break;
                                 }
@@ -438,7 +442,7 @@ public class CommonEvents {
                     String cmd = (String) FlexibleStringExpander.getInstance(cmdTemplate).expand(sourceMap);
                     // run command
                     Debug.logInfo("Run command: " + cmd, MODULE);
-                    Process process = Runtime.getRuntime().exec(cmd);
+                    Process process = Runtime.getRuntime().exec(new String[]{cmd});
                     // print result
                     BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
                     String line = "";
@@ -446,7 +450,7 @@ public class CommonEvents {
                         Debug.logInfo(line, MODULE);
                     }
                     return "success";
-                } catch (IOException e) {
+                } catch (GeneralException | IOException e) {
                     Debug.logError(e, MODULE);
                 }
             }

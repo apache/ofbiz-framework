@@ -59,8 +59,7 @@ previousShipmentIter = from('Shipment')
                                         EntityOperator.AND))
                             .queryIterator()
 
-while (previousShipmentIter.hasNext()) {
-    previousShipmentItem = previousShipmentIter.next()
+while ((previousShipmentItem = previousShipmentIter.next()) != null) {
     if (previousShipmentItem.shipmentId != shipment.shipmentId) {
         previousShipmentItems = previousShipmentItem.getRelated('ShipmentItem', null, null, false)
         previousShipmentItems.each { shipmentItem ->

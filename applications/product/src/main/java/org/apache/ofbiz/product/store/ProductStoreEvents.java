@@ -27,19 +27,32 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilMisc;
+import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.util.EntityQuery;
+import org.apache.ofbiz.security.Security;
 
 public class ProductStoreEvents {
 
     private static final String MODULE = ProductStoreWorker.class.getName();
+    private static final String RES_ERROR = "ProductErrorUiLabels";
 
     // Please note : the structure of map in this function is according to the JSON data map of the jsTree
     public static String getChildProductStoreGroupTree(HttpServletRequest request, HttpServletResponse response) {
+        Security security = (Security) request.getAttribute("security");
+        if (security == null || !security.hasEntityPermission("CATALOG", "_VIEW", request.getSession())) {
+            String errMsg = UtilProperties.getMessage(RES_ERROR, "CatalogViewPermissionError", UtilHttp.getLocale(request));
+            request.setAttribute("_ERROR_MESSAGE_", errMsg);
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            Debug.logWarning("Unauthorized attempt to access getProductStoreGroupRollupHierarchy by parentGroupId param [%s]", MODULE,
+                    request.getParameter("parentGroupId"));
+            return "error";
+        }
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         String parentGroupId = request.getParameter("parentGroupId");
         String onclickFunction = request.getParameter("onclickFunction");

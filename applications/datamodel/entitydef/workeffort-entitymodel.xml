@@ -594,6 +594,33 @@ under the License.
             <key-map field-name="workEffortId"/>
         </relation>
     </entity>
+    <entity entity-name="WorkEffortInvRes"
+            package-name="org.apache.ofbiz.workeffort.workeffort"
+            title="Inventory Reservation for WorkEffort">
+      <field name="workEffortId" type="id"/>
+      <field name="inventoryItemId" type="id"/>
+      <field name="productId" type="id" col-name="WEGS_PRODUCT_ID"/>
+      <field name="reserveOrderEnumId" type="id"/>
+      <field name="quantity" type="fixed-point"/>
+      <field name="quantityNotAvailable" type="fixed-point"/>
+      <field name="reservedDatetime" type="date-time"/>
+      <field name="createdDatetime" type="date-time"/>
+      <field name="promisedDatetime" type="date-time"/>
+      <field name="currentPromisedDate" type="date-time"/>
+      <field name="sequenceId" type="id"/>
+      <prim-key field="workEffortId"/>
+      <prim-key field="inventoryItemId"/>
+      <prim-key field="productId"/>
+      <relation type="one" fk-name="WEIR_WE" rel-entity-name="WorkEffort">
+        <key-map field-name="workEffortId"/>
+      </relation>
+      <relation type="one" fk-name="WEIR_INV" rel-entity-name="InventoryItem">
+        <key-map field-name="inventoryItemId"/>
+      </relation>
+      <relation type="one" fk-name="WEIR_PROD" rel-entity-name="Product">
+        <key-map field-name="productId"/>
+      </relation>
+    </entity>
     <entity entity-name="WorkEffortInventoryAssign"
             package-name="org.apache.ofbiz.workeffort.workeffort"
             title="Work Effort Inventory Assignment">

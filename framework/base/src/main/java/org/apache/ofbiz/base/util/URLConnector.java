@@ -100,15 +100,15 @@ public class URLConnector {
 
     // allow untrusted certs
     public static URLConnection openUntrustedConnection(URL url) throws IOException {
-        return openConnection(url, 30000);
+        return openUntrustedConnection(url, 30000);
     }
 
     public static URLConnection openUntrustedConnection(URL url, int timeout) throws IOException {
-        return openConnection(url, timeout, null, SSLUtil.getHostCertNormalCheck());
+        return openUntrustedConnection(url, timeout, null, SSLUtil.getHostCertNormalCheck());
     }
 
     public static URLConnection openUntrustedConnection(URL url, String clientCertAlias) throws IOException {
-        return openConnection(url, 30000, clientCertAlias, SSLUtil.getHostCertNormalCheck());
+        return openUntrustedConnection(url, 30000, clientCertAlias, SSLUtil.getHostCertNormalCheck());
     }
 
     static URLConnection openUntrustedConnection(URL url, int timeout, String clientCertAlias, int hostCertLevel) throws IOException {

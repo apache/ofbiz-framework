@@ -158,15 +158,15 @@ data, such as a chart of accounts.
 
 ==== Database
 
-By default the OFBiz container will use an internal Derby database,
+By default the OFBiz container will use an internal H2 database,
 storing database related files in the /ofbiz/runtime volume.
 
 Use of an external database can be configured through environment
 variables.
 
-===== Derby
+===== H2
 
-To use the embedded Derby database, ensure all database related
+To use the embedded H2 database, ensure all database related
 environment variables are unset.
 
 ===== PostgreSQL

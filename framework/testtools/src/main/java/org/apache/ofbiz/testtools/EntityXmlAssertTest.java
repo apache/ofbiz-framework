@@ -23,7 +23,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.ofbiz.base.location.FlexibleLocation;
-import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.util.EntityDataAssert;
 import org.apache.ofbiz.entity.util.EntitySaxReader;
@@ -34,8 +33,6 @@ import junit.framework.AssertionFailedError;
 import junit.framework.TestResult;
 
 public class EntityXmlAssertTest extends OFBizTestCase {
-
-    private static final String MODULE = ServiceTest.class.getName();
 
     private String entityXmlUrlString;
     private String action;
@@ -54,15 +51,12 @@ public class EntityXmlAssertTest extends OFBizTestCase {
 
     @Override
     public int countTestCases() {
-        int testCaseCount = 0;
-        try {
-            URL entityXmlURL = FlexibleLocation.resolveLocation(entityXmlUrlString);
-            EntitySaxReader reader = new EntitySaxReader(getDelegator());
-            testCaseCount += reader.parse(entityXmlURL);
-        } catch (Exception e) {
-            Debug.logError(e, "Error getting test case count", MODULE);
-        }
-        return testCaseCount;
+        // One EntityXmlAssertTest instance is one test case, same as ServiceTest/SimpleMethodTest.
+        // This used to return the number of <entity> records in entityXmlUrlString instead, which
+        // JUnit 3's TestResult.startTest() adds into the suite's overall run count - inflating the
+        // "tests" total reported in the JUnit XML/HTML report by the size of the referenced data file,
+        // rather than the number of test cases actually run.
+        return 1;
     }
 
     @Override

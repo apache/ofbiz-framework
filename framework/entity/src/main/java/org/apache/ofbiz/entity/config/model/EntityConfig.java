@@ -26,8 +26,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ofbiz.base.lang.ThreadSafe;
+import org.apache.ofbiz.base.secret.SecretProviderFactory;
 import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.UtilURL;
 import org.apache.ofbiz.base.util.UtilXml;
 import org.apache.ofbiz.entity.GenericEntityConfException;
@@ -353,12 +354,12 @@ public final class EntityConfig {
                     + inlineJdbcElement.getLineNumber());
         }
         String key = "jdbc-password.".concat(jdbcPasswordLookup);
-        jdbcPassword = UtilProperties.getPropertyValue("passwords", key);
-        if (jdbcPassword.isEmpty()) {
-            throw new GenericEntityConfException("'" + key + "' property not found in passwords.properties file for inline-jdbc element, line: "
-                    + inlineJdbcElement.getLineNumber());
+        try {
+            return SecretProviderFactory.getInstance().getSecret(key);
+        } catch (GeneralException e) {
+            throw new GenericEntityConfException("Secret not found for key '" + key + "' for inline-jdbc element, line: "
+                    + inlineJdbcElement.getLineNumber() + " - " + e.getMessage());
         }
-        return jdbcPassword;
     }
 
     /** Returns the <code>&lt;datasource&gt;</code> child elements as a <code>Map</code>. */

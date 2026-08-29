@@ -60,6 +60,10 @@ public final class XslTransform {
             pfactory.setXIncludeAware(true);
             XMLReader reader = null;
             try {
+                pfactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+                pfactory.setFeature("http://xml.org/sax/features/external-general-entities", false);
+                pfactory.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
+                pfactory.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
                 reader = pfactory.newSAXParser().getXMLReader();
             } catch (Exception e) {
                 throw new TransformerException("Error creating SAX parser/reader", e);

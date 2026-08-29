@@ -80,6 +80,8 @@ under the License.
           <li><a href="<@ofbizUrl>EntityImport</@ofbizUrl>">${uiLabelMap.PageTitleEntityImport}</a></li>
           <li><a href="<@ofbizUrl>EntityImportDir</@ofbizUrl>">${uiLabelMap.PageTitleEntityImportDir}</a></li>
           <li><a href="<@ofbizUrl>EntityImportReaders</@ofbizUrl>">${uiLabelMap.PageTitleEntityImportReaders}</a></li>
+          <li><h3>${uiLabelMap.WebtoolsSecretManagerTools}</h3></li>
+          <li><a href="<@ofbizUrl>EncryptValue</@ofbizUrl>">${uiLabelMap.WebtoolsEncryptValue}</a></li>
         </#if>
         <#if security.hasPermission("SERVICE_MAINT", session)>
           <li><h3>${uiLabelMap.WebtoolsServiceEngineTools}</h3></li>
@@ -89,6 +91,7 @@ under the License.
           <li><a href="<@ofbizUrl>FindJob</@ofbizUrl>">${uiLabelMap.PageTitleJobList}</a></li>
           <li><a href="<@ofbizUrl>threadList</@ofbizUrl>">${uiLabelMap.PageTitleThreadList}</a></li>
           <li><a href="<@ofbizUrl>FindJobManagerLock</@ofbizUrl>">${uiLabelMap.PageTitleJobManagerLockList}</a></li>
+          <li><a href="<@ofbizUrl>FindJobTracker</@ofbizUrl>">${uiLabelMap.WebtoolsJobTrackerList}</a></li>
           <li><a href="<@ofbizUrl>ServiceLog</@ofbizUrl>">${uiLabelMap.WebtoolsServiceLog}</a></li>
         </#if>
         <#if security.hasPermission("DATAFILE_MAINT", session)>
@@ -99,6 +102,7 @@ under the License.
         <#if security.hasPermission("PORTALPAGE_ADMIN", session)>
           <li><a href="<@ofbizUrl>FindGeo</@ofbizUrl>">${uiLabelMap.WebtoolsGeoManagement}</a></li>
           <li><a href="<@ofbizUrl>WebtoolsLayoutDemo</@ofbizUrl>">${uiLabelMap.WebtoolsLayoutDemo}</a></li>
+          <li><a href="<@ofbizUrl>AvailableUelList</@ofbizUrl>">${uiLabelMap.WebtoolsAvailableUelMethods}</a></li>
         </#if>
         <#if security.hasPermission("ENUM_STATUS_MAINT", session)>
           <#--

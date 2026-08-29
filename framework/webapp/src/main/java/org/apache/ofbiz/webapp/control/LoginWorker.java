@@ -146,7 +146,9 @@ public final class LoginWorker {
 
         try {
             try {
-                parentTx = TransactionUtil.suspend();
+                if (TransactionUtil.isTransactionInPlace()) {
+                    parentTx = TransactionUtil.suspend();
+                }
             } catch (GenericTransactionException e) {
                 Debug.logError(e, "Cannot suspend current transaction: " + e.getMessage(), MODULE);
             }
@@ -444,10 +446,9 @@ public final class LoginWorker {
         if (UtilValidate.isEmpty(password) && UtilValidate.isEmpty(token)) {
             unpwErrMsgList.add(UtilProperties.getMessage(RESOURCE, "loginevents.password_was_empty_reenter", UtilHttp.getLocale(request)));
         }
-        boolean requirePasswordChange = "Y".equals(request.getParameter("requirePasswordChange"));
         if (!unpwErrMsgList.isEmpty()) {
             request.setAttribute("_ERROR_MESSAGE_LIST_", unpwErrMsgList);
-            return requirePasswordChange ? "requirePasswordChange" : "error";
+            return "error";
         }
 
         boolean setupNewDelegatorEtc = false;
@@ -475,8 +476,12 @@ public final class LoginWorker {
             if (delegatorNameHashIndex == -1 || (currentDelegatorTenantId != null && !tenantId.equals(currentDelegatorTenantId))) {
                 // make that tenant active, setup a new delegator and a new dispatcher
                 String delegatorName = delegator.getDelegatorBaseName() + "#" + tenantId;
+                Delegator baseDelegator = DelegatorFactory.getDelegator(delegator.getDelegatorBaseName());
 
                 try {
+                    if (!WebAppUtil.isValidTenantId(baseDelegator, tenantId)) {
+                        throw new NullPointerException("Tenant [" + tenantId + "] not found");
+                    }
                     // after this line the delegator is replaced with the new per-tenant delegator
                     delegator = DelegatorFactory.getDelegator(delegatorName);
                     dispatcher = WebAppUtil.makeWebappDispatcher(servletContext, delegator);
@@ -535,8 +540,9 @@ public final class LoginWorker {
 
         if (ModelService.RESPOND_SUCCESS.equals(result.get(ModelService.RESPONSE_MESSAGE))) {
             GenericValue userLogin = (GenericValue) result.get("userLogin");
-
-            if (requirePasswordChange) {
+            if (userLogin != null && "Y".equals(userLogin.getString("requirePasswordChange"))
+                    && UtilValidate.isNotEmpty(request.getParameter("newPassword"))
+                    && UtilValidate.isNotEmpty(request.getParameter("newPasswordVerify"))) {
                 Map<String, Object> inMap = UtilMisc.<String, Object>toMap(
                         "login.username", username,
                         "login.password", password,
@@ -554,7 +560,7 @@ public final class LoginWorker {
                     String errMsg = UtilProperties.getMessage(RESOURCE, "loginevents.following_error_occurred_during_login",
                             messageMap, UtilHttp.getLocale(request));
                     request.setAttribute("_ERROR_MESSAGE_", errMsg);
-                    return "requirePasswordChange";
+                    return "error";
                 }
                 if (ServiceUtil.isError(resultPasswordChange)) {
                     String errorMessage = (String) resultPasswordChange.get(ModelService.ERROR_MESSAGE);
@@ -565,7 +571,7 @@ public final class LoginWorker {
                         request.setAttribute("_ERROR_MESSAGE_", errMsg);
                     }
                     request.setAttribute("_ERROR_MESSAGE_LIST_", resultPasswordChange.get(ModelService.ERROR_MESSAGE_LIST));
-                    return "requirePasswordChange";
+                    return "error";
                 } else {
                     try {
                         userLogin.refresh();
@@ -575,7 +581,7 @@ public final class LoginWorker {
                         String errMsg = UtilProperties.getMessage(RESOURCE, "loginevents.following_error_occurred_during_login",
                                 messageMap, UtilHttp.getLocale(request));
                         request.setAttribute("_ERROR_MESSAGE_", errMsg);
-                        return "requirePasswordChange";
+                        return "error";
                     }
                 }
             }
@@ -1133,21 +1139,9 @@ public final class LoginWorker {
             }
             try {
                 GenericValue autoUserLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", autoUserLoginId).queryOne();
-                GenericValue person = null;
-                GenericValue group = null;
                 if (autoUserLogin != null) {
                     session.setAttribute("autoUserLogin", autoUserLogin);
-
-                    ModelEntity modelUserLogin = autoUserLogin.getModelEntity();
-                    if (modelUserLogin.isField("partyId")) {
-                        person = EntityQuery.use(delegator).from("Person").where("partyId", autoUserLogin.getString("partyId")).queryOne();
-                        group = EntityQuery.use(delegator).from("PartyGroup").where("partyId", autoUserLogin.getString("partyId")).queryOne();
-                    }
-                }
-                if (person != null) {
-                    session.setAttribute("autoName", person.getString("firstName") + " " + person.getString("lastName"));
-                } else if (group != null) {
-                    session.setAttribute("autoName", group.getString("groupName"));
+                    session.setAttribute("autoName", autoUserLogin.getString("userFullName"));
                 }
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Cannot get autoUserLogin information: " + e.getMessage(), MODULE);
@@ -1168,6 +1162,7 @@ public final class LoginWorker {
             autoLoginCookie.setMaxAge(0);
             autoLoginCookie.setDomain(EntityUtilProperties.getPropertyValue("url", "cookie.domain", delegator));
             autoLoginCookie.setPath("root".equals(applicationName) ? "/" : request.getContextPath());
+            autoLoginCookie.setSecure(true);
             response.addCookie(autoLoginCookie);
         }
         // remove the session attributes
@@ -1438,9 +1433,14 @@ public final class LoginWorker {
     }
 
     public static boolean hasBasePermission(GenericValue userLogin, HttpServletRequest request) {
+        ServletContext context = request.getServletContext();
         Security security = (Security) request.getAttribute("security");
+        if (security == null) {
+            // ContextFilter may not have run yet for this request (e.g. when ControlFilter is mapped
+            // before ContextFilter); the same Security instance is already cached on the ServletContext.
+            security = (Security) context.getAttribute("security");
+        }
         if (security != null) {
-            ServletContext context = request.getServletContext();
             String serverId = (String) context.getAttribute("_serverId");
             // get a context path from the request, if it is empty then assume it is the root mount point
             String contextPath = request.getContextPath();

@@ -60,4 +60,7 @@
     <property key="HumanResFromDateAlreadyExist">
         <value xml:lang="en">This FromDate : ${parameters.estimatedStartDate} already exist.</value>
     </property>
+    <property key="HumanResViewPermissionError">
+        <value xml:lang="en">You do not have permission to view Human Resources organization data.</value>
+    </property>
 </resource>

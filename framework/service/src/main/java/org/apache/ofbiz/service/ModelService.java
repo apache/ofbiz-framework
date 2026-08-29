@@ -60,6 +60,7 @@ import javax.wsdl.extensions.soap.SOAPBinding;
 import javax.wsdl.extensions.soap.SOAPBody;
 import javax.wsdl.extensions.soap.SOAPOperation;
 import javax.wsdl.factory.WSDLFactory;
+import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -110,6 +111,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
     public static final String RESPOND_SUCCESS = "success";
     public static final String RESPOND_ERROR = "error";
     public static final String RESPOND_FAIL = "fail";
+    public static final String ERROR_CODE = "errorCode";
     public static final String ERROR_MESSAGE = "errorMessage";
     public static final String ERROR_MESSAGE_LIST = "errorMessageList";
     public static final String ERROR_MESSAGE_MAP = "errorMessageMap";
@@ -132,9 +134,6 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
 
     /** The namespace of this service */
     private String nameSpace;
-
-    /** The corresponding REST verb behaviour for this service */
-    private String action;
 
     /** The package name or location of this service */
     private String location;
@@ -259,14 +258,6 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
      */
     public void setNameSpace(String nameSpace) {
         this.nameSpace = nameSpace;
-    }
-
-    /**
-     * Sets action.
-     * @param action the action
-     */
-    public void setAction(String action) {
-        this.action = action;
     }
 
     /**
@@ -523,14 +514,6 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
      */
     public String getNameSpace() {
         return nameSpace;
-    }
-
-    /**
-     * Gets action.
-     * @return the action
-     */
-    public String getAction() {
-        return action;
     }
 
     /**
@@ -800,7 +783,6 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         this.defaultEntityName = model.defaultEntityName;
         this.auth = model.auth;
         this.export = model.export;
-        this.action = model.action;
         this.validate = model.validate;
         this.useTransaction = model.useTransaction;
         this.requireNewTransaction = model.requireNewTransaction;
@@ -936,7 +918,6 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         buf.append(defaultEntityName).append("::");
         buf.append(auth).append("::");
         buf.append(export).append("::");
-        buf.append(action).append("::");
         buf.append(validate).append("::");
         buf.append(useTransaction).append("::");
         buf.append(requireNewTransaction).append("::");
@@ -1674,7 +1655,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
                     } catch (GeneralException e) {
                         String errMsg = "Type conversion of field [" + paramName + "] to type [" + modelParam.getType() + "] failed for value \""
                                 + value + "\": " + e;
-                        Debug.logWarning("[ModelService.makeValid] : " + errMsg, MODULE);
+                        Debug.logWarning("[ModelService.makeValid] : %s", MODULE, errMsg);
                         if (errorMessages != null) {
                             errorMessages.add(errMsg);
                         }
@@ -1993,6 +1974,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         DocumentBuilder builder = null;
         Document document = null;
         try {
+            factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
             builder = factory.newDocumentBuilder();
             document = builder.newDocument();
         } catch (Exception e) {

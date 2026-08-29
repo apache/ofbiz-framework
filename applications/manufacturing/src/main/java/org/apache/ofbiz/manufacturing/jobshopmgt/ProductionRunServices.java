@@ -1308,6 +1308,29 @@ public class ProductionRunServices {
                 materialsCost = materialsCost.add(unitCost.multiply(quantity)).setScale(DECIMALS, ROUNDING);
                 materialsCostByCurrency.put(currencyUomId, materialsCost);
             }
+            List<GenericValue> returns = EntityQuery.use(delegator).from("WorkEffortAndInventoryProduced")
+                    .where("workEffortId", productionRunTaskId).queryList();
+            for (GenericValue inventoryProduced : returns) {
+                // We check if it is a "return" (i.e. a product that was a component of the task)
+                GenericValue component = EntityQuery.use(delegator).from("WorkEffortGoodStandard")
+                        .where("workEffortId", productionRunTaskId,
+                                "productId", inventoryProduced.get("productId"),
+                                "workEffortGoodStdTypeId", "PRUNT_PROD_NEEDED")
+                        .queryFirst();
+                if (component != null) {
+                    BigDecimal quantity = inventoryProduced.getBigDecimal("quantityOnHandTotal");
+                    BigDecimal unitCost = inventoryProduced.getBigDecimal("unitCost");
+                    if (UtilValidate.isNotEmpty(unitCost) && UtilValidate.isNotEmpty(quantity)) {
+                        String currencyUomId = inventoryProduced.getString("currencyUomId");
+                        if (!materialsCostByCurrency.containsKey(currencyUomId)) {
+                            materialsCostByCurrency.put(currencyUomId, BigDecimal.ZERO);
+                        }
+                        BigDecimal materialsCost = materialsCostByCurrency.get(currencyUomId);
+                        materialsCost = materialsCost.subtract(unitCost.multiply(quantity)).setScale(DECIMALS, ROUNDING);
+                        materialsCostByCurrency.put(currencyUomId, materialsCost);
+                    }
+                }
+            }
             for (String currencyUomId : materialsCostByCurrency.keySet()) {
                 BigDecimal materialsCost = materialsCostByCurrency.get(currencyUomId);
                 Map<String, Object> inMap = UtilMisc.<String, Object>toMap("userLogin", userLogin,
@@ -1323,6 +1346,57 @@ public class ProductionRunServices {
         } catch (GenericEntityException | GenericServiceException ge) {
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunUnableToCreateMaterialsCosts",
                     UtilMisc.toMap("productionRunTaskId", productionRunTaskId, "errorString", ge.getMessage()), locale));
+        }
+
+        // labor costs: these are the costs derived from the actual time logged on the production run task decleration
+        try {
+            List<GenericValue> timeEntries = EntityQuery.use(delegator).from("TimeEntry")
+                    .where("workEffortId", productionRunTaskId)
+                    .queryList();
+            for (GenericValue timeEntry : timeEntries) {
+                BigDecimal hours = timeEntry.getBigDecimal("hours");
+                if (UtilValidate.isNotEmpty(hours)) {
+                    // Try to find specific rate for the party with FLC type
+                    GenericValue rateAmount = EntityQuery.use(delegator).from("RateAmount")
+                            .where("partyId", timeEntry.getString("partyId"), "rateTypeId", "FLC")
+                            .filterByDate(timeEntry.getTimestamp("fromDate"))
+                            .queryFirst();
+
+                    // Fallback to generic rate if specific rate not found
+                    if (UtilValidate.isEmpty(rateAmount)) {
+                        rateAmount = EntityQuery.use(delegator).from("RateAmount")
+                                .where("partyId", "_NA_", "rateTypeId", "FLC")
+                                .filterByDate(timeEntry.getTimestamp("fromDate"))
+                                .queryFirst();
+                    }
+
+                    if (UtilValidate.isNotEmpty(rateAmount)) {
+                        BigDecimal rate = rateAmount.getBigDecimal("rateAmount");
+                        if (UtilValidate.isNotEmpty(rate)) {
+                            BigDecimal laborCost = rate.multiply(hours).setScale(DECIMALS, ROUNDING);
+                            Map<String, Object> inMap = UtilMisc.<String, Object>toMap("userLogin", userLogin,
+                                    "workEffortId", productionRunTaskId);
+                            inMap.put("costComponentTypeId", "ACTUAL_LABOR_COST");
+                            inMap.put("costUomId", rateAmount.getString("rateCurrencyUomId"));
+                            inMap.put("cost", laborCost);
+                            serviceResult = dispatcher.runSync("createCostComponent", inMap);
+                            if (ServiceUtil.isError(serviceResult)) {
+                                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (GenericEntityException ge) {
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
+                    "ManufacturingProductionRunUnableToCreateLaborCosts",
+                    UtilMisc.toMap("productionRunTaskId", productionRunTaskId, "errorString", ge.getMessage()),
+                    locale));
+        } catch (Exception e) {
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
+                    "ManufacturingProductionRunUnableToCreateLaborCosts",
+                    UtilMisc.toMap("productionRunTaskId", productionRunTaskId, "errorString", e.getMessage()),
+                    locale));
         }
         return ServiceUtil.returnSuccess();
     }
@@ -2431,6 +2505,24 @@ public class ProductionRunServices {
                     return ServiceUtil.returnError(errMsg);
                 }
             }
+        }
+
+        // Make TimeEntry records for the labor cost
+        try {
+            if (UtilValidate.isNotEmpty(addTaskTime) && addTaskTime.compareTo(BigDecimal.ZERO) > 0) {
+                Map<String, Object> serviceContext = UtilMisc.toMap("workEffortId", workEffortId,
+                        "rateTypeId", "FLC",
+                        "partyId", partyId,
+                        "userLogin", userLogin);
+                serviceContext.put("hours", addTaskTime.divide(new BigDecimal(3600000), 6, ROUNDING).doubleValue());
+                serviceContext.put("comments", "Task time added via Declaration");
+                Map<String, Object> serviceResult = dispatcher.runSync("createTimeEntry", serviceContext);
+                if (ServiceUtil.isError(serviceResult)) {
+                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
+                }
+            }
+        } catch (GenericServiceException exc) {
+            return ServiceUtil.returnError(exc.getMessage());
         }
 
         // Create a new TimeEntry

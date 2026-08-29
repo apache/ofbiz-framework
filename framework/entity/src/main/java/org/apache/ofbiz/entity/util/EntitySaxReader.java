@@ -35,6 +35,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import javax.xml.XMLConstants;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -224,6 +225,19 @@ public class EntitySaxReader extends DefaultHandler {
         this.currentAction = action;
     }
 
+    private boolean isSequenceValueItemRegression(GenericValue value) throws GenericEntityException {
+        if (!"SequenceValueItem".equals(value.getEntityName())) {
+            return false;
+        }
+        GenericValue existing = delegator.findOne("SequenceValueItem", false, "seqName", value.get("seqName"));
+        if (existing == null) {
+            return false;
+        }
+        Long incomingSeqId = value.getLong("seqId");
+        Long existingSeqId = existing.getLong("seqId");
+        return incomingSeqId != null && existingSeqId != null && incomingSeqId < existingSeqId;
+    }
+
     /**
      * Parse long.
      * @param content the content
@@ -265,7 +279,13 @@ public class EntitySaxReader extends DefaultHandler {
     private long parse(InputStream is, String docDescription) throws SAXException, java.io.IOException {
         SAXParser parser;
         try {
-            parser = SAXParserFactory.newInstance().newSAXParser();
+            SAXParserFactory factory = SAXParserFactory.newInstance();
+            factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+            factory.setFeature("http://xml.org/sax/features/external-general-entities", false);
+            factory.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
+            factory.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
+            factory.setXIncludeAware(false);
+            parser = factory.newSAXParser();
         } catch (ParserConfigurationException pce) {
             throw new SAXException("Unable to create the SAX parser", pce);
         }
@@ -477,6 +497,12 @@ public class EntitySaxReader extends DefaultHandler {
                         } else if (Action.DELETE == currentAction && !exist) {
                             skip = true;
                         }
+                    }
+                    if (!skip && !this.checkDataOnly && Action.DELETE != currentAction && isSequenceValueItemRegression(currentValue)) {
+                        skip = true;
+                        Debug.logWarning("Skipping import of " + currentValue.getEntityName() + " [" + currentValue.get("seqName")
+                                + "]: imported seqId=" + currentValue.getLong("seqId")
+                                + " would move the sequence counter backward, keeping the current higher value", MODULE);
                     }
                     if (!skip) {
                         if (this.useTryInsertMethod && !this.checkDataOnly) {

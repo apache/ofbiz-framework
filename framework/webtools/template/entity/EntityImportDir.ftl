@@ -26,7 +26,7 @@ under the License.
 </#if>
 <hr />
 
-  <form class="basic-form" method="post" action="<@ofbizUrl>entityImportDir</@ofbizUrl>">
+  <form class="basic-form" method="post" action="<@ofbizUrl>entityImportDir</@ofbizUrl>" onsubmit="return !this.deleteFiles.checked || confirm('${uiLabelMap.WebtoolsConfirmIrreversibleDelete?js_string} ${uiLabelMap.WebtoolsDeleteFiles?js_string}: ' + this.path.value + '?');">
     <table class="basic-table" cellspacing="0">
         <tbody>
             <tr>
@@ -46,6 +46,7 @@ under the License.
                     <label><input type="checkbox" name="createDummyFks" <#if createDummyFks??>checked="checked"</#if>/>${uiLabelMap.WebtoolsCreateDummyFks}</label>
                     <label><input type="checkbox" name="deleteFiles" <#if (deleteFiles??)>checked="checked"</#if>/>${uiLabelMap.WebtoolsDeleteFiles}</label>
                     <label><input type="checkbox" name="checkDataOnly" <#if checkDataOnly??>checked="checked"</#if>/>${uiLabelMap.WebtoolsCheckDataOnly}</label>
+                    <label><input type="checkbox" name="disableEeca" <#if disableEeca??>checked="checked"</#if>/>${uiLabelMap.WebtoolsDisableEeca}</label><span class="tooltip">${uiLabelMap.WebtoolsDisableEecaWarning}</span>
                 </td>
             </tr>
             <tr>

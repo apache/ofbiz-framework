@@ -2093,6 +2093,11 @@ ${txt}
     <DataResource dataResourceId="HELP_TEMPL" dataResourceTypeId="OFBIZ_FILE" objectInfo="applications/content/template/HelpTemplate.ftl" dataTemplateTypeId="FTL" statusId="CTNT_IN_PROGRESS" dataResourceName="Help template file" mimeTypeId="text/html" isPublic="Y"/>
 
     <!-- Content Manager security -->
+    <SecurityPermission description="View operations in the Content Manager without restrictions." permissionId="CONTENTMGR_SUPER_VIEW"/>
+    <SecurityPermission description="Create operations in the Content Manager without restrictions." permissionId="CONTENTMGR_SUPER_CREATE"/>
+    <SecurityPermission description="Update operations in the Content Manager without restrictions." permissionId="CONTENTMGR_SUPER_UPDATE"/>
+    <SecurityPermission description="Delete operations in the Content Manager without restrictions." permissionId="CONTENTMGR_SUPER_DELETE"/>
+    <SecurityPermission description="ALL operations in the Content Manager without restrictions." permissionId="CONTENTMGR_SUPER_ADMIN"/>
     <SecurityPermission description="View operations in the Content Manager." permissionId="CONTENTMGR_VIEW"/>
     <SecurityPermission description="Create operations in the Content Manager." permissionId="CONTENTMGR_CREATE"/>
     <SecurityPermission description="Update operations in the Content Manager." permissionId="CONTENTMGR_UPDATE"/>
@@ -2106,6 +2111,7 @@ ${txt}
     <SecurityPermission description="Limited Delete operations in the Content Manager." permissionId="CONTENTMGR_ROLE_DELETE"/>
 
     <!-- add admin to SUPER permission group -->
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="CONTENTMGR_SUPER_ADMIN"/>
     <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="CONTENTMGR_ADMIN"/>
 
     <DataResource dataResourceId="NOCONTENTFOUND" dataResourceTypeId="OFBIZ_FILE" dataTemplateTypeId="NONE" objectInfo="/applications/content/webapp/content/images/nocontentfound.png"

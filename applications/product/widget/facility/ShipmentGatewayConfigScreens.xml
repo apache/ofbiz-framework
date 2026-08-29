@@ -81,18 +81,6 @@ under the License.
                 <set field="tabButtonItem" value="shipmentGatewayConfigTab"/> 
                 <set field="shipmentGatewayConfigId" from-field="parameters.shipmentGatewayConfigId"/>
                 <entity-one entity-name="ShipmentGatewayConfig" value-field="shipmentGatewayConfig"/>
-                <entity-one entity-name="ShipmentGatewayDhl" value-field="shipmentGatewayDhl">
-                    <field-map field-name="shipmentGatewayConfigId" from-field="parameters.shipmentGatewayConfigId"/>
-                </entity-one>
-                <entity-one entity-name="ShipmentGatewayFedex" value-field="shipmentGatewayFedex">
-                    <field-map field-name="shipmentGatewayConfigId" from-field="parameters.shipmentGatewayConfigId"/>
-                </entity-one>
-                <entity-one entity-name="ShipmentGatewayUsps" value-field="shipmentGatewayUsps">
-                    <field-map field-name="shipmentGatewayConfigId" from-field="parameters.shipmentGatewayConfigId"/>
-                </entity-one>
-                <entity-one entity-name="ShipmentGatewayUps" value-field="shipmentGatewayUps">
-                    <field-map field-name="shipmentGatewayConfigId" from-field="parameters.shipmentGatewayConfigId"/>
-                </entity-one>
             </actions>
             <widgets>
                 <decorator-screen name="GenericShipmentGatewayConfigDecorator">
@@ -100,46 +88,6 @@ under the License.
                         <screenlet title="${uiLabelMap.PageTitleUpdateShipmentGatewayConfig}">
                             <include-form name="EditShipmentGatewayConfig" location="component://product//widget/facility/ShipmentGatewayConfigForms.xml"/>
                         </screenlet>
-                        <section>
-                            <condition>
-                                <not><if-empty field="shipmentGatewayDhl"/></not>
-                            </condition>
-                            <widgets>
-                                <screenlet title="${uiLabelMap.PageTitleUpdateShipmentGatewayConfigDhl}">
-                                    <include-form name="EditShipmentGatewayConfigDhl" location="component://product//widget/facility/ShipmentGatewayConfigForms.xml"/>
-                                </screenlet>
-                            </widgets>
-                        </section>
-                        <section>
-                            <condition>
-                                <not><if-empty field="shipmentGatewayFedex"/></not>
-                            </condition>
-                            <widgets>
-                                <screenlet title="${uiLabelMap.PageTitleUpdateShipmentGatewayConfigFedex}">
-                                    <include-form name="EditShipmentGatewayConfigFedex" location="component://product//widget/facility/ShipmentGatewayConfigForms.xml"/>
-                                </screenlet>
-                            </widgets>
-                        </section>
-                        <section>
-                            <condition>
-                                <not><if-empty field="shipmentGatewayUps"/></not>
-                            </condition>
-                            <widgets>
-                                <screenlet title="${uiLabelMap.PageTitleUpdateShipmentGatewayConfigUps}">
-                                    <include-form name="EditShipmentGatewayConfigUps" location="component://product//widget/facility/ShipmentGatewayConfigForms.xml"/>
-                                </screenlet>
-                            </widgets>
-                        </section>
-                        <section>
-                            <condition>
-                                <not><if-empty field="shipmentGatewayUsps"/></not>
-                            </condition>
-                            <widgets>
-                                <screenlet title="${uiLabelMap.PageTitleUpdateShipmentGatewayConfigUsps}">
-                                    <include-form name="EditShipmentGatewayConfigUsps" location="component://product//widget/facility/ShipmentGatewayConfigForms.xml"/>
-                                </screenlet>
-                            </widgets>
-                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

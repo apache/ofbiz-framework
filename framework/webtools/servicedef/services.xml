@@ -37,6 +37,7 @@ under the License.
         <attribute name="txTimeout" type="Integer" mode="IN" optional="true"/>
         <attribute name="createDummyFks" type="String" mode="IN" optional="true"/>
         <attribute name="checkDataOnly" type="String" mode="IN" optional="true"/>
+        <attribute name="disableEeca" type="String" mode="IN" optional="true"/>
         <attribute name="placeholderValues" type="java.util.Map" mode="IN" optional="true"/>
         <attribute name="rowProcessed" type="Long" mode="OUT" optional="false"/>
     </service>
@@ -52,6 +53,7 @@ under the License.
         <attribute name="maintainTimeStamps" type="String" mode="IN" optional="true"/>
         <attribute name="createDummyFks" type="String" mode="IN" optional="true"/>
         <attribute name="checkDataOnly" type="String" mode="IN" optional="true"/>
+        <attribute name="disableEeca" type="String" mode="IN" optional="true"/>
         <attribute name="txTimeout" type="Integer" mode="IN" optional="true"/>
         <attribute name="placeholderValues" type="java.util.Map" mode="IN" optional="true"/>
         <attribute name="messages" type="List" mode="OUT" optional="false"/>
@@ -65,6 +67,7 @@ under the License.
         <attribute name="maintainTimeStamps" type="String" mode="IN" optional="true"/>
         <attribute name="createDummyFks" type="String" mode="IN" optional="true"/>
         <attribute name="checkDataOnly" type="String" mode="IN" optional="true"/>
+        <attribute name="disableEeca" type="String" mode="IN" optional="true"/>
         <attribute name="deleteFiles" type="String" mode="IN" optional="true"/>
         <attribute name="txTimeout" type="Integer" mode="IN" optional="true"/>
         <attribute name="filePause" type="Long" mode="IN" optional="true"/>
@@ -121,6 +124,93 @@ under the License.
         <description>Performs an entity maintenance security check. Returns hasPermission=true
           if the user has the ENTITY_MAINT permission.</description>
         <implements service="permissionInterface"/>
+    </service>
+    <service name="secretMaintPermCheck" engine="java"
+            location="org.apache.ofbiz.webtools.WebToolsServices" invoke="secretMaintPermCheck">
+        <description>Returns hasPermission=true if the user holds the SECRET_MAINT permission
+            (or the broader ENTITY_MAINT permission for backward compatibility).</description>
+        <implements service="permissionInterface"/>
+    </service>
+    <service name="createEncryptedSecret" engine="java"
+            location="org.apache.ofbiz.webtools.secret.SecretManagerServices" invoke="createEncryptedSecret" auth="true" use-transaction="true">
+        <description>Encrypts a secret value with ConfigCryptoUtil (AES-256-GCM, keyed by the OFBIZ_MASTER_KEY
+            environment variable) and stores the resulting ENC(...) value either as a SystemProperty.systemPropertyValue
+            or as a jdbc-password.&lt;lookupKey&gt; entry in passwords.properties.</description>
+        <attribute name="secretTarget" type="String" mode="IN" optional="false"/>
+        <attribute name="systemResourceId" type="String" mode="IN" optional="true"/>
+        <attribute name="systemPropertyId" type="String" mode="IN" optional="true"/>
+        <attribute name="lookupKey" type="String" mode="IN" optional="true"/>
+        <attribute name="secretValue" type="String" mode="IN" optional="false" allow-html="any"/>
+        <attribute name="secretValueConfirm" type="String" mode="IN" optional="true" allow-html="any"/>
+    </service>
+    <service name="flushSecretCache" engine="java"
+            location="org.apache.ofbiz.webtools.secret.SecretManagerServices" invoke="flushSecretCache" auth="true" use-transaction="false">
+        <description>Flushes all in-memory cached secret values (SecretValueResolver TTL cache, the UtilProperties
+            file cache, and the active SecretProvider's own internal cache) so the next lookup re-fetches from the
+            provider. Useful after a secret rotation.</description>
+    </service>
+    <service name="reloadSecretProvider" engine="java"
+            location="org.apache.ofbiz.webtools.secret.SecretManagerServices" invoke="reloadSecretProvider" auth="true" use-transaction="false">
+        <description>Re-runs ServiceLoader discovery and replaces the active SecretProvider instance. Useful after
+            deploying a new vault plugin jar or editing that plugin's own connection settings without a restart.</description>
+    </service>
+    <service name="syncSecretFromProvider" engine="java"
+            location="org.apache.ofbiz.webtools.secret.SecretManagerServices" invoke="syncSecretFromProvider" auth="true" use-transaction="true">
+        <description>Fetches the current value of lookupKey from the active SecretProvider and re-encrypts it into
+            the local fallback snapshot (passwords.properties or SystemProperty.systemPropertyValue), keeping the
+            ENC(...) value used when the remote vault is unreachable in sync with the latest rotation.</description>
+        <attribute name="secretTarget" type="String" mode="IN" optional="false"/>
+        <attribute name="systemResourceId" type="String" mode="IN" optional="true"/>
+        <attribute name="systemPropertyId" type="String" mode="IN" optional="true"/>
+        <attribute name="lookupKey" type="String" mode="IN" optional="false"/>
+        <attribute name="changed" type="Boolean" mode="OUT" optional="true"/>
+    </service>
+    <service name="autoSyncRotatedSecrets" engine="java"
+            location="org.apache.ofbiz.webtools.secret.SecretManagerServices" invoke="autoSyncRotatedSecrets" auth="true" use-transaction="false">
+        <description>Scheduled-job entry point (see JobSandbox seed data "SECRET_AUTOSYNC") that calls
+            syncSecretFromProvider for every SystemProperty row with a non-empty systemPropertyLookup, so a secret
+            rotated in the remote vault is written back automatically without an admin clicking "Sync Now". No-ops
+            unless secret.rotation.autosync.enabled=true in security.properties (disabled by default).</description>
+        <attribute name="syncedCount" type="Long" mode="OUT" optional="true"/>
+        <attribute name="unchangedCount" type="Long" mode="OUT" optional="true"/>
+        <attribute name="failedCount" type="Long" mode="OUT" optional="true"/>
+    </service>
+    <service name="testSecretProviderConnection" engine="java"
+            location="org.apache.ofbiz.webtools.secret.SecretManagerServices" invoke="testSecretProviderConnection" auth="true" use-transaction="false">
+        <description>Tests connectivity to the active SecretProvider by resolving a given key.
+            Distinguishes "connected but key not found" from a real connection failure.</description>
+        <attribute name="testKey" type="String" mode="IN" optional="false"/>
+    </service>
+    <service name="getSecretUsageStats" engine="java"
+            location="org.apache.ofbiz.webtools.secret.SecretManagerServices" invoke="getSecretUsageStats" auth="true" use-transaction="false">
+        <description>Returns in-memory usage statistics (hit/miss counts) for the SecretValueResolver cache
+            since the last JVM start, for display in the Secret Manager admin screen.</description>
+        <attribute name="usageSummary" type="java.util.Map" mode="OUT" optional="true"/>
+        <attribute name="usageReport" type="java.util.Map" mode="OUT" optional="true"/>
+    </service>
+    <service name="resetSecretUsageStats" engine="java"
+            location="org.apache.ofbiz.webtools.secret.SecretManagerServices" invoke="resetSecretUsageStats" auth="true" use-transaction="false">
+        <description>Resets in-memory secret usage counters to zero so operators can observe
+            clean post-rotation metrics without a JVM restart.</description>
+    </service>
+    <service name="updateSecretAuditRetention" engine="java"
+            location="org.apache.ofbiz.webtools.secret.SecretManagerServices"
+            invoke="updateSecretAuditRetention" auth="true" use-transaction="true">
+        <description>Updates the secret.audit.retention.days and secret.audit.purge.batch.size
+            SystemProperty rows from the Audit Log Viewer retention settings panel.
+            Requires SECRET_MAINT.</description>
+        <attribute name="retentionDays" type="String" mode="IN" optional="false"/>
+        <attribute name="batchSize" type="String" mode="IN" optional="false"/>
+    </service>
+    <service name="purgeExpiredSecretAuditLogs" engine="java"
+            location="org.apache.ofbiz.webtools.secret.SecretManagerServices"
+            invoke="purgeExpiredSecretAuditLogs" auth="true" use-transaction="false">
+        <description>Deletes SecretAuditLog rows older than the retention period configured in the
+            secret.audit.retention.days SystemProperty (default 365 days, minimum required by
+            PCI-DSS 4.0 §10.7). Rows are removed in bounded batches of at most
+            secret.audit.purge.batch.size (default 500) per database transaction. Scheduled weekly
+            by the SECRET_AUDIT_PURGE JobSandbox entry seeded in SecretManagerScheduledServiceData.xml.</description>
+        <attribute name="purgedCount" type="Long" mode="OUT" optional="true"/>
     </service>
     <service name="exportServiceEoModelBundle" engine="java" location="org.apache.ofbiz.webtools.WebToolsServices" invoke="exportServiceEoModelBundle" auth="true" use-transaction="false">
         <description>Saves service and related artifacts diagram to an Apple EOModelBundle file.

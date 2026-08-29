@@ -1,0 +1,99 @@
+# Licensed to the Apache Software Foundation (ASF) under one or more
+# contributor license agreements.  See the NOTICE file distributed with
+# this work for additional information regarding copyright ownership.
+# The ASF licenses this file to You under the Apache License, Version 2.0
+# (the "License"); you may not use this file except in compliance with
+# the License.  You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+
+# This workflow will check style in OFBiz with its plugins
+# For more information see: https://github.com/actions/setup-java
+
+name: Java CI with Gradle
+
+on:
+  push:
+    branches: [ trunk, release* ]
+  pull_request:
+    branches: [ trunk, release* ]
+
+permissions:
+  contents: read
+
+jobs:
+  # Computes which JDK versions the build job's matrix should cover. This lives in its
+  # own job because the `matrix` context is not available in a job-level `if:`, so the
+  # release*-branches-skip-21 rule can't be expressed as a condition on the build job
+  # itself - see https://github.com/orgs/community/discussions/37883. Instead we shrink
+  # the matrix itself before it reaches the build job.
+  prep:
+    runs-on: ubuntu-latest
+    outputs:
+      java: ${{ steps.set-matrix.outputs.java }}
+    steps:
+    - name: Determine JDK matrix
+      id: set-matrix
+      env:
+        EVENT_NAME: ${{ github.event_name }}
+        REF_NAME: ${{ github.ref_name }}
+        BASE_REF: ${{ github.base_ref }}
+      run: |
+        # release* branches stay JDK 17 only until they adopt JDK 21 too,
+        # since trunk fixes must stay backportable to them.
+        if { [ "$EVENT_NAME" = "push" ] && [[ "$REF_NAME" == release* ]]; } || \
+           { [ "$EVENT_NAME" = "pull_request" ] && [[ "$BASE_REF" == release* ]]; }; then
+          echo 'java=[17]' >> "$GITHUB_OUTPUT"
+        else
+          echo 'java=[17,21]' >> "$GITHUB_OUTPUT"
+        fi
+
+  build:
+    # trunk builds sourceCompatibility/targetCompatibility 17 bytecode (see build.gradle),
+    # but is matrix-tested on both the JDK 17 runtime it targets and the JDK 21 runtime
+    # it may adopt later.
+    needs: prep
+    strategy:
+      fail-fast: false
+      matrix:
+        java: ${{ fromJson(needs.prep.outputs.java) }}
+
+    runs-on: ubuntu-latest
+
+    env:
+      DEVELOCITY_ACCESS_KEY: ${{ secrets.DEVELOCITY_ACCESS_KEY }}
+
+    steps:
+    - name: Check out OFBiz sources
+      uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+    - name: Set up JDK ${{ matrix.java }}
+      uses: actions/setup-java@dd06d9cba3e5552c54d9f8ea23572deb30010f7c # v6.0.0
+      with:
+        java-version: ${{ matrix.java }}
+        distribution: temurin
+        cache: 'gradle'
+
+    - name: Grant execute permission for gradlew and pullAllPluginsSource.sh
+      run: chmod +x gradlew gradle/init-gradle-wrapper.sh pullAllPluginsSource.sh
+
+    - name: Initialize Gradle wrapper
+      run: ./gradle/init-gradle-wrapper.sh
+
+    - name: Load all plugins
+      run: ./pullAllPluginsSource.sh
+
+    - name: Build with Gradle
+      run: ./gradlew check javadoc
+
+# Below does not work, see see https://lists.apache.org/thread/80wzf4kclfk5nh2fss56jd6otf7y4n2f
+# BuildBot does it anyway
+#     - name: Builds with Gradle, checks style and run integration tests (just to know if they pass)
+#       run: ./gradlew pullAllPluginsSource check javadoc loadAll testIntegration

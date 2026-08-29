@@ -18,17 +18,21 @@
  */
 package org.apache.ofbiz.base.util;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class UtilCodecTests {
+
+    // sentinel locale used because labels are not available in the testClasses Gradle task
+    @SuppressWarnings("deprecation")
+    private static final Locale TEST_LOCALE = new Locale("test");
 
     @Test
     public void canonicalizeRevealsEscapedXSS() {
@@ -42,7 +46,7 @@ public class UtilCodecTests {
         String xssVector = "&lt;script&gtalert(\"XSS vector\");&lt;/script&gt;";
         List<String> errorList = new ArrayList<>();
         String canonicalizedXssVector = UtilCodec.checkStringForHtmlStrictNone("fieldName", xssVector, errorList,
-                new Locale("test")); // labels are not available in testClasses Gradle task
+                TEST_LOCALE);
         assertEquals("<script>alert(\"XSS vector\");</script>", canonicalizedXssVector);
         assertEquals(1, errorList.size());
         assertEquals("In field [fieldName] less-than (<) and greater-than (>) symbols are not allowed.",
@@ -54,7 +58,7 @@ public class UtilCodecTests {
         encoderTest("string", UtilCodec.getEncoder("string"), "abc\\\"def", "abc\"def");
         encoderTest("xml", UtilCodec.getEncoder("xml"), "&#x3c;&#x3e;&#x27;&#x22;", "<>'\"");
         encoderTest("html", UtilCodec.getEncoder("html"), "&lt;&gt;&#x27;&quot;", "<>'\"");
-        assertNull("invalid encoder", UtilCodec.getEncoder("foobar"));
+        assertNull(UtilCodec.getEncoder("foobar"), "invalid encoder");
     }
 
     @Test
@@ -84,15 +88,15 @@ public class UtilCodecTests {
     }
 
     private static void encoderTest(String label, UtilCodec.SimpleEncoder encoder, String wanted, String toEncode) {
-        assertNull(label + "(encoder):null", encoder.encode(null));
-        assertEquals(label + "(encoder):encode", wanted, encoder.encode(toEncode));
+        assertNull(encoder.encode(null), label + "(encoder):null");
+        assertEquals(wanted, encoder.encode(toEncode), label + "(encoder):encode");
     }
     private static void checkStringForHtmlStrictNoneTest(String label, String fixed, String input,
             String... wantedMessages) {
         List<String> gottenMessages = new ArrayList<>();
-        assertEquals(label, fixed, UtilCodec.checkStringForHtmlStrictNone(label, input, gottenMessages,
-                new Locale("test"))); // labels are not available in testClasses Gradle task
-        assertEquals(label, Arrays.asList(wantedMessages), gottenMessages);
+        assertEquals(fixed, UtilCodec.checkStringForHtmlStrictNone(label, input, gottenMessages,
+                TEST_LOCALE), label);
+        assertEquals(Arrays.asList(wantedMessages), gottenMessages, label);
     }
 
     @Test
@@ -100,7 +104,7 @@ public class UtilCodecTests {
         String xssVector = "<script>alert('XSS vector');</script>";
         List<String> errorList = new ArrayList<>();
         String canonicalizedXssVector = UtilCodec.checkStringForHtmlSafe("fieldName", xssVector, errorList,
-                new Locale("test"), true); // labels are not available in testClasses Gradle task
+                TEST_LOCALE, true);
         assertEquals("<script>alert('XSS vector');</script>", canonicalizedXssVector);
         assertEquals(1, errorList.size());
         assertEquals("In field [fieldName] by our input policy, your input has not been accepted for security reason. "

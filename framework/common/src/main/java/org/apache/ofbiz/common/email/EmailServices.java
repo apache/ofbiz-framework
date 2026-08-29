@@ -30,6 +30,15 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.security.GeneralSecurityException;
+import java.security.KeyFactory;
+import java.security.PrivateKey;
+import java.security.PublicKey;
+import java.security.interfaces.RSAPrivateCrtKey;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.PKCS8EncodedKeySpec;
+import java.security.spec.RSAPublicKeySpec;
+import java.util.Base64;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
@@ -38,17 +47,17 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
 
-import javax.activation.DataHandler;
-import javax.activation.DataSource;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.SendFailedException;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
+import jakarta.activation.DataHandler;
+import jakarta.activation.DataSource;
+import jakarta.mail.Message;
+import jakarta.mail.MessagingException;
+import jakarta.mail.SendFailedException;
+import jakarta.mail.Session;
+import jakarta.mail.Transport;
+import jakarta.mail.internet.InternetAddress;
+import jakarta.mail.internet.MimeBodyPart;
+import jakarta.mail.internet.MimeMessage;
+import jakarta.mail.internet.MimeMultipart;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.stream.StreamSource;
 
@@ -63,9 +72,10 @@ import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.collections.MapStack;
-import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
 import org.apache.ofbiz.entity.Delegator;
+import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
+import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.GenericServiceException;
@@ -78,9 +88,14 @@ import org.apache.ofbiz.widget.renderer.ScreenRenderer;
 import org.apache.ofbiz.widget.renderer.ScreenStringRenderer;
 import org.apache.ofbiz.widget.renderer.VisualTheme;
 import org.apache.ofbiz.widget.renderer.macro.MacroScreenRenderer;
+import org.simplejavamail.utils.mail.dkim.Canonicalization;
+import org.simplejavamail.utils.mail.dkim.DkimMessage;
+import org.simplejavamail.utils.mail.dkim.DkimSigner;
+import org.simplejavamail.utils.mail.dkim.DkimSigningException;
+import org.simplejavamail.utils.mail.dkim.SigningAlgorithm;
 import org.xml.sax.SAXException;
 
-import com.sun.mail.smtp.SMTPAddressFailedException;
+import org.eclipse.angus.mail.smtp.SMTPAddressFailedException;
 
 import freemarker.template.TemplateException;
 
@@ -110,7 +125,6 @@ public class EmailServices {
         }
         Map<String, Object> results = ServiceUtil.returnSuccess();
         String subject = (String) context.get("subject");
-        subject = FlexibleStringExpander.expandString(subject, context);
 
         String partyId = (String) context.get("partyId");
         String body = (String) context.get("body");
@@ -128,7 +142,6 @@ public class EmailServices {
             results.put("returnId", returnId);
         }
         if (UtilValidate.isNotEmpty(body)) {
-            body = FlexibleStringExpander.expandString(body, context);
             results.put("body", body);
         }
         if (UtilValidate.isNotEmpty(bodyParts)) {
@@ -179,43 +192,48 @@ public class EmailServices {
         Boolean isStartTLSEnabled = (Boolean) context.get("startTLSEnabled");
 
         boolean useSmtpAuth = false;
+        MailSmtpConfigUtil.ResolvedConfig mailSmtpConfig = MailSmtpConfigUtil.resolve(delegator);
 
         // define some default
         if (sendType == null || "mail.smtp.host".equals(sendType)) {
             sendType = "mail.smtp.host";
             if (UtilValidate.isEmpty(sendVia)) {
-                sendVia = EntityUtilProperties.getPropertyValue("general", "mail.smtp.relay.host", "localhost", delegator);
+                sendVia = mailSmtpConfig.relayHost;
             }
             if (UtilValidate.isEmpty(authUser)) {
-                authUser = EntityUtilProperties.getPropertyValue("general", "mail.smtp.auth.user", delegator);
+                authUser = mailSmtpConfig.authUser;
             }
             if (UtilValidate.isEmpty(authPass)) {
-                authPass = EntityUtilProperties.getPropertyValue("general", "mail.smtp.auth.password", delegator);
+                authPass = mailSmtpConfig.authPassword;
             }
-            if (UtilValidate.isNotEmpty(authUser)) {
-                useSmtpAuth = true;
-            }
+            useSmtpAuth = !"NONE".equals(mailSmtpConfig.authMechanism) && UtilValidate.isNotEmpty(authUser);
             if (UtilValidate.isEmpty(port)) {
-                port = EntityUtilProperties.getPropertyValue("general", "mail.smtp.port", delegator);
+                port = mailSmtpConfig.port;
             }
             if (UtilValidate.isEmpty(socketFactoryPort)) {
-                socketFactoryPort = EntityUtilProperties.getPropertyValue("general", "mail.smtp.socketFactory.port", delegator);
+                socketFactoryPort = mailSmtpConfig.socketFactoryPort;
             }
             if (UtilValidate.isEmpty(socketFactoryClass)) {
-                socketFactoryClass = EntityUtilProperties.getPropertyValue("general", "mail.smtp.socketFactory.class", delegator);
+                socketFactoryClass = mailSmtpConfig.socketFactoryClass;
             }
             if (UtilValidate.isEmpty(socketFactoryFallback)) {
-                socketFactoryFallback = EntityUtilProperties.getPropertyValue("general", "mail.smtp.socketFactory.fallback", "false", delegator);
+                socketFactoryFallback = mailSmtpConfig.socketFactoryFallback;
             }
             if (sendPartial == null) {
-                sendPartial = EntityUtilProperties.propertyValueEqualsIgnoreCase("general", "mail.smtp.sendpartial", "true", delegator);
+                sendPartial = mailSmtpConfig.sendPartial;
             }
             if (isStartTLSEnabled == null) {
-                isStartTLSEnabled = EntityUtilProperties.propertyValueEqualsIgnoreCase("general", "mail.smtp.starttls.enable", "true", delegator);
+                isStartTLSEnabled = mailSmtpConfig.starttlsEnable;
             }
         } else if (sendVia == null) {
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonEmailSendMissingParameterSendVia", locale));
         }
+
+        // Only the (cheap, no-I/O) XOAUTH2-vs-BASIC decision is made here. The actual access-token
+        // fetch (a live network round-trip) is deferred until right before the SMTP connect attempt,
+        // below, so it never runs when mail sending is disabled (mail.notifications.enabled=N, the
+        // default) or on any other early-return path.
+        boolean useXOAuth2 = useSmtpAuth && "XOAUTH2".equals(mailSmtpConfig.authMechanism);
 
         if (contentType == null) {
             contentType = "text/html";
@@ -245,6 +263,9 @@ public class EmailServices {
             }
             if (useSmtpAuth) {
                 props.put("mail.smtp.auth", "true");
+            }
+            if (useXOAuth2) {
+                props.put("mail.smtp.auth.mechanisms", "XOAUTH2");
             }
             if (sendPartial != null) {
                 props.put("mail.smtp.sendpartial", sendPartial ? "true" : "false");
@@ -317,7 +338,6 @@ public class EmailServices {
         } catch (MessagingException e) {
             Debug.logError(e, "MessagingException when creating message to [" + sendTo + "] from [" + sendFrom + "] cc [" + sendCc + "] bcc ["
                     + sendBcc + "] subject [" + subject + "]", MODULE);
-            Debug.logError("Email message that could not be created to [" + sendTo + "] had context: " + context, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonEmailSendMessagingException", UtilMisc.toMap("sendTo",
                     sendTo, "sendFrom", sendFrom, "sendCc", sendCc, "sendBcc", sendBcc, "subject", subject), locale));
         }
@@ -335,18 +355,35 @@ public class EmailServices {
             return results;
         }
 
+        String effectiveAuthPass = authPass;
+        if (useXOAuth2) {
+            try {
+                effectiveAuthPass = SmtpOAuth2TokenProvider.getAccessToken(delegator, mailSmtpConfig);
+            } catch (GeneralException e) {
+                Debug.logError(e, "Failed to obtain SMTP OAuth2 access token for [" + sendVia + "]", MODULE);
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonEmailSendOAuth2Error", UtilMisc.toMap("sendVia",
+                        sendVia, "errorString", e.getMessage()), locale));
+            }
+        }
+
         Transport trans = null;
         try {
             trans = session.getTransport("smtp");
             if (!useSmtpAuth) {
                 trans.connect();
             } else {
-                trans.connect(sendVia, authUser, authPass);
+                trans.connect(sendVia, authUser, effectiveAuthPass);
             }
-            trans.sendMessage(mail, mail.getAllRecipients());
+            MimeMessage messageToSend = dkimSign(mail, delegator);
+            trans.sendMessage(messageToSend, messageToSend.getAllRecipients());
             results.put("messageWrapper", new MimeMessageWrapper(session, mail));
             results.put("messageId", mail.getMessageID());
             trans.close();
+        } catch (DkimSigningException e) {
+            Debug.logError(e, "DKIM signing failed at write-time for [" + sendTo + "] from [" + sendFrom
+                    + "] subject [" + subject + "]; message NOT sent (not an SMTP connection problem)", MODULE);
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonEmailSendConnectionError", UtilMisc.toMap("sendTo",
+                    sendTo, "sendFrom", sendFrom, "sendCc", sendCc, "sendBcc", sendBcc, "subject", subject), locale));
         } catch (SendFailedException e) {
             // message code prefix may be used by calling services to determine the cause of the failure
             Debug.logError(e, "[ADDRERR] Address error when sending message to [" + sendTo + "] from [" + sendFrom + "] cc [" + sendCc
@@ -364,7 +401,7 @@ public class EmailServices {
             }
             Boolean sendFailureNotification = (Boolean) context.get("sendFailureNotification");
             if (sendFailureNotification == null || sendFailureNotification) {
-                sendFailureNotification(ctx, context, mail, failedAddresses);
+                sendFailureNotification(ctx, context, mail, failedAddresses, sendFrom);
                 results.put("messageWrapper", new MimeMessageWrapper(session, mail));
                 try {
                     results.put("messageId", mail.getMessageID());
@@ -380,7 +417,6 @@ public class EmailServices {
             // message code prefix may be used by calling services to determine the cause of the failure
             Debug.logError(e, "[CON] Connection error when sending message to [" + sendTo + "] from [" + sendFrom + "] cc [" + sendCc
                     + "] bcc [" + sendBcc + "] subject [" + subject + "]", MODULE);
-            Debug.logError("Email message that could not be sent to [" + sendTo + "] had context: " + context, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonEmailSendConnectionError", UtilMisc.toMap("sendTo",
                     sendTo, "sendFrom", sendFrom, "sendCc", sendCc, "sendBcc", sendBcc, "subject", subject), locale));
         }
@@ -539,7 +575,8 @@ public class EmailServices {
         if (UtilValidate.isNotEmpty(xslfoAttachScreenLocationList)) {
             List<Map<String, ? extends Object>> bodyParts = new LinkedList<>();
             if (bodyText != null) {
-                bodyText = FlexibleStringExpander.expandString(bodyText, screenContext, locale);
+                // bodyText is caller-supplied (e.g. from a request parameter); it must not be run through
+                // FlexibleStringExpander, which would compile and execute any ${groovy:...} substring it contains.
                 bodyParts.add(UtilMisc.<String, Object>toMap("content", bodyText, "type", UtilValidate.isNotEmpty(contentType) ? contentType
                         : "text/html"));
             } else {
@@ -598,7 +635,7 @@ public class EmailServices {
             isMultiPart = false;
             // store body and type for single part message in the context.
             if (bodyText != null) {
-                bodyText = FlexibleStringExpander.expandString(bodyText, screenContext, locale);
+                // bodyText is caller-supplied; see the comment on the identical guard above.
                 serviceContext.put("body", bodyText);
             } else {
                 serviceContext.put("body", bodyWriter.toString());
@@ -613,11 +650,11 @@ public class EmailServices {
             }
         }
 
-        // also expand the subject at this point, just in case it has the FlexibleStringExpander syntax in it...
+        // subject is caller-supplied; do not run it through FlexibleStringExpander, which would compile and
+        // execute any ${groovy:...} substring it contains -- same reasoning as the bodyText guards above.
         String subject = (String) serviceContext.remove("subject");
-        subject = FlexibleStringExpander.expandString(subject, screenContext, locale);
         if (Debug.infoOn()) {
-            Debug.logInfo("Expanded email subject to: " + subject, MODULE);
+            Debug.logInfo("Email subject: " + subject, MODULE);
         }
         serviceContext.put("subject", subject);
         serviceContext.put("partyId", partyId);
@@ -689,13 +726,13 @@ public class EmailServices {
         return sendMailFromScreen(dctx, serviceContext);
     }
     public static void sendFailureNotification(DispatchContext dctx, Map<String, ? extends Object> context, MimeMessage message,
-                                               List<SMTPAddressFailedException> failures) {
+                                               List<SMTPAddressFailedException> failures, String sendFrom) {
         Locale locale = (Locale) context.get("locale");
         Map<String, Object> newContext = new LinkedHashMap<>();
         newContext.put("userLogin", context.get("userLogin"));
         newContext.put("sendFailureNotification", false);
-        newContext.put("sendFrom", context.get("sendFrom"));
-        newContext.put("sendTo", context.get("sendFrom"));
+        newContext.put("sendFrom", sendFrom);
+        newContext.put("sendTo", sendFrom);
         newContext.put("subject", UtilProperties.getMessage(RESOURCE, "CommonEmailSendUndeliveredMail", locale));
         StringBuilder sb = new StringBuilder();
         sb.append(UtilProperties.getMessage(RESOURCE, "CommonEmailDeliveryFailed", locale));
@@ -720,6 +757,104 @@ public class EmailServices {
             dctx.getDispatcher().runSync("sendMailMultiPart", newContext);
         } catch (GenericServiceException e) {
             Debug.logError(e, MODULE);
+        }
+    }
+
+    /**
+     * Parses a PKCS#8 PEM RSA private key into an RSAPrivateCrtKey. Always throws
+     * GeneralSecurityException (never unchecked), since callers narrow their catch to it.
+     */
+    static RSAPrivateCrtKey parsePemRsaPrivateKey(String pem) throws GeneralSecurityException {
+        String base64 = pem.replaceAll("-----BEGIN [A-Z ]+-----", "")
+                .replaceAll("-----END [A-Z ]+-----", "")
+                .replaceAll("\\s", "");
+        byte[] der;
+        try {
+            der = Base64.getDecoder().decode(base64);
+        } catch (IllegalArgumentException e) {
+            throw new InvalidKeySpecException("MailDkimConfig privateKey is not valid PEM/base64: " + e.getMessage());
+        }
+        PrivateKey key = KeyFactory.getInstance("RSA").generatePrivate(new PKCS8EncodedKeySpec(der));
+        if (!(key instanceof RSAPrivateCrtKey)) {
+            throw new InvalidKeySpecException("MailDkimConfig privateKey is not a PKCS#8 RSA private key");
+        }
+        return (RSAPrivateCrtKey) key;
+    }
+
+    /** Signs mail with DKIM if MailDkimConfig is enabled and complete; otherwise returns it unchanged. Fails open on any error. */
+    static MimeMessage dkimSign(MimeMessage mail, Delegator delegator) {
+        GenericValue config;
+        try {
+            config = EntityQuery.use(delegator).from("MailDkimConfig").cache(true)
+                    .orderBy("mailDkimConfigId").queryFirst();
+        } catch (GenericEntityException e) {
+            Debug.logWarning(e, "Error loading MailDkimConfig; sending unsigned", MODULE);
+            return mail;
+        }
+        if (config == null || !"Y".equals(config.getString("enabled"))) {
+            return mail;
+        }
+        String domain = config.getString("signingDomain");
+        String selector = config.getString("selector");
+        String privateKeyPem = config.getString("privateKey");
+        if (UtilValidate.isEmpty(domain) || UtilValidate.isEmpty(selector) || UtilValidate.isEmpty(privateKeyPem)) {
+            Debug.logError("MailDkimConfig [" + config.getString("mailDkimConfigId")
+                    + "] is enabled but missing domain/selector/privateKey; sending unsigned", MODULE);
+            return mail;
+        }
+        try {
+            RSAPrivateCrtKey privateKey = parsePemRsaPrivateKey(privateKeyPem);
+            DkimSigner signer = new DkimSigner(domain, selector, privateKey);
+            signer.setHeaderCanonicalization(Canonicalization.RELAXED);
+            signer.setBodyCanonicalization(Canonicalization.RELAXED);
+            signer.setSigningAlgorithm(SigningAlgorithm.SHA256_WITH_RSA);
+            // l= tag omitted (library default): would let an attacker append unsigned content after
+            // the signed body. checkDomainKey disabled: avoids a live DNS lookup on every send --
+            // that's the receiver's job, not ours; see getDkimDnsRecord for setup-time verification.
+            signer.setCheckDomainKey(false);
+            return new DkimMessage(mail, signer);
+        } catch (Exception e) {
+            Debug.logError(e, "DKIM signing failed; sending unsigned", MODULE);
+            return mail;
+        }
+    }
+
+    /** Derives the "v=DKIM1; k=rsa; p=..." TXT record value from an RSA private key's CRT parameters. */
+    static String derivePublicKeyRecordValue(RSAPrivateCrtKey privateKey) throws GeneralSecurityException {
+        RSAPublicKeySpec publicSpec = new RSAPublicKeySpec(privateKey.getModulus(), privateKey.getPublicExponent());
+        PublicKey publicKey = KeyFactory.getInstance("RSA").generatePublic(publicSpec);
+        return "v=DKIM1; k=rsa; p=" + Base64.getEncoder().encodeToString(publicKey.getEncoded());
+    }
+
+    /** Derives the DNS TXT record an admin needs to publish for a MailDkimConfig's signing key. */
+    public static Map<String, Object> getDkimDnsRecord(DispatchContext ctx, Map<String, ?> context) {
+        Delegator delegator = ctx.getDelegator();
+        String mailDkimConfigId = (String) context.get("mailDkimConfigId");
+        GenericValue config;
+        try {
+            config = EntityQuery.use(delegator).from("MailDkimConfig").where("mailDkimConfigId", mailDkimConfigId)
+                    .cache(true).queryOne();
+        } catch (GenericEntityException e) {
+            return ServiceUtil.returnError(e.getMessage());
+        }
+        if (config == null) {
+            return ServiceUtil.returnError("No MailDkimConfig found for ID [" + mailDkimConfigId + "]");
+        }
+        String domain = config.getString("signingDomain");
+        String selector = config.getString("selector");
+        String privateKeyPem = config.getString("privateKey");
+        if (UtilValidate.isEmpty(domain) || UtilValidate.isEmpty(selector) || UtilValidate.isEmpty(privateKeyPem)) {
+            return ServiceUtil.returnError("MailDkimConfig [" + mailDkimConfigId + "] is missing domain/selector/privateKey");
+        }
+        try {
+            RSAPrivateCrtKey privateKey = parsePemRsaPrivateKey(privateKeyPem);
+            Map<String, Object> result = ServiceUtil.returnSuccess();
+            result.put("recordName", selector + "._domainkey." + domain);
+            result.put("recordValue", derivePublicKeyRecordValue(privateKey));
+            return result;
+        } catch (GeneralSecurityException e) {
+            return ServiceUtil.returnError("Could not parse MailDkimConfig [" + mailDkimConfigId
+                    + "] private key: " + e.getMessage());
         }
     }
 

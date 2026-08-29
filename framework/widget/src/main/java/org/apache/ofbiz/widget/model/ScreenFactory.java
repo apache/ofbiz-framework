@@ -24,8 +24,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import jakarta.servlet.ServletContext;
-import jakarta.servlet.http.HttpServletRequest;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.ofbiz.base.location.FlexibleLocation;
@@ -39,6 +37,9 @@ import org.apache.ofbiz.widget.renderer.ScreenStringRenderer;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
+
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpServletRequest;
 
 
 /**
@@ -69,11 +70,11 @@ public class ScreenFactory {
         int numSignIndex = combinedName.lastIndexOf("#");
         if (numSignIndex == -1) {
             throw new IllegalArgumentException("Error in screen location/name: no \"#\" found to separate the location from the name;"
-                    + "correct example: component://product/screen/product/ProductScreens.xml#EditProduct");
+                    + "correct example: component://common/widget/CommonScreens.xml#states");
         }
         if (numSignIndex + 1 >= combinedName.length()) {
             throw new IllegalArgumentException("Error in screen location/name: the \"#\" was at the end with no screen name after it;"
-                    + "correct example: component://product/screen/product/ProductScreens.xml#EditProduct");
+                    + "correct example: component://common/widget/CommonScreens.xml#states");
         }
         String resourceName = combinedName.substring(0, numSignIndex);
         return resourceName;
@@ -84,11 +85,11 @@ public class ScreenFactory {
         int numSignIndex = combinedName.lastIndexOf("#");
         if (numSignIndex == -1) {
             throw new IllegalArgumentException("Error in screen location/name: no \"#\" found to separate the location from the name;"
-                    + "correct example: component://product/screen/product/ProductScreens.xml#EditProduct");
+                    + "correct example: component://common/widget/CommonScreens.xml#states");
         }
         if (numSignIndex + 1 >= combinedName.length()) {
             throw new IllegalArgumentException("Error in screen location/name: the \"#\" was at the end with no screen name after it;"
-                    + "correct example: component://product/screen/product/ProductScreens.xml#EditProduct");
+                    + "correct example: component://common/widget/CommonScreens.xml#states");
         }
         String screenName = combinedName.substring(numSignIndex + 1);
         return screenName;
@@ -197,8 +198,13 @@ public class ScreenFactory {
 
         ModelScreen modelScreen = null;
         if (UtilValidate.isNotEmpty(location)) {
+            String sanitizedLocation = WidgetSecureLocation.sanitize(location);
+            if (sanitizedLocation == null) {
+                Debug.logWarning("The location of screen [%s] isn't an allowed path. Abort rendering. Raw location [%s]", MODULE, name, location);
+                throw new IllegalArgumentException("Abort screen rendering due to unallowed screen location");
+            }
             try {
-                modelScreen = ScreenFactory.getScreenFromLocation(location, name);
+                modelScreen = ScreenFactory.getScreenFromLocation(sanitizedLocation, name);
             } catch (IOException | SAXException | ParserConfigurationException e) {
                 String errMsg = "Error rendering included screen named [" + name + "] at location [" + location + "]: " + e.toString();
                 Debug.logError(e, errMsg, MODULE);

@@ -593,6 +593,14 @@
         <value xml:lang="zh">查找任务</value>
         <value xml:lang="zh-TW">尋找任務</value>
     </property>
+    <property key="PageTitleFindJobTracker">
+        <value xml:lang="en">Job tracker</value>
+        <value xml:lang="fr">Traceur de job</value>
+    </property>
+    <property key="PageTitleFindJobTrackerResults">
+        <value xml:lang="en">Job tracker results</value>
+        <value xml:lang="fr">Résultat du traceur de job</value>
+    </property>
     <property key="PageTitleFindUtilCache">
         <value xml:lang="de">Cache Wartungsseite</value>
         <value xml:lang="en">Cache Maintenance Page</value>
@@ -684,6 +692,10 @@
     <property key="PageTitleJobManagerLockList">
         <value xml:lang="en">Job manager locks list</value>
         <value xml:lang="fr">Blocage du gestionnaire de service</value>
+    </property>
+    <property key="PageTitleJobTrackerDetails">
+        <value xml:lang="en">Job tracker details</value>
+        <value xml:lang="fr">Détails du traceur de job</value>
     </property>
     <property key="PageTitleScheduleJob">
         <value xml:lang="de">Job anlegen</value>
@@ -879,6 +891,10 @@
         <value xml:lang="vi">KHÔNG ĐỒNG BỘ</value>
         <value xml:lang="zh">异步</value>
         <value xml:lang="zh-TW">非同步</value>
+    </property>
+    <property key="WebtoolsAvailableUelMethods">
+        <value xml:lang="en">Available UEL Methods</value>
+        <value xml:lang="fr">Fonctions UEL disponibles</value>
     </property>
     <property key="WebtoolsBackToCacheMaintenance">
         <value xml:lang="de">Zurück zur Cache-Wartung</value>
@@ -1309,6 +1325,9 @@
         <value xml:lang="en">Are you sure you want to delete?</value>
         <value xml:lang="fr">Êtes-vous sûr de vouloir supprimer l'élément ?</value>
     </property>
+    <property key="WebtoolsConfirmIrreversibleDelete">
+        <value xml:lang="en">This action is irreversible. Are you sure you want to delete</value>
+    </property>
     <property key="WebtoolsCount">
         <value xml:lang="de">Anzahl</value>
         <value xml:lang="en">Count</value>
@@ -1648,6 +1667,12 @@
     <property key="WebtoolsDeprecatedUseInstead">
         <value xml:lang="en">Use instead</value>
         <value xml:lang="fr">Utilisez en remplacement</value>
+    </property>
+    <property key="WebtoolsDisableEeca">
+        <value xml:lang="en">Disable ECAs</value>
+    </property>
+    <property key="WebtoolsDisableEecaWarning">
+        <value xml:lang="en">Disabling ECAs prevents entity-change-triggered services (e.g. order status updates) from firing while this data is loaded. Use this for full-instance snapshot restores; leave it unchecked for partial or incremental imports that rely on those side effects.</value>
     </property>
     <property key="WebtoolsDispatcherName">
         <value xml:lang="de">Dispatcher-Name</value>
@@ -1999,6 +2024,302 @@
         <value xml:lang="vi">Trình diễn XML Thực thể</value>
         <value xml:lang="zh">实体XML表述</value>
         <value xml:lang="zh-TW">資料實體XML表述</value>
+    </property>
+    <property key="WebtoolsEncryptValue">
+        <value xml:lang="en">Encrypt Value</value>
+    </property>
+    <property key="WebtoolsSecretManagerTools">
+        <value xml:lang="en">Secret Manager Tools</value>
+    </property>
+    <property key="WebtoolsEncryptValueInfo">
+        <value xml:lang="en">Encrypt a secret value with AES-256-GCM (using the server's OFBIZ_MASTER_KEY) and store
+            the result either in a SystemProperty record or in framework/base/config/passwords.properties.
+            The encrypted value is not displayed. If the target SystemProperty record or
+            passwords.properties entry already exists, it is updated with the new encrypted value;
+            otherwise it is created.</value>
+    </property>
+    <property key="WebtoolsSecretSystemPropertyRequiredInfo">
+        <value xml:lang="en">For SystemProperty: Resource ID and Property ID are required. Lookup Key
+            is optional.</value>
+    </property>
+    <property key="WebtoolsSecretPasswordsFileRequiredInfo">
+        <value xml:lang="en">For passwords.properties: Lookup Key is always required.
+            Leave Resource ID and Property ID empty to write only to passwords.properties
+            (entityengine.xml jdbc-password-lookup use-case).
+            Provide all four fields to also update the matching property file on disk
+            (sets &lt;propertyId&gt;=LOOKUP(&lt;lookupKey&gt;)) and refresh the in-memory
+            property cache — no server restart needed.</value>
+    </property>
+    <property key="WebtoolsSecretTarget">
+        <value xml:lang="en">Store In</value>
+    </property>
+    <property key="WebtoolsSecretTargetSystemProperty">
+        <value xml:lang="en">SystemProperty entity</value>
+    </property>
+    <property key="WebtoolsSecretTargetPasswordsFile">
+        <value xml:lang="en">passwords.properties</value>
+    </property>
+    <property key="WebtoolsSecretSystemResourceId">
+        <value xml:lang="en">System Resource ID (SystemProperty)</value>
+    </property>
+    <property key="WebtoolsSecretSystemPropertyId">
+        <value xml:lang="en">System Property ID (SystemProperty)</value>
+    </property>
+    <property key="WebtoolsSecretFileResourceId">
+        <value xml:lang="en">Resource ID (Property File)</value>
+    </property>
+    <property key="WebtoolsSecretFilePropertyId">
+        <value xml:lang="en">Property ID (Property File)</value>
+    </property>
+    <property key="WebtoolsSecretLookupKey">
+        <value xml:lang="en">Lookup Key</value>
+    </property>
+    <property key="WebtoolsSecretLookupKeyInfo">
+        <value xml:lang="en">Required for passwords.properties. When Resource ID and Property ID are empty,
+            stored as jdbc-password.&lt;lookupKey&gt; (entityengine.xml use-case). When all four fields are
+            provided, stored as &lt;lookupKey&gt; directly (property file use-case).
+            Optional for SystemProperty: if set, the plain key is stored in systemPropertyLookup
+            so a configured remote secret provider is tried first.</value>
+    </property>
+    <property key="WebtoolsSecretValue">
+        <value xml:lang="en">Secret Value</value>
+    </property>
+    <property key="WebtoolsSecretEncryptAndSave">
+        <value xml:lang="en">Encrypt and Save</value>
+    </property>
+    <property key="WebtoolsSecretCsvUploadInfo">
+        <value xml:lang="en">Or upload a CSV file to create multiple secrets at once:</value>
+    </property>
+    <property key="WebtoolsSecretCsvColumns">
+        <value xml:lang="en">Columns (header row required): target, systemResourceId, systemPropertyId, lookupKey, secretValue</value>
+    </property>
+    <property key="WebtoolsSecretCsvTargetInfo">
+        <value xml:lang="en">target is SYSTEM_PROPERTY or PASSWORDS_FILE; leave unused columns empty</value>
+    </property>
+    <property key="WebtoolsSecretCsvFile">
+        <value xml:lang="en">CSV File</value>
+    </property>
+    <property key="WebtoolsSecretUploadAndEncrypt">
+        <value xml:lang="en">Upload and Encrypt</value>
+    </property>
+    <property key="WebtoolsSecretConfirmValue">
+        <value xml:lang="en">Confirm Secret Value</value>
+    </property>
+    <property key="WebtoolsSecretConfirmValueMismatch">
+        <value xml:lang="en">Secret Value and Confirm Secret Value must match.</value>
+    </property>
+    <property key="WebtoolsSecretFlushCacheInfo">
+        <value xml:lang="en">Force an immediate re-fetch from the secret provider by flushing all cached values.
+            Use this after rotating a secret so the new value is picked up without restarting OFBiz.</value>
+    </property>
+    <property key="WebtoolsSecretFlushCache">
+        <value xml:lang="en">Flush Secret Cache</value>
+    </property>
+    <property key="WebtoolsSecretReloadProviderInfo">
+        <value xml:lang="en">Re-discover the active secret provider via ServiceLoader. Use this after deploying
+            a new vault plugin jar or editing that plugin's own connection settings, without restarting OFBiz.</value>
+    </property>
+    <property key="WebtoolsSecretReloadProvider">
+        <value xml:lang="en">Reload Secret Provider</value>
+    </property>
+    <property key="WebtoolsSecretSyncInfo">
+        <value xml:lang="en">Fetch the current value of a key from the active secret provider and re-encrypt it into
+            the local fallback snapshot. Use this after rotating a secret in the remote vault to keep the local
+            ENC(...) fallback (used when the vault is unreachable) up to date.</value>
+    </property>
+    <property key="WebtoolsSecretSync">
+        <value xml:lang="en">Sync From Provider</value>
+    </property>
+    <property key="WebtoolsSecretTestConnectionInfo">
+        <value xml:lang="en">Verify that the active secret provider is reachable by resolving a known key.
+            If the key exists the secret value is confirmed but never displayed.
+            A "key not found" response still confirms vault connectivity.</value>
+    </property>
+    <property key="WebtoolsSecretTestKey">
+        <value xml:lang="en">Test Key</value>
+    </property>
+    <property key="WebtoolsSecretTestConnection">
+        <value xml:lang="en">Test Connection</value>
+    </property>
+    <property key="WebtoolsSecretActiveProvider">
+        <value xml:lang="en">Active Secret Provider</value>
+    </property>
+    <property key="WebtoolsSecretUsageStatsInfo">
+        <value xml:lang="en">Secret lookup statistics since the last JVM start. Hit = served from cache; Miss = fetched from provider.</value>
+    </property>
+    <property key="WebtoolsSecretUsageStatsRefresh">
+        <value xml:lang="en">Show Usage Stats</value>
+    </property>
+    <property key="WebtoolsSecretUsageStatsReset">
+        <value xml:lang="en">Reset Stats</value>
+    </property>
+    <property key="WebtoolsSecretUsageTotalHits">
+        <value xml:lang="en">Cache Hits</value>
+    </property>
+    <property key="WebtoolsSecretUsageTotalMisses">
+        <value xml:lang="en">Provider Fetches</value>
+    </property>
+    <property key="WebtoolsSecretUsageTotalLookups">
+        <value xml:lang="en">Total Lookups</value>
+    </property>
+    <property key="WebtoolsSecretUsageCachedKeys">
+        <value xml:lang="en">Keys In Cache</value>
+    </property>
+    <property key="WebtoolsSecretUsageKey">
+        <value xml:lang="en">Secret Key</value>
+    </property>
+    <property key="WebtoolsSecretUsageHits">
+        <value xml:lang="en">Cache Hits</value>
+    </property>
+    <property key="WebtoolsSecretUsageMisses">
+        <value xml:lang="en">Provider Fetches</value>
+    </property>
+    <property key="WebtoolsSecretUsageTotal">
+        <value xml:lang="en">Total</value>
+    </property>
+    <property key="WebtoolsSecretUsageLastAccessed">
+        <value xml:lang="en">Last Accessed</value>
+    </property>
+    <property key="WebtoolsSecretUsageStatsTitle">
+        <value xml:lang="en">Secret Usage Statistics</value>
+    </property>
+    <property key="WebtoolsSecretUsageStatsFullView">
+        <value xml:lang="en">View full stats</value>
+    </property>
+    <property key="WebtoolsSecretUsageStatsResetInfo">
+        <value xml:lang="en">Reset all counters to zero. Useful to observe clean post-rotation metrics without a JVM restart.</value>
+    </property>
+    <property key="WebtoolsSecretUsageNoStats">
+        <value xml:lang="en">No secret lookups recorded since the last JVM start or stats reset.</value>
+    </property>
+    <property key="WebtoolsSecretProviderReachable">
+        <value xml:lang="en">Reachable</value>
+    </property>
+    <property key="WebtoolsSecretProviderUnreachable">
+        <value xml:lang="en">Unreachable (check server logs)</value>
+    </property>
+    <property key="WebtoolsSecretAuditLog">
+        <value xml:lang="en">Secret Audit Log</value>
+    </property>
+    <property key="WebtoolsSecretAuditPermissionError">
+        <value xml:lang="en">You do not have permission to view the Secret Audit Log. The SECRET_AUDIT_VIEW or ENTITY_MAINT permission is required.</value>
+    </property>
+    <property key="WebtoolsSecretAuditFilterUser">
+        <value xml:lang="en">User Login ID</value>
+    </property>
+    <property key="WebtoolsSecretAuditFilterAction">
+        <value xml:lang="en">Action</value>
+    </property>
+    <property key="WebtoolsSecretAuditFilterOutcome">
+        <value xml:lang="en">Outcome</value>
+    </property>
+    <property key="WebtoolsSecretAuditFilterKey">
+        <value xml:lang="en">Secret Key Ref</value>
+    </property>
+    <property key="WebtoolsSecretAuditFilterFrom">
+        <value xml:lang="en">Date From</value>
+    </property>
+    <property key="WebtoolsSecretAuditFilterTo">
+        <value xml:lang="en">Date To</value>
+    </property>
+    <property key="WebtoolsSecretAuditShowing">
+        <value xml:lang="en">Showing</value>
+    </property>
+    <property key="WebtoolsSecretAuditOf">
+        <value xml:lang="en">of</value>
+    </property>
+    <property key="WebtoolsSecretAuditTimestamp">
+        <value xml:lang="en">Timestamp</value>
+    </property>
+    <property key="WebtoolsSecretAuditUser">
+        <value xml:lang="en">User</value>
+    </property>
+    <property key="WebtoolsSecretAuditAction">
+        <value xml:lang="en">Action</value>
+    </property>
+    <property key="WebtoolsSecretAuditOutcome">
+        <value xml:lang="en">Outcome</value>
+    </property>
+    <property key="WebtoolsSecretAuditErrorCategory">
+        <value xml:lang="en">Error Category</value>
+    </property>
+    <property key="WebtoolsSecretAuditKey">
+        <value xml:lang="en">Secret Key Ref</value>
+    </property>
+    <property key="WebtoolsSecretAuditTarget">
+        <value xml:lang="en">Target</value>
+    </property>
+    <property key="WebtoolsSecretAuditAccessMode">
+        <value xml:lang="en">Access Mode</value>
+    </property>
+    <property key="WebtoolsSecretAuditProvider">
+        <value xml:lang="en">Provider</value>
+    </property>
+    <property key="WebtoolsSecretAuditDeployMode">
+        <value xml:lang="en">Deploy Mode</value>
+    </property>
+    <property key="WebtoolsSecretAuditResourceId">
+        <value xml:lang="en">Resource ID</value>
+    </property>
+    <property key="WebtoolsSecretAuditPropertyId">
+        <value xml:lang="en">Property ID</value>
+    </property>
+    <property key="WebtoolsSecretAuditNoRows">
+        <value xml:lang="en">No audit records found matching the filter criteria.</value>
+    </property>
+    <property key="WebtoolsSecretAuditClientIp">
+        <value xml:lang="en">Client IP</value>
+    </property>
+    <property key="WebtoolsSecretAuditK8sNoticeTitle">
+        <value xml:lang="en">K8s Injected Mode</value>
+    </property>
+    <property key="WebtoolsSecretAuditK8sNoticeBody">
+        <value xml:lang="en">OFBiz is running in K8S_INJECTED deployment mode. Vault-level FETCH events are emitted by the external secret operator (CSI driver, ESO, or Vault Agent) and are not recorded here. Only admin actions (STORE, SYNC, FLUSH_CACHE, etc.) appear in this log.</value>
+    </property>
+    <property key="WebtoolsSecretAuditExportTitle">
+        <value xml:lang="en">Export to CSV</value>
+    </property>
+    <property key="WebtoolsSecretAuditExportButton">
+        <value xml:lang="en">Download CSV</value>
+    </property>
+    <property key="WebtoolsSecretAuditExportHint">
+        <value xml:lang="en">Date range required. Maximum export window: 90 days. Maximum rows per file: 50,000 (a header comment is added if the cap is hit — narrow the range and re-export).</value>
+    </property>
+    <property key="WebtoolsSecretAuditRetentionTitle">
+        <value xml:lang="en">Retention &amp; Phase 2 Settings</value>
+    </property>
+    <property key="WebtoolsSecretAuditRetentionDays">
+        <value xml:lang="en">Retention period</value>
+    </property>
+    <property key="WebtoolsSecretAuditRetentionDaysSuffix">
+        <value xml:lang="en">days (PCI-DSS 4.0 §10.7 minimum: 365)</value>
+    </property>
+    <property key="WebtoolsSecretAuditRetentionBatch">
+        <value xml:lang="en">Purge batch size</value>
+    </property>
+    <property key="WebtoolsSecretAuditRetentionNextRun">
+        <value xml:lang="en">Next scheduled purge</value>
+    </property>
+    <property key="WebtoolsSecretAuditRetentionFetchEvents">
+        <value xml:lang="en">FETCH / ROTATION_POLL logging</value>
+    </property>
+    <property key="WebtoolsSecretAuditRetentionCacheHits">
+        <value xml:lang="en">CACHE_HIT logging</value>
+    </property>
+    <property key="WebtoolsSecretAuditRetentionHint">
+        <value xml:lang="en">To change the retention period or batch size, update the secret.audit.retention.days / secret.audit.purge.batch.size SystemProperty rows and restart the purge job. To enable Phase 2 logging, set secret.audit.log.fetch.events=true or secret.audit.log.cache.hits=true in security.properties and restart OFBiz.</value>
+    </property>
+    <property key="WebtoolsSecretAuditRetentionSave">
+        <value xml:lang="en">Save Retention Settings</value>
+    </property>
+    <property key="WebtoolsSecretAuditFilterProvider">
+        <value xml:lang="en">Provider</value>
+    </property>
+    <property key="WebtoolsSecretAuditFilterDeployMode">
+        <value xml:lang="en">Deploy Mode</value>
+    </property>
+    <property key="WebtoolsSecretAuditLogLink">
+        <value xml:lang="en">View Secret Audit Log</value>
     </property>
     <property key="WebtoolsEntityXMLTools">
         <value xml:lang="de">Entität XML Tools</value>
@@ -2913,6 +3234,14 @@
         <value xml:lang="en">Job manager locks enabled</value>
         <value xml:lang="fr">Blocages actifs sur le gestionnaire de service</value>
     </property>
+    <property key="WebtoolsJobTrackerJobsEvolution">
+        <value xml:lang="en">Tracked jobs evolution</value>
+        <value xml:lang="fr">État des jobs suivis</value>
+    </property>
+    <property key="WebtoolsJobTrackerList">
+        <value xml:lang="en">Job Tracker List</value>
+        <value xml:lang="fr">Liste des traceurs de job</value>
+    </property>
     <property key="WebtoolsLHSMapName">
         <value xml:lang="de">Name der LHS-Map</value>
         <value xml:lang="en">LHS map name</value>
@@ -3300,6 +3629,10 @@
         <value xml:lang="vi">Bố cục (Layout) mẫu</value>
         <value xml:lang="zh">布局演示</value>
         <value xml:lang="zh-TW">佈局演示</value>
+    </property>
+    <property key="WebtoolsLayoutDemoSimpleGridHeaderInfo">
+        <value xml:lang="en">Demonstration of a complex header for a collapsed screenlet</value>
+        <value xml:lang="fr">Démonstration d'entête complexe pour screenlet repliée</value>
     </property>
     <property key="WebtoolsLayoutDemoText">
         <value xml:lang="en">Demonstrate layout best practices and provide a visual theme test page (it's recommended to use HTML source code).</value>
@@ -3973,13 +4306,13 @@
     </property>
     <property key="WebtoolsOutToBrowser">
         <value xml:lang="de">ODER Browserausgabe</value>
-        <value xml:lang="en">&lt;U&gt;OR&lt;/U&gt; Out to Browser (FireFox, Safari and Opera: view source. Chrome does not work)</value>
-        <value xml:lang="fr">&lt;U&gt;OU&lt;/U&gt; dans le navigateur (FireFox, Safari  et Opera : voir le source. Chrome ne fontionne pas)</value>
+        <value xml:lang="en">&lt;U&gt;OR&lt;/U&gt; Out to Browser</value>
+        <value xml:lang="fr">&lt;U&gt;OU&lt;/U&gt; dans le navigateur</value>
         <value xml:lang="it">O output al browser</value>
         <value xml:lang="ja">ブラウザに出力</value>
         <value xml:lang="pt">Ou devolver para o navegador</value>
         <value xml:lang="th">หรืออกไปสู่ Browser</value>
-        <value xml:lang="vi">&lt;U&gt;OR&lt;/U&gt; Kết xuất ra Trình duyệt (FireFox, Safari và Opera: xem mã. Chrome không thực hiện)</value>
+        <value xml:lang="vi">&lt;U&gt;OR&lt;/U&gt; Kết xuất ra Trình duyệt</value>
         <value xml:lang="zh">或者输出到浏览器</value>
         <value xml:lang="zh-TW">或者輸出到瀏覽器</value>
     </property>
@@ -4141,6 +4474,9 @@
         <value xml:lang="vi">Kiểm thử hiệu năng</value>
         <value xml:lang="zh">性能测试</value>
         <value xml:lang="zh-TW">性能測試</value>
+    </property>
+    <property key="WebtoolsSecretPermissionError">
+        <value xml:lang="en">You do not have permission to manage secrets. The SECRET_MAINT or ENTITY_MAINT permission is required.</value>
     </property>
     <property key="WebtoolsPermissionError">
         <value xml:lang="de">WebTools Autorisierungsfehler</value>
@@ -5687,6 +6023,22 @@
         <value xml:lang="vi">TỔNG</value>
         <value xml:lang="zh">全部</value>
         <value xml:lang="zh-TW">全部</value>
+    </property>
+    <property key="WebtoolsUelKeyString">
+        <value xml:lang="en">Uel string key</value>
+        <value xml:lang="fr">Clef de l'Uel</value>
+    </property>
+    <property key="WebtoolsUelMethodClass">
+        <value xml:lang="en">Uel Method class</value>
+        <value xml:lang="fr">Methode appelée par l'Uel</value>
+    </property>
+    <property key="WebtoolsUelMethodParams">
+        <value xml:lang="en">Uel method params</value>
+        <value xml:lang="fr">Paramètres de la methode Uel</value>
+    </property>
+    <property key="WebtoolsUelDescription">
+        <value xml:lang="en">Uel description</value>
+        <value xml:lang="fr">Description de l'Uel</value>
     </property>
     <property key="WebtoolsUnCheckAll">
         <value xml:lang="de">Keine auswählen</value>

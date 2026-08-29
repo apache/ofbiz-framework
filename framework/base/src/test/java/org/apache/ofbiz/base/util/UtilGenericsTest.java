@@ -18,12 +18,13 @@
  */
 package org.apache.ofbiz.base.util;
 
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.Arrays;
 import java.util.Collection;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class UtilGenericsTest {
 
@@ -32,14 +33,15 @@ public class UtilGenericsTest {
         UtilGenerics.<String, Collection<String>>checkCollection(Arrays.asList("foo", "bar", "baz"), String.class);
     }
 
-    @Test(expected = ClassCastException.class)
+    @Test
     public void incompatibleCollectionCheckCollection() {
-        UtilGenerics.<String, Collection<String>>checkCollection("not a collection", String.class);
+        assertThrows(ClassCastException.class, () -> UtilGenerics.<String, Collection<String>>checkCollection("not a collection", String.class));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void heterogenousCheckCollection() {
-        UtilGenerics.<String, Collection<String>>checkCollection(Arrays.asList("foo", 0), String.class);
+        assertThrows(IllegalArgumentException.class, () ->
+                UtilGenerics.<String, Collection<String>>checkCollection(Arrays.asList("foo", 0), String.class));
     }
 
     @Test

@@ -43,6 +43,7 @@ import java.util.ResourceBundle;
 import java.util.Set;
 
 import org.apache.ofbiz.base.location.FlexibleLocation;
+import org.apache.ofbiz.base.secret.SecretValueResolver;
 import org.apache.ofbiz.base.util.cache.UtilCache;
 import org.apache.ofbiz.base.util.collections.ResourceBundleMapWrapper;
 import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
@@ -287,7 +288,7 @@ public final class UtilProperties implements Serializable {
         } catch (Exception e) {
             Debug.logInfo(e, MODULE);
         }
-        return value == null ? "" : value.trim();
+        return value == null ? "" : SecretValueResolver.resolve(value.trim());
     }
 
     /**
@@ -303,26 +304,18 @@ public final class UtilProperties implements Serializable {
      */
     public static Properties createProperties(String fileName) {
         Assert.notEmpty("fileName", fileName);
-        InputStream inStream = null;
         try {
             URL url = Thread.currentThread().getContextClassLoader().getResource(fileName);
             if (url == null) {
                 return null;
             }
-            inStream = url.openStream();
-            Properties properties = new Properties();
-            properties.load(inStream);
-            return properties;
+            try (InputStream inStream = url.openStream()) {
+                Properties properties = new Properties();
+                properties.load(inStream);
+                return properties;
+            }
         } catch (Exception e) {
             throw new IllegalStateException("Exception thrown while reading " + fileName + ": " + e);
-        } finally {
-            if (inStream != null) {
-                try {
-                    inStream.close();
-                } catch (IOException e) {
-                    Debug.logError(e, "Exception thrown while closing InputStream", MODULE);
-                }
-            }
         }
     }
 
@@ -759,6 +752,7 @@ public final class UtilProperties implements Serializable {
      * a list containing <code>en_US</code> and <code>en</code>.
      * @return A list of candidate locales.
      */
+    @SuppressWarnings("deprecation")
     public static List<Locale> localeToCandidateList(Locale locale) {
         List<Locale> localeList = new LinkedList<>();
         localeList.add(locale);
@@ -963,10 +957,8 @@ public final class UtilProperties implements Serializable {
         Document doc = null;
         try {
             doc = UtilXml.readXmlDocument(in, true, "XML Properties file");
-            in.close();
         } catch (Exception e) {
             Debug.logWarning(e, "XML file for locale " + locale + " could not be loaded.", MODULE);
-            in.close();
             return null;
         }
         Element resourceElement = doc.getDocumentElement();
@@ -1138,11 +1130,7 @@ public final class UtilProperties implements Serializable {
         }
         @Override
         public synchronized void loadFromXML(InputStream in) throws IOException, InvalidPropertiesFormatException {
-            try {
-                xmlToProperties(in, null, this);
-            } finally {
-                in.close();
-            }
+            xmlToProperties(in, null, this);
         }
     }
 }

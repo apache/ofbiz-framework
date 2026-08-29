@@ -27,10 +27,21 @@ under the License.
         <action service="testServiceEcaGlobalEventExecOnRollback" mode="sync"/>
     </eca>
 
-    <!-- Note: This eca is used only to allow time for the global ecas above to 
-            complete before the xml assertion test is run -->
+    <!-- Note: This eca is used only to allow time for the global ecas above to
+            complete before the xml assertion test is run. The global commit/rollback listeners
+            above run async off the transaction's afterCompletion callback and typically finish
+            in a few ms, so 500ms is a wide margin - it used to be 5000ms, which by itself was a
+            large share of the whole testIntegration run.
+            This used to be unsafe to shorten: doing so let the main thread reach WorkEffortTests
+            while those listener threads were still in flight, and their access to ServiceEcaUtil's
+            then non-thread-safe ECA-rules cache raced with createWorkEffort's own rule lookup on
+            the main thread, throwing a NullPointerException from java.util.LinkedList$ListItr.next()
+            inside ServiceEcaUtil.evalRules. That race is fixed at the source in ServiceEcaUtil.java
+            (CONFIG_LOCK plus ConcurrentHashMap/CopyOnWriteArrayList) rather than by waiting it out
+            here - see that file's CONFIG_LOCK javadoc for the full mechanism - and this value is
+            verified safe at 500ms across repeated testIntegration runs. -->
     <eca service="testServiceEcaGlobalEventExec" event="return">
-        <set field-name="duration" value="5000" format="long"/>
+        <set field-name="duration" value="500" format="long"/>
         <action service="blockingTestScv" mode="sync"/>
     </eca>
 </service-eca>

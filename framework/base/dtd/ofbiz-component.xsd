@@ -30,6 +30,7 @@ under the License.
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="keystore"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="webapp"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="container"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="uel-mapping"/>
             </xs:sequence>
             <xs:attributeGroup ref="attlist.ofbiz-component"/>
         </xs:complexType>
@@ -53,17 +54,17 @@ under the License.
                         The plugins Auto-Loading feature also loads all components in the order they are found (i.e. alphabetic or creation date).
                          
                         Using depends-on allows to create a series of dependencies for component loading, before loading a particular component.
-                        For instance we can define dependency for a component like component ebaystore is dependent on component ebay 
-                        (even multiple dependencies for a single component is supported). 
-                        
+                        For instance we can define a dependency for a component named componentB that depends on a component named componentA
+                        (even multiple dependencies for a single component is supported).
+
                         If any anomaly is found loading of components will stop.
-                        
-                        We can declare it in this fashion in ofbiz-component.xml file (beware ebaystore is disabled by default)
+
+                        We can declare it in this fashion in the componentB's ofbiz-component.xml file:
                         <![CDATA[
-                        <ofbiz-component name="ebaystore" enabled="true"
+                        <ofbiz-component name="componentB" enabled="true"
                         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-component.xsd">
-                        <depends-on component-name="ebay"/>
+                        <depends-on component-name="componentA"/>
                         ]]>
                     </xs:documentation>
                 </xs:annotation>
@@ -297,4 +298,13 @@ under the License.
             <xs:any minOccurs="0" maxOccurs="unbounded" processContents="skip"/>
         </xs:sequence>
     </xs:complexType>
+    <xs:element name="uel-mapping">
+        <xs:complexType>
+            <xs:attributeGroup ref="attlist.uel-mapping"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.uel-mapping">
+        <xs:attribute type="xs:string" name="name" use="required"/>
+        <xs:attribute type="xs:string" name="class-name" use="required"/>
+    </xs:attributeGroup>
 </xs:schema>

@@ -62,6 +62,7 @@ under the License.
             package-name="org.apache.ofbiz.security.login"
             title="User Login">
       <field name="userLoginId" type="id-vlong"></field>
+      <field name="userFullName" type="name"/>
       <field name="currentPassword" type="long-varchar"></field>
       <field name="passwordHint" type="description"></field>
       <field name="isSystem" type="indicator"></field>

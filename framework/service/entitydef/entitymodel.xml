@@ -44,7 +44,9 @@ under the License.
         <field name="jobId" type="id"></field>
         <field name="jobName" type="name"></field>
         <field name="runTime" type="date-time"></field>
-        <field name="runTimeEpoch" type="numeric"/><!-- Store the Epoch millisecond to avoid DST change issue (when clock set 1 hr back) -->
+        <field name="runTimeEpoch" type="numeric">
+            <description>Store the Epoch millisecond to avoid DST change issue (when clock set 1 hr back)</description>
+        </field>
         <field name="priority" type="numeric"></field>
         <field name="poolId" type="name"></field>
         <field name="statusId" type="id"></field>
@@ -67,6 +69,11 @@ under the License.
         <field name="cancelDateTime" type="date-time"></field>
         <field name="jobResult" type="value"></field>
         <field name="recurrenceTimeZone" type="id-long"/>
+        <field name="leaseUpdatedStamp" type="date-time">
+            <description>Last heartbeat timestamp written by the owning node.
+                Used for lease-based stale job recovery in multi-node ASG deployments</description>
+        </field>
+        <field name="jobTrackerId" type="id-vlong"/>
         <prim-key field="jobId"/>
         <relation type="one" fk-name="JOB_SNDBX_RECINFO" rel-entity-name="RecurrenceInfo">
             <key-map field-name="recurrenceInfoId"/>
@@ -85,6 +92,9 @@ under the License.
         </relation>
         <relation type="one" fk-name="JOB_SNDBX_STTS" rel-entity-name="StatusItem">
             <key-map field-name="statusId"/>
+        </relation>
+        <relation type="one" fk-name="JOB_SNDBX_TRACK" rel-entity-name="JobTracker">
+            <key-map field-name="jobTrackerId"/>
         </relation>
         <index name="JOB_SNDBX_RUNSTAT">
             <index-field name="runByInstanceId"/>
@@ -217,5 +227,58 @@ under the License.
         <field name="lockTime" type="date-time"></field>
         <prim-key field="serviceName"/>
     </entity>
+
+    <!-- ========================================================= -->
+    <!-- org.apache.ofbiz.service.tracker -->
+    <!-- ========================================================= -->
+
+    <entity entity-name="JobTracker" package-name="org.apache.ofbiz.service.tracker" title="Job Tracker">
+        <field name="jobTrackerId" type="id-vlong"/>
+        <field name="serviceName" type="id-vlong"/>
+        <field name="runtimeDataId" type="id"/>
+        <field name="statusId" type="id"/>
+        <field name="jobsTotalQty" type="numeric"/>
+        <field name="persistResult" type="indicator"/>
+        <field name="runAsUser" type="id-vlong"/>
+        <field name="startDate" type="date-time"/>
+        <field name="completionDate" type="date-time"/>
+        <field name="cancelDate" type="date-time"/>
+        <field name="createdDate" type="date-time"/>
+        <field name="createdByUserLogin" type="id-vlong"/>
+        <field name="lastModifiedDate" type="date-time"/>
+        <field name="lastModifiedByUserLogin" type="id-vlong"/>
+        <prim-key field="jobTrackerId"/>
+        <relation type="one" fk-name="JOB_T_STATUS" rel-entity-name="StatusItem">
+            <key-map field-name="statusId"/>
+        </relation>
+    </entity>
+
+    <entity entity-name="TrackedJobResult" package-name="org.apache.ofbiz.service.tracker" title="Tracked job result">
+        <field name="jobTrackerId" type="id-vlong"/>
+        <field name="jobTrackerResultSeqId" type="id"/>
+        <field name="resultMessage" type="description"/>
+        <field name="resultCode" type="description"/>
+        <prim-key field="jobTrackerId"/>
+        <prim-key field="jobTrackerResultSeqId"/>
+        <relation type="one" fk-name="FK_TJR_TJ" rel-entity-name="JobTracker">
+            <key-map field-name="jobTrackerId"/>
+        </relation>
+    </entity>
+    <view-entity entity-name="JobTrackerAndJobResult" package-name="org.apache.ofbiz.service.tracker" title="job tracker and result">
+        <member-entity entity-alias="JT" entity-name="JobTracker"/>
+        <member-entity entity-alias="TJR" entity-name="TrackedJobResult"/>
+        <alias-all entity-alias="JT"/>
+        <alias-all entity-alias="TJR"/>
+        <view-link entity-alias="JT" rel-entity-alias="TJR">
+            <key-map field-name="jobTrackerId"/>
+        </view-link>
+    </view-entity>
+
+    <view-entity entity-name="JobSandboxQtyByStatusAndJobTrackerView" package-name="org.apache.ofbiz.service.tracker">
+        <member-entity entity-alias="JS" entity-name="JobSandbox"/>
+        <alias name="jobTrackerId" entity-alias="JS" group-by="true"/>
+        <alias name="statusId" entity-alias="JS" group-by="true"/>
+        <alias name="quantity" entity-alias="JS" field="jobId" function="count-distinct"/>
+    </view-entity>
 
 </entitymodel>

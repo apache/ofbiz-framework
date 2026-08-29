@@ -18,11 +18,11 @@
  */
 package org.apache.ofbiz.base.conversion;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.ibm.icu.util.Calendar;
 
@@ -30,8 +30,8 @@ public class DateTimeTests {
 
     private static <S, T> void assertConversion(String label, Converter<S, T> converter, S source, T target)
             throws Exception {
-        assertTrue(label + " can convert", converter.canConvert(source.getClass(), target.getClass()));
-        assertEquals(label + " converted", target, converter.convert(source));
+        assertTrue(converter.canConvert(source.getClass(), target.getClass()), label + " can convert");
+        assertEquals(target, converter.convert(source), label + " converted");
     }
 
     @Test
@@ -41,7 +41,7 @@ public class DateTimeTests {
         cal.set(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH), 0, 0, 0);
         cal.set(Calendar.MILLISECOND, 0);
         long longTime = cal.getTimeInMillis(); // Start of day today
-        assertNotEquals("currentTime and longTime are not equal", currentTime, longTime);
+        assertNotEquals(currentTime, longTime, "currentTime and longTime are not equal");
         java.util.Date utilDate = new java.util.Date(longTime);
         java.sql.Date sqlDate = new java.sql.Date(longTime);
         java.sql.Timestamp timestamp = new java.sql.Timestamp(longTime);

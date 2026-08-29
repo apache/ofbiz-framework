@@ -170,51 +170,6 @@ under the License.
             </td>
             <td valign="top">
                 <div>
-                    <#if "UPS" == shipmentRouteSegment.carrierPartyId!>
-                        <#if !shipmentRouteSegment.carrierServiceStatusId?has_content || "SHRSCS_NOT_STARTED" == shipmentRouteSegment.carrierServiceStatusId!>
-                            <a href="javascript:document.upsShipmentConfirm_${shipmentRouteSegmentData_index}.submit()" class="buttontext">${uiLabelMap.ProductConfirmShipmentUps}</a>
-                            <br />
-                            <label>${uiLabelMap.ProductShipmentUpsResidential}:
-                            <input type="checkbox" name="homeDeliveryType" value="Y" ${(shipmentRouteSegment.homeDeliveryType?has_content)?string("checked=\"checked\"","")} /></label>
-                        <#elseif "SHRSCS_CONFIRMED" == shipmentRouteSegment.carrierServiceStatusId!>
-                            <a href="javascript:document.upsShipmentAccept_${shipmentRouteSegmentData_index}.submit()" class="buttontext">${uiLabelMap.ProductAcceptUpsShipmentConfirmation}</a>
-                            <br />
-                            <a href="javascript:document.upsVoidShipment_${shipmentRouteSegmentData_index}.submit()" class="buttontext">${uiLabelMap.ProductVoidUpsShipmentConfirmation}</a>
-                        <#elseif "SHRSCS_ACCEPTED" == shipmentRouteSegment.carrierServiceStatusId!>
-                            <a href="javascript:document.upsTrackShipment_${shipmentRouteSegmentData_index}.submit()" class="buttontext">${uiLabelMap.ProductTrackUpsShipment}</a>
-                            <br />
-                            <a href="javascript:document.upsVoidShipment_${shipmentRouteSegmentData_index}.submit()" class="buttontext">${uiLabelMap.ProductVoidUpsShipment}</a>
-                        </#if>
-                    </#if>
-                    <#if "DHL" == shipmentRouteSegment.carrierPartyId!>
-                        <#if !shipmentRouteSegment.carrierServiceStatusId?has_content || "SHRSCS_NOT_STARTED" == shipmentRouteSegment.carrierServiceStatusId!>
-                            <a href="javascript:document.dhlShipmentConfirm_${shipmentRouteSegmentData_index}.submit()" class="buttontext">${uiLabelMap.ProductConfirmShipmentDHL}</a>
-                        </#if>
-                    </#if>
-                    <#if "FEDEX" == shipmentRouteSegment.carrierPartyId!>
-                        <#if !shipmentRouteSegment.carrierServiceStatusId?has_content || "SHRSCS_NOT_STARTED" == shipmentRouteSegment.carrierServiceStatusId!>
-                            <a href="javascript:document.fedexShipmentConfirm_${shipmentRouteSegmentData_index}.submit()" class="buttontext">${uiLabelMap.ProductConfirmShipmentFedex}</a>
-                            <br />
-                            <#if shipmentMethodType?? && shipmentMethodType.shipmentMethodTypeId=="GROUND_HOME">
-                                <select name="homeDeliveryType">
-                                    <option value="">${uiLabelMap.ProductShipmentNone}</option>
-                                    <option ${(shipmentRouteSegment.homeDeliveryType?default("")=="DATECERTAIN")?string("selected=\"selected\"","")} value="DATECERTAIN">${uiLabelMap.ProductShipmentFedexHomeDateCertain}</option>
-                                    <option ${(shipmentRouteSegment.homeDeliveryType?default("")=="EVENING")?string("selected=\"selected\"","")} value="EVENING">${uiLabelMap.ProductShipmentFedexHomeEvening}</option>
-                                    <option ${(shipmentRouteSegment.homeDeliveryType?default("")=="APPOINTMENT")?string("selected=\"selected\"","")} value="APPOINTMENT">${uiLabelMap.ProductShipmentFedexHomeAppointment}</option>
-                                </select>
-                                <@htmlTemplate.renderDateTimeField name="homeDeliveryDate" event="" action="" className="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="${(shipmentRouteSegment.homeDeliveryDate.toString())!}" size="25" maxlength="30" id="homeDeliveryDate1" isDateType=true shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
-                            </#if>
-                        <#else>
-                            <#-- Todo: implement closeout with Fedex -->
-                            <#-- Todo: implement shipment cancellation with Fedex -->
-                            <#-- Todo: implement shipment tracking with Fedex -->
-                            ${shipmentRouteSegment.homeDeliveryType?default(uiLabelMap.ProductShipmentNone)}
-                            <#if shipmentRouteSegment.homeDeliveryDate??>
-                                &nbsp;(${shipmentRouteSegment.homeDeliveryDate?string("yyyy-MM-dd")})
-                            </#if>
-                            <br />
-                        </#if>
-                    </#if>
                     <br />
                     <select name="carrierServiceStatusId">
                         <#if carrierServiceStatusItem?has_content>
@@ -273,32 +228,7 @@ under the License.
             </td>
         </tr>
         </form>
-        <form name="upsShipmentConfirm_${shipmentRouteSegmentData_index}" method="post" action="<@ofbizUrl>upsShipmentConfirm</@ofbizUrl>">
-            <input type="hidden" name="shipmentId" value="${shipmentRouteSegment.shipmentId}"/>
-            <input type="hidden" name="shipmentRouteSegmentId" value="${shipmentRouteSegment.shipmentRouteSegmentId}"/>
-        </form>
-        <form name="upsShipmentAccept_${shipmentRouteSegmentData_index}" method="post" action="<@ofbizUrl>upsShipmentAccept</@ofbizUrl>">
-            <input type="hidden" name="shipmentId" value="${shipmentRouteSegment.shipmentId}"/>
-            <input type="hidden" name="shipmentRouteSegmentId" value="${shipmentRouteSegment.shipmentRouteSegmentId}"/>
-        </form>
-        <form name="upsVoidShipment_${shipmentRouteSegmentData_index}" method="post" action="<@ofbizUrl>upsVoidShipment</@ofbizUrl>">
-            <input type="hidden" name="shipmentId" value="${shipmentRouteSegment.shipmentId}"/>
-            <input type="hidden" name="shipmentRouteSegmentId" value="${shipmentRouteSegment.shipmentRouteSegmentId}"/>
-        </form>
-        <form name="upsTrackShipment_${shipmentRouteSegmentData_index}" method="post" action="<@ofbizUrl>upsTrackShipment</@ofbizUrl>">
-            <input type="hidden" name="shipmentId" value="${shipmentRouteSegment.shipmentId}"/>
-            <input type="hidden" name="shipmentRouteSegmentId" value="${shipmentRouteSegment.shipmentRouteSegmentId}"/>
-        </form>
-        
-        <form name="dhlShipmentConfirm_${shipmentRouteSegmentData_index}" method="post" action="<@ofbizUrl>dhlShipmentConfirm</@ofbizUrl>">
-            <input type="hidden" name="shipmentId" value="${shipmentRouteSegment.shipmentId}"/>
-            <input type="hidden" name="shipmentRouteSegmentId" value="${shipmentRouteSegment.shipmentRouteSegmentId}"/>
-        </form>
-        
-        <form name="fedexShipmentConfirm_${shipmentRouteSegmentData_index}" method="post" action="<@ofbizUrl>fedexShipmentConfirm</@ofbizUrl>">
-            <input type="hidden" name="shipmentId" value="${shipmentRouteSegment.shipmentId}"/>
-            <input type="hidden" name="shipmentRouteSegmentId" value="${shipmentRouteSegment.shipmentRouteSegmentId}"/>
-        </form>
+
     <#list shipmentPackageRouteSegs as shipmentPackageRouteSeg>
         <form action="<@ofbizUrl>updateRouteSegmentShipmentPackage</@ofbizUrl>" method="post" name="updateShipmentPackageRouteSegForm${shipmentRouteSegmentData_index}${shipmentPackageRouteSeg_index}">
         <input type="hidden" name="shipmentId" value="${shipmentId}"/>

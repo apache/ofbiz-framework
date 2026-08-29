@@ -32,7 +32,6 @@ import java.util.Properties;
 import java.util.Set;
 import java.util.TimeZone;
 import java.util.stream.Stream;
-
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -55,7 +54,6 @@ import freemarker.core.Environment;
 import freemarker.core.TemplateClassResolver;
 import freemarker.ext.beans.BeanModel;
 import freemarker.ext.beans.BeansWrapper;
-import freemarker.ext.beans.BeansWrapperBuilder;
 import freemarker.template.Configuration;
 import freemarker.template.SimpleHash;
 import freemarker.template.SimpleScalar;
@@ -81,7 +79,7 @@ public final class FreeMarkerWorker {
     // or maybe not for performance reasons... hmmm, leave to config file...
     private static final UtilCache<String, Template> CACHED_TEMPLATES =
             UtilCache.createUtilCache("template.ftl.general", 0, 0, false);
-    private static final BeansWrapper DEFAULT_OFBIZ_WRAPPER = new BeansWrapperBuilder(VERSION).build();
+    private static final BeansWrapper DEFAULT_OFBIZ_WRAPPER = new OfbizBeansWrapper(VERSION);
     private static final TemplateHashModel DEFAULT_STATIC_MODELS =
             getConfiguredStaticModel(getDefaultOfbizWrapper());
     private static final Configuration DEFAULT_OFBIZ_CONFIG = makeConfiguration(DEFAULT_OFBIZ_WRAPPER);
@@ -557,13 +555,13 @@ public final class FreeMarkerWorker {
             if (name != null && name.startsWith("delegator:")) {
                 return null; // this is a template stored in the database
             }
-            URL locationUrl = null;
             try {
-                locationUrl = FlexibleLocation.resolveLocation(name);
+                URL locationUrl = FlexibleLocation.resolveLocation(name);
+                return locationUrl != null && new File(locationUrl.toURI()).exists() ? locationUrl : null;
             } catch (Exception e) {
                 Debug.logWarning("Unable to locate the template: " + name, MODULE);
             }
-            return locationUrl != null && new File(locationUrl.getFile()).exists() ? locationUrl : null;
+            return null;
         }
     }
 

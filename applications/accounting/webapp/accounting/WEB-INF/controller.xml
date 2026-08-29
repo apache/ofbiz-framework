@@ -239,6 +239,24 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="invoiceAttributes"/>
     </request-map>
+    <request-map uri="createInvoiceAttribute">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createInvoiceAttribute"/>
+        <response name="success" type="view" value="invoiceAttributes"/>
+        <response name="error" type="view" value="invoiceAttributes"/>
+    </request-map>
+    <request-map uri="updateInvoiceAttribute">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateInvoiceAttribute"/>
+        <response name="success" type="view" value="invoiceAttributes"/>
+        <response name="error" type="view" value="invoiceAttributes"/>
+    </request-map>
+    <request-map uri="deleteInvoiceAttribute">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deleteInvoiceAttribute"/>
+        <response name="success" type="view" value="invoiceAttributes"/>
+        <response name="error" type="view" value="invoiceAttributes"/>
+    </request-map>
     <request-map uri="invoiceContactMech">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="invoiceContactMech"/>
@@ -408,6 +426,10 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="InvoiceAcctgTransEntriesPdf"/>
     </request-map>
+    <request-map uri="PaymentAcctgTransEntriesPdf">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="AcctgTransEntriesSearchResultsPdf"/>
+    </request-map>
 
     <request-map uri="FindSalesInvoicesByDueDate">
         <security https="true" auth="true"/>
@@ -552,54 +574,6 @@ under the License.
         <response name="success" type="view" value="EditPaymentGatewayConfig"/>
         <response name="error" type="view" value="EditPaymentGatewayConfig"/>
     </request-map>
-    <request-map uri="UpdatePaymentGatewayConfigSagePay">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="updatePaymentGatewayConfigSagePay"/>
-        <response name="success" type="view" value="EditPaymentGatewayConfig"/>
-        <response name="error" type="view" value="EditPaymentGatewayConfig"/>
-    </request-map>
-    <request-map uri="UpdatePaymentGatewayConfigAuthorizeNet">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="updatePaymentGatewayConfigAuthorizeNet"/>
-        <response name="success" type="view" value="EditPaymentGatewayConfig"/>
-        <response name="error" type="view" value="EditPaymentGatewayConfig"/>
-    </request-map>
-    <request-map uri="UpdatePaymentGatewayConfigClearCommerce">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="updatePaymentGatewayConfigClearCommerce"/>
-        <response name="success" type="view" value="EditPaymentGatewayConfig"/>
-        <response name="error" type="view" value="EditPaymentGatewayConfig"/>
-    </request-map>
-    <request-map uri="UpdatePaymentGatewayConfigCyberSource">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="updatePaymentGatewayConfigCyberSource"/>
-        <response name="success" type="view" value="EditPaymentGatewayConfig"/>
-        <response name="error" type="view" value="EditPaymentGatewayConfig"/>
-    </request-map>
-    <request-map uri="UpdatePaymentGatewayConfigPayflowPro">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="updatePaymentGatewayConfigPayflowPro"/>
-        <response name="success" type="view" value="EditPaymentGatewayConfig"/>
-        <response name="error" type="view" value="EditPaymentGatewayConfig"/>
-    </request-map>
-    <request-map uri="UpdatePaymentGatewayConfigPayPal">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="updatePaymentGatewayConfigPayPal"/>
-        <response name="success" type="view" value="EditPaymentGatewayConfig"/>
-        <response name="error" type="view" value="EditPaymentGatewayConfig"/>
-    </request-map>
-    <request-map uri="UpdatePaymentGatewayConfigWorldPay">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="updatePaymentGatewayConfigWorldPay"/>
-        <response name="success" type="view" value="EditPaymentGatewayConfig"/>
-        <response name="error" type="view" value="EditPaymentGatewayConfig"/>
-    </request-map>
-    <request-map uri="UpdatePaymentGatewayConfigEway">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="updatePaymentGatewayConfigEway"/>
-        <response name="success" type="view" value="EditPaymentGatewayConfig"/>
-        <response name="error" type="view" value="EditPaymentGatewayConfig"/>
-    </request-map>
     <request-map uri="FindPaymentGatewayConfigTypes">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="FindPaymentGatewayConfigTypes"/>
@@ -613,13 +587,6 @@ under the License.
         <event type="service" invoke="updatePaymentGatewayConfigType"/>
         <response name="success" type="view" value="EditPaymentGatewayConfigType"/>
         <response name="error" type="view" value="EditPaymentGatewayConfigType"/>
-    </request-map>
-
-    <request-map uri="UpdatePaymentGatewayConfigSecurePay">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="updatePaymentGatewayConfigSecurePay"/>
-        <response name="success" type="view" value="EditPaymentGatewayConfig"/>
-        <response name="error" type="view" value="EditPaymentGatewayConfig"/>
     </request-map>
 
     <!-- transaction action requests -->
@@ -2047,6 +2014,7 @@ under the License.
         <response name="success" type="view" value="BankReconciliation"/>
     </request-map>
     <request-map uri="getFinAccountTransRunningTotalAndBalances">
+        <security https="true" auth="true"/>
         <event type="service-multi" invoke="getFinAccountTransRunningTotalAndBalances"/>
         <response name="success" type="request" value="json"/>
         <response name="error" type="request" value="json"/>
@@ -2334,6 +2302,10 @@ under the License.
     <request-map uri="LookupSupplier">
         <security auth="true" https="true"/>
         <response name="success" type="view" value="LookupSupplier"/>
+    </request-map>
+    <request-map uri="LookupTaxAuthority">
+        <security auth="true" https="true"/>
+        <response name="success" type="view" value="LookupTaxAuthority"/>
     </request-map>
     <request-map uri="depositWithdrawPayments">
         <security auth="true" https="true"/>
@@ -2893,6 +2865,7 @@ under the License.
     <view-map name="PaymentsDepositWithdraw" type="screen" page="component://accounting/widget/FinAccountScreens.xml#PaymentsDepositWithdraw"/>
     <view-map name="LookupCustomerName" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupCustomerName"/>
     <view-map name="LookupSupplier" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupSupplier"/>
+    <view-map name="LookupTaxAuthority" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupTaxAuthority"/>
     <view-map name="NewDepositSlip" type="screen" page="component://accounting/widget/FinAccountScreens.xml#NewDepositSlip"/>
     <view-map name="InventoryValuation" type="screen" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#InventoryValuation"/>
     <view-map name="InventoryValuationPdf" type="screenfop" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#InventoryValuationPdf" content-type="application/pdf" encoding="none"/>

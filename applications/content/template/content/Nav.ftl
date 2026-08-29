@@ -16,7 +16,8 @@
   specific language governing permissions and limitations
   under the License.
   -->
-<script type="text/javascript" src="<@ofbizContentUrl>/common/js/jquery/plugins/jsTree/jquery.jstree.js</@ofbizContentUrl>"></script>
+<script type="text/javascript" src="<@ofbizContentUrl>/common/js/node_modules/jstree/dist/jstree.min.js</@ofbizContentUrl>"></script>
+<link rel="stylesheet" type="text/css" href="<@ofbizContentUrl>/common/js/node_modules/jstree/dist/themes/default/style.min.css</@ofbizContentUrl>"/>
 
 <script type="text/javascript">
 <#-- some labels are not unescaped in the JSON object so we have to do this manuely -->
@@ -60,11 +61,10 @@ var rawdata = [
   function createTree() {
     jQuery(function () {
         jQuery("#tree").jstree({
-            "plugins" : [ "themes", "json_data", "ui", "crrm"],
-            "json_data" : {
-                "data" : rawdata,
-                "progressive_render" : false
-            }
+            "core": {
+                "data": rawdata
+            },
+            "plugins": ["themes"]
         });
     });
   }

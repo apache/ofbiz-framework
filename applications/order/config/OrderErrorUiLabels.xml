@@ -2008,6 +2008,32 @@
         <value xml:lang="zh">用于已定义订单 ${orderId} 的工作流数量大于1</value>
         <value xml:lang="zh-TW">用于已定義訂單 ${orderId} 的工作流數量大于1</value>
     </property>
+    <property key="OrderNoAgreementFoundWithIdNotDoingPromotions">
+        <value xml:lang="ar">لا يوجد اتفاقية ذات دليل ليس بها ترويجات</value>
+        <value xml:lang="de">Keine Vereinbarung mit dieser ID gefunden. Es werden keine Aktionen angewendet</value>
+        <value xml:lang="en">No Agreement Found With Id Not Doing Promotions</value>
+        <value xml:lang="fr">Pas d'accord trouvé avec cette référence. Aucune promotion activée</value>
+        <value xml:lang="it">Nessun contratto trovato con questo id nessuna promozione verrà creata</value>
+        <value xml:lang="ja">プロモーションをしていないIDで同意書はありません</value>
+        <value xml:lang="nl">Geen contract gevonden; promos worden niet toegepast</value>
+        <value xml:lang="pt-BR">Nenhum acordo encontrado com ID sem fazer promoções</value>
+        <value xml:lang="vi">Không có 'thỏa thuận' nào với Id và không thực hiện Khuyến mãi</value>
+        <value xml:lang="zh">没有找到带有不做促销的标识的合同</value>
+        <value xml:lang="zh-TW">找不到帶有不做促銷識別的合約</value>
+    </property>
+    <property key="OrderNoAgreementItemFoundForAgreementWithIdNotDoingPromotions">
+        <value xml:lang="ar">لا يوجد بند اتفاقية ذو دليل ليس به ترويجات</value>
+        <value xml:lang="de">Kein Vereinbarungselement mit dieser ID gefunden. Es werden keine Aktionen angewendet</value>
+        <value xml:lang="en">No Agreement Item Found With Id Not Doing Promotions</value>
+        <value xml:lang="fr">Pas ligne d'accord trouvée avec cette référence. Aucune promotion activée</value>
+        <value xml:lang="it">Nessuna riga contratto trovata con questo id nessuna promozione verrà creata</value>
+        <value xml:lang="ja">プロモーションをしていないIDで同意書はありません</value>
+        <value xml:lang="nl">Geen contractregel gevonden; promos worden niet toegepast</value>
+        <value xml:lang="pt-BR">Nenhum artigo encontrado com ID sem fazer promoções</value>
+        <value xml:lang="vi">Không có 'điều khoản thỏa thuận' nào với Id và không thực hiện Khuyến mãi</value>
+        <value xml:lang="zh">没有找到带有不做促销的标识的合同条款</value>
+        <value xml:lang="zh-TW">找不到帶有不做促銷的識別的合約條款</value>
+    </property>
     <property key="OrderNoAgreementSpecified">
         <value xml:lang="ar">لم تحدد إتفاقية</value>
         <value xml:lang="de">Keine Vereinbarung festgelegt</value>
@@ -4895,22 +4921,6 @@
         <value xml:lang="vi">Không tìm thấy tập tin thuế nội bộ tại : ${taxFileLocation}</value>
         <value xml:lang="zh">不能定位税务文件：${taxFileLocation}</value>
         <value xml:lang="zh-TW">不能定位稅務文件：${taxFileLocation}</value>
-    </property>
-    <property key="OrderUnableToReadZipSalesDataFile">
-        <value xml:lang="ar">غير ممكن قرائة ZipSales DataFile</value>
-        <value xml:lang="de">ZipSales-Datei konnte nicht gelesen werden</value>
-        <value xml:lang="en">Unable to read ZipSales DataFile </value>
-        <value xml:lang="es">No se pudo leer el archivo de código de ventas</value>
-        <value xml:lang="fr">Impossible de lire le code postal des fichiers de données de ventes</value>
-        <value xml:lang="it">Non è possibile leggere ZipSales DataFile </value>
-        <value xml:lang="ja">ZipSalesデータファイルを読み込みできません</value>
-        <value xml:lang="pt-BR">Incapaz de ler arquivo de dados ZipSales</value>
-        <value xml:lang="ro">Nu este posibila citerea ZipSales DataFile </value>
-        <value xml:lang="ru">Невозможно прочитать файл данных ZipSales DataFile </value>
-        <value xml:lang="th">Unable to read ZipSales DataFile </value>
-        <value xml:lang="vi">Không tìm thấy tập tin dữ liệu kinh doanh vùng (ZipSales DataFile)</value>
-        <value xml:lang="zh">不能读取 ZipSales 数据文件 </value>
-        <value xml:lang="zh-TW">不能讀取 ZipSales 資料文件 </value>
     </property>
     <property key="OrderUnableToRemoveSalesTaxAdjustments">
         <value xml:lang="ar">غير ممكن إزالة تعديلات ضريبة المبيعات</value>

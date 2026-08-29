@@ -29,6 +29,7 @@ import java.io.OutputStream;
 import java.io.Reader;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.net.URI;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.LinkedList;
@@ -37,6 +38,7 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -91,15 +93,21 @@ public final class UtilXml {
 
     private static XStream createXStream() {
         XStream xstream = new XStream();
-        /* This method is a pure helper method for XStream 1.4.x.
-         * It initializes an XStream instance with a white list of well-known and simple types of the Java runtime
-         *  as it is done in XStream 1.5.x by default. This method will do therefore nothing in XStream 1.5
-         *  and could be removed them
-         */
-        // XStream.setupDefaultSecurity(xstream);
-        /* You may want to enhance the white list created by XStream::setupDefaultSecurity (or by default with XStream 1.5)
-         * using xstream::allowTypesByWildcard with your own classes
-         */
+        // Allow only the concrete types that XmlSerializer.serializeSingle handles explicitly.
+        // All other types are blocked to prevent deserialization gadget chain attacks.
+        // Class names are used as strings to avoid a compile-time dependency on framework/entity.
+        xstream.allowTypes(new String[]{
+                "java.lang.String", "java.lang.Integer", "java.lang.Long",
+                "java.lang.Float", "java.lang.Double", "java.lang.Boolean",
+                "java.util.Locale", "java.math.BigDecimal",
+                "java.sql.Timestamp", "java.sql.Date", "java.sql.Time", "java.util.Date",
+                "java.util.ArrayList", "java.util.LinkedList", "java.util.Stack",
+                "java.util.Vector", "java.util.TreeSet", "java.util.HashSet",
+                "java.util.HashMap", "java.util.Properties", "java.util.Hashtable",
+                "java.util.WeakHashMap", "java.util.TreeMap",
+                "org.apache.ofbiz.entity.GenericValue",
+                "org.apache.ofbiz.entity.GenericPK"
+        });
         return xstream;
     }
 
@@ -220,6 +228,9 @@ public final class UtilXml {
         sb.append("</xsl:template>\n</xsl:stylesheet>\n");
         ByteArrayInputStream bis = new ByteArrayInputStream(sb.toString().getBytes());
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
+        transformerFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+        transformerFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+        transformerFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
         return transformerFactory.newTransformer(new StreamSource(bis));
     }
 
@@ -407,7 +418,7 @@ public final class UtilXml {
                 innerUrlStr = innerUrlStr.substring(0, bangIdx);
             }
             try {
-                urlHost = new URL(innerUrlStr).getHost();
+                urlHost = URI.create(innerUrlStr).toURL().getHost();
             } catch (java.net.MalformedURLException e) {
                 throw new IOException("Cannot determine host from jar URL: " + url);
             }
@@ -419,10 +430,9 @@ public final class UtilXml {
             throw new IOException("Domain " + urlHost + " not accepted to prevent host header injection."
                     + " You need to set host-headers-allowed property in security.properties file.");
         }
-        InputStream is = url.openStream();
-        Document document = readXmlDocument(is, validate, url.toString(), withPosition);
-        is.close();
-        return document;
+        try (InputStream is = url.openStream()) {
+            return readXmlDocument(is, validate, url.toString(), withPosition);
+        }
     }
 
     public static Document readXmlDocument(InputStream is, String docDescription)
@@ -454,6 +464,7 @@ public final class UtilXml {
         factory.setAttribute("http://xml.org/sax/features/validation", validate);
         factory.setAttribute("http://apache.org/xml/features/validation/schema", validate);
 
+        factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
         factory.setFeature("http://xml.org/sax/features/external-general-entities", false);
         factory.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
         factory.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
@@ -583,6 +594,9 @@ public final class UtilXml {
         parser.setFeature("http://xml.org/sax/features/validation", validate);
         parser.setFeature("http://apache.org/xml/features/validation/schema", validate);
         parser.setFeature("http://apache.org/xml/features/dom/defer-node-expansion", false);
+        parser.setFeature("http://xml.org/sax/features/external-general-entities", false);
+        parser.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
+        parser.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
 
         // with a SchemaUrl, a URL object
         if (validate) {
@@ -611,9 +625,9 @@ public final class UtilXml {
     public static Document makeEmptyXmlDocument(String rootElementName) {
         Document document = null;
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-
         factory.setValidating(true);
         try {
+            factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
             DocumentBuilder builder = factory.newDocumentBuilder();
 
             document = builder.newDocument();
@@ -1267,6 +1281,9 @@ public final class UtilXml {
         TransformerFactory tf = TransformerFactory.newInstance();
         Transformer transformer;
         try {
+            tf.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+            tf.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+            tf.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
             transformer = tf.newTransformer();
             transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");

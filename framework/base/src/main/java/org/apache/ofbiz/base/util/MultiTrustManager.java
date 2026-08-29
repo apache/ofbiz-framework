@@ -19,6 +19,8 @@
 
 package org.apache.ofbiz.base.util;
 
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.cert.Certificate;
@@ -28,6 +30,8 @@ import java.util.Enumeration;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.TrustManagerFactory;
 import javax.net.ssl.X509TrustManager;
 
 /**
@@ -67,21 +71,37 @@ public class MultiTrustManager implements X509TrustManager {
 
     @Override
     public void checkClientTrusted(X509Certificate[] certs, String alg) throws CertificateException {
-        if (isTrusted(certs)) {
+        CertificateException trustFailure;
+        try {
+            getDelegateTrustManager().checkClientTrusted(certs, alg);
             return;
+        } catch (CertificateException e) {
+            trustFailure = e;
+        } catch (RuntimeException e) {
+            // The JDK's own X509TrustManager implementation can throw an unchecked exception
+            // (e.g. when there are no trust anchors at all) instead of a CertificateException.
+            trustFailure = new CertificateException(e);
         }
         if (!"true".equals(UtilProperties.getPropertyValue("certificate", "client.all-trusted", "true"))) {
-            throw new CertificateException("No trusted certificate found");
+            throw trustFailure;
         }
     }
 
     @Override
     public void checkServerTrusted(X509Certificate[] certs, String alg) throws CertificateException {
-        if (isTrusted(certs)) {
+        CertificateException trustFailure;
+        try {
+            getDelegateTrustManager().checkServerTrusted(certs, alg);
             return;
+        } catch (CertificateException e) {
+            trustFailure = e;
+        } catch (RuntimeException e) {
+            // The JDK's own X509TrustManager implementation can throw an unchecked exception
+            // (e.g. when there are no trust anchors at all) instead of a CertificateException.
+            trustFailure = new CertificateException(e);
         }
         if (!"true".equals(UtilProperties.getPropertyValue("certificate", "server.all-trusted", "true"))) {
-            throw new CertificateException("No trusted certificate found");
+            throw trustFailure;
         }
     }
 
@@ -123,28 +143,31 @@ public class MultiTrustManager implements X509TrustManager {
     }
 
     /**
-     * Is trusted boolean.
-     * @param cert the cert
-     * @return the boolean
+     * Builds a standard {@link X509TrustManager} backed by a {@link TrustManagerFactory}, initialized
+     * with a KeyStore containing every trust anchor currently returned by {@link #getAcceptedIssuers()}
+     * (i.e. the system truststore plus every configured component truststore, unchanged). Delegating to
+     * this real trust manager gives genuine certificate path validation instead of a flat equality check.
+     * @return the delegate trust manager
      */
-    private boolean isTrusted(X509Certificate[] cert) {
-        if (cert != null) {
-            X509Certificate[] issuers = this.getAcceptedIssuers();
-            for (X509Certificate issuer : issuers) {
-                for (X509Certificate c : cert) {
-                    if (Debug.verboseOn()) {
-                        Debug.logVerbose("--- Checking cert: " + issuer.getSubjectX500Principal() + " vs " + c.getSubjectX500Principal(), MODULE);
-                    }
-                    if (issuer.equals(c)) {
-                        if (Debug.verboseOn()) {
-                            Debug.logVerbose("--- Found trusted cert: " + issuer.getSerialNumber().toString(16) + " : "
-                                    + issuer.getSubjectX500Principal(), MODULE);
-                        }
-                        return true;
-                    }
+    private X509TrustManager getDelegateTrustManager() throws CertificateException {
+        try {
+            KeyStore trustStore = KeyStore.getInstance(KeyStore.getDefaultType());
+            trustStore.load(null, null);
+            int i = 0;
+            for (X509Certificate issuer : getAcceptedIssuers()) {
+                trustStore.setCertificateEntry("trust-anchor-" + i++, issuer);
+            }
+
+            TrustManagerFactory tmf = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
+            tmf.init(trustStore);
+            for (TrustManager tm : tmf.getTrustManagers()) {
+                if (tm instanceof X509TrustManager) {
+                    return (X509TrustManager) tm;
                 }
             }
+            throw new CertificateException("No X509TrustManager available from TrustManagerFactory");
+        } catch (GeneralSecurityException | IOException e) {
+            throw new CertificateException(e);
         }
-        return false;
     }
 }

@@ -106,8 +106,6 @@ public final class Config {
         // set system properties
         System.setProperty("ofbiz.home", ofbizHome.toString());
         System.setProperty("java.awt.headless", getProperty(props, "java.awt.headless", "true"));
-        System.setProperty("derby.system.home", getProperty(props, "derby.system.home", "runtime/data/derby"));
-
         // set default locale and timezone
         Locale.setDefault(getDefaultLocale(props, "en"));
         TimeZone.setDefault(getDefaultTimeZone(props));
@@ -185,6 +183,7 @@ public final class Config {
         }
     }
 
+    @SuppressWarnings("deprecation")
     private static Locale getDefaultLocale(Properties props, String defaultLocale) {
         String localeString = getProperty(props, "ofbiz.locale.default", defaultLocale);
         String locales[] = localeString.split("_");

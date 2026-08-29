@@ -27,6 +27,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletRequest;
@@ -41,6 +42,9 @@ import org.apache.ofbiz.base.util.UtilXml.LocalResolver;
 import org.apache.ofbiz.base.util.cache.UtilCache;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.DelegatorFactory;
+import org.apache.ofbiz.entity.GenericEntityException;
+import org.apache.ofbiz.entity.GenericValue;
+import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.security.Security;
 import org.apache.ofbiz.security.SecurityConfigurationException;
 import org.apache.ofbiz.security.SecurityFactory;
@@ -68,6 +72,8 @@ public final class WebAppUtil {
     public static final String CONTROL_MOUNT_POINT = "control";
     private static final Path WEB_APP_FILE_NAME = Paths.get("WEB-INF", "web.xml");
     private static final UtilCache<Path, WebXml> WEB_XML_CACHE = UtilCache.createUtilCache("webapp.WebXml");
+    // matches the "id" field type's VARCHAR(20) column width used by the Tenant entity's primary key
+    private static final Pattern TENANT_ID_PATTERN = Pattern.compile("[A-Za-z0-9_-]{1,20}");
 
     /**
      * Returns the control servlet path. The path consists of the web application's mount-point
@@ -159,8 +165,18 @@ public final class WebAppUtil {
             Debug.logWarning(ioe, MODULE);
         }
         if (requestBodyMap != null) {
+            ServletContext servletContext = request.getServletContext();
             Set<String> parameterNames = requestBodyMap.keySet();
             for (String parameterName: parameterNames) {
+                // A request body is anonymous, attacker-controlled input. Never let it shadow a name
+                // the webapp already exposes as a trusted, application-owned ServletContext attribute
+                // (e.g. mainDecoratorLocation, set from web.xml at filter init) - doing so let an
+                // unauthenticated JSON request redirect trusted widget/screen locations.
+                if (servletContext.getAttribute(parameterName) != null) {
+                    Debug.logWarning("Ignoring request body attribute [%s]: it shadows an existing"
+                            + " ServletContext attribute of the same name", MODULE, parameterName);
+                    continue;
+                }
                 request.setAttribute(parameterName, requestBodyMap.get(parameterName));
             }
         }
@@ -210,6 +226,27 @@ public final class WebAppUtil {
             }
         }
         return delegator;
+    }
+
+    /**
+     * Returns true if the given tenant ID belongs to an enabled <code>Tenant</code> record, as looked up through
+     * the given base (non-tenant-specific) delegator. Callers must check this before building a per-tenant
+     * delegator name from request-supplied input, since {@link DelegatorFactory} caches every delegator name it is
+     * asked for, including ones that fail to resolve.
+     * @param baseDelegator
+     * @param tenantId
+     */
+    public static boolean isValidTenantId(Delegator baseDelegator, String tenantId) {
+        if (UtilValidate.isEmpty(tenantId) || !TENANT_ID_PATTERN.matcher(tenantId).matches()) {
+            return false;
+        }
+        try {
+            GenericValue tenant = EntityQuery.use(baseDelegator).from("Tenant").where("tenantId", tenantId).queryOne();
+            return tenant != null && !"Y".equals(tenant.getString("disabled"));
+        } catch (GenericEntityException e) {
+            Debug.logError(e, "Error looking up tenant ID " + tenantId, MODULE);
+            return false;
+        }
     }
 
     public static Security getSecurity(ServletContext servletContext) {

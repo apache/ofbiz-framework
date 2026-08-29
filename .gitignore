@@ -1,5 +1,6 @@
 bin/
 build/
+gradle/wrapper/gradle-wrapper.jar
 applications/*/build
 framework/*/build
 /plugins/
@@ -11,8 +12,9 @@ runtime/logs/access_log.*
 runtime/logs/*.log*
 runtime/logs/*.html*
 runtime/logs/test-results/*
+runtime/logs/test-reports-history/
 runtime/logs/birt
-runtime/data/derby/*
+runtime/data/h2/*
 runtime/data/utilcache.*
 runtime/catalina/work/*
 runtime/tempfiles/*

@@ -22,9 +22,9 @@ import static org.hamcrest.CoreMatchers.both;
 import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
-import static org.junit.Assert.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -39,23 +39,24 @@ import java.util.Map;
 
 import jakarta.servlet.http.HttpServletRequest;
 
+import org.apache.ofbiz.base.util.UtilXml;
 import org.apache.ofbiz.base.util.collections.MultivaluedMapContext;
 import org.apache.ofbiz.webapp.control.ConfigXMLReader.ControllerConfig;
 import org.apache.ofbiz.webapp.control.ConfigXMLReader.RequestMap;
 import org.apache.ofbiz.webapp.control.ConfigXMLReader.ViewMap;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.w3c.dom.Element;
 
 public class RequestHandlerTests {
-    public static class ResolveURITests {
+    public static final class ResolveURITests {
         private MultivaluedMapContext<String, RequestMap> reqMaps;
         private Map<String, ViewMap> viewMaps;
         private HttpServletRequest req;
         private Element dummyElement;
         private ControllerConfig ccfg;
 
-        @Before
+        @BeforeEach
         public void setUp() {
             ccfg = mock(ControllerConfig.class);
             reqMaps = new MultivaluedMapContext<>();
@@ -219,13 +220,43 @@ public class RequestHandlerTests {
             when(req.getPathInfo()).thenReturn("/baz");
             assertTrue(RequestHandler.resolveURI(ccfg, req).isEmpty());
         }
+
+        /**
+         * A view suffix must not let an anonymous request to an unrelated, unauthenticated
+         * request map (here "publicRequest") render a view that is only ever handed out as
+         * the response of an authenticated request map (here "protectedRequest") -
+         * path-suffix view substitution authorization bypass.
+         */
+        @Test
+        public void resolveURIOverrideViewAuth() throws Exception {
+            Element publicElement = UtilXml.readXmlDocument(
+                    "<request-map uri=\"publicRequest\">"
+                    + "<security https=\"true\" auth=\"false\"/>"
+                    + "<response name=\"success\" type=\"view\" value=\"publicView\"/>"
+                    + "</request-map>").getDocumentElement();
+            RequestMap publicRequest = new RequestMap(publicElement);
+
+            Element protectedElement = UtilXml.readXmlDocument(
+                    "<request-map uri=\"protectedRequest\">"
+                    + "<security https=\"true\" auth=\"true\"/>"
+                    + "<response name=\"success\" type=\"view\" value=\"protectedView\"/>"
+                    + "</request-map>").getDocumentElement();
+            RequestMap protectedRequest = new RequestMap(protectedElement);
+
+            reqMaps.putSingle("publicRequest", publicRequest);
+            reqMaps.putSingle("protectedRequest", protectedRequest);
+
+            assertTrue(RequestHandler.overrideViewRequiresAuth(ccfg, "protectedView"));
+            assertFalse(RequestHandler.overrideViewRequiresAuth(ccfg, "publicView"));
+            assertFalse(RequestHandler.overrideViewRequiresAuth(ccfg, null));
+        }
     }
 
-    public static class ResolveMethodTests {
+    public static final class ResolveMethodTests {
         private Element dummyElement;
         private Collection<RequestMap> rmaps;
 
-        @Before
+        @BeforeEach
         public void setUp() {
             dummyElement = mock(Element.class);
             rmaps = new ArrayList<>();
@@ -262,10 +293,10 @@ public class RequestHandlerTests {
         }
     }
 
-    public static class CheckCertificatesTests {
+    public static final class CheckCertificatesTests {
         private HttpServletRequest req;
 
-        @Before
+        @BeforeEach
         public void setUp() {
             req = mock(HttpServletRequest.class);
             when(req.getAttribute(anyString())).thenReturn(null);

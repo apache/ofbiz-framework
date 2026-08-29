@@ -37,6 +37,7 @@ import java.net.UnknownHostException;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -64,7 +65,9 @@ import org.apache.ofbiz.base.location.FlexibleLocation;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.FileUtil;
 import org.apache.ofbiz.base.util.GeneralException;
+import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilCodec;
+import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilIO;
@@ -86,6 +89,7 @@ import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
+import org.apache.ofbiz.security.SecurityUtil;
 import org.apache.ofbiz.service.ServiceUtil;
 import org.apache.ofbiz.widget.model.FormFactory;
 import org.apache.ofbiz.widget.model.ModelForm;
@@ -472,83 +476,25 @@ public class DataResourceWorker implements org.apache.ofbiz.widget.content.DataR
     }
 
     /**
-     * Checks that the given file is within one of the directories listed in
-     * {@code content.data.local.file.allowed.paths} (security.properties).
-     * Use {@code ${ofbiz.home}} as a portable placeholder for the OFBiz home directory.
-     */
-    private static void checkLocalFileAllowList(File file) throws GeneralException {
-        try {
-            String canonicalFilePath = file.getCanonicalPath();
-            String ofbizHome = System.getProperty("ofbiz.home");
-            String allowedPathsStr = UtilProperties.getPropertyValue("security",
-                    "content.data.local.file.allowed.paths", "${ofbiz.home}");
-            if (UtilValidate.isNotEmpty(allowedPathsStr)) {
-                boolean inAllowedPath = false;
-                for (String allowedPath : allowedPathsStr.split(",")) {
-                    allowedPath = allowedPath.trim().replace("${ofbiz.home}", ofbizHome);
-                    if (UtilValidate.isEmpty(allowedPath)) {
-                        continue;
-                    }
-                    String canonicalAllowedDir = new File(allowedPath).getCanonicalPath();
-                    if (canonicalFilePath.startsWith(canonicalAllowedDir + File.separator)
-                            || canonicalFilePath.equals(canonicalAllowedDir)) {
-                        inAllowedPath = true;
-                        break;
-                    }
-                }
-                if (!inAllowedPath) {
-                    throw new GeneralException("Access to file denied: path is not within an allowed directory");
-                }
-            }
-        } catch (IOException e) {
-            throw new GeneralException("Unable to validate file path: " + e.getMessage());
-        }
-    }
-
-    /**
-     * Checks that the given file is within the OFBiz home directory and within one of the
-     * subdirectories listed in {@code content.data.ofbiz.file.allowed.paths} (security.properties).
-     */
-    private static void checkOfbizFileAllowList(File file) throws GeneralException {
-        try {
-            String canonicalHome = new File(System.getProperty("ofbiz.home")).getCanonicalPath();
-            String canonicalFilePath = file.getCanonicalPath();
-            if (!canonicalFilePath.startsWith(canonicalHome + File.separator)) {
-                throw new GeneralException("Access to file denied: path resolves outside of the OFBiz home directory");
-            }
-            String allowedPathsStr = UtilProperties.getPropertyValue("security",
-                    "content.data.ofbiz.file.allowed.paths", "applications/,themes/,plugins/,runtime/");
-            if (UtilValidate.isNotEmpty(allowedPathsStr)) {
-                boolean inAllowedPath = false;
-                for (String relPath : allowedPathsStr.split(",")) {
-                    relPath = relPath.trim().replaceAll("^/+", "");
-                    if (UtilValidate.isEmpty(relPath)) {
-                        continue;
-                    }
-                    String canonicalAllowedDir = new File(canonicalHome, relPath).getCanonicalPath();
-                    if (canonicalFilePath.startsWith(canonicalAllowedDir + File.separator)
-                            || canonicalFilePath.equals(canonicalAllowedDir)) {
-                        inAllowedPath = true;
-                        break;
-                    }
-                }
-                if (!inAllowedPath) {
-                    throw new GeneralException("Access to file denied: path is not within an allowed directory");
-                }
-            }
-        } catch (IOException e) {
-            throw new GeneralException("Unable to validate file path: " + e.getMessage());
-        }
-    }
-
-    /**
      * Checks that the given file is within the provided context root directory.
+     * Uses a dual-check strategy to support EFS/Docker mount points:
+     * 1. Canonical paths (resolves symlinks on both sides) — works for non-mounted paths.
+     * 2. Normalized absolute paths (collapses ".." without following symlinks) — fallback for
+     *    when contextRoot or a subdirectory inside it is a mount point, causing canonical paths
+     *    to diverge. Path traversal via ".." is still blocked by the normalization step.
      */
-    private static void checkContextFileBoundary(File file, String contextRoot) throws GeneralException {
+    static void checkContextFileBoundary(File file, String contextRoot) throws GeneralException {
         try {
             String canonicalAllowed = new File(contextRoot).getCanonicalPath();
             String canonicalFilePath = file.getCanonicalPath();
-            if (!canonicalFilePath.startsWith(canonicalAllowed + File.separator)) {
+            boolean passesCanonical = canonicalFilePath.startsWith(canonicalAllowed + File.separator)
+                    || canonicalFilePath.equals(canonicalAllowed);
+
+            Path normalizedAllowed = Path.of(contextRoot).toAbsolutePath().normalize();
+            Path normalizedFilePath = file.toPath().toAbsolutePath().normalize();
+            boolean passesNormalized = normalizedFilePath.startsWith(normalizedAllowed);
+
+            if (!passesCanonical && !passesNormalized) {
                 throw new GeneralException("Access to file denied: path resolves outside of the allowed directory");
             }
         } catch (IOException e) {
@@ -695,7 +641,7 @@ public class DataResourceWorker implements org.apache.ofbiz.widget.content.DataR
             if (!file.isAbsolute()) {
                 throw new GeneralException("File (" + objectInfo + ") is not absolute");
             }
-            checkLocalFileAllowList(file);
+            SecurityUtil.checkLocalFileAllowList(file);
         } else if ("OFBIZ_FILE".equals(dataResourceTypeId) || "OFBIZ_FILE_BIN".equals(dataResourceTypeId)) {
             String prefix = System.getProperty("ofbiz.home");
 
@@ -707,7 +653,7 @@ public class DataResourceWorker implements org.apache.ofbiz.widget.content.DataR
             if (!file.exists()) {
                 throw new FileNotFoundException("No file found: " + (prefix + sep + objectInfo));
             }
-            checkOfbizFileAllowList(file);
+            SecurityUtil.checkOfbizFileAllowList(file);
         } else if ("CONTEXT_FILE".equals(dataResourceTypeId) || "CONTEXT_FILE_BIN".equals(dataResourceTypeId)) {
             if (UtilValidate.isEmpty(contextRoot)) {
                 throw new GeneralException("Cannot find CONTEXT_FILE with an empty context root!");
@@ -718,10 +664,10 @@ public class DataResourceWorker implements org.apache.ofbiz.widget.content.DataR
                 sep = "/";
             }
             file = FileUtil.getFile(contextRoot + sep + objectInfo);
+            checkContextFileBoundary(file, contextRoot);
             if (!file.exists()) {
                 throw new FileNotFoundException("No file found: " + (contextRoot + sep + objectInfo));
             }
-            checkContextFileBoundary(file, contextRoot);
         }
 
         return file;
@@ -939,8 +885,6 @@ public class DataResourceWorker implements org.apache.ofbiz.widget.content.DataR
 
             // FTL template
             if ("FTL".equals(dataTemplateTypeId)) {
-                throw new GeneralException("Error rendering template: FTL template type is no longer supported for data resources.");
-                /*
                 try {
                     // get the template data for rendering
                     String templateText = getDataResourceText(dataResource, targetMimeTypeId, locale, templateContext, delegator, cache);
@@ -950,7 +894,7 @@ public class DataResourceWorker implements org.apache.ofbiz.widget.content.DataR
                         StringBuffer newTemplateText = new StringBuffer(templateText);
                         String webAnalyticsCode = "<script type=\"text/javascript\">";
                         for (GenericValue webAnalytic : webAnalytics) {
-                            StringWrapper wrapString = StringUtil.wrapString((String) webAnalytic.get("webAnalyticsCode"));
+                            StringUtil.StringWrapper wrapString = StringUtil.wrapString((String) webAnalytic.get("webAnalyticsCode"));
                             webAnalyticsCode += wrapString.toString();
                         }
                         webAnalyticsCode += "</script>";
@@ -960,24 +904,18 @@ public class DataResourceWorker implements org.apache.ofbiz.widget.content.DataR
 
                     // render the FTL template
                     boolean useTemplateCache = cache && !UtilProperties.getPropertyAsBoolean("content", "disable.ftl.template.cache", false);
-                    //Do not use dataResource.lastUpdatedStamp for dataResource template caching as it may use ftl file or electronicText
-                    // If dataResource using ftl file use nowTimestamp to avoid freemarker caching
-                    Timestamp lastUpdatedStamp = UtilDateTime.nowTimestamp();
-                    //If dataResource is type of ELECTRONIC_TEXT then only use the lastUpdatedStamp of electronicText entity for freemarker caching
-                    if ("ELECTRONIC_TEXT".equals(dataResource.getString("dataResourceTypeId"))) {
-                        GenericValue electronicText = dataResource.getRelatedOne("ElectronicText", true);
-                        if (electronicText != null) {
-                            lastUpdatedStamp = electronicText.getTimestamp("lastUpdatedStamp");
-                        }
+                    if ("ELECTRONIC_TEXT".equals(dataResource.getString("dataResourceTypeId"))
+                            || "SHORT_TEXT".equalsIgnoreCase(dataResource.getString("dataResourceTypeId"))
+                            || "LINK".equalsIgnoreCase(dataResource.getString("dataResourceTypeId"))) {
+                        throw new GeneralException("Error rendering template: FreeMarker templates are no longer supported for "
+                                + dataResource.getString("dataResourceTypeId") + " data resources.");
                     }
 
                     FreeMarkerWorker.renderTemplateFromString("delegator:" + delegator.getDelegatorName() + ":DataResource:"
-                            + dataResourceId, templateText, templateContext, out, lastUpdatedStamp.getTime(), useTemplateCache);
+                            + dataResourceId, templateText, templateContext, out, UtilDateTime.nowTimestamp().getTime(), useTemplateCache);
                 } catch (TemplateException e) {
                     throw new GeneralException("Error rendering FTL template", e);
                 }
-                */
-
             } else if ("XSLT".equals(dataTemplateTypeId)) {
                 File targetFileLocation = new File(System.getProperty("ofbiz.home") + "/runtime/tempfiles/docbook.css");
                 String defaultVisualThemeId = EntityUtilProperties.getPropertyValue("general", "VISUAL_THEME", delegator);
@@ -1155,12 +1093,34 @@ public class DataResourceWorker implements org.apache.ofbiz.widget.content.DataR
             URL url = FlexibleLocation.resolveLocation(dataResource.getString("objectInfo"));
 
             if (url.getHost() != null) { // is absolute
-                int c;
-                try (InputStream in = url.openStream(); StringWriter sw = new StringWriter()) {
-                    while ((c = in.read()) != -1) {
-                        sw.write(c);
+                checkUrlResourceAllowed(url);
+                int connectTimeout = (int) UtilProperties.getPropertyNumber("security",
+                        "content.data.url.resource.connect.timeout", 10000.0);
+                int readTimeout = (int) UtilProperties.getPropertyNumber("security",
+                        "content.data.url.resource.read.timeout", 30000.0);
+                long maxResponseSize = (long) UtilProperties.getPropertyNumber("security",
+                        "content.data.url.resource.max.response.size", (double) (10L * 1024 * 1024));
+                URLConnection con = url.openConnection();
+                con.setConnectTimeout(connectTimeout);
+                con.setReadTimeout(readTimeout);
+                // Disable automatic redirect-following to prevent SSRF bypass via redirect to private addresses
+                if (con instanceof HttpURLConnection) ((HttpURLConnection) con).setInstanceFollowRedirects(false);
+                con.connect();
+                // Reject redirects outright; we cannot safely re-validate an arbitrary Location header
+                if (con instanceof HttpURLConnection) {
+                    HttpURLConnection httpCon = (HttpURLConnection) con;
+                    int responseCode = httpCon.getResponseCode();
+                    if (responseCode >= 300 && responseCode < 400) {
+                        httpCon.disconnect();
+                        throw new GeneralException("URL_RESOURCE request returned a redirect (" + responseCode
+                                + "); redirects are not followed for security reasons");
                     }
-                    text = sw.toString();
+                }
+                try (InputStream limitedIn = BoundedInputStream.builder()
+                        .setInputStream(con.getInputStream())
+                        .setMaxCount(maxResponseSize)
+                        .get()) {
+                    text = IOUtils.toString(limitedIn, StandardCharsets.UTF_8);
                 }
             } else {
                 String prefix = DataResourceWorker.buildRequestPrefix(delegator, locale, webSiteId, https);
@@ -1259,7 +1219,7 @@ public class DataResourceWorker implements org.apache.ofbiz.widget.content.DataR
             if (!file.exists()) {
                 throw new FileNotFoundException("No file found: " + file.getAbsolutePath());
             }
-            checkLocalFileAllowList(file);
+            SecurityUtil.checkLocalFileAllowList(file);
             try (InputStreamReader in = new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8)) {
                 UtilIO.copy(in, out);
             }
@@ -1273,7 +1233,7 @@ public class DataResourceWorker implements org.apache.ofbiz.widget.content.DataR
             if (!file.exists()) {
                 throw new FileNotFoundException("No file found: " + file.getAbsolutePath());
             }
-            checkOfbizFileAllowList(file);
+            SecurityUtil.checkOfbizFileAllowList(file);
             try (InputStreamReader in = new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8)) {
                 UtilIO.copy(in, out);
             }
@@ -1284,10 +1244,10 @@ public class DataResourceWorker implements org.apache.ofbiz.widget.content.DataR
                 sep = "/";
             }
             File file = FileUtil.getFile(prefix + sep + objectInfo);
+            checkContextFileBoundary(file, rootDir);
             if (!file.exists()) {
                 throw new FileNotFoundException("No file found: " + file.getAbsolutePath());
             }
-            checkContextFileBoundary(file, rootDir);
             try (InputStreamReader in = new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8)) {
                 if (Debug.infoOn()) {
                     String enc = in.getEncoding();

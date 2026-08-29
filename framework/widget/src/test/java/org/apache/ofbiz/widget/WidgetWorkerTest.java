@@ -18,25 +18,44 @@
  *******************************************************************************/
 package org.apache.ofbiz.widget;
 
-import mockit.Mock;
-import mockit.MockUp;
 import org.apache.ofbiz.security.CsrfUtil;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.MockedStatic;
 
 import jakarta.servlet.http.HttpServletRequest;
 import java.net.URI;
 import java.util.HashMap;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasProperty;
+import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.nullValue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.CALLS_REAL_METHODS;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.mockStatic;
+import static org.mockito.Mockito.when;
 
-public class WidgetWorkerTest {
+public final class WidgetWorkerTest {
 
-    @Before
+    private MockedStatic<CsrfUtil> csrfUtilMock;
+
+    @BeforeEach
     public void setupMockups() {
-        new RequestHandlerMockUp();
+        // CALLS_REAL_METHODS: matches JMockit's MockUp<CsrfUtil>, which only shadowed the one
+        // declared @Mock method (generateTokenForNonAjax) and left every other CsrfUtil static
+        // method real - the plain mockStatic() default would instead null out all of them.
+        csrfUtilMock = mockStatic(CsrfUtil.class, CALLS_REAL_METHODS);
+        csrfUtilMock.when(() -> CsrfUtil.generateTokenForNonAjax(any(HttpServletRequest.class), any())).thenReturn(null);
+    }
+
+    @AfterEach
+    public void tearDownMockups() {
+        csrfUtilMock.close();
     }
 
     @Test
@@ -59,10 +78,39 @@ public class WidgetWorkerTest {
         assertThat(withEncodedSpaces, hasProperty("schemeSpecificPart", equalTo("set_value('system', 'system', '')")));
     }
 
-    class RequestHandlerMockUp extends MockUp<CsrfUtil> {
-        @Mock
-        public String generateTokenForNonAjax(HttpServletRequest request, String pathOrRequestUri) {
-            return null;
-        }
+    @Test
+    public void interAppTargetKeepsExternalLoginKeyForARelativeControlPath() {
+        HttpServletRequest request = mock(HttpServletRequest.class);
+        when(request.getAttribute("externalLoginKey")).thenReturn("ELsome-key");
+
+        final URI uri = WidgetWorker.buildHyperlinkUri(
+                "/marketing/control/EditMarketingCampaign", "inter-app", new HashMap<>(), null,
+                false, true, true, request, null);
+
+        assertThat(uri.getQuery(), containsString("externalLoginKey=ELsome-key"));
+    }
+
+    @Test
+    public void interAppTargetDropsExternalLoginKeyForAnAbsoluteUrl() {
+        HttpServletRequest request = mock(HttpServletRequest.class);
+        when(request.getAttribute("externalLoginKey")).thenReturn("ELsome-key");
+
+        final URI uri = WidgetWorker.buildHyperlinkUri(
+                "https://attacker.example/collect", "inter-app", new HashMap<>(), null,
+                false, true, true, request, null);
+
+        assertThat(uri.getQuery(), not(containsString("externalLoginKey")));
+    }
+
+    @Test
+    public void interAppTargetDropsExternalLoginKeyForAProtocolRelativeUrl() {
+        HttpServletRequest request = mock(HttpServletRequest.class);
+        when(request.getAttribute("externalLoginKey")).thenReturn("ELsome-key");
+
+        final URI uri = WidgetWorker.buildHyperlinkUri(
+                "//attacker.example/collect", "inter-app", new HashMap<>(), null,
+                false, true, true, request, null);
+
+        assertThat(uri.getQuery(), nullValue());
     }
 }

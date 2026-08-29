@@ -28,7 +28,8 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasEntry;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
 import java.sql.Timestamp;
@@ -43,14 +44,14 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.ws.rs.HttpMethod;
 
 import org.hamcrest.Matchers;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-public class UtilHttpTest {
+public final class UtilHttpTest {
     private HttpServletRequest req;
 
-    @Before
+    @BeforeEach
     public void setup() {
         req = Mockito.mock(HttpServletRequest.class);
     }
@@ -155,6 +156,19 @@ public class UtilHttpTest {
     }
 
     @Test
+    public void getRelativeRequestPathIncludesQueryString() {
+        when(req.getRequestURI()).thenReturn("/rest/items");
+        when(req.getQueryString()).thenReturn("pageIndex=1&pageSize=1");
+
+        assertThat(UtilHttp.getRelativeRequestPath(req), equalTo("/rest/items?pageIndex=1&pageSize=1"));
+    }
+
+    @Test
+    public void getRelativeRequestPathReturnsNullWhenRequestMissing() {
+        assertNull(UtilHttp.getRelativeRequestPath(null));
+    }
+
+    @Test
     public void ampmMakeParamValueFromComposite() {
         when(req.getParameter("meetingDate_c_compositeType")).thenReturn("Timestamp");
 
@@ -204,8 +218,8 @@ public class UtilHttpTest {
         assertThat(UtilHttp.makeParamListWithSuffix(req, extra, "_suf", "b"), containsInAnyOrder("1", "3"));
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void missingRequestMakeParamListWithSuffix() {
-        UtilHttp.makeParamListWithSuffix(null, "suffix", "prefix");
+        assertThrows(NullPointerException.class, () -> UtilHttp.makeParamListWithSuffix(null, "suffix", "prefix"));
     }
 }

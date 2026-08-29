@@ -1012,6 +1012,9 @@ under the License.
         <field name="defaultWeightUomId" type="id"></field>
         <field name="geoPointId" type="id"></field>
         <field name="facilityLevel" type="numeric"><description>This field will define the level of facility.</description></field>
+        <field name="autoReservePrun" type="indicator"><description>Flag to control if automated inventory reservation should be performed when a production run reaches the printed/approved status.</description></field>
+        <field name="allowInventoryReallocation" type="indicator"><description>Flag to control if high-priority Production Runs can reallocate stock from others.</description></field>
+        <field name="reconcilePrunBackorders" type="indicator"><description>Flag to enable automated settlement of production run backorders. If enabled (Y), the system will automatically satisfy backorders both in real-time (upon inventory receipt via SECA) and during the nightly scheduled job.</description></field>
         <prim-key field="facilityId"/>
         <relation type="one" fk-name="FACILITY_FCTYP" rel-entity-name="FacilityType">
             <key-map field-name="facilityTypeId"/>

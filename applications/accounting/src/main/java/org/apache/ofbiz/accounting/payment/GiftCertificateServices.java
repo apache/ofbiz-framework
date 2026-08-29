@@ -813,7 +813,12 @@ public class GiftCertificateServices {
                 }
                 if (question != null) {
                     String desc = question.getString("description");
-                    String ans = answer.getString("textResponse");  // only support text response types for now
+                    String ans;
+                    if ("BOOLEAN".equals(question.getString("surveyQuestionTypeId"))) {
+                        ans = "Y".equalsIgnoreCase(answer.getString("booleanResponse")) ? "true" : "false";
+                    } else {
+                        ans = answer.getString("textResponse");  // only support text response types otherwise
+                    }
                     answerMap.put(desc, ans);
                 }
             }
@@ -892,7 +897,8 @@ public class GiftCertificateServices {
                 Debug.logError(e, "Unable to get product store email setting for gift card purchase", MODULE);
             }
             if (productStoreEmail == null) {
-                Debug.logError("No gift card purchase email setting found for this store; cannot send gift card information", MODULE);
+                Debug.logError("No ProductStoreEmailSetting for productStoreId [" + productStoreId + "] emailType [" + emailType
+                        + "]; gift card activation email for orderId [" + orderId + "] was NOT sent", MODULE);
             } else {
                 answerMap.put("locale", locale);
 

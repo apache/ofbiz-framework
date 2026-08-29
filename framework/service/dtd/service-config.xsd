@@ -168,6 +168,33 @@ under the License.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
+            <xs:attribute name="lease-refresh-millis" type="xs:nonNegativeInteger">
+                <xs:annotation>
+                    <xs:documentation>
+                        Refresh interval in milliseconds. Defaults to "300000" (5 minutes)
+                        At each interval, when the job poller loops,
+                        all running jobs will update their leaseUpdatedStamp field with now.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="lease-validation-millis" type="xs:nonNegativeInteger">
+                <xs:annotation>
+                    <xs:documentation>
+                        Validation interval in milliseconds. Defaults to "480000" (8 minutes)
+                        At each interval, when the job poller loops,
+                        the job manager checks running jobs to detect potential stuck job.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="lease-expiry-millis" type="xs:nonNegativeInteger">
+                <xs:annotation>
+                    <xs:documentation>
+                        Expire interval in milliseconds. Defaults to "600000" (10 minutes)
+                        During lease validation process, if a job is stuck longer than lease-expiry-millis duration,
+                        (now - job.leaseUpdatedStamp > lease-expiry-millis) it'll be reset.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
 

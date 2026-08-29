@@ -68,13 +68,15 @@ under the License.
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/node_modules/daterangepicker/daterangepicker.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/node_modules/trumbowyg/dist/trumbowyg.min.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/node_modules/trumbowyg/dist/plugins/indent/trumbowyg.indent.min.js"/>
+        <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/node_modules/jgrowl/jquery.jgrowl.min.js"/>
+        <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/node_modules/readmore-js/readmore.min.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/util/OfbizUtil.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/util/fieldlookup.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/plugins/date/date.timezone-min.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/util/miscAjaxFunctions.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/util/selectMultipleRelatedValues.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/util/util.js"/>
-        <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/jquery/ui/js/jquery.cookie-1.4.0.js"/>
+        <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/node_modules/js-cookie/dist/js.cookie.min.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/plugins/date/FromThruDateCheck.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/util/application.js"/>
         <!--Css styles: don't load them since they differ depending on theme -->
@@ -128,14 +130,15 @@ under the License.
             <screen name="LookupDecorator"/>
             <screen name="ShortcutDecorator"/>
             <screen name="SimpleDecorator"/>
-            <screen name="EmbeddedDecorator"/>
             <screen name="FoReportDecorator"/>
             <screen name="GlobalFoDecorator"/>
             <screen name="LookupHelpDecorator" location="component://common-theme/widget/HelpScreens.xml"/>
         </root-decorator>
         <subtype-decorator default-location="component://common-theme/widget/CommonScreens.xml">
-            <screen name="FindScreenDecorator"/>
             <screen name="DetailScreenDecorator"/>
+            <screen name="FindScreenDecorator"/>
+            <screen name="FilteredListDecorator"/>
+            <screen name="EmbeddedDecorator"/>
         </subtype-decorator>
         <generic-screen default-location="component://common-theme/widget/CommonScreens.xml">
             <screen name="geoChart"/>
@@ -153,6 +156,7 @@ under the License.
             <screen name="ajaxNotLoggedIn"/>
             <screen name="requirePasswordChange"/>
             <screen name="forgotPassword"/>
+            <screen name="userprofile"/>
             <screen name="GetUiLabels"/>
             <screen name="help"/>
             <screen name="viewBlocked"/>

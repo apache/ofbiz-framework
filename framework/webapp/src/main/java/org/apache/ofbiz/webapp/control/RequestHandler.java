@@ -197,6 +197,39 @@ public final class RequestHandler {
         return Collections.emptyList();
     }
 
+    /**
+     * Determines whether {@code overrideViewUri} must not be reachable anonymously
+     * because it is the declared view response of at least one authenticated request map.
+     * <p>{@link #resolveURI} lets a client-supplied path suffix substitute the view
+     * rendered by a matched request map (see {@link #getOverrideViewUri}), and the
+     * substituted view is later authorized only against its own, often-unset,
+     * {@code ViewMap.auth} flag. Without this check, an anonymous request to any
+     * unauthenticated request map could render a view that is otherwise only ever
+     * reached through an authenticated request map, bypassing that request map's
+     * {@code security auth="true"} declaration entirely.
+     * @param ccfg the controller containing the current configuration
+     * @param overrideViewUri the view suffix taken from the request path, may be {@code null}
+     * @return true if {@code overrideViewUri} must not be rendered anonymously
+     */
+    static boolean overrideViewRequiresAuth(ControllerConfig ccfg, String overrideViewUri) {
+        if (overrideViewUri == null) {
+            return false;
+        }
+        for (List<RequestMap> maps : ccfg.getRequestMapMultiMap().values()) {
+            for (RequestMap requestMap : maps) {
+                if (!requestMap.isSecurityAuth()) {
+                    continue;
+                }
+                for (ConfigXMLReader.RequestResponse response : requestMap.getRequestResponseMap().values()) {
+                    if ("view".equals(response.getType()) && overrideViewUri.equals(response.getValue())) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
     public static String getRequestUri(String path) {
         List<String> pathInfo = StringUtil.split(path, "/");
         if (UtilValidate.isEmpty(pathInfo)) {
@@ -606,7 +639,10 @@ public final class RequestHandler {
         }
 
         // Perform security check.
-        if (requestMap.isSecurityAuth()) {
+        // A view-suffix override (see resolveURI/getOverrideViewUri) must not let an anonymous
+        // request map render a view that is otherwise only ever handed out by an authenticated
+        // request map: treat that case as if this request map itself required auth.
+        if (requestMap.isSecurityAuth() || overrideViewRequiresAuth(ccfg, overrideViewUri)) {
             // Invoke the security handler
             // catch exceptions and throw RequestHandlerException if failed.
             if (Debug.verboseOn()) {
@@ -968,8 +1004,13 @@ public final class RequestHandler {
                 if (urlParams != null) {
                     for (Map.Entry<String, Object> urlParamEntry : urlParams.entrySet()) {
                         String key = urlParamEntry.getKey();
-                        // Don't overwrite messages coming from the current event
-                        if (!("_EVENT_MESSAGE_".equals(key) || "_ERROR_MESSAGE_".equals(key)
+                        // Filter out event messages and dynamic resource/location override parameters
+                        if (key != null && !key.startsWith("_")
+                                && !key.endsWith("Location")
+                                && !key.endsWith("Screen")
+                                && !key.endsWith("Template")
+                                && !key.endsWith("Uri")
+                                && !("_EVENT_MESSAGE_".equals(key) || "_ERROR_MESSAGE_".equals(key)
                                 || "_EVENT_MESSAGE_LIST_".equals(key) || "_ERROR_MESSAGE_LIST_".equals(key))) {
                             request.setAttribute(key, urlParamEntry.getValue());
                         }
@@ -1177,20 +1218,48 @@ public final class RequestHandler {
         // add in the attributes as well so everything needed for the rendering context will be in place if/when we get back to this view
         paramMap.putAll(UtilHttp.getAttributeMap(req));
         UtilMisc.makeMapSerializable(paramMap);
-        // Used by lookups to keep the real view (request)
-        req.getSession().setAttribute("_LAST_VIEW_NAME_", paramMap.getOrDefault("_LAST_VIEW_NAME_", view));
-        req.getSession().setAttribute("_LAST_VIEW_PARAMS_", paramMap);
+
+        // Used by lookups to keep the real view (request); validate candidate last view against controller authorization policy
+        String candidateLastView = (String) paramMap.get("_LAST_VIEW_NAME_");
+        String safeLastView = view;
+        if (UtilValidate.isNotEmpty(candidateLastView) && candidateLastView.matches("[\\w\\-]+")) {
+            ConfigXMLReader.ControllerConfig cConfig = getControllerConfig();
+            if (cConfig != null) {
+                ConfigXMLReader.ViewMap candidateViewMap = cConfig.getViewMapMap().get(candidateLastView);
+                ConfigXMLReader.RequestMap candidateReqMap = cConfig.getRequestMapMap().get(candidateLastView);
+                if (candidateViewMap != null) {
+                    boolean requiresAuth = candidateViewMap.isSecurityAuth()
+                            || (candidateReqMap != null && candidateReqMap.isSecurityAuth());
+                    if (!requiresAuth || UtilValidate.isNotEmpty(userLogin)) {
+                        safeLastView = candidateLastView;
+                    } else {
+                        Debug.logWarning("Blocked unauthorized _LAST_VIEW_NAME_ attempt: [" + candidateLastView
+                                + "] for unauthenticated session " + showSessionId(req), MODULE);
+                    }
+                }
+            }
+        }
+        req.getSession().setAttribute("_LAST_VIEW_NAME_", safeLastView);
+
+        // Filter out sensitive dynamic location/template override parameters from persisted session params
+        Map<String, Object> sanitizedParamMap = new HashMap<>(paramMap);
+        sanitizedParamMap.keySet().removeIf(key -> key != null && (
+                key.endsWith("Location")
+                || key.endsWith("Screen")
+                || key.endsWith("Template")
+                || key.endsWith("Uri")));
+        req.getSession().setAttribute("_LAST_VIEW_PARAMS_", sanitizedParamMap);
 
         if ("SAVED".equals(saveName)) {
             //Debug.logInfo("======save current view: " + view);
             req.getSession().setAttribute("_SAVED_VIEW_NAME_", view);
-            req.getSession().setAttribute("_SAVED_VIEW_PARAMS_", paramMap);
+            req.getSession().setAttribute("_SAVED_VIEW_PARAMS_", sanitizedParamMap);
         }
 
         if ("HOME".equals(saveName)) {
             //Debug.logInfo("======save home view: " + view);
             req.getSession().setAttribute("_HOME_VIEW_NAME_", view);
-            req.getSession().setAttribute("_HOME_VIEW_PARAMS_", paramMap);
+            req.getSession().setAttribute("_HOME_VIEW_PARAMS_", sanitizedParamMap);
             // clear other saved views
             req.getSession().removeAttribute("_SAVED_VIEW_NAME_");
             req.getSession().removeAttribute("_SAVED_VIEW_PARAMS_");
@@ -1428,7 +1497,12 @@ public final class RequestHandler {
 
         //If required by webSite parameter, surcharge control path
         if (webSiteProps.getWebappPath() != null) {
-            String requestPath = request.getServletPath();
+            // Derive servlet path from the trusted _CONTROL_PATH_ request attribute (set by ControlServlet)
+            // rather than calling getServletPath() directly on the request, to avoid relying on user-influenced input.
+            String contextPath = request.getContextPath();
+            String requestPath = controlPath.startsWith(contextPath)
+                    ? controlPath.substring(contextPath.length())
+                    : controlPath;
             if (requestPath == null) requestPath = "";
             if (requestPath.lastIndexOf("/") > 0) {
                 if (requestPath.indexOf("/") == 0) {

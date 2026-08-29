@@ -61,4 +61,7 @@ under the License.
 
     <FixedAssetDepMethod depreciationCustomMethodId="STR_LINE_DEP_FORMULA" fixedAssetId="DEMO_PROD_EQUIPMT_1"/>
     <FixedAssetDepMethod depreciationCustomMethodId="DBL_DECL_DEP_FORMULA" fixedAssetId="DEMO_PROD_EQUIPMT_2"/>
+
+    <!-- Labor Cost Data -->
+    <RateAmount rateTypeId="FLC" rateCurrencyUomId="USD" periodTypeId="RATE_HOUR" workEffortId="_NA_" partyId="_NA_" emplPositionTypeId="_NA_" fromDate="2000-01-01 00:00:00.000" rateAmount="100.00"/>
 </entity-engine-xml>

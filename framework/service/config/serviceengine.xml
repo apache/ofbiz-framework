@@ -36,7 +36,10 @@ under the License.
                      min-threads="2"
                      max-threads="5"
                      poll-enabled="true"
-                     poll-db-millis="30000">
+                     poll-db-millis="30000"
+                     lease-refresh-millis="300000"
+                     lease-validation-millis="480000"
+                     lease-expiry-millis="600000">
             <run-from-pool name="pool"/>
         </thread-pool>
 
@@ -51,9 +54,9 @@ under the License.
         <!-- Engines that can be replaced by the generic script engine -->
         <engine name="groovy" class="org.apache.ofbiz.service.engine.GroovyEngine"/>
         <engine name="javascript" class="org.apache.ofbiz.service.engine.ScriptEngine"/>
+        <engine name="groovy-tracker" class="org.apache.ofbiz.service.engine.TrackedServiceEngine"/>
         <!--  -->
         <engine name="route" class="org.apache.ofbiz.service.engine.RouteEngine"/>
-        <!-- <engine name="http" class="org.apache.ofbiz.service.engine.HttpEngine"/> -->
         <engine name="jms" class="org.apache.ofbiz.service.jms.JmsServiceEngine"/>
         <engine name="rmi" class="org.apache.ofbiz.service.rmi.RmiServiceEngine"/>
         <!-- <engine name="soap" class="org.apache.ofbiz.service.engine.SOAPClientEngine"/> -->
@@ -74,7 +77,7 @@ under the License.
 
         <notification-group name="default.error.main">
             <notification subject="Service Error ${model.serviceName}"
-                          screen="component://content/widget/EmailScreens.xml#ServiceNotification"/>
+                          screen="component://common/widget/EmailScreens.xml#ServiceNotification"/>
             <notify type="from">ofbiz@test.com</notify>
             <notify type="to">error@test.com</notify>
         </notification-group>

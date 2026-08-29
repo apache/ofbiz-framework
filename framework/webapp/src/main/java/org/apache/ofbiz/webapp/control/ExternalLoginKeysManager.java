@@ -19,6 +19,7 @@
 package org.apache.ofbiz.webapp.control;
 
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -41,11 +42,64 @@ import org.apache.ofbiz.webapp.WebAppUtil;
 public class ExternalLoginKeysManager {
     private static final String MODULE = ExternalLoginKeysManager.class.getName();
     private static final String EXTERNAL_LOGIN_KEY_ATTR = "externalLoginKey";
-    // This Map is keyed by the randomly generated externalLoginKey and the value is a UserLogin GenericValue object
-    private static final Map<String, GenericValue> EXTERNAL_LOGIN_KEYS = new ConcurrentHashMap<>();
+    // How long a minted key remains redeemable. Bounds the window during which a leaked key
+    // (address bar, browser history, Referer header, proxy log) is worth anything to an attacker.
+    private static final long EXTERNAL_LOGIN_KEY_TTL_MILLIS = 2 * 60 * 1000;
+    // This Map is keyed by the randomly generated externalLoginKey and the value is the ticket
+    // describing who it authenticates as and until when. One render mints one key and embeds it
+    // in every cross-webapp link on that page (see getExternalLoginKey's request-attribute
+    // cache), so a ticket is redeemable once per distinct destination webapp -- see
+    // ExternalLoginTicket#redeemFor -- rather than once globally: that keeps the ordinary
+    // app-switcher workflow (open two different apps from the same page) working while still
+    // rejecting a second redemption against the same webapp.
+    private static final Map<String, ExternalLoginTicket> EXTERNAL_LOGIN_KEYS = new ConcurrentHashMap<>();
 
     // This variable is set to empty so we know need to read from the properties file.
     private static String isExternalLoginKeyEnabled = "";
+
+    /**
+     * A minted external login key, bound to the UserLogin it authenticates and to a deadline.
+     * Optionally bound to a target context path too, for mint sites that know which webapp the
+     * key is destined for; existing mint sites do not, so that field is null and the check is
+     * skipped for them.
+     */
+    private static final class ExternalLoginTicket {
+        private final GenericValue userLogin;
+        private final String targetContextPath;
+        private final long expiresAtMillis;
+        // Context paths this ticket has already been redeemed for. A single render shares one
+        // key across every cross-webapp link it emits, so the same key legitimately needs to
+        // authenticate into several different webapps; this set is what stops it authenticating
+        // into the *same* webapp twice, which is the actual replay this ticket must prevent.
+        private final Set<String> redeemedContextPaths = ConcurrentHashMap.newKeySet();
+
+        ExternalLoginTicket(GenericValue userLogin, String targetContextPath) {
+            this.userLogin = userLogin;
+            this.targetContextPath = targetContextPath;
+            this.expiresAtMillis = System.currentTimeMillis() + EXTERNAL_LOGIN_KEY_TTL_MILLIS;
+        }
+
+        GenericValue getUserLogin() {
+            return userLogin;
+        }
+
+        boolean isValidFor(HttpServletRequest request) {
+            if (System.currentTimeMillis() > expiresAtMillis) {
+                return false;
+            }
+            return targetContextPath == null || targetContextPath.equals(request.getServletContext().getContextPath());
+        }
+
+        /**
+         * Atomically marks this ticket as redeemed for the request's webapp.
+         * @param request the request presenting this ticket's key
+         * @return true the first time this webapp redeems this ticket, false on any repeat
+         *     (replay) for the same webapp
+         */
+        boolean redeemFor(HttpServletRequest request) {
+            return redeemedContextPaths.add(request.getServletContext().getContextPath());
+        }
+    }
 
     /**
      * Gets (and creates if necessary) an authentication token to be used for an external login parameter.
@@ -81,7 +135,7 @@ public class ExternalLoginKeysManager {
 
             request.setAttribute(EXTERNAL_LOGIN_KEY_ATTR, externalKey);
             session.setAttribute(EXTERNAL_LOGIN_KEY_ATTR, externalKey);
-            EXTERNAL_LOGIN_KEYS.put(externalKey, userLogin);
+            EXTERNAL_LOGIN_KEYS.put(externalKey, new ExternalLoginTicket(userLogin, null));
             return externalKey;
         }
     }
@@ -110,48 +164,61 @@ public class ExternalLoginKeysManager {
         String externalKey = request.getParameter(EXTERNAL_LOGIN_KEY_ATTR);
         if (externalKey == null) return "success";
 
-        GenericValue userLogin = EXTERNAL_LOGIN_KEYS.get(externalKey);
-        if (userLogin != null) {
-            //to check it's the right tenant
-            //in case username and password are the same in different tenants
-            Delegator delegator = (Delegator) request.getAttribute("delegator");
-            String oldDelegatorName = delegator.getDelegatorName();
-            if (!oldDelegatorName.equals(userLogin.getDelegator().getDelegatorName())) {
-                delegator = DelegatorFactory.getDelegator(userLogin.getDelegator().getDelegatorName());
-                LocalDispatcher dispatcher = WebAppUtil.makeWebappDispatcher(request.getServletContext(), delegator);
-                LoginWorker.setWebContextObjects(request, response, delegator, dispatcher);
-            }
-            // found userLogin, do the external login...
-
-            // if the user is already logged in and the login is different, logout the other user
-            HttpSession session = request.getSession();
-            GenericValue currentUserLogin = (GenericValue) session.getAttribute("userLogin");
-            if (currentUserLogin != null) {
-                if (currentUserLogin.getString("userLoginId").equals(userLogin.getString("userLoginId"))) {
-                    // same user, just make sure the autoUserLogin is set to the same and that the client cookie has the correct userLoginId
-                    LoginWorker.autoLoginSet(request, response);
-                    // Same for the SecuredLoginId cookie
-                    LoginWorker.createSecuredLoginIdCookie(request, response);
-                    return "success";
-                }
-
-                // logout the current user and login the new user...
-                LoginWorker.logout(request, response);
-                // ignore the return value; even if the operation failed we want to set the new UserLogin
-            }
-
-            // check userLogin base permission and if it is enabled
-            request.getSession().setAttribute("userLogin", userLogin);
-            userLogin = LoginWorker.checkLogout(request, response);
-
-            LoginWorker.doBasicLogin(userLogin, request, response);
-
-            // Create a secured cookie with the correct userLoginId
-            LoginWorker.createSecuredLoginIdCookie(request, response);
-
-        } else {
-            Debug.logWarning("Could not find userLogin for external login key: " + externalKey, MODULE);
+        // Look up without removing: the same key is shared across every cross-webapp link one
+        // render emits, so it must stay valid for whichever *other* destination webapps the
+        // user still hasn't visited yet. redeemFor(), below, is what actually stops replay --
+        // it rejects a second redemption against a webapp this exact ticket already logged into.
+        ExternalLoginTicket ticket = EXTERNAL_LOGIN_KEYS.get(externalKey);
+        if (ticket == null || !ticket.isValidFor(request) || !ticket.redeemFor(request)) {
+            Debug.logWarning("Could not find a valid, not-yet-redeemed userLogin for external login key: " + externalKey, MODULE);
+            // make sure the autoUserLogin is set to the same and that the client cookie has the correct userLoginId
+            LoginWorker.autoLoginSet(request, response);
+            return "success";
         }
+
+        GenericValue userLogin = ticket.getUserLogin();
+        //to check it's the right tenant
+        //in case username and password are the same in different tenants
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
+        String oldDelegatorName = delegator.getDelegatorName();
+        if (!oldDelegatorName.equals(userLogin.getDelegator().getDelegatorName())) {
+            delegator = DelegatorFactory.getDelegator(userLogin.getDelegator().getDelegatorName());
+            LocalDispatcher dispatcher = WebAppUtil.makeWebappDispatcher(request.getServletContext(), delegator);
+            LoginWorker.setWebContextObjects(request, response, delegator, dispatcher);
+        }
+        // found userLogin, do the external login...
+
+        // if the user is already logged in and the login is different, logout the other user
+        HttpSession session = request.getSession();
+        GenericValue currentUserLogin = (GenericValue) session.getAttribute("userLogin");
+        if (currentUserLogin != null) {
+            if (currentUserLogin.getString("userLoginId").equals(userLogin.getString("userLoginId"))) {
+                // same user, just make sure the autoUserLogin is set to the same and that the client cookie has the correct userLoginId
+                LoginWorker.autoLoginSet(request, response);
+                // Same for the SecuredLoginId cookie
+                LoginWorker.createSecuredLoginIdCookie(request, response);
+                return "success";
+            }
+
+            // logout the current user and login the new user...
+            LoginWorker.logout(request, response);
+            // ignore the return value; even if the operation failed we want to set the new UserLogin
+        }
+
+        // check userLogin base permission and if it is enabled
+        request.getSession().setAttribute("userLogin", userLogin);
+        userLogin = LoginWorker.checkLogout(request, response);
+        if (userLogin == null) {
+            // base permission check failed or the account is flagged logged-out; checkLogout
+            // already tore the session login down, so stop here rather than dereference null.
+            LoginWorker.autoLoginSet(request, response);
+            return "success";
+        }
+
+        LoginWorker.doBasicLogin(userLogin, request, response);
+
+        // Create a secured cookie with the correct userLoginId
+        LoginWorker.createSecuredLoginIdCookie(request, response);
 
         // make sure the autoUserLogin is set to the same and that the client cookie has the correct userLoginId
         LoginWorker.autoLoginSet(request, response);

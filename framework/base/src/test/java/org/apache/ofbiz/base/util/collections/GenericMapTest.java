@@ -18,8 +18,8 @@
  */
 package org.apache.ofbiz.base.util.collections;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ofbiz.base.util.Debug;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class GenericMapTest {
     private static final String MODULE = GenericMapTest.class.getName();
@@ -159,22 +159,22 @@ public class GenericMapTest {
         TestGenericMap<String, Integer> map = new TestGenericMap<>();
         map.put("a", 0);
         Debug.logInfo("put a\t\tcounts=" + map.getCounts() + ", modCount=" + map.getModCount(), MODULE);
-        assertEquals("get a", Integer.valueOf(0), map.get("a"));
+        assertEquals(Integer.valueOf(0), map.get("a"), "get a");
         map.put("b", 1);
         Debug.logInfo("put b\t\tcounts=" + map.getCounts() + ", modCount=" + map.getModCount(), MODULE);
-        assertEquals("get b", Integer.valueOf(1), map.get("b"));
+        assertEquals(Integer.valueOf(1), map.get("b"), "get b");
         map.put("c", 2);
         Debug.logInfo("put c\t\tcounts=" + map.getCounts() + ", modCount=" + map.getModCount(), MODULE);
-        assertEquals("get c", Integer.valueOf(2), map.get("c"));
+        assertEquals(Integer.valueOf(2), map.get("c"), "get c");
         map.put("d", 3);
         Debug.logInfo("put d\t\tcounts=" + map.getCounts() + ", modCount=" + map.getModCount(), MODULE);
-        assertEquals("get d", Integer.valueOf(3), map.get("d"));
+        assertEquals(Integer.valueOf(3), map.get("d"), "get d");
         map.put("c", 22);
         Debug.logInfo("put c-2\t\tcounts=" + map.getCounts() + ", modCount=" + map.getModCount(), MODULE);
-        assertEquals("get c-2", Integer.valueOf(22), map.get("c"));
+        assertEquals(Integer.valueOf(22), map.get("c"), "get c-2");
         map.remove("b");
         Debug.logInfo("remove b\tcounts=" + map.getCounts() + ", modCount=" + map.getModCount(), MODULE);
-        assertNull("null b", map.get("b"));
+        assertNull(map.get("b"), "null b");
         map.remove("aaa");
         Debug.logInfo("remove aaa\tcounts=" + map.getCounts() + ", modCount=" + map.getModCount(), MODULE);
         Debug.logInfo("map=" + map, MODULE);

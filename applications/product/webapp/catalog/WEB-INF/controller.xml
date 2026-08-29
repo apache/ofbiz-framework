@@ -1467,7 +1467,7 @@ under the License.
         <response name="error" type="view" value="EditProductStoreGroup"/>
     </request-map>
     <request-map uri="getProductStoreGroupRollupHierarchy">
-        <security auth="false" https="true"/>
+        <security auth="true" https="true"/>
         <event type="java" path="org.apache.ofbiz.product.store.ProductStoreEvents" invoke="getChildProductStoreGroupTree"/>
         <response name="success" type="request" value="json"/>
         <response name="error" type="request" value="json"/>
@@ -3026,7 +3026,7 @@ under the License.
     </request-map>
 
     <request-map uri="getChild">
-        <security auth="false" https="true"/>
+        <security auth="true" https="true"/>
         <event type="java" path="org.apache.ofbiz.product.category.CategoryServices" invoke="getChildCategoryTree"/>
         <response name="success" type="request" value="json"/>
         <response name="error" type="request" value="json"/>

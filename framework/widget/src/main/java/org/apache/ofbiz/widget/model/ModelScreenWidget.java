@@ -37,6 +37,7 @@ import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilCodec;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilMisc;
+import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.UtilXml;
 import org.apache.ofbiz.base.util.collections.MapStack;
 import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
@@ -542,6 +543,8 @@ public abstract class ModelScreenWidget extends ModelWidget {
         public static final String TAG_NAME = "screenlet";
         private final FlexibleStringExpander idExdr;
         private final FlexibleStringExpander titleExdr;
+        private final FlexibleStringExpander screenHeaderNameExpr;
+        private final FlexibleStringExpander screenHeaderLocationExpr;
         private final Menu navigationMenu;
         private final Menu tabMenu;
         private final Form navigationForm;
@@ -606,6 +609,11 @@ public abstract class ModelScreenWidget extends ModelWidget {
                     }
                 }
             }
+
+            this.screenHeaderNameExpr = FlexibleStringExpander.getInstance(
+                    screenletElement.getAttribute("screen-header-name"));
+            this.screenHeaderLocationExpr = FlexibleStringExpander.getInstance(
+                    screenletElement.getAttribute("screen-header-location"));
             this.subWidgets = Collections.unmodifiableList(subWidgets);
             this.navigationForm = navigationForm;
             this.padded = padded;
@@ -724,6 +732,18 @@ public abstract class ModelScreenWidget extends ModelWidget {
 
         public boolean getPadded() {
             return padded;
+        }
+
+        public String getScreenHeader(Map<String, Object> context) {
+            String screenHeaderName = this.screenHeaderNameExpr.expandString(context);
+            if (UtilValidate.isEmpty(screenHeaderName)) {
+                return null;
+            }
+            String screenHeaderLocation = this.screenHeaderLocationExpr.expandString(context);
+            if (UtilValidate.isEmpty(screenHeaderLocation)) {
+                screenHeaderLocation = this.getModelScreen().getSourceLocation();
+            }
+            return screenHeaderLocation + "#" + screenHeaderName;
         }
     }
 

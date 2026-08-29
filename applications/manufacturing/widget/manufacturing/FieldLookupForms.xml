@@ -83,4 +83,55 @@ under the License.
         <field name="estimatedSetupMillis" title="${uiLabelMap.ManufacturingTaskEstimatedSetupMillis}"><display/></field>
         <field name="estimatedMilliSeconds" title="${uiLabelMap.ManufacturingTaskEstimatedMilliSeconds}"><display/></field>
     </form>
+    <form name="LookupInventoryItem" target="LookupInventoryItem" title="" type="single"
+        header-row-style="header-row" default-table-style="basic-table">
+        <field name="productId"><hidden value="${productId}"/></field>
+        <field name="productId_op"><hidden value="equals"/></field>
+        <field name="facilityId"><hidden value="${facilityId}"/></field>
+        <field name="facilityId_op"><hidden value="equals"/></field>
+        <field name="productIdDisplay" title="${uiLabelMap.ProductProductId}" entry-name="productId"><display-entity entity-name="Product" key-field-name="productId" description="${internalName} [${productId}]"/></field>
+        <field name="facilityIdDisplay" title="${uiLabelMap.ProductFacilityId}" entry-name="facilityId"><display-entity entity-name="Facility" key-field-name="facilityId" description="${facilityName} [${facilityId}]"/></field>
+        <field name="availableToPromiseTotal"><hidden value="0"/></field>
+        <field name="availableToPromiseTotal_op"><hidden value="greaterThan"/></field>
+        <field name="noConditionFind"><hidden value="Y"/></field>
+        <field name="inventoryItemId_find" title="${uiLabelMap.ProductInventoryItemId}" entry-name="inventoryItemId"><text-find/></field>
+        <field name="lotId_find" title="${uiLabelMap.ProductLotId}" entry-name="lotId"><text-find/></field>
+        <field name="locationSeqId_find" title="${uiLabelMap.ProductLocation}" entry-name="locationSeqId"><text-find/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="ListLookupInventoryItem" list-name="listIt" title="" type="list"
+        paginate-target="LookupInventoryItem" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <actions>
+            <set field="currentProductId" value="${groovy: parameters.productId ?: parameters.parm0}"/>
+            <set field="currentFacilityId" value="${groovy: parameters.facilityId ?: parameters.parm1}"/>
+            <set field="requestParameters.productId" from-field="currentProductId"/>
+            <set field="requestParameters.facilityId" from-field="currentFacilityId"/>
+            <set field="requestParameters.availableToPromiseTotal" value="0"/>
+            <set field="requestParameters.availableToPromiseTotal_op" value="greaterThan"/>
+
+            <set field="requestParameters.inventoryItemId" from-field="parameters.inventoryItemId_find"/>
+            <set field="requestParameters.inventoryItemId_op" from-field="parameters.inventoryItemId_find_op"/>
+            <set field="requestParameters.lotId" from-field="parameters.lotId_find"/>
+            <set field="requestParameters.lotId_op" from-field="parameters.lotId_find_op"/>
+            <set field="requestParameters.locationSeqId" from-field="parameters.locationSeqId_find"/>
+            <set field="requestParameters.locationSeqId_op" from-field="parameters.locationSeqId_find_op"/>
+
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="requestParameters"/>
+                <field-map field-name="entityName" value="InventoryItem"/>
+                <field-map field-name="viewIndex" from-field="viewIndex"/>
+                <field-map field-name="viewSize" from-field="viewSize"/>
+                <field-map field-name="orderBy" value="inventoryItemId"/>
+            </service>
+        </actions>
+        <field name="inventoryItemId" title=" " widget-style="buttontext">
+            <hyperlink description="${inventoryItemId}" target="javascript:set_value('${inventoryItemId}')" also-hidden="false" target-type="plain"/>
+        </field>
+        <field name="productId" title="${uiLabelMap.ProductProductId}"><display/></field>
+        <field name="lotId" title="${uiLabelMap.ProductLotId}"><display/></field>
+        <field name="locationSeqId" title="${uiLabelMap.ProductLocation}"><display/></field>
+        <field name="facilityId" title="${uiLabelMap.ProductFacilityId}"><display/></field>
+        <field name="quantityOnHandTotal" title="${uiLabelMap.ProductQoh}"><display/></field>
+        <field name="availableToPromiseTotal" title="${uiLabelMap.ProductAtp}"><display/></field>
+    </form>
 </forms>

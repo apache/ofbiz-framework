@@ -64,64 +64,66 @@ under the License.
               <input type="hidden" name="orderId" value="${orderId}"/>
             </form>
             <a href="javascript:document.quickShipOrder.submit()" class="buttontext">${uiLabelMap.OrderQuickShipEntireOrder}</a></li>
-          <#else> <#-- PURCHASE_ORDER -->
+          <#else> <#-- PURCHASE_ORDER --> 
             <span class="label">&nbsp;<#if "PURCHASE_ORDER" == orderHeader.orderTypeId>${uiLabelMap.ProductDestinationFacility}</#if></span>
             <#if ownedFacilities?has_content>
-              <#if !allShipments?has_content>
-                  <li>
-                     <form action="/facility/control/quickReceivePurchaseOrder?externalLoginKey=${externalLoginKey}" method="post">
-                       <input type="hidden" name="initialSelected" value="Y"/>
-                       <input type="hidden" name="orderId" value="${orderId}"/>
-                       <#-- destination form (/facility/control/ReceiveInventory) wants purchaseOrderId instead of orderId, so we set it here as a workaround -->
-                       <input type="hidden" name="purchaseOrderId" value="${orderId}"/>
-                      <select name="facilityId">
-                        <#list ownedFacilities as facility>
-                          <option value="${facility.facilityId}">${facility.facilityName}</option>
-                        </#list>
-                      </select>
-                      <input type="submit" class="smallSubmit" value="${uiLabelMap.OrderQuickReceivePurchaseOrder}"/>
-                     </form>
-                  </li>
-                  <li>
-                    <form name="receivePurchaseOrderForm" action="/facility/control/quickReceivePurchaseOrder?externalLoginKey=${externalLoginKey}" method="post">
-                      <input type="hidden" name="initialSelected" value="Y"/>
-                      <input type="hidden" name="orderId" value="${orderId}"/>
-                      <input type="hidden" name="purchaseOrderId" value="${orderId}"/>
-                      <input type="hidden" name="partialReceive" value="Y"/>
-                      <select name="facilityId">
-                        <#list ownedFacilities as facility>
-                          <option value="${facility.facilityId}">${facility.facilityName}</option>
-                        </#list>
-                      </select>
-                      </form>
-                      <a href="javascript:document.receivePurchaseOrderForm.submit()" class="buttontext">${uiLabelMap.CommonReceive}</a>
-                  </li>
-              <#else>
-                  <li>
-                    <form name="receiveInventoryForm" action="/facility/control/ReceiveInventory" method="post">
-                      <input type="hidden" name="initialSelected" value="Y"/>
-                      <input type="hidden" name="purchaseOrderId" value="${orderId!}"/>
-                      <select name="facilityId">
-                        <#list ownedFacilities as facility>
-                          <option value="${facility.facilityId}">${facility.facilityName}</option>
-                        </#list>
-                      </select>
-                    </form>
-                    <a href="javascript:document.receiveInventoryForm.submit()" class="buttontext">${uiLabelMap.OrderQuickReceivePurchaseOrder}</a>
-                  </li>
-                  <li>
-                    <form name="partialReceiveInventoryForm" action="/facility/control/ReceiveInventory" method="post">
-                      <input type="hidden" name="initialSelected" value="Y"/>
-                      <input type="hidden" name="purchaseOrderId" value="${orderId!}"/>
-                      <input type="hidden" name="partialReceive" value="Y"/>
-                      <select name="facilityId">
-                        <#list ownedFacilities as facility>
-                           <option value="${facility.facilityId}">${facility.facilityName}</option>
-                         </#list>
-                       </select>
-                    </form>
-                    <a href="javascript:document.partialReceiveInventoryForm.submit()" class="buttontext">${uiLabelMap.CommonReceive}</a>
-                  </li>
+              <#if shipGroups?size <= 1>
+                  <#if !allShipments?has_content>
+                      <li>
+                        <form action="/facility/control/quickReceivePurchaseOrder?externalLoginKey=${externalLoginKey}" method="post">
+                          <input type="hidden" name="initialSelected" value="Y"/>
+                          <input type="hidden" name="orderId" value="${orderId}"/>
+                          <#-- destination form (/facility/control/ReceiveInventory) wants purchaseOrderId instead of orderId, so we set it here as a workaround -->
+                          <input type="hidden" name="purchaseOrderId" value="${orderId}"/>
+                          <select name="facilityId">
+                            <#list ownedFacilities as facility>
+                              <option value="${facility.facilityId}">${facility.facilityName}</option>
+                            </#list>
+                          </select>
+                          <input type="submit" class="smallSubmit" value="${uiLabelMap.OrderQuickReceivePurchaseOrder}"/>
+                        </form>
+                      </li>
+                      <li>
+                        <form name="receivePurchaseOrderForm" action="/facility/control/quickReceivePurchaseOrder?externalLoginKey=${externalLoginKey}" method="post">
+                          <input type="hidden" name="initialSelected" value="Y"/>
+                          <input type="hidden" name="orderId" value="${orderId}"/>
+                          <input type="hidden" name="purchaseOrderId" value="${orderId}"/>
+                          <input type="hidden" name="partialReceive" value="Y"/>
+                          <select name="facilityId">
+                            <#list ownedFacilities as facility>
+                              <option value="${facility.facilityId}">${facility.facilityName}</option>
+                            </#list>
+                          </select>
+                          <input type="submit" class="smallSubmit" value="${uiLabelMap.CommonReceive}"/>
+                        </form>
+                      </li>
+                  <#else>
+                      <li>
+                        <form name="receiveInventoryForm" action="/facility/control/ReceiveInventory" method="post">
+                          <input type="hidden" name="initialSelected" value="Y"/>
+                          <input type="hidden" name="purchaseOrderId" value="${orderId!}"/>
+                          <select name="facilityId">
+                            <#list ownedFacilities as facility>
+                              <option value="${facility.facilityId}">${facility.facilityName}</option>
+                            </#list>
+                          </select>
+                          <input type="submit" class="smallSubmit" value="${uiLabelMap.OrderQuickReceivePurchaseOrder}"/>
+                        </form>
+                      </li>
+                      <li>
+                        <form name="partialReceiveInventoryForm" action="/facility/control/ReceiveInventory" method="post">
+                          <input type="hidden" name="initialSelected" value="Y"/>
+                          <input type="hidden" name="purchaseOrderId" value="${orderId!}"/>
+                          <input type="hidden" name="partialReceive" value="Y"/>
+                          <select name="facilityId">
+                            <#list ownedFacilities as facility>
+                              <option value="${facility.facilityId}">${facility.facilityName}</option>
+                            </#list>
+                          </select>
+                          <input type="submit" class="smallSubmit" value="${uiLabelMap.CommonReceive}"/>
+                        </form>
+                      </li>
+                  </#if>
               </#if>
               <#if orderHeader.statusId != "ORDER_COMPLETED">
                   <li>
@@ -545,57 +547,7 @@ under the License.
             </#if>
           </#if>
 
-          <#-- This section appears when Shipment of order is in picked status and its items are packed,this case comes when new shipping estimates based on weight of packages are more than or less than default percentage (defined in shipment.properties) of original shipping estimate-->
-          <#-- getShipGroupEstimate method of ShippingEvents class can be used for get shipping estimate from system, on the basis of new package's weight -->
-          <#if shippingRateList?has_content>
-            <#if orderReadHelper.getOrderTypeId() != "PURCHASE_ORDER">
-              <tr><td colspan="3"><hr /></td></tr>
-              <tr>
-                <td colspan="3">
-                  <table>
-                    <tr>
-                      <td class="label">
-                        <span class="label">&nbsp;${uiLabelMap.OrderOnlineUPSShippingEstimates}</span>
-                      </td>
-                    </tr>
-                    <form name="UpdateShippingMethod" method="post" action="<@ofbizUrl>updateShippingMethodAndCharges</@ofbizUrl>">
-                      <#list shippingRateList as shippingRate>
-                        <tr>
-                          <td>
-                            <#assign shipmentMethodAndAmount = shippingRate.shipmentMethodTypeId + "@" + "UPS" + "*" + shippingRate.rate>
-                          <label>
-                          <input type='radio' name='shipmentMethodAndAmount' value='${shipmentMethodAndAmount!}' />
-                          UPS&nbsp;${shippingRate.shipmentMethodDescription!}
-                          </label>
-                            <#if (shippingRate.rate > -1)>
-                              <@ofbizCurrency amount=shippingRate.rate isoCode=orderReadHelper.getCurrency()/>
-                            <#else>
-                              ${uiLabelMap.OrderCalculatedOffline}
-                            </#if>
-                          </td>
-                        </tr>
-                      </#list>
-                    <input type="hidden" name="shipmentRouteSegmentId" value="${shipmentRouteSegmentId!}"/>
-                    <input type="hidden" name="shipmentId" value="${pickedShipmentId!}"/>
-                    <input type="hidden" name="orderAdjustmentId" value="${orderAdjustmentId!}"/>
-                    <input type="hidden" name="orderId" value="${orderId!}"/>
-                    <input type="hidden" name="shipGroupSeqId" value="${shipGroup.shipGroupSeqId!}"/>
-                      <input type="hidden" name="contactMechPurposeTypeId" value="SHIPPING_LOCATION"/>
-                    <input type="hidden" name="oldContactMechId" value="${shipGroup.contactMechId!}"/>
-                    <input type="hidden" name="shippingAmount" value="${shippingAmount!}"/>
-                      <tr>
-                        <td valign="top" width="80%">
-                          <input type="submit" value="${uiLabelMap.CommonUpdate}" class="smallSubmit"/>
-                        </td>
-                      </tr>
-                    </form>
-                  </table>
-                </td>
-              </tr>
-            </#if>
-          </#if>
-
-          <#-- tracking number -->
+<#-- tracking number -->
           <#if shipGroup.trackingNumber?has_content || orderShipmentInfoSummaryList?has_content>
             <tr><td colspan="3"><hr /></td></tr>
             <tr>
@@ -603,7 +555,6 @@ under the License.
                 <span class="label">&nbsp;${uiLabelMap.OrderTrackingNumber}</span>
               </td>
               <td>
-                <#-- TODO: add links to UPS/FEDEX/etc based on carrier partyId  -->
                 <#if shipGroup.trackingNumber?has_content>
                   ${shipGroup.trackingNumber}
                 </#if>
@@ -685,8 +636,8 @@ under the License.
               </#if>
             </td>
           </tr>
-
-          <#if shipGroup.isGift?has_content && noShipment?default("false") != "true">
+          
+          <#if orderHeader?has_content && "PURCHASE_ORDER" != orderHeader.orderTypeId && shipGroup.isGift?has_content && noShipment?default("false") != "true">
           <tr><td colspan="3"><hr /></td></tr>
           <tr>
             <td class="label">
@@ -756,20 +707,7 @@ under the License.
                       <div>
                         ${uiLabelMap.CommonNbr}<a href="<@ofbizUrl controlPath="/facility/control">ViewShipment?shipmentId=${shipment.shipmentId}</@ofbizUrl>" class="buttontext">${shipment.shipmentId}</a>&nbsp;&nbsp;
                         <a target="_BLANK" href="<@ofbizUrl controlPath="/facility/control">PackingSlip.pdf?shipmentId=${shipment.shipmentId}</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductPackingSlip}</a>
-                        <#if "SALES_ORDER" == orderHeader.orderTypeId && "ORDER_COMPLETED" == orderHeader.statusId>
-                          <#assign shipmentRouteSegments = EntityQuery.use(delegator).from("ShipmentRouteSegment").where("shipmentId", shipment.shipmentId!).queryList()!>
-                          <#if shipmentRouteSegments?has_content>
-                            <#assign shipmentRouteSegment = Static["org.apache.ofbiz.entity.util.EntityUtil"].getFirst(shipmentRouteSegments)>
-                          <#if "UPS" == (shipmentRouteSegment.carrierPartyId)!>
-                              <a href="javascript:document.upsEmailReturnLabel${shipment_index}.submit();" class="buttontext">${uiLabelMap.ProductEmailReturnShippingLabelUPS}</a>
-                            </#if>
-                            <form name="upsEmailReturnLabel${shipment_index}" method="post" action="<@ofbizUrl>upsEmailReturnLabelOrder</@ofbizUrl>">
-                              <input type="hidden" name="orderId" value="${orderId}"/>
-                              <input type="hidden" name="shipmentId" value="${shipment.shipmentId}"/>
-                              <input type="hidden" name="shipmentRouteSegmentId" value="${shipmentRouteSegment.shipmentRouteSegmentId}" />
-                            </form>
-                          </#if>
-                        </#if>
+                         <#-- Return labels for completed order shipments could be added here in the future -->
                       </div>
                   </#list>
               </td>

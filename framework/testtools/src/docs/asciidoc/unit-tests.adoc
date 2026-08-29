@@ -63,14 +63,59 @@ respectively like this:
     </test-case>
 ----
 
-=== JUnit
+=== JUnit 3 (legacy)
 Specific class's name which will be tested, in a class-name attribute like this:
 [source, xml]
 ----
-    <test-case case-name="service-tests">
-        <junit-test-suite class-name="org.apache.ofbiz.service.test.ServiceEngineTests"/>
+    <test-case case-name="example-tests">
+        <junit-test-suite class-name="org.apache.ofbiz.example.test.ExampleTests"/>
     </test-case>
 ----
+This style predates the JUnit 5 (Jupiter) migration and is being phased out - new test classes
+should use `<jupiter-test-suite>` instead, described next.
+
+=== Jupiter
+JUnit 5 (Jupiter) test classes are wired the same way, through a `<jupiter-test-suite>` element
+instead of `<junit-test-suite>`:
+[source, xml]
+----
+    <test-case case-name="service-tests">
+        <jupiter-test-suite class-name="org.apache.ofbiz.service.test.ServiceEngineTests"/>
+    </test-case>
+----
+The Java/Groovy class itself needs matching Jupiter annotations - `@JunitJupiterTest` on the
+class, `@Test` on each test method:
+[source, java]
+----
+    @JunitJupiterTest
+    public class ServiceEngineTests implements JupiterTestHelper {
+        @Test
+        @Order(1)
+        void testXxx() {
+            ...
+        }
+    }
+----
+Two things worth knowing before adding a new Jupiter test class:
+
+* *Both halves are required, and a mismatch fails silently.* The `class-name` attribute above
+  and the class's own annotations do two separate jobs - the testdef XML registers the class
+  with `ofbiz --test`/`testIntegration`, the annotations make it a valid Jupiter test. A typo'd
+  or stale `class-name` (e.g. after renaming the class) is only logged as an error, not a build
+  failure - the suite is quietly dropped from the run with no other signal. Double-check the
+  class name after any rename.
+* *Method execution order defaults to source declaration order, not enforced unless you say so.*
+  Add an explicit `@Order(n)` to every `@Test` method if any of them depend on state a previous
+  method left behind - a common pattern in integration tests that share one suite-level
+  Delegator/LocalDispatcher. Without `@Order`, a class is relying on declaration order only
+  implicitly - reordering methods, adding one in the middle, or splitting the file can silently
+  break it later.
+* *An optional `@DisplayName` on a plain `@Test` method adds to the reported name, it doesn't
+  replace it.* The method name always stays the primary, always-present part of the name shown in
+  `testIntegration`'s console output and JUnit XML/HTML reports - a real `@DisplayName` is appended
+  after `" - "`, e.g. `testTestEntityModels - Test entity models`. A method with no `@DisplayName`
+  is unaffected. This has no effect on `@ParameterizedTest` invocations - use
+  `@ParameterizedTest(name = ...)` to control those instead.
 
 === Service
 Specific service's name which will be tested in a service-name attribute like this:
@@ -94,7 +139,7 @@ like this:
 == How to run a unit test?
 You can run unit test by run 'gradle' with following target:
 
-include::../../../../../README.adoc[tag=testingtasks, leveloffset=-1]
+include::../../../../../README.md[tag=testingtasks, leveloffset=-1]
 
 
 == Possible error messages
@@ -149,7 +194,9 @@ This error message will be in between starting and finished test cass line like 
 ----
 
 == Test result
-After you run unit test, you can see the result of the testing. +
-If you use run-tests target, you can see test result web page by view runtime/logs/test-results/html/index.html
-file in web browser and see JUnit Test Result files for each test suite in runtime/logs/test-results directory. +
-If you use other target you only see JUnit Test Result file in runtime/logs/test-results.
+After you run the tests, you can see the results in `runtime/logs/test-results`: +
+Open `runtime/logs/test-results/html/index.html` in a web browser for a navigable, multi-page
+report, or `runtime/logs/test-results/test-report.html` for the same results as a single
+portable file. +
+The raw JUnit Test Result XML file for each test suite is also available directly in
+`runtime/logs/test-results`.

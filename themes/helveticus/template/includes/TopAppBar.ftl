@@ -22,13 +22,13 @@ under the License.
 <#assign contextPath = request.getContextPath()>
 <#assign displayApps = Static["org.apache.ofbiz.webapp.WebAppCache"].getShared().getAppBarWebInfos(ofbizServerName, "main")>
 <#assign displaySecondaryApps = Static["org.apache.ofbiz.webapp.WebAppCache"].getShared().getAppBarWebInfos(ofbizServerName, "secondary")>
-<#if person?has_content>
+<#--<#if person?has_content>
     <#assign avatarList = EntityQuery.use(delegator).from("PartyContent").where("partyId",  person.partyId!, "partyContentTypeId", "LGOIMGURL").queryList()!>
     <#if avatarList?has_content>
         <#assign avatar = Static["org.apache.ofbiz.entity.util.EntityUtil"].getFirst(avatarList)>
         <#assign avatarDetail = EntityQuery.use(delegator).from("PartyContentDetail").where("partyId", person.partyId!, "contentId", avatar.contentId!).queryFirst()!>
     </#if>
-</#if>
+</#if>-->
 <body>
 <#include "component://common-theme/template/ImpersonateBanner.ftl"/>
 <div id="wait-spinner" class="hidden">

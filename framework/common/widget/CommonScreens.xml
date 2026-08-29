@@ -282,6 +282,17 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="userprofile">
+        <section>
+            <actions>
+                <set field="titleProperty" value="CommonProfile" />
+            </actions>
+            <widgets>
+                <include-screen name="MinimalActions" />
+                <include-screen name="userprofile" location="${groovy:commonScreenLocations.userprofile?commonScreenLocations.userprofile:commonDecoratorLocation}"/>
+            </widgets>
+        </section>
+    </screen>
     <screen name="GetUiLabels">
         <section>
             <widgets>
@@ -314,6 +325,21 @@ under the License.
             <widgets>
                 <include-screen name="MinimalActions" />
                 <include-screen name="FindScreenDecorator" location="${groovy:commonScreenLocations.FindScreenDecorator?commonScreenLocations.FindScreenDecorator:commonDecoratorLocation}"/>
+            </widgets>
+        </section>
+    </screen>
+
+    <!--FilteredListDecorator: Sub Screen to display a list link to a filter form.
+        contains sections :
+          * menu-bar
+          * filter-options: option for filter on the list
+          * filtered-results: result displayed after apply filter
+          -->
+    <screen name="FilteredListDecorator">
+        <section>
+            <widgets>
+                <include-screen name="MinimalActions" />
+                <include-screen name="FilteredListDecorator" location="${groovy:commonScreenLocations.FilteredListDecorator?commonScreenLocations.FilteredListDecorator:commonDecoratorLocation}"/>
             </widgets>
         </section>
     </screen>
