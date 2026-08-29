@@ -1319,27 +1319,23 @@ function showjGrowlMessage(errMessage, classEvent, stickyValue, showAllLabel, co
         if (!hideAllLabel) hideAllLabel = jGrowlLabelObject[0];
     }
 
-    var libraryFiles = ["/common/js/jquery/plugins/Readmore.js-master/readmore.js",
-        "/common/js/jquery/plugins/jquery-jgrowl/jquery.jgrowl-1.4.6.min.js"];
-    importLibrary(libraryFiles, function () {
-        $.jGrowl.defaults.closerTemplate = '<div class="closeAllJGrowl">' + hideAllLabel + '</div>';
-        if (jGrowlPosition !== null && jGrowlPosition !== undefined) $.jGrowl.defaults.position = jGrowlPosition;
-        $.jGrowl(errMessage, {
-            theme: classEvent, sticky: stickyValue,
-            beforeOpen: function (e, m, o) {
-                if (jGrowlWidth !== null && jGrowlWidth !== undefined) $(e).width(jGrowlWidth + 'px');
-                if (jGrowlHeight !== null && jGrowlHeight !== undefined) $(e).height(jGrowlHeight + 'px');
-            },
-            afterOpen: function (e, m) {
-                jQuery(".jGrowl-message").readmore({
-                    moreLink: '<a href="#" style="display: block; width: auto; padding: 0px;text-align: right; margin-top: 10px; color: #ffffff; font-size: 0.8em">' + showAllLabel + '</a>',
-                    lessLink: '<a href="#" style="display: block; width: auto; padding: 0px;text-align: right; margin-top: 10px; color: #ffffff; font-size: 0.8em">' + collapseLabel + '</a>',
+    $.jGrowl.defaults.closerTemplate = '<div class="closeAllJGrowl">' + hideAllLabel + '</div>';
+    if (jGrowlPosition !== null && jGrowlPosition !== undefined) $.jGrowl.defaults.position = jGrowlPosition;
+    $.jGrowl(errMessage, {
+        theme: classEvent, sticky: stickyValue,
+        beforeOpen: function (e, m, o) {
+            if (jGrowlWidth !== null && jGrowlWidth !== undefined) $(e).width(jGrowlWidth + 'px');
+            if (jGrowlHeight !== null && jGrowlHeight !== undefined) $(e).height(jGrowlHeight + 'px');
+        },
+        afterOpen: function (e, m) {
+            jQuery(".jGrowl-message").readmore({
+                moreLink: '<a href="#" style="display: block; width: auto; padding: 0px;text-align: right; margin-top: 10px; color: #ffffff; font-size: 0.8em">' + showAllLabel + '</a>',
+                lessLink: '<a href="#" style="display: block; width: auto; padding: 0px;text-align: right; margin-top: 10px; color: #ffffff; font-size: 0.8em">' + collapseLabel + '</a>',
 
-                    maxHeight: 75
-                });
-            },
-            speed: jGrowlSpeed
-        });
+                maxHeight: 75
+            });
+        },
+        speed: jGrowlSpeed
     });
 }
 
