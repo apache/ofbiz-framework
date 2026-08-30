@@ -943,7 +943,7 @@ function ajaxAutoCompleter(areaCsvString, showDescription, defaultMinLength, def
             delay: defaultDelay,
             source: function (request, response) {
                 var queryArgs = { "term": request.term };
-                if (typeof args == "object" && jQuery.isArray(args)) {
+                if (typeof args == "object" && Array.isArray(args)) {
                     for (var i = 0; i < args.length; i++) {
                         queryArgs["parm" + i] = jQuery(DOMPurify.sanitize(args[i]).val())
                     }
@@ -1236,7 +1236,7 @@ function ajaxInPlaceEditDisplayField(element, url, options) {
             value = value.replace(/\n/g, " ");
             value = value.replace(/\"/g, "&quot;");
 
-            var resultField = jQuery.parseJSON('{"' + settings.name + '":"' + value + '"}');
+            var resultField = JSON.parse('{"' + settings.name + '":"' + value + '"}');
             // merge both parameter objects together
             jQuery.extend(settings.submitdata, resultField);
             jQuery.ajax({
