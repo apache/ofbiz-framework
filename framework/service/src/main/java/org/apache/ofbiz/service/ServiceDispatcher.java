@@ -290,7 +290,7 @@ public final class ServiceDispatcher {
         try {
             // check for semaphore and acquire a lock
             if ("wait".equals(modelService.getSemaphore()) || "fail".equals(modelService.getSemaphore())) {
-                lock = new ServiceSemaphore(delegator, modelService);
+                lock = new ServiceSemaphore(delegator, modelService, params);
                 lock.acquire();
             }
 
