@@ -69,7 +69,7 @@ dependencies {
     // NOTE: fop 2.11+ pulls fontbox 3.x which conflicts with pdfbox 2.x used elsewhere; stay on 2.10 (last version using fontbox 2.x)
     implementation 'org.clojure:clojure:1.12.5'
     implementation 'org.codehaus.groovy:groovy-all:3.0.25'
-    implementation 'org.freemarker:freemarker:2.3.34' // Remember to change the version number in FreeMarkerWorker class when upgrading. See OFBIZ-10019 if >= 2.4
+    implementation 'org.freemarker:freemarker:2.3.35' // Remember to change the version number in FreeMarkerWorker class when upgrading. See OFBIZ-10019 if >= 2.4
 
     implementation 'org.owasp.esapi:esapi:2.7.0.0'
     implementation 'org.springframework:spring-test:5.3.39' //  6.1.4 does not compile
