@@ -337,6 +337,7 @@ test {
     // are compiled (see sourceSets.test.groovy above) but must run via
     // 'ofbiz --test', since they need the ofbiz environment JUnit doesn't provide.
     include 'org/apache/ofbiz/service/ModelServiceTest.class'
+    include 'org/apache/ofbiz/service/ServiceDispatcherConcurrencyTest.class'
     include 'org/apache/ofbiz/test/TestServices.class'
     include 'org/apache/ofbiz/base/util/string/FlexibleStringExpanderBaseCodeTests.class'
     include 'org/apache/ofbiz/base/util/FileUtilTests.class'

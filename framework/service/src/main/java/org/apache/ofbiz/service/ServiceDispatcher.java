@@ -86,7 +86,10 @@ public final class ServiceDispatcher {
     private Delegator delegator = null;
     private GenericEngineFactory factory = null;
     private Security security = null;
-    private Map<String, DispatchContext> localContext = new HashMap<>();
+    // ConcurrentHashMap: getLocalContext(), getLocalDispatcher() and containsContext() read
+    // this on every service call without locking, so the map itself must tolerate a reader
+    // racing a concurrent writer.
+    private Map<String, DispatchContext> localContext = new ConcurrentHashMap<>();
     private Map<String, List<GenericServiceCallback>> callbacks = new HashMap<>();
     private JobManager jm = null;
     private JmsListenerFactory jlf = null;
