@@ -13,6 +13,7 @@
         "inputmask": "^5.0.10",
         "jquery": "^4.0.0",
         "jgrowl": "^1.5.1",
+        "jquery-jeditable": "^2.0.19",
         "jquery-migrate": "^4.0.2",
         "jquery-ui-dist": "^1.13.3",
         "jquery-validation": "^1.22.1",

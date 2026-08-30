@@ -1227,13 +1227,13 @@ function ajaxInPlaceEditDisplayField(element, url, options) {
         jQuery(this).css('background-color', 'transparent');
     });
 
-    importLibrary(["/common/js/jquery/plugins/jeditable/jquery.jeditable-1.7.3.js"], function () {
+    importLibrary(["/common/js/node_modules/jquery-jeditable/dist/jquery.jeditable.min.js"], function () {
         jElement.editable(function (value, settings) {
             // removes all line breaks from the value param, because the parseJSON Function can't work with line breaks
             value = value.replace(/\n/g, " ");
             value = value.replace(/\"/g, "&quot;");
 
-            var resultField = jQuery.parseJSON('{"' + settings.name + '":"' + value + '"}');
+            var resultField = JSON.parse('{"' + settings.name + '":"' + value + '"}');
             // merge both parameter objects together
             jQuery.extend(settings.submitdata, resultField);
             jQuery.ajax({
