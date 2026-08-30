@@ -302,7 +302,7 @@ var Lookup = function(options) {
         _lookupContainer.empty();
 
         var queryArgs = "presentation=" + options.presentation;
-        if (typeof options.args == "object" && jQuery.isArray(options.args)) {
+        if (typeof options.args == "object" && Array.isArray(options.args)) {
             for ( var i = 0; i < options.args.length; i++) {
                 queryArgs += "&parm" + i + "=" + jQuery(DOMPurify.sanitize(options.args[i])).val();
             }
