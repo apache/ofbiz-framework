@@ -39,7 +39,6 @@ import java.util.Map;
 
 import javax.imageio.ImageIO;
 
-import org.apache.commons.imaging.ImageReadException;
 import org.apache.ofbiz.base.location.FlexibleLocation;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilDateTime;
@@ -101,7 +100,7 @@ public class ImageManagementServices {
     }
 
     public static Map<String, Object> addMultipleuploadForProduct(DispatchContext dctx,
-            Map<String, ? extends Object> context) throws ImageReadException {
+            Map<String, ? extends Object> context) {
 
         Map<String, Object> result = new HashMap<>();
         LocalDispatcher dispatcher = dctx.getDispatcher();
@@ -602,7 +601,7 @@ public class ImageManagementServices {
     }
 
     public static Map<String, Object> createContentThumbnail(DispatchContext dctx, Map<String, ? extends Object> context,
-            GenericValue userLogin, ByteBuffer imageData, String productId, String imageName) throws ImageReadException {
+            GenericValue userLogin, ByteBuffer imageData, String productId, String imageName) {
         Map<String, Object> result = new HashMap<>();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();

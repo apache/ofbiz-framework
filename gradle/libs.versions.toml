@@ -32,6 +32,7 @@ angus-mail = "2.0.5"
 utils-mail-dkim = "3.3.0"
 rome = "2.1.0"
 xstream = "1.4.21"
+twelvemonkeys-imageio-tiff = "3.14.0"
 commons-cli = "1.11.0"
 commons-net = "3.13.0"
 commons-validator = "1.11.0"
@@ -44,10 +45,6 @@ commons-collections4 = "4.6.0"
 commons-csv = "1.14.1"
 commons-dbcp2 = "2.14.0"
 commons-fileupload2-jakarta = "2.0.0-M1"
-# Alpha but OK, "Imaging was working and was used by a number of projects in production even before
-# reaching its initial release as an Apache Commons component." Since 1.0.0-alpha4 (note the use of
-# semver) the API has changed. Better wait an "official release" to rewrite OFBiz code...
-commons-imaging = "1.0-alpha3"
 commons-text = "1.15.0"
 # 4.0.0 does not compile
 geronimo-transaction = "3.1.5"
@@ -130,6 +127,7 @@ angus-mail = { module = "org.eclipse.angus:angus-mail", version.ref = "angus-mai
 utils-mail-dkim = { module = "org.simplejavamail:utils-mail-dkim", version.ref = "utils-mail-dkim" }
 rome = { module = "com.rometools:rome", version.ref = "rome" }
 xstream = { module = "com.thoughtworks.xstream:xstream", version.ref = "xstream" }
+twelvemonkeys-imageio-tiff = { module = "com.twelvemonkeys.imageio:imageio-tiff", version.ref = "twelvemonkeys-imageio-tiff" }
 commons-cli = { module = "commons-cli:commons-cli", version.ref = "commons-cli" }
 commons-net = { module = "commons-net:commons-net", version.ref = "commons-net" }
 commons-validator = { module = "commons-validator:commons-validator", version.ref = "commons-validator" }
@@ -142,7 +140,6 @@ commons-collections4 = { module = "org.apache.commons:commons-collections4", ver
 commons-csv = { module = "org.apache.commons:commons-csv", version.ref = "commons-csv" }
 commons-dbcp2 = { module = "org.apache.commons:commons-dbcp2", version.ref = "commons-dbcp2" }
 commons-fileupload2-jakarta = { module = "org.apache.commons:commons-fileupload2-jakarta", version.ref = "commons-fileupload2-jakarta" }
-commons-imaging = { module = "org.apache.commons:commons-imaging", version.ref = "commons-imaging" }
 commons-text = { module = "org.apache.commons:commons-text", version.ref = "commons-text" }
 geronimo-transaction = { module = "org.apache.geronimo.components:geronimo-transaction", version.ref = "geronimo-transaction" }
 geronimo-jms-spec = { module = "org.apache.geronimo.specs:geronimo-jms_1.1_spec", version.ref = "geronimo-jms-spec" }

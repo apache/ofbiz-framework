@@ -29,7 +29,6 @@ import java.util.Map;
 
 import javax.imageio.ImageIO;
 
-import org.apache.commons.imaging.ImageReadException;
 import org.apache.ofbiz.base.location.FlexibleLocation;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilGenerics;
@@ -234,7 +233,7 @@ public class ScaleImage {
                         Debug.logError(errMsg, MODULE);
                         result.put(ModelService.ERROR_MESSAGE, errMsg);
                         return result;
-                    } catch (IOException | ImageReadException e) {
+                    } catch (IOException e) {
                         String errMsg = UtilProperties.getMessage(RESOURCE, "ScaleImage.error_occurs_during_writing", locale) + e.toString();
                         Debug.logError(errMsg, MODULE);
                         result.put(ModelService.ERROR_MESSAGE, errMsg);
@@ -413,7 +412,7 @@ public class ScaleImage {
                         Debug.logError(errMsg, MODULE);
                         result.put(ModelService.ERROR_MESSAGE, errMsg);
                         return result;
-                    } catch (IOException | ImageReadException e) {
+                    } catch (IOException e) {
                         String errMsg = UtilProperties.getMessage(RESOURCE, "ScaleImage.error_occurs_during_writing", locale) + e.toString();
                         Debug.logError(errMsg, MODULE);
                         result.put(ModelService.ERROR_MESSAGE, errMsg);
