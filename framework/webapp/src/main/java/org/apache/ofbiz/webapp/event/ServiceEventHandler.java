@@ -157,7 +157,9 @@ public class ServiceEventHandler implements EventHandler {
                 value = paramList;
             } else {
                 // first check the multi-part map
-                value = multiPartMap.get(name);
+                if (UtilValidate.isNotEmpty(multiPartMap)) {
+                    value = multiPartMap.get(name);
+                }
 
                 // next check attributes; do this before parameters so that attribute which can
                 // be changed by code can override parameters which can't
