@@ -32,6 +32,7 @@ dependencies {
     implementation libs.utils.mail.dkim
     implementation libs.rome
     implementation libs.xstream
+    implementation libs.twelvemonkeys.imageio.tiff
     implementation libs.commons.cli
     implementation libs.commons.net
     implementation libs.commons.validator
@@ -44,7 +45,6 @@ dependencies {
     implementation libs.commons.csv
     implementation libs.commons.dbcp2
     implementation libs.commons.fileupload2.jakarta
-    implementation libs.commons.imaging
     implementation libs.commons.text
     implementation libs.geronimo.transaction
     implementation libs.geronimo.jms.spec

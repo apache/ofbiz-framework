@@ -37,7 +37,6 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-import org.apache.commons.imaging.ImageReadException;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.UtilDateTime;
@@ -197,8 +196,7 @@ public class DataServices {
         return createFileMethod(dctx, context);
     }
 
-    public static Map<String, Object> createFileNoPerm(DispatchContext dctx, Map<String, ? extends Object> rcontext) throws IOException,
-            ImageReadException {
+    public static Map<String, Object> createFileNoPerm(DispatchContext dctx, Map<String, ? extends Object> rcontext) throws IOException {
         String originalFileName = (String) rcontext.get("dataResourceName");
         String fileNameAndPath = (String) rcontext.get("objectInfo");
         Delegator delegator = dctx.getDelegator();
@@ -300,7 +298,7 @@ public class DataServices {
                     String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedTextFileFormats", locale);
                     return ServiceUtil.returnError(errorMessage);
                 }
-            } catch (IOException | ImageReadException e) {
+            } catch (IOException e) {
                 Debug.logWarning(e, MODULE);
                 return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentUnableWriteCharacterDataToFile",
                         UtilMisc.toMap("fileName", file.getAbsolutePath()), locale));
@@ -320,10 +318,6 @@ public class DataServices {
                 Files.copy(tempFile, file.toPath(), StandardCopyOption.REPLACE_EXISTING);
                 new File(tempFile.toString()).deleteOnExit();
 
-            } catch (ImageReadException e) {
-                Debug.logError(e, MODULE);
-                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentUnableToOpenFileForWriting",
-                        UtilMisc.toMap("fileName", file.getAbsolutePath()), locale));
             } catch (IOException e) {
                 Debug.logError(e, MODULE);
                 return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentUnableWriteBinaryDataToFile",
@@ -524,7 +518,7 @@ public class DataServices {
                         String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedTextFileFormats", locale);
                         return ServiceUtil.returnError(errorMessage);
                     }
-                } catch (IOException | ImageReadException e) {
+                } catch (IOException e) {
                     Debug.logWarning(e, MODULE);
                     return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentUnableWriteCharacterDataToFile",
                             UtilMisc.toMap("fileName", file.getAbsolutePath()), locale));
@@ -543,10 +537,6 @@ public class DataServices {
                     }
                     Files.copy(tempFile, file.toPath(), StandardCopyOption.REPLACE_EXISTING);
                     new File(tempFile.toString()).deleteOnExit();
-                } catch (ImageReadException e) {
-                    Debug.logError(e, MODULE);
-                    return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentUnableToOpenFileForWriting",
-                            UtilMisc.toMap("fileName", file.getAbsolutePath()), locale));
                 } catch (IOException e) {
                     Debug.logError(e, MODULE);
                     return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentUnableWriteBinaryDataToFile",
@@ -715,7 +705,7 @@ public class DataServices {
                 if (Debug.infoOn()) {
                     Debug.logInfo("in createBinaryFileMethod, length:" + file.length(), MODULE);
                 }
-            } catch (IOException | ImageReadException e) {
+            } catch (IOException e) {
                 Debug.logWarning(e, MODULE);
                 throw new GenericServiceException(e.getMessage());
             }
@@ -776,7 +766,7 @@ public class DataServices {
                 if (Debug.infoOn()) {
                     Debug.logInfo("in updateBinaryFileMethod, length:" + file.length(), MODULE);
                 }
-            } catch (IOException | ImageReadException e) {
+            } catch (IOException e) {
                 Debug.logWarning(e, MODULE);
                 throw new GenericServiceException(e.getMessage());
             }
