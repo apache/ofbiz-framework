@@ -23,6 +23,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Transparency;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.File;
@@ -71,16 +72,6 @@ import org.apache.batik.anim.dom.SAXSVGDocumentFactory;
 import org.apache.batik.util.XMLResourceDescriptor;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
-import org.apache.commons.imaging.ImageFormat;
-import org.apache.commons.imaging.ImageFormats;
-import org.apache.commons.imaging.ImageInfo;
-import org.apache.commons.imaging.ImageParser;
-import org.apache.commons.imaging.ImageReadException;
-import org.apache.commons.imaging.ImageWriteException;
-import org.apache.commons.imaging.Imaging;
-import org.apache.commons.imaging.formats.gif.GifImageParser;
-import org.apache.commons.imaging.formats.png.PngImageParser;
-import org.apache.commons.imaging.formats.tiff.TiffImageParser;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.StringUtils;
@@ -117,6 +108,8 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import com.drew.imaging.FileType;
+import com.drew.imaging.FileTypeDetector;
 import com.drew.imaging.ImageMetadataReader;
 import com.drew.imaging.ImageProcessingException;
 import com.drew.metadata.Directory;
@@ -402,9 +395,8 @@ public class SecuredUpload {
      * @param fileType
      * @return true if the file is valid
      * @throws IOException
-     * @throws ImageReadException
      */
-    public static boolean isValidFile(String fileToCheck, String fileType, Delegator delegator) throws IOException, ImageReadException {
+    public static boolean isValidFile(String fileToCheck, String fileType, Delegator delegator) throws IOException {
         // Allow all uploads w/o check
         if (("true".equalsIgnoreCase(EntityUtilProperties.getPropertyValue("security", "allowAllUploads", delegator)))) {
             return true;
@@ -534,16 +526,16 @@ public class SecuredUpload {
      * Is it a supported image format?
      * @param fileName
      * @return true if it's a valid image file
-     * @throws IOException ImageReadException
+     * @throws IOException
      */
-    private static boolean isValidImageFile(String fileName) throws ImageReadException, IOException {
+    private static boolean isValidImageFile(String fileName) throws IOException {
         Path filePath = Paths.get(fileName);
         byte[] bytesFromFile = Files.readAllBytes(filePath);
-        ImageFormat imageFormat = Imaging.guessFormat(bytesFromFile);
-        boolean knownRasterFormat = imageFormat.equals(ImageFormats.PNG)
-                || imageFormat.equals(ImageFormats.GIF)
-                || imageFormat.equals(ImageFormats.TIFF)
-                || imageFormat.equals(ImageFormats.JPEG);
+        FileType fileType = FileTypeDetector.detectFileType(new ByteArrayInputStream(bytesFromFile));
+        boolean knownRasterFormat = fileType == FileType.Png
+                || fileType == FileType.Gif
+                || fileType == FileType.Tiff
+                || fileType == FileType.Jpeg;
         if (!knownRasterFormat) {
             return false;
         }
@@ -557,12 +549,12 @@ public class SecuredUpload {
     /**
      * Implementation based on https://github.com/righettod/document-upload-protection sanitizer for Image file. See
      * https://github.com/righettod/document-upload-protection/blob/master/src/main/java/eu/righettod/poc/sanitizer/ImageDocumentSanitizerImpl.java
-     * Uses Java built-in API in complement of Apache Commons Imaging for format not supported by the built-in API. See
-     * http://commons.apache.org/proper/commons-imaging/ and http://commons.apache.org/proper/commons-imaging/formatsupport.html
+     * PNG, GIF and JPEG are supported by the JDK's built-in ImageIO; TIFF support comes from the TwelveMonkeys
+     * ImageIO plugin (com.twelvemonkeys.imageio:imageio-tiff), registered transparently as an ImageIO service
+     * provider, so no format-specific fallback code is needed here.
      */
     private static boolean imageMadeSafe(String fileName) {
         File file = new File(fileName);
-        boolean fallbackOnApacheCommonsImaging;
 
         if (!noWebshellInMetadata(file)) {
             return false;
@@ -583,31 +575,17 @@ public class SecuredUpload {
             try {
                 // Get the image format
                 String formatName;
-                ImageInputStream iis = ImageIO.createImageInputStream(file);
-                Iterator<ImageReader> imageReaderIterator = ImageIO.getImageReaders(iis);
-                // If there not ImageReader instance found so it's means that the current format is not supported by the Java built-in API
-                if (!imageReaderIterator.hasNext()) {
-                    ImageInfo imageInfo = Imaging.getImageInfo(file);
-                    if (imageInfo != null && imageInfo.getFormat() != null && imageInfo.getFormat().getName() != null) {
-                        formatName = imageInfo.getFormat().getName();
-                        fallbackOnApacheCommonsImaging = true;
-                    } else {
+                try (ImageInputStream iis = ImageIO.createImageInputStream(file)) {
+                    Iterator<ImageReader> imageReaderIterator = ImageIO.getImageReaders(iis);
+                    if (!imageReaderIterator.hasNext()) {
                         throw new IOException("Format of the original image " + fileName + " is not supported for read operation !");
                     }
-                } else {
                     ImageReader reader = imageReaderIterator.next();
                     formatName = reader.getFormatName();
-                    fallbackOnApacheCommonsImaging = false;
-                    iis.close(); // This was not correctly handled in the document-upload-protection example, and I did not spot it :/
                 }
 
                 // Load the image
-                BufferedImage originalImage;
-                if (!fallbackOnApacheCommonsImaging) {
-                    originalImage = ImageIO.read(file);
-                } else {
-                    originalImage = Imaging.getBufferedImage(file);
-                }
+                BufferedImage originalImage = ImageIO.read(file);
 
                 // Check that image has been successfully loaded
                 if (originalImage == null) {
@@ -634,34 +612,11 @@ public class SecuredUpload {
                 // Open the output stream only after the sanitized image is ready, so that
                 // TRUNCATE_EXISTING does not wipe the file before it has been read.
                 try (OutputStream fos = Files.newOutputStream(file.toPath(), StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING)) {
-                    if (!fallbackOnApacheCommonsImaging) {
-                        ImageIO.write(sanitizedImage, formatName, fos);
-                    } else {
-                        ImageParser<?> imageParser;
-                        // Handle only formats for which Apache Commons Imaging can successfully write (YES in Write column of the reference link)
-                        // the image format. See reference link in the class header
-                        switch (formatName) {
-                        case "TIFF":
-                            imageParser = new TiffImageParser();
-                            break;
-                        case "GIF":
-                            imageParser = new GifImageParser();
-                            break;
-                        case "PNG":
-                            imageParser = new PngImageParser();
-                            break;
-                        // case "JPEG":
-                        // imageParser = new JpegImageParser(); // Does not provide imageParser.writeImage used below
-                        // break;
-                        default:
-                            throw new IOException("Format of the original image " + fileName + " is not supported for write operation !");
-                        }
-                        imageParser.writeImage(sanitizedImage, fos, null);
-                    }
+                    ImageIO.write(sanitizedImage, formatName, fos);
                 }
                 // Set state flag
                 safeState = true;
-            } catch (IOException | ImageReadException | ImageWriteException e) {
+            } catch (IOException e) {
                 Debug.logWarning(e, "Error during Image file " + fileName + " processing !", MODULE);
             }
         }
@@ -750,7 +705,7 @@ public class SecuredUpload {
     private static boolean noWebshellInJPEG(File file) {
         try {
             byte[] bytes = Files.readAllBytes(file.toPath());
-            if (!Imaging.guessFormat(bytes).equals(ImageFormats.JPEG)) {
+            if (FileTypeDetector.detectFileType(new ByteArrayInputStream(bytes)) != FileType.Jpeg) {
                 return true; // Not a JPEG file, it's OK so far
             }
             // SOI marker check
@@ -821,7 +776,7 @@ public class SecuredUpload {
     private static boolean noWebshellInGIF(File file) {
         try {
             byte[] bytes = Files.readAllBytes(file.toPath());
-            if (!Imaging.guessFormat(bytes).equals(ImageFormats.GIF)) {
+            if (FileTypeDetector.detectFileType(new ByteArrayInputStream(bytes)) != FileType.Gif) {
                 return true; // Not a GIF file, it's OK so far
             }
             // Header: "GIF87a" or "GIF89a"
@@ -902,8 +857,7 @@ public class SecuredUpload {
     private static boolean isPNG(File file) throws IOException {
         Path filePath = Paths.get(file.getPath());
         byte[] bytesFromFile = Files.readAllBytes(filePath);
-        ImageFormat imageFormat = Imaging.guessFormat(bytesFromFile);
-        return (imageFormat.equals(ImageFormats.PNG));
+        return FileTypeDetector.detectFileType(new ByteArrayInputStream(bytesFromFile)) == FileType.Png;
     }
 
     private static boolean inflate(byte[] data) {
@@ -948,9 +902,9 @@ public class SecuredUpload {
      * Is it a supported image format, including SVG?
      * @param fileName
      * @return true if it's a valid image file
-     * @throws IOException ImageReadException
+     * @throws IOException
      */
-    private static boolean isValidImageIncludingSvgFile(String fileName) throws ImageReadException, IOException {
+    private static boolean isValidImageIncludingSvgFile(String fileName) throws IOException {
         return isValidImageFile(fileName) || isValidSvgFile(fileName);
     }
 
@@ -1137,9 +1091,9 @@ public class SecuredUpload {
      * http://commons.apache.org/proper/commons-compress/examples.html
      * @param fileName
      * @return true if it's a valid compressed file
-     * @throws IOException ImageReadException
+     * @throws IOException
      */
-    private static boolean isValidCompressedFile(String fileName, Delegator delegator) throws IOException, ImageReadException {
+    private static boolean isValidCompressedFile(String fileName, Delegator delegator) throws IOException {
         String mimeType = getMimeTypeFromFileName(fileName);
         // I planned to handle more formats but did only ZIP
         // The code can be extended based on that
@@ -1195,7 +1149,7 @@ public class SecuredUpload {
         return null;
     }
 
-    private static boolean isValidDirectoryInCompressedFile(String folderName, Delegator delegator) throws IOException, ImageReadException {
+    private static boolean isValidDirectoryInCompressedFile(String folderName, Delegator delegator) throws IOException {
         File folder = new File(folderName);
         Collection<File> files = FileUtils.listFiles(folder, null, true);
         for (File f : files) {

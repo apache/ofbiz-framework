@@ -44,7 +44,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.swing.ImageIcon;
 
-import org.apache.commons.imaging.ImageReadException;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.FileUtil;
 import org.apache.ofbiz.base.util.UtilDateTime;
@@ -364,7 +363,7 @@ public class FrameImage {
                 return "error";
             }
             contentId = contentResult.get("contentId").toString();
-        } catch (GenericServiceException | IOException | ImageReadException gse) {
+        } catch (GenericServiceException | IOException gse) {
             request.setAttribute("_ERROR_MESSAGE_", gse.getMessage());
             return "error";
         }
