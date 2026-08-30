@@ -437,13 +437,48 @@ Map createPartyRelationship() {
                partyIdTo: parameters.partyIdTo,
                roleTypeIdFrom: parameters.roleTypeIdFrom,
                roleTypeIdTo: parameters.roleTypeIdTo)
-        .filterByDate()
         .queryList()
-    if (!partyRels) {
-        GenericValue partyRelationship = makeValue('PartyRelationship', parameters)
-        partyRelationship.create()
+
+    if (partyRels) {
+        // checks for conflicts with existing unlimited valid entries
+        for (GenericValue partyRel : partyRels) {
+            if (!partyRel.thruDate) {
+                if (parameters.fromDate.after(partyRel.fromDate)) {
+                    return success()
+                }
+            }
+        }
+        // checks if there are any conflicts with the time periods of the entries
+        if (parameters.thruDate) {
+            EntityCondition partyCond =
+            EntityCondition.makeCondition(
+                EntityCondition.makeCondition('partyIdFrom', parameters.partyIdFrom),
+                EntityCondition.makeCondition('partyIdTo', parameters.partyIdTo),
+                EntityCondition.makeCondition('roleTypeIdFrom', parameters.roleTypeIdFrom),
+                EntityCondition.makeCondition('roleTypeIdTo', parameters.roleTypeIdTo),
+                EntityCondition.makeCondition('fromDate', EntityOperator.LESS_THAN_EQUAL_TO, parameters.thruDate),
+                EntityCondition.makeCondition('thruDate', EntityOperator.GREATER_THAN_EQUAL_TO, parameters.fromDate)
+            )
+
+            List<GenericValue> partyRelsToChecks = from('PartyRelationship')
+            .where(partyCond)
+            .queryList()
+
+            if (partyRelsToChecks) {
+                return success()
+            }
+        } else {
+            for (GenericValue partyRel : partyRels) {
+                if ((parameters.fromDate.before(partyRel.fromDate)) || (parameters.fromDate.before(partyRel.thruDate))) {
+                    return success()
+                }
+            }
+        }
     }
-    return success()
+    GenericValue partyRelationship = makeValue('PartyRelationship', parameters)
+    partyRelationship.create()
+
+    return success('create new PartyRelationship was successful')
 }
 
 /**
