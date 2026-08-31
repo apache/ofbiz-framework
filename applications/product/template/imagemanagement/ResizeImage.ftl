@@ -18,7 +18,6 @@ under the License.
 -->
 <script type="application/javascript" src="<@ofbizContentUrl>/common/js/plugins/imagemanagement/sizzle.min.js</@ofbizContentUrl>"></script>
 <script type="application/javascript">
-jQuery.noConflict();
 jQuery(document).ready(function(){
     jQuery('img').attr('id',"previewImage");
     
