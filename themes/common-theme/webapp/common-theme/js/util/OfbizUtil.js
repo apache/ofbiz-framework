@@ -464,7 +464,7 @@ function initDateTimePicker(self) {
 function addSelectAllObserver(action_checkbox) {
     var form_fields = getFormFields(getForm(action_checkbox));
         all_child = form_fields.filter(":checkbox:not(:disabled):not(.selectAll)"),
-        select_child = all_child.filter(".selectAllChild").size() > 0 ? all_child.filter(".selectAllChild") : all_child,
+        select_child = all_child.filter(".selectAllChild").length > 0 ? all_child.filter(".selectAllChild") : all_child,
         parent_checkbox = form_fields.filter(".selectAll"),
         is_parent = action_checkbox.is(".selectAll");
 
@@ -475,7 +475,7 @@ function addSelectAllObserver(action_checkbox) {
         });
     } else {
         // Check/ Uncheck parent checkbox when child checkboxes checked.
-        if (select_child.size() > 0) {
+        if (select_child.length > 0) {
             var all_checked = true;
 
             select_child.each(function () {
@@ -508,7 +508,7 @@ function getFormFields(element) {
 function getForm(element) {
     const formId = jQuery(element).attr('form');
     // Get closest form if no form id specified else get the form using id.
-    if (formId === undefined) {
+    if (!formId) {
         return jQuery(element).closest('form');
     } else {
         return jQuery('#' + formId);
@@ -930,6 +930,9 @@ function ajaxAutoCompleter(areaCsvString, showDescription, defaultMinLength, def
         else
             var url = initUrl + "?" + areaArray[i + 2];
         var div = areaArray[i];
+        if (!div) {
+            continue;
+        }
         // create a separated div where the result JSON Opbject will be placed
         if ((jQuery("#" + div + "_auto")).length < 1) {
             jQuery("<div id='" + div + "_auto'></div>").insertBefore("#" + areaArray[i]);
@@ -1007,6 +1010,9 @@ function ajaxAutoCompleter(areaCsvString, showDescription, defaultMinLength, def
 }
 
 function setLookDescription(textFieldId, description, params, formName, showDescription) {
+    if (!textFieldId) {
+        return;
+    }
     if (description) {
         var start = description.lastIndexOf(' [');
         if (start != -1) {
@@ -1218,6 +1224,9 @@ function toggleScreenlet(link, areaId, saveCollapsed, expandTxt, collapseTxt) {
  */
 
 function ajaxInPlaceEditDisplayField(element, url, options) {
+    if (!element) {
+        return;
+    }
     var jElement = jQuery("#" + element);
     jElement.mouseover(function () {
         jQuery(this).css('background-color', 'rgb(255, 255, 153)');
