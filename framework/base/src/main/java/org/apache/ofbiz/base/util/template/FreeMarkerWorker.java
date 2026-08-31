@@ -71,7 +71,7 @@ public final class FreeMarkerWorker {
     /** The template used to retrieved Freemarker transforms from multiple component classpaths. */
     private static final String TRANSFORMS_PROPERTIES = "org/apache/ofbiz/%s/freemarkerTransforms.properties";
     private static final String MODULE = FreeMarkerWorker.class.getName();
-    public static final Version VERSION = Configuration.VERSION_2_3_34;
+    public static final Version VERSION = Configuration.VERSION_2_3_35;
 
     private FreeMarkerWorker() { }
 
