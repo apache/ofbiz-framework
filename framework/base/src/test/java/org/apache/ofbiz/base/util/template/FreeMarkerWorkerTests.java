@@ -21,6 +21,7 @@ package org.apache.ofbiz.base.util.template;
 import static org.junit.Assert.assertEquals;
 
 import java.io.StringWriter;
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -40,5 +41,27 @@ public class FreeMarkerWorkerTests {
         context.put("name", "World!");
         FreeMarkerWorker.renderTemplateFromString("template1", "Hello ${name}", context, out, 0, false);
         assertEquals("Hello World!", out.toString());
+    }
+
+    /**
+     * OFBIZ-13504: report templates format dates through
+     * {@code Static["...UtilDateTime"].toDateString(date, format)}. FreeMarker resolves
+     * {@code Static[...]} members reflectively against public methods only, so the two-argument
+     * overload must stay publicly visible for those templates to render.
+     *
+     * <p>The date below is deliberately the 9th of the 3rd month: {@code dd/MM/yyyy} yields
+     * 09/03/2026 while {@code MM/dd/yyyy} yields 03/09/2026. The assertion therefore also fails if
+     * the explicit format is dropped in favour of the single-argument overload, which silently
+     * switches the reports to US date order.</p>
+     */
+    @Test
+    public void renderTemplateCallingToDateStringWithExplicitFormat() throws Exception {
+        StringWriter out = new StringWriter();
+        Map<String, Object> context = new HashMap<>();
+        context.put("aDate", Timestamp.valueOf("2026-03-09 14:30:00"));
+        FreeMarkerWorker.renderTemplateFromString("templateToDateString",
+                "${Static[\"org.apache.ofbiz.base.util.UtilDateTime\"].toDateString(aDate, \"dd/MM/yyyy\")}",
+                context, out, 0, false);
+        assertEquals("09/03/2026", out.toString());
     }
 }
