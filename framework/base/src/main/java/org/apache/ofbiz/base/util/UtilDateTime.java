@@ -582,7 +582,16 @@ public final class UtilDateTime {
     }
 
     /**
-     * Makes a date String in the given format from a Date
+     * Makes a date String in the given format from a Date.
+     *
+     * <p>This overload has no callers in Java code. It is reached from FreeMarker templates
+     * through {@code Static["org.apache.ofbiz.base.util.UtilDateTime"]}, which resolves members
+     * reflectively and therefore only sees public ones, so it must stay public. Narrowing it to
+     * private broke the production run reports (OFBIZ-13504); the failure is quiet, because
+     * FreeMarker writes the resolution error into the rendered output rather than throwing.
+     * Templates rely on passing an explicit pattern here: the single argument overload is fixed
+     * to {@code MM/dd/yyyy}, so dropping the pattern silently changes the rendered date order.</p>
+     *
      * @param date The Date
      * @param format The date format pattern, as understood by {@link SimpleDateFormat}; the locale
      *      default format is used when null
