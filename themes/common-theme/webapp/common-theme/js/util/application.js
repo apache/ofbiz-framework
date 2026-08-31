@@ -33,7 +33,7 @@ var j = 1;
             
     this.each(function() {
         var settings = jQuery.extend(defaults, options);
-        var totalListElements = jQuery(this).children('li').size();
+        var totalListElements = jQuery(this).children('li').length;
         var baseColItems = Math.ceil(totalListElements / settings.colNumber);
         var listClass = jQuery(this).attr('class');
         
@@ -72,7 +72,7 @@ var j = 1;
             });
             
             jQuery('.listContainer'+j).find('ol,ul').each(function(){
-                if(jQuery(this).children().size() == 0) {
+                if(jQuery(this).children().length == 0) {
                 jQuery(this).remove();
                 }
             });    
