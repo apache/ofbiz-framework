@@ -151,7 +151,7 @@ function updatePortletOrder(currentItem, nextObjectToDroppedItem, mode, destinat
         url: "/myportal/control/updatePortalPagePortletSeqAjax",
         data: requestData,
         type: "POST",
-    }).success( function(data){ onCompleteRequest(); });
+    }).done( function(data){ onCompleteRequest(); });
 
 }
 
