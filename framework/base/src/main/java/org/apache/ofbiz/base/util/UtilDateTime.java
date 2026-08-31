@@ -582,11 +582,13 @@ public final class UtilDateTime {
     }
 
     /**
-     * Makes a date String in the given from a Date
+     * Makes a date String in the given format from a Date
      * @param date The Date
+     * @param format The date format pattern, as understood by {@link SimpleDateFormat}; the locale
+     *      default format is used when null
      * @return A date String in the given format
      */
-    private static String toDateString(java.util.Date date, String format) {
+    public static String toDateString(java.util.Date date, String format) {
         if (date == null) {
             return "";
         }
