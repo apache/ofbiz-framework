@@ -17,7 +17,6 @@ specific language governing permissions and limitations
 under the License.
 -->
 <script type="text/javascript">
-    jQuery.noConflict();
     var host = document.location.host;
     jQuery(document).ready(function() {
         var productId = jQuery('#ImageFrames_productId').val();
