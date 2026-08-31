@@ -1347,7 +1347,7 @@ function showjGrowlMessage(errMessage, classEvent, stickyValue, showAllLabel, co
                     moreLink: '<a href="#" style="display: block; width: auto; padding: 0px;text-align: right; margin-top: 10px; color: #ffffff; font-size: 0.8em">' + showAllLabel + '</a>',
                     lessLink: '<a href="#" style="display: block; width: auto; padding: 0px;text-align: right; margin-top: 10px; color: #ffffff; font-size: 0.8em">' + collapseLabel + '</a>',
 
-                    maxHeight: 75
+                    collapsedHeight: 75
                 });
             },
             speed: jGrowlSpeed
