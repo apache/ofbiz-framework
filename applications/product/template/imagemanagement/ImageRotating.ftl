@@ -29,7 +29,6 @@ under the License.
     }
 </style>
 <script type="application/javascript">
-jQuery.noConflict();
 jQuery(document).ready(function(){
     var angleHold = 0;
     if((jQuery.browser.mozilla) || (jQuery.browser.msie)) {

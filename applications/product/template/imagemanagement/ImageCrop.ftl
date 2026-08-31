@@ -20,7 +20,6 @@ under the License.
 <script type="application/javascript" src="<@ofbizContentUrl>/common/js/plugins/imagemanagement/jquery.Jcrop.min.js</@ofbizContentUrl>"></script>
 <link rel="stylesheet" href="<@ofbizContentUrl>/common/js/plugins/imagemanagement/jquery.Jcrop.css</@ofbizContentUrl>" type="text/css" />
 <script type="application/javascript">
-jQuery.noConflict();
 jQuery(document).ready(function(){
     jQuery('td.cropbox img').Jcrop({
         onChange: showPreview,
