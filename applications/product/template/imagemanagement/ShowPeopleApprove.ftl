@@ -18,7 +18,6 @@ under the License.
 -->
 <script type="text/javascript" src="<@ofbizContentUrl>/common/js/plugins/imagemanagement/sizzle.min.js</@ofbizContentUrl>"></script>
 <script type="text/javascript">
-jQuery.noConflict();
 jQuery(document).ready(function(){
     jQuery('input:radio').click(function(){
         var elementVal = jQuery(this).val();
