@@ -240,7 +240,7 @@ public class MacroMenuRenderer implements MenuStringRenderer {
         }
         parameters.put("confirmation", confirmationMessage);
 
-        boolean isModal = "layered-modal".equals(linkType);
+        boolean isModal = WidgetWorker.isModalLink(linkType);
         if ("hidden-form".equals(linkType) || isModal) {
             final URI actionUri = WidgetWorker.buildHyperlinkUri(target, link.getUrlMode(), null,
                     link.getPrefix(context), link.getFullPath(), link.getSecure(), link.getEncode(),

@@ -326,10 +326,8 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="FindJob"/>
     </request-map>
-    <request-map uri="JobDetails">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="JobDetails"/>
-    </request-map>
+    <request-map uri="JobDetails"><security/><response name="success" type="view" value="JobDetails"/></request-map>
+    <request-map uri="JobDetailsOverview"><security/><response name="success" type="view" value="JobDetailsOverview"/></request-map>
     <request-map uri="FindJobTracker"><security/><response name="success" type="view" value="FindJobTracker"/></request-map>
     <request-map uri="JobTrackerDetails"><security/><response name="success" type="view" value="JobTrackerDetails"/></request-map>
     <request-map uri="FindJobTrackerResult"><security/><response name="success" type="view" value="FindJobTrackerResult"/></request-map>
@@ -795,6 +793,7 @@ under the License.
     <view-map name="ServiceList" type="screen" page="component://webtools/widget/ServiceScreens.xml#ServiceList"/>
     <view-map name="FindJob" type="screen" page="component://webtools/widget/ServiceScreens.xml#FindJob"/>
     <view-map name="JobDetails" type="screen" page="component://webtools/widget/ServiceScreens.xml#JobDetails"/>
+    <view-map name="JobDetailsOverview" type="screen" page="component://webtools/widget/ServiceScreens.xml#JobDetailsOverview"/>
     <view-map name="FindJobTracker" type="screen" page="component://webtools/widget/ServiceScreens.xml#FindJobTrackers"/>
     <view-map name="JobTrackerDetails" type="screen" page="component://webtools/widget/ServiceScreens.xml#JobTrackerDetails"/>
     <view-map name="JobTrackerState" type="screen" page="component://webtools/widget/ServiceScreens.xml#JobTrackerState"/>

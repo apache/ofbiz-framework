@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.apache.ofbiz.widget;
 
+import java.util.List;
 import java.util.Map;
 
 import jakarta.servlet.ServletContext;
@@ -375,5 +376,9 @@ public final class WidgetWorker {
         return qbeString != null
                 ? UtilHttp.getQueryStringOnlyParameterMap(qbeString.replace("&amp;", "&"))
                 : null;
+    }
+
+    public static boolean isModalLink(String linkType) {
+        return linkType != null && List.of("layered-modal", "layered-drawer").contains(linkType);
     }
 }
