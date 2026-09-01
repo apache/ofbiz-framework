@@ -52,15 +52,25 @@ public final class EntityEcaUtil {
     private static final UtilCache<String, Map<String, Map<String, List<EntityEcaRule>>>> ENTITY_ECA_READERS =
             UtilCache.createUtilCache("entity.EcaReaders", 0, 0, false);
 
+    // Guards getEntityEcaCache()'s check-then-build-then-publish sequence: concurrent Delegator
+    // construction (see GenericDelegator.initEntityEcaHandler()) can race a cache miss for the same
+    // reader name, each redundantly rebuilding before only one publish wins.
+    private static final Object CONFIG_LOCK = new Object();
+
     private EntityEcaUtil() { }
 
     public static Map<String, Map<String, List<EntityEcaRule>>> getEntityEcaCache(String entityEcaReaderName) {
         Map<String, Map<String, List<EntityEcaRule>>> ecaCache = ENTITY_ECA_READERS.get(entityEcaReaderName);
         if (ecaCache == null) {
-            // FIXME: Collections are not thread safe
-            ecaCache = new HashMap<>();
-            readConfig(entityEcaReaderName, ecaCache);
-            ecaCache = ENTITY_ECA_READERS.putIfAbsentAndGet(entityEcaReaderName, ecaCache);
+            synchronized (CONFIG_LOCK) {
+                // Re-check: another thread may have already published this while we waited for the lock.
+                ecaCache = ENTITY_ECA_READERS.get(entityEcaReaderName);
+                if (ecaCache == null) {
+                    ecaCache = new HashMap<>();
+                    readConfig(entityEcaReaderName, ecaCache);
+                    ecaCache = ENTITY_ECA_READERS.putIfAbsentAndGet(entityEcaReaderName, ecaCache);
+                }
+            }
         }
         return ecaCache;
     }
