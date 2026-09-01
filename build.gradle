@@ -1023,8 +1023,41 @@ def createOfbizCommandTask(taskName, arguments) {
             // with stale ones from an earlier run into what looks like one coherent run. Clearing
             // the directory before the run starts guarantees every report reflects exactly this
             // run's suites, nothing left over from before.
+            def completionMarker = file('./runtime/logs/test-results/run-completed.marker')
             doFirst {
                 delete fileTree('./runtime/logs/test-results') { include '*.xml' }
+                delete completionMarker
+            }
+            // Mitigates sporadic CI-worker contention failures on BuildBot, not a general
+            // flaky-test policy. completionMarker (written by TestRunContainer once every suite
+            // finishes) marks a graceful test failure - fail immediately, no retry - apart from a
+            // crash/hang before that point, which retries once.
+            ignoreExitValue = true
+            doLast {
+                if (executionResult.get().exitValue != 0) {
+                    if (completionMarker.exists()) {
+                        throw new GradleException("${taskName}: test run completed but one or more tests failed.")
+                    }
+                    logger.warn("${taskName}: did not complete gracefully (crash/hang/non-test startup "
+                            + "failure) - retrying once.")
+                    delete completionMarker
+                    def retry = javaexec {
+                        jvmArgs(application.applicationDefaultJvmArgs)
+                        classpath = sourceSets.main.runtimeClasspath + sourceSets.test.runtimeClasspath
+                        mainClass = application.mainClass
+                        args arguments
+                        ignoreExitValue = true
+                    }
+                    if (retry.exitValue != 0) {
+                        if (completionMarker.exists()) {
+                            throw new GradleException("${taskName}: retry completed but one or more tests "
+                                    + "still failed.")
+                        }
+                        throw new GradleException("${taskName}: failed on both the initial run and the "
+                                + "retry, and neither completed gracefully (exit ${retry.exitValue}) - this "
+                                + "points to a CI-worker/environment issue, not a test failure.")
+                    }
+                }
             }
             finalizedBy(createTestReports)
         }
