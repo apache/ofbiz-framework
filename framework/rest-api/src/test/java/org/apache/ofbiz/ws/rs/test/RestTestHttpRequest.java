@@ -32,6 +32,7 @@ import java.util.zip.GZIPInputStream;
 import java.util.zip.InflaterInputStream;
 import java.util.zip.ZipException;
 
+import org.apache.ofbiz.base.start.Start;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.HttpClient;
 import org.apache.ofbiz.base.util.HttpClientException;
@@ -52,9 +53,14 @@ import jakarta.ws.rs.HttpMethod;
 class RestTestHttpRequest implements JupiterTestHelper {
 
     private static final String MODULE = RestTestHttpRequest.class.getName();
-    private static final String BASE_URL = "https://localhost:8443/rest";
+    private static final String BASE_URL = buildBaseUrl();
     private static final ObjectMapper MAPPER = new ObjectMapper();
     private static String accessToken;
+
+    private static String buildBaseUrl() {
+        int portOffset = Start.getInstance().getConfig().getPortOffset();
+        return "https://localhost:" + (8443 + portOffset) + "/rest";
+    }
 
     private static HttpClient initHttpClient() {
         HttpClient http = new HttpClient();
