@@ -85,6 +85,16 @@ public final class Debug {
         return ROOT;
     }
 
+    /**
+     * Reload debug level configuration with after the config overload is present.
+     */
+    public static void reloadFromConfig() {
+        LEVEL_STRING_MAP.forEach((name, level) -> {
+            set(level, "true".equalsIgnoreCase(UtilProperties.getPropertyValue("debug",
+                    LEVEL_PROPS[level], String.valueOf(isOn(level)))));
+        });
+    }
+
     /** Gets an Integer representing the level number from a String representing the level name; will return null if not found */
     public static Integer getLevelFromString(String levelName) {
         if (levelName == null) {
