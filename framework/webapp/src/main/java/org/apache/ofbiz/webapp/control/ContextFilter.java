@@ -30,6 +30,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilGenerics;
@@ -143,6 +144,31 @@ public class ContextFilter implements Filter {
                     tenantId = null;
                 }
                 if (UtilValidate.isNotEmpty(tenantId)) {
+                    // If an existing session already carries a delegatorName for a different
+                    // tenant than the one resolved for this request, invalidate it here rather
+                    // than only overwriting delegatorName below: dispatcher, security and
+                    // userLogin stay bound to the old tenant otherwise, so a clean session is
+                    // rebuilt on the next request instead. Use getSession(false) so a request
+                    // that has no session yet is left alone - it cannot carry a stale tenant.
+                    HttpSession existingSession = httpRequest.getSession(false);
+                    if (existingSession != null) {
+                        String existingDelegatorName = (String) existingSession.getAttribute("delegatorName");
+                        if (UtilValidate.isNotEmpty(existingDelegatorName)) {
+                            int hashIndex = existingDelegatorName.indexOf('#');
+                            String existingTenantId =
+                                    hashIndex > 0 ? existingDelegatorName.substring(hashIndex + 1).trim() : null;
+                            if (existingTenantId != null && !tenantId.equals(existingTenantId)) {
+                                // Log a fixed message only; request-derived values (host name,
+                                // userTenantId) are deliberately kept out of the log line.
+                                Debug.logWarning("Tenant context mismatch: the session is bound to a"
+                                        + " different tenant than the one resolved for this request."
+                                        + " Invalidating the session so a clean per-tenant context is"
+                                        + " rebuilt on the next request.", MODULE);
+                                existingSession.invalidate();
+                            }
+                        }
+                    }
+
                     // if the request path is a root mount then redirect to the initial path
                     if ("".equals(httpRequest.getContextPath()) && "".equals(httpRequest.getServletPath())) {
                         GenericValue tenant = EntityQuery.use(baseDelegator).from("Tenant").where("tenantId", tenantId).queryOne();
