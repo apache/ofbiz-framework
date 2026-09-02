@@ -45,6 +45,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -117,6 +118,15 @@ public class DataResourceWorker implements org.apache.ofbiz.widget.content.DataR
     private static final String MODULE = DataResourceWorker.class.getName();
     private static final String ERR_RESOURCE = "ContentErrorUiLabels";
     private static final String PROPERTY_RESOURCE = "content";
+
+    // Data resource source types whose stored text may be rendered as a FreeMarker template
+    // (dataTemplateTypeId=FTL). Limited to the file- and URL-backed types, each of which is
+    // independently path- or protocol-restricted elsewhere (OFBIZ/LOCAL/CONTEXT file path
+    // allow-lists in SecurityUtil; URL_RESOURCE http(s) and host checks in checkUrlResourceAllowed).
+    // Free-text types (ELECTRONIC_TEXT/SHORT_TEXT/LINK) are not supported as FreeMarker templates.
+    // Kept as an allow-list so a data resource type added later is not renderable by default.
+    private static final Set<String> FTL_ALLOWED_SOURCE_TYPES =
+            UtilMisc.toSet("OFBIZ_FILE", "LOCAL_FILE", "CONTEXT_FILE", "URL_RESOURCE");
 
     /**
      * Traverses the DataCategory parent/child structure and put it in categoryNode. Returns non-null error string if there is an error.
@@ -883,6 +893,16 @@ public class DataResourceWorker implements org.apache.ofbiz.widget.content.DataR
             // a template is defined; render the template first
             templateContext.put("mimeTypeId", targetMimeTypeId);
 
+            // A template engine (FTL, XSLT, SCREEN_COMBINED, FORM_COMBINED) is only given content that
+            // is authored template text. For an *_OBJECT data resource getDataResourceText() returns
+            // the data resource's own primary key (see writeDataResourceText), not template text, so
+            // an *_OBJECT is never a valid template source for any template type.
+            String drSourceTypeId = dataResource.getString("dataResourceTypeId");
+            if (drSourceTypeId != null && drSourceTypeId.endsWith("_OBJECT")) {
+                throw new GeneralException("Data resource [" + dataResourceId + "] of type [" + drSourceTypeId
+                        + "] cannot be rendered as a [" + dataTemplateTypeId + "] template.");
+            }
+
             // FTL template
             if ("FTL".equals(dataTemplateTypeId)) {
                 try {
@@ -904,11 +924,12 @@ public class DataResourceWorker implements org.apache.ofbiz.widget.content.DataR
 
                     // render the FTL template
                     boolean useTemplateCache = cache && !UtilProperties.getPropertyAsBoolean("content", "disable.ftl.template.cache", false);
-                    if ("ELECTRONIC_TEXT".equals(dataResource.getString("dataResourceTypeId"))
-                            || "SHORT_TEXT".equalsIgnoreCase(dataResource.getString("dataResourceTypeId"))
-                            || "LINK".equalsIgnoreCase(dataResource.getString("dataResourceTypeId"))) {
-                        throw new GeneralException("Error rendering template: FreeMarker templates are no longer supported for "
-                                + dataResource.getString("dataResourceTypeId") + " data resources.");
+                    // Only file- and URL-backed source types may be rendered as FreeMarker templates
+                    // (see FTL_ALLOWED_SOURCE_TYPES); free-text data resources (ELECTRONIC_TEXT /
+                    // SHORT_TEXT / LINK) are not supported.
+                    if (!FTL_ALLOWED_SOURCE_TYPES.contains(drSourceTypeId)) {
+                        throw new GeneralException("Error rendering template: FreeMarker templates are not supported for "
+                                + drSourceTypeId + " data resources.");
                     }
 
                     FreeMarkerWorker.renderTemplateFromString("delegator:" + delegator.getDelegatorName() + ":DataResource:"
@@ -966,20 +987,16 @@ public class DataResourceWorker implements org.apache.ofbiz.widget.content.DataR
                     ModelScreen modelScreen = null;
                     ScreenStringRenderer renderer = screens.getScreenStringRenderer();
                     String combinedName = dataResource.getString("objectInfo");
-                    if ("URL_RESOURCE".equals(dataResource.getString("dataResourceTypeId")) && UtilValidate.isNotEmpty(combinedName)
-                            && combinedName.startsWith("component://")) {
-                        modelScreen = ScreenFactory.getScreenFromLocation(combinedName);
-                    } else { // stored in  a single file, long or short text
-                        Document screenXml = UtilXml.readXmlDocument(getDataResourceText(dataResource, targetMimeTypeId, locale, templateContext,
-                                delegator, cache), true, true);
-                        Map<String, ModelScreen> modelScreenMap = ScreenFactory.readScreenDocument(screenXml, "DataResourceId: "
-                                + dataResource.getString("dataResourceId"));
-                        if (UtilValidate.isNotEmpty(modelScreenMap)) {
-                            Map.Entry<String, ModelScreen> entry = modelScreenMap.entrySet().iterator().next();
-                            // get first entry, only one screen allowed per file
-                            modelScreen = entry.getValue();
-                        }
+                    // A SCREEN_COMBINED data resource is rendered only when it references a deployed
+                    // screen definition (URL_RESOURCE with a component:// objectInfo location).
+                    // Building a ModelScreen from screen XML stored in the data resource text is not
+                    // supported: that text can carry widget actions and scripts.
+                    if (!"URL_RESOURCE".equals(dataResource.getString("dataResourceTypeId")) || UtilValidate.isEmpty(combinedName)
+                            || !combinedName.startsWith("component://")) {
+                        throw new GeneralException("SCREEN_COMBINED data resource [" + dataResource.getString("dataResourceId")
+                                + "] must reference a component:// screen location via objectInfo.");
                     }
+                    modelScreen = ScreenFactory.getScreenFromLocation(combinedName);
                     if (UtilValidate.isNotEmpty(modelScreen)) {
                         modelScreen.renderScreenString(out, context, renderer);
                     } else {
