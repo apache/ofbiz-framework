@@ -84,6 +84,7 @@ public class ConfigContainer implements Container {
             hoconFiles.forEach(file -> Debug.logWarning("[Config override] Loading file: " + file, MODULE));
         }
         ConfigurationFactory.resetAndGet(hoconFiles).setUseOverrideValue(true);
+        Debug.reloadFromConfig();
     }
 
     @Override
