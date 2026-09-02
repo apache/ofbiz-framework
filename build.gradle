@@ -673,7 +673,11 @@ task loadAll(group: ofbizServer) {
 }
 
 task testIntegration(group: ofbizServer) {
-    dependsOn 'ofbiz --test'
+    def command = 'ofbiz --test'
+    if (project.hasProperty('portOffset')) {
+        command += " --portoffset=${project.property('portOffset')}"
+    }
+    dependsOn command
     description = 'Run OFBiz integration tests; You must run loadAll before running this task'
 }
 
