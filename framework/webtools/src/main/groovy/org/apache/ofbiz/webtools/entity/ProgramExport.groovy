@@ -77,23 +77,27 @@ if (security.hasPermission('ENTITY_MAINT', session)) {
     // (?s) flag for multi-line/dotall matching to prevent whitespace bypass
     List<String> dangerousPatterns = [
             // Process & Command Execution + Runtime Variants
-            /(?s)Runtime\s*\.\s*getRuntime\s*\(\s*\)/,
+            // NOTE: patterns that match a member access ('.name(', 'Type.name', '.name') carry an
+            // optional ['"]? around the name so they also match Groovy's quoted-member syntax
+            // (obj."name"(), Type."name"()) - a normal language feature that otherwise bypasses a
+            // literal-text match.
+            /(?s)Runtime\s*\.\s*['"]?getRuntime['"]?\s*\(\s*\)/,
             /(?s)['"]java\.lang\.Runtime['"]\.class/,
-            /(?s)Runtime\.class\.getDeclaredMethod/,
-            /(?s)getRuntime\s*\(\s*\)\.exec/,
+            /(?s)Runtime\s*\.\s*class\s*\.\s*['"]?getDeclaredMethod['"]?/,
+            /(?s)getRuntime\s*\(\s*\)\.\s*['"]?exec['"]?/,
             /(?s)ProcessBuilder/,
-            /(?s)\.\s*execute\s*\(/,
-            /(?s)System\s*\.\s*exit/,
+            /(?s)\.\s*['"]?execute['"]?\s*\(/,
+            /(?s)System\s*\.\s*['"]?exit['"]?/,
             // Reflection & ClassLoading
-            /(?s)Class\s*\.\s*forName/,
-            /(?s)\.newInstance\s*\(/,
-            /(?s)\.getDeclaredMethod/,
-            /(?s)\.getDeclaredField/,
-            /(?s)\.getMethod\s*\(/,
-            /(?s)\.getField\s*\(/,
-            /(?s)\.invoke\s*\(/,
-            /(?s)\.loadClass\s*\(/,
-            /(?s)\.getClassLoader\s*\(/,
+            /(?s)Class\s*\.\s*['"]?forName['"]?/,
+            /(?s)\.\s*['"]?newInstance['"]?\s*\(/,
+            /(?s)\.\s*['"]?getDeclaredMethod['"]?/,
+            /(?s)\.\s*['"]?getDeclaredField['"]?/,
+            /(?s)\.\s*['"]?getMethod['"]?\s*\(/,
+            /(?s)\.\s*['"]?getField['"]?\s*\(/,
+            /(?s)\.\s*['"]?invoke['"]?\s*\(/,
+            /(?s)\.\s*['"]?loadClass['"]?\s*\(/,
+            /(?s)\.\s*['"]?getClassLoader['"]?\s*\(/,
             /(?s)java\s*\.\s*lang\s*\.\s*reflect/,
             /(?s)URLClassLoader/,
             /(?s)GroovyClassLoader/,
@@ -101,21 +105,21 @@ if (security.hasPermission('ENTITY_MAINT', session)) {
             /(?s)javax\s*\.\s*script/,
             /(?s)sun\s*\.\s*misc\s*\.\s*Unsafe/,
             // Eval/GroovyShell Blocking
-            /(?s)Eval\s*\.\s*me/,
-            /(?s)Eval\s*\.\s*x/,
-            /(?s)Eval\s*\.\s*xy/,
-            /(?s)Eval\s*\.\s*xyz/,
+            /(?s)Eval\s*\.\s*['"]?me['"]?/,
+            /(?s)Eval\s*\.\s*['"]?x['"]?/,
+            /(?s)Eval\s*\.\s*['"]?xy['"]?/,
+            /(?s)Eval\s*\.\s*['"]?xyz['"]?/,
             /(?s)GroovyShell/,
-            /(?s)\.evaluate\s*\(/,
+            /(?s)\.\s*['"]?evaluate['"]?\s*\(/,
             // File System Operations
             /(?s)java\s*\.\s*io\s*\.\s*File\s*\(/,
             /(?s)new\s+File\s*\(/,
-            /(?s)Files\s*\.\s*readAllBytes/,
-            /(?s)Paths\s*\.\s*get/,
-            /(?s)\.toFile\s*\(/,
-            /(?s)\.getResourceAsStream\s*\(/,
-            /(?s)\.getText\s*\(/,
-            /(?s)\.bytes\b/,
+            /(?s)Files\s*\.\s*['"]?readAllBytes['"]?/,
+            /(?s)Paths\s*\.\s*['"]?get['"]?/,
+            /(?s)\.\s*['"]?toFile['"]?\s*\(/,
+            /(?s)\.\s*['"]?getResourceAsStream['"]?\s*\(/,
+            /(?s)\.\s*['"]?getText['"]?\s*\(/,
+            /(?s)\.\s*(?:bytes\b|['"]bytes['"])/,
             // Network Operations
             /(?s)Socket\s*\(/,
             /(?s)ServerSocket/,
@@ -125,8 +129,8 @@ if (security.hasPermission('ENTITY_MAINT', session)) {
             /(?s)java\s*\.\s*net\s*\./,
             /(?s)URL\s*\(/,
             /(?s)NetworkInterface/,
-            /(?s)\.openConnection\s*\(/,
-            /(?s)\.connect\s*\(/,
+            /(?s)\.\s*['"]?openConnection['"]?\s*\(/,
+            /(?s)\.\s*['"]?connect['"]?\s*\(/,
             // OFBiz Multitenancy Bypass
             /(?s)DelegatorFactory/
     ]
