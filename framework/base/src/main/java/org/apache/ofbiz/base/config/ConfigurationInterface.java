@@ -105,7 +105,6 @@ public interface ConfigurationInterface {
      * @param parent       the {@code Element} from which to retrieve the child, must be {@code null} when creating a new element using a conf file
      * @param targetClass  the class of the child object that will be created from {@code parent}
      * @return a list of objects of <code>targetClass</code> or an empty list no elements were found
-     * @return a List of {@code targetClass} or an empty List if no element was found
      */
     <T> List<T> getConfigElementsAsListEntriesOfClass(String resourceName, String xPath, Object parent, Class<T> targetClass);
 
