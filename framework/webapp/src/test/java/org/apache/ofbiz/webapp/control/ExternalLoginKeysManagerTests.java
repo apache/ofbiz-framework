@@ -35,6 +35,7 @@ import jakarta.servlet.http.HttpSession;
 
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericValue;
+import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
 
@@ -94,7 +95,11 @@ public class ExternalLoginKeysManagerTests {
         HttpServletResponse response = mock(HttpServletResponse.class);
         when(request.getParameter("externalLoginKey")).thenReturn("ELunknown-key-not-in-map");
 
-        try (MockedStatic<LoginWorker> loginWorker = mockStatic(LoginWorker.class)) {
+        try (MockedStatic<LoginWorker> loginWorker = mockStatic(LoginWorker.class);
+                MockedStatic<EntityUtilProperties> props = mockStatic(EntityUtilProperties.class)) {
+            props.when(() -> EntityUtilProperties.getPropertyValue(
+                    "security", "security.login.externalLoginKey.enabled", "true", null)).thenReturn("true");
+
             String result = ExternalLoginKeysManager.checkExternalLoginKey(request, response);
 
             assertEquals("success", result);
@@ -123,8 +128,11 @@ public class ExternalLoginKeysManagerTests {
         ServletContext servletContext = mock(ServletContext.class);
         when(servletContext.getContextPath()).thenReturn("/partymgr");
 
-        try (MockedStatic<LoginWorker> loginWorker = mockStatic(LoginWorker.class)) {
+        try (MockedStatic<LoginWorker> loginWorker = mockStatic(LoginWorker.class);
+                MockedStatic<EntityUtilProperties> props = mockStatic(EntityUtilProperties.class)) {
             loginWorker.when(() -> LoginWorker.checkLogout(any(), any())).thenReturn(userLogin);
+            props.when(() -> EntityUtilProperties.getPropertyValue(
+                    "security", "security.login.externalLoginKey.enabled", "true", delegator)).thenReturn("true");
 
             // First redemption: a cookie-less client presents the freshly minted key.
             HttpServletRequest firstUse = mock(HttpServletRequest.class);
