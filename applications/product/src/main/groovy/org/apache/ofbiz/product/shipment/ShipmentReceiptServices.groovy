@@ -20,6 +20,8 @@ package org.apache.ofbiz.product.shipment
 
 import java.math.RoundingMode
 import java.sql.Timestamp
+import java.text.DecimalFormat
+import java.text.NumberFormat
 
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.base.util.UtilProperties
@@ -303,13 +305,28 @@ BigDecimal getReceivedQuantityForOrderItem (GenericValue orderItem) {
 }
 
 /**
+ * Parse a user-entered amount with the request locale so that values formatted with a comma
+ * decimal separator (e.g. pl_PL "7,41") are not mis-parsed as 741. OFBiz's generic
+ * String-&gt;BigDecimal conversion ignores the caller locale (NumberConverters.fromString falls
+ * back to Locale.getDefault()), so the receiving price is parsed explicitly here. (OFBIZ-13449)
+ */
+BigDecimal parseLocalizedAmount(String amount, Locale locale) {
+    NumberFormat numberFormat = NumberFormat.getNumberInstance(locale ?: Locale.default)
+    if (numberFormat instanceof DecimalFormat) {
+        ((DecimalFormat) numberFormat).parseBigDecimal = true
+    }
+    return (BigDecimal) numberFormat.parse(amount)
+}
+
+/**
  * Update issuance, shipment and order items if quantity received is higher than quantity on purchase order
  */
 Map updateIssuanceShipmentAndPoOnReceiveInventory() {
     GenericValue orderItem = from('OrderItem').where(parameters).queryOne()
     if (parameters.orderCurrencyUnitPrice) {
-        if (parameters.orderCurrencyUnitPrice != orderItem.unitPrice) {
-            orderItem.unitPrice = new BigDecimal (parameters.orderCurrencyUnitPrice)
+        BigDecimal orderCurrencyUnitPrice = parseLocalizedAmount((String) parameters.orderCurrencyUnitPrice, (Locale) parameters.locale)
+        if (orderCurrencyUnitPrice != orderItem.unitPrice) {
+            orderItem.unitPrice = orderCurrencyUnitPrice
             orderItem.store()
         }
     } else {
