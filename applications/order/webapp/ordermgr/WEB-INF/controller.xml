@@ -1207,10 +1207,11 @@ under the License.
         <event type="service" invoke="updateRequirement"/>
         <response name="success" type="view" value="EditRequirement"/>
     </request-map>
-    <request-map uri="deleteRequirement">
+    <request-map uri="rejectRequirement">
         <security https="true" auth="true"/>
-        <event type="service" invoke="deleteRequirementAndRelated"/>
+        <event type="service" invoke="updateRequirement"/>
         <response name="success" type="view" value="FindRequirements"/>
+        <response name="error" type="view" value="FindRequirements"/>
     </request-map>
     <request-map uri="removeRequirementRole">
         <security https="true" auth="true"/>
