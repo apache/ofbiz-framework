@@ -1341,7 +1341,7 @@ Map addOrderShipmentToShipment() {
         Map serviceResultCSI = run service: 'createShipmentItem', with: [shipmentId: parameters.shipmentId,
                                                                          productId: orderItem.productId,
                                                                          quantity: parameters.quantity]
-        parameters.shipmentItemSeqId = serviceResultCSI.shipemntItemSeqId
+        parameters.shipmentItemSeqId = serviceResultCSI.shipmentItemSeqId
         result.shipmentItemSeqId = serviceResultCSI.shipmentItemSeqId
         run service: 'createOrderShipment', with: parameters
     }
@@ -1373,7 +1373,7 @@ Map getQuantityForShipment() {
     BigDecimal totPlannedOrIssuedQuantity = issuedQuantity + plannedQuantity
     BigDecimal orderCancelQuantity = orderItem.cancelQuantity ?: BigDecimal.ZERO
 
-    result.remainingQuantity = orderCancelQuantity + totPlannedOrIssuedQuantity - orderItem.quantity
+    result.remainingQuantity = orderItem.quantity - orderCancelQuantity - totPlannedOrIssuedQuantity
     return result
 }
 
