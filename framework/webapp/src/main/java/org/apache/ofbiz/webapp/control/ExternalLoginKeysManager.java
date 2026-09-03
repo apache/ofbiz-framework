@@ -28,7 +28,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.DelegatorFactory;
 import org.apache.ofbiz.entity.GenericValue;
@@ -53,9 +52,6 @@ public class ExternalLoginKeysManager {
     // app-switcher workflow (open two different apps from the same page) working while still
     // rejecting a second redemption against the same webapp.
     private static final Map<String, ExternalLoginTicket> EXTERNAL_LOGIN_KEYS = new ConcurrentHashMap<>();
-
-    // This variable is set to empty so we know need to read from the properties file.
-    private static String isExternalLoginKeyEnabled = "";
 
     /**
      * A minted external login key, bound to the UserLogin it authenticates and to a deadline.
@@ -164,6 +160,12 @@ public class ExternalLoginKeysManager {
         String externalKey = request.getParameter(EXTERNAL_LOGIN_KEY_ATTR);
         if (externalKey == null) return "success";
 
+        if (!isExternalLoginKeyEnabled(request)) {
+            // Feature disabled: don't even look up the ticket, so nothing about it is consumed.
+            LoginWorker.autoLoginSet(request, response);
+            return "success";
+        }
+
         // Look up without removing: the same key is shared across every cross-webapp link one
         // render emits, so it must stay valid for whichever *other* destination webapps the
         // user still hasn't visited yet. redeemFor(), below, is what actually stops replay --
@@ -239,12 +241,9 @@ public class ExternalLoginKeysManager {
      * @return
      */
     public static boolean isExternalLoginKeyEnabled(HttpServletRequest request) {
-        if (UtilValidate.isEmpty(isExternalLoginKeyEnabled)) {
-            isExternalLoginKeyEnabled = EntityUtilProperties.getPropertyValue("security",
-                    "security.login.externalLoginKey.enabled", "true",
-                    (Delegator) request.getAttribute("delegator"));
-        }
-        return "true".equals(isExternalLoginKeyEnabled);
+        return "true".equals(EntityUtilProperties.getPropertyValue("security",
+                "security.login.externalLoginKey.enabled", "true",
+                (Delegator) request.getAttribute("delegator")));
     }
 
 }
