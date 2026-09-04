@@ -18,14 +18,13 @@
  *******************************************************************************/
 package org.apache.ofbiz.service.config.model;
 
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+import org.apache.ofbiz.base.config.AbstractConfigElement;
+import org.apache.ofbiz.base.config.ConfigHelper;
 import org.apache.ofbiz.base.lang.ThreadSafe;
-import org.apache.ofbiz.base.util.UtilXml;
+import org.apache.ofbiz.entity.GenericEntityConfException;
 import org.apache.ofbiz.service.config.ServiceConfigException;
 import org.w3c.dom.Element;
 
@@ -33,47 +32,73 @@ import org.w3c.dom.Element;
  * An object that models the <code>&lt;engine&gt;</code> element.
  */
 @ThreadSafe
-public final class Engine {
+public final class Engine extends AbstractConfigElement {
+
+    private final ServiceConfigGetter config = ServiceConfigGetter.getInstance();
+    public static final String ELEMENT_NAME = "engine";
+    private final String xPath;
 
     private final String className;
     private final String name;
     private final List<Parameter> parameters;
     private final Map<String, Parameter> parameterMap;
 
-    Engine(Element engineElement) throws ServiceConfigException {
+    Engine(Element engineElement, String xPathParent) throws ServiceConfigException {
+        boolean checkStructure = ConfigHelper.checkStrictXmlStructure();
         String name = engineElement.getAttribute("name").intern();
+        if (name.isEmpty() && checkStructure) {
+            throw new ServiceConfigException("<engine> element name attribute is empty");
+        }
+        this.name = name;
+        xPath = xPathParent.concat("/engine[@name='" + name + "']");
+        String className = config.getValue(xPath.concat("/@class"));
+        if (className.isEmpty() && checkStructure) {
+            throw new ServiceConfigException("<engine> element class attribute is empty");
+        }
+        this.className = className;
+        List<Parameter> parameterList = config.getSubElementsAsListEntries(xPath, engineElement, Parameter.class);
+        parameters = Collections.unmodifiableList(parameterList);
+        if (parameterList.isEmpty()) {
+            parameterMap = Collections.emptyMap();
+        } else {
+            this.parameterMap = Collections.unmodifiableMap(config.getSubElementsAsMapValues(xPath,
+                    engineElement, Parameter.class));
+        }
+    }
+
+    Engine(Map<String, Object> configObject, String xPath) throws ServiceConfigException {
+        this.xPath = xPath;
+        String name = getNameFromXPath(xPath);
         if (name.isEmpty()) {
             throw new ServiceConfigException("<engine> element name attribute is empty");
         }
         this.name = name;
-        String className = engineElement.getAttribute("class").intern();
+        String className = config.getValue(configObject, "/@class");
         if (className.isEmpty()) {
             throw new ServiceConfigException("<engine> element class attribute is empty");
         }
         this.className = className;
-        List<? extends Element> parameterElementList = UtilXml.childElementList(engineElement, "parameter");
-        if (parameterElementList.isEmpty()) {
-            this.parameters = Collections.emptyList();
-            this.parameterMap = Collections.emptyMap();
+        List<Parameter> parameterList = config.getSubElementsAsListEntries(xPath, null, Parameter.class);
+        parameters = Collections.unmodifiableList(parameterList);
+        if (parameterList.isEmpty()) {
+            parameterMap = Collections.emptyMap();
         } else {
-            List<Parameter> parameters = new ArrayList<>(parameterElementList.size());
-            Map<String, Parameter> parameterMap = new HashMap<>();
-            for (Element parameterElement : parameterElementList) {
-                Parameter parameter = new Parameter(parameterElement);
-                parameters.add(parameter);
-                parameterMap.put(parameter.getName(), parameter);
-            }
-            this.parameters = Collections.unmodifiableList(parameters);
-            this.parameterMap = Collections.unmodifiableMap(parameterMap);
+            this.parameterMap = Collections.unmodifiableMap(config.getSubElementsAsMapValues(xPath, null, Parameter.class));
         }
+    }
+
+    public static Engine loadFromXml(Element element, String xPathParent)
+            throws GenericEntityConfException, ServiceConfigException {
+        return new Engine(element, xPathParent);
+    }
+
+    public static Engine loadFromConfig(Map<String, Object> configMap, String xPath)
+            throws GenericEntityConfException, ServiceConfigException {
+        return new Engine(configMap, xPath);
     }
 
     public String getClassName() {
         return className;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public Parameter getParameter(String parameterName) {
@@ -81,14 +106,19 @@ public final class Engine {
     }
 
     public List<Parameter> getParameters() {
-        return this.parameters;
+        return parameters;
     }
 
     public String getParameterValue(String parameterName) {
         Parameter parameter = parameterMap.get(parameterName);
-        if (parameter != null) {
-            return parameter.getValue();
-        }
-        return null;
+        return parameter != null
+                ? parameter.getValue()
+                : null;
     }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
 }

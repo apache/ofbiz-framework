@@ -18,14 +18,13 @@
  *******************************************************************************/
 package org.apache.ofbiz.entity.config.model;
 
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ofbiz.base.config.AbstractConfigElement;
+import org.apache.ofbiz.base.config.ConfigHelper;
 import org.apache.ofbiz.base.lang.ThreadSafe;
-import org.apache.ofbiz.base.util.UtilXml;
 import org.apache.ofbiz.entity.GenericEntityConfException;
 import org.w3c.dom.Element;
 
@@ -35,149 +34,167 @@ import org.w3c.dom.Element;
  * @see <code>entity-config.xsd</code>
  */
 @ThreadSafe
-public final class DelegatorElement {
+public final class DelegatorElement extends AbstractConfigElement {
 
-    private final String name; // type = xs:string
-    private final String entityModelReader; // type = xs:string
-    private final String entityGroupReader; // type = xs:string
-    private final String entityEcaReader; // type = xs:string
+    private final EntityConfigGetter config = EntityConfigGetter.getInstance();
+    public static final String ELEMENT_NAME = "delegator";
+    private final String xPath;
+
+    private final String name;
+    private final String entityModelReader;
+    private final String entityGroupReader;
+    private final String entityEcaReader;
     private final boolean entityEcaEnabled;
-    private final String entityEcaHandlerClassName; // type = xs:string
+    private final String entityEcaHandlerClassName;
     private final boolean distributedCacheClearEnabled;
-    private final String distributedCacheClearClassName; // type = xs:string
-    private final String distributedCacheClearUserLoginId; // type = xs:string
-    private final String sequencedIdPrefix; // type = xs:string
-    private final String defaultGroupName; // type = xs:string
-    private final String keyEncryptingKey; // type = xs:string
-    private final List<GroupMap> groupMapList; // <group-map>
-    private final Map<String, String> groupMapMap; // <group-map>
+    private final String distributedCacheClearClassName;
+    private final String distributedCacheClearUserLoginId;
+    private final String sequencedIdPrefix;
+    private final String defaultGroupName;
+    private final String keyEncryptingKey;
+    private final List<GroupMap> groupMapList;
+    private final Map<String, GroupMap> groupMapMap;
 
-    DelegatorElement(Element element) throws GenericEntityConfException {
+    DelegatorElement(Element element, String xPathParent) throws GenericEntityConfException {
+        boolean checkStructure = ConfigHelper.checkStrictXmlStructure();
         String lineNumberText = EntityConfig.createConfigFileLineNumberText(element);
         String name = element.getAttribute("name").intern();
-        if (name.isEmpty()) {
+        if (name.isEmpty() && checkStructure) {
             throw new GenericEntityConfException("<delegator> element name attribute is empty" + lineNumberText);
         }
         this.name = name;
-        String entityModelReader = element.getAttribute("entity-model-reader").intern();
-        if (entityModelReader.isEmpty()) {
+        this.xPath = xPathParent.concat("/delegator[@name='" + name + "']");
+        String entityModelReader = config.getValue(this.xPath + "/@entity-model-reader");
+        if (entityModelReader.isEmpty() && checkStructure) {
             throw new GenericEntityConfException("<delegator> element entity-model-reader attribute is empty" + lineNumberText);
         }
         this.entityModelReader = entityModelReader;
-        String entityGroupReader = element.getAttribute("entity-group-reader").intern();
-        if (entityGroupReader.isEmpty()) {
+        String entityGroupReader = config.getValue(this.xPath + "/@entity-group-reader");
+        if (entityGroupReader.isEmpty() && checkStructure) {
             throw new GenericEntityConfException("<delegator> element entity-group-reader attribute is empty" + lineNumberText);
         }
         this.entityGroupReader = entityGroupReader;
-        this.entityEcaReader = element.getAttribute("entity-eca-reader").intern();
-        this.entityEcaEnabled = !"false".equalsIgnoreCase(element.getAttribute("entity-eca-enabled"));
-        String entityEcaHandlerClassName = element.getAttribute("entity-eca-handler-class-name").intern();
-        if (entityEcaHandlerClassName.isEmpty()) {
-            entityEcaHandlerClassName = "org.apache.ofbiz.entityext.eca.DelegatorEcaHandler";
-        }
-        this.entityEcaHandlerClassName = entityEcaHandlerClassName;
-        this.distributedCacheClearEnabled = "true".equalsIgnoreCase(element.getAttribute("distributed-cache-clear-enabled"));
-        String distributedCacheClearClassName = element.getAttribute("distributed-cache-clear-class-name").intern();
-        if (distributedCacheClearClassName.isEmpty()) {
-            distributedCacheClearClassName = "org.apache.ofbiz.entityext.cache.EntityCacheServices";
-        }
-        this.distributedCacheClearClassName = distributedCacheClearClassName;
-        String distributedCacheClearUserLoginId = element.getAttribute("distributed-cache-clear-user-login-id").intern();
-        if (distributedCacheClearUserLoginId.isEmpty()) {
-            distributedCacheClearUserLoginId = "system";
-        }
-        this.distributedCacheClearUserLoginId = distributedCacheClearUserLoginId;
-        this.sequencedIdPrefix = element.getAttribute("sequenced-id-prefix").intern();
-        String defaultGroupName = element.getAttribute("default-group-name").intern();
-        if (defaultGroupName.isEmpty()) {
-            defaultGroupName = "org.apache.ofbiz";
-        }
-        this.defaultGroupName = defaultGroupName;
-        this.keyEncryptingKey = element.getAttribute("key-encrypting-key").intern();
-        List<? extends Element> groupMapElementList = UtilXml.childElementList(element, "group-map");
-        if (groupMapElementList.isEmpty()) {
+        entityEcaReader = config.getValue(this.xPath + "/@entity-eca-reader");
+        entityEcaEnabled = !"false".equalsIgnoreCase(config.getValue(this.xPath + "/@entity-eca-enabled"));
+        entityEcaHandlerClassName = config.getValue(this.xPath + "/@entity-eca-handler-class-name",
+                "org.apache.ofbiz.entityext.eca.DelegatorEcaHandler", String.class);
+        distributedCacheClearEnabled = "true".equalsIgnoreCase(config.getValue(this.xPath + "/@distributed-cache-clear-enabled"));
+        distributedCacheClearClassName = config.getValue(
+                this.xPath + "/@distributed-cache-clear-class-name", "org.apache.ofbiz.entityext.cache.EntityCacheServices", String.class);
+        distributedCacheClearUserLoginId = config.getValue(this.xPath
+                + "/@distributed-cache-clear-user-login-id", "system", String.class);
+        sequencedIdPrefix = config.getValue(this.xPath + "/@sequenced-id-prefix");
+        defaultGroupName = config.getValue(this.xPath + "/@default-group-name", "org.apache.ofbiz", String.class);
+        keyEncryptingKey = config.getValue(this.xPath + "/@key-encrypting-key");
+        List<GroupMap> groupMapList = config.getSubElementsAsListEntries(this.xPath, element, GroupMap.class);
+        if (groupMapList.isEmpty() && checkStructure) {
             throw new GenericEntityConfException("<delegator> element child elements <group-map> are missing" + lineNumberText);
-        } else {
-            List<GroupMap> groupMapList = new ArrayList<>(groupMapElementList.size());
-            Map<String, String> groupMapMap = new HashMap<>();
-            for (Element groupMapElement : groupMapElementList) {
-                GroupMap groupMap = new GroupMap(groupMapElement);
-                groupMapList.add(groupMap);
-                groupMapMap.put(groupMap.getGroupName(), groupMap.getDatasourceName());
-            }
-            this.groupMapList = Collections.unmodifiableList(groupMapList);
-            this.groupMapMap = Collections.unmodifiableMap(groupMapMap);
         }
+        this.groupMapList = Collections.unmodifiableList(groupMapList);
+        groupMapMap = Collections.unmodifiableMap(config.getSubElementsAsMapValues(this.xPath, element, GroupMap.class));
     }
 
-    /** Returns the value of the <code>name</code> attribute. */
-    public String getName() {
-        return this.name;
+    DelegatorElement(Map<String, Object> configObject, String xPath) throws GenericEntityConfException {
+        boolean checkStructure = ConfigHelper.checkStrictXmlStructure();
+        this.xPath = xPath;
+        String name = getNameFromXPath(xPath);
+        if (name.isEmpty() && checkStructure) {
+            throw new GenericEntityConfException("<delegator> element name attribute is empty");
+        }
+        this.name = name;
+        String entityModelReader = config.getValue(configObject, "/@entity-model-reader");
+        if (entityModelReader.isEmpty() && checkStructure) {
+            throw new GenericEntityConfException("<delegator> element entity-model-reader attribute is empty");
+        }
+        this.entityModelReader = entityModelReader;
+        String entityGroupReader = config.getValue(configObject, "/@entity-group-reader");
+        if (entityGroupReader.isEmpty() && checkStructure) {
+            throw new GenericEntityConfException("<delegator> element entity-group-reader attribute is empty");
+        }
+        this.entityGroupReader = entityGroupReader;
+        entityEcaReader = config.getValue(configObject, "/@entity-eca-reader");
+        entityEcaEnabled = !"false".equalsIgnoreCase(config.getValue(configObject, "/@entity-eca-enabled"));
+        entityEcaHandlerClassName = config.getValue(configObject, "/@entity-eca-handler-class-name",
+                "org.apache.ofbiz.entityext.eca.DelegatorEcaHandler", String.class);
+        distributedCacheClearEnabled = "true".equalsIgnoreCase(config.getValue(configObject, "/@distributed-cache-clear-enabled"));
+        distributedCacheClearClassName = config.getValue(configObject, "/@distributed-cache-clear-class-name",
+                "org.apache.ofbiz.entityext.cache.EntityCacheServices", String.class);
+        distributedCacheClearUserLoginId = config.getValue(configObject,
+                "/@distributed-cache-clear-user-login-id", "system", String.class);
+        sequencedIdPrefix = config.getValue(configObject, "/@sequenced-id-prefix");
+        defaultGroupName = config.getValue(configObject, "/@default-group-name", "org.apache.ofbiz", String.class);
+        keyEncryptingKey = config.getValue(configObject, "/@key-encrypting-key");
+
+        List<GroupMap> groupMapList = config.getSubElementsAsListEntries(this.xPath, null, GroupMap.class);
+        if (groupMapList.isEmpty() && checkStructure) {
+            throw new GenericEntityConfException("<delegator> element child elements <group-map> are missing");
+        }
+        this.groupMapList = Collections.unmodifiableList(groupMapList);
+        this.groupMapMap = Collections.unmodifiableMap(config.getSubElementsAsMapValues(this.xPath, null, GroupMap.class));
     }
 
-    /** Returns the value of the <code>entity-model-reader</code> attribute. */
+    public static DelegatorElement loadFromXml(Element element, String xPathParent) throws GenericEntityConfException {
+        return new DelegatorElement(element, xPathParent);
+    }
+
+    public static DelegatorElement loadFromConfig(Map<String, Object> configMap, String xPath) throws GenericEntityConfException {
+        return new DelegatorElement(configMap, xPath);
+    }
+
     public String getEntityModelReader() {
-        return this.entityModelReader;
+        return entityModelReader;
     }
 
-    /** Returns the value of the <code>entity-group-reader</code> attribute. */
     public String getEntityGroupReader() {
-        return this.entityGroupReader;
+        return entityGroupReader;
     }
 
-    /** Returns the value of the <code>entity-eca-reader</code> attribute. */
     public String getEntityEcaReader() {
-        return this.entityEcaReader;
+        return entityEcaReader;
     }
 
-    /** Returns the value of the <code>entity-eca-enabled</code> attribute. */
     public boolean getEntityEcaEnabled() {
-        return this.entityEcaEnabled;
+        return entityEcaEnabled;
     }
 
-    /** Returns the value of the <code>entity-eca-handler-class-name</code> attribute. */
     public String getEntityEcaHandlerClassName() {
-        return this.entityEcaHandlerClassName;
+        return entityEcaHandlerClassName;
     }
 
-    /** Returns the value of the <code>distributed-cache-clear-enabled</code> attribute. */
     public boolean getDistributedCacheClearEnabled() {
-        return this.distributedCacheClearEnabled;
+        return distributedCacheClearEnabled;
     }
 
-    /** Returns the value of the <code>distributed-cache-clear-class-name</code> attribute. */
     public String getDistributedCacheClearClassName() {
-        return this.distributedCacheClearClassName;
+        return distributedCacheClearClassName;
     }
 
-    /** Returns the value of the <code>distributed-cache-clear-user-login-id</code> attribute. */
     public String getDistributedCacheClearUserLoginId() {
-        return this.distributedCacheClearUserLoginId;
+        return distributedCacheClearUserLoginId;
     }
 
-    /** Returns the value of the <code>sequenced-id-prefix</code> attribute. */
     public String getSequencedIdPrefix() {
-        return this.sequencedIdPrefix;
+        return sequencedIdPrefix;
     }
 
-    /** Returns the value of the <code>default-group-name</code> attribute. */
     public String getDefaultGroupName() {
-        return this.defaultGroupName;
+        return defaultGroupName;
     }
 
-    /** Returns the value of the <code>key-encrypting-key</code> attribute. */
     public String getKeyEncryptingKey() {
-        return this.keyEncryptingKey;
+        return keyEncryptingKey;
     }
 
-    /** Returns the <code>&lt;group-map&gt;</code> child elements. */
     public List<GroupMap> getGroupMapList() {
-        return this.groupMapList;
+        return groupMapList;
     }
 
-    /** Returns the specified <code>&lt;group-map&gt; datasource-name</code> attribute value,
-     * or <code>null</code> if the <code>&lt;group-map&gt;</code> element does not exist . */
-    public String getGroupDataSource(String groupName) {
-        return this.groupMapMap.get(groupName);
+    public GroupMap getGroupDataSource(String groupName) {
+        return groupMapMap.get(groupName);
+    }
+
+    @Override
+    public String getName() {
+        return name;
     }
 }

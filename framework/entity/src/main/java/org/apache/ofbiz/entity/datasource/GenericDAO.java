@@ -699,7 +699,7 @@ public class GenericDAO {
     /* ====================================================================== */
 
     /**
-     * Finds GenericValues by the conditions specified in the EntityCondition object, the the EntityCondition javadoc for more details.
+     * Finds GenericValues by the conditions specified in the EntityCondition object, the EntityCondition javadoc for more details.
      * @param modelEntity           The ModelEntity of the Entity as defined in the entity XML file
      * @param whereEntityCondition  The EntityCondition object that specifies how to constrain this query before any groupings are done (if this is
      *                             a view entity with group-by aliases)

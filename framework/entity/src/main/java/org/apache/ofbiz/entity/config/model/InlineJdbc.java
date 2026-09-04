@@ -22,6 +22,8 @@ import org.apache.ofbiz.base.lang.ThreadSafe;
 import org.apache.ofbiz.entity.GenericEntityConfException;
 import org.w3c.dom.Element;
 
+import java.util.Map;
+
 /**
  * An object that models the <code>&lt;inline-jdbc&gt;</code> element.
  *
@@ -30,243 +32,197 @@ import org.w3c.dom.Element;
 @ThreadSafe
 public final class InlineJdbc extends JdbcElement {
 
-    private final String jdbcDriver; // type = xs:string
-    private final String jdbcUri; // type = xs:string
-    private final String jdbcUsername; // type = xs:string
-    private final String jdbcPassword; // type = xs:string
-    private final String jdbcPasswordLookup; // type = xs:string
-    private final int poolMaxsize; // type = xs:nonNegativeInteger
-    private final int poolMinsize; // type = xs:nonNegativeInteger
-    private final int idleMaxsize; // type = xs:nonNegativeInteger
-    private final int timeBetweenEvictionRunsMillis; // type = xs:nonNegativeInteger
-    private final int softMinEvictableIdleTimeMillis; // type = xs:nonNegativeInteger
-    private final int poolSleeptime; // type = xs:nonNegativeInteger
-    private final int poolLifetime; // type = xs:nonNegativeInteger
-    private final int poolDeadlockMaxwait; // type = xs:nonNegativeInteger
-    private final int poolDeadlockRetrywait; // type = xs:nonNegativeInteger
-    private final String poolJdbcTestStmt; // type = xs:string
-    private final boolean testOnCreate; // type = xs:boolean
-    private final boolean testOnBorrow; // type = xs:boolean
-    private final boolean testOnReturn; // type = xs:boolean
-    private final boolean testWhileIdle; // type = xs:boolean
-    private final String poolXaWrapperClass; // type = xs:string
+    private final EntityConfigGetter config = EntityConfigGetter.getInstance();
+    public static final String ELEMENT_NAME = "inline-jdbc";
 
-    InlineJdbc(Element element) throws GenericEntityConfException {
-        super(element);
+    private final String jdbcDriver;
+    private final String jdbcUri;
+    private final String jdbcUsername;
+    private final String jdbcPassword;
+    private final String jdbcPasswordLookup;
+    private final int poolMaxsize;
+    private final int poolMinsize;
+    private final int idleMaxsize;
+    private final int timeBetweenEvictionRunsMillis;
+    private final int softMinEvictableIdleTimeMillis;
+    private final int poolSleeptime;
+    private final int poolLifetime;
+    private final int poolDeadlockMaxwait;
+    private final int poolDeadlockRetrywait;
+    private final String poolJdbcTestStmt;
+    private final boolean testOnCreate;
+    private final boolean testOnBorrow;
+    private final boolean testOnReturn;
+    private final boolean testWhileIdle;
+    private final String poolXaWrapperClass;
+
+    InlineJdbc(Element element, String xPathParent) throws GenericEntityConfException {
+        super(element, xPathParent.concat("/inline-jdbc"));
         String lineNumberText = EntityConfig.createConfigFileLineNumberText(element);
-        String jdbcDriver = element.getAttribute("jdbc-driver").intern();
+        String jdbcDriver = config.getValue(getXPath() + "/@jdbc-driver");
         if (jdbcDriver.isEmpty()) {
             throw new GenericEntityConfException("<inline-jdbc> element jdbc-driver attribute is empty" + lineNumberText);
         }
         this.jdbcDriver = jdbcDriver;
-        String jdbcUri = element.getAttribute("jdbc-uri").intern();
+        String jdbcUri = config.getValue(getXPath() + "/@jdbc-uri");
         if (jdbcUri.isEmpty()) {
             throw new GenericEntityConfException("<inline-jdbc> element jdbc-uri attribute is empty" + lineNumberText);
         }
         this.jdbcUri = jdbcUri;
-        String jdbcUsername = element.getAttribute("jdbc-username").intern();
+        String jdbcUsername = config.getValue(getXPath() + "/@jdbc-username");
         if (jdbcUsername.isEmpty()) {
             throw new GenericEntityConfException("<inline-jdbc> element jdbc-username attribute is empty" + lineNumberText);
         }
         this.jdbcUsername = jdbcUsername;
-        this.jdbcPassword = element.getAttribute("jdbc-password").intern();
-        this.jdbcPasswordLookup = element.getAttribute("jdbc-password-lookup").intern();
-        String poolMaxsize = element.getAttribute("pool-maxsize");
-        if (poolMaxsize.isEmpty()) {
-            this.poolMaxsize = 50;
-        } else {
-            try {
-                this.poolMaxsize = Integer.parseInt(poolMaxsize);
-            } catch (Exception e) {
-                throw new GenericEntityConfException("<inline-jdbc> element pool-maxsize attribute is invalid" + lineNumberText);
-            }
-        }
-        String poolMinsize = element.getAttribute("pool-minsize");
-        if (poolMinsize.isEmpty()) {
-            this.poolMinsize = 2;
-        } else {
-            try {
-                this.poolMinsize = Integer.parseInt(poolMinsize);
-            } catch (Exception e) {
-                throw new GenericEntityConfException("<inline-jdbc> element pool-minsize attribute is invalid" + lineNumberText);
-            }
-        }
-        String idleMaxsize = element.getAttribute("idle-maxsize");
-        if (idleMaxsize.isEmpty()) {
-            this.idleMaxsize = this.poolMaxsize / 2;
-        } else {
-            try {
-                this.idleMaxsize = Integer.parseInt(idleMaxsize);
-            } catch (Exception e) {
-                throw new GenericEntityConfException("<inline-jdbc> element idle-maxsize attribute is invalid" + lineNumberText);
-            }
-        }
-        String timeBetweenEvictionRunsMillis = element.getAttribute("time-between-eviction-runs-millis");
-        if (timeBetweenEvictionRunsMillis.isEmpty()) {
-            this.timeBetweenEvictionRunsMillis = 600000;
-        } else {
-            try {
-                this.timeBetweenEvictionRunsMillis = Integer.parseInt(timeBetweenEvictionRunsMillis);
-            } catch (Exception e) {
-                throw new GenericEntityConfException("<inline-jdbc> element time-between-eviction-runs-millis attribute is invalid" + lineNumberText);
-            }
-        }
-        String softMinEvictableIdleTimeMillis = element.getAttribute("soft-min-evictable-idle-time-millis");
-        if (softMinEvictableIdleTimeMillis.isEmpty()) {
-            this.softMinEvictableIdleTimeMillis = 600000;
-        } else {
-            try {
-                this.softMinEvictableIdleTimeMillis = Integer.parseInt(softMinEvictableIdleTimeMillis);
-            } catch (Exception e) {
-                throw new GenericEntityConfException("<inline-jdbc> element soft-min-evictable-idle-time-millis attribute is invalid"
-                        + lineNumberText);
-            }
-        }
-        String poolSleeptime = element.getAttribute("pool-sleeptime");
-        if (poolSleeptime.isEmpty()) {
-            this.poolSleeptime = 300000;
-        } else {
-            try {
-                this.poolSleeptime = Integer.parseInt(poolSleeptime);
-            } catch (Exception e) {
-                throw new GenericEntityConfException("<inline-jdbc> element pool-sleeptime attribute is invalid" + lineNumberText);
-            }
-        }
-        String poolLifetime = element.getAttribute("pool-lifetime");
-        if (poolLifetime.isEmpty()) {
-            this.poolLifetime = 600000;
-        } else {
-            try {
-                this.poolLifetime = Integer.parseInt(poolLifetime);
-            } catch (Exception e) {
-                throw new GenericEntityConfException("<inline-jdbc> element pool-lifetime attribute is invalid" + lineNumberText);
-            }
-        }
-        String poolDeadlockMaxwait = element.getAttribute("pool-deadlock-maxwait");
-        if (poolDeadlockMaxwait.isEmpty()) {
-            this.poolDeadlockMaxwait = 300000;
-        } else {
-            try {
-                this.poolDeadlockMaxwait = Integer.parseInt(poolDeadlockMaxwait);
-            } catch (Exception e) {
-                throw new GenericEntityConfException("<inline-jdbc> element pool-deadlock-maxwait attribute is invalid" + lineNumberText);
-            }
-        }
-        String poolDeadlockRetrywait = element.getAttribute("pool-deadlock-retrywait");
-        if (poolDeadlockRetrywait.isEmpty()) {
-            this.poolDeadlockRetrywait = 10000;
-        } else {
-            try {
-                this.poolDeadlockRetrywait = Integer.parseInt(poolDeadlockRetrywait);
-            } catch (Exception e) {
-                throw new GenericEntityConfException("<inline-jdbc> element pool-deadlock-retrywait attribute is invalid" + lineNumberText);
-            }
-        }
-        this.poolJdbcTestStmt = element.getAttribute("pool-jdbc-test-stmt").intern();
-        this.testOnCreate = "true".equals(element.getAttribute("test-on-create"));
-        this.testOnBorrow = "true".equals(element.getAttribute("test-on-borrow"));
-        this.testOnReturn = "true".equals(element.getAttribute("test-on-return"));
-        this.testWhileIdle = "true".equals(element.getAttribute("test-while-idle"));
-        this.poolXaWrapperClass = element.getAttribute("pool-xa-wrapper-class").intern();
+        jdbcPassword = config.getValue(getXPath() + "/@jdbc-password");
+        jdbcPasswordLookup = config.getValue(getXPath() + "/@jdbc-password-lookup");
+
+        poolMaxsize = config.getValue(getXPath() + "/@pool-maxsize", 50, Integer.class);
+        poolMinsize = config.getValue(getXPath() + "/@pool-minsize", 2, Integer.class);
+        idleMaxsize = config.getValue(getXPath() + "/@idle-maxsize", poolMaxsize / 2, Integer.class);
+
+        timeBetweenEvictionRunsMillis = config.getValue(getXPath() + "/@time-between-eviction-runs-millis", 600000, Integer.class);
+        softMinEvictableIdleTimeMillis = config.getValue(getXPath() + "/@soft-min-evictable-idle-time-millis", 600000, Integer.class);
+        poolSleeptime = config.getValue(getXPath() + "/@pool-sleeptime", 300000, Integer.class);
+        poolLifetime = config.getValue(getXPath() + "/@pool-lifetime", 600000, Integer.class);
+        poolDeadlockMaxwait = config.getValue(getXPath() + "/@pool-deadlock-maxwait", 300000, Integer.class);
+        poolDeadlockRetrywait = config.getValue(getXPath() + "/@pool-deadlock-retrywait", 10000, Integer.class);
+        poolJdbcTestStmt = config.getValue(getXPath() + "/@pool-jdbc-test-stmt");
+        testOnCreate = "true".equals(config.getValue(getXPath() + "/@test-on-create"));
+        testOnBorrow = "true".equals(config.getValue(getXPath() + "/@test-on-borrow"));
+        testOnReturn = "true".equals(config.getValue(getXPath() + "/@test-on-return"));
+        testWhileIdle = "true".equals(config.getValue(getXPath() + "/@test-while-idle"));
+        poolXaWrapperClass = config.getValue(getXPath() + "/@pool-xa-wrapper-class");
     }
 
-    /** Returns the value of the <code>jdbc-driver</code> attribute. */
+    InlineJdbc(Map<String, Object> configObject, String xPath) throws GenericEntityConfException {
+        super(configObject, xPath);
+        String jdbcDriver = config.getValue(configObject, "/@jdbc-driver");
+        if (jdbcDriver.isEmpty()) {
+            throw new GenericEntityConfException("<inline-jdbc> element jdbc-driver attribute is empty");
+        }
+        this.jdbcDriver = jdbcDriver;
+        String jdbcUri = config.getValue(configObject, "/@jdbc-uri");
+        if (jdbcUri.isEmpty()) {
+            throw new GenericEntityConfException("<inline-jdbc> element jdbc-uri attribute is empty");
+        }
+        this.jdbcUri = jdbcUri;
+        String jdbcUsername = config.getValue(configObject, "/@jdbc-username");
+        if (jdbcUsername.isEmpty()) {
+            throw new GenericEntityConfException("<inline-jdbc> element jdbc-username attribute is empty");
+        }
+        this.jdbcUsername = jdbcUsername;
+        jdbcPassword = config.getValue(configObject, "/@jdbc-password");
+        jdbcPasswordLookup = config.getValue(configObject, "/@jdbc-password-lookup");
+
+        poolMaxsize = config.getValue(configObject, "/@pool-maxsize", 50, Integer.class);
+        poolMinsize = config.getValue(configObject, "/@pool-minsize", 2, Integer.class);
+        idleMaxsize = config.getValue(configObject, "/@idle-maxsize", poolMaxsize / 2, Integer.class);
+
+        timeBetweenEvictionRunsMillis = config.getValue(configObject, "/@time-between-eviction-runs-millis", 600000, Integer.class);
+        softMinEvictableIdleTimeMillis = config.getValue(configObject, "/@soft-min-evictable-idle-time-millis", 600000, Integer.class);
+        poolSleeptime = config.getValue(configObject, "/@pool-sleeptime", 300000, Integer.class);
+        poolLifetime = config.getValue(configObject, "/@pool-lifetime", 600000, Integer.class);
+        poolDeadlockMaxwait = config.getValue(configObject, "/@pool-deadlock-maxwait", 300000, Integer.class);
+        poolDeadlockRetrywait = config.getValue(configObject, "/@pool-deadlock-retrywait", 10000, Integer.class);
+        poolJdbcTestStmt = config.getValue(configObject, "/@pool-jdbc-test-stmt");
+        testOnCreate = "true".equals(config.getValue(configObject, "/@test-on-create"));
+        testOnBorrow = "true".equals(config.getValue(configObject, "/@test-on-borrow"));
+        testOnReturn = "true".equals(config.getValue(configObject, "/@test-on-return"));
+        testWhileIdle = "true".equals(config.getValue(configObject, "/@test-while-idle"));
+        poolXaWrapperClass = config.getValue(configObject, "/@pool-xa-wrapper-class");
+    }
+
     public String getJdbcDriver() {
-        return this.jdbcDriver;
+        return jdbcDriver;
     }
 
-    /** Returns the value of the <code>jdbc-uri</code> attribute. */
     public String getJdbcUri() {
-        return this.jdbcUri;
+        return jdbcUri;
     }
 
-    /** Returns the value of the <code>jdbc-username</code> attribute. */
     public String getJdbcUsername() {
-        return this.jdbcUsername;
+        return jdbcUsername;
     }
 
-    /** Returns the value of the <code>jdbc-password</code> attribute. */
     public String getJdbcPassword() {
-        return this.jdbcPassword;
+        return jdbcPassword;
     }
 
-    /** Returns the value of the <code>jdbc-password-lookup</code> attribute. */
     public String getJdbcPasswordLookup() {
-        return this.jdbcPasswordLookup;
+        return jdbcPasswordLookup;
     }
 
-    /** Returns the value of the <code>pool-maxsize</code> attribute. */
     public int getPoolMaxsize() {
-        return this.poolMaxsize;
+        return poolMaxsize;
     }
 
-    /** Returns the value of the <code>pool-minsize</code> attribute. */
     public int getPoolMinsize() {
-        return this.poolMinsize;
+        return poolMinsize;
     }
 
-    /** Returns the value of the <code>idle-maxsize</code> attribute. */
     public int getIdleMaxsize() {
-        return this.idleMaxsize;
+        return idleMaxsize;
     }
 
-    /** Returns the value of the <code>time-between-eviction-runs-millis</code> attribute. */
     public int getTimeBetweenEvictionRunsMillis() {
-        return this.timeBetweenEvictionRunsMillis;
+        return timeBetweenEvictionRunsMillis;
     }
 
-    /** Returns the value of the <code>time-between-eviction-runs-millis</code> attribute. */
     public int getSoftMinEvictableIdleTimeMillis() {
-        return this.softMinEvictableIdleTimeMillis;
+        return softMinEvictableIdleTimeMillis;
     }
 
-    /** Returns the value of the <code>pool-sleeptime</code> attribute. */
     public int getPoolSleeptime() {
-        return this.poolSleeptime;
+        return poolSleeptime;
     }
 
-    /** Returns the value of the <code>pool-lifetime</code> attribute. */
     public int getPoolLifetime() {
-        return this.poolLifetime;
+        return poolLifetime;
     }
 
-    /** Returns the value of the <code>pool-deadlock-maxwait</code> attribute. */
     public int getPoolDeadlockMaxwait() {
-        return this.poolDeadlockMaxwait;
+        return poolDeadlockMaxwait;
     }
 
-    /** Returns the value of the <code>pool-deadlock-retrywait</code> attribute. */
     public int getPoolDeadlockRetrywait() {
-        return this.poolDeadlockRetrywait;
+        return poolDeadlockRetrywait;
     }
 
-    /** Returns the value of the <code>pool-jdbc-test-stmt</code> attribute. */
     public String getPoolJdbcTestStmt() {
-        return this.poolJdbcTestStmt;
+        return poolJdbcTestStmt;
     }
 
-    /** Returns the value of the <code>test-on-create</code> attribute. */
     public boolean getTestOnCreate() {
-        return this.testOnCreate;
+        return testOnCreate;
     }
 
-    /** Returns the value of the <code>test-on-create</code> attribute. */
     public boolean getTestOnBorrow() {
-        return this.testOnBorrow;
+        return testOnBorrow;
     }
 
-    /** Returns the value of the <code>test-on-create</code> attribute. */
     public boolean getTestOnReturn() {
-        return this.testOnReturn;
+        return testOnReturn;
     }
 
-    /** Returns the value of the <code>test-on-create</code> attribute. */
     public boolean getTestWhileIdle() {
-        return this.testWhileIdle;
+        return testWhileIdle;
     }
 
-    /** Returns the value of the <code>pool-xa-wrapper-class</code> attribute. */
     public String getPoolXaWrapperClass() {
-        return this.poolXaWrapperClass;
+        return poolXaWrapperClass;
+    }
+
+    public static InlineJdbc loadFromXml(Element element, String xPathParent) throws GenericEntityConfException {
+        return new InlineJdbc(element, xPathParent);
+    }
+
+    public static InlineJdbc loadFromConfig(Map<String, Object> configMap, String xPath) throws GenericEntityConfException {
+        return new InlineJdbc(configMap, xPath);
+    }
+
+    @Override
+    public String getName() {
+        return "inline-jdbc";
     }
 }

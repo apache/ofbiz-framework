@@ -22,6 +22,8 @@ import org.apache.ofbiz.base.lang.ThreadSafe;
 import org.apache.ofbiz.entity.GenericEntityConfException;
 import org.w3c.dom.Element;
 
+import java.util.Map;
+
 /**
  * An object that models the <code>&lt;jndi-jdbc&gt;</code> element.
  *
@@ -30,31 +32,59 @@ import org.w3c.dom.Element;
 @ThreadSafe
 public final class JndiJdbc extends JdbcElement {
 
-    private final String jndiServerName; // type = xs:string
-    private final String jndiName; // type = xs:string
+    private final EntityConfigGetter config = EntityConfigGetter.getInstance();
+    public static final String ELEMENT_NAME = "jndi-jdbc";
 
-    JndiJdbc(Element element) throws GenericEntityConfException {
-        super(element);
+    private final String jndiServerName;
+    private final String jndiName;
+
+    JndiJdbc(Element element, String xPathParent) throws GenericEntityConfException {
+        super(element, xPathParent.concat("/jndi-jdbc"));
         String lineNumberText = EntityConfig.createConfigFileLineNumberText(element);
-        String jndiServerName = element.getAttribute("jndi-server-name").intern();
+        String jndiServerName = config.getValue(getXPath() + "/@jndi-server-name");
         if (jndiServerName.isEmpty()) {
             throw new GenericEntityConfException("<jndi-jdbc> element jndi-server-name attribute is empty" + lineNumberText);
         }
         this.jndiServerName = jndiServerName;
-        String jndiName = element.getAttribute("jndi-name").intern();
+        String jndiName = config.getValue(getXPath() + "/@jndi-name");
         if (jndiName.isEmpty()) {
             throw new GenericEntityConfException("<jndi-jdbc> element jndi-name attribute is empty" + lineNumberText);
         }
         this.jndiName = jndiName;
     }
 
-    /** Returns the value of the <code>jndi-server-name</code> attribute. */
-    public String getJndiServerName() {
-        return this.jndiServerName;
+    JndiJdbc(Map<String, Object> configObject, String xPath) throws GenericEntityConfException {
+        super(configObject, xPath);
+        String jndiServerName = config.getValue(configObject, "/@jndi-server-name");
+        if (jndiServerName.isEmpty()) {
+            throw new GenericEntityConfException("<jndi-jdbc> element jndi-server-name attribute is empty");
+        }
+        this.jndiServerName = jndiServerName;
+        String jndiName = config.getValue(configObject, "/@jndi-name");
+        if (jndiName.isEmpty()) {
+            throw new GenericEntityConfException("<jndi-jdbc> element jndi-name attribute is empty");
+        }
+        this.jndiName = jndiName;
     }
 
-    /** Returns the value of the <code>jndi-name</code> attribute. */
+    public static JndiJdbc loadFromXml(Element element, String xPathParent) throws GenericEntityConfException {
+        return new JndiJdbc(element, xPathParent);
+    }
+
+    public static JndiJdbc loadFromConfig(Map<String, Object> configMap, String xPath) throws GenericEntityConfException {
+        return new JndiJdbc(configMap, xPath);
+    }
+
+    public String getJndiServerName() {
+        return jndiServerName;
+    }
+
     public String getJndiName() {
-        return this.jndiName;
+        return jndiName;
+    }
+
+    @Override
+    public String getName() {
+        return "jndi-jdbc";
     }
 }

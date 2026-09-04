@@ -18,9 +18,12 @@
  *******************************************************************************/
 package org.apache.ofbiz.entity.config.model;
 
+import org.apache.ofbiz.base.config.AbstractConfigElement;
 import org.apache.ofbiz.base.lang.ThreadSafe;
 import org.apache.ofbiz.entity.GenericEntityConfException;
 import org.w3c.dom.Element;
+
+import java.util.Map;
 
 /**
  * An object that models the <code>&lt;resource&gt;</code> element.
@@ -28,32 +31,62 @@ import org.w3c.dom.Element;
  * @see <code>entity-config.xsd</code>
  */
 @ThreadSafe
-public final class Resource {
+public final class Resource extends AbstractConfigElement {
 
-    private final String loader; // type = xs:string
-    private final String location; // type = xs:string
+    private final EntityConfigGetter config = EntityConfigGetter.getInstance();
+    public static final String ELEMENT_NAME = "resource";
+    private final String xPath;
 
-    Resource(Element element) throws GenericEntityConfException {
+    private final String loader;
+    private final String location;
+
+    Resource(Element element, String xPathParent) throws GenericEntityConfException {
         String lineNumberText = EntityConfig.createConfigFileLineNumberText(element);
-        String loader = element.getAttribute("loader").intern();
+        String location = element.getAttribute("location");
+        xPath = xPathParent.concat("/resource[@location='" + location + "']");
+        String loader = config.getValue(xPath.concat("/@loader"));
         if (loader.isEmpty()) {
             throw new GenericEntityConfException("<resource> element loader attribute is empty" + lineNumberText);
         }
         this.loader = loader;
-        String location = element.getAttribute("location").intern();
         if (location.isEmpty()) {
             throw new GenericEntityConfException("<resource> element location attribute is empty" + lineNumberText);
         }
         this.location = location;
     }
 
-    /** Returns the value of the <code>loader</code> attribute. */
-    public String getLoader() {
-        return this.loader;
+    Resource(Map<String, Object> configObject, String xPath) throws GenericEntityConfException {
+        this.xPath = xPath;
+        String loader = config.getValue(configObject, "loader");
+        if (loader.isEmpty()) {
+            throw new GenericEntityConfException("<resource> element loader attribute is empty");
+        }
+        this.loader = loader;
+        String location = config.getValue(configObject, "location");
+        if (location.isEmpty()) {
+            throw new GenericEntityConfException("<resource> element location attribute is empty");
+        }
+        this.location = location;
     }
 
-    /** Returns the value of the <code>location</code> attribute. */
+    public String getLoader() {
+        return loader;
+    }
+
     public String getLocation() {
-        return this.location;
+        return location;
+    }
+
+    public static Resource loadFromXml(Element element, String xPathParent) throws GenericEntityConfException {
+        return new Resource(element, xPathParent);
+    }
+
+    public static Resource loadFromConfig(Map<String, Object> configMap, String xPath) throws GenericEntityConfException {
+        return new Resource(configMap, xPath);
+    }
+
+    @Override
+    public String getName() {
+        return location;
     }
 }
