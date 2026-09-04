@@ -299,7 +299,7 @@ under the License.
                 <parameter param-name="contentId"/>
             </hyperlink>
         </field>
-        <field name="imageData" title="${uiLabelMap.ProductFile}"><file/></field>
+        <field name="uploadedFile" title="${uiLabelMap.ProductFile}"><file/></field>
         <field name="fileDataResourceId"><hidden/></field>
         <field name="productCategoryId"><hidden/></field>
         <field name="prodCatContentTypeId"><hidden/></field>

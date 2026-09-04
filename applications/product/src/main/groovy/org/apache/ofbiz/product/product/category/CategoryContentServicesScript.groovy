@@ -24,6 +24,7 @@ import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.util.EntityUtil
 import org.apache.ofbiz.service.ModelService
+import org.apache.ofbiz.service.ServiceUtil
 
 /**
  * Create Content For Product Category
@@ -176,23 +177,33 @@ Map createDownloadContentForCategory() {
         uploadedFile: parameters.uploadedFile
     ]
     Map creDatRes = run service: 'createDataResource', with: data
+    if (!ServiceUtil.isSuccess(creDatRes)) {
+        return creDatRes
+    }
     parameters.dataResourceId = creDatRes.dataResourceId
     // create attach upload to data resource
     Map attachMap = dispatcher.getDispatchContext().makeValidContext('attachUploadToDataResource', ModelService.IN_PARAM, parameters)
-    attachMap = [
+    attachMap.putAll([
         uploadedFile: parameters.uploadedFile,
         _uploadedFile_fileName: parameters._uploadedFile_fileName,
         _uploadedFile_contentType: parameters._uploadedFile_contentType
-    ]
-    run service: 'attachUploadToDataResource', with: attachMap
+    ])
+    Map attachResult = run service: 'attachUploadToDataResource', with: attachMap
+    if (!ServiceUtil.isSuccess(attachResult)) {
+        return attachResult
+    }
     // create content from dataResource
     Map contentMap = dispatcher.getDispatchContext().makeValidContext('createContentFromDataResource', ModelService.IN_PARAM, parameters)
     contentMap.contentTypeId = 'DOCUMENT'
     Map creConRes = run service: 'createContentFromDataResource', with: contentMap
+    if (!ServiceUtil.isSuccess(creConRes)) {
+        return creConRes
+    }
     createCategoryContent.contentId = creConRes.contentId
 
-    createCategoryContent.contentId = parameters.contentId
-    run service: 'createCategoryContent', with: createCategoryContent
+    Map createCategoryResult = run service: 'createCategoryContent', with: createCategoryContent
+    createCategoryResult.contentId = creConRes.contentId
+    return createCategoryResult
 }
 
 /**

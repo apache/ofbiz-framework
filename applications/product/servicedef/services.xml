@@ -993,6 +993,7 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" entity-name="Content" optional="true"/>
         <attribute name="dataResourceTypeId" type="String" mode="IN" optional="true"/>
+        <override name="contentId" mode="INOUT"/>
         <override name="prodCatContentTypeId" optional="false"/>
     </service>
     <service name="updateDownloadContentForCategory" default-entity-name="ProductCategoryContent" engine="groovy"
