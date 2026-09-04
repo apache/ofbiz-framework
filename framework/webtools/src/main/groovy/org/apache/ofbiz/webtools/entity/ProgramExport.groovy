@@ -77,23 +77,27 @@ if (security.hasPermission('ENTITY_MAINT', session)) {
     // (?s) flag for multi-line/dotall matching to prevent whitespace bypass
     List<String> dangerousPatterns = [
             // Process & Command Execution + Runtime Variants
-            /(?s)Runtime\s*\.\s*getRuntime\s*\(\s*\)/,
+            // NOTE: patterns that match a member access ('.name(', 'Type.name', '.name') carry an
+            // optional ['"]? around the name so they also match Groovy's quoted-member syntax
+            // (obj."name"(), Type."name"()) - a normal language feature that otherwise bypasses a
+            // literal-text match.
+            /(?s)Runtime\s*\.\s*['"]?getRuntime['"]?\s*\(\s*\)/,
             /(?s)['"]java\.lang\.Runtime['"]\.class/,
-            /(?s)Runtime\.class\.getDeclaredMethod/,
-            /(?s)getRuntime\s*\(\s*\)\.exec/,
+            /(?s)Runtime\s*\.\s*class\s*\.\s*['"]?getDeclaredMethod['"]?/,
+            /(?s)getRuntime\s*\(\s*\)\.\s*['"]?exec['"]?/,
             /(?s)ProcessBuilder/,
-            /(?s)\.\s*execute\s*\(/,
-            /(?s)System\s*\.\s*exit/,
+            /(?s)\.\s*['"]?execute['"]?\s*\(/,
+            /(?s)System\s*\.\s*['"]?exit['"]?/,
             // Reflection & ClassLoading
-            /(?s)Class\s*\.\s*forName/,
-            /(?s)\.newInstance\s*\(/,
-            /(?s)\.getDeclaredMethod/,
-            /(?s)\.getDeclaredField/,
-            /(?s)\.getMethod\s*\(/,
-            /(?s)\.getField\s*\(/,
-            /(?s)\.invoke\s*\(/,
-            /(?s)\.loadClass\s*\(/,
-            /(?s)\.getClassLoader\s*\(/,
+            /(?s)Class\s*\.\s*['"]?forName['"]?/,
+            /(?s)\.\s*['"]?newInstance['"]?\s*\(/,
+            /(?s)\.\s*['"]?getDeclaredMethod['"]?/,
+            /(?s)\.\s*['"]?getDeclaredField['"]?/,
+            /(?s)\.\s*['"]?getMethod['"]?\s*\(/,
+            /(?s)\.\s*['"]?getField['"]?\s*\(/,
+            /(?s)\.\s*['"]?invoke['"]?\s*\(/,
+            /(?s)\.\s*['"]?loadClass['"]?\s*\(/,
+            /(?s)\.\s*['"]?getClassLoader['"]?\s*\(/,
             /(?s)java\s*\.\s*lang\s*\.\s*reflect/,
             /(?s)URLClassLoader/,
             /(?s)GroovyClassLoader/,
@@ -101,21 +105,21 @@ if (security.hasPermission('ENTITY_MAINT', session)) {
             /(?s)javax\s*\.\s*script/,
             /(?s)sun\s*\.\s*misc\s*\.\s*Unsafe/,
             // Eval/GroovyShell Blocking
-            /(?s)Eval\s*\.\s*me/,
-            /(?s)Eval\s*\.\s*x/,
-            /(?s)Eval\s*\.\s*xy/,
-            /(?s)Eval\s*\.\s*xyz/,
+            /(?s)Eval\s*\.\s*['"]?me['"]?/,
+            /(?s)Eval\s*\.\s*['"]?x['"]?/,
+            /(?s)Eval\s*\.\s*['"]?xy['"]?/,
+            /(?s)Eval\s*\.\s*['"]?xyz['"]?/,
             /(?s)GroovyShell/,
-            /(?s)\.evaluate\s*\(/,
+            /(?s)\.\s*['"]?evaluate['"]?\s*\(/,
             // File System Operations
             /(?s)java\s*\.\s*io\s*\.\s*File\s*\(/,
             /(?s)new\s+File\s*\(/,
-            /(?s)Files\s*\.\s*readAllBytes/,
-            /(?s)Paths\s*\.\s*get/,
-            /(?s)\.toFile\s*\(/,
-            /(?s)\.getResourceAsStream\s*\(/,
-            /(?s)\.getText\s*\(/,
-            /(?s)\.bytes\b/,
+            /(?s)Files\s*\.\s*['"]?readAllBytes['"]?/,
+            /(?s)Paths\s*\.\s*['"]?get['"]?/,
+            /(?s)\.\s*['"]?toFile['"]?\s*\(/,
+            /(?s)\.\s*['"]?getResourceAsStream['"]?\s*\(/,
+            /(?s)\.\s*['"]?getText['"]?\s*\(/,
+            /(?s)\.\s*(?:bytes\b|['"]bytes['"])/,
             // Network Operations
             /(?s)Socket\s*\(/,
             /(?s)ServerSocket/,
@@ -125,8 +129,8 @@ if (security.hasPermission('ENTITY_MAINT', session)) {
             /(?s)java\s*\.\s*net\s*\./,
             /(?s)URL\s*\(/,
             /(?s)NetworkInterface/,
-            /(?s)\.openConnection\s*\(/,
-            /(?s)\.connect\s*\(/,
+            /(?s)\.\s*['"]?openConnection['"]?\s*\(/,
+            /(?s)\.\s*['"]?connect['"]?\s*\(/,
             // OFBiz Multitenancy Bypass
             /(?s)DelegatorFactory/
     ]
@@ -141,24 +145,45 @@ if (security.hasPermission('ENTITY_MAINT', session)) {
     // Groovy Sandbox with SecureASTCustomizer
     SecureASTCustomizer secureCustomizer = new SecureASTCustomizer()
     secureCustomizer.with {
-        // Import whitelist - only safe OFBiz entity classes
-        setImportsWhitelist([
-                'org.apache.ofbiz.entity.GenericValue',
-                'org.apache.ofbiz.entity.model.ModelEntity',
-                'org.apache.ofbiz.entity.condition.EntityCondition',
-                'org.apache.ofbiz.entity.condition.EntityOperator',
-                'org.apache.ofbiz.entity.util.EntityQuery',
-                'org.apache.ofbiz.entity.util.EntityFindOptions',
-                'java.util.List',
-                'java.util.Map',
-                'java.util.Set'
+        // Imports and static imports both use disallowed-list (blocklist) mode instead of an
+        // allowed-list. setIndirectImportCheckEnabled(true) below makes SecureASTCustomizer check
+        // the *receiver type* of every method call, constructor call, and method pointer expression
+        // in the script against this same imports configuration - not just against explicit import
+        // statements (which the script can never write anyway, since KEYWORD_IMPORT is disallowed
+        // below). An allowed-list here would therefore have to include every legitimate type ever
+        // used as a receiver (String, Delegator, EntityFindOptions, etc.), and a narrow allowed-list
+        // combined with indirect checks rejects every expression in the script, not just imports.
+        // Actual receiver-type restriction for method calls is still tightly enforced separately by
+        // setAllowedReceivers below; this blocklist only needs to stop indirect FQCN construction
+        // (e.g. "new java.lang.ProcessBuilder(...)") of genuinely dangerous classes, matching the
+        // pattern already used in org.apache.ofbiz.base.util.GroovyUtil's eval() sandbox.
+        // SecureASTCustomizer throws IllegalArgumentException if both an allowed list and a
+        // disallowed list are set for the same allowed/disallowed pair, so only the disallowed
+        // setters are used for imports, star imports, static imports and static star imports here -
+        // do not add any setAllowed(Static)(Star)Imports call alongside these.
+        setDisallowedImports([
+                'java.lang.Runtime',
+                'java.lang.ProcessBuilder',
+                'java.lang.ClassLoader',
+                'java.lang.Thread',
+                'java.lang.reflect.Method',
+                'java.lang.reflect.Field',
+                'java.net.Socket',
+                'java.net.ServerSocket',
+                'groovy.lang.GroovyShell',
+                'groovy.lang.GroovyClassLoader'
         ])
-        setStarImportsWhitelist([])
-        setStaticImportsWhitelist([])
-        setStaticStarImportsWhitelist([])
+        setDisallowedStarImports([])
+        setDisallowedStaticImports([
+                'java.lang.Runtime.getRuntime',
+                'java.lang.Runtime.exec',
+                'java.lang.System.exit',
+                'java.lang.Class.forName'
+        ])
+        setDisallowedStaticStarImports([])
         setIndirectImportCheckEnabled(true)
         // Constant types whitelist
-        setConstantTypesClassesWhiteList([
+        setAllowedConstantTypesClasses([
                 Object, String, Integer, Long, Float, Double, Boolean,
                 Integer.TYPE, Long.TYPE, Float.TYPE, Double.TYPE, Boolean.TYPE,
                 BigDecimal, BigInteger,
@@ -170,14 +195,15 @@ if (security.hasPermission('ENTITY_MAINT', session)) {
                 List, Map, Set
         ])
         // Token and statement restrictions
-        setTokensBlacklist([KEYWORD_PACKAGE, KEYWORD_IMPORT])
-        setStatementsBlacklist([
+        setDisallowedTokens([KEYWORD_PACKAGE, KEYWORD_IMPORT])
+        setDisallowedStatements([
                 WhileStatement, ForStatement,
                 SwitchStatement
         ])
-        setExpressionsBlacklist([MethodPointerExpression])
+        setDisallowedExpressions([MethodPointerExpression])
         // Receiver whitelist - only safe OFBiz entity operations
-        setReceiversWhiteList([
+        setAllowedReceivers([
+                'java.lang.Object',
                 'org.apache.ofbiz.entity.Delegator',
                 'org.apache.ofbiz.entity.util.EntityQuery',
                 'org.apache.ofbiz.entity.util.EntityFindOptions',
