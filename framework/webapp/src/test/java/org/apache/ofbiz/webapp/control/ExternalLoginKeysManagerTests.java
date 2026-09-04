@@ -123,6 +123,9 @@ public class ExternalLoginKeysManagerTests {
         when(mintRequest.getSession()).thenReturn(mintSession);
         when(mintRequest.getAttribute("userLogin")).thenReturn(userLogin);
         String key = ExternalLoginKeysManager.getExternalLoginKey(mintRequest);
+        // The mint site attaches the key to a concrete link, e.g. a partymgr menu item,
+        // registering that destination -- exactly as WidgetWorker/RequestHandler do.
+        ExternalLoginKeysManager.registerDestination(key, "/partymgr");
 
         // Both redemptions target the same webapp, so the second one is the actual replay case.
         ServletContext servletContext = mock(ServletContext.class);
@@ -163,6 +166,80 @@ public class ExternalLoginKeysManagerTests {
             // doBasicLogin was called exactly once overall: never for the replay.
             loginWorker.verify(() -> LoginWorker.doBasicLogin(any(), any(), any()), times(1));
             loginWorker.verify(() -> LoginWorker.autoLoginSet(replay, replayResponse));
+        }
+    }
+
+    @Test
+    public void checkExternalLoginKeyRejectsRedemptionAgainstAnUnregisteredDestination() {
+        // Mint a key and register it against partymgr only -- e.g. a page that linked to
+        // partymgr, never to webtools.
+        GenericValue userLogin = mock(GenericValue.class);
+        HttpServletRequest mintRequest = mock(HttpServletRequest.class);
+        HttpSession mintSession = mock(HttpSession.class);
+        when(mintRequest.getSession()).thenReturn(mintSession);
+        when(mintRequest.getAttribute("userLogin")).thenReturn(userLogin);
+        String key = ExternalLoginKeysManager.getExternalLoginKey(mintRequest);
+        ExternalLoginKeysManager.registerDestination(key, "/partymgr");
+
+        // A captured key is presented against a webapp this render never linked to.
+        ServletContext webtoolsContext = mock(ServletContext.class);
+        when(webtoolsContext.getContextPath()).thenReturn("/webtools");
+        HttpServletRequest attempt = mock(HttpServletRequest.class);
+        HttpServletResponse attemptResponse = mock(HttpServletResponse.class);
+        when(attempt.getParameter("externalLoginKey")).thenReturn(key);
+        when(attempt.getServletContext()).thenReturn(webtoolsContext);
+
+        try (MockedStatic<LoginWorker> loginWorker = mockStatic(LoginWorker.class);
+                MockedStatic<EntityUtilProperties> props = mockStatic(EntityUtilProperties.class)) {
+            props.when(() -> EntityUtilProperties.getPropertyValue(
+                    "security", "security.login.externalLoginKey.enabled", "true", null)).thenReturn("true");
+
+            String result = ExternalLoginKeysManager.checkExternalLoginKey(attempt, attemptResponse);
+
+            assertEquals("success", result);
+            loginWorker.verify(() -> LoginWorker.doBasicLogin(any(), any(), any()), never());
+            loginWorker.verify(() -> LoginWorker.autoLoginSet(attempt, attemptResponse));
+        }
+    }
+
+    @Test
+    public void registerInterAppDestinationParsesContextRootFromControlServletTarget() {
+        Delegator delegator = mock(Delegator.class);
+        when(delegator.getDelegatorName()).thenReturn("default");
+        GenericValue userLogin = mock(GenericValue.class);
+        when(userLogin.getDelegator()).thenReturn(delegator);
+        when(userLogin.getString("userLoginId")).thenReturn("demoadmin");
+
+        HttpServletRequest mintRequest = mock(HttpServletRequest.class);
+        HttpSession mintSession = mock(HttpSession.class);
+        when(mintRequest.getSession()).thenReturn(mintSession);
+        when(mintRequest.getAttribute("userLogin")).thenReturn(userLogin);
+        String key = ExternalLoginKeysManager.getExternalLoginKey(mintRequest);
+
+        // As WidgetWorker/HtmlTreeRenderer see it: a relative inter-app link target, not a
+        // bare context path.
+        ExternalLoginKeysManager.registerInterAppDestination(key, "/partymgr/control/viewprofile?partyId=10000");
+
+        ServletContext servletContext = mock(ServletContext.class);
+        when(servletContext.getContextPath()).thenReturn("/partymgr");
+        HttpServletRequest attempt = mock(HttpServletRequest.class);
+        HttpServletResponse attemptResponse = mock(HttpServletResponse.class);
+        HttpSession attemptSession = mock(HttpSession.class);
+        when(attempt.getParameter("externalLoginKey")).thenReturn(key);
+        when(attempt.getServletContext()).thenReturn(servletContext);
+        when(attempt.getAttribute("delegator")).thenReturn(delegator);
+        when(attempt.getSession()).thenReturn(attemptSession);
+
+        try (MockedStatic<LoginWorker> loginWorker = mockStatic(LoginWorker.class);
+                MockedStatic<EntityUtilProperties> props = mockStatic(EntityUtilProperties.class)) {
+            loginWorker.when(() -> LoginWorker.checkLogout(any(), any())).thenReturn(userLogin);
+            props.when(() -> EntityUtilProperties.getPropertyValue(
+                    "security", "security.login.externalLoginKey.enabled", "true", delegator)).thenReturn("true");
+
+            String result = ExternalLoginKeysManager.checkExternalLoginKey(attempt, attemptResponse);
+
+            assertEquals("success", result);
+            loginWorker.verify(() -> LoginWorker.doBasicLogin(userLogin, attempt, attemptResponse), times(1));
         }
     }
 }

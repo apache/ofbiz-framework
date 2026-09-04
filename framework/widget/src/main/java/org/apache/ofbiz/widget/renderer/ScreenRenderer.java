@@ -35,6 +35,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.apache.ofbiz.base.component.ComponentConfig.WebappInfo;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.UtilDateTime;
@@ -54,6 +55,7 @@ import org.apache.ofbiz.security.Security;
 import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
+import org.apache.ofbiz.webapp.WebAppCache;
 import org.apache.ofbiz.webapp.control.ExternalLoginKeysManager;
 import org.apache.ofbiz.webapp.control.LoginWorker;
 import org.apache.ofbiz.webapp.website.WebSiteWorker;
@@ -308,6 +310,12 @@ public class ScreenRenderer {
         boolean externalLoginKeyEnabled = ExternalLoginKeysManager.isExternalLoginKeyEnabled(request);
         if (externalLoginKeyEnabled) {
             externalLoginKey = ExternalLoginKeysManager.getExternalLoginKey(request);
+            // Themes build the app-switcher menu directly in FTL (string-concatenated hrefs,
+            // bypassing WidgetWorker/RequestHandler entirely), so those destinations can never be
+            // registered at the point the key is embedded. Pre-register them here instead, using
+            // the same lookup the templates themselves use, so a key exposed to a template is
+            // only ever valid for the webapps that app-switcher can actually link to.
+            registerAppBarDestinations(externalLoginKey, servletContext);
         }
         String externalKeyParam = externalLoginKey == null ? "" : "&amp;externalLoginKey=" + externalLoginKey;
         context.put("externalLoginKey", externalLoginKey);
@@ -366,6 +374,29 @@ public class ScreenRenderer {
 
         // to preserve these values, push the MapStack
         context.push();
+    }
+
+    /**
+     * Allows the given key to authenticate into every webapp the app-switcher menu (built
+     * directly in theme FTL templates, from this same lookup) can link to for the current
+     * server, so the app-switcher keeps working under the destination-scoped externalLoginKey.
+     * @param externalLoginKey the minted key, as returned by {@link ExternalLoginKeysManager#getExternalLoginKey}
+     * @param servletContext the current webapp's servlet context, used to find the running server's id
+     */
+    private static void registerAppBarDestinations(String externalLoginKey, ServletContext servletContext) {
+        if (servletContext == null) {
+            return;
+        }
+        String serverId = (String) servletContext.getAttribute("_serverId");
+        if (serverId == null) {
+            return;
+        }
+        WebAppCache webAppCache = WebAppCache.getShared();
+        for (String menuName : UtilMisc.toList("main", "secondary")) {
+            for (WebappInfo webappInfo : webAppCache.getAppBarWebInfos(serverId, menuName)) {
+                ExternalLoginKeysManager.registerDestination(externalLoginKey, webappInfo.getContextRoot());
+            }
+        }
     }
 
     /**
