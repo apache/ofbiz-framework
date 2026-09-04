@@ -46,6 +46,7 @@ import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.minilang.MiniLangException;
 import org.apache.ofbiz.minilang.SimpleMapProcessor;
+import org.apache.ofbiz.security.Security;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ServiceUtil;
@@ -185,7 +186,7 @@ public class LayoutEvents {
             }
             String imageFileName = (String) uploadResults.get("imageFileName");
             if (Debug.verboseOn()) {
-                Debug.logVerbose("in createLayoutImage(java), context:" + context, "");
+                Debug.logVerbose("in updateLayoutImage(java), context:" + context, "");
             }
             context.put("userLogin", session.getAttribute("userLogin"));
             context.put("dataResourceTypeId", "IMAGE_OBJECT");
@@ -199,32 +200,62 @@ public class LayoutEvents {
 
             String dataResourceId = (String) context.get("drDataResourceId");
             if (Debug.verboseOn()) {
-                Debug.logVerbose("in createLayoutImage(java), dataResourceId:" + dataResourceId, "");
+                Debug.logVerbose("in updateLayoutImage(java), dataResourceId:" + dataResourceId, "");
             }
 
             GenericValue dataResource = EntityQuery.use(delegator).from("DataResource").where("dataResourceId", dataResourceId).queryOne();
             if (Debug.verboseOn()) {
-                Debug.logVerbose("in createLayoutImage(java), dataResource:" + dataResource, "");
+                Debug.logVerbose("in updateLayoutImage(java), dataResource:" + dataResource + ", imageFileName:" + imageFileName, "");
             }
-            // Use objectInfo field to store the name of the file, since there is no
-            // place in ImageDataResource for it.
-            if (Debug.verboseOn()) {
-                Debug.logVerbose("in createLayoutImage(java), imageFileName:" + imageFileName, "");
+            if (dataResource == null) {
+                request.setAttribute("_ERROR_MESSAGE_",
+                        UtilProperties.getMessage(ERR_RESOURCE, "layoutEvents.data_ressource_id_null", locale));
+                return "error";
             }
-            if (dataResource != null) {
-                dataResource.setNonPKFields(context);
-                dataResource.store();
+            // This event only maintains an existing plain IMAGE_OBJECT layout resource: it updates the
+            // editable image metadata and the image bytes through the permission-checked services
+            // (updateDataResource, then create/updateImageDataResource - all gated by
+            // genericDataResourcePermission, main-action UPDATE / CREATE), and never writes the
+            // DataResource or ImageDataResource entities directly. A resource that is template-bearing,
+            // or that is not an IMAGE_OBJECT, is rejected rather than converted, so this event can no
+            // longer reclassify a resource (the alignment updateLayout received in OFBIZ #1745).
+            String existingTemplateType = dataResource.getString("dataTemplateTypeId");
+            if ((UtilValidate.isNotEmpty(existingTemplateType) && !"NONE".equals(existingTemplateType))
+                    || !"IMAGE_OBJECT".equals(dataResource.getString("dataResourceTypeId"))) {
+                request.setAttribute("_ERROR_MESSAGE_",
+                        UtilProperties.getMessage("ContentUiLabels", "ContentPermissionNotGranted", locale));
+                return "error";
             }
-
-            // See if this needs to be a create or an update procedure
-            GenericValue imageDataResource = EntityQuery.use(delegator).from("ImageDataResource").where("dataResourceId", dataResourceId).queryOne();
-            if (imageDataResource == null) {
-                imageDataResource = delegator.makeValue("ImageDataResource", UtilMisc.toMap("dataResourceId", dataResourceId));
-                imageDataResource.set("imageData", byteWrap.array());
-                imageDataResource.create();
-            } else {
-                imageDataResource.set("imageData", byteWrap.array());
-                imageDataResource.store();
+            LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
+            GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
+            Map<String, Object> updateDrCtx = new HashMap<>();
+            updateDrCtx.put("dataResourceId", dataResourceId);
+            updateDrCtx.put("userLogin", userLogin);
+            for (String editableField : UtilMisc.toList("dataResourceName", "statusId", "mimeTypeId",
+                    "localeString", "isPublic", "objectInfo")) {
+                Object value = context.get(editableField);
+                if (value != null) {
+                    updateDrCtx.put(editableField, value);
+                }
+            }
+            try {
+                Map<String, Object> updateDrResult = dispatcher.runSync("updateDataResource", updateDrCtx);
+                if (ServiceUtil.isError(updateDrResult)) {
+                    request.setAttribute("_ERROR_MESSAGE_", ServiceUtil.getErrorMessage(updateDrResult));
+                    return "error";
+                }
+                GenericValue imageDataResource = EntityQuery.use(delegator).from("ImageDataResource")
+                        .where("dataResourceId", dataResourceId).queryOne();
+                String imageService = (imageDataResource == null) ? "createImageDataResource" : "updateImageDataResource";
+                Map<String, Object> imageResult = dispatcher.runSync(imageService, UtilMisc.toMap("dataResourceId",
+                        dataResourceId, "imageData", byteWrap.array(), "userLogin", userLogin));
+                if (ServiceUtil.isError(imageResult)) {
+                    request.setAttribute("_ERROR_MESSAGE_", ServiceUtil.getErrorMessage(imageResult));
+                    return "error";
+                }
+            } catch (GenericServiceException e) {
+                request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
+                return "error";
             }
         } catch (GenericEntityException e3) {
             request.setAttribute("_ERROR_MESSAGE_", e3.getMessage());
@@ -336,6 +367,22 @@ public class LayoutEvents {
             if (content == null) {
                 String errMsg = UtilProperties.getMessage(ERR_RESOURCE, "layoutEvents.content_empty", locale);
                 request.setAttribute("_ERROR_MESSAGE_", errMsg);
+                return "error";
+            }
+            // The clone-master step below writes new Content, DataResource and ContentAssoc rows
+            // directly (no service call), so gate it here: CONTENTMGR create, plus CONTENTMGR_SUPER
+            // when the source data resource is template-bearing (the clone would be template-bearing
+            // too) - the same permissions createContent / createDataResource would require.
+            // Converting these direct writes to service calls is left as separate follow-up.
+            Security security = (Security) request.getAttribute("security");
+            GenericValue srcDataResource = EntityQuery.use(delegator).from("DataResource")
+                    .where("dataResourceId", content.getString("dataResourceId")).queryOne();
+            String srcTemplateType = srcDataResource != null ? srcDataResource.getString("dataTemplateTypeId") : null;
+            boolean srcIsTemplate = UtilValidate.isNotEmpty(srcTemplateType) && !"NONE".equals(srcTemplateType);
+            if (security == null || !security.hasEntityPermission("CONTENTMGR", "_CREATE", userLogin)
+                    || (srcIsTemplate && !security.hasEntityPermission("CONTENTMGR_SUPER", "_CREATE", userLogin))) {
+                request.setAttribute("_ERROR_MESSAGE_",
+                        UtilProperties.getMessage("ContentUiLabels", "ContentPermissionNotGranted", locale));
                 return "error";
             }
             newContent = delegator.makeValue("Content", content);

@@ -305,18 +305,30 @@
         <auto-attributes include="pk" mode="IN" />
     </service>
     
+    <!-- A data template type decides which rendering engine a data resource may drive
+         (FTL / SCREEN_COMBINED / FORM_COMBINED / XSLT), so maintaining these rows is gated on
+         CONTENTMGR_SUPER, consistent with the other template-related content services. -->
     <service name="createDataTemplateType" engine="entity-auto" invoke="create" default-entity-name="DataTemplateType" auth="true">
         <description>Create a Data Template Type</description>
+        <required-permissions join-type="AND">
+            <check-permission permission="CONTENTMGR_SUPER" action="_CREATE"/>
+        </required-permissions>
         <auto-attributes include="pk" mode="INOUT" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="updateDataTemplateType" engine="entity-auto" invoke="update" default-entity-name="DataTemplateType" auth="true">
         <description>Update a Data Template Type</description>
+        <required-permissions join-type="AND">
+            <check-permission permission="CONTENTMGR_SUPER" action="_UPDATE"/>
+        </required-permissions>
         <auto-attributes include="pk" mode="IN"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="deleteDataTemplateType" engine="entity-auto" invoke="delete" default-entity-name="DataTemplateType" auth="true">
         <description>Delete a Data Template Type</description>
+        <required-permissions join-type="AND">
+            <check-permission permission="CONTENTMGR_SUPER" action="_DELETE"/>
+        </required-permissions>
         <auto-attributes include="pk" mode="IN"/>
     </service>
 
