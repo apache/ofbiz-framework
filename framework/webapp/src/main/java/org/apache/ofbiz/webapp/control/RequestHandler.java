@@ -1535,10 +1535,12 @@ public final class RequestHandler {
         }
 
         if (addExternalKeyParam) {
+            String externalLoginKey = ExternalLoginKeysManager.getExternalLoginKey(request);
+            ExternalLoginKeysManager.registerInterAppDestination(externalLoginKey, targetControlPath);
             if (url.contains("?")) {
-                url += "&externalLoginKey=" + ExternalLoginKeysManager.getExternalLoginKey(request);
+                url += "&externalLoginKey=" + externalLoginKey;
             } else {
-                url += "?externalLoginKey=" + ExternalLoginKeysManager.getExternalLoginKey(request);
+                url += "?externalLoginKey=" + externalLoginKey;
             }
         }
 
