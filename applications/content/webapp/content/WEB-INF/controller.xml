@@ -1528,12 +1528,6 @@ under the License.
         <response name="success" type="view" value="EditLayoutImage"/>
         <response name="error" type="view" value="EditLayoutImage"/>
     </request-map>
-    <request-map uri="updateLayoutImageOnly">
-        <security auth="true" https="true"/>
-        <event type="java" invoke="updateLayoutImageOnly" path="org.apache.ofbiz.content.layout.LayoutEvents"/>
-        <response name="success" type="view" value="EditLayoutImage"/>
-        <response name="error" type="view" value="EditLayoutImage"/>
-    </request-map>
     <request-map uri="cloneLayout">
         <security auth="true" https="true"/>
         <event type="java" invoke="cloneLayout" path="org.apache.ofbiz.content.layout.LayoutEvents"/>
