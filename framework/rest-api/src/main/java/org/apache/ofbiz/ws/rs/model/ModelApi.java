@@ -21,12 +21,15 @@ package org.apache.ofbiz.ws.rs.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.ofbiz.base.util.UtilValidate;
+
 public class ModelApi {
+    private final String defaultApiGroupPath = "api";
 
     private List<ModelResource> resources;
     private List<ModelMapping> mappings;
     private String name;
-    private String path;
+    private String apiGroupPath;
     private String displayName;
     private String description;
     private boolean publish;
@@ -97,8 +100,11 @@ public class ModelApi {
      *
      * @return the path value
      */
-    public String getPath() {
-        return path;
+    public String getApiGroupPath() {
+        if (UtilValidate.isEmpty(apiGroupPath)) {
+            apiGroupPath = defaultApiGroupPath;
+        }
+        return apiGroupPath;
     }
 
     /**
@@ -113,10 +119,10 @@ public class ModelApi {
     /**
      * Sets the path.
      *
-     * @param path the path value to set
+     * @param apiGroupPath the path value to set
      */
-    public void setPath(String path) {
-        this.path = path;
+    public void setApiGroupPath(String apiGroupPath) {
+        this.apiGroupPath = apiGroupPath;
     }
 
     /**

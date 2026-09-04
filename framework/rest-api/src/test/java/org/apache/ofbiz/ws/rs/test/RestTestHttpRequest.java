@@ -70,12 +70,16 @@ class RestTestHttpRequest implements JupiterTestHelper {
         return http;
     }
 
-    private static HttpClient createAuthorizedClient(String path) {
+    private static HttpClient createAuthorizedClient(String path, String token) {
         HttpClient client = initHttpClient();
         client.setHeader("Content-Type", "application/json");
-        client.setHeader("Authorization", "Bearer " + accessToken);
+        client.setHeader("Authorization", "Bearer " + token);
         client.setUrl(BASE_URL + path);
         return client;
+    }
+
+    private static HttpClient createAuthorizedClient(String path) {
+        return createAuthorizedClient(path, accessToken);
     }
 
     private static JsonNode requestForJson(HttpClient client, String errorContext, String verb) {
@@ -141,15 +145,18 @@ class RestTestHttpRequest implements JupiterTestHelper {
         }
     }
 
-    private static JsonNode requestAuthToken(String username, String password) {
+    private static JsonNode requestAuthToken(String username, String password, String apiGroupPath) {
         String creds = Base64.getEncoder().encodeToString((username + ":" + password).getBytes(StandardCharsets.UTF_8));
 
         HttpClient client = initHttpClient();
-        client.setUrl(BASE_URL + "/auth/token");
+        client.setUrl(BASE_URL + "/auth/" + apiGroupPath + "/token");
         client.setHeader("Authorization", "Basic " + creds);
         client.setHeader("Accept", "application/json");
+        return requestForJson(client, "/auth/" + apiGroupPath + "/token (" + username + ")", HttpMethod.POST);
 
-        return requestForJson(client, "/auth/token (" + username + ")", HttpMethod.POST);
+    }
+    private static JsonNode requestAuthToken(String username, String password) {
+        return requestAuthToken(username, password, "test-api");
     }
 
     private static JsonNode requestAuthTokenAsAdmin() {
@@ -245,43 +252,62 @@ class RestTestHttpRequest implements JupiterTestHelper {
         assertFalse(statusCode == 200, "Invalid credentials should not return a success status code");
     }
 
+    @Test
+    @Order(9)
+    void testGenerateAuthTokenRejectsUnknownApiGroup() {
+        JsonNode root = requestAuthToken("admin", "ofbiz", "non-existing-api");
+        int statusCode = root.path("statusCode").asInt(999);
+        assertTrue(statusCode == 400, "Invalid apiGroupPath should be rejected");
+    }
+
+    @Test
+    @Order(10)
+    void testTokenForDifferentApiGetsRejected() {
+        // Create token for apiGroup "api"
+        JsonNode authRoot = requestAuthToken("admin", "ofbiz", "api");
+        String apiAccessToken = authRoot.path("data").path("access_token").asText();
+        // Request to apiGroup "test-api"
+        HttpClient client = createAuthorizedClient("/test-api/returnSuccess", apiAccessToken);
+        JsonNode root = requestForJson(client, "Reject access token from different api.", HttpMethod.POST);
+        assertTrue(401 == root.path("statusCode").asInt());
+    }
     /* ========= generall tests - these rely on the Endpoints
     specified via exampleApiDefinition.rest.xml ============ */
 
     @Test
     void returnSuccessReturnsExpectedStatusCode() throws Exception {
-        HttpClient client = createAuthorizedClient("/exampleApi/returnSuccess");
-        JsonNode root = requestForJson(client, "/exampleApi/returnSuccess", HttpMethod.POST);
+        HttpClient client = createAuthorizedClient("/test-api/returnSuccess");
+        JsonNode root = requestForJson(client, "/test-api/returnSuccess", HttpMethod.POST);
         assertEquals(200, root.path("statusCode").asInt());
     }
 
     // Corresponding service overwrites statusCode with 201
     @Test
     void returnSuccessOverwriteStatusCode() throws Exception {
-        HttpClient client = createAuthorizedClient("/exampleApi/returnSuccessButOverwriteStatusCode");
-        JsonNode root = requestForJson(client, "/exampleApi/returnSuccessButOverwriteStatusCode", HttpMethod.POST);
+        HttpClient client = createAuthorizedClient("/test-api/returnSuccessButOverwriteStatusCode");
+        JsonNode root = requestForJson(client, "/test-api/returnSuccessButOverwriteStatusCode", HttpMethod.POST);
         assertEquals(201, root.path("statusCode").asInt());
     }
 
     @Test
     void useCustomHeaderAsServiceParameter() throws Exception {
-        HttpClient client = createAuthorizedClient("/exampleApi/useCustomHeaderAsServiceParameter");
+        HttpClient client = createAuthorizedClient("/test-api/useCustomHeaderAsServiceParameter");
         client.setHeader("x-custom-header", "Foo");
-        JsonNode root = requestForJson(client, "/exampleApi/useCustomHeaderAsServiceParameter", HttpMethod.POST);
+        JsonNode root = requestForJson(client, "/test-api/useCustomHeaderAsServiceParameter", HttpMethod.POST);
         assertEquals("Foo", root.path("data").path("x-custom-header").asText());
     }
 
     @Test
     void testUseLocaleSetInRequestHeader() throws Exception {
-        HttpClient client = createAuthorizedClient("/exampleApi/useLocaleSetInRequestHeader");
+        HttpClient client = createAuthorizedClient("/test-api/useLocaleSetInRequestHeader");
         client.setHeader("Accept-Language", "fr");
-        JsonNode root = requestForJson(client, "/exampleApi/useLocaleSetInRequestHeader", HttpMethod.POST);
+        JsonNode root = requestForJson(client, "/test-api/useLocaleSetInRequestHeader", HttpMethod.POST);
         assertEquals("fr", root.path("data").path("localeAsString").asText());
     }
 
     @Test
     void testGZipCompression() throws Exception {
-        HttpClient client = createAuthorizedClient("/exampleApi/returnSuccess");
+        HttpClient client = createAuthorizedClient("/test-api/returnSuccess");
         client.setHeader("Accept-Encoding", "gzip");
 
         byte[] rawBytes = postRawBytes(client);
@@ -296,7 +322,7 @@ class RestTestHttpRequest implements JupiterTestHelper {
 
     @Test
     void testDeflateCompression() throws Exception {
-        HttpClient client = createAuthorizedClient("/exampleApi/returnSuccess");
+        HttpClient client = createAuthorizedClient("/test-api/returnSuccess");
         client.setHeader("Accept-Encoding", "deflate");
 
         byte[] rawBytes = postRawBytes(client);
@@ -307,18 +333,18 @@ class RestTestHttpRequest implements JupiterTestHelper {
 
     @Test
     void testServiceInputParametersAsPath() throws Exception {
-        HttpClient client = createAuthorizedClient("/exampleApi/foo/testServiceInputParametersAsPath/");
+        HttpClient client = createAuthorizedClient("/test-api/foo/testServiceInputParametersAsPath/");
 
-        JsonNode root = requestForJson(client, "/exampleApi/foo/testServiceInputParametersAsPath/", HttpMethod.GET);
+        JsonNode root = requestForJson(client, "/test-api/foo/testServiceInputParametersAsPath/", HttpMethod.GET);
         assertEquals("foo", root.path("data").path("myInput").asText());
     }
 
     @Test
     void testServiceInputParametersAsQueryParam() throws Exception {
-        HttpClient client = createAuthorizedClient("/exampleApi/testServiceInputParametersAsQueryParam/");
+        HttpClient client = createAuthorizedClient("/test-api/testServiceInputParametersAsQueryParam/");
         client.setParameter("myInput", "foo");
 
-        JsonNode root = requestForJson(client, "/exampleApi/testServiceInputParametersAsQueryParam/", HttpMethod.GET);
+        JsonNode root = requestForJson(client, "/test-api/testServiceInputParametersAsQueryParam/", HttpMethod.GET);
         assertEquals("foo", root.path("data").path("myInput").asText());
     }
 }

@@ -18,14 +18,14 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<api name="ExampleApiDefinition"
-     displayName="Example REST API"
-     path="/exampleApi"
-     description="This API exposes example product services as REST endpoints."
+<api name="TestApi"
+     displayName="REST Test API"
+     apiGroupPath="test-api"
+     description="This API exposes REST endpoints for testing purposes."
      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
      xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/rest-api.xsd">
 
-    <resource name="orders" path="/createRestOrderExample">
+    <resource name="example" path="/createRestOrderExample">
         <operation verb="post" consumes="application/json" produces="application/json">
             <service name="createRestOrderExample"/>
             <example type="response" code="200">
@@ -46,37 +46,37 @@ under the License.
     <!-- The exposed endpoints are neccessary for tests defined in RestTestHttpRequest.java to run.-->
     <!-- If you decide to remove / not publish this rest.xml, those tests need to be commented out. -->
 
-    <resource name="orders" path="/returnSuccess">
+    <resource name="test" path="/returnSuccess">
         <operation verb="post" consumes="application/json" produces="application/json">
             <service name="returnSuccess"/>
         </operation>
     </resource>
 
-    <resource name="orders" path="/returnSuccessButOverwriteStatusCode">
+    <resource name="test" path="/returnSuccessButOverwriteStatusCode">
         <operation verb="post" consumes="application/json" produces="application/json">
             <service name="returnSuccessButOverwriteStatusCode"/>
         </operation>
     </resource>
 
-    <resource name="orders" path="/useCustomHeaderAsServiceParameter">
+    <resource name="test" path="/useCustomHeaderAsServiceParameter">
         <operation verb="post" consumes="application/json" produces="application/json" customHeaders="x-custom-header">
             <service name="useCustomHeaderAsServiceParameter"/>
         </operation>
     </resource>
 
-    <resource name="orders" path="/useLocaleSetInRequestHeader">
+    <resource name="test" path="/useLocaleSetInRequestHeader">
         <operation verb="post" consumes="application/json" produces="application/json">
             <service name="useLocaleSetInRequestHeader"/>
         </operation>
     </resource>
 
-    <resource name="orders" path="/{myInput}/testServiceInputParametersAsPath/">
+    <resource name="test" path="/{myInput}/testServiceInputParametersAsPath/">
         <operation verb="get" consumes="application/json" produces="application/json">
             <service name="testServiceInputParameters"/>
         </operation>
     </resource>
 
-    <resource name="orders" path="/testServiceInputParametersAsQueryParam/">
+    <resource name="test" path="/testServiceInputParametersAsQueryParam/">
         <operation verb="get" consumes="application/json" produces="application/json">
             <service name="testServiceInputParameters"/>
             <queryParam name="myInput" type="string" description="example input" />
