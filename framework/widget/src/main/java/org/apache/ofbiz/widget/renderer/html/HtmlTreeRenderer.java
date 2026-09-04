@@ -30,6 +30,7 @@ import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilValidate;
+import org.apache.ofbiz.webapp.control.ExternalLoginKeysManager;
 import org.apache.ofbiz.webapp.control.RequestHandler;
 import org.apache.ofbiz.webapp.taglib.ContentUrlTag;
 import org.apache.ofbiz.widget.WidgetWorker;
@@ -259,6 +260,7 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
                         writer.append("?externalLoginKey=");
                     }
                     writer.append(externalLoginKey);
+                    ExternalLoginKeysManager.registerInterAppDestination(externalLoginKey, target);
                 }
             } else {
                 writer.append(target);

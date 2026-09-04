@@ -33,6 +33,7 @@ import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.webapp.control.ConfigXMLReader;
+import org.apache.ofbiz.webapp.control.ExternalLoginKeysManager;
 import org.apache.ofbiz.webapp.control.RequestHandler;
 import org.apache.ofbiz.webapp.taglib.ContentUrlTag;
 import org.apache.ofbiz.widget.model.CommonWidgetModels;
@@ -107,6 +108,7 @@ public final class WidgetWorker {
             if (!isAbsoluteTarget(localRequestName)) {
                 String externalLoginKey = (String) request.getAttribute("externalLoginKey");
                 additionalParameters.put("externalLoginKey", externalLoginKey);
+                ExternalLoginKeysManager.registerInterAppDestination(externalLoginKey, localRequestName);
             }
         } else if ("content".equals(targetType)) {
             uriString = getContentUrl(localRequestName, request);
