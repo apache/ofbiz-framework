@@ -349,6 +349,21 @@ under the License.
             </type-validate>
         </attribute>
     </service>
+    <service name="checkPartyRoleExists" engine="simple"
+            location="component://party/minilang/party/PartySimpleMethods.xml" invoke="checkPartyRoleExists" auth="false">
+        <description>Reject the request with a friendly error if the party does not already hold the given role,
+        instead of letting a role-based association be created against a party/role combination that doesn't exist.</description>
+        <attribute name="partyId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingPartyId"/>
+            </type-validate>
+        </attribute>
+        <attribute name="roleTypeId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingRoleTypeId"/>
+            </type-validate>
+        </attribute>
+    </service>
     <service name="ensurePartyRoleFrom" engine="simple"
             location="component://party/minilang/party/PartySimpleMethods.xml" invoke="ensureNaPartyRole" auth="true">
         <description>Ensure that the party indicate by partyIdFrom is in the roleTypeIdFrom specifc role. If roleTypeIdFrom isn't present use _NA_</description>
