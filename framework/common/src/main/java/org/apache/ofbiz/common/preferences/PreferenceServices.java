@@ -42,7 +42,7 @@ import org.apache.ofbiz.service.ServiceUtil;
  * User preference services.<p>User preferences are stored as key-value pairs.
  * <p>User preferences can be grouped - so that multiple preference pairs can be
  * handled at once. Preference groups also allow a single userPrefTypeId to be
- * used more than once - with each occurence having a unique userPrefGroupTypeId.</p>
+ * used more than once - with each occurrence having a unique userPrefGroupTypeId.</p>
  * <p>User preference values are stored as Strings, so the easiest and most
  * efficient way to handle user preference values is to keep them as strings.
  * This class handles any data conversion needed.</p>

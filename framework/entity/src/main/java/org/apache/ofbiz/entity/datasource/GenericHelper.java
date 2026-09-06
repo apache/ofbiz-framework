@@ -94,7 +94,7 @@ public interface GenericHelper {
      * (if this is a view entity with group-by aliases)
      *@param havingEntityCondition The EntityCondition object that specifies how to constrain this query after any groupings are done
      * (if this is a view entity with group-by aliases)
-     *@param fieldsToSelect The fields of the named entity to get from the database; if empty or null all fields will be retreived
+     *@param fieldsToSelect The fields of the named entity to get from the database; if empty or null all fields will be retrieved
      *@param orderBy The fields of the named entity to order the query by; optionally add a " ASC" for ascending or " DESC" for descending
      *@param findOptions An instance of EntityFindOptions that specifies advanced query options. See the EntityFindOptions JavaDoc for more details.
      *@return EntityListIterator representing the result of the query: NOTE THAT THIS MUST BE CLOSED WHEN YOU ARE

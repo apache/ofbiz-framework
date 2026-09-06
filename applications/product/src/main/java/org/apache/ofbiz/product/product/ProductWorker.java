@@ -1029,7 +1029,7 @@ public final class ProductWorker {
         if (UtilValidate.isNotEmpty(productsByIds)) {
             for (GenericValue product : productsByIds) {
                 GenericValue productToAdd = product;
-                //retreive product GV if the actual genericValue came from viewEntity
+                //retrieve product GV if the actual genericValue came from viewEntity
                 if (!"Product".equals(product.getEntityName())) {
                     productToAdd = EntityQuery.use(delegator).from("Product").where("productId", product.get("productId")).cache().queryOne();
                 }

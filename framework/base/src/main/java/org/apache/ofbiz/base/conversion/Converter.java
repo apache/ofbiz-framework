@@ -27,7 +27,7 @@ package org.apache.ofbiz.base.conversion;
 public interface Converter<S, T> {
     /** Returns <code>true</code> if this object can convert
      * <code>sourceClass</code> to <code>targetClass</code>.
-     * <p>Implementations can accomodate class hierarchy ranges
+     * <p>Implementations can accommodate class hierarchy ranges
      * by converting super classes or interfaces.
      *
      * @param sourceClass The source <code>Class</code>

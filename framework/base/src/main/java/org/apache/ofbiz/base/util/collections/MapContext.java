@@ -70,7 +70,7 @@ public class MapContext<K, V> implements Map<K, V>, LocalizedMap<V> {
         contexts.addFirst(existingMap);
     }
 
-    /** Puts an existing Map on the BOTTOM of the stack (bottom meaning will be overriden by lower layers on the stack,
+    /** Puts an existing Map on the BOTTOM of the stack (bottom meaning will be overridden by lower layers on the stack,
      * ie everything else already there) */
     void addToBottom(Map<K, V> existingMap) {
         if (existingMap == null) {

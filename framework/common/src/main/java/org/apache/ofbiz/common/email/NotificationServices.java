@@ -115,7 +115,7 @@ public class NotificationServices {
      * generating the message body and sending the notification.
      * @param ctx   The dispatching context of the service
      * @param context The map containing all the fields associated with
-     * the sevice
+     * the service
      * @return A Map with the service response messages in it
      */
     public static Map<String, Object> sendNotification(DispatchContext ctx, Map<String, ? extends Object> context) {
@@ -179,7 +179,7 @@ public class NotificationServices {
      * "body" containing the generated message.
      * @param ctx   The dispatching context of the service
      * @param context The map containing all the fields associated with
-     * the sevice
+     * the service
      * @return A new Map indicating success or error containing the
      * body generated from the template and the input parameters.
      */

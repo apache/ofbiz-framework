@@ -607,7 +607,7 @@ public final class UtilValidate {
     }
 
     /**
-     * Checks a String for a valid Email-List seperated by ",".
+     * Checks a String for a valid Email-List separated by ",".
      */
     public static boolean isEmailList(String s) {
         if (isEmpty(s)) {
