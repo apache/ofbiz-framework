@@ -650,7 +650,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
             return this.collapsible;
         }
 
-        //initially-collapsed status, which may be overriden by user preference
+        //initially-collapsed status, which may be overridden by user preference
         public boolean getInitiallyCollapsed(Map<String, Object> context) {
             String screenletId = this.getId(context) + "_collapsed";
             Map<String, ? extends Object> userPreferences = UtilGenerics.cast(context.get("userPreferences"));

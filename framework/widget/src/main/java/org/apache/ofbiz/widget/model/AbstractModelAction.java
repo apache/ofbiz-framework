@@ -765,7 +765,7 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
                 Map<String, Object> serviceContext = null;
                 if ("true".equals(autoFieldMapString)) {
                     DispatchContext dc = WidgetWorker.getDispatcher(context).getDispatchContext();
-                    // try a map called "parameters", try it first so values from here are overriden by values in the main context
+                    // try a map called "parameters", try it first so values from here are overridden by values in the main context
                     Map<String, Object> combinedMap = new HashMap<>();
                     Object obj = context.get("parameters");
                     Map<String, Object> parametersObj = (obj instanceof Map) ? UtilGenerics.cast(obj) : null;

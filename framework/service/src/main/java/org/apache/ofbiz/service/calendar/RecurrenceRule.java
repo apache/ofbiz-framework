@@ -455,7 +455,7 @@ public class RecurrenceRule {
     }
 
     /**
-     * Removes this rule from the persistant store.
+     * Removes this rule from the persistent store.
      *@throws RecurrenceRuleException
      */
     public void remove() throws RecurrenceRuleException {

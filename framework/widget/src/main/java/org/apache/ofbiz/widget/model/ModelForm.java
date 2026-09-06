@@ -1801,7 +1801,7 @@ public abstract class ModelForm extends ModelWidget {
     }
 
     /**
-     * Is overriden list size boolean.
+     * Is overridden list size boolean.
      * @return the boolean
      */
     public boolean isOverridenListSize() {

@@ -164,7 +164,7 @@ public class RecurrenceInfo {
         }
     }
 
-    /** Removes the recurrence from persistant store. */
+    /** Removes the recurrence from persistent store. */
     public void remove() throws RecurrenceInfoException {
         List<RecurrenceRule> rulesList = new ArrayList<>();
 
