@@ -52,7 +52,7 @@ public interface ContentWrapper {
     }
 
     /**
-     * Check modelObject for existance of a field named like given contentTypeId and
+     * Check modelObject for existence of a field named like given contentTypeId and
      * return its value as String.
      * @param modelObject
      * @param contentTypeId

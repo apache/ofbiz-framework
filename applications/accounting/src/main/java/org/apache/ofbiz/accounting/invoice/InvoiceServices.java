@@ -2003,7 +2003,7 @@ public class InvoiceServices {
                 return ServiceUtil.returnSuccess();
             }
 
-            // group the shipments by returnId (because we want a seperate itemized invoice for each return)
+            // group the shipments by returnId (because we want a separate itemized invoice for each return)
             Map<String, List<GenericValue>> itemsShippedGroupedByReturn = new HashMap<>();
 
             for (GenericValue item : shippedItems) {

@@ -172,7 +172,7 @@ public class InventoryServices {
             // setup values so that no one will grab the inventory during the move
             // if newItem is not null, it is the item to be moved, otherwise the original inventoryItem is the one to be moved
             if ("NON_SERIAL_INV_ITEM".equals(inventoryType)) {
-                // set the transfered inventory item's atp to 0 and the qoh to the xferQty; at this point atp and qoh will always be the same,
+                // set the transferred inventory item's atp to 0 and the qoh to the xferQty; at this point atp and qoh will always be the same,
                 // so we can safely zero the atp for now
                 GenericValue inventoryItemToClear = newItem == null ? inventoryItem : newItem;
 

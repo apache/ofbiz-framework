@@ -440,7 +440,7 @@ public class OrderServices {
             return ServiceUtil.returnError(errorMessages);
         }
 
-        // the inital status for ALL order types
+        // the initial status for ALL order types
         String initialStatus = "ORDER_CREATED";
         successResult.put("statusId", initialStatus);
 
@@ -1690,7 +1690,7 @@ public class OrderServices {
 
                 List<GenericValue> validOrderItems = orh.getValidOrderItems(shipGroupSeqId);
                 if (validOrderItems != null) {
-                    // prepare the inital lists
+                    // prepare the initial lists
                     List<GenericValue> products = new ArrayList<>(validOrderItems.size());
                     List<BigDecimal> amounts = new ArrayList<>(validOrderItems.size());
                     List<BigDecimal> shipAmts = new ArrayList<>(validOrderItems.size());
@@ -2034,7 +2034,7 @@ public class OrderServices {
             } else if (allApproved) {
                 boolean changeToApprove = true;
 
-                // NOTE DEJ20070805 I'm not sure why we would want to auto-approve the header... adding at least this one exeption so that we don't
+                // NOTE DEJ20070805 I'm not sure why we would want to auto-approve the header... adding at least this one exception so that we don't
                 // have to add processing, held, etc statuses to the item status list
                 // NOTE2 related to the above: appears this was a weird way to set the order header status by setting all order item statuses...
                 // changing that to be less weird and more direct

@@ -414,7 +414,7 @@ public class PriceServices {
             BigDecimal minSellPrice = minimumPriceValue != null ? minimumPriceValue.getBigDecimal("price") : null;
             if (minSellPrice != null && defaultPrice.compareTo(minSellPrice) < 0) {
                 defaultPrice = minSellPrice;
-                // since we have found a minimum price that has overriden a the defaultPrice, even if no valid one was found,
+                // since we have found a minimum price that has overridden a the defaultPrice, even if no valid one was found,
                 // we will consider it as if one had been...
                 validPriceFound = true;
             }
@@ -1087,7 +1087,7 @@ public class PriceServices {
         BigDecimal minSellPrice = minimumPriceValue != null ? minimumPriceValue.getBigDecimal("price") : null;
         if (minSellPrice != null && price.compareTo(minSellPrice) < 0) {
             price = minSellPrice;
-            // since we have found a minimum price that has overriden a the defaultPrice, even if no valid one was found,
+            // since we have found a minimum price that has overridden a the defaultPrice, even if no valid one was found,
             // we will consider it as if one had been...
             validPriceFound = true;
         }

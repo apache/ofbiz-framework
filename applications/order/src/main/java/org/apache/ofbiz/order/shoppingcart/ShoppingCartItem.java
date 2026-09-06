@@ -791,7 +791,7 @@ public class ShoppingCartItem implements java.io.Serializable {
         newItem.setReserveAfterDate(reserveAfterDate != null ? reserveAfterDate : cart.getDefaultReserveAfterDate());
 
         // set the product unit price as base price
-        // if triggerPriceRules is true this price will be overriden
+        // if triggerPriceRules is true this price will be overridden
         newItem.setBasePrice(unitPrice);
 
         if (UtilValidate.isNotEmpty(orderItemAttributes)) {
@@ -3125,7 +3125,7 @@ public class ShoppingCartItem implements java.io.Serializable {
                 || !(this.orderItemAttributes.equals(orderItemAttributes)))));
     }
 
-    /** Gets the Product entity. If it is not already retreived gets it from the delegator */
+    /** Gets the Product entity. If it is not already retrieved gets it from the delegator */
     public GenericValue getProduct() {
         if (this.product != null) {
             return this.product;

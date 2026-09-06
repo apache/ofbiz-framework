@@ -587,7 +587,7 @@ public final class PartyWorker {
         if (UtilValidate.isNotEmpty(partiesByIds)) {
             for (GenericValue party : partiesByIds) {
                 GenericValue partyToAdd = party;
-                //retreive party GV if the actual genericValue came from viewEntity
+                //retrieve party GV if the actual genericValue came from viewEntity
                 if (!"Party".equals(party.getEntityName())) {
                     partyToAdd = EntityQuery.use(delegator).from("Party").where("partyId", party.get("partyId")).cache().queryOne();
                 }

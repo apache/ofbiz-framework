@@ -112,7 +112,7 @@ public class ShoppingCartHelper {
                 configWrapper, itemGroupNumber, context, parentProductId);
     }
 
-    /** Overriden for reserveAfterDate. */
+    /** Overridden for reserveAfterDate. */
     public Map<String, Object> addToCart(String catalogId, String shoppingListId, String shoppingListItemSeqId, String productId,
             String productCategoryId, String itemType, String itemDescription,
             BigDecimal price, BigDecimal amount, BigDecimal quantity,
