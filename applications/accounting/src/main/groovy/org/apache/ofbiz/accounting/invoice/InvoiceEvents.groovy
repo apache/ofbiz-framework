@@ -32,14 +32,20 @@ Map createInvoiceItemPayrol() {
                 if (payRol.parentTypeId == payRolGroup.invoiceItemTypeId) {
                     Map createInvoiceItem = [invoiceId: parameters.invoiceId,
                                              invoiceItemTypeId: payRol.invoiceItemTypeId,
-                                             description: "${payRolGroup.description}: ${payRol.description}",
-                                             quantity: parameters."${payRol.invoiceItemTypeId}_Quantity" ?: 1d,
-                                             amount: parameters."${payRol.invoiceItemTypeId}_Amount" ?: 0d]
+                                             description: "${payRolGroup.description} : ${payRol.description}"]
+                    String quantityParam = parameters."${payRol.invoiceItemTypeId}_Quantity"
+                    if (quantityParam) {
+                        createInvoiceItem.quantity = quantityParam
+                    }
+                    String amountParam = parameters."${payRol.invoiceItemTypeId}_Amount"
+                    if (amountParam) {
+                        createInvoiceItem.amount = amountParam
+                    }
 
-                    if (parameters."${payRol.invoiceItemTypeId}_Quantity" ||
-                            parameters."${payRol.invoiceItemTypeId}_Amount") {
+                    if (quantityParam || amountParam) {
                         if ('PAYROL_EARN_HOURS' != payRolGroup.invoiceItemTypeId) {
-                            createInvoiceItem.amount = createInvoiceItem.amount.negate()
+                            BigDecimal amountValue = amountParam ? new BigDecimal(amountParam) : BigDecimal.ZERO
+                            createInvoiceItem.amount = amountValue.negate()
                         }
                         Map serviceResult = run service: 'createInvoiceItem', with: createInvoiceItem
                         if (ServiceUtil.isError(serviceResult)) {
