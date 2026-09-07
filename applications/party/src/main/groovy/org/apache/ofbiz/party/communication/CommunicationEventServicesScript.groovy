@@ -43,7 +43,7 @@ Map createCommunicationEvent() {
         newCommEvent.remove('communicationEventId')
         newCommEvent.remove('messageId')
         newCommEvent.remove('partyIdTo')
-        newCommEvent.partyIdFrom = parameters.partyIdTo
+        newCommEvent.partyIdFrom = parameters.partyIdFrom
         String forwardLabel = UtilProperties.getPropertyValue('PartyUiLabels', 'PartyForward')
         newCommEvent.subject = "${forwardLabel}: ${newCommEvent.subject}"
         newCommEvent.origCommEventId = parameters.origCommEventId
@@ -64,7 +64,7 @@ Map createCommunicationEvent() {
                 .where('communicationEventId', parameters.parentCommEventId)
                 .queryOne()
         GenericValue party = from('Party')
-                .where('partyId', parameters.partyIdFrom)
+                .where('partyId', parentCommEvent.partyIdFrom)
                 .queryOne()
         newCommEvent.communicationEventTypeId = parentCommEvent.communicationEventTypeId
         if (newCommEvent.communicationEventTypeId == 'AUTO_EMAIL_COMM') {
@@ -264,7 +264,7 @@ Map updateCommunicationEvent() {
         if (event.partyIdTo) {
             GenericValue roleTo = from('CommunicationEventRole')
                     .where([communicationEventId: event.communicationEventId,
-                            partyId: event.partyIdto,
+                            partyId: event.partyIdTo,
                             roleTypeId: 'ADDRESSEE'])
                     .queryOne()
             roleTo?.remove()
@@ -540,21 +540,21 @@ Map setCommunicationEventStatus() {
                         role.store()
                     }
                 }
-            }
-        } else { //make sure at least the senders role is set to complete
+            } else { //make sure at least the senders role is set to complete
 
-            GenericValue communicationEventRole =
-                    from('CommunicationEventRole').where(
-                            communicationEventId: communicationEvent.communicationEventId,
-                            partyId: communicationEvent.partyIdFrom,
-                            roleTypeId: 'ORIGINATOR')
-                            .queryOne()
-            //found a mispelling in minilang so ...
-            if (communicationEventRole
-                    && 'COM_ROLE_COMPLETED' != communicationEventRole.statusId) {
-                Map updateRoleMap = [*:communicationEventRole]
-                updateRoleMap.statusId = 'COM_ROLE_COMPLETED'
-                run service: 'updateCommunicationEventRole', with: updateRoleMap
+                GenericValue communicationEventRole =
+                        from('CommunicationEventRole').where(
+                                communicationEventId: communicationEvent.communicationEventId,
+                                partyId: communicationEvent.partyIdFrom,
+                                roleTypeId: 'ORIGINATOR')
+                                .queryOne()
+                //found a mispelling in minilang so ...
+                if (communicationEventRole
+                        && 'COM_ROLE_COMPLETED' != communicationEventRole.statusId) {
+                    Map updateRoleMap = [*:communicationEventRole]
+                    updateRoleMap.statusId = 'COM_ROLE_COMPLETED'
+                    run service: 'updateCommunicationEventRole', with: updateRoleMap
+                }
             }
         }
     }
