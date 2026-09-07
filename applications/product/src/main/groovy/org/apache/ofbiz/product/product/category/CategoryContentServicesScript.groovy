@@ -80,7 +80,7 @@ Map createSimpleTextContentForCategory() {
 Map updateContentSEOForCategory() {
     updateContent('title', 'PAGE_TITLE')
     updateContent('metaKeyword', 'META_KEYWORD')
-    updateContent('metaDiscription', 'META_DESCRIPTION')
+    updateContent('metaDescription', 'META_DESCRIPTION')
 }
 
 /**
@@ -93,7 +93,7 @@ Map updateContent(String param, String typeId) {
             .queryList()
         if (productCategoryContents) {
             Map productCategoryContent = EntityUtil.getFirst(productCategoryContents)
-            Map electronicText = from('ElectronicText').where('dataResourceId', productCategoryContent).queryOne()
+            Map electronicText = from('ElectronicText').where('dataResourceId', productCategoryContent.dataResourceId).queryOne()
             if (electronicText) {
                 electronicText.textData = parameters."${param}"
                 electronicText.store()
@@ -115,12 +115,12 @@ Map updateContent(String param, String typeId) {
 Map createRelatedUrlContentForCategory() {
     String url = parameters.url
     url = url.trim()
-    if (url.indexOf('&quot;http://&quot;') != 0) {
-        url = '&quot;http://&quot;' + url
+    if (!url.startsWith('http://') && !url.startsWith('https://')) {
+        url = 'http://' + url
     }
     Map dataResource = [
-        dataRescourceName: parameters.title,
-        dataRescourceTypeId: 'URL_RESOURCE',
+        dataResourceName: parameters.title,
+        dataResourceTypeId: 'URL_RESOURCE',
         mimeTypeId: 'text/plain',
         objectInfo: url,
         localeString: parameters.localeString
@@ -138,7 +138,7 @@ Map createRelatedUrlContentForCategory() {
     Map contRes = run service: 'createContent', with: content
     parameters.contentId = contRes.contentId
     Map createCategoryContentMap = dispatcher.getDispatchContext().makeValidContext('createCategoryContent', ModelService.IN_PARAM, parameters)
-    run service: 'createContentCategory', with: createCategoryContentMap
+    run service: 'createCategoryContent', with: createCategoryContentMap
 }
 
 /**
@@ -209,5 +209,5 @@ Map updateDownloadContentForCategory() {
     run service: 'attachUploadToDataResource', with: attachMap
 
     Map updateCategoryContent = dispatcher.getDispatchContext().makeValidContext('updateCategoryContent', ModelService.IN_PARAM, parameters)
-    run sevrice: 'updateCategoryContent', with: updateCategoryContent
+    run service: 'updateCategoryContent', with: updateCategoryContent
 }
