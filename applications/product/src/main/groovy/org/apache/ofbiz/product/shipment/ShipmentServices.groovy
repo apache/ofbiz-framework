@@ -775,7 +775,7 @@ Map quickShipEntireOrder() {
     }
     if (productStore.explodeOrderItems == 'Y') {
         // can't insert duplicate rows in shipmentPackageContent
-        return errorMessage(UtilProperties.getMessage('ProductUiLabels',
+        return error(UtilProperties.getMessage('ProductUiLabels',
                 'FacilityShipmentNotCreatedForExplodesOrderItems', [productStore: productStore], locale))
     }
     // locate shipping facilities associated with order item rez's
