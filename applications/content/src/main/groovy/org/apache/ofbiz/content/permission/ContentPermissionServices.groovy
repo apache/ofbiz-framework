@@ -353,7 +353,7 @@ Map checkContentOperationSecurity(String contentOperationId, String contentPurpo
                         .orderBy('contentPurposeTypeId')
                         .cache()
                         .queryList()
-                operations << currentOperations
+                operations.addAll(currentOperations)
             }
         } else {
             operations = from('ContentPurposeOperation')
@@ -531,7 +531,7 @@ Map checkRoleSecurity(String roleEntity, String roleEntityField, String checkId,
 /**
  * Find all content purposes for the specified content
  */
-Map findAllContentPurposes(String checkId) {
+Object findAllContentPurposes(String checkId) {
     if (!checkId) {
         return error(label('ContentUiLabels', 'ContentRequiredField', [requiredField: 'checkId']))
     }
