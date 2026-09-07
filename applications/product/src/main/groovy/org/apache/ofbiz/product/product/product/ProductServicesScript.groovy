@@ -360,8 +360,12 @@ Map discontinueProductSales() {
     delegator.storeByCondition('ProductCategoryMember',
             [thruDate: nowTimestamp], condition)
     // expire product from all associations going to it
+    assocCondition = new EntityConditionBuilder().AND {
+        EQUALS(productIdTo: product.productId)
+        EQUALS(thruDate: null)
+    }
     delegator.storeByCondition('ProductAssoc',
-            [thruDate: nowTimestamp], condition)
+            [thruDate: nowTimestamp], assocCondition)
     return success()
 }
 
@@ -369,8 +373,8 @@ Map countProductView() {
     long weight = parameters.weight ?: 1L
 
     GenericValue productCalculatedInfo = from('ProductCalculatedInfo').where(parameters).queryOne()
-    if (productCalculatedInfo?.totalTimesViewed) {
-        productCalculatedInfo.totalTimesViewed += weight
+    if (productCalculatedInfo) {
+        productCalculatedInfo.totalTimesViewed = (productCalculatedInfo.totalTimesViewed ?: 0L) + weight
         productCalculatedInfo.store()
     } else {
         // go ahead and create it
@@ -401,6 +405,10 @@ Map createProductReview() {
     // code to check for auto-approved reviews (store setting)
     GenericValue productStore = from('ProductStore').where(parameters).cache().queryOne()
     if (productStore && productStore.autoApproveReviews == 'Y') {
+        newEntity.statusId = 'PRR_APPROVED'
+    }
+    // auto approve the review if it is just a rating and has no review text
+    if (!parameters.productReview) {
         newEntity.statusId = 'PRR_APPROVED'
     }
 
@@ -453,7 +461,7 @@ Map setProductReviewStatus() {
                 .where(statusId: productReview.statusId, statusIdTo: parameters.statusId)
                 .queryCount() == 0) {
             String errorMessage = UtilProperties.getMessage('ProductErrorUiLabels',
-                    ProductReviewErrorCouldNotChangeOrderStatusFromTo, parameters.locale)
+                    'ProductReviewErrorCouldNotChangeOrderStatusFromTo', parameters.locale)
             logError(errorMessage)
             return error(errorMessage)
         }
@@ -801,7 +809,7 @@ Map deleteProductGroupOrder() {
  */
 Map createJobForProductGroupOrder() {
     GenericValue productGroupOrder = from('ProductGroupOrder').where(parameters).queryOne()
-    if (productGroupOrder.jobId) {
+    if (!productGroupOrder.jobId) {
         // Create RuntimeData For ProductGroupOrder
         Map runtimeDataMap = [groupOrderId: parameters.groupOrderId]
         XmlSerializer xmlSerializer = new XmlSerializer()
