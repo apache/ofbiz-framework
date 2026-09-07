@@ -693,7 +693,10 @@ Map createUpdatePerson() {
        .where(partyId: partyId)
        .queryOne()
     String serviceName = (party ? 'update' : 'create') + 'Person'
-    run service: serviceName, with: personContext
+    Map serviceResult = run service: serviceName, with: personContext
+    if (!party) {
+        partyId = serviceResult.partyId
+    }
     resultMap.partyId = partyId
     return resultMap
 }

@@ -60,7 +60,7 @@ Map createUpdateCustomerAndShippingAddress() {
 
     Map partyRoleCtx = [partyId: partyId, roleTypeId: 'CUSTOMER']
     if (userLogin) {
-        if (userLogin.userLoginId == 'anonymos') {
+        if (userLogin.userLoginId == 'anonymous') {
             userLogin.partyId = partyId
         }
         partyRoleCtx.userLogin = userLogin
