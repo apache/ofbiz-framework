@@ -526,12 +526,12 @@ Map createQuoteFromCart() {
             //and the quoteItemSeqId is assigned to the shopping cart item (as orderItemSeqId)
             item.setOrderItemSeqId(serviceQuoteItemResult.quoteItemSeqId)
         }
-        if (parameters.applyStorePromotions != 'N') {
-            cart.makeAllQuoteAdjustments()?.each { GenericValue adjustment ->
-                adjustment.quoteId = quote.quoteId
-                adjustment.quoteAdjustmentId = delegator.getNextSeqId('QuoteAdjustment')
-                adjustment.create()
-            }
+    }
+    if (parameters.applyStorePromotions != 'N') {
+        cart.makeAllQuoteAdjustments()?.each { GenericValue adjustment ->
+            adjustment.quoteId = quote.quoteId
+            adjustment.quoteAdjustmentId = delegator.getNextSeqId('QuoteAdjustment')
+            adjustment.create()
         }
     }
     return [successMessage: null, quoteId: quote.quoteId]
