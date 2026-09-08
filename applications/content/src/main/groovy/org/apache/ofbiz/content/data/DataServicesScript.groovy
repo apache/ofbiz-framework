@@ -88,7 +88,7 @@ Map createDataResourceAndAssocToContent() {
     if (parameters.templateDataResource && parameters.templateDataResource == 'Y') {
         contentCtx.put('templateDataResourceId', parameters.dataResourceId)
     } else {
-        contentCtx.put('dataRessourceId', parameters.dataResourceId)
+        contentCtx.put('dataResourceId', parameters.dataResourceId)
     }
     contentCtx.put('contentId', parameters.contentId)
 
@@ -260,6 +260,9 @@ Map saveLocalFileDataResource(String mode) {
         .where('mimeTypeId', parameters._uploadedFile_contentType)
         .queryFirst()
     dataResource.dataResourceName = parameters._uploadedFile_fileName
+    if (mode in ['OFBIZ_FILE', 'OFBIZ_FILE_BIN', 'CONTEXT_FILE', 'CONTEXT_FILE_BIN']) {
+        dataResource.mimeTypeId = parameters._uploadedFile_contentType
+    }
     dataResource.objectInfo = extension ?
         "${uploadPath}/${dataResource.dataResourceId}.${extension.fileExtensionId}" :
         "${uploadPath}/${dataResource.dataResourceId}"
@@ -302,6 +305,9 @@ Map saveExtFileDataResource(boolean isUpdate, String mode) {
     dataResource.store()
 
     Map serviceContext = prepareServiceContext(dataResource, mode)
+    if (ServiceUtil.isError(serviceContext)) {
+        return serviceContext
+    }
 
     if (isUpdate) {
         switch (mode) {
@@ -357,7 +363,7 @@ Map prepareServiceContext(GenericValue dataResource, String mode) {
         case 'AUDIO_OBJECT':
             ModelService service = dispatcher.getDispatchContext().getModelService('createAudioDataResource')
             Map serviceContext = service.makeValid(dataResource, 'IN')
-            serviceContext.audioData
+            serviceContext.audioData = parameters.uploadedFile
             return serviceContext
         case 'OTHER_OBJECT':
             ModelService service = dispatcher.getDispatchContext().getModelService('createOtherDataResource')
@@ -365,5 +371,5 @@ Map prepareServiceContext(GenericValue dataResource, String mode) {
             serviceContext.dataResourceContent = parameters.uploadedFile
             return serviceContext
     }
-    return error
+    return error(UtilProperties.getMessage('ContentUiLabels', 'ContentDataTypeNotYetSupported', parameters.locale))
 }
