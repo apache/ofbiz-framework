@@ -353,7 +353,7 @@ Map duplicateCategoryEntities() {
  * copies all entities of entityName with a productCategoryId to a new entity with a productCategoryIdTo,
  * filtering them by a timestamp passed in to validDate if necessary
  */
-Map copyCategoryEntities(String entityName, String productCategoryId, String productCategoryIdTo, Timestamp validDate) {
+void copyCategoryEntities(String entityName, String productCategoryId, String productCategoryIdTo, Timestamp validDate) {
     EntityQuery query = from(entityName).where('productCategoryId', productCategoryId)
     if (validDate) {
         query.filterByDate()
