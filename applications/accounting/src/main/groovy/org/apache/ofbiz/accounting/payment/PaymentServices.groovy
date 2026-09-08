@@ -373,7 +373,7 @@ Map voidPayment() {
         .queryList()
         .each { it ->
             Map invoice = from('Invoice').where(invoiceId: it.invoiceId).queryOne()
-            if (invoice.statusId == 'INVOICE_PAID') {
+            if (invoice?.statusId == 'INVOICE_PAID') {
                 run service: 'setInvoiceStatus', with: [*: invoice.getAllFields(),
                                                         paidDate: null,
                                                         statusId: 'INVOICE_READY']
