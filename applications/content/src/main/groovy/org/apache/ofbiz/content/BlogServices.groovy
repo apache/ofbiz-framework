@@ -168,7 +168,7 @@ Map updateBlogEntry() {
         }
     }
 
-    if (!blog.articleText && parameters.articleData) {
+    if (!blog.articleData && parameters.articleData) {
         run service: 'createTextContent',
                 with: [
                         dataResourceTypeId: 'ELECTRONIC_TEXT',
