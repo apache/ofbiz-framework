@@ -51,10 +51,11 @@ Map updatePartyTaxAuthInfo() {
         return error(errorMesg)
     }
     GenericValue partyAuthInfo = from('PartyTaxAuthInfo').where(parameters).queryOne()
-    if (partyAuthInfo) {
-        partyAuthInfo.setNonPKFields(parameters, false)
-        partyAuthInfo.store()
+    if (!partyAuthInfo) {
+        return error('PartyTaxAuthInfo not found for the given parameters')
     }
+    partyAuthInfo.setNonPKFields(parameters, false)
+    partyAuthInfo.store()
     return success()
 }
 
@@ -64,7 +65,7 @@ Map updatePartyTaxAuthInfo() {
 String validatePartyTaxIdInline() {
     GenericValue taxAuthority = from('TaxAuthority').where(parameters).queryOne()
     if (taxAuthority && taxAuthority.taxIdFormatPattern && parameters.partyTaxId &&
-            !Pattern.compile(taxAuthority.taxIdFormatPattern).matcher(parameters.partyTaxId).find()) {
+            !Pattern.compile(taxAuthority.taxIdFormatPattern).matcher(parameters.partyTaxId).matches()) {
         return label('AccountingErrorUiLabels', 'AccountingTaxIdInvalidFormat', [parameters: parameters, taxAuthority: taxAuthority])
     }
     return ''
@@ -75,9 +76,9 @@ String validatePartyTaxIdInline() {
  * @return Success, error response otherwise.
  */
 Map createCustomerTaxAuthInfo() {
-    List taxAuthPartyGeoIds = org.apache.ofbiz.base.util.StringUtil.split(parameters.taxAuthPartyGeoIds, '::')
-    parameters.taxAuthPartyId = taxAuthPartyGeoIds[0]
-    parameters.taxAuthGeoId = taxAuthPartyGeoIds[1]
+    String taxAuthPartyGeoIds = parameters.taxAuthPartyGeoIds
+    parameters.taxAuthPartyId = taxAuthPartyGeoIds.substring(0, taxAuthPartyGeoIds.indexOf('::'))
+    parameters.taxAuthGeoId = taxAuthPartyGeoIds.substring(taxAuthPartyGeoIds.indexOf('::') + 2)
     run service: 'createPartyTaxAuthInfo', with: parameters
     return success()
 }
