@@ -36,6 +36,9 @@ import org.apache.ofbiz.service.ServiceUtil
  * Set the Quote status to ordered.
  */
 Map checkUpdateQuoteStatus() {
+    if (!security.hasEntityPermission('ORDERMGR', '_UPDATE', userLogin)) {
+        return error(UtilProperties.getMessage('OrderErrorUiLabels', 'OrderSecurityErrorToRunCheckUpdateQuoteStatus', locale))
+    }
     GenericValue quote = from('Quote').where(parameters).queryOne()
     if (!quote) {
         return error(UtilProperties.getMessage('OrderErrorUiLabels', 'OrderQuoteDoesNotExists', locale))
@@ -326,7 +329,9 @@ Map createQuoteItem() {
     if (!quote) {
         return error(UtilProperties.getMessage('OrderErrorUiLabels', 'OrderQuoteDoesNotExists', locale))
     }
-    if (!security.hasEntityPermission('ORDERMGR', '_CREATE', userLogin)) {
+    if (quote.partyId
+            && quote.partyId != userLogin.partyId
+            && !security.hasEntityPermission('ORDERMGR', '_CREATE', userLogin)) {
         return error(UtilProperties.getMessage('OrderErrorUiLabels', 'OrderSecurityErrorToRunCreateQuoteItem', locale))
     }
     GenericValue quoteItem = delegator.makeValidValue('QuoteItem', parameters)
@@ -379,6 +384,9 @@ Map updateQuoteItem() {
  * Remove a QuoteItem.
  */
 Map removeQuoteItem() {
+    if (!security.hasEntityPermission('ORDERMGR', '_DELETE', userLogin)) {
+        return error(UtilProperties.getMessage('OrderErrorUiLabels', 'OrderSecurityErrorToRunRemoveQuoteItem', locale))
+    }
     Map pksQuoteItem = [quoteId: parameters.quoteId, quoteItemSeqId: parameters.quoteItemSeqId]
     GenericValue quoteItem = from('QuoteItem').where(pksQuoteItem).queryOne()
     if (!quoteItem) {
@@ -711,6 +719,9 @@ Map createQuoteNote() {
  * Create a Quote adjustment
  */
 Map createQuoteAdjustment() {
+    if (!security.hasEntityPermission('ORDERMGR', '_CREATE', userLogin)) {
+        return error(UtilProperties.getMessage('OrderErrorUiLabels', 'OrderSecurityErrorToRunCreateQuoteAdjustment', locale))
+    }
     GenericValue quoteAdjustment = makeValue('QuoteAdjustment', parameters)
     quoteAdjustment.quoteAdjustmentId = delegator.getNextSeqId('QuoteAdjustment')
     quoteAdjustment.createdByUserLogin = userLogin.userLoginId
