@@ -595,6 +595,7 @@ under the License.
                             </xs:documentation>
                         </xs:annotation>
                     </xs:enumeration>
+                    <xs:enumeration value="layered-drawer"/>
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>

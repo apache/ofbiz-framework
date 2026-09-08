@@ -645,7 +645,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
                         targetType = "plain";
                     }
                     StringWriter sr = new StringWriter();
-                    makeHyperlinkString(sr, modelFormField.getHeaderLinkStyle(), targetType, targetBuffer.toString(), null, titleText, "",
+                    makeHyperlinkString(sr, modelFormField.getHeaderLinkStyle(), "", targetType, targetBuffer.toString(), null, titleText, "",
                             modelFormField, this.request, this.response, context, "");
                     String title = sr.toString().replace("\"", "\'");
                     sr = new StringWriter();
@@ -2274,7 +2274,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
                 }
             }
         } else {
-            if ("layered-modal".equals(realLinkType)) {
+            if (WidgetWorker.isModalLink(realLinkType)) {
                 String uniqueItemName = UtilRandom.getUnique("Modal_", true);
                 String width = (String) this.request.getAttribute("width");
                 if (UtilValidate.isEmpty(width)) {
@@ -2287,21 +2287,22 @@ public final class MacroFormRenderer implements FormStringRenderer {
                     this.request.setAttribute("height", height);
                 }
                 this.request.setAttribute("uniqueItemName", uniqueItemName);
-                makeHyperlinkString(writer, linkStyle, targetType, target, parameterMap, encodedDescription, confirmation, modelFormField, request,
-                        response, context, targetWindow);
+                makeHyperlinkString(writer, linkStyle, realLinkType, targetType, target, parameterMap, encodedDescription, confirmation,
+                        modelFormField, request, response, context, targetWindow);
                 this.request.removeAttribute("uniqueItemName");
                 this.request.removeAttribute("height");
                 this.request.removeAttribute("width");
             } else {
-                makeHyperlinkString(writer, linkStyle, targetType, target, parameterMap, encodedDescription, confirmation, modelFormField, request,
-                        response, context, targetWindow);
+                makeHyperlinkString(writer, linkStyle, realLinkType, targetType, target, parameterMap, encodedDescription, confirmation,
+                        modelFormField, request, response, context, targetWindow);
             }
         }
     }
 
-    public void makeHyperlinkString(Appendable writer, String linkStyle, String targetType, String target, Map<String, String> parameterMap,
-                                    String description, String confirmation, ModelFormField modelFormField, HttpServletRequest request,
-                                    HttpServletResponse response, Map<String, Object> context, String targetWindow) throws IOException {
+    public void makeHyperlinkString(Appendable writer, String linkStyle, String linkType, String targetType, String target,
+                                    Map<String, String> parameterMap, String description, String confirmation, ModelFormField modelFormField,
+                                    HttpServletRequest request, HttpServletResponse response, Map<String, Object> context, String targetWindow)
+            throws IOException {
         if (description != null || UtilValidate.isNotEmpty(request.getAttribute("image"))) {
             StringBuilder linkUrl = new StringBuilder();
             final URI linkUri = WidgetWorker.buildHyperlinkUri(target, targetType,
@@ -2408,6 +2409,8 @@ public final class MacroFormRenderer implements FormStringRenderer {
             sr.append(id);
             sr.append("\" text=\"");
             sr.append(text);
+            sr.append("\" linkType=\"");
+            sr.append(linkType);
             sr.append("\" />");
             executeMacro(writer, sr.toString());
         }

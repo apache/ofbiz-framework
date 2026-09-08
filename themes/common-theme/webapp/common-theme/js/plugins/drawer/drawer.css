@@ -1,0 +1,169 @@
+#app-drawer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 480px;
+    max-width: 100vw;
+    height: 100%;
+    background: #fff;
+    box-shadow: -6px 0 24px rgba(0, 0, 0, .12);
+    z-index: 1050;
+    display: flex;
+    flex-direction: column;
+    transform: translateX(100%);
+    transition: transform .3s ease;
+}
+
+#app-drawer.is-open {
+    transform: translateX(0);
+}
+
+.drawer-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: .75rem 1rem;
+    border-bottom: 1px solid #e0e0e0;
+    flex-shrink: 0;
+}
+
+.drawer-title {
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.drawer-close {
+    background-color: unset !important;
+    position: relative;
+    width: 28px;
+    height: 28px;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    flex-shrink: 0;
+}
+
+.drawer-close::before,
+.drawer-close::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 14px;
+    height: 1.5px;
+    background: rgba(var(--purple-default), 1);
+    border-radius: 1px;
+}
+
+.drawer-close::before {
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.drawer-close::after {
+    transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.drawer-close:hover {
+    color: #000;
+    opacity: .7;
+}
+
+.drawer-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1rem;
+}
+
+/* ── Skeleton ───────────────────────────────────────────────────── */
+.sk {
+    background: #e8e8e8;
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.sk::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+            90deg,
+            transparent 0%,
+            rgba(255, 255, 255, .7) 50%,
+            transparent 100%
+    );
+    transform: translateX(-100%);
+    animation: sk-wave 1.6s ease-in-out infinite;
+}
+
+@keyframes sk-wave {
+    to {
+        transform: translateX(100%);
+    }
+}
+
+.sk-badges {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.sk-badge {
+    height: 22px;
+    border-radius: 20px;
+}
+
+.sk-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+}
+
+.sk-title-line {
+    height: 18px;
+    width: 45%;
+}
+
+.sk-link {
+    height: 12px;
+    width: 22%;
+}
+
+.sk-card {
+    border: 1px solid #eee;
+    border-radius: 6px;
+    padding: 12px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.sk-card-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.sk-card-title {
+    height: 13px;
+}
+
+.sk-card-sub {
+    height: 10px;
+    width: 20%;
+}
+
+.sk-chevron {
+    width: 8px;
+    height: 8px;
+    flex-shrink: 0;
+    margin-right: 4px;
+    border-right: 1.5px solid #ccc;
+    border-bottom: 1.5px solid #ccc;
+    transform: rotate(-45deg);
+}
