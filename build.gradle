@@ -96,9 +96,38 @@ distributions.main.contents.from(rootDir) {
     exclude '**/.gradle/**'
 }
 
+// docs.groovy-lang.org is frequently unreachable, failing :javadoc outright.
+// Extract element-list from Groovy's own javadoc jar so -linkoffline doesn't need
+// the network at build time; generated links still point at the real site. Reads
+// the version straight off the existing groovy-all dependency instead of a second
+// hardcoded/variable copy, since Dependabot only reliably bumps a plain literal
+// dependency notation, not one built from a Gradle ext property.
+def groovyVersion = configurations.implementation.allDependencies
+    .find { it.group == 'org.codehaus.groovy' && it.name == 'groovy-all' }.version
+
+configurations {
+    groovyJavadocElements {
+        transitive = false // avoid also pulling in groovy's own javadoc jar
+    }
+}
+
+dependencies {
+    groovyJavadocElements "org.codehaus.groovy:groovy-all:${groovyVersion}:javadoc"
+}
+
+def groovyOfflineLinks = layout.buildDirectory.dir('javadoc/groovy-offline-package-list')
+
+tasks.register('extractGroovyElementList', Copy) {
+    from({ zipTree(configurations.groovyJavadocElements.singleFile) }) {
+        include 'element-list'
+    }
+    into groovyOfflineLinks
+}
+
 javadoc {
     title="OFBiz " + getCurrentGitBranch() + " API"
     failOnError = true
+    dependsOn extractGroovyElementList
     options {
         source '17'
         encoding 'UTF-8'
@@ -108,13 +137,16 @@ javadoc {
         links(
             'https://docs.oracle.com/en/java/javase/17/docs/api/',
             'https://tomcat.apache.org/tomcat-9.0-doc/servletapi/',
-            'http://docs.groovy-lang.org/docs/groovy-3.0.25/html/api',
             'https://commons.apache.org/proper/commons-cli/apidocs'
         )
     }
     options as StandardJavadocDocletOptions
     // Generate Javadocs quietly, validate everything except missing documentation
     options.addStringOption('Xdoclint:all,-missing', '-quiet')
+    options.linksOffline(
+        "https://docs.groovy-lang.org/docs/groovy-${groovyVersion}/html/api/",
+        groovyOfflineLinks.get().asFile.path
+    )
 }
 
 java {
