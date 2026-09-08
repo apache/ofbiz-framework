@@ -741,6 +741,7 @@ under the License.
     <request-map uri="WebtoolsLayoutDemoXml"><security https="true" auth="true"/><response name="success" type="view" value="WebtoolsLayoutDemoXml"/></request-map>
     <request-map uri="WebtoolsLayoutDemoCsv"><security https="true" auth="true"/><response name="success" type="view" value="WebtoolsLayoutDemoCsv"/></request-map>
     <request-map uri="WebtoolsLayoutDemoXls"><security https="true" auth="true"/><response name="success" type="view" value="WebtoolsLayoutDemoXls"/></request-map>
+    <request-map uri="WebtoolsLayoutDemoXlsx"><security https="true" auth="true"/><response name="success" type="view" value="WebtoolsLayoutDemoXlsx"/></request-map>
 
     <request-map uri="AvailableUelList"><security https="true" auth="true"/><response name="success" type="view" value="AvailableUelList"/></request-map>
     <!-- end of request mappings -->
@@ -857,6 +858,7 @@ under the License.
     <view-map name="WebtoolsLayoutDemoXml" type="screenxml" page="component://webtools/widget/MiscScreens.xml#WebtoolsLayoutDemoText" content-type="text/xml"/>
     <view-map name="WebtoolsLayoutDemoCsv" type="screencsv" page="component://webtools/widget/MiscScreens.xml#WebtoolsLayoutDemoText" content-type="text/csv"/>
     <view-map name="WebtoolsLayoutDemoXls" type="screenxls" page="component://webtools/widget/MiscScreens.xml#WebtoolsLayoutDemoText" content-type="application/vnd.ms-excel"/>
+    <view-map name="WebtoolsLayoutDemoXlsx" type="screenxlsx" page="component://webtools/widget/MiscScreens.xml#WebtoolsLayoutDemoText" content-type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"/>
 
     <view-map name="AvailableUelList" type="screen" page="component://webtools/widget/MiscScreens.xml#AvailableUelList"/>
     <!-- end of view mappings -->
