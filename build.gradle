@@ -152,9 +152,32 @@ distributions.main.contents.from(rootDir) {
     exclude '**/.gradle/**'
 }
 
+// docs.groovy-lang.org is frequently unreachable, failing :javadoc outright.
+// Extract element-list from Groovy's own javadoc jar so -linkoffline doesn't need
+// the network at build time; generated links still point at the real site.
+configurations {
+    groovyJavadocElements {
+        transitive = false // avoid also pulling in groovy's own javadoc jar
+    }
+}
+
+dependencies {
+    groovyJavadocElements "org.apache.groovy:groovy-all:${libs.versions.groovy.all.get()}:javadoc"
+}
+
+def groovyOfflineLinks = layout.buildDirectory.dir('javadoc/groovy-offline-package-list')
+
+tasks.register('extractGroovyElementList', Copy) {
+    from({ zipTree(configurations.groovyJavadocElements.singleFile) }) {
+        include 'element-list'
+    }
+    into groovyOfflineLinks
+}
+
 javadoc {
     title="OFBiz " + getCurrentGitBranch() + " API"
     failOnError = true
+    dependsOn extractGroovyElementList
     options {
         source '17'
         encoding 'UTF-8'
@@ -164,13 +187,16 @@ javadoc {
         links(
             'https://docs.oracle.com/en/java/javase/17/docs/api/',
             'https://tomcat.apache.org/tomcat-10.1-doc/servletapi/',
-            'https://docs.groovy-lang.org/docs/groovy-4.0.22/html/api',
             'https://commons.apache.org/proper/commons-cli/apidocs'
         )
     }
     options as StandardJavadocDocletOptions
     // Generate Javadocs quietly, validate everything except missing documentation
     options.addStringOption('Xdoclint:all,-missing', '-quiet')
+    options.linksOffline(
+        "https://docs.groovy-lang.org/docs/groovy-${libs.versions.groovy.all.get()}/html/api/",
+        groovyOfflineLinks.get().asFile.path
+    )
 }
 
 java {
