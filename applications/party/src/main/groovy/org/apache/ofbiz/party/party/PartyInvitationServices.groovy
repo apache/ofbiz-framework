@@ -40,7 +40,7 @@ Map createPartyInvitation() {
 Map updatePartyInvitation() {
     GenericValue lookedUpValue = makeValue('PartyInvitation', parameters)
     if (! parameters.toName && parameters.partyId) {
-        newEntity.toName = PartyHelper.getPartyName(delegator, parameters.partyId, false)
+        lookedUpValue.toName = PartyHelper.getPartyName(delegator, parameters.partyId, false)
     }
     lookedUpValue.store()
     return success()
