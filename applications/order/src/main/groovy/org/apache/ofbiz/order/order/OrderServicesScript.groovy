@@ -220,7 +220,7 @@ Map recreateOrderAdjustments() {
                 selectedAmount = item.getSelectedAmount()
                 unitPrice = item.getBasePrice()
                 unitListPrice = item.getListPrice()
-                itemDescription = item.getDescription()
+                itemDescription = item.getName()
                 statusId = item.getStatusId()
                 productId = item.getProductId()
                 quantity = item.getQuantity()
