@@ -260,19 +260,23 @@ Map straightLineDepreciation() {
     BigDecimal purchaseCost = parameters.purchaseCost
     BigDecimal expEndOfLifeYear = parameters.expEndOfLifeYear ?: 0
     BigDecimal assetAcquiredYear = parameters.assetAcquiredYear ?: 0
+    BigDecimal salvageValue = parameters.salvageValue ?: 0
 
     GenericValue fixedAsset = from('FixedAsset').where(parameters).queryOne()
     if (!fixedAsset) {
         return error(label('AccountingErrorUiLabels', 'AccountingFixedAssetNotFound'))
     }
     BigDecimal depreciation = fixedAsset.depreciation ?: 0
-    if (parameters.usageYears > 0) {
+    int intUsageYears = parameters.usageYears ? parameters.usageYears.intValue() : 0
+    if (intUsageYears > 0) {
         //FORMULA :  depreciation = (purchaseCost - salvageValue) / (expectedEndOfLife - dateAcquired)
         int numberOfYears = parameters.expEndOfLifeYear - parameters.assetAcquiredYear
         if (numberOfYears > 0) {
-            depreciation = (purchaseCost - parameters.salvageValue) / numberOfYears
-            depreciation.setScale(2, RoundingMode.HALF_EVEN)
-            int intUsageYears =  (numberOfYears < parameters.intUsageYears) ? parameters.intUsageYears : numberOfYears
+            depreciation = (purchaseCost - salvageValue) / numberOfYears
+            depreciation = depreciation.setScale(2, RoundingMode.HALF_EVEN)
+            if (numberOfYears < intUsageYears) {
+                intUsageYears = numberOfYears
+            }
             for (int i = 0; i < intUsageYears; i++) {
                 purchaseCost -= depreciation
                 depreciationTotal += depreciation
@@ -300,11 +304,10 @@ Map straightLineDepreciation() {
     BigDecimal nextDepreciationAmount = 0
 
     // FORMULA : depreciation = (purchaseCost - salvageValue - pastDepreciations) / remainingYears
-    int usageYears = parameters.intUsageYears ?: 0
-    BigDecimal remainingYears  = expEndOfLifeYear - assetAcquiredYear - usageYears
+    BigDecimal remainingYears = expEndOfLifeYear - assetAcquiredYear - intUsageYears
     if (remainingYears > 0) {
-        nextDepreciationAmount = ((fixedAsset.purchaseCost ?: 0) - usageYears - (fixedAsset.depreciation ?: 0)) / remainingYears
-        nextDepreciationAmount.setScale(2, RoundingMode.HALF_EVEN)
+        nextDepreciationAmount = ((fixedAsset.purchaseCost ?: 0) - salvageValue - (fixedAsset.depreciation ?: 0)) / remainingYears
+        nextDepreciationAmount = nextDepreciationAmount.setScale(2, RoundingMode.HALF_EVEN)
     }
     return success([assetDepreciationTillDate: assetDepreciationTillDate,
         assetNBVAfterDepreciation: assetNBVAfterDepreciation,
