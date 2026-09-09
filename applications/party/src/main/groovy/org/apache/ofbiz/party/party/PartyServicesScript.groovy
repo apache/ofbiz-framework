@@ -20,9 +20,7 @@ package org.apache.ofbiz.party.party
 
 import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.entity.condition.EntityConditionBuilder
-import org.apache.ofbiz.entity.condition.EntityJoinOperator
 import org.apache.ofbiz.entity.condition.EntityOperator
-import org.apache.ofbiz.entity.util.EntityUtil
 import org.apache.ofbiz.minilang.SimpleMapProcessor
 
 import java.sql.Timestamp
@@ -306,10 +304,12 @@ Map getPartyTelephone () {
                      'PHONE_SHIPPING', 'PHONE_SHIP_ORIG']
         }
 
-        telephone = EntityUtil.getFirst(EntityUtil.filterByCondition(telephoneList,
-                EntityCondition.makeCondition('contactMechPurposeTypeId', EntityJoinOperator.IN, types)))
-        if (telephone) {
-            resultMap.contactMechPurposeTypeId = telephone.contactMechPurposeTypeId
+        for (String type : types) {
+            telephone = telephoneList.find { it.contactMechPurposeTypeId == type }
+            if (telephone) {
+                resultMap.contactMechPurposeTypeId = telephone.contactMechPurposeTypeId
+                break
+            }
         }
     } else {
         telephone = from('PartyAndContactMech')
@@ -363,11 +363,12 @@ Map getPartyPostalAddress () {
             // search in this order if not provided
             types = ['GENERAL_LOCATION', 'BILLING_LOCATION', 'PAYMENT_LOCATION', 'SHIPPING_LOCATION']
         }
-        addressList = EntityUtil.filterByCondition(addressList,
-                EntityCondition.makeCondition('contactMechPurposeTypeId', EntityJoinOperator.IN, types))
-        if (addressList) {
-            address = addressList[0]
-            resultMap.contactMechPurposeTypeId = address.contactMechPurposeTypeId
+        for (String type : types) {
+            address = addressList.find { it.contactMechPurposeTypeId == type }
+            if (address) {
+                resultMap.contactMechPurposeTypeId = address.contactMechPurposeTypeId
+                break
+            }
         }
     } else {
         address = from('PartyAndContactMech')
@@ -633,7 +634,8 @@ Map sendAccountActivatedEmailNotification() {
             .where(lookupMap)
             .queryOne()
     if (storeEmail && storeEmail.bodyScreenLocation) {
-        String partyId = parameters.partyId ?: userLogin.partyId
+        GenericValue userLoginParty = from('UserLogin').where(userLoginId: parameters.userLoginId).queryOne()
+        String partyId = userLoginParty?.partyId
 
         GenericValue webSite = from('WebSite')
                 .where(productStoreId: storeEmail.productStoreId)
@@ -823,7 +825,7 @@ Map followPartyRelationshipsInline(List relatedPartyIdList, String partyRelation
     if (roleTypeIdFromIncludeAllChildTypes == 'Y') {
         List roleTypeIdListName = roleTypeIdFromList
         Map res = getChildRoleTypesInline(roleTypeIdListName)
-        roleTypeIdFromList = res.childRoleTypeIdList
+        roleTypeIdFromList = [roleTypeIdFrom] + (res.childRoleTypeIdList ?: [])
     }
 
     List roleTypeIdToList = null
@@ -833,7 +835,7 @@ Map followPartyRelationshipsInline(List relatedPartyIdList, String partyRelation
     if (roleTypeIdToInclueAllChildTypes == 'Y') {
         List roleTypeIdListName = roleTypeIdToList
         Map res = getChildRoleTypesInline(roleTypeIdListName)
-        roleTypeIdToList = res.childRoleTypeIdList
+        roleTypeIdToList = [roleTypeIdTo] + (res.childRoleTypeIdList ?: [])
     }
 
     Map res = followPartyRelationshipsInlineRecurse(relatedPartyIdList, roleTypeIdFromList, roleTypeIdToList,
