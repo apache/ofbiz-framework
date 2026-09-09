@@ -258,7 +258,7 @@ Map updatePortletSeqDragDrop() {
                     portletSeqId: parameters.d_portletSeqId)
             .queryOne()
 
-    int newSequenceNo = 0
+    Long newSequenceNo = 0L
     if (parameters.mode != 'NEW') {
         EntityCondition condition = new EntityConditionBuilder().AND {
             EQUALS(portalPageId: parameters.portalPageId)
@@ -269,22 +269,22 @@ Map updatePortletSeqDragDrop() {
                     LESS_THAN(sequenceNum: originPp.sequenceNum)
                 }
             } else {
-                GREATER_THAN_EQUAL_TO(sequenceNum: originPp.sequenceNum)
+                GREATER_THAN(sequenceNum: originPp.sequenceNum)
                 if (destiPp.sequenceNum) {
-                    LESS_THAN(sequenceNum: destiPp.sequenceNum)
+                    LESS_THAN_EQUAL_TO(sequenceNum: destiPp.sequenceNum)
                 }
             }
         }
 
-        newSequenceNo = destiPp.sequenceNum
-        int increase = parameters.mode == 'DRAGDROPBEFORE' ? 1 : -1
+        newSequenceNo = destiPp.sequenceNum as Long
+        Long increase = parameters.mode == 'DRAGDROPBEFORE' ? 1L : -1L
         from('PortalPagePortlet')
                 .where(condition)
                 .orderBy((parameters.mode == 'DRAGDROPBEFORE' ? '' : '-') + 'sequenceNum')
                 .queryList()
                 .each {
                     if (it.sequenceNum) {
-                        it.sequenceNum = it.sequenceNum + increase
+                        it.sequenceNum = newSequenceNo + increase
                         increase += increase
                     } else {
                         it.sequenceNum = newSequenceNo
