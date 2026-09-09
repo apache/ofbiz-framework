@@ -47,7 +47,7 @@ Map findCustomTimePeriods() {
                 .cache()
                 .queryList())
     }
-    if (parameters.excludeNoOrganizationPeriods) {
+    if (parameters.excludeNoOrganizationPeriods != 'Y') {
         EntityCondition condition = new EntityConditionBuilder().AND {
             OR {
                 EQUALS(organizationPartyId: null)
@@ -56,7 +56,7 @@ Map findCustomTimePeriods() {
             }
             LESS_THAN_EQUAL_TO(fromDate: parameters.findDate)
             OR {
-                GREATER_THAN_EQUAL_TO(thruDate: parameters.findDate)
+                GREATER_THAN(thruDate: parameters.findDate)
                 EQUALS(thruDate: null)
             }
             if (parameters.onlyIncludePeriodTypeIdList) {
