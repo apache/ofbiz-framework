@@ -621,7 +621,7 @@ Map productGenericPermission() {
     result.hasPermission = ServiceUtil.isSuccess(
             checkProductRelatedPermission(parameters.resourceDescription, parameters.mainAction))
     if (!result.hasPermission) {
-        result = fail(UtilProperties.getMessage('ProductUiLabels', 'ProductPermissionError', parameters.locale))
+        result = failure(UtilProperties.getMessage('ProductUiLabels', 'ProductPermissionError', parameters.locale))
     }
     return result
 }
@@ -641,9 +641,10 @@ Map productPriceGenericPermission() {
         result = error(UtilProperties.getMessage('ProductUiLabels',
                 'ProductPriceMaintPermissionError', parameters.locale))
     }
-    result.hasPermission = ServiceUtil.isSuccess(result) && checkProductRelatedPermission(parameters.resourceDescription, mainAction)
+    result.hasPermission = ServiceUtil.isSuccess(result) &&
+            ServiceUtil.isSuccess(checkProductRelatedPermission(parameters.resourceDescription, mainAction))
     if (!result.hasPermission) {
-        result = fail(UtilProperties.getMessage('ProductUiLabels', 'ProductPermissionError', parameters.locale))
+        result = failure(UtilProperties.getMessage('ProductUiLabels', 'ProductPermissionError', parameters.locale))
     }
     return result
 }
