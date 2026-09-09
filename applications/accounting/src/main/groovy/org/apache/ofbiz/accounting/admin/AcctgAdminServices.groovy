@@ -156,16 +156,14 @@ Map getFXConversion() {
     }
     List<GenericValue> rates = select().from('UomConversionDated').where(condition).orderBy('-fromDate').filterByDate().queryList()
 
-    BigDecimal conversionRate
+    BigDecimal conversionRate = BigDecimal.ONE
     int decimalScale = 2
     if (rates) {
         conversionFactor = EntityUtil.getFirst(rates).getBigDecimal('conversionFactor')
         BigDecimal originalValue = BigDecimal.ONE
         conversionRate = originalValue.divide(conversionFactor, decimalScale, RoundingMode.HALF_UP)
     } else {
-        String errorMessage = 'Could not find conversion rate'
-        logError(errorMessage)
-        return error(errorMessage)
+        logWarning('Could not find conversion rate')
     }
     result.put('conversionRate', conversionRate)
     return result
