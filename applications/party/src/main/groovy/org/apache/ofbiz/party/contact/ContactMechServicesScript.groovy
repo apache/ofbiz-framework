@@ -59,7 +59,7 @@ Map updateContactMech() {
 /**
  * locale function to control if the state province is mandatoring
  */
-Map hasValidStateProvince(String countryGeoId, String stateProvinceGeoId) {
+String hasValidStateProvince(String countryGeoId, String stateProvinceGeoId) {
     String errorMessage
     if (!stateProvinceGeoId) {
         if (countryGeoId == 'USA') {
