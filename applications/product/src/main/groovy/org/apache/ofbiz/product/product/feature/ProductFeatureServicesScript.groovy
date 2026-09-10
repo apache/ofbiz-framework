@@ -32,7 +32,7 @@ Map applyFeatureToProductFromTypeAndCode() {
                     idCode: parameters.idCode)
             .queryList()
     for (GenericValue productFeature : productFeatures) {
-        Map applyFeatureContext = parameters
+        Map applyFeatureContext = [*: parameters]
         applyFeatureContext.productFeatureId = productFeature.productFeatureId
         applyFeatureContext.sequenceNum = applyFeatureContext.sequenceNum ?: productFeature.defaultSequenceNum
         run service: 'applyFeatureToProduct', with: applyFeatureContext
