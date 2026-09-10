@@ -30,15 +30,16 @@ Map createFacilityLocation() {
     "${parameters.levelId ?: ''}${parameters.positionId ?: ''}"
 
     if (locationSeqId) {
-        int i = 1
-        String nextLocationSeqId = locationSeqId
-        while (from('FacilityLocation')
-                .where([locationSeqId: nextLocationSeqId,
-                        facilityId: parameters.facilityId])
+        if (from('FacilityLocation')
+                .where(facilityId: parameters.facilityId, locationSeqId: locationSeqId)
                 .queryOne()) {
-            nextLocationSeqId = "${locationSeqId}_${i++}"
+            locationSeqId = "${locationSeqId}_2"
+            if (from('FacilityLocation')
+                    .where(facilityId: parameters.facilityId, locationSeqId: locationSeqId)
+                    .queryOne()) {
+                locationSeqId = delegator.getNextSeqId('FacilityLocation')
+            }
         }
-        locationSeqId = nextLocationSeqId
     } else {
         locationSeqId = delegator.getNextSeqId('FacilityLocation')
     }
