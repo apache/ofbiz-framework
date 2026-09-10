@@ -48,4 +48,8 @@ under the License.
         <jupiter-test-suite class-name="org.apache.ofbiz.shipment.test.IssuanceTest"/>
     </test-case>
 
+    <test-case case-name="receivePoLocale-test">
+        <junit-test-suite class-name="org.apache.ofbiz.product.product.test.ReceivePoLocaleTest"/>
+    </test-case>
+
 </test-suite>
