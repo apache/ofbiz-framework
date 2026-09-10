@@ -50,7 +50,7 @@ Map getProductRouting() {
             GenericValue virtualProductAssoc = from('ProductAssoc')
                     .where(productIdTo: parameters.productId,
                             productAssocTypeId: 'PRODUCT_VARIANT')
-                    .filterByDate(filterDate)
+                    .filterByDate()
                     .queryFirst()
             if (virtualProductAssoc) {
                 lookupRouting.productId = virtualProductAssoc.productId
