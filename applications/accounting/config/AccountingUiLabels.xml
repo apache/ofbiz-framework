@@ -673,6 +673,9 @@
         <value xml:lang="zh">合同</value>
         <value xml:lang="zh-TW">合約</value>
     </property>
+    <property key="AccountingAgreementNotFound">
+        <value xml:lang="en">Agreement ${agreementId} not found</value>
+    </property>
     <property key="AccountingAgreementAvailable">
         <value xml:lang="ar">قائمة الإتفاقيات المتوفرة</value>
         <value xml:lang="de">Liste verfügbarer Vereinbarungen</value>
