@@ -22,13 +22,24 @@ import org.apache.ofbiz.entity.GenericValue
 
 Map updateBudgetStatus() {
     Map result = success()
-    List budgetStatuses = from('BudgetStatus').where([budgetId: parameters.budgetId]).orderBy('-statusDate').queryList()
-    GenericValue statusValidChange = null
+    List budgetStatuses = from('BudgetStatus')
+            .where(budgetId: parameters.budgetId)
+            .orderBy('-statusDate')
+            .queryList()
     if (budgetStatuses) {
-        budgetStatus = budgetStatuses[0]
-        statusValidChange = from('StatusValidChange').where([statusId: budgetStatus.statusId, statusIdTo: parameters.statusId]).queryOne()
-    }
-    if (! budgetStatuses || budgetStatuses && statusValidChange) {
+        GenericValue budgetStatus = budgetStatuses[0]
+        if (budgetStatus.statusId != parameters.statusId) {
+            GenericValue statusValidChange = from('StatusValidChange')
+                    .where(statusId: budgetStatus.statusId, statusIdTo: parameters.statusId)
+                    .cache()
+                    .queryOne()
+            if (!statusValidChange) {
+                return error(label('CommonUiLabels', 'CommonErrorNoStatusValidChange',
+                        [lookedUpValue: [statusId: budgetStatus.statusId]]))
+            }
+            result = run service: 'createBudgetStatus', with: parameters
+        }
+    } else {
         result = run service: 'createBudgetStatus', with: parameters
     }
     return result
