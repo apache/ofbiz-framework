@@ -254,23 +254,14 @@ Map filterRateAmountList() {
         return success()
     }
     //Check if there is a more specific rate
-    Map filterMap = [:]
-    if (parameters.workEffortId) {
-        filterMap.workEffortId = parameters.workEffortId
-    }
-    if (parameters.partyId) {
-        filterMap.partyId = parameters.partyId
-    }
-    if (parameters.emplPositionTypeId) {
-        filterMap.emplPositionTypeId = parameters.emplPositionTypeId
-    }
-    if (parameters.rateTypeId) {
-        filterMap.rateTypeId = parameters.rateTypeId
-    }
-    List tempRatesFilteredList = EntityUtil.filterByAnd(parameters.ratesList, filterMap)
-    List ratesList = []
-    if (tempRatesFilteredList) {
-        ratesList = tempRatesFilteredList
+    List ratesList = parameters.ratesList
+    for (String field : ['workEffortId', 'partyId', 'emplPositionTypeId', 'rateTypeId']) {
+        if (parameters[field]) {
+            List tempRatesFilteredList = EntityUtil.filterByAnd(ratesList, [(field): parameters[field]])
+            if (tempRatesFilteredList) {
+                ratesList = tempRatesFilteredList
+            }
+        }
     }
     Map result = success()
     result.filteredRatesList = ratesList
