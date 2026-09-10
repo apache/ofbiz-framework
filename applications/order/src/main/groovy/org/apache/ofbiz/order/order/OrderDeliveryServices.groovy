@@ -81,7 +81,7 @@ Map sendOrderDeliveryScheduleNotification() {
     // find email address for currently logged in user, set as sendFrom
     Map curUserPcmFindMap = [partyId: userLogin.partyId, contactMechTypeId: 'EMAIL_ADDRESS']
     GenericValue curUserPartyAndContactMech = from('PartyAndContactMech').where(curUserPcmFindMap).queryFirst()
-    Map sendEmailMap = [sendFrom: (',' + curUserPartyAndContactMech.infoString)]
+    Map sendEmailMap = [sendFrom: curUserPartyAndContactMech.infoString]
 
     // find email addresses of all parties in SHIPMENT_CLERK roleTypeId, set as sendTo
     Map shipmentClerkFindMap = [roleTypeId: 'SHIPMENT_CLERK']
