@@ -30,29 +30,32 @@ import java.sql.Timestamp
 Map createLead() {
     String leadContactPartyId
     String partyGroupPartyId
+    Map serviceResult
     // Check if Person or PartyGroup name is supplied
     if ((!parameters.firstName || !parameters.lastName) && !parameters.groupName) {
         return error(UtilProperties.getMessage('MarketingUiLabels', 'SfaFirstNameLastNameAndCompanyNameMissingError', locale))
     }
     run service: 'ensurePartyRole', with: [partyId: userLogin.partyId, roleTypeId: 'OWNER']
     // PartyRole check end
-    parameters.roleTypeId = 'LEAD'
+    if (parameters.firstName && parameters.lastName) {
+        parameters.roleTypeId = 'LEAD'
 
-    Map serviceResult = run service: 'createPersonRoleAndContactMechs', with: parameters
-    if (ServiceUtil.isError(serviceResult)) {
-        return serviceResult
+        serviceResult = run service: 'createPersonRoleAndContactMechs', with: parameters
+        if (ServiceUtil.isError(serviceResult)) {
+            return serviceResult
+        }
+        leadContactPartyId = serviceResult.partyId
+        serviceResult = run service: 'createPartyRelationship', with: [partyIdFrom: userLogin.partyId,
+                                                                       partyIdTo: leadContactPartyId,
+                                                                       roleTypeIdFrom: 'OWNER',
+                                                                       roleTypeIdTo: 'LEAD',
+                                                                       partyRelationshipTypeId: 'LEAD_OWNER']
+        if (ServiceUtil.isError(serviceResult)) {
+            return serviceResult
+        }
+        run service: 'setPartyStatus', with: [partyId: leadContactPartyId,
+                                              statusId: 'LEAD_ASSIGNED']
     }
-    leadContactPartyId = serviceResult.partyId
-    serviceResult = run service: 'createPartyRelationship', with: [partyIdFrom: userLogin.partyId,
-                                                                   partyIdTo: leadContactPartyId,
-                                                                   roleTypeIdFrom: 'OWNER',
-                                                                   roleTypeIdTo: 'LEAD',
-                                                                   partyRelationshipTypeId: 'LEAD_OWNER']
-    if (ServiceUtil.isError(serviceResult)) {
-        return serviceResult
-    }
-    run service: 'setPartyStatus', with: [partyId: leadContactPartyId,
-                                          statusId: 'LEAD_ASSIGNED']
 
     // Now create PartyGroup corresponding to the companyName, if its not null and then set up
     // relationship of Person and PartyGroup as Employee and title
@@ -98,7 +101,7 @@ Map createLead() {
     }
 
     if (parameters.dataSourceId) {
-        serviceResult = run service: 'createPartyDataSource', with: [partyId: leadContactPartyId,
+        serviceResult = run service: 'createPartyDataSource', with: [partyId: leadContactPartyId ?: partyGroupPartyId,
                                                                      dataSourceId: parameters.dataSourceId]
         if (ServiceUtil.isError(serviceResult)) {
             return serviceResult
