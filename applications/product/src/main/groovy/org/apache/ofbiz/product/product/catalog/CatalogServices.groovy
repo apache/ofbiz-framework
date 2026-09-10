@@ -284,8 +284,8 @@ Map createMissingCategoryAndProductAltUrls() {
     int categoriesUpdated = 0
     int productsNotUpdated = 0
     int productsUpdated = 0
-    String checkProduct = parameters.product
-    String checkCategory = parameters.category
+    boolean checkCategory = parameters.category ? true : !parameters.product
+    boolean checkProduct = parameters.product ? true : !parameters.category
     List prodCatalogCategoryList = from('ProdCatalogCategory').where('prodCatalogId', parameters.prodCatalogId).queryList()
 
     // get all categories
