@@ -24,6 +24,7 @@ import java.sql.Timestamp
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.base.util.UtilProperties
 import org.apache.ofbiz.entity.GenericValue
+import org.apache.ofbiz.service.ModelService
 import org.apache.ofbiz.webapp.event.FileUploadProgressListener
 
 /**
@@ -97,7 +98,7 @@ Map convertUom() {
     // Do custom conversion, if we have customMethodId
     if (uomConversion.customMethodId) { //custom conversion?
         logVerbose("using custom conversion customMethodId=${uomConversion.customMethodId}")
-        Map customParms = parameters.convertUom
+        Map customParms = dctx.makeValidContext('convertUomCustom', ModelService.IN_PARAM, parameters)
         customParms.uomConversion = uomConversion
         Map serviceResult = run service: 'convertUomCustom', with: customParms
         convertedValue = serviceResult.convertedValue
@@ -115,8 +116,16 @@ Map convertUom() {
     // round result, if UomConversion[Dated] so specifies
     decimalScale = uomConversion.decimalScale ?: parameters.defaultDecimalScale
     roundingMode = uomConversion.roundingMode ?: parameters.defaultRoundingMode
-    if (parameters.defaultRoundingMode != roundingMode) {
-        convertedValue = convertedValue.setScale(decimalScale, roundingMode)
+    if (convertedValue && roundingMode) {
+        if (roundingMode instanceof String) {
+            String modeStr = roundingMode.replace('ROUND_', '').replaceAll('([a-z])([A-Z])', '$1_$2').toUpperCase()
+            try {
+                roundingMode = RoundingMode.valueOf(modeStr)
+            } catch (IllegalArgumentException e) {
+                roundingMode = RoundingMode.HALF_EVEN
+            }
+        }
+        convertedValue = convertedValue.setScale(decimalScale as int, roundingMode)
     }
     // no UomConversion or UomConversionDated found
 
