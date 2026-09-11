@@ -3274,6 +3274,12 @@
         <value xml:lang="vi">Lỗi xảy ra : Công việc báo giá ${parameters.quoteId} ${parameters.workEffortId} đã tồn tại.</value>
         <value xml:lang="zh">错误：已存在询价人工服务（QuoteWorkEffort）${parameters.quoteId}、${parameters.workEffortId}。</value>
     </property>
+    <property key="OrderQuoteDoesNotExists">
+        <value xml:lang="en">Quote does not exist.</value>
+    </property>
+    <property key="OrderQuoteItemDoesNotExists">
+        <value xml:lang="en">Quote Item does not exist.</value>
+    </property>
     <property key="OrderQuoteWorkEffortDoesNotExists">
         <value xml:lang="ar">خطأ: عرض سعر جهد العمل</value>
         <value xml:lang="de">FEHLER: Arbeitsaufwand für Angebot ${parameters.quoteId} ${parameters.workEffortId} ist nicht vorhanden.</value>

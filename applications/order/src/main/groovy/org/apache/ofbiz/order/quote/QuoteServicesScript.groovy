@@ -176,8 +176,11 @@ Map updateQuote() {
     if (!security.hasEntityPermission('ORDERMGR', '_UPDATE', userLogin)) {
         return error(UtilProperties.getMessage('OrderErrorUiLabels', 'OrderSecurityErrorToRunUpdateQuote', locale))
     }
-    quoteId = parameters.quoteId
+    String quoteId = parameters.quoteId
     GenericValue quote = from('Quote').where('quoteId', quoteId).queryOne()
+    if (!quote) {
+        return error(UtilProperties.getMessage('OrderErrorUiLabels', 'OrderQuoteDoesNotExists', locale))
+    }
 
     parameters.statusId = parameters.statusId ?: quote.statusId
 
@@ -340,7 +343,7 @@ Map createQuoteItem() {
     }
 
     if (!parameters.quoteUnitPrice && parameters.productId) {
-        GenericValue product = from('Product').where(parameters).cache().queryOne()
+        GenericValue product = from('Product').where('productId', parameters.productId).cache().queryOne()
         if (product?.isVirtual == 'Y') {
             return error(UtilProperties.getMessage('OrderErrorUiLabels', 'OrderCannotAddVirtualProductToQuote', locale))
         }
@@ -407,26 +410,32 @@ Map copyQuoteItem() {
     }
     GenericValue quoteItem = from('QuoteItem').where(parameters).queryOne()
     if (!quoteItem) {
-        return error(UtilProperties.getMessage('OrderUiLabels', 'OrderQuoteItemDoesNotExists', locale))
+        return error(UtilProperties.getMessage('OrderErrorUiLabels', 'OrderQuoteItemDoesNotExists', locale))
     }
+    String quoteIdTo = parameters.quoteIdTo ?: quoteItem.quoteId
     Map input = [
         userLogin: userLogin,
         *: quoteItem,
-        quoteId: parameters.quoteIdTo,
-        quoteItemSeqId: parameters.quoteItemSeqIdTo
+        quoteId: quoteIdTo,
+        quoteItemSeqId: parameters.quoteItemSeqIdTo ?: quoteItem.quoteItemSeqId
     ]
     if (!parameters.quoteIdTo && !parameters.quoteItemSeqIdTo) {
         input.quoteItemSeqId = null
     }
     Map serviceResult = run service: 'createQuoteItem', with: input
+    if (ServiceUtil.isError(serviceResult)) {
+        return serviceResult
+    }
+    String targetQuoteId = serviceResult.quoteId
+    String targetQuoteItemSeqId = serviceResult.quoteItemSeqId
     if (parameters.copyQuoteAdjustments == 'Y') {
         List quoteAdjustments = quoteItem.getRelated('QuoteAdjustment', null, null, false)
         for (GenericValue quoteAdjustment : quoteAdjustments) {
             Map serviceContext = dctx.makeValidContext('createQuoteAdjustment', ModelService.IN_PARAM,
-                    [*: quoteAdjustment, quoteId: parameters.quoteIdTo, quoteItemSeqId: parameters.quoteItemSeqIdTo, userLogin: userLogin])
-            serviceResult = dispatcher.runSync('createQuoteAdjustment', serviceContext)
-            if (ServiceUtil.isError(serviceResult)) {
-                return serviceResult
+                    [*: quoteAdjustment, quoteId: targetQuoteId, quoteItemSeqId: targetQuoteItemSeqId, userLogin: userLogin])
+            Map adjResult = dispatcher.runSync('createQuoteAdjustment', serviceContext)
+            if (ServiceUtil.isError(adjResult)) {
+                return adjResult
             }
         }
     }
@@ -566,7 +575,7 @@ Map autoUpdateQuotePrice() {
     }
     GenericValue quoteItem = from('QuoteItem').where(parameters).queryOne()
     if (!quoteItem) {
-        return error(UtilProperties.getMessage('OrderUiLabels', 'OrderQuoteItemDoesNotExists', locale))
+        return error(UtilProperties.getMessage('OrderErrorUiLabels', 'OrderQuoteItemDoesNotExists', locale))
     }
     if (parameters.manualQuoteUnitPrice) {
         quoteItem.quoteUnitPrice = parameters.manualQuoteUnitPrice
@@ -586,6 +595,10 @@ Map createQuoteFromCustRequest() {
     }
 
     GenericValue custRequest = from('CustRequest').where('custRequestId', parameters.custRequestId).queryOne()
+    if (!custRequest) {
+        return error(UtilProperties.getMessage('OrderErrorUiLabels', 'OrderErrorCustRequestWithIdDoesntExist',
+                [custRequestId: parameters.custRequestId], locale))
+    }
 
     // Error if request type not equals to RF_QUOTE or RF_PUR_QUOTE
     if (custRequest.custRequestTypeId != 'RF_QUOTE' && custRequest.custRequestTypeId != 'RF_PUR_QUOTE') {
@@ -614,7 +627,7 @@ Map createQuoteFromCustRequest() {
     Map serviceResult = run service: 'createQuote', with: createQuoteInMap
     String quoteId = serviceResult.quoteId
 
-    exprdCond = [
+    List exprdCond = [
             EntityCondition.makeCondition('custRequestId', custRequest.custRequestId),
             EntityCondition.makeCondition('statusId', EntityOperator.NOT_EQUAL, 'CRQ_CANCELLED'),
             EntityCondition.makeCondition('statusId', EntityOperator.NOT_EQUAL, 'CRQ_REJECTED')
@@ -625,13 +638,15 @@ Map createQuoteFromCustRequest() {
         run service: 'createQuoteItem', with: [*:custRequestItem, quoteId: quoteId]
     }
 
-    // Roles
+    // Roles (The REQ_TAKER role is automatically added by the createQuote service)
     custRequest.getRelated('CustRequestParty', null, null, false)?.each { GenericValue custRequestParty ->
-        run service: 'createQuoteRole', with: [
-                quoteId: quoteId,
-                partyId: custRequestParty.partyId,
-                roleTypeId: custRequestParty.roleTypeId
-        ]
+        if (custRequestParty.roleTypeId != 'REQ_TAKER') {
+            run service: 'createQuoteRole', with: [
+                    quoteId: quoteId,
+                    partyId: custRequestParty.partyId,
+                    roleTypeId: custRequestParty.roleTypeId
+            ]
+        }
     }
 
     return [successMessage: null, quoteId: quoteId]
@@ -706,6 +721,9 @@ Map createQuoteNote() {
     Map serviceContext = dctx.makeValidContext('createNote', ModelService.IN_PARAM, [*: parameters, note: parameters.noteInfo])
     Map serviceResult = dispatcher.runSync('createNote', serviceContext)
     if (ServiceUtil.isError(serviceResult)) {
+        return serviceResult
+    }
+    if (!serviceResult.noteId) {
         return error(UtilProperties.getMessage('OrderErrorUiLabels', 'OrderProblemCreatingTheNoteNoNoteIdReturned', locale))
     }
     GenericValue quoteNote = makeValue('QuoteNote')
