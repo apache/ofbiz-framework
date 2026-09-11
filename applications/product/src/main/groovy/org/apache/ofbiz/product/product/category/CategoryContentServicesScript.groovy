@@ -202,6 +202,9 @@ Map createDownloadContentForCategory() {
     createCategoryContent.contentId = creConRes.contentId
 
     Map createCategoryResult = run service: 'createCategoryContent', with: createCategoryContent
+    if (!ServiceUtil.isSuccess(creConRes)) {
+        return createCategoryResult
+    }
     createCategoryResult.contentId = creConRes.contentId
     return createCategoryResult
 }
