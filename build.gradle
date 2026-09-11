@@ -246,7 +246,7 @@ dependencies {
     }
 
     junitReport 'junit:junit:4.13.2'
-    junitReport 'org.apache.ant:ant-junit:1.10.17'
+    junitReport 'org.apache.ant:ant-junit:1.10.18'
 
     // Libraries downloaded manually
     implementation fileTree(dir: file("${rootDir}/lib"), include: '**/*.jar')
