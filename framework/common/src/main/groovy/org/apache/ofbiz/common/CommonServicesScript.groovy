@@ -88,13 +88,17 @@ Map convertUom() {
     }
 
     // if not found, try the uom conversion entity
-    uomConversion = uomConversion ?: from('UomConversion').where(parameters).cache().queryOne()
-    logVerbose("using conversion factor=${uomConversion.conversionFactor}")
+    uomConversion = uomConversion ?: from('UomConversion')
+            .where(uomId: parameters.uomId,
+                    uomIdTo: parameters.uomIdTo)
+            .cache()
+            .queryOne()
 
     if (!uomConversion) {
         // if still no uom conversion entity, then no conversion is possible
         return error(UtilProperties.getMessage('CommonUiLabels', 'CommonNoUomConversionFound', parameters.locale))
     }
+    logVerbose("using conversion factor=${uomConversion.conversionFactor}")
     // Do custom conversion, if we have customMethodId
     if (uomConversion.customMethodId) { //custom conversion?
         logVerbose("using custom conversion customMethodId=${uomConversion.customMethodId}")
@@ -201,7 +205,8 @@ Map getVisualThemeResources() {
         String resourceTypeEnumId = resourceRecord.resourceTypeEnumId
         String resourceValue = resourceRecord.resourceValue
         if (resourceValue) {
-            themeResources[resourceTypeEnumId] = [resouceTypeEnumId: resourceValue]
+            themeResources[resourceTypeEnumId] = themeResources[resourceTypeEnumId] ?: []
+            themeResources[resourceTypeEnumId] << resourceValue
         } else {
             logWarning(UtilProperties.getMessage('CommonUiLabels', 'CommonVisualThemeInvalidRecord', parameters.locale))
         }
@@ -253,7 +258,7 @@ Map linkGeos() {
             .cache()
             .getFieldList('geoIdTo')
     // Old list contains current values
-    for (String geoIdTo : parameters.geoIds) {
+    for (String geoIdTo : parameters.geoIds ?: []) {
         if (!oldGeoIds?.contains(geoIdTo)) {
             // If it already exist, nothing to do and we keep it
             GenericValue oldGeoAssoc = from('GeoAssoc').where(geoId: parameters.geoId, geoIdTo: geoIdTo).queryOne()
@@ -290,7 +295,7 @@ Map getRelatedGeos() {
  */
 Map checkUomConversion() {
     Map result = success()
-    result.exist = from('UomConversion').where(uomId: parameters.uomId, uomIdTo: parameters.uomIdTo).queryCount() == 1
+    result.exist = from('UomConversion').where(uomId: parameters.uomId, uomIdTo: parameters.uomIdTo).queryCount() > 0
     return result
 }
 
@@ -306,7 +311,7 @@ Map checkUomConversionDated() {
     if (parameters.purposeEnumId) {
         condition.purposeEnumId = parameters.purposeEnumId
     }
-    result.exist = from('UomConversion').where(condition).filterByDate().queryCount() == 1
+    result.exist = from('UomConversionDated').where(condition).filterByDate().queryCount() > 0
     return result
 }
 
