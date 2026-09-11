@@ -357,5 +357,6 @@ private Map checkOwnerShip() {
 private String copyIfRequiredSystemPage() {
     Script script = InvokerHelper.createScript(
             GroovyUtil.getScriptClassFromLocation('component://common/src/main/groovy/org/apache/ofbiz/common/PortalPageMethods.groovy'), binding)
-    return script.invokeMethod('copyIfRequiredSystemPage', null) as String
+    script.invokeMethod('copyIfRequiredSystemPage', null)
+    return parameters.portalPageId
 }

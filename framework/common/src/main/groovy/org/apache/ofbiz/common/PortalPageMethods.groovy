@@ -25,9 +25,10 @@ import org.apache.ofbiz.entity.GenericValue
  */
 String duplicatePortalPage() {
     GenericValue portalPage = from('PortalPage').where(parameters).queryOne()
-    Map serviceResult = run service: 'createPortalPage', with: [*: portalPage.getAllFields(),
-                                                                portalPageId: null,
-                                                                originalPortalPageId: parameters.portalPageId]
+    Map createPage = [*: portalPage.getAllFields(),
+                      portalPageId: null,
+                      originalPortalPageId: portalPage.originalPortalPageId ?: parameters.portalPageId]
+    Map serviceResult = run service: 'createPortalPage', with: createPage
     run service: 'duplicatePortalPageDetails', with: [fromPortalPageId: parameters.portalPageId,
                                                       toPortalPageId: serviceResult.portalPageId]
     request.setAttribute('portalPageId', serviceResult.portalPageId)
@@ -56,9 +57,9 @@ String setPortalPortletAttributes() {
             if (porletAttr) {
                 porletAttr.remove()
             }
-            run service: 'createPortletAttribute', [*: parameters,
-                                                    attrName: it.key,
-                                                    attrValue: it.value]
+            run service: 'createPortletAttribute', with: [*: parameters,
+                                                          attrName: it.key,
+                                                          attrValue: it.value]
         }
     }
     return success()
@@ -70,18 +71,23 @@ String setPortalPortletAttributes() {
 String copyIfRequiredSystemPage() {
     GenericValue portalPage = from('PortalPage').where(parameters).cache().queryOne()
             ?: from('PortalPage').where(portalPageId: parameters.parentPortalPageId).cache().queryOne()
-    Map serviceResult = [:]
     if (portalPage && portalPage.ownerUserLoginId == '_NA_' && from('PortalPage')
             .where(originalPortalPageId: portalPage.portalPageId,
                     ownerUserLoginId: userLogin.userLoginId)
-            .queryCount() == 0 ) {
+            .queryCount() == 0) {
         // copy the portal page
-        serviceResult = run service: 'createPortalPage', with: [*: portalPage.getAllFields(),
-                                                                portalPageId: null,
-                                                                originalPortalPageId: portalPage.portalPageId,
-                                                                ownerUserLoginId: userLogin.userLoginId]
+        Map serviceResult = run service: 'createPortalPage', with: [*: portalPage.getAllFields(),
+                                                                    portalPageId: null,
+                                                                    originalPortalPageId: portalPage.portalPageId,
+                                                                    ownerUserLoginId: userLogin.userLoginId]
         run service: 'duplicatePortalPageDetails', with: [fromPortalPageId: portalPage.portalPageId,
                                                           toPortalPageId: serviceResult.portalPageId]
+        parameters.portalPageId = serviceResult.portalPageId
+    } else if (portalPage) {
+        parameters.portalPageId = portalPage.portalPageId
     }
-    return serviceResult ? serviceResult.portalPageId : portalPage?.portalPageId
+    if (binding.hasVariable('request') && request) {
+        request.setAttribute('portalPageId', parameters.portalPageId)
+    }
+    return success()
 }
