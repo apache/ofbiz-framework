@@ -69,7 +69,7 @@ Map getNextInvoiceId() {
         invoiceIdTemp = parameters.invoiceId
         if (invoiceIdTemp) {
             //check the provided ID
-            errorMsg = UtilValidate.checkValidDatabaseId(invoiceIdTemp)
+            String errorMsg = UtilValidate.checkValidDatabaseId(invoiceIdTemp)
             if (errorMsg != null) {
                 return error("In getNextInvoiceId ${errorMsg}")
             }
@@ -109,7 +109,7 @@ Map invoiceSequenceRestart() {
     Timestamp nowTimestamp = UtilDateTime.nowTimestamp()
     if (partyAcctgPreference.lastInvoiceRestartDate) {
         //first figure out if we need to reset the lastInvoiceNumber; is the lastInvoiceRestartDate after the fiscalYearStartMonth/Day for this year?
-        curYearFiscalStartDate = UtilDateTime.getYearStart(nowTimestamp,
+        Timestamp curYearFiscalStartDate = UtilDateTime.getYearStart(nowTimestamp,
                 partyAcctgPreference.fiscalYearStartDay, partyAcctgPreference.fiscalYearStartMonth, 0L)
         if (partyAcctgPreference.lastInvoiceRestartDate < curYearFiscalStartDate && nowTimestamp >= curYearFiscalStartDate) {
             //less than fiscal year start, we need to reset it
@@ -199,12 +199,17 @@ Map updateInvoice() {
  */
 Map copyInvoice() {
     Map serviceResult = run service: 'getInvoice', with: [invoiceId: parameters.invoiceIdToCopyFrom]
+    if (ServiceUtil.isError(serviceResult) || ServiceUtil.isFailure(serviceResult) || !serviceResult.invoice) {
+        return serviceResult ?: error(label('AccountingUiLabels', 'AccountingInvoiceNotFound', [invoiceId: parameters.invoiceIdToCopyFrom]))
+    }
     GenericValue invoice = serviceResult.invoice
     List<GenericValue> invoiceItems = serviceResult.invoiceItems
     invoice.invoiceTypeId = parameters.invoiceTypeId ?: invoice.invoiceTypeId
     serviceResult = run service: 'createInvoice', with: [*: invoice.getAllFields(),
                                                          statusId: 'INVOICE_IN_PROCESS',
-                                                         invoiceId: null]
+                                                         invoiceId: null,
+                                                         invoiceDate: UtilDateTime.nowTimestamp(),
+                                                         paidDate: null]
     String newInvoiceId = serviceResult.invoiceId
     invoiceItems.each {
         run service: 'createInvoiceItem', with: [*: it.getAllFields(),
@@ -386,14 +391,14 @@ Map updateInvoiceItem() {
     invoiceItem.setNonPKFields(parameters, true)
 
     // check if the productNumber is updated, when yes retrieve product description and price
-    if (lookedInvoiceItem.productId != invoiceItem.productId) {
+    if (invoiceItem.productId && lookedInvoiceItem.productId != invoiceItem.productId) {
         GenericValue product = from('Product').where(productId: invoiceItem.productId).cache().queryOne()
         invoiceItem.description = product?.description
         Map serviceResult = run service: 'calculateProductPrice', with: [product: product]
         invoiceItem.amount = serviceResult.price
-        if (invoiceItem.amount == null) {
-            return error(label('AccountingUiLabels', 'AccountingInvoiceAmountIsMandatory'))
-        }
+    }
+    if (invoiceItem.amount == null) {
+        return error(label('AccountingUiLabels', 'AccountingInvoiceAmountIsMandatory'))
     }
     if (lookedInvoiceItem != invoiceItem) {
         invoiceItem.store()
@@ -429,12 +434,10 @@ Map autoGenerateInvoiceFromExistingInvoice() {
             .each {
                 Map serviceResult = run service: 'copyInvoice', with: [*: it.getAllFields(),
                                                                        invoiceIdToCopyFrom: it.invoiceId]
-                if (switchType.containsKey(it.invoiceTypeId)) {
-                    String invoiceId = serviceResult.invoiceId
-                    run service: 'updateInvoice', with: [invoiceId: invoiceId,
-                                                         recurrenceInfoId: null,
-                                                         invoiceTypeId: switchType(it.invoiceTypeId)]
-                }
+                String invoiceId = serviceResult.invoiceId
+                run service: 'updateInvoice', with: [invoiceId: invoiceId,
+                                                     recurrenceInfoId: null,
+                                                     invoiceTypeId: switchType[it.invoiceTypeId] ?: it.invoiceTypeId]
             }
     return success()
 }
@@ -453,7 +456,7 @@ Map getInvoiceRunningTotal() {
     }
     Map serviceResult = run service: 'getPartyAccountingPreferences', with: parameters
     Map partyAccountingPreference = serviceResult.partyAccountingPreference
-    String currencyUomId = partyAccountingPreference.baseCurrencyUomId ?:
+    String currencyUomId = partyAccountingPreference?.baseCurrencyUomId ?:
             EntityUtilProperties.getPropertyValue('general', 'currency.uom.id.default', 'USD', delegator)
     return success([invoiceRunningTotal: UtilFormatOut.formatCurrency(runningTotal, currencyUomId, parameters.locale)])
 }
@@ -472,7 +475,7 @@ Map getInvoicesFilterByAssocType() {
             .distinct()
             .filterByDate()
             .getFieldList('invoiceIdFrom')
-    return success([filteredInvoiceList: parameters.invoiceList.findAll { invoiceIds.contains(it.invoiceId) }])
+    return success([filteredInvoiceList: parameters.invoiceList.findAll { !invoiceIds.contains(it.invoiceId) }])
 }
 
 /**
@@ -567,11 +570,11 @@ Map addTaxOnInvoice() {
             if (promoAdjs) {
                 totalAmount -= it.amount
             }
+            addTaxMap.itemAmountList << totalAmount
+            addTaxMap.itemPriceList << it.amount
+            addTaxMap.itemQuantityList << it.quantity
+            addTaxMap.itemShippingList << BigDecimal.ZERO
         }
-        addTaxMap.itemAmountList << totalAmount
-        addTaxMap.itemPriceList << it.amount
-        addTaxMap.itemQuantityList << it.quantity
-        addTaxMap.itemShippingList << BigDecimal.ZERO
     }
     if (!addTaxMap.itemProductList) {
         return error(label('AccountingUiLabels', 'AccountingTaxProductIdCannotCalculate'))
@@ -624,7 +627,10 @@ Map addTaxOnInvoice() {
  */
 Map createInvoiceFromOrder() {
     GenericValue order = from('OrderHeader').where(parameters).queryOne()
-    String invoicePerShipment = order?.invoicePerShipment ?:
+    if (!order) {
+        return error(label('OrderUiLabels', 'OrderOrderNotFound', parameters))
+    }
+    String invoicePerShipment = order.invoicePerShipment ?:
             EntityUtilProperties.getPropertyValue('accounting', 'create.invoice.per.shipment', 'N', delegator)
     if (invoicePerShipment == 'N') {
         List orderItemBillingItemsSeqIds = from('OrderItemBilling').where(orderId: order.orderId).getFieldList('orderItemSeqId')
