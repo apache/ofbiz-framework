@@ -35,7 +35,7 @@ Map updateBudgetStatus() {
                     .queryOne()
             if (!statusValidChange) {
                 return error(label('CommonUiLabels', 'CommonErrorNoStatusValidChange',
-                        [lookedUpValue: [statusId: budgetStatus.statusId]]))
+                        [lookedUpValue: [statusId: budgetStatus.statusId], parameters: parameters]))
             }
             result = run service: 'createBudgetStatus', with: parameters
         }
