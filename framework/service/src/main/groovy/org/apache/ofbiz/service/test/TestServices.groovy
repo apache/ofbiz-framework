@@ -43,3 +43,8 @@ Map testPingSuccessWithDSLCall() {
 Map testPingErrorWithDSLCall() {
     run service: 'testGroovyPingError', with: parameters
 }
+
+Map testPingSuccessWithAsyncDSLCall() {
+    runServiceAsync('testGroovyPingSuccess', parameters)
+    return success()
+}

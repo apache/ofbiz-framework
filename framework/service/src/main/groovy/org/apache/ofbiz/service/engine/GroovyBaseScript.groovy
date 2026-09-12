@@ -25,6 +25,7 @@ import org.apache.ofbiz.entity.model.DynamicViewEntity
 import org.apache.ofbiz.entity.util.EntityQuery
 import org.apache.ofbiz.service.DispatchContext
 import org.apache.ofbiz.service.ExecutionServiceException
+import org.apache.ofbiz.service.GenericServiceException
 import org.apache.ofbiz.service.LocalDispatcher
 import org.apache.ofbiz.service.ModelService
 import org.apache.ofbiz.service.ServiceUtil
@@ -40,22 +41,18 @@ abstract class GroovyBaseScript extends Script {
 
     Map runService(String serviceName, Map inputMap) throws ExecutionServiceException {
         LocalDispatcher dispatcher = binding.getVariable('dispatcher')
-        DispatchContext dctx = dispatcher.getDispatchContext()
-        inputMap.userLogin = inputMap.userLogin ?: this.binding.hasVariable('userLogin')
-                ? this.binding.getVariable('userLogin')
-                : this.binding.getVariable('parameters').userLogin
-        inputMap.timeZone = inputMap.timeZone ?: this.binding.hasVariable('timeZone')
-                ? this.binding.getVariable('timeZone')
-                : this.binding.getVariable('parameters').timeZone
-        inputMap.locale = inputMap.locale ?: this.binding.hasVariable('locale')
-                ? this.binding.getVariable('locale')
-                : this.binding.getVariable('parameters').locale
-        Map serviceContext = dctx.makeValidContext(serviceName, ModelService.IN_PARAM, inputMap)
+        Map serviceContext = buildServiceContext(dispatcher, serviceName, inputMap)
         Map result = dispatcher.runSync(serviceName, serviceContext)
         if (ServiceUtil.isError(result)) {
             throw new ExecutionServiceException(ServiceUtil.getErrorMessage(result))
         }
         return result
+    }
+
+    void runServiceAsync(String serviceName, Map inputMap) throws GenericServiceException {
+        LocalDispatcher dispatcher = binding.getVariable('dispatcher')
+        Map serviceContext = buildServiceContext(dispatcher, serviceName, inputMap)
+        dispatcher.runAsync(serviceName, serviceContext, true)   // persist = true
     }
 
     Map run(Map args) throws ExecutionServiceException {
@@ -172,6 +169,20 @@ abstract class GroovyBaseScript extends Script {
             return UtilProperties.getMessage(ressource, message, context, locale)
         }
         return UtilProperties.getMessage(ressource, message, locale)
+    }
+
+    private Map buildServiceContext(LocalDispatcher dispatcher, String serviceName, Map inputMap) {
+        DispatchContext dctx = dispatcher.getDispatchContext()
+        inputMap.userLogin = inputMap.userLogin ?: this.binding.hasVariable('userLogin')
+                ? this.binding.getVariable('userLogin')
+                : this.binding.getVariable('parameters').userLogin
+        inputMap.timeZone = inputMap.timeZone ?: this.binding.hasVariable('timeZone')
+                ? this.binding.getVariable('timeZone')
+                : this.binding.getVariable('parameters').timeZone
+        inputMap.locale = inputMap.locale ?: this.binding.hasVariable('locale')
+                ? this.binding.getVariable('locale')
+                : this.binding.getVariable('parameters').locale
+        return dctx.makeValidContext(serviceName, ModelService.IN_PARAM, inputMap)
     }
 
 }

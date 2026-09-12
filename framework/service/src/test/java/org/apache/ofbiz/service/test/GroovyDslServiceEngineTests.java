@@ -19,11 +19,17 @@
 package org.apache.ofbiz.service.test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.sql.Timestamp;
 import java.util.Map;
 
+import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilMisc;
+import org.apache.ofbiz.entity.GenericValue;
+import org.apache.ofbiz.entity.condition.EntityCondition;
+import org.apache.ofbiz.entity.condition.EntityOperator;
 import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.service.ServiceUtil;
 import org.apache.ofbiz.testtools.JunitJupiterTest;
@@ -60,5 +66,39 @@ public class GroovyDslServiceEngineTests implements JupiterTestHelper {
         result = getDispatcher().runSync("testGroovyPingErrorWithDSLCall", pingMap, 60, true);
         assertTrue(ServiceUtil.isError(result));
         assertEquals("Service result error", result.get(ModelService.ERROR_MESSAGE));
+    }
+
+    @Test
+    public final void testGroovyServiceAsyncDSLCall() throws Exception {
+        String pingMsg = "Unit Test Async";
+        Map<String, Object> pingMap = UtilMisc.toMap("ping", pingMsg);
+
+        // ofbiz --test does not wipe JobSandbox between runs, and JobPoller never picks up a
+        // pending job during a test run (see below) - so a prior run's leftover SERVICE_PENDING
+        // row for this same service would otherwise satisfy every assertion below even if
+        // runServiceAsync() were broken. Scoping to runTime >= beforeCall makes the test hermetic.
+        Timestamp beforeCall = UtilDateTime.nowTimestamp();
+        Map<String, Object> result = getDispatcher().runSync("testGroovyPingSuccessWithAsyncDSLCall", pingMap);
+        assertTrue(ServiceUtil.isSuccess(result));
+
+        // Verifying actual pickup/completion by the Job Scheduler is not possible from inside an
+        // "ofbiz --test" run: JobPoller's loop is gated on Start.getInstance().getCurrentState()
+        // == RUNNING, but StartupControlPanel.loadContainers() only flips the server to RUNNING
+        // after ContainerLoader.load() returns - and that method runs TestRunContainer (which runs
+        // every test suite synchronously on that same thread) before returning. So the server never
+        // reaches RUNNING until after this entire test suite has already finished, and JobPoller
+        // never gets to poll during the run. Instead, this asserts that runServiceAsync() itself
+        // persisted a well-formed job request - the only thing observable from within the test -
+        // matching the existing precedent in ServicePurgeTest.groovy and
+        // ServiceMultipleNodeRecoveryTest.groovy, neither of which waits for live completion either.
+        GenericValue jobSandbox = from("JobSandbox")
+                .where(EntityCondition.makeCondition("serviceName", "testGroovyPingSuccess"),
+                        EntityCondition.makeCondition("runTime", EntityOperator.GREATER_THAN_EQUAL_TO, beforeCall))
+                .orderBy("-runTime")
+                .queryFirst();
+        assertNotNull(jobSandbox, "Expected runServiceAsync() to persist a JobSandbox record for testGroovyPingSuccess");
+        assertEquals("SERVICE_PENDING", jobSandbox.getString("statusId"));
+        assertNotNull(jobSandbox.getString("runtimeDataId"),
+                "Expected the async call's context to be persisted as RuntimeData");
     }
 }
