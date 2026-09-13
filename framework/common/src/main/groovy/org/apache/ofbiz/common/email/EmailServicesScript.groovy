@@ -20,6 +20,7 @@ package org.apache.ofbiz.common.email
 
 import org.apache.ofbiz.base.util.UtilProperties
 import org.apache.ofbiz.entity.GenericValue
+import org.apache.ofbiz.service.ModelService
 import org.apache.ofbiz.service.ServiceUtil
 
  /**
@@ -64,7 +65,7 @@ Map sendMailFromTemplateSetting() {
             emailParams.bodyParameters = bodyParameters
         }
         // copy the incoming parameter fields AFTER setting the ones from EmailTemplateSetting so they can override things like subject, sendFrom, etc
-        emailParams << parameters
+        emailParams << dctx.makeValidContext('sendMailFromScreen', ModelService.IN_PARAM, parameters)
         Map sendMailResult = run service: 'sendMailFromScreen', with: emailParams
         if (!ServiceUtil.isSuccess(sendMailResult)) {
             return sendMailResult
