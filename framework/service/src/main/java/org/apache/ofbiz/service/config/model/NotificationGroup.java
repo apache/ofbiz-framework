@@ -18,12 +18,12 @@
  *******************************************************************************/
 package org.apache.ofbiz.service.config.model;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
+import java.util.Map;
+import org.apache.ofbiz.base.config.AbstractConfigElement;
 import org.apache.ofbiz.base.lang.ThreadSafe;
-import org.apache.ofbiz.base.util.UtilXml;
+import org.apache.ofbiz.entity.GenericEntityConfException;
 import org.apache.ofbiz.service.config.ServiceConfigException;
 import org.w3c.dom.Element;
 
@@ -31,37 +31,64 @@ import org.w3c.dom.Element;
  * An object that models the <code>&lt;notification-group&gt;</code> element.
  */
 @ThreadSafe
-public final class NotificationGroup {
+public final class NotificationGroup extends AbstractConfigElement {
+
+    private final ServiceConfigGetter config = ServiceConfigGetter.getInstance();
+    public static final String ELEMENT_NAME = "notification-group";
+    private final String xPath;
 
     private final String name;
     private final Notification notification;
     private final List<Notify> notifyList;
 
-    NotificationGroup(Element notificationGroupElement) throws ServiceConfigException {
+    NotificationGroup(Element notificationGroupElement, String xPathParent) throws ServiceConfigException {
         String name = notificationGroupElement.getAttribute("name").intern();
         if (name.isEmpty()) {
             throw new ServiceConfigException("<notification-group> element name attribute is empty");
         }
         this.name = name;
-        Element notification = UtilXml.firstChildElement(notificationGroupElement, "notification");
+        xPath = xPathParent.concat("/notification-group[@name='" + name + "']");
+        Notification notification = config.getObjectSubElement(xPath, notificationGroupElement, Notification.class);
         if (notification == null) {
             throw new ServiceConfigException("<notification> element is missing");
         }
-        this.notification = new Notification(notification);
-        List<? extends Element> notifyElementList = UtilXml.childElementList(notificationGroupElement, "notify");
-        if (notifyElementList.size() < 2) {
+        this.notification = notification;
+        List<Notify> notifyList = config.getSubElementsAsListEntries(xPath + "/notification",
+                notificationGroupElement, Notify.class);
+        if (notifyList.size() < 2) {
+            throw new ServiceConfigException("<notify> element(s) missing");
+        }
+        this.notifyList = Collections.unmodifiableList(notifyList);
+    }
+
+    NotificationGroup(Map<String, Object> configObject, String xPath) throws ServiceConfigException {
+        this.xPath = xPath;
+        String name = getNameFromXPath(xPath);
+        if (name.isEmpty()) {
+            throw new ServiceConfigException("<notification-group> element name attribute is empty");
+        }
+        this.name = name;
+        Notification notification = config.getObjectSubElement(xPath, null, Notification.class);
+        if (notification == null) {
+            throw new ServiceConfigException("<notification> element is missing");
+        }
+        this.notification = notification;
+        List<Notify> notifyList = config.getSubElementsAsListEntries(xPath, null, Notify.class);
+        if (notifyList.size() < 2) {
             throw new ServiceConfigException("<notify> element(s) missing");
         } else {
-            List<Notify> notifyList = new ArrayList<>(notifyElementList.size());
-            for (Element notifyElement : notifyElementList) {
-                notifyList.add(new Notify(notifyElement));
-            }
             this.notifyList = Collections.unmodifiableList(notifyList);
         }
     }
 
-    public String getName() {
-        return name;
+    public static NotificationGroup loadFromXml(Element element, String xPathParent)
+            throws GenericEntityConfException, ServiceConfigException {
+        return new NotificationGroup(element, xPathParent);
+    }
+
+    public static NotificationGroup loadFromConfig(Map<String, Object> configMap, String xPath)
+            throws GenericEntityConfException, ServiceConfigException {
+        return new NotificationGroup(configMap, xPath);
     }
 
     public Notification getNotification() {
@@ -69,6 +96,12 @@ public final class NotificationGroup {
     }
 
     public List<Notify> getNotifyList() {
-        return this.notifyList;
+        return notifyList;
     }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
 }

@@ -18,12 +18,11 @@
  *******************************************************************************/
 package org.apache.ofbiz.entity.config.model;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
+import java.util.Map;
+import org.apache.ofbiz.base.config.AbstractConfigElement;
 import org.apache.ofbiz.base.lang.ThreadSafe;
-import org.apache.ofbiz.base.util.UtilXml;
 import org.apache.ofbiz.entity.GenericEntityConfException;
 import org.w3c.dom.Element;
 
@@ -33,37 +32,57 @@ import org.w3c.dom.Element;
  * @see <code>entity-config.xsd</code>
  */
 @ThreadSafe
-public final class EntityEcaReader {
+public final class EntityEcaReader extends AbstractConfigElement {
 
-    private final String name; // type = xs:string
-    private final List<Resource> resourceList; // <resource>
+    private final EntityConfigGetter config = EntityConfigGetter.getInstance();
+    public static final String ELEMENT_NAME = "entity-eca-reader";
+    private final String xPath;
 
-    EntityEcaReader(Element element) throws GenericEntityConfException {
+    private final String name;
+    private final List<Resource> resourceList;
+
+    EntityEcaReader(Element element, String xPathParent) throws GenericEntityConfException {
         String lineNumberText = EntityConfig.createConfigFileLineNumberText(element);
         String name = element.getAttribute("name").intern();
         if (name.isEmpty()) {
             throw new GenericEntityConfException("<entity-eca-reader> element name attribute is empty" + lineNumberText);
         }
         this.name = name;
-        List<? extends Element> resourceElementList = UtilXml.childElementList(element, "resource");
-        if (resourceElementList.isEmpty()) {
+        xPath = xPathParent.concat("/entity-eca-reader[@name='" + name + "']");
+        List<Resource> resourceList = config.getSubElementsAsListEntries(xPath.concat("/resource"), element, Resource.class);
+        this.resourceList = resourceList.isEmpty() ? Collections.emptyList() : Collections.unmodifiableList(resourceList);
+    }
+
+    EntityEcaReader(Map<String, Object> configObject, String xPath) throws GenericEntityConfException {
+        this.xPath = xPath;
+        String name = getNameFromXPath(xPath);
+        if (name.isEmpty()) {
+            throw new GenericEntityConfException("<entity-eca-reader> element name attribute is empty");
+        }
+        this.name = name;
+        List<Resource> resourceList = config.getSubElementsAsListEntries(xPath.concat("/resource"), null, Resource.class);
+        if (resourceList.isEmpty()) {
             this.resourceList = Collections.emptyList();
         } else {
-            List<Resource> resourceList = new ArrayList<>(resourceElementList.size());
-            for (Element resourceElement : resourceElementList) {
-                resourceList.add(new Resource(resourceElement));
-            }
             this.resourceList = Collections.unmodifiableList(resourceList);
         }
     }
 
-    /** Returns the value of the <code>name</code> attribute. */
-    public String getName() {
-        return this.name;
+    public static EntityEcaReader loadFromXml(Element element, String xPathParent) throws GenericEntityConfException {
+        return new EntityEcaReader(element, xPathParent);
     }
 
-    /** Returns the <code>&lt;resource&gt;</code> child elements. */
-    public List<Resource> getResourceList() {
-        return this.resourceList;
+    public static EntityEcaReader loadFromConfig(Map<String, Object> configMap, String xPath) throws GenericEntityConfException {
+        return new EntityEcaReader(configMap, xPath);
     }
+
+    public List<Resource> getResourceList() {
+        return resourceList;
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
 }

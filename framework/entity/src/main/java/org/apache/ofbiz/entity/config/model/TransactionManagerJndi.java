@@ -18,9 +18,12 @@
  *******************************************************************************/
 package org.apache.ofbiz.entity.config.model;
 
+import org.apache.ofbiz.base.config.AbstractConfigElement;
 import org.apache.ofbiz.base.lang.ThreadSafe;
 import org.apache.ofbiz.entity.GenericEntityConfException;
 import org.w3c.dom.Element;
+
+import java.util.Map;
 
 /**
  * An object that models the <code>&lt;transaction-manager-jndi&gt;</code> element.
@@ -28,32 +31,48 @@ import org.w3c.dom.Element;
  * @see <code>entity-config.xsd</code>
  */
 @ThreadSafe
-public final class TransactionManagerJndi {
+public final class TransactionManagerJndi extends AbstractConfigElement {
 
-    private final String jndiServerName; // type = xs:string
-    private final String jndiName; // type = xs:string
+    private final EntityConfigGetter config = EntityConfigGetter.getInstance();
+    public static final String ELEMENT_NAME = "transaction-manager-jndi";
+    private final String xPath;
 
-    TransactionManagerJndi(Element element) throws GenericEntityConfException {
+    private final String jndiServerName;
+    private final String jndiName;
+
+    TransactionManagerJndi(Element element, String xPathParent) throws GenericEntityConfException {
         String lineNumberText = EntityConfig.createConfigFileLineNumberText(element);
-        String jndiServerName = element.getAttribute("jndi-server-name").intern();
+        xPath = xPathParent.concat("transaction-manager-jndi");
+        String jndiServerName = config.getValue(xPath + "/@jndi-server-name");
         if (jndiServerName.isEmpty()) {
             throw new GenericEntityConfException("<transaction-manager-jndi> element jndi-server-name attribute is empty" + lineNumberText);
         }
         this.jndiServerName = jndiServerName;
-        String jndiName = element.getAttribute("jndi-name").intern();
+        String jndiName = config.getValue(xPath + "/@jndi-name");
         if (jndiName.isEmpty()) {
             throw new GenericEntityConfException("<transaction-manager-jndi> element jndi-name attribute is empty" + lineNumberText);
         }
         this.jndiName = jndiName;
     }
 
-    /** Returns the value of the <code>jndi-server-name</code> attribute. */
-    public String getJndiServerName() {
-        return this.jndiServerName;
+    public static TransactionManagerJndi loadFromXml(Element element, String xPathParent) throws GenericEntityConfException {
+        return new TransactionManagerJndi(element, xPathParent);
     }
 
-    /** Returns the value of the <code>jndi-name</code> attribute. */
+    public static TransactionManagerJndi loadFromConfig(Map<String, Object> configMap, String xPath) throws GenericEntityConfException {
+        return null;
+    }
+
+    public String getJndiServerName() {
+        return jndiServerName;
+    }
+
     public String getJndiName() {
-        return this.jndiName;
+        return jndiName;
+    }
+
+    @Override
+    public String getName() {
+        return "transaction-manager-jndi";
     }
 }

@@ -18,9 +18,12 @@
  *******************************************************************************/
 package org.apache.ofbiz.entity.config.model;
 
+import org.apache.ofbiz.base.config.AbstractConfigElement;
 import org.apache.ofbiz.base.lang.ThreadSafe;
 import org.apache.ofbiz.entity.GenericEntityConfException;
 import org.w3c.dom.Element;
+
+import java.util.Map;
 
 /**
  * An object that models the <code>&lt;read-data&gt;</code> element.
@@ -28,21 +31,53 @@ import org.w3c.dom.Element;
  * @see <code>entity-config.xsd</code>
  */
 @ThreadSafe
-public final class ReadData {
+public final class ReadData extends AbstractConfigElement {
 
-    private final String readerName; // type = xs:string
+    private final EntityConfigGetter config = EntityConfigGetter.getInstance();
+    public static final String ELEMENT_NAME = "read-data";
+    private final String xPath;
+    public static final String ELEMENT_FIELD_ID_NAME = "reader-name";
 
-    ReadData(Element element) throws GenericEntityConfException {
+    private final String readerName;
+
+    ReadData(Element element, String xPathParent) throws GenericEntityConfException {
         String lineNumberText = EntityConfig.createConfigFileLineNumberText(element);
-        String readerName = element.getAttribute("reader-name").intern();
+        String readerName = element.getAttribute("reader-name");
+        xPath = xPathParent.concat("/read-data[@reader-name='" + readerName + "']");
         if (readerName.isEmpty()) {
             throw new GenericEntityConfException("<read-data> element reader-name attribute is empty" + lineNumberText);
         }
         this.readerName = readerName;
     }
 
-    /** Returns the value of the <code>reader-name</code> attribute. */
-    public String getReaderName() {
-        return this.readerName;
+    ReadData(Map<String, Object> configObject, String xPath) throws GenericEntityConfException {
+        this.xPath = xPath;
+        String readerName = config.getValue(configObject, "/@reader-name");
+        if (readerName.isEmpty()) {
+            throw new GenericEntityConfException("<read-data> element reader-name attribute is empty");
+        }
+        this.readerName = readerName;
     }
+
+    public String getReaderName() {
+        return readerName;
+    }
+
+    public static ReadData loadFromXml(Element element, String xPathParent) throws GenericEntityConfException {
+        return new ReadData(element, xPathParent);
+    }
+
+    public static ReadData loadFromConfig(Map<String, Object> configMap, String xPath) throws GenericEntityConfException {
+        return new ReadData(configMap, xPath);
+    }
+
+    public boolean allowMultipleSources() {
+        return false;
+    }
+
+    @Override
+    public String getName() {
+        return readerName;
+    }
+
 }

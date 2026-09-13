@@ -18,7 +18,10 @@
  *******************************************************************************/
 package org.apache.ofbiz.service.config.model;
 
+import java.util.Map;
+import org.apache.ofbiz.base.config.AbstractConfigElement;
 import org.apache.ofbiz.base.lang.ThreadSafe;
+import org.apache.ofbiz.entity.GenericEntityConfException;
 import org.apache.ofbiz.service.config.ServiceConfigException;
 import org.w3c.dom.Element;
 
@@ -26,7 +29,11 @@ import org.w3c.dom.Element;
  * An object that models the <code>&lt;server&gt;</code> element.
  */
 @ThreadSafe
-public final class Server {
+public final class Server extends AbstractConfigElement {
+
+    private final ServiceConfigGetter config = ServiceConfigGetter.getInstance();
+    public static final String ELEMENT_NAME = "server";
+    private final String xPath;
 
     private final String clientId;
     private final String jndiName;
@@ -38,32 +45,72 @@ public final class Server {
     private final String type;
     private final String username;
 
-    Server(Element serverElement) throws ServiceConfigException {
+    Server(Element serverElement, String xPathParent) throws ServiceConfigException {
         String jndiServerName = serverElement.getAttribute("jndi-server-name").intern();
         if (jndiServerName.isEmpty()) {
             throw new ServiceConfigException("<server> element jndi-server-name attribute is empty");
         }
         this.jndiServerName = jndiServerName;
-        String jndiName = serverElement.getAttribute("jndi-name").intern();
+        xPath = xPathParent.concat("/server[@jndi-server-name='" + jndiServerName + "']");
+        String jndiName = config.getValue(xPath.concat("/@jndi-name"));
         if (jndiName.isEmpty()) {
             throw new ServiceConfigException("<server> element jndi-name attribute is empty");
         }
         this.jndiName = jndiName;
-        String topicQueue = serverElement.getAttribute("topic-queue").intern();
+        String topicQueue = config.getValue(xPath.concat("/@topic-queue"));
         if (topicQueue.isEmpty()) {
             throw new ServiceConfigException("<server> element topic-queue attribute is empty");
         }
         this.topicQueue = topicQueue;
-        String type = serverElement.getAttribute("type").intern();
+        String type = config.getValue(xPath.concat("/@type"));
         if (type.isEmpty()) {
             throw new ServiceConfigException("<server> element type attribute is empty");
         }
         this.type = type;
-        this.username = serverElement.getAttribute("username").intern();
-        this.password = serverElement.getAttribute("password").intern();
-        this.clientId = serverElement.getAttribute("client-id").intern();
-        this.listen = "true".equals(serverElement.getAttribute("listen"));
-        this.listenerClass = serverElement.getAttribute("listener-class").intern();
+        this.username = config.getValue(xPath.concat("/@username"));
+        this.password = config.getValue(xPath.concat("/@password"));
+        this.clientId = config.getValue(xPath.concat("/@client-id"));
+        this.listen = "true".equals(config.getValue(xPath.concat("/@listen")));
+        this.listenerClass = config.getValue(xPath.concat("/@listener-class"));
+    }
+
+    Server(Map<String, Object> configObject, String xPath) throws ServiceConfigException {
+        this.xPath = xPath;
+        String jndiServerName = getNameFromXPath(xPath);
+        if (jndiServerName.isEmpty()) {
+            throw new ServiceConfigException("<server> element jndi-server-name attribute is empty");
+        }
+        this.jndiServerName = jndiServerName;
+        String jndiName = config.getValue(configObject, "/@jndi-name");
+        if (jndiName.isEmpty()) {
+            throw new ServiceConfigException("<server> element jndi-name attribute is empty");
+        }
+        this.jndiName = jndiName;
+        String topicQueue = config.getValue(configObject, "/@topic-queue");
+        if (topicQueue.isEmpty()) {
+            throw new ServiceConfigException("<server> element topic-queue attribute is empty");
+        }
+        this.topicQueue = topicQueue;
+        String type = config.getValue(configObject, "/@type");
+        if (type.isEmpty()) {
+            throw new ServiceConfigException("<server> element type attribute is empty");
+        }
+        this.type = type;
+        this.username = config.getValue(configObject, "/@username");
+        this.password = config.getValue(configObject, "/@password");
+        this.clientId = config.getValue(configObject, "/@client-id");
+        this.listen = "true".equals(config.getValue(configObject, "/@listen"));
+        this.listenerClass = config.getValue(configObject, "/@listener-class");
+    }
+
+    public static Server loadFromXml(Element element, String xPathParent)
+            throws GenericEntityConfException, ServiceConfigException {
+        return new Server(element, xPathParent);
+    }
+
+    public static Server loadFromConfig(Map<String, Object> configMap, String xPath)
+            throws GenericEntityConfException, ServiceConfigException {
+        return new Server(configMap, xPath);
     }
 
     public String getClientId() {
@@ -102,4 +149,8 @@ public final class Server {
         return username;
     }
 
+    @Override
+    public String getName() {
+        return jndiServerName;
+    }
 }

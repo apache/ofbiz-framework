@@ -1,0 +1,31 @@
+{
+  "entityengine": {
+    "entity-config": {
+      "delegator": {
+        "default": {
+          "entity-model-reader": "entity-model-reader-over",
+          "entity-group-reader": "entity-group-reader-over",
+          "entity-eca-reader": "entity-eca-reader-over",
+          "distributed-cache-clear-enabled": "true",
+          "group-map": {
+            "org.apache.ofbiz": {"datasource-name": "localpostgres"},
+            "org.apache.ofbiz.olap": {"datasource-name": "localpostgres"},
+            "org.apache.ofbiz.tenant": {"datasource-name": "localpostgres"},
+          }
+        }
+        "default-no-eca": {
+          "entity-model-reader": "entity-model-reader-over",
+          "entity-group-reader": "entity-group-reader-over",
+          "entity-eca-reader": "entity-eca-reader-over",
+          "entity-eca-enabled": "true",
+          "distributed-cache-clear-enabled": "true",
+          "group-map": {
+            "org.apache.ofbiz": {"datasource-name": "localpostgres"},
+            "org.apache.ofbiz.olap": {"datasource-name": "localpostgres"},
+            "org.apache.ofbiz.tenant": {"datasource-name": "localpostgres"},
+          }
+        }
+      }
+    }
+  }
+}

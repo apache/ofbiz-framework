@@ -1,0 +1,49 @@
+{
+  "entityengine": {
+    "entity-config": {
+      "datasource": {
+        "localmysql": {
+          "helper-class": "org.apache.ofbiz.entity.datasource.GenericHelperDAO",
+          "field-type-name": "mysql",
+          "check-on-start": "true",
+          "add-missing-on-start": "true",
+          "check-pks-on-start": "false",
+          "use-foreign-keys": "true",
+          "join-style": "ansi-no-parenthesis",
+          "alias-view-columns": "false",
+          "drop-fk-use-foreign-key-keyword": "true",
+          "table-type": "InnoDB",
+          "character-set": "utf8",
+          "collate": "utf8_general_ci",
+          "offset-style": "limit",
+          "read-data": [
+            { "reader-name": "tenant" },
+            { "reader-name": "seed" },
+            { "reader-name": "seed-initial" },
+            { "reader-name": "demo" },
+            { "reader-name": "ext" },
+            { "reader-name": "ext-test" },
+            { "reader-name": "ext-demo" }
+          ],
+          "inline-jdbc": {
+            "jdbc-driver": "com.mysql.cj.jdbc.Driver",
+            "jdbc-uri": "jdbc:mysql://127.0.0.1/ofbiz?autoReconnect=true&amp;characterEncoding=UTF-8",
+            "jdbc-username": "ofbiz",
+            "jdbc-password": "ofbiz",
+            "isolation-level": "ReadCommitted",
+            "pool-minsize": "2",
+            "pool-maxsize": "250",
+            //            Please note that at least one person has experienced a problem with this value with MySQL and had to set it to -1 in order to avoid this issue.
+            //            For more look at http://markmail.org/thread/5sivpykv7xkl66px and http://commons.apache.org/dbcp/configuration.html-->
+            "time-between-eviction-runs-millis": "600000"
+          }
+//          "jndi-jdbc": {
+//            "jndi-server-name": "localjndi",
+//            "jndi-name": "java:/MySqlDataSource",
+//            "isolation-level": "Serializable"
+//          }
+        }
+      }
+    }
+  }
+}

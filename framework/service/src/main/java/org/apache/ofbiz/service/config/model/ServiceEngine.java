@@ -18,15 +18,13 @@
  *******************************************************************************/
 package org.apache.ofbiz.service.config.model;
 
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+import org.apache.ofbiz.base.config.AbstractConfigElement;
+import org.apache.ofbiz.base.config.ConfigHelper;
 import org.apache.ofbiz.base.lang.ThreadSafe;
-import org.apache.ofbiz.base.start.Start;
-import org.apache.ofbiz.base.util.UtilXml;
+import org.apache.ofbiz.entity.GenericEntityConfException;
 import org.apache.ofbiz.service.config.ServiceConfigException;
 import org.w3c.dom.Element;
 
@@ -34,7 +32,11 @@ import org.w3c.dom.Element;
  * An object that models the <code>&lt;service-engine&gt;</code> element.
  */
 @ThreadSafe
-public final class ServiceEngine {
+public final class ServiceEngine extends AbstractConfigElement {
+
+    private final ServiceConfigGetter config = ServiceConfigGetter.getInstance();
+    public static final String ELEMENT_NAME = "service-engine";
+    private final String xPath;
 
     private final Authorization authorization;
     private final List<Engine> engines;
@@ -50,124 +52,115 @@ public final class ServiceEngine {
     private final List<StartupService> startupServices;
     private final ThreadPool threadPool;
 
-    ServiceEngine(Element engineElement) throws ServiceConfigException {
+    ServiceEngine(Element engineElement, String xPathParent) throws ServiceConfigException {
+        boolean checkStructure = ConfigHelper.checkStrictXmlStructure();
         String name = engineElement.getAttribute("name").intern();
+        if (name.isEmpty() && checkStructure) {
+            throw new ServiceConfigException("<service-engine> element name attribute is empty");
+        }
+        this.name = name;
+        xPath = xPathParent.concat("/service-engine[@name='" + name + "']");
+        Authorization auth = config.getObjectSubElement(xPath, engineElement, Authorization.class);
+        if (auth == null && checkStructure) {
+            throw new ServiceConfigException("<authorization> element is missing");
+        }
+        this.authorization = auth;
+        ThreadPool pool = config.getObjectSubElement(xPath, engineElement, ThreadPool.class);
+        if (pool == null && checkStructure) {
+            throw new ServiceConfigException("<thread-pool> element is missing");
+        }
+        this.threadPool = pool;
+        List<Engine> engineList = config.getSubElementsAsListEntries(xPath, engineElement, Engine.class);
+        engines = Collections.unmodifiableList(engineList);
+        if (engineList.isEmpty()) {
+            this.engineMap = Collections.emptyMap();
+        } else {
+            this.engineMap = config.getSubElementsAsMapValues(xPath, engineElement, Engine.class);
+        }
+        List<ServiceLocation> serviceLocationList = config.getSubElementsAsListEntries(xPath,
+                engineElement, ServiceLocation.class);
+        serviceLocations = Collections.unmodifiableList(serviceLocationList);
+        List<NotificationGroup> notificationGroupList = config.getSubElementsAsListEntries(xPath,
+                engineElement, NotificationGroup.class);
+        notificationGroups = Collections.unmodifiableList(notificationGroupList);
+        List<StartupService> startupServiceList = config.getSubElementsAsListEntries(xPath,
+                engineElement, StartupService.class);
+        startupServices = Collections.unmodifiableList(startupServiceList);
+        List<ResourceLoader> resourceLoaderList = config.getSubElementsAsListEntries(xPath,
+                engineElement, ResourceLoader.class);
+        resourceLoaders = Collections.unmodifiableList(resourceLoaderList);
+        List<GlobalServices> globalServicesList = config.getSubElementsAsListEntries(xPath,
+                engineElement, GlobalServices.class);
+        globalServices = Collections.unmodifiableList(globalServicesList);
+        List<ServiceGroups> serviceGroupsList = config.getSubElementsAsListEntries(xPath,
+                engineElement, ServiceGroups.class);
+        serviceGroups = Collections.unmodifiableList(serviceGroupsList);
+        List<ServiceEcas> serviceEcasList = config.getSubElementsAsListEntries(xPath,
+                engineElement, ServiceEcas.class);
+        serviceEcas = Collections.unmodifiableList(serviceEcasList);
+        List<JmsService> jmsServiceList = config.getSubElementsAsListEntries(xPath,
+                engineElement, JmsService.class);
+        jmsServices = Collections.unmodifiableList(jmsServiceList);
+    }
+
+    ServiceEngine(Map<String, Object> configObject, String xPath) throws ServiceConfigException {
+        this.xPath = xPath;
+        String name = getNameFromXPath(xPath);
         if (name.isEmpty()) {
             throw new ServiceConfigException("<service-engine> element name attribute is empty");
         }
         this.name = name;
-        Element authElement = UtilXml.firstChildElement(engineElement, "authorization");
-        if (authElement == null) {
+        Authorization auth = config.getObjectSubElement(xPath, null, Authorization.class);
+        if (auth == null) {
             throw new ServiceConfigException("<authorization> element is missing");
         }
-        this.authorization = new Authorization(authElement);
-        Element poolElement = UtilXml.firstChildElement(engineElement, "thread-pool");
-        if (poolElement == null) {
+        this.authorization = auth;
+        ThreadPool pool = config.getObjectSubElement(xPath, null, ThreadPool.class);
+        if (pool == null) {
             throw new ServiceConfigException("<thread-pool> element is missing");
         }
-        this.threadPool = new ThreadPool(poolElement);
-        List<? extends Element> engineElementList = UtilXml.childElementList(engineElement, "engine");
-        if (engineElementList.isEmpty()) {
-            this.engines = Collections.emptyList();
+        this.threadPool = pool;
+        List<Engine> engineList = config.getSubElementsAsListEntries(xPath, null, Engine.class);
+        engines = Collections.unmodifiableList(engineList);
+        if (engineList.isEmpty()) {
             this.engineMap = Collections.emptyMap();
         } else {
-            List<Engine> engines = new ArrayList<>(engineElementList.size());
-            Map<String, Engine> engineMap = new HashMap<>();
-            for (Element childEngineElement : engineElementList) {
-                Engine engine = new Engine(childEngineElement);
-                engines.add(engine);
-                engineMap.put(engine.getName(), engine);
-            }
-            this.engines = Collections.unmodifiableList(engines);
-            this.engineMap = Collections.unmodifiableMap(engineMap);
+            this.engineMap = config.getSubElementsAsMapValues(xPath, null, Engine.class);
         }
-        List<? extends Element> serviceLocationElementList = UtilXml.childElementList(engineElement, "service-location");
-        if (serviceLocationElementList.isEmpty()) {
-            this.serviceLocations = Collections.emptyList();
-        } else {
-            List<ServiceLocation> serviceLocations = new ArrayList<>(serviceLocationElementList.size());
-            for (Element serviceLocationElement : serviceLocationElementList) {
-                String location = serviceLocationElement.getAttribute("location").intern();
-                if (location.contains("localhost") && Start.getInstance().getConfig().getPortOffset() != 0) {
-                    String s = location.substring(location.lastIndexOf(":") + 1);
-                    Integer locationPort = Integer.valueOf(s.substring(0, s.indexOf("/")));
-                    Integer port = locationPort + Start.getInstance().getConfig().getPortOffset();
-                    location = location.replace(locationPort.toString(), port.toString());
-                }
-                serviceLocations.add(new ServiceLocation(serviceLocationElement, location));
-            }
-            this.serviceLocations = Collections.unmodifiableList(serviceLocations);
-        }
-        List<? extends Element> notificationGroupElementList = UtilXml.childElementList(engineElement, "notification-group");
-        if (notificationGroupElementList.isEmpty()) {
-            this.notificationGroups = Collections.emptyList();
-        } else {
-            List<NotificationGroup> notificationGroups = new ArrayList<>(notificationGroupElementList.size());
-            for (Element notificationGroupElement : notificationGroupElementList) {
-                notificationGroups.add(new NotificationGroup(notificationGroupElement));
-            }
-            this.notificationGroups = Collections.unmodifiableList(notificationGroups);
-        }
-        List<? extends Element> startupServiceElementList = UtilXml.childElementList(engineElement, "startup-service");
-        if (startupServiceElementList.isEmpty()) {
-            this.startupServices = Collections.emptyList();
-        } else {
-            List<StartupService> startupServices = new ArrayList<>(startupServiceElementList.size());
-            for (Element startupServiceElement : startupServiceElementList) {
-                startupServices.add(new StartupService(startupServiceElement));
-            }
-            this.startupServices = Collections.unmodifiableList(startupServices);
-        }
-        List<? extends Element> resourceLoaderElementList = UtilXml.childElementList(engineElement, "resource-loader");
-        if (resourceLoaderElementList.isEmpty()) {
-            this.resourceLoaders = Collections.emptyList();
-        } else {
-            List<ResourceLoader> resourceLoaders = new ArrayList<>(resourceLoaderElementList.size());
-            for (Element resourceLoaderElement : resourceLoaderElementList) {
-                resourceLoaders.add(new ResourceLoader(resourceLoaderElement));
-            }
-            this.resourceLoaders = Collections.unmodifiableList(resourceLoaders);
-        }
-        List<? extends Element> globalServicesElementList = UtilXml.childElementList(engineElement, "global-services");
-        if (globalServicesElementList.isEmpty()) {
-            this.globalServices = Collections.emptyList();
-        } else {
-            List<GlobalServices> globalServices = new ArrayList<>(globalServicesElementList.size());
-            for (Element globalServicesElement : globalServicesElementList) {
-                globalServices.add(new GlobalServices(globalServicesElement));
-            }
-            this.globalServices = Collections.unmodifiableList(globalServices);
-        }
-        List<? extends Element> serviceGroupsElementList = UtilXml.childElementList(engineElement, "service-groups");
-        if (serviceGroupsElementList.isEmpty()) {
-            this.serviceGroups = Collections.emptyList();
-        } else {
-            List<ServiceGroups> serviceGroups = new ArrayList<>(serviceGroupsElementList.size());
-            for (Element serviceGroupsElement : serviceGroupsElementList) {
-                serviceGroups.add(new ServiceGroups(serviceGroupsElement));
-            }
-            this.serviceGroups = Collections.unmodifiableList(serviceGroups);
-        }
-        List<? extends Element> serviceEcasElementList = UtilXml.childElementList(engineElement, "service-ecas");
-        if (serviceEcasElementList.isEmpty()) {
-            this.serviceEcas = Collections.emptyList();
-        } else {
-            List<ServiceEcas> serviceEcas = new ArrayList<>(serviceEcasElementList.size());
-            for (Element serviceEcasElement : serviceEcasElementList) {
-                serviceEcas.add(new ServiceEcas(serviceEcasElement));
-            }
-            this.serviceEcas = Collections.unmodifiableList(serviceEcas);
-        }
-        List<? extends Element> jmsServiceElementList = UtilXml.childElementList(engineElement, "jms-service");
-        if (jmsServiceElementList.isEmpty()) {
-            this.jmsServices = Collections.emptyList();
-        } else {
-            List<JmsService> jmsServices = new ArrayList<>(jmsServiceElementList.size());
-            for (Element jmsServiceElement : jmsServiceElementList) {
-                jmsServices.add(new JmsService(jmsServiceElement));
-            }
-            this.jmsServices = Collections.unmodifiableList(jmsServices);
-        }
+        List<ServiceLocation> serviceLocationList = config.getSubElementsAsListEntries(xPath,
+                null, ServiceLocation.class);
+        serviceLocations = Collections.unmodifiableList(serviceLocationList);
+        List<NotificationGroup> notificationGroupList = config.getSubElementsAsListEntries(xPath,
+                null, NotificationGroup.class);
+        notificationGroups = Collections.unmodifiableList(notificationGroupList);
+        List<StartupService> startupServiceList = config.getSubElementsAsListEntries(xPath,
+                null, StartupService.class);
+        startupServices = Collections.unmodifiableList(startupServiceList);
+        List<ResourceLoader> resourceLoaderList = config.getSubElementsAsListEntries(xPath,
+                null, ResourceLoader.class);
+        resourceLoaders = Collections.unmodifiableList(resourceLoaderList);
+        List<GlobalServices> globalServicesList = config.getSubElementsAsListEntries(xPath,
+                null, GlobalServices.class);
+        globalServices = Collections.unmodifiableList(globalServicesList);
+        List<ServiceGroups> serviceGroupsList = config.getSubElementsAsListEntries(xPath,
+                null, ServiceGroups.class);
+        serviceGroups = Collections.unmodifiableList(serviceGroupsList);
+        List<ServiceEcas> serviceEcasList = config.getSubElementsAsListEntries(xPath,
+                null, ServiceEcas.class);
+        serviceEcas = Collections.unmodifiableList(serviceEcasList);
+        List<JmsService> jmsServiceList = config.getSubElementsAsListEntries(xPath,
+                null, JmsService.class);
+        jmsServices = Collections.unmodifiableList(jmsServiceList);
+    }
+
+    public static ServiceEngine loadFromXml(Element element, String xPathParent)
+            throws GenericEntityConfException, ServiceConfigException {
+        return new ServiceEngine(element, xPathParent);
+    }
+
+    public static ServiceEngine loadFromConfig(Map<String, Object> configMap, String xPath)
+            throws GenericEntityConfException, ServiceConfigException {
+        return new ServiceEngine(configMap, xPath);
     }
 
     public Authorization getAuthorization() {
@@ -179,11 +172,11 @@ public final class ServiceEngine {
     }
 
     public List<Engine> getEngines() {
-        return this.engines;
+        return engines;
     }
 
     public List<GlobalServices> getGlobalServices() {
-        return this.globalServices;
+        return globalServices;
     }
 
     public JmsService getJmsServiceByName(String name) {
@@ -199,34 +192,37 @@ public final class ServiceEngine {
         return this.jmsServices;
     }
 
-    public String getName() {
-        return name;
-    }
-
     public List<NotificationGroup> getNotificationGroups() {
-        return this.notificationGroups;
+        return notificationGroups;
     }
 
     public List<ResourceLoader> getResourceLoaders() {
-        return this.resourceLoaders;
+        return resourceLoaders;
     }
 
     public List<ServiceEcas> getServiceEcas() {
-        return this.serviceEcas;
+        return serviceEcas;
     }
+
     public List<ServiceGroups> getServiceGroups() {
-        return this.serviceGroups;
+        return serviceGroups;
     }
 
     public List<ServiceLocation> getServiceLocations() {
-        return this.serviceLocations;
+        return serviceLocations;
     }
 
     public List<StartupService> getStartupServices() {
-        return this.startupServices;
+        return startupServices;
     }
 
     public ThreadPool getThreadPool() {
         return threadPool;
     }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
 }
