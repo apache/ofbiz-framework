@@ -28,6 +28,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.HttpClient;
 import org.apache.ofbiz.base.util.HttpClientException;
+import org.apache.ofbiz.base.util.UtilCodec;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.webapp.control.ConfigXMLReader;
 
@@ -67,8 +68,13 @@ public class HttpViewHandler extends AbstractViewHandler {
             HttpClient httpClient = new HttpClient(page);
             String pageText = httpClient.get();
 
-            // TODO: parse page and remove harmful tags like <HTML>, <HEAD>, <BASE>, etc - look into the OpenSymphony piece for an example
-            response.getWriter().print(pageText);
+            // Sanitize the retrieved HTML content using the configured OFBiz HTML encoder/sanitizer
+            String sanitizedPageText = UtilCodec.getEncoder("html").sanitize(pageText, null);
+
+            // Explicitly enforce the standard OFBiz permissive HTML policy to guarantee XSS-safe markup rendering
+            sanitizedPageText = UtilCodec.HtmlEncoder.PERMISSIVE_POLICY.sanitize(sanitizedPageText);
+
+            response.getWriter().print(sanitizedPageText);
         } catch (IOException e) {
             throw new ViewHandlerException("IO Error in view", e);
         } catch (HttpClientException e) {
