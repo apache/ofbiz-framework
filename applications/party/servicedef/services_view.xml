@@ -74,7 +74,6 @@ under the License.
     <service name="performFindParty" engine="java"
         location="org.apache.ofbiz.party.party.PartyServices" invoke="performFindParty">
         <description>General Party Find Service, duplicated for screen widget purpose, Used in the new findparty page in the Party Manager, etc</description>
-        <attribute name="roleTypeId" type="String" mode="IN" optional="true"/> <!-- can be null or ANY to include any -->
         <attribute name="noConditionFind" type="String" mode="IN" optional="true" default-value="N"/>
         <attribute name="extInfo" type="String" mode="IN" optional="true"/>
         <attribute name="extCond" type="org.apache.ofbiz.entity.condition.EntityCondition" mode="IN" optional="true">
@@ -82,6 +81,8 @@ under the License.
         </attribute>
         <attribute name="partyId" type="String" mode="IN" optional="true"/> <!-- does a LIKE compare on this, can do partial, case insensitive, etc -->
         <attribute name="partyTypeId" type="String" mode="IN" optional="true"/>
+        <attribute name="roleTypeId" type="String" mode="IN" optional="true"/>
+        <attribute name="statusId" type="String" mode="IN" optional="true"/>
         <attribute name="userLoginId" type="String" mode="IN" optional="true"/> <!-- does a LIKE compare on this, can do partial, case insensitive, etc -->
         <attribute name="externalId" type="String" mode="IN" optional="true"/>
         <attribute name="groupName" type="String" mode="IN" optional="true"/>
