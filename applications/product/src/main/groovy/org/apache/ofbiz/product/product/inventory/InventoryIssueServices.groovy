@@ -98,6 +98,7 @@ Map issueImmediatelyFulfilledOrderItem() {
         }
         Map lookupFieldMap = [productId: orderItem.productId,
                               facilityId: orderHeader.originFacilityId]
+        parameters.quantityNotIssued = orderItem.quantity
         from('InventoryItem')
             .where(lookupFieldMap)
             .orderBy(orderBy)
@@ -111,7 +112,6 @@ Map issueImmediatelyFulfilledOrderItem() {
                 }
             }
 
-        parameters.quantityNotIssued = orderItem.quantity
         // if quantityNotIssued is not 0, then pull it from the last non-serialized inventory item found,
         // in the quantityNotIssued field
         if (parameters.quantityNotIssued != (BigDecimal.ZERO)) {
@@ -201,7 +201,7 @@ GenericValue issueImmediateForInventoryItemInline(GenericValue inventoryItem) {
                 // create ItemIssuance record
                 Map serviceResult = run service: 'createItemIssuance',
                         with: [orderId: parameters.orderId,
-                               orderitemSeqId: parameters.orderItemSeqId,
+                               orderItemSeqId: parameters.orderItemSeqId,
                                inventoryItemId: inventoryItem.inventoryItemId,
                                quantity: parameters.deductAmount]
                 String itemIssuanceId = serviceResult.itemIssuanceId
