@@ -84,4 +84,67 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
+    <service name="createInventoryCount" default-entity-name="InventoryCount" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a InventoryCount</description>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateInventoryCount" default-entity-name="InventoryCount" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a InventoryCount</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteInventoryCount" default-entity-name="InventoryCount" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a InventoryCount</description>
+        <auto-attributes include="pk" mode="IN"/>
+    </service>
+
+    <service name="createInventoryCountItem" default-entity-name="InventoryCountItem" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a InventoryCountItem</description>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="inventoryCountId" optional="false"/>
+    </service>
+    <service name="updateInventoryCountItem" default-entity-name="InventoryCountItem" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a InventoryCountItem</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteInventoryCountItem" default-entity-name="InventoryCountItem" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a InventoryCountItem</description>
+        <auto-attributes include="pk" mode="IN"/>
+    </service>
+
+    <service name="createInventoryCountVariance" default-entity-name="InventoryCountVariance" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a InventoryCountVariance</description>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="inventoryCountId" optional="false"/>
+        <override name="countItemSeqId" optional="false"/>
+    </service>
+    <service name="updateInventoryCountVariance" default-entity-name="InventoryCountVariance" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a InventoryCountVariance</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteInventoryCountVariance" default-entity-name="InventoryCountVariance" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a InventoryCountVariance</description>
+        <auto-attributes include="pk" mode="IN"/>
+    </service>
+
+    <service name="createInventoryCountStatus" default-entity-name="InventoryCountStatus" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a InventoryCountStatus</description>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateInventoryCountStatus" default-entity-name="InventoryCountStatus" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a InventoryCountStatus</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteInventoryCountStatus" default-entity-name="InventoryCountStatus" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a InventoryCountStatus</description>
+        <auto-attributes include="pk" mode="IN"/>
+    </service>
+
 </services>
