@@ -145,23 +145,31 @@ public class WidgetMacroLibraryTests implements JupiterTestHelper {
     }
 
     /**
-     * Test xls macro library.
+     * Test the screenxlsx view handler produces a genuine binary OOXML workbook.
      * @throws Exception the exception
      */
     @Test
     @Order(5)
-    public void testXlsMacroLibrary() throws Exception {
-        String screenxlsUrl = screenUrl.concat("Xls");
+    public void testXlsxViewHandler() throws Exception {
+        String screenxlsxUrl = screenUrl.concat("Xlsx");
         HttpClient http = initHttpClient();
-        http.setUrl(screenxlsUrl.concat(authentificationQuery));
-        String screenOutString = http.post();
-        assertNotNull(screenOutString, "Response failed from ofbiz");
-        assertEquals("application/vnd.ms-excel;charset=UTF-8",
+        http.setUrl(screenxlsxUrl.concat(authentificationQuery));
+        InputStream screenInputStream = http.postStream();
+        assertNotNull(screenInputStream, "Response failed from ofbiz");
+        assertEquals(200, http.getResponseCode(), "Response code isn't good : " + http.getResponseCode());
+        assertEquals("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8",
                 http.getResponseContentType(), "Response contentType isn't good : " + http.getResponseContentType());
 
-        //Test if a ftl macro error is present
-        assertFalse(screenOutString.contains("FreeMarker template error:"),
-                "Csv Screen contains Macro on error : see " + screenxlsUrl + " for more detail");
+        //Test that the response is a genuine OOXML/ZIP binary (magic bytes PK\x03\x04),
+        //not HTML markup masquerading as a spreadsheet.
+        byte[] magic = new byte[4];
+        try {
+            assertEquals(4, screenInputStream.read(magic), "Response body was shorter than the ZIP magic bytes");
+        } finally {
+            screenInputStream.close();
+        }
+        assertEquals("504b0304", String.format("%02x%02x%02x%02x", magic[0], magic[1], magic[2], magic[3]),
+                "Response body doesn't start with the ZIP/OOXML magic bytes : " + screenxlsxUrl + " for more detail");
     }
 
     /**
