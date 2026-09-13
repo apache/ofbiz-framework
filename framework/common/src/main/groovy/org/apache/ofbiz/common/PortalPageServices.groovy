@@ -34,7 +34,8 @@ Map movePortletToPortalPage() {
     if (ServiceUtil.isError(checkIsOwner)) {
         return checkIsOwner
     }
-    GenericValue sourcePortalPagePortlet = from('PortalPagePortlet').where(parameters).cache().queryOne()
+    GenericValue sourcePortalPagePortlet = from('PortalPagePortlet').where(parameters).queryOne()
+    parameters.portalPageId = parameters.newPortalPageId
     String idOfcopyIfRequiredSystemPage = copyIfRequiredSystemPage()
     if (idOfcopyIfRequiredSystemPage) {
         GenericValue targetPortalPortlet = makeValue('PortalPagePortlet', [*: parameters,
@@ -74,10 +75,12 @@ Map deletePortalPageColumn() {
         return checkIsOwner
     }
     GenericValue column = from('PortalPageColumn').where(parameters).queryOne()
-    column.getRelated('PortalPagePortlet', null, null, false).each {
-        run service: 'deletePortalPagePortlet', with: it.getAllFields()
+    if (column) {
+        column.getRelated('PortalPagePortlet', null, null, false).each {
+            run service: 'deletePortalPagePortlet', with: it.getAllFields()
+        }
+        column.remove()
     }
-    column.remove()
     return success()
 }
 /**
@@ -156,6 +159,9 @@ Map getPortletAttributes() {
  * @return Success response after creation with the portalPageId
  */
 Map createPortalPage() {
+    if (!parameters.portalPageName) {
+        return success()
+    }
     GenericValue newPortalPage = makeValue('PortalPage', parameters)
     newPortalPage.portalPageId = newPortalPage.portalPageId ?: delegator.getNextSeqId('PortalPage')
     newPortalPage.ownerUserLoginId = parameters.userLogin.userLoginId
