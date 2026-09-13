@@ -28,7 +28,6 @@ import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.base.util.UtilProperties
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.util.EntityTypeUtil
-import org.apache.ofbiz.entity.util.EntityUtil
 import org.apache.ofbiz.service.ServiceUtil
 
 /**
@@ -43,7 +42,7 @@ Map createProductStore() {
             && !parameters.inventoryFacilityId) {
         return error(UtilProperties.getMessage('ProductUiLabels', 'InventoryFacilityIdRequired', parameters.locale))
     }
-    if (parameters.showPriceWithVatTax == 'Y') {
+    if (parameters.showPricesWithVatTax == 'Y') {
         if (!parameters.vatTaxAuthGeoId) {
             return error(UtilProperties.getMessage('ProductUiLabels', 'ProductVatTaxAuthGeoNotSet', parameters.locale))
         }
@@ -218,12 +217,13 @@ Map reserveStoreInventory() {
                     }
                 }
             }
-            // didn't find anything? Take the first facility from list
+            // didn't find anything? Fall back to the store's configured default facility, then the first facility from the list
             GenericValue defaultStoreFound
             if (!storeFound) {
-                defaultStoreFound = productStore.getRelatedOne('Facility', true)
+                defaultStoreFound = productStore.inventoryFacilityId ? productStore.getRelatedOne('Facility', true) : null
             }
-            facilityId = storeFound ? storeFound.facilityId : defaultStoreFound.facilityId
+            GenericValue firstStoreFacility = productStoreFacilities ? productStoreFacilities[0] : null
+            facilityId = storeFound?.facilityId ?: defaultStoreFound?.facilityId ?: firstStoreFacility?.facilityId
             Map serviceResult = run service: 'reserveProductInventoryByFacility', with: [*: parameters,
                                                                                          facilityId: facilityId,
                                                                                          requireInventory: requireInventory,
@@ -386,16 +386,14 @@ Map checkProductStoreRelatedPermission(Map inputParameter) {
     String productStoreIdToCheck = inputParameter.productStoreIdToCheck
     callingMethodName = callingMethodName ?: UtilProperties.getMessage('CommonUiLabels', 'CommonPermissionThisOperation', locale)
     checkAction = checkAction ?: 'UPDATE'
-    productStoreIdName = productStoreIdName ?: inputParameter.productStoreId
-    productStoreIdToCheck = productStoreIdToCheck ?: inputParameter.productstoreIdName
+    productStoreIdName = productStoreIdName ?: 'productStoreId'
+    productStoreIdToCheck = productStoreIdToCheck ?: inputParameter[productStoreIdName]
 
     // find all role-store that this productStore is a member of
     if (!security.hasEntityPermission('CATALOG', ('_' + checkAction), userLogin)) {
         roleStores = from('ProductStoreRole')
                 .where(productStoreId: productStoreIdToCheck, partyId: userLogin.partyId, roleTypeId: 'LTD_ADMIN').filterByDate().queryList()
-        roleStores = EntityUtil.filterByDate(roleStores, UtilDateTime.nowTimestamp(), 'roleFromDate', 'roleThruDate', true)
     }
-    logInfo("Checking store permission, roleStores=${roleStores}")
     if (!(security.hasEntityPermission('CATALOG', ('_' + checkAction), userLogin) ||
     (security.hasEntityPermission('CATALOG_ROLE', ('_' + checkAction), userLogin) && roleStores))) {
         logVerbose('Permission check failed, user does not have permission')
