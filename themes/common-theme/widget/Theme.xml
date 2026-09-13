@@ -99,11 +99,6 @@ under the License.
             <template-file widget="form" location="component://common-theme/template/macro/XmlFormMacroLibrary.ftl"/>
             <template-file widget="tree" location="component://common-theme/template/macro/XmlTreeMacroLibrary.ftl"/>
         </template>
-        <template name="screenxls" type="xls" content-type="application/vnd.ms-excel" encoding="none" encoder="html">
-            <template-file widget="screen" location="component://common-theme/template/macro/XlsScreenMacroLibrary.ftl"/>
-            <template-file widget="form" location="component://common-theme/template/macro/XlsFormMacroLibrary.ftl"/>
-            <template-file widget="tree" location="component://common-theme/template/macro/XlsTreeMacroLibrary.ftl"/>
-        </template>
         <template name="screenfop" type="xsl-fo" content-type="application/pdf" encoding="none">
             <template-file widget="screen" location="component://common-theme/template/macro/FoScreenMacroLibrary.ftl"/>
             <template-file widget="form" location="component://common-theme/template/macro/FoFormMacroLibrary.ftl"/>

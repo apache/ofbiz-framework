@@ -40,7 +40,6 @@ under the License.
     <handler name="screenxml" type="view" class="org.apache.ofbiz.widget.renderer.macro.MacroScreenViewHandler"/>
     <handler name="screentext" type="view" class="org.apache.ofbiz.widget.renderer.macro.MacroScreenViewHandler"/>
     <handler name="screencsv" type="view" class="org.apache.ofbiz.widget.renderer.macro.MacroScreenViewHandler"/>
-    <handler name="screenxls" type="view" class="org.apache.ofbiz.widget.renderer.macro.MacroScreenViewHandler"/>
     <handler name="screenxlsx" type="view" class="org.apache.ofbiz.widget.renderer.xlsx.ScreenXlsxViewHandler"/>
     <handler name="screenfop" type="view" class="org.apache.ofbiz.widget.renderer.fo.ScreenFopViewHandler"/>
     <handler name="jsp" type="view" class="org.apache.ofbiz.webapp.view.JspViewHandler"/>
