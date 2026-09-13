@@ -22,9 +22,9 @@ under the License.
   <head>
     <meta charset="UTF-8">
     <title>Swagger UI</title>
-    <link rel="stylesheet" type="text/css" href="./swagger-ui.css" >
-    <link rel="icon" type="image/png" href="./favicon-32x32.png" sizes="32x32" />
-    <link rel="icon" type="image/png" href="./favicon-16x16.png" sizes="16x16" />
+    <link rel="stylesheet" type="text/css" href="/docs/swagger-ui.css" >
+    <link rel="icon" type="image/png" href="/docs/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/docs/favicon-16x16.png" sizes="16x16" />
     <style>
       html
       {
@@ -51,16 +51,25 @@ under the License.
   <body>
     <div id="swagger-ui"></div>
 
-    <script src="./swagger-ui-bundle.js"> </script>
-    <script src="./swagger-ui-standalone-preset.js"> </script>
+    <script src="/docs/swagger-ui-bundle.js"> </script>
+    <script src="/docs/swagger-ui-standalone-preset.js"> </script>
     <script>
     window.onload = function() {
       // Begin Swagger UI call region
       if (!window.location.origin) {
            window.location.origin = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port: '');
       }
+
+      const pathSegments = window.location.pathname.split('/').filter(Boolean);
+
+      const docsIndex = pathSegments.indexOf('docs');
+
+      const apiName = pathSegments.length >= 3 ? pathSegments[pathSegments.length - 2] : null;
+      const apiGroupPath = apiName ? encodeURIComponent(apiName) + "/" : "api/";
+      //const apiGroupPath = apiName ? encodeURIComponent(apiName) + "/" : "";
+
       const ui = SwaggerUIBundle({
-        url:  window.location.origin + "/rest/openapi.json",
+        url:  window.location.origin + "/rest/" + apiGroupPath + "openapi.json",
         dom_id: '#swagger-ui',
         deepLinking: true,
         presets: [

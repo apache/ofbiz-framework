@@ -19,11 +19,11 @@ under the License.
 -->
 
 <api name="Manufacturing BOM Management API"
-        path="bom-management"
+        apiGroupPath="api"
         displayName="BOM Management"
         description="REST API for manufacturing bill of materials management"
         publish="true">
-    <resource name="BomManagement" path="" auth="true" publish="true">
+    <resource name="BomManagement" path="bom-management" auth="true" publish="true">
         <operation verb="get" produces="application/json" auth="true"
                 description="Find products with bill of material component associations">
             <service name="findBomProducts"/>
