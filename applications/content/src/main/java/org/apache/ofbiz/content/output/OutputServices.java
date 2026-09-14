@@ -102,11 +102,13 @@ public class OutputServices {
             screenContext = new HashMap<>();
         }
         screenContext.put("locale", locale);
+        screenContext.putIfAbsent("userLogin", serviceContext.get("userLogin"));
         if (UtilValidate.isEmpty(contentType)) {
             contentType = "application/postscript";
         }
         if (UtilValidate.isEmpty(printerContentType)) {
-            printerContentType = contentType;
+            // the FO transformation below always produces PDF, so let the print service autosense the format
+            printerContentType = DocFlavor.INPUT_STREAM.AUTOSENSE.getMimeType();
         }
 
         try {
@@ -224,6 +226,7 @@ public class OutputServices {
             screenContext = new HashMap<>();
         }
         screenContext.put("locale", locale);
+        screenContext.putIfAbsent("userLogin", serviceContext.get("userLogin"));
         if (UtilValidate.isEmpty(contentType)) {
             contentType = "application/pdf";
         }
