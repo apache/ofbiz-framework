@@ -29,11 +29,11 @@ if (orderHeader) {
     // hasPermission if: has ORDERMGR_VIEW, ORDERMGR_ROLE_VIEW & associated with order, or is associated in the SUPPLIER_AGENT role
     hasPermission = false
     canViewInternalDetails = false
-    if ((orderHeader.orderTypeId == 'SALES_ORDER' && security.hasEntityPermission('ORDERMGR', '_VIEW', session))
-        || (orderHeader.orderTypeId == 'PURCHASE_ORDER' && security.hasEntityPermission('ORDERMGR', '_PURCHASE_VIEW', session))) {
+    if ((orderHeader.orderTypeId == 'SALES_ORDER' && security.hasEntityPermission('ORDERMGR', '_VIEW', userLogin))
+        || (orderHeader.orderTypeId == 'PURCHASE_ORDER' && security.hasEntityPermission('ORDERMGR', '_PURCHASE_VIEW', userLogin))) {
         hasPermission = true
         canViewInternalDetails = true
-    } else if (security.hasEntityPermission('ORDERMGR_ROLE', '_VIEW', session)) {
+    } else if (security.hasEntityPermission('ORDERMGR_ROLE', '_VIEW', userLogin)) {
         currentUserOrderRoles = orderHeader.getRelated('OrderRole', [partyId: userLogin.partyId], null, false)
         if (currentUserOrderRoles) {
             hasPermission = true
@@ -66,6 +66,7 @@ if (orderHeader) {
     context.hasPermission = hasPermission
     context.canViewInternalDetails = canViewInternalDetails
 
-    orderContentWrapper = OrderContentWrapper.makeOrderContentWrapper(orderHeader, request)
+    orderContentWrapper = context.request ? OrderContentWrapper.makeOrderContentWrapper(orderHeader, request)
+            : new OrderContentWrapper(dispatcher, orderHeader, locale, 'text/html')
     context.orderContentWrapper = orderContentWrapper
 }

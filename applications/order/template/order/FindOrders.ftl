@@ -473,7 +473,7 @@ document.lookuporder.orderId.focus();
         </select>
         <#if printers?has_content>
         <select name="printerName">
-           <option value="javascript:void(0);">${uiLabelMap.CommonPleaseSelectPrinter}</option>
+           <option value="">${uiLabelMap.CommonPleaseSelectPrinter}</option>
            <#list printers as printer>
            <option value="${printer}">${printer}</option>
            </#list>
