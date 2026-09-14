@@ -5,7 +5,7 @@
     "license": "Apache-2.0",
     "dependencies": {
         "swagger-ui-dist": "5.32.15",
-        "redoc": "2.5.3"
+        "redoc": "2.5.4"
     },
     "overrides": {
         "js-yaml": "4.3.2",
