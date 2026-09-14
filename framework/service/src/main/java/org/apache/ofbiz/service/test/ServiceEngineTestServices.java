@@ -22,6 +22,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilMisc;
@@ -42,10 +44,19 @@ public class ServiceEngineTestServices {
     private static final String MODULE = ServiceEngineTestServices.class.getName();
     private static final String RESOURCE = "ServiceErrorUiLabels";
 
+    // Real synchronization for the deadlock-retry test below: each thread signals its own latch and
+    // waits on the other's, guaranteeing the circular wait instead of relying on a fixed sleep. A
+    // latch (not a barrier) is required because a retried thread must not wait on a rendezvous again
+    // - a latch already at zero returns immediately, a barrier would block for a partner that already left.
+    private static volatile CountDownLatch deadLockRetryLatchA;
+    private static volatile CountDownLatch deadLockRetryLatchB;
+
     public static Map<String, Object> testServiceDeadLockRetry(DispatchContext dctx, Map<String, ? extends Object> context) {
         Locale locale = (Locale) context.get("locale");
         LocalDispatcher dispatcher = dctx.getDispatcher();
         try {
+            deadLockRetryLatchA = new CountDownLatch(1);
+            deadLockRetryLatchB = new CountDownLatch(1);
             // NOTE using persist=false so that the lock retry will have to fix the problem instead of the job poller picking it up again
             GenericResultWaiter threadAWaiter = dispatcher.runAsyncWait("testServiceDeadLockRetryThreadA", null, false);
             GenericResultWaiter threadBWaiter = dispatcher.runAsyncWait("testServiceDeadLockRetryThreadB", null, false);
@@ -82,11 +93,16 @@ public class ServiceEngineTestServices {
             testingTypeA.set("description", "New description for SVCLRT_A");
             testingTypeA.store();
 
-            // wait at least long enough for the other method to have locked resource B
-            Debug.logInfo("In testServiceDeadLockRetryThreadA just updated SVCLRT_A, beginning wait", MODULE);
-            Thread.sleep(100);
+            // signal SVCLRT_A is locked, then wait for thread B to lock SVCLRT_B, guaranteeing the circular wait
+            Debug.logInfo("In testServiceDeadLockRetryThreadA just updated SVCLRT_A, waiting for thread B", MODULE);
+            deadLockRetryLatchA.countDown();
+            if (!deadLockRetryLatchB.await(30, TimeUnit.SECONDS)) {
+                Debug.logError("Timed out waiting for thread B to lock SVCLRT_B", MODULE);
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServiceTestEntityEngineWaitInterruptedExceptionThreadA",
+                        UtilMisc.toMap("errorString", "Timed out waiting for thread B to lock SVCLRT_B"), locale));
+            }
 
-            Debug.logInfo("In testServiceDeadLockRetryThreadA done with wait, updating SVCLRT_B", MODULE);
+            Debug.logInfo("In testServiceDeadLockRetryThreadA done waiting, updating SVCLRT_B", MODULE);
             GenericValue testingTypeB = EntityQuery.use(delegator).from("TestingType").where("testingTypeId", "SVCLRT_B").queryOne();
             testingTypeB.set("description", "New description for SVCLRT_B");
             testingTypeB.store();
@@ -118,11 +134,16 @@ public class ServiceEngineTestServices {
             testingTypeB.set("description", "New description for SVCLRT_B");
             testingTypeB.store();
 
-            // wait at least long enough for the other method to have locked resource B
-            Debug.logInfo("In testServiceDeadLockRetryThreadB just updated SVCLRT_B, beginning wait", MODULE);
-            Thread.sleep(100);
+            // signal SVCLRT_B is locked, then wait for thread A to lock SVCLRT_A, guaranteeing the circular wait
+            Debug.logInfo("In testServiceDeadLockRetryThreadB just updated SVCLRT_B, waiting for thread A", MODULE);
+            deadLockRetryLatchB.countDown();
+            if (!deadLockRetryLatchA.await(30, TimeUnit.SECONDS)) {
+                Debug.logError("Timed out waiting for thread A to lock SVCLRT_A", MODULE);
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServiceTestEntityEngineWaitInterruptedExceptionThreadB",
+                        UtilMisc.toMap("errorString", "Timed out waiting for thread A to lock SVCLRT_A"), locale));
+            }
 
-            Debug.logInfo("In testServiceDeadLockRetryThreadB done with wait, updating SVCLRT_A", MODULE);
+            Debug.logInfo("In testServiceDeadLockRetryThreadB done waiting, updating SVCLRT_A", MODULE);
             GenericValue testingTypeA = EntityQuery.use(delegator).from("TestingType").where("testingTypeId", "SVCLRT_A").queryOne();
             testingTypeA.set("description", "New description for SVCLRT_A");
             testingTypeA.store();
