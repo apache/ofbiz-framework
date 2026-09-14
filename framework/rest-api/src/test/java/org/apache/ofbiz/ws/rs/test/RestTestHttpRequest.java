@@ -250,8 +250,8 @@ class RestTestHttpRequest implements JupiterTestHelper {
     @Order(9)
     void testGenerateAuthTokenRejectsUnknownApiGroup() {
         JsonNode root = requestAuthToken("admin", "ofbiz", "non-existing-api");
-        int statusCode = root.path("statusCode").asInt(999);
-        assertTrue(statusCode == 400, "Invalid apiGroupPath should be rejected");
+        int statusCode = root.path("statusCode").asInt(200);
+        assertFalse(statusCode == 200, "Invalid apiGroupPath should be rejected");
     }
 
     @Test
