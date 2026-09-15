@@ -591,6 +591,7 @@ Map createMissingContentAltUrls() {
     if (parameters.webSiteId) {
         from('WebSiteContent')
                 .where(webSiteId: parameters.webSiteId)
+                .filterByDate()
                 .getFieldList('contentId')
                 .each { String contentId ->
                     contentCreatedList.addAll(createMissingContentAltUrlInline(contentId))
@@ -699,7 +700,7 @@ Map removeContentAndRelated() {
  */
 Map copyContentAndElectronicTextandAssoc() {
     Map getContentResult = run service: 'getContent', with: parameters
-    GenericValue content = getContentResult.view
+    GenericValue content = (GenericValue) getContentResult.view.clone()
     if (content.dataResourceId) {
         Map getElectronicTextResult = run service: 'getElectronicText', with: content.getAllFields()
         Map dataResourceResult = run service: 'createDataResource', with: [dataResourceTypeId: 'ELECTRONIC_TEXT']
