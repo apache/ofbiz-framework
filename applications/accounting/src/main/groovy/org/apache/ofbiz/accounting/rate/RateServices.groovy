@@ -83,10 +83,11 @@ Map deleteRateAmount() {
 }
 
 Map updatePartyRate() {
-    List<GenericValue> partyRates = from('PartyRate').where([partyId: partyId, rateTypeId: rateTypeId]).queryList()
+    List<GenericValue> partyRates = from('PartyRate').where([partyId: partyId, rateTypeId: rateTypeId]).filterByDate().queryList()
     if (partyRates) {
         GenericValue partyRate = EntityUtil.getFirst(partyRates)
         partyRate.thruDate = UtilDateTime.nowTimestamp()
+        partyRate.store()
     }
     GenericValue newEntity = delegator.makeValidValue('PartyRate', parameters)
     newEntity.fromDate = newEntity.fromDate ?: UtilDateTime.nowTimestamp()
