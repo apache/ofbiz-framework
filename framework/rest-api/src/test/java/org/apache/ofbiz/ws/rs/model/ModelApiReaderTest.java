@@ -54,7 +54,7 @@ class ModelApiReaderTest {
     @Test
     void testGetModelApiParsesTopLevelAttributes() throws IOException {
         File file = writeXml("""
-                <api displayName="My API" name="myApi" description="desc" path="/api" publish="true"/>
+                <api displayName="My API" name="myApi" description="desc" apiGroupPath="/api" publish="true"/>
                 """);
 
         ModelApi api = ModelApiReader.getModelApi(file);
@@ -62,7 +62,7 @@ class ModelApiReaderTest {
         assertEquals("My API", api.getDisplayName());
         assertEquals("myApi", api.getName());
         assertEquals("desc", api.getDescription());
-        assertEquals("/api", api.getPath());
+        assertEquals("/api", api.getApiGroupPath());
         assertTrue(api.isPublish());
     }
 

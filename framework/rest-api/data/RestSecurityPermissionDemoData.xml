@@ -18,15 +18,16 @@
     under the License.
 -->
 <entity-engine-xml>
+    <!-- REST-API Test-User -->
+    <Party partyId="REST_API_TEST_USER" statusId="PARTY_ENABLED" />
+    <UserLogin userLoginId="REST_API_TEST_USER" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" partyId="REST_API_TEST_USER" hasLoggedOut="N" enabled="Y" />
 
-    <!-- REST-API: "api" - security group and permission -->
-    <SecurityPermission description="REST-API base permission for basic auth." permissionId="REST-API_ADMIN"/>
-    <SecurityGroup groupId="REST-API" groupName="REST-API group" description="Group for accessing the REST-API"/>
-    <SecurityGroupPermission fromDate="2026-01-01 12:00:00.0" groupId="REST-API" permissionId="REST-API_ADMIN"/>
+    <!-- TestUser -->
+    <UserLoginSecurityGroup groupId="REST-API" userLoginId="REST_API_TEST_USER" fromDate="2026-01-01 12:00:00.0" />
+    <UserLoginSecurityGroup groupId="REST-TEST-API" userLoginId="REST_API_TEST_USER" fromDate="2026-01-01 12:00:00.0" />
 
-    <!-- REST-APi: "test-api" - security group and permission -->
-    <SecurityPermission description="REST-API base permission for test-api" permissionId="REST-TEST-API_ADMIN"/>
-    <SecurityGroup groupId="REST-TEST-API" groupName="REST-API group" description="Group for accessing rest test-api"/>
-    <SecurityGroupPermission fromDate="2026-01-01 12:00:00.0" groupId="REST-TEST-API" permissionId="REST-TEST-API_ADMIN"/>
+    <!-- DemoAdmin -->
+    <UserLoginSecurityGroup groupId="REST-API" userLoginId="admin" fromDate="2026-01-01 12:00:00.0" />
+    <UserLoginSecurityGroup groupId="REST-TEST-API" userLoginId="admin" fromDate="2026-01-01 12:00:00.0" />
 
 </entity-engine-xml>

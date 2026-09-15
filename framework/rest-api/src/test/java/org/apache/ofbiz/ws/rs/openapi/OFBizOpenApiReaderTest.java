@@ -39,6 +39,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 
+import io.swagger.v3.oas.integration.SwaggerConfiguration;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.Operation;
 import io.swagger.v3.oas.models.PathItem;
@@ -153,17 +154,23 @@ class OFBizOpenApiReaderTest {
 
             ModelApi api = mock(ModelApi.class);
             when(api.isPublish()).thenReturn(true);
-            when(api.getPath()).thenReturn("api");
+            when(api.getApiGroupPath()).thenReturn("api");
             when(api.getResources()).thenReturn(List.of(resource));
 
+            List<ModelApi> apiGroup = new ArrayList<>();
+            apiGroup.add(api);
             apiMock.when(OFBizApiConfig::getModelApis)
-                    .thenReturn(Map.of("test", api));
+                    .thenReturn(Map.of("test", apiGroup));
 
             org.apache.ofbiz.service.ModelService service =
                     mock(org.apache.ofbiz.service.ModelService.class);
             when(service.getName()).thenReturn("testService");
             when(service.getInModelParamList()).thenReturn(List.of());
             when(dctx.getModelService("testService")).thenReturn(service);
+
+            SwaggerConfiguration config = new SwaggerConfiguration();
+            config.setUserDefinedOptions(Map.of("apiGroupPath", "test"));
+            reader.setConfiguration(config);
 
             return reader.read(Set.of(), Map.of());
         }

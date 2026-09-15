@@ -83,10 +83,15 @@ public class APIAuthFilter implements ContainerRequestFilter {
         Map<String, Object> claims = JWTManager.validateAccessToken(delegator, jwtToken);
         if (claims.containsKey(ModelService.ERROR_MESSAGE)) {
             abortWithUnauthorized(requestContext, true, "Unauthorized: " + (String) claims.get(ModelService.ERROR_MESSAGE));
-        } else {
-            GenericValue userLogin = extractUserLoginFromJwtClaim(delegator, claims);
-            httpRequest.setAttribute("userLogin", userLogin);
+            return;
         }
+        if (!isTokenIssuedForRequestedApi(requestContext, claims)) {
+            abortWithUnauthorized(requestContext, false, "Unauthorized: Access is denied due to the token"
+                    + " presented beeing issued for a different api");
+            return;
+        }
+        GenericValue userLogin = extractUserLoginFromJwtClaim(delegator, claims);
+        httpRequest.setAttribute("userLogin", userLogin);
     }
 
     private boolean isTokenBasedAuthentication(String authorizationHeader) {
@@ -125,4 +130,9 @@ public class APIAuthFilter implements ContainerRequestFilter {
         return userLogin;
     }
 
+    private boolean isTokenIssuedForRequestedApi(ContainerRequestContext requestContext, Map<String, Object> claims) {
+        String currentApiGroupPath = requestContext.getUriInfo().getPathSegments().get(0).getPath();
+        String issuedApiGroupPath = (String) claims.getOrDefault("apiGroupPath", "");
+        return currentApiGroupPath.equals(issuedApiGroupPath);
+    }
 }

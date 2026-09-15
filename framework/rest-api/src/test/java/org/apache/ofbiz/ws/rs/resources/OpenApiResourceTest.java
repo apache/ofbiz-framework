@@ -65,7 +65,7 @@ class OpenApiResourceTest {
                 Mockito.mockConstruction(OFBizOpenApiReader.class, (mock, context) -> { });
                 MockedConstruction<OFBizResourceScanner> scannerMock = Mockito.mockConstruction(OFBizResourceScanner.class)) {
 
-            Response response = resource.getOpenApi(mock(HttpHeaders.class), mock(UriInfo.class), type);
+            Response response = resource.getOpenApi(mock(HttpHeaders.class), mock(UriInfo.class), type, "api");
 
             assertEquals(200, response.getStatus());
             assertEquals(expectedType, response.getMediaType().toString());
