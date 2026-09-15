@@ -19,7 +19,6 @@
 package org.apache.ofbiz.ws.rs.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -67,15 +66,14 @@ class ModelApiReaderTest {
     }
 
     @Test
-    void testGetModelApiMissingPublishAttributeDefaultsToFalse() throws IOException {
-        // No "publish" attribute at all -> UtilXml.checkEmpty(...) yields "",
-        // and Boolean.parseBoolean("") is false. This locks in that implicit
-        // default so a change in checkEmpty/parseBoolean behavior is caught.
+    void testGetModelApiMissingPublishAttributeDefaultsToTrue() throws IOException {
+        // No "publish" attribute at all -> rest-api.xsd declares this attribute
+        // default="true", so an omitted attribute must resolve to true.
         File file = writeXml("<api name=\"myApi\"/>");
 
         ModelApi api = ModelApiReader.getModelApi(file);
 
-        assertFalse(api.isPublish());
+        assertTrue(api.isPublish());
     }
 
     @Test
