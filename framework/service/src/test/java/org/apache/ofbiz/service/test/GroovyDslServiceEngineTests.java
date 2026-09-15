@@ -20,10 +20,12 @@ package org.apache.ofbiz.service.test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.sql.Timestamp;
 import java.util.Map;
+import java.util.UUID;
 
 import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilMisc;
@@ -100,5 +102,61 @@ public class GroovyDslServiceEngineTests implements JupiterTestHelper {
         assertEquals("SERVICE_PENDING", jobSandbox.getString("statusId"));
         assertNotNull(jobSandbox.getString("runtimeDataId"),
                 "Expected the async call's context to be persisted as RuntimeData");
+    }
+
+    // testingId is a VARCHAR(20) pk, so test ids need to stay short - an 8-char UUID fragment
+    // per prefix is plenty of uniqueness for a single test run.
+    private String shortTestingId(String prefix) {
+        return prefix + UUID.randomUUID().toString().substring(0, 8);
+    }
+
+    @Test
+    public final void testGroovyEntityDslCreate() throws Exception {
+        String testingId = shortTestingId("gdCr-");
+        Map<String, Object> input = UtilMisc.toMap("testingId", testingId, "testingName", "Created via DSL");
+
+        Map<String, Object> result = getDispatcher().runSync("testGroovyEntityDslCreate", input);
+        assertTrue(ServiceUtil.isSuccess(result));
+
+        GenericValue created = from("Testing").where("testingId", testingId).queryOne();
+        assertNotNull(created, "Expected create() to persist a new Testing record");
+        assertEquals("Created via DSL", created.getString("testingName"));
+    }
+
+    @Test
+    public final void testGroovyEntityDslUpdate() throws Exception {
+        String testingId = shortTestingId("gdUp-");
+        getDelegator().create("Testing", UtilMisc.toMap("testingId", testingId, "testingName", "Before"));
+
+        Map<String, Object> result = getDispatcher().runSync("testGroovyEntityDslUpdate",
+                UtilMisc.toMap("testingId", testingId, "testingName", "After"));
+        assertTrue(ServiceUtil.isSuccess(result));
+
+        GenericValue updated = from("Testing").where("testingId", testingId).queryOne();
+        assertEquals("After", updated.getString("testingName"));
+    }
+
+    @Test
+    public final void testGroovyEntityDslUpdateNotFound() throws Exception {
+        // requireNewTransaction=true so the thrown-and-caught ExecutionServiceException's
+        // rollback-only marking does not poison this test method's own transaction, matching
+        // the existing testGroovyPingErrorWithDSLCall precedent above.
+        Map<String, Object> result = getDispatcher().runSync("testGroovyEntityDslUpdate",
+                UtilMisc.toMap("testingId", shortTestingId("gdMiss-"), "testingName", "Irrelevant"), 60, true);
+        assertTrue(ServiceUtil.isError(result));
+    }
+
+    @Test
+    public final void testGroovyEntityDslDelete() throws Exception {
+        String testingId = shortTestingId("gdDel-");
+        getDelegator().create("Testing", UtilMisc.toMap("testingId", testingId, "testingName", "To be removed"));
+
+        Map<String, Object> result = getDispatcher().runSync("testGroovyEntityDslDelete",
+                UtilMisc.toMap("testingId", testingId));
+        assertTrue(ServiceUtil.isSuccess(result));
+        assertEquals(1, result.get("rowsRemoved"));
+
+        GenericValue afterDelete = from("Testing").where("testingId", testingId).queryOne();
+        assertNull(afterDelete, "Expected delete() to remove the Testing record");
     }
 }

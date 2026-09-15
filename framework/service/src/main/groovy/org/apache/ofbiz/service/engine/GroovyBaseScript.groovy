@@ -20,6 +20,8 @@ package org.apache.ofbiz.service.engine
 
 import org.apache.ofbiz.base.util.Debug
 import org.apache.ofbiz.base.util.UtilProperties
+import org.apache.ofbiz.entity.Delegator
+import org.apache.ofbiz.entity.GenericEntityException
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.model.DynamicViewEntity
 import org.apache.ofbiz.entity.util.EntityQuery
@@ -81,6 +83,19 @@ abstract class GroovyBaseScript extends Script {
 
     EntityQuery select(Set<String> fields) {
         return EntityQuery.use(binding.getVariable('delegator')).select(fields)
+    }
+
+    GenericValue create(String entityName, Map fields) throws GenericEntityException {
+        Delegator delegator = binding.getVariable('delegator')
+        return delegator.makeValidValue(entityName, fields).create()
+    }
+
+    EntityUpdateBuilder update(String entityName) {
+        return new EntityUpdateBuilder(binding.getVariable('delegator'), entityName)
+    }
+
+    EntityDeleteBuilder delete(String entityName) {
+        return new EntityDeleteBuilder(binding.getVariable('delegator'), entityName)
     }
 
     @Deprecated

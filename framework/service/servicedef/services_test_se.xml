@@ -220,6 +220,23 @@ under the License.
         <attribute name="pong" mode="OUT" type="String" optional="true"/>
     </service>
 
+    <!--Test write-side entity DSL: create()/update()/delete() -->
+    <service name="testGroovyEntityDslCreate" engine="groovy" auth="false"
+             location="component://service/src/main/groovy/org/apache/ofbiz/service/test/TestServices.groovy" invoke="testEntityDslCreate">
+        <attribute name="testingId" mode="IN" type="String"/>
+        <attribute name="testingName" mode="IN" type="String" optional="true"/>
+    </service>
+    <service name="testGroovyEntityDslUpdate" engine="groovy" auth="false"
+             location="component://service/src/main/groovy/org/apache/ofbiz/service/test/TestServices.groovy" invoke="testEntityDslUpdate">
+        <attribute name="testingId" mode="IN" type="String"/>
+        <attribute name="testingName" mode="IN" type="String" optional="true"/>
+    </service>
+    <service name="testGroovyEntityDslDelete" engine="groovy" auth="false"
+             location="component://service/src/main/groovy/org/apache/ofbiz/service/test/TestServices.groovy" invoke="testEntityDslDelete">
+        <attribute name="testingId" mode="IN" type="String"/>
+        <attribute name="rowsRemoved" mode="OUT" type="Integer"/>
+    </service>
+
     <!--Test job tracker engine service -->
     <service name="TestTopLevelServiceThatPlansTrackedServices" engine="groovy-tracker" auth="true"
              location="component://service/src/test/groovy/org/apache/ofbizservice/test/TrackerTestServices.groovy"

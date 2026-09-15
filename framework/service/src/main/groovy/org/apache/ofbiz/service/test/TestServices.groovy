@@ -48,3 +48,18 @@ Map testPingSuccessWithAsyncDSLCall() {
     runServiceAsync('testGroovyPingSuccess', parameters)
     return success()
 }
+
+Map testEntityDslCreate() {
+    create('Testing', [testingId: parameters.testingId, testingName: parameters.testingName])
+    return success()
+}
+
+Map testEntityDslUpdate() {
+    update('Testing').where([testingId: parameters.testingId]).set([testingName: parameters.testingName])
+    return success()
+}
+
+Map testEntityDslDelete() {
+    int rowsRemoved = delete('Testing').where([testingId: parameters.testingId])
+    return success([rowsRemoved: rowsRemoved])
+}
