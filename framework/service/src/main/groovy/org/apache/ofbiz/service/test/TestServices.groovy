@@ -43,3 +43,81 @@ Map testPingSuccessWithDSLCall() {
 Map testPingErrorWithDSLCall() {
     run service: 'testGroovyPingError', with: parameters
 }
+
+Map testPingSuccessWithAsyncDSLCall() {
+    runAsyncService('testGroovyPingSuccess', parameters)
+    return success()
+}
+
+Map testPingSuccessWithAsyncMapDSLCall() {
+    runAsync service: 'testGroovyPingSuccess', with: parameters
+    return success()
+}
+
+Map testPingSuccessWithI18n() {
+    return success('ServiceErrorUiLabels', 'ServiceValueNotFound')
+}
+
+Map testPingSuccessWithI18nContext() {
+    return success('ServiceErrorUiLabels', 'ServiceParameterValueNotValid',
+            [parameterName: parameters.parameterName, errorDetails: parameters.errorDetails], [:])
+}
+
+Map testPingErrorWithI18n() {
+    return error('ServiceErrorUiLabels', 'ServiceValueNotFound')
+}
+
+Map testPingErrorWithI18nContext() {
+    return error('ServiceErrorUiLabels', 'ServiceParameterValueNotValid',
+            [parameterName: parameters.parameterName, errorDetails: parameters.errorDetails])
+}
+
+Map testPingFailureWithI18n() {
+    return failure('ServiceErrorUiLabels', 'ServiceValueNotFound')
+}
+
+Map testFail() {
+    fail('Direct failure message')
+    return success()
+}
+
+Map testRequire() {
+    require(parameters.conditionMet, 'Required condition was not met')
+    return success()
+}
+
+Map testFailFromNestedClosure() {
+    // Proves the throw unwinds past the closure boundary, unlike `return error(...)` which would
+    // only exit this closure and let execution fall through to the success() below.
+    Closure innerCheck = {
+        fail('Nested failure message')
+    }
+    innerCheck()
+    return success()
+}
+
+Map testFailWithI18n() {
+    fail('ServiceErrorUiLabels', 'ServiceValueNotFound')
+    return success()
+}
+
+Map testRequireWithI18nContext() {
+    require(false, 'ServiceErrorUiLabels', 'ServiceParameterValueNotValid',
+            [parameterName: parameters.parameterName, errorDetails: parameters.errorDetails])
+    return success()
+}
+
+Map testEntityDslCreate() {
+    create('Testing', [testingId: parameters.testingId, testingName: parameters.testingName])
+    return success()
+}
+
+Map testEntityDslUpdate() {
+    update('Testing').where([testingId: parameters.testingId]).set([testingName: parameters.testingName])
+    return success()
+}
+
+Map testEntityDslDelete() {
+    int rowsRemoved = delete('Testing').where([testingId: parameters.testingId])
+    return success([rowsRemoved: rowsRemoved])
+}
