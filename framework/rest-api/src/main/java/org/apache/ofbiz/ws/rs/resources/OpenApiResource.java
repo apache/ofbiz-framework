@@ -23,6 +23,7 @@ import java.util.stream.Stream;
 
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
+import org.apache.ofbiz.ws.rs.annotation.Secured;
 import org.apache.ofbiz.ws.rs.openapi.OFBizOpenApiReader;
 import org.apache.ofbiz.ws.rs.openapi.OFBizResourceScanner;
 
@@ -53,6 +54,7 @@ import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.UriInfo;
 
 @Path("/openapi.{type:json|yaml}")
+@Secured
 public final class OpenApiResource {
     @Context
     private ServletConfig config;
