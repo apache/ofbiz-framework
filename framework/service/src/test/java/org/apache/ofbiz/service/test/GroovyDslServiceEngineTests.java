@@ -24,11 +24,13 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.sql.Timestamp;
+import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
 
 import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilMisc;
+import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.condition.EntityCondition;
 import org.apache.ofbiz.entity.condition.EntityOperator;
@@ -102,6 +104,67 @@ public class GroovyDslServiceEngineTests implements JupiterTestHelper {
         assertEquals("SERVICE_PENDING", jobSandbox.getString("statusId"));
         assertNotNull(jobSandbox.getString("runtimeDataId"),
                 "Expected the async call's context to be persisted as RuntimeData");
+    }
+
+    @Test
+    public final void testGroovyPingSuccessWithI18n() throws Exception {
+        // Two different locales for the same resource/key prove the message is actually being
+        // resolved through UtilProperties, not just echoed back as a literal string.
+        Map<String, Object> resultEn = getDispatcher().runSync("testGroovyPingSuccessWithI18n",
+                UtilMisc.toMap("locale", Locale.ENGLISH));
+        assertTrue(ServiceUtil.isSuccess(resultEn));
+        assertEquals(UtilProperties.getMessage("ServiceErrorUiLabels", "ServiceValueNotFound", Locale.ENGLISH),
+                resultEn.get(ModelService.SUCCESS_MESSAGE));
+
+        Map<String, Object> resultFr = getDispatcher().runSync("testGroovyPingSuccessWithI18n",
+                UtilMisc.toMap("locale", Locale.FRENCH));
+        assertTrue(ServiceUtil.isSuccess(resultFr));
+        assertEquals(UtilProperties.getMessage("ServiceErrorUiLabels", "ServiceValueNotFound", Locale.FRENCH),
+                resultFr.get(ModelService.SUCCESS_MESSAGE));
+    }
+
+    @Test
+    public final void testGroovyPingSuccessWithI18nContext() throws Exception {
+        Map<String, Object> input = UtilMisc.toMap("locale", Locale.ENGLISH,
+                "parameterName", "productId", "errorDetails", "must not be empty");
+
+        Map<String, Object> result = getDispatcher().runSync("testGroovyPingSuccessWithI18nContext", input);
+
+        assertTrue(ServiceUtil.isSuccess(result));
+        Map<String, Object> expectedContext = UtilMisc.toMap("parameterName", "productId", "errorDetails", "must not be empty");
+        assertEquals(UtilProperties.getMessage("ServiceErrorUiLabels", "ServiceParameterValueNotValid", expectedContext, Locale.ENGLISH),
+                result.get(ModelService.SUCCESS_MESSAGE));
+    }
+
+    @Test
+    public final void testGroovyPingErrorWithI18n() throws Exception {
+        Map<String, Object> result = getDispatcher().runSync("testGroovyPingErrorWithI18n",
+                UtilMisc.toMap("locale", Locale.FRENCH));
+        assertTrue(ServiceUtil.isError(result));
+        assertEquals(UtilProperties.getMessage("ServiceErrorUiLabels", "ServiceValueNotFound", Locale.FRENCH),
+                ServiceUtil.getErrorMessage(result));
+    }
+
+    @Test
+    public final void testGroovyPingErrorWithI18nContext() throws Exception {
+        Map<String, Object> input = UtilMisc.toMap("locale", Locale.ENGLISH,
+                "parameterName", "quantity", "errorDetails", "must be a positive number");
+
+        Map<String, Object> result = getDispatcher().runSync("testGroovyPingErrorWithI18nContext", input);
+
+        assertTrue(ServiceUtil.isError(result));
+        Map<String, Object> expectedContext = UtilMisc.toMap("parameterName", "quantity", "errorDetails", "must be a positive number");
+        assertEquals(UtilProperties.getMessage("ServiceErrorUiLabels", "ServiceParameterValueNotValid", expectedContext, Locale.ENGLISH),
+                ServiceUtil.getErrorMessage(result));
+    }
+
+    @Test
+    public final void testGroovyPingFailureWithI18n() throws Exception {
+        Map<String, Object> result = getDispatcher().runSync("testGroovyPingFailureWithI18n",
+                UtilMisc.toMap("locale", Locale.ENGLISH));
+        assertTrue(ServiceUtil.isFailure(result));
+        assertEquals(UtilProperties.getMessage("ServiceErrorUiLabels", "ServiceValueNotFound", Locale.ENGLISH),
+                ServiceUtil.getErrorMessage(result));
     }
 
     // testingId is a VARCHAR(20) pk, so test ids need to stay short - an 8-char UUID fragment

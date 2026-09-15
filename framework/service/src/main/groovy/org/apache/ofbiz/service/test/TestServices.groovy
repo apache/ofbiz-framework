@@ -49,6 +49,28 @@ Map testPingSuccessWithAsyncDSLCall() {
     return success()
 }
 
+Map testPingSuccessWithI18n() {
+    return success('ServiceErrorUiLabels', 'ServiceValueNotFound')
+}
+
+Map testPingSuccessWithI18nContext() {
+    return success('ServiceErrorUiLabels', 'ServiceParameterValueNotValid',
+            [parameterName: parameters.parameterName, errorDetails: parameters.errorDetails], [:])
+}
+
+Map testPingErrorWithI18n() {
+    return error('ServiceErrorUiLabels', 'ServiceValueNotFound')
+}
+
+Map testPingErrorWithI18nContext() {
+    return error('ServiceErrorUiLabels', 'ServiceParameterValueNotValid',
+            [parameterName: parameters.parameterName, errorDetails: parameters.errorDetails])
+}
+
+Map testPingFailureWithI18n() {
+    return failure('ServiceErrorUiLabels', 'ServiceValueNotFound')
+}
+
 Map testEntityDslCreate() {
     create('Testing', [testingId: parameters.testingId, testingName: parameters.testingName])
     return success()

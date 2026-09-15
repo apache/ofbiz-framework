@@ -220,6 +220,27 @@ under the License.
         <attribute name="pong" mode="OUT" type="String" optional="true"/>
     </service>
 
+    <!--Test resource/key i18n overloads on success()/error()/failure() -->
+    <service name="testGroovyPingSuccessWithI18n" engine="groovy" auth="false"
+             location="component://service/src/main/groovy/org/apache/ofbiz/service/test/TestServices.groovy" invoke="testPingSuccessWithI18n">
+    </service>
+    <service name="testGroovyPingSuccessWithI18nContext" engine="groovy" auth="false"
+             location="component://service/src/main/groovy/org/apache/ofbiz/service/test/TestServices.groovy" invoke="testPingSuccessWithI18nContext">
+        <attribute name="parameterName" mode="IN" type="String"/>
+        <attribute name="errorDetails" mode="IN" type="String"/>
+    </service>
+    <service name="testGroovyPingErrorWithI18n" engine="groovy" auth="false"
+             location="component://service/src/main/groovy/org/apache/ofbiz/service/test/TestServices.groovy" invoke="testPingErrorWithI18n">
+    </service>
+    <service name="testGroovyPingErrorWithI18nContext" engine="groovy" auth="false"
+             location="component://service/src/main/groovy/org/apache/ofbiz/service/test/TestServices.groovy" invoke="testPingErrorWithI18nContext">
+        <attribute name="parameterName" mode="IN" type="String"/>
+        <attribute name="errorDetails" mode="IN" type="String"/>
+    </service>
+    <service name="testGroovyPingFailureWithI18n" engine="groovy" auth="false"
+             location="component://service/src/main/groovy/org/apache/ofbiz/service/test/TestServices.groovy" invoke="testPingFailureWithI18n">
+    </service>
+
     <!--Test write-side entity DSL: create()/update()/delete() -->
     <service name="testGroovyEntityDslCreate" engine="groovy" auth="false"
              location="component://service/src/main/groovy/org/apache/ofbiz/service/test/TestServices.groovy" invoke="testEntityDslCreate">

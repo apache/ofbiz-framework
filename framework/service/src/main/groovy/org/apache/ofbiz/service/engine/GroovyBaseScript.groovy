@@ -33,6 +33,10 @@ import org.apache.ofbiz.service.ModelService
 import org.apache.ofbiz.service.ServiceUtil
 
 // codenarc-disable AbstractClassWithoutAbstractMethod
+// This class is the DSL surface itself (see the 2014 cwiki doc), so it is expected to keep
+// accumulating small facade methods as new DSL verbs are added - MethodCount's default threshold
+// does not fit that shape.
+// codenarc-disable MethodCount
 abstract class GroovyBaseScript extends Script {
 
     static final String MODULE = GroovyBaseScript.getName()
@@ -107,8 +111,13 @@ abstract class GroovyBaseScript extends Script {
     def success(Map returnValues) {
         return success(null, returnValues)
     }
+    def success(String resource, String key, Map returnValues = [:]) {
+        return success(label(resource, key), returnValues)
+    }
+    def success(String resource, String key, Map context, Map returnValues) {
+        return success(label(resource, key, context), returnValues)
+    }
     def success(String message = '', Map returnValues = [:]) {
-        // TODO: implement some clever i18n mechanism based on the userLogin and locale in the binding
         if (this.binding.hasVariable('request')) {
             // the script is invoked as an "event"
             if (message) {
@@ -129,8 +138,10 @@ abstract class GroovyBaseScript extends Script {
         return result
     }
     /* codenarc-enable */
+    Map failure(String resource, String key, Map returnValues = [:]) {
+        return failure(label(resource, key), returnValues)
+    }
     Map failure(String message, Map returnValues = [:]) {
-        // TODO: implement some clever i18n mechanism based on the userLogin and locale in the binding
         Map result = message
                 ? ServiceUtil.returnFailure(message)
                 : ServiceUtil.returnFailure()
@@ -139,9 +150,14 @@ abstract class GroovyBaseScript extends Script {
         }
         return result
     }
+    Map error(String resource, String key) {
+        return error(label(resource, key))
+    }
+    Map error(String resource, String key, Map context) {
+        return error(label(resource, key, context))
+    }
     /* codenarc-disable NoDef, MethodReturnTypeRequired */
     def error(String message) {
-        // TODO: implement some clever i18n mechanism based on the userLogin and locale in the binding
         if (this.binding.hasVariable('request')) {
             // the script is invoked as an "event"
             if (message) {
