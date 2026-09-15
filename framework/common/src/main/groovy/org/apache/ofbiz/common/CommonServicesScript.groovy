@@ -24,6 +24,7 @@ import java.sql.Timestamp
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.base.util.UtilProperties
 import org.apache.ofbiz.entity.GenericValue
+import org.apache.ofbiz.entity.util.EntityUtilProperties
 import org.apache.ofbiz.service.ModelService
 import org.apache.ofbiz.webapp.event.FileUploadProgressListener
 
@@ -111,7 +112,7 @@ Map convertUom() {
     }
     else { // not custom conversion
         // do the conversion
-        if (parameters.originalValue && uomConversion.conversionFactor) {
+        if (parameters.originalValue != null && uomConversion.conversionFactor) {
             convertedValue = parameters.originalValue * uomConversion.conversionFactor as BigDecimal
             convertedValue = convertedValue.setScale(15, RoundingMode.HALF_EVEN)
         }
@@ -191,7 +192,7 @@ Map getVisualThemeResources() {
     if (!resourceList) {
         // if not found use the good old initial ofbiz theme so the system will at least start up and will be usable
         logWarning("Could not find the ${visualThemeId} theme, reverting back to the good old OFBiz theme...")
-        visualThemeId = UtilProperties.getPropertyValue('general', 'VISUAL_THEME', 'FLAT_GREY')
+        visualThemeId = EntityUtilProperties.getPropertyValue('general', 'VISUAL_THEME', 'FLAT_GREY', delegator)
         resourceList = from('VisualThemeResource')
             .where(visualThemeId: visualThemeId)
             .orderBy('resourceTypeEnumId', 'sequenceId')
