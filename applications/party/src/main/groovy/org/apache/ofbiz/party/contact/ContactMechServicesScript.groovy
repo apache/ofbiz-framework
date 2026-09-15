@@ -189,6 +189,9 @@ Map updateTelecomNumber() {
  * Create an email address contact mechanism
  */
 Map createEmailAddress() {
+    if (!parameters.emailAddress) {
+        return error(UtilProperties.getMessage('PartyUiLabels', 'PartyEmailAddressMissing', locale))
+    }
     if (UtilValidate.isEmail(parameters.emailAddress)) {
         Map createContactMechMap = [contactMechTypeId: 'EMAIL_ADDRESS',
                                     contactMechId: parameters.contactMechId,
@@ -206,6 +209,9 @@ Map createEmailAddress() {
  * Update an email address contact mechanism
  */
 Map updateEmailAddress() {
+    if (!parameters.emailAddress) {
+        return error(UtilProperties.getMessage('PartyUiLabels', 'PartyEmailAddressMissing', locale))
+    }
     if (UtilValidate.isEmail(parameters.emailAddress)) {
         Map updateContactMechMap = [contactMechTypeId: 'EMAIL_ADDRESS',
                                     contactMechId: parameters.contactMechId,
