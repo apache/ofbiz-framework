@@ -80,7 +80,7 @@ public class GroovyDslServiceEngineTests implements JupiterTestHelper {
         // ofbiz --test does not wipe JobSandbox between runs, and JobPoller never picks up a
         // pending job during a test run (see below) - so a prior run's leftover SERVICE_PENDING
         // row for this same service would otherwise satisfy every assertion below even if
-        // runServiceAsync() were broken. Scoping to runTime >= beforeCall makes the test hermetic.
+        // runAsyncService() were broken. Scoping to runTime >= beforeCall makes the test hermetic.
         Timestamp beforeCall = UtilDateTime.nowTimestamp();
         Map<String, Object> result = getDispatcher().runSync("testGroovyPingSuccessWithAsyncDSLCall", pingMap);
         assertTrue(ServiceUtil.isSuccess(result));
@@ -91,7 +91,7 @@ public class GroovyDslServiceEngineTests implements JupiterTestHelper {
         // after ContainerLoader.load() returns - and that method runs TestRunContainer (which runs
         // every test suite synchronously on that same thread) before returning. So the server never
         // reaches RUNNING until after this entire test suite has already finished, and JobPoller
-        // never gets to poll during the run. Instead, this asserts that runServiceAsync() itself
+        // never gets to poll during the run. Instead, this asserts that runAsyncService() itself
         // persisted a well-formed job request - the only thing observable from within the test -
         // matching the existing precedent in ServicePurgeTest.groovy and
         // ServiceMultipleNodeRecoveryTest.groovy, neither of which waits for live completion either.
@@ -100,7 +100,30 @@ public class GroovyDslServiceEngineTests implements JupiterTestHelper {
                         EntityCondition.makeCondition("runTime", EntityOperator.GREATER_THAN_EQUAL_TO, beforeCall))
                 .orderBy("-runTime")
                 .queryFirst();
-        assertNotNull(jobSandbox, "Expected runServiceAsync() to persist a JobSandbox record for testGroovyPingSuccess");
+        assertNotNull(jobSandbox, "Expected runAsyncService() to persist a JobSandbox record for testGroovyPingSuccess");
+        assertEquals("SERVICE_PENDING", jobSandbox.getString("statusId"));
+        assertNotNull(jobSandbox.getString("runtimeDataId"),
+                "Expected the async call's context to be persisted as RuntimeData");
+    }
+
+    @Test
+    public final void testGroovyServiceAsyncMapDSLCall() throws Exception {
+        // Same as testGroovyServiceAsyncDSLCall above, but exercises the `runAsync service: ...,
+        // with: ...` map-argument calling form instead of the positional runAsyncService(name, map)
+        // form - see runAsync(Map) in GroovyBaseScript.
+        String pingMsg = "Unit Test Async Map";
+        Map<String, Object> pingMap = UtilMisc.toMap("ping", pingMsg);
+
+        Timestamp beforeCall = UtilDateTime.nowTimestamp();
+        Map<String, Object> result = getDispatcher().runSync("testGroovyPingSuccessWithAsyncMapDSLCall", pingMap);
+        assertTrue(ServiceUtil.isSuccess(result));
+
+        GenericValue jobSandbox = from("JobSandbox")
+                .where(EntityCondition.makeCondition("serviceName", "testGroovyPingSuccess"),
+                        EntityCondition.makeCondition("runTime", EntityOperator.GREATER_THAN_EQUAL_TO, beforeCall))
+                .orderBy("-runTime")
+                .queryFirst();
+        assertNotNull(jobSandbox, "Expected runAsync service:/with: to persist a JobSandbox record for testGroovyPingSuccess");
         assertEquals("SERVICE_PENDING", jobSandbox.getString("statusId"));
         assertNotNull(jobSandbox.getString("runtimeDataId"),
                 "Expected the async call's context to be persisted as RuntimeData");

@@ -56,7 +56,7 @@ abstract class GroovyBaseScript extends Script {
         return result
     }
 
-    void runServiceAsync(String serviceName, Map inputMap) throws GenericServiceException {
+    void runAsyncService(String serviceName, Map inputMap) throws GenericServiceException {
         LocalDispatcher dispatcher = binding.getVariable('dispatcher')
         Map serviceContext = buildServiceContext(dispatcher, serviceName, inputMap)
         dispatcher.runAsync(serviceName, serviceContext, true)   // persist = true
@@ -64,6 +64,10 @@ abstract class GroovyBaseScript extends Script {
 
     Map run(Map args) throws ExecutionServiceException {
         return runService((String)args.get('service'), (Map)args.get('with', [:]))
+    }
+
+    void runAsync(Map args) throws GenericServiceException {
+        runAsyncService((String)args.get('service'), (Map)args.get('with', [:]))
     }
 
     Map makeValue(String entityName) throws ExecutionServiceException {
