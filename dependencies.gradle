@@ -53,6 +53,7 @@ dependencies {
     implementation libs.log4j.core // Somehow needed by Buildbot to compile OFBizDynamicThresholdFilter.java
     implementation libs.log4j.layout.template.json // JSON/ECS structured logging profile (log4j2-json.xml)
     implementation libs.poi
+    implementation libs.poi.ooxml
     implementation libs.bundles.pdfbox
     implementation libs.shiro.core
     implementation libs.shiro.crypto.cipher

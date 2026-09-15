@@ -69,7 +69,7 @@ Map getNextInvoiceId() {
         invoiceIdTemp = parameters.invoiceId
         if (invoiceIdTemp) {
             //check the provided ID
-            errorMsg = UtilValidate.checkValidDatabaseId(invoiceIdTemp)
+            String errorMsg = UtilValidate.checkValidDatabaseId(invoiceIdTemp)
             if (errorMsg != null) {
                 return error("In getNextInvoiceId ${errorMsg}")
             }
@@ -109,7 +109,7 @@ Map invoiceSequenceRestart() {
     Timestamp nowTimestamp = UtilDateTime.nowTimestamp()
     if (partyAcctgPreference.lastInvoiceRestartDate) {
         //first figure out if we need to reset the lastInvoiceNumber; is the lastInvoiceRestartDate after the fiscalYearStartMonth/Day for this year?
-        curYearFiscalStartDate = UtilDateTime.getYearStart(nowTimestamp,
+        Timestamp curYearFiscalStartDate = UtilDateTime.getYearStart(nowTimestamp,
                 partyAcctgPreference.fiscalYearStartDay, partyAcctgPreference.fiscalYearStartMonth, 0L)
         if (partyAcctgPreference.lastInvoiceRestartDate < curYearFiscalStartDate && nowTimestamp >= curYearFiscalStartDate) {
             //less than fiscal year start, we need to reset it
@@ -174,13 +174,13 @@ Map updateInvoice() {
         return error(label('AccountingUiLabels', 'AccountingInvoiceNotFound', parameters))
     }
     if (invoice.statusId != 'INVOICE_IN_PROCESS') {
-        return error(label('AccountingUiLabels', 'AccountingInvoiceUpdateOnlyWithInProcessStatus', [statustId: invoice.statusId]))
+        return error(label('AccountingUiLabels', 'AccountingInvoiceUpdateOnlyWithInProcessStatus', [statusId: invoice.statusId]))
     }
 
     // only save if something has changed, do not update status here
     // update all non status and key fields
     GenericValue lookedInvoice = invoice.clone()
-    invoice.setNonPKFields([*: parameters, statustId: 'INVOICE_IN_PROCESS'], true)
+    invoice.setNonPKFields([*: parameters, statusId: 'INVOICE_IN_PROCESS'], true)
     if (lookedInvoice != invoice) {
         invoice.store()
     }
@@ -188,7 +188,7 @@ Map updateInvoice() {
     // check if there is a requested status change if yes call invoice status update service
     if (parameters.statusId && parameters.statusId != 'INVOICE_IN_PROCESS') {
         run service: 'setInvoiceStatus', with: [invoiceId: invoice.invoiceId,
-                                                statustId: parameters.statustId]
+                                                statusId: parameters.statusId]
     }
     return success()
 }
@@ -199,12 +199,17 @@ Map updateInvoice() {
  */
 Map copyInvoice() {
     Map serviceResult = run service: 'getInvoice', with: [invoiceId: parameters.invoiceIdToCopyFrom]
+    if (ServiceUtil.isError(serviceResult) || ServiceUtil.isFailure(serviceResult) || !serviceResult.invoice) {
+        return serviceResult ?: error(label('AccountingUiLabels', 'AccountingInvoiceNotFound', [invoiceId: parameters.invoiceIdToCopyFrom]))
+    }
     GenericValue invoice = serviceResult.invoice
     List<GenericValue> invoiceItems = serviceResult.invoiceItems
     invoice.invoiceTypeId = parameters.invoiceTypeId ?: invoice.invoiceTypeId
     serviceResult = run service: 'createInvoice', with: [*: invoice.getAllFields(),
                                                          statusId: 'INVOICE_IN_PROCESS',
-                                                         invoiceId: null]
+                                                         invoiceId: null,
+                                                         invoiceDate: UtilDateTime.nowTimestamp(),
+                                                         paidDate: null]
     String newInvoiceId = serviceResult.invoiceId
     invoiceItems.each {
         run service: 'createInvoiceItem', with: [*: it.getAllFields(),
@@ -254,10 +259,9 @@ Map setInvoiceStatus() {
         if (notApplied != 0) {
             return error(label('AccountingUiLabels', 'AccountingInvoiceCannotChangeStatusToPaid'))
         }
+        // if it's OK to mark invoice paid, use parameters for paidDate
+        invoice.paidDate = parameters.paidDate ?: UtilDateTime.nowTimestamp()
     }
-
-    // if it's OK to mark invoice paid, use parameters for paidDate
-    invoice.paidDate = parameters.paidDate ?: UtilDateTime.nowTimestamp()
 
     if (parameters.statusId == 'INVOICE_READY' && invoice.paidDate) {
         invoice.paidDate = null
@@ -313,9 +317,17 @@ Map cancelInvoice() {
     }
     invoice.getRelated('PaymentApplication', null, null, false).each {
         GenericValue payment = it.getRelatedOne('Payment', false)
-        if (payment.statusId == 'PMNT_CONFIRMED') {
-            run service: 'setPaymentStatus', with: [paymentId: payment.paymentId,
-                                                    statusId: UtilAccounting.isReceipt(payment) ? 'PMNT_RECEIVED' : 'PMNT_SENT']
+        if (payment && payment.statusId == 'PMNT_CONFIRMED') {
+            String statusId = null
+            if (UtilAccounting.isReceipt(payment)) {
+                statusId = 'PMNT_RECEIVED'
+            } else if (UtilAccounting.isDisbursement(payment)) {
+                statusId = 'PMNT_SENT'
+            }
+            if (statusId) {
+                run service: 'setPaymentStatus', with: [paymentId: payment.paymentId,
+                                                        statusId: statusId]
+            }
         }
         run service: 'removePaymentApplication', with: [paymentApplicationId: it.paymentApplicationId]
     }
@@ -351,9 +363,9 @@ Map createInvoiceItem() {
     //     TODO: there are return adjustments now that make this code very broken. The check for price was added as a quick fix.
     if (invoiceItem.productId) {
         invoiceItem.quantity = (invoiceItem.quantity != null) ? invoiceItem.quantity : 1
-        if (!invoiceItem.amount) {
-            GenericValue product = from('Product').where(parameters).cache().queryOne()
-            invoiceItem.description = product.description
+        if (invoiceItem.amount == null) {
+            GenericValue product = from('Product').where(productId: invoiceItem.productId).cache().queryOne()
+            invoiceItem.description = product?.description
             Map serviceResult = run service: 'calculateProductPrice', with: [product: product]
             invoiceItem.amount = serviceResult.price
         }
@@ -379,14 +391,14 @@ Map updateInvoiceItem() {
     invoiceItem.setNonPKFields(parameters, true)
 
     // check if the productNumber is updated, when yes retrieve product description and price
-    if (lookedInvoiceItem.productId != invoiceItem.productId) {
-        GenericValue product = from('Product').where(parameters).cache().queryOne()
-        invoiceItem.description = product.description
+    if (invoiceItem.productId && lookedInvoiceItem.productId != invoiceItem.productId) {
+        GenericValue product = from('Product').where(productId: invoiceItem.productId).cache().queryOne()
+        invoiceItem.description = product?.description
         Map serviceResult = run service: 'calculateProductPrice', with: [product: product]
         invoiceItem.amount = serviceResult.price
-        if (invoiceItem.amount == null) {
-            return error(label('AccountingUiLabels', 'AccountingInvoiceAmountIsMandatory'))
-        }
+    }
+    if (invoiceItem.amount == null) {
+        return error(label('AccountingUiLabels', 'AccountingInvoiceAmountIsMandatory'))
     }
     if (lookedInvoiceItem != invoiceItem) {
         invoiceItem.store()
@@ -422,12 +434,10 @@ Map autoGenerateInvoiceFromExistingInvoice() {
             .each {
                 Map serviceResult = run service: 'copyInvoice', with: [*: it.getAllFields(),
                                                                        invoiceIdToCopyFrom: it.invoiceId]
-                if (switchType.containsKey(it.invoiceTypeId)) {
-                    String invoiceId = serviceResult.invoiceId
-                    run service: 'updateInvoice', with: [invoiceId: invoiceId,
-                                                         recurrenceInfoId: null,
-                                                         invoiceTypeId: switchType(it.invoiceTypeId)]
-                }
+                String invoiceId = serviceResult.invoiceId
+                run service: 'updateInvoice', with: [invoiceId: invoiceId,
+                                                     recurrenceInfoId: null,
+                                                     invoiceTypeId: switchType[it.invoiceTypeId] ?: it.invoiceTypeId]
             }
     return success()
 }
@@ -446,7 +456,7 @@ Map getInvoiceRunningTotal() {
     }
     Map serviceResult = run service: 'getPartyAccountingPreferences', with: parameters
     Map partyAccountingPreference = serviceResult.partyAccountingPreference
-    String currencyUomId = partyAccountingPreference.baseCurrencyUomId ?:
+    String currencyUomId = partyAccountingPreference?.baseCurrencyUomId ?:
             EntityUtilProperties.getPropertyValue('general', 'currency.uom.id.default', 'USD', delegator)
     return success([invoiceRunningTotal: UtilFormatOut.formatCurrency(runningTotal, currencyUomId, parameters.locale)])
 }
@@ -465,7 +475,7 @@ Map getInvoicesFilterByAssocType() {
             .distinct()
             .filterByDate()
             .getFieldList('invoiceIdFrom')
-    return success([filteredInvoiceList: parameters.invoiceList.findAll { invoiceIds.contains(it.invoiceId) }])
+    return success([filteredInvoiceList: parameters.invoiceList.findAll { !invoiceIds.contains(it.invoiceId) }])
 }
 
 /**
@@ -560,11 +570,11 @@ Map addTaxOnInvoice() {
             if (promoAdjs) {
                 totalAmount -= it.amount
             }
+            addTaxMap.itemAmountList << totalAmount
+            addTaxMap.itemPriceList << it.amount
+            addTaxMap.itemQuantityList << it.quantity
+            addTaxMap.itemShippingList << BigDecimal.ZERO
         }
-        addTaxMap.itemAmountList << totalAmount
-        addTaxMap.itemPriceList << it.amount
-        addTaxMap.itemQuantityList << it.quantity
-        addTaxMap.itemShippingList << BigDecimal.ZERO
     }
     if (!addTaxMap.itemProductList) {
         return error(label('AccountingUiLabels', 'AccountingTaxProductIdCannotCalculate'))
@@ -617,7 +627,10 @@ Map addTaxOnInvoice() {
  */
 Map createInvoiceFromOrder() {
     GenericValue order = from('OrderHeader').where(parameters).queryOne()
-    String invoicePerShipment = order?.invoicePerShipment ?:
+    if (!order) {
+        return error(label('OrderUiLabels', 'OrderOrderNotFound', parameters))
+    }
+    String invoicePerShipment = order.invoicePerShipment ?:
             EntityUtilProperties.getPropertyValue('accounting', 'create.invoice.per.shipment', 'N', delegator)
     if (invoicePerShipment == 'N') {
         List orderItemBillingItemsSeqIds = from('OrderItemBilling').where(orderId: order.orderId).getFieldList('orderItemSeqId')
@@ -647,7 +660,8 @@ Map isInvoiceInForeignCurrency() {
             invoice.invoiceTypeId, 'parentTypeId', 'PURCHASE_INVOICE') ?
             invoice.partyId : invoice.partyIdFrom
     Map serviceResult = run service: 'getPartyAccountingPreferences', with: [organizationPartyId: partyId]
-    return success([isForeign: invoice.currencyUomId == serviceResult.baseCurrencyUomId])
+    String baseCurrencyUomId = serviceResult.partyAccountingPreference?.baseCurrencyUomId
+    return success([isForeign: invoice.currencyUomId != baseCurrencyUomId])
 }
 
 /**

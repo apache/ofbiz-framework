@@ -279,12 +279,13 @@ Map addSuggestionsToShoppingList() {
         Map createShoppingListInMap = [partyId: orderRole.partyId,
                                        listName: 'Auto Suggestions',
                                        shoppingListTypeId: 'SLT_WISH_LIST',
-                                       productStoreId: parameters.productStoreId]
+                                       productStoreId: parameters.productStoreId,
+                                       userLogin: parameters.userLogin]
         Map serviceResultCSL = dispatcher.runSync('createShoppingList', createShoppingListInMap, 7200, true)
         if (!ServiceUtil.isSuccess(serviceResultCSL)) {
             return error(serviceResultCSL.errorMessage)
         }
-        shoppingListId = serviceResultCSL.serviceResult
+        shoppingListId = serviceResultCSL.shoppingListId
     }
     List orderItemList = from ('OrderItem').where(orderId: parameters.orderId).orderBy('orderItemSeqId').queryList()
     for (GenericValue orderItem : orderItemList) {

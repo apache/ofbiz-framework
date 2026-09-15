@@ -1349,7 +1349,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
     }
 
     public static final class PlatformSpecific extends ModelScreenWidget {
-        private static final List<String> PLATEFORM_SPECIFIC_SUPPORT_RENDERING_TYPE = UtilMisc.toList("html", "xsl-fo", "xml", "text", "csv", "xls");
+        private static final List<String> PLATEFORM_SPECIFIC_SUPPORT_RENDERING_TYPE = UtilMisc.toList("html", "xsl-fo", "xml", "text", "csv");
         public static final String TAG_NAME = "platform-specific";
         private final Map<String, ModelScreenWidget> subWidgets;
 

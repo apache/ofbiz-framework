@@ -86,7 +86,7 @@ jersey = "3.1.12"
 swagger = "2.2.55"
 oro = "2.0.8"
 wsdl4j = "1.6.3"
-java-jwt = "4.6.0"
+java-jwt = "4.6.1"
 jwks-rsa = "0.24.1"
 jdom2 = "2.0.6.1"
 re2j = "1.8"
@@ -105,9 +105,9 @@ geronimo-jaxrpc-spec = "2.1"
 # Specify last codenarc version for java 17 compliance.
 codenarc = "3.7.0-groovy-4.0"
 # CVE-2024-21742
-apache-mime4j-core = "0.8.14"
+apache-mime4j-core = "0.8.15"
 # CVE-2024-29857, CVE-2024-30171, CVE-2024-30172, CVE-2024-34447
-bcprov-jdk18on = "1.85.2"
+bcprov-jdk18on = "1.86"
 # CVE-2022-4065
 testng = "7.12.0"
 
@@ -148,6 +148,7 @@ log4j-api = { module = "org.apache.logging.log4j:log4j-api", version.ref = "log4
 log4j-core = { module = "org.apache.logging.log4j:log4j-core", version.ref = "log4j" }
 log4j-layout-template-json = { module = "org.apache.logging.log4j:log4j-layout-template-json", version.ref = "log4j" }
 poi = { module = "org.apache.poi:poi", version.ref = "poi" }
+poi-ooxml = { module = "org.apache.poi:poi-ooxml", version.ref = "poi" }
 pdfbox-core = { module = "org.apache.pdfbox:pdfbox", version.ref = "pdfbox" }
 pdfbox-io = { module = "org.apache.pdfbox:pdfbox-io", version.ref = "pdfbox" }
 shiro-core = { module = "org.apache.shiro:shiro-core", version.ref = "shiro-core" }

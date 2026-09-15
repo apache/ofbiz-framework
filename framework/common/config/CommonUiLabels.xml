@@ -13150,6 +13150,9 @@
         <value xml:lang="es-MX">Ver como hoja de cálculo</value>
         <value xml:lang="fr">Voir en tableur</value>
     </property>
+    <property key="CommonViewAsXlsx">
+        <value xml:lang="en">View as spreadsheet (.xlsx)</value>
+    </property>
     <property key="CommonViewAsXml">
         <value xml:lang="en">View as xml</value>
         <value xml:lang="es">Ver como XML</value>

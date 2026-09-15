@@ -36,13 +36,14 @@ Map updateContactMech() {
             DOMAIN_NAME: 'DomainName',
             default: 'ContactMechanism'
     ]
-    String successMessage = 'Party' +
-            (successMessageMap."${parameters.contactMechTypeId}" ?: successMessageMap.default) +
-            'SuccessfullyUpdated'
-    GenericValue lookedValue = from('ContactMech').where(parameters).queryOne()
+    GenericValue lookedValue = from('ContactMech').where('contactMechId', parameters.contactMechId).queryOne()
     if (! lookedValue) {
         return error(UtilProperties.getMessage('ServiceErrorUiLabels', 'ServiceValueNotFound', locale))
     }
+    String contactMechTypeId = parameters.contactMechTypeId ?: lookedValue.contactMechTypeId
+    String successMessage = 'Party' +
+            (successMessageMap."$contactMechTypeId" ?: successMessageMap.default) +
+            'SuccessfullyUpdated'
     if (lookedValue.infoString != parameters.infoString) {
         lookedValue.setNonPKFields(parameters)
         lookedValue.contactMechId = null
@@ -99,11 +100,12 @@ Map updatePostalAddress() {
     if (errorMessage) {
         return error(UtilProperties.getMessage('PartyUiLabels', errorMessage, locale))
     }
-    GenericValue lookedValue = from('PostalAddress').where(parameters).queryOne()
+    GenericValue lookedValue = from('PostalAddress').where('contactMechId', parameters.contactMechId).queryOne()
     if (! lookedValue) {
         return error(UtilProperties.getMessage('ServiceErrorUiLabels', 'ServiceValueNotFound', locale))
     }
-    GenericValue newValue = makeValue('PostalAddress', parameters)
+    GenericValue newValue = (GenericValue) lookedValue.clone()
+    newValue.setNonPKFields(parameters)
     String contactMechId
     String oldContactMechId = lookedValue.contactMechId
     String successMessage = 'PartyPostalAddressSuccessfullyUpdated'
@@ -150,11 +152,12 @@ Map createTelecomNumber() {
  * Update Contact Mechanism with Telecom Number
  */
 Map updateTelecomNumber() {
-    GenericValue lookedValue = from('TelecomNumber').where(parameters).queryOne()
+    GenericValue lookedValue = from('TelecomNumber').where('contactMechId', parameters.contactMechId).queryOne()
     if (!lookedValue) {
         return error(UtilProperties.getMessage('ServiceErrorUiLabels', 'ServiceValueNotFound', locale))
     }
-    GenericValue newValue = makeValue('TelecomNumber', parameters)
+    GenericValue newValue = (GenericValue) lookedValue.clone()
+    newValue.setNonPKFields(parameters)
     String contactMechId
     String oldContactMechId = lookedValue.contactMechId
     String successMessage = 'PartyTelecomNumberSuccessfullyUpdated'
@@ -186,6 +189,9 @@ Map updateTelecomNumber() {
  * Create an email address contact mechanism
  */
 Map createEmailAddress() {
+    if (!parameters.emailAddress) {
+        return error(UtilProperties.getMessage('PartyUiLabels', 'PartyEmailAddressMissing', locale))
+    }
     if (UtilValidate.isEmail(parameters.emailAddress)) {
         Map createContactMechMap = [contactMechTypeId: 'EMAIL_ADDRESS',
                                     contactMechId: parameters.contactMechId,
@@ -203,6 +209,9 @@ Map createEmailAddress() {
  * Update an email address contact mechanism
  */
 Map updateEmailAddress() {
+    if (!parameters.emailAddress) {
+        return error(UtilProperties.getMessage('PartyUiLabels', 'PartyEmailAddressMissing', locale))
+    }
     if (UtilValidate.isEmail(parameters.emailAddress)) {
         Map updateContactMechMap = [contactMechTypeId: 'EMAIL_ADDRESS',
                                     contactMechId: parameters.contactMechId,
@@ -244,8 +253,13 @@ Map updateFtpAddressWithHistory() {
     resultMap.contactMechId = parameters.contactMechId
     Map newContactMechResult
     if (resultMap.oldContactMechId) {
-        newValue = makeValue('FtpAddress', parameters)
-        if (newValue != from('FtpAddress').where(parameters).queryOne()) {  // if there is some modifications in FtpAddress data
+        GenericValue lookedValue = from('FtpAddress').where('contactMechId', parameters.contactMechId).queryOne()
+        if (!lookedValue) {
+            return error(UtilProperties.getMessage('ServiceErrorUiLabels', 'ServiceValueNotFound', locale))
+        }
+        GenericValue newValue = (GenericValue) lookedValue.clone()
+        newValue.setNonPKFields(parameters)
+        if (newValue != lookedValue) {  // if there is some modifications in FtpAddress data
             newContactMechResult = run service: 'createFtpAddress', with: parameters
         } else { //update only contactMech
             Map updateContactMechMap = dispatcher.getDispatchContext().makeValidContext('updateContactMech', ModelService.IN_PARAM, parameters)
@@ -270,8 +284,7 @@ Map createPartyFtpAddress() {
     }
     String contactMechId = contactMech.contactMechId
 
-    Map createPartyContactMechMap = parameters
-    createPartyContactMechMap.put('contactMechId', contactMechId)
+    Map createPartyContactMechMap = [*:parameters, contactMechId: contactMechId]
     Map serviceResult = run service: 'createPartyContactMech', with: createPartyContactMechMap
     if (ServiceUtil.isError(serviceResult)) {
         return serviceResult
@@ -306,7 +319,9 @@ Map sendVerifyEmailAddressNotification() {
             .where(emailType: 'PRDS_EMAIL_VERIFY')
             .cache()
             .queryFirst()
-    GenericValue emailAddressVerification = from('EmailAddressVerification').where(parameters).queryOne()
+    GenericValue emailAddressVerification = from('EmailAddressVerification')
+            .where('emailAddress', parameters.emailAddress)
+            .queryOne()
     if (emailAddressVerification && storeEmail) {
         Map emailParams = [
             sendTo: parameters.emailAddress,
