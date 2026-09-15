@@ -100,7 +100,7 @@ javax-xml-soap-api = "1.4.0"
 # Shared by barcode4j-core, barcode4j-fop-ext. Not bundled: no bundle was agreed for this pair.
 barcode4j = "2.1"
 avalon-framework-impl = "4.3.1"
-h2 = "2.4.240"
+h2 = "2.5.250"
 geronimo-jaxrpc-spec = "2.1"
 # Specify last codenarc version for java 17 compliance.
 codenarc = "3.7.0-groovy-4.0"
