@@ -95,6 +95,25 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="JobDetailsOverview">
+        <section>
+            <actions>
+                <script location="component://webtools/src/main/groovy/org/apache/ofbiz/webtools/service/JobDetails.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="EmbeddedDecorator" location="component://common/widget/CommonScreens.xml">
+                    <decorator-section name="single">
+                        <screenlet title="${uiLabelMap.PageTitleJobDetails}">
+                            <include-form name="JobDetails" location="component://webtools/widget/ServiceForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.WebtoolsRunTimeDataInfo}">
+                            <include-grid name="JobRuntimeDataInfo" location="component://webtools/widget/ServiceForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 
     <screen name="ThreadList">
         <section>

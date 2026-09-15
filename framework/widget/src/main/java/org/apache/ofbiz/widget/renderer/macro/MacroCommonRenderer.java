@@ -149,7 +149,7 @@ public class MacroCommonRenderer {
             String target = link.getTarget(context);
             if (UtilValidate.isNotEmpty(target)) {
                 final URI linkUri = WidgetWorker.buildHyperlinkUri(target, link.getUrlMode(),
-                        "layered-modal".equals(link.getLinkType()) ? null : link.getParameterMap(context), link.getPrefix(context),
+                        WidgetWorker.isModalLink(linkType) ? null : link.getParameterMap(context), link.getPrefix(context),
                         link.getFullPath(), link.getSecure(), link.getEncode(),
                         request, response);
                 linkUrl = linkUri.toString();

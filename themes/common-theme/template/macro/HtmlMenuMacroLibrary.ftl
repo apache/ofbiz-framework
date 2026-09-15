@@ -54,7 +54,7 @@ under the License.
     </#list>
 </form><#rt/>
   </#if>
-  <#if uniqueItemName?has_content && "layered-modal" == linkType>
+  <#if uniqueItemName?has_content && ["layered-modal", "layered-drawer"]?seq_contains(linkType)>
     <#local params = "{&quot;presentation&quot;:&quot;layer&quot; ">
     <#if parameterList?has_content>
       <#list parameterList as parameter>
@@ -63,6 +63,7 @@ under the License.
     </#if>
     <#local params += "}">
     <a href="javascript:void(0);" id="${uniqueItemName}_link"
+       data-open-in="<#if linkType=='layered-drawer'>drawer<#else>${linkType}</#if>"
        data-dialog-params="${params}"
        data-dialog-width="${width}"
        data-dialog-height="${height}"
