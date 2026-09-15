@@ -30,6 +30,7 @@ import org.apache.ofbiz.service.ExecutionServiceException
 import org.apache.ofbiz.service.GenericServiceException
 import org.apache.ofbiz.service.LocalDispatcher
 import org.apache.ofbiz.service.ModelService
+import org.apache.ofbiz.service.ServiceErrorException
 import org.apache.ofbiz.service.ServiceUtil
 
 // codenarc-disable AbstractClassWithoutAbstractMethod
@@ -200,6 +201,23 @@ abstract class GroovyBaseScript extends Script {
             return UtilProperties.getMessage(ressource, message, context, locale)
         }
         return UtilProperties.getMessage(ressource, message, locale)
+    }
+
+    void fail(String message) throws ServiceErrorException {
+        throw new ServiceErrorException(message)
+    }
+    void fail(String resource, String key, Map context = [:]) throws ServiceErrorException {
+        fail(label(resource, key, context))
+    }
+    void require(boolean condition, String message) throws ServiceErrorException {
+        if (!condition) {
+            fail(message)
+        }
+    }
+    void require(boolean condition, String resource, String key, Map context = [:]) throws ServiceErrorException {
+        if (!condition) {
+            fail(resource, key, context)
+        }
     }
 
     private Map buildServiceContext(LocalDispatcher dispatcher, String serviceName, Map inputMap) {

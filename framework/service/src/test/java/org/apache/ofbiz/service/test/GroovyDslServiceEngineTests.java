@@ -167,6 +167,58 @@ public class GroovyDslServiceEngineTests implements JupiterTestHelper {
                 ServiceUtil.getErrorMessage(result));
     }
 
+    @Test
+    public final void testGroovyFail() throws Exception {
+        Map<String, Object> result = getDispatcher().runSync("testGroovyFail", UtilMisc.toMap());
+        assertTrue(ServiceUtil.isError(result));
+        assertEquals("Direct failure message", ServiceUtil.getErrorMessage(result));
+    }
+
+    @Test
+    public final void testGroovyRequireConditionFalse() throws Exception {
+        Map<String, Object> result = getDispatcher().runSync("testGroovyRequire", UtilMisc.toMap("conditionMet", false));
+        assertTrue(ServiceUtil.isError(result));
+        assertEquals("Required condition was not met", ServiceUtil.getErrorMessage(result));
+    }
+
+    @Test
+    public final void testGroovyRequireConditionTrue() throws Exception {
+        Map<String, Object> result = getDispatcher().runSync("testGroovyRequire", UtilMisc.toMap("conditionMet", true));
+        assertTrue(ServiceUtil.isSuccess(result));
+    }
+
+    @Test
+    public final void testGroovyFailFromNestedClosure() throws Exception {
+        // The whole point of throwing rather than returning: a plain `return error(...)` inside
+        // innerCheck() would only exit that closure and fall through to success() in the test
+        // service - this proves the throw actually unwinds past the closure boundary instead.
+        Map<String, Object> result = getDispatcher().runSync("testGroovyFailFromNestedClosure", UtilMisc.toMap());
+        assertTrue(ServiceUtil.isError(result));
+        assertEquals("Nested failure message", ServiceUtil.getErrorMessage(result));
+    }
+
+    @Test
+    public final void testGroovyFailWithI18n() throws Exception {
+        Map<String, Object> result = getDispatcher().runSync("testGroovyFailWithI18n",
+                UtilMisc.toMap("locale", Locale.FRENCH));
+        assertTrue(ServiceUtil.isError(result));
+        assertEquals(UtilProperties.getMessage("ServiceErrorUiLabels", "ServiceValueNotFound", Locale.FRENCH),
+                ServiceUtil.getErrorMessage(result));
+    }
+
+    @Test
+    public final void testGroovyRequireWithI18nContext() throws Exception {
+        Map<String, Object> input = UtilMisc.toMap("locale", Locale.ENGLISH,
+                "parameterName", "quantity", "errorDetails", "must be a positive number");
+
+        Map<String, Object> result = getDispatcher().runSync("testGroovyRequireWithI18nContext", input);
+
+        assertTrue(ServiceUtil.isError(result));
+        Map<String, Object> expectedContext = UtilMisc.toMap("parameterName", "quantity", "errorDetails", "must be a positive number");
+        assertEquals(UtilProperties.getMessage("ServiceErrorUiLabels", "ServiceParameterValueNotValid", expectedContext, Locale.ENGLISH),
+                ServiceUtil.getErrorMessage(result));
+    }
+
     // testingId is a VARCHAR(20) pk, so test ids need to stay short - an 8-char UUID fragment
     // per prefix is plenty of uniqueness for a single test run.
     private String shortTestingId(String prefix) {
