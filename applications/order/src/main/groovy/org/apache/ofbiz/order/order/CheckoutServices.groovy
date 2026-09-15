@@ -136,7 +136,7 @@ Map createUpdateBillingAddressAndPaymentMethod() {
         shipToContactMechId = shipToContactMechId ?: shoppingCart.getShippingContactMechId()
     }
     if (partyId) {
-        if (userLogin.userLoginId == 'anonymous') {
+        if (userLogin && userLogin.userLoginId == 'anonymous') {
             userLogin.partyId = partyId
         }
     }
