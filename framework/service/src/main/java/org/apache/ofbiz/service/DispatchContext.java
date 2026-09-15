@@ -44,6 +44,7 @@ import org.apache.ofbiz.entity.config.model.EntityConfig;
 import org.apache.ofbiz.security.Security;
 import org.apache.ofbiz.service.config.ServiceConfigUtil;
 import org.apache.ofbiz.service.config.model.GlobalServices;
+import org.apache.ofbiz.service.config.model.ServiceConfigGetter;
 import org.apache.ofbiz.service.eca.ServiceEcaUtil;
 import org.w3c.dom.Document;
 
@@ -247,7 +248,7 @@ public class DispatchContext implements Serializable {
                 throw new RuntimeException(e.getMessage());
             }
             for (GlobalServices globalServices : globalServicesList) {
-                ResourceHandler handler = new MainResourceHandler(ServiceConfigUtil.getServiceEngineXmlFileName(), globalServices.getLoader(),
+                ResourceHandler handler = new MainResourceHandler(ServiceConfigGetter.getServiceEngineXmlFileName(), globalServices.getLoader(),
                         globalServices.getLocation());
                 futures.add(ExecutionPool.GLOBAL_FORK_JOIN.submit(createServiceReaderCallable(handler)));
             }

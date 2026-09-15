@@ -1,0 +1,37 @@
+{
+  "entityengine": {
+    "entity-config": {
+      "datasource": {
+        "localsybase": {
+          "helper-class": "org.apache.ofbiz.entity.datasource.GenericHelperDAO",
+          "field-type-name": "sybase",
+          "schema-name": "dbo",
+          "check-on-start": "true",
+          "add-missing-on-start": "true",
+          "use-fk-initially-deferred": "false",
+          "join-style": "ansi",
+          "read-data": [
+            {"reader-name": "tenant"},
+            {"reader-name": "seed"},
+            {"reader-name": "seed-initial"},
+            {"reader-name": "demo"},
+            {"reader-name": "ext"},
+            {"reader-name": "ext-test"},
+            {"reader-name": "ext-demo"}
+          ],
+          "inline-jdbc": {
+            // Out of date, check https://mvnrepository.com/search?q=com.sybase for up to date versions
+            "jdbc-driver": "com.sybase.jdbc2.jdbc.SybDriver",
+            "jdbc-uri": "jdbc:sybase:Tds:10.1.1.10:11222/ofbiz?DYNAMIC_PREPARE=true",
+            "jdbc-username": "ofbiz",
+            "jdbc-password": "ofbiz1",
+            "isolation-level": "ReadCommitted",
+            "pool-minsize": "2",
+            "pool-maxsize": "250",
+            "time-between-eviction-runs-millis": "600000"
+          }
+        }
+      }
+    }
+  }
+}

@@ -18,9 +18,12 @@
  *******************************************************************************/
 package org.apache.ofbiz.entity.config.model;
 
+import org.apache.ofbiz.base.config.AbstractConfigElement;
 import org.apache.ofbiz.base.lang.ThreadSafe;
 import org.apache.ofbiz.entity.GenericEntityConfException;
 import org.w3c.dom.Element;
+
+import java.util.Map;
 
 /**
  * An object that models the <code>&lt;group-map&gt;</code> element.
@@ -28,32 +31,65 @@ import org.w3c.dom.Element;
  * @see <code>entity-config.xsd</code>
  */
 @ThreadSafe
-public final class GroupMap {
+public final class GroupMap extends AbstractConfigElement {
 
-    private final String groupName; // type = xs:string
-    private final String datasourceName; // type = xs:string
+    private final EntityConfigGetter config = EntityConfigGetter.getInstance();
+    public static final String ELEMENT_NAME = "group-map";
+    public static final String ELEMENT_FIELD_ID_NAME = "group-name";
 
-    GroupMap(Element element) throws GenericEntityConfException {
+    private final String xPath;
+    private final String groupName;
+    private final String datasourceName;
+
+    GroupMap(Element element, String xPathParent) throws GenericEntityConfException {
         String lineNumberText = EntityConfig.createConfigFileLineNumberText(element);
+
         String groupName = element.getAttribute("group-name").intern();
+        this.xPath = xPathParent.concat("/group-map[@group-name='" + groupName + "']");
+        this.groupName = groupName;
         if (groupName.isEmpty()) {
             throw new GenericEntityConfException("<group-map> element group-name attribute is empty" + lineNumberText);
         }
-        this.groupName = groupName;
-        String datasourceName = element.getAttribute("datasource-name").intern();
+        String datasourceName = config.getValue(this.xPath + "/@datasource-name");
         if (datasourceName.isEmpty()) {
             throw new GenericEntityConfException("<group-map> element datasource-name attribute is empty" + lineNumberText);
         }
         this.datasourceName = datasourceName;
     }
 
-    /** Returns the value of the <code>group-name</code> attribute. */
-    public String getGroupName() {
-        return this.groupName;
+    GroupMap(Map<String, Object> configObject, String xPath) throws GenericEntityConfException {
+        this.xPath = xPath;
+        String groupName = config.getValue(configObject, "/@group-name");
+        if (groupName.isEmpty()) {
+            throw new GenericEntityConfException("<group-map> element group-name attribute is empty");
+        }
+        this.groupName = groupName;
+        String datasourceName = config.getValue(configObject, "/@datasource-name");
+        if (datasourceName.isEmpty()) {
+            throw new GenericEntityConfException("<group-map> element datasource-name attribute is empty");
+        }
+        this.datasourceName = datasourceName;
     }
 
-    /** Returns the value of the <code>datasource-name</code> attribute. */
-    public String getDatasourceName() {
-        return this.datasourceName;
+    public static GroupMap loadFromXml(Element element, String xPathParent) throws GenericEntityConfException {
+        return new GroupMap(element, xPathParent);
     }
+
+    public static GroupMap loadFromConfig(Map<String, Object> configMap, String xPath) throws GenericEntityConfException {
+        return new GroupMap(configMap, xPath);
+    }
+
+    public String getGroupName() {
+        return groupName;
+    }
+
+    public String getDatasourceName() {
+        return datasourceName;
+    }
+
+    @Override
+    public String getName() {
+        return groupName;
+    }
+
 }
