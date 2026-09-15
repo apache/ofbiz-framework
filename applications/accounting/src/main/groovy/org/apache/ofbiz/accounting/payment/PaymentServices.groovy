@@ -57,7 +57,7 @@ Map createPayment() {
     if (parameters.paymentPreferenceId) {
         GenericValue orderPaymentPreference = from('OrderPaymentPreference')
                 .where('orderPaymentPreferenceId', parameters.paymentPreferenceId).queryOne()
-        parameters.paymentId = parameters.paymentId ?: orderPaymentPreference.paymentMethodId
+        parameters.paymentMethodId = parameters.paymentMethodId ?: orderPaymentPreference.paymentMethodId
         parameters.paymentMethodTypeId = parameters.paymentMethodTypeId ?: orderPaymentPreference.paymentMethodTypeId
     }
 
@@ -180,7 +180,7 @@ Map createPaymentAndApplicationForParty() {
     BigDecimal paymentAmount = 0
     List invoiceIds = []
     String paymentId
-    parameters.invoices.each { GenericValue invoice ->
+    for (GenericValue invoice : parameters.invoices) {
         if (invoice.statusId == 'INVOICE_READY') {
             Map serviceResult = run service: 'getInvoicePaymentInfoList', with: invoice.getAllFields()
             if (ServiceUtil.isError(serviceResult)) {
@@ -210,7 +210,7 @@ Map createPaymentAndApplicationForParty() {
         }
         paymentId = serviceResult.paymentId
 
-        parameters.invoices.each { GenericValue invoice ->
+        for (GenericValue invoice : parameters.invoices) {
             if (invoice.statusId == 'INVOICE_READY') {
                 serviceResult = run service: 'getInvoicePaymentInfoList', with: invoice.getAllFields()
                 if (ServiceUtil.isError(serviceResult)) {
@@ -248,6 +248,7 @@ Map checkAndCreateBatchForValidPayments() {
     }
     List batchPaymentIds = from('PaymentGroupMember')
             .where(EntityCondition.makeCondition('paymentId', EntityOperator.IN, parameters.paymentIds))
+            .filterByDate()
             .distinct()
             .getFieldList('paymentId')
     if (batchPaymentIds) {
@@ -571,9 +572,9 @@ Map createPaymentAndPaymentGroupForInvoices() {
 
     if (paymentMethod) {
         GenericValue finAccount = from('FinAccount').where('finAccountId', paymentMethod.finAccountId).queryOne()
-        if (finAccount.statusId == 'FNACT_MANFROZEN') {
+        if (finAccount?.statusId == 'FNACT_MANFROZEN') {
             return error(label('AccountingErrorUiLabels', 'AccountingFinAccountInactiveStatusError'))
-        } else if (finAccount.statusId == 'FNACT_CANCELLED') {
+        } else if (finAccount?.statusId == 'FNACT_CANCELLED') {
             return error(label('AccountingErrorUiLabels', 'AccountingFinAccountStatusNotValidError'))
         }
     }
@@ -812,13 +813,13 @@ Map setPaymentStatus() {
 
         // payment method is mandatory when set to sent or received
         if (['PMNT_RECEIVED', 'PMNT_SENT'].contains(parameters.statusId) && !payment.paymentMethodId) {
-            return failure(label('AccountingUiLabels', 'AccountingMissingPaymentMethod', [statusItem: statusItem]))
+            return error(label('AccountingUiLabels', 'AccountingMissingPaymentMethod', [statusItem: statusItem]))
         }
 
         // check if the payment fully applied when set to confirmed
         if (parameters.statusId == 'PMNT_CONFIRMED' &&
                 PaymentWorker.getPaymentNotApplied(payment) != 0) {
-            return failure(label('AccountingUiLabels', 'AccountingPSNotConfirmedNotFullyApplied'))
+            return error(label('AccountingUiLabels', 'AccountingPSNotConfirmedNotFullyApplied'))
         }
     }
 
@@ -942,7 +943,7 @@ Map createMatchingPaymentApplication() {
             if (invoiceId) {
                 if (from('PaymentApplication')
                         .where(invoiceId: invoiceId)
-                        .queryCount()) {
+                        .queryCount() == 0) {
                     createPaymentApplicationCtx.paymentId = parameters.paymentId
                     createPaymentApplicationCtx.invoiceId = invoiceId
                     createPaymentApplicationCtx.amountApplied = amountApplied
