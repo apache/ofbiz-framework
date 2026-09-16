@@ -178,11 +178,12 @@ Map accAndDecPartyInvitationPermissionCheck() {
             }
             Map serviceResult = run service: 'findPartyFromEmailAddress', with: [address: partyInvitation.emailAddress]
             String partyId = serviceResult.partyId
-            if (partyId && partyId == userLogin.partyId) {
+            if (!partyId) {
+                return error('PartyUiLabels', 'PartyInvitationNotValidError')
+            }
+            if (partyId == userLogin.partyId) {
                 hasPermission = true
                 result.hasPermission = hasPermission
-            } else {
-                return error('PartyUiLabels', 'PartyInvitationNotValidError')
             }
         }
     }
