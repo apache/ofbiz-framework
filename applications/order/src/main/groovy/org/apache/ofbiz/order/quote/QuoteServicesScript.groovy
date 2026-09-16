@@ -36,13 +36,10 @@ import org.apache.ofbiz.service.ServiceUtil
  * Set the Quote status to ordered.
  */
 Map checkUpdateQuoteStatus() {
-    if (!security.hasEntityPermission('ORDERMGR', '_UPDATE', userLogin)) {
-        return error('OrderErrorUiLabels', 'OrderSecurityErrorToRunCheckUpdateQuoteStatus')
-    }
+    require(security.hasEntityPermission('ORDERMGR', '_UPDATE', userLogin) as boolean,
+            'OrderErrorUiLabels', 'OrderSecurityErrorToRunCheckUpdateQuoteStatus')
     GenericValue quote = from('Quote').where(parameters).queryOne()
-    if (!quote) {
-        return error('OrderErrorUiLabels', 'OrderQuoteDoesNotExists')
-    }
+    require(quote as boolean, 'OrderErrorUiLabels', 'OrderQuoteDoesNotExists')
     quote.statusId = 'QUO_ORDERED'
     quote.store()
     return success()
@@ -80,15 +77,11 @@ Map getNextQuoteId() {
         quoteId = parameters.quoteId
         if (quoteId) {
             GenericValue quote = from('Quote').where('quoteId', quoteId).queryOne()
-            if (quote) {
-                // Return alert if ID already exists
-                return error('OrderErrorUiLabels', 'OrderQuoteIdAlreadyExists', [quoteId: quoteId])
-            }
+            // Return alert if ID already exists
+            require(!(quote), 'OrderErrorUiLabels', 'OrderQuoteIdAlreadyExists', [quoteId: quoteId])
             // Check the provided ID
             String errorMessage = UtilValidate.checkValidDatabaseId(quoteId)
-            if (errorMessage) {
-                return error(label('OrderErrorUiLabels', 'OrderQuoteGetNextIdError') + errorMessage)
-            }
+            require(!(errorMessage), label('OrderErrorUiLabels', 'OrderQuoteGetNextIdError') + errorMessage)
         } else {
             quoteId = delegator.getNextSeqId('Quote')
         }
@@ -118,11 +111,10 @@ Map quoteSequenceEnforced() {
  * Create a new Quote.
  */
 Map createQuote() {
-    if (parameters.partyId
+    require(!(parameters.partyId
             && parameters.partyId != userLogin.partyId
-            && !security.hasEntityPermission('ORDERMGR', '_CREATE', userLogin)) {
-        return error('OrderErrorUiLabels', 'OrderSecurityErrorToRunCreateQuote')
-    }
+            && !security.hasEntityPermission('ORDERMGR', '_CREATE', userLogin)),
+            'OrderErrorUiLabels', 'OrderSecurityErrorToRunCreateQuote')
 
     // Create new entity and create all the fields.
     GenericValue newEntity = makeValue('Quote', parameters)
@@ -173,14 +165,11 @@ Map createQuote() {
  * @return quoteId
  */
 Map updateQuote() {
-    if (!security.hasEntityPermission('ORDERMGR', '_UPDATE', userLogin)) {
-        return error('OrderErrorUiLabels', 'OrderSecurityErrorToRunUpdateQuote')
-    }
+    require(security.hasEntityPermission('ORDERMGR', '_UPDATE', userLogin) as boolean,
+            'OrderErrorUiLabels', 'OrderSecurityErrorToRunUpdateQuote')
     String quoteId = parameters.quoteId
     GenericValue quote = from('Quote').where('quoteId', quoteId).queryOne()
-    if (!quote) {
-        return error('OrderErrorUiLabels', 'OrderQuoteDoesNotExists')
-    }
+    require(quote as boolean, 'OrderErrorUiLabels', 'OrderQuoteDoesNotExists')
 
     parameters.statusId = parameters.statusId ?: quote.statusId
 
@@ -191,7 +180,7 @@ Map updateQuote() {
         if (!validChange) {
             logError("The status change from ${quote.statusId} to ${parameters.statusId} is not a valid change")
             // FIXME : LABEL :D
-            return error('OrderErrorUiLabels', 'OrderQuoteStatusChangeIsNotValid')
+            fail('OrderErrorUiLabels', 'OrderQuoteStatusChangeIsNotValid')
         }
     }
 
@@ -205,13 +194,10 @@ Map updateQuote() {
  * Copy an existing Quote.
  */
 Map copyQuote() {
-    if (!security.hasEntityPermission('ORDERMGR', '_CREATE', userLogin)) {
-        return error('OrderErrorUiLabels', 'OrderSecurityErrorToRunCopyQuote')
-    }
+    require(security.hasEntityPermission('ORDERMGR', '_CREATE', userLogin) as boolean,
+            'OrderErrorUiLabels', 'OrderSecurityErrorToRunCopyQuote')
     GenericValue quote = from('Quote').where(parameters).queryOne()
-    if (!quote) {
-        return error('OrderErrorUiLabels', 'OrderQuoteDoesNotExists')
-    }
+    require(quote as boolean, 'OrderErrorUiLabels', 'OrderQuoteDoesNotExists')
     Map serviceResult = run service: 'createQuote', with: [*:quote, statusId: null]
     String quoteIdTo = serviceResult.quoteId
 
@@ -329,14 +315,11 @@ Map ensureWorkEffortAndCreateQuoteWorkEffort() {
  */
 Map createQuoteItem() {
     GenericValue quote = from('Quote').where(parameters).queryOne()
-    if (!quote) {
-        return error('OrderErrorUiLabels', 'OrderQuoteDoesNotExists')
-    }
-    if (quote.partyId
+    require(quote as boolean, 'OrderErrorUiLabels', 'OrderQuoteDoesNotExists')
+    require(!(quote.partyId
             && quote.partyId != userLogin.partyId
-            && !security.hasEntityPermission('ORDERMGR', '_CREATE', userLogin)) {
-        return error('OrderErrorUiLabels', 'OrderSecurityErrorToRunCreateQuoteItem')
-    }
+            && !security.hasEntityPermission('ORDERMGR', '_CREATE', userLogin)),
+            'OrderErrorUiLabels', 'OrderSecurityErrorToRunCreateQuoteItem')
     GenericValue quoteItem = delegator.makeValidValue('QuoteItem', parameters)
     if (!quoteItem.quoteItemSeqId) {
         delegator.setNextSubSeqId(quoteItem, 'quoteItemSeqId', 5, 1)
@@ -344,9 +327,7 @@ Map createQuoteItem() {
 
     if (!parameters.quoteUnitPrice && parameters.productId) {
         GenericValue product = from('Product').where('productId', parameters.productId).cache().queryOne()
-        if (product?.isVirtual == 'Y') {
-            return error('OrderErrorUiLabels', 'OrderCannotAddVirtualProductToQuote')
-        }
+        require(!(product?.isVirtual == 'Y'), 'OrderErrorUiLabels', 'OrderCannotAddVirtualProductToQuote')
         if (product?.productTypeId?.startsWith('AGGREGATED')
                 && parameters.configId) {
             ProductConfigWrapper configWrapper = ProductConfigWorker.loadProductConfigWrapper(delegator, dispatcher, parameters.configId,
@@ -369,15 +350,12 @@ Map createQuoteItem() {
  * Update an existing QuoteItem.
  */
 Map updateQuoteItem() {
-    if (!security.hasEntityPermission('ORDERMGR', '_UPDATE', userLogin)) {
-        return error('OrderErrorUiLabels', 'OrderSecurityErrorToRunUpdateQuoteItem')
-    }
+    require(security.hasEntityPermission('ORDERMGR', '_UPDATE', userLogin) as boolean,
+            'OrderErrorUiLabels', 'OrderSecurityErrorToRunUpdateQuoteItem')
 
     Map pksQuoteItem = [quoteId: parameters.quoteId, quoteItemSeqId: parameters.quoteItemSeqId]
     GenericValue quoteItem = from('QuoteItem').where(pksQuoteItem).queryOne()
-    if (!quoteItem) {
-        return error('OrderErrorUiLabels', 'OrderQuoteItemDoesNotExists')
-    }
+    require(quoteItem as boolean, 'OrderErrorUiLabels', 'OrderQuoteItemDoesNotExists')
     quoteItem.setNonPKFields(parameters)
     quoteItem.store()
     return success()
@@ -387,14 +365,11 @@ Map updateQuoteItem() {
  * Remove a QuoteItem.
  */
 Map removeQuoteItem() {
-    if (!security.hasEntityPermission('ORDERMGR', '_DELETE', userLogin)) {
-        return error('OrderErrorUiLabels', 'OrderSecurityErrorToRunRemoveQuoteItem')
-    }
+    require(security.hasEntityPermission('ORDERMGR', '_DELETE', userLogin) as boolean,
+            'OrderErrorUiLabels', 'OrderSecurityErrorToRunRemoveQuoteItem')
     Map pksQuoteItem = [quoteId: parameters.quoteId, quoteItemSeqId: parameters.quoteItemSeqId]
     GenericValue quoteItem = from('QuoteItem').where(pksQuoteItem).queryOne()
-    if (!quoteItem) {
-        return error('OrderErrorUiLabels', 'OrderQuoteItemDoesNotExists')
-    }
+    require(quoteItem as boolean, 'OrderErrorUiLabels', 'OrderQuoteItemDoesNotExists')
     delete('QuoteTerm').where(pksQuoteItem)
     delete('QuoteAdjustment').where(pksQuoteItem)
     quoteItem.remove()
@@ -405,13 +380,10 @@ Map removeQuoteItem() {
  * Copy an existing QuoteItem.
  */
 Map copyQuoteItem() {
-    if (!security.hasEntityPermission('ORDERMGR', '_CREATE', userLogin)) {
-        return error('OrderErrorUiLabels', 'OrderSecurityErrorToRunCopyQuoteItem')
-    }
+    require(security.hasEntityPermission('ORDERMGR', '_CREATE', userLogin) as boolean,
+            'OrderErrorUiLabels', 'OrderSecurityErrorToRunCopyQuoteItem')
     GenericValue quoteItem = from('QuoteItem').where(parameters).queryOne()
-    if (!quoteItem) {
-        return error('OrderErrorUiLabels', 'OrderQuoteItemDoesNotExists')
-    }
+    require(quoteItem as boolean, 'OrderErrorUiLabels', 'OrderQuoteItemDoesNotExists')
     String quoteIdTo = parameters.quoteIdTo ?: quoteItem.quoteId
     Map input = [
         userLogin: userLogin,
@@ -447,14 +419,11 @@ Map copyQuoteItem() {
  * Create a new Quote and QuoteItem for a given CustRequest.
  */
 Map createQuoteAndQuoteItemForRequest() {
-    if (!security.hasEntityPermission('ORDERMGR', '_CREATE', userLogin)) {
-        return error('OrderErrorUiLabels', 'OrderSecurityErrorToRunCreateQuoteAndQuoteItemForRequest')
-    }
+    require(security.hasEntityPermission('ORDERMGR', '_CREATE', userLogin) as boolean,
+            'OrderErrorUiLabels', 'OrderSecurityErrorToRunCreateQuoteAndQuoteItemForRequest')
     GenericValue custRequest = from('CustRequest').where(parameters).queryOne()
     GenericValue custRequestItem = from('CustRequestItem').where(parameters).queryOne()
-    if (!custRequest) {
-        return error('OrderErrorUiLabels', 'OrderErrorCustRequestWithIdDoesntExist')
-    }
+    require(custRequest as boolean, 'OrderErrorUiLabels', 'OrderErrorCustRequestWithIdDoesntExist')
 
     Map input = [
         userLogin: userLogin,
@@ -494,11 +463,10 @@ Map createQuoteFromCart() {
     Map createQuoteInMap = parameters
     createQuoteInMap.partyId = cart.getPartyId()
 
-    if (createQuoteInMap.partyId
+    require(!(createQuoteInMap.partyId
             && createQuoteInMap.partyId != userLogin.partyId
-            && !security.hasEntityPermission('ORDERMGR', '_CREATE', userLogin)) {
-        return error('OrderErrorUiLabels', 'OrderSecurityErrorToRunCreateQuoteFromCart')
-    }
+            && !security.hasEntityPermission('ORDERMGR', '_CREATE', userLogin)),
+            'OrderErrorUiLabels', 'OrderSecurityErrorToRunCreateQuoteFromCart')
 
     createQuoteInMap.currencyUomId = cart.getCurrency()
     createQuoteInMap.salesChannelEnumId = cart.getChannelType()
@@ -570,13 +538,10 @@ Map createQuoteFromShoppingList() {
  * Auto update a QuoteItem price.
  */
 Map autoUpdateQuotePrice() {
-    if (!security.hasEntityPermission('ORDERMGR', '_UPDATE', userLogin)) {
-        return error('OrderErrorUiLabels', 'OrderSecurityErrorToRunAutoUpdateQuotePrice')
-    }
+    require(security.hasEntityPermission('ORDERMGR', '_UPDATE', userLogin) as boolean,
+            'OrderErrorUiLabels', 'OrderSecurityErrorToRunAutoUpdateQuotePrice')
     GenericValue quoteItem = from('QuoteItem').where(parameters).queryOne()
-    if (!quoteItem) {
-        return error('OrderErrorUiLabels', 'OrderQuoteItemDoesNotExists')
-    }
+    require(quoteItem as boolean, 'OrderErrorUiLabels', 'OrderQuoteItemDoesNotExists')
     if (parameters.manualQuoteUnitPrice) {
         quoteItem.quoteUnitPrice = parameters.manualQuoteUnitPrice
     } else if (parameters.defaultQuoteUnitPrice) {
@@ -590,20 +555,16 @@ Map autoUpdateQuotePrice() {
  * Create a Quote from a CustRequest.
  */
 Map createQuoteFromCustRequest() {
-    if (!security.hasEntityPermission('ORDERMGR', '_CREATE', userLogin)) {
-        return error('OrderErrorUiLabels', 'OrderSecurityErrorToRunCreateQuoteFromCustRequest')
-    }
+    require(security.hasEntityPermission('ORDERMGR', '_CREATE', userLogin) as boolean,
+            'OrderErrorUiLabels', 'OrderSecurityErrorToRunCreateQuoteFromCustRequest')
 
     GenericValue custRequest = from('CustRequest').where('custRequestId', parameters.custRequestId).queryOne()
-    if (!custRequest) {
-        return error('OrderErrorUiLabels', 'OrderErrorCustRequestWithIdDoesntExist',
-                [custRequestId: parameters.custRequestId])
-    }
+    require(custRequest as boolean, 'OrderErrorUiLabels', 'OrderErrorCustRequestWithIdDoesntExist',
+            [custRequestId: parameters.custRequestId])
 
     // Error if request type not equals to RF_QUOTE or RF_PUR_QUOTE
-    if (custRequest.custRequestTypeId != 'RF_QUOTE' && custRequest.custRequestTypeId != 'RF_PUR_QUOTE') {
-        return error('OrderErrorUiLabels', 'OrderQuoteNotARequest')
-    }
+    require(!(custRequest.custRequestTypeId != 'RF_QUOTE' && custRequest.custRequestTypeId != 'RF_PUR_QUOTE'),
+            'OrderErrorUiLabels', 'OrderQuoteNotARequest')
 
     Map createQuoteInMap = [
         partyId: custRequest.fromPartyId,
@@ -656,14 +617,11 @@ Map createQuoteFromCustRequest() {
  * Auto create QuoteAdjustments.
  */
 Map autoCreateQuoteAdjustments() {
-    if (!security.hasEntityPermission('ORDERMGR', '_CREATE', userLogin)) {
-        return error('OrderErrorUiLabels', 'OrderSecurityErrorToRunAutoCreateQuoteAdjustments')
-    }
+    require(security.hasEntityPermission('ORDERMGR', '_CREATE', userLogin) as boolean,
+            'OrderErrorUiLabels', 'OrderSecurityErrorToRunAutoCreateQuoteAdjustments')
     String quoteId = parameters.quoteId
     GenericValue quote = from('Quote').where('quoteId', quoteId).queryOne()
-    if (!quote) {
-        return error('OrderErrorUiLabels', 'OrderQuoteDoesNotExists')
-    }
+    require(quote as boolean, 'OrderErrorUiLabels', 'OrderQuoteDoesNotExists')
 
     // All existing promo quote items are removed.
     quote.getRelated('QuoteItem', [isPromo: 'Y'], null, false)?.each { GenericValue quoteItem ->
@@ -723,9 +681,7 @@ Map createQuoteNote() {
     if (ServiceUtil.isError(serviceResult)) {
         return serviceResult
     }
-    if (!serviceResult.noteId) {
-        return error('OrderErrorUiLabels', 'OrderProblemCreatingTheNoteNoNoteIdReturned')
-    }
+    require(serviceResult.noteId as boolean, 'OrderErrorUiLabels', 'OrderProblemCreatingTheNoteNoNoteIdReturned')
     GenericValue quoteNote = makeValue('QuoteNote')
     quoteNote.quoteId = parameters.quoteId
     quoteNote.noteId = serviceResult.noteId
@@ -737,9 +693,8 @@ Map createQuoteNote() {
  * Create a Quote adjustment
  */
 Map createQuoteAdjustment() {
-    if (!security.hasEntityPermission('ORDERMGR', '_CREATE', userLogin)) {
-        return error('OrderErrorUiLabels', 'OrderSecurityErrorToRunCreateQuoteAdjustment')
-    }
+    require(security.hasEntityPermission('ORDERMGR', '_CREATE', userLogin) as boolean,
+            'OrderErrorUiLabels', 'OrderSecurityErrorToRunCreateQuoteAdjustment')
     GenericValue quoteAdjustment = makeValue('QuoteAdjustment', parameters)
     quoteAdjustment.quoteAdjustmentId = delegator.getNextSeqId('QuoteAdjustment')
     quoteAdjustment.createdByUserLogin = userLogin.userLoginId
