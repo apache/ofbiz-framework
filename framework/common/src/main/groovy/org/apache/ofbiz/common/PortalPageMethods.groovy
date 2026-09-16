@@ -45,7 +45,7 @@ String setPortalPortletAttributes() {
                                                    portletSeqId: parameters.portletSeqId])
         List skipField = ['portalPageId', 'portalPortletId', 'portletSeqId']
         parameters.each {
-            if (skipField.contains(it.key)) {
+            if (skipField.contains(it.key) || !it.value) {
                 return
             }
             GenericValue porletAttr = from('PortletAttribute')
