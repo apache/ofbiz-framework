@@ -72,10 +72,10 @@ Map getLastSystemInfoNote() {
             .queryList()
     if (systemInfoNotes) {
         result.lastSystemInfoNote1 = systemInfoNotes[0]
-        if (systemInfoNotes.size() == 2) {
+        if (systemInfoNotes.size() > 2) {
             result.lastSystemInfoNote2 = systemInfoNotes[1]
-        } else if (systemInfoNotes.size() > 2) {
-            result.lastSystemInfoNote2 = systemInfoNotes[1]
+        }
+        if (systemInfoNotes.size() > 3) {
             result.lastSystemInfoNote3 = systemInfoNotes[2]
         }
     }
