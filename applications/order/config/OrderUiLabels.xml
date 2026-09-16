@@ -15187,6 +15187,9 @@
         <value xml:lang="zh-CN">查看订单历史</value>
         <value xml:lang="zh-TW">檢視訂單歷史</value>
     </property>
+    <property key="OrderViewOrdersPdf">
+        <value xml:lang="en">View PDF</value>
+    </property>
     <property key="OrderViewPermissionError">
         <value xml:lang="ar">ليس لديك صلاحية مشاهدة هذه الصفحة (تحتاج إلى "ORDERMGR_VIEW" أو "ORDERMGR_PURCHASE_VIEW" أو "ORDERMGR_ADMIN").</value>
         <value xml:lang="de">Sie haben keine Leseberechtigung für diese Seite ("ORDERMGR_VIEW", "ORDERMGR_PURCHASE_VIEW" oder "ORDERMGR_ADMIN" benötigt).</value>
