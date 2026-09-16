@@ -173,9 +173,7 @@ Map accAndDecPartyInvitationPermissionCheck() {
                 result.hasPermission = hasPermission
             }
         } else {
-            if (!partyInvitation?.emailAddress) {
-                return error('PartyUiLabels', 'PartyInvitationNotValidError')
-            }
+            require(partyInvitation?.emailAddress as boolean, 'PartyUiLabels', 'PartyInvitationNotValidError')
             Map serviceResult = run service: 'findPartyFromEmailAddress', with: [address: partyInvitation.emailAddress]
             String partyId = serviceResult.partyId
             if (partyId && partyId == userLogin.partyId) {
@@ -223,7 +221,7 @@ Map cancelPartyInvitationPermissionCheck() {
                 if (!partyInvitation?.emailAddress) {
                     String errorMessage = label('PartyUiLabels', 'PartyInvitationNotValidError')
                     logError(errorMessage)
-                    return error(errorMessage)
+                    fail(errorMessage)
                 }
                 Map findPartyCtx = [address: partyInvitation.emailAddress]
                 Map serviceResult = run service: 'findPartyFromEmailAddress', with: findPartyCtx

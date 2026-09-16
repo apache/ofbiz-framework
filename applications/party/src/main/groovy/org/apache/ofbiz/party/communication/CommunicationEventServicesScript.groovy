@@ -522,7 +522,7 @@ Map setCommunicationEventStatus() {
                     .queryOne()
             if (!statusChange) {
                 logError("Cannot change from ${oldStatusId} to ${parameters.statusId}")
-                return error(label('PartyErrorUiLabels', 'commeventservices.communication_event_status',
+                fail(label('PartyErrorUiLabels', 'commeventservices.communication_event_status',
                         [parameters: parameters, communicationEvent: communicationEvent]))
             }
         }
@@ -610,7 +610,7 @@ Map setCommunicationEventRoleStatus() {
                     .queryOne()
             if (!statusChange) {
                 logError("Cannot change from ${oldStatusId} to ${parameters.statusId}")
-                return error(label('PartyErrorUiLabels', 'commeventservices.communication_event_role_status',
+                fail(label('PartyErrorUiLabels', 'commeventservices.communication_event_role_status',
                         [parameters: parameters, communicationEventRole: communicationEventRole]))
             }
         }
