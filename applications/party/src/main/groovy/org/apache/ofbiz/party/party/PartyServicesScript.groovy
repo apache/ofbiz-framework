@@ -76,6 +76,7 @@ Map getPartyNameForDate() {
 
     GenericValue person = from('Person').where(parameters).queryOne()
     GenericValue partyGroup = from('PartyGroup').where(parameters).queryOne()
+    String gender = person?.gender
 
     parameters.compareDate = parameters.compareDate ?: UtilDateTime.nowTimestamp()
 
@@ -109,8 +110,8 @@ Map getPartyNameForDate() {
         if (person.suffix) {
             resultMap.suffix = person.suffix
         }
-        if (!partyNameHistoryCurrent && person.gender) {
-            resultMap.gender = person.gender
+        if (gender) {
+            resultMap.gender = gender
         }
 
         resultMap.fullName = PartyHelper.getPartyName(person, parameters.lastNameFirst == 'Y')
@@ -193,7 +194,8 @@ Map getPartiesByRelationship() {
     Map resultMap = success()
 
     GenericValue lookupMap = makeValue('PartyRelationship')
-    lookupMap.setAllFields(parameters, false, null, null)
+    lookupMap.setAllFields(parameters.subMap(['partyIdFrom', 'partyIdTo', 'roleTypeIdFrom', 'roleTypeIdTo',
+                                              'statusId', 'priorityTypeId', 'partyRelationshipTypeId']), false, null, null)
     List<String> partyIdTos = from('PartyRelationship')
         .where(lookupMap)
         .getFieldList('partyIdTo')
@@ -248,7 +250,7 @@ Map getChildRoleTypes () {
 
     Map res = getChildRoleTypesInline([parameters.roleTypeId])
 
-    resultMap.childRoleTypeIdList = res.childRoleTypeIdList
+    resultMap.childRoleTypeIdList = [parameters.roleTypeId] + (res.childRoleTypeIdList ?: [])
     return resultMap
 }
 
@@ -907,7 +909,7 @@ Map followPartyRelationshipsInlineRecurse (List relatedPartyIdList, List roleTyp
                         .cache(useCache == 'Y')
                         .queryList()
                 partyRelationshipList.findAll { partyRel ->
-                    !relatedPartyIdList.contains(partyRel.partyFrom) && !newRelatedPartyIdList.contains(partyRel.partyIdFrom) }.each {
+                    !relatedPartyIdList.contains(partyRel.partyIdFrom) && !newRelatedPartyIdList.contains(partyRel.partyIdFrom) }.each {
                     newRelatedPartyIdList << it.partyIdFrom
                 }
             }
