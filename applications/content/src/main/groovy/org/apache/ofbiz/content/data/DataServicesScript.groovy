@@ -292,11 +292,14 @@ Map saveExtFileDataResource(boolean isUpdate, String mode) {
     if (!parameters._uploadedFile_fileName) {
         if (isUpdate) {
             // upload is found on an update; its okay, don't do anything just return
-            result.dataResourceId = dataResource.dataResourceId
-            result.mimeTypeId = dataResource.mimeTypeId
+            result.dataResourceId = dataResource?.dataResourceId
+            result.mimeTypeId = dataResource?.mimeTypeId
             return result
         }
         errorList.add(UtilProperties.getMessage('ContentUiLabels', 'ContentNoUploadedContentFound', parameters.locale))
+    }
+    if (errorList) {
+        return ServiceUtil.returnError(errorList)
     }
     // update the data resource with file data
     dataResource.dataResourceTypeId = parameters.dataResourceTypeId
