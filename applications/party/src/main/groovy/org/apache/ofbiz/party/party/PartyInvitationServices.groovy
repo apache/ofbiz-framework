@@ -38,10 +38,14 @@ Map createPartyInvitation() {
 }
 
 Map updatePartyInvitation() {
-    GenericValue lookedUpValue = makeValue('PartyInvitation', parameters)
-    if (! parameters.toName && parameters.partyId) {
-        lookedUpValue.toName = PartyHelper.getPartyName(delegator, parameters.partyId, false)
+    GenericValue lookedUpValue = from('PartyInvitation').where(parameters).queryOne()
+    if (!lookedUpValue) {
+        return error('PartyUiLabels', 'PartyInvitationNotValidError')
     }
+    if (! parameters.toName && parameters.partyId) {
+        parameters.toName = PartyHelper.getPartyName(delegator, parameters.partyId, false)
+    }
+    lookedUpValue.setNonPKFields(parameters)
     lookedUpValue.store()
     return success()
 }
