@@ -114,9 +114,9 @@ Map deletePortalPagePortlet() {
     }
     GenericValue portalPagePortlet = from('PortalPagePortlet').where(parameters).queryOne()
     if (portalPagePortlet) {
-        delegator.removeByAnd('PortletAttribute', [portalPageId: portalPagePortlet.portalPageId,
-                                                   portalPortletId: portalPagePortlet.portalPortletId,
-                                                   portletSeqId: portalPagePortlet.portletSeqId])
+        delete('PortletAttribute').where([portalPageId: portalPagePortlet.portalPageId,
+                                          portalPortletId: portalPagePortlet.portalPortletId,
+                                          portletSeqId: portalPagePortlet.portletSeqId])
         portalPagePortlet.remove()
     }
     return success()

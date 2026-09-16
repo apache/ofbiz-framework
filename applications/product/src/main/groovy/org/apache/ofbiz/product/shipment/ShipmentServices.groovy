@@ -101,7 +101,7 @@ Map createShipmentForReturn() {
         shipmentCtx.shipmentTypeId = 'PURCHASE_RETURN'
         shipmentCtx.statusId = 'SHIPMENT_INPUT'
     } else {
-        String errorMessage = UtilProperties.getMessage('ProductUiLabels', 'FacilityReturnHeaderTypeNotSupported', locale)
+        String errorMessage = label('ProductUiLabels', 'FacilityReturnHeaderTypeNotSupported')
         logError(errorMessage)
         return error(errorMessage)
     }
@@ -599,9 +599,7 @@ Map createShipmentPackage() {
  * Update ShipmentPackage
  */
 Map updateShipmentPackage() {
-    GenericValue lookedUpValue = from('ShipmentPackage').where(parameters).queryOne()
-    lookedUpValue.setNonPKFields(parameters)
-    lookedUpValue.store()
+    GenericValue lookedUpValue = update('ShipmentPackage').where(parameters).set(parameters)
     ensurePackageRouteSeg(lookedUpValue.shipmentId, lookedUpValue.shipmentPackageSeqId)
     return success()
 }
@@ -617,8 +615,7 @@ Map deleteShipmentPackage() {
                     shipmentPackageSeqId: parameters.shipmentPackageSeqId)
             .queryList()
     if (shipmentPackageContents) {
-        String errorMessage = UtilProperties.getMessage('ProductErrorUiLabels',
-                'ProductErrorShipmentPackageCannotBeDeleted', locale)
+        String errorMessage = label('ProductErrorUiLabels', 'ProductErrorShipmentPackageCannotBeDeleted')
         return error(errorMessage)
     }
     GenericValue lookedUpValue = from('ShipmentPackage').where(parameters).queryOne()
@@ -765,19 +762,19 @@ Map quickShipEntireOrder() {
     GenericValue orderHeader = from('OrderHeader').where(parameters).queryOne()
     if (!orderHeader || !orderHeader.productStoreId) {
         // no store cannot use quick ship; throw error
-        return error(UtilProperties.getMessage('ProductUiLabels', 'FacilityShipmentMissingProductStore', locale))
+        return error('ProductUiLabels', 'FacilityShipmentMissingProductStore')
     }
     // get the product store entity
     GenericValue productStore = from('ProductStore').where(productStoreId: orderHeader.productStoreId).queryOne()
     if ('Y' != productStore?.reserveInventory) {
         // no reservations; no shipment; cannot use quick ship
-        return error(UtilProperties.getMessage('ProductUiLabels',
-                'FacilityShipmentNotCreatedForNotReserveInventory', [productStore: productStore], locale))
+        return error('ProductUiLabels',
+                'FacilityShipmentNotCreatedForNotReserveInventory', [productStore: productStore])
     }
     if (productStore.explodeOrderItems == 'Y') {
         // can't insert duplicate rows in shipmentPackageContent
-        return error(UtilProperties.getMessage('ProductUiLabels',
-                'FacilityShipmentNotCreatedForExplodesOrderItems', [productStore: productStore], locale))
+        return error('ProductUiLabels',
+                'FacilityShipmentNotCreatedForExplodesOrderItems', [productStore: productStore])
     }
     // locate shipping facilities associated with order item rez's
     List orderItemShipGrpInvResFacilityIds = from('OrderItemAndShipGrpInvResAndItem')
@@ -803,7 +800,7 @@ Map quickShipEntireOrder() {
     result.shipmentShipGroupFacilityList = shipmentShipGroupFacilityList
     result.successMessageList = successMessageList
     if (!shipmentShipGroupFacilityList) {
-        String errorMessage = UtilProperties.getMessage('ProductUiLabels', 'FacilityShipmentNotCreated', locale)
+        String errorMessage = label('ProductUiLabels', 'FacilityShipmentNotCreated')
         return error(errorMessage)
     }
     return result
@@ -816,8 +813,7 @@ Map quickDropShipOrder() {
     Map result = success()
     GenericValue orderHeader = from('OrderHeader').where(parameters).queryOne()
     if (orderHeader?.statusId == 'ORDER_CREATED') {
-        String errorMessage = UtilProperties.getMessage('OrderErrorUiLabels',
-                'OrderApproveOrderBeforeQuickDropShip', locale)
+        String errorMessage = label('OrderErrorUiLabels', 'OrderApproveOrderBeforeQuickDropShip')
         return error(errorMessage)
     }
     Map serviceResultCS = run service: 'createShipment', with: [primaryOrderId: parameters.orderId,
@@ -905,7 +901,7 @@ Map getOrderItemShipGroupLists(GenericValue orderHeader) {
             .queryList()
     // make sure we have something to ship
     if (!orderItemAndShipGroupAssocList) {
-        String errorMessage = UtilProperties.getMessage('ProductUiLabels', 'FacilityNoItemsAvailableToShip', locale)
+        String errorMessage = label('ProductUiLabels', 'FacilityNoItemsAvailableToShip')
         logError(errorMessage)
         return error(errorMessage)
     }
@@ -1065,7 +1061,7 @@ Map createOrderShipmentPlan () {
     GenericValue orderHeader = from('OrderHeader').where(parameters).queryOne()
     if (!orderHeader?.productStoreId) {
         // no store cannot use quick ship; throw error
-        String errorMessage = UtilProperties.getMessage('ProductUiLabels', 'FacilityNoQuickShip', locale)
+        String errorMessage = label('ProductUiLabels', 'FacilityNoQuickShip')
         logError(errorMessage)
         return error(errorMessage)
     }
@@ -1199,7 +1195,7 @@ Map quickShipOrderByItem() {
     if (!parameters.originFacilityId) {
         if (!orderHeader?.productStoreId) {
             // no store cannot use quick ship; throw error
-            String errorMessage = UtilProperties.getMessage('ProductUiLabels', 'FacilityNoQuickShip', locale)
+            String errorMessage = label('ProductUiLabels', 'FacilityNoQuickShip')
             logError(errorMessage)
             return error(errorMessage)
         }
@@ -1210,28 +1206,25 @@ Map quickShipOrderByItem() {
                 .queryOne()
         if (productStore.reserveInventory != 'Y') {
             // no reservations; no shipment; cannot use quick ship
-            String errorMessage = UtilProperties.getMessage('ProductUiLabels',
-                    'FacilityNoQuickShipForNotReserveInventory', locale)
+            String errorMessage = label('ProductUiLabels', 'FacilityNoQuickShipForNotReserveInventory')
             logError(errorMessage)
             return error(errorMessage)
         }
         if (productStore.oneInventoryFacility != 'Y') {
             // if we allow multiple facilities we cannot use quick ship; throw error
-            String errorMessage = UtilProperties.getMessage('ProductUiLabels',
-                    'FacilityNoQuickShipForMultipleFacilities', locale)
+            String errorMessage = label('ProductUiLabels', 'FacilityNoQuickShipForMultipleFacilities')
             logError(errorMessage)
             return error(errorMessage)
         }
         if (!productStore.inventoryFacilityId) {
-            String errorMessage = UtilProperties.getMessage('ProductUiLabels',
-                    'FacilityNoQuickShipForNotInventoryFacility', locale)
+            String errorMessage = label('ProductUiLabels', 'FacilityNoQuickShipForNotInventoryFacility')
             logError(errorMessage)
             return error(errorMessage)
         }
     }
     // make sure we have items to issue
     if (!parameters.itemShipList) {
-        String errorMessage = UtilProperties.getMessage('ProductUiLabels', 'FacilityNoItemsAvailableToShip', locale)
+        String errorMessage = label('ProductUiLabels', 'FacilityNoItemsAvailableToShip')
         logError(errorMessage)
         return error(errorMessage)
     }

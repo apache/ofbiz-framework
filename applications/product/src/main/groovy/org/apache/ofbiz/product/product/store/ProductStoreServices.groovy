@@ -36,18 +36,18 @@ import org.apache.ofbiz.service.ServiceUtil
 Map createProductStore() {
     Map result = success()
     if (!security.hasEntityPermission('CATALOG', '_CREATE', parameters.userLogin)) {
-        return error(UtilProperties.getMessage('ProductUiLabels', 'ProductCatalogCreatePermissionError', parameters.locale))
+        return error('ProductUiLabels', 'ProductCatalogCreatePermissionError')
     }
     if (parameters.oneInventoryFacility == 'Y'
             && !parameters.inventoryFacilityId) {
-        return error(UtilProperties.getMessage('ProductUiLabels', 'InventoryFacilityIdRequired', parameters.locale))
+        return error('ProductUiLabels', 'InventoryFacilityIdRequired')
     }
     if (parameters.showPricesWithVatTax == 'Y') {
         if (!parameters.vatTaxAuthGeoId) {
-            return error(UtilProperties.getMessage('ProductUiLabels', 'ProductVatTaxAuthGeoNotSet', parameters.locale))
+            return error('ProductUiLabels', 'ProductVatTaxAuthGeoNotSet')
         }
         if (!parameters.vatTaxAuthPartyId) {
-            return error(UtilProperties.getMessage('ProductUiLabels', 'ProductVatTaxAuthPartyNotSet', parameters.locale))
+            return error('ProductUiLabels', 'ProductVatTaxAuthPartyNotSet')
         }
     }
     GenericValue newEntity = makeValue('ProductStore')
@@ -73,10 +73,10 @@ Map createProductStore() {
  */
 Map updateProductStore() {
     if (!security.hasEntityPermission('CATALOG', '_UPDATE', parameters.userLogin)) {
-        return error(UtilProperties.getMessage('ProductUiLabels', 'ProductCatalogUpdatePermissionError', parameters.locale))
+        return error('ProductUiLabels', 'ProductCatalogUpdatePermissionError')
     }
     if (parameters.oneInventoryFacility == 'Y' && !parameters.inventoryFacilityId) {
-        return error(UtilProperties.getMessage('ProductUiLabels', 'InventoryFacilityIdRequired', parameters.locale))
+        return error('ProductUiLabels', 'InventoryFacilityIdRequired')
     }
     GenericValue store = from('ProductStore').where(productStoreId: parameters.productStoreId).queryOne()
     String oldFacilityId = store.inventoryFacilityId
@@ -86,10 +86,10 @@ Map updateProductStore() {
     store.visualThemeId = parameters.ecomThemeId
     if (store.showPricesWithVatTax == 'Y') {
         if (!store.vatTaxAuthGeoId) {
-            return error(UtilProperties.getMessage('ProductUiLabels', 'ProductVatTaxAuthGeoNotSet', parameters.locale))
+            return error('ProductUiLabels', 'ProductVatTaxAuthGeoNotSet')
         }
         if (!store.vatTaxAuthPartyId) {
-            return error(UtilProperties.getMessage('ProductUiLabels', 'ProductVatTaxAuthPartyNotSet', parameters.locale))
+            return error('ProductUiLabels', 'ProductVatTaxAuthPartyNotSet')
         }
     }
     store.store()
@@ -131,7 +131,7 @@ Map reserveStoreInventory() {
 
     GenericValue productStore = from('ProductStore').where(parameters).cache().queryOne()
     if (!productStore) {
-        return error(UtilProperties.getMessage('ProductUiLabels', 'ProductProductStoreNotFound', parameters.locale))
+        return error('ProductUiLabels', 'ProductProductStoreNotFound')
     }
 
     GenericValue product = from('Product').where(parameters).cache().queryOne()
@@ -157,7 +157,7 @@ Map reserveStoreInventory() {
             logInfo('ProductStoreService:Facility Found : [' + facilityFound + ']')
         }
         if (!facilityFound) {
-            return  error(UtilProperties.getMessage('ProductUiLabels', 'FacilityNoAssociatedWithProcuctStore', parameters.locale))
+            return  error('ProductUiLabels', 'FacilityNoAssociatedWithProcuctStore')
         }
         Map serviceResult = run service: 'reserveProductInventoryByFacility', with: [*: parameters,
                                                                                      facilityId: facilityId,
@@ -177,7 +177,7 @@ Map reserveStoreInventory() {
     } else {
         if (productStore.oneInventoryFacility == 'Y') {
             if (!productStore.inventoryFacilityId) {
-                return error(UtilProperties.getMessage('ProductUiLabels', 'ProductProductStoreNoSpecifiedInventoryFacility', parameters.locale))
+                return error('ProductUiLabels', 'ProductProductStoreNoSpecifiedInventoryFacility')
             }
             Map serviceResult = run service: 'reserveProductInventoryByFacility', with: [*: parameters,
                                                                                          facilityId: productStore.inventoryFacilityId,
@@ -288,7 +288,7 @@ Map isStoreInventoryAvailable() {
     }
     if (productStore.oneInventoryFacility == 'Y') {
         if (!productStore.inventoryFacilityId) {
-            return error(UtilProperties.getMessage('ProductUiLabels', 'ProductProductStoreNotCheckAvailability', parameters.locale))
+            return error('ProductUiLabels', 'ProductProductStoreNotCheckAvailability')
         }
         boolean isMarketingPkg = EntityTypeUtil.hasParentType(delegator, 'ProductType', 'productTypeId',
                 product.productTypeId, 'parentTypeId', 'MARKETING_PKG')
@@ -398,7 +398,7 @@ Map checkProductStoreRelatedPermission(Map inputParameter) {
     (security.hasEntityPermission('CATALOG_ROLE', ('_' + checkAction), userLogin) && roleStores))) {
         logVerbose('Permission check failed, user does not have permission')
         String checkActionLabel = 'ProductCatalog' + checkAction.charAt(0) + checkAction.substring(1).toLowerCase() + 'PermissionError'
-        return error(UtilProperties.getMessage('ProductUiLabels', checkActionLabel, locale))
+        return error('ProductUiLabels', checkActionLabel)
     }
     return success()
 }
@@ -409,7 +409,7 @@ Map checkProductStoreRelatedPermission(Map inputParameter) {
 Map productStoreGenericPermission() {
     Map result = success()
     if (!parameters.mainAction) {
-        String errorMessage = UtilProperties.getMessage('ProductUiLabels', 'ProductMissingMainActionInPermissionService', parameters.locale)
+        String errorMessage = label('ProductUiLabels', 'ProductMissingMainActionInPermissionService')
         logError(errorMessage)
         return error(errorMessage)
     }

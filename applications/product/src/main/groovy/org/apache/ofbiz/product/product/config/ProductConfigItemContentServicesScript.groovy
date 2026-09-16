@@ -48,9 +48,7 @@ Map updateProductConfigItemContent() {
     GenericValue pkParameters = makeValue('ProdConfItemContent')
     pkParameters.setPKFields(parameters)
 
-    GenericValue lookedUpValue = from('ProdConfItemContent').where(pkParameters).queryOne()
-    lookedUpValue.setNonPKFields(parameters)
-    lookedUpValue.store()
+    update('ProdConfItemContent').where(pkParameters).set(parameters)
 
     run service: 'updateContent', with: parameters
 

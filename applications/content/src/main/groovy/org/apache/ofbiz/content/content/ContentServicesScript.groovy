@@ -19,7 +19,6 @@
 package org.apache.ofbiz.content.content
 
 import org.apache.ofbiz.base.util.UtilDateTime
-import org.apache.ofbiz.base.util.UtilProperties
 import org.apache.ofbiz.common.UrlServletHelper
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.condition.EntityCondition
@@ -69,7 +68,7 @@ Map findAssocContent() {
 }
 
 Map updateSingleContentPurpose() {
-    delegator.removeByAnd('ContentPurpose', [contentId: parameters.contentId])
+    delete('ContentPurpose').where([contentId: parameters.contentId])
     run service: 'createContentPurpose', with: parameters
 }
 
@@ -447,8 +446,8 @@ Map getContentAndDataResource() {
 Map createContentFromDataResource() {
     GenericValue dataResource = from('DataResource').where(parameters).queryOne()
     if (!dataResource) {
-        return error(UtilProperties.getMessage('ContentUiLabels', 'ContentDataResourceNotFound',
-                [dataResourceId: parameters.dataResourceId], parameters.locale))
+        return error('ContentUiLabels', 'ContentDataResourceNotFound',
+                [dataResourceId: parameters.dataResourceId])
     }
     parameters.contentName = parameters.contentName ?: dataResource.dataResourceName
     parameters.contentTypeId = parameters.contentTypeId ?: 'DOCUMENT'

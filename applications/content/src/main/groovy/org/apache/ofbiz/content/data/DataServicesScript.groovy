@@ -75,7 +75,7 @@ Map createDataResource() {
 Map createDataResourceAndAssocToContent() {
     GenericValue content = from('Content').where(parameters).queryOne()
     if (!content) {
-        return error(UtilProperties.getMessage('ContentErrorUiLabels', 'layoutEvents.content_empty', parameters.locale))
+        return error('ContentErrorUiLabels', 'layoutEvents.content_empty')
     }
 
     Map serviceResult = run service: 'createDataResource', with: parameters
@@ -119,16 +119,16 @@ Map getElectronicText() {
             currentContent = from('Content').where(parameters).queryOne()
         }
         if (!currentContent) {
-            return error(UtilProperties.getMessage('ContentUiLabels', 'ContentNeitherContentSupplied', parameters.locale))
+            return error('ContentUiLabels', 'ContentNeitherContentSupplied')
         }
     }
     if (!currentContent.dataResourceId) {
-        return error(UtilProperties.getMessage('ContentUiLabels', 'ContentDataResourceNotFound', parameters.locale))
+        return error('ContentUiLabels', 'ContentDataResourceNotFound')
     }
     result.dataResourceId = currentContent.dataResourceId
     GenericValue eText = from('ElectronicText').where('dataResourceId', currentContent.dataResourceId).queryOne()
     if (!eText) {
-        return error(UtilProperties.getMessage('ContentUiLabels', 'ContentElectronicTextNotFound', parameters.locale))
+        return error('ContentUiLabels', 'ContentElectronicTextNotFound')
     }
     result.textData = eText.textData
     return result
@@ -371,5 +371,5 @@ Map prepareServiceContext(GenericValue dataResource, String mode) {
             serviceContext.dataResourceContent = parameters.uploadedFile
             return serviceContext
     }
-    return error(UtilProperties.getMessage('ContentUiLabels', 'ContentDataTypeNotYetSupported', parameters.locale))
+    return error('ContentUiLabels', 'ContentDataTypeNotYetSupported')
 }

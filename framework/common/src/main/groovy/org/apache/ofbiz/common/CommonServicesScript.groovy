@@ -97,7 +97,7 @@ Map convertUom() {
 
     if (!uomConversion) {
         // if still no uom conversion entity, then no conversion is possible
-        return error(UtilProperties.getMessage('CommonUiLabels', 'CommonNoUomConversionFound', parameters.locale))
+        return error('CommonUiLabels', 'CommonNoUomConversionFound')
     }
     logVerbose("using conversion factor=${uomConversion.conversionFactor}")
     // Do custom conversion, if we have customMethodId
@@ -153,7 +153,7 @@ Map convertUomCustom() {
     String customMethodId = uomConversion.customMethodId
     GenericValue customMethod = from('CustomMethod').where(customMethodId: customMethodId).cache().queryOne()
     if (!customMethod?.customMethodName) {
-        return error(UtilProperties.getMessage('CommonUiLabels', 'CommonNoCustomMethodName', parameters.locale))
+        return error('CommonUiLabels', 'CommonNoCustomMethodName')
     }
     logVerbose('calling custom method' + customMethod.customMethodName)
     Map serviceResult = run service: customMethod.customMethodName, with: [arguments: parameters]
@@ -200,7 +200,7 @@ Map getVisualThemeResources() {
             .queryList()
     }
     if (!resourceList) {
-        return error(UtilProperties.getMessage('CommonUiLabels', 'CommonVisualThemeResourcesNotFound', parameters.locale))
+        return error('CommonUiLabels', 'CommonVisualThemeResourcesNotFound')
     }
     for (GenericValue resourceRecord : resourceList) {
         String resourceTypeEnumId = resourceRecord.resourceTypeEnumId
@@ -354,6 +354,6 @@ Map deleteKeywordThesaurus() {
     if (parameters.alternateKeyword) {
         newEntity.alternateKeyword = parameters.alternateKeyword
     }
-    delegator.removeByAnd('KeywordThesaurus', newEntity)
+    delete('KeywordThesaurus').where(newEntity)
     return success()
 }

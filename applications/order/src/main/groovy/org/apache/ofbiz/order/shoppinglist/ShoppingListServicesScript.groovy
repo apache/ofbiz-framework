@@ -102,7 +102,7 @@ Map createShoppingListItem() {
     GenericValue shoppingList = from('ShoppingList').where(parameters).queryOne()
     GenericValue product = from('Product').where(parameters).queryOne()
     if (!product) {
-        return error(UtilProperties.getMessage('ProductUiLabels', 'ProductErrorProductNotFound', parameters.locale))
+        return error('ProductUiLabels', 'ProductErrorProductNotFound')
     }
     GenericValue newEntity = makeValue('ShoppingListItem')
     newEntity.setNonPKFields(parameters)
@@ -121,9 +121,7 @@ Map createShoppingListItem() {
  */
 Map updateShoppingListItem() {
     GenericValue shoppingList = from('ShoppingList').where(parameters).queryOne()
-    GenericValue shoppingListItem = from('ShoppingListItem').where(parameters).queryOne()
-    shoppingListItem.setNonPKFields(parameters)
-    shoppingListItem.store()
+    update('ShoppingListItem').where(parameters).set(parameters)
 
     updateLastAdminModified(shoppingList, userLogin)
     return success()
@@ -173,7 +171,7 @@ Map calculateShoppingListDeepTotalPrice() {
         return error(serviceResult.errorMessage)
     }
     if (!serviceResult.hasPermission) {
-        return error(UtilProperties.getMessage('OrderErrorUiLabels', 'OrderSecurityErrorToRunForAnotherParty', parameters.locale))
+        return error('OrderErrorUiLabels', 'OrderSecurityErrorToRunForAnotherParty')
     }
     Map calcPriceInBaseMap = [prodCatalogId: parameters.prodCatalogId, webSiteId: parameters.webSiteId]
     ['partyId', 'productStoreId', 'productStoreGroupId', 'currencyUomId', 'autoUserLogin'].each {
@@ -228,7 +226,7 @@ Map checkShoppingListSecurity() {
     if (userLogin && (userLogin.userLoginId != 'anonymous') &&
             parameters.partyId && (userLogin.partyId != parameters.partyId)
             && !security.hasEntityPermission('PARTYMGR', "_${parameters.permissionAction}", parameters.userLogin)) {
-        return error(UtilProperties.getMessage('OrderErrorUiLabels', 'OrderSecurityErrorToRunForAnotherParty', parameters.locale))
+        return error('OrderErrorUiLabels', 'OrderSecurityErrorToRunForAnotherParty')
     }
 
     Map result = success()
@@ -243,11 +241,10 @@ Map checkShoppingListItemSecurity() {
     GenericValue shoppingList = from('ShoppingList').where(parameters).queryOne()
     if (shoppingList?.partyId && userLogin.partyId != shoppingList.partyId &&
             !security.hasEntityPermission('PARTYMGR', "_${parameters.permissionAction}", parameters.userLogin)) {
-        return error(UtilProperties.getMessage('OrderErrorUiLabels',
+        return error('OrderErrorUiLabels',
                 'OrderSecurityErrorToRunForAnotherParty',
                 [parentMethodName: parameters.parentMethodName,
-                 permissionAction: parameters.permissionAction],
-                parameters.locale))
+                 permissionAction: parameters.permissionAction])
     }
 
     Map result = success()

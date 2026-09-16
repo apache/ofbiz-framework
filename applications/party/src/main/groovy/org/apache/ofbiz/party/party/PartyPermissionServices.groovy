@@ -174,8 +174,7 @@ Map accAndDecPartyInvitationPermissionCheck() {
             }
         } else {
             if (!partyInvitation?.emailAddress) {
-                return error(UtilProperties.getMessage('PartyUiLabels',
-                        'PartyInvitationNotValidError', parameters.locale))
+                return error('PartyUiLabels', 'PartyInvitationNotValidError')
             }
             Map serviceResult = run service: 'findPartyFromEmailAddress', with: [address: partyInvitation.emailAddress]
             String partyId = serviceResult.partyId
@@ -183,8 +182,7 @@ Map accAndDecPartyInvitationPermissionCheck() {
                 hasPermission = true
                 result.hasPermission = hasPermission
             } else {
-                return error(UtilProperties.getMessage('PartyUiLabels',
-                        'PartyInvitationNotValidError', parameters.locale))
+                return error('PartyUiLabels', 'PartyInvitationNotValidError')
             }
         }
     }
@@ -223,7 +221,7 @@ Map cancelPartyInvitationPermissionCheck() {
                 }
             } else {
                 if (!partyInvitation?.emailAddress) {
-                    String errorMessage = UtilProperties.getMessage('PartyUiLabels', 'PartyInvitationNotValidError', parameters.locale)
+                    String errorMessage = label('PartyUiLabels', 'PartyInvitationNotValidError')
                     logError(errorMessage)
                     return error(errorMessage)
                 }
@@ -236,7 +234,7 @@ Map cancelPartyInvitationPermissionCheck() {
                         result.hasPermission = hasPermission
                     }
                 } else {
-                    String errorMessage = UtilProperties.getMessage('PartyUiLabels', 'PartyInvitationNotValidError', parameters.locale)
+                    String errorMessage = label('PartyUiLabels', 'PartyInvitationNotValidError')
                     logError(errorMessage)
                     return error(errorMessage)
                 }

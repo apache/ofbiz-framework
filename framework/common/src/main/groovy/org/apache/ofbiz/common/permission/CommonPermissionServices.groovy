@@ -25,13 +25,13 @@ Map genericBasePermissionCheck() {
     // allow mainAction to be set from outside methods or direct to the service
     String mainAction = parameters.mainAction
     if (!mainAction) {
-        return error(UtilProperties.getMessage('CommonUiLabels', 'CommonPermissionMainActionAttributeMissing', parameters.locale))
+        return error('CommonUiLabels', 'CommonPermissionMainActionAttributeMissing')
     }
 
     // allow primary permission to be set from outside methods or direct to the service
     String primaryPermission = parameters.primaryPermission
     if (!primaryPermission) {
-        return error(UtilProperties.getMessage('CommonUiLabels', 'CommonPermissionPrimaryPermissionMissing', parameters.locale))
+        return error('CommonUiLabels', 'CommonPermissionPrimaryPermissionMissing')
     }
     logVerbose("Checking for primary permission ${primaryPermission}_${mainAction}")
 
@@ -74,7 +74,7 @@ Map getAllCrudPermissions() {
     result.hasViewPermission = false
     String primaryPermission = parameters.primaryPermission
     if (!primaryPermission) {
-        return error(UtilProperties.getMessage('CommonUiLabels', 'CommonPermissionPrimaryPermissionMissing', parameters.locale))
+        return error('CommonUiLabels', 'CommonPermissionPrimaryPermissionMissing')
     }
     logInfo("Getting all CRUD permissions for ${primaryPermission}")
     result = hasCrudPermission(primaryPermission, result)

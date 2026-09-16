@@ -33,7 +33,7 @@ Map createLead() {
     Map serviceResult
     // Check if Person or PartyGroup name is supplied
     if ((!parameters.firstName || !parameters.lastName) && !parameters.groupName) {
-        return error(UtilProperties.getMessage('MarketingUiLabels', 'SfaFirstNameLastNameAndCompanyNameMissingError', locale))
+        return error('MarketingUiLabels', 'SfaFirstNameLastNameAndCompanyNameMissingError')
     }
     run service: 'ensurePartyRole', with: [partyId: userLogin.partyId, roleTypeId: 'OWNER']
     // PartyRole check end

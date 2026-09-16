@@ -18,7 +18,6 @@
 */
 package org.apache.ofbiz.content.permission
 
-import org.apache.ofbiz.base.util.UtilProperties
 import org.apache.ofbiz.entity.GenericValue
 
 /**
@@ -129,7 +128,7 @@ Map viewContentPermission(Boolean hasPermission, String contentId, String conten
         // contentId is required for update checking
         contentId = contentId ?: parameters.contentId
         if (!contentId) {
-            return error(UtilProperties.getMessage('ContentUiLabels', 'ContentViewPermissionError'))
+            return error('ContentUiLabels', 'ContentViewPermissionError')
         }
 
         //check the operation security

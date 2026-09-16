@@ -56,17 +56,13 @@ Map updateOrderDeliverySchedule() {
         return serviceResult
     }
 
-    // Lookup the existing schedule to modify
-    GenericValue schedule = from('OrderDeliverySchedule').where(parameters).queryOne()
-
     // only set statusId if hasScheduleAdminRelatedPermission
-    String saveStatusId = schedule.statusId
-    schedule.setNonPKFields(parameters)
+    Map updateFields = [*: parameters]
     if (!security.hasEntityPermission('ORDERMGR', ('_' + checkAction), parameters.userLogin)) {
-        schedule.statusId = saveStatusId
+        updateFields.remove('statusId')
     }
     // Update the actual schedule
-    schedule.store()
+    update('OrderDeliverySchedule').where(parameters).set(updateFields)
     return success()
 }
 

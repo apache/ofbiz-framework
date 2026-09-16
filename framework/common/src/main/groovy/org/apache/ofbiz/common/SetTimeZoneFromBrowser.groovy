@@ -18,15 +18,15 @@
 */
 package org.apache.ofbiz.common
 
+import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.service.ServiceUtil
 
 Map setTimeZoneFromBrowser() {
     if (parameters?.userLogin?.userLoginId) {
-        userLogin = from('UserLogin').where('userLoginId', parameters.userLogin.userLoginId).queryFirst()
+        GenericValue userLogin = from('UserLogin').where('userLoginId', parameters.userLogin.userLoginId).queryOne()
         if (userLogin) {
             if (!userLogin.lastTimeZone || userLogin.lastTimeZone == 'null') {
-                userLogin.lastTimeZone = parameters.localeName
-                userLogin.store()
+                update('UserLogin').where('userLoginId', parameters.userLogin.userLoginId).set([lastTimeZone: parameters.localeName])
                 return ServiceUtil.returnSuccess()
             }
         }

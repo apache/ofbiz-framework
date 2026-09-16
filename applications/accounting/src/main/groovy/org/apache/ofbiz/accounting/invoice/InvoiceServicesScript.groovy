@@ -339,14 +339,12 @@ Map cancelInvoice() {
  * @return Success response
  */
 Map sendInvoicePerEmail() {
-    Map emailParams = dispatcher.getDispatchContext()
-            .makeValidContext('sendMailFromScreen', 'IN', [*: parameters,
-                               xslfoAttachScreenLocation: 'component://accounting/widget/AccountingPrintScreens.xml#InvoicePDF',
-                               bodyParameters: [invoiceId: parameters.invoiceId,
-                                                userLogin: parameters.userLogin,
-                                                other: parameters.other] //to print in 'other currency'
-    ])
-    dispatcher.runAsync('sendMailFromScreen', emailParams)
+    runAsync service: 'sendMailFromScreen', with: [*: parameters,
+                       xslfoAttachScreenLocation: 'component://accounting/widget/AccountingPrintScreens.xml#InvoicePDF',
+                       bodyParameters: [invoiceId: parameters.invoiceId,
+                                        userLogin: parameters.userLogin,
+                                        other: parameters.other] //to print in 'other currency'
+    ]
     return success(label('AccountingUiLabels', 'AccountingEmailScheduledToSend'))
 }
 

@@ -52,7 +52,11 @@ class EntityUpdateBuilder {
         if (existing == null) {
             throw new ServiceErrorException("No ${entityName} found matching ${whereFields}" as String)
         }
-        existing.putAll(fields)
+        // Like setNonPKFields(), not a raw Map.putAll(): walks the entity's own non-PK fields and pulls
+        // matching values out of the given map, silently ignoring anything else (e.g. userLogin, locale,
+        // timeZone commonly present in a raw service parameters map). This is what makes it safe to call
+        // as update(entity).where(cond).set(parameters) -- the primary use case this builder exists for.
+        existing.setNonPKFields(fields)
         existing.store()
         return existing
     }
