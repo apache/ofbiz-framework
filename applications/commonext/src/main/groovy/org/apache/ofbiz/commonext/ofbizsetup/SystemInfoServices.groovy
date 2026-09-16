@@ -47,7 +47,7 @@ Map deleteSystemInfoNote() {
 }
 
 Map deleteAllSystemNotes() {
-    delegator.removeByAnd('NoteData', [noteParty: userLogin.partyId, noteName: 'SYSTEMNOTE'])
+    delete('NoteData').where([noteParty: userLogin.partyId, noteName: 'SYSTEMNOTE'])
     return success()
 }
 

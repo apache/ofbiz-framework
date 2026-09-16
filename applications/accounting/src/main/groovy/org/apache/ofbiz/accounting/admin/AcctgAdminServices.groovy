@@ -41,8 +41,7 @@ Map createPartyAcctgPreference() {
     //Does not check if the Party is actually a company because real people have to pay taxes too
 
     //TODO: maybe check to make sure that all fields are not null
-    newEntity = delegator.makeValidValue('PartyAcctgPreference', parameters)
-    delegator.create(newEntity)
+    create('PartyAcctgPreference', parameters)
     return success()
 }
 

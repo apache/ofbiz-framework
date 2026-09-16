@@ -354,6 +354,6 @@ Map deleteKeywordThesaurus() {
     if (parameters.alternateKeyword) {
         newEntity.alternateKeyword = parameters.alternateKeyword
     }
-    delegator.removeByAnd('KeywordThesaurus', newEntity)
+    delete('KeywordThesaurus').where(newEntity)
     return success()
 }

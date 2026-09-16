@@ -390,16 +390,16 @@ Map duplicateWorkEffort() {
     }
     Map removeWorkEffortMap = [workEffortId: oldWorkEffort.workEffortId]
     if (parameters.removeWorkEffortAssocs == 'Y') {
-        delegator.removeByAnd('WorkEffortAssoc', removeWorkEffortMap)
+        delete('WorkEffortAssoc').where(removeWorkEffortMap)
     }
     if (parameters.removeWorkEffortNotes == 'Y') {
-        delegator.removeByAnd('WorkEffortNote', removeWorkEffortMap)
+        delete('WorkEffortNote').where(removeWorkEffortMap)
     }
     if (parameters.removeWorkEffortContents == 'Y') {
-        delegator.removeByAnd('WorkEffortContent', removeWorkEffortMap)
+        delete('WorkEffortContent').where(removeWorkEffortMap)
     }
     if (parameters.removeWorkEffortAssignmentRates == 'Y') {
-        delegator.removeByAnd('RateAmount', removeWorkEffortMap)
+        delete('RateAmount').where(removeWorkEffortMap)
     }
     return success([workEffortId: workEffortId])
 }

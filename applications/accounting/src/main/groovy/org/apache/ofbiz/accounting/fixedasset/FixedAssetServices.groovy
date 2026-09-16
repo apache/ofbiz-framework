@@ -227,7 +227,7 @@ Map createFixedAssetMaintOrder() {
     } else {
         parameters.orderItemSeqId = from('OrderItem').where(orderId: lookedUpValue.orderId).queryList()?.orderItemSeqId
     }
-    delegator.create('FixedAssetMaintOrder', parameters)
+    create('FixedAssetMaintOrder', parameters)
     return success()
 }
 

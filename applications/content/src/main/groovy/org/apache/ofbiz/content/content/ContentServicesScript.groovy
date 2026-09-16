@@ -68,7 +68,7 @@ Map findAssocContent() {
 }
 
 Map updateSingleContentPurpose() {
-    delegator.removeByAnd('ContentPurpose', [contentId: parameters.contentId])
+    delete('ContentPurpose').where([contentId: parameters.contentId])
     run service: 'createContentPurpose', with: parameters
 }
 

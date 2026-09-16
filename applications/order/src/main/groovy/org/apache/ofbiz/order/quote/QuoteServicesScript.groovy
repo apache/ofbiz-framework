@@ -395,8 +395,8 @@ Map removeQuoteItem() {
     if (!quoteItem) {
         return error('OrderErrorUiLabels', 'OrderQuoteItemDoesNotExists')
     }
-    delegator.removeByAnd('QuoteTerm', pksQuoteItem)
-    delegator.removeByAnd('QuoteAdjustment', pksQuoteItem)
+    delete('QuoteTerm').where(pksQuoteItem)
+    delete('QuoteAdjustment').where(pksQuoteItem)
     quoteItem.remove()
     return success()
 }

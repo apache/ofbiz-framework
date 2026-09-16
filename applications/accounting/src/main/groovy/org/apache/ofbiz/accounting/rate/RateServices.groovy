@@ -89,9 +89,9 @@ Map updatePartyRate() {
         partyRate.thruDate = UtilDateTime.nowTimestamp()
         partyRate.store()
     }
-    GenericValue newEntity = delegator.makeValidValue('PartyRate', parameters)
-    newEntity.fromDate = newEntity.fromDate ?: UtilDateTime.nowTimestamp()
-    newEntity.create()
+    Map partyRateFields = [*: parameters]
+    partyRateFields.fromDate = partyRateFields.fromDate ?: UtilDateTime.nowTimestamp()
+    GenericValue newEntity = create('PartyRate', partyRateFields)
 
     //check other default rate to desactive them
     if (newEntity.defaultRate == 'Y') {

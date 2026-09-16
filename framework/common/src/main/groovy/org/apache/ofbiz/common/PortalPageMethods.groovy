@@ -40,9 +40,9 @@ String duplicatePortalPage() {
  */
 String setPortalPortletAttributes() {
     if (parameters) {
-        delegator.removeByAnd('PortletAttribute', [portalPageId: parameters.portalPageId,
-                                                   portalPortletId: parameters.portalPortletId,
-                                                   portletSeqId: parameters.portletSeqId])
+        delete('PortletAttribute').where([portalPageId: parameters.portalPageId,
+                                          portalPortletId: parameters.portalPortletId,
+                                          portletSeqId: parameters.portletSeqId])
         List skipField = ['portalPageId', 'portalPortletId', 'portletSeqId']
         parameters.each {
             if (skipField.contains(it.key)) {

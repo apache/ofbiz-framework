@@ -297,10 +297,10 @@ Map duplicateProduct() {
     if (parameters.removeAssocs) {
         relationToRemove << 'ProductAssoc'
         // small difference here, also do the reverse assocs...
-        delegator.removeByAnd('ProductAssoc', reverseProductFindContext)
+        delete('ProductAssoc').where(reverseProductFindContext)
     }
     relationToRemove.each {
-        delegator.removeByAnd(it, productFindContext)
+        delete(it).where(productFindContext)
     }
     return success()
 }
@@ -828,7 +828,7 @@ Map createJobForProductGroupOrder() {
                          runtimeDataId: runtimeDataId,
                          maxRecurrenceCount: 1L,
                          priority: 50L]
-        delegator.create('JobSandbox', jobFields)
+        create('JobSandbox', jobFields)
 
         productGroupOrder.jobId = jobFields.jobId
         productGroupOrder.store()
