@@ -31,7 +31,7 @@ Map sendMailFromTemplateSetting() {
     // if partyIdTo provided but no emailAddress, get it from the partyContactMech
     if (!parameters.sendTo && !parameters.partyIdTo) {
         logError('PartyId or SendTo should be specified!')
-        return error('CommonUiLabels', 'CommonEmailShouldBeSpecified')
+        fail('CommonUiLabels', 'CommonEmailShouldBeSpecified')
     }
     if (parameters.partyIdTo && !parameters.sendTo) {
         Map getEmail = [partyId: parameters.partyIdTo]

@@ -433,7 +433,7 @@ Map updateProductAverageCostOnReceiveInventory() {
             if (!organizationPartyId) {
                 String errorMessage = UtilProperties.getMessage('ProductUiLabels', 'ProductOwnerPartyIsMissing', locale)
                 logError(errorMessage)
-                return error(errorMessage)
+                fail(errorMessage)
             }
         }
     }

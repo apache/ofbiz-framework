@@ -448,9 +448,7 @@ Map checkOwnership() {
     // resetting the permission flag
     Boolean hasPermission = false
 
-    if (!checkId) {
-        return error(label('ContentUiLabels', 'ContentRequiredField', [requiredField: 'checkId']))
-    }
+    require(checkId as boolean, label('ContentUiLabels', 'ContentRequiredField', [requiredField: 'checkId']))
 
     // get all the associated parties (this user + all group memberships)
     List partyIdList = findAllAssociatedPartyIds()

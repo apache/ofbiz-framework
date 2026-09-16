@@ -35,21 +35,16 @@ import org.apache.ofbiz.service.ServiceUtil
  */
 Map createProduct() {
     Map result = success()
-    if (!(security.hasEntityPermission('CATALOG', '_CREATE', parameters.userLogin)
-            || security.hasEntityPermission('CATALOG_ROLE', '_CREATE', parameters.userLogin))) {
-        return error('ProductUiLabels', 'ProductCatalogCreatePermissionError')
-    }
+    require((security.hasEntityPermission('CATALOG', '_CREATE', parameters.userLogin)
+        || security.hasEntityPermission('CATALOG_ROLE', '_CREATE', parameters.userLogin)) as boolean,
+        'ProductUiLabels', 'ProductCatalogCreatePermissionError')
 
     GenericValue newEntity = makeValue('Product', parameters)
     if (newEntity.productId) {
         String errorMessage = UtilValidate.checkValidDatabaseId(newEntity.productId)
-        if (errorMessage) {
-            return error(errorMessage)
-        }
+        require(!(errorMessage), errorMessage)
         GenericValue dummyProduct = from('Product').where(parameters).queryOne()
-        if (dummyProduct) {
-            return error('CommonErrorUiLabels', 'CommonErrorDuplicateKey')
-        }
+        require(!(dummyProduct), 'CommonErrorUiLabels', 'CommonErrorDuplicateKey')
     } else {
         newEntity.productId = delegator.getNextSeqId('Product')
     }
@@ -171,9 +166,7 @@ Map duplicateProduct() {
         return res
     }
     GenericValue dummyProduct = from('Product').where(parameters).queryOne()
-    if (dummyProduct) {
-        return error('CommonErrorUiLabels', 'CommonErrorDuplicateKey')
-    }
+    require(!(dummyProduct), 'CommonErrorUiLabels', 'CommonErrorDuplicateKey')
 
     // look up the old product and clone it
     GenericValue oldProduct = from('Product').where(productId: parameters.oldProductId).queryOne()
@@ -453,7 +446,7 @@ Map setProductReviewStatus() {
                 .queryCount() == 0) {
             String errorMessage = label('ProductErrorUiLabels', 'ProductReviewErrorCouldNotChangeOrderStatusFromTo')
             logError(errorMessage)
-            return error(errorMessage)
+            fail(errorMessage)
         }
     }
 
@@ -601,9 +594,7 @@ Map checkProductRelatedPermissionService() {
  */
 Map productGenericPermission() {
     String mainAction = parameters.mainAction
-    if (!mainAction) {
-        return error('ProductUiLabels', 'ProductMissingMainActionInPermissionService')
-    }
+    require(mainAction as boolean, 'ProductUiLabels', 'ProductMissingMainActionInPermissionService')
 
     Map result = success()
     result.hasPermission = ServiceUtil.isSuccess(
@@ -619,9 +610,7 @@ Map productGenericPermission() {
  */
 Map productPriceGenericPermission() {
     String mainAction = parameters.mainAction
-    if (!mainAction) {
-        return error('ProductUiLabels', 'ProductMissingMainActionInPermissionService')
-    }
+    require(mainAction as boolean, 'ProductUiLabels', 'ProductMissingMainActionInPermissionService')
 
     Map result = success()
     if (!security.hasPermission('CATALOG_PRICE_MAINT', parameters.userLogin)) {

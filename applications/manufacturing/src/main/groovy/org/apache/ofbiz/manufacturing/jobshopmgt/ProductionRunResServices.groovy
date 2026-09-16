@@ -165,7 +165,7 @@ Map reserveWorkEffortInventory() {
             String errMsg = ("Product Identity Mismatch: Item [${inventoryItemId}] belongs to "
                     + "[${item.productId}], but you are reserving for [${productId}].")
             logError("reserveWorkEffortInventory - FAILED: ${errMsg}")
-            return error(errMsg)
+            fail(errMsg)
         }
     }
 
@@ -222,7 +222,7 @@ Map reserveWorkEffortInventoryItem() {
             String errMsg = ("Product Identity Mismatch: Item [${inventoryItemId}] is for product "
                     + "[${item.productId}], but the task requires [${productId}].")
             logError("reserveWorkEffortInventoryItem - FAILED: ${errMsg}")
-            return error(errMsg)
+            fail(errMsg)
         }
 
         /*

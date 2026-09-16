@@ -159,9 +159,8 @@ Map checkCreateStockRequirement(String methodId) {
 }
 
 Map checkCreateProductRequirementForFacility() {
-    if (!(security.hasEntityPermission('ORDERMGR', '_CREATE', parameters.userLogin))) {
-        return error('OrderErrorUiLabels', 'OrderSecurityErrorToRunCheckCreateStockRequirement')
-    }
+    require(security.hasEntityPermission('ORDERMGR', '_CREATE', parameters.userLogin) as boolean,
+            'OrderErrorUiLabels', 'OrderSecurityErrorToRunCheckCreateStockRequirement')
     Map resultMap = success()
 
     List<GenericValue> products = from('ProductFacility').where([facilityId: parameters.facilityId]).queryList()

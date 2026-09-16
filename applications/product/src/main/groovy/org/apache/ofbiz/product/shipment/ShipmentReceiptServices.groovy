@@ -74,10 +74,9 @@ Map receiveInventoryProduct () {
 
     // Return an error if both quantityAccepted and quantityRejected are zero or less than zero
     BigDecimal quantityRejected = parameters.quantityRejected ?: BigDecimal.ZERO
-    if ((quantityRejected == BigDecimal.ZERO && parameters.quantityAccepted == BigDecimal.ZERO)
-        || (quantityRejected  < BigDecimal.ZERO || parameters.quantityAccepted < BigDecimal.ZERO)) {
-        return error('ProductUiLabels', 'ProductNoItemsToAcceptOrReject')
-    }
+    require(!((quantityRejected == BigDecimal.ZERO && parameters.quantityAccepted == BigDecimal.ZERO)
+        || (quantityRejected  < BigDecimal.ZERO || parameters.quantityAccepted < BigDecimal.ZERO)),
+        'ProductUiLabels', 'ProductNoItemsToAcceptOrReject')
 
     Map result = success()
     List successMessageList = []
@@ -87,7 +86,7 @@ Map receiveInventoryProduct () {
         // if we are serialized and either a serialNumber or inventoyItemId is passed in and the quantityAccepted is greater than 1 then complain
         if ((parameters.serialNumber || parameters.currentInventoryItemId) && (parameters.quantityAccepted > (BigDecimal.ONE))) {
             Map errorLog = [parameters: parameters]
-            return error('ProductUiLabels', 'FacilityReceiveInventoryProduct', errorLog)
+            fail('ProductUiLabels', 'FacilityReceiveInventoryProduct', errorLog)
             // before getting going, see if there are any validation issues so far
         }
         if (parameters.quantityAccepted > BigDecimal.ZERO) {

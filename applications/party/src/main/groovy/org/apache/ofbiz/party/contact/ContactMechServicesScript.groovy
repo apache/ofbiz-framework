@@ -36,9 +36,7 @@ Map updateContactMech() {
             default: 'ContactMechanism'
     ]
     GenericValue lookedValue = from('ContactMech').where('contactMechId', parameters.contactMechId).queryOne()
-    if (! lookedValue) {
-        return error('ServiceErrorUiLabels', 'ServiceValueNotFound')
-    }
+    require(lookedValue as boolean, 'ServiceErrorUiLabels', 'ServiceValueNotFound')
     String contactMechTypeId = parameters.contactMechTypeId ?: lookedValue.contactMechTypeId
     String successMessage = 'Party' +
             (successMessageMap."$contactMechTypeId" ?: successMessageMap.default) +
@@ -77,9 +75,7 @@ String hasValidStateProvince(String countryGeoId, String stateProvinceGeoId) {
  */
 Map createPostalAddress() {
     String errorMessage = hasValidStateProvince(parameters.countryGeoId, parameters.stateProvinceGeoId)
-    if (errorMessage) {
-        return error('PartyUiLabels', errorMessage)
-    }
+    require(!(errorMessage), 'PartyUiLabels', errorMessage)
     GenericValue newValue = makeValue('PostalAddress', parameters)
     Map createContactMechMap = [contactMechTypeId: 'POSTAL_ADDRESS', contactMechId: parameters.contactMechId]
     Map serviceResult = run service: 'createContactMech', with: createContactMechMap
@@ -95,13 +91,9 @@ Map createPostalAddress() {
  */
 Map updatePostalAddress() {
     String errorMessage = hasValidStateProvince(parameters.countryGeoId, parameters.stateProvinceGeoId)
-    if (errorMessage) {
-        return error('PartyUiLabels', errorMessage)
-    }
+    require(!(errorMessage), 'PartyUiLabels', errorMessage)
     GenericValue lookedValue = from('PostalAddress').where('contactMechId', parameters.contactMechId).queryOne()
-    if (! lookedValue) {
-        return error('ServiceErrorUiLabels', 'ServiceValueNotFound')
-    }
+    require(lookedValue as boolean, 'ServiceErrorUiLabels', 'ServiceValueNotFound')
     GenericValue newValue = (GenericValue) lookedValue.clone()
     newValue.setNonPKFields(parameters)
     String contactMechId
@@ -150,9 +142,7 @@ Map createTelecomNumber() {
  */
 Map updateTelecomNumber() {
     GenericValue lookedValue = from('TelecomNumber').where('contactMechId', parameters.contactMechId).queryOne()
-    if (!lookedValue) {
-        return error('ServiceErrorUiLabels', 'ServiceValueNotFound')
-    }
+    require(lookedValue as boolean, 'ServiceErrorUiLabels', 'ServiceValueNotFound')
     GenericValue newValue = (GenericValue) lookedValue.clone()
     newValue.setNonPKFields(parameters)
     String contactMechId
@@ -186,9 +176,7 @@ Map updateTelecomNumber() {
  * Create an email address contact mechanism
  */
 Map createEmailAddress() {
-    if (!parameters.emailAddress) {
-        return error('PartyUiLabels', 'PartyEmailAddressMissing')
-    }
+    require(parameters.emailAddress as boolean, 'PartyUiLabels', 'PartyEmailAddressMissing')
     if (UtilValidate.isEmail(parameters.emailAddress)) {
         Map createContactMechMap = [contactMechTypeId: 'EMAIL_ADDRESS',
                                     contactMechId: parameters.contactMechId,
@@ -205,9 +193,7 @@ Map createEmailAddress() {
  * Update an email address contact mechanism
  */
 Map updateEmailAddress() {
-    if (!parameters.emailAddress) {
-        return error('PartyUiLabels', 'PartyEmailAddressMissing')
-    }
+    require(parameters.emailAddress as boolean, 'PartyUiLabels', 'PartyEmailAddressMissing')
     if (UtilValidate.isEmail(parameters.emailAddress)) {
         Map updateContactMechMap = [contactMechTypeId: 'EMAIL_ADDRESS',
                                     contactMechId: parameters.contactMechId,
@@ -249,9 +235,7 @@ Map updateFtpAddressWithHistory() {
     Map newContactMechResult
     if (resultMap.oldContactMechId) {
         GenericValue lookedValue = from('FtpAddress').where('contactMechId', parameters.contactMechId).queryOne()
-        if (!lookedValue) {
-            return error('ServiceErrorUiLabels', 'ServiceValueNotFound')
-        }
+        require(lookedValue as boolean, 'ServiceErrorUiLabels', 'ServiceValueNotFound')
         GenericValue newValue = (GenericValue) lookedValue.clone()
         newValue.setNonPKFields(parameters)
         if (newValue != lookedValue) {  // if there is some modifications in FtpAddress data
@@ -344,11 +328,8 @@ Map verifyEmailAddress() {
     GenericValue emailAddressVerification = from('EmailAddressVerification')
             .where(verifyHash: parameters.verifyHash)
             .queryFirst()
-    if (! emailAddressVerification) {
-        return error('PartyUiLabels', 'PartyEmailAddressNotExist')
-    }
-    if (UtilValidate.isDateBeforeNow(emailAddressVerification.expireDate)) {
-        return error('PartyUiLabels', 'PartyEmailAddressVerificationExpired')
-    }
+    require(emailAddressVerification as boolean, 'PartyUiLabels', 'PartyEmailAddressNotExist')
+    require(!(UtilValidate.isDateBeforeNow(emailAddressVerification.expireDate)),
+            'PartyUiLabels', 'PartyEmailAddressVerificationExpired')
     return success()
 }

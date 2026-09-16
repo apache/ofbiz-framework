@@ -74,9 +74,7 @@ Map createDataResource() {
  */
 Map createDataResourceAndAssocToContent() {
     GenericValue content = from('Content').where(parameters).queryOne()
-    if (!content) {
-        return error('ContentErrorUiLabels', 'layoutEvents.content_empty')
-    }
+    require(content as boolean, 'ContentErrorUiLabels', 'layoutEvents.content_empty')
 
     Map serviceResult = run service: 'createDataResource', with: parameters
     if (!ServiceUtil.isSuccess(serviceResult)) {
@@ -118,18 +116,12 @@ Map getElectronicText() {
         if (parameters.contentId) {
             currentContent = from('Content').where(parameters).queryOne()
         }
-        if (!currentContent) {
-            return error('ContentUiLabels', 'ContentNeitherContentSupplied')
-        }
+        require(currentContent as boolean, 'ContentUiLabels', 'ContentNeitherContentSupplied')
     }
-    if (!currentContent.dataResourceId) {
-        return error('ContentUiLabels', 'ContentDataResourceNotFound')
-    }
+    require(currentContent.dataResourceId as boolean, 'ContentUiLabels', 'ContentDataResourceNotFound')
     result.dataResourceId = currentContent.dataResourceId
     GenericValue eText = from('ElectronicText').where('dataResourceId', currentContent.dataResourceId).queryOne()
-    if (!eText) {
-        return error('ContentUiLabels', 'ContentElectronicTextNotFound')
-    }
+    require(eText as boolean, 'ContentUiLabels', 'ContentElectronicTextNotFound')
     result.textData = eText.textData
     return result
 }

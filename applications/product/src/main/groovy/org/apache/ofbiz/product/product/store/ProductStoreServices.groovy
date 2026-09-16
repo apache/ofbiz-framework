@@ -35,20 +35,13 @@ import org.apache.ofbiz.service.ServiceUtil
  */
 Map createProductStore() {
     Map result = success()
-    if (!security.hasEntityPermission('CATALOG', '_CREATE', parameters.userLogin)) {
-        return error('ProductUiLabels', 'ProductCatalogCreatePermissionError')
-    }
-    if (parameters.oneInventoryFacility == 'Y'
-            && !parameters.inventoryFacilityId) {
-        return error('ProductUiLabels', 'InventoryFacilityIdRequired')
-    }
+    require(security.hasEntityPermission('CATALOG', '_CREATE', parameters.userLogin) as boolean,
+        'ProductUiLabels', 'ProductCatalogCreatePermissionError')
+    require(!(parameters.oneInventoryFacility == 'Y'
+            && !parameters.inventoryFacilityId), 'ProductUiLabels', 'InventoryFacilityIdRequired')
     if (parameters.showPricesWithVatTax == 'Y') {
-        if (!parameters.vatTaxAuthGeoId) {
-            return error('ProductUiLabels', 'ProductVatTaxAuthGeoNotSet')
-        }
-        if (!parameters.vatTaxAuthPartyId) {
-            return error('ProductUiLabels', 'ProductVatTaxAuthPartyNotSet')
-        }
+        require(parameters.vatTaxAuthGeoId as boolean, 'ProductUiLabels', 'ProductVatTaxAuthGeoNotSet')
+        require(parameters.vatTaxAuthPartyId as boolean, 'ProductUiLabels', 'ProductVatTaxAuthPartyNotSet')
     }
     GenericValue newEntity = makeValue('ProductStore')
     newEntity.setNonPKFields(parameters)
@@ -72,12 +65,10 @@ Map createProductStore() {
  * Update a Product Store
  */
 Map updateProductStore() {
-    if (!security.hasEntityPermission('CATALOG', '_UPDATE', parameters.userLogin)) {
-        return error('ProductUiLabels', 'ProductCatalogUpdatePermissionError')
-    }
-    if (parameters.oneInventoryFacility == 'Y' && !parameters.inventoryFacilityId) {
-        return error('ProductUiLabels', 'InventoryFacilityIdRequired')
-    }
+    require(security.hasEntityPermission('CATALOG', '_UPDATE', parameters.userLogin) as boolean,
+        'ProductUiLabels', 'ProductCatalogUpdatePermissionError')
+    require(!(parameters.oneInventoryFacility == 'Y' && !parameters.inventoryFacilityId),
+        'ProductUiLabels', 'InventoryFacilityIdRequired')
     GenericValue store = from('ProductStore').where(productStoreId: parameters.productStoreId).queryOne()
     String oldFacilityId = store.inventoryFacilityId
     store.setNonPKFields(parameters)
@@ -85,12 +76,8 @@ Map updateProductStore() {
     // visualThemeId must be replaced by ecomThemeId because of Entity.field names conflict. See OFBIZ-10567
     store.visualThemeId = parameters.ecomThemeId
     if (store.showPricesWithVatTax == 'Y') {
-        if (!store.vatTaxAuthGeoId) {
-            return error('ProductUiLabels', 'ProductVatTaxAuthGeoNotSet')
-        }
-        if (!store.vatTaxAuthPartyId) {
-            return error('ProductUiLabels', 'ProductVatTaxAuthPartyNotSet')
-        }
+        require(store.vatTaxAuthGeoId as boolean, 'ProductUiLabels', 'ProductVatTaxAuthGeoNotSet')
+        require(store.vatTaxAuthPartyId as boolean, 'ProductUiLabels', 'ProductVatTaxAuthPartyNotSet')
     }
     store.store()
 
@@ -130,9 +117,7 @@ Map reserveStoreInventory() {
     BigDecimal quantityNotReserved
 
     GenericValue productStore = from('ProductStore').where(parameters).cache().queryOne()
-    if (!productStore) {
-        return error('ProductUiLabels', 'ProductProductStoreNotFound')
-    }
+    require(productStore as boolean, 'ProductUiLabels', 'ProductProductStoreNotFound')
 
     GenericValue product = from('Product').where(parameters).cache().queryOne()
     GenericValue orderHeader = from('OrderHeader').where(parameters).queryOne()
@@ -156,9 +141,7 @@ Map reserveStoreInventory() {
             facilityFound = productStoreFacility
             logInfo('ProductStoreService:Facility Found : [' + facilityFound + ']')
         }
-        if (!facilityFound) {
-            return  error('ProductUiLabels', 'FacilityNoAssociatedWithProcuctStore')
-        }
+        require(facilityFound as boolean, 'ProductUiLabels', 'FacilityNoAssociatedWithProcuctStore')
         Map serviceResult = run service: 'reserveProductInventoryByFacility', with: [*: parameters,
                                                                                      facilityId: facilityId,
                                                                                      requireInventory: requireInventory,
@@ -176,9 +159,8 @@ Map reserveStoreInventory() {
         }
     } else {
         if (productStore.oneInventoryFacility == 'Y') {
-            if (!productStore.inventoryFacilityId) {
-                return error('ProductUiLabels', 'ProductProductStoreNoSpecifiedInventoryFacility')
-            }
+            require(productStore.inventoryFacilityId as boolean,
+                'ProductUiLabels', 'ProductProductStoreNoSpecifiedInventoryFacility')
             Map serviceResult = run service: 'reserveProductInventoryByFacility', with: [*: parameters,
                                                                                          facilityId: productStore.inventoryFacilityId,
                                                                                          requireInventory: requireInventory,
@@ -287,9 +269,7 @@ Map isStoreInventoryAvailable() {
         return result
     }
     if (productStore.oneInventoryFacility == 'Y') {
-        if (!productStore.inventoryFacilityId) {
-            return error('ProductUiLabels', 'ProductProductStoreNotCheckAvailability')
-        }
+        require(productStore.inventoryFacilityId as boolean, 'ProductUiLabels', 'ProductProductStoreNotCheckAvailability')
         boolean isMarketingPkg = EntityTypeUtil.hasParentType(delegator, 'ProductType', 'productTypeId',
                 product.productTypeId, 'parentTypeId', 'MARKETING_PKG')
         String serviceName = isMarketingPkg ? 'getMktgPackagesAvailable' : 'getInventoryAvailableByFacility'
@@ -411,7 +391,7 @@ Map productStoreGenericPermission() {
     if (!parameters.mainAction) {
         String errorMessage = label('ProductUiLabels', 'ProductMissingMainActionInPermissionService')
         logError(errorMessage)
-        return error(errorMessage)
+        fail(errorMessage)
     }
     Map serviceInMap = parameters
     Map serviceResult = checkProductStoreRelatedPermission(serviceInMap)

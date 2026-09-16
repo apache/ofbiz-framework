@@ -29,13 +29,9 @@ import java.util.regex.Pattern
  */
 Map createPartyTaxAuthInfo() {
     GenericValue taxAuthority = from('TaxAuthority').where(parameters).queryOne()
-    if (!taxAuthority) {
-        return error(label('PartyUiLabels', 'PartyTaxAuthPartyAndGeoNotAvailable'))
-    }
+    require(taxAuthority as boolean, label('PartyUiLabels', 'PartyTaxAuthPartyAndGeoNotAvailable'))
     String errorMesg = validatePartyTaxIdInline()
-    if (errorMesg) {
-        return error(errorMesg)
-    }
+    require(!(errorMesg), errorMesg)
     GenericValue partyAuthInfo = makeValue('PartyTaxAuthInfo', parameters)
     partyAuthInfo.fromDate = partyAuthInfo.fromDate ?: UtilDateTime.nowTimestamp()
     partyAuthInfo.create()
@@ -47,13 +43,9 @@ Map createPartyTaxAuthInfo() {
  */
 Map updatePartyTaxAuthInfo() {
     String errorMesg = validatePartyTaxIdInline()
-    if (errorMesg) {
-        return error(errorMesg)
-    }
+    require(!(errorMesg), errorMesg)
     GenericValue partyAuthInfo = from('PartyTaxAuthInfo').where(parameters).queryOne()
-    if (!partyAuthInfo) {
-        return error('PartyTaxAuthInfo not found for the given parameters')
-    }
+    require(partyAuthInfo as boolean, 'PartyTaxAuthInfo not found for the given parameters')
     partyAuthInfo.setNonPKFields(parameters, false)
     partyAuthInfo.store()
     return success()

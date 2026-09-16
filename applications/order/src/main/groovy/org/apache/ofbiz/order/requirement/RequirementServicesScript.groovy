@@ -78,9 +78,7 @@ Map autoAssignRequirementToSupplier() {
  */
 Map createTransferFromRequirement() {
     GenericValue requirement = from('Requirement').where(parameters).queryOne()
-    if (!requirement) {
-        return error('Entity value not found with name: requirement Method = createTransferFromRequirement')
-    }
+    require(requirement as boolean, 'Entity value not found with name: requirement Method = createTransferFromRequirement')
     try {
         Map serviceResult = run service: 'createInventoryTransfersForProduct',
                 with: [productId: requirement.productId,
@@ -97,7 +95,7 @@ Map createTransferFromRequirement() {
         run service: 'updateRequirement', with: [requirementId: requirement.requirementId,
                                                  statusId: 'REQ_ORDERED']
     } catch (Exception e) {
-        return error('Failed to create the requirement with ' + e)
+        fail('Failed to create the requirement with ' + e)
     }
     return success()
 }

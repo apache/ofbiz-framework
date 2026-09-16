@@ -214,16 +214,12 @@ Map createMaintsFromTimeInterval() {
  */
 Map createFixedAssetMaintOrder() {
     GenericValue lookedUpValue = from('OrderHeader').where(parameters).queryOne()
-    if (!lookedUpValue) {
-        return error(label('AccountingUiLabels', 'AccountingOrderWithIdNotFound', parameters))
-    }
+    require(lookedUpValue as boolean, label('AccountingUiLabels', 'AccountingOrderWithIdNotFound', parameters))
 
     // Check if user has not passed in orderItemSeqId then get list of OrderItems from database and default to first item
     if (parameters.orderItemSeqId) {
         lookedUpValue = from('OrderItem').where(parameters).queryOne()
-        if (!lookedUpValue) {
-            return error(label('AccountingUiLabels', 'AccountingOrderItemWithIdNotFound', parameters))
-        }
+        require(lookedUpValue as boolean, label('AccountingUiLabels', 'AccountingOrderItemWithIdNotFound', parameters))
     } else {
         parameters.orderItemSeqId = from('OrderItem').where(orderId: lookedUpValue.orderId).queryList()?.orderItemSeqId
     }
@@ -263,9 +259,7 @@ Map straightLineDepreciation() {
     BigDecimal salvageValue = parameters.salvageValue ?: 0
 
     GenericValue fixedAsset = from('FixedAsset').where(parameters).queryOne()
-    if (!fixedAsset) {
-        return error(label('AccountingErrorUiLabels', 'AccountingFixedAssetNotFound'))
-    }
+    require(fixedAsset as boolean, label('AccountingErrorUiLabels', 'AccountingFixedAssetNotFound'))
     BigDecimal depreciation = fixedAsset.depreciation ?: 0
     int intUsageYears = parameters.usageYears ? parameters.usageYears.intValue() : 0
     if (intUsageYears > 0) {
@@ -382,9 +376,7 @@ Map doubleDecliningBalanceDepreciation() {
  */
 Map calculateFixedAssetDepreciation() {
     GenericValue fixedAsset = from('FixedAsset').where(parameters).queryOne()
-    if (!fixedAsset) {
-        return error(label('ManufacturingUiLabels', 'ManufacturingFixedAssetNotExist'))
-    }
+    require(fixedAsset as boolean, label('ManufacturingUiLabels', 'ManufacturingFixedAssetNotExist'))
     String expEndOfLifeYear, assetAcquiredYear
 
     // Extract asset end of life year from field expectedEndOfLife

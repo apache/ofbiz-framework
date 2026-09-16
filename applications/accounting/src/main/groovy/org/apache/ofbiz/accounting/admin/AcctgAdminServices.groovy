@@ -36,7 +36,7 @@ Map createPartyAcctgPreference() {
     if (!partyRole) {
         String errorMessage = UtilProperties.getMessage('AccountingUiLabels', 'AccountingPartyMustBeInternalOrganization', locale)
         logError(errorMessage)
-        return error(errorMessage)
+        fail(errorMessage)
     }
     //Does not check if the Party is actually a company because real people have to pay taxes too
 

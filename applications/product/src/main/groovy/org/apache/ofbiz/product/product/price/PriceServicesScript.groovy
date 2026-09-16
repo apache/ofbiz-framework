@@ -33,9 +33,8 @@ import org.apache.ofbiz.party.party.PartyHelper
  */
 Map createProductPrice() {
     Map result = success()
-    if (!security.hasPermission('CATALOG_PRICE_MAINT', userLogin)) {
-        return error('ProductUiLabels', 'ProductPriceMaintPermissionError')
-    }
+    require(security.hasPermission('CATALOG_PRICE_MAINT', userLogin) as boolean,
+        'ProductUiLabels', 'ProductPriceMaintPermissionError')
     inlineHandlePriceWithTaxIncluded()
 
     GenericValue newEntity = makeValue('ProductPrice', parameters)
@@ -57,9 +56,8 @@ Map createProductPrice() {
  */
 Map updateProductPrice() {
     Map result = success()
-    if (!security.hasPermission('CATALOG_PRICE_MAINT', userLogin)) {
-        return error('ProductUiLabels', 'ProductPriceMaintPermissionError')
-    }
+    require(security.hasPermission('CATALOG_PRICE_MAINT', userLogin) as boolean,
+        'ProductUiLabels', 'ProductPriceMaintPermissionError')
     inlineHandlePriceWithTaxIncluded()
 
     GenericValue lookedUpValue = from('ProductPrice').where(parameters).queryOne()
@@ -78,9 +76,8 @@ Map updateProductPrice() {
  */
 Map deleteProductPrice() {
     Map result = success()
-    if (!security.hasPermission('CATALOG_PRICE_MAINT', userLogin)) {
-        return error('ProductUiLabels', 'ProductPriceMaintPermissionError')
-    }
+    require(security.hasPermission('CATALOG_PRICE_MAINT', userLogin) as boolean,
+        'ProductUiLabels', 'ProductPriceMaintPermissionError')
     GenericValue lookedUpValue = from('ProductPrice').where(parameters).queryOne()
     // grab the old price value before setting nonpk parameter fields
     result.oldPrice = lookedUpValue.price
@@ -131,12 +128,10 @@ Map inlineHandlePriceWithTaxIncluded() {
  */
 Map createProductPriceCond() {
     Map result = success()
-    if (!security.hasEntityPermission('CATALOG', '_CREATE', userLogin)) {
-        return error('ProductUiLabels', 'ProductCatalogCreatePermissionError')
-    }
-    if (!security.hasPermission('CATALOG_PRICE_MAINT', userLogin)) {
-        return error('ProductUiLabels', 'ProductPriceMaintPermissionError')
-    }
+    require(security.hasEntityPermission('CATALOG', '_CREATE', userLogin) as boolean,
+        'ProductUiLabels', 'ProductCatalogCreatePermissionError')
+    require(security.hasPermission('CATALOG_PRICE_MAINT', userLogin) as boolean,
+        'ProductUiLabels', 'ProductPriceMaintPermissionError')
     if (parameters.condValueInput) {
         parameters.condValue = parameters.condValueInput
     }
@@ -151,12 +146,10 @@ Map createProductPriceCond() {
  * Update an ProductPriceCond
  */
 Map updateProductPriceCond() {
-    if (!security.hasEntityPermission('CATALOG', '_UPDATE', userLogin)) {
-        return error('ProductUiLabels', 'ProductCatalogUpdatePermissionError')
-    }
-    if (!security.hasPermission('CATALOG_PRICE_MAINT', userLogin)) {
-        return error('ProductUiLabels', 'ProductPriceMaintPermissionError')
-    }
+    require(security.hasEntityPermission('CATALOG', '_UPDATE', userLogin) as boolean,
+        'ProductUiLabels', 'ProductCatalogUpdatePermissionError')
+    require(security.hasPermission('CATALOG_PRICE_MAINT', userLogin) as boolean,
+        'ProductUiLabels', 'ProductPriceMaintPermissionError')
     if (['PRIP_QUANTITY', 'PRIP_LIST_PRICE'].contains(parameters.inputParamEnumId)) {
         parameters.condValue = parameters.condValueInput
     }

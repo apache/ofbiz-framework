@@ -30,7 +30,7 @@ Map createPartyGroupRoleAndContactMechs() {
     try {
         parameters.partyGroupContext = resolvePartyGroupMap()
     } catch (GenericServiceException e) {
-        return error(e.toString())
+        fail(e.toString())
     }
 
     parameters.partyGroupContext.partyTypeId = 'PARTY_GROUP'
@@ -64,7 +64,7 @@ Map createPartyGroupRoleAndContactMechs() {
             parameters.emailAddressContext = emailAddressContext
         }
     } catch (GenericServiceException e) {
-        return error(e.toString())
+        fail(e.toString())
     }
 
     run service: 'createPartyContactMechs', with: parameters

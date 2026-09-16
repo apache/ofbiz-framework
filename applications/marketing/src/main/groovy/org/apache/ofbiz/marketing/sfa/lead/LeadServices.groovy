@@ -32,9 +32,8 @@ Map createLead() {
     String partyGroupPartyId
     Map serviceResult
     // Check if Person or PartyGroup name is supplied
-    if ((!parameters.firstName || !parameters.lastName) && !parameters.groupName) {
-        return error('MarketingUiLabels', 'SfaFirstNameLastNameAndCompanyNameMissingError')
-    }
+    require((parameters.firstName && parameters.lastName) || parameters.groupName,
+            'MarketingUiLabels', 'SfaFirstNameLastNameAndCompanyNameMissingError')
     run service: 'ensurePartyRole', with: [partyId: userLogin.partyId, roleTypeId: 'OWNER']
     // PartyRole check end
     if (parameters.firstName && parameters.lastName) {

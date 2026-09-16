@@ -127,9 +127,8 @@ Map deletePortalPagePortlet() {
  * @return Success response with all attributes
  */
 Map getPortletAttributes() {
-    if (!parameters.ownerUserLoginId && !parameters.portalPageId) {
-        return error('Service getPortletAttributes did not receive either ownerUserLoginId OR portalPageId')
-    }
+    require(!(!parameters.ownerUserLoginId && !parameters.portalPageId),
+        'Service getPortletAttributes did not receive either ownerUserLoginId OR portalPageId')
     if (parameters.ownerUserLoginId) {
         GenericValue portalPagePortlet = from('PortalPageAndPortlet')
                 .where(ownerUserLoginId: parameters.ownerUserLoginId,
@@ -254,9 +253,7 @@ Map updatePortletSeqDragDrop() {
                     portalPortletId: parameters.o_portalPortletId,
                     portletSeqId: parameters.o_portletSeqId)
             .queryOne()
-    if (!originPp) {
-        return error('')
-    }
+    require(originPp as boolean, '')
     String columnSeqId = parameters.destinationColumn ?: originPp.columnSeqId
     GenericValue destiPp = from('PortalPagePortlet')
             .where(portalPageId: parameters.d_portalPageId,

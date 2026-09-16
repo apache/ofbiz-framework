@@ -79,7 +79,7 @@ Map expireRateAmount() {
  * Information to update the specific customer code after change service deleteRateAmount to expireRateAmount
  */
 Map deleteRateAmount() {
-    return error('delete rate amount isn\'t possible, please update your code with service name "expireRateAmount" instead "deleteRateAmount"')
+    fail('delete rate amount isn\'t possible, please update your code with service name "expireRateAmount" instead "deleteRateAmount"')
 }
 
 Map updatePartyRate() {
@@ -110,7 +110,7 @@ Map updatePartyRate() {
     return success()
 }
 Map deletePartyRate() {
-    return error('delete party rate isn\'t possible, please update your code with service name "expirePartyRate" instead "deletePartyRate"')
+    fail('delete party rate isn\'t possible, please update your code with service name "expirePartyRate" instead "deletePartyRate"')
 }
 Map expirePartyRate() {
     GenericValue lookedUpValue = from('PartyRate').where(parameters).queryOne()
