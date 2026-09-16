@@ -110,13 +110,13 @@ if (fileType) {
     if (!java.nio.file.Paths.get(imageServerPath + '/' + filePathPrefix).normalize()
             .startsWith(java.nio.file.Paths.get(imageServerPath).normalize())) {
         logError("Path traversal attempt detected in default image upload, productId: ${productId}")
-        fail('Invalid image path')
+        return error('Invalid image path')
     }
     // Guard against path traversal: the management path must remain inside imageManagementPath
     if (!java.nio.file.Paths.get(imageManagementPath + '/' + productId).normalize()
             .startsWith(java.nio.file.Paths.get(imageManagementPath).normalize())) {
         logError("Path traversal attempt detected in image management path, productId: ${productId}")
-        fail('Invalid image path')
+        return error('Invalid image path')
     }
     defaultFileName = 'temp_' + dataResourceName
     checkPathFile = imageManagementPath + '/' + productId + '/' + dataResourceName
