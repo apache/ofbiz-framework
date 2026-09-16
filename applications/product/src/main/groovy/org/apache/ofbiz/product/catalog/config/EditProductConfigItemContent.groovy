@@ -91,7 +91,7 @@ if (fileType) {
     if (!java.nio.file.Paths.get(imageServerPath + '/' + filePathPrefix).normalize()
             .startsWith(java.nio.file.Paths.get(imageServerPath).normalize())) {
         logError('Path traversal attempt detected in config item image upload')
-        return error('SecurityUiLabels', 'SupportedImageFormats')
+        fail('SecurityUiLabels', 'SupportedImageFormats')
     }
     defaultFileName = filenameToUse + '_temp'
     uploadObject = new HttpRequestFileUpload()
@@ -105,7 +105,7 @@ if (fileType) {
         }
         String errorMessage = label('SecurityUiLabels', 'SupportedImageFormats')
         logError(errorMessage)
-        return error(errorMessage)
+        fail(errorMessage)
     }
 
     clientFileName = uploadObject.getFilename()

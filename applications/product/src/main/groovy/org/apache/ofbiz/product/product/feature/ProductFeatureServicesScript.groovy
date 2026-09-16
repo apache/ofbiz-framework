@@ -44,13 +44,11 @@ Map applyFeatureToProductFromTypeAndCode() {
  */
 Map createProductFeatureType() {
     Map result = success()
-    if (!security.hasEntityPermission('CATALOG', '_CREATE', parameters.userLogin)) {
-        return error('ProductUiLabels', 'ProductCatalogCreatePermissionError')
-    }
+    require(security.hasEntityPermission('CATALOG', '_CREATE', parameters.userLogin) as boolean,
+            'ProductUiLabels', 'ProductCatalogCreatePermissionError')
     parameters.productFeatureTypeId = parameters.productFeatureTypeId ?: delegator.getNextSeqId('ProductFeatureType')
-    if (!Pattern.matches('^[a-zA-Z_0-9]+$', parameters.productFeatureTypeId)) {
-        return error('ProductErrorUiLabels', 'ProductFeatureTypeIdMustContainsLettersAndDigits')
-    }
+    require(Pattern.matches('^[a-zA-Z_0-9]+$', parameters.productFeatureTypeId) as boolean,
+            'ProductErrorUiLabels', 'ProductFeatureTypeIdMustContainsLettersAndDigits')
     GenericValue newEntity = makeValue('ProductFeatureType', parameters)
     newEntity.create()
     result.productFeatureTypeId = newEntity.productFeatureTypeId
@@ -61,9 +59,8 @@ Map createProductFeatureType() {
  * Create a ProductFeatureApplAttr
  */
 Map createProductFeatureApplAttr() {
-    if (!security.hasEntityPermission('CATALOG', '_CREATE', parameters.userLogin)) {
-        return error('ProductUiLabels', 'ProductCatalogCreatePermissionError')
-    }
+    require(security.hasEntityPermission('CATALOG', '_CREATE', parameters.userLogin) as boolean,
+            'ProductUiLabels', 'ProductCatalogCreatePermissionError')
     GenericValue newEntity = makeValue('ProductFeatureApplAttr', parameters)
     if (! newEntity.fromDate) {
         GenericValue productFeatureAppl = from('ProductFeatureAppl')

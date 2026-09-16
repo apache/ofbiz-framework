@@ -45,11 +45,10 @@ import org.apache.ofbiz.service.ServiceUtil
  */
 Map createProductCategory() {
     String resourceDescription = parameters.rescourceDescription ?: 'createProductCategory'
-    if (!(security.hasEntityPermission('CATALOG', '_CREATE', parameters.userLogin)
-        || security.hasEntityPermission('CATALOG_ROLE', '_CREATE', parameters.userLogin))) {
-        return error('ProductUiLabels', 'ProductCatalogCreatePermissionError',
-            [resourceDescription: resourceDescription])
-    }
+    require((security.hasEntityPermission('CATALOG', '_CREATE', parameters.userLogin)
+        || security.hasEntityPermission('CATALOG_ROLE', '_CREATE', parameters.userLogin)) as boolean,
+        'ProductUiLabels', 'ProductCatalogCreatePermissionError',
+        [resourceDescription: resourceDescription])
 
     Timestamp nowTimestamp = UtilDateTime.nowTimestamp()
     GenericValue newEntity = makeValue('ProductCategory', parameters)
@@ -57,9 +56,7 @@ Map createProductCategory() {
     if (parameters.productCategoryId) {
         newEntity.productCategoryId = parameters.productCategoryId
         String errorMessage = UtilValidate.checkValidDatabaseId(newEntity.productCategoryId)
-        if (errorMessage != null) {
-            return error(errorMessage)
-        }
+        require(!(errorMessage != null), errorMessage)
     } else {
         newEntity.productCategoryId = delegator.getNextSeqId('ProductCategory')
     }
@@ -334,11 +331,9 @@ Map copyCategoryProductMembers() {
  */
 Map duplicateCategoryEntities() {
     String resourceDescription = parameters.resourceDescription ?: 'duplicateCategoryEntities'
-    if (!(security.hasEntityPermission('CATALOG', '_CREATE', parameters.userLogin)
-        || security.hasEntityPermission('CATALOG_ROLE', '_CREATE', parameters.userLogin))) {
-        return error('ProductUiLabels',
-                'ProductCatalogCreatePermissionError', [resourceDescription: resourceDescription])
-    }
+    require((security.hasEntityPermission('CATALOG', '_CREATE', parameters.userLogin)
+        || security.hasEntityPermission('CATALOG_ROLE', '_CREATE', parameters.userLogin)) as boolean,
+        'ProductUiLabels', 'ProductCatalogCreatePermissionError', [resourceDescription: resourceDescription])
 
     copyCategoryEntities(parameters.entityName, parameters.productCategoryId, parameters.productCategoryIdTo, parameters.validDate)
     return success()
@@ -503,16 +498,12 @@ Map createProductInCategory() {
  */
 Map duplicateProductCategory() {
     String resourceDescription = parameters.resourceDescription ?: 'duplicateProductCategory'
-    if (!(security.hasEntityPermission('CATALOG', '_CREATE', parameters.userLogin)
-        || security.hasEntityPermission('CATALOG_ROLE', '_CREATE', parameters.userLogin))) {
-        return error('ProductUiLabels', 'ProductCatalogCreatePermissionError',
-                [resourceDescription: resourceDescription])
-    }
+    require((security.hasEntityPermission('CATALOG', '_CREATE', parameters.userLogin)
+        || security.hasEntityPermission('CATALOG_ROLE', '_CREATE', parameters.userLogin)) as boolean,
+        'ProductUiLabels', 'ProductCatalogCreatePermissionError', [resourceDescription: resourceDescription])
 
-    if (findOne('ProductCategory', [productCategoryId: parameters.productCategoryId], false)) {
-        return error('ProductUiLabels', 'ProductCategoryAlreadyExists',
-            [resourceDescription: resourceDescription])
-    }
+    require(!(findOne('ProductCategory', [productCategoryId: parameters.productCategoryId], false)),
+        'ProductUiLabels', 'ProductCategoryAlreadyExists', [resourceDescription: resourceDescription])
 
     // look up the old product category and clone it
     GenericValue oldCategory = from('ProductCategory').where([productCategoryId: parameters.oldProductCategoryId]).queryOne()
@@ -581,10 +572,8 @@ Map duplicateProductCategory() {
  */
 Map createProductCategoryAttribute() {
     String resourceDescription = parameters.resourceDescription ?: 'createProductCategoryAttribute'
-    if (!(security.hasEntityPermission('CATALOG', '_CREATE', parameters.userLogin))) {
-        return error('ProductUiLabels', 'ProductCatalogCreatePermissionError',
-            [resourceDescription: resourceDescription])
-    }
+    require(security.hasEntityPermission('CATALOG', '_CREATE', parameters.userLogin) as boolean,
+        'ProductUiLabels', 'ProductCatalogCreatePermissionError', [resourceDescription: resourceDescription])
 
     // check if the new attribute-name is unique to the product-category-id
     exprBldr = new EntityConditionBuilder()
@@ -593,10 +582,8 @@ Map createProductCategoryAttribute() {
         EQUALS(attrName: parameters.attrName)
     }
     List existingData = from('ProductCategoryAttribute').where(condition).queryList()
-    if (existingData) {
-        return error('ProductUiLabels', 'ProductCategoryAttrAlreadyExists',
-            [resourceDescription: resourceDescription])
-    }
+    require(!(existingData), 'ProductUiLabels', 'ProductCategoryAttrAlreadyExists',
+        [resourceDescription: resourceDescription])
     GenericValue newEntity = makeValue('ProductCategoryAttribute', parameters)
     newEntity.create()
     return success()
@@ -607,10 +594,8 @@ Map createProductCategoryAttribute() {
  */
 Map updateProductCategoryAttribute() {
     String resourceDescription = parameters.resourceDescription ?: 'updateProductCategoryAttribute'
-    if (!(security.hasEntityPermission('CATALOG', '_UPDATE', parameters.userLogin))) {
-        return error('ProductUiLabels', 'ProductCatalogUpdatePermissionError',
-            [resourceDescription: resourceDescription])
-    }
+    require(security.hasEntityPermission('CATALOG', '_UPDATE', parameters.userLogin) as boolean,
+        'ProductUiLabels', 'ProductCatalogUpdatePermissionError', [resourceDescription: resourceDescription])
 
     update('ProductCategoryAttribute').where(parameters).set(parameters)
     return success()
@@ -621,10 +606,8 @@ Map updateProductCategoryAttribute() {
  */
 Map deleteProductCategoryAttribute() {
     String resourceDescription = parameters.resourceDescription ?: 'deleteProductCategoryAttribute'
-    if (!(security.hasEntityPermission('CATALOG', '_DELETE', parameters.userLogin))) {
-        return error('ProductUiLabels', 'ProductCatalogDeletePermissionError',
-            [resourceDescription: resourceDescription])
-    }
+    require(security.hasEntityPermission('CATALOG', '_DELETE', parameters.userLogin) as boolean,
+        'ProductUiLabels', 'ProductCatalogDeletePermissionError', [resourceDescription: resourceDescription])
 
     GenericValue productCategoryAttributeInstance = from('ProductCategoryAttribute').where(parameters).queryOne()
     productCategoryAttributeInstance.remove()
@@ -691,9 +674,7 @@ Map checkCategoryRelatedPermission(String callingMethodName, String checkAction,
  * Main permission logic
  */
 Map productCategoryGenericPermission() {
-    if (!parameters.mainAction) {
-        return error('ProductUiLabels', 'ProductMissingMainActionInPermissionService')
-    }
+    require(parameters.mainAction as boolean, 'ProductUiLabels', 'ProductMissingMainActionInPermissionService')
 
     Map result = success()
     Map res = checkCategoryRelatedPermission(parameters.resourceDescription, parameters.mainAction, null, null)
