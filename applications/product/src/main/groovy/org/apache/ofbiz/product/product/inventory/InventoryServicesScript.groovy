@@ -51,9 +51,7 @@ Map checkFacilityRelatedPermission(String callingMethodName, String checkAction,
  */
 Map facilityGenericPermission() {
     String mainAction = parameters.mainAction
-    if (!mainAction) {
-        return error('ProductUiLabels', 'ProductMissingMainActionInPermissionService')
-    }
+    require(mainAction as boolean, 'ProductUiLabels', 'ProductMissingMainActionInPermissionService')
     String callingMethodName = parameters.resourceDescription
     Map permissionResult = checkFacilityRelatedPermission(callingMethodName, mainAction, null)
     if (ServiceUtil.isSuccess(permissionResult)) {
@@ -73,9 +71,7 @@ Map facilityGenericPermission() {
  */
 Map checkProductFacilityRelatedPermission() {
     String mainAction = parameters.mainAction
-    if (!mainAction) {
-        return error('CommonUiLabels', 'CommonPermissionMainActionAttributeMissing')
-    }
+    require(mainAction as boolean, 'CommonUiLabels', 'CommonPermissionMainActionAttributeMissing')
     parameters.altPermission = 'FACILITY'
     Map serviceResult = run service: 'checkProductRelatedPermission', with: parameters
     if (!ServiceUtil.isSuccess(serviceResult)) {
@@ -117,18 +113,14 @@ Map createInventoryItem() {
     // TODO: make sure availableToPromiseTotal and quantityOnHandTotal are not changed
     inventoryItem.setNonPKFields(parameters)
 
-    if (!inventoryItem.facilityId) {
-        return error(label('ProductUiLabels', 'FacilityInventoryItemsMissingFacilityId'))
-    }
+    require(inventoryItem.facilityId as boolean, label('ProductUiLabels', 'FacilityInventoryItemsMissingFacilityId'))
 
     // if inventoryItem's ownerPartyId is empty, get the ownerPartyId from the facility
     if (!inventoryItem.ownerPartyId) {
         GenericValue facility = delegator.getRelatedOne('Facility', inventoryItem, false)
         inventoryItem.ownerPartyId = facility.ownerPartyId
         // if inventoryItem's ownerPartyId is still empty, return an error message
-        if (!inventoryItem.ownerPartyId) {
-            return error(label('ProductUiLabels', 'FacilityInventoryItemsMissingOwnerPartyId'))
-        }
+        require(inventoryItem.ownerPartyId as boolean, label('ProductUiLabels', 'FacilityInventoryItemsMissingOwnerPartyId'))
     }
 
     // if inventoryItem's currencyUomId is empty, get the currencyUomId
@@ -143,9 +135,7 @@ Map createInventoryItem() {
         inventoryItem.currencyUomId = inventoryItem.currencyUomId ?: UtilProperties.getPropertyValue('general.properties', 'currency.uom.id.default')
 
         // if inventoryItem's currencyUomId is still empty, return an error message
-        if (!inventoryItem.currencyUomId) {
-            return error(label('ProductUiLabels', 'FacilityInventoryItemsMissingCurrencyId'))
-        }
+        require(inventoryItem.currencyUomId as boolean, label('ProductUiLabels', 'FacilityInventoryItemsMissingCurrencyId'))
     }
 
     // if inventoryItem's unitCost is empty, get the product's standard
@@ -162,15 +152,12 @@ Map createInventoryItem() {
 
     // if inventoryItem's unitCost is still empty, or negative return an error message
     // TODO/WARNING: getProductCost returns 0 even if no std costs are found
-    if (!inventoryItem.unitCost && inventoryItem.unitCost != (BigDecimal) 0) {
-        return error(label('ProductUiLabels', 'FacilityInventoryItemsMissingUnitCost'))
-    }
+    require(!(!inventoryItem.unitCost && inventoryItem.unitCost != (BigDecimal) 0),
+        label('ProductUiLabels', 'FacilityInventoryItemsMissingUnitCost'))
 
     // if you don't want inventory item with unitCost = 0, change the operator
     // attribute from "less" to "less-equals".
-    if (inventoryItem.unitCost < (BigDecimal) 0) {
-        return error(label('ProductUiLabels', 'FacilityInventoryItemsNegativeUnitCost'))
-    }
+    require(!(inventoryItem.unitCost < (BigDecimal) 0), label('ProductUiLabels', 'FacilityInventoryItemsNegativeUnitCost'))
 
     inventoryItem.inventoryItemId = delegator.getNextSeqId('InventoryItem')
     inventoryItem.create()

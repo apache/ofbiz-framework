@@ -43,9 +43,7 @@ Map uploadProductImages() {
         addAdditionalViewForProductMap._uploadedFile_fileName = parameters._additionalImageOne_fileName
         addAdditionalViewForProductMap._uploadedFile_contentType = parameters._additionalImageOne_contentType
         serviceResult = run service: 'addMultipleuploadForProduct', with: addAdditionalViewForProductMap
-        if (!ServiceUtil.isSuccess(serviceResult)) {
-            return error(serviceResult.errorMessage)
-        }
+        require(ServiceUtil.isSuccess(serviceResult) as boolean, serviceResult.errorMessage)
         addAdditionalViewForProductMap.clear()
     }
     if (parameters._additionalImageTwo_fileName) {
@@ -56,9 +54,7 @@ Map uploadProductImages() {
         addAdditionalViewForProductMap._uploadedFile_fileName = parameters._additionalImageTwo_fileName
         addAdditionalViewForProductMap._uploadedFile_contentType = parameters._additionalImageTwo_contentType
         serviceResult = run service: 'addMultipleuploadForProduct', with: addAdditionalViewForProductMap
-        if (!ServiceUtil.isSuccess(serviceResult)) {
-            return error(serviceResult.errorMessage)
-        }
+        require(ServiceUtil.isSuccess(serviceResult) as boolean, serviceResult.errorMessage)
         addAdditionalViewForProductMap.clear()
     }
     if (parameters._additionalImageThree_fileName) {
@@ -69,9 +65,7 @@ Map uploadProductImages() {
         addAdditionalViewForProductMap._uploadedFile_fileName = parameters._additionalImageThree_fileName
         addAdditionalViewForProductMap._uploadedFile_contentType = parameters._additionalImageThree_contentType
         serviceResult = run service: 'addMultipleuploadForProduct', with: addAdditionalViewForProductMap
-        if (!ServiceUtil.isSuccess(serviceResult)) {
-            return error(serviceResult.errorMessage)
-        }
+        require(ServiceUtil.isSuccess(serviceResult) as boolean, serviceResult.errorMessage)
         addAdditionalViewForProductMap.clear()
     }
     if (parameters._additionalImageFour_fileName) {
@@ -82,9 +76,7 @@ Map uploadProductImages() {
         addAdditionalViewForProductMap._uploadedFile_fileName = parameters._additionalImageFour_fileName
         addAdditionalViewForProductMap._uploadedFile_contentType = parameters._additionalImageFour_contentType
         serviceResult = run service: 'addMultipleuploadForProduct', with: addAdditionalViewForProductMap
-        if (!ServiceUtil.isSuccess(serviceResult)) {
-            return error(serviceResult.errorMessage)
-        }
+        require(ServiceUtil.isSuccess(serviceResult) as boolean, serviceResult.errorMessage)
         addAdditionalViewForProductMap.clear()
     }
     if (parameters._additionalImageFive_fileName) {
@@ -95,9 +87,7 @@ Map uploadProductImages() {
         addAdditionalViewForProductMap._uploadedFile_fileName = parameters._additionalImageFive_fileName
         addAdditionalViewForProductMap._uploadedFile_contentType = parameters._additionalImageFive_contentType
         serviceResult = run service: 'addMultipleuploadForProduct', with: addAdditionalViewForProductMap
-        if (!ServiceUtil.isSuccess(serviceResult)) {
-            return error(serviceResult.errorMessage)
-        }
+        require(ServiceUtil.isSuccess(serviceResult) as boolean, serviceResult.errorMessage)
         addAdditionalViewForProductMap.clear()
     }
     if (parameters._additionalImageSix_fileName) {
@@ -108,9 +98,7 @@ Map uploadProductImages() {
         addAdditionalViewForProductMap._uploadedFile_fileName = parameters._additionalImageSix_fileName
         addAdditionalViewForProductMap._uploadedFile_contentType = parameters._additionalImageSix_contentType
         serviceResult = run service: 'addMultipleuploadForProduct', with: addAdditionalViewForProductMap
-        if (!ServiceUtil.isSuccess(serviceResult)) {
-            return error(serviceResult.errorMessage)
-        }
+        require(ServiceUtil.isSuccess(serviceResult) as boolean, serviceResult.errorMessage)
         addAdditionalViewForProductMap.clear()
     }
     if (parameters._additionalImageSeven_fileName) {
@@ -121,9 +109,7 @@ Map uploadProductImages() {
         addAdditionalViewForProductMap._uploadedFile_fileName = parameters._additionalImageSeven_fileName
         addAdditionalViewForProductMap._uploadedFile_contentType = parameters._additionalImageSeven_contentType
         serviceResult = run service: 'addMultipleuploadForProduct', with: addAdditionalViewForProductMap
-        if (!ServiceUtil.isSuccess(serviceResult)) {
-            return error(serviceResult.errorMessage)
-        }
+        require(ServiceUtil.isSuccess(serviceResult) as boolean, serviceResult.errorMessage)
         addAdditionalViewForProductMap.clear()
     }
     if (parameters._additionalImageEight_fileName) {
@@ -134,9 +120,7 @@ Map uploadProductImages() {
         addAdditionalViewForProductMap._uploadedFile_fileName = parameters._additionalImageEight_fileName
         addAdditionalViewForProductMap._uploadedFile_contentType = parameters._additionalImageEight_contentType
         serviceResult = run service: 'addMultipleuploadForProduct', with: addAdditionalViewForProductMap
-        if (!ServiceUtil.isSuccess(serviceResult)) {
-            return error(serviceResult.errorMessage)
-        }
+        require(ServiceUtil.isSuccess(serviceResult) as boolean, serviceResult.errorMessage)
         addAdditionalViewForProductMap.clear()
     }
     if (parameters._additionalImageNine_fileName) {
@@ -147,9 +131,7 @@ Map uploadProductImages() {
         addAdditionalViewForProductMap._uploadedFile_fileName = parameters._additionalImageNine_fileName
         addAdditionalViewForProductMap._uploadedFile_contentType = parameters._additionalImageNine_contentType
         serviceResult = run service: 'addMultipleuploadForProduct', with: addAdditionalViewForProductMap
-        if (!ServiceUtil.isSuccess(serviceResult)) {
-            return error(serviceResult.errorMessage)
-        }
+        require(ServiceUtil.isSuccess(serviceResult) as boolean, serviceResult.errorMessage)
         addAdditionalViewForProductMap.clear()
     }
     if (parameters._additionalImageTen_fileName) {
@@ -160,9 +142,7 @@ Map uploadProductImages() {
         addAdditionalViewForProductMap._uploadedFile_fileName = parameters._additionalImageTen_fileName
         addAdditionalViewForProductMap._uploadedFile_contentType = parameters._additionalImageTen_contentType
         serviceResult = run service: 'addMultipleuploadForProduct', with: addAdditionalViewForProductMap
-        if (!ServiceUtil.isSuccess(serviceResult)) {
-            return error(serviceResult.errorMessage)
-        }
+        require(ServiceUtil.isSuccess(serviceResult) as boolean, serviceResult.errorMessage)
         addAdditionalViewForProductMap.clear()
     }
     return result
@@ -179,7 +159,7 @@ Map removeProductContentAndImageFile() {
     if (checkDefaultImage) {
         String errorMessage = UtilProperties.getMessage('ProductErrorUiLabels', 'ImageManagementErrorRmoveDefaultImage', locale)
         logError("Cannot remove image contentId ${parameters.contentId}")
-        return error(errorMessage)
+        fail(errorMessage)
     }
     List contentAssocs = from('ContentAssoc').where(contentId: parameters.contentId, contentAssocTypeId: 'IMAGE_THUMBNAIL').queryList()
     if (contentAssocs) {
@@ -187,18 +167,14 @@ Map removeProductContentAndImageFile() {
             contentAssoc.remove()
             removeContent = [contentId: contentAssoc.contentIdTo, productId: parameters.productId]
             serviceResult = run service: 'removeProductContentForImageManagement', with: removeContent
-            if (!ServiceUtil.isSuccess(serviceResult)) {
-                return error(serviceResult.errorMessage)
-            }
+            require(ServiceUtil.isSuccess(serviceResult) as boolean, serviceResult.errorMessage)
         }
     }
     GenericValue lookedUpValue = from('ProductContent').where(parameters).queryOne()
     lookedUpValue.remove()
     removeContent = [contentId: parameters.contentId, productId: parameters.productId]
     serviceResult = run service: 'removeProductContentForImageManagement', with: removeContent
-    if (!ServiceUtil.isSuccess(serviceResult)) {
-        return error(serviceResult.errorMessage)
-    }
+    require(ServiceUtil.isSuccess(serviceResult) as boolean, serviceResult.errorMessage)
     return success()
 }
 
@@ -222,9 +198,7 @@ Map removeProductContentForImageManagement() {
     GenericValue content = from('Content').where(contentId: parameters.contentId).queryOne()
     Map removeContentPKMap = [contentId: parameters.contentId]
     serviceResult = run service: 'removeContent', with: removeContentPKMap
-    if (!ServiceUtil.isSuccess(serviceResult)) {
-        return error(serviceResult.errorMessage)
-    }
+    require(ServiceUtil.isSuccess(serviceResult) as boolean, serviceResult.errorMessage)
 
     String dataResourceId = content.dataResourceId
     List dataResourceRoles = from('DataResourceRole').where(dataResourceId: dataResourceId).queryList()
@@ -235,15 +209,11 @@ Map removeProductContentForImageManagement() {
     Map removeImageFile = [productId: parameters.productId, contentId: parameters.contentId, objectInfo: dataResource.objectInfo,
                            dataResourceName: dataResource.dataResourceName]
     serviceResult = run service: 'removeImageFileForImageManagement', with: removeImageFile
-    if (!ServiceUtil.isSuccess(serviceResult)) {
-        return error(serviceResult.errorMessage)
-    }
+    require(ServiceUtil.isSuccess(serviceResult) as boolean, serviceResult.errorMessage)
 
     Map removeDataResourcePKMap = [dataResourceId: dataResourceId]
     serviceResult = run service: 'removeDataResource', with: removeDataResourcePKMap
-    if (!ServiceUtil.isSuccess(serviceResult)) {
-        return error(serviceResult.errorMessage)
-    }
+    require(ServiceUtil.isSuccess(serviceResult) as boolean, serviceResult.errorMessage)
     return success()
 }
 
@@ -402,9 +372,7 @@ Map createImageContentApproval() {
         Map contentApproval = [partyId: partyRole.partyId, contentId: parameters.contentId, roleTypeId: 'IMAGEAPPROVER',
                                approvalDate: nowTimestamp, approvalStatusId: 'IM_PENDING']
         Map serviceResult = run service: 'createContentApproval', with: contentApproval
-        if (!ServiceUtil.isSuccess(serviceResult)) {
-            return error(serviceResult.errorMessage)
-        }
+        require(ServiceUtil.isSuccess(serviceResult) as boolean, serviceResult.errorMessage)
     }
     return success()
 }
@@ -432,9 +400,7 @@ Map resizeImages() {
             Map resizeImageMap = [productId: productContentAndInfo.productId, dataResourceName: productContentAndInfo.drDataResourceName,
                                   resizeWidth: parameters.size]
             serviceResult = run service: 'resizeImageOfProduct', with: resizeImageMap
-            if (!ServiceUtil.isSuccess(serviceResult)) {
-                return error(serviceResult.errorMessage)
-            }
+            require(ServiceUtil.isSuccess(serviceResult) as boolean, serviceResult.errorMessage)
         }
     }
     if (parameters.resizeOption == 'createNewThumbnail') {
@@ -450,9 +416,7 @@ Map resizeImages() {
                                               drObjectInfo: productContentAndInfo.drObjectInfo,
                                               sizeWidth: parameters.size]
             serviceResult = run service: 'createNewImageThumbnail', with: createNewImageThumbnailMap
-            if (!ServiceUtil.isSuccess(serviceResult)) {
-                return error(serviceResult.errorMessage)
-            }
+            require(ServiceUtil.isSuccess(serviceResult) as boolean, serviceResult.errorMessage)
         }
     }
     return success()

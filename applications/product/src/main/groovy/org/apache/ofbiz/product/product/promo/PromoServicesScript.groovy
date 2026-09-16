@@ -40,5 +40,5 @@ Map updateProductPromoCond() {
         lookedUpValue.store()
         return success()
     }
-    return error(label('ServiceErrorUiLabels', 'ServiceValueNotFound'))
+    fail(label('ServiceErrorUiLabels', 'ServiceValueNotFound'))
 }
