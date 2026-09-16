@@ -132,12 +132,10 @@ Map getRoutingTaskAssocs() {
 Map removeCalendar() {
     GenericValue techDataCalendar = from('TechDataCalendar').where(parameters).queryOne()
     if (techDataCalendar) {
-        if (techDataCalendar.getRelated('TechDataCalendarExcDay', null, null, false)) {
-            return error(label('ManufacturingUiLabels', 'ManufacturingCalendarExceptionDayUseCalendar'))
-        }
-        if (techDataCalendar.getRelated('TechDataCalendarExcWeek', null, null, false)) {
-            return error(label('ManufacturingUiLabels', 'ManufacturingCalendarExceptionWeekUseCalendar'))
-        }
+        require(!(techDataCalendar.getRelated('TechDataCalendarExcDay', null, null, false)),
+                label('ManufacturingUiLabels', 'ManufacturingCalendarExceptionDayUseCalendar'))
+        require(!(techDataCalendar.getRelated('TechDataCalendarExcWeek', null, null, false)),
+                label('ManufacturingUiLabels', 'ManufacturingCalendarExceptionWeekUseCalendar'))
         techDataCalendar.remove()
     }
     return success()
@@ -149,12 +147,10 @@ Map removeCalendar() {
 Map removeCalendarWeek() {
     GenericValue techDataCalendarWeek = from('TechDataCalendarWeek').where(parameters).queryOne()
     if (techDataCalendarWeek) {
-        if (techDataCalendarWeek.getRelated('TechDataCalendar', null, null, false)) {
-            return error(label('ManufacturingUiLabels', 'ManufacturingCalendarUseCalendarWeek'))
-        }
-        if (techDataCalendarWeek.getRelated('TechDataCalendarExcWeek', null, null, false)) {
-            return error(label('ManufacturingUiLabels', 'ManufacturingCalendarWeekExceptionUseCalendarWeek'))
-        }
+        require(!(techDataCalendarWeek.getRelated('TechDataCalendar', null, null, false)),
+                label('ManufacturingUiLabels', 'ManufacturingCalendarUseCalendarWeek'))
+        require(!(techDataCalendarWeek.getRelated('TechDataCalendarExcWeek', null, null, false)),
+                label('ManufacturingUiLabels', 'ManufacturingCalendarWeekExceptionUseCalendarWeek'))
         techDataCalendarWeek.remove()
     }
     return  success()
