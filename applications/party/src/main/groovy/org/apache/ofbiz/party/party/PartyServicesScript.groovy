@@ -539,7 +539,7 @@ Map sendCreatePartyEmailNotification() {
             .queryOne()
         bodyParameters.person = person
 
-        run service: 'sendMailFromScreen',
+        runAsync service: 'sendMailFromScreen',
             with: [bodyParameters: bodyParameters,
                    sendTo: parameters.emailAddress,
                    subject: storeEmail.subject,
@@ -595,7 +595,7 @@ Map sendUpdatePersonalInfoEmailNotification() {
             GenericValue contactMech = from('ContactMech')
                 .where(contactMechId: partyContactDetailByPurpose.contactMechId)
                 .queryOne()
-            run service: 'sendMailFromScreen',
+            runAsync service: 'sendMailFromScreen',
                 with: [bodyParameters: bodyParameters,
                        sendTo: contactMech.infoString,
                        subject: storeEmail.subject,
@@ -652,7 +652,7 @@ Map sendAccountActivatedEmailNotification() {
             GenericValue contactMech = from('ContactMech')
                 .where('contactMechId': partyContactDetailByPurpose.contactMechId)
                 .queryOne()
-            run service: 'sendMailFromScreen',
+            runAsync service: 'sendMailFromScreen',
                 with: [bodyParameters: bodyParameters,
                        sendTo: contactMech.infoString,
                        subject: storeEmail.subject,

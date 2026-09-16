@@ -115,7 +115,7 @@ Map sendOrderDeliveryScheduleNotification() {
     // call sendGenericNotificationEmail service, if enough information was found
     logInfo("Sending generic notification email (if all info is in place): ${sendEmailMap}")
     if (sendEmailMap.sendTo && sendEmailMap.sendFrom) {
-        run service: 'sendGenericNotificationEmail', with: sendEmailMap
+        runAsync service: 'sendGenericNotificationEmail', with: sendEmailMap
     } else {
         logError("Insufficient data to send notice email: ${sendEmailMap}")
     }

@@ -652,7 +652,7 @@ Map sendContactUsEmailToCompany() {
         emailParams.contentType = productStoreEmailSetting.contentType
         emailParams.bodyScreenUri = productStoreEmailSetting.bodyScreenLocation
 
-        run service: 'sendMailFromScreen', with: emailParams
+        runAsync service: 'sendMailFromScreen', with: emailParams
     }
 
     return success()
