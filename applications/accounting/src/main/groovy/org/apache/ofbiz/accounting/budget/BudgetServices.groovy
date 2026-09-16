@@ -33,10 +33,8 @@ Map updateBudgetStatus() {
                     .where(statusId: budgetStatus.statusId, statusIdTo: parameters.statusId)
                     .cache()
                     .queryOne()
-            if (!statusValidChange) {
-                return error(label('CommonUiLabels', 'CommonErrorNoStatusValidChange',
-                        [lookedUpValue: [statusId: budgetStatus.statusId], parameters: parameters]))
-            }
+            require(statusValidChange as boolean, label('CommonUiLabels', 'CommonErrorNoStatusValidChange',
+                    [lookedUpValue: [statusId: budgetStatus.statusId], parameters: parameters]))
             result = run service: 'createBudgetStatus', with: parameters
         }
     } else {

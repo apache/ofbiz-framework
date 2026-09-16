@@ -28,9 +28,7 @@ import org.apache.ofbiz.service.ServiceUtil
 
 Map copyAgreement() {
     GenericValue agreement = from('Agreement').where(parameters).queryOne()
-    if (!agreement) {
-        return error(label('AccountingUiLabels', 'AccountingAgreementNotFound', parameters))
-    }
+    require(agreement as boolean, label('AccountingUiLabels', 'AccountingAgreementNotFound', parameters))
     Map serviceResult = success()
     Map createAgreementInMap = dispatcher.getDispatchContext().makeValidContext('createAgreement', ModelService.IN_PARAM, agreement)
     Map result = run service: 'createAgreement', with: createAgreementInMap
