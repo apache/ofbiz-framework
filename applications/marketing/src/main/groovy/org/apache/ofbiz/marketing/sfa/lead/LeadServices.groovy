@@ -32,7 +32,7 @@ Map createLead() {
     String partyGroupPartyId
     Map serviceResult
     // Check if Person or PartyGroup name is supplied
-    require(!((!parameters.firstName || !parameters.lastName) && !parameters.groupName),
+    require((parameters.firstName && parameters.lastName) || parameters.groupName,
             'MarketingUiLabels', 'SfaFirstNameLastNameAndCompanyNameMissingError')
     run service: 'ensurePartyRole', with: [partyId: userLogin.partyId, roleTypeId: 'OWNER']
     // PartyRole check end

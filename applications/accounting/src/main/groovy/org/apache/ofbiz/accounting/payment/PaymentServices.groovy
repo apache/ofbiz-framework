@@ -35,9 +35,9 @@ import org.apache.ofbiz.entity.util.EntityUtilProperties
 import org.apache.ofbiz.service.ServiceUtil
 
 Map createPayment() {
-    require(!(!security.hasEntityPermission('ACCOUNTING', '_CREATE', parameters.userLogin) &&
-            (!security.hasEntityPermission('PAY_INFO', '_CREATE', parameters.userLogin) &&
-                    userLogin.partyId != parameters.partyIdFrom && userLogin.partyId != parameters.partyIdTo)),
+    require(security.hasEntityPermission('ACCOUNTING', '_CREATE', parameters.userLogin) ||
+            security.hasEntityPermission('PAY_INFO', '_CREATE', parameters.userLogin) ||
+            userLogin.partyId == parameters.partyIdFrom || userLogin.partyId == parameters.partyIdTo,
             label('AccountingUiLabels', 'AccountingCreatePaymentPermissionError'))
 
     GenericValue payment = makeValue('Payment')
@@ -129,9 +129,9 @@ Map getInvoicePaymentInfoList() {
 
 Map updatePayment() {
     GenericValue payment = from('Payment').where(parameters).queryOne()
-    require(!(!security.hasEntityPermission('ACCOUNTING', '_UPDATE', parameters.userLogin) &&
-        (!security.hasEntityPermission('PAY_INFO', '_UPDATE', parameters.userLogin) &&
-        userLogin.partyId != payment.partyIdFrom && userLogin.partyId != payment.partyIdTo)),
+    require(security.hasEntityPermission('ACCOUNTING', '_UPDATE', parameters.userLogin) ||
+        security.hasEntityPermission('PAY_INFO', '_UPDATE', parameters.userLogin) ||
+        userLogin.partyId == payment.partyIdFrom || userLogin.partyId == payment.partyIdTo,
         label('AccountingUiLabels', 'AccountingUpdatePaymentPermissionError'))
     if ('PMNT_NOT_PAID' != payment.statusId) {
         // check if only status change
