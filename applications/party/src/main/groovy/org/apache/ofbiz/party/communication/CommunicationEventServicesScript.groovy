@@ -575,7 +575,7 @@ Map setCommEventRoleToRead() {
                 .where(communicationEventId: parameters.communicationEventId,
                        partyId: parameters.partyId)
                 .queryFirst()
-        parameters.roleTypeId = eventRole.roleTypeId
+        parameters.roleTypeId = eventRole?.roleTypeId
     }
 
     if (eventRole
@@ -596,6 +596,9 @@ Map setCommunicationEventRoleStatus() {
     GenericValue communicationEventRole = from('CommunicationEventRole')
             .where(parameters)
             .queryOne()
+    if (!communicationEventRole) {
+        return success()
+    }
 
     String oldStatusId = communicationEventRole.statusId
     if (parameters.statusId != oldStatusId) {
