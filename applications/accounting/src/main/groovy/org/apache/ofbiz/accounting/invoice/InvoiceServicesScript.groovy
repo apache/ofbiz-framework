@@ -302,8 +302,14 @@ Map setInvoiceStatus() {
  */
 Map checkInvoiceStatusInProgress() {
     GenericValue invoice = from('Invoice').where(parameters).cache().queryOne()
-    boolean hasPermission = invoice && invoice.statusId == 'INVOICE_IN_PROCESS'
-    return success([hasPermission: hasPermission])
+    if (!invoice) {
+        return success([hasPermission: false, failMessage: label('AccountingUiLabels', 'AccountingInvoiceNotFound', parameters)])
+    }
+    if (invoice.statusId != 'INVOICE_IN_PROCESS') {
+        return success([hasPermission: false,
+                        failMessage: label('AccountingUiLabels', 'AccountingInvoiceUpdateOnlyWithInProcessStatus', parameters)])
+    }
+    return success([hasPermission: true])
 }
 
 /**
