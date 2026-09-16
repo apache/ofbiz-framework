@@ -599,9 +599,7 @@ Map createShipmentPackage() {
  * Update ShipmentPackage
  */
 Map updateShipmentPackage() {
-    GenericValue lookedUpValue = from('ShipmentPackage').where(parameters).queryOne()
-    lookedUpValue.setNonPKFields(parameters)
-    lookedUpValue.store()
+    GenericValue lookedUpValue = update('ShipmentPackage').where(parameters).set(parameters)
     ensurePackageRouteSeg(lookedUpValue.shipmentId, lookedUpValue.shipmentPackageSeqId)
     return success()
 }

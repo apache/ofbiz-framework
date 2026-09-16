@@ -138,8 +138,7 @@ Map removeProductFromCategory() {
     // If the associated category was the primary category for the product, clear that field
     GenericValue product = from('Product').where(parameters).queryOne()
     if (Objects.equals(product?.primaryProductCategoryId, parameters.productCategoryId)) {
-        product.primaryProductCategoryId = null
-        product.store()
+        update('Product').where(parameters).set([primaryProductCategoryId: null])
     }
     GenericValue lookedUpValue = from('ProductCategoryMember').where(parameters).queryOne()
     lookedUpValue.remove()
@@ -174,9 +173,7 @@ Map updatePartyToCategory() {
     if (!ServiceUtil.isSuccess(res)) {
         return res
     }
-    GenericValue lookedUpValue = from('ProductCategoryRole').where(parameters).queryOne()
-    lookedUpValue.setNonPKFields(parameters)
-    lookedUpValue.store()
+    update('ProductCategoryRole').where(parameters).set(parameters)
     return success()
 }
 
@@ -257,9 +254,7 @@ Map updateProductCategoryToCategory() {
         return res
     }
 
-    GenericValue lookedUpValue = from('ProductCategoryRollup').where(parameters).queryOne()
-    lookedUpValue.setNonPKFields(parameters)
-    lookedUpValue.store()
+    update('ProductCategoryRollup').where(parameters).set(parameters)
     Map result = success()
     result.productCategoryId = parameters.productCategoryId
     return result
@@ -498,9 +493,7 @@ Map createProductInCategory() {
 
     // set isVirtual based on hasSelectableFeatures
     if (hasSelectableFeatures == 'Y') {
-        GenericValue newProduct = from('Product').where(parameters).queryOne()
-        newProduct.isVirtual = 'Y'
-        newProduct.store()
+        update('Product').where(parameters).set([isVirtual: 'Y'])
     }
     return result
 }
@@ -619,9 +612,7 @@ Map updateProductCategoryAttribute() {
             [resourceDescription: resourceDescription])
     }
 
-    GenericValue productCategoryAttributeInstance = from('ProductCategoryAttribute').where(parameters).queryOne()
-    productCategoryAttributeInstance.setNonPKFields(parameters)
-    productCategoryAttributeInstance.store()
+    update('ProductCategoryAttribute').where(parameters).set(parameters)
     return success()
 }
 

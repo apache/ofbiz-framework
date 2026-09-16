@@ -42,11 +42,9 @@ Map createShipmentReceipt() {
     newEntity.create()
 
     if (parameters.inventoryItemDetailSeqId) {
-        GenericValue invDet = from('InventoryItemDetail')
+        update('InventoryItemDetail')
                 .where(inventoryItemDetailSeqId: parameters.inventoryItemDetailSeqId, inventoryItemId: parameters.inventoryItemId)
-                .queryOne()
-        invDet.receiptId = receiptId
-        invDet.store()
+                .set([receiptId: receiptId])
     }
     Boolean affectAccounting = true
 
@@ -383,10 +381,7 @@ Map cancelReceivedItems() {
     // 4. updateProductIfAvailableFromShipment
 
     // update the accepted and received quantity to zero in ShipmentReceipt entity
-    GenericValue shipmentReceipt = from('ShipmentReceipt').where(parameters).queryOne()
-    shipmentReceipt.quantityAccepted = 0.0
-    shipmentReceipt.quantityRejected = 0.0
-    shipmentReceipt.store()
+    update('ShipmentReceipt').where(parameters).set([quantityAccepted: 0.0, quantityRejected: 0.0])
 
     // create record for InventoryItemDetail entity
     GenericValue inventoryItem = delegator.getRelatedOne('InventoryItem', shipmentReceipt, false)

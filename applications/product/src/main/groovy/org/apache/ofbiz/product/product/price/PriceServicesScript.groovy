@@ -160,9 +160,7 @@ Map updateProductPriceCond() {
     if (['PRIP_QUANTITY', 'PRIP_LIST_PRICE'].contains(parameters.inputParamEnumId)) {
         parameters.condValue = parameters.condValueInput
     }
-    GenericValue lookedUpValue = from('ProductPriceCond').where(parameters).queryOne()
-    lookedUpValue.setNonPKFields(parameters)
-    lookedUpValue.store()
+    update('ProductPriceCond').where(parameters).set(parameters)
     return success()
 }
 

@@ -454,12 +454,7 @@ Map updatePartyRelationship() {
     parameters.roleTypeIdFrom = parameters.roleTypeIdFrom ?: '_NA_'
     parameters.roleTypeIdTo = parameters.roleTypeIdTo ?: '_NA_'
 
-    // lookup existing value
-    GenericValue partyRelationship = from('PartyRelationship')
-        .where(parameters)
-        .queryOne()
-    partyRelationship.setNonPKFields(parameters)
-    partyRelationship.store()
+    update('PartyRelationship').where(parameters).set(parameters)
 
     return success()
 }

@@ -874,7 +874,6 @@ Map createReturnStatus() {
 Map updateReturnContactMech() {
     GenericValue returnContactMechMap = makeValue('ReturnContactMech')
     returnContactMechMap.setPKFields(parameters)
-    GenericValue returnHeader = from('ReturnHeader').where(parameters).queryOne()
     Map createReturnContactMechMap = [returnId: parameters.returnId,
         contactMechPurposeTypeId: parameters.contactMechPurposeTypeId,
         contactMechId: parameters.contactMechId]
@@ -882,8 +881,7 @@ Map updateReturnContactMech() {
     // If returnContactMechList value is null then create new entry in ReturnContactMech entity
     if (!returnContactMechList) {
         if (parameters.contactMechPurposeTypeId == 'SHIPPING_LOCATION') {
-            returnHeader.originContactMechId = createReturnContactMechMap.contactMechId
-            returnHeader.store()
+            update('ReturnHeader').where(parameters).set([originContactMechId: createReturnContactMechMap.contactMechId])
         }
         run service: 'createReturnContactMech', with: createReturnContactMechMap
     }

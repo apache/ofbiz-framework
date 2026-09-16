@@ -370,22 +370,22 @@ Map updateStatusImageManagement() {
  */
 Map addRejectedReasonImageManagement() {
     Timestamp nowTimestamp = UtilDateTime.nowTimestamp()
-    GenericValue content = from('Content').where(parameters).queryOne()
+    String description
     switch (parameters.description) {
         case 'RETAKE_PHOTO':
-            content.description = 'Re-take Photo'
+            description = 'Re-take Photo'
             break
         case 'REMOVE_LOGO':
-            content.description = 'Remove Logo'
+            description = 'Remove Logo'
             break
         case 'OTHER':
-            content.description = 'Other'
+            description = 'Other'
             break
         default:
-            content.description = 'Other'
+            description = 'Other'
             break
     }
-    content.store()
+    update('Content').where(parameters).set([description: description])
     GenericValue productContent = from('ProductContent').where(contentId: parameters.contentId, productContentTypeId: 'IMAGE').queryFirst()
     productContent.thruDate = nowTimestamp
     productContent.store()

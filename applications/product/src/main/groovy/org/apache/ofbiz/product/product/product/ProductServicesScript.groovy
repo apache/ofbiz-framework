@@ -108,12 +108,9 @@ Map updateProduct() {
     if (!ServiceUtil.isSuccess(res)) {
         return res
     }
-    GenericValue lookedUpValue = from('Product').where(parameters).queryOne()
-
-    lookedUpValue.setNonPKFields(parameters)
-    lookedUpValue.lastModifiedDate = UtilDateTime.nowTimestamp()
-    lookedUpValue.lastModifiedByUserLogin = userLogin.userLoginId
-    lookedUpValue.store()
+    update('Product').where(parameters).set([*: parameters,
+                                             lastModifiedDate: UtilDateTime.nowTimestamp(),
+                                             lastModifiedByUserLogin: userLogin.userLoginId])
 
     return success()
 }
@@ -347,21 +344,19 @@ Map indexProductKeywords() {
 Map discontinueProductSales() {
     // set sales discontinuation date to now
     Timestamp nowTimestamp = UtilDateTime.nowTimestamp()
-    GenericValue product = from('Product').where(parameters).queryOne()
-    product.salesDiscontinuationDate = nowTimestamp
-    product.store()
+    update('Product').where(parameters).set([salesDiscontinuationDate: nowTimestamp])
 
     // expire product from all categories
     exprBldr = new EntityConditionBuilder()
     condition = exprBldr.AND {
-        EQUALS(productId: product.productId)
+        EQUALS(productId: parameters.productId)
         EQUALS(thruDate: null)
     }
     delegator.storeByCondition('ProductCategoryMember',
             [thruDate: nowTimestamp], condition)
     // expire product from all associations going to it
     assocCondition = new EntityConditionBuilder().AND {
-        EQUALS(productIdTo: product.productId)
+        EQUALS(productIdTo: parameters.productId)
         EQUALS(thruDate: null)
     }
     delegator.storeByCondition('ProductAssoc',
@@ -434,11 +429,9 @@ Map updateProductReview() {
     if (!ServiceUtil.isSuccess(res)) {
         return res
     }
-    GenericValue lookedUpValue = from('ProductReview').where(parameters).queryOne()
-    lookedUpValue.setNonPKFields(parameters)
-    lookedUpValue.store()
+    update('ProductReview').where(parameters).set(parameters)
 
-    String productId = lookedUpValue.productId
+    String productId = parameters.productId
     updateProductWithReviewRatingAvg(productId)
 
     return success()
@@ -464,10 +457,9 @@ Map setProductReviewStatus() {
         }
     }
 
-    productReview.statusId = parameters.statusId
-    productReview.store()
+    GenericValue updatedProductReview = update('ProductReview').where(parameters).set([statusId: parameters.statusId])
     Map result = success()
-    result.productReviewId = productReview.productReviewId
+    result.productReviewId = updatedProductReview.productReviewId
 
     return result
 }
@@ -676,9 +668,7 @@ Map updatePartyToProduct() {
     }
     GenericValue lookupPKMap = makeValue('ProductRole')
     lookupPKMap.setPKFields(parameters)
-    GenericValue lookedUpValue = findOne('ProductRole', lookupPKMap, false)
-    lookedUpValue.setNonPKFields(parameters)
-    lookedUpValue.store()
+    update('ProductRole').where(lookupPKMap).set(parameters)
     return success()
 }
 
@@ -726,9 +716,7 @@ Map updateProductCategoryGlAccount() {
         return res
     }
 
-    GenericValue lookedUpValue = findOne('ProductCategoryGlAccount', parameters, false)
-    lookedUpValue.setNonPKFields(parameters)
-    lookedUpValue.store()
+    update('ProductCategoryGlAccount').where(parameters).set(parameters)
 
     return success()
 }
@@ -769,15 +757,12 @@ Map createProductGroupOrder() {
  * Update ProductGroupOrder
  */
 Map updateProductGroupOrder() {
-    GenericValue productGroupOrder = from('ProductGroupOrder').where(parameters).queryOne()
-    productGroupOrder.setNonPKFields(parameters)
-    productGroupOrder.store()
+    GenericValue productGroupOrder = update('ProductGroupOrder').where(parameters).set(parameters)
 
     if (productGroupOrder.statusId == 'GO_CREATED') {
         GenericValue jobSandbox = from('JobSandbox').where(jobId: productGroupOrder.jobId).queryOne()
         if (jobSandbox) {
-            jobSandbox.runTime = parameters.thruDate
-            jobSandbox.store()
+            update('JobSandbox').where(jobId: productGroupOrder.jobId).set([runTime: parameters.thruDate])
         }
     }
     return success()
@@ -830,8 +815,7 @@ Map createJobForProductGroupOrder() {
                          priority: 50L]
         create('JobSandbox', jobFields)
 
-        productGroupOrder.jobId = jobFields.jobId
-        productGroupOrder.store()
+        update('ProductGroupOrder').where(parameters).set([jobId: jobFields.jobId])
     }
     return success()
 }

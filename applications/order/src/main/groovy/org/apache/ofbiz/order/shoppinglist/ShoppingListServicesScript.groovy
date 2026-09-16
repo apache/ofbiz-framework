@@ -121,9 +121,7 @@ Map createShoppingListItem() {
  */
 Map updateShoppingListItem() {
     GenericValue shoppingList = from('ShoppingList').where(parameters).queryOne()
-    GenericValue shoppingListItem = from('ShoppingListItem').where(parameters).queryOne()
-    shoppingListItem.setNonPKFields(parameters)
-    shoppingListItem.store()
+    update('ShoppingListItem').where(parameters).set(parameters)
 
     updateLastAdminModified(shoppingList, userLogin)
     return success()

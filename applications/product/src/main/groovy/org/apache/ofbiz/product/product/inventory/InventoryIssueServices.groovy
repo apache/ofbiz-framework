@@ -50,8 +50,7 @@ Map issueImmediatelyFulfilledOrder() {
                     }
                 }
                 // now that the issuance is done, set the needsInventoryIssuance=N
-                orderHeader.needsInventoryIssuance = 'N'
-                orderHeader.store()
+                update('OrderHeader').where(parameters).set([needsInventoryIssuance: 'N'])
                 logInfo("Issued inventory for orderId ${orderHeader.orderId}.")
             } else {
                 logInfo("Not issuing inventory for orderId ${orderHeader.orderId}," +

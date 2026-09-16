@@ -56,9 +56,7 @@ Map createCategoryContent() {
 Map updateCategoryContent() {
     GenericValue lookupPKMap = makeValue('ProductCategoryContent')
     lookupPKMap.setPKFields(parameters, true)
-    Map lookedUpValue = from('ProductCategoryContent').where(lookupPKMap).queryOne()
-    lookedUpValue.setNonPKFields(parameters, true)
-    lookedUpValue.store()
+    update('ProductCategoryContent').where(lookupPKMap).set(parameters)
 
     Map updateContent = dispatcher.getDispatchContext().makeValidContext('updateContent', ModelService.IN_PARAM, parameters)
     run service: 'updateContent', with: updateContent
