@@ -29,9 +29,7 @@ Map createBlogEntry() {
     parameters.statusId = parameters.statusId ?: 'CTNT_INITIAL_DRAFT'
     parameters.templateDataResourceId = parameters.templateDataResourceId ?: 'BLOG_TPL_TOPLEFT'
 
-    if (!parameters.contentName) {
-        return error(label('ContentUiLabels', 'ContentArticleNameIsMissing'))
-    }
+    require(parameters.contentName as boolean, label('ContentUiLabels', 'ContentArticleNameIsMissing'))
     Map serviceResult = run service: 'createContent',
             with: [dataResourceId: parameters.templateDataResourceId,
                    contentAssocTypeId: 'PUBLISH_LINK',

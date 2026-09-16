@@ -445,10 +445,8 @@ Map getContentAndDataResource() {
 
 Map createContentFromDataResource() {
     GenericValue dataResource = from('DataResource').where(parameters).queryOne()
-    if (!dataResource) {
-        return error('ContentUiLabels', 'ContentDataResourceNotFound',
-                [dataResourceId: parameters.dataResourceId])
-    }
+    require(dataResource as boolean, 'ContentUiLabels', 'ContentDataResourceNotFound',
+            [dataResourceId: parameters.dataResourceId])
     parameters.contentName = parameters.contentName ?: dataResource.dataResourceName
     parameters.contentTypeId = parameters.contentTypeId ?: 'DOCUMENT'
     parameters.statusId = parameters.statusId ?: 'CTNT_INITIAL_DRAFT'
