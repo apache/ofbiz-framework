@@ -95,10 +95,8 @@ Map convertUom() {
             .cache()
             .queryOne()
 
-    if (!uomConversion) {
-        // if still no uom conversion entity, then no conversion is possible
-        return error('CommonUiLabels', 'CommonNoUomConversionFound')
-    }
+    // if still no uom conversion entity, then no conversion is possible
+    require(uomConversion as boolean, 'CommonUiLabels', 'CommonNoUomConversionFound')
     logVerbose("using conversion factor=${uomConversion.conversionFactor}")
     // Do custom conversion, if we have customMethodId
     if (uomConversion.customMethodId) { //custom conversion?
@@ -152,9 +150,7 @@ Map convertUomCustom() {
     Map uomConversion = parameters.uomConversion
     String customMethodId = uomConversion.customMethodId
     GenericValue customMethod = from('CustomMethod').where(customMethodId: customMethodId).cache().queryOne()
-    if (!customMethod?.customMethodName) {
-        return error('CommonUiLabels', 'CommonNoCustomMethodName')
-    }
+    require(customMethod?.customMethodName as boolean, 'CommonUiLabels', 'CommonNoCustomMethodName')
     logVerbose('calling custom method' + customMethod.customMethodName)
     Map serviceResult = run service: customMethod.customMethodName, with: [arguments: parameters]
     result.convertedValue = serviceResult.convertedValue
@@ -199,9 +195,7 @@ Map getVisualThemeResources() {
             .cache()
             .queryList()
     }
-    if (!resourceList) {
-        return error('CommonUiLabels', 'CommonVisualThemeResourcesNotFound')
-    }
+    require(resourceList as boolean, 'CommonUiLabels', 'CommonVisualThemeResourcesNotFound')
     for (GenericValue resourceRecord : resourceList) {
         String resourceTypeEnumId = resourceRecord.resourceTypeEnumId
         String resourceValue = resourceRecord.resourceValue
