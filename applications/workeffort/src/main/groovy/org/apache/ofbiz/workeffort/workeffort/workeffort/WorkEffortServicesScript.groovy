@@ -260,7 +260,7 @@ Map deleteWorkEffort() {
                     .where(workEffortId: parameters.workEffortId,
                     partyId: userLogin.partyId)
                     .queryCount() == 0 &&
-                    security.hasPermission('WORKEFFORTMGR_DELETE', userLogin)),
+                    !security.hasEntityPermission('WORKEFFORTMGR', '_DELETE', userLogin)),
         label('WorkEffortUiLabels', 'WorkEffortDeletePermissionError'))
 
     GenericValue workEffort = from('WorkEffort').where(parameters).queryOne()
@@ -328,7 +328,7 @@ Map duplicateWorkEffort() {
             parameters.removeWorkEffortContents == 'Y' ||
             parameters.removeWorkEffortNotes == 'Y' ||
             parameters.removeWorkEffortAssignmentRates == 'Y') &&
-            security.hasPermission('WORKEFFORTMGR_DELETE', userLogin)),
+            !security.hasEntityPermission('WORKEFFORTMGR', '_DELETE', userLogin)),
         label('WorkEffortUiLabels', 'WorkEffortDeletePermissionError'))
     String workEffortId = parameters.workEffortId ?: delegator.getNextSeqId('WorkEffort')
     GenericValue oldWorkEffort = from('WorkEffort').where(workEffortId: parameters.oldWorkEffortId).queryOne()
