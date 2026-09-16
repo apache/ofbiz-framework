@@ -19,7 +19,6 @@
 package org.apache.ofbiz.product.product.feature
 
 import java.util.regex.Pattern
-import org.apache.ofbiz.base.util.UtilProperties
 import org.apache.ofbiz.entity.GenericValue
 
 /**
@@ -46,13 +45,11 @@ Map applyFeatureToProductFromTypeAndCode() {
 Map createProductFeatureType() {
     Map result = success()
     if (!security.hasEntityPermission('CATALOG', '_CREATE', parameters.userLogin)) {
-        return error(UtilProperties.getMessage('ProductUiLabels',
-                'ProductCatalogCreatePermissionError', parameters.locale))
+        return error('ProductUiLabels', 'ProductCatalogCreatePermissionError')
     }
     parameters.productFeatureTypeId = parameters.productFeatureTypeId ?: delegator.getNextSeqId('ProductFeatureType')
     if (!Pattern.matches('^[a-zA-Z_0-9]+$', parameters.productFeatureTypeId)) {
-        return error(UtilProperties.getMessage('ProductErrorUiLabels',
-                'ProductFeatureTypeIdMustContainsLettersAndDigits', parameters.locale))
+        return error('ProductErrorUiLabels', 'ProductFeatureTypeIdMustContainsLettersAndDigits')
     }
     GenericValue newEntity = makeValue('ProductFeatureType', parameters)
     newEntity.create()
@@ -65,8 +62,7 @@ Map createProductFeatureType() {
  */
 Map createProductFeatureApplAttr() {
     if (!security.hasEntityPermission('CATALOG', '_CREATE', parameters.userLogin)) {
-        return error(UtilProperties.getMessage('ProductUiLabels',
-                'ProductCatalogCreatePermissionError', parameters.locale))
+        return error('ProductUiLabels', 'ProductCatalogCreatePermissionError')
     }
     GenericValue newEntity = makeValue('ProductFeatureApplAttr', parameters)
     if (! newEntity.fromDate) {

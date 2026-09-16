@@ -34,7 +34,7 @@ import org.apache.ofbiz.party.party.PartyHelper
 Map createProductPrice() {
     Map result = success()
     if (!security.hasPermission('CATALOG_PRICE_MAINT', userLogin)) {
-        return error(UtilProperties.getMessage('ProductUiLabels', 'ProductPriceMaintPermissionError', locale))
+        return error('ProductUiLabels', 'ProductPriceMaintPermissionError')
     }
     inlineHandlePriceWithTaxIncluded()
 
@@ -58,7 +58,7 @@ Map createProductPrice() {
 Map updateProductPrice() {
     Map result = success()
     if (!security.hasPermission('CATALOG_PRICE_MAINT', userLogin)) {
-        return error(UtilProperties.getMessage('ProductUiLabels', 'ProductPriceMaintPermissionError', locale))
+        return error('ProductUiLabels', 'ProductPriceMaintPermissionError')
     }
     inlineHandlePriceWithTaxIncluded()
 
@@ -79,7 +79,7 @@ Map updateProductPrice() {
 Map deleteProductPrice() {
     Map result = success()
     if (!security.hasPermission('CATALOG_PRICE_MAINT', userLogin)) {
-        return error(UtilProperties.getMessage('ProductUiLabels', 'ProductPriceMaintPermissionError', locale))
+        return error('ProductUiLabels', 'ProductPriceMaintPermissionError')
     }
     GenericValue lookedUpValue = from('ProductPrice').where(parameters).queryOne()
     // grab the old price value before setting nonpk parameter fields
@@ -108,7 +108,7 @@ Map inlineHandlePriceWithTaxIncluded() {
             parameters.taxPercentage = taxAuthorityRateProduct?.taxPercentage
         }
         if (!parameters.taxPercentage) {
-            return error(UtilProperties.getMessage('ProductUiLabels', 'ProductPriceTaxPercentageNotFound', locale))
+            return error('ProductUiLabels', 'ProductPriceTaxPercentageNotFound')
         }
         // in short the formula is: taxAmount = priceWithTax - (priceWithTax/(1+taxPercentage/100))
         BigDecimal taxAmount = parameters.priceWithTax - (parameters.priceWithTax / (1 + parameters.taxPercentage / 100))
@@ -132,10 +132,10 @@ Map inlineHandlePriceWithTaxIncluded() {
 Map createProductPriceCond() {
     Map result = success()
     if (!security.hasEntityPermission('CATALOG', '_CREATE', userLogin)) {
-        return error(UtilProperties.getMessage('ProductUiLabels', 'ProductCatalogCreatePermissionError', locale))
+        return error('ProductUiLabels', 'ProductCatalogCreatePermissionError')
     }
     if (!security.hasPermission('CATALOG_PRICE_MAINT', userLogin)) {
-        return error(UtilProperties.getMessage('ProductUiLabels', 'ProductPriceMaintPermissionError', locale))
+        return error('ProductUiLabels', 'ProductPriceMaintPermissionError')
     }
     if (parameters.condValueInput) {
         parameters.condValue = parameters.condValueInput
@@ -152,10 +152,10 @@ Map createProductPriceCond() {
  */
 Map updateProductPriceCond() {
     if (!security.hasEntityPermission('CATALOG', '_UPDATE', userLogin)) {
-        return error(UtilProperties.getMessage('ProductUiLabels', 'ProductCatalogUpdatePermissionError', locale))
+        return error('ProductUiLabels', 'ProductCatalogUpdatePermissionError')
     }
     if (!security.hasPermission('CATALOG_PRICE_MAINT', userLogin)) {
-        return error(UtilProperties.getMessage('ProductUiLabels', 'ProductPriceMaintPermissionError', locale))
+        return error('ProductUiLabels', 'ProductPriceMaintPermissionError')
     }
     if (['PRIP_QUANTITY', 'PRIP_LIST_PRICE'].contains(parameters.inputParamEnumId)) {
         parameters.condValue = parameters.condValueInput

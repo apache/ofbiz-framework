@@ -51,7 +51,7 @@ Map updateRateAmount() {
                 return result
             }
         } else {
-            return error(UtilProperties.getMessage('AccountingErrorUiLabels', 'AccountingUpdateRateAmountAlreadyExist', locale))
+            return error('AccountingErrorUiLabels', 'AccountingUpdateRateAmountAlreadyExist')
         }
     }
     updating ? newEntity.store() : newEntity.create()
@@ -71,7 +71,7 @@ Map expireRateAmount() {
         lookedUpValue.thruDate = UtilDateTime.getDayEnd(previousDay)
         lookedUpValue.store()
     } else {
-        return error(UtilProperties.getMessage('AccountingErrorUiLabels', 'AccountingDeleteRateAmount', locale))
+        return error('AccountingErrorUiLabels', 'AccountingDeleteRateAmount')
     }
     return success()
 }

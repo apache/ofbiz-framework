@@ -40,7 +40,7 @@ Map checkFacilityRelatedPermission(String callingMethodName, String checkAction,
     if (!security.hasEntityPermission('CATALOG', "_${checkAction}", parameters.userLogin)
             && (!security.hasEntityPermission('FACILITY', "_${checkAction}", parameters.userLogin))
             && ((!alternatePermissionRoot) || !security.hasEntityPermission("${alternatePermissionRoot}", "_${checkAction}", parameters.userLogin))) {
-        return error(UtilProperties.getMessage('ProductUiLabels', 'ProductCatalogCreatePermissionError', parameters.locale))
+        return error('ProductUiLabels', 'ProductCatalogCreatePermissionError')
     }
     return success()
 }
@@ -52,7 +52,7 @@ Map checkFacilityRelatedPermission(String callingMethodName, String checkAction,
 Map facilityGenericPermission() {
     String mainAction = parameters.mainAction
     if (!mainAction) {
-        return error(UtilProperties.getMessage('ProductUiLabels', 'ProductMissingMainActionInPermissionService', parameters.locale))
+        return error('ProductUiLabels', 'ProductMissingMainActionInPermissionService')
     }
     String callingMethodName = parameters.resourceDescription
     Map permissionResult = checkFacilityRelatedPermission(callingMethodName, mainAction, null)
@@ -74,7 +74,7 @@ Map facilityGenericPermission() {
 Map checkProductFacilityRelatedPermission() {
     String mainAction = parameters.mainAction
     if (!mainAction) {
-        return error(UtilProperties.getMessage('CommonUiLabels', 'CommonPermissionMainActionAttributeMissing', parameters.locale))
+        return error('CommonUiLabels', 'CommonPermissionMainActionAttributeMissing')
     }
     parameters.altPermission = 'FACILITY'
     Map serviceResult = run service: 'checkProductRelatedPermission', with: parameters

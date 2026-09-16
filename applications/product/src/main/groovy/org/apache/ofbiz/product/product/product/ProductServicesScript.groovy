@@ -37,7 +37,7 @@ Map createProduct() {
     Map result = success()
     if (!(security.hasEntityPermission('CATALOG', '_CREATE', parameters.userLogin)
             || security.hasEntityPermission('CATALOG_ROLE', '_CREATE', parameters.userLogin))) {
-        return error(UtilProperties.getMessage('ProductUiLabels', 'ProductCatalogCreatePermissionError', parameters.locale))
+        return error('ProductUiLabels', 'ProductCatalogCreatePermissionError')
     }
 
     GenericValue newEntity = makeValue('Product', parameters)
@@ -48,7 +48,7 @@ Map createProduct() {
         }
         GenericValue dummyProduct = from('Product').where(parameters).queryOne()
         if (dummyProduct) {
-            return error(UtilProperties.getMessage('CommonErrorUiLabels', 'CommonErrorDuplicateKey', parameters.locale))
+            return error('CommonErrorUiLabels', 'CommonErrorDuplicateKey')
         }
     } else {
         newEntity.productId = delegator.getNextSeqId('Product')
@@ -175,7 +175,7 @@ Map duplicateProduct() {
     }
     GenericValue dummyProduct = from('Product').where(parameters).queryOne()
     if (dummyProduct) {
-        return error(UtilProperties.getMessage('CommonErrorUiLabels', 'CommonErrorDuplicateKey', parameters.locale))
+        return error('CommonErrorUiLabels', 'CommonErrorDuplicateKey')
     }
 
     // look up the old product and clone it
@@ -420,9 +420,7 @@ Map createProductReview() {
     String productId = newEntity.productId
     updateProductWithReviewRatingAvg(productId)
 
-    String successMessage = UtilProperties.getMessage('ProductUiLabels',
-            'ProductCreateProductReviewSuccess', parameters.locale)
-    Map result = success(successMessage )
+    Map result = success('ProductUiLabels', 'ProductCreateProductReviewSuccess')
     result.productReviewId = newEntity.productReviewId
 
     return result
@@ -460,8 +458,7 @@ Map setProductReviewStatus() {
         if (from('StatusValidChange')
                 .where(statusId: productReview.statusId, statusIdTo: parameters.statusId)
                 .queryCount() == 0) {
-            String errorMessage = UtilProperties.getMessage('ProductErrorUiLabels',
-                    'ProductReviewErrorCouldNotChangeOrderStatusFromTo', parameters.locale)
+            String errorMessage = label('ProductErrorUiLabels', 'ProductReviewErrorCouldNotChangeOrderStatusFromTo')
             logError(errorMessage)
             return error(errorMessage)
         }
@@ -591,8 +588,8 @@ Map checkProductRelatedPermission(String callingMethodName, String checkAction) 
             || (parameters.alternatePermissionRoot &&
             security.hasEntityPermission(parameters.alternatePermissionRoot, "_${checkAction}", parameters.userLogin)))) {
         String checkActionLabel = "ProductCatalog${checkAction.charAt(0)}${checkAction.substring(1).toLowerCase()}PermissionError"
-        return error(UtilProperties.getMessage('ProductUiLabels', checkActionLabel,
-                [resourceDescription: callingMethodName, mainAction: checkAction], parameters.locale))
+        return error('ProductUiLabels', checkActionLabel,
+                [resourceDescription: callingMethodName, mainAction: checkAction])
     }
     return success()
 }
@@ -613,15 +610,14 @@ Map checkProductRelatedPermissionService() {
 Map productGenericPermission() {
     String mainAction = parameters.mainAction
     if (!mainAction) {
-        return error(UtilProperties.getMessage('ProductUiLabels',
-                'ProductMissingMainActionInPermissionService', parameters.locale))
+        return error('ProductUiLabels', 'ProductMissingMainActionInPermissionService')
     }
 
     Map result = success()
     result.hasPermission = ServiceUtil.isSuccess(
             checkProductRelatedPermission(parameters.resourceDescription, parameters.mainAction))
     if (!result.hasPermission) {
-        result = failure(UtilProperties.getMessage('ProductUiLabels', 'ProductPermissionError', parameters.locale))
+        result = failure('ProductUiLabels', 'ProductPermissionError')
     }
     return result
 }
@@ -632,19 +628,17 @@ Map productGenericPermission() {
 Map productPriceGenericPermission() {
     String mainAction = parameters.mainAction
     if (!mainAction) {
-        return error(UtilProperties.getMessage('ProductUiLabels',
-                'ProductMissingMainActionInPermissionService', parameters.locale))
+        return error('ProductUiLabels', 'ProductMissingMainActionInPermissionService')
     }
 
     Map result = success()
     if (!security.hasPermission('CATALOG_PRICE_MAINT', parameters.userLogin)) {
-        result = error(UtilProperties.getMessage('ProductUiLabels',
-                'ProductPriceMaintPermissionError', parameters.locale))
+        result = error('ProductUiLabels', 'ProductPriceMaintPermissionError')
     }
     result.hasPermission = ServiceUtil.isSuccess(result) &&
             ServiceUtil.isSuccess(checkProductRelatedPermission(parameters.resourceDescription, mainAction))
     if (!result.hasPermission) {
-        result = failure(UtilProperties.getMessage('ProductUiLabels', 'ProductPermissionError', parameters.locale))
+        result = failure('ProductUiLabels', 'ProductPermissionError')
     }
     return result
 }

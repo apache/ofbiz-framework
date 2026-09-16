@@ -20,7 +20,6 @@ package org.apache.ofbiz.product.catalog.product
 
 import org.apache.ofbiz.base.util.HttpRequestFileUpload
 import org.apache.ofbiz.base.util.UtilDateTime
-import org.apache.ofbiz.base.util.UtilProperties
 import org.apache.ofbiz.base.util.string.FlexibleStringExpander
 import org.apache.ofbiz.entity.util.EntityUtilProperties
 import org.apache.ofbiz.product.image.ScaleImage
@@ -92,7 +91,7 @@ if (fileType) {
     if (!java.nio.file.Paths.get(imageServerPath + '/' + filePathPrefix).normalize()
             .startsWith(java.nio.file.Paths.get(imageServerPath).normalize())) {
         logError('Path traversal attempt detected in product image upload')
-        return error(UtilProperties.getMessage('SecurityUiLabels', 'SupportedImageFormats', locale))
+        return error('SecurityUiLabels', 'SupportedImageFormats')
     }
     defaultFileName = filenameToUse + '_temp'
     uploadObject = new HttpRequestFileUpload()
@@ -104,7 +103,7 @@ if (fileType) {
         } catch (Exception e) {
             logError(e, "error deleting existing file (not necessarily a problem, except if it's a webshell!)")
         }
-        String errorMessage = UtilProperties.getMessage('SecurityUiLabels', 'SupportedImageFormats', locale)
+        String errorMessage = label('SecurityUiLabels', 'SupportedImageFormats')
         logError(errorMessage)
         return error(errorMessage)
     }

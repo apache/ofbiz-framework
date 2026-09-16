@@ -18,7 +18,6 @@
 */
 package org.apache.ofbiz.party.contact
 
-import org.apache.ofbiz.base.util.UtilProperties
 import org.apache.ofbiz.base.util.UtilValidate
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.service.ModelService
@@ -38,7 +37,7 @@ Map updateContactMech() {
     ]
     GenericValue lookedValue = from('ContactMech').where('contactMechId', parameters.contactMechId).queryOne()
     if (! lookedValue) {
-        return error(UtilProperties.getMessage('ServiceErrorUiLabels', 'ServiceValueNotFound', locale))
+        return error('ServiceErrorUiLabels', 'ServiceValueNotFound')
     }
     String contactMechTypeId = parameters.contactMechTypeId ?: lookedValue.contactMechTypeId
     String successMessage = 'Party' +
@@ -48,11 +47,11 @@ Map updateContactMech() {
         lookedValue.setNonPKFields(parameters)
         lookedValue.contactMechId = null
         Map serviceResult = run service: 'createContactMech', with: lookedValue.getAllFields()
-        Map serviceReturn = success(UtilProperties.getMessage('PartyUiLabels', successMessage, locale))
+        Map serviceReturn = success('PartyUiLabels', successMessage)
         serviceReturn.contactMechId = serviceResult.contactMechId
         return serviceReturn
     }
-    Map serviceReturn = success(UtilProperties.getMessage('PartyUiLabels', 'PartyNothingToDoHere', locale))
+    Map serviceReturn = success('PartyUiLabels', 'PartyNothingToDoHere')
     serviceReturn.contactMechId = parameters.contactMechId
     return serviceReturn
 }
@@ -79,15 +78,14 @@ String hasValidStateProvince(String countryGeoId, String stateProvinceGeoId) {
 Map createPostalAddress() {
     String errorMessage = hasValidStateProvince(parameters.countryGeoId, parameters.stateProvinceGeoId)
     if (errorMessage) {
-        return error(UtilProperties.getMessage('PartyUiLabels', errorMessage, locale))
+        return error('PartyUiLabels', errorMessage)
     }
     GenericValue newValue = makeValue('PostalAddress', parameters)
     Map createContactMechMap = [contactMechTypeId: 'POSTAL_ADDRESS', contactMechId: parameters.contactMechId]
     Map serviceResult = run service: 'createContactMech', with: createContactMechMap
     newValue.contactMechId = serviceResult.contactMechId
     newValue.create()
-    Map serviceReturn = success(UtilProperties.getMessage('PartyUiLabels',
-            'PartyPostalAddressSuccessfullyCreated', locale))
+    Map serviceReturn = success('PartyUiLabels', 'PartyPostalAddressSuccessfullyCreated')
     serviceReturn.contactMechId = newValue.contactMechId
     return serviceReturn
 }
@@ -98,11 +96,11 @@ Map createPostalAddress() {
 Map updatePostalAddress() {
     String errorMessage = hasValidStateProvince(parameters.countryGeoId, parameters.stateProvinceGeoId)
     if (errorMessage) {
-        return error(UtilProperties.getMessage('PartyUiLabels', errorMessage, locale))
+        return error('PartyUiLabels', errorMessage)
     }
     GenericValue lookedValue = from('PostalAddress').where('contactMechId', parameters.contactMechId).queryOne()
     if (! lookedValue) {
-        return error(UtilProperties.getMessage('ServiceErrorUiLabels', 'ServiceValueNotFound', locale))
+        return error('ServiceErrorUiLabels', 'ServiceValueNotFound')
     }
     GenericValue newValue = (GenericValue) lookedValue.clone()
     newValue.setNonPKFields(parameters)
@@ -127,7 +125,7 @@ Map updatePostalAddress() {
         }
     }
 
-    Map serviceReturn = success(UtilProperties.getMessage('PartyUiLabels', successMessage, locale))
+    Map serviceReturn = success('PartyUiLabels', successMessage)
     serviceReturn.contactMechId = contactMechId
     serviceReturn.oldContactMechId = oldContactMechId
     return serviceReturn
@@ -142,8 +140,7 @@ Map createTelecomNumber() {
     Map serviceResult = run service: 'createContactMech', with: createContactMechMap
     newValue.contactMechId = serviceResult.contactMechId
     newValue.create()
-    Map serviceReturn = success(UtilProperties.getMessage('PartyUiLabels',
-            'PartyTelecomNumberSuccessfullyCreated', locale))
+    Map serviceReturn = success('PartyUiLabels', 'PartyTelecomNumberSuccessfullyCreated')
     serviceReturn.contactMechId = newValue.contactMechId
     return serviceReturn
 }
@@ -154,7 +151,7 @@ Map createTelecomNumber() {
 Map updateTelecomNumber() {
     GenericValue lookedValue = from('TelecomNumber').where('contactMechId', parameters.contactMechId).queryOne()
     if (!lookedValue) {
-        return error(UtilProperties.getMessage('ServiceErrorUiLabels', 'ServiceValueNotFound', locale))
+        return error('ServiceErrorUiLabels', 'ServiceValueNotFound')
     }
     GenericValue newValue = (GenericValue) lookedValue.clone()
     newValue.setNonPKFields(parameters)
@@ -179,7 +176,7 @@ Map updateTelecomNumber() {
         }
     }
 
-    Map serviceReturn = success(UtilProperties.getMessage('PartyUiLabels', successMessage, locale))
+    Map serviceReturn = success('PartyUiLabels', successMessage)
     serviceReturn.contactMechId = contactMechId
     serviceReturn.oldContactMechId = oldContactMechId
     return serviceReturn
@@ -190,19 +187,18 @@ Map updateTelecomNumber() {
  */
 Map createEmailAddress() {
     if (!parameters.emailAddress) {
-        return error(UtilProperties.getMessage('PartyUiLabels', 'PartyEmailAddressMissing', locale))
+        return error('PartyUiLabels', 'PartyEmailAddressMissing')
     }
     if (UtilValidate.isEmail(parameters.emailAddress)) {
         Map createContactMechMap = [contactMechTypeId: 'EMAIL_ADDRESS',
                                     contactMechId: parameters.contactMechId,
                                     infoString: parameters.emailAddress]
         Map serviceResult = run service: 'createContactMech', with: createContactMechMap
-        Map serviceReturn = success(UtilProperties.getMessage('PartyUiLabels',
-                'PartyEmailAddressSuccessfullyCreated', locale))
+        Map serviceReturn = success('PartyUiLabels', 'PartyEmailAddressSuccessfullyCreated')
         serviceReturn.contactMechId = serviceResult.contactMechId
         return serviceReturn
     }
-    return error(UtilProperties.getMessage('PartyUiLabels', 'PartyEmailAddressNotFormattedCorrectly', locale))
+    return error('PartyUiLabels', 'PartyEmailAddressNotFormattedCorrectly')
 }
 
 /**
@@ -210,19 +206,18 @@ Map createEmailAddress() {
  */
 Map updateEmailAddress() {
     if (!parameters.emailAddress) {
-        return error(UtilProperties.getMessage('PartyUiLabels', 'PartyEmailAddressMissing', locale))
+        return error('PartyUiLabels', 'PartyEmailAddressMissing')
     }
     if (UtilValidate.isEmail(parameters.emailAddress)) {
         Map updateContactMechMap = [contactMechTypeId: 'EMAIL_ADDRESS',
                                     contactMechId: parameters.contactMechId,
                                     infoString: parameters.emailAddress]
         Map serviceResult = run service: 'updateContactMech', with: updateContactMechMap
-        Map serviceReturn = success(UtilProperties.getMessage('PartyUiLabels',
-                'PartyEmailAddressSuccessfullyUpdated', locale))
+        Map serviceReturn = success('PartyUiLabels', 'PartyEmailAddressSuccessfullyUpdated')
         serviceReturn.contactMechId = serviceResult.contactMechId
         return serviceReturn
     }
-    return error(UtilProperties.getMessage('PartyUiLabels', 'PartyEmailAddressNotFormattedCorrectly', locale))
+    return error('PartyUiLabels', 'PartyEmailAddressNotFormattedCorrectly')
 }
 
 /**
@@ -255,7 +250,7 @@ Map updateFtpAddressWithHistory() {
     if (resultMap.oldContactMechId) {
         GenericValue lookedValue = from('FtpAddress').where('contactMechId', parameters.contactMechId).queryOne()
         if (!lookedValue) {
-            return error(UtilProperties.getMessage('ServiceErrorUiLabels', 'ServiceValueNotFound', locale))
+            return error('ServiceErrorUiLabels', 'ServiceValueNotFound')
         }
         GenericValue newValue = (GenericValue) lookedValue.clone()
         newValue.setNonPKFields(parameters)
@@ -350,10 +345,10 @@ Map verifyEmailAddress() {
             .where(verifyHash: parameters.verifyHash)
             .queryFirst()
     if (! emailAddressVerification) {
-        return error(UtilProperties.getMessage('PartyUiLabels', 'PartyEmailAddressNotExist', locale))
+        return error('PartyUiLabels', 'PartyEmailAddressNotExist')
     }
     if (UtilValidate.isDateBeforeNow(emailAddressVerification.expireDate)) {
-        return error(UtilProperties.getMessage('PartyUiLabels', 'PartyEmailAddressVerificationExpired', locale))
+        return error('PartyUiLabels', 'PartyEmailAddressVerificationExpired')
     }
     return success()
 }

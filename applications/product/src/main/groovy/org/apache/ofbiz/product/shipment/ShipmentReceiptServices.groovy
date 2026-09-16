@@ -22,7 +22,6 @@ import java.math.RoundingMode
 import java.sql.Timestamp
 
 import org.apache.ofbiz.base.util.UtilDateTime
-import org.apache.ofbiz.base.util.UtilProperties
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.condition.EntityCondition
 
@@ -79,7 +78,7 @@ Map receiveInventoryProduct () {
     BigDecimal quantityRejected = parameters.quantityRejected ?: BigDecimal.ZERO
     if ((quantityRejected == BigDecimal.ZERO && parameters.quantityAccepted == BigDecimal.ZERO)
         || (quantityRejected  < BigDecimal.ZERO || parameters.quantityAccepted < BigDecimal.ZERO)) {
-        return error(UtilProperties.getMessage('ProductUiLabels', 'ProductNoItemsToAcceptOrReject',  parameters.locale))
+        return error('ProductUiLabels', 'ProductNoItemsToAcceptOrReject')
     }
 
     Map result = success()
@@ -90,7 +89,7 @@ Map receiveInventoryProduct () {
         // if we are serialized and either a serialNumber or inventoyItemId is passed in and the quantityAccepted is greater than 1 then complain
         if ((parameters.serialNumber || parameters.currentInventoryItemId) && (parameters.quantityAccepted > (BigDecimal.ONE))) {
             Map errorLog = [parameters: parameters]
-            return error(UtilProperties.getMessage('ProductUiLabels', 'FacilityReceiveInventoryProduct', errorLog,  parameters.locale))
+            return error('ProductUiLabels', 'FacilityReceiveInventoryProduct', errorLog)
             // before getting going, see if there are any validation issues so far
         }
         if (parameters.quantityAccepted > BigDecimal.ZERO) {

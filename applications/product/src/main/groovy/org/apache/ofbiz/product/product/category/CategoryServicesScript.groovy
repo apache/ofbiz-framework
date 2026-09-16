@@ -47,8 +47,8 @@ Map createProductCategory() {
     String resourceDescription = parameters.rescourceDescription ?: 'createProductCategory'
     if (!(security.hasEntityPermission('CATALOG', '_CREATE', parameters.userLogin)
         || security.hasEntityPermission('CATALOG_ROLE', '_CREATE', parameters.userLogin))) {
-        return error(UtilProperties.getMessage('ProductUiLabels', 'ProductCatalogCreatePermissionError',
-            [resourceDescription: resourceDescription], parameters.locale))
+        return error('ProductUiLabels', 'ProductCatalogCreatePermissionError',
+            [resourceDescription: resourceDescription])
     }
 
     Timestamp nowTimestamp = UtilDateTime.nowTimestamp()
@@ -341,8 +341,8 @@ Map duplicateCategoryEntities() {
     String resourceDescription = parameters.resourceDescription ?: 'duplicateCategoryEntities'
     if (!(security.hasEntityPermission('CATALOG', '_CREATE', parameters.userLogin)
         || security.hasEntityPermission('CATALOG_ROLE', '_CREATE', parameters.userLogin))) {
-        return error(UtilProperties.getMessage('ProductUiLabels',
-                'ProductCatalogCreatePermissionError', [resourceDescription: resourceDescription], parameters.locale))
+        return error('ProductUiLabels',
+                'ProductCatalogCreatePermissionError', [resourceDescription: resourceDescription])
     }
 
     copyCategoryEntities(parameters.entityName, parameters.productCategoryId, parameters.productCategoryIdTo, parameters.validDate)
@@ -512,13 +512,13 @@ Map duplicateProductCategory() {
     String resourceDescription = parameters.resourceDescription ?: 'duplicateProductCategory'
     if (!(security.hasEntityPermission('CATALOG', '_CREATE', parameters.userLogin)
         || security.hasEntityPermission('CATALOG_ROLE', '_CREATE', parameters.userLogin))) {
-        return error(UtilProperties.getMessage('ProductUiLabels', 'ProductCatalogCreatePermissionError',
-                [resourceDescription: resourceDescription], parameters.locale))
+        return error('ProductUiLabels', 'ProductCatalogCreatePermissionError',
+                [resourceDescription: resourceDescription])
     }
 
     if (findOne('ProductCategory', [productCategoryId: parameters.productCategoryId], false)) {
-        return error(UtilProperties.getMessage('ProductUiLabels', 'ProductCategoryAlreadyExists',
-            [resourceDescription: resourceDescription], parameters.locale))
+        return error('ProductUiLabels', 'ProductCategoryAlreadyExists',
+            [resourceDescription: resourceDescription])
     }
 
     // look up the old product category and clone it
@@ -589,8 +589,8 @@ Map duplicateProductCategory() {
 Map createProductCategoryAttribute() {
     String resourceDescription = parameters.resourceDescription ?: 'createProductCategoryAttribute'
     if (!(security.hasEntityPermission('CATALOG', '_CREATE', parameters.userLogin))) {
-        return error(UtilProperties.getMessage('ProductUiLabels', 'ProductCatalogCreatePermissionError',
-            [resourceDescription: resourceDescription], parameters.locale))
+        return error('ProductUiLabels', 'ProductCatalogCreatePermissionError',
+            [resourceDescription: resourceDescription])
     }
 
     // check if the new attribute-name is unique to the product-category-id
@@ -601,8 +601,8 @@ Map createProductCategoryAttribute() {
     }
     List existingData = from('ProductCategoryAttribute').where(condition).queryList()
     if (existingData) {
-        return error(UtilProperties.getMessage('ProductUiLabels', 'ProductCategoryAttrAlreadyExists',
-            [resourceDescription: resourceDescription], parameters.locale))
+        return error('ProductUiLabels', 'ProductCategoryAttrAlreadyExists',
+            [resourceDescription: resourceDescription])
     }
     GenericValue newEntity = makeValue('ProductCategoryAttribute', parameters)
     newEntity.create()
@@ -615,8 +615,8 @@ Map createProductCategoryAttribute() {
 Map updateProductCategoryAttribute() {
     String resourceDescription = parameters.resourceDescription ?: 'updateProductCategoryAttribute'
     if (!(security.hasEntityPermission('CATALOG', '_UPDATE', parameters.userLogin))) {
-        return error(UtilProperties.getMessage('ProductUiLabels', 'ProductCatalogUpdatePermissionError',
-            [resourceDescription: resourceDescription], parameters.locale))
+        return error('ProductUiLabels', 'ProductCatalogUpdatePermissionError',
+            [resourceDescription: resourceDescription])
     }
 
     GenericValue productCategoryAttributeInstance = from('ProductCategoryAttribute').where(parameters).queryOne()
@@ -631,8 +631,8 @@ Map updateProductCategoryAttribute() {
 Map deleteProductCategoryAttribute() {
     String resourceDescription = parameters.resourceDescription ?: 'deleteProductCategoryAttribute'
     if (!(security.hasEntityPermission('CATALOG', '_DELETE', parameters.userLogin))) {
-        return error(UtilProperties.getMessage('ProductUiLabels', 'ProductCatalogDeletePermissionError',
-            [resourceDescription: resourceDescription], parameters.locale))
+        return error('ProductUiLabels', 'ProductCatalogDeletePermissionError',
+            [resourceDescription: resourceDescription])
     }
 
     GenericValue productCategoryAttributeInstance = from('ProductCategoryAttribute').where(parameters).queryOne()
@@ -690,8 +690,8 @@ Map checkCategoryRelatedPermission(String callingMethodName, String checkAction,
         || (security.hasEntityPermission('CATALOG_ROLE', "_${checkAction}", parameters.userLogin)
         && roleCategories))) {
         logVerbose('Permission check failed, user does not have the correct permission.')
-        result = error(UtilProperties.getMessage('ProductUiLabels', 'ProductCatalogCreatePermissionError',
-            [resourceDescription: callingMethodName], parameters.locale))
+        result = error('ProductUiLabels', 'ProductCatalogCreatePermissionError',
+            [resourceDescription: callingMethodName])
     }
     return result
 }
@@ -701,7 +701,7 @@ Map checkCategoryRelatedPermission(String callingMethodName, String checkAction,
  */
 Map productCategoryGenericPermission() {
     if (!parameters.mainAction) {
-        return error(UtilProperties.getMessage('ProductUiLabels', 'ProductMissingMainActionInPermissionService', parameters.locale))
+        return error('ProductUiLabels', 'ProductMissingMainActionInPermissionService')
     }
 
     Map result = success()
