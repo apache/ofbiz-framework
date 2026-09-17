@@ -617,6 +617,42 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="AcctgTransEntriesSearchResultsInvoiceAndPaymentPdf">
+        <section>
+            <actions>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <entity-condition entity-name="AcctgTransAndEntries" list="acctgTransEntryList">
+                    <condition-list>
+                        <condition-expr field-name="organizationPartyId" operator="equals" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}"/>
+                        <condition-expr field-name="glAccountId" operator="equals" from-field="parameters.glAccountId" ignore-if-empty="true"/>
+                        <condition-expr field-name="acctgTransTypeId" operator="equals" from-field="parameters.acctgTransTypeId" ignore-if-empty="true"/>
+                        <condition-expr field-name="glFiscalTypeId" operator="equals" from-field="parameters.glFiscalTypeId" ignore-if-empty="true"/>
+                        <condition-expr field-name="glJournalId" operator="equals" from-field="parameters.glJournalId" ignore-if-empty="true"/>
+                        <condition-expr field-name="isPosted" operator="equals" from-field="parameters.isPosted" ignore-if-empty="true"/>
+                        <condition-expr field-name="partyId" operator="equals" from-field="parameters.partyId" ignore-if-empty="true"/>
+                        <condition-expr field-name="invoiceId" operator="equals" from-field="parameters.invoiceId" ignore-if-empty="true"/>
+                        <condition-expr field-name="paymentId" operator="equals" from-field="parameters.paymentId" ignore-if-empty="true"/>
+                        <condition-expr field-name="productId" operator="equals" from-field="parameters.productId" ignore-if-empty="true"/>
+                        <condition-expr field-name="workEffortId" operator="equals" from-field="parameters.workEffortId" ignore-if-empty="true"/>
+                        <condition-expr field-name="shipmentId" operator="equals" from-field="parameters.shipmentId" ignore-if-empty="true"/>
+                        <condition-expr field-name="acctgTransId" operator="equals" from-field="parameters.acctgTransId" ignore-if-empty="true"/>
+                        <condition-expr field-name="transactionDate" operator="greater-equals" from-field="parameters.fromDate" ignore-if-empty="true"/>
+                        <condition-expr field-name="transactionDate" operator="less" from-field="parameters.thruDate" ignore-if-empty="true"/>
+                    </condition-list>
+                    <order-by field-name="accountCode"/>
+                    <order-by field-name="-transactionDate"/>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <platform-specific>
+                    <xsl-fo>
+                        <html-template location="component://accounting/template/reports/AcctgTransEntriesSearchResultInvoiceAndPayment.fo.ftl"/>
+                    </xsl-fo>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
     <screen name="AcctgTransSearchResultPdf">
         <section>
             <actions>
