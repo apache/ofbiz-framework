@@ -38,9 +38,8 @@ import org.apache.ofbiz.order.shoppingcart.ShoppingCartItem
  */
 Map createOrderHeader() {
     Timestamp nowTimestamp = UtilDateTime.nowTimestamp()
-    if (!(security.hasEntityPermission('ORDERMGR', '_CREATE', parameters.userLogin))) {
-        return error(label('OrderErrorUiLabels', 'OrderSecurityErrorToRunCreateOrderShipment'))
-    }
+    require(security.hasEntityPermission('ORDERMGR', '_CREATE', parameters.userLogin) as boolean,
+            label('OrderErrorUiLabels', 'OrderSecurityErrorToRunCreateOrderShipment'))
 
     GenericValue orderHeader = makeValue('OrderHeader',
             [orderId: parameters.orderId ?: delegator.getNextSeqId('OrderHeader')])
@@ -220,7 +219,7 @@ Map recreateOrderAdjustments() {
                 selectedAmount = item.getSelectedAmount()
                 unitPrice = item.getBasePrice()
                 unitListPrice = item.getListPrice()
-                itemDescription = item.getDescription()
+                itemDescription = item.getName()
                 statusId = item.getStatusId()
                 productId = item.getProductId()
                 quantity = item.getQuantity()
@@ -281,9 +280,8 @@ Map recreateOrderAdjustments() {
  * Update OrderContactMech
  */
 Map updateOrderContactMech() {
-    if (!(security.hasEntityPermission('ORDERMGR', '_UPDATE', parameters.userLogin))) {
-        return error(label('OrderErrorUiLabels', 'OrderSecurityErrorToRunUpdateOrderContactMech'))
-    }
+    require(security.hasEntityPermission('ORDERMGR', '_UPDATE', parameters.userLogin) as boolean,
+            label('OrderErrorUiLabels', 'OrderSecurityErrorToRunUpdateOrderContactMech'))
 
     if (parameters.contactMechPurposeTypeId == 'SHIPPING_LOCATION' &&
             parameters.contactMechId != parameters.oldContactMechId) {
@@ -329,9 +327,8 @@ Map updateOrderContactMech() {
  * Update OrderItemShipGroup
  */
 Map updateOrderItemShipGroup() {
-    if (!(security.hasEntityPermission('ORDERMGR', '_UPDATE', parameters.userLogin))) {
-        return error(label('OrderErrorUiLabels', 'OrderSecurityErrorToRunUpdateOrderItemShipGroup'))
-    }
+    require(security.hasEntityPermission('ORDERMGR', '_UPDATE', parameters.userLogin) as boolean,
+            label('OrderErrorUiLabels', 'OrderSecurityErrorToRunUpdateOrderItemShipGroup'))
     GenericValue lookedUpValue =  from('OrderItemShipGroup')
             .where(parameters)
             .queryOne()
@@ -409,9 +406,8 @@ Map getOrderItemShipGroupEstimatedShipDate() {
  * Create a PaymentMethodToOrder
  */
 Map addPaymentMethodToOrder() {
-    if (!(security.hasEntityPermission('ORDERMGR', '_CREATE', parameters.userLogin))) {
-        return error(label('OrderErrorUiLabels', 'OrderSecurityErrorToRunAddPaymentMethodToOrder'))
-    }
+    require(security.hasEntityPermission('ORDERMGR', '_CREATE', parameters.userLogin) as boolean,
+            label('OrderErrorUiLabels', 'OrderSecurityErrorToRunAddPaymentMethodToOrder'))
     GenericValue paymentMethod = from('PaymentMethod')
         .where('paymentMethodId', parameters.paymentMethodId)
         .queryOne()
@@ -844,7 +840,7 @@ Map updateShippingMethodAndCharges() {
         shippingAmount = (BigDecimal) ObjectType.simpleTypeOrObjectConvert(parameters.shippingAmount, 'BigDecimal', null, locale)
         percentAllowedBd = (BigDecimal) ObjectType.simpleTypeOrObjectConvert(percentAllowed, 'BigDecimal', null, locale)
     } catch (GeneralException e) {
-        return error(e.getMessage())
+        fail(e.getMessage())
     }
     BigDecimal diffPercentage = (newAmount > shippingAmount
             ? (newAmount - shippingAmount / shippingAmount)
@@ -885,9 +881,7 @@ Map productAvailabilityByFacility() {
  */
 Map createOrderPaymentApplication() {
     GenericValue payment = from('Payment').where(parameters).queryOne()
-    if (!payment) {
-        return error(label('AccountingUiLabels', 'AccountingNoPaymentsfound'))
-    }
+    require(payment as boolean, label('AccountingUiLabels', 'AccountingNoPaymentsfound'))
     GenericValue orderPaymentPref = from('OrderPaymentPreference')
         .where(orderPaymentPreferenceId: payment.paymentPreferenceId)
         .queryOne()
@@ -932,9 +926,7 @@ Map moveItemBetweenShipGroups() {
                orderItemSeqId: parameters.orderItemSeqId,
                shipGroupSeqId: parameters.fromGroupIndex)
         .queryOne()
-    if (!fromOisga) {
-        return error(label('OrderErrorUiLabels', 'OrderServiceOrderItemShipGroupAssocNotExist'))
-    }
+    require(fromOisga as boolean, label('OrderErrorUiLabels', 'OrderServiceOrderItemShipGroupAssocNotExist'))
     run service: 'updateOrderItemShipGroupAssoc', with: [orderId: parameters.orderId,
                                                          orderItemSeqId: parameters.orderItemSeqId,
                                                          shipGroupSeqId: parameters.fromGroupIndex,

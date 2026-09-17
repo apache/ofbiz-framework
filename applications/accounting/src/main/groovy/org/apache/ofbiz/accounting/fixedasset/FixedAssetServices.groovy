@@ -214,20 +214,16 @@ Map createMaintsFromTimeInterval() {
  */
 Map createFixedAssetMaintOrder() {
     GenericValue lookedUpValue = from('OrderHeader').where(parameters).queryOne()
-    if (!lookedUpValue) {
-        return error(label('AccountingUiLabels', 'AccountingOrderWithIdNotFound', parameters))
-    }
+    require(lookedUpValue as boolean, label('AccountingUiLabels', 'AccountingOrderWithIdNotFound', parameters))
 
     // Check if user has not passed in orderItemSeqId then get list of OrderItems from database and default to first item
     if (parameters.orderItemSeqId) {
         lookedUpValue = from('OrderItem').where(parameters).queryOne()
-        if (!lookedUpValue) {
-            return error(label('AccountingUiLabels', 'AccountingOrderItemWithIdNotFound', parameters))
-        }
+        require(lookedUpValue as boolean, label('AccountingUiLabels', 'AccountingOrderItemWithIdNotFound', parameters))
     } else {
         parameters.orderItemSeqId = from('OrderItem').where(orderId: lookedUpValue.orderId).queryList()?.orderItemSeqId
     }
-    delegator.create('FixedAssetMaintOrder', parameters)
+    create('FixedAssetMaintOrder', parameters)
     return success()
 }
 
@@ -260,19 +256,21 @@ Map straightLineDepreciation() {
     BigDecimal purchaseCost = parameters.purchaseCost
     BigDecimal expEndOfLifeYear = parameters.expEndOfLifeYear ?: 0
     BigDecimal assetAcquiredYear = parameters.assetAcquiredYear ?: 0
+    BigDecimal salvageValue = parameters.salvageValue ?: 0
 
     GenericValue fixedAsset = from('FixedAsset').where(parameters).queryOne()
-    if (!fixedAsset) {
-        return error(label('AccountingErrorUiLabels', 'AccountingFixedAssetNotFound'))
-    }
+    require(fixedAsset as boolean, label('AccountingErrorUiLabels', 'AccountingFixedAssetNotFound'))
     BigDecimal depreciation = fixedAsset.depreciation ?: 0
-    if (parameters.usageYears > 0) {
+    int intUsageYears = parameters.usageYears ? parameters.usageYears.intValue() : 0
+    if (intUsageYears > 0) {
         //FORMULA :  depreciation = (purchaseCost - salvageValue) / (expectedEndOfLife - dateAcquired)
         int numberOfYears = parameters.expEndOfLifeYear - parameters.assetAcquiredYear
         if (numberOfYears > 0) {
-            depreciation = (purchaseCost - parameters.salvageValue) / numberOfYears
-            depreciation.setScale(2, RoundingMode.HALF_EVEN)
-            int intUsageYears =  (numberOfYears < parameters.intUsageYears) ? parameters.intUsageYears : numberOfYears
+            depreciation = (purchaseCost - salvageValue) / numberOfYears
+            depreciation = depreciation.setScale(2, RoundingMode.HALF_EVEN)
+            if (numberOfYears < intUsageYears) {
+                intUsageYears = numberOfYears
+            }
             for (int i = 0; i < intUsageYears; i++) {
                 purchaseCost -= depreciation
                 depreciationTotal += depreciation
@@ -300,11 +298,10 @@ Map straightLineDepreciation() {
     BigDecimal nextDepreciationAmount = 0
 
     // FORMULA : depreciation = (purchaseCost - salvageValue - pastDepreciations) / remainingYears
-    int usageYears = parameters.intUsageYears ?: 0
-    BigDecimal remainingYears  = expEndOfLifeYear - assetAcquiredYear - usageYears
+    BigDecimal remainingYears = expEndOfLifeYear - assetAcquiredYear - intUsageYears
     if (remainingYears > 0) {
-        nextDepreciationAmount = ((fixedAsset.purchaseCost ?: 0) - usageYears - (fixedAsset.depreciation ?: 0)) / remainingYears
-        nextDepreciationAmount.setScale(2, RoundingMode.HALF_EVEN)
+        nextDepreciationAmount = ((fixedAsset.purchaseCost ?: 0) - salvageValue - (fixedAsset.depreciation ?: 0)) / remainingYears
+        nextDepreciationAmount = nextDepreciationAmount.setScale(2, RoundingMode.HALF_EVEN)
     }
     return success([assetDepreciationTillDate: assetDepreciationTillDate,
         assetNBVAfterDepreciation: assetNBVAfterDepreciation,
@@ -379,9 +376,7 @@ Map doubleDecliningBalanceDepreciation() {
  */
 Map calculateFixedAssetDepreciation() {
     GenericValue fixedAsset = from('FixedAsset').where(parameters).queryOne()
-    if (!fixedAsset) {
-        return error(label('ManufacturingUiLabels', 'ManufacturingFixedAssetNotExist'))
-    }
+    require(fixedAsset as boolean, label('ManufacturingUiLabels', 'ManufacturingFixedAssetNotExist'))
     String expEndOfLifeYear, assetAcquiredYear
 
     // Extract asset end of life year from field expectedEndOfLife

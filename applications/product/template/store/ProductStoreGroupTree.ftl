@@ -23,7 +23,7 @@ function unescapeHtmlText(text) {
     return jQuery('<div />').html(text).text()
 }
 
-jQuery(window).load(createTree());
+createTree();
 
 <#-- creating the JSON Data -->
 <#if parentProductStoreGroup?has_content>

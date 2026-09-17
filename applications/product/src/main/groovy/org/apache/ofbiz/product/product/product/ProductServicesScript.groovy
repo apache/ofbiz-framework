@@ -35,21 +35,17 @@ import org.apache.ofbiz.service.ServiceUtil
  */
 Map createProduct() {
     Map result = success()
-    if (!(security.hasEntityPermission('CATALOG', '_CREATE', parameters.userLogin)
-            || security.hasEntityPermission('CATALOG_ROLE', '_CREATE', parameters.userLogin))) {
-        return error(UtilProperties.getMessage('ProductUiLabels', 'ProductCatalogCreatePermissionError', parameters.locale))
-    }
+    require((security.hasEntityPermission('CATALOG', '_CREATE', parameters.userLogin)
+        || security.hasEntityPermission('CATALOG_ROLE', '_CREATE', parameters.userLogin)) as boolean,
+        'ProductUiLabels', 'ProductCatalogCreatePermissionError')
 
     GenericValue newEntity = makeValue('Product', parameters)
     if (newEntity.productId) {
         String errorMessage = UtilValidate.checkValidDatabaseId(newEntity.productId)
-        if (errorMessage) {
-            return error(errorMessage)
-        }
+        boolean isProductIdValid = !errorMessage
+        require(isProductIdValid, errorMessage)
         GenericValue dummyProduct = from('Product').where(parameters).queryOne()
-        if (dummyProduct) {
-            return error(UtilProperties.getMessage('CommonErrorUiLabels', 'CommonErrorDuplicateKey', parameters.locale))
-        }
+        require(!(dummyProduct), 'CommonErrorUiLabels', 'CommonErrorDuplicateKey')
     } else {
         newEntity.productId = delegator.getNextSeqId('Product')
     }
@@ -108,12 +104,9 @@ Map updateProduct() {
     if (!ServiceUtil.isSuccess(res)) {
         return res
     }
-    GenericValue lookedUpValue = from('Product').where(parameters).queryOne()
-
-    lookedUpValue.setNonPKFields(parameters)
-    lookedUpValue.lastModifiedDate = UtilDateTime.nowTimestamp()
-    lookedUpValue.lastModifiedByUserLogin = userLogin.userLoginId
-    lookedUpValue.store()
+    update('Product').where(parameters).set([*: parameters,
+                                             lastModifiedDate: UtilDateTime.nowTimestamp(),
+                                             lastModifiedByUserLogin: userLogin.userLoginId])
 
     return success()
 }
@@ -174,9 +167,7 @@ Map duplicateProduct() {
         return res
     }
     GenericValue dummyProduct = from('Product').where(parameters).queryOne()
-    if (dummyProduct) {
-        return error(UtilProperties.getMessage('CommonErrorUiLabels', 'CommonErrorDuplicateKey', parameters.locale))
-    }
+    require(!(dummyProduct), 'CommonErrorUiLabels', 'CommonErrorDuplicateKey')
 
     // look up the old product and clone it
     GenericValue oldProduct = from('Product').where(productId: parameters.oldProductId).queryOne()
@@ -297,10 +288,10 @@ Map duplicateProduct() {
     if (parameters.removeAssocs) {
         relationToRemove << 'ProductAssoc'
         // small difference here, also do the reverse assocs...
-        delegator.removeByAnd('ProductAssoc', reverseProductFindContext)
+        delete('ProductAssoc').where(reverseProductFindContext)
     }
     relationToRemove.each {
-        delegator.removeByAnd(it, productFindContext)
+        delete(it).where(productFindContext)
     }
     return success()
 }
@@ -347,21 +338,23 @@ Map indexProductKeywords() {
 Map discontinueProductSales() {
     // set sales discontinuation date to now
     Timestamp nowTimestamp = UtilDateTime.nowTimestamp()
-    GenericValue product = from('Product').where(parameters).queryOne()
-    product.salesDiscontinuationDate = nowTimestamp
-    product.store()
+    update('Product').where(parameters).set([salesDiscontinuationDate: nowTimestamp])
 
     // expire product from all categories
     exprBldr = new EntityConditionBuilder()
     condition = exprBldr.AND {
-        EQUALS(productId: product.productId)
+        EQUALS(productId: parameters.productId)
         EQUALS(thruDate: null)
     }
     delegator.storeByCondition('ProductCategoryMember',
             [thruDate: nowTimestamp], condition)
     // expire product from all associations going to it
+    assocCondition = new EntityConditionBuilder().AND {
+        EQUALS(productIdTo: parameters.productId)
+        EQUALS(thruDate: null)
+    }
     delegator.storeByCondition('ProductAssoc',
-            [thruDate: nowTimestamp], condition)
+            [thruDate: nowTimestamp], assocCondition)
     return success()
 }
 
@@ -369,8 +362,8 @@ Map countProductView() {
     long weight = parameters.weight ?: 1L
 
     GenericValue productCalculatedInfo = from('ProductCalculatedInfo').where(parameters).queryOne()
-    if (productCalculatedInfo?.totalTimesViewed) {
-        productCalculatedInfo.totalTimesViewed += weight
+    if (productCalculatedInfo) {
+        productCalculatedInfo.totalTimesViewed = (productCalculatedInfo.totalTimesViewed ?: 0L) + weight
         productCalculatedInfo.store()
     } else {
         // go ahead and create it
@@ -403,6 +396,10 @@ Map createProductReview() {
     if (productStore && productStore.autoApproveReviews == 'Y') {
         newEntity.statusId = 'PRR_APPROVED'
     }
+    // auto approve the review if it is just a rating and has no review text
+    if (!parameters.productReview) {
+        newEntity.statusId = 'PRR_APPROVED'
+    }
 
     // create the new ProductReview
     newEntity.productReviewId = delegator.getNextSeqId('ProductReview')
@@ -412,9 +409,7 @@ Map createProductReview() {
     String productId = newEntity.productId
     updateProductWithReviewRatingAvg(productId)
 
-    String successMessage = UtilProperties.getMessage('ProductUiLabels',
-            'ProductCreateProductReviewSuccess', parameters.locale)
-    Map result = success(successMessage )
+    Map result = success('ProductUiLabels', 'ProductCreateProductReviewSuccess')
     result.productReviewId = newEntity.productReviewId
 
     return result
@@ -428,11 +423,9 @@ Map updateProductReview() {
     if (!ServiceUtil.isSuccess(res)) {
         return res
     }
-    GenericValue lookedUpValue = from('ProductReview').where(parameters).queryOne()
-    lookedUpValue.setNonPKFields(parameters)
-    lookedUpValue.store()
+    update('ProductReview').where(parameters).set(parameters)
 
-    String productId = lookedUpValue.productId
+    String productId = parameters.productId
     updateProductWithReviewRatingAvg(productId)
 
     return success()
@@ -452,17 +445,15 @@ Map setProductReviewStatus() {
         if (from('StatusValidChange')
                 .where(statusId: productReview.statusId, statusIdTo: parameters.statusId)
                 .queryCount() == 0) {
-            String errorMessage = UtilProperties.getMessage('ProductErrorUiLabels',
-                    ProductReviewErrorCouldNotChangeOrderStatusFromTo, parameters.locale)
+            String errorMessage = label('ProductErrorUiLabels', 'ProductReviewErrorCouldNotChangeOrderStatusFromTo')
             logError(errorMessage)
-            return error(errorMessage)
+            fail(errorMessage)
         }
     }
 
-    productReview.statusId = parameters.statusId
-    productReview.store()
+    GenericValue updatedProductReview = update('ProductReview').where(parameters).set([statusId: parameters.statusId])
     Map result = success()
-    result.productReviewId = productReview.productReviewId
+    result.productReviewId = updatedProductReview.productReviewId
 
     return result
 }
@@ -583,8 +574,8 @@ Map checkProductRelatedPermission(String callingMethodName, String checkAction) 
             || (parameters.alternatePermissionRoot &&
             security.hasEntityPermission(parameters.alternatePermissionRoot, "_${checkAction}", parameters.userLogin)))) {
         String checkActionLabel = "ProductCatalog${checkAction.charAt(0)}${checkAction.substring(1).toLowerCase()}PermissionError"
-        return error(UtilProperties.getMessage('ProductUiLabels', checkActionLabel,
-                [resourceDescription: callingMethodName, mainAction: checkAction], parameters.locale))
+        return error('ProductUiLabels', checkActionLabel,
+                [resourceDescription: callingMethodName, mainAction: checkAction])
     }
     return success()
 }
@@ -604,16 +595,13 @@ Map checkProductRelatedPermissionService() {
  */
 Map productGenericPermission() {
     String mainAction = parameters.mainAction
-    if (!mainAction) {
-        return error(UtilProperties.getMessage('ProductUiLabels',
-                'ProductMissingMainActionInPermissionService', parameters.locale))
-    }
+    require(mainAction as boolean, 'ProductUiLabels', 'ProductMissingMainActionInPermissionService')
 
     Map result = success()
     result.hasPermission = ServiceUtil.isSuccess(
             checkProductRelatedPermission(parameters.resourceDescription, parameters.mainAction))
     if (!result.hasPermission) {
-        result = fail(UtilProperties.getMessage('ProductUiLabels', 'ProductPermissionError', parameters.locale))
+        result = failure('ProductUiLabels', 'ProductPermissionError')
     }
     return result
 }
@@ -623,19 +611,16 @@ Map productGenericPermission() {
  */
 Map productPriceGenericPermission() {
     String mainAction = parameters.mainAction
-    if (!mainAction) {
-        return error(UtilProperties.getMessage('ProductUiLabels',
-                'ProductMissingMainActionInPermissionService', parameters.locale))
-    }
+    require(mainAction as boolean, 'ProductUiLabels', 'ProductMissingMainActionInPermissionService')
 
     Map result = success()
     if (!security.hasPermission('CATALOG_PRICE_MAINT', parameters.userLogin)) {
-        result = error(UtilProperties.getMessage('ProductUiLabels',
-                'ProductPriceMaintPermissionError', parameters.locale))
+        result = error('ProductUiLabels', 'ProductPriceMaintPermissionError')
     }
-    result.hasPermission = ServiceUtil.isSuccess(result) && checkProductRelatedPermission(parameters.resourceDescription, mainAction)
+    result.hasPermission = ServiceUtil.isSuccess(result) &&
+            ServiceUtil.isSuccess(checkProductRelatedPermission(parameters.resourceDescription, mainAction))
     if (!result.hasPermission) {
-        result = fail(UtilProperties.getMessage('ProductUiLabels', 'ProductPermissionError', parameters.locale))
+        result = failure('ProductUiLabels', 'ProductPermissionError')
     }
     return result
 }
@@ -673,9 +658,7 @@ Map updatePartyToProduct() {
     }
     GenericValue lookupPKMap = makeValue('ProductRole')
     lookupPKMap.setPKFields(parameters)
-    GenericValue lookedUpValue = findOne('ProductRole', lookupPKMap, false)
-    lookedUpValue.setNonPKFields(parameters)
-    lookedUpValue.store()
+    update('ProductRole').where(lookupPKMap).set(parameters)
     return success()
 }
 
@@ -723,9 +706,7 @@ Map updateProductCategoryGlAccount() {
         return res
     }
 
-    GenericValue lookedUpValue = findOne('ProductCategoryGlAccount', parameters, false)
-    lookedUpValue.setNonPKFields(parameters)
-    lookedUpValue.store()
+    update('ProductCategoryGlAccount').where(parameters).set(parameters)
 
     return success()
 }
@@ -766,15 +747,12 @@ Map createProductGroupOrder() {
  * Update ProductGroupOrder
  */
 Map updateProductGroupOrder() {
-    GenericValue productGroupOrder = from('ProductGroupOrder').where(parameters).queryOne()
-    productGroupOrder.setNonPKFields(parameters)
-    productGroupOrder.store()
+    GenericValue productGroupOrder = update('ProductGroupOrder').where(parameters).set(parameters)
 
     if (productGroupOrder.statusId == 'GO_CREATED') {
         GenericValue jobSandbox = from('JobSandbox').where(jobId: productGroupOrder.jobId).queryOne()
         if (jobSandbox) {
-            jobSandbox.runTime = parameters.thruDate
-            jobSandbox.store()
+            update('JobSandbox').where(jobId: productGroupOrder.jobId).set([runTime: parameters.thruDate])
         }
     }
     return success()
@@ -801,7 +779,7 @@ Map deleteProductGroupOrder() {
  */
 Map createJobForProductGroupOrder() {
     GenericValue productGroupOrder = from('ProductGroupOrder').where(parameters).queryOne()
-    if (productGroupOrder.jobId) {
+    if (!productGroupOrder.jobId) {
         // Create RuntimeData For ProductGroupOrder
         Map runtimeDataMap = [groupOrderId: parameters.groupOrderId]
         XmlSerializer xmlSerializer = new XmlSerializer()
@@ -825,10 +803,9 @@ Map createJobForProductGroupOrder() {
                          runtimeDataId: runtimeDataId,
                          maxRecurrenceCount: 1L,
                          priority: 50L]
-        delegator.create('JobSandbox', jobFields)
+        create('JobSandbox', jobFields)
 
-        productGroupOrder.jobId = jobFields.jobId
-        productGroupOrder.store()
+        update('ProductGroupOrder').where(parameters).set([jobId: jobFields.jobId])
     }
     return success()
 }

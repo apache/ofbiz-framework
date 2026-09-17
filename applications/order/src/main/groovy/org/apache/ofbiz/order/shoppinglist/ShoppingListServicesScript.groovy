@@ -90,9 +90,7 @@ Map createShoppingListItem() {
                 BigDecimal totalquantity = shoppingListItem.quantity + parameters.quantity
                 result.shoppingListItemSeqId = shoppingListItem.shoppingListItemSeqId
                 Map serviceResult = run service: 'updateShoppingListItem', with: [*: shoppingListItem, quantity: totalquantity]
-                if (!ServiceUtil.isSuccess(serviceResult)) {
-                    return error(serviceResult.errorMessage)
-                }
+                require(ServiceUtil.isSuccess(serviceResult) as boolean, serviceResult.errorMessage)
                 // Exit here, because we found an existing item update, otherwise we have to create a new one below
                 return result
             }
@@ -101,9 +99,7 @@ Map createShoppingListItem() {
     // Create new ShoppingListItem
     GenericValue shoppingList = from('ShoppingList').where(parameters).queryOne()
     GenericValue product = from('Product').where(parameters).queryOne()
-    if (!product) {
-        return error(UtilProperties.getMessage('ProductUiLabels', 'ProductErrorProductNotFound', parameters.locale))
-    }
+    require(product as boolean, 'ProductUiLabels', 'ProductErrorProductNotFound')
     GenericValue newEntity = makeValue('ShoppingListItem')
     newEntity.setNonPKFields(parameters)
     newEntity.shoppingListId = parameters.shoppingListId
@@ -121,9 +117,7 @@ Map createShoppingListItem() {
  */
 Map updateShoppingListItem() {
     GenericValue shoppingList = from('ShoppingList').where(parameters).queryOne()
-    GenericValue shoppingListItem = from('ShoppingListItem').where(parameters).queryOne()
-    shoppingListItem.setNonPKFields(parameters)
-    shoppingListItem.store()
+    update('ShoppingListItem').where(parameters).set(parameters)
 
     updateLastAdminModified(shoppingList, userLogin)
     return success()
@@ -155,9 +149,7 @@ Map addDistinctShoppingListItem() {
         }
     }
     Map serviceResult = run service: 'createShoppingListItem', with: parameters
-    if (!ServiceUtil.isSuccess(serviceResult)) {
-        return error(serviceResult.errorMessage)
-    }
+    require(ServiceUtil.isSuccess(serviceResult) as boolean, serviceResult.errorMessage)
 
     result.shoppingListItemSeqId = serviceResult.shoppingListItemSeqId
     return result
@@ -169,12 +161,8 @@ Map addDistinctShoppingListItem() {
 Map calculateShoppingListDeepTotalPrice() {
     Map result = success()
     Map serviceResult = run service: 'checkShoppingListItemSecurity', with: parameters
-    if (!ServiceUtil.isSuccess(serviceResult)) {
-        return error(serviceResult.errorMessage)
-    }
-    if (!serviceResult.hasPermission) {
-        return error(UtilProperties.getMessage('OrderErrorUiLabels', 'OrderSecurityErrorToRunForAnotherParty', parameters.locale))
-    }
+    require(ServiceUtil.isSuccess(serviceResult) as boolean, serviceResult.errorMessage)
+    require(serviceResult.hasPermission as boolean, 'OrderErrorUiLabels', 'OrderSecurityErrorToRunForAnotherParty')
     Map calcPriceInBaseMap = [prodCatalogId: parameters.prodCatalogId, webSiteId: parameters.webSiteId]
     ['partyId', 'productStoreId', 'productStoreGroupId', 'currencyUomId', 'autoUserLogin'].each {
         if (parameters[it]) {
@@ -225,11 +213,10 @@ Map calculateShoppingListDeepTotalPrice() {
  * Checks security on a ShoppingList
  */
 Map checkShoppingListSecurity() {
-    if (userLogin && (userLogin.userLoginId != 'anonymous') &&
-            parameters.partyId && (userLogin.partyId != parameters.partyId)
-            && !security.hasEntityPermission('PARTYMGR', "_${parameters.permissionAction}", parameters.userLogin)) {
-        return error(UtilProperties.getMessage('OrderErrorUiLabels', 'OrderSecurityErrorToRunForAnotherParty', parameters.locale))
-    }
+    require(!userLogin || (userLogin.userLoginId == 'anonymous') ||
+            !parameters.partyId || (userLogin.partyId == parameters.partyId)
+            || security.hasEntityPermission('PARTYMGR', "_${parameters.permissionAction}", parameters.userLogin),
+            'OrderErrorUiLabels', 'OrderSecurityErrorToRunForAnotherParty')
 
     Map result = success()
     result.hasPermission = true
@@ -241,14 +228,12 @@ Map checkShoppingListSecurity() {
  */
 Map checkShoppingListItemSecurity() {
     GenericValue shoppingList = from('ShoppingList').where(parameters).queryOne()
-    if (shoppingList?.partyId && userLogin.partyId != shoppingList.partyId &&
-            !security.hasEntityPermission('PARTYMGR', "_${parameters.permissionAction}", parameters.userLogin)) {
-        return error(UtilProperties.getMessage('OrderErrorUiLabels',
-                'OrderSecurityErrorToRunForAnotherParty',
-                [parentMethodName: parameters.parentMethodName,
-                 permissionAction: parameters.permissionAction],
-                parameters.locale))
-    }
+    require(!shoppingList?.partyId || userLogin.partyId == shoppingList.partyId ||
+            security.hasEntityPermission('PARTYMGR', "_${parameters.permissionAction}", parameters.userLogin),
+            'OrderErrorUiLabels',
+            'OrderSecurityErrorToRunForAnotherParty',
+            [parentMethodName: parameters.parentMethodName,
+             permissionAction: parameters.permissionAction])
 
     Map result = success()
     result.hasPermission = true
@@ -279,12 +264,11 @@ Map addSuggestionsToShoppingList() {
         Map createShoppingListInMap = [partyId: orderRole.partyId,
                                        listName: 'Auto Suggestions',
                                        shoppingListTypeId: 'SLT_WISH_LIST',
-                                       productStoreId: parameters.productStoreId]
+                                       productStoreId: parameters.productStoreId,
+                                       userLogin: parameters.userLogin]
         Map serviceResultCSL = dispatcher.runSync('createShoppingList', createShoppingListInMap, 7200, true)
-        if (!ServiceUtil.isSuccess(serviceResultCSL)) {
-            return error(serviceResultCSL.errorMessage)
-        }
-        shoppingListId = serviceResultCSL.serviceResult
+        require(ServiceUtil.isSuccess(serviceResultCSL) as boolean, serviceResultCSL.errorMessage)
+        shoppingListId = serviceResultCSL.shoppingListId
     }
     List orderItemList = from ('OrderItem').where(orderId: parameters.orderId).orderBy('orderItemSeqId').queryList()
     for (GenericValue orderItem : orderItemList) {

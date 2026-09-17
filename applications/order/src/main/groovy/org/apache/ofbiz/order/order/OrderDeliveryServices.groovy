@@ -56,17 +56,13 @@ Map updateOrderDeliverySchedule() {
         return serviceResult
     }
 
-    // Lookup the existing schedule to modify
-    GenericValue schedule = from('OrderDeliverySchedule').where(parameters).queryOne()
-
     // only set statusId if hasScheduleAdminRelatedPermission
-    String saveStatusId = schedule.statusId
-    schedule.setNonPKFields(parameters)
+    Map updateFields = [*: parameters]
     if (!security.hasEntityPermission('ORDERMGR', ('_' + checkAction), parameters.userLogin)) {
-        schedule.statusId = saveStatusId
+        updateFields.remove('statusId')
     }
     // Update the actual schedule
-    schedule.store()
+    update('OrderDeliverySchedule').where(parameters).set(updateFields)
     return success()
 }
 
@@ -81,7 +77,7 @@ Map sendOrderDeliveryScheduleNotification() {
     // find email address for currently logged in user, set as sendFrom
     Map curUserPcmFindMap = [partyId: userLogin.partyId, contactMechTypeId: 'EMAIL_ADDRESS']
     GenericValue curUserPartyAndContactMech = from('PartyAndContactMech').where(curUserPcmFindMap).queryFirst()
-    Map sendEmailMap = [sendFrom: (',' + curUserPartyAndContactMech.infoString)]
+    Map sendEmailMap = [sendFrom: curUserPartyAndContactMech.infoString]
 
     // find email addresses of all parties in SHIPMENT_CLERK roleTypeId, set as sendTo
     Map shipmentClerkFindMap = [roleTypeId: 'SHIPMENT_CLERK']

@@ -620,6 +620,9 @@ function lookupAjaxRequest(request) {
 }
 
 function lookupFormAjaxRequest(formAction, form) {
+    if (!form) {
+        return;
+    }
     var lookupId = GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).lookupId;
     var data = jQuery("#" + form).serialize();
     data = data + "&presentation=" + GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).presentation;

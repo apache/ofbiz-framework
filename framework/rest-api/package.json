@@ -4,11 +4,11 @@
     "repository": "https://github.com/apache/ofbiz-framework.git",
     "license": "Apache-2.0",
     "dependencies": {
-        "swagger-ui-dist": "5.32.14",
-        "redoc": "2.5.3"
+        "swagger-ui-dist": "5.32.15",
+        "redoc": "2.5.4"
     },
     "overrides": {
-        "js-yaml": "4.3.1",
+        "js-yaml": "4.3.2",
         "minimatch": "10.2.5",
         "brace-expansion": "5.0.9",
         "fast-xml-parser": "5.10.1",

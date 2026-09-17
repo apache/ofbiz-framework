@@ -18,7 +18,6 @@
 */
 package org.apache.ofbiz.party.contact
 
-import org.apache.ofbiz.base.util.UtilProperties
 import org.apache.ofbiz.base.util.UtilValidate
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.service.ModelService
@@ -36,22 +35,21 @@ Map updateContactMech() {
             DOMAIN_NAME: 'DomainName',
             default: 'ContactMechanism'
     ]
+    GenericValue lookedValue = from('ContactMech').where('contactMechId', parameters.contactMechId).queryOne()
+    require(lookedValue as boolean, 'ServiceErrorUiLabels', 'ServiceValueNotFound')
+    String contactMechTypeId = parameters.contactMechTypeId ?: lookedValue.contactMechTypeId
     String successMessage = 'Party' +
-            (successMessageMap."${parameters.contactMechTypeId}" ?: successMessageMap.default) +
+            (successMessageMap."$contactMechTypeId" ?: successMessageMap.default) +
             'SuccessfullyUpdated'
-    GenericValue lookedValue = from('ContactMech').where(parameters).queryOne()
-    if (! lookedValue) {
-        return error(UtilProperties.getMessage('ServiceErrorUiLabels', 'ServiceValueNotFound', locale))
-    }
     if (lookedValue.infoString != parameters.infoString) {
         lookedValue.setNonPKFields(parameters)
         lookedValue.contactMechId = null
         Map serviceResult = run service: 'createContactMech', with: lookedValue.getAllFields()
-        Map serviceReturn = success(UtilProperties.getMessage('PartyUiLabels', successMessage, locale))
+        Map serviceReturn = success('PartyUiLabels', successMessage)
         serviceReturn.contactMechId = serviceResult.contactMechId
         return serviceReturn
     }
-    Map serviceReturn = success(UtilProperties.getMessage('PartyUiLabels', 'PartyNothingToDoHere', locale))
+    Map serviceReturn = success('PartyUiLabels', 'PartyNothingToDoHere')
     serviceReturn.contactMechId = parameters.contactMechId
     return serviceReturn
 }
@@ -59,7 +57,7 @@ Map updateContactMech() {
 /**
  * locale function to control if the state province is mandatoring
  */
-Map hasValidStateProvince(String countryGeoId, String stateProvinceGeoId) {
+String hasValidStateProvince(String countryGeoId, String stateProvinceGeoId) {
     String errorMessage
     if (!stateProvinceGeoId) {
         if (countryGeoId == 'USA') {
@@ -77,16 +75,14 @@ Map hasValidStateProvince(String countryGeoId, String stateProvinceGeoId) {
  */
 Map createPostalAddress() {
     String errorMessage = hasValidStateProvince(parameters.countryGeoId, parameters.stateProvinceGeoId)
-    if (errorMessage) {
-        return error(UtilProperties.getMessage('PartyUiLabels', errorMessage, locale))
-    }
+    boolean isStateProvinceValid = !errorMessage
+    require(isStateProvinceValid, 'PartyUiLabels', errorMessage)
     GenericValue newValue = makeValue('PostalAddress', parameters)
     Map createContactMechMap = [contactMechTypeId: 'POSTAL_ADDRESS', contactMechId: parameters.contactMechId]
     Map serviceResult = run service: 'createContactMech', with: createContactMechMap
     newValue.contactMechId = serviceResult.contactMechId
     newValue.create()
-    Map serviceReturn = success(UtilProperties.getMessage('PartyUiLabels',
-            'PartyPostalAddressSuccessfullyCreated', locale))
+    Map serviceReturn = success('PartyUiLabels', 'PartyPostalAddressSuccessfullyCreated')
     serviceReturn.contactMechId = newValue.contactMechId
     return serviceReturn
 }
@@ -96,14 +92,12 @@ Map createPostalAddress() {
  */
 Map updatePostalAddress() {
     String errorMessage = hasValidStateProvince(parameters.countryGeoId, parameters.stateProvinceGeoId)
-    if (errorMessage) {
-        return error(UtilProperties.getMessage('PartyUiLabels', errorMessage, locale))
-    }
-    GenericValue lookedValue = from('PostalAddress').where(parameters).queryOne()
-    if (! lookedValue) {
-        return error(UtilProperties.getMessage('ServiceErrorUiLabels', 'ServiceValueNotFound', locale))
-    }
-    GenericValue newValue = makeValue('PostalAddress', parameters)
+    boolean isStateProvinceValid = !errorMessage
+    require(isStateProvinceValid, 'PartyUiLabels', errorMessage)
+    GenericValue lookedValue = from('PostalAddress').where('contactMechId', parameters.contactMechId).queryOne()
+    require(lookedValue as boolean, 'ServiceErrorUiLabels', 'ServiceValueNotFound')
+    GenericValue newValue = (GenericValue) lookedValue.clone()
+    newValue.setNonPKFields(parameters)
     String contactMechId
     String oldContactMechId = lookedValue.contactMechId
     String successMessage = 'PartyPostalAddressSuccessfullyUpdated'
@@ -125,7 +119,7 @@ Map updatePostalAddress() {
         }
     }
 
-    Map serviceReturn = success(UtilProperties.getMessage('PartyUiLabels', successMessage, locale))
+    Map serviceReturn = success('PartyUiLabels', successMessage)
     serviceReturn.contactMechId = contactMechId
     serviceReturn.oldContactMechId = oldContactMechId
     return serviceReturn
@@ -140,8 +134,7 @@ Map createTelecomNumber() {
     Map serviceResult = run service: 'createContactMech', with: createContactMechMap
     newValue.contactMechId = serviceResult.contactMechId
     newValue.create()
-    Map serviceReturn = success(UtilProperties.getMessage('PartyUiLabels',
-            'PartyTelecomNumberSuccessfullyCreated', locale))
+    Map serviceReturn = success('PartyUiLabels', 'PartyTelecomNumberSuccessfullyCreated')
     serviceReturn.contactMechId = newValue.contactMechId
     return serviceReturn
 }
@@ -150,11 +143,10 @@ Map createTelecomNumber() {
  * Update Contact Mechanism with Telecom Number
  */
 Map updateTelecomNumber() {
-    GenericValue lookedValue = from('TelecomNumber').where(parameters).queryOne()
-    if (!lookedValue) {
-        return error(UtilProperties.getMessage('ServiceErrorUiLabels', 'ServiceValueNotFound', locale))
-    }
-    GenericValue newValue = makeValue('TelecomNumber', parameters)
+    GenericValue lookedValue = from('TelecomNumber').where('contactMechId', parameters.contactMechId).queryOne()
+    require(lookedValue as boolean, 'ServiceErrorUiLabels', 'ServiceValueNotFound')
+    GenericValue newValue = (GenericValue) lookedValue.clone()
+    newValue.setNonPKFields(parameters)
     String contactMechId
     String oldContactMechId = lookedValue.contactMechId
     String successMessage = 'PartyTelecomNumberSuccessfullyUpdated'
@@ -176,7 +168,7 @@ Map updateTelecomNumber() {
         }
     }
 
-    Map serviceReturn = success(UtilProperties.getMessage('PartyUiLabels', successMessage, locale))
+    Map serviceReturn = success('PartyUiLabels', successMessage)
     serviceReturn.contactMechId = contactMechId
     serviceReturn.oldContactMechId = oldContactMechId
     return serviceReturn
@@ -186,34 +178,34 @@ Map updateTelecomNumber() {
  * Create an email address contact mechanism
  */
 Map createEmailAddress() {
+    require(parameters.emailAddress as boolean, 'PartyUiLabels', 'PartyEmailAddressMissing')
     if (UtilValidate.isEmail(parameters.emailAddress)) {
         Map createContactMechMap = [contactMechTypeId: 'EMAIL_ADDRESS',
                                     contactMechId: parameters.contactMechId,
                                     infoString: parameters.emailAddress]
         Map serviceResult = run service: 'createContactMech', with: createContactMechMap
-        Map serviceReturn = success(UtilProperties.getMessage('PartyUiLabels',
-                'PartyEmailAddressSuccessfullyCreated', locale))
+        Map serviceReturn = success('PartyUiLabels', 'PartyEmailAddressSuccessfullyCreated')
         serviceReturn.contactMechId = serviceResult.contactMechId
         return serviceReturn
     }
-    return error(UtilProperties.getMessage('PartyUiLabels', 'PartyEmailAddressNotFormattedCorrectly', locale))
+    return error('PartyUiLabels', 'PartyEmailAddressNotFormattedCorrectly')
 }
 
 /**
  * Update an email address contact mechanism
  */
 Map updateEmailAddress() {
+    require(parameters.emailAddress as boolean, 'PartyUiLabels', 'PartyEmailAddressMissing')
     if (UtilValidate.isEmail(parameters.emailAddress)) {
         Map updateContactMechMap = [contactMechTypeId: 'EMAIL_ADDRESS',
                                     contactMechId: parameters.contactMechId,
                                     infoString: parameters.emailAddress]
         Map serviceResult = run service: 'updateContactMech', with: updateContactMechMap
-        Map serviceReturn = success(UtilProperties.getMessage('PartyUiLabels',
-                'PartyEmailAddressSuccessfullyUpdated', locale))
+        Map serviceReturn = success('PartyUiLabels', 'PartyEmailAddressSuccessfullyUpdated')
         serviceReturn.contactMechId = serviceResult.contactMechId
         return serviceReturn
     }
-    return error(UtilProperties.getMessage('PartyUiLabels', 'PartyEmailAddressNotFormattedCorrectly', locale))
+    return error('PartyUiLabels', 'PartyEmailAddressNotFormattedCorrectly')
 }
 
 /**
@@ -244,8 +236,11 @@ Map updateFtpAddressWithHistory() {
     resultMap.contactMechId = parameters.contactMechId
     Map newContactMechResult
     if (resultMap.oldContactMechId) {
-        newValue = makeValue('FtpAddress', parameters)
-        if (newValue != from('FtpAddress').where(parameters).queryOne()) {  // if there is some modifications in FtpAddress data
+        GenericValue lookedValue = from('FtpAddress').where('contactMechId', parameters.contactMechId).queryOne()
+        require(lookedValue as boolean, 'ServiceErrorUiLabels', 'ServiceValueNotFound')
+        GenericValue newValue = (GenericValue) lookedValue.clone()
+        newValue.setNonPKFields(parameters)
+        if (newValue != lookedValue) {  // if there is some modifications in FtpAddress data
             newContactMechResult = run service: 'createFtpAddress', with: parameters
         } else { //update only contactMech
             Map updateContactMechMap = dispatcher.getDispatchContext().makeValidContext('updateContactMech', ModelService.IN_PARAM, parameters)
@@ -270,8 +265,7 @@ Map createPartyFtpAddress() {
     }
     String contactMechId = contactMech.contactMechId
 
-    Map createPartyContactMechMap = parameters
-    createPartyContactMechMap.put('contactMechId', contactMechId)
+    Map createPartyContactMechMap = [*:parameters, contactMechId: contactMechId]
     Map serviceResult = run service: 'createPartyContactMech', with: createPartyContactMechMap
     if (ServiceUtil.isError(serviceResult)) {
         return serviceResult
@@ -306,7 +300,9 @@ Map sendVerifyEmailAddressNotification() {
             .where(emailType: 'PRDS_EMAIL_VERIFY')
             .cache()
             .queryFirst()
-    GenericValue emailAddressVerification = from('EmailAddressVerification').where(parameters).queryOne()
+    GenericValue emailAddressVerification = from('EmailAddressVerification')
+            .where('emailAddress', parameters.emailAddress)
+            .queryOne()
     if (emailAddressVerification && storeEmail) {
         Map emailParams = [
             sendTo: parameters.emailAddress,
@@ -334,11 +330,8 @@ Map verifyEmailAddress() {
     GenericValue emailAddressVerification = from('EmailAddressVerification')
             .where(verifyHash: parameters.verifyHash)
             .queryFirst()
-    if (! emailAddressVerification) {
-        return error(UtilProperties.getMessage('PartyUiLabels', 'PartyEmailAddressNotExist', locale))
-    }
-    if (UtilValidate.isDateBeforeNow(emailAddressVerification.expireDate)) {
-        return error(UtilProperties.getMessage('PartyUiLabels', 'PartyEmailAddressVerificationExpired', locale))
-    }
+    require(emailAddressVerification as boolean, 'PartyUiLabels', 'PartyEmailAddressNotExist')
+    require(!(UtilValidate.isDateBeforeNow(emailAddressVerification.expireDate)),
+            'PartyUiLabels', 'PartyEmailAddressVerificationExpired')
     return success()
 }

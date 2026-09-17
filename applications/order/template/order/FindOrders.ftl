@@ -48,6 +48,8 @@ function setServiceName(selection) {
 }
 function runAction() {
     var form = document.massOrderChangeForm;
+    // the combined orders PDF opens in a new tab, all other actions submit as usual
+    form.target = form.action.indexOf("orders.pdf") >= 0 ? '_blank' : '';
     form.submit();
 }
 
@@ -470,10 +472,11 @@ document.lookuporder.orderId.focus();
            <option value="<@ofbizUrl>massQuickShipOrders?hideFields=${hideFields}${ampersand}${paramList}</@ofbizUrl>">${uiLabelMap.OrderQuickShipEntireOrder}</option>
            <option value="<@ofbizUrl>massPrintOrders?hideFields=${hideFields}${ampersand}${paramList}</@ofbizUrl>">${uiLabelMap.CommonPrint}</option>
            <option value="<@ofbizUrl>massCreateFileForOrders?hideFields=${hideFields}${ampersand}${paramList}</@ofbizUrl>">${uiLabelMap.ContentCreateFile}</option>
+           <option value="<@ofbizUrl>orders.pdf</@ofbizUrl>">${uiLabelMap.OrderViewOrdersPdf}</option>
         </select>
         <#if printers?has_content>
         <select name="printerName">
-           <option value="javascript:void(0);">${uiLabelMap.CommonPleaseSelectPrinter}</option>
+           <option value="">${uiLabelMap.CommonPleaseSelectPrinter}</option>
            <#list printers as printer>
            <option value="${printer}">${printer}</option>
            </#list>

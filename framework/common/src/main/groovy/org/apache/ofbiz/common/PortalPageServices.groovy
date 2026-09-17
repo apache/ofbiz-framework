@@ -34,7 +34,8 @@ Map movePortletToPortalPage() {
     if (ServiceUtil.isError(checkIsOwner)) {
         return checkIsOwner
     }
-    GenericValue sourcePortalPagePortlet = from('PortalPagePortlet').where(parameters).cache().queryOne()
+    GenericValue sourcePortalPagePortlet = from('PortalPagePortlet').where(parameters).queryOne()
+    parameters.portalPageId = parameters.newPortalPageId
     String idOfcopyIfRequiredSystemPage = copyIfRequiredSystemPage()
     if (idOfcopyIfRequiredSystemPage) {
         GenericValue targetPortalPortlet = makeValue('PortalPagePortlet', [*: parameters,
@@ -74,10 +75,12 @@ Map deletePortalPageColumn() {
         return checkIsOwner
     }
     GenericValue column = from('PortalPageColumn').where(parameters).queryOne()
-    column.getRelated('PortalPagePortlet', null, null, false).each {
-        run service: 'deletePortalPagePortlet', with: it.getAllFields()
+    if (column) {
+        column.getRelated('PortalPagePortlet', null, null, false).each {
+            run service: 'deletePortalPagePortlet', with: it.getAllFields()
+        }
+        column.remove()
     }
-    column.remove()
     return success()
 }
 /**
@@ -111,9 +114,9 @@ Map deletePortalPagePortlet() {
     }
     GenericValue portalPagePortlet = from('PortalPagePortlet').where(parameters).queryOne()
     if (portalPagePortlet) {
-        delegator.removeByAnd('PortletAttribute', [portalPageId: portalPagePortlet.portalPageId,
-                                                   portalPortletId: portalPagePortlet.portalPortletId,
-                                                   portletSeqId: portalPagePortlet.portletSeqId])
+        delete('PortletAttribute').where([portalPageId: portalPagePortlet.portalPageId,
+                                          portalPortletId: portalPagePortlet.portalPortletId,
+                                          portletSeqId: portalPagePortlet.portletSeqId])
         portalPagePortlet.remove()
     }
     return success()
@@ -124,9 +127,8 @@ Map deletePortalPagePortlet() {
  * @return Success response with all attributes
  */
 Map getPortletAttributes() {
-    if (!parameters.ownerUserLoginId && !parameters.portalPageId) {
-        return error('Service getPortletAttributes did not receive either ownerUserLoginId OR portalPageId')
-    }
+    require(parameters.ownerUserLoginId || parameters.portalPageId,
+        'Service getPortletAttributes did not receive either ownerUserLoginId OR portalPageId')
     if (parameters.ownerUserLoginId) {
         GenericValue portalPagePortlet = from('PortalPageAndPortlet')
                 .where(ownerUserLoginId: parameters.ownerUserLoginId,
@@ -156,6 +158,9 @@ Map getPortletAttributes() {
  * @return Success response after creation with the portalPageId
  */
 Map createPortalPage() {
+    if (!parameters.portalPageName) {
+        return success()
+    }
     GenericValue newPortalPage = makeValue('PortalPage', parameters)
     newPortalPage.portalPageId = newPortalPage.portalPageId ?: delegator.getNextSeqId('PortalPage')
     newPortalPage.ownerUserLoginId = parameters.userLogin.userLoginId
@@ -248,9 +253,7 @@ Map updatePortletSeqDragDrop() {
                     portalPortletId: parameters.o_portalPortletId,
                     portletSeqId: parameters.o_portletSeqId)
             .queryOne()
-    if (!originPp) {
-        return error('')
-    }
+    require(originPp as boolean, '')
     String columnSeqId = parameters.destinationColumn ?: originPp.columnSeqId
     GenericValue destiPp = from('PortalPagePortlet')
             .where(portalPageId: parameters.d_portalPageId,
@@ -258,7 +261,7 @@ Map updatePortletSeqDragDrop() {
                     portletSeqId: parameters.d_portletSeqId)
             .queryOne()
 
-    int newSequenceNo = 0
+    Long newSequenceNo = 0L
     if (parameters.mode != 'NEW') {
         EntityCondition condition = new EntityConditionBuilder().AND {
             EQUALS(portalPageId: parameters.portalPageId)
@@ -269,22 +272,22 @@ Map updatePortletSeqDragDrop() {
                     LESS_THAN(sequenceNum: originPp.sequenceNum)
                 }
             } else {
-                GREATER_THAN_EQUAL_TO(sequenceNum: originPp.sequenceNum)
+                GREATER_THAN(sequenceNum: originPp.sequenceNum)
                 if (destiPp.sequenceNum) {
-                    LESS_THAN(sequenceNum: destiPp.sequenceNum)
+                    LESS_THAN_EQUAL_TO(sequenceNum: destiPp.sequenceNum)
                 }
             }
         }
 
-        newSequenceNo = destiPp.sequenceNum
-        int increase = parameters.mode == 'DRAGDROPBEFORE' ? 1 : -1
+        newSequenceNo = destiPp.sequenceNum as Long
+        Long increase = parameters.mode == 'DRAGDROPBEFORE' ? 1L : -1L
         from('PortalPagePortlet')
                 .where(condition)
                 .orderBy((parameters.mode == 'DRAGDROPBEFORE' ? '' : '-') + 'sequenceNum')
                 .queryList()
                 .each {
                     if (it.sequenceNum) {
-                        it.sequenceNum = it.sequenceNum + increase
+                        it.sequenceNum = newSequenceNo + increase
                         increase += increase
                     } else {
                         it.sequenceNum = newSequenceNo
@@ -357,5 +360,6 @@ private Map checkOwnerShip() {
 private String copyIfRequiredSystemPage() {
     Script script = InvokerHelper.createScript(
             GroovyUtil.getScriptClassFromLocation('component://common/src/main/groovy/org/apache/ofbiz/common/PortalPageMethods.groovy'), binding)
-    return script.invokeMethod('copyIfRequiredSystemPage', null) as String
+    script.invokeMethod('copyIfRequiredSystemPage', null)
+    return parameters.portalPageId
 }

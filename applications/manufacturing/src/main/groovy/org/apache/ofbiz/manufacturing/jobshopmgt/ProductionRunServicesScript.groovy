@@ -135,7 +135,7 @@ Map issueProductionRunTask() {
                     Map paramMap = [productId: component.productId,
                                     internalName: product ? product.internalName : '',
                                     parameters: parameters]
-                    return error(label('ManufacturingUiLabels', 'ManufacturingMaterialsNotAvailable', paramMap))
+                    fail(label('ManufacturingUiLabels', 'ManufacturingMaterialsNotAvailable', paramMap))
                 }
             }
         }
@@ -184,9 +184,8 @@ Map issueProductionRunTaskComponent() {
     }
 
     GenericValue productionRun = from('WorkEffort').where(workEffortId: workEffort.workEffortParentId).queryOne()
-    if (['PRUN_CANCELLED', 'PRUN_CLOSED'].contains(productionRun.currentStatusId)) {
-        return error(label('ManufacturingUiLabels', 'ManufacturingAddProdCompInCompCanStatusError'))
-    }
+    require(!(['PRUN_CANCELLED', 'PRUN_CLOSED'].contains(productionRun.currentStatusId)),
+            label('ManufacturingUiLabels', 'ManufacturingAddProdCompInCompCanStatusError'))
     String productId = parameters.productId
     GenericValue workEffortGoodStandard = null
 
@@ -356,7 +355,7 @@ Map issueProductionRunTaskComponent() {
                 String errorMsg = label('ManufacturingUiLabels', 'ManufacturingMaterialsNotAvailable', paramMap)
                 logError('issueProductionRunTaskComponent - FAILED: '
                         + "${errorMsg}. Shortfall: ${parameters.quantityNotIssued} for Product [${productId}]")
-                return error(errorMsg)
+                fail(errorMsg)
             }
 
             GenericValue lastNonSerInventoryItem = null
@@ -410,7 +409,7 @@ Map issueProductionRunTaskComponent() {
                     String errorMsg = label('ManufacturingUiLabels', 'ManufacturingMaterialsNotAvailable', paramMap)
                     logError('issueProductionRunTaskComponent - FAILED: '
                             + "${errorMsg}. Shortfall: ${parameters.quantityNotIssued} for Product [${productId}]")
-                    return error(errorMsg)
+                    fail(errorMsg)
                 }
 
                 // If we got here, it means both fail flags were 'N', allowing negative issuance on the last non-serialized item

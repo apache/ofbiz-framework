@@ -54,28 +54,30 @@ public class ExternalLoginKeysManager {
     // rejecting a second redemption against the same webapp.
     private static final Map<String, ExternalLoginTicket> EXTERNAL_LOGIN_KEYS = new ConcurrentHashMap<>();
 
-    // This variable is set to empty so we know need to read from the properties file.
-    private static String isExternalLoginKeyEnabled = "";
-
     /**
      * A minted external login key, bound to the UserLogin it authenticates and to a deadline.
-     * Optionally bound to a target context path too, for mint sites that know which webapp the
-     * key is destined for; existing mint sites do not, so that field is null and the check is
-     * skipped for them.
+     * Also bound to the set of destination webapps it is actually attached to: a mint site does
+     * not know in advance every webapp its render will link to (one render mints one key and
+     * hands it to several cross-webapp links, possibly several different destinations), so
+     * destinations are registered as they become known -- see #allowFor -- rather than fixed at
+     * construction time. A ticket with no registered destinations yet authenticates nowhere.
      */
     private static final class ExternalLoginTicket {
         private final GenericValue userLogin;
-        private final String targetContextPath;
         private final long expiresAtMillis;
+        // Context paths this ticket is allowed to authenticate into. Grown by #allowFor as the
+        // concrete destinations of this render's cross-webapp links become known; checked by
+        // #isValidFor so a leaked key is only ever redeemable against a webapp this render
+        // actually intended to reach, not any webapp on the server.
+        private final Set<String> allowedContextPaths = ConcurrentHashMap.newKeySet();
         // Context paths this ticket has already been redeemed for. A single render shares one
         // key across every cross-webapp link it emits, so the same key legitimately needs to
         // authenticate into several different webapps; this set is what stops it authenticating
         // into the *same* webapp twice, which is the actual replay this ticket must prevent.
         private final Set<String> redeemedContextPaths = ConcurrentHashMap.newKeySet();
 
-        ExternalLoginTicket(GenericValue userLogin, String targetContextPath) {
+        ExternalLoginTicket(GenericValue userLogin) {
             this.userLogin = userLogin;
-            this.targetContextPath = targetContextPath;
             this.expiresAtMillis = System.currentTimeMillis() + EXTERNAL_LOGIN_KEY_TTL_MILLIS;
         }
 
@@ -83,11 +85,19 @@ public class ExternalLoginKeysManager {
             return userLogin;
         }
 
+        /**
+         * Allows this ticket to authenticate into the given destination webapp.
+         * @param contextPath the destination webapp's context path, e.g. "/partymgr"
+         */
+        void allowFor(String contextPath) {
+            allowedContextPaths.add(contextPath);
+        }
+
         boolean isValidFor(HttpServletRequest request) {
             if (System.currentTimeMillis() > expiresAtMillis) {
                 return false;
             }
-            return targetContextPath == null || targetContextPath.equals(request.getServletContext().getContextPath());
+            return allowedContextPaths.contains(request.getServletContext().getContextPath());
         }
 
         /**
@@ -135,7 +145,7 @@ public class ExternalLoginKeysManager {
 
             request.setAttribute(EXTERNAL_LOGIN_KEY_ATTR, externalKey);
             session.setAttribute(EXTERNAL_LOGIN_KEY_ATTR, externalKey);
-            EXTERNAL_LOGIN_KEYS.put(externalKey, new ExternalLoginTicket(userLogin, null));
+            EXTERNAL_LOGIN_KEYS.put(externalKey, new ExternalLoginTicket(userLogin));
             return externalKey;
         }
     }
@@ -152,6 +162,58 @@ public class ExternalLoginKeysManager {
     }
 
     /**
+     * Allows an already-minted key to authenticate into a destination webapp, given that
+     * webapp's context path directly. Used at the point a concrete destination is already
+     * known, e.g. the set of webapps a rendered app-switcher menu can link to.
+     * @param externalLoginKey the minted key, as returned by {@link #getExternalLoginKey}
+     * @param contextPath the destination webapp's context path, e.g. "/partymgr"
+     */
+    public static void registerDestination(String externalLoginKey, String contextPath) {
+        if (UtilValidate.isEmpty(externalLoginKey) || UtilValidate.isEmpty(contextPath)) {
+            return;
+        }
+        ExternalLoginTicket ticket = EXTERNAL_LOGIN_KEYS.get(externalLoginKey);
+        if (ticket != null) {
+            ticket.allowFor(contextPath);
+        }
+    }
+
+    /**
+     * Allows an already-minted key to authenticate into the destination webapp targeted by a
+     * relative inter-app link, e.g. {@code "/partymgr/control/viewprofile?partyId=10000"} or
+     * {@code "/partymgr/control"}. The destination webapp's context path is parsed out of the
+     * target; a target that isn't a routed control-servlet request registers nothing, since
+     * nothing would ever redeem a ticket against it anyway.
+     * @param externalLoginKey the minted key, as returned by {@link #getExternalLoginKey}
+     * @param interAppTarget the relative target of an inter-app link
+     */
+    public static void registerInterAppDestination(String externalLoginKey, String interAppTarget) {
+        registerDestination(externalLoginKey, contextRootOf(interAppTarget));
+    }
+
+    /**
+     * Parses the destination webapp's context path out of a relative inter-app target, by
+     * taking everything before the "/control" path segment.
+     * @param target the relative target, e.g. "/partymgr/control/viewprofile?partyId=10000"
+     * @return the context path, e.g. "/partymgr" (possibly empty, for a root-mounted webapp),
+     *     or null if the target has no "/control" path segment to anchor on
+     */
+    private static String contextRootOf(String target) {
+        if (target == null) {
+            return null;
+        }
+        int idx = target.indexOf("/control");
+        while (idx >= 0) {
+            int afterIdx = idx + "/control".length();
+            if (afterIdx == target.length() || target.charAt(afterIdx) == '/' || target.charAt(afterIdx) == '?') {
+                return target.substring(0, idx);
+            }
+            idx = target.indexOf("/control", idx + 1);
+        }
+        return null;
+    }
+
+    /**
      * OFBiz controller event that performs the user authentication using the authentication token.
      * The method is designed to be used in a chain of controller preprocessor event: it always return "success"
      * even when the authentication token is missing or the authentication fails in order to move the processing to the
@@ -163,6 +225,12 @@ public class ExternalLoginKeysManager {
     public static String checkExternalLoginKey(HttpServletRequest request, HttpServletResponse response) {
         String externalKey = request.getParameter(EXTERNAL_LOGIN_KEY_ATTR);
         if (externalKey == null) return "success";
+
+        if (!isExternalLoginKeyEnabled(request)) {
+            // Feature disabled: don't even look up the ticket, so nothing about it is consumed.
+            LoginWorker.autoLoginSet(request, response);
+            return "success";
+        }
 
         // Look up without removing: the same key is shared across every cross-webapp link one
         // render emits, so it must stay valid for whichever *other* destination webapps the
@@ -239,12 +307,9 @@ public class ExternalLoginKeysManager {
      * @return
      */
     public static boolean isExternalLoginKeyEnabled(HttpServletRequest request) {
-        if (UtilValidate.isEmpty(isExternalLoginKeyEnabled)) {
-            isExternalLoginKeyEnabled = EntityUtilProperties.getPropertyValue("security",
-                    "security.login.externalLoginKey.enabled", "true",
-                    (Delegator) request.getAttribute("delegator"));
-        }
-        return "true".equals(isExternalLoginKeyEnabled);
+        return "true".equals(EntityUtilProperties.getPropertyValue("security",
+                "security.login.externalLoginKey.enabled", "true",
+                (Delegator) request.getAttribute("delegator")));
     }
 
 }

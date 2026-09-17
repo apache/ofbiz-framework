@@ -19,11 +19,21 @@
 package org.apache.ofbiz.service.test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.sql.Timestamp;
+import java.util.Locale;
 import java.util.Map;
+import java.util.UUID;
 
+import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilMisc;
+import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.entity.GenericValue;
+import org.apache.ofbiz.entity.condition.EntityCondition;
+import org.apache.ofbiz.entity.condition.EntityOperator;
 import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.service.ServiceUtil;
 import org.apache.ofbiz.testtools.JunitJupiterTest;
@@ -60,5 +70,231 @@ public class GroovyDslServiceEngineTests implements JupiterTestHelper {
         result = getDispatcher().runSync("testGroovyPingErrorWithDSLCall", pingMap, 60, true);
         assertTrue(ServiceUtil.isError(result));
         assertEquals("Service result error", result.get(ModelService.ERROR_MESSAGE));
+    }
+
+    @Test
+    public final void testGroovyServiceAsyncDSLCall() throws Exception {
+        String pingMsg = "Unit Test Async";
+        Map<String, Object> pingMap = UtilMisc.toMap("ping", pingMsg);
+
+        // ofbiz --test does not wipe JobSandbox between runs, and JobPoller never picks up a
+        // pending job during a test run (see below) - so a prior run's leftover SERVICE_PENDING
+        // row for this same service would otherwise satisfy every assertion below even if
+        // runAsyncService() were broken. Scoping to runTime >= beforeCall makes the test hermetic.
+        Timestamp beforeCall = UtilDateTime.nowTimestamp();
+        Map<String, Object> result = getDispatcher().runSync("testGroovyPingSuccessWithAsyncDSLCall", pingMap);
+        assertTrue(ServiceUtil.isSuccess(result));
+
+        // Verifying actual pickup/completion by the Job Scheduler is not possible from inside an
+        // "ofbiz --test" run: JobPoller's loop is gated on Start.getInstance().getCurrentState()
+        // == RUNNING, but StartupControlPanel.loadContainers() only flips the server to RUNNING
+        // after ContainerLoader.load() returns - and that method runs TestRunContainer (which runs
+        // every test suite synchronously on that same thread) before returning. So the server never
+        // reaches RUNNING until after this entire test suite has already finished, and JobPoller
+        // never gets to poll during the run. Instead, this asserts that runAsyncService() itself
+        // persisted a well-formed job request - the only thing observable from within the test -
+        // matching the existing precedent in ServicePurgeTest.groovy and
+        // ServiceMultipleNodeRecoveryTest.groovy, neither of which waits for live completion either.
+        GenericValue jobSandbox = from("JobSandbox")
+                .where(EntityCondition.makeCondition("serviceName", "testGroovyPingSuccess"),
+                        EntityCondition.makeCondition("runTime", EntityOperator.GREATER_THAN_EQUAL_TO, beforeCall))
+                .orderBy("-runTime")
+                .queryFirst();
+        assertNotNull(jobSandbox, "Expected runAsyncService() to persist a JobSandbox record for testGroovyPingSuccess");
+        assertEquals("SERVICE_PENDING", jobSandbox.getString("statusId"));
+        assertNotNull(jobSandbox.getString("runtimeDataId"),
+                "Expected the async call's context to be persisted as RuntimeData");
+    }
+
+    @Test
+    public final void testGroovyServiceAsyncMapDSLCall() throws Exception {
+        // Same as testGroovyServiceAsyncDSLCall above, but exercises the `runAsync service: ...,
+        // with: ...` map-argument calling form instead of the positional runAsyncService(name, map)
+        // form - see runAsync(Map) in GroovyBaseScript.
+        String pingMsg = "Unit Test Async Map";
+        Map<String, Object> pingMap = UtilMisc.toMap("ping", pingMsg);
+
+        Timestamp beforeCall = UtilDateTime.nowTimestamp();
+        Map<String, Object> result = getDispatcher().runSync("testGroovyPingSuccessWithAsyncMapDSLCall", pingMap);
+        assertTrue(ServiceUtil.isSuccess(result));
+
+        GenericValue jobSandbox = from("JobSandbox")
+                .where(EntityCondition.makeCondition("serviceName", "testGroovyPingSuccess"),
+                        EntityCondition.makeCondition("runTime", EntityOperator.GREATER_THAN_EQUAL_TO, beforeCall))
+                .orderBy("-runTime")
+                .queryFirst();
+        assertNotNull(jobSandbox, "Expected runAsync service:/with: to persist a JobSandbox record for testGroovyPingSuccess");
+        assertEquals("SERVICE_PENDING", jobSandbox.getString("statusId"));
+        assertNotNull(jobSandbox.getString("runtimeDataId"),
+                "Expected the async call's context to be persisted as RuntimeData");
+    }
+
+    @Test
+    public final void testGroovyPingSuccessWithI18n() throws Exception {
+        // Two different locales for the same resource/key prove the message is actually being
+        // resolved through UtilProperties, not just echoed back as a literal string.
+        Map<String, Object> resultEn = getDispatcher().runSync("testGroovyPingSuccessWithI18n",
+                UtilMisc.toMap("locale", Locale.ENGLISH));
+        assertTrue(ServiceUtil.isSuccess(resultEn));
+        assertEquals(UtilProperties.getMessage("ServiceErrorUiLabels", "ServiceValueNotFound", Locale.ENGLISH),
+                resultEn.get(ModelService.SUCCESS_MESSAGE));
+
+        Map<String, Object> resultFr = getDispatcher().runSync("testGroovyPingSuccessWithI18n",
+                UtilMisc.toMap("locale", Locale.FRENCH));
+        assertTrue(ServiceUtil.isSuccess(resultFr));
+        assertEquals(UtilProperties.getMessage("ServiceErrorUiLabels", "ServiceValueNotFound", Locale.FRENCH),
+                resultFr.get(ModelService.SUCCESS_MESSAGE));
+    }
+
+    @Test
+    public final void testGroovyPingSuccessWithI18nContext() throws Exception {
+        Map<String, Object> input = UtilMisc.toMap("locale", Locale.ENGLISH,
+                "parameterName", "productId", "errorDetails", "must not be empty");
+
+        Map<String, Object> result = getDispatcher().runSync("testGroovyPingSuccessWithI18nContext", input);
+
+        assertTrue(ServiceUtil.isSuccess(result));
+        Map<String, Object> expectedContext = UtilMisc.toMap("parameterName", "productId", "errorDetails", "must not be empty");
+        assertEquals(UtilProperties.getMessage("ServiceErrorUiLabels", "ServiceParameterValueNotValid", expectedContext, Locale.ENGLISH),
+                result.get(ModelService.SUCCESS_MESSAGE));
+    }
+
+    @Test
+    public final void testGroovyPingErrorWithI18n() throws Exception {
+        Map<String, Object> result = getDispatcher().runSync("testGroovyPingErrorWithI18n",
+                UtilMisc.toMap("locale", Locale.FRENCH));
+        assertTrue(ServiceUtil.isError(result));
+        assertEquals(UtilProperties.getMessage("ServiceErrorUiLabels", "ServiceValueNotFound", Locale.FRENCH),
+                ServiceUtil.getErrorMessage(result));
+    }
+
+    @Test
+    public final void testGroovyPingErrorWithI18nContext() throws Exception {
+        Map<String, Object> input = UtilMisc.toMap("locale", Locale.ENGLISH,
+                "parameterName", "quantity", "errorDetails", "must be a positive number");
+
+        Map<String, Object> result = getDispatcher().runSync("testGroovyPingErrorWithI18nContext", input);
+
+        assertTrue(ServiceUtil.isError(result));
+        Map<String, Object> expectedContext = UtilMisc.toMap("parameterName", "quantity", "errorDetails", "must be a positive number");
+        assertEquals(UtilProperties.getMessage("ServiceErrorUiLabels", "ServiceParameterValueNotValid", expectedContext, Locale.ENGLISH),
+                ServiceUtil.getErrorMessage(result));
+    }
+
+    @Test
+    public final void testGroovyPingFailureWithI18n() throws Exception {
+        Map<String, Object> result = getDispatcher().runSync("testGroovyPingFailureWithI18n",
+                UtilMisc.toMap("locale", Locale.ENGLISH));
+        assertTrue(ServiceUtil.isFailure(result));
+        assertEquals(UtilProperties.getMessage("ServiceErrorUiLabels", "ServiceValueNotFound", Locale.ENGLISH),
+                ServiceUtil.getErrorMessage(result));
+    }
+
+    @Test
+    public final void testGroovyFail() throws Exception {
+        Map<String, Object> result = getDispatcher().runSync("testGroovyFail", UtilMisc.toMap());
+        assertTrue(ServiceUtil.isError(result));
+        assertEquals("Direct failure message", ServiceUtil.getErrorMessage(result));
+    }
+
+    @Test
+    public final void testGroovyRequireConditionFalse() throws Exception {
+        Map<String, Object> result = getDispatcher().runSync("testGroovyRequire", UtilMisc.toMap("conditionMet", false));
+        assertTrue(ServiceUtil.isError(result));
+        assertEquals("Required condition was not met", ServiceUtil.getErrorMessage(result));
+    }
+
+    @Test
+    public final void testGroovyRequireConditionTrue() throws Exception {
+        Map<String, Object> result = getDispatcher().runSync("testGroovyRequire", UtilMisc.toMap("conditionMet", true));
+        assertTrue(ServiceUtil.isSuccess(result));
+    }
+
+    @Test
+    public final void testGroovyFailFromNestedClosure() throws Exception {
+        // The whole point of throwing rather than returning: a plain `return error(...)` inside
+        // innerCheck() would only exit that closure and fall through to success() in the test
+        // service - this proves the throw actually unwinds past the closure boundary instead.
+        Map<String, Object> result = getDispatcher().runSync("testGroovyFailFromNestedClosure", UtilMisc.toMap());
+        assertTrue(ServiceUtil.isError(result));
+        assertEquals("Nested failure message", ServiceUtil.getErrorMessage(result));
+    }
+
+    @Test
+    public final void testGroovyFailWithI18n() throws Exception {
+        Map<String, Object> result = getDispatcher().runSync("testGroovyFailWithI18n",
+                UtilMisc.toMap("locale", Locale.FRENCH));
+        assertTrue(ServiceUtil.isError(result));
+        assertEquals(UtilProperties.getMessage("ServiceErrorUiLabels", "ServiceValueNotFound", Locale.FRENCH),
+                ServiceUtil.getErrorMessage(result));
+    }
+
+    @Test
+    public final void testGroovyRequireWithI18nContext() throws Exception {
+        Map<String, Object> input = UtilMisc.toMap("locale", Locale.ENGLISH,
+                "parameterName", "quantity", "errorDetails", "must be a positive number");
+
+        Map<String, Object> result = getDispatcher().runSync("testGroovyRequireWithI18nContext", input);
+
+        assertTrue(ServiceUtil.isError(result));
+        Map<String, Object> expectedContext = UtilMisc.toMap("parameterName", "quantity", "errorDetails", "must be a positive number");
+        assertEquals(UtilProperties.getMessage("ServiceErrorUiLabels", "ServiceParameterValueNotValid", expectedContext, Locale.ENGLISH),
+                ServiceUtil.getErrorMessage(result));
+    }
+
+    // testingId is a VARCHAR(20) pk, so test ids need to stay short - an 8-char UUID fragment
+    // per prefix is plenty of uniqueness for a single test run.
+    private String shortTestingId(String prefix) {
+        return prefix + UUID.randomUUID().toString().substring(0, 8);
+    }
+
+    @Test
+    public final void testGroovyEntityDslCreate() throws Exception {
+        String testingId = shortTestingId("gdCr-");
+        Map<String, Object> input = UtilMisc.toMap("testingId", testingId, "testingName", "Created via DSL");
+
+        Map<String, Object> result = getDispatcher().runSync("testGroovyEntityDslCreate", input);
+        assertTrue(ServiceUtil.isSuccess(result));
+
+        GenericValue created = from("Testing").where("testingId", testingId).queryOne();
+        assertNotNull(created, "Expected create() to persist a new Testing record");
+        assertEquals("Created via DSL", created.getString("testingName"));
+    }
+
+    @Test
+    public final void testGroovyEntityDslUpdate() throws Exception {
+        String testingId = shortTestingId("gdUp-");
+        getDelegator().create("Testing", UtilMisc.toMap("testingId", testingId, "testingName", "Before"));
+
+        Map<String, Object> result = getDispatcher().runSync("testGroovyEntityDslUpdate",
+                UtilMisc.toMap("testingId", testingId, "testingName", "After"));
+        assertTrue(ServiceUtil.isSuccess(result));
+
+        GenericValue updated = from("Testing").where("testingId", testingId).queryOne();
+        assertEquals("After", updated.getString("testingName"));
+    }
+
+    @Test
+    public final void testGroovyEntityDslUpdateNotFound() throws Exception {
+        // requireNewTransaction=true so the thrown-and-caught ExecutionServiceException's
+        // rollback-only marking does not poison this test method's own transaction, matching
+        // the existing testGroovyPingErrorWithDSLCall precedent above.
+        Map<String, Object> result = getDispatcher().runSync("testGroovyEntityDslUpdate",
+                UtilMisc.toMap("testingId", shortTestingId("gdMiss-"), "testingName", "Irrelevant"), 60, true);
+        assertTrue(ServiceUtil.isError(result));
+    }
+
+    @Test
+    public final void testGroovyEntityDslDelete() throws Exception {
+        String testingId = shortTestingId("gdDel-");
+        getDelegator().create("Testing", UtilMisc.toMap("testingId", testingId, "testingName", "To be removed"));
+
+        Map<String, Object> result = getDispatcher().runSync("testGroovyEntityDslDelete",
+                UtilMisc.toMap("testingId", testingId));
+        assertTrue(ServiceUtil.isSuccess(result));
+        assertEquals(1, result.get("rowsRemoved"));
+
+        GenericValue afterDelete = from("Testing").where("testingId", testingId).queryOne();
+        assertNull(afterDelete, "Expected delete() to remove the Testing record");
     }
 }

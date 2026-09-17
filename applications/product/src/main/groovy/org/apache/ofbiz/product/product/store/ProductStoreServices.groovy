@@ -28,7 +28,6 @@ import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.base.util.UtilProperties
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.util.EntityTypeUtil
-import org.apache.ofbiz.entity.util.EntityUtil
 import org.apache.ofbiz.service.ServiceUtil
 
 /**
@@ -36,20 +35,13 @@ import org.apache.ofbiz.service.ServiceUtil
  */
 Map createProductStore() {
     Map result = success()
-    if (!security.hasEntityPermission('CATALOG', '_CREATE', parameters.userLogin)) {
-        return error(UtilProperties.getMessage('ProductUiLabels', 'ProductCatalogCreatePermissionError', parameters.locale))
-    }
-    if (parameters.oneInventoryFacility == 'Y'
-            && !parameters.inventoryFacilityId) {
-        return error(UtilProperties.getMessage('ProductUiLabels', 'InventoryFacilityIdRequired', parameters.locale))
-    }
-    if (parameters.showPriceWithVatTax == 'Y') {
-        if (!parameters.vatTaxAuthGeoId) {
-            return error(UtilProperties.getMessage('ProductUiLabels', 'ProductVatTaxAuthGeoNotSet', parameters.locale))
-        }
-        if (!parameters.vatTaxAuthPartyId) {
-            return error(UtilProperties.getMessage('ProductUiLabels', 'ProductVatTaxAuthPartyNotSet', parameters.locale))
-        }
+    require(security.hasEntityPermission('CATALOG', '_CREATE', parameters.userLogin) as boolean,
+        'ProductUiLabels', 'ProductCatalogCreatePermissionError')
+    require(parameters.oneInventoryFacility != 'Y'
+            || parameters.inventoryFacilityId, 'ProductUiLabels', 'InventoryFacilityIdRequired')
+    if (parameters.showPricesWithVatTax == 'Y') {
+        require(parameters.vatTaxAuthGeoId as boolean, 'ProductUiLabels', 'ProductVatTaxAuthGeoNotSet')
+        require(parameters.vatTaxAuthPartyId as boolean, 'ProductUiLabels', 'ProductVatTaxAuthPartyNotSet')
     }
     GenericValue newEntity = makeValue('ProductStore')
     newEntity.setNonPKFields(parameters)
@@ -73,12 +65,10 @@ Map createProductStore() {
  * Update a Product Store
  */
 Map updateProductStore() {
-    if (!security.hasEntityPermission('CATALOG', '_UPDATE', parameters.userLogin)) {
-        return error(UtilProperties.getMessage('ProductUiLabels', 'ProductCatalogUpdatePermissionError', parameters.locale))
-    }
-    if (parameters.oneInventoryFacility == 'Y' && !parameters.inventoryFacilityId) {
-        return error(UtilProperties.getMessage('ProductUiLabels', 'InventoryFacilityIdRequired', parameters.locale))
-    }
+    require(security.hasEntityPermission('CATALOG', '_UPDATE', parameters.userLogin) as boolean,
+        'ProductUiLabels', 'ProductCatalogUpdatePermissionError')
+    require(parameters.oneInventoryFacility != 'Y' || parameters.inventoryFacilityId,
+        'ProductUiLabels', 'InventoryFacilityIdRequired')
     GenericValue store = from('ProductStore').where(productStoreId: parameters.productStoreId).queryOne()
     String oldFacilityId = store.inventoryFacilityId
     store.setNonPKFields(parameters)
@@ -86,12 +76,8 @@ Map updateProductStore() {
     // visualThemeId must be replaced by ecomThemeId because of Entity.field names conflict. See OFBIZ-10567
     store.visualThemeId = parameters.ecomThemeId
     if (store.showPricesWithVatTax == 'Y') {
-        if (!store.vatTaxAuthGeoId) {
-            return error(UtilProperties.getMessage('ProductUiLabels', 'ProductVatTaxAuthGeoNotSet', parameters.locale))
-        }
-        if (!store.vatTaxAuthPartyId) {
-            return error(UtilProperties.getMessage('ProductUiLabels', 'ProductVatTaxAuthPartyNotSet', parameters.locale))
-        }
+        require(store.vatTaxAuthGeoId as boolean, 'ProductUiLabels', 'ProductVatTaxAuthGeoNotSet')
+        require(store.vatTaxAuthPartyId as boolean, 'ProductUiLabels', 'ProductVatTaxAuthPartyNotSet')
     }
     store.store()
 
@@ -131,9 +117,7 @@ Map reserveStoreInventory() {
     BigDecimal quantityNotReserved
 
     GenericValue productStore = from('ProductStore').where(parameters).cache().queryOne()
-    if (!productStore) {
-        return error(UtilProperties.getMessage('ProductUiLabels', 'ProductProductStoreNotFound', parameters.locale))
-    }
+    require(productStore as boolean, 'ProductUiLabels', 'ProductProductStoreNotFound')
 
     GenericValue product = from('Product').where(parameters).cache().queryOne()
     GenericValue orderHeader = from('OrderHeader').where(parameters).queryOne()
@@ -157,9 +141,7 @@ Map reserveStoreInventory() {
             facilityFound = productStoreFacility
             logInfo('ProductStoreService:Facility Found : [' + facilityFound + ']')
         }
-        if (!facilityFound) {
-            return  error(UtilProperties.getMessage('ProductUiLabels', 'FacilityNoAssociatedWithProcuctStore', parameters.locale))
-        }
+        require(facilityFound as boolean, 'ProductUiLabels', 'FacilityNoAssociatedWithProcuctStore')
         Map serviceResult = run service: 'reserveProductInventoryByFacility', with: [*: parameters,
                                                                                      facilityId: facilityId,
                                                                                      requireInventory: requireInventory,
@@ -177,9 +159,8 @@ Map reserveStoreInventory() {
         }
     } else {
         if (productStore.oneInventoryFacility == 'Y') {
-            if (!productStore.inventoryFacilityId) {
-                return error(UtilProperties.getMessage('ProductUiLabels', 'ProductProductStoreNoSpecifiedInventoryFacility', parameters.locale))
-            }
+            require(productStore.inventoryFacilityId as boolean,
+                'ProductUiLabels', 'ProductProductStoreNoSpecifiedInventoryFacility')
             Map serviceResult = run service: 'reserveProductInventoryByFacility', with: [*: parameters,
                                                                                          facilityId: productStore.inventoryFacilityId,
                                                                                          requireInventory: requireInventory,
@@ -218,12 +199,13 @@ Map reserveStoreInventory() {
                     }
                 }
             }
-            // didn't find anything? Take the first facility from list
+            // didn't find anything? Fall back to the store's configured default facility, then the first facility from the list
             GenericValue defaultStoreFound
             if (!storeFound) {
-                defaultStoreFound = productStore.getRelatedOne('Facility', true)
+                defaultStoreFound = productStore.inventoryFacilityId ? productStore.getRelatedOne('Facility', true) : null
             }
-            facilityId = storeFound ? storeFound.facilityId : defaultStoreFound.facilityId
+            GenericValue firstStoreFacility = productStoreFacilities ? productStoreFacilities[0] : null
+            facilityId = storeFound?.facilityId ?: defaultStoreFound?.facilityId ?: firstStoreFacility?.facilityId
             Map serviceResult = run service: 'reserveProductInventoryByFacility', with: [*: parameters,
                                                                                          facilityId: facilityId,
                                                                                          requireInventory: requireInventory,
@@ -287,9 +269,7 @@ Map isStoreInventoryAvailable() {
         return result
     }
     if (productStore.oneInventoryFacility == 'Y') {
-        if (!productStore.inventoryFacilityId) {
-            return error(UtilProperties.getMessage('ProductUiLabels', 'ProductProductStoreNotCheckAvailability', parameters.locale))
-        }
+        require(productStore.inventoryFacilityId as boolean, 'ProductUiLabels', 'ProductProductStoreNotCheckAvailability')
         boolean isMarketingPkg = EntityTypeUtil.hasParentType(delegator, 'ProductType', 'productTypeId',
                 product.productTypeId, 'parentTypeId', 'MARKETING_PKG')
         String serviceName = isMarketingPkg ? 'getMktgPackagesAvailable' : 'getInventoryAvailableByFacility'
@@ -386,21 +366,19 @@ Map checkProductStoreRelatedPermission(Map inputParameter) {
     String productStoreIdToCheck = inputParameter.productStoreIdToCheck
     callingMethodName = callingMethodName ?: UtilProperties.getMessage('CommonUiLabels', 'CommonPermissionThisOperation', locale)
     checkAction = checkAction ?: 'UPDATE'
-    productStoreIdName = productStoreIdName ?: inputParameter.productStoreId
-    productStoreIdToCheck = productStoreIdToCheck ?: inputParameter.productstoreIdName
+    productStoreIdName = productStoreIdName ?: 'productStoreId'
+    productStoreIdToCheck = productStoreIdToCheck ?: inputParameter[productStoreIdName]
 
     // find all role-store that this productStore is a member of
     if (!security.hasEntityPermission('CATALOG', ('_' + checkAction), userLogin)) {
         roleStores = from('ProductStoreRole')
                 .where(productStoreId: productStoreIdToCheck, partyId: userLogin.partyId, roleTypeId: 'LTD_ADMIN').filterByDate().queryList()
-        roleStores = EntityUtil.filterByDate(roleStores, UtilDateTime.nowTimestamp(), 'roleFromDate', 'roleThruDate', true)
     }
-    logInfo("Checking store permission, roleStores=${roleStores}")
     if (!(security.hasEntityPermission('CATALOG', ('_' + checkAction), userLogin) ||
     (security.hasEntityPermission('CATALOG_ROLE', ('_' + checkAction), userLogin) && roleStores))) {
         logVerbose('Permission check failed, user does not have permission')
         String checkActionLabel = 'ProductCatalog' + checkAction.charAt(0) + checkAction.substring(1).toLowerCase() + 'PermissionError'
-        return error(UtilProperties.getMessage('ProductUiLabels', checkActionLabel, locale))
+        return error('ProductUiLabels', checkActionLabel)
     }
     return success()
 }
@@ -411,9 +389,9 @@ Map checkProductStoreRelatedPermission(Map inputParameter) {
 Map productStoreGenericPermission() {
     Map result = success()
     if (!parameters.mainAction) {
-        String errorMessage = UtilProperties.getMessage('ProductUiLabels', 'ProductMissingMainActionInPermissionService', parameters.locale)
+        String errorMessage = label('ProductUiLabels', 'ProductMissingMainActionInPermissionService')
         logError(errorMessage)
-        return error(errorMessage)
+        fail(errorMessage)
     }
     Map serviceInMap = parameters
     Map serviceResult = checkProductStoreRelatedPermission(serviceInMap)

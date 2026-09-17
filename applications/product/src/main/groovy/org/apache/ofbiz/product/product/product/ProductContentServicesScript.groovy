@@ -39,9 +39,7 @@ Map createProductContent() {
  * Update Content For Product
  */
 Map updateProductContent() {
-    GenericValue lookedUpValue = from('ProductContent').where(parameters).queryOne()
-    lookedUpValue.setNonPKFields(parameters)
-    lookedUpValue.store()
+    update('ProductContent').where(parameters).set(parameters)
     run service: 'updateContent', with: parameters
     return success()
 }

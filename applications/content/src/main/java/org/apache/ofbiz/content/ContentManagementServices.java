@@ -33,7 +33,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.commons.imaging.ImageReadException;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilDateTime;
@@ -1592,7 +1591,7 @@ public class ContentManagementServices {
                     if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(objectInfo, "All", delegator)) {
                         errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedFileFormatsIncludingSvg", locale);
                     }
-                } catch (ImageReadException | IOException e) {
+                } catch (IOException e) {
                     errorMessage = UtilProperties.getMessage(RESOURCE, "ContentUnableToOpenFileForWriting", UtilMisc.toMap("fileName",
                             objectInfo), locale);
                 }

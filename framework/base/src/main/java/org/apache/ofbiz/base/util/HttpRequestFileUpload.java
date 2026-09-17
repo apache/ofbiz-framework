@@ -31,7 +31,6 @@ import java.util.Map;
 import jakarta.servlet.ServletInputStream;
 import jakarta.servlet.http.HttpServletRequest;
 
-import org.apache.commons.imaging.ImageReadException;
 import org.apache.ofbiz.entity.Delegator;
 
 /**
@@ -291,9 +290,6 @@ public class HttpRequestFileUpload {
                         if (!fileToValidate.equals(fileTocheck)) {
                             new File(fileToValidate).renameTo(new File(fileTocheck));
                         }
-                    } catch (ImageReadException e) {
-                        Debug.logError(e, MODULE);
-                        return false;
                     }
                 } else {
                     // this is a field

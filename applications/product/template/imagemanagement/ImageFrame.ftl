@@ -17,13 +17,12 @@ specific language governing permissions and limitations
 under the License.
 -->
 <script type="text/javascript">
-    jQuery.noConflict();
     var host = document.location.host;
     jQuery(document).ready(function() {
         var productId = jQuery('#ImageFrames_productId').val();
         var imageName = jQuery('#ImageFrames_imageName').val();
     });
-    jQuery(window).load(function() {
+    jQuery(window).on('load', function() {
         var width = jQuery('td.image-src img').width();
         var height = jQuery('td.image-src img').height();
         jQuery('td.image-src img').css("width", 200);

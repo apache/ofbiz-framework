@@ -18,14 +18,26 @@
 */
 package org.apache.ofbiz.party.party
 
+import org.apache.ofbiz.entity.util.EntityListIterator
+
 /*
  * lookupParty is deprecated, and only present for backward compatibility during the deprecation time
  */
 Map lookupParty() {
     Map serviceResult = run service: 'performFindParty', with: parameters
     List lookupResult = []
-    serviceResult.listIt.getCompleteList().each {
-        lookupResult << [label: it.firstName, value: it.partyId]
+    EntityListIterator listIt = serviceResult.listIt
+    if (listIt) {
+        try {
+            listIt.getCompleteList().each {
+                lookupResult << [label: it.firstName, value: it.partyId]
+            }
+        } finally {
+            listIt.close()
+        }
+    }
+    if (!lookupResult) {
+        lookupResult << [label: 'No match', value: '']
     }
     Map result = success()
     result.lookupResult = lookupResult

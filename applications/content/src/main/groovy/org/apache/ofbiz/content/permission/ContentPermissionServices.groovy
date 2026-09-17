@@ -18,7 +18,6 @@
 */
 package org.apache.ofbiz.content.permission
 
-import org.apache.ofbiz.base.util.UtilProperties
 import org.apache.ofbiz.entity.GenericValue
 
 /**
@@ -129,7 +128,7 @@ Map viewContentPermission(Boolean hasPermission, String contentId, String conten
         // contentId is required for update checking
         contentId = contentId ?: parameters.contentId
         if (!contentId) {
-            return error(UtilProperties.getMessage('ContentUiLabels', 'ContentViewPermissionError'))
+            return error('ContentUiLabels', 'ContentViewPermissionError')
         }
 
         //check the operation security
@@ -289,20 +288,20 @@ Map updateContentPermission(Boolean hasPermission, String contentId, String owne
                 parameters.checkId = checkId
                 Map serviceResultCO = run service: 'checkOwnership', with: parameters
                 hasPermission = serviceResultCO.hasPermission ?: false
-            }
-            if (!hasPermission) {
-                // no permission on this parent; check the parent's parent(s)
-                while (!hasPermission && checkId) {
-                    // iterate until either we have permission or there are no more parents
-                    GenericValue currentContent = from('Content').where(contentId: checkId).cache().queryOne()
-                    if (currentContent?.ownerContentId) {
-                        checkId = currentContent.ownerContentId
-                        parameters.checkId = checkId
-                        Map serviceResCO = run service: 'checkOwnership', with: parameters
-                        hasPermission = serviceResCO.hasPermission ?: false
-                        } else {
-                        // no parent record found; time to stop recursion
-                        checkId = null
+                if (!hasPermission) {
+                    // no permission on this parent; check the parent's parent(s)
+                    while (!hasPermission && checkId) {
+                        // iterate until either we have permission or there are no more parents
+                        GenericValue currentContent = from('Content').where(contentId: checkId).cache().queryOne()
+                        if (currentContent?.ownerContentId) {
+                            checkId = currentContent.ownerContentId
+                            parameters.checkId = checkId
+                            Map serviceResCO = run service: 'checkOwnership', with: parameters
+                            hasPermission = serviceResCO.hasPermission ?: false
+                            } else {
+                            // no parent record found; time to stop recursion
+                            checkId = null
+                        }
                     }
                 }
             }
@@ -353,7 +352,7 @@ Map checkContentOperationSecurity(String contentOperationId, String contentPurpo
                         .orderBy('contentPurposeTypeId')
                         .cache()
                         .queryList()
-                operations << currentOperations
+                operations.addAll(currentOperations)
             }
         } else {
             operations = from('ContentPurposeOperation')
@@ -449,9 +448,7 @@ Map checkOwnership() {
     // resetting the permission flag
     Boolean hasPermission = false
 
-    if (!checkId) {
-        return error(label('ContentUiLabels', 'ContentRequiredField', [requiredField: 'checkId']))
-    }
+    require(checkId as boolean, label('ContentUiLabels', 'ContentRequiredField', [requiredField: 'checkId']))
 
     // get all the associated parties (this user + all group memberships)
     List partyIdList = findAllAssociatedPartyIds()
@@ -531,7 +528,7 @@ Map checkRoleSecurity(String roleEntity, String roleEntityField, String checkId,
 /**
  * Find all content purposes for the specified content
  */
-Map findAllContentPurposes(String checkId) {
+Object findAllContentPurposes(String checkId) {
     if (!checkId) {
         return error(label('ContentUiLabels', 'ContentRequiredField', [requiredField: 'checkId']))
     }

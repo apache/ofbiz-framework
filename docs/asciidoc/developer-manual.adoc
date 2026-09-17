@@ -163,7 +163,7 @@ View types can be one of:
 - screenxml: An XML document.
 - simple-content; A special MIME content type (like binary files).
 - ftl: An HTML document generated directly from a FreeMarker template.
-- screenxls: An Excel spreadsheet.
+- screenxlsx: A genuine OOXML .xlsx spreadsheet generated via Apache POI.
 
 In the findInvoices example, the view-map type is a normal screen which is
 mapped to the screen:

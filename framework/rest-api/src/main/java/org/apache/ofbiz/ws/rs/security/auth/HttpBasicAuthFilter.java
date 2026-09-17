@@ -23,7 +23,6 @@ import java.util.Base64;
 import java.util.Map;
 
 import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
@@ -123,7 +122,7 @@ public class HttpBasicAuthFilter implements ContainerRequestFilter {
         LocalDispatcher dispatcher = (LocalDispatcher) servletContext.getAttribute("dispatcher");
         try {
             result = dispatcher.runSync("userLogin",
-                    UtilMisc.toMap("login.username", userName, "login.password", password, "locale", UtilHttp.getLocale(httpRequest)));
+                    UtilMisc.toMap("login.username", userName, "login.password", password, "locale", httpRequest.getLocale()));
         } catch (GenericServiceException e) {
             Debug.logError(e, "Error calling userLogin service", MODULE);
             throw new ForbiddenException(e.getMessage());

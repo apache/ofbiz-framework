@@ -24,6 +24,8 @@ import java.sql.Timestamp
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.base.util.UtilProperties
 import org.apache.ofbiz.entity.GenericValue
+import org.apache.ofbiz.entity.util.EntityUtilProperties
+import org.apache.ofbiz.service.ModelService
 import org.apache.ofbiz.webapp.event.FileUploadProgressListener
 
 /**
@@ -87,17 +89,19 @@ Map convertUom() {
     }
 
     // if not found, try the uom conversion entity
-    uomConversion = uomConversion ?: from('UomConversion').where(parameters).cache().queryOne()
-    logVerbose("using conversion factor=${uomConversion.conversionFactor}")
+    uomConversion = uomConversion ?: from('UomConversion')
+            .where(uomId: parameters.uomId,
+                    uomIdTo: parameters.uomIdTo)
+            .cache()
+            .queryOne()
 
-    if (!uomConversion) {
-        // if still no uom conversion entity, then no conversion is possible
-        return error(UtilProperties.getMessage('CommonUiLabels', 'CommonNoUomConversionFound', parameters.locale))
-    }
+    // if still no uom conversion entity, then no conversion is possible
+    require(uomConversion as boolean, 'CommonUiLabels', 'CommonNoUomConversionFound')
+    logVerbose("using conversion factor=${uomConversion.conversionFactor}")
     // Do custom conversion, if we have customMethodId
     if (uomConversion.customMethodId) { //custom conversion?
         logVerbose("using custom conversion customMethodId=${uomConversion.customMethodId}")
-        Map customParms = parameters.convertUom
+        Map customParms = dctx.makeValidContext('convertUomCustom', ModelService.IN_PARAM, parameters)
         customParms.uomConversion = uomConversion
         Map serviceResult = run service: 'convertUomCustom', with: customParms
         convertedValue = serviceResult.convertedValue
@@ -106,7 +110,7 @@ Map convertUom() {
     }
     else { // not custom conversion
         // do the conversion
-        if (parameters.originalValue && uomConversion.conversionFactor) {
+        if (parameters.originalValue != null && uomConversion.conversionFactor) {
             convertedValue = parameters.originalValue * uomConversion.conversionFactor as BigDecimal
             convertedValue = convertedValue.setScale(15, RoundingMode.HALF_EVEN)
         }
@@ -115,8 +119,16 @@ Map convertUom() {
     // round result, if UomConversion[Dated] so specifies
     decimalScale = uomConversion.decimalScale ?: parameters.defaultDecimalScale
     roundingMode = uomConversion.roundingMode ?: parameters.defaultRoundingMode
-    if (parameters.defaultRoundingMode != roundingMode) {
-        convertedValue = convertedValue.setScale(decimalScale, roundingMode)
+    if (convertedValue && roundingMode) {
+        if (roundingMode instanceof String) {
+            String modeStr = roundingMode.replace('ROUND_', '').replaceAll('([a-z])([A-Z])', '$1_$2').toUpperCase()
+            try {
+                roundingMode = RoundingMode.valueOf(modeStr)
+            } catch (IllegalArgumentException e) {
+                roundingMode = RoundingMode.HALF_EVEN
+            }
+        }
+        convertedValue = convertedValue.setScale(decimalScale as int, roundingMode)
     }
     // no UomConversion or UomConversionDated found
 
@@ -138,9 +150,7 @@ Map convertUomCustom() {
     Map uomConversion = parameters.uomConversion
     String customMethodId = uomConversion.customMethodId
     GenericValue customMethod = from('CustomMethod').where(customMethodId: customMethodId).cache().queryOne()
-    if (!customMethod?.customMethodName) {
-        return error(UtilProperties.getMessage('CommonUiLabels', 'CommonNoCustomMethodName', parameters.locale))
-    }
+    require(customMethod?.customMethodName as boolean, 'CommonUiLabels', 'CommonNoCustomMethodName')
     logVerbose('calling custom method' + customMethod.customMethodName)
     Map serviceResult = run service: customMethod.customMethodName, with: [arguments: parameters]
     result.convertedValue = serviceResult.convertedValue
@@ -178,21 +188,20 @@ Map getVisualThemeResources() {
     if (!resourceList) {
         // if not found use the good old initial ofbiz theme so the system will at least start up and will be usable
         logWarning("Could not find the ${visualThemeId} theme, reverting back to the good old OFBiz theme...")
-        visualThemeId = UtilProperties.getPropertyValue('general', 'VISUAL_THEME', 'FLAT_GREY')
+        visualThemeId = EntityUtilProperties.getPropertyValue('general', 'VISUAL_THEME', 'FLAT_GREY', delegator)
         resourceList = from('VisualThemeResource')
             .where(visualThemeId: visualThemeId)
             .orderBy('resourceTypeEnumId', 'sequenceId')
             .cache()
             .queryList()
     }
-    if (!resourceList) {
-        return error(UtilProperties.getMessage('CommonUiLabels', 'CommonVisualThemeResourcesNotFound', parameters.locale))
-    }
+    require(resourceList as boolean, 'CommonUiLabels', 'CommonVisualThemeResourcesNotFound')
     for (GenericValue resourceRecord : resourceList) {
         String resourceTypeEnumId = resourceRecord.resourceTypeEnumId
         String resourceValue = resourceRecord.resourceValue
         if (resourceValue) {
-            themeResources[resourceTypeEnumId] = [resouceTypeEnumId: resourceValue]
+            themeResources[resourceTypeEnumId] = themeResources[resourceTypeEnumId] ?: []
+            themeResources[resourceTypeEnumId] << resourceValue
         } else {
             logWarning(UtilProperties.getMessage('CommonUiLabels', 'CommonVisualThemeInvalidRecord', parameters.locale))
         }
@@ -244,7 +253,7 @@ Map linkGeos() {
             .cache()
             .getFieldList('geoIdTo')
     // Old list contains current values
-    for (String geoIdTo : parameters.geoIds) {
+    for (String geoIdTo : parameters.geoIds ?: []) {
         if (!oldGeoIds?.contains(geoIdTo)) {
             // If it already exist, nothing to do and we keep it
             GenericValue oldGeoAssoc = from('GeoAssoc').where(geoId: parameters.geoId, geoIdTo: geoIdTo).queryOne()
@@ -281,7 +290,7 @@ Map getRelatedGeos() {
  */
 Map checkUomConversion() {
     Map result = success()
-    result.exist = from('UomConversion').where(uomId: parameters.uomId, uomIdTo: parameters.uomIdTo).queryCount() == 1
+    result.exist = from('UomConversion').where(uomId: parameters.uomId, uomIdTo: parameters.uomIdTo).queryCount() > 0
     return result
 }
 
@@ -297,7 +306,7 @@ Map checkUomConversionDated() {
     if (parameters.purposeEnumId) {
         condition.purposeEnumId = parameters.purposeEnumId
     }
-    result.exist = from('UomConversion').where(condition).filterByDate().queryCount() == 1
+    result.exist = from('UomConversionDated').where(condition).filterByDate().queryCount() > 0
     return result
 }
 
@@ -339,6 +348,6 @@ Map deleteKeywordThesaurus() {
     if (parameters.alternateKeyword) {
         newEntity.alternateKeyword = parameters.alternateKeyword
     }
-    delegator.removeByAnd('KeywordThesaurus', newEntity)
+    delete('KeywordThesaurus').where(newEntity)
     return success()
 }

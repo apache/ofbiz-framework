@@ -22,6 +22,7 @@ import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.base.util.UtilProperties
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.util.EntityUtil
+import org.apache.ofbiz.service.ServiceErrorException
 import org.apache.ofbiz.service.ServiceUtil
 
 import java.sql.Timestamp
@@ -51,7 +52,7 @@ Map updateRateAmount() {
                 return result
             }
         } else {
-            return error(UtilProperties.getMessage('AccountingErrorUiLabels', 'AccountingUpdateRateAmountAlreadyExist', locale))
+            return error('AccountingErrorUiLabels', 'AccountingUpdateRateAmountAlreadyExist')
         }
     }
     updating ? newEntity.store() : newEntity.create()
@@ -62,16 +63,14 @@ Map updateRateAmount() {
  * Service to expire a rate amount value
  */
 Map expireRateAmount() {
-    GenericValue lookedUpValue = delegator.makeValidValue('RateAmount', parameters)
-    lookedUpValue.rateCurrencyUomId = lookedUpValue.rateCurrencyUomId ?: UtilProperties.getPropertyValue('general.properties',
+    GenericValue lookupValue = delegator.makeValidValue('RateAmount', parameters)
+    lookupValue.rateCurrencyUomId = lookupValue.rateCurrencyUomId ?: UtilProperties.getPropertyValue('general.properties',
             'currency.uom.id.default')
-    lookedUpValue = from('RateAmount').where(lookedUpValue).queryOne()
-    if (lookedUpValue) {
-        Timestamp previousDay = UtilDateTime.adjustTimestamp(UtilDateTime.nowTimestamp(), 5, -1)
-        lookedUpValue.thruDate = UtilDateTime.getDayEnd(previousDay)
-        lookedUpValue.store()
-    } else {
-        return error(UtilProperties.getMessage('AccountingErrorUiLabels', 'AccountingDeleteRateAmount', locale))
+    Timestamp previousDay = UtilDateTime.adjustTimestamp(UtilDateTime.nowTimestamp(), 5, -1)
+    try {
+        update('RateAmount').where(lookupValue).set([thruDate: UtilDateTime.getDayEnd(previousDay)])
+    } catch (ServiceErrorException e) {
+        return error('AccountingErrorUiLabels', 'AccountingDeleteRateAmount')
     }
     return success()
 }
@@ -79,18 +78,19 @@ Map expireRateAmount() {
  * Information to update the specific customer code after change service deleteRateAmount to expireRateAmount
  */
 Map deleteRateAmount() {
-    return error('delete rate amount isn\'t possible, please update your code with service name "expireRateAmount" instead "deleteRateAmount"')
+    fail('delete rate amount isn\'t possible, please update your code with service name "expireRateAmount" instead "deleteRateAmount"')
 }
 
 Map updatePartyRate() {
-    List<GenericValue> partyRates = from('PartyRate').where([partyId: partyId, rateTypeId: rateTypeId]).queryList()
+    List<GenericValue> partyRates = from('PartyRate').where([partyId: partyId, rateTypeId: rateTypeId]).filterByDate().queryList()
     if (partyRates) {
         GenericValue partyRate = EntityUtil.getFirst(partyRates)
         partyRate.thruDate = UtilDateTime.nowTimestamp()
+        partyRate.store()
     }
-    GenericValue newEntity = delegator.makeValidValue('PartyRate', parameters)
-    newEntity.fromDate = newEntity.fromDate ?: UtilDateTime.nowTimestamp()
-    newEntity.create()
+    Map partyRateFields = [*: parameters]
+    partyRateFields.fromDate = partyRateFields.fromDate ?: UtilDateTime.nowTimestamp()
+    GenericValue newEntity = create('PartyRate', partyRateFields)
 
     //check other default rate to desactive them
     if (newEntity.defaultRate == 'Y') {
@@ -109,7 +109,7 @@ Map updatePartyRate() {
     return success()
 }
 Map deletePartyRate() {
-    return error('delete party rate isn\'t possible, please update your code with service name "expirePartyRate" instead "deletePartyRate"')
+    fail('delete party rate isn\'t possible, please update your code with service name "expirePartyRate" instead "deletePartyRate"')
 }
 Map expirePartyRate() {
     GenericValue lookedUpValue = from('PartyRate').where(parameters).queryOne()
@@ -254,23 +254,14 @@ Map filterRateAmountList() {
         return success()
     }
     //Check if there is a more specific rate
-    Map filterMap = [:]
-    if (parameters.workEffortId) {
-        filterMap.workEffortId = parameters.workEffortId
-    }
-    if (parameters.partyId) {
-        filterMap.partyId = parameters.partyId
-    }
-    if (parameters.emplPositionTypeId) {
-        filterMap.emplPositionTypeId = parameters.emplPositionTypeId
-    }
-    if (parameters.rateTypeId) {
-        filterMap.rateTypeId = parameters.rateTypeId
-    }
-    List tempRatesFilteredList = EntityUtil.filterByAnd(parameters.ratesList, filterMap)
-    List ratesList = []
-    if (tempRatesFilteredList) {
-        ratesList = tempRatesFilteredList
+    List ratesList = parameters.ratesList
+    for (String field : ['workEffortId', 'partyId', 'emplPositionTypeId', 'rateTypeId']) {
+        if (parameters[field]) {
+            List tempRatesFilteredList = EntityUtil.filterByAnd(ratesList, [(field): parameters[field]])
+            if (tempRatesFilteredList) {
+                ratesList = tempRatesFilteredList
+            }
+        }
     }
     Map result = success()
     result.filteredRatesList = ratesList

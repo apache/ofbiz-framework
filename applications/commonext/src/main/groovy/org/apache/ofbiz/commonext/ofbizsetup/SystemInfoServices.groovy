@@ -20,6 +20,8 @@ package org.apache.ofbiz.commonext.ofbizsetup
 
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.entity.GenericValue
+import org.apache.ofbiz.entity.condition.EntityCondition
+import org.apache.ofbiz.entity.condition.EntityOperator
 
 Map createSystemInfoNote() {
     parameters.noteParty = parameters.noteParty ?: userLogin.partyId
@@ -45,7 +47,7 @@ Map deleteSystemInfoNote() {
 }
 
 Map deleteAllSystemNotes() {
-    delegator.removeByAnd('NoteData', [noteParty: userLogin.partyId, noteName: 'SYSTEMNOTE'])
+    delete('NoteData').where([noteParty: userLogin.partyId, noteName: 'SYSTEMNOTE'])
     return success()
 }
 
@@ -70,10 +72,10 @@ Map getLastSystemInfoNote() {
             .queryList()
     if (systemInfoNotes) {
         result.lastSystemInfoNote1 = systemInfoNotes[0]
-        if (systemInfoNotes.size() == 2) {
+        if (systemInfoNotes.size() > 2) {
             result.lastSystemInfoNote2 = systemInfoNotes[1]
-        } else if (systemInfoNotes.size() > 2) {
-            result.lastSystemInfoNote2 = systemInfoNotes[1]
+        }
+        if (systemInfoNotes.size() > 3) {
             result.lastSystemInfoNote3 = systemInfoNotes[2]
         }
     }
@@ -83,8 +85,10 @@ Map getLastSystemInfoNote() {
 Map getSystemInfoStatus() {
     List systemInfoStatus = []
     List comms = from('CommunicationEventAndRole')
-            .where(partyId: userLogin.partyId,
-                    statusId: 'COM_ROLE_COMPLETED')
+            .where(EntityCondition.makeCondition([
+                    EntityCondition.makeCondition('partyId', userLogin.partyId),
+                    EntityCondition.makeCondition('statusId', EntityOperator.NOT_EQUAL, 'COM_ROLE_COMPLETED')
+            ]))
             .orderBy('-entryDate')
             .queryList()
     if (comms) {

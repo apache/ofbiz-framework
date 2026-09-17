@@ -22,7 +22,6 @@ import java.math.RoundingMode
 import java.sql.Timestamp
 
 import org.apache.ofbiz.base.util.UtilDateTime
-import org.apache.ofbiz.base.util.UtilProperties
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.condition.EntityCondition
 
@@ -43,11 +42,9 @@ Map createShipmentReceipt() {
     newEntity.create()
 
     if (parameters.inventoryItemDetailSeqId) {
-        GenericValue invDet = from('InventoryItemDetail')
+        update('InventoryItemDetail')
                 .where(inventoryItemDetailSeqId: parameters.inventoryItemDetailSeqId, inventoryItemId: parameters.inventoryItemId)
-                .queryOne()
-        invDet.receiptId = receiptId
-        invDet.store()
+                .set([receiptId: receiptId])
     }
     Boolean affectAccounting = true
 
@@ -77,10 +74,9 @@ Map receiveInventoryProduct () {
 
     // Return an error if both quantityAccepted and quantityRejected are zero or less than zero
     BigDecimal quantityRejected = parameters.quantityRejected ?: BigDecimal.ZERO
-    if ((quantityRejected == BigDecimal.ZERO && parameters.quantityAccepted == BigDecimal.ZERO)
-        || (quantityRejected  < BigDecimal.ZERO || parameters.quantityAccepted < BigDecimal.ZERO)) {
-        return error(UtilProperties.getMessage('ProductUiLabels', 'ProductNoItemsToAcceptOrReject',  parameters.locale))
-    }
+    require((quantityRejected != BigDecimal.ZERO || parameters.quantityAccepted != BigDecimal.ZERO)
+        && (quantityRejected >= BigDecimal.ZERO && parameters.quantityAccepted >= BigDecimal.ZERO),
+        'ProductUiLabels', 'ProductNoItemsToAcceptOrReject')
 
     Map result = success()
     List successMessageList = []
@@ -90,7 +86,7 @@ Map receiveInventoryProduct () {
         // if we are serialized and either a serialNumber or inventoyItemId is passed in and the quantityAccepted is greater than 1 then complain
         if ((parameters.serialNumber || parameters.currentInventoryItemId) && (parameters.quantityAccepted > (BigDecimal.ONE))) {
             Map errorLog = [parameters: parameters]
-            return error(UtilProperties.getMessage('ProductUiLabels', 'FacilityReceiveInventoryProduct', errorLog,  parameters.locale))
+            fail('ProductUiLabels', 'FacilityReceiveInventoryProduct', errorLog)
             // before getting going, see if there are any validation issues so far
         }
         if (parameters.quantityAccepted > BigDecimal.ZERO) {
@@ -384,10 +380,7 @@ Map cancelReceivedItems() {
     // 4. updateProductIfAvailableFromShipment
 
     // update the accepted and received quantity to zero in ShipmentReceipt entity
-    GenericValue shipmentReceipt = from('ShipmentReceipt').where(parameters).queryOne()
-    shipmentReceipt.quantityAccepted = 0.0
-    shipmentReceipt.quantityRejected = 0.0
-    shipmentReceipt.store()
+    update('ShipmentReceipt').where(parameters).set([quantityAccepted: 0.0, quantityRejected: 0.0])
 
     // create record for InventoryItemDetail entity
     GenericValue inventoryItem = delegator.getRelatedOne('InventoryItem', shipmentReceipt, false)

@@ -36,13 +36,12 @@ Map createPartyAcctgPreference() {
     if (!partyRole) {
         String errorMessage = UtilProperties.getMessage('AccountingUiLabels', 'AccountingPartyMustBeInternalOrganization', locale)
         logError(errorMessage)
-        return error(errorMessage)
+        fail(errorMessage)
     }
     //Does not check if the Party is actually a company because real people have to pay taxes too
 
     //TODO: maybe check to make sure that all fields are not null
-    newEntity = delegator.makeValidValue('PartyAcctgPreference', parameters)
-    delegator.create(newEntity)
+    create('PartyAcctgPreference', parameters)
     return success()
 }
 
@@ -158,16 +157,14 @@ Map getFXConversion() {
     }
     List<GenericValue> rates = select().from('UomConversionDated').where(condition).orderBy('-fromDate').filterByDate().queryList()
 
-    BigDecimal conversionRate
+    BigDecimal conversionRate = BigDecimal.ONE
     int decimalScale = 2
     if (rates) {
         conversionFactor = EntityUtil.getFirst(rates).getBigDecimal('conversionFactor')
         BigDecimal originalValue = BigDecimal.ONE
         conversionRate = originalValue.divide(conversionFactor, decimalScale, RoundingMode.HALF_UP)
     } else {
-        String errorMessage = 'Could not find conversion rate'
-        logError(errorMessage)
-        return error(errorMessage)
+        logWarning('Could not find conversion rate')
     }
     result.put('conversionRate', conversionRate)
     return result

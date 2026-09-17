@@ -31,15 +31,13 @@ import java.sql.Timestamp
  */
 Map deleteRequirementAndRelated() {
     GenericValue requirement = from('Requirement').where(parameters).queryOne()
-    if (requirement) {
-        requirement.removeRelated('RequirementAttribute')
-        requirement.removeRelated('RequirementRole')
-        requirement.removeRelated('RequirementStatus')
-        requirement.removeRelated('RequirementCustRequest')
-        requirement.remove()
-        return success()
-    }
-    return error('Entity value not found with name: requirement Method = deleteRequirementAndRelated')
+    require(requirement as boolean, 'Entity value not found with name: requirement Method = deleteRequirementAndRelated')
+    requirement.removeRelated('RequirementAttribute')
+    requirement.removeRelated('RequirementRole')
+    requirement.removeRelated('RequirementStatus')
+    requirement.removeRelated('RequirementCustRequest')
+    requirement.remove()
+    return success()
 }
 
 /**
@@ -47,30 +45,28 @@ Map deleteRequirementAndRelated() {
  */
 Map autoAssignRequirementToSupplier() {
     GenericValue requirement = from('Requirement').where(parameters).queryOne()
-    if (requirement) {
-        if (requirement.requirementTypeId == 'PRODUCT_REQUIREMENT'
-                && requirement.productId
-                && requirement.quantity) {
-            EntityCondition condition = new EntityConditionBuilder().AND {
-                EQUALS(productId: requirement.productId)
-                LESS_THAN_EQUAL_TO(minimumOrderQuantity: requirement.quantity)
-            }
-            EntityQuery supplierProductsQuery = from('SupplierProduct').where(condition).orderBy('lastPrice', 'supplierPrefOrderId')
-            if (requirement.requiredByDate) {
-                supplierProductsQuery.filterByDate((Timestamp) requirement.requiredByDate, 'availableFromDate', 'availableThruDate')
-            }
-            GenericValue supplierProduct = supplierProductsQuery.queryFirst()
-            if (supplierProduct?.partyId) {
-                GenericValue requirementRole = delegator.makeValue('RequirementRole', [requirementId: requirement.requirementId,
-                                                            partyId: supplierProduct.partyId,
-                                                            roleTypeId: 'SUPPLIER',
-                                                            fromDate: UtilDateTime.nowTimestamp()])
-                delegator.createOrStore(requirementRole)
-            }
+    require(requirement as boolean, 'Entity value not found with name: requirement Method = autoAssignRequirementToSupplier')
+    if (requirement.requirementTypeId == 'PRODUCT_REQUIREMENT'
+            && requirement.productId
+            && requirement.quantity) {
+        EntityCondition condition = new EntityConditionBuilder().AND {
+            EQUALS(productId: requirement.productId)
+            LESS_THAN_EQUAL_TO(minimumOrderQuantity: requirement.quantity)
         }
-        return success()
+        EntityQuery supplierProductsQuery = from('SupplierProduct').where(condition).orderBy('lastPrice', 'supplierPrefOrderId')
+        if (requirement.requiredByDate) {
+            supplierProductsQuery.filterByDate((Timestamp) requirement.requiredByDate, 'availableFromDate', 'availableThruDate')
+        }
+        GenericValue supplierProduct = supplierProductsQuery.queryFirst()
+        if (supplierProduct?.partyId) {
+            GenericValue requirementRole = delegator.makeValue('RequirementRole', [requirementId: requirement.requirementId,
+                                                        partyId: supplierProduct.partyId,
+                                                        roleTypeId: 'SUPPLIER',
+                                                        fromDate: UtilDateTime.nowTimestamp()])
+            delegator.createOrStore(requirementRole)
+        }
     }
-    return error('Entity value not found with name: requirement Method = autoAssignRequirementToSupplier')
+    return success()
 }
 
 /**
@@ -78,9 +74,7 @@ Map autoAssignRequirementToSupplier() {
  */
 Map createTransferFromRequirement() {
     GenericValue requirement = from('Requirement').where(parameters).queryOne()
-    if (!requirement) {
-        return error('Entity value not found with name: requirement Method = createTransferFromRequirement')
-    }
+    require(requirement as boolean, 'Entity value not found with name: requirement Method = createTransferFromRequirement')
     try {
         Map serviceResult = run service: 'createInventoryTransfersForProduct',
                 with: [productId: requirement.productId,
@@ -97,7 +91,7 @@ Map createTransferFromRequirement() {
         run service: 'updateRequirement', with: [requirementId: requirement.requirementId,
                                                  statusId: 'REQ_ORDERED']
     } catch (Exception e) {
-        return error('Failed to create the requirement with ' + e)
+        fail('Failed to create the requirement with ' + e)
     }
     return success()
 }

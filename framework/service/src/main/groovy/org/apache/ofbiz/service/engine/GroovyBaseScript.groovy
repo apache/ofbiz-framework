@@ -20,16 +20,24 @@ package org.apache.ofbiz.service.engine
 
 import org.apache.ofbiz.base.util.Debug
 import org.apache.ofbiz.base.util.UtilProperties
+import org.apache.ofbiz.entity.Delegator
+import org.apache.ofbiz.entity.GenericEntityException
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.model.DynamicViewEntity
 import org.apache.ofbiz.entity.util.EntityQuery
 import org.apache.ofbiz.service.DispatchContext
 import org.apache.ofbiz.service.ExecutionServiceException
+import org.apache.ofbiz.service.GenericServiceException
 import org.apache.ofbiz.service.LocalDispatcher
 import org.apache.ofbiz.service.ModelService
+import org.apache.ofbiz.service.ServiceErrorException
 import org.apache.ofbiz.service.ServiceUtil
 
 // codenarc-disable AbstractClassWithoutAbstractMethod
+// This class is the DSL surface itself (see the 2014 cwiki doc), so it is expected to keep
+// accumulating small facade methods as new DSL verbs are added - MethodCount's default threshold
+// does not fit that shape.
+// codenarc-disable MethodCount
 abstract class GroovyBaseScript extends Script {
 
     static final String MODULE = GroovyBaseScript.getName()
@@ -40,17 +48,7 @@ abstract class GroovyBaseScript extends Script {
 
     Map runService(String serviceName, Map inputMap) throws ExecutionServiceException {
         LocalDispatcher dispatcher = binding.getVariable('dispatcher')
-        DispatchContext dctx = dispatcher.getDispatchContext()
-        inputMap.userLogin = inputMap.userLogin ?: this.binding.hasVariable('userLogin')
-                ? this.binding.getVariable('userLogin')
-                : this.binding.getVariable('parameters').userLogin
-        inputMap.timeZone = inputMap.timeZone ?: this.binding.hasVariable('timeZone')
-                ? this.binding.getVariable('timeZone')
-                : this.binding.getVariable('parameters').timeZone
-        inputMap.locale = inputMap.locale ?: this.binding.hasVariable('locale')
-                ? this.binding.getVariable('locale')
-                : this.binding.getVariable('parameters').locale
-        Map serviceContext = dctx.makeValidContext(serviceName, ModelService.IN_PARAM, inputMap)
+        Map serviceContext = buildServiceContext(dispatcher, serviceName, inputMap)
         Map result = dispatcher.runSync(serviceName, serviceContext)
         if (ServiceUtil.isError(result)) {
             throw new ExecutionServiceException(ServiceUtil.getErrorMessage(result))
@@ -58,8 +56,18 @@ abstract class GroovyBaseScript extends Script {
         return result
     }
 
+    void runAsyncService(String serviceName, Map inputMap) throws GenericServiceException {
+        LocalDispatcher dispatcher = binding.getVariable('dispatcher')
+        Map serviceContext = buildServiceContext(dispatcher, serviceName, inputMap)
+        dispatcher.runAsync(serviceName, serviceContext, true)   // persist = true
+    }
+
     Map run(Map args) throws ExecutionServiceException {
         return runService((String)args.get('service'), (Map)args.get('with', [:]))
+    }
+
+    void runAsync(Map args) throws GenericServiceException {
+        runAsyncService((String)args.get('service'), (Map)args.get('with', [:]))
     }
 
     Map makeValue(String entityName) throws ExecutionServiceException {
@@ -86,6 +94,19 @@ abstract class GroovyBaseScript extends Script {
         return EntityQuery.use(binding.getVariable('delegator')).select(fields)
     }
 
+    GenericValue create(String entityName, Map fields) throws GenericEntityException {
+        Delegator delegator = binding.getVariable('delegator')
+        return delegator.makeValidValue(entityName, fields).create()
+    }
+
+    EntityUpdateBuilder update(String entityName) {
+        return new EntityUpdateBuilder(binding.getVariable('delegator'), entityName)
+    }
+
+    EntityDeleteBuilder delete(String entityName) {
+        return new EntityDeleteBuilder(binding.getVariable('delegator'), entityName)
+    }
+
     @Deprecated
     GenericValue findOne(String entityName, Map<String, ? extends Object> fields, boolean useCache) {
         return from(entityName).where(fields).cache(useCache).queryOne()
@@ -95,8 +116,13 @@ abstract class GroovyBaseScript extends Script {
     def success(Map returnValues) {
         return success(null, returnValues)
     }
+    def success(String resource, String key, Map returnValues = [:]) {
+        return success(label(resource, key), returnValues)
+    }
+    def success(String resource, String key, Map context, Map returnValues) {
+        return success(label(resource, key, context), returnValues)
+    }
     def success(String message = '', Map returnValues = [:]) {
-        // TODO: implement some clever i18n mechanism based on the userLogin and locale in the binding
         if (this.binding.hasVariable('request')) {
             // the script is invoked as an "event"
             if (message) {
@@ -117,8 +143,10 @@ abstract class GroovyBaseScript extends Script {
         return result
     }
     /* codenarc-enable */
+    Map failure(String resource, String key, Map returnValues = [:]) {
+        return failure(label(resource, key), returnValues)
+    }
     Map failure(String message, Map returnValues = [:]) {
-        // TODO: implement some clever i18n mechanism based on the userLogin and locale in the binding
         Map result = message
                 ? ServiceUtil.returnFailure(message)
                 : ServiceUtil.returnFailure()
@@ -127,9 +155,14 @@ abstract class GroovyBaseScript extends Script {
         }
         return result
     }
+    Map error(String resource, String key) {
+        return error(label(resource, key))
+    }
+    Map error(String resource, String key, Map context) {
+        return error(label(resource, key, context))
+    }
     /* codenarc-disable NoDef, MethodReturnTypeRequired */
     def error(String message) {
-        // TODO: implement some clever i18n mechanism based on the userLogin and locale in the binding
         if (this.binding.hasVariable('request')) {
             // the script is invoked as an "event"
             if (message) {
@@ -172,6 +205,37 @@ abstract class GroovyBaseScript extends Script {
             return UtilProperties.getMessage(ressource, message, context, locale)
         }
         return UtilProperties.getMessage(ressource, message, locale)
+    }
+
+    void fail(String message) throws ServiceErrorException {
+        throw new ServiceErrorException(message)
+    }
+    void fail(String resource, String key, Map context = [:]) throws ServiceErrorException {
+        fail(label(resource, key, context))
+    }
+    void require(boolean condition, String message) throws ServiceErrorException {
+        if (!condition) {
+            fail(message)
+        }
+    }
+    void require(boolean condition, String resource, String key, Map context = [:]) throws ServiceErrorException {
+        if (!condition) {
+            fail(resource, key, context)
+        }
+    }
+
+    private Map buildServiceContext(LocalDispatcher dispatcher, String serviceName, Map inputMap) {
+        DispatchContext dctx = dispatcher.getDispatchContext()
+        inputMap.userLogin = inputMap.userLogin ?: this.binding.hasVariable('userLogin')
+                ? this.binding.getVariable('userLogin')
+                : this.binding.getVariable('parameters').userLogin
+        inputMap.timeZone = inputMap.timeZone ?: this.binding.hasVariable('timeZone')
+                ? this.binding.getVariable('timeZone')
+                : this.binding.getVariable('parameters').timeZone
+        inputMap.locale = inputMap.locale ?: this.binding.hasVariable('locale')
+                ? this.binding.getVariable('locale')
+                : this.binding.getVariable('parameters').locale
+        return dctx.makeValidContext(serviceName, ModelService.IN_PARAM, inputMap)
     }
 
 }

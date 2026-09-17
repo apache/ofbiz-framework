@@ -41,9 +41,8 @@ Map createUpdateCustomerAndShippingAddress() {
     SimpleMapProcessor.runSimpleMapProcessor('component://party/minilang/contact/PartyContactMechMapProcs.xml',
             'emailAddress', parameters, emailAddressCtx, messages, context.locale)
     // Check errors
-    if (messages) {
-        return error(StringUtil.join(messages, ','))
-    }
+    boolean hasNoValidationErrors = !messages
+    require(hasNoValidationErrors, StringUtil.join(messages, ','))
 
     ShoppingCart shoppingCart = parameters.shoppingCart
     String partyId = parameters.partyId
@@ -57,10 +56,11 @@ Map createUpdateCustomerAndShippingAddress() {
     createUpdatePersonCtx.partyId = partyId
     Map serviceResultCUP = run service: 'createUpdatePerson', with: createUpdatePersonCtx
     partyId = serviceResultCUP.partyId
+    parameters.partyId = partyId
 
     Map partyRoleCtx = [partyId: partyId, roleTypeId: 'CUSTOMER']
     if (userLogin) {
-        if (userLogin.userLoginId == 'anonymos') {
+        if (userLogin.userLoginId == 'anonymous') {
             userLogin.partyId = partyId
         }
         partyRoleCtx.userLogin = userLogin
@@ -118,9 +118,8 @@ Map createUpdateBillingAddressAndPaymentMethod() {
     SimpleMapProcessor.runSimpleMapProcessor('component://order/minilang/customer/CheckoutMapProcs.xml',
             'billToPhone', parameters, billToPhoneContext, messages, context.locale)
     // Check Errors
-    if (messages) {
-        return error(StringUtil.join(messages, ','))
-    }
+    boolean hasNoValidationErrors = !messages
+    require(hasNoValidationErrors, StringUtil.join(messages, ','))
 
     ShoppingCart shoppingCart = parameters.shoppingCart
     GenericValue userLogin = shoppingCart.getUserLogin()
@@ -135,7 +134,7 @@ Map createUpdateBillingAddressAndPaymentMethod() {
         shipToContactMechId = shipToContactMechId ?: shoppingCart.getShippingContactMechId()
     }
     if (partyId) {
-        if (userLogin.userLoginId == 'anonymous') {
+        if (userLogin && userLogin.userLoginId == 'anonymous') {
             userLogin.partyId = partyId
         }
     }

@@ -49,22 +49,35 @@ public final class GroovyUtil {
     private static final String MODULE = GroovyUtil.class.getName();
     private static final UtilCache<String, Class<?>> PARSED_SCRIPTS = UtilCache.createUtilCache("script.GroovyLocationParsedCache", 0, 0, false);
     private static final GroovyClassLoader GROOVY_CLASS_LOADER;
+    private static final GroovyClassLoader GROOVY_CLASS_LOADER_FOR_LOCATION;
     private static final CompilerConfiguration SANDBOXED_COMPILER_CONFIG;
 
     private GroovyUtil() { }
 
     static {
-        GroovyClassLoader groovyClassLoader = null;
+        GroovyClassLoader sandboxedClassLoader = null;
+        GroovyClassLoader locationClassLoader = null;
         String scriptBaseClass = UtilProperties.getPropertyValue("groovy", "scriptBaseClass");
         if (!scriptBaseClass.isEmpty()) {
-            CompilerConfiguration conf = new CompilerConfiguration();
-            conf.setScriptBaseClass(scriptBaseClass);
-            // Same compile-time AST restrictions as SANDBOXED_COMPILER_CONFIG below, so that parseClass(),
-            // not just eval(), refuses OS-execution APIs and dynamic class-loading.
-            conf.addCompilationCustomizers(buildSecureAstCustomizer());
-            groovyClassLoader = new GroovyClassLoader(GroovyUtil.class.getClassLoader(), conf);
+            // Used by parseClass(String): compiles ${groovy:...} substrings and inline <script> bodies passed to
+            // ScriptUtil.parseScript(), which can carry caller-supplied text. Keep the compile-time
+            // SecureASTCustomizer here as an injection backstop (see GroovyUtilTests).
+            CompilerConfiguration sandboxedConf = new CompilerConfiguration();
+            sandboxedConf.setScriptBaseClass(scriptBaseClass);
+            sandboxedConf.addCompilationCustomizers(buildSecureAstCustomizer());
+            sandboxedClassLoader = new GroovyClassLoader(GroovyUtil.class.getClassLoader(), sandboxedConf);
+
+            // Used by parseClass(InputStream, location): compiles *.groovy files resolved from a component://
+            // location (controller events, service implementations, screen scripts). These are first-party
+            // files shipped with the framework/plugins, never request input, so they are intentionally NOT
+            // run through SecureASTCustomizer - some legitimately use java.lang.Thread / java.lang.Runtime
+            // (e.g. the webtools Threads and Cache Maintenance screens) and must still compile.
+            CompilerConfiguration locationConf = new CompilerConfiguration();
+            locationConf.setScriptBaseClass(scriptBaseClass);
+            locationClassLoader = new GroovyClassLoader(GroovyUtil.class.getClassLoader(), locationConf);
         }
-        GROOVY_CLASS_LOADER = groovyClassLoader;
+        GROOVY_CLASS_LOADER = sandboxedClassLoader;
+        GROOVY_CLASS_LOADER_FOR_LOCATION = locationClassLoader;
     }
 
     static {
@@ -73,8 +86,9 @@ public final class GroovyUtil {
     }
 
     /**
-     * Builds a fresh {@link SecureASTCustomizer} applying the compile-time AST restrictions used by both
-     * GROOVY_CLASS_LOADER and SANDBOXED_COMPILER_CONFIG. Blocks OS-execution APIs and dynamic class-loading
+     * Builds a fresh {@link SecureASTCustomizer} applying the compile-time AST restrictions used by
+     * GROOVY_CLASS_LOADER (parseClass(String)) and SANDBOXED_COMPILER_CONFIG (eval()), but not by
+     * GROOVY_CLASS_LOADER_FOR_LOCATION (trusted component:// *.groovy files). Blocks OS-execution APIs and dynamic class-loading
      * as a defence-in-depth measure.
      * <p>Returns a new instance on every call rather than a shared constant: {@code SecureASTCustomizer}
      * visits the AST during compilation, so handing the same instance to two {@code CompilerConfiguration}s
@@ -231,8 +245,8 @@ public final class GroovyUtil {
      */
     private static Class<?> parseClass(InputStream in, String location) throws IOException {
         String classText = UtilIO.readString(in);
-        if (GROOVY_CLASS_LOADER != null) {
-            return GROOVY_CLASS_LOADER.parseClass(classText, location);
+        if (GROOVY_CLASS_LOADER_FOR_LOCATION != null) {
+            return GROOVY_CLASS_LOADER_FOR_LOCATION.parseClass(classText, location);
         } else {
             try (GroovyClassLoader classLoader = new GroovyClassLoader()) {
                 return classLoader.parseClass(classText, location);

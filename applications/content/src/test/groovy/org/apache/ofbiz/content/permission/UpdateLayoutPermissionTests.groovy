@@ -72,6 +72,42 @@ class UpdateLayoutPermissionTests implements JupiterTestHelper {
         }
     }
 
+    /**
+     * updateLayoutImage now writes both the DataResource metadata (updateDataResource) and the image
+     * bytes (create/updateImageDataResource) only through the permission-checked services, and rejects
+     * a target that is not a plain IMAGE_OBJECT. cloneLayout still copies the entities directly but is
+     * gated by an explicit CONTENTMGR / CONTENTMGR_SUPER check. These assertions exercise the service
+     * boundaries those paths rely on for the view-only profile - each must be denied.
+     */
+    @Test
+    void testViewOnlyUserCannotWriteImageBytesOrCloneTemplateResource() {
+        GenericValue lowPrivUserLogin = createViewOnlyUserLogin()
+        GenericValue dataResource = createTestDataResource()
+
+        // updateLayoutImage's image-bytes write goes through create/updateImageDataResource,
+        // gated by genericDataResourcePermission (CREATE / UPDATE) on the target record
+        assertThrows(ServiceAuthException) {
+            dispatcher.runSync('createImageDataResource', [dataResourceId: dataResource.dataResourceId,
+                    imageData: 'x'.bytes, userLogin: lowPrivUserLogin])
+        }
+
+        // updateLayoutImage's metadata write goes through updateDataResource (UPDATE) on the
+        // real target - denied for a user with no CONTENTMGR_UPDATE and no role standing
+        assertThrows(ServiceAuthException) {
+            dispatcher.runSync('updateDataResource', [dataResourceId: dataResource.dataResourceId,
+                    dataResourceName: 'renamed by view-only user', dataResourceTypeId: 'IMAGE_OBJECT',
+                    dataTemplateTypeId: 'NONE', userLogin: lowPrivUserLogin])
+        }
+
+        // the boundary cloneLayout's inline CONTENTMGR_SUPER check mirrors: creating a
+        // template-bearing DataResource is denied for a view-only user
+        assertThrows(ServiceAuthException) {
+            dispatcher.runSync('createDataResource', [dataResourceTypeId: 'ELECTRONIC_TEXT',
+                    dataTemplateTypeId: 'FTL', dataResourceName: 'clone', statusId: 'CTNT_PUBLISHED',
+                    userLogin: lowPrivUserLogin])
+        }
+    }
+
     private GenericValue createViewOnlyUserLogin() {
         GenericValue existing = from('UserLogin').where(userLoginId: USER_LOGIN_ID).queryOne()
         if (existing) {

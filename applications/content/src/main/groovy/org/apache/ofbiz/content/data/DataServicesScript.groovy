@@ -74,9 +74,7 @@ Map createDataResource() {
  */
 Map createDataResourceAndAssocToContent() {
     GenericValue content = from('Content').where(parameters).queryOne()
-    if (!content) {
-        return error(UtilProperties.getMessage('ContentErrorUiLabels', 'layoutEvents.content_empty', parameters.locale))
-    }
+    require(content as boolean, 'ContentErrorUiLabels', 'layoutEvents.content_empty')
 
     Map serviceResult = run service: 'createDataResource', with: parameters
     if (!ServiceUtil.isSuccess(serviceResult)) {
@@ -88,7 +86,7 @@ Map createDataResourceAndAssocToContent() {
     if (parameters.templateDataResource && parameters.templateDataResource == 'Y') {
         contentCtx.put('templateDataResourceId', parameters.dataResourceId)
     } else {
-        contentCtx.put('dataRessourceId', parameters.dataResourceId)
+        contentCtx.put('dataResourceId', parameters.dataResourceId)
     }
     contentCtx.put('contentId', parameters.contentId)
 
@@ -118,18 +116,12 @@ Map getElectronicText() {
         if (parameters.contentId) {
             currentContent = from('Content').where(parameters).queryOne()
         }
-        if (!currentContent) {
-            return error(UtilProperties.getMessage('ContentUiLabels', 'ContentNeitherContentSupplied', parameters.locale))
-        }
+        require(currentContent as boolean, 'ContentUiLabels', 'ContentNeitherContentSupplied')
     }
-    if (!currentContent.dataResourceId) {
-        return error(UtilProperties.getMessage('ContentUiLabels', 'ContentDataResourceNotFound', parameters.locale))
-    }
+    require(currentContent.dataResourceId as boolean, 'ContentUiLabels', 'ContentDataResourceNotFound')
     result.dataResourceId = currentContent.dataResourceId
     GenericValue eText = from('ElectronicText').where('dataResourceId', currentContent.dataResourceId).queryOne()
-    if (!eText) {
-        return error(UtilProperties.getMessage('ContentUiLabels', 'ContentElectronicTextNotFound', parameters.locale))
-    }
+    require(eText as boolean, 'ContentUiLabels', 'ContentElectronicTextNotFound')
     result.textData = eText.textData
     return result
 }
@@ -260,6 +252,9 @@ Map saveLocalFileDataResource(String mode) {
         .where('mimeTypeId', parameters._uploadedFile_contentType)
         .queryFirst()
     dataResource.dataResourceName = parameters._uploadedFile_fileName
+    if (mode in ['OFBIZ_FILE', 'OFBIZ_FILE_BIN', 'CONTEXT_FILE', 'CONTEXT_FILE_BIN']) {
+        dataResource.mimeTypeId = parameters._uploadedFile_contentType
+    }
     dataResource.objectInfo = extension ?
         "${uploadPath}/${dataResource.dataResourceId}.${extension.fileExtensionId}" :
         "${uploadPath}/${dataResource.dataResourceId}"
@@ -289,11 +284,14 @@ Map saveExtFileDataResource(boolean isUpdate, String mode) {
     if (!parameters._uploadedFile_fileName) {
         if (isUpdate) {
             // upload is found on an update; its okay, don't do anything just return
-            result.dataResourceId = dataResource.dataResourceId
-            result.mimeTypeId = dataResource.mimeTypeId
+            result.dataResourceId = dataResource?.dataResourceId
+            result.mimeTypeId = dataResource?.mimeTypeId
             return result
         }
         errorList.add(UtilProperties.getMessage('ContentUiLabels', 'ContentNoUploadedContentFound', parameters.locale))
+    }
+    if (errorList) {
+        return ServiceUtil.returnError(errorList)
     }
     // update the data resource with file data
     dataResource.dataResourceTypeId = parameters.dataResourceTypeId
@@ -302,6 +300,9 @@ Map saveExtFileDataResource(boolean isUpdate, String mode) {
     dataResource.store()
 
     Map serviceContext = prepareServiceContext(dataResource, mode)
+    if (ServiceUtil.isError(serviceContext)) {
+        return serviceContext
+    }
 
     if (isUpdate) {
         switch (mode) {
@@ -357,7 +358,7 @@ Map prepareServiceContext(GenericValue dataResource, String mode) {
         case 'AUDIO_OBJECT':
             ModelService service = dispatcher.getDispatchContext().getModelService('createAudioDataResource')
             Map serviceContext = service.makeValid(dataResource, 'IN')
-            serviceContext.audioData
+            serviceContext.audioData = parameters.uploadedFile
             return serviceContext
         case 'OTHER_OBJECT':
             ModelService service = dispatcher.getDispatchContext().getModelService('createOtherDataResource')
@@ -365,5 +366,5 @@ Map prepareServiceContext(GenericValue dataResource, String mode) {
             serviceContext.dataResourceContent = parameters.uploadedFile
             return serviceContext
     }
-    return error
+    return error('ContentUiLabels', 'ContentDataTypeNotYetSupported')
 }

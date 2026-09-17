@@ -19,6 +19,7 @@
 package org.apache.ofbiz.product.product.promo
 
 import org.apache.ofbiz.entity.GenericValue
+import org.apache.ofbiz.service.ServiceErrorException
 
 Map createProductPromoCond() {
     if (parameters.carrierShipmentMethod) {
@@ -31,14 +32,14 @@ Map createProductPromoCond() {
 }
 
 Map updateProductPromoCond() {
-    GenericValue lookedUpValue = from('ProductPromoCond').where(parameters).queryOne()
-    if (lookedUpValue) {
-        if (parameters.carrierShipmentMethod) {
-            parameters.otherValue = parameters.carrierShipmentMethod
-        }
-        lookedUpValue.setNonPKFields(parameters)
-        lookedUpValue.store()
-        return success()
+    Map fieldsToSet = new HashMap(parameters)
+    if (parameters.carrierShipmentMethod) {
+        fieldsToSet.otherValue = parameters.carrierShipmentMethod
     }
-    return error(label('ServiceErrorUiLabels', 'ServiceValueNotFound'))
+    try {
+        update('ProductPromoCond').where(parameters).set(fieldsToSet)
+    } catch (ServiceErrorException e) {
+        fail(label('ServiceErrorUiLabels', 'ServiceValueNotFound'))
+    }
+    return success()
 }

@@ -33,14 +33,6 @@ updates:
       - dependency-name: "*"
         update-types:
           - "version-update:semver-major"
-      # commons-imaging has been alpha-only since 2019 (alpha1..1.0.0-alpha6,
-      # see the version catalog comment) with no stable release in sight;
-      # we've deliberately deferred adapting to its post-alpha3 API changes
-      # until it ships an actual 1.0.0. This keeps Dependabot from reopening
-      # an alpha-to-alpha bump PR forever, while still surfacing a real 1.0.0
-      # (or later) release when one finally happens.
-      - dependency-name: "org.apache.commons:commons-imaging"
-        versions: ["< 1.0.0"]
 
   - package-ecosystem: "gradle"
     directory: "/"
@@ -56,7 +48,14 @@ updates:
       - dependency-name: "*"
         update-types:
           - "version-update:semver-major"
-      # See the same rule in the trunk gradle block above.
+      # commons-imaging has been alpha-only since 2019 (alpha1..1.0.0-alpha6,
+      # see the version catalog comment) with no stable release in sight;
+      # we've deliberately deferred adapting to its post-alpha3 API changes
+      # until it ships an actual 1.0.0. This keeps Dependabot from reopening
+      # an alpha-to-alpha bump PR forever, while still surfacing a real 1.0.0
+      # (or later) release when one finally happens. Trunk no longer needs
+      # this rule (OFBIZ-13507 removed the dependency there); this branch
+      # still has commons-imaging until that fix is backported.
       - dependency-name: "org.apache.commons:commons-imaging"
         versions: ["< 1.0.0"]
 

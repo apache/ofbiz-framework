@@ -19,7 +19,6 @@
 package org.apache.ofbiz.order.order
 
 import org.apache.ofbiz.base.util.Debug
-import org.apache.ofbiz.base.util.UtilProperties
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.util.EntityTypeUtil
 import org.apache.ofbiz.service.ServiceUtil
@@ -87,7 +86,7 @@ Map checkCreateStockRequirementAtp() {
 
 Map checkCreateStockRequirement(String methodId) {
     if (!(security.hasEntityPermission('ORDERMGR', '_CREATE', parameters.userLogin))) {
-        return error(UtilProperties.getMessage('OrderErrorUiLabels', 'OrderSecurityErrorToRunCheckCreateStockRequirement', parameters.locale))
+        return error('OrderErrorUiLabels', 'OrderSecurityErrorToRunCheckCreateStockRequirement')
     }
     Map resultMap = success()
 
@@ -160,9 +159,8 @@ Map checkCreateStockRequirement(String methodId) {
 }
 
 Map checkCreateProductRequirementForFacility() {
-    if (!(security.hasEntityPermission('ORDERMGR', '_CREATE', parameters.userLogin))) {
-        return error(UtilProperties.getMessage('OrderErrorUiLabels', 'OrderSecurityErrorToRunCheckCreateStockRequirement', parameters.locale))
-    }
+    require(security.hasEntityPermission('ORDERMGR', '_CREATE', parameters.userLogin) as boolean,
+            'OrderErrorUiLabels', 'OrderSecurityErrorToRunCheckCreateStockRequirement')
     Map resultMap = success()
 
     List<GenericValue> products = from('ProductFacility').where([facilityId: parameters.facilityId]).queryList()

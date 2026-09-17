@@ -51,18 +51,14 @@ Map checkAndCreateWorkEffort() {
             shipWorkEffortMap.workEffortTypeId = 'SHIPMENT_OUTBOUND'
         }
         Map serviceResult = run service: 'createWorkEffort', with: shipWorkEffortMap
-        if (!ServiceUtil.isSuccess(serviceResult)) {
-            return error(serviceResult.errorMessage)
-        }
+        require(ServiceUtil.isSuccess(serviceResult) as boolean, serviceResult.errorMessage)
         lookedUpValue.estimatedShipWorkEffId = serviceResult.workEffortId
         if (parameters.partyIdFrom) {
             serviceResult = run service: 'assignPartyToWorkEffort', with: [workEffortId: lookedUpValue.estimatedShipWorkEffId,
                                                            partyId: parameters.partyIdFrom,
                                                            roleTypeId: 'CAL_ATTENDEE',
                                                            statusId: 'CAL_SENT']
-            if (!ServiceUtil.isSuccess(serviceResult)) {
-                return error(serviceResult.errorMessage)
-            }
+            require(ServiceUtil.isSuccess(serviceResult) as boolean, serviceResult.errorMessage)
         }
     }
     if (parameters.estimatedArrivalDate) {
@@ -77,18 +73,14 @@ Map checkAndCreateWorkEffort() {
             arrivalWorkEffortMap.workEffortTypeId = 'SHIPMENT_INBOUND'
         }
         Map serviceResult = run service: 'createWorkEffort', with: arrivalWorkEffortMap
-        if (!ServiceUtil.isSuccess(serviceResult)) {
-            return error(serviceResult.errorMessage)
-        }
+        require(ServiceUtil.isSuccess(serviceResult) as boolean, serviceResult.errorMessage)
         lookedUpValue.estimatedArrivalWorkEffId = serviceResultAD.workEffortId
         if (parameters.partyIdTo) {
             serviceResult = run service: 'assignPartyToWorkEffort', with: [workEffortId: lookedUpValue.estimatedArrivalWorkEffId,
                                                            partyId: parameters.partyIdTo,
                                                            roleTypeId: 'CAL_ATTENDEE',
                                                            statusId: 'CAL_SENT']
-            if (!ServiceUtil.isSuccess(serviceResult)) {
-                return error(serviceResult.errorMessage)
-            }
+            require(ServiceUtil.isSuccess(serviceResult) as boolean, serviceResult.errorMessage)
         }
     }
     lookedUpValue.store()
@@ -124,9 +116,7 @@ Map checkAndUpdateWorkEffort() {
             Map estShipWeUpdMap = [:]
             estShipWeUpdMap << estShipWe
             Map serviceResult = run service: 'updateWorkEffort', with: estShipWeUpdMap
-            if (!ServiceUtil.isSuccess(serviceResult)) {
-                return error(serviceResult.errorMessage)
-            }
+            require(ServiceUtil.isSuccess(serviceResult) as boolean, serviceResult.errorMessage)
         }
     }
     if ((parameters.estimatedArrivalDate
@@ -141,9 +131,7 @@ Map checkAndUpdateWorkEffort() {
             estimatedArrivalWorkEffort.estimatedCompletionDate = parameters.estimatedArrivalDate
             estimatedArrivalWorkEffort.facilityId = parameters.destinationFacilityId
             Map serviceResult = run service: 'updateWorkEffort', with: estimatedArrivalWorkEffort
-            if (!ServiceUtil.isSuccess(serviceResult)) {
-                return error(serviceResult.errorMessage)
-            }
+            require(ServiceUtil.isSuccess(serviceResult) as boolean, serviceResult.errorMessage)
         }
     }
     // if the partyIdTo or partyIdFrom has changed, add WEPAs
@@ -161,9 +149,7 @@ Map checkAndUpdateWorkEffort() {
             assignPartyToWorkEffortShip.roleTypeId = 'CAL_ATTENDEE'
             assignPartyToWorkEffortShip.statusId = 'CAL_SENT'
             Map serviceResult = run service: 'assignPartyToWorkEffort', with: assignPartyToWorkEffortShip
-            if (!ServiceUtil.isSuccess(serviceResult)) {
-                return error(serviceResult.errorMessage)
-            }
+            require(ServiceUtil.isSuccess(serviceResult) as boolean, serviceResult.errorMessage)
         }
     }
     if (parameters.partyIdTo
@@ -179,9 +165,7 @@ Map checkAndUpdateWorkEffort() {
             assignPartyToWorkEffortArrival.roleTypeId = 'CAL_ATTENDEE'
             assignPartyToWorkEffortArrival.statusId = 'CAL_SENT'
             serviceResult = run service: 'assignPartyToWorkEffort', with: assignPartyToWorkEffortArrival
-            if (!ServiceUtil.isSuccess(serviceResult)) {
-                return error(serviceResult.errorMessage)
-            }
+            require(ServiceUtil.isSuccess(serviceResult) as boolean, serviceResult.errorMessage)
         }
     }
     return result
@@ -194,8 +178,8 @@ Map createWorkEffortAndPartyAssign() {
     GenericValue partyRole = from('PartyRole').where(parameters).cache().queryOne()
     if (!partyRole) {
         GenericValue roleType = from('RoleType').where(parameters).cache().queryOne()
-        return error(label('PartyErrorUiLabels', 'PartyRoleAssociationRequired', [partyId: parameters.partyId,
-                                                                                  roleDescription: roleType.get('description', locale)]))
+        fail(label('PartyErrorUiLabels', 'PartyRoleAssociationRequired', [partyId: parameters.partyId,
+                                                                          roleDescription: roleType.get('description', locale)]))
     }
     Map serviceResult = run service: 'createWorkEffort', with: parameters
     String workEffortId  = serviceResult.workEffortId
@@ -214,9 +198,8 @@ Map createWorkEffort() {
     GenericValue workEffort = makeValue('WorkEffort', parameters)
     workEffort.workEffortId = workEffort.workEffortId ?: delegator.getNextSeqId('WorkEffort')
     String errMsg = UtilValidate.checkValidDatabaseId(workEffort.workEffortId)
-    if (errMsg) {
-        return error(errMsg)
-    }
+    boolean isWorkEffortIdValid = !errMsg
+    require(isWorkEffortIdValid, errMsg)
 
     Timestamp now = UtilDateTime.nowTimestamp()
     workEffort.setFields([lastStatusUpdate: now,
@@ -248,9 +231,8 @@ Map updateWorkEffort() {
     if (parameters.currentStatusId && workEffort.currentStatusId &&
             parameters.currentStatusId != workEffort.currentStatusId) {
         Map statusValidChange = [statusId: workEffort.currentStatusId, statusIdTo: parameters.currentStatusId]
-        if (from('StatusValidChange').where(statusValidChange).queryCount() == 0) {
-            return error(label('WorkEffortUiLabels', 'WorkEffortStatusChangeNotValid', statusValidChange))
-        }
+        require(from('StatusValidChange').where(statusValidChange).queryCount() > 0,
+            label('WorkEffortUiLabels', 'WorkEffortStatusChangeNotValid', statusValidChange))
         run service: 'createWorkEffortStatus', with: [*: parameters,
                                                       statusId: parameters.currentStatusId,
                                                       statusDatetime: now,
@@ -275,13 +257,10 @@ Map updateWorkEffort() {
  */
 Map deleteWorkEffort() {
     // check permissions before moving on: if update or delete logged in user must be associated OR have corresponding UPDATE or DELETE permissions
-    if (from('WorkEffortPartyAssignment')
-                    .where(workEffortId: parameters.workEffortId,
-                    partyId: userLogin.partyId)
-                    .queryCount() == 0 &&
-                    security.hasPermission('WORKEFFORTMGR_DELETE', userLogin)) {
-        return error(label('WorkEffortUiLabels', 'WorkEffortDeletePermissionError'))
-    }
+    boolean isAssignedToWorkEffort = from('WorkEffortPartyAssignment')
+            .where(workEffortId: parameters.workEffortId, partyId: userLogin.partyId)
+            .queryCount() > 0
+    requireWorkEffortDeletePermission(isAssignedToWorkEffort)
 
     GenericValue workEffort = from('WorkEffort').where(parameters).queryOne()
 
@@ -304,9 +283,7 @@ Map deleteWorkEffort() {
  */
 Map copyWorkEffort() {
     GenericValue sourceWorkEffort = from('WorkEffort').where(workEffortId: parameters.sourceWorkEffortId).queryOne()
-    if (!sourceWorkEffort) {
-        return error(label('WorkEffortUiLabels', 'WorkEffortNotFound', [errorString: parameters.sourceWorkEffortId]))
-    }
+    require(sourceWorkEffort as boolean, label('WorkEffortUiLabels', 'WorkEffortNotFound', [errorString: parameters.sourceWorkEffortId]))
     Map serviceResult = run service: 'createWorkEffort', with: [*           : sourceWorkEffort.getAllFields(),
                                                                 workEffortId: parameters.targetWorkEffortId]
     GenericValue targetWorkEffort = from('WorkEffort').where(workEffortId: serviceResult.workEffortId).queryOne()
@@ -346,13 +323,11 @@ Map copyWorkEffort() {
  * @return Success response containing the workEffortId, error response otherwise.
  */
 Map duplicateWorkEffort() {
-    if ((parameters.removeWorkEffortAssocs == 'Y' ||
+    boolean removesWorkEffortData = parameters.removeWorkEffortAssocs == 'Y' ||
             parameters.removeWorkEffortContents == 'Y' ||
             parameters.removeWorkEffortNotes == 'Y' ||
-            parameters.removeWorkEffortAssignmentRates == 'Y') &&
-            security.hasPermission('WORKEFFORTMGR_DELETE', userLogin)) {
-        return error(label('WorkEffortUiLabels', 'WorkEffortDeletePermissionError'))
-    }
+            parameters.removeWorkEffortAssignmentRates == 'Y'
+    requireWorkEffortDeletePermission(!removesWorkEffortData)
     String workEffortId = parameters.workEffortId ?: delegator.getNextSeqId('WorkEffort')
     GenericValue oldWorkEffort = from('WorkEffort').where(workEffortId: parameters.oldWorkEffortId).queryOne()
     GenericValue duplicateWorkEffort = oldWorkEffort.clone()
@@ -390,16 +365,16 @@ Map duplicateWorkEffort() {
     }
     Map removeWorkEffortMap = [workEffortId: oldWorkEffort.workEffortId]
     if (parameters.removeWorkEffortAssocs == 'Y') {
-        delegator.removeByAnd('WorkEffortAssoc', removeWorkEffortMap)
+        delete('WorkEffortAssoc').where(removeWorkEffortMap)
     }
     if (parameters.removeWorkEffortNotes == 'Y') {
-        delegator.removeByAnd('WorkEffortNote', removeWorkEffortMap)
+        delete('WorkEffortNote').where(removeWorkEffortMap)
     }
     if (parameters.removeWorkEffortContents == 'Y') {
-        delegator.removeByAnd('WorkEffortContent', removeWorkEffortMap)
+        delete('WorkEffortContent').where(removeWorkEffortMap)
     }
     if (parameters.removeWorkEffortAssignmentRates == 'Y') {
-        delegator.removeByAnd('RateAmount', removeWorkEffortMap)
+        delete('RateAmount').where(removeWorkEffortMap)
     }
     return success([workEffortId: workEffortId])
 }
@@ -430,9 +405,7 @@ void duplicateWorkEffortAssoc(String relationEntityName, String oldWorkEffortId,
 Map assocAcceptedCustRequestToWorkEffort() {
     // check status of customer request if valid
     GenericValue custRequet = from('CustRequest').where(parameters).cache().queryOne()
-    if (custRequet.statusId != 'CRQ_ACCEPTED') {
-        return error(label('CommonUiLabels', 'CommonErrorStatusNotValid'))
-    }
+    require(custRequet.statusId == 'CRQ_ACCEPTED', label('CommonUiLabels', 'CommonErrorStatusNotValid'))
 
     // create customer request / work effort relation
     run service: 'createWorkEffortRequest', with: parameters
@@ -465,9 +438,7 @@ Map assignPartyToWorkEffort() {
                     roleTypeId: parameters.roleTypeId)
             .filterByDate()
             .queryFirst()
-    if (assignment) {
-        return error(label('WorkEffortUiLabels', 'WorkEffortPartyAssignmentError', parameters))
-    }
+    require(!(assignment), label('WorkEffortUiLabels', 'WorkEffortPartyAssignmentError', parameters))
 
     run service: 'ensurePartyRole', with: parameters
     Timestamp now = UtilDateTime.nowTimestamp()
@@ -526,9 +497,8 @@ Map createWorkEffortContactMech() {
     }
 
     if (!contactMechId) {
-        if (!parameters.contactMechTypeId) {
-            return error(label('WorkEffortUiLabels', 'WorkEffortRequiredFieldMissingContactMechIdOrContactMechTypeId'))
-        }
+        require(parameters.contactMechTypeId as boolean,
+            label('WorkEffortUiLabels', 'WorkEffortRequiredFieldMissingContactMechIdOrContactMechTypeId'))
         String serviceName = 'create' + (parameters.relationEntityName ?: 'ContactMech')
         Map serviceResult = run service: serviceName, with: parameters
         contactMechId = serviceResult.contactMechId
@@ -551,9 +521,7 @@ Map updateWorkEffortContactMech() {
                     contactMechId: parameters.contactMechId)
             .filterByDate()
             .queryFirst()
-    if (!workEffortContactMech) {
-        return error(label('WorkEffortUiLabels', 'WorkEffortCannotUpdateContactInfo'))
-    }
+    require(workEffortContactMech as boolean, label('WorkEffortUiLabels', 'WorkEffortCannotUpdateContactInfo'))
     GenericValue newWorkEffortContactMech = workEffortContactMech.clone()
     // If we already have a new contactMechId don't update ContactMech
     String newContactMechId = parameters.newContactMechId
@@ -576,4 +544,9 @@ Map updateWorkEffortContactMech() {
         workEffortContactMech.store()
     }
     return success([contactMechId: newContactMechId, oldContactMechId: workEffortContactMech.contactMechId])
+}
+
+private void requireWorkEffortDeletePermission(boolean permissionBypassed) {
+    require(permissionBypassed || security.hasEntityPermission('WORKEFFORTMGR', '_DELETE', userLogin),
+        label('WorkEffortUiLabels', 'WorkEffortDeletePermissionError'))
 }

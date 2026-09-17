@@ -45,6 +45,9 @@ public final class ServiceGroupReader {
     protected ServiceGroupReader() { }
 
     public static void readConfig() {
+        if (!GROUPS_CACHE.isEmpty()) {
+            return;
+        }
         List<ServiceGroups> serviceGroupsList = null;
         try {
             serviceGroupsList = ServiceConfigUtil.getServiceEngine().getServiceGroups();

@@ -18,13 +18,20 @@
  *******************************************************************************/
 package org.apache.ofbiz.order.order;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.StringReader;
+import java.io.StringWriter;
+import java.io.Writer;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.stream.StreamSource;
 
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.HttpServletRequest;
@@ -32,16 +39,33 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.fop.apps.Fop;
+import org.apache.fop.apps.MimeConstants;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.UtilHttp;
+import org.apache.ofbiz.base.util.UtilMisc;
+import org.apache.ofbiz.base.util.UtilValidate;
+import org.apache.ofbiz.base.util.collections.MapStack;
 import org.apache.ofbiz.content.data.DataResourceWorker;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.util.EntityQuery;
+import org.apache.ofbiz.security.Security;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ServiceUtil;
+import org.apache.ofbiz.webapp.view.ApacheFopWorker;
+import org.apache.ofbiz.widget.renderer.ScreenRenderer;
+import org.apache.ofbiz.widget.renderer.ScreenStringRenderer;
+import org.apache.ofbiz.widget.renderer.VisualTheme;
+import org.apache.ofbiz.widget.renderer.fo.FoFormRenderer;
+import org.apache.ofbiz.widget.renderer.macro.MacroScreenRenderer;
+import org.apache.pdfbox.io.RandomAccessReadBuffer;
+import org.apache.pdfbox.multipdf.PDFMergerUtility;
+import org.xml.sax.SAXException;
+
+import freemarker.template.TemplateException;
 
 /**
  * Order Events
@@ -49,6 +73,62 @@ import org.apache.ofbiz.service.ServiceUtil;
 public class OrderEvents {
 
     private static final String MODULE = OrderEvents.class.getName();
+    private static final String ORDER_PDF_SCREEN = "component://order/widget/ordermgr/OrderPrintScreens.xml#OrderPDF";
+
+    /**
+     * Streams one combined PDF for all selected orders to the browser, used by the
+     * Find Orders "View PDF" mass action.
+     */
+    public static String viewOrdersPdf(HttpServletRequest request, HttpServletResponse response) {
+        String[] orderIds = request.getParameterValues("orderIdList");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
+        LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
+        Security security = (Security) request.getAttribute("security");
+        GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
+        Locale locale = UtilHttp.getLocale(request);
+        VisualTheme visualTheme = UtilHttp.getVisualTheme(request);
+
+        try {
+            ScreenStringRenderer foScreenRenderer = new MacroScreenRenderer(visualTheme.getModelTheme().getType("screenfop"),
+                    visualTheme.getModelTheme().getScreenRendererLocation("screenfop"));
+            PDFMergerUtility merger = new PDFMergerUtility();
+            int orderCount = 0;
+            for (String orderId : orderIds != null ? orderIds : new String[0]) {
+                if (UtilValidate.isEmpty(orderId)) {
+                    continue;
+                }
+                Writer writer = new StringWriter();
+                ScreenRenderer screens = new ScreenRenderer(writer, MapStack.create(), foScreenRenderer);
+                screens.populateBasicContext(UtilMisc.toMap("orderId", (Object) orderId), delegator, dispatcher, security, locale, userLogin);
+                screens.getContext().put("formStringRenderer", new FoFormRenderer());
+                screens.render(ORDER_PDF_SCREEN);
+
+                ByteArrayOutputStream orderPdf = new ByteArrayOutputStream();
+                Fop fop = ApacheFopWorker.createFopInstance(orderPdf, MimeConstants.MIME_PDF);
+                ApacheFopWorker.transform(new StreamSource(new StringReader(writer.toString())), null, fop);
+                merger.addSource(new RandomAccessReadBuffer(orderPdf.toByteArray()));
+                orderCount++;
+            }
+            if (orderCount == 0) {
+                request.setAttribute("_ERROR_MESSAGE_", "No orders selected.");
+                return "error";
+            }
+            ByteArrayOutputStream mergedPdf = new ByteArrayOutputStream();
+            merger.setDestinationStream(mergedPdf);
+            merger.mergeDocuments(org.apache.pdfbox.io.IOUtils.createMemoryOnlyStreamCache());
+
+            response.setContentType("application/pdf");
+            response.setHeader("Content-Disposition", "inline; filename=\"orders.pdf\"");
+            response.setContentLength(mergedPdf.size());
+            mergedPdf.writeTo(response.getOutputStream());
+        } catch (GeneralException | IOException | SAXException | ParserConfigurationException | TemplateException e) {
+            String errMsg = "Error rendering orders PDF: " + e.toString();
+            Debug.logError(e, errMsg, MODULE);
+            request.setAttribute("_ERROR_MESSAGE_", errMsg);
+            return "error";
+        }
+        return "success";
+    }
 
     public static String downloadDigitalProduct(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();

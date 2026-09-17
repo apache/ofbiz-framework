@@ -79,6 +79,9 @@ function setKeyAsParameter(event, ui) {
 
 //Generic function for fetching country's associated state list.
 function getAssociatedStateList(countryId, stateId, errorId, divId) {
+    if (!countryId || !stateId) {
+        return;
+    }
     var countryGeoId = jQuery("#" + countryId).val();
     jQuery.ajax({
         url: '/common-js/control/getAssociatedStateList',

@@ -214,6 +214,74 @@ under the License.
              location="component://service/src/main/groovy/org/apache/ofbiz/service/test/TestServices.groovy" invoke="testPingErrorWithDSLCall">
         <implements service="testGroovyPingSuccess"/>
     </service>
+    <service name="testGroovyPingSuccessWithAsyncDSLCall" engine="groovy"
+             location="component://service/src/main/groovy/org/apache/ofbiz/service/test/TestServices.groovy" invoke="testPingSuccessWithAsyncDSLCall">
+        <implements service="testGroovyPingSuccess"/>
+        <attribute name="pong" mode="OUT" type="String" optional="true"/>
+    </service>
+    <service name="testGroovyPingSuccessWithAsyncMapDSLCall" engine="groovy"
+             location="component://service/src/main/groovy/org/apache/ofbiz/service/test/TestServices.groovy" invoke="testPingSuccessWithAsyncMapDSLCall">
+        <implements service="testGroovyPingSuccess"/>
+        <attribute name="pong" mode="OUT" type="String" optional="true"/>
+    </service>
+
+    <!--Test resource/key i18n overloads on success()/error()/failure() -->
+    <service name="testGroovyPingSuccessWithI18n" engine="groovy" auth="false"
+             location="component://service/src/main/groovy/org/apache/ofbiz/service/test/TestServices.groovy" invoke="testPingSuccessWithI18n">
+    </service>
+    <service name="testGroovyPingSuccessWithI18nContext" engine="groovy" auth="false"
+             location="component://service/src/main/groovy/org/apache/ofbiz/service/test/TestServices.groovy" invoke="testPingSuccessWithI18nContext">
+        <attribute name="parameterName" mode="IN" type="String"/>
+        <attribute name="errorDetails" mode="IN" type="String"/>
+    </service>
+    <service name="testGroovyPingErrorWithI18n" engine="groovy" auth="false"
+             location="component://service/src/main/groovy/org/apache/ofbiz/service/test/TestServices.groovy" invoke="testPingErrorWithI18n">
+    </service>
+    <service name="testGroovyPingErrorWithI18nContext" engine="groovy" auth="false"
+             location="component://service/src/main/groovy/org/apache/ofbiz/service/test/TestServices.groovy" invoke="testPingErrorWithI18nContext">
+        <attribute name="parameterName" mode="IN" type="String"/>
+        <attribute name="errorDetails" mode="IN" type="String"/>
+    </service>
+    <service name="testGroovyPingFailureWithI18n" engine="groovy" auth="false"
+             location="component://service/src/main/groovy/org/apache/ofbiz/service/test/TestServices.groovy" invoke="testPingFailureWithI18n">
+    </service>
+
+    <!--Test require()/fail() control-flow sugar -->
+    <service name="testGroovyFail" engine="groovy" auth="false"
+             location="component://service/src/main/groovy/org/apache/ofbiz/service/test/TestServices.groovy" invoke="testFail">
+    </service>
+    <service name="testGroovyRequire" engine="groovy" auth="false"
+             location="component://service/src/main/groovy/org/apache/ofbiz/service/test/TestServices.groovy" invoke="testRequire">
+        <attribute name="conditionMet" mode="IN" type="Boolean"/>
+    </service>
+    <service name="testGroovyFailFromNestedClosure" engine="groovy" auth="false"
+             location="component://service/src/main/groovy/org/apache/ofbiz/service/test/TestServices.groovy" invoke="testFailFromNestedClosure">
+    </service>
+    <service name="testGroovyFailWithI18n" engine="groovy" auth="false"
+             location="component://service/src/main/groovy/org/apache/ofbiz/service/test/TestServices.groovy" invoke="testFailWithI18n">
+    </service>
+    <service name="testGroovyRequireWithI18nContext" engine="groovy" auth="false"
+             location="component://service/src/main/groovy/org/apache/ofbiz/service/test/TestServices.groovy" invoke="testRequireWithI18nContext">
+        <attribute name="parameterName" mode="IN" type="String"/>
+        <attribute name="errorDetails" mode="IN" type="String"/>
+    </service>
+
+    <!--Test write-side entity DSL: create()/update()/delete() -->
+    <service name="testGroovyEntityDslCreate" engine="groovy" auth="false"
+             location="component://service/src/main/groovy/org/apache/ofbiz/service/test/TestServices.groovy" invoke="testEntityDslCreate">
+        <attribute name="testingId" mode="IN" type="String"/>
+        <attribute name="testingName" mode="IN" type="String" optional="true"/>
+    </service>
+    <service name="testGroovyEntityDslUpdate" engine="groovy" auth="false"
+             location="component://service/src/main/groovy/org/apache/ofbiz/service/test/TestServices.groovy" invoke="testEntityDslUpdate">
+        <attribute name="testingId" mode="IN" type="String"/>
+        <attribute name="testingName" mode="IN" type="String" optional="true"/>
+    </service>
+    <service name="testGroovyEntityDslDelete" engine="groovy" auth="false"
+             location="component://service/src/main/groovy/org/apache/ofbiz/service/test/TestServices.groovy" invoke="testEntityDslDelete">
+        <attribute name="testingId" mode="IN" type="String"/>
+        <attribute name="rowsRemoved" mode="OUT" type="Integer"/>
+    </service>
 
     <!--Test job tracker engine service -->
     <service name="TestTopLevelServiceThatPlansTrackedServices" engine="groovy-tracker" auth="true"

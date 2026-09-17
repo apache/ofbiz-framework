@@ -32,6 +32,7 @@ angus-mail = "2.0.5"
 utils-mail-dkim = "3.3.0"
 rome = "2.1.0"
 xstream = "1.4.21"
+twelvemonkeys-imageio-tiff = "3.15.0"
 commons-cli = "1.11.0"
 commons-net = "3.13.0"
 commons-validator = "1.11.0"
@@ -44,10 +45,6 @@ commons-collections4 = "4.6.0"
 commons-csv = "1.14.1"
 commons-dbcp2 = "2.14.0"
 commons-fileupload2-jakarta = "2.0.0-M1"
-# Alpha but OK, "Imaging was working and was used by a number of projects in production even before
-# reaching its initial release as an Apache Commons component." Since 1.0.0-alpha4 (note the use of
-# semver) the API has changed. Better wait an "official release" to rewrite OFBiz code...
-commons-imaging = "1.0-alpha3"
 commons-text = "1.15.0"
 # 4.0.0 does not compile
 geronimo-transaction = "3.1.5"
@@ -69,14 +66,14 @@ tika = "3.3.2"
 cxf-rt-frontend-jaxrs = "4.2.3"
 # Remember to change the version number (10 now) in javadoc block if needed. Shared by
 # tomcat-catalina-ha, tomcat-jasper.
-tomcat = "10.1.59"
+tomcat = "10.1.60"
 # Shared by axis2-kernel, axis2-transport-http, axis2-transport-local.
 axis2 = "1.8.2"
 # Shared by batik-anim, batik-util, batik-bridge.
 batik = "1.19"
 fop = "2.11"
-clojure = "1.12.5"
-groovy-all = "5.1.1"
+clojure = "1.12.6"
+groovy-all = "5.1.2"
 # Remember to change the version number in FreeMarkerWorker class when upgrading. See OFBIZ-10019 if >= 2.4
 freemarker = "2.3.35"
 esapi = "2.7.0.0"
@@ -86,10 +83,10 @@ jackson-databind = "2.22.2"
 # Shared by jersey-container-servlet, jersey-hk2, jersey-media-multipart, jersey-media-json-jackson.
 jersey = "3.1.12"
 # Shared by swagger-jaxrs2-core-jakarta, swagger-jaxrs2-servlet-initializer-jakarta, swagger-annotations-jakarta.
-swagger = "2.2.54"
+swagger = "2.2.55"
 oro = "2.0.8"
 wsdl4j = "1.6.3"
-java-jwt = "4.6.0"
+java-jwt = "4.6.1"
 jwks-rsa = "0.24.1"
 jdom2 = "2.0.6.1"
 re2j = "1.8"
@@ -108,9 +105,9 @@ geronimo-jaxrpc-spec = "2.1"
 # Specify last codenarc version for java 17 compliance.
 codenarc = "3.7.0-groovy-4.0"
 # CVE-2024-21742
-apache-mime4j-core = "0.8.14"
+apache-mime4j-core = "0.8.15"
 # CVE-2024-29857, CVE-2024-30171, CVE-2024-30172, CVE-2024-34447
-bcprov-jdk18on = "1.85.2"
+bcprov-jdk18on = "1.86"
 # CVE-2022-4065
 testng = "7.12.0"
 
@@ -130,6 +127,7 @@ angus-mail = { module = "org.eclipse.angus:angus-mail", version.ref = "angus-mai
 utils-mail-dkim = { module = "org.simplejavamail:utils-mail-dkim", version.ref = "utils-mail-dkim" }
 rome = { module = "com.rometools:rome", version.ref = "rome" }
 xstream = { module = "com.thoughtworks.xstream:xstream", version.ref = "xstream" }
+twelvemonkeys-imageio-tiff = { module = "com.twelvemonkeys.imageio:imageio-tiff", version.ref = "twelvemonkeys-imageio-tiff" }
 commons-cli = { module = "commons-cli:commons-cli", version.ref = "commons-cli" }
 commons-net = { module = "commons-net:commons-net", version.ref = "commons-net" }
 commons-validator = { module = "commons-validator:commons-validator", version.ref = "commons-validator" }
@@ -142,7 +140,6 @@ commons-collections4 = { module = "org.apache.commons:commons-collections4", ver
 commons-csv = { module = "org.apache.commons:commons-csv", version.ref = "commons-csv" }
 commons-dbcp2 = { module = "org.apache.commons:commons-dbcp2", version.ref = "commons-dbcp2" }
 commons-fileupload2-jakarta = { module = "org.apache.commons:commons-fileupload2-jakarta", version.ref = "commons-fileupload2-jakarta" }
-commons-imaging = { module = "org.apache.commons:commons-imaging", version.ref = "commons-imaging" }
 commons-text = { module = "org.apache.commons:commons-text", version.ref = "commons-text" }
 geronimo-transaction = { module = "org.apache.geronimo.components:geronimo-transaction", version.ref = "geronimo-transaction" }
 geronimo-jms-spec = { module = "org.apache.geronimo.specs:geronimo-jms_1.1_spec", version.ref = "geronimo-jms-spec" }
@@ -151,6 +148,7 @@ log4j-api = { module = "org.apache.logging.log4j:log4j-api", version.ref = "log4
 log4j-core = { module = "org.apache.logging.log4j:log4j-core", version.ref = "log4j" }
 log4j-layout-template-json = { module = "org.apache.logging.log4j:log4j-layout-template-json", version.ref = "log4j" }
 poi = { module = "org.apache.poi:poi", version.ref = "poi" }
+poi-ooxml = { module = "org.apache.poi:poi-ooxml", version.ref = "poi" }
 pdfbox-core = { module = "org.apache.pdfbox:pdfbox", version.ref = "pdfbox" }
 pdfbox-io = { module = "org.apache.pdfbox:pdfbox-io", version.ref = "pdfbox" }
 shiro-core = { module = "org.apache.shiro:shiro-core", version.ref = "shiro-core" }

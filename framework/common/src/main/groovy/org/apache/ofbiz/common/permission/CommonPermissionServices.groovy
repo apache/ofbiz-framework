@@ -24,15 +24,11 @@ Map genericBasePermissionCheck() {
     Map result = success()
     // allow mainAction to be set from outside methods or direct to the service
     String mainAction = parameters.mainAction
-    if (!mainAction) {
-        return error(UtilProperties.getMessage('CommonUiLabels', 'CommonPermissionMainActionAttributeMissing', parameters.locale))
-    }
+    require(mainAction as boolean, 'CommonUiLabels', 'CommonPermissionMainActionAttributeMissing')
 
     // allow primary permission to be set from outside methods or direct to the service
     String primaryPermission = parameters.primaryPermission
-    if (!primaryPermission) {
-        return error(UtilProperties.getMessage('CommonUiLabels', 'CommonPermissionPrimaryPermissionMissing', parameters.locale))
-    }
+    require(primaryPermission as boolean, 'CommonUiLabels', 'CommonPermissionPrimaryPermissionMissing')
     logVerbose("Checking for primary permission ${primaryPermission}_${mainAction}")
 
     // allow alt permission to be set from outside methods or direct to the service
@@ -73,9 +69,7 @@ Map getAllCrudPermissions() {
     result.hasDeletePermission = false
     result.hasViewPermission = false
     String primaryPermission = parameters.primaryPermission
-    if (!primaryPermission) {
-        return error(UtilProperties.getMessage('CommonUiLabels', 'CommonPermissionPrimaryPermissionMissing', parameters.locale))
-    }
+    require(primaryPermission as boolean, 'CommonUiLabels', 'CommonPermissionPrimaryPermissionMissing')
     logInfo("Getting all CRUD permissions for ${primaryPermission}")
     result = hasCrudPermission(primaryPermission, result)
 

@@ -20,6 +20,9 @@
 
 
 function setLookDescription(textFieldId, description, params, formName, showDescription) {
+    if (!textFieldId) {
+        return;
+    }
     if (description) {
         var start = description.lastIndexOf(' [');
         if (start != -1) {

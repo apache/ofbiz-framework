@@ -158,6 +158,12 @@ under the License.
         <response name="success" type="request-redirect" value="findorders"/>
         <response name="error" type="view" value="findorders"/>
     </request-map>
+    <request-map uri="orders.pdf">
+        <security https="true" auth="true"/>
+        <event type="java" path="org.apache.ofbiz.order.order.OrderEvents" invoke="viewOrdersPdf"/>
+        <response name="success" type="none"/>
+        <response name="error" type="view" value="findorders"/>
+    </request-map>
 
     <!-- Delivery Info Requests, intended for sales orders but can be used for purchase orders as well -->
     <request-map uri="OrderDeliveryScheduleInfo">

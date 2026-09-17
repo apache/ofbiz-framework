@@ -19,7 +19,6 @@
 package org.apache.ofbiz.product.product.feature
 
 import java.util.regex.Pattern
-import org.apache.ofbiz.base.util.UtilProperties
 import org.apache.ofbiz.entity.GenericValue
 
 /**
@@ -32,7 +31,7 @@ Map applyFeatureToProductFromTypeAndCode() {
                     idCode: parameters.idCode)
             .queryList()
     for (GenericValue productFeature : productFeatures) {
-        Map applyFeatureContext = parameters
+        Map applyFeatureContext = [*: parameters]
         applyFeatureContext.productFeatureId = productFeature.productFeatureId
         applyFeatureContext.sequenceNum = applyFeatureContext.sequenceNum ?: productFeature.defaultSequenceNum
         run service: 'applyFeatureToProduct', with: applyFeatureContext
@@ -45,15 +44,11 @@ Map applyFeatureToProductFromTypeAndCode() {
  */
 Map createProductFeatureType() {
     Map result = success()
-    if (!security.hasEntityPermission('CATALOG', '_CREATE', parameters.userLogin)) {
-        return error(UtilProperties.getMessage('ProductUiLabels',
-                'ProductCatalogCreatePermissionError', parameters.locale))
-    }
+    require(security.hasEntityPermission('CATALOG', '_CREATE', parameters.userLogin) as boolean,
+            'ProductUiLabels', 'ProductCatalogCreatePermissionError')
     parameters.productFeatureTypeId = parameters.productFeatureTypeId ?: delegator.getNextSeqId('ProductFeatureType')
-    if (!Pattern.matches('^[a-zA-Z_0-9]+$', parameters.productFeatureTypeId)) {
-        return error(UtilProperties.getMessage('ProductErrorUiLabels',
-                'ProductFeatureTypeIdMustContainsLettersAndDigits', parameters.locale))
-    }
+    require(Pattern.matches('^[a-zA-Z_0-9]+$', parameters.productFeatureTypeId) as boolean,
+            'ProductErrorUiLabels', 'ProductFeatureTypeIdMustContainsLettersAndDigits')
     GenericValue newEntity = makeValue('ProductFeatureType', parameters)
     newEntity.create()
     result.productFeatureTypeId = newEntity.productFeatureTypeId
@@ -64,10 +59,8 @@ Map createProductFeatureType() {
  * Create a ProductFeatureApplAttr
  */
 Map createProductFeatureApplAttr() {
-    if (!security.hasEntityPermission('CATALOG', '_CREATE', parameters.userLogin)) {
-        return error(UtilProperties.getMessage('ProductUiLabels',
-                'ProductCatalogCreatePermissionError', parameters.locale))
-    }
+    require(security.hasEntityPermission('CATALOG', '_CREATE', parameters.userLogin) as boolean,
+            'ProductUiLabels', 'ProductCatalogCreatePermissionError')
     GenericValue newEntity = makeValue('ProductFeatureApplAttr', parameters)
     if (! newEntity.fromDate) {
         GenericValue productFeatureAppl = from('ProductFeatureAppl')

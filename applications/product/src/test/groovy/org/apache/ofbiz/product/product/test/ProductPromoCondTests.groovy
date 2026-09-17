@@ -20,6 +20,7 @@ package org.apache.ofbiz.product.product.test
 
 import java.sql.Timestamp
 import org.apache.ofbiz.base.util.UtilDateTime
+import org.apache.ofbiz.base.util.UtilProperties
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.order.shoppingcart.ShoppingCart
 import org.apache.ofbiz.testtools.JunitJupiterTest
@@ -391,6 +392,66 @@ class ProductPromoCondTests implements JupiterTestHelper {
         serviceResult = dispatcher.runSync('productPromoCondProductTotal', serviceContext)
         assert ServiceUtil.isSuccess(serviceResult)
         assert serviceResult.compareBase < 0
+    }
+
+    // Regression coverage for the update() DSL / ServiceErrorException catch site added in
+    // updateProductPromoCond(): a PK with no matching ProductPromoCond record must come back as a
+    // service error carrying the original localized ServiceValueNotFound message, not the generic
+    // EntityUpdateBuilder message and not a silently-successful result.
+    @Test
+    @Order(12)
+    void testUpdateProductPromoCondNotFound() {
+        String productPromoId = testParams.productPromoId ?: 'TEST_NONEXISTENT_PROMO'
+        String productPromoRuleId = testParams.productPromoRuleId ?: '01'
+        String productPromoCondSeqId = testParams.productPromoCondSeqId ?: '01'
+        Map serviceCtx = [
+                productPromoId: productPromoId,
+                productPromoRuleId: productPromoRuleId,
+                productPromoCondSeqId: productPromoCondSeqId,
+                userLogin: userLogin
+        ]
+        Map serviceResult = dispatcher.runSync('updateProductPromoCond', serviceCtx)
+        assert ServiceUtil.isError(serviceResult)
+        assert ServiceUtil.getErrorMessage(serviceResult) ==
+                UtilProperties.getMessage('ServiceErrorUiLabels', 'ServiceValueNotFound', Locale.US)
+    }
+
+    // updateProductPromoCond() had no coverage at all before this - not even a happy-path test.
+    // Creates a fresh ProductPromoCond fixture directly, then calls the service and verifies the
+    // change actually persisted (this also exercises the update() DSL's success path, which the
+    // not-found test above cannot).
+    @Test
+    @Order(13)
+    void testUpdateProductPromoCond() {
+        String productPromoId = testParams.productPromoId ?: 'TEST_PROMO_UPD'
+        String productPromoRuleId = testParams.productPromoRuleId ?: '01'
+        String productPromoCondSeqId = testParams.productPromoCondSeqId ?: '01'
+        GenericValue productPromo = delegator.makeValue('ProductPromo', [productPromoId: productPromoId])
+        delegator.createOrStore(productPromo)
+        GenericValue productPromoRule = delegator.makeValue('ProductPromoRule',
+                [productPromoId: productPromoId, productPromoRuleId: productPromoRuleId])
+        delegator.createOrStore(productPromoRule)
+        GenericValue productPromoCond = delegator.makeValue('ProductPromoCond',
+                [productPromoId: productPromoId, productPromoRuleId: productPromoRuleId,
+                 productPromoCondSeqId: productPromoCondSeqId, condValue: 'OLD_VALUE'])
+        delegator.createOrStore(productPromoCond)
+
+        String newCondValue = testParams.condValue ?: 'NEW_VALUE'
+        Map serviceCtx = [
+                productPromoId: productPromoId,
+                productPromoRuleId: productPromoRuleId,
+                productPromoCondSeqId: productPromoCondSeqId,
+                condValue: newCondValue,
+                userLogin: userLogin
+        ]
+        Map serviceResult = dispatcher.runSync('updateProductPromoCond', serviceCtx)
+        assert ServiceUtil.isSuccess(serviceResult)
+
+        GenericValue updated = from('ProductPromoCond')
+                .where('productPromoId', productPromoId, 'productPromoRuleId', productPromoRuleId,
+                        'productPromoCondSeqId', productPromoCondSeqId).queryOne()
+        assert updated
+        assert updated.condValue == newCondValue
     }
 
     private Map prepareConditionMap(ShoppingCart cart, String condValue) {

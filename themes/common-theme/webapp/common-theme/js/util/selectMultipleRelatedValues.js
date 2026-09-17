@@ -27,6 +27,9 @@
 // responseName = result returned by the service (using a standard json response, ie chaining json request)
 
 function selectMultipleRelatedValues(request, paramKey, paramField, targetField, type, typeValue, responseName) {
+    if (!paramField || !targetField) {
+        return;
+    }
     data = [ { name: paramKey, value: jQuery('#' + paramField).val()}, { name: type, value: typeValue} ];  // get requested value from parent dropdown field 
     list = jQuery.post(request, data, function(result) {
         selectedOptions = result[responseName];

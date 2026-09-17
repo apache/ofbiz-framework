@@ -32,14 +32,14 @@ import org.apache.ofbiz.entity.condition.EntityConditionBuilder
 import org.apache.ofbiz.entity.condition.EntityOperator
 import org.apache.ofbiz.entity.util.EntityTypeUtil
 import org.apache.ofbiz.entity.util.EntityUtilProperties
+import org.apache.ofbiz.service.ServiceErrorException
 import org.apache.ofbiz.service.ServiceUtil
 
 Map createPayment() {
-    if (!security.hasEntityPermission('ACCOUNTING', '_CREATE', parameters.userLogin) &&
-            (!security.hasEntityPermission('PAY_INFO', '_CREATE', parameters.userLogin) &&
-                    userLogin.partyId != parameters.partyIdFrom && userLogin.partyId != parameters.partyIdTo)) {
-        return error(label('AccountingUiLabels', 'AccountingCreatePaymentPermissionError'))
-    }
+    require(security.hasEntityPermission('ACCOUNTING', '_CREATE', parameters.userLogin) ||
+            security.hasEntityPermission('PAY_INFO', '_CREATE', parameters.userLogin) ||
+            userLogin.partyId == parameters.partyIdFrom || userLogin.partyId == parameters.partyIdTo,
+            label('AccountingUiLabels', 'AccountingCreatePaymentPermissionError'))
 
     GenericValue payment = makeValue('Payment')
     payment.paymentId = parameters.paymentId ?: delegator.getNextSeqId('Payment')
@@ -57,13 +57,11 @@ Map createPayment() {
     if (parameters.paymentPreferenceId) {
         GenericValue orderPaymentPreference = from('OrderPaymentPreference')
                 .where('orderPaymentPreferenceId', parameters.paymentPreferenceId).queryOne()
-        parameters.paymentId = parameters.paymentId ?: orderPaymentPreference.paymentMethodId
+        parameters.paymentMethodId = parameters.paymentMethodId ?: orderPaymentPreference.paymentMethodId
         parameters.paymentMethodTypeId = parameters.paymentMethodTypeId ?: orderPaymentPreference.paymentMethodTypeId
     }
 
-    if (!parameters.paymentMethodTypeId) {
-        return error(label('AccountingUiLabels', 'AccountingPaymentMethodIdPaymentMethodTypeIdNullError'))
-    }
+    require(parameters.paymentMethodTypeId as boolean, label('AccountingUiLabels', 'AccountingPaymentMethodIdPaymentMethodTypeIdNullError'))
 
     payment.setNonPKFields(parameters)
     payment.effectiveDate = payment.effectiveDate ?: UtilDateTime.nowTimestamp()
@@ -132,11 +130,10 @@ Map getInvoicePaymentInfoList() {
 
 Map updatePayment() {
     GenericValue payment = from('Payment').where(parameters).queryOne()
-    if (!security.hasEntityPermission('ACCOUNTING', '_UPDATE', parameters.userLogin) &&
-        (!security.hasEntityPermission('PAY_INFO', '_UPDATE', parameters.userLogin) &&
-        userLogin.partyId != payment.partyIdFrom && userLogin.partyId != payment.partyIdTo)) {
-        return error(label('AccountingUiLabels', 'AccountingUpdatePaymentPermissionError'))
-    }
+    require(security.hasEntityPermission('ACCOUNTING', '_UPDATE', parameters.userLogin) ||
+        security.hasEntityPermission('PAY_INFO', '_UPDATE', parameters.userLogin) ||
+        userLogin.partyId == payment.partyIdFrom || userLogin.partyId == payment.partyIdTo,
+        label('AccountingUiLabels', 'AccountingUpdatePaymentPermissionError'))
     if ('PMNT_NOT_PAID' != payment.statusId) {
         // check if only status change
         GenericValue oldPayment = makeValue('Payment', payment)
@@ -148,9 +145,7 @@ Map updatePayment() {
         oldPayment.comments = newPayment.comments
         oldPayment.paymentRefNum = newPayment.paymentRefNum ?: null
         oldPayment.finAccountTransId = newPayment.finAccountTransId ?: null
-        if (oldPayment != newPayment) {
-            return error(label('AccountingUiLabels', 'AccountingPSUpdateNotAllowedBecauseOfStatus'))
-        }
+        require(oldPayment == newPayment, label('AccountingUiLabels', 'AccountingPSUpdateNotAllowedBecauseOfStatus'))
     }
     String statusIdSave = payment.statusId  // do not allow status change here
     payment.setNonPKFields(parameters)
@@ -180,7 +175,7 @@ Map createPaymentAndApplicationForParty() {
     BigDecimal paymentAmount = 0
     List invoiceIds = []
     String paymentId
-    parameters.invoices.each { GenericValue invoice ->
+    for (GenericValue invoice : parameters.invoices) {
         if (invoice.statusId == 'INVOICE_READY') {
             Map serviceResult = run service: 'getInvoicePaymentInfoList', with: invoice.getAllFields()
             if (ServiceUtil.isError(serviceResult)) {
@@ -210,7 +205,7 @@ Map createPaymentAndApplicationForParty() {
         }
         paymentId = serviceResult.paymentId
 
-        parameters.invoices.each { GenericValue invoice ->
+        for (GenericValue invoice : parameters.invoices) {
             if (invoice.statusId == 'INVOICE_READY') {
                 serviceResult = run service: 'getInvoicePaymentInfoList', with: invoice.getAllFields()
                 if (ServiceUtil.isError(serviceResult)) {
@@ -243,16 +238,14 @@ Map checkAndCreateBatchForValidPayments() {
             .map { it.paymentId }
             .collect()
             .toList()
-    if (disbursementPaymentIds) {
-        return error(label('AccountingUiLabels', 'AccountingCannotIncludeApPaymentError', [disbursementPaymentIds: disbursementPaymentIds]))
-    }
+    require(!(disbursementPaymentIds),
+            label('AccountingUiLabels', 'AccountingCannotIncludeApPaymentError', [disbursementPaymentIds: disbursementPaymentIds]))
     List batchPaymentIds = from('PaymentGroupMember')
             .where(EntityCondition.makeCondition('paymentId', EntityOperator.IN, parameters.paymentIds))
+            .filterByDate()
             .distinct()
             .getFieldList('paymentId')
-    if (batchPaymentIds) {
-        return error(label('AccountingUiLabels', 'AccountingPaymentsAreAlreadyBatchedError', [batchPaymentIds: batchPaymentIds]))
-    }
+    require(!(batchPaymentIds), label('AccountingUiLabels', 'AccountingPaymentsAreAlreadyBatchedError', [batchPaymentIds: batchPaymentIds]))
     Map result = run service: 'createPaymentGroupAndMember', with: parameters
     return result
 }
@@ -295,17 +288,16 @@ Map createPaymentContent() {
 
 //TODO: This can be converted into entity-auto with a seca rule for updateContent
 Map updatePaymentContent() {
-    GenericValue lookedUpValue = from('PaymentContent').where(parameters).queryOne()
-    if (lookedUpValue) {
-        lookedUpValue.setNonPKFields(parameters)
-        lookedUpValue.store()
-        Map result = run service: 'updateContent', with: parameters
-        if (ServiceUtil.isError(result)) {
-            return result
-        }
-        return success()
+    try {
+        update('PaymentContent').where(parameters).set(parameters)
+    } catch (ServiceErrorException e) {
+        return error('Error getting Payment Content')
     }
-    return error('Error getting Payment Content')
+    Map result = run service: 'updateContent', with: parameters
+    if (ServiceUtil.isError(result)) {
+        return result
+    }
+    return success()
 }
 
 Map massChangePaymentStatus() {
@@ -361,9 +353,7 @@ Map getInvoicePaymentInfoListByDueDateOffset() {
 
 Map voidPayment() {
     GenericValue payment = from('Payment').where(parameters).queryOne()
-    if (!payment) {
-        return error(UtilProperties.getResourceBundleMap('AccountingUiLabels', locale)?.AccountingNoPaymentsfound)
-    }
+    require(payment as boolean, UtilProperties.getResourceBundleMap('AccountingUiLabels', locale)?.AccountingNoPaymentsfound)
     String paymentId = payment.paymentId
     Map paymentStatusCtx = [paymentId: paymentId,
                             statusId: 'PMNT_VOID']
@@ -373,7 +363,7 @@ Map voidPayment() {
         .queryList()
         .each { it ->
             Map invoice = from('Invoice').where(invoiceId: it.invoiceId).queryOne()
-            if (invoice.statusId == 'INVOICE_PAID') {
+            if (invoice?.statusId == 'INVOICE_PAID') {
                 run service: 'setInvoiceStatus', with: [*: invoice.getAllFields(),
                                                         paidDate: null,
                                                         statusId: 'INVOICE_READY']
@@ -473,9 +463,8 @@ Map cancelPaymentBatch() {
             .queryList()
 
     if (paymentGroupMemberAndTransList) {
-        if (paymentGroupMemberAndTransList[0].finAccountTransStatusId == 'FINACT_TRNS_APPROVED') {
-            return error(label('AccountingErrorUiLabels', 'AccountingTransactionIsAlreadyReconciled'))
-        }
+        require(paymentGroupMemberAndTransList[0].finAccountTransStatusId != 'FINACT_TRNS_APPROVED',
+                label('AccountingErrorUiLabels', 'AccountingTransactionIsAlreadyReconciled'))
 
         for (GenericValue paymentGroupMember : paymentGroupMemberAndTransList) {
             Map result = run service: 'expirePaymentGroupMember', with: paymentGroupMember.getAllFields()
@@ -571,9 +560,9 @@ Map createPaymentAndPaymentGroupForInvoices() {
 
     if (paymentMethod) {
         GenericValue finAccount = from('FinAccount').where('finAccountId', paymentMethod.finAccountId).queryOne()
-        if (finAccount.statusId == 'FNACT_MANFROZEN') {
+        if (finAccount?.statusId == 'FNACT_MANFROZEN') {
             return error(label('AccountingErrorUiLabels', 'AccountingFinAccountInactiveStatusError'))
-        } else if (finAccount.statusId == 'FNACT_CANCELLED') {
+        } else if (finAccount?.statusId == 'FNACT_CANCELLED') {
             return error(label('AccountingErrorUiLabels', 'AccountingFinAccountStatusNotValidError'))
         }
     }
@@ -601,9 +590,7 @@ Map createPaymentAndPaymentGroupForInvoices() {
                        paymentGroupName: "Payment group for Check Run(InvoiceIds-${parameters.invoiceIds})"]
         paymentGroupId = result.paymentGroupId
     }
-    if (!result.paymentGroupId) {
-        return error(label('AccountingUiLabels', 'AccountingNoInvoicesReadyOrOutstandingAmountZero'))
-    }
+    require(result.paymentGroupId as boolean, label('AccountingUiLabels', 'AccountingNoInvoicesReadyOrOutstandingAmountZero'))
     return result
 }
 
@@ -736,15 +723,12 @@ Map createPaymentFromOrder() {
 
 Map createPaymentApplication() {
     // Create a Payment Application
-    if (!parameters.invoiceId && !parameters.billingAccountId && !parameters.taxAuthGeoId && !parameters.toPaymentId) {
-        return error(label('AccountingUiLabels', 'AccountingPaymentApplicationParameterMissing'))
-    }
+    require(parameters.invoiceId || parameters.billingAccountId || parameters.taxAuthGeoId || parameters.toPaymentId,
+            label('AccountingUiLabels', 'AccountingPaymentApplicationParameterMissing'))
     GenericValue paymentAppl = makeValue('PaymentApplication', parameters)
 
     GenericValue payment = from('Payment').where('paymentId', parameters.paymentId).queryOne()
-    if (!payment) {
-        return error(label('AccountingUiLabels', 'AccountingPaymentApplicationParameterMissing'))
-    }
+    require(payment as boolean, label('AccountingUiLabels', 'AccountingPaymentApplicationParameterMissing'))
 
     BigDecimal notAppliedPayment = PaymentWorker.getPaymentNotApplied(payment)
 
@@ -752,9 +736,8 @@ Map createPaymentApplication() {
         // get the invoice and do some further validation against it
         GenericValue invoice = from('Invoice').where('invoiceId', parameters.invoiceId).queryOne()
         // check the currencies if they are compatible
-        if (invoice.currencyUomId != payment.currencyUomId && invoice.currencyUomId != payment.actualCurrencyUomId) {
-            return error(label('AccountingUiLabels', 'AccountingCurrenciesOfInvoiceAndPaymentNotCompatible'))
-        }
+        require(invoice.currencyUomId == payment.currencyUomId || invoice.currencyUomId == payment.actualCurrencyUomId,
+                label('AccountingUiLabels', 'AccountingCurrenciesOfInvoiceAndPaymentNotCompatible'))
         if (invoice.currencyUomId != payment.currencyUomId && invoice.currencyUomId == payment.actualCurrencyUomId) {
             // if required get the payment amount in foreign currency (local we already have)
             notAppliedPayment = PaymentWorker.getPaymentNotApplied(payment, true)
@@ -795,31 +778,22 @@ Map createPaymentApplication() {
 
 Map setPaymentStatus() {
     GenericValue payment = from('Payment').where('paymentId', parameters.paymentId).queryOne()
-    if (!payment) {
-        return error("No payment found with ID ${parameters.paymentId}")
-    }
+    require(payment as boolean, label('AccountingUiLabels', 'AccountingPaymentRecordNotFound', parameters))
     String oldStatusId = payment.statusId
     GenericValue statusItem = from('StatusItem').where('statusId', parameters.statusId).cache().queryOne()
-    if (!statusItem) {
-        return error("No status found with status ID ${parameters.statusId}")
-    }
+    require(statusItem as boolean, label('AccountingUiLabels', 'AccountingStatusItemNotFound', parameters))
 
     if (oldStatusId != parameters.statusId) {
         GenericValue statusChange = from('StatusValidChange').where('statusId', oldStatusId, 'statusIdTo', parameters.statusId).cache().queryOne()
-        if (! statusChange) {
-            return error(label('CommonUiLabels', 'CommonErrorNoStatusValidChange'))
-        }
+        require(statusChange as boolean, label('CommonUiLabels', 'CommonErrorNoStatusValidChange'))
 
         // payment method is mandatory when set to sent or received
-        if (['PMNT_RECEIVED', 'PMNT_SENT'].contains(parameters.statusId) && !payment.paymentMethodId) {
-            return failure(label('AccountingUiLabels', 'AccountingMissingPaymentMethod', [statusItem: statusItem]))
-        }
+        require(!['PMNT_RECEIVED', 'PMNT_SENT'].contains(parameters.statusId) || payment.paymentMethodId,
+                label('AccountingUiLabels', 'AccountingMissingPaymentMethod', [statusItem: statusItem]))
 
         // check if the payment fully applied when set to confirmed
-        if (parameters.statusId == 'PMNT_CONFIRMED' &&
-                PaymentWorker.getPaymentNotApplied(payment) != 0) {
-            return failure(label('AccountingUiLabels', 'AccountingPSNotConfirmedNotFullyApplied'))
-        }
+        require(parameters.statusId != 'PMNT_CONFIRMED' ||
+                PaymentWorker.getPaymentNotApplied(payment) == 0, label('AccountingUiLabels', 'AccountingPSNotConfirmedNotFullyApplied'))
     }
 
     // if new status is cancelled delete existing payment applications
@@ -942,7 +916,7 @@ Map createMatchingPaymentApplication() {
             if (invoiceId) {
                 if (from('PaymentApplication')
                         .where(invoiceId: invoiceId)
-                        .queryCount()) {
+                        .queryCount() == 0) {
                     createPaymentApplicationCtx.paymentId = parameters.paymentId
                     createPaymentApplicationCtx.invoiceId = invoiceId
                     createPaymentApplicationCtx.amountApplied = amountApplied
@@ -971,18 +945,14 @@ Map createMatchingPaymentApplication() {
  */
 Map removePaymentApplication() {
     GenericValue paymentApplication = from('PaymentApplication').where(parameters).queryOne()
-    if (!paymentApplication) {
-        return error(label('AccountingUiLabels', 'AccountingPaymentApplicationNotFound', parameters))
-    }
+    require(paymentApplication as boolean, label('AccountingUiLabels', 'AccountingPaymentApplicationNotFound', parameters))
     Map paymentApplicationFields = paymentApplication.getAllFields()
 
     String toMessage = ''
     // check payment
     if (paymentApplication.paymentId) {
         GenericValue payment = from('Payment').where(paymentId: paymentApplication.paymentId).queryOne()
-        if (payment.statusId == 'PMNT_CONFIRMED') {
-            return error(label('AccountingUiLabels', 'AccountingPaymentApplicationCannotRemovedWithConfirmedStatus'))
-        }
+        require(payment.statusId != 'PMNT_CONFIRMED', label('AccountingUiLabels', 'AccountingPaymentApplicationCannotRemovedWithConfirmedStatus'))
     }
 
     // check invoice
@@ -1004,9 +974,8 @@ Map removePaymentApplication() {
     // check toPayment
     if (paymentApplication.toPaymentId) {
         GenericValue toPayment = from('Payment').where(paymentId: paymentApplication.toPaymentId).queryOne()
-        if (toPayment.statusId == 'PMNT_CONFIRMED') {
-            return error(label('AccountingUiLabels', 'AccountingPaymentApplicationCannotRemovedWithConfirmedStatus'))
-        }
+        require(toPayment.statusId != 'PMNT_CONFIRMED',
+                label('AccountingUiLabels', 'AccountingPaymentApplicationCannotRemovedWithConfirmedStatus'))
         toMessage = label('AccountingUiLabels', 'AccountingPaymentApplToPayment', paymentApplicationFields)
     }
 
