@@ -18,6 +18,7 @@
  */
 package org.apache.ofbiz.party.party.test
 
+import org.apache.ofbiz.base.util.UtilProperties
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.service.ServiceUtil
 import org.apache.ofbiz.testtools.JunitJupiterTest
@@ -319,6 +320,24 @@ class PartyMiscTests implements JupiterTestHelper {
         GenericValue partyInvitation = from('PartyInvitation').where('partyInvitationId', partyInvitationId).queryOne()
         assert partyInvitation
         assert partyInvitation.emailAddress == emailAddress
+    }
+
+    // Regression coverage for the update() DSL / ServiceErrorException catch site added in
+    // updatePartyInvitation(): a partyInvitationId with no matching PartyInvitation record must
+    // come back as a service error carrying the original localized PartyInvitationNotValidError
+    // message, not the generic EntityUpdateBuilder message and not a silently-successful result.
+    @Test
+    @Order(16)
+    void testUpdatePartyInvitationNotFound() {
+        String partyInvitationId = testParams.partyInvitationId ?: 'TEST_NONEXISTENT_INVITE'
+        Map serviceCtx = [
+                partyInvitationId: partyInvitationId,
+                userLogin: userLogin
+        ]
+        Map serviceResult = dispatcher.runSync('updatePartyInvitation', serviceCtx)
+        assert ServiceUtil.isError(serviceResult)
+        assert ServiceUtil.getErrorMessage(serviceResult) ==
+                UtilProperties.getMessage('PartyUiLabels', 'PartyInvitationNotValidError', Locale.US)
     }
 
 }

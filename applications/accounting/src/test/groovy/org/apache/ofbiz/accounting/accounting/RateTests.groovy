@@ -23,6 +23,7 @@ import org.apache.ofbiz.testtools.JupiterTestHelper
 import org.apache.ofbiz.service.ServiceUtil
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.base.util.UtilDateTime
+import org.apache.ofbiz.base.util.UtilProperties
 
 import java.sql.Timestamp
 import org.junit.jupiter.api.Order
@@ -223,6 +224,27 @@ class RateTests implements JupiterTestHelper {
                         'emplPositionTypeId', emplPositionTypeId, 'partyId', '_NA_', 'periodTypeId', periodTypeId, 'fromDate', fromDate).queryOne()
         assert rateAmount
         assert rateAmount.thruDate
+    }
+
+    // Regression coverage for the update() DSL / ServiceErrorException catch site added in
+    // expireRateAmount(): a rateTypeId with no matching RateAmount record must come back as a
+    // service error carrying the original localized AccountingDeleteRateAmount message, not the
+    // generic EntityUpdateBuilder message and not a silently-successful result.
+    @Test
+    @Order(10)
+    void testExpireRateAmountNotFound() {
+        Timestamp fromDate = UtilDateTime.toTimestamp('01/01/2099 00:00:00')
+        String rateTypeId = testParams.rateTypeId ?: 'TEST_NONEXISTENT_RATE_TYPE'
+        Map serviceCtx = [
+                rateTypeId: rateTypeId,
+                fromDate: fromDate,
+                userLogin: userLogin
+
+        ]
+        Map serviceResult = dispatcher.runSync('expireRateAmount', serviceCtx)
+        assert ServiceUtil.isError(serviceResult)
+        assert ServiceUtil.getErrorMessage(serviceResult) ==
+                UtilProperties.getMessage('AccountingErrorUiLabels', 'AccountingDeleteRateAmount', Locale.US)
     }
 
 }

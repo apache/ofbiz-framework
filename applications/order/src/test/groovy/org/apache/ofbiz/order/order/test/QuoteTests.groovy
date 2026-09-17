@@ -18,6 +18,7 @@
  */
 package org.apache.ofbiz.order.order.test
 
+import org.apache.ofbiz.base.util.UtilProperties
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.order.shoppingcart.ShoppingCart
 import org.apache.ofbiz.service.ServiceUtil
@@ -548,6 +549,65 @@ class QuoteTests implements JupiterTestHelper {
 
         Map serviceResult = dispatcher.runSync('createQuoteNote', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
+    }
+
+    // Regression coverage for the update() DSL / ServiceErrorException catch site added in
+    // checkUpdateQuoteStatus(): a quoteId with no matching Quote record must come back as a
+    // service error carrying the original localized OrderQuoteDoesNotExists message, not the
+    // generic EntityUpdateBuilder message and not a silently-successful result.
+    @Test
+    @Order(26)
+    void testCheckUpdateQuoteStatusNotFound() {
+        String quoteId = testParams.quoteId ?: 'TEST_NONEXISTENT_QUOTE'
+        Map serviceCtx = [
+                userLogin: userLogin,
+                quoteId: quoteId,
+        ]
+        Map serviceResult = dispatcher.runSync('checkUpdateQuoteStatus', serviceCtx)
+        assert ServiceUtil.isError(serviceResult)
+        assert ServiceUtil.getErrorMessage(serviceResult) ==
+                UtilProperties.getMessage('OrderErrorUiLabels', 'OrderQuoteDoesNotExists', Locale.US)
+    }
+
+    // Regression coverage for the update() DSL / ServiceErrorException catch site added in
+    // updateQuoteItem(): a quoteId/quoteItemSeqId with no matching QuoteItem record must come back
+    // as a service error carrying the original localized OrderQuoteItemDoesNotExists message, not
+    // the generic EntityUpdateBuilder message and not a silently-successful result.
+    @Test
+    @Order(27)
+    void testUpdateQuoteItemNotFound() {
+        String quoteId = testParams.quoteId ?: 'TEST_NONEXISTENT_QUOTE'
+        String quoteItemSeqId = testParams.quoteItemSeqId ?: '00001'
+        Map serviceCtx = [
+                userLogin: userLogin,
+                quoteId: quoteId,
+                quoteItemSeqId: quoteItemSeqId,
+        ]
+        Map serviceResult = dispatcher.runSync('updateQuoteItem', serviceCtx)
+        assert ServiceUtil.isError(serviceResult)
+        assert ServiceUtil.getErrorMessage(serviceResult) ==
+                UtilProperties.getMessage('OrderErrorUiLabels', 'OrderQuoteItemDoesNotExists', Locale.US)
+    }
+
+    // Regression coverage for the update() DSL / ServiceErrorException catch site added in
+    // autoUpdateQuotePrice(): a quoteId/quoteItemSeqId with no matching QuoteItem record must come
+    // back as a service error carrying the original localized OrderQuoteItemDoesNotExists message,
+    // not the generic EntityUpdateBuilder message and not a silently-successful result.
+    @Test
+    @Order(28)
+    void testAutoUpdateQuotePriceNotFound() {
+        String quoteId = testParams.quoteId ?: 'TEST_NONEXISTENT_QUOTE'
+        String quoteItemSeqId = testParams.quoteItemSeqId ?: '00001'
+        Map serviceCtx = [
+                userLogin: userLogin,
+                quoteId: quoteId,
+                quoteItemSeqId: quoteItemSeqId,
+                defaultQuoteUnitPrice: BigDecimal.valueOf(12)
+        ]
+        Map serviceResult = dispatcher.runSync('autoUpdateQuotePrice', serviceCtx)
+        assert ServiceUtil.isError(serviceResult)
+        assert ServiceUtil.getErrorMessage(serviceResult) ==
+                UtilProperties.getMessage('OrderErrorUiLabels', 'OrderQuoteItemDoesNotExists', Locale.US)
     }
 
 }
