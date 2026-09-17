@@ -290,7 +290,7 @@ Map createPaymentContent() {
 Map updatePaymentContent() {
     try {
         update('PaymentContent').where(parameters).set(parameters)
-    } catch (ServiceErrorException ignored) {
+    } catch (ServiceErrorException notFound) {
         return error('Error getting Payment Content')
     }
     Map result = run service: 'updateContent', with: parameters

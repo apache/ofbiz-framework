@@ -69,7 +69,7 @@ Map expireRateAmount() {
     Timestamp previousDay = UtilDateTime.adjustTimestamp(UtilDateTime.nowTimestamp(), 5, -1)
     try {
         update('RateAmount').where(lookupValue).set([thruDate: UtilDateTime.getDayEnd(previousDay)])
-    } catch (ServiceErrorException ignored) {
+    } catch (ServiceErrorException notFound) {
         return error('AccountingErrorUiLabels', 'AccountingDeleteRateAmount')
     }
     return success()
