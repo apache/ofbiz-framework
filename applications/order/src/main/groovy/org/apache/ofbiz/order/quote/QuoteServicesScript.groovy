@@ -81,7 +81,8 @@ Map getNextQuoteId() {
             require(!(quote), 'OrderErrorUiLabels', 'OrderQuoteIdAlreadyExists', [quoteId: quoteId])
             // Check the provided ID
             String errorMessage = UtilValidate.checkValidDatabaseId(quoteId)
-            require(!(errorMessage), label('OrderErrorUiLabels', 'OrderQuoteGetNextIdError') + errorMessage)
+            boolean isQuoteIdValid = !errorMessage
+            require(isQuoteIdValid, label('OrderErrorUiLabels', 'OrderQuoteGetNextIdError') + errorMessage)
         } else {
             quoteId = delegator.getNextSeqId('Quote')
         }
@@ -111,9 +112,9 @@ Map quoteSequenceEnforced() {
  * Create a new Quote.
  */
 Map createQuote() {
-    require(!(parameters.partyId
-            && parameters.partyId != userLogin.partyId
-            && !security.hasEntityPermission('ORDERMGR', '_CREATE', userLogin)),
+    require(!parameters.partyId
+            || parameters.partyId == userLogin.partyId
+            || security.hasEntityPermission('ORDERMGR', '_CREATE', userLogin),
             'OrderErrorUiLabels', 'OrderSecurityErrorToRunCreateQuote')
 
     // Create new entity and create all the fields.
@@ -316,9 +317,9 @@ Map ensureWorkEffortAndCreateQuoteWorkEffort() {
 Map createQuoteItem() {
     GenericValue quote = from('Quote').where(parameters).queryOne()
     require(quote as boolean, 'OrderErrorUiLabels', 'OrderQuoteDoesNotExists')
-    require(!(quote.partyId
-            && quote.partyId != userLogin.partyId
-            && !security.hasEntityPermission('ORDERMGR', '_CREATE', userLogin)),
+    require(!quote.partyId
+            || quote.partyId == userLogin.partyId
+            || security.hasEntityPermission('ORDERMGR', '_CREATE', userLogin),
             'OrderErrorUiLabels', 'OrderSecurityErrorToRunCreateQuoteItem')
     GenericValue quoteItem = delegator.makeValidValue('QuoteItem', parameters)
     if (!quoteItem.quoteItemSeqId) {
@@ -327,7 +328,7 @@ Map createQuoteItem() {
 
     if (!parameters.quoteUnitPrice && parameters.productId) {
         GenericValue product = from('Product').where('productId', parameters.productId).cache().queryOne()
-        require(!(product?.isVirtual == 'Y'), 'OrderErrorUiLabels', 'OrderCannotAddVirtualProductToQuote')
+        require(product?.isVirtual != 'Y', 'OrderErrorUiLabels', 'OrderCannotAddVirtualProductToQuote')
         if (product?.productTypeId?.startsWith('AGGREGATED')
                 && parameters.configId) {
             ProductConfigWrapper configWrapper = ProductConfigWorker.loadProductConfigWrapper(delegator, dispatcher, parameters.configId,
@@ -463,9 +464,9 @@ Map createQuoteFromCart() {
     Map createQuoteInMap = parameters
     createQuoteInMap.partyId = cart.getPartyId()
 
-    require(!(createQuoteInMap.partyId
-            && createQuoteInMap.partyId != userLogin.partyId
-            && !security.hasEntityPermission('ORDERMGR', '_CREATE', userLogin)),
+    require(!createQuoteInMap.partyId
+            || createQuoteInMap.partyId == userLogin.partyId
+            || security.hasEntityPermission('ORDERMGR', '_CREATE', userLogin),
             'OrderErrorUiLabels', 'OrderSecurityErrorToRunCreateQuoteFromCart')
 
     createQuoteInMap.currencyUomId = cart.getCurrency()
@@ -563,7 +564,7 @@ Map createQuoteFromCustRequest() {
             [custRequestId: parameters.custRequestId])
 
     // Error if request type not equals to RF_QUOTE or RF_PUR_QUOTE
-    require(!(custRequest.custRequestTypeId != 'RF_QUOTE' && custRequest.custRequestTypeId != 'RF_PUR_QUOTE'),
+    require(custRequest.custRequestTypeId == 'RF_QUOTE' || custRequest.custRequestTypeId == 'RF_PUR_QUOTE',
             'OrderErrorUiLabels', 'OrderQuoteNotARequest')
 
     Map createQuoteInMap = [

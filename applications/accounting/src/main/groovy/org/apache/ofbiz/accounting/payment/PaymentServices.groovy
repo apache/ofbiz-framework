@@ -144,7 +144,7 @@ Map updatePayment() {
         oldPayment.comments = newPayment.comments
         oldPayment.paymentRefNum = newPayment.paymentRefNum ?: null
         oldPayment.finAccountTransId = newPayment.finAccountTransId ?: null
-        require(!(oldPayment != newPayment), label('AccountingUiLabels', 'AccountingPSUpdateNotAllowedBecauseOfStatus'))
+        require(oldPayment == newPayment, label('AccountingUiLabels', 'AccountingPSUpdateNotAllowedBecauseOfStatus'))
     }
     String statusIdSave = payment.statusId  // do not allow status change here
     payment.setNonPKFields(parameters)
@@ -463,7 +463,7 @@ Map cancelPaymentBatch() {
             .queryList()
 
     if (paymentGroupMemberAndTransList) {
-        require(!(paymentGroupMemberAndTransList[0].finAccountTransStatusId == 'FINACT_TRNS_APPROVED'),
+        require(paymentGroupMemberAndTransList[0].finAccountTransStatusId != 'FINACT_TRNS_APPROVED',
                 label('AccountingErrorUiLabels', 'AccountingTransactionIsAlreadyReconciled'))
 
         for (GenericValue paymentGroupMember : paymentGroupMemberAndTransList) {
@@ -723,7 +723,7 @@ Map createPaymentFromOrder() {
 
 Map createPaymentApplication() {
     // Create a Payment Application
-    require(!(!parameters.invoiceId && !parameters.billingAccountId && !parameters.taxAuthGeoId && !parameters.toPaymentId),
+    require(parameters.invoiceId || parameters.billingAccountId || parameters.taxAuthGeoId || parameters.toPaymentId,
             label('AccountingUiLabels', 'AccountingPaymentApplicationParameterMissing'))
     GenericValue paymentAppl = makeValue('PaymentApplication', parameters)
 
@@ -736,7 +736,7 @@ Map createPaymentApplication() {
         // get the invoice and do some further validation against it
         GenericValue invoice = from('Invoice').where('invoiceId', parameters.invoiceId).queryOne()
         // check the currencies if they are compatible
-        require(!(invoice.currencyUomId != payment.currencyUomId && invoice.currencyUomId != payment.actualCurrencyUomId),
+        require(invoice.currencyUomId == payment.currencyUomId || invoice.currencyUomId == payment.actualCurrencyUomId,
                 label('AccountingUiLabels', 'AccountingCurrenciesOfInvoiceAndPaymentNotCompatible'))
         if (invoice.currencyUomId != payment.currencyUomId && invoice.currencyUomId == payment.actualCurrencyUomId) {
             // if required get the payment amount in foreign currency (local we already have)
@@ -778,22 +778,22 @@ Map createPaymentApplication() {
 
 Map setPaymentStatus() {
     GenericValue payment = from('Payment').where('paymentId', parameters.paymentId).queryOne()
-    require(payment as boolean, "No payment found with ID ${parameters.paymentId}")
+    require(payment as boolean, label('AccountingUiLabels', 'AccountingPaymentRecordNotFound', parameters))
     String oldStatusId = payment.statusId
     GenericValue statusItem = from('StatusItem').where('statusId', parameters.statusId).cache().queryOne()
-    require(statusItem as boolean, "No status found with status ID ${parameters.statusId}")
+    require(statusItem as boolean, label('AccountingUiLabels', 'AccountingStatusItemNotFound', parameters))
 
     if (oldStatusId != parameters.statusId) {
         GenericValue statusChange = from('StatusValidChange').where('statusId', oldStatusId, 'statusIdTo', parameters.statusId).cache().queryOne()
         require(statusChange as boolean, label('CommonUiLabels', 'CommonErrorNoStatusValidChange'))
 
         // payment method is mandatory when set to sent or received
-        require(!(['PMNT_RECEIVED', 'PMNT_SENT'].contains(parameters.statusId) && !payment.paymentMethodId),
+        require(!['PMNT_RECEIVED', 'PMNT_SENT'].contains(parameters.statusId) || payment.paymentMethodId,
                 label('AccountingUiLabels', 'AccountingMissingPaymentMethod', [statusItem: statusItem]))
 
         // check if the payment fully applied when set to confirmed
-        require(!(parameters.statusId == 'PMNT_CONFIRMED' &&
-                PaymentWorker.getPaymentNotApplied(payment) != 0), label('AccountingUiLabels', 'AccountingPSNotConfirmedNotFullyApplied'))
+        require(parameters.statusId != 'PMNT_CONFIRMED' ||
+                PaymentWorker.getPaymentNotApplied(payment) == 0, label('AccountingUiLabels', 'AccountingPSNotConfirmedNotFullyApplied'))
     }
 
     // if new status is cancelled delete existing payment applications
@@ -952,7 +952,7 @@ Map removePaymentApplication() {
     // check payment
     if (paymentApplication.paymentId) {
         GenericValue payment = from('Payment').where(paymentId: paymentApplication.paymentId).queryOne()
-        require(!(payment.statusId == 'PMNT_CONFIRMED'), label('AccountingUiLabels', 'AccountingPaymentApplicationCannotRemovedWithConfirmedStatus'))
+        require(payment.statusId != 'PMNT_CONFIRMED', label('AccountingUiLabels', 'AccountingPaymentApplicationCannotRemovedWithConfirmedStatus'))
     }
 
     // check invoice
@@ -974,7 +974,7 @@ Map removePaymentApplication() {
     // check toPayment
     if (paymentApplication.toPaymentId) {
         GenericValue toPayment = from('Payment').where(paymentId: paymentApplication.toPaymentId).queryOne()
-        require(!(toPayment.statusId == 'PMNT_CONFIRMED'),
+        require(toPayment.statusId != 'PMNT_CONFIRMED',
                 label('AccountingUiLabels', 'AccountingPaymentApplicationCannotRemovedWithConfirmedStatus'))
         toMessage = label('AccountingUiLabels', 'AccountingPaymentApplToPayment', paymentApplicationFields)
     }
