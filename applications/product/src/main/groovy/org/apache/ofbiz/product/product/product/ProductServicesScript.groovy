@@ -42,7 +42,8 @@ Map createProduct() {
     GenericValue newEntity = makeValue('Product', parameters)
     if (newEntity.productId) {
         String errorMessage = UtilValidate.checkValidDatabaseId(newEntity.productId)
-        require(!(errorMessage), errorMessage)
+        boolean isProductIdValid = !errorMessage
+        require(isProductIdValid, errorMessage)
         GenericValue dummyProduct = from('Product').where(parameters).queryOne()
         require(!(dummyProduct), 'CommonErrorUiLabels', 'CommonErrorDuplicateKey')
     } else {

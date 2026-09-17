@@ -56,7 +56,8 @@ Map createProductCategory() {
     if (parameters.productCategoryId) {
         newEntity.productCategoryId = parameters.productCategoryId
         String errorMessage = UtilValidate.checkValidDatabaseId(newEntity.productCategoryId)
-        require(!(errorMessage != null), errorMessage)
+        boolean isCategoryIdValid = errorMessage == null
+        require(isCategoryIdValid, errorMessage)
     } else {
         newEntity.productCategoryId = delegator.getNextSeqId('ProductCategory')
     }

@@ -75,7 +75,8 @@ String hasValidStateProvince(String countryGeoId, String stateProvinceGeoId) {
  */
 Map createPostalAddress() {
     String errorMessage = hasValidStateProvince(parameters.countryGeoId, parameters.stateProvinceGeoId)
-    require(!(errorMessage), 'PartyUiLabels', errorMessage)
+    boolean isStateProvinceValid = !errorMessage
+    require(isStateProvinceValid, 'PartyUiLabels', errorMessage)
     GenericValue newValue = makeValue('PostalAddress', parameters)
     Map createContactMechMap = [contactMechTypeId: 'POSTAL_ADDRESS', contactMechId: parameters.contactMechId]
     Map serviceResult = run service: 'createContactMech', with: createContactMechMap
@@ -91,7 +92,8 @@ Map createPostalAddress() {
  */
 Map updatePostalAddress() {
     String errorMessage = hasValidStateProvince(parameters.countryGeoId, parameters.stateProvinceGeoId)
-    require(!(errorMessage), 'PartyUiLabels', errorMessage)
+    boolean isStateProvinceValid = !errorMessage
+    require(isStateProvinceValid, 'PartyUiLabels', errorMessage)
     GenericValue lookedValue = from('PostalAddress').where('contactMechId', parameters.contactMechId).queryOne()
     require(lookedValue as boolean, 'ServiceErrorUiLabels', 'ServiceValueNotFound')
     GenericValue newValue = (GenericValue) lookedValue.clone()

@@ -198,7 +198,8 @@ Map createWorkEffort() {
     GenericValue workEffort = makeValue('WorkEffort', parameters)
     workEffort.workEffortId = workEffort.workEffortId ?: delegator.getNextSeqId('WorkEffort')
     String errMsg = UtilValidate.checkValidDatabaseId(workEffort.workEffortId)
-    require(!(errMsg), errMsg)
+    boolean isWorkEffortIdValid = !errMsg
+    require(isWorkEffortIdValid, errMsg)
 
     Timestamp now = UtilDateTime.nowTimestamp()
     workEffort.setFields([lastStatusUpdate: now,
@@ -230,7 +231,7 @@ Map updateWorkEffort() {
     if (parameters.currentStatusId && workEffort.currentStatusId &&
             parameters.currentStatusId != workEffort.currentStatusId) {
         Map statusValidChange = [statusId: workEffort.currentStatusId, statusIdTo: parameters.currentStatusId]
-        require(!(from('StatusValidChange').where(statusValidChange).queryCount() == 0),
+        require(from('StatusValidChange').where(statusValidChange).queryCount() > 0,
             label('WorkEffortUiLabels', 'WorkEffortStatusChangeNotValid', statusValidChange))
         run service: 'createWorkEffortStatus', with: [*: parameters,
                                                       statusId: parameters.currentStatusId,
@@ -256,11 +257,11 @@ Map updateWorkEffort() {
  */
 Map deleteWorkEffort() {
     // check permissions before moving on: if update or delete logged in user must be associated OR have corresponding UPDATE or DELETE permissions
-    require(!(from('WorkEffortPartyAssignment')
+    require(from('WorkEffortPartyAssignment')
                     .where(workEffortId: parameters.workEffortId,
                     partyId: userLogin.partyId)
-                    .queryCount() == 0 &&
-                    !security.hasEntityPermission('WORKEFFORTMGR', '_DELETE', userLogin)),
+                    .queryCount() > 0 ||
+                    security.hasEntityPermission('WORKEFFORTMGR', '_DELETE', userLogin),
         label('WorkEffortUiLabels', 'WorkEffortDeletePermissionError'))
 
     GenericValue workEffort = from('WorkEffort').where(parameters).queryOne()
@@ -324,11 +325,11 @@ Map copyWorkEffort() {
  * @return Success response containing the workEffortId, error response otherwise.
  */
 Map duplicateWorkEffort() {
-    require(!((parameters.removeWorkEffortAssocs == 'Y' ||
-            parameters.removeWorkEffortContents == 'Y' ||
-            parameters.removeWorkEffortNotes == 'Y' ||
-            parameters.removeWorkEffortAssignmentRates == 'Y') &&
-            !security.hasEntityPermission('WORKEFFORTMGR', '_DELETE', userLogin)),
+    require((parameters.removeWorkEffortAssocs != 'Y' &&
+            parameters.removeWorkEffortContents != 'Y' &&
+            parameters.removeWorkEffortNotes != 'Y' &&
+            parameters.removeWorkEffortAssignmentRates != 'Y') ||
+            security.hasEntityPermission('WORKEFFORTMGR', '_DELETE', userLogin),
         label('WorkEffortUiLabels', 'WorkEffortDeletePermissionError'))
     String workEffortId = parameters.workEffortId ?: delegator.getNextSeqId('WorkEffort')
     GenericValue oldWorkEffort = from('WorkEffort').where(workEffortId: parameters.oldWorkEffortId).queryOne()
@@ -407,7 +408,7 @@ void duplicateWorkEffortAssoc(String relationEntityName, String oldWorkEffortId,
 Map assocAcceptedCustRequestToWorkEffort() {
     // check status of customer request if valid
     GenericValue custRequet = from('CustRequest').where(parameters).cache().queryOne()
-    require(!(custRequet.statusId != 'CRQ_ACCEPTED'), label('CommonUiLabels', 'CommonErrorStatusNotValid'))
+    require(custRequet.statusId == 'CRQ_ACCEPTED', label('CommonUiLabels', 'CommonErrorStatusNotValid'))
 
     // create customer request / work effort relation
     run service: 'createWorkEffortRequest', with: parameters

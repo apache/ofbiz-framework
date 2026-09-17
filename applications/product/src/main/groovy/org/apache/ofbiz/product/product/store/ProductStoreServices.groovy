@@ -37,8 +37,8 @@ Map createProductStore() {
     Map result = success()
     require(security.hasEntityPermission('CATALOG', '_CREATE', parameters.userLogin) as boolean,
         'ProductUiLabels', 'ProductCatalogCreatePermissionError')
-    require(!(parameters.oneInventoryFacility == 'Y'
-            && !parameters.inventoryFacilityId), 'ProductUiLabels', 'InventoryFacilityIdRequired')
+    require(parameters.oneInventoryFacility != 'Y'
+            || parameters.inventoryFacilityId, 'ProductUiLabels', 'InventoryFacilityIdRequired')
     if (parameters.showPricesWithVatTax == 'Y') {
         require(parameters.vatTaxAuthGeoId as boolean, 'ProductUiLabels', 'ProductVatTaxAuthGeoNotSet')
         require(parameters.vatTaxAuthPartyId as boolean, 'ProductUiLabels', 'ProductVatTaxAuthPartyNotSet')
@@ -67,7 +67,7 @@ Map createProductStore() {
 Map updateProductStore() {
     require(security.hasEntityPermission('CATALOG', '_UPDATE', parameters.userLogin) as boolean,
         'ProductUiLabels', 'ProductCatalogUpdatePermissionError')
-    require(!(parameters.oneInventoryFacility == 'Y' && !parameters.inventoryFacilityId),
+    require(parameters.oneInventoryFacility != 'Y' || parameters.inventoryFacilityId,
         'ProductUiLabels', 'InventoryFacilityIdRequired')
     GenericValue store = from('ProductStore').where(productStoreId: parameters.productStoreId).queryOne()
     String oldFacilityId = store.inventoryFacilityId

@@ -684,7 +684,8 @@ Map createUpdatePerson() {
             'person', parameters, personContext, messages, context.locale)
 
     // Check errors
-    require(!(messages), StringUtil.join(messages, ','))
+    boolean hasNoValidationErrors = !messages
+    require(hasNoValidationErrors, StringUtil.join(messages, ','))
 
     GenericValue party = from('Party')
        .where(partyId: partyId)
@@ -714,7 +715,8 @@ Map quickCreateCustomer() {
             'emailAddress', parameters, emailContext, messages, context.locale)
 
     // Check errors
-    require(!(messages), StringUtil.join(messages, ','))
+    boolean hasNoValidationErrors = !messages
+    require(hasNoValidationErrors, StringUtil.join(messages, ','))
 
     // Create person
     Map serviceResult = run service: 'createPerson', with: personContext

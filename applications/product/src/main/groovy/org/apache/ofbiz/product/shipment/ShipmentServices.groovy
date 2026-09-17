@@ -60,7 +60,8 @@ Map updateShipment() {
         }
     }
     // now finally check for errors
-    require(!(errorList), errorList.toString())
+    boolean hasNoValidationErrors = !errorList
+    require(hasNoValidationErrors, errorList.toString())
     Map serviceResult = run service: 'checkAndUpdateWorkEffort', with: parameters
     require(ServiceUtil.isSuccess(serviceResult) as boolean, serviceResult.errorMessage)
 
@@ -756,15 +757,15 @@ Map quickShipEntireOrder() {
     List shipmentShipGroupFacilityList
     // first get the order header; make sure we have a product store
     GenericValue orderHeader = from('OrderHeader').where(parameters).queryOne()
-    require(!(!orderHeader || !orderHeader.productStoreId),
+    require(orderHeader && orderHeader.productStoreId,
         'ProductUiLabels', 'FacilityShipmentMissingProductStore')
     // get the product store entity
     GenericValue productStore = from('ProductStore').where(productStoreId: orderHeader.productStoreId).queryOne()
     // no reservations; no shipment; cannot use quick ship
-    require(!('Y' != productStore?.reserveInventory), 'ProductUiLabels',
+    require(productStore?.reserveInventory == 'Y', 'ProductUiLabels',
         'FacilityShipmentNotCreatedForNotReserveInventory', [productStore: productStore])
     // can't insert duplicate rows in shipmentPackageContent
-    require(!(productStore.explodeOrderItems == 'Y'), 'ProductUiLabels',
+    require(productStore.explodeOrderItems != 'Y', 'ProductUiLabels',
         'FacilityShipmentNotCreatedForExplodesOrderItems', [productStore: productStore])
     // locate shipping facilities associated with order item rez's
     List orderItemShipGrpInvResFacilityIds = from('OrderItemAndShipGrpInvResAndItem')
@@ -1313,12 +1314,12 @@ Map addOrderShipmentToShipment() {
         // get orderItem
         GenericValue orderItem = from('OrderItem').where(parameters).queryOne()
         // make sure the orderItem is not already present in this shipment
-        require(!(from('OrderShipment')
+        require(from('OrderShipment')
                 .where(orderId: parameters.orderId,
                         orderItemSeqId: parameters.orderItemSeqId,
                         shipGroupSeqId: parameters.shipGroupSeqId,
                         shipmentId: parameters.shipmentId)
-                .queryCount() != 0),
+                .queryCount() == 0,
             "Not adding Order Item to plan for shipment [${parameters.shipmentId}] because" +
                 " the order item is already in the shipment (order [${parameters.orderId}]," +
                 " order item [${parameters.orderItemSeqId}])")
@@ -1329,7 +1330,7 @@ Map addOrderShipmentToShipment() {
         }
         BigDecimal remainingQuantity = serviceResult.remainingQuantity
 
-        require(!(parameters.quantity > remainingQuantity),
+        require(parameters.quantity <= remainingQuantity,
             "Not adding Order Item to plan for shipment [${parameters.shipmentId}] because" +
                     ' the quantity is greater than the remaining quantity' +
                     " (order [${parameters.orderId}], order item [${parameters.orderItemSeqId}])")

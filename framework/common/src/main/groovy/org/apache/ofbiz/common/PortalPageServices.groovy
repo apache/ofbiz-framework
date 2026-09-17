@@ -127,7 +127,7 @@ Map deletePortalPagePortlet() {
  * @return Success response with all attributes
  */
 Map getPortletAttributes() {
-    require(!(!parameters.ownerUserLoginId && !parameters.portalPageId),
+    require(parameters.ownerUserLoginId || parameters.portalPageId,
         'Service getPortletAttributes did not receive either ownerUserLoginId OR portalPageId')
     if (parameters.ownerUserLoginId) {
         GenericValue portalPagePortlet = from('PortalPageAndPortlet')
