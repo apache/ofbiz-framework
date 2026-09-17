@@ -91,11 +91,8 @@ Map updateProductCategory() {
     if (!ServiceUtil.isSuccess(res)) {
         return res
     }
-    GenericValue lookedUpValue = from('ProductCategory').where(parameters).queryOne()
-    if (lookedUpValue) { // fails in framework integration tests only, data is in ecommerce
-        lookedUpValue.setNonPKFields(parameters)
-        lookedUpValue.store()
-    }
+    // fails in framework integration tests only, data is in ecommerce
+    update('ProductCategory').where(parameters).ifExists().set(parameters)
     return success()
 }
 

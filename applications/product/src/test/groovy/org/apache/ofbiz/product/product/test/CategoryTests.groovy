@@ -74,5 +74,39 @@ class CategoryTests implements JupiterTestHelper {
         assert productCategoryMemberList.containsAll(serviceResult.productCategoryMembers)
     }
 
+    @Test
+    @Order(3)
+    void testUpdateProductCategory() {
+        String productCategoryId = testParams.productCategoryId ?: 'TPC'
+        String newDescription = 'Updated Long Test Product Category Description'
+        Map serviceCtx = [
+                productCategoryId: productCategoryId,
+                productCategoryTypeId: 'TEST_CATEGORY',
+                longDescription: newDescription,
+                userLogin: userLogin
+        ]
+        Map serviceResult = dispatcher.runSync('updateProductCategory', serviceCtx)
+        assert ServiceUtil.isSuccess(serviceResult)
+
+        GenericValue productCategory = from('ProductCategory').where('productCategoryId', productCategoryId).queryOne()
+        assert productCategory.longDescription == newDescription
+    }
+
+    @Test
+    @Order(4)
+    void testUpdateProductCategoryNotFoundIsSilentNoOp() {
+        Map serviceCtx = [
+                productCategoryId: 'DoesNotExist12345',
+                productCategoryTypeId: 'TEST_CATEGORY',
+                longDescription: 'should never be applied',
+                userLogin: userLogin
+        ]
+        Map serviceResult = dispatcher.runSync('updateProductCategory', serviceCtx)
+        assert ServiceUtil.isSuccess(serviceResult)
+
+        GenericValue productCategory = from('ProductCategory').where('productCategoryId', 'DoesNotExist12345').queryOne()
+        assert productCategory == null
+    }
+
 }
 
