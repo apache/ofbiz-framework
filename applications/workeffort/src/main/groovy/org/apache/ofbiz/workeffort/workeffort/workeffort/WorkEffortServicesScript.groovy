@@ -257,12 +257,10 @@ Map updateWorkEffort() {
  */
 Map deleteWorkEffort() {
     // check permissions before moving on: if update or delete logged in user must be associated OR have corresponding UPDATE or DELETE permissions
-    require(from('WorkEffortPartyAssignment')
-                    .where(workEffortId: parameters.workEffortId,
-                    partyId: userLogin.partyId)
-                    .queryCount() > 0 ||
-                    security.hasEntityPermission('WORKEFFORTMGR', '_DELETE', userLogin),
-        label('WorkEffortUiLabels', 'WorkEffortDeletePermissionError'))
+    boolean isAssignedToWorkEffort = from('WorkEffortPartyAssignment')
+            .where(workEffortId: parameters.workEffortId, partyId: userLogin.partyId)
+            .queryCount() > 0
+    requireWorkEffortDeletePermission(isAssignedToWorkEffort)
 
     GenericValue workEffort = from('WorkEffort').where(parameters).queryOne()
 
@@ -325,12 +323,11 @@ Map copyWorkEffort() {
  * @return Success response containing the workEffortId, error response otherwise.
  */
 Map duplicateWorkEffort() {
-    require((parameters.removeWorkEffortAssocs != 'Y' &&
-            parameters.removeWorkEffortContents != 'Y' &&
-            parameters.removeWorkEffortNotes != 'Y' &&
-            parameters.removeWorkEffortAssignmentRates != 'Y') ||
-            security.hasEntityPermission('WORKEFFORTMGR', '_DELETE', userLogin),
-        label('WorkEffortUiLabels', 'WorkEffortDeletePermissionError'))
+    boolean removesWorkEffortData = parameters.removeWorkEffortAssocs == 'Y' ||
+            parameters.removeWorkEffortContents == 'Y' ||
+            parameters.removeWorkEffortNotes == 'Y' ||
+            parameters.removeWorkEffortAssignmentRates == 'Y'
+    requireWorkEffortDeletePermission(!removesWorkEffortData)
     String workEffortId = parameters.workEffortId ?: delegator.getNextSeqId('WorkEffort')
     GenericValue oldWorkEffort = from('WorkEffort').where(workEffortId: parameters.oldWorkEffortId).queryOne()
     GenericValue duplicateWorkEffort = oldWorkEffort.clone()
@@ -547,4 +544,9 @@ Map updateWorkEffortContactMech() {
         workEffortContactMech.store()
     }
     return success([contactMechId: newContactMechId, oldContactMechId: workEffortContactMech.contactMechId])
+}
+
+private void requireWorkEffortDeletePermission(boolean permissionBypassed) {
+    require(permissionBypassed || security.hasEntityPermission('WORKEFFORTMGR', '_DELETE', userLogin),
+        label('WorkEffortUiLabels', 'WorkEffortDeletePermissionError'))
 }
