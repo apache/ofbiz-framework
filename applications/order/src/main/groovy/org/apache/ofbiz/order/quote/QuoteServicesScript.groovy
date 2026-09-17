@@ -30,6 +30,7 @@ import org.apache.ofbiz.product.config.ProductConfigWorker
 import org.apache.ofbiz.product.config.ProductConfigWrapper
 import org.apache.ofbiz.service.ExecutionServiceException
 import org.apache.ofbiz.service.ModelService
+import org.apache.ofbiz.service.ServiceErrorException
 import org.apache.ofbiz.service.ServiceUtil
 
 /**
@@ -38,10 +39,11 @@ import org.apache.ofbiz.service.ServiceUtil
 Map checkUpdateQuoteStatus() {
     require(security.hasEntityPermission('ORDERMGR', '_UPDATE', userLogin) as boolean,
             'OrderErrorUiLabels', 'OrderSecurityErrorToRunCheckUpdateQuoteStatus')
-    GenericValue quote = from('Quote').where(parameters).queryOne()
-    require(quote as boolean, 'OrderErrorUiLabels', 'OrderQuoteDoesNotExists')
-    quote.statusId = 'QUO_ORDERED'
-    quote.store()
+    try {
+        update('Quote').where(parameters).set([statusId: 'QUO_ORDERED'])
+    } catch (ServiceErrorException e) {
+        fail('OrderErrorUiLabels', 'OrderQuoteDoesNotExists')
+    }
     return success()
 }
 
@@ -355,10 +357,11 @@ Map updateQuoteItem() {
             'OrderErrorUiLabels', 'OrderSecurityErrorToRunUpdateQuoteItem')
 
     Map pksQuoteItem = [quoteId: parameters.quoteId, quoteItemSeqId: parameters.quoteItemSeqId]
-    GenericValue quoteItem = from('QuoteItem').where(pksQuoteItem).queryOne()
-    require(quoteItem as boolean, 'OrderErrorUiLabels', 'OrderQuoteItemDoesNotExists')
-    quoteItem.setNonPKFields(parameters)
-    quoteItem.store()
+    try {
+        update('QuoteItem').where(pksQuoteItem).set(parameters)
+    } catch (ServiceErrorException e) {
+        fail('OrderErrorUiLabels', 'OrderQuoteItemDoesNotExists')
+    }
     return success()
 }
 
@@ -541,14 +544,17 @@ Map createQuoteFromShoppingList() {
 Map autoUpdateQuotePrice() {
     require(security.hasEntityPermission('ORDERMGR', '_UPDATE', userLogin) as boolean,
             'OrderErrorUiLabels', 'OrderSecurityErrorToRunAutoUpdateQuotePrice')
-    GenericValue quoteItem = from('QuoteItem').where(parameters).queryOne()
-    require(quoteItem as boolean, 'OrderErrorUiLabels', 'OrderQuoteItemDoesNotExists')
+    Map fieldsToSet = [:]
     if (parameters.manualQuoteUnitPrice) {
-        quoteItem.quoteUnitPrice = parameters.manualQuoteUnitPrice
+        fieldsToSet.quoteUnitPrice = parameters.manualQuoteUnitPrice
     } else if (parameters.defaultQuoteUnitPrice) {
-        quoteItem.quoteUnitPrice = parameters.defaultQuoteUnitPrice
+        fieldsToSet.quoteUnitPrice = parameters.defaultQuoteUnitPrice
     }
-    quoteItem.store()
+    try {
+        update('QuoteItem').where(parameters).set(fieldsToSet)
+    } catch (ServiceErrorException e) {
+        fail('OrderErrorUiLabels', 'OrderQuoteItemDoesNotExists')
+    }
     return success()
 }
 
