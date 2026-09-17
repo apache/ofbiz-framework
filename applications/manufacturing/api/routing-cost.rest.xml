@@ -19,11 +19,11 @@ under the License.
 -->
 
 <api name="Manufacturing Routing and Cost API"
-        path="routing-cost"
+        apiGroupPath="api"
         displayName="Routing and Cost Management"
         description="REST API for manufacturing routings, operations, products, and operation setup data"
         publish="true">
-    <resource name="RoutingCost" path="" auth="true" publish="true">
+    <resource name="RoutingCost" path="routing-cost" auth="true" publish="true">
         <operation verb="get" produces="application/json" auth="true"
                 description="Find product routing templates">
             <service name="findProductRoutings"/>

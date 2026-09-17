@@ -48,6 +48,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.ws.rs.HeaderParam;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.HttpHeaders;
@@ -96,7 +97,7 @@ public class AuthenticationResource {
      */
     @POST
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/token")
+    @Path("/{apiGroupPath}/token")
     @AuthToken
     @Operation(security = @SecurityRequirement(name = "basicAuth"), operationId = "getAuthToken",
             description = "Generates JWT token for subsequent API calls.",
@@ -113,9 +114,15 @@ public class AuthenticationResource {
                     @ApiResponse(responseCode = "403", description = "Forbidden.",
                             content = @Content(mediaType = "application/json",
                             examples = @ExampleObject(value = "{ \"statusCode\" : 403, \"statusDescription\" : \"Forbidden\", "
-                            + "\"errorMessage\" : \"Access Denied: User not found.\" }")))
+                            + "\"errorMessage\" : \"Access Denied: The specified user has no base permission to use api: [api]\" }")))
             })
-    public Response getAuthToken(@Parameter(in = ParameterIn.HEADER, name = "Authorization",
+    public Response getAuthToken(
+            @Parameter(in = ParameterIn.PATH, name = "apiGroupPath",
+            description = "The common path parameter identifying this API group."
+                    + "The token issued will be valid exclusively for APIs belonging to this group",
+            example = "api")
+            @PathParam("apiGroupPath") String apiGroupPath,
+            @Parameter(in = ParameterIn.HEADER, name = "Authorization",
             description = "Authorization header using Basic Authentication", example = HttpHeaders.AUTHORIZATION + ": Basic YWRtaW46b2ZiaXo=")
             @HeaderParam(HttpHeaders.AUTHORIZATION) String creds) {
         Delegator delegator = (Delegator) servletContext.getAttribute("delegator");
@@ -123,9 +130,10 @@ public class AuthenticationResource {
         httpRequest.setAttribute("dispatcher", servletContext.getAttribute("dispatcher"));
         GenericValue userLogin = (GenericValue) httpRequest.getAttribute("userLogin");
         //TODO : Move this into an OFBiz service. All such implementations should be inside an OFBiz service.
-        String jwtToken = JWTManager.createJwt(delegator,
-                UtilMisc.toMap("userLoginId", userLogin.getString("userLoginId")));
-        String refreshToken = JWTManager.createRefreshToken(delegator, userLogin.getString("userLoginId"));
+        Map<String, String> claims = UtilMisc.toMap("userLoginId", userLogin.getString("userLoginId"),
+                "apiGroupPath", apiGroupPath);
+        String jwtToken = JWTManager.createJwt(delegator, claims);
+        String refreshToken = JWTManager.createRefreshToken(delegator, claims);
 
         Map<String, Object> tokenPayload = UtilMisc.toMap("access_token", jwtToken, "refresh_token", refreshToken,
                 "expires_in", EntityUtilProperties.getPropertyValue("security", "security.jwt.token.expireTime", "1800", delegator),
@@ -146,7 +154,8 @@ public class AuthenticationResource {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/refresh-token")
-    @Operation(description = "Generates a new access token using a refresh token.")
+    @Operation(description = "Generates a new access token using a refresh token. The token issued will be"
+            + " valid exclusivly for the same apiGroup as the provided token")
     public Response refreshToken(@HeaderParam("Refresh-Token") String refreshToken) {
 
         Delegator delegator = (Delegator) servletContext.getAttribute("delegator");
@@ -159,6 +168,10 @@ public class AuthenticationResource {
                     "Unauthorized: " + claims.get(ModelService.ERROR_MESSAGE));
         }
 
+        if (!claims.containsKey("apiGroupPath")) {
+            return RestApiUtil.error(Response.Status.UNAUTHORIZED.getStatusCode(), Response.Status.UNAUTHORIZED.getReasonPhrase(),
+                    "Unauthorized: RefreshToken does not specify api");
+        }
         String userLoginId = (String) claims.get("userLoginId");
         GenericValue userLogin = getActiveUserLogin(delegator, userLoginId);
         if (userLogin == null) {
@@ -166,8 +179,10 @@ public class AuthenticationResource {
                     "Unauthorized: Invalid refresh token.");
         }
 
-        String newAccessToken = JWTManager.createJwt(delegator, UtilMisc.toMap("userLoginId", userLoginId));
-        String newRefreshToken = JWTManager.createRefreshToken(delegator, userLoginId);
+        Map<String, String> newClaims = UtilMisc.toMap("userLoginId", userLoginId,
+                "apiGroupPath", claims.get("apiGroupPath"));
+        String newAccessToken = JWTManager.createJwt(delegator, newClaims);
+        String newRefreshToken = JWTManager.createRefreshToken(delegator, newClaims);
 
         Map<String, Object> tokenPayload = UtilMisc.toMap("access_token", newAccessToken, "refresh_token", newRefreshToken, "expires_in",
                 EntityUtilProperties.getPropertyValue("security", "security.jwt.token.expireTime", "1800", delegator), "token_type", "Bearer");

@@ -28,11 +28,6 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
-import jakarta.servlet.ServletContext;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.ws.rs.core.HttpHeaders;
-
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilDateTime;
@@ -62,6 +57,11 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
+
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.ws.rs.core.HttpHeaders;
 
 
 /**
@@ -482,10 +482,11 @@ public class JWTManager {
         return result;
     }
 
-    public static String createRefreshToken(Delegator delegator, String userLoginId) {
+    public static String createRefreshToken(Delegator delegator, Map<String, String> claims) {
         int refreshTokenExpireTime = Integer.parseInt(EntityUtilProperties.getPropertyValue("security",
                 "security.jwt.refresh.token.expireTime", "86400", delegator));
-        return createJwt(delegator, UtilMisc.toMap("userLoginId", userLoginId, "type", "refresh"), refreshTokenExpireTime);
+        claims.put("type", "refresh");
+        return createJwt(delegator, claims, refreshTokenExpireTime);
     }
 
     public static Map<String, Object> validateRefreshToken(Delegator delegator, String refreshToken) {
