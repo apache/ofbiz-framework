@@ -213,9 +213,9 @@ Map calculateShoppingListDeepTotalPrice() {
  * Checks security on a ShoppingList
  */
 Map checkShoppingListSecurity() {
-    require(!(userLogin && (userLogin.userLoginId != 'anonymous') &&
-            parameters.partyId && (userLogin.partyId != parameters.partyId)
-            && !security.hasEntityPermission('PARTYMGR', "_${parameters.permissionAction}", parameters.userLogin)),
+    require(!userLogin || (userLogin.userLoginId == 'anonymous') ||
+            !parameters.partyId || (userLogin.partyId == parameters.partyId)
+            || security.hasEntityPermission('PARTYMGR', "_${parameters.permissionAction}", parameters.userLogin),
             'OrderErrorUiLabels', 'OrderSecurityErrorToRunForAnotherParty')
 
     Map result = success()
@@ -228,8 +228,8 @@ Map checkShoppingListSecurity() {
  */
 Map checkShoppingListItemSecurity() {
     GenericValue shoppingList = from('ShoppingList').where(parameters).queryOne()
-    require(!(shoppingList?.partyId && userLogin.partyId != shoppingList.partyId &&
-            !security.hasEntityPermission('PARTYMGR', "_${parameters.permissionAction}", parameters.userLogin)),
+    require(!shoppingList?.partyId || userLogin.partyId == shoppingList.partyId ||
+            security.hasEntityPermission('PARTYMGR', "_${parameters.permissionAction}", parameters.userLogin),
             'OrderErrorUiLabels',
             'OrderSecurityErrorToRunForAnotherParty',
             [parentMethodName: parameters.parentMethodName,

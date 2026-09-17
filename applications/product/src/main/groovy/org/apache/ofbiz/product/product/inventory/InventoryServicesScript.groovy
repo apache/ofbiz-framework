@@ -152,12 +152,12 @@ Map createInventoryItem() {
 
     // if inventoryItem's unitCost is still empty, or negative return an error message
     // TODO/WARNING: getProductCost returns 0 even if no std costs are found
-    require(!(!inventoryItem.unitCost && inventoryItem.unitCost != (BigDecimal) 0),
+    require(inventoryItem.unitCost || inventoryItem.unitCost == (BigDecimal) 0,
         label('ProductUiLabels', 'FacilityInventoryItemsMissingUnitCost'))
 
     // if you don't want inventory item with unitCost = 0, change the operator
     // attribute from "less" to "less-equals".
-    require(!(inventoryItem.unitCost < (BigDecimal) 0), label('ProductUiLabels', 'FacilityInventoryItemsNegativeUnitCost'))
+    require(inventoryItem.unitCost >= (BigDecimal) 0, label('ProductUiLabels', 'FacilityInventoryItemsNegativeUnitCost'))
 
     inventoryItem.inventoryItemId = delegator.getNextSeqId('InventoryItem')
     inventoryItem.create()

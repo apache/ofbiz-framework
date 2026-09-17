@@ -13838,6 +13838,9 @@
         <value xml:lang="zh">财务状态</value>
         <value xml:lang="zh-TW">財務狀態</value>
     </property>
+    <property key="AccountingStatusItemNotFound">
+        <value xml:lang="en">Status [${statusId}] not found</value>
+    </property>
     <property key="AccountingSubsidiaryLedger">
         <value xml:lang="ar">دفتر الشركة التابعة</value>
         <value xml:lang="de">Nebenbuch</value>

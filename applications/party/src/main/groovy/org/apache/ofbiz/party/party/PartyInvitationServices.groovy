@@ -20,6 +20,7 @@ package org.apache.ofbiz.party.party
 
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.entity.GenericValue
+import org.apache.ofbiz.service.ServiceErrorException
 
 // Party Invitation Services
 Map createPartyInvitation() {
@@ -36,15 +37,15 @@ Map createPartyInvitation() {
 }
 
 Map updatePartyInvitation() {
-    GenericValue lookedUpValue = from('PartyInvitation').where(parameters).queryOne()
-    if (!lookedUpValue) {
+    Map fieldsToSet = new HashMap(parameters)
+    if (! parameters.toName && parameters.partyId) {
+        fieldsToSet.toName = PartyHelper.getPartyName(delegator, parameters.partyId, false)
+    }
+    try {
+        update('PartyInvitation').where(parameters).set(fieldsToSet)
+    } catch (ServiceErrorException e) {
         return error('PartyUiLabels', 'PartyInvitationNotValidError')
     }
-    if (! parameters.toName && parameters.partyId) {
-        parameters.toName = PartyHelper.getPartyName(delegator, parameters.partyId, false)
-    }
-    lookedUpValue.setNonPKFields(parameters)
-    lookedUpValue.store()
     return success()
 }
 

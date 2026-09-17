@@ -22,6 +22,7 @@ import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.base.util.UtilProperties
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.util.EntityUtil
+import org.apache.ofbiz.service.ServiceErrorException
 import org.apache.ofbiz.service.ServiceUtil
 
 import java.sql.Timestamp
@@ -62,15 +63,13 @@ Map updateRateAmount() {
  * Service to expire a rate amount value
  */
 Map expireRateAmount() {
-    GenericValue lookedUpValue = delegator.makeValidValue('RateAmount', parameters)
-    lookedUpValue.rateCurrencyUomId = lookedUpValue.rateCurrencyUomId ?: UtilProperties.getPropertyValue('general.properties',
+    GenericValue lookupValue = delegator.makeValidValue('RateAmount', parameters)
+    lookupValue.rateCurrencyUomId = lookupValue.rateCurrencyUomId ?: UtilProperties.getPropertyValue('general.properties',
             'currency.uom.id.default')
-    lookedUpValue = from('RateAmount').where(lookedUpValue).queryOne()
-    if (lookedUpValue) {
-        Timestamp previousDay = UtilDateTime.adjustTimestamp(UtilDateTime.nowTimestamp(), 5, -1)
-        lookedUpValue.thruDate = UtilDateTime.getDayEnd(previousDay)
-        lookedUpValue.store()
-    } else {
+    Timestamp previousDay = UtilDateTime.adjustTimestamp(UtilDateTime.nowTimestamp(), 5, -1)
+    try {
+        update('RateAmount').where(lookupValue).set([thruDate: UtilDateTime.getDayEnd(previousDay)])
+    } catch (ServiceErrorException e) {
         return error('AccountingErrorUiLabels', 'AccountingDeleteRateAmount')
     }
     return success()

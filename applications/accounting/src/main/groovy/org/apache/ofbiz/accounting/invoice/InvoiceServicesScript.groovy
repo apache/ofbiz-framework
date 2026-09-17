@@ -70,7 +70,8 @@ Map getNextInvoiceId() {
         if (invoiceIdTemp) {
             //check the provided ID
             String errorMsg = UtilValidate.checkValidDatabaseId(invoiceIdTemp)
-            require(!(errorMsg != null), "In getNextInvoiceId ${errorMsg}")
+            boolean isInvoiceIdValid = errorMsg == null
+            require(isInvoiceIdValid, "In getNextInvoiceId ${errorMsg}")
         } else {
             invoiceIdTemp = delegator.getNextSeqId('Invoice', 1)
         }
@@ -169,7 +170,7 @@ Map getInvoice() {
 Map updateInvoice() {
     GenericValue invoice = from('Invoice').where(parameters).queryOne()
     require(invoice as boolean, label('AccountingUiLabels', 'AccountingInvoiceNotFound', parameters))
-    require(!(invoice.statusId != 'INVOICE_IN_PROCESS'),
+    require(invoice.statusId == 'INVOICE_IN_PROCESS',
             label('AccountingUiLabels', 'AccountingInvoiceUpdateOnlyWithInProcessStatus', [statusId: invoice.statusId]))
 
     // only save if something has changed, do not update status here
@@ -240,14 +241,14 @@ Map setInvoiceStatus() {
         return success(returnResult)
     }
 
-    require(!(from('StatusValidChange')
+    require(from('StatusValidChange')
             .where(statusId: oldStatusId, statusIdTo: parameters.statusId)
-            .queryCount() == 0), label('AccountingUiLabels', 'AccountingPSInvalidStatusChange'))
+            .queryCount() > 0, label('AccountingUiLabels', 'AccountingPSInvalidStatusChange'))
 
     // if new status is paid check if the complete invoice is applied
     if (parameters.statusId == 'INVOICE_PAID') {
         BigDecimal notApplied = InvoiceWorker.getInvoiceNotApplied(invoice)
-        require(!(notApplied != 0), label('AccountingUiLabels', 'AccountingInvoiceCannotChangeStatusToPaid'))
+        require(notApplied == 0, label('AccountingUiLabels', 'AccountingInvoiceCannotChangeStatusToPaid'))
         // if it's OK to mark invoice paid, use parameters for paidDate
         invoice.paidDate = parameters.paidDate ?: UtilDateTime.nowTimestamp()
     }
@@ -362,7 +363,7 @@ Map createInvoiceItem() {
         }
     }
     // accept 0
-    require(!(invoiceItem.amount == null), label('AccountingUiLabels', 'AccountingInvoiceAmountIsMandatory'))
+    require(invoiceItem.amount != null, label('AccountingUiLabels', 'AccountingInvoiceAmountIsMandatory'))
     invoiceItem.create()
     return success([invoiceId: invoiceItem.invoiceId,
                     invoiceItemSeqId: invoiceItem.invoiceItemSeqId])
@@ -385,7 +386,7 @@ Map updateInvoiceItem() {
         Map serviceResult = run service: 'calculateProductPrice', with: [product: product]
         invoiceItem.amount = serviceResult.price
     }
-    require(!(invoiceItem.amount == null), label('AccountingUiLabels', 'AccountingInvoiceAmountIsMandatory'))
+    require(invoiceItem.amount != null, label('AccountingUiLabels', 'AccountingInvoiceAmountIsMandatory'))
     if (lookedInvoiceItem != invoiceItem) {
         invoiceItem.store()
     }

@@ -41,7 +41,8 @@ Map createUpdateCustomerAndShippingAddress() {
     SimpleMapProcessor.runSimpleMapProcessor('component://party/minilang/contact/PartyContactMechMapProcs.xml',
             'emailAddress', parameters, emailAddressCtx, messages, context.locale)
     // Check errors
-    require(!(messages), StringUtil.join(messages, ','))
+    boolean hasNoValidationErrors = !messages
+    require(hasNoValidationErrors, StringUtil.join(messages, ','))
 
     ShoppingCart shoppingCart = parameters.shoppingCart
     String partyId = parameters.partyId
@@ -117,7 +118,8 @@ Map createUpdateBillingAddressAndPaymentMethod() {
     SimpleMapProcessor.runSimpleMapProcessor('component://order/minilang/customer/CheckoutMapProcs.xml',
             'billToPhone', parameters, billToPhoneContext, messages, context.locale)
     // Check Errors
-    require(!(messages), StringUtil.join(messages, ','))
+    boolean hasNoValidationErrors = !messages
+    require(hasNoValidationErrors, StringUtil.join(messages, ','))
 
     ShoppingCart shoppingCart = parameters.shoppingCart
     GenericValue userLogin = shoppingCart.getUserLogin()

@@ -31,7 +31,8 @@ Map createPartyTaxAuthInfo() {
     GenericValue taxAuthority = from('TaxAuthority').where(parameters).queryOne()
     require(taxAuthority as boolean, label('PartyUiLabels', 'PartyTaxAuthPartyAndGeoNotAvailable'))
     String errorMesg = validatePartyTaxIdInline()
-    require(!(errorMesg), errorMesg)
+    boolean isTaxIdValid = !errorMesg
+    require(isTaxIdValid, errorMesg)
     GenericValue partyAuthInfo = makeValue('PartyTaxAuthInfo', parameters)
     partyAuthInfo.fromDate = partyAuthInfo.fromDate ?: UtilDateTime.nowTimestamp()
     partyAuthInfo.create()
@@ -43,7 +44,8 @@ Map createPartyTaxAuthInfo() {
  */
 Map updatePartyTaxAuthInfo() {
     String errorMesg = validatePartyTaxIdInline()
-    require(!(errorMesg), errorMesg)
+    boolean isTaxIdValid = !errorMesg
+    require(isTaxIdValid, errorMesg)
     GenericValue partyAuthInfo = from('PartyTaxAuthInfo').where(parameters).queryOne()
     require(partyAuthInfo as boolean, 'PartyTaxAuthInfo not found for the given parameters')
     partyAuthInfo.setNonPKFields(parameters, false)

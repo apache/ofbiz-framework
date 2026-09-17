@@ -74,8 +74,8 @@ Map receiveInventoryProduct () {
 
     // Return an error if both quantityAccepted and quantityRejected are zero or less than zero
     BigDecimal quantityRejected = parameters.quantityRejected ?: BigDecimal.ZERO
-    require(!((quantityRejected == BigDecimal.ZERO && parameters.quantityAccepted == BigDecimal.ZERO)
-        || (quantityRejected  < BigDecimal.ZERO || parameters.quantityAccepted < BigDecimal.ZERO)),
+    require((quantityRejected != BigDecimal.ZERO || parameters.quantityAccepted != BigDecimal.ZERO)
+        && (quantityRejected >= BigDecimal.ZERO && parameters.quantityAccepted >= BigDecimal.ZERO),
         'ProductUiLabels', 'ProductNoItemsToAcceptOrReject')
 
     Map result = success()
