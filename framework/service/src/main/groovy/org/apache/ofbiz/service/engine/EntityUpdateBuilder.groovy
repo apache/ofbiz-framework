@@ -30,12 +30,20 @@ import org.apache.ofbiz.service.ServiceErrorException
  * merges the given fields into it, stores it and returns the updated {@link GenericValue}.
  * Throws {@link ServiceErrorException} if no record matches {@code where()}, so a missing record
  * fails fast instead of silently no-op'ing.
+ *
+ * {@code .ifExists()} suppresses that throw, returning {@code null} instead, for sites that
+ * intentionally no-op on a missing record. {@code .first()} uses {@code queryFirst()} instead of
+ * {@code queryOne()}, for sites where more than one record can legitimately match. {@code
+ * set(fields, false)} mirrors {@link GenericValue#setNonPKFields(Map, boolean)}'s two-arg form,
+ * preserving existing field values instead of nulling them for empty-string input fields.
  */
 class EntityUpdateBuilder {
 
     private final Delegator delegator
     private final String entityName
     private Map<String, Object> whereFields
+    private boolean ifExists = false
+    private boolean first = false
 
     EntityUpdateBuilder(Delegator delegator, String entityName) {
         this.delegator = delegator
@@ -47,16 +55,42 @@ class EntityUpdateBuilder {
         return this
     }
 
-    GenericValue set(Map<String, Object> fields) throws ServiceErrorException {
-        GenericValue existing = EntityQuery.use(delegator).from(entityName).where(whereFields).queryOne()
+    /**
+     * On no match, {@link #set(Map, boolean)} returns {@code null} instead of throwing
+     * {@link ServiceErrorException} -- mirrors {@code queryOne()}'s own null-on-no-match
+     * convention. For sites that intentionally no-op when the record doesn't exist.
+     */
+    @SuppressWarnings('ConfusingMethodName')
+    EntityUpdateBuilder ifExists() {
+        this.ifExists = true
+        return this
+    }
+
+    /**
+     * Uses {@code queryFirst()} instead of {@code queryOne()} for the internal lookup -- for sites
+     * where more than one record can legitimately match {@code where()}.
+     */
+    @SuppressWarnings('ConfusingMethodName')
+    EntityUpdateBuilder first() {
+        this.first = true
+        return this
+    }
+
+    GenericValue set(Map<String, Object> fields, boolean setIfEmpty = true) throws ServiceErrorException {
+        GenericValue existing = first
+            ? EntityQuery.use(delegator).from(entityName).where(whereFields).queryFirst()
+            : EntityQuery.use(delegator).from(entityName).where(whereFields).queryOne()
         if (existing == null) {
+            if (ifExists) {
+                return null
+            }
             throw new ServiceErrorException("No ${entityName} found matching ${whereFields}" as String)
         }
         // Like setNonPKFields(), not a raw Map.putAll(): walks the entity's own non-PK fields and pulls
         // matching values out of the given map, silently ignoring anything else (e.g. userLogin, locale,
         // timeZone commonly present in a raw service parameters map). This is what makes it safe to call
         // as update(entity).where(cond).set(parameters) -- the primary use case this builder exists for.
-        existing.setNonPKFields(fields)
+        existing.setNonPKFields(fields, setIfEmpty)
         existing.store()
         return existing
     }
