@@ -92,11 +92,8 @@ Map updateContent(String param, String typeId) {
             .queryList()
         if (productCategoryContents) {
             Map productCategoryContent = EntityUtil.getFirst(productCategoryContents)
-            Map electronicText = from('ElectronicText').where('dataResourceId', productCategoryContent.dataResourceId).queryOne()
-            if (electronicText) {
-                electronicText.textData = parameters."${param}"
-                electronicText.store()
-            }
+            update('ElectronicText').where([dataResourceId: productCategoryContent.dataResourceId])
+                    .ifExists().set([textData: parameters."${param}"])
         } else {
             Map createTextContentMap = [
                 productCategoryId: parameters.productCategoryId,

@@ -108,5 +108,27 @@ class CategoryTests implements JupiterTestHelper {
         assert productCategory == null
     }
 
+    @Test
+    @Order(5)
+    void testUpdateContentSEOForCategoryUpdatesExistingTitle() {
+        String productCategoryId = testParams.productCategoryId ?: 'TPCP'
+
+        Map firstCallCtx = [productCategoryId: productCategoryId, title: 'First SEO Title', userLogin: userLogin]
+        Map firstCallResult = dispatcher.runSync('updateContentSEOForCategory', firstCallCtx)
+        assert ServiceUtil.isSuccess(firstCallResult)
+
+        Map secondCallCtx = [productCategoryId: productCategoryId, title: 'Second SEO Title', userLogin: userLogin]
+        Map secondCallResult = dispatcher.runSync('updateContentSEOForCategory', secondCallCtx)
+        assert ServiceUtil.isSuccess(secondCallResult)
+
+        GenericValue productCategoryContent = from('ProductCategoryContentAndInfo')
+                .where('productCategoryId', productCategoryId, 'prodCatContentTypeId', 'PAGE_TITLE')
+                .queryFirst()
+        GenericValue electronicText = from('ElectronicText')
+                .where('dataResourceId', productCategoryContent.dataResourceId)
+                .queryOne()
+        assert electronicText.textData == 'Second SEO Title'
+    }
+
 }
 
