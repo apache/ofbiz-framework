@@ -22,21 +22,27 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.lang.reflect.Method;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 class OFBizApiConfigTest {
 
+    private static OFBizApiConfig ofbizApiConfig;
+
+    @BeforeAll
+    public static void initOFBizApiConfig() {
+        ofbizApiConfig = new OFBizApiConfig();
+    }
+
     @Test
     void testBuildCleanPathRemovesDuplicateSlashes() throws Exception {
-        OFBizApiConfig config = new OFBizApiConfig();
-
         Method method = OFBizApiConfig.class.getDeclaredMethod(
                 "buildCleanPath",
                 String[].class);
         method.setAccessible(true);
 
         String path = (String) method.invoke(
-                config,
+                ofbizApiConfig,
                 (Object) new String[] {
                         "/party/",
                         "/customers/",
@@ -48,15 +54,13 @@ class OFBizApiConfigTest {
 
     @Test
     void testBuildCleanPathIgnoresNullParts() throws Exception {
-        OFBizApiConfig config = new OFBizApiConfig();
-
         Method method = OFBizApiConfig.class.getDeclaredMethod(
                 "buildCleanPath",
                 String[].class);
         method.setAccessible(true);
 
         String path = (String) method.invoke(
-                config,
+                ofbizApiConfig,
                 (Object) new String[] {
                         null,
                         "",
@@ -69,15 +73,13 @@ class OFBizApiConfigTest {
 
     @Test
     void testBuildCleanPathReturnsEmptyStringWhenNoValidParts() throws Exception {
-        OFBizApiConfig config = new OFBizApiConfig();
-
         Method method = OFBizApiConfig.class.getDeclaredMethod(
                 "buildCleanPath",
                 String[].class);
         method.setAccessible(true);
 
         String path = (String) method.invoke(
-                config,
+                ofbizApiConfig,
                 (Object) new String[] {
                         "",
                         null,
@@ -89,15 +91,13 @@ class OFBizApiConfigTest {
 
     @Test
     void testBuildCleanPathWithSinglePart() throws Exception {
-        OFBizApiConfig config = new OFBizApiConfig();
-
         Method method = OFBizApiConfig.class.getDeclaredMethod(
                 "buildCleanPath",
                 String[].class);
         method.setAccessible(true);
 
         String path = (String) method.invoke(
-                config,
+                ofbizApiConfig,
                 (Object) new String[] {
                         "/services/"
                 });

@@ -18,9 +18,11 @@
  *******************************************************************************/
 package org.apache.ofbiz.ws.rs.resources;
 
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.ws.rs.openapi.OFBizOpenApiReader;
@@ -52,7 +54,7 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.UriInfo;
 
-@Path("/openapi.{type:json|yaml}")
+@Path("/{apiGroupPath}/openapi.{type:json|yaml}")
 public final class OpenApiResource {
     @Context
     private ServletConfig config;
@@ -94,7 +96,8 @@ public final class OpenApiResource {
     @GET
     @Produces({MediaType.APPLICATION_JSON, "application/yaml"})
     @Operation(hidden = true)
-    public Response getOpenApi(@Context HttpHeaders headers, @Context UriInfo uriInfo, @PathParam("type") String type)
+    public Response getOpenApi(@Context HttpHeaders headers, @Context UriInfo uriInfo, @PathParam("type") String type,
+            @PathParam("apiGroupPath") String apiGroupPath)
             throws Exception {
         OpenAPI openApi = new OpenAPI();
         openApi.addServersItem(buildOpenApiServer());
@@ -112,14 +115,19 @@ public final class OpenApiResource {
         basicAuthScheme.setScheme("basic");
         openApi.schemaRequirement(basicAuthScheme.getName(), basicAuthScheme);
 
+        Map<String, Object> userDefinedOptions = UtilMisc.toMap("apiGroupPath", apiGroupPath);
 
-        SwaggerConfiguration config = new SwaggerConfiguration().openAPI(openApi.info(buildOpenApiInfo()))
+        SwaggerConfiguration config = new SwaggerConfiguration()
+                .openAPI(openApi.info(buildOpenApiInfo()))
                 .readerClass(OFBizOpenApiReader.class.getName())
                 .resourcePackages(Stream.of("org.apache.ofbiz.ws.rs.resources").collect(Collectors.toSet()))
-                .scannerClass(OFBizResourceScanner.class.getName());
+                .scannerClass(OFBizResourceScanner.class.getName())
+                .userDefinedOptions(userDefinedOptions);
 
 
-        OpenApiContext ctx = new GenericOpenApiContextBuilder<>().openApiConfiguration(config)
+        OpenApiContext ctx = new GenericOpenApiContextBuilder<>()
+                .openApiConfiguration(config)
+                .ctxId(apiGroupPath)
                 .buildContext(true);
 
         openApi = ctx.read();

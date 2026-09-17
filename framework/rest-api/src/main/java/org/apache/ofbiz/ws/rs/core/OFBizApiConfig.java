@@ -19,9 +19,13 @@
 package org.apache.ofbiz.ws.rs.core;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -51,7 +55,7 @@ import jakarta.ws.rs.core.MediaType;
 
 public class OFBizApiConfig extends ResourceConfig {
     private static final String MODULE = OFBizApiConfig.class.getName();
-    private static final Map<String, ModelApi> MICRO_APIS = new HashMap<>();
+    private static final Map<String, List<ModelApi>> MICRO_APIS = new HashMap<>();
 
     /**
      * Configures the OFBiz JAX-RS application by registering built-in resource
@@ -87,7 +91,7 @@ public class OFBizApiConfig extends ResourceConfig {
      *
      * @return registered API definitions
      */
-    public static Map<String, ModelApi> getModelApis() {
+    public static Map<String, List<ModelApi>> getModelApis() {
         return MICRO_APIS;
     }
 
@@ -113,17 +117,12 @@ public class OFBizApiConfig extends ResourceConfig {
                 for (File restXmlFile : restXmlFiles) {
                     ModelApi api = ModelApiReader.getModelApi(restXmlFile);
                     if (!api.isPublish()) {
-                        Debug.logInfo("API %s[%s] is declared non-publish, ignoring...", api.getName(), api.getPath(), MODULE);
+                        Debug.logInfo("API %s[%s] is declared non-publish, ignoring...", api.getName(), api.getApiGroupPath(), MODULE);
                         continue;
                     }
-                    String path = api.getPath();
-                    if (MICRO_APIS.containsKey(path)) {
-                        Debug.logWarning("Duplicate REST API definition for path: %s at: %s, overriding component: %s",
-                                path, restXmlFile, componentName, MODULE);
-                    } else {
-                        Debug.logInfo("Processing REST API path: %s from component: %s", path, componentName, MODULE);
-                    }
-                    MICRO_APIS.put(path, api);
+                    String path = api.getApiGroupPath();
+                    Debug.logInfo("Adding API %s to group: %s from component: %s", api.getName(), path, componentName, MODULE);
+                    MICRO_APIS.computeIfAbsent(path, k -> new ArrayList<>()).add(api);
                 }
             } catch (ComponentException | RuntimeException e) {
                 Debug.logError(e, MODULE);
@@ -137,15 +136,20 @@ public class OFBizApiConfig extends ResourceConfig {
             return;
         }
 
-        MICRO_APIS.forEach((apiPath, modelApi) -> {
-            Debug.logInfo("Registering Resource Definitions from API - " + apiPath, MODULE);
-            for (ModelResource resource : modelApi.getResources()) {
-                String resourcePath = buildCleanPath(apiPath, resource.getPath());
-                registerModelResource(resource, resourcePath);
+        MICRO_APIS.forEach((groupPath, apis) -> {
+            Set<String> registeredSignatures = new HashSet<>();
+            for (ModelApi modelApi : apis) {
+                Debug.logInfo("Registering Resource Definitions from API - " + modelApi.getName()
+                        + " in group: " + groupPath, MODULE);
+                for (ModelResource resource : modelApi.getResources()) {
+                    String resourcePath = buildCleanPath(groupPath, resource.getPath());
+                    registerModelResource(resource, resourcePath, registeredSignatures, modelApi.getName());
+                }
             }
         });
     }
-    private void registerModelResource(ModelResource modelResource, String basePath) {
+    private void registerModelResource(ModelResource modelResource, String basePath,
+            Set<String> registeredSignatures, String owningApiName) {
         if (!modelResource.isPublish()) return;
 
         Resource.Builder resourceBuilder = Resource.builder("/" + basePath)
@@ -153,11 +157,20 @@ public class OFBizApiConfig extends ResourceConfig {
 
         for (ModelOperation op : modelResource.getOperations()) {
             String serviceName = op.getService();
-            ServiceRequestHandler requestHandler = new ServiceRequestHandler(serviceName, op.getPrimaryPermission(), op.getMainAction());
-
             String verb = op.getVerb().toUpperCase();
-            boolean isOtherThanGet = verb.matches(HttpMethod.POST + "|" + HttpMethod.PUT + "|" + HttpMethod.PATCH);
             String opPath = op.getPath();
+            String fullPath = UtilValidate.isEmpty(opPath) ? basePath : buildCleanPath(basePath, opPath);
+            String signature = verb + " " + fullPath;
+
+            // Fail fast if api groups define identical endpoints
+            if (!registeredSignatures.add(signature)) {
+                throw new IllegalStateException("REST path collision in group '" + basePath
+                        + "': " + signature + " is already registered by another API"
+                        + " (conflict while processing " + owningApiName + ")");
+            }
+
+            ServiceRequestHandler requestHandler = new ServiceRequestHandler(serviceName, op.getPrimaryPermission(), op.getMainAction());
+            boolean isOtherThanGet = verb.matches(HttpMethod.POST + "|" + HttpMethod.PUT + "|" + HttpMethod.PATCH);
 
             ResourceMethod.Builder methodBuilder;
             if (UtilValidate.isEmpty(opPath)) {
@@ -184,7 +197,7 @@ public class OFBizApiConfig extends ResourceConfig {
         if (UtilValidate.isNotEmpty(modelResource.getSubResources())) {
             for (ModelResource sub : modelResource.getSubResources()) {
                 String subPath = buildCleanPath(basePath, sub.getPath());
-                registerModelResource(sub, subPath);
+                registerModelResource(sub, subPath, registeredSignatures, owningApiName);
             }
         }
     }

@@ -26,7 +26,16 @@ under the License.
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="mapping"/>
             </xs:sequence>
             <xs:attribute name="name" type="xs:string" use="required"/>
-            <xs:attribute name="path" type="xs:string" use="required"/>
+            <xs:attribute name="apiGroupPath" type="xs:string" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        Defines a common path variable, that will be shared among different APIs.
+                        APIs belonging to the same group define the same apiGroupPath.
+                        The apiGroupName is the first path segment after the mountpoint.
+                        If unset, will default to api.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
             <xs:attribute name="displayName" type="xs:string"/>
             <xs:attribute name="description" type="xs:string"/>
             <xs:attribute name="publish" type="xs:boolean" default="true"/>
