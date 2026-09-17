@@ -32,6 +32,7 @@ import org.apache.ofbiz.entity.condition.EntityConditionBuilder
 import org.apache.ofbiz.entity.condition.EntityOperator
 import org.apache.ofbiz.entity.util.EntityTypeUtil
 import org.apache.ofbiz.entity.util.EntityUtilProperties
+import org.apache.ofbiz.service.ServiceErrorException
 import org.apache.ofbiz.service.ServiceUtil
 
 Map createPayment() {
@@ -287,17 +288,16 @@ Map createPaymentContent() {
 
 //TODO: This can be converted into entity-auto with a seca rule for updateContent
 Map updatePaymentContent() {
-    GenericValue lookedUpValue = from('PaymentContent').where(parameters).queryOne()
-    if (lookedUpValue) {
-        lookedUpValue.setNonPKFields(parameters)
-        lookedUpValue.store()
-        Map result = run service: 'updateContent', with: parameters
-        if (ServiceUtil.isError(result)) {
-            return result
-        }
-        return success()
+    try {
+        update('PaymentContent').where(parameters).set(parameters)
+    } catch (ServiceErrorException ignored) {
+        return error('Error getting Payment Content')
     }
-    return error('Error getting Payment Content')
+    Map result = run service: 'updateContent', with: parameters
+    if (ServiceUtil.isError(result)) {
+        return result
+    }
+    return success()
 }
 
 Map massChangePaymentStatus() {
