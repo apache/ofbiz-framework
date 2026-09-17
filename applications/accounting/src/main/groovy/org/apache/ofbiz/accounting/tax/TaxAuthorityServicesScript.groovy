@@ -20,7 +20,6 @@ package org.apache.ofbiz.accounting.tax
 
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.entity.GenericValue
-import org.apache.ofbiz.service.ServiceErrorException
 
 import java.util.regex.Pattern
 
@@ -47,11 +46,10 @@ Map updatePartyTaxAuthInfo() {
     String errorMesg = validatePartyTaxIdInline()
     boolean isTaxIdValid = !errorMesg
     require(isTaxIdValid, errorMesg)
-    try {
-        update('PartyTaxAuthInfo').where(parameters).set(parameters)
-    } catch (ServiceErrorException ignored) {
-        fail('PartyTaxAuthInfo not found for the given parameters')
-    }
+    GenericValue partyAuthInfo = from('PartyTaxAuthInfo').where(parameters).queryOne()
+    require(partyAuthInfo as boolean, 'PartyTaxAuthInfo not found for the given parameters')
+    partyAuthInfo.setNonPKFields(parameters, false)
+    partyAuthInfo.store()
     return success()
 }
 
