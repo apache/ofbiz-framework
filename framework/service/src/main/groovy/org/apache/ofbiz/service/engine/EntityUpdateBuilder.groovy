@@ -33,11 +33,12 @@ import org.apache.ofbiz.service.ServiceErrorException
  *
  * {@code .ifExists()} suppresses that throw, returning {@code null} instead, for sites that
  * intentionally no-op on a missing record. {@code .first()} uses {@code queryFirst()} instead of
- * {@code queryOne()}, for sites where more than one record can legitimately match; note that
- * {@code queryFirst()} does not narrow {@code where()} to PK fields only, so use explicit field
- * names rather than a raw {@code parameters} map with {@code .first()}. {@code set(fields, false)}
- * mirrors {@link GenericValue#setNonPKFields(Map, boolean)}'s two-arg form, preserving existing
- * field values instead of nulling them for empty-string input fields.
+ * {@code queryOne()}, for sites where more than one record can legitimately match; unlike {@code
+ * queryOne()}, {@code queryFirst()} does not narrow {@code where()} to PK fields only, so {@code
+ * .first()} narrows it to the entity's own field names itself, making it just as safe to pass a raw
+ * {@code parameters} map. {@code set(fields, false)} mirrors {@link
+ * GenericValue#setNonPKFields(Map, boolean)}'s two-arg form, preserving existing field values
+ * instead of nulling them for empty-string input fields.
  */
 class EntityUpdateBuilder {
 
@@ -71,8 +72,9 @@ class EntityUpdateBuilder {
     /**
      * Uses {@code queryFirst()} instead of {@code queryOne()} for the internal lookup -- for sites
      * where more than one record can legitimately match {@code where()}. Unlike {@code queryOne()},
-     * {@code queryFirst()} does not narrow {@code where()} to PK fields only, so pass explicit
-     * field names to {@code where()} rather than a raw service {@code parameters} map.
+     * {@code queryFirst()} does not narrow {@code where()} to PK fields only, so {@link #set(Map,
+     * boolean)} narrows {@code where()} to the entity's own field names itself before querying --
+     * safe to call with either explicit field names or a raw service {@code parameters} map.
      */
     @SuppressWarnings('ConfusingMethodName')
     EntityUpdateBuilder first() {
@@ -81,9 +83,21 @@ class EntityUpdateBuilder {
     }
 
     GenericValue set(Map<String, Object> fields, boolean setIfEmpty = true) throws ServiceErrorException {
-        GenericValue existing = first
-            ? EntityQuery.use(delegator).from(entityName).where(whereFields).queryFirst()
-            : EntityQuery.use(delegator).from(entityName).where(whereFields).queryOne()
+        GenericValue existing
+        if (first) {
+            // queryOne() narrows where() to PK fields internally (searchPkOnly, the same mechanism
+            // setPKFields() uses); queryFirst() does not, so a raw service parameters map (userLogin,
+            // locale, timeZone, ...) would otherwise blow up building a condition on a column that
+            // isn't one of this entity's own fields. setAllFields(fields, true, null, null) -- null
+            // pks means walk every field, not just PK -- is the same "walk the entity's own fields,
+            // pull matching values out of the map" primitive set() already uses below via
+            // setNonPKFields().
+            GenericValue entityWhereFields = delegator.makeValue(entityName)
+            entityWhereFields.setAllFields(whereFields, true, null, null)
+            existing = EntityQuery.use(delegator).from(entityName).where(entityWhereFields).queryFirst()
+        } else {
+            existing = EntityQuery.use(delegator).from(entityName).where(whereFields).queryOne()
+        }
         if (existing == null) {
             if (ifExists) {
                 return null
