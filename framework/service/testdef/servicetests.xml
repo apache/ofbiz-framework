@@ -41,6 +41,9 @@ under the License.
     <test-case case-name="engine-entity-update-builder-tests">
         <jupiter-test-suite class-name="org.apache.ofbiz.service.test.engine.EntityUpdateBuilderTest"/>
     </test-case>
+    <test-case case-name="engine-entity-delete-builder-tests">
+        <jupiter-test-suite class-name="org.apache.ofbiz.service.test.engine.EntityDeleteBuilderTest"/>
+    </test-case>
     <!-- this case is failing, so commenting out by default until an automatic fix can be found
     <test-case case-name="service-lock-wait-timeout-retry-test">
         <service-test service-name="testServiceLockWaitTimeoutRetry"/>
