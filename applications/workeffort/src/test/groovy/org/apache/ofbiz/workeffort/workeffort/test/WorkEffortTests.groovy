@@ -26,6 +26,7 @@ import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
 
 @JunitJupiterTest
+@SuppressWarnings('MethodCount')
 class WorkEffortTests implements JupiterTestHelper {
 
     @Test
