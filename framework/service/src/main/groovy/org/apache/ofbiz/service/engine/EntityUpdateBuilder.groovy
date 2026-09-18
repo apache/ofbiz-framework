@@ -33,9 +33,11 @@ import org.apache.ofbiz.service.ServiceErrorException
  *
  * {@code .ifExists()} suppresses that throw, returning {@code null} instead, for sites that
  * intentionally no-op on a missing record. {@code .first()} uses {@code queryFirst()} instead of
- * {@code queryOne()}, for sites where more than one record can legitimately match. {@code
- * set(fields, false)} mirrors {@link GenericValue#setNonPKFields(Map, boolean)}'s two-arg form,
- * preserving existing field values instead of nulling them for empty-string input fields.
+ * {@code queryOne()}, for sites where more than one record can legitimately match; note that
+ * {@code queryFirst()} does not narrow {@code where()} to PK fields only, so use explicit field
+ * names rather than a raw {@code parameters} map with {@code .first()}. {@code set(fields, false)}
+ * mirrors {@link GenericValue#setNonPKFields(Map, boolean)}'s two-arg form, preserving existing
+ * field values instead of nulling them for empty-string input fields.
  */
 class EntityUpdateBuilder {
 
@@ -68,7 +70,9 @@ class EntityUpdateBuilder {
 
     /**
      * Uses {@code queryFirst()} instead of {@code queryOne()} for the internal lookup -- for sites
-     * where more than one record can legitimately match {@code where()}.
+     * where more than one record can legitimately match {@code where()}. Unlike {@code queryOne()},
+     * {@code queryFirst()} does not narrow {@code where()} to PK fields only, so pass explicit
+     * field names to {@code where()} rather than a raw service {@code parameters} map.
      */
     @SuppressWarnings('ConfusingMethodName')
     EntityUpdateBuilder first() {
