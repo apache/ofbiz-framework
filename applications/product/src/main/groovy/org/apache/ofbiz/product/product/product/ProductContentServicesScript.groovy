@@ -151,13 +151,8 @@ Map updateContentSEOForProduct() {
                         productContentTypeId: 'PAGE_TITLE')
                 .queryFirst()
         if (productContent) {
-            GenericValue electronicText = from('ElectronicText')
-                    .where(dataResourceId: productContent.dataResourceId)
-                    .queryOne()
-            if (electronicText) {
-                electronicText.textData = parameters.title
-                electronicText.store()
-            }
+            update('ElectronicText').where(dataResourceId: productContent.dataResourceId)
+                    .ifExists().set([textData: parameters.title])
         } else {
             Map createTextContentMap = [productId: parameters.productId,
                                         productContentTypeId: 'PAGE_TITLE',
@@ -171,13 +166,8 @@ Map updateContentSEOForProduct() {
                         productContentTypeId: 'META_KEYWORD')
                 .queryFirst()
         if (productContent) {
-            GenericValue electronicText = from('ElectronicText')
-                    .where(dataResourceId: productContent.dataResourceId)
-                    .queryOne()
-            if (electronicText) {
-                electronicText.textData = parameters.metaKeyword
-                electronicText.store()
-            }
+            update('ElectronicText').where(dataResourceId: productContent.dataResourceId)
+                    .ifExists().set([textData: parameters.metaKeyword])
         } else {
             Map createTextContentMap = [productId: parameters.productId,
                                         productContentTypeId: 'META_KEYWORD',
@@ -191,13 +181,8 @@ Map updateContentSEOForProduct() {
                         productContentTypeId: 'META_DESCRIPTION')
                 .queryFirst()
         if (productContent) {
-            GenericValue electronicText = from('ElectronicText')
-                    .where(dataResourceId: productContent.dataResourceId)
-                    .queryOne()
-            if (electronicText) {
-                electronicText.textData = parameters.metaDescription
-                electronicText.store()
-            }
+            update('ElectronicText').where(dataResourceId: productContent.dataResourceId)
+                    .ifExists().set([textData: parameters.metaDescription])
         } else {
             Map createTextContentMap = [productId: parameters.productId,
                                         productContentTypeId: 'META_DESCRIPTION',
