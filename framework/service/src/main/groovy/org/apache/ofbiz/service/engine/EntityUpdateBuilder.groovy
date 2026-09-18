@@ -36,15 +36,17 @@ import org.apache.ofbiz.service.ServiceErrorException
  * {@code queryOne()}, for sites where more than one record can legitimately match; unlike {@code
  * queryOne()}, {@code queryFirst()} does not narrow {@code where()} to PK fields only, so {@code
  * .first()} narrows it to the entity's own field names itself, making it just as safe to pass a raw
- * {@code parameters} map. {@code set(fields, false)} mirrors {@link
- * GenericValue#setNonPKFields(Map, boolean)}'s two-arg form, preserving existing field values
- * instead of nulling them for empty-string input fields.
+ * {@code parameters} map. {@code .orderBy()} passes through to the internal {@code queryFirst()}/
+ * {@code queryOne()} lookup, for sites where "first" means "most recent" rather than "arbitrary."
+ * {@code set(fields, false)} mirrors {@link GenericValue#setNonPKFields(Map, boolean)}'s two-arg
+ * form, preserving existing field values instead of nulling them for empty-string input fields.
  */
 class EntityUpdateBuilder {
 
     private final Delegator delegator
     private final String entityName
     private Map<String, Object> whereFields
+    private String orderByField
     private boolean ifExists = false
     private boolean first = false
 
@@ -82,8 +84,18 @@ class EntityUpdateBuilder {
         return this
     }
 
+    /**
+     * The field to order the internal lookup by -- for {@code .first()} sites where "first" means
+     * "most recent"/"lowest sequence" rather than an arbitrary match. Prefix a field name with
+     * {@code -} for descending order, matching {@code EntityQuery.orderBy()}'s own convention.
+     */
+    EntityUpdateBuilder orderBy(String orderByField) {
+        this.orderByField = orderByField
+        return this
+    }
+
     GenericValue set(Map<String, Object> fields, boolean setIfEmpty = true) throws ServiceErrorException {
-        GenericValue existing
+        EntityQuery query = EntityQuery.use(delegator).from(entityName)
         if (first) {
             // queryOne() narrows where() to PK fields internally (searchPkOnly, the same mechanism
             // setPKFields() uses); queryFirst() does not, so a raw service parameters map (userLogin,
@@ -94,10 +106,14 @@ class EntityUpdateBuilder {
             // setNonPKFields().
             GenericValue entityWhereFields = delegator.makeValue(entityName)
             entityWhereFields.setAllFields(whereFields, true, null, null)
-            existing = EntityQuery.use(delegator).from(entityName).where(entityWhereFields).queryFirst()
+            query = query.where(entityWhereFields)
         } else {
-            existing = EntityQuery.use(delegator).from(entityName).where(whereFields).queryOne()
+            query = query.where(whereFields)
         }
+        if (orderByField) {
+            query = query.orderBy(orderByField)
+        }
+        GenericValue existing = first ? query.queryFirst() : query.queryOne()
         if (existing == null) {
             if (ifExists) {
                 return null

@@ -18,11 +18,14 @@
  */
 package org.apache.ofbiz.service.test.engine
 
+import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.service.engine.EntityUpdateBuilder
 import org.apache.ofbiz.testtools.JunitJupiterTest
 import org.apache.ofbiz.testtools.JupiterTestHelper
 import org.junit.jupiter.api.Test
+
+import java.sql.Timestamp
 
 /**
  * First time : ./gradlew 'ofbiz  -l readers=seed,seed-initial -l delegator=test'
@@ -52,6 +55,32 @@ class EntityUpdateBuilderTest implements JupiterTestHelper {
                 .set([description: 'Updated'])
 
         assert updated.description == 'Updated'
+    }
+
+    @Test
+    void testOrderByPicksMostRecentAmongMultipleMatches() {
+        String testingTypeId = 'EUB' + UUID.randomUUID().toString().replace('-', '').take(16)
+        delegator.create('TestingType', [testingTypeId: testingTypeId, description: 'Original'])
+
+        Timestamp older = UtilDateTime.nowTimestamp()
+        Timestamp newer = new Timestamp(older.time + 60000)
+        String olderTestingId = delegator.getNextSeqId('Testing')
+        delegator.create('Testing', [testingId: olderTestingId, testingTypeId: testingTypeId,
+                                      testingDate: older, testingName: 'Older'])
+        String newerTestingId = delegator.getNextSeqId('Testing')
+        delegator.create('Testing', [testingId: newerTestingId, testingTypeId: testingTypeId,
+                                      testingDate: newer, testingName: 'Newer'])
+
+        GenericValue updated = new EntityUpdateBuilder(delegator, 'Testing')
+                .where([testingTypeId: testingTypeId])
+                .orderBy('-testingDate')
+                .first()
+                .set([comments: 'Expired'])
+
+        assert updated.testingId == newerTestingId
+
+        GenericValue olderTesting = from('Testing').where('testingId', olderTestingId).queryOne()
+        assert olderTesting.comments == null
     }
 
 }
