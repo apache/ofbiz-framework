@@ -64,6 +64,7 @@ under the License.
     <test-suite loader="main" location="testdef/invoicetests.xml"/>
     <test-suite loader="main" location="testdef/fixedassettests.xml"/>
     <test-suite loader="main" location="testdef/ratetests.xml"/>
+    <test-suite loader="main" location="testdef/TaxAuthorityTests.xml"/>
 
     <webapp name="accounting"
         title="Accounting"
