@@ -384,7 +384,7 @@ Map duplicateWorkEffort() {
  */
 void duplicateWorkEffortAssoc(String relationEntityName, String oldWorkEffortId,
                               String workEffortId, String relationFieldName = 'workEffortId') {
-    ModelEntity modelEntity = delegator.getModelEntity(relationFieldName)
+    ModelEntity modelEntity = delegator.getModelEntity(relationEntityName)
     EntityQuery entities = from(relationEntityName)
             .where((relationFieldName): oldWorkEffortId)
     if (modelEntity.getField('fromDate')) {

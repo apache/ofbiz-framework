@@ -37,4 +37,12 @@ under the License.
     <test-case case-name="category-tests">
         <jupiter-test-suite class-name="org.apache.ofbiz.product.product.test.CategoryTests"/>
     </test-case>
+
+    <test-case case-name="productContent-tests">
+        <jupiter-test-suite class-name="org.apache.ofbiz.product.product.test.ProductContentTests"/>
+    </test-case>
+
+    <test-case case-name="imageManagement-tests">
+        <jupiter-test-suite class-name="org.apache.ofbiz.product.product.test.ImageManagementTests"/>
+    </test-case>
 </test-suite>

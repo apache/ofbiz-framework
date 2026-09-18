@@ -74,5 +74,61 @@ class CategoryTests implements JupiterTestHelper {
         assert productCategoryMemberList.containsAll(serviceResult.productCategoryMembers)
     }
 
+    @Test
+    @Order(3)
+    void testUpdateProductCategory() {
+        String productCategoryId = testParams.productCategoryId ?: 'TPC'
+        String newDescription = 'Updated Long Test Product Category Description'
+        Map serviceCtx = [
+                productCategoryId: productCategoryId,
+                productCategoryTypeId: 'TEST_CATEGORY',
+                longDescription: newDescription,
+                userLogin: userLogin
+        ]
+        Map serviceResult = dispatcher.runSync('updateProductCategory', serviceCtx)
+        assert ServiceUtil.isSuccess(serviceResult)
+
+        GenericValue productCategory = from('ProductCategory').where('productCategoryId', productCategoryId).queryOne()
+        assert productCategory.longDescription == newDescription
+    }
+
+    @Test
+    @Order(4)
+    void testUpdateProductCategoryNotFoundIsSilentNoOp() {
+        Map serviceCtx = [
+                productCategoryId: 'DoesNotExist12345',
+                productCategoryTypeId: 'TEST_CATEGORY',
+                longDescription: 'should never be applied',
+                userLogin: userLogin
+        ]
+        Map serviceResult = dispatcher.runSync('updateProductCategory', serviceCtx)
+        assert ServiceUtil.isSuccess(serviceResult)
+
+        GenericValue productCategory = from('ProductCategory').where('productCategoryId', 'DoesNotExist12345').queryOne()
+        assert productCategory == null
+    }
+
+    @Test
+    @Order(5)
+    void testUpdateContentSEOForCategoryUpdatesExistingTitle() {
+        String productCategoryId = testParams.productCategoryId ?: 'TPCP'
+
+        Map firstCallCtx = [productCategoryId: productCategoryId, title: 'First SEO Title', userLogin: userLogin]
+        Map firstCallResult = dispatcher.runSync('updateContentSEOForCategory', firstCallCtx)
+        assert ServiceUtil.isSuccess(firstCallResult)
+
+        Map secondCallCtx = [productCategoryId: productCategoryId, title: 'Second SEO Title', userLogin: userLogin]
+        Map secondCallResult = dispatcher.runSync('updateContentSEOForCategory', secondCallCtx)
+        assert ServiceUtil.isSuccess(secondCallResult)
+
+        GenericValue productCategoryContent = from('ProductCategoryContentAndInfo')
+                .where('productCategoryId', productCategoryId, 'prodCatContentTypeId', 'PAGE_TITLE')
+                .queryFirst()
+        GenericValue electronicText = from('ElectronicText')
+                .where('dataResourceId', productCategoryContent.dataResourceId)
+                .queryOne()
+        assert electronicText.textData == 'Second SEO Title'
+    }
+
 }
 

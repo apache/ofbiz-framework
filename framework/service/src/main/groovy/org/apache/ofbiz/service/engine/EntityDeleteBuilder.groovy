@@ -20,12 +20,20 @@ package org.apache.ofbiz.service.engine
 
 import org.apache.ofbiz.entity.Delegator
 import org.apache.ofbiz.entity.GenericEntityException
+import org.apache.ofbiz.entity.GenericValue
+import org.apache.ofbiz.service.ServiceErrorException
 
 /**
  * Fluent write-side helper backing {@link GroovyBaseScript#delete(String)}.
  *
- * Usage: {@code delete('SomeEntity').where(fields)} — bulk-removes every matching record and
- * returns the number of rows removed.
+ * Usage: {@code delete('SomeEntity').where(fields)} — bulk-removes every record matching the given
+ * fields and returns the number of rows removed. The given fields are not required to be the full
+ * primary key: deleting by a real, non-PK field (e.g. a foreign key shared by several child rows) is
+ * a legitimate, commonly-used bulk-delete pattern. {@code where()} narrows the given fields down to
+ * the entity's own field names itself (like {@code set()} does via {@code setNonPKFields()}), so
+ * it's safe to pass a raw service {@code parameters} map. Throws {@link ServiceErrorException} if
+ * none of the given fields are real fields on the entity at all, rather than silently building a
+ * condition-less delete that would remove every record in the entity.
  */
 class EntityDeleteBuilder {
 
@@ -37,8 +45,14 @@ class EntityDeleteBuilder {
         this.entityName = entityName
     }
 
-    int where(Map<String, Object> fields) throws GenericEntityException {
-        return delegator.removeByAnd(entityName, fields)
+    int where(Map<String, Object> fields) throws GenericEntityException, ServiceErrorException {
+        GenericValue entityFields = delegator.makeValue(entityName)
+        entityFields.setAllFields(fields, true, null, null)
+        if (entityFields.isEmpty()) {
+            throw new ServiceErrorException(
+                    "Cannot delete ${entityName}: given fields include none of its own fields" as String)
+        }
+        return delegator.removeByAnd(entityName, entityFields)
     }
 
 }

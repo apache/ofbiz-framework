@@ -356,9 +356,8 @@ Map addRejectedReasonImageManagement() {
             break
     }
     update('Content').where(parameters).set([description: description])
-    GenericValue productContent = from('ProductContent').where(contentId: parameters.contentId, productContentTypeId: 'IMAGE').queryFirst()
-    productContent.thruDate = nowTimestamp
-    productContent.store()
+    update('ProductContent').where(contentId: parameters.contentId, productContentTypeId: 'IMAGE')
+            .first().set([thruDate: nowTimestamp])
     return success()
 }
 
