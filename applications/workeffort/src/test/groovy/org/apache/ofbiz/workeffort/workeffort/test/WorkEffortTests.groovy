@@ -734,4 +734,33 @@ class WorkEffortTests implements JupiterTestHelper {
         assert rateAmount
     }
 
+    @Test
+    @Order(31)
+    void testDuplicateWorkEffortWithAssocsAndNotes() {
+        // duplicateWorkEffortAssoc() looked up its model entity by the relation FIELD name
+        // ("workEffortIdTo") instead of the relation ENTITY name ("WorkEffortAssoc"), so
+        // getModelEntity() always returned null and modelEntity.getField('fromDate') threw a
+        // NullPointerException -- this path (duplicateWorkEffortAssocs/Notes/Contents/AssignmentRates
+        // == 'Y') always failed before the fix, regardless of which relation was being duplicated.
+        String oldWorkEffortId = testParams.oldWorkEffortId ?: 'TestWorkeffort-3'
+        Map serviceCtx = [
+                oldWorkEffortId: oldWorkEffortId,
+                duplicateWorkEffortAssocs: 'Y',
+                duplicateWorkEffortNotes: 'Y',
+                userLogin: userLogin,
+        ]
+        Map serviceResult = dispatcher.runSync('duplicateWorkEffort', serviceCtx)
+        assert ServiceUtil.isSuccess(serviceResult)
+        String workEffortId = serviceResult.workEffortId
+        assert workEffortId
+
+        List<GenericValue> duplicatedAssocs = from('WorkEffortAssoc').where('workEffortIdTo', workEffortId).queryList()
+        assert duplicatedAssocs
+        assert duplicatedAssocs[0].workEffortIdFrom == 'TestWorkeffort-2'
+
+        List<GenericValue> duplicatedNotes = from('WorkEffortNote').where('workEffortId', workEffortId).queryList()
+        assert duplicatedNotes
+        assert duplicatedNotes[0].noteId == 'TestNote-1'
+    }
+
 }
