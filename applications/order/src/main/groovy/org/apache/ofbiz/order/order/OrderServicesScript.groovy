@@ -329,10 +329,6 @@ Map updateOrderContactMech() {
 Map updateOrderItemShipGroup() {
     require(security.hasEntityPermission('ORDERMGR', '_UPDATE', parameters.userLogin) as boolean,
             label('OrderErrorUiLabels', 'OrderSecurityErrorToRunUpdateOrderItemShipGroup'))
-    GenericValue lookedUpValue =  from('OrderItemShipGroup')
-            .where(parameters)
-            .queryOne()
-
     // splitting shipmentMethod request parameter value that contains '@' symbol into
     // 'shipmentMethodTypeId', 'carrierPartyId' and 'carrierRoleTypeId'.
     String shipmentMethod = parameters.shipmentMethod
@@ -342,7 +338,6 @@ Map updateOrderItemShipGroup() {
         parameters.put('carrierPartyId', arr[1])
         parameters.put('carrierRoleTypeId', arr[2])
     }
-    lookedUpValue.setNonPKFields(parameters)
 
     Map inputMap = [orderId: parameters.orderId,
                     contactMechPurposeTypeId: parameters.contactMechPurposeTypeId]
@@ -356,7 +351,7 @@ Map updateOrderItemShipGroup() {
     if (!orderContactMechList && parameters.contactMechId) {
         run service: 'createOrderContactMech', with: [*: inputMap]
     }
-    lookedUpValue.store()
+    update('OrderItemShipGroup').where(parameters).set(parameters)
 
     // Remove the old values from OrderContactMech entity with the help of oldContactMechId
     Map shipGroupLookupMap = [orderId: parameters.orderId]
