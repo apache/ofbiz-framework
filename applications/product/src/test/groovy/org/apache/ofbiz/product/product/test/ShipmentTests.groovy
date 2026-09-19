@@ -493,6 +493,45 @@ class ShipmentTests implements JupiterTestHelper {
         assert itemIssuances*.shipGroupSeqId as Set == ['00001'] as Set
     }
 
+    @Test
+    @Order(10)
+    void testUpdateOrderItemShipGroupSplitsShipmentMethodIntoComponents() {
+        String productId = testParams.productId ?: 'GZ-2644'
+        Map orderResult = dispatcher.runSync('createTestSalesOrderSingle',
+                [userLogin: userLogin, productId: productId])
+        assert ServiceUtil.isSuccess(orderResult)
+        String orderId = orderResult.orderId
+        assert orderId
+
+        GenericValue shipGroupBefore = from('OrderItemShipGroup')
+                .where('orderId', orderId, 'shipGroupSeqId', '00001')
+                .queryOne()
+        assert shipGroupBefore
+        assert shipGroupBefore.shipmentMethodTypeId != 'STANDARD' || shipGroupBefore.carrierPartyId != 'UPS'
+
+        // shipmentMethod is a combined 'shipmentMethodTypeId@carrierPartyId@carrierRoleTypeId'
+        // convenience input that updateOrderItemShipGroup() splits apart before storing - not
+        // exercised by the other updateOrderItemShipGroup test above, which only changes
+        // contactMechId.
+        Map updateShipGroupCtx = [
+                orderId: orderId,
+                shipGroupSeqId: '00001',
+                contactMechId: shipGroupBefore.contactMechId,
+                contactMechPurposeTypeId: 'SHIPPING_LOCATION',
+                shipmentMethod: 'STANDARD@UPS@CARRIER',
+                userLogin: userLogin
+        ]
+        Map updateShipGroupResult = dispatcher.runSync('updateOrderItemShipGroup', updateShipGroupCtx)
+        assert ServiceUtil.isSuccess(updateShipGroupResult)
+
+        GenericValue shipGroupAfter = from('OrderItemShipGroup')
+                .where('orderId', orderId, 'shipGroupSeqId', '00001')
+                .queryOne()
+        assert shipGroupAfter.shipmentMethodTypeId == 'STANDARD'
+        assert shipGroupAfter.carrierPartyId == 'UPS'
+        assert shipGroupAfter.carrierRoleTypeId == 'CARRIER'
+    }
+
     /**
      * Resolves a postal address in a different country/state/postal code than the demo customer's
      * default shipping address, returning its contactMechId.
