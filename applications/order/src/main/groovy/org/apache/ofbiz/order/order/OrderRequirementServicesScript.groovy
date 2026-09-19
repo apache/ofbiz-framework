@@ -27,7 +27,7 @@ import org.apache.ofbiz.service.ServiceUtil
  * Create OrderRequirementCommitment and Requirement for items with automatic requirement upon ordering
  */
 Map checkCreateOrderRequirement() {
-    Map reqMap = getProductRequirementMethod()
+    Map reqMap = getProductRequirementMethod(parameters.productId)
     GenericValue order = reqMap.order
     if (order.orderTypeId == 'SALES_ORDER' && reqMap.requirementMethodId == 'PRODRQM_AUTO') {
         createRequirementAndCommitment()
@@ -167,7 +167,7 @@ Map checkCreateProductRequirementForFacility() {
     for (GenericValue productFacility : products) {
         String requirementMethodId = getProductRequirementMethod(productFacility.productId).requirementMethodId
         requirementMethodId = requirementMethodId ?: parameters.defaultRequirementMethodId
-        if (requirementMethodId) {
+        if (requirementMethodId in ['PRODRQM_STOCK', 'PRODRQM_STOCK_ATP']) {
             Map result = getProductFacilityAndQuantities(productFacility.productId, productFacility.facilityId)
             BigDecimal currentQuantity = requirementMethodId == 'PRODRQM_STOCK' ? result.quantityOnHandTotal : result.availableToPromiseTotal
             BigDecimal minimumStock = productFacility.getBigDecimal('minimumStock')
