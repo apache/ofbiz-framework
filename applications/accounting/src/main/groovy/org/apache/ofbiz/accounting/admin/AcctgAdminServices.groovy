@@ -179,11 +179,11 @@ Map createFuturePeriod() {
         parameters.organizationPartyId = it.partyId
         createCustomTimePeriod = from('SystemProperty')
                 .where('systemResourceId', 'general', 'systemPropertyId', 'CustomTimePeriod.create').queryOne()
-        if (createCustomTimePeriod.systemPropertyValue == 'Y') {
+        if (createCustomTimePeriod?.systemPropertyValue == 'Y') {
             // get list of CustomTypePeriod types
             applTypes = from('SystemProperty')
                     .where('systemResourceId', 'general', 'systemPropertyId', 'CustomTimePeriod.applType').queryOne()
-            List types = Arrays.asList(applTypes.systemPropertyValue.split('\\s*,\\s*'))
+            List types = applTypes?.systemPropertyValue ? Arrays.asList(applTypes.systemPropertyValue.split('\\s*,\\s*')) : []
             types.each { periodTypeId ->
                 Calendar periodCal = Calendar.getInstance()
                 systemPropertyId = 'CustomTimePeriod.' + periodTypeId + '.intermediate'
