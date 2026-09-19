@@ -156,7 +156,6 @@ under the License.
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="true"/>
                     <xs:enumeration value="false"/>
-                    <xs:enumeration value="salt"/>
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>

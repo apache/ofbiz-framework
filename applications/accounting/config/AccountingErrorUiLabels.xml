@@ -239,6 +239,9 @@
         <value xml:lang="zh">无法把标识为 ${parameters.finAccountTransId} 的财务账目交易提交到普通日记账中，无法找到 ${creditDebit} ${requiredField}</value>
         <value xml:lang="zh-TW">無法把標識為 ${parameters.finAccountTransId} 的財務帳目交易提交到普通日記帳中,無法找到 ${creditDebit} ${requiredField}</value>
     </property>
+    <property key="AccountingFinAccountCodeDecryptPermissionError">
+        <value xml:lang="en">You do not have permission to run the FinAccount finAccountCode decryption migration</value>
+    </property>
     <property key="AccountingFinAccountExpired">
         <value xml:lang="ar">انتهت صلاحية الحساب منذ ${thruDate}</value>
         <value xml:lang="de">Konto ist zum ${thruDate} abgelaufen</value>

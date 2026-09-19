@@ -223,7 +223,6 @@ under the License.
         <field name="testingCryptoTypeId" type="id"/>
         <field name="unencryptedValue" type="description"/>
         <field name="encryptedValue" type="description" encrypt="true"/>
-        <field name="saltedEncryptedValue" type="description" encrypt="salt"/>
         <prim-key field="testingCryptoId"/>
     </entity>
     <view-entity entity-name="TestingCryptoRawView"
@@ -234,11 +233,6 @@ under the License.
       <alias name="rawEncryptedValue">
         <complex-alias operator="+">
           <complex-alias-field entity-alias="TC" field="encryptedValue"/>
-        </complex-alias>
-      </alias>
-      <alias name="rawSaltedEncryptedValue">
-        <complex-alias operator="+">
-          <complex-alias-field entity-alias="TC" field="saltedEncryptedValue"/>
         </complex-alias>
       </alias>
     </view-entity>

@@ -341,7 +341,7 @@ under the License.
         <field name="finAccountTypeId" type="id"></field>
         <field name="statusId" type="id"></field>
         <field name="finAccountName" type="name"></field>
-        <field name="finAccountCode" type="long-varchar" encrypt="true"></field>
+        <field name="finAccountCode" type="long-varchar"></field>
         <field name="finAccountPin" type="long-varchar" encrypt="true"></field>
         <field name="currencyUomId" type="id"/>
         <field name="organizationPartyId" type="id"><description>The internal organization Party that owns (or rather, is liable for) the account.</description></field>

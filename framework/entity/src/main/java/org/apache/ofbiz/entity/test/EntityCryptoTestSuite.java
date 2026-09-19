@@ -50,15 +50,12 @@ public class EntityCryptoTestSuite extends EntityTestCase {
         assertNull(entity.getString("encryptedValue"));
         entity.setString("unencryptedValue", nanoTime);
         entity.setString("encryptedValue", nanoTime);
-        entity.setString("saltedEncryptedValue", nanoTime);
         assertEquals(nanoTime, entity.getString("unencryptedValue"));
         assertEquals(nanoTime, entity.getString("encryptedValue"));
-        assertEquals(nanoTime, entity.getString("saltedEncryptedValue"));
         entity.store();
         entity.refresh();
         assertEquals(nanoTime, entity.getString("unencryptedValue"));
         assertEquals(nanoTime, entity.getString("encryptedValue"));
-        assertEquals(nanoTime, entity.getString("saltedEncryptedValue"));
     }
 
     /**
@@ -77,32 +74,23 @@ public class EntityCryptoTestSuite extends EntityTestCase {
         GenericValue entity = EntityQuery.use(delegator).from("TestingCrypto").where("testingCryptoId", "1").queryOne();
         assertNull(entity.getString("unencryptedValue"));
         assertNull(entity.getString("encryptedValue"));
-        assertNull(entity.getString("saltedEncryptedValue"));
         GenericValue view = EntityQuery.use(delegator).from("TestingCryptoRawView").where("testingCryptoId", "1").queryOne();
         assertNull(view.getString("unencryptedValue"));
         assertNull(view.getString("encryptedValue"));
-        assertNull(view.getString("saltedEncryptedValue"));
         assertNull(view.getString("rawEncryptedValue"));
-        assertNull(view.getString("rawSaltedEncryptedValue"));
 
         // Verify that encryption is taking place
         entity.setString("unencryptedValue", nanoTime);
         entity.setString("encryptedValue", nanoTime);
-        entity.setString("saltedEncryptedValue", nanoTime);
         entity.store();
         view.refresh();
         assertEquals(nanoTime, view.getString("unencryptedValue"));
         assertEquals(nanoTime, view.getString("encryptedValue"));
-        assertEquals(nanoTime, view.getString("saltedEncryptedValue"));
         String initialValue = view.getString("rawEncryptedValue");
-        String initialSaltedValue = view.getString("rawSaltedEncryptedValue");
         assertFalse(nanoTime.equals(initialValue));
-        assertFalse(nanoTime.equals(initialSaltedValue));
-        assertFalse(initialValue.equals(initialSaltedValue));
 
         // Verify that the same value stored repeatedly gives different raw encrypted values.
         entity.setString("encryptedValue", nanoTime);
-        entity.setString("saltedEncryptedValue", nanoTime);
         entity.store();
         //entity.refresh(); // this is a bug; store() ends up setting the encrypted value *into* the entity
         assertEquals(nanoTime, entity.getString("unencryptedValue"));
@@ -111,16 +99,13 @@ public class EntityCryptoTestSuite extends EntityTestCase {
         view.refresh();
         assertEquals(nanoTime, view.getString("unencryptedValue"));
         assertEquals(nanoTime, view.getString("encryptedValue"));
-        assertEquals(nanoTime, view.getString("saltedEncryptedValue"));
 
         String updatedValue = view.getString("rawEncryptedValue");
-        String updatedSaltedValue = view.getString("rawSaltedEncryptedValue");
 
         assertFalse(nanoTime.equals(updatedValue));
-        assertFalse(nanoTime.equals(updatedSaltedValue));
-        assertFalse(updatedValue.equals(updatedSaltedValue));
-        assertEquals(initialValue, updatedValue);
-        assertFalse(initialSaltedValue.equals(updatedSaltedValue));
+        // Regression guard for OFBIZ-13599: encryption must not be deterministic. Before the fix, AES was
+        // forced into ECB mode (no IV), so the same plaintext always produced the same raw ciphertext.
+        assertFalse(initialValue.equals(updatedValue));
     }
 
     /**
@@ -134,19 +119,19 @@ public class EntityCryptoTestSuite extends EntityTestCase {
         delegator.removeByAnd("TestingCrypto", UtilMisc.toMap("testingCryptoTypeId", "LOOKUP"));
         delegator.create("TestingCrypto", UtilMisc.toMap("testingCryptoId", "lookup-null", "testingCryptoTypeId", "LOOKUP"));
         delegator.create("TestingCrypto", UtilMisc.toMap("testingCryptoId", "lookup-value", "testingCryptoTypeId", "LOOKUP",
-                "encryptedValue", nanoTime, "saltedEncryptedValue", nanoTime));
+                "encryptedValue", nanoTime));
 
+        // Null values are not encrypted, so lookups against null still work normally.
         // This ends up using EntityExpr contained in EntityConditionList
         assertEquals(1, (EntityQuery.use(delegator).from("TestingCrypto").where("testingCryptoTypeId", "LOOKUP",
                 "encryptedValue", null).queryList()).size());
-        assertEquals(1, (EntityQuery.use(delegator).from("TestingCrypto").where("testingCryptoTypeId", "LOOKUP",
-                "saltedEncryptedValue", null).queryList()).size());
-        assertEquals(1, (EntityQuery.use(delegator).from("TestingCrypto").where("testingCryptoTypeId", "LOOKUP",
-                "encryptedValue", nanoTime).queryList()).size());
+        // Regression guard for OFBIZ-13599: encrypted fields are no longer exact-match lookupable, since
+        // encryption is non-deterministic -- a freshly-encrypted search value never matches previously
+        // stored ciphertext for the same plaintext.
         assertEquals(0, (EntityQuery.use(delegator).from("TestingCrypto").where("testingCryptoTypeId", "LOOKUP",
-                "saltedEncryptedValue", nanoTime).queryList()).size());
+                "encryptedValue", nanoTime).queryList()).size());
 
-        assertEquals(1, EntityQuery.use(delegator).from("TestingCrypto").where("testingCryptoTypeId", "LOOKUP",
+        assertEquals(0, EntityQuery.use(delegator).from("TestingCrypto").where("testingCryptoTypeId", "LOOKUP",
                 "encryptedValue", nanoTime).queryList().size());
     }
 
@@ -159,7 +144,9 @@ public class EntityCryptoTestSuite extends EntityTestCase {
         return EntityCondition.makeCondition(
             EntityCondition.makeCondition("testingCryptoTypeId", EntityOperator.IN, UtilMisc.toList("SUB_SELECT_1", "SUB_SELECT_3")),
             EntityOperator.AND,
-            EntityCondition.makeCondition("encryptedValue", EntityOperator.EQUALS, nanoTime));
+            // Uses the unencrypted field here: encrypted fields are no longer exact-match lookupable
+            // (OFBIZ-13599), so this exercises the sub-select condition-building logic on its own.
+            EntityCondition.makeCondition("unencryptedValue", EntityOperator.EQUALS, nanoTime));
     }
 
     /**
@@ -187,13 +174,13 @@ public class EntityCryptoTestSuite extends EntityTestCase {
         delegator.removeByAnd("TestingCrypto", UtilMisc.toMap("testingCryptoTypeId", "SUB_SELECT_3"));
 
         delegator.create("TestingCrypto", UtilMisc.toMap("testingCryptoId", "SUB_1", "testingCryptoTypeId", "SUB_SELECT_1",
-                "encryptedValue", nanoTime));
+                "unencryptedValue", nanoTime));
         delegator.create("TestingCrypto", UtilMisc.toMap("testingCryptoId", "SUB_2", "testingCryptoTypeId", "SUB_SELECT_2",
-                "encryptedValue", nanoTime));
+                "unencryptedValue", nanoTime));
         delegator.create("TestingCrypto", UtilMisc.toMap("testingCryptoId", "SUB_3", "testingCryptoTypeId", "SUB_SELECT_3",
-                "encryptedValue", "constant"));
+                "unencryptedValue", "constant"));
 
-        results = EntityQuery.use(delegator).from("TestingCrypto").where("encryptedValue", nanoTime).orderBy("testingCryptoId").queryList();
+        results = EntityQuery.use(delegator).from("TestingCrypto").where("unencryptedValue", nanoTime).orderBy("testingCryptoId").queryList();
         assertEquals(2, results.size());
         assertEquals("SUB_1", results.get(0).get("testingCryptoId"));
         assertEquals("SUB_2", results.get(1).get("testingCryptoId"));
