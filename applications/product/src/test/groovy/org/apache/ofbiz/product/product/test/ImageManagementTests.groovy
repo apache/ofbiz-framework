@@ -154,4 +154,48 @@ class ImageManagementTests implements JupiterTestHelper {
         assert dataResourceAfter.isPublic == 'Y'
     }
 
+    @Test
+    @Order(4)
+    void testUpdateStatusImageManagementRejectedPath() {
+        Map createProductCtx = [productTypeId: 'FINISHED_GOOD', internalName: 'Test Rejected Image Product', userLogin: userLogin]
+        Map createProductResult = dispatcher.runSync('createProduct', createProductCtx)
+        assert ServiceUtil.isSuccess(createProductResult)
+        String productId = createProductResult.productId
+
+        Map createContentCtx = [contentName: 'Test Rejected Image', statusId: 'IM_PENDING', userLogin: userLogin]
+        Map createContentResult = dispatcher.runSync('createContent', createContentCtx)
+        assert ServiceUtil.isSuccess(createContentResult)
+        String contentId = createContentResult.contentId
+
+        Map createProductContentCtx = [productId: productId, contentId: contentId,
+                                        productContentTypeId: 'IMAGE', userLogin: userLogin]
+        Map createProductContentResult = dispatcher.runSync('createProductContent', createProductContentCtx)
+        assert ServiceUtil.isSuccess(createProductContentResult)
+
+        Map createContentApprovalCtx = [contentId: contentId, partyId: userLogin.partyId, roleTypeId: 'IMAGEAPPROVER',
+                                         approvalStatusId: 'IM_PENDING', userLogin: userLogin]
+        Map createContentApprovalResult = dispatcher.runSync('createContentApproval', createContentApprovalCtx)
+        assert ServiceUtil.isSuccess(createContentApprovalResult)
+
+        GenericValue contentBefore = from('Content')
+                .where('contentId', contentId)
+                .queryOne()
+        assert contentBefore.statusId == 'IM_PENDING'
+
+        Map updateStatusCtx = [productId: productId, contentId: contentId, checkStatusId: 'IM_REJECTED', userLogin: userLogin]
+        Map updateStatusResult = dispatcher.runSync('updateStatusImageManagement', updateStatusCtx)
+        assert ServiceUtil.isSuccess(updateStatusResult)
+
+        GenericValue contentAfter = from('Content')
+                .where('contentId', contentId)
+                .queryOne()
+        assert contentAfter.statusId == 'IM_REJECTED'
+        assert contentAfter.createdByUserLogin == userLogin.userLoginId
+
+        GenericValue checkRejectAfter = from('ContentApproval')
+                .where('contentId', contentId, 'partyId', userLogin.partyId, 'roleTypeId', 'IMAGEAPPROVER')
+                .queryOne()
+        assert checkRejectAfter.approvalStatusId == 'IM_REJECTED'
+    }
+
 }

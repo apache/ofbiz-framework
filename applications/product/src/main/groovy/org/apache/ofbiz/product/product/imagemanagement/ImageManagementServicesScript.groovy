@@ -268,7 +268,7 @@ Map updateStatusImageManagement() {
     if (parameters.checkStatusId == 'IM_REJECTED') {
         List checkRejects = from('ContentApproval').where(contentId: parameters.contentId, roleTypeId: 'IMAGEAPPROVER').queryList()
         for (GenericValue checkReject : checkRejects) {
-            checkReject.statusId = 'IM_REJECTED'
+            checkReject.approvalStatusId = 'IM_REJECTED'
             checkReject.store()
         }
         update('Content').where(parameters).set([statusId: 'IM_REJECTED', createdByUserLogin: userLogin.userLoginId])
