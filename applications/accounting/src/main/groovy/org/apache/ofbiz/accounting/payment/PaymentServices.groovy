@@ -590,7 +590,7 @@ Map createPaymentAndPaymentGroupForInvoices() {
                        paymentGroupName: "Payment group for Check Run(InvoiceIds-${parameters.invoiceIds})"]
         paymentGroupId = result.paymentGroupId
     }
-    require(result.paymentGroupId as boolean, label('AccountingUiLabels', 'AccountingNoInvoicesReadyOrOutstandingAmountZero'))
+    require(result?.paymentGroupId as boolean, label('AccountingUiLabels', 'AccountingNoInvoicesReadyOrOutstandingAmountZero'))
     return result
 }
 
@@ -620,7 +620,8 @@ Map createPaymentFromOrder() {
                 .where([EntityCondition.makeCondition('orderId', orderHeader.orderId),
                         EntityCondition.makeCondition('statusId', EntityOperator.NOT_EQUAL, 'PAYMENT_CANCELLED')])
                 .queryCount() > 0) {
-            return failure("Payment not created for order ${orderHeader.orderId}, at least a single payment already exists")
+            logInfo("Payment not created for order ${orderHeader.orderId}, at least a single payment already exists")
+            return success()
         }
 
         GenericValue orderRoleTo = from('OrderRole')
@@ -961,7 +962,7 @@ Map removePaymentApplication() {
         GenericValue invoice = from('Invoice').where(invoiceId: paymentApplication.invoiceId).queryOne()
         if (invoice.statusId == 'INVOICE_PAID') {
             run service: 'setInvoiceStatus', with: [invoiceId: paymentApplication.invoiceId,
-                                                    statustId: 'INVOICE_READY']
+                                                    statusId: 'INVOICE_READY']
         }
         toMessage = label('AccountingUiLabels', 'AccountingPaymentApplToInvoice', paymentApplicationFields)
     }
