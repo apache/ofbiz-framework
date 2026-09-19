@@ -41,8 +41,7 @@ public final class ModelField extends ModelChild {
 
     public enum EncryptMethod {
         FALSE,
-        TRUE,
-        SALT;
+        TRUE;
 
         public boolean isEncrypted() {
             return this != FALSE;
