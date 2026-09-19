@@ -101,7 +101,7 @@ Map hasCrudPermission(String perm, Map resultMap) {
  * Visual Theme permission logic
  */
 Map visualThemePermissionCheck() {
-    parameters.primaryPermission = 'VISUAL_THEME'
+    parameters.primaryPermission = 'VISUALTHEME'
     Map result = run service: 'genericBasePermissionCheck', with: parameters
     return result
 }
