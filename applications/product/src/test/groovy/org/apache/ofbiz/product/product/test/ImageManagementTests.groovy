@@ -22,6 +22,7 @@ import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.service.ServiceUtil
 import org.apache.ofbiz.testtools.JunitJupiterTest
 import org.apache.ofbiz.testtools.JupiterTestHelper
+import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
 import java.sql.Timestamp
@@ -68,39 +69,45 @@ class ImageManagementTests implements JupiterTestHelper {
     @Test
     @Order(2)
     void testUpdateStatusImageManagementSingleApproverPath() {
-        Map createProductCtx = [productTypeId: 'FINISHED_GOOD', internalName: 'Test Single Approver Product', userLogin: userLogin]
-        Map createProductResult = dispatcher.runSync('createProduct', createProductCtx)
+        GenericValue userLogin = delegator.findOne('UserLogin', [userLoginId: 'system'], false)
+
+        String internalName = testParams.internalName ?: 'Test Single Approver Product'
+        String contentName = testParams.contentName ?: 'Test Single Approver Image'
+        String statusId = testParams.statusId ?: 'IM_PENDING'
+        // checkStatusId is deliberately NOT testParams-driven - it selects which branch of
+        // updateStatusImageManagement() this test exercises (IM_APPROVED), and the assertions
+        // below (purchaseFromDate getting set) only hold for that branch. See
+        // testUpdateStatusImageManagementRejectedPath() for the IM_REJECTED branch's own test.
+        String checkStatusId = 'IM_APPROVED'
+
+        Map<String, Object> createProductResult = dispatcher.runSync('createProduct',
+                [productTypeId: 'FINISHED_GOOD', internalName: internalName, userLogin: userLogin])
         assert ServiceUtil.isSuccess(createProductResult)
         String productId = createProductResult.productId
 
-        Map createContentCtx = [contentName: 'Test Single Approver Image', statusId: 'IM_PENDING', userLogin: userLogin]
-        Map createContentResult = dispatcher.runSync('createContent', createContentCtx)
+        Map<String, Object> createContentResult = dispatcher.runSync('createContent',
+                [contentName: contentName, statusId: statusId, userLogin: userLogin])
         assert ServiceUtil.isSuccess(createContentResult)
         String contentId = createContentResult.contentId
 
-        Map createProductContentCtx = [productId: productId, contentId: contentId,
-                                        productContentTypeId: 'IMAGE', userLogin: userLogin]
-        Map createProductContentResult = dispatcher.runSync('createProductContent', createProductContentCtx)
+        Map<String, Object> createProductContentResult = dispatcher.runSync('createProductContent',
+                [productId: productId, contentId: contentId, productContentTypeId: 'IMAGE', userLogin: userLogin])
         assert ServiceUtil.isSuccess(createProductContentResult)
 
-        Map createContentApprovalCtx = [contentId: contentId, partyId: userLogin.partyId, roleTypeId: 'IMAGEAPPROVER',
-                                         approvalStatusId: 'IM_PENDING', userLogin: userLogin]
-        Map createContentApprovalResult = dispatcher.runSync('createContentApproval', createContentApprovalCtx)
+        Map<String, Object> createContentApprovalResult = dispatcher.runSync('createContentApproval',
+                [contentId: contentId, partyId: userLogin.partyId, roleTypeId: 'IMAGEAPPROVER',
+                 approvalStatusId: statusId, userLogin: userLogin])
         assert ServiceUtil.isSuccess(createContentApprovalResult)
 
-        GenericValue contentBefore = from('Content')
-                .where('contentId', contentId)
-                .queryOne()
-        assert contentBefore.statusId == 'IM_PENDING'
+        GenericValue contentBefore = from('Content').where('contentId', contentId).queryOne()
+        Assertions.assertEquals(statusId, contentBefore.statusId)
 
-        Map updateStatusCtx = [productId: productId, contentId: contentId, checkStatusId: 'IM_APPROVED', userLogin: userLogin]
-        Map updateStatusResult = dispatcher.runSync('updateStatusImageManagement', updateStatusCtx)
+        Map<String, Object> updateStatusResult = dispatcher.runSync('updateStatusImageManagement',
+                [productId: productId, contentId: contentId, checkStatusId: checkStatusId, userLogin: userLogin])
         assert ServiceUtil.isSuccess(updateStatusResult)
 
-        GenericValue contentAfter = from('Content')
-                .where('contentId', contentId)
-                .queryOne()
-        assert contentAfter.statusId == 'IM_APPROVED'
+        GenericValue contentAfter = from('Content').where('contentId', contentId).queryOne()
+        Assertions.assertEquals(checkStatusId, contentAfter.statusId)
 
         GenericValue productContentAfter = from('ProductContent')
                 .where('productId', productId, 'contentId', contentId, 'productContentTypeId', 'IMAGE')
@@ -111,27 +118,36 @@ class ImageManagementTests implements JupiterTestHelper {
     @Test
     @Order(3)
     void testSetImageDetailUpdatesDataResourceIsPublic() {
-        Map createDataResourceCtx = [dataResourceName: 'Test Set Image Detail DataResource', isPublic: 'N', userLogin: userLogin]
-        Map createDataResourceResult = dispatcher.runSync('createDataResource', createDataResourceCtx)
+        GenericValue userLogin = delegator.findOne('UserLogin', [userLoginId: 'system'], false)
+
+        String internalName = testParams.internalName ?: 'Test Set Image Detail Product'
+        String contentName = testParams.contentName ?: 'Test Set Image Detail Content'
+        String dataResourceName = testParams.dataResourceName ?: 'Test Set Image Detail DataResource'
+        String initialIsPublic = testParams.initialIsPublic ?: 'N'
+        String drIsPublic = testParams.drIsPublic ?: 'Y'
+        String description = testParams.description ?: 'Test image description'
+        // statusId is deliberately NOT testParams-driven - setImageDetail()'s DataResource update
+        // only runs when content.statusId == 'IM_APPROVED'; that's the one condition this test
+        // exists to exercise, not a value a caller should vary away.
+        String statusId = 'IM_APPROVED'
+
+        Map<String, Object> createDataResourceResult = dispatcher.runSync('createDataResource',
+                [dataResourceName: dataResourceName, isPublic: initialIsPublic, userLogin: userLogin])
         assert ServiceUtil.isSuccess(createDataResourceResult)
         String dataResourceId = createDataResourceResult.dataResourceId
 
-        Map createProductCtx = [productTypeId: 'FINISHED_GOOD', internalName: 'Test Set Image Detail Product', userLogin: userLogin]
-        Map createProductResult = dispatcher.runSync('createProduct', createProductCtx)
+        Map<String, Object> createProductResult = dispatcher.runSync('createProduct',
+                [productTypeId: 'FINISHED_GOOD', internalName: internalName, userLogin: userLogin])
         assert ServiceUtil.isSuccess(createProductResult)
         String productId = createProductResult.productId
 
-        // statusId IM_APPROVED and dataResourceId set up front so setImageDetail()'s
-        // if (content.statusId == 'IM_APPROVED') branch runs and finds a DataResource to update.
-        Map createContentCtx = [contentName: 'Test Set Image Detail Content', statusId: 'IM_APPROVED',
-                                 dataResourceId: dataResourceId, userLogin: userLogin]
-        Map createContentResult = dispatcher.runSync('createContent', createContentCtx)
+        Map<String, Object> createContentResult = dispatcher.runSync('createContent',
+                [contentName: contentName, statusId: statusId, dataResourceId: dataResourceId, userLogin: userLogin])
         assert ServiceUtil.isSuccess(createContentResult)
         String contentId = createContentResult.contentId
 
-        Map createProductContentCtx = [productId: productId, contentId: contentId,
-                                        productContentTypeId: 'IMAGE', userLogin: userLogin]
-        Map createProductContentResult = dispatcher.runSync('createProductContent', createProductContentCtx)
+        Map<String, Object> createProductContentResult = dispatcher.runSync('createProductContent',
+                [productId: productId, contentId: contentId, productContentTypeId: 'IMAGE', userLogin: userLogin])
         assert ServiceUtil.isSuccess(createProductContentResult)
 
         // fromDate is part of ProductContent's PK and a required IN attribute of setImageDetail()
@@ -142,60 +158,63 @@ class ImageManagementTests implements JupiterTestHelper {
         Timestamp fromDate = productContent.fromDate
 
         GenericValue dataResourceBefore = from('DataResource').where('dataResourceId', dataResourceId).queryOne()
-        assert dataResourceBefore.isPublic == 'N'
+        Assertions.assertEquals(initialIsPublic, dataResourceBefore.isPublic)
 
-        Map setImageDetailCtx = [productId: productId, contentId: contentId, productContentTypeId: 'IMAGE',
-                                  fromDate: fromDate, description: 'Test image description',
-                                  drIsPublic: 'Y', userLogin: userLogin]
-        Map setImageDetailResult = dispatcher.runSync('setImageDetail', setImageDetailCtx)
+        Map<String, Object> setImageDetailResult = dispatcher.runSync('setImageDetail',
+                [productId: productId, contentId: contentId, productContentTypeId: 'IMAGE',
+                 fromDate: fromDate, description: description, drIsPublic: drIsPublic, userLogin: userLogin])
         assert ServiceUtil.isSuccess(setImageDetailResult)
 
         GenericValue dataResourceAfter = from('DataResource').where('dataResourceId', dataResourceId).queryOne()
-        assert dataResourceAfter.isPublic == 'Y'
+        Assertions.assertEquals(drIsPublic, dataResourceAfter.isPublic)
     }
 
     @Test
     @Order(4)
     void testUpdateStatusImageManagementRejectedPath() {
-        Map createProductCtx = [productTypeId: 'FINISHED_GOOD', internalName: 'Test Rejected Image Product', userLogin: userLogin]
-        Map createProductResult = dispatcher.runSync('createProduct', createProductCtx)
+        GenericValue userLogin = delegator.findOne('UserLogin', [userLoginId: 'system'], false)
+
+        String internalName = testParams.internalName ?: 'Test Rejected Image Product'
+        String contentName = testParams.contentName ?: 'Test Rejected Image'
+        String statusId = testParams.statusId ?: 'IM_PENDING'
+        // checkStatusId is deliberately NOT testParams-driven - see
+        // testUpdateStatusImageManagementSingleApproverPath()'s note on the same pattern.
+        String checkStatusId = 'IM_REJECTED'
+
+        Map<String, Object> createProductResult = dispatcher.runSync('createProduct',
+                [productTypeId: 'FINISHED_GOOD', internalName: internalName, userLogin: userLogin])
         assert ServiceUtil.isSuccess(createProductResult)
         String productId = createProductResult.productId
 
-        Map createContentCtx = [contentName: 'Test Rejected Image', statusId: 'IM_PENDING', userLogin: userLogin]
-        Map createContentResult = dispatcher.runSync('createContent', createContentCtx)
+        Map<String, Object> createContentResult = dispatcher.runSync('createContent',
+                [contentName: contentName, statusId: statusId, userLogin: userLogin])
         assert ServiceUtil.isSuccess(createContentResult)
         String contentId = createContentResult.contentId
 
-        Map createProductContentCtx = [productId: productId, contentId: contentId,
-                                        productContentTypeId: 'IMAGE', userLogin: userLogin]
-        Map createProductContentResult = dispatcher.runSync('createProductContent', createProductContentCtx)
+        Map<String, Object> createProductContentResult = dispatcher.runSync('createProductContent',
+                [productId: productId, contentId: contentId, productContentTypeId: 'IMAGE', userLogin: userLogin])
         assert ServiceUtil.isSuccess(createProductContentResult)
 
-        Map createContentApprovalCtx = [contentId: contentId, partyId: userLogin.partyId, roleTypeId: 'IMAGEAPPROVER',
-                                         approvalStatusId: 'IM_PENDING', userLogin: userLogin]
-        Map createContentApprovalResult = dispatcher.runSync('createContentApproval', createContentApprovalCtx)
+        Map<String, Object> createContentApprovalResult = dispatcher.runSync('createContentApproval',
+                [contentId: contentId, partyId: userLogin.partyId, roleTypeId: 'IMAGEAPPROVER',
+                 approvalStatusId: statusId, userLogin: userLogin])
         assert ServiceUtil.isSuccess(createContentApprovalResult)
 
-        GenericValue contentBefore = from('Content')
-                .where('contentId', contentId)
-                .queryOne()
-        assert contentBefore.statusId == 'IM_PENDING'
+        GenericValue contentBefore = from('Content').where('contentId', contentId).queryOne()
+        Assertions.assertEquals(statusId, contentBefore.statusId)
 
-        Map updateStatusCtx = [productId: productId, contentId: contentId, checkStatusId: 'IM_REJECTED', userLogin: userLogin]
-        Map updateStatusResult = dispatcher.runSync('updateStatusImageManagement', updateStatusCtx)
+        Map<String, Object> updateStatusResult = dispatcher.runSync('updateStatusImageManagement',
+                [productId: productId, contentId: contentId, checkStatusId: checkStatusId, userLogin: userLogin])
         assert ServiceUtil.isSuccess(updateStatusResult)
 
-        GenericValue contentAfter = from('Content')
-                .where('contentId', contentId)
-                .queryOne()
-        assert contentAfter.statusId == 'IM_REJECTED'
-        assert contentAfter.createdByUserLogin == userLogin.userLoginId
+        GenericValue contentAfter = from('Content').where('contentId', contentId).queryOne()
+        Assertions.assertEquals(checkStatusId, contentAfter.statusId)
+        Assertions.assertEquals(userLogin.userLoginId, contentAfter.createdByUserLogin)
 
         GenericValue checkRejectAfter = from('ContentApproval')
                 .where('contentId', contentId, 'partyId', userLogin.partyId, 'roleTypeId', 'IMAGEAPPROVER')
                 .queryOne()
-        assert checkRejectAfter.approvalStatusId == 'IM_REJECTED'
+        Assertions.assertEquals(checkStatusId, checkRejectAfter.approvalStatusId)
     }
 
 }

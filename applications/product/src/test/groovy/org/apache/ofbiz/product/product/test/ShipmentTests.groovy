@@ -24,6 +24,7 @@ import org.apache.ofbiz.service.ServiceUtil
 import org.apache.ofbiz.testtools.JunitJupiterTest
 import org.apache.ofbiz.testtools.JupiterTestHelper
 import org.apache.ofbiz.shipment.packing.PackingSession
+import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
 
@@ -496,40 +497,47 @@ class ShipmentTests implements JupiterTestHelper {
     @Test
     @Order(10)
     void testUpdateOrderItemShipGroupSplitsShipmentMethodIntoComponents() {
+        GenericValue userLogin = delegator.findOne('UserLogin', [userLoginId: 'system'], false)
+
         String productId = testParams.productId ?: 'GZ-2644'
-        Map orderResult = dispatcher.runSync('createTestSalesOrderSingle',
+        String shipGroupSeqId = testParams.shipGroupSeqId ?: '00001'
+        String contactMechPurposeTypeId = testParams.contactMechPurposeTypeId ?: 'SHIPPING_LOCATION'
+        String shipmentMethodTypeId = testParams.shipmentMethodTypeId ?: 'STANDARD'
+        String carrierPartyId = testParams.carrierPartyId ?: 'UPS'
+        String carrierRoleTypeId = testParams.carrierRoleTypeId ?: 'CARRIER'
+
+        Map<String, Object> orderResult = dispatcher.runSync('createTestSalesOrderSingle',
                 [userLogin: userLogin, productId: productId])
         assert ServiceUtil.isSuccess(orderResult)
         String orderId = orderResult.orderId
         assert orderId
 
         GenericValue shipGroupBefore = from('OrderItemShipGroup')
-                .where('orderId', orderId, 'shipGroupSeqId', '00001')
+                .where('orderId', orderId, 'shipGroupSeqId', shipGroupSeqId)
                 .queryOne()
         assert shipGroupBefore
-        assert shipGroupBefore.shipmentMethodTypeId != 'STANDARD' || shipGroupBefore.carrierPartyId != 'UPS'
+        assert shipGroupBefore.shipmentMethodTypeId != shipmentMethodTypeId || shipGroupBefore.carrierPartyId != carrierPartyId
 
         // shipmentMethod is a combined 'shipmentMethodTypeId@carrierPartyId@carrierRoleTypeId'
         // convenience input that updateOrderItemShipGroup() splits apart before storing - not
         // exercised by the other updateOrderItemShipGroup test above, which only changes
         // contactMechId.
-        Map updateShipGroupCtx = [
+        Map<String, Object> updateShipGroupResult = dispatcher.runSync('updateOrderItemShipGroup', [
                 orderId: orderId,
-                shipGroupSeqId: '00001',
+                shipGroupSeqId: shipGroupSeqId,
                 contactMechId: shipGroupBefore.contactMechId,
-                contactMechPurposeTypeId: 'SHIPPING_LOCATION',
-                shipmentMethod: 'STANDARD@UPS@CARRIER',
+                contactMechPurposeTypeId: contactMechPurposeTypeId,
+                shipmentMethod: "${shipmentMethodTypeId}@${carrierPartyId}@${carrierRoleTypeId}".toString(),
                 userLogin: userLogin
-        ]
-        Map updateShipGroupResult = dispatcher.runSync('updateOrderItemShipGroup', updateShipGroupCtx)
+        ])
         assert ServiceUtil.isSuccess(updateShipGroupResult)
 
         GenericValue shipGroupAfter = from('OrderItemShipGroup')
-                .where('orderId', orderId, 'shipGroupSeqId', '00001')
+                .where('orderId', orderId, 'shipGroupSeqId', shipGroupSeqId)
                 .queryOne()
-        assert shipGroupAfter.shipmentMethodTypeId == 'STANDARD'
-        assert shipGroupAfter.carrierPartyId == 'UPS'
-        assert shipGroupAfter.carrierRoleTypeId == 'CARRIER'
+        Assertions.assertEquals(shipmentMethodTypeId, shipGroupAfter.shipmentMethodTypeId)
+        Assertions.assertEquals(carrierPartyId, shipGroupAfter.carrierPartyId)
+        Assertions.assertEquals(carrierRoleTypeId, shipGroupAfter.carrierRoleTypeId)
     }
 
     /**
