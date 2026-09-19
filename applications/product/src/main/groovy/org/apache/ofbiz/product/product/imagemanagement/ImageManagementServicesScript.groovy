@@ -237,9 +237,7 @@ Map setImageDetail() {
     content.store()
 
     if (content.statusId == 'IM_APPROVED') {
-        GenericValue dataResource = from('DataResource').where(dataResourceId: content.dataResourceId).queryOne()
-        dataResource.isPublic = parameters.drIsPublic
-        dataResource.store()
+        update('DataResource').where(dataResourceId: content.dataResourceId).set([isPublic: parameters.drIsPublic])
     }
     return success()
 }
@@ -264,10 +262,8 @@ Map updateStatusImageManagement() {
             contentApproval.store()
         }
     } else {
-        GenericValue contentApproval = from('ContentApproval').where(partyId: userLogin.partyId, contentId: parameters.contentId,
-                roleTypeId: 'IMAGEAPPROVER').queryFirst()
-        contentApproval.approvalStatusId = parameters.checkStatusId
-        contentApproval.store()
+        update('ContentApproval').where(partyId: userLogin.partyId, contentId: parameters.contentId, roleTypeId: 'IMAGEAPPROVER')
+                .first().set([approvalStatusId: parameters.checkStatusId])
     }
     if (parameters.checkStatusId == 'IM_REJECTED') {
         List checkRejects = from('ContentApproval').where(contentId: parameters.contentId, roleTypeId: 'IMAGEAPPROVER').queryList()
@@ -275,35 +271,24 @@ Map updateStatusImageManagement() {
             checkReject.statusId = 'IM_REJECTED'
             checkReject.store()
         }
-        GenericValue content = from('Content').where(parameters).queryOne()
-        content.statusId = 'IM_REJECTED'
-        content.createdByUserLogin = userLogin.userLoginId
-        content.store()
+        update('Content').where(parameters).set([statusId: 'IM_REJECTED', createdByUserLogin: userLogin.userLoginId])
     } else {
         if (parameters.checkStatusId == 'IM_APPROVED') {
             if (multipleApproval == 'Y') {
                 Long countParty = from('ContentApproval').where(contentId: parameters.contentId, roleTypeId: 'IMAGEAPPROVER').queryCount()
                 if (countParty == (Long) 1) {
-                    GenericValue content = from('Content').where(parameters).queryOne()
-                    content.statusId = 'IM_APPROVED'
-                    content.store()
+                    update('Content').where(parameters).set([statusId: 'IM_APPROVED'])
 
-                    GenericValue productContent = from('ProductContent').where(contentId: parameters.contentId, productContentTypeId: 'IMAGE')
-                            .queryFirst()
-                    productContent.purchaseFromDate = nowTimestamp
-                    productContent.store()
+                    update('ProductContent').where(contentId: parameters.contentId, productContentTypeId: 'IMAGE')
+                            .first().set([purchaseFromDate: nowTimestamp])
                 } else {
                     Long countApprove = from('ContentApproval').where(contentId: parameters.contentId, roleTypeId: 'IMAGEAPPROVER',
                             approvalStatusId: 'IM_APPROVED').queryCount()
                     if (countApprove >= (Long) 2) {
-                        GenericValue content = from('Content').where(parameters).queryOne()
-                        content.statusId = 'IM_APPROVED'
-                        content.store()
+                        update('Content').where(parameters).set([statusId: 'IM_APPROVED'])
 
-                        GenericValue productContent = from('ProductContent').where(contentId: parameters.contentId, productContentTypeId: 'IMAGE')
-                                .queryFirst()
-                        productContent.purchaseFromDate = nowTimestamp
-                        productContent.store()
+                        update('ProductContent').where(contentId: parameters.contentId, productContentTypeId: 'IMAGE')
+                                .first().set([purchaseFromDate: nowTimestamp])
 
                         List checkApproveList = from('ContentApproval').where(contentId: parameters.contentId, roleTypeId: 'IMAGEAPPROVER')
                                 .queryList()
@@ -314,14 +299,10 @@ Map updateStatusImageManagement() {
                     }
                 }
             } else {
-                GenericValue content = from('Content').where(parameters).queryOne()
-                content.statusId = 'IM_APPROVED'
-                content.store()
+                update('Content').where(parameters).set([statusId: 'IM_APPROVED'])
 
-                GenericValue productContent = from('ProductContent')
-                        .where(contentId: parameters.contentId, productContentTypeId: 'IMAGE').queryFirst()
-                productContent.purchaseFromDate = nowTimestamp
-                productContent.store()
+                update('ProductContent').where(contentId: parameters.contentId, productContentTypeId: 'IMAGE')
+                        .first().set([purchaseFromDate: nowTimestamp])
 
                 List checkApproveList = from('ContentApproval').where(contentId: parameters.contentId, roleTypeId: 'IMAGEAPPROVER').queryList()
                 for (GenericValue checkApprove : checkApproveList) {
