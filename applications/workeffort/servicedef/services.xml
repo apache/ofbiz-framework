@@ -258,7 +258,7 @@ under the License.
             </type-validate>
         </attribute>
     </service>
-    <service name="quickAssignPartyToWorkEffortWithRole" engine="groovy" invoke="quickAssignPartyToWorkEffort"
+    <service name="quickAssignPartyToWorkEffortWithRole" engine="groovy" invoke="quickAssignPartyToWorkEffortWithRole"
              location="component://workeffort/src/main/groovy/org/apache/ofbiz/workeffort/workeffort/workeffort/WorkEffortServicesScript.groovy">
         <description>Quick Assign Party To WorkEffort as Owner</description>
         <attribute name="workEffortId" type="String" mode="IN">

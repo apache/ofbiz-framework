@@ -74,7 +74,7 @@ Map checkAndCreateWorkEffort() {
         }
         Map serviceResult = run service: 'createWorkEffort', with: arrivalWorkEffortMap
         require(ServiceUtil.isSuccess(serviceResult) as boolean, serviceResult.errorMessage)
-        lookedUpValue.estimatedArrivalWorkEffId = serviceResultAD.workEffortId
+        lookedUpValue.estimatedArrivalWorkEffId = serviceResult.workEffortId
         if (parameters.partyIdTo) {
             serviceResult = run service: 'assignPartyToWorkEffort', with: [workEffortId: lookedUpValue.estimatedArrivalWorkEffId,
                                                            partyId: parameters.partyIdTo,
@@ -301,7 +301,7 @@ Map copyWorkEffort() {
                 if (keyMap) {
                     String relationWorkEffortId = keyMap.getRelFieldName()
                     List<GenericValue> relationValues = sourceWorkEffort.getRelated(relationName, null, null, false)
-                    if (parameters.excludeExpiredRelations == 'Y') {
+                    if (parameters.excludeExpiredRelations == 'Y' && delegator.getModelEntity(it.getRelEntityName()).getField('fromDate')) {
                         relationValues = EntityUtil.filterByDate(relationValues)
                     }
                     relationValues.each { relationValue ->
@@ -444,7 +444,7 @@ Map assignPartyToWorkEffort() {
     Timestamp now = UtilDateTime.nowTimestamp()
     parameters.fromDate = parameters.fromDate ?: now
     Map result = run service: 'createWorkEffortPartyAssignment', with: [*: parameters,
-                                                                        statusDatetime: parameters.statusId ? now : null,
+                                                                        statusDateTime: parameters.statusId ? now : null,
                                                                         assignedByUserLoginId: userLogin.userLoginId]
     assignment = from('WorkEffortPartyAssignment').where(parameters).queryOne()
     if (parameters.statusId) {
@@ -462,7 +462,7 @@ Map updatePartyToWorkEffortAssignment() {
     if (assignment && parameters.statusId
             && parameters.statusId != assignment.statusId) {
         WorkEffortPartyAssignmentServices.updateWorkflowEngine(assignment, userLogin, dispatcher)
-        parameters.statusDatetime = UtilDateTime.nowTimestamp()
+        parameters.statusDateTime = UtilDateTime.nowTimestamp()
     }
     Map result = run service: 'updateWorkEffortPartyAssignment', with: parameters
     return result
@@ -479,6 +479,20 @@ Map quickAssignPartyToWorkEffort() {
     run service: 'createWorkEffortPartyAssignment', with: [*: parameters,
                                                            partyId: parameters.quickAssignPartyId,
                                                            statusId: 'PRTYASGN_ASSIGNED']
+    return success()
+}
+
+/**
+ * Quick Assign Party To WorkEffort with an explicit role
+ * @return Success, error response otherwise.
+ */
+Map quickAssignPartyToWorkEffortWithRole() {
+    // add a party assignment for the creator of the event, use the list method and let the EE do the update or create...
+    run service: 'ensurePartyRole', with: [partyId: parameters.quickAssignPartyId,
+                                           roleTypeId: parameters.roleTypeId]
+    run service: 'createWorkEffortPartyAssignment', with: [*: parameters,
+                                                           partyId: parameters.quickAssignPartyId,
+                                                           statusId: 'CAL_ACCEPTED']
     return success()
 }
 
