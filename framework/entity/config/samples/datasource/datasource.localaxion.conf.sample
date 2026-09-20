@@ -1,0 +1,34 @@
+{
+  "entityengine": {
+    "entity-config": {
+      "datasource": {
+        "localaxion": {
+          "helper-class": "org.apache.ofbiz.entity.datasource.GenericHelperDAO",
+          "field-type-name": "axion",
+          "check-on-start": "true",
+          "add-missing-on-start": "true",
+          "use-pk-constraint-names": "false",
+          "read-data": [
+            {"reader-name": "tenant"},
+            {"reader-name": "seed"},
+            {"reader-name": "seed-initial"},
+            {"reader-name": "demo"},
+            {"reader-name": "ext"},
+            {"reader-name": "ext-test"},
+            {"reader-name": "ext-demo"}
+          ],
+          "inline-jdbc": {
+            "jdbc-driver": "org.axiondb.jdbc.AxionDriver",
+            "jdbc-uri": "jdbc:axiondb:ofbiz:data/axion/ofbiz",
+            "jdbc-username": "ofbiz",
+            "jdbc-password": "ofbiz",
+            "isolation-level": "ReadCommitted",
+            "pool-minsize": "2",
+            "pool-maxsize": "250",
+            "time-between-eviction-runs-millis": "600000"
+          }
+        }
+      }
+    }
+  }
+}
