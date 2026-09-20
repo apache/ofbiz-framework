@@ -1913,6 +1913,14 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
                         if (overrideParam.isOverrideOptional()) {
                             existingParam.setOptional(overrideParam.isOptional());
                         }
+                        if (overrideParam.isIncludeInLock()) {
+                            if (!existingParam.isIn()) {
+                                Debug.logError("Attribute [" + overrideParam.getName() + "] of service [" + this.name
+                                        + "] cannot be included in the semaphore lock key: only IN or INOUT attributes are allowed", MODULE);
+                            } else {
+                                existingParam.setIncludeInLock(true);
+                            }
+                        }
                         if (UtilValidate.isNotEmpty(overrideParam.getAllowHtml())) {
                             existingParam.setAllowHtml(overrideParam.getAllowHtml());
                         }
