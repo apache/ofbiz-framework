@@ -761,4 +761,12 @@ under the License.
     
 
     <Enumeration description="Direct Store Delivery" enumCode="DIRECT_STORE_DELIVRY" enumId="DIRECT_STORE_DELIVRY" sequenceId="01"/>
+
+    <!-- InventoryCount Status -->
+    <StatusType description="Inventory Count Status" hasTable="N" statusTypeId="INV_COUNT_STATUS"/>
+    <StatusItem description="In Progress" sequenceId="01" statusCode="IN_PROGRESS" statusId="INV_COUNT_INPROG" statusTypeId="INV_COUNT_STATUS"/>
+    <StatusItem description="Completed" sequenceId="02" statusCode="COMPLETED" statusId="INV_COUNT_COMPLETED" statusTypeId="INV_COUNT_STATUS"/>
+    <StatusItem description="Cancelled" sequenceId="03" statusCode="CANCELLED" statusId="INV_COUNT_CANCELLED" statusTypeId="INV_COUNT_STATUS"/>
+    <StatusValidChange statusId="INV_COUNT_INPROG" statusIdTo="INV_COUNT_COMPLETED" transitionName="Complete"/>
+    <StatusValidChange statusId="INV_COUNT_INPROG" statusIdTo="INV_COUNT_CANCELLED" transitionName="Cancel"/>
 </entity-engine-xml>
