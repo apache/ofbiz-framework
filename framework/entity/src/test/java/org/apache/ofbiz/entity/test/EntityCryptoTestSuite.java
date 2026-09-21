@@ -141,9 +141,6 @@ public class EntityCryptoTestSuite implements JupiterTestHelper {
         // stored ciphertext for the same plaintext.
         assertEquals(0, (EntityQuery.use(delegator).from("TestingCrypto").where("testingCryptoTypeId", "LOOKUP",
                 "encryptedValue", nanoTime).queryList()).size());
-
-        assertEquals(0, EntityQuery.use(delegator).from("TestingCrypto").where("testingCryptoTypeId", "LOOKUP",
-                "encryptedValue", nanoTime).queryList().size());
     }
 
     /**
