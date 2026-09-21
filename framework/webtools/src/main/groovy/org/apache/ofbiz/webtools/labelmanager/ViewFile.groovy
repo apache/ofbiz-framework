@@ -18,21 +18,40 @@
 */
 package org.apache.ofbiz.webtools.labelmanager
 
-import org.apache.ofbiz.base.util.FileUtil
+import org.apache.ofbiz.base.component.ComponentConfig
 import org.apache.ofbiz.base.util.UtilXml
 import org.w3c.dom.Document
+
+// ViewFile's only real caller (ViewReferences.ftl) only ever links to files that
+// LabelReferences.java found while scanning for label usage, and for .xml that scan
+// is always <component-root>/minilang/*.xml. Restricting to that exact domain - rather
+// than the generic applications/themes/plugins/runtime content allowlist, which excludes
+// framework/ entirely - keeps framework-rooted label references viewable while still
+// blocking framework config files such as entityengine.xml.
+boolean isUnderComponentMinilangDir(File file) {
+    try {
+        String canonicalFilePath = file.getCanonicalPath()
+        for (ComponentConfig config : ComponentConfig.getAllComponents()) {
+            String canonicalMinilangDir = config.rootLocation().resolve('minilang').toFile().getCanonicalPath()
+            if (canonicalFilePath == canonicalMinilangDir || canonicalFilePath.startsWith(canonicalMinilangDir + File.separator)) {
+                return true
+            }
+        }
+    } catch (IOException ignored) {
+        return false
+    }
+    return false
+}
 
 fileString = ''
 if (parameters.fileName) {
     file = new File(parameters.fileName)
-    if (parameters.fileName.endsWith('.xml')) {
+    if (parameters.fileName.endsWith('.xml') && isUnderComponentMinilangDir(file)) {
         Document document = UtilXml.readXmlDocument(file.toURL(), false)
         ByteArrayOutputStream os = new ByteArrayOutputStream()
         UtilXml.writeXmlDocument(document, os, 'UTF-8', true, true, 4)
         os.close()
         fileString = os.toString()
-    } else if (parameters.fileName.endsWith('.properties')) {
-        fileString = FileUtil.readString('UTF-8', file)
     }
     rows = fileString.split(System.getProperty('line.separator'))
     context.rows = rows.size()
