@@ -28,12 +28,14 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.ofbiz.base.lang.JSON;
 import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilGenerics;
+import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
@@ -43,6 +45,9 @@ import org.apache.ofbiz.entity.condition.EntityCondition;
 import org.apache.ofbiz.entity.transaction.TransactionUtil;
 import org.apache.ofbiz.entity.util.EntityUtil;
 import org.apache.ofbiz.entity.util.EntityQuery;
+import org.apache.ofbiz.service.GenericServiceException;
+import org.apache.ofbiz.service.LocalDispatcher;
+import org.apache.ofbiz.service.ServiceUtil;
 
 public class ContentJsonEvents {
 
@@ -83,14 +88,24 @@ public class ContentJsonEvents {
         return "success";
     }
 
-    public static String moveContent(HttpServletRequest request, HttpServletResponse response) throws GenericEntityException, IOException {
+    public static String moveContent(HttpServletRequest request, HttpServletResponse response)
+            throws GenericEntityException, GenericServiceException, IOException {
         final Delegator delegator = (Delegator) request.getAttribute("delegator");
+        final LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
+        final HttpSession session = request.getSession();
+        final GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
+        final Locale locale = UtilHttp.getLocale(request);
 
         final String contentIdTo = request.getParameter("contentIdTo");
         final String contentIdFrom = request.getParameter("contentIdFrom");
         final String contentIdFromNew = request.getParameter("contentIdFromNew");
         final String contentAssocTypeId = request.getParameter("contentAssocTypeId");
         final Timestamp fromDate = Timestamp.valueOf(request.getParameter("fromDate"));
+
+        // moving a content association modifies both the old and the new parent, so both need
+        // the same UPDATE permission that createContentAssoc/removeContentAssoc each enforce
+        checkUpdateContentPermission(dispatcher, userLogin, locale, contentIdFrom);
+        checkUpdateContentPermission(dispatcher, userLogin, locale, contentIdFromNew);
 
         final Timestamp now = UtilDateTime.nowTimestamp();
         GenericValue assoc = TransactionUtil.inTransaction(() -> {
@@ -118,6 +133,15 @@ public class ContentJsonEvents {
         IOUtils.write(JSON.from(getTreeNode(assoc)).toString(), response.getOutputStream(), Charset.defaultCharset());
 
         return "success";
+    }
+
+    private static void checkUpdateContentPermission(LocalDispatcher dispatcher, GenericValue userLogin, Locale locale, String contentId)
+            throws GenericServiceException {
+        Map<String, Object> permSvcCtx = UtilMisc.toMap("userLogin", userLogin, "locale", locale, "mainAction", "UPDATE", "contentId", contentId);
+        Map<String, Object> permSvcResp = dispatcher.runSync("genericContentPermission", permSvcCtx);
+        if (ServiceUtil.isError(permSvcResp) || !Boolean.TRUE.equals(permSvcResp.get("hasPermission"))) {
+            throw new GenericServiceException("Permission denied to move content [" + contentId + "]");
+        }
     }
 
     public static String deleteContent(HttpServletRequest request, HttpServletResponse response) throws GenericEntityException {
