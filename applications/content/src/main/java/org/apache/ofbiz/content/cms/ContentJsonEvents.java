@@ -28,12 +28,14 @@ import java.util.Map;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.ofbiz.base.lang.JSON;
 import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilGenerics;
+import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
@@ -43,6 +45,9 @@ import org.apache.ofbiz.entity.condition.EntityCondition;
 import org.apache.ofbiz.entity.transaction.TransactionUtil;
 import org.apache.ofbiz.entity.util.EntityUtil;
 import org.apache.ofbiz.entity.util.EntityQuery;
+import org.apache.ofbiz.service.GenericServiceException;
+import org.apache.ofbiz.service.LocalDispatcher;
+import org.apache.ofbiz.service.ServiceUtil;
 
 public class ContentJsonEvents {
 
@@ -120,9 +125,23 @@ public class ContentJsonEvents {
         return "success";
     }
 
-    public static String deleteContent(HttpServletRequest request, HttpServletResponse response) throws GenericEntityException {
+    public static String deleteContent(HttpServletRequest request, HttpServletResponse response)
+            throws GenericEntityException, GenericServiceException {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
+        LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
+        HttpSession session = request.getSession();
+        GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
+        Locale locale = UtilHttp.getLocale(request);
         String contentId = request.getParameter("contentId");
+
+        // deleteContent detaches contentId from every parent it's under and cascade-deletes its
+        // whole WebSitePathAlias subtree, so it needs the same DELETE permission removeContentAssoc
+        // enforces for removing a single association
+        Map<String, Object> permSvcCtx = UtilMisc.toMap("userLogin", userLogin, "locale", locale, "mainAction", "DELETE", "contentId", contentId);
+        Map<String, Object> permSvcResp = dispatcher.runSync("genericContentPermission", permSvcCtx);
+        if (ServiceUtil.isError(permSvcResp) || !Boolean.TRUE.equals(permSvcResp.get("hasPermission"))) {
+            throw new GenericServiceException("Permission denied to delete content [" + contentId + "]");
+        }
 
         deleteContent(delegator, contentId);
 
