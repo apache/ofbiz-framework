@@ -289,7 +289,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         if (UtilValidate.isEmpty(height)) {
             height = String.valueOf(modelTheme.getLinkDefaultLayeredModalHeight());
         }
-        boolean isModal = "layered-modal".equals(linkType);
+        boolean isModal = WidgetWorker.isModalLink(linkType);
         if ("hidden-form".equals(linkType) || isModal) {
             final URI actionUri = WidgetWorker.buildHyperlinkUri(target, link.getUrlMode(), null,
                     link.getPrefix(context), link.getFullPath(), link.getSecure(), link.getEncode(),
