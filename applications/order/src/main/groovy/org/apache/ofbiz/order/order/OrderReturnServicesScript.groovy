@@ -232,7 +232,7 @@ Map createReturnItem() {
         // the user is only allowed to set a returnPrice if he has ORDERMGR_CREATE privilege,
         // otherwise only the returnablePrice calculated by service is used
         if (!security.hasEntityPermission('ORDERMGR', '_CREATE', parameters.userLogin)) {
-            returnablePrice = parameters.returnPrice
+            parameters.returnPrice = returnablePrice
         }
         // make sure the returnQuantity is not greater than the returnableQuantity
         // from service or the quantity on the original orderItem
