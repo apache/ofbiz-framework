@@ -22,7 +22,6 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
@@ -54,8 +53,6 @@ public final class EntityCrypto {
     private final Delegator delegator;
     private final ConcurrentMap<String, byte[]> keyMap = new ConcurrentHashMap<>();
     private final StorageHandler[] handlers;
-
-    private static final SecureRandom SECURE_RANDOM = new SecureRandom();
 
     public EntityCrypto(Delegator delegator, String kekText) throws EntityCryptoException {
         this.delegator = delegator;
@@ -231,21 +228,24 @@ public final class EntityCrypto {
     protected static final class ShiroStorageHandler extends StorageHandler {
         private final HashService hashService;
         private final AesCipherService cipherService;
-        private final AesCipherService saltedCipherService;
+        private final AesCipherService legacyCipherService;
         private final byte[] kek;
 
         protected ShiroStorageHandler(byte[] kek) {
             hashService = new DefaultHashService();
             cipherService = new AesCipherService();
-            cipherService.setMode(OperationMode.ECB);
-            cipherService.setPaddingScheme(PaddingScheme.PKCS5);
-            saltedCipherService = new AesCipherService();
+            // Kept only to decrypt values written before the fix for OFBIZ-13599, which forced AES into ECB
+            // mode (no IV, deterministic ciphertext) instead of using AesCipherService's safer default.
+            // Never used for new encryption; existing ECB values are migrated via the reencryptFields service.
+            legacyCipherService = new AesCipherService();
+            legacyCipherService.setMode(OperationMode.ECB);
+            legacyCipherService.setPaddingScheme(PaddingScheme.PKCS5);
             this.kek = kek;
         }
 
         @Override
         protected Key generateNewKey() {
-            return saltedCipherService.generateNewKey();
+            return cipherService.generateNewKey();
         }
 
         @Override
@@ -263,7 +263,7 @@ public final class EntityCrypto {
         protected byte[] decodeKeyBytes(String keyText) throws GeneralException {
             byte[] keyBytes = Base64.decodeBase64(keyText);
             if (kek != null) {
-                keyBytes = saltedCipherService.decrypt(keyBytes, kek).getClonedBytes();
+                keyBytes = cipherService.decrypt(keyBytes, kek).getClonedBytes();
             }
             return keyBytes;
         }
@@ -271,7 +271,7 @@ public final class EntityCrypto {
         @Override
         protected String encodeKey(byte[] key) throws GeneralException {
             if (kek != null) {
-                return saltedCipherService.encrypt(key, kek).toBase64();
+                return cipherService.encrypt(key, kek).toBase64();
             } else {
                 return Base64.encodeBase64String(key);
             }
@@ -279,22 +279,20 @@ public final class EntityCrypto {
 
         @Override
         protected byte[] decryptValue(byte[] key, EncryptMethod encryptMethod, String encryptedString) throws GeneralException {
-            switch (encryptMethod) {
-            case SALT:
-                return saltedCipherService.decrypt(Base64.decodeBase64(encryptedString), key).getClonedBytes();
-            default:
-                return cipherService.decrypt(Base64.decodeBase64(encryptedString), key).getClonedBytes();
+            byte[] encryptedBytes = Base64.decodeBase64(encryptedString);
+            try {
+                return cipherService.decrypt(encryptedBytes, key).getClonedBytes();
+            } catch (Exception e) {
+                // Fall back to the legacy ECB decrypt for values written before the fix for OFBIZ-13599;
+                // see the comment on legacyCipherService above.
+                Debug.logInfo("Decrypt with current cipher failed, trying legacy ECB cipher", MODULE);
+                return legacyCipherService.decrypt(encryptedBytes, key).getClonedBytes();
             }
         }
 
         @Override
         protected String encryptValue(EncryptMethod encryptMethod, byte[] key, byte[] objBytes) throws GeneralException {
-            switch (encryptMethod) {
-            case SALT:
-                return saltedCipherService.encrypt(objBytes, key).toBase64();
-            default:
-                return cipherService.encrypt(objBytes, key).toBase64();
-            }
+            return cipherService.encrypt(objBytes, key).toBase64();
         }
     }
 
@@ -416,17 +414,10 @@ public final class EntityCrypto {
 
         @Override
         protected String encryptValue(EncryptMethod encryptMethod, byte[] key, byte[] objBytes) throws GeneralException {
-            byte[] saltBytes;
-            switch (encryptMethod) {
-            case SALT:
-                // random length 5-16
-                saltBytes = new byte[5 + SECURE_RANDOM.nextInt(11)];
-                SECURE_RANDOM.nextBytes(saltBytes);
-                break;
-            default:
-                saltBytes = new byte[0];
-                break;
-            }
+            // This legacy handler is never used for new encryption -- EntityCrypto.encrypt() always
+            // encrypts through the primary ShiroStorageHandler; this method exists only so the class
+            // implements StorageHandler for its decrypt fallback role.
+            byte[] saltBytes = new byte[0];
             byte[] allBytes = new byte[1 + saltBytes.length + objBytes.length];
             allBytes[0] = (byte) saltBytes.length;
             System.arraycopy(saltBytes, 0, allBytes, 1, saltBytes.length);

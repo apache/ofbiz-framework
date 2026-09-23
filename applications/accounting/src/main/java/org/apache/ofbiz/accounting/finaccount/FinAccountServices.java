@@ -33,15 +33,18 @@ import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
+import org.apache.ofbiz.entity.EntityCryptoException;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.condition.EntityCondition;
 import org.apache.ofbiz.entity.condition.EntityExpr;
 import org.apache.ofbiz.entity.condition.EntityOperator;
+import org.apache.ofbiz.entity.model.ModelField;
 import org.apache.ofbiz.entity.util.EntityListIterator;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.order.finaccount.FinAccountHelper;
 import org.apache.ofbiz.product.store.ProductStoreWorker;
+import org.apache.ofbiz.security.Security;
 import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
@@ -509,5 +512,48 @@ public class FinAccountServices {
         }
 
         return result;
+    }
+
+    /**
+     * One-time migration for OFBIZ-13599: FinAccount.finAccountCode is no longer marked
+     * {@code encrypt="true"}, since the field needs exact-match lookup to function as a redemption
+     * code (see FinAccountHelper.getFinAccountFromCode) and encryption never provided real
+     * confidentiality for it in practice. Existing rows still hold ciphertext from before this
+     * change; this decrypts them back to plaintext so they remain usable. Safe to run more than
+     * once -- a row whose value is already plaintext fails to decrypt and is left untouched.
+     */
+    public static Map<String, Object> decryptFinAccountCodes(DispatchContext dctx, Map<String, Object> context) {
+        Delegator delegator = dctx.getDelegator();
+        Security security = dctx.getSecurity();
+        Locale locale = (Locale) context.get("locale");
+
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        if (!security.hasPermission("ACCOUNTING_ADMIN", userLogin)) {
+            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "AccountingFinAccountCodeDecryptPermissionError", locale));
+        }
+
+        try {
+            List<GenericValue> rows = EntityQuery.use(delegator).from("FinAccount")
+                    .select("finAccountId", "finAccountCode").queryList();
+            for (GenericValue row: rows) {
+                String rawValue = row.getString("finAccountCode");
+                if (UtilValidate.isEmpty(rawValue)) {
+                    continue;
+                }
+                String plainValue;
+                try {
+                    plainValue = (String) delegator.decryptFieldValue("FinAccount", ModelField.EncryptMethod.TRUE, rawValue);
+                } catch (EntityCryptoException e) {
+                    // Already plaintext -- either this migration already ran, or the row was
+                    // created after encrypt="true" was removed. Nothing to do.
+                    continue;
+                }
+                row.setString("finAccountCode", plainValue);
+                row.store();
+            }
+        } catch (GenericEntityException gee) {
+            return ServiceUtil.returnError(gee.getMessage());
+        }
+        return ServiceUtil.returnSuccess();
     }
 }

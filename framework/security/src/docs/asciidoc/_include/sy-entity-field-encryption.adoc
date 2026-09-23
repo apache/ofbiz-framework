@@ -1,0 +1,39 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+
+= Entity field encryption (encrypt="true")
+
+Fields marked `encrypt="true"` in entitydef XML (for example `CreditCard.cardNumber` and
+`PartyPrivateInformation.socialSecurityNumber`) are encrypted with AES through
+`org.apache.ofbiz.entity.util.EntityCrypto`, using whichever cipher configuration is safe by
+default rather than a fixed mode (OFBIZ-13599). Values encrypted before this change remain
+decryptable automatically, so upgrading does not make existing data unreadable.
+
+[CAUTION]
+Existing rows are not re-encrypted automatically. Run the `reencryptFields` service (permission
+`ENTITY_MAINT`) after upgrading so that data written under the older cipher configuration is
+rewritten under the current one. It walks every `encrypt="true"` field across the entity group
+named by its `groupName` parameter (default `org.apache.ofbiz`) and is safe to run more than once.
+
+`FinAccount.finAccountCode` is no longer marked `encrypt="true"`: it is used as an exact-match
+redemption code (see `FinAccountHelper.getFinAccountFromCode`), which requires the same input to
+always compare equal, a property incompatible with the safer, randomized encryption above. Its
+sibling field `finAccountPin` remains encrypted. Existing `finAccountCode` values written before
+this change are still ciphertext; run the `decryptFinAccountCodes` service (permission
+`ACCOUNTING_ADMIN`, also safe to run more than once) to convert them back to plain text.
