@@ -27,6 +27,8 @@ import org.apache.ofbiz.entity.condition.EntityOperator
 import org.apache.ofbiz.entity.model.ModelEntity
 import org.apache.ofbiz.entity.util.EntityFindOptions
 import org.apache.ofbiz.entity.util.EntityQuery
+import org.codehaus.groovy.ast.expr.ConstantExpression
+import org.codehaus.groovy.ast.expr.MethodCallExpression
 import org.codehaus.groovy.ast.expr.MethodPointerExpression
 import org.codehaus.groovy.ast.stmt.ForStatement
 import org.codehaus.groovy.ast.stmt.SwitchStatement
@@ -221,6 +223,17 @@ if (security.hasPermission('ENTITY_MAINT', session)) {
         setClosuresAllowed(true)
         setMethodDefinitionAllowed(false)
     }
+
+    // Reject method calls whose method name is not a compile-time constant, e.g. obj."$name"(),
+    // obj.("a" + "b")() or any other computed/GString-valued invocation. The receiver allow-list
+    // above and the dangerousPatterns regex both key off statically visible types and literal method
+    // names, so a dynamically resolved name slips past both layers: 'x'."${'exec' + 'ute'}"() calls
+    // String.execute() (a GDK method on the allowed java.lang.String / java.lang.Object receivers)
+    // and runs an OS command. Legitimate export scripts only ever call methods by their literal name,
+    // so forbidding indirect method dispatch closes that bypass class without affecting real usage.
+    secureCustomizer.addExpressionCheckers({ expr ->
+        !(expr instanceof MethodCallExpression) || expr.method instanceof ConstantExpression
+    } as SecureASTCustomizer.ExpressionChecker)
 
     // Add imports for script.
     ImportCustomizer importCustomizer = new ImportCustomizer()
