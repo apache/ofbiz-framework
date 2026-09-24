@@ -81,12 +81,12 @@ under the License.
             <actions>
                 <property-map resource="MarketingUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="mainMenuLocation" from-field="parameters.mainMenuLocation" default-value="component://marketing/widget/sfa/SfaMenus.xml"/>
+                <set field="sfaMenuLocation" from-field="parameters.shortcutMenuLocation" default-value="component://marketing/widget/sfa/SfaMenus.xml"/>
             </actions>
             <widgets>
                 <decorator-screen name="ShortcutDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <include-menu name="SfaShortcutAppBar" location="${mainMenuLocation}"/>
+                        <include-menu name="SfaShortcutAppBar" location="${sfaMenuLocation}"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
