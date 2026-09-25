@@ -29,33 +29,51 @@ contributor(groovyContext) {
     property name: 'security', type: 'org.apache.ofbiz.security.Security'
 
     method name: 'runService', type: 'java.util.Map', params: [serviceName: 'String', inputMap: 'java.util.Map']
-    method name: 'run', type: 'java.util.Map', params: [args: 'java.util.Map']
-    method name: 'makeValue', type: 'org.apache.ofbiz.entity.GenericValue', params: [entityName: 'String']
-    method name: 'makeValue', type: 'org.apache.ofbiz.entity.GenericValue', params: [entityName: 'String', fields: 'java.util.Map']
-    method name: 'findOne', type: 'java.util.Map', params: [entityName: 'String', fields: 'java.util.Map', useCache: 'boolean']
+    method name: 'runAsyncService', type: 'void', params: [serviceName: 'String', inputMap: 'java.util.Map']
+    method name: 'run', type: 'java.util.map', params: [args: 'java.util.Map']
+    method name: 'runAsync', type: 'void', params: [args: 'java.util.Map']
 
+    method name: 'makeValue', type: 'org.apache.ofbiz.entity.GenericValue', params: [entityName: 'String']
+    method name: 'makeValue', type: 'org.apache.ofbiz.entity.GenericValue', params: [entityName: 'String', inputMap: 'java.util.Map']
+    method name: 'from', type: 'org.apache.ofbiz.entity.util.EntityQuery', params: [entityName: 'String']
+    method name: 'from', type: 'org.apache.ofbiz.entity.util.EntityQuery', params: [dynamicViewEntity: 'org.apache.ofbiz.entity.model.DynamicViewEntity']
+    method name: 'select', type: 'org.apache.ofbiz.entity.util.EntityQuery', params: [fields: 'String...']
+    method name: 'select', type: 'org.apache.ofbiz.entity.util.EntityQuery', params: [fields: 'java.util.Set<String>']
+
+    method name: 'create', type: 'org.apache.ofbiz.entity.GenericValue', params: [entityName: 'String', fields: 'java.util.Map']
     method name: 'update', type: 'org.apache.ofbiz.service.engine.EntityUpdateBuilder', params: [entityName: 'String']
     method name: 'delete', type: 'org.apache.ofbiz.service.engine.EntityDeleteBuilder', params: [entityName: 'String']
 
-    method name: 'select', type: 'org.apache.ofbiz.entity.util.EntityQuery', params: [entity: 'java.util.Set']
-    method name: 'select', type: 'org.apache.ofbiz.entity.util.EntityQuery', params: [entity: 'String...']
-    method name: 'from', type: 'org.apache.ofbiz.entity.util.EntityQuery', params: [entity: 'java.lang.Object']
-
-    method name: 'success', type: 'java.util.Map'
-    method name: 'success', type: 'java.util.Map', params: [fields: 'java.util.Map']
-    method name: 'success', type: 'java.util.Map', params: [successMessage: 'String', fields: 'java.util.Map']
+    method name: 'success', type: 'java.util.Map', params: [message: 'String']
+    method name: 'success', type: 'java.util.Map', params: [returnValues: 'java.util.Map']
+    method name: 'success', type: 'java.util.Map', params: [message: 'String', returnValues: 'java.util.Map']
+    method name: 'success', type: 'java.util.Map', params: [resource: 'String', key: 'String']
+    method name: 'success', type: 'java.util.Map', params: [resource: 'String', key: 'String',
+                                                            context: 'java.util.Map', returnValues: 'java.util.Map']
 
     method name: 'failure', type: 'java.util.Map', params: [message: 'String']
+    method name: 'failure', type: 'java.util.Map', params: [message: 'String', returnValues: 'java.util.Map']
+    method name: 'failure', type: 'java.util.Map', params: [resource: 'String', key: 'String', returnValues: 'java.util.Map']
 
-    method name: 'error', type: 'java.util.Map', params: [errorMessage: 'String']
-    method name: 'error', type: 'java.util.Map', params: [errorMessage: 'String', fields: 'java.util.Map']
-    method name: 'error', type: 'java.util.Map', params: [fields: 'java.util.Map']
+    method name: 'error', type: 'java.util.Map', params: [message: 'String']
+    method name: 'error', type: 'java.util.Map', params: [resource: 'String', key: 'String']
+    method name: 'error', type: 'java.util.Map', params: [resource: 'String', key: 'String', context: 'java.util.Map']
 
-    method name: 'label', type: 'String', params: [ressource: 'String', key: 'String']
-    method name: 'label', type: 'String', params: [ressource: 'String', key: 'String', context: 'java.util.Map']
-
+    method name: 'logVerbose', type: 'void', params: [message: 'String']
     method name: 'logInfo', type: 'void', params: [message: 'String']
     method name: 'logWarning', type: 'void', params: [message: 'String']
     method name: 'logError', type: 'void', params: [message: 'String']
-    method name: 'logVerbose', type: 'void', params: [message: 'String']
+    method name: 'logError', type: 'void', params: [t: 'java.lang.Throwable']
+    method name: 'logError', type: 'void', params: [t: 'java.lang.Throwable', message: 'String']
+
+    method name: 'label', type: 'String', params: [ressource: 'String', message: 'String']
+    method name: 'label', type: 'String', params: [ressource: 'String', message: 'String', context: 'java.util.Map']
+
+    method name: 'fail', type: 'void', params: [message: 'String']
+    method name: 'fail', type: 'void', params: [resource: 'String', key: 'String']
+    method name: 'fail', type: 'void', params: [resource: 'String', key: 'String', context: 'java.util.Map']
+
+    method name: 'require', type: 'void', params: [condition: 'boolean', message: 'String']
+    method name: 'require', type: 'void', params: [condition: 'boolean', resource: 'String', key: 'String']
+    method name: 'require', type: 'void', params: [condition: 'boolean', resource: 'String', key: 'String', context: 'java.util.Map']
 }
