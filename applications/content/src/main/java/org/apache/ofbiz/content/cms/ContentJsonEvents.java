@@ -144,9 +144,23 @@ public class ContentJsonEvents {
         }
     }
 
-    public static String deleteContent(HttpServletRequest request, HttpServletResponse response) throws GenericEntityException {
+    public static String deleteContent(HttpServletRequest request, HttpServletResponse response)
+            throws GenericEntityException, GenericServiceException {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
+        LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
+        HttpSession session = request.getSession();
+        GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
+        Locale locale = UtilHttp.getLocale(request);
         String contentId = request.getParameter("contentId");
+
+        // deleteContent detaches contentId from every parent it's under and cascade-deletes its
+        // whole WebSitePathAlias subtree, so it needs the same DELETE permission removeContentAssoc
+        // enforces for removing a single association
+        Map<String, Object> permSvcCtx = UtilMisc.toMap("userLogin", userLogin, "locale", locale, "mainAction", "DELETE", "contentId", contentId);
+        Map<String, Object> permSvcResp = dispatcher.runSync("genericContentPermission", permSvcCtx);
+        if (ServiceUtil.isError(permSvcResp) || !Boolean.TRUE.equals(permSvcResp.get("hasPermission"))) {
+            throw new GenericServiceException("Permission denied to delete content [" + contentId + "]");
+        }
 
         deleteContent(delegator, contentId);
 
