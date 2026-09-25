@@ -425,7 +425,7 @@ Map quickReturnFromOrder() {
     GenericValue returnItemTypeMapping
 
     if (!security.hasEntityPermission('ORDERMGR', '_CREATE', parameters.userLogin)
-            && !parameters.fromPartyId == userLogin.partyId) {
+            && parameters.fromPartyId != userLogin.partyId) {
         return informError('OrderSecurityErrorToRunQuickReturnFromOrder')
     }
 
