@@ -1166,11 +1166,10 @@ task reEncryptAllSecrets(group: sysadminGroup,
 }
 
 task generateSecretKeys(group: sysadminGroup,
-        description: 'Generate cryptographically secure 512-bit (64-char) secret keys for JWT token signing and password encryption, and write them to security.properties') {
+        description: 'Generate cryptographically secure secret keys for JWT token signing, password encryption, '
+                + 'and AdminServer authentication, and write them to their properties files') {
     doLast {
-        def propertiesFile = file('framework/security/config/security.properties')
-
-        def generateAndWriteKey = { String propertyName ->
+        def generateAndWriteKey = { File propertiesFile, String propertyName ->
             def content = propertiesFile.text
             def escapedName = propertyName.replace('.', '\\.')
             // Only generate a key if the property is missing or commented out
@@ -1189,8 +1188,12 @@ task generateSecretKeys(group: sysadminGroup,
             propertiesFile.text = content
         }
 
-        generateAndWriteKey('login.secret_key_string')
-        generateAndWriteKey('security.token.key')
+        def securityPropertiesFile = file('framework/security/config/security.properties')
+        generateAndWriteKey(securityPropertiesFile, 'login.secret_key_string')
+        generateAndWriteKey(securityPropertiesFile, 'security.token.key')
+
+        def startPropertiesFile = file('framework/start/src/main/resources/org/apache/ofbiz/base/start/start.properties')
+        generateAndWriteKey(startPropertiesFile, 'ofbiz.admin.key')
 
         println "Secret key generation complete. Keep any new keys secret and do not commit them to version control."
     }

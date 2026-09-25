@@ -55,20 +55,31 @@ public final class AdminServerContainer implements Container {
     @Override
     public void init(List<StartupCommand> ofbizCommands, String name, String configFile) throws ContainerException {
         this.name = name;
-        try {
-            serverSocket = new ServerSocket(cfg.getAdminPort(), 1, cfg.getAdminAddress());
-        } catch (IOException e) {
-            String msg = "Couldn't create server socket(" + cfg.getAdminAddress() + ":" + cfg.getAdminPort() + ")";
-            throw new ContainerException(msg, e);
-        }
-
-        if (cfg.getAdminPort() > 0) {
+        if (cfg.getAdminPort() > 0 && isAdminKeyConfigured()) {
+            try {
+                serverSocket = new ServerSocket(cfg.getAdminPort(), 1, cfg.getAdminAddress());
+            } catch (IOException e) {
+                String msg = "Couldn't create server socket(" + cfg.getAdminAddress() + ":" + cfg.getAdminPort() + ")";
+                throw new ContainerException(msg, e);
+            }
             serverThread = new Thread(this::run, "OFBiz-AdminServer");
         } else {
             serverThread = new Thread("OFBiz-AdminServer"); // Dummy thread
-            System.out.println("Admin socket not configured; set to port 0");
+            if (cfg.getAdminPort() > 0) {
+                System.out.println("Admin socket disabled; ofbiz.admin.key is not configured. Run "
+                        + "'./gradlew generateSecretKeys' or set ofbiz.admin.key to a unique secret to enable it.");
+            } else {
+                System.out.println("Admin socket not configured; set to port 0");
+            }
         }
         serverThread.setDaemon(false);
+    }
+
+    // The AdminServer must never come up authenticated by a value shipped in public source code:
+    // treat a missing/blank key, or the Config default sentinel, as "not configured".
+    private boolean isAdminKeyConfigured() {
+        String adminKey = cfg.getAdminKey();
+        return UtilValidate.isNotEmpty(adminKey) && !"NA".equals(adminKey);
     }
 
     // Listens for administration commands.

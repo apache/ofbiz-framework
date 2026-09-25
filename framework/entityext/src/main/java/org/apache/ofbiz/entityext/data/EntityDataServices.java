@@ -28,10 +28,12 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.ofbiz.base.crypto.DesCrypt;
@@ -49,6 +51,7 @@ import org.apache.ofbiz.entity.datasource.GenericHelperInfo;
 import org.apache.ofbiz.entity.jdbc.DatabaseUtil;
 import org.apache.ofbiz.entity.model.ModelEntity;
 import org.apache.ofbiz.entity.model.ModelField;
+import org.apache.ofbiz.entity.model.ModelViewEntity;
 import org.apache.ofbiz.entity.util.EntityListIterator;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.security.Security;
@@ -526,11 +529,23 @@ public class EntityDataServices {
         }
 
         for (ModelEntity modelEntity: modelEntities.values()) {
+            if (modelEntity instanceof ModelViewEntity) {
+                // Skip view entities: an encrypted field exposed through a view is really an alias of a
+                // real entity's field, which this loop also visits directly; storing through a view here
+                // fails anyway unless the view happens to be uniquely updatable.
+                continue;
+            }
             List<ModelField> fields = modelEntity.getFieldsUnmodifiable();
             for (ModelField field: fields) {
                 if (field.getEncryptMethod().isEncrypted()) {
                     try {
-                        List<GenericValue> rows = EntityQuery.use(delegator).from(modelEntity.getEntityName()).select(field.getName()).queryList();
+                        // Select the primary key alongside the encrypted field: store() below needs the PK
+                        // to find the row again, otherwise it fails with GenericEntityNotFoundException
+                        // (OFBIZ-6694).
+                        Set<String> fieldsToSelect = new LinkedHashSet<>(modelEntity.getPkFieldNames());
+                        fieldsToSelect.add(field.getName());
+                        List<GenericValue> rows = EntityQuery.use(delegator).from(modelEntity.getEntityName())
+                                .select(fieldsToSelect).queryList();
                         for (GenericValue row: rows) {
                             row.setString(field.getName(), row.getString(field.getName()));
                             row.store();

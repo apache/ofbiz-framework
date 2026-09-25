@@ -614,4 +614,10 @@ under the License.
         <description>Delete a FinAccountTypeAttr</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
+
+    <service name="decryptFinAccountCodes" engine="java" auth="true" transaction-timeout="14400"
+            location="org.apache.ofbiz.accounting.finaccount.FinAccountServices" invoke="decryptFinAccountCodes">
+        <description>One-time migration (OFBIZ-13599): decrypt existing FinAccount.finAccountCode values now
+            that the field is no longer encrypted. Safe to run more than once.</description>
+    </service>
 </services>
