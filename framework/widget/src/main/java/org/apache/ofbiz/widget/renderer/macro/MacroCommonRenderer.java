@@ -90,6 +90,9 @@ public class MacroCommonRenderer {
                 parameters.putAll(UtilGenerics.cast(extraParams));
             }
             parameters.putAll(UtilGenerics.cast(updateArea.getParameterMap(ctx)));
+            if (parameters.containsKey("_FORM_NAME_")) {
+                parameters.remove("JWT_CALLBACK");
+            }
             UtilHttp.canonicalizeParameterMap(parameters);
             parametersToForward = UtilHttp.urlEncodeArgs(parameters, false);
 
