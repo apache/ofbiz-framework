@@ -30,16 +30,29 @@ contributor(groovyContext) {
 
     method name: 'runService', type: 'java.util.Map', params: [serviceName: 'String', inputMap: 'java.util.Map']
     method name: 'run', type: 'java.util.Map', params: [args: 'java.util.Map']
-    method name: 'makeValue', type: 'java.util.Map', params: [entityName: 'String']
+    method name: 'makeValue', type: 'org.apache.ofbiz.entity.GenericValue', params: [entityName: 'String']
+    method name: 'makeValue', type: 'org.apache.ofbiz.entity.GenericValue', params: [entityName: 'String', fields: 'java.util.Map']
     method name: 'findOne', type: 'java.util.Map', params: [entityName: 'String', fields: 'java.util.Map', useCache: 'boolean']
+
+    method name: 'update', type: 'org.apache.ofbiz.service.engine.EntityUpdateBuilder', params: [entityName: 'String']
+    method name: 'delete', type: 'org.apache.ofbiz.service.engine.EntityDeleteBuilder', params: [entityName: 'String']
 
     method name: 'select', type: 'org.apache.ofbiz.entity.util.EntityQuery', params: [entity: 'java.util.Set']
     method name: 'select', type: 'org.apache.ofbiz.entity.util.EntityQuery', params: [entity: 'String...']
     method name: 'from', type: 'org.apache.ofbiz.entity.util.EntityQuery', params: [entity: 'java.lang.Object']
 
-    method name: 'success', type: 'def', params: [message: 'String']
+    method name: 'success', type: 'java.util.Map'
+    method name: 'success', type: 'java.util.Map', params: [fields: 'java.util.Map']
+    method name: 'success', type: 'java.util.Map', params: [successMessage: 'String', fields: 'java.util.Map']
+
     method name: 'failure', type: 'java.util.Map', params: [message: 'String']
-    method name: 'error', type: 'def', params: [message: 'String']
+
+    method name: 'error', type: 'java.util.Map', params: [errorMessage: 'String']
+    method name: 'error', type: 'java.util.Map', params: [errorMessage: 'String', fields: 'java.util.Map']
+    method name: 'error', type: 'java.util.Map', params: [fields: 'java.util.Map']
+
+    method name: 'label', type: 'String', params: [ressource: 'String', key: 'String']
+    method name: 'label', type: 'String', params: [ressource: 'String', key: 'String', context: 'java.util.Map']
 
     method name: 'logInfo', type: 'void', params: [message: 'String']
     method name: 'logWarning', type: 'void', params: [message: 'String']
