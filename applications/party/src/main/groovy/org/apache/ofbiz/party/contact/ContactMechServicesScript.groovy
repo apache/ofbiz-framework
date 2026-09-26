@@ -322,7 +322,7 @@ Map sendVerifyEmailAddressNotification() {
     GenericValue emailAddressVerification = from('EmailAddressVerification')
             .where('emailAddress', parameters.emailAddress)
             .queryOne()
-    if (emailAddressVerification && storeEmail) {
+    if (emailAddressVerification && storeEmail?.bodyScreenLocation) {
         Map emailParams = [
             sendTo: parameters.emailAddress,
             subject: storeEmail.subject,
