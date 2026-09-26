@@ -72,7 +72,7 @@ Map issueImmediatelyFulfilledOrderItem() {
 
     // kind of like the inventory reservation routine (with a few variations...), find InventoryItems to issue from,
     // but instead of doing the reservation just create an issuance and an inventory item detail for the change
-    if (orderItem.productId) {
+    if (orderItem?.productId) {
         // NOTE: the inventory will be issued from the OrderHeader.originFacilityId
         GenericValue orderHeader = parameters.orderHeader ?:
                 from('OrderHeader').where(parameters).queryOne()
