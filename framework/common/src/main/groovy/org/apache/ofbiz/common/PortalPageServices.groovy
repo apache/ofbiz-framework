@@ -45,7 +45,7 @@ Map movePortletToPortalPage() {
         targetPortalPortlet.create()
         sourcePortalPagePortlet.remove()
     }
-    return success(sourcePortalPagePortlet)
+    return success()
 }
 
 /**
@@ -134,7 +134,7 @@ Map getPortletAttributes() {
                 .where(ownerUserLoginId: parameters.ownerUserLoginId,
                         portalPortletId: parameters.portalPortletId)
                 .queryFirst()
-        parameters.portalPageId = portalPagePortlet.portalPageId
+        parameters.portalPageId = portalPagePortlet?.portalPageId
     }
     EntityCondition condition = new EntityConditionBuilder().AND {
         EQUALS(portalPageId: parameters.portalPageId)
@@ -242,12 +242,12 @@ Map updatePortalPageSeq() {
  * @return Success response after move
  */
 Map updatePortletSeqDragDrop() {
+    // update Portlet Seq with Drag & Drop
+    parameters.portalPageId = parameters.o_portalPageId
     Map checkIsOwner = checkOwnerShip()
     if (ServiceUtil.isError(checkIsOwner)) {
         return checkIsOwner
     }
-    // update Portlet Seq with Drag & Drop
-    parameters.portalPageId = parameters.o_portalPageId
     GenericValue originPp = from('PortalPagePortlet')
             .where(portalPageId: parameters.o_portalPageId,
                     portalPortletId: parameters.o_portalPortletId,
@@ -346,13 +346,13 @@ private Map checkOwnerShip() {
     }
     GenericValue portalPage = from('PortalPage').where(parameters).cache().queryOne()
     if (!portalPage) {
-        return error(label('CommonUiLabels', 'PortalPageNotFound', parameters))
+        return error(label('CommonUiLabels', 'PortalPageNotFound', [parameters: parameters]))
     }
 
     // only page owner or user with MYPORTALBASE_ADMIN can modify the page detail
     if (portalPage.ownerUserLoginId != userLogin.userLoginId &&
             !security.hasPermission('MYPORTALBASE_ADMIN', userLogin)) {
-        return error(label('CommonUiLabels', 'PortalPageNotOwned', portalPage))
+        return error(label('CommonUiLabels', 'PortalPageNotOwned', [portalPage: portalPage]))
     }
     return success()
 }
