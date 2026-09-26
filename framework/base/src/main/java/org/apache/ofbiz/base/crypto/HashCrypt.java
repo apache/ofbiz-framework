@@ -85,11 +85,11 @@ public class HashCrypt {
         byte[] digestBytes = messagedigest.digest();
         char[] digestChars = Hex.encodeHex(digestBytes);
         String checkCrypted = new String(digestChars);
-        if (hashed.equals(checkCrypted)) {
+        if (isEqual(hashed, checkCrypted)) {
             return true;
         }
         // This next block should be removed when all {prefix}oldFunnyHex are fixed.
-        if (hashed.equals(oldFunnyHex(digestBytes))) {
+        if (isEqual(hashed, oldFunnyHex(digestBytes))) {
             Debug.logWarning("Warning: detected oldFunnyHex password prefixed with a hashType; this is not valid, please update the value "
                     + "in the database with ({%s}%s)", MODULE, hashType, checkCrypted);
             return true;
@@ -103,7 +103,7 @@ public class HashCrypt {
         String hashType = crypted.substring(1, typeEnd);
         String salt = crypted.substring(typeEnd + 1, saltEnd);
         String hashed = crypted.substring(saltEnd + 1);
-        return hashed.equals(getCryptedBytes(hashType, salt, bytes));
+        return isEqual(hashed, getCryptedBytes(hashType, salt, bytes));
     }
 
     private static boolean doCompareBare(String crypted, String defaultCrypt, byte[] bytes) {
@@ -111,7 +111,14 @@ public class HashCrypt {
         String hashed = crypted;
         MessageDigest messagedigest = getMessageDigest(hashType);
         messagedigest.update(bytes);
-        return hashed.equals(oldFunnyHex(messagedigest.digest()));
+        return isEqual(hashed, oldFunnyHex(messagedigest.digest()));
+    }
+
+    /**
+     * Compares two hash strings in constant time, so the comparison does not stop at the first differing character.
+     */
+    private static boolean isEqual(String hashed, String computed) {
+        return MessageDigest.isEqual(hashed.getBytes(StandardCharsets.UTF_8), computed.getBytes(StandardCharsets.UTF_8));
     }
 
     /*
