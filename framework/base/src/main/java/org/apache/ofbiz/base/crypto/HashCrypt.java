@@ -217,8 +217,7 @@ public class HashCrypt {
             String hashType = crypted.substring(1, typeEnd);
             String[] parts = crypted.split("\\$");
             int iterations = Integer.parseInt(parts[0].substring(typeEnd + 1));
-            byte[] salt = Arrays.toString(java.util.Base64.getMimeDecoder().decode(parts[1].getBytes(StandardCharsets.UTF_8)))
-                    .getBytes(StandardCharsets.UTF_8);
+            byte[] salt = java.util.Base64.getMimeDecoder().decode(parts[1].getBytes(StandardCharsets.UTF_8));
             byte[] hash = Base64.decodeBase64(parts[2].getBytes(StandardCharsets.UTF_8));
 
             PBEKeySpec spec = new PBEKeySpec(password.toCharArray(), salt, iterations, hash.length * 8);
