@@ -119,7 +119,7 @@ Map convertUom() {
     // round result, if UomConversion[Dated] so specifies
     decimalScale = uomConversion.decimalScale ?: parameters.defaultDecimalScale
     roundingMode = uomConversion.roundingMode ?: parameters.defaultRoundingMode
-    if (convertedValue && roundingMode) {
+    if (convertedValue != null && roundingMode) {
         if (roundingMode instanceof String) {
             String modeStr = roundingMode.replace('ROUND_', '').replaceAll('([a-z])([A-Z])', '$1_$2').toUpperCase()
             try {
@@ -168,7 +168,7 @@ Map getFileUploadProgressStatus() {
         result.bytesRead = uploadProgressListener.getBytesRead()
         result.hasStarted = uploadProgressListener.hasStarted()
 
-        result.readPercent = (result.bytesRead * 100) / result.contentLength
+        result.readPercent = (int) ((result.bytesRead * 100) / result.contentLength)
     }
     return result
 }
