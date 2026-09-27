@@ -298,7 +298,7 @@ Map updateReturnItem() {
         ctx << returnAdjustment
         ctx.originalReturnPrice = originalReturnPrice
         ctx.originalReturnQuantity = originalReturnQuantity
-        ctx.ReturnTypeId = returnItem.returnTypeId
+        ctx.returnTypeId = returnItem.returnTypeId
         run service: 'updateReturnAdjustment', with: ctx
     }
     return result
@@ -528,14 +528,14 @@ Map quickReturnFromOrder() {
             run service: 'createReturnAdjustment', with: returnAdjCtx
         }
     }
-    // very important: if countNewReturnItemx is not set,
+    // very important: if countNewReturnItems is not set,
     // getOrderAvailableReturnedTotal would not count the return items we just created
-    Map orderAvailableCtx = [orderId: orderHeader.orderId, countNewReturnItemx: true]
+    Map orderAvailableCtx = [orderId: orderHeader.orderId, countNewReturnItems: true]
     Map serviceResultART = run service: 'getOrderAvailableReturnedTotal', with: orderAvailableCtx
-    BigDecimal availableReturnTotal = serviceResult.availableReturnTotal
+    BigDecimal availableReturnTotal = serviceResultART.availableReturnTotal
     BigDecimal returnTotal = serviceResultART.returnTotal
     BigDecimal orderTotal = serviceResultART.orderTotal
-    logInfo("OrderTotal [${orderTotal}] - ReturnTotal [${returnTotal}] = available Return Total [${}]")
+    logInfo("OrderTotal [${orderTotal}] - ReturnTotal [${returnTotal}] = available Return Total [${availableReturnTotal}]")
 
     // create a manual balance adjustment based on the difference between order total and return total
     if (availableReturnTotal != (BigDecimal.ZERO)) {
@@ -781,7 +781,7 @@ Map createExchangeOrderAssoc() {
             orderItemAssocMap.shipGroupSeqId = '_NA_'
             orderItemAssocMap.toShipGroupSeqId = '_NA_'
             orderItemAssocMap.orderItemAssocTypeId = 'EXCHANGE'
-            GenericValue orderItemAssoc = makeValue('OrderItemAsscoc')
+            GenericValue orderItemAssoc = makeValue('OrderItemAssoc')
             orderItemAssoc.setPKFields(orderItemAssocMap)
             GenericValue orderItemAssocValue = from('OrderItemAssoc').where(orderItemAssoc).queryOne()
             if (!orderItemAssocValue) {
@@ -884,6 +884,9 @@ Map updateReturnContactMech() {
             update('ReturnHeader').where(parameters).set([originContactMechId: createReturnContactMechMap.contactMechId])
         }
         run service: 'createReturnContactMech', with: createReturnContactMechMap
+        run service: 'deleteReturnContactMech', with: [returnId: parameters.returnId,
+                                                       contactMechId: parameters.oldContactMechId,
+                                                       contactMechPurposeTypeId: parameters.contactMechPurposeTypeId]
     }
     returnContactMechMap.store()
     return success()
