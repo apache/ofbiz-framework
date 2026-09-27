@@ -34,7 +34,7 @@ Map createProductionRunPartyAssign() {
     if (ServiceUtil.isError(serviceResult)) {
         return serviceResult
     }
-    return [successMessage: null, productionRunId: parameters.workEffortId]
+    return [successMessage: null, productionRunId: parameters.productionRunId]
 }
 
 /**
@@ -107,7 +107,13 @@ Map issueProductionRunTask() {
  */
 Map issueProductionRunTaskComponent() {
     GenericValue workEffort = from('WorkEffort').where(workEffortId: parameters.workEffortId).queryOne()
+    if (!workEffort) {
+        return ServiceUtil.returnError("Cannot find the production run task with id: ${parameters.workEffortId}")
+    }
     GenericValue productionRun = from('WorkEffort').where(workEffortId: workEffort.workEffortParentId).queryOne()
+    if (!productionRun) {
+        return ServiceUtil.returnError("Cannot find the production run with id: ${workEffort.workEffortParentId}")
+    }
     if (['PRUN_CANCELLED', 'PRUN_CLOSED'].contains(productionRun.currentStatusId)) {
         return error(label('ManufacturingUiLabels', 'ManufacturingAddProdCompInCompCanStatusError'))
     }
