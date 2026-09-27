@@ -97,7 +97,7 @@ Map inlineHandlePriceWithTaxIncluded() {
         parameters.priceWithTax = parameters.price
 
         // if taxPercentage not passed in look it up based on taxAuthGeoId and taxAuthPartyId
-        if (!parameters.taxPercentage) {
+        if (parameters.taxPercentage == null) {
             // we only have basic data to constrain by here, so assume that if it is a VAT tax setup it should be pretty simple
             EntityCondition condition = EntityCondition.makeCondition([
                 EntityCondition.makeCondition('taxAuthGeoId', parameters.taxAuthGeoId),
@@ -107,7 +107,7 @@ Map inlineHandlePriceWithTaxIncluded() {
             GenericValue taxAuthorityRateProduct = from('TaxAuthorityRateProduct').where(condition).filterByDate().queryFirst()
             parameters.taxPercentage = taxAuthorityRateProduct?.taxPercentage
         }
-        if (!parameters.taxPercentage) {
+        if (parameters.taxPercentage == null) {
             return error(UtilProperties.getMessage('ProductUiLabels', 'ProductPriceTaxPercentageNotFound', locale))
         }
         // in short the formula is: taxAmount = priceWithTax - (priceWithTax/(1+taxPercentage/100))
@@ -241,7 +241,7 @@ Map getAssociatedPriceRulesConds() {
             break
 
         case 'PRIP_CURRENCY_UOMID':
-            from('Uom').limit(sizeLimit).queryList()?.each {
+            from('Uom').where(uomTypeId: 'CURRENCY_MEASURE').limit(sizeLimit).queryList()?.each {
                 productPriceRulesCondValues << [key: it.uomId,
                                                 description: it.abbreviation ?: '[' + it.uomId + ']']
             }
