@@ -34,7 +34,7 @@ Map createProductionRunPartyAssign() {
     if (ServiceUtil.isError(serviceResult)) {
         return serviceResult
     }
-    return [successMessage: null, productionRunId: parameters.workEffortId]
+    return [successMessage: null, productionRunId: parameters.productionRunId]
 }
 
 /**
@@ -174,6 +174,9 @@ Map issueProductionRunTask() {
  */
 Map issueProductionRunTaskComponent() {
     GenericValue workEffort = from('WorkEffort').where(workEffortId: parameters.workEffortId).queryOne()
+    if (!workEffort) {
+        return ServiceUtil.returnError("Cannot find the production run task with id: ${parameters.workEffortId}")
+    }
 
     // POLICY GATE: Early enforcement
     String facilityId = parameters.facilityId ?: workEffort?.facilityId
@@ -184,6 +187,9 @@ Map issueProductionRunTaskComponent() {
     }
 
     GenericValue productionRun = from('WorkEffort').where(workEffortId: workEffort.workEffortParentId).queryOne()
+    if (!productionRun) {
+        return ServiceUtil.returnError("Cannot find the production run with id: ${workEffort.workEffortParentId}")
+    }
     require(!(['PRUN_CANCELLED', 'PRUN_CLOSED'].contains(productionRun.currentStatusId)),
             label('ManufacturingUiLabels', 'ManufacturingAddProdCompInCompCanStatusError'))
     String productId = parameters.productId
@@ -517,7 +523,11 @@ Map issueProductionRunTaskComponentInline(Map parameters,
             GenericValue facility = task ? from('Facility').where(facilityId: task.facilityId).queryOne() : null
             String allowReallocation = facility?.allowInventoryReallocation ?: 'N'
 
-            BigDecimal effectiveAvailable = (inventoryItem.getBigDecimal('availableToPromiseTotal') ?: BigDecimal.ZERO) + ourPhysicalResQty
+            // Use the un-netted reservation quantity here, matching the capacity formula the caller
+            // (issueProductionRunTaskComponent's pool-stock loop) already used to size quantityNotIssued;
+            // netting by quantityNotAvailable here would make this guard stricter than the caller's own
+            // sizing and could wrongly abort the whole multi-item issuance instead of issuing what fits.
+            BigDecimal effectiveAvailable = (inventoryItem.getBigDecimal('availableToPromiseTotal') ?: BigDecimal.ZERO) + ourResQty
             BigDecimal inventoryItemQuantity
 
             // POLICY GATE: Traditional (Strict) vs Fluid (Reallocation)
@@ -677,9 +687,9 @@ Map issueInventoryItemToWorkEffort() {
     }
 
     if (inventoryItem.inventoryItemTypeId == 'NON_SERIAL_INV_ITEM') {
-        BigDecimal qoh = inventoryItem.getBigDecimal('quantityOnHandTotal') ?: 0.0
-        if (qoh > 0) {
-            quantityIssued = (parameters.quantity == null || parameters.quantity > qoh) ? qoh : parameters.quantity
+        BigDecimal atp = inventoryItem.getBigDecimal('availableToPromiseTotal') ?: 0.0
+        if (atp > 0) {
+            quantityIssued = (parameters.quantity == null || parameters.quantity > atp) ? atp : parameters.quantity
 
             Map serviceResult = run service: 'assignInventoryToWorkEffort', with: [workEffortId: workEffortId,
                                                                                    inventoryItemId: inventoryItem.inventoryItemId,
@@ -817,7 +827,10 @@ Map handleManualIssuanceOverride(Map parameters) {
     BigDecimal amountToIssue = parameters.quantityNotIssued
     Map issueParams = [*:parameters, inventoryItemId: inventoryItem.inventoryItemId,
                        quantityNotIssued: amountToIssue, failIfItemsAreNotAvailable: 'N']
-    issueProductionRunTaskComponentInline(issueParams, inventoryItem, null)
+    Map inlineResult = issueProductionRunTaskComponentInline(issueParams, inventoryItem, null)
+    if (ServiceUtil.isError(inlineResult)) {
+        return inlineResult
+    }
 
     List impactedTasks = [] // reconcileGlobalReservationsInternal already called via issueProductionRunTaskComponentInline
 
