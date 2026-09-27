@@ -1375,11 +1375,15 @@ public class GenericDAO {
 
         StringBuilder sql = new StringBuilder("DELETE FROM ").append(modelEntity.getTableName(this.datasource));
 
-        String whereCondition = condition.makeWhereString(modelEntity, null, this.datasource, sqlP.getDelegator());
+        List<EntityConditionParam> params = new LinkedList<>();
+        String whereCondition = condition.makeWhereString(modelEntity, params, this.datasource, sqlP.getDelegator());
         if (UtilValidate.isNotEmpty(whereCondition)) {
             sql.append(" WHERE ").append(whereCondition);
         }
         sqlP.prepareStatement(sql.toString());
+        for (EntityConditionParam param : params) {
+            SqlJdbcUtil.setValue(sqlP, param.getModelField(), modelEntity.getEntityName(), param.getFieldValue(), modelFieldTypeReader);
+        }
 
         return sqlP.executeUpdate();
     }
