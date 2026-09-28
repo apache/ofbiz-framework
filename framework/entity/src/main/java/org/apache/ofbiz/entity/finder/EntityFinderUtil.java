@@ -408,7 +408,7 @@ public final class EntityFinderUtil {
                 dateFieldValue = UtilDateTime.nowTimestamp();
             }
             List<EntityCondition> conditionDates = UtilMisc.toList();
-            for (int i = 0; i < compareDateFields.size() / 2; i++) {
+            for (int i = 0; i < compareDateFields.size(); i = i + 2) {
                 String fromDateField = compareDateFields.get(i).expandString(context);
                 String thruDateField = compareDateFields.get(i + 1).expandString(context);
                 if (dateFieldFromEntity != null) {
