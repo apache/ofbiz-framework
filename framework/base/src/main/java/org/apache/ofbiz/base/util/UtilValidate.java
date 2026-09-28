@@ -18,11 +18,14 @@
  *******************************************************************************/
 package org.apache.ofbiz.base.util;
 
+import java.io.File;
+import java.nio.file.InvalidPathException;
 import java.nio.file.Paths;
 import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.Map;
 import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 import org.apache.commons.validator.routines.EmailValidator;
 import org.apache.commons.validator.routines.UrlValidator;
@@ -674,8 +677,22 @@ public final class UtilValidate {
         if (UtilValidate.isEmpty(allowFilePaths)) {
             return false;
         }
-        String normalizedPath = Paths.get(rawPathString).normalize().toString();
-        return Pattern.compile(allowFilePaths).matcher(normalizedPath).matches();
+        String normalizedPath;
+        try {
+            normalizedPath = Paths.get(rawPathString).normalize().toString();
+        } catch (InvalidPathException e) {
+            Debug.logWarning(String.format("Invalid path [%s], %s", rawPathString, e.getReason()), MODULE);
+            return false;
+        }
+        if (File.separatorChar != '/') {
+            normalizedPath = normalizedPath.replace(File.separatorChar, '/');
+        }
+        try {
+            return Pattern.compile(allowFilePaths).matcher(normalizedPath).matches();
+        } catch (PatternSyntaxException e) {
+            Debug.logError(e, "security.properties allowFilePaths is not a valid regular expression, denying every path", MODULE);
+            return false;
+        }
     }
 
     /** isYear returns true if string s is a valid
