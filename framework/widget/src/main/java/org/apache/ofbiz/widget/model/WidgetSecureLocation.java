@@ -18,6 +18,8 @@
  *******************************************************************************/
 package org.apache.ofbiz.widget.model;
 
+import java.io.File;
+import java.nio.file.InvalidPathException;
 import java.nio.file.Paths;
 
 import org.apache.ofbiz.base.util.Debug;
@@ -66,7 +68,17 @@ public final class WidgetSecureLocation {
                 Debug.logWarning(String.format("Traversal sequence '..' is not allowed in location: [%s]", location), MODULE);
                 return null;
             }
-            return COMPONENT_PROTOCOL + Paths.get(componentRelativePath).normalize();
+            String normalizedPath;
+            try {
+                normalizedPath = Paths.get(componentRelativePath).normalize().toString();
+            } catch (InvalidPathException e) {
+                Debug.logWarning(String.format("Invalid path in location: [%s], %s", location, e.getReason()), MODULE);
+                return null;
+            }
+            if (File.separatorChar != '/') {
+                normalizedPath = normalizedPath.replace(File.separatorChar, '/');
+            }
+            return COMPONENT_PROTOCOL + normalizedPath;
         }
         if (UtilValidate.isAllowedPath(location)) {
             return location;
