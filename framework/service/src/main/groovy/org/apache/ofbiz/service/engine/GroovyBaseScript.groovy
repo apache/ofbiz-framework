@@ -70,11 +70,11 @@ abstract class GroovyBaseScript extends Script {
         runAsyncService((String)args.get('service'), (Map)args.get('with', [:]))
     }
 
-    Map makeValue(String entityName) throws ExecutionServiceException {
+    GenericValue makeValue(String entityName) throws ExecutionServiceException {
         return binding.getVariable('delegator').makeValue(entityName)
     }
 
-    Map makeValue(String entityName, Map inputMap) throws ExecutionServiceException {
+    GenericValue makeValue(String entityName, Map inputMap) throws ExecutionServiceException {
         return binding.getVariable('delegator').makeValidValue(entityName, inputMap)
     }
 
@@ -113,16 +113,16 @@ abstract class GroovyBaseScript extends Script {
     }
 
     /* codenarc-disable NoDef, MethodReturnTypeRequired */
-    def success(Map returnValues) {
+    Map success(Map returnValues) {
         return success(null, returnValues)
     }
-    def success(String resource, String key, Map returnValues = [:]) {
+    Map success(String resource, String key, Map returnValues = [:]) {
         return success(label(resource, key), returnValues)
     }
-    def success(String resource, String key, Map context, Map returnValues) {
+    Map success(String resource, String key, Map context, Map returnValues) {
         return success(label(resource, key, context), returnValues)
     }
-    def success(String message = '', Map returnValues = [:]) {
+    Map success(String message = '', Map returnValues = [:]) {
         if (this.binding.hasVariable('request')) {
             // the script is invoked as an "event"
             if (message) {
@@ -162,7 +162,7 @@ abstract class GroovyBaseScript extends Script {
         return error(label(resource, key, context))
     }
     /* codenarc-disable NoDef, MethodReturnTypeRequired */
-    def error(String message) {
+    Map error(String message) {
         if (this.binding.hasVariable('request')) {
             // the script is invoked as an "event"
             if (message) {
