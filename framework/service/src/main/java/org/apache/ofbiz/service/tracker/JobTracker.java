@@ -275,11 +275,14 @@ public class JobTracker {
     private Map<String, Object> retrieveServiceParams() throws GenericEntityException {
         GenericValue runtimeData = delegator
                 .findOne("RuntimeData", true, "runtimeDataId", runtimeDataId);
-        try {
-            return UtilGenerics.checkMap(
-                    XmlSerializer.deserialize(runtimeData.getString("runtimeInfo"), delegator), String.class, Object.class);
-        } catch (SerializeException | SAXException | ParserConfigurationException | IOException e) {
-            throw new RuntimeException(e);
+        if (runtimeData != null) {
+            try {
+                return UtilGenerics.checkMap(
+                        XmlSerializer.deserialize(runtimeData.getString("runtimeInfo"), delegator), String.class, Object.class);
+            } catch (SerializeException | SAXException | ParserConfigurationException | IOException e) {
+                throw new RuntimeException(e);
+            }
         }
+        return Map.of();
     }
 }
