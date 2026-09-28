@@ -793,9 +793,6 @@ public final class CommonWidgetModels {
             ModelForm.UpdateArea callBack) {
         Map<String, Object> fullParameterMap = new HashMap<String, Object>();
 
-        // If the parameter contains the map, the call back will be automatically manage by the form
-        if (fullParameterMap.containsKey("_FORM_NAME_")) return fullParameterMap;
-
         String currentJwtCallback = WidgetWorker.getJwtCallback(context);
         if (callBack != null && propagateMyCallback) {
             fullParameterMap.put(JWT_CALLBACK, callBack.toJwtToken(context));
