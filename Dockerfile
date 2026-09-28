@@ -18,7 +18,7 @@
 # under the License.
 #####################################################################
 
-FROM eclipse-temurin:17@sha256:e8d451f3b5aa6422c2b00bb913cb8d37a55a61934259109d945605c5651de9a6 AS builder
+FROM eclipse-temurin:22@sha256:bafcdba57d6f0435f9834063101b64af8db6c16e5c415a9fa6ddaa9175537905 AS builder
 
 # Git is used for various OFBiz build tasks.
 RUN apt-get update \
@@ -56,7 +56,7 @@ RUN --mount=type=cache,id=gradle-cache,sharing=locked,target=/root/.gradle \
 
 ###################################################################################
 
-FROM eclipse-temurin:17@sha256:e8d451f3b5aa6422c2b00bb913cb8d37a55a61934259109d945605c5651de9a6 AS runtimebase
+FROM eclipse-temurin:22@sha256:bafcdba57d6f0435f9834063101b64af8db6c16e5c415a9fa6ddaa9175537905 AS runtimebase
 
 # xsltproc is used to disable OFBiz components during first run.
 RUN apt-get update \
