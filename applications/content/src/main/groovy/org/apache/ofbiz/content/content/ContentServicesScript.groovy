@@ -161,7 +161,7 @@ Map createContentAlternativeUrl() {
                         if (uri) {
                             try {
                                 serviceResult = run service: 'updateDataResource', with: [dataResourceId: contentAssocDataResources[0].dataResourceId,
-                                                                                          objectInfo: "/${uri}'${content.contentId}-content"]
+                                                                                          objectInfo: "/${uri}-${content.contentId}-content"]
                                 if (ServiceUtil.isSuccess(serviceResult)) {
                                     contentIdTo = serviceResult.contentId
                                 }
@@ -181,7 +181,7 @@ Map createContentAlternativeUrl() {
                                 Map serviceResult = run service: 'createDataResource', with: [dataResourceId: delegator.getNextSeqId('DataResource'),
                                                                                               dataResourceTypeId: 'URL_RESOURCE',
                                                                                               localeString: localeString.toString(),
-                                                                                              objectInfo: "${uri}-${content.contentId}-content",
+                                                                                              objectInfo: "/${uri}-${content.contentId}-content",
                                                                                               statusId: 'CTNT_IN_PROGRESS']
                                 if (ServiceUtil.isSuccess(serviceResult)) {
                                     dataResourceId = serviceResult.dataResourceId
