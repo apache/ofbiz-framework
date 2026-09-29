@@ -820,7 +820,8 @@ Map followPartyRelationshipsInline(List relatedPartyIdList, String partyRelation
     if (roleTypeIdFromIncludeAllChildTypes == 'Y') {
         List roleTypeIdListName = roleTypeIdFromList
         Map res = getChildRoleTypesInline(roleTypeIdListName)
-        roleTypeIdFromList = [roleTypeIdFrom] + (res.childRoleTypeIdList ?: [])
+        List childRoleTypeIdFromList = res.childRoleTypeIdList ?: []
+        roleTypeIdFromList = roleTypeIdFrom ? [roleTypeIdFrom] + childRoleTypeIdFromList : childRoleTypeIdFromList
     }
 
     List roleTypeIdToList = null
@@ -830,7 +831,8 @@ Map followPartyRelationshipsInline(List relatedPartyIdList, String partyRelation
     if (roleTypeIdToInclueAllChildTypes == 'Y') {
         List roleTypeIdListName = roleTypeIdToList
         Map res = getChildRoleTypesInline(roleTypeIdListName)
-        roleTypeIdToList = [roleTypeIdTo] + (res.childRoleTypeIdList ?: [])
+        List childRoleTypeIdToList = res.childRoleTypeIdList ?: []
+        roleTypeIdToList = roleTypeIdTo ? [roleTypeIdTo] + childRoleTypeIdToList : childRoleTypeIdToList
     }
 
     Map res = followPartyRelationshipsInlineRecurse(relatedPartyIdList, roleTypeIdFromList, roleTypeIdToList,
