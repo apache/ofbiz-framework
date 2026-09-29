@@ -34,7 +34,7 @@ Map uploadProductImages() {
     Map result = success()
     Map serviceResult = [:]
     result.productId = parameters.productId
-    Map addAdditionalViewForProductMap = parameters
+    Map addAdditionalViewForProductMap = new HashMap<>(parameters)
     if (parameters._additionalImageOne_fileName) {
         addAdditionalViewForProductMap.productId = parameters.productId
         addAdditionalViewForProductMap.imageResize = parameters.imageResize
