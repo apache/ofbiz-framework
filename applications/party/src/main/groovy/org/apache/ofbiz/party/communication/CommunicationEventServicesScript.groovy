@@ -513,6 +513,10 @@ Map setCommunicationEventStatus() {
     GenericValue communicationEvent = from('CommunicationEvent')
             .where(parameters)
             .queryOne()
+    if (!communicationEvent) {
+        return success()
+    }
+
     String oldStatusId = communicationEvent.statusId
     if (parameters.statusId != oldStatusId) {
         if (oldStatusId) {
@@ -639,7 +643,7 @@ Map sendContactUsEmailToCompany() {
                           postalCode: parameters.postalCode, countryCode: parameters.countryCode,
                           message: parameters.content]
 
-    if (productStoreEmailSetting.bodyScreenLocation) {
+    if (productStoreEmailSetting?.bodyScreenLocation) {
         Map emailParams = [bodyParameters: bodyParameters, userLogin: systemUserLogin]
         if (getPartyEmailResult.emailAddress) {
             emailParams.sendTo = getPartyEmailResult.emailAddress
