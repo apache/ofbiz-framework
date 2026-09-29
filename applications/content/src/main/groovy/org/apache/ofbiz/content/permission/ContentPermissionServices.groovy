@@ -108,6 +108,9 @@ Map viewContentPermission(Boolean hasPermission, String contentId, String conten
                           String contentPurposeTypeId, String roleEntity,
                           String roleEntityField) {
 
+    parameters.roleEntity = roleEntity
+    parameters.roleEntityField = roleEntityField
+
     // if called directly check the main permission
     if (!hasPermission) {
         parameters.primaryPermission = 'CONTENTMGR'
