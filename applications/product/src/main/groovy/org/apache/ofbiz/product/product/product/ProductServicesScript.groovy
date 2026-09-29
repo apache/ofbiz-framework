@@ -115,7 +115,7 @@ Map updateProduct() {
  * Update a Product Name from quick admin
  */
 Map updateProductQuickAdminName() {
-    Map res = checkProductRelatedPermission('updateQuickAdminName', 'UPDATE')
+    Map res = checkProductRelatedPermission('updateProductQuickAdminName', 'UPDATE')
 
     if (!ServiceUtil.isSuccess(res)) {
         return res
@@ -302,7 +302,7 @@ Map duplicateProduct() {
  * induce all the keywords of a product
  */
 Map forceIndexProductKeywords() {
-    GenericValue product = from('Product').where(parameters).cache().queryOne()
+    GenericValue product = from('Product').where(parameters).queryOne()
     KeywordIndex.forceIndexKeywords(product)
     return success()
 }
@@ -311,7 +311,7 @@ Map forceIndexProductKeywords() {
  * delete all the keywords of a produc
  */
 Map deleteProductKeywords() {
-    GenericValue product = from('Product').where(parameters).cache().queryOne()
+    GenericValue product = from('Product').where(parameters).queryOne()
     product.removeRelated('ProductKeyword')
     return success()
 }
@@ -565,7 +565,7 @@ Map checkProductRelatedPermission(String callingMethodName, String checkAction) 
                                        roleTypeId: 'LTD_ADMIN']
         roleCategories = from('ProductCategoryMemberAndRole')
                 .where(lookupRoleCategoriesMap)
-                .filterByDate('roleFromDate', 'roleThruDate')
+                .filterByDate('fromDate', 'thruDate', 'roleFromDate', 'roleThruDate')
                 .queryList()
     }
 
@@ -763,8 +763,10 @@ Map updateProductGroupOrder() {
  */
 Map deleteProductGroupOrder() {
     GenericValue productGroupOrder = from('ProductGroupOrder').where(parameters).queryOne()
+    from('OrderItemGroupOrder').where(groupOrderId: productGroupOrder.groupOrderId).queryList().each {
+        it.remove()
+    }
     productGroupOrder.remove()
-    productGroupOrder.removeRelated('OrderItemGroupOrder')
 
     GenericValue jobSandbox = from('JobSandbox').where(jobId: productGroupOrder.jobId).queryOne()
     if (jobSandbox) {
@@ -863,7 +865,7 @@ Map cancleOrderItemGroupOrder() {
             if (productGroupOrder) {
                 if (productGroupOrder.statusId == 'GO_CREATED') {
                     if (orderItem.statusId == 'ITEM_CANCELLED') {
-                        BigDecimal cancelQuantity = orderItem.cancelQuantity ?: orderItem.quantity
+                        BigDecimal cancelQuantity = orderItem.cancelQuantity != null ? orderItem.cancelQuantity : orderItem.quantity
                         productGroupOrder.soldOrderQty -= cancelQuantity
                     }
                     productGroupOrder.store()
