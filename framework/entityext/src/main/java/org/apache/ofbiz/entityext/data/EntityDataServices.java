@@ -36,7 +36,6 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.codec.binary.Base64;
-import org.apache.ofbiz.base.crypto.DesCrypt;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.FileUtil;
 import org.apache.ofbiz.base.util.GeneralException;
@@ -478,13 +477,8 @@ public class EntityDataServices {
                     try {
                         keyBytes = cipherService.decrypt(keyBytes, Base64.decodeBase64(oldKey)).getClonedBytes();
                     } catch (Exception e) {
-                        Debug.logInfo("Failed to decrypt with Shiro cipher; trying with old cipher", MODULE);
-                        try {
-                            keyBytes = DesCrypt.decrypt(DesCrypt.getDesKey(Base64.decodeBase64(oldKey)), keyBytes);
-                        } catch (Exception e1) {
-                            Debug.logError(e1, MODULE);
-                            return ServiceUtil.returnError(e1.getMessage());
-                        }
+                        Debug.logInfo("Failed to decrypt with Shiro cipher", MODULE);
+                        return ServiceUtil.returnError(e.getMessage());
                     }
                 }
                 String newKeyText;
