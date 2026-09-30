@@ -258,10 +258,6 @@ allprojects {
         // this should be checked frequently to remove obsolete configurations if the artifacts are available
         // on mavenCentral directly
         maven {
-            // org.restlet and org.restlet.ext.servlet
-            url = 'https://maven.restlet.talend.com'
-        }
-        maven {
             // net.fortuna.ical4j:ical4j:1.0-rc3-atlassian-11
             url = 'https://packages.atlassian.com/maven-3rdparty/'
         }
