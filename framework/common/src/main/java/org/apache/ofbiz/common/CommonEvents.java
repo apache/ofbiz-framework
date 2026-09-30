@@ -45,7 +45,7 @@ import jakarta.servlet.http.HttpSession;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.ofbiz.base.lang.JSON;
-import org.apache.ofbiz.base.location.FlexibleLocation;
+import org.apache.ofbiz.base.location.ComponentLocationResolver;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.UtilGenerics;
@@ -402,15 +402,17 @@ public class CommonEvents {
             String sourceLocation = request.getParameter("sourceLocation");
             if (UtilValidate.isNotEmpty(sourceLocation) && sourceLocation.startsWith("component:")) {
                 try {
+                    // only component: locations are accepted, so resolve them with the component resolver directly
+                    ComponentLocationResolver componentLocationResolver = new ComponentLocationResolver();
                     // find absolute path of file
                     URL sourceFileUrl = null;
                     String fragment = "";
                     if (sourceLocation.contains("#")) {
                         int indexOfHash = sourceLocation.indexOf("#");
-                        sourceFileUrl = FlexibleLocation.resolveLocation(sourceLocation.substring(0, indexOfHash));
+                        sourceFileUrl = componentLocationResolver.resolveLocation(sourceLocation.substring(0, indexOfHash));
                         fragment = sourceLocation.substring(indexOfHash + 1);
                     } else {
-                        sourceFileUrl = FlexibleLocation.resolveLocation(sourceLocation);
+                        sourceFileUrl = componentLocationResolver.resolveLocation(sourceLocation);
                     }
                     String platformSpecificPath = sourceFileUrl.getFile();
                     // ensure file separator in location is correct
