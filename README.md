@@ -858,7 +858,7 @@ source code.
 
 The following provides more details on the included cryptographic software:
 
-* Various classes in OFBiz, including DesCrypt, HashCrypt, and BlowFishCrypt use
+* Various classes in OFBiz, including HashCrypt, and BlowFishCrypt use
 libraries from the Sun Java JDK API including java.security.* and javax.crypto.*
 (the JCE, Java Cryptography Extensions API)
 * Other classes such as HttpClient and various related ones use the JSSE (Java

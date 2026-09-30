@@ -33,8 +33,6 @@ public class Main {
         } else if ("-kek".equals(args[0])) {
             AesCipherService cs = new AesCipherService();
             Debug.logInfo(Base64.encodeBase64String(cs.generateNewKey().getEncoded()), MODULE);
-        } else if ("-kek-old".equals(args[0])) {
-            Debug.logInfo(Base64.encodeBase64String(DesCrypt.generateKey().getEncoded()), MODULE);
         }
     }
 }

@@ -19,18 +19,13 @@
 package org.apache.ofbiz.entity.util;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.security.Key;
-import java.security.NoSuchAlgorithmException;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 import org.apache.commons.codec.binary.Base64;
-import org.apache.ofbiz.base.crypto.DesCrypt;
-import org.apache.ofbiz.base.crypto.HashCrypt;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
-import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilObject;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
@@ -59,10 +54,7 @@ public final class EntityCrypto {
         byte[] kek;
         kek = UtilValidate.isNotEmpty(kekText) ? Base64.decodeBase64(kekText) : null;
         handlers = new StorageHandler[] {
-            new ShiroStorageHandler(kek),
-            new SaltedBase64StorageHandler(kek),
-            NORMAL_HASH_STORAGE_HANDLER,
-            OLD_FUNNY_HASH_STORAGE_HANDLER,
+            new ShiroStorageHandler(kek)
         };
     }
 
@@ -293,137 +285,6 @@ public final class EntityCrypto {
         @Override
         protected String encryptValue(EncryptMethod encryptMethod, byte[] key, byte[] objBytes) throws GeneralException {
             return cipherService.encrypt(objBytes, key).toBase64();
-        }
-    }
-
-    protected abstract static class LegacyStorageHandler extends StorageHandler {
-        @Override
-        protected Key generateNewKey() throws EntityCryptoException {
-            try {
-                return DesCrypt.generateKey();
-            } catch (NoSuchAlgorithmException e) {
-                throw new EntityCryptoException(e);
-            }
-        }
-
-        @Override
-        protected byte[] decodeKeyBytes(String keyText) throws GeneralException {
-            return StringUtil.fromHexString(keyText);
-        }
-
-        @Override
-        protected String encodeKey(byte[] key) {
-            return StringUtil.toHexString(key);
-        }
-
-        @Override
-        protected byte[] decryptValue(byte[] key, EncryptMethod encryptMethod, String encryptedString) throws GeneralException {
-            return DesCrypt.decrypt(DesCrypt.getDesKey(key), StringUtil.fromHexString(encryptedString));
-        }
-
-        @Override
-        protected String encryptValue(EncryptMethod encryptMethod, byte[] key, byte[] objBytes) throws GeneralException {
-            return StringUtil.toHexString(DesCrypt.encrypt(DesCrypt.getDesKey(key), objBytes));
-        }
-    }
-
-    protected static final StorageHandler OLD_FUNNY_HASH_STORAGE_HANDLER = new LegacyStorageHandler() {
-        @Override
-        protected String getHashedKeyName(String originalKeyName) {
-            return HashCrypt.digestHashOldFunnyHex(null, originalKeyName);
-        }
-
-        @Override
-        protected String getKeyMapPrefix(String hashedKeyName) {
-            return "{funny-hash}";
-        }
-    };
-
-    protected static final StorageHandler NORMAL_HASH_STORAGE_HANDLER = new LegacyStorageHandler() {
-        @Override
-        protected String getHashedKeyName(String originalKeyName) {
-            return HashCrypt.digestHash("SHA", originalKeyName.getBytes());
-        }
-
-        @Override
-        protected String getKeyMapPrefix(String hashedKeyName) {
-            return "{normal-hash}";
-        }
-    };
-
-    protected static final class SaltedBase64StorageHandler extends StorageHandler {
-        private final Key kek;
-
-        protected SaltedBase64StorageHandler(byte[] kek) throws EntityCryptoException {
-            Key key = null;
-            if (kek != null) {
-                try {
-                    key = DesCrypt.getDesKey(kek);
-                } catch (GeneralException e) {
-                    Debug.logInfo("Invalid key-encryption-key specified for SaltedBase64StorageHandler; the key is probably "
-                            + "valid for the newer ShiroStorageHandler", MODULE);
-                }
-            }
-            this.kek = key;
-        }
-
-        @Override
-        protected Key generateNewKey() throws EntityCryptoException {
-            try {
-                return DesCrypt.generateKey();
-            } catch (NoSuchAlgorithmException e) {
-                throw new EntityCryptoException(e);
-            }
-        }
-
-        @Override
-        protected String getHashedKeyName(String originalKeyName) {
-            return HashCrypt.digestHash64("SHA", originalKeyName.getBytes(StandardCharsets.UTF_8));
-        }
-
-        @Override
-        protected String getKeyMapPrefix(String hashedKeyName) {
-            return "{salted-base64}";
-        }
-
-        @Override
-        protected byte[] decodeKeyBytes(String keyText) throws GeneralException {
-            byte[] keyBytes = Base64.decodeBase64(keyText);
-            if (kek != null) {
-                keyBytes = DesCrypt.decrypt(kek, keyBytes);
-            }
-            return keyBytes;
-        }
-
-        @Override
-        protected String encodeKey(byte[] key) throws GeneralException {
-            if (kek != null) {
-                key = DesCrypt.encrypt(kek, key);
-            }
-            return Base64.encodeBase64String(key);
-        }
-
-        @Override
-        protected byte[] decryptValue(byte[] key, EncryptMethod encryptMethod, String encryptedString) throws GeneralException {
-            byte[] allBytes = DesCrypt.decrypt(DesCrypt.getDesKey(key), Base64.decodeBase64(encryptedString));
-            int length = allBytes[0];
-            byte[] objBytes = new byte[allBytes.length - 1 - length];
-            System.arraycopy(allBytes, 1 + length, objBytes, 0, objBytes.length);
-            return objBytes;
-        }
-
-        @Override
-        protected String encryptValue(EncryptMethod encryptMethod, byte[] key, byte[] objBytes) throws GeneralException {
-            // This legacy handler is never used for new encryption -- EntityCrypto.encrypt() always
-            // encrypts through the primary ShiroStorageHandler; this method exists only so the class
-            // implements StorageHandler for its decrypt fallback role.
-            byte[] saltBytes = new byte[0];
-            byte[] allBytes = new byte[1 + saltBytes.length + objBytes.length];
-            allBytes[0] = (byte) saltBytes.length;
-            System.arraycopy(saltBytes, 0, allBytes, 1, saltBytes.length);
-            System.arraycopy(objBytes, 0, allBytes, 1 + saltBytes.length, objBytes.length);
-            String result = Base64.encodeBase64String(DesCrypt.encrypt(DesCrypt.getDesKey(key), allBytes));
-            return result;
         }
     }
 }
