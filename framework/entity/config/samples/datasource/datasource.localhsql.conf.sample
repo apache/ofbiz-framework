@@ -1,0 +1,55 @@
+{
+  "entityengine": {
+    "entity-config": {
+      "datasource": {
+        "localhsql": {
+          "helper-class": "org.apache.ofbiz.entity.datasource.GenericHelperDAO",
+          "field-type-name": "hsql",
+          "check-on-start": "true",
+          "add-missing-on-start": "true",
+          "check-indices-on-start": "true",
+          "use-foreign-keys": "true",
+          "use-foreign-key-indices": "true",
+          "use-fk-initially-deferred": "false",
+          "join-style": "ansi-no-parenthesis",
+          "alias-view-columns": "true",
+          "read-data": [
+            {"reader-name": "tenant"},
+            {"reader-name": "seed"},
+            {"reader-name": "seed-initial"},
+            {"reader-name": "demo"},
+            {"reader-name": "ext"},
+            {"reader-name": "ext-test"},
+            {"reader-name": "ext-demo"}
+          ],
+          "inline-jdbc": {
+            "jdbc-driver": "org.hsqldb.jdbcDriver",
+            "jdbc-uri": "jdbc:hsqldb:runtime/data/hsqldb/ofbiz",
+            "jdbc-username": "ofbiz",
+            "jdbc-password": "ofbiz",
+            "isolation-level": "ReadCommitted",
+            "pool-minsize": "2",
+            "pool-maxsize": "250",
+            "time-between-eviction-runs-millis": "600000"
+          }
+//          "jndi-jdbc": {
+//            "jndi-server-name": "localjndi",
+//            "jndi-name": "java:/HsqlDataSource",
+//            "isolation-level" = "ReadUncommitted"
+//          }
+//          Orion Style JNDI name
+//          "jndi-jdbc": {
+//            "jndi-server-name": "default",
+//            "jndi-name": "comp/env/jdbc/xa/localhsql"
+//            "isolation-level": "ReadUncommitted"
+//          }
+//          Weblogic Style JNDI name
+//          "jndi-jdbc": {
+//            "jndi-server-name": "localjndi",
+//            "jndi-name": "localhsqlDataSource"
+//          }
+        }
+      }
+    }
+  }
+}

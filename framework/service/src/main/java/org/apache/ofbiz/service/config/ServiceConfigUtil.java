@@ -18,21 +18,16 @@
  *******************************************************************************/
 package org.apache.ofbiz.service.config;
 
-import java.net.URL;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
-
 import org.apache.ofbiz.base.config.GenericConfigException;
 import org.apache.ofbiz.base.util.Assert;
 import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.UtilURL;
-import org.apache.ofbiz.base.util.UtilXml;
 import org.apache.ofbiz.base.util.cache.UtilCache;
 import org.apache.ofbiz.service.config.model.Engine;
 import org.apache.ofbiz.service.config.model.ServiceConfig;
+import org.apache.ofbiz.service.config.model.ServiceConfigFactory;
 import org.apache.ofbiz.service.config.model.ServiceEngine;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 
 /**
  * A <code>ServiceConfig</code> factory and related utility methods.
@@ -47,20 +42,21 @@ public final class ServiceConfigUtil {
 
     private static final String MODULE = ServiceConfigUtil.class.getName();
     private static final String ENGINE = "default";
-    private static final String SERVICE_ENGINE_XML_FILENAME = "serviceengine.xml";
     // Keep the ServiceConfig instance in a cache - so the configuration can be reloaded at run-time.
     // There will be only one ServiceConfig instance in the cache.
     private static final UtilCache<String, ServiceConfig> SERVICE_CONFIG_CACHE = UtilCache.createUtilCache("service.ServiceConfig", 0, 0, false);
     private static final List<ServiceConfigListener> CONFIG_LISTENERS = new CopyOnWriteArrayList<>();
 
-    private ServiceConfigUtil() { }
+    private ServiceConfigUtil() {
+    }
 
     /**
      * Returns the specified parameter value from the specified engine, or <code>null</code>
      * if the engine or parameter are not found.
+     *
      * @param engineName
      * @param parameterName
-     * @return
+     * @return parameter value for the given engine
      * @throws GenericConfigException
      */
     public static String getEngineParameter(String engineName, String parameterName) throws GenericConfigException {
@@ -73,21 +69,16 @@ public final class ServiceConfigUtil {
 
     /**
      * Returns the <code>ServiceConfig</code> instance.
+     *
      * @throws GenericConfigException
      */
     public static ServiceConfig getServiceConfig() throws GenericConfigException {
-        ServiceConfig instance = SERVICE_CONFIG_CACHE.get("instance");
-        if (instance == null) {
-            Element serviceConfigElement = getXmlDocument().getDocumentElement();
-            instance = ServiceConfig.create(serviceConfigElement);
-            SERVICE_CONFIG_CACHE.putIfAbsent("instance", instance);
-            instance = SERVICE_CONFIG_CACHE.get("instance");
-            for (ServiceConfigListener listener : CONFIG_LISTENERS) {
-                try {
-                    listener.onServiceConfigChange(instance);
-                } catch (Exception e) {
-                    Debug.logError(e, "Exception thrown while notifying listener " + listener + ": ", MODULE);
-                }
+        ServiceConfig instance = ServiceConfigFactory.getInstance();
+        for (ServiceConfigListener listener : CONFIG_LISTENERS) {
+            try {
+                listener.onServiceConfigChange(instance);
+            } catch (Exception e) {
+                Debug.logError(e, "Exception thrown while notifying listener " + listener + ": ", MODULE);
             }
         }
         return instance;
@@ -95,6 +86,7 @@ public final class ServiceConfigUtil {
 
     /**
      * Returns the default service engine configuration (named "default").
+     *
      * @throws GenericConfigException
      */
     public static ServiceEngine getServiceEngine() throws GenericConfigException {
@@ -104,27 +96,17 @@ public final class ServiceConfigUtil {
     /**
      * Returns the specified <code>ServiceEngine</code> configuration instance,
      * or <code>null</code> if the configuration does not exist.
+     *
      * @throws GenericConfigException
      */
     public static ServiceEngine getServiceEngine(String name) throws GenericConfigException {
         return getServiceConfig().getServiceEngine(name);
     }
 
-    private static Document getXmlDocument() throws GenericConfigException {
-        URL confUrl = UtilURL.fromResource(SERVICE_ENGINE_XML_FILENAME);
-        if (confUrl == null) {
-            throw new GenericConfigException("Could not find the " + SERVICE_ENGINE_XML_FILENAME + " file");
-        }
-        try {
-            return UtilXml.readXmlDocument(confUrl, true, true);
-        } catch (Exception e) {
-            throw new GenericConfigException("Exception thrown while reading " + SERVICE_ENGINE_XML_FILENAME + ": ", e);
-        }
-    }
-
     /**
      * Register a <code>ServiceConfigListener</code> instance. The instance will be notified
      * when the <code>serviceengine.xml</code> file is reloaded.
+     *
      * @param listener
      */
     public static void registerServiceConfigListener(ServiceConfigListener listener) {
@@ -136,7 +118,4 @@ public final class ServiceConfigUtil {
         return ENGINE;
     }
 
-    public static String getServiceEngineXmlFileName() {
-        return SERVICE_ENGINE_XML_FILENAME;
-    }
 }

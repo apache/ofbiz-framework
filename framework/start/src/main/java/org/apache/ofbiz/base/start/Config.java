@@ -48,6 +48,7 @@ public final class Config {
     private final Path logDir;
     private final boolean shutdownAfterLoad;
     private final boolean useShutdownHook;
+    private final boolean configOverloadEnabled;
 
     public Path getLogDir() {
         return logDir;
@@ -63,6 +64,10 @@ public final class Config {
 
     public boolean isUseShutdownHook() {
         return useShutdownHook;
+    }
+
+    public boolean isConfigOverloadEnable() {
+        return configOverloadEnabled;
     }
 
     public InetAddress getAdminAddress() {
@@ -100,6 +105,7 @@ public final class Config {
         logDir = getAbsolutePath(props, "ofbiz.log.dir", DEFAULT_LOG_DIRECTORY, ofbizHome);
         shutdownAfterLoad = "true".equalsIgnoreCase(getProperty(props, "ofbiz.auto.shutdown", "false"));
         useShutdownHook = "true".equalsIgnoreCase(getProperty(props, "ofbiz.enable.hook", "true"));
+        configOverloadEnabled = "true".equalsIgnoreCase(getProperty(props, "ofbiz.config.overload.enable", "false"));
 
         System.out.println("Set OFBIZ_HOME to - " + ofbizHome);
 
@@ -147,9 +153,8 @@ public final class Config {
         } else if (ofbizCommands.stream().anyMatch(
                 option -> option.getName().equals(StartupCommandUtil.StartupOption.TEST.getName()))) {
             return "test.properties";
-        } else {
-            return "start.properties";
         }
+        return "start.properties";
     }
 
     private static int getPortOffsetValue(List<StartupCommand> ofbizCommands, String defaultOffset) throws StartupException {
