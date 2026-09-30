@@ -176,9 +176,22 @@ public final class ComponentConfig {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Provides the already loaded configuration of a component. This is a pure lookup: it never
+     * loads a component, so a name that is not cached is an error.
+     * @param globalName  the global name of the component
+     * @return the cached component configuration
+     * @throws ComponentException when no component with that name has been loaded
+     */
     public static ComponentConfig getComponentConfig(String globalName) throws ComponentException {
-        // TODO: we need to look up the rootLocation from the container config, or this will blow up
-        return getComponentConfig(globalName, null);
+        ComponentConfig componentConfig = null;
+        if (globalName != null && !globalName.isEmpty()) {
+            componentConfig = COMPONENT_CONFIG_CACHE.fromGlobalName(globalName);
+        }
+        if (componentConfig == null) {
+            throw new ComponentException("No component found named : " + globalName);
+        }
+        return componentConfig;
     }
 
     public static ComponentConfig getComponentConfig(String globalName, String rootLocation) throws ComponentException {
@@ -207,7 +220,7 @@ public final class ComponentConfig {
     }
 
     static String getFullLocation(String componentName, String resourceLoaderName, String location) throws ComponentException {
-        ComponentConfig cc = getComponentConfig(componentName, null);
+        ComponentConfig cc = getComponentConfig(componentName);
         return cc.getFullLocation(resourceLoaderName, location);
     }
 
