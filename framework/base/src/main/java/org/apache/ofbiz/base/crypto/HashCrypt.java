@@ -301,24 +301,6 @@ public class HashCrypt {
         }
     }
 
-    public static String digestHash64(String hashType, byte[] bytes) {
-        if (hashType == null) {
-            hashType = "SHA";
-        }
-        try {
-            MessageDigest messagedigest = MessageDigest.getInstance(hashType);
-            messagedigest.update(bytes);
-            byte[] digestBytes = messagedigest.digest();
-
-            StringBuilder sb = new StringBuilder();
-            sb.append("{").append(hashType).append("}");
-            sb.append(Base64.encodeBase64URLSafeString(digestBytes).replace('+', '.'));
-            return sb.toString();
-        } catch (NoSuchAlgorithmException e) {
-            throw new GeneralRuntimeException("Error while computing hash of type " + hashType, e);
-        }
-    }
-
     /**
      * @deprecated use cryptPassword
      */
@@ -341,33 +323,6 @@ public class HashCrypt {
         }
 
         return hashString.substring(hashString.indexOf('}') + 1);
-    }
-
-    /**
-     * @deprecated use digestHashOldFunnyHex(hashType, str)
-     */
-    @Deprecated
-    public static String getDigestHashOldFunnyHexEncode(String str, String hashType) {
-        return digestHashOldFunnyHex(hashType, str);
-    }
-
-    public static String digestHashOldFunnyHex(String hashType, String str) {
-        if (UtilValidate.isEmpty(hashType)) {
-            hashType = "SHA";
-        }
-        if (str == null) {
-            return null;
-        }
-        try {
-            MessageDigest messagedigest = MessageDigest.getInstance(hashType);
-            byte[] strBytes = str.getBytes(StandardCharsets.UTF_8);
-
-            messagedigest.update(strBytes);
-            return oldFunnyHex(messagedigest.digest());
-        } catch (Exception e) {
-            Debug.logError(e, "Error while computing hash of type " + hashType, MODULE);
-        }
-        return str;
     }
 
     // This next block should be removed when all {prefix}oldFunnyHex are fixed.
