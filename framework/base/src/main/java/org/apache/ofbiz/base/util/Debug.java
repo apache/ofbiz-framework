@@ -35,7 +35,6 @@ import org.apache.logging.log4j.Logger;
 public final class Debug {
 
     private static final String NO_MODULE = "NoModule";  // set to null for previous behavior
-    private static final Object[] EMPTY_PARAMS = new Object[0];
 
     public static final int ALWAYS = 0;
     public static final int VERBOSE = 1;
@@ -93,7 +92,9 @@ public final class Debug {
     }
 
     public static void log(int level, Throwable t, String msg, String module) {
-        log(level, t, msg, module, "org.apache.ofbiz.base.util.Debug", EMPTY_PARAMS);
+        if (isOn(level)) {
+            logMessage(level, t, msg, module);
+        }
     }
 
     public static void log(int level, Throwable t, String msg, String module, Object... params) {
@@ -101,7 +102,7 @@ public final class Debug {
     }
 
     public static void log(int level, Throwable t, String msg, String module, String callingClass) {
-        log(level, t, msg, module, callingClass, new Object[0]);
+        log(level, t, msg, module);
     }
 
     public static void log(int level, Throwable t, String msg, String module, String callingClass, Object... params) {
@@ -113,11 +114,14 @@ public final class Debug {
                 msg = sb.toString();
                 formatter.close();
             }
-
-            // log
-            Logger logger = getLogger(module);
-            logger.log(LEVEL_OBJS[level], msg, t);
+            logMessage(level, t, msg, module);
         }
+    }
+
+    /** Logs the message as is, without interpreting it as a format string */
+    private static void logMessage(int level, Throwable t, String msg, String module) {
+        Logger logger = getLogger(module);
+        logger.log(LEVEL_OBJS[level], msg, t);
     }
 
     public static boolean isOn(int level) {
@@ -126,7 +130,7 @@ public final class Debug {
 
     // leaving these here
     public static void log(String msg) {
-        log(Debug.ALWAYS, null, msg, NO_MODULE, EMPTY_PARAMS);
+        log(Debug.ALWAYS, null, msg, NO_MODULE);
     }
 
     public static void log(String msg, Object... params) {
@@ -134,11 +138,11 @@ public final class Debug {
     }
 
     public static void log(Throwable t) {
-        log(Debug.ALWAYS, t, null, NO_MODULE, EMPTY_PARAMS);
+        log(Debug.ALWAYS, t, null, NO_MODULE);
     }
 
     public static void log(String msg, String module) {
-        log(Debug.ALWAYS, null, msg, module, EMPTY_PARAMS);
+        log(Debug.ALWAYS, null, msg, module);
     }
 
     public static void log(String msg, String module, Object... params) {
@@ -146,11 +150,11 @@ public final class Debug {
     }
 
     public static void log(Throwable t, String module) {
-        log(Debug.ALWAYS, t, null, module, EMPTY_PARAMS);
+        log(Debug.ALWAYS, t, null, module);
     }
 
     public static void log(Throwable t, String msg, String module) {
-        log(Debug.ALWAYS, t, msg, module, EMPTY_PARAMS);
+        log(Debug.ALWAYS, t, msg, module);
     }
 
     public static void log(Throwable t, String msg, String module, Object... params) {
@@ -162,7 +166,7 @@ public final class Debug {
     }
 
     public static void logVerbose(String msg, String module) {
-        log(Debug.VERBOSE, null, msg, module, EMPTY_PARAMS);
+        log(Debug.VERBOSE, null, msg, module);
     }
 
     public static void logVerbose(String msg, String module, Object... params) {
@@ -170,11 +174,11 @@ public final class Debug {
     }
 
     public static void logVerbose(Throwable t, String module) {
-        log(Debug.VERBOSE, t, null, module, EMPTY_PARAMS);
+        log(Debug.VERBOSE, t, null, module);
     }
 
     public static void logVerbose(Throwable t, String msg, String module) {
-        log(Debug.VERBOSE, t, msg, module, EMPTY_PARAMS);
+        log(Debug.VERBOSE, t, msg, module);
     }
 
     public static void logVerbose(Throwable t, String msg, String module, Object... params) {
@@ -186,7 +190,7 @@ public final class Debug {
     }
 
     public static void logTiming(String msg, String module) {
-        log(Debug.TIMING, null, msg, module, EMPTY_PARAMS);
+        log(Debug.TIMING, null, msg, module);
     }
 
     public static void logTiming(String msg, String module, Object... params) {
@@ -194,11 +198,11 @@ public final class Debug {
     }
 
     public static void logTiming(Throwable t, String module) {
-        log(Debug.TIMING, t, null, module, EMPTY_PARAMS);
+        log(Debug.TIMING, t, null, module);
     }
 
     public static void logTiming(Throwable t, String msg, String module) {
-        log(Debug.TIMING, t, msg, module, EMPTY_PARAMS);
+        log(Debug.TIMING, t, msg, module);
     }
 
     public static void logTiming(Throwable t, String msg, String module, Object... params) {
@@ -210,7 +214,7 @@ public final class Debug {
     }
 
     public static void logInfo(String msg, String module) {
-        log(Debug.INFO, null, msg, module, EMPTY_PARAMS);
+        log(Debug.INFO, null, msg, module);
     }
 
     public static void logInfo(String msg, String module, Object... params) {
@@ -218,11 +222,11 @@ public final class Debug {
     }
 
     public static void logInfo(Throwable t, String module) {
-        log(Debug.INFO, t, null, module, EMPTY_PARAMS);
+        log(Debug.INFO, t, null, module);
     }
 
     public static void logInfo(Throwable t, String msg, String module) {
-        log(Debug.INFO, t, msg, module, EMPTY_PARAMS);
+        log(Debug.INFO, t, msg, module);
     }
 
     public static void logInfo(Throwable t, String msg, String module, Object... params) {
@@ -234,7 +238,7 @@ public final class Debug {
     }
 
     public static void logImportant(String msg, String module) {
-        log(Debug.IMPORTANT, null, msg, module, EMPTY_PARAMS);
+        log(Debug.IMPORTANT, null, msg, module);
     }
 
     public static void logImportant(String msg, String module, Object... params) {
@@ -242,11 +246,11 @@ public final class Debug {
     }
 
     public static void logImportant(Throwable t, String module) {
-        log(Debug.IMPORTANT, t, null, module, EMPTY_PARAMS);
+        log(Debug.IMPORTANT, t, null, module);
     }
 
     public static void logImportant(Throwable t, String msg, String module) {
-        log(Debug.IMPORTANT, t, msg, module, EMPTY_PARAMS);
+        log(Debug.IMPORTANT, t, msg, module);
     }
 
     public static void logImportant(Throwable t, String msg, String module, Object... params) {
@@ -258,7 +262,7 @@ public final class Debug {
     }
 
     public static void logWarning(String msg, String module) {
-        log(Debug.WARNING, null, msg, module, EMPTY_PARAMS);
+        log(Debug.WARNING, null, msg, module);
     }
 
     public static void logWarning(String msg, String module, Object... params) {
@@ -266,11 +270,11 @@ public final class Debug {
     }
 
     public static void logWarning(Throwable t, String module) {
-        log(Debug.WARNING, t, null, module, EMPTY_PARAMS);
+        log(Debug.WARNING, t, null, module);
     }
 
     public static void logWarning(Throwable t, String msg, String module) {
-        log(Debug.WARNING, t, msg, module, EMPTY_PARAMS);
+        log(Debug.WARNING, t, msg, module);
     }
 
     public static void logWarning(Throwable t, String msg, String module, Object... params) {
@@ -282,7 +286,7 @@ public final class Debug {
     }
 
     public static void logError(String msg, String module) {
-        log(Debug.ERROR, null, msg, module, EMPTY_PARAMS);
+        log(Debug.ERROR, null, msg, module);
     }
 
     public static void logError(String msg, String module, Object... params) {
@@ -290,11 +294,11 @@ public final class Debug {
     }
 
     public static void logError(Throwable t, String module) {
-        log(Debug.ERROR, t, null, module, EMPTY_PARAMS);
+        log(Debug.ERROR, t, null, module);
     }
 
     public static void logError(Throwable t, String msg, String module) {
-        log(Debug.ERROR, t, msg, module, EMPTY_PARAMS);
+        log(Debug.ERROR, t, msg, module);
     }
 
     public static void logError(Throwable t, String msg, String module, Object... params) {
@@ -306,7 +310,7 @@ public final class Debug {
     }
 
     public static void logFatal(String msg, String module) {
-        log(Debug.FATAL, null, msg, module, EMPTY_PARAMS);
+        log(Debug.FATAL, null, msg, module);
     }
 
     public static void logFatal(String msg, String module, Object... params) {
@@ -314,11 +318,11 @@ public final class Debug {
     }
 
     public static void logFatal(Throwable t, String module) {
-        log(Debug.FATAL, t, null, module, EMPTY_PARAMS);
+        log(Debug.FATAL, t, null, module);
     }
 
     public static void logFatal(Throwable t, String msg, String module) {
-        log(Debug.FATAL, t, msg, module, EMPTY_PARAMS);
+        log(Debug.FATAL, t, msg, module);
     }
 
     public static void logFatal(Throwable t, String msg, String module, Object... params) {
