@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.apache.ofbiz.base.util;
 
+import java.util.Arrays;
 import java.util.Formatter;
 import java.util.HashMap;
 import java.util.Locale;
@@ -110,9 +111,14 @@ public final class Debug {
             if (msg != null && params.length > 0) {
                 StringBuilder sb = new StringBuilder();
                 Formatter formatter = new Formatter(sb);
-                formatter.format(msg, params);
-                msg = sb.toString();
-                formatter.close();
+                try {
+                    formatter.format(msg, params);
+                    msg = sb.toString();
+                } catch (IllegalArgumentException e) {
+                    msg = msg + " " + Arrays.toString(params);
+                } finally {
+                    formatter.close();
+                }
             }
 
             // log
