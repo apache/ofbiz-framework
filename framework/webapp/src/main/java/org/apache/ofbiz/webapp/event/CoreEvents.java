@@ -506,9 +506,9 @@ public class CoreEvents {
         String filePath = RequestHandler.getOverrideViewUri(request.getPathInfo());
 
         // load the file
-        File file = new File(filePath);
+        File file;
         try {
-            SecurityUtil.checkOfbizFileAllowList(file);
+            file = SecurityUtil.checkOfbizFileAllowList(new File(filePath));
         } catch (GeneralException e) {
             Debug.logError(e.getMessage(), MODULE);
             return "error";

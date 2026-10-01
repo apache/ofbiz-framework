@@ -492,21 +492,28 @@ public class DataResourceWorker implements org.apache.ofbiz.widget.content.DataR
      * 2. Normalized absolute paths (collapses ".." without following symlinks) — fallback for
      *    when contextRoot or a subdirectory inside it is a mount point, causing canonical paths
      *    to diverge. Path traversal via ".." is still blocked by the normalization step.
+     *
+     * @param file  the file to check
+     * @param contextRoot  the directory the file has to be in
+     * @return the validated file (canonical, or normalized when the canonical check does not apply),
+     *         which callers should use for the actual file access
+     * @throws GeneralException when the file resolves outside of the context root
      */
-    static void checkContextFileBoundary(File file, String contextRoot) throws GeneralException {
+    static File checkContextFileBoundary(File file, String contextRoot) throws GeneralException {
         try {
             String canonicalAllowed = new File(contextRoot).getCanonicalPath();
             String canonicalFilePath = file.getCanonicalPath();
-            boolean passesCanonical = canonicalFilePath.startsWith(canonicalAllowed + File.separator)
-                    || canonicalFilePath.equals(canonicalAllowed);
+            if (canonicalFilePath.startsWith(canonicalAllowed + File.separator)
+                    || canonicalFilePath.equals(canonicalAllowed)) {
+                return new File(canonicalFilePath);
+            }
 
             Path normalizedAllowed = Path.of(contextRoot).toAbsolutePath().normalize();
             Path normalizedFilePath = file.toPath().toAbsolutePath().normalize();
-            boolean passesNormalized = normalizedFilePath.startsWith(normalizedAllowed);
-
-            if (!passesCanonical && !passesNormalized) {
-                throw new GeneralException("Access to file denied: path resolves outside of the allowed directory");
+            if (normalizedFilePath.startsWith(normalizedAllowed)) {
+                return normalizedFilePath.toFile();
             }
+            throw new GeneralException("Access to file denied: path resolves outside of the allowed directory");
         } catch (IOException e) {
             throw new GeneralException("Unable to validate file path: " + e.getMessage());
         }
@@ -645,13 +652,13 @@ public class DataResourceWorker implements org.apache.ofbiz.widget.content.DataR
 
         if ("LOCAL_FILE".equals(dataResourceTypeId) || "LOCAL_FILE_BIN".equals(dataResourceTypeId)) {
             file = FileUtil.getFile(objectInfo);
-            if (!file.exists()) {
-                throw new FileNotFoundException("No file found: " + (objectInfo));
-            }
             if (!file.isAbsolute()) {
                 throw new GeneralException("File (" + objectInfo + ") is not absolute");
             }
             SecurityUtil.checkLocalFileAllowList(file);
+            if (!file.exists()) {
+                throw new FileNotFoundException("No file found: " + (objectInfo));
+            }
         } else if ("OFBIZ_FILE".equals(dataResourceTypeId) || "OFBIZ_FILE_BIN".equals(dataResourceTypeId)) {
             String prefix = System.getProperty("ofbiz.home");
 
@@ -659,11 +666,10 @@ public class DataResourceWorker implements org.apache.ofbiz.widget.content.DataR
             if (objectInfo.indexOf('/') != 0 && prefix.lastIndexOf('/') != (prefix.length() - 1)) {
                 sep = "/";
             }
-            file = FileUtil.getFile(prefix + sep + objectInfo);
+            file = SecurityUtil.checkOfbizFileAllowList(FileUtil.getFile(prefix + sep + objectInfo));
             if (!file.exists()) {
                 throw new FileNotFoundException("No file found: " + (prefix + sep + objectInfo));
             }
-            SecurityUtil.checkOfbizFileAllowList(file);
         } else if ("CONTEXT_FILE".equals(dataResourceTypeId) || "CONTEXT_FILE_BIN".equals(dataResourceTypeId)) {
             if (UtilValidate.isEmpty(contextRoot)) {
                 throw new GeneralException("Cannot find CONTEXT_FILE with an empty context root!");
@@ -673,8 +679,7 @@ public class DataResourceWorker implements org.apache.ofbiz.widget.content.DataR
             if (objectInfo.indexOf('/') != 0 && contextRoot.lastIndexOf('/') != (contextRoot.length() - 1)) {
                 sep = "/";
             }
-            file = FileUtil.getFile(contextRoot + sep + objectInfo);
-            checkContextFileBoundary(file, contextRoot);
+            file = checkContextFileBoundary(FileUtil.getFile(contextRoot + sep + objectInfo), contextRoot);
             if (!file.exists()) {
                 throw new FileNotFoundException("No file found: " + (contextRoot + sep + objectInfo));
             }
@@ -1233,10 +1238,10 @@ public class DataResourceWorker implements org.apache.ofbiz.widget.content.DataR
             if (!file.isAbsolute()) {
                 throw new GeneralException("File (" + objectInfo + ") is not absolute");
             }
+            SecurityUtil.checkLocalFileAllowList(file);
             if (!file.exists()) {
                 throw new FileNotFoundException("No file found: " + file.getAbsolutePath());
             }
-            SecurityUtil.checkLocalFileAllowList(file);
             try (InputStreamReader in = new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8)) {
                 UtilIO.copy(in, out);
             }
@@ -1246,11 +1251,10 @@ public class DataResourceWorker implements org.apache.ofbiz.widget.content.DataR
             if (objectInfo.indexOf('/') != 0 && prefix.lastIndexOf('/') != (prefix.length() - 1)) {
                 sep = "/";
             }
-            File file = FileUtil.getFile(prefix + sep + objectInfo);
+            File file = SecurityUtil.checkOfbizFileAllowList(FileUtil.getFile(prefix + sep + objectInfo));
             if (!file.exists()) {
                 throw new FileNotFoundException("No file found: " + file.getAbsolutePath());
             }
-            SecurityUtil.checkOfbizFileAllowList(file);
             try (InputStreamReader in = new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8)) {
                 UtilIO.copy(in, out);
             }
@@ -1260,8 +1264,7 @@ public class DataResourceWorker implements org.apache.ofbiz.widget.content.DataR
             if (objectInfo.indexOf('/') != 0 && prefix.lastIndexOf('/') != (prefix.length() - 1)) {
                 sep = "/";
             }
-            File file = FileUtil.getFile(prefix + sep + objectInfo);
-            checkContextFileBoundary(file, rootDir);
+            File file = checkContextFileBoundary(FileUtil.getFile(prefix + sep + objectInfo), rootDir);
             if (!file.exists()) {
                 throw new FileNotFoundException("No file found: " + file.getAbsolutePath());
             }
