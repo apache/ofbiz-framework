@@ -182,31 +182,30 @@ public final class SecurityUtil {
      * subdirectory (e.g. {@code runtime/}) is a mount point, the file's canonical path diverges
      * from {@code canonicalHome}, but the per-allowed-path comparison below still passes because
      * it resolves both sides through the mount. Path traversal via {@code ../} is still blocked.
+     * An empty or missing setting means the default list is used.
+     *
+     * @param file  the file to check
+     * @return the canonical file, which callers should use for the actual file access
+     * @throws GeneralException when the file is not within an allowed directory
      */
-    public static void checkOfbizFileAllowList(File file) throws GeneralException {
+    public static File checkOfbizFileAllowList(File file) throws GeneralException {
         try {
             String canonicalHome = new File(System.getProperty("ofbiz.home")).getCanonicalPath();
             String canonicalFilePath = file.getCanonicalPath();
             String allowedPathsStr = UtilProperties.getPropertyValue("security",
                     "content.data.ofbiz.file.allowed.paths", "applications/,themes/,plugins/,runtime/");
-            if (UtilValidate.isNotEmpty(allowedPathsStr)) {
-                boolean inAllowedPath = false;
-                for (String relPath : allowedPathsStr.split(",")) {
-                    relPath = relPath.trim().replaceAll("^/+", "");
-                    if (UtilValidate.isEmpty(relPath)) {
-                        continue;
-                    }
-                    String canonicalAllowedDir = new File(canonicalHome, relPath).getCanonicalPath();
-                    if (canonicalFilePath.startsWith(canonicalAllowedDir + File.separator)
-                            || canonicalFilePath.equals(canonicalAllowedDir)) {
-                        inAllowedPath = true;
-                        break;
-                    }
+            for (String relPath : allowedPathsStr.split(",")) {
+                relPath = relPath.trim().replaceAll("^/+", "");
+                if (UtilValidate.isEmpty(relPath)) {
+                    continue;
                 }
-                if (!inAllowedPath) {
-                    throw new GeneralException("Access to file denied: path is not within an allowed directory");
+                String canonicalAllowedDir = new File(canonicalHome, relPath).getCanonicalPath();
+                if (canonicalFilePath.startsWith(canonicalAllowedDir + File.separator)
+                        || canonicalFilePath.equals(canonicalAllowedDir)) {
+                    return new File(canonicalFilePath);
                 }
             }
+            throw new GeneralException("Access to file denied: path is not within an allowed directory");
         } catch (IOException e) {
             throw new GeneralException("Unable to validate file path: " + e.getMessage());
         }
