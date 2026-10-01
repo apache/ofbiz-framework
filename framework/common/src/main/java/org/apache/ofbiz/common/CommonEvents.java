@@ -419,11 +419,11 @@ public class CommonEvents {
                     if (!platformSpecificPath.contains(File.separator) && "\\".equals(File.separator)) {
                         platformSpecificPath = platformSpecificPath.replace("/", "\\");
                     }
-                    SecurityUtil.checkOfbizFileAllowList(new File(platformSpecificPath));
+                    File sourceFile = SecurityUtil.checkOfbizFileAllowList(new File(platformSpecificPath));
                     // get line number
                     int lineNumber = 1;
                     if (UtilValidate.isNotEmpty(fragment)) {
-                        try (LineNumberReader lnr = new LineNumberReader(new FileReader(platformSpecificPath))) {
+                        try (LineNumberReader lnr = new LineNumberReader(new FileReader(sourceFile))) {
                             String line;
                             while ((line = lnr.readLine()) != null) {
                                 if (line.matches(".*name=\"" + Pattern.quote(fragment) + "\".*")) {
