@@ -31,8 +31,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import org.apache.commons.lang.RandomStringUtils;
 import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
@@ -57,8 +57,7 @@ public class PromoServices {
 
     private static final String MODULE = PromoServices.class.getName();
     private static final String RESOURCE = "ProductUiLabels";
-    private static final char[] SMART_CHARS = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W',
-            'X', 'Y', 'Z', '2', '3', '4', '5', '6', '7', '8', '9' };
+    private static final String SMART_CHARS = "ABCDEFGHKLMNPQRSTUVWXYZ23456789";
 
     public static Map<String, Object> createProductPromoCodeSet(DispatchContext dctx, Map<String, ? extends Object> context) {
         Locale locale = (Locale) context.get("locale");
@@ -87,9 +86,9 @@ public class PromoServices {
 
             while (!foundUniqueNewCode) {
                 if (useSmartLayout) {
-                    newPromoCodeId = RandomStringUtils.random(codeLength, SMART_CHARS);
+                    newPromoCodeId = StringUtil.randomString(codeLength, SMART_CHARS);
                 } else if (useNormalLayout) {
-                    newPromoCodeId = RandomStringUtils.randomAlphanumeric(codeLength);
+                    newPromoCodeId = StringUtil.randomString(codeLength, StringUtil.ALPHANUMERIC_CHARS);
                 }
                 GenericValue existingPromoCode = null;
                 try {
