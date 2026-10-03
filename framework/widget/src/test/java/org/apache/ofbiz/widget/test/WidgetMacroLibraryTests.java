@@ -28,7 +28,6 @@ import java.io.InputStream;
 import org.apache.ofbiz.base.start.Start;
 import org.apache.ofbiz.base.util.HttpClient;
 import org.apache.ofbiz.base.util.HttpClientException;
-import org.apache.ofbiz.base.util.SSLUtil;
 import org.apache.ofbiz.testtools.JunitJupiterTest;
 import org.apache.ofbiz.testtools.JupiterTestHelper;
 import org.apache.tika.metadata.Metadata;
@@ -52,7 +51,8 @@ public class WidgetMacroLibraryTests implements JupiterTestHelper {
         HttpClient http = new HttpClient();
         http.followRedirects(true);
         http.setAllowUntrusted(true);
-        http.setHostVerificationLevel(SSLUtil.getHostCertNoCheck());
+        // the test certificate is not issued for localhost
+        http.setHostnameVerifier((hostname, session) -> "localhost".equals(hostname));
         return http;
     }
 

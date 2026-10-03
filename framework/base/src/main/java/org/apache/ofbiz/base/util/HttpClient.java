@@ -34,6 +34,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.net.ssl.HostnameVerifier;
+
 /**
  * Send HTTP GET/POST requests.
  * The main problem with current implementation is that it does not handle connections release. You must rely on the OS to release them (timeout).
@@ -43,7 +45,7 @@ public class HttpClient {
 
     private static final String MODULE = HttpClient.class.getName();
 
-    private int hostVerification = SSLUtil.getHostCertNormalCheck();
+    private HostnameVerifier hostnameVerifier = null;
     private int timeout = 30000;
     private boolean debug = false;
     private boolean lineFeed = true;
@@ -220,14 +222,14 @@ public class HttpClient {
         return this.clientCertAlias;
     }
 
-    /** Sets the server hostname verification level */
-    public void setHostVerificationLevel(int level) {
-        this.hostVerification = level;
+    /** Sets the verifier used to check the server host name of HTTPS connections; {@code null} (the default) means the default verification */
+    public void setHostnameVerifier(HostnameVerifier hostnameVerifier) {
+        this.hostnameVerifier = hostnameVerifier;
     }
 
-    /** Returns the current server hostname verification level */
-    public int getHostVerificationLevel() {
-        return this.hostVerification;
+    /** Returns the verifier used to check the server host name of HTTPS connections, or {@code null} for the default verification */
+    public HostnameVerifier getHostnameVerifier() {
+        return this.hostnameVerifier;
     }
 
     /** Allow untrusted server certificates */
@@ -469,9 +471,9 @@ public class HttpClient {
         try {
             requestUrl = UtilURL.fromUrlString(localUrl);
             if (overrideTrust) {
-                con = URLConnector.openUntrustedConnection(requestUrl, timeout, clientCertAlias, hostVerification);
+                con = URLConnector.openUntrustedConnection(requestUrl, timeout, clientCertAlias, hostnameVerifier);
             } else {
-                con = URLConnector.openConnection(requestUrl, timeout, clientCertAlias, hostVerification);
+                con = URLConnector.openConnection(requestUrl, timeout, clientCertAlias, hostnameVerifier);
             }
             if (Debug.verboseOn() || debug) {
                 Debug.logVerbose("Connection opened to : " + requestUrl.toExternalForm(), MODULE);

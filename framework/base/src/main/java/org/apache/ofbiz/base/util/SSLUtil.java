@@ -28,7 +28,6 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.KeyManager;
 import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
@@ -48,9 +47,6 @@ import org.apache.ofbiz.base.config.GenericConfigException;
 public final class SSLUtil {
 
     private static final String MODULE = SSLUtil.class.getName();
-
-    private static final int HOSTCERT_NO_CHECK = 0;
-    private static final int HOSTCERT_NORMAL_CHECK = 2;
 
     private static boolean loadedProps = false;
 
@@ -87,14 +83,6 @@ public final class SSLUtil {
         }
     }
 
-
-    public static int getHostCertNoCheck() {
-        return HOSTCERT_NO_CHECK;
-    }
-
-    static int getHostCertNormalCheck() {
-        return HOSTCERT_NORMAL_CHECK;
-    }
 
     public static boolean isClientTrusted(X509Certificate[] chain, String authType) {
         TrustManager[] mgrs = new TrustManager[0];
@@ -243,15 +231,6 @@ public final class SSLUtil {
     public static SSLServerSocketFactory getSSLServerSocketFactory(String alias)
             throws IOException, GeneralSecurityException, GenericConfigException {
         return getSSLContext(alias, false).getServerSocketFactory();
-    }
-
-    public static HostnameVerifier getHostnameVerifier(int level) {
-        switch (level) {
-        case HOSTCERT_NO_CHECK:
-            return (hostname, session) -> true;
-        default:
-            return null;
-        }
     }
 
     public static void loadJsseProperties() {

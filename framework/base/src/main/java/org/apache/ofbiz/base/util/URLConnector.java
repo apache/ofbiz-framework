@@ -42,14 +42,14 @@ public class URLConnector {
     private String clientCertAlias = null;
     private boolean timedOut = false;
     private boolean trustAnyCert = false;
-    private int hostCertLevel = 2;
+    private HostnameVerifier hostnameVerifier = null;
 
     protected URLConnector() { }
-    private URLConnector(URL url, String clientCertAlias, int hostCertLevel, boolean trustAnyCert) {
+    private URLConnector(URL url, String clientCertAlias, HostnameVerifier hostnameVerifier, boolean trustAnyCert) {
         this.clientCertAlias = clientCertAlias;
         this.url = url;
         this.trustAnyCert = trustAnyCert;
-        this.hostCertLevel = hostCertLevel;
+        this.hostnameVerifier = hostnameVerifier;
     }
 
     /**
@@ -86,15 +86,20 @@ public class URLConnector {
     }
 
     public static URLConnection openConnection(URL url, int timeout) throws IOException {
-        return openConnection(url, timeout, null, SSLUtil.getHostCertNormalCheck());
+        return openConnection(url, timeout, null, null);
     }
 
     public static URLConnection openConnection(URL url, String clientCertAlias) throws IOException {
-        return openConnection(url, 30000, clientCertAlias, SSLUtil.getHostCertNormalCheck());
+        return openConnection(url, 30000, clientCertAlias, null);
     }
 
-    public static URLConnection openConnection(URL url, int timeout, String clientCertAlias, int hostCertLevel) throws IOException {
-        URLConnector uc = new URLConnector(url, clientCertAlias, hostCertLevel, false);
+    /**
+     * Open a connection, trusting only valid certificates.
+     * @param hostnameVerifier the host name verifier to use for HTTPS, or {@code null} for the default verification
+     */
+    public static URLConnection openConnection(URL url, int timeout, String clientCertAlias, HostnameVerifier hostnameVerifier)
+            throws IOException {
+        URLConnector uc = new URLConnector(url, clientCertAlias, hostnameVerifier, false);
         return uc.openConnection(timeout);
     }
 
@@ -104,15 +109,16 @@ public class URLConnector {
     }
 
     public static URLConnection openUntrustedConnection(URL url, int timeout) throws IOException {
-        return openUntrustedConnection(url, timeout, null, SSLUtil.getHostCertNormalCheck());
+        return openUntrustedConnection(url, timeout, null, null);
     }
 
     public static URLConnection openUntrustedConnection(URL url, String clientCertAlias) throws IOException {
-        return openUntrustedConnection(url, 30000, clientCertAlias, SSLUtil.getHostCertNormalCheck());
+        return openUntrustedConnection(url, 30000, clientCertAlias, null);
     }
 
-    static URLConnection openUntrustedConnection(URL url, int timeout, String clientCertAlias, int hostCertLevel) throws IOException {
-        URLConnector uc = new URLConnector(url, clientCertAlias, hostCertLevel, true);
+    static URLConnection openUntrustedConnection(URL url, int timeout, String clientCertAlias, HostnameVerifier hostnameVerifier)
+            throws IOException {
+        URLConnector uc = new URLConnector(url, clientCertAlias, hostnameVerifier, true);
         return uc.openConnection(timeout);
     }
 
@@ -128,9 +134,8 @@ public class URLConnector {
                     HttpsURLConnection scon = (HttpsURLConnection) con;
                     try {
                         scon.setSSLSocketFactory(SSLUtil.getSSLSocketFactory(clientCertAlias, trustAnyCert));
-                        HostnameVerifier hv = SSLUtil.getHostnameVerifier(hostCertLevel);
-                        if (hv != null) {
-                            scon.setHostnameVerifier(hv);
+                        if (hostnameVerifier != null) {
+                            scon.setHostnameVerifier(hostnameVerifier);
                         }
                     } catch (GeneralSecurityException | GenericConfigException e) {
                         Debug.logError(e, MODULE);
