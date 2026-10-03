@@ -60,7 +60,7 @@ class FileUtilTests {
         }
 
         //validate unzip and compare the two files
-        FileUtil.unzipFileToFolder(readmeZipped, zipFilePath, false)
+        FileUtil.unzipFileToFolder(readmeZipped, zipFilePath)
 
         assert FileUtils.contentEquals(originalReadme, new File(zipFilePath, fileName))
     }
