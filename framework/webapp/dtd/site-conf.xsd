@@ -410,7 +410,8 @@ under the License.
             <xs:attribute name="from-field" type="xs:string">
                 <xs:annotation>
                     <xs:documentation>
-                        Set from what field in context we can found the response user message. This field can contain a flexible string
+                        Set from what request attribute (for example set by an event or a service) we can found the response user message.
+                        This attribute can contain a flexible string, a request parameter is never used
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
