@@ -419,10 +419,9 @@ public final class FileUtil {
      * Unzip file structure of the given zipFile to specified outputFolder
      * @param zipFile
      * @param outputFolder
-     * @param handleZipSlip if true FileUtil::newFile is used
-     * @throws IOException
+     * @throws IOException when an entry would be written outside of outputFolder, see {@link #newFile(String, ZipEntry)}
      */
-    public static boolean unzipFileToFolder(File zipFile, String outputFolder, boolean handleZipSlip) throws IOException {
+    public static boolean unzipFileToFolder(File zipFile, String outputFolder) throws IOException {
         byte[] buffer = new byte[8192];
 
         //create output directory if not exists
@@ -437,17 +436,7 @@ public final class FileUtil {
         ZipEntry ze = zis.getNextEntry();
 
         while (ze != null) {
-            File newFile = null;
-            if (handleZipSlip) {
-                newFile = newFile(outputFolder, ze); // Prevents Zip slip vulnerability
-                if (null == newFile) {
-                    zis.closeEntry();
-                    zis.close();
-                    return false;
-                }
-            } else {
-                newFile = new File(outputFolder, ze.getName());
-            }
+            File newFile = newFile(outputFolder, ze); // Prevents Zip slip vulnerability
             //create all non existing folders
             //else you will hit FileNotFoundException for compressed folder
             new File(newFile.getParent()).mkdirs();
