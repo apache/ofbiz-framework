@@ -1090,13 +1090,15 @@ public final class RequestHandler {
                         responseMessage.getRessource(), value,
                         context, UtilHttp.getLocale(request))
                         : value;
-            } else if (responseMessage.getFromField() != null
-                    && context.containsKey(responseMessage.getFromField())) {
+            } else if (responseMessage.getFromField() != null) {
 
-                // now analyze each field to found a flexible string to expand
-                userMessage = FlexibleStringExpander.getInstance(
-                                (String) context.get(responseMessage.getFromField()))
-                        .expandString(context);
+                // The message is looked up in the request attributes only, where events and services put their results, and not in
+                // the request parameters, so that what the client sends is never evaluated as an expression.
+                Object fieldValue = request.getAttribute(responseMessage.getFromField());
+                if (fieldValue instanceof String) {
+                    // now analyze the field to found a flexible string to expand
+                    userMessage = FlexibleStringExpander.getInstance((String) fieldValue).expandString(context);
+                }
             }
 
             if (UtilValidate.isNotEmpty(userMessage)) {
