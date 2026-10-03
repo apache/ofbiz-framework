@@ -57,6 +57,7 @@ public class MacroCommonRenderer {
         Map<String, Object> ctx = UtilGenerics.cast(context);
         RequestHandler rh = RequestHandler.from(request);
 
+        Locale locale = UtilMisc.ensureLocale(context.get("locale"));
         StringBuilder sb = new StringBuilder();
         Iterator<ModelForm.UpdateArea> updateAreaIter = updateAreas.iterator();
         while (updateAreaIter.hasNext()) {
@@ -67,8 +68,10 @@ public class MacroCommonRenderer {
             String targetToCall;
             String parametersToForward;
 
-            // 1. areaId to update, use the screen stack with the potential area given by the update area element
-            areaIdToUpdate = WidgetWorker.getScreenStack(ctx).resolveScreenAreaId(updateArea.getAreaId());
+            // 1. areaId to update, use the screen stack with the potential area given by the update area element.
+            //     It is the only part that is an expression; the target and the parameters are expanded below.
+            areaIdToUpdate = WidgetWorker.getScreenStack(ctx).resolveScreenAreaId(
+                    FlexibleStringExpander.expandString(updateArea.getAreaId(), ctx, locale));
 
             // 2. the target, if the updateArea haven't the information and we are on event link to the pagination,
             //     will ask to the parent model the pagination target
@@ -104,8 +107,7 @@ public class MacroCommonRenderer {
                 sb.append(",");
             }
         }
-        Locale locale = UtilMisc.ensureLocale(context.get("locale"));
-        return FlexibleStringExpander.expandString(sb.toString(), context, locale);
+        return sb.toString();
     }
 
     private static String buildParamStringFromMap(Map<String, Object> extraParamsAsMap) {
