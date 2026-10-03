@@ -27,7 +27,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
-import java.security.cert.CertificateException;
+import java.security.KeyStore;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
@@ -49,7 +49,7 @@ public class HttpClient {
     private int timeout = 30000;
     private boolean debug = false;
     private boolean lineFeed = true;
-    private boolean trustAny = false;
+    private KeyStore trustStore = null;
     private boolean followRedirects = true;
     private boolean keepAlive = false;
 
@@ -232,14 +232,17 @@ public class HttpClient {
         return this.hostnameVerifier;
     }
 
-    /** Allow untrusted server certificates */
-    public void setAllowUntrusted(boolean trustAny) {
-        this.trustAny = trustAny;
+    /**
+     * Sets an extra truststore whose certificates are trusted, in addition to the system and the configured truststores.
+     * Server certificates are always validated; {@code null} (the default) means no extra certificates are trusted.
+     */
+    public void setTrustStore(KeyStore trustStore) {
+        this.trustStore = trustStore;
     }
 
-    /** Do we trust any certificate */
-    public boolean getAllowUntrusted() {
-        return this.trustAny;
+    /** Returns the extra truststore whose certificates are trusted, or {@code null} for none */
+    public KeyStore getTrustStore() {
+        return this.trustStore;
     }
 
     /**
@@ -437,10 +440,6 @@ public class HttpClient {
     }
 
     private InputStream sendHttpRequestStream(String method) throws HttpClientException {
-        return sendHttpRequestStream(method, false);
-    }
-
-    private InputStream sendHttpRequestStream(String method, boolean overrideTrust) throws HttpClientException {
         // setup some SSL variables
         SSLUtil.loadJsseProperties(this.debug);
 
@@ -470,11 +469,7 @@ public class HttpClient {
         // Create the URL and open the connection.
         try {
             requestUrl = UtilURL.fromUrlString(localUrl);
-            if (overrideTrust) {
-                con = URLConnector.openUntrustedConnection(requestUrl, timeout, clientCertAlias, hostnameVerifier);
-            } else {
-                con = URLConnector.openConnection(requestUrl, timeout, clientCertAlias, hostnameVerifier);
-            }
+            con = URLConnector.openConnection(requestUrl, timeout, clientCertAlias, hostnameVerifier, trustStore);
             if (Debug.verboseOn() || debug) {
                 Debug.logVerbose("Connection opened to : " + requestUrl.toExternalForm(), MODULE);
             }
@@ -556,10 +551,6 @@ public class HttpClient {
 
             in = con.getInputStream();
         } catch (IOException ioe) {
-            if ((trustAny && !overrideTrust) && (ioe.getCause() instanceof CertificateException)) {
-                Debug.logWarning(ioe.getCause(), MODULE);
-                return sendHttpRequestStream(method, true);
-            }
             if ((con instanceof HttpURLConnection)) {
                 try {
                     in = ((HttpURLConnection) con).getErrorStream();
