@@ -24,7 +24,6 @@ import java.io.InputStream;
 import org.apache.ofbiz.base.start.Start;
 import org.apache.ofbiz.base.util.HttpClient;
 import org.apache.ofbiz.base.util.HttpClientException;
-import org.apache.ofbiz.base.util.SSLUtil;
 import org.apache.ofbiz.service.testtools.OFBizTestCase;
 import org.apache.tika.metadata.Metadata;
 import org.apache.tika.parser.ParseContext;
@@ -48,7 +47,8 @@ public class WidgetMacroLibraryTests extends OFBizTestCase {
         HttpClient http = new HttpClient();
         http.followRedirects(true);
         http.setAllowUntrusted(true);
-        http.setHostVerificationLevel(SSLUtil.getHostCertNoCheck());
+        // the test certificate is not issued for localhost
+        http.setHostnameVerifier((hostname, session) -> "localhost".equals(hostname));
         return http;
     }
 
