@@ -171,7 +171,7 @@ public class MacroTreeRenderer implements TreeStringRenderer {
                     StringBuilder target = new StringBuilder(node.getModelTree().getExpandCollapseRequest(context));
                     String trailName = node.getModelTree().getTrailName(context);
                     expandCollapseLink = new ModelTree.ModelNode.Link("collapsed", target.toString(), " ",
-                            ImmutableList.of(new CommonWidgetModels.Parameter(trailName, currentNodeTrailPiped, false)));
+                            ImmutableList.of(CommonWidgetModels.Parameter.literal(trailName, currentNodeTrailPiped)));
                 }
             } else {
                 context.put("processChildren", Boolean.TRUE);
@@ -183,7 +183,7 @@ public class MacroTreeRenderer implements TreeStringRenderer {
                 StringBuilder target = new StringBuilder(node.getModelTree().getExpandCollapseRequest(context));
                 String trailName = node.getModelTree().getTrailName(context);
                 expandCollapseLink = new ModelTree.ModelNode.Link("expanded", target.toString(), " ",
-                        ImmutableList.of(new CommonWidgetModels.Parameter(trailName, currentNodeTrailPiped, false)));
+                        ImmutableList.of(CommonWidgetModels.Parameter.literal(trailName, currentNodeTrailPiped)));
                 // add it so it can be remove in renderNodeEnd
                 currentNodeTrail.add(lastContentId);
             }
