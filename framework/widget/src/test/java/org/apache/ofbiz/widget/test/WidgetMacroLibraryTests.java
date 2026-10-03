@@ -23,11 +23,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import java.io.IOException;
 import java.io.InputStream;
+import java.security.GeneralSecurityException;
 
 import org.apache.ofbiz.base.start.Start;
 import org.apache.ofbiz.base.util.HttpClient;
 import org.apache.ofbiz.base.util.HttpClientException;
+import org.apache.ofbiz.testtools.HttpsTestSupport;
 import org.apache.ofbiz.testtools.JunitJupiterTest;
 import org.apache.ofbiz.testtools.JupiterTestHelper;
 import org.apache.tika.metadata.Metadata;
@@ -50,9 +53,11 @@ public class WidgetMacroLibraryTests implements JupiterTestHelper {
     public HttpClient initHttpClient() throws HttpClientException {
         HttpClient http = new HttpClient();
         http.followRedirects(true);
-        http.setAllowUntrusted(true);
-        // the test certificate is not issued for localhost
-        http.setHostnameVerifier((hostname, session) -> "localhost".equals(hostname));
+        try {
+            HttpsTestSupport.trustLocalServer(http);
+        } catch (IOException | GeneralSecurityException e) {
+            throw new HttpClientException("Cannot trust the certificate of the local server", e);
+        }
         return http;
     }
 

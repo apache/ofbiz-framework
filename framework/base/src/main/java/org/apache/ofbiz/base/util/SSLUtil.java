@@ -58,32 +58,6 @@ public final class SSLUtil {
         SSLUtil.loadJsseProperties();
     }
 
-    private static final class TrustAnyManager implements X509TrustManager {
-
-        @Override
-        public void checkClientTrusted(X509Certificate[] certs, String string) throws CertificateException {
-            Debug.logImportant("Trusting (un-trusted) client certificate chain:", MODULE);
-            for (X509Certificate cert: certs) {
-                Debug.logImportant("---- " + cert.getSubjectX500Principal().getName() + " valid: " + cert.getNotAfter(), MODULE);
-
-            }
-        }
-
-        @Override
-        public void checkServerTrusted(X509Certificate[] certs, String string) throws CertificateException {
-            Debug.logImportant("Trusting (un-trusted) server certificate chain:", MODULE);
-            for (X509Certificate cert: certs) {
-                Debug.logImportant("---- " + cert.getSubjectX500Principal().getName() + " valid: " + cert.getNotAfter(), MODULE);
-            }
-        }
-
-        @Override
-        public X509Certificate[] getAcceptedIssuers() {
-            return new X509Certificate[0];
-        }
-    }
-
-
     public static boolean isClientTrusted(X509Certificate[] chain, String authType) {
         TrustManager[] mgrs = new TrustManager[0];
         try {
@@ -134,8 +108,14 @@ public final class SSLUtil {
     }
 
     private static TrustManager[] getTrustManagers() throws IOException, GeneralSecurityException, GenericConfigException {
+        return getTrustManagersIncluding(null);
+    }
+
+    private static TrustManager[] getTrustManagersIncluding(KeyStore additionalTrustStore)
+            throws IOException, GeneralSecurityException, GenericConfigException {
         MultiTrustManager tm = new MultiTrustManager();
         tm.add(KeyStoreUtil.getSystemTrustStore());
+        tm.add(additionalTrustStore);
         if (tm.getNumberOfKeyStores() < 1) {
             Debug.logWarning("System truststore not found!", MODULE);
         }
@@ -152,10 +132,6 @@ public final class SSLUtil {
         }
 
         return new TrustManager[] {tm };
-    }
-
-    public static TrustManager[] getTrustAnyManagers() {
-        return new TrustManager[] {new TrustAnyManager() };
     }
 
     public static KeyManager[] getKeyManagers(KeyStore ks, String password, String alias) throws GeneralSecurityException {
@@ -178,37 +154,34 @@ public final class SSLUtil {
 
     public static SSLSocketFactory getSSLSocketFactory(KeyStore ks, String password, String alias)
             throws IOException, GeneralSecurityException, GenericConfigException {
-        return getSSLContext(ks, password, alias, false).getSocketFactory();
+        return getSSLContext(ks, password, alias).getSocketFactory();
     }
 
-    public static SSLContext getSSLContext(KeyStore ks, String password, String alias, boolean trustAny)
+    public static SSLContext getSSLContext(KeyStore ks, String password, String alias)
             throws IOException, GeneralSecurityException, GenericConfigException {
         KeyManager[] km = SSLUtil.getKeyManagers(ks, password, alias);
-        TrustManager[] tm;
-        if (trustAny) {
-            tm = SSLUtil.getTrustAnyManagers();
-        } else {
-            tm = SSLUtil.getTrustManagers();
-        }
+        TrustManager[] tm = SSLUtil.getTrustManagers();
 
         SSLContext context = SSLContext.getInstance("SSL");
         context.init(km, tm, SECURE_RANDOM);
         return context;
     }
 
-    public static SSLSocketFactory getSSLSocketFactory(String alias, boolean trustAny)
+    /**
+     * Gets a socket factory that validates server certificates against the system truststore and the configured
+     * component truststores, and additionally against the given truststore.
+     * @param alias the alias of the client certificate to use, or {@code null}
+     * @param additionalTrustStore an extra truststore to trust, or {@code null} for none
+     */
+    public static SSLSocketFactory getSSLSocketFactory(String alias, KeyStore additionalTrustStore)
             throws IOException, GeneralSecurityException, GenericConfigException {
-        return getSSLContext(alias, trustAny).getSocketFactory();
+        return getSSLContext(alias, additionalTrustStore).getSocketFactory();
     }
 
-    public static SSLContext getSSLContext(String alias, boolean trustAny) throws IOException, GeneralSecurityException, GenericConfigException {
+    public static SSLContext getSSLContext(String alias, KeyStore additionalTrustStore)
+            throws IOException, GeneralSecurityException, GenericConfigException {
         KeyManager[] km = SSLUtil.getKeyManagers(alias);
-        TrustManager[] tm;
-        if (trustAny) {
-            tm = SSLUtil.getTrustAnyManagers();
-        } else {
-            tm = SSLUtil.getTrustManagers();
-        }
+        TrustManager[] tm = SSLUtil.getTrustManagersIncluding(additionalTrustStore);
 
         SSLContext context = SSLContext.getInstance("SSL");
         context.init(km, tm, SECURE_RANDOM);
@@ -216,7 +189,7 @@ public final class SSLUtil {
     }
 
     private static SSLSocketFactory getSSLSocketFactory(String alias) throws IOException, GeneralSecurityException, GenericConfigException {
-        return getSSLSocketFactory(alias, false);
+        return getSSLSocketFactory(alias, null);
     }
 
     public static SSLSocketFactory getSSLSocketFactory() throws IOException, GeneralSecurityException, GenericConfigException {
@@ -225,12 +198,12 @@ public final class SSLUtil {
 
     public static SSLServerSocketFactory getSSLServerSocketFactory(KeyStore ks, String password, String alias)
             throws IOException, GeneralSecurityException, GenericConfigException {
-        return getSSLContext(ks, password, alias, false).getServerSocketFactory();
+        return getSSLContext(ks, password, alias).getServerSocketFactory();
     }
 
     public static SSLServerSocketFactory getSSLServerSocketFactory(String alias)
             throws IOException, GeneralSecurityException, GenericConfigException {
-        return getSSLContext(alias, false).getServerSocketFactory();
+        return getSSLContext(alias, null).getServerSocketFactory();
     }
 
     public static void loadJsseProperties() {

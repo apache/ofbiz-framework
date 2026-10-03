@@ -25,8 +25,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.security.GeneralSecurityException;
 import java.util.Base64;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.InflaterInputStream;
@@ -36,6 +38,7 @@ import org.apache.ofbiz.base.start.Start;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.HttpClient;
 import org.apache.ofbiz.base.util.HttpClientException;
+import org.apache.ofbiz.testtools.HttpsTestSupport;
 import org.apache.ofbiz.testtools.JunitJupiterTest;
 import org.apache.ofbiz.testtools.JupiterTestHelper;
 import org.junit.jupiter.api.BeforeAll;
@@ -64,9 +67,11 @@ class RestTestHttpRequest implements JupiterTestHelper {
     private static HttpClient initHttpClient() {
         HttpClient http = new HttpClient();
         http.followRedirects(true);
-        http.setAllowUntrusted(true);
-        // the test certificate is not issued for localhost
-        http.setHostnameVerifier((hostname, session) -> "localhost".equals(hostname));
+        try {
+            HttpsTestSupport.trustLocalServer(http);
+        } catch (IOException | GeneralSecurityException e) {
+            throw new IllegalStateException("Cannot trust the certificate of the local server", e);
+        }
         return http;
     }
 

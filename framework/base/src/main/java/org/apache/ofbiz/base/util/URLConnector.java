@@ -23,6 +23,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.security.GeneralSecurityException;
+import java.security.KeyStore;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
@@ -41,14 +42,14 @@ public class URLConnector {
     private URL url = null;
     private String clientCertAlias = null;
     private boolean timedOut = false;
-    private boolean trustAnyCert = false;
+    private KeyStore trustStore = null;
     private HostnameVerifier hostnameVerifier = null;
 
     protected URLConnector() { }
-    private URLConnector(URL url, String clientCertAlias, HostnameVerifier hostnameVerifier, boolean trustAnyCert) {
+    private URLConnector(URL url, String clientCertAlias, HostnameVerifier hostnameVerifier, KeyStore trustStore) {
         this.clientCertAlias = clientCertAlias;
         this.url = url;
-        this.trustAnyCert = trustAnyCert;
+        this.trustStore = trustStore;
         this.hostnameVerifier = hostnameVerifier;
     }
 
@@ -99,26 +100,17 @@ public class URLConnector {
      */
     public static URLConnection openConnection(URL url, int timeout, String clientCertAlias, HostnameVerifier hostnameVerifier)
             throws IOException {
-        URLConnector uc = new URLConnector(url, clientCertAlias, hostnameVerifier, false);
-        return uc.openConnection(timeout);
+        return openConnection(url, timeout, clientCertAlias, hostnameVerifier, null);
     }
 
-    // allow untrusted certs
-    public static URLConnection openUntrustedConnection(URL url) throws IOException {
-        return openUntrustedConnection(url, 30000);
-    }
-
-    public static URLConnection openUntrustedConnection(URL url, int timeout) throws IOException {
-        return openUntrustedConnection(url, timeout, null, null);
-    }
-
-    public static URLConnection openUntrustedConnection(URL url, String clientCertAlias) throws IOException {
-        return openUntrustedConnection(url, 30000, clientCertAlias, null);
-    }
-
-    static URLConnection openUntrustedConnection(URL url, int timeout, String clientCertAlias, HostnameVerifier hostnameVerifier)
-            throws IOException {
-        URLConnector uc = new URLConnector(url, clientCertAlias, hostnameVerifier, true);
+    /**
+     * Open a connection, trusting only valid certificates and the certificates of the given truststore.
+     * @param hostnameVerifier the host name verifier to use for HTTPS, or {@code null} for the default verification
+     * @param trustStore an extra truststore whose certificates are trusted, or {@code null} for none
+     */
+    public static URLConnection openConnection(URL url, int timeout, String clientCertAlias, HostnameVerifier hostnameVerifier,
+            KeyStore trustStore) throws IOException {
+        URLConnector uc = new URLConnector(url, clientCertAlias, hostnameVerifier, trustStore);
         return uc.openConnection(timeout);
     }
 
@@ -133,7 +125,7 @@ public class URLConnector {
                 if ("HTTPS".equalsIgnoreCase(url.getProtocol())) {
                     HttpsURLConnection scon = (HttpsURLConnection) con;
                     try {
-                        scon.setSSLSocketFactory(SSLUtil.getSSLSocketFactory(clientCertAlias, trustAnyCert));
+                        scon.setSSLSocketFactory(SSLUtil.getSSLSocketFactory(clientCertAlias, trustStore));
                         if (hostnameVerifier != null) {
                             scon.setHostnameVerifier(hostnameVerifier);
                         }
