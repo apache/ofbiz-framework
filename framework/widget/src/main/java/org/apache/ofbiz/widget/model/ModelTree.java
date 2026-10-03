@@ -1087,6 +1087,8 @@ public class ModelTree extends ModelWidget {
             // FIXME: Something to be replaced by a builder class, but allows us to quickly
             // build Links to represent nodes with parameters in a tree, rather that trying
             // to encode the parameters early in the link's target.
+            // The style, target and text are computed by the renderer, and the target comes from the request,
+            // so they are taken literally and never evaluated as an expression.
             public Link(String style, String target, String text, List<Parameter> parameterList) {
                 this.encode = false;
                 this.fullPath = false;
@@ -1097,10 +1099,10 @@ public class ModelTree extends ModelWidget {
                 this.parameterList = parameterList != null ? Collections.unmodifiableList(parameterList) : Collections.emptyList();
                 this.prefixExdr = FlexibleStringExpander.getInstance("");
                 this.secure = false;
-                this.styleExdr = FlexibleStringExpander.getInstance(style);
-                this.targetExdr = FlexibleStringExpander.getInstance(target);
+                this.styleExdr = FlexibleStringExpander.getLiteral(style);
+                this.targetExdr = FlexibleStringExpander.getLiteral(target);
                 this.targetWindowExdr = FlexibleStringExpander.getInstance("");
-                this.textExdr = FlexibleStringExpander.getInstance(text);
+                this.textExdr = FlexibleStringExpander.getLiteral(text);
                 this.titleExdr = FlexibleStringExpander.getInstance("");
                 this.urlMode = "intra-app";
             }
