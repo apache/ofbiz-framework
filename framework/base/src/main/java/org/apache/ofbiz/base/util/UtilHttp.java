@@ -64,8 +64,6 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import javax.net.ssl.SSLContext;
-
 import org.apache.commons.fileupload2.core.DiskFileItem;
 import org.apache.commons.fileupload2.core.DiskFileItemFactory;
 import org.apache.commons.fileupload2.core.FileItem;
@@ -74,12 +72,6 @@ import org.apache.commons.fileupload2.jakarta.JakartaServletFileUpload;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URLEncodedUtils;
-import org.apache.http.conn.ssl.NoopHostnameVerifier;
-import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
-import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.ssl.SSLContexts;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.ofbiz.webapp.control.ConfigXMLReader;
@@ -1756,32 +1748,6 @@ public final class UtilHttp {
     private static void setContentDisposition(final HttpServletResponse response, final String filename) {
         String dispositionType = UtilProperties.getPropertyValue("requestHandler", "content-disposition-type", "attachment");
         response.setHeader("Content-Disposition", String.format("%s; filename=\"%s\"", dispositionType, filename));
-    }
-
-    public static CloseableHttpClient getAllowAllHttpClient() {
-        return getAllowAllHttpClient("component://base/config/ofbizssl.jks", "changeit");
-    }
-
-    private static CloseableHttpClient getAllowAllHttpClient(String jksStoreFileName, String jksStorePassword) {
-        try {
-            // Trust own CA and all self-signed certs
-            SSLContext sslContext = SSLContexts.custom()
-                    .loadTrustMaterial(FileUtil.getFile(jksStoreFileName), jksStorePassword.toCharArray(),
-                            new TrustSelfSignedStrategy())
-                    .build();
-            // No host name verifier
-            SSLConnectionSocketFactory sslsf = new SSLConnectionSocketFactory(
-                    sslContext,
-                    NoopHostnameVerifier.INSTANCE);
-            CloseableHttpClient httpClient = HttpClients.custom()
-                    .setSSLSocketFactory(sslsf)
-                    .build();
-            return httpClient;
-        } catch (RuntimeException e) {
-            throw e;
-        } catch (Exception e) {
-            return HttpClients.createDefault();
-        }
     }
 
     public static String getMultiRowDelimiter() {
