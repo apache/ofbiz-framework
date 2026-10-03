@@ -42,12 +42,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.ofbiz.base.lang.JSON;
 import org.apache.ofbiz.base.location.ComponentLocationResolver;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
+import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilProperties;
@@ -285,8 +285,8 @@ public class CommonEvents {
             final int height = Integer.parseInt(captchaSizeConfigs[1]);
             final int width = Integer.parseInt(captchaSizeConfigs[2]);
             final int charsToPrint = UtilProperties.getPropertyAsInteger("captcha", "captcha.code_length", 6);
-            final char[] availableChars = EntityUtilProperties
-                    .getPropertyValue("captcha", "captcha.characters", delegator).toCharArray();
+            final String availableChars = EntityUtilProperties
+                    .getPropertyValue("captcha", "captcha.characters", delegator);
 
             // It is possible to pass the font size, image width and height with the request as well
             Color backgroundColor = Color.gray;
@@ -319,7 +319,7 @@ public class CommonEvents {
             int maxAdvance = fontMetrics.getMaxAdvance();
             int fontHeight = fontMetrics.getHeight();
 
-            String captchaCode = RandomStringUtils.random(6, availableChars);
+            String captchaCode = StringUtil.randomString(6, availableChars);
 
             float spaceForLetters = -horizMargin * 2 + width;
             float spacePerChar = spaceForLetters / (charsToPrint - 1.0f);

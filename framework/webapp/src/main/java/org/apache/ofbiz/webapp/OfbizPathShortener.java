@@ -20,8 +20,8 @@ package org.apache.ofbiz.webapp;
 
 import java.util.Map;
 import javax.transaction.Transaction;
-import org.apache.commons.lang.RandomStringUtils;
 import org.apache.ofbiz.base.crypto.HashCrypt;
+import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.entity.Delegator;
@@ -112,7 +112,7 @@ public class OfbizPathShortener {
      */
     private static String generate() {
         int shortenerSize = UtilProperties.getPropertyAsInteger("security", "path.shortener.size", 10);
-        return RandomStringUtils.randomAlphabetic(shortenerSize);
+        return StringUtil.randomString(shortenerSize, StringUtil.ALPHABETIC_CHARS);
     }
 
     /**
