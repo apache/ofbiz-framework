@@ -740,29 +740,31 @@ task gitInfoFooter(group: sysadminGroup, description: 'Update the Git Branch-rev
     }
 }
 
+// Writes a cryptographically secure random key for propertyName into propertiesFile. Unless force is
+// true, a property that is already set (uncommented, non-blank) is left untouched and the call is a no-op.
+def generateAndWriteKey(File propertiesFile, String propertyName, boolean force = false) {
+    def content = propertiesFile.text
+    def escapedName = propertyName.replace('.', '\\.')
+    if (!force && content =~ /(?m)^${escapedName}=.+$/) {
+        println "Secret key '${propertyName}' is already set, skipping."
+        return
+    }
+    def keyBytes = new byte[48] // 48 bytes * 4/3 = 64 Base64 chars (no padding needed)
+    new java.security.SecureRandom().nextBytes(keyBytes)
+    def key = java.util.Base64.getEncoder().encodeToString(keyBytes)
+    if (content =~ /(?m)^#?${escapedName}=.*$/) {
+        content = content.replaceAll(/(?m)^#?${escapedName}=.*$/, "${propertyName}=${key}")
+    } else {
+        content += "\n${propertyName}=${key}\n"
+    }
+    propertiesFile.text = content
+}
+
 task generateSecretKeys(group: sysadminGroup,
         description: 'Generate cryptographically secure secret keys for JWT token signing, password encryption, '
-                + 'and AdminServer authentication, and write them to their properties files') {
+                + 'and AdminServer authentication, and write them to their properties files. A property that is '
+                + 'already set is left untouched; use rotateSecretKeys to replace an existing JWT/password key.') {
     doLast {
-        def generateAndWriteKey = { File propertiesFile, String propertyName ->
-            def content = propertiesFile.text
-            def escapedName = propertyName.replace('.', '\\.')
-            // Only generate a key if the property is missing or commented out
-            if (content =~ /(?m)^${escapedName}=.+$/) {
-                println "Secret key '${propertyName}' is already set, skipping."
-                return
-            }
-            def keyBytes = new byte[48] // 48 bytes * 4/3 = 64 Base64 chars (no padding needed)
-            new java.security.SecureRandom().nextBytes(keyBytes)
-            def key = java.util.Base64.getEncoder().encodeToString(keyBytes)
-            if (content =~ /(?m)^#?${escapedName}=.*$/) {
-                content = content.replaceAll(/(?m)^#?${escapedName}=.*$/, "${propertyName}=${key}")
-            } else {
-                content += "\n${propertyName}=${key}\n"
-            }
-            propertiesFile.text = content
-        }
-
         def securityPropertiesFile = file('framework/security/config/security.properties')
         generateAndWriteKey(securityPropertiesFile, 'login.secret_key_string')
         generateAndWriteKey(securityPropertiesFile, 'security.token.key')
@@ -771,6 +773,21 @@ task generateSecretKeys(group: sysadminGroup,
         generateAndWriteKey(startPropertiesFile, 'ofbiz.admin.key')
 
         println "Secret key generation complete. Keep any new keys secret and do not commit them to version control."
+    }
+}
+
+task rotateSecretKeys(group: sysadminGroup,
+        description: 'Unconditionally regenerate security.token.key (JWT signing) and login.secret_key_string '
+                + '(password encryption) in security.properties, overwriting any existing value. Unlike '
+                + 'generateSecretKeys, this always overwrites: existing JWT tokens will stop validating and any '
+                + 'in-flight forgot-password link encrypted with the old login.secret_key_string will stop '
+                + 'decrypting.') {
+    doLast {
+        def securityPropertiesFile = file('framework/security/config/security.properties')
+        generateAndWriteKey(securityPropertiesFile, 'login.secret_key_string', true)
+        generateAndWriteKey(securityPropertiesFile, 'security.token.key', true)
+
+        println "Secret keys rotated. Keep the new keys secret and do not commit them to version control."
     }
 }
 
