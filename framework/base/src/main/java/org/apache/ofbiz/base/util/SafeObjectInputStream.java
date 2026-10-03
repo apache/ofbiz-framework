@@ -90,6 +90,23 @@ public final class SafeObjectInputStream extends ObjectInputStream {
                 .collect(collectingAndThen(joining("|", "(", ")"), Pattern::compile));
     }
 
+    /**
+     * Returns the name to check against the allowlist: for an array of objects (e.g. {@code [Ljava.lang.String;}) the
+     * name of its element type, for any other class its own name.
+     * @param className the class name as found in the serialization stream
+     * @return the name to match against the allowlist
+     */
+    private static String componentTypeName(String className) {
+        int dims = 0;
+        while (dims < className.length() && className.charAt(dims) == '[') {
+            dims++;
+        }
+        if (dims > 0 && className.length() > dims + 2 && className.charAt(dims) == 'L' && className.endsWith(";")) {
+            return className.substring(dims + 1, className.length() - 1);
+        }
+        return className;
+    }
+
     @Override
     protected Class<?> resolveClass(ObjectStreamClass classDesc) throws IOException, ClassNotFoundException {
         String className = classDesc.getName();
@@ -102,7 +119,7 @@ public final class SafeObjectInputStream extends ObjectInputStream {
                 throw new InvalidClassException(className, "Unauthorized deserialisation attempt");
             }
         }
-        if (!allowlistPattern.matcher(className).find()) {
+        if (!allowlistPattern.matcher(componentTypeName(className)).matches()) {
             Debug.logWarning("***Incompatible class***: " + className
                     + ". Please see OFBIZ-10837.  Report to dev ML if you use OFBiz without changes. "
                     + "Else follow https://s.apache.org/45war",
