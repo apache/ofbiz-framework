@@ -21,6 +21,7 @@ package org.apache.ofbiz.base.util;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -52,6 +53,12 @@ public final class StringUtil {
     private static final String MODULE = StringUtil.class.getName();
     private static final Map<String, Pattern> SUBSTITUTION_PATTERN_MAP = createSubstitutionPatternMap();
     private static final Pattern SPECIAL_CHAR = Pattern.compile("\\&[\\#\\S&&[^\\&]]+\\;");
+    private static final SecureRandom SECURE_RANDOM = new SecureRandom();
+
+    /** The upper and lower case letters, to be used with {@link #randomString(int, String)} */
+    public static final String ALPHABETIC_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+    /** The upper and lower case letters and the digits, to be used with {@link #randomString(int, String)} */
+    public static final String ALPHANUMERIC_CHARS = ALPHABETIC_CHARS + "0123456789";
 
     private static Map<String, Pattern> createSubstitutionPatternMap() {
         Map<String, Pattern> substitutionPatternMap = new LinkedHashMap<>();  // Preserve insertion order
@@ -69,6 +76,28 @@ public final class StringUtil {
 
     public static String internString(String value) {
         return value != null ? value.intern() : null;
+    }
+
+    /**
+     * Generates a random string, using a cryptographically strong random number generator, so that the result
+     * cannot be predicted. Use this for codes and identifiers that have to be hard to guess.
+     * @param length the length of the string to generate
+     * @param chars the characters the string is made of, each one has the same probability to be picked
+     * @return a random string of the given length
+     * @throws IllegalArgumentException if the length is negative or there are no characters to choose from
+     */
+    public static String randomString(int length, String chars) {
+        if (length < 0) {
+            throw new IllegalArgumentException("The length must not be negative: " + length);
+        }
+        if (chars == null || chars.isEmpty()) {
+            throw new IllegalArgumentException("There must be characters to choose from");
+        }
+        StringBuilder sb = new StringBuilder(length);
+        for (int i = 0; i < length; i++) {
+            sb.append(chars.charAt(SECURE_RANDOM.nextInt(chars.length())));
+        }
+        return sb.toString();
     }
 
     /**

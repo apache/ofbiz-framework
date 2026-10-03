@@ -71,7 +71,6 @@ import org.apache.commons.fileupload2.core.DiskFileItemFactory;
 import org.apache.commons.fileupload2.core.FileItem;
 import org.apache.commons.fileupload2.core.FileUploadException;
 import org.apache.commons.fileupload2.jakarta.JakartaServletFileUpload;
-import org.apache.commons.lang.RandomStringUtils;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.conn.ssl.NoopHostnameVerifier;
@@ -1714,7 +1713,7 @@ public final class UtilHttp {
             session.setAttribute("_PARAM_MAP_STORE_", paramMapStore);
         }
         Map<String, Object> parameters = getParameterMap(request);
-        String paramMapId = RandomStringUtils.randomAlphanumeric(10);
+        String paramMapId = StringUtil.randomString(10, StringUtil.ALPHANUMERIC_CHARS);
         paramMapStore.put(paramMapId, parameters);
         return paramMapId;
     }
