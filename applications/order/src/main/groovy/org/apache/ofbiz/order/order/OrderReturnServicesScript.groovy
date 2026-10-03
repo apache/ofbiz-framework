@@ -144,9 +144,9 @@ Map updateReturnHeader() {
                                                                                           adjustment: BigDecimal.ZERO]
                 BigDecimal availableReturnTotal = serviceResult.availableReturnTotal
                 BigDecimal returnTotal = serviceResult.returnTotal
-                BigDecimal orderTotal = serviceResult.returnTotal
+                BigDecimal orderTotal = serviceResult.orderTotal
                 logInfo("Available amount for return on order # ${returnItem.orderId} is " +
-                        "[${availableReturnTotal}] (orderTotal = [${orderTotal}] - returnTotal = [${returnTotal}]")
+                        "[${availableReturnTotal}] (orderTotal = [${orderTotal}] - returnTotal = [${returnTotal}])")
 
                 if (availableReturnTotal < -0.01) {
                     return informError('OrderReturnPriceCannotExceedTheOrderTotal')
@@ -520,8 +520,7 @@ Map quickReturnFromOrder() {
             .where(orderId: orderHeader.orderId, orderItemSeqId: '_NA_')
             .queryList()
     for (GenericValue orderAdjustment : orderAdjustments) {
-        Map returnAdjCtx = [:]
-        returnAdjCtx.returnId = returnId
+        Map returnAdjCtx = [returnId: returnId, orderAdjustmentId: orderAdjustment.orderAdjustmentId]
         // filter out orderAdjustment that have been returned
         if (from('ReturnAdjustment').where(orderAdjustmentId: orderAdjustment.orderAdjustmentId).queryCount() == 0) {
             logInfo('Create new return adjustment: ' + returnAdjCtx)
