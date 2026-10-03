@@ -169,6 +169,21 @@ public abstract class FlexibleStringExpander implements Serializable, IsEmpty {
         return fse.expandString(context, timeZone, locale);
     }
 
+    /** Returns a <code>FlexibleStringExpander</code> object that always evaluates to the given text, which is never
+     * parsed: <code>${...}</code> in it is not an expression. Use this for values that were computed or come from a request,
+     * and so must not be evaluated as an expression. A null or empty argument will return an object that represents an
+     * empty expression.
+     *
+     * @param text The text the returned object evaluates to
+     * @return A <code>FlexibleStringExpander</code> instance
+     */
+    public static FlexibleStringExpander getLiteral(String text) {
+        if (UtilValidate.isEmpty(text)) {
+            return NULL_EXPR;
+        }
+        return new ConstSimpleElem(text.toCharArray());
+    }
+
     /** Returns a <code>FlexibleStringExpander</code> object. <p>A null or
      * empty argument will return a <code>FlexibleStringExpander</code>
      * object that represents an empty expression. That object is a shared

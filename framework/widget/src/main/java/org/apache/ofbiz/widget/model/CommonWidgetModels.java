@@ -697,6 +697,19 @@ public final class CommonWidgetModels {
         }
 
         /**
+         * Creates a parameter whose value is taken literally and never evaluated as an expression, for values that were
+         * computed or come from a request.
+         * @param paramName the name of the parameter
+         * @param paramValue the value of the parameter
+         * @return the parameter
+         */
+        public static Parameter literal(String paramName, String paramValue) {
+            Parameter parameter = new Parameter(paramName, "", false);
+            parameter.value = FlexibleStringExpander.getLiteral(paramValue);
+            return parameter;
+        }
+
+        /**
          * Gets from field.
          * @return the from field
          */
