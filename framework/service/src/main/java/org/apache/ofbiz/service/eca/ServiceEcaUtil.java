@@ -40,6 +40,7 @@ import org.apache.ofbiz.base.util.UtilXml;
 import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.config.ServiceConfigUtil;
+import org.apache.ofbiz.service.config.model.ServiceConfigGetter;
 import org.apache.ofbiz.service.config.model.ServiceEcas;
 import org.w3c.dom.Element;
 
@@ -107,7 +108,7 @@ public final class ServiceEcaUtil {
             throw new RuntimeException(e.getMessage());
         }
         for (ServiceEcas serviceEcas : serviceEcasList) {
-            ResourceHandler handler = new MainResourceHandler(ServiceConfigUtil.getServiceEngineXmlFileName(), serviceEcas.getLoader(),
+            ResourceHandler handler = new MainResourceHandler(ServiceConfigGetter.getServiceEngineXmlFileName(), serviceEcas.getLoader(),
                     serviceEcas.getLocation());
             futures.add(ExecutionPool.GLOBAL_FORK_JOIN.submit(createEcaLoaderCallable(handler)));
         }

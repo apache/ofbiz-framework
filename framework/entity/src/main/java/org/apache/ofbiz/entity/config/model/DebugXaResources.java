@@ -18,9 +18,12 @@
  *******************************************************************************/
 package org.apache.ofbiz.entity.config.model;
 
+import org.apache.ofbiz.base.config.AbstractConfigElement;
 import org.apache.ofbiz.base.lang.ThreadSafe;
 import org.apache.ofbiz.entity.GenericEntityConfException;
 import org.w3c.dom.Element;
+
+import java.util.Map;
 
 /**
  * An object that models the <code>&lt;debug-xa-resources&gt;</code> element.
@@ -28,21 +31,38 @@ import org.w3c.dom.Element;
  * @see <code>entity-config.xsd</code>
  */
 @ThreadSafe
-public final class DebugXaResources {
+public final class DebugXaResources extends AbstractConfigElement {
 
-    private final boolean value; // type = xs:string
+    private final EntityConfigGetter config = EntityConfigGetter.getInstance();
+    public static final String ELEMENT_NAME = "debug-xa-resources";
+    private final String xPath;
 
-    DebugXaResources(Element element) throws GenericEntityConfException {
+    private final boolean value;
+
+    DebugXaResources(Element element, String xPathParent) throws GenericEntityConfException {
         String lineNumberText = EntityConfig.createConfigFileLineNumberText(element);
-        String value = element.getAttribute("value").intern();
+        xPath = xPathParent.concat("/debug-xa-resources");
+        String value = config.getValue(xPath + "/@value");
         if (value.isEmpty()) {
             throw new GenericEntityConfException("<debug-xa-resources> element value attribute is empty" + lineNumberText);
         }
         this.value = "true".equals(value);
     }
 
-    /** Returns the value of the <code>value</code> attribute. */
     public boolean getValue() {
-        return this.value;
+        return value;
+    }
+
+    public static DebugXaResources loadFromXml(Element element, String xPathParent) throws GenericEntityConfException {
+        return new DebugXaResources(element, xPathParent);
+    }
+
+    public static DebugXaResources loadFromConfig(Map<String, Object> configMap, String xPath) {
+        return null;
+    }
+
+    @Override
+    public String getName() {
+        return "debug-xa-resources";
     }
 }

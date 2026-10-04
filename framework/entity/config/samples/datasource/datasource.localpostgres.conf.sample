@@ -1,0 +1,69 @@
+{
+  "entityengine": {
+    "entity-config": {
+      "datasource": {
+        "localpostgres": {
+          "helper-class": "org.apache.ofbiz.entity.datasource.GenericHelperDAO",
+          "schema-name": "public",
+          "field-type-name": "postgres",
+          "check-on-start": "true",
+          "add-missing-on-start": "true",
+          "use-fk-initially-deferred": "false",
+          "alias-view-columns": "false",
+          "join-style": "ansi",
+          "use-binary-type-for-blob": "true",
+          "use-order-by-nulls": "true",
+          "offset-style": "limit",
+//          Comment out the result-fetch-size attribute for jdbc driver versions older than 8.0.
+//          Not recommended to use those though. They are archived unsupported versions: http://jdbc.postgresql.org/download.html
+          "result-fetch-size": "50",
+          "read-data": [
+            {"reader-name": "tenant"},
+            {"reader-name": "seed"},
+            {"reader-name": "seed-initial"},
+            {"reader-name": "demo"},
+            {"reader-name": "ext"},
+            {"reader-name": "ext-test"},
+            {"reader-name": "ext-demo"}
+          ],
+          "inline-jdbc": {
+            "jdbc-driver": "org.postgresql.Driver",
+            "jdbc-uri": "jdbc:postgresql://127.0.0.1/ofbiz",
+            "jdbc-username": "ofbiz",
+            "jdbc-password": "ofbiz",
+            "isolation-level": "ReadCommitted",
+            "pool-minsize": "2",
+            "pool-maxsize": "250",
+            "time-between-eviction-runs-millis": "600000"
+          }
+//          "jndi-jdbc": {
+//            "jndi-server-name": "default",
+//            "jndi-name": "java:comp/env/jdbc/localpostgres",
+//            "isolation-level": "ReadCommitted"
+//          },
+//          Orion Style JNDI name
+//          "jndi-jdbc": {
+//            "jndi-server-name": "default",
+//            "jndi-name": "comp/env/jdbc/xa/localpostgres",
+//            "isolation-level": "ReadCommitted"
+//          },
+//          Weblogic Style JNDI name
+//          "jndi-jdbc": {
+//            "jndi-server-name": "localweblogic",
+//            "jndi-name": "PostgresDataSource"
+//          },
+//          JRun4 Style JNDI name
+//          "jndi-jdbc": {
+//            "jndi-server-name": "default",
+//            "jndi-name": "jdbc/localpostgres",
+//            "isolation-level": "ReadCommitted"
+//          },
+//          "tyrex-dataSource": {
+//            "dataSource-name": "localpostgres",
+//            "isolation-level": "ReadCommitted"
+//          }
+        }
+      }
+    }
+  }
+}
