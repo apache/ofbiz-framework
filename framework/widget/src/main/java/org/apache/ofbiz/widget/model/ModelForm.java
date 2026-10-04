@@ -2393,6 +2393,16 @@ public abstract class ModelForm extends ModelWidget {
             return new UpdateArea(eventType, areaId, areaTarget, parameterList, true);
         }
 
+        /** Creates an update area without parameters whose area id and target are already evaluated values, so that they
+         * are taken literally and never evaluated as an expression.
+         * @param areaId The evaluated id of the widget element to be updated
+         * @param areaTarget The evaluated target URL called to update the area
+         * @return the update area
+         */
+        public static UpdateArea literal(String eventType, String areaId, String areaTarget) {
+            return new UpdateArea(eventType, areaId, areaTarget, Collections.emptyList(), true);
+        }
+
         @Override
         public boolean equals(Object obj) {
             return obj instanceof UpdateArea && obj.hashCode() == this.hashCode();
