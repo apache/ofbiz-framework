@@ -128,7 +128,7 @@ public class MacroCommonRenderer {
         HttpServletResponse response = (HttpServletResponse) context.get("response");
         switch (linkType) {
         case "update-area":
-            ModelForm.UpdateArea resolveUpdateArea = new ModelForm.UpdateArea("onclick",
+            ModelForm.UpdateArea resolveUpdateArea = ModelForm.UpdateArea.literal("onclick",
                     WidgetWorker.getScreenStack(context).resolveScreenAreaId(link.getTargetWindow(context)),
                     link.getTarget(context));
             linkUrl = createAjaxParamsFromUpdateAreas(UtilMisc.toList(resolveUpdateArea),
