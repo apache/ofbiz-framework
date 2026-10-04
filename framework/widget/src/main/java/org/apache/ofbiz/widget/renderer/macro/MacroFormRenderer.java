@@ -485,7 +485,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         String backgroundSubmitRefreshTarget = submitField.getBackgroundSubmitRefreshTarget(context);
         ModelForm.UpdateArea jwtCallback = ModelForm.UpdateArea.fromJwtToken(context);
         if (UtilValidate.isNotEmpty(backgroundSubmitRefreshTarget)) {
-            updateAreas.add(new ModelForm.UpdateArea("submit", formId, backgroundSubmitRefreshTarget));
+            updateAreas.add(ModelForm.UpdateArea.literal("submit", formId, backgroundSubmitRefreshTarget));
         }
 
         // In context a callback is present and no other update area to call after the submit, so trigger it.
@@ -1436,7 +1436,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
             }
             autoCompleterTarget = autoCompleterTarget + "ajaxLookup=Y";
             updateAreas = new LinkedList<>();
-            updateAreas.add(new ModelForm.UpdateArea("change", id, autoCompleterTarget));
+            updateAreas.add(ModelForm.UpdateArea.literal("change", id, autoCompleterTarget));
         }
         boolean ajaxEnabled = UtilValidate.isNotEmpty(updateAreas) && this.javaScriptEnabled;
         String autocomplete = "";
