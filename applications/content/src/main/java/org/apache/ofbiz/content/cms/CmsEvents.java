@@ -61,6 +61,31 @@ public final class CmsEvents {
     private CmsEvents() {
     }
 
+    /**
+     * Builds the location a path alias is redirected to: the context path, the servlet path, the hosted path alias if there is
+     * one, the part of the request URI before the last segment, and the alias the path is redirected to.
+     * The request URI is the one the client sent and it is not normalized, so it can start with two slashes, for example
+     * //example.com/.. when the web application is mounted on the root, and a browser takes a location that starts with two
+     * slashes as another host. The location is therefore always a path on this site, and it never contains a control character,
+     * such as a line break, which would end the header.
+     * @param context the context path of the request
+     * @param servletPath the servlet path of the request
+     * @param hostedPathAlias the hosted path alias of the web site, or null
+     * @param requestUri the request URI
+     * @param alias the path to redirect to, starting with a slash
+     * @return the location to redirect to
+     */
+    static String getAliasRedirectLocation(String context, String servletPath, String hostedPathAlias, String requestUri,
+            String alias) {
+        String location = context + servletPath;
+        if (hostedPathAlias != null) {
+            location += "/" + hostedPathAlias;
+        }
+        String uri = requestUri.substring(context.length());
+        uri = uri.substring(0, uri.lastIndexOf('/'));
+        return "/" + (location + uri + alias).replaceAll("\\p{Cntrl}", "").replaceFirst("^[/\\\\]+", "");
+    }
+
     public static String cms(HttpServletRequest request, HttpServletResponse response) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
@@ -181,19 +206,15 @@ public final class CmsEvents {
                             alias = "/" + alias;
                         }
 
-                        String context = request.getContextPath();
-                        String location = context + request.getServletPath();
                         GenericValue webSite = WebSiteWorker.getWebSite(request);
+                        String hostedPathAlias = null;
                         if (webSite != null && webSite.getString("hostedPathAlias") != null && !"ROOT".equals(pathInfo)) {
-                            location += "/" + webSite.getString("hostedPathAlias");
+                            hostedPathAlias = webSite.getString("hostedPathAlias");
                         }
 
-                        String uriWithContext = request.getRequestURI();
-                        String uri = uriWithContext.substring(context.length());
-                        uri = uri.substring(0, uri.lastIndexOf('/'));
-
                         response.setStatus(HttpServletResponse.SC_MOVED_TEMPORARILY);
-                        response.setHeader("Location", location + uri + alias);
+                        response.setHeader("Location", getAliasRedirectLocation(request.getContextPath(), request.getServletPath(),
+                                hostedPathAlias, request.getRequestURI(), alias));
                         response.setHeader("Connection", "close");
 
                         return null; // null to not process any views
