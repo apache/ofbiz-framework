@@ -21,7 +21,6 @@ package org.apache.ofbiz.widget.renderer.macro;
 import java.net.URI;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -32,7 +31,6 @@ import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
 import org.apache.ofbiz.webapp.control.RequestHandler;
 import org.apache.ofbiz.widget.WidgetWorker;
 import org.apache.ofbiz.widget.model.CommonWidgetModels;
@@ -57,7 +55,6 @@ public class MacroCommonRenderer {
         Map<String, Object> ctx = UtilGenerics.cast(context);
         RequestHandler rh = RequestHandler.from(request);
 
-        Locale locale = UtilMisc.ensureLocale(context.get("locale"));
         StringBuilder sb = new StringBuilder();
         Iterator<ModelForm.UpdateArea> updateAreaIter = updateAreas.iterator();
         while (updateAreaIter.hasNext()) {
@@ -70,8 +67,7 @@ public class MacroCommonRenderer {
 
             // 1. areaId to update, use the screen stack with the potential area given by the update area element.
             //     It is the only part that is an expression; the target and the parameters are expanded below.
-            areaIdToUpdate = WidgetWorker.getScreenStack(ctx).resolveScreenAreaId(
-                    FlexibleStringExpander.expandString(updateArea.getAreaId(), ctx, locale));
+            areaIdToUpdate = WidgetWorker.getScreenStack(ctx).resolveScreenAreaId(updateArea.getAreaId(ctx));
 
             // 2. the target, if the updateArea haven't the information and we are on event link to the pagination,
             //     will ask to the parent model the pagination target
