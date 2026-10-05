@@ -46,12 +46,15 @@ on:
 
 permissions:
   contents: read
-  packages: write
 
 jobs:
   docker_build:
     name: Build and push OFBiz docker container images
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      # Needed to push the container images to the GitHub container registry (ghcr.io).
+      packages: write
     steps:
       - name: Check out OFBiz sources
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
