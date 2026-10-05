@@ -723,6 +723,9 @@ Map createPaymentFromOrder() {
 }
 
 Map createPaymentApplication() {
+    if (!security.hasEntityPermission('ACCOUNTING', '_CREATE', parameters.userLogin)) {
+        return error(label('AccountingUiLabels', 'AccountingPaymentAuthorizationFailed'))
+    }
     // Create a Payment Application
     require(parameters.invoiceId || parameters.billingAccountId || parameters.taxAuthGeoId || parameters.toPaymentId,
             label('AccountingUiLabels', 'AccountingPaymentApplicationParameterMissing'))
