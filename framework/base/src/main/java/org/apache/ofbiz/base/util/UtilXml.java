@@ -79,6 +79,9 @@ import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.security.NoTypePermission;
+import com.thoughtworks.xstream.security.NullPermission;
+import com.thoughtworks.xstream.security.PrimitiveTypePermission;
 
 /**
  * Utilities methods to simplify dealing with JAXP and DOM XML parsing
@@ -93,6 +96,11 @@ public final class UtilXml {
 
     private static XStream createXStream() {
         XStream xstream = new XStream();
+        // Deny every type first: allowTypes only adds permissions, and without this the types that are not allowed
+        // explicitly would still be accepted, except the ones on the deny list that XStream has by default.
+        xstream.addPermission(NoTypePermission.NONE);
+        xstream.addPermission(NullPermission.NULL);
+        xstream.addPermission(PrimitiveTypePermission.PRIMITIVES);
         // Allow only the concrete types that XmlSerializer.serializeSingle handles explicitly.
         // All other types are blocked to prevent deserialization gadget chain attacks.
         // Class names are used as strings to avoid a compile-time dependency on framework/entity.
@@ -105,6 +113,12 @@ public final class UtilXml {
                 "java.util.Vector", "java.util.TreeSet", "java.util.HashSet",
                 "java.util.HashMap", "java.util.Properties", "java.util.Hashtable",
                 "java.util.WeakHashMap", "java.util.TreeMap",
+                // The interfaces that XStream uses for the elements <list>, <set>, <map>, <sorted-set> and <sorted-map>,
+                // their implementations are the types above.
+                "java.util.Collection", "java.util.List", "java.util.Set", "java.util.SortedSet", "java.util.Map",
+                "java.util.SortedMap",
+                // The wrapper that the maps of a GenericValue can be in, and the marker of a field that is null.
+                "java.util.Collections$UnmodifiableMap", "org.apache.ofbiz.entity.GenericEntity$NullField",
                 "org.apache.ofbiz.entity.GenericValue",
                 "org.apache.ofbiz.entity.GenericPK"
         });
