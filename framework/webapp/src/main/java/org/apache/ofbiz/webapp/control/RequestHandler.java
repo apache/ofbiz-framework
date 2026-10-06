@@ -264,8 +264,10 @@ public final class RequestHandler {
 
     private static void callRedirect(String url, HttpServletResponse resp, HttpServletRequest req, String statusCodeString)
             throws RequestHandlerException {
+        // the url may contain values of the request, keep any control character out of the header and the log
+        String location = UtilHttp.stripControlCharacters(url);
         if (Debug.infoOn()) {
-            Debug.logInfo("Sending redirect to: [" + url + "]. " + showSessionId(req), MODULE);
+            Debug.logInfo("Sending redirect to: [" + location + "]. " + showSessionId(req), MODULE);
         }
         // set the attributes in the session so we can access it.
         Enumeration<String> attributeNameEnum = UtilGenerics.cast(req.getAttributeNames());
@@ -303,7 +305,7 @@ public final class RequestHandler {
         // send the redirect
         try {
             resp.setStatus(statusCode);
-            resp.setHeader("Location", url);
+            resp.setHeader("Location", location);
             resp.setHeader("Connection", "close");
         } catch (IllegalStateException ise) {
             throw new RequestHandlerException(ise.getMessage(), ise);
