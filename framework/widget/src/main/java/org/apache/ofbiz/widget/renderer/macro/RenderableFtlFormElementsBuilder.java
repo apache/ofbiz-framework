@@ -853,7 +853,7 @@ public final class RenderableFtlFormElementsBuilder {
             return renderableFtlStringBuilder.build();
 
         } else {
-            if ("layered-modal".equals(realLinkType)) {
+            if (WidgetWorker.isModalLink(realLinkType)) {
                 String uniqueItemName = UtilRandom.getUnique("Modal_", true);
                 String width = (String) request.getAttribute("width");
                 if (UtilValidate.isEmpty(width)) {
@@ -872,10 +872,9 @@ public final class RenderableFtlFormElementsBuilder {
                 request.removeAttribute("height");
                 request.removeAttribute("width");
                 return renderableFtl;
-            } else {
-                return hyperlinkMacroCall(linkStyle, targetType, target, parameterMap, description, confirmation,
-                        modelFormField, request, response, context, targetWindow);
             }
+            return hyperlinkMacroCall(linkStyle, targetType, target, parameterMap, description, confirmation,
+                    modelFormField, request, response, context, targetWindow);
         }
     }
 

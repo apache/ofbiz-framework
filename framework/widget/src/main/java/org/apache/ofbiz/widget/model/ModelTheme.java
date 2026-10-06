@@ -377,6 +377,9 @@ public class ModelTheme implements Serializable {
                 initWidgetPropertiesMap.put("linkDefaultLayeredModalHeight", Integer.valueOf(childElement.getAttribute("height")));
                 initWidgetPropertiesMap.put("linkDefaultLayeredModalWidth", Integer.valueOf(childElement.getAttribute("width")));
                 break;
+            case "layered-drawer":
+                initWidgetPropertiesMap.put("linkDefaultLayeredModalWidth", Integer.valueOf(childElement.getAttribute("width")));
+                break;
             }
         }
     }
