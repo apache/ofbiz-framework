@@ -220,7 +220,7 @@ public final class SeoContextFilter implements Filter {
                     } else {
                         // redirect with url change in browser
                         httpResponse.setStatus(SeoConfigUtil.getDefaultResponseCode());
-                        httpResponse.setHeader("Location", redirectPath);
+                        httpResponse.setHeader("Location", UtilHttp.stripControlCharacters(redirectPath));
                     }
                 }
                 Debug.logWarning(filterMessage, MODULE);
@@ -278,7 +278,7 @@ public final class SeoContextFilter implements Filter {
             } else {
                 response.setStatus(responseCodeInt);
             }
-            response.setHeader("Location", uri);
+            response.setHeader("Location", UtilHttp.stripControlCharacters(uri));
         } else {
             Debug.logInfo("Can NOT forward this url: " + uri, MODULE);
         }
