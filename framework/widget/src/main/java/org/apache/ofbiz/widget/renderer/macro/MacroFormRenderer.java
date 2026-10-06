@@ -131,10 +131,6 @@ public final class MacroFormRenderer implements FormStringRenderer {
                 : new RenderableFtlFormElementsBuilder(this.visualTheme, rh, request, response, staticContentUrlProvider);
     }
 
-    private static String encodeDoubleQuotes(String htmlString) {
-        return htmlString.replace("\"", "\\\"");
-    }
-
     public boolean getRenderPagination() {
         return this.renderPagination;
     }
@@ -653,7 +649,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
                     sr.append(" name=\"");
                     sr.append(modelFormField.getModelForm().getName());
                     sr.append("\" title=\"");
-                    sr.append(encodeDoubleQuotes(title));
+                    sr.append(MacroCommonRenderer.escapeFtlString(title));
                     sr.append("\" />");
                     executeMacro(writer, sr.toString());
                 } else if (modelFormField.isSortField()) {
@@ -693,7 +689,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
                 String helpText = UtilHelpText.getEntityFieldDescription(entityName, fieldName, delegator, locale);
 
                 sr.append("\" fieldHelpText=\"");
-                sr.append(encodeDoubleQuotes(helpText));
+                sr.append(MacroCommonRenderer.escapeFtlString(helpText));
             }
             sr.append("\" title=\"");
             sr.append(sb.toString());
@@ -2389,7 +2385,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
             sr.append("\" alternate=\"");
             sr.append(alt);
             sr.append("\" targetParameters=\"");
-            sr.append(encodeDoubleQuotes(targetParameters.toString()));
+            sr.append(MacroCommonRenderer.escapeFtlString(targetParameters.toString()));
             sr.append("\" linkUrl=\"");
             sr.append(linkUrl.toString());
             sr.append("\" targetWindow=\"");
