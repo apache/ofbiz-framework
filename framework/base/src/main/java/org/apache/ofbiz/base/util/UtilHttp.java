@@ -1616,6 +1616,16 @@ public final class UtilHttp {
     }
 
     /**
+     * Removes the control characters, such as the carriage return and the line feed, from a value that is going to
+     * be set in a response header, so that the value cannot end the header or add another one.
+     * @param value the value to clean, may be null
+     * @return the value without control characters, or null if the value is null
+     */
+    public static String stripControlCharacters(String value) {
+        return value == null ? null : value.replaceAll("\\p{Cntrl}", "");
+    }
+
+    /**
      * Returns true if the user has JavaScript enabled.
      * @param request
      * @return whether javascript is enabled

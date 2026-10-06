@@ -30,6 +30,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.ofbiz.base.component.ComponentConfig;
 import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.template.FreeMarkerWorker;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
@@ -286,7 +287,7 @@ public class UrlRegexpTransform implements TemplateTransformModel {
             } else {
                 response.setStatus(responseCodeInt);
             }
-            response.setHeader("Location", uri);
+            response.setHeader("Location", UtilHttp.stripControlCharacters(uri));
         } else {
             Debug.logInfo("Can NOT forward this url: " + uri, MODULE);
         }
