@@ -125,7 +125,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
                 Object value = parameter.getValue();
                 if (value instanceof String) {
                     sb.append('"');
-                    sb.append(((String) value).replace("\\", "\\\\").replace("\"", "\\\"").replace("{", "\\{"));
+                    sb.append(MacroCommonRenderer.escapeFtlString((String) value));
                     sb.append('"');
                 } else {
                     sb.append(value);

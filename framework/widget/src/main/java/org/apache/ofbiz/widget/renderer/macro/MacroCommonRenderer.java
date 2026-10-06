@@ -39,6 +39,17 @@ import org.apache.ofbiz.widget.model.ModelForm;
 public class MacroCommonRenderer {
 
     /**
+     * Escape a value so that it is rendered literally when it is placed inside a double-quoted FreeMarker
+     * string literal of a macro call: the backslash and the double quote are escaped, and so is the opening
+     * brace, so that neither <code>${...}</code> nor <code>#{...}</code> is interpolated.
+     * @param value the value to escape, may be null
+     * @return the escaped value, or an empty string if the value is null
+     */
+    public static String escapeFtlString(String value) {
+        return value == null ? "" : value.replace("\\", "\\\\").replace("\"", "\\\"").replace("{", "\\{");
+    }
+
+    /**
      * Create an ajaxXxxx JavaScript CSV string from a list of UpdateArea objects. See
      * <code>OfbizUtil.js</code>.
      * @param updateAreas
