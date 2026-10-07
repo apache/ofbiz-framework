@@ -26,6 +26,7 @@ import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.entity.condition.EntityOperator
 import org.apache.ofbiz.entity.util.EntityUtil
+import org.apache.ofbiz.entity.util.EntityUtilProperties
 import org.apache.ofbiz.service.ServiceUtil
 
 /**
@@ -459,8 +460,9 @@ Map updateProductAverageCostOnReceiveInventory() {
         BigDecimal oldProductQuantity = quantityOnHandTotal - parameters.quantityAccepted
         BigDecimal averageCost = ((productAverageCost.averageCost * oldProductQuantity)
                 + (inventoryItem.unitCost * parameters.quantityAccepted)) / (quantityOnHandTotal)
-        int roundingDecimal = UtilProperties.getPropertyAsInteger('arithmetic', 'finaccount.decimals', 2)
-        String roundingMode = UtilProperties.getPropertyValue('arithmetic', 'finaccount.roundingGroovyMethod', 'HALF_UP')
+        int roundingDecimal = EntityUtilProperties.getPropertyValue('arithmetic', 'finaccount.decimals', '2', delegator) as int
+        String roundingMode = EntityUtilProperties.getPropertyValue('arithmetic', 'finaccount.roundingGroovyMethod',
+                'HALF_UP', delegator)
         averageCost = averageCost.setScale(roundingDecimal, RoundingMode."${roundingMode}")
         productAverageCostMap.averageCost = averageCost
         productAverageCostMap.fromDate = UtilDateTime.nowTimestamp()

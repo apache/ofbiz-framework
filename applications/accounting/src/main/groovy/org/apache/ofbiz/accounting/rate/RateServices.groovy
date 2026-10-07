@@ -19,9 +19,9 @@
 package org.apache.ofbiz.accounting.rate
 
 import org.apache.ofbiz.base.util.UtilDateTime
-import org.apache.ofbiz.base.util.UtilProperties
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.util.EntityUtil
+import org.apache.ofbiz.entity.util.EntityUtilProperties
 import org.apache.ofbiz.service.ServiceErrorException
 import org.apache.ofbiz.service.ServiceUtil
 
@@ -32,7 +32,8 @@ import java.sql.Timestamp
  */
 Map updateRateAmount() {
     GenericValue newEntity = delegator.makeValidValue('RateAmount', parameters)
-    newEntity.rateCurrencyUomId = newEntity.rateCurrencyUomId ?: UtilProperties.getPropertyValue('general.properties', 'currency.uom.id.default')
+    newEntity.rateCurrencyUomId = newEntity.rateCurrencyUomId ?:
+            EntityUtilProperties.getPropertyValue('general', 'currency.uom.id.default', delegator)
     newEntity.fromDate = newEntity.fromDate ?: UtilDateTime.nowTimestamp()
     newEntity.thruDate = null
 
@@ -64,8 +65,8 @@ Map updateRateAmount() {
  */
 Map expireRateAmount() {
     GenericValue lookupValue = delegator.makeValidValue('RateAmount', parameters)
-    lookupValue.rateCurrencyUomId = lookupValue.rateCurrencyUomId ?: UtilProperties.getPropertyValue('general.properties',
-            'currency.uom.id.default')
+    lookupValue.rateCurrencyUomId = lookupValue.rateCurrencyUomId ?:
+            EntityUtilProperties.getPropertyValue('general', 'currency.uom.id.default', delegator)
     Timestamp previousDay = UtilDateTime.adjustTimestamp(UtilDateTime.nowTimestamp(), 5, -1)
     try {
         update('RateAmount').where(lookupValue).set([thruDate: UtilDateTime.getDayEnd(previousDay)])
@@ -165,8 +166,8 @@ Map getRateAmount() {
     }
     if (serviceName) {
         Map serviceContextMap = new HashMap<>(parameters)
-        serviceContextMap.rateCurrencyUomId = serviceContextMap.rateCurrencyUomId ?: UtilProperties.getPropertyValue('general.properties',
-                'currency.uom.id.default', 'USD')
+        serviceContextMap.rateCurrencyUomId = serviceContextMap.rateCurrencyUomId ?:
+                EntityUtilProperties.getPropertyValue('general', 'currency.uom.id.default', 'USD', delegator)
         Map result = run service: serviceName, with: serviceContextMap
         serviceContextMap.ratesList = result.ratesList
         result = run service: 'filterRateAmountList', with: serviceContextMap

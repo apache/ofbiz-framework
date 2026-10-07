@@ -23,6 +23,7 @@ import org.apache.ofbiz.base.util.StringUtil
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.base.util.UtilProperties
 import org.apache.ofbiz.entity.GenericValue
+import org.apache.ofbiz.entity.util.EntityUtilProperties
 import org.apache.ofbiz.service.ServiceUtil
 
 import java.sql.Timestamp
@@ -253,8 +254,8 @@ Map updateStatusImageManagement() {
     if (statusId) {
         parameters.checkStatusId = statusId.get(0)
     }
-    String autoApproveImage = UtilProperties.getPropertyValue('catalog.properties', 'image.management.autoApproveImage')
-    String multipleApproval = UtilProperties.getPropertyValue('catalog.properties', 'image.management.multipleApproval')
+    String autoApproveImage = EntityUtilProperties.getPropertyValue('catalog', 'image.management.autoApproveImage', delegator)
+    String multipleApproval = EntityUtilProperties.getPropertyValue('catalog', 'image.management.multipleApproval', delegator)
     if (autoApproveImage == 'Y') {
         List contentApprovals = from('ContentApproval').where(contentId: parameters.contentId, roleTypeId: 'IMAGEAPPROVER').queryList()
         for (GenericValue contentApproval : contentApprovals) {
