@@ -26,7 +26,7 @@ Map setTimeZoneFromBrowser() {
         GenericValue userLogin = from('UserLogin').where('userLoginId', parameters.userLogin.userLoginId).queryOne()
         if (userLogin) {
             if (!userLogin.lastTimeZone || userLogin.lastTimeZone == 'null') {
-                update('UserLogin').where('userLoginId', parameters.userLogin.userLoginId).set([lastTimeZone: parameters.localeName])
+                update('UserLogin').where([userLoginId: parameters.userLogin.userLoginId]).set([lastTimeZone: parameters.localeName])
                 return ServiceUtil.returnSuccess()
             }
         }
