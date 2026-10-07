@@ -20,6 +20,7 @@ package org.apache.ofbiz.product.product.inventory
 
 import org.apache.ofbiz.base.util.UtilProperties
 import org.apache.ofbiz.entity.GenericValue
+import org.apache.ofbiz.entity.util.EntityUtilProperties
 import org.apache.ofbiz.service.ServiceUtil
 
 /**
@@ -140,7 +141,8 @@ Map createInventoryItem() {
         if (accPref) {
             inventoryItem.currencyUomId = accPref.baseCurrencyUomId
         }
-        inventoryItem.currencyUomId = inventoryItem.currencyUomId ?: UtilProperties.getPropertyValue('general.properties', 'currency.uom.id.default')
+        inventoryItem.currencyUomId = inventoryItem.currencyUomId ?:
+                EntityUtilProperties.getPropertyValue('general', 'currency.uom.id.default', delegator)
 
         // if inventoryItem's currencyUomId is still empty, return an error message
         if (!inventoryItem.currencyUomId) {
