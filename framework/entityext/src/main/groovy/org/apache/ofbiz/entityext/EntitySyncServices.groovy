@@ -27,7 +27,7 @@ Map entitySyncPermissionCheck() {
 Map resetEntitySyncStatus() {
     entitySyncRecord = from('EntitySync').where('entitySyncId', parameters.entitySyncId).queryOne()
     if (entitySyncRecord && entitySyncRecord.runStatusId == 'ESR_RUNNING') {
-        update('EntitySync').where('entitySyncId', parameters.entitySyncId).set([runStatusId: 'ESR_NOT_STARTED'])
+        update('EntitySync').where([entitySyncId: parameters.entitySyncId]).set([runStatusId: 'ESR_NOT_STARTED'])
     }
     return success()
 }
