@@ -81,6 +81,8 @@ public class JsLanguageFileMappingCreator {
         String dateTimePickerPrefix = "jquery-ui-timepicker-";
         String defaultLocaleDateJs = "en-AU"; // en-US is not in the datejs npm package; en-AU is the closest available fallback
         String defaultLocaleJquery = "en"; // Beware to keep the OFBiz specific datepicker-en.js file when upgrading...
+        // jquery-validation has no messages_en.js, so OFBiz provides one. Beware to keep it when upgrading...
+        String defaultValidationFile = "/common/js/i18n/validation/messages_en.js";
 
         for (Locale locale : localeList) {
             String displayCountry = locale.toString();
@@ -135,7 +137,7 @@ public class JsLanguageFileMappingCreator {
                         fileUrl = validateRelPath + validateLocalePrefix + strippedLocale + jsFilePostFix;
                     } else {
                         // use default language en as fallback
-                        fileUrl = validateRelPath + validateLocalePrefix + defaultLocaleJquery + jsFilePostFix;
+                        fileUrl = defaultValidationFile;
                     }
                 }
             } else { // Then try lang only
@@ -145,7 +147,7 @@ public class JsLanguageFileMappingCreator {
                     fileUrl = validateRelPath + validateLocalePrefix + strippedLocale + jsFilePostFix;
                 } else {
                     // use default language en as fallback
-                    fileUrl = validateRelPath + validateLocalePrefix + defaultLocaleJquery + jsFilePostFix;
+                    fileUrl = defaultValidationFile;
                 }
             }
             validationLocaleFile.put(displayCountry, fileUrl);
