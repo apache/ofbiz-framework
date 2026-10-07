@@ -82,7 +82,7 @@ public class MultiTrustManager implements X509TrustManager {
             // (e.g. when there are no trust anchors at all) instead of a CertificateException.
             trustFailure = new CertificateException(e);
         }
-        if (!"true".equals(UtilProperties.getPropertyValue("certificate", "client.all-trusted", "true"))) {
+        if (!"true".equals(UtilProperties.getPropertyValue("certificate", "client.all-trusted", "false"))) {
             throw trustFailure;
         }
     }
@@ -100,7 +100,7 @@ public class MultiTrustManager implements X509TrustManager {
             // (e.g. when there are no trust anchors at all) instead of a CertificateException.
             trustFailure = new CertificateException(e);
         }
-        if (!"true".equals(UtilProperties.getPropertyValue("certificate", "server.all-trusted", "true"))) {
+        if (!"true".equals(UtilProperties.getPropertyValue("certificate", "server.all-trusted", "false"))) {
             throw trustFailure;
         }
     }
