@@ -23,6 +23,7 @@ import java.sql.Timestamp
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.base.util.UtilProperties
 import org.apache.ofbiz.entity.GenericValue
+import org.apache.ofbiz.entity.util.EntityUtilProperties
 import org.apache.ofbiz.service.ModelService
 import org.apache.ofbiz.service.ServiceUtil
 
@@ -131,7 +132,8 @@ Map getElectronicText() {
  */
 Map attachUploadToDataResource() {
     boolean isUpdate = false
-    boolean forceLocal = UtilProperties.getPropertyAsBoolean('content.properties', 'content.upload.always.local.file', true)
+    boolean forceLocal = 'true'.equalsIgnoreCase(
+            EntityUtilProperties.getPropertyValue('content', 'content.upload.always.local.file', 'true', delegator))
     List validLocalFileTypes = [
         'LOCAL_FILE',
         'OFBIZ_FILE',

@@ -23,11 +23,11 @@ import java.sql.Timestamp
 import org.apache.ofbiz.base.util.GeneralException
 import org.apache.ofbiz.base.util.ObjectType
 import org.apache.ofbiz.base.util.UtilDateTime
-import org.apache.ofbiz.base.util.UtilProperties
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.entity.condition.EntityConditionBuilder
 import org.apache.ofbiz.entity.condition.EntityOperator
+import org.apache.ofbiz.entity.util.EntityUtilProperties
 import org.apache.ofbiz.order.customer.CheckoutMapProcs
 import org.apache.ofbiz.order.shoppingcart.ShoppingCart
 import org.apache.ofbiz.order.shoppingcart.ShoppingCart.CartShipInfo
@@ -829,7 +829,8 @@ Map updateShippingMethodAndCharges() {
     BigDecimal newAmount
     BigDecimal shippingAmount
     BigDecimal percentAllowedBd
-    String percentAllowed = UtilProperties.getPropertyValue('shipment.properties', 'shipment.default.cost_actual_over_estimated_percent_allowed')
+    String percentAllowed = EntityUtilProperties.getPropertyValue('shipment',
+            'shipment.default.cost_actual_over_estimated_percent_allowed', delegator)
     try {
         newAmount = (BigDecimal) ObjectType.simpleTypeOrObjectConvert(parameters.amount, 'BigDecimal', null, locale)
         shippingAmount = (BigDecimal) ObjectType.simpleTypeOrObjectConvert(parameters.shippingAmount, 'BigDecimal', null, locale)

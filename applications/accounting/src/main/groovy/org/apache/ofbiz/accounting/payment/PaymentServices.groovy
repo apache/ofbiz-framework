@@ -264,9 +264,10 @@ Map getPaymentRunningTotal() {
     if (parameters.organizationPartyId) {
         Map serviceResult = run service: 'getPartyAccountingPreferences', with: [organizationPartyId: parameters.organizationPartyId]
         GenericValue partyAcctgPreference = serviceResult.partyAccountingPreference
-        currencyUomId = partyAcctgPreference.baseCurrencyUomId ?: UtilProperties.getPropertyValue('general.properties', 'currency.uom.id.default')
+        currencyUomId = partyAcctgPreference.baseCurrencyUomId ?:
+                EntityUtilProperties.getPropertyValue('general', 'currency.uom.id.default', delegator)
     } else  {
-        currencyUomId = UtilProperties.getPropertyValue('general.properties', 'currency.uom.id.default')
+        currencyUomId = EntityUtilProperties.getPropertyValue('general', 'currency.uom.id.default', delegator)
     }
     return success(paymentRunningTotal: UtilFormatOut.formatCurrency(runningTotal, currencyUomId, locale))
 }
