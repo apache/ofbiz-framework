@@ -18,8 +18,8 @@
 */
 package org.apache.ofbiz.common.email
 
-import org.apache.ofbiz.base.util.UtilProperties
 import org.apache.ofbiz.entity.GenericValue
+import org.apache.ofbiz.entity.util.EntityUtilProperties
 import org.apache.ofbiz.service.ModelService
 import org.apache.ofbiz.service.ServiceUtil
 
@@ -54,7 +54,8 @@ Map sendMailFromTemplateSetting() {
         if (emailTemplateSetting.fromAddress) {
             emailParams.sendFrom = emailTemplateSetting.fromAddress
         } else {
-            emailParams.sendFrom = UtilProperties.getPropertyValue('general', 'defaultFromEmailAddress', 'ofbizsupport@example.com')
+            emailParams.sendFrom = EntityUtilProperties.getPropertyValue('general', 'defaultFromEmailAddress',
+                    'ofbizsupport@example.com', delegator)
         }
         emailParams.sendCc = emailTemplateSetting.ccAddress
         emailParams.sendBcc = emailTemplateSetting.bccAddress
