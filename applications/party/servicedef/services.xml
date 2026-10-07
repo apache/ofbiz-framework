@@ -107,6 +107,7 @@ under the License.
         <attribute name="groupName" type="String" mode="IN" optional="false"/>
         <attribute name="address1" type="String" mode="IN" optional="true"/>
         <attribute name="contactNumber" type="String" mode="IN" optional="true"/>
+        <attribute name="extension" type="String" mode="IN" optional="true"/>
         <attribute name="emailAddress" type="String" mode="IN" optional="true"/>
         <attribute name="postalAddContactMechPurpTypeId" type="String" mode="IN" optional="true"/>
         <attribute name="phoneContactMechPurpTypeId" type="String" mode="IN" optional="true"/>
