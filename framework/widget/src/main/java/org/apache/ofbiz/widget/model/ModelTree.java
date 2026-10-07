@@ -20,6 +20,7 @@ package org.apache.ofbiz.widget.model;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -33,7 +34,6 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
-import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilCodec;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilHttp;
@@ -276,10 +276,8 @@ public class ModelTree extends ModelWidget {
         }
         List<String> trail = null;
         if (UtilValidate.isNotEmpty(treeString)) {
-            trail = StringUtil.split(treeString, "|");
-            if (UtilValidate.isEmpty(trail)) {
-                throw new RuntimeException("Tree 'trail' value is empty.");
-            }
+            // an empty element is kept, as it is the id of a root node that has none (see ModelNode.renderNodeString)
+            trail = new LinkedList<>(Arrays.asList(treeString.split("\\|", -1)));
             context.put("rootEntityId", trail.get(0));
             context.put(getDefaultPkName(context), trail.get(0));
         } else {
@@ -681,7 +679,8 @@ public class ModelTree extends ModelWidget {
                     id = (String) context.get(pkName);
                 }
                 if (currentNodeTrail != null) {
-                    currentNodeTrail.add(id);
+                    // a root node that is not an entity (no pk in the context) must still take its place in the trail
+                    currentNodeTrail.add(id == null ? "" : id);
                 }
                 treeStringRenderer.renderNodeBegin(writer, context, this, depth);
                 try {
