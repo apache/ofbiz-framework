@@ -234,7 +234,7 @@ Map addProductCategoryToCategories() {
         }
     } else {
         // note the the user must be associated with the parent category with the role limited permission
-        Map res = checkCategoryRelatedPermission('addProductCategoryToCategories', 'CREATE', 'parameters.categories', null)
+        Map res = checkCategoryRelatedPermission('addProductCategoryToCategories', 'CREATE', parameters.categories, null)
         if (!ServiceUtil.isSuccess(res)) {
             return res
         }
@@ -297,7 +297,7 @@ Map copyCategoryProductMembers() {
 
     EntityQuery query = from('ProductCategoryMember').where('productCategoryId', parameters.productCategoryId)
     if (parameters.validDate) {
-        query.filterByDate()
+        query.filterByDate(parameters.validDate)
     }
     List productCategoryMembers = query.queryList()
 
@@ -305,7 +305,7 @@ Map copyCategoryProductMembers() {
     List pcmsToStore = []
     for (GenericValue productCategoryMember : productCategoryMembers) {
         GenericValue newProductCategoryMember = productCategoryMember.clone()
-        parameters.productCategoryIdTo = newProductCategoryMember.productCategoryId
+        newProductCategoryMember.productCategoryId = parameters.productCategoryIdTo
         pcmsToStore.add(newProductCategoryMember)
     }
     delegator.storeAll(pcmsToStore)
@@ -316,7 +316,7 @@ Map copyCategoryProductMembers() {
         query = from('ProductCategoryRollup').where(lookupChildrenMap)
 
         if (parameters.validDate) {
-            query.filterByDate()
+            query.filterByDate(parameters.validDate)
         }
         List productCategoryRollups = query.queryList()
 
@@ -356,7 +356,7 @@ Map duplicateCategoryEntities() {
 void copyCategoryEntities(String entityName, String productCategoryId, String productCategoryIdTo, Timestamp validDate) {
     EntityQuery query = from(entityName).where('productCategoryId', productCategoryId)
     if (validDate) {
-        query.filterByDate()
+        query.filterByDate(validDate)
     }
     List categoryEntities = query.queryList()
 
@@ -455,7 +455,7 @@ Map createProductInCategory() {
     run service: 'addProductToCategory', with: callCreateProductCategoryMemberMap
 
     // create defaultPrice and averageCost ProductPrice
-    if (parameters.defaultPrice) {
+    if (parameters.defaultPrice != null) {
         Map createDefaultPriceMap = [
             productId: productId,
             currencyUomId: parameters.currencyUomId,
@@ -467,7 +467,7 @@ Map createProductInCategory() {
         run service: 'createProductPrice', with: createDefaultPriceMap
     }
 
-    if (parameters.averageCost) {
+    if (parameters.averageCost != null) {
         Map createAverageCostMap = [
             productId: productId,
             currencyUomId: parameters.currencyUomId,
@@ -481,7 +481,7 @@ Map createProductInCategory() {
 
     // create ProductFeatureAppl(s)
     String hasSelectableFeatures = 'N'
-    for (Map entry : parameters.productFeatureIdByType.entrySet()) {
+    for (Map.Entry entry : parameters.productFeatureIdByType.entrySet()) {
         String productFeatureTypeId = entry.getKey()
         String productFeatureId = entry.getValue()
         logInfo("Applying feature [${productFeatureId}] of type [${productFeatureTypeId}] to product [${productId}]")
@@ -498,7 +498,7 @@ Map createProductInCategory() {
 
     // set isVirtual based on hasSelectableFeatures
     if (hasSelectableFeatures == 'Y') {
-        GenericValue newProduct = from('Product').where(parameters).queryOne()
+        GenericValue newProduct = from('Product').where(productId: productId).queryOne()
         newProduct.isVirtual = 'Y'
         newProduct.store()
     }
@@ -645,11 +645,10 @@ Map deleteProductCategoryAttribute() {
  * create a ProductCategoryLink
  */
 Map createProductCategoryLink() {
-    GenericValue newEntity = makeValue('ProductCategoryLink')
-    newEntity.productCategoryId = parameters.productCategoryId
+    GenericValue newEntity = makeValue('ProductCategoryLink', parameters)
 
     // don't set the fromDate yet; let's get the seq ID first
-    if (!parameters.linkSeqId) {
+    if (!newEntity.linkSeqId) {
         delegator.setNextSubSeqId(newEntity, 'linkSeqId', 5, 1)
     }
 
@@ -756,14 +755,16 @@ Map checkCategoryPermissionWithViewPurchaseAllow() {
             && !security.hasEntityPermission('CATALOG_VIEW', '_ALLOW', parameters.userLogin)) {
             logVerbose('Permission check failed, user does not have permission')
             failMessage = UtilProperties.getMessage('CommonUiLabels',
-                    'CommmonCallingMethodPermissionError', [callingMethodName, 'CATALOG_VIEW_ALLOW'], parameters.locale)
+                    'CommonCallingMethodPermissionError',
+                    [callingMethodName: callingMethodName, permission: 'CATALOG_VIEW_ALLOW'], parameters.locale)
             hasPermission = false
         }
         if (prodCatalog.purchaseAllowPermReqd == 'Y'
             && !security.hasEntityPermission('CATALOG_PURCHASE', '_ALLOW', parameters.userLogin)) {
             logVerbose('Permission check failed, user does not have permission')
             failMessage = UtilProperties.getMessage('CommonUiLabels',
-                    'CommonCallingMethodPermissionError', [callingMethodName, 'CATALOG_PURCHASE_ALLOW'], parameters.locale)
+                    'CommonCallingMethodPermissionError',
+                    [callingMethodName: callingMethodName, permission: 'CATALOG_PURCHASE_ALLOW'], parameters.locale)
             hasPermission = false
         }
     }
