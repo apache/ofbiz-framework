@@ -58,7 +58,7 @@ dependencies {
     implementation 'org.apache.tika:tika-core:3.3.2'
     implementation 'org.apache.tika:tika-parsers:3.3.2'
     implementation 'org.apache.tika:tika-parser-pdf-module:3.3.2'
-    implementation 'org.apache.cxf:cxf-rt-frontend-jaxrs:3.6.12' // 4.0.3 does not compile
+    implementation 'org.apache.cxf:cxf-rt-frontend-jaxrs:3.6.13' // 4.0.3 does not compile
     implementation 'org.apache.tomcat:tomcat-catalina-ha:9.0.122' // Remember to change the version number (9 now) in javadoc block if needed.
     implementation 'org.apache.tomcat:tomcat-jasper:9.0.122'
     implementation 'org.apache.axis2:axis2-kernel:1.8.2'
