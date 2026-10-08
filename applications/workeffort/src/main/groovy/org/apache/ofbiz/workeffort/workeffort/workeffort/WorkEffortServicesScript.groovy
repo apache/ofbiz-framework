@@ -105,9 +105,13 @@ Map checkAndUpdateWorkEffort() {
             && ['SHIPMENT_CANCELLED', 'SHIPMENT_PACKED', 'SHIPMENT_SHIPPED'].contains(parameters.statusId))) {
         GenericValue estShipWe = from('WorkEffort').where(workEffortId: lookedUpValue.estimatedShipWorkEffId).queryOne()
         if (estShipWe) {
-            estShipWe.estimatedStartDate = parameters.estimatedShipDate
-            estShipWe.estimatedCompletionDate = parameters.estimatedShipDate
-            estShipWe.facilityId = parameters.originFacilityId
+            if (parameters.estimatedShipDate != null) {
+                estShipWe.estimatedStartDate = parameters.estimatedShipDate
+                estShipWe.estimatedCompletionDate = parameters.estimatedShipDate
+            }
+            if (parameters.originFacilityId != null) {
+                estShipWe.facilityId = parameters.originFacilityId
+            }
             if ((parameters.statusId) && (parameters.statusId != lookedUpValue.statusId)) {
                 switch (parameters.statusId) {
                     case 'SHIPMENT_CANCELLED':
@@ -137,9 +141,13 @@ Map checkAndUpdateWorkEffort() {
                 .where(workEffortId: lookedUpValue.estimatedArrivalWorkEffId)
                 .queryOne()
         if (estimatedArrivalWorkEffort) {
-            estimatedArrivalWorkEffort.estimatedStartDate = parameters.estimatedArrivalDate
-            estimatedArrivalWorkEffort.estimatedCompletionDate = parameters.estimatedArrivalDate
-            estimatedArrivalWorkEffort.facilityId = parameters.destinationFacilityId
+            if (parameters.estimatedArrivalDate != null) {
+                estimatedArrivalWorkEffort.estimatedStartDate = parameters.estimatedArrivalDate
+                estimatedArrivalWorkEffort.estimatedCompletionDate = parameters.estimatedArrivalDate
+            }
+            if (parameters.destinationFacilityId != null) {
+                estimatedArrivalWorkEffort.facilityId = parameters.destinationFacilityId
+            }
             Map serviceResult = run service: 'updateWorkEffort', with: estimatedArrivalWorkEffort
             if (!ServiceUtil.isSuccess(serviceResult)) {
                 return error(serviceResult.errorMessage)

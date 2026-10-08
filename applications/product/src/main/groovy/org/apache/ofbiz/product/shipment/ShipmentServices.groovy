@@ -331,7 +331,9 @@ Map setShipmentSettingsFromPrimaryOrder() {
             GenericValue destinationFacility = from('FacilityContactMech')
                     .where(contactMechId: shipment.destinationContactMechId)
                     .queryFirst()
-            shipment.destinationFacilityId = destinationFacility.facilityId
+            if (destinationFacility) {
+                shipment.destinationFacilityId = destinationFacility.facilityId
+            }
         }
     }
     /*
@@ -342,11 +344,15 @@ Map setShipmentSettingsFromPrimaryOrder() {
      */
     if (orderItemShipGroup) {
         if (orderHeader.orderTypeId == 'SALES_ORDER') {
-            shipment.destinationContactMechId = orderItemShipGroup.contactMechId
-            shipment.destinationTelecomNumberId = orderItemShipGroup.telecomContactMechId
+            if (orderItemShipGroup.contactMechId) {
+                shipment.destinationContactMechId = orderItemShipGroup.contactMechId
+            }
+            if (orderItemShipGroup.telecomContactMechId) {
+                shipment.destinationTelecomNumberId = orderItemShipGroup.telecomContactMechId
+            }
         }
     }
-    if (!shipment.estimatedShipCost) {
+    if (shipment.estimatedShipCost == null) {
         OrderReadHelper orderReadHelper = new OrderReadHelper(orderHeader)
         List orderItems = orderReadHelper.getValidOrderItems()
         List orderAdjustments = orderReadHelper.getAdjustments()
@@ -365,8 +371,8 @@ Map setShipmentSettingsFromPrimaryOrder() {
     List shipmentRouteSegments = from('ShipmentRouteSegment').where(shipmentRouteSegmentMap).queryList()
     if (!shipmentRouteSegments) {
         // estimatedShipDate, estimatedArrivalDate
-        shipmentRouteSegmentMap.estimatedstartDate = shipment.estimatedShipDate
-        shipmentRouteSegmentMap.estimatedarrivalDate = shipment.estimatedArrivalDate
+        shipmentRouteSegmentMap.estimatedStartDate = shipment.estimatedShipDate
+        shipmentRouteSegmentMap.estimatedArrivalDate = shipment.estimatedArrivalDate
         shipmentRouteSegmentMap.originFacilityId = shipment.originFacilityId
         shipmentRouteSegmentMap.originContactMechId = shipment.originContactMechId
         shipmentRouteSegmentMap.originTelecomNumberId = shipment.originTelecomNumberId
@@ -678,13 +684,14 @@ Map ensureRouteSegPackage() {
     GenericValue shipmentRouteSegment = from('ShipmentRouteSegment').where(parameters).cache().queryOne()
     List shipmentPackages = from('ShipmentPackage').where(shipmentId: shipmentRouteSegment.shipmentId).queryList()
     for (GenericValue shipmentPackage : shipmentPackages) {
+        Map sprsMap = [shipmentId: parameters.shipmentId,
+            shipmentRouteSegmentId: parameters.shipmentRouteSegmentId,
+            shipmentPackageSeqId: shipmentPackage.shipmentPackageSeqId]
         GenericValue checkShipmentPackageRouteSeg = from('ShipmentPackageRouteSeg')
-                .where(shipmentRouteSegment as Map)
+                .where(sprsMap)
                 .queryOne()
         if (!checkShipmentPackageRouteSeg) {
-            run service: 'createShipmentPackageRouteSeg', with: [shipmentId: parameters.shipmentId,
-                                                                 shipmentRouteSegmentId: parameters.shipmentRouteSegmentId,
-                                                                 shipmentPackageSeqId: shipmentPackage.shipmentPackageSeqId]
+            run service: 'createShipmentPackageRouteSeg', with: sprsMap
         }
     }
     return success()
@@ -758,8 +765,9 @@ Map checkCanChangeShipmentStatusGeneral(Map inputParameters) {
  */
 Map quickShipEntireOrder() {
     Map result = success()
-    List successMessageList
-    List shipmentShipGroupFacilityList
+    List successMessageList = []
+    List shipmentShipGroupFacilityList = []
+    List shipmentIds = []
     // first get the order header; make sure we have a product store
     GenericValue orderHeader = from('OrderHeader').where(parameters).queryOne()
     if (!orderHeader || !orderHeader.productStoreId) {
@@ -792,15 +800,16 @@ Map quickShipEntireOrder() {
                 serviceResult.orderItemListByShGrpMap, serviceResult.orderItemShipGroupList,
                 serviceResult.orderItemAndShipGroupAssocList, orderItemShipGrpInvResFacilityId,
                 parameters.eventDate, parameters.setPackedOnly)
-        successMessageList = serviceResultCSFFASG.successMessageList
-        shipmentIds = serviceResultCSFFASG.shipmentIds
-        shipmentShipGroupFacilityList = serviceResultCSFFASG.shipmentShipGroupFacilityList
+        successMessageList.addAll(serviceResultCSFFASG.successMessageList)
+        shipmentIds.addAll(serviceResultCSFFASG.shipmentIds)
+        shipmentShipGroupFacilityList.addAll(serviceResultCSFFASG.shipmentShipGroupFacilityList)
     }
     logInfo('Finished quickShipEntireOrder:\n' +
             "shipmentShipGroupFacilityList=${shipmentShipGroupFacilityList}\n" +
             "successMessageList=${successMessageList}")
     result.shipmentShipGroupFacilityList = shipmentShipGroupFacilityList
     result.successMessageList = successMessageList
+    result.shipmentIds = shipmentIds
     if (!shipmentShipGroupFacilityList) {
         String errorMessage = UtilProperties.getMessage('ProductUiLabels', 'FacilityShipmentNotCreated', locale)
         return error(errorMessage)
@@ -928,7 +937,7 @@ Map getOrderItemShipGroupLists(GenericValue orderHeader) {
 Map createShipmentForFacilityAndShipGroup(GenericValue orderHeader, Map orderItemListByShGrpMap,
                                           List orderItemShipGroupList, List orderItemAndShipGroupAssocList,
                                           String orderItemShipGrpInvResFacilityId,
-                                          Timestamp eventDate, Boolean setPackedOnly) {
+                                          Timestamp eventDate, String setPackedOnly) {
     Map result = success()
     List shipmentIds = []
     List shipmentShipGroupFacilityList = []
@@ -1153,7 +1162,7 @@ Map issueSerializedInvToShipmentPackageAndSetTracking() {
     if (routeSegLookup.shipmentPackageSeqId) {
         routeSegLookup.shipmentId = itemIssuance.shipmentId
         // quick ship orders should only have one route segment
-        routeSegLookup.shipmentRouteSegmentId = '0001'
+        routeSegLookup.shipmentRouteSegmentId = '00001'
         GenericValue packageRouteSegment = from('ShipmentPackageRouteSeg').where(routeSegLookup).queryOne()
         if (packageRouteSegment) {
             packageRouteSegment.trackingCode = parameters.trackingNum
@@ -1308,7 +1317,7 @@ Map removeOrderShipmentFromShipment() {
     GenericValue orderShipment = from('OrderShipment').where(parameters).queryOne()
     GenericValue shipmentItem = from('ShipmentItem').where(parameters).queryOne()
     run service: 'deleteOrderShipment', with: parameters
-    shipmentItem.quantity = orderShipment.quantity - shipmentItem.quantity
+    shipmentItem.quantity = shipmentItem.quantity - orderShipment.quantity
     if (shipmentItem.quantity > (BigDecimal.ZERO)) {
         run service: 'updateShipmentItem', with: shipmentItem.getAllFields()
     } else {
