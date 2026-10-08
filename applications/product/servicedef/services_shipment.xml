@@ -594,11 +594,6 @@ under the License.
                 <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingQuantity"/>
 	     </type-validate>
         </attribute>
-        <attribute name="totalIssuedQty" type="BigDecimal" mode="IN" optional="false">
-	     <type-validate>
-                <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingTotalIssuedQty"/>
-	     </type-validate>
-        </attribute>
         <attribute name="itemIssuanceId" type="String" mode="OUT" optional="false">
 	     <type-validate>
                 <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingItemIssuanceId"/>

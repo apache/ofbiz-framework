@@ -23034,6 +23034,18 @@
         <value xml:lang="zh">没有发放订单明细送货组库存预留到送货 ${parameters.shipmentId}，因为要发放的数量是空的，订单 ${orderItemShipGrpInvRes.orderId}、订单明细 ${orderItemShipGrpInvRes.orderItemSeqId}、库存明细 ${orderItemShipGrpInvRes.inventoryItemId}</value>
         <value xml:lang="zh-TW">沒有發放訂單細項出貨群組庫存預留到出貨 ${parameters.shipmentId},因為要發放的數量是空的,訂單 ${orderItemShipGrpInvRes.orderId}、訂單細項 ${orderItemShipGrpInvRes.orderItemSeqId}、庫存細項 ${orderItemShipGrpInvRes.inventoryItemId}</value>
     </property>
+    <property key="ProductIssueInventoryItemNotFound">
+        <value xml:lang="en">Not issuing inventory item ${parameters.inventoryItemId} to shipment ${parameters.shipmentId} because the inventory item does not exist</value>
+    </property>
+    <property key="ProductIssueInventoryItemShipmentItemNotFound">
+        <value xml:lang="en">Not issuing inventory item ${parameters.inventoryItemId} to shipment ${parameters.shipmentId} because shipment item ${parameters.shipmentItemSeqId} does not exist</value>
+    </property>
+    <property key="ProductIssueInventoryItemProductMismatch">
+        <value xml:lang="en">Not issuing inventory item ${parameters.inventoryItemId} to shipment ${parameters.shipmentId} shipment item ${parameters.shipmentItemSeqId} because the product of the inventory item ${inventoryItem.productId} is not the product of the shipment item ${shipmentItem.productId}</value>
+    </property>
+    <property key="ProductIssueInventoryItemNoReturnItemShipment">
+        <value xml:lang="en">Not issuing inventory item ${parameters.inventoryItemId} to shipment ${parameters.shipmentId} shipment item ${parameters.shipmentItemSeqId} because the shipment item is not associated with a return item</value>
+    </property>
     <property key="ProductNotIssueOrderToShipmentQuantityLess">
         <value xml:lang="de">Führe keine Reservierung durch für Lieferung [${parameters.shipmentId}] weil die Reservierungsmenge ${parameters.quantity} kleiner oder gleich 0 ist für Bestellung ${orderItemShipGrpInvRes.orderId} Auftragsposition ${orderItemShipGrpInvRes.orderItemSeqId} Bestandsposition ${orderItemShipGrpInvRes.inventoryItemId}</value>
         <value xml:lang="en">Not issuing Order Item Ship Group Inventory Reservation to shipment [${parameters.shipmentId}] because the quantity to issue ${parameters.quantity} is less than or equal to 0 for order ${orderItemShipGrpInvRes.orderId} order item ${orderItemShipGrpInvRes.orderItemSeqId} inventoryItem ${orderItemShipGrpInvRes.inventoryItemId}</value>
