@@ -27,6 +27,7 @@ import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.entity.condition.EntityConditionBuilder
 import org.apache.ofbiz.entity.condition.EntityOperator
+import org.apache.ofbiz.entity.util.EntityQuery
 import org.apache.ofbiz.entity.util.EntityUtilProperties
 import org.apache.ofbiz.order.customer.CheckoutMapProcs
 import org.apache.ofbiz.order.shoppingcart.ShoppingCart
@@ -43,13 +44,11 @@ Map createOrderHeader() {
 
     GenericValue orderHeader = makeValue('OrderHeader',
             [orderId: parameters.orderId ?: delegator.getNextSeqId('OrderHeader')])
-    orderHeader.with {
-        setNonPKFields(parameters)
-        statusId = orderHeader.statusId ?: 'ORDER_CREATED'
-        orderDate = orderHeader.orderDate ?: nowTimestamp
-        entryDate = orderHeader.entryDate ?: nowTimestamp
-        create()
-    }
+    orderHeader.setNonPKFields(parameters)
+    orderHeader.statusId = orderHeader.statusId ?: 'ORDER_CREATED'
+    orderHeader.orderDate = orderHeader.orderDate ?: nowTimestamp
+    orderHeader.entryDate = orderHeader.entryDate ?: nowTimestamp
+    orderHeader.create()
     return success([orderId: orderHeader.orderId])
 }
 
@@ -208,8 +207,8 @@ Map recreateOrderAdjustments() {
     ShoppingCart cart = loadCartFromOrderInMap.shoppingCart
     List<ShoppingCartItem> items = cart.items()
     for (ShoppingCartItem item : items) {
-        String orderItemSeqId = item.getOrderItemSeqId()
-        if (!orderItemSeqId) {
+        String cartItemSeqId = item.getOrderItemSeqId()
+        if (!cartItemSeqId) {
             // this is a new (promo) item
             // a new order item is created
             GenericValue newOrderItem = makeValue('OrderItem')
@@ -227,7 +226,7 @@ Map recreateOrderAdjustments() {
                 isPromo = 'Y'
                 statusId = order.statusId == 'ORDER_APPROVED' ? 'ITEM_APPROVED' : 'ITEM_CREATED'
             }
-            newOrderItem.orderItemSeqId = delegator.getNextSeqId('OrderItem')
+            delegator.setNextSubSeqId(newOrderItem, 'orderItemSeqId', 5, 1)
             newOrderItem.create()
 
             // create the OrderItemShipGroupAssoc
@@ -387,14 +386,14 @@ Map updateOrderItemShipGroup() {
 Map getOrderItemShipGroupEstimatedShipDate() {
     GenericValue orderItemShipGroup = from('OrderItemShipGroup')
         .where('orderId', parameters.orderId,
-               'contactMechId', parameters.oldContactMechId)
-        .queryFirst()
+               'shipGroupSeqId', parameters.shipGroupSeqId)
+        .queryOne()
     GenericValue orderItemShipGroupInvRes =  from('OrderItemShipGrpInvRes')
         .where('orderId', parameters.orderId,
                'shipGroupSeqId', parameters.shipGroupSeqId)
-        .orderBy((orderItemShipGroup.maySplit == 'Y' ? '+' : '-') + 'promisedDatetime')
+        .orderBy((orderItemShipGroup?.maySplit == 'Y' ? '+' : '-') + 'promisedDatetime')
         .queryFirst()
-    return success(estimatedShipDate: orderItemShipGroupInvRes.promisedDatetime)
+    return success(estimatedShipDate: orderItemShipGroupInvRes?.promisedDatetime)
 }
 
 /*
@@ -432,7 +431,7 @@ Map checkOrderIsOnBackOrder() {
     EntityCondition condition = new EntityConditionBuilder().AND {
             EQUALS(orderId: parameters.orderId)
             NOT_EQUAL(quantityNotAvailable: null)
-            GREATER_THAN_EQUAL_TO(quantityNotAvailable: BigDecimal.ZERO)
+            GREATER_THAN(quantityNotAvailable: BigDecimal.ZERO)
         }
     return success([isBackOrder: from('OrderItemShipGrpInvRes')
             .where(condition)
@@ -470,7 +469,7 @@ Map createUpdateShippingAddress() {
         logInfo("Shipping address created with contactMechId ${parameters.shipToContactMechId}")
     } else if (keepAddressBook == 'Y') {
         GenericValue newValue = makeValue('PostalAddress', shipToAddressCtx)
-        GenericValue oldValue = from('PostalAddress').where(parameters).queryOne()
+        GenericValue oldValue = from('PostalAddress').where(contactMechId: shipToAddressCtx.contactMechId).queryOne()
         if (newValue != oldValue) {
             shipToAddressCtx.contactMechId = null
             Map serviceResult = run service: 'createPartyPostalAddress', with: shipToAddressCtx
@@ -507,7 +506,7 @@ Map createUpdateShippingAddress() {
         shipToAddressCtx.shipToContactMechId = shipToAddressCtx.contactMechId
         if (shipToAddressCtx.shipToContactMechId == parameters.billToContactMechId) {
             GenericValue newValue = makeValue('PostalAddress', shipToAddressCtx)
-            GenericValue oldValue = from('PostalAddress').where(parameters).queryOne()
+            GenericValue oldValue = from('PostalAddress').where(contactMechId: shipToAddressCtx.contactMechId).queryOne()
             if (newValue != oldValue) {
                 List<GenericValue> pcmpShipList = from('PartyContactMechPurpose')
                     .where(partyId: partyId,
@@ -558,10 +557,10 @@ Map createUpdateBillingAddress() {
                     .filterByDate()
                     .queryList()
                 for (GenericValue pcmp: pcmpList) {
-                    run service: 'deletePartyContactMech', with: pcmp.getAllFields()
+                    run service: 'expirePartyContactMechPurpose', with: pcmp.getAllFields()
                 }
                 if (keepAddressBook == 'N') {
-                    run service: 'createPartyContactMechPurpose', with: [contactMechId: parameters.billToContactMechId]
+                    run service: 'deletePartyContactMech', with: [contactMechId: parameters.billToContactMechId]
                 }
                 // Check that the ship-to address doesn't already have a bill-to purpose
                 pcmpList = from('PartyContactMechPurpose')
@@ -616,7 +615,7 @@ Map createUpdateBillingAddress() {
                     parameters.billToContactMechId = serviceResult.contactMechId
                 } else if (keepAddressBook == 'Y') {
                     GenericValue newValue = makeValue('PostalAddress', billToAddressCtx)
-                    GenericValue oldValue = from('PostalAddress').where(parameters).queryOne()
+                    GenericValue oldValue = from('PostalAddress').where(contactMechId: billToAddressCtx.contactMechId).queryOne()
                     if (newValue != oldValue) {
                         billToAddressCtx.contactMechId = null
                         Map serviceResult = run service: 'createPartyPostalAddress', with: billToAddressCtx
@@ -673,8 +672,9 @@ Map createUpdateCreditCard() {
             .where(partyId: parameters.partyId,
                    paymentMethodTypeId: 'CREDIT_CARD')
             .orderBy('-fromDate')
+            .filterByDate()
             .queryFirst()
-        paymentMethodId = paymentMethod ? paymentMethod.paymentMethodId : ''
+        paymentMethodId = paymentMethod ? paymentMethod.paymentMethodId : paymentMethodId
         serviceResult = run service: 'updateCreditCard', with: [*: parameters,
                                                               paymentMethodId: paymentMethodId]
     } else {
@@ -707,18 +707,14 @@ Map setUnitPriceAsLastPrice() {
                    partyId: orderSupplier.partyId,
                    availableThruDate: null)
             .queryList()
+        // the order currency unit price wins; the unit cost is only used when no order currency unit price is given
+        BigDecimal newLastPrice = (BigDecimal) ObjectType.simpleTypeOrObjectConvert(
+                parameters.orderCurrencyUnitPrice ?: parameters.unitCost, 'BigDecimal', null, locale)
         for (GenericValue supplierProduct: supplierProducts) {
-            if (parameters.orderCurrencyUnitPrice && parameters.orderCurrencyUnitPrice != supplierProduct.lastPrice) {
+            if (newLastPrice != null && newLastPrice != supplierProduct.lastPrice) {
                 GenericValue newSupplierProduct = supplierProduct.clone()
                 newSupplierProduct.availableFromDate = nowTimestamp
-                newSupplierProduct.lastPrice = parameters.orderCurrencyUnitPrice
-                newSupplierProduct.create()
-                supplierProduct.availableThruDate = nowTimestamp
-                supplierProduct.store()
-            } else if (parameters.unitCost != supplierProduct.lastPrice) {
-                GenericValue newSupplierProduct = supplierProduct.clone()
-                newSupplierProduct.availableFromDate = nowTimestamp
-                newSupplierProduct.lastPrice = parameters.unitCost
+                newSupplierProduct.lastPrice = newLastPrice
                 newSupplierProduct.create()
                 supplierProduct.availableThruDate = nowTimestamp
                 supplierProduct.store()
@@ -734,7 +730,7 @@ Map setUnitPriceAsLastPrice() {
         Set<String> productIds = []
         for (Map.Entry<String, String> itemPrice : itemPriceMap.entrySet()) {
             String orderItemSeqId = itemPrice.getKey()
-            BigDecimal unitPrice = itemPrice.getValue()
+            BigDecimal unitPrice = (BigDecimal) ObjectType.simpleTypeOrObjectConvert(itemPrice.getValue(), 'BigDecimal', null, locale)
             GenericValue orderItem = orderItems.find { it.orderItemSeqId == orderItemSeqId }
             Map.Entry<String, String> overridePrice = overridePriceMap.find { it.key == orderItemSeqId }
             if (orderItem && overridePrice) {
@@ -858,9 +854,11 @@ Map updateShippingMethodAndCharges() {
  */
 Map productAvailabilityByFacility() {
     List availabilityList = []
-    List<GenericValue> facilityList = from('Facility')
-        .where(ownerPartyId: parameters.ownerPartyId)
-        .queryList()
+    EntityQuery facilityQuery = from('Facility')
+    if (parameters.ownerPartyId) {
+        facilityQuery = facilityQuery.where(ownerPartyId: parameters.ownerPartyId)
+    }
+    List<GenericValue> facilityList = facilityQuery.queryList()
     for (GenericValue facility: facilityList) {
         Map serviceResult = run service: 'getInventoryAvailableByFacility', with: [
             facilityId: facility.facilityId,
@@ -883,6 +881,7 @@ Map createOrderPaymentApplication() {
         .queryOne()
     GenericValue orderItemBilling = from('OrderItemBilling')
         .where(orderId: orderPaymentPref.orderId)
+        .orderBy('invoiceId')
         .queryFirst()
     if (orderItemBilling) {
         run service: 'createPaymentApplication', with: [amountApplied: payment.amount,
