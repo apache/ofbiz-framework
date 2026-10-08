@@ -3881,6 +3881,13 @@ public class OrderServices {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Locale locale = (Locale) context.get("locale");
         String orderId = (String) context.get("orderId");
+        Security security = dctx.getSecurity();
+
+        if (!OrderServices.hasPermission(orderId, userLogin, "UPDATE", security, delegator)) {
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
+                    "OrderYouDoNotHavePermissionToChangeThisOrdersStatus", locale));
+        }
+
         Map<String, String> overridePriceMap = UtilGenerics.cast(context.get("overridePriceMap"));
         Map<String, String> itemDescriptionMap = UtilGenerics.cast(context.get("itemDescriptionMap"));
         Map<String, String> itemPriceMap = UtilGenerics.cast(context.get("itemPriceMap"));
