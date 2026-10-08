@@ -208,9 +208,10 @@ Map copyQuote() {
     if (parameters.copyQuoteItems == 'Y') {
         List quoteItems = quote.getRelated('QuoteItem', null, null, false)
         for (GenericValue quoteItem : quoteItems) {
-            Map serviceContext = dctx.makeValidContext('createQuoteItem', ModelService.IN_PARAM,
-                    [*: quoteItem, quoteId: quoteIdTo, userLogin: userLogin])
-            serviceResult = dispatcher.runSync('createQuoteItem', serviceContext)
+            Map serviceContext = dctx.makeValidContext('copyQuoteItem', ModelService.IN_PARAM,
+                    [quoteId: quoteItem.quoteId, quoteItemSeqId: quoteItem.quoteItemSeqId, quoteIdTo: quoteIdTo,
+                     copyQuoteAdjustments: parameters.copyQuoteAdjustments, userLogin: userLogin])
+            serviceResult = dispatcher.runSync('copyQuoteItem', serviceContext)
             if (ServiceUtil.isError(serviceResult)) {
                 return serviceResult
             }
@@ -328,7 +329,7 @@ Map createQuoteItem() {
         delegator.setNextSubSeqId(quoteItem, 'quoteItemSeqId', 5, 1)
     }
 
-    if (!parameters.quoteUnitPrice && parameters.productId) {
+    if (parameters.quoteUnitPrice == null && parameters.productId) {
         GenericValue product = from('Product').where('productId', parameters.productId).cache().queryOne()
         require(product?.isVirtual != 'Y', 'OrderErrorUiLabels', 'OrderCannotAddVirtualProductToQuote')
         if (product?.productTypeId?.startsWith('AGGREGATED')
@@ -432,27 +433,36 @@ Map createQuoteAndQuoteItemForRequest() {
     Map input = [
         userLogin: userLogin,
         *: parameters,
-        *: custRequest,
         quoteTypeId: 'PROPOSAL',
         partyId: custRequest.fromPartyId,
         quoteName: custRequest.custRequestName,
-        currencyUomId: custRequest.maximumAmountUomId
+        description: custRequest.description,
+        currencyUomId: custRequest.maximumAmountUomId,
+        productStoreId: custRequest.productStoreId,
+        salesChannelEnumId: custRequest.salesChannelEnumId
     ]
     input.statusId = input.statusId ?: 'QUO_CREATED'
     Map serviceResult = run service: 'createQuote', with: input
     String quoteId = serviceResult.quoteId
 
+    // the quote item fields submitted by the caller take precedence over the ones of the request item
     serviceResult = run service: 'createQuoteItem', with: [
-        *: custRequestItem,
-        comments: custRequestItem.story,
+        *: (custRequestItem ?: [:]),
+        *: parameters.findAll { key, value -> value != null },
+        comments: custRequestItem?.story ?: parameters.comments,
         quoteId: quoteId
     ]
     String quoteItemSeqId = serviceResult.quoteItemSeqId
 
-    // copy the roles from the request to the quote
+    // copy the roles from the request to the quote, createQuote may already have added the request taker
     List custRequestParties = from('CustRequestParty').where(custRequestId: custRequest.custRequestId).queryList()
     custRequestParties?.each { GenericValue custPartyRole ->
-        serviceResult = run service: 'createQuoteRole', with: [*: custPartyRole, quoteId: quoteId]
+        GenericValue existingQuoteRole = from('QuoteRole')
+                .where(quoteId: quoteId, partyId: custPartyRole.partyId, roleTypeId: custPartyRole.roleTypeId)
+                .queryOne()
+        if (!existingQuoteRole) {
+            serviceResult = run service: 'createQuoteRole', with: [*: custPartyRole, quoteId: quoteId]
+        }
     }
 
     return [successMessage: null, quoteId: quoteId, quoteItemSeqId: quoteItemSeqId]
@@ -545,9 +555,9 @@ Map autoUpdateQuotePrice() {
     require(security.hasEntityPermission('ORDERMGR', '_UPDATE', userLogin) as boolean,
             'OrderErrorUiLabels', 'OrderSecurityErrorToRunAutoUpdateQuotePrice')
     Map fieldsToSet = [:]
-    if (parameters.manualQuoteUnitPrice) {
+    if (parameters.manualQuoteUnitPrice != null) {
         fieldsToSet.quoteUnitPrice = parameters.manualQuoteUnitPrice
-    } else if (parameters.defaultQuoteUnitPrice) {
+    } else if (parameters.defaultQuoteUnitPrice != null) {
         fieldsToSet.quoteUnitPrice = parameters.defaultQuoteUnitPrice
     }
     try {
