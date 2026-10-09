@@ -87,7 +87,7 @@ Map createShoppingListItem() {
                     .queryList()
             if ((!slItemAttributes && !parameters.shoppingListItemAttributes) ||
                     Objects.equals(slItemAttributes, parameters.shoppingListItemAttributes)) {
-                BigDecimal totalquantity = shoppingListItem.quantity + parameters.quantity
+                BigDecimal totalquantity = (shoppingListItem.quantity ?: BigDecimal.ZERO) + (parameters.quantity ?: BigDecimal.ZERO)
                 result.shoppingListItemSeqId = shoppingListItem.shoppingListItemSeqId
                 Map serviceResult = run service: 'updateShoppingListItem', with: [*: shoppingListItem, quantity: totalquantity]
                 if (!ServiceUtil.isSuccess(serviceResult)) {
@@ -299,7 +299,7 @@ Map addSuggestionsToShoppingList() {
                         .filterByDate()
                         .queryFirst()
                 if (virtualProductAssoc) {
-                    linkProductToShoppingList(virtualProductAssoc.productIdTo, shoppingListId)
+                    linkProductToShoppingList(virtualProductAssoc.productId, shoppingListId)
                 }
             }
         }
