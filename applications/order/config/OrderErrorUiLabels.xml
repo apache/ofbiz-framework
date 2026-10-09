@@ -2480,6 +2480,9 @@
         <value xml:lang="zh">没有定义会员标识和/或角色类型标识。 </value>
         <value xml:lang="zh-TW">沒有定義成員ID和/或角色類型ID。 </value>
     </property>
+    <property key="OrderPartyIdDoesNotMatchCartParty">
+        <value xml:lang="en">The partyId supplied does not match the party already associated with this order.</value>
+    </property>
     <property key="OrderPleaseContactCustomerServicePaymentReturnCodeUnknown">
         <value xml:lang="ar">يرجى الإتصال بخدمة العملاء: رمز استرجاع الدفعة غير معروف.</value>
         <value xml:lang="de">Bitte kontaktieren Sie den Kundenservice; unbekannter Rückgabewert beim Zahlungsvorgang. </value>
