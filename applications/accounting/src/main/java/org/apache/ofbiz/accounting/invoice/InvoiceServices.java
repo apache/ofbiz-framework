@@ -455,6 +455,19 @@ public class InvoiceServices {
                 } else {
                     billingAmount = orderItem.getBigDecimal("unitPrice").setScale(invoiceTypeDecimals, ROUNDING);
                 }
+                GenericValue inventoryItem = (shipmentReceipt != null && "PURCHASE_INVOICE".equals(invoiceType)) ? shipmentReceipt.getRelatedOne("InventoryItem", false) : null;
+                if (inventoryItem != null && inventoryItem.getBigDecimal("unitCost") != null && inventoryItem.getBigDecimal("unitCost").compareTo(BigDecimal.ZERO) > 0) {
+                    BigDecimal unitCost = inventoryItem.getBigDecimal("unitCost");
+                    String invoiceCurrency = orderHeader.getString("currencyUom");
+                    String itemCurrency = inventoryItem.getString("currencyUomId");
+                    if (UtilValidate.isNotEmpty(itemCurrency) && UtilValidate.isNotEmpty(invoiceCurrency) && !itemCurrency.equals(invoiceCurrency)) {
+                        Map<String, Object> convertUomResult = dispatcher.runSync("convertUom", UtilMisc.toMap("uomId", itemCurrency, "uomIdTo", invoiceCurrency, "originalValue", unitCost));
+                        if (ServiceUtil.isSuccess(convertUomResult) && convertUomResult.get("convertedValue") != null) {
+                            unitCost = (BigDecimal) convertUomResult.get("convertedValue");
+                        }
+                    }
+                    billingAmount = unitCost.setScale(invoiceTypeDecimals, ROUNDING);
+                }
 
                 Map<String, Object> createInvoiceItemContext = new HashMap<>();
                 createInvoiceItemContext.put("invoiceId", invoiceId);
@@ -473,6 +486,8 @@ public class InvoiceServices {
                 if (itemIssuance != null && itemIssuance.get("inventoryItemId") != null) {
                     itemIssuanceId = itemIssuance.getString("itemIssuanceId");
                     createInvoiceItemContext.put("inventoryItemId", itemIssuance.get("inventoryItemId"));
+                } else if (shipmentReceipt != null && shipmentReceipt.get("inventoryItemId") != null) {
+                    createInvoiceItemContext.put("inventoryItemId", shipmentReceipt.get("inventoryItemId"));
                 }
                 // similarly, tax only for purchase invoices
                 if ((product != null) && ("SALES_INVOICE".equals(invoiceType))) {
