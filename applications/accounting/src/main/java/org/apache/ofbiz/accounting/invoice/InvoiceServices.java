@@ -455,13 +455,17 @@ public class InvoiceServices {
                 } else {
                     billingAmount = orderItem.getBigDecimal("unitPrice").setScale(invoiceTypeDecimals, ROUNDING);
                 }
-                GenericValue inventoryItem = (shipmentReceipt != null && "PURCHASE_INVOICE".equals(invoiceType)) ? shipmentReceipt.getRelatedOne("InventoryItem", false) : null;
-                if (inventoryItem != null && inventoryItem.getBigDecimal("unitCost") != null && inventoryItem.getBigDecimal("unitCost").compareTo(BigDecimal.ZERO) > 0) {
+                GenericValue inventoryItem = (shipmentReceipt != null && "PURCHASE_INVOICE".equals(invoiceType))
+                        ? shipmentReceipt.getRelatedOne("InventoryItem", false) : null;
+                if (inventoryItem != null && inventoryItem.getBigDecimal("unitCost") != null
+                        && inventoryItem.getBigDecimal("unitCost").compareTo(BigDecimal.ZERO) > 0) {
                     BigDecimal unitCost = inventoryItem.getBigDecimal("unitCost");
                     String invoiceCurrency = orderHeader.getString("currencyUom");
                     String itemCurrency = inventoryItem.getString("currencyUomId");
-                    if (UtilValidate.isNotEmpty(itemCurrency) && UtilValidate.isNotEmpty(invoiceCurrency) && !itemCurrency.equals(invoiceCurrency)) {
-                        Map<String, Object> convertUomResult = dispatcher.runSync("convertUom", UtilMisc.toMap("uomId", itemCurrency, "uomIdTo", invoiceCurrency, "originalValue", unitCost));
+                    if (UtilValidate.isNotEmpty(itemCurrency) && UtilValidate.isNotEmpty(invoiceCurrency)
+                            && !itemCurrency.equals(invoiceCurrency)) {
+                        Map<String, Object> convertUomResult = dispatcher.runSync("convertUom",
+                                UtilMisc.toMap("uomId", itemCurrency, "uomIdTo", invoiceCurrency, "originalValue", unitCost));
                         if (ServiceUtil.isSuccess(convertUomResult) && convertUomResult.get("convertedValue") != null) {
                             unitCost = (BigDecimal) convertUomResult.get("convertedValue");
                         }
