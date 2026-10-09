@@ -122,6 +122,11 @@ Map createUpdateBillingAddressAndPaymentMethod() {
     require(hasNoValidationErrors, StringUtil.join(messages, ','))
 
     ShoppingCart shoppingCart = parameters.shoppingCart
+    // The caller may echo back the party already associated with this cart, but must never be able to introduce
+    // a different, unrelated partyId: doing so would let an anonymous caller attach billing/payment data to
+    // someone else's party.
+    require(!(parameters.partyId && parameters.partyId != shoppingCart?.getPartyId()),
+            'OrderErrorUiLabels', 'OrderPartyIdDoesNotMatchCartParty')
     GenericValue userLogin = shoppingCart.getUserLogin()
     String partyId = parameters.partyId
     // If registered user is coming then take partyId from userLogin
@@ -190,11 +195,18 @@ Map createUpdateBillingAddressAndPaymentMethod() {
  */
 Map setAnonUserLogin() {
     ShoppingCart shoppingCart = parameters.shoppingCart
+    // The caller may echo back the party already associated with this cart (e.g. a hidden form field on a
+    // later checkout step), but must never be able to introduce a different, unrelated partyId: doing so would let
+    // an anonymous caller attach their own checkout data to someone else's party.
+    String cartPartyId = shoppingCart.getPartyId()
+    if (parameters.partyId && parameters.partyId != cartPartyId) {
+        return error('OrderErrorUiLabels', 'OrderPartyIdDoesNotMatchCartParty')
+    }
     GenericValue userLogin = shoppingCart.getUserLogin()
     if (userLogin) {
         // If an anonymous user is coming back, update the party id in the userLogin object
-        if (userLogin.userLoginId == 'anonymous' && parameters.partyId) {
-            userLogin.partyId = parameters.partyId
+        if (userLogin.userLoginId == 'anonymous' && cartPartyId) {
+            userLogin.partyId = cartPartyId
         }
     } else {
         userLogin = from('UserLogin').where(userLoginId: 'anonymous').queryOne()
