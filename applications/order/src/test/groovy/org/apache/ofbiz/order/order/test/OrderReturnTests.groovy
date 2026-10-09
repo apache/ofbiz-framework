@@ -28,14 +28,45 @@ class OrderReturnTests extends OFBizTestCase {
     }
     // Return related test services
     void testQuickReturnOrder() {
+        String orderId = 'TEST_RTN12432'
         Map serviceCtx = [
-            orderId: 'TEST_DEMO10090',
+            orderId: orderId,
             returnHeaderTypeId: 'CUSTOMER_RETURN',
             userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('quickReturnOrder', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
         assert serviceResult.returnId != null
+
+        List returnItems = from('ReturnItem').where(returnId: serviceResult.returnId).queryList()
+        assert returnItems.size() == 1
+        assert returnItems[0].returnQuantity == 2.0G
+        assert returnItems[0].returnPrice == 10.00G
+
+        List returnAdjustments = from('ReturnAdjustment').where(returnId: serviceResult.returnId).queryList()
+        assert returnAdjustments*.orderAdjustmentId.toSet() == [
+                'TEST_RTN12432_ITEM', 'TEST_RTN12432_PROMO', 'TEST_RTN12432_SHIP', 'TEST_RTN12432_TAX'
+        ].toSet()
+        assert !returnAdjustments.any { it.returnAdjustmentTypeId == 'RET_MAN_ADJ' }
+
+        BigDecimal returnTotal = returnItems.sum(BigDecimal.ZERO) {
+            it.returnQuantity * it.returnPrice
+        } + returnAdjustments.sum(BigDecimal.ZERO) { it.amount }
+        assert returnTotal == 17.00G
+
+        Map invoiceResult = dispatcher.runSync('createInvoiceFromReturn', [
+                returnId: serviceResult.returnId,
+                billItems: returnItems,
+                userLogin: userLogin
+        ])
+        assert ServiceUtil.isSuccess(invoiceResult)
+        assert invoiceResult.invoiceId != null
+
+        List invoiceItems = from('InvoiceItem').where(invoiceId: invoiceResult.invoiceId).queryList()
+        BigDecimal invoiceTotal = invoiceItems.sum(BigDecimal.ZERO) {
+            (it.quantity ?: BigDecimal.ONE) * it.amount
+        }
+        assert invoiceTotal == returnTotal
     }
     void testProcessCreditReturn() {
         Map serviceCtx = [
