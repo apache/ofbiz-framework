@@ -405,7 +405,7 @@ Map productOrderHist() {
             Map<String, Object> serviceResult = run service: 'getOrderedSummaryInformation', with: serviceIn
             if (ServiceUtil.isError(serviceResult)) {
                 logError('Error calling getOrderedSummaryInformation service for the PPIP_ORST_HIST ProductPromo condition input value: '
-                        + ServiceUtil.getErrorMessage(result))
+                        + ServiceUtil.getErrorMessage(serviceResult))
                 return serviceResult
             }
             BigDecimal orderSubTotal = serviceResult.get('totalSubRemainingAmount')
@@ -452,12 +452,12 @@ Map productOrderYear() {
                 'userLogin', userLogin)
         try {
             Map<String, Object> serviceResult = dispatcher.runSync('getOrderedSummaryInformation', serviceIn)
-            if (ServiceUtil.isError(result)) {
+            if (ServiceUtil.isError(serviceResult)) {
                 logError('Error calling getOrderedSummaryInformation service for the PPIP_ORST_YEAR ProductPromo condition input value: '
-                        + ServiceUtil.getErrorMessage(result))
+                        + ServiceUtil.getErrorMessage(serviceResult))
                 return serviceResult
             }
-            BigDecimal orderSubTotal = result.get('totalSubRemainingAmount')
+            BigDecimal orderSubTotal = serviceResult.get('totalSubRemainingAmount')
             if (Debug.verboseOn()) {
                 logVerbose('Doing order history sub-total compare: orderSubTotal=' + orderSubTotal + ', for the last '
                         + monthsToInclude + ' months.')
@@ -510,10 +510,10 @@ Map productOrderLastYear() {
             Map<String, Object> serviceResult = dispatcher.runSync('getOrderedSummaryInformation', serviceIn)
             if (ServiceUtil.isError(serviceResult)) {
                 logError('Error calling getOrderedSummaryInformation service for the PPIP_ORST_LAST_YEAR ProductPromo condition input value: '
-                        + ServiceUtil.getErrorMessage(result))
+                        + ServiceUtil.getErrorMessage(serviceResult))
                 return serviceResult
             }
-            BigDecimal orderSubTotal = (BigDecimal) result.get('totalSubRemainingAmount')
+            BigDecimal orderSubTotal = (BigDecimal) serviceResult.get('totalSubRemainingAmount')
             if (Debug.verboseOn()) {
                 logVerbose('Doing order history sub-total compare: orderSubTotal=' + orderSubTotal + ', for last year.')
             }
