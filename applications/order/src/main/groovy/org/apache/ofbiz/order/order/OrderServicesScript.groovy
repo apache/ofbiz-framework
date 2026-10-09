@@ -107,7 +107,8 @@ Map getOrderedSummaryInformation() {
         return result
     }
     */
-    Timestamp fromDate = null, thruDate = null
+    Timestamp fromDate = parameters.fromDate
+    Timestamp thruDate = parameters.thruDate
     Timestamp now = UtilDateTime.nowTimestamp()
     Integer monthsToInclude = parameters.monthsToInclude
     if (monthsToInclude) {
