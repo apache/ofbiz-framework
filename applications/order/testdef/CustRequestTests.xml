@@ -32,4 +32,7 @@ under the License.
     <test-case case-name="test-cust-request-permission-check">
         <junit-test-suite class-name="org.apache.ofbiz.order.order.test.CustRequestPermissionCheckTests"/>
     </test-case>
+    <test-case case-name="test-create-cust-request-from-empty-cart">
+        <junit-test-suite class-name="org.apache.ofbiz.order.order.test.CustRequestTests"/>
+    </test-case>
 </test-suite>
