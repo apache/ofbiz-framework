@@ -111,6 +111,7 @@ under the License.
         <section>
             <actions>
                 <set field="headerItem" value="entity"/>
+                <set field="visualThemeId" from-field="visualTheme.visualThemeId"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
