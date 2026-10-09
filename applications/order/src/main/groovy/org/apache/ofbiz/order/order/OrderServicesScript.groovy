@@ -87,16 +87,18 @@ Map getOrderedSummaryInformation() {
         return result
     }
     */
-    Timestamp fromDate = null, thruDate = null
+    Timestamp fromDate = parameters.fromDate
+    Timestamp thruDate = parameters.thruDate
     Timestamp now = UtilDateTime.nowTimestamp()
+    Integer monthsToInclude = parameters.monthsToInclude
     if (monthsToInclude) {
         thruDate = now
         fromDate = UtilDateTime.adjustTimestamp(now, Calendar.MONTH, -monthsToInclude)
     }
 
-    roleTypeId = roleTypeId ?: 'PLACING_CUSTOMER'
-    orderTypeId = orderTypeId ?: 'SALES_ORDER'
-    statusId = statusId ?: 'ORDER_COMPLETED'
+    String roleTypeId = parameters.roleTypeId ?: 'PLACING_CUSTOMER'
+    String orderTypeId = parameters.orderTypeId ?: 'SALES_ORDER'
+    String statusId = parameters.statusId ?: 'ORDER_COMPLETED'
 
     //find the existing exchange rates
     exprBldr = new EntityConditionBuilder()
