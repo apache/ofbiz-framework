@@ -795,9 +795,17 @@ public class ModelFormFieldBuilder {
             this.setFieldInfo(hiddenField);
         } else {
             if ("indicator".equals(fieldType)) {
-                List<OptionSource> optionSources = UtilMisc.toList(
-                        new ModelFormField.SingleOption("Y", null, null),
-                        new ModelFormField.SingleOption("N", null, null));
+                List<OptionSource> optionSources;
+                if (modelField.getIsNotNull()) {
+                    optionSources = UtilMisc.toList(
+                            new ModelFormField.SingleOption("Y", null, null),
+                            new ModelFormField.SingleOption("N", null, null));
+                } else {
+                    optionSources = UtilMisc.toList(
+                            new ModelFormField.SingleOption("", null, null),
+                            new ModelFormField.SingleOption("Y", null, null),
+                            new ModelFormField.SingleOption("N", null, null));
+                }
                 ModelFormField.DropDownField dropDownField = new ModelFormField.DropDownField(FieldInfo.SOURCE_AUTO_ENTITY,
                         optionSources);
                 this.setFieldInfo(dropDownField);
