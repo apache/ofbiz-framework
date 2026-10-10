@@ -670,14 +670,47 @@ under the License.
         <set field="shipmentId" from-field="parameters.shipmentId"/>
         <set field="shipmentItemSeqId" from-field="parameters.shipmentItemSeqId"/>
         <entity-one entity-name="InventoryItem" value-field="inventoryItem"/>
+        <entity-one entity-name="ShipmentItem" value-field="shipmentItem"/>
+        <if-empty field="inventoryItem">
+            <add-error>
+                <fail-property resource="ProductUiLabels" property="ProductIssueInventoryItemNotFound"/>
+            </add-error>
+        </if-empty>
+        <if-empty field="shipmentItem">
+            <add-error>
+                <fail-property resource="ProductUiLabels" property="ProductIssueInventoryItemShipmentItemNotFound"/>
+            </add-error>
+        </if-empty>
+        <check-errors/>
+        <!-- the InventoryItem has to be of the same product as the ShipmentItem -->
+        <if-compare-field field="inventoryItem.productId" to-field="shipmentItem.productId" operator="not-equals">
+            <add-error>
+                <fail-property resource="ProductUiLabels" property="ProductIssueInventoryItemProductMismatch"/>
+            </add-error>
+        </if-compare-field>
         <entity-and entity-name="ReturnItemShipment" list="returnItemShipments">
           <field-map field-name="shipmentId" from-field="parameters.shipmentId"/>
           <field-map field-name="shipmentItemSeqId" from-field="parameters.shipmentItemSeqId"/>
         </entity-and>
         <first-from-list list="returnItemShipments" entry="returnItemShipment"/>
+        <if-empty field="returnItemShipment">
+            <add-error>
+                <fail-property resource="ProductUiLabels" property="ProductIssueInventoryItemNoReturnItemShipment"/>
+            </add-error>
+        </if-empty>
+        <check-errors/>
+        <!-- the quantity already issued is computed here, it must not be trusted from the caller -->
+        <entity-and entity-name="ItemIssuance" list="itemIssuances">
+          <field-map field-name="shipmentId" from-field="parameters.shipmentId"/>
+          <field-map field-name="shipmentItemSeqId" from-field="parameters.shipmentItemSeqId"/>
+        </entity-and>
+        <set field="totalIssuedQty" type="BigDecimal" value="0"/>
+        <iterate list="itemIssuances" entry="itemIssuance">
+            <set field="totalIssuedQty" value="${totalIssuedQty$bigDecimal + itemIssuance.quantity$bigDecimal}" type="BigDecimal"/>
+        </iterate>
         <calculate field="quantityNotIssued">
           <calcop operator="subtract" field="returnItemShipment.quantity">
-              <calcop operator="get" field="parameters.totalIssuedQty"/>
+              <calcop operator="get" field="totalIssuedQty"/>
           </calcop>
         </calculate>
         <!-- make sure specified quantity is not less than or equal to 0 -->

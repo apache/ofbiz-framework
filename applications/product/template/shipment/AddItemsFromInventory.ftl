@@ -56,7 +56,6 @@ under the License.
                 <form name="issueInventoryItemToShipment_${item_index}" action="<@ofbizUrl>issueInventoryItemToShipment</@ofbizUrl>" method="post">
                   <input type="hidden" name="shipmentId" value="${shipmentId}"/>
                   <input type="hidden" name="shipmentItemSeqId" value="${item.shipmentItemSeqId}"/>
-                  <input type="hidden" name="totalIssuedQty" value="${item.totalQtyIssued}"/>
                   <span>
                     <@htmlTemplate.lookupField formName="issueInventoryItemToShipment_${item_index}" name="inventoryItemId" id="inventoryItemId" fieldFormName="LookupInventoryItem?orderId=${item.orderId}&partyId=${item.partyId}&productId=${item.productId}"/>
                   </span>
