@@ -26,4 +26,7 @@
     <test-case case-name="workeffort-tests">
         <jupiter-test-suite class-name="org.apache.ofbiz.workeffort.workeffort.test.WorkEffortTests"/>
     </test-case>
+    <test-case case-name="timesheet-role-tests">
+        <jupiter-test-suite class-name="org.apache.ofbiz.workeffort.workeffort.test.TimesheetRoleTests"/>
+    </test-case>
 </test-suite>
