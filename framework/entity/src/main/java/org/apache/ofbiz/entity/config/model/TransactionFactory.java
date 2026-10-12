@@ -18,8 +18,10 @@
  *******************************************************************************/
 package org.apache.ofbiz.entity.config.model;
 
+import java.util.Map;
+
+import org.apache.ofbiz.base.config.AbstractConfigElement;
 import org.apache.ofbiz.base.lang.ThreadSafe;
-import org.apache.ofbiz.base.util.UtilXml;
 import org.apache.ofbiz.entity.GenericEntityConfException;
 import org.w3c.dom.Element;
 
@@ -29,45 +31,55 @@ import org.w3c.dom.Element;
  * @see <code>entity-config.xsd</code>
  */
 @ThreadSafe
-public final class TransactionFactory {
+public final class TransactionFactory extends AbstractConfigElement {
 
-    private final String className; // type = xs:string
-    private final UserTransactionJndi userTransactionJndi; // <user-transaction-jndi>
-    private final TransactionManagerJndi transactionManagerJndi; // <transaction-manager-jndi>
+    private final EntityConfigGetter config = EntityConfigGetter.getInstance();
+    public static final String ELEMENT_NAME = "transaction-factory";
+    private final String xPath;
 
-    TransactionFactory(Element element) throws GenericEntityConfException {
+    private final String className;
+    private final UserTransactionJndi userTransactionJndi;
+    private final TransactionManagerJndi transactionManagerJndi;
+
+    TransactionFactory(Element element, String xPathParent) throws GenericEntityConfException {
         String lineNumberText = EntityConfig.createConfigFileLineNumberText(element);
-        String className = element.getAttribute("class").intern();
+        xPath = xPathParent.concat("/transaction-factory");
+        String className = config.getValue(xPath + "/@class");
         if (className.isEmpty()) {
             throw new GenericEntityConfException("<transaction-factory> element class attribute is empty" + lineNumberText);
         }
         this.className = className;
-        Element userTransactionJndiElement = UtilXml.firstChildElement(element, "user-transaction-jndi");
-        if (userTransactionJndiElement == null) {
-            this.userTransactionJndi = null;
-        } else {
-            this.userTransactionJndi = new UserTransactionJndi(userTransactionJndiElement);
-        }
-        Element transactionManagerJndiElement = UtilXml.firstChildElement(element, "transaction-manager-jndi");
-        if (transactionManagerJndiElement == null) {
-            this.transactionManagerJndi = null;
-        } else {
-            this.transactionManagerJndi = new TransactionManagerJndi(transactionManagerJndiElement);
-        }
+        this.userTransactionJndi = config.getObjectSubElement(xPath.concat("/user-transaction-jndi"),
+                element, UserTransactionJndi.class);
+        this.transactionManagerJndi = config.getObjectSubElement(xPath.concat("/transaction-manager-jndi"),
+                element, TransactionManagerJndi.class);
     }
 
-    /** Returns the value of the <code>class</code> attribute. */
+    public static TransactionFactory loadFromXml(Element element, String xPathParent)
+            throws GenericEntityConfException {
+        return new TransactionFactory(element, xPathParent);
+    }
+
+    public static TransactionFactory loadFromConfig(Map<String, Object> configMap, String xPath)
+            throws GenericEntityConfException {
+        return null;
+    }
+
     public String getClassName() {
-        return this.className;
+        return className;
     }
 
-    /** Returns the <code>&lt;user-transaction-jndi&gt;</code> child element, or <code>null</code> if no child element was found. */
     public UserTransactionJndi getUserTransactionJndi() {
-        return this.userTransactionJndi;
+        return userTransactionJndi;
     }
 
-    /** Returns the <code>&lt;transaction-manager-jndi&gt;</code> child element, or <code>null</code> if no child element was found. */
     public TransactionManagerJndi getTransactionManagerJndi() {
-        return this.transactionManagerJndi;
+        return transactionManagerJndi;
+    }
+
+
+    @Override
+    public String getName() {
+        return "transaction-factory";
     }
 }

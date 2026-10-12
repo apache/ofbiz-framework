@@ -18,35 +18,54 @@
  *******************************************************************************/
 package org.apache.ofbiz.entity.config.model;
 
-import org.apache.ofbiz.entity.GenericEntityConfException;
+import org.apache.ofbiz.base.config.AbstractConfigElement;
 import org.w3c.dom.Element;
+
+import java.util.Map;
 
 /**
  * An abstract class for <code>&lt;datasource&gt;</code> JDBC child elements.
  *
  * @see <code>entity-config.xsd</code>
  */
-public abstract class JdbcElement {
+public abstract class JdbcElement extends AbstractConfigElement {
+
+    private final EntityConfigGetter config = EntityConfigGetter.getInstance();
+    private final String xPath;
 
     private final String isolationLevel;
     private final String lineNumber;
 
-    protected JdbcElement(Element element) throws GenericEntityConfException {
-        this.isolationLevel = element.getAttribute("isolation-level").intern();
+
+    protected JdbcElement(Element element, String xPathParent) {
+        xPath = xPathParent;
+        isolationLevel = config.getValue(xPath + "/@isolation-level");
         Object lineNumber = element.getUserData("startLine");
         this.lineNumber = lineNumber == null ? "unknown" : lineNumber.toString();
     }
 
+    protected JdbcElement(Map<String, Object> configObject, String xPath) {
+        this.xPath = xPath;
+        isolationLevel = config.getValue(configObject, "/@isolation-level");
+        lineNumber = "unknown";
+    }
+
     /** Returns the value of the <code>isolation-level</code> attribute. */
     public String getIsolationLevel() {
-        return this.isolationLevel;
+        return isolationLevel;
     }
 
     /**
-     * Returns the configuration file line number for this element.
      * @return The configuration file line number for this element
      */
     public String getLineNumber() {
-        return this.lineNumber;
+        return lineNumber;
+    }
+
+    /**
+     * @return The current xpath of this element
+     */
+    public String getXPath() {
+        return xPath;
     }
 }
