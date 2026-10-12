@@ -228,12 +228,15 @@ public class FinAccountProductServices {
         roleCtx.put("partyId", partyId);
         roleCtx.put("roleTypeId", "OWNER");
         roleCtx.put("finAccountId", finAccountId);
-        roleCtx.put("userLogin", userLogin);
-        roleCtx.put("fromDate", UtilDateTime.nowTimestamp());
+        // createFinAccountRole requires accounting permission; run as the "system" user since this is a trusted
+        // side effect of an already-validated financial-account purchase fulfillment
         Map<String, Object> roleResp;
         try {
+            GenericValue rolePermUserLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "system").cache().queryOne();
+            roleCtx.put("userLogin", rolePermUserLogin);
+            roleCtx.put("fromDate", UtilDateTime.nowTimestamp());
             roleResp = dispatcher.runSync("createFinAccountRole", roleCtx);
-        } catch (GenericServiceException e) {
+        } catch (GenericEntityException | GenericServiceException e) {
             Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
