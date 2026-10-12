@@ -25,18 +25,20 @@ under the License.
     <version>1.0</version>
 
     <!-- Financial Account -->
-    <service name="createFinAccount" engine="simple" default-entity-name="FinAccount"
+    <service name="createFinAccount" engine="simple" default-entity-name="FinAccount" auth="true"
             location="component://accounting/minilang/finaccount/FinAccountServices.xml" invoke="createFinAccount">
         <description>Create a new Financial Account.  If no finAccountId is provided, an auto-sequenced one will be used.</description>
+        <permission-service service-name="acctgFinAcctPermissionCheck" main-action="CREATE"/>
         <auto-attributes mode="INOUT" optional="true" include="pk"/>
         <auto-attributes mode="IN" optional="true" include="nonpk">
             <exclude field-name="actualBalance"/>
             <exclude field-name="availableBalance"/>
         </auto-attributes>
     </service>
-    <service name="updateFinAccount" engine="simple" default-entity-name="FinAccount"
+    <service name="updateFinAccount" engine="simple" default-entity-name="FinAccount" auth="true"
             location="component://accounting/minilang/finaccount/FinAccountServices.xml" invoke="updateFinAccount">
         <description>Update a Financial Account</description>
+        <permission-service service-name="acctgFinAcctPermissionCheck" main-action="UPDATE"/>
         <auto-attributes mode="INOUT" optional="false" include="pk"/>
         <auto-attributes mode="IN" optional="true" include="nonpk">
             <exclude field-name="actualBalance"/>
@@ -48,8 +50,9 @@ under the License.
         <attribute name="replenishPaymentId" type="String" mode="OUT" optional="true"/>
         <attribute name="replenishLevel" type="BigDecimal" mode="OUT" optional="true"/>
     </service>
-    <service name="deleteFinAccount" default-entity-name="FinAccount" engine="entity-auto" invoke="expire">
+    <service name="deleteFinAccount" default-entity-name="FinAccount" engine="entity-auto" invoke="expire" auth="true">
         <description>Delete a Financial Account</description>
+        <permission-service service-name="acctgFinAcctPermissionCheck" main-action="DELETE"/>
         <auto-attributes mode="IN" optional="false" include="pk"/>
     </service>
     <service name="updateFinAccountBalancesFromTrans" engine="simple"
@@ -72,9 +75,10 @@ under the License.
     </service>
 
     <!-- Financial Account Transaction -->
-    <service name="createFinAccountTrans" engine="simple" default-entity-name="FinAccountTrans"
+    <service name="createFinAccountTrans" engine="simple" default-entity-name="FinAccountTrans" auth="true"
             location="component://accounting/minilang/finaccount/FinAccountServices.xml" invoke="createFinAccountTrans">
         <description>Create a new Financial Account Transaction.  Will use current timestamp for entryDate and trasanctionDate if none is provided.</description>
+        <permission-service service-name="acctgFinAcctPermissionCheck" main-action="CREATE"/>
         <auto-attributes mode="OUT" optional="false" include="pk"/>
         <auto-attributes mode="IN" optional="true" include="nonpk">
             <exclude field-name="performedByPartyId"/>
@@ -88,9 +92,10 @@ under the License.
         <attribute name="glAccountId" type="String" mode="IN" optional="false"/>
     </service>
 
-    <service name="createFinAccountRole" engine="simple" default-entity-name="FinAccountRole"
+    <service name="createFinAccountRole" engine="simple" default-entity-name="FinAccountRole" auth="true"
             location="component://accounting/minilang/finaccount/FinAccountServices.xml" invoke="createFinAccountRole">
         <description>Create a new Financial Account Role</description>
+        <permission-service service-name="acctgFinAcctPermissionCheck" main-action="CREATE"/>
         <auto-attributes mode="IN" optional="false" include="pk"/>
         <auto-attributes mode="IN" optional="true" include="nonpk"/>
         <override name="fromDate" optional="true"/>
@@ -105,9 +110,10 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
-    <service name="createFinAccountAuth" engine="simple" default-entity-name="FinAccountAuth"
+    <service name="createFinAccountAuth" engine="simple" default-entity-name="FinAccountAuth" auth="true"
             location="component://accounting/minilang/finaccount/FinAccountServices.xml" invoke="createFinAccountAuth">
         <description>Lower level service for creating authorization against a fin account.  Will use current time for authorizationDate and thruDate if not supplied.</description>
+        <permission-service service-name="acctgFinAcctPermissionCheck" main-action="CREATE"/>
         <auto-attributes mode="OUT" optional="false" include="pk"/>
         <auto-attributes mode="IN" optional="true" include="nonpk"/>
     </service>
@@ -119,9 +125,10 @@ under the License.
         <attribute name="expireDateTime" type="Timestamp" mode="IN" optional="true"/>
     </service>
 
-    <service name="setFinAccountTransStatus" engine="simple"
+    <service name="setFinAccountTransStatus" engine="simple" auth="true"
         location="component://accounting/minilang/finaccount/FinAccountServices.xml" invoke="setFinAccountTransStatus">
         <description>Set financial account transaction status</description>
+        <permission-service service-name="acctgFinAcctPermissionCheck" main-action="UPDATE"/>
         <attribute name="finAccountTransId" type="String" mode="IN" optional="true"/>
         <attribute name="statusId" type="String" mode="IN" optional="true"/>
         <attribute name="oldStatusId" type="String" mode="OUT" optional="true"/>
@@ -447,9 +454,10 @@ under the License.
         <implements service="itemFulfillmentInterface"/>
     </service>
 
-    <service name="depositWithdrawPayments" engine="simple"
+    <service name="depositWithdrawPayments" engine="simple" auth="true"
             location="component://accounting/minilang/finaccount/FinAccountServices.xml" invoke="depositWithdrawPayments">
         <description>Deposit withdraw payments</description>
+        <permission-service service-name="acctgFinAcctPermissionCheck" main-action="CREATE"/>
         <attribute name="paymentIds" type="List" mode="IN" optional="false"/>
         <attribute name="finAccountId" type="String" mode="IN" optional="false"/>
         <attribute name="groupInOneTransaction" type="String" mode="IN" optional="true"/>

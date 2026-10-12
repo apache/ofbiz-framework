@@ -867,9 +867,13 @@ public class OrderReturnServices {
 
                             Map<String, Object> finAccountRoleResult = null;
                             try {
+                                // createFinAccountRole requires accounting permission; run as the "system" user since this is a
+                                // trusted side effect of an already-validated return/store-credit operation
+                                GenericValue finAccountRolePermUserLogin = EntityQuery.use(delegator).from("UserLogin")
+                                        .where("userLoginId", "system").cache().queryOne();
                                 finAccountRoleResult = dispatcher.runSync("createFinAccountRole", UtilMisc.toMap("finAccountId",
-                                        finAccountId, "partyId", fromPartyId, "roleTypeId", "OWNER", "userLogin", userLogin));
-                            } catch (GenericServiceException e) {
+                                        finAccountId, "partyId", fromPartyId, "roleTypeId", "OWNER", "userLogin", finAccountRolePermUserLogin));
+                            } catch (GenericEntityException | GenericServiceException e) {
                                 Debug.logError(e, "Problem running the createFinAccountRole service", MODULE);
                                 return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                                         "OrderProblemCreatingFinAccountRoleRecord", locale));
@@ -907,10 +911,14 @@ public class OrderReturnServices {
             if (finAccountId != null) {
                 Map<String, Object> finAccountTransResult = null;
                 try {
+                    // createFinAccountTrans requires accounting permission; run as the "system" user since this is a
+                    // trusted side effect of an already-validated return/store-credit operation
+                    GenericValue finAccountTransPermUserLogin = EntityQuery.use(delegator).from("UserLogin")
+                            .where("userLoginId", "system").cache().queryOne();
                     finAccountTransResult = dispatcher.runSync("createFinAccountTrans", UtilMisc.toMap("finAccountId", finAccountId,
                             "finAccountTransTypeId", "DEPOSIT", "partyId", toPartyId, "amount", creditTotal, "reasonEnumId", "FATR_REFUND",
-                            "userLogin", userLogin));
-                } catch (GenericServiceException e) {
+                            "userLogin", finAccountTransPermUserLogin));
+                } catch (GenericEntityException | GenericServiceException e) {
                     Debug.logError(e, "Problem creating FinAccountTrans record", MODULE);
                     return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                             "OrderProblemCreatingFinAccountTransRecord", locale));
