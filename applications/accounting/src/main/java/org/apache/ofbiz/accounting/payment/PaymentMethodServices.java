@@ -54,6 +54,25 @@ public class PaymentMethodServices {
     private static final String RES_ERROR = "AccountingUiLabels";
 
     /**
+     * A create service may be called with a caller-supplied paymentMethodId instead of letting one be
+     * auto-sequenced. If that id already belongs to a PaymentMethod owned by a different party, creating under
+     * that id would overwrite the existing owner's record, so this is rejected rather than allowed through.
+     * @return an error Map if paymentMethodId already belongs to a different party, otherwise null
+     */
+    private static Map<String, Object> checkPaymentMethodOwnership(Delegator delegator, String paymentMethodId, String partyId, Locale locale) {
+        try {
+            GenericValue existingPm = EntityQuery.use(delegator).from("PaymentMethod").where("paymentMethodId", paymentMethodId).queryOne();
+            if (existingPm != null && !partyId.equals(existingPm.getString("partyId"))) {
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingPaymentMethodIdBelongsToAnotherParty", locale));
+            }
+        } catch (GenericEntityException e) {
+            Debug.logWarning(e.getMessage(), MODULE);
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingPaymentMethodIdBelongsToAnotherParty", locale));
+        }
+        return null;
+    }
+
+    /**
      * Deletes a PaymentMethod entity according to the parameters passed in the context
      * <b>security check</b>: userLogin partyId must equal paymentMethod partyId, or must have PAY_INFO_DELETE permission
      * @param ctx The DispatchContext that this service is operating in
@@ -184,6 +203,11 @@ public class PaymentMethodServices {
             } catch (IllegalArgumentException e) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                         "AccountingCreditCardCreateIdGenerationFailure", locale));
+            }
+        } else {
+            Map<String, Object> ownershipError = checkPaymentMethodOwnership(delegator, newPmId, partyId, locale);
+            if (ownershipError != null) {
+                return ownershipError;
             }
         }
 
@@ -523,6 +547,11 @@ public class PaymentMethodServices {
                 return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                         "AccountingGiftCardCannotBeCreated", locale));
             }
+        } else {
+            Map<String, Object> ownershipError = checkPaymentMethodOwnership(delegator, newPmId, partyId, locale);
+            if (ownershipError != null) {
+                return ownershipError;
+            }
         }
 
         newPm.set("partyId", partyId);
@@ -718,6 +747,11 @@ public class PaymentMethodServices {
             } catch (IllegalArgumentException e) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                         "AccountingEftAccountCannotBeCreated", locale));
+            }
+        } else {
+            Map<String, Object> ownershipError = checkPaymentMethodOwnership(delegator, newPmId, partyId, locale);
+            if (ownershipError != null) {
+                return ownershipError;
             }
         }
 
@@ -956,6 +990,11 @@ public class PaymentMethodServices {
                 newPmId = delegator.getNextSeqId("PaymentMethod");
             } catch (IllegalArgumentException e) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "AccountingCheckNotAdded", locale));
+            }
+        } else {
+            Map<String, Object> ownershipError = checkPaymentMethodOwnership(delegator, newPmId, partyId, locale);
+            if (ownershipError != null) {
+                return ownershipError;
             }
         }
 
