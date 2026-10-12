@@ -121,7 +121,11 @@ public class FinAccountServices {
                 createAccountContext.put("finAccountTypeId", finAccountTypeId);
                 createAccountContext.put("finAccountName", accountName);
                 createAccountContext.put("ownerPartyId", partyId);
-                createAccountContext.put("userLogin", userLogin);
+                // createFinAccount requires accounting permission; run as the "system" user since this is a trusted
+                // side effect of an already-validated service-credit/financial-account operation
+                GenericValue createAccountPermUserLogin = EntityQuery.use(delegator).from("UserLogin")
+                        .where("userLoginId", "system").cache().queryOne();
+                createAccountContext.put("userLogin", createAccountPermUserLogin);
 
                 Map<String, Object> createAccountResult = dispatcher.runSync(createAccountServiceName, createAccountContext);
                 if (ServiceUtil.isError(createAccountResult) || ServiceUtil.isFailure(createAccountResult)) {
@@ -139,7 +143,11 @@ public class FinAccountServices {
                         roleCtx.put("partyId", partyId);
                         roleCtx.put("roleTypeId", "OWNER");
                         roleCtx.put("finAccountId", creditAccountId);
-                        roleCtx.put("userLogin", userLogin);
+                        // createFinAccountRole requires accounting permission; run as the "system" user since this is
+                        // a trusted side effect of an already-validated service-credit/financial-account operation
+                        GenericValue rolePermUserLogin = EntityQuery.use(delegator).from("UserLogin")
+                                .where("userLoginId", "system").cache().queryOne();
+                        roleCtx.put("userLogin", rolePermUserLogin);
                         roleCtx.put("fromDate", UtilDateTime.nowTimestamp());
                         Map<String, Object> roleResp;
                         try {
@@ -167,7 +175,12 @@ public class FinAccountServices {
             transactionMap.put("amount", context.get("amount"));
             transactionMap.put("reasonEnumId", context.get("reasonEnumId"));
             transactionMap.put("comments", context.get("comments"));
-            transactionMap.put("userLogin", userLogin);
+            // createFinAccountTrans requires accounting permission; run as the "system" user since this transaction
+            // is a trusted side effect of an already-validated service-credit/financial-account operation (the
+            // partyId above still records the real party the transaction is with)
+            GenericValue transPermUserLogin = EntityQuery.use(delegator).from("UserLogin")
+                    .where("userLoginId", "system").cache().queryOne();
+            transactionMap.put("userLogin", transPermUserLogin);
 
             Map<String, Object> creditTransResult = dispatcher.runSync("createFinAccountTrans", transactionMap);
             if (ServiceUtil.isError(creditTransResult) || ServiceUtil.isFailure(creditTransResult)) {
