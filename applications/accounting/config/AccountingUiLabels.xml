@@ -11980,6 +11980,9 @@
         <value xml:lang="zh">会计支付方法标识........</value>
         <value xml:lang="zh-TW">會計支付方法識別........</value>
     </property>
+    <property key="AccountingPaymentMethodIdBelongsToAnotherParty">
+        <value xml:lang="en">Payment Method ID is already in use.</value>
+    </property>
     <property key="AccountingPaymentMethodIdMissing">
         <value xml:lang="ar">دليل طريقة الدفع مفقود</value>
         <value xml:lang="de">Zahlungsmethode fehlt</value>
