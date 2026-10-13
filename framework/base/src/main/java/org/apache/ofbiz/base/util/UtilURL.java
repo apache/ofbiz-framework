@@ -220,14 +220,33 @@ public final class UtilURL {
             }
         }
 
+        checkHostResourceAllowed(host);
+    }
+
+    /**
+     * Throws {@link GeneralException} unless {@code host} resolves only to publicly routable
+     * addresses (not loopback, link-local, private, or otherwise reserved). Unlike
+     * {@link #checkUrlResourceAllowed(URL)}, this takes a bare hostname rather than an http/https
+     * URL, so it is usable by callers that connect over another protocol (e.g. FTP) but still need
+     * to validate a server-stored or otherwise untrusted connection target before dereferencing it,
+     * to avoid server-side request forgery against the local file system, loopback services, and
+     * the internal network.
+     *
+     * @throws GeneralException if the host is empty, cannot be resolved, or resolves to a
+     *      disallowed address
+     */
+    public static void checkHostResourceAllowed(String host) throws GeneralException {
+        if (UtilValidate.isEmpty(host)) {
+            throw new GeneralException("Host is empty");
+        }
         InetAddress[] addresses;
         try {
             addresses = InetAddress.getAllByName(host);
         } catch (UnknownHostException e) {
-            throw new GeneralException("URL host cannot be resolved: " + host);
+            throw new GeneralException("Host cannot be resolved: " + host);
         }
         if (addresses.length == 0) {
-            throw new GeneralException("URL host resolved to no addresses: " + host);
+            throw new GeneralException("Host resolved to no addresses: " + host);
         }
         for (InetAddress addr : addresses) {
             checkNotPrivateOrReservedAddress(addr);
@@ -240,19 +259,19 @@ public final class UtilURL {
      */
     private static void checkNotPrivateOrReservedAddress(InetAddress addr) throws GeneralException {
         if (addr.isLoopbackAddress()) {
-            throw new GeneralException("URL target resolves to a loopback address: " + addr.getHostAddress());
+            throw new GeneralException("Target resolves to a loopback address: " + addr.getHostAddress());
         }
         if (addr.isLinkLocalAddress()) {
-            throw new GeneralException("URL target resolves to a link-local address: " + addr.getHostAddress());
+            throw new GeneralException("Target resolves to a link-local address: " + addr.getHostAddress());
         }
         if (addr.isSiteLocalAddress()) {
-            throw new GeneralException("URL target resolves to a private (site-local) address: " + addr.getHostAddress());
+            throw new GeneralException("Target resolves to a private (site-local) address: " + addr.getHostAddress());
         }
         if (addr.isAnyLocalAddress()) {
-            throw new GeneralException("URL target resolves to a wildcard address: " + addr.getHostAddress());
+            throw new GeneralException("Target resolves to a wildcard address: " + addr.getHostAddress());
         }
         if (addr.isMulticastAddress()) {
-            throw new GeneralException("URL target resolves to a multicast address: " + addr.getHostAddress());
+            throw new GeneralException("Target resolves to a multicast address: " + addr.getHostAddress());
         }
         byte[] b = addr.getAddress();
         if (addr instanceof Inet4Address) {
@@ -260,28 +279,28 @@ public final class UtilURL {
             int i1 = b[1] & 0xFF;
             // 0.0.0.0/8 - "this" network (RFC 1122)
             if (i0 == 0) {
-                throw new GeneralException("URL target resolves to a reserved network address (0.0.0.0/8): " + addr.getHostAddress());
+                throw new GeneralException("Target resolves to a reserved network address (0.0.0.0/8): " + addr.getHostAddress());
             }
             // 100.64.0.0/10 - shared address space / CGNAT (RFC 6598)
             if (i0 == 100 && i1 >= 64 && i1 <= 127) {
-                throw new GeneralException("URL target resolves to a shared address space (CGNAT, 100.64.0.0/10): " + addr.getHostAddress());
+                throw new GeneralException("Target resolves to a shared address space (CGNAT, 100.64.0.0/10): " + addr.getHostAddress());
             }
             // 192.0.0.0/24 - IETF protocol assignments (RFC 6890)
             if (i0 == 192 && i1 == 0 && (b[2] & 0xFF) == 0) {
-                throw new GeneralException("URL target resolves to an IETF reserved address (192.0.0.0/24): " + addr.getHostAddress());
+                throw new GeneralException("Target resolves to an IETF reserved address (192.0.0.0/24): " + addr.getHostAddress());
             }
             // 198.18.0.0/15 - network benchmarking (RFC 2544)
             if (i0 == 198 && (i1 == 18 || i1 == 19)) {
-                throw new GeneralException("URL target resolves to a benchmarking address (198.18.0.0/15): " + addr.getHostAddress());
+                throw new GeneralException("Target resolves to a benchmarking address (198.18.0.0/15): " + addr.getHostAddress());
             }
             // 240.0.0.0/4 - reserved for future use (RFC 1112)
             if ((i0 & 0xF0) == 240) {
-                throw new GeneralException("URL target resolves to a reserved address (240.0.0.0/4): " + addr.getHostAddress());
+                throw new GeneralException("Target resolves to a reserved address (240.0.0.0/4): " + addr.getHostAddress());
             }
         } else if (addr instanceof Inet6Address) {
             // fc00::/7 - Unique Local Addresses (ULA), private IPv6 (RFC 4193)
             if ((b[0] & 0xFE) == 0xFC) {
-                throw new GeneralException("URL target resolves to a unique-local (private) IPv6 address: " + addr.getHostAddress());
+                throw new GeneralException("Target resolves to a unique-local (private) IPv6 address: " + addr.getHostAddress());
             }
             // ::ffff:0:0/96 - IPv4-mapped IPv6; re-validate the embedded IPv4 address
             boolean isIpv4Mapped = true;
@@ -296,7 +315,7 @@ public final class UtilURL {
                     checkNotPrivateOrReservedAddress(
                             InetAddress.getByAddress(new byte[]{b[12], b[13], b[14], b[15]}));
                 } catch (UnknownHostException e) {
-                    throw new GeneralException("URL target contains an invalid IPv4-mapped IPv6 address");
+                    throw new GeneralException("Target contains an invalid IPv4-mapped IPv6 address");
                 }
             }
         }
