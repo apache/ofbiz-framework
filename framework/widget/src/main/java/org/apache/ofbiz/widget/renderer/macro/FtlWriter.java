@@ -47,6 +47,19 @@ import java.util.WeakHashMap;
 public final class FtlWriter {
     private static final String MODULE = FtlWriter.class.getName();
 
+    private static final String MACRO_NAME_VARIABLE = "$macro$";
+    private static final String MACRO_ARGS_VARIABLE = "$args$";
+
+    /**
+     * The only template text that is compiled to call a macro. The name of the macro and its arguments are not part of
+     * the text: they are set as variables of the environment, so they are data and are never parsed as template code.
+     * The macro is only called if the variable named by the macro name holds a macro.
+     */
+    private static final String MACRO_CALL_TEMPLATE =
+            "<#if !(.vars[" + MACRO_NAME_VARIABLE + "]!false)?is_directive>"
+            + "<#stop \"Not a macro: \" + " + MACRO_NAME_VARIABLE + "></#if>"
+            + "<@.vars[" + MACRO_NAME_VARIABLE + "]?with_args(" + MACRO_ARGS_VARIABLE + ") />";
+
     private final DefaultObjectWrapper defaultObjectWrapper = new DefaultObjectWrapperBuilder(FreeMarkerWorker.VERSION).build();
     private final WeakHashMap<Appendable, Environment> environments = new WeakHashMap<>();
     private final Template macroLibrary;
@@ -77,9 +90,7 @@ public final class FtlWriter {
     public void processFtlString(Appendable writer, Locale locale, String ftlString) {
         try {
             final Environment environment = getEnvironment(writer, locale);
-            environment.setVariable("visualTheme", FreeMarkerWorker.autoWrap(visualTheme, environment));
-            environment.setVariable("modelTheme",
-                    FreeMarkerWorker.autoWrap(visualTheme.getModelTheme(), environment));
+            setThemeVariables(environment);
             Reader templateReader = new StringReader(ftlString);
             Template template = new Template(UUID.randomUUID().toString(), templateReader,
                     FreeMarkerWorker.getDefaultOfbizConfig());
@@ -88,6 +99,33 @@ public final class FtlWriter {
         } catch (TemplateException | IOException e) {
             Debug.logError(e, "Error rendering ftl, ftlString: " + ftlString, MODULE);
         }
+    }
+
+    /**
+     * Call a macro of the macro library and write the result to the Appendable. The name of the macro and the
+     * parameters are passed to FreeMarker as data, never as template text.
+     *
+     * @param writer     The Appendable to write the result of the macro to.
+     * @param locale     The locale to render with, or null for the default locale.
+     * @param macroName  The name of the macro to call.
+     * @param parameters The parameters of the macro, by name.
+     */
+    public void processMacroCall(final Appendable writer, final Locale locale, final String macroName,
+                                 final Map<String, Object> parameters) {
+        try {
+            final Environment environment = getEnvironment(writer, locale);
+            setThemeVariables(environment);
+            environment.setVariable(MACRO_NAME_VARIABLE, defaultObjectWrapper.wrap(macroName));
+            environment.setVariable(MACRO_ARGS_VARIABLE, defaultObjectWrapper.wrap(parameters));
+            environment.include(MacroCallTemplateHolder.TEMPLATE);
+        } catch (TemplateException | IOException e) {
+            Debug.logError(e, "Error rendering ftl macro: " + macroName, MODULE);
+        }
+    }
+
+    private void setThemeVariables(final Environment environment) throws TemplateException {
+        environment.setVariable("visualTheme", FreeMarkerWorker.autoWrap(visualTheme, environment));
+        environment.setVariable("modelTheme", FreeMarkerWorker.autoWrap(visualTheme.getModelTheme(), environment));
     }
 
     private Environment getEnvironment(Appendable writer, Locale locale) throws TemplateException, IOException {
@@ -103,6 +141,22 @@ public final class FtlWriter {
             environment.setLocale(Locale.getDefault());
         }
         return environment;
+    }
+
+    /**
+     * Holds the macro call template, which is compiled once, on first use, and shared by all the instances.
+     */
+    private static final class MacroCallTemplateHolder {
+        private static final Template TEMPLATE = compile();
+
+        private static Template compile() {
+            try {
+                return new Template("ftlWriterMacroCall", new StringReader(MACRO_CALL_TEMPLATE),
+                        FreeMarkerWorker.getDefaultOfbizConfig());
+            } catch (IOException e) {
+                throw new IllegalStateException("Cannot compile the macro call template", e);
+            }
+        }
     }
 
     /**
@@ -123,18 +177,7 @@ public final class FtlWriter {
 
         @Override
         public void visit(RenderableFtlMacroCall renderableFtlMacroCall, Locale locale) {
-            final String name = renderableFtlMacroCall.getName();
-
-            try {
-                final Environment environment = getEnvironment(writer, locale);
-
-                environment.setVariable("$args$" + name,
-                        defaultObjectWrapper.wrap(renderableFtlMacroCall.getParameters()));
-
-                processFtlString(writer, locale, String.format("<@%s?with_args($args$%s)/>", name, name));
-            } catch (TemplateException | IOException e) {
-                Debug.logError(e, "Error rendering ftl macro: " + name, MODULE);
-            }
+            processMacroCall(writer, locale, renderableFtlMacroCall.getName(), renderableFtlMacroCall.getParameters());
         }
 
         @Override
