@@ -218,6 +218,16 @@ Map createReturnItem() {
             logInfo('Return item is an Order Item - ' + orderItem.orderItemSeqId)
         }
     }
+    if (orderItem && !security.hasEntityPermission('ORDERMGR', '_CREATE', parameters.userLogin)) {
+        // the ReturnHeader was only authorized via fromPartyId == userLogin.partyId above;
+        // make sure that party actually has a role on the order the selected item belongs to
+        GenericValue orderRole = from('OrderRole')
+                .where(orderId: orderItem.orderId, partyId: returnHeader.fromPartyId)
+                .queryFirst()
+        if (!orderRole) {
+            return informError('OrderSecurityErrorToRunCreateReturnItem')
+        }
+    }
     /*
      * get the returnableQuantity and returnablePrice:
      * for orderItems, it's found by getReturnableQuantity;
