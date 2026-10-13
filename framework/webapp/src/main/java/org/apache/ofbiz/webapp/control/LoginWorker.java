@@ -34,6 +34,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.ServiceLoader;
+import java.util.Set;
 import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -103,6 +104,12 @@ public final class LoginWorker {
     private static final String SEC_PROPERTIES = "security.properties";
     private static final String KEY_VALUE = UtilProperties.getPropertyValue(SEC_PROPERTIES, "login.secret_key_string");
     private static final WebAppCache WEBAPPS = WebAppCache.getShared();
+
+    // Session attribute marking a session established from a password-reset token rather than a real login.
+    // Such a session must never be treated as equivalent to a full login: checkLogin() confines it to the
+    // small set of requests needed to complete the reset.
+    private static final String PASSWORD_RESET_ONLY_SESSION_ATTR = "_PASSWORD_RESET_ONLY_";
+    private static final Set<String> PASSWORD_RESET_ONLY_ALLOWED_REQUESTS = UtilMisc.toSet("passwordChange", "updatePassword", "logout");
 
     protected LoginWorker() { }
 
@@ -372,6 +379,14 @@ public final class LoginWorker {
             }
         }
 
+        // a session established from a password-reset token must never be treated as equivalent to a full
+        // login: confine it to the small set of requests needed to complete the reset
+        if ("Y".equals(session.getAttribute(PASSWORD_RESET_ONLY_SESSION_ATTR))
+                && !PASSWORD_RESET_ONLY_ALLOWED_REQUESTS.contains(RequestHandler.getRequestUri(request.getPathInfo()))) {
+            response.setStatus(HttpStatus.SC_UNAUTHORIZED);
+            return "error";
+        }
+
         //Allow loggingOut when impersonated
         boolean isLoggingOut = "logout".equals(RequestHandler.getRequestUri(request.getPathInfo()));
         //Check if the user has an impersonation in process
@@ -542,7 +557,13 @@ public final class LoginWorker {
 
         if (ModelService.RESPOND_SUCCESS.equals(result.get(ModelService.RESPONSE_MESSAGE))) {
             GenericValue userLogin = (GenericValue) result.get("userLogin");
-            if (userLogin != null && "Y".equals(userLogin.getString("requirePasswordChange"))
+            // a session established with a password-reset token must be confined to completing that reset;
+            // see the allow-list enforced in checkLogin()
+            boolean passwordResetOnly = "Y".equals(result.get("passwordResetOnly"));
+            if (passwordResetOnly) {
+                session.setAttribute(PASSWORD_RESET_ONLY_SESSION_ATTR, "Y");
+            }
+            if ((passwordResetOnly || (userLogin != null && "Y".equals(userLogin.getString("requirePasswordChange"))))
                     && UtilValidate.isNotEmpty(request.getParameter("newPassword"))
                     && UtilValidate.isNotEmpty(request.getParameter("newPasswordVerify"))) {
                 Map<String, Object> inMap = UtilMisc.<String, Object>toMap(
@@ -585,6 +606,10 @@ public final class LoginWorker {
                         request.setAttribute("_ERROR_MESSAGE_", errMsg);
                         return "error";
                     }
+                    if (passwordResetOnly) {
+                        // the reset is now complete; let the normal login flow proceed with a full session
+                        session.removeAttribute(PASSWORD_RESET_ONLY_SESSION_ATTR);
+                    }
                 }
             }
             if (setupNewDelegatorEtc) {
@@ -594,6 +619,12 @@ public final class LoginWorker {
 
             // check to see if a password change is required for the user
             Map<String, Object> userLoginSession = checkMap(result.get("userLoginSession"), String.class, Object.class);
+            if ("Y".equals(session.getAttribute(PASSWORD_RESET_ONLY_SESSION_ATTR))) {
+                // establish only the minimal session identity needed to complete the reset; skip the
+                // remember-me cookies and after-login events a full login would otherwise trigger
+                doBasicLogin(userLogin, request, response);
+                return "requirePasswordChange";
+            }
             if (userLogin != null && "Y".equals(userLogin.getString("requirePasswordChange"))) {
                 return "requirePasswordChange";
             }
