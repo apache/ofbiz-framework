@@ -48,6 +48,12 @@ import org.apache.ofbiz.webapp.control.JWTManager;
 public final class SecurityUtil {
 
     private static final String MODULE = SecurityUtil.class.getName();
+
+    /** JWT purpose claim value for a token that authorizes a full login session. */
+    public static final String JWT_PURPOSE_LOGIN = "login";
+    /** JWT purpose claim value for a token that only authorizes resetting a forgotten password. */
+    public static final String JWT_PURPOSE_PASSWORD_RESET = "password_reset";
+
     private static final List<String> ADMIN_PERMISSIONS = UtilMisc.toList(
             "IMPERSONATE_ADMIN",
             "ARTIFACT_INFO_VIEW",
@@ -212,27 +218,48 @@ public final class SecurityUtil {
     }
 
     /**
-     * Return a JWToken for authenticate a userLogin with salt the token by userLoginId and currentPassword
+     * Return a JWToken for authenticate a userLogin with salt the token by userLoginId and currentPassword.
+     * The token is scoped to {@link #JWT_PURPOSE_LOGIN}, so it may be used to establish a full login session.
      */
     public static String generateJwtToAuthenticateUserLogin(Delegator delegator, String userLoginId)
             throws GenericEntityException {
+        return generateJwtToAuthenticateUserLogin(delegator, userLoginId, JWT_PURPOSE_LOGIN);
+    }
+
+    /**
+     * Return a JWToken for authenticate a userLogin with salt the token by userLoginId and currentPassword,
+     * scoped to the given purpose (e.g. {@link #JWT_PURPOSE_LOGIN} or {@link #JWT_PURPOSE_PASSWORD_RESET}) so
+     * it is only accepted where that purpose is expected.
+     */
+    public static String generateJwtToAuthenticateUserLogin(Delegator delegator, String userLoginId, String purpose)
+            throws GenericEntityException {
         GenericValue userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", userLoginId).queryOne();
-        Map<String, String> claims = UtilMisc.toMap("userLoginId", userLogin.getString("userLoginId"));
+        Map<String, String> claims = UtilMisc.toMap("userLoginId", userLogin.getString("userLoginId"), "purpose", purpose);
         return JWTManager.createJwt(delegator, claims,
                 userLogin.getString("userLoginId") + userLogin.getString("currentPassword"), -1);
     }
 
     /**
-     * For a jwtToken and userLoginId check the coherence between them
+     * For a jwtToken and userLoginId check the coherence between them, for a token scoped to {@link #JWT_PURPOSE_LOGIN}.
      */
     public static boolean authenticateUserLoginByJWT(Delegator delegator, String userLoginId, String jwtToken) {
+        return authenticateUserLoginByJWT(delegator, userLoginId, jwtToken, JWT_PURPOSE_LOGIN);
+    }
+
+    /**
+     * For a jwtToken and userLoginId check the coherence between them, and that the token was issued for the
+     * given purpose. A token issued for one purpose (e.g. resetting a forgotten password) must never be accepted
+     * for another (e.g. establishing a full login session).
+     */
+    public static boolean authenticateUserLoginByJWT(Delegator delegator, String userLoginId, String jwtToken, String purpose) {
         if (UtilValidate.isNotEmpty(jwtToken)) {
             try {
                 GenericValue userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", userLoginId).queryOne();
                 if (userLoginId != null) {
                     Map<String, Object> claims = JWTManager.validateToken(delegator, jwtToken,
                             userLogin.getString("userLoginId") + userLogin.getString("currentPassword"));
-                    return (!ServiceUtil.isError(claims)) && userLoginId.equals(claims.get("userLoginId"));
+                    return (!ServiceUtil.isError(claims)) && userLoginId.equals(claims.get("userLoginId"))
+                            && purpose.equals(claims.get("purpose"));
                 }
             } catch (GenericEntityException e) {
                 Debug.logWarning("failed to validate a jwToken for user " + userLoginId, MODULE);
