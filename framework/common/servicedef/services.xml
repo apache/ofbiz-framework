@@ -417,6 +417,10 @@ under the License.
         <description>Used to Automatically Authenticate a username/password; create a UserLogin object</description>
         <implements service="authenticationInterface"/>
         <attribute name="request" mode="IN" type="jakarta.servlet.http.HttpServletRequest" optional="true"/>
+        <attribute name="passwordResetOnly" type="String" mode="OUT" optional="true">
+            <description>Set to "Y" when login succeeded only via a password-reset-purpose JWT, meaning the
+                resulting session must be confined to completing that reset, never treated as a full login.</description>
+        </attribute>
     </service>
     <service name="userImpersonate" engine="java" location="org.apache.ofbiz.common.login.LoginServices" invoke="userImpersonate" auth="true">
         <description>Used to Automatically Authenticate a username/password; create a UserLogin object</description>
@@ -457,6 +461,10 @@ under the License.
         <attribute name="newPasswordVerify" type="String" mode="IN" optional="true"/>
         <attribute name="passwordHint" type="String" mode="IN" optional="true"/>
         <attribute name="requirePasswordChange" type="String" mode="IN" optional="true"/>
+        <attribute name="login.token" type="String" mode="IN" optional="true">
+            <description>A password-reset-purpose JWT authorizing this user to set a new password without
+                supplying their (forgotten) current password.</description>
+        </attribute>
         <attribute name="updatedUserLogin" type="org.apache.ofbiz.entity.GenericValue" mode="OUT" optional="false"/>
     </service>
     <service name="updateUserLoginSecurity" engine="java" default-entity-name="UserLogin"

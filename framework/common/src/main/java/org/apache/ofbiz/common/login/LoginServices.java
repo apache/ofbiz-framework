@@ -231,12 +231,17 @@ public class LoginServices {
 
                         // resolve the key for decrypt the token and control the validity
                         boolean jwtTokenValid = SecurityUtil.authenticateUserLoginByJWT(delegator, username, jwtToken);
+                        // a password-reset token must never grant a full login session; it is only accepted here,
+                        // flagged as such, so the caller can confine the resulting session to completing the reset
+                        boolean jwtPasswordResetTokenValid = !jwtTokenValid && jwtToken != null
+                                && SecurityUtil.authenticateUserLoginByJWT(delegator, username, jwtToken, SecurityUtil.JWT_PURPOSE_PASSWORD_RESET);
 
                         // if the password.accept.encrypted.and.plain property in security is set to true allow plain or encrypted passwords
                         // if this is a system account don't bother checking the passwords
                         // if externalAuth passed; this is run as well
                         if ((!authFatalError && externalAuth) || (useTomcatSSO && tomcatSSOLogin(request, username, password))
                                 || (jwtToken != null && jwtTokenValid)
+                                || jwtPasswordResetTokenValid
                                 || (password != null && checkPassword(userLogin.getString("currentPassword"), useEncryption, password))) {
                             Debug.logVerbose("[LoginServices.userLogin] : Password Matched or Token Validated", MODULE);
 
@@ -268,6 +273,9 @@ public class LoginServices {
 
                             result.put("userLogin", userLogin);
                             result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
+                            if (jwtPasswordResetTokenValid) {
+                                result.put("passwordResetOnly", "Y");
+                            }
                         } else {
                             // password is incorrect, but this may be the result of a stale cache entry,
                             // so lets clear the cache and try again if this is the first pass
@@ -818,7 +826,8 @@ public class LoginServices {
                 return ServiceUtil.returnError(errMsg);
             }
             if (UtilValidate.isNotEmpty(context.get("login.token"))) {
-                adminUser = SecurityUtil.authenticateUserLoginByJWT(delegator, userLoginId, (String) context.get("login.token"));
+                adminUser = SecurityUtil.authenticateUserLoginByJWT(delegator, userLoginId, (String) context.get("login.token"),
+                        SecurityUtil.JWT_PURPOSE_PASSWORD_RESET);
             }
         } else {
             adminUser = true;
