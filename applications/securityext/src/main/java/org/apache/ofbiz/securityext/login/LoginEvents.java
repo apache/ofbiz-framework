@@ -228,8 +228,9 @@ public class LoginEvents {
                     .map(email -> email.getString("infoString"))
                     .collect(Collectors.joining(","));
 
-            //Generate a JWT with default retention time
-            String jwtToken = SecurityUtil.generateJwtToAuthenticateUserLogin(delegator, userLoginId);
+            //Generate a JWT with default retention time, scoped to resetting the password only
+            String jwtToken = SecurityUtil.generateJwtToAuthenticateUserLogin(delegator, userLoginId,
+                    SecurityUtil.JWT_PURPOSE_PASSWORD_RESET);
 
             // get the ProductStore email settings
             GenericValue productStoreEmail = null;
