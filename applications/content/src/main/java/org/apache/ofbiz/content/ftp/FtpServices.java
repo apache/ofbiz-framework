@@ -23,6 +23,7 @@ import org.apache.ofbiz.base.util.FileUtil;
 import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilURL;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.content.data.DataResourceWorker;
 import org.apache.ofbiz.entity.Delegator;
@@ -124,6 +125,11 @@ public class FtpServices {
 
             String serverType = hostname.split("://")[0];
             hostname = hostname.split("://")[1];
+
+            // SSRF protection: reject loopback, link-local, private, and other reserved
+            // targets, matching the equivalent check already enforced on the URL_RESOURCE read
+            // path (UtilURL.checkUrlResourceAllowed).
+            UtilURL.checkHostResourceAllowed(hostname);
 
             ftpClient = createFtpClient(serverType);
             if (null == ftpClient) {
