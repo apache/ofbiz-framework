@@ -63,7 +63,7 @@ shiro-crypto-cipher = "2.2.1"
 sshd = "2.20.0"
 # Shared by tika-core, tika-parsers, tika-parser-pdf-module.
 tika = "3.3.2"
-cxf-rt-frontend-jaxrs = "4.2.3"
+cxf-rt-frontend-jaxrs = "4.2.4"
 # Remember to change the version number (10 now) in javadoc block if needed. Shared by
 # tomcat-catalina-ha, tomcat-jasper.
 tomcat = "10.1.60"
