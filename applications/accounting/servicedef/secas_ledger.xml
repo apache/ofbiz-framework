@@ -114,25 +114,25 @@ under the License.
     <!-- accounting transactions for Incoming Payment (AR) -->
     <eca service="createPayment" event="commit">
         <condition field-name="statusId" operator="equals" value="PMNT_RECEIVED"/>
-        <action service="createAcctgTransAndEntriesForIncomingPayment" mode="sync"/>
+        <action service="createAcctgTransAndEntriesForIncomingPayment" mode="sync" run-as-user="system"/>
     </eca>
     <eca service="setPaymentStatus" event="commit">
         <condition field-name="statusId" operator="equals" value="PMNT_RECEIVED"/>
         <condition field-name="oldStatusId" operator="not-equals" value="PMNT_RECEIVED"/>
         <condition field-name="oldStatusId" operator="not-equals" value="PMNT_CONFIRMED"/>
-        <action service="createAcctgTransAndEntriesForIncomingPayment" mode="sync"/>
+        <action service="createAcctgTransAndEntriesForIncomingPayment" mode="sync" run-as-user="system"/>
     </eca>
 
     <!-- accounting transactions for Outgoing Payment (AP) -->
     <eca service="createPayment" event="commit">
         <condition field-name="statusId" operator="equals" value="PMNT_SENT"/>
-        <action service="createAcctgTransAndEntriesForOutgoingPayment" mode="sync"/>
+        <action service="createAcctgTransAndEntriesForOutgoingPayment" mode="sync" run-as-user="system"/>
     </eca>
     <eca service="setPaymentStatus" event="commit">
         <condition field-name="statusId" operator="equals" value="PMNT_SENT"/>
         <condition field-name="oldStatusId" operator="not-equals" value="PMNT_SENT"/>
         <condition field-name="oldStatusId" operator="not-equals" value="PMNT_CONFIRMED"/>
-        <action service="createAcctgTransAndEntriesForOutgoingPayment" mode="sync"/>
+        <action service="createAcctgTransAndEntriesForOutgoingPayment" mode="sync" run-as-user="system"/>
     </eca>
 
     <eca service="createPaymentApplication" event="commit">

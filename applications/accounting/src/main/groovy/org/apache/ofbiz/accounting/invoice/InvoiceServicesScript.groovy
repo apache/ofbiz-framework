@@ -617,8 +617,11 @@ Map createInvoiceFromOrder() {
         }
         List orderItems = from('OrderItem').where(orderId: order.orderId).queryList()
         orderItems = orderItems.findAll { !orderItemBillingItemsSeqIds.contains(it.orderItemSeqId) }
+        // get the system userid and store in context, otherwise the invoice add service does not work
+        GenericValue systemUserLogin = from('UserLogin').where(userLoginId: 'system').cache().queryOne()
         Map serviceResult = run service: 'createInvoiceForOrder', with: [orderId:  order.orderId,
-                                                                         billItems: orderItems]
+                                                                         billItems: orderItems,
+                                                                         userLogin: systemUserLogin]
         return serviceResult
     }
     return success()
