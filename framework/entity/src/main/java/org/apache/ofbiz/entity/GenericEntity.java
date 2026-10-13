@@ -533,6 +533,9 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
                         + this.getDelegator().getEntityGroupName(this.getEntityName()) + "]");
             }
 
+            if (value instanceof String && ((String) value).isEmpty() && "indicator".equals(modelField.getType())) {
+                value = null;
+            }
             if (value instanceof Boolean) {
                 // if this is a Boolean check to see if we should convert from an indicator or just leave as is
                 try {
