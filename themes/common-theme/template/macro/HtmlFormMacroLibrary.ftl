@@ -999,9 +999,10 @@ Parameter: delegatorName, String, optional - name of the delegator in context.
     <#if confirmation?has_content> onclick="return confirm('${confirmation?js_string}')"</#if>>
       <#if imgSrc?has_content><img src="${imgSrc}" alt=""/></#if>${description}</a>
 </#macro>
-<#macro makeHyperlinkString hiddenFormName imgSrc imgTitle title alternate linkUrl description text="" linkStyle="" event="" action="" targetParameters="" targetWindow="" confirmation="" uniqueItemName="" height="" width="" id="">
+<#macro makeHyperlinkString hiddenFormName imgSrc imgTitle title alternate linkUrl description text="" linkStyle="" event="" action="" targetParameters="" targetWindow="" confirmation="" uniqueItemName="" height="" width="" id="" linkType="">
     <#if uniqueItemName?has_content>
         <a href="javascript:void(0);" id="${uniqueItemName}_link"
+           data-open-in="<#if linkType=='layered-drawer'>drawer<#else>${linkType}</#if>"
            data-dialog-params="${targetParameters?html}"
            data-dialog-width="${width}"
            data-dialog-height="${height}"
