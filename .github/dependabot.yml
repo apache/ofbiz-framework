@@ -82,12 +82,22 @@ updates:
     directory: /
     schedule:
       interval: daily
+    groups:
+      codeql-action:
+        patterns:
+          - "github/codeql-action/init"
+          - "github/codeql-action/analyze"
 
   - package-ecosystem: github-actions
     directory: /
     target-branch: "release24.09"
     schedule:
       interval: daily
+    groups:
+      codeql-action:
+        patterns:
+          - "github/codeql-action/init"
+          - "github/codeql-action/analyze"
 
   - package-ecosystem: docker
     directory: /
