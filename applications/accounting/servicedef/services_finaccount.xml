@@ -247,9 +247,10 @@ under the License.
         <attribute name="finAccountTransRunningTotal" type="String" mode="OUT" optional="true"/>
         <attribute name="endingBalance" type="String" mode="OUT" optional="true"/>
     </service>
-    <service name="reconcileFinAccountTrans" engine="simple"
+    <service name="reconcileFinAccountTrans" engine="simple" auth="true"
             location="component://accounting/minilang/finaccount/FinAccountServices.xml" invoke="reconcileFinAccountTrans">
         <description>Reconcile Financial Accounting Financial Transactions</description>
+        <permission-service service-name="acctgFinAcctPermissionCheck" main-action="UPDATE"/>
         <attribute name="finAccountTransId" type="String" mode="IN" optional="false"/>
         <attribute name="organizationPartyId" type="String" mode="IN" optional="false"/>
         <attribute name="glAccountId" type="String" mode="IN" optional="true"/>
@@ -489,16 +490,18 @@ under the License.
         <attribute name="grandTotal" type="BigDecimal" mode="OUT" optional="true"/>
     </service>
 
-    <service name="assignGlRecToFinAccTrans" engine="simple"
+    <service name="assignGlRecToFinAccTrans" engine="simple" auth="true"
             location="component://accounting/minilang/finaccount/FinAccountServices.xml" invoke="assignGlRecToFinAccTrans">
         <description>Assignment of Gl Reconciliation to Fin Account Trans</description>
+        <permission-service service-name="acctgFinAcctPermissionCheck" main-action="UPDATE"/>
         <attribute name="finAccountTransId" type="String" mode="IN" optional="false"/>
         <attribute name="glReconciliationId" type="String" mode="IN" optional="false"/>
     </service>
 
-    <service name="removeFinAccountTransFromReconciliation" engine="simple"
+    <service name="removeFinAccountTransFromReconciliation" engine="simple" auth="true"
             location="component://accounting/minilang/finaccount/FinAccountServices.xml" invoke="removeFinAccountTransFromReconciliation">
         <description>Remove finaAccountTrans association with gl reconciliation</description>
+        <permission-service service-name="acctgFinAcctPermissionCheck" main-action="UPDATE"/>
         <attribute name="finAccountTransId" type="String" mode="IN" optional="false"/>
     </service>
 
@@ -509,9 +512,10 @@ under the License.
         <attribute name="isReconciled" type="Boolean" mode="OUT" optional="false"/>
     </service>
 
-    <service name="cancelBankReconciliation" engine="simple"
+    <service name="cancelBankReconciliation" engine="simple" auth="true"
             location="component://accounting/minilang/finaccount/FinAccountServices.xml" invoke="cancelBankReconciliation">
         <description>Cancel bank reconciliation.</description>
+        <permission-service service-name="acctgFinAcctPermissionCheck" main-action="UPDATE"/>
         <attribute name="glReconciliationId" type="String" mode="IN" optional="false"/>
     </service>
     
