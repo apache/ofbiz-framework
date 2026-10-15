@@ -147,6 +147,22 @@ public final class UtilURL {
         return url;
     }
 
+    /**
+     * Converts a <code>file:</code> URL to a <code>File</code>. Unlike using {@link URL#getFile()} or
+     * {@link URL#getPath()} as a file name, this decodes percent-encoded characters such as <code>%20</code>,
+     * so it works when the path contains spaces.
+     * @param fileUrl the <code>file:</code> URL to convert
+     * @return the corresponding <code>File</code>
+     * @throws IllegalArgumentException if the URL is not a valid <code>file:</code> URL
+     */
+    public static File toFile(URL fileUrl) {
+        try {
+            return new File(fileUrl.toURI());
+        } catch (URISyntaxException e) {
+            throw new IllegalArgumentException("Invalid file URL: " + fileUrl, e);
+        }
+    }
+
     public static URL fromUrlString(String urlString) {
         URL url = null;
         URI uri;
@@ -337,7 +353,12 @@ public final class UtilURL {
 
     public static String getOfbizHomeRelativeLocation(URL fileUrl) {
         String ofbizHome = System.getProperty("ofbiz.home");
-        String path = fileUrl.getPath();
+        String path;
+        try {
+            path = fileUrl.toURI().getPath();
+        } catch (URISyntaxException e) {
+            path = fileUrl.getPath();
+        }
         if (path.startsWith(ofbizHome)) {
             // note: the +1 is to remove the leading slash
             path = path.substring(ofbizHome.length() + 1);

@@ -19,7 +19,6 @@
 package org.apache.ofbiz.base.util;
 
 import java.io.BufferedReader;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
@@ -369,7 +368,7 @@ public final class ScriptUtil {
             throw new ScriptException("Script not found at location [" + filePath + "]");
         }
         try (
-                InputStreamReader reader = new InputStreamReader(new FileInputStream(scriptUrl.getFile()), StandardCharsets.UTF_8);) {
+                InputStreamReader reader = new InputStreamReader(scriptUrl.openStream(), StandardCharsets.UTF_8);) {
             Object result = engine.eval(reader);
             if (UtilValidate.isNotEmpty(functionName)) {
                 try {

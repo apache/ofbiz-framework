@@ -51,6 +51,7 @@ import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilURL;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
 import org.apache.ofbiz.entity.Delegator;
@@ -414,7 +415,7 @@ public class CommonEvents {
                     } else {
                         sourceFileUrl = componentLocationResolver.resolveLocation(sourceLocation);
                     }
-                    String platformSpecificPath = sourceFileUrl.getFile();
+                    String platformSpecificPath = UtilURL.toFile(sourceFileUrl).getPath();
                     // ensure file separator in location is correct
                     if (!platformSpecificPath.contains(File.separator) && "\\".equals(File.separator)) {
                         platformSpecificPath = platformSpecificPath.replace("/", "\\");
