@@ -104,9 +104,10 @@ under the License.
                 <parameter param-name="requirementId"/>
             </hyperlink>
         </field>
-        <field name="deleteLink" widget-style="buttontext" title=" ">
-            <hyperlink description="${uiLabelMap.CommonRemove}" target="deleteRequirement">
+        <field name="rejectLink" widget-style="buttontext" title=" ">
+            <hyperlink description="${uiLabelMap.FormFieldTitle_rejectButton}" target="rejectRequirement">
                 <parameter param-name="requirementId"/>
+                <parameter param-name="statusId" value="REQ_REJECTED"/>
             </hyperlink>
         </field>
     </form>
