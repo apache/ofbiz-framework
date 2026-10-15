@@ -41,6 +41,7 @@ import org.apache.ofbiz.base.location.FlexibleLocation;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.ScriptUtil;
 import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilURL;
 import org.apache.ofbiz.base.util.UtilXml;
 import org.apache.ofbiz.base.util.collections.FlexibleMapAccessor;
 import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
@@ -293,7 +294,7 @@ public final class MiniLangUtil {
             Debug.logWarning(e, "Error reading minilang/config/MiniLang.xslt: ", MODULE);
             return;
         }
-        try (FileOutputStream fos = new FileOutputStream(xmlURL.getFile())) {
+        try (FileOutputStream fos = new FileOutputStream(UtilURL.toFile(xmlURL))) {
             UtilXml.transformDomDocument(transformer, document, fos);
             Debug.logInfo("Saved Mini-language file " + xmlURL, MODULE);
         } catch (Exception e) {
