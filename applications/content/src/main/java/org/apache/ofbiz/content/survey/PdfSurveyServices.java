@@ -24,13 +24,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Set;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
@@ -49,18 +49,20 @@ import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.service.ServiceUtil;
-
-import com.lowagie.text.Chunk;
-import com.lowagie.text.Document;
-import com.lowagie.text.DocumentException;
-import com.lowagie.text.Paragraph;
-import com.lowagie.text.pdf.AcroFields;
-import com.lowagie.text.pdf.PdfDictionary;
-import com.lowagie.text.pdf.PdfName;
-import com.lowagie.text.pdf.PdfObject;
-import com.lowagie.text.pdf.PdfReader;
-import com.lowagie.text.pdf.PdfStamper;
-import com.lowagie.text.pdf.PdfWriter;
+import org.apache.pdfbox.Loader;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.common.PDRectangle;
+import org.apache.pdfbox.pdmodel.font.PDFont;
+import org.apache.pdfbox.pdmodel.font.PDType1Font;
+import org.apache.pdfbox.pdmodel.font.Standard14Fonts;
+import org.apache.pdfbox.pdmodel.interactive.annotation.PDAnnotationWidget;
+import org.apache.pdfbox.pdmodel.interactive.form.PDComboBox;
+import org.apache.pdfbox.pdmodel.interactive.form.PDListBox;
+import org.apache.pdfbox.pdmodel.interactive.form.PDRadioButton;
+import org.apache.pdfbox.pdmodel.interactive.form.PDTerminalField;
+import org.apache.pdfbox.pdmodel.interactive.form.PDTextField;
 
 
 /**
@@ -81,14 +83,8 @@ public class PdfSurveyServices {
         Locale locale = (Locale) context.get("locale");
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
         String surveyId = null;
-        try {
+        try (PDDocument pdDocument = Loader.loadPDF(getInputByteBuffer(context, delegator).array())) {
             String surveyName = (String) context.get("surveyName");
-            ByteArrayOutputStream os = new ByteArrayOutputStream();
-            ByteBuffer byteBuffer = getInputByteBuffer(context, delegator);
-            PdfReader pdfReader = new PdfReader(byteBuffer.array());
-            PdfStamper pdfStamper = new PdfStamper(pdfReader, os);
-            AcroFields acroFields = pdfStamper.getAcroFields();
-            Map<String, Object> acroFieldMap = UtilGenerics.cast(acroFields.getAllFields());
 
             String contentId = (String) context.get("contentId");
             GenericValue survey = null;
@@ -107,44 +103,45 @@ public class PdfSurveyServices {
                     UtilMisc.<String, Object>toMap("description", "From AcroForm in Content [" + contentId + "] for Survey [" + surveyId
                             + "]", "userLogin", userLogin));
             if (ServiceUtil.isError(createCategoryResultMap)) {
-                pdfStamper.close();
                 return ServiceUtil.returnError(ServiceUtil.getErrorMessage(createCategoryResultMap));
             }
             String surveyQuestionCategoryId = (String) createCategoryResultMap.get("surveyQuestionCategoryId");
 
-            pdfStamper.setFormFlattening(true);
-            for (String fieldName : acroFieldMap.keySet()) {
-                AcroFields.Item item = acroFields.getFieldItem(fieldName);
-                int type = acroFields.getFieldType(fieldName);
-                String value = acroFields.getField(fieldName);
-                Debug.logInfo("fieldName:" + fieldName + "; item: " + item + "; value: " + value, MODULE);
+            PdfFormHelper pdfForm = new PdfFormHelper(pdDocument);
+            for (PDTerminalField field : pdfForm.getFormFields()) {
+                String fieldName = field.getFullyQualifiedName();
+                String value = pdfForm.getValue(field);
+                Debug.logInfo("fieldName:" + fieldName + "; field: " + field + "; value: " + value, MODULE);
 
                 GenericValue surveyQuestion = delegator.makeValue("SurveyQuestion", UtilMisc.toMap("question", fieldName));
                 String surveyQuestionId = delegator.getNextSeqId("SurveyQuestion");
                 surveyQuestion.set("surveyQuestionId", surveyQuestionId);
                 surveyQuestion.set("surveyQuestionCategoryId", surveyQuestionCategoryId);
 
-                if (type == AcroFields.FIELD_TYPE_TEXT) {
+                if (field instanceof PDTextField) {
                     surveyQuestion.set("surveyQuestionTypeId", "TEXT_SHORT");
-                } else if (type == AcroFields.FIELD_TYPE_RADIOBUTTON) {
+                } else if (field instanceof PDRadioButton) {
                     surveyQuestion.set("surveyQuestionTypeId", "OPTION");
-                } else if (type == AcroFields.FIELD_TYPE_LIST || type == AcroFields.FIELD_TYPE_COMBO) {
+                } else if (field instanceof PDListBox || field instanceof PDComboBox) {
                     surveyQuestion.set("surveyQuestionTypeId", "OPTION");
-                    // TODO: handle these specially with the acroFields.getListOptionDisplay (and getListOptionExport?)
+                    // TODO: handle these specially with PDChoice.getOptionsDisplayValues (and getOptionsExportValues?)
                 } else {
                     surveyQuestion.set("surveyQuestionTypeId", "TEXT_SHORT");
                     Debug.logWarning("Building Survey from PDF, fieldName=[" + fieldName + "]: don't know how to handle field type: "
-                            + type + "; defaulting to short text", MODULE);
+                            + field.getFieldType() + "; defaulting to short text", MODULE);
                 }
 
                 // ==== create a good sequenceNum based on tab order or if no tab order then the page location
 
-                Integer tabPage = item.getPage(0);
-                Integer tabOrder = item.getTabOrder(0);
+                PDAnnotationWidget widget = pdfForm.getPlacedWidget(field);
+                Integer tabPage = pdfForm.getPlace(widget)[0];
+                Integer tabOrder = pdfForm.getPlace(widget)[1];
                 Debug.logInfo("tabPage=" + tabPage + ", tabOrder=" + tabOrder, MODULE);
 
-                //array of float  multiple of 5. For each of this groups the values are: [page, llx, lly, urx, ury]
-                float[] fieldPositions = acroFields.getFieldPositions(fieldName);
+                // position of the field's first widget: [page, llx, lly, urx, ury]
+                PDRectangle rectangle = widget.getRectangle() != null ? widget.getRectangle() : new PDRectangle(0, 0);
+                float[] fieldPositions = {tabPage, rectangle.getLowerLeftX(), rectangle.getLowerLeftY(), rectangle.getUpperRightX(),
+                    rectangle.getUpperRightY()};
                 float fieldPage = fieldPositions[0];
                 float fieldLlx = fieldPositions[1];
                 float fieldLly = fieldPositions[2];
@@ -164,29 +161,7 @@ public class PdfSurveyServices {
                 }
 
                 // TODO: need to find something better to put into these fields...
-                String annotation = null;
-                for (int k = 0; k < item.size(); ++k) {
-                    PdfDictionary dict = item.getWidget(k);
-
-                    // if the "/Type" value is "/Annot", then get the value of "/TU" for the annotation
-
-                    PdfObject typeValue = null;
-                    PdfObject tuValue = null;
-
-                    Set<PdfName> dictKeys = UtilGenerics.cast(dict.getKeys());
-                    for (PdfName dictKeyName : dictKeys) {
-                        PdfObject dictObject = dict.get(dictKeyName);
-
-                        if ("/Type".equals(dictKeyName.toString())) {
-                            typeValue = dictObject;
-                        } else if ("/TU".equals(dictKeyName.toString())) {
-                            tuValue = dictObject;
-                        }
-                    }
-                    if (tuValue != null && typeValue != null && "/Annot".equals(typeValue.toString())) {
-                        annotation = tuValue.toString();
-                    }
-                }
+                String annotation = field.getAlternateFieldName();
 
                 surveyQuestion.set("description", fieldName);
                 if (UtilValidate.isNotEmpty(annotation)) {
@@ -207,13 +182,12 @@ public class PdfSurveyServices {
                 surveyQuestion.create();
                 surveyQuestionAppl.create();
             }
-            pdfStamper.close();
             if (UtilValidate.isNotEmpty(contentId)) {
                 survey = EntityQuery.use(delegator).from("Survey").where("surveyId", surveyId).queryOne();
                 survey.set("acroFormContentId", contentId);
                 survey.store();
             }
-        } catch (GeneralException | DocumentException | IOException e) {
+        } catch (GeneralException | IOException e) {
             Debug.logError(e, "Error generating PDF: " + e.toString(), MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentPDFGeneratingError",
                     UtilMisc.toMap("errorString", e.toString()), locale));
@@ -229,7 +203,7 @@ public class PdfSurveyServices {
     public static Map<String, Object> buildSurveyResponseFromPdf(DispatchContext dctx, Map<String, ? extends Object> context) {
         String surveyResponseId = null;
         Locale locale = (Locale) context.get("locale");
-        try {
+        try (PDDocument pdDocument = Loader.loadPDF(getInputByteBuffer(context, dctx.getDelegator()).array())) {
             Delegator delegator = dctx.getDelegator();
             String partyId = (String) context.get("partyId");
             String surveyId = (String) context.get("surveyId");
@@ -249,16 +223,10 @@ public class PdfSurveyServices {
                 surveyResponse.create();
             }
 
-            ByteArrayOutputStream os = new ByteArrayOutputStream();
-            ByteBuffer byteBuffer = getInputByteBuffer(context, delegator);
-            PdfReader r = new PdfReader(byteBuffer.array());
-            PdfStamper s = new PdfStamper(r, os);
-            AcroFields fs = s.getAcroFields();
-            Map<String, Object> hm = UtilGenerics.cast(fs.getAllFields());
-            s.setFormFlattening(true);
-            for (String fieldName : hm.keySet()) {
-                // AcroFields.Item item = fs.getFieldItem(fieldName);
-                String value = fs.getField(fieldName);
+            PdfFormHelper pdfForm = new PdfFormHelper(pdDocument);
+            for (PDTerminalField field : pdfForm.getFormFields()) {
+                String fieldName = field.getFullyQualifiedName();
+                String value = pdfForm.getValue(field);
                 GenericValue surveyQuestionAndAppl = EntityQuery.use(delegator).from("SurveyQuestionAndAppl")
                         .where("surveyId", surveyId, "externalFieldRef", fieldName).queryFirst();
                 if (surveyQuestionAndAppl == null) {
@@ -277,8 +245,7 @@ public class PdfSurveyServices {
 
                 delegator.create(surveyResponseAnswer);
             }
-            s.close();
-        } catch (GeneralException | DocumentException | IOException e) {
+        } catch (GeneralException | IOException e) {
             Debug.logError(e, "Error generating PDF: " + e.toString(), MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentPDFGeneratingError",
                     UtilMisc.toMap("errorString", e.toString()), locale));
@@ -294,21 +261,14 @@ public class PdfSurveyServices {
      */
     public static Map<String, Object> getAcroFieldsFromPdf(DispatchContext dctx, Map<String, ? extends Object> context) throws GeneralException {
         Map<String, Object> acroFieldMap = new HashMap<>();
-        ByteArrayOutputStream os = new ByteArrayOutputStream();
         Delegator delegator = dctx.getDelegator();
         ByteBuffer byteBuffer = getInputByteBuffer(context, delegator);
-        try (PdfReader r = new PdfReader(byteBuffer.array());
-                PdfStamper s = new PdfStamper(r, os)) {
-            AcroFields fs = s.getAcroFields();
-            Map<String, Object> map = UtilGenerics.cast(fs.getAllFields());
-            s.setFormFlattening(true);
-
-            for (String fieldName : map.keySet()) {
-                String parmValue = fs.getField(fieldName);
-                acroFieldMap.put(fieldName, parmValue);
+        try (PDDocument pdDocument = Loader.loadPDF(byteBuffer.array())) {
+            PdfFormHelper pdfForm = new PdfFormHelper(pdDocument);
+            for (PDTerminalField field : pdfForm.getFormFields()) {
+                acroFieldMap.put(field.getFullyQualifiedName(), pdfForm.getValue(field));
             }
-
-        } catch (DocumentException | IOException e) {
+        } catch (IOException e) {
             Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
@@ -326,39 +286,35 @@ public class PdfSurveyServices {
         try {
             Map<String, Object> acroFieldMap = UtilGenerics.cast(context.get("acroFieldMap"));
             ByteBuffer byteBuffer = getInputByteBuffer(context, delegator);
-            PdfReader r = new PdfReader(byteBuffer.array());
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            PdfStamper s = new PdfStamper(r, baos);
-            AcroFields fs = s.getAcroFields();
-            Map<String, Object> map = UtilGenerics.cast(fs.getAllFields());
-            s.setFormFlattening(true);
+            try (PDDocument pdDocument = Loader.loadPDF(byteBuffer.array())) {
+                PdfFormHelper pdfForm = new PdfFormHelper(pdDocument);
+                for (PDTerminalField field : pdfForm.getFormFields()) {
+                    String fieldValue;
+                    Object obj = acroFieldMap.get(field.getFullyQualifiedName());
+                    if (obj instanceof Date) {
+                        Date d = (Date) obj;
+                        fieldValue = UtilDateTime.toDateString(d);
+                    } else if (obj instanceof Long) {
+                        Long lg = (Long) obj;
+                        fieldValue = lg.toString();
+                    } else if (obj instanceof Integer) {
+                        Integer ii = (Integer) obj;
+                        fieldValue = ii.toString();
+                    } else {
+                        fieldValue = (String) obj;
+                    }
 
-            for (String fieldName : map.keySet()) {
-                String fieldValue = fs.getField(fieldName);
-                Object obj = acroFieldMap.get(fieldName);
-                if (obj instanceof Date) {
-                    Date d = (Date) obj;
-                    fieldValue = UtilDateTime.toDateString(d);
-                } else if (obj instanceof Long) {
-                    Long lg = (Long) obj;
-                    fieldValue = lg.toString();
-                } else if (obj instanceof Integer) {
-                    Integer ii = (Integer) obj;
-                    fieldValue = ii.toString();
-                } else {
-                    fieldValue = (String) obj;
+                    if (UtilValidate.isNotEmpty(fieldValue)) {
+                        pdfForm.setValue(field, fieldValue);
+                    }
                 }
-
-                if (UtilValidate.isNotEmpty(fieldValue)) {
-                    fs.setField(fieldName, fieldValue);
-                }
+                pdfForm.flatten();
+                pdDocument.save(baos);
             }
-
-            s.close();
-            baos.close();
             ByteBuffer outByteBuffer = ByteBuffer.wrap(baos.toByteArray());
             results.put("outByteBuffer", outByteBuffer);
-        } catch (DocumentException | IOException | GeneralException e) {
+        } catch (IOException | GeneralException e) {
             Debug.logError(e, MODULE);
             results = ServiceUtil.returnError(e.getMessage());
         }
@@ -376,7 +332,6 @@ public class PdfSurveyServices {
         String contentId = (String) context.get("contentId");
         String surveyId = null;
 
-        Document document = new Document();
         try {
             if (UtilValidate.isNotEmpty(surveyResponseId)) {
                 GenericValue surveyResponse = EntityQuery.use(delegator).from("SurveyResponse").where("surveyResponseId",
@@ -395,9 +350,7 @@ public class PdfSurveyServices {
                 }
             }
 
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            PdfWriter.getInstance(document, baos);
-
+            List<String> lines = new ArrayList<>();
             List<GenericValue> responses = EntityQuery.use(delegator).from("SurveyResponseAnswer").where("surveyResponseId",
                     surveyResponseId).queryList();
             for (GenericValue surveyResponseAnswer : responses) {
@@ -423,13 +376,11 @@ public class PdfSurveyServices {
                 } else {
                     value = surveyResponseAnswer.getString("textResponse");
                 }
-                Chunk chunk = new Chunk(surveyQuestion.getString("question") + ": " + value);
-                Paragraph p = new Paragraph(chunk);
-                document.add(p);
+                lines.add(surveyQuestion.getString("question") + ": " + value);
             }
-            ByteBuffer outByteBuffer = ByteBuffer.wrap(baos.toByteArray());
+            ByteBuffer outByteBuffer = ByteBuffer.wrap(writeTextPdf(lines));
             results.put("outByteBuffer", outByteBuffer);
-        } catch (GenericEntityException | DocumentException e) {
+        } catch (GenericEntityException | IOException e) {
             Debug.logError(e, MODULE);
             results = ServiceUtil.returnError(e.getMessage());
         }
@@ -589,5 +540,90 @@ public class PdfSurveyServices {
             }
         }
         return inputByteBuffer;
+    }
+
+    /**
+     * Writes the lines in a new A4 PDF, in 12 points Helvetica, wrapping long lines and adding pages as needed. Characters
+     * that Helvetica can't show are replaced by "?".
+     * @param lines the text lines
+     * @return the PDF content
+     * @throws IOException if the PDF can't be written
+     */
+    private static byte[] writeTextPdf(List<String> lines) throws IOException {
+        PDFont font = new PDType1Font(Standard14Fonts.FontName.HELVETICA);
+        float fontSize = 12;
+        float leading = 16;
+        float margin = 36;
+        PDRectangle pageSize = PDRectangle.A4;
+        List<String> pdfLines = new ArrayList<>();
+        for (String line : lines) {
+            for (String paragraph : line.replace('\t', ' ').split("\\R", -1)) {
+                pdfLines.addAll(wrapLine(font, fontSize, pageSize.getWidth() - 2 * margin, toShowableText(font, paragraph)));
+            }
+        }
+        int linesPerPage = (int) ((pageSize.getHeight() - 2 * margin) / leading);
+        try (PDDocument pdDocument = new PDDocument()) {
+            int start = 0;
+            do {
+                PDPage page = new PDPage(pageSize);
+                pdDocument.addPage(page);
+                try (PDPageContentStream content = new PDPageContentStream(pdDocument, page)) {
+                    content.beginText();
+                    content.setFont(font, fontSize);
+                    content.setLeading(leading);
+                    content.newLineAtOffset(margin, pageSize.getHeight() - margin - fontSize);
+                    for (String line : pdfLines.subList(start, Math.min(start + linesPerPage, pdfLines.size()))) {
+                        content.showText(line);
+                        content.newLine();
+                    }
+                    content.endText();
+                }
+                start += linesPerPage;
+            } while (start < pdfLines.size());
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            pdDocument.save(baos);
+            return baos.toByteArray();
+        }
+    }
+
+    private static String toShowableText(PDFont font, String text) {
+        StringBuilder showableText = new StringBuilder();
+        text.codePoints().forEach(codePoint -> {
+            String character = new String(Character.toChars(codePoint));
+            try {
+                font.encode(character);
+                showableText.append(character);
+            } catch (IOException | IllegalArgumentException e) {
+                showableText.append('?');
+            }
+        });
+        return showableText.toString();
+    }
+
+    private static List<String> wrapLine(PDFont font, float fontSize, float width, String text) throws IOException {
+        List<String> lines = new ArrayList<>();
+        StringBuilder line = new StringBuilder();
+        for (String word : text.split(" ", -1)) {
+            String candidate = line.length() == 0 ? word : line + " " + word;
+            if (font.getStringWidth(candidate) / 1000 * fontSize <= width) {
+                line.setLength(0);
+                line.append(candidate);
+                continue;
+            }
+            if (line.length() > 0) {
+                lines.add(line.toString());
+                line.setLength(0);
+            }
+            // a word longer than the line is cut
+            for (char character : word.toCharArray()) {
+                if (line.length() > 0 && font.getStringWidth(line.toString() + character) / 1000 * fontSize > width) {
+                    lines.add(line.toString());
+                    line.setLength(0);
+                }
+                line.append(character);
+            }
+        }
+        lines.add(line.toString());
+        return lines;
     }
 }
