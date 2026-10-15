@@ -32,6 +32,8 @@ under the License.
 
     <test-suite loader="main" location="testdef/entitytests.xml"/>
    
+    <!-- declared first so it is stopped last, once every other container has stopped using the datasources -->
+    <container name="datasource-container" loaders="main,rmi,load-data,test" class="org.apache.ofbiz.entity.DataSourceContainer"/>
     <container name="delegator-container" loaders="main" class="org.apache.ofbiz.entity.DelegatorContainer">
         <property name="preload-delegators" value="default"/>
     </container>
