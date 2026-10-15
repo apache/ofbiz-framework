@@ -44,8 +44,8 @@ import org.apache.fop.apps.MimeConstants;
 import org.apache.fop.apps.io.ResourceResolverFactory;
 import org.apache.ofbiz.base.location.FlexibleLocation;
 import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.FileUtil;
 import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilURL;
 import org.apache.ofbiz.base.util.UtilValidate;
 
 /**
@@ -104,14 +104,14 @@ public final class ApacheFopWorker {
 
                 try {
                     URL configFilePath = FlexibleLocation.resolveLocation(FOP_PATH + "/fop.xconf");
-                    File userConfigFile = FileUtil.getFile(configFilePath.getFile());
+                    File userConfigFile = UtilURL.toFile(configFilePath);
                     if (userConfigFile.exists()) {
                         fopFactory = FopFactory.newInstance(userConfigFile);
                     } else {
                         Debug.logWarning("FOP configuration file not found: " + userConfigFile, MODULE);
                     }
                     URL fontBaseFileUrl = FlexibleLocation.resolveLocation(FOP_FONT_BASE_PROPERTY);
-                    File fontBaseFile = FileUtil.getFile(fontBaseFileUrl.getFile());
+                    File fontBaseFile = UtilURL.toFile(fontBaseFileUrl);
 
                     if (fontBaseFile.isDirectory()) {
                         fopFactory.getFontManager().setResourceResolver(ResourceResolverFactory
