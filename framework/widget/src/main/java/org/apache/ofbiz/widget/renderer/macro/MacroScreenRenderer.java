@@ -19,15 +19,14 @@
 package org.apache.ofbiz.widget.renderer.macro;
 
 import java.io.IOException;
-import java.io.Reader;
-import java.io.StringReader;
 import java.io.StringWriter;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.WeakHashMap;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -43,7 +42,6 @@ import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilRandom;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.collections.MapStack;
-import org.apache.ofbiz.base.util.template.FreeMarkerWorker;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.service.LocalDispatcher;
@@ -69,15 +67,12 @@ import org.apache.ofbiz.widget.renderer.VisualTheme;
 import org.apache.ofbiz.widget.renderer.html.HtmlWidgetRenderer;
 import org.xml.sax.SAXException;
 
-import freemarker.core.Environment;
-import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
 public class MacroScreenRenderer implements ScreenStringRenderer {
 
     private static final String MODULE = MacroScreenRenderer.class.getName();
-    private Template macroLibrary;
-    private WeakHashMap<Appendable, Environment> environments = new WeakHashMap<>();
+    private final FtlWriter ftlWriter;
     private String rendererName;
     private int elementId = 999;
     private boolean widgetCommentsEnabled = false;
@@ -88,7 +83,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
     }
 
     public MacroScreenRenderer(String name, String macroLibraryPath) throws TemplateException, IOException {
-        macroLibrary = FreeMarkerWorker.getTemplate(macroLibraryPath);
+        ftlWriter = new FtlWriter(macroLibraryPath);
         rendererName = name;
     }
 
@@ -102,53 +97,12 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         return "hsr" + elementId;
     }
 
-    private void executeMacro(Appendable writer, String macro) throws IOException {
-        try {
-            Environment environment = getEnvironment(writer);
-            Reader templateReader = new StringReader(macro);
-            // FIXME: I am using a Date as an hack to provide a unique name for the template...
-            Template template = new Template((new java.util.Date()).toString(), templateReader, FreeMarkerWorker.getDefaultOfbizConfig());
-            templateReader.close();
-            environment.include(template);
-        } catch (TemplateException | IOException e) {
-            Debug.logError(e, "Error rendering screen macro [" + macro + "] thru ftl", MODULE);
+    private void executeMacro(Appendable writer, String macroName, Map<String, Object> macroParameters) {
+        Map<String, Object> parameters = new HashMap<>();
+        if (macroParameters != null) {
+            macroParameters.forEach((name, value) -> parameters.put(name, value == null ? "" : value));
         }
-    }
-
-    private void executeMacro(Appendable writer, String macroName, Map<String, Object> parameters) throws IOException {
-        StringBuilder sb = new StringBuilder("<@");
-        sb.append(macroName);
-        if (parameters != null) {
-            for (Map.Entry<String, Object> parameter : parameters.entrySet()) {
-                sb.append(' ');
-                sb.append(parameter.getKey());
-                sb.append("=");
-                Object value = parameter.getValue();
-                if (value instanceof String) {
-                    sb.append('"');
-                    sb.append(MacroCommonRenderer.escapeFtlString((String) value));
-                    sb.append('"');
-                } else {
-                    sb.append(value);
-                }
-            }
-        }
-        sb.append(" />");
-        executeMacro(writer, sb.toString());
-    }
-
-    private static String escapeFtlSingleQuoted(String value) {
-        return value == null ? "" : value.replace("\\", "\\\\").replace("'", "\\'").replace("{", "\\{");
-    }
-
-    private Environment getEnvironment(Appendable writer) throws TemplateException, IOException {
-        Environment environment = environments.get(writer);
-        if (environment == null) {
-            Map<String, Object> input = UtilMisc.toMap("key", null);
-            environment = FreeMarkerWorker.renderTemplate(macroLibrary, input, writer);
-            environments.put(writer, environment);
-        }
-        return environment;
+        ftlWriter.processMacroCall(writer, null, macroName, parameters);
     }
 
     @Override
@@ -280,7 +234,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
 
         String linkType = WidgetWorker.determineAutoLinkType(link.getLinkType(), target, link.getUrlMode(), request);
         String actionUrl = "";
-        StringBuilder parameters = new StringBuilder();
+        List<Map<String, String>> parameterList = new ArrayList<>();
         String width = link.getWidth();
         if (UtilValidate.isEmpty(width)) {
             width = String.valueOf(modelTheme.getLinkDefaultLayeredModalWidth());
@@ -295,20 +249,11 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
                     link.getPrefix(context), link.getFullPath(), link.getSecure(), link.getEncode(),
                     request, response);
             actionUrl = actionUri.toString();
-            parameters.append("[");
             // Callback propagation only if displaying a modal
             for (Map.Entry<String, String> parameter: link.getParameterMap(context, isModal).entrySet()) {
-                if (parameters.length() > 1) {
-                    parameters.append(",");
-                }
-                parameters.append("{'name':'");
-                parameters.append(escapeFtlSingleQuoted(parameter.getKey()));
-                parameters.append("'");
-                parameters.append(",'value':'");
-                parameters.append(escapeFtlSingleQuoted(parameter.getValue()));
-                parameters.append("'}");
+                parameterList.add(UtilMisc.toMap("name", parameter.getKey(),
+                        "value", parameter.getValue() == null ? "" : parameter.getValue()));
             }
-            parameters.append("]");
         }
         String id = link.getId(context);
         String style = link.getStyle(context);
@@ -322,42 +267,26 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
             renderImage(sw, context, img);
             imgStr = sw.toString();
         }
-        StringWriter sr = new StringWriter();
-        sr.append("<@renderLink ");
-        sr.append("parameterList=");
-        sr.append(parameters.length() == 0 ? "\"\"" : parameters.toString());
-        sr.append(" targetWindow=\"");
-        sr.append(targetWindow);
-        sr.append("\" target=\"");
-        sr.append(target);
-        sr.append("\" uniqueItemName=\"");
-        sr.append(uniqueItemName);
-        sr.append("\" linkType=\"");
-        sr.append(linkType);
-        sr.append("\" actionUrl=\"");
-        sr.append(actionUrl);
-        sr.append("\" id=\"");
-        sr.append(id);
-        sr.append("\" style=\"");
-        sr.append(style);
-        sr.append("\" name=\"");
-        sr.append(name);
+        Map<String, Object> macroParameters = new HashMap<>();
+        macroParameters.put("parameterList", parameterList);
+        macroParameters.put("targetWindow", targetWindow);
+        macroParameters.put("target", target);
+        macroParameters.put("uniqueItemName", uniqueItemName);
+        macroParameters.put("linkType", linkType);
+        macroParameters.put("actionUrl", actionUrl);
+        macroParameters.put("id", id);
+        macroParameters.put("style", style);
+        macroParameters.put("name", name);
         if (UtilValidate.isNotEmpty(width)) {
-            sr.append("\" width=\"");
-            sr.append(width);
+            macroParameters.put("width", width);
         }
         if (UtilValidate.isNotEmpty(height)) {
-            sr.append("\" height=\"");
-            sr.append(height);
+            macroParameters.put("height", height);
         }
-        sr.append("\" linkUrl=\"");
-        sr.append(linkUrl);
-        sr.append("\" text=\"");
-        sr.append(text);
-        sr.append("\" imgStr=\"");
-        sr.append(imgStr.replaceAll("\"", "\\\\\""));
-        sr.append("\" />");
-        executeMacro(writer, sr.toString());
+        macroParameters.put("linkUrl", linkUrl);
+        macroParameters.put("text", text);
+        macroParameters.put("imgStr", imgStr);
+        executeMacro(writer, "renderLink", macroParameters);
     }
 
     @Override
@@ -914,28 +843,19 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
             addColumnHint = uiLabelMap.get("CommonAddAColumnToThisPortalPage");
         }
 
-        StringWriter sr = new StringWriter();
-        sr.append("<@renderPortalPageBegin ");
-        sr.append("originalPortalPageId=\"");
-        sr.append(originalPortalPageId);
-        sr.append("\" portalPageId=\"");
-        sr.append(portalPageId);
-        sr.append("\" confMode=\"");
-        sr.append(confMode);
-        sr.append("\" addColumnLabel=\"");
-        sr.append(addColumnLabel);
-        sr.append("\" addColumnHint=\"");
-        sr.append(addColumnHint);
-        sr.append("\" />");
-        executeMacro(writer, sr.toString());
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("originalPortalPageId", originalPortalPageId);
+        parameters.put("portalPageId", portalPageId);
+        parameters.put("confMode", confMode);
+        parameters.put("addColumnLabel", addColumnLabel);
+        parameters.put("addColumnHint", addColumnHint);
+        executeMacro(writer, "renderPortalPageBegin", parameters);
     }
 
     @Override
     public void renderPortalPageEnd(Appendable writer, Map<String, Object> context, ModelScreenWidget.PortalPage portalPage)
             throws GeneralException, IOException {
-        StringWriter sr = new StringWriter();
-        sr.append("<@renderPortalPageEnd/>");
-        executeMacro(writer, sr.toString());
+        executeMacro(writer, "renderPortalPageEnd", null);
     }
 
     @Override
@@ -968,48 +888,29 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
             setColumnSizeHint = uiLabelMap.get("CommonSetColumnWidth");
         }
 
-        StringWriter sr = new StringWriter();
-        sr.append("<@renderPortalPageColumnBegin ");
-        sr.append("originalPortalPageId=\"");
-        sr.append(originalPortalPageId);
-        sr.append("\" portalPageId=\"");
-        sr.append(portalPageId);
-        sr.append("\" columnSeqId=\"");
-        sr.append(columnSeqId);
-        sr.append("\" ");
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("originalPortalPageId", originalPortalPageId);
+        parameters.put("portalPageId", portalPageId);
+        parameters.put("columnSeqId", columnSeqId);
         if (UtilValidate.isNotEmpty(columnWidthPixels)) {
-            sr.append("width=\"");
-            sr.append(columnWidthPixels);
-            sr.append("px\"");
+            parameters.put("width", columnWidthPixels + "px");
         } else if (UtilValidate.isNotEmpty(columnWidthPercentage)) {
-            sr.append("width=\"");
-            sr.append(columnWidthPercentage);
-            sr.append("%\"");
+            parameters.put("width", columnWidthPercentage + "%");
         }
-        sr.append(" confMode=\"");
-        sr.append(confMode);
-        sr.append("\" delColumnLabel=\"");
-        sr.append(delColumnLabel);
-        sr.append("\" delColumnHint=\"");
-        sr.append(delColumnHint);
-        sr.append("\" addPortletLabel=\"");
-        sr.append(addPortletLabel);
-        sr.append("\" addPortletHint=\"");
-        sr.append(addPortletHint);
-        sr.append("\" colWidthLabel=\"");
-        sr.append(colWidthLabel);
-        sr.append("\" setColumnSizeHint=\"");
-        sr.append(setColumnSizeHint);
-        sr.append("\" />");
-        executeMacro(writer, sr.toString());
+        parameters.put("confMode", confMode);
+        parameters.put("delColumnLabel", delColumnLabel);
+        parameters.put("delColumnHint", delColumnHint);
+        parameters.put("addPortletLabel", addPortletLabel);
+        parameters.put("addPortletHint", addPortletHint);
+        parameters.put("colWidthLabel", colWidthLabel);
+        parameters.put("setColumnSizeHint", setColumnSizeHint);
+        executeMacro(writer, "renderPortalPageColumnBegin", parameters);
     }
 
     @Override
     public void renderPortalPageColumnEnd(Appendable writer, Map<String, Object> context, ModelScreenWidget.PortalPage portalPage,
                                           GenericValue portalPageColumn) throws GeneralException, IOException {
-        StringWriter sr = new StringWriter();
-        sr.append("<@renderPortalPageColumnEnd/>");
-        executeMacro(writer, sr.toString());
+        executeMacro(writer, "renderPortalPageColumnEnd", null);
     }
 
     @Override
@@ -1041,42 +942,25 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
             editAttributeHint = uiLabelMap.get("CommonEditPortletAttributes");
         }
 
-        StringWriter sr = new StringWriter();
-        sr.append("<@renderPortalPagePortletBegin ");
-        sr.append("originalPortalPageId=\"");
-        sr.append(originalPortalPageId);
-        sr.append("\" portalPageId=\"");
-        sr.append(portalPageId);
-        sr.append("\" portalPortletId=\"");
-        sr.append(portalPortletId);
-        sr.append("\" portletSeqId=\"");
-        sr.append(portletSeqId);
-        sr.append("\" prevPortletId=\"");
-        sr.append(prevPortletId);
-        sr.append("\" prevPortletSeqId=\"");
-        sr.append(prevPortletSeqId);
-        sr.append("\" nextPortletId=\"");
-        sr.append(nextPortletId);
-        sr.append("\" nextPortletSeqId=\"");
-        sr.append(nextPortletSeqId);
-        sr.append("\" columnSeqId=\"");
-        sr.append(columnSeqId);
-        sr.append("\" prevColumnSeqId=\"");
-        sr.append(prevColumnSeqId);
-        sr.append("\" nextColumnSeqId=\"");
-        sr.append(nextColumnSeqId);
-        sr.append("\" delPortletHint=\"");
-        sr.append(delPortletHint);
-        sr.append("\" editAttributeHint=\"");
-        sr.append(editAttributeHint);
-        sr.append("\" confMode=\"");
-        sr.append(confMode);
-        sr.append("\"");
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("originalPortalPageId", originalPortalPageId);
+        parameters.put("portalPageId", portalPageId);
+        parameters.put("portalPortletId", portalPortletId);
+        parameters.put("portletSeqId", portletSeqId);
+        parameters.put("prevPortletId", prevPortletId);
+        parameters.put("prevPortletSeqId", prevPortletSeqId);
+        parameters.put("nextPortletId", nextPortletId);
+        parameters.put("nextPortletSeqId", nextPortletSeqId);
+        parameters.put("columnSeqId", columnSeqId);
+        parameters.put("prevColumnSeqId", prevColumnSeqId);
+        parameters.put("nextColumnSeqId", nextColumnSeqId);
+        parameters.put("delPortletHint", delPortletHint);
+        parameters.put("editAttributeHint", editAttributeHint);
+        parameters.put("confMode", confMode);
         if (UtilValidate.isNotEmpty(editFormName) && UtilValidate.isNotEmpty(editFormLocation)) {
-            sr.append(" editAttribute=\"true\"");
+            parameters.put("editAttribute", "true");
         }
-        sr.append("/>");
-        executeMacro(writer, sr.toString());
+        executeMacro(writer, "renderPortalPagePortletBegin", parameters);
     }
 
     @Override
@@ -1084,12 +968,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
                                            GenericValue portalPortlet) throws GeneralException, IOException {
         String confMode = portalPage.getConfMode(context);
 
-        StringWriter sr = new StringWriter();
-        sr.append("<@renderPortalPagePortletEnd ");
-        sr.append(" confMode=\"");
-        sr.append(confMode);
-        sr.append("\" />");
-        executeMacro(writer, sr.toString());
+        executeMacro(writer, "renderPortalPagePortletEnd", UtilMisc.toMap("confMode", confMode));
     }
 
     @Override
@@ -1120,25 +999,15 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
 
     @Override
     public void renderColumnContainer(Appendable writer, Map<String, Object> context, ColumnContainer columnContainer) throws IOException {
-        String id = columnContainer.getId(context);
-        String style = columnContainer.getStyle(context);
-        StringBuilder sb = new StringBuilder("<@renderColumnContainerBegin");
-        sb.append(" id=\"");
-        sb.append(id);
-        sb.append("\" style=\"");
-        sb.append(style);
-        sb.append("\" />");
-        executeMacro(writer, sb.toString());
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("id", columnContainer.getId(context));
+        parameters.put("style", columnContainer.getStyle(context));
+        executeMacro(writer, "renderColumnContainerBegin", parameters);
         for (Column column : columnContainer.getColumns()) {
-            id = column.getId(context);
-            style = column.getStyle(context);
-            sb = new StringBuilder("<@renderColumnBegin");
-            sb.append(" id=\"");
-            sb.append(id);
-            sb.append("\" style=\"");
-            sb.append(style);
-            sb.append("\" />");
-            executeMacro(writer, sb.toString());
+            parameters = new HashMap<>();
+            parameters.put("id", column.getId(context));
+            parameters.put("style", column.getStyle(context));
+            executeMacro(writer, "renderColumnBegin", parameters);
             for (ModelScreenWidget subWidget : column.getSubWidgets()) {
                 try {
                     subWidget.renderWidgetString(writer, context, this);
@@ -1146,9 +1015,9 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
                     throw new IOException(e);
                 }
             }
-            executeMacro(writer, "<@renderColumnEnd />");
+            executeMacro(writer, "renderColumnEnd", null);
         }
-        executeMacro(writer, "<@renderColumnContainerEnd />");
+        executeMacro(writer, "renderColumnContainerEnd", null);
     }
 
     // This is a util method to get the style from a property file
