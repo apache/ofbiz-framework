@@ -65,6 +65,15 @@ public final class FtlWriter {
     private final Template macroLibrary;
     private final VisualTheme visualTheme;
 
+    /**
+     * Construct a writer for a macro library that does not use the visualTheme and modelTheme variables.
+     *
+     * @param macroLibraryPath The location of the macro library.
+     */
+    public FtlWriter(final String macroLibraryPath) throws IOException {
+        this(macroLibraryPath, null);
+    }
+
     public FtlWriter(final String macroLibraryPath, final VisualTheme visualTheme) throws IOException {
         this.macroLibrary = FreeMarkerWorker.getTemplate(macroLibraryPath);
         this.visualTheme = visualTheme;
@@ -124,6 +133,9 @@ public final class FtlWriter {
     }
 
     private void setThemeVariables(final Environment environment) throws TemplateException {
+        if (visualTheme == null) {
+            return;
+        }
         environment.setVariable("visualTheme", FreeMarkerWorker.autoWrap(visualTheme, environment));
         environment.setVariable("modelTheme", FreeMarkerWorker.autoWrap(visualTheme.getModelTheme(), environment));
     }
