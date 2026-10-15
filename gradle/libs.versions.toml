@@ -25,8 +25,6 @@ ez-vcard = "0.12.2"
 owasp-java-html-sanitizer = "20240325.1"
 libphonenumber = "8.13.55"
 icu4j = "76.1"
-# This is the last version with com.lowagie.text that is used (only) by PdfSurveyServices class.
-openpdf = "1.4.2"
 jakarta-mail-api = "2.1.5"
 angus-mail = "2.0.5"
 utils-mail-dkim = "3.3.0"
@@ -121,7 +119,6 @@ ez-vcard = { module = "com.googlecode.ez-vcard:ez-vcard", version.ref = "ez-vcar
 owasp-java-html-sanitizer = { module = "com.googlecode.owasp-java-html-sanitizer:owasp-java-html-sanitizer", version.ref = "owasp-java-html-sanitizer" }
 libphonenumber = { module = "com.googlecode.libphonenumber:libphonenumber", version.ref = "libphonenumber" }
 icu4j = { module = "com.ibm.icu:icu4j", version.ref = "icu4j" }
-openpdf = { module = "com.github.librepdf:openpdf", version.ref = "openpdf" }
 jakarta-mail-api = { module = "jakarta.mail:jakarta.mail-api", version.ref = "jakarta-mail-api" }
 angus-mail = { module = "org.eclipse.angus:angus-mail", version.ref = "angus-mail" }
 utils-mail-dkim = { module = "org.simplejavamail:utils-mail-dkim", version.ref = "utils-mail-dkim" }

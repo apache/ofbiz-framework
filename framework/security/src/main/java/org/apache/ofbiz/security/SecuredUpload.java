@@ -41,12 +41,15 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Deque;
 import java.util.HashSet;
+import java.util.IdentityHashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -85,6 +88,12 @@ import org.apache.ofbiz.base.util.UtilXml;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.pdfbox.Loader;
+import org.apache.pdfbox.cos.COSArray;
+import org.apache.pdfbox.cos.COSBase;
+import org.apache.pdfbox.cos.COSDictionary;
+import org.apache.pdfbox.cos.COSDocument;
+import org.apache.pdfbox.cos.COSName;
+import org.apache.pdfbox.cos.COSObject;
 import org.apache.pdfbox.io.RandomAccessReadBufferedFile;
 import org.apache.pdfbox.pdmodel.PDDocument;
 //import org.apache.pdfbox.pdmodel.PDDocument;
@@ -115,7 +124,6 @@ import com.drew.imaging.ImageMetadataReader;
 import com.drew.imaging.ImageProcessingException;
 import com.drew.metadata.Directory;
 import com.drew.metadata.Tag;
-import com.lowagie.text.pdf.PdfReader;
 
 public class SecuredUpload {
 
@@ -957,12 +965,158 @@ public class SecuredUpload {
                 return false;
             }
             // Load stream in PDF parser — just probe whether the file is a valid PDF
-            try (PdfReader ignored = new PdfReader(file.getAbsolutePath())) {
+            try (PDDocument ignored = Loader.loadPDF(file)) {
                 return true;
             }
         } catch (Exception e) {
             // If it's not a PDF then exception will be thrown and return will be false
             return false;
+        }
+    }
+
+    /** Form field additional-action triggers (keystroke, format, validate, calculate) that run only when the field is edited. */
+    private static final Set<COSName> FORM_FIELD_TRIGGERS = Set.of(COSName.K, COSName.F, COSName.V, COSName.C);
+
+    /**
+     * Looks for JavaScript anywhere a PDF viewer could run it: the document-level JavaScript names tree, and any action
+     * (OpenAction, additional actions of the document, pages, annotations and form fields, Next chains...) that is a
+     * JavaScript action or carries JavaScript code. Every object reachable from the trailer is checked, then every
+     * object listed in the cross-reference table, even if nothing refers to it.
+     * @param pdDocument the loaded PDF document
+     * @param formFieldScriptsAllowed when true, the scripts of the keystroke, format, validate and calculate additional
+     *        actions of form fields are not reported. They run only when a user edits the field, and Acrobat adds them to
+     *        any formatted, validated or calculated field. The same scripts are still reported if they are also used
+     *        from anywhere else in the document.
+     * @return true if JavaScript is found
+     */
+    private static boolean containsJavaScript(PDDocument pdDocument, boolean formFieldScriptsAllowed) {
+        COSDocument cosDocument = pdDocument.getDocument();
+        Set<COSBase> scriptExemptFields = formFieldScriptsAllowed ? getAcroFormFields(pdDocument) : Collections.emptySet();
+        Set<COSBase> visited = Collections.newSetFromMap(new IdentityHashMap<>());
+        if (findJavaScript(List.of(cosDocument.getTrailer()), scriptExemptFields, Collections.emptySet(), visited)) {
+            return true;
+        }
+        List<COSBase> xrefObjects = new ArrayList<>();
+        cosDocument.getXrefTable().keySet().forEach(key -> xrefObjects.add(cosDocument.getObjectFromPool(key)));
+        return findJavaScript(xrefObjects, scriptExemptFields, getExemptFieldScripts(scriptExemptFields), visited);
+    }
+
+    /**
+     * Walks the PDF objects reachable from the given ones, without recursion, and stops at the first JavaScript found.
+     * @param roots the objects to start from
+     * @param scriptExemptFields the form fields whose keystroke, format, validate and calculate additional actions are not
+     *        checked; empty when form field scripts are not allowed
+     * @param skipped objects that are not checked when reached
+     * @param visited the objects already checked, updated by this walk
+     * @return true if JavaScript is found
+     */
+    private static boolean findJavaScript(List<COSBase> roots, Set<COSBase> scriptExemptFields, Set<COSBase> skipped,
+            Set<COSBase> visited) {
+        Deque<COSBase> toVisit = new ArrayDeque<>();
+        roots.forEach(root -> pushIfNotNull(toVisit, root));
+        while (!toVisit.isEmpty()) {
+            COSBase base = dereference(toVisit.pop());
+            if (base == null || skipped.contains(base) || !visited.add(base)) {
+                continue;
+            }
+            if (base instanceof COSDictionary) {
+                COSDictionary dictionary = (COSDictionary) base;
+                if (dictionary.containsKey(COSName.JS) || dictionary.containsKey(COSName.JAVA_SCRIPT)
+                        || COSName.JAVA_SCRIPT.equals(dictionary.getCOSName(COSName.S))) {
+                    return true;
+                }
+                for (Map.Entry<COSName, COSBase> entry : dictionary.entrySet()) {
+                    COSBase additionalActions = dereference(entry.getValue());
+                    if (COSName.AA.equals(entry.getKey()) && scriptExemptFields.contains(dictionary)
+                            && additionalActions instanceof COSDictionary) {
+                        // The additional-actions dictionary itself is not marked as visited, so it is checked in full if it
+                        // is also reached from somewhere else
+                        for (Map.Entry<COSName, COSBase> action : ((COSDictionary) additionalActions).entrySet()) {
+                            if (!FORM_FIELD_TRIGGERS.contains(action.getKey())) {
+                                pushIfNotNull(toVisit, action.getValue());
+                            }
+                        }
+                    } else {
+                        pushIfNotNull(toVisit, entry.getValue());
+                    }
+                }
+            } else if (base instanceof COSArray) {
+                COSArray array = (COSArray) base;
+                array.forEach(element -> pushIfNotNull(toVisit, element));
+            }
+        }
+        return false;
+    }
+
+    /**
+     * @return the dictionaries of the form fields in the document's AcroForm field tree. Dictionaries typed as something
+     *         other than an annotation (a page, the catalog...) are left out, so that their own additional actions, like a
+     *         page's close action (/C), are never taken for form field ones.
+     */
+    private static Set<COSBase> getAcroFormFields(PDDocument pdDocument) {
+        Set<COSBase> acroFormFields = Collections.newSetFromMap(new IdentityHashMap<>());
+        Set<COSBase> visited = Collections.newSetFromMap(new IdentityHashMap<>());
+        Deque<COSBase> toVisit = new ArrayDeque<>();
+        COSDictionary acroForm = pdDocument.getDocumentCatalog().getCOSObject().getCOSDictionary(COSName.ACRO_FORM);
+        if (acroForm != null) {
+            pushIfNotNull(toVisit, acroForm.getDictionaryObject(COSName.FIELDS));
+        }
+        while (!toVisit.isEmpty()) {
+            COSBase base = dereference(toVisit.pop());
+            if (base == null || !visited.add(base)) {
+                continue;
+            }
+            if (base instanceof COSArray) {
+                COSArray array = (COSArray) base;
+                array.forEach(element -> pushIfNotNull(toVisit, element));
+            } else if (base instanceof COSDictionary) {
+                COSDictionary field = (COSDictionary) base;
+                COSName type = field.getCOSName(COSName.TYPE);
+                if (type == null || COSName.ANNOT.equals(type)) {
+                    acroFormFields.add(field);
+                }
+                pushIfNotNull(toVisit, field.getDictionaryObject(COSName.KIDS));
+            }
+        }
+        return acroFormFields;
+    }
+
+    /**
+     * @return every object reachable from the keystroke, format, validate and calculate additional actions of the given
+     *         script exempt form fields
+     */
+    private static Set<COSBase> getExemptFieldScripts(Set<COSBase> scriptExemptFields) {
+        Set<COSBase> exemptFieldScripts = Collections.newSetFromMap(new IdentityHashMap<>());
+        Deque<COSBase> toVisit = new ArrayDeque<>();
+        for (COSBase scriptExemptField : scriptExemptFields) {
+            COSBase additionalActions = dereference(((COSDictionary) scriptExemptField).getItem(COSName.AA));
+            if (additionalActions instanceof COSDictionary) {
+                FORM_FIELD_TRIGGERS.forEach(trigger -> pushIfNotNull(toVisit, ((COSDictionary) additionalActions).getItem(trigger)));
+            }
+        }
+        while (!toVisit.isEmpty()) {
+            COSBase base = dereference(toVisit.pop());
+            if (base == null || !exemptFieldScripts.add(base)) {
+                continue;
+            }
+            if (base instanceof COSDictionary) {
+                COSDictionary dictionary = (COSDictionary) base;
+                dictionary.getValues().forEach(value -> pushIfNotNull(toVisit, value));
+            } else if (base instanceof COSArray) {
+                COSArray array = (COSArray) base;
+                array.forEach(element -> pushIfNotNull(toVisit, element));
+            }
+        }
+        return exemptFieldScripts;
+    }
+
+    private static COSBase dereference(COSBase base) {
+        return base instanceof COSObject ? ((COSObject) base).getObject() : base;
+    }
+
+    private static void pushIfNotNull(Deque<COSBase> toVisit, COSBase base) {
+        if (base != null) {
+            toVisit.push(base);
         }
     }
 
@@ -982,18 +1136,16 @@ public class SecuredUpload {
                 return safeState;
             }
             // Load stream in PDF parser
-            String jsCode;
-            try (PdfReader reader = new PdfReader(file.getAbsolutePath())) {
-                // Check 1: detect if the document contains any JavaScript code
-                jsCode = reader.getJavaScript();
-            }
-            if (!Objects.isNull(jsCode)) {
-                return safeState;
-            }
-            // OK no JS code, pass to check 2: detect if the document has any embedded files
             PDEmbeddedFilesNameTreeNode efTree = null;
             try (PDDocument pdDocument = Loader.loadPDF(new RandomAccessReadBufferedFile(fileName))) {
-                    //PDDocument.load(file)) {
+                // Check 1: detect if the document contains any JavaScript code
+                boolean formFieldScriptsAllowed = UtilProperties.getPropertyAsBoolean("security", "allowPdfFormFieldScripts", false);
+                if (containsJavaScript(pdDocument, formFieldScriptsAllowed)) {
+                    Debug.logInfo("The file " + file.getAbsolutePath() + " contains JavaScript code. "
+                            + "For security reason it's not accepted as a PDF file", MODULE);
+                    return safeState;
+                }
+                // OK no JS code, pass to check 2: detect if the document has any embedded files
                 PDDocumentNameDictionary names = new PDDocumentNameDictionary(pdDocument.getDocumentCatalog());
                 efTree = names.getEmbeddedFiles();
             }
