@@ -79,6 +79,13 @@ under the License.
     <eca service="deleteTimesheet" event="invoke">
         <action service="checkTimesheetStatus" mode="sync"/>
     </eca>
+    <!-- reject an improbable party/role combination (party does not already hold roleTypeId) before it
+         reaches ensurePartyRole below, which would otherwise silently create a spurious PartyRole -->
+    <eca service="createTimesheetRole" event="in-validate">
+        <condition field-name="roleTypeId" operator="is-not-empty"/>
+        <condition field-name="partyId" operator="is-not-empty"/>
+        <action service="checkPartyRoleExists" mode="sync"/>
+    </eca>
     <eca service="createTimesheetRole" event="invoke">
         <action service="ensurePartyRole" mode="sync"/>
     </eca>
