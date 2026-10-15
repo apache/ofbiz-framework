@@ -55,8 +55,7 @@ dependencies {
     implementation libs.poi
     implementation libs.poi.ooxml
     implementation libs.bundles.pdfbox
-    implementation libs.shiro.core
-    implementation libs.shiro.crypto.cipher
+    implementation libs.bundles.shiro
     implementation libs.sshd.core
     implementation libs.sshd.sftp
     implementation libs.bundles.tika
