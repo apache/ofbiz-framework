@@ -64,7 +64,6 @@ under the License.
           <#local rowCount = rowCount + 1>
           <#local rowCountForAdjRemove = rowCountForAdjRemove + 1>
        </#if>
-       <#local returnTotal = returnTotal + returnAdjustment.amount?default(0)>
     </tr>
 </#macro>
 
@@ -262,6 +261,7 @@ under the License.
               <#assign returnItemAdjustments = item.getRelated("ReturnAdjustment", null, null, false)>
               <#if (returnItemAdjustments?has_content)>
                   <#list returnItemAdjustments as returnItemAdjustment>
+                     <#assign returnTotal = returnTotal + returnItemAdjustment.amount?default(0)>
                      <@displayReturnAdjustment returnAdjustment=returnItemAdjustment adjEditable=false/>  <#-- adjustments of return items should never be editable -->
                   </#list>
               </#if>
@@ -278,6 +278,7 @@ under the License.
         <#if (returnAdjustments?has_content)>
             <#list returnAdjustments as returnAdjustment>
                 <#assign adjEditable = !readOnly> <#-- they are editable if the rest of the return items are -->
+                <#assign returnTotal = returnTotal + returnAdjustment.amount?default(0)>
                 <@displayReturnAdjustment returnAdjustment=returnAdjustment adjEditable=adjEditable/>
             </#list>
             </#if>
