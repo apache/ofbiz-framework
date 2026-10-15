@@ -88,6 +88,8 @@ public final class Start {
             try {
                 StartupControlPanel.start(INSTANCE.config, INSTANCE.serverState, ofbizCommands, INSTANCE.loader);
             } catch (StartupException e) {
+                // stop what was loaded, the shutdown hook being possibly disabled
+                StartupControlPanel.shutdownServer(INSTANCE.loader, INSTANCE.serverState);
                 StartupControlPanel.fullyTerminateSystem(e);
             }
             break;

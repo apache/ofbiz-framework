@@ -170,7 +170,15 @@ public class DBCPConnectionFactory implements ConnectionFactory {
 
     @Override
     public void closeAll() {
-        // no methods on the pool to shutdown; so just clearing for GC
+        // Closing the pools closes every pooled connection, which is what lets an embedded database such as H2
+        // close its files cleanly: H2 only does so when its last connection is closed (see OFBIZ-13686).
+        DS_CACHE.forEach((helperName, mds) -> {
+            try {
+                mds.close();
+            } catch (SQLException e) {
+                Debug.logError(e, "Error closing the connection pool for " + helperName, MODULE);
+            }
+        });
         DS_CACHE.clear();
     }
 
