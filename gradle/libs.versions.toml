@@ -55,10 +55,8 @@ httpclient-cache = "4.5.14"
 log4j = "2.26.1"
 poi = "5.5.1"
 pdfbox = "3.0.8"
-# Got "Exception in thread "main" java.lang.UnsupportedOperationException: Cannot create a hash with
-# the given algorithm: argon2" with 2.0.2 in integration tests
-shiro-core = "1.13.0"
-shiro-crypto-cipher = "2.2.1"
+# Shared by shiro-crypto-cipher, shiro-crypto-core, shiro-lang.
+shiro = "3.0.1"
 # Shared by sshd-core, sshd-sftp.
 sshd = "2.20.0"
 # Shared by tika-core, tika-parsers, tika-parser-pdf-module.
@@ -151,8 +149,9 @@ poi = { module = "org.apache.poi:poi", version.ref = "poi" }
 poi-ooxml = { module = "org.apache.poi:poi-ooxml", version.ref = "poi" }
 pdfbox-core = { module = "org.apache.pdfbox:pdfbox", version.ref = "pdfbox" }
 pdfbox-io = { module = "org.apache.pdfbox:pdfbox-io", version.ref = "pdfbox" }
-shiro-core = { module = "org.apache.shiro:shiro-core", version.ref = "shiro-core" }
-shiro-crypto-cipher = { module = "org.apache.shiro:shiro-crypto-cipher", version.ref = "shiro-crypto-cipher" }
+shiro-crypto-cipher = { module = "org.apache.shiro:shiro-crypto-cipher", version.ref = "shiro" }
+shiro-crypto-core = { module = "org.apache.shiro:shiro-crypto-core", version.ref = "shiro" }
+shiro-lang = { module = "org.apache.shiro:shiro-lang", version.ref = "shiro" }
 sshd-core = { module = "org.apache.sshd:sshd-core", version.ref = "sshd" }
 sshd-sftp = { module = "org.apache.sshd:sshd-sftp", version.ref = "sshd" }
 tika-core = { module = "org.apache.tika:tika-core", version.ref = "tika" }
@@ -218,3 +217,4 @@ swagger = ["swagger-jaxrs2-core", "swagger-jaxrs2-servlet-initializer", "swagger
 batik = ["batik-anim", "batik-util", "batik-bridge"]
 tika = ["tika-core", "tika-parsers", "tika-parser-pdf-module"]
 pdfbox = ["pdfbox-core", "pdfbox-io"]
+shiro = ["shiro-crypto-cipher", "shiro-crypto-core", "shiro-lang"]
