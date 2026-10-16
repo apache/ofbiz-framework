@@ -1889,6 +1889,9 @@
         <value xml:lang="zh">生成PDF时出错：${errorString}</value>
         <value xml:lang="zh-TW">產生PDF時出錯:${errorString}</value>
     </property>
+    <property key="ContentPDFInputMissing">
+        <value xml:lang="en">No PDF was given.</value>
+    </property>
     <property key="ContentPDFSurveyName">
         <value xml:lang="da">Rundspørge navn</value>
         <value xml:lang="en">PDF/Survey Name</value>
