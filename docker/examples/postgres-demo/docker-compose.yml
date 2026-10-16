@@ -47,5 +47,5 @@ services:
       - ofbiz-postgres.env
     environment:
       OFBIZ_DATA_LOAD: demo
-      OFBIZ_HOST: example.internal
+      OFBIZ_HOST: localhost
       OFBIZ_CONTENT_URL_PREFIX: https://example.internal:8443
