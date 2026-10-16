@@ -38,7 +38,6 @@ import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.webapp.control.RequestHandler;
-import org.apache.ofbiz.webapp.taglib.ContentUrlTag;
 import org.apache.ofbiz.widget.WidgetWorker;
 import org.apache.ofbiz.widget.content.StaticContentUrlProvider;
 import org.apache.ofbiz.widget.model.CommonWidgetModels;
@@ -82,7 +81,6 @@ import org.apache.ofbiz.widget.renderer.macro.renderable.RenderableFtlMacroCall;
 public final class MacroFormRenderer implements FormStringRenderer {
 
     private static final String MODULE = MacroFormRenderer.class.getName();
-    private final UtilCodec.SimpleEncoder internalEncoder;
     private final RequestHandler rh;
     private final HttpServletRequest request;
     private final HttpServletResponse response;
@@ -106,7 +104,6 @@ public final class MacroFormRenderer implements FormStringRenderer {
         this.visualTheme = ThemeFactory.resolveVisualTheme(request);
         this.rh = RequestHandler.from(request);
         this.javaScriptEnabled = UtilHttp.isJavaScriptEnabled(request);
-        internalEncoder = UtilCodec.getEncoder("string");
         this.ftlWriter = ftlWriter != null ? ftlWriter : new FtlWriter(macroLibraryPath, this.visualTheme);
         final StaticContentUrlProvider staticContentUrlProvider = new StaticContentUrlProvider(request);
         this.renderableFtlFormElementsBuilder = renderableFtlFormElementsBuilder != null
@@ -128,34 +125,6 @@ public final class MacroFormRenderer implements FormStringRenderer {
 
     public void writeFtlElement(final Appendable writer, Locale locale, final RenderableFtl renderableFtl) {
         ftlWriter.processFtl(writer, locale, renderableFtl);
-    }
-
-    private void executeMacro(Appendable writer, String macro) {
-        ftlWriter.processFtlString(writer, null, macro);
-    }
-
-    /**
-     * Make locale available before executing macro
-     * @param writer
-     * @param locale
-     * @param macro
-     */
-    @SuppressWarnings("unused")
-    private void executeMacro(Appendable writer, Locale locale, String macro) {
-        ftlWriter.processFtlString(writer, locale, macro);
-    }
-
-    private String encode(String value, ModelFormField modelFormField, Map<String, Object> context) {
-        if (UtilValidate.isEmpty(value)) {
-            return value;
-        }
-        UtilCodec.SimpleEncoder encoder = (UtilCodec.SimpleEncoder) context.get("simpleEncoder");
-        if (modelFormField.getEncodeOutput() && encoder != null) {
-            value = encoder.encode(value);
-        } else {
-            value = internalEncoder.encode(value);
-        }
-        return value;
     }
 
     private String encodeForMacro(String value, ModelFormField modelFormField, Map<String, Object> context) {
@@ -801,13 +770,6 @@ public final class MacroFormRenderer implements FormStringRenderer {
     private void addAsterisks(Appendable writer, Map<String, Object> context, ModelFormField modelFormField) {
         final RenderableFtl renderableFtl = renderableFtlFormElementsBuilder.asterisks(context, modelFormField);
         writeFtlElement(writer, renderableFtl);
-    }
-
-    public void appendContentUrl(Appendable writer, String location) throws IOException {
-        StringBuilder buffer = new StringBuilder();
-        ContentUrlTag.appendContentPrefix(this.request, buffer);
-        writer.append(buffer.toString());
-        writer.append(location);
     }
 
     @Override

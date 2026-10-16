@@ -32,7 +32,7 @@ import static org.mockito.Mockito.verify;
 import java.io.StringWriter;
 
 import org.apache.ofbiz.base.util.template.FreeMarkerWorker;
-import org.apache.ofbiz.widget.renderer.macro.renderable.RenderableFtlString;
+import org.apache.ofbiz.widget.renderer.macro.renderable.RenderableFtlVerbatim;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -61,12 +61,12 @@ public final class FtlWriterTest {
     }
 
     @Test
-    public void renderableFtlStringIsWrittenAsItIsAndNeverCompiled() throws Exception {
+    public void renderableFtlVerbatimIsWrittenAsItIsAndNeverCompiled() throws Exception {
         final FtlWriter ftlWriter = new FtlWriter("LIBRARY");
         final StringWriter writer = new StringWriter();
         final String html = "<a href=\"#\">${1+1} <#stop \"stopped\"> #{2}</a>";
 
-        ftlWriter.processFtl(writer, null, new RenderableFtlString(html));
+        ftlWriter.processFtl(writer, null, new RenderableFtlVerbatim(html));
 
         assertThat(writer.toString(), equalTo(html));
         // a compiled string would have been included in the environment of the writer

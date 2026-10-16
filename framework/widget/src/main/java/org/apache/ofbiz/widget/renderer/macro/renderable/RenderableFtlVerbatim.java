@@ -25,31 +25,31 @@ import java.util.function.Consumer;
  * Finished output, such as the HTML of a link, that is written as it is. It is not a template: nothing in it is
  * interpreted, so it can hold values of the data.
  */
-public final class RenderableFtlString implements RenderableFtl {
-    private final String ftlString;
+public final class RenderableFtlVerbatim implements RenderableFtl {
+    private final String output;
 
-    public RenderableFtlString(final String ftlString) {
-        this.ftlString = ftlString;
+    public RenderableFtlVerbatim(final String output) {
+        this.output = output;
     }
 
-    public String getFtlString() {
-        return ftlString;
+    public String getOutput() {
+        return output;
     }
 
-    public static RenderableFtlStringBuilder builder() {
-        return new RenderableFtlStringBuilder();
+    public static RenderableFtlVerbatimBuilder builder() {
+        return new RenderableFtlVerbatimBuilder();
     }
 
-    public static RenderableFtlString withStringBuilder(final Consumer<StringBuilder> callback) {
-        final RenderableFtlStringBuilder builder = builder();
+    public static RenderableFtlVerbatim withStringBuilder(final Consumer<StringBuilder> callback) {
+        final RenderableFtlVerbatimBuilder builder = builder();
         callback.accept(builder.getStringBuilder());
         return builder.build();
     }
 
     @Override
     public String toString() {
-        return "RenderableFtlString{"
-                + "ftlString='" + ftlString + '\''
+        return "RenderableFtlVerbatim{"
+                + "output='" + output + '\''
                 + '}';
     }
 
@@ -58,15 +58,15 @@ public final class RenderableFtlString implements RenderableFtl {
         visitor.visit(this, locale);
     }
 
-    public static final class RenderableFtlStringBuilder {
+    public static final class RenderableFtlVerbatimBuilder {
         private final StringBuilder stringBuilder = new StringBuilder();
 
         public StringBuilder getStringBuilder() {
             return stringBuilder;
         }
 
-        public RenderableFtlString build() {
-            return new RenderableFtlString(stringBuilder.toString());
+        public RenderableFtlVerbatim build() {
+            return new RenderableFtlVerbatim(stringBuilder.toString());
         }
     }
 }
