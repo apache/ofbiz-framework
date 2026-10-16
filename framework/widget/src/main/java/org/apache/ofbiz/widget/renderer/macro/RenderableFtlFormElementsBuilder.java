@@ -39,6 +39,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import com.ibm.icu.util.Calendar;
+import org.apache.ofbiz.base.lang.JSON;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilCodec;
@@ -50,10 +51,12 @@ import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilRandom;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
+import org.apache.ofbiz.security.CsrfUtil;
 import org.apache.ofbiz.webapp.control.RequestHandler;
 import org.apache.ofbiz.widget.WidgetWorker;
 import org.apache.ofbiz.widget.content.StaticContentUrlProvider;
 import org.apache.ofbiz.widget.model.CommonWidgetModels;
+import org.apache.ofbiz.widget.model.FieldInfo;
 import org.apache.ofbiz.widget.model.ModelForm;
 import org.apache.ofbiz.widget.model.ModelFormField;
 import org.apache.ofbiz.widget.model.ModelFormField.ContainerField;
@@ -828,7 +831,9 @@ public final class RenderableFtlFormElementsBuilder {
             if ("multi".equals(modelForm.getType())) {
                 final Element anchorElement = WidgetWorker.makeHiddenFormLinkAnchorElement(linkStyle,
                         description, confirmation, modelFormField, request, context);
-                htmlStringBuilder.append(anchorElement.outerHtml());
+                if (anchorElement != null) {
+                    htmlStringBuilder.append(anchorElement.outerHtml());
+                }
 
                 // this is a bit trickier, since we can't do a nested form we'll have to put the link to submit the
                 // form in place, but put the actual form def elsewhere, ie after the big form is closed
@@ -845,7 +850,9 @@ public final class RenderableFtlFormElementsBuilder {
                 htmlStringBuilder.append(hiddenFormElement.outerHtml());
                 final Element anchorElement = WidgetWorker.makeHiddenFormLinkAnchorElement(linkStyle,
                         description, confirmation, modelFormField, request, context);
-                htmlStringBuilder.append(anchorElement.outerHtml());
+                if (anchorElement != null) {
+                    htmlStringBuilder.append(anchorElement.outerHtml());
+                }
             }
 
             return renderableFtlStringBuilder.build();
@@ -898,6 +905,7 @@ public final class RenderableFtlFormElementsBuilder {
             String width = "";
             String height = "";
             String title = "";
+            String text = "";
             String hiddenFormName = WidgetWorker.makeLinkHiddenFormName(context, modelFormField);
             if (UtilValidate.isNotEmpty(modelFormField.getEvent())
                     && UtilValidate.isNotEmpty(modelFormField.getAction(context))) {
@@ -926,31 +934,51 @@ public final class RenderableFtlFormElementsBuilder {
             if (UtilValidate.isNotEmpty(request.getAttribute("id"))) {
                 id = request.getAttribute("id").toString();
             }
+            if (UtilValidate.isNotEmpty(request.getAttribute("text"))) {
+                text = request.getAttribute("text").toString();
+            }
             if (UtilValidate.isNotEmpty(request.getAttribute("uniqueItemName"))) {
                 uniqueItemName = request.getAttribute("uniqueItemName").toString();
                 width = request.getAttribute("width").toString();
                 height = request.getAttribute("height").toString();
             }
+            // the macro expects the parameters of the link as a JSON string
+            String targetParameters = "";
+            if (UtilValidate.isNotEmpty(parameterMap) || UtilValidate.isNotEmpty(uniqueItemName)) {
+                try {
+                    final Map<String, Object> params = new java.util.TreeMap<>();
+                    if (UtilValidate.isNotEmpty(parameterMap)) {
+                        params.putAll(parameterMap);
+                    }
+                    if (UtilValidate.isNotEmpty(uniqueItemName)) {
+                        params.put("presentation", "layer");
+                    }
+                    targetParameters = JSON.from(params).toString();
+                } catch (Exception e) {
+                    Debug.logError(e, "Error converting dialog params to JSON", MODULE);
+                }
+            }
 
             return RenderableFtlMacroCall.builder()
                     .name("makeHyperlinkString")
                     .stringParameter("linkStyle", linkStyle == null ? "" : linkStyle)
-                    .stringParameter("hiddenFormName", hiddenFormName)
+                    .stringParameter("hiddenFormName", nonNull(hiddenFormName))
                     .stringParameter("event", event)
                     .stringParameter("action", action)
                     .stringParameter("imgSrc", imgSrc)
                     .stringParameter("imgTitle", imgTitle)
                     .stringParameter("title", title)
                     .stringParameter("alternate", alt)
-                    .mapParameter("targetParameters", parameterMap)
+                    .stringParameter("targetParameters", targetParameters)
                     .stringParameter("linkUrl", linkUrl.toString())
-                    .stringParameter("targetWindow", targetWindow)
-                    .stringParameter("description", description)
-                    .stringParameter("confirmation", confirmation)
+                    .stringParameter("targetWindow", nonNull(targetWindow))
+                    .stringParameter("description", nonNull(description))
+                    .stringParameter("confirmation", nonNull(confirmation))
                     .stringParameter("uniqueItemName", uniqueItemName)
                     .stringParameter("height", height)
                     .stringParameter("width", width)
                     .stringParameter("id", id)
+                    .stringParameter("text", text)
                     .build();
         } else {
             return RenderableFtlNoop.INSTANCE;
@@ -1547,6 +1575,309 @@ public final class RenderableFtlFormElementsBuilder {
             builder.stringParameter("tooltip", tooltip);
         }
         return builder.build();
+    }
+
+    /**
+     * Creates the macro call that opens a form.
+     * @param context the context
+     * @param modelForm the form
+     * @return the RenderableFtl
+     */
+    public RenderableFtl formOpen(final Map<String, Object> context, final ModelForm modelForm) {
+        final String targetType = modelForm.getTargetType();
+        final String target = modelForm.getTarget(context, targetType);
+        String linkUrl = "";
+        if (UtilValidate.isNotEmpty(target)) {
+            linkUrl = WidgetWorker.buildHyperlinkUri(target, targetType, null, null, false, false, true,
+                    request, response).toString();
+        }
+        String hasRequiredField = "";
+        for (final ModelFormField formField : modelForm.getFieldList()) {
+            if (formField.getRequiredField()) {
+                hasRequiredField = "Y";
+                break;
+            }
+        }
+        // Generate CSRF name & value for form
+        final String csrfNameValue = CsrfUtil.getTokenNameNonAjax() + " " + CsrfUtil.generateTokenForNonAjax(request, target);
+        return RenderableFtlMacroCall.builder()
+                .name("renderFormOpen")
+                .stringParameter("linkUrl", linkUrl)
+                .stringParameter("formType", nonNull(modelForm.getType()))
+                .stringParameter("targetWindow", nonNull(modelForm.getTargetWindow(context)))
+                .stringParameter("containerId", nonNull(FormRenderer.getCurrentContainerId(modelForm, context)))
+                .stringParameter("containerStyle", nonNull(modelForm.getContainerStyle()))
+                .stringParameter("autocomplete", modelForm.getClientAutocompleteFields() ? "" : "off")
+                .stringParameter("name", nonNull(FormRenderer.getCurrentFormName(modelForm, context)))
+                .stringParameter("focusFieldName", nonNull(modelForm.getFocusFieldName()))
+                .stringParameter("hasRequiredField", hasRequiredField)
+                .stringParameter("viewIndexField", nonNull(modelForm.getMultiPaginateIndexField(context)))
+                .stringParameter("viewSizeField", nonNull(modelForm.getMultiPaginateSizeField(context)))
+                .stringParameter("viewIndex", Integer.toString(Paginator.getViewIndex(modelForm, context)))
+                .stringParameter("viewSize", Integer.toString(Paginator.getViewSize(modelForm, context)))
+                .booleanParameter("useRowSubmit", modelForm.getUseRowSubmit())
+                .stringParameter("csrfNameValue", csrfNameValue)
+                .build();
+    }
+
+    /**
+     * Creates the macro call that closes a form.
+     * @return the RenderableFtl
+     */
+    public RenderableFtl formClose() {
+        return macroWithoutParameters("renderFormClose");
+    }
+
+    /**
+     * Creates the macro call that closes a multi form.
+     * @return the RenderableFtl
+     */
+    public RenderableFtl multiFormClose() {
+        return macroWithoutParameters("renderMultiFormClose");
+    }
+
+    /**
+     * Gets what has to be rendered after the closing of a multi form, such as the forms of the hidden form links.
+     * @param context the context
+     * @return the RenderableFtl, which renders nothing if there is none
+     */
+    public RenderableFtl postMultiFormContent(final Map<String, Object> context) {
+        final Map<String, Object> wholeFormContext = UtilGenerics.cast(context.get("wholeFormContext"));
+        final RenderableFtl postMultiFormContent = wholeFormContext == null ? null
+                : (RenderableFtl) wholeFormContext.get("postMultiFormRenderableFtl");
+        return postMultiFormContent == null ? RenderableFtlNoop.INSTANCE : postMultiFormContent;
+    }
+
+    /**
+     * Creates the macro call that opens the wrapper of a list form.
+     * @param context the context
+     * @param modelForm the form
+     * @return the RenderableFtl
+     */
+    public RenderableFtl formatListWrapperOpen(final Map<String, Object> context, final ModelForm modelForm) {
+        final List<String> columnStyleList = new ArrayList<>();
+        final List<String> fieldNameList = new ArrayList<>();
+        for (final ModelFormField childField : modelForm.getFieldList()) {
+            final int childFieldType = childField.getFieldInfo().getFieldType();
+            if (childFieldType == FieldInfo.HIDDEN || childFieldType == FieldInfo.IGNORED) {
+                continue;
+            }
+            final String areaStyle = nonNull(childField.getTitleAreaStyle());
+            if (fieldNameList.contains(childField.getName())) {
+                if (UtilValidate.isNotEmpty(areaStyle)) {
+                    columnStyleList.set(fieldNameList.indexOf(childField.getName()), areaStyle);
+                }
+            } else {
+                columnStyleList.add(areaStyle);
+                fieldNameList.add(childField.getName());
+            }
+        }
+        return RenderableFtlMacroCall.builder()
+                .name("renderFormatListWrapperOpen")
+                .stringParameter("formName", nonNull(modelForm.getName()))
+                .stringParameter("style", FlexibleStringExpander.expandString(modelForm.getDefaultTableStyle(), context))
+                .objectParameter("columnStyles", columnStyleList)
+                .build();
+    }
+
+    /**
+     * Creates the macro call that renders the message of a form without data.
+     * @param context the context
+     * @param modelForm the form
+     * @return the RenderableFtl
+     */
+    public RenderableFtl emptyFormDataMessage(final Map<String, Object> context, final ModelForm modelForm) {
+        return RenderableFtlMacroCall.builder()
+                .name("renderEmptyFormDataMessage")
+                .stringParameter("message", nonNull(modelForm.getEmptyFormDataMessage(context)))
+                .build();
+    }
+
+    /**
+     * Creates the macro call that closes the wrapper of a list form.
+     * @param modelForm the form
+     * @return the RenderableFtl
+     */
+    public RenderableFtl formatListWrapperClose(final ModelForm modelForm) {
+        return RenderableFtlMacroCall.builder()
+                .name("renderFormatListWrapperClose")
+                .stringParameter("formName", nonNull(modelForm.getName()))
+                .build();
+    }
+
+    public RenderableFtl formatHeaderOpen() {
+        return macroWithoutParameters("renderFormatHeaderOpen");
+    }
+
+    public RenderableFtl formatHeaderClose() {
+        return macroWithoutParameters("renderFormatHeaderClose");
+    }
+
+    public RenderableFtl formatHeaderRowOpen(final Map<String, Object> context, final ModelForm modelForm) {
+        return RenderableFtlMacroCall.builder()
+                .name("renderFormatHeaderRowOpen")
+                .stringParameter("style", FlexibleStringExpander.expandString(modelForm.getHeaderRowStyle(), context))
+                .build();
+    }
+
+    public RenderableFtl formatHeaderRowClose() {
+        return macroWithoutParameters("renderFormatHeaderRowClose");
+    }
+
+    public RenderableFtl formatHeaderRowCellOpen(final ModelFormField modelFormField, final int positionSpan) {
+        return RenderableFtlMacroCall.builder()
+                .name("renderFormatHeaderRowCellOpen")
+                .stringParameter("style", nonNull(modelFormField.getTitleAreaStyle()))
+                .intParameter("positionSpan", positionSpan)
+                .build();
+    }
+
+    public RenderableFtl formatHeaderRowCellClose() {
+        return macroWithoutParameters("renderFormatHeaderRowCellClose");
+    }
+
+    public RenderableFtl formatHeaderRowFormCellOpen(final ModelForm modelForm) {
+        return RenderableFtlMacroCall.builder()
+                .name("renderFormatHeaderRowFormCellOpen")
+                .stringParameter("style", nonNull(modelForm.getFormTitleAreaStyle()))
+                .build();
+    }
+
+    public RenderableFtl formatHeaderRowFormCellClose() {
+        return macroWithoutParameters("renderFormatHeaderRowFormCellClose");
+    }
+
+    public RenderableFtl formatHeaderRowFormCellTitleSeparator(final ModelFormField modelFormField, final boolean isLast) {
+        return RenderableFtlMacroCall.builder()
+                .name("renderFormatHeaderRowFormCellTitleSeparator")
+                .stringParameter("style", nonNull(modelFormField.getTitleStyle()))
+                .booleanParameter("isLast", isLast)
+                .build();
+    }
+
+    public RenderableFtl formatItemRowOpen(final Map<String, Object> context, final ModelForm modelForm) {
+        final Integer itemIndex = (Integer) context.get("itemIndex");
+        String altRowStyles = "";
+        String evenRowStyle = "";
+        String oddRowStyle = "";
+        if (itemIndex != null) {
+            altRowStyles = modelForm.getStyleAltRowStyle(context);
+            if (itemIndex % 2 == 0) {
+                evenRowStyle = modelForm.getEvenRowStyle();
+            } else {
+                oddRowStyle = FlexibleStringExpander.expandString(modelForm.getOddRowStyle(), context);
+            }
+        }
+        final RenderableFtlMacroCallBuilder builder = RenderableFtlMacroCall.builder()
+                .name("renderFormatItemRowOpen")
+                .stringParameter("formName", nonNull(modelForm.getName()))
+                .stringParameter("altRowStyles", nonNull(altRowStyles))
+                .stringParameter("evenRowStyle", nonNull(evenRowStyle))
+                .stringParameter("oddRowStyle", nonNull(oddRowStyle));
+        if (itemIndex != null) {
+            builder.intParameter("itemIndex", itemIndex);
+        }
+        return builder.build();
+    }
+
+    public RenderableFtl formatItemRowClose(final ModelForm modelForm) {
+        return RenderableFtlMacroCall.builder()
+                .name("renderFormatItemRowClose")
+                .stringParameter("formName", nonNull(modelForm.getName()))
+                .build();
+    }
+
+    public RenderableFtl formatItemRowCellOpen(final ModelFormField modelFormField, final int positionSpan) {
+        return RenderableFtlMacroCall.builder()
+                .name("renderFormatItemRowCellOpen")
+                .stringParameter("fieldName", nonNull(modelFormField.getName()))
+                .stringParameter("style", nonNull(modelFormField.getWidgetAreaStyle()))
+                .intParameter("positionSpan", positionSpan)
+                .build();
+    }
+
+    public RenderableFtl formatItemRowCellClose(final ModelFormField modelFormField) {
+        return RenderableFtlMacroCall.builder()
+                .name("renderFormatItemRowCellClose")
+                .stringParameter("fieldName", nonNull(modelFormField.getName()))
+                .build();
+    }
+
+    public RenderableFtl formatItemRowFormCellOpen(final ModelForm modelForm) {
+        return RenderableFtlMacroCall.builder()
+                .name("renderFormatItemRowFormCellOpen")
+                .stringParameter("style", nonNull(modelForm.getFormTitleAreaStyle()))
+                .build();
+    }
+
+    public RenderableFtl formatItemRowFormCellClose() {
+        return macroWithoutParameters("renderFormatItemRowFormCellClose");
+    }
+
+    public RenderableFtl formatSingleWrapperOpen(final Map<String, Object> context, final ModelForm modelForm) {
+        return RenderableFtlMacroCall.builder()
+                .name("renderFormatSingleWrapperOpen")
+                .stringParameter("formName", nonNull(modelForm.getName()))
+                .stringParameter("style", FlexibleStringExpander.expandString(modelForm.getDefaultTableStyle(), context))
+                .build();
+    }
+
+    public RenderableFtl formatSingleWrapperClose(final ModelForm modelForm) {
+        return RenderableFtlMacroCall.builder()
+                .name("renderFormatSingleWrapperClose")
+                .stringParameter("formName", nonNull(modelForm.getName()))
+                .build();
+    }
+
+    public RenderableFtl formatFieldRowOpen() {
+        return macroWithoutParameters("renderFormatFieldRowOpen");
+    }
+
+    public RenderableFtl formatFieldRowClose() {
+        return macroWithoutParameters("renderFormatFieldRowClose");
+    }
+
+    public RenderableFtl formatFieldRowTitleCellOpen(final ModelFormField modelFormField) {
+        return RenderableFtlMacroCall.builder()
+                .name("renderFormatFieldRowTitleCellOpen")
+                .stringParameter("style", nonNull(modelFormField.getTitleAreaStyle()))
+                .build();
+    }
+
+    public RenderableFtl formatFieldRowTitleCellClose() {
+        return macroWithoutParameters("renderFormatFieldRowTitleCellClose");
+    }
+
+    public RenderableFtl formatFieldRowWidgetCellOpen(final ModelFormField modelFormField, final int positionSpan) {
+        return RenderableFtlMacroCall.builder()
+                .name("renderFormatFieldRowWidgetCellOpen")
+                .intParameter("positionSpan", positionSpan)
+                .stringParameter("style", nonNull(modelFormField.getWidgetAreaStyle()))
+                .build();
+    }
+
+    public RenderableFtl formatFieldRowWidgetCellClose() {
+        return macroWithoutParameters("renderFormatFieldRowWidgetCellClose");
+    }
+
+    /**
+     * Creates the macro call that renders a boundary comment.
+     * @param boundaryType Begin or End
+     * @param widgetType the type of the widget, such as Form Widget - Form Element
+     * @param widgetName the name of the widget
+     * @return the RenderableFtl
+     */
+    public RenderableFtl boundaryComment(final String boundaryType, final String widgetType, final String widgetName) {
+        return RenderableFtlMacroCall.builder()
+                .name("formatBoundaryComment")
+                .stringParameter("boundaryType", boundaryType)
+                .stringParameter("widgetType", widgetType)
+                .stringParameter("widgetName", nonNull(widgetName))
+                .build();
+    }
+
+    private static RenderableFtl macroWithoutParameters(final String macroName) {
+        return RenderableFtlMacroCall.builder().name(macroName).build();
     }
 
     private static String nonNull(final String value) {

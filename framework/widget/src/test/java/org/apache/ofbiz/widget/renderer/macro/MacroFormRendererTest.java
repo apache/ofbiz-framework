@@ -20,6 +20,7 @@ package org.apache.ofbiz.widget.renderer.macro;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.startsWith;
@@ -35,8 +36,10 @@ import static org.mockito.ArgumentMatchers.nullable;
 import static org.mockito.Mockito.CALLS_REAL_METHODS;
 import static org.mockito.Mockito.RETURNS_DEEP_STUBS;
 import static org.mockito.Mockito.atLeastOnce;
+import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.mockStatic;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -55,7 +58,6 @@ import jakarta.servlet.http.HttpSession;
 import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.template.FreeMarkerWorker;
-import org.apache.ofbiz.webapp.control.ConfigXMLReader;
 import org.apache.ofbiz.webapp.control.RequestHandler;
 import org.apache.ofbiz.widget.model.FieldInfo;
 import org.apache.ofbiz.widget.model.ModelForm;
@@ -71,6 +73,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
+import org.mockito.InOrder;
 import org.mockito.MockedStatic;
 
 import com.google.common.collect.ImmutableMap;
@@ -356,108 +359,134 @@ public final class MacroFormRendererTest {
     @Test
     public void formOpenedMacroRendered() throws IOException {
         final ModelSingleForm modelSingleForm = mock(ModelSingleForm.class);
-        when(modelSingleForm.getType()).thenReturn("single");
+        when(renderableFtlFormElementsBuilder.formOpen(notNull(), eq(modelSingleForm))).thenReturn(genericMacroCall);
 
         macroFormRenderer.renderFormOpen(appendable, ImmutableMap.of(), modelSingleForm);
-        assertAndGetMacroString("renderFormOpen", ImmutableMap.of("formType", "single"));
+
+        genericSingleMacroRenderedVerification();
     }
 
     @Test
     public void formClosedMacroRendered() throws IOException {
         final ModelSingleForm modelSingleForm = mock(ModelSingleForm.class);
+        when(renderableFtlFormElementsBuilder.formClose()).thenReturn(genericMacroCall);
+
         macroFormRenderer.renderFormClose(appendable, ImmutableMap.of(), modelSingleForm);
-        assertAndGetMacroString("renderFormClose");
+
+        genericSingleMacroRenderedVerification();
     }
 
     @Test
-    public void multiFormClosedMacroRendered() throws IOException {
+    public void multiFormClosedMacroRenderedBeforeThePostFormContent() throws IOException {
         final ModelForm modelForm = mock(ModelForm.class);
+        when(renderableFtlFormElementsBuilder.multiFormClose()).thenReturn(genericMacroCall);
+        when(renderableFtlFormElementsBuilder.postMultiFormContent(notNull())).thenReturn(genericHyperlinkMacroCall);
+
         macroFormRenderer.renderMultiFormClose(appendable, ImmutableMap.of(), modelForm);
-        assertAndGetMacroString("renderMultiFormClose");
+
+        final InOrder inOrder = inOrder(ftlWriter);
+        inOrder.verify(ftlWriter).processFtl(appendable, null, genericMacroCall);
+        inOrder.verify(ftlWriter).processFtl(appendable, null, genericHyperlinkMacroCall);
     }
 
     @Test
     public void listWrapperOpenMacroRendered() throws IOException {
         final ModelSingleForm modelSingleForm = mock(ModelSingleForm.class);
+        when(renderableFtlFormElementsBuilder.formatListWrapperOpen(notNull(), eq(modelSingleForm))).thenReturn(genericMacroCall);
+
         macroFormRenderer.setRenderPagination(false);
         macroFormRenderer.renderFormatListWrapperOpen(appendable, new HashMap<>(), modelSingleForm);
-        assertAndGetMacroString("renderFormatListWrapperOpen");
+
+        genericSingleMacroRenderedVerification();
     }
 
     @Test
     public void emptyFormDataMacroRendered() throws IOException {
         final ModelSingleForm modelSingleForm = mock(ModelSingleForm.class);
-        when(modelSingleForm.getEmptyFormDataMessage(notNull())).thenReturn("EMPTY");
+        when(renderableFtlFormElementsBuilder.emptyFormDataMessage(notNull(), eq(modelSingleForm))).thenReturn(genericMacroCall);
 
         macroFormRenderer.renderEmptyFormDataMessage(appendable, new HashMap<>(), modelSingleForm);
-        assertAndGetMacroString("renderEmptyFormDataMessage", ImmutableMap.of("message", "EMPTY"));
+
+        genericSingleMacroRenderedVerification();
     }
 
     @Test
     public void listWrapperCloseMacroRendered() throws IOException {
         final ModelSingleForm modelSingleForm = mock(ModelSingleForm.class);
+        when(renderableFtlFormElementsBuilder.formatListWrapperClose(modelSingleForm)).thenReturn(genericMacroCall);
+
         macroFormRenderer.setRenderPagination(false);
         macroFormRenderer.renderFormatListWrapperClose(appendable, new HashMap<>(), modelSingleForm);
-        assertAndGetMacroString("renderFormatListWrapperClose");
+
+        genericSingleMacroRenderedVerification();
     }
 
     @Test
     public void itemRowOpenMacroRendered() throws IOException {
         final ModelForm modelForm = mock(ModelForm.class);
-        when(modelForm.getName()).thenReturn("FORMNAME");
-        when(modelForm.getEvenRowStyle()).thenReturn("EVENSTYLE");
+        when(renderableFtlFormElementsBuilder.formatItemRowOpen(notNull(), eq(modelForm))).thenReturn(genericMacroCall);
 
         macroFormRenderer.renderFormatItemRowOpen(appendable, ImmutableMap.of("itemIndex", 2), modelForm);
-        assertAndGetMacroString("renderFormatItemRowOpen", ImmutableMap.of(
-                "formName", "FORMNAME",
-                "itemIndex", 2,
-                "evenRowStyle", "EVENSTYLE"));
+
+        genericSingleMacroRenderedVerification();
     }
 
     @Test
     public void itemRowCellOpenMacroRendered() throws IOException {
         final ModelForm modelForm = mock(ModelForm.class);
         final ModelFormField localModelFormField = mock(ModelFormField.class);
-        when(localModelFormField.getWidgetAreaStyle()).thenReturn("AREASTYLE");
-        when(localModelFormField.getName()).thenReturn("FIELDNAME");
+        when(renderableFtlFormElementsBuilder.formatItemRowCellOpen(localModelFormField, 2)).thenReturn(genericMacroCall);
 
         macroFormRenderer.renderFormatItemRowCellOpen(appendable, ImmutableMap.of(), modelForm, localModelFormField, 2);
-        assertAndGetMacroString("renderFormatItemRowCellOpen", ImmutableMap.of(
-                "fieldName", "FIELDNAME",
-                "positionSpan", 2,
-                "style", "AREASTYLE"));
+
+        genericSingleMacroRenderedVerification();
     }
 
     @Test
     public void itemRowFormCellOpenMacroRendered() throws IOException {
         final ModelForm modelForm = mock(ModelForm.class);
-        when(modelForm.getFormTitleAreaStyle()).thenReturn("AREASTYLE");
+        when(renderableFtlFormElementsBuilder.formatItemRowFormCellOpen(modelForm)).thenReturn(genericMacroCall);
 
         macroFormRenderer.renderFormatItemRowFormCellOpen(appendable, ImmutableMap.of(), modelForm);
-        assertAndGetMacroString("renderFormatItemRowFormCellOpen", ImmutableMap.of("style", "AREASTYLE"));
+
+        genericSingleMacroRenderedVerification();
     }
 
     @Test
     public void singleWrapperOpenMacroRendered() throws IOException {
         final ModelForm modelForm = mock(ModelForm.class);
-        when(modelForm.getDefaultTableStyle()).thenReturn("STYLE${styleParam}");
-        when(modelForm.getName()).thenReturn("FORMNAME");
+        when(renderableFtlFormElementsBuilder.formatSingleWrapperOpen(notNull(), eq(modelForm))).thenReturn(genericMacroCall);
 
-        macroFormRenderer.renderFormatSingleWrapperOpen(appendable, ImmutableMap.of("styleParam", "ABCD"), modelForm);
-        assertAndGetMacroString("renderFormatSingleWrapperOpen", ImmutableMap.of(
-                "formName", "FORMNAME",
-                "style", "STYLEABCD"));
+        macroFormRenderer.renderFormatSingleWrapperOpen(appendable, ImmutableMap.of(), modelForm);
+
+        genericSingleMacroRenderedVerification();
     }
 
     @Test
     public void fieldRowWidgetCellOpenMacroRendered() throws IOException {
         final ModelFormField localModelFormField = mock(ModelFormField.class);
-        when(localModelFormField.getWidgetAreaStyle()).thenReturn("AREASTYLE");
+        when(renderableFtlFormElementsBuilder.formatFieldRowWidgetCellOpen(localModelFormField, 1)).thenReturn(genericMacroCall);
 
         macroFormRenderer.renderFormatFieldRowWidgetCellOpen(appendable, ImmutableMap.of(), localModelFormField, 1, 1, null);
-        assertAndGetMacroString("renderFormatFieldRowWidgetCellOpen", ImmutableMap.of(
-                "positionSpan", 1,
-                "style", "AREASTYLE"));
+
+        genericSingleMacroRenderedVerification();
+    }
+
+    @Test
+    public void boundaryCommentsRenderedOnlyWhenEnabled() throws IOException {
+        final ModelSingleForm modelSingleForm = mock(ModelSingleForm.class);
+        when(modelSingleForm.getBoundaryCommentName()).thenReturn("FORMNAME");
+        when(renderableFtlFormElementsBuilder.formOpen(notNull(), eq(modelSingleForm))).thenReturn(genericMacroCall);
+        when(renderableFtlFormElementsBuilder.boundaryComment("Begin", "Form Widget - Form Element", "FORMNAME"))
+                .thenReturn(genericTooltipMacroCall);
+
+        utilPropertiesMock.when(() -> UtilProperties.getPropertyValue("widget", "widget.verbose")).thenReturn("false");
+        macroFormRenderer.renderFormOpen(appendable, ImmutableMap.of(), modelSingleForm);
+        verify(ftlWriter, never()).processFtl(appendable, null, genericTooltipMacroCall);
+
+        utilPropertiesMock.when(() -> UtilProperties.getPropertyValue("widget", "widget.verbose")).thenReturn("true");
+        macroFormRenderer.renderFormOpen(appendable, ImmutableMap.of(), modelSingleForm);
+        verify(ftlWriter).processFtl(appendable, null, genericTooltipMacroCall);
     }
 
     @Test
@@ -692,94 +721,50 @@ public final class MacroFormRendererTest {
     }
 
     @Test
-    public void hyperlinkFieldMacroRenderedTitleNotTruncated() throws IOException {
+    public void hyperlinkFieldRendersHyperlinkWithTooltip() throws IOException {
         final ModelFormField.HyperlinkField hyperlinkField = mock(ModelFormField.HyperlinkField.class);
-        when(hyperlinkField.getModelFormField()).thenReturn(modelFormField);
-        final String description = "DESCRIPTION";
-        final String title = "TITLE";
-
-        when(hyperlinkField.getDescription(notNull())).thenReturn(description);
-        when(hyperlinkField.getTarget(notNull())).thenReturn("#");
-        when(request.getAttribute("title")).thenReturn(title);
+        when(renderableFtlFormElementsBuilder.makeHyperlinkByType(nullable(String.class), nullable(String.class),
+                nullable(String.class), nullable(String.class), anyMap(), nullable(String.class), nullable(String.class),
+                nullable(String.class), eq(modelFormField), eq(request), eq(response), notNull()))
+                .thenReturn(genericHyperlinkMacroCall);
+        genericTooltipRenderedExpectation(hyperlinkField);
 
         macroFormRenderer.renderHyperlinkField(appendable, new HashMap<>(), hyperlinkField);
-        assertAndGetMacroString("makeHyperlinkString", ImmutableMap.of("description", description, "title", title));
+
+        genericSubHyperlinkRenderedVerification();
+        genericTooltipRenderedVerification();
     }
 
     @Test
-    public void hyperlinkFieldMacroRenderedTruncatedNoTitle() throws IOException {
-        final ModelFormField.HyperlinkField hyperlinkField = mock(ModelFormField.HyperlinkField.class);
-        when(hyperlinkField.getModelFormField()).thenReturn(modelFormField);
-        final String description = "DESCRIPTION";
+    public void fieldTitleWithHeaderLinkRendersHyperlinkTitle() throws IOException {
+        when(modelFormField.getTitle(notNull())).thenReturn("FIELDTITLE");
+        when(modelFormField.getHeaderLink()).thenReturn("/target");
+        when(modelFormField.getModelForm().getName()).thenReturn("FORMNAME");
+        when(renderableFtlFormElementsBuilder.hyperlinkTitle(eq("FORMNAME"), anyString(), eq(false))).thenReturn(genericMacroCall);
 
-        when(hyperlinkField.getDescription(notNull())).thenReturn(description);
-        when(hyperlinkField.getTarget(notNull())).thenReturn("#");
-        when(request.getAttribute("descriptionSize")).thenReturn(5);
+        macroFormRenderer.renderFieldTitle(appendable, ImmutableMap.of(), modelFormField);
 
-        macroFormRenderer.renderHyperlinkField(appendable, new HashMap<>(), hyperlinkField);
-        assertAndGetMacroString("makeHyperlinkString", ImmutableMap.of("description", "DESCR…", "title", description));
+        verify(renderableFtlFormElementsBuilder).hyperlinkMacroCall(nullable(String.class), anyString(), eq("/target"), isNull(),
+                eq("FIELDTITLE"), eq(""), eq(modelFormField), eq(request), eq(response), notNull(), eq(""));
+        genericSingleMacroRenderedVerification();
     }
 
     @Test
-    public void hyperlinkFieldMacroRenderedTruncatedWithTitle() throws IOException {
-        final ModelFormField.HyperlinkField hyperlinkField = mock(ModelFormField.HyperlinkField.class);
-        when(hyperlinkField.getModelFormField()).thenReturn(modelFormField);
-        final String description = "DESCRIPTION";
-        final String title = "TITLE";
+    public void dropDownSubHyperlinkIsPrecededByASpace() throws IOException {
+        final ModelFormField.DropDownField dropDownField = mock(ModelFormField.DropDownField.class);
+        final ModelFormField.SubHyperlink subHyperlink = mock(ModelFormField.SubHyperlink.class);
+        when(dropDownField.getSubHyperlink()).thenReturn(subHyperlink);
+        when(subHyperlink.shouldUse(notNull())).thenReturn(true);
+        when(renderableFtlFormElementsBuilder.dropDownField(notNull(), eq(dropDownField), anyBoolean())).thenReturn(genericMacroCall);
+        when(renderableFtlFormElementsBuilder.makeHyperlinkString(eq(subHyperlink), notNull())).thenReturn(genericHyperlinkMacroCall);
+        genericTooltipRenderedExpectation(dropDownField);
 
-        when(hyperlinkField.getDescription(notNull())).thenReturn(description);
-        when(hyperlinkField.getTarget(notNull())).thenReturn("#");
-        when(hyperlinkField.getTitle()).thenReturn(title);
-        when(request.getAttribute("descriptionSize")).thenReturn(5);
+        macroFormRenderer.renderDropDownField(appendable, ImmutableMap.of(), dropDownField);
 
-        macroFormRenderer.renderHyperlinkField(appendable, new HashMap<>(), hyperlinkField);
-        assertAndGetMacroString("makeHyperlinkString", ImmutableMap.of("description", "DESCR…", "title", description));
-    }
-
-    @Test
-    public void hyperlinkFieldMacroRenderedModalParameters() throws IOException {
-        final ModelFormField.HyperlinkField hyperlinkField = mock(ModelFormField.HyperlinkField.class);
-        when(hyperlinkField.getModelFormField()).thenReturn(modelFormField);
-        final String title = "TitleValue";
-        final String text = "TextValue";
-        final String description = "DescriptionValue";
-        final String target = "Encoded Target";
-        final String id = "IdValue";
-        final String uniqueItemName = "UniqueItemName";
-        final String width = "650";
-        final String height = "150";
-        final String confirmation = "Are you sure ?";
-        final String targetWindow = "_blank";
-        final Map<String, ConfigXMLReader.RequestMap> requestMapMap = new HashMap<>();
-        final Map<String, String> parameterMap = new HashMap<>();
-        parameterMap.put("k1", "v1");
-        parameterMap.put("k2", "v2");
-
-        when(hyperlinkField.getDescription(notNull())).thenReturn(description);
-        when(hyperlinkField.getTarget(notNull())).thenReturn(target);
-        when(hyperlinkField.getParameterMap(notNull(), isNull(), isNull())).thenReturn(parameterMap);
-        when(hyperlinkField.getConfirmation(notNull())).thenReturn(confirmation);
-        when(hyperlinkField.getTargetWindow(notNull())).thenReturn(targetWindow);
-        when(request.getAttribute("title")).thenReturn(title);
-        when(request.getAttribute("text")).thenReturn(text);
-        when(request.getAttribute("requestMapMap")).thenReturn(requestMapMap);
-        when(request.getAttribute("id")).thenReturn(id);
-        when(request.getAttribute("uniqueItemName")).thenReturn(uniqueItemName);
-        when(request.getAttribute("width")).thenReturn(width);
-        when(request.getAttribute("height")).thenReturn(height);
-
-        macroFormRenderer.renderHyperlinkField(appendable, new HashMap<>(), hyperlinkField);
-        ImmutableMap<String, Object> result = ImmutableMap.<String, Object>builder()
-                .put("title", title)
-                .put("description", description)
-                .put("linkUrl", "Encoded%20Target")
-                .put("id", id)
-                .put("targetParameters", "\\{\\\"k1\\\":\\\"v1\\\",\\\"k2\\\":\\\"v2\\\",\\\"presentation\\\":\\\"layer\\\"}")
-                .put("width", width)
-                .put("confirmation", confirmation)
-                .put("targetWindow", targetWindow)
-                .build();
-        assertAndGetMacroString("makeHyperlinkString", result);
+        assertThat(appendable.toString(), equalTo(" "));
+        genericSingleMacroRenderedVerification();
+        genericSubHyperlinkRenderedVerification();
+        genericTooltipRenderedVerification();
     }
 
     private String assertAndGetMacroString(final String expectedName) {

@@ -172,8 +172,8 @@ public final class FtlWriter {
     }
 
     /**
-     * Visitor for RenderableFtl objects that will process the contents of the objects as FTL templates and write the
-     * results to the configured Appendable.
+     * Visitor for RenderableFtl objects that will call the macros of the macro library, or write the finished output
+     * of a RenderableFtlString as it is, to the configured Appendable.
      */
     private final class RenderableFtlFtlWriterVisitor implements RenderableFtlVisitor {
 
@@ -199,7 +199,12 @@ public final class FtlWriter {
 
         @Override
         public void visit(RenderableFtlString renderableFtlString, Locale locale) {
-            processFtlString(writer, locale, renderableFtlString.getFtlString());
+            // the string holds finished output that can contain data, so it is written as it is and never compiled
+            try {
+                writer.append(renderableFtlString.getFtlString());
+            } catch (IOException e) {
+                Debug.logError(e, "Error writing the output of a RenderableFtlString", MODULE);
+            }
         }
     }
 }
