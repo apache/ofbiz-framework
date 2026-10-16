@@ -21,6 +21,10 @@ package org.apache.ofbiz.widget.renderer.macro.renderable;
 import java.util.Locale;
 import java.util.function.Consumer;
 
+/**
+ * Finished output, such as the HTML of a link, that is written as it is. It is not a template: nothing in it is
+ * interpreted, so it can hold values of the data.
+ */
 public final class RenderableFtlString implements RenderableFtl {
     private final String ftlString;
 

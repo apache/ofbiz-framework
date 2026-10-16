@@ -21,7 +21,6 @@ package org.apache.ofbiz.widget.renderer.macro;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
-import java.net.URI;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -29,21 +28,17 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-import org.apache.commons.text.StringEscapeUtils;
 import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilCodec;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
-import org.apache.ofbiz.base.util.UtilRandom;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
 import org.apache.ofbiz.entity.Delegator;
@@ -53,7 +48,6 @@ import org.apache.ofbiz.webapp.taglib.ContentUrlTag;
 import org.apache.ofbiz.widget.WidgetWorker;
 import org.apache.ofbiz.widget.content.StaticContentUrlProvider;
 import org.apache.ofbiz.widget.model.CommonWidgetModels;
-import org.apache.ofbiz.widget.model.FieldInfo;
 import org.apache.ofbiz.widget.model.ModelForm;
 import org.apache.ofbiz.widget.model.ModelFormField;
 import org.apache.ofbiz.widget.model.ModelFormField.CheckField;
@@ -80,7 +74,6 @@ import org.apache.ofbiz.widget.model.ModelFormField.TextFindField;
 import org.apache.ofbiz.widget.model.ModelFormField.TextareaField;
 import org.apache.ofbiz.widget.model.ModelScreenWidget;
 import org.apache.ofbiz.widget.model.ModelSingleForm;
-import org.apache.ofbiz.widget.model.ModelTheme;
 import org.apache.ofbiz.widget.model.ModelWidget;
 import org.apache.ofbiz.widget.model.ThemeFactory;
 import org.apache.ofbiz.widget.renderer.FormRenderer;
@@ -90,7 +83,6 @@ import org.apache.ofbiz.widget.renderer.UtilHelpText;
 import org.apache.ofbiz.widget.renderer.VisualTheme;
 import org.apache.ofbiz.widget.renderer.macro.renderable.RenderableFtl;
 import org.apache.ofbiz.widget.renderer.macro.renderable.RenderableFtlMacroCall;
-import org.jsoup.nodes.Element;
 
 /**
  * Widget Library - Form Renderer implementation based on Freemarker macros
@@ -228,10 +220,11 @@ public final class MacroFormRenderer implements FormStringRenderer {
         this.request.setAttribute("width", hyperlinkField.getWidth());
         this.request.setAttribute("height", hyperlinkField.getHeight());
         this.request.setAttribute("text", hyperlinkField.getText(context));
-        makeHyperlinkByType(writer, hyperlinkField.getLinkType(), modelFormField.getWidgetStyle(), hyperlinkField.getUrlMode(),
-                hyperlinkField.getTarget(context), hyperlinkField.getParameterMap(context, modelFormField.getEntityName(),
-                modelFormField.getServiceName()), hyperlinkField.getDescription(context), hyperlinkField.getTargetWindow(context),
-                hyperlinkField.getConfirmation(context), modelFormField, this.request, this.response, context);
+        writeFtlElement(writer, renderableFtlFormElementsBuilder.makeHyperlinkByType(hyperlinkField.getLinkType(),
+                modelFormField.getWidgetStyle(), hyperlinkField.getUrlMode(), hyperlinkField.getTarget(context),
+                hyperlinkField.getParameterMap(context, modelFormField.getEntityName(), modelFormField.getServiceName()),
+                hyperlinkField.getDescription(context), hyperlinkField.getTargetWindow(context),
+                hyperlinkField.getConfirmation(context), modelFormField, this.request, this.response, context));
         this.appendTooltip(writer, context, modelFormField);
         this.request.removeAttribute("image");
         this.request.removeAttribute("descriptionSize");
@@ -345,7 +338,6 @@ public final class MacroFormRenderer implements FormStringRenderer {
             } else {
                 titleText = UtilHttp.encodeAmpersands(titleText);
                 final String encodedTitleText = encodeForMacro(titleText, modelFormField, context);
-                titleText = encode(titleText, modelFormField, context);
                 if (UtilValidate.isNotEmpty(modelFormField.getHeaderLink())) {
                     StringBuilder targetBuffer = new StringBuilder();
                     FlexibleStringExpander target = FlexibleStringExpander.getInstance(modelFormField.getHeaderLink());
@@ -357,8 +349,8 @@ public final class MacroFormRenderer implements FormStringRenderer {
                         targetType = "plain";
                     }
                     StringWriter sr = new StringWriter();
-                    makeHyperlinkString(sr, modelFormField.getHeaderLinkStyle(), targetType, targetBuffer.toString(), null, titleText, "",
-                            modelFormField, this.request, this.response, context, "");
+                    writeFtlElement(sr, renderableFtlFormElementsBuilder.hyperlinkMacroCall(modelFormField.getHeaderLinkStyle(), targetType,
+                            targetBuffer.toString(), null, encodedTitleText, "", modelFormField, this.request, this.response, context, ""));
                     String hyperlinkTitle = sr.toString().replace("\"", "\'");
                     writeFtlElement(writer, renderableFtlFormElementsBuilder.hyperlinkTitle(modelFormField.getModelForm().getName(),
                             hyperlinkTitle, false));
@@ -407,81 +399,12 @@ public final class MacroFormRenderer implements FormStringRenderer {
         } else {
             renderBeginningBoundaryComment(writer, "Grid Widget - Grid Element", modelForm);
         }
-        String targetType = modelForm.getTargetType();
-        String targ = modelForm.getTarget(context, targetType);
-        StringBuilder linkUrl = new StringBuilder();
-        if (UtilValidate.isNotEmpty(targ)) {
-            final URI linkUri = WidgetWorker.buildHyperlinkUri(targ, targetType, null, null, false, false, true,
-                    request, response);
-            linkUrl.append(linkUri.toString());
-        }
-        String formType = modelForm.getType();
-        String targetWindow = modelForm.getTargetWindow(context);
-        String containerId = FormRenderer.getCurrentContainerId(modelForm, context);
-        String containerStyle = modelForm.getContainerStyle();
-        String autocomplete = "";
-        String name = FormRenderer.getCurrentFormName(modelForm, context);
-        String viewIndexField = modelForm.getMultiPaginateIndexField(context);
-        String viewSizeField = modelForm.getMultiPaginateSizeField(context);
-        int viewIndex = Paginator.getViewIndex(modelForm, context);
-        int viewSize = Paginator.getViewSize(modelForm, context);
-        boolean useRowSubmit = modelForm.getUseRowSubmit();
-        if (!modelForm.getClientAutocompleteFields()) {
-            autocomplete = "off";
-        }
-        String hasRequiredField = "";
-        for (ModelFormField formField : modelForm.getFieldList()) {
-            if (formField.getRequiredField()) {
-                hasRequiredField = "Y";
-                break;
-            }
-        }
-        String focusFieldName = modelForm.getFocusFieldName();
-
-        // Generate CSRF name & value for form
-        String csrfNameValue = CsrfUtil.getTokenNameNonAjax() + " " + CsrfUtil.generateTokenForNonAjax(request, targ);
-
-        StringWriter sr = new StringWriter();
-        sr.append("<@renderFormOpen ");
-        sr.append(" linkUrl=\"");
-        sr.append(linkUrl);
-        sr.append("\" formType=\"");
-        sr.append(formType);
-        sr.append("\" targetWindow=\"");
-        sr.append(targetWindow);
-        sr.append("\" containerId=\"");
-        sr.append(containerId);
-        sr.append("\" containerStyle=\"");
-        sr.append(containerStyle);
-        sr.append("\" autocomplete=\"");
-        sr.append(autocomplete);
-        sr.append("\" name=\"");
-        sr.append(name);
-        sr.append("\" focusFieldName=\"");
-        sr.append(focusFieldName);
-        sr.append("\" hasRequiredField=\"");
-        sr.append(hasRequiredField);
-        sr.append("\" viewIndexField=\"");
-        sr.append(viewIndexField);
-        sr.append("\" viewSizeField=\"");
-        sr.append(viewSizeField);
-        sr.append("\" viewIndex=\"");
-        sr.append(Integer.toString(viewIndex));
-        sr.append("\" viewSize=\"");
-        sr.append(Integer.toString(viewSize));
-        sr.append("\" useRowSubmit=");
-        sr.append(Boolean.toString(useRowSubmit));
-        sr.append(" csrfNameValue=\"");
-        sr.append(csrfNameValue);
-        sr.append("\" />");
-        executeMacro(writer, sr.toString());
+        writeFtlElement(writer, renderableFtlFormElementsBuilder.formOpen(context, modelForm));
     }
 
     @Override
     public void renderFormClose(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
-        StringWriter sr = new StringWriter();
-        sr.append("<@renderFormClose />");
-        executeMacro(writer, sr.toString());
+        writeFtlElement(writer, renderableFtlFormElementsBuilder.formClose());
         if (modelForm instanceof ModelSingleForm) {
             renderEndingBoundaryComment(writer, "Form Widget - Form Element", modelForm);
         } else {
@@ -509,15 +432,9 @@ public final class MacroFormRenderer implements FormStringRenderer {
                 // this.renderFormatItemRowCellClose(writer, context, modelForm, submitField);
             }
         }
-        StringWriter sr = new StringWriter();
-        sr.append("<@renderMultiFormClose />");
-        executeMacro(writer, sr.toString());
+        writeFtlElement(writer, renderableFtlFormElementsBuilder.multiFormClose());
         // see if there is anything that needs to be added outside of the multi-form
-        Map<String, Object> wholeFormContext = UtilGenerics.cast(context.get("wholeFormContext"));
-        Appendable postMultiFormWriter = wholeFormContext != null ? (Appendable) wholeFormContext.get("postMultiFormWriter") : null;
-        if (postMultiFormWriter != null) {
-            writer.append(postMultiFormWriter.toString());
-        }
+        writeFtlElement(writer, renderableFtlFormElementsBuilder.postMultiFormContent(context));
         if (modelForm instanceof ModelSingleForm) {
             renderEndingBoundaryComment(writer, "Form Widget - Form Element", modelForm);
         } else {
@@ -546,63 +463,17 @@ public final class MacroFormRenderer implements FormStringRenderer {
         if (this.renderPagination) {
             this.renderNextPrev(writer, context, modelForm);
         }
-        List<ModelFormField> childFieldList = modelForm.getFieldList();
-        List<String> columnStyleList = new LinkedList<>();
-        List<String> fieldNameList = new LinkedList<>();
-        for (ModelFormField childField : childFieldList) {
-            int childFieldType = childField.getFieldInfo().getFieldType();
-            if (childFieldType == FieldInfo.HIDDEN || childFieldType == FieldInfo.IGNORED) {
-                continue;
-            }
-            String areaStyle = childField.getTitleAreaStyle();
-            if (UtilValidate.isEmpty(areaStyle)) {
-                areaStyle = "";
-            }
-            if (fieldNameList.contains(childField.getName())) {
-                if (UtilValidate.isNotEmpty(areaStyle)) {
-                    columnStyleList.set(fieldNameList.indexOf(childField.getName()), areaStyle);
-                }
-            } else {
-                columnStyleList.add(areaStyle);
-                fieldNameList.add(childField.getName());
-            }
-        }
-        String columnStyleListString =
-                columnStyleList.stream().map(str -> "'" + str + "'").collect(Collectors.joining(", "));
-        StringWriter sr = new StringWriter();
-        sr.append("<@renderFormatListWrapperOpen ");
-        sr.append(" formName=\"");
-        sr.append(modelForm.getName());
-        sr.append("\" style=\"");
-        sr.append(FlexibleStringExpander.expandString(modelForm.getDefaultTableStyle(), context));
-        sr.append("\" columnStyles=[");
-        if (UtilValidate.isNotEmpty(columnStyleListString)) {
-            // this is a fix for forms with no fields
-            sr.append(columnStyleListString);
-        }
-        sr.append("] />");
-        executeMacro(writer, sr.toString());
-
+        writeFtlElement(writer, renderableFtlFormElementsBuilder.formatListWrapperOpen(context, modelForm));
     }
 
     @Override
     public void renderEmptyFormDataMessage(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
-        StringWriter sr = new StringWriter();
-        sr.append("<@renderEmptyFormDataMessage");
-        sr.append(" message=\"");
-        sr.append(modelForm.getEmptyFormDataMessage(context));
-        sr.append("\" />");
-        executeMacro(writer, sr.toString());
+        writeFtlElement(writer, renderableFtlFormElementsBuilder.emptyFormDataMessage(context, modelForm));
     }
 
     @Override
     public void renderFormatListWrapperClose(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
-        StringWriter sr = new StringWriter();
-        sr.append("<@renderFormatListWrapperClose");
-        sr.append(" formName=\"");
-        sr.append(modelForm.getName());
-        sr.append("\" />");
-        executeMacro(writer, sr.toString());
+        writeFtlElement(writer, renderableFtlFormElementsBuilder.formatListWrapperClose(modelForm));
         if (this.renderPagination) {
             this.renderNextPrev(writer, context, modelForm);
         }
@@ -615,230 +486,112 @@ public final class MacroFormRenderer implements FormStringRenderer {
 
     @Override
     public void renderFormatHeaderOpen(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
-        StringWriter sr = new StringWriter();
-        sr.append("<@renderFormatHeaderOpen ");
-        sr.append(" />");
-        executeMacro(writer, sr.toString());
+        writeFtlElement(writer, renderableFtlFormElementsBuilder.formatHeaderOpen());
     }
 
     @Override
     public void renderFormatHeaderClose(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
-        StringWriter sr = new StringWriter();
-        sr.append("<@renderFormatHeaderClose");
-        sr.append(" />");
-        executeMacro(writer, sr.toString());
+        writeFtlElement(writer, renderableFtlFormElementsBuilder.formatHeaderClose());
     }
 
     @Override
     public void renderFormatHeaderRowOpen(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
-        String headerStyle = FlexibleStringExpander.expandString(modelForm.getHeaderRowStyle(), context);
-        StringWriter sr = new StringWriter();
-        sr.append("<@renderFormatHeaderRowOpen ");
-        sr.append(" style=\"");
-        sr.append(headerStyle);
-        sr.append("\" />");
-        executeMacro(writer, sr.toString());
+        writeFtlElement(writer, renderableFtlFormElementsBuilder.formatHeaderRowOpen(context, modelForm));
     }
 
     @Override
     public void renderFormatHeaderRowClose(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
-        StringWriter sr = new StringWriter();
-        sr.append("<@renderFormatHeaderRowClose />");
-        executeMacro(writer, sr.toString());
+        writeFtlElement(writer, renderableFtlFormElementsBuilder.formatHeaderRowClose());
     }
 
     @Override
     public void renderFormatHeaderRowCellOpen(Appendable writer, Map<String, Object> context, ModelForm modelForm, ModelFormField modelFormField,
                                               int positionSpan) throws IOException {
-        String areaStyle = modelFormField.getTitleAreaStyle();
-        StringWriter sr = new StringWriter();
-        sr.append("<@renderFormatHeaderRowCellOpen ");
-        sr.append(" style=\"");
-        sr.append(areaStyle);
-        sr.append("\" positionSpan=");
-        sr.append(Integer.toString(positionSpan));
-        sr.append(" />");
-        executeMacro(writer, sr.toString());
+        writeFtlElement(writer, renderableFtlFormElementsBuilder.formatHeaderRowCellOpen(modelFormField, positionSpan));
     }
 
     @Override
     public void renderFormatHeaderRowCellClose(Appendable writer, Map<String, Object> context, ModelForm modelForm, ModelFormField modelFormField)
             throws IOException {
-        StringWriter sr = new StringWriter();
-        sr.append("<@renderFormatHeaderRowCellClose />");
-        executeMacro(writer, sr.toString());
+        writeFtlElement(writer, renderableFtlFormElementsBuilder.formatHeaderRowCellClose());
     }
 
     @Override
     public void renderFormatHeaderRowFormCellOpen(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
-        String areaStyle = modelForm.getFormTitleAreaStyle();
-        StringWriter sr = new StringWriter();
-        sr.append("<@renderFormatHeaderRowFormCellOpen ");
-        sr.append(" style=\"");
-        sr.append(areaStyle);
-        sr.append("\" />");
-        executeMacro(writer, sr.toString());
+        writeFtlElement(writer, renderableFtlFormElementsBuilder.formatHeaderRowFormCellOpen(modelForm));
     }
 
     @Override
     public void renderFormatHeaderRowFormCellClose(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
-        StringWriter sr = new StringWriter();
-        sr.append("<@renderFormatHeaderRowFormCellClose />");
-        executeMacro(writer, sr.toString());
+        writeFtlElement(writer, renderableFtlFormElementsBuilder.formatHeaderRowFormCellClose());
     }
 
     @Override
     public void renderFormatHeaderRowFormCellTitleSeparator(Appendable writer, Map<String, Object> context, ModelForm modelForm,
                                                             ModelFormField modelFormField, boolean isLast) throws IOException {
-        String titleStyle = modelFormField.getTitleStyle();
-        StringWriter sr = new StringWriter();
-        sr.append("<@renderFormatHeaderRowFormCellTitleSeparator ");
-        sr.append(" style=\"");
-        sr.append(titleStyle);
-        sr.append("\" isLast=");
-        sr.append(Boolean.toString(isLast));
-        sr.append(" />");
-        executeMacro(writer, sr.toString());
+        writeFtlElement(writer, renderableFtlFormElementsBuilder.formatHeaderRowFormCellTitleSeparator(modelFormField, isLast));
     }
 
     @Override
     public void renderFormatItemRowOpen(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
-        Integer itemIndex = (Integer) context.get("itemIndex");
-        String altRowStyles = "";
-        String evenRowStyle = "";
-        String oddRowStyle = "";
-        if (itemIndex != null) {
-            altRowStyles = modelForm.getStyleAltRowStyle(context);
-            if (itemIndex % 2 == 0) {
-                evenRowStyle = modelForm.getEvenRowStyle();
-            } else {
-                oddRowStyle = FlexibleStringExpander.expandString(modelForm.getOddRowStyle(), context);
-            }
-        }
-        StringWriter sr = new StringWriter();
-        sr.append("<@renderFormatItemRowOpen ");
-        sr.append(" formName=\"");
-        sr.append(modelForm.getName());
-        sr.append("\" itemIndex=");
-        sr.append(String.valueOf(itemIndex));
-        sr.append(" altRowStyles=\"");
-        sr.append(altRowStyles);
-        sr.append("\" evenRowStyle=\"");
-        sr.append(evenRowStyle);
-        sr.append("\" oddRowStyle=\"");
-        sr.append(oddRowStyle);
-        sr.append("\" />");
-        executeMacro(writer, sr.toString());
+        writeFtlElement(writer, renderableFtlFormElementsBuilder.formatItemRowOpen(context, modelForm));
     }
 
     @Override
     public void renderFormatItemRowClose(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
-        StringWriter sr = new StringWriter();
-        sr.append("<@renderFormatItemRowClose ");
-        sr.append(" formName=\"");
-        sr.append(modelForm.getName());
-        sr.append("\"/>");
-        executeMacro(writer, sr.toString());
+        writeFtlElement(writer, renderableFtlFormElementsBuilder.formatItemRowClose(modelForm));
     }
 
     @Override
     public void renderFormatItemRowCellOpen(Appendable writer, Map<String, Object> context, ModelForm modelForm, ModelFormField modelFormField,
                                             int positionSpan) throws IOException {
-        String areaStyle = modelFormField.getWidgetAreaStyle();
-        StringWriter sr = new StringWriter();
-        sr.append("<@renderFormatItemRowCellOpen ");
-        sr.append(" fieldName=\"");
-        sr.append(modelFormField.getName());
-        sr.append("\" style=\"");
-        sr.append(areaStyle);
-        sr.append("\" positionSpan=");
-        sr.append(Integer.toString(positionSpan));
-        sr.append(" />");
-        executeMacro(writer, sr.toString());
+        writeFtlElement(writer, renderableFtlFormElementsBuilder.formatItemRowCellOpen(modelFormField, positionSpan));
     }
 
     @Override
     public void renderFormatItemRowCellClose(Appendable writer, Map<String, Object> context, ModelForm modelForm, ModelFormField modelFormField)
             throws IOException {
-        StringWriter sr = new StringWriter();
-        sr.append("<@renderFormatItemRowCellClose");
-        sr.append(" fieldName=\"");
-        sr.append(modelFormField.getName());
-        sr.append("\"/>");
-        executeMacro(writer, sr.toString());
+        writeFtlElement(writer, renderableFtlFormElementsBuilder.formatItemRowCellClose(modelFormField));
     }
 
     @Override
     public void renderFormatItemRowFormCellOpen(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
-        String areaStyle = modelForm.getFormTitleAreaStyle();
-        StringWriter sr = new StringWriter();
-        sr.append("<@renderFormatItemRowFormCellOpen ");
-        sr.append(" style=\"");
-        sr.append(areaStyle);
-        sr.append("\" />");
-        executeMacro(writer, sr.toString());
+        writeFtlElement(writer, renderableFtlFormElementsBuilder.formatItemRowFormCellOpen(modelForm));
     }
 
     @Override
     public void renderFormatItemRowFormCellClose(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
-        StringWriter sr = new StringWriter();
-        sr.append("<@renderFormatItemRowFormCellClose />");
-        executeMacro(writer, sr.toString());
+        writeFtlElement(writer, renderableFtlFormElementsBuilder.formatItemRowFormCellClose());
     }
 
     @Override
     public void renderFormatSingleWrapperOpen(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
-        String style = FlexibleStringExpander.expandString(modelForm.getDefaultTableStyle(), context);
-        StringWriter sr = new StringWriter();
-        sr.append("<@renderFormatSingleWrapperOpen ");
-        sr.append(" formName=\"");
-        sr.append(modelForm.getName());
-        sr.append("\" style=\"");
-        sr.append(style);
-        sr.append("\" />");
-        executeMacro(writer, sr.toString());
+        writeFtlElement(writer, renderableFtlFormElementsBuilder.formatSingleWrapperOpen(context, modelForm));
     }
 
     @Override
     public void renderFormatSingleWrapperClose(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
-        StringWriter sr = new StringWriter();
-        sr.append("<@renderFormatSingleWrapperClose");
-        sr.append(" formName=\"");
-        sr.append(modelForm.getName());
-        sr.append("\"/>");
-        executeMacro(writer, sr.toString());
+        writeFtlElement(writer, renderableFtlFormElementsBuilder.formatSingleWrapperClose(modelForm));
     }
 
     @Override
     public void renderFormatFieldRowOpen(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
-        StringWriter sr = new StringWriter();
-        sr.append("<@renderFormatFieldRowOpen />");
-        executeMacro(writer, sr.toString());
+        writeFtlElement(writer, renderableFtlFormElementsBuilder.formatFieldRowOpen());
     }
 
     @Override
     public void renderFormatFieldRowClose(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
-        StringWriter sr = new StringWriter();
-        sr.append("<@renderFormatFieldRowClose />");
-        executeMacro(writer, sr.toString());
+        writeFtlElement(writer, renderableFtlFormElementsBuilder.formatFieldRowClose());
     }
 
     @Override
     public void renderFormatFieldRowTitleCellOpen(Appendable writer, Map<String, Object> context, ModelFormField modelFormField) throws IOException {
-        String style = modelFormField.getTitleAreaStyle();
-        StringWriter sr = new StringWriter();
-        sr.append("<@renderFormatFieldRowTitleCellOpen ");
-        sr.append(" style=\"");
-        sr.append(style);
-        sr.append("\" />");
-        executeMacro(writer, sr.toString());
+        writeFtlElement(writer, renderableFtlFormElementsBuilder.formatFieldRowTitleCellOpen(modelFormField));
     }
 
     @Override
     public void renderFormatFieldRowTitleCellClose(Appendable writer, Map<String, Object> context, ModelFormField modelFormField) throws IOException {
-        StringWriter sr = new StringWriter();
-        sr.append("<@renderFormatFieldRowTitleCellClose />");
-        executeMacro(writer, sr.toString());
+        writeFtlElement(writer, renderableFtlFormElementsBuilder.formatFieldRowTitleCellClose());
     }
 
     @Override
@@ -848,30 +601,18 @@ public final class MacroFormRenderer implements FormStringRenderer {
     @Override
     public void renderFormatFieldRowWidgetCellOpen(Appendable writer, Map<String, Object> context, ModelFormField modelFormField, int positions,
                                                    int positionSpan, Integer nextPositionInRow) throws IOException {
-        String areaStyle = modelFormField.getWidgetAreaStyle();
-        StringWriter sr = new StringWriter();
-        sr.append("<@renderFormatFieldRowWidgetCellOpen ");
-        sr.append(" positionSpan=");
-        sr.append(Integer.toString(positionSpan));
-        sr.append(" style=\"");
-        sr.append(areaStyle);
-        sr.append("\" />");
-        executeMacro(writer, sr.toString());
+        writeFtlElement(writer, renderableFtlFormElementsBuilder.formatFieldRowWidgetCellOpen(modelFormField, positionSpan));
     }
 
     @Override
     public void renderFormatFieldRowWidgetCellClose(Appendable writer, Map<String, Object> context, ModelFormField modelFormField, int positions,
                                                     int positionSpan, Integer nextPositionInRow) throws IOException {
-        StringWriter sr = new StringWriter();
-        sr.append("<@renderFormatFieldRowWidgetCellClose />");
-        executeMacro(writer, sr.toString());
+        writeFtlElement(writer, renderableFtlFormElementsBuilder.formatFieldRowWidgetCellClose());
     }
 
     @Override
     public void renderFormatEmptySpace(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
-        StringWriter sr = new StringWriter();
-        sr.append("<@renderFormatEmptySpace />");
-        executeMacro(writer, sr.toString());
+        writeFtlElement(writer, renderableFtlFormElementsBuilder.formatEmptySpace());
     }
 
     @Override
@@ -1743,16 +1484,8 @@ public final class MacroFormRenderer implements FormStringRenderer {
      */
     public void renderBeginningBoundaryComment(Appendable writer, String widgetType, ModelWidget modelWidget) {
         if (this.widgetCommentsEnabled) {
-            StringWriter sr = new StringWriter();
-            sr.append("<@formatBoundaryComment ");
-            sr.append(" boundaryType=\"");
-            sr.append("Begin");
-            sr.append("\" widgetType=\"");
-            sr.append(widgetType);
-            sr.append("\" widgetName=\"");
-            sr.append(modelWidget.getBoundaryCommentName());
-            sr.append("\" />");
-            executeMacro(writer, sr.toString());
+            writeFtlElement(writer, renderableFtlFormElementsBuilder.boundaryComment("Begin", widgetType,
+                    modelWidget.getBoundaryCommentName()));
         }
     }
 
@@ -1764,16 +1497,8 @@ public final class MacroFormRenderer implements FormStringRenderer {
      */
     public void renderEndingBoundaryComment(Appendable writer, String widgetType, ModelWidget modelWidget) {
         if (this.widgetCommentsEnabled) {
-            StringWriter sr = new StringWriter();
-            sr.append("<@formatBoundaryComment ");
-            sr.append(" boundaryType=\"");
-            sr.append("End");
-            sr.append("\" widgetType=\"");
-            sr.append(widgetType);
-            sr.append("\" widgetName=\"");
-            sr.append(modelWidget.getBoundaryCommentName());
-            sr.append("\" />");
-            executeMacro(writer, sr.toString());
+            writeFtlElement(writer, renderableFtlFormElementsBuilder.boundaryComment("End", widgetType,
+                    modelWidget.getBoundaryCommentName()));
         }
     }
 
@@ -1854,23 +1579,10 @@ public final class MacroFormRenderer implements FormStringRenderer {
         writeFtlElement(writer, renderableFtlFormElementsBuilder.tooltip(context, modelFormField));
     }
 
-    public void makeHyperlinkString(Appendable writer, ModelFormField.SubHyperlink subHyperlink, Map<String, Object> context) throws IOException {
-        if (subHyperlink == null) {
-            return;
-        }
-        if (subHyperlink.shouldUse(context)) {
-            if (UtilValidate.isNotEmpty(subHyperlink.getWidth())) {
-                this.request.setAttribute("width", subHyperlink.getWidth());
-            }
-            if (UtilValidate.isNotEmpty(subHyperlink.getHeight())) {
-                this.request.setAttribute("height", subHyperlink.getHeight());
-            }
+    private void makeHyperlinkString(Appendable writer, ModelFormField.SubHyperlink subHyperlink, Map<String, Object> context) throws IOException {
+        if (subHyperlink != null && subHyperlink.shouldUse(context)) {
             writer.append(' ');
-            makeHyperlinkByType(writer, subHyperlink.getLinkType(), subHyperlink.getStyle(context), subHyperlink.getUrlMode(),
-                    subHyperlink.getTarget(context), subHyperlink.getParameterMap(context, subHyperlink.getModelFormField().getEntityName(),
-                            subHyperlink.getModelFormField().getServiceName()), subHyperlink.getDescription(context),
-                    subHyperlink.getTargetWindow(context), "", subHyperlink.getModelFormField(), this.request, this.response,
-                    context);
+            writeFtlElement(writer, renderableFtlFormElementsBuilder.makeHyperlinkString(subHyperlink, context));
         }
     }
 
@@ -1884,203 +1596,6 @@ public final class MacroFormRenderer implements FormStringRenderer {
         ContentUrlTag.appendContentPrefix(this.request, buffer);
         writer.append(buffer.toString());
         writer.append(location);
-    }
-
-    public void makeHyperlinkByType(Appendable writer, String linkType, String linkStyle, String targetType, String target, Map<String,
-            String> parameterMap, String description, String targetWindow, String confirmation, ModelFormField modelFormField,
-            HttpServletRequest request, HttpServletResponse response, Map<String, Object> context) throws IOException {
-        String realLinkType = WidgetWorker.determineAutoLinkType(linkType, target, targetType, request);
-        UtilCodec.SimpleEncoder simpleEncoder = null;
-        String encodedDescription = null;
-        if (description.equals(StringEscapeUtils.unescapeEcmaScript(StringEscapeUtils.unescapeHtml4(description)))) {
-            simpleEncoder = internalEncoder;
-        } else {
-            simpleEncoder = UtilCodec.getEncoder("string");
-        }
-        if (simpleEncoder != null) {
-            encodedDescription = simpleEncoder.encode(description);
-        }
-        // get the parameterized pagination index and size fields
-        int paginatorNumber = WidgetWorker.getPaginatorNumber(context);
-        ModelForm modelForm = modelFormField.getModelForm();
-        ModelTheme modelTheme = visualTheme.getModelTheme();
-        String viewIndexField = modelForm.getMultiPaginateIndexField(context);
-        String viewSizeField = modelForm.getMultiPaginateSizeField(context);
-        int viewIndex = Paginator.getViewIndex(modelForm, context);
-        int viewSize = Paginator.getViewSize(modelForm, context);
-        if (("viewIndex" + "_" + paginatorNumber).equals(viewIndexField)) {
-            viewIndexField = "VIEW_INDEX" + "_" + paginatorNumber;
-        }
-        if (("viewSize" + "_" + paginatorNumber).equals(viewSizeField)) {
-            viewSizeField = "VIEW_SIZE" + "_" + paginatorNumber;
-        }
-        if ("hidden-form".equals(realLinkType)) {
-            parameterMap.put(viewIndexField, Integer.toString(viewIndex));
-            parameterMap.put(viewSizeField, Integer.toString(viewSize));
-            if ("multi".equals(modelForm.getType())) {
-                final Element anchorElement = WidgetWorker.makeHiddenFormLinkAnchorElement(linkStyle,
-                        encodedDescription, confirmation, modelFormField, request, context);
-                writer.append(anchorElement.outerHtml());
-                // this is a bit trickier, since we can't do a nested form we'll have to put the link to submit the form in place,
-                // but put the actual form def elsewhere, ie after the big form is closed
-                Map<String, Object> wholeFormContext = UtilGenerics.cast(context.get("wholeFormContext"));
-                Appendable postMultiFormWriter = wholeFormContext != null ? (Appendable) wholeFormContext.get("postMultiFormWriter") : null;
-                if (postMultiFormWriter == null) {
-                    postMultiFormWriter = new StringWriter();
-                    wholeFormContext.put("postMultiFormWriter", postMultiFormWriter);
-                }
-                final Element hiddenFormElement = WidgetWorker.makeHiddenFormLinkFormElement(target, targetType,
-                        targetWindow, parameterMap, modelFormField, request, response, context);
-                postMultiFormWriter.append(hiddenFormElement.outerHtml());
-
-            } else {
-                final Element hiddenFormElement = WidgetWorker.makeHiddenFormLinkFormElement(target, targetType,
-                        targetWindow, parameterMap, modelFormField, request, response, context);
-                writer.append(hiddenFormElement.outerHtml());
-                final Element anchorElement = WidgetWorker.makeHiddenFormLinkAnchorElement(linkStyle,
-                        encodedDescription, confirmation, modelFormField, request, context);
-                if (anchorElement != null) {
-                    writer.append(anchorElement.outerHtml());
-                }
-            }
-        } else {
-            if ("layered-modal".equals(realLinkType)) {
-                String uniqueItemName = UtilRandom.getUnique("Modal_", true);
-                String width = (String) this.request.getAttribute("width");
-                if (UtilValidate.isEmpty(width)) {
-                    width = String.valueOf(modelTheme.getLinkDefaultLayeredModalWidth());
-                    this.request.setAttribute("width", width);
-                }
-                String height = (String) this.request.getAttribute("height");
-                if (UtilValidate.isEmpty(height)) {
-                    height = String.valueOf(modelTheme.getLinkDefaultLayeredModalHeight());
-                    this.request.setAttribute("height", height);
-                }
-                this.request.setAttribute("uniqueItemName", uniqueItemName);
-                makeHyperlinkString(writer, linkStyle, targetType, target, parameterMap, encodedDescription, confirmation, modelFormField, request,
-                        response, context, targetWindow);
-                this.request.removeAttribute("uniqueItemName");
-                this.request.removeAttribute("height");
-                this.request.removeAttribute("width");
-            } else {
-                makeHyperlinkString(writer, linkStyle, targetType, target, parameterMap, encodedDescription, confirmation, modelFormField, request,
-                        response, context, targetWindow);
-            }
-        }
-    }
-
-    public void makeHyperlinkString(Appendable writer, String linkStyle, String targetType, String target, Map<String, String> parameterMap,
-                                    String description, String confirmation, ModelFormField modelFormField, HttpServletRequest request,
-                                    HttpServletResponse response, Map<String, Object> context, String targetWindow) throws IOException {
-        if (description != null || UtilValidate.isNotEmpty(request.getAttribute("image"))) {
-            StringBuilder linkUrl = new StringBuilder();
-            final URI linkUri = WidgetWorker.buildHyperlinkUri(target, targetType,
-                    UtilValidate.isEmpty(request.getAttribute("uniqueItemName")) ? parameterMap : null,
-                    null, false, false, true, request, response);
-            linkUrl.append(linkUri.toString());
-            String event = "";
-            String action = "";
-            String imgSrc = "";
-            String imgTitle = "";
-            String alt = "";
-            String id = "";
-            String uniqueItemName = "";
-            String width = "";
-            String height = "";
-            String title = "";
-            String text = "";
-            String hiddenFormName = WidgetWorker.makeLinkHiddenFormName(context, modelFormField);
-            if (UtilValidate.isNotEmpty(modelFormField.getEvent()) && UtilValidate.isNotEmpty(modelFormField.getAction(context))) {
-                event = modelFormField.getEvent();
-                action = modelFormField.getAction(context);
-            }
-            if (UtilValidate.isNotEmpty(request.getAttribute("image"))) {
-                imgSrc = request.getAttribute("image").toString();
-            }
-            if (UtilValidate.isNotEmpty(request.getAttribute("imageTitle"))) {
-                imgTitle = request.getAttribute("imageTitle").toString();
-            }
-            if (UtilValidate.isNotEmpty(request.getAttribute("alternate"))) {
-                alt = request.getAttribute("alternate").toString();
-            }
-            int size = 0;
-            if (UtilValidate.isNotEmpty(request.getAttribute("descriptionSize"))) {
-                size = Integer.parseInt(request.getAttribute("descriptionSize").toString());
-            }
-            // if description is truncated, always use description as title
-            if (UtilValidate.isNotEmpty(description) && size > 0 && description.length() > size) {
-                title = description;
-                description = StringUtil.truncateEncodedStringToLength(description, size);
-            } else if (UtilValidate.isNotEmpty(request.getAttribute("title"))) {
-                title = request.getAttribute("title").toString();
-            }
-            if (UtilValidate.isNotEmpty(request.getAttribute("id"))) {
-                id = request.getAttribute("id").toString();
-            }
-            if (UtilValidate.isNotEmpty(request.getAttribute("text"))) {
-                text = request.getAttribute("text").toString();
-            }
-            if (UtilValidate.isNotEmpty(request.getAttribute("uniqueItemName"))) {
-                uniqueItemName = request.getAttribute("uniqueItemName").toString();
-                width = request.getAttribute("width").toString();
-                height = request.getAttribute("height").toString();
-            }
-            StringBuilder targetParameters = new StringBuilder();
-            if (UtilValidate.isNotEmpty(parameterMap) || UtilValidate.isNotEmpty(uniqueItemName)) {
-                try {
-                    Map<String, Object> params = new java.util.TreeMap<>();
-                    if (UtilValidate.isNotEmpty(parameterMap)) {
-                        params.putAll(parameterMap);
-                    }
-                    if (UtilValidate.isNotEmpty(uniqueItemName)) {
-                        params.put("presentation", "layer");
-                    }
-                    targetParameters.append(org.apache.ofbiz.base.lang.JSON.from(params).toString());
-                } catch (Exception e) {
-                    Debug.logError(e, "Error converting dialog params to JSON", MODULE);
-                }
-            }
-            StringWriter sr = new StringWriter();
-            sr.append("<@makeHyperlinkString ");
-            sr.append("linkStyle=\"");
-            sr.append(linkStyle == null ? "" : linkStyle);
-            sr.append("\" hiddenFormName=\"");
-            sr.append(hiddenFormName);
-            sr.append("\" event=\"");
-            sr.append(event);
-            sr.append("\" action=\"");
-            sr.append(action);
-            sr.append("\" imgSrc=\"");
-            sr.append(imgSrc);
-            sr.append("\" imgTitle=\"");
-            sr.append(imgTitle);
-            sr.append("\" title=\"");
-            sr.append(title);
-            sr.append("\" alternate=\"");
-            sr.append(alt);
-            sr.append("\" targetParameters=\"");
-            sr.append(MacroCommonRenderer.escapeFtlString(targetParameters.toString()));
-            sr.append("\" linkUrl=\"");
-            sr.append(linkUrl.toString());
-            sr.append("\" targetWindow=\"");
-            sr.append(targetWindow);
-            sr.append("\" description=\"");
-            sr.append(description);
-            sr.append("\" confirmation=\"");
-            sr.append(confirmation);
-            sr.append("\" uniqueItemName=\"");
-            sr.append(uniqueItemName);
-            sr.append("\" height=\"");
-            sr.append(height);
-            sr.append("\" width=\"");
-            sr.append(width);
-            sr.append("\" id=\"");
-            sr.append(id);
-            sr.append("\" text=\"");
-            sr.append(text);
-            sr.append("\" />");
-            executeMacro(writer, sr.toString());
-        }
     }
 
     @Override

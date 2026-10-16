@@ -23,6 +23,7 @@ import com.google.common.collect.ImmutableMap;
 import org.apache.ofbiz.webapp.control.ConfigXMLReader;
 import org.apache.ofbiz.webapp.control.RequestHandler;
 import org.apache.ofbiz.widget.content.StaticContentUrlProvider;
+import org.apache.ofbiz.widget.model.FieldInfo;
 import org.apache.ofbiz.widget.model.ModelForm;
 import org.apache.ofbiz.widget.model.ModelFormField;
 import org.apache.ofbiz.widget.model.ModelScreenWidget;
@@ -30,6 +31,7 @@ import org.apache.ofbiz.widget.renderer.VisualTheme;
 import org.apache.ofbiz.widget.renderer.macro.renderable.RenderableFtlMacroCall;
 import org.apache.ofbiz.widget.renderer.macro.renderable.RenderableFtl;
 import org.apache.ofbiz.widget.renderer.macro.renderable.RenderableFtlNoop;
+import org.apache.ofbiz.widget.renderer.macro.renderable.RenderableFtlString;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -717,5 +719,349 @@ public final class RenderableFtlFormElementsBuilderTest {
                 (RenderableFtlMacroCall) renderableFtlFormElementsBuilder.sortField("STYLE", "TITLE", "/target", false, "TIP");
         assertThat(withTooltip, MacroCallMatcher.hasNameAndParameters("renderSortField",
                 MacroCallParameterMatcher.hasNameAndStringValue("tooltip", "TIP")));
+    }
+
+    private static RenderableFtlMacroCall macroCall(final RenderableFtl renderableFtl) {
+        return (RenderableFtlMacroCall) renderableFtl;
+    }
+
+    private ModelFormField columnField(final String name, final int fieldType, final String titleAreaStyle) {
+        final ModelFormField columnField = mock(ModelFormField.class, RETURNS_DEEP_STUBS);
+        when(columnField.getName()).thenReturn(name);
+        when(columnField.getFieldInfo().getFieldType()).thenReturn(fieldType);
+        when(columnField.getTitleAreaStyle()).thenReturn(titleAreaStyle);
+        return columnField;
+    }
+
+    @Test
+    public void formOpenSetsTheFormTypeAndTheViewParameters() {
+        final ModelForm modelForm = mock(ModelForm.class);
+        when(modelForm.getType()).thenReturn("single");
+        when(modelForm.getUseRowSubmit()).thenReturn(true);
+
+        final RenderableFtl renderableFtl = renderableFtlFormElementsBuilder.formOpen(new HashMap<>(), modelForm);
+        assertThat(renderableFtl, MacroCallMatcher.hasNameAndParameters("renderFormOpen",
+                MacroCallParameterMatcher.hasNameAndStringValue("formType", "single"),
+                MacroCallParameterMatcher.hasNameAndStringValue("autocomplete", "off"),
+                MacroCallParameterMatcher.hasNameAndStringValue("hasRequiredField", ""),
+                MacroCallParameterMatcher.hasNameAndBooleanValue("useRowSubmit", true),
+                MacroCallParameterMatcher.hasName("viewIndex"),
+                MacroCallParameterMatcher.hasName("viewSize"),
+                MacroCallParameterMatcher.hasName("csrfNameValue")));
+    }
+
+    @Test
+    public void formOpenFlagsTheFormWithARequiredField() {
+        final ModelForm modelForm = mock(ModelForm.class);
+        when(modelForm.getClientAutocompleteFields()).thenReturn(true);
+        final ModelFormField requiredField = mock(ModelFormField.class);
+        when(requiredField.getRequiredField()).thenReturn(true);
+        when(modelForm.getFieldList()).thenReturn(List.of(requiredField));
+
+        final RenderableFtl renderableFtl = renderableFtlFormElementsBuilder.formOpen(new HashMap<>(), modelForm);
+        assertThat(renderableFtl, MacroCallMatcher.hasNameAndParameters("renderFormOpen",
+                MacroCallParameterMatcher.hasNameAndStringValue("autocomplete", ""),
+                MacroCallParameterMatcher.hasNameAndStringValue("hasRequiredField", "Y")));
+    }
+
+    @Test
+    public void closingMacrosHaveNoParameters() {
+        assertThat(macroCall(renderableFtlFormElementsBuilder.formClose()).getName(), equalTo("renderFormClose"));
+        assertThat(macroCall(renderableFtlFormElementsBuilder.multiFormClose()).getName(), equalTo("renderMultiFormClose"));
+        assertThat(macroCall(renderableFtlFormElementsBuilder.formatHeaderOpen()).getName(), equalTo("renderFormatHeaderOpen"));
+        assertThat(macroCall(renderableFtlFormElementsBuilder.formatHeaderClose()).getName(), equalTo("renderFormatHeaderClose"));
+        assertThat(macroCall(renderableFtlFormElementsBuilder.formatHeaderRowClose()).getName(), equalTo("renderFormatHeaderRowClose"));
+        assertThat(macroCall(renderableFtlFormElementsBuilder.formatHeaderRowCellClose()).getName(),
+                equalTo("renderFormatHeaderRowCellClose"));
+        assertThat(macroCall(renderableFtlFormElementsBuilder.formatHeaderRowFormCellClose()).getName(),
+                equalTo("renderFormatHeaderRowFormCellClose"));
+        assertThat(macroCall(renderableFtlFormElementsBuilder.formatItemRowFormCellClose()).getName(),
+                equalTo("renderFormatItemRowFormCellClose"));
+        assertThat(macroCall(renderableFtlFormElementsBuilder.formatFieldRowOpen()).getName(), equalTo("renderFormatFieldRowOpen"));
+        assertThat(macroCall(renderableFtlFormElementsBuilder.formatFieldRowClose()).getName(), equalTo("renderFormatFieldRowClose"));
+        assertThat(macroCall(renderableFtlFormElementsBuilder.formatFieldRowTitleCellClose()).getName(),
+                equalTo("renderFormatFieldRowTitleCellClose"));
+        assertThat(macroCall(renderableFtlFormElementsBuilder.formatFieldRowWidgetCellClose()).getName(),
+                equalTo("renderFormatFieldRowWidgetCellClose"));
+        assertThat(macroCall(renderableFtlFormElementsBuilder.formatHeaderRowClose()).getParameters().isEmpty(), equalTo(true));
+    }
+
+    @Test
+    public void postMultiFormContentIsNothingWhenThereIsNone() {
+        assertThat(renderableFtlFormElementsBuilder.postMultiFormContent(new HashMap<>()), equalTo(RenderableFtlNoop.INSTANCE));
+
+        final Map<String, Object> context = new HashMap<>();
+        context.put("wholeFormContext", new HashMap<String, Object>());
+        assertThat(renderableFtlFormElementsBuilder.postMultiFormContent(context), equalTo(RenderableFtlNoop.INSTANCE));
+    }
+
+    @Test
+    public void postMultiFormContentIsWhatTheHiddenFormLinksStored() {
+        final RenderableFtlMacroCall stored = RenderableFtlMacroCall.builder().name("stored").build();
+        final Map<String, Object> wholeFormContext = new HashMap<>();
+        wholeFormContext.put("postMultiFormRenderableFtl", stored);
+        final Map<String, Object> context = new HashMap<>();
+        context.put("wholeFormContext", wholeFormContext);
+
+        assertThat(renderableFtlFormElementsBuilder.postMultiFormContent(context), equalTo(stored));
+    }
+
+    @Test
+    public void formatListWrapperOpenCollectsOneStylePerVisibleColumn() {
+        final ModelForm modelForm = mock(ModelForm.class);
+        when(modelForm.getName()).thenReturn("FORMNAME");
+        when(modelForm.getDefaultTableStyle()).thenReturn("STYLE${styleParam}");
+        final List<ModelFormField> fields = List.of(
+                columnField("first", FieldInfo.DISPLAY, "FIRSTSTYLE"),
+                columnField("hidden", FieldInfo.HIDDEN, "HIDDENSTYLE"),
+                columnField("second", FieldInfo.TEXT, "it's a style"),
+                // a second field with the name of the first one only replaces the style
+                columnField("first", FieldInfo.TEXT, "REPLACEDSTYLE"),
+                columnField("third", FieldInfo.TEXT, null));
+        when(modelForm.getFieldList()).thenReturn(fields);
+
+        final RenderableFtlMacroCall macroCall = macroCall(
+                renderableFtlFormElementsBuilder.formatListWrapperOpen(ImmutableMap.of("styleParam", "ABCD"), modelForm));
+        assertThat(macroCall, MacroCallMatcher.hasNameAndParameters("renderFormatListWrapperOpen",
+                MacroCallParameterMatcher.hasNameAndStringValue("formName", "FORMNAME"),
+                MacroCallParameterMatcher.hasNameAndStringValue("style", "STYLEABCD")));
+        assertThat(macroCall.getParameters().get("columnStyles"), equalTo(List.of("REPLACEDSTYLE", "it's a style", "")));
+    }
+
+    @Test
+    public void formatListWrapperOpenWithoutFieldsHasNoColumnStyles() {
+        final ModelForm modelForm = mock(ModelForm.class);
+
+        final RenderableFtlMacroCall macroCall = macroCall(renderableFtlFormElementsBuilder.formatListWrapperOpen(new HashMap<>(), modelForm));
+        assertThat(macroCall.getParameters().get("columnStyles"), equalTo(List.of()));
+    }
+
+    @Test
+    public void emptyFormDataMessageSetsTheMessage() {
+        final ModelForm modelForm = mock(ModelForm.class);
+        when(modelForm.getEmptyFormDataMessage(notNull())).thenReturn("EMPTY ${notEvaluated}");
+
+        assertThat(renderableFtlFormElementsBuilder.emptyFormDataMessage(new HashMap<>(), modelForm),
+                MacroCallMatcher.hasNameAndParameters("renderEmptyFormDataMessage",
+                        MacroCallParameterMatcher.hasNameAndStringValue("message", "EMPTY ${notEvaluated}")));
+    }
+
+    @Test
+    public void formatListWrapperCloseSetsTheFormName() {
+        final ModelForm modelForm = mock(ModelForm.class);
+        when(modelForm.getName()).thenReturn("FORMNAME");
+
+        assertThat(renderableFtlFormElementsBuilder.formatListWrapperClose(modelForm),
+                MacroCallMatcher.hasNameAndParameters("renderFormatListWrapperClose",
+                        MacroCallParameterMatcher.hasNameAndStringValue("formName", "FORMNAME")));
+    }
+
+    @Test
+    public void formatHeaderRowOpenExpandsTheStyle() {
+        final ModelForm modelForm = mock(ModelForm.class);
+        when(modelForm.getHeaderRowStyle()).thenReturn("HEADER${styleParam}");
+
+        assertThat(renderableFtlFormElementsBuilder.formatHeaderRowOpen(ImmutableMap.of("styleParam", "ABCD"), modelForm),
+                MacroCallMatcher.hasNameAndParameters("renderFormatHeaderRowOpen",
+                        MacroCallParameterMatcher.hasNameAndStringValue("style", "HEADERABCD")));
+    }
+
+    @Test
+    public void formatHeaderCellsSetStyleAndPositionSpan() {
+        final ModelFormField localModelFormField = mock(ModelFormField.class);
+        when(localModelFormField.getTitleAreaStyle()).thenReturn("TITLEAREASTYLE");
+        when(localModelFormField.getTitleStyle()).thenReturn("TITLESTYLE");
+        final ModelForm modelForm = mock(ModelForm.class);
+        when(modelForm.getFormTitleAreaStyle()).thenReturn("FORMTITLEAREASTYLE");
+
+        assertThat(renderableFtlFormElementsBuilder.formatHeaderRowCellOpen(localModelFormField, 3),
+                MacroCallMatcher.hasNameAndParameters("renderFormatHeaderRowCellOpen",
+                        MacroCallParameterMatcher.hasNameAndStringValue("style", "TITLEAREASTYLE"),
+                        MacroCallParameterMatcher.hasNameAndIntegerValue("positionSpan", 3)));
+        assertThat(renderableFtlFormElementsBuilder.formatHeaderRowFormCellOpen(modelForm),
+                MacroCallMatcher.hasNameAndParameters("renderFormatHeaderRowFormCellOpen",
+                        MacroCallParameterMatcher.hasNameAndStringValue("style", "FORMTITLEAREASTYLE")));
+        assertThat(renderableFtlFormElementsBuilder.formatHeaderRowFormCellTitleSeparator(localModelFormField, true),
+                MacroCallMatcher.hasNameAndParameters("renderFormatHeaderRowFormCellTitleSeparator",
+                        MacroCallParameterMatcher.hasNameAndStringValue("style", "TITLESTYLE"),
+                        MacroCallParameterMatcher.hasNameAndBooleanValue("isLast", true)));
+    }
+
+    @Test
+    public void formatItemRowOpenUsesTheEvenRowStyleForAnEvenIndex() {
+        final ModelForm modelForm = mock(ModelForm.class);
+        when(modelForm.getName()).thenReturn("FORMNAME");
+        when(modelForm.getEvenRowStyle()).thenReturn("EVENSTYLE");
+        when(modelForm.getOddRowStyle()).thenReturn("ODDSTYLE");
+
+        assertThat(renderableFtlFormElementsBuilder.formatItemRowOpen(ImmutableMap.of("itemIndex", 2), modelForm),
+                MacroCallMatcher.hasNameAndParameters("renderFormatItemRowOpen",
+                        MacroCallParameterMatcher.hasNameAndStringValue("formName", "FORMNAME"),
+                        MacroCallParameterMatcher.hasNameAndIntegerValue("itemIndex", 2),
+                        MacroCallParameterMatcher.hasNameAndStringValue("evenRowStyle", "EVENSTYLE"),
+                        MacroCallParameterMatcher.hasNameAndStringValue("oddRowStyle", "")));
+    }
+
+    @Test
+    public void formatItemRowOpenUsesTheExpandedOddRowStyleForAnOddIndex() {
+        final ModelForm modelForm = mock(ModelForm.class);
+        when(modelForm.getEvenRowStyle()).thenReturn("EVENSTYLE");
+        when(modelForm.getOddRowStyle()).thenReturn("ODD${styleParam}");
+
+        assertThat(renderableFtlFormElementsBuilder.formatItemRowOpen(ImmutableMap.of("itemIndex", 3, "styleParam", "ABCD"), modelForm),
+                MacroCallMatcher.hasNameAndParameters("renderFormatItemRowOpen",
+                        MacroCallParameterMatcher.hasNameAndStringValue("evenRowStyle", ""),
+                        MacroCallParameterMatcher.hasNameAndStringValue("oddRowStyle", "ODDABCD")));
+    }
+
+    @Test
+    public void formatItemRowOpenWithoutAnIndexLeavesTheIndexOut() {
+        final ModelForm modelForm = mock(ModelForm.class);
+
+        final RenderableFtlMacroCall macroCall = macroCall(renderableFtlFormElementsBuilder.formatItemRowOpen(new HashMap<>(), modelForm));
+        assertThat(macroCall.getParameters(), not(hasKey("itemIndex")));
+    }
+
+    @Test
+    public void formatItemRowCellsSetFieldNameStyleAndPositionSpan() {
+        final ModelFormField localModelFormField = mock(ModelFormField.class);
+        when(localModelFormField.getName()).thenReturn("FIELDNAME");
+        when(localModelFormField.getWidgetAreaStyle()).thenReturn("AREASTYLE");
+        final ModelForm modelForm = mock(ModelForm.class);
+        when(modelForm.getName()).thenReturn("FORMNAME");
+        when(modelForm.getFormTitleAreaStyle()).thenReturn("FORMTITLEAREASTYLE");
+
+        assertThat(renderableFtlFormElementsBuilder.formatItemRowCellOpen(localModelFormField, 2),
+                MacroCallMatcher.hasNameAndParameters("renderFormatItemRowCellOpen",
+                        MacroCallParameterMatcher.hasNameAndStringValue("fieldName", "FIELDNAME"),
+                        MacroCallParameterMatcher.hasNameAndIntegerValue("positionSpan", 2),
+                        MacroCallParameterMatcher.hasNameAndStringValue("style", "AREASTYLE")));
+        assertThat(renderableFtlFormElementsBuilder.formatItemRowCellClose(localModelFormField),
+                MacroCallMatcher.hasNameAndParameters("renderFormatItemRowCellClose",
+                        MacroCallParameterMatcher.hasNameAndStringValue("fieldName", "FIELDNAME")));
+        assertThat(renderableFtlFormElementsBuilder.formatItemRowFormCellOpen(modelForm),
+                MacroCallMatcher.hasNameAndParameters("renderFormatItemRowFormCellOpen",
+                        MacroCallParameterMatcher.hasNameAndStringValue("style", "FORMTITLEAREASTYLE")));
+        assertThat(renderableFtlFormElementsBuilder.formatItemRowClose(modelForm),
+                MacroCallMatcher.hasNameAndParameters("renderFormatItemRowClose",
+                        MacroCallParameterMatcher.hasNameAndStringValue("formName", "FORMNAME")));
+    }
+
+    @Test
+    public void formatSingleWrapperSetsTheFormNameAndTheExpandedStyle() {
+        final ModelForm modelForm = mock(ModelForm.class);
+        when(modelForm.getName()).thenReturn("FORMNAME");
+        when(modelForm.getDefaultTableStyle()).thenReturn("STYLE${styleParam}");
+
+        assertThat(renderableFtlFormElementsBuilder.formatSingleWrapperOpen(ImmutableMap.of("styleParam", "ABCD"), modelForm),
+                MacroCallMatcher.hasNameAndParameters("renderFormatSingleWrapperOpen",
+                        MacroCallParameterMatcher.hasNameAndStringValue("formName", "FORMNAME"),
+                        MacroCallParameterMatcher.hasNameAndStringValue("style", "STYLEABCD")));
+        assertThat(renderableFtlFormElementsBuilder.formatSingleWrapperClose(modelForm),
+                MacroCallMatcher.hasNameAndParameters("renderFormatSingleWrapperClose",
+                        MacroCallParameterMatcher.hasNameAndStringValue("formName", "FORMNAME")));
+    }
+
+    @Test
+    public void formatFieldRowCellsSetStyleAndPositionSpan() {
+        final ModelFormField localModelFormField = mock(ModelFormField.class);
+        when(localModelFormField.getTitleAreaStyle()).thenReturn("TITLEAREASTYLE");
+        when(localModelFormField.getWidgetAreaStyle()).thenReturn("AREASTYLE");
+
+        assertThat(renderableFtlFormElementsBuilder.formatFieldRowTitleCellOpen(localModelFormField),
+                MacroCallMatcher.hasNameAndParameters("renderFormatFieldRowTitleCellOpen",
+                        MacroCallParameterMatcher.hasNameAndStringValue("style", "TITLEAREASTYLE")));
+        assertThat(renderableFtlFormElementsBuilder.formatFieldRowWidgetCellOpen(localModelFormField, 1),
+                MacroCallMatcher.hasNameAndParameters("renderFormatFieldRowWidgetCellOpen",
+                        MacroCallParameterMatcher.hasNameAndIntegerValue("positionSpan", 1),
+                        MacroCallParameterMatcher.hasNameAndStringValue("style", "AREASTYLE")));
+    }
+
+    @Test
+    public void boundaryCommentSetsTheTypeAndTheName() {
+        assertThat(renderableFtlFormElementsBuilder.boundaryComment("Begin", "Form Widget - Form Element", "FORMNAME"),
+                MacroCallMatcher.hasNameAndParameters("formatBoundaryComment",
+                        MacroCallParameterMatcher.hasNameAndStringValue("boundaryType", "Begin"),
+                        MacroCallParameterMatcher.hasNameAndStringValue("widgetType", "Form Widget - Form Element"),
+                        MacroCallParameterMatcher.hasNameAndStringValue("widgetName", "FORMNAME")));
+    }
+
+    private RenderableFtlMacroCall hyperlink(final String description, final Map<String, String> parameterMap) {
+        return macroCall(renderableFtlFormElementsBuilder.makeHyperlinkByType(null, null, null, "#", parameterMap, description, "", "",
+                modelFormField, request, response, new HashMap<>()));
+    }
+
+    @Test
+    public void hyperlinkUsesTheTitleOfTheRequestWhenTheDescriptionIsNotTruncated() {
+        when(request.getAttribute("title")).thenReturn("TITLE");
+
+        assertThat(hyperlink("DESCRIPTION", new HashMap<>()), MacroCallMatcher.hasNameAndParameters("makeHyperlinkString",
+                MacroCallParameterMatcher.hasNameAndStringValue("description", "DESCRIPTION"),
+                MacroCallParameterMatcher.hasNameAndStringValue("title", "TITLE")));
+    }
+
+    @Test
+    public void hyperlinkUsesTheDescriptionAsTitleWhenItIsTruncated() {
+        when(request.getAttribute("descriptionSize")).thenReturn(5);
+        when(request.getAttribute("title")).thenReturn("TITLE");
+
+        assertThat(hyperlink("DESCRIPTION", new HashMap<>()), MacroCallMatcher.hasNameAndParameters("makeHyperlinkString",
+                MacroCallParameterMatcher.hasNameAndStringValue("description", "DESCR…"),
+                MacroCallParameterMatcher.hasNameAndStringValue("title", "DESCRIPTION")));
+    }
+
+    @Test
+    public void hyperlinkPassesTheDescriptionAsItIs() {
+        final String description = "say \"hi\" \\ ${1+1} #{2} <#stop>";
+
+        assertThat(hyperlink(description, new HashMap<>()), MacroCallMatcher.hasNameAndParameters("makeHyperlinkString",
+                MacroCallParameterMatcher.hasNameAndStringValue("description", description)));
+    }
+
+    @Test
+    public void layeredModalHyperlinkPassesTheParametersAsJsonText() {
+        final Map<String, String> parameterMap = new HashMap<>();
+        parameterMap.put("k1", "v1");
+        parameterMap.put("k2", "v2");
+        when(request.getAttribute("title")).thenReturn("TitleValue");
+        when(request.getAttribute("text")).thenReturn("TextValue");
+        when(request.getAttribute("id")).thenReturn("IdValue");
+        when(request.getAttribute("uniqueItemName")).thenReturn("UniqueItemName");
+        when(request.getAttribute("width")).thenReturn("650");
+        when(request.getAttribute("height")).thenReturn("150");
+
+        assertThat(hyperlink("DescriptionValue", parameterMap), MacroCallMatcher.hasNameAndParameters("makeHyperlinkString",
+                MacroCallParameterMatcher.hasNameAndStringValue("description", "DescriptionValue"),
+                MacroCallParameterMatcher.hasNameAndStringValue("title", "TitleValue"),
+                MacroCallParameterMatcher.hasNameAndStringValue("text", "TextValue"),
+                MacroCallParameterMatcher.hasNameAndStringValue("id", "IdValue"),
+                MacroCallParameterMatcher.hasNameAndStringValue("uniqueItemName", "UniqueItemName"),
+                MacroCallParameterMatcher.hasNameAndStringValue("width", "650"),
+                MacroCallParameterMatcher.hasNameAndStringValue("height", "150"),
+                MacroCallParameterMatcher.hasNameAndStringValue("targetParameters",
+                        "{\"k1\":\"v1\",\"k2\":\"v2\",\"presentation\":\"layer\"}")));
+    }
+
+    @Test
+    public void hyperlinkWithoutParametersHasNoTargetParameters() {
+        assertThat(hyperlink("DESCRIPTION", new HashMap<>()), MacroCallMatcher.hasNameAndParameters("makeHyperlinkString",
+                MacroCallParameterMatcher.hasNameAndStringValue("targetParameters", "")));
+    }
+
+    @Test
+    public void hiddenFormHyperlinkInAMultiFormKeepsTheFormForAfterTheClosingOfTheForm() {
+        final ModelForm modelForm = mock(ModelForm.class);
+        when(modelForm.getType()).thenReturn("multi");
+        when(modelFormField.getModelForm()).thenReturn(modelForm);
+        when(request.getAttribute("title")).thenReturn("");
+        final Map<String, Object> context = new HashMap<>();
+        context.put("wholeFormContext", new HashMap<String, Object>());
+
+        final RenderableFtl link = renderableFtlFormElementsBuilder.makeHyperlinkByType("hidden-form", "STYLE", null, "#",
+                new HashMap<>(), "A ${description}", "", "", modelFormField, request, response, context);
+
+        assertThat(link instanceof RenderableFtlString, equalTo(true));
+        assertThat(((RenderableFtlString) link).getFtlString().contains("A ${description}"), equalTo(true));
+        assertThat(renderableFtlFormElementsBuilder.postMultiFormContent(context) instanceof RenderableFtlString, equalTo(true));
     }
 }
