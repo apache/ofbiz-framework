@@ -20,6 +20,8 @@ package org.apache.ofbiz.widget.renderer.macro;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
+import org.apache.ofbiz.base.util.UtilCodec;
+import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.webapp.control.ConfigXMLReader;
 import org.apache.ofbiz.webapp.control.RequestHandler;
 import org.apache.ofbiz.widget.content.StaticContentUrlProvider;
@@ -32,6 +34,7 @@ import org.apache.ofbiz.widget.renderer.macro.renderable.RenderableFtlMacroCall;
 import org.apache.ofbiz.widget.renderer.macro.renderable.RenderableFtl;
 import org.apache.ofbiz.widget.renderer.macro.renderable.RenderableFtlNoop;
 import org.apache.ofbiz.widget.renderer.macro.renderable.RenderableFtlString;
+import org.mockito.MockedStatic;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -49,6 +52,11 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.hasKey;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyMap;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.contains;
+import static org.mockito.Mockito.CALLS_REAL_METHODS;
+import static org.mockito.Mockito.mockStatic;
 import static org.mockito.ArgumentMatchers.notNull;
 import static org.mockito.ArgumentMatchers.nullable;
 import static org.mockito.Mockito.RETURNS_DEEP_STUBS;
@@ -1063,5 +1071,315 @@ public final class RenderableFtlFormElementsBuilderTest {
         assertThat(link instanceof RenderableFtlString, equalTo(true));
         assertThat(((RenderableFtlString) link).getFtlString().contains("A ${description}"), equalTo(true));
         assertThat(renderableFtlFormElementsBuilder.postMultiFormContent(context) instanceof RenderableFtlString, equalTo(true));
+    }
+
+    private static MockedStatic<UtilProperties> labelsReturningTheirKey() {
+        final MockedStatic<UtilProperties> utilProperties = mockStatic(UtilProperties.class, CALLS_REAL_METHODS);
+        utilProperties.when(() -> UtilProperties.getMessage(anyString(), anyString(), nullable(Locale.class)))
+                .thenAnswer(invocation -> invocation.<String>getArgument(1) + "_MESSAGE");
+        return utilProperties;
+    }
+
+    @Test
+    public void textFindFieldPassesTheValuesAsTheyAre() {
+        final ModelFormField.TextFindField textFindField = mock(ModelFormField.TextFindField.class);
+        when(textFindField.getModelFormField()).thenReturn(modelFormField);
+        when(textFindField.getDefaultOption(notNull())).thenReturn("contains");
+        when(textFindField.getSize()).thenReturn(20);
+        when(textFindField.getMaxlength()).thenReturn(5);
+        when(textFindField.getClientAutocompleteField()).thenReturn(true);
+        when(modelFormField.getEntry(notNull(), nullable(String.class))).thenReturn("say \"hi\" ${1+1}");
+        when(modelFormField.getParameterName(notNull())).thenReturn("FIELDNAME");
+
+        try (MockedStatic<UtilProperties> ignored = labelsReturningTheirKey()) {
+            assertThat(renderableFtlFormElementsBuilder.textFindField(new HashMap<>(), textFindField),
+                    MacroCallMatcher.hasNameAndParameters("renderTextFindField",
+                            MacroCallParameterMatcher.hasNameAndStringValue("name", "FIELDNAME"),
+                            MacroCallParameterMatcher.hasNameAndStringValue("value", "say \"hi\" ${1+1}"),
+                            MacroCallParameterMatcher.hasNameAndStringValue("defaultOption", "contains"),
+                            MacroCallParameterMatcher.hasNameAndStringValue("opEquals", "equals_MESSAGE"),
+                            MacroCallParameterMatcher.hasNameAndStringValue("size", "20"),
+                            MacroCallParameterMatcher.hasNameAndStringValue("maxlength", "5"),
+                            MacroCallParameterMatcher.hasNameAndStringValue("autocomplete", ""),
+                            MacroCallParameterMatcher.hasNameAndStringValue("ignoreCase", "ignore_case_MESSAGE")));
+        }
+    }
+
+    @Test
+    public void textFindFieldWithHiddenOptionsHasNoOperatorLabels() {
+        final ModelFormField.TextFindField textFindField = mock(ModelFormField.TextFindField.class);
+        when(textFindField.getModelFormField()).thenReturn(modelFormField);
+        when(textFindField.getHideOptions()).thenReturn(true);
+        when(textFindField.getMaxlength()).thenReturn(null);
+
+        try (MockedStatic<UtilProperties> ignored = labelsReturningTheirKey()) {
+            assertThat(renderableFtlFormElementsBuilder.textFindField(new HashMap<>(), textFindField),
+                    MacroCallMatcher.hasNameAndParameters("renderTextFindField",
+                            MacroCallParameterMatcher.hasNameAndStringValue("opEquals", ""),
+                            MacroCallParameterMatcher.hasNameAndStringValue("opNotEqual", ""),
+                            MacroCallParameterMatcher.hasNameAndStringValue("maxlength", ""),
+                            MacroCallParameterMatcher.hasNameAndStringValue("autocomplete", "off")));
+        }
+    }
+
+    @Test
+    public void rangeFindFieldSetsBothValues() {
+        final ModelFormField.RangeFindField rangeFindField = mock(ModelFormField.RangeFindField.class);
+        when(rangeFindField.getModelFormField()).thenReturn(modelFormField);
+        when(rangeFindField.getMaxlength()).thenReturn(null);
+        when(rangeFindField.getDefaultOptionFrom()).thenReturn("greaterThan");
+        when(rangeFindField.getDefaultOptionThru()).thenReturn("lessThan");
+        when(modelFormField.getEntry(notNull(), nullable(String.class))).thenReturn("AAA ${1+1}");
+        when(modelFormField.getEntry(notNull())).thenReturn("BBB");
+
+        try (MockedStatic<UtilProperties> ignored = labelsReturningTheirKey()) {
+            assertThat(renderableFtlFormElementsBuilder.rangeFindField(new HashMap<>(), rangeFindField),
+                    MacroCallMatcher.hasNameAndParameters("renderRangeFindField",
+                            MacroCallParameterMatcher.hasNameAndStringValue("value", "AAA ${1+1}"),
+                            MacroCallParameterMatcher.hasNameAndStringValue("value2", "BBB"),
+                            MacroCallParameterMatcher.hasNameAndStringValue("maxlength", ""),
+                            MacroCallParameterMatcher.hasNameAndStringValue("defaultOptionFrom", "greaterThan"),
+                            MacroCallParameterMatcher.hasNameAndStringValue("defaultOptionThru", "lessThan"),
+                            MacroCallParameterMatcher.hasNameAndStringValue("opGreaterThanEquals", "greater_than_equals_MESSAGE")));
+        }
+    }
+
+    @Test
+    public void lookupFieldPassesTheTargetParametersAsAList() throws Exception {
+        final ModelFormField.LookupField lookupField = mock(ModelFormField.LookupField.class);
+        when(lookupField.getModelFormField()).thenReturn(modelFormField);
+        when(lookupField.getFormName(notNull())).thenReturn("LookupForm");
+        when(lookupField.getTargetParameterList(notNull())).thenReturn(List.of("it's", "a\"b"));
+        when(lookupField.getLookupPresentation()).thenReturn(null);
+        when(lookupField.getLookupHeight()).thenReturn("300");
+        when(modelFormField.getEntry(notNull(), nullable(String.class))).thenReturn("VALUE");
+        when(modelFormField.getCurrentContainerId(notNull())).thenReturn("CONTAINERID");
+        when(modelFormField.getParameterName(notNull())).thenReturn("FIELDNAME");
+        when(httpSession.getAttribute("delegatorName")).thenReturn("delegator");
+        when(staticContentUrlProvider.pathAsContentUrlString("/images/fieldlookup.gif")).thenReturn("PREFIX/images/fieldlookup.gif");
+        final Map<String, Object> context = new HashMap<>();
+        context.put("session", httpSession);
+
+        final RenderableFtlMacroCall macroCall = macroCall(renderableFtlFormElementsBuilder.lookupField(context, lookupField, false));
+        assertThat(macroCall, MacroCallMatcher.hasNameAndParameters("renderLookupField",
+                MacroCallParameterMatcher.hasNameAndStringValue("name", "FIELDNAME"),
+                MacroCallParameterMatcher.hasNameAndStringValue("value", "VALUE"),
+                MacroCallParameterMatcher.hasNameAndStringValue("id", "CONTAINERID"),
+                MacroCallParameterMatcher.hasNameAndStringValue("imgSrc", "PREFIX/images/fieldlookup.gif"),
+                MacroCallParameterMatcher.hasNameAndStringValue("presentation", ""),
+                MacroCallParameterMatcher.hasNameAndStringValue("height", "300"),
+                MacroCallParameterMatcher.hasNameAndStringValue("ajaxUrl", ""),
+                MacroCallParameterMatcher.hasNameAndBooleanValue("ajaxEnabled", false),
+                MacroCallParameterMatcher.hasNameAndStringValue("delegatorName", "delegator")));
+        assertThat(macroCall.getParameters().get("targetParameterIter"), equalTo(List.of("it's", "a\"b")));
+        assertThat(macroCall.getParameters(), not(hasKey("width")));
+        assertThat(macroCall.getParameters(), not(hasKey("position")));
+    }
+
+    @Test
+    public void lookupFieldOfARequiredFieldGetsTheRequiredStyleFirst() throws Exception {
+        final ModelFormField.LookupField lookupField = mock(ModelFormField.LookupField.class);
+        when(lookupField.getModelFormField()).thenReturn(modelFormField);
+        when(modelFormField.getWidgetStyle()).thenReturn("WIDGETSTYLE");
+        when(modelFormField.shouldBeRed(notNull())).thenReturn(true);
+        when(modelFormField.getModelForm().getType()).thenReturn("single");
+        when(modelFormField.getRequiredField()).thenReturn(true);
+        when(modelFormField.getRequiredFieldStyle()).thenReturn("REQ");
+        when(httpSession.getAttribute("delegatorName")).thenReturn("delegator");
+        final Map<String, Object> context = new HashMap<>();
+        context.put("session", httpSession);
+
+        assertThat(renderableFtlFormElementsBuilder.lookupField(context, lookupField, false),
+                MacroCallMatcher.hasNameAndParameters("renderLookupField",
+                        MacroCallParameterMatcher.hasNameAndStringValue("className", "REQ WIDGETSTYLE"),
+                        MacroCallParameterMatcher.hasNameAndStringValue("alert", "true")));
+    }
+
+    private ModelForm paginatedForm() {
+        final ModelForm modelForm = mock(ModelForm.class);
+        when(modelForm.getPaginateTarget(notNull())).thenReturn(""); // empty to avoid the generation of a CSRF token
+        when(modelForm.getMultiPaginateIndexField(notNull())).thenReturn("PAGINATE_INDEX");
+        when(modelForm.getMultiPaginateSizeField(notNull())).thenReturn("PAGINATE_SIZE");
+        return modelForm;
+    }
+
+    private static Map<String, Object> paginationContext(final String queryString) {
+        final Map<String, Object> context = new HashMap<>();
+        context.put("PAGINATE_INDEX", 0);
+        context.put("PAGINATE_SIZE", 30);
+        context.put("listSize", 100);
+        context.put("_QBESTRING_", queryString);
+        return context;
+    }
+
+    @Test
+    public void nextPrevUsesTheQueryStringOfTheListForTheLinks() {
+        final ModelForm modelForm = paginatedForm();
+        final String queryString = "field1=value1&amp;field2=value2+with+spaces";
+        when(requestHandler.makeLink(notNull(), notNull(), contains(queryString))).thenReturn("LinkFromQBEString");
+
+        final RenderableFtlMacroCall macroCall = macroCall(
+                renderableFtlFormElementsBuilder.nextPrev(paginationContext(queryString), modelForm, true));
+        assertThat(macroCall, MacroCallMatcher.hasNameAndParameters("renderNextPrev",
+                MacroCallParameterMatcher.hasNameAndStringValue("nextUrl", "LinkFromQBEString"),
+                MacroCallParameterMatcher.hasNameAndStringValue("lastUrl", "LinkFromQBEString"),
+                MacroCallParameterMatcher.hasNameAndStringValue("selectUrl", "LinkFromQBEString"),
+                MacroCallParameterMatcher.hasNameAndStringValue("firstUrl", ""),
+                MacroCallParameterMatcher.hasNameAndIntegerValue("viewSize", 30),
+                MacroCallParameterMatcher.hasNameAndIntegerValue("listSize", 100),
+                MacroCallParameterMatcher.hasNameAndBooleanValue("ajaxEnabled", false),
+                MacroCallParameterMatcher.hasNameAndBooleanValue("javaScriptEnabled", true)));
+    }
+
+    @Test
+    public void nextPrevWithoutJavaScriptHasNoSelectLinks() {
+        final ModelForm modelForm = paginatedForm();
+        when(requestHandler.makeLink(notNull(), notNull(), anyString())).thenReturn("LINK");
+
+        assertThat(renderableFtlFormElementsBuilder.nextPrev(paginationContext(""), modelForm, false),
+                MacroCallMatcher.hasNameAndParameters("renderNextPrev",
+                        MacroCallParameterMatcher.hasNameAndStringValue("nextUrl", "LINK"),
+                        MacroCallParameterMatcher.hasNameAndStringValue("selectUrl", ""),
+                        MacroCallParameterMatcher.hasNameAndStringValue("selectSizeUrl", ""),
+                        MacroCallParameterMatcher.hasNameAndBooleanValue("javaScriptEnabled", false)));
+    }
+
+    @Test
+    public void nextPrevSetsTheLabels() {
+        final ModelForm modelForm = paginatedForm();
+        when(modelForm.getPaginateNextLabel(notNull())).thenReturn("Next ${label}");
+        final Map<String, Object> context = paginationContext("");
+        context.put("uiLabelMap", Map.of("CommonPage", "PAGE"));
+
+        try (MockedStatic<UtilProperties> utilProperties = mockStatic(UtilProperties.class, CALLS_REAL_METHODS)) {
+            utilProperties.when(() -> UtilProperties.getMessage(anyString(), anyString(), anyMap(), nullable(Locale.class)))
+                    .thenReturn("DISPLAYING");
+            assertThat(renderableFtlFormElementsBuilder.nextPrev(context, modelForm, false),
+                    MacroCallMatcher.hasNameAndParameters("renderNextPrev",
+                            MacroCallParameterMatcher.hasNameAndStringValue("pageLabel", "PAGE"),
+                            MacroCallParameterMatcher.hasNameAndStringValue("commonDisplaying", "DISPLAYING"),
+                            MacroCallParameterMatcher.hasNameAndStringValue("paginateNextLabel", "Next ${label}")));
+        }
+    }
+
+    @Test
+    public void nextPrevRendersNothingWhenThereIsNothingToPaginate() {
+        final ModelForm modelForm = paginatedForm();
+        when(modelForm.getOnPaginateUpdateAreas()).thenReturn(null);
+
+        assertThat(renderableFtlFormElementsBuilder.nextPrev(paginationContext(""), modelForm, true), equalTo(RenderableFtlNoop.INSTANCE));
+    }
+
+    @Test
+    public void fileFieldPassesTheValueAsItIs() {
+        final ModelFormField.FileField fileField = mock(ModelFormField.FileField.class);
+        when(fileField.getModelFormField()).thenReturn(modelFormField);
+        when(fileField.getSize()).thenReturn(30);
+        when(fileField.getMaxlength()).thenReturn(null);
+        when(modelFormField.getParameterName(notNull())).thenReturn("FIELDNAME");
+        when(modelFormField.getEntry(notNull(), nullable(String.class))).thenReturn("it's \"VALUE\" ${1+1}");
+        when(modelFormField.getWidgetStyle()).thenReturn("WIDGETSTYLE");
+
+        assertThat(renderableFtlFormElementsBuilder.fileField(new HashMap<>(), fileField),
+                MacroCallMatcher.hasNameAndParameters("renderFileField",
+                        MacroCallParameterMatcher.hasNameAndStringValue("name", "FIELDNAME"),
+                        MacroCallParameterMatcher.hasNameAndStringValue("value", "it's \"VALUE\" ${1+1}"),
+                        MacroCallParameterMatcher.hasNameAndStringValue("className", "WIDGETSTYLE"),
+                        MacroCallParameterMatcher.hasNameAndStringValue("size", "30"),
+                        MacroCallParameterMatcher.hasNameAndStringValue("maxlength", "")));
+    }
+
+    @Test
+    public void passwordFieldOfARequiredFieldGetsTheRequiredStyleFirst() {
+        final ModelFormField.PasswordField passwordField = mock(ModelFormField.PasswordField.class);
+        when(passwordField.getModelFormField()).thenReturn(modelFormField);
+        when(modelFormField.getWidgetStyle()).thenReturn("WIDGETSTYLE");
+        when(modelFormField.shouldBeRed(notNull())).thenReturn(true);
+        when(modelFormField.getModelForm().getType()).thenReturn("single");
+        when(modelFormField.getRequiredField()).thenReturn(true);
+        when(modelFormField.getRequiredFieldStyle()).thenReturn("REQ");
+        when(modelFormField.getCurrentContainerId(notNull())).thenReturn(null);
+
+        assertThat(renderableFtlFormElementsBuilder.passwordField(new HashMap<>(), passwordField),
+                MacroCallMatcher.hasNameAndParameters("renderPasswordField",
+                        MacroCallParameterMatcher.hasNameAndStringValue("className", "REQ WIDGETSTYLE"),
+                        MacroCallParameterMatcher.hasNameAndStringValue("alert", "true"),
+                        MacroCallParameterMatcher.hasNameAndStringValue("id", "")));
+    }
+
+    @Test
+    public void passwordFieldWithoutRequiredStyleUsesTheDefaultRequiredStyle() {
+        final ModelFormField.PasswordField passwordField = mock(ModelFormField.PasswordField.class);
+        when(passwordField.getModelFormField()).thenReturn(modelFormField);
+        when(modelFormField.getModelForm().getType()).thenReturn("upload");
+        when(modelFormField.getRequiredField()).thenReturn(true);
+        when(modelFormField.getRequiredFieldStyle()).thenReturn("");
+
+        assertThat(renderableFtlFormElementsBuilder.passwordField(new HashMap<>(), passwordField),
+                MacroCallMatcher.hasNameAndParameters("renderPasswordField",
+                        MacroCallParameterMatcher.hasNameAndStringValue("className", "required"),
+                        MacroCallParameterMatcher.hasNameAndStringValue("alert", "false")));
+    }
+
+    @Test
+    public void imageFieldPrefixesTheValueAndPassesTheTextsAsTheyAre() {
+        final ModelFormField.ImageField imageField = mock(ModelFormField.ImageField.class);
+        when(imageField.getModelFormField()).thenReturn(modelFormField);
+        when(imageField.getDescription(notNull())).thenReturn("say \"hi\" ${1+1}");
+        when(imageField.getStyle(notNull())).thenReturn("STYLE");
+        when(modelFormField.getEntry(notNull(), nullable(String.class))).thenReturn("img.png");
+        when(staticContentUrlProvider.pathAsContentUrlString("img.png")).thenReturn("PREFIX/img.png");
+
+        assertThat(renderableFtlFormElementsBuilder.imageField(new HashMap<>(), imageField),
+                MacroCallMatcher.hasNameAndParameters("renderImageField",
+                        MacroCallParameterMatcher.hasNameAndStringValue("value", "PREFIX/img.png"),
+                        MacroCallParameterMatcher.hasNameAndStringValue("description", "say \"hi\" ${1+1}"),
+                        // without an alternate the description is used
+                        MacroCallParameterMatcher.hasNameAndStringValue("alternate", "say \"hi\" ${1+1}"),
+                        MacroCallParameterMatcher.hasNameAndStringValue("style", "STYLE")));
+    }
+
+    @Test
+    public void imageFieldKeepsAnAbsoluteValueAndUsesTheTitleWithoutDescription() {
+        final ModelFormField.ImageField imageField = mock(ModelFormField.ImageField.class);
+        when(imageField.getModelFormField()).thenReturn(modelFormField);
+        when(modelFormField.getEntry(notNull(), nullable(String.class))).thenReturn("http://host/img.png");
+        when(modelFormField.getTitle(notNull())).thenReturn("TITLE");
+
+        assertThat(renderableFtlFormElementsBuilder.imageField(new HashMap<>(), imageField),
+                MacroCallMatcher.hasNameAndParameters("renderImageField",
+                        MacroCallParameterMatcher.hasNameAndStringValue("value", "http://host/img.png"),
+                        MacroCallParameterMatcher.hasNameAndStringValue("description", "TITLE")));
+    }
+
+    @Test
+    public void imageFieldEncodesTheTextsOnlyOnceWithTheEncoderOfTheContext() {
+        final ModelFormField.ImageField imageField = mock(ModelFormField.ImageField.class);
+        when(imageField.getModelFormField()).thenReturn(modelFormField);
+        when(imageField.getDescription(notNull())).thenReturn("<b>");
+        when(modelFormField.getEncodeOutput()).thenReturn(true);
+        final Map<String, Object> context = new HashMap<>();
+        context.put("simpleEncoder", UtilCodec.getEncoder("html"));
+
+        assertThat(renderableFtlFormElementsBuilder.imageField(context, imageField),
+                MacroCallMatcher.hasNameAndParameters("renderImageField",
+                        MacroCallParameterMatcher.hasNameAndStringValue("description", "&lt;b&gt;")));
+    }
+
+    @Test
+    public void bannerUsesTheStyleWhenThereIsNoStyleForASide() {
+        final ModelForm.Banner banner = mock(ModelForm.Banner.class);
+        when(banner.getStyle(notNull())).thenReturn("STYLE");
+        when(banner.getRightTextStyle(notNull())).thenReturn("RIGHTSTYLE");
+        when(banner.getText(notNull())).thenReturn("TEXT ${1+1}");
+
+        assertThat(renderableFtlFormElementsBuilder.banner(new HashMap<>(), banner),
+                MacroCallMatcher.hasNameAndParameters("renderBanner",
+                        MacroCallParameterMatcher.hasNameAndStringValue("style", "STYLE"),
+                        MacroCallParameterMatcher.hasNameAndStringValue("leftStyle", "STYLE"),
+                        MacroCallParameterMatcher.hasNameAndStringValue("rightStyle", "RIGHTSTYLE"),
+                        MacroCallParameterMatcher.hasNameAndStringValue("leftText", ""),
+                        MacroCallParameterMatcher.hasNameAndStringValue("text", "TEXT ${1+1}"),
+                        MacroCallParameterMatcher.hasNameAndStringValue("rightText", "")));
     }
 }

@@ -19,11 +19,7 @@
 package org.apache.ofbiz.widget.renderer.macro;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.empty;
-import static org.hamcrest.Matchers.not;
-import static org.hamcrest.Matchers.startsWith;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyMap;
@@ -35,7 +31,6 @@ import static org.mockito.ArgumentMatchers.notNull;
 import static org.mockito.ArgumentMatchers.nullable;
 import static org.mockito.Mockito.CALLS_REAL_METHODS;
 import static org.mockito.Mockito.RETURNS_DEEP_STUBS;
-import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.mockStatic;
@@ -46,10 +41,8 @@ import static org.mockito.Mockito.when;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -72,7 +65,6 @@ import org.hamcrest.Matchers;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentCaptor;
 import org.mockito.InOrder;
 import org.mockito.MockedStatic;
 
@@ -491,125 +483,84 @@ public final class MacroFormRendererTest {
 
     @Test
     public void textFindFieldMacroRendered() throws IOException {
-        final ModelFormField localModelFormField = mock(ModelFormField.class);
         final ModelFormField.TextFindField textFindField = mock(ModelFormField.TextFindField.class);
-        when(textFindField.getModelFormField()).thenReturn(localModelFormField);
-        when(textFindField.getHideOptions()).thenReturn(true);
-        when(localModelFormField.getWidgetStyle()).thenReturn("WIDGETSTYLE");
-        when(localModelFormField.shouldBeRed(notNull())).thenReturn(true);
-        when(localModelFormField.getParameterName(notNull())).thenReturn("FIELDNAME");
+        when(renderableFtlFormElementsBuilder.textFindField(notNull(), eq(textFindField))).thenReturn(genericMacroCall);
+        genericTooltipRenderedExpectation(textFindField);
 
-        ImmutableMap<String, Object> context = ImmutableMap.of();
-        macroFormRenderer.renderTextFindField(appendable, context, textFindField);
-        assertAndGetMacroString("renderTextFindField", ImmutableMap.of(
-                "name", "FIELDNAME",
-                "className", "WIDGETSTYLE",
-                "alert", "true"));
+        macroFormRenderer.renderTextFindField(appendable, ImmutableMap.of(), textFindField);
+
+        genericSingleMacroRenderedVerification();
+        genericTooltipRenderedVerification();
     }
 
     @Test
     public void rangeFindFieldMacroRendered() throws IOException {
-        final ModelFormField localModelFormField = mock(ModelFormField.class);
         final ModelFormField.RangeFindField rangeFindField = mock(ModelFormField.RangeFindField.class);
-        when(rangeFindField.getModelFormField()).thenReturn(localModelFormField);
-        when(localModelFormField.getWidgetStyle()).thenReturn("WIDGETSTYLE");
-        when(rangeFindField.getDefaultValue(notNull())).thenReturn("AAA");
-        when(localModelFormField.getEntry(notNull(), eq("AAA"))).thenReturn("AAA");
-        when(localModelFormField.getEntry(notNull())).thenReturn("BBB");
-        when(localModelFormField.shouldBeRed(notNull())).thenReturn(true);
-        when(localModelFormField.getParameterName(notNull())).thenReturn("FIELDNAME");
+        when(renderableFtlFormElementsBuilder.rangeFindField(notNull(), eq(rangeFindField))).thenReturn(genericMacroCall);
+        genericTooltipRenderedExpectation(rangeFindField);
 
-        ImmutableMap<String, Object> context = ImmutableMap.of();
-        macroFormRenderer.renderRangeFindField(appendable, context, rangeFindField);
-        assertAndGetMacroString("renderRangeFindField", ImmutableMap.of(
-                "name", "FIELDNAME",
-                "className", "WIDGETSTYLE",
-                "alert", "true",
-                "value", "AAA",
-                "value2", "BBB"));
+        macroFormRenderer.renderRangeFindField(appendable, ImmutableMap.of(), rangeFindField);
+
+        genericSingleMacroRenderedVerification();
+        genericTooltipRenderedVerification();
     }
 
     @Test
     public void lookupFieldMacroRendered() throws IOException {
-        // Deep stubs: renderLookupField()'s shouldApplyRequiredField() call cascades through
-        // localModelFormField.getModelForm().getType() unconditionally.
-        final ModelFormField localModelFormField = mock(ModelFormField.class, RETURNS_DEEP_STUBS);
         final ModelFormField.LookupField lookupField = mock(ModelFormField.LookupField.class);
-        when(httpSession.getAttribute("delegatorName")).thenReturn("delegator");
+        when(renderableFtlFormElementsBuilder.lookupField(notNull(), eq(lookupField), eq(true))).thenReturn(genericMacroCall);
+        genericTooltipRenderedExpectation(lookupField);
 
-        when(lookupField.getModelFormField()).thenReturn(localModelFormField);
-        when(localModelFormField.getEntry(notNull(), isNull())).thenReturn("VALUE");
-        when(localModelFormField.getParameterName(notNull())).thenReturn("FIELDNAME");
-        when(localModelFormField.getCurrentContainerId(notNull())).thenReturn("CONTAINERID");
+        macroFormRenderer.renderLookupField(appendable, ImmutableMap.of(), lookupField);
 
-        ImmutableMap<String, Object> context = ImmutableMap.of("session", httpSession);
-        macroFormRenderer.renderLookupField(appendable, context, lookupField);
-        assertAndGetMacroString("renderLookupField", ImmutableMap.of(
-                "name", "FIELDNAME",
-                "value", "VALUE",
-                "id", "CONTAINERID"));
+        genericSingleMacroRenderedVerification();
+        genericTooltipRenderedVerification();
     }
 
     @Test
     public void renderNextPrevMacroRendered() throws IOException {
         final ModelForm modelForm = mock(ModelForm.class);
-        final String targetService = ""; // Leave empty to avoid CSRF token generation.
-        final String paginateIndexField = "PAGINATE_INDEX";
-        final String paginateSizeField = "PAGINATE_SIZE";
+        when(renderableFtlFormElementsBuilder.nextPrev(notNull(), eq(modelForm), eq(true))).thenReturn(genericMacroCall);
 
-        when(modelForm.getPaginateTarget(notNull())).thenReturn(targetService);
-        when(modelForm.getMultiPaginateIndexField(notNull())).thenReturn(paginateIndexField);
+        macroFormRenderer.renderNextPrev(appendable, new HashMap<>(), modelForm);
 
-        Map<String, Object> context = new HashMap<>();
-        context.put("session", httpSession);
-        context.put(paginateIndexField, 0);
-        context.put(paginateSizeField, 30);
-        macroFormRenderer.renderNextPrev(appendable, context, modelForm);
-
-        assertAndGetMacroString("renderNextPrev");
+        genericSingleMacroRenderedVerification();
     }
 
     @Test
     public void fileFieldMacroRendered() throws IOException {
         final ModelFormField.FileField fileField = mock(ModelFormField.FileField.class);
-        when(fileField.getModelFormField()).thenReturn(modelFormField);
-        when(modelFormField.getParameterName(notNull())).thenReturn("FIELDNAME");
-        when(modelFormField.getEntry(notNull(), isNull())).thenReturn("VALUE");
-        when(modelFormField.getWidgetStyle()).thenReturn("WIDGETSTYLE");
+        when(renderableFtlFormElementsBuilder.fileField(notNull(), eq(fileField))).thenReturn(genericMacroCall);
+        genericTooltipRenderedExpectation(fileField);
 
         macroFormRenderer.renderFileField(appendable, ImmutableMap.of(), fileField);
 
-        assertAndGetMacroString("renderFileField", ImmutableMap.of(
-                "name", "FIELDNAME",
-                "value", "VALUE",
-                "className", "WIDGETSTYLE"));
+        genericSingleMacroRenderedVerification();
+        genericTooltipRenderedVerification();
     }
 
     @Test
     public void passwordFieldMacroRendered() throws IOException {
         final ModelFormField.PasswordField passwordField = mock(ModelFormField.PasswordField.class);
-        when(passwordField.getModelFormField()).thenReturn(modelFormField);
-        when(modelFormField.getParameterName(notNull())).thenReturn("FIELDNAME");
-        when(modelFormField.getEntry(notNull(), isNull())).thenReturn("VALUE");
-        when(modelFormField.getWidgetStyle()).thenReturn("WIDGETSTYLE");
+        when(renderableFtlFormElementsBuilder.passwordField(notNull(), eq(passwordField))).thenReturn(genericMacroCall);
+        genericTooltipRenderedExpectation(passwordField);
 
         macroFormRenderer.renderPasswordField(appendable, ImmutableMap.of(), passwordField);
 
-        assertAndGetMacroString("renderPasswordField", ImmutableMap.of(
-                "name", "FIELDNAME",
-                "value", "VALUE",
-                "className", "WIDGETSTYLE"));
+        genericSingleMacroRenderedVerification();
+        genericTooltipRenderedVerification();
     }
 
     @Test
     public void imageFieldMacroRendered() throws IOException {
         final ModelFormField.ImageField imageField = mock(ModelFormField.ImageField.class);
-        when(imageField.getModelFormField()).thenReturn(modelFormField);
-        when(modelFormField.getEntry(notNull(), isNull())).thenReturn("VALUE");
+        when(renderableFtlFormElementsBuilder.imageField(notNull(), eq(imageField))).thenReturn(genericMacroCall);
+        genericTooltipRenderedExpectation(imageField);
 
         macroFormRenderer.renderImageField(appendable, ImmutableMap.of(), imageField);
 
-        assertAndGetMacroString("renderImageField", ImmutableMap.of("value", "VALUE"));
+        genericSingleMacroRenderedVerification();
+        genericTooltipRenderedVerification();
     }
 
     @Test
@@ -681,21 +632,13 @@ public final class MacroFormRendererTest {
     }
 
     @Test
-    public void renderNextPrevUsesQueryString() throws IOException {
-        final ModelForm modelForm = mock(ModelForm.class);
-        final String targetService = ""; // Leave empty to avoid CSRF token generation.
-        final String qbeString = "field1=value1&amp;field2=value2+with+spaces";
-        final String linkFromQbeString = "LinkFromQBEString";
+    public void bannerMacroRendered() throws IOException {
+        final ModelForm.Banner banner = mock(ModelForm.Banner.class);
+        when(renderableFtlFormElementsBuilder.banner(notNull(), eq(banner))).thenReturn(genericMacroCall);
 
-        when(modelForm.getPaginateTarget(notNull())).thenReturn(targetService);
-        when(requestHandler.makeLink(notNull(), notNull(), contains(qbeString))).thenReturn(linkFromQbeString);
+        macroFormRenderer.renderBanner(appendable, ImmutableMap.of(), banner);
 
-        final Map<String, Object> context = new HashMap<>();
-        context.put("_QBESTRING_", qbeString);
-        context.put("listSize", 100);
-        macroFormRenderer.renderNextPrev(appendable, context, modelForm);
-
-        assertAndGetMacroString("renderNextPrev", ImmutableMap.of("nextUrl", linkFromQbeString));
+        genericSingleMacroRenderedVerification();
     }
 
     @Test
@@ -736,6 +679,19 @@ public final class MacroFormRendererTest {
     }
 
     @Test
+    public void hyperlinkFieldPassesTheAlternateAndTheImageTitleWithoutEscapedQuotes() throws IOException {
+        final ModelFormField.HyperlinkField hyperlinkField = mock(ModelFormField.HyperlinkField.class);
+        when(hyperlinkField.getModelFormField()).thenReturn(modelFormField);
+        when(hyperlinkField.getAlternate(notNull())).thenReturn("say \"hi\"");
+        when(hyperlinkField.getImageTitle(notNull())).thenReturn("a \"title\"");
+
+        macroFormRenderer.renderHyperlinkField(appendable, new HashMap<>(), hyperlinkField);
+
+        verify(request).setAttribute("alternate", "say \"hi\"");
+        verify(request).setAttribute("imageTitle", "a \"title\"");
+    }
+
+    @Test
     public void fieldTitleWithHeaderLinkRendersHyperlinkTitle() throws IOException {
         when(modelFormField.getTitle(notNull())).thenReturn("FIELDTITLE");
         when(modelFormField.getHeaderLink()).thenReturn("/target");
@@ -767,46 +723,6 @@ public final class MacroFormRendererTest {
         genericTooltipRenderedVerification();
     }
 
-    private String assertAndGetMacroString(final String expectedName) {
-        return assertAndGetMacroString(expectedName, ImmutableMap.of());
-    }
-
-    private String assertAndGetMacroString(final String expectedName, final Map<String, Object> expectedAttributes) {
-        ArgumentCaptor<String> macroCaptor = ArgumentCaptor.forClass(String.class);
-        verify(ftlWriter, atLeastOnce()).processFtlString(notNull(), isNull(), macroCaptor.capture());
-
-        // The captor accumulates every processFtlString() call made on this mock since the test
-        // began, not just those since the last check - unlike JMockit's per-block capture, so a test
-        // that renders more than one macro (or calls a render method twice) must look at the most
-        // recent invocation, not the first, to see the one this specific call actually produced.
-        List<String> macros = macroCaptor.getAllValues();
-        assertThat(macros, not(empty()));
-        final String macro = macros.get(macros.size() - 1);
-        assertThat(macro, startsWith("<@" + expectedName));
-
-        expectedAttributes.forEach((name, value) -> assertMacroAttribute(macro, name, value));
-
-        return macro;
-    }
-
-    private void assertMacroAttribute(final String macro, final String attributeName, final Object attributeValue) {
-        if (attributeValue instanceof Number) {
-            assertThat(macro, containsString(attributeName + "=" + attributeValue));
-        } else if (attributeValue instanceof List<?>) {
-            final String valueString = ((List<?>) attributeValue).stream()
-                    .map(Object::toString)
-                    .collect(Collectors.joining(",", "[", "]"));
-            assertThat(macro, containsString(attributeName + "=" + valueString));
-        } else if (attributeValue instanceof Boolean) {
-            assertThat(macro, containsString(attributeName + "=" + attributeValue));
-        } else if (attributeValue instanceof FreemarkerRawString) {
-            final String valueString = ((FreemarkerRawString) attributeValue).getRawString();
-            assertThat(macro, containsString(attributeName + "=\"" + valueString + "\""));
-        } else {
-            assertThat(macro, containsString(attributeName + "=\"" + attributeValue + "\""));
-        }
-    }
-
     /**
      * Assert that the generic MacroCall instance is passed to the macro executor. This is used for simple renderings
      * where MacroFormRenderer has FormMacroCallBuilder to construct a MacroCall and then passes it straight to the
@@ -827,17 +743,5 @@ public final class MacroFormRendererTest {
 
     private void genericSubHyperlinkRenderedVerification() {
         verify(ftlWriter).processFtl(appendable, null, genericHyperlinkMacroCall);
-    }
-
-    static class FreemarkerRawString {
-        private final String rawString;
-
-        FreemarkerRawString(final String rawString) {
-            this.rawString = rawString;
-        }
-
-        public String getRawString() {
-            return rawString;
-        }
     }
 }
