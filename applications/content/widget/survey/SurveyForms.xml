@@ -89,8 +89,6 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <field name="surveyId" map-name="parameters"><hidden/></field>
         <field name="surveyResponseId" map-name="surveyResponse"><hidden/></field>
-        <field name="pdfFileNameIn" map-name="empty"><text/></field>
-
         <field name="contentId" map-name="empty" title="${uiLabelMap.ContentPDF}">
             <lookup target-form-name="LookupContent"/>
         </field>

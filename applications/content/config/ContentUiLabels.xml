@@ -5001,21 +5001,6 @@
         <value xml:lang="zh">路径别名到</value>
         <value xml:lang="zh-TW">路徑別名到</value>
     </property>
-    <property key="FormFieldTitle_pdfFileNameIn">
-        <value xml:lang="ar">اسم ملف Pdf الداخل</value>
-        <value xml:lang="da">Pdf fil navn ind</value>
-        <value xml:lang="de">PDF Dateiname Eingang</value>
-        <value xml:lang="en">Pdf File Name In</value>
-        <value xml:lang="fr">Nom de fichier PDF inclus</value>
-        <value xml:lang="it">Nome File Pdf Ingresso</value>
-        <value xml:lang="ja">PDFファイル名</value>
-        <value xml:lang="pt">Nome do arquivo PDF em</value>
-        <value xml:lang="ro">Nume Fisier Pdf Intrare</value>
-        <value xml:lang="th">ชื่อในไฟล์ Pdf</value>
-        <value xml:lang="vi">Tên tập tin PDF tại</value>
-        <value xml:lang="zh">PDF文件名在</value>
-        <value xml:lang="zh-TW">PDF檔案名在</value>
-    </property>
     <property key="FormFieldTitle_privilegeEnumId">
         <value xml:lang="ar">تعريف تعداد الأفضلية</value>
         <value xml:lang="da">Privilegie numerisk ID</value>

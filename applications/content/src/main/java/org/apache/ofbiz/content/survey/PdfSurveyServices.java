@@ -19,8 +19,6 @@
 package org.apache.ofbiz.content.survey;
 
 import java.io.ByteArrayOutputStream;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.sql.Timestamp;
@@ -504,15 +502,9 @@ public class PdfSurveyServices {
             if (ServiceUtil.isError(map)) {
                 return ServiceUtil.returnError(ServiceUtil.getErrorMessage(map));
             }
-            String pdfFileNameOut = (String) context.get("pdfFileNameOut");
             ByteBuffer outByteBuffer = (ByteBuffer) map.get("outByteBuffer");
             results.put("outByteBuffer", outByteBuffer);
-            if (UtilValidate.isNotEmpty(pdfFileNameOut)) {
-                FileOutputStream fos = new FileOutputStream(pdfFileNameOut);
-                fos.write(outByteBuffer.array());
-                fos.close();
-            }
-        } catch (IOException | GenericServiceException e) {
+        } catch (GenericServiceException e) {
             Debug.logError(e, "Error generating PDF: " + e.toString(), MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentPDFGeneratingError",
                     UtilMisc.toMap("errorString", e.toString()), locale));
@@ -525,20 +517,8 @@ public class PdfSurveyServices {
         ByteBuffer inputByteBuffer = (ByteBuffer) context.get("inputByteBuffer");
 
         if (inputByteBuffer == null) {
-            String pdfFileNameIn = (String) context.get("pdfFileNameIn");
             String contentId = (String) context.get("contentId");
-            if (UtilValidate.isNotEmpty(pdfFileNameIn)) {
-                try (FileInputStream fis = new FileInputStream(pdfFileNameIn)) {
-                    int c;
-                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                    while ((c = fis.read()) != -1) {
-                        baos.write(c);
-                    }
-                    inputByteBuffer = ByteBuffer.wrap(baos.toByteArray());
-                } catch (IOException e) {
-                    throw(new GeneralException(e.getMessage()));
-                }
-            } else if (UtilValidate.isNotEmpty(contentId)) {
+            if (UtilValidate.isNotEmpty(contentId)) {
                 try {
                     Locale locale = (Locale) context.get("locale");
                     String https = (String) context.get("https");
@@ -556,7 +536,7 @@ public class PdfSurveyServices {
     }
 
     /**
-     * @return the PDF given by the inputByteBuffer, pdfFileNameIn or contentId parameter, null if none of them is given
+     * @return the PDF given by the inputByteBuffer or contentId parameter, null if none of them is given
      */
     private static PDDocument loadInputPdf(Map<String, ? extends Object> context, Delegator delegator) throws GeneralException, IOException {
         ByteBuffer inputByteBuffer = getInputByteBuffer(context, delegator);

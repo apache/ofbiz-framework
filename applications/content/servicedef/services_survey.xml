@@ -278,9 +278,9 @@ under the License.
     </service>
 
     <service name="buildSurveyFromPdf" engine="java"
-            location="org.apache.ofbiz.content.survey.PdfSurveyServices" invoke="buildSurveyFromPdf" auth="false">
+            location="org.apache.ofbiz.content.survey.PdfSurveyServices" invoke="buildSurveyFromPdf" auth="true">
         <description>Create a Survey and related entities from AcroForm</description>
-        <attribute name="pdfFileNameIn" type="String" mode="IN" optional="true"/>
+        <permission-service service-name="contentManagerPermission" main-action="CREATE"/>
         <attribute name="contentId" type="String" mode="IN" optional="true"/>
         <attribute name="inputByteBuffer" type="java.nio.ByteBuffer" mode="IN" optional="true"/>
         <attribute name="surveyName" type="String" mode="IN" optional="true"/>
@@ -288,9 +288,9 @@ under the License.
     </service>
 
     <service name="buildSurveyResponseFromPdf" engine="java"  transaction-timeout="7200"
-            location="org.apache.ofbiz.content.survey.PdfSurveyServices" invoke="buildSurveyResponseFromPdf" auth="false">
+            location="org.apache.ofbiz.content.survey.PdfSurveyServices" invoke="buildSurveyResponseFromPdf" auth="true">
         <description>Create a Survey and related entities from AcroForm</description>
-        <attribute name="pdfFileNameIn" type="String" mode="IN" optional="true"/>
+        <permission-service service-name="contentManagerPermission" main-action="CREATE"/>
         <attribute name="contentId" type="String" mode="IN" optional="true"/>
         <attribute name="inputByteBuffer" type="java.nio.ByteBuffer" mode="IN" optional="true"/>
         <attribute name="surveyId" type="String" mode="IN" optional="true"/>
@@ -301,7 +301,6 @@ under the License.
     <service name="getAcroFieldsFromPdf" engine="java"
             location="org.apache.ofbiz.content.survey.PdfSurveyServices" invoke="getAcroFieldsFromPdf" auth="false">
         <description>Get fields from AcroForm</description>
-        <attribute name="pdfFileNameIn" type="String" mode="IN" optional="true"/>
         <attribute name="contentId" type="String" mode="IN" optional="true"/>
         <attribute name="inputByteBuffer" type="java.nio.ByteBuffer" mode="IN" optional="true"/>
         <attribute name="acroFieldMap" type="Map" mode="OUT" optional="false"/>
@@ -310,7 +309,6 @@ under the License.
     <service name="setAcroFieldsFromSurveyResponse" engine="java"
             location="org.apache.ofbiz.content.survey.PdfSurveyServices" invoke="setAcroFieldsFromSurveyResponse" auth="false">
         <description>Get fields from AcroForm</description>
-        <attribute name="pdfFileNameIn" type="String" mode="IN" optional="true"/>
         <attribute name="contentId" type="String" mode="IN" optional="true"/>
         <attribute name="inputByteBuffer" type="java.nio.ByteBuffer" mode="IN" optional="true"/>
         <attribute name="surveyResponseId" type="String" mode="IN" optional="false">
@@ -324,7 +322,6 @@ under the License.
     <service name="setAcroFields" engine="java"
             location="org.apache.ofbiz.content.survey.PdfSurveyServices" invoke="setAcroFields" auth="false">
         <description>Get fields from AcroForm</description>
-        <attribute name="pdfFileNameIn" type="String" mode="IN" optional="true"/>
         <attribute name="contentId" type="String" mode="IN" optional="true"/>
         <attribute name="inputByteBuffer" type="java.nio.ByteBuffer" mode="IN" optional="true"/>
         <attribute name="acroFieldMap" type="Map" mode="IN" optional="false">
