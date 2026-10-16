@@ -83,7 +83,10 @@ public class PdfSurveyServices {
         Locale locale = (Locale) context.get("locale");
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
         String surveyId = null;
-        try (PDDocument pdDocument = Loader.loadPDF(getInputByteBuffer(context, delegator).array())) {
+        try (PDDocument pdDocument = loadInputPdf(context, delegator)) {
+            if (pdDocument == null) {
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentPDFInputMissing", locale));
+            }
             String surveyName = (String) context.get("surveyName");
 
             String contentId = (String) context.get("contentId");
@@ -203,7 +206,10 @@ public class PdfSurveyServices {
     public static Map<String, Object> buildSurveyResponseFromPdf(DispatchContext dctx, Map<String, ? extends Object> context) {
         String surveyResponseId = null;
         Locale locale = (Locale) context.get("locale");
-        try (PDDocument pdDocument = Loader.loadPDF(getInputByteBuffer(context, dctx.getDelegator()).array())) {
+        try (PDDocument pdDocument = loadInputPdf(context, dctx.getDelegator())) {
+            if (pdDocument == null) {
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentPDFInputMissing", locale));
+            }
             Delegator delegator = dctx.getDelegator();
             String partyId = (String) context.get("partyId");
             String surveyId = (String) context.get("surveyId");
@@ -238,12 +244,13 @@ public class PdfSurveyServices {
                 String surveyQuestionId = (String) surveyQuestionAndAppl.get("surveyQuestionId");
                 String surveyQuestionTypeId = (String) surveyQuestionAndAppl.get("surveyQuestionTypeId");
                 GenericValue surveyResponseAnswer = delegator.makeValue("SurveyResponseAnswer",
-                        UtilMisc.toMap("surveyResponseId", surveyResponseId, "surveyQuestionId", surveyQuestionId));
+                        UtilMisc.toMap("surveyResponseId", surveyResponseId, "surveyQuestionId", surveyQuestionId,
+                                "surveyMultiRespColId", "_NA_"));
                 if (surveyQuestionTypeId == null || "TEXT_SHORT".equals(surveyQuestionTypeId)) {
                     surveyResponseAnswer.set("textResponse", value);
                 }
 
-                delegator.create(surveyResponseAnswer);
+                delegator.createOrStore(surveyResponseAnswer);
             }
         } catch (GeneralException | IOException e) {
             Debug.logError(e, "Error generating PDF: " + e.toString(), MODULE);
@@ -262,8 +269,11 @@ public class PdfSurveyServices {
     public static Map<String, Object> getAcroFieldsFromPdf(DispatchContext dctx, Map<String, ? extends Object> context) throws GeneralException {
         Map<String, Object> acroFieldMap = new HashMap<>();
         Delegator delegator = dctx.getDelegator();
-        ByteBuffer byteBuffer = getInputByteBuffer(context, delegator);
-        try (PDDocument pdDocument = Loader.loadPDF(byteBuffer.array())) {
+        Locale locale = (Locale) context.get("locale");
+        try (PDDocument pdDocument = loadInputPdf(context, delegator)) {
+            if (pdDocument == null) {
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentPDFInputMissing", locale));
+            }
             PdfFormHelper pdfForm = new PdfFormHelper(pdDocument);
             for (PDTerminalField field : pdfForm.getFormFields()) {
                 acroFieldMap.put(field.getFullyQualifiedName(), pdfForm.getValue(field));
@@ -283,11 +293,14 @@ public class PdfSurveyServices {
     public static Map<String, Object> setAcroFields(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map<String, Object> results = ServiceUtil.returnSuccess();
         Delegator delegator = dctx.getDelegator();
+        Locale locale = (Locale) context.get("locale");
         try {
             Map<String, Object> acroFieldMap = UtilGenerics.cast(context.get("acroFieldMap"));
-            ByteBuffer byteBuffer = getInputByteBuffer(context, delegator);
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            try (PDDocument pdDocument = Loader.loadPDF(byteBuffer.array())) {
+            try (PDDocument pdDocument = loadInputPdf(context, delegator)) {
+                if (pdDocument == null) {
+                    return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentPDFInputMissing", locale));
+                }
                 PdfFormHelper pdfForm = new PdfFormHelper(pdDocument);
                 for (PDTerminalField field : pdfForm.getFormFields()) {
                     String fieldValue;
@@ -540,6 +553,14 @@ public class PdfSurveyServices {
             }
         }
         return inputByteBuffer;
+    }
+
+    /**
+     * @return the PDF given by the inputByteBuffer, pdfFileNameIn or contentId parameter, null if none of them is given
+     */
+    private static PDDocument loadInputPdf(Map<String, ? extends Object> context, Delegator delegator) throws GeneralException, IOException {
+        ByteBuffer inputByteBuffer = getInputByteBuffer(context, delegator);
+        return inputByteBuffer != null ? Loader.loadPDF(inputByteBuffer.array()) : null;
     }
 
     /**
