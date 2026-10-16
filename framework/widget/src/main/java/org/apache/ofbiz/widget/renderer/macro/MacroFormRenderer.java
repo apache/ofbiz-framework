@@ -22,7 +22,6 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -175,6 +174,17 @@ public final class MacroFormRenderer implements FormStringRenderer {
         return value;
     }
 
+    private String encodeForMacro(String value, ModelFormField modelFormField, Map<String, Object> context) {
+        if (UtilValidate.isEmpty(value)) {
+            return value;
+        }
+        UtilCodec.SimpleEncoder encoder = (UtilCodec.SimpleEncoder) context.get("simpleEncoder");
+        if (modelFormField.getEncodeOutput() && encoder != null) {
+            value = encoder.encode(value);
+        }
+        return value;
+    }
+
     public void renderLabel(Appendable writer, Map<String, Object> context, ModelScreenWidget.Label label) {
         final RenderableFtl renderableFtl = renderableFtlFormElementsBuilder.label(context, label);
         writeFtlElement(writer, renderableFtl);
@@ -282,294 +292,26 @@ public final class MacroFormRenderer implements FormStringRenderer {
 
     @Override
     public void renderCheckField(Appendable writer, Map<String, Object> context, CheckField checkField) throws IOException {
-        ModelFormField modelFormField = checkField.getModelFormField();
-        String currentValue = modelFormField.getEntry(context);
-        String conditionGroup = modelFormField.getConditionGroup();
-        Boolean allChecked = checkField.isAllChecked(context);
-        boolean disabled = modelFormField.getDisabled(context);
-        String id = modelFormField.getCurrentContainerId(context);
-        String className = "";
-        String alert = "false";
-        String name = modelFormField.getParameterName(context);
-        String event = modelFormField.getEvent();
-        String action = modelFormField.getAction(context);
-        StringBuilder items = new StringBuilder();
-        String checkBox = checkField.getModelFormField().getAttributeName();
-        List<String> checkedByDefault = new ArrayList<String>();
-
-        if (context.containsKey(checkBox) && context.get(checkBox) != null
-                && !context.get(checkBox).getClass().equals(String.class)) {
-            checkedByDefault = context.containsKey(checkBox) ? StringUtil.toList(context.get(checkBox).toString())
-                    : List.of();
-        }
-
-        if (UtilValidate.isNotEmpty(modelFormField.getWidgetStyle())) {
-            className = modelFormField.getWidgetStyle();
-            if (modelFormField.shouldBeRed(context)) {
-                alert = "true";
-            }
-        }
-        String tabindex = modelFormField.getTabindex();
-
-        List<String> currentValueList = null;
-        if (UtilValidate.isNotEmpty(currentValue)) {
-            if (currentValue.startsWith("[")) {
-                currentValueList = StringUtil.toList(currentValue);
-            } else {
-                currentValueList = UtilMisc.toList(currentValue);
-            }
-        }
-
-        List<ModelFormField.OptionValue> allOptionValues = checkField.getAllOptionValues(context, WidgetWorker.getDelegator(context));
-        items.append("[");
-        for (ModelFormField.OptionValue optionValue : allOptionValues) {
-            boolean checked;
-
-            if (UtilValidate.isNotEmpty(currentValueList)) {
-                checked = currentValueList.contains(optionValue.getKey());
-            } else {
-                if (UtilValidate.isNotEmpty(checkedByDefault)) {
-                    checked = checkedByDefault.contains(optionValue.getKey());
-                } else checked = allChecked;
-            }
-            String data = String.format(
-                    "{'value':'%s', 'description':'%s', 'checked':'%s'}",
-                    optionValue.getKey(),
-                    encode(optionValue.getDescription(), modelFormField, context),
-                    checked);
-            items.append(data);
-            items.append(",");
-        }
-        if (items.length() > 0) {
-            items.deleteCharAt(items.length() - 1);
-        }
-        items.append("]");
-        StringWriter sr = new StringWriter();
-        sr.append("<@renderCheckField ");
-        sr.append("items=");
-        sr.append(items.toString());
-        sr.append(" className=\"");
-        sr.append(className);
-        sr.append("\" alert=\"");
-        sr.append(alert);
-        sr.append("\" id=\"");
-        sr.append(id);
-        sr.append("\" conditionGroup=\"");
-        sr.append(conditionGroup);
-        sr.append("\" currentValue=\"");
-        sr.append(currentValue);
-        sr.append("\" name=\"");
-        sr.append(name);
-        sr.append("\" event=\"");
-        if (event != null) {
-            sr.append(event);
-        }
-        sr.append("\" action=\"");
-        if (action != null) {
-            sr.append(action);
-        }
-        sr.append("\" tabindex=\"");
-        sr.append(tabindex);
-        sr.append("\" disabled=");
-        sr.append(Boolean.toString(disabled));
-        sr.append(" />");
-        executeMacro(writer, sr.toString());
-        this.appendTooltip(writer, context, modelFormField);
+        writeFtlElement(writer, renderableFtlFormElementsBuilder.checkField(context, checkField));
+        this.appendTooltip(writer, context, checkField.getModelFormField());
     }
 
     @Override
     public void renderRadioField(Appendable writer, Map<String, Object> context, RadioField radioField) throws IOException {
-        ModelFormField modelFormField = radioField.getModelFormField();
-        List<ModelFormField.OptionValue> allOptionValues = radioField.getAllOptionValues(context, WidgetWorker.getDelegator(context));
-        String currentValue = modelFormField.getEntry(context);
-        String conditionGroup = modelFormField.getConditionGroup();
-        boolean disabled = modelFormField.getDisabled(context);
-        String className = "";
-        String alert = "false";
-        String name = modelFormField.getParameterName(context);
-        String event = modelFormField.getEvent();
-        String action = modelFormField.getAction(context);
-        StringBuilder items = new StringBuilder();
-        if (UtilValidate.isNotEmpty(modelFormField.getWidgetStyle())) {
-            className = modelFormField.getWidgetStyle();
-            if (modelFormField.shouldBeRed(context)) {
-                alert = "true";
-            }
-        }
-        String noCurrentSelectedKey = radioField.getNoCurrentSelectedKey(context);
-        String tabindex = modelFormField.getTabindex();
-        items.append("[");
-        for (ModelFormField.OptionValue optionValue : allOptionValues) {
-            if (items.length() > 1) {
-                items.append(",");
-            }
-            items.append("{'key':'");
-            items.append(optionValue.getKey());
-            items.append("', 'description':'" + encode(optionValue.getDescription(), modelFormField, context));
-            items.append("'}");
-        }
-        items.append("]");
-        StringWriter sr = new StringWriter();
-        sr.append("<@renderRadioField ");
-        sr.append("items=");
-        sr.append(items.toString());
-        sr.append(" className=\"");
-        sr.append(className);
-        sr.append("\" alert=\"");
-        sr.append(alert);
-        sr.append("\" currentValue=\"");
-        sr.append(currentValue);
-        sr.append("\" noCurrentSelectedKey=\"");
-        sr.append(noCurrentSelectedKey);
-        sr.append("\" name=\"");
-        sr.append(name);
-        sr.append("\" event=\"");
-        if (event != null) {
-            sr.append(event);
-        }
-        sr.append("\" action=\"");
-        if (action != null) {
-            sr.append(action);
-        }
-        sr.append("\" conditionGroup=\"");
-        sr.append(conditionGroup);
-        sr.append("\" tabindex=\"");
-        sr.append(tabindex);
-        sr.append("\" disabled=");
-        sr.append(Boolean.toString(disabled));
-        sr.append(" />");
-        executeMacro(writer, sr.toString());
-        this.appendTooltip(writer, context, modelFormField);
+        writeFtlElement(writer, renderableFtlFormElementsBuilder.radioField(context, radioField));
+        this.appendTooltip(writer, context, radioField.getModelFormField());
     }
 
     @Override
     public void renderSubmitField(Appendable writer, Map<String, Object> context, SubmitField submitField) throws IOException {
-        ModelFormField modelFormField = submitField.getModelFormField();
-        ModelForm modelForm = modelFormField.getModelForm();
-        String id = modelFormField.getCurrentContainerId(context);
-        String event = modelFormField.getEvent();
-        String action = modelFormField.getAction(context);
-        String title = modelFormField.getTitle(context);
-        String name = modelFormField.getParameterName(context);
-        String buttonType = submitField.getButtonType();
-        String formName = FormRenderer.getCurrentFormName(modelForm, context);
-        String imgSrc = submitField.getImageLocation(context);
-        String confirmation = submitField.getConfirmation(context);
-        String className = "";
-        String alert = "false";
-        if (UtilValidate.isNotEmpty(modelFormField.getWidgetStyle())) {
-            className = modelFormField.getWidgetStyle();
-            if (modelFormField.shouldBeRed(context)) {
-                alert = "true";
-            }
-        }
-        String formId = FormRenderer.getCurrentContainerId(modelForm, context);
-        List<ModelForm.UpdateArea> updateAreas = new LinkedList<>();
-        List<ModelForm.UpdateArea> onSubmitUpdateAreas = modelForm.getOnSubmitUpdateAreas();
-        if (UtilValidate.isNotEmpty(onSubmitUpdateAreas)) {
-            updateAreas.addAll(onSubmitUpdateAreas);
-        }
-
-        // Retrieve on click event for submit field
-        List<ModelForm.UpdateArea> onClickUpdateAreas = modelFormField.getOnClickUpdateAreas();
-        if (UtilValidate.isNotEmpty(onClickUpdateAreas)) {
-            updateAreas.addAll(onClickUpdateAreas);
-        }
-
-        // This is here for backwards compatibility. Use on-event-update-area
-        // elements instead.
-        String backgroundSubmitRefreshTarget = submitField.getBackgroundSubmitRefreshTarget(context);
-        ModelForm.UpdateArea jwtCallback = ModelForm.UpdateArea.fromJwtToken(context);
-        if (UtilValidate.isNotEmpty(backgroundSubmitRefreshTarget)) {
-            updateAreas.add(ModelForm.UpdateArea.literal("submit", formId, backgroundSubmitRefreshTarget));
-        }
-
-        // In context a callback is present and no other update area to call after the submit, so trigger it.
-        if (UtilValidate.isEmpty(updateAreas) && jwtCallback != null && !submitField.getPropagateCallback()) {
-            updateAreas = UtilMisc.toList(jwtCallback);
-        }
-        boolean ajaxEnabled = UtilValidate.isNotEmpty(updateAreas) && this.javaScriptEnabled;
-        String ajaxUrl = "";
-        if (ajaxEnabled) {
-            Map<String, Object> extraParams = CommonWidgetModels.propagateCallbackInParameterMap(context,
-                    submitField.getPropagateCallback(), jwtCallback);
-            ajaxUrl = MacroCommonRenderer.createAjaxParamsFromUpdateAreas(updateAreas, extraParams, modelForm, "", context);
-        }
-        String tabindex = modelFormField.getTabindex();
-        boolean disabled = modelFormField.getDisabled(context);
-        StringWriter sr = new StringWriter();
-        sr.append("<@renderSubmitField ");
-        sr.append("buttonType=\"");
-        sr.append(buttonType);
-        sr.append("\" className=\"");
-        sr.append(className);
-        sr.append("\" alert=\"");
-        sr.append(alert);
-        sr.append("\" formName=\"");
-        sr.append(formName);
-        sr.append("\" title=\"");
-        sr.append(encode(title, modelFormField, context));
-        sr.append("\" name=\"");
-        sr.append(name);
-        sr.append("\" id=\"");
-        sr.append(id);
-        sr.append("\" event=\"");
-        if (event != null) {
-            sr.append(event);
-        }
-        sr.append("\" action=\"");
-        if (action != null) {
-            sr.append(action);
-        }
-        sr.append("\" imgSrc=\"");
-        sr.append(imgSrc);
-        sr.append("\" containerId=\"");
-        if (ajaxEnabled) {
-            sr.append(formId);
-        }
-        sr.append("\" confirmation =\"");
-        sr.append(confirmation);
-        sr.append("\" ajaxUrl=\"");
-        if (ajaxEnabled) {
-            sr.append(ajaxUrl);
-        }
-        sr.append("\" tabindex=\"");
-        sr.append(tabindex);
-        sr.append("\" disabled=");
-        sr.append(Boolean.toString(disabled));
-        sr.append(" closeOnSubmit=\"");
-        sr.append(String.valueOf(!submitField.getPropagateCallback()));
-        sr.append("\" />");
-        executeMacro(writer, sr.toString());
-        this.appendTooltip(writer, context, modelFormField);
+        writeFtlElement(writer, renderableFtlFormElementsBuilder.submitField(context, submitField, this.javaScriptEnabled));
+        this.appendTooltip(writer, context, submitField.getModelFormField());
     }
 
     @Override
     public void renderResetField(Appendable writer, Map<String, Object> context, ResetField resetField) throws IOException {
-        ModelFormField modelFormField = resetField.getModelFormField();
-        String name = modelFormField.getParameterName(context);
-        String className = "";
-        String alert = "false";
-        if (UtilValidate.isNotEmpty(modelFormField.getWidgetStyle())) {
-            className = modelFormField.getWidgetStyle();
-            if (modelFormField.shouldBeRed(context)) {
-                alert = "true";
-            }
-        }
-        String title = modelFormField.getTitle(context);
-        StringWriter sr = new StringWriter();
-        sr.append("<@renderResetField ");
-        sr.append(" className=\"");
-        sr.append(className);
-        sr.append("\" alert=\"");
-        sr.append(alert);
-        sr.append("\" name=\"");
-        sr.append(name);
-        sr.append("\" title=\"");
-        sr.append(title);
-        sr.append("\" />");
-        executeMacro(writer, sr.toString());
-        this.appendTooltip(writer, context, modelFormField);
+        writeFtlElement(writer, renderableFtlFormElementsBuilder.resetField(context, resetField));
+        this.appendTooltip(writer, context, resetField.getModelFormField());
     }
 
     @Override
@@ -581,34 +323,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
 
     @Override
     public void renderHiddenField(Appendable writer, Map<String, Object> context, ModelFormField modelFormField, String value) throws IOException {
-        String name = modelFormField.getParameterName(context);
-        String action = modelFormField.getAction(context);
-        String conditionGroup = modelFormField.getConditionGroup();
-        String event = modelFormField.getEvent();
-        String id = modelFormField.getCurrentContainerId(context);
-        boolean disabled = modelFormField.getDisabled(context);
-        StringWriter sr = new StringWriter();
-        sr.append("<@renderHiddenField ");
-        sr.append(" name=\"");
-        sr.append(name);
-        sr.append("\" conditionGroup=\"");
-        sr.append(conditionGroup);
-        sr.append("\" value=\"");
-        sr.append(value);
-        sr.append("\" id=\"");
-        sr.append(id);
-        sr.append("\" event=\"");
-        if (event != null) {
-            sr.append(event);
-        }
-        sr.append("\" action=\"");
-        if (action != null) {
-            sr.append(action);
-        }
-        sr.append("\" disabled=");
-        sr.append(Boolean.toString(disabled));
-        sr.append(" />");
-        executeMacro(writer, sr.toString());
+        writeFtlElement(writer, renderableFtlFormElementsBuilder.hiddenField(context, modelFormField, value));
     }
 
     @Override
@@ -623,12 +338,13 @@ public final class MacroFormRenderer implements FormStringRenderer {
         String titleText = modelFormField.getTitle(context);
         String style = modelFormField.getTitleStyle();
         String id = modelFormField.getCurrentContainerId(context);
-        StringBuilder sb = new StringBuilder();
+        String title = "";
         if (UtilValidate.isNotEmpty(titleText)) {
             if (" ".equals(titleText)) {
-                executeMacro(writer, "<@renderFormatEmptySpace />");
+                writeFtlElement(writer, renderableFtlFormElementsBuilder.formatEmptySpace());
             } else {
                 titleText = UtilHttp.encodeAmpersands(titleText);
+                final String encodedTitleText = encodeForMacro(titleText, modelFormField, context);
                 titleText = encode(titleText, modelFormField, context);
                 if (UtilValidate.isNotEmpty(modelFormField.getHeaderLink())) {
                     StringBuilder targetBuffer = new StringBuilder();
@@ -643,32 +359,20 @@ public final class MacroFormRenderer implements FormStringRenderer {
                     StringWriter sr = new StringWriter();
                     makeHyperlinkString(sr, modelFormField.getHeaderLinkStyle(), targetType, targetBuffer.toString(), null, titleText, "",
                             modelFormField, this.request, this.response, context, "");
-                    String title = sr.toString().replace("\"", "\'");
-                    sr = new StringWriter();
-                    sr.append("<@renderHyperlinkTitle ");
-                    sr.append(" name=\"");
-                    sr.append(modelFormField.getModelForm().getName());
-                    sr.append("\" title=\"");
-                    sr.append(MacroCommonRenderer.escapeFtlString(title));
-                    sr.append("\" />");
-                    executeMacro(writer, sr.toString());
+                    String hyperlinkTitle = sr.toString().replace("\"", "\'");
+                    writeFtlElement(writer, renderableFtlFormElementsBuilder.hyperlinkTitle(modelFormField.getModelForm().getName(),
+                            hyperlinkTitle, false));
                 } else if (modelFormField.isSortField()) {
-                    renderSortField(writer, context, modelFormField, titleText);
+                    renderSortField(writer, context, modelFormField, encodedTitleText);
                 } else if (modelFormField.isRowSubmit()) {
-                    StringWriter sr = new StringWriter();
-                    sr.append("<@renderHyperlinkTitle ");
-                    sr.append(" name=\"");
-                    sr.append(modelFormField.getModelForm().getName());
-                    sr.append("\" title=\"");
-                    sr.append(titleText);
-                    sr.append("\" showSelectAll=\"Y\"/>");
-                    executeMacro(writer, sr.toString());
+                    writeFtlElement(writer, renderableFtlFormElementsBuilder.hyperlinkTitle(modelFormField.getModelForm().getName(),
+                            encodedTitleText, true));
                 } else {
-                    sb.append(titleText);
+                    title = encodedTitleText;
                 }
             }
         }
-        if (!sb.toString().isEmpty()) {
+        if (!title.isEmpty()) {
             //check for required field style on single forms
             if (shouldApplyRequiredField(modelFormField)) {
                 String requiredStyle = modelFormField.getRequiredFieldStyle();
@@ -676,10 +380,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
                     style = requiredStyle;
                 }
             }
-            StringWriter sr = new StringWriter();
-            sr.append("<@renderFieldTitle ");
-            sr.append(" style=\"");
-            sr.append(style);
+            String fieldHelpText = null;
             String displayHelpText = UtilProperties.getPropertyValue("widget", "widget.form.displayhelpText");
             if ("Y".equals(displayHelpText)) {
                 Delegator delegator = WidgetWorker.getDelegator(context);
@@ -687,22 +388,9 @@ public final class MacroFormRenderer implements FormStringRenderer {
                 String entityName = modelFormField.getEntityName();
                 String fieldName = modelFormField.getFieldName();
                 String helpText = UtilHelpText.getEntityFieldDescription(entityName, fieldName, delegator, locale);
-
-                sr.append("\" fieldHelpText=\"");
-                sr.append(MacroCommonRenderer.escapeFtlString(helpText));
+                fieldHelpText = helpText == null ? "" : helpText;
             }
-            sr.append("\" title=\"");
-            sr.append(sb.toString());
-            if (UtilValidate.isNotEmpty(id)) {
-                sr.append("\" id=\"");
-                sr.append(id);
-                sr.append("_title");
-                // Render "for"
-                sr.append("\" for=\"");
-                sr.append(id);
-            }
-            sr.append("\" />");
-            executeMacro(writer, sr.toString());
+            writeFtlElement(writer, renderableFtlFormElementsBuilder.fieldTitle(style, title, id, fieldHelpText));
         }
     }
 
@@ -2157,22 +1845,8 @@ public final class MacroFormRenderer implements FormStringRenderer {
                 linkUrl = rh.makeLink(this.request, this.response, urlPath.concat(UtilCodec.encodeUrl(newQueryString, context)));
             }
         }
-        StringWriter sr = new StringWriter();
-        sr.append("<@renderSortField ");
-        sr.append(" style=\"");
-        sr.append(sortFieldStyle);
-        sr.append("\" title=\"");
-        sr.append(titleText);
-        sr.append("\" linkUrl=\"");
-        sr.append(linkUrl);
-        sr.append("\" ajaxEnabled=");
-        sr.append(Boolean.toString(ajaxEnabled));
         String tooltip = modelFormField.getSortFieldHelpText(context);
-        if (!tooltip.isEmpty()) {
-            sr.append(" tooltip=\"").append(tooltip).append("\"");
-        }
-        sr.append(" />");
-        executeMacro(writer, sr.toString());
+        writeFtlElement(writer, renderableFtlFormElementsBuilder.sortField(sortFieldStyle, titleText, linkUrl, ajaxEnabled, tooltip));
     }
 
     private void appendTooltip(Appendable writer, Map<String, Object> context, ModelFormField modelFormField) {
