@@ -85,6 +85,9 @@ public class PdfSurveyServices {
             String surveyName = (String) context.get("surveyName");
             ByteArrayOutputStream os = new ByteArrayOutputStream();
             ByteBuffer byteBuffer = getInputByteBuffer(context, delegator);
+            if (byteBuffer == null) {
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentPDFInputMissing", locale));
+            }
             PdfReader pdfReader = new PdfReader(byteBuffer.array());
             PdfStamper pdfStamper = new PdfStamper(pdfReader, os);
             AcroFields acroFields = pdfStamper.getAcroFields();
@@ -251,6 +254,9 @@ public class PdfSurveyServices {
 
             ByteArrayOutputStream os = new ByteArrayOutputStream();
             ByteBuffer byteBuffer = getInputByteBuffer(context, delegator);
+            if (byteBuffer == null) {
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentPDFInputMissing", locale));
+            }
             PdfReader r = new PdfReader(byteBuffer.array());
             PdfStamper s = new PdfStamper(r, os);
             AcroFields fs = s.getAcroFields();
@@ -270,12 +276,13 @@ public class PdfSurveyServices {
                 String surveyQuestionId = (String) surveyQuestionAndAppl.get("surveyQuestionId");
                 String surveyQuestionTypeId = (String) surveyQuestionAndAppl.get("surveyQuestionTypeId");
                 GenericValue surveyResponseAnswer = delegator.makeValue("SurveyResponseAnswer",
-                        UtilMisc.toMap("surveyResponseId", surveyResponseId, "surveyQuestionId", surveyQuestionId));
+                        UtilMisc.toMap("surveyResponseId", surveyResponseId, "surveyQuestionId", surveyQuestionId,
+                                "surveyMultiRespColId", "_NA_"));
                 if (surveyQuestionTypeId == null || "TEXT_SHORT".equals(surveyQuestionTypeId)) {
                     surveyResponseAnswer.set("textResponse", value);
                 }
 
-                delegator.create(surveyResponseAnswer);
+                delegator.createOrStore(surveyResponseAnswer);
             }
             s.close();
         } catch (GeneralException | DocumentException | IOException e) {
@@ -296,7 +303,11 @@ public class PdfSurveyServices {
         Map<String, Object> acroFieldMap = new HashMap<>();
         ByteArrayOutputStream os = new ByteArrayOutputStream();
         Delegator delegator = dctx.getDelegator();
+        Locale locale = (Locale) context.get("locale");
         ByteBuffer byteBuffer = getInputByteBuffer(context, delegator);
+        if (byteBuffer == null) {
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentPDFInputMissing", locale));
+        }
         try (PdfReader r = new PdfReader(byteBuffer.array());
                 PdfStamper s = new PdfStamper(r, os)) {
             AcroFields fs = s.getAcroFields();
@@ -323,9 +334,13 @@ public class PdfSurveyServices {
     public static Map<String, Object> setAcroFields(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map<String, Object> results = ServiceUtil.returnSuccess();
         Delegator delegator = dctx.getDelegator();
+        Locale locale = (Locale) context.get("locale");
         try {
             Map<String, Object> acroFieldMap = UtilGenerics.cast(context.get("acroFieldMap"));
             ByteBuffer byteBuffer = getInputByteBuffer(context, delegator);
+            if (byteBuffer == null) {
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentPDFInputMissing", locale));
+            }
             PdfReader r = new PdfReader(byteBuffer.array());
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             PdfStamper s = new PdfStamper(r, baos);
