@@ -36,6 +36,7 @@ import org.junit.jupiter.api.Test;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -43,6 +44,9 @@ import java.util.Map;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.hasKey;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.notNull;
 import static org.mockito.ArgumentMatchers.nullable;
 import static org.mockito.Mockito.RETURNS_DEEP_STUBS;
@@ -536,5 +540,182 @@ public final class RenderableFtlFormElementsBuilderTest {
         assertThat(renderableFtl, MacroCallMatcher.hasParameters(MacroCallParameterMatcher.hasNameAndBooleanValue("timePicker24Hour", true)));
         assertThat(renderableFtl, MacroCallMatcher.hasParameters(MacroCallParameterMatcher.hasNameAndStringValue("timePickerIncrement", "5")));
         assertThat(renderableFtl, MacroCallMatcher.hasParameters(MacroCallParameterMatcher.hasNameAndBooleanValue("timePickerSeconds", true)));
+    }
+
+    private static List<ModelFormField.OptionValue> threeOptions() {
+        final List<ModelFormField.OptionValue> optionValues = new ArrayList<>();
+        optionValues.add(new ModelFormField.OptionValue("KEY1", "DESC1"));
+        optionValues.add(new ModelFormField.OptionValue("KEY2", "DESC2"));
+        optionValues.add(new ModelFormField.OptionValue("KEY3", "DESC3"));
+        return optionValues;
+    }
+
+    private static Map<String, String> checkItem(final String key, final String description, final boolean checked) {
+        return Map.of("value", key, "description", description, "checked", Boolean.toString(checked));
+    }
+
+    @Test
+    public void checkFieldChecksTheCurrentValue() {
+        final ModelFormField.CheckField checkField = mock(ModelFormField.CheckField.class);
+        when(checkField.getModelFormField()).thenReturn(modelFormField);
+        when(checkField.isAllChecked(notNull())).thenReturn(false);
+        when(checkField.getAllOptionValues(notNull(), any())).thenReturn(threeOptions());
+        when(modelFormField.getEntry(notNull())).thenReturn("KEY2");
+
+        final RenderableFtlMacroCall macroCall = (RenderableFtlMacroCall) renderableFtlFormElementsBuilder.checkField(new HashMap<>(), checkField);
+        assertThat(macroCall, MacroCallMatcher.hasNameAndParameters("renderCheckField",
+                MacroCallParameterMatcher.hasNameAndStringValue("currentValue", "KEY2")));
+        assertThat(macroCall.getParameters().get("items"), equalTo(List.of(
+                checkItem("KEY1", "DESC1", false), checkItem("KEY2", "DESC2", true), checkItem("KEY3", "DESC3", false))));
+    }
+
+    @Test
+    public void checkFieldChecksTheValuesOfTheContextWhenThereIsNoCurrentValue() {
+        final ModelFormField.CheckField checkField = mock(ModelFormField.CheckField.class);
+        when(checkField.getModelFormField()).thenReturn(modelFormField);
+        when(checkField.isAllChecked(notNull())).thenReturn(false);
+        when(checkField.getAllOptionValues(notNull(), any())).thenReturn(threeOptions());
+        when(modelFormField.getEntry(notNull())).thenReturn("");
+        when(modelFormField.getAttributeName()).thenReturn("FieldName");
+
+        final Map<String, Object> context = new HashMap<>();
+        context.put("FieldName", List.of("KEY1", "KEY3"));
+
+        final RenderableFtlMacroCall macroCall = (RenderableFtlMacroCall) renderableFtlFormElementsBuilder.checkField(context, checkField);
+        assertThat(macroCall.getParameters().get("items"), equalTo(List.of(
+                checkItem("KEY1", "DESC1", true), checkItem("KEY2", "DESC2", false), checkItem("KEY3", "DESC3", true))));
+    }
+
+    @Test
+    public void checkFieldPassesKeysAndDescriptionsAsTheyAre() {
+        final ModelFormField.CheckField checkField = mock(ModelFormField.CheckField.class);
+        when(checkField.getModelFormField()).thenReturn(modelFormField);
+        when(checkField.isAllChecked(notNull())).thenReturn(false);
+        final List<ModelFormField.OptionValue> optionValues = new ArrayList<>();
+        optionValues.add(new ModelFormField.OptionValue("it's ${1+1}", "say \"hi\" \\ #{2}"));
+        when(checkField.getAllOptionValues(notNull(), any())).thenReturn(optionValues);
+        when(modelFormField.getEntry(notNull())).thenReturn("");
+
+        final RenderableFtlMacroCall macroCall = (RenderableFtlMacroCall) renderableFtlFormElementsBuilder.checkField(new HashMap<>(), checkField);
+        assertThat(macroCall.getParameters().get("items"), equalTo(List.of(
+                checkItem("it's ${1+1}", "say \"hi\" \\ #{2}", false))));
+    }
+
+    @Test
+    public void radioFieldSetsItemsCurrentValueAndNoCurrentSelectedKey() {
+        final ModelFormField.RadioField radioField = mock(ModelFormField.RadioField.class);
+        when(radioField.getModelFormField()).thenReturn(modelFormField);
+        when(radioField.getAllOptionValues(notNull(), any())).thenReturn(threeOptions());
+        when(radioField.getNoCurrentSelectedKey(notNull())).thenReturn("NOKEY");
+        when(modelFormField.getEntry(notNull())).thenReturn("KEY2");
+
+        final RenderableFtlMacroCall macroCall = (RenderableFtlMacroCall) renderableFtlFormElementsBuilder.radioField(new HashMap<>(), radioField);
+        assertThat(macroCall, MacroCallMatcher.hasNameAndParameters("renderRadioField",
+                MacroCallParameterMatcher.hasNameAndStringValue("currentValue", "KEY2"),
+                MacroCallParameterMatcher.hasNameAndStringValue("noCurrentSelectedKey", "NOKEY")));
+        assertThat(macroCall.getParameters().get("items"), equalTo(List.of(
+                Map.of("key", "KEY1", "description", "DESC1"),
+                Map.of("key", "KEY2", "description", "DESC2"),
+                Map.of("key", "KEY3", "description", "DESC3"))));
+    }
+
+    @Test
+    public void submitFieldSetsTitleAndDoesNotUseAjaxWithoutUpdateAreas() {
+        final ModelFormField.SubmitField submitField = mock(ModelFormField.SubmitField.class);
+        when(submitField.getModelFormField()).thenReturn(modelFormField);
+        when(modelFormField.getTitle(notNull())).thenReturn("BUTTONTITLE");
+        when(modelFormField.getModelForm().getOnSubmitUpdateAreas()).thenReturn(new ArrayList<>());
+        when(modelFormField.getOnClickUpdateAreas()).thenReturn(new ArrayList<>());
+
+        final RenderableFtl renderableFtl = renderableFtlFormElementsBuilder.submitField(new HashMap<>(), submitField, true);
+        assertThat(renderableFtl, MacroCallMatcher.hasNameAndParameters("renderSubmitField",
+                MacroCallParameterMatcher.hasNameAndStringValue("title", "BUTTONTITLE"),
+                MacroCallParameterMatcher.hasNameAndStringValue("containerId", ""),
+                MacroCallParameterMatcher.hasNameAndStringValue("ajaxUrl", ""),
+                MacroCallParameterMatcher.hasNameAndStringValue("closeOnSubmit", "true")));
+    }
+
+    @Test
+    public void resetFieldSetsTitleAndName() {
+        final ModelFormField.ResetField resetField = mock(ModelFormField.ResetField.class);
+        when(resetField.getModelFormField()).thenReturn(modelFormField);
+        when(modelFormField.getTitle(notNull())).thenReturn("BUTTONTITLE");
+        when(modelFormField.getParameterName(notNull())).thenReturn("PARAMNAME");
+
+        final RenderableFtl renderableFtl = renderableFtlFormElementsBuilder.resetField(new HashMap<>(), resetField);
+        assertThat(renderableFtl, MacroCallMatcher.hasNameAndParameters("renderResetField",
+                MacroCallParameterMatcher.hasNameAndStringValue("title", "BUTTONTITLE"),
+                MacroCallParameterMatcher.hasNameAndStringValue("name", "PARAMNAME")));
+    }
+
+    @Test
+    public void hiddenFieldSetsTheValue() {
+        when(modelFormField.getParameterName(notNull())).thenReturn("PARAMNAME");
+
+        final RenderableFtl renderableFtl = renderableFtlFormElementsBuilder.hiddenField(new HashMap<>(), modelFormField, "HIDDENVALUE");
+        assertThat(renderableFtl, MacroCallMatcher.hasNameAndParameters("renderHiddenField",
+                MacroCallParameterMatcher.hasNameAndStringValue("name", "PARAMNAME"),
+                MacroCallParameterMatcher.hasNameAndStringValue("value", "HIDDENVALUE")));
+    }
+
+    @Test
+    public void hiddenFieldRemovesTheBackslashOfTheEscapedQuotes() {
+        final RenderableFtl renderableFtl = renderableFtlFormElementsBuilder.hiddenField(new HashMap<>(), modelFormField, "say \\\"hi\\\"");
+        assertThat(renderableFtl, MacroCallMatcher.hasNameAndParameters("renderHiddenField",
+                MacroCallParameterMatcher.hasNameAndStringValue("value", "say \"hi\"")));
+    }
+
+    @Test
+    public void formatEmptySpaceHasNoParameters() {
+        final RenderableFtlMacroCall macroCall = (RenderableFtlMacroCall) renderableFtlFormElementsBuilder.formatEmptySpace();
+        assertThat(macroCall.getName(), equalTo("renderFormatEmptySpace"));
+        assertThat(macroCall.getParameters().isEmpty(), equalTo(true));
+    }
+
+    @Test
+    public void hyperlinkTitleShowsTheSelectAllOnlyWhenAsked() {
+        final RenderableFtlMacroCall withSelectAll = (RenderableFtlMacroCall) renderableFtlFormElementsBuilder.hyperlinkTitle("FORM", "TITLE", true);
+        assertThat(withSelectAll, MacroCallMatcher.hasNameAndParameters("renderHyperlinkTitle",
+                MacroCallParameterMatcher.hasNameAndStringValue("name", "FORM"),
+                MacroCallParameterMatcher.hasNameAndStringValue("title", "TITLE"),
+                MacroCallParameterMatcher.hasNameAndStringValue("showSelectAll", "Y")));
+
+        final RenderableFtlMacroCall withoutSelectAll =
+                (RenderableFtlMacroCall) renderableFtlFormElementsBuilder.hyperlinkTitle("FORM", "TITLE", false);
+        assertThat(withoutSelectAll.getParameters(), not(hasKey("showSelectAll")));
+    }
+
+    @Test
+    public void fieldTitleSetsIdAndForOnlyWithAnId() {
+        final RenderableFtlMacroCall withId = (RenderableFtlMacroCall) renderableFtlFormElementsBuilder.fieldTitle("STYLE", "TITLE", "FIELDID", null);
+        assertThat(withId, MacroCallMatcher.hasNameAndParameters("renderFieldTitle",
+                MacroCallParameterMatcher.hasNameAndStringValue("style", "STYLE"),
+                MacroCallParameterMatcher.hasNameAndStringValue("title", "TITLE"),
+                MacroCallParameterMatcher.hasNameAndStringValue("id", "FIELDID_title"),
+                MacroCallParameterMatcher.hasNameAndStringValue("for", "FIELDID")));
+        assertThat(withId.getParameters(), not(hasKey("fieldHelpText")));
+
+        final RenderableFtlMacroCall withoutId = (RenderableFtlMacroCall) renderableFtlFormElementsBuilder.fieldTitle("STYLE", "TITLE", "", "HELP");
+        assertThat(withoutId.getParameters(), not(hasKey("id")));
+        assertThat(withoutId.getParameters(), not(hasKey("for")));
+        assertThat(withoutId, MacroCallMatcher.hasNameAndParameters("renderFieldTitle",
+                MacroCallParameterMatcher.hasNameAndStringValue("fieldHelpText", "HELP")));
+    }
+
+    @Test
+    public void sortFieldSetsTheLinkAndOmitsAnEmptyTooltip() {
+        final RenderableFtlMacroCall macroCall =
+                (RenderableFtlMacroCall) renderableFtlFormElementsBuilder.sortField("STYLE", "TITLE", "/target?x=1", true, "");
+        assertThat(macroCall, MacroCallMatcher.hasNameAndParameters("renderSortField",
+                MacroCallParameterMatcher.hasNameAndStringValue("style", "STYLE"),
+                MacroCallParameterMatcher.hasNameAndStringValue("title", "TITLE"),
+                MacroCallParameterMatcher.hasNameAndStringValue("linkUrl", "/target?x=1"),
+                MacroCallParameterMatcher.hasNameAndBooleanValue("ajaxEnabled", true)));
+        assertThat(macroCall.getParameters(), not(hasKey("tooltip")));
+
+        final RenderableFtlMacroCall withTooltip =
+                (RenderableFtlMacroCall) renderableFtlFormElementsBuilder.sortField("STYLE", "TITLE", "/target", false, "TIP");
+        assertThat(withTooltip, MacroCallMatcher.hasNameAndParameters("renderSortField",
+                MacroCallParameterMatcher.hasNameAndStringValue("tooltip", "TIP")));
     }
 }
