@@ -525,8 +525,11 @@ public class PdfSurveyServices {
                     String webSiteId = (String) context.get("webSiteId");
                     String rootDir = (String) context.get("rootDir");
                     GenericValue content = EntityQuery.use(delegator).from("Content").where("contentId", contentId).cache().queryOne();
-                    String dataResourceId = content.getString("dataResourceId");
-                    inputByteBuffer = DataResourceWorker.getContentAsByteBuffer(delegator, dataResourceId, https, webSiteId, locale, rootDir);
+                    String dataResourceId = content != null ? content.getString("dataResourceId") : null;
+                    if (UtilValidate.isNotEmpty(dataResourceId)) {
+                        inputByteBuffer = DataResourceWorker.getContentAsByteBuffer(delegator, dataResourceId, https, webSiteId, locale,
+                                rootDir);
+                    }
                 } catch (GenericEntityException | IOException e) {
                     throw(new GeneralException(e.getMessage()));
                 }
@@ -536,7 +539,8 @@ public class PdfSurveyServices {
     }
 
     /**
-     * @return the PDF given by the inputByteBuffer or contentId parameter, null if none of them is given
+     * @return the PDF given by the inputByteBuffer or contentId parameter, null if none of them is given or the contentId
+     * matches no Content with a DataResource
      */
     private static PDDocument loadInputPdf(Map<String, ? extends Object> context, Delegator delegator) throws GeneralException, IOException {
         ByteBuffer inputByteBuffer = getInputByteBuffer(context, delegator);
