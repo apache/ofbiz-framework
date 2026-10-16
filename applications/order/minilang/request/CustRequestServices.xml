@@ -266,6 +266,38 @@ under the License.
     </simple-method>
 
     <simple-method method-name="createCustRequestFromCart" short-description="Create a CustRequest from a ShoppingCart">
+        <call-object-method obj-field="parameters.cart" method-name="items" ret-field="items"/>
+        <!-- Validate requestable items before creating the CustRequest header. -->
+        <set value="false" field="hasRequestableItems"/>
+        <iterate list="items" entry="item">
+            <call-object-method obj-field="item" method-name="getIsPromo" ret-field="isPromo"/>
+            <if-compare field="isPromo" value="false" operator="equals" type="Boolean">
+                <call-object-method obj-field="item" method-name="getProductId" ret-field="itemProductId"/>
+                <call-object-method obj-field="item" method-name="getQuantity" ret-field="itemQuantity"/>
+                <if-empty field="itemProductId">
+                    <add-error>
+                        <fail-property resource="OrderErrorUiLabels" property="checkhelper.no_items_in_cart"/>
+                    </add-error>
+                </if-empty>
+                <if-compare field="itemQuantity" value="0" operator="greater" type="BigDecimal">
+                    <if-not-empty field="itemProductId">
+                        <set value="true" field="hasRequestableItems"/>
+                    </if-not-empty>
+                </if-compare>
+                <if-compare field="itemQuantity" value="0" operator="less-equals" type="BigDecimal">
+                    <add-error>
+                        <fail-property resource="OrderErrorUiLabels" property="checkhelper.no_items_in_cart"/>
+                    </add-error>
+                </if-compare>
+            </if-compare>
+        </iterate>
+        <if-compare field="hasRequestableItems" value="false" operator="equals" type="Boolean">
+            <add-error>
+                <fail-property resource="OrderErrorUiLabels" property="checkhelper.no_items_in_cart"/>
+            </add-error>
+        </if-compare>
+        <check-errors/>
+
         <call-object-method obj-field="parameters.cart" method-name="getPartyId" ret-field="createCustRequestInMap.fromPartyId"/>
         <set value="RF_QUOTE" field="createCustRequestInMap.custRequestTypeId"/>
         <set value="CRQ_SUBMITTED" field="createCustRequestInMap.statusId"/>
@@ -284,7 +316,6 @@ under the License.
         <entity-one entity-name="CustRequest" value-field="custRequest" auto-field-map="true"/>
 
         <!-- create, for every cart item, a request item -->
-        <call-object-method obj-field="parameters.cart" method-name="items" ret-field="items"/>
         <iterate list="items" entry="item">
             <!-- a new request item is created -->
             <clear-field field="createCustRequestItemInMap"/>
