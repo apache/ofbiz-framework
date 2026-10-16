@@ -75,8 +75,8 @@ import org.apache.ofbiz.widget.renderer.macro.renderable.RenderableFtlMacroCall;
 import org.apache.ofbiz.widget.renderer.macro.renderable.RenderableFtlMacroCall.RenderableFtlMacroCallBuilder;
 import org.apache.ofbiz.widget.renderer.macro.renderable.RenderableFtlNoop;
 import org.apache.ofbiz.widget.renderer.macro.renderable.RenderableFtlSequence;
-import org.apache.ofbiz.widget.renderer.macro.renderable.RenderableFtlString;
-import org.apache.ofbiz.widget.renderer.macro.renderable.RenderableFtlString.RenderableFtlStringBuilder;
+import org.apache.ofbiz.widget.renderer.macro.renderable.RenderableFtlVerbatim;
+import org.apache.ofbiz.widget.renderer.macro.renderable.RenderableFtlVerbatim.RenderableFtlVerbatimBuilder;
 import org.jsoup.nodes.Element;
 
 /**
@@ -170,8 +170,6 @@ public final class RenderableFtlFormElementsBuilder {
                 .stringParameter("class", modelFormField.getWidgetStyle())
                 .stringParameter("alert", modelFormField.shouldBeRed(context) ? "true" : "false");
 
-        StringWriter sr = new StringWriter();
-        sr.append("<@renderDisplayField ");
         if (ajaxEnabled) {
             String url = inPlaceEditor.getUrl(context);
             StringBuffer extraParameterBuffer = new StringBuffer();
@@ -827,8 +825,8 @@ public final class RenderableFtlFormElementsBuilder {
             parameterMap.put(viewIndexField, Integer.toString(viewIndex));
             parameterMap.put(viewSizeField, Integer.toString(viewSize));
 
-            final RenderableFtlStringBuilder renderableFtlStringBuilder = RenderableFtlString.builder();
-            final StringBuilder htmlStringBuilder = renderableFtlStringBuilder.getStringBuilder();
+            final RenderableFtlVerbatimBuilder renderableFtlVerbatimBuilder = RenderableFtlVerbatim.builder();
+            final StringBuilder htmlStringBuilder = renderableFtlVerbatimBuilder.getStringBuilder();
 
             if ("multi".equals(modelForm.getType())) {
                 final Element anchorElement = WidgetWorker.makeHiddenFormLinkAnchorElement(linkStyle,
@@ -839,12 +837,12 @@ public final class RenderableFtlFormElementsBuilder {
 
                 // this is a bit trickier, since we can't do a nested form we'll have to put the link to submit the
                 // form in place, but put the actual form def elsewhere, ie after the big form is closed
-                final RenderableFtlString postFormRenderableFtlString = RenderableFtlString.withStringBuilder(sb -> {
+                final RenderableFtlVerbatim postFormRenderableFtlVerbatim = RenderableFtlVerbatim.withStringBuilder(sb -> {
                     final Element hiddenFormElement = WidgetWorker.makeHiddenFormLinkFormElement(target, targetType,
                             targetWindow, parameterMap, modelFormField, request, response, context);
                     sb.append(hiddenFormElement.outerHtml());
                 });
-                appendToPostFormRenderableFtl(postFormRenderableFtlString, context);
+                appendToPostFormRenderableFtl(postFormRenderableFtlVerbatim, context);
 
             } else {
                 final Element hiddenFormElement = WidgetWorker.makeHiddenFormLinkFormElement(target, targetType,
@@ -857,7 +855,7 @@ public final class RenderableFtlFormElementsBuilder {
                 }
             }
 
-            return renderableFtlStringBuilder.build();
+            return renderableFtlVerbatimBuilder.build();
 
         } else {
             if ("layered-modal".equals(realLinkType)) {

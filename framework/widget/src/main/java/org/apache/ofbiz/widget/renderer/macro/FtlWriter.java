@@ -30,19 +30,18 @@ import org.apache.ofbiz.widget.renderer.VisualTheme;
 import org.apache.ofbiz.widget.renderer.macro.renderable.RenderableFtl;
 import org.apache.ofbiz.widget.renderer.macro.renderable.RenderableFtlMacroCall;
 import org.apache.ofbiz.widget.renderer.macro.renderable.RenderableFtlNoop;
-import org.apache.ofbiz.widget.renderer.macro.renderable.RenderableFtlString;
+import org.apache.ofbiz.widget.renderer.macro.renderable.RenderableFtlVerbatim;
 import org.apache.ofbiz.widget.renderer.macro.renderable.RenderableFtlVisitor;
 
 import java.io.IOException;
-import java.io.Reader;
 import java.io.StringReader;
 import java.util.Locale;
 import java.util.Map;
-import java.util.UUID;
 import java.util.WeakHashMap;
 
 /**
- * Processes FTL templates and writes result to Appendables.
+ * Calls the macros of a macro library and writes the result to Appendables. The only template text it compiles is the
+ * constant text that calls a macro, so no value of the data is ever parsed as template code.
  */
 public final class FtlWriter {
     private static final String MODULE = FtlWriter.class.getName();
@@ -88,26 +87,6 @@ public final class FtlWriter {
     public void processFtl(final Appendable writer, Locale locale, final RenderableFtl renderableFtl) {
         final RenderableFtlFtlWriterVisitor writerVisitor = new RenderableFtlFtlWriterVisitor(writer);
         renderableFtl.accept(writerVisitor, locale);
-    }
-
-    /**
-     * Process the given FTL string as a template and write the result to the Appendable.
-     *
-     * @param writer    The Appendable to write the result of the template processing to.
-     * @param ftlString The FTL string to process as a template.
-     */
-    public void processFtlString(Appendable writer, Locale locale, String ftlString) {
-        try {
-            final Environment environment = getEnvironment(writer, locale);
-            setThemeVariables(environment);
-            Reader templateReader = new StringReader(ftlString);
-            Template template = new Template(UUID.randomUUID().toString(), templateReader,
-                    FreeMarkerWorker.getDefaultOfbizConfig());
-            templateReader.close();
-            environment.include(template);
-        } catch (TemplateException | IOException e) {
-            Debug.logError(e, "Error rendering ftl, ftlString: " + ftlString, MODULE);
-        }
     }
 
     /**
@@ -173,7 +152,7 @@ public final class FtlWriter {
 
     /**
      * Visitor for RenderableFtl objects that will call the macros of the macro library, or write the finished output
-     * of a RenderableFtlString as it is, to the configured Appendable.
+     * of a RenderableFtlVerbatim as it is, to the configured Appendable.
      */
     private final class RenderableFtlFtlWriterVisitor implements RenderableFtlVisitor {
 
@@ -198,12 +177,12 @@ public final class FtlWriter {
         }
 
         @Override
-        public void visit(RenderableFtlString renderableFtlString, Locale locale) {
+        public void visit(RenderableFtlVerbatim renderableFtlVerbatim, Locale locale) {
             // the string holds finished output that can contain data, so it is written as it is and never compiled
             try {
-                writer.append(renderableFtlString.getFtlString());
+                writer.append(renderableFtlVerbatim.getOutput());
             } catch (IOException e) {
-                Debug.logError(e, "Error writing the output of a RenderableFtlString", MODULE);
+                Debug.logError(e, "Error writing the output of a RenderableFtlVerbatim", MODULE);
             }
         }
     }

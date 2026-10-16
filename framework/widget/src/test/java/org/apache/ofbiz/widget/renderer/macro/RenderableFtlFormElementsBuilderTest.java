@@ -33,7 +33,7 @@ import org.apache.ofbiz.widget.renderer.VisualTheme;
 import org.apache.ofbiz.widget.renderer.macro.renderable.RenderableFtlMacroCall;
 import org.apache.ofbiz.widget.renderer.macro.renderable.RenderableFtl;
 import org.apache.ofbiz.widget.renderer.macro.renderable.RenderableFtlNoop;
-import org.apache.ofbiz.widget.renderer.macro.renderable.RenderableFtlString;
+import org.apache.ofbiz.widget.renderer.macro.renderable.RenderableFtlVerbatim;
 import org.mockito.MockedStatic;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -1068,9 +1068,9 @@ public final class RenderableFtlFormElementsBuilderTest {
         final RenderableFtl link = renderableFtlFormElementsBuilder.makeHyperlinkByType("hidden-form", "STYLE", null, "#",
                 new HashMap<>(), "A ${description}", "", "", modelFormField, request, response, context);
 
-        assertThat(link instanceof RenderableFtlString, equalTo(true));
-        assertThat(((RenderableFtlString) link).getFtlString().contains("A ${description}"), equalTo(true));
-        assertThat(renderableFtlFormElementsBuilder.postMultiFormContent(context) instanceof RenderableFtlString, equalTo(true));
+        assertThat(link instanceof RenderableFtlVerbatim, equalTo(true));
+        assertThat(((RenderableFtlVerbatim) link).getOutput().contains("A ${description}"), equalTo(true));
+        assertThat(renderableFtlFormElementsBuilder.postMultiFormContent(context) instanceof RenderableFtlVerbatim, equalTo(true));
     }
 
     private static void labelsReturningTheirKey(final MockedStatic<UtilProperties> utilProperties) {
