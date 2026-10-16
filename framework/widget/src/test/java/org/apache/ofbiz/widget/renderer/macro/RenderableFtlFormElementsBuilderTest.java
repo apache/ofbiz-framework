@@ -1073,11 +1073,9 @@ public final class RenderableFtlFormElementsBuilderTest {
         assertThat(renderableFtlFormElementsBuilder.postMultiFormContent(context) instanceof RenderableFtlString, equalTo(true));
     }
 
-    private static MockedStatic<UtilProperties> labelsReturningTheirKey() {
-        final MockedStatic<UtilProperties> utilProperties = mockStatic(UtilProperties.class, CALLS_REAL_METHODS);
+    private static void labelsReturningTheirKey(final MockedStatic<UtilProperties> utilProperties) {
         utilProperties.when(() -> UtilProperties.getMessage(anyString(), anyString(), nullable(Locale.class)))
                 .thenAnswer(invocation -> invocation.<String>getArgument(1) + "_MESSAGE");
-        return utilProperties;
     }
 
     @Test
@@ -1091,7 +1089,8 @@ public final class RenderableFtlFormElementsBuilderTest {
         when(modelFormField.getEntry(notNull(), nullable(String.class))).thenReturn("say \"hi\" ${1+1}");
         when(modelFormField.getParameterName(notNull())).thenReturn("FIELDNAME");
 
-        try (MockedStatic<UtilProperties> ignored = labelsReturningTheirKey()) {
+        try (MockedStatic<UtilProperties> utilProperties = mockStatic(UtilProperties.class, CALLS_REAL_METHODS)) {
+            labelsReturningTheirKey(utilProperties);
             assertThat(renderableFtlFormElementsBuilder.textFindField(new HashMap<>(), textFindField),
                     MacroCallMatcher.hasNameAndParameters("renderTextFindField",
                             MacroCallParameterMatcher.hasNameAndStringValue("name", "FIELDNAME"),
@@ -1112,7 +1111,8 @@ public final class RenderableFtlFormElementsBuilderTest {
         when(textFindField.getHideOptions()).thenReturn(true);
         when(textFindField.getMaxlength()).thenReturn(null);
 
-        try (MockedStatic<UtilProperties> ignored = labelsReturningTheirKey()) {
+        try (MockedStatic<UtilProperties> utilProperties = mockStatic(UtilProperties.class, CALLS_REAL_METHODS)) {
+            labelsReturningTheirKey(utilProperties);
             assertThat(renderableFtlFormElementsBuilder.textFindField(new HashMap<>(), textFindField),
                     MacroCallMatcher.hasNameAndParameters("renderTextFindField",
                             MacroCallParameterMatcher.hasNameAndStringValue("opEquals", ""),
@@ -1132,7 +1132,8 @@ public final class RenderableFtlFormElementsBuilderTest {
         when(modelFormField.getEntry(notNull(), nullable(String.class))).thenReturn("AAA ${1+1}");
         when(modelFormField.getEntry(notNull())).thenReturn("BBB");
 
-        try (MockedStatic<UtilProperties> ignored = labelsReturningTheirKey()) {
+        try (MockedStatic<UtilProperties> utilProperties = mockStatic(UtilProperties.class, CALLS_REAL_METHODS)) {
+            labelsReturningTheirKey(utilProperties);
             assertThat(renderableFtlFormElementsBuilder.rangeFindField(new HashMap<>(), rangeFindField),
                     MacroCallMatcher.hasNameAndParameters("renderRangeFindField",
                             MacroCallParameterMatcher.hasNameAndStringValue("value", "AAA ${1+1}"),
