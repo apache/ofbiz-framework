@@ -1,0 +1,282 @@
+# Observability stack for the local cluster (P0-F3, expanded per program decision):
+#   Jaeger      — distributed tracing (Istio Telemetry API -> OTLP -> Jaeger all-in-one)
+#   Prometheus  — metrics (istiod, envoy, kafka-exporter, jvm via /actuator later)
+#   Grafana     — dashboards; datasources provisioned for all stores below
+#   Loki        — log aggregation (promtail DaemonSet ships container logs)
+#   OpenSearch  — long-retention log analytics + audit queries (filebeat DaemonSet)
+# Local single-replica sizing; production values with the cloud cluster.
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: observability
+  labels: {istio-injection: disabled}
+---
+# ---------------- Jaeger (OTLP native) ----------------
+apiVersion: apps/v1
+kind: Deployment
+metadata: {name: jaeger, namespace: observability}
+spec:
+  replicas: 1
+  selector: {matchLabels: {app: jaeger}}
+  template:
+    metadata: {labels: {app: jaeger}}
+    spec:
+      containers:
+        - name: jaeger
+          image: jaegertracing/all-in-one:1.62.0
+          args: ["--query.http-server.host-port=:16686"]
+          ports: [{containerPort: 16686}, {containerPort: 4317}]
+          env:
+            - {name: COLLECTOR_OTLP_ENABLED, value: "true"}
+            - {name: COLLECTOR_ZIPKIN_HOST_PORT, value: ":9411"}
+          readinessProbe: {httpGet: {path: "/", port: 16686}, initialDelaySeconds: 10}
+          resources: {requests: {memory: 256Mi, cpu: 100m}, limits: {memory: 512Mi}}
+---
+apiVersion: v1
+kind: Service
+metadata: {name: jaeger-query, namespace: observability}
+spec: {selector: {app: jaeger}, ports: [{name: query, port: 16686}]}
+---
+apiVersion: v1
+kind: Service
+metadata: {name: jaeger-collector, namespace: observability}
+spec: {selector: {app: jaeger}, ports: [{name: otlp-grpc, port: 4317}, {name: zipkin, port: 9411}]}
+---
+# Istio: send mesh traces straight to Jaeger's OTLP endpoint
+apiVersion: telemetry.istio.io/v1
+kind: Telemetry
+metadata: {name: mesh-default-tracing, namespace: istio-system}
+spec:
+  tracing:
+    - providers: [{name: otel-tracing}]
+      randomSamplingPercentage: 100
+---
+# ---------------- Prometheus ----------------
+apiVersion: v1
+kind: ConfigMap
+metadata: {name: prometheus-config, namespace: observability}
+data:
+  prometheus.yml: |
+    global: {scrape_interval: 15s}
+    scrape_configs:
+      - job_name: istiod
+        static_configs: [{targets: ["istiod.istio-system.svc.cluster.local:15014"]}]
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata: {name: prometheus, namespace: observability}
+spec:
+  replicas: 1
+  selector: {matchLabels: {app: prometheus}}
+  template:
+    metadata: {labels: {app: prometheus}}
+    spec:
+      containers:
+        - name: prometheus
+          image: prom/prometheus:v3.5.0
+          args: ["--config.file=/etc/prometheus/prometheus.yml", "--storage.tsdb.retention.time=7d"]
+          ports: [{containerPort: 9090}]
+          volumeMounts: [{name: config, mountPath: /etc/prometheus}]
+          readinessProbe: {httpGet: {path: /-/ready, port: 9090}, initialDelaySeconds: 10}
+          resources: {requests: {memory: 256Mi}, limits: {memory: 512Mi}}
+      volumes: [{name: config, configMap: {name: prometheus-config}}]
+---
+apiVersion: v1
+kind: Service
+metadata: {name: prometheus, namespace: observability}
+spec: {selector: {app: prometheus}, ports: [{port: 9090}]}
+---
+# ---------------- Loki + promtail ----------------
+apiVersion: apps/v1
+kind: Deployment
+metadata: {name: loki, namespace: observability}
+spec:
+  replicas: 1
+  selector: {matchLabels: {app: loki}}
+  template:
+    metadata: {labels: {app: loki}}
+    spec:
+      containers:
+        - name: loki
+          image: grafana/loki:3.5.0
+          args: ["-config.file=/etc/loki/local-config.yaml"]
+          ports: [{containerPort: 3100}]
+          readinessProbe: {httpGet: {path: /ready, port: 3100}, initialDelaySeconds: 15}
+          resources: {requests: {memory: 256Mi}, limits: {memory: 512Mi}}
+---
+apiVersion: v1
+kind: Service
+metadata: {name: loki, namespace: observability}
+spec: {selector: {app: loki}, ports: [{port: 3100}]}
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata: {name: promtail, namespace: observability}
+spec:
+  selector: {matchLabels: {app: promtail}}
+  template:
+    metadata: {labels: {app: promtail}}
+    spec:
+      serviceAccountName: promtail
+      containers:
+        - name: promtail
+          image: grafana/promtail:3.5.0
+          args: ["-config.file=/etc/promtail/config.yaml"]
+          volumeMounts:
+            - {name: config, mountPath: /etc/promtail}
+            - {name: varlog, mountPath: /var/log}
+            - {name: containers, mountPath: /var/log/containers, readOnly: true}
+          resources: {requests: {memory: 64Mi}, limits: {memory: 128Mi}}
+      volumes:
+        - name: config
+          configMap:
+            name: promtail-config
+        - {name: varlog, hostPath: {path: /var/log}}
+        - {name: containers, hostPath: {path: /var/log/containers}}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata: {name: promtail-config, namespace: observability}
+data:
+  config.yaml: |
+    server: {http_listen_port: 9080}
+    positions: {filename: /tmp/positions.yaml}
+    clients: [{url: "http://loki.observability.svc.cluster.local:3100/loki/api/v1/push"}]
+    scrape_configs:
+      - job_name: container-logs
+        static_configs:
+          - targets: [localhost]
+            labels: {job: containerlogs, __path__: /var/log/containers/*.log}
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata: {name: promtail, namespace: observability}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata: {name: promtail}
+rules:
+  - apiGroups: [""]
+    resources: [pods, namespaces]
+    verbs: [get, list, watch]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata: {name: promtail}
+roleRef: {apiGroup: rbac.authorization.k8s.io, kind: ClusterRole, name: promtail}
+subjects: [{kind: ServiceAccount, name: promtail, namespace: observability}]
+---
+# ---------------- Grafana (datasources provisioned) ----------------
+apiVersion: v1
+kind: ConfigMap
+metadata: {name: grafana-datasources, namespace: observability}
+data:
+  datasources.yaml: |
+    apiVersion: 1
+    datasources:
+      - {name: Prometheus, type: prometheus, url: "http://prometheus.observability.svc.cluster.local:9090", isDefault: true}
+      - {name: Loki, type: loki, url: "http://loki.observability.svc.cluster.local:3100"}
+      - {name: Jaeger, type: jaeger, url: "http://jaeger-query.observability.svc.cluster.local:16686"}
+      - {name: OpenSearch, type: opensearch, url: "http://opensearch.observability.svc.cluster.local:9200",
+         jsonData: {version: "2.19.0", flavor: "opensearch"}}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata: {name: grafana, namespace: observability}
+spec:
+  replicas: 1
+  selector: {matchLabels: {app: grafana}}
+  template:
+    metadata: {labels: {app: grafana}}
+    spec:
+      containers:
+        - name: grafana
+          image: grafana/grafana:12.1.0
+          env: [{name: GF_SECURITY_ADMIN_PASSWORD, value: admin}]
+          ports: [{containerPort: 3000}]
+          volumeMounts: [{name: datasources, mountPath: /etc/grafana/provisioning/datasources}]
+          readinessProbe: {httpGet: {path: /api/health, port: 3000}, initialDelaySeconds: 10}
+          resources: {requests: {memory: 128Mi}, limits: {memory: 256Mi}}
+      volumes: [{name: datasources, configMap: {name: grafana-datasources}}]
+---
+apiVersion: v1
+kind: Service
+metadata: {name: grafana, namespace: observability}
+spec: {selector: {app: grafana}, ports: [{port: 3000}]}
+---
+# ---------------- OpenSearch (log analytics / audit retention) ----------------
+apiVersion: apps/v1
+kind: StatefulSet
+metadata: {name: opensearch, namespace: observability}
+spec:
+  serviceName: opensearch
+  replicas: 1
+  selector: {matchLabels: {app: opensearch}}
+  template:
+    metadata: {labels: {app: opensearch}}
+    spec:
+      containers:
+        - name: opensearch
+          image: opensearchproject/opensearch:2.19.0
+          env:
+            - {name: discovery.type, value: single-node}
+            - {name: DISABLE_SECURITY_PLUGIN, value: "true"}   # local profile only
+            - {name: OPENSEARCH_JAVA_OPTS, value: "-Xms512m -Xmx512m"}
+          ports: [{containerPort: 9200}]
+          readinessProbe: {httpGet: {path: "/_cluster/health?local=true", port: 9200}, initialDelaySeconds: 30}
+          resources: {requests: {memory: 1Gi}, limits: {memory: 1.5Gi}}
+---
+apiVersion: v1
+kind: Service
+metadata: {name: opensearch, namespace: observability}
+spec: {selector: {app: opensearch}, ports: [{port: 9200}]}
+---
+# ---------------- filebeat -> OpenSearch (container logs, long retention) ----------------
+apiVersion: apps/v1
+kind: DaemonSet
+metadata: {name: fluent-bit, namespace: observability}
+spec:
+  selector: {matchLabels: {app: fluent-bit}}
+  template:
+    metadata: {labels: {app: fluent-bit}}
+    spec:
+      containers:
+        - name: fluent-bit
+          image: fluent/fluent-bit:5.1.4
+          env:
+            - {name: FLUENT_BIT_CFG, value: /fluent-bit/etc/fluent-bit.conf}
+          volumeMounts:
+            - {name: config, mountPath: /fluent-bit/etc}
+            - {name: varlog, mountPath: /var/log, readOnly: true}
+            - {name: containers, mountPath: /var/log/containers, readOnly: true}
+          resources: {requests: {memory: 64Mi}, limits: {memory: 128Mi}}
+      volumes:
+        - name: config
+          configMap: {name: fluent-bit-config}
+        - {name: varlog, hostPath: {path: /var/log}}
+        - {name: containers, hostPath: {path: /var/log/containers}}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata: {name: fluent-bit-config, namespace: observability}
+data:
+  fluent-bit.conf: |
+    [SERVICE]
+        Flush         5
+        Daemon        Off
+        Log_Level     info
+    [INPUT]
+        Name          tail
+        Path          /var/log/containers/*.log
+        Tag           kube.*
+        Mem_Buf_Limit 10MB
+    [OUTPUT]
+        Name          opensearch
+        Match         *
+        Host          opensearch.observability.svc.cluster.local
+        Port          9200
+        Index         ofbiz-logs
+        Suppress_Type_Name On
+        Logstash_Format Off
+        Replace_Dots  On
+        Retry_Limit   False
