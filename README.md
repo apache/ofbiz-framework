@@ -37,6 +37,7 @@ This README describes the program repository. The monolith's own upstream README
 | What are we moving to? | [FUTURESTATE-ARCHITECTURE.md](FUTURESTATE-ARCHITECTURE.md) |
 | How will the target be built? | [FUTURESTATE-LOWLEVEL.md](FUTURESTATE-LOWLEVEL.md) |
 | What is the delivery plan (phases/stories/gates)? | [IMPLEMENTATION.md](IMPLEMENTATION.md) |
+| What is the project plan (timeline/staffing/risks)? | [PROJECT-PLAN.md](PROJECT-PLAN.md) |
 | Why was X decided? | [adr/](adr/) + FUTURESTATE-ARCHITECTURE.md §2 decision record |
 | What work is planned? | [tasks/](tasks/) |
 
