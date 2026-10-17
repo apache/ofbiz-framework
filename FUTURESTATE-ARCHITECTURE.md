@@ -292,6 +292,8 @@ Dependencies point inward only (adapters/infrastructure → application → doma
 
 ## 10. Migration Roadmap (Strangler)
 
+> **Execution authority:** [IMPLEMENTATION.md](IMPLEMENTATION.md) — refines this roadmap into features/epics/stories with acceptance criteria and completion gates. Phase composition there supersedes this table where they differ (Phase 0 = infrastructure only; platform services are Phase 1 there).
+
 | Phase | Delivers | Exit criteria (cutover gate) |
 |---|---|---|
 | 0 Platform | K8s+mesh, Kafka+registry, gateway (routing to monolith), identity-svc, OTel stack | Monolith reachable through gateway; OIDC login proxies to monolith session |
