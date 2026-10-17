@@ -18,7 +18,6 @@
  *******************************************************************************/
 package org.apache.ofbiz.base.container;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Deque;
@@ -71,7 +70,7 @@ public class ContainerLoader {
 
         // Load containers defined in components.
         Debug.logInfo("[Startup] Loading containers...", MODULE);
-        loadedContainers.addAll(loadContainersFromConfigurations(config.getLoaders(), ofbizCommands));
+        loadContainersFromConfigurations(config.getLoaders(), ofbizCommands);
 
         // Start all containers loaded from above steps
         startLoadedContainers();
@@ -90,23 +89,22 @@ public class ContainerLoader {
 
     /**
      * Loads the available containers which are matching the configured loaders.
+     * Each container is added to the loaded containers as soon as it is initialized, so that it
+     * gets stopped on shutdown even when a container loaded after it fails to load.
      * @param loaders  the collection of loaders to match
      * @param ofbizCommands  the parsed commands line arguments used by the containers
-     * @return a list of loaded containers.
      * @throws StartupException when a container fails to load.
      */
-    private static List<Container> loadContainersFromConfigurations(Collection<String> loaders,
+    private void loadContainersFromConfigurations(Collection<String> loaders,
             List<StartupCommand> ofbizCommands) throws StartupException {
-        List<Container> loadContainers = new ArrayList<>();
         for (ContainerConfig.Configuration containerCfg : ComponentConfig.getAllConfigurations()) {
             if (intersects(containerCfg.loaders(), loaders)) {
                 Debug.logInfo("Loading container: " + containerCfg.name(), MODULE);
                 Container tmpContainer = loadContainer(containerCfg, ofbizCommands);
-                loadContainers.add(tmpContainer);
+                loadedContainers.add(tmpContainer);
                 Debug.logInfo("Loaded container: " + containerCfg.name(), MODULE);
             }
         }
-        return loadContainers;
     }
 
 
@@ -167,7 +165,8 @@ public class ContainerLoader {
             Debug.logInfo("Stopping container " + loadedContainer.getName(), MODULE);
             try {
                 loadedContainer.stop();
-            } catch (ContainerException e) {
+            } catch (ContainerException | RuntimeException e) {
+                // keep stopping the other containers, the last ones close the datasources
                 Debug.logError(e, MODULE);
             }
             Debug.logInfo("Stopped container " + loadedContainer.getName(), MODULE);
