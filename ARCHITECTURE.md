@@ -2,7 +2,7 @@
 
 > Repository: `ofbiz-framework` (Apache OFBiz upstream, branch `trunk`).
 > This is a **descriptive** document of an existing, shipping system — not a design proposal.
-> Companion implementation reference: [LOWLEVEL.md](LOWLEVEL.md).
+> Companion implementation reference: [LOWLEVEL.md](LOWLEVEL.md). Target-state (microservices) design: [FUTURESTATE-ARCHITECTURE.md](FUTURESTATE-ARCHITECTURE.md).
 
 ## Document Index
 
