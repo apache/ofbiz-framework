@@ -20,6 +20,8 @@
 # Sets the type label (bug, enhancement, feature, documentation) of a pull
 # request from the prefix of its title, so that the release notes GitHub
 # generates (see .github/release.yml) can group pull requests by type.
+# Dependency updates titled "Bump ..." get the dependencies label, which
+# leaves them out of the release notes like the Dependabot pull requests.
 # It never checks out nor runs code of the pull request.
 # Run it manually (workflow_dispatch) to label pull requests already merged.
 
@@ -65,6 +67,7 @@ jobs:
               [/^(improved|completed)(?=[\s:])/i, 'enhancement'],
               [/^implemented(?=[\s:])/i, 'feature'],
               [/^documented(?=[\s:])/i, 'documentation'],
+              [/^bump(?=[\s:])/i, 'dependencies'],
             ];
             // e.g. "Backport PR #1360: 'Fixed: ...'", "Backport pr 1157 (Improved: ...)", "Backported: ..."
             const BACKPORT = /^backport(?:ed)?\b\s*(?:pr\b)?\s*#?\s*(\d*)\s*[:\-–]?\s*['"(]?\s*/i;
