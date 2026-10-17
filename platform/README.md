@@ -10,6 +10,8 @@ platform/
   bootstrap/
     00-bootstrap.sh           # create cluster + Istio STRICT mTLS + 'ofbiz' namespace
     10-verify-mtls.sh         # P0-F1-S1 AC evidence (exit 0 = pass)
+  observability/               # Jaeger, Prometheus, Grafana/Loki, OpenSearch stack
+  storage/                    # Garage local S3 (MinIO images purged 2025, see ADR-008)
   helm/                       # umbrella + service charts (added in later stories)
   terraform/                  # cloud equivalent of kind/ (added when cluster target chosen)
 ```
@@ -29,3 +31,5 @@ sh platform/bootstrap/10-verify-mtls.sh   # proves STRICT mTLS; prints gate evid
 |---|---|
 | P0-F1-S1 (cluster + STRICT mTLS) | run `10-verify-mtls.sh`, expect `ALL CHECKS PASSED` |
 | P0-F2-S1 (Kafka + registry) | run `kafka/20-verify.sh`, expect `PASS: roundtrip` |
+| P0-F3 (observability, expanded) | run `observability/20-verify.sh`, expect `ALL CHECKS PASSED` |
+| P0 storage (local S3 — Garage) | run `storage/20-verify.sh`, expect `ALL CHECKS PASSED` |

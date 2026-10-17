@@ -1,0 +1,71 @@
+# Garage — local S3-compatible object storage (P0 storage story).
+# NOTE: MinIO images were purged from public registries in 2025 (Docker Hub
+# org gone; Bitnami mirrored images swept) — see ADR-008. Garage is the
+# substitute: S3-API compatible, lightweight, actively maintained on Docker Hub.
+# Cloud-native contract: services code against S3 API only; local vs cloud is
+# an endpoint+credentials swap at deploy time.
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: storage
+  labels: {istio-injection: disabled}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata: {name: garage-config, namespace: storage}
+data:
+  garage.toml: |
+    metadata_dir = "/var/lib/garage/meta"
+    data_dir = "/var/lib/garage/data"
+    db_engine = "sqlite"
+    replication_factor = 1
+    consistency_mode = "consistent"
+    rpc_bind_addr = "[::]:3901"
+    rpc_secret = "850747a8ec5678669b1bc2095a6d82e5039a9f7e7acba00c069517e8c950e56f"
+    [s3_api]
+    s3_region = "ofbiz-local"
+    api_bind_addr = "[::]:3900"
+    root_domain = ".s3.ofbiz.local"
+    [s3_web]
+    bind_addr = "[::]:3902"
+    root_domain = ".web.ofbiz.local"
+    index = "index.html"
+    [admin]
+    api_bind_addr = "[::]:3903"
+    admin_token = "ofbiz-local-admin-token"
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata: {name: garage, namespace: storage}
+spec:
+  serviceName: garage
+  replicas: 1
+  selector: {matchLabels: {app: garage}}
+  template:
+    metadata: {labels: {app: garage}}
+    spec:
+      containers:
+        - name: garage
+          image: docker.io/dxflrs/garage:v2.1.0
+          args: ["/garage", "-c", "/etc/garage.toml", "server"]
+          ports: [{containerPort: 3900}, {containerPort: 3901}, {containerPort: 3903}]
+          volumeMounts:
+            - {name: config, mountPath: /etc/garage.toml, subPath: garage.toml}
+            - {name: data, mountPath: /var/lib/garage}
+          readinessProbe: {tcpSocket: {port: 3900}, initialDelaySeconds: 10}
+          resources: {requests: {memory: 128Mi}, limits: {memory: 256Mi}}
+      volumes:
+        - name: config
+          configMap: {name: garage-config}
+        - name: data
+          emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata: {name: garage, namespace: storage}
+spec:
+  selector: {app: garage}
+  ports:
+    - {name: s3, port: 3900}
+    - {name: rpc, port: 3901}
+    - {name: admin, port: 3903}
