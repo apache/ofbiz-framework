@@ -1,0 +1,48 @@
+# Kafka cluster for the local kind environment (P0-F2-S1).
+# Strimzi 1.x: v1 API, KRaft via KafkaNodePool (broker+controller roles).
+# 3 brokers per story AC (one-broker-kill must not lose data).
+# Local-dev sized; production values come with the cloud cluster.
+apiVersion: kafka.strimzi.io/v1
+kind: Kafka
+metadata:
+  name: ofbiz
+  namespace: ofbiz
+spec:
+  kafka:
+    metadataVersion: 3.9-IV0
+    listeners:
+      - name: plain
+        port: 9092
+        type: internal
+        tls: false
+      - name: tls
+        port: 9093
+        type: internal
+        tls: true
+    config:
+      offsets.topic.replication.factor: 3
+      transaction.state.log.replication.factor: 3
+      transaction.state.log.min.isr: 2
+      default.replication.factor: 3
+      min.insync.replicas: 2
+  entityOperator:
+    topicOperator: {}
+    userOperator: {}
+---
+apiVersion: kafka.strimzi.io/v1
+kind: KafkaNodePool
+metadata:
+  name: ofbiz-nodes
+  namespace: ofbiz
+  labels:
+    strimzi.io/cluster: ofbiz
+spec:
+  replicas: 3
+  roles: [broker, controller]
+  storage:
+    type: persistent-claim
+    size: 5Gi
+    deleteClaim: true
+  resources:
+    requests: {memory: 1Gi, cpu: 300m}
+    limits: {memory: 1Gi, cpu: "1"}

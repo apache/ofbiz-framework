@@ -28,3 +28,4 @@ sh platform/bootstrap/10-verify-mtls.sh   # proves STRICT mTLS; prints gate evid
 | Story | Evidence |
 |---|---|
 | P0-F1-S1 (cluster + STRICT mTLS) | run `10-verify-mtls.sh`, expect `ALL CHECKS PASSED` |
+| P0-F2-S1 (Kafka + registry) | run `kafka/20-verify.sh`, expect `PASS: roundtrip` |
