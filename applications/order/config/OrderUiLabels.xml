@@ -9354,6 +9354,9 @@
         <value xml:lang="zh-CN">订购的</value>
         <value xml:lang="zh-TW">已訂購的</value>
     </property>
+    <property key="OrderOrigOrdered">
+    <value xml:lang="en">Orig. Ordered</value>
+    </property>
     <property key="OrderOrderedUnits">
         <value xml:lang="en">Ordered Units</value>
         <value xml:lang="nl">Bestelde eenheden</value>
