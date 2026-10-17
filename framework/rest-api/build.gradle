@@ -50,7 +50,7 @@ task prepareDocAssets(dependsOn: [copySwaggerUiAssets, copyRedocAssets]) {
 // would delete the entire 'webapp/docs' into-directory, including the HTML source files.
 task cleanDocAssets(type: Delete, group: 'Cleaning',
         description: 'Remove generated API documentation assets (swagger-ui and redoc files)') {
-    dependsOn cleanNpmInstall
+    dependsOn cleanNpm
     delete fileTree('webapp/docs') {
         include '*.js', '*.js.map', '*.css', '*.css.map',
                 'favicon-*.png', 'oauth2-redirect.html',
