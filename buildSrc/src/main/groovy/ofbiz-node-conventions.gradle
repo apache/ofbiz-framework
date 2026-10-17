@@ -20,8 +20,8 @@
 /*
  * This plugin defines usage of the node-gradle plugin for OFBiz sub-projects.
  *
- * NPM Install (or ci) will be run as a dependency of the classes task. The output from NPM Install will be cleaned
- * up as part of the parent project's cleanAll task.
+ * NPM Install (or ci) will be run as a dependency of the classes task. The node modules installed by NPM Install will
+ * be cleaned up as part of the parent project's cleanAll task.
  *
  * Sub projects should apply this plugin and then configure the node block with the path to the directory containing
  * the package.json file. Example:
@@ -36,7 +36,7 @@
  */
 
 plugins {
-    id 'base'  // Provides the clean<TaskName> rule for the cleanNpmInstall task.
+    id 'base'  // Provides the clean<TaskName> rule used by sub-projects (e.g. cleanBuildReactApp).
     id 'com.github.node-gradle.node'
 }
 
@@ -56,15 +56,16 @@ if (!project.rootProject.hasProperty('skipNpmInstall')) {
     project.rootProject.tasks.getByName('classes').dependsOn npmInstall
 }
 
-// Task to clean up the output from npmInstall.
-task cleanNpm(group: 'Cleaning', description: 'Clean installed node modules') {
-    dependsOn cleanNpmInstall
+// Task to clean up the node modules installed by npmInstall. The clean<TaskName> rule (cleanNpmInstall) is not
+// used because it deletes every output of npmInstall, including the version-controlled package-lock.json.
+task cleanNpm(type: Delete, group: 'Cleaning', description: 'Clean installed node modules') {
+    delete node.nodeProjectDir.dir('node_modules')
 }
 
-// Hook into the root project's cleanAll task to clean up the output from the
-// npmInstall task.
+// Hook into the root project's cleanAll task to clean up the node modules
+// installed by the npmInstall task.
 project.rootProject.tasks.whenTaskAdded { task ->
     if (task.name == 'cleanAll') {
-        task.dependsOn cleanNpmInstall
+        task.dependsOn cleanNpm
     }
 }
