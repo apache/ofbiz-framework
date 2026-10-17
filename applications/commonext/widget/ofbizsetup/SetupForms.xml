@@ -225,7 +225,7 @@
         
         <alt-target use-when="productCategory==null" target="createProductCategory"/>
         
-        <field use-when="productCategory!=null" name="productCategoryId" title="${uiLabelMap.ProductProductCategoryId}" tooltip="${uiLabelMap.ProductNotModificationRecrationCategory}."><display/></field>
+        <field use-when="productCategory!=null" name="productCategoryId" title="${uiLabelMap.ProductProductCategoryId}" tooltip="${uiLabelMap.ProductNotModificationRecreationCategory}."><display/></field>
         <field use-when="productCategory==null&amp;&amp;productCategoryId==null" name="productCategoryId" required-field="true"><text default-value="${partyId}"/></field> 
         <field name="partyId"><hidden value="${partyId}"/></field>
         <field name="prodCatalogId"><hidden value="${prodCatalogId}"/></field>
