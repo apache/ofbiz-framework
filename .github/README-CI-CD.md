@@ -27,7 +27,7 @@
   → Trigger: push / PR on `.github/` path
 
 - `pr-type-label.yml`
-  Sets the type label (`bug`, `enhancement`, `feature`, `documentation`) of a PR from its title prefix (Fixed, Improved, Implemented, Documented), so that `release.yml` can group the release notes
+  Sets the type label (`bug`, `enhancement`, `feature`, `documentation`) of a PR from its title prefix (Fixed, Improved, Implemented, Documented), so that `release.yml` can group the release notes, and the `dependencies` label to the PRs titled "Bump ..."
   → Trigger: PR opened, reopened or retitled on `trunk` and `release*` + manual run to label merged PRs
 
 ### Workflow behavior
