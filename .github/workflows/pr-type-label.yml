@@ -1,0 +1,151 @@
+#
+# Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+#
+#   http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+#
+
+# Sets the type label (bug, enhancement, feature, documentation) of a pull
+# request from the prefix of its title, so that the release notes GitHub
+# generates (see .github/release.yml) can group pull requests by type.
+# It never checks out nor runs code of the pull request.
+# Run it manually (workflow_dispatch) to label pull requests already merged.
+
+name: "PR Type Label"
+
+on:
+  pull_request_target:
+    types: [ opened, edited, reopened ]
+    branches: [ trunk, release* ]
+  workflow_dispatch:
+    inputs:
+      since:
+        description: "Label pull requests merged on or after this date (YYYY-MM-DD)"
+        required: true
+      dry_run:
+        description: "Only log the labels, without changing the pull requests"
+        type: boolean
+        default: true
+
+permissions: {}
+
+concurrency:
+  group: pr-type-label-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+  label:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.pull_request.user.login != 'dependabot[bot]' &&
+       (github.event.action != 'edited' || github.event.changes.title))
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    steps:
+      - name: Set the type label from the title prefix
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+        with:
+          script: |
+            const TYPE_LABELS = ['bug', 'enhancement', 'feature', 'documentation'];
+            const PREFIXES = [
+              [/^(fixed|fix|fixing)(?=[\s:])/i, 'bug'],
+              [/^(improved|completed)(?=[\s:])/i, 'enhancement'],
+              [/^implemented(?=[\s:])/i, 'feature'],
+              [/^documented(?=[\s:])/i, 'documentation'],
+            ];
+            // e.g. "Backport PR #1360: 'Fixed: ...'", "Backport pr 1157 (Improved: ...)", "Backported: ..."
+            const BACKPORT = /^backport(?:ed)?\b\s*(?:pr\b)?\s*#?\s*(\d*)\s*[:\-–]?\s*['"(]?\s*/i;
+            const { owner, repo } = context.repo;
+
+            function labelFromPrefix(title) {
+              const match = PREFIXES.find(([prefix]) => prefix.test(title));
+              return match ? match[1] : null;
+            }
+
+            async function typeLabel(pr) {
+              const title = (pr.title || '').trim();
+              const label = labelFromPrefix(title);
+              if (label) {
+                return label;
+              }
+              const preamble = title.match(BACKPORT);
+              if (!preamble && !/\bbackport/i.test(pr.body || '')) {
+                return null;
+              }
+              const stripped = title.slice(preamble ? preamble[0].length : 0);
+              const strippedLabel = labelFromPrefix(stripped);
+              if (strippedLabel) {
+                return strippedLabel;
+              }
+              // fall back to the title of the backported pull request
+              const ref = (preamble && preamble[1] ? preamble : null) || title.match(/#\s*(\d+)/)
+                || title.match(/\bpr\s*(\d+)/i) || (pr.body || '').match(/#(\d+)/);
+              if (!ref || Number(ref[1]) === pr.number) {
+                return null;
+              }
+              try {
+                const { data: original } = await github.rest.pulls.get({ owner, repo, pull_number: Number(ref[1]) });
+                return labelFromPrefix((original.title || '').trim());
+              } catch (error) {
+                core.info(`#${pr.number}: cannot read #${ref[1]}: ${error.message}`);
+                return null;
+              }
+            }
+
+            async function setTypeLabel(pr, dryRun) {
+              const label = await typeLabel(pr);
+              const current = pr.labels.map(l => l.name);
+              const stale = label ? current.filter(name => TYPE_LABELS.includes(name) && name !== label) : [];
+              const add = label && !current.includes(label);
+              core.info(`#${pr.number} [${label || 'no type'}]${stale.length ? ` -${stale.join(' -')}` : ''}${add ? ` +${label}` : ''} ${pr.title}`);
+              if (dryRun) {
+                return;
+              }
+              for (const name of stale) {
+                await github.rest.issues.removeLabel({ owner, repo, issue_number: pr.number, name });
+              }
+              if (add) {
+                await github.rest.issues.addLabels({ owner, repo, issue_number: pr.number, labels: [label] });
+              }
+            }
+
+            if (context.eventName === 'pull_request_target') {
+              // read the pull request again, a previous run may have changed its labels
+              const { data: pr } = await github.rest.pulls.get({ owner, repo, pull_number: context.payload.pull_request.number });
+              await setTypeLabel(pr, false);
+              return;
+            }
+
+            const { since } = context.payload.inputs;
+            const dryRun = context.payload.inputs.dry_run !== false && context.payload.inputs.dry_run !== 'false';
+            if (!/^\d{4}-\d{2}-\d{2}$/.test(since)) {
+              core.setFailed(`since must be a date (YYYY-MM-DD), got: ${since}`);
+              return;
+            }
+            const sinceTime = Date.parse(`${since}T00:00:00Z`);
+            const merged = await github.paginate(github.rest.pulls.list,
+              { owner, repo, state: 'closed', sort: 'updated', direction: 'desc', per_page: 100 },
+              (response, done) => {
+                if (response.data.some(pr => Date.parse(pr.updated_at) < sinceTime)) {
+                  done();
+                }
+                return response.data.filter(pr => pr.merged_at && Date.parse(pr.merged_at) >= sinceTime
+                  && pr.user.login !== 'dependabot[bot]');
+              });
+            core.info(`${merged.length} pull requests merged since ${since}${dryRun ? ' (dry run)' : ''}`);
+            for (const pr of merged) {
+              await setTypeLabel(pr, dryRun);
+            }
