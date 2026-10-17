@@ -14,7 +14,12 @@ This README describes the program repository. The monolith's own upstream README
 ├── LOWLEVEL.md                  # Current monolith implementation reference
 ├── FUTURESTATE-ARCHITECTURE.md  # Target microservices architecture (design)
 ├── FUTURESTATE-LOWLEVEL.md      # Target-state implementation reference (blueprint)
-├── adr/                         # Architecture Decision Records (6: current state)
+├── adr/                         # ADRs 001-006 (monolith) + 007-014 (migration)
+├── CLAUDE.md  AGENTS.md         # Repo rules for Claude sessions / coding agents
+├── IMPLEMENTATION.md            # Delivery plan (phases/features/stories/gates)
+├── issues/                      # Story + gate tracking (63 files)
+├── PROJECT-PLAN.md              # Timeline / staffing / risks
+├── platform/                    # Phase-0 infra: kind, Istio, Kafka, observability, Garage S3
 ├── tasks/                       # PRDs (agent orientation / program work)
 ├── monolith/                    # Apache OFBiz — the current system, unmodified
 │   ├── framework/               #   16 framework components (entity, service, webapp…)
@@ -35,6 +40,7 @@ This README describes the program repository. The monolith's own upstream README
 | How does the current system work? | [ARCHITECTURE.md](ARCHITECTURE.md) + [LOWLEVEL.md](LOWLEVEL.md) |
 | Where is X in the monolith code? | [LOWLEVEL.md](LOWLEVEL.md) §10 lookup table |
 | What are we moving to? | [FUTURESTATE-ARCHITECTURE.md](FUTURESTATE-ARCHITECTURE.md) |
+| C4 + sequence diagrams | [docs/diagrams/C4-DIAGRAMS.md](docs/diagrams/C4-DIAGRAMS.md) |
 | How will the target be built? | [FUTURESTATE-LOWLEVEL.md](FUTURESTATE-LOWLEVEL.md) |
 | What is the delivery plan (phases/stories/gates)? | [IMPLEMENTATION.md](IMPLEMENTATION.md) |
 | What is the project plan (timeline/staffing/risks)? | [PROJECT-PLAN.md](PROJECT-PLAN.md) |

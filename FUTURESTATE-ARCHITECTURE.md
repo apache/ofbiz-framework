@@ -39,6 +39,8 @@ This document specifies the target architecture for migrating the OFBiz monolith
 
 ## 2. Decision Record
 
+> Full records: [adr/ADR-007..014](adr/) — one ADR per migration decision, including the local-S3 (Garage) and observability-from-inception decisions added during Phase 0 execution.
+
 Decisions locked 2026-10-16 brainstorming session:
 
 | # | Decision | Choice | Notes |
@@ -285,7 +287,8 @@ Dependencies point inward only (adapters/infrastructure → application → doma
 ## 9. Cross-Cutting Concerns
 
 - **Security:** mesh mTLS east-west; JWT at gateway + services; authorization = role claims + method security; PCI scope isolated in billing-svc.
-- **Observability:** OTel SDK every service → Jaeger traces, Prometheus metrics (`/actuator/prometheus`), Grafana dashboards; structured JSON logs → Loki (optional).
+- **Observability (ADR-011, expanded at inception):** OTel SDK every service → Jaeger (OTLP) traces, Prometheus metrics (`/actuator/prometheus`), Grafana dashboards with Loki log aggregation AND OpenSearch long-retention log analytics/audit (`ofbiz-logs` index). Stack deployed and verified in Phase 0.
+- **Object storage (ADR-008):** S3 API contract only; local profile runs Garage (MinIO images purged from public registries 2025), cloud profile swaps endpoint+credentials.
 - **Testing:** domain unit tests; application slices with Testcontainers (Postgres+Kafka); consumer-driven contract tests (gRPC/REST + Avro) published as artifacts; E2E per release on staging K8s.
 - **Resilience:** mesh retries/timeouts/circuit-breaking; idempotent consumers; saga compensation for cross-service flows.
 - **Build:** Maven or Gradle multi-repo (`<context>-svc` repo each) OR mono-repo with directory-per-service — decided per team topology at Phase 0 (open question §11).

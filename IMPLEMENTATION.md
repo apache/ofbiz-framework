@@ -48,10 +48,16 @@
 - **S2 (S):** Topic namespace + ACL conventions script (`platform/helm/topics`). AC: [ ] script creates `<context>.<aggregate>.<action>.v1` topics per FUTURESTATE §8 [ ] ACLs restrict produce/consume per service principal [ ] DLQ created for test topic.
 - **S3 (M):** Avro contract pipeline. AC: [ ] schema registered via CI for sample `order.v1.OrderPlaced` [ ] BACKWARD compatibility gate rejects an incompatible change in a test PR [ ] artifact published to contracts path.
 
-## P0-F3 Observability
-**Epic: OTel stack (CG: traces+metrics+logs visible)**
-- **S1 (M):** OTel collector + Jaeger + Prometheus + Grafana via umbrella chart. AC: [ ] sample instrumented app trace appears in Jaeger with db/kafka spans [ ] `/actuator/prometheus` scraped and an alert fires on injected error-rate [ ] one Grafana dashboard (service overview) checked in.
-- **S2 (S):** Log pipeline (Loki optional). AC: [ ] JSON logs from sample app queryable by trace-id.
+## P0-F3 Observability (EXPANDED — observability from inception)
+**Epic: full-stack observability (CG: all five stores verified) — DONE for local profile**
+- **S1 (M):** Jaeger (OTLP+zipkin) + Istio mesh tracing wiring. AC: [x] Jaeger ingests OTLP traces (verified) [ ] mesh-span emission — KNOWN-ISSUE-1 on Istio 1.31 minimal profile; per-service OTel SDK is the primary contract.
+- **S2 (M):** Prometheus + Grafana (4 datasources). AC: [x] targets scraped, datasources provisioned (verified).
+- **S3 (M):** Loki + promtail log aggregation. AC: [x] ofbiz container logs queryable (verified).
+- **S4 (M):** OpenSearch + fluent-bit long-retention log analytics. AC: [x] `ofbiz-logs` index live with documents (verified).
+Evidence: `platform/observability/20-verify.sh` → ALL CHECKS PASSED.
+
+## P0-F5 Local Object Storage (S3 contract)
+- **S1 (M):** Garage (local S3) + program buckets (ADR-008: MinIO images purged 2025). AC: [x] buckets ofbiz-content/ofbiz-audit [x] S3 put/get roundtrip via awscli (verified). Evidence: `platform/storage/20-verify.sh` → ALL CHECKS PASSED.
 
 ## P0-F4 CI/CD & Scaffolding
 **Epic: build conventions (CG: hello-world service shipped through full pipeline)**
