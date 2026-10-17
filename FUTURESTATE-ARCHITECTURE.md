@@ -158,7 +158,7 @@ Dependencies point inward only (adapters/infrastructure → application → doma
 
 ### 5.1 party-svc
 - **Purpose:** single source of truth for people/organizations, their roles, relationships, contact data.
-- **OFBiz mapping:** `applications/party` services + party entitymodel (133 entities: Party-prefixed 60, attribute/contact groups, ...).
+- **OFBiz mapping:** `monolith/applications/party` services + party entitymodel (133 entities: Party-prefixed 60, attribute/contact groups, ...).
 - **API highlights:** `PartyService` gRPC (getParty, upsertParty, findPartiesByRole, linkContactMech); REST `/api/v1/parties`.
 - **Publishes:** `party.party.created/updated`, `party.role.granted/revoked`.
 - **Consumes:** none (zero inbound dependencies — first migration candidate).
@@ -166,7 +166,7 @@ Dependencies point inward only (adapters/infrastructure → application → doma
 
 ### 5.2 product-svc
 - **Purpose:** catalog, categories, product features, prices, product configurations.
-- **OFBiz mapping:** `applications/product` (non-facility, non-inventory parts); product entitymodel minus facility/stock entities (≈192).
+- **OFBiz mapping:** `monolith/applications/product` (non-facility, non-inventory parts); product entitymodel minus facility/stock entities (≈192).
 - **API:** `ProductService` gRPC (getProduct, searchProducts, upsertPrice, category trees); REST `/api/v1/products`, `/api/v1/categories`.
 - **Publishes:** `product.product.created/updated`, `product.price.changed`, `product.category.changed`.
 - **Consumes:** none.
@@ -174,7 +174,7 @@ Dependencies point inward only (adapters/infrastructure → application → doma
 
 ### 5.3 order-svc
 - **Purpose:** order lifecycle — cart → placed → approved → completed; returns; quotes.
-- **OFBiz mapping:** `applications/order`; order entitymodel (114: Order-prefixed 46, Return 23, Quote 12...).
+- **OFBiz mapping:** `monolith/applications/order`; order entitymodel (114: Order-prefixed 46, Return 23, Quote 12...).
 - **API:** `OrderService` gRPC (placeOrder, transitionStatus, addItem, getOrder); REST `/api/v1/orders`.
 - **Publishes:** `order.order.placed/approved/completed/cancelled`, `order.return.created`.
 - **Consumes:** `product.price.changed` (price at order time snapshot), `party.party.updated` (bill-to ship-to validation), `inventory.stock.reserved` (async confirm).
@@ -182,7 +182,7 @@ Dependencies point inward only (adapters/infrastructure → application → doma
 
 ### 5.4 billing-svc
 - **Purpose:** invoices, payments, payment gateway integrations, customer/supplier billing documents.
-- **OFBiz mapping:** AR/AP slice of `applications/accounting` (≈90 entities: Invoice*, Payment*, BillingAccount*...).
+- **OFBiz mapping:** AR/AP slice of `monolith/applications/accounting` (≈90 entities: Invoice*, Payment*, BillingAccount*...).
 - **API:** `BillingService` gRPC (createInvoice, recordPayment, captureAuthorization); REST `/api/v1/invoices`, `/api/v1/payments`; **payment-gateway adapters** live here (replaces PaymentGatewayServices).
 - **Publishes:** `billing.invoice.issued/settled`, `billing.payment.captured/failed`.
 - **Consumes:** `order.order.completed` (invoice generation), `finance.transaction.posted` (GL confirmation handshake).
@@ -214,7 +214,7 @@ Dependencies point inward only (adapters/infrastructure → application → doma
 
 ### 5.8 content-svc
 - **Purpose:** CMS, documents, data resources, content trees.
-- **OFBiz mapping:** `applications/content`; content entitymodel (79).
+- **OFBiz mapping:** `monolith/applications/content`; content entitymodel (79).
 - **API:** `ContentService` gRPC + REST `/api/v1/content`.
 - **Publishes:** `content.content.published/updated`.
 - **Consumes:** none (product images referenced by product-svc via URL).
@@ -314,4 +314,4 @@ Rollback per phase: gateway route flip back to monolith (CDC reverse-sync keeps 
 
 ---
 
-*Designed 2026-10-16 brainstorming session; entity counts derived from working tree (`applications/datamodel/entitydef/`). Implementation detail: FUTURESTATE-LOWLEVEL.md.*
+*Designed 2026-10-16 brainstorming session; entity counts derived from working tree (`monolith/applications/datamodel/entitydef/`). Implementation detail: FUTURESTATE-LOWLEVEL.md.*

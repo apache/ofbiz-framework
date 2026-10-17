@@ -11,7 +11,7 @@ Widget rendering calls theme FreeMarker macros (renderScreenField, renderTextFie
 
 ## Decision
 
-`FtlWriter` (framework/widget renderer infrastructure) invokes every macro through one constant, pre-parsed template (trunk commit `c0513fb2f8`, "Improved: FtlWriter calls every macro through one constant template (OFBIZ-13675)"). Macro name and parameters are passed dynamically; the template wrapper is shared.
+`FtlWriter` (monolith/framework/widget renderer infrastructure) invokes every macro through one constant, pre-parsed template (trunk commit `c0513fb2f8`, "Improved: FtlWriter calls every macro through one constant template (OFBIZ-13675)"). Macro name and parameters are passed dynamically; the template wrapper is shared.
 
 ## Rationale
 

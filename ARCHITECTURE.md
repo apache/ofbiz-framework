@@ -2,7 +2,7 @@
 
 > Repository: `ofbiz-framework` (Apache OFBiz upstream, branch `trunk`).
 > This is a **descriptive** document of an existing, shipping system — not a design proposal.
-> Companion implementation reference: [LOWLEVEL.md](LOWLEVEL.md). Target-state (microservices) design: [FUTURESTATE-ARCHITECTURE.md](FUTURESTATE-ARCHITECTURE.md).
+> Companion implementation reference: [LOWLEVEL.md](LOWLEVEL.md). Product requirements: [PRD.md](PRD.md). Target-state (microservices) design: [FUTURESTATE-ARCHITECTURE.md](FUTURESTATE-ARCHITECTURE.md).
 
 ## Document Index
 
@@ -26,13 +26,13 @@
 
 ## 1. Executive Summary
 
-Apache OFBiz is an open-source ERP suite and application framework written in Java 17. A single deployable monolith built with Gradle, it embeds its own web server (Apache Tomcat via `framework/catalina`) and ships both the technical framework (entity persistence, service orchestration, screen widgets, REST API) and twelve business application components (order, accounting, product, party, manufacturing, humanres, content, marketing, workeffort, securityext, commonext, datamodel).
+Apache OFBiz is an open-source ERP suite and application framework written in Java 17. A single deployable monolith built with Gradle, it embeds its own web server (Apache Tomcat via `monolith/framework/catalina`) and ships both the technical framework (entity persistence, service orchestration, screen widgets, REST API) and twelve business application components (order, accounting, product, party, manufacturing, humanres, content, marketing, workeffort, securityext, commonext, datamodel).
 
 **Key metrics (from working tree):**
-- **16 framework components** + **12 application components** (`framework/`, `applications/`)
-- **904 entity definitions** across 10 entitymodel XML files in `applications/datamodel/entitydef/`
+- **16 framework components** + **12 application components** (`monolith/framework/`, `monolith/applications/`)
+- **904 entity definitions** across 10 entitymodel XML files in `monolith/applications/datamodel/entitydef/`
 - **9 service engine types** (Java, entity-auto, Groovy, script, route, interface, SOAP, Clojure, tracked)
-- **12 database dialects** supported via fieldtype XML files (`framework/entity/fieldtype/`)
+- **12 database dialects** supported via fieldtype XML files (`monolith/framework/entity/fieldtype/`)
 - **1 JVM deployable**, JDK 17 (`build.gradle` → `sourceCompatibility = JavaVersion.VERSION_17`)
 
 **Business value:** a fully open-source, self-hostable ERP where custom business logic is added declaratively (XML services, entity definitions, screens) on top of stable, reusable engines.
@@ -49,11 +49,11 @@ A layered monolith where all business behavior routes through three engines:
 
 1. **Entity Engine** — database-agnostic persistence. Entities are XML (`entitydef/`), not annotations or DDL; a `Delegator` API serves CRUD/find.
 2. **Service Engine** — all business logic is a named "service" declared in XML (`servicedef/`), invoked through `LocalDispatcher`, implementable in Java, Minilang (XML), Groovy, or auto-generated from entities.
-3. **Web/Widget layer** — screens, forms, and menus are XML definitions rendered to HTML via FreeMarker themes; a single `ControlServlet` per webapp dispatches requests through `controller.xml`. A parallel JAX-RS REST API (`framework/rest-api`) maps HTTP verbs to services.
+3. **Web/Widget layer** — screens, forms, and menus are XML definitions rendered to HTML via FreeMarker themes; a single `ControlServlet` per webapp dispatches requests through `controller.xml`. A parallel JAX-RS REST API (`monolith/framework/rest-api`) maps HTTP verbs to services.
 
 ### 2.3 Primary Use Cases
 - **Back-office ERP** — order entry, invoicing, GL accounting, catalog, warehouse, manufacturing (applications layer via back-office screens).
-- **Headless ERP** — REST API consumption by external frontends (`framework/rest-api`, OpenAPI/Swagger documented).
+- **Headless ERP** — REST API consumption by external frontends (`monolith/framework/rest-api`, OpenAPI/Swagger documented).
 - **Business framework** — downstream projects build custom components on the engines (component-loading mechanism, `ofbiz-component.xml`).
 
 ---
@@ -64,12 +64,12 @@ A layered monolith where all business behavior routes through three engines:
 
 ### 3.1 Separation of Concerns
 **Description:** Technical engines are isolated from business applications; business logic is services, not controllers or SQL.
-**Implementation:** `framework/` owns engines; `applications/` owns domains. Controllers (`controller.xml` events) call services; services use `Delegator` for data. Screens declare UI; renderers implement it.
+**Implementation:** `monolith/framework/` owns engines; `monolith/applications/` owns domains. Controllers (`controller.xml` events) call services; services use `Delegator` for data. Screens declare UI; renderers implement it.
 **Trade-offs:** XML indirection everywhere makes tracing a flow harder for newcomers (see LOWLEVEL.md lifecycles).
 
 ### 3.2 High Availability
 **Description:** Survive process/instance loss without data corruption.
-**Implementation:** HTTP layer is effectively stateless (session + DB-backed auth tokens); all state of record lives in the relational database; service semaphores are DB-based (`ServiceSemaphore` cleanup in `ServiceDispatcher` constructor, framework/service/.../ServiceDispatcher.java:113) so crashed instances release locks on restart.
+**Implementation:** HTTP layer is effectively stateless (session + DB-backed auth tokens); all state of record lives in the relational database; service semaphores are DB-based (`ServiceSemaphore` cleanup in `ServiceDispatcher` constructor, monolith/framework/service/.../ServiceDispatcher.java:113) so crashed instances release locks on restart.
 **Trade-offs:** Single-database dependency — HA is inherited from the RDBMS, not the application tier. No built-out cluster cache invalidation; cache coherence across nodes is a deployment concern.
 
 ### 3.3 Scalability First
@@ -79,7 +79,7 @@ A layered monolith where all business behavior routes through three engines:
 
 ### 3.4 Security by Design
 **Description:** Centralized auth, permission checks, and input hardening.
-**Implementation:** `framework/security` (`Security` interface via `SecurityFactory`, CSRF utilities `CsrfUtil`, upload hardening `SecuredUpload`, FreeMarker hardening `SecuredFreemarker`); web tier enforces via filters (`TokenFilter`, `SameSiteFilter`, `ContextFilter`), login via `LoginWorker`, JWT for API (`JWTManager`); Apache Shiro used for hashing/crypto.
+**Implementation:** `monolith/framework/security` (`Security` interface via `SecurityFactory`, CSRF utilities `CsrfUtil`, upload hardening `SecuredUpload`, FreeMarker hardening `SecuredFreemarker`); web tier enforces via filters (`TokenFilter`, `SameSiteFilter`, `ContextFilter`), login via `LoginWorker`, JWT for API (`JWTManager`); Apache Shiro used for hashing/crypto.
 **Trade-offs:** Legacy surface is large; permission checks rely on services calling `hasPermission`-style checks rather than a declarative intercept layer.
 
 ### 3.5 Observability
@@ -100,11 +100,11 @@ A layered monolith where all business behavior routes through three engines:
 ### 3.8 Cloud-Native
 **Description:** Runnable in containers.
 **Implementation:** `docker/` directory ships container support; state persists in RDBMS so instances are replaceable.
-**Trade-offs:** Historically a VM-era design: no health-probe/metrics endpoints by default, embedded Tomcat rather than external servlet container expectations, no 12-factor config (file-based configuration in `framework/*/config/`).
+**Trade-offs:** Historically a VM-era design: no health-probe/metrics endpoints by default, embedded Tomcat rather than external servlet container expectations, no 12-factor config (file-based configuration in `monolith/framework/*/config/`).
 
 ### 3.9 Open Standards
 **Description:** Prefer standard APIs and formats.
-**Implementation:** Jakarta Servlets (embedded Tomcat, `framework/catalina`), JAX-RS for REST (`framework/rest-api`), OpenAPI/Swagger publication, JDBC for persistence (12 dialect fieldtypes), FreeMarker templating, XML entity/service definitions.
+**Implementation:** Jakarta Servlets (embedded Tomcat, `monolith/framework/catalina`), JAX-RS for REST (`monolith/framework/rest-api`), OpenAPI/Swagger publication, JDBC for persistence (12 dialect fieldtypes), FreeMarker templating, XML entity/service definitions.
 **Trade-offs:** Standards versions lag Jakarta adoption pace in some third-party libs; Minilang and the Widget XML vocabulary are OFBiz-specific formats.
 
 ---
@@ -118,19 +118,19 @@ A layered monolith where all business behavior routes through three engines:
 ```mermaid
 graph TB
     subgraph T1["Tier 1: Presentation"]
-        CS[ControlServlet + RequestHandler<br/>framework/webapp]
-        WG[Widget Screens/Forms/Menus<br/>framework/widget + themes/*]
-        REST[JAX-RS REST API<br/>framework/rest-api]
-        WT[Webtools admin<br/>framework/webtools]
+        CS[ControlServlet + RequestHandler<br/>monolith/framework/webapp]
+        WG[Widget Screens/Forms/Menus<br/>monolith/framework/widget + themes/*]
+        REST[JAX-RS REST API<br/>monolith/framework/rest-api]
+        WT[Webtools admin<br/>monolith/framework/webtools]
     end
     subgraph T2["Tier 2: Application"]
-        SE[Service Engine<br/>ServiceContainer / LocalDispatcher<br/>framework/service]
-        ML[Minilang<br/>framework/minilang]
+        SE[Service Engine<br/>ServiceContainer / LocalDispatcher<br/>monolith/framework/service]
+        ML[Minilang<br/>monolith/framework/minilang]
         APPS[Applications: order, accounting,<br/>product, party, manufacturing,<br/>humanres, content, marketing,<br/>workeffort + 4 support]
     end
     subgraph T3["Tier 3: Data"]
-        EE[Entity Engine - Delegator<br/>framework/entity]
-        DM[Datamodel: 904 entities<br/>applications/datamodel]
+        EE[Entity Engine - Delegator<br/>monolith/framework/entity]
+        DM[Datamodel: 904 entities<br/>monolith/applications/datamodel]
         DB[(RDBMS via JDBC<br/>12 dialect fieldtypes)]
     end
     CS --> SE
@@ -152,34 +152,34 @@ graph TB
 
 ## 5. Component Details
 
-### 5.1 framework/base — Foundation
+### 5.1 monolith/framework/base — Foundation
 Util library (`UtilXml`, `UtilValidate`, `Debug`), component configuration (`ComponentConfig`, parses `ofbiz-component.xml` — ComponentConfig.java:425), and container interfaces everything else depends on.
 
-### 5.2 framework/start + framework/catalina — Bootstrap & Web Server
+### 5.2 monolith/framework/start + monolith/framework/catalina — Bootstrap & Web Server
 `Start.java` boots configured "containers"; `CatalinaContainer` runs embedded Tomcat serving all registered webapps (`webapp` declarations in `ofbiz-component.xml`).
 
-### 5.3 framework/webapp — Request Control (Tier 1)
+### 5.3 monolith/framework/webapp — Request Control (Tier 1)
 `ControlServlet` → `RequestHandler` → `controller.xml` per webapp (parsed by `ConfigXMLReader`): URL → event → view. Auth plumbing (`LoginWorker`, `JWTManager`, `ExternalLoginKeysManager`), filters (`ContextFilter`, `TokenFilter`, `SameSiteFilter`).
 
-### 5.4 framework/widget + themes/ — Screen Rendering (Tier 1)
+### 5.4 monolith/framework/widget + themes/ — Screen Rendering (Tier 1)
 XML-declared screens/forms/menus (`widget/` dirs per component), rendered by `ScreenRenderer` through theme-specific FreeMarker renderers. Themes: bluelight, common-theme, flatgrey, helveticus, rainbowstone, tomahawk.
 
-### 5.5 framework/rest-api — Headless API (Tier 1)
+### 5.5 monolith/framework/rest-api — Headless API (Tier 1)
 JAX-RS application, package `org.apache.ofbiz.ws.rs`. `ApiContextListener` bootstraps; auth filters (`APIAuthFilter`, `HttpBasicAuthFilter`, `APICorsFilter`); `ServiceRequestWorker`/`RestServiceUtil` map HTTP to services; OpenAPI docs via `OpenApiUtil` + swagger-ui (npm tooling in component).
 
-### 5.6 framework/service — Service Engine (Tier 2)
-`ServiceContainer.getLocalDispatcher(name, delegator)` (ServiceContainer.java:83) → `ServiceDispatcher` (per-delegator, ServiceDispatcher.java:97) → engine by service definition: StandardJavaEngine, EntityAutoEngine, GroovyEngine, ScriptEngine, RouteEngine, InterfaceEngine, SOAPClientEngine, StandardClojureEngine, TrackedServiceEngine (`framework/service/.../engine/`). Includes ECA framework, `JobManager` async scheduling, JMS listeners, service semaphores.
+### 5.6 monolith/framework/service — Service Engine (Tier 2)
+`ServiceContainer.getLocalDispatcher(name, delegator)` (ServiceContainer.java:83) → `ServiceDispatcher` (per-delegator, ServiceDispatcher.java:97) → engine by service definition: StandardJavaEngine, EntityAutoEngine, GroovyEngine, ScriptEngine, RouteEngine, InterfaceEngine, SOAPClientEngine, StandardClojureEngine, TrackedServiceEngine (`monolith/framework/service/.../engine/`). Includes ECA framework, `JobManager` async scheduling, JMS listeners, service semaphores.
 
-### 5.7 framework/minilang — XML Service Language (Tier 2)
+### 5.7 monolith/framework/minilang — XML Service Language (Tier 2)
 Simple-method XML services (`SimpleMethod`, `operation/`, `method/` packages). Legacy but widely used in applications.
 
-### 5.8 framework/entity + framework/entityext — Entity Engine (Tier 3)
-`Delegator` interface, `GenericDelegator` impl (factory-only construction, GenericDelegator.java:198-201), `ModelReader` loads entity XML per model reader name (ModelReader.java:105-130, merges `entityengine.xml` resources + all components' `entity-resource`). Config: `framework/entity/config/entityengine.xml`; dialects: `framework/entity/fieldtype/` (advantage, axion, daffodil, firebird, h2, hsql, mssql, mysql, oracle, postgres, sapdb, sybase).
+### 5.8 monolith/framework/entity + monolith/framework/entityext — Entity Engine (Tier 3)
+`Delegator` interface, `GenericDelegator` impl (factory-only construction, GenericDelegator.java:198-201), `ModelReader` loads entity XML per model reader name (ModelReader.java:105-130, merges `entityengine.xml` resources + all components' `entity-resource`). Config: `monolith/framework/entity/config/entityengine.xml`; dialects: `monolith/framework/entity/fieldtype/` (advantage, axion, daffodil, firebird, h2, hsql, mssql, mysql, oracle, postgres, sapdb, sybase).
 
-### 5.9 applications/* — Business Domains (Tier 2 consumers)
-order, accounting, product, party, manufacturing, humanres, content, marketing, workeffort + commonext/securityext support. `applications/datamodel` holds the shared 904-entity schema (10 entitymodel XML files: accounting, content, humanres, manufacturing, marketing, order, party, product, shipment, workeffort).
+### 5.9 monolith/applications/* — Business Domains (Tier 2 consumers)
+order, accounting, product, party, manufacturing, humanres, content, marketing, workeffort + commonext/securityext support. `monolith/applications/datamodel` holds the shared 904-entity schema (10 entitymodel XML files: accounting, content, humanres, manufacturing, marketing, order, party, product, shipment, workeffort).
 
-### 5.10 framework/security — Security Services (cross-cutting)
+### 5.10 monolith/framework/security — Security Services (cross-cutting)
 `Security` interface (permissions against party/security entities), `SecurityFactory`, CSRF (`CsrfUtil` + strategies), `SecuredUpload`, `SecuredFreemarker`.
 
 ### 5.11 Remaining framework components
@@ -207,11 +207,11 @@ HTTP verb+path → JAX-RS `APIAuthFilter` (JWT/basic → `SecurityContext`) → 
 
 | Integration | Direction | Mechanism |
 |---|---|---|
-| REST consumers | inbound | JAX-RS + OpenAPI (`framework/rest-api`), JWT/basic auth |
+| REST consumers | inbound | JAX-RS + OpenAPI (`monolith/framework/rest-api`), JWT/basic auth |
 | SOAP clients | inbound/outbound | `SOAPClientEngine`, SOAP services |
 | JMS brokers | inbound listeners | `JmsListenerFactory` (ServiceDispatcher.java:138) |
 | Databases | outbound | JDBC via entityengine.xml datasources, 12 dialects |
-| Payment gateways | outbound | applications/accounting payment gateway services |
+| Payment gateways | outbound | monolith/applications/accounting payment gateway services |
 | Email | outbound | service-engine email services (common) |
 | External auth tokens | inbound | `JWTManager`, `ExternalLoginKeysManager` (SSO-style key exchange) |
 
@@ -223,14 +223,14 @@ HTTP verb+path → JAX-RS `APIAuthFilter` (JWT/basic → `SecurityContext`) → 
 |---|---|---|
 | Language | Java (JDK 17) | `build.gradle` sourceCompatibility |
 | Build | Gradle (wrapper) | `gradlew`, root `build.gradle` |
-| Web server | Apache Tomcat (embedded) | `framework/catalina` |
-| Web framework | Jakarta Servlet + custom ControlServlet | `framework/webapp` |
-| REST | JAX-RS + OpenAPI/Swagger UI (npm) | `framework/rest-api` (package.json, swagger-ui-dist) |
+| Web server | Apache Tomcat (embedded) | `monolith/framework/catalina` |
+| Web framework | Jakarta Servlet + custom ControlServlet | `monolith/framework/webapp` |
+| REST | JAX-RS + OpenAPI/Swagger UI (npm) | `monolith/framework/rest-api` (package.json, swagger-ui-dist) |
 | Templating | FreeMarker | widget renderers, themes |
-| Security | Apache Shiro (single version, OFBIZ-13685), JWT, CSRF utils | trunk commits; `framework/security` |
-| Persistence | Custom Entity Engine over JDBC | `framework/entity` |
-| Databases | PostgreSQL, MySQL, Oracle, MSSQL, Sybase, H2, HSQL, Firebird, SAP DB, +3 legacy | `framework/entity/fieldtype/` |
-| Scripting | Groovy, Minilang (XML), Clojure (engine present) | `framework/service/.../engine/` |
+| Security | Apache Shiro (single version, OFBIZ-13685), JWT, CSRF utils | trunk commits; `monolith/framework/security` |
+| Persistence | Custom Entity Engine over JDBC | `monolith/framework/entity` |
+| Databases | PostgreSQL, MySQL, Oracle, MSSQL, Sybase, H2, HSQL, Firebird, SAP DB, +3 legacy | `monolith/framework/entity/fieldtype/` |
+| Scripting | Groovy, Minilang (XML), Clojure (engine present) | `monolith/framework/service/.../engine/` |
 | UI themes | 6 FreeMarker themes | `themes/` |
 
 ---
@@ -241,7 +241,7 @@ HTTP verb+path → JAX-RS `APIAuthFilter` (JWT/basic → `SecurityContext`) → 
 Form login (`LoginWorker`) with DB-backed user login entity; external login key exchange (`ExternalLoginKeysManager`); JWT for API (`JWTManager`); HTTP Basic on REST (`HttpBasicAuthFilter`).
 
 ### 9.2 Authorization
-`Security` interface (framework/security/Security.java) checked in services/screens against permission entities; `LoginCheck` request-map guard in controller.xml.
+`Security` interface (monolith/framework/security/Security.java) checked in services/screens against permission entities; `LoginCheck` request-map guard in controller.xml.
 
 ### 9.3 Data protection
 Shiro-based hashing; `SecuredUpload` validates uploaded files; `SecuredFreemarker` restricts template capabilities; CSRF double-submit via `CsrfUtil` + strategies; `SameSiteFilter`/`TokenFilter` harden requests.
@@ -279,7 +279,7 @@ Shiro-based hashing; `SecuredUpload` validates uploaded files; `SecuredFreemarke
 | [ADR-002](adr/ADR-002-embedded-tomcat-catalinacontainer.md) | Embedded Tomcat via CatalinaContainer rather than external app server | Accepted |
 | [ADR-003](adr/ADR-003-database-agnostic-entity-engine.md) | Database-agnostic Entity Engine over ORM (no JPA/Hibernate) | Accepted |
 | [ADR-004](adr/ADR-004-single-apache-shiro-version.md) | Single Apache Shiro version, drop shiro-core (OFBIZ-13685) | Accepted (trunk) |
-| [ADR-005](adr/ADR-005-jaxrs-rest-api-on-service-engine.md) | JAX-RS REST API mapped onto Service Engine (framework/rest-api) | Accepted |
+| [ADR-005](adr/ADR-005-jaxrs-rest-api-on-service-engine.md) | JAX-RS REST API mapped onto Service Engine (monolith/framework/rest-api) | Accepted |
 | [ADR-006](adr/ADR-006-ftlwriter-constant-template.md) | FtlWriter single constant template for macro calls (OFBIZ-13675, trunk) | Accepted |
 
 ---

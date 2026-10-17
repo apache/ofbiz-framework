@@ -13,7 +13,7 @@ OFBiz must run as a self-contained application: users download, configure a data
 
 ## Decision
 
-The system boots its own web server in-process. `Start` (framework/start) launches configured "containers"; `CatalinaContainer` (framework/catalina/.../container/CatalinaContainer.java) runs an embedded Apache Tomcat and mounts every webapp declared via `webapp` elements in each component's `ofbiz-component.xml`.
+The system boots its own web server in-process. `Start` (monolith/framework/start) launches configured "containers"; `CatalinaContainer` (monolith/framework/catalina/.../container/CatalinaContainer.java) runs an embedded Apache Tomcat and mounts every webapp declared via `webapp` elements in each component's `ofbiz-component.xml`.
 
 ## Rationale
 
@@ -35,4 +35,4 @@ The system boots its own web server in-process. `Start` (framework/start) launch
 ## References
 
 - ARCHITECTURE.md §5.2, §11; LOWLEVEL.md §1
-- `framework/catalina/src/main/java/org/apache/ofbiz/catalina/container/CatalinaContainer.java`
+- `monolith/framework/catalina/src/main/java/org/apache/ofbiz/catalina/container/CatalinaContainer.java`

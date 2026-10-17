@@ -31,6 +31,7 @@ This README describes the program repository. The monolith's own upstream README
 
 | Question | Document |
 |---|---|
+| What does the monolith require (FR/NFR)? | [PRD.md](PRD.md) |
 | How does the current system work? | [ARCHITECTURE.md](ARCHITECTURE.md) + [LOWLEVEL.md](LOWLEVEL.md) |
 | Where is X in the monolith code? | [LOWLEVEL.md](LOWLEVEL.md) §10 lookup table |
 | What are we moving to? | [FUTURESTATE-ARCHITECTURE.md](FUTURESTATE-ARCHITECTURE.md) |

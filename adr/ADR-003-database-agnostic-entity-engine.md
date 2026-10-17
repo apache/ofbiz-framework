@@ -13,12 +13,12 @@ ERP deployments arrive with an incumbent database (Oracle shop, MSSQL shop, MySQ
 
 ## Decision
 
-Build a custom persistence layer — the Entity Engine (`framework/entity`) — instead of adopting JPA/Hibernate:
+Build a custom persistence layer — the Entity Engine (`monolith/framework/entity`) — instead of adopting JPA/Hibernate:
 
 - `Delegator` interface (Delegator.java:52) serves all CRUD/find operations; `GenericDelegator` is the implementation (factory-only construction).
 - `ModelReader` (ModelReader.java:105) loads entity XML at startup into `ModelEntity` objects; SQL is generated generically.
-- Portability via abstract field types: `framework/entity/fieldtype/fieldtype{postgres,mysql,oracle,mssql,sybase,h2,hsql,firebird,sapdb,advantage,axion,daffodil}.xml` map types like `id-ne`, `currency-amount` to dialect SQL types.
-- Datasources/delegators configured in `framework/entity/config/entityengine.xml`.
+- Portability via abstract field types: `monolith/framework/entity/fieldtype/fieldtype{postgres,mysql,oracle,mssql,sybase,h2,hsql,firebird,sapdb,advantage,axion,daffodil}.xml` map types like `id-ne`, `currency-amount` to dialect SQL types.
+- Datasources/delegators configured in `monolith/framework/entity/config/entityengine.xml`.
 
 ## Rationale
 
@@ -40,4 +40,4 @@ Build a custom persistence layer — the Entity Engine (`framework/entity`) — 
 ## References
 
 - ARCHITECTURE.md §5.8, §8; LOWLEVEL.md §4
-- `framework/entity/config/entityengine.xml`, `framework/entity/fieldtype/`
+- `monolith/framework/entity/config/entityengine.xml`, `monolith/framework/entity/fieldtype/`

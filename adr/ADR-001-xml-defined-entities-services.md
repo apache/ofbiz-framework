@@ -15,7 +15,7 @@ An ERP framework must serve many businesses with different schemas and workflows
 
 Entities and services are declared in XML, loaded at startup by framework engines:
 
-- Entity definitions: `entitydef/*-entitymodel.xml` per component, registered via `entity-resource` in `ofbiz-component.xml`, loaded by `ModelReader` (framework/entity/.../model/ModelReader.java:105). 904 entities ship in `applications/datamodel/entitydef/`.
+- Entity definitions: `entitydef/*-entitymodel.xml` per component, registered via `entity-resource` in `ofbiz-component.xml`, loaded by `ModelReader` (monolith/framework/entity/.../model/ModelReader.java:105). 904 entities ship in `monolith/applications/datamodel/entitydef/`.
 - Service definitions: `servicedef/*.xml` per component, registered via `service-resource`, dispatched through `LocalDispatcher` to one of 9 engines (Java, entity-auto, Groovy, Minilang, script, route, interface, SOAP, Clojure).
 
 ## Rationale
@@ -38,4 +38,4 @@ Entities and services are declared in XML, loaded at startup by framework engine
 ## References
 
 - ARCHITECTURE.md §5.6, §5.8; LOWLEVEL.md §3, §4
-- `framework/base/.../component/ComponentConfig.java:425` (resource registration)
+- `monolith/framework/base/.../component/ComponentConfig.java:425` (resource registration)

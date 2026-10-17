@@ -11,7 +11,7 @@ The build carried multiple Apache Shiro artifacts at different versions — spli
 
 ## Decision
 
-Consolidate on a single Apache Shiro version and remove `shiro-core` from the dependency set (trunk commit `5b1856083d`, "Improved: Use a single Apache Shiro version and drop shiro-core (OFBIZ-13685)"). Shiro provides hashing/crypto used by `framework/security` (login credential handling).
+Consolidate on a single Apache Shiro version and remove `shiro-core` from the dependency set (trunk commit `5b1856083d`, "Improved: Use a single Apache Shiro version and drop shiro-core (OFBIZ-13685)"). Shiro provides hashing/crypto used by `monolith/framework/security` (login credential handling).
 
 ## Rationale
 

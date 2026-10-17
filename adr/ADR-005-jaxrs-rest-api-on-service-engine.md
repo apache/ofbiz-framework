@@ -13,11 +13,11 @@ Consumers need headless access to OFBiz (custom frontends, integrations) without
 
 ## Decision
 
-Add `framework/rest-api`: a JAX-RS application (package `org.apache.ofbiz.ws.rs`) that maps HTTP requests onto existing services rather than implementing logic:
+Add `monolith/framework/rest-api`: a JAX-RS application (package `org.apache.ofbiz.ws.rs`) that maps HTTP requests onto existing services rather than implementing logic:
 
 - `ApiContextListener` bootstraps dispatcher/delegator into the servlet context.
 - `ServiceRequestWorker` / `RestServiceUtil` translate HTTP request → service invocation.
-- `APIAuthFilter` (token), `HttpBasicAuthFilter`, `APICorsFilter` handle auth/CORS; `JWTManager` (framework/webapp) issues tokens.
+- `APIAuthFilter` (token), `HttpBasicAuthFilter`, `APICorsFilter` handle auth/CORS; `JWTManager` (monolith/framework/webapp) issues tokens.
 - Responses use uniform envelopes (`Success`/`Error`/`ResponseStatus`, `RestListResponseBuilder` for pagination).
 - OpenAPI documentation generated via `OpenApiUtil`; Swagger UI served from component-local npm tooling (`package.json`, `node_modules`).
 
@@ -42,4 +42,4 @@ Add `framework/rest-api`: a JAX-RS application (package `org.apache.ofbiz.ws.rs`
 ## References
 
 - ARCHITECTURE.md §5.5, §6.2, §7; LOWLEVEL.md §7
-- `framework/rest-api/src/main/java/org/apache/ofbiz/ws/rs/`
+- `monolith/framework/rest-api/src/main/java/org/apache/ofbiz/ws/rs/`
