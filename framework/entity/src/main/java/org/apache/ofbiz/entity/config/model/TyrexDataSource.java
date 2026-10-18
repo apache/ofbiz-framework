@@ -22,6 +22,8 @@ import org.apache.ofbiz.base.lang.ThreadSafe;
 import org.apache.ofbiz.entity.GenericEntityConfException;
 import org.w3c.dom.Element;
 
+import java.util.Map;
+
 /**
  * An object that models the <code>&lt;tyrex-dataSource&gt;</code> element.
  *
@@ -30,20 +32,44 @@ import org.w3c.dom.Element;
 @ThreadSafe
 public final class TyrexDataSource extends JdbcElement {
 
-    private final String dataSourceName; // type = xs:string
+    private final EntityConfigGetter config = EntityConfigGetter.getInstance();
+    public static final String ELEMENT_NAME = "tyrex-dataSource";
 
-    TyrexDataSource(Element element) throws GenericEntityConfException {
-        super(element);
+    private final String dataSourceName;
+
+    TyrexDataSource(Element element, String xPathParent) throws GenericEntityConfException {
+        super(element, xPathParent.concat("tyrex-dataSource"));
         String lineNumberText = EntityConfig.createConfigFileLineNumberText(element);
-        String dataSourceName = element.getAttribute("dataSource-name").intern();
+        String dataSourceName = config.getValue(getXPath() + "dataSource-name");
         if (dataSourceName.isEmpty()) {
             throw new GenericEntityConfException("<tyrex-dataSource> element dataSource-name attribute is empty" + lineNumberText);
         }
         this.dataSourceName = dataSourceName;
     }
 
-    /** Returns the value of the <code>dataSource-name</code> attribute. */
+    TyrexDataSource(Map<String, Object> configObject, String xPath) throws GenericEntityConfException {
+        super(configObject, xPath);
+        String dataSourceName = config.getValue(configObject, "dataSource-name");
+        if (dataSourceName.isEmpty()) {
+            throw new GenericEntityConfException("<tyrex-dataSource> element dataSource-name attribute is empty");
+        }
+        this.dataSourceName = dataSourceName;
+    }
+
+    public static TyrexDataSource loadFromXml(Element element, String xPathParent) throws GenericEntityConfException {
+        return new TyrexDataSource(element, xPathParent);
+    }
+
+    public static TyrexDataSource loadFromConfig(Map<String, Object> configMap, String xPath) throws GenericEntityConfException {
+        return new TyrexDataSource(configMap, xPath);
+    }
+
     public String getDataSourceName() {
-        return this.dataSourceName;
+        return dataSourceName;
+    }
+
+    @Override
+    public String getName() {
+        return "tyrex-dataSource";
     }
 }

@@ -18,7 +18,7 @@
  *******************************************************************************/
 package org.apache.ofbiz.testtools;
 
-import groovy.test.GroovyAssert;
+import groovy.test.GroovyTestCase;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.security.Security;
 import org.apache.ofbiz.service.LocalDispatcher;
@@ -26,7 +26,7 @@ import org.apache.ofbiz.service.LocalDispatcher;
 /**
  * This test case engine allow writing test in groovy script that do not need compilation.
  */
-public class GroovyScriptAssert extends GroovyAssert {
+public class GroovyScriptAssert extends GroovyTestCase {
 
     private Delegator delegator;
     private LocalDispatcher dispatcher;

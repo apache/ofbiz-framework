@@ -58,6 +58,7 @@ import org.apache.ofbiz.entity.condition.EntityCondition;
 import org.apache.ofbiz.entity.config.model.Datasource;
 import org.apache.ofbiz.entity.config.model.DelegatorElement;
 import org.apache.ofbiz.entity.config.model.EntityConfig;
+import org.apache.ofbiz.entity.config.model.GroupMap;
 import org.apache.ofbiz.entity.datasource.GenericHelper;
 import org.apache.ofbiz.entity.datasource.GenericHelperFactory;
 import org.apache.ofbiz.entity.datasource.GenericHelperInfo;
@@ -491,7 +492,10 @@ public class GenericDelegator implements Delegator {
      */
     @Override
     public String getGroupHelperName(String groupName) {
-        return this.delegatorInfo.getGroupDataSource(groupName);
+        GroupMap groupMap = this.delegatorInfo.getGroupDataSource(groupName);
+        return groupMap != null
+                ? groupMap.getDatasourceName()
+                : null;
     }
 
     @Override

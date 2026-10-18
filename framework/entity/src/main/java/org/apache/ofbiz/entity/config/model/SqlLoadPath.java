@@ -18,9 +18,12 @@
  *******************************************************************************/
 package org.apache.ofbiz.entity.config.model;
 
+import org.apache.ofbiz.base.config.AbstractConfigElement;
 import org.apache.ofbiz.base.lang.ThreadSafe;
 import org.apache.ofbiz.entity.GenericEntityConfException;
 import org.w3c.dom.Element;
+
+import java.util.Map;
 
 /**
  * An object that models the <code>&lt;sql-load-path&gt;</code> element.
@@ -28,28 +31,55 @@ import org.w3c.dom.Element;
  * @see <code>entity-config.xsd</code>
  */
 @ThreadSafe
-public final class SqlLoadPath {
+public final class SqlLoadPath extends AbstractConfigElement {
 
-    private final String path; // type = xs:string
-    private final String prependEnv; // type = xs:string
+    private final EntityConfigGetter config = EntityConfigGetter.getInstance();
+    public static final String ELEMENT_NAME = "sql-load-path";
+    private final String xPath;
 
-    SqlLoadPath(Element element) throws GenericEntityConfException {
+    private final String path;
+    private final String prependEnv;
+
+    SqlLoadPath(Element element, String xPathParent) throws GenericEntityConfException {
         String lineNumberText = EntityConfig.createConfigFileLineNumberText(element);
         String path = element.getAttribute("path").intern();
+        xPath = xPathParent.concat("/sql-load-path[@path='" + path + "']");
         if (path.isEmpty()) {
             throw new GenericEntityConfException("<sql-load-path> element path attribute is empty" + lineNumberText);
         }
         this.path = path;
-        this.prependEnv = element.getAttribute("prepend-env").intern();
+        prependEnv = config.getValue(xPath + "/@prepend-env");
     }
 
-    /** Returns the value of the <code>path</code> attribute. */
+    SqlLoadPath(Map<String, Object> configObject, String xPath) throws GenericEntityConfException {
+        this.xPath = xPath;
+        String path = config.getValue(configObject, "path");
+        if (path.isEmpty()) {
+            throw new GenericEntityConfException("<sql-load-path> element path attribute is empty");
+        }
+        this.path = path;
+        prependEnv = config.getValue(configObject, "prepend-env");
+    }
+
+    public static SqlLoadPath loadFromXml(Element element, String xPathParent) throws GenericEntityConfException {
+        return new SqlLoadPath(element, xPathParent);
+    }
+
+    public static SqlLoadPath loadFromConfig(Map<String, Object> configMap, String xPath) throws GenericEntityConfException {
+        return new SqlLoadPath(configMap, xPath);
+    }
+
     public String getPath() {
-        return this.path;
+        return path;
     }
 
-    /** Returns the value of the <code>prepend-env</code> attribute. */
     public String getPrependEnv() {
-        return this.prependEnv;
+        return prependEnv;
     }
+
+    @Override
+    public String getName() {
+        return path;
+    }
+
 }

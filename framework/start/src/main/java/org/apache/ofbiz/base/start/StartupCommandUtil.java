@@ -65,6 +65,7 @@ public final class StartupCommandUtil {
         SHUTDOWN("shutdown"),
         START("start"),
         STATUS("status"),
+        CONFIG("configuration"),
         TEST("test");
 
         private String name;
@@ -164,6 +165,18 @@ public final class StartupCommandUtil {
             .optionalArg(true)
             .argName("key=value")
             .get();
+    private static final Option CONFIG = Option.builder("c")
+            .longOpt(StartupOption.CONFIG.getName())
+            .desc("Runs ofbiz with dedicated configuration files to override default ofbiz configuration: "
+                    + System.lineSeparator()
+                    + "-c file=myConf1.conf,myConf2.conf"
+                    + System.lineSeparator()
+                    + "-c enable=true")
+            .numberOfArgs(2)
+            .valueSeparator('=')
+            .optionalArg(true)
+            .argName("key=value")
+            .get();
 
     static List<StartupCommand> parseOfbizCommands(final String[] args) throws StartupException {
         CommandLine commandLine = null;
@@ -215,6 +228,7 @@ public final class StartupCommandUtil {
         ofbizCommandOptions.addOption(SHUTDOWN);
         ofbizCommandOptions.addOption(START);
         ofbizCommandOptions.addOption(STATUS);
+        ofbizCommandOptions.addOption(CONFIG);
         ofbizCommandOptions.addOption(TEST);
 
         Options options = new Options();
