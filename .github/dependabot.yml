@@ -37,6 +37,10 @@ updates:
   - package-ecosystem: "gradle"
     directory: "/"
     target-branch: "release24.09"
+    labels:
+      - "dependencies"
+      - "java"
+      - "release_branch"
     schedule:
       interval: "daily"
     open-pull-requests-limit: 40
@@ -74,6 +78,10 @@ updates:
   - package-ecosystem: "npm"
     directory: "themes/common-theme/webapp/common-theme/js"
     target-branch: "release24.09"
+    labels:
+      - "dependencies"
+      - "javascript"
+      - "release_branch"
     schedule:
       interval: "daily"
     open-pull-requests-limit: 20
@@ -91,6 +99,10 @@ updates:
   - package-ecosystem: github-actions
     directory: /
     target-branch: "release24.09"
+    labels:
+      - "dependencies"
+      - "github_actions"
+      - "release_branch"
     schedule:
       interval: daily
     groups:
@@ -107,5 +119,9 @@ updates:
   - package-ecosystem: docker
     directory: /
     target-branch: "release24.09"
+    labels:
+      - "dependencies"
+      - "docker"
+      - "release_branch"
     schedule:
       interval: daily
