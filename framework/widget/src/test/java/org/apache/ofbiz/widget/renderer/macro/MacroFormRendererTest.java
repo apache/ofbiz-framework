@@ -646,11 +646,12 @@ public final class MacroFormRendererTest {
         final ModelForm modelForm = mock(ModelForm.class);
         final String paginateTarget = "TARGET";
         final String qbeString = "field2=value2 with spaces";
+        final String encodedQbeString = "field2=value2+with+spaces";
         final String linkFromQbeString = "LinkFromQBEString";
 
         when(modelFormField.getModelForm()).thenReturn(modelForm);
         when(modelForm.getPaginateTarget(notNull())).thenReturn(paginateTarget);
-        when(requestHandler.makeLink(notNull(), notNull(), contains(qbeString))).thenReturn(linkFromQbeString);
+        when(requestHandler.makeLink(notNull(), notNull(), contains(encodedQbeString))).thenReturn(linkFromQbeString);
         when(modelFormField.getSortFieldHelpText(notNull())).thenReturn("HELPTEXT");
         when(renderableFtlFormElementsBuilder.sortField(nullable(String.class), eq(""), eq(linkFromQbeString), eq(false),
                 eq("HELPTEXT"))).thenReturn(genericMacroCall);
