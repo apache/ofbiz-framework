@@ -22,7 +22,6 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLDecoder;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -44,15 +43,11 @@ import org.apache.commons.text.StringEscapeUtils;
 import org.apache.commons.validator.routines.UrlValidator;
 import org.apache.logging.log4j.ThreadContext;
 import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilHttp;
-import org.apache.ofbiz.base.util.UtilProperties;
-import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.common.UrlServletHelper;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.security.SecuredFreemarker;
-import org.apache.ofbiz.security.SecuredUpload;
 
 /**
  * A Filter used to specify an allowlist of allowed paths to the OFBiz application.
@@ -95,7 +90,6 @@ public class ControlFilter extends HttpFilter {
     private int errorCode;
     /** The list of all path prefixes that are allowed. */
     private Set<String> allowedPaths;
-    private static final List<String> ALLOWEDTOKENS = getAllowedTokens();
 
 
     @Override
@@ -149,11 +143,6 @@ public class ControlFilter extends HttpFilter {
      */
     private void redirect(HttpServletResponse resp, String contextPath) throws IOException {
         resp.sendRedirect(redirectPathIsUrl ? redirectPath : (contextPath + redirectPath));
-    }
-
-    private static List<String> getAllowedTokens() {
-        String allowedTokens = UtilProperties.getPropertyValue("security", "allowedTokens");
-        return UtilValidate.isNotEmpty(allowedTokens) ? StringUtil.split(allowedTokens, ",") : new ArrayList<>();
     }
 
     private static boolean isControlFilterTests() {
@@ -230,23 +219,6 @@ public class ControlFilter extends HttpFilter {
                 }
             }
 
-            // Reject insecure URLs
-            String queryString = null;
-            try {
-                queryString = new URI(uriWithContext).getQuery();
-
-            } catch (URISyntaxException e) {
-                Debug.logError("Weird URI: " + e, MODULE);
-                throw new RuntimeException(e);
-            }
-            if (queryString != null) {
-                queryString = URLDecoder.decode(queryString, "UTF-8");
-                if (UtilValidate.isUrlInString(queryString)
-                        || !SecuredUpload.isValidText(queryString.toLowerCase(), ALLOWEDTOKENS, true)) {
-                    Debug.logError("For security reason this URL is not accepted", MODULE);
-                    throw new RuntimeException("For security reason this URL is not accepted");
-                }
-            }
             if (uriWithContext != null) { // "null" allows tests with Mockito because ControlFilterTests sends null.
                 try {
                     String uRIFiltered = new URI(uriWithContext)
