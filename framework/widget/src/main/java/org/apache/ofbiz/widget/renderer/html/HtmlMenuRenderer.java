@@ -566,24 +566,29 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
             boolean encode = false;
             HttpServletResponse response = (HttpServletResponse) context.get("response");
             HttpServletRequest request = (HttpServletRequest) context.get("request");
+            String urlString = "";
             if (urlMode != null && "ofbiz".equalsIgnoreCase(urlMode)) {
                 if (request != null && response != null) {
                     RequestHandler rh = (RequestHandler) request.getServletContext().getAttribute("_REQUEST_HANDLER_");
-                    String urlString = rh.makeLink(request, response, src, fullPath, secure, encode);
-                    writer.append(urlString);
+                    urlString = rh.makeLink(request, response, src, fullPath, secure, encode);
                 } else {
-                    writer.append(src);
+                    urlString = src;
                 }
             } else if (urlMode != null && "content".equalsIgnoreCase(urlMode)) {
                 if (request != null && response != null) {
                     StringBuilder newURL = new StringBuilder();
                     ContentUrlTag.appendContentPrefix(request, newURL);
                     newURL.append(src);
-                    writer.append(newURL.toString());
+                    urlString = newURL.toString();
                 }
             } else {
-                writer.append(src);
+                urlString = src;
             }
+            UtilCodec.SimpleEncoder simpleEncoder = (UtilCodec.SimpleEncoder) context.get("simpleEncoder");
+            if (simpleEncoder != null) {
+                urlString = simpleEncoder.encode(urlString);
+            }
+            writer.append(urlString);
 
             writer.append("\"");
         }

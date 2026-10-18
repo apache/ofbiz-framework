@@ -98,6 +98,10 @@ public class MacroMenuRenderer implements MenuStringRenderer {
                 src = newURL.toString();
             }
         }
+        UtilCodec.SimpleEncoder simpleEncoder = (UtilCodec.SimpleEncoder) context.get("simpleEncoder");
+        if (simpleEncoder != null) {
+            src = simpleEncoder.encode(src);
+        }
         parameters.put("src", src);
         return parameters;
     }

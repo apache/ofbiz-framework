@@ -161,7 +161,7 @@ public final class RenderableFtlFormElementsBuilder {
         final RenderableFtlMacroCallBuilder builder = RenderableFtlMacroCall.builder()
                 .name("renderDisplayField")
                 .stringParameter("type", type)
-                .stringParameter("imageLocation", imageLocation)
+                .stringParameter("imageLocation", encode(imageLocation, modelFormField, context))
                 .stringParameter("idName", idName)
                 .stringParameter("description", description)
                 .stringParameter("title", title)
@@ -781,7 +781,7 @@ public final class RenderableFtlFormElementsBuilder {
                 action = modelFormField.getAction(context);
             }
             if (UtilValidate.isNotEmpty(request.getAttribute("image"))) {
-                imgSrc = request.getAttribute("image").toString();
+                imgSrc = encode(request.getAttribute("image").toString(), modelFormField, context);
             }
             if (UtilValidate.isNotEmpty(request.getAttribute("imageTitle"))) {
                 imgTitle = request.getAttribute("imageTitle").toString();

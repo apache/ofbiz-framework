@@ -449,7 +449,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         String name = modelFormField.getParameterName(context);
         String buttonType = submitField.getButtonType();
         String formName = FormRenderer.getCurrentFormName(modelForm, context);
-        String imgSrc = submitField.getImageLocation(context);
+        String imgSrc = encode(submitField.getImageLocation(context), modelFormField, context);
         String confirmation = submitField.getConfirmation(context);
         String className = "";
         String alert = "false";
@@ -2309,7 +2309,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
                 action = modelFormField.getAction(context);
             }
             if (UtilValidate.isNotEmpty(request.getAttribute("image"))) {
-                imgSrc = request.getAttribute("image").toString();
+                imgSrc = encode(request.getAttribute("image").toString(), modelFormField, context);
             }
             if (UtilValidate.isNotEmpty(request.getAttribute("imageTitle"))) {
                 imgTitle = request.getAttribute("imageTitle").toString();
