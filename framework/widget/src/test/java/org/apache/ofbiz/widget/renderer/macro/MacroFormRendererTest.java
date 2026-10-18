@@ -845,6 +845,7 @@ public class MacroFormRendererTest {
     public void renderSortFieldUsesQueryString(@Mocked ModelForm modelForm) throws IOException {
         final String paginateTarget = "TARGET";
         final String qbeString = "field2=value2 with spaces";
+        final String encodedQbeString = "field2=value2+with+spaces";
         final String linkFromQbeString = "LinkFromQBEString";
 
         new Expectations() {
@@ -854,7 +855,7 @@ public class MacroFormRendererTest {
 
                 modelForm.getPaginateTarget(withNotNull());
                 result = paginateTarget;
-                requestHandler.makeLink(withNotNull(), withNotNull(), withSubstring(qbeString));
+                requestHandler.makeLink(withNotNull(), withNotNull(), withSubstring(encodedQbeString));
                 result = linkFromQbeString;
 
                 modelFormField.getSortFieldHelpText(withNotNull());
