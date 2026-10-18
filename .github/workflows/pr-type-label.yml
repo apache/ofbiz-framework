@@ -22,10 +22,11 @@
 # generates (see .github/release.yml) can group pull requests by type.
 # Dependency updates titled "Bump ..." get the dependencies label, which
 # leaves them out of the release notes like the Dependabot pull requests.
+# Pull requests to a release branch get the release_branch label.
 # It never checks out nor runs code of the pull request.
 # Run it manually (workflow_dispatch) to label pull requests already merged.
 
-name: "PR Type Label"
+name: "PR Labels"
 
 on:
   pull_request_target:
@@ -52,7 +53,7 @@ jobs:
     if: >-
       github.event_name == 'workflow_dispatch' ||
       (github.event.pull_request.user.login != 'dependabot[bot]' &&
-       (github.event.action != 'edited' || github.event.changes.title))
+       (github.event.action != 'edited' || github.event.changes.title || github.event.changes.base))
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write
@@ -62,6 +63,7 @@ jobs:
         with:
           script: |
             const TYPE_LABELS = ['bug', 'enhancement', 'feature', 'documentation'];
+            const RELEASE_BRANCH_LABEL = 'release_branch';
             const PREFIXES = [
               [/^(fixed|fix|fixing)(?=[\s:])/i, 'bug'],
               [/^(improved|completed)(?=[\s:])/i, 'enhancement'],
@@ -108,27 +110,33 @@ jobs:
               }
             }
 
-            async function setTypeLabel(pr, dryRun) {
+            async function setLabels(pr, dryRun) {
               const label = await typeLabel(pr);
               const current = pr.labels.map(l => l.name);
-              const stale = label ? current.filter(name => TYPE_LABELS.includes(name) && name !== label) : [];
-              const add = label && !current.includes(label);
-              core.info(`#${pr.number} [${label || 'no type'}]${stale.length ? ` -${stale.join(' -')}` : ''}${add ? ` +${label}` : ''} ${pr.title}`);
+              const remove = label ? current.filter(name => TYPE_LABELS.includes(name) && name !== label) : [];
+              const add = label && !current.includes(label) ? [label] : [];
+              const onReleaseBranch = pr.base.ref.startsWith('release');
+              if (onReleaseBranch && !current.includes(RELEASE_BRANCH_LABEL)) {
+                add.push(RELEASE_BRANCH_LABEL);
+              } else if (pr.base.ref === pr.base.repo.default_branch && current.includes(RELEASE_BRANCH_LABEL)) {
+                remove.push(RELEASE_BRANCH_LABEL);
+              }
+              core.info(`#${pr.number} [${label || 'no type'}]${remove.map(name => ` -${name}`).join('')}${add.map(name => ` +${name}`).join('')} ${pr.title}`);
               if (dryRun) {
                 return;
               }
-              for (const name of stale) {
+              for (const name of remove) {
                 await github.rest.issues.removeLabel({ owner, repo, issue_number: pr.number, name });
               }
-              if (add) {
-                await github.rest.issues.addLabels({ owner, repo, issue_number: pr.number, labels: [label] });
+              if (add.length) {
+                await github.rest.issues.addLabels({ owner, repo, issue_number: pr.number, labels: add });
               }
             }
 
             if (context.eventName === 'pull_request_target') {
               // read the pull request again, a previous run may have changed its labels
               const { data: pr } = await github.rest.pulls.get({ owner, repo, pull_number: context.payload.pull_request.number });
-              await setTypeLabel(pr, false);
+              await setLabels(pr, false);
               return;
             }
 
@@ -150,5 +158,5 @@ jobs:
               });
             core.info(`${merged.length} pull requests merged since ${since}${dryRun ? ' (dry run)' : ''}`);
             for (const pr of merged) {
-              await setTypeLabel(pr, dryRun);
+              await setLabels(pr, dryRun);
             }

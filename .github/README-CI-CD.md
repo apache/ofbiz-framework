@@ -27,8 +27,8 @@
   → Trigger: push / PR on `.github/` path
 
 - `pr-type-label.yml`
-  Sets the type label (`bug`, `enhancement`, `feature`, `documentation`) of a PR from its title prefix (Fixed, Improved, Implemented, Documented), so that `release.yml` can group the release notes, and the `dependencies` label to the PRs titled "Bump ..."
-  → Trigger: PR opened, reopened or retitled on `trunk` and `release*` + manual run to label merged PRs
+  Sets the type label (`bug`, `enhancement`, `feature`, `documentation`) of a PR from its title prefix (Fixed, Improved, Implemented, Documented), so that `release.yml` can group the release notes, and the `dependencies` label to the PRs titled "Bump ...", and the `release_branch` label to the PRs to a `release*` branch (removed if a PR is retargeted to `trunk`)
+  → Trigger: PR opened, reopened, retitled or retargeted on `trunk` and `release*` + manual run to label merged PRs
 
 ### Workflow behavior
 
@@ -72,6 +72,8 @@ Before creating a new release branch from `trunk`, update `dependabot.yml` (on `
 - npm
 - github-actions
 - docker
+
+Give each of these entries the `labels` of the existing release branch entries (`dependencies`, the ecosystem label and `release_branch`).
 
 Then create the release branch.
 
