@@ -78,7 +78,6 @@ import org.apache.commons.csv.CSVParser;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.ofbiz.base.crypto.HashCrypt;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.FileUtil;
 import org.apache.ofbiz.base.util.StringUtil;
@@ -286,28 +285,17 @@ public class SecuredUpload {
         return true;
     }
 
-    // Cover method of the same name below. Historically used with 84 references when below was created
     // check there is no web shell in the uploaded file
     // A file containing a reverse shell will be rejected.
     public static boolean isValidText(String content, List<String> allowed) throws IOException {
-        return isValidText(content, allowed, false);
-    }
-
-    public static boolean isValidText(String content, List<String> allowed, boolean isQuery) throws IOException {
         if (content == null) {
             return false;
         }
-        if (!isQuery) {
-            String contentWithoutSpaces = content.replaceAll(" ", "");
-            if ((contentWithoutSpaces.contains("\"+\"") || contentWithoutSpaces.contains("'+'"))
-                    && !ALLOWSTRINGCONCATENATIONINUPLOADEDFILES) {
-                Debug.logInfo("The uploaded file contains a string concatenation. It can't be uploaded for security reason", MODULE);
-                return false;
-            }
-        } else {
-            // Check the query string is safe, notably no reverse shell
-            List<String> queryParameters = StringUtil.split(content, "&");
-            return DENIEDWEBSHELLTOKENS.stream().allMatch(token -> isValid(queryParameters, token.toLowerCase(), allowed));
+        String contentWithoutSpaces = content.replaceAll(" ", "");
+        if ((contentWithoutSpaces.contains("\"+\"") || contentWithoutSpaces.contains("'+'"))
+                && !ALLOWSTRINGCONCATENATIONINUPLOADEDFILES) {
+            Debug.logInfo("The uploaded file contains a string concatenation. It can't be uploaded for security reason", MODULE);
+            return false;
         }
 
         // Check there is no web shell in an uploaded file
@@ -1590,25 +1578,6 @@ public class SecuredUpload {
         boolean isOK = !content.contains(string) || allowed.contains(string);
         if (!isOK) {
             Debug.logInfo("The uploaded file contains the string '" + string + "'. It can't be uploaded for security reason", MODULE);
-        }
-        return isOK;
-    }
-
-    // Check there is no reverse shell in query string
-    private static boolean isValid(List<String> queryParameters, String string, List<String> allowed) {
-        boolean isOK = true;
-
-        for (String parameter : queryParameters) {
-            if (!parameter.contains(string)
-                    || allowed.contains(HashCrypt.cryptBytes("SHA", "OFBiz", parameter.toLowerCase().getBytes(StandardCharsets.UTF_8)))) {
-                continue;
-            } else {
-                isOK = false;
-                break;
-            }
-        }
-        if (!isOK) {
-            Debug.logInfo("The HTTP query string contains the string '" + string + "'. It can't be uploaded for security reason", MODULE);
         }
         return isOK;
     }
