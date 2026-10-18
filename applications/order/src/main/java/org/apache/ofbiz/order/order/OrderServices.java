@@ -3734,6 +3734,12 @@ public class OrderServices {
         String changeComments = (String) context.get("changeComments");
         Boolean calcTax = (Boolean) context.get("calcTax");
         Map<String, String> itemAttributesMap = UtilGenerics.cast(context.get("itemAttributesMap"));
+        Security security = dctx.getSecurity();
+
+        if (!OrderServices.hasPermission(orderId, userLogin, "UPDATE", security, delegator)) {
+            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+                    "OrderYouDoNotHavePermissionToChangeThisOrdersStatus", locale));
+        }
 
         if (calcTax == null) {
             calcTax = Boolean.TRUE;
@@ -6688,6 +6694,12 @@ public class OrderServices {
         String contactMechId = (String) context.get("contactMechId");
         String oldContactMechId = (String) context.get("oldContactMechId");
         String shipmentMethod = (String) context.get("shipmentMethod");
+        Security security = dctx.getSecurity();
+
+        if (!OrderServices.hasPermission(orderId, userLogin, "UPDATE", security, delegator)) {
+            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+                    "OrderYouDoNotHavePermissionToChangeThisOrdersStatus", locale));
+        }
 
         //load cart from order to update new shipping method or address
         ShoppingCart shoppingCart = null;
