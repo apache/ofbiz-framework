@@ -94,11 +94,13 @@ import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSDocument;
 import org.apache.pdfbox.cos.COSName;
 import org.apache.pdfbox.cos.COSObject;
+import org.apache.pdfbox.cos.COSString;
 import org.apache.pdfbox.io.RandomAccessReadBufferedFile;
 import org.apache.pdfbox.pdmodel.PDDocument;
 //import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDDocumentNameDictionary;
 import org.apache.pdfbox.pdmodel.PDEmbeddedFilesNameTreeNode;
+import org.apache.pdfbox.pdmodel.common.filespecification.PDComplexFileSpecification;
 import org.apache.tika.Tika;
 import org.apache.tika.exception.TikaException;
 import org.apache.tika.metadata.Metadata;
@@ -1110,6 +1112,106 @@ public class SecuredUpload {
         return exemptFieldScripts;
     }
 
+    /** Actions that start a program, import data from a file, open another or an embedded document, or play media. */
+    private static final Set<COSName> UNSAFE_ACTIONS = Set.of(COSName.getPDFName("Launch"), COSName.getPDFName("ImportData"),
+            COSName.getPDFName("GoToR"), COSName.getPDFName("GoToE"), COSName.getPDFName("Movie"), COSName.getPDFName("Sound"),
+            COSName.getPDFName("Rendition"), COSName.getPDFName("RichMediaExecute"));
+
+    /** Annotations that play media. */
+    private static final Set<COSName> UNSAFE_ANNOTATIONS = Set.of(COSName.getPDFName("RichMedia"), COSName.getPDFName("Movie"),
+            COSName.getPDFName("Sound"), COSName.getPDFName("Screen"));
+
+    private static final COSName ACTION = COSName.getPDFName("Action");
+    private static final COSName SUBMIT_FORM = COSName.getPDFName("SubmitForm");
+    private static final Set<String> URI_SCHEMES = Set.of("http", "https", "mailto");
+    private static final Set<String> SUBMIT_FORM_SCHEMES = Set.of("http", "https");
+
+    /**
+     * Looks for content a PDF viewer could use to reach outside the document: a file specification with an embedded file
+     * (in the embedded files names tree, a file attachment annotation, or anywhere else), an action that starts a
+     * program, imports data from a file, opens another or an embedded document or plays media, a media annotation, a link
+     * (URI action) that is not http, https or mailto, and a form submission to anything other than http or https. Every
+     * object reachable from the trailer is checked, then every object listed in the cross-reference table, even if nothing
+     * refers to it.
+     * @param pdDocument the loaded PDF document
+     * @param allowedFileSpec the file specification whose embedded file is allowed, null if none is
+     * @return what was found, or null if nothing was
+     */
+    private static String findUnsafeContent(PDDocument pdDocument, COSBase allowedFileSpec) {
+        COSDocument cosDocument = pdDocument.getDocument();
+        Deque<COSBase> toVisit = new ArrayDeque<>();
+        cosDocument.getXrefTable().keySet().forEach(key -> pushIfNotNull(toVisit, cosDocument.getObjectFromPool(key)));
+        pushIfNotNull(toVisit, cosDocument.getTrailer());
+        Set<COSBase> visited = Collections.newSetFromMap(new IdentityHashMap<>());
+        while (!toVisit.isEmpty()) {
+            COSBase base = dereference(toVisit.pop());
+            if (base == null || !visited.add(base)) {
+                continue;
+            }
+            if (base instanceof COSDictionary) {
+                COSDictionary dictionary = (COSDictionary) base;
+                String unsafeContent = getUnsafeContent(dictionary, allowedFileSpec);
+                if (unsafeContent != null) {
+                    return unsafeContent;
+                }
+                dictionary.getValues().forEach(value -> pushIfNotNull(toVisit, value));
+            } else if (base instanceof COSArray) {
+                COSArray array = (COSArray) base;
+                array.forEach(element -> pushIfNotNull(toVisit, element));
+            }
+        }
+        return null;
+    }
+
+    /**
+     * @return what makes the given PDF dictionary unsafe, or null if it is not
+     * @see #findUnsafeContent(PDDocument, COSBase)
+     */
+    private static String getUnsafeContent(COSDictionary dictionary, COSBase allowedFileSpec) {
+        if (dictionary.containsKey(COSName.EF) && dictionary != allowedFileSpec) {
+            return "an embedded file";
+        }
+        COSName type = dictionary.getCOSName(COSName.TYPE);
+        COSName actionType = dictionary.getCOSName(COSName.S);
+        if (actionType != null && (type == null || ACTION.equals(type))) {
+            if (UNSAFE_ACTIONS.contains(actionType)) {
+                return "a " + actionType.getName() + " action";
+            }
+            if (COSName.URI.equals(actionType) && !hasScheme(dictionary.getString(COSName.URI), URI_SCHEMES)) {
+                return "a link that is not http, https or mailto";
+            }
+            if (SUBMIT_FORM.equals(actionType) && !hasScheme(getFileSpecName(dictionary.getDictionaryObject(COSName.F)),
+                    SUBMIT_FORM_SCHEMES)) {
+                return "a form submission that is not http or https";
+            }
+        }
+        COSName subtype = dictionary.getCOSName(COSName.SUBTYPE);
+        if (subtype != null && (type == null || COSName.ANNOT.equals(type)) && UNSAFE_ANNOTATIONS.contains(subtype)) {
+            return "a " + subtype.getName() + " annotation";
+        }
+        return null;
+    }
+
+    /** @return the file name or URL of a PDF file specification, either a string or a dictionary, or null if it has none */
+    private static String getFileSpecName(COSBase fileSpec) {
+        if (fileSpec instanceof COSDictionary) {
+            COSDictionary dictionary = (COSDictionary) fileSpec;
+            String unicodeName = dictionary.getString(COSName.UF);
+            return unicodeName != null ? unicodeName : dictionary.getString(COSName.F);
+        }
+        return fileSpec instanceof COSString ? ((COSString) fileSpec).getString() : null;
+    }
+
+    /** @return true if the target is an absolute URL using one of the given lower case schemes */
+    private static boolean hasScheme(String target, Set<String> schemes) {
+        if (target == null) {
+            return false;
+        }
+        String trimmedTarget = target.trim();
+        int colon = trimmedTarget.indexOf(':');
+        return colon > 0 && schemes.contains(trimmedTarget.substring(0, colon).toLowerCase(Locale.ROOT));
+    }
+
     private static COSBase dereference(COSBase base) {
         return base instanceof COSObject ? ((COSObject) base).getObject() : base;
     }
@@ -1137,6 +1239,7 @@ public class SecuredUpload {
             }
             // Load stream in PDF parser
             PDEmbeddedFilesNameTreeNode efTree = null;
+            boolean zUGFeRDCompliantUploadAllowed = UtilProperties.getPropertyAsBoolean("security", "allowZUGFeRDCompliantUpload", false);
             try (PDDocument pdDocument = Loader.loadPDF(new RandomAccessReadBufferedFile(fileName))) {
                 // Check 1: detect if the document contains any JavaScript code
                 boolean formFieldScriptsAllowed = UtilProperties.getPropertyAsBoolean("security", "allowPdfFormFieldScripts", false);
@@ -1145,11 +1248,22 @@ public class SecuredUpload {
                             + "For security reason it's not accepted as a PDF file", MODULE);
                     return safeState;
                 }
-                // OK no JS code, pass to check 2: detect if the document has any embedded files
+                // OK no JS code, pass to check 2: detect if the document has any embedded files, other than a ZUGFeRD invoice as the
+                // only file of the embedded files names tree, or any other unsafe content
                 PDDocumentNameDictionary names = new PDDocumentNameDictionary(pdDocument.getDocumentCatalog());
                 efTree = names.getEmbeddedFiles();
+                Map<String, PDComplexFileSpecification> embeddedFiles = Objects.isNull(efTree) ? null : efTree.getNames();
+                COSBase zUGFeRDFileSpec = null;
+                if (zUGFeRDCompliantUploadAllowed && embeddedFiles != null && embeddedFiles.size() == 1) {
+                    zUGFeRDFileSpec = embeddedFiles.values().iterator().next().getCOSObject();
+                }
+                String unsafeContent = findUnsafeContent(pdDocument, zUGFeRDFileSpec);
+                if (unsafeContent != null) {
+                    Debug.logInfo("The file " + file.getAbsolutePath() + " contains " + unsafeContent + ". "
+                            + "For security reason it's not accepted as a PDF file", MODULE);
+                    return safeState;
+                }
             }
-            boolean zUGFeRDCompliantUploadAllowed = UtilProperties.getPropertyAsBoolean("security", "allowZUGFeRDCompliantUpload", false);
             if (zUGFeRDCompliantUploadAllowed && !Objects.isNull(efTree)) {
                 canParseZUGFeRD = false;
                 Integer numberOfEmbeddedFiles = efTree.getNames().size();
@@ -1161,7 +1275,7 @@ public class SecuredUpload {
                     } else {
                         try {
                             Document document = UtilXml.readXmlDocument(importer.getUTF8());
-                            if (document.toString().equals("[#document: null]")) {
+                            if (document == null || document.getDocumentElement() == null) {
                                 safeState = false;
                                 Debug.logInfo("The file " + file.getAbsolutePath()
                                         + " is not a readable (valid and secure) PDF file. For security reason it's not accepted as a such file",
