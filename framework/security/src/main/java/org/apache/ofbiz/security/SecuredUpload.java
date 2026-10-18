@@ -991,7 +991,7 @@ public class SecuredUpload {
                     } else {
                         try {
                             Document document = UtilXml.readXmlDocument(importer.getUTF8());
-                            if (document.toString().equals("[#document: null]")) {
+                            if (document == null || document.getDocumentElement() == null) {
                                 safeState = false;
                                 Debug.logInfo("The file " + file.getAbsolutePath()
                                         + " is not a readable (valid and secure) PDF file. For security reason it's not accepted as a such file",
