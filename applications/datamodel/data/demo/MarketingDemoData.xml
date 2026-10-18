@@ -150,7 +150,6 @@ under the License.
     <PartyRole partyId="DemoLeadOwnersGroup" roleTypeId="_NA_"/>
     <PartyRole partyId="DemoLeadOwnersGroup" roleTypeId="OTHER_ORGANIZATION_U"/>
     <PartyStatus partyId="DemoLeadOwnersGroup" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
-    <PartyRelationship partyIdFrom="Company" partyIdTo="DemoLeadOwnersGroup" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="_NA_" roleTypeIdTo="_NA_" fromDate="2001-05-13 00:00:00.000"/>
 
     <!-- Leads of DemoLeadOwner -->
     <PartyRelationship partyIdFrom="DemoLeadOwner" roleTypeIdFrom="OWNER" partyIdTo="DemoLead" roleTypeIdTo="LEAD" fromDate="2001-05-13 00:00:00.000" partyRelationshipTypeId="LEAD_OWNER"/>
