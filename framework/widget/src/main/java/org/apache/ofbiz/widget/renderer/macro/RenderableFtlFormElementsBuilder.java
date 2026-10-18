@@ -163,7 +163,7 @@ public final class RenderableFtlFormElementsBuilder {
         final RenderableFtlMacroCallBuilder builder = RenderableFtlMacroCall.builder()
                 .name("renderDisplayField")
                 .stringParameter("type", type)
-                .stringParameter("imageLocation", imageLocation)
+                .stringParameter("imageLocation", encode(imageLocation, modelFormField, context))
                 .stringParameter("idName", idName)
                 .stringParameter("description", description)
                 .stringParameter("title", title)
@@ -913,7 +913,7 @@ public final class RenderableFtlFormElementsBuilder {
                 action = modelFormField.getAction(context);
             }
             if (UtilValidate.isNotEmpty(request.getAttribute("image"))) {
-                imgSrc = request.getAttribute("image").toString();
+                imgSrc = encode(request.getAttribute("image").toString(), modelFormField, context);
             }
             if (UtilValidate.isNotEmpty(request.getAttribute("imageTitle"))) {
                 imgTitle = request.getAttribute("imageTitle").toString();
@@ -1459,7 +1459,7 @@ public final class RenderableFtlFormElementsBuilder {
                 .stringParameter("id", nonNull(modelFormField.getCurrentContainerId(context)))
                 .stringParameter("event", nonNull(modelFormField.getEvent()))
                 .stringParameter("action", nonNull(modelFormField.getAction(context)))
-                .stringParameter("imgSrc", nonNull(submitField.getImageLocation(context)))
+                .stringParameter("imgSrc", nonNull(encode(submitField.getImageLocation(context), modelFormField, context)))
                 .stringParameter("containerId", ajaxEnabled ? nonNull(formId) : "")
                 .stringParameter("confirmation", nonNull(submitField.getConfirmation(context)))
                 .stringParameter("ajaxUrl", ajaxEnabled ? nonNull(ajaxUrl) : "")

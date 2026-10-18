@@ -29,6 +29,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import org.apache.ofbiz.base.util.StringUtil;
+import org.apache.ofbiz.base.util.UtilCodec;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilValidate;
@@ -281,6 +282,10 @@ public class MacroTreeRenderer implements TreeStringRenderer {
             }
         } else {
             urlString = src;
+        }
+        UtilCodec.SimpleEncoder simpleEncoder = (UtilCodec.SimpleEncoder) context.get("simpleEncoder");
+        if (simpleEncoder != null) {
+            urlString = simpleEncoder.encode(urlString);
         }
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("src", src);
