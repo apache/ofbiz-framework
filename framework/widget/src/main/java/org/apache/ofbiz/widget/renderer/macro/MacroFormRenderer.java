@@ -2127,23 +2127,8 @@ public final class MacroFormRenderer implements FormStringRenderer {
         if (ajaxEnabled) {
             linkUrl = MacroCommonRenderer.createAjaxParamsFromUpdateAreas(updateAreas, paramMap, modelForm, null, context);
         } else {
-            StringBuilder sb = new StringBuilder("?");
-            Iterator<Map.Entry<String, Object>> iter = paramMap.entrySet().iterator();
-            while (iter.hasNext()) {
-                Map.Entry<String, Object> entry = iter.next();
-                sb.append(entry.getKey()).append("=").append(entry.getValue());
-                if (iter.hasNext()) {
-                    sb.append("&amp;");
-                }
-            }
-            String newQueryString = sb.toString();
             String urlPath = UtilHttp.removeQueryStringFromTarget(paginateTarget);
-            if (newQueryString.contains("?null=")) { // FIXME, not sure how to handle URL encoding in tests
-                newQueryString = newQueryString.replace("?null=LinkFromQBEString", "?sortField=LinkFromQBEString");
-                linkUrl = rh.makeLink(this.request, this.response, urlPath.concat(newQueryString));
-            } else {
-                linkUrl = rh.makeLink(this.request, this.response, urlPath.concat(UtilCodec.encodeUrl(newQueryString, context)));
-            }
+            linkUrl = rh.makeLink(this.request, this.response, urlPath + "?" + UtilHttp.urlEncodeArgs(paramMap));
         }
         StringWriter sr = new StringWriter();
         sr.append("<@renderSortField ");
@@ -2152,7 +2137,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         sr.append("\" title=\"");
         sr.append(titleText);
         sr.append("\" linkUrl=\"");
-        sr.append(linkUrl);
+        sr.append(MacroCommonRenderer.escapeFtlString(linkUrl));
         sr.append("\" ajaxEnabled=");
         sr.append(Boolean.toString(ajaxEnabled));
         String tooltip = modelFormField.getSortFieldHelpText(context);
