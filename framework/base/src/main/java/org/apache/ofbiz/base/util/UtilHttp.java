@@ -33,13 +33,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.FileNameMap;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URLConnection;
-import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.ByteBuffer;
-import java.nio.charset.Charset;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -72,8 +68,6 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.ofbiz.webapp.control.ConfigXMLReader;
@@ -164,21 +158,6 @@ public final class UtilHttp {
         }
         if (Debug.verboseOn()) {
             Debug.logVerbose("Made Request Parameter Map with [" + params.size() + "] Entries", MODULE);
-        }
-
-        // Handles encoded queryStrings
-        String requestURI = req.getRequestURI();
-        if (params.isEmpty() && null != requestURI) {
-            try {
-                List<NameValuePair> nameValuePairs = URLEncodedUtils.parse(
-                        new URI(UtilHttp.encodeBlanks(URLDecoder.decode(requestURI, "UTF-8"))),
-                        Charset.forName("UTF-8"));
-                for (NameValuePair element : nameValuePairs) {
-                    params.put(element.getName(), element.getValue());
-                }
-            } catch (UnsupportedEncodingException | URISyntaxException e) {
-                Debug.logError("Can't handle encoded queryString " + requestURI, MODULE);
-            }
         }
         return canonicalizeParameterMap(params);
     }
