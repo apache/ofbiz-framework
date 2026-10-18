@@ -164,7 +164,8 @@ public class ControlFilter extends HttpFilter {
         if (!(isControlFilterTests() || isEntityImport || isProgramExport)) {
             // Prevents stream exploitation
             UrlServletHelper.setRequestAttributes(req, null, req.getServletContext());
-            Map<String, Object> parameters = UtilHttp.getParameterMap(req);
+            // Only the parameters passed in the URL are checked, a form body can legitimately contain markup
+            Map<String, Object> parameters = UtilHttp.getUrlOnlyParameterMap(req);
             boolean reject = false;
             if (!parameters.isEmpty()) {
                 for (String key : parameters.keySet()) {
@@ -174,8 +175,9 @@ public class ControlFilter extends HttpFilter {
                             List<String> toCheck = object.getClass().equals(String.class)
                                     ? List.of((String) object)
                                             : UtilGenerics.checkCollection(object, String.class);
-                            reject = toCheck.stream()
-                                    .anyMatch(val -> val.contains("<"));
+                            if (toCheck.stream().anyMatch(val -> val.contains("<"))) {
+                                reject = true;
+                            }
                         } catch (IllegalArgumentException e) {
                             Debug.logWarning(e, MODULE);
                             reject = true;
