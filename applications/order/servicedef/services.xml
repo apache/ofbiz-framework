@@ -299,9 +299,12 @@ under the License.
         <attribute name="paymentId" type="String" mode="OUT" optional="false"/>
     </service>
 
-    <service name="updateTrackingNumber" engine="java"
+    <service name="updateTrackingNumber" engine="java" auth="true"
             location="org.apache.ofbiz.order.order.OrderServices" invoke="updateTrackingNumber">
         <description>Sets the tracking number on a shipment preference</description>
+        <required-permissions join-type="AND">
+            <check-permission permission="ORDERMGR" action="_UPDATE"/>
+        </required-permissions>
         <attribute name="orderId" type="String" mode="IN" optional="false">
             <type-validate>
                 <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingOrderId"/>
