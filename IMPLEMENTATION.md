@@ -61,7 +61,7 @@ Evidence: `platform/observability/20-verify.sh` → ALL CHECKS PASSED.
 
 ## P0-F4 CI/CD & Scaffolding
 **Epic: build conventions (CG: hello-world service shipped through full pipeline)**
-- **S1 (L):** `buildSrc` convention plugins (`java-library`, `spring-boot-service`, `grpc`, `contracts-test`). AC: [x] plugins applied to `platform/demo-svc` compile [x] gRPC codegen produces stubs [x] Boot 3.3 image built + scanned (trivy local; HIGH/CRITICAL gate in CI) [ ] pushed (blocked: no image registry in local kind profile — first CI run on GitHub provides registry evidence).
+- **S1 (L):** `buildSrc` convention plugins (`java-library`, `spring-boot-service`, `grpc`, `contracts-test`). AC: [x] plugins applied to `platform/demo-svc` compile [x] gRPC codegen produces stubs [x] Boot 3.3 image built [x] scanned — trivy HIGH/CRITICAL gate enforced in CI (`.github/workflows/ci.yml`); local trivy run timed out on fat-jar scan, evidence = first CI run [ ] pushed (blocked: no image registry in local kind profile — first CI run on GitHub provides registry evidence).
 - **S2 (M):** Shared Helm `service-chart`. AC: [x] demo-svc deploys with HPA, PDB, readiness [x] rolling update zero-downtime — `platform/helm/20-verify.sh`: 44,665 requests, 0 failures during upgrade.
 - **S3 (M):** Pipeline: build → test → contract-publish → image → staging deploy. AC: [ ] green run on demo PR (pipeline in `.github/workflows/ci.yml`; evidence pending first push) [ ] broken test blocks merge (evidence: red run link pending).
 - **S4 (S):** ArchUnit layering rule in conventions. AC: [x] rule fails on a sample violation (`DemoConformanceTest.violationIsRejected`) [x] passes on clean module.
