@@ -7,8 +7,12 @@ They are downloaded and copied into this directory automatically when running `.
 
 == Swagger UI
 
-Access: https://localhost:8443/docs/swagger-ui.html
+Access: https://localhost:8443/docs/<api-group-path>/swagger-ui.html
+
+Without an api group path (https://localhost:8443/docs/swagger-ui.html) the default "api" group is shown.
 
 == Redoc
 
-Access: https://localhost:8443/docs/redoc.html
+Access: https://localhost:8443/docs/<api-group-path>/redoc.html
+
+Without an api group path (https://localhost:8443/docs/redoc.html) the default "api" group is shown.
