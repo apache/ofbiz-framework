@@ -1,0 +1,36 @@
+# BOM pins per FUTURESTATE-LOWLEVEL §1: Boot 3.3.x, gRPC 1.6x, kafka-clients 3.7.x,
+# Postgres 16 driver, OTel 2.x, Flyway 10, Testcontainers 1.19.
+[versions]
+spring-boot = "3.3.13"
+spring-dependency-management = "1.1.6"
+grpc = "1.66.0"
+protobuf = "3.25.5"
+grpc-protobuf-plugin = "0.9.5"
+kafka = "3.7.1"
+postgres = "42.7.4"
+otel = "1.67.0"
+flyway = "10.20.1"
+testcontainers = "1.19.8"
+archunit = "1.3.0"
+junit = "5.10.2"
+
+[libraries]
+spring-boot-bom = { module = "org.springframework.boot:spring-boot-dependencies", version.ref = "spring-boot" }
+grpc-bom = { module = "io.grpc:grpc-bom", version.ref = "grpc" }
+grpc-protobuf = { module = "io.grpc:grpc-protobuf" }
+grpc-services = { module = "io.grpc:grpc-services" }
+grpc-stub = { module = "io.grpc:grpc-stub" }
+protobuf-java = { module = "com.google.protobuf:protobuf-java", version.ref = "protobuf" }
+tomcat-annotations = { module = "org.apache.tomcat:annotations-api", version = "6.0.53" }
+kafka-clients = { module = "org.apache.kafka:kafka-clients", version.ref = "kafka" }
+postgresql = { module = "org.postgresql:postgresql", version.ref = "postgres" }
+otel-bom = { module = "io.opentelemetry:opentelemetry-bom", version.ref = "otel" }
+flyway-core = { module = "org.flywaydb:flyway-core", version.ref = "flyway" }
+testcontainers-bom = { module = "org.testcontainers:testcontainers-bom", version.ref = "testcontainers" }
+archunit = { module = "com.tngtech.archunit:archunit-junit5", version.ref = "archunit" }
+junit-bom = { module = "org.junit:junit-bom", version.ref = "junit" }
+
+[plugins]
+spring-boot = { id = "org.springframework.boot", version.ref = "spring-boot" }
+spring-dependency-management = { id = "io.spring.dependency-management", version.ref = "spring-dependency-management" }
+protobuf = { id = "com.google.protobuf", version.ref = "grpc-protobuf-plugin" }

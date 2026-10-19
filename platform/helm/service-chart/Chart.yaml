@@ -1,0 +1,6 @@
+apiVersion: v2
+name: service-chart
+description: Shared Helm chart for all ofbiz-modernization services (P0-F4-S2)
+type: application
+version: 0.1.0
+appVersion: "0.1.0"

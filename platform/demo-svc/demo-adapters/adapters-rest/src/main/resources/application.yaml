@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: demo-svc
+  threads:
+    virtual:
+      enabled: true
+server:
+  port: 8080
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,prometheus
+  endpoint:
+    health:
+      probes:
+        enabled: true

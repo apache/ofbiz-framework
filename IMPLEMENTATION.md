@@ -33,7 +33,7 @@
 - [ ] Kafka 3.7 (Strimzi) + Schema Registry reachable from a test pod; topic create/consume roundtrip proven
 - [ ] OTel collector receiving spans/metrics from a demo deployment; Jaeger trace and Grafana dashboard visible
 - [ ] CI pipeline builds a hello-world Spring Boot 3.3 service (convention plugin) and pushes an image to registry; CD deploys it via the shared Helm chart with mTLS enforced
-- [ ] Repo scaffold: `buildSrc` convention plugins compile; ArchUnit layering test enforces domain-purity on a sample module
+- [x] Repo scaffold: `buildSrc` convention plugins compile; ArchUnit layering test enforces domain-purity on a sample module (P0-F4: `./gradlew build` green, red-green evidence in `DemoConformanceTest`)
 
 ## P0-F1 Cluster & Service Mesh
 **Epic: provision K8s + Istio (CG: cluster ready, mesh strict mTLS)**
@@ -61,10 +61,10 @@ Evidence: `platform/observability/20-verify.sh` → ALL CHECKS PASSED.
 
 ## P0-F4 CI/CD & Scaffolding
 **Epic: build conventions (CG: hello-world service shipped through full pipeline)**
-- **S1 (L):** `buildSrc` convention plugins (`java-library`, `spring-boot-service`, `grpc`, `contracts-test`). AC: [ ] plugins applied to `platform/demo-svc` compile [ ] gRPC codegen produces stubs [ ] Boot 3.3 image built + scanned (trivy) + pushed.
-- **S2 (M):** Shared Helm `service-chart`. AC: [ ] demo-svc deploys with HPA, PDB, readiness [ ] rolling update zero-downtime (test traffic during upgrade).
-- **S3 (M):** Pipeline: build → test → contract-publish → image → staging deploy. AC: [ ] green run on demo PR [ ] broken test blocks merge (evidence: red run link).
-- **S4 (S):** ArchUnit layering rule in conventions. AC: [ ] rule fails on a sample violation (red-green evidence) [ ] passes on clean module.
+- **S1 (L):** `buildSrc` convention plugins (`java-library`, `spring-boot-service`, `grpc`, `contracts-test`). AC: [x] plugins applied to `platform/demo-svc` compile [x] gRPC codegen produces stubs [x] Boot 3.3 image built + scanned (trivy local; HIGH/CRITICAL gate in CI) [ ] pushed (blocked: no image registry in local kind profile — first CI run on GitHub provides registry evidence).
+- **S2 (M):** Shared Helm `service-chart`. AC: [x] demo-svc deploys with HPA, PDB, readiness [x] rolling update zero-downtime — `platform/helm/20-verify.sh`: 44,665 requests, 0 failures during upgrade.
+- **S3 (M):** Pipeline: build → test → contract-publish → image → staging deploy. AC: [ ] green run on demo PR (pipeline in `.github/workflows/ci.yml`; evidence pending first push) [ ] broken test blocks merge (evidence: red run link pending).
+- **S4 (S):** ArchUnit layering rule in conventions. AC: [x] rule fails on a sample violation (`DemoConformanceTest.violationIsRejected`) [x] passes on clean module.
 
 ---
 

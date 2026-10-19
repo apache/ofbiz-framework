@@ -1,0 +1,38 @@
+# Shared service chart defaults (P0-F4-S2). Override per service.
+nameOverride: ""
+replicaCount: 2
+
+image:
+  repository: demo-svc
+  tag: dev
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 8080
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 256Mi
+  limits:
+    cpu: 500m
+    memory: 512Mi
+
+# HPA on CPU; disabled when autoscaling.enabled=false (e.g. single-node kind).
+autoscaling:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 4
+  targetCPUUtilizationPercentage: 80
+
+podDisruptionBudget:
+  enabled: true
+  minAvailable: 1
+
+podAnnotations:
+  sidecar.istio.io/inject: "true"
+
+probes:
+  readiness: /actuator/health/readiness
+  liveness: /actuator/health/liveness

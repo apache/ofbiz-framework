@@ -40,3 +40,6 @@ desktop.ini
 *.patch
 node_modules/
 /docs/asciidoc/images/
+
+# Modernization program build (root gradle wrapper)
+.gradle/
