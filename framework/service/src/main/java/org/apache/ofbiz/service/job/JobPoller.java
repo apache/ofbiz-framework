@@ -52,6 +52,7 @@ public final class JobPoller implements ServiceConfigListener {
     private static final ConcurrentHashMap<String, JobManager> JOB_MANAGERS = new ConcurrentHashMap<>();
     private static final ThreadPoolExecutor EXECUTOR = createThreadPoolExecutor();
     private static final JobPoller INSTANCE = new JobPoller();
+    private static final long SHUTDOWN_TIMEOUT_SECONDS = 5;
 
     /**
      * Returns the <code>JobPoller</code> instance.
@@ -251,6 +252,15 @@ public final class JobPoller implements ServiceConfigListener {
             } catch (Exception e) {
                 Debug.logWarning(e, MODULE);
             }
+        }
+        // Give the interrupted jobs a short time to end and return their connections before the datasources get closed
+        // (see OFBIZ-13686); the wait is kept short so that a container runtime does not kill OFBiz before that
+        try {
+            if (!EXECUTOR.awaitTermination(SHUTDOWN_TIMEOUT_SECONDS, TimeUnit.SECONDS)) {
+                Debug.logWarning("Some jobs were still running after " + SHUTDOWN_TIMEOUT_SECONDS + " seconds", MODULE);
+            }
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
         }
         Debug.logInfo("JobPoller shutdown completed.", MODULE);
     }
