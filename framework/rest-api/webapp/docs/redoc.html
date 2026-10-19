@@ -36,12 +36,17 @@ under the License.
   </head>
   <body>
   <redoc></redoc>
-  <script src="redoc.standalone.js"> </script>
+  <script src="/docs/redoc.standalone.js"> </script>
   <script>
       if (!window.location.origin) {
         window.location.origin = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port : '');
       }
-      Redoc.init(window.location.origin + '/rest/openapi.json');
+
+      const pathSegments = window.location.pathname.split('/').filter(Boolean);
+      const apiName = pathSegments.length >= 3 ? pathSegments[pathSegments.length - 2] : null;
+      const apiGroupPath = apiName ? encodeURIComponent(apiName) + "/" : "api/";
+
+      Redoc.init(window.location.origin + "/rest/" + apiGroupPath + "openapi.json");
     </script>
   </body>
 </html>
