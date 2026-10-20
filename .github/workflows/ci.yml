@@ -64,7 +64,7 @@ jobs:
       - name: Wait for schema registry readiness
         run: |
           for i in $(seq 1 30); do
-            if curl -sf -o /dev/null "${REGISTRY}/../rules"; then echo ready; exit 0; fi
+            if curl -sf -o /dev/null "http://localhost:8080/apis/registry/v2/system/info"; then echo ready; exit 0; fi
             sleep 2
           done
           echo "registry never became ready"; exit 1
