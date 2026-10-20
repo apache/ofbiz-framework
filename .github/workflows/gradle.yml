@@ -22,48 +22,61 @@ name: Java CI with Gradle
 on:
   push:
     branches: [ trunk, release* ]
+    # Changes that cannot affect `./gradlew check javadoc` (documentation, Docker/IDE/devcontainer
+    # setup, Windows-only scripts, other workflows...) don't trigger the build: the ubuntu-latest
+    # runners are a limited resource shared by all the ASF projects.
+    # GitHub evaluates these patterns in order, so a later pattern can re-include a path that an
+    # earlier "!" pattern excluded.
+    paths: &build-paths
+      - '**'
+      - '!**.md'
+      - '!**.adoc'
+      - '!**/src/docs/**'
+      - '!docs/**'
+      - '!**.bat'
+      - '!APACHE2_HEADER'
+      - '!INSTALL'
+      - '!LICENSE'
+      - '!NOTICE'
+      - '!OPTIONAL_LIBRARIES'
+      - '!VERSION'
+      - '!.asf.yaml'
+      - '!.devcontainer/**'
+      - '!.dockerignore'
+      - '!.gitattributes'
+      - '!.gitignore'
+      - '!.hgignore'
+      - '!.idea/**'
+      - '!.pre-commit-config.yaml'
+      - '!Dockerfile'
+      - '!docker/**'
+      - '!.github/**'
+      - '.github/workflows/gradle.yml'
   pull_request:
     branches: [ trunk, release* ]
+    paths: *build-paths
+
+# A new push to a pull request makes its previous, still running or queued build useless.
+# Pushes to trunk and release* are never cancelled so that every commit gets its own result.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 permissions:
   contents: read
 
 jobs:
-  # Computes which JDK versions the build job's matrix should cover. This lives in its
-  # own job because the `matrix` context is not available in a job-level `if:`, so the
-  # release*-branches-skip-21 rule can't be expressed as a condition on the build job
-  # itself - see https://github.com/orgs/community/discussions/37883. Instead we shrink
-  # the matrix itself before it reaches the build job.
-  prep:
-    runs-on: ubuntu-latest
-    outputs:
-      java: ${{ steps.set-matrix.outputs.java }}
-    steps:
-    - name: Determine JDK matrix
-      id: set-matrix
-      env:
-        EVENT_NAME: ${{ github.event_name }}
-        REF_NAME: ${{ github.ref_name }}
-        BASE_REF: ${{ github.base_ref }}
-      run: |
-        # release* branches stay JDK 17 only until they adopt JDK 21 too,
-        # since trunk fixes must stay backportable to them.
-        if { [ "$EVENT_NAME" = "push" ] && [[ "$REF_NAME" == release* ]]; } || \
-           { [ "$EVENT_NAME" = "pull_request" ] && [[ "$BASE_REF" == release* ]]; }; then
-          echo 'java=[17]' >> "$GITHUB_OUTPUT"
-        else
-          echo 'java=[17,21]' >> "$GITHUB_OUTPUT"
-        fi
-
   build:
     # trunk builds sourceCompatibility/targetCompatibility 17 bytecode (see build.gradle),
     # but is matrix-tested on both the JDK 17 runtime it targets and the JDK 21 runtime
     # it may adopt later.
-    needs: prep
+    # release* branches stay JDK 17 only until they adopt JDK 21 too, since trunk fixes must
+    # stay backportable to them. github.base_ref is the target branch of a pull request and is
+    # empty for a push, where github.ref_name is the pushed branch.
     strategy:
       fail-fast: false
       matrix:
-        java: ${{ fromJson(needs.prep.outputs.java) }}
+        java: ${{ startsWith(github.base_ref || github.ref_name, 'release') && fromJson('[17]') || fromJson('[17, 21]') }}
 
     runs-on: ubuntu-latest
 
