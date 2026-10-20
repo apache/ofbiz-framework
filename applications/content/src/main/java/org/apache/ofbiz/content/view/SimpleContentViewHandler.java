@@ -103,6 +103,13 @@ public class SimpleContentViewHandler extends AbstractViewHandler {
                 Debug.logVerbose("dataResourceId:" + dataResourceId, MODULE);
             }
             Delegator delegator = (Delegator) request.getAttribute("delegator");
+            if (UtilValidate.isNotEmpty(dataResourceId) && UtilValidate.isNotEmpty(contentId)) {
+                // the permission check below is done on the contentId, so the given dataResourceId must belong to that content
+                GenericValue content = EntityQuery.use(delegator).from("Content").where("contentId", contentId).cache().queryOne();
+                if (content == null || !dataResourceId.equals(content.getString("dataResourceId"))) {
+                    throw new ViewHandlerException("DataResource [" + dataResourceId + "] is not associated with Content [" + contentId + "]");
+                }
+            }
             if (UtilValidate.isEmpty(dataResourceId)) {
                 if (UtilValidate.isEmpty(contentRevisionSeqId)) {
                     if (UtilValidate.isEmpty(mapKey) && UtilValidate.isEmpty(contentAssocTypeId)) {
