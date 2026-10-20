@@ -213,6 +213,13 @@ Map calculateShoppingListDeepTotalPrice() {
  * Checks security on a ShoppingList
  */
 Map checkShoppingListSecurity() {
+    // for an existing list, check against its stored owner, not the partyId sent with the request
+    if (parameters.shoppingListId) {
+        GenericValue shoppingList = from('ShoppingList').where(shoppingListId: parameters.shoppingListId).queryOne()
+        require(!shoppingList?.partyId || userLogin?.partyId == shoppingList.partyId
+                || security.hasEntityPermission('PARTYMGR', "_${parameters.permissionAction}", parameters.userLogin),
+                'OrderErrorUiLabels', 'OrderSecurityErrorToRunForAnotherParty')
+    }
     require(!userLogin || (userLogin.userLoginId == 'anonymous') ||
             !parameters.partyId || (userLogin.partyId == parameters.partyId)
             || security.hasEntityPermission('PARTYMGR', "_${parameters.permissionAction}", parameters.userLogin),
