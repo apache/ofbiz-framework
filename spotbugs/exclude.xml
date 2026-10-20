@@ -163,18 +163,6 @@ under the License.
     <Bug pattern="ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD" />
   </Match>
   <Match>
-    <!-- not a problem, apiKey is initialised by UtilProperties.getPropertyValue() and then only read or possibly modified by the only constructor -->
-    <Class name="org.apache.ofbiz.ecommerce.janrain.JanrainHelper" />
-    <Field name="apiKey" />
-    <Bug pattern="ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD" />
-  </Match>
-  <Match>
-    <!-- not a problem, baseUrl is initialised by UtilProperties.getPropertyValue() and then only read or possibly modified by the only constructor -->
-    <Class name="org.apache.ofbiz.ecommerce.janrain.JanrainHelper" />
-    <Field name="baseUrl" />
-    <Bug pattern="ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD" />
-  </Match>
-  <Match>
     <!-- not a problem, as specified in org.jsoup.nodes.Element : @param attributes initial attributes (optional, may be null) -->
     <Class name="org.apache.ofbiz.widget.WidgetWorker" />
     <Method name="makeHiddenFormLinkFormElement" />
