@@ -20,6 +20,7 @@ class DemoConformanceTest {
     class Layering {
         @Test
         void cleanModulePasses() {
+            org.junit.jupiter.api.Assertions.fail("deliberately broken for P0-F4-S3 red-run evidence");
             JavaClasses classes = new ClassFileImporter().importPackages("demo");
             OfbizArchitectureRules.layeredArchitecture().check(classes);
             OfbizArchitectureRules.noFrameworkDependenciesInDomain().check(classes);
