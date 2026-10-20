@@ -56,6 +56,7 @@ under the License.
         <description>Checks security on a ShoppingList</description>
         <implements service="permissionInterface"/>
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
+        <attribute name="shoppingListId" type="String" mode="IN" optional="true"/>
     </service>
     <service name="calculateShoppingListDeepTotalPrice" engine="groovy" auth="true"
             location="component://order/src/main/groovy/org/apache/ofbiz/order/shoppinglist/ShoppingListServicesScript.groovy" invoke="calculateShoppingListDeepTotalPrice">
