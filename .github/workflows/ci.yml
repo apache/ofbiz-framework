@@ -41,11 +41,15 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Push image
         if: github.event_name == 'push'
+        env:
+          # GHCR requires lowercase repository names
+          IMAGE: ghcr.io/${{ format('{0}', github.repository_owner) }}
         run: |
-          docker tag demo-svc:ci ghcr.io/${{ github.repository_owner }}/demo-svc:${{ github.sha }}
-          docker tag demo-svc:ci ghcr.io/${{ github.repository_owner }}/demo-svc:latest
-          docker push ghcr.io/${{ github.repository_owner }}/demo-svc:${{ github.sha }}
-          docker push ghcr.io/${{ github.repository_owner }}/demo-svc:latest
+          IMAGE="$(echo "${IMAGE}" | tr '[:upper:]' '[:lower:]')/demo-svc"
+          docker tag demo-svc:ci "${IMAGE}:${{ github.sha }}"
+          docker tag demo-svc:ci "${IMAGE}:latest"
+          docker push "${IMAGE}:${{ github.sha }}"
+          docker push "${IMAGE}:latest"
 
   # P0-F2-S3: Avro contract pipeline — register sample OrderPlaced against a
   # schema registry, enforce BACKWARD compatibility. The incompatible-change
