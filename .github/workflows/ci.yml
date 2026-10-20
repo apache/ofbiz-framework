@@ -61,6 +61,13 @@ jobs:
       REGISTRY: http://localhost:8080/apis/registry/v2/groups/order
     steps:
       - uses: actions/checkout@v4
+      - name: Wait for schema registry readiness
+        run: |
+          for i in $(seq 1 30); do
+            if curl -sf -o /dev/null "${REGISTRY}/../rules"; then echo ready; exit 0; fi
+            sleep 2
+          done
+          echo "registry never became ready"; exit 1
       - name: Register order.v1.OrderPlaced + set BACKWARD rule
         run: |
           curl -sf -X POST "${REGISTRY}?ifExists=return" \
