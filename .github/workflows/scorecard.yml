@@ -45,8 +45,6 @@ on:
   schedule:
     # At 00:37 on Saturday
     - cron: '37 0 * * 6'
-  push:
-    branches: [ "trunk" ]
 
 # Declare default permissions as read only.
 permissions: read-all
