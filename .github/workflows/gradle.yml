@@ -22,8 +22,45 @@ name: Java CI with Gradle
 on:
   push:
     branches: [ trunk, release* ]
+    # Changes that cannot affect `./gradlew check javadoc` (documentation, Docker/IDE/devcontainer
+    # setup, Windows-only scripts, other workflows...) don't trigger the build: the ubuntu-latest
+    # runners are a limited resource shared by all the ASF projects.
+    # GitHub evaluates these patterns in order, so a later pattern can re-include a path that an
+    # earlier "!" pattern excluded.
+    paths: &build-paths
+      - '**'
+      - '!**.md'
+      - '!**.adoc'
+      - '!**/src/docs/**'
+      - '!docs/**'
+      - '!**.bat'
+      - '!APACHE2_HEADER'
+      - '!INSTALL'
+      - '!LICENSE'
+      - '!NOTICE'
+      - '!OPTIONAL_LIBRARIES'
+      - '!VERSION'
+      - '!.asf.yaml'
+      - '!.devcontainer/**'
+      - '!.dockerignore'
+      - '!.gitattributes'
+      - '!.gitignore'
+      - '!.hgignore'
+      - '!.idea/**'
+      - '!.pre-commit-config.yaml'
+      - '!Dockerfile'
+      - '!docker/**'
+      - '!.github/**'
+      - '.github/workflows/gradle.yml'
   pull_request:
     branches: [ trunk, release* ]
+    paths: *build-paths
+
+# A new push to a pull request makes its previous, still running or queued build useless.
+# Pushes to trunk and release* are never cancelled so that every commit gets its own result.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 permissions:
   contents: read
