@@ -58,7 +58,7 @@ jobs:
         ports:
           - 8080:8080
     env:
-      REGISTRY: http://localhost:8080/apis/registry/v2/groups/order
+      REGISTRY: http://localhost:8080/apis/registry/v2/groups/order/artifacts
     steps:
       - uses: actions/checkout@v4
       - name: Wait for schema registry readiness
@@ -70,12 +70,12 @@ jobs:
           echo "registry never became ready"; exit 1
       - name: Register order.v1.OrderPlaced + set BACKWARD rule
         run: |
-          curl -sf -X POST "${REGISTRY}?ifExists=return" \
+          curl -sf -X POST "${REGISTRY}?ifExists=RETURN" \
             -H "X-Registry-ArtifactId: order-placed" \
             -H "X-Registry-ArtifactType: AVRO" \
             -H "Content-Type: application/json" \
             --data-binary @contracts/order/v1/OrderPlaced.avsc
-          curl -sf -X PUT "${REGISTRY}/rules" \
+          curl -sf -X POST "${REGISTRY}/order-placed/rules" \
             -H "Content-Type: application/json" \
             -d '{"type":"COMPATIBILITY","config":"BACKWARD"}'
       - name: BACKWARD gate rejects an incompatible change
@@ -97,7 +97,7 @@ jobs:
           }
           EOF
           CODE=$(curl -s -o /tmp/resp -w '%{http_code}' \
-            -X POST "${REGISTRY}/artifacts/order-placed/versions" \
+            -X POST "${REGISTRY}/order-placed/versions" \
             -H "Content-Type: application/json" \
             --data-binary @/tmp/incompatible.avsc)
           echo "incompatible register → HTTP ${CODE}"; cat /tmp/resp
@@ -120,7 +120,7 @@ jobs:
             ]
           }
           EOF
-          curl -sf -X POST "${REGISTRY}/artifacts/order-placed/versions" \
+          curl -sf -X POST "${REGISTRY}/order-placed/versions" \
             -H "Content-Type: application/json" \
             --data-binary @/tmp/compatible.avsc > /dev/null
           echo "compatible register → accepted"

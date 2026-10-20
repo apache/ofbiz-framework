@@ -39,7 +39,7 @@
 **Epic: provision K8s + Istio (CG: cluster ready, mesh strict mTLS)**
 - **S1 (M):** Provision cluster, `ofbiz` namespace, Istio with `PeerAuth: STRICT`. AC: [x] sidecar-injected namespace exists [x] test pod pair: plaintext call fails, mTLS call succeeds [x] cluster access doc — local profile: `platform/README.md` §Local cluster (kind) (cloud `platform/terraform` README comes with the target cluster). Evidence: `platform/bootstrap/10-verify-mtls.sh` → ALL CHECKS PASSED.
 - **S2 (S):** cert-manager + wildcard DNS + gateway LB. AC (local profile): [x] `https://ofbiz.127.0.0.1.sslip.io` resolves to istio-ingress, serves CA-verified wildcard cert (`platform/certmanager/20-verify.sh` → HTTP 200 `{"status":"UP"}` from demo-svc, chain verified against ofbiz-root-ca) [x] auto-renewal scheduled (duration 1h / renewBefore 45m, `renewalTime` verified). Cloud deltas: Let's Encrypt staging issuer + delegated wildcard DNS + LB (no NodePort/hostPort) — annotated in `platform/certmanager/10-install.sh`.
-- **S3 (S):** Vault CSI + K8s secrets baseline. AC: [ ] test secret mounted into pod [ ] rotation doc. (local profile: `platform/vault/10-install.sh` + `20-verify.sh`; rotation doc = `platform/vault/README.md`)
+- **S3 (S):** Vault CSI + K8s secrets baseline. AC: [x] test secret mounted into pod (`platform/vault/20-verify.sh` → ALL CHECKS PASSED; provider v2 schema: roleName + per-key objects) [x] rotation doc (`platform/vault/README.md`). Local profile: dev-mode Vault, root token; cloud profile swaps to HA Vault.
 
 ## P0-F2 Event Backbone
 **Epic: Kafka + Schema Registry (CG: event plane proven)**

@@ -10,8 +10,8 @@ NS="ofbiz"
 echo "==> Waiting for the CSI mount (provider writes files after pod start)"
 FOUND=""
 for attempt in $(seq 1 12); do
-  U="$(kubectl -n "${NS}" exec vault-csi-test -- cat /mnt/secrets/ofbiz-demo/username 2>/dev/null || true)"
-  P="$(kubectl -n "${NS}" exec vault-csi-test -- cat /mnt/secrets/ofbiz-demo/password 2>/dev/null || true)"
+  U="$(kubectl -n "${NS}" exec vault-csi-test -- cat /mnt/secrets/username 2>/dev/null || true)"
+  P="$(kubectl -n "${NS}" exec vault-csi-test -- cat /mnt/secrets/password 2>/dev/null || true)"
   if [ "${U}" = "demo-user" ] && [ "${P}" = "demo-pass" ]; then FOUND=1; break; fi
   sleep 10
 done

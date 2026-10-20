@@ -23,18 +23,30 @@ kubectl -n "${VAULT_NS}" wait pod/vault-0 --for=condition=Ready --timeout=300s
 echo "==> Installing Secrets Store CSI driver + vault provider"
 helm upgrade --install csi /tmp/csi-chart.tgz \
   -n kube-system --set syncSecret.enabled=true >/dev/null
-kubectl -n kube-system wait deploy/secrets-store-csi-driver --for=condition=Available --timeout=300s
-kubectl -n "${VAULT_NS}" apply -f \
-  https://raw.githubusercontent.com/hashicorp/vault-csi-provider/main/deployment/vault-csi-provider.yaml >/dev/null
-kubectl -n "${VAULT_NS}" set env deploy/vault-csi-provider VAULT_ADDR="http://vault.${VAULT_NS}.svc:8200" >/dev/null
-kubectl -n "${VAULT_NS}" wait deploy/vault-csi-provider --for=condition=Available --timeout=300s
+# The CSI daemonset publishes no status conditions, so poll ready/desired.
+for i in $(seq 1 60); do
+  READY="$(kubectl -n kube-system get ds csi-secrets-store-csi-driver \
+    -o jsonpath='{.status.numberReady}/{.status.desiredNumberScheduled}' 2>/dev/null || true)"
+  [ "${READY#*/}" != "" ] && [ "${READY%/*}" = "${READY#*/}" ] && break
+  sleep 10
+done
+[ "${READY%/*}" = "${READY#*/}" ] || { echo "FATAL: CSI daemonset never ready (${READY})"; exit 1; }
+curl -fsSL -o /tmp/vault-csi-provider.yaml \
+  https://raw.githubusercontent.com/hashicorp/vault-csi-provider/main/deployment/vault-csi-provider.yaml
+# Upstream manifest pins namespace "csi" — install it there as-is. It
+# deploys a DaemonSet; point it at Vault and restart the pods.
+kubectl create namespace csi --dry-run=client -o yaml | kubectl apply -f - >/dev/null
+kubectl apply -f /tmp/vault-csi-provider.yaml >/dev/null
+kubectl -n csi set env ds/vault-csi-provider VAULT_ADDR="http://vault.${VAULT_NS}.svc:8200" >/dev/null
+kubectl -n csi rollout status ds/vault-csi-provider --timeout=300s
 
 echo "==> Configuring Kubernetes auth + test policy in Vault"
 # Dev mode root token = "root".
-VAULT="kubectl -n ${VAULT_NS} exec vault-0 -- vault"
+VAULT="kubectl -n ${VAULT_NS} exec -i vault-0 -- vault"
 ${VAULT} auth enable kubernetes >/dev/null 2>&1 || true
+K8S_HOST="https://$(kubectl -n ${VAULT_NS} exec vault-0 -- sh -c 'echo -n ${KUBERNETES_SERVICE_HOST}')" # ponytail: cluster-internal API VIP from vault-0's env
 ${VAULT} write auth/kubernetes/config \
-  kubernetes_host="https://\${KUBERNETES_SERVICE_HOST}:\${KUBERNETES_SERVICE_PORT}" \
+  kubernetes_host="${K8S_HOST}" \
   token_reviewer_jwt="$(kubectl -n ${VAULT_NS} exec vault-0 -- cat /var/run/secrets/kubernetes.io/serviceaccount/token)" \
   kubernetes_ca_cert=@/var/run/secrets/kubernetes.io/serviceaccount/ca.crt >/dev/null
 
@@ -61,13 +73,15 @@ spec:
   provider: vault
   parameters:
     vaultAddress: "http://vault.${VAULT_NS}.svc:8200"
-    vaultRole: ofbiz-demo
-    secrets: |
-      - secretPath: secret/data/ofbiz/demo
-        args:
-          - username
-          - password
-        path: ofbiz-demo
+    roleName: ofbiz-demo
+    # vault-csi-provider v2 schema: per-key objects with unique objectName
+    objects: |
+      - objectName: username
+        secretPath: secret/data/ofbiz/demo
+        secretKey: username
+      - objectName: password
+        secretPath: secret/data/ofbiz/demo
+        secretKey: password
 ---
 apiVersion: v1
 kind: Pod

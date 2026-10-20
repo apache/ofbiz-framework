@@ -1,0 +1,77 @@
+---
+# Dev in-cluster stack (Phase 0 components). Idempotent: every underlying
+# platform/*/10-install.sh is safe to re-run. Order matters — mesh first
+# (workload namespace sidecar injection), then event plane, PKI/ingress,
+# secrets, storage, observability, demo workload.
+#
+# Run via infra/dev/up.sh, or directly:
+#   cd infra/ansible && ansible-playbook playbooks/dev-stack.yml
+#
+# Tags:  ansible-playbook playbooks/dev-stack.yml --tags kafka
+- name: Dev stack on kind
+  hosts: dev
+  vars:
+    repo_root: "{{ playbook_dir }}/../.."
+  tasks:
+    - name: Preflight — kubectl reaches the cluster
+      ansible.builtin.command: kubectl get nodes
+      changed_when: false
+
+    - name: Preflight — tools present
+      ansible.builtin.command: "{{ item }} --version"
+      loop: [istioctl, helm]
+      changed_when: false
+      failed_when: false
+
+    - name: Cluster + Istio STRICT mTLS + ofbiz namespace (P0-F1-S1)
+      ansible.builtin.shell: |
+        sh {{ repo_root }}/platform/bootstrap/00-bootstrap.sh
+        sh {{ repo_root }}/platform/bootstrap/10-verify-mtls.sh
+      register: mesh
+      changed_when: "'PASS' in mesh.stdout"
+      tags: [mesh, istio]
+
+    - name: Kafka + Apicurio schema registry (P0-F2-S1)
+      ansible.builtin.shell: |
+        sh {{ repo_root }}/platform/kafka/10-install.sh
+        sh {{ repo_root }}/platform/kafka/20-verify.sh
+        sh {{ repo_root }}/platform/kafka/21-verify-broker-kill.sh
+      register: kafka
+      changed_when: "'created' in kafka.stdout"
+      tags: [kafka]
+
+    - name: Topic namespace + DLQ + ACL manifests (P0-F2-S2)
+      ansible.builtin.shell: sh {{ repo_root }}/platform/helm/topics/10-create.sh
+      tags: [kafka, topics]
+
+    - name: cert-manager + istio ingress + wildcard TLS (P0-F1-S2)
+      ansible.builtin.shell: |
+        sh {{ repo_root }}/platform/certmanager/10-install.sh
+        sh {{ repo_root }}/platform/certmanager/20-verify.sh
+      tags: [certmanager, tls]
+
+    - name: Vault + Secrets Store CSI (P0-F1-S3)
+      ansible.builtin.shell: |
+        sh {{ repo_root }}/platform/vault/10-install.sh
+        sh {{ repo_root }}/platform/vault/20-verify.sh
+      tags: [vault]
+
+    - name: Local S3 object storage — Garage (P0 storage)
+      ansible.builtin.shell: |
+        kubectl -n ofbiz apply -f {{ repo_root }}/platform/storage/garage.yaml
+        sh {{ repo_root }}/platform/storage/20-verify.sh
+      tags: [storage]
+
+    - name: Observability stack (P0-F3)
+      ansible.builtin.shell: |
+        sh {{ repo_root }}/platform/observability/10-install.sh
+        sh {{ repo_root }}/platform/observability/20-verify.sh
+      tags: [observability]
+
+    - name: Demo service via shared Helm chart (P0-F4-S2)
+      ansible.builtin.shell: sh {{ repo_root }}/platform/helm/10-install.sh
+      tags: [demo]
+
+    - name: Summary
+      ansible.builtin.debug:
+        msg: Dev stack applied. Gate evidence lives in each task output above.
