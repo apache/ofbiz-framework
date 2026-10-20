@@ -1,7 +1,9 @@
-# BOM pins per FUTURESTATE-LOWLEVEL §1: Boot 3.3.x, gRPC 1.6x, kafka-clients 3.7.x,
-# Postgres 16 driver, OTel 2.x, Flyway 10, Testcontainers 1.19.
+# BOM pins per FUTURESTATE-LOWLEVEL §1 (amended by ADR-015): Boot 4.0.x
+# (security-forced bump from 3.3.x — trivy gate CVEs unfixable on 3.3),
+# gRPC 1.6x, kafka-clients 3.7.x, Postgres 16 driver, OTel 2.x, Flyway 10,
+# Testcontainers 1.19.
 [versions]
-spring-boot = "3.3.13"
+spring-boot = "4.0.6"
 spring-dependency-management = "1.1.6"
 grpc = "1.66.0"
 protobuf = "3.25.5"

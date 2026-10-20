@@ -23,19 +23,18 @@ dependencies {
 
 }
 
-// Security overrides above the Boot 3.3 BOM (trivy CI gate, 2026-10):
-// Boot 3.3.x EOL leaves tomcat/jackson/micrometer behind; pin the fixed
-// versions until the program moves to a supported Boot line. These use the
-// dependency-management DSL — BOM imports beat Gradle forces/constraints.
+// Security overrides one patch ahead of the Boot 4.0.6 BOM (trivy gate,
+// 2026-10). Drop entries as the BOM catches up.
 configure<io.spring.gradle.dependencymanagement.dsl.DependencyManagementExtension> {
     dependencies {
-        dependency("org.apache.tomcat.embed:tomcat-embed-core:10.1.55")
-        dependency("org.apache.tomcat.embed:tomcat-embed-el:10.1.55")
-        dependency("org.apache.tomcat.embed:tomcat-embed-websocket:10.1.55")
-        dependency("com.fasterxml.jackson.core:jackson-core:2.18.11")
-        dependency("com.fasterxml.jackson.core:jackson-databind:2.18.11")
-        dependency("com.fasterxml.jackson.core:jackson-annotations:2.18.11")
-        dependency("io.micrometer:micrometer-core:1.15.12")
+        dependency("org.apache.tomcat.embed:tomcat-embed-core:11.0.25")
+        dependency("org.apache.tomcat.embed:tomcat-embed-el:11.0.25")
+        dependency("org.apache.tomcat.embed:tomcat-embed-websocket:11.0.25")
+        dependency("org.springframework:spring-expression:7.0.9")
+        dependency("org.springframework:spring-webmvc:7.0.9")
+        dependency("tools.jackson.core:jackson-core:3.1.7")
+        dependency("tools.jackson.core:jackson-databind:3.1.7")
+        dependency("io.micrometer:micrometer-core:1.16.6")
     }
 }
 
