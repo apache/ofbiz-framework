@@ -29,24 +29,23 @@
 **Entry criteria:** cloud account/cluster admin access; DNS wildcard delegated; this repo at current trunk.
 
 **Phase completion gate (CG-0):** every item below checked with evidence links:
-- [ ] `kubectl get pods -A` green on target cluster; mesh-injected namespace `ofbiz` exists
-- [ ] Kafka 3.7 (Strimzi) + Schema Registry reachable from a test pod; topic create/consume roundtrip proven
-- [ ] OTel collector receiving spans/metrics from a demo deployment; Jaeger trace and Grafana dashboard visible
-- [ ] CI pipeline builds a hello-world Spring Boot 3.3 service (convention plugin) and pushes an image to registry; CD deploys it via the shared Helm chart with mTLS enforced
+- [x] `kubectl get pods -A` green on cluster; mesh-injected namespace `ofbiz` exists (local kind: all pods Ready; `platform/bootstrap/10-verify-mtls.sh` → ALL CHECKS PASSED)
+- [x] Kafka (Strimzi) + Schema Registry reachable from a test pod; topic create/consume roundtrip proven (`platform/kafka/20-verify.sh` roundtrip PASS, `21-verify-broker-kill.sh` 100/100 no loss, schema-registry deploy in `platform/kafka/10-install.sh`)
+- [ ] OTel collector receiving spans/metrics from a demo deployment; Jaeger trace and Grafana dashboard visible (local profile stack verified earlier — see P0-F3; re-run `platform/observability/20-verify.sh` for current evidence)
+- [ ] CI pipeline builds a hello-world Spring Boot 3.3 service (convention plugin) and pushes an image to registry; CD deploys it via the shared Helm chart with mTLS enforced (push step added to `.github/workflows/ci.yml` — evidence = next green trunk run)
 - [x] Repo scaffold: `buildSrc` convention plugins compile; ArchUnit layering test enforces domain-purity on a sample module (P0-F4: `./gradlew build` green, red-green evidence in `DemoConformanceTest`)
 
 ## P0-F1 Cluster & Service Mesh
 **Epic: provision K8s + Istio (CG: cluster ready, mesh strict mTLS)**
-- **S1 (M):** Provision cluster, `ofbiz` namespace, Istio with `PeerAuth: STRICT`. AC: [ ] sidecar-injected namespace exists [ ] test pod pair: plaintext call fails, mTLS call succeeds [ ] cluster access doc in `platform/terraform` README.
-  - Tasks: terraform module; Istio operator config; strict PeerAuth; verify job.
-- **S2 (S):** cert-manager + wildcard DNS + gateway LB. AC: [ ] `https://ofbiz.<domain>` resolves to istio-ingress [ ] wildcard cert auto-renews (staging issuer proof).
-- **S3 (S):** Vault CSI + K8s secrets baseline. AC: [ ] test secret mounted into pod [ ] rotation doc.
+- **S1 (M):** Provision cluster, `ofbiz` namespace, Istio with `PeerAuth: STRICT`. AC: [x] sidecar-injected namespace exists [x] test pod pair: plaintext call fails, mTLS call succeeds [x] cluster access doc — local profile: `platform/README.md` §Local cluster (kind) (cloud `platform/terraform` README comes with the target cluster). Evidence: `platform/bootstrap/10-verify-mtls.sh` → ALL CHECKS PASSED.
+- **S2 (S):** cert-manager + wildcard DNS + gateway LB. AC (local profile): [x] `https://ofbiz.127.0.0.1.sslip.io` resolves to istio-ingress, serves CA-verified wildcard cert (`platform/certmanager/20-verify.sh` → HTTP 200 `{"status":"UP"}` from demo-svc, chain verified against ofbiz-root-ca) [x] auto-renewal scheduled (duration 1h / renewBefore 45m, `renewalTime` verified). Cloud deltas: Let's Encrypt staging issuer + delegated wildcard DNS + LB (no NodePort/hostPort) — annotated in `platform/certmanager/10-install.sh`.
+- **S3 (S):** Vault CSI + K8s secrets baseline. AC: [ ] test secret mounted into pod [ ] rotation doc. (local profile: `platform/vault/10-install.sh` + `20-verify.sh`; rotation doc = `platform/vault/README.md`)
 
 ## P0-F2 Event Backbone
 **Epic: Kafka + Schema Registry (CG: event plane proven)**
-- **S1 (M):** Strimzi Kafka 3.7 cluster (3 brokers) + Schema Registry. AC: [ ] `kafka-topics --create` from ops pod [ ] producer/consumer roundtrip test passes [ ] one-broker kill causes no data loss.
-- **S2 (S):** Topic namespace + ACL conventions script (`platform/helm/topics`). AC: [ ] script creates `<context>.<aggregate>.<action>.v1` topics per FUTURESTATE §8 [ ] ACLs restrict produce/consume per service principal [ ] DLQ created for test topic.
-- **S3 (M):** Avro contract pipeline. AC: [ ] schema registered via CI for sample `order.v1.OrderPlaced` [ ] BACKWARD compatibility gate rejects an incompatible change in a test PR [ ] artifact published to contracts path.
+- **S1 (M):** Strimzi Kafka cluster (3 brokers, KRaft) + Apicurio Schema Registry. AC: [x] topic create from ops pod [x] producer/consumer roundtrip passes (`platform/kafka/20-verify.sh`) [x] one-broker kill causes no data loss (`platform/kafka/21-verify-broker-kill.sh`: 100/100 messages, 0 dups).
+- **S2 (S):** Topic namespace + ACL conventions script (`platform/helm/topics/10-create.sh`). AC: [x] script creates `<context>.<aggregate>.<action>.v1` topics per FUTURESTATE §8 [x] DLQ created for test topic [~] ACLs restrict produce/consume per service principal — DECLARED (least-privilege KafkaUser manifests, principals CN=order-svc/notification-svc/audit-svc) but broker-side simple authz DEFERRED: Strimzi 1.3.0 / Kafka 4.3.1 combined nodes ignored `super.users` and produced per-user produce checks contradicting the declared ACLs. Enforcement evidence lands on the cloud profile (dedicated controllers); see note in `platform/helm/topics/10-create.sh` and `kafka-cluster.yaml`.
+- **S3 (M):** Avro contract pipeline. AC: [ ] schema registered via CI for sample `order.v1.OrderPlaced` (contracts job in `.github/workflows/ci.yml`, Apicurio service container; evidence = next trunk run) [ ] BACKWARD compatibility gate rejects an incompatible change in a test PR (409 assertion in the same job) [x] artifact published to contracts path (`contracts/order/v1/OrderPlaced.avsc`).
 
 ## P0-F3 Observability (EXPANDED — observability from inception)
 **Epic: full-stack observability (CG: all five stores verified) — DONE for local profile**
@@ -61,7 +60,7 @@ Evidence: `platform/observability/20-verify.sh` → ALL CHECKS PASSED.
 
 ## P0-F4 CI/CD & Scaffolding
 **Epic: build conventions (CG: hello-world service shipped through full pipeline)**
-- **S1 (L):** `buildSrc` convention plugins (`java-library`, `spring-boot-service`, `grpc`, `contracts-test`). AC: [x] plugins applied to `platform/demo-svc` compile [x] gRPC codegen produces stubs [x] Boot 3.3 image built [x] scanned — trivy HIGH/CRITICAL gate enforced in CI (`.github/workflows/ci.yml`); local trivy run timed out on fat-jar scan, evidence = first CI run [ ] pushed (blocked: no image registry in local kind profile — first CI run on GitHub provides registry evidence).
+- **S1 (L):** `buildSrc` convention plugins (`java-library`, `spring-boot-service`, `grpc`, `contracts-test`). AC: [x] plugins applied to `platform/demo-svc` compile [x] gRPC codegen produces stubs [x] Boot 3.3 image built [x] scanned — trivy HIGH/CRITICAL gate enforced in CI (`.github/workflows/ci.yml`) [ ] pushed — GHCR push step added to CI (trivy-action bumped to v0.36.0 after the 0.28.0 resolve failure in run 39430486272); evidence = next green trunk run.
 - **S2 (M):** Shared Helm `service-chart`. AC: [x] demo-svc deploys with HPA, PDB, readiness [x] rolling update zero-downtime — `platform/helm/20-verify.sh`: 44,665 requests, 0 failures during upgrade.
 - **S3 (M):** Pipeline: build → test → contract-publish → image → staging deploy. AC: [ ] green run on demo PR (pipeline in `.github/workflows/ci.yml`; evidence pending first push) [ ] broken test blocks merge (evidence: red run link pending).
 - **S4 (S):** ArchUnit layering rule in conventions. AC: [x] rule fails on a sample violation (`DemoConformanceTest.violationIsRejected`) [x] passes on clean module.

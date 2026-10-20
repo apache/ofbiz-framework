@@ -5,6 +5,10 @@ on:
     branches: [trunk]
   pull_request:
 
+permissions:
+  contents: read
+  packages: write
+
 jobs:
   build-test:
     runs-on: ubuntu-latest
@@ -20,9 +24,96 @@ jobs:
       - name: Build service image
         run: docker build -t demo-svc:ci platform/demo-svc
       - name: Trivy scan (gate on HIGH/CRITICAL)
-        uses: aquasecurity/trivy-action@0.28.0
+        uses: aquasecurity/trivy-action@v0.36.0
         with:
           image-ref: demo-svc:ci
           severity: HIGH,CRITICAL
           exit-code: "1"
           ignore-unfixed: true
+      # P0-F4-S1: image push (GHCR). Runs on trunk pushes only — PRs have no
+      # registry credentials need.
+      - name: Login to GHCR
+        if: github.event_name == 'push'
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Push image
+        if: github.event_name == 'push'
+        run: |
+          docker tag demo-svc:ci ghcr.io/${{ github.repository_owner }}/demo-svc:${{ github.sha }}
+          docker tag demo-svc:ci ghcr.io/${{ github.repository_owner }}/demo-svc:latest
+          docker push ghcr.io/${{ github.repository_owner }}/demo-svc:${{ github.sha }}
+          docker push ghcr.io/${{ github.repository_owner }}/demo-svc:latest
+
+  # P0-F2-S3: Avro contract pipeline — register sample OrderPlaced against a
+  # schema registry, enforce BACKWARD compatibility. The incompatible-change
+  # rejection below is the gate that must fail the CI run.
+  contracts:
+    runs-on: ubuntu-latest
+    services:
+      registry:
+        image: quay.io/apicurio/apicurio-registry-mem:2.6.x-release
+        ports:
+          - 8080:8080
+    env:
+      REGISTRY: http://localhost:8080/apis/registry/v2/groups/order
+    steps:
+      - uses: actions/checkout@v4
+      - name: Register order.v1.OrderPlaced + set BACKWARD rule
+        run: |
+          curl -sf -X POST "${REGISTRY}?ifExists=return" \
+            -H "X-Registry-ArtifactId: order-placed" \
+            -H "X-Registry-ArtifactType: AVRO" \
+            -H "Content-Type: application/json" \
+            --data-binary @contracts/order/v1/OrderPlaced.avsc
+          curl -sf -X PUT "${REGISTRY}/rules" \
+            -H "Content-Type: application/json" \
+            -d '{"type":"COMPATIBILITY","config":"BACKWARD"}'
+      - name: BACKWARD gate rejects an incompatible change
+        run: |
+          cat > /tmp/incompatible.avsc <<'EOF'
+          {
+            "type": "record",
+            "name": "OrderPlaced",
+            "namespace": "ofbiz.order.v1",
+            "fields": [
+              { "name": "orderId", "type": "string" },
+              { "name": "customerId", "type": "string" },
+              { "name": "placedAt", "type": { "type": "long", "logicalType": "timestamp-millis" } },
+              { "name": "grandTotal", "type": { "type": "bytes", "logicalType": "decimal", "precision": 18, "scale": 2 } },
+              { "name": "currency", "type": "string" },
+              { "name": "lineCount", "type": "int" },
+              { "name": "riskScore", "type": "int" }
+            ]
+          }
+          EOF
+          CODE=$(curl -s -o /tmp/resp -w '%{http_code}' \
+            -X POST "${REGISTRY}/artifacts/order-placed/versions" \
+            -H "Content-Type: application/json" \
+            --data-binary @/tmp/incompatible.avsc)
+          echo "incompatible register → HTTP ${CODE}"; cat /tmp/resp
+          [ "${CODE}" = "409" ] || { echo "FAIL: expected 409, got ${CODE}"; exit 1; }
+      - name: BACKWARD gate accepts a compatible change
+        run: |
+          cat > /tmp/compatible.avsc <<'EOF'
+          {
+            "type": "record",
+            "name": "OrderPlaced",
+            "namespace": "ofbiz.order.v1",
+            "fields": [
+              { "name": "orderId", "type": "string" },
+              { "name": "customerId", "type": "string" },
+              { "name": "placedAt", "type": { "type": "long", "logicalType": "timestamp-millis" } },
+              { "name": "grandTotal", "type": { "type": "bytes", "logicalType": "decimal", "precision": 18, "scale": 2 } },
+              { "name": "currency", "type": "string" },
+              { "name": "lineCount", "type": "int" },
+              { "name": "channel", "type": ["null", "string"], "default": null }
+            ]
+          }
+          EOF
+          curl -sf -X POST "${REGISTRY}/artifacts/order-placed/versions" \
+            -H "Content-Type: application/json" \
+            --data-binary @/tmp/compatible.avsc > /dev/null
+          echo "compatible register → accepted"

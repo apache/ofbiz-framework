@@ -1,0 +1,14 @@
+{
+  "type": "record",
+  "name": "OrderPlaced",
+  "namespace": "ofbiz.order.v1",
+  "doc": "Emitted by order-svc when an order is placed (ADR-009 event contract).",
+  "fields": [
+    { "name": "orderId", "type": "string" },
+    { "name": "customerId", "type": "string" },
+    { "name": "placedAt", "type": { "type": "long", "logicalType": "timestamp-millis" } },
+    { "name": "grandTotal", "type": { "type": "bytes", "logicalType": "decimal", "precision": 18, "scale": 2 } },
+    { "name": "currency", "type": "string" },
+    { "name": "lineCount", "type": "int" }
+  ]
+}

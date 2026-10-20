@@ -20,6 +20,13 @@ spec:
         type: internal
         tls: true
     config:
+      # ACL story (P0-F2-S2): KafkaUser principals + least-privilege ACLs are
+      # declared in platform/helm/topics/10-create.sh, but broker-side simple
+      # authorization is NOT enabled on this Strimzi 1.3.0 / Kafka 4.3.1
+      # combined-node local cluster: super.users and per-user produce checks
+      # behaved inconsistently (see issues/ note in IMPLEMENTATION.md).
+      # Enforcement evidence deferred to the cloud profile with dedicated
+      # controller nodes.
       offsets.topic.replication.factor: 3
       transaction.state.log.replication.factor: 3
       transaction.state.log.min.isr: 2
