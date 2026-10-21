@@ -58,8 +58,9 @@ on:
 
 # A new push to a pull request makes its previous, still running or queued build useless.
 # Pushes to trunk and release* are never cancelled so that every commit gets its own result.
+# Each of them gets its own group (run_id): in a shared group a newer run would replace a pending one.
 concurrency:
-  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.run_id }}
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 permissions:
