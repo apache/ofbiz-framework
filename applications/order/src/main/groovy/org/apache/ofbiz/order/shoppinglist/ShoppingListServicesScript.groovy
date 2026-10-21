@@ -168,7 +168,8 @@ Map addDistinctShoppingListItem() {
  */
 Map calculateShoppingListDeepTotalPrice() {
     Map result = success()
-    Map serviceResult = run service: 'checkShoppingListItemSecurity', with: parameters
+    Map serviceResult = run service: 'checkShoppingListItemSecurity', with: [*: parameters,
+            mainAction: 'VIEW', resourceDescription: 'calculateShoppingListDeepTotalPrice']
     require(ServiceUtil.isSuccess(serviceResult) as boolean, serviceResult.errorMessage)
     require(serviceResult.hasPermission as boolean, 'OrderErrorUiLabels', 'OrderSecurityErrorToRunForAnotherParty')
     Map calcPriceInBaseMap = [prodCatalogId: parameters.prodCatalogId, webSiteId: parameters.webSiteId]
@@ -225,13 +226,15 @@ Map checkShoppingListSecurity() {
     if (parameters.shoppingListId) {
         GenericValue shoppingList = from('ShoppingList').where(shoppingListId: parameters.shoppingListId).queryOne()
         require(!shoppingList?.partyId || userLogin?.partyId == shoppingList.partyId
-                || security.hasEntityPermission('PARTYMGR', "_${parameters.permissionAction}", parameters.userLogin),
-                'OrderErrorUiLabels', 'OrderSecurityErrorToRunForAnotherParty')
+                || security.hasEntityPermission('PARTYMGR', "_${parameters.mainAction}", parameters.userLogin),
+                'OrderErrorUiLabels', 'OrderSecurityErrorToRunForAnotherParty',
+                [parentMethodName: parameters.resourceDescription, permissionAction: parameters.mainAction])
     }
     require(!userLogin || (userLogin.userLoginId == 'anonymous') ||
             !parameters.partyId || (userLogin.partyId == parameters.partyId)
-            || security.hasEntityPermission('PARTYMGR', "_${parameters.permissionAction}", parameters.userLogin),
-            'OrderErrorUiLabels', 'OrderSecurityErrorToRunForAnotherParty')
+            || security.hasEntityPermission('PARTYMGR', "_${parameters.mainAction}", parameters.userLogin),
+            'OrderErrorUiLabels', 'OrderSecurityErrorToRunForAnotherParty',
+            [parentMethodName: parameters.resourceDescription, permissionAction: parameters.mainAction])
 
     Map result = success()
     result.hasPermission = true
@@ -244,11 +247,11 @@ Map checkShoppingListSecurity() {
 Map checkShoppingListItemSecurity() {
     GenericValue shoppingList = from('ShoppingList').where(parameters).queryOne()
     require(!shoppingList?.partyId || userLogin.partyId == shoppingList.partyId ||
-            security.hasEntityPermission('PARTYMGR', "_${parameters.permissionAction}", parameters.userLogin),
+            security.hasEntityPermission('PARTYMGR', "_${parameters.mainAction}", parameters.userLogin),
             'OrderErrorUiLabels',
             'OrderSecurityErrorToRunForAnotherParty',
-            [parentMethodName: parameters.parentMethodName,
-             permissionAction: parameters.permissionAction])
+            [parentMethodName: parameters.resourceDescription,
+             permissionAction: parameters.mainAction])
 
     Map result = success()
     result.hasPermission = true
