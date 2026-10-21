@@ -21,6 +21,10 @@
 # GitHub reads this file from the tag being released, so it has to be on the
 # release branch before the tag is cut.
 # The type labels are set from the PR title prefix by pr-type-label.yml.
+# The cve and security labels are set by hand, cve only once the CVE is
+# announced, after which the release notes can be generated again.
+# A pull request is listed in the first category whose labels match, so the
+# security categories come before the type categories.
 # See https://docs.github.com/en/repositories/releasing-projects-on-github/automatically-generated-release-notes
 
 changelog:
@@ -30,6 +34,12 @@ changelog:
     authors:
       - dependabot[bot]
   categories:
+    - title: Security fixes
+      labels:
+        - cve
+    - title: Security hardening
+      labels:
+        - security
     - title: Bug fixes
       labels:
         - bug
