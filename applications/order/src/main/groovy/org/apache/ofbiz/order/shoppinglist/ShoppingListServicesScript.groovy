@@ -176,7 +176,8 @@ Map addDistinctShoppingListItem() {
  */
 Map calculateShoppingListDeepTotalPrice() {
     Map result = success()
-    Map serviceResult = run service: 'checkShoppingListItemSecurity', with: parameters
+    Map serviceResult = run service: 'checkShoppingListItemSecurity', with: [*: parameters,
+            mainAction: 'VIEW', resourceDescription: 'calculateShoppingListDeepTotalPrice']
     if (!ServiceUtil.isSuccess(serviceResult)) {
         return error(serviceResult.errorMessage)
     }
@@ -237,14 +238,16 @@ Map checkShoppingListSecurity() {
     if (parameters.shoppingListId) {
         GenericValue shoppingList = from('ShoppingList').where(shoppingListId: parameters.shoppingListId).queryOne()
         if (shoppingList?.partyId && userLogin?.partyId != shoppingList.partyId
-                && !security.hasEntityPermission('PARTYMGR', "_${parameters.permissionAction}", parameters.userLogin)) {
-            return error(UtilProperties.getMessage('OrderErrorUiLabels', 'OrderSecurityErrorToRunForAnotherParty', parameters.locale))
+                && !security.hasEntityPermission('PARTYMGR', "_${parameters.mainAction}", parameters.userLogin)) {
+            return error(UtilProperties.getMessage('OrderErrorUiLabels', 'OrderSecurityErrorToRunForAnotherParty',
+                    [parentMethodName: parameters.resourceDescription, permissionAction: parameters.mainAction], parameters.locale))
         }
     }
     if (userLogin && (userLogin.userLoginId != 'anonymous') &&
             parameters.partyId && (userLogin.partyId != parameters.partyId)
-            && !security.hasEntityPermission('PARTYMGR', "_${parameters.permissionAction}", parameters.userLogin)) {
-        return error(UtilProperties.getMessage('OrderErrorUiLabels', 'OrderSecurityErrorToRunForAnotherParty', parameters.locale))
+            && !security.hasEntityPermission('PARTYMGR', "_${parameters.mainAction}", parameters.userLogin)) {
+        return error(UtilProperties.getMessage('OrderErrorUiLabels', 'OrderSecurityErrorToRunForAnotherParty',
+                [parentMethodName: parameters.resourceDescription, permissionAction: parameters.mainAction], parameters.locale))
     }
 
     Map result = success()
@@ -258,11 +261,11 @@ Map checkShoppingListSecurity() {
 Map checkShoppingListItemSecurity() {
     GenericValue shoppingList = from('ShoppingList').where(parameters).queryOne()
     if (shoppingList?.partyId && userLogin.partyId != shoppingList.partyId &&
-            !security.hasEntityPermission('PARTYMGR', "_${parameters.permissionAction}", parameters.userLogin)) {
+            !security.hasEntityPermission('PARTYMGR', "_${parameters.mainAction}", parameters.userLogin)) {
         return error(UtilProperties.getMessage('OrderErrorUiLabels',
                 'OrderSecurityErrorToRunForAnotherParty',
-                [parentMethodName: parameters.parentMethodName,
-                 permissionAction: parameters.permissionAction],
+                [parentMethodName: parameters.resourceDescription,
+                 permissionAction: parameters.mainAction],
                 parameters.locale))
     }
 
