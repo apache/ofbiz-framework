@@ -4582,6 +4582,9 @@
         <value xml:lang="zh">设置货币错误： </value>
         <value xml:lang="zh-TW">設置貨幣錯誤:</value>
     </property>
+    <property key="OrderShoppingListPaymentMethodOrAddressNotOwned">
+        <value xml:lang="en">The payment method or the shipping address does not belong to the party of the shopping list</value>
+    </property>
     <property key="OrderStatusIdNotExist">
         <value xml:lang="ar">دليل الحالة غير موجود</value>
         <value xml:lang="de">Status Id ist nicht vorhanden</value>
