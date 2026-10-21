@@ -32,6 +32,10 @@ Map createShoppingList() {
     newEntity.partyId = newEntity.partyId ?: userLogin.partyId
     newEntity.shoppingListTypeId = newEntity.shoppingListTypeId ?: 'SLT_WISH_LIST'
     newEntity.isPublic = newEntity.isPublic ?: 'N'
+    if ((parameters.paymentMethodId || parameters.contactMechId)
+            && !ShoppingListServices.hasOwnPaymentMethodAndAddress(delegator, newEntity)) {
+        return error(UtilProperties.getMessage('OrderErrorUiLabels', 'OrderShoppingListPaymentMethodOrAddressNotOwned', parameters.locale))
+    }
 
     newEntity.listName = newEntity.listName ?: UtilProperties.getMessage('OrderUiLabels',
             'OrderNewShoppingList', parameters.locale) ?: 'New Shopping List'
@@ -53,6 +57,10 @@ Map createShoppingList() {
 Map updateShoppingList() {
     GenericValue shoppingList = from('ShoppingList').where(parameters).queryOne()
     shoppingList.setNonPKFields(parameters)
+    if ((parameters.paymentMethodId || parameters.contactMechId)
+            && !ShoppingListServices.hasOwnPaymentMethodAndAddress(delegator, shoppingList)) {
+        return error(UtilProperties.getMessage('OrderErrorUiLabels', 'OrderShoppingListPaymentMethodOrAddressNotOwned', parameters.locale))
+    }
 
     // don't let auto-reorders be active unless there is some recurrence info
     if (shoppingList.shoppingListTypeId == 'SLT_AUTO_REODR' &&

@@ -52,6 +52,7 @@ import org.apache.ofbiz.product.config.ProductConfigWorker;
 import org.apache.ofbiz.product.config.ProductConfigWrapper;
 import org.apache.ofbiz.product.product.ProductWorker;
 import org.apache.ofbiz.product.store.ProductStoreWorker;
+import org.apache.ofbiz.security.Security;
 import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
@@ -168,6 +169,12 @@ public class ShoppingListServices {
                         continue;
                     }
 
+                    if (!hasOwnPaymentMethodAndAddress(delegator, shoppingList)) {
+                        Debug.logError("Payment method or shipping address of shopping list " + shoppingList.getString("shoppingListId")
+                                + " does not belong to party " + shoppingList.getString("partyId") + ", no order created", MODULE);
+                        continue;
+                    }
+
                     ShoppingCart listCart = makeShoppingListCart(dispatcher, shoppingList, locale);
                     CheckOutHelper helper = new CheckOutHelper(dispatcher, delegator, listCart);
 
@@ -230,6 +237,33 @@ public class ShoppingListServices {
         }
     }
 
+    /**
+     * Checks that the payment method and the shipping address of a shopping list, when set, belong to the party of the list
+     * @param delegator    the delegator
+     * @param shoppingList the shopping list
+     * @return true if both are empty or belong to the party of the shopping list
+     * @throws GenericEntityException if the payment method or the party contact mech could not be read
+     */
+    public static boolean hasOwnPaymentMethodAndAddress(Delegator delegator, GenericValue shoppingList) throws GenericEntityException {
+        String partyId = shoppingList.getString("partyId");
+        String paymentMethodId = shoppingList.getString("paymentMethodId");
+        if (UtilValidate.isNotEmpty(paymentMethodId)) {
+            GenericValue paymentMethod = EntityQuery.use(delegator).from("PaymentMethod").where("paymentMethodId", paymentMethodId).queryOne();
+            if (paymentMethod == null || partyId == null || !partyId.equals(paymentMethod.getString("partyId"))) {
+                return false;
+            }
+        }
+        String contactMechId = shoppingList.getString("contactMechId");
+        if (UtilValidate.isNotEmpty(contactMechId)) {
+            GenericValue partyContactMech = EntityQuery.use(delegator).from("PartyContactMech")
+                    .where("partyId", partyId, "contactMechId", contactMechId).filterByDate().queryFirst();
+            if (partyContactMech == null) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public static Map<String, Object> splitShipmentMethodString(DispatchContext dctx, Map<String, ? extends Object> context) {
         String shipmentMethodString = (String) context.get("shippingMethodString");
         Map<String, Object> result = ServiceUtil.returnSuccess();
@@ -252,6 +286,7 @@ public class ShoppingListServices {
     public static Map<String, Object> makeListFromOrder(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
+        Security security = dctx.getSecurity();
 
         String shoppingListTypeId = (String) context.get("shoppingListTypeId");
         String shoppingListId = (String) context.get("shoppingListId");
@@ -276,6 +311,16 @@ public class ShoppingListServices {
             if (orderHeader == null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderUnableToLocateOrder", UtilMisc.toMap("orderId", orderId),
                         locale));
+            }
+            // only an order manager or the customer who placed the order can make a shopping list from it
+            if (!security.hasEntityPermission("ORDERMGR", "_VIEW", userLogin)) {
+                GenericValue placingCustomer = EntityQuery.use(delegator).from("OrderRole")
+                        .where("orderId", orderId, "partyId", userLogin.getString("partyId"), "roleTypeId", "PLACING_CUSTOMER")
+                        .queryFirst();
+                if (placingCustomer == null) {
+                    return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderUnableToLocateOrder", UtilMisc.toMap("orderId",
+                            orderId), locale));
+                }
             }
             String productStoreId = orderHeader.getString("productStoreId");
 
