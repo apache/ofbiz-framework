@@ -47,6 +47,8 @@ New branches inherit workflow files from `trunk` at creation time.
 
 `release.yml` configures the release notes GitHub generates: PRs are grouped by their type label, and Dependabot PRs and PRs labeled `dependencies` are left out.
 
+PRs labeled `cve` are listed under Security fixes and the other PRs labeled `security` under Security hardening. These labels are set by hand: `cve` only once the CVE is announced, then the release notes of the release can be generated again, and `security` by the committer for security hardening without a CVE.
+
 GitHub reads `release.yml` from the tag being released, so it must be on the release branch before the tag is created.
 
 To label the PRs merged before `pr-type-label.yml` existed, run it manually from the Actions tab with the date of the previous release, first as a dry run.
