@@ -45,6 +45,8 @@ on:
   schedule:
     # At 00:37 on Saturday
     - cron: '37 0 * * 6'
+  # To re-run the analysis by hand, e.g. after fixing an alert.
+  workflow_dispatch:
 
 # Declare default permissions as read only.
 permissions: read-all
