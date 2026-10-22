@@ -38,9 +38,18 @@ updates:
           - "minor"
           - "patch"
     ignore:
-      - dependency-name: "*"
-        update-types:
-          - "version-update:semver-major"
+      # The asciidoctor plugins are kept on 4.x (see build.gradle). 5.x renamed
+      # org.asciidoctor.jvm.convert to org.asciidoctor.jvm, so only the pdf
+      # plugin would get a 5.x pull request, which would leave the pair on
+      # different versions.
+      - dependency-name: "org.asciidoctor.jvm.convert"
+        versions: [">= 5"]
+      - dependency-name: "org.asciidoctor.jvm.pdf"
+        versions: [">= 5"]
+      # activiti-juel-jakarta 9.0.0 is compiled for Java 25, above our Java 17
+      # baseline.
+      - dependency-name: "org.activiti:activiti-juel-jakarta"
+        versions: [">= 9"]
 
   - package-ecosystem: "gradle"
     directory: "/"
