@@ -57,6 +57,8 @@ To label the PRs merged before `pr-type-label.yml` existed, run it manually from
 
 Read **only from `trunk`**.
 
+Updates are checked weekly. The minor and patch updates of each ecosystem and branch are grouped in a single PR; major updates get their own PR.
+
 Updates:
 - GitHub Actions
 - Docker base images
