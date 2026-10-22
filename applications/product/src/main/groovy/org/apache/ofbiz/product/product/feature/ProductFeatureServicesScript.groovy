@@ -34,7 +34,9 @@ Map applyFeatureToProductFromTypeAndCode() {
     for (GenericValue productFeature : productFeatures) {
         Map applyFeatureContext = [*: parameters]
         applyFeatureContext.productFeatureId = productFeature.productFeatureId
-        applyFeatureContext.sequenceNum = applyFeatureContext.sequenceNum ?: productFeature.defaultSequenceNum
+        if (applyFeatureContext.sequenceNum == null) {
+            applyFeatureContext.sequenceNum = productFeature.defaultSequenceNum
+        }
         run service: 'applyFeatureToProduct', with: applyFeatureContext
     }
     return success()
