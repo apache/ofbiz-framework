@@ -239,6 +239,12 @@ under the License.
         <implements service="permissionInterface"/>
     </service>
 
+    <service name="orderItemShipGroupPermissionCheck" engine="simple"
+            location="component://order/minilang/order/OrderSimpleMethods.xml" invoke="orderItemShipGroupPermissionCheck">
+        <description>Permission service for the creation, editing and removal of order item ship groups</description>
+        <implements service="permissionInterface"/>
+    </service>
+
     <service name="createOrderAdjustment" default-entity-name="OrderAdjustment" engine="entity-auto" invoke="create">
         <description>Creates a new order adjustment record</description>
         <permission-service service-name="orderAdjustmentPermissionCheck" main-action="CREATE"/>
@@ -1479,6 +1485,7 @@ under the License.
              location="org.apache.ofbiz.order.order.OrderServices"
              invoke="deleteOrderItemShipGroup">
         <description>delete Order Item Ship Group </description>
+        <permission-service service-name="orderItemShipGroupPermissionCheck" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
@@ -1486,6 +1493,7 @@ under the License.
              location="org.apache.ofbiz.order.order.OrderServices"
              invoke="addOrderItemShipGroupAssoc">
         <description>add Order Item Ship Group Assoc and if order item ship group not exit, create it before</description>
+        <permission-service service-name="orderItemShipGroupPermissionCheck" main-action="CREATE"/>
         <implements service="addOrderItemShipGroup" optional="true"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
@@ -1494,6 +1502,7 @@ under the License.
              location="org.apache.ofbiz.order.order.OrderServices"
              invoke="updateOrderItemShipGroupAssoc">
         <description>update OrderItem from OISG, totalQuantity is used only if controller is a multi services </description>
+        <permission-service service-name="orderItemShipGroupPermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="all" mode="IN" optional="true"/>
         <attribute name="totalQuantity" type="BigDecimal"  mode="INOUT"  optional="true"/>
         <attribute name="rowCount" type="Integer" mode="IN" optional="true"/>
@@ -1501,6 +1510,7 @@ under the License.
     </service>
     <service name="deleteOrderItemShipGroupAssoc" engine="entity-auto" auth="true" default-entity-name="OrderItemShipGroupAssoc" invoke="delete">
         <description>delete Order Item Ship Group Assoc</description>
+        <permission-service service-name="orderItemShipGroupPermissionCheck" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 

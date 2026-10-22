@@ -125,6 +125,7 @@ under the License.
     <service name="createReturnAdjustment" engine="java" location="org.apache.ofbiz.order.order.OrderReturnServices"
              invoke="createReturnAdjustment">
          <description>Simple create service</description>
+         <permission-service service-name="returnPermissionCheck" main-action="CREATE"/>
          <implements service="returnAdjustmentInterface"/>
          <override name="returnAdjustmentId" mode="OUT" optional="false"/>
     </service>
