@@ -18,17 +18,25 @@
 # Please see the documentation for all configuration options:
 # https://docs.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
 
+# Each update runs the CI workflows on its pull request, again on each rebase
+# after another pull request is merged, and once more when it is merged.
+# To keep the number of jobs low, the updates are checked weekly and the minor
+# and patch updates of each entry are grouped in a single pull request, while
+# major updates, which need a closer review, still get their own pull request.
+# A dependency is put in the first group it matches.
+
 version: 2
 updates:
   - package-ecosystem: "gradle"
     directory: "/"
     schedule:
-      interval: "daily"
+      interval: "weekly"
     open-pull-requests-limit: 40
-    #groups:
-    #  all-dependencies:
-    #    patterns:
-    #      - "*"
+    groups:
+      minor-and-patch:
+        update-types:
+          - "minor"
+          - "patch"
     ignore:
       - dependency-name: "*"
         update-types:
@@ -42,12 +50,13 @@ updates:
       - "java"
       - "release_branch"
     schedule:
-      interval: "daily"
+      interval: "weekly"
     open-pull-requests-limit: 40
-    #groups:
-    #  all-dependencies:
-    #    patterns:
-    #      - "*"
+    groups:
+      minor-and-patch:
+        update-types:
+          - "minor"
+          - "patch"
     ignore:
       - dependency-name: "*"
         update-types:
@@ -66,14 +75,24 @@ updates:
   - package-ecosystem: "npm"
     directory: "themes/common-theme/webapp/common-theme/js"
     schedule:
-      interval: "daily"
+      interval: "weekly"
     open-pull-requests-limit: 20
+    groups:
+      minor-and-patch:
+        update-types:
+          - "minor"
+          - "patch"
 
   - package-ecosystem: "npm"
     directory: "framework/rest-api"
     schedule:
-      interval: "daily"
+      interval: "weekly"
     open-pull-requests-limit: 20
+    groups:
+      minor-and-patch:
+        update-types:
+          - "minor"
+          - "patch"
 
   - package-ecosystem: "npm"
     directory: "themes/common-theme/webapp/common-theme/js"
@@ -83,18 +102,27 @@ updates:
       - "javascript"
       - "release_branch"
     schedule:
-      interval: "daily"
+      interval: "weekly"
     open-pull-requests-limit: 20
+    groups:
+      minor-and-patch:
+        update-types:
+          - "minor"
+          - "patch"
 
   - package-ecosystem: github-actions
     directory: /
     schedule:
-      interval: daily
+      interval: weekly
     groups:
       codeql-action:
         patterns:
           - "github/codeql-action/init"
           - "github/codeql-action/analyze"
+      minor-and-patch:
+        update-types:
+          - "minor"
+          - "patch"
 
   - package-ecosystem: github-actions
     directory: /
@@ -104,17 +132,21 @@ updates:
       - "github_actions"
       - "release_branch"
     schedule:
-      interval: daily
+      interval: weekly
     groups:
       codeql-action:
         patterns:
           - "github/codeql-action/init"
           - "github/codeql-action/analyze"
+      minor-and-patch:
+        update-types:
+          - "minor"
+          - "patch"
 
   - package-ecosystem: docker
     directory: /
     schedule:
-      interval: daily
+      interval: weekly
 
   - package-ecosystem: docker
     directory: /
@@ -124,4 +156,4 @@ updates:
       - "docker"
       - "release_branch"
     schedule:
-      interval: daily
+      interval: weekly
