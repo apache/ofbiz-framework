@@ -27,11 +27,13 @@ under the License.
     <!-- Shipment Services -->
     <service name="createCarrierShipmentMethod" engine="entity-auto" default-entity-name="CarrierShipmentMethod" invoke="create" auth="true">
         <description>Creates A CarrierShipmentMethod</description>
+        <permission-service service-name="productGenericPermission" main-action="CREATE"/>
         <auto-attributes entity-name="CarrierShipmentMethod" include="pk" mode="IN" optional="false"/>
         <auto-attributes entity-name="CarrierShipmentMethod" include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="updateCarrierShipmentMethod" engine="entity-auto" default-entity-name="CarrierShipmentMethod" invoke="update" auth="true">
         <description>Updates A CarrierShipmentMethod</description>
+        <permission-service service-name="productGenericPermission" main-action="UPDATE"/>
         <auto-attributes entity-name="CarrierShipmentMethod" include="pk" mode="IN" optional="false"/>
         <auto-attributes entity-name="CarrierShipmentMethod" include="nonpk" mode="IN" optional="true"/>
     </service>
@@ -46,6 +48,7 @@ under the License.
     </service>
     <service name="updateShipmentMethodType" engine="entity-auto" default-entity-name="ShipmentMethodType" invoke="update" auth="true">
         <description>Updates A ShipmentMethodType</description>
+        <permission-service service-name="productGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
@@ -956,6 +959,7 @@ under the License.
     <service name="removeShipmentEstimate" engine="java"
             location="org.apache.ofbiz.shipment.shipment.ShipmentServices" invoke="removeShipmentEstimate" auth="true">
         <description>Remove Shipment Estimate</description>
+        <permission-service service-name="productGenericPermission" main-action="DELETE"/>
         <attribute name="shipmentCostEstimateId" type="String" mode="IN" optional="false"/>
     </service>
 
@@ -1246,6 +1250,7 @@ under the License.
     </service>
     <service name="updateShipmentTimeEstimate" engine="entity-auto" invoke="update" default-entity-name="ShipmentTimeEstimate" auth="true">
         <description>Update a ShipmentTimeEstimate</description>
+        <permission-service service-name="productGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
@@ -1255,6 +1260,7 @@ under the License.
     </service>
     <service name="expireShipmentTimeEstimate" engine="entity-auto" invoke="expire" default-entity-name="ShipmentTimeEstimate" auth="true">
         <description>Expire a ShipmentTimeEstimate</description>
+        <permission-service service-name="productGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN"/>
     </service>
 

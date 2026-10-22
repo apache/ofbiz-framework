@@ -34,6 +34,11 @@ under the License.
         <description>ProductFacility Permission Checking Logic</description>
         <implements service="permissionInterface"/>
     </service>
+    <service name="orderInventoryPermissionCheck" engine="groovy"
+            location="component://product/src/main/groovy/org/apache/ofbiz/product/product/inventory/InventoryServicesScript.groovy" invoke="orderInventoryPermissionCheck">
+        <description>Permission logic for order-related inventory reservation services</description>
+        <implements service="permissionInterface"/>
+    </service>
     <!-- Product Inventory Services -->
     <service name="createInventoryItem" default-entity-name="InventoryItem" engine="groovy"
                 location="component://product/src/main/groovy/org/apache/ofbiz/product/product/inventory/InventoryServicesScript.groovy" invoke="createInventoryItem" auth="true">
@@ -397,6 +402,7 @@ under the License.
     <service name="balanceInventoryItems" engine="simple" transaction-timeout="600"
             location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="balanceInventoryItems" auth="true">
         <description>Balance inventory items based on the new item specified which will have available inventory that back-order (negative ATP) reservations can be reassigned to.</description>
+        <permission-service service-name="orderInventoryPermissionCheck" main-action="UPDATE"/>
         <attribute name="inventoryItemId" type="String" mode="IN" optional="false">
         <type-validate>
             <fail-property resource="ProductErrorUiLabels" property="facility.inventoryItemId"/>
@@ -1288,6 +1294,7 @@ under the License.
     <service name="setOrderReservationPriority" engine="simple" invoke="setOrderReservationPriority"
                 location="component://product/minilang/product/inventory/InventoryServices.xml"  auth="true">
         <description>set order priority</description>
+        <permission-service service-name="orderInventoryPermissionCheck" main-action="UPDATE"/>
         <attribute name="priority" mode="IN" type="String" optional="true"/>
         <attribute name="orderId" mode="IN" type="String" optional="false"/>
     </service>

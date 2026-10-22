@@ -306,6 +306,7 @@ under the License.
     <!-- Product PaymentMethodType Services -->
     <service name="createProductPaymentMethodType" default-entity-name="ProductPaymentMethodType" engine="entity-auto" invoke="create" auth="true">
         <description>Create an ProductPaymentMethodType</description>
+        <permission-service service-name="productGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="fromDate" optional="true"/>
@@ -1608,6 +1609,7 @@ under the License.
     <service name="createProductGroupOrder" default-entity-name="ProductGroupOrder" engine="groovy"
         location="component://product/src/main/groovy/org/apache/ofbiz/product/product/product/ProductServicesScript.groovy" invoke="createProductGroupOrder" auth="true">
         <description>Create ProductGroupOrder</description>
+        <permission-service service-name="productGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="OUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
