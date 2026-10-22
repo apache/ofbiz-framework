@@ -8,7 +8,7 @@
 
 - `codeql-analysis.yml`  
   Security analysis (Java + JavaScript)  
-  → Trigger: push / PR + weekly on `trunk` and `release*`
+  → Trigger: push / PR (except Dependabot PRs) + weekly on `trunk` and `release*`, skipped when only documentation or setup files change
 
 - `docker-image.yml`  
   Build and push images to `ghcr.io/apache/ofbiz`  
