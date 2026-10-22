@@ -81,7 +81,10 @@ Map sendOrderDeliveryScheduleNotification() {
     // find email address for currently logged in user, set as sendFrom
     Map curUserPcmFindMap = [partyId: userLogin.partyId, contactMechTypeId: 'EMAIL_ADDRESS']
     GenericValue curUserPartyAndContactMech = from('PartyAndContactMech').where(curUserPcmFindMap).queryFirst()
-    Map sendEmailMap = [sendFrom: curUserPartyAndContactMech.infoString]
+    Map sendEmailMap = [:]
+    if (curUserPartyAndContactMech) {
+        sendEmailMap.sendFrom = curUserPartyAndContactMech.infoString
+    }
 
     // find email addresses of all parties in SHIPMENT_CLERK roleTypeId, set as sendTo
     Map shipmentClerkFindMap = [roleTypeId: 'SHIPMENT_CLERK']
@@ -104,8 +107,8 @@ Map sendOrderDeliveryScheduleNotification() {
         }
     }
     // set subject, contentType, templateName, templateData
-    sendEmailMap.subject = 'Delivery Information Updated for Order #' + orderDeliverySchedule.orderId
-    if (orderDeliverySchedule.orderItemSeqId != '_NA_') {
+    sendEmailMap.subject = 'Delivery Information Updated for Order #' + (orderDeliverySchedule?.orderId ?: '')
+    if (orderDeliverySchedule && orderDeliverySchedule.orderItemSeqId != '_NA_') {
         StringBuilder newSubject = new StringBuilder()
         newSubject.append(sendEmailMap.subject)
         newSubject.append(' Item #' + orderDeliverySchedule.orderItemSeqId)
