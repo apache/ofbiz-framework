@@ -32,8 +32,9 @@ import org.apache.ofbiz.entity.condition.EntityConditionBuilder
  */
 Map createFixedAssetMaint() {
     GenericValue newEntity = makeValue('FixedAssetMaint', parameters)
-    String maintTemplateWorkEffortId
-    newEntity.maintHistSeqId = delegator.getNextSeqId('FixedAssetMaint')
+    // the user can still pick a template WorkEffort when no ProductMaint is selected
+    String maintTemplateWorkEffortId = parameters.maintTemplateWorkEffortId
+    delegator.setNextSubSeqId(newEntity, 'maintHistSeqId', 5, 1)
     GenericValue fixedAsset = from('FixedAsset').where(parameters).queryOne()
     if (parameters.productMaintSeqId) {
         GenericValue productMaint = from('ProductMaint')
@@ -140,12 +141,12 @@ Map createMaintsFromMeterReading() {
                         .queryList()
                 long listSize = maintList ? maintList.size() : 0L
 
-                BigDecimal maxIntervalQty = maintList ? maintList*.intervalQuantity.max() : 0
+                BigDecimal maxIntervalQty = maintList*.intervalQuantity.findAll { it != null }.max() ?: BigDecimal.ZERO
 
                 BigDecimal nextIntervalQty = maxIntervalQty + p.intervalQuantity
-                if (parameters.meterValue &&
-                        (nextIntervalQty > parameters.meterValue ||
-                            (repeatCount > 0 && listSize < repeatCount))) {
+                if (parameters.meterValue != null &&
+                        nextIntervalQty <= parameters.meterValue &&
+                        (repeatCount <= 0 || listSize < repeatCount)) {
                     run service: 'createFixedAssetMaint', with: [*  : p.getAllFields(),
                                                                  fixedAssetId: fixedAsset.fixedAssetId,
                                                                  intervalQuantity: parameters.meterValue,
@@ -181,8 +182,8 @@ Map createMaintsFromTimeInterval() {
                 .each { p ->
                     if (timeSwitch.containsKey(p.intervalUomId)) {
                         long repeatCount = p.repeatCount ?: 0
-                        long intervalQuantity = p.intervalQuantity ?: 0
-                        Calendar calendar = Calendar.instance()
+                        int intervalQuantity = p.intervalQuantity ?: 0
+                        Calendar calendar = Calendar.getInstance()
                         calendar.setTime(nowTimestamp)
                         calendar.add(timeSwitch[p.intervalUomId], -intervalQuantity)
                         cond = new EntityConditionBuilder().AND {
@@ -196,7 +197,8 @@ Map createMaintsFromTimeInterval() {
                                 .orderBy('maintHistSeqId')
                                 .queryList()
                         long listSize = maintList ? maintList.size() : 0
-                        Timestamp lastSvcDate = maintList ? maintList.last().actualCompletionDate : null
+                        // without any previous maintenance the service is due since the epoch
+                        Timestamp lastSvcDate = maintList ? maintList.last().actualCompletionDate : new Timestamp(0L)
                         if (lastSvcDate && lastSvcDate.before(calendar.getTime())
                                 && (repeatCount <= 0 || listSize < repeatCount)) {
                             run service: 'createFixedAssetMaint', with: [*: p.getAllFields(),
@@ -225,9 +227,9 @@ Map createFixedAssetMaintOrder() {
             return error(label('AccountingUiLabels', 'AccountingOrderItemWithIdNotFound', parameters))
         }
     } else {
-        parameters.orderItemSeqId = from('OrderItem').where(orderId: lookedUpValue.orderId).queryList()?.orderItemSeqId
+        parameters.orderItemSeqId = from('OrderItem').where(orderId: lookedUpValue.orderId).queryFirst()?.orderItemSeqId
     }
-    delegator.create('FixedAssetMaintOrder', parameters)
+    delegator.create(delegator.makeValidValue('FixedAssetMaintOrder', parameters))
     return success()
 }
 
@@ -266,7 +268,7 @@ Map straightLineDepreciation() {
     if (!fixedAsset) {
         return error(label('AccountingErrorUiLabels', 'AccountingFixedAssetNotFound'))
     }
-    BigDecimal depreciation = fixedAsset.depreciation ?: 0
+    BigDecimal depreciation = 0
     int intUsageYears = parameters.usageYears ? parameters.usageYears.intValue() : 0
     if (intUsageYears > 0) {
         //FORMULA :  depreciation = (purchaseCost - salvageValue) / (expectedEndOfLife - dateAcquired)
@@ -282,7 +284,7 @@ Map straightLineDepreciation() {
                 depreciationTotal += depreciation
                 assetDepreciationTillDate << depreciation
                 assetNBVAfterDepreciation << purchaseCost
-                assetDepreciationInfoList << [year: i,
+                assetDepreciationInfoList << [year: assetAcquiredYear + i,
                     depreciation: depreciation,
                     depreciationTotal: depreciationTotal,
                     nbv: purchaseCost]
@@ -325,16 +327,15 @@ Map doubleDecliningBalanceDepreciation() {
     int usageYears = parameters.usageYears ?: 0
     BigDecimal purchaseCost = parameters.purchaseCost ?: 0
     BigDecimal salvageValue = parameters.salvageValue ?: 0
-    BigDecimal depreciation = 0
 
     // Next depreciation based on actual depreciation history
     BigDecimal nextDepreciationAmount = 0
     GenericValue fixedAsset = from('FixedAsset').where(parameters).queryOne()
     if (fixedAsset) {
-        depreciation = fixedAsset.depreciation ?: 0
-        BigDecimal remainingYears  = expEndOfLifeYear - assetAcquiredYear - usageYears
+        BigDecimal remainingYears = expEndOfLifeYear - assetAcquiredYear - usageYears
         if (remainingYears > 0) {
-            nextDepreciationAmount = 2 * (purchaseCost - salvageValue - depreciation) / remainingYears
+            nextDepreciationAmount = ((fixedAsset.purchaseCost ?: 0) - salvageValue - (fixedAsset.depreciation ?: 0))
+                    .divide(remainingYears, 2, RoundingMode.HALF_EVEN) * 2
         }
     }
 
@@ -345,9 +346,11 @@ Map doubleDecliningBalanceDepreciation() {
     if (usageYears > 0 && fixedAsset) {
         BigDecimal depreciationYear = assetAcquiredYear
         for (int i = 0; i < usageYears; i++) {
+            BigDecimal depreciation = 0
             int numberOfYears = expEndOfLifeYear - assetAcquiredYear
             if (numberOfYears > 0) {
-                depreciation = (purchaseCost - salvageValue) * 2 / numberOfYears
+                // FORMULA : depreciation = (NBV - salvageValue) * 2 / (expectedEndOfLife - dateAcquired)
+                depreciation = (purchaseCost - salvageValue).divide(numberOfYears, 2, RoundingMode.HALF_EVEN) * 2
             }
             assetAcquiredYear++
             purchaseCost -= depreciation
@@ -358,23 +361,23 @@ Map doubleDecliningBalanceDepreciation() {
                                           year: depreciationYear,
                                           depreciation: depreciation,
                                           depreciationTotal: depreciationTotal]
+            depreciationYear++
         }
-
-        if (!assetDepreciationTillDate) {
-            assetDepreciationTillDate << 0
-            assetNBVAfterDepreciation << purchaseCost
-            assetDepreciationInfoList << [nbv: purchaseCost,
-                                          year: assetAcquiredYear,
-                                          depreciation: 0,
-                                          depreciationTotal: depreciationTotal]
-        }
+    }
+    if (!assetDepreciationTillDate) {
+        assetDepreciationTillDate << 0.0
+        assetNBVAfterDepreciation << purchaseCost
+        assetDepreciationInfoList << [nbv: purchaseCost,
+                                      year: assetAcquiredYear,
+                                      depreciation: 0.0,
+                                      depreciationTotal: depreciationTotal]
     }
     logInfo "Using double decline formula depreciation calculated for fixedAsset (${parameters.fixedAssetId}) is ${assetDepreciationTillDate}"
     return success([assetDepreciationTillDate: assetDepreciationTillDate,
                     assetNBVAfterDepreciation: assetNBVAfterDepreciation,
                     assetDepreciationInfoList: assetDepreciationInfoList,
                     nextDepreciationAmount: nextDepreciationAmount,
-                    plannedPastDepreciationTotal: depreciationTotal - depreciation])
+                    plannedPastDepreciationTotal: depreciationTotal])
 }
 
 /**
@@ -391,14 +394,14 @@ Map calculateFixedAssetDepreciation() {
     if (fixedAsset.expectedEndOfLife) {
         expEndOfLifeYear = fixedAsset.expectedEndOfLife.toString().substring(0, 4)
     } else {
-        return success(label('AccountingUiLabels', 'AccountingExpEndOfLifeIsEmpty'))
+        return success([successMessageList: [label('AccountingUiLabels', 'AccountingExpEndOfLifeIsEmpty')]])
     }
 
     // Extract asset acquired year from field dateAcquired
-    if (fixedAsset.expectedEndOfLife) {
+    if (fixedAsset.dateAcquired) {
         assetAcquiredYear = fixedAsset.dateAcquired.toString().substring(0, 4)
     } else {
-        return success(label('AccountingUiLabels', 'AccountingDateAcquiredIsEmpty'))
+        return success([successMessageList: [label('AccountingUiLabels', 'AccountingDateAcquiredIsEmpty')]])
     }
 
     // if any asset's salvage value is empty then set it by 0
@@ -428,7 +431,7 @@ Map calculateFixedAssetDepreciation() {
         logInfo "Asset's Net Book Values (NBV) from acquired date after deducting depreciation are ${serviceResult.assetNBVAfterDepreciation}"
         return serviceResult
     }
-    return error(label('AccountingUiLabels', 'AccountingFixedAssetDepreciationMethodNotFound'))
+    return success([successMessageList: [label('AccountingUiLabels', 'AccountingFixedAssetDepreciationMethodNotFound')]])
 }
 
 /**
@@ -436,36 +439,34 @@ Map calculateFixedAssetDepreciation() {
  */
 Map checkUpdateFixedAssetDepreciation() {
     GenericValue acctgTrans = from('AcctgTrans').where(parameters).queryOne()
-    if (!acctgTrans &&
-            acctgTrans.acctgTransTypeId == 'DEPRECIATION'
+    if (acctgTrans
+            && acctgTrans.acctgTransTypeId == 'DEPRECIATION'
             && acctgTrans.fixedAssetId) {
-        GenericValue fixedAsset = acctgTrans.getRelatedOne('FixedAsset', true)
+        GenericValue fixedAsset = acctgTrans.getRelatedOne('FixedAsset', false)
         BigDecimal depreciation = 0
-        boolean nonValidUom = false
-        from('AcctgTransEntry')
+        List<GenericValue> creditEntries = from('AcctgTransEntry')
                 .where(debitCreditFlag: 'C',
                         acctgTransId: acctgTrans.acctgTransId)
                 .queryList()
-                .each {
-                    if (!fixedAsset.purchaseCostUomId) {
-                        logWarning "Found empty purchaseCostUomId for FixedAsset [${fixedAsset.fixedAssetId}]:" +
-                                " setting it to ${creditTransaction.currencyUomId} to match the one used in the gl."
-                        fixedAsset.purchaseCostUomId = it.currencyUomId
-                        fixedAsset.store()
-                    }
-                    if (fixedAsset.purchaseCostUomId == it.currencyUomId) {
-                        depreciation += it.amount
-                    } else {
-                        nonValidUom = true
-                    }
-                }
-        if (nonValidUom) {
-            return failure("Found an accounting transaction for depreciation of FixedAsset [${fixedAsset.fixedAssetId}] with a currency that " +
-                    "doesn't match the currency used in the fixed asset: the depreciation total in the fixed asset will not be updated.")
+        for (GenericValue creditEntry : creditEntries) {
+            if (!fixedAsset.purchaseCostUomId) {
+                logWarning "Found empty purchaseCostUomId for FixedAsset [${fixedAsset.fixedAssetId}]:" +
+                        " setting it to ${creditEntry.currencyUomId} to match the one used in the gl."
+                fixedAsset.purchaseCostUomId = creditEntry.currencyUomId
+                fixedAsset.store()
+            }
+            if (fixedAsset.purchaseCostUomId == creditEntry.currencyUomId) {
+                depreciation += creditEntry.amount
+            } else if (fixedAsset.purchaseCostUomId == creditEntry.origCurrencyUomId) {
+                depreciation += creditEntry.origAmount
+            } else {
+                logWarning "Found an accounting transaction for depreciation of FixedAsset [${fixedAsset.fixedAssetId}] with a currency that " +
+                        "doesn't match the currency used in the fixed asset: the depreciation total in the fixed asset will not be updated."
+                return success()
+            }
         }
 
-        fixedAsset.depreciation = fixedAsset.depreciation ?: 0
-        fixedAsset.depreciation += depreciation
+        fixedAsset.depreciation = (fixedAsset.depreciation ?: 0) + depreciation
         fixedAsset.store()
     }
     return success()
