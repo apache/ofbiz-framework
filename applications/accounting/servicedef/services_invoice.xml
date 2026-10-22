@@ -318,6 +318,7 @@ under the License.
 
     <service name="updateInvoiceItemType" default-entity-name="InvoiceItemType" engine="entity-auto" invoke="update">
         <description>Update Invoice Item Type Record</description>
+        <permission-service service-name="acctgInvoicePermissionCheck" main-action="UPDATE"/>
         <auto-attributes mode="IN" include="pk"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
@@ -503,6 +504,7 @@ under the License.
     <!-- InvoiceAttribute services -->
     <service name="createInvoiceAttribute" default-entity-name="InvoiceAttribute" engine="entity-auto" invoke="create" auth="true">
         <description>Create a InvoiceAttribute</description>
+        <permission-service service-name="acctgInvoicePermissionCheck" main-action="CREATE"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <auto-attributes include="pk" mode="INOUT"/>
     </service>
