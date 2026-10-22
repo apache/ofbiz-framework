@@ -48,7 +48,7 @@ Map autoAssignRequirementToSupplier() {
     require(requirement as boolean, 'Entity value not found with name: requirement Method = autoAssignRequirementToSupplier')
     if (requirement.requirementTypeId == 'PRODUCT_REQUIREMENT'
             && requirement.productId
-            && requirement.quantity) {
+            && requirement.quantity != null) {
         EntityCondition condition = new EntityConditionBuilder().AND {
             EQUALS(productId: requirement.productId)
             LESS_THAN_EQUAL_TO(minimumOrderQuantity: requirement.quantity)
