@@ -114,8 +114,38 @@ class AutoAcctgFinAccountTests implements JupiterTestHelper {
         assert finAccountRole
     }
 
+    // OFBIZ-12373: DEMO_COMPANY does not hold the CARRIER role (only INTERNAL_ORGANIZATIO/SUPPLIER,
+    // see AccountingTestsData.xml), so this combination must be rejected instead of the createFinAccountRole
+    // -> ensurePartyRole eca silently fabricating a PartyRole record for a role the party was never given.
     @Test
     @Order(5)
+    void testCreateFinAccountRoleRejectsPartyWithoutRole() {
+        String finAccountId = testParams.finAccountId ?: '1003'
+        String partyId = testParams.partyId ?: 'DEMO_COMPANY'
+        Map serviceCtx = [
+                finAccountId: finAccountId,
+                partyId: partyId,
+                roleTypeId: 'CARRIER',
+                fromDate: UtilDateTime.nowTimestamp(),
+                currencyUomId: testParams.currencyUomId ?: 'USD',
+                userLogin: userLogin
+        ]
+        Map serviceResult = dispatcher.runSync('createFinAccountRole', serviceCtx)
+        assert ServiceUtil.isError(serviceResult)
+
+        GenericValue finAccountRole = from('FinAccountRole')
+                .where('finAccountId', finAccountId, 'partyId', partyId, 'roleTypeId', 'CARRIER')
+                .queryFirst()
+        assert !finAccountRole
+
+        GenericValue spuriousPartyRole = from('PartyRole')
+                .where('partyId', partyId, 'roleTypeId', 'CARRIER')
+                .queryOne()
+        assert !spuriousPartyRole
+    }
+
+    @Test
+    @Order(6)
     void testUpdateFinAccountRole() {
         String finAccountId = testParams.finAccountId ?: '1004'
         String partyId = testParams.partyId ?: 'DEMO_COMPANY'
@@ -139,7 +169,7 @@ class AutoAcctgFinAccountTests implements JupiterTestHelper {
     }
 
     @Test
-    @Order(6)
+    @Order(7)
     void testDeleteFinAccountRole() {
         String finAccountId = testParams.finAccountId ?: '1004'
         String partyId = testParams.partyId ?: 'DEMO_COMPANY'
@@ -161,7 +191,7 @@ class AutoAcctgFinAccountTests implements JupiterTestHelper {
     }
 
     @Test
-    @Order(7)
+    @Order(8)
     void testCreateFinAccountTrans() {
         String finAccountId = testParams.finAccountId ?: '1003'
         String finAccountTransTypeId = testParams.finAccountTransTypeId ?: 'ADJUSTMENT'
@@ -180,7 +210,7 @@ class AutoAcctgFinAccountTests implements JupiterTestHelper {
     }
 
     @Test
-    @Order(8)
+    @Order(9)
     void testCreateFinAccountStatus() {
         String finAccountId = testParams.finAccountId ?: '1003'
         String statusId = testParams.statusId ?: 'FNACT_ACTIVE'
@@ -200,7 +230,7 @@ class AutoAcctgFinAccountTests implements JupiterTestHelper {
     }
 
     @Test
-    @Order(9)
+    @Order(10)
     void testCreateFinAccountAuth() {
         String finAccountId = testParams.finAccountId ?: '1004'
         String currencyUomId = testParams.currencyUomId ?: 'USD'
@@ -218,7 +248,7 @@ class AutoAcctgFinAccountTests implements JupiterTestHelper {
     }
 
     @Test
-    @Order(10)
+    @Order(11)
     void testSetFinAccountTransStatus() {
         String finAccountTransId = testParams.finAccountTransId ?: '1010'
         String statusId = testParams.statusId ?: 'FINACT_TRNS_APPROVED'
