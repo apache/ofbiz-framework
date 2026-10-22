@@ -254,7 +254,7 @@ Map saveLocalFileDataResource(String mode) {
         .where('mimeTypeId', parameters._uploadedFile_contentType)
         .queryFirst()
     dataResource.dataResourceName = parameters._uploadedFile_fileName
-    if (mode in ['OFBIZ_FILE', 'OFBIZ_FILE_BIN', 'CONTEXT_FILE', 'CONTEXT_FILE_BIN']) {
+    if (mode in ['OFBIZ_FILE', 'OFBIZ_FILE_BIN', 'CONTEXT_FILE', 'CONTEXT_FILE_BIN'] && parameters._uploadedFile_contentType != null) {
         dataResource.mimeTypeId = parameters._uploadedFile_contentType
     }
     dataResource.objectInfo = extension ?
@@ -298,7 +298,9 @@ Map saveExtFileDataResource(boolean isUpdate, String mode) {
     // update the data resource with file data
     dataResource.dataResourceTypeId = parameters.dataResourceTypeId
     dataResource.dataResourceName = parameters._uploadedFile_fileName
-    dataResource.mimeTypeId = parameters._uploadedFile_contentType
+    if (parameters._uploadedFile_contentType != null) {
+        dataResource.mimeTypeId = parameters._uploadedFile_contentType
+    }
     dataResource.store()
 
     Map serviceContext = prepareServiceContext(dataResource, mode)
