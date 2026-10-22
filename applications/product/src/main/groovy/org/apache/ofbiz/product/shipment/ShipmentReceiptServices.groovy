@@ -21,6 +21,7 @@ package org.apache.ofbiz.product.shipment
 import java.math.RoundingMode
 import java.sql.Timestamp
 
+import org.apache.ofbiz.base.util.ObjectType
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.condition.EntityCondition
@@ -255,17 +256,17 @@ Map quickReceiveReturn() {
                         parameters.inventoryItemTypeId = 'SERIALIZED_INV_ITEM'
                         returnItem.returnQuantity = BigDecimal.ONE
                     }
-                    receiveCtx = [inventoryItemTypeId: parameters.inventoryItemTypeId,
-                                  statusId: returnItem.expectedItemStatus,
-                                  productId: returnItem.productId,
-                                  returnItemSeqId: returnItem.returnItemSeqId,
-                                  returnId: returnItem.returnId,
-                                  quantityAccepted: returnItem.returnQuantity,
-                                  facilityId: returnHeader.destinationFacilityId,
-                                  shipmentId: shipmentId, // important: associate ShipmentReceipt with return shipment created
-                                  comments: "Returned Item RA# ${returnItem.returnId}",
-                                  datetimeReceived: nowTimestamp,
-                                  quantityRejected: BigDecimal.ZERO
+                    receiveCtx << [inventoryItemTypeId: parameters.inventoryItemTypeId,
+                                   statusId: returnItem.expectedItemStatus,
+                                   productId: returnItem.productId,
+                                   returnItemSeqId: returnItem.returnItemSeqId,
+                                   returnId: returnItem.returnId,
+                                   quantityAccepted: returnItem.returnQuantity,
+                                   facilityId: returnHeader.destinationFacilityId,
+                                   shipmentId: shipmentId, // important: associate ShipmentReceipt with return shipment created
+                                   comments: "Returned Item RA# ${returnItem.returnId}",
+                                   datetimeReceived: nowTimestamp,
+                                   quantityRejected: BigDecimal.ZERO
                     ]
                     Map serviceResult = run service: 'receiveInventoryProduct', with: receiveCtx
                     result.successMessageList = serviceResult.successMessageList
@@ -306,14 +307,12 @@ BigDecimal getReceivedQuantityForOrderItem (GenericValue orderItem) {
  */
 Map updateIssuanceShipmentAndPoOnReceiveInventory() {
     GenericValue orderItem = from('OrderItem').where(parameters).queryOne()
-    if (parameters.orderCurrencyUnitPrice) {
-        if (parameters.orderCurrencyUnitPrice != orderItem.unitPrice) {
-            orderItem.unitPrice = new BigDecimal (parameters.orderCurrencyUnitPrice)
-            orderItem.store()
-        }
-    } else {
-        if (parameters.unitCost != orderItem.unitPrice) {
-            orderItem.unitPrice = parameters.unitCost
+    // orderCurrencyUnitPrice takes precedence over unitCost; both are Strings, an empty one leaves the price untouched
+    Object newUnitPriceValue = parameters.orderCurrencyUnitPrice ?: parameters.unitCost
+    if (newUnitPriceValue) {
+        BigDecimal newUnitPrice = ObjectType.simpleTypeOrObjectConvert(newUnitPriceValue, 'BigDecimal', null, locale)
+        if (newUnitPrice != orderItem.unitPrice) {
+            orderItem.unitPrice = newUnitPrice
             orderItem.store()
         }
     }
@@ -383,22 +382,25 @@ Map cancelReceivedItems() {
     // 4. updateProductIfAvailableFromShipment
 
     // update the accepted and received quantity to zero in ShipmentReceipt entity
-    update('ShipmentReceipt').where(parameters).set([quantityAccepted: 0.0, quantityRejected: 0.0])
+    GenericValue shipmentReceipt = update('ShipmentReceipt').where(parameters).set([quantityAccepted: 0.0, quantityRejected: 0.0])
 
-    // create record for InventoryItemDetail entity
+    // a receipt without accepted units has no inventory item (OFBIZ-13376), so there is nothing to zero out or balance
     GenericValue inventoryItem = delegator.getRelatedOne('InventoryItem', shipmentReceipt, false)
-    Map inventoryItemDetailMap = [inventoryItemId: inventoryItem.inventoryItemId]
-    inventoryItemDetailMap.quantityOnHandDiff = inventoryItem.quantityOnHandTotal * (-1)
-    inventoryItemDetailMap.availableToPromiseDiff = inventoryItem.availableToPromiseTotal * (-1)
-    run service: 'createInventoryItemDetail', with: inventoryItemDetailMap
+    if (inventoryItem) {
+        // create record for InventoryItemDetail entity
+        Map inventoryItemDetailMap = [inventoryItemId: inventoryItem.inventoryItemId]
+        inventoryItemDetailMap.quantityOnHandDiff = inventoryItem.quantityOnHandTotal * (-1)
+        inventoryItemDetailMap.availableToPromiseDiff = inventoryItem.availableToPromiseTotal * (-1)
+        run service: 'createInventoryItemDetail', with: inventoryItemDetailMap
 
-    // Balance the inventory item
-    // balanceInventoryItems requires ORDERMGR_UPDATE; run as the "system" user since this is a trusted side
-    // effect of an already-permitted shipment-receipt operation
-    Map balanceInventoryItemMap = [inventoryItemId: inventoryItem.inventoryItemId,
-                                   priorityOrderId: shipmentReceipt.orderId, priorityOrderItemSeqId: shipmentReceipt.orderItemSeqId,
-                                   userLogin: from('UserLogin').where(userLoginId: 'system').cache().queryOne()]
-    run service: 'balanceInventoryItems', with: balanceInventoryItemMap
+        // Balance the inventory item
+        // balanceInventoryItems requires ORDERMGR_UPDATE; run as the "system" user since this is a trusted side
+        // effect of an already-permitted shipment-receipt operation
+        Map balanceInventoryItemMap = [inventoryItemId: inventoryItem.inventoryItemId,
+                                       priorityOrderId: shipmentReceipt.orderId, priorityOrderItemSeqId: shipmentReceipt.orderItemSeqId,
+                                       userLogin: from('UserLogin').where(userLoginId: 'system').cache().queryOne()]
+        run service: 'balanceInventoryItems', with: balanceInventoryItemMap
+    }
 
     // update the shipment status, if shipment was received
     GenericValue shipment = delegator.getRelatedOne('Shipment', shipmentReceipt, false)
