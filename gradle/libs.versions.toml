@@ -45,7 +45,7 @@ commons-dbcp2 = "2.14.0"
 commons-fileupload2-jakarta = "2.0.0-M1"
 commons-text = "1.15.0"
 # 4.0.0 does not compile
-geronimo-transaction = "3.1.5"
+geronimo-transaction = "4.0.0"
 geronimo-jms-spec = "1.1.1"
 httpclient-cache = "4.5.14"
 # Shared by log4j-api, log4j-core, log4j-layout-template-json, log4j-legacy-api, log4j-jul,
