@@ -11,8 +11,8 @@
   → Trigger: push / PR (except Dependabot PRs) + weekly on `trunk` and `release*`, skipped when only documentation or setup files change
 
 - `docker-image.yml`  
-  Build and push images to `ghcr.io/apache/ofbiz`  
-  → Trigger: push on `trunk` / `release*` + tags
+  Build and push images to `ghcr.io/apache/ofbiz`, only if the `DO_DOCKER_PUSH` variable is `true`  
+  → Trigger: push on `trunk` / `release*` + tags; a new push cancels the running build of the same branch
 
 - `dependency-review.yml`  
   Vulnerability scanning for dependencies in PRs  

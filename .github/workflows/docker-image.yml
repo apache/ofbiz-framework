@@ -27,12 +27,13 @@
 # Some actions, such as docker/metadata-action, require a GITHUB_TOKEN. To meet this
 # requirement when using act you will need to create a Personal Access Token on GitHub.
 # You can then run act using a command similar to:
-#   act --job docker_build --secret GITHUB_TOKEN
+#   act --job docker_build --secret GITHUB_TOKEN --var DO_DOCKER_PUSH=true
 # Act will then prompt you to enter your token.
 
 #############################################################################
-# Docker push will only occur if configuration variable DO_DOCKER_PUSH is set to 'true'.
-# This ensures that repository forks do not attempt push to the ghcr.io/apache/ofbiz container registry.
+# The images are only built and pushed if configuration variable DO_DOCKER_PUSH is set to 'true'.
+# This ensures that repository forks do not build images that they cannot push to the
+# ghcr.io/apache/ofbiz container registry.
 # See https://docs.github.com/en/actions/learn-github-actions/variables#defining-configuration-variables-for-multiple-workflows
 # for more information on configuring variables for a repository.
 
@@ -43,6 +44,32 @@ on:
     branches: [ trunk, release* ]
     tags:
       - '**'
+    # Changes that cannot affect the images (Markdown files, IDE/devcontainer setup,
+    # Windows-only scripts, other workflows...) don't trigger the build: the ubuntu-latest
+    # runners are a limited resource shared by all the ASF projects.
+    # These patterns are not evaluated for the push of a tag, which always builds the images.
+    # GitHub evaluates these patterns in order, so a later pattern can re-include a path that an
+    # earlier "!" pattern excluded.
+    paths:
+      - '**'
+      - '!**.md'
+      - '!**.bat'
+      - '!.asf.yaml'
+      - '!.devcontainer/**'
+      - '!.gitattributes'
+      - '!.gitignore'
+      - '!.hgignore'
+      - '!.idea/**'
+      - '!.pre-commit-config.yaml'
+      - '!.github/**'
+      - '.github/workflows/docker-image.yml'
+
+# Only the images of the latest push to a branch matter, as they replace the -snapshot images
+# of the previous pushes, so a new push cancels the still running or queued build of the branch.
+# The builds of tags are never cancelled.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref_type == 'branch' }}
 
 permissions:
   contents: read
@@ -50,6 +77,7 @@ permissions:
 jobs:
   docker_build:
     name: Build and push OFBiz docker container images
+    if: vars.DO_DOCKER_PUSH == 'true'
     runs-on: ubuntu-latest
     permissions:
       contents: read
