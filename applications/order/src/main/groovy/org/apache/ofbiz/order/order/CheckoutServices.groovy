@@ -86,6 +86,7 @@ Map createUpdateCustomerAndShippingAddress() {
     result.shipToPhoneContactMechId = serviceResultCUPTN.contactMechId
 
     if (shipToPhoneContactMechId) {
+        shoppingCart.removeContactMechId('PHONE_SHIPPING')
         shoppingCart.addContactMechId('PHONE_SHIPPING', shipToPhoneContactMechId)
     }
     // Create Update email address
@@ -98,9 +99,11 @@ Map createUpdateCustomerAndShippingAddress() {
     result.emailContactMechId = serviceResultCUPEM.contactMechId
     result.partyId = partyId
     if (parameters.emailContactMechId) {
+        shoppingCart.removeContactMechId('ORDER_EMAIL')
         shoppingCart.addContactMechId('ORDER_EMAIL', parameters.emailContactMechId)
     }
     shoppingCart.setUserLogin(userLogin, dispatcher)
+    shoppingCart.removeContactMechId('SHIPPING_LOCATION')
     shoppingCart.addContactMechId('SHIPPING_LOCATION', parameters.shipToContactMechId)
     shoppingCart.setAllShippingContactMechId(parameters.shipToContactMechId)
     shoppingCart.setOrderPartyId(partyId)
@@ -153,6 +156,7 @@ Map createUpdateBillingAddressAndPaymentMethod() {
     parameters.billToContactMechId = serviceResultCUBA.contactMechId
     result.contactMechId = serviceResultCUBA.contactMechId
     if (parameters.billToContactMechId) {
+        shoppingCart.removeContactMechId('BILLING_LOCATION')
         shoppingCart.addContactMechId('BILLING_LOCATION', parameters.billToContactMechId)
     }
     // Create Update Billing Telecom Number
@@ -169,6 +173,7 @@ Map createUpdateBillingAddressAndPaymentMethod() {
     String billToPhoneContactMechId = serviceResultCUPTN.contactMechId
     result.billToPhoneContactMechId = serviceResultCUPTN.contactMechId
     if (billToPhoneContactMechId) {
+        shoppingCart.removeContactMechId('PHONE_BILLING')
         shoppingCart.addContactMechId('PHONE_BILLING', billToPhoneContactMechId)
     }
     // Create Update credit card
