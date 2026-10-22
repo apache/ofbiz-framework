@@ -382,11 +382,13 @@ under the License.
     </service>
     <service name="updateFinAccountTypeGlAccount" default-entity-name="FinAccountTypeGlAccount" engine="entity-auto" invoke="update" auth="true">
         <description>Update a FinAccountTypeGlAccount</description>
+        <permission-service service-name="basicGeneralLedgerPermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="false"/>
     </service>
     <service name="deleteFinAccountTypeGlAccount" default-entity-name="FinAccountTypeGlAccount" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete a FinAccountTypeGlAccount</description>
+        <permission-service service-name="basicGeneralLedgerPermissionCheck" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
@@ -398,11 +400,13 @@ under the License.
     </service>
     <service name="updateVarianceReasonGlAccount" default-entity-name="VarianceReasonGlAccount" engine="entity-auto" invoke="update" auth="true">
         <description>Update a Variance Reason Gl Account</description>
+        <permission-service service-name="basicGeneralLedgerPermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="false"/>
     </service>
     <service name="deleteVarianceReasonGlAccount" default-entity-name="VarianceReasonGlAccount" engine="entity-auto" invoke="delete" auth="true">
         <description>delete a Variance Reason Gl Account</description>
+        <permission-service service-name="basicGeneralLedgerPermissionCheck" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
@@ -601,27 +605,32 @@ under the License.
 
     <service name="createGlAccountCategory" engine="entity-auto" default-entity-name="GlAccountCategory" invoke="create" auth="true">
         <description>Create GL Account Category</description>
+        <permission-service service-name="basicGeneralLedgerPermissionCheck" main-action="CREATE"/>
         <auto-attributes mode="OUT" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
     <service name="updateGlAccountCategory" engine="entity-auto" default-entity-name="GlAccountCategory" invoke="update" auth="true">
         <description>Update GL Account Category</description>
+        <permission-service service-name="basicGeneralLedgerPermissionCheck" main-action="UPDATE"/>
         <auto-attributes mode="IN" include="pk" optional="false" />
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
     <service name="createGlAccountCategoryMember" engine="entity-auto" default-entity-name="GlAccountCategoryMember" invoke="create" auth="true">
         <description>Create GL Account Category Member</description>
+        <permission-service service-name="basicGeneralLedgerPermissionCheck" main-action="CREATE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
         <override name="fromDate" optional="true"/>
     </service>
     <service name="deleteGlAccountCategoryMember" engine="entity-auto" default-entity-name="GlAccountCategoryMember" invoke="delete" auth="true">
         <description>Delete GL Account Category Member</description>
+        <permission-service service-name="basicGeneralLedgerPermissionCheck" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <service name="updateGlAccountCategoryMember" engine="simple" default-entity-name="GlAccountCategoryMember"
         location="component://accounting/minilang/ledger/GeneralLedgerServices.xml" invoke="updateGlAccountCategoryMember" auth="true">
         <description>Update GL Account Category Member</description>
+        <permission-service service-name="basicGeneralLedgerPermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
