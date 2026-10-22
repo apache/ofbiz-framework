@@ -44,6 +44,11 @@ under the License.
             </else>
         </if-compare>
     </simple-method>
+    <simple-method method-name="orderItemShipGroupPermissionCheck" short-description="Permission service for the creation, editing and removal of order item ship groups">
+        <set field="primaryPermission" value="ORDERMGR"/>
+        <set field="altPermission" value="ORDERMGR_ROLE"/>
+        <call-simple-method method-name="genericBasePermissionCheck" xml-resource="component://common/minilang/permission/CommonPermissionServices.xml"/>
+    </simple-method>
     <simple-method method-name="updateOrderStatusFromReceipt" short-description="Update Order Status From ShipmentReceipt">
         <check-permission permission="ORDERMGR" action="_UPDATE"><fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunUpdateOrderStatusFromReceipt"/></check-permission>
         <check-errors/>
