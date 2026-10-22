@@ -283,6 +283,7 @@ under the License.
     <service name="linkPartyRecord" engine="java" auth="true" use-transaction="false"
                 location="org.apache.ofbiz.party.party.PartyServices" invoke="linkParty">
         <description>Merges customer accounts and disabled the duplicate</description>
+        <permission-service service-name="partyBasePermissionCheck" main-action="UPDATE"/>
         <attribute name="partyId" type="String" mode="INOUT" optional="false"/>
         <attribute name="partyIdTo" type="String" mode="IN" optional="false"/>
     </service>
