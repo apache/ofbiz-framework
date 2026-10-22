@@ -77,7 +77,7 @@ esapi = "2.7.0.0"
 spring = "6.2.19"
 jackson-databind = "2.22.4"
 # Shared by jersey-container-servlet, jersey-hk2, jersey-media-multipart, jersey-media-json-jackson.
-jersey = "3.1.12"
+jersey = "4.0.3"
 # Shared by swagger-jaxrs2-core-jakarta, swagger-jaxrs2-servlet-initializer-jakarta, swagger-annotations-jakarta.
 swagger = "2.2.55"
 oro = "2.0.8"
