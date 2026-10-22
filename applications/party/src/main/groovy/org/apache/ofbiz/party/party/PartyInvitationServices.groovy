@@ -67,10 +67,11 @@ Map acceptPartyInvitation() {
             .where(partyInvitationId: parameters.partyInvitationId)
             .queryList()
     if (partyInvitationRoleAssocs) {
-        Map ensurePartyRoleCtx = [partyId: parameters.partyId]
+        // createPartyRole carries the permission check, ensurePartyRole does not
         partyInvitationRoleAssocs.each {
-            ensurePartyRoleCtx.roleTypeId = it.roleTypeId
-            run service: 'ensurePartyRole', with: ensurePartyRoleCtx
+            if (!from('PartyRole').where(partyId: parameters.partyId, roleTypeId: it.roleTypeId).queryOne()) {
+                run service: 'createPartyRole', with: [partyId: parameters.partyId, roleTypeId: it.roleTypeId]
+            }
         }
     }
 
@@ -80,3 +81,12 @@ Map acceptPartyInvitation() {
     return result
 }
 
+Map declinePartyInvitation() {
+    return run(service: 'updatePartyInvitation', with: [partyInvitationId: parameters.partyInvitationId,
+                                                        statusId: 'PARTYINV_DECLINED'])
+}
+
+Map cancelPartyInvitation() {
+    return run(service: 'updatePartyInvitation', with: [partyInvitationId: parameters.partyInvitationId,
+                                                        statusId: 'PARTYINV_CANCELLED'])
+}

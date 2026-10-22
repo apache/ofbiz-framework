@@ -137,6 +137,7 @@ under the License.
         <auto-attributes entity-name="TelecomNumber" mode="IN" optional="true"/>
         <attribute name="roleTypeId" mode="IN" type="String"/>
         <attribute name="emailAddress" type="String" mode="IN" optional="true"/>
+        <attribute name="extension" type="String" mode="IN" optional="true"/>
         <attribute name="partyId" mode="OUT" type="String" optional="false"/>
     </service>
     <service name="updatePerson" engine="java" default-entity-name="Person"
@@ -1250,20 +1251,18 @@ under the License.
          </attribute>
     </service>
     <service name="declinePartyInvitation" engine="groovy"
-            location="component://party/src/main/groovy/org/apache/ofbiz/party/party/PartyInvitationServices.groovy" invoke="updatePartyInvitation">
+            location="component://party/src/main/groovy/org/apache/ofbiz/party/party/PartyInvitationServices.groovy" invoke="declinePartyInvitation">
         <permission-service service-name="accAndDecPartyInvitationPermissionCheck"/>
         <attribute name="partyInvitationId" type="String" mode="IN" optional="false">
             <type-validate>
                 <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingPartyInvitationId"/>
             </type-validate>
         </attribute>
-        <attribute name="statusId" type="String" mode="IN" optional="true" default-value="PARTYINV_DECLINED"/>
     </service>
     <service name="cancelPartyInvitation" engine="groovy"
-            location="component://party/src/main/groovy/org/apache/ofbiz/party/party/PartyInvitationServices.groovy" invoke="updatePartyInvitation">
+            location="component://party/src/main/groovy/org/apache/ofbiz/party/party/PartyInvitationServices.groovy" invoke="cancelPartyInvitation">
         <permission-service service-name="cancelPartyInvitationPermissionCheck"/>
         <attribute name="partyInvitationId" type="String" mode="IN"/>
-        <attribute name="statusId" type="String" mode="IN" optional="true" default-value="PARTYINV_CANCELLED"/>
     </service>
 
     <!-- Permission checking services-->
