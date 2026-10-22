@@ -21,12 +21,14 @@ package org.apache.ofbiz.accounting.admin
 import java.math.RoundingMode
 import java.sql.Timestamp
 
+import org.apache.ofbiz.base.util.ObjectType
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.base.util.UtilProperties
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.condition.EntityConditionBuilder
 import org.apache.ofbiz.entity.util.EntityUtil
 import org.apache.ofbiz.service.ModelService
+import org.apache.ofbiz.service.ServiceUtil
 
 import java.text.SimpleDateFormat
 
@@ -56,11 +58,14 @@ Map getPartyAccountingPreferences() {
         containsEmptyFields = false
         if (currentPartyAcctgPref) {
             for (String entityKey : currentPartyAcctgPref.keySet()) {
-                Object entityValue = currentPartyAcctgPref.get(entityKey)
-                if (entityValue) {
-                    aggregatedPartyAcctgPref.put(entityKey, entityValue)
-                } else {
-                    containsEmptyFields = true
+                // a value already supplied by the organization itself or by a closer ancestor is never overridden
+                if (ObjectType.isEmpty(aggregatedPartyAcctgPref.get(entityKey))) {
+                    Object entityValue = currentPartyAcctgPref.get(entityKey)
+                    if (ObjectType.isEmpty(entityValue)) {
+                        containsEmptyFields = true
+                    } else {
+                        aggregatedPartyAcctgPref.put(entityKey, entityValue)
+                    }
                 }
             }
         } else {
