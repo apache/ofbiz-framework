@@ -69,6 +69,22 @@ Map facilityGenericPermission() {
 }
 
 /**
+ * Permission logic for order-related inventory reservation services (balanceInventoryItems,
+ * setOrderReservationPriority), which are reached through the order manager rather than the catalog.
+ * @return Map with hasPermission boolean and potential failure message.
+ */
+Map orderInventoryPermissionCheck() {
+    String mainAction = parameters.mainAction
+    require(mainAction as boolean, 'ProductUiLabels', 'ProductMissingMainActionInPermissionService')
+    Map result = success()
+    result.hasPermission = security.hasEntityPermission('ORDERMGR', "_${mainAction}", parameters.userLogin)
+    if (!result.hasPermission) {
+        result = failure('ProductUiLabels', 'ProductPermissionError')
+    }
+    return result
+}
+
+/**
  * ProductFacility Permission Checking Logic
  * @return Map with hasPermission boolean and potential failure message.
  */
