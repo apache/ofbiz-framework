@@ -376,11 +376,13 @@ under the License.
     <!--ProductStoreGroup Services -->
     <service name="createProductStoreGroup" default-entity-name="ProductStoreGroup" engine="entity-auto" invoke="create" auth="true">
         <description>Create a ProductStoreGroup</description>
+        <permission-service service-name="productStoreGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="OUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="updateProductStoreGroup" default-entity-name="ProductStoreGroup" engine="entity-auto" invoke="update" auth="true">
         <description>Update a ProductStoreGroup</description>
+        <permission-service service-name="productStoreGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
@@ -390,6 +392,7 @@ under the License.
     </service>
     <service name="createProductStoreGroupMember" default-entity-name="ProductStoreGroupMember" engine="entity-auto" invoke="create" auth="true">
         <description>Create a ProductStoreGroupMember</description>
+        <permission-service service-name="productStoreGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
