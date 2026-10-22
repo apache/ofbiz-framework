@@ -75,11 +75,14 @@ Map facilityGenericPermission() {
  */
 Map orderInventoryPermissionCheck() {
     String mainAction = parameters.mainAction
-    require(mainAction as boolean, 'ProductUiLabels', 'ProductMissingMainActionInPermissionService')
+    if (!mainAction) {
+        return error(UtilProperties.getMessage('ProductUiLabels', 'ProductMissingMainActionInPermissionService', parameters.locale))
+    }
     Map result = success()
     result.hasPermission = security.hasEntityPermission('ORDERMGR', "_${mainAction}", parameters.userLogin)
     if (!result.hasPermission) {
-        result = failure('ProductUiLabels', 'ProductPermissionError')
+        result = failure(UtilProperties.getMessage('ProductUiLabels', 'ProductPermissionError', parameters.locale))
+        result.hasPermission = false
     }
     return result
 }
