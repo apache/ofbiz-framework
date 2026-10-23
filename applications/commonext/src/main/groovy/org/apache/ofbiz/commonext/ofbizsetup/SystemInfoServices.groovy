@@ -87,7 +87,7 @@ Map getSystemInfoStatus() {
     List comms = from('CommunicationEventAndRole')
             .where(EntityCondition.makeCondition([
                     EntityCondition.makeCondition('partyId', userLogin.partyId),
-                    EntityCondition.makeCondition('statusId', EntityOperator.NOT_EQUAL, 'COM_ROLE_COMPLETED')
+                    EntityCondition.makeCondition('roleStatusId', EntityOperator.NOT_EQUAL, 'COM_ROLE_COMPLETED')
             ]))
             .orderBy('-entryDate')
             .queryList()
