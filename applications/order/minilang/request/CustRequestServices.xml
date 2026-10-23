@@ -47,6 +47,10 @@ under the License.
         </if>
         <field-to-result field="hasPermission"/>
     </simple-method>
+    <simple-method method-name="custRequestChildPermissionCheck" short-description="Unconditional ORDERMGR_CRQ permission check for updating an existing customer request or its child records">
+        <set field="primaryPermission" value="ORDERMGR_CRQ"/>
+        <call-simple-method method-name="genericBasePermissionCheck" xml-resource="component://common/minilang/permission/CommonPermissionServices.xml"/>
+    </simple-method>
 
     <simple-method method-name="createCustRequest" short-description="Create Customer Request">
         <make-value entity-name="CustRequest" value-field="newEntity"/>

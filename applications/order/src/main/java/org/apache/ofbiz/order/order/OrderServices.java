@@ -6486,9 +6486,17 @@ public class OrderServices {
 
     public static Map<String, Object> setShippingInstructions(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
+        Locale locale = (Locale) context.get("locale");
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
         String orderId = (String) context.get("orderId");
         String shipGroupSeqId = (String) context.get("shipGroupSeqId");
         String shippingInstructions = (String) context.get("shippingInstructions");
+        Security security = dctx.getSecurity();
+
+        if (!OrderServices.hasPermission(orderId, userLogin, "UPDATE", security, delegator)) {
+            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+                    "OrderYouDoNotHavePermissionToChangeThisOrdersStatus", locale));
+        }
         try {
             GenericValue orderItemShipGroup = EntityQuery.use(delegator).from("OrderItemShipGroup").where("orderId", orderId, "shipGroupSeqId",
                     shipGroupSeqId).queryFirst();
@@ -6502,9 +6510,17 @@ public class OrderServices {
 
     public static Map<String, Object> setGiftMessage(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
+        Locale locale = (Locale) context.get("locale");
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
         String orderId = (String) context.get("orderId");
         String shipGroupSeqId = (String) context.get("shipGroupSeqId");
         String giftMessage = (String) context.get("giftMessage");
+        Security security = dctx.getSecurity();
+
+        if (!OrderServices.hasPermission(orderId, userLogin, "UPDATE", security, delegator)) {
+            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+                    "OrderYouDoNotHavePermissionToChangeThisOrdersStatus", locale));
+        }
         try {
             GenericValue orderItemShipGroup = EntityQuery.use(delegator).from("OrderItemShipGroup").where("orderId", orderId, "shipGroupSeqId",
                     shipGroupSeqId).queryFirst();
