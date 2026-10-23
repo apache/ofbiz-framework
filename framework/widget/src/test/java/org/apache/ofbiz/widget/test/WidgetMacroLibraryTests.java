@@ -33,6 +33,7 @@ import org.apache.ofbiz.base.util.HttpClientException;
 import org.apache.ofbiz.testtools.HttpsTestSupport;
 import org.apache.ofbiz.testtools.JunitJupiterTest;
 import org.apache.ofbiz.testtools.JupiterTestHelper;
+import org.apache.tika.io.TikaInputStream;
 import org.apache.tika.metadata.Metadata;
 import org.apache.tika.parser.ParseContext;
 import org.apache.tika.parser.pdf.PDFParser;
@@ -194,13 +195,11 @@ public class WidgetMacroLibraryTests implements JupiterTestHelper {
                 http.getResponseContentType(), "Response contentType isn't good : " + http.getResponseContentType());
 
         String screenOutString = "";
-        try {
+        try (TikaInputStream screenTikaStream = TikaInputStream.get(screenInputStream)) {
             BodyContentHandler handler = new BodyContentHandler(Integer.MAX_VALUE);
             Metadata metadata = new Metadata();
-            new PDFParser().parse(screenInputStream, handler, metadata, new ParseContext());
+            new PDFParser().parse(screenTikaStream, handler, metadata, new ParseContext());
             screenOutString = handler.toString();
-        } finally {
-            screenInputStream.close();
         }
         //Test if a ftl macro error is present
         assertFalse(screenOutString.contains("FreeMarker template error:"),

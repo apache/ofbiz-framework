@@ -57,8 +57,8 @@ pdfbox = "3.0.8"
 shiro = "3.0.1"
 # Shared by sshd-core, sshd-sftp.
 sshd = "2.20.0"
-# Shared by tika-core, tika-parsers, tika-parser-pdf-module.
-tika = "3.3.3"
+# Shared by tika-core, tika-parser-pdf-module.
+tika = "4.1.0"
 cxf-rt-frontend-jaxrs = "4.2.4"
 # Remember to change the version number (10 now) in javadoc block if needed. Shared by
 # tomcat-catalina-ha, tomcat-jasper.
@@ -153,7 +153,6 @@ shiro-lang = { module = "org.apache.shiro:shiro-lang", version.ref = "shiro" }
 sshd-core = { module = "org.apache.sshd:sshd-core", version.ref = "sshd" }
 sshd-sftp = { module = "org.apache.sshd:sshd-sftp", version.ref = "sshd" }
 tika-core = { module = "org.apache.tika:tika-core", version.ref = "tika" }
-tika-parsers = { module = "org.apache.tika:tika-parsers", version.ref = "tika" }
 tika-parser-pdf-module = { module = "org.apache.tika:tika-parser-pdf-module", version.ref = "tika" }
 cxf-rt-frontend-jaxrs = { module = "org.apache.cxf:cxf-rt-frontend-jaxrs", version.ref = "cxf-rt-frontend-jaxrs" }
 tomcat-catalina-ha = { module = "org.apache.tomcat:tomcat-catalina-ha", version.ref = "tomcat" }
@@ -213,6 +212,6 @@ testng = { module = "org.testng:testng", version.ref = "testng" }
 jersey = ["jersey-container-servlet", "jersey-hk2", "jersey-media-multipart", "jersey-media-json-jackson"]
 swagger = ["swagger-jaxrs2-core", "swagger-jaxrs2-servlet-initializer", "swagger-annotations"]
 batik = ["batik-anim", "batik-util", "batik-bridge"]
-tika = ["tika-core", "tika-parsers", "tika-parser-pdf-module"]
+tika = ["tika-core", "tika-parser-pdf-module"]
 pdfbox = ["pdfbox-core", "pdfbox-io"]
 shiro = ["shiro-crypto-cipher", "shiro-crypto-core", "shiro-lang"]
