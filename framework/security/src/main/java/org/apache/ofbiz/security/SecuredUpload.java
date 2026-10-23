@@ -29,7 +29,6 @@ import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Reader;
 import java.io.StringReader;
@@ -102,6 +101,8 @@ import org.apache.pdfbox.pdmodel.PDEmbeddedFilesNameTreeNode;
 import org.apache.pdfbox.pdmodel.common.filespecification.PDComplexFileSpecification;
 import org.apache.tika.Tika;
 import org.apache.tika.exception.TikaException;
+import org.apache.tika.io.TikaInputStream;
+import org.apache.tika.metadata.HttpHeaders;
 import org.apache.tika.metadata.Metadata;
 import org.apache.tika.metadata.TikaCoreProperties;
 import org.apache.tika.parser.AutoDetectParser;
@@ -1449,7 +1450,7 @@ public class SecuredUpload {
      * document formats including: MSWord, MSExcel, MSPowerPoint, RTF, PDF, MSG and several others.
      * <p>
      * The "content" format is determined by the ContentHandlerFactory, and the content is stored in
-     * {@link org.apache.tika.parser.RecursiveParserWrapper#TIKA_CONTENT}
+     * {@link org.apache.tika.metadata.TikaCoreProperties#TIKA_CONTENT}
      * <p>
      * The drawback to the RecursiveParserWrapper is that it caches metadata and contents in memory. This should not be used on files whose contents
      * are too big to be handled in memory.
@@ -1470,14 +1471,14 @@ public class SecuredUpload {
         Metadata metadata = new Metadata();
         metadata.set(TikaCoreProperties.ORIGINAL_RESOURCE_NAME, file.getName());
         ParseContext context = new ParseContext();
-        RecursiveParserWrapperHandler handler = new RecursiveParserWrapperHandler(factory, -1);
-        try (InputStream stream = new FileInputStream(file)) {
+        RecursiveParserWrapperHandler handler = new RecursiveParserWrapperHandler(factory);
+        try (TikaInputStream stream = TikaInputStream.get(file.toPath())) {
             wrapper.parse(stream, handler, metadata, context);
         }
         List<Metadata> metadatas = handler.getMetadataList();
         Set<String> mimeTypes = new HashSet<>();
         for (Metadata metadata1 : metadatas) {
-            mimeTypes.add(metadata1.get(Metadata.CONTENT_TYPE));
+            mimeTypes.add(metadata1.get(HttpHeaders.CONTENT_TYPE));
         }
         return mimeTypes;
     }
