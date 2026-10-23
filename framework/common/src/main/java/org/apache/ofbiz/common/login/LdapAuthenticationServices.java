@@ -27,7 +27,7 @@ import javax.naming.NamingException;
 import javax.naming.directory.DirContext;
 import javax.naming.directory.InitialDirContext;
 import javax.naming.ldap.Rdn;
-import javax.transaction.Transaction;
+import jakarta.transaction.Transaction;
 
 import org.apache.ofbiz.base.crypto.HashCrypt;
 import org.apache.ofbiz.base.util.Debug;

@@ -26,7 +26,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import javax.transaction.Transaction;
+import jakarta.transaction.Transaction;
 
 import org.apache.ofbiz.base.config.GenericConfigException;
 import org.apache.ofbiz.base.util.Debug;

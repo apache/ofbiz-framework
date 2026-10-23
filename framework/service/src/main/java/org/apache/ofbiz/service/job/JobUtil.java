@@ -18,7 +18,7 @@
  *******************************************************************************/
 package org.apache.ofbiz.service.job;
 
-import javax.transaction.Transaction;
+import jakarta.transaction.Transaction;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;

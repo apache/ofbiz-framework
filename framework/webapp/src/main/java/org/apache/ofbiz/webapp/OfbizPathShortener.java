@@ -19,7 +19,7 @@
 package org.apache.ofbiz.webapp;
 
 import java.util.Map;
-import javax.transaction.Transaction;
+import jakarta.transaction.Transaction;
 import org.apache.ofbiz.base.crypto.HashCrypt;
 import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilDateTime;

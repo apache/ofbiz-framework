@@ -60,7 +60,7 @@ import org.apache.ofbiz.service.ServiceUtil;
 import org.apache.ofbiz.service.calendar.RecurrenceInfo;
 import org.apache.ofbiz.service.calendar.RecurrenceInfoException;
 
-import javax.transaction.Transaction;
+import jakarta.transaction.Transaction;
 import org.apache.ofbiz.base.util.collections.PagedList;
 
 /**

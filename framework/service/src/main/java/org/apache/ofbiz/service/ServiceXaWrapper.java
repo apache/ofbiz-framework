@@ -21,8 +21,8 @@ package org.apache.ofbiz.service;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.transaction.Status;
-import javax.transaction.Transaction;
+import jakarta.transaction.Status;
+import jakarta.transaction.Transaction;
 import javax.transaction.xa.XAException;
 import javax.transaction.xa.Xid;
 

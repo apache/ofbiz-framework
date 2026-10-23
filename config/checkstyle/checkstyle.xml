@@ -71,7 +71,12 @@ under the License.
 
         <!-- Checks for imports -->
         <module name="AvoidStarImport"/>
-        <module name="IllegalImport"/>
+        <module name="IllegalImport">
+            <!-- the JTA API is jakarta.transaction, only javax.transaction.xa (part of the JDK) remains in javax -->
+            <property name="regexp" value="true"/>
+            <property name="illegalPkgs" value="^sun\..*"/>
+            <property name="illegalClasses" value="^javax\.transaction\.[A-Z].*"/>
+        </module>
         <module name="RedundantImport"/>
         <module name="UnusedImports">
             <property name="processJavadoc" value="false"/>
