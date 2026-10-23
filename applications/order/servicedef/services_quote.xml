@@ -185,6 +185,9 @@ under the License.
         <description>
             Create a new Quate term.
         </description>
+        <required-permissions join-type="AND">
+            <check-permission permission="ORDERMGR" action="_CREATE"/>
+        </required-permissions>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
         <override name="quoteItemSeqId" type="String" mode="IN" default-value="_NA_"/>
@@ -193,6 +196,9 @@ under the License.
         <description>
             Edit the Quate term.
         </description>
+        <required-permissions join-type="AND">
+            <check-permission permission="ORDERMGR" action="_UPDATE"/>
+        </required-permissions>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
@@ -200,6 +206,9 @@ under the License.
         <description>
             delete the Quate term.
         </description>
+        <required-permissions join-type="AND">
+            <check-permission permission="ORDERMGR" action="_DELETE"/>
+        </required-permissions>
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
     <!-- Specialized Quote services -->
@@ -327,6 +336,9 @@ under the License.
     <service name="createQuoteNote" engine="groovy"
             location="component://order/src/main/groovy/org/apache/ofbiz/order/quote/QuoteServicesScript.groovy" invoke="createQuoteNote" auth="true">
         <description>Create a note item and associate with a quote</description>
+        <required-permissions join-type="AND">
+            <check-permission permission="ORDERMGR" action="_CREATE"/>
+        </required-permissions>
         <attribute name="quoteId" type="String" mode="IN"/>
         <attribute name="noteInfo" type="String" mode="IN" allow-html="safe">
             <type-validate>

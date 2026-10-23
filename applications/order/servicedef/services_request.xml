@@ -34,6 +34,13 @@ under the License.
         <implements service="permissionInterface"/>
         <attribute name="fromPartyId" type="String" mode="IN" optional="true"/>
     </service>
+    <service name="custRequestChildPermissionCheck" engine="simple"
+            location="component://order/minilang/request/CustRequestServices.xml" invoke="custRequestChildPermissionCheck">
+        <description>Unconditional ORDERMGR_CRQ permission check, for updating an existing customer request or its child
+            records (item, party, content) where the caller-supplied fromPartyId (if any) can't be trusted to reflect
+            the actual owner of the existing record, unlike custRequestPermissionCheck's use on create</description>
+        <implements service="permissionInterface"/>
+    </service>
     <service name="createCustRequest" engine="simple" default-entity-name="CustRequest"
             location="component://order/minilang/request/CustRequestServices.xml" invoke="createCustRequest" auth="true">
         <description>Create a custRequest record and optionally create a custRequest item.</description>
@@ -49,6 +56,7 @@ under the License.
     <service name="updateCustRequest" engine="simple" default-entity-name="CustRequest"
             location="component://order/minilang/request/CustRequestServices.xml" invoke="updateCustRequest" auth="true">
         <description>Update a custRequest record</description>
+        <permission-service service-name="custRequestChildPermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <attribute name="oldStatusId" type="String" mode="OUT"/>
@@ -84,6 +92,7 @@ under the License.
     <!-- CustRequestItem services -->
     <service name="createCustRequestItem" engine="entity-auto" default-entity-name="CustRequestItem" invoke="create" auth="true">
         <description>Create a CustRequestItem record</description>
+        <permission-service service-name="custRequestChildPermissionCheck" main-action="CREATE"/>
         <auto-attributes include="pk" mode="INOUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="custRequestItemSeqId" optional="true"/>
@@ -93,6 +102,7 @@ under the License.
     </service>
     <service name="updateCustRequestItem" engine="entity-auto" default-entity-name="CustRequestItem" invoke="update" auth="true">
         <description>Update a CustRequestItem record</description>
+        <permission-service service-name="custRequestChildPermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="story" allow-html="safe"/>
@@ -110,6 +120,7 @@ under the License.
     <!-- CustRequestParty services -->
     <service name="createCustRequestParty" engine="entity-auto" default-entity-name="CustRequestParty" invoke="create" auth="true">
         <description>Create a CustRequestParty record</description>
+        <permission-service service-name="custRequestChildPermissionCheck" main-action="CREATE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
         <override name="fromDate" mode="IN" type="Timestamp" optional="true" default-value="${date:nowTimestamp()}"/>
@@ -229,6 +240,7 @@ under the License.
     </service>
     <service name="expireCustRequestContent" engine="entity-auto" invoke="expire" default-entity-name="CustRequestContent" auth="true">
         <description>Expire a Customer Request Content</description>
+        <permission-service service-name="custRequestChildPermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
