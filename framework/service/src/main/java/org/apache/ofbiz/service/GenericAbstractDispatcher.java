@@ -21,7 +21,7 @@ package org.apache.ofbiz.service;
 import java.util.Date;
 import java.util.Map;
 
-import javax.transaction.Transaction;
+import jakarta.transaction.Transaction;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.entity.Delegator;

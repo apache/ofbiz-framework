@@ -25,7 +25,7 @@ import java.sql.Statement;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
-import javax.transaction.Transaction;
+import jakarta.transaction.Transaction;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.entity.GenericEntityException;

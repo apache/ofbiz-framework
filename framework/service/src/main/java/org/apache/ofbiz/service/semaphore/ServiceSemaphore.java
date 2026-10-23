@@ -20,7 +20,7 @@ package org.apache.ofbiz.service.semaphore;
 
 import java.sql.Timestamp;
 
-import javax.transaction.Transaction;
+import jakarta.transaction.Transaction;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilDateTime;

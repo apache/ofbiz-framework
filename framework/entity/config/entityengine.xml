@@ -30,7 +30,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
     <!-- Use this one for Geronimo -->
     <transaction-factory class="org.apache.ofbiz.entity.transaction.GeronimoTransactionFactory"/>
 
-    <!-- Use this one for getting the JTA objects from JNDI -->
+    <!-- Use this one for getting the JTA objects from JNDI, they must implement the jakarta.transaction API (Jakarta EE 9 or later) -->
     <!-- NOTE: to use the JndiFactory you must specify the necessary JNDI properties
     <transaction-factory class="org.apache.ofbiz.entity.transaction.JNDITransactionFactory">
         <user-transaction-jndi jndi-server-name="default" jndi-name="java:comp/UserTransaction"/>

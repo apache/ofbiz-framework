@@ -26,16 +26,8 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
 
-import javax.transaction.TransactionManager;
+import jakarta.transaction.TransactionManager;
 
-import org.apache.commons.dbcp2.DriverConnectionFactory;
-import org.apache.commons.dbcp2.PoolableConnection;
-import org.apache.commons.dbcp2.PoolableConnectionFactory;
-import org.apache.commons.dbcp2.managed.LocalXAConnectionFactory;
-import org.apache.commons.dbcp2.managed.PoolableManagedConnectionFactory;
-import org.apache.commons.dbcp2.managed.XAConnectionFactory;
-import org.apache.commons.pool2.impl.GenericObjectPool;
-import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.entity.GenericEntityConfException;
 import org.apache.ofbiz.entity.GenericEntityException;
@@ -45,6 +37,14 @@ import org.apache.ofbiz.entity.config.model.JdbcElement;
 import org.apache.ofbiz.entity.datasource.GenericHelperInfo;
 import org.apache.ofbiz.entity.transaction.TransactionFactoryLoader;
 import org.apache.ofbiz.entity.transaction.TransactionUtil;
+import org.apache.tomcat.dbcp.dbcp2.DriverConnectionFactory;
+import org.apache.tomcat.dbcp.dbcp2.PoolableConnection;
+import org.apache.tomcat.dbcp.dbcp2.PoolableConnectionFactory;
+import org.apache.tomcat.dbcp.dbcp2.managed.LocalXAConnectionFactory;
+import org.apache.tomcat.dbcp.dbcp2.managed.PoolableManagedConnectionFactory;
+import org.apache.tomcat.dbcp.dbcp2.managed.XAConnectionFactory;
+import org.apache.tomcat.dbcp.pool2.impl.GenericObjectPool;
+import org.apache.tomcat.dbcp.pool2.impl.GenericObjectPoolConfig;
 
 /**
  * Apache Commons DBCP connection factory.
@@ -109,7 +109,7 @@ public class DBCPConnectionFactory implements ConnectionFactory {
         cfProps.put("password", jdbcPassword);
 
         // create the connection factory
-        org.apache.commons.dbcp2.ConnectionFactory cf = new DriverConnectionFactory(jdbcDriver, jdbcUri, cfProps);
+        org.apache.tomcat.dbcp.dbcp2.ConnectionFactory cf = new DriverConnectionFactory(jdbcDriver, jdbcUri, cfProps);
 
         // wrap it with a LocalXAConnectionFactory
         XAConnectionFactory xacf = new LocalXAConnectionFactory(txMgr, cf);

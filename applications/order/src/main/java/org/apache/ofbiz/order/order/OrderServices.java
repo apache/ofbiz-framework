@@ -34,7 +34,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
-import javax.transaction.Transaction;
+import jakarta.transaction.Transaction;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.fop.apps.MimeConstants;

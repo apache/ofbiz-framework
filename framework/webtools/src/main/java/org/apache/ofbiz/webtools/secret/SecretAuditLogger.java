@@ -20,7 +20,7 @@ package org.apache.ofbiz.webtools.secret;
 
 import java.util.List;
 
-import javax.transaction.Transaction;
+import jakarta.transaction.Transaction;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilDateTime;

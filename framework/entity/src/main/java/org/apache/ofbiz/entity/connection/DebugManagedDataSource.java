@@ -24,11 +24,11 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.dbcp2.managed.ManagedDataSource;
-import org.apache.commons.dbcp2.managed.TransactionRegistry;
-import org.apache.commons.pool2.ObjectPool;
-import org.apache.commons.pool2.impl.GenericObjectPool;
 import org.apache.ofbiz.base.util.Debug;
+import org.apache.tomcat.dbcp.dbcp2.managed.ManagedDataSource;
+import org.apache.tomcat.dbcp.dbcp2.managed.TransactionRegistry;
+import org.apache.tomcat.dbcp.pool2.ObjectPool;
+import org.apache.tomcat.dbcp.pool2.impl.GenericObjectPool;
 
 public class DebugManagedDataSource<C extends Connection> extends ManagedDataSource<C> {
 
