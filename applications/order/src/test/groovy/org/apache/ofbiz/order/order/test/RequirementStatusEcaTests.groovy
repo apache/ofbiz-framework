@@ -86,6 +86,16 @@ class RequirementStatusEcaTests implements JupiterTestHelper {
                 enabled: 'Y'
             ])
             delegator.create(userLogin)
+
+            String groupId = 'MRP_REQ_STATUS_TEST'
+            if (from('SecurityGroup').where('groupId', groupId).queryOne() == null) {
+                delegator.create('SecurityGroup', [groupId: groupId,
+                        description: 'Group for the requirement status ECA regression test'])
+                delegator.create('SecurityGroupPermission', [groupId: groupId, permissionId: 'ORDERMGR_CREATE',
+                        fromDate: java.sql.Timestamp.valueOf('2001-01-01 00:00:00')])
+            }
+            delegator.create('UserLoginSecurityGroup', [userLoginId: userLoginId, groupId: groupId,
+                    fromDate: java.sql.Timestamp.valueOf('2001-01-01 00:00:00')])
         }
         return userLogin
     }

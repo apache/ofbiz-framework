@@ -37,6 +37,9 @@ under the License.
     <service name="createRequirement" engine="simple"
             location="component://order/minilang/requirement/RequirementServices.xml" invoke="createRequirement">
         <description>Create a new requirement</description>
+        <required-permissions join-type="AND">
+            <check-permission permission="ORDERMGR" action="_CREATE"/>
+        </required-permissions>
         <implements service="requirementInterface"/>
         <attribute name="requirementTypeId" type="String" mode="IN" optional="false"/>
         <attribute name="custRequestId" type="String" mode="IN" optional="true"/>

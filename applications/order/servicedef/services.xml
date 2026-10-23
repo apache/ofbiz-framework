@@ -1732,6 +1732,9 @@ under the License.
     <service name="updateAllocationPlanItems" engine="java" auth="true"
              location="org.apache.ofbiz.order.order.OrderServices" invoke="updateAllocationPlanItems">
         <description>Update Allocation Plan Items</description>
+        <required-permissions join-type="AND">
+            <check-permission permission="ORDERMGR" action="_UPDATE"/>
+        </required-permissions>
         <attribute name="planId" type="String" mode="IN"/>
         <attribute name="orderIdMap" type="Map" mode="IN" string-map-prefix="oim_"/>
         <attribute name="orderItemSeqIdMap" type="Map" mode="IN" string-map-prefix="oisim_"/>
