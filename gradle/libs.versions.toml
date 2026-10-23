@@ -62,7 +62,7 @@ cxf-rt-frontend-jaxrs = "4.2.4"
 # tomcat-catalina-ha, tomcat-dbcp, tomcat-jasper.
 tomcat = "10.1.61"
 # Shared by axis2-kernel, axis2-transport-http, axis2-transport-local.
-axis2 = "1.8.2"
+axis2 = "2.0.1"
 # Shared by batik-anim, batik-util, batik-bridge.
 batik = "1.19"
 fop = "2.11"
