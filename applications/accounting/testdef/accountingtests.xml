@@ -42,6 +42,9 @@
     <test-case case-name="auto-accounting-agreement-tests">
         <jupiter-test-suite class-name="org.apache.ofbiz.accounting.accounting.AutoAcctgAgreementTests"/>
     </test-case>
+    <test-case case-name="auto-accounting-billingaccount-tests">
+        <jupiter-test-suite class-name="org.apache.ofbiz.accounting.accounting.AutoAcctgBillingAccountTests"/>
+    </test-case>
     <test-case case-name="auto-accounting-budget-tests">
         <jupiter-test-suite class-name="org.apache.ofbiz.accounting.accounting.AutoAcctgBudgetTests"/>
     </test-case>
