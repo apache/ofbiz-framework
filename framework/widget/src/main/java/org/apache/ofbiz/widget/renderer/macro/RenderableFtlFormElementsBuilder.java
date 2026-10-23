@@ -19,10 +19,12 @@
 package org.apache.ofbiz.widget.renderer.macro;
 
 import java.io.StringWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -39,6 +41,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import com.ibm.icu.util.Calendar;
+import org.apache.ofbiz.base.lang.JSON;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilCodec;
@@ -50,9 +53,12 @@ import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilRandom;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
+import org.apache.ofbiz.security.CsrfUtil;
 import org.apache.ofbiz.webapp.control.RequestHandler;
 import org.apache.ofbiz.widget.WidgetWorker;
 import org.apache.ofbiz.widget.content.StaticContentUrlProvider;
+import org.apache.ofbiz.widget.model.CommonWidgetModels;
+import org.apache.ofbiz.widget.model.FieldInfo;
 import org.apache.ofbiz.widget.model.ModelForm;
 import org.apache.ofbiz.widget.model.ModelFormField;
 import org.apache.ofbiz.widget.model.ModelFormField.ContainerField;
@@ -69,8 +75,8 @@ import org.apache.ofbiz.widget.renderer.macro.renderable.RenderableFtlMacroCall;
 import org.apache.ofbiz.widget.renderer.macro.renderable.RenderableFtlMacroCall.RenderableFtlMacroCallBuilder;
 import org.apache.ofbiz.widget.renderer.macro.renderable.RenderableFtlNoop;
 import org.apache.ofbiz.widget.renderer.macro.renderable.RenderableFtlSequence;
-import org.apache.ofbiz.widget.renderer.macro.renderable.RenderableFtlString;
-import org.apache.ofbiz.widget.renderer.macro.renderable.RenderableFtlString.RenderableFtlStringBuilder;
+import org.apache.ofbiz.widget.renderer.macro.renderable.RenderableFtlVerbatim;
+import org.apache.ofbiz.widget.renderer.macro.renderable.RenderableFtlVerbatim.RenderableFtlVerbatimBuilder;
 import org.jsoup.nodes.Element;
 
 /**
@@ -85,8 +91,6 @@ public final class RenderableFtlFormElementsBuilder {
 
     private final StaticContentUrlProvider staticContentUrlProvider;
 
-    private final UtilCodec.SimpleEncoder internalEncoder;
-
     public RenderableFtlFormElementsBuilder(final VisualTheme visualTheme, final RequestHandler requestHandler,
                                             final HttpServletRequest request, final HttpServletResponse response,
                                             final StaticContentUrlProvider staticContentUrlProvider) {
@@ -95,7 +99,6 @@ public final class RenderableFtlFormElementsBuilder {
         this.request = request;
         this.response = response;
         this.staticContentUrlProvider = staticContentUrlProvider;
-        this.internalEncoder = UtilCodec.getEncoder("string");
     }
 
     public RenderableFtl tooltip(final Map<String, Object> context, final ModelFormField modelFormField) {
@@ -160,15 +163,13 @@ public final class RenderableFtlFormElementsBuilder {
         final RenderableFtlMacroCallBuilder builder = RenderableFtlMacroCall.builder()
                 .name("renderDisplayField")
                 .stringParameter("type", type)
-                .stringParameter("imageLocation", imageLocation)
+                .stringParameter("imageLocation", encode(imageLocation, modelFormField, context))
                 .stringParameter("idName", idName)
                 .stringParameter("description", description)
                 .stringParameter("title", title)
                 .stringParameter("class", modelFormField.getWidgetStyle())
                 .stringParameter("alert", modelFormField.shouldBeRed(context) ? "true" : "false");
 
-        StringWriter sr = new StringWriter();
-        sr.append("<@renderDisplayField ");
         if (ajaxEnabled) {
             String url = inPlaceEditor.getUrl(context);
             StringBuffer extraParameterBuffer = new StringBuffer();
@@ -824,22 +825,24 @@ public final class RenderableFtlFormElementsBuilder {
             parameterMap.put(viewIndexField, Integer.toString(viewIndex));
             parameterMap.put(viewSizeField, Integer.toString(viewSize));
 
-            final RenderableFtlStringBuilder renderableFtlStringBuilder = RenderableFtlString.builder();
-            final StringBuilder htmlStringBuilder = renderableFtlStringBuilder.getStringBuilder();
+            final RenderableFtlVerbatimBuilder renderableFtlVerbatimBuilder = RenderableFtlVerbatim.builder();
+            final StringBuilder htmlStringBuilder = renderableFtlVerbatimBuilder.getStringBuilder();
 
             if ("multi".equals(modelForm.getType())) {
                 final Element anchorElement = WidgetWorker.makeHiddenFormLinkAnchorElement(linkStyle,
                         description, confirmation, modelFormField, request, context);
-                htmlStringBuilder.append(anchorElement.outerHtml());
+                if (anchorElement != null) {
+                    htmlStringBuilder.append(anchorElement.outerHtml());
+                }
 
                 // this is a bit trickier, since we can't do a nested form we'll have to put the link to submit the
                 // form in place, but put the actual form def elsewhere, ie after the big form is closed
-                final RenderableFtlString postFormRenderableFtlString = RenderableFtlString.withStringBuilder(sb -> {
+                final RenderableFtlVerbatim postFormRenderableFtlVerbatim = RenderableFtlVerbatim.withStringBuilder(sb -> {
                     final Element hiddenFormElement = WidgetWorker.makeHiddenFormLinkFormElement(target, targetType,
                             targetWindow, parameterMap, modelFormField, request, response, context);
                     sb.append(hiddenFormElement.outerHtml());
                 });
-                appendToPostFormRenderableFtl(postFormRenderableFtlString, context);
+                appendToPostFormRenderableFtl(postFormRenderableFtlVerbatim, context);
 
             } else {
                 final Element hiddenFormElement = WidgetWorker.makeHiddenFormLinkFormElement(target, targetType,
@@ -847,10 +850,12 @@ public final class RenderableFtlFormElementsBuilder {
                 htmlStringBuilder.append(hiddenFormElement.outerHtml());
                 final Element anchorElement = WidgetWorker.makeHiddenFormLinkAnchorElement(linkStyle,
                         description, confirmation, modelFormField, request, context);
-                htmlStringBuilder.append(anchorElement.outerHtml());
+                if (anchorElement != null) {
+                    htmlStringBuilder.append(anchorElement.outerHtml());
+                }
             }
 
-            return renderableFtlStringBuilder.build();
+            return renderableFtlVerbatimBuilder.build();
 
         } else {
             if ("layered-modal".equals(realLinkType)) {
@@ -900,6 +905,7 @@ public final class RenderableFtlFormElementsBuilder {
             String width = "";
             String height = "";
             String title = "";
+            String text = "";
             String hiddenFormName = WidgetWorker.makeLinkHiddenFormName(context, modelFormField);
             if (UtilValidate.isNotEmpty(modelFormField.getEvent())
                     && UtilValidate.isNotEmpty(modelFormField.getAction(context))) {
@@ -907,7 +913,7 @@ public final class RenderableFtlFormElementsBuilder {
                 action = modelFormField.getAction(context);
             }
             if (UtilValidate.isNotEmpty(request.getAttribute("image"))) {
-                imgSrc = request.getAttribute("image").toString();
+                imgSrc = encode(request.getAttribute("image").toString(), modelFormField, context);
             }
             if (UtilValidate.isNotEmpty(request.getAttribute("imageTitle"))) {
                 imgTitle = request.getAttribute("imageTitle").toString();
@@ -928,31 +934,51 @@ public final class RenderableFtlFormElementsBuilder {
             if (UtilValidate.isNotEmpty(request.getAttribute("id"))) {
                 id = request.getAttribute("id").toString();
             }
+            if (UtilValidate.isNotEmpty(request.getAttribute("text"))) {
+                text = request.getAttribute("text").toString();
+            }
             if (UtilValidate.isNotEmpty(request.getAttribute("uniqueItemName"))) {
                 uniqueItemName = request.getAttribute("uniqueItemName").toString();
                 width = request.getAttribute("width").toString();
                 height = request.getAttribute("height").toString();
             }
+            // the macro expects the parameters of the link as a JSON string
+            String targetParameters = "";
+            if (UtilValidate.isNotEmpty(parameterMap) || UtilValidate.isNotEmpty(uniqueItemName)) {
+                try {
+                    final Map<String, Object> params = new java.util.TreeMap<>();
+                    if (UtilValidate.isNotEmpty(parameterMap)) {
+                        params.putAll(parameterMap);
+                    }
+                    if (UtilValidate.isNotEmpty(uniqueItemName)) {
+                        params.put("presentation", "layer");
+                    }
+                    targetParameters = JSON.from(params).toString();
+                } catch (Exception e) {
+                    Debug.logError(e, "Error converting dialog params to JSON", MODULE);
+                }
+            }
 
             return RenderableFtlMacroCall.builder()
                     .name("makeHyperlinkString")
                     .stringParameter("linkStyle", linkStyle == null ? "" : linkStyle)
-                    .stringParameter("hiddenFormName", hiddenFormName)
+                    .stringParameter("hiddenFormName", nonNull(hiddenFormName))
                     .stringParameter("event", event)
                     .stringParameter("action", action)
                     .stringParameter("imgSrc", imgSrc)
                     .stringParameter("imgTitle", imgTitle)
                     .stringParameter("title", title)
                     .stringParameter("alternate", alt)
-                    .mapParameter("targetParameters", parameterMap)
+                    .stringParameter("targetParameters", targetParameters)
                     .stringParameter("linkUrl", linkUrl.toString())
-                    .stringParameter("targetWindow", targetWindow)
-                    .stringParameter("description", description)
-                    .stringParameter("confirmation", confirmation)
+                    .stringParameter("targetWindow", nonNull(targetWindow))
+                    .stringParameter("description", nonNull(description))
+                    .stringParameter("confirmation", nonNull(confirmation))
                     .stringParameter("uniqueItemName", uniqueItemName)
                     .stringParameter("height", height)
                     .stringParameter("width", width)
                     .stringParameter("id", id)
+                    .stringParameter("text", text)
                     .build();
         } else {
             return RenderableFtlNoop.INSTANCE;
@@ -1277,8 +1303,6 @@ public final class RenderableFtlFormElementsBuilder {
         UtilCodec.SimpleEncoder encoder = (UtilCodec.SimpleEncoder) context.get("simpleEncoder");
         if (modelFormField.getEncodeOutput() && encoder != null) {
             value = encoder.encode(value);
-        } else {
-            value = internalEncoder.encode(value);
         }
         return value;
     }
@@ -1294,6 +1318,1050 @@ public final class RenderableFtlFormElementsBuilder {
         return maxCharacterLengthOptional
                 .map(maxCharacterLength -> truncate(value, maxCharacterLength))
                 .orElse(value);
+    }
+
+    /**
+     * Creates the macro call that renders the check boxes of a check field.
+     * @param context the context
+     * @param checkField the check field
+     * @return the RenderableFtl
+     */
+    public RenderableFtl checkField(final Map<String, Object> context, final ModelFormField.CheckField checkField) {
+        final ModelFormField modelFormField = checkField.getModelFormField();
+        final String currentValue = modelFormField.getEntry(context);
+        final Boolean allChecked = checkField.isAllChecked(context);
+        final String checkBox = modelFormField.getAttributeName();
+
+        List<String> checkedByDefault = Collections.emptyList();
+        final Object checkBoxValue = context.get(checkBox);
+        if (checkBoxValue != null && !checkBoxValue.getClass().equals(String.class)) {
+            checkedByDefault = StringUtil.toList(checkBoxValue.toString());
+        }
+
+        List<String> currentValueList = null;
+        if (UtilValidate.isNotEmpty(currentValue)) {
+            currentValueList = currentValue.startsWith("[") ? StringUtil.toList(currentValue) : UtilMisc.toList(currentValue);
+        }
+
+        final List<Map<String, String>> items = new ArrayList<>();
+        for (final ModelFormField.OptionValue optionValue : checkField.getAllOptionValues(context, WidgetWorker.getDelegator(context))) {
+            final boolean checked;
+            if (UtilValidate.isNotEmpty(currentValueList)) {
+                checked = currentValueList.contains(optionValue.getKey());
+            } else if (UtilValidate.isNotEmpty(checkedByDefault)) {
+                checked = checkedByDefault.contains(optionValue.getKey());
+            } else {
+                checked = allChecked;
+            }
+            items.add(Map.of(
+                    "value", nonNull(optionValue.getKey()),
+                    "description", nonNull(encode(optionValue.getDescription(), modelFormField, context)),
+                    "checked", String.valueOf(checked)));
+        }
+
+        final var builder = RenderableFtlMacroCall.builder().name("renderCheckField");
+        applyWidgetStyleAndAlert(modelFormField, context, builder);
+        return builder
+                .objectParameter("items", items)
+                .stringParameter("id", nonNull(modelFormField.getCurrentContainerId(context)))
+                .stringParameter("conditionGroup", nonNull(modelFormField.getConditionGroup()))
+                .stringParameter("currentValue", nonNull(currentValue))
+                .stringParameter("name", nonNull(modelFormField.getParameterName(context)))
+                .stringParameter("event", nonNull(modelFormField.getEvent()))
+                .stringParameter("action", nonNull(modelFormField.getAction(context)))
+                .stringParameter("tabindex", nonNull(modelFormField.getTabindex()))
+                .booleanParameter("disabled", modelFormField.getDisabled(context))
+                .build();
+    }
+
+    /**
+     * Creates the macro call that renders the radio buttons of a radio field.
+     * @param context the context
+     * @param radioField the radio field
+     * @return the RenderableFtl
+     */
+    public RenderableFtl radioField(final Map<String, Object> context, final ModelFormField.RadioField radioField) {
+        final ModelFormField modelFormField = radioField.getModelFormField();
+
+        final List<Map<String, String>> items = new ArrayList<>();
+        for (final ModelFormField.OptionValue optionValue : radioField.getAllOptionValues(context, WidgetWorker.getDelegator(context))) {
+            items.add(Map.of(
+                    "key", nonNull(optionValue.getKey()),
+                    "description", nonNull(encode(optionValue.getDescription(), modelFormField, context))));
+        }
+
+        final var builder = RenderableFtlMacroCall.builder().name("renderRadioField");
+        applyWidgetStyleAndAlert(modelFormField, context, builder);
+        return builder
+                .objectParameter("items", items)
+                .stringParameter("currentValue", nonNull(modelFormField.getEntry(context)))
+                .stringParameter("noCurrentSelectedKey", nonNull(radioField.getNoCurrentSelectedKey(context)))
+                .stringParameter("name", nonNull(modelFormField.getParameterName(context)))
+                .stringParameter("event", nonNull(modelFormField.getEvent()))
+                .stringParameter("action", nonNull(modelFormField.getAction(context)))
+                .stringParameter("conditionGroup", nonNull(modelFormField.getConditionGroup()))
+                .stringParameter("tabindex", nonNull(modelFormField.getTabindex()))
+                .booleanParameter("disabled", modelFormField.getDisabled(context))
+                .build();
+    }
+
+    /**
+     * Creates the macro call that renders a submit button.
+     * @param context the context
+     * @param submitField the submit field
+     * @param javaScriptEnabled whether JavaScript is enabled in the browser of the user
+     * @return the RenderableFtl
+     */
+    public RenderableFtl submitField(final Map<String, Object> context, final ModelFormField.SubmitField submitField,
+                                     final boolean javaScriptEnabled) {
+        final ModelFormField modelFormField = submitField.getModelFormField();
+        final ModelForm modelForm = modelFormField.getModelForm();
+        final String formId = FormRenderer.getCurrentContainerId(modelForm, context);
+
+        List<ModelForm.UpdateArea> updateAreas = new ArrayList<>();
+        final List<ModelForm.UpdateArea> onSubmitUpdateAreas = modelForm.getOnSubmitUpdateAreas();
+        if (UtilValidate.isNotEmpty(onSubmitUpdateAreas)) {
+            updateAreas.addAll(onSubmitUpdateAreas);
+        }
+
+        // Retrieve on click event for submit field
+        final List<ModelForm.UpdateArea> onClickUpdateAreas = modelFormField.getOnClickUpdateAreas();
+        if (UtilValidate.isNotEmpty(onClickUpdateAreas)) {
+            updateAreas.addAll(onClickUpdateAreas);
+        }
+
+        // This is here for backwards compatibility. Use on-event-update-area elements instead.
+        final String backgroundSubmitRefreshTarget = submitField.getBackgroundSubmitRefreshTarget(context);
+        final ModelForm.UpdateArea jwtCallback = ModelForm.UpdateArea.fromJwtToken(context);
+        if (UtilValidate.isNotEmpty(backgroundSubmitRefreshTarget)) {
+            updateAreas.add(ModelForm.UpdateArea.literal("submit", formId, backgroundSubmitRefreshTarget));
+        }
+
+        // In context a callback is present and no other update area to call after the submit, so trigger it.
+        if (UtilValidate.isEmpty(updateAreas) && jwtCallback != null && !submitField.getPropagateCallback()) {
+            updateAreas = UtilMisc.toList(jwtCallback);
+        }
+        final boolean ajaxEnabled = UtilValidate.isNotEmpty(updateAreas) && javaScriptEnabled;
+        String ajaxUrl = "";
+        if (ajaxEnabled) {
+            final Map<String, Object> extraParams = CommonWidgetModels.propagateCallbackInParameterMap(context,
+                    submitField.getPropagateCallback(), jwtCallback);
+            ajaxUrl = MacroCommonRenderer.createAjaxParamsFromUpdateAreas(updateAreas, extraParams, modelForm, "", context);
+        }
+
+        final var builder = RenderableFtlMacroCall.builder().name("renderSubmitField");
+        applyWidgetStyleAndAlert(modelFormField, context, builder);
+        return builder
+                .stringParameter("buttonType", nonNull(submitField.getButtonType()))
+                .stringParameter("formName", nonNull(FormRenderer.getCurrentFormName(modelForm, context)))
+                .stringParameter("title", nonNull(encode(modelFormField.getTitle(context), modelFormField, context)))
+                .stringParameter("name", nonNull(modelFormField.getParameterName(context)))
+                .stringParameter("id", nonNull(modelFormField.getCurrentContainerId(context)))
+                .stringParameter("event", nonNull(modelFormField.getEvent()))
+                .stringParameter("action", nonNull(modelFormField.getAction(context)))
+                .stringParameter("imgSrc", nonNull(encode(submitField.getImageLocation(context), modelFormField, context)))
+                .stringParameter("containerId", ajaxEnabled ? nonNull(formId) : "")
+                .stringParameter("confirmation", nonNull(submitField.getConfirmation(context)))
+                .stringParameter("ajaxUrl", ajaxEnabled ? nonNull(ajaxUrl) : "")
+                .stringParameter("tabindex", nonNull(modelFormField.getTabindex()))
+                .booleanParameter("disabled", modelFormField.getDisabled(context))
+                .stringParameter("closeOnSubmit", String.valueOf(!submitField.getPropagateCallback()))
+                .build();
+    }
+
+    /**
+     * Creates the macro call that renders a reset button.
+     * @param context the context
+     * @param resetField the reset field
+     * @return the RenderableFtl
+     */
+    public RenderableFtl resetField(final Map<String, Object> context, final ModelFormField.ResetField resetField) {
+        final ModelFormField modelFormField = resetField.getModelFormField();
+        final var builder = RenderableFtlMacroCall.builder().name("renderResetField");
+        applyWidgetStyleAndAlert(modelFormField, context, builder);
+        return builder
+                .stringParameter("name", nonNull(modelFormField.getParameterName(context)))
+                .stringParameter("title", nonNull(modelFormField.getTitle(context)))
+                .build();
+    }
+
+    /**
+     * Creates the macro call that renders a hidden field.
+     * @param context the context
+     * @param modelFormField the form field
+     * @param value the value of the field, which may contain the quotes escaped for a FreeMarker string literal
+     * @return the RenderableFtl
+     */
+    public RenderableFtl hiddenField(final Map<String, Object> context, final ModelFormField modelFormField, final String value) {
+        return RenderableFtlMacroCall.builder()
+                .name("renderHiddenField")
+                .stringParameter("name", nonNull(modelFormField.getParameterName(context)))
+                .stringParameter("conditionGroup", nonNull(modelFormField.getConditionGroup()))
+                // the form fields escape the double quotes with a backslash because the value was a FreeMarker string literal
+                .stringParameter("value", nonNull(value).replace("\\\"", "\""))
+                .stringParameter("id", nonNull(modelFormField.getCurrentContainerId(context)))
+                .stringParameter("event", nonNull(modelFormField.getEvent()))
+                .stringParameter("action", nonNull(modelFormField.getAction(context)))
+                .booleanParameter("disabled", modelFormField.getDisabled(context))
+                .build();
+    }
+
+    /**
+     * Creates the macro call that renders an empty field title.
+     * @return the RenderableFtl
+     */
+    public RenderableFtl formatEmptySpace() {
+        return RenderableFtlMacroCall.builder().name("renderFormatEmptySpace").build();
+    }
+
+    /**
+     * Creates the macro call that renders a field title made of a link or of a select all check box.
+     * @param formName the name of the form
+     * @param title the title, which can contain HTML
+     * @param showSelectAll true to show the select all check box
+     * @return the RenderableFtl
+     */
+    public RenderableFtl hyperlinkTitle(final String formName, final String title, final boolean showSelectAll) {
+        final var builder = RenderableFtlMacroCall.builder()
+                .name("renderHyperlinkTitle")
+                .stringParameter("name", nonNull(formName))
+                .stringParameter("title", nonNull(title));
+        if (showSelectAll) {
+            builder.stringParameter("showSelectAll", "Y");
+        }
+        return builder.build();
+    }
+
+    /**
+     * Creates the macro call that renders a field title.
+     * @param style the style of the title
+     * @param title the title
+     * @param id the id of the field, or empty if the title has no id and does not refer to a field
+     * @param fieldHelpText the help text of the field, or null if there is none to show
+     * @return the RenderableFtl
+     */
+    public RenderableFtl fieldTitle(final String style, final String title, final String id, final String fieldHelpText) {
+        final var builder = RenderableFtlMacroCall.builder()
+                .name("renderFieldTitle")
+                .stringParameter("style", nonNull(style))
+                .stringParameter("title", nonNull(title));
+        if (fieldHelpText != null) {
+            builder.stringParameter("fieldHelpText", fieldHelpText);
+        }
+        if (UtilValidate.isNotEmpty(id)) {
+            builder.stringParameter("id", id + "_title").stringParameter("for", id);
+        }
+        return builder.build();
+    }
+
+    /**
+     * Creates the macro call that renders a field title which sorts the list when clicked.
+     * @param style the style of the link
+     * @param title the title
+     * @param linkUrl the url of the link
+     * @param ajaxEnabled true if the link updates areas of the page
+     * @param tooltip the tooltip, or empty if there is none
+     * @return the RenderableFtl
+     */
+    public RenderableFtl sortField(final String style, final String title, final String linkUrl, final boolean ajaxEnabled,
+                                   final String tooltip) {
+        final var builder = RenderableFtlMacroCall.builder()
+                .name("renderSortField")
+                .stringParameter("style", nonNull(style))
+                .stringParameter("title", nonNull(title))
+                .stringParameter("linkUrl", nonNull(linkUrl))
+                .booleanParameter("ajaxEnabled", ajaxEnabled);
+        if (UtilValidate.isNotEmpty(tooltip)) {
+            builder.stringParameter("tooltip", tooltip);
+        }
+        return builder.build();
+    }
+
+    /**
+     * Creates the macro call that opens a form.
+     * @param context the context
+     * @param modelForm the form
+     * @return the RenderableFtl
+     */
+    public RenderableFtl formOpen(final Map<String, Object> context, final ModelForm modelForm) {
+        final String targetType = modelForm.getTargetType();
+        final String target = modelForm.getTarget(context, targetType);
+        String linkUrl = "";
+        if (UtilValidate.isNotEmpty(target)) {
+            linkUrl = WidgetWorker.buildHyperlinkUri(target, targetType, null, null, false, false, true,
+                    request, response).toString();
+        }
+        String hasRequiredField = "";
+        for (final ModelFormField formField : modelForm.getFieldList()) {
+            if (formField.getRequiredField()) {
+                hasRequiredField = "Y";
+                break;
+            }
+        }
+        // Generate CSRF name & value for form
+        final String csrfNameValue = CsrfUtil.getTokenNameNonAjax() + " " + CsrfUtil.generateTokenForNonAjax(request, target);
+        return RenderableFtlMacroCall.builder()
+                .name("renderFormOpen")
+                .stringParameter("linkUrl", linkUrl)
+                .stringParameter("formType", nonNull(modelForm.getType()))
+                .stringParameter("targetWindow", nonNull(modelForm.getTargetWindow(context)))
+                .stringParameter("containerId", nonNull(FormRenderer.getCurrentContainerId(modelForm, context)))
+                .stringParameter("containerStyle", nonNull(modelForm.getContainerStyle()))
+                .stringParameter("autocomplete", modelForm.getClientAutocompleteFields() ? "" : "off")
+                .stringParameter("name", nonNull(FormRenderer.getCurrentFormName(modelForm, context)))
+                .stringParameter("focusFieldName", nonNull(modelForm.getFocusFieldName()))
+                .stringParameter("hasRequiredField", hasRequiredField)
+                .stringParameter("viewIndexField", nonNull(modelForm.getMultiPaginateIndexField(context)))
+                .stringParameter("viewSizeField", nonNull(modelForm.getMultiPaginateSizeField(context)))
+                .stringParameter("viewIndex", Integer.toString(Paginator.getViewIndex(modelForm, context)))
+                .stringParameter("viewSize", Integer.toString(Paginator.getViewSize(modelForm, context)))
+                .booleanParameter("useRowSubmit", modelForm.getUseRowSubmit())
+                .stringParameter("csrfNameValue", csrfNameValue)
+                .build();
+    }
+
+    /**
+     * Creates the macro call that closes a form.
+     * @return the RenderableFtl
+     */
+    public RenderableFtl formClose() {
+        return macroWithoutParameters("renderFormClose");
+    }
+
+    /**
+     * Creates the macro call that closes a multi form.
+     * @return the RenderableFtl
+     */
+    public RenderableFtl multiFormClose() {
+        return macroWithoutParameters("renderMultiFormClose");
+    }
+
+    /**
+     * Gets what has to be rendered after the closing of a multi form, such as the forms of the hidden form links.
+     * @param context the context
+     * @return the RenderableFtl, which renders nothing if there is none
+     */
+    public RenderableFtl postMultiFormContent(final Map<String, Object> context) {
+        final Map<String, Object> wholeFormContext = UtilGenerics.cast(context.get("wholeFormContext"));
+        final RenderableFtl postMultiFormContent = wholeFormContext == null ? null
+                : (RenderableFtl) wholeFormContext.get("postMultiFormRenderableFtl");
+        return postMultiFormContent == null ? RenderableFtlNoop.INSTANCE : postMultiFormContent;
+    }
+
+    /**
+     * Creates the macro call that opens the wrapper of a list form.
+     * @param context the context
+     * @param modelForm the form
+     * @return the RenderableFtl
+     */
+    public RenderableFtl formatListWrapperOpen(final Map<String, Object> context, final ModelForm modelForm) {
+        final List<String> columnStyleList = new ArrayList<>();
+        final List<String> fieldNameList = new ArrayList<>();
+        for (final ModelFormField childField : modelForm.getFieldList()) {
+            final int childFieldType = childField.getFieldInfo().getFieldType();
+            if (childFieldType == FieldInfo.HIDDEN || childFieldType == FieldInfo.IGNORED) {
+                continue;
+            }
+            final String areaStyle = nonNull(childField.getTitleAreaStyle());
+            if (fieldNameList.contains(childField.getName())) {
+                if (UtilValidate.isNotEmpty(areaStyle)) {
+                    columnStyleList.set(fieldNameList.indexOf(childField.getName()), areaStyle);
+                }
+            } else {
+                columnStyleList.add(areaStyle);
+                fieldNameList.add(childField.getName());
+            }
+        }
+        return RenderableFtlMacroCall.builder()
+                .name("renderFormatListWrapperOpen")
+                .stringParameter("formName", nonNull(modelForm.getName()))
+                .stringParameter("style", FlexibleStringExpander.expandString(modelForm.getDefaultTableStyle(), context))
+                .objectParameter("columnStyles", columnStyleList)
+                .build();
+    }
+
+    /**
+     * Creates the macro call that renders the message of a form without data.
+     * @param context the context
+     * @param modelForm the form
+     * @return the RenderableFtl
+     */
+    public RenderableFtl emptyFormDataMessage(final Map<String, Object> context, final ModelForm modelForm) {
+        return RenderableFtlMacroCall.builder()
+                .name("renderEmptyFormDataMessage")
+                .stringParameter("message", nonNull(modelForm.getEmptyFormDataMessage(context)))
+                .build();
+    }
+
+    /**
+     * Creates the macro call that closes the wrapper of a list form.
+     * @param modelForm the form
+     * @return the RenderableFtl
+     */
+    public RenderableFtl formatListWrapperClose(final ModelForm modelForm) {
+        return RenderableFtlMacroCall.builder()
+                .name("renderFormatListWrapperClose")
+                .stringParameter("formName", nonNull(modelForm.getName()))
+                .build();
+    }
+
+    public RenderableFtl formatHeaderOpen() {
+        return macroWithoutParameters("renderFormatHeaderOpen");
+    }
+
+    public RenderableFtl formatHeaderClose() {
+        return macroWithoutParameters("renderFormatHeaderClose");
+    }
+
+    public RenderableFtl formatHeaderRowOpen(final Map<String, Object> context, final ModelForm modelForm) {
+        return RenderableFtlMacroCall.builder()
+                .name("renderFormatHeaderRowOpen")
+                .stringParameter("style", FlexibleStringExpander.expandString(modelForm.getHeaderRowStyle(), context))
+                .build();
+    }
+
+    public RenderableFtl formatHeaderRowClose() {
+        return macroWithoutParameters("renderFormatHeaderRowClose");
+    }
+
+    public RenderableFtl formatHeaderRowCellOpen(final ModelFormField modelFormField, final int positionSpan) {
+        return RenderableFtlMacroCall.builder()
+                .name("renderFormatHeaderRowCellOpen")
+                .stringParameter("style", nonNull(modelFormField.getTitleAreaStyle()))
+                .intParameter("positionSpan", positionSpan)
+                .build();
+    }
+
+    public RenderableFtl formatHeaderRowCellClose() {
+        return macroWithoutParameters("renderFormatHeaderRowCellClose");
+    }
+
+    public RenderableFtl formatHeaderRowFormCellOpen(final ModelForm modelForm) {
+        return RenderableFtlMacroCall.builder()
+                .name("renderFormatHeaderRowFormCellOpen")
+                .stringParameter("style", nonNull(modelForm.getFormTitleAreaStyle()))
+                .build();
+    }
+
+    public RenderableFtl formatHeaderRowFormCellClose() {
+        return macroWithoutParameters("renderFormatHeaderRowFormCellClose");
+    }
+
+    public RenderableFtl formatHeaderRowFormCellTitleSeparator(final ModelFormField modelFormField, final boolean isLast) {
+        return RenderableFtlMacroCall.builder()
+                .name("renderFormatHeaderRowFormCellTitleSeparator")
+                .stringParameter("style", nonNull(modelFormField.getTitleStyle()))
+                .booleanParameter("isLast", isLast)
+                .build();
+    }
+
+    public RenderableFtl formatItemRowOpen(final Map<String, Object> context, final ModelForm modelForm) {
+        final Integer itemIndex = (Integer) context.get("itemIndex");
+        String altRowStyles = "";
+        String evenRowStyle = "";
+        String oddRowStyle = "";
+        if (itemIndex != null) {
+            altRowStyles = modelForm.getStyleAltRowStyle(context);
+            if (itemIndex % 2 == 0) {
+                evenRowStyle = modelForm.getEvenRowStyle();
+            } else {
+                oddRowStyle = FlexibleStringExpander.expandString(modelForm.getOddRowStyle(), context);
+            }
+        }
+        final RenderableFtlMacroCallBuilder builder = RenderableFtlMacroCall.builder()
+                .name("renderFormatItemRowOpen")
+                .stringParameter("formName", nonNull(modelForm.getName()))
+                .stringParameter("altRowStyles", nonNull(altRowStyles))
+                .stringParameter("evenRowStyle", nonNull(evenRowStyle))
+                .stringParameter("oddRowStyle", nonNull(oddRowStyle));
+        if (itemIndex != null) {
+            builder.intParameter("itemIndex", itemIndex);
+        }
+        return builder.build();
+    }
+
+    public RenderableFtl formatItemRowClose(final ModelForm modelForm) {
+        return RenderableFtlMacroCall.builder()
+                .name("renderFormatItemRowClose")
+                .stringParameter("formName", nonNull(modelForm.getName()))
+                .build();
+    }
+
+    public RenderableFtl formatItemRowCellOpen(final ModelFormField modelFormField, final int positionSpan) {
+        return RenderableFtlMacroCall.builder()
+                .name("renderFormatItemRowCellOpen")
+                .stringParameter("fieldName", nonNull(modelFormField.getName()))
+                .stringParameter("style", nonNull(modelFormField.getWidgetAreaStyle()))
+                .intParameter("positionSpan", positionSpan)
+                .build();
+    }
+
+    public RenderableFtl formatItemRowCellClose(final ModelFormField modelFormField) {
+        return RenderableFtlMacroCall.builder()
+                .name("renderFormatItemRowCellClose")
+                .stringParameter("fieldName", nonNull(modelFormField.getName()))
+                .build();
+    }
+
+    public RenderableFtl formatItemRowFormCellOpen(final ModelForm modelForm) {
+        return RenderableFtlMacroCall.builder()
+                .name("renderFormatItemRowFormCellOpen")
+                .stringParameter("style", nonNull(modelForm.getFormTitleAreaStyle()))
+                .build();
+    }
+
+    public RenderableFtl formatItemRowFormCellClose() {
+        return macroWithoutParameters("renderFormatItemRowFormCellClose");
+    }
+
+    public RenderableFtl formatSingleWrapperOpen(final Map<String, Object> context, final ModelForm modelForm) {
+        return RenderableFtlMacroCall.builder()
+                .name("renderFormatSingleWrapperOpen")
+                .stringParameter("formName", nonNull(modelForm.getName()))
+                .stringParameter("style", FlexibleStringExpander.expandString(modelForm.getDefaultTableStyle(), context))
+                .build();
+    }
+
+    public RenderableFtl formatSingleWrapperClose(final ModelForm modelForm) {
+        return RenderableFtlMacroCall.builder()
+                .name("renderFormatSingleWrapperClose")
+                .stringParameter("formName", nonNull(modelForm.getName()))
+                .build();
+    }
+
+    public RenderableFtl formatFieldRowOpen() {
+        return macroWithoutParameters("renderFormatFieldRowOpen");
+    }
+
+    public RenderableFtl formatFieldRowClose() {
+        return macroWithoutParameters("renderFormatFieldRowClose");
+    }
+
+    public RenderableFtl formatFieldRowTitleCellOpen(final ModelFormField modelFormField) {
+        return RenderableFtlMacroCall.builder()
+                .name("renderFormatFieldRowTitleCellOpen")
+                .stringParameter("style", nonNull(modelFormField.getTitleAreaStyle()))
+                .build();
+    }
+
+    public RenderableFtl formatFieldRowTitleCellClose() {
+        return macroWithoutParameters("renderFormatFieldRowTitleCellClose");
+    }
+
+    public RenderableFtl formatFieldRowWidgetCellOpen(final ModelFormField modelFormField, final int positionSpan) {
+        return RenderableFtlMacroCall.builder()
+                .name("renderFormatFieldRowWidgetCellOpen")
+                .intParameter("positionSpan", positionSpan)
+                .stringParameter("style", nonNull(modelFormField.getWidgetAreaStyle()))
+                .build();
+    }
+
+    public RenderableFtl formatFieldRowWidgetCellClose() {
+        return macroWithoutParameters("renderFormatFieldRowWidgetCellClose");
+    }
+
+    /**
+     * Creates the macro call that renders a boundary comment.
+     * @param boundaryType Begin or End
+     * @param widgetType the type of the widget, such as Form Widget - Form Element
+     * @param widgetName the name of the widget
+     * @return the RenderableFtl
+     */
+    public RenderableFtl boundaryComment(final String boundaryType, final String widgetType, final String widgetName) {
+        return RenderableFtlMacroCall.builder()
+                .name("formatBoundaryComment")
+                .stringParameter("boundaryType", boundaryType)
+                .stringParameter("widgetType", widgetType)
+                .stringParameter("widgetName", nonNull(widgetName))
+                .build();
+    }
+
+    /**
+     * Creates the macro call that renders a text find field.
+     * @param context the context
+     * @param textFindField the text find field
+     * @return the RenderableFtl
+     */
+    public RenderableFtl textFindField(final Map<String, Object> context, final ModelFormField.TextFindField textFindField) {
+        final ModelFormField modelFormField = textFindField.getModelFormField();
+        final Locale locale = (Locale) context.get("locale");
+        String opEquals = "";
+        String opBeginsWith = "";
+        String opContains = "";
+        String opIsEmpty = "";
+        String opNotEqual = "";
+        if (!textFindField.getHideOptions()) {
+            opEquals = UtilProperties.getMessage("conditionalUiLabels", "equals", locale);
+            opBeginsWith = UtilProperties.getMessage("conditionalUiLabels", "begins_with", locale);
+            opContains = UtilProperties.getMessage("conditionalUiLabels", "contains", locale);
+            opIsEmpty = UtilProperties.getMessage("conditionalUiLabels", "is_empty", locale);
+            opNotEqual = UtilProperties.getMessage("conditionalUiLabels", "not_equal", locale);
+        }
+        final String value = modelFormField.getEntry(context, textFindField.getDefaultValue(context));
+        final var builder = RenderableFtlMacroCall.builder().name("renderTextFindField");
+        applyWidgetStyleAndAlert(modelFormField, context, builder);
+        return builder
+                .stringParameter("name", nonNull(modelFormField.getParameterName(context)))
+                .stringParameter("value", nonNull(value))
+                .stringParameter("defaultOption", nonNull(textFindField.getDefaultOption(context)))
+                .stringParameter("opEquals", nonNull(opEquals))
+                .stringParameter("opBeginsWith", nonNull(opBeginsWith))
+                .stringParameter("opContains", nonNull(opContains))
+                .stringParameter("opIsEmpty", nonNull(opIsEmpty))
+                .stringParameter("opNotEqual", nonNull(opNotEqual))
+                .stringParameter("size", Integer.toString(textFindField.getSize()))
+                .stringParameter("maxlength", textFindField.getMaxlength() == null ? "" : textFindField.getMaxlength().toString())
+                .stringParameter("autocomplete", textFindField.getClientAutocompleteField() ? "" : "off")
+                .stringParameter("titleStyle", nonNull(modelFormField.getTitleStyle()))
+                .booleanParameter("hideIgnoreCase", textFindField.getHideIgnoreCase())
+                .booleanParameter("ignCase", textFindField.getIgnoreCase(context))
+                .stringParameter("ignoreCase", nonNull(UtilProperties.getMessage("conditionalUiLabels", "ignore_case", locale)))
+                .stringParameter("tabindex", nonNull(modelFormField.getTabindex()))
+                .stringParameter("conditionGroup", nonNull(modelFormField.getConditionGroup()))
+                .booleanParameter("disabled", modelFormField.getDisabled(context))
+                .build();
+    }
+
+    /**
+     * Creates the macro call that renders a range find field.
+     * @param context the context
+     * @param rangeFindField the range find field
+     * @return the RenderableFtl
+     */
+    public RenderableFtl rangeFindField(final Map<String, Object> context, final ModelFormField.RangeFindField rangeFindField) {
+        final ModelFormField modelFormField = rangeFindField.getModelFormField();
+        final Locale locale = (Locale) context.get("locale");
+        final String value = modelFormField.getEntry(context, rangeFindField.getDefaultValue(context));
+        final String value2 = modelFormField.getEntry(context);
+        final Integer maxlength = rangeFindField.getMaxlength();
+        final var builder = RenderableFtlMacroCall.builder().name("renderRangeFindField");
+        applyWidgetStyleAndAlert(modelFormField, context, builder);
+        return builder
+                .stringParameter("name", nonNull(modelFormField.getParameterName(context)))
+                .stringParameter("value", nonNull(value))
+                .stringParameter("size", Integer.toString(rangeFindField.getSize()))
+                .stringParameter("maxlength", maxlength == null ? "" : Integer.toString(maxlength))
+                .stringParameter("autocomplete", rangeFindField.getClientAutocompleteField() ? "" : "off")
+                .stringParameter("titleStyle", nonNull(modelFormField.getTitleStyle()))
+                .stringParameter("defaultOptionFrom", nonNull(rangeFindField.getDefaultOptionFrom()))
+                .stringParameter("opEquals", nonNull(UtilProperties.getMessage("conditionalUiLabels", "equals", locale)))
+                .stringParameter("opGreaterThan", nonNull(UtilProperties.getMessage("conditionalUiLabels", "greater_than", locale)))
+                .stringParameter("opGreaterThanEquals",
+                        nonNull(UtilProperties.getMessage("conditionalUiLabels", "greater_than_equals", locale)))
+                .stringParameter("opLessThan", nonNull(UtilProperties.getMessage("conditionalUiLabels", "less_than", locale)))
+                .stringParameter("opLessThanEquals", nonNull(UtilProperties.getMessage("conditionalUiLabels", "less_than_equals", locale)))
+                .stringParameter("value2", nonNull(value2))
+                .stringParameter("defaultOptionThru", nonNull(rangeFindField.getDefaultOptionThru()))
+                .stringParameter("conditionGroup", nonNull(modelFormField.getConditionGroup()))
+                .stringParameter("tabindex", nonNull(modelFormField.getTabindex()))
+                .booleanParameter("disabled", modelFormField.getDisabled(context))
+                .build();
+    }
+
+    /**
+     * Creates the macro call that renders a lookup field.
+     * @param context the context
+     * @param lookupField the lookup field
+     * @param javaScriptEnabled whether JavaScript is enabled in the browser of the user
+     * @return the RenderableFtl
+     * @throws UnsupportedEncodingException if the last view name cannot be encoded
+     */
+    public RenderableFtl lookupField(final Map<String, Object> context, final ModelFormField.LookupField lookupField,
+                                     final boolean javaScriptEnabled) throws UnsupportedEncodingException {
+        final ModelFormField modelFormField = lookupField.getModelFormField();
+        final String lookupFieldFormName = lookupField.getFormName(context);
+        final String id = modelFormField.getCurrentContainerId(context);
+        List<ModelForm.UpdateArea> updateAreas = modelFormField.getOnChangeUpdateAreas();
+        //add default ajax auto completer to all lookup fields
+        if (UtilValidate.isEmpty(updateAreas) && UtilValidate.isNotEmpty(lookupFieldFormName)) {
+            final String autoCompleterTarget = (lookupFieldFormName.indexOf('?') == -1 ? lookupFieldFormName + "?"
+                    : lookupFieldFormName + "&amp;amp;") + "ajaxLookup=Y";
+            updateAreas = new ArrayList<>();
+            updateAreas.add(ModelForm.UpdateArea.literal("change", id, autoCompleterTarget));
+        }
+        final boolean ajaxEnabled = UtilValidate.isNotEmpty(updateAreas) && javaScriptEnabled;
+        final ModelForm modelForm = modelFormField.getModelForm();
+        String formName = modelFormField.getParentFormName();
+        if (UtilValidate.isEmpty(formName)) {
+            formName = FormRenderer.getCurrentFormName(modelForm, context);
+        }
+        final String ajaxUrl = ajaxEnabled ? MacroCommonRenderer.createAjaxParamsFromUpdateAreas(updateAreas, null, modelForm, "", context) : "";
+        String clearText = "";
+        final Map<String, Object> uiLabelMap = UtilGenerics.cast(context.get("uiLabelMap"));
+        if (uiLabelMap != null) {
+            clearText = (String) uiLabelMap.get("CommonClear");
+        } else {
+            Debug.logWarning("Could not find uiLabelMap in context", MODULE);
+        }
+        Boolean showDescription = lookupField.getShowDescription();
+        if (showDescription == null) {
+            showDescription = "Y".equals(visualTheme.getModelTheme().getLookupShowDescription());
+        }
+        // lastViewName, used by lookup to remember the real last view name; read only from session (set by RequestHandler) to prevent user input
+        String lastViewName = (String) request.getSession().getAttribute("_LAST_VIEW_NAME_");
+        if (UtilValidate.isEmpty(lastViewName)) {
+            lastViewName = "";
+        }
+        lastViewName = UtilHttp.getEncodedParameter(lastViewName);
+
+        String className = nonNull(modelFormField.getWidgetStyle());
+        final String alert = UtilValidate.isNotEmpty(className) && modelFormField.shouldBeRed(context) ? "true" : "false";
+        className = withRequiredStyle(modelFormField, className);
+        final Integer maxlength = lookupField.getMaxlength();
+        final String fadeBackground = lookupField.getFadeBackground();
+        final var builder = RenderableFtlMacroCall.builder()
+                .name("renderLookupField")
+                .stringParameter("className", className)
+                .stringParameter("alert", alert)
+                .stringParameter("name", nonNull(modelFormField.getParameterName(context)))
+                .stringParameter("value", nonNull(modelFormField.getEntry(context, lookupField.getDefaultValue(context))))
+                .stringParameter("size", Integer.toString(lookupField.getSize()))
+                .stringParameter("maxlength", maxlength == null ? "" : Integer.toString(maxlength))
+                .stringParameter("id", nonNull(id))
+                .stringParameter("event", nonNull(modelFormField.getEvent()))
+                .stringParameter("action", nonNull(modelFormField.getAction(context)))
+                .booleanParameter("readonly", lookupField.getReadonly())
+                .stringParameter("autocomplete", !lookupField.getClientAutocompleteField() || !ajaxEnabled ? "off" : "")
+                .stringParameter("descriptionFieldName", nonNull(lookupField.getDescriptionFieldName()))
+                .stringParameter("formName", nonNull(formName))
+                .stringParameter("fieldFormName", nonNull(lookupFieldFormName))
+                .objectParameter("targetParameterIter", new ArrayList<>(lookupField.getTargetParameterList(context)))
+                .stringParameter("imgSrc", pathAsContentUrl("/images/fieldlookup.gif"))
+                .stringParameter("ajaxUrl", ajaxUrl)
+                .booleanParameter("ajaxEnabled", ajaxEnabled)
+                .stringParameter("presentation", nonNull(lookupField.getLookupPresentation()));
+        if (UtilValidate.isNotEmpty(lookupField.getLookupHeight())) {
+            builder.stringParameter("height", lookupField.getLookupHeight());
+        }
+        if (UtilValidate.isNotEmpty(lookupField.getLookupWidth())) {
+            builder.stringParameter("width", lookupField.getLookupWidth());
+        }
+        if (UtilValidate.isNotEmpty(lookupField.getLookupPosition())) {
+            builder.stringParameter("position", lookupField.getLookupPosition());
+        }
+        return builder
+                .stringParameter("fadeBackground", UtilValidate.isEmpty(fadeBackground) ? "false" : fadeBackground)
+                .stringParameter("clearText", nonNull(clearText))
+                .stringParameter("showDescription", Boolean.toString(showDescription))
+                .stringParameter("initiallyCollapsed", Boolean.toString(lookupField.getInitiallyCollapsed()))
+                .stringParameter("lastViewName", lastViewName)
+                .stringParameter("conditionGroup", nonNull(modelFormField.getConditionGroup()))
+                .stringParameter("tabindex", nonNull(modelFormField.getTabindex()))
+                .booleanParameter("disabled", modelFormField.getDisabled(context))
+                .stringParameter("delegatorName", ((HttpSession) context.get("session")).getAttribute("delegatorName").toString())
+                .build();
+    }
+
+    /**
+     * Creates the macro call that renders the pagination of a list form.
+     * @param context the context
+     * @param modelForm the form
+     * @param javaScriptEnabled whether JavaScript is enabled in the browser of the user
+     * @return the RenderableFtl, which renders nothing if the form cannot paginate
+     */
+    public RenderableFtl nextPrev(final Map<String, Object> context, final ModelForm modelForm, final boolean javaScriptEnabled) {
+        boolean ajaxEnabled = false;
+        final List<ModelForm.UpdateArea> updateAreas = modelForm.getOnPaginateUpdateAreas();
+        String targetService = modelForm.getPaginateTarget(context);
+        if (javaScriptEnabled && UtilValidate.isNotEmpty(updateAreas)) {
+            ajaxEnabled = true;
+        }
+        if (targetService == null) {
+            targetService = "${targetService}";
+        }
+        if (UtilValidate.isEmpty(targetService) && updateAreas == null) {
+            Debug.logWarning("Cannot paginate because TargetService is empty for the form: " + modelForm.getName(), MODULE);
+            return RenderableFtlNoop.INSTANCE;
+        }
+        // get the parameterized pagination index and size fields
+        final int paginatorNumber = WidgetWorker.getPaginatorNumber(context);
+        String viewIndexParam = modelForm.getMultiPaginateIndexField(context);
+        String viewSizeParam = modelForm.getMultiPaginateSizeField(context);
+        final int viewIndex = Paginator.getViewIndex(modelForm, context);
+        final int viewSize = Paginator.getViewSize(modelForm, context);
+        final int listSize = Paginator.getListSize(context);
+        final int lowIndex = Paginator.getLowIndex(context);
+        final int highIndex = Paginator.getHighIndex(context);
+        final int actualPageSize = Paginator.getActualPageSize(context);
+        // needed for the "Page" and "rows" labels
+        final Map<String, String> uiLabelMap = UtilGenerics.cast(context.get("uiLabelMap"));
+        String pageLabel = "";
+        String commonDisplaying = "";
+        if (uiLabelMap == null) {
+            Debug.logWarning("Could not find uiLabelMap in context", MODULE);
+        } else {
+            pageLabel = uiLabelMap.get("CommonPage");
+            final Map<String, Integer> messageMap = UtilMisc.toMap("lowCount", lowIndex + 1, "highCount", lowIndex + actualPageSize,
+                    "total", listSize);
+            commonDisplaying = UtilProperties.getMessage("CommonUiLabels", "CommonDisplaying", messageMap, (Locale) context.get("locale"));
+        }
+        // for legacy support, the viewSizeParam is VIEW_SIZE and viewIndexParam is VIEW_INDEX when the fields are "viewSize" and "viewIndex"
+        if (("viewIndex" + "_" + paginatorNumber).equals(viewIndexParam)) {
+            viewIndexParam = "VIEW_INDEX" + "_" + paginatorNumber;
+        }
+        if (("viewSize" + "_" + paginatorNumber).equals(viewSizeParam)) {
+            viewSizeParam = "VIEW_SIZE" + "_" + paginatorNumber;
+        }
+        String str = (String) context.get("_QBESTRING_");
+
+        // refresh any csrf token in the query string for pagination
+        final String tokenValue = CsrfUtil.generateTokenForNonAjax(request, targetService);
+        str = CsrfUtil.addOrUpdateTokenInQueryString(str, tokenValue);
+
+        // strip legacy viewIndex/viewSize params from the query string
+        String queryString = UtilHttp.stripViewParamsFromQueryString(str, "" + paginatorNumber);
+        // strip parameterized index/size params from the query string
+        final Set<String> paramNames = new HashSet<>();
+        paramNames.add(viewIndexParam);
+        paramNames.add(viewSizeParam);
+        queryString = UtilHttp.stripNamedParamsFromQueryString(queryString, paramNames);
+        String anchor = "";
+        final String paginateAnchor = modelForm.getPaginateTargetAnchor();
+        if (UtilValidate.isNotEmpty(paginateAnchor)) {
+            anchor = "#" + paginateAnchor;
+        }
+        // Create separate url path String and request parameters String,
+        // add viewIndex/viewSize parameters to request parameter String
+        final String urlPath = UtilHttp.removeQueryStringFromTarget(targetService);
+        String prepLinkText = UtilHttp.getQueryStringFromTarget(targetService);
+        if (UtilValidate.isNotEmpty(queryString)) {
+            queryString = UtilHttp.encodeAmpersands(queryString);
+        }
+        if (prepLinkText.indexOf('?') < 0) {
+            prepLinkText += "?";
+        } else if (!prepLinkText.endsWith("?")) {
+            prepLinkText += "&amp;";
+        }
+        if (UtilValidate.isNotEmpty(queryString) && !"null".equals(queryString)) {
+            prepLinkText += queryString + "&amp;";
+        }
+        final String prepLinkSizeText = prepLinkText + viewSizeParam + "='+this.value+'" + "&amp;" + viewIndexParam + "=0";
+        prepLinkText += viewSizeParam + "=" + viewSize + "&amp;" + viewIndexParam + "=";
+        if (ajaxEnabled) {
+            // Prepare params for prototype.js
+            prepLinkText = prepLinkText.replace("?", "");
+            prepLinkText = prepLinkText.replace("&amp;", "&");
+        }
+        String firstUrl = "";
+        String ajaxFirstUrl = "";
+        String previousUrl = "";
+        String ajaxPreviousUrl = "";
+        String selectUrl = "";
+        String ajaxSelectUrl = "";
+        String selectSizeUrl = "";
+        String ajaxSelectSizeUrl = "";
+        String nextUrl = "";
+        String ajaxNextUrl = "";
+        String lastUrl = "";
+        String ajaxLastUrl = "";
+        if (viewIndex > 0) {
+            if (ajaxEnabled) {
+                ajaxFirstUrl = MacroCommonRenderer.createAjaxParamsFromUpdateAreas(updateAreas, null, modelForm, prepLinkText + 0 + anchor, context);
+                ajaxPreviousUrl = MacroCommonRenderer.createAjaxParamsFromUpdateAreas(updateAreas, null, modelForm,
+                        prepLinkText + (viewIndex - 1) + anchor, context);
+            } else {
+                firstUrl = requestHandler.makeLink(request, response, urlPath + prepLinkText + 0 + anchor);
+                previousUrl = requestHandler.makeLink(request, response, urlPath + prepLinkText + (viewIndex - 1) + anchor);
+            }
+        }
+        // Page select dropdown
+        if (listSize > 0 && javaScriptEnabled) {
+            if (ajaxEnabled) {
+                ajaxSelectUrl = MacroCommonRenderer.createAjaxParamsFromUpdateAreas(updateAreas, null, modelForm,
+                        prepLinkText + "' + (this.value - 1) + '", context);
+            } else {
+                final String linkText = prepLinkText.startsWith("/") ? prepLinkText.substring(1) : prepLinkText;
+                selectUrl = requestHandler.makeLink(request, response, urlPath + linkText);
+            }
+        }
+        if (highIndex < listSize) {
+            // Next button and last button
+            final int lastIndex = UtilMisc.getViewLastIndex(listSize, viewSize);
+            if (ajaxEnabled) {
+                ajaxNextUrl = MacroCommonRenderer.createAjaxParamsFromUpdateAreas(updateAreas, null,
+                        modelForm, prepLinkText + (viewIndex + 1) + anchor, context);
+                ajaxLastUrl = MacroCommonRenderer.createAjaxParamsFromUpdateAreas(updateAreas, null,
+                        modelForm, prepLinkText + lastIndex + anchor, context);
+            } else {
+                nextUrl = requestHandler.makeLink(request, response, urlPath + prepLinkText + (viewIndex + 1) + anchor);
+                lastUrl = requestHandler.makeLink(request, response, urlPath + prepLinkText + lastIndex + anchor);
+            }
+        }
+        // Page size select dropdown
+        if (listSize > 0 && javaScriptEnabled) {
+            if (ajaxEnabled) {
+                ajaxSelectSizeUrl = MacroCommonRenderer.createAjaxParamsFromUpdateAreas(updateAreas, null,
+                        modelForm, prepLinkSizeText + anchor, context);
+            } else {
+                final String linkText = prepLinkSizeText.startsWith("/") ? prepLinkSizeText.substring(1) : prepLinkSizeText;
+                selectSizeUrl = requestHandler.makeLink(request, response, urlPath + linkText);
+            }
+        }
+        return RenderableFtlMacroCall.builder()
+                .name("renderNextPrev")
+                .stringParameter("paginateStyle", nonNull(modelForm.getPaginateStyle()))
+                .stringParameter("paginateFirstStyle", nonNull(modelForm.getPaginateFirstStyle()))
+                .intParameter("viewIndex", viewIndex)
+                .intParameter("highIndex", highIndex)
+                .intParameter("listSize", listSize)
+                .intParameter("viewSize", viewSize)
+                .booleanParameter("ajaxEnabled", ajaxEnabled)
+                .booleanParameter("javaScriptEnabled", javaScriptEnabled)
+                .stringParameter("ajaxFirstUrl", ajaxFirstUrl)
+                .stringParameter("firstUrl", nonNull(firstUrl))
+                .stringParameter("paginateFirstLabel", nonNull(modelForm.getPaginateFirstLabel(context)))
+                .stringParameter("paginatePreviousStyle", nonNull(modelForm.getPaginatePreviousStyle()))
+                .stringParameter("ajaxPreviousUrl", ajaxPreviousUrl)
+                .stringParameter("previousUrl", nonNull(previousUrl))
+                .stringParameter("paginatePreviousLabel", nonNull(modelForm.getPaginatePreviousLabel(context)))
+                .stringParameter("pageLabel", nonNull(pageLabel))
+                .stringParameter("ajaxSelectUrl", ajaxSelectUrl)
+                .stringParameter("selectUrl", nonNull(selectUrl))
+                .stringParameter("ajaxSelectSizeUrl", ajaxSelectSizeUrl)
+                .stringParameter("selectSizeUrl", nonNull(selectSizeUrl))
+                .stringParameter("commonDisplaying", nonNull(commonDisplaying))
+                .stringParameter("paginateNextStyle", nonNull(modelForm.getPaginateNextStyle()))
+                .stringParameter("ajaxNextUrl", ajaxNextUrl)
+                .stringParameter("nextUrl", nonNull(nextUrl))
+                .stringParameter("paginateNextLabel", nonNull(modelForm.getPaginateNextLabel(context)))
+                .stringParameter("paginateLastStyle", nonNull(modelForm.getPaginateLastStyle()))
+                .stringParameter("ajaxLastUrl", ajaxLastUrl)
+                .stringParameter("lastUrl", nonNull(lastUrl))
+                .stringParameter("paginateLastLabel", nonNull(modelForm.getPaginateLastLabel(context)))
+                .stringParameter("paginateViewSizeLabel", nonNull(modelForm.getPaginateViewSizeLabel(context)))
+                .build();
+    }
+
+    /**
+     * Creates the macro call that renders a file field.
+     * @param context the context
+     * @param fileField the file field
+     * @return the RenderableFtl
+     */
+    public RenderableFtl fileField(final Map<String, Object> context, final ModelFormField.FileField fileField) {
+        final ModelFormField modelFormField = fileField.getModelFormField();
+        final var builder = RenderableFtlMacroCall.builder().name("renderFileField");
+        applyWidgetStyleAndAlert(modelFormField, context, builder);
+        return builder
+                .stringParameter("name", nonNull(modelFormField.getParameterName(context)))
+                .stringParameter("value", nonNull(modelFormField.getEntry(context, fileField.getDefaultValue(context))))
+                .stringParameter("size", Integer.toString(fileField.getSize()))
+                .stringParameter("maxlength", fileField.getMaxlength() == null ? "" : fileField.getMaxlength().toString())
+                .stringParameter("autocomplete", fileField.getClientAutocompleteField() ? "" : "off")
+                .stringParameter("tabindex", nonNull(modelFormField.getTabindex()))
+                .booleanParameter("disabled", modelFormField.getDisabled(context))
+                .build();
+    }
+
+    /**
+     * Creates the macro call that renders a password field.
+     * @param context the context
+     * @param passwordField the password field
+     * @return the RenderableFtl
+     */
+    public RenderableFtl passwordField(final Map<String, Object> context, final ModelFormField.PasswordField passwordField) {
+        final ModelFormField modelFormField = passwordField.getModelFormField();
+        String className = nonNull(modelFormField.getWidgetStyle());
+        final String alert = UtilValidate.isNotEmpty(className) && modelFormField.shouldBeRed(context) ? "true" : "false";
+        className = withRequiredStyle(modelFormField, className);
+        return RenderableFtlMacroCall.builder()
+                .name("renderPasswordField")
+                .stringParameter("className", className)
+                .stringParameter("alert", alert)
+                .stringParameter("name", nonNull(modelFormField.getParameterName(context)))
+                .stringParameter("value", nonNull(modelFormField.getEntry(context, passwordField.getDefaultValue(context))))
+                .stringParameter("size", Integer.toString(passwordField.getSize()))
+                .stringParameter("maxlength", passwordField.getMaxlength() == null ? "" : passwordField.getMaxlength().toString())
+                .stringParameter("id", nonNull(modelFormField.getCurrentContainerId(context)))
+                .stringParameter("autocomplete", passwordField.getClientAutocompleteField() ? "" : "off")
+                .stringParameter("tabindex", nonNull(modelFormField.getTabindex()))
+                .booleanParameter("disabled", modelFormField.getDisabled(context))
+                .build();
+    }
+
+    /**
+     * Creates the macro call that renders an image field.
+     * @param context the context
+     * @param imageField the image field
+     * @return the RenderableFtl
+     */
+    public RenderableFtl imageField(final Map<String, Object> context, final ModelFormField.ImageField imageField) {
+        final ModelFormField modelFormField = imageField.getModelFormField();
+        String value = modelFormField.getEntry(context, imageField.getValue(context));
+        String description = imageField.getDescription(context);
+        String alternate = imageField.getAlternate(context);
+        if (UtilValidate.isEmpty(description)) {
+            description = modelFormField.getTitle(context);
+        }
+        if (UtilValidate.isEmpty(alternate)) {
+            alternate = description;
+        }
+        if (UtilValidate.isNotEmpty(value) && !value.startsWith("http")) {
+            value = pathAsContentUrl(value);
+        }
+        return RenderableFtlMacroCall.builder()
+                .name("renderImageField")
+                .stringParameter("value", nonNull(value))
+                .stringParameter("description", nonNull(encode(description, modelFormField, context)))
+                .stringParameter("alternate", nonNull(encode(alternate, modelFormField, context)))
+                .stringParameter("style", nonNull(imageField.getStyle(context)))
+                .stringParameter("event", nonNull(modelFormField.getEvent()))
+                .stringParameter("action", nonNull(modelFormField.getAction(context)))
+                .build();
+    }
+
+    /**
+     * Creates the macro call that renders a banner.
+     * @param context the context
+     * @param banner the banner
+     * @return the RenderableFtl
+     */
+    public RenderableFtl banner(final Map<String, Object> context, final ModelForm.Banner banner) {
+        final String style = banner.getStyle(context);
+        final String leftStyle = banner.getLeftTextStyle(context);
+        final String rightStyle = banner.getRightTextStyle(context);
+        return RenderableFtlMacroCall.builder()
+                .name("renderBanner")
+                .stringParameter("style", nonNull(style))
+                .stringParameter("leftStyle", nonNull(UtilValidate.isEmpty(leftStyle) ? style : leftStyle))
+                .stringParameter("rightStyle", nonNull(UtilValidate.isEmpty(rightStyle) ? style : rightStyle))
+                .stringParameter("leftText", nonNull(banner.getLeftText(context)))
+                .stringParameter("text", nonNull(banner.getText(context)))
+                .stringParameter("rightText", nonNull(banner.getRightText(context)))
+                .build();
+    }
+
+    // the class name of a field that is required in a single form gets the required style first
+    private static String withRequiredStyle(final ModelFormField modelFormField, final String className) {
+        if (!shouldApplyRequiredField(modelFormField)) {
+            return className;
+        }
+        String requiredStyle = modelFormField.getRequiredFieldStyle();
+        if (UtilValidate.isEmpty(requiredStyle)) {
+            requiredStyle = "required";
+        }
+        return UtilValidate.isEmpty(className) ? requiredStyle : requiredStyle + " " + className;
+    }
+
+    private static RenderableFtl macroWithoutParameters(final String macroName) {
+        return RenderableFtlMacroCall.builder().name(macroName).build();
+    }
+
+    private static String nonNull(final String value) {
+        return value == null ? "" : value;
+    }
+
+    private static void applyWidgetStyleAndAlert(final ModelFormField modelFormField, final Map<String, Object> context,
+                                                 final RenderableFtlMacroCallBuilder builder) {
+        String className = "";
+        String alert = "false";
+        if (UtilValidate.isNotEmpty(modelFormField.getWidgetStyle())) {
+            className = modelFormField.getWidgetStyle();
+            if (modelFormField.shouldBeRed(context)) {
+                alert = "true";
+            }
+        }
+        builder.stringParameter("className", className).stringParameter("alert", alert);
     }
 
     private static void applyCommonStyling(final ModelFormField modelFormField, final Map<String, Object> context,

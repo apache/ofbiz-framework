@@ -20,11 +20,50 @@ name: "CodeQL"
 on:
   push:
     branches: [ trunk, release* ]
+    # Changes that cannot affect the analyzed sources (documentation, Docker/IDE/devcontainer
+    # setup, Windows-only scripts, other workflows...) don't trigger the analysis: the
+    # ubuntu-latest runners are a limited resource shared by all the ASF projects.
+    # The weekly scheduled analysis runs anyway.
+    # GitHub evaluates these patterns in order, so a later pattern can re-include a path that an
+    # earlier "!" pattern excluded.
+    paths: &analysis-paths
+      - '**'
+      - '!**.md'
+      - '!**.adoc'
+      - '!**/src/docs/**'
+      - '!docs/**'
+      - '!**.bat'
+      - '!APACHE2_HEADER'
+      - '!INSTALL'
+      - '!LICENSE'
+      - '!NOTICE'
+      - '!OPTIONAL_LIBRARIES'
+      - '!VERSION'
+      - '!.asf.yaml'
+      - '!.devcontainer/**'
+      - '!.dockerignore'
+      - '!.gitattributes'
+      - '!.gitignore'
+      - '!.hgignore'
+      - '!.idea/**'
+      - '!.pre-commit-config.yaml'
+      - '!Dockerfile'
+      - '!docker/**'
+      - '!.github/**'
+      - '.github/workflows/codeql-analysis.yml'
   pull_request:
     # The branches below must be a subset of the branches above
     branches: [ trunk, release* ]
+    paths: *analysis-paths
   schedule:
     - cron: '27 15 * * 1'
+
+# A new push to a pull request makes its previous, still running or queued analysis useless.
+# Pushes to trunk and release* are never cancelled so that every commit gets its own result.
+# Each of them gets its own group (run_id): in a shared group a newer run would replace a pending one.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 permissions:
   contents: read
@@ -32,6 +71,9 @@ permissions:
 jobs:
   analyze:
     name: Analyze
+    # A Dependabot pull request only changes dependency versions, not the analyzed sources.
+    # The push of its merge is analyzed as any other push.
+    if: github.event.pull_request.user.login != 'dependabot[bot]'
     runs-on: ubuntu-latest
     permissions:
       actions: read
@@ -49,10 +91,9 @@ jobs:
 
     # Initializes the CodeQL tools for scanning.
     - name: Initialize CodeQL
-      uses: github/codeql-action/init@2892aa5e19bbd11bc0cff5427e3b750a04d9e3c2 # v4.38.2
+      uses: github/codeql-action/init@6f2ac81f5cd81fe351a197ba0b00d91d03cd2aee # v4.39.0
       with:
         languages: ${{ matrix.language }}
-        debug: true
         # If you wish to specify custom queries, you can do so here or in a config file.
         # By default, queries listed here will override any specified in a config file.
         # Prefix the list here with "+" to use these queries and those in the config file.
@@ -69,4 +110,4 @@ jobs:
         ./gradlew compileJava compileTestJava
 
     - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@2892aa5e19bbd11bc0cff5427e3b750a04d9e3c2 # v4.38.2
+      uses: github/codeql-action/analyze@6f2ac81f5cd81fe351a197ba0b00d91d03cd2aee # v4.39.0

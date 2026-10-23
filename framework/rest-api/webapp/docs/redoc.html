@@ -36,12 +36,17 @@ under the License.
   </head>
   <body>
   <redoc></redoc>
-  <script src="redoc.standalone.js"> </script>
-  <script>
-      if (!window.location.origin) {
-        window.location.origin = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port : '');
-      }
-      Redoc.init(window.location.origin + '/rest/openapi.json');
+  <script type="module">
+      // Redoc 3 is distributed as an ES module and no longer defines a global Redoc object
+      import { init } from "/docs/redoc.standalone.js";
+
+      const pathSegments = window.location.pathname.split('/').filter(Boolean);
+      const apiName = pathSegments.length >= 3 ? pathSegments[pathSegments.length - 2] : null;
+      const apiGroupPath = apiName ? encodeURIComponent(apiName) + "/" : "api/";
+
+      // Redoc 3 sends usage telemetry to Redocly by default
+      init(window.location.origin + "/rest/" + apiGroupPath + "openapi.json", { disableTelemetry: true },
+          document.querySelector("redoc"));
     </script>
   </body>
 </html>

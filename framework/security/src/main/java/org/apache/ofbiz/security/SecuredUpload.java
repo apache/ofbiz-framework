@@ -41,12 +41,15 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Deque;
 import java.util.HashSet;
+import java.util.IdentityHashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -75,7 +78,6 @@ import org.apache.commons.csv.CSVParser;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.ofbiz.base.crypto.HashCrypt;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.FileUtil;
 import org.apache.ofbiz.base.util.StringUtil;
@@ -85,11 +87,19 @@ import org.apache.ofbiz.base.util.UtilXml;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.pdfbox.Loader;
+import org.apache.pdfbox.cos.COSArray;
+import org.apache.pdfbox.cos.COSBase;
+import org.apache.pdfbox.cos.COSDictionary;
+import org.apache.pdfbox.cos.COSDocument;
+import org.apache.pdfbox.cos.COSName;
+import org.apache.pdfbox.cos.COSObject;
+import org.apache.pdfbox.cos.COSString;
 import org.apache.pdfbox.io.RandomAccessReadBufferedFile;
 import org.apache.pdfbox.pdmodel.PDDocument;
 //import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDDocumentNameDictionary;
 import org.apache.pdfbox.pdmodel.PDEmbeddedFilesNameTreeNode;
+import org.apache.pdfbox.pdmodel.common.filespecification.PDComplexFileSpecification;
 import org.apache.tika.Tika;
 import org.apache.tika.exception.TikaException;
 import org.apache.tika.metadata.Metadata;
@@ -115,7 +125,6 @@ import com.drew.imaging.ImageMetadataReader;
 import com.drew.imaging.ImageProcessingException;
 import com.drew.metadata.Directory;
 import com.drew.metadata.Tag;
-import com.lowagie.text.pdf.PdfReader;
 
 public class SecuredUpload {
 
@@ -276,28 +285,17 @@ public class SecuredUpload {
         return true;
     }
 
-    // Cover method of the same name below. Historically used with 84 references when below was created
     // check there is no web shell in the uploaded file
     // A file containing a reverse shell will be rejected.
     public static boolean isValidText(String content, List<String> allowed) throws IOException {
-        return isValidText(content, allowed, false);
-    }
-
-    public static boolean isValidText(String content, List<String> allowed, boolean isQuery) throws IOException {
         if (content == null) {
             return false;
         }
-        if (!isQuery) {
-            String contentWithoutSpaces = content.replaceAll(" ", "");
-            if ((contentWithoutSpaces.contains("\"+\"") || contentWithoutSpaces.contains("'+'"))
-                    && !ALLOWSTRINGCONCATENATIONINUPLOADEDFILES) {
-                Debug.logInfo("The uploaded file contains a string concatenation. It can't be uploaded for security reason", MODULE);
-                return false;
-            }
-        } else {
-            // Check the query string is safe, notably no reverse shell
-            List<String> queryParameters = StringUtil.split(content, "&");
-            return DENIEDWEBSHELLTOKENS.stream().allMatch(token -> isValid(queryParameters, token.toLowerCase(), allowed));
+        String contentWithoutSpaces = content.replaceAll(" ", "");
+        if ((contentWithoutSpaces.contains("\"+\"") || contentWithoutSpaces.contains("'+'"))
+                && !ALLOWSTRINGCONCATENATIONINUPLOADEDFILES) {
+            Debug.logInfo("The uploaded file contains a string concatenation. It can't be uploaded for security reason", MODULE);
+            return false;
         }
 
         // Check there is no web shell in an uploaded file
@@ -957,12 +955,258 @@ public class SecuredUpload {
                 return false;
             }
             // Load stream in PDF parser — just probe whether the file is a valid PDF
-            try (PdfReader ignored = new PdfReader(file.getAbsolutePath())) {
+            try (PDDocument ignored = Loader.loadPDF(file)) {
                 return true;
             }
         } catch (Exception e) {
             // If it's not a PDF then exception will be thrown and return will be false
             return false;
+        }
+    }
+
+    /** Form field additional-action triggers (keystroke, format, validate, calculate) that run only when the field is edited. */
+    private static final Set<COSName> FORM_FIELD_TRIGGERS = Set.of(COSName.K, COSName.F, COSName.V, COSName.C);
+
+    /**
+     * Looks for JavaScript anywhere a PDF viewer could run it: the document-level JavaScript names tree, and any action
+     * (OpenAction, additional actions of the document, pages, annotations and form fields, Next chains...) that is a
+     * JavaScript action or carries JavaScript code. Every object reachable from the trailer is checked, then every
+     * object listed in the cross-reference table, even if nothing refers to it.
+     * @param pdDocument the loaded PDF document
+     * @param formFieldScriptsAllowed when true, the scripts of the keystroke, format, validate and calculate additional
+     *        actions of form fields are not reported. They run only when a user edits the field, and Acrobat adds them to
+     *        any formatted, validated or calculated field. The same scripts are still reported if they are also used
+     *        from anywhere else in the document.
+     * @return true if JavaScript is found
+     */
+    private static boolean containsJavaScript(PDDocument pdDocument, boolean formFieldScriptsAllowed) {
+        COSDocument cosDocument = pdDocument.getDocument();
+        Set<COSBase> scriptExemptFields = formFieldScriptsAllowed ? getAcroFormFields(pdDocument) : Collections.emptySet();
+        Set<COSBase> visited = Collections.newSetFromMap(new IdentityHashMap<>());
+        if (findJavaScript(List.of(cosDocument.getTrailer()), scriptExemptFields, Collections.emptySet(), visited)) {
+            return true;
+        }
+        List<COSBase> xrefObjects = new ArrayList<>();
+        cosDocument.getXrefTable().keySet().forEach(key -> xrefObjects.add(cosDocument.getObjectFromPool(key)));
+        return findJavaScript(xrefObjects, scriptExemptFields, getExemptFieldScripts(scriptExemptFields), visited);
+    }
+
+    /**
+     * Walks the PDF objects reachable from the given ones, without recursion, and stops at the first JavaScript found.
+     * @param roots the objects to start from
+     * @param scriptExemptFields the form fields whose keystroke, format, validate and calculate additional actions are not
+     *        checked; empty when form field scripts are not allowed
+     * @param skipped objects that are not checked when reached
+     * @param visited the objects already checked, updated by this walk
+     * @return true if JavaScript is found
+     */
+    private static boolean findJavaScript(List<COSBase> roots, Set<COSBase> scriptExemptFields, Set<COSBase> skipped,
+            Set<COSBase> visited) {
+        Deque<COSBase> toVisit = new ArrayDeque<>();
+        roots.forEach(root -> pushIfNotNull(toVisit, root));
+        while (!toVisit.isEmpty()) {
+            COSBase base = dereference(toVisit.pop());
+            if (base == null || skipped.contains(base) || !visited.add(base)) {
+                continue;
+            }
+            if (base instanceof COSDictionary) {
+                COSDictionary dictionary = (COSDictionary) base;
+                if (dictionary.containsKey(COSName.JS) || dictionary.containsKey(COSName.JAVA_SCRIPT)
+                        || COSName.JAVA_SCRIPT.equals(dictionary.getCOSName(COSName.S))) {
+                    return true;
+                }
+                for (Map.Entry<COSName, COSBase> entry : dictionary.entrySet()) {
+                    COSBase additionalActions = dereference(entry.getValue());
+                    if (COSName.AA.equals(entry.getKey()) && scriptExemptFields.contains(dictionary)
+                            && additionalActions instanceof COSDictionary) {
+                        // The additional-actions dictionary itself is not marked as visited, so it is checked in full if it
+                        // is also reached from somewhere else
+                        for (Map.Entry<COSName, COSBase> action : ((COSDictionary) additionalActions).entrySet()) {
+                            if (!FORM_FIELD_TRIGGERS.contains(action.getKey())) {
+                                pushIfNotNull(toVisit, action.getValue());
+                            }
+                        }
+                    } else {
+                        pushIfNotNull(toVisit, entry.getValue());
+                    }
+                }
+            } else if (base instanceof COSArray) {
+                COSArray array = (COSArray) base;
+                array.forEach(element -> pushIfNotNull(toVisit, element));
+            }
+        }
+        return false;
+    }
+
+    /**
+     * @return the dictionaries of the form fields in the document's AcroForm field tree. Dictionaries typed as something
+     *         other than an annotation (a page, the catalog...) are left out, so that their own additional actions, like a
+     *         page's close action (/C), are never taken for form field ones.
+     */
+    private static Set<COSBase> getAcroFormFields(PDDocument pdDocument) {
+        Set<COSBase> acroFormFields = Collections.newSetFromMap(new IdentityHashMap<>());
+        Set<COSBase> visited = Collections.newSetFromMap(new IdentityHashMap<>());
+        Deque<COSBase> toVisit = new ArrayDeque<>();
+        COSDictionary acroForm = pdDocument.getDocumentCatalog().getCOSObject().getCOSDictionary(COSName.ACRO_FORM);
+        if (acroForm != null) {
+            pushIfNotNull(toVisit, acroForm.getDictionaryObject(COSName.FIELDS));
+        }
+        while (!toVisit.isEmpty()) {
+            COSBase base = dereference(toVisit.pop());
+            if (base == null || !visited.add(base)) {
+                continue;
+            }
+            if (base instanceof COSArray) {
+                COSArray array = (COSArray) base;
+                array.forEach(element -> pushIfNotNull(toVisit, element));
+            } else if (base instanceof COSDictionary) {
+                COSDictionary field = (COSDictionary) base;
+                COSName type = field.getCOSName(COSName.TYPE);
+                if (type == null || COSName.ANNOT.equals(type)) {
+                    acroFormFields.add(field);
+                }
+                pushIfNotNull(toVisit, field.getDictionaryObject(COSName.KIDS));
+            }
+        }
+        return acroFormFields;
+    }
+
+    /**
+     * @return every object reachable from the keystroke, format, validate and calculate additional actions of the given
+     *         script exempt form fields
+     */
+    private static Set<COSBase> getExemptFieldScripts(Set<COSBase> scriptExemptFields) {
+        Set<COSBase> exemptFieldScripts = Collections.newSetFromMap(new IdentityHashMap<>());
+        Deque<COSBase> toVisit = new ArrayDeque<>();
+        for (COSBase scriptExemptField : scriptExemptFields) {
+            COSBase additionalActions = dereference(((COSDictionary) scriptExemptField).getItem(COSName.AA));
+            if (additionalActions instanceof COSDictionary) {
+                FORM_FIELD_TRIGGERS.forEach(trigger -> pushIfNotNull(toVisit, ((COSDictionary) additionalActions).getItem(trigger)));
+            }
+        }
+        while (!toVisit.isEmpty()) {
+            COSBase base = dereference(toVisit.pop());
+            if (base == null || !exemptFieldScripts.add(base)) {
+                continue;
+            }
+            if (base instanceof COSDictionary) {
+                COSDictionary dictionary = (COSDictionary) base;
+                dictionary.getValues().forEach(value -> pushIfNotNull(toVisit, value));
+            } else if (base instanceof COSArray) {
+                COSArray array = (COSArray) base;
+                array.forEach(element -> pushIfNotNull(toVisit, element));
+            }
+        }
+        return exemptFieldScripts;
+    }
+
+    /** Actions that start a program, import data from a file, open another or an embedded document, or play media. */
+    private static final Set<COSName> UNSAFE_ACTIONS = Set.of(COSName.getPDFName("Launch"), COSName.getPDFName("ImportData"),
+            COSName.getPDFName("GoToR"), COSName.getPDFName("GoToE"), COSName.getPDFName("Movie"), COSName.getPDFName("Sound"),
+            COSName.getPDFName("Rendition"), COSName.getPDFName("RichMediaExecute"));
+
+    /** Annotations that play media. */
+    private static final Set<COSName> UNSAFE_ANNOTATIONS = Set.of(COSName.getPDFName("RichMedia"), COSName.getPDFName("Movie"),
+            COSName.getPDFName("Sound"), COSName.getPDFName("Screen"));
+
+    private static final COSName ACTION = COSName.getPDFName("Action");
+    private static final COSName SUBMIT_FORM = COSName.getPDFName("SubmitForm");
+    private static final Set<String> URI_SCHEMES = Set.of("http", "https", "mailto");
+    private static final Set<String> SUBMIT_FORM_SCHEMES = Set.of("http", "https");
+
+    /**
+     * Looks for content a PDF viewer could use to reach outside the document: a file specification with an embedded file
+     * (in the embedded files names tree, a file attachment annotation, or anywhere else), an action that starts a
+     * program, imports data from a file, opens another or an embedded document or plays media, a media annotation, a link
+     * (URI action) that is not http, https or mailto, and a form submission to anything other than http or https. Every
+     * object reachable from the trailer is checked, then every object listed in the cross-reference table, even if nothing
+     * refers to it.
+     * @param pdDocument the loaded PDF document
+     * @param allowedFileSpec the file specification whose embedded file is allowed, null if none is
+     * @return what was found, or null if nothing was
+     */
+    private static String findUnsafeContent(PDDocument pdDocument, COSBase allowedFileSpec) {
+        COSDocument cosDocument = pdDocument.getDocument();
+        Deque<COSBase> toVisit = new ArrayDeque<>();
+        cosDocument.getXrefTable().keySet().forEach(key -> pushIfNotNull(toVisit, cosDocument.getObjectFromPool(key)));
+        pushIfNotNull(toVisit, cosDocument.getTrailer());
+        Set<COSBase> visited = Collections.newSetFromMap(new IdentityHashMap<>());
+        while (!toVisit.isEmpty()) {
+            COSBase base = dereference(toVisit.pop());
+            if (base == null || !visited.add(base)) {
+                continue;
+            }
+            if (base instanceof COSDictionary) {
+                COSDictionary dictionary = (COSDictionary) base;
+                String unsafeContent = getUnsafeContent(dictionary, allowedFileSpec);
+                if (unsafeContent != null) {
+                    return unsafeContent;
+                }
+                dictionary.getValues().forEach(value -> pushIfNotNull(toVisit, value));
+            } else if (base instanceof COSArray) {
+                COSArray array = (COSArray) base;
+                array.forEach(element -> pushIfNotNull(toVisit, element));
+            }
+        }
+        return null;
+    }
+
+    /**
+     * @return what makes the given PDF dictionary unsafe, or null if it is not
+     * @see #findUnsafeContent(PDDocument, COSBase)
+     */
+    private static String getUnsafeContent(COSDictionary dictionary, COSBase allowedFileSpec) {
+        if (dictionary.containsKey(COSName.EF) && dictionary != allowedFileSpec) {
+            return "an embedded file";
+        }
+        COSName type = dictionary.getCOSName(COSName.TYPE);
+        COSName actionType = dictionary.getCOSName(COSName.S);
+        if (actionType != null && (type == null || ACTION.equals(type))) {
+            if (UNSAFE_ACTIONS.contains(actionType)) {
+                return "a " + actionType.getName() + " action";
+            }
+            if (COSName.URI.equals(actionType) && !hasScheme(dictionary.getString(COSName.URI), URI_SCHEMES)) {
+                return "a link that is not http, https or mailto";
+            }
+            if (SUBMIT_FORM.equals(actionType) && !hasScheme(getFileSpecName(dictionary.getDictionaryObject(COSName.F)),
+                    SUBMIT_FORM_SCHEMES)) {
+                return "a form submission that is not http or https";
+            }
+        }
+        COSName subtype = dictionary.getCOSName(COSName.SUBTYPE);
+        if (subtype != null && (type == null || COSName.ANNOT.equals(type)) && UNSAFE_ANNOTATIONS.contains(subtype)) {
+            return "a " + subtype.getName() + " annotation";
+        }
+        return null;
+    }
+
+    /** @return the file name or URL of a PDF file specification, either a string or a dictionary, or null if it has none */
+    private static String getFileSpecName(COSBase fileSpec) {
+        if (fileSpec instanceof COSDictionary) {
+            COSDictionary dictionary = (COSDictionary) fileSpec;
+            String unicodeName = dictionary.getString(COSName.UF);
+            return unicodeName != null ? unicodeName : dictionary.getString(COSName.F);
+        }
+        return fileSpec instanceof COSString ? ((COSString) fileSpec).getString() : null;
+    }
+
+    /** @return true if the target is an absolute URL using one of the given lower case schemes */
+    private static boolean hasScheme(String target, Set<String> schemes) {
+        if (target == null) {
+            return false;
+        }
+        String trimmedTarget = target.trim();
+        int colon = trimmedTarget.indexOf(':');
+        return colon > 0 && schemes.contains(trimmedTarget.substring(0, colon).toLowerCase(Locale.ROOT));
+    }
+
+    private static COSBase dereference(COSBase base) {
+        return base instanceof COSObject ? ((COSObject) base).getObject() : base;
+    }
+
+    private static void pushIfNotNull(Deque<COSBase> toVisit, COSBase base) {
+        if (base != null) {
+            toVisit.push(base);
         }
     }
 
@@ -982,22 +1226,32 @@ public class SecuredUpload {
                 return safeState;
             }
             // Load stream in PDF parser
-            String jsCode;
-            try (PdfReader reader = new PdfReader(file.getAbsolutePath())) {
-                // Check 1: detect if the document contains any JavaScript code
-                jsCode = reader.getJavaScript();
-            }
-            if (!Objects.isNull(jsCode)) {
-                return safeState;
-            }
-            // OK no JS code, pass to check 2: detect if the document has any embedded files
             PDEmbeddedFilesNameTreeNode efTree = null;
+            boolean zUGFeRDCompliantUploadAllowed = UtilProperties.getPropertyAsBoolean("security", "allowZUGFeRDCompliantUpload", false);
             try (PDDocument pdDocument = Loader.loadPDF(new RandomAccessReadBufferedFile(fileName))) {
-                    //PDDocument.load(file)) {
+                // Check 1: detect if the document contains any JavaScript code
+                boolean formFieldScriptsAllowed = UtilProperties.getPropertyAsBoolean("security", "allowPdfFormFieldScripts", false);
+                if (containsJavaScript(pdDocument, formFieldScriptsAllowed)) {
+                    Debug.logInfo("The file " + file.getAbsolutePath() + " contains JavaScript code. "
+                            + "For security reason it's not accepted as a PDF file", MODULE);
+                    return safeState;
+                }
+                // OK no JS code, pass to check 2: detect if the document has any embedded files, other than a ZUGFeRD invoice as the
+                // only file of the embedded files names tree, or any other unsafe content
                 PDDocumentNameDictionary names = new PDDocumentNameDictionary(pdDocument.getDocumentCatalog());
                 efTree = names.getEmbeddedFiles();
+                Map<String, PDComplexFileSpecification> embeddedFiles = Objects.isNull(efTree) ? null : efTree.getNames();
+                COSBase zUGFeRDFileSpec = null;
+                if (zUGFeRDCompliantUploadAllowed && embeddedFiles != null && embeddedFiles.size() == 1) {
+                    zUGFeRDFileSpec = embeddedFiles.values().iterator().next().getCOSObject();
+                }
+                String unsafeContent = findUnsafeContent(pdDocument, zUGFeRDFileSpec);
+                if (unsafeContent != null) {
+                    Debug.logInfo("The file " + file.getAbsolutePath() + " contains " + unsafeContent + ". "
+                            + "For security reason it's not accepted as a PDF file", MODULE);
+                    return safeState;
+                }
             }
-            boolean zUGFeRDCompliantUploadAllowed = UtilProperties.getPropertyAsBoolean("security", "allowZUGFeRDCompliantUpload", false);
             if (zUGFeRDCompliantUploadAllowed && !Objects.isNull(efTree)) {
                 canParseZUGFeRD = false;
                 Integer numberOfEmbeddedFiles = efTree.getNames().size();
@@ -1009,7 +1263,7 @@ public class SecuredUpload {
                     } else {
                         try {
                             Document document = UtilXml.readXmlDocument(importer.getUTF8());
-                            if (document.toString().equals("[#document: null]")) {
+                            if (document == null || document.getDocumentElement() == null) {
                                 safeState = false;
                                 Debug.logInfo("The file " + file.getAbsolutePath()
                                         + " is not a readable (valid and secure) PDF file. For security reason it's not accepted as a such file",
@@ -1324,25 +1578,6 @@ public class SecuredUpload {
         boolean isOK = !content.contains(string) || allowed.contains(string);
         if (!isOK) {
             Debug.logInfo("The uploaded file contains the string '" + string + "'. It can't be uploaded for security reason", MODULE);
-        }
-        return isOK;
-    }
-
-    // Check there is no reverse shell in query string
-    private static boolean isValid(List<String> queryParameters, String string, List<String> allowed) {
-        boolean isOK = true;
-
-        for (String parameter : queryParameters) {
-            if (!parameter.contains(string)
-                    || allowed.contains(HashCrypt.cryptBytes("SHA", "OFBiz", parameter.toLowerCase().getBytes(StandardCharsets.UTF_8)))) {
-                continue;
-            } else {
-                isOK = false;
-                break;
-            }
-        }
-        if (!isOK) {
-            Debug.logInfo("The HTTP query string contains the string '" + string + "'. It can't be uploaded for security reason", MODULE);
         }
         return isOK;
     }

@@ -32,6 +32,10 @@ Map createShoppingList() {
     newEntity.partyId = newEntity.partyId ?: userLogin.partyId
     newEntity.shoppingListTypeId = newEntity.shoppingListTypeId ?: 'SLT_WISH_LIST'
     newEntity.isPublic = newEntity.isPublic ?: 'N'
+    if ((parameters.paymentMethodId || parameters.contactMechId)
+            && !ShoppingListServices.hasOwnPaymentMethodAndAddress(delegator, newEntity)) {
+        return error(UtilProperties.getMessage('OrderErrorUiLabels', 'OrderShoppingListPaymentMethodOrAddressNotOwned', parameters.locale))
+    }
 
     newEntity.listName = newEntity.listName ?: UtilProperties.getMessage('OrderUiLabels',
             'OrderNewShoppingList', parameters.locale) ?: 'New Shopping List'
@@ -53,6 +57,10 @@ Map createShoppingList() {
 Map updateShoppingList() {
     GenericValue shoppingList = from('ShoppingList').where(parameters).queryOne()
     shoppingList.setNonPKFields(parameters)
+    if ((parameters.paymentMethodId || parameters.contactMechId)
+            && !ShoppingListServices.hasOwnPaymentMethodAndAddress(delegator, shoppingList)) {
+        return error(UtilProperties.getMessage('OrderErrorUiLabels', 'OrderShoppingListPaymentMethodOrAddressNotOwned', parameters.locale))
+    }
 
     // don't let auto-reorders be active unless there is some recurrence info
     if (shoppingList.shoppingListTypeId == 'SLT_AUTO_REODR' &&
@@ -160,7 +168,8 @@ Map addDistinctShoppingListItem() {
  */
 Map calculateShoppingListDeepTotalPrice() {
     Map result = success()
-    Map serviceResult = run service: 'checkShoppingListItemSecurity', with: parameters
+    Map serviceResult = run service: 'checkShoppingListItemSecurity', with: [*: parameters,
+            mainAction: 'VIEW', resourceDescription: 'calculateShoppingListDeepTotalPrice']
     require(ServiceUtil.isSuccess(serviceResult) as boolean, serviceResult.errorMessage)
     require(serviceResult.hasPermission as boolean, 'OrderErrorUiLabels', 'OrderSecurityErrorToRunForAnotherParty')
     Map calcPriceInBaseMap = [prodCatalogId: parameters.prodCatalogId, webSiteId: parameters.webSiteId]
@@ -213,10 +222,19 @@ Map calculateShoppingListDeepTotalPrice() {
  * Checks security on a ShoppingList
  */
 Map checkShoppingListSecurity() {
+    // for an existing list, check against its stored owner, not the partyId sent with the request
+    if (parameters.shoppingListId) {
+        GenericValue shoppingList = from('ShoppingList').where(shoppingListId: parameters.shoppingListId).queryOne()
+        require(!shoppingList?.partyId || userLogin?.partyId == shoppingList.partyId
+                || security.hasEntityPermission('PARTYMGR', "_${parameters.mainAction}", parameters.userLogin),
+                'OrderErrorUiLabels', 'OrderSecurityErrorToRunForAnotherParty',
+                [parentMethodName: parameters.resourceDescription, permissionAction: parameters.mainAction])
+    }
     require(!userLogin || (userLogin.userLoginId == 'anonymous') ||
             !parameters.partyId || (userLogin.partyId == parameters.partyId)
-            || security.hasEntityPermission('PARTYMGR', "_${parameters.permissionAction}", parameters.userLogin),
-            'OrderErrorUiLabels', 'OrderSecurityErrorToRunForAnotherParty')
+            || security.hasEntityPermission('PARTYMGR', "_${parameters.mainAction}", parameters.userLogin),
+            'OrderErrorUiLabels', 'OrderSecurityErrorToRunForAnotherParty',
+            [parentMethodName: parameters.resourceDescription, permissionAction: parameters.mainAction])
 
     Map result = success()
     result.hasPermission = true
@@ -229,11 +247,11 @@ Map checkShoppingListSecurity() {
 Map checkShoppingListItemSecurity() {
     GenericValue shoppingList = from('ShoppingList').where(parameters).queryOne()
     require(!shoppingList?.partyId || userLogin.partyId == shoppingList.partyId ||
-            security.hasEntityPermission('PARTYMGR', "_${parameters.permissionAction}", parameters.userLogin),
+            security.hasEntityPermission('PARTYMGR', "_${parameters.mainAction}", parameters.userLogin),
             'OrderErrorUiLabels',
             'OrderSecurityErrorToRunForAnotherParty',
-            [parentMethodName: parameters.parentMethodName,
-             permissionAction: parameters.permissionAction])
+            [parentMethodName: parameters.resourceDescription,
+             permissionAction: parameters.mainAction])
 
     Map result = success()
     result.hasPermission = true

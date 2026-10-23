@@ -58,10 +58,15 @@ public class DBCPConnectionFactory implements ConnectionFactory {
     // from DebugManagedDataSource
     protected static final ConcurrentHashMap<String, DebugManagedDataSource<? extends Connection>> DS_CACHE =
             new ConcurrentHashMap<>();
+    // set by closeAll() when OFBiz shuts down, so that no new pool gets created afterwards (see OFBIZ-13686)
+    private static volatile boolean closed = false;
 
     @SuppressWarnings("deprecation")
     @Override
     public Connection getConnection(GenericHelperInfo helperInfo, JdbcElement abstractJdbc) throws SQLException, GenericEntityException {
+        if (closed) {
+            throw new SQLException("The datasources have been closed, OFBiz is shutting down");
+        }
         String cacheKey = helperInfo.getHelperFullName();
         DebugManagedDataSource<? extends Connection> mds = DS_CACHE.get(cacheKey);
         if (mds != null) {
@@ -164,13 +169,28 @@ public class DBCPConnectionFactory implements ConnectionFactory {
         // cache the pool
         DS_CACHE.putIfAbsent(cacheKey, mds);
         mds = DS_CACHE.get(cacheKey);
+        if (closed) {
+            // closeAll() ran while this pool was being created
+            DS_CACHE.remove(cacheKey, mds);
+            mds.close();
+            throw new SQLException("The datasources have been closed, OFBiz is shutting down");
+        }
 
         return TransactionUtil.getCursorConnection(helperInfo, mds.getConnection());
     }
 
     @Override
     public void closeAll() {
-        // no methods on the pool to shutdown; so just clearing for GC
+        closed = true;
+        // Closing the pools closes every pooled connection, which is what lets an embedded database such as H2
+        // close its files cleanly: H2 only does so when its last connection is closed (see OFBIZ-13686).
+        DS_CACHE.forEach((helperName, mds) -> {
+            try {
+                mds.close();
+            } catch (SQLException e) {
+                Debug.logError(e, "Error closing the connection pool for " + helperName, MODULE);
+            }
+        });
         DS_CACHE.clear();
     }
 

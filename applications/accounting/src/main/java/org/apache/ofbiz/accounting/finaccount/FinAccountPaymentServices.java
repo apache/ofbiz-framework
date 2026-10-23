@@ -262,8 +262,11 @@ public class FinAccountPaymentServices {
                     thruDate = UtilDateTime.getDayEnd(UtilDateTime.nowTimestamp(), 30L); // default 30 days for an auth
                 }
 
+                // createFinAccountAuth requires accounting permission; run as the "system" user since this is a trusted
+                // side effect of an already-validated financial-account payment authorization
+                GenericValue systemUserLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "system").cache().queryOne();
                 Map<String, Object> tmpResult = dispatcher.runSync("createFinAccountAuth", UtilMisc.<String, Object>toMap("finAccountId",
-                        finAccountId, "amount", amount, "thruDate", thruDate, "userLogin", userLogin));
+                        finAccountId, "amount", amount, "thruDate", thruDate, "userLogin", systemUserLogin));
 
                 if (ServiceUtil.isError(tmpResult)) {
                     return ServiceUtil.returnError(ServiceUtil.getErrorMessage(tmpResult));
@@ -712,10 +715,14 @@ public class FinAccountPaymentServices {
                 // balance went below zero, set negative pending replenishment status so that no
                 // more auths or captures will go through until it is replenished
                 try {
-                    Map<String, Object> rollbackCtx = UtilMisc.toMap("userLogin", userLogin, "finAccountId",
+                    // updateFinAccount requires accounting permission; run as the "system" user since this is a
+                    // trusted side effect of an already-validated financial-account deposit
+                    GenericValue systemUserLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "system")
+                            .cache().queryOne();
+                    Map<String, Object> rollbackCtx = UtilMisc.toMap("userLogin", systemUserLogin, "finAccountId",
                             finAccountId, "statusId", "FNACT_NEGPENDREPL");
                     dispatcher.addRollbackService("updateFinAccount", rollbackCtx, true);
-                } catch (GenericServiceException e) {
+                } catch (GenericEntityException | GenericServiceException e) {
                     Debug.logError(e, MODULE);
                     return ServiceUtil.returnError(e.getMessage());
                 }
@@ -828,10 +835,14 @@ public class FinAccountPaymentServices {
         // configure rollback service to set status to Negative Pending Replenishment
         if ("FNACT_NEGPENDREPL".equals(statusId)) {
             try {
-                Map<String, Object> rollbackCtx = UtilMisc.toMap("userLogin", userLogin, "finAccountId", finAccountId,
+                // updateFinAccount requires accounting permission; run as the "system" user since this is a
+                // trusted side effect of an already-validated auto-replenish operation
+                GenericValue systemUserLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "system")
+                        .cache().queryOne();
+                Map<String, Object> rollbackCtx = UtilMisc.toMap("userLogin", systemUserLogin, "finAccountId", finAccountId,
                         "statusId", "FNACT_NEGPENDREPL");
                 dispatcher.addRollbackService("updateFinAccount", rollbackCtx, true);
-            } catch (GenericServiceException e) {
+            } catch (GenericEntityException | GenericServiceException e) {
                 Debug.logError(e, MODULE);
                 return ServiceUtil.returnError(e.getMessage());
             }
@@ -930,12 +941,16 @@ public class FinAccountPaymentServices {
         // say we are in good standing again
         if ("FNACT_NEGPENDREPL".equals(statusId)) {
             try {
+                // updateFinAccount requires accounting permission; run as the "system" user since this is a
+                // trusted side effect of an already-validated auto-replenish operation
+                GenericValue systemUserLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "system")
+                        .cache().queryOne();
                 Map<String, Object> ufaResp = dispatcher.runSync("updateFinAccount",
-                        UtilMisc.<String, Object>toMap("finAccountId", finAccountId, "statusId", "FNACT_ACTIVE", "userLogin", userLogin));
+                        UtilMisc.<String, Object>toMap("finAccountId", finAccountId, "statusId", "FNACT_ACTIVE", "userLogin", systemUserLogin));
                 if (ServiceUtil.isError(ufaResp)) {
                     return ServiceUtil.returnError(ServiceUtil.getErrorMessage(ufaResp));
                 }
-            } catch (GenericServiceException e) {
+            } catch (GenericEntityException | GenericServiceException e) {
                 Debug.logError(e, MODULE);
                 return ServiceUtil.returnError(e.getMessage());
             }
@@ -1058,7 +1073,10 @@ public class FinAccountPaymentServices {
         transCtx.put("orderItemSeqId", orderItemSeqId);
         transCtx.put("reasonEnumId", reasonEnumId);
         transCtx.put("amount", amount);
-        transCtx.put("userLogin", userLogin);
+        // createFinAccountTrans requires accounting permission; run as the "system" user since this transaction is
+        // a trusted side effect of an already-validated financial-account payment (the partyId above still records
+        // the real party the transaction is with)
+        transCtx.put("userLogin", EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "system").cache().queryOne());
         transCtx.put("paymentId", paymentId);
 
         Map<String, Object> transResult;

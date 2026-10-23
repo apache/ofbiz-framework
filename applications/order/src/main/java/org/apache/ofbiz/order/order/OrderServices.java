@@ -3734,6 +3734,12 @@ public class OrderServices {
         String changeComments = (String) context.get("changeComments");
         Boolean calcTax = (Boolean) context.get("calcTax");
         Map<String, String> itemAttributesMap = UtilGenerics.cast(context.get("itemAttributesMap"));
+        Security security = dctx.getSecurity();
+
+        if (!OrderServices.hasPermission(orderId, userLogin, "UPDATE", security, delegator)) {
+            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+                    "OrderYouDoNotHavePermissionToChangeThisOrdersStatus", locale));
+        }
 
         if (calcTax == null) {
             calcTax = Boolean.TRUE;
@@ -5311,6 +5317,9 @@ public class OrderServices {
 
     public static Map<String, Object> updateOrderPaymentPreference(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
+        Security security = dctx.getSecurity();
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        Locale locale = (Locale) context.get("locale");
         String orderPaymentPreferenceId = (String) context.get("orderPaymentPreferenceId");
         String checkOutPaymentId = (String) context.get("checkOutPaymentId");
         String statusId = (String) context.get("statusId");
@@ -5318,6 +5327,18 @@ public class OrderServices {
         try {
             GenericValue opp = EntityQuery.use(delegator).from("OrderPaymentPreference").where("orderPaymentPreferenceId", orderPaymentPreferenceId)
                     .queryOne();
+            if (opp == null) {
+                return ServiceUtil.returnError("Cannot find OrderPaymentPreference with orderPaymentPreferenceId: " + orderPaymentPreferenceId);
+            }
+
+            // the orderId on the referenced OrderPaymentPreference is the only trustworthy source of the parent
+            // order; never trust an orderId supplied in the context, since it is not validated against opp
+            String orderId = opp.getString("orderId");
+            if (!OrderServices.hasPermission(orderId, userLogin, "UPDATE", security, delegator)) {
+                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+                        "OrderYouDoNotHavePermissionToChangeThisOrdersStatus", locale));
+            }
+
             String paymentMethodId = null;
             String paymentMethodTypeId = null;
 
@@ -5353,6 +5374,9 @@ public class OrderServices {
                 newOpp.set("paymentMethodId", paymentMethodId);
                 newOpp.set("paymentMethodTypeId", paymentMethodTypeId);
                 newOpp.setNonPKFields(context);
+                // setNonPKFields above applies the caller-supplied orderId from context; re-assert the
+                // authorized orderId so the new OrderPaymentPreference cannot be attached to a different order
+                newOpp.set("orderId", orderId);
                 newOpp.create();
                 results.put("orderPaymentPreferenceId", newOpp.get("orderPaymentPreferenceId"));
             }
@@ -6670,6 +6694,12 @@ public class OrderServices {
         String contactMechId = (String) context.get("contactMechId");
         String oldContactMechId = (String) context.get("oldContactMechId");
         String shipmentMethod = (String) context.get("shipmentMethod");
+        Security security = dctx.getSecurity();
+
+        if (!OrderServices.hasPermission(orderId, userLogin, "UPDATE", security, delegator)) {
+            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+                    "OrderYouDoNotHavePermissionToChangeThisOrdersStatus", locale));
+        }
 
         //load cart from order to update new shipping method or address
         ShoppingCart shoppingCart = null;

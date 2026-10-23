@@ -41,9 +41,9 @@ public class OFBizOpenApiUiFilter implements Filter {
 
         String path = request.getRequestURI().substring(request.getContextPath().length());
 
-        // /orderApi/swagger-ui.html
-        if (path.matches("/[^/]+/swagger-ui\\.html")) {
-            request.getRequestDispatcher("/swagger-ui.html")
+        // /orderApi/swagger-ui.html or /orderApi/redoc.html
+        if (path.matches("/[^/]+/(swagger-ui|redoc)\\.html")) {
+            request.getRequestDispatcher(path.substring(path.lastIndexOf('/')))
                     .forward(request, response);
             return;
         }

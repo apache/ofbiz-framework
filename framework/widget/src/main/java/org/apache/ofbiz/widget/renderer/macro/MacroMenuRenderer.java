@@ -19,10 +19,9 @@
 package org.apache.ofbiz.widget.renderer.macro;
 
 import java.io.IOException;
-import java.io.Reader;
-import java.io.StringReader;
 import java.io.StringWriter;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,7 +29,6 @@ import java.util.Map;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilCodec;
 import org.apache.ofbiz.base.util.UtilMisc;
@@ -38,7 +36,6 @@ import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilRandom;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
-import org.apache.ofbiz.base.util.template.FreeMarkerWorker;
 import org.apache.ofbiz.webapp.control.RequestHandler;
 import org.apache.ofbiz.webapp.taglib.ContentUrlTag;
 import org.apache.ofbiz.widget.WidgetWorker;
@@ -49,29 +46,21 @@ import org.apache.ofbiz.widget.model.ModelMenuItem.MenuLink;
 import org.apache.ofbiz.widget.model.ModelWidget;
 import org.apache.ofbiz.widget.model.ThemeFactory;
 import org.apache.ofbiz.widget.renderer.MenuStringRenderer;
-import org.apache.ofbiz.widget.renderer.VisualTheme;
 
-import freemarker.core.Environment;
-import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.apache.ofbiz.widget.renderer.html.HtmlWidgetRenderer;
 
 public class MacroMenuRenderer implements MenuStringRenderer {
 
-    private static final String MODULE = MacroMenuRenderer.class.getName();
-    private int macroCount = 999;
-    private final Map<Appendable, Environment> environments = new HashMap<>();
-    private final Template macroLibrary;
+    private final FtlWriter ftlWriter;
     private final HttpServletRequest request;
     private final HttpServletResponse response;
-    private final VisualTheme visualTheme;
 
     public MacroMenuRenderer(String macroLibraryPath, HttpServletRequest request, HttpServletResponse response)
             throws TemplateException, IOException {
-        this.macroLibrary = FreeMarkerWorker.getTemplate(macroLibraryPath);
         this.request = request;
         this.response = response;
-        this.visualTheme = ThemeFactory.resolveVisualTheme(request);
+        this.ftlWriter = new FtlWriter(macroLibraryPath, ThemeFactory.resolveVisualTheme(request));
     }
 
     // Made this a separate method so it can be externalized and reused.
@@ -98,54 +87,20 @@ public class MacroMenuRenderer implements MenuStringRenderer {
                 src = newURL.toString();
             }
         }
+        UtilCodec.SimpleEncoder simpleEncoder = (UtilCodec.SimpleEncoder) context.get("simpleEncoder");
+        if (simpleEncoder != null) {
+            src = simpleEncoder.encode(src);
+        }
         parameters.put("src", src);
         return parameters;
     }
 
-    private void executeMacro(Appendable writer, String macro) throws IOException, TemplateException {
-        Environment environment = getEnvironment(writer);
-        environment.setVariable("visualTheme", FreeMarkerWorker.autoWrap(visualTheme, environment));
-        Reader templateReader = new StringReader(macro);
-        macroCount++;
-        String templateName = toString().concat("_") + macroCount;
-        Template template = new Template(templateName, templateReader, FreeMarkerWorker.getDefaultOfbizConfig());
-        templateReader.close();
-        environment.include(template);
-    }
-
-    private void executeMacro(Appendable writer, String macroName, Map<String, Object> macroParameters) throws IOException, TemplateException {
-        StringBuilder sb = new StringBuilder("<@");
-        sb.append(macroName);
+    private void executeMacro(Appendable writer, String macroName, Map<String, Object> macroParameters) {
+        Map<String, Object> parameters = new HashMap<>();
         if (macroParameters != null) {
-            for (Map.Entry<String, Object> parameter : macroParameters.entrySet()) {
-                sb.append(' ');
-                sb.append(parameter.getKey());
-                sb.append("=");
-                Object value = parameter.getValue();
-                if (value instanceof String) {
-                    sb.append('"');
-                    sb.append(MacroCommonRenderer.escapeFtlString((String) value));
-                    sb.append('"');
-                } else {
-                    sb.append(value);
-                }
-            }
+            macroParameters.forEach((name, value) -> parameters.put(name, value == null ? "" : value));
         }
-        sb.append(" />");
-        if (Debug.verboseOn()) {
-            Debug.logVerbose("Executing macro: " + sb, MODULE);
-        }
-        executeMacro(writer, sb.toString());
-    }
-
-    private Environment getEnvironment(Appendable writer) throws TemplateException, IOException {
-        Environment environment = environments.get(writer);
-        if (environment == null) {
-            Map<String, Object> input = UtilMisc.toMap("key", null);
-            environment = FreeMarkerWorker.renderTemplate(macroLibrary, input, writer);
-            environments.put(writer, environment);
-        }
-        return environment;
+        ftlWriter.processMacroCall(writer, null, macroName, parameters);
     }
 
     private static boolean isDisableIfEmpty(ModelMenuItem menuItem, Map<String, Object> context) {
@@ -193,11 +148,7 @@ public class MacroMenuRenderer implements MenuStringRenderer {
     @Override
     public void renderImage(Appendable writer, Map<String, Object> context, Image image) throws IOException {
         Map<String, Object> parameters = createImageParameters(context, image);
-        try {
-            executeMacro(writer, "renderImage", parameters);
-        } catch (TemplateException e) {
-            throw new IOException(e);
-        }
+        executeMacro(writer, "renderImage", parameters);
     }
 
     @Override
@@ -230,7 +181,7 @@ public class MacroMenuRenderer implements MenuStringRenderer {
         }
         parameters.put("linkType", linkType);
         String actionUrl = "";
-        StringBuilder targetParameters = new StringBuilder();
+        List<Map<String, String>> targetParameters = new ArrayList<>();
 
         String confirmationMessage = link.getLink().getConfirmationMsg(context);
         if (link.getLink().getRequestConfirmation() && UtilValidate.isEmpty(confirmationMessage)) {
@@ -247,29 +198,14 @@ public class MacroMenuRenderer implements MenuStringRenderer {
                     request, response);
             actionUrl = actionUri.toString();
 
-            targetParameters.append("[");
+            UtilCodec.SimpleEncoder simpleEncoder = (UtilCodec.SimpleEncoder) context.get("simpleEncoder");
             // Callback propagation only if displaying a modal
             for (Map.Entry<String, String> parameter : link.getParameterMap(context, isModal).entrySet()) {
-                if (targetParameters.length() > 1) {
-                    targetParameters.append(",");
-                }
-                targetParameters.append("{'name':'");
-                targetParameters.append(parameter.getKey());
-                targetParameters.append("'");
-                targetParameters.append(",'value':'");
-                UtilCodec.SimpleEncoder simpleEncoder = (UtilCodec.SimpleEncoder) context.get("simpleEncoder");
-                if (simpleEncoder != null) {
-                    targetParameters.append(simpleEncoder.encode(parameter.getValue()));
-                } else {
-                    targetParameters.append(parameter.getValue());
-                }
-                targetParameters.append("'}");
+                String value = parameter.getValue() == null ? "" : parameter.getValue();
+                targetParameters.add(UtilMisc.toMap("name", parameter.getKey(),
+                        "value", simpleEncoder != null ? simpleEncoder.encode(value) : value));
             }
-            targetParameters.append("]");
 
-        }
-        if (targetParameters.isEmpty()) {
-            targetParameters.append("\"\"");
         }
         parameters.put("linkUrl", MacroCommonRenderer.getLinkUrl(link.getLink(), linkType, context));
         parameters.put("actionUrl", actionUrl);
@@ -282,11 +218,7 @@ public class MacroMenuRenderer implements MenuStringRenderer {
             imgStr = sw.toString();
         }
         parameters.put("imgStr", imgStr);
-        try {
-            executeMacro(writer, "renderLink", parameters);
-        } catch (TemplateException e) {
-            throw new IOException(e);
-        }
+        executeMacro(writer, "renderLink", parameters);
     }
 
     @Override
@@ -298,11 +230,7 @@ public class MacroMenuRenderer implements MenuStringRenderer {
             sb.append(menu.getBoundaryCommentName());
             parameters.put("boundaryComment", sb.toString());
         }
-        try {
-            executeMacro(writer, "renderMenuEnd", parameters);
-        } catch (TemplateException e) {
-            throw new IOException(e);
-        }
+        executeMacro(writer, "renderMenuEnd", parameters);
         if (HtmlWidgetRenderer.NAMED_BORDER_TYPE != ModelWidget.NamedBorderType.NONE) {
             writer.append(HtmlWidgetRenderer.endNamedBorder("Menu", menu.getBoundaryCommentName()));
         }
@@ -353,11 +281,7 @@ public class MacroMenuRenderer implements MenuStringRenderer {
         parameters.put("linkStr", linkStr);
         boolean containsNestedMenus = !menuItem.getMenuItemList().isEmpty();
         parameters.put("containsNestedMenus", containsNestedMenus);
-        try {
-            executeMacro(writer, "renderMenuItemBegin", parameters);
-        } catch (TemplateException e) {
-            throw new IOException(e);
-        }
+        executeMacro(writer, "renderMenuItemBegin", parameters);
         if (containsNestedMenus) {
             for (ModelMenuItem childMenuItem : menuItem.getMenuItemList()) {
                 childMenuItem.renderMenuItemString(writer, context, this);
@@ -365,11 +289,7 @@ public class MacroMenuRenderer implements MenuStringRenderer {
         }
         parameters.clear();
         parameters.put("containsNestedMenus", containsNestedMenus);
-        try {
-            executeMacro(writer, "renderMenuItemEnd", parameters);
-        } catch (TemplateException e) {
-            throw new IOException(e);
-        }
+        executeMacro(writer, "renderMenuItemEnd", parameters);
     }
 
     @Override
@@ -387,10 +307,6 @@ public class MacroMenuRenderer implements MenuStringRenderer {
         parameters.put("id", menu.getId());
         parameters.put("style", menu.getMenuContainerStyle(context));
         parameters.put("title", menu.getTitle(context));
-        try {
-            executeMacro(writer, "renderMenuBegin", parameters);
-        } catch (TemplateException e) {
-            throw new IOException(e);
-        }
+        executeMacro(writer, "renderMenuBegin", parameters);
     }
 }

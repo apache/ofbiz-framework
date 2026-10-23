@@ -9992,7 +9992,7 @@
         <value xml:lang="en">Received quantity</value>
         <value xml:lang="es">Cantidad recibida</value>
         <value xml:lang="fr">Quantité reçue</value>
-        <value xml:lang="it">Quantit  Ricevuta</value>
+        <value xml:lang="it">Quantità ricevuta</value>
         <value xml:lang="ja">受取数量</value>
         <value xml:lang="nl">Gereserveerde hoeveelheid</value>
         <value xml:lang="pt-BR">Quantidade recebida</value>
@@ -10026,7 +10026,7 @@
         <value xml:lang="en">Rejected quantity</value>
         <value xml:lang="es">Cantidad rechazada</value>
         <value xml:lang="fr">Quantité refusée</value>
-        <value xml:lang="it">Quantit  Scartata</value>
+        <value xml:lang="it">Quantità scartata</value>
         <value xml:lang="ja">否認数量</value>
         <value xml:lang="nl">Geweigerde hoeveelheid</value>
         <value xml:lang="pt-BR">Quantidade rejeitada</value>
@@ -10476,7 +10476,7 @@
         <value xml:lang="en">Purchase Order</value>
         <value xml:lang="es">Pedido de compra</value>
         <value xml:lang="fr">Commande d'achat</value>
-        <value xml:lang="it">Ordine Acquisto</value>
+        <value xml:lang="it">Ordine d'acquisto</value>
         <value xml:lang="ja">購買注文</value>
         <value xml:lang="nl">Inkooporder</value>
         <value xml:lang="pt-BR">Pedido de compra</value>
@@ -10547,7 +10547,7 @@
         <value xml:lang="en">Qty</value>
         <value xml:lang="es">Cant.</value>
         <value xml:lang="fr">Qté</value>
-        <value xml:lang="it">Qnt</value>
+        <value xml:lang="it">Qtà</value>
         <value xml:lang="ja">数量</value>
         <value xml:lang="nl">Aantal</value>
         <value xml:lang="pt-BR">Quant.</value>
@@ -10566,7 +10566,7 @@
         <value xml:lang="es">Cant. Cancelada</value>
         <value xml:lang="fr">Qté annulée</value>
         <value xml:lang="hi-IN">कुल सामान ख़ारिज</value>
-        <value xml:lang="it">Qnt annullata</value>
+        <value xml:lang="it">Qtà annullata</value>
         <value xml:lang="ja">取消数</value>
         <value xml:lang="nl">Aantal geannuleerd</value>
         <value xml:lang="pt-BR">Quant. cancelada</value>
@@ -10586,7 +10586,7 @@
         <value xml:lang="es">Cant. Ordenada</value>
         <value xml:lang="fr">Qté commandée</value>
         <value xml:lang="hi-IN">कुल सामान आर्डर</value>
-        <value xml:lang="it">Qnt ordinata</value>
+        <value xml:lang="it">Qtà ordinata</value>
         <value xml:lang="ja">注文数</value>
         <value xml:lang="nl">Aantal besteld</value>
         <value xml:lang="pt-BR">Quantidade pedida</value>
@@ -10604,7 +10604,7 @@
         <value xml:lang="en">Qty Picked</value>
         <value xml:lang="es">Cant. recogida</value>
         <value xml:lang="fr">Qté choisie</value>
-        <value xml:lang="it">Qnt scelta</value>
+        <value xml:lang="it">Qtà scelta</value>
         <value xml:lang="ja">ピッキング数</value>
         <value xml:lang="nl">Qty gePICKt</value>
         <value xml:lang="pt-BR">Quantidade recolhida</value>
@@ -10622,7 +10622,7 @@
         <value xml:lang="es">Cant. enviada</value>
         <value xml:lang="fr">Qté expédiée</value>
         <value xml:lang="hi-IN">कुल सामान भेजने योग्य</value>
-        <value xml:lang="it">Qnt spedita</value>
+        <value xml:lang="it">Qtà spedita</value>
         <value xml:lang="ja">発送数</value>
         <value xml:lang="nl">Aantal verzonden</value>
         <value xml:lang="pt-BR">Quant. enviada</value>
@@ -10658,7 +10658,7 @@
         <value xml:lang="en">Qty Cncld</value>
         <value xml:lang="es">Cant. cancelada</value>
         <value xml:lang="fr">Qté annulée</value>
-        <value xml:lang="it">Qnt Canc.</value>
+        <value xml:lang="it">Qtà canc.</value>
         <value xml:lang="ja">取消数</value>
         <value xml:lang="nl">Aantal geannuleerd</value>
         <value xml:lang="pt-BR">Quant. cancelada</value>
@@ -10674,7 +10674,7 @@
         <value xml:lang="de">Verlauf der Artikelmenge</value>
         <value xml:lang="en">Item Quantity History</value>
         <value xml:lang="fr">Historique quantité d'article</value>
-        <value xml:lang="it">Storia quantità riga</value>
+        <value xml:lang="it">Storico della quantità di riga</value>
         <value xml:lang="ja">アイテム数量履歴</value>
         <value xml:lang="nl">Historie aantallen</value>
         <value xml:lang="pt-BR">Histórico de quantidade de item</value>
@@ -10689,7 +10689,7 @@
         <value xml:lang="en">In Group</value>
         <value xml:lang="es">En grupo</value>
         <value xml:lang="fr">En groupe</value>
-        <value xml:lang="it">Qnt. gruppo sped.</value>
+        <value xml:lang="it">Nel gruppo</value>
         <value xml:lang="ja">グループ</value>
         <value xml:lang="nl">In groep</value>
         <value xml:lang="pt-BR">No grupo</value>
@@ -10721,7 +10721,7 @@
         <value xml:lang="en">Qty Purch</value>
         <value xml:lang="es">Cant. compra</value>
         <value xml:lang="fr">Qté achat</value>
-        <value xml:lang="it">Qnt Acquisto</value>
+        <value xml:lang="it">Qtà d'acquisto</value>
         <value xml:lang="ja">購入数</value>
         <value xml:lang="nl">Aantal inkoop</value>
         <value xml:lang="pt-BR">Quant. compra</value>

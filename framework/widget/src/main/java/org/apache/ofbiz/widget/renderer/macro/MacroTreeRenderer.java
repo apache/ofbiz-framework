@@ -19,22 +19,20 @@
 package org.apache.ofbiz.widget.renderer.macro;
 
 import java.io.IOException;
-import java.io.Reader;
-import java.io.StringReader;
 import java.io.StringWriter;
 import java.net.URI;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.StringUtil;
+import org.apache.ofbiz.base.util.UtilCodec;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.base.util.template.FreeMarkerWorker;
 import org.apache.ofbiz.webapp.control.RequestHandler;
 import org.apache.ofbiz.webapp.taglib.ContentUrlTag;
 import org.apache.ofbiz.widget.WidgetWorker;
@@ -47,8 +45,6 @@ import org.apache.ofbiz.widget.renderer.TreeStringRenderer;
 
 import com.google.common.collect.ImmutableList;
 
-import freemarker.core.Environment;
-import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
 /**
@@ -57,28 +53,18 @@ import freemarker.template.TemplateException;
  */
 public class MacroTreeRenderer implements TreeStringRenderer {
 
-    private static final String MODULE = MacroTreeRenderer.class.getName();
-    private Template macroLibrary;
-    private Environment environment;
-
+    private final FtlWriter ftlWriter;
 
     public MacroTreeRenderer(String macroLibraryPath, Appendable writer) throws TemplateException, IOException {
-        this.macroLibrary = FreeMarkerWorker.getTemplate(macroLibraryPath);
-        Map<String, Object> input = UtilMisc.toMap("key", null);
-        this.environment = FreeMarkerWorker.renderTemplate(this.macroLibrary, input, writer);
+        this.ftlWriter = new FtlWriter(macroLibraryPath);
     }
 
-    private void executeMacro(String macro) {
-        try {
-            Reader templateReader = new StringReader(macro);
-            // FIXME: I am using a Date as an hack to provide a unique name for the template...
-            Template template = new Template((new java.util.Date()).toString(), templateReader,
-                    FreeMarkerWorker.getDefaultOfbizConfig());
-            templateReader.close();
-            this.environment.include(template);
-        } catch (TemplateException | IOException e) {
-            Debug.logError(e, "Error rendering tree thru ftl", MODULE);
+    private void executeMacro(Appendable writer, String macroName, Map<String, Object> macroParameters) {
+        Map<String, Object> parameters = new HashMap<>();
+        if (macroParameters != null) {
+            macroParameters.forEach((name, value) -> parameters.put(name, value == null ? "" : value));
         }
+        ftlWriter.processMacroCall(writer, null, macroName, parameters);
     }
 
     /**
@@ -88,16 +74,11 @@ public class MacroTreeRenderer implements TreeStringRenderer {
      * @param modelWidget The widget
      */
     public void renderBeginningBoundaryComment(Appendable writer, String widgetType, ModelWidget modelWidget) {
-        StringWriter sr = new StringWriter();
-        sr.append("<@formatBoundaryComment ");
-        sr.append(" boundaryType=\"");
-        sr.append("Begin");
-        sr.append("\" widgetType=\"");
-        sr.append(widgetType);
-        sr.append("\" widgetName=\"");
-        sr.append(modelWidget.getBoundaryCommentName());
-        sr.append("\" />");
-        executeMacro(sr.toString());
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("boundaryType", "Begin");
+        parameters.put("widgetType", widgetType);
+        parameters.put("widgetName", modelWidget.getBoundaryCommentName());
+        executeMacro(writer, "formatBoundaryComment", parameters);
     }
 
     /**
@@ -107,16 +88,11 @@ public class MacroTreeRenderer implements TreeStringRenderer {
      * @param modelWidget The widget
      */
     public void renderEndingBoundaryComment(Appendable writer, String widgetType, ModelWidget modelWidget) {
-        StringWriter sr = new StringWriter();
-        sr.append("<@formatBoundaryComment ");
-        sr.append(" boundaryType=\"");
-        sr.append("End");
-        sr.append("\" widgetType=\"");
-        sr.append(widgetType);
-        sr.append("\" widgetName=\"");
-        sr.append(modelWidget.getBoundaryCommentName());
-        sr.append("\" />");
-        executeMacro(sr.toString());
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("boundaryType", "End");
+        parameters.put("widgetType", widgetType);
+        parameters.put("widgetName", modelWidget.getBoundaryCommentName());
+        executeMacro(writer, "formatBoundaryComment", parameters);
     }
 
     @Override
@@ -133,12 +109,7 @@ public class MacroTreeRenderer implements TreeStringRenderer {
             style = "basic-tree";
         }
 
-        StringWriter sr = new StringWriter();
-        sr.append("<@renderNodeBegin ");
-        sr.append(" style=\"");
-        sr.append(style);
-        sr.append("\" />");
-        executeMacro(sr.toString());
+        executeMacro(writer, "renderNodeBegin", UtilMisc.toMap("style", style));
 
         String pkName = node.getPkName(context);
         String entityId = null;
@@ -200,14 +171,10 @@ public class MacroTreeRenderer implements TreeStringRenderer {
     @Override
     public void renderNodeEnd(Appendable writer, Map<String, Object> context, ModelTree.ModelNode node) throws IOException {
         Boolean processChildren = (Boolean) context.get("processChildren");
-        StringWriter sr = new StringWriter();
-        sr.append("<@renderNodeEnd ");
-        sr.append(" processChildren=");
-        sr.append(Boolean.toString(processChildren));
-        sr.append(" isRootNode=");
-        sr.append(Boolean.toString(node.isRootNode()));
-        sr.append(" />");
-        executeMacro(sr.toString());
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("processChildren", processChildren);
+        parameters.put("isRootNode", node.isRootNode());
+        executeMacro(writer, "renderNodeEnd", parameters);
         if (node.isRootNode()) {
             if (ModelWidget.widgetBoundaryCommentsEnabled(context)) {
                 renderEndingBoundaryComment(writer, "Tree Widget", node.getModelTree());
@@ -219,12 +186,7 @@ public class MacroTreeRenderer implements TreeStringRenderer {
     public void renderLastElement(Appendable writer, Map<String, Object> context, ModelTree.ModelNode node) throws IOException {
         Boolean processChildren = (Boolean) context.get("processChildren");
         if (processChildren) {
-            StringWriter sr = new StringWriter();
-            sr.append("<@renderLastElement ");
-            sr.append("style=\"");
-            sr.append("basic-tree");
-            sr.append("\" />");
-            executeMacro(sr.toString());
+            executeMacro(writer, "renderLastElement", UtilMisc.toMap("style", "basic-tree"));
         }
     }
 
@@ -234,16 +196,11 @@ public class MacroTreeRenderer implements TreeStringRenderer {
         String style = label.getStyle(context);
         String labelText = label.getText(context);
 
-        StringWriter sr = new StringWriter();
-        sr.append("<@renderLabel ");
-        sr.append("id=\"");
-        sr.append(id);
-        sr.append("\" style=\"");
-        sr.append(style);
-        sr.append("\" labelText=\"");
-        sr.append(labelText);
-        sr.append("\" />");
-        executeMacro(sr.toString());
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("id", id);
+        parameters.put("style", style);
+        parameters.put("labelText", labelText);
+        executeMacro(writer, "renderLabel", parameters);
     }
 
     @Override
@@ -275,26 +232,16 @@ public class MacroTreeRenderer implements TreeStringRenderer {
             imgStr = sw.toString();
         }
 
-        StringWriter sr = new StringWriter();
-        sr.append("<@renderLink ");
-        sr.append("id=\"");
-        sr.append(id);
-        sr.append("\" style=\"");
-        sr.append(style);
-        sr.append("\" name=\"");
-        sr.append(name);
-        sr.append("\" title=\"");
-        sr.append(title);
-        sr.append("\" targetWindow=\"");
-        sr.append(targetWindow);
-        sr.append("\" linkUrl=\"");
-        sr.append(linkUrl);
-        sr.append("\" linkText=\"");
-        sr.append(linkText);
-        sr.append("\" imgStr=\"");
-        sr.append(MacroCommonRenderer.escapeFtlString(imgStr));
-        sr.append("\" />");
-        executeMacro(sr.toString().replace("|", "%7C")); // Fix for OFBIZ-9191
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("id", id);
+        parameters.put("style", style);
+        parameters.put("name", name);
+        parameters.put("title", title);
+        parameters.put("targetWindow", targetWindow);
+        parameters.put("linkUrl", linkUrl.toString().replace("|", "%7C")); // Fix for OFBIZ-9191
+        parameters.put("linkText", linkText);
+        parameters.put("imgStr", imgStr);
+        executeMacro(writer, "renderLink", parameters);
     }
 
     @Override
@@ -336,26 +283,20 @@ public class MacroTreeRenderer implements TreeStringRenderer {
         } else {
             urlString = src;
         }
-        StringWriter sr = new StringWriter();
-        sr.append("<@renderImage ");
-        sr.append("src=\"");
-        sr.append(src);
-        sr.append("\" id=\"");
-        sr.append(id);
-        sr.append("\" style=\"");
-        sr.append(style);
-        sr.append("\" wid=\"");
-        sr.append(wid);
-        sr.append("\" hgt=\"");
-        sr.append(hgt);
-        sr.append("\" border=\"");
-        sr.append(border);
-        sr.append("\" alt=\"");
-        sr.append(alt);
-        sr.append("\" urlString=\"");
-        sr.append(urlString);
-        sr.append("\" />");
-        executeMacro(sr.toString());
+        UtilCodec.SimpleEncoder simpleEncoder = (UtilCodec.SimpleEncoder) context.get("simpleEncoder");
+        if (simpleEncoder != null) {
+            urlString = simpleEncoder.encode(urlString);
+        }
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("src", src);
+        parameters.put("id", id);
+        parameters.put("style", style);
+        parameters.put("wid", wid);
+        parameters.put("hgt", hgt);
+        parameters.put("border", border);
+        parameters.put("alt", alt);
+        parameters.put("urlString", urlString);
+        executeMacro(writer, "renderImage", parameters);
     }
 
     @Override

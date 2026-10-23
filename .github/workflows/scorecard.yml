@@ -45,8 +45,8 @@ on:
   schedule:
     # At 00:37 on Saturday
     - cron: '37 0 * * 6'
-  push:
-    branches: [ "trunk" ]
+  # To re-run the analysis by hand, e.g. after fixing an alert.
+  workflow_dispatch:
 
 # Declare default permissions as read only.
 permissions: read-all
@@ -71,7 +71,7 @@ jobs:
           persist-credentials: false
 
       - name: "Run analysis"
-        uses: ossf/scorecard-action@2d1146689b8cda280b9bc96326124645441f03bc # v2.4.4
+        uses: ossf/scorecard-action@fa7117db83c52d787ae5a89f350999701505d78e # v2.5.0
         with:
           results_file: results.sarif
           results_format: sarif
@@ -94,7 +94,7 @@ jobs:
       # format to the repository Actions tab.
       - name: "Upload artifact"
         if: ${{ !env.ACT }}
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: SARIF file
           path: results.sarif
@@ -103,6 +103,6 @@ jobs:
       # Upload the results to GitHub's code scanning dashboard.
       - name: "Upload to code-scanning"
         if: ${{ !env.ACT }}
-        uses: github/codeql-action/upload-sarif@e0b52dbdc5c3376dd8cb78e956fd23fa07ca2c5b # v2.16.2
+        uses: github/codeql-action/upload-sarif@6f2ac81f5cd81fe351a197ba0b00d91d03cd2aee # v4.39.0
         with:
           sarif_file: results.sarif

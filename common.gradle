@@ -16,6 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+import groovy.xml.XmlParser
 import java.util.stream.Stream
 import java.util.stream.Collectors
 

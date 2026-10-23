@@ -169,6 +169,13 @@ variables.
 To use the embedded H2 database, ensure all database related
 environment variables are unset.
 
+OFBiz closes the H2 database at the end of its shutdown. `+docker stop+`
+kills the container if it has not stopped within 10 seconds, in which case
+H2 is not closed and can lose recently committed data the next time it is
+opened. If the shutdown can take longer, for instance while jobs are still
+running, give the container more time with `+docker stop -t <seconds>+`, or
+`+stop_grace_period+` with Docker Compose.
+
 ===== PostgreSQL
 
 To use a Postgres database set the `+OFBIZ_POSTGRES_HOST+` environment

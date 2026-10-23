@@ -17,9 +17,12 @@
  * under the License.
  */
 import groovy.xml.MarkupBuilder
+import groovy.xml.XmlParser
 import groovy.xml.XmlSlurper
+import javax.inject.Inject
 import org.apache.tools.ant.filters.ReplaceTokens
 import org.asciidoctor.gradle.jvm.AsciidoctorTask
+import org.gradle.process.ExecOperations
 
 /* ========================================================
  * Project setup
@@ -242,7 +245,16 @@ processResources {
 
 // Only used for release branches
 def getCurrentGitBranch() {
-    return "git branch --show-current".execute().text.trim()
+    return gitOutput('branch', '--show-current')
+}
+
+// Returns the trimmed standard output of a git command, or an empty string if it fails
+// (e.g. when building from a source release that is not a git checkout).
+def gitOutput(String... gitArgs) {
+    return providers.exec {
+        commandLine(['git', '-C', rootDir.path] + gitArgs.toList())
+        ignoreExitValue = true
+    }.standardOutput.asText.get().trim()
 }
 
 // defines the footer files for git info
@@ -387,7 +399,7 @@ checkstyle {
 gitHooks {
     // Resolve the real .git dir so this also works from a linked worktree,
     // where "$rootDir/.git" (the plugin's default) is a gitlink file, not a directory.
-    def gitCommonDir = "git -C ${rootDir} rev-parse --git-common-dir".execute().text.trim()
+    def gitCommonDir = gitOutput('rev-parse', '--git-common-dir')
     hooksDirectory.set(new File(rootDir, gitCommonDir).toPath().resolve('hooks').toFile())
     hooks = ['pre-push': 'checkstyleMain checkstyleTest codenarcMain codenarcTest']
 }
@@ -703,20 +715,28 @@ task testIntegration(group: ofbizServer) {
     description = 'Run OFBiz integration tests; You must run loadAll before running this task'
 }
 
+// Gives tasks access to ExecOperations, which replaces Project.exec and Project.javaexec
+// (removed in Gradle 9) for running external processes from a task action.
+interface InjectedExecOps {
+    @Inject
+    ExecOperations getExecOps()
+}
+
 task terminateOfbiz(group: ofbizServer,
     description: 'Force termination of any running OFBiz servers, only use if \"--shutdown\" command fails') {
+    def execOps = objects.newInstance(InjectedExecOps).execOps
     doLast {
         if (os.contains('windows')) {
             Runtime.getRuntime().exec("wmic process where \"CommandLine Like \'%org.apache.ofbiz.base.start.Start%\'\" Call Terminate")
         } else {
             def processOutput = new ByteArrayOutputStream()
-            exec {
+            execOps.exec {
                 commandLine 'ps', 'ax'
                 standardOutput = processOutput
             }
             processOutput.toString().split(System.lineSeparator()).each { line ->
                 if (line ==~ /.*org\.apache\.ofbiz\.base\.start\.Start.*/) {
-                    exec { commandLine 'kill', '-9', line.tokenize().first() }
+                    execOps.exec { commandLine 'kill', '-9', line.tokenize().first() }
                 }
             }
         }
@@ -1000,6 +1020,7 @@ task generateAllPluginsDocumentation(group: docsGroup,
 // (applied above) - kept out of this file since they're self-contained and sizable.
 
 task gitInfoFooter(group: sysadminGroup, description: 'Update the Git Branch-revision info in the footer if Git is used') {
+    def execOps = objects.newInstance(InjectedExecOps).execOps
     doLast {
         def branch
         def revision
@@ -1012,13 +1033,13 @@ task gitInfoFooter(group: sysadminGroup, description: 'Update the Git Branch-rev
         }
 
         def branchOutput = new ByteArrayOutputStream()
-        exec {
+        execOps.exec {
             commandLine 'git', 'rev-parse', '--abbrev-ref', 'HEAD'
             standardOutput = branchOutput
         }
         branch = branchOutput.toString()
         def revisionOutput = new ByteArrayOutputStream()
-        exec {
+        execOps.exec {
             commandLine 'git', 'rev-parse', 'HEAD'
             standardOutput = revisionOutput
         }
@@ -1080,13 +1101,14 @@ task generateDBPassword(group: sysadminGroup,
                 + 'If -PdbPassword is omitted, you will be prompted for it via masked console input '
                 + '(run with --no-daemon --console=plain). The master key is taken from -PmasterKey, '
                 + 'falling back to the OFBIZ_MASTER_KEY environment variable.') {
+    def execOps = objects.newInstance(InjectedExecOps).execOps
     doLast {
         def secret = project.hasProperty('dbPassword') ? project.property('dbPassword')
                 : promptSecret('Enter database password: ')
         def masterKey = project.hasProperty('masterKey') ? project.property('masterKey') : System.getenv('OFBIZ_MASTER_KEY')
         if (masterKey) {
             def output = new java.io.ByteArrayOutputStream()
-            javaexec {
+            execOps.javaexec {
                 classpath = sourceSets.main.runtimeClasspath
                 mainClass = 'org.apache.ofbiz.base.crypto.ConfigCryptoUtil'
                 args masterKey, secret
@@ -1112,6 +1134,7 @@ task generateEncryptedSecret(group: sysadminGroup,
                 + 'Any of -PsecretPassword/-PlookupKey/-PmasterKey may be omitted to be prompted for '
                 + 'interactively (run with --no-daemon --console=plain); the master key also falls back '
                 + 'to the OFBIZ_MASTER_KEY environment variable.') {
+    def execOps = objects.newInstance(InjectedExecOps).execOps
     doLast {
         def secret = project.hasProperty('secretPassword') ? project.property('secretPassword')
                 : promptSecret('Enter secret value: ')
@@ -1129,7 +1152,7 @@ task generateEncryptedSecret(group: sysadminGroup,
         }
 
         def output = new java.io.ByteArrayOutputStream()
-        javaexec {
+        execOps.javaexec {
             classpath = sourceSets.main.runtimeClasspath
             mainClass = 'org.apache.ofbiz.base.crypto.ConfigCryptoUtil'
             args masterKey, secret
@@ -1147,13 +1170,14 @@ task reEncryptAllSecrets(group: sysadminGroup,
                 + 'Keys may also be supplied via the OFBIZ_OLD_MASTER_KEY / OFBIZ_NEW_MASTER_KEY env vars '
                 + 'or entered interactively (run with --no-daemon --console=plain).') {
     dependsOn classes
+    def execOps = objects.newInstance(InjectedExecOps).execOps
     doLast {
         def oldKey = project.hasProperty('oldMasterKey') ? project.property('oldMasterKey')
                 : (System.getenv('OFBIZ_OLD_MASTER_KEY') ?: promptSecret('Enter OLD master key: '))
         def newKey = project.hasProperty('newMasterKey') ? project.property('newMasterKey')
                 : (System.getenv('OFBIZ_NEW_MASTER_KEY') ?: promptSecret('Enter NEW master key: '))
         def dryRun = project.hasProperty('dryRun') ? project.property('dryRun') : 'false'
-        javaexec {
+        execOps.javaexec {
             classpath = sourceSets.main.runtimeClasspath
             mainClass = 'org.apache.ofbiz.base.crypto.ReEncryptSecretsMain'
             args oldKey, newKey, dryRun
@@ -1363,6 +1387,7 @@ task pushPlugin(group: ofbizPlugin, description: 'push an existing plugin to loc
 }
 
 task pullPlugin(group: ofbizPlugin, description: 'Download and install a plugin with all dependencies') {
+    def execOps = objects.newInstance(InjectedExecOps).execOps
     doLast {
         if (!project.hasProperty('dependencyId')) {
             throw new GradleException('You must pass the dependencyId of the plugin')
@@ -1400,7 +1425,7 @@ task pullPlugin(group: ofbizPlugin, description: 'Download and install a plugin 
                 from zipTree(pluginArchive)
                 into "${pluginsDir}/${pluginId}"
             }
-            gradlewSubprocess(['installPlugin', "-PpluginId=${pluginId}"])
+            gradlewSubprocess(execOps, ['installPlugin', "-PpluginId=${pluginId}"])
         }
     }
 }
@@ -1453,7 +1478,7 @@ task cleanFooterFiles(group: cleanupGroup, description: 'clean generated footer 
  * declaration is important because it means that it will automatically
  * run whenever the task cleanAll executes (dependency matched by regex)
  */
-def cleanTasks = tasks.findAll { it.name ==~ /^clean.+/ }
+def cleanTasks = tasks.names.findAll { it ==~ /^clean.+/ }
 task cleanAll(group: cleanupGroup, dependsOn: [cleanTasks, clean]) {
     description = 'Execute all cleaning tasks.'
 }
@@ -1588,8 +1613,8 @@ def taskExistsInproject(fullyQualifiedProject, taskName) {
         .anyMatch { it.name == taskName }
 }
 
-def gradlewSubprocess(commandList) {
-    exec { commandLine(gradlew, '--no-daemon', *commandList) }
+def gradlewSubprocess(ExecOperations execOps, commandList) {
+    execOps.exec { commandLine(gradlew, '--no-daemon', *commandList) }
 }
 
 

@@ -24,6 +24,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.UtilObject;
@@ -37,9 +38,6 @@ import org.apache.ofbiz.entity.transaction.TransactionUtil;
 import org.apache.shiro.crypto.cipher.AesCipherService;
 import org.apache.shiro.crypto.cipher.OperationMode;
 import org.apache.shiro.crypto.cipher.PaddingScheme;
-import org.apache.shiro.crypto.hash.DefaultHashService;
-import org.apache.shiro.crypto.hash.HashRequest;
-import org.apache.shiro.crypto.hash.HashService;
 
 public final class EntityCrypto {
 
@@ -203,13 +201,11 @@ public final class EntityCrypto {
     }
 
     protected static final class ShiroStorageHandler extends StorageHandler {
-        private final HashService hashService;
         private final AesCipherService cipherService;
         private final AesCipherService legacyCipherService;
         private final byte[] kek;
 
         protected ShiroStorageHandler(byte[] kek) {
-            hashService = new DefaultHashService();
             cipherService = new AesCipherService();
             // Kept only to decrypt values written before the fix for OFBIZ-13599, which forced AES into ECB
             // mode (no IV, deterministic ciphertext) instead of using AesCipherService's safer default.
@@ -227,8 +223,10 @@ public final class EntityCrypto {
 
         @Override
         protected String getHashedKeyName(String originalKeyName) {
-            HashRequest hashRequest = new HashRequest.Builder().setSource(originalKeyName).build();
-            return hashService.computeHash(hashRequest).toBase64();
+            // Base64(SHA-512(UTF-8 key name)), unsalted and single-pass: the EntityKeyStore lookup key, so it must
+            // never change. This is what Shiro 1.x's DefaultHashService computed by default; Shiro 2.x+ defaults
+            // to a salted argon2 hash instead, which would orphan every stored key.
+            return Base64.encodeBase64String(DigestUtils.sha512(originalKeyName));
         }
 
         @Override

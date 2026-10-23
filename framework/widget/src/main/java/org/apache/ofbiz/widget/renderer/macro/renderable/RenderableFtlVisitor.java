@@ -23,5 +23,5 @@ import java.util.Locale;
 public interface RenderableFtlVisitor {
     void visit(RenderableFtlMacroCall renderableFtlMacroCall, Locale locale);
     void visit(RenderableFtlNoop renderableFtlNoop, Locale locale);
-    void visit(RenderableFtlString renderableFtlString, Locale locale);
+    void visit(RenderableFtlVerbatim renderableFtlVerbatim, Locale locale);
 }
