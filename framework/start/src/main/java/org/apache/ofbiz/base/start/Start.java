@@ -60,6 +60,11 @@ public final class Start {
      * @param args The commands for OFBiz
      */
     public static void main(String[] args) {
+        // route java.util.logging (used by Tomcat and other libraries) to Log4j 2,
+        // this must be done before the first use of java.util.logging
+        if (System.getProperty("java.util.logging.manager") == null) {
+            System.setProperty("java.util.logging.manager", "org.apache.logging.log4j.jul.LogManager");
+        }
         List<StartupCommand> ofbizCommands = null;
         try {
             ofbizCommands = StartupCommandUtil.parseOfbizCommands(args);
