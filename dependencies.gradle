@@ -49,7 +49,6 @@ dependencies {
     implementation libs.geronimo.jms.spec
     implementation libs.httpclient.cache
     implementation libs.log4j.api // the API of log4j 2
-    implementation libs.log4j.core // Somehow needed by Buildbot to compile OFBizDynamicThresholdFilter.java
     implementation libs.log4j.layout.template.json // JSON/ECS structured logging profile (log4j2-json.xml)
     implementation libs.poi
     implementation libs.poi.ooxml
@@ -97,6 +96,7 @@ dependencies {
     testImplementation libs.junit.platform.launcher
     testImplementation libs.hamcrest.library
     testImplementation libs.mockito.core
+    testImplementation libs.log4j.core // EntityEcaUtilConcurrencyTest captures log events
 
     runtimeOnly libs.javax.xml.soap.api
     runtimeOnly libs.barcode4j.fop.ext
@@ -106,6 +106,7 @@ dependencies {
     runtimeOnly libs.axis2.transport.local
     runtimeOnly libs.h2
     runtimeOnly libs.geronimo.jaxrpc.spec
+    runtimeOnly libs.log4j.core // the implementation of log4j 2
     runtimeOnly libs.log4j.legacy.api // for external jars using the old log4j1.2: routes logging to log4j 2
     runtimeOnly libs.log4j.jul // for external jars using the java.util.logging: routes logging to log4j 2
     runtimeOnly libs.log4j.slf4j2.impl // for external jars using slf4j 2.x: routes logging to log4j 2

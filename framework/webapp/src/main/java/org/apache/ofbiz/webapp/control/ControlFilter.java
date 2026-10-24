@@ -33,7 +33,6 @@ import java.util.stream.Collectors;
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.text.StringEscapeUtils;
 import org.apache.commons.validator.routines.UrlValidator;
-import org.apache.logging.log4j.ThreadContext;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilHttp;
@@ -238,14 +237,7 @@ public class ControlFilter extends HttpFilter {
 
             // Check if the requested URI is allowed.
             if (allowedPaths.stream().anyMatch(uri::startsWith)) {
-                try {
-                    // support OFBizDynamicThresholdFilter in log4j2.xml
-                    ThreadContext.put("uri", uri);
-
-                    chain.doFilter(req, resp);
-                } finally {
-                    ThreadContext.remove("uri");
-                }
+                chain.doFilter(req, resp);
             } else {
                 if (redirectPath == null) {
                     resp.sendError(errorCode, uriWithContext);
