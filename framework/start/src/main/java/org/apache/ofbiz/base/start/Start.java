@@ -60,11 +60,6 @@ public final class Start {
      * @param args The commands for OFBiz
      */
     public static void main(String[] args) {
-        // route java.util.logging (used by Tomcat and other libraries) to Log4j 2,
-        // this must be done before the first use of java.util.logging
-        if (System.getProperty("java.util.logging.manager") == null) {
-            System.setProperty("java.util.logging.manager", "org.apache.logging.log4j.jul.LogManager");
-        }
         List<StartupCommand> ofbizCommands = null;
         try {
             ofbizCommands = StartupCommandUtil.parseOfbizCommands(args);
@@ -78,6 +73,7 @@ public final class Start {
         CommandType commandType = CommandType.valueOf(ofbizCommands);
         if (!commandType.equals(CommandType.HELP)) {
             INSTANCE.config = StartupControlPanel.init(ofbizCommands);
+            routeJavaUtilLoggingToLog4j();
         }
         switch (commandType) {
         case HELP:
@@ -96,6 +92,22 @@ public final class Start {
                 StartupControlPanel.fullyTerminateSystem(e);
             }
             break;
+        }
+    }
+
+    /**
+     * Routes java.util.logging (used by Tomcat, Jersey, Geronimo and other libraries) to Log4j 2,
+     * so that it reaches the OFBiz log files and follows the levels of log4j2.xml.
+     * The bridge handler also works when java.util.logging was started before main() (e.g. by a JMX agent),
+     * and it only forwards the records java.util.logging itself lets through (INFO and above by default).
+     */
+    private static void routeJavaUtilLoggingToLog4j() {
+        try {
+            Class.forName("org.apache.logging.log4j.jul.Log4jBridgeHandler")
+                    .getMethod("install", boolean.class, String.class, boolean.class)
+                    .invoke(null, true, null, false);
+        } catch (ReflectiveOperationException | LinkageError e) {
+            System.err.println("java.util.logging is not routed to Log4j 2 (log4j-jul missing?): " + e);
         }
     }
 
