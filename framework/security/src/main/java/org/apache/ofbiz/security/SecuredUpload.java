@@ -448,6 +448,14 @@ public class SecuredUpload {
             return false;
         }
 
+        // An SVG file can carry scripts, so whatever the file type it is only accepted when it passes the SVG checks.
+        // Otherwise isValidTextFile, which only checks the characters used, would accept it as a text file.
+        if (isSvgFile(fileToCheck) && !isValidSvgFile(fileToCheck)) {
+            Debug.logError("File : " + fileToCheck + ", is not a safe SVG file", MODULE);
+            deleteBadFile(fileToCheck);
+            return false;
+        }
+
         switch (fileType) {
         case "Image":
             if (isValidImageFile(fileToCheck)) {
@@ -906,6 +914,16 @@ public class SecuredUpload {
      */
     private static boolean isValidImageIncludingSvgFile(String fileName) throws IOException {
         return isValidImageFile(fileName) || isValidSvgFile(fileName);
+    }
+
+    /**
+     * @param fileName
+     * @return true if the file has an SVG extension or SVG content, whether or not it is a valid SVG file
+     * @throws IOException
+     */
+    private static boolean isSvgFile(String fileName) throws IOException {
+        return "svg".equalsIgnoreCase(FilenameUtils.getExtension(fileName))
+                || "image/svg+xml".equals(getMimeTypeFromFileName(fileName));
     }
 
     /**
