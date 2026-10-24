@@ -65,7 +65,11 @@ dependencies {
     implementation libs.bundles.batik
     implementation libs.fop
     implementation libs.clojure
-    implementation libs.groovy.all
+    implementation(libs.groovy.all) {
+      // Groovy 6 adds a second @Grab engine on Maven Resolver 4 (27 extra jars). OFBiz never uses @Grab and
+      // GrapeIvy stays the default engine, so keep the runtime classpath as it was with Groovy 5.
+      exclude group: 'org.apache.groovy', module: 'groovy-grape-maven'
+    }
     implementation libs.freemarker
     implementation libs.esapi
     implementation libs.spring.test
