@@ -33,7 +33,6 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.logging.log4j.ThreadContext;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.StringUtil.StringWrapper;
@@ -345,18 +344,8 @@ public class CatalogUrlFilter implements Filter {
             //Check path alias
             UrlServletHelper.checkPathAlias(request, httpResponse, delegator, pathInfo);
         }
-        try {
-            String uriWithContext = httpRequest.getRequestURI();
-            String context = httpRequest.getContextPath();
-            String uri = uriWithContext.substring(context.length());
-            // support OFBizDynamicThresholdFilter in log4j2.xml
-            ThreadContext.put("uri", uri);
-
-            // we're done checking; continue on
-            chain.doFilter(request, response);
-        } finally {
-            ThreadContext.remove("uri");
-        }
+        // we're done checking; continue on
+        chain.doFilter(request, response);
     }
 
     @Override
