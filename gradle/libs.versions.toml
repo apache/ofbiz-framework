@@ -16,7 +16,7 @@
 # under the License.
 
 [versions]
-metadata-extractor = "2.21.0"
+metadata-extractor = "2.22.0"
 caffeine = "3.3.1"
 guava = "33.7.2-jre"
 zxing-core = "3.5.4"
@@ -64,8 +64,8 @@ tomcat = "10.1.61"
 # Shared by axis2-kernel, axis2-transport-http, axis2-transport-local.
 axis2 = "1.8.2"
 # Shared by batik-anim, batik-util, batik-bridge.
-batik = "1.19"
-fop = "2.11"
+batik = "1.20"
+fop = "2.12"
 clojure = "1.12.6"
 groovy-all = "6.0.0"
 # Remember to change the version number in FreeMarkerWorker class when upgrading. See OFBIZ-10019 if >= 2.4
