@@ -47,7 +47,7 @@ dependencies {
     implementation 'org.apache.geronimo.specs:geronimo-jms_1.1_spec:1.1.1'
     implementation 'org.apache.httpcomponents:httpclient-cache:4.5.14'
     implementation 'org.apache.logging.log4j:log4j-api:2.26.1' // the API of log4j 2
-    implementation 'org.apache.logging.log4j:log4j-core:2.26.1' // Somehow needed by Buildbot to compile OFBizDynamicThresholdFilter.java
+    implementation 'org.apache.logging.log4j:log4j-core:2.26.1' // the implementation of log4j 2, declared here so that the ldap plugin does not bring version 2.12.1 at compile time
     implementation 'org.apache.poi:poi:4.1.2' // poi-ooxml-schemas-5.0.0.pom'. Received status code 401 from server
     implementation 'org.apache.pdfbox:pdfbox:3.0.8'
     implementation 'org.apache.pdfbox:pdfbox-io:3.0.8'
