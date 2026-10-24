@@ -154,10 +154,10 @@ public class BOMNode {
                 String ruleCondition = (String) rule.get("productFeature");
                 String ruleOperator = (String) rule.get("ruleOperator");
                 String newPart = (String) rule.get("productIdInSubst");
-                BigDecimal ruleQuantity = BigDecimal.ZERO;
-                try {
-                    ruleQuantity = rule.getBigDecimal("quantity");
-                } catch (Exception exc) {
+                // quantity is optional on ProductManufacturingRule: a missing value means
+                // "keep the BOM line's own quantity", the same as zero (OFBIZ-13694)
+                BigDecimal ruleQuantity = rule.getBigDecimal("quantity");
+                if (ruleQuantity == null) {
                     ruleQuantity = BigDecimal.ZERO;
                 }
 
