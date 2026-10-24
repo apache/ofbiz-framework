@@ -74,8 +74,9 @@ public class OFBizApiConfig extends ResourceConfig {
         register(ServiceContextCleanupFilter.class);
         //property(ServerProperties.TRACING, "ALL");
         if (Debug.verboseOn()) {
+            // headers only (Jersey redacts the Authorization header): bodies can hold credentials and tokens
             register(new LoggingFeature(Logger.getLogger(LoggingFeature.DEFAULT_LOGGER_NAME), Level.INFO,
-                    LoggingFeature.Verbosity.PAYLOAD_ANY, 10000));
+                    LoggingFeature.Verbosity.HEADERS_ONLY, null));
         }
         registerDSLResources();
         EncodingFilter.enableFor(this, GZipEncoder.class);
