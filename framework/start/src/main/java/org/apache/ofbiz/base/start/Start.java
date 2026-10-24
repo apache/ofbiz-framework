@@ -22,6 +22,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.Handler;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import org.apache.ofbiz.base.container.ContainerLoader;
@@ -71,9 +74,12 @@ public final class Start {
         }
 
         CommandType commandType = CommandType.valueOf(ofbizCommands);
+        if (commandType.equals(CommandType.START)) {
+            // not for the status and shutdown clients: they would open, and roll over, the log files of the running server
+            routeJavaUtilLoggingToLog4j();
+        }
         if (!commandType.equals(CommandType.HELP)) {
             INSTANCE.config = StartupControlPanel.init(ofbizCommands);
-            routeJavaUtilLoggingToLog4j();
         }
         switch (commandType) {
         case HELP:
@@ -102,14 +108,26 @@ public final class Start {
      * so that it reaches the OFBiz log files and follows the levels of log4j2.xml.
      * The bridge handler also works when java.util.logging was started before main() (e.g. by a JMX agent),
      * and it only forwards the records java.util.logging itself lets through (INFO and above by default).
+     * Only the default console handler of the JDK is removed, and only when java.util.logging has not been
+     * configured on purpose, so that handlers set up by an operator or an agent are kept.
      */
     private static void routeJavaUtilLoggingToLog4j() {
         try {
             Class.forName("org.apache.logging.log4j.jul.Log4jBridgeHandler")
                     .getMethod("install", boolean.class, String.class, boolean.class)
-                    .invoke(null, true, null, false);
+                    .invoke(null, false, null, false);
         } catch (ReflectiveOperationException | LinkageError e) {
             System.err.println("java.util.logging is not routed to Log4j 2 (log4j-jul missing?): " + e);
+            return;
+        }
+        if (System.getProperty("java.util.logging.config.file") == null
+                && System.getProperty("java.util.logging.config.class") == null) {
+            Logger rootLogger = Logger.getLogger("");
+            for (Handler handler : rootLogger.getHandlers()) {
+                if (handler.getClass() == ConsoleHandler.class) {
+                    rootLogger.removeHandler(handler);
+                }
+            }
         }
     }
 
