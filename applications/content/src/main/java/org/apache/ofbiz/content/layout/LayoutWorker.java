@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.apache.ofbiz.content.layout;
 
+import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.HashMap;
 import java.util.List;
@@ -30,7 +31,7 @@ import org.apache.commons.fileupload2.core.DiskFileItem;
 import org.apache.commons.fileupload2.core.DiskFileItemFactory;
 import org.apache.commons.fileupload2.core.FileItem;
 import org.apache.commons.fileupload2.core.FileUploadException;
-import org.apache.commons.fileupload2.jakarta.JakartaServletFileUpload;
+import org.apache.commons.fileupload2.jakarta.servlet6.JakartaServletFileUpload;
 
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilHttp;
@@ -87,7 +88,12 @@ public final class LayoutWorker {
         for (FileItem<DiskFileItem> fileItem : lst) {
             fi = fileItem;
             String fieldName = fi.getFieldName();
-            String fieldStr = fi.getString();
+            String fieldStr;
+            try {
+                fieldStr = fi.getString();
+            } catch (IOException e) {
+                return ServiceUtil.returnError(e.getMessage());
+            }
             if (fi.isFormField()) {
                 formInput.put(fieldName, fieldStr);
                 request.setAttribute(fieldName, fieldStr);
@@ -106,7 +112,12 @@ public final class LayoutWorker {
             return null;
         }
 
-        byte[] imageBytes = imageFi.get();
+        byte[] imageBytes;
+        try {
+            imageBytes = imageFi.get();
+        } catch (IOException e) {
+            return ServiceUtil.returnError(e.getMessage());
+        }
         ByteBuffer byteWrap = ByteBuffer.wrap(imageBytes);
         results.put("imageData", byteWrap);
         results.put("imageFileName", imageFi.getName());

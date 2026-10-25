@@ -41,7 +41,7 @@ zip4j = "2.11.6"
 activiti-juel-jakarta = "8.1.0"
 commons-collections4 = "4.6.0"
 commons-csv = "1.14.1"
-commons-fileupload2-jakarta = "2.0.0-M1"
+commons-fileupload2-jakarta-servlet6 = "2.0.0-M5"
 commons-text = "1.15.0"
 geronimo-transaction = "4.0.0"
 geronimo-jms-spec = "1.1.1"
@@ -62,7 +62,7 @@ cxf-rt-frontend-jaxrs = "4.2.4"
 # tomcat-catalina-ha, tomcat-dbcp, tomcat-jasper.
 tomcat = "11.0.27"
 # Shared by axis2-kernel, axis2-transport-http, axis2-transport-local.
-axis2 = "1.8.2"
+axis2 = "2.0.1"
 # Shared by batik-anim, batik-util, batik-bridge.
 batik = "1.19"
 fop = "2.11"
@@ -133,7 +133,7 @@ activiti-juel-jakarta = { module = "org.activiti:activiti-juel-jakarta", version
 commons-collections4 = { module = "org.apache.commons:commons-collections4", version.ref = "commons-collections4" }
 commons-csv = { module = "org.apache.commons:commons-csv", version.ref = "commons-csv" }
 tomcat-dbcp = { module = "org.apache.tomcat:tomcat-dbcp", version.ref = "tomcat" }
-commons-fileupload2-jakarta = { module = "org.apache.commons:commons-fileupload2-jakarta", version.ref = "commons-fileupload2-jakarta" }
+commons-fileupload2-jakarta-servlet6 = { module = "org.apache.commons:commons-fileupload2-jakarta-servlet6", version.ref = "commons-fileupload2-jakarta-servlet6" }
 commons-text = { module = "org.apache.commons:commons-text", version.ref = "commons-text" }
 geronimo-transaction = { module = "org.apache.geronimo.components:geronimo-transaction", version.ref = "geronimo-transaction" }
 geronimo-jms-spec = { module = "org.apache.geronimo.specs:geronimo-jms_1.1_spec", version.ref = "geronimo-jms-spec" }

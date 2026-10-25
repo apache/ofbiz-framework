@@ -65,7 +65,7 @@ import org.apache.commons.fileupload2.core.DiskFileItem;
 import org.apache.commons.fileupload2.core.DiskFileItemFactory;
 import org.apache.commons.fileupload2.core.FileItem;
 import org.apache.commons.fileupload2.core.FileUploadException;
-import org.apache.commons.fileupload2.jakarta.JakartaServletFileUpload;
+import org.apache.commons.fileupload2.jakarta.servlet6.JakartaServletFileUpload;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.ofbiz.webapp.control.ConfigXMLReader;
@@ -156,7 +156,7 @@ public final class UtilHttp {
         Map<String, Object> multiPartMap = null;
         try {
             multiPartMap = params.isEmpty() ? getMultiPartParameterMap(req) : Collections.emptyMap();
-        } catch (FileUploadException e) {
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
         params.putAll(multiPartMap);
@@ -191,11 +191,11 @@ public final class UtilHttp {
                 .setPath(tmpUploadRepository.getPath())
                 .get();
         JakartaServletFileUpload<DiskFileItem, DiskFileItemFactory> upload = new JakartaServletFileUpload<>(factory);
-        upload.setSizeMax(maxUploadSize);
+        upload.setMaxSize(maxUploadSize);
         return upload;
     }
 
-    public static Map<String, Object> getMultiPartParameterMap(HttpServletRequest request) throws FileUploadException {
+    public static Map<String, Object> getMultiPartParameterMap(HttpServletRequest request) throws IOException {
         Map<String, Object> multiPartMap = new HashMap<>();
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         HttpSession session = request.getSession();

@@ -354,7 +354,7 @@ public final class OFBizOpenApiReader extends Reader implements OpenApiReader {
                     ApiResponse response = new ApiResponse()
                             .description(statusType.getReasonPhrase())
                             .content(new Content()
-                                    .addMediaType(javax.ws.rs.core.MediaType.APPLICATION_JSON, new MediaType()
+                                    .addMediaType(jakarta.ws.rs.core.MediaType.APPLICATION_JSON, new MediaType()
                                             .schema(new Schema<>().$ref("#/components/schemas/" + schemaName))
                                             .example(op.getExampleObject("response", String.valueOf(statusType.getStatusCode())))));
                     apiResponsesObjectCopy.addApiResponse(statusCode, response);

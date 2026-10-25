@@ -58,7 +58,7 @@ import org.apache.commons.fileupload2.core.DiskFileItem;
 import org.apache.commons.fileupload2.core.DiskFileItemFactory;
 import org.apache.commons.fileupload2.core.FileItem;
 import org.apache.commons.fileupload2.core.FileUploadException;
-import org.apache.commons.fileupload2.jakarta.JakartaServletFileUpload;
+import org.apache.commons.fileupload2.jakarta.servlet6.JakartaServletFileUpload;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.input.BoundedInputStream;
@@ -255,22 +255,27 @@ public class DataResourceWorker implements org.apache.ofbiz.widget.content.DataR
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         passedParams.put("userLogin", userLogin);
         byte[] imageBytes = null;
-        for (FileItem<DiskFileItem> fileItem : lst) {
-            fi = fileItem;
-            String fieldName = fi.getFieldName();
-            if (fi.isFormField()) {
-                String fieldStr = fi.getString();
-                passedParams.put(fieldName, fieldStr);
-            } else if (fieldName.startsWith("imageData")) {
-                imageFi = fi;
-                imageBytes = imageFi.get();
-                passedParams.put(fieldName, imageBytes);
-                imageFileName = imageFi.getName();
-                passedParams.put("drObjectInfo", imageFileName);
-                if (Debug.infoOn()) {
-                    Debug.logInfo("[UploadContentAndImage]imageData: " + imageBytes.length, MODULE);
+        try {
+            for (FileItem<DiskFileItem> fileItem : lst) {
+                fi = fileItem;
+                String fieldName = fi.getFieldName();
+                if (fi.isFormField()) {
+                    String fieldStr = fi.getString();
+                    passedParams.put(fieldName, fieldStr);
+                } else if (fieldName.startsWith("imageData")) {
+                    imageFi = fi;
+                    imageBytes = imageFi.get();
+                    passedParams.put(fieldName, imageBytes);
+                    imageFileName = imageFi.getName();
+                    passedParams.put("drObjectInfo", imageFileName);
+                    if (Debug.infoOn()) {
+                        Debug.logInfo("[UploadContentAndImage]imageData: " + imageBytes.length, MODULE);
+                    }
                 }
             }
+        } catch (IOException e) {
+            request.setAttribute("_ERROR_MESSAGE_", e.toString());
+            return "error";
         }
 
         if (imageBytes != null && imageBytes.length > 0) {
