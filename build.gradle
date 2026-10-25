@@ -189,7 +189,7 @@ javadoc {
         // versions declared in the 'dependencies' block.
         links(
             'https://docs.oracle.com/en/java/javase/17/docs/api/',
-            'https://tomcat.apache.org/tomcat-10.1-doc/servletapi/',
+            'https://tomcat.apache.org/tomcat-11.0-doc/servletapi/',
             'https://commons.apache.org/proper/commons-cli/apidocs'
         )
     }
