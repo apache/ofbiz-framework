@@ -75,6 +75,9 @@ under the License.
             <property name="secure" value="false"/>
             <property name="URIEncoding" value="UTF-8"/>
             <property name="xpoweredBy" value="false"/>
+            <!-- Tomcat 11 lowered the default from 10000 to 1000 and rejects requests above the limit;
+                 some OFBiz forms post more than 1000 parameters (e.g. the Web Tools XML data export) -->
+            <property name="maxParameterCount" value="10000"/>
             <!-- AJP/13 connector attributes -->
             <!-- Despite OFBIZ-11407, allowedRequestAttributesPattern is commented out because of OFBIZ-12558
                  OOTB the Tomcat default values are used as recommended by
@@ -123,6 +126,7 @@ under the License.
             <property name="secure" value="false"/>
             <property name="URIEncoding" value="UTF-8"/>
             <property name="xpoweredBy" value="false"/>
+            <property name="maxParameterCount" value="10000"/>
             <property name="compression" value="on"/>
             <property name="compressibleMimeType" value="text/html,text/xml,text/plain,text/css,text/javascript,application/json"/>
             <!-- commented out because the values match the Tomcat defaults:
@@ -154,6 +158,7 @@ under the License.
             <property name="SSLEnabled" value="true"/>
             <property name="URIEncoding" value="UTF-8"/>
             <property name="xpoweredBy" value="false"/>
+            <property name="maxParameterCount" value="10000"/>
             <property name="compression" value="on"/>
             <property name="compressibleMimeType" value="text/html,text/xml,text/plain,text/css,text/javascript,application/json"/>
             <!-- SSL connector attributes -->
@@ -205,6 +210,9 @@ under the License.
             <property name="secure" value="false"/>
             <property name="URIEncoding" value="UTF-8"/>
             <property name="xpoweredBy" value="false"/>
+            <!-- Tomcat 11 lowered the default from 10000 to 1000 and rejects requests above the limit;
+                 some OFBiz forms post more than 1000 parameters (e.g. the Web Tools XML data export) -->
+            <property name="maxParameterCount" value="10000"/>
             <property name="secretRequired" value="false"/>
         </property>
         <property name="http-connector" value="connector">
@@ -216,6 +224,7 @@ under the License.
             <property name="secure" value="false"/>
             <property name="URIEncoding" value="UTF-8"/>
             <property name="xpoweredBy" value="false"/>
+            <property name="maxParameterCount" value="10000"/>
             <property name="compression" value="on"/>
             <property name="compressibleMimeType" value="text/html,text/xml,text/plain,text/css,text/javascript,application/json"/>
         </property>
@@ -229,6 +238,7 @@ under the License.
             <property name="SSLEnabled" value="true"/>
             <property name="URIEncoding" value="UTF-8"/>
             <property name="xpoweredBy" value="false"/>
+            <property name="maxParameterCount" value="10000"/>
             <property name="compression" value="on"/>
             <property name="compressibleMimeType" value="text/html,text/xml,text/plain,text/css,text/javascript,application/json"/>
             <property name="sslImplementationName" value="org.apache.tomcat.util.net.jsse.JSSEImplementation"/>
