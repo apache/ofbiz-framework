@@ -18,9 +18,12 @@
  *******************************************************************************/
 package org.apache.ofbiz.entity.config.model;
 
+import org.apache.ofbiz.base.config.AbstractConfigElement;
 import org.apache.ofbiz.base.lang.ThreadSafe;
 import org.apache.ofbiz.entity.GenericEntityConfException;
 import org.w3c.dom.Element;
+
+import java.util.Map;
 
 /**
  * An object that models the <code>&lt;connection-factory&gt;</code> element.
@@ -28,21 +31,39 @@ import org.w3c.dom.Element;
  * @see <code>entity-config.xsd</code>
  */
 @ThreadSafe
-public final class ConnectionFactory {
+public final class ConnectionFactory extends AbstractConfigElement {
 
-    private final String className; // type = xs:string
+    public static final String ELEMENT_NAME = "connection-factory";
+    private final String xPath;
 
-    ConnectionFactory(Element element) throws GenericEntityConfException {
+    private final String className;
+
+    ConnectionFactory(Element element, String xPathParent) throws GenericEntityConfException {
         String lineNumberText = EntityConfig.createConfigFileLineNumberText(element);
-        String className = element.getAttribute("class").intern();
+        xPath = xPathParent.concat("/" + ELEMENT_NAME);
+
+        EntityConfigGetter config = EntityConfigGetter.getInstance();
+        String className = config.getValue(xPath + "/@class");
         if (className.isEmpty()) {
             throw new GenericEntityConfException("<connection-factory> element class attribute is empty" + lineNumberText);
         }
         this.className = className;
     }
 
-    /** Returns the value of the <code>class</code> attribute. */
+    public static ConnectionFactory loadFromXml(Element element, String xPathParent) throws GenericEntityConfException {
+        return new ConnectionFactory(element, xPathParent);
+    }
+
+    public static ConnectionFactory loadFromConfig(Map<String, Object> configMap, String name) {
+        return null; // TODO: Implement when needed
+    }
+
     public String getClassName() {
-        return this.className;
+        return className;
+    }
+
+    @Override
+    public String getName() {
+        return "connection-factory";
     }
 }

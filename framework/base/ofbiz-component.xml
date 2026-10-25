@@ -26,6 +26,8 @@ under the License.
 
     <test-suite loader="main" location="testdef/basetests.xml"/>
 
+    <!-- load the configuration overload system -->
+    <container name="config-container" loaders="main,load-data,test" class="org.apache.ofbiz.base.container.ConfigContainer"/>
     <!-- load the naming (JNDI) server -->
     <container name="naming-container" loaders="rmi" class="org.apache.ofbiz.base.container.NamingServiceContainer">
         <property name="host" value="0.0.0.0"/>

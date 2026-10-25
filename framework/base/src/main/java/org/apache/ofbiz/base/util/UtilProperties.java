@@ -42,6 +42,7 @@ import java.util.Properties;
 import java.util.ResourceBundle;
 import java.util.Set;
 
+import org.apache.ofbiz.base.config.ConfigurationFactory;
 import org.apache.ofbiz.base.location.FlexibleLocation;
 import org.apache.ofbiz.base.secret.SecretValueResolver;
 import org.apache.ofbiz.base.util.cache.UtilCache;
@@ -269,26 +270,10 @@ public final class UtilProperties implements Serializable {
      * @return The value of the property in the properties file
      */
     public static String getPropertyValue(String resource, String name) {
-        if (UtilValidate.isEmpty(resource)) {
+        if (UtilValidate.isEmpty(resource) || UtilValidate.isEmpty(name)) {
             return "";
         }
-        if (UtilValidate.isEmpty(name)) {
-            return "";
-        }
-
-        Properties properties = getProperties(resource);
-        if (properties == null) {
-            return "";
-        }
-
-        String value = null;
-
-        try {
-            value = properties.getProperty(name);
-        } catch (Exception e) {
-            Debug.logInfo(e, MODULE);
-        }
-        return value == null ? "" : SecretValueResolver.resolve(value.trim());
+        return SecretValueResolver.resolve(ConfigurationFactory.getInstance().getValue(resource, name));
     }
 
     /**
