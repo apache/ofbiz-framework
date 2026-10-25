@@ -20,7 +20,7 @@ package org.apache.ofbiz.ws.rs.util;
 
 import java.util.Map;
 
-import javax.ws.rs.core.Response;
+import jakarta.ws.rs.core.Response;
 
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.service.ModelService;

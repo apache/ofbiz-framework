@@ -634,6 +634,6 @@ public final class OpenApiUtil {
         return new ApiResponse()
                 .description("Success response for the API call.")
                 .content(new Content()
-                        .addMediaType(javax.ws.rs.core.MediaType.APPLICATION_JSON, mediaType));
+                        .addMediaType(jakarta.ws.rs.core.MediaType.APPLICATION_JSON, mediaType));
     }
 }

@@ -92,7 +92,14 @@ public final class SecretManagerEvents {
             return "error";
         }
 
-        byte[] csvBytes = getUploadedFileBytes(request);
+        byte[] csvBytes;
+        try {
+            csvBytes = getUploadedFileBytes(request);
+        } catch (IOException e) {
+            Debug.logError(e, MODULE);
+            request.setAttribute("_ERROR_MESSAGE_", "Error reading CSV file: " + e.getMessage());
+            return "error";
+        }
         if (csvBytes == null || csvBytes.length == 0) {
             request.setAttribute("_ERROR_MESSAGE_", "No CSV file was uploaded");
             return "error";
@@ -433,7 +440,7 @@ public final class SecretManagerEvents {
      * parsed {@link FileItem}s in the {@code fileItems} request attribute - the underlying request
      * input stream can not be re-parsed here.
      */
-    private static byte[] getUploadedFileBytes(HttpServletRequest request) {
+    private static byte[] getUploadedFileBytes(HttpServletRequest request) throws IOException {
         List<FileItem<DiskFileItem>> items = UtilGenerics.cast(request.getAttribute("fileItems"));
         if (items == null) {
             return null;

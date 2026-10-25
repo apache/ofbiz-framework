@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.apache.ofbiz.content.content;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -32,7 +33,7 @@ import org.apache.commons.fileupload2.core.DiskFileItem;
 import org.apache.commons.fileupload2.core.DiskFileItemFactory;
 import org.apache.commons.fileupload2.core.FileItem;
 import org.apache.commons.fileupload2.core.FileUploadException;
-import org.apache.commons.fileupload2.jakarta.JakartaServletFileUpload;
+import org.apache.commons.fileupload2.jakarta.servlet6.JakartaServletFileUpload;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.StringUtil;
@@ -322,7 +323,7 @@ public class UploadContentAndImage {
             request.setAttribute("nodeTrailCsv", newTrail);
             request.setAttribute("passedParams", passedParams);
             TransactionUtil.commit();
-        } catch (GenericEntityException | GenericServiceException e) {
+        } catch (GenericEntityException | GenericServiceException | IOException e) {
             Debug.logError(e, "[UploadContentAndImage]", MODULE);
             request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
             try {
@@ -407,7 +408,7 @@ public class UploadContentAndImage {
                 }
             }
             TransactionUtil.commit();
-        } catch (GenericTransactionException | GenericServiceException e) {
+        } catch (GenericTransactionException | GenericServiceException | IOException e) {
             Debug.logError(e, "[UploadContentAndImage]", MODULE);
             request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
             try {
