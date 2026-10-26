@@ -4681,17 +4681,6 @@ public final class ModelFormField {
         }
 
         /**
-         * @deprecated Target Parameter is potentially a FlexibleStringExpander expression and should therefore be
-         * evaluated within a given context.
-         * <p> Use {@link #getTargetParameter(Map)} instead.</p>
-         */
-        @Deprecated
-        public List<String> getTargetParameterList() {
-            // Evaluate target-parameter with a null context, treating it as a plain string.
-            return getTargetParameterList(null);
-        }
-
-        /**
          * Gets target parameter list.
          * @param context the context
          * @return the target parameter list

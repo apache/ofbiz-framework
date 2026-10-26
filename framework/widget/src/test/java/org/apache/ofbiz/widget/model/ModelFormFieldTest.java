@@ -111,25 +111,6 @@ public final class ModelFormFieldTest {
         assertThat(field.getCurrentContainerId(ImmutableMap.of("prefix", "P2")), equalTo("P2IdValue"));
     }
 
-    /**
-     * Ensures behaviour of deprecated method LookupField#getTargetParameterList is maintained while the underlying
-     * property type is changed from String to FlexibleStringExpander.
-     */
-    @Test
-    @SuppressWarnings("deprecation")
-    public void lookupFieldDeprecatedMethodTreatsTargetParameterAsString() {
-        Element element = Mockito.mock(Element.class);
-        when(element.getTagName()).thenReturn("lookup");
-        when(element.getAttribute("maxlength")).thenReturn("1");
-        when(element.getAttribute("size")).thenReturn("1");
-        when(element.getAttribute("target-parameter")).thenReturn("${prefix}TargetParam, ${key1}");
-
-        ModelFormField field = from(b -> b.setName("lookup-field"));
-        ModelFormField.LookupField lookupField = new ModelFormField.LookupField(element, field);
-
-        assertThat(lookupField.getTargetParameterList(), Matchers.contains("${prefix}TargetParam", "${key1}"));
-    }
-
     @Test
     public void lookupFieldUsesFlexibleTargetParameters() {
         Element element = Mockito.mock(Element.class);
