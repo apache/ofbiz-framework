@@ -61,7 +61,6 @@ public class DebugManagedDataSource<C extends Connection> extends ManagedDataSou
      * Gets info.
      * @return the info
      */
-    @SuppressWarnings("deprecation")
     public Map<String, Object> getInfo() {
         Map<String, Object> dataSourceInfo = new HashMap<>();
         dataSourceInfo.put("poolNumActive", super.getPool().getNumActive());
@@ -71,8 +70,8 @@ public class DebugManagedDataSource<C extends Connection> extends ManagedDataSou
             GenericObjectPool<?> objectPool = (GenericObjectPool<?>) super.getPool();
             dataSourceInfo.put("poolMaxActive", objectPool.getMaxTotal());
             dataSourceInfo.put("poolMaxIdle", objectPool.getMaxIdle());
-            dataSourceInfo.put("poolMaxWait", objectPool.getMaxWaitMillis());
-            dataSourceInfo.put("poolMinEvictableIdleTimeMillis", objectPool.getMinEvictableIdleTimeMillis());
+            dataSourceInfo.put("poolMaxWait", objectPool.getMaxWaitDuration().toMillis());
+            dataSourceInfo.put("poolMinEvictableIdleTimeMillis", objectPool.getMinEvictableIdleDuration().toMillis());
             dataSourceInfo.put("poolMinIdle", objectPool.getMinIdle());
         }
         return dataSourceInfo;
