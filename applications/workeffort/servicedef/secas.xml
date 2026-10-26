@@ -52,7 +52,7 @@ under the License.
     </eca>
     <eca service="createWorkEffortRequestItem" event="invoke">
         <condition field-name="custRequestItemExists" operator="is-empty"/>
-        <action service="createCustRequestItem" mode="sync"/>
+        <action service="createCustRequestItem" mode="sync" run-as-user="system"/>
     </eca>
     <eca service="createWorkEffortQuote" event="invoke">
         <condition field-name="quoteId" operator="is-empty"/>
@@ -60,7 +60,7 @@ under the License.
     </eca>
     <eca service="createWorkRequirementFulfillment" event="invoke">
         <condition field-name="requirementId" operator="is-empty"/>
-        <action service="createRequirement" mode="sync"/>
+        <action service="createRequirement" mode="sync" run-as-user="system"/>
     </eca>
     <eca service="createShoppingListWorkEffort" event="invoke">
         <condition field-name="shoppingListId" operator="is-empty"/>
