@@ -18,6 +18,8 @@
  *******************************************************************************/
 package org.apache.ofbiz.entity.condition;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -37,18 +39,19 @@ abstract class EntityConditionListBase<T extends EntityCondition> implements Ent
         return conditions;
     }
 
-    /** The list of condition expressions to combine.  */
+    /** The unmodifiable list of condition expressions to combine.  */
     private final List<? extends T> conditions;
     /** The infix operator used to combine every elements in the list of conditions.  */
     private final EntityJoinOperator operator;
 
     /**
      * Constructs a combination of multiple condition expressions.
+     * The list is copied, so later changes to {@code conditions} do not affect this condition.
      * @param conditions the list of condition expressions to combine
      * @param operator the infix operator used to combine every elements in the list of conditions
      */
     protected EntityConditionListBase(List<? extends T> conditions, EntityJoinOperator operator) {
-        this.conditions = conditions;
+        this.conditions = Collections.unmodifiableList(new ArrayList<>(conditions));
         this.operator = operator;
     }
 

@@ -212,8 +212,6 @@ tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
     if (!project.hasProperty('Xlint:none')) {
         options.compilerArgs << '-Xlint:all'
-        // Exclude varargs warnings which are not silenced by @SafeVarargs.
-        options.compilerArgs << '-Xlint:-varargs'
         // this-escape lint was introduced in JDK 21's javac and is an invalid flag on JDK 17,
         // so only pass it when compiling with a JDK that recognizes it.
         if (JavaVersion.current().isCompatibleWith(JavaVersion.VERSION_21)) {
