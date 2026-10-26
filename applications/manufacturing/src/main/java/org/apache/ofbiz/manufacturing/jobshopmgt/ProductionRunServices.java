@@ -1068,6 +1068,10 @@ public class ProductionRunServices {
                             inMap.put("costComponentTypeId", "ACTUAL_" + productCostComponentCalc.getString("costComponentTypeId"));
                             inMap.put("costUomId", partyAccountingPreference.get("baseCurrencyUomId"));
                             inMap.put("cost", productCostAdjustment);
+                            // createCostComponent requires CATALOG_CREATE; run as the "system" user since this is a trusted side
+                            // effect of an already-permitted production-run cost calculation
+                            inMap.put("userLogin", EntityQuery.use(delegator).from("UserLogin")
+                                    .where("userLoginId", "system").cache().queryOne());
                             serviceResult = dispatcher.runSync("createCostComponent", inMap);
                             if (ServiceUtil.isError(serviceResult)) {
                                 return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
@@ -1233,6 +1237,10 @@ public class ProductionRunServices {
                     inMap.put("costComponentCalcId", costComponentCalc.getString("costComponentCalcId"));
                     inMap.put("costUomId", costComponentCalc.getString("currencyUomId"));
                     inMap.put("cost", totalCost);
+                    // createCostComponent requires CATALOG_CREATE; run as the "system" user since this is a trusted side
+                    // effect of an already-permitted production-run cost calculation
+                    inMap.put("userLogin", EntityQuery.use(delegator).from("UserLogin")
+                            .where("userLoginId", "system").cache().queryOne());
                     serviceResult = dispatcher.runSync("createCostComponent", inMap);
                     if (ServiceUtil.isError(serviceResult)) {
                         return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
@@ -1280,6 +1288,10 @@ public class ProductionRunServices {
                     inMap.put("costUomId", currencyUomId);
                     inMap.put("cost", fixedAssetCost);
                     inMap.put("fixedAssetId", fixedAsset.get("fixedAssetId"));
+                    // createCostComponent requires CATALOG_CREATE; run as the "system" user since this is a trusted side
+                    // effect of an already-permitted production-run cost calculation
+                    inMap.put("userLogin", EntityQuery.use(delegator).from("UserLogin")
+                            .where("userLoginId", "system").cache().queryOne());
                     serviceResult = dispatcher.runSync("createCostComponent", inMap);
                     if (ServiceUtil.isError(serviceResult)) {
                         return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
@@ -1338,6 +1350,10 @@ public class ProductionRunServices {
                 inMap.put("costComponentTypeId", "ACTUAL_MAT_COST");
                 inMap.put("costUomId", currencyUomId);
                 inMap.put("cost", materialsCost);
+                // createCostComponent requires CATALOG_CREATE; run as the "system" user since this is a trusted side
+                // effect of an already-permitted production-run cost calculation
+                inMap.put("userLogin", EntityQuery.use(delegator).from("UserLogin")
+                        .where("userLoginId", "system").cache().queryOne());
                 serviceResult = dispatcher.runSync("createCostComponent", inMap);
                 if (ServiceUtil.isError(serviceResult)) {
                     return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
@@ -1964,12 +1980,17 @@ public class ProductionRunServices {
                     serviceContext = new HashMap<>();
                     serviceContext.put("inventoryItemId", inventoryItemId);
                     serviceContext.put("userLogin", userLogin);
+                    // balanceInventoryItems requires ORDERMGR_UPDATE; run as the "system" user since this is a trusted side
+                    // effect of an already-permitted production-run operation
+                    GenericValue balanceInventoryPermUserLogin = EntityQuery.use(delegator).from("UserLogin")
+                            .where("userLoginId", "system").cache().queryOne();
+                    serviceContext.put("userLogin", balanceInventoryPermUserLogin);
                     serviceResult = dispatcher.runSync("balanceInventoryItems", serviceContext);
                     if (ServiceUtil.isError(serviceResult)) {
                         return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
                     }
                 }
-            } catch (GenericServiceException exc) {
+            } catch (GenericServiceException | GenericEntityException exc) {
                 return ServiceUtil.returnError(exc.getMessage());
             }
         } else {
@@ -2016,6 +2037,11 @@ public class ProductionRunServices {
                 serviceContext = new HashMap<>();
                 serviceContext.put("inventoryItemId", inventoryItemId);
                 serviceContext.put("userLogin", userLogin);
+                // balanceInventoryItems requires ORDERMGR_UPDATE; run as the "system" user since this is a trusted side
+                // effect of an already-permitted production-run operation
+                GenericValue balanceInventoryPermUserLogin = EntityQuery.use(delegator).from("UserLogin")
+                        .where("userLoginId", "system").cache().queryOne();
+                serviceContext.put("userLogin", balanceInventoryPermUserLogin);
                 if (orderItem != null) {
                     // the reservations of this order item are privileged reservations
                     serviceContext.put("priorityOrderId", orderItem.getString("orderId"));
@@ -2025,7 +2051,7 @@ public class ProductionRunServices {
                 if (ServiceUtil.isError(serviceResult)) {
                     return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
                 }
-            } catch (GenericServiceException exc) {
+            } catch (GenericServiceException | GenericEntityException exc) {
                 return ServiceUtil.returnError(exc.getMessage());
             }
         }
@@ -2197,12 +2223,17 @@ public class ProductionRunServices {
                     serviceContext = new HashMap<>();
                     serviceContext.put("inventoryItemId", inventoryItemId);
                     serviceContext.put("userLogin", userLogin);
+                    // balanceInventoryItems requires ORDERMGR_UPDATE; run as the "system" user since this is a trusted side
+                    // effect of an already-permitted production-run operation
+                    GenericValue balanceInventoryPermUserLogin = EntityQuery.use(delegator).from("UserLogin")
+                            .where("userLoginId", "system").cache().queryOne();
+                    serviceContext.put("userLogin", balanceInventoryPermUserLogin);
                     serviceResult = dispatcher.runSync("balanceInventoryItems", serviceContext);
                     if (ServiceUtil.isError(serviceResult)) {
                         return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
                     }
                 }
-            } catch (GenericServiceException exc) {
+            } catch (GenericServiceException | GenericEntityException exc) {
                 return ServiceUtil.returnError(exc.getMessage());
             }
         } else {
@@ -2250,11 +2281,16 @@ public class ProductionRunServices {
                 serviceContext = new HashMap<>();
                 serviceContext.put("inventoryItemId", inventoryItemId);
                 serviceContext.put("userLogin", userLogin);
+                // balanceInventoryItems requires ORDERMGR_UPDATE; run as the "system" user since this is a trusted side
+                // effect of an already-permitted production-run operation
+                GenericValue balanceInventoryPermUserLogin = EntityQuery.use(delegator).from("UserLogin")
+                        .where("userLoginId", "system").cache().queryOne();
+                serviceContext.put("userLogin", balanceInventoryPermUserLogin);
                 serviceResult = dispatcher.runSync("balanceInventoryItems", serviceContext);
                 if (ServiceUtil.isError(serviceResult)) {
                     return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
                 }
-            } catch (GenericServiceException exc) {
+            } catch (GenericServiceException | GenericEntityException exc) {
                 return ServiceUtil.returnError(exc.getMessage());
             }
         }

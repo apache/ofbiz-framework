@@ -223,7 +223,11 @@ Map issueProductionRunTaskComponent() {
                                                                      quantityOnHandDiff: -parameters.quantityNotIssued,
                                                                      reasonEnumId: parameters.reasonEnumId,
                                                                      description: parameters.description]
-                    run service: 'balanceInventoryItems', with: [inventoryItemId: lastNonSerInventoryItem.inventoryItemId]
+                    // balanceInventoryItems requires ORDERMGR_UPDATE; run as the "system" user since this is a trusted side
+                    // effect of an already-permitted production-run operation
+                    GenericValue balanceInventoryPermUserLogin = from('UserLogin').where(userLoginId: 'system').cache().queryOne()
+                    run service: 'balanceInventoryItems', with: [inventoryItemId: lastNonSerInventoryItem.inventoryItemId,
+                                                                  userLogin: balanceInventoryPermUserLogin]
                 } else {
                     // no non-ser inv item, create a non-ser InventoryItem with availableToPromise = -quantityNotIssued
                     Map serviceResult = run service: 'createInventoryItem', with: [productId: productId,
@@ -311,7 +315,11 @@ Map issueProductionRunTaskComponentInline(Map parameters,
                     return serviceResult
                 }
                 parameters.quantityNotIssued -= parameters.deductAmount
-                serviceResult = run service: 'balanceInventoryItems', with: [inventoryItemId: inventoryItem.inventoryItemId]
+                // balanceInventoryItems requires ORDERMGR_UPDATE; run as the "system" user since this is a trusted side
+                // effect of an already-permitted production-run operation
+                GenericValue balanceInventoryPermUserLogin = from('UserLogin').where(userLoginId: 'system').cache().queryOne()
+                serviceResult = run service: 'balanceInventoryItems', with: [inventoryItemId: inventoryItem.inventoryItemId,
+                                                                              userLogin: balanceInventoryPermUserLogin]
                 if (ServiceUtil.isError(serviceResult)) {
                     return serviceResult
                 }

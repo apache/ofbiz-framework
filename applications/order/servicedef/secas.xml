@@ -39,7 +39,7 @@ under the License.
     </eca>
 
     <eca service="storeOrder" event="return">
-        <action service="setOrderReservationPriority" mode="sync"/>
+        <action service="setOrderReservationPriority" mode="sync" run-as-user="system"/>
     </eca>
 
     <eca service="updateOrderItems" event="commit">

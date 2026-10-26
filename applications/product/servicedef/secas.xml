@@ -52,7 +52,7 @@ under the License.
     <eca service="createInventoryTransfer" event="commit">
         <condition field-name="statusId" operator="equals" value="IXF_COMPLETE"/>
         <action service="completeInventoryTransfer" mode="sync"/>
-        <action service="balanceInventoryItems" mode="sync"/>
+        <action service="balanceInventoryItems" mode="sync" run-as-user="system"/>
     </eca>
 
     <eca service="updateInventoryTransfer" event="invoke">
@@ -62,12 +62,12 @@ under the License.
     <eca service="updateInventoryTransfer" event="commit">
         <condition field-name="statusId" operator="equals" value="IXF_COMPLETE"/>
         <action service="completeInventoryTransfer" mode="sync"/>
-        <action service="balanceInventoryItems" mode="sync"/>
+        <action service="balanceInventoryItems" mode="sync" run-as-user="system"/>
     </eca>
 
     <!-- inventory variance -->
     <eca service="createPhysicalInventoryAndVariance" event="commit">
-        <action service="balanceInventoryItems" mode="sync"/>
+        <action service="balanceInventoryItems" mode="sync" run-as-user="system"/>
     </eca>
 
     <!-- inventory changes -->
