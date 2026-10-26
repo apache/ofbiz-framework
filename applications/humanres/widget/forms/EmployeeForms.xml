@@ -217,7 +217,7 @@
         <field name="leaveStatus"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
         <field name="emplLeaveReasonTypeId"><display/></field>
         <field name="leaveTypeId" title="${uiLabelMap.CommonType}"><display-entity entity-name="EmplLeaveType"/></field>
-        <field name="fromDate" title="${uiLabelMap.CommonGrom}"></field>
+        <field name="fromDate" title="${uiLabelMap.CommonFromDate}"></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
     </grid>
     <form name="CurrentEmploymentData" default-map-name="employmentData" type="single">

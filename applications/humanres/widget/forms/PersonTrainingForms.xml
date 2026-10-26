@@ -196,7 +196,7 @@ under the License.
                 </sub-hyperlink>
             </display-entity>
         </field>
-        <field name="trainingRequestId" title="${uiLabelMap.CommmonRequest}" widget-style="buttontext"/>
+        <field name="trainingRequestId" widget-style="buttontext"/>
         <field name="trainingClassTypeId" title="${uiLabelMap.HumanResTrainingClassType}"/>
         <field name="approvalStatus" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
         <field name="trainingClassTypeId"><display-entity entity-name="TrainingClassType"/></field>
