@@ -20,7 +20,6 @@ package org.apache.ofbiz.entity.condition;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -30,6 +29,7 @@ import org.apache.ofbiz.entity.GenericEntity;
 import org.apache.ofbiz.entity.GenericModelException;
 import org.apache.ofbiz.entity.config.model.Datasource;
 import org.apache.ofbiz.entity.model.ModelEntity;
+import org.apache.ofbiz.entity.util.EntityUtil;
 
 /**
  * Represents a condition expression that can be used in a SQL 'WHERE' clause
@@ -88,7 +88,11 @@ public interface EntityCondition extends IsEmpty, Serializable {
     @SafeVarargs
     static <R extends EntityCondition, T extends R>
             EntityConditionList<R> makeCondition(EntityJoinOperator operator, T... conditionList) {
-        return new EntityConditionList<>(Arrays.asList(conditionList), operator);
+        List<R> conditions = new ArrayList<>(conditionList.length);
+        for (T condition : conditionList) {
+            conditions.add(condition);
+        }
+        return new EntityConditionList<>(conditions, operator);
     }
 
     /**
@@ -99,7 +103,11 @@ public interface EntityCondition extends IsEmpty, Serializable {
     @SafeVarargs
     static <R extends EntityCondition, T extends R>
             EntityConditionList<R> makeCondition(T... conditionList) {
-        return new EntityConditionList<>(Arrays.asList(conditionList), EntityOperator.AND);
+        List<R> conditions = new ArrayList<>(conditionList.length);
+        for (T condition : conditionList) {
+            conditions.add(condition);
+        }
+        return new EntityConditionList<>(conditions, EntityOperator.AND);
     }
 
     /**
@@ -162,7 +170,7 @@ public interface EntityCondition extends IsEmpty, Serializable {
      */
     static <L, R> EntityFieldMap makeCondition(EntityComparisonOperator<L, R> compOp, EntityJoinOperator joinOp,
             Object... keysValues) {
-        return new EntityFieldMap(compOp, joinOp, keysValues);
+        return new EntityFieldMap(EntityUtil.makeFields(keysValues), compOp, joinOp);
     }
 
     /**
@@ -172,7 +180,7 @@ public interface EntityCondition extends IsEmpty, Serializable {
      * @return a condition expression representing a combination of field/value equality comparisons
      */
     static EntityFieldMap makeCondition(EntityJoinOperator joinOp, Object... keysValues) {
-        return new EntityFieldMap(EntityOperator.EQUALS, joinOp, keysValues);
+        return new EntityFieldMap(EntityUtil.makeFields(keysValues), EntityOperator.EQUALS, joinOp);
     }
 
     /**
@@ -181,7 +189,7 @@ public interface EntityCondition extends IsEmpty, Serializable {
      * @return a condition expression representing a conjunction of field/value equality comparisons
      */
     static EntityFieldMap makeConditionMap(Object... keysValues) {
-        return new EntityFieldMap(EntityOperator.EQUALS, EntityOperator.AND, keysValues);
+        return new EntityFieldMap(EntityUtil.makeFields(keysValues), EntityOperator.EQUALS, EntityOperator.AND);
     }
 
     /**

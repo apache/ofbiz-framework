@@ -48,7 +48,6 @@ public class MapContextTest {
          * Constructs a node without properties.
          * @param includes  the included nodes
          */
-        @SafeVarargs
         PNode(PNode... includes) {
             this(Collections.emptyMap(), includes);
         }
@@ -58,7 +57,6 @@ public class MapContextTest {
          * @param props  the properties of the node
          * @param includes  the included nodes
          */
-        @SafeVarargs
         PNode(Map<String, String> props, PNode... includes) {
             this.props = props;
             this.includes = Arrays.asList(includes);

@@ -20,12 +20,12 @@ package org.apache.ofbiz.entity.condition;
 
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.apache.ofbiz.base.util.UtilGenerics;
-import org.apache.ofbiz.entity.util.EntityUtil;
 
 /**
  * A condition expression corresponding to an unordered collection of
@@ -40,7 +40,7 @@ import org.apache.ofbiz.entity.util.EntityUtil;
 @SuppressWarnings("serial")
 public final class EntityFieldMap extends EntityConditionListBase<EntityExpr> {
 
-    /** The map whose entries correspond to the set of equality checks conditions. */
+    /** The unmodifiable map whose entries correspond to the set of equality checks conditions. */
     private final Map<String, ?> fieldMap;
 
     /**
@@ -59,20 +59,7 @@ public final class EntityFieldMap extends EntityConditionListBase<EntityExpr> {
 
     /**
      * Constructs a map of fields.
-     * @param compOp the operator used to compare fields
-     * @param joinOp the operator used to join field comparisons
-     * @param keysValues a list of values that the field map will contain.
-     *        This list must be of even length and each successive pair will
-     *        be associated in the field map.
-     * @param <V> The type of values that are compared.
-     */
-    @SafeVarargs
-    public <V> EntityFieldMap(EntityComparisonOperator<?, ?> compOp, EntityJoinOperator joinOp, V... keysValues) {
-        this(EntityUtil.makeFields(keysValues), UtilGenerics.cast(compOp), joinOp);
-    }
-
-    /**
-     * Constructs a map of fields.
+     * The map is copied in its iteration order, so later changes to {@code fieldMap} do not affect this condition.
      * @param fieldMap the map containing the fields to compare
      * @param compOp the operator to compare fields
      * @param joinOp the operator to join entries in the field map
@@ -81,7 +68,7 @@ public final class EntityFieldMap extends EntityConditionListBase<EntityExpr> {
     public <V> EntityFieldMap(Map<String, V> fieldMap, EntityComparisonOperator<?, ?> compOp,
                               EntityJoinOperator joinOp) {
         super(makeConditionList(fieldMap, UtilGenerics.cast(compOp)), joinOp);
-        this.fieldMap = (fieldMap == null) ? Collections.emptyMap() : fieldMap;
+        this.fieldMap = (fieldMap == null) ? Collections.emptyMap() : Collections.unmodifiableMap(new LinkedHashMap<>(fieldMap));
     }
 
     /**

@@ -65,16 +65,15 @@ public final class EntityUtil {
 
     private EntityUtil() { }
 
-    @SafeVarargs
-    public static <V> Map<String, V> makeFields(V... args) {
-        Map<String, V> fields = new HashMap<>();
+    public static Map<String, Object> makeFields(Object... args) {
+        Map<String, Object> fields = new HashMap<>();
         if (args != null) {
             for (int i = 0; i < args.length;) {
-                V keyValue = args[i];
+                Object keyValue = args[i];
                 if (!(keyValue instanceof String)) throw new IllegalArgumentException("Key(" + i + "), with value(" + args[i] + ") is not a String.");
                 String key = (String) keyValue;
                 i++;
-                V value = args[i];
+                Object value = args[i];
                 if (value != null) {
                     if (!(value instanceof Comparable<?>)) {
                         throw new IllegalArgumentException("Value(" + i + "), with value(" + args[i] + ") does not implement Comparable.");
