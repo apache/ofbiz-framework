@@ -21,6 +21,7 @@ package org.apache.ofbiz.entity.connection;
 import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.SQLException;
+import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -61,7 +62,6 @@ public class DBCPConnectionFactory implements ConnectionFactory {
     // set by closeAll() when OFBiz shuts down, so that no new pool gets created afterwards (see OFBIZ-13686)
     private static volatile boolean closed = false;
 
-    @SuppressWarnings("deprecation")
     @Override
     public Connection getConnection(GenericHelperInfo helperInfo, JdbcElement abstractJdbc) throws SQLException, GenericEntityException {
         if (closed) {
@@ -141,13 +141,13 @@ public class DBCPConnectionFactory implements ConnectionFactory {
         // settings for idle connections
         poolConfig.setMaxIdle(maxIdle);
         poolConfig.setMinIdle(minSize);
-        poolConfig.setTimeBetweenEvictionRunsMillis(jdbcElement.getTimeBetweenEvictionRunsMillis());
-        poolConfig.setMinEvictableIdleTimeMillis(-1); // disabled in favour of setSoftMinEvictableIdleTimeMillis(...)
-        poolConfig.setSoftMinEvictableIdleTimeMillis(jdbcElement.getSoftMinEvictableIdleTimeMillis());
+        poolConfig.setTimeBetweenEvictionRuns(Duration.ofMillis(jdbcElement.getTimeBetweenEvictionRunsMillis()));
+        poolConfig.setMinEvictableIdleDuration(Duration.ofMillis(-1)); // disabled in favour of setSoftMinEvictableIdleDuration(...)
+        poolConfig.setSoftMinEvictableIdleDuration(Duration.ofMillis(jdbcElement.getSoftMinEvictableIdleTimeMillis()));
         poolConfig.setNumTestsPerEvictionRun(maxSize); // test all the idle connections
         // settings for when the pool is exhausted
         poolConfig.setBlockWhenExhausted(true); // the thread requesting the connection waits if no connection is available
-        poolConfig.setMaxWaitMillis(jdbcElement.getPoolSleeptime()); // throw an exception if, after getPoolSleeptime() ms,
+        poolConfig.setMaxWait(Duration.ofMillis(jdbcElement.getPoolSleeptime())); // throw an exception if, after getPoolSleeptime() ms,
         // no connection is available for the requesting thread
         // settings for the execution of the validation query
         poolConfig.setTestOnCreate(jdbcElement.getTestOnCreate());
