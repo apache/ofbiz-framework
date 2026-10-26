@@ -432,7 +432,11 @@ Map issueProductionRunTaskComponent() {
                                                              quantityOnHandDiff: -parameters.quantityNotIssued,
                                                              reasonEnumId: parameters.reasonEnumId,
                                                                      description: parameters.description]
-                    run service: 'balanceInventoryItems', with: [inventoryItemId: lastNonSerInventoryItem.inventoryItemId]
+                    // balanceInventoryItems requires ORDERMGR_UPDATE; run as the "system" user since this is a trusted side
+                    // effect of an already-permitted production-run operation
+                    GenericValue balanceInventoryPermUserLogin = from('UserLogin').where(userLoginId: 'system').cache().queryOne()
+                    run service: 'balanceInventoryItems', with: [inventoryItemId: lastNonSerInventoryItem.inventoryItemId,
+                                                                  userLogin: balanceInventoryPermUserLogin]
                 } else {
                     // no non-ser inv item, create a non-ser InventoryItem with availableToPromise = -quantityNotIssued
                     Map serviceResult = run service: 'createInventoryItem', with: [productId: productId,
@@ -656,7 +660,11 @@ Map issueProductionRunTaskComponentInline(Map parameters,
                     parameters.workEffortId, strategy, parameters.failIfItemsAreNotAvailable, taskAllowReallocation)
 
             parameters.quantityNotIssued = ((BigDecimal) parameters.quantityNotIssued).subtract(deductAmount)
-            serviceResult = runService('balanceInventoryItems', [inventoryItemId: inventoryItem.inventoryItemId])
+            // balanceInventoryItems requires ORDERMGR_UPDATE; run as the "system" user since this is a trusted side
+            // effect of an already-permitted production-run operation
+            GenericValue balanceInventoryPermUserLogin = from('UserLogin').where(userLoginId: 'system').cache().queryOne()
+            serviceResult = runService('balanceInventoryItems', [inventoryItemId: inventoryItem.inventoryItemId,
+                                                                  userLogin: balanceInventoryPermUserLogin])
             if (ServiceUtil.isError(serviceResult)) {
                 return serviceResult
             }

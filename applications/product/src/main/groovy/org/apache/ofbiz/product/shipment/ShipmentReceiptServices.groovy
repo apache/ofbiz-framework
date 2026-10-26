@@ -174,10 +174,13 @@ Map receiveInventoryProduct () {
             }
         }
         if (parameters.quantityAccepted > BigDecimal.ZERO) {
-            serviceInMap = [:]
-            serviceInMap = parameters
-            serviceInMap.inventoryItemId = currentInventoryItemId
-            run service: 'balanceInventoryItems', with: serviceInMap
+            // balanceInventoryItems requires ORDERMGR_UPDATE; run as the "system" user since this is a trusted side effect of an
+            // already-permitted shipment-receipt operation. A copy (not an alias of parameters/serviceInMap) is used here so this
+            // elevation doesn't leak into later iterations' calls that reuse the shared parameters map.
+            Map balanceInventoryMap = new HashMap(parameters)
+            balanceInventoryMap.inventoryItemId = currentInventoryItemId
+            balanceInventoryMap.userLogin = from('UserLogin').where(userLoginId: 'system').cache().queryOne()
+            run service: 'balanceInventoryItems', with: balanceInventoryMap
 
             successMessageList << "Received ${parameters.quantityAccepted} of ${parameters.productId}"
                     .concat(" in inventory item ${currentInventoryItemId}.") as String
@@ -390,8 +393,11 @@ Map cancelReceivedItems() {
     run service: 'createInventoryItemDetail', with: inventoryItemDetailMap
 
     // Balance the inventory item
+    // balanceInventoryItems requires ORDERMGR_UPDATE; run as the "system" user since this is a trusted side
+    // effect of an already-permitted shipment-receipt operation
     Map balanceInventoryItemMap = [inventoryItemId: inventoryItem.inventoryItemId,
-                                   priorityOrderId: shipmentReceipt.orderId, priorityOrderItemSeqId: shipmentReceipt.orderItemSeqId]
+                                   priorityOrderId: shipmentReceipt.orderId, priorityOrderItemSeqId: shipmentReceipt.orderItemSeqId,
+                                   userLogin: from('UserLogin').where(userLoginId: 'system').cache().queryOne()]
     run service: 'balanceInventoryItems', with: balanceInventoryItemMap
 
     // update the shipment status, if shipment was received
