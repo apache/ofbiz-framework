@@ -41,6 +41,7 @@ under the License.
     <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPPLYADMIN" permissionId="WORKEFFORTMGR_CREATE"/>
     <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPPLYADMIN" permissionId="WORKEFFORTMGR_UPDATE"/>
     <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPPLYADMIN" permissionId="ACCOUNTING_CREATE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPPLYADMIN" permissionId="ORDERMGR_CREATE"/>
     <Party partyId="TestSupplyAdmin" partyTypeId="PERSON"/>
     <Person partyId="TestSupplyAdmin" firstName="Supply" lastName="Admin"/>
     <UserLogin partyId="TestSupplyAdmin" userLoginId="TestSupplyAdmin"/>
