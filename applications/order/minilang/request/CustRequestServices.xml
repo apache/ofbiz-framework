@@ -101,9 +101,14 @@ under the License.
                 </or>
             </condition>
             <then>
+                <!-- the item belongs to the request just created, so createCustRequestItem is run by the system user here -->
+                <entity-one entity-name="UserLogin" value-field="systemUserLogin">
+                    <field-map field-name="userLoginId" value="system"/>
+                </entity-one>
                 <set-service-fields service-name="createCustRequestItem" map="parameters" to-map="createItem"/>
                 <set field="createItem.custRequestId" from-field="newEntity.custRequestId"/>
-                <call-service service-name="createCustRequestItem" in-map-name="createItem"/>
+                <set field="createItem.userLogin" from-field="systemUserLogin"/>
+                <call-service service-name="createCustRequestItem" in-map-name="createItem" include-user-login="false"/>
             </then>
         </if>
         
@@ -309,7 +314,11 @@ under the License.
         <check-errors/>
         <entity-one entity-name="CustRequest" value-field="custRequest" auto-field-map="true"/>
 
-        <!-- create, for every cart item, a request item -->
+        <!-- create, for every cart item, a request item; the items belong to the request just created, so
+             createCustRequestItem is run by the system user here -->
+        <entity-one entity-name="UserLogin" value-field="systemUserLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
         <iterate list="items" entry="item">
             <!-- a new request item is created -->
             <clear-field field="createCustRequestItemInMap"/>
@@ -328,7 +337,8 @@ under the License.
                 <call-object-method obj-field="item" method-name="getReservStart" ret-field="createCustRequestItemInMap.reservStart"/>
                 <call-object-method obj-field="item" method-name="getReservLength" ret-field="createCustRequestItemInMap.reservLength"/>
                 <call-object-method obj-field="item" method-name="getReservPersons" ret-field="createCustRequestItemInMap.reservPersons"/>
-                <call-service service-name="createCustRequestItem" in-map-name="createCustRequestItemInMap">
+                <set field="createCustRequestItemInMap.userLogin" from-field="systemUserLogin"/>
+                <call-service service-name="createCustRequestItem" in-map-name="createCustRequestItemInMap" include-user-login="false">
                     <result-to-field result-name="custRequestItemSeqId" field="custRequestItemSeqId"/>
                 </call-service>
             </if-compare>
