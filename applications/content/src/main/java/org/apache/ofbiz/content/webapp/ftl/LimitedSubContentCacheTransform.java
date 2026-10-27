@@ -54,8 +54,6 @@ import freemarker.template.TransformControl;
  */
 public class LimitedSubContentCacheTransform implements TemplateTransformModel {
 
-    private static final String MODULE = LimitedSubContentCacheTransform.class.getName();
-
     static final String[] UP_SAVE_KEY_NAMES = {"globalNodeTrail" };
     static final String[] SAVE_KEY_NAMES = {"contentId", "subContentId", "entityList", "entityIndex",
             "subDataResourceTypeId", "mimeTypeId", "whenMap", "locale", "entityList", "viewSize", "viewIndex",

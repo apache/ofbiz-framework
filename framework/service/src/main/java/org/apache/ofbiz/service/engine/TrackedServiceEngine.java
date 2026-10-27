@@ -30,17 +30,8 @@ import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.service.ServiceDispatcher;
 
 import java.util.Map;
-import java.util.Set;
 
 public class TrackedServiceEngine extends GroovyEngine {
-
-    private static final String MODULE = TrackedServiceEngine.class.getName();
-    private static final Object[] EMPTY_ARGS = {};
-    private static final Set<String> PROTECTED_KEYS = createProtectedKeys();
-
-    private static Set<String> createProtectedKeys() {
-        return Set.of("dctx", "dispatcher", "delegator", "visualTheme");
-    }
 
     public TrackedServiceEngine(ServiceDispatcher dispatcher) {
         super(dispatcher);

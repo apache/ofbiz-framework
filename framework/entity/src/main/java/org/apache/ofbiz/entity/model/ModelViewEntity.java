@@ -1454,7 +1454,6 @@ public class ModelViewEntity extends ModelEntity {
         private final ModelViewEntity modelViewEntity;
         private final ModelViewLink modelViewLink;
         private final boolean filterByDate;
-        private final boolean distinct;
         private final List<String> orderByList;
         private final ViewCondition whereCondition;
         private final ViewCondition havingCondition;
@@ -1464,7 +1463,6 @@ public class ModelViewEntity extends ModelEntity {
             this.modelViewEntity = modelViewEntity;
             this.modelViewLink = modelViewLink;
             this.filterByDate = "true".equals(element.getAttribute("filter-by-date"));
-            this.distinct = "true".equals(element.getAttribute("distinct"));
             // process order-by
             List<? extends Element> orderByElementList = UtilXml.childElementList(element, "order-by");
             if (!orderByElementList.isEmpty()) {

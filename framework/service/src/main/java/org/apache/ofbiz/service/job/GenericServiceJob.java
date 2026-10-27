@@ -18,7 +18,6 @@
  *******************************************************************************/
 package org.apache.ofbiz.service.job;
 
-import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -43,7 +42,7 @@ import org.apache.ofbiz.service.tracker.JobTrackerListener;
  * A generic async-service job.
  */
 @SuppressWarnings("serial")
-public class GenericServiceJob extends AbstractJob implements Serializable {
+public class GenericServiceJob extends AbstractJob {
 
     private static final String MODULE = GenericServiceJob.class.getName();
 

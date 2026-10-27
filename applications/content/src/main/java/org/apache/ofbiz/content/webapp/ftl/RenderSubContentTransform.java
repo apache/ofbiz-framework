@@ -105,9 +105,6 @@ public class RenderSubContentTransform implements TemplateTransformModel {
             }
         }
 
-        final GenericValue subContentDataResourceView = subContentDataResourceViewTemp;
-
-
         final Map<String, Object> templateContext = ctx;
 
         return new Writer(out) {

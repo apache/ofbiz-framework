@@ -4479,14 +4479,6 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         for (GenericValue orderAdjustment: this.getAdjustments()) {
 
             allAdjs.add(orderAdjustment);
-
-            if ("SHIPPING_CHARGES".equals(orderAdjustment.get("orderAdjustmentTypeId"))) {
-                Iterator<GenericValue> fsppas = this.freeShippingProductPromoActions.iterator();
-
-                //while (fsppas.hasNext()) {
-                    // TODO - we need to change the way free shipping promotions work
-                //}
-            }
         }
 
         // add all of the item adjustments to this list too
@@ -4498,14 +4490,6 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
 
                     orderAdjustment.set("orderItemSeqId", item.getOrderItemSeqId());
                     allAdjs.add(orderAdjustment);
-
-                    if ("SHIPPING_CHARGES".equals(orderAdjustment.get("orderAdjustmentTypeId"))) {
-                        Iterator<GenericValue> fsppas = this.freeShippingProductPromoActions.iterator();
-
-                        //while (fsppas.hasNext()) {
-                            // TODO - fix the free shipping promotions!!
-                        //}
-                    }
                 }
             }
         }

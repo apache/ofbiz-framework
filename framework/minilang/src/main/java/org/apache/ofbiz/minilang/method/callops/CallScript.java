@@ -37,8 +37,6 @@ import org.w3c.dom.Element;
  */
 public final class CallScript extends MethodOperation {
 
-    private static final String MODULE = CallScript.class.getName();
-
     // This method is needed only during the v1 to v2 transition
     private static boolean autoCorrect(Element element) {
         String errorListAttr = element.getAttribute("error-list-name");

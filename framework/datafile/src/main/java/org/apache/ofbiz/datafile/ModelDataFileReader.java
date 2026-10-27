@@ -183,15 +183,8 @@ public final class ModelDataFileReader {
 
         field.setType(UtilXml.checkEmpty(fieldElement.getAttribute("type")));
         field.setFormat(UtilXml.checkEmpty(fieldElement.getAttribute("format")));
-        field.setValidExp(UtilXml.checkEmpty(fieldElement.getAttribute("valid-exp")));
-        field.setDescription(UtilXml.checkEmpty(fieldElement.getAttribute("description")));
         field.setDefaultValue(UtilXml.checkEmpty(fieldElement.getAttribute("default-value")));
         field.setRefField(UtilXml.checkEmpty(fieldElement.getAttribute("ref-field")));
-
-        tempStr = UtilXml.checkEmpty(fieldElement.getAttribute("prim-key"));
-        if (UtilValidate.isNotEmpty(tempStr)) {
-            field.setPk(Boolean.parseBoolean(tempStr));
-        }
 
         tempStr = UtilXml.checkEmpty(fieldElement.getAttribute("ignored"));
         if (UtilValidate.isNotEmpty(tempStr)) {
@@ -238,7 +231,6 @@ public final class ModelDataFileReader {
 
         record.setDescription(UtilXml.checkEmpty(recordElement.getAttribute("description")));
         record.setParentName(UtilXml.checkEmpty(recordElement.getAttribute("parent-name")));
-        record.setLimit(UtilXml.checkEmpty(recordElement.getAttribute("limit")));
 
         NodeList fList = recordElement.getElementsByTagName("field");
         int priorEnd = -1;

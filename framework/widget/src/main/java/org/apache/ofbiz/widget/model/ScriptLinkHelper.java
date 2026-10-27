@@ -38,7 +38,6 @@ import java.util.Set;
  */
 public final class ScriptLinkHelper {
 
-    private static final String MODULE = ScriptLinkHelper.class.getName();
     public static final String FTL_WRITER = "WriterForFTL";
     public static final String SCRIPT_LINKS_FOR_BODY_END = "ScriptLinksForBodyEnd";
     private static int maxScriptCacheSizePerUserSession = 15;

@@ -37,8 +37,6 @@ import org.w3c.dom.Element;
 @ThreadSafe
 @SuppressWarnings("serial")
 public final class ModelField extends ModelChild {
-    private static final String MODULE = ModelField.class.getName();
-
     public enum EncryptMethod {
         FALSE,
         TRUE;

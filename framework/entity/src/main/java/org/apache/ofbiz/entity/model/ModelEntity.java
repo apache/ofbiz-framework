@@ -112,12 +112,6 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
     /** indexes on fields/columns in this entity */
     private CopyOnWriteArrayList<ModelIndex> indexes = new CopyOnWriteArrayList<>();
 
-    /** The reference of the dependentOn entity model */
-    private ModelEntity specializationOfModelEntity = null;
-
-    /** The list of entities that are specialization of on this entity */
-    private Map<String, ModelEntity> specializedEntities = new HashMap<>();
-
     /** map of ModelViewEntities that references this model */
     private final Set<String> viewEntities = new HashSet<>();
 

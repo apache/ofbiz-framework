@@ -41,8 +41,6 @@ import org.w3c.dom.Element;
  */
 public final class Assert extends MethodOperation {
 
-    private static final String MODULE = Assert.class.getName();
-
     private final List<Conditional> conditionalList;
     private final FlexibleMapAccessor<List<Object>> errorListFma;
     private final FlexibleStringExpander titleExdr;

@@ -33,8 +33,6 @@ import org.apache.ofbiz.webapp.control.ConfigXMLReader;
  *
  */
 public class ControllerViewArtifactInfo extends ArtifactInfoBase {
-    private static final String MODULE = ControllerViewArtifactInfo.class.getName();
-
     private URL controllerXmlUrl;
     private String viewUri;
     private ConfigXMLReader.ViewMap viewInfoMap;

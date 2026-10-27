@@ -35,10 +35,7 @@ public class Cache {
     private EntityListCache entityListCache;
     private EntityObjectCache entityObjectCache;
 
-    private String delegatorName;
-
     public Cache(String delegatorName) {
-        this.delegatorName = delegatorName;
         entityCache = new EntityCache(delegatorName);
         entityObjectCache = new EntityObjectCache(delegatorName);
         entityListCache = new EntityListCache(delegatorName);

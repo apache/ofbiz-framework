@@ -34,7 +34,6 @@ import org.apache.ofbiz.entity.model.ModelViewEntity.ModelAlias;
  */
 public final class ModelUtil {
 
-    private static final String MODULE = ModelUtil.class.getName();
     private static final String VOWEL_BAG = "aeiouyAEIOUY";
 
     private ModelUtil() { }

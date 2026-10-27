@@ -197,7 +197,6 @@ public final class UtilHttp {
 
     public static Map<String, Object> getMultiPartParameterMap(HttpServletRequest request) throws IOException {
         Map<String, Object> multiPartMap = new HashMap<>();
-        Delegator delegator = (Delegator) request.getAttribute("delegator");
         HttpSession session = request.getSession();
         boolean isMultiPart = JakartaServletFileUpload.isMultipartContent(request);
         if (isMultiPart) {

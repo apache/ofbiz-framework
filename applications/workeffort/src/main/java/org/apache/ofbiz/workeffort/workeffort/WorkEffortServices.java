@@ -953,7 +953,6 @@ public class WorkEffortServices {
                 }
                 continue;
             }
-            @SuppressWarnings("deprecation")
             Locale locale = reminder.getString("localeId") == null ? Locale.getDefault() : new Locale(reminder.getString("localeId"));
             TimeZone timeZone = reminder.getString("timeZoneId") == null ? TimeZone.getDefault()
                     : TimeZone.getTimeZone(reminder.getString("timeZoneId"));

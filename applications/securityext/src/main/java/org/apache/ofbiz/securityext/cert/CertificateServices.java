@@ -37,8 +37,6 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public class CertificateServices {
 
-    private static final String MODULE = CertificateServices.class.getName();
-
     public static Map<String, Object> importIssuerCertificate(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         String certString = (String) context.get("certString");

@@ -37,7 +37,6 @@ public abstract class SimpleMapOperation {
     private boolean isProperty = false;
     private String message = null;
     private String propertyResource = null;
-    private SimpleMapProcess simpleMapProcess;
 
     public SimpleMapOperation(Element element, SimpleMapProcess simpleMapProcess) {
         Element failMessage = UtilXml.firstChildElement(element, "fail-message");
@@ -50,7 +49,6 @@ public abstract class SimpleMapOperation {
             this.message = failProperty.getAttribute("property");
             this.isProperty = true;
         }
-        this.simpleMapProcess = simpleMapProcess;
         this.fieldName = simpleMapProcess.getFieldName();
     }
 

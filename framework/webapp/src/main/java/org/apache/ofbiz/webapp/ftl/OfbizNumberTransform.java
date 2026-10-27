@@ -43,7 +43,6 @@ import org.apache.ofbiz.entity.Delegator;
 public class OfbizNumberTransform implements TemplateTransformModel {
 
     private static final String MODULE = OfbizNumberTransform.class.getName();
-    private String format = null;
 
     private static String getArg(Map<String, Object> args, String key) {
         String result = "";
@@ -116,7 +115,6 @@ public class OfbizNumberTransform implements TemplateTransformModel {
             }
 
             @Override
-            @SuppressWarnings("deprecation")
             public void close() throws IOException {
                 try {
                     if (Debug.verboseOn()) {

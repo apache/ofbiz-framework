@@ -34,8 +34,6 @@ import junit.framework.TestResult;
 
 public class ServiceTest extends OFBizTestCase {
 
-    private static final String MODULE = ServiceTest.class.getName();
-
     private String serviceName;
 
     /**

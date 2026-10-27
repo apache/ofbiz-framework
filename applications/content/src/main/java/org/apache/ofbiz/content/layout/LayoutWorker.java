@@ -45,7 +45,6 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public final class LayoutWorker {
 
-    private static final String MODULE = LayoutWorker.class.getName();
     private static final String ERR_RESOURCE = "ContentErrorUiLabels";
 
     private LayoutWorker() { }

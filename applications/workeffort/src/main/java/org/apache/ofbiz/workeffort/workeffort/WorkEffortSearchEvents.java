@@ -37,8 +37,6 @@ import org.apache.ofbiz.workeffort.workeffort.WorkEffortSearchSession.WorkEffort
 
 public class WorkEffortSearchEvents {
 
-    private static final String MODULE = WorkEffortSearchEvents.class.getName();
-
     public static Map<String, Object> getWorkEffortSearchResult(HttpServletRequest request, Delegator delegator) {
 
         // ========== Create View Indexes

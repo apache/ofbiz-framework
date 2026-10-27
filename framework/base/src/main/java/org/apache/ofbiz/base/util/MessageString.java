@@ -33,8 +33,6 @@ import java.util.TreeSet;
 @SuppressWarnings("serial")
 public class MessageString implements Serializable {
 
-    private static final String MODULE = MessageString.class.getName();
-
     private String message;
     private String fieldName;
     private String toFieldName;

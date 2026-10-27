@@ -54,7 +54,6 @@ import org.owasp.html.TagBalancingHtmlStreamEventReceiver;
 public class UtilCodec {
     private static final String MODULE = UtilCodec.class.getName();
     // sentinel locale used because labels are not available in the testClasses Gradle task
-    @SuppressWarnings("deprecation")
     private static final Locale TEST_LOCALE = new Locale("test");
     private static final HtmlEncoder HTML_ENCODER = new HtmlEncoder();
     private static final XmlEncoder XML_ENCODER = new XmlEncoder();

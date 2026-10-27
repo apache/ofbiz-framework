@@ -42,8 +42,6 @@ import junit.framework.TestResult;
 
 public class SimpleMethodTest extends OFBizTestCase {
 
-    private static final String MODULE = ServiceTest.class.getName();
-
     private String methodLocation;
     private String methodName;
     private static MockHttpServletRequest request = new MockHttpServletRequest();

@@ -36,8 +36,6 @@ import org.apache.ofbiz.entity.util.EntityQuery;
  */
 public final class EntityGroupUtil {
 
-    private static final String MODULE = EntityGroupUtil.class.getName();
-
     private EntityGroupUtil() { }
 
     public static Set<String> getEntityNamesByGroup(String entityGroupId, Delegator delegator, boolean requireStampFields)

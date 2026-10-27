@@ -39,7 +39,6 @@ import org.apache.ofbiz.service.ServiceUtil;
 
 public class PeriodServices {
 
-    private static final String MODULE = PeriodServices.class.getName();
     private static final String RESOURCE = "AccountingUiLabels";
 
     /*

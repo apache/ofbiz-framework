@@ -44,8 +44,6 @@ import freemarker.template.utility.DeepUnwrap;
  */
 public class CatalogUrlDirective implements TemplateDirectiveModel {
 
-    private static final String MODULE = CatalogUrlDirective.class.getName();
-
     @Override
     public void execute(Environment env, @SuppressWarnings("rawtypes") Map args, TemplateModel[] loopVars,
             TemplateDirectiveBody body) throws TemplateException, IOException {

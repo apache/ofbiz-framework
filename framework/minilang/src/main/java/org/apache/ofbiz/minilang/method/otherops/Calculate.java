@@ -43,8 +43,6 @@ import org.w3c.dom.Element;
  */
 public final class Calculate extends MethodOperation {
 
-    private static final String MODULE = Calculate.class.getName();
-
     public static final int TYPE_DOUBLE = 1;
     public static final int TYPE_FLOAT = 2;
     public static final int TYPE_LONG = 3;

@@ -37,8 +37,6 @@ import org.apache.ofbiz.webapp.stats.VisitHandler;
 
 public class ContentSearchEvents {
 
-    private static final String MODULE = ContentSearchEvents.class.getName();
-
     public static Map<String, Object> getContentSearchResult(HttpServletRequest request, Delegator delegator) {
 
         // ========== Create View Indexes

@@ -474,7 +474,6 @@ public class GiftCertificateServices {
     public static Map<String, Object> giftCertificateAuthorize(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
-        GenericValue userLogin = (GenericValue) context.get("userLogin");
         Locale locale = (Locale) context.get("locale");
         GenericValue giftCard = (GenericValue) context.get("giftCard");
         String currency = (String) context.get("currency");

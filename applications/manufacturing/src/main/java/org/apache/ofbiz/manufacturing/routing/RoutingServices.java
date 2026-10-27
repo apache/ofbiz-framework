@@ -40,7 +40,6 @@ import org.apache.ofbiz.service.ServiceUtil;
  */
 public class RoutingServices {
 
-    private static final String MODULE = RoutingServices.class.getName();
     private static final String RESOURCE = "ManufacturingUiLabels";
 
     /**

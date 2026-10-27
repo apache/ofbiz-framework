@@ -640,7 +640,6 @@ public class ObjectType {
         return Boolean.TRUE;
     }
 
-    @SuppressWarnings("unchecked")
     public static boolean isEmpty(Object value) {
         if (value == null) {
             return true;

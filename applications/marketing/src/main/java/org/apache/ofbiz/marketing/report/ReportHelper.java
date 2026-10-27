@@ -33,8 +33,6 @@ import org.apache.ofbiz.entity.util.EntityUtil;
  */
 public final class ReportHelper {
 
-    private static final String MODULE = ReportHelper.class.getName();
-
     private ReportHelper() { }
 
 /**

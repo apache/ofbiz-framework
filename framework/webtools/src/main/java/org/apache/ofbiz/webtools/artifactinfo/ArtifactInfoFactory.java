@@ -78,7 +78,6 @@ public class ArtifactInfoFactory {
     public static final String CONTROLLER_REQ_INFO_TYPE_ID = "request";
     public static final String CONTROLLER_VIEW_INFO_TYPE_ID = "view";
 
-    private final String delegatorName;
     private final ModelReader entityModelReader;
     private final DispatchContext dispatchContext;
 
@@ -282,7 +281,6 @@ public class ArtifactInfoFactory {
     }
 
     protected ArtifactInfoFactory(String delegatorName) throws GeneralException {
-        this.delegatorName = delegatorName;
         this.entityModelReader = ModelReader.getModelReader(delegatorName);
         DelegatorElement delegatorInfo = EntityConfig.getInstance().getDelegator(delegatorName);
         String modelName;

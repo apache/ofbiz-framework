@@ -40,17 +40,8 @@ public class ModelField implements Serializable {
     /** The format of the Field */
     private String format = "";
 
-    /** The valid-exp of the Field */
-    private String validExp = "";
-
-    /** Free form description of the Field */
-    private String description = "";
-
     /** Default value for the Field */
     private Object defaultValue = null;
-
-    /** boolean which specifies whether or not the Field is a Primary Key */
-    private boolean isPk = false;
 
     /** boolean which specifies whether or not the Field is ignored */
     private boolean ignored = false;
@@ -142,35 +133,11 @@ public class ModelField implements Serializable {
     }
 
     /**
-     * Sets valid exp.
-     * @param validExp the valid exp
-     */
-    public void setValidExp(String validExp) {
-        this.validExp = validExp;
-    }
-
-    /**
-     * Sets description.
-     * @param description the description
-     */
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    /**
      * Sets default value.
      * @param defaultValue the default value
      */
     public void setDefaultValue(Object defaultValue) {
         this.defaultValue = defaultValue;
-    }
-
-    /**
-     * Sets pk.
-     * @param pk the pk
-     */
-    public void setPk(boolean pk) {
-        isPk = pk;
     }
 
     /**

@@ -58,7 +58,6 @@ public class ModelGroupReader implements Serializable {
     private volatile Map<String, String> groupCache = null;
     private Set<String> groupNames = null;
 
-    private String modelName;
     private List<ResourceHandler> entityGroupResourceHandlers = new LinkedList<>();
 
     public static ModelGroupReader getModelGroupReader(String delegatorName) throws GenericEntityConfException {
@@ -78,7 +77,6 @@ public class ModelGroupReader implements Serializable {
     }
 
     public ModelGroupReader(String delegatorName, String modelName) throws GenericEntityConfException {
-        this.modelName = modelName;
         EntityGroupReader entityGroupReaderInfo = EntityConfig.getInstance().getEntityGroupReader(modelName);
 
         if (entityGroupReaderInfo == null) {

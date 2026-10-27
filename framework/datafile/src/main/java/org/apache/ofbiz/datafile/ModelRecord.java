@@ -29,9 +29,6 @@ import java.util.List;
 
 public class ModelRecord {
 
-    private static final String LIMIT_ONE = "one";
-    private static final String LIMIT_MANY = "many";
-
     /** The name of the Record */
     private String name = "";
 
@@ -60,9 +57,6 @@ public class ModelRecord {
 
     /** The name of the parent record for this record, if any */
     private String parentName = "";
-
-    /** The number limit of records to go under the parent, may be one or many */
-    private String limit = "";
 
     private ModelRecord parentRecord = null;
     private List<ModelRecord> childRecords = new ArrayList<>();
@@ -275,14 +269,6 @@ public class ModelRecord {
      */
     public void setTcLength(int tcLength) {
         this.tcLength = tcLength;
-    }
-
-    /**
-     * Sets limit.
-     * @param limit the limit
-     */
-    public void setLimit(String limit) {
-        this.limit = limit;
     }
 
     /**

@@ -58,7 +58,6 @@ public final class CreateValue extends MethodOperation {
 
     @Override
     public boolean exec(MethodContext methodContext) throws MiniLangException {
-        SimpleMethod simpleMethod = getSimpleMethod();
         GenericValue value = valueFma.get(methodContext.getEnvMap());
         if (value == null) {
             String errMsg = "In <create-value> the value \"" + valueFma + "\" was not found, not creating";

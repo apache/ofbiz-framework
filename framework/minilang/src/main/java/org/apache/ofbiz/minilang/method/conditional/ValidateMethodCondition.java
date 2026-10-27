@@ -39,8 +39,6 @@ import org.w3c.dom.Element;
  * @see <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Mini+Language+-+minilang+-+simple-method+-+Reference">Mini-language Reference</a>
  */
 public final class ValidateMethodCondition extends MethodOperation implements Conditional {
-
-    private static final String MODULE = ValidateMethodCondition.class.getName();
     private static final Class<?>[] PARAM_TYPES = new Class<?>[] {String.class };
 
     private final String className;

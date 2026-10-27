@@ -23,8 +23,6 @@ import java.util.UUID;
 
 public final class UtilRandom {
 
-    private static final String MODULE = UtilRandom.class.getName();
-
     public static String getUnique(String prefix, boolean onlyWord) {
         String unique = getId(onlyWord);
         return prefix != null

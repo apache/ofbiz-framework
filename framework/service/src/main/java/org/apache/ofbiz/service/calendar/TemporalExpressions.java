@@ -537,9 +537,6 @@ public class TemporalExpressions implements Serializable {
             while (!includesDate(next)) {
                 next.add(Calendar.DAY_OF_MONTH, 1);
             }
-            if (cal.get(Calendar.MONTH) != next.get(Calendar.MONTH)) {
-                context.setMonthBumped(true);
-            }
             return next;
         }
 
@@ -968,9 +965,6 @@ public class TemporalExpressions implements Serializable {
             }
             if (cal.get(Calendar.DAY_OF_MONTH) != next.get(Calendar.DAY_OF_MONTH)) {
                 context.setDayBumped(true);
-                if (cal.get(Calendar.MONTH) != next.get(Calendar.MONTH)) {
-                    context.setMonthBumped(true);
-                }
             }
             return next;
         }
@@ -1257,9 +1251,6 @@ public class TemporalExpressions implements Serializable {
                 context.setHourBumped(true);
                 if (cal.get(Calendar.DAY_OF_MONTH) != next.get(Calendar.DAY_OF_MONTH)) {
                     context.setDayBumped(true);
-                    if (cal.get(Calendar.MONTH) != next.get(Calendar.MONTH)) {
-                        context.setMonthBumped(true);
-                    }
                 }
             }
             return next;

@@ -39,8 +39,6 @@ public final class ModelMenuCondition {
      * it is immutable. DO NOT CHANGE THE OBJECT'S STATE AT RUN TIME!
      */
 
-    private static final String MODULE = ModelMenuCondition.class.getName();
-
     private final FlexibleStringExpander passStyleExdr;
     private final FlexibleStringExpander failStyleExdr;
     private final ModelCondition condition;

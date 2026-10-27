@@ -33,8 +33,6 @@ import org.w3c.dom.Element;
 @SuppressWarnings("serial")
 public class ModelFieldType implements Serializable {
 
-    private static final String MODULE = ModelFieldType.class.getName();
-
     /** The type of the Field */
     private String type;
     /** The java-type of the Field */

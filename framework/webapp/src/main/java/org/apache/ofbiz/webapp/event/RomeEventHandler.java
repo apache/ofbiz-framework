@@ -39,7 +39,6 @@ import com.rometools.rome.io.WireFeedOutput;
  */
 public class RomeEventHandler implements EventHandler {
 
-    private static final String MODULE = RomeEventHandler.class.getName();
     private static final String MIME = "application/xml; charset=UTF-8";
     private static final String DEFAULT_FEED_TYPE = "rss_2.0";
 

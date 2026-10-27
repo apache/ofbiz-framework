@@ -68,8 +68,6 @@ public final class ModelReader implements Serializable {
     private int numRelations = 0;
     private int numAutoRelations = 0;
 
-    private String modelName;
-
     /** collection of filenames for entity definitions */
     private Collection<ResourceHandler> entityResourceHandlers;
 
@@ -103,7 +101,6 @@ public final class ModelReader implements Serializable {
     }
 
     private ModelReader(String modelName) throws GenericEntityException {
-        this.modelName = modelName;
         entityResourceHandlers = new LinkedList<>();
         resourceHandlerEntities = new HashMap<>();
         entityResourceHandlerMap = new HashMap<>();

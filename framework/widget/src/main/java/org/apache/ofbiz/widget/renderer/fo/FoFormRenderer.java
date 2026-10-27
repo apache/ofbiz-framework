@@ -65,16 +65,9 @@ import org.apache.ofbiz.widget.renderer.macro.MacroScreenRenderer;
  */
 public class FoFormRenderer extends HtmlWidgetRenderer implements FormStringRenderer {
 
-    private static final String MODULE = FoFormRenderer.class.getName();
-
-    private HttpServletRequest request;
-    private HttpServletResponse response;
-
     public FoFormRenderer() { }
 
     public FoFormRenderer(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        this.request = request;
-        this.response = response;
     }
 
     private static void makeBlockString(Appendable writer, String widgetStyle, String text) throws IOException {

@@ -98,7 +98,6 @@ public class ShoppingCartEvents {
     }
 
     public static String removePromotion(HttpServletRequest request, HttpServletResponse response) {
-        LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         ShoppingCart cart = getCartObject(request);
         String promoCodeId = request.getParameter("promoCode");
         String result = "error";

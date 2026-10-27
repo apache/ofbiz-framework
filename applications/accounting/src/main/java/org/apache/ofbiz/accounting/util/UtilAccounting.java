@@ -37,8 +37,6 @@ import org.apache.ofbiz.entity.util.EntityQuery;
 
 public final class UtilAccounting {
 
-    private static final String MODULE = UtilAccounting.class.getName();
-
     private UtilAccounting() { }
 
     /**

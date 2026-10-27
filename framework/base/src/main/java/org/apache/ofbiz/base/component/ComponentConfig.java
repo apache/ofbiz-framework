@@ -803,12 +803,10 @@ public final class ComponentConfig {
      * @see <code>ofbiz-component.xsd</code>
      */
     public static final class UelMappingInfo extends ResourceInfo {
-        private final String name;
         private final String className;
 
         private UelMappingInfo(ComponentConfig componentConfig, Element element) {
             super(componentConfig, element);
-            this.name = element.getAttribute("name");
             this.className = element.getAttribute("class-name");
         }
 

@@ -31,8 +31,6 @@ import org.apache.ofbiz.widget.model.ModelWidget;
  * is a base class that is extended by other widget HTML rendering classes.
  */
 public class HtmlWidgetRenderer {
-    private static final String MODULE = HtmlWidgetRenderer.class.getName();
-
     /**
      * Characters that are appended to the end of each rendered element. Currently set to
      * CR/LF.
