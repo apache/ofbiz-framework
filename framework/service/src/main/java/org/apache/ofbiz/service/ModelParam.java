@@ -114,7 +114,7 @@ public class ModelParam implements Serializable {
         this.stringListSuffix = param.stringListSuffix;
         this.validators = param.validators;
         if (param.defaultValue != null) {
-            this.setDefaultValue(param.defaultValue.getOriginal());
+            this.defaultValue = FlexibleStringExpander.getInstance(param.defaultValue.getOriginal());
         }
         this.optional = param.optional;
         this.overrideOptional = param.overrideOptional;

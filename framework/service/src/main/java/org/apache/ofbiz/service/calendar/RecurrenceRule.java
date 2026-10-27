@@ -109,7 +109,7 @@ public class RecurrenceRule {
         if (!"RecurrenceRule".equals(rule.getEntityName())) {
             throw new RecurrenceRuleException("Invalid RecurrenceRule Value object.");
         }
-        init();
+        load();
     }
 
     /**
@@ -117,6 +117,10 @@ public class RecurrenceRule {
      *@throws RecurrenceRuleException
      */
     public void init() throws RecurrenceRuleException {
+        load();
+    }
+
+    private void load() throws RecurrenceRuleException {
         // Check the validity of the rule
         String freq = rule.getString("frequency");
 

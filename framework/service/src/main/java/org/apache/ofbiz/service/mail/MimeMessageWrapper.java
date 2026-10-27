@@ -58,11 +58,11 @@ public class MimeMessageWrapper implements java.io.Serializable {
 
     public MimeMessageWrapper(Session session, MimeMessage message) {
         this(session);
-        this.setMessage(message);
+        storeMessage(message);
     }
 
     public MimeMessageWrapper(Session session) {
-        this.setSession(session);
+        storeSession(session);
     }
 
     /**
@@ -70,6 +70,10 @@ public class MimeMessageWrapper implements java.io.Serializable {
      * @param session the session
      */
     public synchronized void setSession(Session session) {
+        storeSession(session);
+    }
+
+    private void storeSession(Session session) {
         this.session = session;
         this.mailProperties = session.getProperties();
     }
@@ -90,6 +94,10 @@ public class MimeMessageWrapper implements java.io.Serializable {
      * @param message the message
      */
     public synchronized void setMessage(MimeMessage message) {
+        storeMessage(message);
+    }
+
+    private void storeMessage(MimeMessage message) {
         if (message != null) {
             // serialize the message
             this.message = message;

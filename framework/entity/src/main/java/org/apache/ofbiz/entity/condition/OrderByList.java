@@ -20,6 +20,7 @@
 package org.apache.ofbiz.entity.condition;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
@@ -30,17 +31,26 @@ import org.apache.ofbiz.entity.config.model.Datasource;
 import org.apache.ofbiz.entity.model.ModelEntity;
 
 public class OrderByList implements Comparator<GenericEntity> {
-    private List<OrderByItem> orderByList = new ArrayList<>();
+    private final List<OrderByItem> orderByList;
 
     public OrderByList() {
+        this.orderByList = new ArrayList<>();
     }
 
     public OrderByList(String... orderByList) {
-        addOrderBy(orderByList);
+        this.orderByList = parse(Arrays.asList(orderByList));
     }
 
     public OrderByList(Collection<String> orderByList) {
-        addOrderBy(orderByList);
+        this.orderByList = parse(orderByList);
+    }
+
+    private static List<OrderByItem> parse(Collection<String> orderByList) {
+        List<OrderByItem> items = new ArrayList<>(orderByList.size());
+        for (String orderByItem: orderByList) {
+            items.add(OrderByItem.parse(orderByItem));
+        }
+        return items;
     }
 
     /**
