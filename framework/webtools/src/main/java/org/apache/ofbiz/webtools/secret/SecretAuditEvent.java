@@ -32,29 +32,30 @@ import java.util.Objects;
  * <p><strong>Security invariant:</strong> this record never holds a secret value,
  * vault path, or authentication credential. {@code secretKeyRef} is the logical
  * key name only (e.g. {@code jdbc-password.default}).</p>
+ *
+ * @param userLoginId Null for scheduler/system jobs that have no login session.
+ * @param clientIpAddress Null for non-HTTP call sites (scheduler jobs, runSync calls).
+ * @param secretKeyRef Logical key name — e.g. {@code jdbc-password.default}. Never a vault path or ARN.
+ * @param secretTarget {@code SYSTEM_PROPERTY | PASSWORDS_FILE | UNKNOWN}
+ * @param action Required. One of the action values defined in the audit taxonomy (Section 4 of the design).
+ * @param accessMode {@code PROVIDER_CALL | CACHE_HIT | FALLBACK_FILE | ENV_VAR | NOT_APPLICABLE}
+ * @param providerType Active provider name at call time — from {@code SecretProviderFactory.getProviderName()}.
+ * @param outcome Required. One of the outcome values defined in the audit taxonomy (Section 4 of the design).
+ * @param errorCategory Null unless {@code outcome=FAILURE}. One of: {@code AUTH_FAILED | NETWORK_TIMEOUT | PROVIDER_ERROR | INVALID_CONFIG}
+ * @param systemResourceId Nullable — populated for SYNC / STORE / ROTATION_POLL events against a SystemProperty row.
+ * @param systemPropertyId Nullable — populated for SYNC / STORE / ROTATION_POLL events against a SystemProperty row.
  */
 public record SecretAuditEvent(
-        /** Null for scheduler/system jobs that have no login session. */
         String userLoginId,
-        /** Null for non-HTTP call sites (scheduler jobs, runSync calls). */
         String clientIpAddress,
-        /** Logical key name — e.g. {@code jdbc-password.default}. Never a vault path or ARN. */
         String secretKeyRef,
-        /** {@code SYSTEM_PROPERTY | PASSWORDS_FILE | UNKNOWN} */
         String secretTarget,
-        /** Required. One of the action values defined in the audit taxonomy (Section 4 of the design). */
         String action,
-        /** {@code PROVIDER_CALL | CACHE_HIT | FALLBACK_FILE | ENV_VAR | NOT_APPLICABLE} */
         String accessMode,
-        /** Active provider name at call time — from {@code SecretProviderFactory.getProviderName()}. */
         String providerType,
-        /** Required. One of the outcome values defined in the audit taxonomy (Section 4 of the design). */
         String outcome,
-        /** Null unless {@code outcome=FAILURE}. One of: {@code AUTH_FAILED | NETWORK_TIMEOUT | PROVIDER_ERROR | INVALID_CONFIG} */
         String errorCategory,
-        /** Nullable — populated for SYNC / STORE / ROTATION_POLL events against a SystemProperty row. */
         String systemResourceId,
-        /** Nullable — populated for SYNC / STORE / ROTATION_POLL events against a SystemProperty row. */
         String systemPropertyId) {
 
     public static Builder builder() {

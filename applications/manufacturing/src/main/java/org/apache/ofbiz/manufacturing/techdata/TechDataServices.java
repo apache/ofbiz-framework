@@ -388,7 +388,6 @@ public class TechDataServices {
         return dateTo;
     }
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /** Used to find the last day in the TechDataCalendarWeek where capacity != 0, ending at dayEnd, dayEnd included.
      * @param techDataCalendarWeek        The TechDataCalendarWeek cover
      * @param dayEnd
