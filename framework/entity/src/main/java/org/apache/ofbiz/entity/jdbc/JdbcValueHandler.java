@@ -339,12 +339,30 @@ public abstract class JdbcValueHandler<T> {
         public Class<Object> getJavaClass() {
             return Object.class;
         }
+        /**
+         * Returns true when the column is a binary type (like PostgreSQL BYTEA) rather than a BLOB.
+         * Some drivers, like PostgreSQL's, map the JDBC Blob methods to large objects, which cannot
+         * be used with such a column, so the value is passed as bytes instead.
+         */
+        private boolean isBinaryColumn() {
+            int sqlType = getSqlType();
+            return sqlType == Types.BINARY || sqlType == Types.VARBINARY || sqlType == Types.LONGVARBINARY;
+        }
         @Override
         protected void castAndSetValue(PreparedStatement ps, int parameterIndex, Object obj) throws SQLException {
-            ps.setBlob(parameterIndex, (Blob) obj);
+            Blob blob = (Blob) obj;
+            if (isBinaryColumn()) {
+                ps.setBytes(parameterIndex, blob.getBytes(1, (int) blob.length()));
+            } else {
+                ps.setBlob(parameterIndex, blob);
+            }
         }
         @Override
         public Object getValue(ResultSet rs, int columnIndex) throws SQLException {
+            if (isBinaryColumn()) {
+                byte[] bytes = rs.getBytes(columnIndex);
+                return bytes != null ? new SerialBlob(bytes) : null;
+            }
             Blob fieldBlob = rs.getBlob(columnIndex);
             if (fieldBlob != null) {
                 return new SerialBlob(fieldBlob);
