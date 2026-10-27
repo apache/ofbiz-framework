@@ -221,7 +221,7 @@ public class TemporalExpressions implements Serializable {
         @Override
         public Calendar first(Calendar cal) {
             int month = cal.get(Calendar.MONTH);
-            Calendar first = alignDayOfWeek((Calendar) cal.clone());
+            Calendar first = alignDayOfWeek(cal.clone());
             if (first.before(cal)) {
                 first.set(Calendar.DAY_OF_MONTH, 1);
                 if (first.get(Calendar.MONTH) == month) {
@@ -253,14 +253,14 @@ public class TemporalExpressions implements Serializable {
             }
             int month = cal.get(Calendar.MONTH);
             int dom = cal.get(Calendar.DAY_OF_MONTH);
-            Calendar next = (Calendar) cal.clone();
+            Calendar next = cal.clone();
             alignDayOfWeek(next);
             return dom == next.get(Calendar.DAY_OF_MONTH) && next.get(Calendar.MONTH) == month;
         }
 
         @Override
         public boolean isSubstitutionCandidate(Calendar cal, TemporalExpression expressionToTest) {
-            Calendar checkCal = (Calendar) cal.clone();
+            Calendar checkCal = cal.clone();
             checkCal.add(Calendar.DAY_OF_MONTH, -1);
             while (!includesDate(checkCal)) {
                 if (expressionToTest.includesDate(checkCal)) {
@@ -274,7 +274,7 @@ public class TemporalExpressions implements Serializable {
         @Override
         public Calendar next(Calendar cal, ExpressionContext context) {
             int month = cal.get(Calendar.MONTH);
-            Calendar next = alignDayOfWeek((Calendar) cal.clone());
+            Calendar next = alignDayOfWeek(cal.clone());
             if (next.before(cal) || next.equals(cal)) {
                 next.set(Calendar.DAY_OF_MONTH, 1);
                 if (next.get(Calendar.MONTH) == month) {
@@ -352,7 +352,7 @@ public class TemporalExpressions implements Serializable {
 
         @Override
         public Calendar first(Calendar cal) {
-            Calendar first = (Calendar) cal.clone();
+            Calendar first = cal.clone();
             while (!includesDate(first)) {
                 first.add(Calendar.DAY_OF_MONTH, 1);
             }
@@ -381,7 +381,7 @@ public class TemporalExpressions implements Serializable {
 
         @Override
         public boolean isSubstitutionCandidate(Calendar cal, TemporalExpression expressionToTest) {
-            Calendar checkCal = (Calendar) cal.clone();
+            Calendar checkCal = cal.clone();
             checkCal.add(Calendar.DAY_OF_MONTH, -1);
             while (!includesDate(checkCal)) {
                 if (expressionToTest.includesDate(checkCal)) {
@@ -394,7 +394,7 @@ public class TemporalExpressions implements Serializable {
 
         @Override
         public Calendar next(Calendar cal, ExpressionContext context) {
-            Calendar next = (Calendar) cal.clone();
+            Calendar next = cal.clone();
             next.add(Calendar.DAY_OF_MONTH, 1);
             while (!includesDate(next)) {
                 next.add(Calendar.DAY_OF_MONTH, 1);
@@ -471,7 +471,7 @@ public class TemporalExpressions implements Serializable {
 
         @Override
         public Calendar first(Calendar cal) {
-            Calendar first = (Calendar) cal.clone();
+            Calendar first = cal.clone();
             while (!includesDate(first)) {
                 first.add(Calendar.DAY_OF_MONTH, 1);
             }
@@ -498,7 +498,7 @@ public class TemporalExpressions implements Serializable {
             if (dow == this.start || dow == this.end) {
                 return true;
             }
-            Calendar compareCal = (Calendar) cal.clone();
+            Calendar compareCal = cal.clone();
             while (compareCal.get(Calendar.DAY_OF_WEEK) != this.start) {
                 compareCal.add(Calendar.DAY_OF_MONTH, 1);
             }
@@ -513,7 +513,7 @@ public class TemporalExpressions implements Serializable {
 
         @Override
         public boolean isSubstitutionCandidate(Calendar cal, TemporalExpression expressionToTest) {
-            Calendar checkCal = (Calendar) cal.clone();
+            Calendar checkCal = cal.clone();
             checkCal.add(Calendar.DAY_OF_MONTH, -1);
             while (!includesDate(checkCal)) {
                 if (expressionToTest.includesDate(checkCal)) {
@@ -526,7 +526,7 @@ public class TemporalExpressions implements Serializable {
 
         @Override
         public Calendar next(Calendar cal, ExpressionContext context) {
-            Calendar next = (Calendar) cal.clone();
+            Calendar next = cal.clone();
             if (includesDate(next)) {
                 if (context.isDayBumped()) {
                     context.setDayBumped(false);
@@ -758,7 +758,7 @@ public class TemporalExpressions implements Serializable {
 
         @Override
         public boolean isSubstitutionCandidate(Calendar cal, TemporalExpression expressionToTest) {
-            Calendar checkCal = (Calendar) cal.clone();
+            Calendar checkCal = cal.clone();
             checkCal.add(this.freqType, -this.freqCount);
             while (!includesDate(checkCal)) {
                 if (expressionToTest.includesDate(checkCal)) {
@@ -786,7 +786,7 @@ public class TemporalExpressions implements Serializable {
         protected Calendar prepareCal(Calendar cal) {
             // Performs a "sane" skip forward in time - avoids time consuming loops
             // like incrementing every second from Jan 1 2000 until today
-            Calendar skip = (Calendar) cal.clone();
+            Calendar skip = cal.clone();
             skip.setTime(this.start);
             long deltaMillis = cal.getTimeInMillis() - this.start.getTime();
             if (deltaMillis < 1000) {
@@ -884,7 +884,7 @@ public class TemporalExpressions implements Serializable {
 
         @Override
         public Calendar first(Calendar cal) {
-            Calendar first = (Calendar) cal.clone();
+            Calendar first = cal.clone();
             while (!includesDate(first)) {
                 first.add(Calendar.HOUR_OF_DAY, 1);
             }
@@ -930,7 +930,7 @@ public class TemporalExpressions implements Serializable {
             if (hour == this.start || hour == this.end) {
                 return true;
             }
-            Calendar compareCal = (Calendar) cal.clone();
+            Calendar compareCal = cal.clone();
             compareCal.set(Calendar.HOUR_OF_DAY, this.start);
             while (compareCal.get(Calendar.HOUR_OF_DAY) != this.end) {
                 if (compareCal.get(Calendar.HOUR_OF_DAY) == hour) {
@@ -943,7 +943,7 @@ public class TemporalExpressions implements Serializable {
 
         @Override
         public boolean isSubstitutionCandidate(Calendar cal, TemporalExpression expressionToTest) {
-            Calendar checkCal = (Calendar) cal.clone();
+            Calendar checkCal = cal.clone();
             checkCal.add(Calendar.HOUR_OF_DAY, -1);
             while (!includesDate(checkCal)) {
                 if (expressionToTest.includesDate(checkCal)) {
@@ -956,7 +956,7 @@ public class TemporalExpressions implements Serializable {
 
         @Override
         public Calendar next(Calendar cal, ExpressionContext context) {
-            Calendar next = (Calendar) cal.clone();
+            Calendar next = cal.clone();
             if (includesDate(next)) {
                 if (context.isHourBumped()) {
                     return next;
@@ -1051,7 +1051,7 @@ public class TemporalExpressions implements Serializable {
 
         @Override
         public Calendar first(Calendar cal) {
-            Calendar first = (Calendar) cal.clone();
+            Calendar first = cal.clone();
             for (TemporalExpression expression : this.expressionSet) {
                 first = expression.first(first);
                 if (first == null) {
@@ -1094,7 +1094,7 @@ public class TemporalExpressions implements Serializable {
 
         @Override
         public Calendar next(Calendar cal, ExpressionContext context) {
-            Calendar next = (Calendar) cal.clone();
+            Calendar next = cal.clone();
             for (TemporalExpression expression : this.expressionSet) {
                 next = expression.next(next, context);
                 if (next == null) {
@@ -1174,7 +1174,7 @@ public class TemporalExpressions implements Serializable {
 
         @Override
         public Calendar first(Calendar cal) {
-            Calendar first = (Calendar) cal.clone();
+            Calendar first = cal.clone();
             while (!includesDate(first)) {
                 first.add(Calendar.MINUTE, 1);
             }
@@ -1220,7 +1220,7 @@ public class TemporalExpressions implements Serializable {
             if (minute == this.start || minute == this.end) {
                 return true;
             }
-            Calendar compareCal = (Calendar) cal.clone();
+            Calendar compareCal = cal.clone();
             compareCal.set(Calendar.MINUTE, this.start);
             while (compareCal.get(Calendar.MINUTE) != this.end) {
                 if (compareCal.get(Calendar.MINUTE) == minute) {
@@ -1233,7 +1233,7 @@ public class TemporalExpressions implements Serializable {
 
         @Override
         public boolean isSubstitutionCandidate(Calendar cal, TemporalExpression expressionToTest) {
-            Calendar checkCal = (Calendar) cal.clone();
+            Calendar checkCal = cal.clone();
             checkCal.add(Calendar.MINUTE, -1);
             while (!includesDate(checkCal)) {
                 if (expressionToTest.includesDate(checkCal)) {
@@ -1246,7 +1246,7 @@ public class TemporalExpressions implements Serializable {
 
         @Override
         public Calendar next(Calendar cal, ExpressionContext context) {
-            Calendar next = (Calendar) cal.clone();
+            Calendar next = cal.clone();
             if (includesDate(next)) {
                 next.add(Calendar.MINUTE, 1);
             }
@@ -1334,7 +1334,7 @@ public class TemporalExpressions implements Serializable {
 
         @Override
         public Calendar first(Calendar cal) {
-            Calendar first = (Calendar) cal.clone();
+            Calendar first = cal.clone();
             first.set(Calendar.DAY_OF_MONTH, 1);
             while (!includesDate(first)) {
                 first.add(Calendar.MONTH, 1);
@@ -1362,7 +1362,7 @@ public class TemporalExpressions implements Serializable {
             if (month == this.start || month == this.end) {
                 return true;
             }
-            Calendar compareCal = (Calendar) cal.clone();
+            Calendar compareCal = cal.clone();
             while (compareCal.get(Calendar.MONTH) != this.start) {
                 compareCal.add(Calendar.MONTH, 1);
             }
@@ -1377,7 +1377,7 @@ public class TemporalExpressions implements Serializable {
 
         @Override
         public boolean isSubstitutionCandidate(Calendar cal, TemporalExpression expressionToTest) {
-            Calendar checkCal = (Calendar) cal.clone();
+            Calendar checkCal = cal.clone();
             checkCal.add(Calendar.MONTH, -1);
             while (!includesDate(checkCal)) {
                 if (expressionToTest.includesDate(checkCal)) {
@@ -1390,7 +1390,7 @@ public class TemporalExpressions implements Serializable {
 
         @Override
         public Calendar next(Calendar cal, ExpressionContext context) {
-            Calendar next = (Calendar) cal.clone();
+            Calendar next = cal.clone();
             next.set(Calendar.DAY_OF_MONTH, 1);
             next.add(Calendar.MONTH, 1);
             while (!includesDate(next)) {
