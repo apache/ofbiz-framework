@@ -52,12 +52,15 @@ public class RecurrenceInfo {
         if (!"RecurrenceInfo".equals(info.getEntityName())) {
             throw new RecurrenceInfoException("Invalid RecurrenceInfo Value object.");
         }
-        init();
+        load();
     }
 
     /** Initializes the rules for this RecurrenceInfo object. */
     public void init() throws RecurrenceInfoException {
+        load();
+    }
 
+    private void load() throws RecurrenceInfoException {
         if (info.get("startDateTime") == null) {
             throw new RecurrenceInfoException("Recurrence startDateTime cannot be null.");
         }
