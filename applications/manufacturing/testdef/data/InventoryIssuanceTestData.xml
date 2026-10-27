@@ -56,10 +56,10 @@ under the License.
     <!-- Accounting Setup -->
     <CustomTimePeriod customTimePeriodId="II_FISCAL_YEAR" periodTypeId="FISCAL_YEAR" fromDate="2020-01-01 00:00:00.0" thruDate="2026-12-31 23:59:59.0" isClosed="N" organizationPartyId="II_COMPANY"/>
     
-    <GlAccount glAccountId="II_INV_ACCOUNT" glAccountTypeId="INVENTORY_ACCOUNT" glAccountClassId="INVENTORY_ASSET" accountCode="140000" accountName="Inventory"/>
-    <GlAccount glAccountId="II_RAW_MAT_ACCOUNT" glAccountTypeId="RAWMAT_INVENTORY" glAccountClassId="INVENTORY_ASSET" accountCode="141000" accountName="Raw Materials"/>
-    <GlAccount glAccountId="II_WIP_ACCOUNT" glAccountTypeId="WIP_INVENTORY" glAccountClassId="INVENTORY_ASSET" accountCode="142000" accountName="Work In Progress"/>
-    <GlAccount glAccountId="II_COGS_ACCOUNT" glAccountTypeId="COGS_ACCOUNT" glAccountClassId="COGS_EXPENSE" accountCode="500000" accountName="COGS"/>
+    <GlAccount glAccountId="II_INV_ACCOUNT" glAccountTypeId="INVENTORY_ACCOUNT" glAccountClassId="INVENTORY_ASSET" accountCode="II140000" accountName="Inventory"/>
+    <GlAccount glAccountId="II_RAW_MAT_ACCOUNT" glAccountTypeId="RAWMAT_INVENTORY" glAccountClassId="INVENTORY_ASSET" accountCode="II141000" accountName="Raw Materials"/>
+    <GlAccount glAccountId="II_WIP_ACCOUNT" glAccountTypeId="WIP_INVENTORY" glAccountClassId="INVENTORY_ASSET" accountCode="II142000" accountName="Work In Progress"/>
+    <GlAccount glAccountId="II_COGS_ACCOUNT" glAccountTypeId="COGS_ACCOUNT" glAccountClassId="COGS_EXPENSE" accountCode="II500000" accountName="COGS"/>
 
     <GlAccountOrganization glAccountId="II_INV_ACCOUNT" organizationPartyId="II_COMPANY" fromDate="2020-01-01 00:00:00.0"/>
     <GlAccountOrganization glAccountId="II_RAW_MAT_ACCOUNT" organizationPartyId="II_COMPANY" fromDate="2020-01-01 00:00:00.0"/>
