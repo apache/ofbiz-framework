@@ -58,6 +58,8 @@ public class ShippingEstimateWrapper {
     private BigDecimal shippableTotal = BigDecimal.ZERO;
     private String partyId = null;
     private String supplierPartyId = null;
+    private final BigDecimal totalAllowance;
+    private boolean loaded = false;
 
     public static ShippingEstimateWrapper getWrapper(LocalDispatcher dispatcher, ShoppingCart cart, int shipGroup) {
         return new ShippingEstimateWrapper(dispatcher, cart, shipGroup);
@@ -93,9 +95,20 @@ public class ShippingEstimateWrapper {
                 Debug.logError(gee.getMessage(), MODULE);
             }
         }
-        this.loadShippingMethods();
-        this.loadEstimates(totalAllowance);
-        this.loadShipmentTimeEstimates();
+        this.totalAllowance = totalAllowance;
+    }
+
+    /**
+     * Runs the load methods on first use, so they are not called from the constructor and their overrides
+     * see a fully constructed object.
+     */
+    private synchronized void ensureLoaded() {
+        if (!loaded) {
+            loaded = true;
+            this.loadShippingMethods();
+            this.loadEstimates(totalAllowance);
+            this.loadShipmentTimeEstimates();
+        }
     }
 
     /**
@@ -160,6 +173,7 @@ public class ShippingEstimateWrapper {
      * @return the shipping methods
      */
     public List<GenericValue> getShippingMethods() {
+        ensureLoaded();
         return shippingMethods;
     }
 
@@ -168,6 +182,7 @@ public class ShippingEstimateWrapper {
      * @return the all estimates
      */
     public Map<GenericValue, BigDecimal> getAllEstimates() {
+        ensureLoaded();
         return shippingEstimates;
     }
 
@@ -177,6 +192,7 @@ public class ShippingEstimateWrapper {
      * @return the shipping estimate
      */
     public BigDecimal getShippingEstimate(GenericValue storeCarrierShipMethod) {
+        ensureLoaded();
         return shippingEstimates.get(storeCarrierShipMethod);
     }
 
@@ -185,6 +201,7 @@ public class ShippingEstimateWrapper {
      * @return the shipping time estimates
      */
     public List<GenericValue> getShippingTimeEstimates() {
+        ensureLoaded();
         return shippingTimeEstimates;
     }
 
@@ -194,6 +211,7 @@ public class ShippingEstimateWrapper {
      * @return the shipping time estimate in day
      */
     public Double getShippingTimeEstimateInDay(GenericValue storeCarrierShipMethod) {
+        ensureLoaded();
         return ShippingEvents.getShippingTimeEstimateInDay(dispatcher, storeCarrierShipMethod, shippingTimeEstimates);
     }
 }

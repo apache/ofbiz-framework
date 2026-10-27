@@ -46,12 +46,14 @@ public class WebShoppingCart extends ShoppingCart {
                 WebSiteWorker.getWebSiteId(request), (locale != null ? locale : ProductStoreWorker.getStoreLocale(request)), (currencyUom != null
                         ? currencyUom : ProductStoreWorker.getStoreCurrencyUomId(request)), request.getParameter("billToCustomerPartyId"), (
                         request.getParameter("supplierPartyId") != null ? request.getParameter("supplierPartyId")
-                        : request.getParameter("billFromVendorPartyId")));
+                        : request.getParameter("billFromVendorPartyId")),
+                (GenericValue) getSessionAttribute(request, "userLogin"), (GenericValue) getSessionAttribute(request, "autoUserLogin"),
+                (String) getSessionAttribute(request, "orderPartyId"));
+    }
 
+    private static Object getSessionAttribute(HttpServletRequest request, String name) {
         HttpSession session = request.getSession(true);
-        this.setUserLogin((GenericValue) session.getAttribute("userLogin"));
-        this.setAutoUserLogin((GenericValue) session.getAttribute("autoUserLogin"));
-        this.setOrderPartyId((String) session.getAttribute("orderPartyId"));
+        return session.getAttribute(name);
     }
 
     public WebShoppingCart(HttpServletRequest request) {

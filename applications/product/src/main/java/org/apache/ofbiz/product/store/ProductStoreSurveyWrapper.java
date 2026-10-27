@@ -19,6 +19,7 @@
 package org.apache.ofbiz.product.store;
 
 import java.io.Writer;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.ofbiz.base.util.UtilValidate;
@@ -32,38 +33,44 @@ public class ProductStoreSurveyWrapper extends SurveyWrapper {
 
     private static final String MODULE = ProductStoreSurveyWrapper.class.getName();
 
-    private GenericValue productStoreSurveyAppl = null;
-    private String surveyTemplate = null;
-    private String resultTemplate = null;
+    private final GenericValue productStoreSurveyAppl;
+    private final String surveyTemplate;
+    private final String resultTemplate;
     private boolean callResult = false;
 
-    protected ProductStoreSurveyWrapper() { }
+    protected ProductStoreSurveyWrapper() {
+        this.productStoreSurveyAppl = null;
+        this.surveyTemplate = null;
+        this.resultTemplate = null;
+    }
 
     public ProductStoreSurveyWrapper(GenericValue productStoreSurveyAppl, String partyId, Map<String, Object> passThru,
                                      Map<String, Object> defaultValues) {
+        super(requireAppl(productStoreSurveyAppl).getDelegator(), null, partyId, productStoreSurveyAppl.getString("surveyId"),
+                sanitizePassThru(passThru), defaultValues);
         this.productStoreSurveyAppl = productStoreSurveyAppl;
-
-        if (this.productStoreSurveyAppl != null) {
-            this.setPartyId(partyId);
-            this.setDelegator(productStoreSurveyAppl.getDelegator());
-            this.setSurveyId(productStoreSurveyAppl.getString("surveyId"));
-            this.surveyTemplate = productStoreSurveyAppl.getString("surveyTemplate");
-            this.resultTemplate = productStoreSurveyAppl.getString("resultTemplate");
-        } else {
-            throw new IllegalArgumentException("Required parameter productStoreSurveyAppl missing");
-        }
-        this.setDefaultValues(defaultValues);
-        // sanitize pass-thru, we need to remove hidden fields values that are set
-        // by the survey so they won't be duplicated in additionalFields
-        passThru.remove("surveyId");
-        passThru.remove("partyId");
-        passThru.remove("surveyResponseId");
-        this.setPassThru(passThru);
-        this.checkParameters();
+        this.surveyTemplate = productStoreSurveyAppl.getString("surveyTemplate");
+        this.resultTemplate = productStoreSurveyAppl.getString("resultTemplate");
     }
 
     public ProductStoreSurveyWrapper(GenericValue productStoreSurveyAppl, String partyId, Map<String, Object> passThru) {
         this(productStoreSurveyAppl, partyId, passThru, null);
+    }
+
+    private static GenericValue requireAppl(GenericValue productStoreSurveyAppl) {
+        if (productStoreSurveyAppl == null) {
+            throw new IllegalArgumentException("Required parameter productStoreSurveyAppl missing");
+        }
+        return productStoreSurveyAppl;
+    }
+
+    private static Map<String, Object> sanitizePassThru(Map<String, Object> passThru) {
+        // remove hidden fields values that are set by the survey so they won't be duplicated in additionalFields
+        Map<String, Object> sanitized = new HashMap<>(passThru);
+        sanitized.remove("surveyId");
+        sanitized.remove("partyId");
+        sanitized.remove("surveyResponseId");
+        return sanitized;
     }
 
     /**
