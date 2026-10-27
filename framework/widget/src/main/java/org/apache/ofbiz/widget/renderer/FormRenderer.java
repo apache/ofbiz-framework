@@ -912,15 +912,18 @@ public class FormRenderer {
                 context.put("highIndex", modelForm.isOverridenListSize() ? listSize : highIndex);
             }
             context.put("actualPageSize", highIndex - lowIndex);
+        }
+    }
 
-            if (iter instanceof EntityListIterator) {
-                try {
-                    // CHECKSTYLE_OFF: ALMOST_ALL
-                    ((EntityListIterator) iter).close();
-                    // CHECKSTYLE_ON: ALMOST_ALL
-                } catch (GenericEntityException e) {
-                    Debug.logError(e, "Error closing list form render EntityListIterator: " + e.toString(), MODULE);
-                }
+    private void closeEntityListIterator(Map<String, Object> context) {
+        Object obj = context.get(modelForm.getListName());
+        if (obj instanceof EntityListIterator) {
+            try {
+                // CHECKSTYLE_OFF: ALMOST_ALL
+                ((EntityListIterator) obj).close();
+                // CHECKSTYLE_ON: ALMOST_ALL
+            } catch (GenericEntityException e) {
+                Debug.logError(e, "Error closing list form render EntityListIterator: " + e.toString(), MODULE);
             }
         }
     }
@@ -935,17 +938,21 @@ public class FormRenderer {
         // render formatting wrapper open
         formStringRenderer.renderFormatListWrapperOpen(writer, context, modelForm);
 
-        int numOfColumns = 0;
-        boolean containsData = this.checkFormData(context);
-        // ===== render header row =====
-        if (!modelForm.getHideHeader() && containsData) {
-            numOfColumns = this.renderHeaderRow(writer, context);
+        try {
+            int numOfColumns = 0;
+            boolean containsData = this.checkFormData(context);
+            // ===== render header row =====
+            if (!modelForm.getHideHeader() && containsData) {
+                numOfColumns = this.renderHeaderRow(writer, context);
+            }
+            if (!containsData) {
+                formStringRenderer.renderEmptyFormDataMessage(writer, context, modelForm);
+            }
+            // ===== render the item rows =====
+            this.renderItemRows(writer, context, formStringRenderer, true, numOfColumns);
+        } finally {
+            this.closeEntityListIterator(context);
         }
-        if (!containsData) {
-            formStringRenderer.renderEmptyFormDataMessage(writer, context, modelForm);
-        }
-        // ===== render the item rows =====
-        this.renderItemRows(writer, context, formStringRenderer, true, numOfColumns);
 
         // render formatting wrapper close
         formStringRenderer.renderFormatListWrapperClose(writer, context, modelForm);
@@ -964,17 +971,21 @@ public class FormRenderer {
         // render formatting wrapper open
         formStringRenderer.renderFormatListWrapperOpen(writer, context, modelForm);
 
-        int numOfColumns = 0;
-        boolean containsData = this.checkFormData(context);
-        // ===== render header row =====
-        if (!modelForm.getHideHeader() && containsData) {
-            numOfColumns = this.renderHeaderRow(writer, context);
+        try {
+            int numOfColumns = 0;
+            boolean containsData = this.checkFormData(context);
+            // ===== render header row =====
+            if (!modelForm.getHideHeader() && containsData) {
+                numOfColumns = this.renderHeaderRow(writer, context);
+            }
+            if (!containsData) {
+                formStringRenderer.renderEmptyFormDataMessage(writer, context, modelForm);
+            }
+            // ===== render the item rows =====
+            this.renderItemRows(writer, context, formStringRenderer, false, numOfColumns);
+        } finally {
+            this.closeEntityListIterator(context);
         }
-        if (!containsData) {
-            formStringRenderer.renderEmptyFormDataMessage(writer, context, modelForm);
-        }
-        // ===== render the item rows =====
-        this.renderItemRows(writer, context, formStringRenderer, false, numOfColumns);
 
         formStringRenderer.renderFormatListWrapperClose(writer, context, modelForm);
 
@@ -1252,9 +1263,9 @@ public class FormRenderer {
         }
         int itemIndex = -1;
         if (iter instanceof EntityListIterator) {
-            EntityListIterator eli = (EntityListIterator) iter; // INFO Spotbugs reports here "'eli' is never closed" but that's on purpose
+            // not closed here: the iterator is still needed to render the rows, it is closed by the caller
             try {
-                if (eli.getResultsSizeAfterPartialList() > 0) {
+                if (((EntityListIterator) iter).getResultsSizeAfterPartialList() > 0) {
                     itemIndex++;
                 }
             } catch (GenericEntityException gee) {
