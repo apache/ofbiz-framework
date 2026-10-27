@@ -209,16 +209,16 @@ public class ShoppingCartItem implements java.io.Serializable {
         this.accommodationMapId = item.getAccommodationMapId();
         this.accommodationSpotId = item.getAccommodationSpotId();
         this.quantity = item.getQuantity();
-        this.setBasePrice(item.getBasePrice());
-        this.setDisplayPrice(item.getDisplayPrice());
-        this.setRecurringBasePrice(item.getRecurringBasePrice());
-        this.setRecurringDisplayPrice(item.getRecurringDisplayPrice());
-        this.setSpecialPromoPrice(item.getSpecialPromoPrice());
+        this.basePrice = item.getBasePrice();
+        this.displayPrice = item.getDisplayPrice();
+        this.recurringBasePrice = item.getRecurringBasePrice();
+        this.recurringDisplayPrice = item.getRecurringDisplayPrice();
+        this.specialPromoPrice = item.getSpecialPromoPrice();
         this.reserv2ndPPPerc = item.getReserv2ndPPPerc();
         this.reservNthPPPerc = item.getReservNthPPPerc();
         this.listPrice = item.getListPrice();
         this.discountRate = item.getDiscountRate();
-        this.setIsModifiedPrice(item.getIsModifiedPrice());
+        this.isModifiedPrice = item.getIsModifiedPrice();
         this.selectedAmount = item.getSelectedAmount();
         this.requirementId = item.getRequirementId();
         this.quoteId = item.getQuoteId();
@@ -226,15 +226,15 @@ public class ShoppingCartItem implements java.io.Serializable {
         this.associatedOrderId = item.getAssociatedOrderId();
         this.associatedOrderItemSeqId = item.getAssociatedOrderItemSeqId();
         this.orderItemAssocTypeId = item.getOrderItemAssocTypeId();
-        this.setStatusId(item.getStatusId());
+        this.statusId = item.getStatusId();
         this.orderItemAttributes = item.getOrderItemAttributes() == null ? new HashMap<>() : new HashMap<>(item.getOrderItemAttributes());
         this.attributes = item.getAttributes() == null ? new HashMap<>() : new HashMap<>(item.getAttributes());
-        this.setOrderItemSeqId(item.getOrderItemSeqId());
+        this.orderItemSeqId = item.getOrderItemSeqId();
         this.locale = item.locale;
-        this.setShipBeforeDate(item.getShipBeforeDate());
-        this.setShipAfterDate(item.getShipAfterDate());
-        this.setEstimatedShipDate(item.getEstimatedShipDate());
-        this.setCancelBackOrderDate(item.getCancelBackOrderDate());
+        this.shipBeforeDate = item.getShipBeforeDate();
+        this.shipAfterDate = item.getShipAfterDate();
+        this.estimatedShipDate = item.getEstimatedShipDate();
+        this.cancelBackOrderDate = item.getCancelBackOrderDate();
         this.contactMechIdsMap = item.getOrderItemContactMechIds() == null ? null : new HashMap<>(item.getOrderItemContactMechIds());
         this.orderItemPriceInfos = item.getOrderItemPriceInfos() == null ? null : new LinkedList<>(item.getOrderItemPriceInfos());
         this.itemAdjustments.addAll(item.getAdjustments());
@@ -248,7 +248,7 @@ public class ShoppingCartItem implements java.io.Serializable {
         if (item.getAlternativeOptionProductIds() != null) {
             List<String> tempAlternativeOptionProductIds = new LinkedList<>();
             tempAlternativeOptionProductIds.addAll(item.getAlternativeOptionProductIds());
-            this.setAlternativeOptionProductIds(tempAlternativeOptionProductIds);
+            this.alternativeOptionProductIds = tempAlternativeOptionProductIds;
         }
         if (item.configWrapper != null) {
             this.configWrapper = new ProductConfigWrapper(item.configWrapper);
@@ -284,7 +284,8 @@ public class ShoppingCartItem implements java.io.Serializable {
         String productName = ProductContentWrapper.getProductContentAsText(product, "PRODUCT_NAME", this.locale, dispatcher, "html");
         // if the productName is null or empty, see if there is an associated virtual product and get the productName of that product
         if (UtilValidate.isEmpty(productName)) {
-            GenericValue parentProduct = this.getParentProduct();
+            this.parentProduct = findParentProduct(this.productId, this.delegator);
+            GenericValue parentProduct = this.parentProduct;
             if (parentProduct != null) {
                 productName = ProductContentWrapper.getProductContentAsText(parentProduct, "PRODUCT_NAME", this.locale, dispatcher, "html");
             }
@@ -343,12 +344,24 @@ public class ShoppingCartItem implements java.io.Serializable {
         this.itemGroup = itemGroup;
         this.prodCatalogId = prodCatalogId;
         this.attributes = (attributes == null ? new HashMap<>() : attributes);
-        this.addAllProductFeatureAndAppls(additionalProductFeatureAndAppls);
+        if (additionalProductFeatureAndAppls != null) {
+            for (GenericValue additionalProductFeatureAndAppl : additionalProductFeatureAndAppls.values()) {
+                if (additionalProductFeatureAndAppl != null) {
+                    GenericValue replaced = this.additionalProductFeatureAndAppls.put(
+                            additionalProductFeatureAndAppl.getString("productFeatureTypeId"), additionalProductFeatureAndAppl);
+                    if (replaced != null) {
+                        removeFeatureAdjustments(this.itemAdjustments, replaced.getString("productFeatureId"));
+                    }
+                    // the quantity is still zero here, so the adjustment amounts are zero too
+                    this.itemAdjustments.add(makeFeatureAdjustment(this.delegator, additionalProductFeatureAndAppl, this.quantity));
+                }
+            }
+        }
         this.locale = locale;
         if (UtilValidate.isNotEmpty(configWrapper)) {
             this.configWrapper = configWrapper;
             if (UtilValidate.isEmpty(configWrapper.getConfigId())) { //new product configuration. Persist it
-                ProductConfigWorker.storeProductConfigWrapper(configWrapper, getDelegator());
+                ProductConfigWorker.storeProductConfigWrapper(configWrapper, this.delegator);
             }
         }
     }
@@ -374,8 +387,8 @@ public class ShoppingCartItem implements java.io.Serializable {
         this.itemDescription = description;
         this.productCategoryId = categoryId;
         if (basePrice != null) {
-            this.setBasePrice(basePrice);
-            this.setDisplayPrice(basePrice);
+            this.basePrice = basePrice;
+            this.displayPrice = basePrice;
         }
         this.attributes = (attributes == null ? new HashMap<>() : attributes);
         this.prodCatalogId = prodCatalogId;
@@ -2701,7 +2714,11 @@ public class ShoppingCartItem implements java.io.Serializable {
         String featureType = additionalProductFeatureAndAppl.getString("productFeatureTypeId");
         this.additionalProductFeatureAndAppls.put(featureType, additionalProductFeatureAndAppl);
 
-        GenericValue orderAdjustment = this.getDelegator().makeValue("OrderAdjustment");
+        this.addAdjustment(makeFeatureAdjustment(this.getDelegator(), additionalProductFeatureAndAppl, this.getQuantity()));
+    }
+
+    private static GenericValue makeFeatureAdjustment(Delegator delegator, GenericValue additionalProductFeatureAndAppl, BigDecimal quantity) {
+        GenericValue orderAdjustment = delegator.makeValue("OrderAdjustment");
         orderAdjustment.set("orderAdjustmentTypeId", "ADDITIONAL_FEATURE");
         orderAdjustment.set("description", additionalProductFeatureAndAppl.get("description"));
         orderAdjustment.set("productFeatureId", additionalProductFeatureAndAppl.get("productFeatureId"));
@@ -2709,13 +2726,13 @@ public class ShoppingCartItem implements java.io.Serializable {
         // NOTE: this is a VERY simple pricing scheme for additional features and will likely need to be extended for most real applications
         BigDecimal amount = (BigDecimal) additionalProductFeatureAndAppl.get("amount");
         if (amount != null) {
-            amount = amount.multiply(this.getQuantity());
+            amount = amount.multiply(quantity);
             orderAdjustment.set("amount", amount);
         }
 
         BigDecimal recurringAmount = (BigDecimal) additionalProductFeatureAndAppl.get("recurringAmount");
         if (recurringAmount != null) {
-            recurringAmount = recurringAmount.multiply(this.getQuantity());
+            recurringAmount = recurringAmount.multiply(quantity);
             orderAdjustment.set("recurringAmount", recurringAmount);
         }
 
@@ -2723,8 +2740,7 @@ public class ShoppingCartItem implements java.io.Serializable {
             Debug.logWarning("In putAdditionalProductFeatureAndAppl the amount and recurringAmount are null for this adjustment: "
                     + orderAdjustment, MODULE);
         }
-
-        this.addAdjustment(orderAdjustment);
+        return orderAdjustment;
     }
 
     /**
@@ -2893,6 +2909,10 @@ public class ShoppingCartItem implements java.io.Serializable {
      * @param productFeatureId the product feature id
      */
     public void removeFeatureAdjustment(String productFeatureId) {
+        removeFeatureAdjustments(itemAdjustments, productFeatureId);
+    }
+
+    private static void removeFeatureAdjustments(List<GenericValue> itemAdjustments, String productFeatureId) {
         if (productFeatureId == null) {
             return;
         }
@@ -3148,13 +3168,17 @@ public class ShoppingCartItem implements java.io.Serializable {
         if (this.parentProduct != null) {
             return this.parentProduct;
         }
-        if (this.productId == null) {
-            throw new IllegalStateException("Bad product id");
-        }
 
-        this.parentProduct = ProductWorker.getParentProduct(productId, this.getDelegator());
+        this.parentProduct = findParentProduct(this.productId, this.getDelegator());
 
         return this.parentProduct;
+    }
+
+    private static GenericValue findParentProduct(String productId, Delegator delegator) {
+        if (productId == null) {
+            throw new IllegalStateException("Bad product id");
+        }
+        return ProductWorker.getParentProduct(productId, delegator);
     }
 
     /**

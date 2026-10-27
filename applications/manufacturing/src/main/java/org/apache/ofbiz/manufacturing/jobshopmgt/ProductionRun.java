@@ -49,7 +49,7 @@ public class ProductionRun {
     private static final String MODULE = ProductionRun.class.getName();
     private static final String RESOURCE = "ManufacturingUiLabels";
 
-    private GenericValue productionRun; // WorkEffort (PROD_ORDER_HEADER)
+    private final GenericValue productionRun; // WorkEffort (PROD_ORDER_HEADER)
     private GenericValue productionRunProduct; // WorkEffortGoodStandard (type: PRUN_PROD_DELIV)
     private GenericValue productProduced; // Product (from WorkEffortGoodStandard of type: PRUN_PROD_DELIV)
     private BigDecimal quantity; // the estimatedQuantity
@@ -61,7 +61,7 @@ public class ProductionRun {
     private GenericValue currentStatus;
     private List<GenericValue> productionRunComponents;
     private List<GenericValue> productionRunRoutingTasks;
-    private LocalDispatcher dispatcher;
+    private final LocalDispatcher dispatcher;
 
     /**
      * indicate if quantity or estimatedStartDate has been modified and
@@ -74,27 +74,37 @@ public class ProductionRun {
     private boolean quantityIsUpdated = false;
 
     public ProductionRun(String productionRunId, Delegator delegator, LocalDispatcher dispatcher) {
+        this.dispatcher = UtilValidate.isEmpty(productionRunId) ? null : dispatcher;
+        this.productionRun = findProductionRun(productionRunId, delegator);
+        if (productionRun != null) {
+            this.estimatedStartDate = productionRun.getTimestamp("estimatedStartDate");
+            this.estimatedCompletionDate = productionRun.getTimestamp("estimatedCompletionDate");
+            this.productionRunName = productionRun.getString("workEffortName");
+            this.description = productionRun.getString("description");
+        }
+    }
+
+    /**
+     * Finds the production run header; when the id is the one of a task, the header is its parent.
+     * @return the production run header, or null if it is not found
+     */
+    private static GenericValue findProductionRun(String productionRunId, Delegator delegator) {
+        if (UtilValidate.isEmpty(productionRunId)) {
+            return null;
+        }
         try {
-            if (!UtilValidate.isEmpty(productionRunId)) {
-                this.dispatcher = dispatcher;
-                GenericValue workEffort = EntityQuery.use(delegator).from("WorkEffort").where("workEffortId", productionRunId).queryOne();
-                if (workEffort != null) {
-                    // If this is a task, get the parent production run
-                    if (workEffort.getString("workEffortTypeId") != null && "PROD_ORDER_TASK".equals(workEffort.getString("workEffortTypeId"))) {
-                        workEffort = EntityQuery.use(delegator).from("WorkEffort").where("workEffortId",
-                                workEffort.getString("workEffortParentId")).queryOne();
-                    }
-                }
-                this.productionRun = workEffort;
-                if (exist()) {
-                    this.estimatedStartDate = productionRun.getTimestamp("estimatedStartDate");
-                    this.estimatedCompletionDate = productionRun.getTimestamp("estimatedCompletionDate");
-                    this.productionRunName = productionRun.getString("workEffortName");
-                    this.description = productionRun.getString("description");
+            GenericValue workEffort = EntityQuery.use(delegator).from("WorkEffort").where("workEffortId", productionRunId).queryOne();
+            if (workEffort != null) {
+                // If this is a task, get the parent production run
+                if (workEffort.getString("workEffortTypeId") != null && "PROD_ORDER_TASK".equals(workEffort.getString("workEffortTypeId"))) {
+                    workEffort = EntityQuery.use(delegator).from("WorkEffort").where("workEffortId",
+                            workEffort.getString("workEffortParentId")).queryOne();
                 }
             }
+            return workEffort;
         } catch (GenericEntityException e) {
             Debug.logWarning(e.getMessage(), MODULE);
+            return null;
         }
     }
 

@@ -302,6 +302,17 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         }
 
     }
+
+    /** Creates new empty ShoppingCart object for the given user logins and order party. */
+    protected ShoppingCart(LocalDispatcher dispatcher, String productStoreId, String webSiteId, Locale locale, String currencyUom,
+                           String billToCustomerPartyId, String billFromVendorPartyId, GenericValue userLogin, GenericValue autoUserLogin,
+                           String orderPartyId) {
+        this(dispatcher, productStoreId, webSiteId, locale, currencyUom, billToCustomerPartyId, billFromVendorPartyId);
+        this.userLogin = userLogin;
+        this.autoUserLogin = autoUserLogin;
+        this.orderPartyId = orderPartyId;
+    }
+
     public ShoppingCart(Delegator delegator, String productStoreId, String webSiteId, Locale locale, String currencyUom,
                         String billToCustomerPartyId, String billFromVendorPartyId) {
         this(getDispatcher(delegator), productStoreId, webSiteId, locale, currencyUom,

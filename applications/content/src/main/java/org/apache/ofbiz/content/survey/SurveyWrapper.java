@@ -103,9 +103,9 @@ public class SurveyWrapper {
         this.responseId = responseId;
         this.partyId = partyId;
         this.surveyId = surveyId;
-        this.setPassThru(passThru);
-        this.setDefaultValues(defaultValues);
-        this.checkParameters();
+        this.passThru = copyOf(passThru);
+        this.defaultValues = copyOf(defaultValues);
+        checkParameters(delegator, surveyId);
     }
 
     public SurveyWrapper(Delegator delegator, String responseId, String partyId, String surveyId, Map<String, Object> passThru) {
@@ -120,9 +120,17 @@ public class SurveyWrapper {
      * Check parameters.
      */
     protected void checkParameters() {
+        checkParameters(delegator, surveyId);
+    }
+
+    private static void checkParameters(Delegator delegator, String surveyId) {
         if (delegator == null || surveyId == null) {
             throw new IllegalArgumentException("Missing one or more required parameters (delegator, surveyId)");
         }
+    }
+
+    private static Map<String, Object> copyOf(Map<String, Object> values) {
+        return values != null ? new HashMap<>(values) : null;
     }
 
     /**
@@ -131,8 +139,7 @@ public class SurveyWrapper {
      */
     public void setPassThru(Map<String, Object> passThru) {
         if (passThru != null) {
-            this.passThru = new HashMap<>();
-            this.passThru.putAll(passThru);
+            this.passThru = copyOf(passThru);
         }
     }
 
@@ -142,8 +149,7 @@ public class SurveyWrapper {
      */
     public void setDefaultValues(Map<String, Object> defaultValues) {
         if (defaultValues != null) {
-            this.defaultValues = new HashMap<>();
-            this.defaultValues.putAll(defaultValues);
+            this.defaultValues = copyOf(defaultValues);
         }
     }
 
