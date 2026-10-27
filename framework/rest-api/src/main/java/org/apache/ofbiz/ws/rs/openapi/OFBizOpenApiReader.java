@@ -26,15 +26,16 @@ import java.util.Set;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilValidate;
+import org.apache.ofbiz.entity.Delegator;
+import org.apache.ofbiz.entity.DelegatorFactory;
 import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ModelParam;
 import org.apache.ofbiz.service.ModelService;
-import org.apache.ofbiz.webapp.WebAppUtil;
+import org.apache.ofbiz.service.ServiceContainer;
 import org.apache.ofbiz.ws.rs.core.OFBizApiConfig;
 import org.apache.ofbiz.ws.rs.core.ResponseStatus;
-import org.apache.ofbiz.ws.rs.listener.ApiContextListener;
 import org.apache.ofbiz.ws.rs.model.ModelApi;
 import org.apache.ofbiz.ws.rs.model.ModelMapping;
 import org.apache.ofbiz.ws.rs.model.ModelOperation;
@@ -64,7 +65,6 @@ import io.swagger.v3.oas.models.responses.ApiResponse;
 import io.swagger.v3.oas.models.responses.ApiResponses;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.tags.Tag;
-import jakarta.servlet.ServletContext;
 import jakarta.ws.rs.HttpMethod;
 import jakarta.ws.rs.core.HttpHeaders;
 import jakarta.ws.rs.core.Response;
@@ -90,11 +90,12 @@ public final class OFBizOpenApiReader extends Reader implements OpenApiReader {
     }
 
     @Override
-    @SuppressWarnings("deprecation")
     public OpenAPI read(Set<Class<?>> classes, Map<String, Object> resources) {
         openApi = super.read(classes, resources);
-        ServletContext servletContext = ApiContextListener.getApplicationCntx();
-        LocalDispatcher dispatcher = WebAppUtil.getDispatcher(servletContext);
+        // Swagger hands the reader a JSON copy of the configuration, so the web application passes names, not objects
+        Map<String, Object> userDefinedOptions = config.getUserDefinedOptions();
+        Delegator delegator = DelegatorFactory.getDelegator((String) userDefinedOptions.get("delegatorName"));
+        LocalDispatcher dispatcher = ServiceContainer.getLocalDispatcher((String) userDefinedOptions.get("dispatcherName"), delegator);
         context = dispatcher.getDispatchContext();
         initializeStdOpenApiComponents();
         addPredefinedSchemas();
@@ -175,7 +176,7 @@ public final class OFBizOpenApiReader extends Reader implements OpenApiReader {
                 pathParameter.setRequired(true);
                 pathParameter.setName(pathParam);
                 pathParameter.setDescription(mdParam != null ? mdParam.getShortDisplayDescription() : "");
-                pathParameter.setSchema(OpenApiUtil.getAttributeSchema(service, mdParam));
+                pathParameter.setSchema(OpenApiUtil.getAttributeSchema(context.getDelegator(), service, mdParam));
                 operation.addParametersItem(pathParameter);
             }
             String verb = op.getVerb().toUpperCase();
@@ -295,15 +296,15 @@ public final class OFBizOpenApiReader extends Reader implements OpenApiReader {
     }
 
     private void addServiceOutSchema(ModelService service) {
-        schemas.put("api.response." + service.getName() + ".success", OpenApiUtil.getOutSchema(service));
+        schemas.put("api.response." + service.getName() + ".success", OpenApiUtil.getOutSchema(context.getDelegator(), service));
     }
 
     private void addServiceInSchema(ModelService service, ModelOperation op) {
-        schemas.put("api.request." + service.getName(), OpenApiUtil.getInSchema(service, op));
+        schemas.put("api.request." + service.getName(), OpenApiUtil.getInSchema(context.getDelegator(), service, op));
     }
 
     private void addServiceInSchema(ModelService service) {
-        schemas.put("api.request." + service.getName(), OpenApiUtil.getInSchema(service, null));
+        schemas.put("api.request." + service.getName(), OpenApiUtil.getInSchema(context.getDelegator(), service, null));
     }
 
     private void addPredefinedSchemas() {
@@ -363,7 +364,7 @@ public final class OFBizOpenApiReader extends Reader implements OpenApiReader {
                 if (statusType.getStatusCode() > 399) {
                     schemas.put(schemaName, OpenApiUtil.getGenericErrorSchema(null));
                 } else {
-                    schemas.put(schemaName, OpenApiUtil.getOutSchema(service));
+                    schemas.put(schemaName, OpenApiUtil.getOutSchema(context.getDelegator(), service));
                 }
 
             }

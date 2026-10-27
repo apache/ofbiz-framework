@@ -36,10 +36,8 @@ import org.apache.ofbiz.entity.model.ModelEntity;
 import org.apache.ofbiz.entity.model.ModelField;
 import org.apache.ofbiz.service.ModelParam;
 import org.apache.ofbiz.service.ModelService;
-import org.apache.ofbiz.webapp.WebAppUtil;
 import org.apache.ofbiz.ws.rs.common.AuthenticationScheme;
 import org.apache.ofbiz.ws.rs.core.ResponseStatus;
-import org.apache.ofbiz.ws.rs.listener.ApiContextListener;
 import org.apache.ofbiz.ws.rs.model.ModelOperation;
 
 import io.swagger.v3.oas.models.headers.Header;
@@ -345,10 +343,11 @@ public final class OpenApiUtil {
      * that are not optional are added to the required list. Parameters without
      * a known OpenAPI type mapping are silently skipped.</p>
      *
+     * @param delegator the {@link Delegator} used to look up entity definitions
      * @param service the {@link ModelService} for which to build the input schema
      * @return an OpenAPI {@link Schema} representing the service request body
      */
-    public static Schema<Object> getInSchema(ModelService service, ModelOperation op) {
+    public static Schema<Object> getInSchema(Delegator delegator, ModelService service, ModelOperation op) {
         Schema<Object> parentSchema = new Schema<Object>();
         parentSchema.setDescription("In Schema for service: " + service.getName() + " request");
         parentSchema.setType("object");
@@ -359,7 +358,7 @@ public final class OpenApiUtil {
                 if (!param.isOptional()) {
                     required.add(name);
                 }
-                Schema<?> attrSchema = getAttributeSchema(service, param);
+                Schema<?> attrSchema = getAttributeSchema(delegator, service, param);
                 if (attrSchema != null) {
                     parentSchema.addProperty(name, attrSchema);
                 }
@@ -377,13 +376,13 @@ public final class OpenApiUtil {
      * is found, or if a {@code Map} type parameter has no entity name or child
      * attributes defined.</p>
      *
+     * @param delegator the {@link Delegator} used to look up entity definitions
      * @param service the {@link ModelService} owning the parameter
      * @param param   the {@link ModelParam} to build a schema for
      * @return the OpenAPI {@link Schema} for the parameter, or {@code null} if
      *         the parameter cannot be mapped
      */
-    @SuppressWarnings("deprecation")
-    public static Schema<?> getAttributeSchema(ModelService service, ModelParam param) {
+    public static Schema<?> getAttributeSchema(Delegator delegator, ModelService service, ModelParam param) {
         Schema<?> schema = null;
         if (param == null) {
             Debug.logWarning("ModelParam is null - ignored.", MODULE);
@@ -403,13 +402,12 @@ public final class OpenApiUtil {
         }
 
         List<ModelParam> children = param.getChildren();
-        Delegator delegator = WebAppUtil.getDelegator(ApiContextListener.getApplicationCntx());
         if (schema instanceof ArraySchema) {
             ArraySchema arrSch = (ArraySchema) schema;
             if (LIST_TYPE_MAP.containsKey(param.getName())) {
                 arrSch.setItems(getSchemaForModel(LIST_TYPE_MAP.get(param.getName())));
             } else {
-                arrSch.setItems(children.size() > 0 ? getAttributeSchema(service, children.get(0)) : new StringSchema());
+                arrSch.setItems(children.size() > 0 ? getAttributeSchema(delegator, service, children.get(0)) : new StringSchema());
             }
         } else if (schema instanceof MapSchema) {
             if (isTypeGenericEntityOrGenericValue(param.getType())) {
@@ -435,7 +433,7 @@ public final class OpenApiUtil {
                     if (!param.isOptional()) {
                         required.add(childParam.getName());
                     }
-                    schema.addProperty(childParam.getName(), getAttributeSchema(service, childParam));
+                    schema.addProperty(childParam.getName(), getAttributeSchema(delegator, service, childParam));
                 }
                 schema.setRequired(required);
             }
@@ -452,10 +450,11 @@ public final class OpenApiUtil {
      * {@code statusDescription}, and {@code successMessage} properties.
      * Service output parameters are nested under a {@code data} property.</p>
      *
+     * @param delegator the {@link Delegator} used to look up entity definitions
      * @param service the {@link ModelService} for which to build the output schema
      * @return an OpenAPI {@link Schema} representing the service response body
      */
-    public static Schema<Object> getOutSchema(ModelService service) {
+    public static Schema<Object> getOutSchema(Delegator delegator, ModelService service) {
         Schema<Object> parentSchema = new Schema<Object>();
         parentSchema.setDescription("Out Schema for service: " + service.getName() + " response");
         parentSchema.setType("object");
@@ -466,9 +465,9 @@ public final class OpenApiUtil {
         parentSchema.addProperty("data", dataSchema);
         service.getOutParamNamesMap().forEach((name, type) -> {
             if (!name.equals(RestApiUtil.RESPONSE_STATUS_KEY)) {
-                Schema<?> attrSchema = getAttributeSchema(service, service.getParam(name));
+                Schema<?> attrSchema = getAttributeSchema(delegator, service, service.getParam(name));
                 if (attrSchema != null) {
-                    dataSchema.addProperty(name, getAttributeSchema(service, service.getParam(name)));
+                    dataSchema.addProperty(name, getAttributeSchema(delegator, service, service.getParam(name)));
                 }
             }
         });

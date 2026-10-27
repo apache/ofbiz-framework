@@ -23,6 +23,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import org.apache.ofbiz.entity.Delegator;
+import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.ws.rs.openapi.OFBizOpenApiReader;
 import org.apache.ofbiz.ws.rs.openapi.OFBizResourceScanner;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -30,6 +32,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 import org.mockito.MockedConstruction;
 import org.mockito.Mockito;
 
+import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.ws.rs.core.HttpHeaders;
 import jakarta.ws.rs.core.Response;
@@ -53,12 +56,24 @@ class OpenApiResourceTest {
         when(request.getServerPort()).thenReturn(8080);
         when(request.getContextPath()).thenReturn("/ofbiz");
 
+        // Mock the servlet context that holds the web application dispatcher
+        Delegator delegator = mock(Delegator.class);
+        when(delegator.getDelegatorName()).thenReturn("default");
+        LocalDispatcher dispatcher = mock(LocalDispatcher.class);
+        when(dispatcher.getDelegator()).thenReturn(delegator);
+        when(dispatcher.getName()).thenReturn("rest-api");
+        ServletContext servletContext = mock(ServletContext.class);
+        when(servletContext.getAttribute("dispatcher")).thenReturn(dispatcher);
+
         OpenApiResource resource = new OpenApiResource();
 
-        // inject request via reflection (since field is @Context)
+        // inject request and servlet context via reflection (since fields are @Context)
         java.lang.reflect.Field f = OpenApiResource.class.getDeclaredField("request");
         f.setAccessible(true);
         f.set(resource, request);
+        java.lang.reflect.Field c = OpenApiResource.class.getDeclaredField("context");
+        c.setAccessible(true);
+        c.set(resource, servletContext);
 
         // Mock heavy Swagger builder
         try (MockedConstruction<org.apache.ofbiz.ws.rs.openapi.OFBizOpenApiReader> readerMock =
