@@ -358,8 +358,8 @@ public class HtmlWidget extends ModelScreenWidget {
     }
 
     public static class HtmlTemplateDecorator extends ModelScreenWidget {
-        private FlexibleStringExpander locationExdr;
-        private Map<String, ModelScreenWidget> sectionMap = new HashMap<>();
+        private final FlexibleStringExpander locationExdr;
+        private final Map<String, ModelScreenWidget> sectionMap;
 
         public HtmlTemplateDecorator(ModelScreen modelScreen, Element htmlTemplateDecoratorElement) {
             super(modelScreen, htmlTemplateDecoratorElement);
@@ -367,10 +367,12 @@ public class HtmlWidget extends ModelScreenWidget {
 
             List<? extends Element> htmlTemplateDecoratorSectionElementList = UtilXml.childElementList(
                     htmlTemplateDecoratorElement, "html-template-decorator-section");
+            Map<String, ModelScreenWidget> sectionMap = new HashMap<>();
             for (Element htmlTemplateDecoratorSectionElement: htmlTemplateDecoratorSectionElementList) {
                 String name = htmlTemplateDecoratorSectionElement.getAttribute("name");
-                this.sectionMap.put(name, new HtmlTemplateDecoratorSection(modelScreen, htmlTemplateDecoratorSectionElement));
+                sectionMap.put(name, new HtmlTemplateDecoratorSection(modelScreen, htmlTemplateDecoratorSectionElement));
             }
+            this.sectionMap = Collections.unmodifiableMap(sectionMap);
         }
 
         @Override
@@ -421,12 +423,12 @@ public class HtmlWidget extends ModelScreenWidget {
     }
 
     public static class HtmlTemplateDecoratorSection extends ModelScreenWidget {
-        private List<ModelScreenWidget> subWidgets;
+        private final List<ModelScreenWidget> subWidgets;
 
         public HtmlTemplateDecoratorSection(ModelScreen modelScreen, Element htmlTemplateDecoratorSectionElement) {
             super(modelScreen, htmlTemplateDecoratorSectionElement);
             List<? extends Element> subElementList = UtilXml.childElementList(htmlTemplateDecoratorSectionElement);
-            this.subWidgets = ModelScreenWidget.readSubWidgets(getModelScreen(), subElementList);
+            this.subWidgets = ModelScreenWidget.readSubWidgets(modelScreen, subElementList);
         }
 
         @Override

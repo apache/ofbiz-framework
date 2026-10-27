@@ -45,122 +45,120 @@ public class XmlWidgetConditionVisitor extends XmlAbstractWidgetVisitor implemen
         super(writer);
     }
 
-    private final Appendable writer = getWriter();
-
     @Override
     public void visit(And and) throws Exception {
-        writer.append("<and>");
+        getWriter().append("<and>");
         visitSubConditions(and.getSubConditions());
-        writer.append("</and>");
+        getWriter().append("</and>");
     }
 
     @Override
     public void visit(IfCompare ifCompare) throws Exception {
-        writer.append("<if-compare");
+        getWriter().append("<if-compare");
         visitAttribute("field", ifCompare.getFieldAcsr());
         visitAttribute("operator", ifCompare.getOperator());
         visitAttribute("value", ifCompare.getValueExdr());
         visitAttribute("type", ifCompare.getType());
         visitAttribute("format", ifCompare.getFormatExdr());
-        writer.append("/>");
+        getWriter().append("/>");
     }
 
     @Override
     public void visit(IfCompareField ifCompareField) throws Exception {
-        writer.append("<if-compare-field");
+        getWriter().append("<if-compare-field");
         visitAttribute("field", ifCompareField.getFieldAcsr());
         visitAttribute("operator", ifCompareField.getOperator());
         visitAttribute("to-field", ifCompareField.getToFieldAcsr());
         visitAttribute("type", ifCompareField.getType());
         visitAttribute("format", ifCompareField.getFormatExdr());
-        writer.append("/>");
+        getWriter().append("/>");
     }
 
     @Override
     public void visit(IfEmpty ifEmpty) throws Exception {
-        writer.append("<if-empty");
+        getWriter().append("<if-empty");
         visitAttribute("field", ifEmpty.getFieldAcsr());
-        writer.append("/>");
+        getWriter().append("/>");
     }
 
     @Override
     public void visit(IfEmptySection ifEmptySection) throws Exception {
-        writer.append("<if-empty-section");
+        getWriter().append("<if-empty-section");
         visitAttribute("section-name", ifEmptySection.getSectionExdr());
-        writer.append("/>");
+        getWriter().append("/>");
     }
 
     @Override
     public void visit(IfHasPermission ifHasPermission) throws Exception {
-        writer.append("<if-has-permission");
+        getWriter().append("<if-has-permission");
         visitAttribute("permission", ifHasPermission.getPermissionExdr());
         visitAttribute("action", ifHasPermission.getActionExdr());
-        writer.append("/>");
+        getWriter().append("/>");
     }
 
     @Override
     public void visit(IfRegexp ifRegexp) throws Exception {
-        writer.append("<if-regexp");
+        getWriter().append("<if-regexp");
         visitAttribute("field", ifRegexp.getFieldAcsr());
         visitAttribute("expr", ifRegexp.getExprExdr());
-        writer.append("/>");
+        getWriter().append("/>");
     }
 
     @Override
     public void visit(IfServicePermission ifServicePermission) throws Exception {
-        writer.append("<if-service-permission");
+        getWriter().append("<if-service-permission");
         visitAttribute("service-name", ifServicePermission.getServiceExdr());
         visitAttribute("main-action", ifServicePermission.getActionExdr());
         visitAttribute("context-map", ifServicePermission.getCtxMapExdr());
         visitAttribute("resource-description", ifServicePermission.getResExdr());
-        writer.append("/>");
+        getWriter().append("/>");
     }
 
     @Override
     public void visit(IfValidateMethod ifValidateMethod) throws Exception {
-        writer.append("<if-validate-method");
+        getWriter().append("<if-validate-method");
         visitAttribute("field", ifValidateMethod.getFieldAcsr());
         visitAttribute("method", ifValidateMethod.getMethodExdr());
         visitAttribute("class", ifValidateMethod.getClassExdr());
-        writer.append("/>");
+        getWriter().append("/>");
     }
 
     @Override
     public void visit(ModelMenuCondition modelMenuCondition) throws Exception {
-        writer.append("<condition");
+        getWriter().append("<condition");
         visitAttribute("pass-style", modelMenuCondition.getPassStyleExdr());
         visitAttribute("disabled-style", modelMenuCondition.getFailStyleExdr());
-        writer.append("/>");
+        getWriter().append("/>");
         modelMenuCondition.getCondition().accept(this);
-        writer.append("</condition>");
+        getWriter().append("</condition>");
     }
 
     @Override
     public void visit(ModelTreeCondition modelTreeCondition) throws Exception {
-        writer.append("<condition>");
+        getWriter().append("<condition>");
         modelTreeCondition.getCondition().accept(this);
-        writer.append("</condition>");
+        getWriter().append("</condition>");
     }
 
     @Override
     public void visit(Not not) throws Exception {
-        writer.append("<not>");
+        getWriter().append("<not>");
         not.getSubCondition().accept(this);
-        writer.append("</not>");
+        getWriter().append("</not>");
     }
 
     @Override
     public void visit(Or or) throws Exception {
-        writer.append("<or>");
+        getWriter().append("<or>");
         visitSubConditions(or.getSubConditions());
-        writer.append("</or>");
+        getWriter().append("</or>");
     }
 
     @Override
     public void visit(Xor xor) throws Exception {
-        writer.append("<xor>");
+        getWriter().append("<xor>");
         visitSubConditions(xor.getSubConditions());
-        writer.append("</xor>");
+        getWriter().append("</xor>");
     }
 
     private void visitSubConditions(Collection<ModelCondition> subConditions) throws Exception {
