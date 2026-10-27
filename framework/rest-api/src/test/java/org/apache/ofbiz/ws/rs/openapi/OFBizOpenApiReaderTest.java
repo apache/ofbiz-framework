@@ -28,8 +28,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.ofbiz.entity.Delegator;
+import org.apache.ofbiz.entity.DelegatorFactory;
 import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.LocalDispatcher;
+import org.apache.ofbiz.service.ServiceContainer;
 import org.apache.ofbiz.ws.rs.core.OFBizApiConfig;
 import org.apache.ofbiz.ws.rs.model.ModelApi;
 import org.apache.ofbiz.ws.rs.model.ModelOperation;
@@ -43,7 +46,6 @@ import io.swagger.v3.oas.integration.SwaggerConfiguration;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.Operation;
 import io.swagger.v3.oas.models.PathItem;
-import jakarta.servlet.ServletContext;
 
 class OFBizOpenApiReaderTest {
 
@@ -116,27 +118,24 @@ class OFBizOpenApiReaderTest {
     }
 
     /**
-     * Sets up all mocks (dispatcher, servlet context, static access, API model)
+     * Sets up all mocks (delegator and dispatcher lookup, API model)
      * and runs reader.read(...), returning the resulting OpenAPI object.
      */
-    @SuppressWarnings("deprecation")
     private OpenAPI buildOpenApi() throws Exception {
+        Delegator delegator = mock(Delegator.class);
         LocalDispatcher dispatcher = mock(LocalDispatcher.class);
         DispatchContext dctx = mock(DispatchContext.class);
         when(dispatcher.getDispatchContext()).thenReturn(dctx);
+        when(dctx.getDelegator()).thenReturn(delegator);
 
-        try (MockedStatic<org.apache.ofbiz.ws.rs.listener.ApiContextListener> ctxMock =
-                        Mockito.mockStatic(org.apache.ofbiz.ws.rs.listener.ApiContextListener.class);
-                MockedStatic<org.apache.ofbiz.webapp.WebAppUtil> webMock =
-                        Mockito.mockStatic(org.apache.ofbiz.webapp.WebAppUtil.class);
+        try (MockedStatic<DelegatorFactory> delegatorMock = Mockito.mockStatic(DelegatorFactory.class);
+                MockedStatic<ServiceContainer> dispatcherMock = Mockito.mockStatic(ServiceContainer.class);
                 MockedStatic<OFBizApiConfig> apiMock = Mockito.mockStatic(OFBizApiConfig.class)) {
 
-            ServletContext servletContext = mock(ServletContext.class);
+            delegatorMock.when(() -> DelegatorFactory.getDelegator("testDelegator"))
+                    .thenReturn(delegator);
 
-            ctxMock.when(org.apache.ofbiz.ws.rs.listener.ApiContextListener::getApplicationCntx)
-                    .thenReturn(servletContext);
-
-            webMock.when(() -> org.apache.ofbiz.webapp.WebAppUtil.getDispatcher(servletContext))
+            dispatcherMock.when(() -> ServiceContainer.getLocalDispatcher("testDispatcher", delegator))
                     .thenReturn(dispatcher);
 
             ModelOperation op = mock(ModelOperation.class);
@@ -169,7 +168,8 @@ class OFBizOpenApiReaderTest {
             when(dctx.getModelService("testService")).thenReturn(service);
 
             SwaggerConfiguration config = new SwaggerConfiguration();
-            config.setUserDefinedOptions(Map.of("apiGroupPath", "test"));
+            config.setUserDefinedOptions(Map.of("apiGroupPath", "test",
+                    "delegatorName", "testDelegator", "dispatcherName", "testDispatcher"));
             reader.setConfiguration(config);
 
             return reader.read(Set.of(), Map.of());

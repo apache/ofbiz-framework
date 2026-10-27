@@ -25,6 +25,8 @@ import java.util.stream.Stream;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
+import org.apache.ofbiz.service.LocalDispatcher;
+import org.apache.ofbiz.webapp.WebAppUtil;
 import org.apache.ofbiz.ws.rs.openapi.OFBizOpenApiReader;
 import org.apache.ofbiz.ws.rs.openapi.OFBizResourceScanner;
 
@@ -115,7 +117,9 @@ public final class OpenApiResource {
         basicAuthScheme.setScheme("basic");
         openApi.schemaRequirement(basicAuthScheme.getName(), basicAuthScheme);
 
-        Map<String, Object> userDefinedOptions = UtilMisc.toMap("apiGroupPath", apiGroupPath);
+        LocalDispatcher dispatcher = WebAppUtil.getDispatcher(context);
+        Map<String, Object> userDefinedOptions = UtilMisc.toMap("apiGroupPath", apiGroupPath,
+                "delegatorName", dispatcher.getDelegator().getDelegatorName(), "dispatcherName", dispatcher.getName());
 
         SwaggerConfiguration config = new SwaggerConfiguration()
                 .openAPI(openApi.info(buildOpenApiInfo()))

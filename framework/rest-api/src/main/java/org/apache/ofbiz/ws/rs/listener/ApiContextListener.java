@@ -44,8 +44,6 @@ import jakarta.servlet.ServletContextListener;
 public class ApiContextListener implements ServletContextListener {
 
     public static final String MODULE = ApiContextListener.class.getName();
-    // TODO: remove after the refactoring of OFBizOpenApiReader
-    private static ServletContext servletContext = null;
 
     /**
      * {@inheritDoc}
@@ -57,7 +55,7 @@ public class ApiContextListener implements ServletContextListener {
      */
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        servletContext = sce.getServletContext();
+        ServletContext servletContext = sce.getServletContext();
         Delegator delegator = DelegatorFactory.getDelegator(servletContext.getInitParameter("entityDelegatorName"));
         LocalDispatcher dispatcher = ServiceContainer.getLocalDispatcher(servletContext.getInitParameter("localDispatcherName"), delegator);
         Debug.logInfo("Api Jersey Context initialized, delegator " + delegator + ", dispatcher", MODULE);
@@ -80,21 +78,5 @@ public class ApiContextListener implements ServletContextListener {
         context.removeAttribute("dispatcher");
         context.removeAttribute("security");
         context = null;
-    }
-
-
-    /**
-     * Returns the servlet context stored at initialization time.
-     *
-     * @return the application {@link ServletContext}, or {@code null} if the
-     *         context has not yet been initialized
-     * @deprecated Temporary workaround to provide servlet context access to
-     *             {@code OFBizOpenApiReader}; will be removed once that class
-     *             is refactored
-     */
-    // TODO: remove after the refactoring of OFBizOpenApiReader
-    @Deprecated
-    public static ServletContext getApplicationCntx() {
-        return servletContext;
     }
 }
