@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.apache.ofbiz.base.util.collections;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -34,7 +35,7 @@ public class MultivaluedMapContext<K, V> extends MapContext<K, List<V>> {
      * Create a multi-value map initialized with one context
      */
     public MultivaluedMapContext() {
-        push();
+        super(new HashMap<>());
     }
 
     /**

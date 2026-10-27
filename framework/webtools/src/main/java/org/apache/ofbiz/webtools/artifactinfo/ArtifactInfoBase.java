@@ -26,7 +26,7 @@ import java.net.URL;
  */
 public abstract class ArtifactInfoBase implements Comparable<ArtifactInfoBase> {
 
-    private ArtifactInfoFactory aif;
+    private final ArtifactInfoFactory aif;
 
     /**
      * Gets aif.

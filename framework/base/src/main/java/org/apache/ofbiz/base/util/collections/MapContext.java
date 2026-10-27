@@ -47,7 +47,16 @@ import org.apache.ofbiz.base.util.UtilGenerics;
  */
 public class MapContext<K, V> implements Map<K, V>, LocalizedMap<V> {
 
-    private Deque<Map<K, V>> contexts = new LinkedList<>();
+    private final Deque<Map<K, V>> contexts = new LinkedList<>();
+
+    /** Creates a MapContext with no Map on the stack. */
+    public MapContext() {
+    }
+
+    /** Creates a MapContext with {@code initialMap} as its only Map on the stack. */
+    protected MapContext(Map<K, V> initialMap) {
+        contexts.addFirst(initialMap);
+    }
 
     /**
      * Gets contexts.

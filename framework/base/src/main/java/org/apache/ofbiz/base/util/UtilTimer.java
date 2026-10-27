@@ -56,9 +56,9 @@ public class UtilTimer {
 
     public UtilTimer(String timerName, boolean start, boolean log) {
         this.timerName = timerName;
-        this.setLog(log);
+        this.log = log;
         if (start) {
-            this.startTimer();
+            start();
         }
     }
 
@@ -66,6 +66,10 @@ public class UtilTimer {
      * Start timer.
      */
     public void startTimer() {
+        start();
+    }
+
+    private void start() {
         startTime = System.currentTimeMillis();
         realStartTime = startTime;
         this.lastMessageTime = startTime;

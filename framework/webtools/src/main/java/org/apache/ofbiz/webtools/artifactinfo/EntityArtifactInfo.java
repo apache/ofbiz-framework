@@ -42,7 +42,7 @@ public class EntityArtifactInfo extends ArtifactInfoBase {
 
     public EntityArtifactInfo(String entityName, ArtifactInfoFactory aif) throws GenericEntityException {
         super(aif);
-        this.modelEntity = this.getAif().getModelEntity(entityName);
+        this.modelEntity = aif.getModelEntity(entityName);
     }
 
     /**

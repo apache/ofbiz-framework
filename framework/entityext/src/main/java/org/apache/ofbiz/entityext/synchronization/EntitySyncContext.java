@@ -237,12 +237,13 @@ public class EntitySyncContext {
             this.maxRunningNoUpdateMillis = getMaxRunningNoUpdateMillis(entitySync);
 
             this.lastSuccessfulSynchTime = entitySync.getTimestamp("lastSuccessfulSynchTime");
-            this.entityModelToUseList = this.makeEntityModelToUseList();
-            this.entityNameToUseSet = this.makeEntityNameToUseSet();
+            this.entityModelToUseList = makeEntityModelToUseList(entitySync, delegator);
+            this.entityNameToUseSet = makeEntityNameToUseSet(entityModelToUseList);
 
             // set start and end times for the first/current pass
             this.currentRunStartTime = getCurrentRunStartTime(lastSuccessfulSynchTime, entityModelToUseList, delegator);
-            this.setCurrentRunEndTime();
+            this.currentRunEndTime = getNextRunEndTime(currentRunStartTime, isOfflineSync ? offlineSyncSplitMillis : syncSplitMillis,
+                    syncEndStamp);
 
             // this is mostly for the pull side... will always be null for at the beginning of a push process, to be filled in later
             this.startDate = (Timestamp) context.get("startDate");
@@ -312,10 +313,13 @@ public class EntitySyncContext {
      * @return the next run end time
      */
     protected Timestamp getNextRunEndTime() {
-        long syncSplit = this.isOfflineSync ? offlineSyncSplitMillis : syncSplitMillis;
-        Timestamp nextRunEndTime = new Timestamp(this.currentRunStartTime.getTime() + syncSplit);
-        if (nextRunEndTime.after(this.syncEndStamp)) {
-            nextRunEndTime = this.syncEndStamp;
+        return getNextRunEndTime(currentRunStartTime, isOfflineSync ? offlineSyncSplitMillis : syncSplitMillis, syncEndStamp);
+    }
+
+    private static Timestamp getNextRunEndTime(Timestamp currentRunStartTime, long syncSplit, Timestamp syncEndStamp) {
+        Timestamp nextRunEndTime = new Timestamp(currentRunStartTime.getTime() + syncSplit);
+        if (nextRunEndTime.after(syncEndStamp)) {
+            nextRunEndTime = syncEndStamp;
         }
         return nextRunEndTime;
     }
@@ -1007,8 +1011,12 @@ public class EntitySyncContext {
      * @return the set
      */
     public Set<String> makeEntityNameToUseSet() {
+        return makeEntityNameToUseSet(entityModelToUseList);
+    }
+
+    private static Set<String> makeEntityNameToUseSet(List<ModelEntity> entityModelToUseList) {
         Set<String> entityNameToUseSet = new HashSet<>();
-        for (ModelEntity modelEntity: this.entityModelToUseList) {
+        for (ModelEntity modelEntity: entityModelToUseList) {
             entityNameToUseSet.add(modelEntity.getEntityName());
         }
         return entityNameToUseSet;
@@ -1017,6 +1025,10 @@ public class EntitySyncContext {
     /** prepare a list of all entities we want to synchronize: remove all view-entities and all entities that don't match the patterns attached
      * to this EntitySync */
     protected List<ModelEntity> makeEntityModelToUseList() throws GenericEntityException {
+        return makeEntityModelToUseList(entitySync, delegator);
+    }
+
+    private static List<ModelEntity> makeEntityModelToUseList(GenericValue entitySync, Delegator delegator) throws GenericEntityException {
         List<GenericValue> entitySyncIncludes = entitySync.getRelated("EntitySyncInclude", null, null, false);
         // get these ones as well, and just add them to the main list, it will have an extra field but that shouldn't hurt anything in the code below
         List<GenericValue> entitySyncGroupIncludes = entitySync.getRelated("EntitySyncInclGrpDetailView", null, null, false);
