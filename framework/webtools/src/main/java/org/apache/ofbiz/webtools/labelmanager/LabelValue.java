@@ -20,8 +20,6 @@ package org.apache.ofbiz.webtools.labelmanager;
 
 public class LabelValue {
 
-    private static final String MODULE = LabelValue.class.getName();
-
     private String labelValue = "";
     private String labelComment = "";
 

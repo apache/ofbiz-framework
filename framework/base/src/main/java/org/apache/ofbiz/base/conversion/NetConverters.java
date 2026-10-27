@@ -27,8 +27,6 @@ import java.net.URL;
 
 /** Net Converter classes. */
 public class NetConverters implements ConverterLoader {
-    private static final String MODULE = NetConverters.class.getName();
-
     public static class StringToInetAddress extends AbstractConverter<String, InetAddress> {
         public StringToInetAddress() {
             super(String.class, InetAddress.class);

@@ -23,7 +23,6 @@ import java.io.StringWriter;
 
 import javax.xml.XMLConstants;
 import javax.xml.parsers.SAXParserFactory;
-import javax.xml.transform.Templates;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
@@ -32,14 +31,12 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
 import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.cache.UtilCache;
 import org.xml.sax.InputSource;
 import org.xml.sax.XMLReader;
 
 public final class XslTransform {
 
     private static final String MODULE = XslTransform.class.getName();
-    private static final UtilCache<String, Templates> XSL_TEMPLATE_CACHE = UtilCache.createUtilCache("XsltTemplates", 0, 0);
 
     /**
      * @param template the content or url of the xsl template

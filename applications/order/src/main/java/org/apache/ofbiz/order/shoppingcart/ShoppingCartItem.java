@@ -935,7 +935,6 @@ public class ShoppingCartItem implements java.io.Serializable {
                                             LocalDispatcher dispatcher, ShoppingCart cart, Boolean triggerExternalOpsBool)
             throws CartItemModifyException {
 
-        Delegator delegator = cart.getDelegator();
         ShoppingCartItem newItem = new ShoppingCartItem(dispatcher, itemType, itemDescription, productCategoryId, basePrice, attributes,
                 prodCatalogId, cart.getLocale(), itemGroup);
 

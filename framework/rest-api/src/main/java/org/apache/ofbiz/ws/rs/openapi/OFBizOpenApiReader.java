@@ -46,7 +46,6 @@ import org.apache.ofbiz.ws.rs.util.RestApiUtil;
 
 import io.swagger.v3.jaxrs2.Reader;
 import io.swagger.v3.oas.integration.api.OpenAPIConfiguration;
-import io.swagger.v3.oas.integration.api.OpenApiReader;
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.Operation;
@@ -70,7 +69,7 @@ import jakarta.ws.rs.core.HttpHeaders;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.StatusType;
 
-public final class OFBizOpenApiReader extends Reader implements OpenApiReader {
+public final class OFBizOpenApiReader extends Reader {
     private static final String MODULE = OFBizOpenApiReader.class.getName();
 
     private Components components;
@@ -80,8 +79,6 @@ public final class OFBizOpenApiReader extends Reader implements OpenApiReader {
     private OpenAPI openApi;
     private DispatchContext context;
     private static final Parameter HEADER_CONTENT_TYPE_JSON = new HeaderParameter().name(HttpHeaders.CONTENT_TYPE)
-            .schema(new StringSchema()).example(jakarta.ws.rs.core.MediaType.APPLICATION_JSON).required(true);
-    private static final Parameter HEADER_ACCEPT_JSON = new HeaderParameter().name(HttpHeaders.ACCEPT)
             .schema(new StringSchema()).example(jakarta.ws.rs.core.MediaType.APPLICATION_JSON).required(true);
 
     @Override
@@ -301,10 +298,6 @@ public final class OFBizOpenApiReader extends Reader implements OpenApiReader {
 
     private void addServiceInSchema(ModelService service, ModelOperation op) {
         schemas.put("api.request." + service.getName(), OpenApiUtil.getInSchema(context.getDelegator(), service, op));
-    }
-
-    private void addServiceInSchema(ModelService service) {
-        schemas.put("api.request." + service.getName(), OpenApiUtil.getInSchema(context.getDelegator(), service, null));
     }
 
     private void addPredefinedSchemas() {

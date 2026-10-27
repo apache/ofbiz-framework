@@ -196,7 +196,6 @@ public abstract class TemporalExpression implements Serializable, Comparable<Tem
     protected class ExpressionContext {
         private boolean hourBumped = false;
         private boolean dayBumped = false;
-        private boolean monthBumped = false;
 
         /**
          * Is hour bumped boolean.
@@ -228,14 +227,6 @@ public abstract class TemporalExpression implements Serializable, Comparable<Tem
          */
         public void setDayBumped(boolean dayBumped) {
             this.dayBumped = dayBumped;
-        }
-
-        /**
-         * Sets month bumped.
-         * @param monthBumped the month bumped
-         */
-        public void setMonthBumped(boolean monthBumped) {
-            this.monthBumped = monthBumped;
         }
     }
 }

@@ -35,8 +35,6 @@ import freemarker.template.TemplateScalarModel;
  */
 public class SetRequestAttributeMethod implements TemplateMethodModelEx {
 
-    private static final String MODULE = SetRequestAttributeMethod.class.getName();
-
     @Override
     public Object exec(@SuppressWarnings("rawtypes") List args) throws TemplateModelException {
         if (args == null || args.size() != 2) {

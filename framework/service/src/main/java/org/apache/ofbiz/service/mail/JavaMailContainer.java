@@ -71,14 +71,12 @@ public class JavaMailContainer implements Container {
     private ScheduledExecutorService pollTimer = null;
     private boolean deleteMail = false;    // whether to delete emails after fetching them.
 
-    private String configFile = null;
     private Map<Store, Session> stores = null;
     private String name;
 
     @Override
     public void init(List<StartupCommand> ofbizCommands, String name, String configFile) {
         this.name = name;
-        this.configFile = configFile;
         this.stores = new LinkedHashMap<>();
         this.pollTimer = Executors.newScheduledThreadPool(1);
     }

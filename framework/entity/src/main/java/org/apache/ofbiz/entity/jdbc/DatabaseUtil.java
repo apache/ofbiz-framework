@@ -1308,8 +1308,6 @@ public class DatabaseUtil {
                 // PK_NAME String => primary key name (may be null)
 
                 ccInfo.isPk = true;
-                ccInfo.pkSeq = rsPks.getShort("KEY_SEQ");
-                ccInfo.pkName = rsPks.getString("PK_NAME");
             } catch (SQLException e) {
                 String message = "Error getting primary key info for column. Error was:" + e.toString();
                 Debug.logError(message, MODULE);
@@ -3143,8 +3141,6 @@ public class DatabaseUtil {
         private int decimalDigits;
         private String isNullable; // YES/NO or "" = ie nobody knows
         private boolean isPk = false;
-        private int pkSeq;
-        private String pkName;
 
         /**
          * Gets decimal digits.
@@ -3365,12 +3361,10 @@ public class DatabaseUtil {
             this.count = count;
         }
 
-        private final Map<String, ModelEntity> modelEntities;
         private final List<String> messages = new LinkedList<>();
 
         protected AbstractCountingCallable(ModelEntity entity, Map<String, ModelEntity> modelEntities) {
             this.entity = entity;
-            this.modelEntities = modelEntities;
         }
 
         protected int updateData(Collection<String> messages) {

@@ -36,8 +36,6 @@ import freemarker.template.TemplateScalarModel;
  */
 public class SetContextFieldTransform implements TemplateMethodModelEx {
 
-    private static final String MODULE = SetContextFieldTransform.class.getName();
-
     @Override
     public Object exec(@SuppressWarnings("rawtypes") List args) throws TemplateModelException {
         if (args == null || args.size() != 2) {

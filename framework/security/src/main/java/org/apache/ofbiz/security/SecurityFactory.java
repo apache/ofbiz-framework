@@ -156,45 +156,6 @@ public final class SecurityFactory {
             return hasPermission(permission, userLogin);
         }
 
-        /**
-         * Like hasEntityPermission above, this checks the specified action, as well as for "_ADMIN" to allow for simplified
-         * general administration permission, but also checks action_ROLE and validates the user is a member for the
-         * application.
-         * @param application The name of the application corresponding to the desired permission.
-         * @param action The action on the application corresponding to the desired permission.
-         * @param entityName The name of the role entity to use for validation.
-         * @param condition EntityCondition used to query the entityName.
-         * @param userLogin The userLogin object for user to check against.
-         * @return Returns true if the currently logged in userLogin has the specified permission, otherwise returns false.
-         */
-        private boolean hasRolePermission(String application, String action, String entityName, EntityCondition condition, GenericValue userLogin) {
-            if (userLogin == null) {
-                return false;
-            }
-            // first check the standard permission
-            if (hasEntityPermission(application, action, userLogin)) {
-                return true;
-            }
-            // make sure we have what's needed for role security
-            if (entityName == null || condition == null) {
-                return false;
-            }
-            // now check the user for the role permission
-            if (hasEntityPermission(application + "_ROLE", action, userLogin)) {
-                // we have the permission now, we check to make sure we are allowed access
-                try {
-                    List<GenericValue> roleTest = EntityQuery.use(delegator).from(entityName).where(condition).queryList();
-                    if (!roleTest.isEmpty()) {
-                        return true;
-                    }
-                } catch (GenericEntityException e) {
-                    Debug.logError(e, "Problems doing role security lookup on entity [" + entityName + "] using [" + condition + "]", MODULE);
-                    return false;
-                }
-            }
-            return false;
-        }
-
         @Override
         public boolean hasRolePermission(String application, String action, String primaryKey, List<String> roles, GenericValue userLogin) {
             if (userLogin == null) {

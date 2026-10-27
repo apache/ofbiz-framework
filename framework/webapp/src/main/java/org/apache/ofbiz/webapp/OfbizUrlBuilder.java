@@ -41,8 +41,6 @@ import org.xml.sax.SAXException;
  */
 public final class OfbizUrlBuilder {
 
-    private static final String MODULE = OfbizUrlBuilder.class.getName();
-
     /**
      * Returns an <code>OfbizUrlBuilder</code> instance.
      * @param request

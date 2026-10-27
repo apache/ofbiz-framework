@@ -34,11 +34,8 @@ import java.util.Stack;
  */
 public class RecordIterator {
 
-    private static final String MODULE = RecordIterator.class.getName();
-
     private BufferedReader br;
     private ModelDataFile modelDataFile;
-    private InputStream dataFileStream;
     private boolean closed = false;
     private String locationInfo;
 
@@ -83,7 +80,6 @@ public class RecordIterator {
      */
     protected void setupStream(InputStream dataFileStream, String locationInfo) throws DataFileException {
         this.locationInfo = locationInfo;
-        this.dataFileStream = dataFileStream;
         String charsetStr = modelDataFile.getEncodingType();
         try {
             this.br = new BufferedReader(new InputStreamReader(dataFileStream, Charset.forName(charsetStr)));

@@ -47,7 +47,6 @@ import org.apache.ofbiz.service.ServiceUtil;
 public class ProductionRun {
 
     private static final String MODULE = ProductionRun.class.getName();
-    private static final String RESOURCE = "ManufacturingUiLabels";
 
     private final GenericValue productionRun; // WorkEffort (PROD_ORDER_HEADER)
     private GenericValue productionRunProduct; // WorkEffortGoodStandard (type: PRUN_PROD_DELIV)

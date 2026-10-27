@@ -21,9 +21,6 @@ package org.apache.ofbiz.webtools.labelmanager;
 import java.io.File;
 
 public class LabelFile {
-    private static final String MODULE = LabelFile.class.getName();
-
-    private final boolean fileLoaded = false;
     private final File file;
     private final String componentName;
 

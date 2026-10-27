@@ -40,8 +40,6 @@ import org.w3c.dom.Element;
  */
 public final class Loop extends MethodOperation {
 
-    private static final String MODULE = Loop.class.getName();
-
     private final FlexibleStringExpander countFse;
     private final FlexibleMapAccessor<Integer> fieldFma;
     private final List<MethodOperation> subOps;

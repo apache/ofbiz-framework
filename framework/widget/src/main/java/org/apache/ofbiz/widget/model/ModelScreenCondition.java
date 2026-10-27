@@ -44,7 +44,6 @@ public final class ModelScreenCondition {
      * it is immutable. DO NOT CHANGE THE OBJECT'S STATE AT RUN TIME!
      */
 
-    private static final String MODULE = ModelScreenCondition.class.getName();
     public static final ModelConditionFactory SCREEN_CONDITION_FACTORY = new ScreenConditionFactory();
 
     public static final class IfEmptySection extends AbstractModelCondition {

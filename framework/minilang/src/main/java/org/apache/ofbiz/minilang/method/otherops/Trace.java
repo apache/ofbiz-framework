@@ -35,8 +35,6 @@ import org.w3c.dom.Element;
  */
 public final class Trace extends MethodOperation {
 
-    private static final String MODULE = Trace.class.getName();
-
     private final int level;
     private final List<MethodOperation> methodOperations;
 

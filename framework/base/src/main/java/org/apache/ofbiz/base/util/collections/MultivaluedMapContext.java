@@ -29,8 +29,6 @@ import java.util.List;
  */
 public class MultivaluedMapContext<K, V> extends MapContext<K, List<V>> {
 
-    private static final String MODULE = MultivaluedMapContext.class.getName();
-
     /**
      * Create a multi-value map initialized with one context
      */

@@ -74,7 +74,6 @@ public class ScreenXlsxViewHandler extends AbstractViewHandler {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public void render(String name, String page, String info, String contentType, String encoding, HttpServletRequest request,
             HttpServletResponse response, Map<String, Object> context) throws ViewHandlerException {
         try (SXSSFWorkbook workbook = new SXSSFWorkbook()) {

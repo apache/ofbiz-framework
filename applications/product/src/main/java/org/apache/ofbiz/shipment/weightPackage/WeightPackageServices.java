@@ -138,7 +138,6 @@ public class WeightPackageServices {
         WeightPackageSession weightPackageSession = (WeightPackageSession) context.get("weightPackageSession");
         Locale locale = (Locale) context.get("locale");
 
-        Delegator delegator = dctx.getDelegator();
         String orderId = (String) context.get("orderId");
         String shipmentId = (String) context.get("shipmentId");
         String invoiceId = (String) context.get("invoiceId");
@@ -177,7 +176,6 @@ public class WeightPackageServices {
 
     public static Map<String, Object> completeShipment(DispatchContext dctx, Map<String, ? extends Object> context) {
         Locale locale = (Locale) context.get("locale");
-        Delegator delegator = dctx.getDelegator();
         WeightPackageSession weightPackageSession = (WeightPackageSession) context.get("weightPackageSession");
 
         String shipmentId = (String) context.get("shipmentId");
@@ -199,7 +197,6 @@ public class WeightPackageServices {
 
     public static Map<String, Object> savePackagesInfo(DispatchContext dctx, Map<String, ? extends Object> context) {
         Locale locale = (Locale) context.get("locale");
-        Delegator delegator = dctx.getDelegator();
         WeightPackageSession weightPackageSession = (WeightPackageSession) context.get("weightPackageSession");
 
         String orderId = (String) context.get("orderId");

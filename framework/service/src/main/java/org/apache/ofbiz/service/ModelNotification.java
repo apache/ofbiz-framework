@@ -27,7 +27,6 @@ import java.util.Map;
 import org.apache.ofbiz.base.config.GenericConfigException;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.StringUtil;
-import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.service.config.ServiceConfigUtil;
 import org.apache.ofbiz.service.config.model.NotificationGroup;
@@ -124,7 +123,6 @@ public class ModelNotification {
      */
     public Map<String, Object> buildContext(Map<String, ? extends Object> context, Map<String, Object> result, ModelService model)
             throws GenericServiceException {
-        Map<String, Object> userLogin = UtilGenerics.cast(context.get("userLogin"));
 
         String screen = getScreen();
         if (screen == null) {

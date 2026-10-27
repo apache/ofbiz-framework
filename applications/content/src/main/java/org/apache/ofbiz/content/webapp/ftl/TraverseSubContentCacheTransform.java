@@ -48,7 +48,6 @@ import freemarker.template.TransformControl;
  */
 public class TraverseSubContentCacheTransform implements TemplateTransformModel {
 
-    private static final String MODULE = TraverseSubContentCacheTransform.class.getName();
     static final String[] UP_SAVE_KEY_NAMES = {"globalNodeTrail"};
     static final String[] SAVE_KEY_NAMES = {"contentId", "subContentId", "subDataResourceTypeId", "mimeTypeId", "whenMap",
             "locale", "wrapTemplateId", "encloseWrapText", "nullThruDatesOnly", "globalNodeTrail"};

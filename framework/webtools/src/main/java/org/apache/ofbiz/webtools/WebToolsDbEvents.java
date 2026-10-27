@@ -40,7 +40,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 public class WebToolsDbEvents {
-    private static final String MODULE = WebToolsDbEvents.class.getName();
     private static final String RESOURCE = "WebtoolsUiLabels";
     private static Document document;
     private static final String TITLE = "Entities of an Apache Open For Business Project (Apache OFBiz) Component";

@@ -18,7 +18,6 @@
  *******************************************************************************/
 package org.apache.ofbiz.base.util;
 
-import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Date;
 
@@ -28,7 +27,7 @@ import org.apache.ofbiz.base.lang.ComparableRange;
  * new code should use <code>ComparableRange&lt;Date&gt;</code> instead.
  */
 @SuppressWarnings("serial")
-public class DateRange extends ComparableRange<Date> implements Serializable {
+public class DateRange extends ComparableRange<Date> {
     /** A <code>Date</code> instance initialized to the earliest possible date.*/
     public static final Date MIN_DATE = UtilDateTime.unmodifiableDate(UtilDateTime.getEarliestDate());
     /** A <code>Date</code> instance initialized to the latest possible date.*/

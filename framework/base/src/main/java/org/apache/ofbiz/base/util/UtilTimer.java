@@ -35,7 +35,6 @@ public class UtilTimer {
     private String timerName = null;
     private String lastMessage = null;
 
-    private long realStartTime;
     private long startTime;
     private long lastMessageTime;
     private boolean running = false;
@@ -71,7 +70,6 @@ public class UtilTimer {
 
     private void start() {
         startTime = System.currentTimeMillis();
-        realStartTime = startTime;
         this.lastMessageTime = startTime;
         this.lastMessage = "Begin";
         this.running = true;

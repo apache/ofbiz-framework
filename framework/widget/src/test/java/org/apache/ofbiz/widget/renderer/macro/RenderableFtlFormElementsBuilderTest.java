@@ -522,7 +522,7 @@ public final class RenderableFtlFormElementsBuilderTest {
         when(dateRangePickerField.getTimePickerSeconds()).thenReturn(true);
 
         final Map<String, Object> context = new HashMap<>();
-        @SuppressWarnings("deprecation") Locale locale = new Locale("fr");
+        Locale locale = new Locale("fr");
         context.put("locale", locale);
 
         final RenderableFtl renderableFtl = renderableFtlFormElementsBuilder.dateRangePicker(context, dateRangePickerField);

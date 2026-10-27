@@ -57,7 +57,6 @@ public final class RenderableFtlFormElementsBuilderDatetimeTest {
 
     @Test
     public void datetimeFieldSetsIdAndValue() {
-        final int maxLength = 22;
         final ModelFormField.DateTimeField datetimeField = mock(ModelFormField.DateTimeField.class);
         when(datetimeField.getModelFormField()).thenReturn(modelFormField);
         when(modelFormField.getCurrentContainerId(notNull())).thenReturn("CurrentDatetimeId");

@@ -34,7 +34,6 @@ import org.apache.ofbiz.entity.model.ModelEntity;
 import groovy.util.BuilderSupport;
 
 public class EntityConditionBuilder extends BuilderSupport {
-    private static final String MODULE = EntityConditionBuilder.class.getName();
 
     @SuppressWarnings("serial")
     private static class ConditionHolder implements EntityCondition {

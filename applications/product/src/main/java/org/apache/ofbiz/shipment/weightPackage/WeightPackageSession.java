@@ -59,7 +59,6 @@ public class WeightPackageSession implements Serializable {
     private String shipmentId = null;
     private String invoiceId = null;
     private String facilityId = null;
-    private String carrierPartyId = null;
     private String dimensionUomId = null;
     private String weightUomId = null;
     private BigDecimal estimatedShipCost = null;
@@ -295,14 +294,6 @@ public class WeightPackageSession implements Serializable {
      */
     public String getDimensionUomId() {
         return dimensionUomId;
-    }
-
-    /**
-     * Sets carrier party id.
-     * @param carrierPartyId the carrier party id
-     */
-    public void setCarrierPartyId(String carrierPartyId) {
-        this.carrierPartyId = carrierPartyId;
     }
 
     /**

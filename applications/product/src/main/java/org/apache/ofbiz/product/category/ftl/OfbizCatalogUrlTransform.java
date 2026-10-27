@@ -34,7 +34,6 @@ import freemarker.template.TemplateModelException;
 import freemarker.template.TemplateTransformModel;
 
 public class OfbizCatalogUrlTransform implements TemplateTransformModel {
-    private static final String MODULE = OfbizCatalogUrlTransform.class.getName();
 
     /**
      * Gets string arg.

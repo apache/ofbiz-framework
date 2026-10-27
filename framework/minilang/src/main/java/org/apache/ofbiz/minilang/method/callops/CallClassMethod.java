@@ -43,8 +43,6 @@ import org.w3c.dom.Element;
  */
 public final class CallClassMethod extends MethodOperation {
 
-    private static final String MODULE = CallClassMethod.class.getName();
-
     private final String className;
     private final Class<?> methodClass;
     private final String methodName;

@@ -35,8 +35,6 @@ import java.util.Map;
  */
 public final class UtilPlist {
 
-    private static final String MODULE = UtilPlist.class.getName();
-
     private UtilPlist() { }
 
     /** simple 4 char indentation */

@@ -23,8 +23,6 @@ import org.apache.ofbiz.entity.condition.EntityCondition;
 
 public class EntityObjectCache extends AbstractEntityConditionCache<String, Object> {
 
-    private static final String MODULE = EntityObjectCache.class.getName();
-
     public EntityObjectCache(String delegatorName) {
         super(delegatorName, "object-list");
     }

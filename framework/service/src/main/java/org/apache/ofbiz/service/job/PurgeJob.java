@@ -18,15 +18,13 @@
  *******************************************************************************/
 package org.apache.ofbiz.service.job;
 
-import java.io.Serializable;
-
 import org.apache.ofbiz.entity.GenericValue;
 
 /**
  * Purge job - removes a JobSandbox entity value and its related values.
  */
 @SuppressWarnings("serial")
-public class PurgeJob extends AbstractJob implements Serializable {
+public class PurgeJob extends AbstractJob {
 
     private final GenericValue jobValue;
 

@@ -22,7 +22,6 @@ import java.net.URI;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -107,14 +106,6 @@ public class MacroCommonRenderer {
             }
         }
         return sb.toString();
-    }
-
-    private static String buildParamStringFromMap(Map<String, Object> extraParamsAsMap) {
-        if (extraParamsAsMap == null) return "";
-        final Map<String, Object> extraParamsAsMapConverted = extraParamsAsMap;
-        return extraParamsAsMap.keySet().stream()
-                .map(key -> key + "=" + extraParamsAsMapConverted.get(key))
-                .collect(Collectors.joining("&"));
     }
 
     /**

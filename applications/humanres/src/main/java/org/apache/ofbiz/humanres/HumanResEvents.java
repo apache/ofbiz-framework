@@ -160,8 +160,6 @@ public class HumanResEvents {
             if (UtilValidate.isNotEmpty(childOfComs)) {
                 for (GenericValue childOfCom : childOfComs) {
                     String catId = null;
-                    String childPartyId = null;
-                    String catNameField = null;
                     String title = null;
                     Map<String, Object> josonMap = new HashMap<>();
                     Map<String, Object> dataMap = new HashMap<>();

@@ -52,7 +52,6 @@ import org.apache.ofbiz.service.ServiceUtil;
 public class ProposedOrder {
 
     private static final String MODULE = ProposedOrder.class.getName();
-    private static final String RESOURCE = "ManufacturingUiLabels";
 
     private GenericValue product;
     private boolean isBuilt;

@@ -22,7 +22,6 @@ package org.apache.ofbiz.common.authentication.example;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.common.authentication.api.Authenticator;
 import org.apache.ofbiz.common.authentication.api.AuthenticatorException;
-import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.service.LocalDispatcher;
 
 /**
@@ -31,9 +30,6 @@ import org.apache.ofbiz.service.LocalDispatcher;
 public class TestFailAuthenticator implements Authenticator {
 
     private static final String MODULE = TestFailAuthenticator.class.getName();
-    private Delegator delegator;
-    private LocalDispatcher dispatcher;
-    private float weight = 1;
 
     /**
      * Method called when authenticator is first initialized (the delegator
@@ -42,8 +38,6 @@ public class TestFailAuthenticator implements Authenticator {
      */
     @Override
     public void initialize(LocalDispatcher dispatcher) {
-        this.dispatcher = dispatcher;
-        this.delegator = dispatcher.getDelegator();
         Debug.logInfo(this.getClass().getName() + " Authenticator initialized", MODULE);
     }
 

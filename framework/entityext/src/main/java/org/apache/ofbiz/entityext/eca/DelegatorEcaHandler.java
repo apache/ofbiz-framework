@@ -46,7 +46,6 @@ public class DelegatorEcaHandler implements EntityEcaHandler<EntityEcaRule> {
     private static final String MODULE = DelegatorEcaHandler.class.getName();
 
     private Delegator delegator = null;
-    private String delegatorName = null;
     private String entityEcaReaderName = null;
     private AtomicReference<Future<DispatchContext>> dctx = new AtomicReference<>();
 
@@ -55,7 +54,6 @@ public class DelegatorEcaHandler implements EntityEcaHandler<EntityEcaRule> {
     @Override
     public void setDelegator(Delegator delegator) {
         this.delegator = delegator;
-        this.delegatorName = delegator.getDelegatorName();
         this.entityEcaReaderName = EntityEcaUtil.getEntityEcaReaderName(delegator.getDelegatorBaseName());
 
         Callable<DispatchContext> creator = () -> {

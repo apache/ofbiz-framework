@@ -44,10 +44,7 @@ import org.apache.ofbiz.service.ServiceContainer;
  */
 public class RmiServiceContainer implements Container {
 
-    private static final String MODULE = RmiServiceContainer.class.getName();
-
     private RemoteDispatcherImpl remote = null;
-    private String configFile = null;
     private String name = null;
     private String containerName;
     // Container methods
@@ -55,7 +52,6 @@ public class RmiServiceContainer implements Container {
     @Override
     public void init(List<StartupCommand> ofbizCommands, String name, String configFile) {
         this.containerName = name;
-        this.configFile = configFile;
     }
 
     @Override

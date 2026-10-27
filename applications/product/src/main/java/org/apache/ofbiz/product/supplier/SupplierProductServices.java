@@ -46,7 +46,6 @@ import org.apache.ofbiz.service.ServiceUtil;
 public class SupplierProductServices {
 
     private static final String MODULE = SupplierProductServices.class.getName();
-    private static final String RESOURCE = "ProductUiLabels";
 
     /*
      * Parameters: productId, partyId, currencyUomId, quantity

@@ -49,7 +49,6 @@ public class ModelPermission implements Serializable {
     private String permissionResourceDesc = null;
     private boolean permissionRequireNewTransaction = false;
     private boolean permissionReturnErrorOnFailure = true;
-    private Boolean auth;
 
     private static final String RESOURCE = "ServiceErrorUiLabels";
 
@@ -203,14 +202,6 @@ public class ModelPermission implements Serializable {
      */
     public String getAction() {
         return action;
-    }
-
-    /**
-     * Sets auth.
-     * @param auth the auth
-     */
-    public void setAuth(Boolean auth) {
-        this.auth = auth;
     }
 
     /**

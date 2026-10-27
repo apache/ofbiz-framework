@@ -38,8 +38,6 @@ import org.w3c.dom.Element;
  */
 public final class EmptyCondition extends MethodOperation implements Conditional {
 
-    private static final String MODULE = EmptyCondition.class.getName();
-
     private final FlexibleMapAccessor<Object> fieldFma;
     // Sub-operations are used only when this is a method operation.
     private final List<MethodOperation> elseSubOps;

@@ -174,7 +174,6 @@ public class OfbizCurrencyTransform implements TemplateTransformModel {
             }
 
             @Override
-            @SuppressWarnings("deprecation")
             public void close() throws IOException {
                 try {
                     if (Debug.verboseOn()) {

@@ -28,8 +28,6 @@ import org.apache.ofbiz.entity.Delegator;
  */
 public class GenericDispatcherFactory implements LocalDispatcherFactory {
 
-    private static final String MODULE = GenericDispatcherFactory.class.getName();
-
     private static boolean ecasDisabled = false;
 
     @Override

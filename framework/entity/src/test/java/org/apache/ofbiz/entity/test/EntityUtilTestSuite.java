@@ -38,8 +38,6 @@ import org.junit.jupiter.api.Test;
 @JunitJupiterTest
 public class EntityUtilTestSuite implements JupiterTestHelper {
 
-    private static final String MODULE = EntityUtilTestSuite.class.getName();
-
     public static final long TEST_COUNT = 1000;
 
     private List<GenericValue> prepareGenericValueList() {

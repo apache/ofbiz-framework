@@ -33,8 +33,6 @@ import org.w3c.dom.Element;
  */
 public final class FieldToResult extends MethodOperation {
 
-    private static final String MODULE = FieldToResult.class.getName();
-
     private final FlexibleMapAccessor<Object> fieldFma;
     private final FlexibleMapAccessor<Object> resultFma;
 

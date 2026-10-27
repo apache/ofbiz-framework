@@ -26,7 +26,6 @@ import org.w3c.dom.Element;
  * @see <code>widget-tree.xsd</code>
  */
 public class ModelTreeCondition {
-    private static final String MODULE = ModelTreeCondition.class.getName();
     private final ModelCondition condition;
 
     public ModelTreeCondition(ModelTree modelTree, Element conditionElement) {

@@ -38,9 +38,6 @@ import org.apache.ofbiz.base.util.RMIExtendedSocketFactory;
 
 public class NamingServiceContainer implements Container {
 
-    private static final String MODULE = NamingServiceContainer.class.getName();
-
-    private String configFileLocation = null;
     private boolean isRunning = false;
     private Registry registry = null;
     private int namingPort = 1099;
@@ -53,7 +50,6 @@ public class NamingServiceContainer implements Container {
     @Override
     public void init(List<StartupCommand> ofbizCommands, String name, String configFile) throws ContainerException {
         this.name = name;
-        this.configFileLocation = configFile;
 
         Configuration cfg = ContainerConfig.getConfiguration(name);
 

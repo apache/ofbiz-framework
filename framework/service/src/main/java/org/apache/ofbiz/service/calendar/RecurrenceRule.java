@@ -98,7 +98,6 @@ public class RecurrenceRule {
     private List<String> byYearDayList;
     private List<String> byWeekNoList;
     private List<String> byMonthList;
-    private List<String> bySetPosList;
 
     /**
      * Creates a new RecurrenceRule object from a RecurrenceInfo entity.
@@ -140,7 +139,6 @@ public class RecurrenceRule {
         byYearDayList = StringUtil.split(rule.getString("byYearDayList"), ",");
         byWeekNoList = StringUtil.split(rule.getString("byWeekNoList"), ",");
         byMonthList = StringUtil.split(rule.getString("byMonthList"), ",");
-        bySetPosList = StringUtil.split(rule.getString("bySetPosList"), ",");
     }
 
     // Checks for a valid frequency property.

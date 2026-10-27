@@ -45,7 +45,6 @@ public class BOMTree {
     public static final int EXPLOSION_MANUFACTURING = 2;
     public static final int IMPLOSION = 3;
 
-    private LocalDispatcher dispatcher = null;
     private Delegator delegator = null;
 
     private BOMNode root;
@@ -92,7 +91,6 @@ public class BOMTree {
         if (inDate == null) inDate = new Date();
 
         this.delegator = delegator;
-        this.dispatcher = dispatcher;
         this.bomTypeId = bomTypeId;
 
         inputProduct = EntityQuery.use(delegator).from("Product").where("productId", productId).queryOne();

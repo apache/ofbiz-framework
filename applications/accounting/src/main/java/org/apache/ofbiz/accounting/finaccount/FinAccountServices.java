@@ -76,7 +76,6 @@ public class FinAccountServices {
             }
         }
 
-        GenericValue userLogin = (GenericValue) context.get("userLogin");
         try {
             // find the most recent (active) service credit account for the specified party
             String partyId = (String) context.get("partyId");

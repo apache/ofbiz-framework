@@ -30,7 +30,6 @@ import org.apache.ofbiz.entity.condition.EntityExpr;
 import org.apache.ofbiz.entity.condition.EntityOperator;
 
 public final class PeriodWorker {
-    private static final String MODULE = PeriodWorker.class.getName();
 
     private PeriodWorker() { }
 
