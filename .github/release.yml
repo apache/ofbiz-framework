@@ -23,8 +23,10 @@
 # The type labels are set from the PR title prefix by pr-type-label.yml.
 # The cve and security labels are set by hand, cve only once the CVE is
 # announced, after which the release notes can be generated again.
+# The api-change label is set by hand on a pull request that changes or removes
+# a public API, so that upgraders find it.
 # A pull request is listed in the first category whose labels match, so the
-# security categories come before the type categories.
+# security and API categories come before the type categories.
 # See https://docs.github.com/en/repositories/releasing-projects-on-github/automatically-generated-release-notes
 
 changelog:
@@ -40,6 +42,9 @@ changelog:
     - title: Security hardening
       labels:
         - security
+    - title: API changes
+      labels:
+        - api-change
     - title: Bug fixes
       labels:
         - bug
