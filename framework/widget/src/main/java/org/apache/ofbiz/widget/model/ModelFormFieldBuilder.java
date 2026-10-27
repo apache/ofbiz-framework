@@ -754,6 +754,10 @@ public class ModelFormFieldBuilder {
      * @return the boolean
      */
     public boolean induceFieldInfoFromEntityField(ModelEntity modelEntity, ModelField modelField, String defaultFieldType) {
+        return induceFromEntityField(modelEntity, modelField, defaultFieldType);
+    }
+
+    private boolean induceFromEntityField(ModelEntity modelEntity, ModelField modelField, String defaultFieldType) {
         if (modelEntity == null || modelField == null) {
             return false;
         }
@@ -768,31 +772,31 @@ public class ModelFormFieldBuilder {
                         new ModelFormField.SingleOption("N", null, null));
                 ModelFormField.DropDownField dropDownField = new ModelFormField.DropDownField(FieldInfo.SOURCE_AUTO_ENTITY,
                         optionSources);
-                this.setFieldInfo(dropDownField);
+                this.updateFieldInfo(dropDownField);
             } else if (TEXT_FIELD_TYPES.contains(fieldType)) {
                 ModelFormField.TextFindField textField = new ModelFormField.TextFindField(FieldInfo.SOURCE_AUTO_ENTITY,
                         TEXT_SIZE_BY_FIELD_TYPES.get(fieldType), TEXT_MAX_SIZE_BY_FIELD_TYPES.get(fieldType), null);
-                this.setFieldInfo(textField);
+                this.updateFieldInfo(textField);
             } else if (NUMERIC_FIELD_TYPES.contains(fieldType)) {
                 ModelFormField.RangeFindField textField = new ModelFormField.RangeFindField(FieldInfo.SOURCE_AUTO_ENTITY, 6, null);
-                this.setFieldInfo(textField);
+                this.updateFieldInfo(textField);
             } else if (DATA_FIELD_TYPES.contains(fieldType)) {
                 String type = fieldType;
                 if ("date-time".equals(fieldType)) {
                     type = "timestamp";
                 }
                 ModelFormField.DateFindField dateTimeField = new ModelFormField.DateFindField(FieldInfo.SOURCE_AUTO_ENTITY, type);
-                this.setFieldInfo(dateTimeField);
+                this.updateFieldInfo(dateTimeField);
             } else {
                 ModelFormField.TextFindField textField = new ModelFormField.TextFindField(FieldInfo.SOURCE_AUTO_ENTITY, null);
-                this.setFieldInfo(textField);
+                this.updateFieldInfo(textField);
             }
         } else if ("display".equals(defaultFieldType)) {
             ModelFormField.DisplayField displayField = new ModelFormField.DisplayField(FieldInfo.SOURCE_AUTO_ENTITY, null);
-            this.setFieldInfo(displayField);
+            this.updateFieldInfo(displayField);
         } else if ("hidden".equals(defaultFieldType)) {
             ModelFormField.HiddenField hiddenField = new ModelFormField.HiddenField(FieldInfo.SOURCE_AUTO_ENTITY, null);
-            this.setFieldInfo(hiddenField);
+            this.updateFieldInfo(hiddenField);
         } else {
             if ("indicator".equals(fieldType)) {
                 List<OptionSource> optionSources;
@@ -808,42 +812,42 @@ public class ModelFormFieldBuilder {
                 }
                 ModelFormField.DropDownField dropDownField = new ModelFormField.DropDownField(FieldInfo.SOURCE_AUTO_ENTITY,
                         optionSources);
-                this.setFieldInfo(dropDownField);
+                this.updateFieldInfo(dropDownField);
             } else if ("very-long".equals(fieldType)) {
                 ModelFormField.TextareaField textareaField = new ModelFormField.TextareaField(FieldInfo.SOURCE_AUTO_ENTITY, null);
-                this.setFieldInfo(textareaField);
+                this.updateFieldInfo(textareaField);
             } else if (TEXT_FIELD_TYPES.contains(fieldType)) {
                 ModelFormField.TextField textField = new ModelFormField.TextField(FieldInfo.SOURCE_AUTO_ENTITY,
                         TEXT_SIZE_BY_FIELD_TYPES.get(fieldType), TEXT_MAX_SIZE_BY_FIELD_TYPES.get(fieldType), "text", null);
-                this.setFieldInfo(textField);
+                this.updateFieldInfo(textField);
             } else if (NUMERIC_FIELD_TYPES.contains(fieldType)) {
                 ModelFormField.TextField textField = new ModelFormField.TextField(FieldInfo.SOURCE_AUTO_ENTITY, 6, null, "number", null);
-                this.setFieldInfo(textField);
+                this.updateFieldInfo(textField);
             } else if (DATA_FIELD_TYPES.contains(fieldType)) {
                 String type = fieldType;
                 if ("date-time".equals(fieldType)) {
                     type = "timestamp";
                 }
                 ModelFormField.DateTimeField dateTimeField = new ModelFormField.DateTimeField(FieldInfo.SOURCE_AUTO_ENTITY, type);
-                this.setFieldInfo(dateTimeField);
+                this.updateFieldInfo(dateTimeField);
             } else {
                 ModelFormField.TextField textField = new ModelFormField.TextField(FieldInfo.SOURCE_AUTO_ENTITY, null);
-                this.setFieldInfo(textField);
+                this.updateFieldInfo(textField);
             }
         }
         return true;
     }
 
     private boolean induceFieldInfoFromEntityField(String defaultFieldType, ModelReader entityModelReader) {
-        if (UtilValidate.isEmpty(this.getEntityName()) || UtilValidate.isEmpty(this.getFieldName())) {
+        if (UtilValidate.isEmpty(this.entityName) || UtilValidate.isEmpty(this.fieldName)) {
             return false;
         }
         try {
-            ModelEntity modelEntity = entityModelReader.getModelEntity(this.getEntityName());
-            ModelField modelField = modelEntity.getField(this.getFieldName());
+            ModelEntity modelEntity = entityModelReader.getModelEntity(this.entityName);
+            ModelField modelField = modelEntity.getField(this.fieldName);
             if (modelField != null) {
                 // okay, populate using the entity field info...
-                this.induceFieldInfoFromEntityField(modelEntity, modelField, defaultFieldType);
+                this.induceFromEntityField(modelEntity, modelField, defaultFieldType);
                 return true;
             }
         } catch (GenericEntityException e) {
@@ -860,6 +864,10 @@ public class ModelFormFieldBuilder {
      * @return the boolean
      */
     public boolean induceFieldInfoFromServiceParam(ModelService modelService, ModelParam modelParam, String defaultFieldType) {
+        return induceFromServiceParam(modelService, modelParam, defaultFieldType);
+    }
+
+    private boolean induceFromServiceParam(ModelService modelService, ModelParam modelParam, String defaultFieldType) {
         if (modelService == null || modelParam == null) {
             return false;
         }
@@ -900,7 +908,7 @@ public class ModelFormFieldBuilder {
                 fieldInfo = new ModelFormField.DateTimeField(FieldInfo.SOURCE_AUTO_SERVICE, "time");
             }
         }
-        this.setFieldInfo(fieldInfo);
+        this.updateFieldInfo(fieldInfo);
         return fieldInfo != null;
     }
 
@@ -931,12 +939,12 @@ public class ModelFormFieldBuilder {
 
     private boolean induceFieldInfoFromServiceParam(String defaultFieldType, ModelReader entityModelReader,
             DispatchContext dispatchContext) {
-        if (UtilValidate.isEmpty(this.getServiceName()) || UtilValidate.isEmpty(this.getAttributeName())) {
+        if (UtilValidate.isEmpty(this.serviceName) || UtilValidate.isEmpty(this.attributeName)) {
             return false;
         }
         try {
-            ModelService modelService = dispatchContext.getModelService(this.getServiceName());
-            ModelParam modelParam = modelService.getParam(this.getAttributeName());
+            ModelService modelService = dispatchContext.getModelService(this.serviceName);
+            ModelParam modelParam = modelService.getParam(this.attributeName);
             if (modelParam != null) {
                 if (UtilValidate.isNotEmpty(modelParam.getEntityName()) && UtilValidate.isNotEmpty(modelParam.getFieldName())) {
                     this.entityName = modelParam.getEntityName();
@@ -946,13 +954,13 @@ public class ModelFormFieldBuilder {
                     }
                 }
 
-                this.induceFieldInfoFromServiceParam(modelService, modelParam, defaultFieldType);
+                this.induceFromServiceParam(modelService, modelParam, defaultFieldType);
                 return true;
             }
         } catch (GenericServiceException e) {
             Debug.logError(e,
-                    "error getting service parameter definition for auto-field with serviceName: " + this.getServiceName()
-                            + ", and attributeName: " + this.getAttributeName(), MODULE);
+                    "error getting service parameter definition for auto-field with serviceName: " + this.serviceName
+                            + ", and attributeName: " + this.attributeName, MODULE);
         }
         return false;
     }
@@ -1129,10 +1137,14 @@ public class ModelFormFieldBuilder {
      * @return the field info
      */
     public ModelFormFieldBuilder setFieldInfo(FieldInfo fieldInfo) {
+        updateFieldInfo(fieldInfo);
+        return this;
+    }
+
+    private void updateFieldInfo(FieldInfo fieldInfo) {
         if (fieldInfo != null && (this.fieldInfo == null || (fieldInfo.getFieldSource() <= this.fieldInfo.getFieldSource()))) {
             this.fieldInfo = fieldInfo;
         }
-        return this;
     }
 
     /**

@@ -2475,7 +2475,7 @@ public final class ModelFormField {
             this.size = size;
             Element subHyperlinkElement = UtilXml.firstChildElement(element, "sub-hyperlink");
             if (subHyperlinkElement != null) {
-                this.subHyperlink = new SubHyperlink(subHyperlinkElement, this.getModelFormField());
+                this.subHyperlink = new SubHyperlink(subHyperlinkElement, modelFormField);
             } else {
                 this.subHyperlink = null;
             }
@@ -5944,7 +5944,7 @@ public final class ModelFormField {
             this.size = size;
             Element subHyperlinkElement = UtilXml.firstChildElement(element, "sub-hyperlink");
             if (subHyperlinkElement != null) {
-                this.subHyperlink = new SubHyperlink(subHyperlinkElement, this.getModelFormField());
+                this.subHyperlink = new SubHyperlink(subHyperlinkElement, modelFormField);
             } else {
                 this.subHyperlink = null;
             }

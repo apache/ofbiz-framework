@@ -58,7 +58,6 @@ public class XmlWidgetVisitor extends XmlAbstractWidgetVisitor implements ModelW
     private final ModelFieldVisitor fieldVisitor;
     private final ModelActionVisitor actionVisitor;
     private final ModelConditionVisitor conditionVisitor;
-    private final Appendable writer = getWriter();
 
     public XmlWidgetVisitor(Appendable writer) {
         super(writer);
@@ -69,42 +68,42 @@ public class XmlWidgetVisitor extends XmlAbstractWidgetVisitor implements ModelW
 
     @Override
     public void visit(Column column) throws Exception {
-        writer.append("<column");
+        getWriter().append("<column");
         visitModelWidget(column);
         visitAttribute("id", column.getIdExdr());
         visitAttribute("style", column.getStyleExdr());
-        writer.append(">");
+        getWriter().append(">");
         visitSubWidgets(column.getSubWidgets());
-        writer.append("</column>");
+        getWriter().append("</column>");
     }
 
     @Override
     public void visit(ColumnContainer columnContainer) throws Exception {
-        writer.append("<column-container");
+        getWriter().append("<column-container");
         visitModelWidget(columnContainer);
         visitAttribute("id", columnContainer.getIdExdr());
         visitAttribute("style", columnContainer.getStyleExdr());
-        writer.append(">");
+        getWriter().append(">");
         visitSubWidgets(columnContainer.getColumns());
-        writer.append("</column-container>");
+        getWriter().append("</column-container>");
     }
 
     @Override
     public void visit(Container container) throws Exception {
-        writer.append("<container");
+        getWriter().append("<container");
         visitModelWidget(container);
         visitAttribute("auto-update-interval", container.getAutoUpdateInterval());
         visitAttribute("auto-update-target", container.getAutoUpdateTargetExdr());
         visitAttribute("id", container.getIdExdr());
         visitAttribute("style", container.getStyleExdr());
-        writer.append(">");
+        getWriter().append(">");
         visitSubWidgets(container.getSubWidgets());
-        writer.append("</container>");
+        getWriter().append("</container>");
     }
 
     @Override
     public void visit(Content content) throws Exception {
-        writer.append("<content");
+        getWriter().append("<content");
         visitModelWidget(content);
         visitAttribute("border", content.getBorder());
         visitAttribute("content-id", content.getContentId());
@@ -115,79 +114,79 @@ public class XmlWidgetVisitor extends XmlAbstractWidgetVisitor implements ModelW
         visitAttribute("height", content.getHeight());
         visitAttribute("width", content.getWidth());
         visitAttribute("xml-escape", content.xmlEscape());
-        writer.append("/>");
+        getWriter().append("/>");
     }
 
     @Override
     public void visit(DecoratorScreen decoratorScreen) throws Exception {
-        writer.append("<decorator-screen");
+        getWriter().append("<decorator-screen");
         visitModelWidget(decoratorScreen);
         visitAttribute("location", decoratorScreen.getLocationExdr());
-        writer.append(">");
+        getWriter().append(">");
         visitSubWidgets(decoratorScreen.getSectionMap().values());
-        writer.append("</decorator-screen>");
+        getWriter().append("</decorator-screen>");
     }
 
     @Override
     public void visit(DecoratorSection decoratorSection) throws Exception {
-        writer.append("<decorator-section");
+        getWriter().append("<decorator-section");
         visitModelWidget(decoratorSection);
-        writer.append(">");
+        getWriter().append(">");
         visitSubWidgets(decoratorSection.getSubWidgets());
-        writer.append("</decorator-screen>");
+        getWriter().append("</decorator-screen>");
     }
 
     @Override
     public void visit(DecoratorSectionInclude decoratorSectionInclude) throws Exception {
-        writer.append("<decorator-section-include");
+        getWriter().append("<decorator-section-include");
         visitModelWidget(decoratorSectionInclude);
-        writer.append("/>");
+        getWriter().append("/>");
     }
 
     @Override
     public void visit(Form form) throws Exception {
-        writer.append("<include-form");
+        getWriter().append("<include-form");
         visitModelWidget(form);
         visitAttribute("location", form.getLocationExdr());
         visitAttribute("share-scope", form.getShareScopeExdr());
-        writer.append("/>");
+        getWriter().append("/>");
     }
 
     @Override
     public void visit(HorizontalSeparator horizontalSeparator) throws Exception {
-        writer.append("<horizontal-separator");
+        getWriter().append("<horizontal-separator");
         visitModelWidget(horizontalSeparator);
         visitAttribute("id", horizontalSeparator.getIdExdr());
         visitAttribute("style", horizontalSeparator.getStyleExdr());
-        writer.append("/>");
+        getWriter().append("/>");
     }
 
     @Override
     public void visit(HtmlTemplate htmlTemplate) throws Exception {
-        writer.append("<html-template");
+        getWriter().append("<html-template");
         visitModelWidget(htmlTemplate);
         visitAttribute("location", htmlTemplate.getLocationExdr());
         visitAttribute("multi-block", htmlTemplate.isMultiBlock());
-        writer.append("/>");
+        getWriter().append("/>");
     }
 
     @Override
     public void visit(HtmlTemplateDecorator htmlTemplateDecorator) throws Exception {
-        writer.append("<html-template-decorator");
+        getWriter().append("<html-template-decorator");
         visitModelWidget(htmlTemplateDecorator);
         visitAttribute("location", htmlTemplateDecorator.getLocationExdr());
-        writer.append(">");
+        getWriter().append(">");
         visitSubWidgets(htmlTemplateDecorator.getSectionMap().values());
-        writer.append("</html-template-decorator>");
+        getWriter().append("</html-template-decorator>");
     }
 
     @Override
     public void visit(HtmlTemplateDecoratorSection htmlTemplateDecoratorSection) throws Exception {
-        writer.append("<html-template-decorator-section");
+        getWriter().append("<html-template-decorator-section");
         visitModelWidget(htmlTemplateDecoratorSection);
-        writer.append(">");
+        getWriter().append(">");
         visitSubWidgets(htmlTemplateDecoratorSection.getSubWidgets());
-        writer.append("</html-template-decorator-section>");
+        getWriter().append("</html-template-decorator-section>");
     }
 
     @Override
@@ -197,16 +196,16 @@ public class XmlWidgetVisitor extends XmlAbstractWidgetVisitor implements ModelW
 
     @Override
     public void visit(IncludeScreen includeScreen) throws Exception {
-        writer.append("<include-screen");
+        getWriter().append("<include-screen");
         visitModelWidget(includeScreen);
         visitAttribute("location", includeScreen.getLocationExdr());
         visitAttribute("share-scope", includeScreen.getShareScopeExdr());
-        writer.append("/>");
+        getWriter().append("/>");
     }
 
     @Override
     public void visit(IterateSectionWidget iterateSectionWidget) throws Exception {
-        writer.append("<iterate-section");
+        getWriter().append("<iterate-section");
         visitModelWidget(iterateSectionWidget);
         visitAttribute("entry", iterateSectionWidget.getEntryNameExdr());
         visitAttribute("key", iterateSectionWidget.getKeyNameExdr());
@@ -214,56 +213,56 @@ public class XmlWidgetVisitor extends XmlAbstractWidgetVisitor implements ModelW
         visitAttribute("paginate", iterateSectionWidget.getPaginate());
         visitAttribute("paginate-target", iterateSectionWidget.getPaginateTarget());
         visitAttribute("view-size", iterateSectionWidget.getViewSize());
-        writer.append(">");
+        getWriter().append(">");
         visitSubWidgets(iterateSectionWidget.getSectionList());
-        writer.append("</iterate-section>");
+        getWriter().append("</iterate-section>");
     }
 
     @Override
     public void visit(Label label) throws Exception {
-        writer.append("<label");
+        getWriter().append("<label");
         visitModelWidget(label);
         visitAttribute("id", label.getIdExdr());
         visitAttribute("style", label.getStyleExdr());
-        writer.append(">");
-        writer.append(label.getTextExdr().getOriginal());
-        writer.append("</label>");
+        getWriter().append(">");
+        getWriter().append(label.getTextExdr().getOriginal());
+        getWriter().append("</label>");
     }
 
     @Override
     public void visit(Menu menu) throws Exception {
-        writer.append("<include-menu");
+        getWriter().append("<include-menu");
         visitModelWidget(menu);
         visitAttribute("location", menu.getLocationExdr());
-        writer.append("/>");
+        getWriter().append("/>");
     }
 
     @Override
     public void visit(ModelSingleForm modelForm) throws Exception {
-        writer.append("<form");
+        getWriter().append("<form");
         visitModelForm(modelForm);
-        writer.append("</form>");
+        getWriter().append("</form>");
     }
 
     @Override
     public void visit(ModelGrid modelGrid) throws Exception {
-        writer.append("<grid");
+        getWriter().append("<grid");
         visitModelForm(modelGrid);
-        writer.append("</grid>");
+        getWriter().append("</grid>");
     }
 
     @Override
     public void visit(Grid grid) throws Exception {
-        writer.append("<include-grid");
+        getWriter().append("<include-grid");
         visitModelWidget(grid);
         visitAttribute("location", grid.getLocationExdr());
         visitAttribute("share-scope", grid.getShareScopeExdr());
-        writer.append("/>");
+        getWriter().append("/>");
     }
 
     @Override
     public void visit(ModelMenu modelMenu) throws Exception {
-        writer.append("<menu");
+        getWriter().append("<menu");
         visitModelWidget(modelMenu);
         if (modelMenu.getParentMenu() != null) {
             visitAttribute("extends", modelMenu.getParentMenu().getName());
@@ -294,21 +293,21 @@ public class XmlWidgetVisitor extends XmlAbstractWidgetVisitor implements ModelW
         visitAttribute("default-align-style", modelMenu.getDefaultAlignStyle());
         visitAttribute("fill-style", modelMenu.getFillStyle());
         visitAttribute("extra-index", modelMenu.getExtraIndex());
-        writer.append(">");
+        getWriter().append(">");
         if (!modelMenu.getActions().isEmpty()) {
-            writer.append("<actions>");
+            getWriter().append("<actions>");
             visitActions(modelMenu.getActions());
-            writer.append("</actions>");
+            getWriter().append("</actions>");
         }
         for (ModelMenuItem menuItem : modelMenu.getMenuItemList()) {
             menuItem.accept(this);
         }
-        writer.append("</menu>");
+        getWriter().append("</menu>");
     }
 
     @Override
     public void visit(ModelMenuItem modelMenuItem) throws Exception {
-        writer.append("<menu-item");
+        getWriter().append("<menu-item");
         visitModelWidget(modelMenuItem);
         visitAttribute("entity-name", modelMenuItem.getEntityName());
         visitAttribute("title", modelMenuItem.getTitle());
@@ -327,14 +326,14 @@ public class XmlWidgetVisitor extends XmlAbstractWidgetVisitor implements ModelW
         visitAttribute("associated-content-id", modelMenuItem.getAssociatedContentId());
         visitAttribute("cell-width", modelMenuItem.getCellWidth());
         visitAttribute("sub-menu", modelMenuItem.getSubMenu());
-        writer.append(">");
+        getWriter().append(">");
         if (modelMenuItem.getCondition() != null) {
             modelMenuItem.getCondition().getCondition().accept(conditionVisitor);
         }
         if (!modelMenuItem.getActions().isEmpty()) {
-            writer.append("<actions>");
+            getWriter().append("<actions>");
             visitActions(modelMenuItem.getActions());
-            writer.append("</actions>");
+            getWriter().append("</actions>");
         }
         if (modelMenuItem.getLink() != null) {
             visitLink(modelMenuItem.getLink().getLink());
@@ -342,12 +341,12 @@ public class XmlWidgetVisitor extends XmlAbstractWidgetVisitor implements ModelW
         for (ModelMenuItem menuItem : modelMenuItem.getMenuItemList()) {
             menuItem.accept(this);
         }
-        writer.append("</menu-item>");
+        getWriter().append("</menu-item>");
     }
 
     @Override
     public void visit(ModelNode modelNode) throws Exception {
-        writer.append("<node");
+        getWriter().append("<node");
         visitModelWidget(modelNode);
         visitAttribute("expand-collapse-style", modelNode.getExpandCollapseStyle());
         visitAttribute("wrap-style", modelNode.getWrapStyleExdr());
@@ -355,35 +354,35 @@ public class XmlWidgetVisitor extends XmlAbstractWidgetVisitor implements ModelW
         visitAttribute("entry-name", modelNode.getEntryName());
         visitAttribute("entity-name", modelNode.getEntityName());
         visitAttribute("join-field-name", modelNode.getPkName());
-        writer.append(">");
+        getWriter().append(">");
         if (modelNode.getCondition() != null) {
             modelNode.getCondition().getCondition().accept(conditionVisitor);
         }
         if (!modelNode.getActions().isEmpty()) {
-            writer.append("<actions>");
+            getWriter().append("<actions>");
             visitActions(modelNode.getActions());
-            writer.append("</actions>");
+            getWriter().append("</actions>");
         }
         if (!modelNode.getScreenNameExdr().isEmpty()) {
-            writer.append("<include-screen");
+            getWriter().append("<include-screen");
             visitAttribute("name", modelNode.getScreenNameExdr());
             visitAttribute("location", modelNode.getScreenLocationExdr());
             visitAttribute("share-scope", modelNode.getShareScope());
             visitAttribute("name", modelNode.getScreenNameExdr());
-            writer.append("/>");
+            getWriter().append("/>");
         }
         if (modelNode.getLabel() != null) {
             ModelNode.Label label = modelNode.getLabel();
-            writer.append("<label");
+            getWriter().append("<label");
             visitAttribute("id", label.getIdExdr());
             visitAttribute("style", label.getStyleExdr());
-            writer.append(">");
-            writer.append(label.getTextExdr().getOriginal());
-            writer.append("</label>");
+            getWriter().append(">");
+            getWriter().append(label.getTextExdr().getOriginal());
+            getWriter().append("</label>");
         }
         if (modelNode.getLink() != null) {
             ModelNode.Link link = modelNode.getLink();
-            writer.append("<link");
+            getWriter().append("<link");
             visitAttribute("encode", link.getEncode());
             visitAttribute("full-path", link.getFullPath());
             visitAttribute("id", link.getIdExdr());
@@ -396,45 +395,45 @@ public class XmlWidgetVisitor extends XmlAbstractWidgetVisitor implements ModelW
             visitAttribute("text", link.getTextExdr());
             visitAttribute("url-mode", link.getUrlMode());
             if (!link.getParameterList().isEmpty()) {
-                writer.append(">");
+                getWriter().append(">");
                 visitParameters(link.getParameterList());
-                writer.append("</link>");
+                getWriter().append("</link>");
             } else {
-                writer.append("/>");
+                getWriter().append("/>");
             }
         }
-        writer.append("</node>");
+        getWriter().append("</node>");
     }
 
     @Override
     public void visit(ModelScreen modelScreen) throws Exception {
-        writer.append("<screen");
+        getWriter().append("<screen");
         visitModelWidget(modelScreen);
         visitAttribute("transaction-timeout", modelScreen.getTransactionTimeout());
         visitAttribute("use-transaction", modelScreen.getUseTransaction());
         visitAttribute("use-cache", modelScreen.getUseCache());
-        writer.append(">");
+        getWriter().append(">");
         modelScreen.getSection().accept(this);
-        writer.append("</screen>");
+        getWriter().append("</screen>");
     }
 
     @Override
     public void visit(ModelSubNode modelSubNode) throws Exception {
-        writer.append("<sub-node");
+        getWriter().append("<sub-node");
         visitModelWidget(modelSubNode);
         visitAttribute("node-name", modelSubNode.getNodeNameExdr());
-        writer.append(">");
+        getWriter().append(">");
         if (!modelSubNode.getActions().isEmpty()) {
-            writer.append("<actions>");
+            getWriter().append("<actions>");
             visitActions(modelSubNode.getActions());
-            writer.append("</actions>");
+            getWriter().append("</actions>");
         }
-        writer.append("</sub-node>");
+        getWriter().append("</sub-node>");
     }
 
     @Override
     public void visit(ModelTree modelTree) throws Exception {
-        writer.append("<tree");
+        getWriter().append("<tree");
         visitModelWidget(modelTree);
         visitAttribute("root-node-name", modelTree.getRootNodeName());
         visitAttribute("default-render-style", modelTree.getDefaultRenderStyle());
@@ -446,30 +445,30 @@ public class XmlWidgetVisitor extends XmlAbstractWidgetVisitor implements ModelW
         visitAttribute("entity-name", modelTree.getDefaultEntityName());
         visitAttribute("open-depth", modelTree.getOpenDepth());
         visitAttribute("post-trail-open-depth", modelTree.getPostTrailOpenDepth());
-        writer.append(">");
+        getWriter().append(">");
         visitSubWidgets(modelTree.getNodeMap().values());
-        writer.append("</tree>");
+        getWriter().append("</tree>");
     }
 
     @Override
     public void visit(PlatformSpecific platformSpecific) throws Exception {
-        writer.append("<platform-specific>");
+        getWriter().append("<platform-specific>");
         for (Map.Entry<String, ModelScreenWidget> entry : platformSpecific.getSubWidgets().entrySet()) {
-            writer.append("<").append(entry.getKey()).append(">");
+            getWriter().append("<").append(entry.getKey()).append(">");
             entry.getValue().accept(this);
-            writer.append("</").append(entry.getKey()).append(">");
+            getWriter().append("</").append(entry.getKey()).append(">");
         }
-        writer.append("</platform-specific>");
+        getWriter().append("</platform-specific>");
     }
 
     @Override
     public void visit(PortalPage portalPage) throws Exception {
-        writer.append("<include-portal-page");
+        getWriter().append("<include-portal-page");
         visitModelWidget(portalPage);
         visitAttribute("id", portalPage.getIdExdr());
         visitAttribute("conf-mode", portalPage.getConfModeExdr());
         visitAttribute("use-private", portalPage.getUsePrivate());
-        writer.append("/>");
+        getWriter().append("/>");
     }
 
     @Override
@@ -479,7 +478,7 @@ public class XmlWidgetVisitor extends XmlAbstractWidgetVisitor implements ModelW
 
     @Override
     public void visit(Screenlet screenlet) throws Exception {
-        writer.append("<screenlet");
+        getWriter().append("<screenlet");
         visitModelWidget(screenlet);
         visitAttribute("id", screenlet.getIdExdr());
         visitAttribute("collapsible", screenlet.getCollapsible());
@@ -487,9 +486,9 @@ public class XmlWidgetVisitor extends XmlAbstractWidgetVisitor implements ModelW
         visitAttribute("save-collapsed", screenlet.getSaveCollapsed());
         visitAttribute("padded", screenlet.getPadded());
         visitAttribute("title", screenlet.getTitleExdr());
-        writer.append(">");
+        getWriter().append(">");
         visitSubWidgets(screenlet.getSubWidgets());
-        writer.append("</screenlet>");
+        getWriter().append("</screenlet>");
     }
 
     @Override
@@ -499,39 +498,39 @@ public class XmlWidgetVisitor extends XmlAbstractWidgetVisitor implements ModelW
 
     @Override
     public void visit(Section section) throws Exception {
-        writer.append("<section");
+        getWriter().append("<section");
         visitModelWidget(section);
-        writer.append(">");
+        getWriter().append(">");
         if (section.getCondition() != null) {
-            writer.append("<condition>");
+            getWriter().append("<condition>");
             section.getCondition().accept(conditionVisitor);
-            writer.append("</condition>");
+            getWriter().append("</condition>");
         }
         if (!section.getActions().isEmpty()) {
-            writer.append("<actions>");
+            getWriter().append("<actions>");
             visitActions(section.getActions());
-            writer.append("</actions>");
+            getWriter().append("</actions>");
         }
         if (!section.getSubWidgets().isEmpty()) {
-            writer.append("<widgets>");
+            getWriter().append("<widgets>");
             visitSubWidgets(section.getSubWidgets());
-            writer.append("</widgets>");
+            getWriter().append("</widgets>");
         }
         if (!section.getFailWidgets().isEmpty()) {
-            writer.append("<fail-widgets>");
+            getWriter().append("<fail-widgets>");
             visitSubWidgets(section.getFailWidgets());
-            writer.append("</fail-widgets>");
+            getWriter().append("</fail-widgets>");
         }
-        writer.append("</section>");
+        getWriter().append("</section>");
     }
 
     @Override
     public void visit(Tree tree) throws Exception {
-        writer.append("<include-tree");
+        getWriter().append("<include-tree");
         visitModelWidget(tree);
         visitAttribute("location", tree.getLocationExdr());
         visitAttribute("share-scope", tree.getShareScopeExdr());
-        writer.append("/>");
+        getWriter().append("/>");
     }
 
     private void visitActions(Collection<? extends ModelAction> actions) throws Exception {
@@ -603,44 +602,44 @@ public class XmlWidgetVisitor extends XmlAbstractWidgetVisitor implements ModelW
         visitAttribute("use-row-submit", modelForm.getUseRowSubmit());
         visitAttribute("row-count", modelForm.getRowCount());
         visitAttribute("focus-field-name", modelForm.getFocusFieldName());
-        writer.append(">");
+        getWriter().append(">");
         if (!modelForm.getActions().isEmpty()) {
-            writer.append("<actions>");
+            getWriter().append("<actions>");
             visitActions(modelForm.getActions());
-            writer.append("</actions>");
+            getWriter().append("</actions>");
         }
         if (!modelForm.getRowActions().isEmpty()) {
-            writer.append("<row-actions>");
+            getWriter().append("<row-actions>");
             visitActions(modelForm.getRowActions());
-            writer.append("</row-actions>");
+            getWriter().append("</row-actions>");
         }
         for (ModelForm.AltRowStyle rowStyle : modelForm.getAltRowStyles()) {
-            writer.append("<alt-row-style");
+            getWriter().append("<alt-row-style");
             visitAttribute("use-when", rowStyle.getUseWhen());
             visitAttribute("style", rowStyle.getStyle());
-            writer.append("/>");
+            getWriter().append("/>");
         }
         for (ModelForm.AltTarget target : modelForm.getAltTargets()) {
-            writer.append("<alt-target");
+            getWriter().append("<alt-target");
             visitAttribute("use-when", target.getUseWhen());
             visitAttribute("target", target.getTargetExdr());
-            writer.append("/>");
+            getWriter().append("/>");
         }
         for (ModelForm.AutoFieldsService service : modelForm.getAutoFieldsServices()) {
-            writer.append("<auto-fields-service");
+            getWriter().append("<auto-fields-service");
             visitAttribute("service-name", service.getServiceName());
             visitAttribute("map-name", service.getMapName());
             visitAttribute("default-field-type", service.getDefaultFieldType());
             visitAttribute("default-position", service.getDefaultPosition());
-            writer.append("/>");
+            getWriter().append("/>");
         }
         for (ModelForm.AutoFieldsEntity entity : modelForm.getAutoFieldsEntities()) {
-            writer.append("<auto-fields-entity");
+            getWriter().append("<auto-fields-entity");
             visitAttribute("entity-name", entity.getEntityName());
             visitAttribute("map-name", entity.getMapName());
             visitAttribute("default-field-type", entity.getDefaultFieldType());
             visitAttribute("default-position", entity.getDefaultPosition());
-            writer.append("/>");
+            getWriter().append("/>");
         }
         for (ModelFormField field : modelForm.getFieldList()) {
             field.getFieldInfo().accept(fieldVisitor);
@@ -658,15 +657,15 @@ public class XmlWidgetVisitor extends XmlAbstractWidgetVisitor implements ModelW
 
     private void visitUpdateAreas(Collection<ModelForm.UpdateArea> updateAreas) throws Exception {
         for (ModelForm.UpdateArea updateArea : updateAreas) {
-            writer.append("<on-event-update-area");
+            getWriter().append("<on-event-update-area");
             visitAttribute("event-type", updateArea.getEventType());
             visitAttribute("area-id", updateArea.getAreaId());
             visitAttribute("area-target", updateArea.getAreaTarget());
-            writer.append(">");
+            getWriter().append(">");
             visitAutoEntityParameters(updateArea.getAutoEntityParameters());
             visitAutoServiceParameters(updateArea.getAutoServiceParameters());
             visitParameters(updateArea.getParameterList());
-            writer.append("</on-event-update-area>");
+            getWriter().append("</on-event-update-area>");
         }
     }
 }
