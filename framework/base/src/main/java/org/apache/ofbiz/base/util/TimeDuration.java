@@ -74,12 +74,12 @@ public class TimeDuration implements Serializable, Comparable<TimeDuration> {
         int factor;
         if (cal1.before(cal2)) {
             factor = 1;
-            calStart = (Calendar) cal1.clone();
-            calEnd = (Calendar) cal2.clone();
+            calStart = cal1.clone();
+            calEnd = cal2.clone();
         } else {
             factor = -1;
-            calStart = (Calendar) cal2.clone();
-            calEnd = (Calendar) cal1.clone();
+            calStart = cal2.clone();
+            calEnd = cal1.clone();
         }
 
         /* Strategy: Using millisecond arithmetic alone will produce inaccurate results.
@@ -163,7 +163,7 @@ public class TimeDuration implements Serializable, Comparable<TimeDuration> {
             //
             // To solve this problem, we make a temporary copy of the
             // start calendar, and only modify it if we actually have to.
-            Calendar tmp = (Calendar) start.clone();
+            Calendar tmp = start.clone();
             int tmpUnits = units;
             tmp.add(type, tmpUnits);
             while (tmp.after(end)) {

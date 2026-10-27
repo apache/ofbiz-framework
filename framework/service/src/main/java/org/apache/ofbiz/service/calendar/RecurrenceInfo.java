@@ -363,7 +363,7 @@ public class RecurrenceInfo {
             if (result == 0) {
                 return null;
             }
-            Calendar first = (Calendar) cal.clone();
+            Calendar first = cal.clone();
             first.setTimeInMillis(result);
             return first;
         }
@@ -377,7 +377,7 @@ public class RecurrenceInfo {
             if (result == 0) {
                 return null;
             }
-            Calendar next = (Calendar) cal.clone();
+            Calendar next = cal.clone();
             next.setTimeInMillis(result);
             return next;
         }

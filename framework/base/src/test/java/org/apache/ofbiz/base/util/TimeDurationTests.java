@@ -124,7 +124,7 @@ public class TimeDurationTests {
                 TimeDuration.parseDuration(durationString), isNegative, false);
         assertDurationFields(label + "(parseString)", d, durationString, stringDuration, isNegative, false);
         assertDurationFields(label + "(cal)", d, durationString, calDuration, isNegative, false);
-        Calendar added = calDuration.addToCalendar((Calendar) ZERO.clone());
+        Calendar added = calDuration.addToCalendar(ZERO.clone());
         TimeDuration addDuration = new TimeDuration(ZERO, added);
         assertDurationFields(label + "(cal[add])", d, durationString, addDuration, isNegative, false);
         assertEquals(0, doCompare(stringDuration, calDuration), label + ".compareTo(string, cal)");
@@ -143,7 +143,7 @@ public class TimeDurationTests {
 
     public static void assertDuration(String label, DateTuple d) {
         TimeDuration lastString = null;
-        Calendar right = (Calendar) ZERO.clone();
+        Calendar right = ZERO.clone();
         for (int i = 1; i < 12; i++) {
             DateTuple nd = DateTuple.of(i * d.years, i * d.months, i * d.days,
                     i * d.hours, i * d.minutes, i * d.seconds, i * d.milliseconds);
@@ -162,7 +162,7 @@ public class TimeDurationTests {
         Calendar now = Calendar.getInstance();
         TimeDuration zeroDuration = TimeDuration.ZERO_TIME_DURATION;
         assertFalse(zeroDuration.equals(null), "zero equals null");
-        Calendar newTime = (Calendar) now.clone();
+        Calendar newTime = now.clone();
         zeroDuration.addToCalendar(newTime);
         assertEquals(now, newTime, "zero same calendar");
         assertDurationFields("zero(same zero calendar)", DateTuple.of(0, 0, 0, 0, 0, 0, 0), "0:0:0:0:0:0:0",
@@ -186,7 +186,7 @@ public class TimeDurationTests {
         assertDuration("year", DateTuple.of(1, 0, 0, 0, 0, 0, 0));
         Calendar start = new com.ibm.icu.util.GregorianCalendar(1967, 1, 1, 0, 0, 0);
         start.set(Calendar.MILLISECOND, 0);
-        Calendar end = (Calendar) start.clone();
+        Calendar end = start.clone();
         end.add(Calendar.MILLISECOND, 1);
         end.add(Calendar.SECOND, 1);
         end.add(Calendar.MINUTE, 1);
