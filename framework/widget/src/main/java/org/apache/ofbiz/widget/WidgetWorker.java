@@ -319,7 +319,7 @@ public final class WidgetWorker {
     public static String getJwtCallback(Map<String, Object> context) {
         String jwtCallback = (String) context.get(CommonWidgetModels.JWT_CALLBACK);
         if (UtilValidate.isEmpty(jwtCallback) && context.containsKey("parameters")) {
-            jwtCallback = (String) ((Map) context.get("parameters")).get(CommonWidgetModels.JWT_CALLBACK);
+            jwtCallback = (String) ((Map<?, ?>) context.get("parameters")).get(CommonWidgetModels.JWT_CALLBACK);
         }
         return jwtCallback;
     }
