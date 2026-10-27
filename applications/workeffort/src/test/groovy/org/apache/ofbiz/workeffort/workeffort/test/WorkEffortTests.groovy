@@ -761,7 +761,7 @@ class WorkEffortTests implements JupiterTestHelper {
 
         List<GenericValue> duplicatedNotes = from('WorkEffortNote').where('workEffortId', workEffortId).queryList()
         assert duplicatedNotes
-        assert duplicatedNotes[0].noteId == 'TestNote-1'
+        assert 'TestNote-1' in duplicatedNotes*.noteId
     }
 
 }

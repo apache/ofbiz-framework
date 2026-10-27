@@ -621,6 +621,7 @@ under the License.
       </alias-all>
       <alias entity-alias="II" name="inventoryProductId" field="productId"/>
       <alias entity-alias="WE" name="workEffortParentId"/>
+      <alias entity-alias="WEIR" name="createdStamp"/>
       <view-link entity-alias="WEIR" rel-entity-alias="II" rel-optional="true">
         <key-map field-name="inventoryItemId"/>
       </view-link>

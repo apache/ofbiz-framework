@@ -627,6 +627,7 @@ Map getProductionRunTaskForceIssueImpact() {
                 EntityCondition.makeCondition(productId: productId, facilityId: facilityId),
                 EntityCondition.makeCondition('workEffortId', EntityOperator.NOT_EQUAL, workEffortId)
             ], EntityOperator.AND))
+            .orderBy('createdStamp')
             .queryList()
             .each { res ->
                 if (res.get('productId') != productId) {
@@ -653,6 +654,7 @@ Map getProductionRunTaskForceIssueImpact() {
         // 4.2 Sales Order Reservations
         from('OrderItemShipGrpInvResAndItem')
             .where('productId', productId, 'facilityId', facilityId)
+            .orderBy('createdStamp')
             .queryList()
             .each { res ->
                 if (res.get('productId') != productId) {
