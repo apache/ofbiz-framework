@@ -44,8 +44,13 @@ on:
 
 permissions: {}
 
+# Only the runs that label share the group of their pull request, so that a body-only edit, whose
+# job is skipped, can't cancel the still queued run of the opening of the pull request.
 concurrency:
-  group: pr-type-label-${{ github.event.pull_request.number || github.run_id }}
+  group: >-
+    pr-type-label-${{ github.event_name == 'pull_request_target' &&
+    (github.event.action != 'edited' || github.event.changes.title || github.event.changes.base) &&
+    github.event.pull_request.number || github.run_id }}
   cancel-in-progress: true
 
 jobs:
