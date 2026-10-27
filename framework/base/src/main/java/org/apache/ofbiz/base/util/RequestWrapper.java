@@ -93,10 +93,10 @@ public class RequestWrapper extends HttpServletRequestWrapper {
                 return len;
             }
 
-            @Override
             /**
              * Needed by Servlet 3.1 No worry this is not used in OFBiz code
              */
+            @Override
             public boolean isFinished() {
                 return false;
             }
