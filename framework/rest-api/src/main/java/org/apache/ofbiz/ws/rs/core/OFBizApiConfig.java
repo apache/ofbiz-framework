@@ -64,27 +64,33 @@ public class OFBizApiConfig extends ResourceConfig {
      * directory.
      */
     public OFBizApiConfig() {
-        packages("org.apache.ofbiz.ws.rs.resources");
-        packages("org.apache.ofbiz.ws.rs.security.auth");
-        packages("org.apache.ofbiz.ws.rs.spi.impl");
-        // packages("io.swagger.v3.jaxrs2.integration.resources"); //commenting it out
+        super(createResourceConfig());
+    }
+
+    private static ResourceConfig createResourceConfig() {
+        ResourceConfig config = new ResourceConfig();
+        config.packages("org.apache.ofbiz.ws.rs.resources");
+        config.packages("org.apache.ofbiz.ws.rs.security.auth");
+        config.packages("org.apache.ofbiz.ws.rs.spi.impl");
+        // config.packages("io.swagger.v3.jaxrs2.integration.resources"); //commenting it out
         // to generate customized OpenApi Spec
-        register(JacksonFeature.class);
-        register(MultiPartFeature.class);
-        register(ServiceContextCleanupFilter.class);
-        //property(ServerProperties.TRACING, "ALL");
+        config.register(JacksonFeature.class);
+        config.register(MultiPartFeature.class);
+        config.register(ServiceContextCleanupFilter.class);
+        //config.property(ServerProperties.TRACING, "ALL");
         if (Debug.verboseOn()) {
             // headers only, the ones carrying credentials or tokens being redacted: bodies can hold credentials and tokens
-            register(LoggingFeature.builder()
+            config.register(LoggingFeature.builder()
                     .withLogger(Logger.getLogger(LoggingFeature.DEFAULT_LOGGER_NAME))
                     .level(Level.INFO)
                     .verbosity(LoggingFeature.Verbosity.HEADERS_ONLY)
                     .redactHeaders(List.of("Authorization", "Proxy-Authorization", "Cookie", "Set-Cookie", "Refresh-Token"))
                     .build());
         }
-        registerDSLResources();
-        EncodingFilter.enableFor(this, GZipEncoder.class);
-        EncodingFilter.enableFor(this, DeflateEncoder.class);
+        registerDSLResources(config);
+        EncodingFilter.enableFor(config, GZipEncoder.class);
+        EncodingFilter.enableFor(config, DeflateEncoder.class);
+        return config;
     }
 
     /**
@@ -100,12 +106,12 @@ public class OFBizApiConfig extends ResourceConfig {
         return MICRO_APIS;
     }
 
-    private void registerDSLResources() {
+    private static void registerDSLResources(ResourceConfig config) {
         loadApiDefinitions();
-        traverseAndRegisterApiDefinitions();
+        traverseAndRegisterApiDefinitions(config);
     }
 
-    private void loadApiDefinitions() {
+    private static void loadApiDefinitions() {
         Collection<ComponentConfig> components = ComponentConfig.getAllComponents();
         for (ComponentConfig component : components) {
             String componentName = component.getComponentName();
@@ -135,7 +141,7 @@ public class OFBizApiConfig extends ResourceConfig {
         }
     }
 
-    private void traverseAndRegisterApiDefinitions() {
+    private static void traverseAndRegisterApiDefinitions(ResourceConfig config) {
         if (UtilValidate.isEmpty(MICRO_APIS)) {
             Debug.logInfo("No API definitions to process", MODULE);
             return;
@@ -148,12 +154,12 @@ public class OFBizApiConfig extends ResourceConfig {
                         + " in group: " + groupPath, MODULE);
                 for (ModelResource resource : modelApi.getResources()) {
                     String resourcePath = buildCleanPath(groupPath, resource.getPath());
-                    registerModelResource(resource, resourcePath, registeredSignatures, modelApi.getName());
+                    registerModelResource(config, resource, resourcePath, registeredSignatures, modelApi.getName());
                 }
             }
         });
     }
-    private void registerModelResource(ModelResource modelResource, String basePath,
+    private static void registerModelResource(ResourceConfig config, ModelResource modelResource, String basePath,
             Set<String> registeredSignatures, String owningApiName) {
         if (!modelResource.isPublish()) return;
 
@@ -196,17 +202,17 @@ public class OFBizApiConfig extends ResourceConfig {
         }
 
         // Register the current resource
-        registerResources(resourceBuilder.build());
+        config.registerResources(resourceBuilder.build());
 
         // Recursively process nested sub-resources
         if (UtilValidate.isNotEmpty(modelResource.getSubResources())) {
             for (ModelResource sub : modelResource.getSubResources()) {
                 String subPath = buildCleanPath(basePath, sub.getPath());
-                registerModelResource(sub, subPath, registeredSignatures, owningApiName);
+                registerModelResource(config, sub, subPath, registeredSignatures, owningApiName);
             }
         }
     }
-    private String buildCleanPath(String... parts) {
+    private static String buildCleanPath(String... parts) {
         StringBuilder pathBuilder = new StringBuilder();
         for (String part : parts) {
             if (part == null || part.trim().isEmpty()) continue;

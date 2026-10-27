@@ -1012,11 +1012,15 @@ public final class UtilProperties implements Serializable {
      */
     public static class UtilResourceBundle extends ResourceBundle {
         private static final UtilCache<String, UtilResourceBundle> BUNDLE_CACHE = UtilCache.createUtilCache("properties.UtilPropertiesBundleCache");
-        private Properties properties = null;
-        private Locale locale = null;
-        private int hashCode = hashCode();
+        private final Properties properties;
+        private final Locale locale;
+        private final int hashCode;
 
-        protected UtilResourceBundle() { }
+        protected UtilResourceBundle() {
+            this.properties = null;
+            this.locale = null;
+            this.hashCode = 0;
+        }
 
         UtilResourceBundle(Properties properties, Locale locale, UtilResourceBundle parent) {
             this.properties = properties;

@@ -65,7 +65,7 @@ public class ServiceArtifactInfo extends ArtifactInfoBase {
 
     public ServiceArtifactInfo(String serviceName, ArtifactInfoFactory aif) throws GeneralException {
         super(aif);
-        this.modelService = this.getAif().getModelService(serviceName);
+        this.modelService = aif.getModelService(serviceName);
     }
 
     /**

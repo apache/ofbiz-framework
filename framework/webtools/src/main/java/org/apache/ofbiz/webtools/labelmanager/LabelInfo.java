@@ -28,16 +28,18 @@ public class LabelInfo {
 
     private static final String MODULE = LabelInfo.class.getName();
 
-    private String labelKey = "";
-    private String labelKeyComment = "";
-    private String fileName = "";
-    private Map<String, LabelValue> labelValues = new LinkedHashMap<>();
+    private final String labelKey;
+    private String labelKeyComment;
+    private final String fileName;
+    private final Map<String, LabelValue> labelValues = new LinkedHashMap<>();
 
     public LabelInfo(String labelKey, String labelKeyComment, String fileName, String localeStr, String labelValue, String labelComment) {
         this.labelKey = labelKey;
         this.labelKeyComment = labelKeyComment;
         this.fileName = fileName;
-        setLabelValue(localeStr, labelValue, labelComment, false);
+        if (UtilValidate.isNotEmpty(labelValue)) {
+            labelValues.put(localeStr, new LabelValue(labelValue, labelComment));
+        }
     }
 
     /**
