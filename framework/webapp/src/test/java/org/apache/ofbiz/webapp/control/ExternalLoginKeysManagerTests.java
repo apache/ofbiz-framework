@@ -216,7 +216,7 @@ public class ExternalLoginKeysManagerTests {
         when(mintRequest.getAttribute("userLogin")).thenReturn(userLogin);
         String key = ExternalLoginKeysManager.getExternalLoginKey(mintRequest);
 
-        // As WidgetWorker/HtmlTreeRenderer see it: a relative inter-app link target, not a
+        // As WidgetWorker sees it: a relative inter-app link target, not a
         // bare context path.
         ExternalLoginKeysManager.registerInterAppDestination(key, "/partymgr/control/viewprofile?partyId=10000");
 

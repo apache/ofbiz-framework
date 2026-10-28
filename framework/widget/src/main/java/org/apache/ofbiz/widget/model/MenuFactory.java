@@ -23,13 +23,10 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
-import jakarta.servlet.ServletContext;
-import jakarta.servlet.http.HttpServletRequest;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.ofbiz.base.location.FlexibleLocation;
 import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.UtilXml;
 import org.apache.ofbiz.base.util.cache.UtilCache;
@@ -46,51 +43,8 @@ public class MenuFactory {
 
     private static final String MODULE = MenuFactory.class.getName();
 
-    public static final UtilCache<String, Map<String, ModelMenu>> MENU_WEBAPP_CACHE =
-            UtilCache.createUtilCache("widget.menu.webappResource", 0, 0, false);
     public static final UtilCache<String, Map<String, ModelMenu>> MENU_LOCATION_CACHE =
             UtilCache.createUtilCache("widget.menu.locationResource", 0, 0, false);
-
-    public static ModelMenu getMenuFromWebappContext(String resourceName, String menuName, HttpServletRequest request)
-            throws IOException, SAXException, ParserConfigurationException {
-        String webappName = UtilHttp.getApplicationName(request);
-        VisualTheme visualTheme = ThemeFactory.resolveVisualTheme(request);
-        String location = webappName + "::" + resourceName;
-        String cacheKey = location;
-
-        if (UtilValidate.isNotEmpty(visualTheme)) {
-            cacheKey += "::" + visualTheme.getVisualThemeId();
-        }
-
-        Map<String, ModelMenu> modelMenuMap = MENU_WEBAPP_CACHE.get(cacheKey);
-        if (modelMenuMap == null) {
-            ServletContext servletContext = request.getServletContext();
-
-            String sanitizedLocation = WidgetSecureLocation.sanitize(resourceName);
-            if (sanitizedLocation == null) {
-                Debug.logWarning("The location of menu [%s] isn't an allowed path. Abort rendering. Raw location [%s]",
-                        MODULE, menuName, resourceName);
-                throw new IllegalArgumentException("Abort menu rendering due to unallowed menu location");
-            }
-            URL menuFileUrl = servletContext.getResource(sanitizedLocation);
-            Document menuFileDoc = UtilXml.readXmlDocument(menuFileUrl, true, true);
-            modelMenuMap = readMenuDocument(menuFileDoc, location, visualTheme);
-            MENU_WEBAPP_CACHE.putIfAbsent(cacheKey, modelMenuMap);
-            modelMenuMap = MENU_WEBAPP_CACHE.get(cacheKey);
-        }
-
-        if (UtilValidate.isEmpty(modelMenuMap)) {
-            throw new IllegalArgumentException("Could not find menu file in webapp resource [" + resourceName + "] in the webapp ["
-                    + webappName + "]");
-        }
-
-        ModelMenu modelMenu = modelMenuMap.get(menuName);
-        if (modelMenu == null) {
-            throw new IllegalArgumentException("Could not find menu with name [" + menuName + "] in webapp resource [" + resourceName
-                    + "] in the webapp [" + webappName + "]");
-        }
-        return modelMenu;
-    }
 
     public static Map<String, ModelMenu> readMenuDocument(Document menuFileDoc, String menuLocation, VisualTheme visualTheme) {
         Map<String, ModelMenu> modelMenuMap = new HashMap<>();
