@@ -31,12 +31,16 @@ import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.webapp.control.JWTManager;
+import org.apache.ofbiz.widget.renderer.FormStringRenderer;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.w3c.dom.Element;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.same;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 public final class ModelFormTest {
@@ -107,6 +111,33 @@ public final class ModelFormTest {
     private static Element widgetExtendingMissingParent(String tagName) throws Exception {
         String xml = "<forms><" + tagName + " name=\"Child\" extends=\"Missing\"/></forms>";
         return UtilXml.firstChildElement(UtilXml.readXmlDocument(xml, false, true).getDocumentElement(), tagName);
+    }
+
+    @Test
+    public void testInheritedFieldGroupRendersWithChildForm() throws Exception {
+        String xml = "<forms>"
+                + "<form name=\"Parent\" type=\"single\">"
+                + "<field name=\"a\"><display/></field>"
+                + "<sort-order><field-group title=\"Group\"><sort-field name=\"a\"/></field-group></sort-order>"
+                + "</form>"
+                + "<form name=\"Child\" type=\"single\" extends=\"Parent\"/>"
+                + "</forms>";
+        Element rootElement = UtilXml.readXmlDocument(xml, false, true).getDocumentElement();
+        ModelSingleForm child = new ModelSingleForm(UtilXml.childElementList(rootElement, "form").get(1), "test",
+                null, null, null);
+        ModelForm parent = child.getParentModelForm();
+        Assertions.assertNotNull(parent, "Child should have a parent");
+        ModelForm.FieldGroup fieldGroup = (ModelForm.FieldGroup) child.getFieldGroupMap().get("a");
+        Assertions.assertTrue(child.getFieldGroupList().contains(fieldGroup), "Field group should be in the child list");
+        Assertions.assertNotSame(parent.getFieldGroupMap().get("a"), fieldGroup, "Field group should be the child's own");
+
+        FormStringRenderer renderer = Mockito.mock(FormStringRenderer.class);
+        StringBuilder writer = new StringBuilder();
+        fieldGroup.renderStartString(writer, context, renderer);
+        fieldGroup.renderEndString(writer, context, renderer);
+        verify(renderer).renderFormatSingleWrapperOpen(same(writer), same(context), same(child));
+        verify(renderer).renderFormatSingleWrapperClose(same(writer), same(context), same(child));
+        verify(renderer, never()).renderFormatSingleWrapperOpen(any(), any(), same(parent));
     }
 
     private static CommonWidgetModels.Parameter getParameterOnly(ModelForm.UpdateArea updateArea) {
