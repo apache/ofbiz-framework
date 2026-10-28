@@ -123,7 +123,6 @@ public final class SecretValueResolver {
     private static final ConcurrentHashMap<String, AtomicLong> KEY_LAST_ACCESS_TIMES = new ConcurrentHashMap<>();
 
     // Daemon thread that sweeps expired entries so stale keys don't accumulate indefinitely.
-    private static final ScheduledExecutorService EVICTION_EXECUTOR;
     static {
         ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor(r -> {
             Thread t = new Thread(r, "SecretValueResolver-CacheEviction");
@@ -136,7 +135,6 @@ public final class SecretValueResolver {
             // Remove per-key locks for keys no longer in the cache to prevent unbounded growth.
             KEY_LOCKS.keySet().removeIf(k -> !CACHE.containsKey(k));
         }, CACHE_TTL_MILLIS, CACHE_TTL_MILLIS, TimeUnit.MILLISECONDS);
-        EVICTION_EXECUTOR = executor;
     }
 
     private SecretValueResolver() { }
