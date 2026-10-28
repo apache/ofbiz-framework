@@ -656,21 +656,6 @@ public class ModelMenu extends ModelWidget {
     }
 
     /**
-     * Rendered menu item count int.
-     * @param context the context
-     * @return the int
-     */
-    public int renderedMenuItemCount(Map<String, Object> context) {
-        int count = 0;
-        for (ModelMenuItem item : this.menuItemList) {
-            if (item.shouldBeRendered(context)) {
-                count++;
-            }
-        }
-        return count;
-    }
-
-    /**
      * Renders this menu to a String, i.e. in a text format, as defined with the MenuStringRenderer implementation.
      * @param writer The Writer that the menu text will be written to
      * @param context Map containing the menu context; the following are reserved words in this context: parameters (Map), isError (Boolean),
