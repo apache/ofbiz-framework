@@ -18,49 +18,20 @@
  *******************************************************************************/
 package org.apache.ofbiz.security;
 
-import java.util.Iterator;
 import java.util.List;
 
 import jakarta.servlet.http.HttpSession;
 
-import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericValue;
 
 /**
  * Security interface. This interface defines authorization-related methods.
  * <p>Implementations must be thread-safe because the instance
  * will be shared among multiple threads.</p>
- * <p>Note that the API is changing. New versions might not reference a
- * <code>Delegator</code>. Therefore, implementations requiring a <code>Delegator</code>
- * reference should get one from the <code>GenericValue</code> method argument.</p>
+ * <p>Instances are created by a {@link SecurityProvider} and are bound to the
+ * <code>Delegator</code> they were created for.</p>
  */
 public interface Security {
-
-    @Deprecated
-    Delegator getDelegator();
-
-    @Deprecated
-    void setDelegator(Delegator delegator);
-
-    /**
-     * Uses userLoginSecurityGroupByUserLoginId cache to speed up the finding of the userLogin's security group list.
-     * @param userLoginId The userLoginId to find security groups by
-     * @return An iterator made from the Collection either cached or retrieved from the database through the
-     *            UserLoginSecurityGroup Delegator.
-     */
-    @Deprecated
-    Iterator<GenericValue> findUserLoginSecurityGroupByUserLoginId(String userLoginId);
-
-    /**
-     * Finds whether or not a SecurityGroupPermission row exists given a groupId and permission.
-     * The groupId, permission pair is cached instead of the userLoginId, permission pair to keep the cache small and to
-     * make it more changeable.
-     * @param groupId The ID of the group
-     * @param permission The name of the permission
-     * @return boolean specifying whether or not a SecurityGroupPermission row exists
-     */
-    @Deprecated
-    boolean securityGroupPermissionExists(String groupId, String permission);
 
     /**
      * Checks to see if the currently logged in userLogin has the passed permission.
