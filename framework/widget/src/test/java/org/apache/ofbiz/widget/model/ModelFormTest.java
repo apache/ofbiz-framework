@@ -26,6 +26,7 @@ import java.util.Map;
 import org.apache.ofbiz.base.conversion.ConversionException;
 import org.apache.ofbiz.base.conversion.JSONConverters;
 import org.apache.ofbiz.base.util.UtilMisc;
+import org.apache.ofbiz.base.util.UtilXml;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
@@ -34,6 +35,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import org.w3c.dom.Element;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -88,6 +90,23 @@ public final class ModelFormTest {
         CommonWidgetModels.Parameter parameter = getParameterOnly(updateArea);
         Assertions.assertEquals(parameter.getName(), "entry1", "Parameters key name isn't the same");
         Assertions.assertEquals(parameter.getValue().toString(), "[1, 2]", "Parameters value isn't the same");
+    }
+
+    @Test
+    public void testGridExtendingMissingParentInSameFileLoadsWithoutParent() throws Exception {
+        ModelGrid grid = new ModelGrid(widgetExtendingMissingParent("grid"), "test", null, null, null);
+        Assertions.assertNull(grid.getParentModelForm(), "Grid should have no parent");
+    }
+
+    @Test
+    public void testFormExtendingMissingParentInSameFileLoadsWithoutParent() throws Exception {
+        ModelSingleForm form = new ModelSingleForm(widgetExtendingMissingParent("form"), "test", null, null, null);
+        Assertions.assertNull(form.getParentModelForm(), "Form should have no parent");
+    }
+
+    private static Element widgetExtendingMissingParent(String tagName) throws Exception {
+        String xml = "<forms><" + tagName + " name=\"Child\" extends=\"Missing\"/></forms>";
+        return UtilXml.firstChildElement(UtilXml.readXmlDocument(xml, false, true).getDocumentElement(), tagName);
     }
 
     private static CommonWidgetModels.Parameter getParameterOnly(ModelForm.UpdateArea updateArea) {
