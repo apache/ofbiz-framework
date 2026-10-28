@@ -246,10 +246,6 @@ under the License.
     <EntityGroupEntry entityGroupId="6730" entityOrPackage="org.apache.ofbiz.marketing.segment" applEnumId="ESIA_INCLUDE"/>
     <EntityGroupEntry entityGroupId="6730" entityOrPackage="org.apache.ofbiz.marketing.tracking" applEnumId="ESIA_INCLUDE"/>
 
-    <!-- OLAP/BI Entities (should grow significantly as this is worked on more) -->
-    <EntityGroup entityGroupId="6800" entityGroupName="OLAP/BI General"/>
-    <EntityGroupEntry entityGroupId="6800" entityOrPackage="org.apache.ofbiz.bi" applEnumId="ESIA_INCLUDE"/>
-
     <!-- Technical Entities -->
     <EntityGroup entityGroupId="6910" entityGroupName="Technical: Entity and Service"/>
     <EntityGroupEntry entityGroupId="6910" entityOrPackage="org.apache.ofbiz.entity" applEnumId="ESIA_INCLUDE"/>
