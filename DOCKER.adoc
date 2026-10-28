@@ -107,7 +107,7 @@ this environment variable contains a non-empty value.
 the docker-entrypoint.sh script to skip downloading of any database
 drivers.
 
-|OFBIZ_DISABLE_COMPONENTS |plugins/birt/ofbiz-component.xml |Commas
+|OFBIZ_DISABLE_COMPONENTS |_empty_ |Commas
 seperated list of paths to ofbiz-component.xml files of the components
 that should not be loaded.
 |===
