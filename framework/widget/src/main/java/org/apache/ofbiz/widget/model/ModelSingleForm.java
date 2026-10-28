@@ -106,7 +106,7 @@ public class ModelSingleForm extends ModelForm {
                     formElements = UtilXml.childElementList(rootElement, "grid");
                     Element parentElement = formElements.stream()
                             .filter(grid -> grid.getAttribute("name").equals(parentForm))
-                            .findFirst().orElseGet(null);
+                            .findFirst().orElse(null);
                     if (UtilValidate.isNotEmpty(parentElement)) {
                         parent = GridFactory.createModelGrid(parentElement, entityModelReader, visualTheme,
                                 dispatchContext, parentResource, parentForm);
