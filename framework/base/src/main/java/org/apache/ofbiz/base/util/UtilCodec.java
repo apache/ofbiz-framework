@@ -145,11 +145,6 @@ public class UtilCodec {
             }
             if (UtilProperties.getPropertyAsBoolean("owasp", "sanitizer.enable", true)) {
                 PolicyFactory sanitizer = null;
-                // TODO to be improved to use a (or several) contentTypeId/s when necessary.
-                // Below is an example with BIRT_FLEXIBLE_REPORT_POLICY
-                if ("FLEXIBLE_REPORT".equals(contentTypeId)) {
-                    sanitizer = BIRT_FLEXIBLE_REPORT_POLICY;
-                }
 
                 // Check if custom policy should be used and if so don't use PERMISSIVE_POLICY
                 if ("CUSTOM".equals(UtilProperties.getPropertyValue("owasp", "sanitizer.permissive.policy"))) {
@@ -209,23 +204,6 @@ public class UtilCodec {
                 .allowElements("div", "center", "span", "table", "td")
                 .allowWithoutAttributes("html", "body", "div", "span", "table", "td")
                 .allowAttributes("width").onElements("table")
-                .toFactory();
-
-        // This is the PolicyFactory used for the Birt Report Builder usage feature. ("FLEXIBLE_REPORT" contentTypeId)
-        // It allows to use the OOTB Birt Report Builder example.
-        // You might need to enhance it for your needs (when using a new REPORT_MASTER) but normally you should not.
-        // See PERMISSIVE_POLICY above for documentation and examples
-        public static final PolicyFactory BIRT_FLEXIBLE_REPORT_POLICY = new HtmlPolicyBuilder()
-                .allowWithoutAttributes("html", "body")
-                .allowElements("form", "div", "span", "table", "tr", "td", "input", "textarea", "label", "select", "option")
-                .allowAttributes("id", "class", "name", "value", "onclick").globally()
-                .allowAttributes("width", "cellspacing").onElements("table")
-                .allowAttributes("type", "size", "maxlength").onElements("input")
-                .allowAttributes("cols", "rows").onElements("textarea")
-                .allowAttributes("class").onElements("td")
-                .allowAttributes("method").onElements("form")
-                .allowAttributes("accept", "action", "accept-charset", "autocomplete", "enctype", "method",
-                        "name", "novalidate", "target").onElements("form")
                 .toFactory();
     }
 

@@ -26,12 +26,10 @@ under the License.
             <actions>
                 <set field="titleProperty" value="OrderReports"/>
                 <set field="headerItem" value="reports"/>
-                <set field="helpAnchor" value="_help_for_order_reports"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <label style="h3">${uiLabelMap.BirtOrderReportsWarning}</label>
                         <include-portal-page id="OrderReportPage"/>
                     </decorator-section>
                 </decorator-screen>

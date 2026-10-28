@@ -84,7 +84,7 @@
 # Prevents loading of ofbiz-components.
 # Contains a comma separated list of relative paths from the ofbiz sources directory to the ofbiz-component.xml files
 # that should be prevented from loading.
-# Default: plugins/birt/ofbiz-component.xml
+# Default: none
 #
 # Hooks are executed at the various stages of the initialisation process by executing scripts in the following
 # directories. Scripts must be executable and have the .sh extension:
@@ -146,7 +146,7 @@ ofbiz_setup_env() {
   OFBIZ_POSTGRES_TENANT_USER=${OFBIZ_POSTGRES_TENANT_USER:-ofbiztenant}
   OFBIZ_POSTGRES_TENANT_PASSWORD=${OFBIZ_POSTGRES_TENANT_PASSWORD:-ofbiztenant}
 
-  OFBIZ_DISABLE_COMPONENTS=${OFBIZ_DISABLE_COMPONENTS-plugins/birt/ofbiz-component.xml}
+  OFBIZ_DISABLE_COMPONENTS=${OFBIZ_DISABLE_COMPONENTS-}
 }
 
 ###############################################################################
