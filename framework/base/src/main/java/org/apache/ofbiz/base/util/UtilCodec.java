@@ -164,21 +164,12 @@ public class UtilCodec {
                     }
 
                     if (policy != null) {
-                        if (UtilValidate.isNotEmpty(sanitizer)) {
-                            sanitizer = sanitizer.and(policy);
-                        } else {
-                            sanitizer = policy;
-                        }
+                        sanitizer = policy;
                         return sanitizer.sanitize(original);
                     }
                 } else {
-                    if (UtilValidate.isNotEmpty(sanitizer)) {
-                        sanitizer = sanitizer.and(Sanitizers.FORMATTING.and(Sanitizers.BLOCKS).and(Sanitizers.IMAGES).and(
-                                Sanitizers.LINKS).and(Sanitizers.STYLES));
-                    } else {
-                        sanitizer = Sanitizers.FORMATTING.and(Sanitizers.BLOCKS).and(Sanitizers.IMAGES).and(
-                            Sanitizers.LINKS).and(Sanitizers.STYLES);
-                    }
+                    sanitizer = Sanitizers.FORMATTING.and(Sanitizers.BLOCKS).and(Sanitizers.IMAGES).and(
+                        Sanitizers.LINKS).and(Sanitizers.STYLES);
                 }
 
                 // Fallback should be the default option PERMISSIVE_POLICY
