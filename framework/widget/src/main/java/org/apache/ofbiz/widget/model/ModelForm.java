@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.IdentityHashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -490,12 +491,19 @@ public abstract class ModelForm extends ModelWidget {
             }
         }
         Map<String, FieldGroupBase> fieldGroupMap = new HashMap<>();
-        if (parentModel != null) {
-            fieldGroupMap.putAll(parentModel.fieldGroupMap);
-        }
         ArrayList<FieldGroupBase> fieldGroupList = new ArrayList<>();
         if (parentModel != null) {
-            fieldGroupList.addAll(parentModel.fieldGroupList);
+            // Copy the parent's field groups so that they render with this form; banners hold no form and are shared
+            Map<FieldGroupBase, FieldGroupBase> inheritedFieldGroups = new IdentityHashMap<>();
+            for (FieldGroupBase parentFieldGroup : parentModel.fieldGroupList) {
+                FieldGroupBase fieldGroup = parentFieldGroup instanceof FieldGroup
+                        ? new FieldGroup((FieldGroup) parentFieldGroup, this) : parentFieldGroup;
+                inheritedFieldGroups.put(parentFieldGroup, fieldGroup);
+                fieldGroupList.add(fieldGroup);
+            }
+            for (Map.Entry<String, FieldGroupBase> entry : parentModel.fieldGroupMap.entrySet()) {
+                fieldGroupMap.put(entry.getKey(), inheritedFieldGroups.getOrDefault(entry.getValue(), entry.getValue()));
+            }
         }
         ArrayList<String> lastOrderFields = new ArrayList<>();
         if (parentModel != null) {
@@ -2140,6 +2148,15 @@ public abstract class ModelForm extends ModelWidget {
             this.title = title;
             this.collapsible = collapsible;
             this.initiallyCollapsed = initiallyCollapsed;
+        }
+
+        private FieldGroup(FieldGroup parentFieldGroup, ModelForm modelForm) {
+            this.modelForm = modelForm;
+            this.id = parentFieldGroup.id;
+            this.style = parentFieldGroup.style;
+            this.title = parentFieldGroup.title;
+            this.collapsible = parentFieldGroup.collapsible;
+            this.initiallyCollapsed = parentFieldGroup.initiallyCollapsed;
         }
 
         /**
