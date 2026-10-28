@@ -43,31 +43,26 @@ import org.apache.ofbiz.entity.util.EntityUtil;
 public final class SecurityFactory {
 
     private static final String MODULE = SecurityFactory.class.getName();
-    // The default implementation stores a Delegator reference, so we will cache by delegator name.
-    // The goal is to remove Delegator references in the Security interface, then we can use a singleton
-    // and eliminate the cache.
+    // Security instances are bound to a delegator, so they are cached by delegator name.
     private static final UtilCache<String, Security> AUTHORIZATION_CACHE = UtilCache.createUtilCache("security.AuthorizationCache");
 
     /**
-     * Returns a <code>Security</code> instance. The method uses Java's
-     * <a href="http://docs.oracle.com/javase/6/docs/api/java/util/ServiceLoader.html"><code>ServiceLoader</code></a>
-     * to get a <code>Security</code> instance. If no instance is found, a default implementation is used.
-     * The default implementation is based on/backed by the OFBiz entity engine.
+     * Returns the <code>Security</code> instance bound to <code>delegator</code>. The instance is created by
+     * the first {@link SecurityProvider} that Java's {@link ServiceLoader} finds. If no provider is found, a
+     * default implementation is used. The default implementation is based on/backed by the OFBiz entity engine.
      * @param delegator The delegator
      * @return A <code>Security</code> instance
      */
-    @SuppressWarnings("deprecation")
     public static Security getInstance(Delegator delegator) throws SecurityConfigurationException {
         Assert.notNull("delegator", delegator);
         Security security = AUTHORIZATION_CACHE.get(delegator.getDelegatorName());
         if (security == null) {
-            Iterator<Security> iterator = ServiceLoader.load(Security.class).iterator();
+            Iterator<SecurityProvider> iterator = ServiceLoader.load(SecurityProvider.class).iterator();
             if (iterator.hasNext()) {
-                security = iterator.next();
+                security = iterator.next().create(delegator);
             } else {
-                security = new OFBizSecurity();
+                security = new OFBizSecurity(delegator);
             }
-            security.setDelegator(delegator);
             security = AUTHORIZATION_CACHE.putIfAbsentAndGet(delegator.getDelegatorName(), security);
             if (Debug.verboseOn()) {
                 Debug.logVerbose("Security implementation " + security.getClass().getName() + " created for delegator "
@@ -81,9 +76,11 @@ public final class SecurityFactory {
 
     private static final class OFBizSecurity implements Security {
 
-        private Delegator delegator = null;
+        private final Delegator delegator;
 
-        private OFBizSecurity() { }
+        private OFBizSecurity(Delegator delegator) {
+            this.delegator = delegator;
+        }
 
         @Override
         public void clearUserData(GenericValue userLogin) {
@@ -93,9 +90,8 @@ public final class SecurityFactory {
             }
         }
 
-        @Override
-        @Deprecated
-        public Iterator<GenericValue> findUserLoginSecurityGroupByUserLoginId(String userLoginId) {
+        // Uses the UserLoginSecurityGroup cache to find the userLogin's security groups.
+        private Iterator<GenericValue> findUserLoginSecurityGroupByUserLoginId(String userLoginId) {
             try {
                 List<GenericValue> collection = EntityUtil.filterByDate(EntityQuery.use(delegator).from("UserLoginSecurityGroup")
                         .where("userLoginId", userLoginId).cache(true).queryList());
@@ -104,12 +100,6 @@ public final class SecurityFactory {
                 Debug.logWarning(e, MODULE);
                 return Collections.<GenericValue>emptyList().iterator();
             }
-        }
-
-        @Override
-        @Deprecated
-        public Delegator getDelegator() {
-            return this.delegator;
         }
 
         @Override
@@ -238,9 +228,8 @@ public final class SecurityFactory {
             return hasRolePermission(application, action, primaryKey, role, userLogin);
         }
 
-        @Override
-        @Deprecated
-        public boolean securityGroupPermissionExists(String groupId, String permission) {
+        // Caches the groupId, permission pair instead of the userLoginId, permission pair to keep the cache small.
+        private boolean securityGroupPermissionExists(String groupId, String permission) {
             try {
                 return EntityQuery.use(delegator).from("SecurityGroupPermission")
                         .where("groupId", groupId, "permissionId", permission).cache(true).filterByDate().queryFirst() != null;
@@ -248,16 +237,6 @@ public final class SecurityFactory {
                 Debug.logWarning(e, MODULE);
                 return false;
             }
-        }
-
-        @Override
-        @Deprecated
-        public void setDelegator(Delegator delegator) {
-            if (this.delegator != null) {
-                throw new IllegalStateException("This object has been initialized already.");
-            }
-            Assert.notNull("delegator", delegator);
-            this.delegator = delegator;
         }
     }
 }

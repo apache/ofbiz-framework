@@ -15,4 +15,4 @@
 # specific language governing permissions and limitations
 # under the License.
 
-org.apache.ofbiz.securityext.security.OFBizApplicationSecurity
+org.apache.ofbiz.securityext.security.OFBizApplicationSecurityProvider

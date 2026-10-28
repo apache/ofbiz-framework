@@ -26,7 +26,6 @@ import java.util.Map;
 
 import jakarta.servlet.http.HttpSession;
 
-import org.apache.ofbiz.base.util.Assert;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.entity.Delegator;
@@ -44,14 +43,16 @@ public class OFBizApplicationSecurity implements Security {
 
     private static final String MODULE = OFBizApplicationSecurity.class.getName();
 
-    private Delegator delegator = null;
+    private final Delegator delegator;
 
     private static final Map<String, Map<String, String>> SIMPLE_ROLE_ENT = UtilMisc.toMap(
             "ORDERMGR", UtilMisc.<String, String>toMap("name", "OrderRole", "pkey", "orderId"),
             "FACILITY", UtilMisc.<String, String>toMap("name", "FacilityParty", "pkey", "facilityId"),
             "MARKETING", UtilMisc.<String, String>toMap("name", "MarketingCampaignRole", "pkey", "marketingCampaignId"));
 
-    public OFBizApplicationSecurity() { }
+    public OFBizApplicationSecurity(Delegator delegator) {
+        this.delegator = delegator;
+    }
 
     @Override
     public void clearUserData(GenericValue userLogin) {
@@ -61,9 +62,8 @@ public class OFBizApplicationSecurity implements Security {
         }
     }
 
-    @Override
-    @Deprecated
-    public Iterator<GenericValue> findUserLoginSecurityGroupByUserLoginId(String userLoginId) {
+    // Uses the UserLoginSecurityGroup cache to find the userLogin's security groups.
+    private Iterator<GenericValue> findUserLoginSecurityGroupByUserLoginId(String userLoginId) {
         try {
             List<GenericValue> collection = EntityUtil.filterByDate(EntityQuery.use(delegator).from("UserLoginSecurityGroup")
                     .where("userLoginId", userLoginId).cache(true).queryList());
@@ -72,12 +72,6 @@ public class OFBizApplicationSecurity implements Security {
             Debug.logWarning(e, MODULE);
             return Collections.<GenericValue>emptyList().iterator();
         }
-    }
-
-    @Override
-    @Deprecated
-    public Delegator getDelegator() {
-        return this.delegator;
     }
 
     @Override
@@ -224,9 +218,8 @@ public class OFBizApplicationSecurity implements Security {
         return hasRolePermission(application, action, primaryKey, role, userLogin);
     }
 
-    @Override
-    @Deprecated
-    public boolean securityGroupPermissionExists(String groupId, String permission) {
+    // Caches the groupId, permission pair instead of the userLoginId, permission pair to keep the cache small.
+    private boolean securityGroupPermissionExists(String groupId, String permission) {
         try {
             return EntityQuery.use(delegator).from("SecurityGroupPermission")
                     .where("groupId", groupId, "permissionId", permission).cache(true).filterByDate().queryFirst() != null;
@@ -234,15 +227,5 @@ public class OFBizApplicationSecurity implements Security {
             Debug.logWarning(e, MODULE);
             return false;
         }
-    }
-
-    @Override
-    @Deprecated
-    public void setDelegator(Delegator delegator) {
-        if (this.delegator != null) {
-            throw new IllegalStateException("This object has been initialized already.");
-        }
-        Assert.notNull("delegator", delegator);
-        this.delegator = delegator;
     }
 }
