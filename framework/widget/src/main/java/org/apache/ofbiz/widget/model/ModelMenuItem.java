@@ -167,7 +167,7 @@ public class ModelMenuItem extends ModelWidget {
     }
 
     public ModelMenuItem(ModelMenuItem originMenuItem, ModelMenu modelMenu, ModelMenuItem parentMenuItem) {
-        super(modelMenu.getName() + originMenuItem.getName());
+        super(originMenuItem.getName());
         this.modelMenu = modelMenu;
         this.parentMenuItem = parentMenuItem;
         this.entityName = originMenuItem.entityName;
