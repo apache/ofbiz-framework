@@ -751,6 +751,10 @@ public final class ModelFormField {
         return "";
     }
 
+    public FlexibleStringExpander getIgnoreWhen() {
+        return ignoreWhen;
+    }
+
     public String getIgnoreWhen(Map<String, Object> context) {
         if (UtilValidate.isNotEmpty(this.ignoreWhen)) {
             return this.ignoreWhen.expandString(context);
