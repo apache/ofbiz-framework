@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.IdentityHashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -32,6 +31,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
+
+import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.ofbiz.base.conversion.ConversionException;
 import org.apache.ofbiz.base.conversion.JSONConverters;
@@ -63,6 +64,7 @@ import org.apache.ofbiz.widget.renderer.VisualTheme;
 import org.codehaus.groovy.control.CompilationFailedException;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
+import org.xml.sax.SAXException;
 
 /**
  * Abstract base class for the &lt;form&gt; and &lt;grid&gt; elements.
@@ -198,11 +200,11 @@ public abstract class ModelForm extends ModelWidget {
     private final Set<String> useWhenFields;
 
     /** XML Constructor */
-    protected ModelForm(Element formElement, String formLocation, ModelReader entityModelReader,
-                        VisualTheme visualTheme, DispatchContext dispatchContext, String defaultType) {
+    ModelForm(Element formElement, String formLocation, ModelReader entityModelReader,
+              VisualTheme visualTheme, DispatchContext dispatchContext, String defaultType, ModelForm parentModel) {
         super(formElement);
         this.formLocation = formLocation;
-        parentModel = getParentModel(formElement, entityModelReader, visualTheme, dispatchContext);
+        this.parentModel = parentModel;
         int defaultViewSizeInt = DEFAULT_PAGE_SIZE;
         String viewSize = formElement.getAttribute("view-size");
         if (viewSize.isEmpty()) {
@@ -491,19 +493,12 @@ public abstract class ModelForm extends ModelWidget {
             }
         }
         Map<String, FieldGroupBase> fieldGroupMap = new HashMap<>();
+        if (parentModel != null) {
+            fieldGroupMap.putAll(parentModel.fieldGroupMap);
+        }
         ArrayList<FieldGroupBase> fieldGroupList = new ArrayList<>();
         if (parentModel != null) {
-            // Copy the parent's field groups so that they render with this form; banners hold no form and are shared
-            Map<FieldGroupBase, FieldGroupBase> inheritedFieldGroups = new IdentityHashMap<>();
-            for (FieldGroupBase parentFieldGroup : parentModel.fieldGroupList) {
-                FieldGroupBase fieldGroup = parentFieldGroup instanceof FieldGroup
-                        ? new FieldGroup((FieldGroup) parentFieldGroup, this) : parentFieldGroup;
-                inheritedFieldGroups.put(parentFieldGroup, fieldGroup);
-                fieldGroupList.add(fieldGroup);
-            }
-            for (Map.Entry<String, FieldGroupBase> entry : parentModel.fieldGroupMap.entrySet()) {
-                fieldGroupMap.put(entry.getKey(), inheritedFieldGroups.getOrDefault(entry.getValue(), entry.getValue()));
-            }
+            fieldGroupList.addAll(parentModel.fieldGroupList);
         }
         ArrayList<String> lastOrderFields = new ArrayList<>();
         if (parentModel != null) {
@@ -629,7 +624,7 @@ public abstract class ModelForm extends ModelWidget {
         ArrayList<AutoFieldsService> autoFieldsServices = new ArrayList<>();
         ArrayList<AutoFieldsEntity> autoFieldsEntities = new ArrayList<>();
         ArrayList<SortField> sortOrderFields = new ArrayList<>();
-        this.defaultFieldGroup = new FieldGroup(null, this, sortOrderFields, fieldGroupMap);
+        this.defaultFieldGroup = new FieldGroup(null, sortOrderFields, fieldGroupMap);
         for (Element autoFieldsServiceElement : UtilXml.childElementList(formElement, "auto-fields-service")) {
             AutoFieldsService autoFieldsService = new AutoFieldsService(autoFieldsServiceElement);
             autoFieldsServices.add(autoFieldsService);
@@ -653,7 +648,7 @@ public abstract class ModelForm extends ModelWidget {
         // get the sort-order
         Element sortOrderElement = UtilXml.firstChildElement(formElement, "sort-order");
         if (sortOrderElement != null) {
-            FieldGroup lastFieldGroup = new FieldGroup(null, this, sortOrderFields, fieldGroupMap);
+            FieldGroup lastFieldGroup = new FieldGroup(null, sortOrderFields, fieldGroupMap);
             fieldGroupList.add(lastFieldGroup);
             // read in sort-field
             for (Element sortFieldElement : UtilXml.childElementList(sortOrderElement)) {
@@ -670,12 +665,12 @@ public abstract class ModelForm extends ModelWidget {
                 } else if ("banner".equals(tagName)) {
                     Banner thisBanner = new Banner(sortFieldElement);
                     fieldGroupList.add(thisBanner);
-                    lastFieldGroup = new FieldGroup(null, this, sortOrderFields, fieldGroupMap);
+                    lastFieldGroup = new FieldGroup(null, sortOrderFields, fieldGroupMap);
                     fieldGroupList.add(lastFieldGroup);
                 } else if ("field-group".equals(tagName)) {
-                    FieldGroup thisFieldGroup = new FieldGroup(sortFieldElement, this, sortOrderFields, fieldGroupMap);
+                    FieldGroup thisFieldGroup = new FieldGroup(sortFieldElement, sortOrderFields, fieldGroupMap);
                     fieldGroupList.add(thisFieldGroup);
-                    lastFieldGroup = new FieldGroup(null, this, sortOrderFields, fieldGroupMap);
+                    lastFieldGroup = new FieldGroup(null, sortOrderFields, fieldGroupMap);
                     fieldGroupList.add(lastFieldGroup);
                 }
             }
@@ -1542,8 +1537,79 @@ public abstract class ModelForm extends ModelWidget {
         return field;
     }
 
-    protected abstract ModelForm getParentModel(Element formElement, ModelReader entityModelReader,
-                                                VisualTheme visualTheme, DispatchContext dispatchContext);
+    /**
+     * Resolves the form or grid that a &lt;form&gt; or &lt;grid&gt; element extends. A parent with the widget's own tag
+     * is looked for first, then, for backwards compatibility, one with the other tag.
+     * @param widgetElement the element of the form or grid being built
+     * @param widgetTag "form" or "grid", the tag of the model being built
+     * @param entityModelReader the entity model reader
+     * @param visualTheme the visual theme
+     * @param dispatchContext the dispatch context
+     * @return the parent model, or null if the element extends nothing or the parent cannot be found
+     */
+    static ModelForm resolveParentModel(Element widgetElement, String widgetTag, ModelReader entityModelReader,
+                                        VisualTheme visualTheme, DispatchContext dispatchContext) {
+        String parentName = widgetElement.getAttribute("extends");
+        if (parentName.isEmpty()) {
+            return null;
+        }
+        String otherTag = "grid".equals(widgetTag) ? "form" : "grid";
+        String parentResource = widgetElement.getAttribute("extends-resource");
+        ModelForm parentModel = null;
+        if (!parentResource.isEmpty()) {
+            try {
+                FlexibleStringExpander parentResourceExp = FlexibleStringExpander.getInstance(parentResource);
+                Map<String, String> visualRessources = UtilMisc.toMap(
+                        "commonFormLocations", visualTheme.getModelTheme().getModelCommonForms());
+                parentResource = parentResourceExp.expandString(visualRessources);
+                parentModel = getModelFromLocation(widgetTag, parentResource, parentName, entityModelReader, visualTheme,
+                        dispatchContext);
+            } catch (Exception e) {
+                Debug.logError(e, "Failed to load parent " + widgetTag + " definition '" + parentName
+                        + "' at resource '" + parentResource + "'", MODULE);
+            }
+            if (parentModel == null) {
+                try {
+                    parentModel = getModelFromLocation(otherTag, parentResource, parentName, entityModelReader, visualTheme,
+                            dispatchContext);
+                } catch (Exception e) {
+                    Debug.logError(e, "Failed to load parent " + widgetTag + " definition '" + parentName
+                            + "' at resource '" + parentResource + "'", MODULE);
+                }
+            }
+        } else if (!parentName.equals(widgetElement.getAttribute("name"))) {
+            // try to find the parent definition in the same file
+            Element rootElement = widgetElement.getOwnerDocument().getDocumentElement();
+            Element parentElement = UtilXml.firstChildElement(rootElement, widgetTag, "name", parentName);
+            String parentTag = widgetTag;
+            if (parentElement == null) {
+                parentElement = UtilXml.firstChildElement(rootElement, otherTag, "name", parentName);
+                parentTag = otherTag;
+            }
+            if (parentElement == null) {
+                Debug.logError("Failed to find parent " + widgetTag + " definition '" + parentName + "' in same document.",
+                        MODULE);
+            } else if ("grid".equals(parentTag)) {
+                parentModel = GridFactory.createModelGrid(parentElement, entityModelReader, visualTheme, dispatchContext,
+                        parentResource, parentName);
+            } else {
+                parentModel = FormFactory.createModelForm(parentElement, entityModelReader, visualTheme, dispatchContext,
+                        parentResource, parentName);
+            }
+        } else {
+            Debug.logError("Recursive " + widgetTag + " definition found for '" + widgetElement.getAttribute("name") + ".'",
+                    MODULE);
+        }
+        return parentModel;
+    }
+
+    private static ModelForm getModelFromLocation(String tag, String resourceName, String name, ModelReader entityModelReader,
+            VisualTheme visualTheme, DispatchContext dispatchContext)
+            throws IOException, SAXException, ParserConfigurationException {
+        return "grid".equals(tag)
+                ? GridFactory.getGridFromLocation(resourceName, name, entityModelReader, visualTheme, dispatchContext)
+                : FormFactory.getFormFromLocation(resourceName, name, entityModelReader, visualTheme, dispatchContext);
+    }
 
     /**
      * Gets parent form location.
@@ -2008,7 +2074,7 @@ public abstract class ModelForm extends ModelWidget {
         }
     }
 
-    public static class Banner implements FieldGroupBase {
+    public static final class Banner implements FieldGroupBase {
         private final FlexibleStringExpander style;
         private final FlexibleStringExpander text;
         private final FlexibleStringExpander textStyle;
@@ -2103,7 +2169,7 @@ public abstract class ModelForm extends ModelWidget {
         }
     }
 
-    public static class FieldGroup implements FieldGroupBase {
+    public static final class FieldGroup implements FieldGroupBase {
         private static AtomicInteger baseSeqNo = new AtomicInteger(0);
         private static final String BASE_ID = "_G";
         private final String id;
@@ -2111,11 +2177,8 @@ public abstract class ModelForm extends ModelWidget {
         private final String title;
         private final boolean collapsible;
         private final boolean initiallyCollapsed;
-        private final ModelForm modelForm;
 
-        public FieldGroup(Element sortOrderElement, ModelForm modelForm, List<SortField> sortOrderFields,
-                Map<String, FieldGroupBase> fieldGroupMap) {
-            this.modelForm = modelForm;
+        private FieldGroup(Element sortOrderElement, List<SortField> sortOrderFields, Map<String, FieldGroupBase> fieldGroupMap) {
             String id;
             String style = "";
             String title = "";
@@ -2148,15 +2211,6 @@ public abstract class ModelForm extends ModelWidget {
             this.title = title;
             this.collapsible = collapsible;
             this.initiallyCollapsed = initiallyCollapsed;
-        }
-
-        private FieldGroup(FieldGroup parentFieldGroup, ModelForm modelForm) {
-            this.modelForm = modelForm;
-            this.id = parentFieldGroup.id;
-            this.style = parentFieldGroup.style;
-            this.title = parentFieldGroup.title;
-            this.collapsible = parentFieldGroup.collapsible;
-            this.initiallyCollapsed = parentFieldGroup.initiallyCollapsed;
         }
 
         /**
@@ -2203,14 +2257,15 @@ public abstract class ModelForm extends ModelWidget {
          * Render end string.
          * @param writer             the writer
          * @param context            the context
+         * @param modelForm          the form being rendered
          * @param formStringRenderer the form string renderer
          * @throws IOException the io exception
          */
-        public void renderEndString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer)
-                throws IOException {
+        public void renderEndString(Appendable writer, Map<String, Object> context, ModelForm modelForm,
+                FormStringRenderer formStringRenderer) throws IOException {
             formStringRenderer.renderFormatSingleWrapperClose(writer, context, modelForm);
             if (!modelForm.fieldGroupList.isEmpty()) {
-                if (shouldUse(context)) {
+                if (shouldUse(context, modelForm)) {
                     formStringRenderer.renderFieldGroupClose(writer, context, this);
                 }
             }
@@ -2220,13 +2275,14 @@ public abstract class ModelForm extends ModelWidget {
          * Render start string.
          * @param writer             the writer
          * @param context            the context
+         * @param modelForm          the form being rendered
          * @param formStringRenderer the form string renderer
          * @throws IOException the io exception
          */
-        public void renderStartString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer)
-                throws IOException {
+        public void renderStartString(Appendable writer, Map<String, Object> context, ModelForm modelForm,
+                FormStringRenderer formStringRenderer) throws IOException {
             if (!modelForm.fieldGroupList.isEmpty()) {
-                if (shouldUse(context)) {
+                if (shouldUse(context, modelForm)) {
                     formStringRenderer.renderFieldGroupOpen(writer, context, this);
                 }
             }
@@ -2236,9 +2292,10 @@ public abstract class ModelForm extends ModelWidget {
         /**
          * Should use boolean.
          * @param context the context
+         * @param modelForm the form being rendered
          * @return the boolean
          */
-        public boolean shouldUse(Map<String, Object> context) {
+        public boolean shouldUse(Map<String, Object> context, ModelForm modelForm) {
             for (String fieldName : modelForm.fieldGroupMap.keySet()) {
                 FieldGroupBase group = modelForm.fieldGroupMap.get(fieldName);
                 if (group instanceof FieldGroup) {
@@ -2256,7 +2313,7 @@ public abstract class ModelForm extends ModelWidget {
         }
     }
 
-    public interface FieldGroupBase {
+    public sealed interface FieldGroupBase permits Banner, FieldGroup {
     }
 
     public static class SortField {

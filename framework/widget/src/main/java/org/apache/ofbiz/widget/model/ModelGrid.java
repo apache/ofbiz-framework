@@ -18,14 +18,6 @@
  *******************************************************************************/
 package org.apache.ofbiz.widget.model;
 
-import java.util.List;
-
-import java.util.Map;
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.base.util.UtilXml;
-import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
 import org.apache.ofbiz.entity.model.ModelReader;
 import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.widget.renderer.VisualTheme;
@@ -37,7 +29,7 @@ import org.w3c.dom.Element;
  * @see <code>widget-form.xsd</code>
  */
 @SuppressWarnings("serial")
-public class ModelGrid extends ModelForm {
+public final class ModelGrid extends ModelForm {
 
     /*
      * ----------------------------------------------------------------------- *
@@ -50,81 +42,15 @@ public class ModelGrid extends ModelForm {
      * it is immutable. DO NOT CHANGE THE OBJECT'S STATE AT RUN TIME!
      */
 
-    private static final String MODULE = ModelGrid.class.getName();
-
     /** XML Constructor */
     public ModelGrid(Element formElement, String formLocation, ModelReader entityModelReader,
                      VisualTheme visualTheme, DispatchContext dispatchContext) {
-        super(formElement, formLocation, entityModelReader, visualTheme, dispatchContext, "list");
+        super(formElement, formLocation, entityModelReader, visualTheme, dispatchContext, "list",
+                resolveParentModel(formElement, "grid", entityModelReader, visualTheme, dispatchContext));
     }
 
     @Override
     public void accept(ModelWidgetVisitor visitor) throws Exception {
         visitor.visit(this);
-    }
-
-    @Override
-    protected ModelForm getParentModel(Element gridElement, ModelReader entityModelReader,
-                                       VisualTheme visualTheme, DispatchContext dispatchContext) {
-        ModelForm parentModel = null;
-        String parentResource = gridElement.getAttribute("extends-resource");
-        String parentGrid = gridElement.getAttribute("extends");
-        if (!parentGrid.isEmpty()) {
-            // check if we have a resource name
-            if (!parentResource.isEmpty()) {
-                try {
-                    FlexibleStringExpander parentResourceExp = FlexibleStringExpander.getInstance(parentResource);
-                    Map<String, String> visualRessources = UtilMisc.toMap(
-                            "commonFormLocations", visualTheme.getModelTheme().getModelCommonForms());
-                    parentResource = parentResourceExp.expandString(visualRessources);
-                    parentModel = GridFactory.getGridFromLocation(parentResource, parentGrid, entityModelReader,
-                            visualTheme, dispatchContext);
-                } catch (Exception e) {
-                    Debug.logError(e, "Failed to load parent grid definition '" + parentGrid
-                            + "' at resource '" + parentResource + "'", MODULE);
-                }
-                if (parentModel == null) {
-                    // Backwards compatibility - look for form definitions
-                    try {
-                        parentModel = FormFactory.getFormFromLocation(parentResource, parentGrid, entityModelReader,
-                                visualTheme, dispatchContext);
-                    } catch (Exception e) {
-                        Debug.logError(e, "Failed to load parent grid definition '" + parentGrid
-                                + "' at resource '" + parentResource + "'", MODULE);
-                    }
-                }
-
-            } else if (!parentGrid.equals(gridElement.getAttribute("name"))) {
-                // try to find a grid definition in the same file
-                Element rootElement = gridElement.getOwnerDocument().getDocumentElement();
-                List<? extends Element> gridElements = UtilXml.childElementList(rootElement, "grid");
-                if (gridElements.stream()
-                        .noneMatch(grid -> grid.getAttribute("name").equals(parentGrid))) {
-                    // Backwards compatibility - look for form definitions
-                    gridElements = UtilXml.childElementList(rootElement, "form");
-                    Element parentElement = gridElements.stream()
-                            .filter(form -> form.getAttribute("name").equals(parentGrid))
-                            .findFirst().orElse(null);
-                    if (UtilValidate.isNotEmpty(parentElement)) {
-                        parentModel = FormFactory.createModelForm(parentElement, entityModelReader, visualTheme,
-                                dispatchContext, parentResource, parentGrid);
-                        return parentModel;
-                    }
-                }
-                for (Element parentElement : gridElements) {
-                    if (parentElement.getAttribute("name").equals(parentGrid)) {
-                        parentModel = GridFactory.createModelGrid(parentElement, entityModelReader, visualTheme,
-                                dispatchContext, parentResource, parentGrid);
-                        break;
-                    }
-                }
-                if (parentModel == null) {
-                    Debug.logError("Failed to find parent grid definition '" + parentGrid + "' in same document.", MODULE);
-                }
-            } else {
-                Debug.logError("Recursive grid definition found for '" + gridElement.getAttribute("name") + ".'", MODULE);
-            }
-        }
-        return parentModel;
     }
 }

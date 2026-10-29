@@ -129,12 +129,11 @@ public final class ModelFormTest {
         Assertions.assertNotNull(parent, "Child should have a parent");
         ModelForm.FieldGroup fieldGroup = (ModelForm.FieldGroup) child.getFieldGroupMap().get("a");
         Assertions.assertTrue(child.getFieldGroupList().contains(fieldGroup), "Field group should be in the child list");
-        Assertions.assertNotSame(parent.getFieldGroupMap().get("a"), fieldGroup, "Field group should be the child's own");
 
         FormStringRenderer renderer = Mockito.mock(FormStringRenderer.class);
         StringBuilder writer = new StringBuilder();
-        fieldGroup.renderStartString(writer, context, renderer);
-        fieldGroup.renderEndString(writer, context, renderer);
+        fieldGroup.renderStartString(writer, context, child, renderer);
+        fieldGroup.renderEndString(writer, context, child, renderer);
         verify(renderer).renderFormatSingleWrapperOpen(same(writer), same(context), same(child));
         verify(renderer).renderFormatSingleWrapperClose(same(writer), same(context), same(child));
         verify(renderer, never()).renderFormatSingleWrapperOpen(any(), any(), same(parent));

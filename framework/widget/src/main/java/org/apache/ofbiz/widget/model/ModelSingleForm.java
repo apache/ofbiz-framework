@@ -18,14 +18,6 @@
  *******************************************************************************/
 package org.apache.ofbiz.widget.model;
 
-import java.util.List;
-
-import java.util.Map;
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.base.util.UtilXml;
-import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
 import org.apache.ofbiz.entity.model.ModelReader;
 import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.widget.renderer.VisualTheme;
@@ -37,7 +29,7 @@ import org.w3c.dom.Element;
  * @see <code>widget-form.xsd</code>
  */
 @SuppressWarnings("serial")
-public class ModelSingleForm extends ModelForm {
+public final class ModelSingleForm extends ModelForm {
 
     /*
      * ----------------------------------------------------------------------- *
@@ -50,83 +42,15 @@ public class ModelSingleForm extends ModelForm {
      * it is immutable. DO NOT CHANGE THE OBJECT'S STATE AT RUN TIME!
      */
 
-    private static final String MODULE = ModelSingleForm.class.getName();
-
     /** XML Constructor */
     public ModelSingleForm(Element formElement, String formLocation, ModelReader entityModelReader,
                            VisualTheme visualTheme, DispatchContext dispatchContext) {
-        super(formElement, formLocation, entityModelReader, visualTheme, dispatchContext, "single");
+        super(formElement, formLocation, entityModelReader, visualTheme, dispatchContext, "single",
+                resolveParentModel(formElement, "form", entityModelReader, visualTheme, dispatchContext));
     }
 
     @Override
     public void accept(ModelWidgetVisitor visitor) throws Exception {
         visitor.visit(this);
-    }
-
-    @Override
-    protected ModelForm getParentModel(Element formElement, ModelReader entityModelReader,
-                                       VisualTheme visualTheme, DispatchContext dispatchContext) {
-        ModelForm parent = null;
-        String parentResource = formElement.getAttribute("extends-resource");
-        String parentForm = formElement.getAttribute("extends");
-        if (!parentForm.isEmpty()) {
-            // check if we have a resource name
-            if (!parentResource.isEmpty()) {
-                try {
-                    FlexibleStringExpander parentResourceExp = FlexibleStringExpander.getInstance(parentResource);
-                    Map<String, String> visualRessources = UtilMisc.toMap(
-                            "commonFormLocations", visualTheme.getModelTheme().getModelCommonForms());
-                    parentResource = parentResourceExp.expandString(visualRessources);
-                    parent = FormFactory.getFormFromLocation(parentResource, parentForm, entityModelReader,
-                            visualTheme, dispatchContext);
-                } catch (Exception e) {
-                    Debug.logError(e, "Failed to load parent form definition '" + parentForm + "' at resource '" + parentResource
-                            + "'", MODULE);
-                }
-                if (parent == null) {
-                    try {
-                        // Backwards compatibility - look for grid definitions
-                        parent = GridFactory.getGridFromLocation(parentResource, parentForm, entityModelReader,
-                                visualTheme, dispatchContext);
-                    } catch (Exception e) {
-                        Debug.logError(e, "Failed to load parent form definition '" + parentForm + "' at resource '" + parentResource
-                                + "'", MODULE);
-                    }
-                }
-
-            } else if (!parentForm.equals(formElement.getAttribute("name"))) {
-                // try to find a form definition in the same file
-                Element rootElement = formElement.getOwnerDocument().getDocumentElement();
-                List<? extends Element> formElements = UtilXml.childElementList(rootElement, "form");
-                //Uncomment below to add support for abstract forms
-                //formElements.addAll(UtilXml.childElementList(rootElement, "abstract-form"));
-                if (formElements.stream()
-                        .noneMatch(form -> form.getAttribute("name").equals(parentForm))) {
-                    // Backwards compatibility - look for grid definitions
-                    formElements = UtilXml.childElementList(rootElement, "grid");
-                    Element parentElement = formElements.stream()
-                            .filter(grid -> grid.getAttribute("name").equals(parentForm))
-                            .findFirst().orElse(null);
-                    if (UtilValidate.isNotEmpty(parentElement)) {
-                        parent = GridFactory.createModelGrid(parentElement, entityModelReader, visualTheme,
-                                dispatchContext, parentResource, parentForm);
-                        return parent;
-                    }
-                }
-                for (Element parentElement : formElements) {
-                    if (parentElement.getAttribute("name").equals(parentForm)) {
-                        parent = FormFactory.createModelForm(parentElement, entityModelReader, visualTheme,
-                                dispatchContext, parentResource, parentForm);
-                        break;
-                    }
-                }
-                if (parent == null) {
-                    Debug.logError("Failed to find parent form definition '" + parentForm + "' in same document.", MODULE);
-                }
-            } else {
-                Debug.logError("Recursive form definition found for '" + formElement.getAttribute("name") + ".'", MODULE);
-            }
-        }
-        return parent;
     }
 }
