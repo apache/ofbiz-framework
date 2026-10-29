@@ -58,29 +58,34 @@ public final class EntityDateFilterCondition implements EntityCondition {
     }
 
     @Override
+    @Deprecated
     public boolean isEmpty() {
         return false;
     }
 
     @Override
+    @Deprecated
     public String makeWhereString(ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams, Datasource datasourceInfo) {
         EntityCondition condition = makeCondition();
         return condition.makeWhereString(modelEntity, entityConditionParams, datasourceInfo);
     }
 
     @Override
+    @Deprecated
     public void checkCondition(ModelEntity modelEntity) throws GenericModelException {
         EntityCondition condition = makeCondition();
         condition.checkCondition(modelEntity);
     }
 
     @Override
+    @Deprecated
     public boolean mapMatches(Delegator delegator, Map<String, ? extends Object> map) {
         EntityCondition condition = makeCondition();
         return condition.mapMatches(delegator, map);
     }
 
     @Override
+    @Deprecated
     public boolean equals(Object obj) {
         if (!(obj instanceof EntityDateFilterCondition)) {
             return false;
@@ -90,6 +95,7 @@ public final class EntityDateFilterCondition implements EntityCondition {
     }
 
     @Override
+    @Deprecated
     public int hashCode() {
         return Objects.hashCode(fromDateName) ^ Objects.hashCode(thruDateName);
     }
@@ -101,11 +107,13 @@ public final class EntityDateFilterCondition implements EntityCondition {
     }
 
     @Override
+    @Deprecated
     public EntityCondition freeze() {
         return this;
     }
 
     @Override
+    @Deprecated
     public String toString() {
         return makeWhereString();
     }
