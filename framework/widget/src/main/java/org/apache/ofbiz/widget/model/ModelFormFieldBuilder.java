@@ -298,6 +298,7 @@ public class ModelFormFieldBuilder {
         this.headerLink = modelFormField.getHeaderLink();
         this.headerLinkStyle = modelFormField.getHeaderLinkStyle();
         this.idName = modelFormField.getIdName();
+        this.ignoreWhen = modelFormField.getIgnoreWhen();
         this.mapAcsr = modelFormField.getMapAcsr();
         this.modelForm = modelFormField.getModelForm();
         this.name = modelFormField.getName();
@@ -341,6 +342,7 @@ public class ModelFormFieldBuilder {
         this.headerLink = builder.getHeaderLink();
         this.headerLinkStyle = builder.getHeaderLinkStyle();
         this.idName = builder.getIdName();
+        this.ignoreWhen = builder.getIgnoreWhen();
         this.mapAcsr = builder.getMapAcsr();
         this.modelForm = builder.getModelForm();
         this.name = builder.getName();
