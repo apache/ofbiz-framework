@@ -18,7 +18,6 @@
  *******************************************************************************/
 package org.apache.ofbiz.base.util.cache;
 
-@SuppressWarnings("serial")
 public abstract class SoftRefCacheLine<V> extends CacheLine<V> {
     private final CacheSoftReference<V> ref;
 
