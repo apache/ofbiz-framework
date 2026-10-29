@@ -38,7 +38,7 @@ import org.w3c.dom.Element;
  * Models the &lt;menu&gt; element. see widget-menu.xsd
  */
 @SuppressWarnings("serial")
-public class ModelMenu extends ModelWidget {
+public final class ModelMenu extends ModelWidget {
 
     /*
      * ----------------------------------------------------------------------- *

@@ -40,7 +40,7 @@ import org.w3c.dom.Element;
  * Widget Theme Library - Widget model class.
  */
 @SuppressWarnings("serial")
-public class ModelTheme implements Serializable {
+public final class ModelTheme implements Serializable {
 
     private static final String MODULE = ModelTheme.class.getName();
     //generic properties

@@ -39,7 +39,7 @@ import org.w3c.dom.Element;
  * Widget Library - Screen model class
  */
 @SuppressWarnings("serial")
-public class ModelScreen extends ModelWidget {
+public final class ModelScreen extends ModelWidget {
 
     private static final String MODULE = ModelScreen.class.getName();
 
