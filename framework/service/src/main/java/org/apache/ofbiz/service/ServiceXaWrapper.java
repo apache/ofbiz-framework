@@ -40,9 +40,13 @@ import org.apache.ofbiz.entity.transaction.TransactionUtil;
 public class ServiceXaWrapper extends GenericXaResource {
 
     private static final String MODULE = ServiceXaWrapper.class.getName();
+    @Deprecated
     public static final int TYPE_ROLLBACK = 600;
+    @Deprecated
     public static final int TYPE_COMMIT = 500;
+    @Deprecated
     public static final int MODE_ASYNC = 100;
+    @Deprecated
     public static final int MODE_SYNC = 200;
 
     private DispatchContext dctx = null;
@@ -56,7 +60,9 @@ public class ServiceXaWrapper extends GenericXaResource {
     private boolean commitAsync = false;
     private boolean commitAsyncPersist = false;
 
+    @Deprecated
     protected ServiceXaWrapper() { }
+    @Deprecated
     public ServiceXaWrapper(DispatchContext dctx) {
         this.dctx = dctx;
     }
@@ -66,6 +72,7 @@ public class ServiceXaWrapper extends GenericXaResource {
      * @param serviceName Name of service to run
      * @param context Context to use when running
      */
+    @Deprecated
     public void setCommitService(String serviceName, Map<String, ? extends Object> context) {
         this.setCommitService(serviceName, null, context, commitAsync, commitAsyncPersist);
     }
@@ -76,6 +83,7 @@ public class ServiceXaWrapper extends GenericXaResource {
      * @param context Context to use when running
      * @param async override default async behavior
      */
+    @Deprecated
     public void setCommitService(String serviceName, Map<String, ? extends Object> context, boolean async, boolean persist) {
         this.setCommitService(serviceName, null, context, async, persist);
     }
@@ -87,6 +95,7 @@ public class ServiceXaWrapper extends GenericXaResource {
      * @param context Context to use when running
      * @param async override default async behavior
      */
+    @Deprecated
     public void setCommitService(String serviceName, String runAsUser, Map<String, ? extends Object> context, boolean async, boolean persist) {
         this.commitService = serviceName;
         this.runAsUser = runAsUser;
@@ -99,6 +108,7 @@ public class ServiceXaWrapper extends GenericXaResource {
     /**
      * @return The name of the service to run on commit()
      */
+    @Deprecated
     public String getCommitService() {
         return this.commitService;
     }
@@ -106,6 +116,7 @@ public class ServiceXaWrapper extends GenericXaResource {
     /**
      * @return The context used when running the commit() service
      */
+    @Deprecated
     public Map<String, ? extends Object> getCommitContext() {
         return this.commitContext;
     }
@@ -115,6 +126,7 @@ public class ServiceXaWrapper extends GenericXaResource {
      * @param serviceName Name of service to run
      * @param context Context to use when running
      */
+    @Deprecated
     public void setRollbackService(String serviceName, Map<String, ? extends Object> context) {
         this.setRollbackService(serviceName, context, rollbackAsync, rollbackAsyncPersist);
     }
@@ -125,6 +137,7 @@ public class ServiceXaWrapper extends GenericXaResource {
      * @param context Context to use when running
      * @param async override default async behavior
      */
+    @Deprecated
     public void setRollbackService(String serviceName, Map<String, ? extends Object> context, boolean async, boolean persist) {
         this.setRollbackService(serviceName, null, context, async, persist);
     }
@@ -136,6 +149,7 @@ public class ServiceXaWrapper extends GenericXaResource {
      * @param context Context to use when running
      * @param async override default async behavior
      */
+    @Deprecated
     public void setRollbackService(String serviceName, String runAsUser, Map<String, ? extends Object> context, boolean async, boolean persist) {
         this.rollbackService = serviceName;
         this.runAsUser = runAsUser;
@@ -147,6 +161,7 @@ public class ServiceXaWrapper extends GenericXaResource {
     /**
      * @return The name of the service to run on rollback()
      */
+    @Deprecated
     public String getRollbackService() {
         return this.rollbackService;
     }
@@ -154,11 +169,13 @@ public class ServiceXaWrapper extends GenericXaResource {
     /**
      * @return The context used when running the rollback() service
      */
+    @Deprecated
     public Map<String, ? extends Object> getRollbackContext() {
         return this.rollbackContext;
     }
 
     @Override
+    @Deprecated
     public void enlist() throws XAException {
         super.enlist();
         if (Debug.verboseOn()) {
@@ -171,6 +188,7 @@ public class ServiceXaWrapper extends GenericXaResource {
      * @see javax.transaction.xa.XAResource#commit(javax.transaction.xa.Xid xid, boolean onePhase)
      */
     @Override
+    @Deprecated
     public void commit(Xid xid, boolean onePhase) throws XAException {
         if (Debug.verboseOn()) {
             Debug.logVerbose("ServiceXaWrapper#commit() : " + onePhase + " / " + xid.toString(), MODULE);
@@ -208,6 +226,7 @@ public class ServiceXaWrapper extends GenericXaResource {
      * @see javax.transaction.xa.XAResource#rollback(javax.transaction.xa.Xid xid)
      */
     @Override
+    @Deprecated
     public void rollback(Xid xid) throws XAException {
         if (Debug.verboseOn()) {
             Debug.logVerbose("ServiceXaWrapper#rollback() : " + xid.toString(), MODULE);
@@ -242,6 +261,7 @@ public class ServiceXaWrapper extends GenericXaResource {
     }
 
     @Override
+    @Deprecated
     public int prepare(Xid xid) throws XAException {
         // overriding to log two phase commits
         if (Debug.verboseOn()) {
@@ -262,6 +282,7 @@ public class ServiceXaWrapper extends GenericXaResource {
 
 
 
+    @Deprecated
     protected final void runService(String service, Map<String, ? extends Object> context, boolean persist, int mode, int type) throws XAException {
         // set the logging prefix
         String msgPrefix = "[XaWrapper] ";
