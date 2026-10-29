@@ -25,7 +25,7 @@ import org.w3c.dom.Element;
  *
  * @see <code>widget-tree.xsd</code>
  */
-public class ModelTreeCondition {
+public final class ModelTreeCondition {
     private final ModelCondition condition;
 
     public ModelTreeCondition(ModelTree modelTree, Element conditionElement) {

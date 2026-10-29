@@ -47,7 +47,7 @@ import org.w3c.dom.Element;
  * @see <code>widget-menu.xsd</code>
  */
 @SuppressWarnings("serial")
-public class ModelMenuItem extends ModelWidget {
+public final class ModelMenuItem extends ModelWidget {
 
     /*
      * ----------------------------------------------------------------------- *
@@ -677,7 +677,7 @@ public class ModelMenuItem extends ModelWidget {
         return true;
     }
 
-    public static class MenuLink {
+    public static final class MenuLink {
         private final ModelMenuItem linkMenuItem;
         private final Link link;
 

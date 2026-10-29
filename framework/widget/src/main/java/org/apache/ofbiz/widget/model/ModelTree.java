@@ -62,7 +62,7 @@ import org.xml.sax.SAXException;
  * @see <code>widget-tree.xsd</code>
  */
 @SuppressWarnings("serial")
-public class ModelTree extends ModelWidget {
+public final class ModelTree extends ModelWidget {
 
     /*
      * ----------------------------------------------------------------------- *
@@ -355,7 +355,7 @@ public class ModelTree extends ModelWidget {
      * Models the &lt;node&gt; element.
      * @see <code>widget-tree.xsd</code>
      */
-    public static class ModelNode extends ModelWidget {
+    public static final class ModelNode extends ModelWidget {
 
         private final List<ModelAction> actions;
         // TODO: Make this a generic condition object.
@@ -867,7 +867,7 @@ public class ModelTree extends ModelWidget {
          * Models the &lt;image&gt; element.
          * @see <code>widget-tree.xsd</code>
          */
-        public static class Image {
+        public static final class Image {
 
             private final FlexibleStringExpander borderExdr;
             private final FlexibleStringExpander heightExdr;
@@ -1029,7 +1029,7 @@ public class ModelTree extends ModelWidget {
          * Models the &lt;link&gt; element.
          * @see <code>widget-tree.xsd</code>
          */
-        public static class Link {
+        public static final class Link {
             private final boolean encode;
             private final boolean fullPath;
             private final FlexibleStringExpander idExdr;
@@ -1355,7 +1355,7 @@ public class ModelTree extends ModelWidget {
          * Models the &lt;sub-node&gt; element.
          * @see <code>widget-tree.xsd</code>
          */
-        public static class ModelSubNode extends ModelWidget {
+        public static final class ModelSubNode extends ModelWidget {
 
             private final List<ModelAction> actions;
             private final FlexibleStringExpander nodeNameExdr;
