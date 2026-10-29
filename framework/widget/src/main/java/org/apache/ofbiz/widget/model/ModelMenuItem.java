@@ -157,7 +157,7 @@ public class ModelMenuItem extends ModelWidget {
             this.condition = null;
         }
         // read all actions under the "actions" element
-        Element actionsElement = UtilXml.firstChildElement(conditionElement, "actions");
+        Element actionsElement = UtilXml.firstChildElement(menuItemElement, "actions");
         if (actionsElement != null) {
             this.actions = AbstractModelAction.readSubActions(this, actionsElement);
         } else {
