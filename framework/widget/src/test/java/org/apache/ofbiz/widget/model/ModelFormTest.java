@@ -139,6 +139,23 @@ public final class ModelFormTest {
         verify(renderer, never()).renderFormatSingleWrapperOpen(any(), any(), same(parent));
     }
 
+    @Test
+    public void testInheritedFieldKeepsIgnoreWhen() throws Exception {
+        String xml = "<forms>"
+                + "<form name=\"Parent\" type=\"single\">"
+                + "<field name=\"a\" ignore-when=\"true\"><display/></field>"
+                + "</form>"
+                + "<form name=\"Child\" type=\"single\" extends=\"Parent\"/>"
+                + "</forms>";
+        Element rootElement = UtilXml.readXmlDocument(xml, false, true).getDocumentElement();
+        ModelSingleForm child = new ModelSingleForm(UtilXml.childElementList(rootElement, "form").get(1), "test",
+                null, null, null);
+        ModelFormField field = child.getFieldList().get(0);
+        Assertions.assertEquals("true", field.getIgnoreWhen(context), "Inherited field should keep ignore-when");
+        ModelFormField copy = ModelFormField.from(new ModelFormFieldBuilder(new ModelFormFieldBuilder(field)));
+        Assertions.assertEquals("true", copy.getIgnoreWhen(context), "Copied builder should keep ignore-when");
+    }
+
     private static CommonWidgetModels.Parameter getParameterOnly(ModelForm.UpdateArea updateArea) {
         Assertions.assertNotNull(updateArea.getParameterList());
         Assertions.assertEquals(updateArea.getParameterList().size(), 1, "Parameter size should be one");
