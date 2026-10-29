@@ -1063,7 +1063,7 @@ public class FormRenderer {
                     }
                 }
                 if (currentFieldGroup != null && (lastFieldGroup == null || !lastFieldGroupName.equals(currentFieldGroupName))) {
-                    currentFieldGroup.renderStartString(writer, context, formStringRenderer);
+                    currentFieldGroup.renderStartString(writer, context, modelForm, formStringRenderer);
                     lastFieldGroup = currentFieldGroup;
                 }
             } else {
@@ -1099,7 +1099,7 @@ public class FormRenderer {
                             formStringRenderer.renderFormatFieldRowClose(writer, context, modelForm);
                             haveRenderedOpenFieldRow = false;
                         }
-                        lastFieldGroup.renderEndString(writer, context, formStringRenderer);
+                        lastFieldGroup.renderEndString(writer, context, modelForm, formStringRenderer);
 
                         List<FieldGroupBase> inbetweenList = getInbetweenList(lastFieldGroup, currentFieldGroup);
                         for (FieldGroupBase obj : inbetweenList) {
@@ -1113,7 +1113,7 @@ public class FormRenderer {
                 }
 
                 if (lastFieldGroup == null || !lastFieldGroupName.equals(currentFieldGroupName)) {
-                    currentFieldGroup.renderStartString(writer, context, formStringRenderer);
+                    currentFieldGroup.renderStartString(writer, context, modelForm, formStringRenderer);
                     lastFieldGroup = currentFieldGroup;
                 }
             }
@@ -1229,7 +1229,7 @@ public class FormRenderer {
         }
 
         if (lastFieldGroup != null) {
-            lastFieldGroup.renderEndString(writer, context, formStringRenderer);
+            lastFieldGroup.renderEndString(writer, context, modelForm, formStringRenderer);
         }
         // render formatting wrapper close
         // should be handled by renderEndString
