@@ -501,7 +501,7 @@ public class ProductConfigWrapper implements Serializable {
     }
 
     public class ConfigItem implements java.io.Serializable {
-        private transient GenericValue configItem = null;
+        private GenericValue configItem = null;
         private GenericValue configItemAssoc = null;
         private transient ProductConfigItemContentWrapper content = null;
         private List<ConfigOption> options = null;
@@ -848,7 +848,7 @@ public class ProductConfigWrapper implements Serializable {
                 String variantProductId = componentOptions.get(oneComponent.getString("productId"));
 
                 if (UtilValidate.isNotEmpty(variantProductId)) {
-                    oneComponentProduct = EntityQuery.use(delegator).from("Product").where("productId", variantProductId).queryOne();
+                    oneComponentProduct = EntityQuery.use(pcw.getDelegator()).from("Product").where("productId", variantProductId).queryOne();
                 }
 
                 // Get the component's price
@@ -856,9 +856,8 @@ public class ProductConfigWrapper implements Serializable {
                         pcw.webSiteId, "currencyUomId", pcw.currencyUomId, "productPricePurposeId", "COMPONENT_PRICE", "autoUserLogin",
                         pcw.autoUserLogin, "productStoreId", productStoreId);
                 Map<String, Object> priceMap = pcw.getDispatcher().runSync("calculateProductPrice", fieldMap);
-                Map<String, Object> purchasePriceResultMap = dispatcher.runSync("calculateProductPrice", fieldMap);
-                if (ServiceUtil.isError(purchasePriceResultMap)) {
-                    String errorMessage = ServiceUtil.getErrorMessage(purchasePriceResultMap);
+                if (ServiceUtil.isError(priceMap)) {
+                    String errorMessage = ServiceUtil.getErrorMessage(priceMap);
                     throw new GeneralException(errorMessage);
                 }
                 BigDecimal componentListPrice = (BigDecimal) priceMap.get("listPrice");
@@ -880,7 +879,7 @@ public class ProductConfigWrapper implements Serializable {
                     }
                 } else {
                     fieldMap.put("productPricePurposeId", "PURCHASE");
-                    purchasePriceResultMap = pcw.getDispatcher().runSync("calculateProductPrice", fieldMap);
+                    Map<String, Object> purchasePriceResultMap = pcw.getDispatcher().runSync("calculateProductPrice", fieldMap);
                     if (ServiceUtil.isError(purchasePriceResultMap)) {
                         String errorMessage = ServiceUtil.getErrorMessage(purchasePriceResultMap);
                         throw new GeneralException(errorMessage);
