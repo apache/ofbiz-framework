@@ -68,17 +68,17 @@ public final class ProductConfigWorker {
             Delegator delegator = (Delegator) request.getAttribute("delegator");
             String cacheKey = productId + SEPARATOR + productStoreId + SEPARATOR + catalogId + SEPARATOR + webSiteId + SEPARATOR
                     + currencyUomId + SEPARATOR + delegator;
-            configWrapper = PRODUCT_CONFIG_CACHE.get(cacheKey);
-            if (configWrapper == null) {
-                configWrapper = new ProductConfigWrapper((Delegator) request.getAttribute("delegator"),
-                                                         (LocalDispatcher) request.getAttribute("dispatcher"),
-                                                         productId, productStoreId, catalogId, webSiteId,
-                                                         currencyUomId, UtilHttp.getLocale(request),
-                                                         autoUserLogin);
-                configWrapper = PRODUCT_CONFIG_CACHE.putIfAbsentAndGet(cacheKey, new ProductConfigWrapper(configWrapper));
-            } else {
-                configWrapper = new ProductConfigWrapper(configWrapper);
+            ProductConfigWrapper cachedWrapper = PRODUCT_CONFIG_CACHE.get(cacheKey);
+            if (cachedWrapper == null) {
+                cachedWrapper = PRODUCT_CONFIG_CACHE.putIfAbsentAndGet(cacheKey,
+                        new ProductConfigWrapper((Delegator) request.getAttribute("delegator"),
+                                                 (LocalDispatcher) request.getAttribute("dispatcher"),
+                                                 productId, productStoreId, catalogId, webSiteId,
+                                                 currencyUomId, UtilHttp.getLocale(request),
+                                                 autoUserLogin));
             }
+            // callers fill in the customer's selections, so never hand out the cached instance itself
+            configWrapper = new ProductConfigWrapper(cachedWrapper);
         } catch (Exception e) {
             Debug.logWarning(e.getMessage(), MODULE);
             configWrapper = null;
