@@ -20,6 +20,9 @@ package org.apache.ofbiz.webtools.artifactinfo;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ConcurrentSkipListSet;
 
 /**
  *
@@ -40,6 +43,17 @@ public abstract class ArtifactInfoBase implements Comparable<ArtifactInfoBase> {
 
     public ArtifactInfoBase(ArtifactInfoFactory aif) {
         this.aif = aif;
+    }
+
+    /**
+     * Adds an artifact to the sorted set kept under a key of a reverse-reference map.
+     * The artifact graph is built from several threads at once, so the set is created atomically and is thread-safe.
+     * @param element the artifact to add
+     * @param theMap the reverse-reference map
+     * @param setKey the key of the set
+     */
+    static <K, V> void addToSortedSetInMap(V element, Map<K, Set<V>> theMap, K setKey) {
+        theMap.computeIfAbsent(setKey, k -> new ConcurrentSkipListSet<>()).add(element);
     }
 
     @Override

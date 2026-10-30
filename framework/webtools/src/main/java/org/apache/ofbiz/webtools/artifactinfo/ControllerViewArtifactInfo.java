@@ -24,7 +24,6 @@ import java.util.Objects;
 import java.util.Set;
 
 import org.apache.ofbiz.base.util.GeneralException;
-import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilURL;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.webapp.control.ConfigXMLReader;
@@ -62,7 +61,7 @@ public class ControllerViewArtifactInfo extends ArtifactInfoBase {
                         fullScreenName.substring(0, poundIndex));
                 if (this.screenCalledByThisView != null) {
                     // add the reverse association
-                    UtilMisc.addToSortedSetInMap(this, aif.getAllViewInfosReferringToScreen(), this.screenCalledByThisView.getUniqueId());
+                    addToSortedSetInMap(this, aif.getAllViewInfosReferringToScreen(), this.screenCalledByThisView.getUniqueId());
                 }
             }
         }

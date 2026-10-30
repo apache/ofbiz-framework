@@ -441,9 +441,13 @@ public class ArtifactInfoFactory {
     public EntityArtifactInfo getEntityArtifactInfo(String entityName) throws GeneralException {
         EntityArtifactInfo curInfo = this.allEntityInfos.get(entityName);
         if (curInfo == null) {
-            curInfo = new EntityArtifactInfo(entityName, this);
-            this.allEntityInfos.put(entityName, curInfo);
-            curInfo.populateAll();
+            EntityArtifactInfo newInfo = new EntityArtifactInfo(entityName, this);
+            // if another thread registered the same artifact meanwhile, use that one and leave its population to that thread
+            curInfo = this.allEntityInfos.putIfAbsent(entityName, newInfo);
+            if (curInfo == null) {
+                curInfo = newInfo;
+                curInfo.populateAll();
+            }
         }
         return curInfo;
     }
@@ -457,9 +461,13 @@ public class ArtifactInfoFactory {
     public ServiceArtifactInfo getServiceArtifactInfo(String serviceName) throws GeneralException {
         ServiceArtifactInfo curInfo = this.allServiceInfos.get(serviceName);
         if (curInfo == null) {
-            curInfo = new ServiceArtifactInfo(serviceName, this);
-            this.allServiceInfos.put(serviceName, curInfo);
-            curInfo.populateAll();
+            ServiceArtifactInfo newInfo = new ServiceArtifactInfo(serviceName, this);
+            // if another thread registered the same artifact meanwhile, use that one and leave its population to that thread
+            curInfo = this.allServiceInfos.putIfAbsent(serviceName, newInfo);
+            if (curInfo == null) {
+                curInfo = newInfo;
+                curInfo.populateAll();
+            }
         }
         return curInfo;
     }
@@ -473,9 +481,13 @@ public class ArtifactInfoFactory {
     public ServiceEcaArtifactInfo getServiceEcaArtifactInfo(ServiceEcaRule ecaRule) throws GeneralException {
         ServiceEcaArtifactInfo curInfo = this.allServiceEcaInfos.get(ecaRule);
         if (curInfo == null) {
-            curInfo = new ServiceEcaArtifactInfo(ecaRule, this);
-            this.allServiceEcaInfos.put(ecaRule, curInfo);
-            curInfo.populateAll();
+            ServiceEcaArtifactInfo newInfo = new ServiceEcaArtifactInfo(ecaRule, this);
+            // if another thread registered the same artifact meanwhile, use that one and leave its population to that thread
+            curInfo = this.allServiceEcaInfos.putIfAbsent(ecaRule, newInfo);
+            if (curInfo == null) {
+                curInfo = newInfo;
+                curInfo.populateAll();
+            }
         }
         return curInfo;
     }
@@ -501,9 +513,13 @@ public class ArtifactInfoFactory {
     public FormWidgetArtifactInfo getFormWidgetArtifactInfo(String formName, String formLocation) throws GeneralException {
         FormWidgetArtifactInfo curInfo = this.allFormInfos.get(formLocation + "#" + formName);
         if (curInfo == null) {
-            curInfo = new FormWidgetArtifactInfo(formName, formLocation, this);
-            this.allFormInfos.put(curInfo.getUniqueId(), curInfo);
-            curInfo.populateAll();
+            FormWidgetArtifactInfo newInfo = new FormWidgetArtifactInfo(formName, formLocation, this);
+            // if another thread registered the same artifact meanwhile, use that one and leave its population to that thread
+            curInfo = this.allFormInfos.putIfAbsent(newInfo.getUniqueId(), newInfo);
+            if (curInfo == null) {
+                curInfo = newInfo;
+                curInfo.populateAll();
+            }
         }
         return curInfo;
     }
@@ -518,9 +534,13 @@ public class ArtifactInfoFactory {
         ScreenWidgetArtifactInfo curInfo = this.allScreenInfos.get(screenLocation + "#" + screenName);
         if (curInfo == null) {
             try {
-                curInfo = new ScreenWidgetArtifactInfo(screenName, screenLocation, this);
-                this.allScreenInfos.put(curInfo.getUniqueId(), curInfo);
-                curInfo.populateAll();
+                ScreenWidgetArtifactInfo newInfo = new ScreenWidgetArtifactInfo(screenName, screenLocation, this);
+                // if another thread registered the same artifact meanwhile, use that one and leave its population to that thread
+                curInfo = this.allScreenInfos.putIfAbsent(newInfo.getUniqueId(), newInfo);
+                if (curInfo == null) {
+                    curInfo = newInfo;
+                    curInfo.populateAll();
+                }
             } catch (GeneralException e) {
                 Debug.logWarning("Error loading screen [" + screenName + "] from resource [" + screenLocation + "]: " + e.toString(), MODULE);
                 return null;
@@ -545,9 +565,13 @@ public class ArtifactInfoFactory {
         }
         ControllerRequestArtifactInfo curInfo = this.allControllerRequestInfos.get(controllerXmlUrl.toExternalForm() + "#" + requestUri);
         if (curInfo == null) {
-            curInfo = new ControllerRequestArtifactInfo(controllerXmlUrl, requestUri, this);
-            this.allControllerRequestInfos.put(curInfo.getUniqueId(), curInfo);
-            curInfo.populateAll();
+            ControllerRequestArtifactInfo newInfo = new ControllerRequestArtifactInfo(controllerXmlUrl, requestUri, this);
+            // if another thread registered the same artifact meanwhile, use that one and leave its population to that thread
+            curInfo = this.allControllerRequestInfos.putIfAbsent(newInfo.getUniqueId(), newInfo);
+            if (curInfo == null) {
+                curInfo = newInfo;
+                curInfo.populateAll();
+            }
         }
         return curInfo;
     }
@@ -562,8 +586,12 @@ public class ArtifactInfoFactory {
     public ControllerViewArtifactInfo getControllerViewArtifactInfo(URL controllerXmlUrl, String viewUri) throws GeneralException {
         ControllerViewArtifactInfo curInfo = this.allControllerViewInfos.get(controllerXmlUrl.toExternalForm() + "#" + viewUri);
         if (curInfo == null) {
-            curInfo = new ControllerViewArtifactInfo(controllerXmlUrl, viewUri, this);
-            this.allControllerViewInfos.put(curInfo.getUniqueId(), curInfo);
+            ControllerViewArtifactInfo newInfo = new ControllerViewArtifactInfo(controllerXmlUrl, viewUri, this);
+            // if another thread registered the same view meanwhile, use that one
+            curInfo = this.allControllerViewInfos.putIfAbsent(newInfo.getUniqueId(), newInfo);
+            if (curInfo == null) {
+                curInfo = newInfo;
+            }
         }
         return curInfo;
     }

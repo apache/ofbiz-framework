@@ -23,12 +23,11 @@ import java.net.URL;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-import java.util.TreeSet;
+import java.util.concurrent.ConcurrentSkipListSet;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.UtilGenerics;
-import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilURL;
 import org.apache.ofbiz.webapp.control.ConfigXMLReader;
 
@@ -42,8 +41,8 @@ public class ControllerRequestArtifactInfo extends ArtifactInfoBase {
     private String requestUri;
     private ConfigXMLReader.RequestMap requestInfoMap;
     private ServiceArtifactInfo serviceCalledByRequestEvent = null;
-    private Set<ControllerRequestArtifactInfo> requestsThatAreResponsesToThisRequest = new TreeSet<>();
-    private Set<ControllerViewArtifactInfo> viewsThatAreResponsesToThisRequest = new TreeSet<>();
+    private Set<ControllerRequestArtifactInfo> requestsThatAreResponsesToThisRequest = new ConcurrentSkipListSet<>();
+    private Set<ControllerViewArtifactInfo> viewsThatAreResponsesToThisRequest = new ConcurrentSkipListSet<>();
 
     public ControllerRequestArtifactInfo(URL controllerXmlUrl, String requestUri, ArtifactInfoFactory aif) throws GeneralException {
         super(aif);
@@ -69,7 +68,7 @@ public class ControllerRequestArtifactInfo extends ArtifactInfoBase {
             this.serviceCalledByRequestEvent = this.getAif().getServiceArtifactInfo(serviceName);
             if (this.serviceCalledByRequestEvent != null) {
                 // add the reverse association
-                UtilMisc.addToSortedSetInMap(this, getAif().getAllRequestInfosReferringToServiceName(),
+                addToSortedSetInMap(this, getAif().getAllRequestInfosReferringToServiceName(),
                         this.serviceCalledByRequestEvent.getUniqueId());
             }
         }
@@ -85,7 +84,7 @@ public class ControllerRequestArtifactInfo extends ArtifactInfoBase {
                     ControllerViewArtifactInfo artInfo = this.getAif().getControllerViewArtifactInfo(controllerXmlUrl, viewUri);
                     this.viewsThatAreResponsesToThisRequest.add(artInfo);
                     // add the reverse association
-                    UtilMisc.addToSortedSetInMap(this, this.getAif().getAllRequestInfosReferringToView(), artInfo.getUniqueId());
+                    addToSortedSetInMap(this, this.getAif().getAllRequestInfosReferringToView(), artInfo.getUniqueId());
                 } catch (GeneralException e) {
                     Debug.logWarning(e.toString(), MODULE);
                 }
@@ -97,7 +96,7 @@ public class ControllerRequestArtifactInfo extends ArtifactInfoBase {
                 try {
                     ControllerRequestArtifactInfo artInfo = this.getAif().getControllerRequestArtifactInfo(controllerXmlUrl, otherRequestUri);
                     this.requestsThatAreResponsesToThisRequest.add(artInfo);
-                    UtilMisc.addToSortedSetInMap(this, this.getAif().getAllRequestInfosReferringToRequest(), artInfo.getUniqueId());
+                    addToSortedSetInMap(this, this.getAif().getAllRequestInfosReferringToRequest(), artInfo.getUniqueId());
                 } catch (GeneralException e) {
                     Debug.logWarning(e.toString(), MODULE);
                 }
@@ -105,12 +104,12 @@ public class ControllerRequestArtifactInfo extends ArtifactInfoBase {
                 String otherRequestUri = response.getValue();
                 ControllerRequestArtifactInfo artInfo = this.getAif().getControllerRequestArtifactInfo(controllerXmlUrl, otherRequestUri);
                 this.requestsThatAreResponsesToThisRequest.add(artInfo);
-                UtilMisc.addToSortedSetInMap(this, this.getAif().getAllRequestInfosReferringToRequest(), artInfo.getUniqueId());
+                addToSortedSetInMap(this, this.getAif().getAllRequestInfosReferringToRequest(), artInfo.getUniqueId());
             } else if ("request-redirect-noparam".equals(response.getType())) {
                 String otherRequestUri = response.getValue();
                 ControllerRequestArtifactInfo artInfo = this.getAif().getControllerRequestArtifactInfo(controllerXmlUrl, otherRequestUri);
                 this.requestsThatAreResponsesToThisRequest.add(artInfo);
-                UtilMisc.addToSortedSetInMap(this, this.getAif().getAllRequestInfosReferringToRequest(), artInfo.getUniqueId());
+                addToSortedSetInMap(this, this.getAif().getAllRequestInfosReferringToRequest(), artInfo.getUniqueId());
             }
         }
     }
