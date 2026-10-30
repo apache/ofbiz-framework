@@ -64,7 +64,17 @@ public class RecordIterator {
         } catch (IOException e) {
             throw new DataFileException("Error open URL: " + fileUrl.toString(), e);
         }
-        this.setupStream(urlStream, fileUrl.toString());
+        try {
+            this.setupStream(urlStream, fileUrl.toString());
+        } catch (DataFileException | RuntimeException e) {
+            // the stream was opened here, so close it when the iterator cannot be created
+            try {
+                urlStream.close();
+            } catch (IOException closeException) {
+                e.addSuppressed(closeException);
+            }
+            throw e;
+        }
     }
 
     public RecordIterator(InputStream dataFileStream, ModelDataFile modelDataFile, String locationInfo) throws DataFileException {
@@ -84,7 +94,7 @@ public class RecordIterator {
         try {
             this.br = new BufferedReader(new InputStreamReader(dataFileStream, Charset.forName(charsetStr)));
         } catch (Exception e) {
-            throw new DataFileException(charsetStr + " is not supported");
+            throw new DataFileException(charsetStr + " is not supported", e);
         }
         //move the cursor to the good start line
         try {
@@ -92,7 +102,7 @@ public class RecordIterator {
                 br.readLine();
             }
         } catch (IOException e) {
-            throw new DataFileException("Impossible to read the buffer");
+            throw new DataFileException("Impossible to read the buffer", e);
         }
         // get the line seeded
         this.getNextLine();
