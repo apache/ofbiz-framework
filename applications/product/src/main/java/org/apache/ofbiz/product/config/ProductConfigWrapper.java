@@ -518,7 +518,7 @@ public class ProductConfigWrapper implements Serializable {
             configItemAssoc = GenericValue.create(ci.configItemAssoc);
             options = new LinkedList<>();
             for (ConfigOption co: ci.options) {
-                options.add(new ConfigOption(co));
+                options.add(new ConfigOption(co, this));
             }
             first = ci.first;
             content = ci.content; // FIXME: this should be cloned
@@ -815,13 +815,17 @@ public class ProductConfigWrapper implements Serializable {
         }
 
         public ConfigOption(ConfigOption co) {
+            this(co, co.parentConfigItem);
+        }
+
+        private ConfigOption(ConfigOption co, ConfigItem parentConfigItem) {
             configOption = GenericValue.create(co.configOption);
             componentList = new LinkedList<>();
             for (GenericValue component: co.componentList) {
                 componentList.add(GenericValue.create(component));
             }
-            parentConfigItem = co.parentConfigItem;
-            componentOptions = co.componentOptions;
+            this.parentConfigItem = parentConfigItem;
+            componentOptions = co.componentOptions == null ? null : new HashMap<>(co.componentOptions);
             optionListPrice = co.optionListPrice;
             optionPrice = co.optionPrice;
             available = co.available;
