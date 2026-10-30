@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.apache.ofbiz.service.calendar;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -64,6 +65,11 @@ public final class TemporalExpressionWorker {
      * @throws GenericEntityException
      */
     public static TemporalExpression getTemporalExpression(Delegator delegator, String tempExprId) throws GenericEntityException {
+        return getTemporalExpression(delegator, tempExprId, new HashSet<>());
+    }
+
+    private static TemporalExpression getTemporalExpression(Delegator delegator, String tempExprId, Set<String> loadingIds)
+            throws GenericEntityException {
         if (UtilValidate.isEmpty(tempExprId)) {
             throw new IllegalArgumentException("tempExprId argument cannot be empty");
         }
@@ -71,7 +77,7 @@ public final class TemporalExpressionWorker {
         if (UtilValidate.isEmpty(exprValue)) {
             throw new IllegalArgumentException("tempExprId argument invalid - expression not found");
         }
-        TemporalExpression result = makeTemporalExpression(delegator, exprValue);
+        TemporalExpression result = makeTemporalExpression(delegator, exprValue, loadingIds);
         if (Debug.verboseOn()) {
             TemporalExpressionPrinter printer = new TemporalExpressionPrinter(result);
             Debug.logVerbose(printer.toString(), MODULE);
@@ -80,14 +86,37 @@ public final class TemporalExpressionWorker {
     }
 
     /** Create a <code>TemporalExpression</code> instance from a TemporalExpression
-     * GenericValue.<p>This method makes recursive calls, so care must be taken to
-     * avoid endless loops.</p>
+     * GenericValue.<p>Child expressions are loaded recursively. An expression that
+     * contains itself, directly or through other expressions, is rejected with an
+     * <code>IllegalArgumentException</code>.</p>
      * @param delegator
      * @param exprValue
      * @return A <code>TemporalExpression</code> instance based on <code>exprValue</code>
      * @throws GenericEntityException
      */
     public static TemporalExpression makeTemporalExpression(Delegator delegator, GenericValue exprValue) throws GenericEntityException {
+        return makeTemporalExpression(delegator, exprValue, new HashSet<>());
+    }
+
+    /** Creates the expression while <code>loadingIds</code> holds the IDs of the
+     * expressions being loaded above it, so that a cycle is detected instead of
+     * recursing until the stack overflows. An ID is removed again once its expression
+     * is built, because the same expression may appear more than once in a tree. */
+    private static TemporalExpression makeTemporalExpression(Delegator delegator, GenericValue exprValue, Set<String> loadingIds)
+            throws GenericEntityException {
+        String tempExprId = exprValue.getString("tempExprId");
+        if (!loadingIds.add(tempExprId)) {
+            throw new IllegalArgumentException("tempExprId argument invalid - recursive expression " + tempExprId);
+        }
+        try {
+            return createTemporalExpression(delegator, exprValue, loadingIds);
+        } finally {
+            loadingIds.remove(tempExprId);
+        }
+    }
+
+    private static TemporalExpression createTemporalExpression(Delegator delegator, GenericValue exprValue, Set<String> loadingIds)
+            throws GenericEntityException {
         String tempExprId = exprValue.getString("tempExprId");
         String tempExprTypeId = exprValue.getString("tempExprTypeId");
         if (DATE_RANGE.equals(tempExprTypeId)) {
@@ -116,7 +145,8 @@ public final class TemporalExpressionWorker {
             }
             if (inclAssoc != null && exclAssoc != null) {
                 return setExpressionId(exprValue, new TemporalExpressions.Difference(getTemporalExpression(delegator,
-                        inclAssoc.getString("toTempExprId")), getTemporalExpression(delegator, exclAssoc.getString("toTempExprId"))));
+                        inclAssoc.getString("toTempExprId"), loadingIds), getTemporalExpression(delegator, exclAssoc.getString("toTempExprId"),
+                        loadingIds)));
             }
         } else if (FREQUENCY.equals(tempExprTypeId)) {
             return setExpressionId(exprValue, new TemporalExpressions.Frequency(exprValue.getTimestamp("date1"),
@@ -125,7 +155,7 @@ public final class TemporalExpressionWorker {
             return setExpressionId(exprValue, new TemporalExpressions.HourRange(exprValue.getLong("integer1").intValue(),
                     exprValue.getLong("integer2").intValue()));
         } else if (INTERSECTION.equals(tempExprTypeId)) {
-            return setExpressionId(exprValue, new TemporalExpressions.Intersection(getChildExpressions(delegator, tempExprId)));
+            return setExpressionId(exprValue, new TemporalExpressions.Intersection(getChildExpressions(delegator, tempExprId, loadingIds)));
         } else if (MINUTE_RANGE.equals(tempExprTypeId)) {
             return setExpressionId(exprValue, new TemporalExpressions.MinuteRange(exprValue.getLong("integer1").intValue(),
                     exprValue.getLong("integer2").intValue()));
@@ -149,16 +179,17 @@ public final class TemporalExpressionWorker {
             }
             if (inclAssoc != null && exclAssoc != null && substAssoc != null) {
                 return setExpressionId(exprValue, new TemporalExpressions.Substitution(getTemporalExpression(delegator,
-                        inclAssoc.getString("toTempExprId")), getTemporalExpression(delegator, exclAssoc.getString("toTempExprId")),
-                        getTemporalExpression(delegator, substAssoc.getString("toTempExprId"))));
+                        inclAssoc.getString("toTempExprId"), loadingIds), getTemporalExpression(delegator, exclAssoc.getString("toTempExprId"),
+                        loadingIds), getTemporalExpression(delegator, substAssoc.getString("toTempExprId"), loadingIds)));
             }
         } else if (UNION.equals(tempExprTypeId)) {
-            return setExpressionId(exprValue, new TemporalExpressions.Union(getChildExpressions(delegator, tempExprId)));
+            return setExpressionId(exprValue, new TemporalExpressions.Union(getChildExpressions(delegator, tempExprId, loadingIds)));
         }
         return TemporalExpressions.NULL_EXPRESSION;
     }
 
-    private static Set<TemporalExpression> getChildExpressions(Delegator delegator, String tempExprId) throws GenericEntityException {
+    private static Set<TemporalExpression> getChildExpressions(Delegator delegator, String tempExprId, Set<String> loadingIds)
+            throws GenericEntityException {
         List<GenericValue> valueList = EntityQuery.use(delegator).from("TemporalExpressionAssoc").where("fromTempExprId",
                 tempExprId).cache(true).queryList();
         if (UtilValidate.isEmpty(valueList)) {
@@ -166,7 +197,7 @@ public final class TemporalExpressionWorker {
         }
         Set<TemporalExpression> exprList = new TreeSet<>();
         for (GenericValue value : valueList) {
-            exprList.add(makeTemporalExpression(delegator, value.getRelatedOne("ToTemporalExpression", false)));
+            exprList.add(makeTemporalExpression(delegator, value.getRelatedOne("ToTemporalExpression", false), loadingIds));
         }
         return exprList;
     }
