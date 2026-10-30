@@ -23,7 +23,7 @@ import java.net.URL;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.TreeSet;
+import java.util.concurrent.ConcurrentSkipListSet;
 
 import org.apache.ofbiz.base.location.FlexibleLocation;
 import org.apache.ofbiz.base.util.GeneralException;
@@ -37,8 +37,8 @@ import org.apache.ofbiz.entityext.eca.EntityEcaRule;
  */
 public class EntityArtifactInfo extends ArtifactInfoBase {
     private ModelEntity modelEntity;
-    private Set<EntityArtifactInfo> entitiesRelatedOne = new TreeSet<>();
-    private Set<EntityArtifactInfo> entitiesRelatedMany = new TreeSet<>();
+    private Set<EntityArtifactInfo> entitiesRelatedOne = new ConcurrentSkipListSet<>();
+    private Set<EntityArtifactInfo> entitiesRelatedMany = new ConcurrentSkipListSet<>();
 
     public EntityArtifactInfo(String entityName, ArtifactInfoFactory aif) throws GenericEntityException {
         super(aif);
