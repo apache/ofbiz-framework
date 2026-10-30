@@ -29,7 +29,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.TreeSet;
+import java.util.concurrent.ConcurrentSkipListSet;
 
 import org.apache.ofbiz.base.location.FlexibleLocation;
 import org.apache.ofbiz.base.util.Debug;
@@ -59,9 +59,9 @@ public class ServiceArtifactInfo extends ArtifactInfoBase {
     private ModelService modelService;
     private String displayPrefix = null;
 
-    private Set<EntityArtifactInfo> entitiesUsedByThisService = new TreeSet<>();
-    private Set<ServiceArtifactInfo> servicesCalledByThisService = new TreeSet<>();
-    private Set<ServiceEcaArtifactInfo> serviceEcasTriggeredByThisService = new TreeSet<>();
+    private Set<EntityArtifactInfo> entitiesUsedByThisService = new ConcurrentSkipListSet<>();
+    private Set<ServiceArtifactInfo> servicesCalledByThisService = new ConcurrentSkipListSet<>();
+    private Set<ServiceEcaArtifactInfo> serviceEcasTriggeredByThisService = new ConcurrentSkipListSet<>();
 
     public ServiceArtifactInfo(String serviceName, ArtifactInfoFactory aif) throws GeneralException {
         super(aif);
@@ -146,7 +146,7 @@ public class ServiceArtifactInfo extends ArtifactInfoBase {
             // the forward reference
             this.entitiesUsedByThisService.add(getAif().getEntityArtifactInfo(validEntityName));
             // the reverse reference
-            UtilMisc.addToSortedSetInMap(this, getAif().getAllServiceInfosReferringToEntityName(), validEntityName);
+            addToSortedSetInMap(this, getAif().getAllServiceInfosReferringToEntityName(), validEntityName);
         }
     }
 
@@ -229,7 +229,7 @@ public class ServiceArtifactInfo extends ArtifactInfoBase {
             // the forward reference
             this.servicesCalledByThisService.add(getAif().getServiceArtifactInfo(serviceName));
             // the reverse reference
-            UtilMisc.addToSortedSetInMap(this, getAif().getAllServiceInfosReferringToServiceName(), serviceName);
+            addToSortedSetInMap(this, getAif().getAllServiceInfosReferringToServiceName(), serviceName);
         }
     }
 
@@ -247,7 +247,7 @@ public class ServiceArtifactInfo extends ArtifactInfoBase {
             for (ServiceEcaRule ecaRule : ecaRuleList) {
                 this.serviceEcasTriggeredByThisService.add(getAif().getServiceEcaArtifactInfo(ecaRule));
                 // the reverse reference
-                UtilMisc.addToSortedSetInMap(this, getAif().getAllServiceInfosReferringToServiceEcaRule(), ecaRule);
+                addToSortedSetInMap(this, getAif().getAllServiceInfosReferringToServiceEcaRule(), ecaRule);
             }
         }
     }

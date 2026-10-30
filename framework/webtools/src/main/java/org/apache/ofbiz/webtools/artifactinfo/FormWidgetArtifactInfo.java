@@ -22,14 +22,13 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Set;
-import java.util.TreeSet;
+import java.util.concurrent.ConcurrentSkipListSet;
 
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.ofbiz.base.location.FlexibleLocation;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
-import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilURL;
 import org.apache.ofbiz.widget.artifact.ArtifactInfoContext;
 import org.apache.ofbiz.widget.artifact.ArtifactInfoGatherer;
@@ -49,11 +48,11 @@ public class FormWidgetArtifactInfo extends ArtifactInfoBase {
     private String formName;
     private String formLocation;
 
-    private Set<EntityArtifactInfo> entitiesUsedInThisForm = new TreeSet<>();
-    private Set<ServiceArtifactInfo> servicesUsedInThisForm = new TreeSet<>();
+    private Set<EntityArtifactInfo> entitiesUsedInThisForm = new ConcurrentSkipListSet<>();
+    private Set<ServiceArtifactInfo> servicesUsedInThisForm = new ConcurrentSkipListSet<>();
     private FormWidgetArtifactInfo formThisFormExtends = null;
-    private Set<ControllerRequestArtifactInfo> requestsLinkedToInForm = new TreeSet<>();
-    private Set<ControllerRequestArtifactInfo> requestsTargetedByInForm = new TreeSet<>();
+    private Set<ControllerRequestArtifactInfo> requestsLinkedToInForm = new ConcurrentSkipListSet<>();
+    private Set<ControllerRequestArtifactInfo> requestsTargetedByInForm = new ConcurrentSkipListSet<>();
 
     public FormWidgetArtifactInfo(String formName, String formLocation, ArtifactInfoFactory aif) throws GeneralException {
         super(aif);
@@ -110,7 +109,7 @@ public class FormWidgetArtifactInfo extends ArtifactInfoBase {
             // the forward reference
             this.formThisFormExtends = getAif().getFormWidgetArtifactInfo(formName);
             // the reverse reference
-            UtilMisc.addToSortedSetInMap(this, getAif().getAllFormInfosExtendingForm(), formName);
+            addToSortedSetInMap(this, getAif().getAllFormInfosExtendingForm(), formName);
         }
     }
 
@@ -133,7 +132,7 @@ public class FormWidgetArtifactInfo extends ArtifactInfoBase {
             // the forward reference
             this.entitiesUsedInThisForm.add(getAif().getEntityArtifactInfo(entityName));
             // the reverse reference
-            UtilMisc.addToSortedSetInMap(this, getAif().getAllFormInfosReferringToEntityName(), entityName);
+            addToSortedSetInMap(this, getAif().getAllFormInfosReferringToEntityName(), entityName);
         }
     }
 
@@ -158,7 +157,7 @@ public class FormWidgetArtifactInfo extends ArtifactInfoBase {
             // the forward reference
             this.servicesUsedInThisForm.add(getAif().getServiceArtifactInfo(serviceName));
             // the reverse reference
-            UtilMisc.addToSortedSetInMap(this, getAif().getAllFormInfosReferringToServiceName(), serviceName);
+            addToSortedSetInMap(this, getAif().getAllFormInfosReferringToServiceName(), serviceName);
         }
     }
 
@@ -178,7 +177,7 @@ public class FormWidgetArtifactInfo extends ArtifactInfoBase {
                 // the forward reference
                 this.requestsLinkedToInForm.add(getAif().getControllerRequestArtifactInfo(UtilURL.fromUrlString(controllerXmlUrl), requestUri));
                 // the reverse reference
-                UtilMisc.addToSortedSetInMap(this, getAif().getAllFormInfosReferringToRequest(), requestUniqueId);
+                addToSortedSetInMap(this, getAif().getAllFormInfosReferringToRequest(), requestUniqueId);
             }
         }
     }
@@ -201,7 +200,7 @@ public class FormWidgetArtifactInfo extends ArtifactInfoBase {
                 // the forward reference
                 this.requestsTargetedByInForm.add(getAif().getControllerRequestArtifactInfo(UtilURL.fromUrlString(controllerXmlUrl), requestUri));
                 // the reverse reference
-                UtilMisc.addToSortedSetInMap(this, getAif().getAllFormInfosTargetingRequest(), requestUniqueId);
+                addToSortedSetInMap(this, getAif().getAllFormInfosTargetingRequest(), requestUniqueId);
             }
         }
     }

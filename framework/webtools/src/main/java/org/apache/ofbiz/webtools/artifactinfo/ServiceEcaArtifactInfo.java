@@ -26,11 +26,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.TreeSet;
+import java.util.concurrent.ConcurrentSkipListSet;
 
 import org.apache.ofbiz.base.location.FlexibleLocation;
 import org.apache.ofbiz.base.util.GeneralException;
-import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.service.eca.ServiceEcaAction;
 import org.apache.ofbiz.service.eca.ServiceEcaCondition;
 import org.apache.ofbiz.service.eca.ServiceEcaRule;
@@ -43,7 +42,7 @@ public class ServiceEcaArtifactInfo extends ArtifactInfoBase {
     private String displayPrefix = null;
     private int displaySuffixNum = 0;
 
-    private Set<ServiceArtifactInfo> servicesCalledByThisServiceEca = new TreeSet<>();
+    private Set<ServiceArtifactInfo> servicesCalledByThisServiceEca = new ConcurrentSkipListSet<>();
 
     /**
      * Instantiates a new Service eca artifact info.
@@ -65,7 +64,7 @@ public class ServiceEcaArtifactInfo extends ArtifactInfoBase {
         // populate the services called Set
         for (ServiceEcaAction ecaAction: serviceEcaRule.getEcaActionList()) {
             servicesCalledByThisServiceEca.add(getAif().getServiceArtifactInfo(ecaAction.getServiceName()));
-            UtilMisc.addToSortedSetInMap(this, getAif().getAllServiceEcaInfosReferringToServiceName(), ecaAction.getServiceName());
+            addToSortedSetInMap(this, getAif().getAllServiceEcaInfosReferringToServiceName(), ecaAction.getServiceName());
         }
     }
 
