@@ -39,29 +39,13 @@ import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
 @SuppressWarnings("serial")
 public class FlexibleServletAccessor<T> implements Serializable {
 
-    private String name;
-    private String attributeName;
-    private FlexibleMapAccessor<T> fma;
-    private boolean needsExpand;
-    private boolean empty;
+    private final String name;
+    private final String attributeName;
+    private final FlexibleMapAccessor<T> fma;
+    private final boolean needsExpand;
+    private final boolean empty;
 
     public FlexibleServletAccessor(String name) {
-        init(name);
-    }
-
-    public FlexibleServletAccessor(String name, String defaultName) {
-        if (UtilValidate.isEmpty(name)) {
-            init(defaultName);
-        } else {
-            init(name);
-        }
-    }
-
-    /**
-     * Init.
-     * @param name the name
-     */
-    protected void init(String name) {
         this.name = name;
         if (UtilValidate.isEmpty(name)) {
             empty = true;
@@ -88,6 +72,10 @@ public class FlexibleServletAccessor<T> implements Serializable {
                 needsExpand = false;
             }
         }
+    }
+
+    public FlexibleServletAccessor(String name, String defaultName) {
+        this(UtilValidate.isEmpty(name) ? defaultName : name);
     }
 
     /**

@@ -535,7 +535,7 @@ public final class ConfigXMLReader {
          * @param rootElement the root element
          * @throws WebAppConfigurationException the web app configuration exception
          */
-        protected void loadIncludes(Element rootElement) throws WebAppConfigurationException {
+        private void loadIncludes(Element rootElement) throws WebAppConfigurationException {
             for (Element includeElement : UtilXml.childElementList(rootElement, "include")) {
                 String includeLocation = includeElement.getAttribute("location");
                 if (!includeLocation.isEmpty()) {
