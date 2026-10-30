@@ -31,22 +31,20 @@ import org.w3c.dom.Element;
 /**
  * Convert the current field from the in-map and place it in the out-map
  */
-public class Convert extends SimpleMapOperation {
+public final class Convert extends SimpleMapOperation {
 
     private static final String MODULE = Convert.class.getName();
 
     private String format;
     private boolean replace = true;
     private boolean setIfNull = true;
-    private String toField;
+    private final String toField;
     private String type;
 
-    public Convert(Element element, SimpleMapProcess simpleMapProcess) {
-        super(element, simpleMapProcess);
-        this.toField = element.getAttribute("to-field");
-        if (UtilValidate.isEmpty(this.toField)) {
-            this.toField = this.getFieldName();
-        }
+    Convert(Element element, String fieldName) {
+        super(element, fieldName);
+        String toFieldAttr = element.getAttribute("to-field");
+        this.toField = UtilValidate.isEmpty(toFieldAttr) ? fieldName : toFieldAttr;
         type = element.getAttribute("type");
         // if anything but false it will be true
         replace = !"false".equals(element.getAttribute("replace"));

@@ -33,12 +33,12 @@ import org.w3c.dom.Element;
  */
 public abstract class SimpleMapOperation {
 
-    private String fieldName;
+    private final String fieldName;
     private boolean isProperty = false;
     private String message = null;
     private String propertyResource = null;
 
-    public SimpleMapOperation(Element element, SimpleMapProcess simpleMapProcess) {
+    SimpleMapOperation(Element element, String fieldName) {
         Element failMessage = UtilXml.firstChildElement(element, "fail-message");
         Element failProperty = UtilXml.firstChildElement(element, "fail-property");
         if (failMessage != null) {
@@ -49,7 +49,7 @@ public abstract class SimpleMapOperation {
             this.message = failProperty.getAttribute("property");
             this.isProperty = true;
         }
-        this.fieldName = simpleMapProcess.getFieldName();
+        this.fieldName = fieldName;
     }
 
     /**

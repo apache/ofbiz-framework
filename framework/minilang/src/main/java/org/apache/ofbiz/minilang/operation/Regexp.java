@@ -35,14 +35,14 @@ import org.w3c.dom.Element;
 /**
  * Validates the current field using a regular expression
  */
-public class Regexp extends SimpleMapOperation {
+public final class Regexp extends SimpleMapOperation {
 
     private static final String MODULE = Regexp.class.getName();
     private Pattern pattern = null;
     private String expr;
 
-    public Regexp(Element element, SimpleMapProcess simpleMapProcess) {
-        super(element, simpleMapProcess);
+    Regexp(Element element, String fieldName) {
+        super(element, fieldName);
         expr = element.getAttribute("expr");
         try {
             pattern = PatternFactory.createOrGetPerl5CompiledPattern(expr, true);

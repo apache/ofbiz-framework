@@ -32,15 +32,15 @@ import org.w3c.dom.Element;
 /**
  * A string operation that calls a validation method
  */
-public class ValidateMethod extends SimpleMapOperation {
+public final class ValidateMethod extends SimpleMapOperation {
 
     private static final String MODULE = ValidateMethod.class.getName();
 
     private String className;
     private String methodName;
 
-    public ValidateMethod(Element element, SimpleMapProcess simpleMapProcess) {
-        super(element, simpleMapProcess);
+    ValidateMethod(Element element, String fieldName) {
+        super(element, fieldName);
         this.methodName = element.getAttribute("method");
         this.className = MiniLangValidate.checkAttribute(element.getAttribute("class"), "org.apache.ofbiz.base.util.UtilValidate");
     }

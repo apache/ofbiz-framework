@@ -27,12 +27,12 @@ import org.w3c.dom.Element;
 /**
  * Compares an in-field to the specified value
  */
-public class Compare extends BaseCompare {
+public final class Compare extends BaseCompare {
 
     private String value;
 
-    public Compare(Element element, SimpleMapProcess simpleMapProcess) {
-        super(element, simpleMapProcess);
+    Compare(Element element, String fieldName) {
+        super(element, fieldName);
         this.value = element.getAttribute("value");
     }
 

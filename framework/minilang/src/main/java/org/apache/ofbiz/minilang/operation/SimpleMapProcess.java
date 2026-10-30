@@ -19,6 +19,7 @@
 package org.apache.ofbiz.minilang.operation;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -35,12 +36,12 @@ public class SimpleMapProcess {
 
     private static final String MODULE = SimpleMapProcess.class.getName();
 
-    private String field = "";
-    private List<SimpleMapOperation> simpleMapOperations = new ArrayList<>();
+    private final String field;
+    private final List<SimpleMapOperation> simpleMapOperations;
 
     public SimpleMapProcess(Element simpleMapProcessElement) {
         this.field = simpleMapProcessElement.getAttribute("field");
-        readOperations(simpleMapProcessElement);
+        this.simpleMapOperations = readOperations(simpleMapProcessElement, field);
     }
 
     /**
@@ -66,33 +67,37 @@ public class SimpleMapProcess {
     }
 
     /**
-     * Read operations.
+     * Builds the operations of a process from its child elements.
      * @param simpleMapProcessElement the simple map process element
+     * @param fieldName the name of the field the operations work on
+     * @return the operations, in document order
      */
-    void readOperations(Element simpleMapProcessElement) {
+    private static List<SimpleMapOperation> readOperations(Element simpleMapProcessElement, String fieldName) {
+        List<SimpleMapOperation> simpleMapOperations = new ArrayList<>();
         List<? extends Element> operationElements = UtilXml.childElementList(simpleMapProcessElement);
         if (UtilValidate.isNotEmpty(operationElements)) {
             for (Element curOperElem : operationElements) {
                 String nodeName = curOperElem.getNodeName();
                 if ("validate-method".equals(nodeName)) {
-                    simpleMapOperations.add(new ValidateMethod(curOperElem, this));
+                    simpleMapOperations.add(new ValidateMethod(curOperElem, fieldName));
                 } else if ("compare".equals(nodeName)) {
-                    simpleMapOperations.add(new Compare(curOperElem, this));
+                    simpleMapOperations.add(new Compare(curOperElem, fieldName));
                 } else if ("compare-field".equals(nodeName)) {
-                    simpleMapOperations.add(new CompareField(curOperElem, this));
+                    simpleMapOperations.add(new CompareField(curOperElem, fieldName));
                 } else if ("regexp".equals(nodeName)) {
-                    simpleMapOperations.add(new Regexp(curOperElem, this));
+                    simpleMapOperations.add(new Regexp(curOperElem, fieldName));
                 } else if ("not-empty".equals(nodeName)) {
-                    simpleMapOperations.add(new NotEmpty(curOperElem, this));
+                    simpleMapOperations.add(new NotEmpty(curOperElem, fieldName));
                 } else if ("copy".equals(nodeName)) {
-                    simpleMapOperations.add(new Copy(curOperElem, this));
+                    simpleMapOperations.add(new Copy(curOperElem, fieldName));
                 } else if ("convert".equals(nodeName)) {
-                    simpleMapOperations.add(new Convert(curOperElem, this));
+                    simpleMapOperations.add(new Convert(curOperElem, fieldName));
                 } else {
                     Debug.logWarning("[SimpleMapProcessor.SimpleMapProcess.readOperations] Operation element \"" + nodeName
                             + "\" not recognized", MODULE);
                 }
             }
         }
+        return Collections.unmodifiableList(simpleMapOperations);
     }
 }

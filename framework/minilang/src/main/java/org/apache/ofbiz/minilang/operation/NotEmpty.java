@@ -28,10 +28,10 @@ import org.w3c.dom.Element;
 /**
  * Checks to see if the current field is empty (null or zero length)
  */
-public class NotEmpty extends SimpleMapOperation {
+public final class NotEmpty extends SimpleMapOperation {
 
-    public NotEmpty(Element element, SimpleMapProcess simpleMapProcess) {
-        super(element, simpleMapProcess);
+    NotEmpty(Element element, String fieldName) {
+        super(element, fieldName);
     }
 
     @Override
