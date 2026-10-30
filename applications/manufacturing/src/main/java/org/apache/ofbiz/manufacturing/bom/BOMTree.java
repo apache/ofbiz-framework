@@ -117,7 +117,6 @@ public class BOMTree {
                 .queryOne();
         if (product == null) return;
         BOMNode originalNode = new BOMNode(product, dispatcher, userLogin);
-        originalNode.setTree(this);
         // If the product hasn't a bill of materials we try to retrieve
         // the bill of materials of its virtual product (if the current
         // product is variant).
@@ -140,7 +139,6 @@ public class BOMTree {
         if (product == null) return;
         try {
             root = new BOMNode(product, dispatcher, userLogin);
-            root.setTree(this);
             root.setProductForRules(productIdForRules);
             root.setSubstitutedNode(originalNode);
             if (type == IMPLOSION) {
@@ -268,7 +266,7 @@ public class BOMTree {
      */
     public void print(List<BOMNode> arr, int initialDepth, boolean excludeWIPs) {
         if (root != null) {
-            root.print(arr, getRootQuantity(), initialDepth, excludeWIPs);
+            root.print(arr, getRootQuantity(), getRootAmount(), initialDepth, excludeWIPs);
         }
     }
 

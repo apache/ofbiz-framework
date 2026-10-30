@@ -52,7 +52,6 @@ public class BOMNode {
     private Delegator delegator = null;
     private GenericValue userLogin = null;
 
-    private BOMTree tree; // the tree to which this node belongs
     private BOMNode parentNode; // the parent node (null if it's not present)
     private BOMNode substitutedNode; // The virtual node (if any) that this instance substitutes
     private GenericValue ruleApplied; // The rule (if any) that that has been applied to configure the current node
@@ -183,7 +182,6 @@ public class BOMNode {
                     } else {
                         BOMNode origNode = oneChildNode;
                         oneChildNode = new BOMNode(newPart, delegator, dispatcher, userLogin);
-                        oneChildNode.setTree(tree);
                         oneChildNode.setSubstitutedNode(tmpNode);
                         oneChildNode.setRuleApplied(rule);
                         oneChildNode.setProductAssoc(origNode.getProductAssoc());
@@ -206,7 +204,6 @@ public class BOMNode {
     private BOMNode configurator(GenericValue node, List<GenericValue> productFeatures,
             String productIdForRules, Date inDate) throws GenericEntityException {
         BOMNode oneChildNode = new BOMNode((String) node.get("productIdTo"), delegator, dispatcher, userLogin);
-        oneChildNode.setTree(tree);
         oneChildNode.setProductAssoc(node);
         try {
             oneChildNode.setQuantityMultiplier(node.getBigDecimal("quantity"));
@@ -309,7 +306,6 @@ public class BOMNode {
                         }
                         if (variantProduct != null) {
                             newNode = new BOMNode(variantProduct, dispatcher, userLogin);
-                            newNode.setTree(tree);
                             newNode.setSubstitutedNode(oneChildNode);
                             newNode.setQuantityMultiplier(oneChildNode.getQuantityMultiplier());
                             newNode.setScrapFactor(oneChildNode.getScrapFactor());
@@ -363,7 +359,6 @@ public class BOMNode {
             // Configurator
             // If the node is null this means that the node has been discarded by the rules.
             oneChildNode.setParentNode(this);
-            oneChildNode.setTree(tree);
             oneChildNode.loadParents(partBomTypeId, inDate, productFeatures);
             childrenNodes.add(oneChildNode);
         }
@@ -422,10 +417,11 @@ public class BOMNode {
      * Print.
      * @param arr         the arr
      * @param quantity    the quantity
+     * @param rootAmount  the amount of the root product, passed to the estimate calculation service
      * @param depth       the depth
      * @param excludeWIPs the exclude wi ps
      */
-    public void print(List<BOMNode> arr, BigDecimal quantity, int depth, boolean excludeWIPs) {
+    public void print(List<BOMNode> arr, BigDecimal quantity, BigDecimal rootAmount, int depth, boolean excludeWIPs) {
         // Now we set the depth and quantity of the current node
         // in this breakdown.
         this.depth = depth;
@@ -442,7 +438,7 @@ public class BOMNode {
         if (serviceName != null) {
             Map<String, Object> resultContext = null;
             Map<String, Object> arguments = UtilMisc.<String, Object>toMap("neededQuantity", quantity.multiply(quantityMultiplier),
-                    "amount", tree != null ? tree.getRootAmount() : BigDecimal.ZERO);
+                    "amount", rootAmount);
             BigDecimal width = null;
             if (getProduct().get("productWidth") != null) {
                 width = getProduct().getBigDecimal("productWidth");
@@ -479,7 +475,7 @@ public class BOMNode {
                 continue;
             }
             if (oneChildNode != null) {
-                oneChildNode.print(arr, this.quantity, depth, excludeWIPs);
+                oneChildNode.print(arr, this.quantity, rootAmount, depth, excludeWIPs);
             }
         }
     }
@@ -910,22 +906,6 @@ public class BOMNode {
      */
     public void setProductAssoc(org.apache.ofbiz.entity.GenericValue productAssoc) {
         this.productAssoc = productAssoc;
-    }
-
-    /**
-     * Sets tree.
-     * @param tree the tree
-     */
-    public void setTree(BOMTree tree) {
-        this.tree = tree;
-    }
-
-    /**
-     * Gets tree.
-     * @return the tree
-     */
-    public BOMTree getTree() {
-        return tree;
     }
 
 }

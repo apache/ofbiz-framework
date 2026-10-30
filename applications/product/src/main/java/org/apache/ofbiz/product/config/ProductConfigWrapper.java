@@ -146,7 +146,7 @@ public class ProductConfigWrapper implements Serializable {
             Set<String> itemIds = new HashSet<>();
             for (GenericValue questionsValue: questionsValues) {
                 ConfigItem oneQuestion = new ConfigItem(questionsValue);
-                oneQuestion.setContent(locale, "text/html"); // TODO: mime-type shouldn't be hardcoded
+                oneQuestion.setContent(dispatcher, locale, "text/html"); // TODO: mime-type shouldn't be hardcoded
                 if (itemIds.contains(oneQuestion.getConfigItem().getString("configItemId"))) {
                     oneQuestion.setFirst(false);
                 } else {
@@ -156,8 +156,8 @@ public class ProductConfigWrapper implements Serializable {
                 List<GenericValue> configOptions = EntityQuery.use(delegator).from("ProductConfigOption").where("configItemId",
                         oneQuestion.getConfigItemAssoc().getString("configItemId")).orderBy("sequenceNum").filterByDate().queryList();
                 for (GenericValue configOption: configOptions) {
-                    ConfigOption option = new ConfigOption(delegator, dispatcher, configOption, oneQuestion, catalogId, webSiteId,
-                            currencyUomId, autoUserLogin);
+                    ConfigOption option = new ConfigOption(delegator, dispatcher, configOption, oneQuestion, productStoreId, catalogId,
+                            webSiteId, currencyUomId, autoUserLogin);
                     oneQuestion.addOption(option);
                 }
             }
@@ -404,6 +404,10 @@ public class ProductConfigWrapper implements Serializable {
      * @return the default options
      */
     public List<ConfigOption> getDefaultOptions() {
+        return defaultOptions();
+    }
+
+    private List<ConfigOption> defaultOptions() {
         List<ConfigOption> defaultOptions = new LinkedList<>();
         for (ConfigItem ci: questions) {
             ConfigOption co = ci.getDefault();
@@ -442,7 +446,7 @@ public class ProductConfigWrapper implements Serializable {
 
     private void setDefaultPrice() {
         BigDecimal totalPrice = basePrice;
-        List<ConfigOption> options = getDefaultOptions();
+        List<ConfigOption> options = defaultOptions();
         for (ConfigOption oneOption: options) {
             totalPrice = totalPrice.add(oneOption.getPrice());
         }
@@ -500,7 +504,7 @@ public class ProductConfigWrapper implements Serializable {
         return null;
     }
 
-    public class ConfigItem implements java.io.Serializable {
+    public static class ConfigItem implements java.io.Serializable {
         private GenericValue configItem = null;
         private GenericValue configItemAssoc = null;
         private transient ProductConfigItemContentWrapper content = null;
@@ -526,10 +530,11 @@ public class ProductConfigWrapper implements Serializable {
 
         /**
          * Sets content.
+         * @param dispatcher the dispatcher
          * @param locale     the locale
          * @param mimeTypeId the mime type id
          */
-        public void setContent(Locale locale, String mimeTypeId) {
+        public void setContent(LocalDispatcher dispatcher, Locale locale, String mimeTypeId) {
             content = new ProductConfigItemContentWrapper(dispatcher, configItem, locale, mimeTypeId);
         }
 
@@ -738,7 +743,7 @@ public class ProductConfigWrapper implements Serializable {
     /**
      * The type Config option.
      */
-    public class ConfigOption implements java.io.Serializable {
+    public static class ConfigOption implements java.io.Serializable {
         private BigDecimal optionListPrice = BigDecimal.ZERO;
         private BigDecimal optionPrice = BigDecimal.ZERO;
         private Date availabilityDate = null;
@@ -758,8 +763,8 @@ public class ProductConfigWrapper implements Serializable {
             return configOption;
         }
 
-        public ConfigOption(Delegator delegator, LocalDispatcher dispatcher, GenericValue option, ConfigItem configItem, String catalogId,
-                            String webSiteId, String currencyUomId, GenericValue autoUserLogin) throws Exception {
+        public ConfigOption(Delegator delegator, LocalDispatcher dispatcher, GenericValue option, ConfigItem configItem, String productStoreId,
+                            String catalogId, String webSiteId, String currencyUomId, GenericValue autoUserLogin) throws Exception {
             configOption = option;
             parentConfigItem = configItem;
             componentList = option.getRelated("ConfigOptionProductConfigProduct", null, null, false);
@@ -854,7 +859,7 @@ public class ProductConfigWrapper implements Serializable {
                 // Get the component's price
                 Map<String, Object> fieldMap = UtilMisc.toMap("product", oneComponentProduct, "prodCatalogId", pcw.catalogId, "webSiteId",
                         pcw.webSiteId, "currencyUomId", pcw.currencyUomId, "productPricePurposeId", "COMPONENT_PRICE", "autoUserLogin",
-                        pcw.autoUserLogin, "productStoreId", productStoreId);
+                        pcw.autoUserLogin, "productStoreId", pcw.productStoreId);
                 Map<String, Object> priceMap = pcw.getDispatcher().runSync("calculateProductPrice", fieldMap);
                 if (ServiceUtil.isError(priceMap)) {
                     String errorMessage = ServiceUtil.getErrorMessage(priceMap);
