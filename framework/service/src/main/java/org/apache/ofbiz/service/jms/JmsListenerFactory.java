@@ -61,8 +61,12 @@ public class JmsListenerFactory implements Runnable {
     public static JmsListenerFactory getInstance(Delegator delegator) {
         JmsListenerFactory instance = JL_FACTORY_REF.get();
         if (instance == null) {
-            instance = new JmsListenerFactory(delegator);
-            if (!JL_FACTORY_REF.compareAndSet(null, instance)) {
+            JmsListenerFactory created = new JmsListenerFactory(delegator, false);
+            if (JL_FACTORY_REF.compareAndSet(null, created)) {
+                // only the published instance runs the loader thread
+                created.start();
+                instance = created;
+            } else {
                 instance = JL_FACTORY_REF.get();
             }
         }
@@ -70,7 +74,17 @@ public class JmsListenerFactory implements Runnable {
     }
 
     public JmsListenerFactory(Delegator delegator) {
+        this(delegator, true);
+    }
+
+    private JmsListenerFactory(Delegator delegator, boolean start) {
         this.delegator = delegator;
+        if (start) {
+            start();
+        }
+    }
+
+    private void start() {
         thread = new Thread(this, this.toString());
         thread.setDaemon(false);
         thread.start();
