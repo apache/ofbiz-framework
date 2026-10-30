@@ -32,9 +32,9 @@ import org.apache.ofbiz.webapp.control.ConfigXMLReader;
  *
  */
 public class ControllerViewArtifactInfo extends ArtifactInfoBase {
-    private URL controllerXmlUrl;
-    private String viewUri;
-    private ConfigXMLReader.ViewMap viewInfoMap;
+    private final URL controllerXmlUrl;
+    private final String viewUri;
+    private final ConfigXMLReader.ViewMap viewInfoMap;
     private ScreenWidgetArtifactInfo screenCalledByThisView = null;
 
     public ControllerViewArtifactInfo(URL controllerXmlUrl, String viewUri, ArtifactInfoFactory aif) throws GeneralException {
@@ -51,6 +51,11 @@ public class ControllerViewArtifactInfo extends ArtifactInfoBase {
         if (this.viewInfoMap == null) {
             throw new GeneralException("Controller view with name [" + viewUri + "] is not defined in controller file [" + controllerXmlUrl + "].");
         }
+    }
+
+    /** note this is mean to be called after the object is created and added to the ArtifactInfoFactory.allControllerViewInfos in
+     * ArtifactInfoFactory.getControllerViewArtifactInfo */
+    public void populateAll() throws GeneralException {
         // populate screenCalledByThisView and reverse in aif.allViewInfosReferringToScreen
         if ("screen".equals(this.viewInfoMap.getType()) || "screenfop".equals(this.viewInfoMap.getType())
                 || "screentext".equals(this.viewInfoMap.getType()) || "screenxml".equals(this.viewInfoMap.getType())) {
@@ -61,7 +66,7 @@ public class ControllerViewArtifactInfo extends ArtifactInfoBase {
                         fullScreenName.substring(0, poundIndex));
                 if (this.screenCalledByThisView != null) {
                     // add the reverse association
-                    addToSortedSetInMap(this, aif.getAllViewInfosReferringToScreen(), this.screenCalledByThisView.getUniqueId());
+                    addToSortedSetInMap(this, this.getAif().getAllViewInfosReferringToScreen(), this.screenCalledByThisView.getUniqueId());
                 }
             }
         }
