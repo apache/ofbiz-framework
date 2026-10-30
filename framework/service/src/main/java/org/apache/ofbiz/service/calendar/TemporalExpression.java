@@ -19,6 +19,7 @@
 package org.apache.ofbiz.service.calendar;
 
 import java.io.Serializable;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.Set;
 import java.util.TreeSet;
@@ -62,10 +63,30 @@ public abstract class TemporalExpression implements Serializable, Comparable<Tem
 
     @Override
     public int compareTo(TemporalExpression obj) {
-        if (this.equals(obj)) {
-            return 0;
+        int result = Integer.compare(this.sequence, obj.sequence);
+        if (result != 0 || this.equals(obj)) {
+            return result;
         }
-        return Integer.compare(this.sequence, obj.sequence);
+        // Different expressions with the same sequence must not compare as equal,
+        // otherwise sorted sets (Union, Intersection members) drop one of them.
+        result = this.getClass().getName().compareTo(obj.getClass().getName());
+        if (result != 0) {
+            return result;
+        }
+        return compareToSameClass(obj);
+    }
+
+    /**
+     * Orders this expression against an expression of the same class and the same
+     * sequence that is not equal to it. Subclasses that override <code>equals</code>
+     * compare the same fields here, so that <code>compareTo</code> returns 0 only for
+     * equal expressions. This implementation compares the expression IDs.
+     * @param other an expression of the same class as this one
+     * @return a negative integer, zero, or a positive integer as this expression
+     * sorts before, together with, or after <code>other</code>
+     */
+    protected int compareToSameClass(TemporalExpression other) {
+        return Comparator.nullsFirst(Comparator.<String>naturalOrder()).compare(this.id, other.id);
     }
 
     @Override
