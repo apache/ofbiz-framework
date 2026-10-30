@@ -64,7 +64,7 @@ import org.xml.sax.SAXException;
 /**
  * The type Artifact info factory.
  */
-public class ArtifactInfoFactory {
+public final class ArtifactInfoFactory {
 
     private static final String MODULE = ArtifactInfoFactory.class.getName();
 
@@ -275,12 +275,15 @@ public class ArtifactInfoFactory {
 
         ArtifactInfoFactory aif = ARTIFACT_INFO_FACTORY_CACHE.get(delegatorName);
         if (aif == null) {
-            aif = ARTIFACT_INFO_FACTORY_CACHE.putIfAbsentAndGet(delegatorName, new ArtifactInfoFactory(delegatorName));
+            ArtifactInfoFactory newAif = new ArtifactInfoFactory(delegatorName);
+            // build the whole artifact graph before the factory is published
+            newAif.prepareAll();
+            aif = ARTIFACT_INFO_FACTORY_CACHE.putIfAbsentAndGet(delegatorName, newAif);
         }
         return aif;
     }
 
-    protected ArtifactInfoFactory(String delegatorName) throws GeneralException {
+    private ArtifactInfoFactory(String delegatorName) throws GeneralException {
         this.entityModelReader = ModelReader.getModelReader(delegatorName);
         DelegatorElement delegatorInfo = EntityConfig.getInstance().getDelegator(delegatorName);
         String modelName;
@@ -292,15 +295,9 @@ public class ArtifactInfoFactory {
         // since we do not associate a dispatcher to this DispatchContext, it is important to set a name of an existing entity model reader:
         // in this way it will be possible to retrieve the service models from the cache
         this.dispatchContext = new DispatchContext(modelName, this.getClass().getClassLoader(), null);
-
-        this.prepareAll();
     }
 
-    /**
-     * Prepare all.
-     * @throws GeneralException the general exception
-     */
-    public void prepareAll() throws GeneralException {
+    private void prepareAll() throws GeneralException {
         Debug.logInfo("Loading artifact info objects...", MODULE);
         List<Future<Void>> futures = new ArrayList<>();
         Set<String> entityNames = this.getEntityModelReader().getEntityNames();
@@ -587,10 +584,11 @@ public class ArtifactInfoFactory {
         ControllerViewArtifactInfo curInfo = this.allControllerViewInfos.get(controllerXmlUrl.toExternalForm() + "#" + viewUri);
         if (curInfo == null) {
             ControllerViewArtifactInfo newInfo = new ControllerViewArtifactInfo(controllerXmlUrl, viewUri, this);
-            // if another thread registered the same view meanwhile, use that one
+            // if another thread registered the same artifact meanwhile, use that one and leave its population to that thread
             curInfo = this.allControllerViewInfos.putIfAbsent(newInfo.getUniqueId(), newInfo);
             if (curInfo == null) {
                 curInfo = newInfo;
+                curInfo.populateAll();
             }
         }
         return curInfo;
