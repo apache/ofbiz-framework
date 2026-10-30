@@ -23,14 +23,13 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.TreeSet;
+import java.util.concurrent.ConcurrentSkipListSet;
 
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.ofbiz.base.location.FlexibleLocation;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
-import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilURL;
 import org.apache.ofbiz.widget.artifact.ArtifactInfoContext;
 import org.apache.ofbiz.widget.artifact.ArtifactInfoGatherer;
@@ -48,10 +47,10 @@ public class ScreenWidgetArtifactInfo extends ArtifactInfoBase {
     private String screenName;
     private String screenLocation;
 
-    private Set<EntityArtifactInfo> entitiesUsedInThisScreen = new TreeSet<>();
-    private Set<ServiceArtifactInfo> servicesUsedInThisScreen = new TreeSet<>();
-    private Set<FormWidgetArtifactInfo> formsIncludedInThisScreen = new TreeSet<>();
-    private Set<ControllerRequestArtifactInfo> requestsLinkedToInScreen = new TreeSet<>();
+    private Set<EntityArtifactInfo> entitiesUsedInThisScreen = new ConcurrentSkipListSet<>();
+    private Set<ServiceArtifactInfo> servicesUsedInThisScreen = new ConcurrentSkipListSet<>();
+    private Set<FormWidgetArtifactInfo> formsIncludedInThisScreen = new ConcurrentSkipListSet<>();
+    private Set<ControllerRequestArtifactInfo> requestsLinkedToInScreen = new ConcurrentSkipListSet<>();
 
     public ScreenWidgetArtifactInfo(String screenName, String screenLocation, ArtifactInfoFactory aif) throws GeneralException {
         super(aif);
@@ -104,7 +103,7 @@ public class ScreenWidgetArtifactInfo extends ArtifactInfoBase {
             // the forward reference
             this.servicesUsedInThisScreen.add(getAif().getServiceArtifactInfo(serviceName));
             // the reverse reference
-            UtilMisc.addToSortedSetInMap(this, getAif().getAllScreenInfosReferringToServiceName(), serviceName);
+            addToSortedSetInMap(this, getAif().getAllScreenInfosReferringToServiceName(), serviceName);
         }
     }
 
@@ -129,7 +128,7 @@ public class ScreenWidgetArtifactInfo extends ArtifactInfoBase {
             // the forward reference
             this.entitiesUsedInThisScreen.add(getAif().getEntityArtifactInfo(entityName));
             // the reverse reference
-            UtilMisc.addToSortedSetInMap(this, getAif().getAllScreenInfosReferringToEntityName(), entityName);
+            addToSortedSetInMap(this, getAif().getAllScreenInfosReferringToEntityName(), entityName);
         }
     }
 
@@ -155,7 +154,7 @@ public class ScreenWidgetArtifactInfo extends ArtifactInfoBase {
             // the forward reference
             this.formsIncludedInThisScreen.add(getAif().getFormWidgetArtifactInfo(formName));
             // the reverse reference
-            UtilMisc.addToSortedSetInMap(this, getAif().getAllScreenInfosReferringToForm(), formName);
+            addToSortedSetInMap(this, getAif().getAllScreenInfosReferringToForm(), formName);
         }
     }
 
@@ -177,7 +176,7 @@ public class ScreenWidgetArtifactInfo extends ArtifactInfoBase {
                 // the forward reference
                 this.requestsLinkedToInScreen.add(getAif().getControllerRequestArtifactInfo(UtilURL.fromUrlString(controllerXmlUrl), requestUri));
                 // the reverse reference
-                UtilMisc.addToSortedSetInMap(this, getAif().getAllScreenInfosReferringToRequest(), requestUniqueId);
+                addToSortedSetInMap(this, getAif().getAllScreenInfosReferringToRequest(), requestUniqueId);
             }
         }
     }
