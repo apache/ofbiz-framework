@@ -21,6 +21,7 @@ package org.apache.ofbiz.service.calendar;
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -54,6 +55,19 @@ public class TemporalExpressions implements Serializable {
     public static final int SEQUENCE_HOUR_RANGE = 300;
     public static final int SEQUENCE_MINUTE_RANGE = 200;
     public static final int SEQUENCE_MONTH_RANGE = 600;
+
+    /** Compares two member sets element by element, in evaluation order. */
+    private static int compareMembers(Set<TemporalExpression> members, Set<TemporalExpression> otherMembers) {
+        Iterator<TemporalExpression> iter = new TreeSet<>(members).iterator();
+        Iterator<TemporalExpression> otherIter = new TreeSet<>(otherMembers).iterator();
+        while (iter.hasNext() && otherIter.hasNext()) {
+            int result = iter.next().compareTo(otherIter.next());
+            if (result != 0) {
+                return result;
+            }
+        }
+        return Boolean.compare(iter.hasNext(), otherIter.hasNext());
+    }
 
     /** A temporal expression that represents a range of dates. */
     public static class DateRange extends TemporalExpression {
@@ -98,6 +112,11 @@ public class TemporalExpressions implements Serializable {
                 }
             }
             return false;
+        }
+
+        @Override
+        protected int compareToSameClass(TemporalExpression other) {
+            return this.range.compareTo(((DateRange) other).range);
         }
 
         @Override
@@ -216,6 +235,13 @@ public class TemporalExpressions implements Serializable {
                 }
             }
             return false;
+        }
+
+        @Override
+        protected int compareToSameClass(TemporalExpression other) {
+            DayInMonth that = (DayInMonth) other;
+            int result = Integer.compare(this.dayOfWeek, that.dayOfWeek);
+            return result != 0 ? result : Integer.compare(this.occurrence, that.occurrence);
         }
 
         @Override
@@ -351,6 +377,13 @@ public class TemporalExpressions implements Serializable {
         }
 
         @Override
+        protected int compareToSameClass(TemporalExpression other) {
+            DayOfMonthRange that = (DayOfMonthRange) other;
+            int result = Integer.compare(this.start, that.start);
+            return result != 0 ? result : Integer.compare(this.end, that.end);
+        }
+
+        @Override
         public Calendar first(Calendar cal) {
             Calendar first = cal.clone();
             while (!includesDate(first)) {
@@ -467,6 +500,13 @@ public class TemporalExpressions implements Serializable {
                 }
             }
             return false;
+        }
+
+        @Override
+        protected int compareToSameClass(TemporalExpression other) {
+            DayOfWeekRange that = (DayOfWeekRange) other;
+            int result = Integer.compare(this.start, that.start);
+            return result != 0 ? result : Integer.compare(this.end, that.end);
         }
 
         @Override
@@ -603,6 +643,13 @@ public class TemporalExpressions implements Serializable {
         }
 
         @Override
+        protected int compareToSameClass(TemporalExpression other) {
+            Difference that = (Difference) other;
+            int result = this.included.compareTo(that.included);
+            return result != 0 ? result : this.excluded.compareTo(that.excluded);
+        }
+
+        @Override
         public Calendar first(Calendar cal) {
             Calendar first = this.included.first(cal);
             while (first != null && this.excluded.includesDate(first)) {
@@ -715,6 +762,16 @@ public class TemporalExpressions implements Serializable {
                 }
             }
             return false;
+        }
+
+        @Override
+        protected int compareToSameClass(TemporalExpression other) {
+            Frequency that = (Frequency) other;
+            int result = this.start.compareTo(that.start);
+            if (result == 0) {
+                result = Integer.compare(this.freqType, that.freqType);
+            }
+            return result != 0 ? result : Integer.compare(this.freqCount, that.freqCount);
         }
 
         @Override
@@ -877,6 +934,13 @@ public class TemporalExpressions implements Serializable {
                 }
             }
             return false;
+        }
+
+        @Override
+        protected int compareToSameClass(TemporalExpression other) {
+            HourRange that = (HourRange) other;
+            int result = Integer.compare(this.start, that.start);
+            return result != 0 ? result : Integer.compare(this.end, that.end);
         }
 
         @Override
@@ -1044,6 +1108,11 @@ public class TemporalExpressions implements Serializable {
         }
 
         @Override
+        protected int compareToSameClass(TemporalExpression other) {
+            return compareMembers(this.expressionSet, ((Intersection) other).expressionSet);
+        }
+
+        @Override
         public Calendar first(Calendar cal) {
             Calendar first = cal.clone();
             for (TemporalExpression expression : this.expressionSet) {
@@ -1164,6 +1233,13 @@ public class TemporalExpressions implements Serializable {
                 }
             }
             return false;
+        }
+
+        @Override
+        protected int compareToSameClass(TemporalExpression other) {
+            MinuteRange that = (MinuteRange) other;
+            int result = Integer.compare(this.start, that.start);
+            return result != 0 ? result : Integer.compare(this.end, that.end);
         }
 
         @Override
@@ -1321,6 +1397,13 @@ public class TemporalExpressions implements Serializable {
                 }
             }
             return false;
+        }
+
+        @Override
+        protected int compareToSameClass(TemporalExpression other) {
+            MonthRange that = (MonthRange) other;
+            int result = Integer.compare(this.start, that.start);
+            return result != 0 ? result : Integer.compare(this.end, that.end);
         }
 
         @Override
@@ -1486,6 +1569,16 @@ public class TemporalExpressions implements Serializable {
         }
 
         @Override
+        protected int compareToSameClass(TemporalExpression other) {
+            Substitution that = (Substitution) other;
+            int result = this.included.compareTo(that.included);
+            if (result == 0) {
+                result = this.excluded.compareTo(that.excluded);
+            }
+            return result != 0 ? result : this.substitute.compareTo(that.substitute);
+        }
+
+        @Override
         public Calendar first(Calendar cal) {
             Calendar first = this.included.first(cal);
             if (first != null && this.excluded.includesDate(first)) {
@@ -1599,6 +1692,11 @@ public class TemporalExpressions implements Serializable {
                 }
             }
             return false;
+        }
+
+        @Override
+        protected int compareToSameClass(TemporalExpression other) {
+            return compareMembers(this.expressionSet, ((Union) other).expressionSet);
         }
 
         @Override
