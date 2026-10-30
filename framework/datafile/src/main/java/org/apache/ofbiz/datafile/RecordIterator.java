@@ -34,10 +34,10 @@ import java.util.Stack;
  */
 public class RecordIterator {
 
-    private BufferedReader br;
-    private ModelDataFile modelDataFile;
+    private final BufferedReader br;
+    private final ModelDataFile modelDataFile;
     private boolean closed = false;
-    private String locationInfo;
+    private final String locationInfo;
 
     private int nextLineNum = 0;
     private String curLine = null;
@@ -49,6 +49,7 @@ public class RecordIterator {
 
     public RecordIterator(URL fileUrl, ModelDataFile modelDataFile) throws DataFileException {
         this.modelDataFile = modelDataFile;
+        this.locationInfo = fileUrl.toString();
 
         InputStream urlStream = null;
         try {
@@ -65,7 +66,9 @@ public class RecordIterator {
             throw new DataFileException("Error open URL: " + fileUrl.toString(), e);
         }
         try {
-            this.setupStream(urlStream, fileUrl.toString());
+            this.br = openReader(urlStream, modelDataFile);
+            // get the line seeded
+            this.getNextLine();
         } catch (DataFileException | RuntimeException e) {
             // the stream was opened here, so close it when the iterator cannot be created
             try {
@@ -79,33 +82,36 @@ public class RecordIterator {
 
     public RecordIterator(InputStream dataFileStream, ModelDataFile modelDataFile, String locationInfo) throws DataFileException {
         this.modelDataFile = modelDataFile;
-        this.setupStream(dataFileStream, locationInfo);
+        this.locationInfo = locationInfo;
+        this.br = openReader(dataFileStream, modelDataFile);
+        // get the line seeded
+        this.getNextLine();
     }
 
     /**
-     * Sets stream.
+     * Opens a reader on the data file stream, positioned at the start line of the data file.
      * @param dataFileStream the data file stream
-     * @param locationInfo   the location info
+     * @param modelDataFile  the model of the data file
+     * @return the reader
      * @throws DataFileException the data file exception
      */
-    protected void setupStream(InputStream dataFileStream, String locationInfo) throws DataFileException {
-        this.locationInfo = locationInfo;
+    private static BufferedReader openReader(InputStream dataFileStream, ModelDataFile modelDataFile) throws DataFileException {
         String charsetStr = modelDataFile.getEncodingType();
+        BufferedReader reader;
         try {
-            this.br = new BufferedReader(new InputStreamReader(dataFileStream, Charset.forName(charsetStr)));
+            reader = new BufferedReader(new InputStreamReader(dataFileStream, Charset.forName(charsetStr)));
         } catch (Exception e) {
             throw new DataFileException(charsetStr + " is not supported", e);
         }
         //move the cursor to the good start line
         try {
             for (int i = 0; i < modelDataFile.getStartLine(); i++) {
-                br.readLine();
+                reader.readLine();
             }
         } catch (IOException e) {
             throw new DataFileException("Impossible to read the buffer", e);
         }
-        // get the line seeded
-        this.getNextLine();
+        return reader;
     }
 
     /**
@@ -155,7 +161,7 @@ public class RecordIterator {
             }
             return true;
         } else {
-            this.close();
+            this.closeReader();
             return false;
         }
     }
@@ -248,6 +254,10 @@ public class RecordIterator {
      * @throws DataFileException the data file exception
      */
     public void close() throws DataFileException {
+        closeReader();
+    }
+
+    private void closeReader() throws DataFileException {
         if (this.closed) {
             return;
         }
