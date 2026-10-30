@@ -28,18 +28,16 @@ import org.w3c.dom.Element;
 /**
  * Copies a field in the in-map to the out-map
  */
-public class Copy extends SimpleMapOperation {
+public final class Copy extends SimpleMapOperation {
 
     private boolean replace = true;
     private boolean setIfNull = true;
-    private String toField;
+    private final String toField;
 
-    public Copy(Element element, SimpleMapProcess simpleMapProcess) {
-        super(element, simpleMapProcess);
-        toField = element.getAttribute("to-field");
-        if (UtilValidate.isEmpty(this.toField)) {
-            this.toField = this.getFieldName();
-        }
+    Copy(Element element, String fieldName) {
+        super(element, fieldName);
+        String toFieldAttr = element.getAttribute("to-field");
+        this.toField = UtilValidate.isEmpty(toFieldAttr) ? fieldName : toFieldAttr;
         // if anything but false it will be true
         replace = !"false".equals(element.getAttribute("replace"));
         // if anything but false it will be true

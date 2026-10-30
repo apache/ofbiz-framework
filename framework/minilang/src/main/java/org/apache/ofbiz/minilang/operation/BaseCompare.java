@@ -39,8 +39,8 @@ public abstract class BaseCompare extends SimpleMapOperation {
     private String operator;
     private String type;
 
-    public BaseCompare(Element element, SimpleMapProcess simpleMapProcess) {
-        super(element, simpleMapProcess);
+    BaseCompare(Element element, String fieldName) {
+        super(element, fieldName);
         this.operator = element.getAttribute("operator");
         this.type = element.getAttribute("type");
         this.format = element.getAttribute("format");

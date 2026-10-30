@@ -27,12 +27,12 @@ import org.w3c.dom.Element;
 /**
  * Compares the current field to another field
  */
-public class CompareField extends BaseCompare {
+public final class CompareField extends BaseCompare {
 
     private String compareName;
 
-    public CompareField(Element element, SimpleMapProcess simpleMapProcess) {
-        super(element, simpleMapProcess);
+    CompareField(Element element, String fieldName) {
+        super(element, fieldName);
         this.compareName = element.getAttribute("field");
     }
 
