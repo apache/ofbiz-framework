@@ -250,7 +250,7 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
         }
         this.delegatorName = value.delegatorName;
         this.internalDelegator = value.internalDelegator;
-        this.observable = new Observable(value.observable);
+        this.observable = new Observable(value.getObservable());
     }
 
     /**
@@ -292,7 +292,7 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
         this.setDelegator(newValue.getDelegator());
         this.generateHashCode = newValue.generateHashCode;
         this.cachedHashCode = newValue.cachedHashCode;
-        this.observable = new Observable(newValue.observable);
+        this.observable = new Observable(newValue.getObservable());
     }
 
     /**
