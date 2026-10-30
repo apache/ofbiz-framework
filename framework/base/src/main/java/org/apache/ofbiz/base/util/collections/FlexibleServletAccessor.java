@@ -21,6 +21,7 @@ package org.apache.ofbiz.base.util.collections;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -170,7 +171,7 @@ public class FlexibleServletAccessor<T> implements Serializable {
      */
     @Override
     public int hashCode() {
-        return this.name.hashCode();
+        return Objects.hashCode(this.name);
     }
 
     /**
