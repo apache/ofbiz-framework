@@ -246,24 +246,40 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             this.additionalPartyRole.put(me.getKey(), new LinkedList<>(me.getValue()));
         }
 
-        // clone the groups
+        // clone the groups, each parent before its children, and continue their numbering
         for (ShoppingCartItemGroup itemGroup : cart.itemGroupByNumberMap.values()) {
-            // get the new parent group by number from the existing set; as before the parent must come before all children to work...
-            ShoppingCartItemGroup parentGroup = null;
-            if (itemGroup.getParentGroup() != null) {
-                parentGroup = this.getItemGroupByNumber(itemGroup.getParentGroup().getGroupNumber());
-            }
-            ShoppingCartItemGroup newGroup = new ShoppingCartItemGroup(itemGroup, parentGroup);
-            itemGroupByNumberMap.put(newGroup.getGroupNumber(), newGroup);
+            copyItemGroup(itemGroup, this.itemGroupByNumberMap);
         }
+        this.nextGroupNumber = cart.nextGroupNumber;
+        this.nextItemSeq = cart.nextItemSeq;
 
-        // clone the items
+        // clone the items, moving them to the cloned groups
         for (ShoppingCartItem item : cart.items()) {
-            cartLines.add(new ShoppingCartItem(item));
+            ShoppingCartItem newItem = new ShoppingCartItem(item);
+            if (item.getItemGroup() != null) {
+                newItem.setItemGroup(this.itemGroupByNumberMap.get(item.getItemGroup().getGroupNumber()));
+            }
+            cartLines.add(newItem);
         }
 
         this.facilityId = cart.facilityId;
         this.webSiteId = cart.webSiteId;
+    }
+
+    /**
+     * Copies an item group into the given map of copies, copying its parent groups first.
+     * @param itemGroup the item group to copy
+     * @param copies the copies made so far, by group number
+     * @return the copy of the item group
+     */
+    private static ShoppingCartItemGroup copyItemGroup(ShoppingCartItemGroup itemGroup, Map<String, ShoppingCartItemGroup> copies) {
+        ShoppingCartItemGroup copy = copies.get(itemGroup.getGroupNumber());
+        if (copy == null) {
+            ShoppingCartItemGroup parentGroup = itemGroup.getParentGroup();
+            copy = new ShoppingCartItemGroup(itemGroup, parentGroup == null ? null : copyItemGroup(parentGroup, copies));
+            copies.put(copy.getGroupNumber(), copy);
+        }
+        return copy;
     }
 
     /** Creates new empty ShoppingCart object. */
