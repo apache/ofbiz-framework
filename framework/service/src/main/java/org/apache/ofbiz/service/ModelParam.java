@@ -95,6 +95,8 @@ public class ModelParam implements Serializable {
 
     /** Is this Parameter set internally? */
     private boolean internal = false;
+    /** Is this Parameter value included in the service semaphore lock key? */
+    private boolean includeInLock = false;
     /** Children attributes*/
     private ArrayList<ModelParam> children = null;
 
@@ -122,6 +124,7 @@ public class ModelParam implements Serializable {
         this.overrideFormDisplay = param.overrideFormDisplay;
         this.allowHtml = param.allowHtml;
         this.internal = param.internal;
+        this.includeInLock = param.includeInLock;
     }
 
     /**
@@ -490,6 +493,22 @@ public class ModelParam implements Serializable {
      */
     public boolean isOptional() {
         return this.optional;
+    }
+
+    /**
+     * Is include in lock boolean.
+     * @return the boolean
+     */
+    public boolean isIncludeInLock() {
+        return this.includeInLock;
+    }
+
+    /**
+     * Sets include in lock.
+     * @param includeInLock the include in lock
+     */
+    public void setIncludeInLock(boolean includeInLock) {
+        this.includeInLock = includeInLock;
     }
 
     /**
