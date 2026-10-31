@@ -32,7 +32,7 @@ public abstract class TemporalExpression implements Serializable, Comparable<Tem
     /** Field used to sort expressions. Expression evaluation depends
      * on correct ordering. Expressions are evaluated from lowest value
      * to highest value. */
-    private int sequence = Integer.MAX_VALUE;
+    private final int sequence;
 
     /**
      * Gets sequence.
@@ -42,19 +42,22 @@ public abstract class TemporalExpression implements Serializable, Comparable<Tem
         return sequence;
     }
 
-    /**
-     * Sets sequence.
-     * @param sequence the sequence
-     */
-    public void setSequence(int sequence) {
-        this.sequence = sequence;
-    }
-
     /** A unique ID for this expression. This field is intended to be used by
      * persistence classes. */
     private String id = null;
 
-    protected TemporalExpression() { }
+    /** Creates an expression that is evaluated after all expressions with a lower sequence. */
+    protected TemporalExpression() {
+        this(Integer.MAX_VALUE);
+    }
+
+    /**
+     * Creates an expression with the given evaluation sequence.
+     * @param sequence the sequence, see {@link #getSequence()}
+     */
+    protected TemporalExpression(int sequence) {
+        this.sequence = sequence;
+    }
 
     /** Handles a <code>TemporalExpressionVisitor</code> visit.
      * @param visitor
@@ -121,15 +124,6 @@ public abstract class TemporalExpression implements Serializable, Comparable<Tem
         result = prime * result + ((id == null) ? 0 : id.hashCode());
         result = prime * result + sequence;
         return result;
-    }
-
-    /**
-     * Contains expression boolean.
-     * @param expression the expression
-     * @return the boolean
-     */
-    protected boolean containsExpression(TemporalExpression expression) {
-        return false;
     }
 
     /** Returns a date representing the first occurrence of this expression
