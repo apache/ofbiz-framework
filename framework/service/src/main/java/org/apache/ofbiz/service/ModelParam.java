@@ -112,7 +112,9 @@ public class ModelParam implements Serializable {
         this.sessionAttributeName = param.sessionAttributeName;
         this.stringMapPrefix = param.stringMapPrefix;
         this.stringListSuffix = param.stringListSuffix;
-        this.validators = param.validators;
+        if (param.validators != null) {
+            this.validators = new ArrayList<>(param.validators);
+        }
         if (param.defaultValue != null) {
             this.defaultValue = FlexibleStringExpander.getInstance(param.defaultValue.getOriginal());
         }
@@ -122,6 +124,12 @@ public class ModelParam implements Serializable {
         this.overrideFormDisplay = param.overrideFormDisplay;
         this.allowHtml = param.allowHtml;
         this.internal = param.internal;
+        if (param.children != null) {
+            this.children = new ArrayList<>(param.children.size());
+            for (ModelParam child : param.children) {
+                this.children.add(new ModelParam(child));
+            }
+        }
     }
 
     /**
