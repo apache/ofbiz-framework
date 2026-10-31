@@ -39,7 +39,7 @@ import org.apache.ofbiz.service.config.model.Server;
 /**
  * JmsListenerFactory
  */
-public class JmsListenerFactory implements Runnable {
+public final class JmsListenerFactory implements Runnable {
 
     private static final String MODULE = JmsListenerFactory.class.getName();
 
@@ -51,7 +51,7 @@ public class JmsListenerFactory implements Runnable {
 
     private static final AtomicReference<JmsListenerFactory> JL_FACTORY_REF = new AtomicReference<>(null);
 
-    private Delegator delegator;
+    private final Delegator delegator;
     private boolean firstPass = true;
     private int loadable = 0;
     private int connected = 0;
@@ -61,7 +61,7 @@ public class JmsListenerFactory implements Runnable {
     public static JmsListenerFactory getInstance(Delegator delegator) {
         JmsListenerFactory instance = JL_FACTORY_REF.get();
         if (instance == null) {
-            JmsListenerFactory created = new JmsListenerFactory(delegator, false);
+            JmsListenerFactory created = new JmsListenerFactory(delegator);
             if (JL_FACTORY_REF.compareAndSet(null, created)) {
                 // only the published instance runs the loader thread
                 created.start();
@@ -73,15 +73,8 @@ public class JmsListenerFactory implements Runnable {
         return instance;
     }
 
-    public JmsListenerFactory(Delegator delegator) {
-        this(delegator, true);
-    }
-
-    private JmsListenerFactory(Delegator delegator, boolean start) {
+    private JmsListenerFactory(Delegator delegator) {
         this.delegator = delegator;
-        if (start) {
-            start();
-        }
     }
 
     private void start() {
