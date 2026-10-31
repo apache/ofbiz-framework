@@ -794,8 +794,10 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         if (model.modelPermission != null) {
             modelPermission = model.modelPermission;
         }
-        this.implServices = model.implServices;
-        this.overrideParameters = model.overrideParameters;
+        if (model.implServices != null) {
+            this.implServices = new LinkedHashSet<>(model.implServices);
+        }
+        this.overrideParameters = new LinkedHashSet<>(model.overrideParameters);
         this.permissionGroups = new LinkedList<>(model.permissionGroups);
         if (model.notifications != null) {
             this.notifications = new LinkedList<>(model.notifications);
@@ -807,9 +809,10 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         this.internalGroup = model.internalGroup;
         this.hideResultInLog = model.hideResultInLog;
         this.metrics = model.metrics;
-        List<ModelParam> modelParamList = model.getModelParamList();
-        for (ModelParam param: modelParamList) {
-            this.addParamClone(param);
+        for (ModelParam param: model.contextParamList) {
+            ModelParam copy = new ModelParam(param);
+            this.contextInfo.put(copy.getName(), copy);
+            this.contextParamList.add(copy);
         }
     }
 
