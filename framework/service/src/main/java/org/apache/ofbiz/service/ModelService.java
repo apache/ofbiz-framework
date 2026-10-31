@@ -773,7 +773,6 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         this.debug = model.debug;
         this.semaphoreWait = model.semaphoreWait;
         this.semaphoreSleep = model.semaphoreSleep;
-        this.contextInfo = model.contextInfo;
         this.definitionLocation = model.definitionLocation;
         this.description = model.description;
         this.engineName = model.engineName;
@@ -797,6 +796,13 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         }
         this.implServices = model.implServices;
         this.overrideParameters = model.overrideParameters;
+        this.permissionGroups = new LinkedList<>(model.permissionGroups);
+        if (model.notifications != null) {
+            this.notifications = new LinkedList<>(model.notifications);
+        }
+        this.deprecatedUseInstead = model.deprecatedUseInstead;
+        this.deprecatedSince = model.deprecatedSince;
+        this.deprecatedReason = model.deprecatedReason;
         this.inheritedParameters = model.inheritedParameters();
         this.internalGroup = model.internalGroup;
         this.hideResultInLog = model.hideResultInLog;
