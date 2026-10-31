@@ -102,7 +102,7 @@ public class DispatchContext implements Serializable {
         }
         this.model = modelName;
         this.modelDelegator = dispatcher == null ? getDelegatorForModel(modelName) : null;
-        getGlobalServiceMap();
+        getGlobalServiceMap(modelName, dispatcher != null ? dispatcher.getDelegator() : modelDelegator);
     }
 
     /**
@@ -255,12 +255,22 @@ public class DispatchContext implements Serializable {
         throw new IllegalArgumentException("No delegator uses the entity model reader [" + modelName + "]");
     }
 
-    private Callable<Map<String, ModelService>> createServiceReaderCallable(final ResourceHandler handler) {
-        return () -> ModelServiceReader.getModelServiceMap(handler, DispatchContext.this.getDelegator());
+    private static Callable<Map<String, ModelService>> createServiceReaderCallable(final ResourceHandler handler, final Delegator delegator) {
+        return () -> ModelServiceReader.getModelServiceMap(handler, delegator);
     }
 
     private Map<String, ModelService> getGlobalServiceMap() {
-        Map<String, ModelService> serviceMap = MODEL_SERVICE_MAP_BY_MODEL.get(this.model);
+        return getGlobalServiceMap(this.model, getDelegator());
+    }
+
+    /**
+     * Gets the service definitions of an entity model reader, reading them into the cache the first time.
+     * @param model the name of the entity model reader
+     * @param delegator the delegator whose entity model completes the service definitions
+     * @return the service definitions
+     */
+    private static Map<String, ModelService> getGlobalServiceMap(String model, Delegator delegator) {
+        Map<String, ModelService> serviceMap = MODEL_SERVICE_MAP_BY_MODEL.get(model);
         if (serviceMap == null) {
             serviceMap = new HashMap<>();
 
@@ -276,12 +286,13 @@ public class DispatchContext implements Serializable {
             for (GlobalServices globalServices : globalServicesList) {
                 ResourceHandler handler = new MainResourceHandler(ServiceConfigUtil.getServiceEngineXmlFileName(), globalServices.getLoader(),
                         globalServices.getLocation());
-                futures.add(ExecutionPool.GLOBAL_FORK_JOIN.submit(createServiceReaderCallable(handler)));
+                futures.add(ExecutionPool.GLOBAL_FORK_JOIN.submit(createServiceReaderCallable(handler, delegator)));
             }
 
             // get all of the component resource model stuff, ie specified in each ofbiz-component.xml file
             for (ComponentConfig.ServiceResourceInfo componentResourceInfo: ComponentConfig.getAllServiceResourceInfos("model")) {
-                futures.add(ExecutionPool.GLOBAL_FORK_JOIN.submit(createServiceReaderCallable(componentResourceInfo.createResourceHandler())));
+                futures.add(ExecutionPool.GLOBAL_FORK_JOIN.submit(createServiceReaderCallable(componentResourceInfo.createResourceHandler(),
+                        delegator)));
             }
             for (Map<String, ModelService> servicesMap: ExecutionPool.getAllFutures(futures)) {
                 if (servicesMap != null) {
@@ -289,7 +300,7 @@ public class DispatchContext implements Serializable {
                 }
             }
 
-            Map<String, ModelService> cachedServiceMap = MODEL_SERVICE_MAP_BY_MODEL.putIfAbsentAndGet(this.model, serviceMap);
+            Map<String, ModelService> cachedServiceMap = MODEL_SERVICE_MAP_BY_MODEL.putIfAbsentAndGet(model, serviceMap);
             if (cachedServiceMap == serviceMap) { // same object: this means that the object created by this thread was actually added to the cache
                 ServiceEcaUtil.reloadConfig();
             }
