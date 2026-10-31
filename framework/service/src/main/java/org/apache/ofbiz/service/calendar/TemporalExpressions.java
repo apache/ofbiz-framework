@@ -23,6 +23,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.SortedSet;
 import java.util.TreeSet;
 
 import org.apache.ofbiz.base.util.Debug;
@@ -69,6 +70,22 @@ public class TemporalExpressions implements Serializable {
         return Boolean.compare(iter.hasNext(), otherIter.hasNext());
     }
 
+    /** Returns the sequence of the included expression, which Difference and Substitution adopt. */
+    private static int sequenceOfIncluded(TemporalExpression included) {
+        if (included == null) {
+            throw new IllegalArgumentException("included argument cannot be null");
+        }
+        return included.getSequence();
+    }
+
+    /** Returns an unmodifiable copy of a member set, in evaluation order. */
+    private static SortedSet<TemporalExpression> sortedMembers(Set<TemporalExpression> expressionSet) {
+        if (expressionSet == null) {
+            throw new IllegalArgumentException("expressionSet argument cannot be null");
+        }
+        return Collections.unmodifiableSortedSet(new TreeSet<>(expressionSet));
+    }
+
     /** A temporal expression that represents a range of dates. */
     public static class DateRange extends TemporalExpression {
         private static final String MODULE = DateRange.class.getName();
@@ -79,11 +96,8 @@ public class TemporalExpressions implements Serializable {
         }
 
         public DateRange(Date start, Date end) {
+            super(SEQUENCE_DATE_RANGE);
             this.range = new org.apache.ofbiz.base.util.DateRange(start, end);
-            this.setSequence(SEQUENCE_DATE_RANGE);
-            if (Debug.verboseOn()) {
-                Debug.logVerbose("Created " + this, MODULE);
-            }
         }
 
         @Override
@@ -164,6 +178,7 @@ public class TemporalExpressions implements Serializable {
          * @param occurrence An integer in the range of -5 to 5, excluding zero
          */
         public DayInMonth(int dayOfWeek, int occurrence) {
+            super(sequence(dayOfWeek, occurrence));
             if (dayOfWeek < Calendar.SUNDAY || dayOfWeek > Calendar.SATURDAY) {
                 throw new IllegalArgumentException("Invalid day argument");
             }
@@ -172,16 +187,16 @@ public class TemporalExpressions implements Serializable {
             }
             this.dayOfWeek = dayOfWeek;
             this.occurrence = occurrence;
+        }
+
+        private static int sequence(int dayOfWeek, int occurrence) {
             int result = occurrence;
             if (result < 0) {
                 // Make negative values a higher sequence
                 // Example: Last Monday should come after first Monday
                 result += 11;
             }
-            this.setSequence(SEQUENCE_DAY_IN_MONTH + (result * 10) + dayOfWeek);
-            if (Debug.verboseOn()) {
-                Debug.logVerbose("Created " + this, MODULE);
-            }
+            return SEQUENCE_DAY_IN_MONTH + (result * 10) + dayOfWeek;
         }
 
         @Override
@@ -332,18 +347,15 @@ public class TemporalExpressions implements Serializable {
          * @param end An integer in the range of 1 to 31
          */
         public DayOfMonthRange(int start, int end) {
+            super(SEQUENCE_DOM_RANGE + start);
             if (start < 1 || start > end) {
                 throw new IllegalArgumentException("Invalid start argument");
             }
             if (end < 1 || end > 31) {
                 throw new IllegalArgumentException("Invalid end argument");
             }
-            this.setSequence(SEQUENCE_DOM_RANGE + start);
             this.start = start;
             this.end = end;
-            if (Debug.verboseOn()) {
-                Debug.logVerbose("Created " + this, MODULE);
-            }
         }
 
         @Override
@@ -458,18 +470,15 @@ public class TemporalExpressions implements Serializable {
          * to <code>Calendar.SATURDAY</code>
          */
         public DayOfWeekRange(int start, int end) {
+            super(SEQUENCE_DOW_RANGE + start);
             if (start < Calendar.SUNDAY || start > Calendar.SATURDAY) {
                 throw new IllegalArgumentException("Invalid start argument");
             }
             if (end < Calendar.SUNDAY || end > Calendar.SATURDAY) {
                 throw new IllegalArgumentException("Invalid end argument");
             }
-            this.setSequence(SEQUENCE_DOW_RANGE + start);
             this.start = start;
             this.end = end;
-            if (Debug.verboseOn()) {
-                Debug.logVerbose("Created " + this, MODULE);
-            }
         }
 
         @Override
@@ -593,28 +602,17 @@ public class TemporalExpressions implements Serializable {
         private final TemporalExpression included;
 
         public Difference(TemporalExpression included, TemporalExpression excluded) {
-            if (included == null) {
-                throw new IllegalArgumentException("included argument cannot be null");
+            super(sequenceOfIncluded(included));
+            if (excluded == null) {
+                throw new IllegalArgumentException("excluded argument cannot be null");
             }
             this.included = included;
             this.excluded = excluded;
-            if (containsExpression(this)) {
-                throw new IllegalArgumentException("recursive expression");
-            }
-            this.setSequence(included.getSequence());
-            if (Debug.verboseOn()) {
-                Debug.logVerbose("Created " + this, MODULE);
-            }
         }
 
         @Override
         public void accept(TemporalExpressionVisitor visitor) {
             visitor.visit(this);
-        }
-
-        @Override
-        protected boolean containsExpression(TemporalExpression expression) {
-            return this.included.containsExpression(expression) || this.excluded.containsExpression(expression);
         }
 
         @Override
@@ -712,6 +710,7 @@ public class TemporalExpressions implements Serializable {
          * @param freqCount A positive integer
          */
         public Frequency(Date start, int freqType, int freqCount) {
+            super(SEQUENCE_FREQ + freqType);
             if (freqType != Calendar.SECOND && freqType != Calendar.MINUTE
                     && freqType != Calendar.HOUR && freqType != Calendar.DAY_OF_MONTH
                     && freqType != Calendar.MONTH && freqType != Calendar.YEAR) {
@@ -725,12 +724,8 @@ public class TemporalExpressions implements Serializable {
             } else {
                 this.start = new Date();
             }
-            this.setSequence(SEQUENCE_FREQ + freqType);
             this.freqType = freqType;
             this.freqCount = freqCount;
-            if (Debug.verboseOn()) {
-                Debug.logVerbose("Created " + this, MODULE);
-            }
         }
 
         @Override
@@ -892,6 +887,7 @@ public class TemporalExpressions implements Serializable {
          * @param end An integer in the range of 0 to 23.
          */
         public HourRange(int start, int end) {
+            super(SEQUENCE_HOUR_RANGE + start);
             if (start < 0 || start > 23) {
                 throw new IllegalArgumentException("Invalid start argument");
             }
@@ -900,10 +896,6 @@ public class TemporalExpressions implements Serializable {
             }
             this.start = start;
             this.end = end;
-            this.setSequence(SEQUENCE_HOUR_RANGE + start);
-            if (Debug.verboseOn()) {
-                Debug.logVerbose("Created " + this, MODULE);
-            }
         }
 
         @Override
@@ -1046,42 +1038,29 @@ public class TemporalExpressions implements Serializable {
         private final Set<TemporalExpression> expressionSet;
 
         public Intersection(Set<TemporalExpression> expressionSet) {
-            if (expressionSet == null) {
-                throw new IllegalArgumentException("expressionSet argument cannot be null");
+            super(sequence(expressionSet));
+            this.expressionSet = sortedMembers(expressionSet);
+        }
+
+        private static int sequence(Set<TemporalExpression> expressionSet) {
+            SortedSet<TemporalExpression> members = sortedMembers(expressionSet);
+            if (members.isEmpty()) {
+                return Integer.MAX_VALUE;
             }
-            this.expressionSet = expressionSet;
-            if (containsExpression(this)) {
-                throw new IllegalArgumentException("recursive expression");
+            // Aggregate member expression sequences in a way that will
+            // ensure the proper evaluation sequence for the entire collection
+            int result = 0;
+            TemporalExpression[] exprArray = members.toArray(new TemporalExpression[members.size()]);
+            for (int i = exprArray.length - 1; i >= 0; i--) {
+                result *= 10;
+                result += exprArray[i].getSequence();
             }
-            if (!this.expressionSet.isEmpty()) {
-                // Aggregate member expression sequences in a way that will
-                // ensure the proper evaluation sequence for the entire collection
-                int result = 0;
-                TemporalExpression[] exprArray = this.expressionSet.toArray(new TemporalExpression[this.expressionSet.size()]);
-                for (int i = exprArray.length - 1; i >= 0; i--) {
-                    result *= 10;
-                    result += exprArray[i].getSequence();
-                }
-                this.setSequence(result);
-            }
-            if (Debug.verboseOn()) {
-                Debug.logVerbose("Created " + this, MODULE);
-            }
+            return result;
         }
 
         @Override
         public void accept(TemporalExpressionVisitor visitor) {
             visitor.visit(this);
-        }
-
-        @Override
-        protected boolean containsExpression(TemporalExpression expression) {
-            for (TemporalExpression setItem : this.expressionSet) {
-                if (setItem.containsExpression(expression)) {
-                    return true;
-                }
-            }
-            return false;
         }
 
         @Override
@@ -1132,7 +1111,7 @@ public class TemporalExpressions implements Serializable {
          * @return The member expression <code>Set</code>
          */
         public Set<TemporalExpression> getExpressionSet() {
-            return Collections.unmodifiableSet(this.expressionSet);
+            return this.expressionSet;
         }
 
         @Override
@@ -1191,6 +1170,7 @@ public class TemporalExpressions implements Serializable {
          * @param end An integer in the range of 0 to 59.
          */
         public MinuteRange(int start, int end) {
+            super(SEQUENCE_MINUTE_RANGE + start);
             if (start < 0 || start > 59) {
                 throw new IllegalArgumentException("Invalid start argument");
             }
@@ -1199,10 +1179,6 @@ public class TemporalExpressions implements Serializable {
             }
             this.start = start;
             this.end = end;
-            this.setSequence(SEQUENCE_MINUTE_RANGE + start);
-            if (Debug.verboseOn()) {
-                Debug.logVerbose("Created " + this, MODULE);
-            }
         }
 
         @Override
@@ -1355,18 +1331,15 @@ public class TemporalExpressions implements Serializable {
          * to <code>Calendar.UNDECIMBER</code>
          */
         public MonthRange(int start, int end) {
+            super(SEQUENCE_MONTH_RANGE + start);
             if (start < Calendar.JANUARY || start > Calendar.UNDECIMBER) {
                 throw new IllegalArgumentException("Invalid start argument");
             }
             if (end < Calendar.JANUARY || end > Calendar.UNDECIMBER) {
                 throw new IllegalArgumentException("Invalid end argument");
             }
-            this.setSequence(SEQUENCE_MONTH_RANGE + start);
             this.start = start;
             this.end = end;
-            if (Debug.verboseOn()) {
-                Debug.logVerbose("Created " + this, MODULE);
-            }
         }
 
         @Override
@@ -1511,9 +1484,7 @@ public class TemporalExpressions implements Serializable {
         private final TemporalExpression substitute;
 
         public Substitution(TemporalExpression included, TemporalExpression excluded, TemporalExpression substitute) {
-            if (included == null) {
-                throw new IllegalArgumentException("included argument cannot be null");
-            }
+            super(sequenceOfIncluded(included));
             if (excluded == null) {
                 throw new IllegalArgumentException("excluded argument cannot be null");
             }
@@ -1523,23 +1494,11 @@ public class TemporalExpressions implements Serializable {
             this.included = included;
             this.excluded = excluded;
             this.substitute = substitute;
-            if (containsExpression(this)) {
-                throw new IllegalArgumentException("recursive expression");
-            }
-            this.setSequence(included.getSequence());
-            if (Debug.verboseOn()) {
-                Debug.logVerbose("Created " + this, MODULE);
-            }
         }
 
         @Override
         public void accept(TemporalExpressionVisitor visitor) {
             visitor.visit(this);
-        }
-
-        @Override
-        protected boolean containsExpression(TemporalExpression expression) {
-            return this.included.containsExpression(expression) || this.excluded.containsExpression(expression);
         }
 
         @Override
@@ -1640,35 +1599,18 @@ public class TemporalExpressions implements Serializable {
         private final Set<TemporalExpression> expressionSet;
 
         public Union(Set<TemporalExpression> expressionSet) {
-            if (expressionSet == null) {
-                throw new IllegalArgumentException("expressionSet argument cannot be null");
-            }
-            this.expressionSet = expressionSet;
-            if (containsExpression(this)) {
-                throw new IllegalArgumentException("recursive expression");
-            }
-            if (!this.expressionSet.isEmpty()) {
-                TemporalExpression that = this.expressionSet.iterator().next();
-                this.setSequence(that.getSequence());
-            }
-            if (Debug.verboseOn()) {
-                Debug.logVerbose("Created " + this, MODULE);
-            }
+            super(sequence(expressionSet));
+            this.expressionSet = sortedMembers(expressionSet);
+        }
+
+        private static int sequence(Set<TemporalExpression> expressionSet) {
+            SortedSet<TemporalExpression> members = sortedMembers(expressionSet);
+            return members.isEmpty() ? Integer.MAX_VALUE : members.first().getSequence();
         }
 
         @Override
         public void accept(TemporalExpressionVisitor visitor) {
             visitor.visit(this);
-        }
-
-        @Override
-        protected boolean containsExpression(TemporalExpression expression) {
-            for (TemporalExpression setItem : this.expressionSet) {
-                if (setItem.containsExpression(expression)) {
-                    return true;
-                }
-            }
-            return false;
         }
 
         @Override
@@ -1715,7 +1657,7 @@ public class TemporalExpressions implements Serializable {
          * @return The member expression <code>Set</code>
          */
         public Set<TemporalExpression> getExpressionSet() {
-            return Collections.unmodifiableSet(this.expressionSet);
+            return this.expressionSet;
         }
 
         @Override
