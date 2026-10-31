@@ -38,6 +38,7 @@ import org.apache.ofbiz.base.config.ResourceHandler;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.cache.UtilCache;
 import org.apache.ofbiz.entity.Delegator;
+import org.apache.ofbiz.entity.DelegatorFactory;
 import org.apache.ofbiz.entity.GenericEntityConfException;
 import org.apache.ofbiz.entity.config.model.DelegatorElement;
 import org.apache.ofbiz.entity.config.model.EntityConfig;
@@ -63,10 +64,13 @@ public class DispatchContext implements Serializable {
     private final transient ClassLoader loader;
     private final transient LocalDispatcher dispatcher;
     private final String model;
+    // the delegator used when there is no dispatcher
+    private final transient Delegator modelDelegator;
 
     /**
      * Creates new DispatchContext as an immutable object.
-     * The "dispatcher" argument can be null if the "name" argument matches the name of a valid entity model reader.
+     * The "dispatcher" argument can be null if the "name" argument matches the name of a valid entity model reader:
+     * the first configured delegator that uses this entity model reader is then used.
      * The thread safety of a DispatchContext object is a consequence of its immutability.
      * @param name The immutable name of the DispatchContext
      * @param loader The immutable class loader
@@ -97,6 +101,7 @@ public class DispatchContext implements Serializable {
             modelName = name;
         }
         this.model = modelName;
+        this.modelDelegator = dispatcher == null ? getDelegatorForModel(modelName) : null;
         getGlobalServiceMap();
     }
 
@@ -129,7 +134,7 @@ public class DispatchContext implements Serializable {
      * @return Delegator associated with this context
      */
     public Delegator getDelegator() {
-        return dispatcher.getDelegator();
+        return dispatcher != null ? dispatcher.getDelegator() : modelDelegator;
     }
 
     /**
@@ -226,6 +231,28 @@ public class DispatchContext implements Serializable {
     public Document getWSDL(String serviceName, String locationURI) throws GenericServiceException, WSDLException {
         ModelService model = this.getModelService(serviceName);
         return model.toWSDL(locationURI);
+    }
+
+    /**
+     * Gets the first configured delegator that uses the given entity model reader.
+     * @param modelName the name of the entity model reader
+     * @return the delegator
+     * @throws IllegalArgumentException if no delegator uses this entity model reader
+     */
+    private static Delegator getDelegatorForModel(String modelName) {
+        try {
+            for (DelegatorElement delegatorInfo : EntityConfig.getInstance().getDelegatorList()) {
+                if (modelName.equals(delegatorInfo.getEntityModelReader())) {
+                    Delegator delegator = DelegatorFactory.getDelegator(delegatorInfo.getName());
+                    if (delegator != null) {
+                        return delegator;
+                    }
+                }
+            }
+        } catch (GenericEntityConfException e) {
+            Debug.logWarning(e, "Exception thrown while getting delegator config: ", MODULE);
+        }
+        throw new IllegalArgumentException("No delegator uses the entity model reader [" + modelName + "]");
     }
 
     private Callable<Map<String, ModelService>> createServiceReaderCallable(final ResourceHandler handler) {
