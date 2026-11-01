@@ -1860,8 +1860,9 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
     public interface NULL {
     }
 
-    public static class NullGenericEntity extends GenericEntity implements NULL {
-        protected NullGenericEntity() {
+    /** The class of {@link #NULL_ENTITY}, which is shared between threads and therefore immutable from construction. */
+    public static final class NullGenericEntity extends GenericEntity implements NULL {
+        private NullGenericEntity() {
             this.setImmutable();
         }
 
