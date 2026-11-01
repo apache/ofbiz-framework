@@ -119,7 +119,9 @@ public class GenericDelegator implements Delegator {
     private boolean warnNoEcaHandler = false;
     private final AtomicReference<Future<EntityEcaHandler<?>>> entityEcaHandler = new AtomicReference<>();
     private final AtomicReference<SequenceUtil> atomicRefSequence = new AtomicReference<>(null);
-    private EntityCrypto crypto = null;
+    private String kekText = null;
+    private final AtomicReference<EntityCrypto> crypto = new AtomicReference<>();
+    private volatile boolean initialized = false;
 
     /** A ThreadLocal variable to allow other methods to specify a user identifier (usually the userLoginId, though technically the Entity Engine
      * doesn't know anything about the UserLogin entity) */
@@ -199,14 +201,13 @@ public class GenericDelegator implements Delegator {
 
     /** Only allow creation through the factory method */
     protected GenericDelegator(String delegatorFullName) throws GenericEntityException {
-        this.setDelegatorNames(delegatorFullName);
+        assignDelegatorNames(delegatorFullName);
         this.delegatorInfo = EntityConfig.getInstance().getDelegator(delegatorBaseName);
 
         if (this.delegatorInfo == null) {
             throw new GenericEntityException("No configuration found for delegator [" + delegatorFullName + "]");
         }
 
-        String kekText;
         // before continuing, if there is a tenantId use the base delegator to see if it is valid
         if (UtilValidate.isNotEmpty(this.delegatorTenantId)) {
             Delegator baseDelegator = DelegatorFactory.getDelegator(this.delegatorBaseName);
@@ -218,21 +219,33 @@ public class GenericDelegator implements Delegator {
                 throw new GenericEntityException("No Tenant record found for delegator [" + this.delegatorFullName + "] with tenantId ["
                         + this.delegatorTenantId + "]");
             }
-            GenericValue kekValue = EntityQuery.use(baseDelegator).from("TenantKeyEncryptingKey").where("tenantId", getDelegatorTenantId())
+            GenericValue kekValue = EntityQuery.use(baseDelegator).from("TenantKeyEncryptingKey").where("tenantId", this.delegatorTenantId)
                     .cache(true).queryOne();
             if (kekValue != null) {
-                kekText = kekValue.getString("kekText");
+                this.kekText = kekValue.getString("kekText");
             } else {
-                kekText = this.delegatorInfo.getKeyEncryptingKey();
+                this.kekText = this.delegatorInfo.getKeyEncryptingKey();
             }
         } else {
-            kekText = this.delegatorInfo.getKeyEncryptingKey();
+            this.kekText = this.delegatorInfo.getKeyEncryptingKey();
         }
 
         this.modelReader = ModelReader.getModelReader(delegatorBaseName);
         this.modelGroupReader = ModelGroupReader.getModelGroupReader(delegatorBaseName);
 
         cache = new Cache(delegatorFullName);
+    }
+
+    /**
+     * Checks the entity definitions and initializes the datasource helper of every entity group of this delegator.
+     * Only the first call does the work.
+     * @throws GenericEntityException if the entity definition check fails
+     */
+    @Override
+    public synchronized void initialize() throws GenericEntityException {
+        if (this.initialized) {
+            return;
+        }
 
         // do the entity model check
         List<String> warningList = new LinkedList<>();
@@ -252,11 +265,21 @@ public class GenericDelegator implements Delegator {
             futures.add(ExecutionPool.GLOBAL_BATCH.submit(createHelperCallable(groupName)));
         }
         ExecutionPool.getAllFutures(futures);
+        this.initialized = true;
+    }
 
-        // NOTE: doing some things before the ECAs and such to make sure it is in place just in case it is used in a service engine startup thing or
-        // something
-        // setup the crypto class; this also after the delegator is in the cache otherwise we get infinite recursion
-        this.crypto = new EntityCrypto(this, kekText);
+    /**
+     * Gets the entity crypto of this delegator, creating it on first use.
+     * @return the entity crypto
+     * @throws EntityCryptoException if the entity crypto cannot be created
+     */
+    private EntityCrypto getEntityCrypto() throws EntityCryptoException {
+        EntityCrypto entityCrypto = this.crypto.get();
+        if (entityCrypto == null) {
+            this.crypto.compareAndSet(null, new EntityCrypto(this, this.kekText));
+            entityCrypto = this.crypto.get();
+        }
+        return entityCrypto;
     }
 
     private void initializeOneGenericHelper(String groupName) {
@@ -312,6 +335,10 @@ public class GenericDelegator implements Delegator {
      * @param delegatorFullName the delegator full name
      */
     protected void setDelegatorNames(String delegatorFullName) {
+        assignDelegatorNames(delegatorFullName);
+    }
+
+    private void assignDelegatorNames(String delegatorFullName) {
         this.delegatorFullName = delegatorFullName;
 
         int hashSymbolIndex = delegatorFullName.indexOf('#');
@@ -1959,8 +1986,9 @@ public class GenericDelegator implements Delegator {
         if (dcc != null) {
             dcc.clearAllCaches();
         }
-        if (this.crypto != null) {
-            this.crypto.clearKeyCache();
+        EntityCrypto entityCrypto = this.crypto.get();
+        if (entityCrypto != null) {
+            entityCrypto.clearKeyCache();
         }
     }
 
@@ -2546,7 +2574,7 @@ public class GenericDelegator implements Delegator {
             if (fieldValue instanceof String && UtilValidate.isEmpty(fieldValue)) {
                 return fieldValue;
             }
-            return this.crypto.encrypt(entityName, encryptMethod, fieldValue);
+            return getEntityCrypto().encrypt(entityName, encryptMethod, fieldValue);
         }
         return fieldValue;
     }
@@ -2557,7 +2585,7 @@ public class GenericDelegator implements Delegator {
     @Override
     public Object decryptFieldValue(String entityName, ModelField.EncryptMethod encryptMethod, String encValue) throws EntityCryptoException {
         if (UtilValidate.isNotEmpty(encValue)) {
-            return this.crypto.decrypt(entityName, encryptMethod, encValue);
+            return getEntityCrypto().decrypt(entityName, encryptMethod, encValue);
         }
         return null;
     }
@@ -2567,7 +2595,7 @@ public class GenericDelegator implements Delegator {
      */
     @Override
     public void setEntityCrypto(EntityCrypto crypto) {
-        this.crypto = crypto;
+        this.crypto.set(crypto);
     }
 
     /**
@@ -2699,7 +2727,9 @@ public class GenericDelegator implements Delegator {
         newDelegator.distributedCacheClear.set(this.distributedCacheClear.get());
         newDelegator.originalDelegatorName = getOriginalDelegatorName();
         newDelegator.entityEcaHandler.set(this.entityEcaHandler.get());
-        newDelegator.crypto = this.crypto;
+        newDelegator.kekText = this.kekText;
+        newDelegator.crypto.set(this.crypto.get());
+        newDelegator.initialized = this.initialized;
         // In case this delegator is in testMode give it a reference to
         // the rollback list
         newDelegator.testMode = this.testMode;

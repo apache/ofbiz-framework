@@ -690,6 +690,16 @@ public interface Delegator extends DelegatorProvider {
      */
     GenericValue getRelatedOne(String relationName, GenericValue value, boolean useCache) throws GenericEntityException;
 
+    /**
+     * Does the startup work that needs a fully constructed delegator, such as checking the entity definitions and
+     * initializing the datasource helpers. {@link DelegatorFactory} calls it once the delegator is created, before
+     * {@link #initEntityEcaHandler()}; a delegator created without the factory must call it itself. Calling it again
+     * does nothing.
+     * @throws GenericEntityException if the startup work fails
+     */
+    default void initialize() throws GenericEntityException {
+    }
+
     void initEntityEcaHandler();
 
     void initDistributedCacheClear();

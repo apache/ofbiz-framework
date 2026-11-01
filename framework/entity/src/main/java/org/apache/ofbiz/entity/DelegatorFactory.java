@@ -76,9 +76,12 @@ public abstract class DelegatorFactory implements Factory<Delegator, String> {
         }
 
         @Override
-        public Delegator call() throws ClassNotFoundException {
+        public Delegator call() throws ClassNotFoundException, GenericEntityException {
             try {
                 Delegator delegator = UtilObject.getObjectFromFactory(DelegatorFactory.class, delegatorName);
+
+                // check the entity definitions and setup the datasource helpers
+                delegator.initialize();
 
                 // setup the Entity ECA Handler
                 delegator.initEntityEcaHandler();
