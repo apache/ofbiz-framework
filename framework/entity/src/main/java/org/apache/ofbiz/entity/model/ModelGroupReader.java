@@ -108,9 +108,9 @@ public class ModelGroupReader implements Serializable {
             synchronized (ModelGroupReader.class) {
                 // must check if null again as one of the blocked threads can still enter
                 if (this.groupCache == null) {
-                    // now it's safe
-                    this.groupCache = new HashMap<>();
-                    this.groupNames = new TreeSet<>();
+                    // build into locals and publish only once complete, so readers never see a partial map
+                    Map<String, String> newGroupCache = new HashMap<>();
+                    Set<String> newGroupNames = new TreeSet<>();
 
                     UtilTimer utilTimer = new UtilTimer();
                     // utilTimer.timerString("[ModelGroupReader.getGroupCache] Before getDocument");
@@ -125,7 +125,6 @@ public class ModelGroupReader implements Serializable {
                             Debug.logError(e, "Error loading entity group model", MODULE);
                         }
                         if (document == null) {
-                            this.groupCache = null;
                             return null;
                         }
 
@@ -153,8 +152,8 @@ public class ModelGroupReader implements Serializable {
                                     } catch (GenericEntityConfException e) {
                                         Debug.logWarning(e, "Exception thrown while getting group name: ", MODULE);
                                     }
-                                    this.groupNames.add(groupName);
-                                    this.groupCache.put(entityName, groupName);
+                                    newGroupNames.add(groupName);
+                                    newGroupCache.put(entityName, groupName);
                                     // utilTimer.timerString("  After entityEntityName -- " + i + " --");
                                     i++;
                                 }
@@ -165,6 +164,9 @@ public class ModelGroupReader implements Serializable {
                         }
                     }
                     utilTimer.timerString("[ModelGroupReader.getGroupCache] FINISHED - Total Entity-Groups: " + i + " FINISHED");
+                    // groupNames first: the volatile write of groupCache makes both visible to readers that see the map
+                    this.groupNames = newGroupNames;
+                    this.groupCache = newGroupCache;
                 }
             }
         }
@@ -205,15 +207,16 @@ public class ModelGroupReader implements Serializable {
         if (delegatorBaseName.indexOf('#') >= 0) {
             delegatorBaseName = delegatorBaseName.substring(0, delegatorBaseName.indexOf('#'));
         }
-        getGroupCache(delegatorBaseName);
-        if (this.groupNames == null) return null;
+        Set<String> loadedGroupNames = getGroupCache(delegatorBaseName) != null ? this.groupNames : null;
         Set<String> newSet = new HashSet<>();
         try {
             newSet.add(EntityConfig.getInstance().getDelegator(delegatorBaseName).getDefaultGroupName());
         } catch (GenericEntityConfException e) {
             Debug.logWarning(e, "Exception thrown while getting delegator config: ", MODULE);
         }
-        newSet.addAll(this.groupNames);
+        if (loadedGroupNames != null) {
+            newSet.addAll(loadedGroupNames);
+        }
         return newSet;
     }
 
