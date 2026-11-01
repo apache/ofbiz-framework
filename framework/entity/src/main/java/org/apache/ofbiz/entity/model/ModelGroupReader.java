@@ -58,7 +58,8 @@ public class ModelGroupReader implements Serializable {
     private volatile Map<String, String> groupCache = null;
     private Set<String> groupNames = null;
 
-    private List<ResourceHandler> entityGroupResourceHandlers = new LinkedList<>();
+    private final String delegatorName;
+    private final List<ResourceHandler> entityGroupResourceHandlers = new LinkedList<>();
 
     public static ModelGroupReader getModelGroupReader(String delegatorName) throws GenericEntityConfException {
         DelegatorElement delegatorInfo = EntityConfig.getInstance().getDelegator(delegatorName);
@@ -71,12 +72,16 @@ public class ModelGroupReader implements Serializable {
         ModelGroupReader reader = READERS.get(tempModelName);
 
         if (reader == null) {
-            reader = READERS.putIfAbsentAndGet(tempModelName, new ModelGroupReader(delegatorName, tempModelName));
+            reader = new ModelGroupReader(delegatorName, tempModelName);
+            // preload caches...
+            reader.getGroupCache(delegatorName);
+            reader = READERS.putIfAbsentAndGet(tempModelName, reader);
         }
         return reader;
     }
 
     public ModelGroupReader(String delegatorName, String modelName) throws GenericEntityConfException {
+        this.delegatorName = delegatorName;
         EntityGroupReader entityGroupReaderInfo = EntityConfig.getInstance().getEntityGroupReader(modelName);
 
         if (entityGroupReaderInfo == null) {
@@ -93,9 +98,6 @@ public class ModelGroupReader implements Serializable {
                 this.entityGroupResourceHandlers.add(componentResourceInfo.createResourceHandler());
             }
         }
-
-        // preload caches...
-        getGroupCache(delegatorName);
     }
 
     /**
@@ -108,69 +110,83 @@ public class ModelGroupReader implements Serializable {
             synchronized (ModelGroupReader.class) {
                 // must check if null again as one of the blocked threads can still enter
                 if (this.groupCache == null) {
-                    // build into locals and publish only once complete, so readers never see a partial map
-                    Map<String, String> newGroupCache = new HashMap<>();
-                    Set<String> newGroupNames = new TreeSet<>();
-
-                    UtilTimer utilTimer = new UtilTimer();
-                    // utilTimer.timerString("[ModelGroupReader.getGroupCache] Before getDocument");
-
-                    int i = 0;
-                    for (ResourceHandler entityGroupResourceHandler: this.entityGroupResourceHandlers) {
-                        Document document = null;
-
-                        try {
-                            document = entityGroupResourceHandler.getDocument();
-                        } catch (GenericConfigException e) {
-                            Debug.logError(e, "Error loading entity group model", MODULE);
-                        }
-                        if (document == null) {
-                            return null;
-                        }
-
-                        // utilTimer.timerString("[ModelGroupReader.getGroupCache] Before getDocumentElement");
-                        Element docElement = document.getDocumentElement();
-                        if (docElement == null) {
-                            continue;
-                        }
-                        docElement.normalize();
-
-                        Node curChild = docElement.getFirstChild();
-                        if (curChild != null) {
-                            utilTimer.timerString("[ModelGroupReader.getGroupCache] Before start of entity loop");
-                            do {
-                                if (curChild.getNodeType() == Node.ELEMENT_NODE && "entity-group".equals(curChild.getNodeName())) {
-                                    Element curEntity = (Element) curChild;
-                                    String entityName = UtilXml.checkEmpty(curEntity.getAttribute("entity")).intern();
-                                    String groupName = UtilXml.checkEmpty(curEntity.getAttribute("group")).intern();
-
-                                    try {
-                                        if (null == EntityConfig.getInstance().getDelegator(delegatorName).getGroupDataSource(groupName)) {
-                                            Debug.logError("The declared group name " + groupName
-                                                    + " has no corresponding group-map in entityengine.xml: ", MODULE);
-                                        }
-                                    } catch (GenericEntityConfException e) {
-                                        Debug.logWarning(e, "Exception thrown while getting group name: ", MODULE);
-                                    }
-                                    newGroupNames.add(groupName);
-                                    newGroupCache.put(entityName, groupName);
-                                    // utilTimer.timerString("  After entityEntityName -- " + i + " --");
-                                    i++;
-                                }
-                                curChild = curChild.getNextSibling();
-                            } while (curChild != null);
-                        } else {
-                            Debug.logWarning("[ModelGroupReader.getGroupCache] No child nodes found.", MODULE);
-                        }
+                    try {
+                        loadGroupCache(delegatorName);
+                    } catch (GenericConfigException e) {
+                        Debug.logError(e, "Error loading entity group model", MODULE);
+                        return null;
                     }
-                    utilTimer.timerString("[ModelGroupReader.getGroupCache] FINISHED - Total Entity-Groups: " + i + " FINISHED");
-                    // groupNames first: the volatile write of groupCache makes both visible to readers that see the map
-                    this.groupNames = newGroupNames;
-                    this.groupCache = newGroupCache;
                 }
             }
         }
         return this.groupCache;
+    }
+
+    /**
+     * Re-reads the entity group definitions and replaces the group cache once they are fully loaded. Lookups keep using
+     * the previous group cache until then, and still use it if the definitions cannot be read.
+     * @throws GenericConfigException if an entity group resource cannot be read
+     */
+    public void reload() throws GenericConfigException {
+        synchronized (ModelGroupReader.class) {
+            loadGroupCache(this.delegatorName);
+        }
+    }
+
+    // builds into locals and publishes only once complete, so readers never see a partial map
+    private void loadGroupCache(String delegatorName) throws GenericConfigException {
+        Map<String, String> newGroupCache = new HashMap<>();
+        Set<String> newGroupNames = new TreeSet<>();
+
+        UtilTimer utilTimer = new UtilTimer();
+        // utilTimer.timerString("[ModelGroupReader.getGroupCache] Before getDocument");
+
+        int i = 0;
+        for (ResourceHandler entityGroupResourceHandler: this.entityGroupResourceHandlers) {
+            Document document = entityGroupResourceHandler.getDocument();
+            if (document == null) {
+                throw new GenericConfigException("Could not get document for " + entityGroupResourceHandler);
+            }
+
+            // utilTimer.timerString("[ModelGroupReader.getGroupCache] Before getDocumentElement");
+            Element docElement = document.getDocumentElement();
+            if (docElement == null) {
+                continue;
+            }
+            docElement.normalize();
+
+            Node curChild = docElement.getFirstChild();
+            if (curChild != null) {
+                utilTimer.timerString("[ModelGroupReader.getGroupCache] Before start of entity loop");
+                do {
+                    if (curChild.getNodeType() == Node.ELEMENT_NODE && "entity-group".equals(curChild.getNodeName())) {
+                        Element curEntity = (Element) curChild;
+                        String entityName = UtilXml.checkEmpty(curEntity.getAttribute("entity")).intern();
+                        String groupName = UtilXml.checkEmpty(curEntity.getAttribute("group")).intern();
+
+                        try {
+                            if (null == EntityConfig.getInstance().getDelegator(delegatorName).getGroupDataSource(groupName)) {
+                                Debug.logError("The declared group name " + groupName
+                                        + " has no corresponding group-map in entityengine.xml: ", MODULE);
+                            }
+                        } catch (GenericEntityConfException e) {
+                            Debug.logWarning(e, "Exception thrown while getting group name: ", MODULE);
+                        }
+                        newGroupNames.add(groupName);
+                        newGroupCache.put(entityName, groupName);
+                        // utilTimer.timerString("  After entityEntityName -- " + i + " --");
+                        i++;
+                    }
+                    curChild = curChild.getNextSibling();
+                } while (curChild != null);
+            } else {
+                Debug.logWarning("[ModelGroupReader.getGroupCache] No child nodes found.", MODULE);
+            }
+        }
+        utilTimer.timerString("[ModelGroupReader.getGroupCache] FINISHED - Total Entity-Groups: " + i + " FINISHED");
+        // groupNames first: the volatile write of groupCache makes both visible to readers that see the map
+        this.groupNames = newGroupNames;
+        this.groupCache = newGroupCache;
     }
 
     /** Gets a group name based on a definition from the specified XML Entity Group descriptor file.
