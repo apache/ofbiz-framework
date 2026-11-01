@@ -254,7 +254,12 @@ public class GenericValue extends GenericEntity {
         return GenericValue.create(this);
     }
 
-    protected static class NullGenericValue extends GenericValue implements NULL {
+    /** The class of {@link #NULL_VALUE}, which is shared between threads and therefore immutable from construction. */
+    protected static final class NullGenericValue extends GenericValue implements NULL {
+        private NullGenericValue() {
+            this.setImmutable();
+        }
+
         /** get entity name */
         @Override
         public String getEntityName() {
