@@ -54,8 +54,6 @@ import org.apache.ofbiz.entity.condition.EntityOperator;
 import org.apache.ofbiz.entity.model.DynamicViewEntity;
 import org.apache.ofbiz.entity.model.ModelEntity;
 import org.apache.ofbiz.entity.model.ModelField;
-import org.apache.ofbiz.entity.model.ModelReader;
-import org.apache.ofbiz.entity.model.ModelViewEntity;
 import org.apache.ofbiz.entity.util.EntityListIterator;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.entity.util.EntityUtil;
@@ -620,11 +618,7 @@ public class FindServices {
         Map<String, Object> queryStringMap = new LinkedHashMap<>();
         ModelEntity modelEntity;
         if (dynamicViewEntity != null) {
-            try {
-                modelEntity = new ModelViewEntity(dynamicViewEntity, ModelReader.getModelReader(delegator.getDelegatorName()));
-            } catch (GenericEntityException e) {
-                return ServiceUtil.returnError(e.toString());
-            }
+            modelEntity = dynamicViewEntity.makeModelViewEntity(delegator);
         } else {
             modelEntity = delegator.getModelEntity(entityName);
         }
