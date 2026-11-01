@@ -34,7 +34,6 @@ import java.util.Set;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilFormatOut;
-import org.apache.ofbiz.base.util.UtilTimer;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.UtilXml;
 import org.apache.ofbiz.entity.condition.EntityComparisonOperator;
@@ -114,18 +113,49 @@ public class ModelViewEntity extends ModelEntity {
 
     private ViewEntityCondition viewEntityCondition = null;
 
-    public ModelViewEntity(ModelReader reader, Element entityElement, UtilTimer utilTimer, ModelInfo def) {
-        super(reader, entityElement, def);
+    protected ModelViewEntity(ModelReader reader, ModelInfo modelInfo) {
+        super(reader, modelInfo);
+    }
 
-        if (utilTimer != null) utilTimer.timerString("  createModelViewEntity: before general/basic info");
+    /**
+     * Creates the model of a view entity defined by a {@code <view-entity>} element.
+     * @param reader the reader the view entity belongs to
+     * @param entityElement the {@code <view-entity>} element
+     * @param def the default model information of the entity-model file
+     * @return the view entity model, its fields are populated once all entities are read
+     */
+    static ModelViewEntity createFromXml(ModelReader reader, Element entityElement, ModelInfo def) {
+        ModelViewEntity modelViewEntity = new ModelViewEntity(reader, ModelInfo.createFromAttributes(def, entityElement));
+        modelViewEntity.populateFromXml(reader, entityElement);
+        return modelViewEntity;
+    }
+
+    /**
+     * Creates the model of a view entity from a dynamic view entity.
+     * @param dynamicViewEntity the dynamic view entity
+     * @param modelReader the reader of the member entities
+     * @return the view entity model
+     */
+    static ModelViewEntity createFromDynamicView(DynamicViewEntity dynamicViewEntity, ModelReader modelReader) {
+        ModelViewEntity modelViewEntity = new ModelViewEntity(modelReader, new ModelInfo(
+                dynamicViewEntity.getTitle(),
+                ModelInfo.DEFAULT.getDescription(),
+                ModelInfo.DEFAULT.getCopyright(),
+                ModelInfo.DEFAULT.getAuthor(),
+                ModelInfo.DEFAULT.getVersion(),
+                dynamicViewEntity.getDefaultResourceName()));
+        modelViewEntity.populateFromDynamicView(dynamicViewEntity, modelReader);
+        return modelViewEntity;
+    }
+
+    private void populateFromXml(ModelReader reader, Element entityElement) {
         this.populateBasicInfo(entityElement);
 
-        if (utilTimer != null) utilTimer.timerString("  createModelViewEntity: before \"member-entity\"s");
         for (Element memberEntityElement: UtilXml.childElementList(entityElement, "member-entity")) {
             String alias = UtilXml.checkEmpty(memberEntityElement.getAttribute("entity-alias")).intern();
             String name = UtilXml.checkEmpty(memberEntityElement.getAttribute("entity-name")).intern();
             if (name.length() <= 0 || alias.length() <= 0) {
-                Debug.logError("[new ModelViewEntity]: entity-alias or entity-name missing on member-entity element of the view-entity "
+                Debug.logError("[ModelViewEntity.createFromXml]: entity-alias or entity-name missing on member-entity element of the view-entity "
                         + this.getEntityName(), MODULE);
             } else {
                 ModelMemberEntity modelMemberEntity = new ModelMemberEntity(alias, name);
@@ -140,7 +170,6 @@ public class ModelViewEntity extends ModelEntity {
             this.aliasAlls.add(aliasAll);
         }
 
-        if (utilTimer != null) utilTimer.timerString("  createModelViewEntity: before aliases");
         for (Element aliasElement: UtilXml.childElementList(entityElement, "alias")) {
             ModelViewEntity.ModelAlias alias = new ModelAlias(aliasElement);
             this.aliases.add(alias);
@@ -151,7 +180,6 @@ public class ModelViewEntity extends ModelEntity {
             this.addViewLink(viewLink);
         }
 
-        if (utilTimer != null) utilTimer.timerString("  createModelEntity: before relations");
         this.populateRelated(reader, entityElement);
 
         Element entityConditionElement = UtilXml.firstChildElement(entityElement, "entity-condition");
@@ -163,14 +191,7 @@ public class ModelViewEntity extends ModelEntity {
         this.setTableName(null);
     }
 
-    public ModelViewEntity(DynamicViewEntity dynamicViewEntity, ModelReader modelReader) {
-        super(modelReader, new ModelInfo(
-                dynamicViewEntity.getTitle(),
-                ModelInfo.DEFAULT.getDescription(),
-                ModelInfo.DEFAULT.getCopyright(),
-                ModelInfo.DEFAULT.getAuthor(),
-                ModelInfo.DEFAULT.getVersion(),
-                dynamicViewEntity.getDefaultResourceName()));
+    private void populateFromDynamicView(DynamicViewEntity dynamicViewEntity, ModelReader modelReader) {
         this.setEntityName(dynamicViewEntity.getEntityName());
         this.setPackageName(dynamicViewEntity.getPackageName());
 

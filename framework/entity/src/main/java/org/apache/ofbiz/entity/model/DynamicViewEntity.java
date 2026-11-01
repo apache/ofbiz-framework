@@ -84,8 +84,7 @@ public class DynamicViewEntity {
      * @return the model view entity
      */
     public ModelViewEntity makeModelViewEntity(Delegator delegator) {
-        ModelViewEntity modelViewEntity = new ModelViewEntity(this, delegator.getModelReader());
-        return modelViewEntity;
+        return ModelViewEntity.createFromDynamicView(this, delegator.getModelReader());
     }
 
     /**

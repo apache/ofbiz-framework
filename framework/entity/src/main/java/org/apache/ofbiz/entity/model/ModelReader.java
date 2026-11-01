@@ -158,9 +158,9 @@ public final class ModelReader implements Serializable {
 
         ModelEntity modelEntity = null;
         if (isEntity) {
-            modelEntity = createModelEntity(curEntityElement, null, def);
+            modelEntity = createModelEntity(curEntityElement, def);
         } else {
-            modelEntity = createModelViewEntity(curEntityElement, null, def);
+            modelEntity = createModelViewEntity(curEntityElement, def);
         }
 
         String resourceLocation = entityResourceHandler.getLocation();
@@ -611,22 +611,20 @@ public final class ModelReader implements Serializable {
         return (!entityName.isEmpty() ? entityName : null);
     }
 
-    ModelEntity createModelEntity(Element entityElement, UtilTimer utilTimer, ModelInfo def) {
+    ModelEntity createModelEntity(Element entityElement, ModelInfo def) {
         if (entityElement == null) {
             return null;
         }
         this.numEntities++;
-        ModelEntity entity = new ModelEntity(this, entityElement, utilTimer, def);
-        return entity;
+        return ModelEntity.createFromXml(this, entityElement, def);
     }
 
-    ModelEntity createModelViewEntity(Element entityElement, UtilTimer utilTimer, ModelInfo def) {
+    ModelEntity createModelViewEntity(Element entityElement, ModelInfo def) {
         if (entityElement == null) {
             return null;
         }
         this.numViewEntities++;
-        ModelViewEntity entity = new ModelViewEntity(this, entityElement, utilTimer, def);
-        return entity;
+        return ModelViewEntity.createFromXml(this, entityElement, def);
     }
 
     public ModelRelation createRelation(ModelEntity entity, Element relationElement) {
