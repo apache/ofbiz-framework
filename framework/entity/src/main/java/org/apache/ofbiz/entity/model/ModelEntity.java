@@ -40,7 +40,6 @@ import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.ObjectType;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilPlist;
-import org.apache.ofbiz.base.util.UtilTimer;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.UtilXml;
 import org.apache.ofbiz.entity.Delegator;
@@ -151,37 +150,64 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
         this.modelInfo = modelInfo;
     }
 
-    /** XML Constructor */
-    protected ModelEntity(ModelReader reader, Element entityElement, ModelInfo modelInfo) {
-        this.modelReader = reader;
-        this.modelInfo = ModelInfo.createFromAttributes(modelInfo, entityElement);
+    /**
+     * Creates the model of an entity defined by an {@code <entity>} element.
+     * @param reader the reader the entity belongs to
+     * @param entityElement the {@code <entity>} element
+     * @param def the default model information of the entity-model file
+     * @return the entity model
+     */
+    static ModelEntity createFromXml(ModelReader reader, Element entityElement, ModelInfo def) {
+        ModelEntity modelEntity = new ModelEntity(reader, ModelInfo.createFromAttributes(def, entityElement));
+        modelEntity.populateFromXml(reader, entityElement);
+        return modelEntity;
     }
 
-    /** XML Constructor */
-    public ModelEntity(ModelReader reader, Element entityElement, UtilTimer utilTimer, ModelInfo modelInfo) {
-        this.modelReader = reader;
-        this.modelInfo = ModelInfo.createFromAttributes(modelInfo, entityElement);
-        if (utilTimer != null) utilTimer.timerString("  createModelEntity: before general/basic info");
+    /**
+     * Creates the model of an entity from the metadata of an existing database table.
+     * @param tableName the table name, optionally prefixed by the schema name
+     * @param colMap the columns of the table
+     * @param refMap the foreign keys of the table, may be {@code null}
+     * @param modelFieldTypeReader the field type reader of the datasource
+     * @return the entity model
+     */
+    public static ModelEntity createFromDatabaseMetaData(String tableName, Map<String, DatabaseUtil.ColumnCheckInfo> colMap,
+            Map<String, DatabaseUtil.ReferenceCheckInfo> refMap, ModelFieldTypeReader modelFieldTypeReader) {
+        ModelEntity modelEntity = new ModelEntity();
+        // if there is a dot in the name, remove it and everything before it, should be the schema name
+        int dotIndex = tableName.indexOf('.');
+        modelEntity.tableName = dotIndex >= 0 ? tableName.substring(dotIndex + 1) : tableName;
+        modelEntity.entityName = ModelUtil.dbNameToClassName(modelEntity.tableName);
+        for (DatabaseUtil.ColumnCheckInfo ccInfo : colMap.values()) {
+            modelEntity.addField(ModelField.create(modelEntity, ccInfo, modelFieldTypeReader));
+        }
+        if (UtilValidate.isNotEmpty(refMap)) {
+            for (DatabaseUtil.ReferenceCheckInfo rcInfo : refMap.values()) {
+                modelEntity.addRelation(ModelRelation.create(modelEntity, rcInfo, false));
+            }
+        }
+        return modelEntity;
+    }
+
+    private void populateFromXml(ModelReader reader, Element entityElement) {
         this.populateBasicInfo(entityElement);
-        if (utilTimer != null) utilTimer.timerString("  createModelEntity: before prim-keys");
         for (Element pkElement: UtilXml.childElementList(entityElement, "prim-key")) {
             pkFieldNames.add(pkElement.getAttribute("field").intern());
         }
-        if (utilTimer != null) utilTimer.timerString("  createModelEntity: before fields");
         for (Element fieldElement: UtilXml.childElementList(entityElement, "field")) {
             String fieldName = UtilXml.checkEmpty(fieldElement.getAttribute("name")).intern();
             boolean isPk = pkFieldNames.contains(fieldName);
             ModelField field = ModelField.create(this, fieldElement, isPk);
-            internalAddField(field, pkFieldNames);
+            internalAddField(field);
         }
         // if applicable automatically add the STAMP_FIELD and STAMP_TX_FIELD fields
         if ((this.doLock || !this.noAutoStamp) && !fieldsMap.containsKey(STAMP_FIELD)) {
             ModelField newField = ModelField.create(this, "", STAMP_FIELD, "date-time", null, null, null, false, false, false, true, false, null);
-            internalAddField(newField, pkFieldNames);
+            internalAddField(newField);
         }
         if (!this.noAutoStamp && !fieldsMap.containsKey(STAMP_TX_FIELD)) {
             ModelField newField = ModelField.create(this, "", STAMP_TX_FIELD, "date-time", null, null, null, false, false, false, true, false, null);
-            internalAddField(newField, pkFieldNames);
+            internalAddField(newField);
             // also add an index for this field
             String indexName = ModelUtil.shortenDbName(this.tableName + "_TXSTMP", 18);
             Field indexField = new Field(STAMP_TX_FIELD, null);
@@ -192,12 +218,12 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
         if ((this.doLock || !this.noAutoStamp) && !fieldsMap.containsKey(CREATE_STAMP_FIELD)) {
             ModelField newField = ModelField.create(this, "", CREATE_STAMP_FIELD, "date-time", null, null, null, false, false, false, true,
                     false, null);
-            internalAddField(newField, pkFieldNames);
+            internalAddField(newField);
         }
         if (!this.noAutoStamp && !fieldsMap.containsKey(CREATE_STAMP_TX_FIELD)) {
             ModelField newField = ModelField.create(this, "", CREATE_STAMP_TX_FIELD, "date-time", null, null, null, false, false, false, true,
                     false, null);
-            internalAddField(newField, pkFieldNames);
+            internalAddField(newField);
             // also add an index for this field
             String indexName = ModelUtil.shortenDbName(this.tableName + "_TXCRTS", 18);
             Field indexField = new Field(CREATE_STAMP_TX_FIELD, null);
@@ -217,62 +243,15 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
         pks.trimToSize();
         nopks.trimToSize();
         reader.incrementFieldCount(fieldsMap.size());
-        if (utilTimer != null) utilTimer.timerString("  createModelEntity: before relations");
         this.populateRelated(reader, entityElement);
         this.populateIndexes(entityElement);
-    }
-
-    /** DB Names Constructor */
-    public ModelEntity(String tableName, Map<String, DatabaseUtil.ColumnCheckInfo> colMap, ModelFieldTypeReader modelFieldTypeReader,
-                       boolean isCaseSensitive) {
-        // if there is a dot in the name, remove it and everything before it, should be the schema name
-        this.modelReader = null;
-        this.modelInfo = ModelInfo.DEFAULT;
-        this.tableName = tableName;
-        int dotIndex = this.tableName.indexOf('.');
-        if (dotIndex >= 0) {
-            this.tableName = this.tableName.substring(dotIndex + 1);
-        }
-        this.entityName = ModelUtil.dbNameToClassName(this.tableName);
-        for (Map.Entry<String, DatabaseUtil.ColumnCheckInfo> columnEntry : colMap.entrySet()) {
-            DatabaseUtil.ColumnCheckInfo ccInfo = columnEntry.getValue();
-            ModelField newField = ModelField.create(this, ccInfo, modelFieldTypeReader);
-            addField(newField);
-        }
-    }
-
-    public ModelEntity(String tableName, Map<String, DatabaseUtil.ColumnCheckInfo> colMap,
-            Map<String, DatabaseUtil.ReferenceCheckInfo> refMap, ModelFieldTypeReader modelFieldTypeReader,
-            boolean isCaseSensitive) {
-        // if there is a dot in the name, remove it and everything before it, should be
-        // the schema name
-        this.modelReader = null;
-        this.modelInfo = ModelInfo.DEFAULT;
-        this.tableName = tableName;
-        int dotIndex = this.tableName.indexOf('.');
-        if (dotIndex >= 0) {
-            this.tableName = this.tableName.substring(dotIndex + 1);
-        }
-        this.entityName = ModelUtil.dbNameToClassName(this.tableName);
-        for (Map.Entry<String, DatabaseUtil.ColumnCheckInfo> columnEntry : colMap.entrySet()) {
-            DatabaseUtil.ColumnCheckInfo ccInfo = columnEntry.getValue();
-            ModelField newField = ModelField.create(this, ccInfo, modelFieldTypeReader);
-            addField(newField);
-        }
-        if (UtilValidate.isNotEmpty(refMap)) {
-            for (Map.Entry<String, DatabaseUtil.ReferenceCheckInfo> referenceEntry : refMap.entrySet()) {
-                DatabaseUtil.ReferenceCheckInfo rcInfo = referenceEntry.getValue();
-                ModelRelation newRel = ModelRelation.create(this, rcInfo, false);
-                addRelation(newRel);
-            }
-        }
     }
 
     /**
      * Populate basic info.
      * @param entityElement the entity element
      */
-    protected void populateBasicInfo(Element entityElement) {
+    void populateBasicInfo(Element entityElement) {
         this.entityName = UtilXml.checkEmpty(entityElement.getAttribute("entity-name")).intern();
         this.tableName = UtilXml.checkEmpty(entityElement.getAttribute("table-name"), ModelUtil.javaNameToDbName(this.entityName)).intern();
         this.packageName = UtilXml.checkEmpty(entityElement.getAttribute("package-name")).intern();
@@ -293,7 +272,7 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
         }
     }
 
-    private void internalAddField(ModelField newField, List<String> pkFieldNames) {
+    private void internalAddField(ModelField newField) {
         if (!newField.getIsPk()) {
             this.nopks.add(newField);
         }
@@ -306,7 +285,7 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
      * @param reader the reader
      * @param entityElement the entity element
      */
-    protected void populateRelated(ModelReader reader, Element entityElement) {
+    void populateRelated(ModelReader reader, Element entityElement) {
         List<ModelRelation> tempList = new ArrayList<>(this.relations);
         for (Element relationElement: UtilXml.childElementList(entityElement, "relation")) {
             ModelRelation relation = reader.createRelation(this, relationElement);
@@ -322,7 +301,7 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
      * Populate indexes.
      * @param entityElement the entity element
      */
-    protected void populateIndexes(Element entityElement) {
+    private void populateIndexes(Element entityElement) {
         List<ModelIndex> tempList = new ArrayList<>(this.indexes);
         for (Element indexElement: UtilXml.childElementList(entityElement, "index")) {
             ModelIndex index = ModelIndex.create(this, indexElement);

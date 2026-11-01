@@ -867,12 +867,11 @@ public class DatabaseUtil {
             // go through each table and make a ModelEntity object, add to list
             // for each entity make corresponding ModelField objects
             // then print out XML for the entities/fields
-            boolean isCaseSensitive = getIsCaseSensitive(messages);
             // iterate over the table names is alphabetical order
             for (String tableName : new TreeSet<>(colInfo.keySet())) {
                 Map<String, ColumnCheckInfo> colMap = colInfo.get(tableName);
                 Map<String, ReferenceCheckInfo> refMap = refInfo.get(tableName);
-                ModelEntity newEntity = new ModelEntity(tableName, colMap, refMap, modelFieldTypeReader, isCaseSensitive);
+                ModelEntity newEntity = ModelEntity.createFromDatabaseMetaData(tableName, colMap, refMap, modelFieldTypeReader);
                 newEntList.add(newEntity);
             }
         }
@@ -888,19 +887,6 @@ public class DatabaseUtil {
             schemaName = getSchemaName(dbData);
             return schemaName;
         }
-    }
-
-    private boolean getIsCaseSensitive(Collection<String> messages) {
-        boolean isCaseSensitive = false;
-        try (Connection connection = getConnectionLogged(messages)) {
-            DatabaseMetaData dbData = this.getDatabaseMetaData(connection, messages);
-            if (dbData != null) {
-                isCaseSensitive = dbData.supportsMixedCaseIdentifiers();
-            }
-        } catch (SQLException e) {
-            Debug.logError(e, "Error getting db meta data about case sensitive", MODULE);
-        }
-        return isCaseSensitive;
     }
 
     /**
