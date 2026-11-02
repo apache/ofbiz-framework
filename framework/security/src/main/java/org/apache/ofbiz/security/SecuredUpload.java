@@ -1492,9 +1492,11 @@ public class SecuredUpload {
      * Rejected attributes:
      * <ul>
      *   <li>{@code on*} event-handler attributes (e.g. {@code onclick}, {@code onload})</li>
-     *   <li>{@code href}, {@code xlink:href}, {@code src}, {@code action} pointing to a
+     *   <li>{@code href} (whatever its namespace prefix), {@code src}, {@code action} pointing to a
      *       {@code javascript:}, {@code data:}, or {@code vbscript:} URI scheme</li>
      * </ul>
+     * The attribute is matched on its local name, and the URI scheme is checked after removing
+     * the whitespace and control characters that browsers ignore in it.
      */
     private static boolean checkSvgNode(Node node) {
         if (node.getNodeType() == Node.ELEMENT_NODE) {
@@ -1507,9 +1509,10 @@ public class SecuredUpload {
             if (attrs != null) {
                 for (int i = 0; i < attrs.getLength(); i++) {
                     Attr attr = (Attr) attrs.item(i);
-                    String attrName = attr.getName().toLowerCase(Locale.ROOT);
+                    String attrName = (attr.getLocalName() != null ? attr.getLocalName() : attr.getName())
+                            .toLowerCase(Locale.ROOT);
                     String attrValue = attr.getValue() == null ? ""
-                            : attr.getValue().trim().toLowerCase(Locale.ROOT);
+                            : attr.getValue().replaceAll("[\\x00-\\x20]", "").toLowerCase(Locale.ROOT);
                     // Block on* event-handler attributes
                     if (attrName.startsWith("on")) {
                         Debug.logInfo("SVG rejected: event-handler attribute ["
@@ -1517,8 +1520,7 @@ public class SecuredUpload {
                         return false;
                     }
                     // Block unsafe URI schemes in link/source attributes
-                    if (attrName.equals("href") || attrName.equals("xlink:href")
-                            || attrName.equals("src") || attrName.equals("action")) {
+                    if (attrName.equals("href") || attrName.equals("src") || attrName.equals("action")) {
                         if (attrValue.startsWith("javascript:")
                                 || attrValue.startsWith("data:")
                                 || attrValue.startsWith("vbscript:")) {
