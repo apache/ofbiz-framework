@@ -76,6 +76,25 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
+    <!-- AgreementAttribute -->
+    <service name="createAgreementAttribute" default-entity-name="AgreementAttribute" engine="entity-auto" invoke="create" auth="true">
+        <description>Create an AgreementAttribute</description>
+        <permission-service service-name="acctgAgreementPermissionCheck" main-action="CREATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateAgreementAttribute" default-entity-name="AgreementAttribute" engine="entity-auto" invoke="update" auth="true">
+        <description>Update an AgreementAttribute</description>
+        <permission-service service-name="acctgAgreementPermissionCheck" main-action="UPDATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteAgreementAttribute" default-entity-name="AgreementAttribute" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete an AgreementAttribute</description>
+        <permission-service service-name="acctgAgreementPermissionCheck" main-action="DELETE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
     <!-- AgreementItemAttribute -->
     <service name="createAgreementItemAttribute" default-entity-name="AgreementItemAttribute" engine="entity-auto" invoke="create" auth="true">
         <description>Create an AgreementItemAttribute</description>
