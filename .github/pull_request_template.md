@@ -6,6 +6,9 @@
 [More detailed explanation of what has been done and what the fix achieves,
 side effects etc.]
 
+[If this changes or removes a public API, add an entry to UPGRADING.md or
+applications/UPGRADING.md.]
+
 [Thanks:] [xxxx for ... and yyyy for]
 
 ## For more information

@@ -49,7 +49,7 @@ New branches inherit workflow files from `trunk` at creation time.
 
 PRs labeled `cve` are listed under Security fixes and the other PRs labeled `security` under Security hardening. These labels are set by hand: `cve` only once the CVE is announced, then the release notes of the release can be generated again, and `security` by the committer for security hardening without a CVE.
 
-PRs that change or remove a public API (a public class, method or signature that code outside OFBiz may use) are labeled `api-change` by hand by the committer, and are listed under API changes so that upgraders find them. A PR labeled `cve` or `security` stays in its security section.
+PRs that change or remove a public API (a public class, method or signature that code outside OFBiz may use) are labeled `api-change` by hand by the committer, and are listed under API changes so that upgraders find them. The same PR adds the upgrade steps to `UPGRADING.md` (framework and themes) or `applications/UPGRADING.md`. A PR labeled `cve` or `security` stays in its security section.
 
 GitHub reads `release.yml` from the tag being released, so it must be on the release branch before the tag is created.
 

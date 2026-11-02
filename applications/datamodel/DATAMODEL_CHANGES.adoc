@@ -32,12 +32,32 @@ The following file contains information about the data model changes in the Apac
 *Added new entities*
 . MaritalStatus
 . MaritalStatusType
+. MrpRunLog
+. WorkEffortInvRes
+
+*Added new view entities*
+. ProductAndAssocTo
+. WorkEffortInvResAndItem
+. WorkEffortInventoryAssignAndItem
+
+*Removed 17 entities*
+
+. PaymentGatewayAuthorizeNet, PaymentGatewayClearCommerce, PaymentGatewayCyberSource, PaymentGatewayEway,
+  PaymentGatewayOrbital, PaymentGatewayPayPal, PaymentGatewayPayflowPro, PaymentGatewaySagePay,
+  PaymentGatewaySecurePay, PaymentGatewayWorldPay (d278d49b)
+. ShipmentGatewayDhl, ShipmentGatewayFedex, ShipmentGatewayUps, ShipmentGatewayUsps (672b6d02)
+. ValueLinkKey (b7c56b75)
+. ZipSalesRuleLookup, ZipSalesTaxLookup (a07c838c)
+
+The tables of removed entities are not dropped; drop them once their data is no longer needed.
 
 === Field Changes
 [cols="<,^,^,^,>",options="header",]
 |=======================================================
 |Entity                 |Field   |Action |IsPK |Revision
 | Person | maritalStatusTypeId | Added | No | 109c496e
+| PayPalPaymentMethod | expressCheckoutToken | Removed | No | d278d49b
+| FinAccount | finAccountCode | Modified (no longer encrypted) | No | cae2bb65
 
 |=======================================================
 
@@ -45,6 +65,9 @@ The following file contains information about the data model changes in the Apac
 1.  Migration service *migratePersonMaritalStatusType* is implemented to migrate the
     *oldMaritalStatusEnumId* field to *maritalStatusTypeId* on entity *Person*. +
     (More detail at https://issues.apache.org/jira/browse/OFBIZ-13329[OFBIZ-13329])
+2.  Migration service *decryptFinAccountCodes* is implemented to turn the encrypted
+    *finAccountCode* values of entity *FinAccount* back into plain text. +
+    (More detail at https://issues.apache.org/jira/browse/OFBIZ-13599[OFBIZ-13599])
 
 
 == Changes with OFBiz 24
