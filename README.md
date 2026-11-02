@@ -65,6 +65,10 @@ For more details about OFBiz please visit the OFBiz Documentation page:
 > **Note** -
 > If you are in China you may encounter network issues or proxy settings. This is unrelated to OFBiz.
 
+> **Note** -
+> If you are upgrading from an earlier release, read [UPGRADING.md](UPGRADING.md) and
+> [applications/UPGRADING.md](applications/UPGRADING.md).
+
 
 ## System requirements
 
