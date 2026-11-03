@@ -18,11 +18,12 @@
 # under the License.
 #####################################################################
 
-FROM eclipse-temurin:17@sha256:e8d451f3b5aa6422c2b00bb913cb8d37a55a61934259109d945605c5651de9a6 AS builder
+FROM eclipse-temurin:25@sha256:83f4a7fc27df94dcc7b8de04d14cbbba8da14406f921e966969c3b09000aa507 AS builder
 
 # Git is used for various OFBiz build tasks.
+# curl is used by gradle/init-gradle-wrapper.sh to download the Gradle wrapper.
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends git \
+    && apt-get install -y --no-install-recommends git curl \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /builder
@@ -56,11 +57,12 @@ RUN --mount=type=cache,id=gradle-cache,sharing=locked,target=/root/.gradle \
 
 ###################################################################################
 
-FROM eclipse-temurin:17@sha256:e8d451f3b5aa6422c2b00bb913cb8d37a55a61934259109d945605c5651de9a6 AS runtimebase
+FROM eclipse-temurin:25@sha256:83f4a7fc27df94dcc7b8de04d14cbbba8da14406f921e966969c3b09000aa507 AS runtimebase
 
 # xsltproc is used to disable OFBiz components during first run.
+# curl is used by send_ofbiz_stop_signal.sh, and wget by docker-entrypoint.sh to download the PostgreSQL driver.
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends xsltproc \
+    && apt-get install -y --no-install-recommends xsltproc curl wget \
     && rm -rf /var/lib/apt/lists/*
 
 RUN ["useradd", "ofbiz"]

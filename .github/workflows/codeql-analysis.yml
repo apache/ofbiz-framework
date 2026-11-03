@@ -101,6 +101,14 @@ jobs:
 
     # Java is a compiled language: CodeQL extracts it by tracing the compilation,
     # so the sources must be built between the init and analyze steps.
+    # The build needs the JDK it targets (see build.gradle), not the runner's default JDK.
+    - name: Set up JDK 25
+      if: matrix.language == 'java'
+      uses: actions/setup-java@b843ebf9b913146b38da2eaa7aeddf76074ae1ad # v6.1.0
+      with:
+        java-version: 25
+        distribution: temurin
+
     # The Gradle wrapper jar is not committed and must be downloaded first.
     # Only compilation is needed, so tests and other checks are not run.
     - name: Build with Gradle

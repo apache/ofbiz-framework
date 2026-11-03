@@ -182,13 +182,13 @@ javadoc {
     failOnError = true
     dependsOn extractGroovyElementList
     options {
-        source '17'
+        source '25'
         encoding 'UTF-8'
         charSet 'UTF-8'
         // Those external Javadoc links should correspond to the actual
         // versions declared in the 'dependencies' block.
         links(
-            'https://docs.oracle.com/en/java/javase/17/docs/api/',
+            'https://docs.oracle.com/en/java/javase/25/docs/api/',
             'https://tomcat.apache.org/tomcat-11.0-doc/servletapi/',
             'https://commons.apache.org/proper/commons-cli/apidocs'
         )
@@ -203,8 +203,8 @@ javadoc {
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
 }
 
 // Java compile options, syntax gradlew -PXlint:none build

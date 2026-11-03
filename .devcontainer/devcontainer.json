@@ -19,7 +19,7 @@
 
 {
   "name": "OFBiz Trunk Dev Container",
-  "image": "mcr.microsoft.com/devcontainers/java:17",
+  "image": "mcr.microsoft.com/devcontainers/java:25",
 
   "forwardPorts": [8080, 8443],
   
