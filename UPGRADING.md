@@ -40,6 +40,9 @@ the same pull request.
 
 ### Environment
 
+* Java 25 replaces Java 17: OFBiz is compiled for Java 25 and needs a JDK 25 to build and run
+  ([OFBIZ-13791](https://issues.apache.org/jira/browse/OFBIZ-13791)). Install a JDK 25 and point `JAVA_HOME` at it,
+  and move your own CI, Docker images and IDE settings to it as well.
 * Gradle 9 replaces Gradle 8. Run `gradle/init-gradle-wrapper.sh` (or `init-gradle-wrapper.ps1`) again to get the
   new wrapper.
 * The embedded Tomcat moves from 9 to 11, and with it from Java EE (`javax.*`) to Jakarta EE 11 (`jakarta.*`):

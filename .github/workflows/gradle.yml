@@ -68,16 +68,15 @@ permissions:
 
 jobs:
   build:
-    # trunk builds sourceCompatibility/targetCompatibility 17 bytecode (see build.gradle),
-    # but is matrix-tested on both the JDK 17 runtime it targets and the JDK 21 runtime
-    # it may adopt later.
-    # release* branches stay JDK 17 only until they adopt JDK 21 too, since trunk fixes must
-    # stay backportable to them. github.base_ref is the target branch of a pull request and is
+    # trunk builds sourceCompatibility/targetCompatibility 25 bytecode (see build.gradle),
+    # so it is tested on the JDK 25 runtime it targets.
+    # release* branches stay on JDK 17, the Java version they build for.
+    # github.base_ref is the target branch of a pull request and is
     # empty for a push, where github.ref_name is the pushed branch.
     strategy:
       fail-fast: false
       matrix:
-        java: ${{ startsWith(github.base_ref || github.ref_name, 'release') && fromJson('[17]') || fromJson('[17, 21]') }}
+        java: ${{ startsWith(github.base_ref || github.ref_name, 'release') && fromJson('[17]') || fromJson('[25]') }}
 
     runs-on: ubuntu-latest
 
