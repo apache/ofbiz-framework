@@ -385,6 +385,23 @@ public abstract class EntityOperator<L, R> implements Serializable {
 
     public abstract void addSqlValue(StringBuilder sql, ModelEntity entity, List<EntityConditionParam> entityConditionParams, boolean compat,
                                      L lhs, R rhs, Datasource datasourceInfo);
+
+    /**
+     * Add sql value.
+     * @param sql                   the sql
+     * @param entity                the entity
+     * @param entityConditionParams the entity condition params
+     * @param compat                the compat
+     * @param lhs                   the lhs
+     * @param rhs                   the rhs
+     * @param datasourceInfo        the datasource info
+     * @param delegator             the delegator actually being used to run this query, or {@code null} if unavailable
+     */
+    public void addSqlValue(StringBuilder sql, ModelEntity entity, List<EntityConditionParam> entityConditionParams, boolean compat,
+                            L lhs, R rhs, Datasource datasourceInfo, Delegator delegator) {
+        addSqlValue(sql, entity, entityConditionParams, compat, lhs, rhs, datasourceInfo);
+    }
+
     public abstract EntityCondition freeze(L lhs, R rhs);
 
     public static final Comparable<?> WILDCARD = new Comparable<Object>() {
