@@ -228,46 +228,68 @@ under the License.
                                     <div class="screenlet order-item-quantity">
                                         <div class="screenlet-body">
                                             <table>
-                                                <tr valign="top">
-                                                    <#assign shippedQuantity = orderReadHelper.getItemShippedQuantity(orderItem)>
-                                                    <#assign shipmentReceipts = EntityQuery.use(delegator).from("ShipmentReceipt").where("orderId", orderHeader.getString("orderId")!, "orderItemSeqId", orderItem.orderItemSeqId!).queryList()!/>
-                                                    <#assign totalReceived = 0.0>
-                                                    <#if shipmentReceipts?? && shipmentReceipts?has_content>
-                                                        <#list shipmentReceipts as shipmentReceipt>
-                                                            <#if shipmentReceipt.quantityAccepted?? && shipmentReceipt.quantityAccepted?has_content>
-                                                                <#assign  quantityAccepted = shipmentReceipt.quantityAccepted>
-                                                                <#assign totalReceived = quantityAccepted + totalReceived>
-                                                            </#if>
-                                                            <#if shipmentReceipt.quantityRejected?? && shipmentReceipt.quantityRejected?has_content>
-                                                                <#assign  quantityRejected = shipmentReceipt.quantityRejected>
-                                                                <#assign totalReceived = quantityRejected + totalReceived>
-                                                            </#if>
-                                                        </#list>
-                                                    </#if>
-                                                    <#if product?has_content && product.productTypeId?has_content && "SERVICE" == product.productTypeId && "ITEM_COMPLETED" == currentItemStatus.statusId>
-                                                        <#assign shippedQuantity = orderItem.quantity?default(0)/>
-                                                        <#assign totalReceived = orderItem.quantity?default(0)>
-                                                    </#if>
-                                                    <#if "PURCHASE_ORDER" == orderHeader.orderTypeId>
-                                                        <#assign remainingQuantity = ((orderItem.quantity?default(0) - orderItem.cancelQuantity?default(0)) - totalReceived?double)>
-                                                    <#else>
-                                                        <#assign remainingQuantity = ((orderItem.quantity?default(0) - orderItem.cancelQuantity?default(0)) - shippedQuantity?double)>
-                                                    </#if>
-                                                    <#-- to compute shortfall amount, sum up the orderItemShipGrpInvRes.quantityNotAvailable -->
-                                                    <#assign shortfalledQuantity = 0/>
-                                                    <#list orderItemShipGrpInvResList as orderItemShipGrpInvRes>
-                                                        <#if (orderItemShipGrpInvRes.quantityNotAvailable?has_content && orderItemShipGrpInvRes.quantityNotAvailable > 0)>
-                                                            <#assign shortfalledQuantity = shortfalledQuantity + orderItemShipGrpInvRes.quantityNotAvailable/>
+                                                <#assign shippedQuantity = orderReadHelper.getItemShippedQuantity(orderItem)>
+                                                <#assign shipmentReceipts = EntityQuery.use(delegator).from("ShipmentReceipt").where("orderId", orderHeader.getString("orderId")!, "orderItemSeqId", orderItem.orderItemSeqId!).queryList()!/>
+                                                <#assign totalReceived = 0.0>
+                                                <#if shipmentReceipts?? && shipmentReceipts?has_content>
+                                                    <#list shipmentReceipts as shipmentReceipt>
+                                                        <#if shipmentReceipt.quantityAccepted?? && shipmentReceipt.quantityAccepted?has_content>
+                                                            <#assign  quantityAccepted = shipmentReceipt.quantityAccepted>
+                                                            <#assign totalReceived = quantityAccepted + totalReceived>
+                                                        </#if>
+                                                        <#if shipmentReceipt.quantityRejected?? && shipmentReceipt.quantityRejected?has_content>
+                                                            <#assign  quantityRejected = shipmentReceipt.quantityRejected>
+                                                            <#assign totalReceived = quantityRejected + totalReceived>
                                                         </#if>
                                                     </#list>
-                                                    <td><b>${uiLabelMap.OrderOrdered}</b></td>
-                                                    <td>${orderItem.quantity?default(0)?string.number}</td>
+                                                </#if>
+                                                <#if product?has_content && product.productTypeId?has_content && "SERVICE" == product.productTypeId && "ITEM_COMPLETED" == currentItemStatus.statusId>
+                                                    <#assign shippedQuantity = orderItem.quantity?default(0)/>
+                                                    <#assign totalReceived = orderItem.quantity?default(0)>
+                                                </#if>
+                                                <#assign origOrderedQuantity = orderItem.quantity!0?number>
+                                                <#assign cancelQuantity = orderItem.cancelQuantity!0?number>
+                                                <#assign requiredQuantity = origOrderedQuantity - cancelQuantity>
+                                                <#if "PURCHASE_ORDER" == orderHeader.orderTypeId>
+                                                    <#assign outstandingQuantity = requiredQuantity - totalReceived?number>
+                                                <#else>
+                                                    <#assign outstandingQuantity = requiredQuantity - shippedQuantity?number>
+                                                </#if>
+                                                <#-- to compute shortfall amount, sum up the orderItemShipGrpInvRes.quantityNotAvailable -->
+                                                <#assign shortfalledQuantity = 0/>
+                                                <#list orderItemShipGrpInvResList as orderItemShipGrpInvRes>
+                                                    <#if (orderItemShipGrpInvRes.quantityNotAvailable?has_content && orderItemShipGrpInvRes.quantityNotAvailable > 0)>
+                                                        <#assign shortfalledQuantity = shortfalledQuantity + orderItemShipGrpInvRes.quantityNotAvailable/>
+                                                    </#if>
+                                                </#list>
+                                                <tr valign="top">
+                                                    <td><b>${uiLabelMap.CommonRequired}</b></td>
+                                                    <td>${requiredQuantity}</td>
+                                                    <#if "PURCHASE_ORDER" == orderHeader.orderTypeId>
+                                                        <td><b>${uiLabelMap.OrderPlannedInReceive}</b></td>
+                                                        <td>${totalReceived}</td>
+                                                    <#else>
+                                                        <td><b>${uiLabelMap.OrderQtyShipped}</b></td>
+                                                        <td>${shippedQuantity}</td>
+                                                    </#if>
+                                                </tr>
+                                                <tr>
+                                                    <#if cancelQuantity gt 0>
+                                                        <td><b>${uiLabelMap.OrderOrigOrdered}</b></td>
+                                                        <td>${orderItem.quantity?default(0)?string.number}</td>
+                                                    <#else>
+                                                        <td></td><td></td>
+                                                    </#if>
                                                     <td><b>${uiLabelMap.OrderShipRequest}</b></td>
                                                     <td>${orderReadHelper.getItemReservedQuantity(orderItem)}</td>
                                                 </tr>
                                                 <tr valign="top">
-                                                    <td><b>${uiLabelMap.OrderCancelled}</b></td>
-                                                    <td>${orderItem.cancelQuantity?default(0)?string.number}</td>
+                                                    <#if cancelQuantity gt 0>
+                                                        <td><b>${uiLabelMap.OrderCancelled}</b></td>
+                                                        <td>${orderItem.cancelQuantity!0?string.number}</td>
+                                                    <#else>
+                                                        <td></td><td></td>
+                                                    </#if>
                                                     <#if "SALES_ORDER" == orderHeader.orderTypeId>
                                                         <#if pickedQty gt 0 && "ORDER_APPROVED" == orderHeader.statusId>
                                                             <td><font color="red"><b>${uiLabelMap.OrderQtyPicked}</b></font></td>
@@ -279,17 +301,6 @@ under the License.
                                                     <#else>
                                                         <td>&nbsp;</td>
                                                         <td>&nbsp;</td>
-                                                    </#if>
-                                                </tr>
-                                                <tr valign="top">
-                                                    <td><b>${uiLabelMap.OrderRemaining}</b></td>
-                                                    <td>${remainingQuantity}</td>
-                                                    <#if "PURCHASE_ORDER" == orderHeader.orderTypeId>
-                                                        <td><b>${uiLabelMap.OrderPlannedInReceive}</b></td>
-                                                        <td>${totalReceived}</td>
-                                                    <#else>
-                                                        <td><b>${uiLabelMap.OrderQtyShipped}</b></td>
-                                                        <td>${shippedQuantity}</td>
                                                     </#if>
                                                 </tr>
                                                 <tr valign="top">
