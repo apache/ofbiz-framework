@@ -13943,24 +13943,6 @@
         <value xml:lang="zh">样例</value>
         <value xml:lang="zh-TW">範例</value>
     </property>
-    <property key="ExampleExt">
-        <value xml:lang="ar">إمتداد المثال</value>
-        <value xml:lang="cs">Rozšířený příklad</value>
-        <value xml:lang="de">Erweitertes Beispiel</value>
-        <value xml:lang="en">Example Ext</value>
-        <value xml:lang="es">Ejemplo extendido</value>
-        <value xml:lang="es-CL">Ejemplo Extendido</value>
-        <value xml:lang="fr">Exemples étendus</value>
-        <value xml:lang="hi-IN">उदाहरण Ext</value>
-        <value xml:lang="it">Esempi est.</value>
-        <value xml:lang="ja">サンプル拡張</value>
-        <value xml:lang="pt-BR">Exemplo Ext</value>
-        <value xml:lang="ru">Пример ext</value>
-        <value xml:lang="th">ตัวอย่างพิเศษ</value>
-        <value xml:lang="vi">Ví dụ mở rộng</value>
-        <value xml:lang="zh">样例扩展</value>
-        <value xml:lang="zh-TW">擴充範例</value>
-    </property>
     <property key="ExternalOrganisation">
         <value xml:lang="en">External Organisation</value>
         <value xml:lang="es">Organización externa</value>
