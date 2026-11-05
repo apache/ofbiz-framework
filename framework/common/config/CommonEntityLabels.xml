@@ -22012,18 +22012,6 @@
         <value xml:lang="zh">浅灰－浮动样式，视觉阻挡，双向</value>
         <value xml:lang="zh-TW">淺灰－浮動式,視障殘疾人專用,雙向</value>
     </property>
-    <property key="VisualTheme.description.MULTIFLEX">
-        <value xml:lang="cs">Alternativní téma pro eShop</value>
-        <value xml:lang="en">Alternative VisualTheme for Ecommerce</value>
-        <value xml:lang="es">Tema visual alternativo para comercio electrónico</value>
-        <value xml:lang="fr">Une alternative pour le theme de base du module de commerce électronique</value>
-        <value xml:lang="ja">マルチフレックス: 別のEコマース向けテーマ</value>
-        <value xml:lang="pt-BR">Alternativa para VisualTheme Ecommerce</value>
-        <value xml:lang="ru">Альтернативная Визуальная Тема для электронной коммерции</value>
-        <value xml:lang="vi">Giao diện trực quan thay thế khác cho trang thương mại điện tử</value>
-        <value xml:lang="zh">电子商务的替代视觉风格</value>
-        <value xml:lang="zh-TW">電子商務的替代視覺風格</value>
-    </property>
     <property key="VisualTheme.description.HELVETICUS_AMBER">
         <value xml:lang="en">: a Rainbowstone evolution in orange</value>
         <value xml:lang="fr"> : une évolution de Rainbowstone en orange</value>
