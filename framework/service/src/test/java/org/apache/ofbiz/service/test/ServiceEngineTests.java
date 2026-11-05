@@ -58,15 +58,4 @@ public class ServiceEngineTests implements JupiterTestHelper {
         assertEquals("other", result.get("message"));
     }
 
-    /**
-     * Test a basic clojure invocation
-     * @throws Exception the exception
-     */
-    @Test
-    @Order(3)
-    public void testBasicClojureInvocation() throws Exception {
-        Map<String, Object> result = getDispatcher().runSync("testClojureSvc", UtilMisc.toMap("message", "Unit Test"));
-        assertEquals(ModelService.RESPOND_SUCCESS, result.get(ModelService.RESPONSE_MESSAGE), "Service result success");
-    }
-
 }

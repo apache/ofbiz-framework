@@ -267,9 +267,6 @@ allprojects {
             url = 'https://packages.atlassian.com/maven-3rdparty/'
         }
         maven {
-            url = 'https://clojars.org/repo'
-        }
-        maven {
             url = "https://artifacts.alfresco.com/nexus/content/repositories/public/"
         }
         /* maven {

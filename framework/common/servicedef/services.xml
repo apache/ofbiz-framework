@@ -45,10 +45,6 @@ under the License.
             location="org.apache.ofbiz.common.CommonServices" invoke="echoService">
         <description>Echoes back all passed parameters</description>
     </service>
-    <service name="echoClojureService" engine="clojure" validate="false"
-             location="org.apache.ofbiz.common.clojure-test" invoke="echo-service">
-        <description>Echoes back all passed parameters</description>
-    </service>
     <service name="returnErrorService" engine="java" validate="false"
             location="org.apache.ofbiz.common.CommonServices" invoke="returnErrorService">
         <description>Always returns error</description>

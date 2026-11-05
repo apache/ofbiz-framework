@@ -81,6 +81,10 @@ the same pull request.
   ([#1357](https://github.com/apache/ofbiz-framework/pull/1357)).
 * Service definitions: the `action` attribute of `<service>` is removed from `services.xsd`
   ([#1354](https://github.com/apache/ofbiz-framework/pull/1354)).
+* `serviceengine.xml`: the `clojure` engine is removed
+  ([OFBIZ-13798](https://issues.apache.org/jira/browse/OFBIZ-13798)). Services declared with `engine="clojure"` no
+  longer load; port them to Groovy or Java, or keep `StandardClojureEngine` from release24.09 in your own plugin
+  with the `org.clojure:clojure` dependency and an `<engine>` entry.
 * Entity definitions: `encrypt="salt"` is removed; use `encrypt="true"`, which now gives the same randomized
   encryption ([#2055](https://github.com/apache/ofbiz-framework/pull/2055)).
 * Widgets: `<if-entity-permission>` is removed from `widget-common.xsd`

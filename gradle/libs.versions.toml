@@ -66,7 +66,6 @@ axis2 = "2.0.1"
 # Shared by batik-anim, batik-util, batik-bridge.
 batik = "1.20"
 fop = "2.12"
-clojure = "1.12.6"
 groovy-all = "6.0.0"
 # Remember to change the version number in FreeMarkerWorker class when upgrading. See OFBIZ-10019 if >= 2.4
 freemarker = "2.3.35"
@@ -160,7 +159,6 @@ batik-anim = { module = "org.apache.xmlgraphics:batik-anim", version.ref = "bati
 batik-util = { module = "org.apache.xmlgraphics:batik-util", version.ref = "batik" }
 batik-bridge = { module = "org.apache.xmlgraphics:batik-bridge", version.ref = "batik" }
 fop = { module = "org.apache.xmlgraphics:fop", version.ref = "fop" }
-clojure = { module = "org.clojure:clojure", version.ref = "clojure" }
 groovy-all = { module = "org.apache.groovy:groovy-all", version.ref = "groovy-all" }
 freemarker = { module = "org.freemarker:freemarker", version.ref = "freemarker" }
 esapi = { module = "org.owasp.esapi:esapi", version.ref = "esapi" }
