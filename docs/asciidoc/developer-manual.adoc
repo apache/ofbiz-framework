@@ -101,6 +101,62 @@ The only difference is that core applications reside in the "applications" folde
 whereas plugins reside in the "plugins" folder; also OFBiz does not ship with
 plugins by default.
 
+==== Extending a component without modifying it
+
+Customisations are easier to upgrade when they live in your own component and
+leave the original untouched. A new component can reuse another one and replace
+only what it needs to change.
+
+Reuse a webapp's requests and override one view in your component's
+`controller.xml`. The definitions of the including controller take precedence
+over the included ones, so the included requests stay and only `EditExample`
+renders your screen:
+
+[source,xml]
+----
+<site-conf ...>
+    <include location="component://example/webapp/example/WEB-INF/controller.xml"/>
+    <view-map name="EditExample" type="screen"
+        page="component://mycomponent/widget/ExampleScreens.xml#EditExampleExt"/>
+</site-conf>
+----
+
+Extend a form instead of copying it. A field with the same name as a field of
+the extended form is merged into it; other fields are added:
+
+[source,xml]
+----
+<form name="EditExampleExt" extends="EditExample"
+    extends-resource="component://example/widget/example/ExampleForms.xml">
+    <field name="exampleText"><display/></field>
+</form>
+----
+
+Menus extend the same way, with `extends` and `extends-resource` on `<menu>`.
+To use an extended menu, point the webapp's `mainMenuLocation` context
+parameter in `web.xml` at your menus file.
+
+Wrap the original decorator so your screens keep the original layout and you
+can add actions such as extra label resources:
+
+[source,xml]
+----
+<screen name="main-decorator">
+    <section>
+        <actions>
+            <property-map resource="MyComponentUiLabels" map-name="uiLabelMap" global="true"/>
+        </actions>
+        <widgets>
+            <include-screen name="main-decorator"
+                location="component://example/widget/example/CommonScreens.xml"/>
+        </widgets>
+    </section>
+</screen>
+----
+
+Set the webapp's `mainDecoratorLocation` context parameter to your
+`CommonScreens.xml` so that the included screens pick up your decorator.
+
 === Example workflow
 
 Many basic concepts were explained so far. An example would help in putting
