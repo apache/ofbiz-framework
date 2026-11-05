@@ -132,4 +132,37 @@ class OrderRequirementTests implements JupiterTestHelper {
         assert ServiceUtil.isSuccess(serviceResult)
     }
 
+    // createRequirementRole's in-validate eca rejects a party/role combination the party does not
+    // already hold, before it reaches ensurePartyRole (which would otherwise silently create a
+    // spurious PartyRole). DemoCustomer's seeded PartyRole set (OrderDemoData.xml) is exactly
+    // {BILL_TO_CUSTOMER, CONTACT, CUSTOMER, END_USER_CUSTOMER, PLACING_CUSTOMER, SHIP_TO_CUSTOMER} --
+    // CARRIER is provably not among them.
+    @Test
+    @Order(8)
+    void testCreateRequirementRole_rejectsRoleThePartyDoesNotHold() {
+        String requirementId = testParams.requirementId ?: '1000'
+        Map serviceCtx = [
+            requirementId: requirementId,
+            partyId: 'DemoCustomer',
+            roleTypeId: 'CARRIER',
+            userLogin: userLogin
+        ]
+        Map serviceResult = dispatcher.runSync('createRequirementRole', serviceCtx)
+        assert ServiceUtil.isError(serviceResult)
+    }
+
+    @Test
+    @Order(9)
+    void testCreateRequirementRole_allowsRoleThePartyAlreadyHolds() {
+        String requirementId = testParams.requirementId ?: '1000'
+        Map serviceCtx = [
+            requirementId: requirementId,
+            partyId: 'DemoCustomer',
+            roleTypeId: 'CUSTOMER',
+            userLogin: userLogin
+        ]
+        Map serviceResult = dispatcher.runSync('createRequirementRole', serviceCtx)
+        assert ServiceUtil.isSuccess(serviceResult)
+    }
+
 }
