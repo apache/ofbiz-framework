@@ -608,8 +608,8 @@ Create an admin user with login name MyUserName and default password with value
 
 #### Compile Java without using Xlint output
 
-By default Xlint prints output of all warnings detected by the compiler, if you
-want to silence them
+By default Xlint prints output of all warnings detected by the compiler, and any
+warning fails the build. If you want to silence them and let the build pass
 
 `gradlew -PXlint:none build`
 
