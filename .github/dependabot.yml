@@ -46,10 +46,6 @@ updates:
         versions: [">= 5"]
       - dependency-name: "org.asciidoctor.jvm.pdf"
         versions: [">= 5"]
-      # activiti-juel-jakarta 9.0.0 is compiled for Java 25, above our Java 17
-      # baseline.
-      - dependency-name: "org.activiti:activiti-juel-jakarta"
-        versions: [">= 9"]
 
   - package-ecosystem: "gradle"
     directory: "/"
