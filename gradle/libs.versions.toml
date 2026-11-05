@@ -56,13 +56,13 @@ shiro = "3.0.1"
 # Shared by sshd-core, sshd-sftp.
 sshd = "2.20.1"
 # Shared by tika-core, tika-parser-pdf-module.
-tika = "4.1.0"
+tika = "4.2.0"
 cxf-rt-frontend-jaxrs = "4.2.4"
 # Remember to change the version number (11 now) in javadoc block if needed. Shared by
 # tomcat-catalina-ha, tomcat-dbcp, tomcat-jasper.
 tomcat = "11.0.27"
 # Shared by axis2-kernel, axis2-transport-http, axis2-transport-local.
-axis2 = "2.0.1"
+axis2 = "2.0.2"
 # Shared by batik-anim, batik-util, batik-bridge.
 batik = "1.20"
 fop = "2.12"
@@ -81,7 +81,7 @@ swagger = "2.2.55"
 oro = "2.0.8"
 wsdl4j = "1.6.3"
 java-jwt = "4.6.2"
-jwks-rsa = "0.24.1"
+jwks-rsa = "0.24.2"
 jdom2 = "2.0.6.1"
 re2j = "1.8"
 xerces-impl = "2.12.2"
