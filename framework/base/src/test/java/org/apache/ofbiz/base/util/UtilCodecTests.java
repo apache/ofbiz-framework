@@ -31,7 +31,7 @@ import org.junit.jupiter.api.Test;
 public class UtilCodecTests {
 
     // sentinel locale used because labels are not available in the testClasses Gradle task
-    private static final Locale TEST_LOCALE = new Locale("test");
+    private static final Locale TEST_LOCALE = Locale.of("test");
 
     @Test
     public void canonicalizeRevealsEscapedXSS() {

@@ -134,7 +134,7 @@ public class OfbizNumberTransform implements TemplateTransformModel {
                             localeObj = env.getLocale();
                         }
                     } else {
-                        localeObj = new Locale(locale);
+                        localeObj = Locale.of(locale);
                     }
                     out.write(UtilFormatOut.formatNumber(number, format, delegator, localeObj));
                 } catch (TemplateModelException e) {
