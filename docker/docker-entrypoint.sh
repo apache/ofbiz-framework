@@ -109,8 +109,6 @@
 set -x
 set -e
 
-trap shutdown_ofbiz SIGTERM SIGINT
-
 CONTAINER_STATE_DIR="/ofbiz/runtime/container_state"
 CONTAINER_DATA_LOADED="$CONTAINER_STATE_DIR/data_loaded"
 CONTAINER_ADMIN_LOADED="$CONTAINER_STATE_DIR/admin_loaded"
@@ -354,12 +352,6 @@ configure_database() {
 
     touch "$CONTAINER_DB_CONFIG_APPLIED"
   fi
-}
-
-###############################################################################
-# Send a shutdown signal to OFBiz
-shutdown_ofbiz() {
-  /ofbiz/send_ofbiz_stop_signal.sh
 }
 
 _main() {
