@@ -52,11 +52,6 @@ under the License.
 
 <!-- v v OK see remark about OWASP advice at bottom of OFBIZ-9973 -->
   <Match>
-    <Class name="org.apache.ofbiz.pricat.PricatParseExcelHtmlThread" />
-    <Method name="storePricatFile" />
-    <Bug pattern="NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE" />
-  </Match>
-  <Match>
     <Class name="org.apache.ofbiz.security.SecuredUpload" />
     <Method name="isValidFileName" />
     <Bug pattern="NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE" />
