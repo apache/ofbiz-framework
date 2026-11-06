@@ -51,10 +51,10 @@ public final class EntityFieldMap extends EntityConditionListBase<EntityExpr> {
      */
     private static <V> List<EntityExpr> makeConditionList(Map<String, V> fieldMap, EntityComparisonOperator<?, V> op) {
         return (fieldMap == null)
-            ? Collections.emptyList()
-            : fieldMap.entrySet().stream()
-                      .map(entry -> EntityCondition.makeCondition(entry.getKey(), op, entry.getValue()))
-                      .collect(Collectors.toList());
+                ? Collections.emptyList()
+                : fieldMap.entrySet().stream()
+                          .map(entry -> EntityCondition.makeCondition(entry.getKey(), op, entry.getValue()))
+                          .collect(Collectors.toList());
     }
 
     /**

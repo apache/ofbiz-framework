@@ -2339,8 +2339,8 @@ public final class ModelFormField {
                     formatVal = this.format.expandString(context);
                 } else {
                     formatVal = this.type.endsWith("-number")
-                        ? this.type.replaceFirst("-number", "")
-                        : "default";
+                            ? this.type.replaceFirst("-number", "")
+                            : "default";
                 }
                 Delegator delegator = (Delegator) context.get("delegator");
                 try {
@@ -6194,9 +6194,9 @@ public final class ModelFormField {
                 this.defaultOption = UtilProperties.getPropertyValue("widget", "widget.form.defaultTextFindOption", "contains");
             }
             this.hideIgnoreCase = "true".equals(element.getAttribute("hide-options"))
-                || "ignore-case".equals(element.getAttribute("hide-options"));
+                    || "ignore-case".equals(element.getAttribute("hide-options"));
             this.hideOptions = "true".equals(element.getAttribute("hide-options"))
-                || "options".equals(element.getAttribute("hide-options"));
+                    || "options".equals(element.getAttribute("hide-options"));
             this.ignoreCase = "true".equals(element.getAttribute("ignore-case"));
         }
 
