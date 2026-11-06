@@ -238,6 +238,55 @@ under the License.
         </section>
     </screen>
 
+    <screen name="EditAgreementAttributes">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditAgreementAttributes"/>
+                <set field="tabButtonItem" value="AgreementAttributes"/>
+                <set field="agreementId" from-field="parameters.agreementId"/>
+                <entity-one entity-name="Agreement" value-field="agreement"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonAgreementDecorator" location="${parameters.agreementDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet id="AgreementAttributePanel" title="${uiLabelMap.CommonAdd} ${uiLabelMap.CommonAttribute}" collapsible="true">
+                            <include-form name="AddAgreementAttribute" location="component://accounting/widget/AgreementForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.PageTitleEditAgreementAttributes}">
+                            <include-grid name="ListAgreementAttributes" location="component://accounting/widget/AgreementForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="EditAgreementItemAttributes">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditAgreementItemAttributes"/>
+                <set field="tabButtonItem" value="AgreementItems"/>
+                <set field="buttonBarItem" value="EditAgreementItemAttributes"/>
+                <set field="agreementId" from-field="parameters.agreementId"/>
+                <set field="agreementItemSeqId" from-field="parameters.agreementItemSeqId"/>
+                <entity-one entity-name="Agreement" value-field="agreement"/>
+                <entity-one entity-name="AgreementItem" value-field="agreementItem"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonAgreementDecorator" location="${parameters.agreementDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet id="AgreementItemAttributePanel" title="${uiLabelMap.CommonAdd} ${uiLabelMap.CommonAttribute}" collapsible="true">
+                            <include-form name="AddAgreementItemAttribute" location="component://accounting/widget/AgreementForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.PageTitleEditAgreementItemAttributes}">
+                            <include-grid name="ListAgreementItemAttributes" location="component://accounting/widget/AgreementForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
     <screen name="EditAgreementContents">
         <section>
             <actions>

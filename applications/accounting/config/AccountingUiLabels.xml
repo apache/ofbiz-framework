@@ -20988,6 +20988,9 @@
         <value xml:lang="en">Add Agreement Content</value>
         <value xml:lang="fr">Ajout de contenu à l'accord commercial</value>
     </property>
+    <property key="PageTitleEditAgreementAttributes">
+        <value xml:lang="en">Agreement Attributes</value>
+    </property>
     <property key="PageTitleEditAgreementGeographicalApplic">
         <value xml:lang="de">Standort Vereinbarung bearbeiten</value>
         <value xml:lang="en">Edit Agreement Geographical Applic</value>
@@ -21074,6 +21077,9 @@
         <value xml:lang="vi">Chỉnh sửa Quy ước</value>
         <value xml:lang="zh">编辑合同条款条件</value>
         <value xml:lang="zh-TW">修改合約條款條件</value>
+    </property>
+    <property key="PageTitleEditAgreementItemAttributes">
+        <value xml:lang="en">Agreement Item Attributes</value>
     </property>
     <property key="PageTitleEditAgreementItemFacility">
         <value xml:lang="de">Vereinbarungsposition Anlage bearbeiten</value>
