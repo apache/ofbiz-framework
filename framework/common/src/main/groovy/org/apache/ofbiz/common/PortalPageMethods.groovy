@@ -23,7 +23,7 @@ import org.apache.ofbiz.entity.GenericValue
 /** Duplicate content of portalPage, portalPageColumn, portalPagePortlet, portletAttribute,
  *        this method should be call with portalpageId and portalPage in context-->
  */
-String duplicatePortalPage() {
+Map duplicatePortalPage() {
     GenericValue portalPage = from('PortalPage').where(parameters).queryOne()
     Map createPage = [*: portalPage.getAllFields(),
                       portalPageId: null,
@@ -38,7 +38,7 @@ String duplicatePortalPage() {
 /**
  * Sets a PortalPortlet attributes
  */
-String setPortalPortletAttributes() {
+Map setPortalPortletAttributes() {
     if (parameters) {
         delete('PortletAttribute').where([portalPageId: parameters.portalPageId,
                                           portalPortletId: parameters.portalPortletId,
@@ -68,7 +68,7 @@ String setPortalPortletAttributes() {
 /**
  * Check if the page is a system page, then copy before allowing
  */
-String copyIfRequiredSystemPage() {
+Map copyIfRequiredSystemPage() {
     GenericValue portalPage = from('PortalPage').where(parameters).cache().queryOne()
             ?: from('PortalPage').where(portalPageId: parameters.parentPortalPageId).cache().queryOne()
     if (portalPage && portalPage.ownerUserLoginId == '_NA_' && from('PortalPage')
