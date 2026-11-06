@@ -152,6 +152,13 @@ updates:
     directory: /
     schedule:
       interval: weekly
+    ignore:
+      # The Java major version is upgraded by hand. Without this rule Dependabot
+      # only proposes the next major and never refreshes the digest pinned for
+      # the current one, so the image keeps an outdated JDK.
+      - dependency-name: "eclipse-temurin"
+        update-types:
+          - "version-update:semver-major"
 
   - package-ecosystem: docker
     directory: /
@@ -162,3 +169,8 @@ updates:
       - "release_branch"
     schedule:
       interval: weekly
+    ignore:
+      # release24.09 stays on Java 17: keep its digest current instead.
+      - dependency-name: "eclipse-temurin"
+        update-types:
+          - "version-update:semver-major"
