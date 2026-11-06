@@ -49,10 +49,16 @@ public class EntityJoinOperator extends EntityOperator<EntityCondition, EntityCo
     @Override
     public void addSqlValue(StringBuilder sql, ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams, boolean compat,
                             EntityCondition lhs, EntityCondition rhs, Datasource datasourceInfo) {
+        addSqlValue(sql, modelEntity, entityConditionParams, compat, lhs, rhs, datasourceInfo, null);
+    }
+
+    @Override
+    public void addSqlValue(StringBuilder sql, ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams, boolean compat,
+                            EntityCondition lhs, EntityCondition rhs, Datasource datasourceInfo, Delegator delegator) {
         List<EntityCondition> conditions = new LinkedList<>();
         conditions.add(lhs);
         conditions.add(rhs);
-        addSqlValue(sql, modelEntity, entityConditionParams, conditions, datasourceInfo);
+        addSqlValue(sql, modelEntity, entityConditionParams, conditions, datasourceInfo, delegator);
     }
 
     /**

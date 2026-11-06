@@ -143,7 +143,7 @@ public final class EntityExpr implements EntityCondition {
             Datasource datasourceInfo, Delegator delegator) {
         checkRhsType(modelEntity, delegator);
         StringBuilder sql = new StringBuilder();
-        operator.addSqlValue(sql, modelEntity, entityConditionParams, true, lhs, rhs, datasourceInfo);
+        operator.addSqlValue(sql, modelEntity, entityConditionParams, true, lhs, rhs, datasourceInfo, delegator);
         return sql.toString();
     }
 
@@ -179,7 +179,7 @@ public final class EntityExpr implements EntityCondition {
      * @param delegator the delegator used to check the condition expression
      */
     public void checkRhsType(ModelEntity modelEntity, Delegator delegator) {
-        if (EntityExpr.isNullField(rhs) || modelEntity == null || delegator == null) {
+        if (EntityExpr.isNullField(rhs) || modelEntity == null) {
             return;
         }
 
@@ -199,8 +199,6 @@ public final class EntityExpr implements EntityCondition {
             }
         }
 
-        Delegator deleg = delegator;
-
         String fieldName = null;
         ModelField curField;
         if (lhs instanceof EntityFieldValue) {
@@ -216,6 +214,11 @@ public final class EntityExpr implements EntityCondition {
             String msg = "FieldName " + fieldName + " not found for entity: " + modelEntity.getEntityName();
             throw new IllegalArgumentException(msg);
         }
+        // The type checks below need the delegator running the query, so skip them when it isn't available
+        if (delegator == null) {
+            return;
+        }
+        Delegator deleg = delegator;
         ModelFieldType type = null;
         try {
             type = deleg.getEntityFieldType(modelEntity, curField.getType());
