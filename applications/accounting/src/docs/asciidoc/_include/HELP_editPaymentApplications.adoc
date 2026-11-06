@@ -43,7 +43,7 @@ The following options are currently available from this screen:
   (NOTE: If no open invoices exist for the party that is sending the payment then this may not list any invoices)
 . Press the 'Apply' button next to the invoice (or invoices) that this payment is for
 
-NOTE: Although it can be overriden the 'Amount to Apply' field will default to the lesser of the invoice total or
+NOTE: Although it can be overridden the 'Amount to Apply' field will default to the lesser of the invoice total or
      the payment amount.
 
 This can be shown by examples as follows:
