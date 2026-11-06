@@ -2261,7 +2261,7 @@ under the License.
         <field name="thruDate" title="${uiLabelMap.ProductDealEndDate}" required-field="true"><date-time/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="ListProductTag" list-name="productKeywordList" type="multi" target="updateProductTag" paginate-target="EditProductTag"
+    <form name="ListProductTag" list-name="productKeywordList" type="multi" use-row-submit="true" target="updateProductTag" paginate-target="EditProductTag"
         odd-row-style="alternate-row" default-table-style="basic-table" separate-columns="true">
         <actions>
             <entity-condition entity-name="ProductKeyword" list="productKeywordList">
