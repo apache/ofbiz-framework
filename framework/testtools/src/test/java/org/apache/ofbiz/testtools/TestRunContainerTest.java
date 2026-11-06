@@ -18,6 +18,9 @@
  *******************************************************************************/
 package org.apache.ofbiz.testtools;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
 
@@ -202,6 +205,18 @@ class TestRunContainerTest {
         List<SuiteEntry> entries = List.of(new SuiteEntry.Junit3Entry(new NamedCase("dataLoad")));
 
         assertDoesNotThrow(() -> TestRunContainer.validateMethodAppliesToSuite(null, "partytests", entries));
+    }
+
+    @Test
+    void markRunCompletedWritesTheCompletionMarkerFile() throws IOException {
+        Path marker = Path.of(TestRunContainer.RUN_COMPLETED_MARKER);
+        Files.createDirectories(marker.getParent());
+        Files.deleteIfExists(marker);
+
+        TestRunContainer.markRunCompleted();
+
+        assertThat(Files.exists(marker), is(true));
+        Files.deleteIfExists(marker);
     }
 
     static class NamedCase extends TestCase {
