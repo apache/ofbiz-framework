@@ -18,7 +18,9 @@
 */
 package org.apache.ofbiz.common
 
+import org.apache.ofbiz.base.util.UtilHttp
 import org.apache.ofbiz.entity.GenericValue
+import org.apache.ofbiz.security.CsrfUtil
 
 /** Duplicate content of portalPage, portalPageColumn, portalPagePortlet, portletAttribute,
  *        this method should be call with portalpageId and portalPage in context-->
@@ -43,8 +45,10 @@ String setPortalPortletAttributes() {
         delegator.removeByAnd('PortletAttribute', [portalPageId: parameters.portalPageId,
                                                    portalPortletId: parameters.portalPortletId,
                                                    portletSeqId: parameters.portletSeqId])
-        List skipField = ['portalPageId', 'portalPortletId', 'portletSeqId']
-        parameters.each {
+        List skipField = ['portalPageId', 'portalPortletId', 'portletSeqId', CsrfUtil.getTokenNameNonAjax()]
+        // for an event, parameters also holds the request, session and servlet-context attributes:
+        // only the submitted form fields are portlet attributes
+        UtilHttp.getParameterMap(request).each {
             if (skipField.contains(it.key) || !it.value) {
                 return
             }
