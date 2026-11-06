@@ -60,9 +60,9 @@ RUN --mount=type=cache,id=gradle-cache,sharing=locked,target=/root/.gradle \
 FROM eclipse-temurin:25@sha256:83f4a7fc27df94dcc7b8de04d14cbbba8da14406f921e966969c3b09000aa507 AS runtimebase
 
 # xsltproc is used to disable OFBiz components during first run.
-# curl is used by send_ofbiz_stop_signal.sh, and wget by docker-entrypoint.sh to download the PostgreSQL driver.
+# wget is used by docker-entrypoint.sh to download the PostgreSQL driver.
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends xsltproc curl wget \
+    && apt-get install -y --no-install-recommends xsltproc wget \
     && rm -rf /var/lib/apt/lists/*
 
 RUN ["useradd", "ofbiz"]
@@ -92,7 +92,7 @@ RUN echo '${uiLabelMap.CommonJavaVersion}:' "$(java --version | grep Runtime | s
 
 # Leave executable scripts owned by root and non-writable, addressing sonarcloud rule,
 # https://sonarcloud.io/organizations/apache/rules?open=docker%3AS6504&rule_key=docker%3AS6504
-COPY --chmod=555 docker/docker-entrypoint.sh docker/send_ofbiz_stop_signal.sh .
+COPY --chmod=555 docker/docker-entrypoint.sh .
 
 COPY --chmod=444 docker/disable-component.xslt .
 
