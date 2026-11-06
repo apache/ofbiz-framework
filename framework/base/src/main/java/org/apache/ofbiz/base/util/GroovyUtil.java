@@ -25,6 +25,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.script.ScriptContext;
 
@@ -65,6 +66,11 @@ public final class GroovyUtil {
             CompilerConfiguration sandboxedConf = new CompilerConfiguration();
             sandboxedConf.setScriptBaseClass(scriptBaseClass);
             sandboxedConf.addCompilationCustomizers(buildSecureAstCustomizer());
+            // Disable the Grape/@Grab AST transform so a sandboxed script cannot resolve and load
+            // arbitrary artifacts at compile time. The class name is referenced as a constant so an
+            // upstream rename breaks the build rather than silently re-enabling Grab.
+            sandboxedConf.setDisabledGlobalASTTransformations(
+                    Set.of(groovy.grape.GrabAnnotationTransformation.class.getName()));
             sandboxedClassLoader = new GroovyClassLoader(GroovyUtil.class.getClassLoader(), sandboxedConf);
 
             // Used by parseClass(InputStream, location): compiles *.groovy files resolved from a component://
@@ -83,6 +89,8 @@ public final class GroovyUtil {
     static {
         SANDBOXED_COMPILER_CONFIG = new CompilerConfiguration();
         SANDBOXED_COMPILER_CONFIG.addCompilationCustomizers(buildSecureAstCustomizer());
+        SANDBOXED_COMPILER_CONFIG.setDisabledGlobalASTTransformations(
+                Set.of(groovy.grape.GrabAnnotationTransformation.class.getName()));
     }
 
     /**

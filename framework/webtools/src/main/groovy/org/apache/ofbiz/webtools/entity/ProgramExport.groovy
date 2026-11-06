@@ -243,15 +243,13 @@ if (security.hasPermission('ENTITY_MAINT', session)) {
     importCustomizer.addImport('org.apache.ofbiz.entity.condition.EntityOperator')
     importCustomizer.addImport('org.apache.ofbiz.entity.util.EntityQuery')
 
-    // AST TRANSFORMATION BLOCKING - Disable Grape/Grab
+    // AST TRANSFORMATION BLOCKING - Disable Grape/Grab. The transform class name is referenced as a
+    // constant so an upstream rename breaks the build rather than silently leaving Grab enabled; the
+    // previous string 'org.codehaus.groovy.transform.GrabAnnotationTransformation' never matched the
+    // actual class (groovy.grape.GrabAnnotationTransformation), so the disable was a no-op.
     CompilerConfiguration configuration = new CompilerConfiguration()
-    try {
-        Class grabTransform = Thread.currentThread().contextClassLoader
-                .loadClass('org.codehaus.groovy.transform.GrabAnnotationTransformation')
-        configuration.setDisabledGlobalASTTransformations(
-                [grabTransform.name] as Set)
-    } catch (ClassNotFoundException ignored) {
-    }
+    configuration.setDisabledGlobalASTTransformations(
+            [groovy.grape.GrabAnnotationTransformation.name] as Set)
     configuration.addCompilationCustomizers(importCustomizer)
     configuration.addCompilationCustomizers(secureCustomizer)
 
