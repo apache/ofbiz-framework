@@ -17,6 +17,16 @@
  * under the License.
  */
 
+// Plugin libraries are resolved with the root project's repositories, so a
+// repositories {} block in this file is ignored. To use a library from another
+// repository, add that repository to the root project, limited to its groups:
+//rootProject.repositories {
+//    maven {
+//        url = 'https://repo.example.com/maven/'
+//        content { includeGroup 'com.example' }
+//    }
+//}
+
 dependencies {
     //Examples of compile-time and runtime dependencies
 

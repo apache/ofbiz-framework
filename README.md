@@ -753,6 +753,29 @@ Create a new plugin. The following project parameters are passed:
 
 The above command creates a new plugin in /plugins/myplugin
 
+### Declare plugin dependencies
+
+A plugin declares the libraries it needs in its own build.gradle with the
+`pluginLibsCompile`, `pluginLibsRuntime` and `pluginLibsCompileOnly`
+configurations. Plugin sources are compiled by the root project, so these
+libraries are resolved with the root project's repositories, and a
+`repositories {}` block in the plugin's build.gradle is ignored. A plugin that
+needs a library from a repository the root build does not declare adds that
+repository to the root project, preferably restricted to the groups it serves:
+
+```groovy
+rootProject.repositories {
+    maven {
+        url = 'https://repo.example.com/maven/'
+        content { includeGroup 'com.example' }
+    }
+}
+
+dependencies {
+    pluginLibsCompile 'com.example:mylib:1.0.0'
+}
+```
+
 ### Push a plugin to a repository
 
 This task publishes an OFBiz plugin into a maven package and then uploads it to
