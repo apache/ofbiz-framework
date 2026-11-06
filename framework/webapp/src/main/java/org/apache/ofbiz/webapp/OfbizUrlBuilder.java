@@ -24,6 +24,7 @@ import java.net.URL;
 import jakarta.servlet.http.HttpServletRequest;
 
 import org.apache.ofbiz.base.component.ComponentConfig.WebappInfo;
+import org.apache.ofbiz.base.start.Start;
 import org.apache.ofbiz.base.util.Assert;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
@@ -178,7 +179,8 @@ public final class OfbizUrlBuilder {
             if (!webSiteProps.getHttpsPort().isEmpty()) {
                 buffer.append(":").append(webSiteProps.getHttpsPort());
             } else if ("localhost".equals(server)) {
-                buffer.append(":").append("8443"); // We suppose that when localhost is used the default secure port is 8443
+                // We suppose that when localhost is used the default secure port is 8443, moved by the port offset
+                buffer.append(":").append(String.valueOf(8443 + Start.getInstance().getConfig().getPortOffset()));
             }
         } else {
             String server = webSiteProps.getHttpHost();
