@@ -170,6 +170,10 @@ public final class WebSiteProperties {
     }
 
     private String addPortOffset(String port, int offset) {
+        if (port.isEmpty()) {
+            // not configured, the port is taken from the request or a default later on
+            return port;
+        }
         Integer value = Integer.valueOf(port);
         value += offset;
         return value.toString();
