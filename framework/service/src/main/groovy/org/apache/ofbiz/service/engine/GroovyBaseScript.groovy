@@ -112,7 +112,6 @@ abstract class GroovyBaseScript extends Script {
         return from(entityName).where(fields).cache(useCache).queryOne()
     }
 
-    /* codenarc-disable NoDef, MethodReturnTypeRequired */
     Map success(Map returnValues) {
         return success(null, returnValues)
     }
@@ -124,7 +123,8 @@ abstract class GroovyBaseScript extends Script {
     }
     Map success(String message = '', Map returnValues = [:]) {
         if (this.binding.hasVariable('request')) {
-            // the script is invoked as an "event"
+            // the script is invoked as an "event": the request carries the message and the
+            // values, and the returned map carries the response code (see GroovyEventHandler)
             if (message) {
                 this.binding.getVariable('request').setAttribute('_EVENT_MESSAGE_', message)
             }
@@ -133,7 +133,7 @@ abstract class GroovyBaseScript extends Script {
                     this.binding.getVariable('request').setAttribute(it.getKey(), it.getValue())
                 }
             }
-            return 'success'
+            return [_response_code_: 'success']
         }
         // the script is invoked as a "service"
         Map result = message ? ServiceUtil.returnSuccess(message) : ServiceUtil.returnSuccess()
@@ -142,7 +142,6 @@ abstract class GroovyBaseScript extends Script {
         }
         return result
     }
-    /* codenarc-enable */
     Map failure(String resource, String key, Map returnValues = [:]) {
         return failure(label(resource, key), returnValues)
     }
@@ -161,21 +160,19 @@ abstract class GroovyBaseScript extends Script {
     Map error(String resource, String key, Map context) {
         return error(label(resource, key, context))
     }
-    /* codenarc-disable NoDef, MethodReturnTypeRequired */
     Map error(String message) {
         if (this.binding.hasVariable('request')) {
-            // the script is invoked as an "event"
+            // the script is invoked as an "event", see success()
             if (message) {
                 this.binding.getVariable('request').setAttribute('_ERROR_MESSAGE_', message)
             }
-            return 'error'
+            return [_response_code_: 'error']
         }
         if (message) {
             return ServiceUtil.returnError(message)
         }
         return ServiceUtil.returnError()
     }
-    /* codenarc-enable */
 
     void logInfo(String message) {
         Debug.logInfo(message, getModule())

@@ -28,6 +28,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
 
+import org.apache.ofbiz.base.util.GroovyUtil;
 import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
@@ -38,10 +39,14 @@ import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.service.ServiceUtil;
 import org.apache.ofbiz.testtools.JunitJupiterTest;
 import org.apache.ofbiz.testtools.JupiterTestHelper;
+import org.codehaus.groovy.runtime.InvokerHelper;
 import org.junit.jupiter.api.Test;
+import org.springframework.mock.web.MockHttpServletRequest;
 
 @JunitJupiterTest
 public class GroovyDslServiceEngineTests implements JupiterTestHelper {
+
+    private static final String TEST_SERVICES_LOCATION = "component://service/src/main/groovy/org/apache/ofbiz/service/test/TestServices.groovy";
 
     @Test
     public final void testGroovyServices() throws Exception {
@@ -70,6 +75,31 @@ public class GroovyDslServiceEngineTests implements JupiterTestHelper {
         result = getDispatcher().runSync("testGroovyPingErrorWithDSLCall", pingMap, 60, true);
         assertTrue(ServiceUtil.isError(result));
         assertEquals("Service result error", result.get(ModelService.ERROR_MESSAGE));
+    }
+
+    @Test
+    public final void testGroovyPingSuccessAsEvent() throws Exception {
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        Object result = runPingAsEvent("testPingSuccess", request);
+        assertEquals("success", ((Map<?, ?>) result).get("_response_code_"));
+        assertEquals("Service result success", request.getAttribute("_EVENT_MESSAGE_"));
+    }
+
+    @Test
+    public final void testGroovyPingErrorAsEvent() throws Exception {
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        Object result = runPingAsEvent("testPingError", request);
+        assertEquals("error", ((Map<?, ?>) result).get("_response_code_"));
+        assertEquals("Service result error", request.getAttribute("_ERROR_MESSAGE_"));
+    }
+
+    /**
+     * Runs a method of the Groovy test services the way GroovyEventHandler runs an event, with the request in the binding.
+     */
+    private static Object runPingAsEvent(String method, MockHttpServletRequest request) throws Exception {
+        Map<String, Object> context = UtilMisc.toMap("request", request, "parameters", UtilMisc.toMap("ping", "Unit Test"));
+        Class<?> scriptClass = GroovyUtil.getScriptClassFromLocation(TEST_SERVICES_LOCATION);
+        return InvokerHelper.createScript(scriptClass, GroovyUtil.getBinding(context)).invokeMethod(method, null);
     }
 
     @Test
