@@ -1251,9 +1251,9 @@ public class ModelViewEntity extends ModelEntity {
         /** True when this is a plain column reference with no function or default applied. */
         public boolean isPassThrough() {
             return UtilValidate.isNotEmpty(entityAlias)
-                && UtilValidate.isNotEmpty(field)
-                && UtilValidate.isEmpty(function)
-                && UtilValidate.isEmpty(defaultValue);
+                    && UtilValidate.isNotEmpty(field)
+                    && UtilValidate.isEmpty(function)
+                    && UtilValidate.isEmpty(defaultValue);
         }
 
         @Override

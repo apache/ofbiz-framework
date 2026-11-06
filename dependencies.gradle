@@ -113,6 +113,7 @@ dependencies {
     runtimeOnly libs.log4j.jcl // need to constrain to version to avoid classpath conflict (ReflectionUtil)
 
     codenarc(libs.codenarc)
+    checkstyle(libs.checkstyle)
 
     // use constraints to update transitive dependencies
     constraints {

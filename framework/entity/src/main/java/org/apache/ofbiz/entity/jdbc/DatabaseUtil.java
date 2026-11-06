@@ -1630,7 +1630,7 @@ public class DatabaseUtil {
             ModelFieldType type = modelFieldTypeReader.getModelFieldType(field.getType());
             if (type == null) {
                 return "Field type [" + type + "] not found for field [" + field.getName() + "] of entity [" + entity.getEntityName() + "], not "
-                       + "creating table.";
+                        + "creating table.";
             }
 
             sqlBuf.append(field.getColName());
@@ -1797,7 +1797,7 @@ public class DatabaseUtil {
 
         if (type == null) {
             return "Field type [" + type + "] not found for field [" + field.getName() + "] of entity [" + entity.getEntityName() + "], not adding "
-                   + "column.";
+                    + "column.";
         }
 
         StringBuilder sqlBuf = new StringBuilder("ALTER TABLE ");
@@ -1893,7 +1893,7 @@ public class DatabaseUtil {
 
         if (type == null) {
             return "Field type [" + type + "] not found for field [" + field.getName() + "] of entity [" + entity.getEntityName() + "], not "
-                   + "renaming column.";
+                    + "renaming column.";
         }
 
         StringBuilder sqlBuf = new StringBuilder("ALTER TABLE ");
@@ -2460,7 +2460,7 @@ public class DatabaseUtil {
                 return "SQL Exception while executing the following:\n" + sqlBuf.toString() + "\nError was: " + e.toString();
             } catch (GenericEntityException e) {
                 return "Unable to establish a connection with the database for helperName [" + this.helperInfo.getHelperFullName() + "]... Error "
-                       + "was: " + e.toString();
+                        + "was: " + e.toString();
             }
         } else {
             message = "No primary-key defined for table [" + entity.getEntityName() + "]";
