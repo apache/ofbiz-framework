@@ -49,7 +49,7 @@ httpclient-cache = "4.5.14"
 # Shared by log4j-api, log4j-core, log4j-layout-template-json, log4j-legacy-api, log4j-jul,
 # log4j-slf4j2-impl, log4j-web, log4j-jcl.
 log4j = "2.26.1"
-poi = "5.5.1"
+poi = "6.0.0"
 pdfbox = "3.0.8"
 # Shared by shiro-crypto-cipher, shiro-crypto-core, shiro-lang.
 shiro = "3.0.1"
