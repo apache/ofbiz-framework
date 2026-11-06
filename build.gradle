@@ -303,6 +303,14 @@ configurations.all {
     exclude group: 'org.apache.geronimo.specs', module: 'geronimo-stax-api_1.0_spec'
     exclude group: 'org.apache.geronimo.specs', module: 'geronimo-jta_1.1_spec'
     exclude group: 'javax.transaction', module: 'jta'
+    // OFBiz never uses Groovy's @Grab, so keep both Grape resolution engines off every classpath.
+    // Without an engine a @Grab annotation cannot resolve or download anything, independent of the
+    // sandbox AST-transform guards in ProgramExport and GroovyUtil. groovy-grape-ivy is the default
+    // Ivy engine (and reaches the graph through several groovy modules, not only groovy-all, so it is
+    // excluded here rather than on a single dependency); groovy-grape-maven is the Maven Resolver 4
+    // engine Groovy 6 adds.
+    exclude group: 'org.apache.groovy', module: 'groovy-grape-ivy'
+    exclude group: 'org.apache.groovy', module: 'groovy-grape-maven'
 }
 
 dependencies {
