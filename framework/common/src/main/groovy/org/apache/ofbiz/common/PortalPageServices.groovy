@@ -172,6 +172,24 @@ Map createPortalPage() {
 }
 
 /**
+ * Update a Portal Page, only allowed to the page owner or a user with MYPORTALBASE_ADMIN.
+ * The owner of the page cannot be changed.
+ * @return Success response after update
+ */
+Map updatePortalPage() {
+    Map checkIsOwner = checkOwnerShip()
+    if (ServiceUtil.isError(checkIsOwner)) {
+        return checkIsOwner
+    }
+    GenericValue portalPage = from('PortalPage').where(portalPageId: parameters.portalPageId).queryOne()
+    String ownerUserLoginId = portalPage.ownerUserLoginId
+    portalPage.setNonPKFields(parameters, true)
+    portalPage.ownerUserLoginId = ownerUserLoginId
+    portalPage.store()
+    return success()
+}
+
+/**
  * Delete a new Portal Page
  * @return Success response after delete
  */
