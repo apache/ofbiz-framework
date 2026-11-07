@@ -217,30 +217,6 @@ under the License.
         </while>
     </simple-method>
 
-    <simple-method method-name="timesheetUpdatePermission" short-description="Check Permission to Update Timesheet">
-        <set field="parameters.mainAction" value="UPDATE"/>
-        <call-simple-method method-name="workEffortGenericPermission"/>
-        <check-errors/>
-        <if-compare-field field="parameters.partyId" operator="not-equals" to-field="userLogin.partyId">
-            <property-to-field resource="WorkEffortUiLabels" property="WorkEffortTimesheetNotInRolePermissionError" field="failMessage"/>
-            <set field="hasPermission" type="Boolean" value="false"/>
-            <field-to-result field="hasPermission"/>
-            <field-to-result field="failMessage"/>
-        </if-compare-field>
-        <if-not-empty field="workEffortId">
-            <set from-field="workEffortId" field="lookupRoleWorkEffortMap.workEffortId"/>
-            <set from-field="userLogin.partyId" field="lookupRoleWorkEffortMap.partyId"/>
-            <find-by-and entity-name="WorkEffortPartyAssignByRole" map="lookupRoleWorkEffortMap" list="roleParties"/>
-            <filter-list-by-date list="roleParties"/>
-            <if-empty field="roleParties">
-                <property-to-field resource="WorkEffortUiLabels" property="WorkEffortTimesheetNotInRolePermissionError" field="failMessage"/>
-                <set field="hasPermission" type="Boolean" value="false"/>
-                <field-to-result field="hasPermission"/>
-                <field-to-result field="failMessage"/>
-            </if-empty>
-        </if-not-empty>
-    </simple-method>
-
     <!-- check for party groups -->
     <!-- Get list of Party Groups in CAL_OWNER or CAL_DELEGATE with WorkEffort or its parents -->
     <simple-method method-name="workEffortPartyGroupRolePermission" short-description="Check if Party is party member of PartyGroup that is in CAL_OWNER or CAL_DELEGATE role with WorkEffort">
