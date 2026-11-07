@@ -457,7 +457,7 @@ public final class CommonWidgetModels {
             this.styleExdr = FlexibleStringExpander.getInstance("");
             this.targetExdr = FlexibleStringExpander.getInstance(target);
             this.targetWindowExdr = FlexibleStringExpander.getInstance("");
-            this.textExdr = FlexibleStringExpander.getInstance((String) portalPage.get("portalPageName", locale));
+            this.textExdr = FlexibleStringExpander.getLiteral((String) portalPage.get("portalPageName", locale));
             this.urlMode = "intra-app";
             this.size = null;
             this.requestConfirmation = false;
