@@ -22,6 +22,7 @@ import org.apache.ofbiz.base.util.HttpRequestFileUpload
 import org.apache.ofbiz.base.util.UtilProperties
 import org.apache.ofbiz.base.util.string.FlexibleStringExpander
 import org.apache.ofbiz.entity.util.EntityUtilProperties
+import org.apache.ofbiz.service.ServiceUtil
 
 if (productCategory) {
     context.productCategoryType = productCategory.getRelatedOne('ProductCategoryType', false)
@@ -59,6 +60,15 @@ contentType = null
 fileType = request.getParameter('up_load_file_type')
 if (fileType) {
     context.fileType = fileType
+
+    // the upload changes stored data, so require the same permission as the matching update service;
+    // run the check in its own transaction so a refusal does not mark the screen transaction for rollback
+    Map permissionResult = dispatcher.runSync('checkProductRelatedPermission',
+            [mainAction: 'UPDATE', resourceDescription: 'UploadCategoryImage', userLogin: userLogin], -1, true)
+    if (!permissionResult.hasPermission) {
+        request.setAttribute('_ERROR_MESSAGE_', ServiceUtil.getErrorMessage(permissionResult))
+        return
+    }
 
     String fileLocation = filenameExpander.expandString([location: 'categories', type: fileType, id: productCategoryId])
     String filePathPrefix = ''
