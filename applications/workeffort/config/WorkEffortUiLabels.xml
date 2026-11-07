@@ -5156,15 +5156,8 @@
         <value xml:lang="zh">当状态是处理中时，只能更新时间表...当前状态：${statusItem.description}</value>
         <value xml:lang="zh-TW">當狀態是處理中時,只能更新工時表...目前狀態:${statusItem.description}</value>
     </property>
-    <property key="WorkEffortTimesheetNotInRolePermissionError">
-        <value xml:lang="en">Security Error: to run ${resourceDescription} you must be in ${roleTypeId} role with WorkEffort: ${workEffortId}</value>
-        <value xml:lang="fr">Erreur de sécurité: pour exécuter ${resourceDescription} vous devez être dans le rôle ${roleTypeId} avec la tâche ${workEffortId}</value>
-        <value xml:lang="it">Errore sicurezza: per eseguire ${resourceDescription} devi avere il ruolo ${roleTypeId} con l'impegno di lavoro: ${workEffortId}</value>
-        <value xml:lang="ja">セキュリティーエラー: 作業成果ID: ${workEffortId} で ${resourceDescription} の実行は、${roleTypeId} ロールが必要です</value>
-        <value xml:lang="th">Security Error: ความปลอดภัยผิดพลาด ! การดำเนินการ ${resourceDescription} คุณต้องเป็น ${roleTypeId} ด้วยสถานะงาน: ${workEffortId}</value>
-        <value xml:lang="vi">Lỗi phân quyền: để thực thi ${resourceDescription} bạn cần có quyền ${roleTypeId} với Lượng giá nguồn lực ${workEffortId}</value>
-        <value xml:lang="zh">安全错误：要运行${resourceDescription}，你必须以${roleTypeId}角色做人工服务：${workEffortId}</value>
-        <value xml:lang="zh-TW">安全錯誤:要執行${resourceDescription},你必須以${roleTypeId}角色做工作投入:${workEffortId}</value>
+    <property key="WorkEffortTimesheetPermissionError">
+        <value xml:lang="en">Security Error: to run ${resourceDescription} you must own the timesheet or have the WORKEFFORTMGR_${mainAction} permission</value>
     </property>
     <property key="WorkEffortTimesheetQuickTimeEntry">
         <value xml:lang="de">Schneller Zeiteintrag</value>
