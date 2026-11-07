@@ -216,11 +216,11 @@ public final class ModelMenuItem extends ModelWidget {
         this.menuItemList = Collections.emptyList();
         this.overrideName = "";
         this.parentMenuItem = null;
-        this.parentPortalPageId = FlexibleStringExpander.getInstance(portalPage.getString("parentPortalPageId"));
+        this.parentPortalPageId = FlexibleStringExpander.getLiteral(portalPage.getString("parentPortalPageId"));
         this.position = null;
         this.selectedStyle = "";
         this.subMenu = "";
-        this.title = FlexibleStringExpander.getInstance((String) portalPage.get("portalPageName", locale));
+        this.title = FlexibleStringExpander.getLiteral((String) portalPage.get("portalPageName", locale));
         this.titleStyle = "";
         this.tooltip = FlexibleStringExpander.getInstance("");
         this.tooltipStyle = "";
@@ -702,8 +702,8 @@ public final class ModelMenuItem extends ModelWidget {
             if (parentMenuItem.link != null) {
                 parameterList.addAll(parentMenuItem.link.getParameterList());
             }
-            parameterList.add(new Parameter("portalPageId", portalPage.getString("portalPageId"), false));
-            parameterList.add(new Parameter("parentPortalPageId", portalPage.getString("parentPortalPageId"), false));
+            parameterList.add(Parameter.literal("portalPageId", portalPage.getString("portalPageId")));
+            parameterList.add(Parameter.literal("parentPortalPageId", portalPage.getString("parentPortalPageId")));
             String target = "showPortalPage";
             if (parentMenuItem.link != null) {
                 target = parentMenuItem.link.getTargetExdr().getOriginal();
