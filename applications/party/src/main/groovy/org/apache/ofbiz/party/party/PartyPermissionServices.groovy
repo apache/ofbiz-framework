@@ -249,8 +249,8 @@ Map cancelPartyInvitationPermissionCheck() {
     return result
 }
 
-//Returns hasPermission=true if userLogin partyId equals partyIdFrom parameter OR
-//       partyIdTo parameter OR user has one of the base PARTYMGR or PARTYMGR_CME CRUD+ADMIN permissions
+//Returns hasPermission=true if userLogin partyId is the sender or recipient of the communication event
+//       (see isCommunicationEventParty) OR user has one of the base PARTYMGR or PARTYMGR_CME CRUD+ADMIN permissions
 /**
  * Communication Event permission logic
  */
@@ -261,16 +261,35 @@ Map partyCommunicationEventPermissionCheck() {
         parameters.altPermission = 'PARTYMGR_CME-EMAIL'
     } else if (parameters.communicationEventTypeId == 'COMMENT_NOTE' && action == 'CREATE') {
         parameters.altPermission = 'PARTYMGR_CME-NOTE'
-    } else if (parameters.partyIdFrom != userLogin.partyId
-            && parameters.partyIdTo != userLogin.partyId
-            && parameters.partyId != userLogin.partyId) { // <- update role
-        parameters.altPermission = 'PARTYMGR_CME'
-    } else {
+    } else if (isCommunicationEventParty(action)) {
         result.hasPermission = true
+    } else {
+        parameters.altPermission = 'PARTYMGR_CME'
     }
     if (!result.hasPermission) {
         parameters.mainAction = action
         result = run service: 'basePermissionCheck', with: parameters
     }
     return result
+}
+
+/**
+ * Whether the logged-in party is the sender or recipient of the communication event.
+ * The partyIdFrom or partyIdTo parameter must be the logged-in party. For any action other
+ * than CREATE, the stored communication event must also have that party as its sender or
+ * recipient, because the parameters alone are chosen by the caller.
+ */
+boolean isCommunicationEventParty(String action) {
+    String partyId = userLogin.partyId
+    if (!partyId || (parameters.partyIdFrom != partyId && parameters.partyIdTo != partyId)) {
+        return false
+    }
+    if (action == 'CREATE') {
+        return true
+    }
+    GenericValue communicationEvent = parameters.communicationEventId
+            ? from('CommunicationEvent').where(communicationEventId: parameters.communicationEventId).queryOne()
+            : null
+    return communicationEvent
+            && (communicationEvent.partyIdFrom == partyId || communicationEvent.partyIdTo == partyId)
 }
