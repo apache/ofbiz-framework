@@ -32,6 +32,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Reader;
 import java.io.StringReader;
+import java.io.UncheckedIOException;
 import java.nio.ByteBuffer;
 import java.nio.charset.CharacterCodingException;
 import java.nio.charset.Charset;
@@ -1343,6 +1344,10 @@ public class SecuredUpload {
         if (!content.contains("</svg>")) {
             try (CSVParser parser = cvsFormat.parse(in)) {
                 parser.getRecords();
+            } catch (IOException | UncheckedIOException e) {
+                // commons-csv reports a malformed file, such as an unterminated quote, with an UncheckedIOException
+                Debug.logError("The file " + fileName + " is not a valid CSV file: " + e.getMessage(), MODULE);
+                return false;
             }
         } else {
             Debug.logInfo("The file " + fileName + " is not a valid CSV file. For security reason it's not accepted as a such file", MODULE);
