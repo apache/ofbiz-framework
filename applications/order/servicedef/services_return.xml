@@ -132,6 +132,7 @@ under the License.
     <service name="updateReturnAdjustment" engine="java" location="org.apache.ofbiz.order.order.OrderReturnServices"
              invoke="updateReturnAdjustment">
         <description></description>
+        <permission-service service-name="returnPermissionCheck" main-action="UPDATE"/>
         <implements service="returnAdjustmentInterface"/>
         <attribute name="originalReturnPrice" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="originalReturnQuantity" type="BigDecimal" mode="IN" optional="true"/>
@@ -164,6 +165,7 @@ under the License.
     <service name="updateReturnItemOrAdjustment" engine="java"
              location="org.apache.ofbiz.order.order.OrderReturnServices" invoke="updateReturnItemOrAdjustment">
         <description>update Return Item or Adjustment based on the parameters passed in</description>
+        <permission-service service-name="returnPermissionCheck" main-action="UPDATE"/>
         <auto-attributes mode="IN" include="all" entity-name="ReturnAdjustment" optional="true"/>
         <auto-attributes mode="IN" include="all" entity-name="ReturnItem" optional="true"/>
         <attribute name="oldStatusId" type="String" mode="OUT" optional="true"/>
