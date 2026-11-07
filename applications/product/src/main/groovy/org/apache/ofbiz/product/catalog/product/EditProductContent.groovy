@@ -24,6 +24,7 @@ import org.apache.ofbiz.base.util.UtilProperties
 import org.apache.ofbiz.base.util.string.FlexibleStringExpander
 import org.apache.ofbiz.entity.util.EntityUtilProperties
 import org.apache.ofbiz.product.image.ScaleImage
+import org.apache.ofbiz.service.ServiceUtil
 
 context.nowTimestampString = UtilDateTime.nowTimestamp().toString()
 
@@ -72,6 +73,15 @@ contentType = null
 String fileType = request.getParameter('up_load_file_type')
 if (fileType) {
     context.fileType = fileType
+
+    // the upload changes stored data, so require the same permission as the matching update service;
+    // run the check in its own transaction so a refusal does not mark the screen transaction for rollback
+    Map permissionResult = dispatcher.runSync('checkProductRelatedPermission',
+            [productId: productId, mainAction: 'UPDATE', resourceDescription: 'UploadProductImage', userLogin: userLogin], -1, true)
+    if (!permissionResult.hasPermission) {
+        request.setAttribute('_ERROR_MESSAGE_', ServiceUtil.getErrorMessage(permissionResult))
+        return
+    }
 
     fileLocation = filenameExpander.expandString([location: 'products', id: productId, type: fileType])
     filePathPrefix = ''
