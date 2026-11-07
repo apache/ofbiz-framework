@@ -72,6 +72,13 @@ String fileType = request.getParameter('up_load_file_type')
 if (fileType) {
     context.fileType = fileType
 
+    // the upload changes stored data, so require the permission the image upload page is meant for
+    if (!security.hasEntityPermission('IMAGE_MANAGEMENT', '_UPLOAD', userLogin)) {
+        request.setAttribute('_ERROR_MESSAGE_', label('CommonUiLabels', 'CommonGenericPermissionError',
+                [resourceDescription: 'ImageUpload', primaryPermission: 'IMAGE_MANAGEMENT', mainAction: 'UPLOAD', altPermissionList: '']))
+        return
+    }
+
     fileLocation = filenameExpander.expandString([location: 'products', type: fileType, id: productId])
     filePathPrefix = ''
     filenameToUse = fileLocation
