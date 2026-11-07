@@ -1317,10 +1317,17 @@ under the License.
         <attribute name="workEffortId" mode="IN" type="String" optional="true"/>
         <attribute name="workEffortParentId" mode="IN" type="String" optional="true"/>
     </service>
-    <service name="timesheetUpdatePermission" engine="simple"
-             location="component://workeffort/minilang/permission/WorkEffortPermissionServices.xml" invoke="timesheetUpdatePermission">
+    <service name="timesheetPermissionCheck" engine="groovy"
+             location="component://workeffort/src/main/groovy/org/apache/ofbiz/workeffort/timesheet/TimesheetPermissionServices.groovy" invoke="timesheetPermissionCheck">
+        <description>Allows WORKEFFORTMGR users to change any Timesheet or TimeEntry, and other users only their own</description>
         <implements service="permissionInterface"/>
-        <attribute name="workEffortId" mode="IN" type="String" optional="true"></attribute>
+        <attribute name="timesheetId" mode="IN" type="String" optional="true"/>
+        <attribute name="timeEntryId" mode="IN" type="String" optional="true"/>
+        <attribute name="partyId" mode="IN" type="String" optional="true"/>
+        <attribute name="statusId" mode="IN" type="String" optional="true"/>
+        <attribute name="invoiceId" mode="IN" type="String" optional="true"/>
+        <attribute name="invoiceItemSeqId" mode="IN" type="String" optional="true"/>
+        <attribute name="approvedByUserLoginId" mode="IN" type="String" optional="true"/>
     </service>
 
     <!-- WorkEffort Skill Standard Services -->

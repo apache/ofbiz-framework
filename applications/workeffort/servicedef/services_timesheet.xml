@@ -34,11 +34,13 @@ under the License.
     </service>
     <service name="updateTimesheet" default-entity-name="Timesheet" engine="entity-auto" auth="true" invoke="update">
         <description>Updates Timesheet</description>
+        <permission-service service-name="timesheetPermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="deleteTimesheet" default-entity-name="Timesheet" engine="entity-auto" auth="true" invoke="delete">
         <description>Deletes Timesheet</description>
+        <permission-service service-name="timesheetPermissionCheck" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <service name="createTimesheets" engine="simple"
@@ -119,6 +121,7 @@ under the License.
     <!-- TimeEntry Services -->
     <service name="createTimeEntry" default-entity-name="TimeEntry" engine="entity-auto" auth="true" invoke="create">
         <description>Creates TimeEntry</description>
+        <permission-service service-name="timesheetPermissionCheck" main-action="CREATE"/>
         <auto-attributes include="pk" mode="OUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="fromDate" default-value="${date:nowTimestamp()}"/>
@@ -126,11 +129,13 @@ under the License.
     <service name="updateTimeEntry" default-entity-name="TimeEntry" engine="simple" auth="true"
         location="component://workeffort/minilang/timesheet/TimesheetServices.xml" invoke="updateTimeEntry">
         <description>Updates TimeEntry</description>
+        <permission-service service-name="timesheetPermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="deleteTimeEntry" default-entity-name="TimeEntry" engine="entity-auto" auth="true" invoke="delete">
         <description>Deletes TimeEntry</description>
+        <permission-service service-name="timesheetPermissionCheck" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <service name="getTimeEntryRate" default-entity-name="TimeEntry" engine="simple" auth="true"

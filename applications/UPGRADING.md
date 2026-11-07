@@ -52,6 +52,8 @@ no replacement in OFBiz; a project that still uses one has to keep its own copy.
 * `createBOMAssoc` no longer returns `errorMessage` ([#1531](https://github.com/apache/ofbiz-framework/pull/1531)).
 * `createCustomTimePeriod` no longer takes `organizationPartyId` (commit 281f31bed0,
   [OFBIZ-13418](https://issues.apache.org/jira/browse/OFBIZ-13418)).
+* `timesheetUpdatePermission` is removed; use `timesheetPermissionCheck` instead
+  ([#2599](https://github.com/apache/ofbiz-framework/pull/2599)).
 
 ### Custom code
 
