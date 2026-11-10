@@ -18,16 +18,9 @@
  *******************************************************************************/
 package org.apache.ofbiz.common;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.io.RandomAccessFile;
-import java.io.Writer;
 import java.nio.ByteBuffer;
-import java.nio.charset.StandardCharsets;
 import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.LinkedHashMap;
@@ -452,28 +445,6 @@ public class CommonServices {
             Debug.logError(e, MODULE);
         }
         return ServiceUtil.returnSuccess();
-    }
-
-    public static Map<String, Object> streamTest(DispatchContext dctx, Map<String, ?> context) {
-        InputStream in = (InputStream) context.get("inputStream");
-        OutputStream out = (OutputStream) context.get("outputStream");
-
-        String line;
-
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(in, StandardCharsets.UTF_8));
-                Writer writer = new OutputStreamWriter(out, StandardCharsets.UTF_8)) {
-            while ((line = reader.readLine()) != null) {
-                Debug.logInfo("Read line: " + line, MODULE);
-                writer.write(line);
-            }
-        } catch (IOException e) {
-            Debug.logError(e, MODULE);
-            return ServiceUtil.returnError(e.getMessage());
-        }
-
-        Map<String, Object> result = ServiceUtil.returnSuccess();
-        result.put("contentType", "text/plain");
-        return result;
     }
 
     public static Map<String, Object> ping(DispatchContext dctx, Map<String, ?> context) {

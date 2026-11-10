@@ -260,11 +260,6 @@ under the License.
         <implements service="serviceEcaConditionInterface"/>
     </service>
 
-    <service name="serviceStreamTest" engine="java" auth="false"
-            location="org.apache.ofbiz.common.CommonServices" invoke="streamTest">
-        <implements service="serviceStreamInterface"/>
-    </service>
-
     <service name="ping" engine="java" export="true" require-new-transaction="true"
             location="org.apache.ofbiz.common.CommonServices" invoke="ping">
         <description>Test Ping Service</description>
