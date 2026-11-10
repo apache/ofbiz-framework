@@ -58,6 +58,9 @@ no replacement in OFBiz; a project that still uses one has to keep its own copy.
 * `createWorkEffortICalData`, `updateWorkEffortICalData`, `deleteWorkEffortICalData`, `workEffortICalendarPermission`,
   `getICalWorkEfforts` and `getPartyICalUrl` are removed with the iCalendar webapp
   ([OFBIZ-13816](https://issues.apache.org/jira/browse/OFBIZ-13816)).
+* The email sent by `sendVerifyEmailAddressNotification` now links to `/control/verifyEmailAddress` on the store's
+  base URL; map a `verifyEmailAddress` request calling the `verifyEmailAddress` service in your store webapp
+  ([OFBIZ-13819](https://issues.apache.org/jira/browse/OFBIZ-13819)).
 
 ### Custom code
 

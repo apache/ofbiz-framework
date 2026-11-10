@@ -179,7 +179,7 @@ public class UtilCodec {
             return original;
         }
 
-        // Given as an example based on rendering cmssite as it was before using the sanitizer.
+        // Given as an example based on rendering a CMS page as it was before using the sanitizer.
         // To use the PERMISSIVE_POLICY set sanitizer.permissive.policy to true.
         // Note that I was unable to render </html> and </body>. I guess because <html> and <body>
         // are not sanitized in 1st place (else the sanitizer makes some damages I found)

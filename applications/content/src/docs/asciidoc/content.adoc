@@ -53,7 +53,7 @@ See the discussion of the ContentAssoc entity for more information on how conten
 == Security
 All services defined in the content component are safely secured. If you are in a safe environment, want to save more complex contents and get blocked by the security policy you might want to override the security only in the content component.
 
-Typically when using content/control/WebSiteCms?webSiteId=CmsSite (ie "Edit[ing] WebSite CMS For: CMS Web Site [CmsSite]"), the service updateTextContent may prevent you to save contents with a message like
+Typically when using content/control/WebSiteCms?webSiteId=<your web site> (ie "Edit[ing] WebSite CMS For: <your web site>"), the service updateTextContent may prevent you to save contents with a message like
 
 [WARNING]
 The Following Errors Occurred:
