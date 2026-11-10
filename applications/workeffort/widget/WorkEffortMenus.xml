@@ -29,7 +29,6 @@ under the License.
         <menu-item name="workeffort" title="${uiLabelMap.WorkEffortWorkEffort}"><link target="FindWorkEffort"/></menu-item>
         <menu-item name="timesheet" title="${uiLabelMap.WorkEffortTimesheet}"><link target="FindTimesheet"/></menu-item>
         <menu-item name="userJobs" title="${uiLabelMap.WorkEffortJobList}"><link target="UserJobs"/></menu-item>
-        <menu-item name="WorkEffortICalendar" title="${uiLabelMap.WorkEffortICalendar}"><link target="FindICalendars"/></menu-item>
     </menu>
     <menu name="MainActionMenu" menu-container-style="button-bar button-style-2" default-selected-style="selected">
         <menu-item name="NewWorkEffort" title="${uiLabelMap.WorkEffortCreate}">
@@ -55,7 +54,6 @@ under the License.
         <menu-item name="workeffort" title="${uiLabelMap.WorkEffortWorkEffort}"><link target="/workeffort/control/FindWorkEffort" url-mode="inter-app"/></menu-item>
         <menu-item name="timesheet" title="${uiLabelMap.WorkEffortTimesheet}"><link target="/workeffort/control/FindTimesheet" url-mode="inter-app"/></menu-item>
         <menu-item name="userJobs" title="${uiLabelMap.WorkEffortJobList}"><link target="/workeffort/control/UserJobs" url-mode="inter-app"/></menu-item>
-        <menu-item name="WorkEffortICalendar" title="${uiLabelMap.WorkEffortICalendar}"><link target="/workeffort/control/FindICalendars" url-mode="inter-app"/></menu-item>
     </menu>
 
     <menu name="WorkEffortTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
@@ -355,40 +353,6 @@ under the License.
         </menu-item>
     </menu>
 
-    <menu name="ICalendarTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
-          default-menu-item-name="WorkEffort">
-        <menu-item name="WorkEffort" title="${uiLabelMap.WorkEffortICalendar}">
-            <link target="EditICalendar">
-                <parameter param-name="workEffortId"/>
-            </link>
-        </menu-item>
-        <menu-item name="WorkEffortAssocs" title="${uiLabelMap.CommonEntityChildren}">
-            <link target="ICalendarChildren">
-                <parameter param-name="workEffortId"/>
-                <parameter param-name="trail" from-field="workEffortId"/>
-            </link>
-        </menu-item>
-        <menu-item name="WorkEffortPartyAssigns" title="${uiLabelMap.WorkEffortParties}">
-            <link target="ICalendarParties">
-                <parameter param-name="workEffortId"/>
-            </link>
-        </menu-item>
-        <menu-item name="WorkEffortFixedAssetAssigns" title="${uiLabelMap.AccountingFixedAssets}">
-            <link target="ICalendarFixedAssets">
-                <parameter param-name="workEffortId"/>
-            </link>
-        </menu-item>
-        <menu-item name="ICalendarData" title="${uiLabelMap.WorkEffortICalendarData}">
-            <link target="EditICalendarData">
-                <parameter param-name="workEffortId"/>
-            </link>
-        </menu-item>
-        <menu-item name="ICalendarHelp" title="${uiLabelMap.CommonHelp}">
-            <link target="ICalendarHelp">
-                <parameter param-name="workEffortId"/>
-            </link>
-        </menu-item>
-    </menu>
     <menu name="TimesheetTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
           default-menu-item-name="Timesheet">
         <menu-item name="Timesheet" title="${uiLabelMap.WorkEffortTimesheet}">

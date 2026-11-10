@@ -56,6 +56,8 @@ the same pull request.
 * Derby support is removed and H2 is the default embedded database
   ([#1221](https://github.com/apache/ofbiz-framework/pull/1221)). If you ran OFBiz on Derby, export your data with
   the entity export tools on 24.09 and import it into H2 or an external database after the upgrade.
+* The ical4j dependency and the extra `packages.atlassian.com` Maven repository are removed
+  ([OFBIZ-13816](https://issues.apache.org/jira/browse/OFBIZ-13816)).
 
 ### Configuration
 
@@ -181,6 +183,8 @@ the same pull request.
   * the image classes, now on jdom2 ([#819](https://github.com/apache/ofbiz-framework/pull/819)).
   * the unused members removed by [#2482](https://github.com/apache/ofbiz-framework/pull/2482).
   * the `org.apache.ofbiz.datafile` package ([OFBIZ-13815](https://issues.apache.org/jira/browse/OFBIZ-13815)).
+  * the `org.apache.ofbiz.webapp.webdav` package, with the `requestHandlerFactoryClass` servlet parameter it read
+    ([OFBIZ-13816](https://issues.apache.org/jira/browse/OFBIZ-13816)).
 
 ### Themes
 

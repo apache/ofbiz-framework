@@ -2713,15 +2713,6 @@
         <value xml:lang="zh">事件名称</value>
         <value xml:lang="zh-TW">事件名稱</value>
     </property>
-    <property key="WorkEffortEventReminder">
-        <value xml:lang="en">Event Reminder</value>
-        <value xml:lang="fr">Evènement de tâche</value>
-        <value xml:lang="it">Promemoria evento</value>
-        <value xml:lang="ja">イベントリマインダ</value>
-        <value xml:lang="vi">Nhắc nhở sự kiện</value>
-        <value xml:lang="zh">事件提醒</value>
-        <value xml:lang="zh-TW">事件提醒</value>
-    </property>
     <property key="WorkEffortEventReminders">
         <value xml:lang="en">Event Reminders</value>
         <value xml:lang="fr">Evènements de tâche</value>
@@ -2844,108 +2835,6 @@
         <value xml:lang="vi">Tiêu chuẩn (là TỐT)</value>
         <value xml:lang="zh">良好标准</value>
         <value xml:lang="zh-TW">成品規範</value>
-    </property>
-    <property key="WorkEffortICalendar">
-        <value xml:lang="en">iCalendar</value>
-        <value xml:lang="vi">iCalendar (Xuất bản URL .ics)</value>
-    </property>
-    <property key="WorkEffortICalendarAdd">
-        <value xml:lang="de">iCalendar hinzufügen</value>
-        <value xml:lang="en">Add iCalendar</value>
-        <value xml:lang="it">Aggiungi iCalendar</value>
-        <value xml:lang="ja">iCalendarを追加</value>
-        <value xml:lang="vi">Thêm iCalendar</value>
-        <value xml:lang="zh">添加iCalendar</value>
-        <value xml:lang="zh-TW">新增iCal</value>
-    </property>
-    <property key="WorkEffortICalendarAddFixedAsset">
-        <value xml:lang="de">iCalendar Anlage hinzufügen</value>
-        <value xml:lang="en">Add iCalendar Fixed Asset</value>
-        <value xml:lang="ja">iCalendarに固定資産を追加</value>
-        <value xml:lang="vi">Thêm tài sản cố định iCalendar</value>
-        <value xml:lang="zh">添加iCalendar固定资产</value>
-        <value xml:lang="zh-TW">新增iCal固定資產</value>
-    </property>
-    <property key="WorkEffortICalendarAddParty">
-        <value xml:lang="de">iCalendar Akteur hinzufügen</value>
-        <value xml:lang="en">Add iCalendar Party</value>
-        <value xml:lang="ja">iCalendarに取引先を追加</value>
-        <value xml:lang="vi">Thêm người dùng iCalendar</value>
-        <value xml:lang="zh">添加iCalendar会员</value>
-        <value xml:lang="zh-TW">新增iCal團體</value>
-    </property>
-    <property key="WorkEffortICalendarData">
-        <value xml:lang="de">Daten</value>
-        <value xml:lang="en">Data</value>
-        <value xml:lang="ja">データ</value>
-        <value xml:lang="vi">Dữ liệu</value>
-        <value xml:lang="zh">数据</value>
-        <value xml:lang="zh-TW">資料</value>
-    </property>
-    <property key="WorkEffortICalendarEdit">
-        <value xml:lang="de">Editiere iCalendar</value>
-        <value xml:lang="en">Edit iCalendar</value>
-        <value xml:lang="ja">iCalendarを編集</value>
-        <value xml:lang="vi">Sửa đổi iCalendar</value>
-        <value xml:lang="zh">编辑iCalendar</value>
-        <value xml:lang="zh-TW">編輯iCal</value>
-    </property>
-    <property key="WorkEffortICalendarEditData">
-        <value xml:lang="de">Editiere iCalendar Daten</value>
-        <value xml:lang="en">Edit iCalendar Data</value>
-        <value xml:lang="ja">iCalendarデータを編集</value>
-        <value xml:lang="vi">Cập nhật dữ liệu iCalendar</value>
-        <value xml:lang="zh">编辑iCalendar数据</value>
-        <value xml:lang="zh-TW">編輯iCal資料</value>
-    </property>
-    <property key="WorkEffortICalendarFind">
-        <value xml:lang="de">Finde iCalendars</value>
-        <value xml:lang="en">Find iCalendars</value>
-        <value xml:lang="ja">iCalendarを検索</value>
-        <value xml:lang="vi">Tìm kiếm iCalendar</value>
-        <value xml:lang="zh">查找iCalendar</value>
-        <value xml:lang="zh-TW">查詢iCal</value>
-    </property>
-    <property key="WorkEffortICalendarHelp">
-        <value xml:lang="de">iCalendar Hilfe</value>
-        <value xml:lang="en">iCalendar Help</value>
-        <value xml:lang="ja">iCalendarヘルプ</value>
-        <value xml:lang="vi">Trợ giúp iCalendar</value>
-        <value xml:lang="zh">iCalendar帮助</value>
-        <value xml:lang="zh-TW">iCal輔助</value>
-    </property>
-    <property key="WorkEffortICalendarHelpUrl">
-        <value xml:lang="en">https://cwiki.apache.org/confluence/display/OFBENDUSER/iCalendar+Integration</value>
-    </property>
-    <property key="WorkEffortICalendarName">
-        <value xml:lang="de">Kalendername</value>
-        <value xml:lang="en">Calendar Name</value>
-        <value xml:lang="ja">カレンダ名称</value>
-        <value xml:lang="vi">Tên việc</value>
-        <value xml:lang="zh">日历名称</value>
-        <value xml:lang="zh-TW">行事曆名稱</value>
-    </property>
-    <property key="WorkEffortICalendarOwner">
-        <value xml:lang="de">Kalenderbesitzer</value>
-        <value xml:lang="en">Calendar Owner</value>
-        <value xml:lang="ja">カレンダ所有者</value>
-        <value xml:lang="vi">Sở hữu bởi</value>
-        <value xml:lang="zh">日历拥有者</value>
-        <value xml:lang="zh-TW">行事曆擁有者</value>
-    </property>
-    <property key="WorkEffortICalendarUrl">
-        <value xml:lang="en">iCalendar Url</value>
-        <value xml:lang="vi">Liên kết URL iCalendar</value>
-        <value xml:lang="zh">iCalendar网址</value>
-        <value xml:lang="zh-TW">iCal網址</value>
-    </property>
-    <property key="WorkEffortICalendarVisibility">
-        <value xml:lang="de">Kalendersichtbarkeit</value>
-        <value xml:lang="en">Calendar Visibility</value>
-        <value xml:lang="ja">カレンダ表示</value>
-        <value xml:lang="vi">Quyền xem</value>
-        <value xml:lang="zh">日历可见度</value>
-        <value xml:lang="zh-TW">行事曆檢視</value>
     </property>
     <property key="WorkEffortIdMissing">
         <value xml:lang="de">Arbeitseinsatz ID fehlt.</value>
@@ -5502,11 +5391,5 @@
         <value xml:lang="vi">Hành động Lượng giá nguồn lực đã gán cho Vai trò</value>
         <value xml:lang="zh">把工作流行动指派给用户角色</value>
         <value xml:lang="zh-TW">把工作流程行動指派給使用者角色</value>
-    </property>
-    <property key="WorkeffortErrorWhileCreatingServiceMapForService">
-        <value xml:lang="en">Error while creating service Map for service : ${serviceName}</value>
-    </property>
-    <property key="WorkeffortErrorWhileInvokingService">
-        <value xml:lang="en">Error while invoking service : ${serviceName}</value>
     </property>
 </resource>

@@ -40,7 +40,7 @@ The following file contains information about the data model changes in the Apac
 . WorkEffortInvResAndItem
 . WorkEffortInventoryAssignAndItem
 
-*Removed 17 entities*
+*Removed 18 entities*
 
 . PaymentGatewayAuthorizeNet, PaymentGatewayClearCommerce, PaymentGatewayCyberSource, PaymentGatewayEway,
   PaymentGatewayOrbital, PaymentGatewayPayPal, PaymentGatewayPayflowPro, PaymentGatewaySagePay,
@@ -48,6 +48,7 @@ The following file contains information about the data model changes in the Apac
 . ShipmentGatewayDhl, ShipmentGatewayFedex, ShipmentGatewayUps, ShipmentGatewayUsps (672b6d02)
 . ValueLinkKey (b7c56b75)
 . ZipSalesRuleLookup, ZipSalesTaxLookup (a07c838c)
+. WorkEffortIcalData (OFBIZ-13816)
 
 The tables of removed entities are not dropped; drop them once their data is no longer needed.
 
