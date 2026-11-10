@@ -557,6 +557,10 @@ public class EntitySyncServices {
         String fileName = (String) context.get("xmlFileName");
         Locale locale = (Locale) context.get("locale");
         URL xmlFile = UtilURL.fromResource(fileName);
+        // only load offline sync data from a file on this server
+        if (xmlFile != null && !"file".equals(xmlFile.getProtocol())) {
+            xmlFile = null;
+        }
         if (xmlFile != null) {
             Document xmlSyncDoc = null;
             try {
