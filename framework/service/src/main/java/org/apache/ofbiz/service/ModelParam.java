@@ -25,10 +25,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 
-import javax.wsdl.Definition;
-import javax.wsdl.Part;
-import javax.xml.namespace.QName;
-
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.ObjectType;
 import org.apache.ofbiz.base.util.UtilProperties;
@@ -610,68 +606,6 @@ public class ModelParam implements Serializable {
             buf.append(validators.toString()).append("::");
         }
         return buf.toString();
-    }
-
-    /**
-     * Gets wsdl part.
-     * @param def the def
-     * @return the wsdl part
-     */
-    public Part getWSDLPart(Definition def) {
-        Part part = def.createPart();
-        part.setName(this.name);
-        part.setTypeName(new QName(ModelService.TNS, this.java2wsdlType()));
-        return part;
-    }
-
-    /**
-     * Java 2 wsdl type string.
-     * @return the string
-     */
-    protected String java2wsdlType() {
-        if (ObjectType.instanceOf(java.lang.Character.class, this.type)) {
-            return "std-String";
-        } else if (ObjectType.instanceOf(java.lang.String.class, this.type)) {
-            return "std-String";
-        } else if (ObjectType.instanceOf(java.lang.Byte.class, this.type)) {
-            return "std-String";
-        } else if (ObjectType.instanceOf(java.lang.Boolean.class, this.type)) {
-            return "std-Boolean";
-        } else if (ObjectType.instanceOf(java.lang.Integer.class, this.type)) {
-            return "std-Integer";
-        } else if (ObjectType.instanceOf(java.lang.Double.class, this.type)) {
-            return "std-Double";
-        } else if (ObjectType.instanceOf(java.lang.Float.class, this.type)) {
-            return "std-Float";
-        } else if (ObjectType.instanceOf(java.lang.Short.class, this.type)) {
-            return "std-Integer";
-        } else if (ObjectType.instanceOf(java.math.BigDecimal.class, this.type)) {
-            return "std-Long";
-        } else if (ObjectType.instanceOf(java.math.BigInteger.class, this.type)) {
-            return "std-Integer";
-        } else if (ObjectType.instanceOf(java.util.Calendar.class, this.type)) {
-            return "sql-Timestamp";
-        } else if (ObjectType.instanceOf(com.ibm.icu.util.Calendar.class, this.type)) {
-            return "sql-Timestamp";
-        } else if (ObjectType.instanceOf(java.sql.Date.class, this.type)) {
-            return "sql-Date";
-        } else if (ObjectType.instanceOf(java.util.Date.class, this.type)) {
-            return "sql-Timestamp";
-        } else if (ObjectType.instanceOf(java.lang.Long.class, this.type)) {
-            return "std-Long";
-        } else if (ObjectType.instanceOf(java.sql.Timestamp.class, this.type)) {
-            return "sql-Timestamp";
-        } else if (ObjectType.instanceOf(org.apache.ofbiz.entity.GenericValue.class, this.type)) {
-            return "eeval-";
-        } else if (ObjectType.instanceOf(org.apache.ofbiz.entity.GenericPK.class, this.type)) {
-            return "eepk-";
-        } else if (ObjectType.instanceOf(java.util.Map.class, this.type)) {
-            return "map-Map";
-        } else if (ObjectType.instanceOf(java.util.List.class, this.type)) {
-            return "col-LinkedList";
-        } else {
-            return "cus-obj";
-        }
     }
 
     static class ModelParamValidator implements Serializable {

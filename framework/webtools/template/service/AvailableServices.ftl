@@ -24,18 +24,6 @@ under the License.
 
 <#-- Selected Service is available -->
 <#if selectedServiceMap??>
-  <#if showWsdl?? && showWsdl = true>
-    <div class="screenlet">
-      <div class="screenlet-title-bar">
-        <h3>${uiLabelMap.WebtoolsServiceWSDL} - ${uiLabelMap.WebtoolsService} ${selectedServiceMap.serviceName}</h3>
-      </div>
-      <div class="screenlet-body" align="center">
-        <form><textarea rows="20" cols="85" name="wsdloutput">${selectedServiceMap.wsdl}</textarea></form>
-        <br />
-        <a href='<@ofbizUrl>${url}?sel_service_name=${selectedServiceMap.serviceName}</@ofbizUrl>' class='smallSubmit'>${uiLabelMap.CommonBack}</a>
-      </div>
-    </div>
-  <#else>
     <div class="screenlet">
       <div class="screenlet-title-bar">
         <ul>
@@ -62,7 +50,7 @@ under the License.
           </tr>
           <tr>
             <td class="label">${uiLabelMap.WebtoolsExportable}</td>
-            <td>${selectedServiceMap.export}<#if selectedServiceMap.exportBool = "true">&nbsp;(<a href='<@ofbizUrl>${url}?sel_service_name=${selectedServiceMap.serviceName}&amp;show_wsdl=true</@ofbizUrl>'>${uiLabelMap.WebtoolsShowShowWSDL}</a>)</#if></td>
+            <td>${selectedServiceMap.export}</td>
             <td class="label">${uiLabelMap.WebtoolsLocation}</td>
             <td><a href='<@ofbizUrl>${url}?constraint=location@${selectedServiceMap.location}</@ofbizUrl>'>${selectedServiceMap.location}</a></td>
           </tr>
@@ -341,7 +329,6 @@ under the License.
       </div>
     </#list>
 
-  </#if>
 <#-- No Service selected , we list all-->
 <#elseif servicesList?? && servicesList?has_content>
 

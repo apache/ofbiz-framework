@@ -4978,19 +4978,6 @@
         <value xml:lang="zh">保存值</value>
         <value xml:lang="zh-TW">保存值</value>
     </property>
-    <property key="WebtoolsServiceWSDL">
-        <value xml:lang="de">WSDL Dienstdefinition</value>
-        <value xml:lang="en">WSDL Service definition</value>
-        <value xml:lang="fr">Définition WSDL de service</value>
-        <value xml:lang="it">Definizione servizio WSDL</value>
-        <value xml:lang="ja">WSDLサービス定義</value>
-        <value xml:lang="pt">DefiniÃ§Ã£o de serviÃ§o WSDL</value>
-        <value xml:lang="ro">Definitie Serviciu WSDL</value>
-        <value xml:lang="th">รายละเอียด WSDL Service </value>
-        <value xml:lang="vi">Định nghĩa Webservice (WSDL)</value>
-        <value xml:lang="zh">WSDL服务定义</value>
-        <value xml:lang="zh-TW">WSDL服務定義</value>
-    </property>
     <property key="WebtoolsServicesFound">
         <value xml:lang="de">Gefunden Dienste</value>
         <value xml:lang="en">Services Found</value>
@@ -5026,19 +5013,6 @@
         <value xml:lang="vi">Thiết lập</value>
         <value xml:lang="zh">设置</value>
         <value xml:lang="zh-TW">設置</value>
-    </property>
-    <property key="WebtoolsShowShowWSDL">
-        <value xml:lang="de">WSDL zeigen</value>
-        <value xml:lang="en">Show wsdl</value>
-        <value xml:lang="fr">Montrer WSDL</value>
-        <value xml:lang="it">Mostra WSDL</value>
-        <value xml:lang="ja">WSDLの表示</value>
-        <value xml:lang="pt">Mostrar wsdl</value>
-        <value xml:lang="ro">Afiseaza wsdl</value>
-        <value xml:lang="th">แสดง wsdl</value>
-        <value xml:lang="vi">Xem WSDL</value>
-        <value xml:lang="zh">显示WSDL</value>
-        <value xml:lang="zh-TW">顯示WSDL</value>
     </property>
     <property key="WebtoolsSingleFilename">
         <value xml:lang="de">Einzelner Dateiname</value>

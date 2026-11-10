@@ -277,9 +277,7 @@ public class XmlSerializer {
         if (value == null) {
             Element element = document.createElement("null");
             element.setAttribute("xsi:nil", "true");
-            // I tried to put the schema in the envelope header (in createAndSendSOAPResponse)
-            // resEnv.declareNamespace("http://www.w3.org/2001/XMLSchema-instance", null);
-            // But it gets prefixed and that does not work. So adding in each instance
+            // declare the xsi namespace on each null element, so the element stands alone
             element.setAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
             return element;
         }
@@ -340,7 +338,7 @@ public class XmlSerializer {
             if ("sql-Timestamp".equals(tagName)) {
                 String valStr = element.getAttribute("value");
                 /*
-                 * sql-Timestamp is defined as xsd:dateTime in ModelService.getTypes(),
+                 * sql-Timestamp values can be written as xsd:dateTime,
                  * so try to parse the value as xsd:dateTime first.
                  * Fallback is java.sql.Timestamp because it has been this way all the time.
                  */

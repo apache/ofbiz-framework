@@ -91,6 +91,12 @@ the same pull request.
   the `ModelDataFile` cache setting ([OFBIZ-13815](https://issues.apache.org/jira/browse/OFBIZ-13815)).
   Convert `<data-file>` imports to entity XML or a custom service, or keep the component from release24.09 as a
   plugin.
+* SOAP is removed ([OFBIZ-13821](https://issues.apache.org/jira/browse/OFBIZ-13821)); it had been disabled since
+  [OFBIZ-12212](https://issues.apache.org/jira/browse/OFBIZ-12212). The `soap` event handler and service engine, the
+  `main-soap` service location, the webtools `SOAPService` request and WSDL view, `framework/service/config/axis2` and
+  the `secureSoapAnswer` property are gone, and `SOAPService` is removed from `http.request-map.list` in
+  `url.properties`. The `<namespace>` element of `<service>` is removed from `services.xsd`; delete it from your
+  service definitions. Expose services through a `*.rest.xml` file of the rest-api component instead.
 * Entity definitions: `encrypt="salt"` is removed; use `encrypt="true"`, which now gives the same randomized
   encryption ([#2055](https://github.com/apache/ofbiz-framework/pull/2055)).
 * Widgets: `<if-entity-permission>` is removed from `widget-common.xsd`
@@ -146,6 +152,11 @@ the same pull request.
   * `ServiceUtil.getPartyIdCheckSecurity` is removed ([#1260](https://github.com/apache/ofbiz-framework/pull/1260)).
   * In Groovy services, `makeValue` returns a `GenericValue`, and `success` and `error` return a `Map`
     ([#2096](https://github.com/apache/ofbiz-framework/pull/2096)).
+  * The SOAP classes are removed: `SOAPEventHandler`, `SOAPClientEngine` and `SoapSerializer`, together with
+    `ModelService.toWSDL`, `getWSDL`, `getTypes`, `getNameSpace`, `setNameSpace`, `TNS` and `XSD`,
+    `ModelParam.getWSDLPart` and `DispatchContext.getWSDL`
+    ([OFBIZ-13821](https://issues.apache.org/jira/browse/OFBIZ-13821)). The axis2, wsdl4j, `javax.xml.soap-api` and
+    `geronimo-jaxrpc_1.1_spec` libraries are no longer on the classpath.
 * Security:
   * A custom `Security` implementation is registered through the new `SecurityProvider` SPI instead of
     `Security.setDelegator` ([#2477](https://github.com/apache/ofbiz-framework/pull/2477)).

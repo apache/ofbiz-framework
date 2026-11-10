@@ -136,8 +136,7 @@ public final class RequestHandler {
             String overrideViewUri = getOverrideViewUri(path);
             if (requestMapMap.containsKey(requestUri)
                     // Ensure that overridden view exists.
-                    && (overrideViewUri == null || viewMapMap.containsKey(overrideViewUri)
-                    || ("SOAPService".equals(requestUri) && "wsdl".equalsIgnoreCase(req.getQueryString())))) {
+                    && (overrideViewUri == null || viewMapMap.containsKey(overrideViewUri))) {
                 rmaps = requestMapMap.get(requestUri);
                 req.setAttribute("overriddenView", overrideViewUri);
             } else if (defaultRequest != null) {

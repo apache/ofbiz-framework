@@ -28,8 +28,6 @@ import java.util.TreeSet;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Future;
 
-import javax.wsdl.WSDLException;
-
 import org.apache.ofbiz.base.component.ComponentConfig;
 import org.apache.ofbiz.base.concurrent.ExecutionPool;
 import org.apache.ofbiz.base.config.GenericConfigException;
@@ -46,7 +44,6 @@ import org.apache.ofbiz.security.Security;
 import org.apache.ofbiz.service.config.ServiceConfigUtil;
 import org.apache.ofbiz.service.config.model.GlobalServices;
 import org.apache.ofbiz.service.eca.ServiceEcaUtil;
-import org.w3c.dom.Document;
 
 /**
  * Dispatcher Context
@@ -218,19 +215,6 @@ public class DispatchContext implements Serializable {
             serviceNames.addAll(globalServices.keySet());
         }
         return serviceNames;
-    }
-
-    /**
-     * Gets wsdl.
-     * @param serviceName the service name
-     * @param locationURI the location uri
-     * @return the wsdl
-     * @throws GenericServiceException the generic service exception
-     * @throws WSDLException the wsdl exception
-     */
-    public Document getWSDL(String serviceName, String locationURI) throws GenericServiceException, WSDLException {
-        ModelService model = this.getModelService(serviceName);
-        return model.toWSDL(locationURI);
     }
 
     /**
