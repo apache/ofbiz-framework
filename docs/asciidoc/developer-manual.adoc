@@ -273,7 +273,7 @@ include::framework/entity/src/docs/asciidoc/entity-engine.adoc[leveloffset=+1]
 
 === XML Data
 
-include::framework/datafile/src/docs/asciidoc/datafiles.adoc[leveloffset=+2]
+Entity data is loaded from XML files at startup or imported with the Webtools XML Data Import tool.
 
 === Entity engine configuration
 

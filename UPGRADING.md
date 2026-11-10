@@ -85,6 +85,10 @@ the same pull request.
   ([OFBIZ-13798](https://issues.apache.org/jira/browse/OFBIZ-13798)). Services declared with `engine="clojure"` no
   longer load; port them to Groovy or Java, or keep `StandardClojureEngine` from release24.09 in your own plugin
   with the `org.clojure:clojure` dependency and an `<engine>` entry.
+* The `datafile` component and the Webtools Data File tools (`viewdatafile`) are removed, with `datafiles.xsd` and
+  the `ModelDataFile` cache setting ([OFBIZ-13815](https://issues.apache.org/jira/browse/OFBIZ-13815)).
+  Convert `<data-file>` imports to entity XML or a custom service, or keep the component from release24.09 as a
+  plugin.
 * Entity definitions: `encrypt="salt"` is removed; use `encrypt="true"`, which now gives the same randomized
   encryption ([#2055](https://github.com/apache/ofbiz-framework/pull/2055)).
 * Widgets: `<if-entity-permission>` is removed from `widget-common.xsd`
@@ -167,7 +171,7 @@ the same pull request.
   * `ArtifactInfoFactory` ([#2504](https://github.com/apache/ofbiz-framework/pull/2504)).
   * `JmsListenerFactory` ([#2517](https://github.com/apache/ofbiz-framework/pull/2517)).
   * the temporal expressions ([#2518](https://github.com/apache/ofbiz-framework/pull/2518)).
-  * `FlexibleServletAccessor`, `RecordIterator` and `ConfigXMLReader`
+  * `FlexibleServletAccessor` and `ConfigXMLReader`
     ([#2498](https://github.com/apache/ofbiz-framework/pull/2498)).
   * the null entity sentinels ([#2535](https://github.com/apache/ofbiz-framework/pull/2535)).
   * `OfbizUrlBuilder` ([#841](https://github.com/apache/ofbiz-framework/pull/841)).
@@ -176,6 +180,7 @@ the same pull request.
   * the JUnit suite wrapper ([#1648](https://github.com/apache/ofbiz-framework/pull/1648)).
   * the image classes, now on jdom2 ([#819](https://github.com/apache/ofbiz-framework/pull/819)).
   * the unused members removed by [#2482](https://github.com/apache/ofbiz-framework/pull/2482).
+  * the `org.apache.ofbiz.datafile` package ([OFBIZ-13815](https://issues.apache.org/jira/browse/OFBIZ-13815)).
 
 ### Themes
 
@@ -208,3 +213,5 @@ These apply to custom themes and to themes that override the common-theme macro 
   `MailSmtpConfig`, `MailDkimConfig`, `SecretAuditLog` and `ShortenedPath`.
 * The OLAP/BI entity group (`EntityGroup` 6800) is removed from the seed data
   ([#2479](https://github.com/apache/ofbiz-framework/pull/2479)).
+* `DATAFILE_MAINT` is no longer seeded; existing permission rows for it are harmless and can be deleted
+  ([OFBIZ-13815](https://issues.apache.org/jira/browse/OFBIZ-13815)).

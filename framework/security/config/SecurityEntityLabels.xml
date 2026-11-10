@@ -765,17 +765,6 @@
         <value xml:lang="zh">内容管理中的浏览操作。</value>
         <value xml:lang="zh-TW">內容管理中的檢視操作.</value>
     </property>
-    <property key="SecurityPermission.description.DATAFILE_MAINT">
-        <value xml:lang="en">Use the Data File Maintenance pages.</value>
-        <value xml:lang="es">Usar las páginas de Mantenimiento de Archivos de Datos.</value>
-        <value xml:lang="fr">Utiliser les pages de maintenance du fichier de données.</value>
-        <value xml:lang="it">Usare le pagine di gestione file dati.</value>
-        <value xml:lang="ja">データファイル管理ページの使用。</value>
-        <value xml:lang="ru">Использование страниц Обслуживание файлов данных.</value>
-        <value xml:lang="th">ใช้ไฟล์ข้อมูลในหน้าการบำรุงรักษา</value>
-        <value xml:lang="zh">使用数据文件维护页面。</value>
-        <value xml:lang="zh-TW">使用資料檔維護頁面.</value>
-    </property>
     <property key="SecurityPermission.description.ENTITY_DATA_ADMIN">
         <value xml:lang="en">ALL with the Entity Data Maintenance pages.</value>
         <value xml:lang="es">TODO dentro de las páginas de Mantenimiento de Datos de Entidad.</value>

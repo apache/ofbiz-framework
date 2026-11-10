@@ -24,7 +24,6 @@
 -->
 <catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
   <nextCatalog catalog="platform:/resource/ofbiz/framework/base/dtd/base-catalog.xml"/>
-  <nextCatalog catalog="platform:/resource/ofbiz/framework/datafile/dtd/datafiles-catalog.xml"/>
   <nextCatalog catalog="platform:/resource/ofbiz/framework/entity/dtd/entity-catalog.xml"/>
   <nextCatalog catalog="platform:/resource/ofbiz/framework/minilang/dtd/minilang-catalog.xml"/>
   <nextCatalog catalog="platform:/resource/ofbiz/framework/service/dtd/service-catalog.xml"/>
