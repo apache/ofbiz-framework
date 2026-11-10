@@ -282,6 +282,7 @@ under the License.
     <!-- service credit account w/ transaction -->
     <service name="createServiceCredit" engine="java"
             location="org.apache.ofbiz.accounting.finaccount.FinAccountServices" invoke="createAccountAndCredit" auth="true">
+        <permission-service service-name="acctgFinAcctPermissionCheck" main-action="CREATE"/>
         <attribute name="finAccountId" type="String" mode="INOUT" optional="true"/>
         <attribute name="finAccountName" type="String" mode="IN" optional="true"/>
         <attribute name="reasonEnumId" type="String" mode="IN" optional="true"/>
@@ -296,6 +297,7 @@ under the License.
     <!-- financial account w/ transaction -->
     <service name="createFinAccountAndCredit" engine="java"
             location="org.apache.ofbiz.accounting.finaccount.FinAccountServices" invoke="createAccountAndCredit" auth="true">
+        <permission-service service-name="acctgFinAcctPermissionCheck" main-action="CREATE"/>
         <attribute name="finAccountId" type="String" mode="INOUT" optional="true"/>
         <attribute name="finAccountName" type="String" mode="IN" optional="true"/>
         <attribute name="reasonEnumId" type="String" mode="IN" optional="true"/>
