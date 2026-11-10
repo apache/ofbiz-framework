@@ -185,15 +185,6 @@ under the License.
         <response name="success" type="view" value="entityrefReport"/>
     </request-map>
 
-    <request-map uri="ModelWriter">
-        <security https="false" auth="true"/>
-        <response name="success" type="view" value="ModelWriter"/>
-    </request-map>
-    <request-map uri="ModelGroupWriter">
-        <security https="false" auth="true"/>
-        <response name="success" type="view" value="ModelGroupWriter"/>
-    </request-map>
-
     <!-- UtilCache Maintenance Requests -->
     <request-map uri="FindUtilCache">
         <security https="true" auth="true"/>
@@ -737,14 +728,6 @@ under the License.
     <view-map name="ViewGeneric" type="screen" page="component://webtools/widget/EntityScreens.xml#ViewGeneric"/>
     <view-map name="EditGeneric" type="screen" page="component://webtools/widget/EntityScreens.xml#EditGeneric"/>
     <view-map name="ViewRelations" type="screen" page="component://webtools/widget/EntityScreens.xml#ViewRelations"/>
-
-    <!-- these are NOT regions because they generate text output that should never be decorated -->
-    <view-map name="tablesMySql" page="template/entity/tablesMySql.jsp"/>
-    <view-map name="droptablesMySql" page="template/entity/droptablesMySql.jsp"/>
-    <view-map name="droptablesplain" page="template/entity/droptablesplain.jsp"/>
-    <view-map name="dataMySql" page="template/entity/dataMySql.jsp"/>
-    <view-map name="ModelWriter" page="template/entity/ModelWriter.jsp"/>
-    <view-map name="ModelGroupWriter" page="template/entity/ModelGroupWriter.jsp"/>
 
     <view-map name="ModelInduceFromDb" type="screen" page="component://webtools/widget/EntityScreens.xml#ModelInduceFromDb"/>
 

@@ -102,6 +102,10 @@ the same pull request.
   `PARTYMGR_UPDATE` to create a user login for another party or change another user's password. Grant the new
   permissions to the security groups that need them
   ([#1276](https://github.com/apache/ofbiz-framework/pull/1276)).
+* Webtools: the JSP entity tools are removed: the `ModelWriter` and `ModelGroupWriter` requests and the
+  `tablesMySql`, `dataMySql`, `droptablesMySql`, `droptablesplain`, `ModelWriter` and `ModelGroupWriter` views
+  ([OFBIZ-13817](https://issues.apache.org/jira/browse/OFBIZ-13817)). Use "Induce Model XML from Database", the entity
+  reference and the SQL processor instead.
 
 ### Custom code
 
