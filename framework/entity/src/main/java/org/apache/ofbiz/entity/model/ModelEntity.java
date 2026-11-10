@@ -18,7 +18,6 @@
  */
 package org.apache.ofbiz.entity.model;
 
-import java.io.PrintWriter;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -39,7 +38,6 @@ import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.ObjectType;
 import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.base.util.UtilPlist;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.UtilXml;
 import org.apache.ofbiz.entity.Delegator;
@@ -2131,163 +2129,6 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
         root.setAttribute("entity", this.getEntityName());
 
         return root;
-    }
-
-    /**
-     * Writes entity model information in the Apple EOModelBundle format.
-     * For document structure and definition see: http://developer.apple.com/documentation/InternetWeb/Reference/WO_BundleReference/
-     * Articles/EOModelBundle.html
-     * For examples see the JavaRealEstate.framework and JavaBusinessLogic.framework packages which are in the /Library/Frameworks
-     * directory after installing the WebObjects Examples package (get latest version of WebObjects download for this).
-     * This is based on examples and documentation from WebObjects 5.4, downloaded 20080221.
-     * @param writer
-     * @param entityPrefix
-     * @param helperName
-     */
-    public void writeEoModelText(PrintWriter writer, String entityPrefix, String helperName, Set<String> entityNameIncludeSet,
-                                 ModelReader entityModelReader) throws GenericEntityException {
-        if (entityPrefix == null) entityPrefix = "";
-        if (helperName == null) helperName = "localh2";
-
-        UtilPlist.writePlistPropertyMap(this.createEoModelMap(entityPrefix, helperName, entityNameIncludeSet, entityModelReader), 0, writer, false);
-    }
-
-
-    /**
-     * Create eo model map map.
-     * @param entityPrefix the entity prefix
-     * @param helperName the helper name
-     * @param entityNameIncludeSet the entity name include set
-     * @param entityModelReader the entity model reader
-     * @return the map
-     * @throws GenericEntityException the generic entity exception
-     */
-    public Map<String, Object> createEoModelMap(String entityPrefix, String helperName, Set<String> entityNameIncludeSet,
-                                                ModelReader entityModelReader) throws GenericEntityException {
-        final boolean useRelationshipNames = false;
-        ModelFieldTypeReader modelFieldTypeReader = ModelFieldTypeReader.getModelFieldTypeReader(helperName);
-
-        Map<String, Object> topLevelMap = new HashMap<>();
-
-        topLevelMap.put("name", this.getEntityName());
-        topLevelMap.put("externalName", this.getTableName(helperName));
-        topLevelMap.put("className", "EOGenericRecord");
-
-        // for classProperties add field names AND relationship names to get a nice, complete chart
-        List<String> classPropertiesList = new LinkedList<>();
-        topLevelMap.put("classProperties", classPropertiesList);
-        for (ModelField field: this.fieldsList) {
-            if (field.getIsAutoCreatedInternal()) continue;
-            if (field.getIsPk()) {
-                classPropertiesList.add(field.getName() + "*");
-            } else {
-                classPropertiesList.add(field.getName());
-            }
-        }
-        for (ModelRelation relationship: this.relations) {
-            if (!entityNameIncludeSet.contains(relationship.getRelEntityName())) continue;
-            if (useRelationshipNames || relationship.isAutoRelation()) {
-                classPropertiesList.add(relationship.getCombinedName());
-            }
-        }
-
-        // attributes
-        List<Map<String, Object>> attributesList = new LinkedList<>();
-        topLevelMap.put("attributes", attributesList);
-        for (ModelField field: this.fieldsList) {
-            if (field.getIsAutoCreatedInternal()) continue;
-
-            ModelFieldType fieldType = modelFieldTypeReader.getModelFieldType(field.getType());
-
-            Map<String, Object> attributeMap = new HashMap<>();
-            attributesList.add(attributeMap);
-
-            if (field.getIsPk()) {
-                attributeMap.put("name", field.getName() + "*");
-            } else {
-                attributeMap.put("name", field.getName());
-            }
-            attributeMap.put("columnName", field.getColName());
-            attributeMap.put("valueClassName", fieldType.getJavaType());
-
-            String sqlType = fieldType.getSqlType();
-            if (sqlType.indexOf('(') >= 0) {
-                attributeMap.put("externalType", sqlType.substring(0, sqlType.indexOf('(')));
-                // since there is a field length set that
-                String widthStr = sqlType.substring(sqlType.indexOf('(') + 1, sqlType.indexOf(')'));
-                // if there is a comma split by it for width, precision
-                if (widthStr.indexOf(',') >= 0) {
-                    attributeMap.put("width", widthStr.substring(0, widthStr.indexOf(',')));
-                    // since there is a field precision set that
-                    attributeMap.put("precision", widthStr.substring(widthStr.indexOf(',') + 1));
-                } else {
-                    attributeMap.put("width", widthStr);
-                }
-            } else {
-                attributeMap.put("externalType", sqlType);
-            }
-        }
-
-        // primaryKeyAttributes
-        List<String> primaryKeyAttributesList = new LinkedList<>();
-        topLevelMap.put("primaryKeyAttributes", primaryKeyAttributesList);
-        for (ModelField pkField : getPkFields()) {
-            primaryKeyAttributesList.add(pkField.getName());
-        }
-
-        // relationships
-        List<Map<String, Object>> relationshipsMapList = new LinkedList<>();
-        for (ModelRelation relationship: this.relations) {
-            if (entityNameIncludeSet.contains(relationship.getRelEntityName())) {
-                ModelEntity relEntity = entityModelReader.getModelEntity(relationship.getRelEntityName());
-
-                Map<String, Object> relationshipMap = new HashMap<>();
-                relationshipsMapList.add(relationshipMap);
-
-                if (useRelationshipNames || relationship.isAutoRelation()) {
-                    relationshipMap.put("name", relationship.getCombinedName());
-                } else {
-                    relationshipMap.put("name", relationship.getKeyMaps().iterator().next().getFieldName());
-                }
-                relationshipMap.put("destination", relationship.getRelEntityName());
-                if ("many".equals(relationship.getType())) {
-                    relationshipMap.put("isToMany", "Y");
-                    relationshipMap.put("isMandatory", "N");
-                } else {
-                    relationshipMap.put("isToMany", "N");
-                    relationshipMap.put("isMandatory", "Y");
-                }
-                relationshipMap.put("joinSemantic", "EOInnerJoin");
-
-
-                List<Map<String, Object>> joinsMapList = new LinkedList<>();
-                relationshipMap.put("joins", joinsMapList);
-                for (ModelKeyMap keyMap: relationship.getKeyMaps()) {
-                    Map<String, Object> joinsMap = new HashMap<>();
-                    joinsMapList.add(joinsMap);
-
-                    ModelField thisField = this.getField(keyMap.getFieldName());
-                    if (thisField != null && thisField.getIsPk()) {
-                        joinsMap.put("sourceAttribute", keyMap.getFieldName() + "*");
-                    } else {
-                        joinsMap.put("sourceAttribute", keyMap.getFieldName());
-                    }
-
-                    ModelField relField = null;
-                    if (relEntity != null) relField = relEntity.getField(keyMap.getRelFieldName());
-                    if (relField != null && relField.getIsPk()) {
-                        joinsMap.put("destinationAttribute", keyMap.getRelFieldName() + "*");
-                    } else {
-                        joinsMap.put("destinationAttribute", keyMap.getRelFieldName());
-                    }
-                }
-            }
-        }
-        if (!relationshipsMapList.isEmpty()) {
-            topLevelMap.put("relationships", relationshipsMapList);
-        }
-
-        return topLevelMap;
     }
 
     /**

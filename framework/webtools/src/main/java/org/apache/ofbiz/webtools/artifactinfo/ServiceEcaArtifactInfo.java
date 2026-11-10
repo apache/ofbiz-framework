@@ -20,18 +20,12 @@ package org.apache.ofbiz.webtools.artifactinfo;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentSkipListSet;
 
 import org.apache.ofbiz.base.location.FlexibleLocation;
 import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.service.eca.ServiceEcaAction;
-import org.apache.ofbiz.service.eca.ServiceEcaCondition;
 import org.apache.ofbiz.service.eca.ServiceEcaRule;
 
 /**
@@ -140,67 +134,6 @@ public class ServiceEcaArtifactInfo extends ArtifactInfoBase {
      */
     public Set<ServiceArtifactInfo> getServicesTriggeringServiceEca() {
         return getAif().getAllServiceInfosReferringToServiceEcaRule().get(this.serviceEcaRule);
-    }
-
-    /**
-     * Create eo model map map.
-     * @param triggeringServiceSet the triggering service set
-     * @param triggeredServiceSet  the triggered service set
-     * @param useMoreDetailedNames the use more detailed names
-     * @return the map
-     */
-    public Map<String, Object> createEoModelMap(Set<ServiceArtifactInfo> triggeringServiceSet, Set<ServiceArtifactInfo> triggeredServiceSet,
-                                                boolean useMoreDetailedNames) {
-        if (triggeringServiceSet == null) triggeringServiceSet = new HashSet<>();
-        if (triggeredServiceSet == null) triggeredServiceSet = new HashSet<>();
-        Map<String, Object> topLevelMap = new HashMap<>();
-
-        topLevelMap.put("name", this.getDisplayPrefixedName());
-        topLevelMap.put("className", "EOGenericRecord");
-
-        // for classProperties add attribute names AND relationship names to get a nice, complete chart
-        List<String> classPropertiesList = new LinkedList<>();
-        topLevelMap.put("classProperties", classPropertiesList);
-        // conditions
-        for (ServiceEcaCondition ecaCondition: this.serviceEcaRule.getEcaConditionList()) {
-            classPropertiesList.add(ecaCondition.getShortDisplayDescription(useMoreDetailedNames));
-        }
-        // actions
-        for (ServiceEcaAction ecaAction: this.serviceEcaRule.getEcaActionList()) {
-            if (useMoreDetailedNames) {
-                classPropertiesList.add(ecaAction.getShortDisplayDescription());
-            } else {
-                classPropertiesList.add(ecaAction.getServiceName());
-            }
-        }
-
-        // relationships
-        List<Map<String, Object>> relationshipsMapList = new LinkedList<>();
-
-        for (ServiceArtifactInfo sai: triggeringServiceSet) {
-            Map<String, Object> relationshipMap = new HashMap<>();
-            relationshipsMapList.add(relationshipMap);
-
-            relationshipMap.put("name", sai.getDisplayPrefixedName());
-            relationshipMap.put("destination", sai.getDisplayPrefixedName());
-            relationshipMap.put("isToMany", "N");
-            relationshipMap.put("isMandatory", "Y");
-        }
-        for (ServiceArtifactInfo sai: triggeredServiceSet) {
-            Map<String, Object> relationshipMap = new HashMap<>();
-            relationshipsMapList.add(relationshipMap);
-
-            relationshipMap.put("name", sai.getDisplayPrefixedName());
-            relationshipMap.put("destination", sai.getDisplayPrefixedName());
-            relationshipMap.put("isToMany", "Y");
-            relationshipMap.put("isMandatory", "Y");
-        }
-
-        if (!relationshipsMapList.isEmpty()) {
-            topLevelMap.put("relationships", relationshipsMapList);
-        }
-
-        return topLevelMap;
     }
 
     @Override

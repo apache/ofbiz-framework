@@ -80,9 +80,6 @@ under the License.
         <menu-item name="ModelInduceFromDb" title="${uiLabelMap.WebtoolsInduceModelXMLFromDatabase}">
             <link target="ModelInduceFromDb"/>
         </menu-item>
-        <menu-item name="entityEoModelBundle" title="${uiLabelMap.WebtoolsExportEntityEoModelBundle}">
-            <link target="EntityEoModelBundle"/>
-        </menu-item>
         <menu-item name="xmlDsDump" title="${uiLabelMap.PageTitleEntityExport}">
             <link target="xmldsdump"/>
         </menu-item>

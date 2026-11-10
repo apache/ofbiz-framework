@@ -21,18 +21,6 @@ under the License.
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns="http://ofbiz.apache.org/Widget-Form" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
 
-    <form name="EntityEoModelBundle" type="single" target="exportEntityEoModelBundle" title="">
-        <auto-fields-service service-name="exportEntityEoModelBundle"/>
-        <field name="eomodeldFullPath"><text size="100"/></field>
-        <field name="entityGroupId">
-            <drop-down allow-empty="true">
-                <entity-options entity-name="EntityGroup" description="${entityGroupName}">
-                    <entity-order-by field-name="entityGroupName"/>
-                </entity-options>
-            </drop-down>
-        </field>
-        <field name="submitButton" title="${uiLabelMap.CommonSubmit}"><submit button-type="button"/></field>
-    </form>
     <grid name="ListPerformanceResults" list-name="performanceList" paginate-target="EntityPerformanceTest"
         separate-columns="true" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="operation" title="${uiLabelMap.WebtoolsPerformanceOperation}"><display/></field>

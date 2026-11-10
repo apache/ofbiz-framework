@@ -34,7 +34,6 @@ import java.sql.Timestamp;
 import java.text.NumberFormat;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -56,7 +55,6 @@ import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.base.util.UtilPlist;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilProperties.UtilResourceBundle;
 import org.apache.ofbiz.base.util.UtilURL;
@@ -85,15 +83,12 @@ import org.apache.ofbiz.entity.util.EntityListIterator;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.entity.util.EntitySaxReader;
 import org.apache.ofbiz.entity.util.EntityUtilProperties;
-import org.apache.ofbiz.entityext.EntityGroupUtil;
 import org.apache.ofbiz.security.Security;
 import org.apache.ofbiz.security.SecurityUtil;
 import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ServiceUtil;
-import org.apache.ofbiz.webtools.artifactinfo.ArtifactInfoFactory;
-import org.apache.ofbiz.webtools.artifactinfo.ServiceArtifactInfo;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -856,98 +851,6 @@ public class WebToolsServices {
         return resultMap;
     }
 
-    public static Map<String, Object> exportEntityEoModelBundle(DispatchContext dctx, Map<String, ? extends Object> context) {
-        String eomodeldFullPath = (String) context.get("eomodeldFullPath");
-        String entityPackageNameOrig = (String) context.get("entityPackageName");
-        String entityGroupId = (String) context.get("entityGroupId");
-        String datasourceName = (String) context.get("datasourceName");
-        String entityNamePrefix = (String) context.get("entityNamePrefix");
-        Locale locale = (Locale) context.get("locale");
-        if (datasourceName == null) datasourceName = "localh2";
-
-        ModelReader reader = dctx.getDelegator().getModelReader();
-
-        try {
-            if (!eomodeldFullPath.endsWith(".eomodeld")) {
-                eomodeldFullPath = eomodeldFullPath + ".eomodeld";
-            }
-
-            File outdir = new File(eomodeldFullPath);
-            if (!outdir.exists()) {
-                outdir.mkdir();
-            }
-            if (!outdir.isDirectory()) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "WebtoolsEomodelFullPathIsNotADirectory",
-                        UtilMisc.toMap("eomodeldFullPath", eomodeldFullPath), locale));
-            }
-            if (!outdir.canWrite()) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "WebtoolsEomodelFullPathIsNotWriteable",
-                        UtilMisc.toMap("eomodeldFullPath", eomodeldFullPath), locale));
-            }
-
-            Set<String> entityNames = new TreeSet<>();
-            if (UtilValidate.isNotEmpty(entityPackageNameOrig)) {
-                Set<String> entityPackageNameSet = new HashSet<>();
-                entityPackageNameSet.addAll(StringUtil.split(entityPackageNameOrig, ","));
-
-                Debug.logInfo("Exporting with entityPackageNameSet: " + entityPackageNameSet, MODULE);
-
-                Map<String, TreeSet<String>> entitiesByPackage = reader.getEntitiesByPackage(entityPackageNameSet, null);
-                for (Map.Entry<String, TreeSet<String>> entitiesByPackageMapEntry : entitiesByPackage.entrySet()) {
-                    entityNames.addAll(entitiesByPackageMapEntry.getValue());
-                }
-            } else if (UtilValidate.isNotEmpty(entityGroupId)) {
-                Debug.logInfo("Exporting entites from the Group: " + entityGroupId, MODULE);
-                entityNames.addAll(EntityGroupUtil.getEntityNamesByGroup(entityGroupId, dctx.getDelegator(), false));
-            } else {
-                entityNames.addAll(reader.getEntityNames());
-            }
-            Debug.logInfo("Exporting the following entities: " + entityNames, MODULE);
-
-            // remove all view-entity
-            Iterator<String> filterEntityNameIter = entityNames.iterator();
-            while (filterEntityNameIter.hasNext()) {
-                String entityName = filterEntityNameIter.next();
-                ModelEntity modelEntity = reader.getModelEntity(entityName);
-                if (modelEntity instanceof ModelViewEntity) {
-                    filterEntityNameIter.remove();
-                }
-            }
-
-            // write the index.eomodeld file
-            Map<String, Object> topLevelMap = new HashMap<>();
-            topLevelMap.put("EOModelVersion", "\"2.1\"");
-            List<Map<String, Object>> entitiesMapList = new LinkedList<>();
-            topLevelMap.put("entities", entitiesMapList);
-            for (String entityName : entityNames) {
-                Map<String, Object> entitiesMap = new HashMap<>();
-                entitiesMapList.add(entitiesMap);
-                entitiesMap.put("className", "EOGenericRecord");
-                entitiesMap.put("name", entityName);
-            }
-            UtilPlist.writePlistFile(topLevelMap, eomodeldFullPath, "index.eomodeld", true);
-
-            // write each <EntityName>.plist file
-            for (String curEntityName : entityNames) {
-                ModelEntity modelEntity = reader.getModelEntity(curEntityName);
-                UtilPlist.writePlistFile(modelEntity.createEoModelMap(entityNamePrefix, datasourceName, entityNames, reader), eomodeldFullPath,
-                        curEntityName + ".plist", true);
-            }
-            Integer entityNamesSize = entityNames.size();
-            return ServiceUtil.returnSuccess(UtilProperties.getMessage(RESOURCE, "WebtoolsEomodelExported",
-                    UtilMisc.toMap("entityNamesSize", entityNamesSize.toString(), "eomodeldFullPath", eomodeldFullPath), locale));
-        } catch (UnsupportedEncodingException e) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "WebtoolsEomodelSavingFileError",
-                    UtilMisc.toMap("errorString", e.toString()), locale));
-        } catch (FileNotFoundException e) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "WebtoolsEomodelFileOrDirectoryNotFound",
-                    UtilMisc.toMap("errorString", e.toString()), locale));
-        } catch (GenericEntityException e) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "WebtoolsEomodelErrorGettingEntityNames",
-                    UtilMisc.toMap("errorString", e.toString()), locale));
-        }
-    }
-
     /**
      * Performs an entity maintenance security check. Returns hasPermission=true
      * if the user has the ENTITY_MAINT permission.
@@ -988,51 +891,5 @@ public class WebToolsServices {
                 UtilProperties.getMessage(RESOURCE, "WebtoolsSecretPermissionError", locale));
         resultMap.put("hasPermission", false);
         return resultMap;
-    }
-
-
-    public static Map<String, Object> exportServiceEoModelBundle(DispatchContext dctx, Map<String, ? extends Object> context) {
-        String eomodeldFullPath = (String) context.get("eomodeldFullPath");
-        String serviceName = (String) context.get("serviceName");
-        Locale locale = (Locale) context.get("locale");
-
-        if (eomodeldFullPath.endsWith("/")) {
-            eomodeldFullPath = eomodeldFullPath + serviceName + ".eomodeld";
-        }
-
-        if (!eomodeldFullPath.endsWith(".eomodeld")) {
-            eomodeldFullPath = eomodeldFullPath + ".eomodeld";
-        }
-
-        File outdir = new File(eomodeldFullPath);
-        if (!outdir.exists()) {
-            outdir.mkdir();
-        }
-        if (!outdir.isDirectory()) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "WebtoolsEomodelFullPathIsNotADirectory",
-                    UtilMisc.toMap("eomodeldFullPath", eomodeldFullPath), locale));
-        }
-        if (!outdir.canWrite()) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "WebtoolsEomodelFullPathIsNotWriteable",
-                    UtilMisc.toMap("eomodeldFullPath", eomodeldFullPath), locale));
-        }
-
-        try {
-            ArtifactInfoFactory aif = ArtifactInfoFactory.getArtifactInfoFactory("default");
-            ServiceArtifactInfo serviceInfo = aif.getServiceArtifactInfo(serviceName);
-            serviceInfo.writeServiceCallGraphEoModel(eomodeldFullPath);
-        } catch (GeneralException e) {
-            Debug.logError(e, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "WebtoolsEomodelErrorGettingEntityNames",
-                    UtilMisc.toMap("errorString", e.toString()), locale));
-        } catch (UnsupportedEncodingException e) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "WebtoolsEomodelSavingFileError",
-                    UtilMisc.toMap("errorString", e.toString()), locale));
-        } catch (FileNotFoundException e) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "WebtoolsEomodelFileOrDirectoryNotFound",
-                    UtilMisc.toMap("errorString", e.toString()), locale));
-        }
-
-        return ServiceUtil.returnSuccess();
     }
 }
