@@ -233,11 +233,13 @@ under the License.
 
     <service name="runOfflineEntitySync" engine="java"
             location="org.apache.ofbiz.entityext.synchronization.EntitySyncServices" invoke="runOfflineEntitySync" auth="true" use-transaction="false">
+        <permission-service service-name="entitySyncPermissionCheck" main-action="UPDATE"/>
         <attribute name="entitySyncId" type="String" mode="IN" optional="false"/>
         <attribute name="fileName" type="String" mode="IN" optional="true"><!-- if not specified defaults to "offline_entitySync-" + entitySyncId + "-" + [current date/time in yyyyMMddHHmmss format] + ".xml" --></attribute>
     </service>
     <service name="loadOfflineEntitySyncData" engine="java"
             location="org.apache.ofbiz.entityext.synchronization.EntitySyncServices" invoke="loadOfflineSyncData" auth="true" use-transaction="false">
+        <permission-service service-name="entitySyncPermissionCheck" main-action="UPDATE"/>
         <attribute name="xmlFileName" type="String" mode="IN" optional="false"/>
     </service>
 
@@ -250,6 +252,7 @@ under the License.
     <service name="storeEntitySyncData" engine="java" location="org.apache.ofbiz.entityext.synchronization.EntitySyncServices" invoke="storeEntitySyncData"
             export="true" auth="true" require-new-transaction="true" transaction-timeout="900">
         <description>Run Entity Sync</description>
+        <permission-service service-name="entitySyncPermissionCheck" main-action="UPDATE"/>
         <attribute name="entitySyncId" type="String" mode="IN" optional="false"/>
         <attribute name="valuesToCreate" type="List" mode="IN" optional="false"/>
         <attribute name="valuesToStore" type="List" mode="IN" optional="false"/>
@@ -277,6 +280,7 @@ under the License.
     <service name="pullAndReportEntitySyncData" engine="java" auth="true" export="true" use-transaction="false"
             location="org.apache.ofbiz.entityext.synchronization.EntitySyncServices" invoke="pullAndReportEntitySyncData">
         <description>Pull And Report Entity Sync Data</description>
+        <permission-service service-name="entitySyncPermissionCheck" main-action="UPDATE"/>
         <attribute name="entitySyncId" type="String" mode="IN" optional="false"/>
         <attribute name="delegatorName" type="String" mode="IN" optional="true"/>
         <!-- fields for returned values to store on the calling machine, note that after storing these this service MUST be called with the results to finalize it! -->
