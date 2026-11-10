@@ -32,6 +32,7 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.nio.file.StandardOpenOption;
 import java.util.HashMap;
@@ -48,6 +49,7 @@ import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.FileUtil;
 import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilGenerics;
+import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
@@ -57,6 +59,7 @@ import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.entity.util.EntityUtilProperties;
+import org.apache.ofbiz.security.Security;
 import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
@@ -68,6 +71,40 @@ public class FrameImage {
     private static final String MODULE = FrameImage.class.getName();
     private static final String RES_ERROR = "ProductErrorUiLabels";
     private static final String RESOURCE = "ProductUiLabels";
+    private static final String FRAME_DIR = "frame";
+
+    /**
+     * Resolves the image directory of a product under the image server path.
+     * @param imageServerPath the image management root path
+     * @param productId the product ID, used as a single directory name
+     * @return the normalized product directory, or {@code null} if productId does not name a direct child of the root
+     */
+    private static Path resolveProductDir(String imageServerPath, String productId) {
+        if (UtilValidate.isEmpty(productId)) {
+            return null;
+        }
+        Path root = Paths.get(imageServerPath).normalize();
+        Path productDir = root.resolve(productId).normalize();
+        return root.equals(productDir.getParent()) ? productDir : null;
+    }
+
+    /**
+     * Checks that a product image and a frame image both stay inside their directories under the image server path.
+     * @param imageServerPath the image management root path
+     * @param productId the product ID
+     * @param imageName the product image file name
+     * @param frameImageName the frame image file name
+     * @param delegator the delegator
+     * @return true if both files resolve inside their expected directories
+     */
+    private static boolean isValidFrameRequest(String imageServerPath, String productId, String imageName, String frameImageName,
+            Delegator delegator) {
+        Path productDir = resolveProductDir(imageServerPath, productId);
+        Path frameDir = Paths.get(imageServerPath, FRAME_DIR).normalize();
+        return productDir != null
+                && ImageManagementServices.isValidProductImageFileName(imageName, productDir, delegator)
+                && ImageManagementServices.isValidProductImageFileName(frameImageName, frameDir, delegator);
+    }
 
     public static Map<String, Object> addImageFrame(DispatchContext dctx, Map<String, ? extends Object> context)
             throws IOException {
@@ -87,6 +124,13 @@ public class FrameImage {
         String imageWidth = (String) context.get("imageWidth");
         String imageHeight = (String) context.get("imageHeight");
         Locale locale = (Locale) context.get("locale");
+
+        Security security = dctx.getSecurity();
+        if (!security.hasPermission("IMAGE_MANAGEMENT_ADMIN", userLogin)) {
+            String errMsg = UtilProperties.getMessage(RES_ERROR, "ProductImageManagementPermissionError", locale);
+            Debug.logError(errMsg, MODULE);
+            return ServiceUtil.returnError(errMsg);
+        }
 
         if (UtilValidate.isEmpty(context.get("frameContentId")) || UtilValidate.isEmpty(context.get("frameDataResourceId"))) {
             result = ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
@@ -114,6 +158,11 @@ public class FrameImage {
         }
 
         if (UtilValidate.isNotEmpty(imageName)) {
+            if (!isValidFrameRequest(imageServerPath, productId, imageName, frameImageName, delegator)) {
+                Debug.logError("Path traversal attempt detected in image frame, productId: " + productId + ", imageName: " + imageName, MODULE);
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
+                        "ProductImageViewUnableWriteFile", UtilMisc.toMap("fileName", imageName), locale));
+            }
 
             // Image Frame
             BufferedImage bufImg1 = ImageIO.read(new File(imageServerPath + "/" + productId + "/" + imageName));
@@ -276,6 +325,11 @@ public class FrameImage {
         HttpSession session = request.getSession();
         Locale locale = request.getLocale();
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
+        Security security = (Security) request.getAttribute("security");
+        if (!security.hasPermission("IMAGE_MANAGEMENT_ADMIN", userLogin)) {
+            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "ProductImageManagementPermissionError", locale));
+            return "error";
+        }
 
         Map<String, ? extends Object> context = UtilGenerics.cast(request.getParameterMap());
         String imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog",
@@ -296,6 +350,12 @@ public class FrameImage {
             session.setAttribute("frameContentId", request.getParameter("frameExistContentId"));
             session.setAttribute("frameDataResourceId", request.getParameter("frameExistDataResourceId"));
             request.setAttribute("_ERROR_MESSAGE_", "The selected image type is incorrect, please select the image type *.PNG to upload.");
+            return "error";
+        }
+        if (!ImageManagementServices.isValidProductImageFileName(imageName, Paths.get(imageServerPath, FRAME_DIR).normalize(), delegator)) {
+            Debug.logError("Path traversal attempt detected in frame upload, imageName: " + imageName, MODULE);
+            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RESOURCE,
+                    "ProductImageViewUnableWriteFile", UtilMisc.toMap("fileName", imageName), locale));
             return "error";
         }
 
@@ -377,6 +437,13 @@ public class FrameImage {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         Map<String, ? extends Object> context = UtilGenerics.cast(request.getParameterMap());
         HttpSession session = request.getSession();
+        Locale locale = request.getLocale();
+        GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
+        Security security = (Security) request.getAttribute("security");
+        if (!security.hasPermission("IMAGE_MANAGEMENT_ADMIN", userLogin)) {
+            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "ProductImageManagementPermissionError", locale));
+            return "error";
+        }
         String imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog",
                 "image.management.path", delegator), context);
 
@@ -420,6 +487,13 @@ public class FrameImage {
         }
 
         if (UtilValidate.isNotEmpty(imageName)) {
+            if (!isValidFrameRequest(imageServerPath, productId, imageName, frameImageName, delegator)) {
+                Debug.logError("Path traversal attempt detected in image frame preview, productId: " + productId + ", imageName: " + imageName,
+                        MODULE);
+                request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RESOURCE,
+                        "ProductImageViewUnableWriteFile", UtilMisc.toMap("fileName", imageName), locale));
+                return "error";
+            }
             File file = new File(imageServerPath + "/preview/" + "/previewImage.jpg");
             if (!file.delete()) {
                 Debug.logError("File :" + file.getName() + ", couldn't be loaded", MODULE);
