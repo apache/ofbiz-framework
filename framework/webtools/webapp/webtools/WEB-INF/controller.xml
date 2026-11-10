@@ -261,12 +261,6 @@ under the License.
         <response name="error" type="view" value="FindUtilCacheElements"/>
     </request-map>
 
-    <!-- DataFile stuff -->
-    <request-map uri="viewdatafile">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="viewdatafile"/>
-    </request-map>
-
     <!-- ControlServlet and other stats requests -->
     <request-map uri="StatsSinceStart">
         <security https="true" auth="true"/>
@@ -778,8 +772,6 @@ under the License.
     <view-map name="FindUtilCache" type="screen" page="component://webtools/widget/CacheScreens.xml#FindUtilCache"/>
     <view-map name="FindUtilCacheElements" type="screen" page="component://webtools/widget/CacheScreens.xml#FindUtilCacheElements"/>
     <view-map name="EditUtilCache" type="screen" page="component://webtools/widget/CacheScreens.xml#EditUtilCache"/>
-
-    <view-map name="viewdatafile" type="screen" page="component://webtools/widget/MiscScreens.xml#viewdatafile"/>
 
     <view-map name="LogConfiguration" type="screen" page="component://webtools/widget/LogScreens.xml#LogConfiguration"/>
     <view-map name="LogView" type="screen" page="component://webtools/widget/LogScreens.xml#LogView"/>

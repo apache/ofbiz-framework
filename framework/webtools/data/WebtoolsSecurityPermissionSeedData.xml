@@ -30,9 +30,6 @@ under the License.
     <!-- Labels Info security -->
     <SecurityPermission description="View the Labels Info pages." permissionId="LABEL_MANAGER_VIEW"/>
 
-    <!-- Data File Maintenance security -->
-    <SecurityPermission description="Use the Data File Maintenance pages." permissionId="DATAFILE_MAINT"/>
-
     <!-- Service Maintenance security -->
     <SecurityPermission description="Use the Service Maintenance pages." permissionId="SERVICE_MAINT"/>
     <SecurityPermission description="Edit the job manager lock on the Service Maintenance pages." permissionId="SERVICE_JM_LOCK"/>
@@ -68,8 +65,6 @@ under the License.
     <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="SERVICE_RSAS_VIEW"/>
     <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="ARTIFACT_INFO_VIEW"/>
     <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="LABEL_MANAGER_VIEW"/>
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="DATAFILE_MAINT"/>
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="DATAFILE_MAINT"/>
     <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="SERVICE_MAINT"/>
     <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="SERVICE_JM_LOCK"/>
     <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="PERIOD_MAINT"/>

@@ -94,10 +94,6 @@ under the License.
           <li><a href="<@ofbizUrl>FindJobTracker</@ofbizUrl>">${uiLabelMap.WebtoolsJobTrackerList}</a></li>
           <li><a href="<@ofbizUrl>ServiceLog</@ofbizUrl>">${uiLabelMap.WebtoolsServiceLog}</a></li>
         </#if>
-        <#if security.hasPermission("DATAFILE_MAINT", session)>
-          <li><h3>${uiLabelMap.WebtoolsDataFileTools}</h3></li>
-          <li><a href="<@ofbizUrl>viewdatafile</@ofbizUrl>">${uiLabelMap.WebtoolsWorkWithDataFiles}</a></li>
-        </#if>
         <li><h3>${uiLabelMap.WebtoolsMiscSetupTools}</h3></li>
         <#if security.hasPermission("PORTALPAGE_ADMIN", session)>
           <li><a href="<@ofbizUrl>FindGeo</@ofbizUrl>">${uiLabelMap.WebtoolsGeoManagement}</a></li>

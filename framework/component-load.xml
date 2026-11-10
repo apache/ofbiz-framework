@@ -23,7 +23,6 @@ under the License.
     <load-component component-location="base"/>
     <load-component component-location="entity"/>
     <load-component component-location="security"/>
-    <load-component component-location="datafile"/>
     <load-component component-location="minilang"/>
     <load-component component-location="common"/>
     <load-component component-location="service"/>
