@@ -200,7 +200,7 @@ public final class StartupCommandUtil {
                     "ofbiz|ofbizDebug|ofbizBackground",
                     System.lineSeparator() + "Executes OFBiz command e.g. start, shutdown, check status, etc",
                     getOfbizStartupOptions(),
-                    "note: Only one command can execute at a time. Portoffset may be appended."
+                    "note: Only one command can execute at a time. Portoffset and config may be appended."
                         + System.lineSeparator()
                         + "Also a command must be invoked separately for each argument e.g."
                         + System.lineSeparator()
@@ -228,12 +228,12 @@ public final class StartupCommandUtil {
         ofbizCommandOptions.addOption(SHUTDOWN);
         ofbizCommandOptions.addOption(START);
         ofbizCommandOptions.addOption(STATUS);
-        ofbizCommandOptions.addOption(CONFIG);
         ofbizCommandOptions.addOption(TEST);
 
         Options options = new Options();
         options.addOptionGroup(ofbizCommandOptions);
         options.addOption(PORTOFFSET);
+        options.addOption(CONFIG);
         return options;
     }
 
