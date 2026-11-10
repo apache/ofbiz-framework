@@ -64,9 +64,6 @@ under the License.
         <!-- <service-location name="main-http" location="http://localhost:8080/webtools/control/httpService"/>
         <service-location name="main-soap" location="http://localhost:8080/webtools/control/SOAPService"/> -->
         
-        <service-location name="entity-sync-rmi" location="rmi://localhost:1099/RMIDispatcher"/>
-        <!-- <service-location name="entity-sync-http" location="https://localhost:8443/webtools/control/httpService"/> -->
-
         <service-location name="rita-rmi" location="rmi://localhost:1099/RMIDispatcher"/>
         <!-- <service-location name="eedcc-test" location="https://localhost:8443/webtools/control/httpService"/> -->
 

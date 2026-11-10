@@ -109,6 +109,13 @@ the same pull request.
 * Webtools: the `TestService`, `streamTest`, `yahoo` and `chain` sample requests are removed, as are the
   `serviceStreamTest` test service and the `serviceStreamInterface` service interface
   ([OFBIZ-13817](https://issues.apache.org/jira/browse/OFBIZ-13817)).
+* EntitySync no longer synchronizes data ([OFBIZ-13820](https://issues.apache.org/jira/browse/OFBIZ-13820)):
+  the remote push and pull and the offline export and import are removed, with the `runEntitySync`,
+  `runPullEntitySync`, `pullAndReportEntitySyncData`, `storeEntitySyncData`, `remote*EntitySyncData*`,
+  `runOfflineEntitySync`, `loadOfflineEntitySyncData`, `updateOfflineEntitySync` and `resetEntitySyncStatus`
+  services, the `entity-sync-rmi` service location and the Webtools Entity Sync Status page. The EntitySync records
+  stay and can still select the entities to export in the Webtools XML Data Export page; to move data between
+  instances, use the XML export and import.
 
 ### Custom code
 
@@ -176,6 +183,9 @@ the same pull request.
   [#1790](https://github.com/apache/ofbiz-framework/pull/1790),
   [#2474](https://github.com/apache/ofbiz-framework/pull/2474)).
 * Other framework classes:
+  * `EntitySyncContext` and all `EntitySyncServices` methods except `cleanSyncRemoveInfo`; the entity names of an
+    EntitySync are available from `EntityGroupUtil.getEntityNamesByEntitySync`
+    ([OFBIZ-13820](https://issues.apache.org/jira/browse/OFBIZ-13820)).
   * minilang simple-map operations ([#2499](https://github.com/apache/ofbiz-framework/pull/2499)).
   * `ArtifactInfoFactory` ([#2504](https://github.com/apache/ofbiz-framework/pull/2504)).
   * `JmsListenerFactory` ([#2517](https://github.com/apache/ofbiz-framework/pull/2517)).
@@ -231,3 +241,7 @@ These apply to custom themes and to themes that override the common-theme macro 
   ([#2479](https://github.com/apache/ofbiz-framework/pull/2479)).
 * `DATAFILE_MAINT` is no longer seeded; existing permission rows for it are harmless and can be deleted
   ([OFBIZ-13815](https://issues.apache.org/jira/browse/OFBIZ-13815)).
+* EntitySync: the run status, history and remote target fields (`runStatusId`, `targetServiceName`,
+  `targetDelegatorName`, `forPullOnly`, `forPushOnly` and the `EntitySyncHistory` records) are no longer written.
+  Delete any `JobSandbox` record that runs `runEntitySync` or `runPullEntitySync`. Job 8200 (`cleanSyncRemoveInfo`)
+  stays ([OFBIZ-13820](https://issues.apache.org/jira/browse/OFBIZ-13820)).

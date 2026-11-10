@@ -551,33 +551,6 @@ under the License.
         <response name="error" type="none"/>
     </request-map>
 
-    <!-- EntitySync requests -->
-    <request-map uri="EntitySyncStatus"><security https="true" auth="true"/><response name="success" type="view" value="EntitySyncStatus"/></request-map>
-    <request-map uri="resetEntitySyncStatus">
-        <security https="true" auth="true"/>
-        <event type="service" path="" invoke="resetEntitySyncStatus"/>
-        <response name="success" type="view" value="EntitySyncStatus"/>
-        <response name="error" type="view" value="EntitySyncStatus"/>
-    </request-map>
-    <request-map uri="runOfflineEntitySync">
-        <security https="true" auth="true"/>
-        <event type="service" path="ASYNC" invoke="runOfflineEntitySync"/>
-        <response name="success" type="view" value="EntitySyncStatus"/>
-        <response name="error" type="view" value="EntitySyncStatus"/>
-    </request-map>
-    <request-map uri="updateOfflineEntitySync">
-        <security https="true" auth="true"/>
-        <event type="service" path="" invoke="updateOfflineEntitySync"/>
-        <response name="success" type="view" value="EntitySyncStatus"/>
-        <response name="error" type="view" value="EntitySyncStatus"/>
-    </request-map>
-    <request-map uri="loadOfflineEntitySyncData">
-        <security https="true" auth="true"/>
-        <event type="service" path="" invoke="loadOfflineEntitySyncData"/>
-        <response name="success" type="view" value="EntitySyncStatus"/>
-        <response name="error" type="view" value="EntitySyncStatus"/>
-    </request-map>
-
     <!-- Artifact Info Requests -->
     <request-map uri="ArtifactInfo">
         <security https="true" auth="true"/>
@@ -739,7 +712,6 @@ under the License.
     <view-map name="printStart" type="screen" page="component://webtools/widget/CommonScreens.xml#printStart"/>
     <view-map name="printDone" type="screen" page="component://webtools/widget/CommonScreens.xml#printDone"/>
 
-    <view-map name="EntitySyncStatus" type="screen" page="component://webtools/widget/EntitySyncScreens.xml#EntitySyncStatus"/>
     <view-map name="EntitySQLProcessor" type="screen" page="component://webtools/widget/EntityScreens.xml#EntitySQLProcessor"/>
     <view-map name="ConnectionPoolStatus" type="screen" page="component://webtools/widget/EntityScreens.xml#ConnectionPoolStatus"/>
     <view-map name="EncryptValue" type="screen" page="component://webtools/widget/SecretManagerScreens.xml#EncryptValue"/>

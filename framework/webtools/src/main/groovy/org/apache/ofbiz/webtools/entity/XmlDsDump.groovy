@@ -166,7 +166,7 @@ switch (preConfiguredSetName) {
 }
 
 if (entitySyncId) {
-    passedEntityNames = org.apache.ofbiz.entityext.synchronization.EntitySyncContext.getEntitySyncModelNamesToUse(dispatcher, entitySyncId)
+    passedEntityNames = org.apache.ofbiz.entityext.EntityGroupUtil.getEntityNamesByEntitySync(entitySyncId, delegator)
 }
 checkAll = parameters.checkAll == 'true'
 tobrowser = parameters.tobrowser != null
