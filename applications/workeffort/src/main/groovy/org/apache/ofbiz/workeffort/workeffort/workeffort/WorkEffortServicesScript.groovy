@@ -287,7 +287,7 @@ Map deleteWorkEffort() {
                     .where(workEffortId: parameters.workEffortId,
                     partyId: userLogin.partyId)
                     .queryCount() == 0 &&
-                    security.hasPermission('WORKEFFORTMGR_DELETE', userLogin)) {
+                    !security.hasEntityPermission('WORKEFFORTMGR', '_DELETE', userLogin)) {
         return error(label('WorkEffortUiLabels', 'WorkEffortDeletePermissionError'))
     }
 
@@ -358,7 +358,7 @@ Map duplicateWorkEffort() {
             parameters.removeWorkEffortContents == 'Y' ||
             parameters.removeWorkEffortNotes == 'Y' ||
             parameters.removeWorkEffortAssignmentRates == 'Y') &&
-            security.hasPermission('WORKEFFORTMGR_DELETE', userLogin)) {
+            !security.hasEntityPermission('WORKEFFORTMGR', '_DELETE', userLogin)) {
         return error(label('WorkEffortUiLabels', 'WorkEffortDeletePermissionError'))
     }
     String workEffortId = parameters.workEffortId ?: delegator.getNextSeqId('WorkEffort')
