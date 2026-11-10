@@ -23,7 +23,6 @@ under the License.
     <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>
     <include location="component://commonext/webapp/WEB-INF/controller.xml"/>
     <include location="component://workeffort/webapp/workeffort/WEB-INF/workeffort-controller.xml"/>
-    <include location="component://workeffort/webapp/workeffort/WEB-INF/icalendar-controller.xml"/>
     <description>Work Manager Module Site Configuration File</description>
 
     <!-- Events to run on every request before security (chains exempt) -->

@@ -225,8 +225,7 @@ public class LoginServices {
                         // check whether to sign in with Tomcat SSO
                         boolean useTomcatSSO = EntityUtilProperties.propertyValueEquals("security", "security.login.tomcat.sso", "true");
                         HttpServletRequest request = (jakarta.servlet.http.HttpServletRequest) context.get("request");
-                        // when request is not supplied, we will treat that SSO is not required as
-                        // in the usage of userLogin service in ICalWorker.java
+                        // when request is not supplied, as in a service call, SSO is not required
                         useTomcatSSO = useTomcatSSO && (request != null);
 
                         // resolve the key for decrypt the token and control the validity

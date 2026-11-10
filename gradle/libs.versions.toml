@@ -36,7 +36,6 @@ commons-net = "3.13.0"
 commons-validator = "1.11.0"
 javax-activation = "1.1.1"
 jakarta-transaction-api = "2.0.1"
-ical4j = "1.0-rc4-atlassian-12"
 zip4j = "2.11.6"
 activiti-juel-jakarta = "8.1.0"
 commons-collections4 = "4.6.0"
@@ -127,7 +126,6 @@ commons-net = { module = "commons-net:commons-net", version.ref = "commons-net" 
 commons-validator = { module = "commons-validator:commons-validator", version.ref = "commons-validator" }
 javax-activation = { module = "javax.activation:activation", version.ref = "javax-activation" }
 jakarta-transaction-api = { module = "jakarta.transaction:jakarta.transaction-api", version.ref = "jakarta-transaction-api" }
-ical4j = { module = "net.fortuna.ical4j:ical4j", version.ref = "ical4j" }
 zip4j = { module = "net.lingala.zip4j:zip4j", version.ref = "zip4j" }
 activiti-juel-jakarta = { module = "org.activiti:activiti-juel-jakarta", version.ref = "activiti-juel-jakarta" }
 commons-collections4 = { module = "org.apache.commons:commons-collections4", version.ref = "commons-collections4" }

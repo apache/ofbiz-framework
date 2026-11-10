@@ -545,15 +545,6 @@
         <value xml:lang="zh">项目模板</value>
         <value xml:lang="zh-TW">專案模板</value>
     </property>
-    <property key="WorkEffortType.description.PUBLISH_PROPS">
-        <value xml:lang="en">Publish Properties</value>
-        <value xml:lang="fr">Propriétés de publication</value>
-        <value xml:lang="it">Pubblica properties</value>
-        <value xml:lang="ja">公開プロパティ</value>
-        <value xml:lang="vi">Thuộc tính xuất bản</value>
-        <value xml:lang="zh">发布属性</value>
-        <value xml:lang="zh-TW">發行屬性</value>
-    </property>
     <property key="WorkEffortType.description.ROUTING">
         <value xml:lang="en">Routing</value>
         <value xml:lang="fr">Routage</value>

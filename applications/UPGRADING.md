@@ -41,6 +41,7 @@ no replacement in OFBiz; a project that still uses one has to keep its own copy.
 | ValueLink gift cards | [#1149](https://github.com/apache/ofbiz-framework/pull/1149) |
 | eBay seed data (`EBAY_SALES_CHANNEL`, `EXT_EBAY`, `PCCT_EBAY_ROOT`) | [#1493](https://github.com/apache/ofbiz-framework/pull/1493) |
 | BIRT order report events | [#2476](https://github.com/apache/ofbiz-framework/pull/2476) |
+| Work effort iCalendar publishing (`/iCalendar`), with the `WorkEffortIcalData` entity and the `ICAL_URL`, `ICAL_MEMBER` and `PUBLISH_PROPS` seed data | [OFBIZ-13816](https://issues.apache.org/jira/browse/OFBIZ-13816) |
 
 ### Services
 
@@ -54,6 +55,9 @@ no replacement in OFBiz; a project that still uses one has to keep its own copy.
   [OFBIZ-13418](https://issues.apache.org/jira/browse/OFBIZ-13418)).
 * `timesheetUpdatePermission` is removed; use `timesheetPermissionCheck` instead
   ([#2599](https://github.com/apache/ofbiz-framework/pull/2599)).
+* `createWorkEffortICalData`, `updateWorkEffortICalData`, `deleteWorkEffortICalData`, `workEffortICalendarPermission`,
+  `getICalWorkEfforts` and `getPartyICalUrl` are removed with the iCalendar webapp
+  ([OFBIZ-13816](https://issues.apache.org/jira/browse/OFBIZ-13816)).
 
 ### Custom code
 
@@ -73,6 +77,9 @@ no replacement in OFBiz; a project that still uses one has to keep its own copy.
 * The carrier and gateway classes listed under "Removed integrations" are gone, together with
   `ShipmentServices.quickScheduleShipmentRouteSegment`, the carrier parameters of `WeightPackageSession`,
   `UtilValidate.isValueLinkCard` and `CatalogWorker.getCatalogTopEbayCategoryId`.
+* `ICalConverter`, `ICalRecurConverter`, `ICalWorker` and `ICalHandlerFactory` in
+  `org.apache.ofbiz.workeffort.workeffort` are removed with the iCalendar webapp
+  ([OFBIZ-13816](https://issues.apache.org/jira/browse/OFBIZ-13816)).
 
 ### Data
 

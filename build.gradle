@@ -263,10 +263,6 @@ allprojects {
         // this should be checked frequently to remove obsolete configurations if the artifacts are available
         // on mavenCentral directly
         maven {
-            // net.fortuna.ical4j:ical4j:1.0-rc3-atlassian-11
-            url = 'https://packages.atlassian.com/maven-3rdparty/'
-        }
-        maven {
             url = "https://artifacts.alfresco.com/nexus/content/repositories/public/"
         }
         /* maven {

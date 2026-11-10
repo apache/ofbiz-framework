@@ -37,7 +37,6 @@ dependencies {
     implementation libs.commons.validator
     implementation libs.javax.activation
     implementation libs.jakarta.transaction.api
-    implementation libs.ical4j
     implementation libs.zip4j
     implementation libs.activiti.juel.jakarta
     implementation libs.commons.collections4

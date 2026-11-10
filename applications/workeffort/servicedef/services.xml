@@ -1555,69 +1555,6 @@ under the License.
         </override>
     </service>
 
-    <!-- WorkEffort iCalendar Services -->
-    <service name="createWorkEffortICalData" default-entity-name="WorkEffortIcalData" engine="entity-auto" invoke="create" auth="true">
-        <description>Create WorkEffort iCalendar Data</description>
-        <permission-service service-name="workEffortICalendarPermission" main-action="CREATE"/>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <override name="workEffortId" optional="false">
-            <type-validate>
-                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortId"/>
-            </type-validate>
-        </override>
-    </service>
-    <service name="updateWorkEffortICalData" default-entity-name="WorkEffortIcalData" engine="entity-auto" invoke="update" auth="true">
-        <description>Update WorkEffort iCalendar Data</description>
-        <permission-service service-name="workEffortICalendarPermission" main-action="UPDATE"/>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <override name="workEffortId" optional="false">
-            <type-validate>
-                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortId"/>
-            </type-validate>
-        </override>
-    </service>
-    <service name="deleteWorkEffortICalData" default-entity-name="WorkEffortIcalData" engine="entity-auto" invoke="delete" auth="true">
-        <description>Delete WorkEffort iCalendar Data</description>
-        <permission-service service-name="workEffortICalendarPermission" main-action="DELETE"/>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
-        <override name="workEffortId" optional="false">
-            <type-validate>
-                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortId"/>
-            </type-validate>
-        </override>
-    </service>
-    <service name="workEffortICalendarPermission" engine="simple"
-             location="component://workeffort/minilang/permission/WorkEffortPermissionServices.xml" invoke="workEffortICalendarPermission">
-        <description>iCalendar Permission Check</description>
-        <implements service="permissionInterface"/>
-        <attribute type="String" mode="IN" name="workEffortId" optional="true"/>
-    </service>
-    <service name="getICalWorkEfforts" engine="simple" auth="false"
-             location="component://workeffort/minilang/workeffort/WorkEffortSimpleServices.xml" invoke="getICalWorkEfforts">
-        <description>Get iCalendar Work Efforts</description>
-        <!-- No permission checking - the servlet handles that -->
-        <attribute type="String" mode="IN" name="workEffortId" optional="false">
-            <type-validate>
-                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortId"/>
-            </type-validate>
-        </attribute>
-        <attribute type="String" mode="IN" name="workEffortTypeId" optional="true"/>
-        <attribute type="List" mode="OUT" name="workEfforts"/>
-    </service>
-    <service name="getPartyICalUrl" engine="simple" auth="false"
-             location="component://workeffort/minilang/workeffort/WorkEffortSimpleServices.xml" invoke="getPartyICalUrl">
-        <description>Get Party iCalendar URL</description>
-        <!-- No permission checking - the servlet handles that -->
-        <attribute type="String" mode="IN" name="partyId" optional="false">
-            <type-validate>
-                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingPartyId"/>
-            </type-validate>
-        </attribute>
-        <attribute type="String" mode="OUT" name="iCalUrl" optional="true"/>
-    </service>
-
     <!-- WorkEffort Event Reminder Services -->
     <service name="createWorkEffortEventReminder" default-entity-name="WorkEffortEventReminder" engine="entity-auto" invoke="create" auth="true">
         <description>Create a WorkEffort Event Reminder</description>

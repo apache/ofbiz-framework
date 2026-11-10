@@ -146,7 +146,6 @@ under the License.
     <WorkEffortType description="Meeting" hasTable="N" parentTypeId="EVENT" workEffortTypeId="MEETING"/>
     <WorkEffortType description="Training" hasTable="N" parentTypeId="EVENT" workEffortTypeId="TRAINING"/>
     <WorkEffortType description="Personal Time Off" hasTable="N" parentTypeId="EVENT" workEffortTypeId="PERSONAL_TIMEOFF"/>
-    <WorkEffortType description="Publish Properties" hasTable="N" workEffortTypeId="PUBLISH_PROPS"/>
 
     <!-- Routing status, (workEffort Template) -->
     <StatusType description="Manufacturing Task and Routing status" hasTable="N" parentTypeId="WORK_EFFORT_STATUS" statusTypeId="ROUTING_STATUS"/>
@@ -194,13 +193,8 @@ under the License.
     <StatusValidChange statusId="WERV_PENDING" statusIdTo="WERV_DELETED" transitionName="Review Deleted"/>
     <StatusValidChange statusId="WERV_APPROVED" statusIdTo="WERV_DELETED" transitionName="Review Deleted"/>
 
-    <!-- iCalendar Data -->
-    <RoleType description="Calendar Member" hasTable="N" parentTypeId="CALENDAR_ROLE" roleTypeId="ICAL_MEMBER"/>
+    <!-- LDAP URL contact mechanism -->
     <ContactMechType contactMechTypeId="LDAP_ADDRESS" parentTypeId="ELECTRONIC_ADDRESS" hasTable="N" description="LDAP URL"/>
-    <ContactMechPurposeType contactMechPurposeTypeId="ICAL_URL" description="iCalendar URL" hasTable="N"/>
-    <ContactMechTypePurpose contactMechPurposeTypeId="ICAL_URL" contactMechTypeId="EMAIL_ADDRESS"/>
-    <ContactMechTypePurpose contactMechPurposeTypeId="ICAL_URL" contactMechTypeId="LDAP_ADDRESS"/>
-    <ContactMechTypePurpose contactMechPurposeTypeId="ICAL_URL" contactMechTypeId="WEB_ADDRESS"/>
 
     <!-- Work Effort security -->
     <SecurityPermission description="View operations in the Work Effort Manager." permissionId="WORKEFFORTMGR_VIEW"/>

@@ -604,14 +604,6 @@
         <value xml:lang="zh">通信地址</value>
         <value xml:lang="zh-TW">通信地址</value>
     </property>
-    <property key="ContactMechPurposeType.description.ICAL_URL">
-        <value xml:lang="cs">iCalendar URL</value>
-        <value xml:lang="de">iCalendar URL</value>
-        <value xml:lang="en">iCalendar URL</value>
-        <value xml:lang="fr">Adresse du calendrier (URL)</value>
-        <value xml:lang="zh">iCalendar网址</value>
-        <value xml:lang="zh-TW">iCalendar網址</value>
-    </property>
     <property key="ContactMechPurposeType.description.MARKETING_EMAIL">
         <value xml:lang="cs">Primární marketingový email</value>
         <value xml:lang="de">Primäre Marketing Email-Addresse</value>
@@ -3119,17 +3111,6 @@
         <value xml:lang="vi">Nội trợ</value>
         <value xml:lang="zh">家庭</value>
         <value xml:lang="zh-TW">家庭</value>
-    </property>
-    <property key="RoleType.description.ICAL_MEMBER">
-        <value xml:lang="de">Kalender Mitglied</value>
-        <value xml:lang="en">Calendar Member</value>
-        <value xml:lang="fr">Membre iCalendar</value>
-        <value xml:lang="it">Membro calendario</value>
-        <value xml:lang="ja">時程表メンバ</value>
-        <value xml:lang="pt-BR">Membro de agenda</value>
-        <value xml:lang="vi">Thành viên hội thảo</value>
-        <value xml:lang="zh">日历成员</value>
-        <value xml:lang="zh-TW">日曆會員</value>
     </property>
     <property key="RoleType.description.INTERNAL_ORGANIZATIO">
         <value xml:lang="de">Interne Organisation</value>
