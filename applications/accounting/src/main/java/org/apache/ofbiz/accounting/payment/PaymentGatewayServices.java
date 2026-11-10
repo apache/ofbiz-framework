@@ -95,6 +95,17 @@ public class PaymentGatewayServices {
     private static final SecureRandom SECURE_RANDOM = new SecureRandom();
 
     /**
+     * Returns the "system" UserLogin, used when an order or invoice flow authorizes, releases or captures its own
+     * payments on behalf of a user who does not hold the permission these services require.
+     * @param delegator the delegator
+     * @return the system UserLogin
+     * @throws GenericEntityException if the lookup fails
+     */
+    private static GenericValue getSystemUserLogin(Delegator delegator) throws GenericEntityException {
+        return EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "system").cache().queryOne();
+    }
+
+    /**
      * Authorizes a single order preference with an option to specify an amount. The result map has the Booleans
      * "errors" and "finished" which notify the user if there were any errors and if the authorization was finished.
      * There is also a List "messages" for the authorization response messages and a BigDecimal, "processAmount" as the
@@ -388,7 +399,14 @@ public class PaymentGatewayServices {
             }
             Map<String, Object> authContext = new HashMap<>();
             authContext.put("orderPaymentPreferenceId", paymentPref.getString("orderPaymentPreferenceId"));
-            authContext.put("userLogin", context.get("userLogin"));
+            // authOrderPaymentPreference requires accounting or order permission; run as the "system" user since
+            // authorizing the order's own payments is part of placing or updating the order
+            try {
+                authContext.put("userLogin", getSystemUserLogin(delegator));
+            } catch (GenericEntityException e) {
+                Debug.logError(e, MODULE);
+                return ServiceUtil.returnError(e.getMessage());
+            }
 
             Map<String, Object> results = null;
             try {
@@ -739,7 +757,6 @@ public class PaymentGatewayServices {
     public static Map<String, Object> releaseOrderPayments(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericValue userLogin = (GenericValue) context.get("userLogin");
         String orderPaymentPreferenceId = (String) context.get("orderPaymentPreferenceId");
         Locale locale = (Locale) context.get("locale");
         Map<String, Object> result = ServiceUtil.returnSuccess();
@@ -793,7 +810,16 @@ public class PaymentGatewayServices {
         // iterate over the prefs and release each one
         List<GenericValue> finished = new LinkedList<>();
         for (GenericValue pPref : paymentPrefs) {
-            Map<String, Object> releaseContext = UtilMisc.toMap("userLogin", userLogin, "orderPaymentPreferenceId",
+            // releaseOrderPaymentPreference requires accounting permission; run as the "system" user since releasing
+            // the order's own authorizations is part of cancelling or changing the order
+            GenericValue systemUserLogin;
+            try {
+                systemUserLogin = getSystemUserLogin(delegator);
+            } catch (GenericEntityException e) {
+                Debug.logError(e, MODULE);
+                return ServiceUtil.returnError(e.getMessage());
+            }
+            Map<String, Object> releaseContext = UtilMisc.toMap("userLogin", systemUserLogin, "orderPaymentPreferenceId",
                     pPref.getString("orderPaymentPreferenceId"));
             Map<String, Object> releaseResult = null;
             try {
