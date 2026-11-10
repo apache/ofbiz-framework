@@ -97,6 +97,13 @@ the same pull request.
   the `secureSoapAnswer` property are gone, and `SOAPService` is removed from `http.request-map.list` in
   `url.properties`. The `<namespace>` element of `<service>` is removed from `services.xsd`; delete it from your
   service definitions. Expose services through a `*.rest.xml` file of the rest-api component instead.
+* RMI is removed ([OFBIZ-13821](https://issues.apache.org/jira/browse/OFBIZ-13821)); it had been disabled since
+  [OFBIZ-6942](https://issues.apache.org/jira/browse/OFBIZ-6942). The `rmi` service engine, the `main-rmi` and
+  `rita-rmi` service locations, the `rmi` start loader with its `rmi-dispatcher` and `naming-container` containers,
+  `rmi.properties`, the RMI keystores (`ofbizrmi.jks`, `ofbizrmi-truststore.jks`, `rmitrust.jks`), the
+  `ofbiz.rmi.keyStore*` properties of `jsse.properties` and `remotedispatcher.exportall` are gone. Remove `rmi` from
+  the `loaders` of your own containers and from any `-Dofbiz.start.loaders` value; services declared with
+  `engine="rmi"` no longer run. Use the REST API for remote access to services.
 * Entity definitions: `encrypt="salt"` is removed; use `encrypt="true"`, which now gives the same randomized
   encryption ([#2055](https://github.com/apache/ofbiz-framework/pull/2055)).
 * Widgets: `<if-entity-permission>` is removed from `widget-common.xsd`
@@ -157,6 +164,10 @@ the same pull request.
     `ModelParam.getWSDLPart` and `DispatchContext.getWSDL`
     ([OFBIZ-13821](https://issues.apache.org/jira/browse/OFBIZ-13821)). The axis2, wsdl4j, `javax.xml.soap-api` and
     `geronimo-jaxrpc_1.1_spec` libraries are no longer on the classpath.
+  * The RMI classes are removed: the `org.apache.ofbiz.service.rmi` package (`RemoteDispatcher` and its
+    implementation, `RmiServiceContainer`, `RmiServiceEngine`, the SSL socket factories and `ExampleRemoteClient`),
+    `NamingServiceContainer` and `RMIExtendedSocketFactory`
+    ([OFBIZ-13821](https://issues.apache.org/jira/browse/OFBIZ-13821)).
 * Security:
   * A custom `Security` implementation is registered through the new `SecurityProvider` SPI instead of
     `Security.setDelegator` ([#2477](https://github.com/apache/ofbiz-framework/pull/2477)).
