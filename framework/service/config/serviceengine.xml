@@ -57,11 +57,7 @@ under the License.
         <!--  -->
         <engine name="route" class="org.apache.ofbiz.service.engine.RouteEngine"/>
         <engine name="jms" class="org.apache.ofbiz.service.jms.JmsServiceEngine"/>
-        <engine name="rmi" class="org.apache.ofbiz.service.rmi.RmiServiceEngine"/>
-
-        <service-location name="main-rmi" location="rmi://localhost:1099/RMIDispatcher"/>
         
-        <service-location name="rita-rmi" location="rmi://localhost:1099/RMIDispatcher"/>
         <!-- <service-location name="eedcc-test" location="https://localhost:8443/webtools/control/httpService"/> -->
 
         <!-- default notification group for all services loaded with 'main' loader

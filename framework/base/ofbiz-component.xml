@@ -26,11 +26,6 @@ under the License.
 
     <test-suite loader="main" location="testdef/basetests.xml"/>
 
-    <!-- load the naming (JNDI) server -->
-    <container name="naming-container" loaders="rmi" class="org.apache.ofbiz.base.container.NamingServiceContainer">
-        <property name="host" value="0.0.0.0"/>
-        <property name="port" value="1099"/>
-    </container>
     <!-- load the administration server -->
     <container name="admin-container" loaders="main" class="org.apache.ofbiz.base.container.AdminServerContainer"/>
 
