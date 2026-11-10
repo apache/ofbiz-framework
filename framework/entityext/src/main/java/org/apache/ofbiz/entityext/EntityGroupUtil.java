@@ -52,6 +52,28 @@ public final class EntityGroupUtil {
         return entityNames;
     }
 
+    /**
+     * Returns the names of the entities selected by the include rules of an EntitySync, its EntitySyncInclude and
+     * EntitySyncIncludeGroup records. Only entities with both update stamp fields are returned.
+     * @param entitySyncId the EntitySync to read the include rules from
+     * @param delegator the delegator
+     * @return the entity names, empty when the EntitySync does not exist
+     * @throws GenericEntityException if the EntitySync or its include rules cannot be read
+     */
+    public static Set<String> getEntityNamesByEntitySync(String entitySyncId, Delegator delegator) throws GenericEntityException {
+        Set<String> entityNames = new HashSet<>();
+        GenericValue entitySync = EntityQuery.use(delegator).from("EntitySync").where("entitySyncId", entitySyncId).queryOne();
+        if (entitySync == null) {
+            return entityNames;
+        }
+        List<GenericValue> entitySyncIncludes = entitySync.getRelated("EntitySyncInclude", null, null, false);
+        entitySyncIncludes.addAll(entitySync.getRelated("EntitySyncInclGrpDetailView", null, null, false));
+        for (ModelEntity modelEntity: getModelEntitiesFromRecords(entitySyncIncludes, delegator, true)) {
+            entityNames.add(modelEntity.getEntityName());
+        }
+        return entityNames;
+    }
+
     public static List<ModelEntity> getModelEntitiesFromRecords(List<GenericValue> entityGroupEntryValues, Delegator delegator,
                                                                 boolean requireStampFields) throws GenericEntityException {
         List<ModelEntity> entityModelToUseList = new LinkedList<>();
@@ -105,7 +127,7 @@ public final class EntityGroupUtil {
 
                 if (matchesAlways || (matchesInclude && !matchesExclude)) {
                     // make sure this log message is not checked in uncommented:
-                    //Debug.logInfo("In runEntitySync adding [" + modelEntity.getEntityName() + "] to list of Entities to sync", MODULE);
+                    //Debug.logInfo("Adding [" + modelEntity.getEntityName() + "] to list of Entities to sync", MODULE);
                     entityModelToUseList.add(modelEntity);
                 }
             }

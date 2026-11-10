@@ -20,35 +20,11 @@ under the License.
 <entity-engine-xml>
     <JobSandbox jobId="8200" jobName="Clear EntitySyncRemove Info" runTime="2000-01-01 00:00:00.000" serviceName="cleanSyncRemoveInfo" poolId="pool" runAsUser="system" tempExprId="MIDNIGHT_DAILY" maxRecurrenceCount="-1"/>
 
-    <!-- EntitySync example, with Job demo -->
-    <!-- Increased default split time to 10 minutes (600000 seconds) instead of 10 seconds, for demonstrations and normal
-        testing this should perform MUCH better; for busy sites this should be reduced closer to something like 10 seconds;
-        the point is to find a balance between the time required for the queries and the amount of data sent over the wire per call -->
-    <EntitySync entitySyncId="1500" runStatusId="ESR_NOT_STARTED" syncSplitMillis="600000" targetServiceName="remoteStoreEntitySyncDataRmi" keepRemoveInfoHours="24" forPushOnly="Y"/>
+    <!-- EntitySync example: its include rules can select the entities to export in the Webtools XML Data Export page -->
+    <EntitySync entitySyncId="1500" keepRemoveInfoHours="24"/>
     <EntitySyncInclude entitySyncId="1500" entityOrPackage="ServerHit" applEnumId="ESIA_EXCLUDE"/>
     <EntitySyncInclude entitySyncId="1500" entityOrPackage="ServerHitBin" applEnumId="ESIA_EXCLUDE"/>
     <EntitySyncInclude entitySyncId="1500" entityOrPackage="org.apache.ofbiz.service" applEnumId="ESIA_EXCLUDE"/>
     <EntitySyncInclude entitySyncId="1500" entityOrPackage="org.apache.ofbiz.entity" applEnumId="ESIA_EXCLUDE"/>
     <EntitySyncInclude entitySyncId="1500" entityOrPackage="org.apache.ofbiz." applEnumId="ESIA_INCLUDE"/>
-    <!--
-        <RecurrenceRule recurrenceRuleId="1500" untilDateTime="" frequency="MINUTELY" intervalNumber="2" countNumber="-1"/>
-        <RecurrenceInfo recurrenceInfoId="1500" startDateTime="2000-01-01 00:00:00.000" recurrenceRuleId="1500" recurrenceCount="0"/>
-        <RuntimeData runtimeDataId="1500">
-            <runtimeInfo><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
-    <ofbiz-ser>
-      <map-HashMap>
-        <map-Entry>
-          <map-Key>
-            <std-String value="entitySyncId"/>
-          </map-Key>
-          <map-Value>
-            <std-String value="1500"/>
-          </map-Value>
-        </map-Entry>
-      </map-HashMap>
-    </ofbiz-ser>
-            ]]></runtimeInfo>
-        </RuntimeData>
-        <JobSandbox jobName="Run Demo EntitySync" runtimeDataId="1500" runTime="2000-01-01 00:00:00.000" serviceName="runEntitySync" poolId="pool" runAsUser="system" recurrenceInfoId="1500"/>
-    -->
 </entity-engine-xml>

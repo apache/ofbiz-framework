@@ -194,9 +194,6 @@ under the License.
         <menu-item name="EntitySQLProcessor" title="${uiLabelMap.PageTitleEntitySQLProcessor}">
             <link target="EntitySQLProcessor"/>
         </menu-item>
-        <menu-item name="entitySyncStatus" title="${uiLabelMap.WebtoolsEntitySyncStatus}">
-            <link target="EntitySyncStatus"/>
-        </menu-item>
         <menu-item name="checkDb" title="${uiLabelMap.WebtoolsCheckUpdateDatabase}">
             <link target="view/checkdb"/>
         </menu-item>

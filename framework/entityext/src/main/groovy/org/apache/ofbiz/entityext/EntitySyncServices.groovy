@@ -23,11 +23,3 @@ Map entitySyncPermissionCheck() {
     Map serviceResult = run service: 'genericBasePermissionCheck', with: parameters
     return serviceResult
 }
-
-Map resetEntitySyncStatus() {
-    entitySyncRecord = from('EntitySync').where('entitySyncId', parameters.entitySyncId).queryOne()
-    if (entitySyncRecord && entitySyncRecord.runStatusId == 'ESR_RUNNING') {
-        update('EntitySync').where([entitySyncId: parameters.entitySyncId]).set([runStatusId: 'ESR_NOT_STARTED'])
-    }
-    return success()
-}

@@ -543,20 +543,6 @@
         <value xml:lang="zh">实体SQL处理程序</value>
         <value xml:lang="zh-TW">資料實體SQL處理程式</value>
     </property>
-    <property key="PageTitleEntitySyncStatus">
-        <value xml:lang="de">Entitäten Synch Status</value>
-        <value xml:lang="en">Entity Sync Status</value>
-        <value xml:lang="es">Estado de la sincronización de las entidades</value>
-        <value xml:lang="fr">Statut de la synchro. d'entité</value>
-        <value xml:lang="it">Stato sincronizzazione entità</value>
-        <value xml:lang="ja">エンティティ同期ステータス</value>
-        <value xml:lang="pt">Estado de sincronia de Entidade</value>
-        <value xml:lang="ro">Stat Sincronizat Entitate</value>
-        <value xml:lang="th">สถานะสิ่งที่มีอยู่</value>
-        <value xml:lang="vi">Trạng thái đồng bộ</value>
-        <value xml:lang="zh">实体同步状态</value>
-        <value xml:lang="zh-TW">資料實體同步狀態</value>
-    </property>
     <property key="PageTitleFetchLogs">
         <value xml:lang="en">Fetch Logs</value>
     </property>
@@ -1835,19 +1821,6 @@
         <value xml:lang="vi">Kết xuất đồng bộ thực thể</value>
         <value xml:lang="zh">实体同步堆栈</value>
         <value xml:lang="zh-TW">資料實體同步堆疊</value>
-    </property>
-    <property key="WebtoolsEntitySyncStatus">
-        <value xml:lang="de">Status der Entitätensynchronisierung</value>
-        <value xml:lang="en">Entity Sync Status</value>
-        <value xml:lang="fr">Statut de synchro. des entités</value>
-        <value xml:lang="it">Stato sincronizzazioni entità</value>
-        <value xml:lang="ja">エンティティ同期ステータス</value>
-        <value xml:lang="pt">Estado de sincronia da entidade</value>
-        <value xml:lang="ro">Stat Sincronizatii Entitate</value>
-        <value xml:lang="th">สถานะของ Entity Sync </value>
-        <value xml:lang="vi">Trạng thái đồng bộ</value>
-        <value xml:lang="zh">实体同步状态</value>
-        <value xml:lang="zh-TW">資料實體同步狀態</value>
     </property>
     <property key="WebtoolsEntityView">
         <value xml:lang="de">View Entity</value>
@@ -3448,19 +3421,6 @@
         <value xml:lang="vi">Giới hạn Dòng tói</value>
         <value xml:lang="zh">把行数限制为</value>
         <value xml:lang="zh-TW">把行數限制為</value>
-    </property>
-    <property key="WebtoolsLoadOfflineData">
-        <value xml:lang="de">Offline-Daten laden</value>
-        <value xml:lang="en">Load Offline Data</value>
-        <value xml:lang="fr">Chargement de données différées</value>
-        <value xml:lang="it">Carica dati offline</value>
-        <value xml:lang="ja">オフラインデータをロード</value>
-        <value xml:lang="pt">Carregar dados offline</value>
-        <value xml:lang="ro">Incarca Date Oflin</value>
-        <value xml:lang="th">โหลดข้อมูลออฟไลน์</value>
-        <value xml:lang="vi">Tải Ngoại tuyến dữ liệu</value>
-        <value xml:lang="zh">载入离线数据</value>
-        <value xml:lang="zh-TW">載入離線資料</value>
     </property>
     <property key="WebtoolsLocation">
         <value xml:lang="de">Ort</value>
@@ -5572,58 +5532,6 @@
         <value xml:lang="vi">ĐỒNG BỘ</value>
         <value xml:lang="zh">同步</value>
         <value xml:lang="zh-TW">同步</value>
-    </property>
-    <property key="WebtoolsSyncAcceptOffline">
-        <value xml:lang="de">Offline Synchronisierung erlauben</value>
-        <value xml:lang="en">Accept Offline Sync</value>
-        <value xml:lang="fr">Accepter la synchro. en différé</value>
-        <value xml:lang="it">Accetta sincronizzazione offline</value>
-        <value xml:lang="ja">オフライン同期を受付</value>
-        <value xml:lang="pt">Aceitar sincronizaÃ§Ã£o offline</value>
-        <value xml:lang="ro">Accepta Sincronizare Offline</value>
-        <value xml:lang="th">ยอมรับการไม่สามารถติดต่อได้</value>
-        <value xml:lang="vi">Cho phép đồng bộ (sync) ngoại tuyến (offline).</value>
-        <value xml:lang="zh">接受离线同步</value>
-        <value xml:lang="zh-TW">接受離線同步</value>
-    </property>
-    <property key="WebtoolsSyncRejectOffline">
-        <value xml:lang="de">Offline Synchroinisierung ablehen</value>
-        <value xml:lang="en">Reject Offline Sync</value>
-        <value xml:lang="fr">Rejeter la synchro. en différé</value>
-        <value xml:lang="it">Rifiuta sincronizzazione offline</value>
-        <value xml:lang="ja">オフライン同期を拒否</value>
-        <value xml:lang="pt">Rejeitar sincronia Offline</value>
-        <value xml:lang="ro">Refuza Sincronizarea Offline</value>
-        <value xml:lang="th">ปฏิเสธการไม่สามารถติดต่อได้</value>
-        <value xml:lang="vi">Từ chối đồng bộ (sync) ngoại tuyến (offline).</value>
-        <value xml:lang="zh">拒绝离线同步</value>
-        <value xml:lang="zh-TW">拒絕離線同步</value>
-    </property>
-    <property key="WebtoolsSyncResetRunStatus">
-        <value xml:lang="de">Laufstatus zurücksetzen</value>
-        <value xml:lang="en">Reset Run Status</value>
-        <value xml:lang="fr">Remettre à zéro le statut d'exécution</value>
-        <value xml:lang="it">Esegui azzeramento stato</value>
-        <value xml:lang="ja">実行ステータスをリセット</value>
-        <value xml:lang="pt">Redefinir Estado de execuÃ§Ã£o</value>
-        <value xml:lang="ro">Executa Azerarea Stat</value>
-        <value xml:lang="th">เปลี่ยนสถานะการทำงาน</value>
-        <value xml:lang="vi">Khởi tạo lại trạng thái thực thi</value>
-        <value xml:lang="zh">重置运行状态</value>
-        <value xml:lang="zh-TW">重置執行狀態</value>
-    </property>
-    <property key="WebtoolsSyncRunOffline">
-        <value xml:lang="de">Offline Synchronisierung starten</value>
-        <value xml:lang="en">Run Offline Sync</value>
-        <value xml:lang="fr">Exécuter la synchro. en différé</value>
-        <value xml:lang="it">Esegui sincronizzazione offline</value>
-        <value xml:lang="ja">オフライン同期を実行</value>
-        <value xml:lang="pt">Executar sincronia Offline</value>
-        <value xml:lang="ro">Executa Sincronizarea Offline</value>
-        <value xml:lang="th">ดำเนินการไม่สามารถติดต่อได้</value>
-        <value xml:lang="vi">Thực hiện Đồng bộ ngoại tuyến</value>
-        <value xml:lang="zh">运行离线同步</value>
-        <value xml:lang="zh-TW">執行離線同步</value>
     </property>
     <property key="WebtoolsTTL">
         <value xml:lang="en">TTL</value>
