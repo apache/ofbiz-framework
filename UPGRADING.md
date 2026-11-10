@@ -106,6 +106,9 @@ the same pull request.
   `tablesMySql`, `dataMySql`, `droptablesMySql`, `droptablesplain`, `ModelWriter` and `ModelGroupWriter` views
   ([OFBIZ-13817](https://issues.apache.org/jira/browse/OFBIZ-13817)). Use "Induce Model XML from Database", the entity
   reference and the SQL processor instead.
+* Webtools: the `TestService`, `streamTest`, `yahoo` and `chain` sample requests are removed, as are the
+  `serviceStreamTest` test service and the `serviceStreamInterface` service interface
+  ([OFBIZ-13817](https://issues.apache.org/jira/browse/OFBIZ-13817)).
 
 ### Custom code
 
