@@ -95,6 +95,34 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      # The Dockerfile keeps Gradle's dependency cache in a BuildKit cache mount (id=gradle-cache),
+      # which is lost with the runner after each run. The next steps carry it over between runs with
+      # actions/cache, so the images don't download every dependency from Maven Central again.
+      # The docker-container driver is needed to read the cache mount back out at the end.
+      # The helper builds below must not use --no-cache: it gives them an empty cache mount.
+      # The RUN_ID build argument makes them run every time instead.
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069 # v4.4.1
+
+      - name: Restore Gradle cache
+        id: gradle-cache-restore
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ${{ runner.temp }}/gradle-cache
+          key: docker-gradle-${{ hashFiles('**/*.gradle', 'gradle/libs.versions.toml', 'gradle/wrapper/gradle-wrapper.properties') }}
+          restore-keys: docker-gradle-
+
+      - name: Load Gradle cache into the Docker build cache mount
+        run: |
+          mkdir -p "$RUNNER_TEMP/gradle-cache"
+          docker buildx build --build-arg RUN_ID="$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT" --file - "$RUNNER_TEMP/gradle-cache" <<'DOCKERFILE'
+          FROM eclipse-temurin:25@sha256:83f4a7fc27df94dcc7b8de04d14cbbba8da14406f921e966969c3b09000aa507
+          ARG RUN_ID
+          RUN --mount=type=cache,id=gradle-cache,sharing=locked,target=/root/.gradle \
+              --mount=type=bind,source=.,target=/restore \
+              cp -a /restore/. /root/.gradle/
+          DOCKERFILE
+
       ############################################################################
       # Build and push a container image of the OFBiz Framework without any data loaded.
       - name: Determine metadata (tags, labels) for Docker runtime build
@@ -179,3 +207,29 @@ jobs:
           push: ${{ !env.ACT && vars.DO_DOCKER_PUSH == 'true' }}
           tags: ${{ steps.pluginsmeta.outputs.tags }}
           labels: ${{ steps.pluginsmeta.outputs.labels }}
+
+      # Only the downloaded dependencies and the Gradle distribution are worth keeping between runs.
+      - name: Read Gradle cache back out of the Docker build cache mount
+        if: steps.gradle-cache-restore.outputs.cache-hit != 'true'
+        run: |
+          rm -rf "$RUNNER_TEMP/gradle-cache"
+          mkdir -p "$RUNNER_TEMP/empty-context"
+          docker buildx build --build-arg RUN_ID="$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT" --output type=local,dest="$RUNNER_TEMP/gradle-cache" --file - "$RUNNER_TEMP/empty-context" <<'DOCKERFILE'
+          FROM eclipse-temurin:25@sha256:83f4a7fc27df94dcc7b8de04d14cbbba8da14406f921e966969c3b09000aa507 AS extract
+          ARG RUN_ID
+          RUN --mount=type=cache,id=gradle-cache,sharing=locked,target=/root/.gradle \
+              mkdir -p /out/caches \
+              && cp -a /root/.gradle/caches/modules-2 /out/caches/ \
+              && cp -a /root/.gradle/wrapper /out/ \
+              && find /out -name '*.lock' -delete \
+              && rm -f /out/caches/modules-2/gc.properties
+          FROM scratch
+          COPY --from=extract /out /
+          DOCKERFILE
+
+      - name: Save Gradle cache
+        if: steps.gradle-cache-restore.outputs.cache-hit != 'true'
+        uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ${{ runner.temp }}/gradle-cache
+          key: ${{ steps.gradle-cache-restore.outputs.cache-primary-key }}
