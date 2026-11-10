@@ -91,28 +91,6 @@ public class CommonServices {
         return response;
     }
 
-    /**
-     * Generic Test SOAP Service
-     *@param dctx The DispatchContext that this service is operating in
-     *@param context Map containing the input parameters
-     *@return Map with the result of the service, the output parameters
-     */
-    public static Map<String, Object> testSOAPService(DispatchContext dctx, Map<String, ?> context) {
-        Delegator delegator = dctx.getDelegator();
-        Map<String, Object> response = ServiceUtil.returnSuccess();
-
-        List<GenericValue> testingNodes = new LinkedList<>();
-        for (int i = 0; i < 3; i++) {
-            GenericValue testingNode = delegator.makeValue("TestingNode");
-            testingNode.put("testingNodeId", "TESTING_NODE" + i);
-            testingNode.put("description", "Testing Node " + i);
-            testingNode.put("createdStamp", UtilDateTime.nowTimestamp());
-            testingNodes.add(testingNode);
-        }
-        response.put("testingNodes", testingNodes);
-        return response;
-    }
-
     public static Map<String, Object> blockingTestService(DispatchContext dctx, Map<String, ?> context) {
         Long duration = (Long) context.get("duration");
         if (duration == null) {

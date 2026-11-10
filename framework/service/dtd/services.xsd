@@ -34,12 +34,10 @@ under the License.
     <xs:element name="vendor" type="xs:string"/>
     <xs:element name="version" type="xs:string"/>
     <xs:element name="created" type="xs:string"/>
-    <xs:element name="namespace" type="xs:string"/>
     <xs:element name="service">
         <xs:complexType>
             <xs:sequence>
                 <xs:element minOccurs="0" ref="description"/>
-                <xs:element minOccurs="0" ref="namespace"/>
                 <xs:element minOccurs="0" maxOccurs="1" ref="deprecated"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="notification"/>
                 <xs:element minOccurs="0" maxOccurs="1" ref="permission-service"/>

@@ -80,16 +80,6 @@ under the License.
     </request-map>
 
     <!-- Begin Utility Requests -->
-    <!-- Commented out for security reason, see OFBIZ-12212  -->
-    <!-- If you feel it's ok with you (e.g. totally secured Internet access, or rather
-         no access at all which is safer!) you may uncomment and use. -->
-    <!--
-    <request-map uri="SOAPService">
-        <security https="false"/>
-        <event type="soap"/>
-        <response name="error" type="none"/>
-        <response name="success" type="none"/>
-    </request-map> -->
     <request-map uri="ping">
         <security https="false" auth="true"/>
         <event type="service" invoke="ping"/>

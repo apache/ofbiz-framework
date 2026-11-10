@@ -240,7 +240,6 @@ public final class ModelServiceReader implements Serializable {
         service.setTransactionTimeout(timeout);
 
         service.setDescription(getCDATADef(serviceElement, "description"));
-        service.setNameSpace(getCDATADef(serviceElement, "namespace"));
 
         // construct the context
         service.setContextInfo(new HashMap<>());

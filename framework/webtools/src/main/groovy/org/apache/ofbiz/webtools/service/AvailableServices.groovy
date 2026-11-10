@@ -18,13 +18,9 @@
 */
 package org.apache.ofbiz.webtools.service
 
-import javax.wsdl.WSDLException
-
 import org.apache.commons.lang3.StringUtils
-import org.apache.ofbiz.base.util.UtilXml
 import org.apache.ofbiz.service.ServiceContainer
 import org.apache.ofbiz.base.util.UtilProperties
-import org.apache.ofbiz.entity.util.EntityUtilProperties
 
 List getEcaListForService(String selectedService) {
     ecaMap = org.apache.ofbiz.service.eca.ServiceEcaUtil.getServiceEventMap(selectedService)
@@ -350,7 +346,6 @@ if (selectedService) {
         engineName = curServiceModel.getEngineName() ?: 'NA'
         defaultEntityName = curServiceModel.getDefaultEntityName() ?: 'NA'
         export = curServiceModel.isExport() ? uiLabelMap.CommonTrue : uiLabelMap.CommonFalse
-        exportBool = curServiceModel.isExport() ? 'true' : 'false'
         permissionGroups = curServiceModel.getPermissionGroups() ?: 'NA'
         implServices = curServiceModel.getImplServices() ?: 'NA'
         overrideParameters = curServiceModel.getOverrideParameters()
@@ -376,7 +371,6 @@ if (selectedService) {
                 'file:/' + System.getProperty('ofbiz.home') + '/', '')
         curServiceMap.requireNewTransaction = requireNewTransaction
         curServiceMap.export = export
-        curServiceMap.exportBool = exportBool
 
         if (permissionGroups && 'NA' != permissionGroups) {
             permList = new ArrayList(permissionGroups.size())
@@ -474,19 +468,6 @@ if (selectedService) {
             allParamsList.add(ovrParamMap)
         }
         curServiceMap.allParamsList = allParamsList
-    }
-
-    showWsdl = parameters.show_wsdl
-
-    if (showWsdl == 'true') {
-        try {
-            wsdl = curServiceModel.toWSDL("http://${request.getServerName()}:" +
-                    "${EntityUtilProperties.getPropertyValue('url', 'port.http', '80', delegator)}${parameters._CONTROL_PATH_}/SOAPService")
-            curServiceMap.wsdl = UtilXml.writeXmlDocument(wsdl)
-        } catch (WSDLException ex) {
-            curServiceMap.wsdl = ex.getLocalizedMessage()
-        }
-        context.showWsdl = true
     }
     context.selectedServiceMap = curServiceMap
 }

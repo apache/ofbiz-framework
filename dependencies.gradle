@@ -59,7 +59,6 @@ dependencies {
     implementation libs.cxf.rt.frontend.jaxrs
     implementation libs.tomcat.catalina.ha
     implementation libs.tomcat.jasper
-    implementation libs.axis2.kernel
     implementation libs.bundles.batik
     implementation libs.fop
     implementation libs.groovy.all
@@ -71,7 +70,6 @@ dependencies {
     implementation libs.bundles.jersey
     implementation libs.bundles.swagger
     implementation libs.oro
-    implementation libs.wsdl4j
     implementation libs.java.jwt
     implementation libs.jwks.rsa
     implementation libs.jdom2
@@ -92,14 +90,10 @@ dependencies {
     testImplementation libs.mockito.core
     testImplementation libs.log4j.core // EntityEcaUtilConcurrencyTest captures log events
 
-    runtimeOnly libs.javax.xml.soap.api
     runtimeOnly libs.barcode4j.fop.ext
     runtimeOnly libs.barcode4j.core
     runtimeOnly libs.avalon.framework.impl
-    runtimeOnly libs.axis2.transport.http
-    runtimeOnly libs.axis2.transport.local
     runtimeOnly libs.h2
-    runtimeOnly libs.geronimo.jaxrpc.spec
     runtimeOnly libs.log4j.core // the implementation of log4j 2
     runtimeOnly libs.log4j.legacy.api // for external jars using the old log4j1.2: routes logging to log4j 2
     runtimeOnly libs.log4j.jul // for external jars using the java.util.logging: routes logging to log4j 2
