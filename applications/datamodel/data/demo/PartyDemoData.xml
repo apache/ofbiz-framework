@@ -135,6 +135,4 @@ under the License.
     <UserPreference userLoginId="DemoSupplier" userPrefGroupTypeId="GLOBAL_PREFERENCES" userPrefTypeId="VISUAL_THEME" userPrefValue="RAINBOWSTONE_SAPHIR"/>
     <UserPreference userLoginId="DemoCustomer" userPrefGroupTypeId="GLOBAL_PREFERENCES" userPrefTypeId="VISUAL_THEME" userPrefValue="RAINBOWSTONE_RUBY"/>
     <UserPreference userLoginId="DemoEmployee" userPrefGroupTypeId="GLOBAL_PREFERENCES" userPrefTypeId="VISUAL_THEME" userPrefValue="RAINBOWSTONE_EMERALD"/>
-    <UserPreference userLoginId="productowner" userPrefGroupTypeId="GLOBAL_PREFERENCES" userPrefTypeId="VISUAL_THEME" userPrefValue="RAINBOWSTONE_AMBER"/>
-    <UserPreference userLoginId="scrummaster" userPrefGroupTypeId="GLOBAL_PREFERENCES" userPrefTypeId="VISUAL_THEME" userPrefValue="TOMAHAWK"/>
 </entity-engine-xml>

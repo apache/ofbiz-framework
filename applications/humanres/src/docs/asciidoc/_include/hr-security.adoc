@@ -65,9 +65,8 @@ Please see the note below for the additional permissions required to be able to
 do everything in Human Resources.
 
 NOTE: A person with the Human Administrator Role must also belong to the
-following Security Groups (Work Effort User, My Portal Employee, My Portal
-Customer or Scrum Team) to be able to add Training classes in the Training
-feature.
+following Security Groups (Work Effort User, My Portal Employee or My Portal
+Customer) to be able to add Training classes in the Training feature.
 
 
 == General OFBiz Permissions

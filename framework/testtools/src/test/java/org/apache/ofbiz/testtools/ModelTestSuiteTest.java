@@ -57,9 +57,9 @@ import static org.hamcrest.Matchers.is;
  * entitytests.xml shape this whole rule exists for (see caseFilterSkipsAnIndependentJupiterTestClass
  * DeclaredBeforeIt()'s comment).</li>
  * <li>{@code grouped-tests} - a {@code test-group}. A repo-wide scan of every {@code test-group} in
- * this codebase found 14 of 15 child elements are {@code jupiter-test-suite} (accounting/product/scrum
- * testdef files bundle several independent classes into one group) and only 1 is {@code entity-xml} -
- * so a test-group reads as "more independent classes," not setup, and is excluded like one.</li>
+ * this codebase found that almost all child elements are {@code jupiter-test-suite} (testdef files
+ * bundle several independent classes into one group) and very few are {@code entity-xml} - so a
+ * test-group reads as "more independent classes," not setup, and is excluded like one.</li>
  * <li>{@code third-tests} - a {@code junit-test-suite} case, the legacy-JUnit-3 equivalent of
  * first-tests/second-tests.</li>
  * </ul>
