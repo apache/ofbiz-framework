@@ -295,6 +295,10 @@ under the License.
     <service name="authOrderPaymentPreference" engine="java"
             location="org.apache.ofbiz.accounting.payment.PaymentGatewayServices" invoke="authOrderPaymentPreference" auth="true">
         <description>Process (authorizes/re-authorizes) a single payment for an order with an optional overrideAmount</description>
+        <required-permissions join-type="OR">
+            <check-permission permission="ACCOUNTING" action="_CREATE"/>
+            <check-permission permission="ORDERMGR" action="_UPDATE"/>
+        </required-permissions>
         <attribute name="orderPaymentPreferenceId" type="String" mode="IN" optional="false"/>
         <attribute name="overrideAmount" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="finished" type="Boolean" mode="OUT" optional="false"/>
@@ -325,6 +329,7 @@ under the License.
     <service name="releaseOrderPaymentPreference" engine="java"
             location="org.apache.ofbiz.accounting.payment.PaymentGatewayServices" invoke="releaseOrderPaymentPreference" auth="true">
         <description>Releases payment authorization for a single OrderPaymentPreference</description>
+        <permission-service service-name="acctgBasePermissionCheck" main-action="CREATE"/>
         <attribute name="orderPaymentPreferenceId" type="String" mode="IN" optional="false"/>
     </service>
     
@@ -337,6 +342,7 @@ under the License.
     <service name="capturePaymentsByInvoice" engine="java"
             location="org.apache.ofbiz.accounting.payment.PaymentGatewayServices" invoke="capturePaymentsByInvoice" auth="true">
         <description>Captures (settles) pre-authorized order payments by invoice</description>
+        <permission-service service-name="acctgBasePermissionCheck" main-action="CREATE"/>
         <attribute name="invoiceId" type="String" mode="IN" optional="false"/>
         <attribute name="processResult" type="String" mode="OUT" optional="false"/>
     </service>
@@ -345,6 +351,7 @@ under the License.
             location="org.apache.ofbiz.accounting.payment.PaymentGatewayServices" invoke="captureOrderPayments" auth="true">
         <description>Captures (settles) pre-authorized order payments, re-authorizing any remaining balance.  If the order involves billing accounts,
             capture to it in full before proceeding to other payment preferences.</description>
+        <permission-service service-name="acctgBasePermissionCheck" main-action="CREATE"/>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
         <attribute name="invoiceId" type="String" mode="IN" optional="true"/>
         <attribute name="billingAccountId" type="String" mode="IN" optional="true"/>
@@ -370,6 +377,7 @@ under the License.
     <service name="refundOrderPaymentPreference" engine="java"
             location="org.apache.ofbiz.accounting.payment.PaymentGatewayServices" invoke="refundOrderPaymentPreference" auth="true">
         <description>Refund payment authorization for a single OrderPaymentPreference</description>
+        <permission-service service-name="acctgBasePermissionCheck" main-action="CREATE"/>
         <attribute name="orderPaymentPreferenceId" type="String" mode="IN" optional="false"/>
         <attribute name="amount" type="BigDecimal" mode="IN" optional="false"/>
         <attribute name="refundAmount" type="BigDecimal" mode="OUT" optional="false"/>

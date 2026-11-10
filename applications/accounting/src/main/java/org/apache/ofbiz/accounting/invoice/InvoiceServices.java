@@ -1800,9 +1800,13 @@ public class InvoiceServices {
 
                         // If part of the order was paid via credit card, try to charge it for the additional shipping
                         List<GenericValue> orderPaymentPreferences = null;
+                        // releaseOrderPaymentPreference and authOrderPaymentPreference require accounting permission; run them as
+                        // the "system" user since this re-authorization is part of invoicing the shipment
+                        GenericValue systemUserLogin = null;
                         try {
                             orderPaymentPreferences = EntityQuery.use(delegator).from("OrderPaymentPreference")
                                     .where("orderId", orderId, "paymentMethodTypeId", "CREDIT_CARD").queryList();
+                            systemUserLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "system").cache().queryOne();
                         } catch (GenericEntityException e) {
                             Debug.logError(e, "Problem getting OrderPaymentPreference records", MODULE);
                             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
@@ -1837,7 +1841,7 @@ public class InvoiceServices {
                                         try {
                                             prefReleaseResult = dispatcher.runSync("releaseOrderPaymentPreference", UtilMisc.toMap(
                                                     "orderPaymentPreferenceId", orderPaymentPreference.getString("orderPaymentPreferenceId"),
-                                                    "userLogin", context.get("userLogin")));
+                                                    "userLogin", systemUserLogin));
                                         } catch (GenericServiceException e) {
                                             Debug.logError(e, "Trouble calling releaseOrderPaymentPreference service", MODULE);
                                             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
@@ -1875,7 +1879,7 @@ public class InvoiceServices {
                             try {
                                 // Use an overrideAmount because the maxAmount wasn't set on the OrderPaymentPreference
                                 authResult = dispatcher.runSync("authOrderPaymentPreference", UtilMisc.toMap("orderPaymentPreferenceId",
-                                        orderPaymentPreferenceId, "overrideAmount", totalNewAuthAmount, "userLogin", context.get("userLogin")));
+                                        orderPaymentPreferenceId, "overrideAmount", totalNewAuthAmount, "userLogin", systemUserLogin));
                                 if (ServiceUtil.isError(authResult)) {
                                     return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                                             "AccountingTroubleCallingAuthOrderPaymentPreferenceService", locale));
