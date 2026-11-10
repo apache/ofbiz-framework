@@ -102,14 +102,6 @@ public class ServiceEcaAction implements java.io.Serializable {
     }
 
     /**
-     * Gets short display description.
-     * @return the short display description
-     */
-    public String getShortDisplayDescription() {
-        return this.serviceName + "[" + this.serviceMode + (this.persist ? "-persist" : "") + "]";
-    }
-
-    /**
      * Run action boolean.
      * @param selfService the self service
      * @param dctx the dctx

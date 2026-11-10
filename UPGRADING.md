@@ -185,6 +185,11 @@ the same pull request.
   * the `org.apache.ofbiz.datafile` package ([OFBIZ-13815](https://issues.apache.org/jira/browse/OFBIZ-13815)).
   * the `org.apache.ofbiz.webapp.webdav` package, with the `requestHandlerFactoryClass` servlet parameter it read
     ([OFBIZ-13816](https://issues.apache.org/jira/browse/OFBIZ-13816)).
+  * the EOModel export: `UtilPlist`, `ModelEntity.writeEoModelText` and `createEoModelMap`, the `createEoModelMap`
+    and `writeServiceCallGraphEoModel` methods of the webtools artifact info classes,
+    `ServiceEcaAction.getShortDisplayDescription`, and the `exportEntityEoModelBundle` and
+    `exportServiceEoModelBundle` services and their webtools pages
+    ([OFBIZ-13817](https://issues.apache.org/jira/browse/OFBIZ-13817)).
 
 ### Themes
 

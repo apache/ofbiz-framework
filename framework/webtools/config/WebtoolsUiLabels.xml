@@ -207,17 +207,6 @@
         <value xml:lang="zh">实体同步标识</value>
         <value xml:lang="zh-TW">資料實體同步識別</value>
     </property>
-    <property key="FormFieldTitle_eomodeldFullPath">
-        <value xml:lang="de">EoModell abs. Pfad</value>
-        <value xml:lang="en">EoModel Full Path</value>
-        <value xml:lang="fr">Chemin absolue du EoModel</value>
-        <value xml:lang="it">Path completo EoModel</value>
-        <value xml:lang="ja">EoModelフルパス</value>
-        <value xml:lang="pt">Caminho completo EoModel</value>
-        <value xml:lang="vi">Đường dẫn đầy đủ EoModel</value>
-        <value xml:lang="zh">EoModel完整路径</value>
-        <value xml:lang="zh-TW">EoModel完整路徑</value>
-    </property>
     <property key="FormFieldTitle_exprAssocType">
         <value xml:lang="de">Ausdruck Verknüpfungstyp</value>
         <value xml:lang="en">Expr Assoc Type</value>
@@ -476,16 +465,6 @@
         <value xml:lang="vi">Sửa đổi bộ Đệm tiện ích</value>
         <value xml:lang="zh">编辑缓存</value>
         <value xml:lang="zh-TW">編輯快取</value>
-    </property>
-    <property key="PageTitleEntityEoModelBundle">
-        <value xml:lang="de">Entity Eo Modell-Bundle</value>
-        <value xml:lang="en">Entity Eo Model Bundle</value>
-        <value xml:lang="fr">Ensemble des modèles d'entité</value>
-        <value xml:lang="it">Entità Eo Model Bundle</value>
-        <value xml:lang="ja">EoModelバンドルエンティティ</value>
-        <value xml:lang="vi">Thực thể Eo Model Bundle</value>
-        <value xml:lang="zh">实体EoModel绑定</value>
-        <value xml:lang="zh-TW">資料實體EoModel綁定</value>
     </property>
     <property key="PageTitleEntityExport">
         <value xml:lang="de">XML-Daten exportieren</value>
@@ -2210,59 +2189,6 @@
         <value xml:lang="zh">环境名称</value>
         <value xml:lang="zh-TW">環境名稱</value>
     </property>
-    <property key="WebtoolsEomodelErrorGettingEntityNames">
-        <value xml:lang="en">ERROR: getting entity names: ${errorString}</value>
-        <value xml:lang="fr">ERREUR: Lors de l'optention des noms d'entité ({errorString})</value>
-        <value xml:lang="it">ERRORE: ottenendo i nomi delle entità: ${errorString}</value>
-        <value xml:lang="ja">エラー: エンティティ名の取得中: ${errorString}</value>
-        <value xml:lang="vi">Lỗi: lấy tên Thực thể: ${errorString}</value>
-        <value xml:lang="zh">错误：获取实体名称：${errorString}</value>
-        <value xml:lang="zh-TW">錯誤:獲取機構名稱:${errorString}</value>
-    </property>
-    <property key="WebtoolsEomodelExported">
-        <value xml:lang="en">Exported eomodeld file for ${entityNamesSize} entities to: ${eomodeldFullPath}</value>
-        <value xml:lang="fr">Fichier EoModel exporté avec ${entityNamesSize} entités vers ${eomodeldFullPath}</value>
-        <value xml:lang="it">Esportato file eomodeld per ${entityNamesSize} entità in: ${eomodeldFullPath}</value>
-        <value xml:lang="ja">${entityNamesSize} エンティティに対するEOMODELDファイルをエクスポートしました: ${eomodeldFullPath}</value>
-        <value xml:lang="vi">Đã kết xuất eomodeld tập tin cho ${entityNamesSize} Thực thể tới: ${eomodeldFullPath}</value>
-        <value xml:lang="zh">为 ${entityNamesSize} 个实体导出eomodeld格式文件到：${eomodeldFullPath}</value>
-        <value xml:lang="zh-TW">為 ${entityNamesSize} 個資料實體匯出eomodeld格式檔到:${eomodeldFullPath}</value>
-    </property>
-    <property key="WebtoolsEomodelFileOrDirectoryNotFound">
-        <value xml:lang="en">ERROR: file/directory not found: ${errorString}</value>
-        <value xml:lang="fr">ERREUR: ficher/dossier non trouvé (${errorString})</value>
-        <value xml:lang="it">ERRORE: file/directory non trovata: ${errorString}</value>
-        <value xml:lang="ja">エラー: ファイル/ディレクトリが見つかりません: ${errorString}</value>
-        <value xml:lang="vi">Lỗi: Tập tin / Thư mục không tìm thấy: ${errorString}</value>
-        <value xml:lang="zh">错误：没有找到文件/目录：${errorString}</value>
-        <value xml:lang="zh-TW">錯誤:沒有找到檔/目錄:${errorString}</value>
-    </property>
-    <property key="WebtoolsEomodelFullPathIsNotADirectory">
-        <value xml:lang="en">eomodel Full Path is not a directory: ${eomodeldFullPath}</value>
-        <value xml:lang="fr">Le chemin absolu donnée (${eomodeldFullPath}) n'est pas un dossier</value>
-        <value xml:lang="it">eomodel path completo non è una directory: ${eomodeldFullPath}</value>
-        <value xml:lang="ja">EOMODELのフルパスがディレクトリではありません: ${eomodeldFullPath}</value>
-        <value xml:lang="vi">Đường dẫn đầy đủ eomodel không phải là thư mục: ${eomodeldFullPath}</value>
-        <value xml:lang="zh">eomodel完整路径不是一个目录：${eomodeldFullPath}</value>
-        <value xml:lang="zh-TW">eomodel完整路徑不是一個目錄:${eomodeldFullPath}</value>
-    </property>
-    <property key="WebtoolsEomodelFullPathIsNotWriteable">
-        <value xml:lang="en">eomodel Full Path is not write-able: ${eomodeldFullPath}</value>
-        <value xml:lang="fr">Le chemin absolu donnée (${eomodeldFullPath}) n'est pas ouvert en écriture</value>
-        <value xml:lang="it">eomodel path completo non è scrivibile: ${eomodeldFullPath}</value>
-        <value xml:lang="ja">EOMODELのフルパスが書き込み可能ではありません: ${eomodeldFullPath}</value>
-        <value xml:lang="zh">eomodel完整路径不可写：${eomodeldFullPath}</value>
-        <value xml:lang="zh-TW">eomodel完整路徑不可寫:${eomodeldFullPath}</value>
-    </property>
-    <property key="WebtoolsEomodelSavingFileError">
-        <value xml:lang="en">ERROR saving file: ${errorString}</value>
-        <value xml:lang="fr">ERREUR lors de la sauvegarde du fichier (${eomodeldFullPath})</value>
-        <value xml:lang="it">ERRORE durante il salvataggio del file: ${errorString}</value>
-        <value xml:lang="ja">ファイルの保存中にエラー: ${errorString}</value>
-        <value xml:lang="vi">Lỗi lưu tập tin: ${errorString}</value>
-        <value xml:lang="zh">保存文件错误：${errorString}</value>
-        <value xml:lang="zh-TW">保存檔錯誤:${errorString}</value>
-    </property>
     <property key="WebtoolsErrorLogLevel">
         <value xml:lang="de">Fehler</value>
         <value xml:lang="en">Error</value>
@@ -2367,18 +2293,6 @@
         <value xml:lang="vi">Kết xuất</value>
         <value xml:lang="zh">导出</value>
         <value xml:lang="zh-TW">匯出</value>
-    </property>
-    <property key="WebtoolsExportEntityEoModelBundle">
-        <value xml:lang="de">Entitäten EOModellBundle Export</value>
-        <value xml:lang="en">Export Entity EOModelBundle</value>
-        <value xml:lang="fr">Exporter l'entité EOModelBundle</value>
-        <value xml:lang="it">Esporta entità EOModelBundle</value>
-        <value xml:lang="ja">エンティテイEOModelBundleをエクスポート</value>
-        <value xml:lang="pt">Exportar Entidade EOModelBundle</value>
-        <value xml:lang="th">ส่งออก Entity EOModelBundle</value>
-        <value xml:lang="vi">Kết xuất Thực thể EOModelBundle</value>
-        <value xml:lang="zh">导出实体EOModelBundle</value>
-        <value xml:lang="zh-TW">匯出資料實體EOModelBundle</value>
     </property>
     <property key="WebtoolsExportFromDataSource">
         <value xml:lang="de">XML Export aus der Datenquelle</value>

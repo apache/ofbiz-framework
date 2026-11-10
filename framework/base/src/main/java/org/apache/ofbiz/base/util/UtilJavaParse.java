@@ -132,7 +132,7 @@ public final class UtilJavaParse {
             Debug.logVerbose("In findServiceMethodBlockStart for " + methodName, MODULE);
         }
 
-        // starts with something like this: public static Map exportServiceEoModelBundle(DispatchContext dctx, Map context) {
+        // starts with something like this: public static Map exportEntityXml(DispatchContext dctx, Map context) {
 
         // start with the main pattern
         int methodNameIndex = javaFile.indexOf("public static Map " + methodName + "(DispatchContext dctx, Map context) {");
