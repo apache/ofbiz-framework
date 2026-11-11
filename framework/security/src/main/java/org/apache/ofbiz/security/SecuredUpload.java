@@ -963,7 +963,6 @@ public class SecuredUpload {
      * @param fileName
      * @return true if it's a PDF file
      */
-    @SuppressWarnings("try")
     private static boolean isPdfFile(String fileName) {
         File file = new File(fileName);
         try {
@@ -971,7 +970,7 @@ public class SecuredUpload {
                 return false;
             }
             // Load stream in PDF parser — just probe whether the file is a valid PDF
-            try (PDDocument ignored = Loader.loadPDF(file)) {
+            try (PDDocument _ = Loader.loadPDF(file)) {
                 return true;
             }
         } catch (Exception e) {
