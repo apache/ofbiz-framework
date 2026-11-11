@@ -144,6 +144,9 @@
         <value xml:lang="en">Impersonation of your user is in process by ${originUserLoginId}</value>
         <value xml:lang="fr">Incarnation de votre utilisateur en cours par ${originUserLoginId}</value>
     </property>
+    <property key="loginevents.mfa_factor_required_for_password_change">
+        <value xml:lang="en">Complete a recent multi-factor sign-in before changing your password.</value>
+    </property>
     <property key="loginevents.new_password_createdandsent_check_email">
         <value xml:lang="de">Ein neues Passwort wurde erzeugt und Ihnen per E-Mail zugeschickt. Überprüfen Sie bitte Ihren E-Mail-Eingang.</value>
         <value xml:lang="en">A new password has been created and sent to you. Please check your Email.</value>

@@ -18,6 +18,8 @@
  *******************************************************************************/
 package org.apache.ofbiz.ws.rs.resources;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ofbiz.base.util.Debug;
@@ -28,10 +30,16 @@ import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.entity.util.EntityUtilProperties;
+import org.apache.ofbiz.security.login.AuthenticationContext;
+import org.apache.ofbiz.security.login.MfaServices;
+import org.apache.ofbiz.service.GenericServiceException;
+import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ModelService;
+import org.apache.ofbiz.service.ServiceUtil;
 import org.apache.ofbiz.webapp.control.JWTManager;
 import org.apache.ofbiz.webapp.control.LoginWorker;
 import org.apache.ofbiz.ws.rs.annotation.AuthToken;
+import org.apache.ofbiz.ws.rs.response.Success;
 import org.apache.ofbiz.ws.rs.util.RestApiUtil;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -45,6 +53,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.HeaderParam;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
@@ -127,11 +136,49 @@ public class AuthenticationResource {
             @HeaderParam(HttpHeaders.AUTHORIZATION) String creds) {
         Delegator delegator = (Delegator) servletContext.getAttribute("delegator");
         httpRequest.setAttribute("delegator", delegator);
-        httpRequest.setAttribute("dispatcher", servletContext.getAttribute("dispatcher"));
+        LocalDispatcher dispatcher = (LocalDispatcher) servletContext.getAttribute("dispatcher");
+        httpRequest.setAttribute("dispatcher", dispatcher);
         GenericValue userLogin = (GenericValue) httpRequest.getAttribute("userLogin");
-        //TODO : Move this into an OFBiz service. All such implementations should be inside an OFBiz service.
-        Map<String, String> claims = UtilMisc.toMap("userLoginId", userLogin.getString("userLoginId"),
-                "apiGroupPath", apiGroupPath);
+
+        boolean mfaRequired = false;
+        boolean mfaEnabled = Boolean.parseBoolean(EntityUtilProperties.getPropertyValue("security",
+                "security.login.authFactor.enable", "false", delegator));
+        if (mfaEnabled && userLogin != null && dispatcher != null) {
+            try {
+                Map<String, Object> mfaCheck = dispatcher.runSync("isUserLoginMfaRequired",
+                        UtilMisc.toMap("userLoginId", userLogin.getString("userLoginId"),
+                                "authenticationContext", new AuthenticationContext(
+                                        AuthenticationContext.METHOD_PASSWORD)));
+                mfaRequired = ServiceUtil.isSuccess(mfaCheck) && Boolean.TRUE.equals(mfaCheck.get("required"));
+            } catch (GenericServiceException e) {
+                Debug.logError(e, "Error checking MFA status in getAuthToken", MODULE);
+            }
+        }
+
+        if (mfaRequired) {
+            try {
+                Map<String, Object> challengeResult = MfaServices.createRestMfaChallenge(
+                        delegator, userLogin.getString("userLoginId"), apiGroupPath);
+                Map<String, Object> mfaPayload = UtilMisc.toMap(
+                        "status", "MFA_REQUIRED",
+                        "challengeId", challengeResult.get("challengeId"),
+                        "allowedFactorHints", challengeResult.get("allowedFactorHints"));
+                Success mfaSuccess = new Success(
+                        Response.Status.ACCEPTED.getStatusCode(),
+                        "MFA_REQUIRED", "Multi-factor authentication required.", mfaPayload);
+                return Response.status(Response.Status.ACCEPTED)
+                        .type(MediaType.APPLICATION_JSON)
+                        .entity(mfaSuccess)
+                        .build();
+            } catch (GenericEntityException e) {
+                Debug.logError(e, "Error creating REST MFA challenge", MODULE);
+                return RestApiUtil.error(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(),
+                        "Internal Server Error", "Unable to create authentication challenge.");
+            }
+        }
+
+        Map<String, Object> claims = UtilMisc.toMap("userLoginId", userLogin.getString("userLoginId"),
+                "apiGroupPath", apiGroupPath, "amr", List.of("pwd"));
         String jwtToken = JWTManager.createJwt(delegator, claims);
         String refreshToken = JWTManager.createRefreshToken(delegator, claims);
 
@@ -139,6 +186,117 @@ public class AuthenticationResource {
                 "expires_in", EntityUtilProperties.getPropertyValue("security", "security.jwt.token.expireTime", "1800", delegator),
                 "token_type", "Bearer");
         return RestApiUtil.success("Token granted.", tokenPayload);
+    }
+
+    /**
+     * Generates JWT token for default API group ('api').
+     * @param creds Authorization header using Basic Authentication
+     * @return Response containing the JWT tokens
+     */
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/token")
+    @AuthToken
+    @Operation(security = @SecurityRequirement(name = "basicAuth"), operationId = "getAuthTokenDefault",
+            description = "Generates JWT token for default API group ('api').")
+    public final Response getAuthTokenDefault(
+            @Parameter(in = ParameterIn.HEADER, name = "Authorization",
+            description = "Authorization header using Basic Authentication", example = HttpHeaders.AUTHORIZATION + ": Basic YWRtaW46b2ZiaXo=")
+            @HeaderParam(HttpHeaders.AUTHORIZATION) String creds) {
+        return getAuthToken("api", creds);
+    }
+
+    /**
+     * Completes 2-step REST authentication by verifying an MFA challenge code and issuing JWT tokens.
+     * @param challengeId The challenge ID returned in HTTP 202 response
+     * @param requestBody Map containing the MFA verification code
+     * @return Response containing the granted JWT tokens
+     */
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/mfa/{challengeId}/verify")
+    @Operation(operationId = "verifyMfaChallengeDefault",
+            description = "Completes 2-step REST authentication by verifying an MFA challenge code and issuing JWT tokens.")
+    public final Response verifyMfaChallengeDefault(
+            @Parameter(in = ParameterIn.PATH, name = "challengeId", description = "The challenge ID returned in HTTP 202 response")
+            @PathParam("challengeId") String challengeId,
+            Map<String, Object> requestBody) {
+        return verifyMfaChallenge(null, challengeId, requestBody);
+    }
+
+    /**
+     * Completes 2-step REST authentication for an API group by verifying an MFA challenge code.
+     * @param apiGroupPath The API group path parameter
+     * @param challengeId The challenge ID returned in HTTP 202 response
+     * @param requestBody Map containing the MFA verification code
+     * @return Response containing the granted JWT tokens
+     */
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/{apiGroupPath}/mfa/{challengeId}/verify")
+    @Operation(operationId = "verifyMfaChallengeForGroup",
+            description = "Completes 2-step REST authentication for an API group by verifying an MFA challenge code.")
+    public final Response verifyMfaChallenge(
+            @Parameter(in = ParameterIn.PATH, name = "apiGroupPath", description = "The API group path parameter")
+            @PathParam("apiGroupPath") String apiGroupPath,
+            @Parameter(in = ParameterIn.PATH, name = "challengeId", description = "The challenge ID returned in HTTP 202 response")
+            @PathParam("challengeId") String challengeId,
+            Map<String, Object> requestBody) {
+        Delegator delegator = (Delegator) servletContext.getAttribute("delegator");
+        httpRequest.setAttribute("delegator", delegator);
+        httpRequest.setAttribute("dispatcher", servletContext.getAttribute("dispatcher"));
+
+        String code = null;
+        if (requestBody != null && requestBody.containsKey("code")) {
+            Object codeObj = requestBody.get("code");
+            if (codeObj != null) {
+                code = String.valueOf(codeObj).trim();
+            }
+        }
+        if (UtilValidate.isEmpty(code)) {
+            code = httpRequest.getParameter("code");
+        }
+        if (UtilValidate.isEmpty(code)) {
+            return RestApiUtil.error(Response.Status.BAD_REQUEST.getStatusCode(),
+                    Response.Status.BAD_REQUEST.getReasonPhrase(), "Verification code is required.");
+        }
+        try {
+            Map<String, Object> verifyResult = MfaServices.verifyRestMfaChallenge(delegator, challengeId, code);
+            if (!ServiceUtil.isSuccess(verifyResult)) {
+                return RestApiUtil.error(Response.Status.UNAUTHORIZED.getStatusCode(),
+                        Response.Status.UNAUTHORIZED.getReasonPhrase(), ServiceUtil.getErrorMessage(verifyResult));
+            }
+            String userLoginId = (String) verifyResult.get("userLoginId");
+            String factorType = (String) verifyResult.get("factorType");
+            String bindingHash = (String) verifyResult.get("sessionBindingHash");
+            String resolvedApiGroup = apiGroupPath;
+            if (UtilValidate.isEmpty(resolvedApiGroup) && bindingHash != null && bindingHash.startsWith("rest:")) {
+                resolvedApiGroup = bindingHash.substring(5);
+            }
+            if (UtilValidate.isEmpty(resolvedApiGroup)) {
+                resolvedApiGroup = "api";
+            }
+            String amrMethod = "ULAF_TOTP".equals(factorType) ? "totp" : "mfa";
+            Map<String, Object> claims = new HashMap<>();
+            claims.put("userLoginId", userLoginId);
+            claims.put("apiGroupPath", resolvedApiGroup);
+            claims.put("amr", List.of("pwd", amrMethod));
+
+            String jwtToken = JWTManager.createJwt(delegator, claims);
+            String refreshToken = JWTManager.createRefreshToken(delegator, claims);
+
+            Map<String, Object> tokenPayload = UtilMisc.toMap("access_token", jwtToken,
+                    "refresh_token", refreshToken,
+                    "expires_in", EntityUtilProperties.getPropertyValue("security", "security.jwt.token.expireTime", "1800", delegator),
+                    "token_type", "Bearer");
+            return RestApiUtil.success("Token granted.", tokenPayload);
+        } catch (GenericEntityException e) {
+            Debug.logError(e, "Error verifying REST MFA challenge", MODULE);
+            return RestApiUtil.error(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(),
+                    "Internal Server Error", "Unable to verify authentication challenge.");
+        }
     }
 
     /**
@@ -150,7 +308,7 @@ public class AuthenticationResource {
      *
      * @param refreshToken The refresh token provided in the request header.
      * @return A response containing the new access and refresh tokens.
-    ]*/
+     */
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/refresh-token")
@@ -179,8 +337,12 @@ public class AuthenticationResource {
                     "Unauthorized: Invalid refresh token.");
         }
 
-        Map<String, String> newClaims = UtilMisc.toMap("userLoginId", userLoginId,
-                "apiGroupPath", claims.get("apiGroupPath"));
+        Map<String, Object> newClaims = new HashMap<>();
+        newClaims.put("userLoginId", userLoginId);
+        newClaims.put("apiGroupPath", claims.get("apiGroupPath"));
+        if (claims.containsKey("amr")) {
+            newClaims.put("amr", claims.get("amr"));
+        }
         String newAccessToken = JWTManager.createJwt(delegator, newClaims);
         String newRefreshToken = JWTManager.createRefreshToken(delegator, newClaims);
 

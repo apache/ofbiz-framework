@@ -54,6 +54,7 @@ dependencies {
     implementation libs.poi.ooxml
     implementation libs.bundles.pdfbox
     implementation libs.bundles.shiro
+    implementation libs.totp
     implementation libs.sshd.core
     implementation libs.sshd.sftp
     implementation libs.bundles.tika

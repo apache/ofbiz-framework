@@ -24,9 +24,13 @@ import java.security.interfaces.RSAPublicKey;
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
+
+import org.apache.ofbiz.security.login.AuthenticationContext;
+import org.apache.ofbiz.security.login.MfaServices;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.StringUtil;
@@ -81,7 +85,7 @@ public class JWTManager {
             synchronized (JWTManager.class) {
                 localRef = jwkProviders.get(delegator.getDelegatorName());
                 if (localRef == null) {
-                    String issuer = EntityUtilProperties.getPropertyValue("security", "security.token.issuer", "", delegator);
+                    String issuer = getProperty("security", "security.token.issuer", "", delegator);
                     String jwksUrl = issuer + "/protocol/openid-connect/certs";
                     localRef = new JwkProviderBuilder(URI.create(jwksUrl).toURL())
                             .cached(10, 24, TimeUnit.HOURS)   // cache up to 10 keys for 24h
@@ -111,7 +115,7 @@ public class JWTManager {
     public static String checkJWTLogin(HttpServletRequest request, HttpServletResponse response) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
 
-        if (!"true".equals(EntityUtilProperties.getPropertyValue("security", "security.internal.sso.enabled", "false", delegator))) {
+        if (!"true".equals(getProperty("security", "security.internal.sso.enabled", "false", delegator))) {
             if (Debug.verboseOn()) {
                 Debug.logVerbose("Internal single sign on is disabled.", MODULE);
             }
@@ -150,6 +154,50 @@ public class JWTManager {
         if (!storeUserlogin(userLogin)) {
             // We could not store the UserLogin GenericValue (very unlikely), stop the process, details are in log
             return "success";
+        }
+
+        boolean mfaEnabled = Boolean.parseBoolean(getProperty("security",
+                "security.login.authFactor.enable", "false", delegator));
+        if (mfaEnabled) {
+            LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
+            if (dispatcher == null) {
+                dispatcher = WebAppUtil.makeWebappDispatcher(request.getSession().getServletContext(), delegator);
+            }
+            AuthenticationContext authCtx = new AuthenticationContext(AuthenticationContext.METHOD_JWT, claims);
+            Map<String, Object> policyResult;
+            try {
+                policyResult = dispatcher.runSync("isUserLoginMfaRequired",
+                        UtilMisc.toMap("userLoginId", userLogin.getString("userLoginId"), "authenticationContext", authCtx));
+            } catch (GenericServiceException e) {
+                Debug.logError(e, "Unable to evaluate MFA policy for JWT authentication", MODULE);
+                request.setAttribute("_ERROR_MESSAGE_", "Unable to complete login");
+                return "error";
+            }
+            if (Boolean.TRUE.equals(policyResult.get("required"))) {
+                // MFA is required and token lacks external assurance: step-up challenge required
+                request.getSession().removeAttribute("userLogin");
+                request.getSession().setAttribute(MfaServices.PENDING_USER, userLogin.getString("userLoginId"));
+                request.getSession().setAttribute(MfaServices.PRIMARY_VERIFIED, Boolean.TRUE);
+                Map<String, Object> challengeResult;
+                try {
+                    challengeResult = dispatcher.runSync("createUserLoginMfaChallenge",
+                            UtilMisc.toMap("userLogin", userLogin, "request", request));
+                } catch (GenericServiceException e) {
+                    Debug.logError(e, "Unable to start MFA challenge for JWT login", MODULE);
+                    request.setAttribute("_ERROR_MESSAGE_", "Unable to complete login");
+                    return "error";
+                }
+                request.setAttribute("_ERROR_MESSAGE_", "Authentication factor required to complete sign in");
+                if (Boolean.TRUE.equals(challengeResult.get("mustEnroll"))) {
+                    return "authFactorEnrollmentRequired";
+                }
+                return "authFactorRequired";
+            }
+            if (Boolean.TRUE.equals(policyResult.get("mfaSatisfied"))) {
+                request.getSession().setAttribute(MfaServices.MFA_VERIFIED_AT, System.currentTimeMillis());
+                MfaServices.recordAuthenticationEvent(delegator, userLogin.getString("userLoginId"),
+                        "MFA_EXTERNAL_ASSURANCE", AuthenticationContext.METHOD_JWT, null);
+            }
         }
 
         LoginWorker.doBasicLogin(userLogin, request, response);
@@ -271,9 +319,9 @@ public class JWTManager {
     public static Map<String, Object> validateToken(Delegator delegator, String jwtToken, String keySalt) {
         JWTVerifier verifier = null;
         // Retrieve configured issuer (if present, assume external JWK-based validation)
-        String issuer = EntityUtilProperties.getPropertyValue("security", "security.token.issuer", "", delegator);
+        String issuer = getProperty("security", "security.token.issuer", "", delegator);
         if (UtilValidate.isNotEmpty(issuer)) {
-            String audience = EntityUtilProperties.getPropertyValue("security", "security.token.audience", "", delegator);
+            String audience = getProperty("security", "security.token.audience", "", delegator);
             try {
                 // Decode the token to extract the Key ID (kid)
                 DecodedJWT decodedJWT = JWT.decode(jwtToken);
@@ -319,7 +367,23 @@ public class JWTManager {
             Map<String, Claim> claims = jwt.getClaims();
             //OK, we can trust this JWT
             for (Map.Entry<String, Claim> entry : claims.entrySet()) {
-                result.put(entry.getKey(), entry.getValue().asString());
+                Claim claim = entry.getValue();
+                if (!claim.isNull()) {
+                    List<String> list = null;
+                    try {
+                        list = claim.asList(String.class);
+                    } catch (Exception ignored) {
+                    }
+                    if (list != null) {
+                        result.put(entry.getKey(), list);
+                        result.put(entry.getKey() + "String", String.join(",", list));
+                    } else {
+                        result.put(entry.getKey(), claim.asString());
+                    }
+                }
+            }
+            if (jwt.getIssuer() != null) {
+                result.put("iss", jwt.getIssuer());
             }
             return result;
         } catch (JWTVerificationException e) {
@@ -355,8 +419,8 @@ public class JWTManager {
      * @param claims the map containing the JWT claims
      * @return a JWT token
      */
-    public static String createJwt(Delegator delegator, Map<String, String> claims) {
-        int expirationTime = Integer.parseInt(EntityUtilProperties.getPropertyValue("security", "security.jwt.token.expireTime", "1800", delegator));
+    public static String createJwt(Delegator delegator, Map<String, ?> claims) {
+        int expirationTime = Integer.parseInt(getProperty("security", "security.jwt.token.expireTime", "1800", delegator));
         return createJwt(delegator, claims, expirationTime);
     }
 
@@ -366,7 +430,7 @@ public class JWTManager {
      * @param expireTime the expiration time in seconds
      * @return a JWT token
      */
-    public static String createJwt(Delegator delegator, Map<String, String> claims, int expireTime) {
+    public static String createJwt(Delegator delegator, Map<String, ?> claims, int expireTime) {
         return createJwt(delegator, claims, null, expireTime);
     }
 
@@ -377,9 +441,9 @@ public class JWTManager {
      * @param expireTime the expiration time in seconds
      * @return a JWT token
      */
-    public static String createJwt(Delegator delegator, Map<String, String> claims, String keySalt, int expireTime) {
+    public static String createJwt(Delegator delegator, Map<String, ?> claims, String keySalt, int expireTime) {
         if (expireTime <= 0) {
-            expireTime = Integer.parseInt(EntityUtilProperties.getPropertyValue("security", "security.jwt.token.expireTime", "1800", delegator));
+            expireTime = Integer.parseInt(getProperty("security", "security.jwt.token.expireTime", "1800", delegator));
         }
 
         String key = JWTManager.getJWTKey(delegator, keySalt);
@@ -393,8 +457,15 @@ public class JWTManager {
                 .withIssuedAt(now)
                 .withExpiresAt(cal.getTime())
                 .withIssuer("ApacheOFBiz");
-        for (Map.Entry<String, String> entry : claims.entrySet()) {
-            builder.withClaim(entry.getKey(), entry.getValue());
+        for (Map.Entry<String, ?> entry : claims.entrySet()) {
+            Object val = entry.getValue();
+            if (val instanceof List<?>) {
+                builder.withClaim(entry.getKey(), (List<?>) val);
+            } else if (val instanceof String[]) {
+                builder.withArrayClaim(entry.getKey(), (String[]) val);
+            } else if (val != null) {
+                builder.withClaim(entry.getKey(), String.valueOf(val));
+            }
         }
 
         return builder.sign(Algorithm.HMAC512(key));
@@ -482,11 +553,12 @@ public class JWTManager {
         return result;
     }
 
-    public static String createRefreshToken(Delegator delegator, Map<String, String> claims) {
-        int refreshTokenExpireTime = Integer.parseInt(EntityUtilProperties.getPropertyValue("security",
+    public static String createRefreshToken(Delegator delegator, Map<String, ?> claims) {
+        int refreshTokenExpireTime = Integer.parseInt(getProperty("security",
                 "security.jwt.refresh.token.expireTime", "86400", delegator));
-        claims.put("type", "refresh");
-        return createJwt(delegator, claims, refreshTokenExpireTime);
+        Map<String, Object> refreshClaims = new HashMap<>(claims);
+        refreshClaims.put("type", "refresh");
+        return createJwt(delegator, refreshClaims, refreshTokenExpireTime);
     }
 
     public static Map<String, Object> validateRefreshToken(Delegator delegator, String refreshToken) {
@@ -511,5 +583,12 @@ public class JWTManager {
             return ServiceUtil.returnError("Invalid access token.");
         }
         return claims;
+    }
+
+    private static String getProperty(String resource, String name, String defaultValue, Delegator delegator) {
+        if (delegator != null) {
+            return EntityUtilProperties.getPropertyValue(resource, name, defaultValue, delegator);
+        }
+        return UtilProperties.getPropertyValue(resource, name, defaultValue);
     }
 }

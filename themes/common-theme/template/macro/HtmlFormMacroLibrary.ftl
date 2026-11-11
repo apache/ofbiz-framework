@@ -394,7 +394,6 @@ under the License.
   </td>
 </#macro>
 <#macro renderFormatHeaderRowFormCellTitleSeparator isLast style="">
-  <#if style?has_content><span class="${style}"></#if> - <#if style?has_content></span></#if>
 </#macro>
 
 <#macro renderFormatItemRowOpen formName itemIndex="" altRowStyles="" evenRowStyle="" oddRowStyle="">
@@ -459,7 +458,7 @@ under the License.
 -->
 
 
-<#macro renderFormatEmptySpace>&nbsp;</#macro>
+<#macro renderFormatEmptySpace></#macro>
 
 <#macro renderTextFindField name defaultOption opBeginsWith opContains opIsEmpty opNotEqual className alert hideIgnoreCase ignCase ignoreCase conditionGroup="" value="" opEquals="" size="" maxlength="" autocomplete="" titleStyle="" tabindex="" disabled=false>
   <#if conditionGroup?has_content>
@@ -911,7 +910,15 @@ Parameter: delegatorName, String, optional - name of the delegator in context.
     <#if tabindex?has_content> tabindex="${tabindex}"</#if>/><#rt/>
 </#macro>
 
-<#macro renderPasswordField className alert name="" value="" size="" maxlength="" id="" autocomplete="" tabindex="" disabled=false>
+<#macro renderPasswordField className alert name="" value="" size="" maxlength="" id="" autocomplete="" tabindex="" disabled=false placeholder="">
+  <#local ph = placeholder>
+  <#local extraStyle = "">
+  <#if !ph?has_content>
+    <#if (className?has_content && className?contains("revoke-password")) || (id?has_content && id?contains("revokeCurrentPassword"))>
+      <#local ph = "Enter current login password to revoke factor">
+      <#local extraStyle = "min-width: 360px;">
+    </#if>
+  </#if>
   <input type="password"
     <@renderClass className alert />
     <@renderDisabled disabled />
@@ -922,6 +929,8 @@ Parameter: delegatorName, String, optional - name of the delegator in context.
     <#if id?has_content> id="${id}"</#if>
     <#if autocomplete?has_content> autocomplete="off"</#if>
     <#if tabindex?has_content> tabindex="${tabindex}"</#if>
+    <#if ph?has_content> placeholder="${ph}"</#if>
+    <#if extraStyle?has_content> style="${extraStyle}"</#if>
     required/><#rt/>
 </#macro>
 

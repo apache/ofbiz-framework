@@ -241,6 +241,131 @@ under the License.
         </section>
     </screen>
 
+    <screen name="authFactorSetup">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleMfaSetup"/>
+                <set field="mfaOwnerUserLoginId" from-field="userLogin.userLoginId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="Set up multi-factor authentication (QR Code)">
+                            <label style="h3" text="Adding an authenticator requires your current password. The factor is not active until you confirm a code."/>
+                            <include-form name="MfaEnrollmentStartForm" location="component://common/widget/CommonForms.xml"/>
+                        </screenlet>
+                        <screenlet title="Enrolled Authenticators">
+                            <label style="h4" text="To revoke an active authenticator, enter your current login password in the box next to it and click 'Revoke factor'."/>
+                            <include-grid name="ListSelfMfaFactors" location="component://common/widget/CommonForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="authFactorChallenge">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleLogin"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="Complete multi-factor authentication">
+                            <label style="h3" text="Enter the 6-digit verification code from your authenticator app."/>
+                            <include-form name="MfaChallengeForm" location="component://common/widget/CommonForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="authFactorEnrollment">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleMfaEnrollment"/>
+                <set field="mfaFactorId" value="${groovy: request.getAttribute('mfaFactorId') ?: parameters.mfaFactorId}"/>
+                <set field="mfaProvisioningUri" value="${groovy: request.getAttribute('mfaProvisioningUri') ?: parameters.mfaProvisioningUri}"/>
+                <set field="mfaSecret" value="${groovy: request.getAttribute('mfaSecret') ?: parameters.mfaSecret}"/>
+                <set field="mfaQrCodeDataUri" value="${groovy: request.getAttribute('mfaQrCodeDataUri') ?: parameters.mfaQrCodeDataUri}"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="Set up Authenticator App (QR Code)">
+                            <label style="h3" text="Scan this QR code with Google Authenticator, Microsoft Authenticator, or 2FAS:"/>
+                            <section>
+                                <condition><not><if-empty field="mfaQrCodeDataUri"/></not></condition>
+                                <widgets>
+                                    <image src="${mfaQrCodeDataUri}" url-mode="raw" width="220" height="220" style="display:block; margin: 15px auto; border: 2px solid #ddd; padding: 10px; background: #fff; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"/>
+                                </widgets>
+                            </section>
+                            <section>
+                                <condition><not><if-empty field="mfaSecret"/></not></condition>
+                                <widgets>
+                                    <container style="alert alert-info">
+                                        <label style="h4" text="Can't scan the QR code? Enter this setup key manually into your authenticator app:"/>
+                                        <label style="h2" text="${mfaSecret}"/>
+                                    </container>
+                                </widgets>
+                            </section>
+                            <include-form name="MfaEnrollmentConfirmForm" location="component://common/widget/CommonForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="authFactorForcedEnrollment">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleLogin"/>
+                <set field="mfaFactorId" value="${groovy: request.getAttribute('mfaFactorId') ?: parameters.mfaFactorId}"/>
+                <set field="mfaProvisioningUri" value="${groovy: request.getAttribute('mfaProvisioningUri') ?: parameters.mfaProvisioningUri}"/>
+                <set field="mfaSecret" value="${groovy: request.getAttribute('mfaSecret') ?: parameters.mfaSecret}"/>
+                <set field="mfaQrCodeDataUri" value="${groovy: request.getAttribute('mfaQrCodeDataUri') ?: parameters.mfaQrCodeDataUri}"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="Multi-factor authentication is required for your account">
+                            <section>
+                                <condition><if-empty field="mfaProvisioningUri"/></condition>
+                                <widgets>
+                                    <label style="h3" text="Set up an authenticator before continuing."/>
+                                    <include-form name="MfaForcedEnrollmentStartForm" location="component://common/widget/CommonForms.xml"/>
+                                </widgets>
+                            </section>
+                            <section>
+                                <condition><not><if-empty field="mfaProvisioningUri"/></not></condition>
+                                <widgets>
+                                    <label style="h3" text="Scan this QR code with your authenticator app, then enter the current 6-digit code:"/>
+                                    <section>
+                                        <condition><not><if-empty field="mfaQrCodeDataUri"/></not></condition>
+                                        <widgets>
+                                            <image src="${mfaQrCodeDataUri}" url-mode="raw" width="220" height="220" style="display:block; margin: 15px auto; border: 2px solid #ddd; padding: 10px; background: #fff; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"/>
+                                        </widgets>
+                                    </section>
+                                    <section>
+                                        <condition><not><if-empty field="mfaSecret"/></not></condition>
+                                        <widgets>
+                                            <container style="alert alert-info">
+                                                <label style="h4" text="Can't scan the QR code? Enter this setup key manually into your authenticator:"/>
+                                                <label style="h2" text="${mfaSecret}"/>
+                                            </container>
+                                        </widgets>
+                                    </section>
+                                    <include-form name="MfaForcedEnrollmentConfirmForm" location="component://common/widget/CommonForms.xml"/>
+                                </widgets>
+                            </section>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
     <screen name="impersonated">
         <section>
             <actions>

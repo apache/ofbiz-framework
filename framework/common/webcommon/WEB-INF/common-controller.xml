@@ -49,6 +49,8 @@ under the License.
         <security https="true" auth="false"/>
         <event type="java" path="org.apache.ofbiz.webapp.control.LoginWorker" invoke="extensionCheckLogin"/>
         <response name="success" type="view" value="main"/>
+        <response name="authFactorRequired" type="view" value="authFactorChallenge"/>
+        <response name="authFactorEnrollmentRequired" type="view" value="authFactorForcedEnrollment"/>
         <response name="impersonated" type="view" value="impersonated"/>
         <response name="error" type="view" value="login"/>
     </request-map>
@@ -57,6 +59,8 @@ under the License.
         <security https="true" auth="false"/>
         <event type="java" path="org.apache.ofbiz.webapp.control.LoginWorker" invoke="extensionCheckLogin"/>
         <response name="success" type="view" value="main"/>
+        <response name="authFactorRequired" type="view" value="authFactorChallenge"/>
+        <response name="authFactorEnrollmentRequired" type="view" value="authFactorForcedEnrollment"/>
         <response name="error" type="view" value="ajaxLogin"/>
     </request-map>
     <request-map uri="impersonateLogin">
@@ -75,8 +79,56 @@ under the License.
         <security https="true" auth="false"/>
         <event type="java" path="org.apache.ofbiz.webapp.control.LoginWorker" invoke="login"/>
         <response name="success" type="view" value="main"/>
+        <response name="authFactorRequired" type="view" value="authFactorChallenge"/>
+        <response name="authFactorEnrollmentRequired" type="view" value="authFactorForcedEnrollment"/>
         <response name="requirePasswordChange" type="view" value="requirePasswordChange"/>
         <response name="error" type="view" value="login"/>
+    </request-map>
+    <request-map uri="authFactorSetup">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="authFactorSetup"/>
+    </request-map>
+    <request-map uri="beginForcedTotpEnrollment">
+        <security https="true" auth="false" csrf-token="true"/>
+        <event type="java" path="org.apache.ofbiz.webapp.control.LoginWorker" invoke="beginForcedTotpEnrollment"/>
+        <response name="success" type="view" value="authFactorForcedEnrollment"/>
+        <response name="error" type="view" value="login"/>
+    </request-map>
+    <request-map uri="confirmForcedTotpEnrollment">
+        <security https="true" auth="false" csrf-token="true"/>
+        <event type="java" path="org.apache.ofbiz.webapp.control.LoginWorker" invoke="confirmForcedTotpEnrollment"/>
+        <response name="success" type="request-redirect" value="main"/>
+        <response name="requirePasswordChange" type="view" value="requirePasswordChange"/>
+        <response name="authFactorRequired" type="view" value="authFactorChallenge"/>
+        <response name="authFactorEnrollmentRequired" type="view" value="authFactorForcedEnrollment"/>
+        <response name="error" type="view" value="login"/>
+    </request-map>
+    <request-map uri="verifyAuthFactor">
+        <security https="true" auth="false" csrf-token="true"/>
+        <event type="java" path="org.apache.ofbiz.webapp.control.LoginWorker" invoke="verifyAuthFactor"/>
+        <response name="success" type="request-redirect" value="main"/>
+        <response name="requirePasswordChange" type="view" value="requirePasswordChange"/>
+        <response name="authFactorRequired" type="view" value="authFactorChallenge"/>
+        <response name="authFactorEnrollmentRequired" type="view" value="authFactorForcedEnrollment"/>
+        <response name="error" type="view" value="login"/>
+    </request-map>
+    <request-map uri="beginTotpEnrollment">
+        <security https="true" auth="true" csrf-token="true"/>
+        <event type="java" path="org.apache.ofbiz.webapp.control.LoginWorker" invoke="beginTotpEnrollment"/>
+        <response name="success" type="view" value="authFactorEnrollment"/>
+        <response name="error" type="view-last"/>
+    </request-map>
+    <request-map uri="confirmTotpEnrollment">
+        <security https="true" auth="true" csrf-token="true"/>
+        <event type="java" path="org.apache.ofbiz.webapp.control.LoginWorker" invoke="confirmTotpEnrollment"/>
+        <response name="success" type="request-redirect" value="authFactorSetup"/>
+        <response name="error" type="view-last"/>
+    </request-map>
+    <request-map uri="revokeMfaFactor" method="post">
+        <security https="true" auth="true" csrf-token="true"/>
+        <event type="java" path="org.apache.ofbiz.webapp.control.LoginWorker" invoke="revokeMfaFactor"/>
+        <response name="success" type="view-last"/>
+        <response name="error" type="view-last"/>
     </request-map>
     <request-map uri="logout">
         <security https="true" auth="true" csrf-token="false"/>
@@ -366,6 +418,10 @@ under the License.
     <!-- View Mappings -->
     <view-map name="error" type="ftl" page="component://common/webcommon/error/Error.ftl" auth="false"/>
     <view-map name="main" type="none" auth="false"/>
+    <view-map name="authFactorSetup" type="screen" page="component://common/widget/CommonScreens.xml#authFactorSetup"/>
+    <view-map name="authFactorChallenge" type="screen" page="component://common/widget/CommonScreens.xml#authFactorChallenge" auth="false"/>
+    <view-map name="authFactorForcedEnrollment" type="screen" page="component://common/widget/CommonScreens.xml#authFactorForcedEnrollment" auth="false"/>
+    <view-map name="authFactorEnrollment" type="screen" page="component://common/widget/CommonScreens.xml#authFactorEnrollment"/>
     <view-map name="login" type="screen" page="component://common/widget/CommonScreens.xml#login" auth="false"/>
     <view-map name="impersonated" type="screen" page="component://common/widget/CommonScreens.xml#impersonated"/>
     <view-map name="ajaxLogin" type="screen" page="component://common/widget/CommonScreens.xml#ajaxNotLoggedIn" auth="false"/>

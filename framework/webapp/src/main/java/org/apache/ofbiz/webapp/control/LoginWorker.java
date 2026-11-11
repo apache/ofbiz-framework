@@ -84,6 +84,8 @@ import org.apache.ofbiz.security.Security;
 import org.apache.ofbiz.security.SecurityConfigurationException;
 import org.apache.ofbiz.security.SecurityFactory;
 import org.apache.ofbiz.security.SecurityUtil;
+import org.apache.ofbiz.security.login.AuthenticationContext;
+import org.apache.ofbiz.security.login.MfaServices;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ModelService;
@@ -351,9 +353,17 @@ public final class LoginWorker {
             if (UtilValidate.isEmpty(token)) token = (String) session.getAttribute("TOKEN");
 
             // in this condition log them in if not already; if not logged in or can't log in, save parameters and return error
+            String loginResult = null;
+            if (UtilValidate.isNotEmpty(username)
+                    && (UtilValidate.isNotEmpty(password) || UtilValidate.isNotEmpty(token))) {
+                loginResult = login(request, response);
+                if ("authFactorRequired".equals(loginResult) || "authFactorEnrollmentRequired".equals(loginResult)) {
+                    return loginResult;
+                }
+            }
             if (UtilValidate.isEmpty(username)
                     || (UtilValidate.isEmpty(password) && UtilValidate.isEmpty(token))
-                    || "error".equals(login(request, response))) {
+                    || "error".equals(loginResult)) {
 
                 // make sure this attribute is not in the request; this avoids infinite recursion when a login by less stringent criteria
                 // (like not checkout the hasLoggedOut field) passes; this is not a normal circumstance but can happen with custom code or in
@@ -538,16 +548,20 @@ public final class LoginWorker {
         }
 
         Map<String, Object> result = null;
+        boolean mfaEnabled = Boolean.parseBoolean(EntityUtilProperties.getPropertyValue("security",
+                "security.login.authFactor.enable", "false", delegator));
         try {
-            // get the visit id to pass to the userLogin for history
+            // get the visit id to pass to the login service for history
             String visitId = VisitHandler.getVisitId(session);
-            result = dispatcher.runSync("userLogin", UtilMisc.toMap(
-                    "login.username", username,
-                    "login.password", password,
-                    "login.token", token,
-                    "visitId", visitId,
-                    "locale", UtilHttp.getLocale(request),
-                    "request", request));
+            if (mfaEnabled) {
+                result = dispatcher.runSync("userLoginMfaPending", UtilMisc.toMap(
+                        "username", username, "password", password, "token", token,
+                        "visitId", visitId, "locale", UtilHttp.getLocale(request), "request", request));
+            } else {
+                result = dispatcher.runSync("userLogin", UtilMisc.toMap(
+                        "login.username", username, "login.password", password, "login.token", token,
+                        "visitId", visitId, "locale", UtilHttp.getLocale(request), "request", request));
+            }
         } catch (GenericServiceException e) {
             Debug.logError(e, "Error calling userLogin service", MODULE);
             Map<String, String> messageMap = UtilMisc.toMap("errorMessage", e.getMessage());
@@ -564,6 +578,62 @@ public final class LoginWorker {
             boolean passwordResetOnly = "Y".equals(result.get("passwordResetOnly"));
             if (passwordResetOnly) {
                 session.setAttribute(PASSWORD_RESET_ONLY_SESSION_ATTR, "Y");
+            }
+            if (mfaEnabled) {
+                if (setupNewDelegatorEtc) {
+                    setWebContextObjects(request, response, delegator, dispatcher);
+                    setupNewDelegatorEtc = false;
+                }
+                Map<String, Object> policyResult;
+                try {
+                    policyResult = dispatcher.runSync("isUserLoginMfaRequired",
+                            UtilMisc.toMap("userLoginId", userLogin.getString("userLoginId")));
+                } catch (GenericServiceException e) {
+                    Debug.logError(e, "Unable to evaluate MFA policy", MODULE);
+                    request.setAttribute("_ERROR_MESSAGE_", "Unable to complete login");
+                    return "error";
+                }
+                if (ServiceUtil.isError(policyResult)) {
+                    request.setAttribute("_ERROR_MESSAGE_", "Unable to complete login");
+                    return "error";
+                }
+                if (Boolean.TRUE.equals(policyResult.get("required"))) {
+                    Map<String, Object> challengeResult;
+                    try {
+                        challengeResult = dispatcher.runSync("createUserLoginMfaChallenge",
+                                UtilMisc.toMap("userLogin", userLogin, "request", request));
+                    } catch (GenericServiceException e) {
+                        Debug.logError(e, "Unable to start MFA challenge", MODULE);
+                        request.setAttribute("_ERROR_MESSAGE_", "Unable to complete login");
+                        return "error";
+                    }
+                    if (ServiceUtil.isError(challengeResult) || !Boolean.TRUE.equals(challengeResult.get("required"))) {
+                        request.setAttribute("_ERROR_MESSAGE_", "Unable to complete login");
+                        return "error";
+                    }
+                    if (Boolean.TRUE.equals(challengeResult.get("mustEnroll"))) {
+                        return "authFactorEnrollmentRequired";
+                    }
+                    return "authFactorRequired";
+                }
+                session.setAttribute(MfaServices.PENDING_USER, userLogin.getString("userLoginId"));
+                session.setAttribute(MfaServices.PRIMARY_VERIFIED, Boolean.TRUE);
+                try {
+                    result = dispatcher.runSync("completeUserLoginMfa", UtilMisc.toMap("request", request));
+                } catch (GenericServiceException e) {
+                    session.removeAttribute(MfaServices.PENDING_USER);
+                    session.removeAttribute(MfaServices.PRIMARY_VERIFIED);
+                    Debug.logError(e, "Unable to finalize login", MODULE);
+                    request.setAttribute("_ERROR_MESSAGE_", "Unable to complete login");
+                    return "error";
+                }
+                if (ServiceUtil.isError(result)) {
+                    session.removeAttribute(MfaServices.PENDING_USER);
+                    session.removeAttribute(MfaServices.PRIMARY_VERIFIED);
+                    request.setAttribute("_ERROR_MESSAGE_", "Unable to complete login");
+                    return "error";
+                }
+                userLogin = (GenericValue) result.get("userLogin");
             }
             if ((passwordResetOnly || (userLogin != null && "Y".equals(userLogin.getString("requirePasswordChange"))))
                     && UtilValidate.isNotEmpty(request.getParameter("newPassword"))
@@ -656,6 +726,316 @@ public final class LoginWorker {
             return "error";
         }
     }
+
+    /** Verify the pre-authentication MFA challenge and only then create the normal web session. */
+    public static String verifyAuthFactor(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute(MfaServices.PENDING_CHALLENGE) == null) {
+            return "error";
+        }
+        LocalDispatcher dispatcher = (LocalDispatcher) session.getAttribute("dispatcher");
+        if (dispatcher == null) {
+            dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
+        }
+        if (dispatcher == null) {
+            request.setAttribute("_ERROR_MESSAGE_", "Unable to complete login");
+            return "error";
+        }
+        try {
+            Map<String, Object> verification = dispatcher.runSync("verifyUserLoginMfaChallenge",
+                    UtilMisc.toMap("request", request, "code", request.getParameter("code")));
+            if (ServiceUtil.isError(verification) || !Boolean.TRUE.equals(verification.get("verified"))) {
+                request.setAttribute("_ERROR_MESSAGE_", "Invalid or expired authentication challenge");
+                return "authFactorRequired";
+            }
+            Map<String, Object> completion = dispatcher.runSync("completeUserLoginMfa", UtilMisc.toMap("request", request));
+            if (ServiceUtil.isError(completion)) {
+                request.setAttribute("_ERROR_MESSAGE_", "Unable to complete login");
+                return "error";
+            }
+            GenericValue userLogin = (GenericValue) completion.get("userLogin");
+            Map<String, Object> userLoginSession = checkMap(completion.get("userLoginSession"), String.class, Object.class);
+            Delegator sessionDelegator = (Delegator) session.getAttribute("delegator");
+            if (sessionDelegator != null) {
+                setWebContextObjects(request, response, sessionDelegator, dispatcher);
+            }
+            request.changeSessionId();
+            session.setAttribute(MfaServices.MFA_VERIFIED_AT, System.currentTimeMillis());
+            String loginResult = doMainLogin(request, response, userLogin, userLoginSession);
+            return userLogin != null && "Y".equals(userLogin.getString("requirePasswordChange"))
+                    ? "requirePasswordChange" : loginResult;
+        } catch (GenericServiceException e) {
+            Debug.logError(e, "Unable to verify MFA challenge", MODULE);
+            request.setAttribute("_ERROR_MESSAGE_", "Unable to complete login");
+            return "error";
+        }
+    }
+
+    /** Begin mandatory TOTP enrollment using only the identity bound to the pre-authentication session. */
+    public static String beginForcedTotpEnrollment(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session = request.getSession(false);
+        if (session == null || !Boolean.TRUE.equals(session.getAttribute(MfaServices.PENDING_ENROLLMENT))) {
+            request.setAttribute("_ERROR_MESSAGE_", "Authentication session expired or invalid. Please log in again.");
+            return "error";
+        }
+        String pendingUserId = (String) session.getAttribute(MfaServices.PENDING_USER);
+        Delegator delegator = (Delegator) session.getAttribute("delegator");
+        LocalDispatcher dispatcher = (LocalDispatcher) session.getAttribute("dispatcher");
+        if (dispatcher == null) dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
+        if (pendingUserId == null || delegator == null || dispatcher == null) {
+            request.setAttribute("_ERROR_MESSAGE_", "Unable to begin authenticator enrollment");
+            return "error";
+        }
+        try {
+            GenericValue pendingUserLogin = EntityQuery.use(delegator).from("UserLogin")
+                    .where("userLoginId", pendingUserId).cache(false).queryOne();
+            if (pendingUserLogin == null) return "error";
+            Map<String, Object> result = dispatcher.runSync("createUserLoginTotpFactor", UtilMisc.toMap(
+                    "userLogin", pendingUserLogin, "label", request.getParameter("label"),
+                    "currentPassword", request.getParameter("currentPassword"), "locale", UtilHttp.getLocale(request)));
+            if (ServiceUtil.isError(result)) {
+                request.setAttribute("_ERROR_MESSAGE_", "Unable to begin authenticator enrollment");
+                return "error";
+            }
+            session.setAttribute(MfaServices.PENDING_ENROLLMENT_FACTOR, result.get("factorId"));
+            session.setAttribute("_MFA_PENDING_PROVISIONING_URI_", result.get("provisioningUri"));
+            session.setAttribute("_MFA_PENDING_SECRET_", result.get("secret"));
+            session.setAttribute("_MFA_PENDING_QR_DATA_URI_", result.get("qrCodeDataUri"));
+            request.setAttribute("mfaProvisioningUri", result.get("provisioningUri"));
+            request.setAttribute("mfaSecret", result.get("secret"));
+            request.setAttribute("mfaQrCodeDataUri", result.get("qrCodeDataUri"));
+            response.setHeader("Cache-Control", "no-store");
+            response.setHeader("Pragma", "no-cache");
+            return "success";
+        } catch (GenericEntityException e) {
+            Debug.logError(e, "Unable to retrieve the account for forced authenticator enrollment", MODULE);
+            request.setAttribute("_ERROR_MESSAGE_", "Unable to begin authenticator enrollment");
+            return "error";
+        } catch (GenericServiceException e) {
+            Debug.logError(e, "Unable to begin forced authenticator enrollment", MODULE);
+            request.setAttribute("_ERROR_MESSAGE_", "Unable to begin authenticator enrollment");
+            return "error";
+        }
+    }
+
+    /** Validate and activate the factor, then continue the original session-bound login challenge. */
+    public static String confirmForcedTotpEnrollment(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session = request.getSession(false);
+        LocalDispatcher dispatcher = session == null ? null : (LocalDispatcher) session.getAttribute("dispatcher");
+        if (dispatcher == null) dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
+        if (session == null || dispatcher == null) {
+            request.setAttribute("_ERROR_MESSAGE_", "Session expired. Please log in again.");
+            return "error";
+        }
+        if (session.getAttribute("userLogin") != null) {
+            return "success";
+        }
+        if (!Boolean.TRUE.equals(session.getAttribute(MfaServices.PENDING_ENROLLMENT))) {
+            request.setAttribute("_ERROR_MESSAGE_", "Authentication session expired or invalid. Please log in again.");
+            return "error";
+        }
+        try {
+            Map<String, Object> result = dispatcher.runSync("completeForcedTotpEnrollment",
+                    UtilMisc.toMap("request", request, "code", request.getParameter("code")));
+            if (ServiceUtil.isError(result) || !Boolean.TRUE.equals(result.get("activated"))) {
+                request.setAttribute("mfaProvisioningUri", session.getAttribute("_MFA_PENDING_PROVISIONING_URI_"));
+                request.setAttribute("mfaSecret", session.getAttribute("_MFA_PENDING_SECRET_"));
+                request.setAttribute("mfaQrCodeDataUri", session.getAttribute("_MFA_PENDING_QR_DATA_URI_"));
+                response.setHeader("Cache-Control", "no-store");
+                response.setHeader("Pragma", "no-cache");
+                request.setAttribute("_ERROR_MESSAGE_", "Authenticator confirmation failed");
+                return "authFactorEnrollmentRequired";
+            }
+            session.removeAttribute("_MFA_PENDING_PROVISIONING_URI_");
+            session.removeAttribute("_MFA_PENDING_SECRET_");
+            session.removeAttribute("_MFA_PENDING_QR_DATA_URI_");
+            session.removeAttribute(MfaServices.PENDING_ENROLLMENT_FACTOR);
+            return verifyAuthFactor(request, response);
+        } catch (GenericServiceException e) {
+            Debug.logError(e, "Unable to confirm forced authenticator enrollment", MODULE);
+            request.setAttribute("_ERROR_MESSAGE_", "Authenticator confirmation failed");
+            return "error";
+        }
+    }
+
+    /** True when the current session completed a required factor within the configured re-auth window. */
+    public static boolean hasRecentMfaProof(HttpServletRequest request, GenericValue userLogin, LocalDispatcher dispatcher) {
+        try {
+            Map<String, Object> policy = dispatcher.runSync("isUserLoginMfaRequired",
+                    UtilMisc.toMap("userLoginId", userLogin.getString("userLoginId")));
+            if (ServiceUtil.isError(policy)) return false;
+            if (!Boolean.TRUE.equals(policy.get("required"))) return true;
+            Object verifiedAt = request.getSession(false).getAttribute(MfaServices.MFA_VERIFIED_AT);
+            if (!(verifiedAt instanceof Number)) return false;
+            int maxAgeSeconds = EntityUtilProperties.getPropertyAsInteger("security",
+                    "security.login.authFactor.reauthenticationWindow", 300);
+            long ageMillis = System.currentTimeMillis() - ((Number) verifiedAt).longValue();
+            return ageMillis >= 0 && ageMillis <= maxAgeSeconds * 1000L;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    /** Apply the MFA freshness requirement before any interactive password mutation. */
+    public static String updatePasswordWithMfa(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session = request.getSession(false);
+        GenericValue actor = session == null ? null : (GenericValue) session.getAttribute("userLogin");
+        LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
+        if (actor == null || dispatcher == null || !hasRecentMfaProof(request, actor, dispatcher)) {
+            request.setAttribute("_ERROR_MESSAGE_", "Sign in again with a verified factor before changing a password");
+            return "error";
+        }
+        String targetUserLoginId = request.getParameter("userLoginId");
+        if (UtilValidate.isEmpty(targetUserLoginId)) {
+            targetUserLoginId = actor.getString("userLoginId");
+        }
+        boolean administrativeMfaReset = !targetUserLoginId.equals(actor.getString("userLoginId"));
+        String resetReason = request.getParameter("mfaAdminReason");
+        if (administrativeMfaReset) {
+            try {
+                Map<String, Object> targetPolicy = dispatcher.runSync("isUserLoginMfaRequired",
+                        UtilMisc.toMap("userLoginId", targetUserLoginId));
+                if (ServiceUtil.isError(targetPolicy)) {
+                    request.setAttribute("_ERROR_MESSAGE_", "Unable to update password");
+                    return "error";
+                }
+                if (Boolean.TRUE.equals(targetPolicy.get("required"))) {
+                    Security security = (Security) request.getAttribute("security");
+                    if (security == null || !security.hasEntityPermission("SECURITY_PWD", "_UPDATE", actor)
+                            || UtilValidate.isEmpty(resetReason) || resetReason.length() > 255) {
+                        request.setAttribute("_ERROR_MESSAGE_", "A privileged, reasoned recovery is required");
+                        return "error";
+                    }
+                } else {
+                    administrativeMfaReset = false;
+                }
+            } catch (GenericServiceException e) {
+                Debug.logError(e, "Unable to evaluate password recovery policy", MODULE);
+                request.setAttribute("_ERROR_MESSAGE_", "Unable to update password");
+                return "error";
+            }
+        }
+        try {
+            Map<String, Object> input = UtilMisc.toMap(
+                    "userLogin", actor,
+                    "userLoginId", request.getParameter("userLoginId"),
+                    "currentPassword", request.getParameter("currentPassword"),
+                    "newPassword", request.getParameter("newPassword"),
+                    "newPasswordVerify", request.getParameter("newPasswordVerify"),
+                    "passwordHint", request.getParameter("passwordHint"),
+                    "requirePasswordChange", request.getParameter("requirePasswordChange"));
+            Map<String, Object> result = dispatcher.runSync("updatePassword", input);
+            if (ServiceUtil.isError(result)) {
+                request.setAttribute("_ERROR_MESSAGE_", "Unable to update password");
+                request.setAttribute("_ERROR_MESSAGE_LIST_", result.get(ModelService.ERROR_MESSAGE_LIST));
+                return "error";
+            }
+            if (administrativeMfaReset) {
+                MfaServices.recordAdministrativeAuthenticationEvent((Delegator) request.getAttribute("delegator"),
+                        targetUserLoginId, actor.getString("userLoginId"), "MFA_ADMIN_PASSWORD_RESET", resetReason);
+            }
+            return "success";
+        } catch (GenericServiceException e) {
+            Debug.logError(e, "Error updating password through MFA-aware web event", MODULE);
+            request.setAttribute("_ERROR_MESSAGE_", "Unable to update password");
+            return "error";
+        }
+    }
+
+    /** Revoke one owned factor, or perform a reasoned security-administrator reset action. */
+    public static String revokeMfaFactor(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session = request.getSession(false);
+        GenericValue actor = session == null ? null : (GenericValue) session.getAttribute("userLogin");
+        LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
+        if (actor == null || dispatcher == null) {
+            request.setAttribute("_ERROR_MESSAGE_", "Session expired. Please log in again.");
+            return "error";
+        }
+        String currentPassword = request.getParameter("currentPassword");
+        String reason = request.getParameter("reason");
+        // For admin reset, reason is required. For self-service, password or recent MFA proof is required.
+        if (UtilValidate.isEmpty(currentPassword) && UtilValidate.isEmpty(reason) && !hasRecentMfaProof(request, actor, dispatcher)) {
+            request.setAttribute("_ERROR_MESSAGE_", "Sign in again with a verified factor before changing MFA settings");
+            return "error";
+        }
+        try {
+            Map<String, Object> result = dispatcher.runSync("revokeUserLoginAuthFactor", UtilMisc.toMap(
+                    "userLogin", actor, "factorId", request.getParameter("factorId"),
+                    "currentPassword", currentPassword,
+                    "reason", reason, "locale", UtilHttp.getLocale(request)));
+            if (ServiceUtil.isError(result)) {
+                String errorMsg = ServiceUtil.getErrorMessage(result);
+                request.setAttribute("_ERROR_MESSAGE_", UtilValidate.isNotEmpty(errorMsg) ? errorMsg : "Unable to revoke authentication factor");
+                return "error";
+            }
+            request.setAttribute("_EVENT_MESSAGE_", "Authentication factor has been successfully revoked.");
+            return "success";
+        } catch (GenericServiceException e) {
+            Debug.logError(e, "Unable to revoke authentication factor", MODULE);
+            return "error";
+        }
+    }
+
+    /** Begin self-service TOTP enrollment for the currently authenticated account. */
+    public static String beginTotpEnrollment(HttpServletRequest request, HttpServletResponse response) {
+        GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
+        LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
+        if (userLogin == null || dispatcher == null) {
+            return "error";
+        }
+        if (!hasRecentMfaProof(request, userLogin, dispatcher)) {
+            request.setAttribute("_ERROR_MESSAGE_", "Sign in again with a verified factor before changing MFA settings");
+            return "error";
+        }
+        try {
+            Map<String, Object> result = dispatcher.runSync("createUserLoginTotpFactor",
+                    UtilMisc.toMap("userLogin", userLogin, "label", request.getParameter("label"),
+                            "currentPassword", request.getParameter("currentPassword"), "locale", UtilHttp.getLocale(request)));
+            if (ServiceUtil.isError(result)) {
+                request.setAttribute("_ERROR_MESSAGE_", "Unable to begin authenticator enrollment");
+                return "error";
+            }
+            response.setHeader("Cache-Control", "no-store");
+            response.setHeader("Pragma", "no-cache");
+            request.setAttribute("mfaFactorId", result.get("factorId"));
+            request.setAttribute("mfaProvisioningUri", result.get("provisioningUri"));
+            request.setAttribute("mfaSecret", result.get("secret"));
+            request.setAttribute("mfaQrCodeDataUri", result.get("qrCodeDataUri"));
+            return "success";
+        } catch (GenericServiceException e) {
+            Debug.logError(e, "Unable to begin authenticator enrollment", MODULE);
+            return "error";
+        }
+    }
+
+    /** Confirm possession of a pending TOTP factor. */
+    public static String confirmTotpEnrollment(HttpServletRequest request, HttpServletResponse response) {
+        GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
+        LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
+        if (userLogin == null || dispatcher == null) {
+            return "error";
+        }
+        if (!hasRecentMfaProof(request, userLogin, dispatcher)) {
+            request.setAttribute("_ERROR_MESSAGE_", "Sign in again with a verified factor before changing MFA settings");
+            return "error";
+        }
+        try {
+            Map<String, Object> result = dispatcher.runSync("confirmUserLoginTotpFactor", UtilMisc.toMap(
+                    "userLogin", userLogin, "factorId", request.getParameter("factorId"), "code", request.getParameter("code")));
+            if (ServiceUtil.isError(result)) {
+                request.setAttribute("_ERROR_MESSAGE_", "Authenticator confirmation failed");
+                return "error";
+            }
+            request.getSession().setAttribute(MfaServices.MFA_VERIFIED_AT, System.currentTimeMillis());
+            request.setAttribute("_EVENT_MESSAGE_", "Multi-factor authentication (TOTP) has been successfully enrolled.");
+            return "success";
+        } catch (GenericServiceException e) {
+            Debug.logError(e, "Unable to confirm authenticator enrollment", MODULE);
+            request.setAttribute("_ERROR_MESSAGE_", "Authenticator confirmation failed");
+            return "error";
+        }
+    }
+
 
     /**
      * An HTTP WebEvent handler to impersonate a given userLogin without using password. This should run before the security check.
@@ -1232,12 +1612,51 @@ public final class LoginWorker {
      * @return Returns "success" if user could be logged in or "error" if there was a problem.
      */
     public static String loginUserWithUserLoginId(HttpServletRequest request, HttpServletResponse response, String userLoginId) {
+        return loginUserWithUserLoginId(request, response, userLoginId, AuthenticationContext.METHOD_PASSWORD);
+    }
+
+    public static String loginUserWithUserLoginId(HttpServletRequest request, HttpServletResponse response,
+            String userLoginId, String authMethod) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         try {
             GenericValue userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", userLoginId).queryOne();
             if (userLogin != null) {
                 String enabled = userLogin.getString("enabled");
                 if (enabled == null || "Y".equals(enabled)) {
+                    boolean mfaEnabled = Boolean.parseBoolean(EntityUtilProperties.getPropertyValue("security",
+                            "security.login.authFactor.enable", "false", delegator));
+                    if (mfaEnabled) {
+                        LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
+                        if (dispatcher == null) {
+                            ServletContext servletContext = request.getSession().getServletContext();
+                            dispatcher = WebAppUtil.makeWebappDispatcher(servletContext, delegator);
+                        }
+                        AuthenticationContext authCtx = new AuthenticationContext(authMethod);
+                        Map<String, Object> policyResult = dispatcher.runSync("isUserLoginMfaRequired",
+                                UtilMisc.toMap("userLoginId", userLogin.getString("userLoginId"), "authenticationContext", authCtx));
+                        if (ServiceUtil.isError(policyResult)) {
+                            return "error";
+                        }
+                        if (Boolean.TRUE.equals(policyResult.get("required"))) {
+                            HttpSession session = request.getSession();
+                            session.removeAttribute("userLogin");
+                            session.setAttribute(MfaServices.PENDING_USER, userLogin.getString("userLoginId"));
+                            session.setAttribute(MfaServices.PRIMARY_VERIFIED, Boolean.TRUE);
+                            Map<String, Object> challengeResult = dispatcher.runSync("createUserLoginMfaChallenge",
+                                    UtilMisc.toMap("userLogin", userLogin, "request", request));
+                            request.setAttribute("_ERROR_MESSAGE_", "Authentication factor required to complete sign in");
+                            if (Boolean.TRUE.equals(challengeResult.get("mustEnroll"))) {
+                                return "authFactorEnrollmentRequired";
+                            }
+                            return "authFactorRequired";
+                        }
+                        if (Boolean.TRUE.equals(policyResult.get("mfaSatisfied"))) {
+                            request.getSession().setAttribute(MfaServices.MFA_VERIFIED_AT, System.currentTimeMillis());
+                            MfaServices.recordAuthenticationEvent(delegator, userLogin.getString("userLoginId"),
+                                    "MFA_EXTERNAL_ASSURANCE", authMethod, null);
+                        }
+                    }
+
                     userLogin.set("hasLoggedOut", "N");
                     userLogin.store();
 
@@ -1266,7 +1685,7 @@ public final class LoginWorker {
                 // user is not logged in; check the header field
                 String headerValue = request.getHeader(httpHeader);
                 if (UtilValidate.isNotEmpty(headerValue)) {
-                    return LoginWorker.loginUserWithUserLoginId(request, response, headerValue);
+                    return LoginWorker.loginUserWithUserLoginId(request, response, headerValue, AuthenticationContext.METHOD_HTTP_HEADER);
                 } else {
                     // empty headerValue is not good
                     return "error";
@@ -1290,7 +1709,7 @@ public final class LoginWorker {
                 // lets grab the remoteUserId
                 String remoteUserId = request.getRemoteUser();
                 if (UtilValidate.isNotEmpty(remoteUserId)) {
-                    return LoginWorker.loginUserWithUserLoginId(request, response, remoteUserId);
+                    return LoginWorker.loginUserWithUserLoginId(request, response, remoteUserId, AuthenticationContext.METHOD_REMOTE_USER);
                 } else {
                     // empty remoteUserId is not good
                     return "error";
@@ -1304,7 +1723,7 @@ public final class LoginWorker {
             if (!LoginWorker.isUserLoggedIn(request)) {
                 String remoteUserId = request.getRemoteUser();
                 if (UtilValidate.isNotEmpty(remoteUserId)) {
-                    return LoginWorker.loginUserWithUserLoginId(request, response, remoteUserId);
+                    return LoginWorker.loginUserWithUserLoginId(request, response, remoteUserId, AuthenticationContext.METHOD_TOMCAT_SSO);
                 } else {
                     // user is/has logged out at this point
                     return "success";
@@ -1364,19 +1783,7 @@ public final class LoginWorker {
                             if (LoginWorker.checkValidIssuer(delegator, x500Map, clientCerts[i].getSerialNumber())) {
                                 //Debug.logInfo("Looking up userLogin from CN: " + userLoginId, MODULE);
 
-                                // CN should match the userLoginId
-                                GenericValue userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", userLoginId).queryOne();
-                                if (userLogin != null) {
-                                    String enabled = userLogin.getString("enabled");
-                                    if (enabled == null || "Y".equals(enabled)) {
-                                        userLogin.set("hasLoggedOut", "N");
-                                        userLogin.store();
-
-                                        // login the user
-                                        Map<String, Object> ulSessionMap = LoginWorker.getUserLoginSession(userLogin);
-                                        return doMainLogin(request, response, userLogin, ulSessionMap); // doing the main login
-                                    }
-                                }
+                                return LoginWorker.loginUserWithUserLoginId(request, response, userLoginId, AuthenticationContext.METHOD_X509);
                             }
                         } catch (GeneralException e) {
                             Debug.logError(e, MODULE);

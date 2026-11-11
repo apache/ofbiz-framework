@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/services.xsd">
+    <description>Security Authentication Factor Services</description>
+    <vendor>OFBiz</vendor>
+    <version>1.0</version>
+
+    <service name="createUserLoginTotpFactor" engine="java" auth="true" export="false"
+            location="org.apache.ofbiz.security.login.MfaServices" invoke="createUserLoginTotpFactor">
+        <attribute name="userLogin" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
+        <attribute name="label" type="String" mode="IN" optional="true"/>
+        <attribute name="currentPassword" type="String" mode="IN" optional="false"/>
+        <attribute name="locale" type="java.util.Locale" mode="IN" optional="true"/>
+        <attribute name="factorId" type="String" mode="OUT"/>
+        <attribute name="secret" type="String" mode="OUT"/>
+        <attribute name="provisioningUri" type="String" mode="OUT"/>
+        <attribute name="qrCodeDataUri" type="String" mode="OUT" optional="true"/>
+    </service>
+    <service name="confirmUserLoginTotpFactor" engine="java" auth="true" export="false"
+            location="org.apache.ofbiz.security.login.MfaServices" invoke="confirmUserLoginTotpFactor">
+        <attribute name="userLogin" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
+        <attribute name="factorId" type="String" mode="IN" optional="false"/>
+        <attribute name="code" type="String" mode="IN" optional="false"/>
+    </service>
+    <service name="isUserLoginMfaRequired" engine="java" auth="false" export="false"
+            location="org.apache.ofbiz.security.login.MfaServices" invoke="isUserLoginMfaRequired">
+        <attribute name="userLoginId" type="String" mode="IN" optional="false"/>
+        <attribute name="authenticationContext" type="org.apache.ofbiz.security.login.AuthenticationContext" mode="IN" optional="true"/>
+        <attribute name="required" type="Boolean" mode="OUT"/>
+        <attribute name="mfaSatisfied" type="Boolean" mode="OUT" optional="true"/>
+    </service>
+    <service name="getUserLoginAuthFactors" engine="java" auth="true" export="false"
+            location="org.apache.ofbiz.security.login.MfaServices" invoke="getUserLoginAuthFactors">
+        <attribute name="userLogin" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
+        <attribute name="targetUserLoginId" type="String" mode="IN" optional="true"/>
+        <attribute name="factors" type="java.util.List" mode="OUT"/>
+    </service>
+    <service name="revokeUserLoginAuthFactor" engine="java" auth="true" export="false"
+            location="org.apache.ofbiz.security.login.MfaServices" invoke="revokeUserLoginAuthFactor">
+        <attribute name="userLogin" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
+        <attribute name="factorId" type="String" mode="IN" optional="false"/>
+        <attribute name="currentPassword" type="String" mode="IN" optional="true"/>
+        <attribute name="reason" type="String" mode="IN" optional="true"/>
+        <attribute name="locale" type="java.util.Locale" mode="IN" optional="true"/>
+    </service>
+    <service name="createUserLoginMfaChallenge" engine="java" auth="false" export="false"
+            location="org.apache.ofbiz.security.login.MfaServices" invoke="createUserLoginMfaChallenge">
+        <attribute name="userLogin" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
+        <attribute name="request" type="jakarta.servlet.http.HttpServletRequest" mode="IN" optional="false"/>
+        <attribute name="required" type="Boolean" mode="OUT"/>
+        <attribute name="mustEnroll" type="Boolean" mode="OUT" optional="true"/>
+        <attribute name="challengeId" type="String" mode="OUT" optional="true"/>
+    </service>
+    <service name="completeForcedTotpEnrollment" engine="java" auth="false" export="false"
+            location="org.apache.ofbiz.security.login.MfaServices" invoke="completeForcedTotpEnrollment">
+        <attribute name="request" type="jakarta.servlet.http.HttpServletRequest" mode="IN" optional="false"/>
+        <attribute name="code" type="String" mode="IN" optional="false"/>
+        <attribute name="activated" type="Boolean" mode="OUT" optional="true"/>
+    </service>
+    <service name="verifyUserLoginMfaChallenge" engine="java" auth="false" export="false"
+            location="org.apache.ofbiz.security.login.MfaServices" invoke="verifyUserLoginMfaChallenge">
+        <attribute name="request" type="jakarta.servlet.http.HttpServletRequest" mode="IN" optional="false"/>
+        <attribute name="code" type="String" mode="IN" optional="false"/>
+        <attribute name="verified" type="Boolean" mode="OUT" optional="true"/>
+    </service>
+    <service name="sendMfaSecurityNotification" engine="java" auth="false" export="false"
+            location="org.apache.ofbiz.security.login.MfaServices" invoke="sendMfaSecurityNotification">
+        <description>Sends security alert email to the party associated with the user login</description>
+        <attribute name="userLoginId" type="String" mode="IN" optional="false"/>
+        <attribute name="actorUserLoginId" type="String" mode="IN" optional="true"/>
+        <attribute name="eventType" type="String" mode="IN" optional="false"/>
+        <attribute name="factorType" type="String" mode="IN" optional="true"/>
+        <attribute name="reason" type="String" mode="IN" optional="true"/>
+    </service>
+</services>

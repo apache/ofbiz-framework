@@ -89,6 +89,9 @@ public class HttpBasicAuthFilter implements ContainerRequestFilter {
         final String password = tokens[1];
 
         String apiGroupPath = requestContext.getUriInfo().getPathParameters().getFirst("apiGroupPath");
+        if (apiGroupPath == null) {
+            apiGroupPath = "api";
+        }
         String validatedApiGroupPath = RestApiUtil.validateApiGroupPath(apiGroupPath);
         if (UtilValidate.isEmpty(validatedApiGroupPath)) {
             abortWithUnauthorized(requestContext, true, "Access Denied: Unknown api.");

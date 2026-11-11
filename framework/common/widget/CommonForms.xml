@@ -44,4 +44,70 @@ under the License.
     <form name="CommonDynamicSingle" extends="CommonDynamicSingle" extends-resource="${groovy:
     commonFormLocations.CommonDynamicSingle ?: 'component://common-theme/widget/CommonForms.xml'}"/>
 
+
+    <form name="MfaChallengeForm" type="single" target="verifyAuthFactor">
+        <field name="code" title="Authenticator code" required-field="true"><text maxlength="64"/></field>
+        <field name="submitButton" title="Verify"><submit button-type="button"/></field>
+    </form>
+    <form name="MfaEnrollmentStartForm" type="single" target="beginTotpEnrollment">
+        <field name="label" title="Authenticator label"><text maxlength="100"/></field>
+        <field name="currentPassword" title="Current password" required-field="true"><password maxlength="255"/></field>
+        <field name="submitButton" title="Begin enrollment"><submit button-type="button"/></field>
+    </form>
+    <form name="MfaEnrollmentConfirmForm" type="single" target="confirmTotpEnrollment">
+        <field name="factorId"><hidden value="${mfaFactorId}"/></field>
+        <field name="code" title="Authenticator code" required-field="true"><text maxlength="8"/></field>
+        <field name="submitButton" title="Confirm authenticator"><submit button-type="button"/></field>
+    </form>
+
+    <grid name="ListSelfMfaFactors" list-name="mfaFactors" target="revokeMfaFactor"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <actions>
+            <entity-condition entity-name="UserLoginAuthFactor" list="mfaFactors">
+                <condition-list combine="and">
+                    <condition-expr field-name="userLoginId" from-field="mfaOwnerUserLoginId"/>
+                    <condition-expr field-name="thruDate" operator="equals" from-field="nullField"/>
+                </condition-list>
+                <order-by field-name="fromDate"/>
+            </entity-condition>
+        </actions>
+        <field name="factorId"><hidden/></field>
+        <field name="factorType" title="Factor type"><display/></field>
+        <field name="factorLabel" title="Label"><display/></field>
+        <field name="needsValidation" title="Pending validation"><display/></field>
+        <field name="lastUsedDate" title="Last used"><display/></field>
+        <field name="thruDate" title="Revoked/expired"><display/></field>
+        <field name="currentPassword" title=" " widget-style="revoke-password" id-name="revokeCurrentPassword"><password size="45" maxlength="255"/></field>
+        <field name="submitButton" title="Revoke factor"><submit button-type="button"/></field>
+    </grid>
+
+    <grid name="ListAdminMfaFactors" list-name="mfaFactors" target="revokeMfaFactor"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <actions>
+            <entity-condition entity-name="UserLoginAuthFactor" list="mfaFactors">
+                <condition-list combine="and">
+                    <condition-expr field-name="userLoginId" from-field="userLoginId"/>
+                    <condition-expr field-name="thruDate" operator="equals" from-field="nullField"/>
+                </condition-list>
+                <order-by field-name="fromDate"/>
+            </entity-condition>
+        </actions>
+        <field name="factorId"><hidden/></field>
+        <field name="factorType" title="Factor type"><display/></field>
+        <field name="factorLabel" title="Label"><display/></field>
+        <field name="needsValidation" title="Pending validation"><display/></field>
+        <field name="lastUsedDate" title="Last used"><display/></field>
+        <field name="thruDate" title="Revoked/expired"><display/></field>
+        <field name="reason" title="Administrative reason" tooltip="Enter audit justification (e.g. Employee lost phone). Do NOT enter password."><text size="35" maxlength="255"/></field>
+        <field name="submitButton" title="Revoke factor"><submit button-type="button"/></field>
+    </grid>
+    <form name="MfaForcedEnrollmentStartForm" type="single" target="beginForcedTotpEnrollment">
+        <field name="label" title="Authenticator label"><text maxlength="100"/></field>
+        <field name="currentPassword" title="Current password" required-field="true"><password maxlength="255"/></field>
+        <field name="submitButton" title="Begin enrollment"><submit button-type="button"/></field>
+    </form>
+    <form name="MfaForcedEnrollmentConfirmForm" type="single" target="confirmForcedTotpEnrollment">
+        <field name="code" title="Authenticator code" required-field="true"><text maxlength="8"/></field>
+        <field name="submitButton" title="Confirm and continue"><submit button-type="button"/></field>
+    </form>
 </forms>

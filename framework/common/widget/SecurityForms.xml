@@ -110,6 +110,12 @@ under the License.
         <field name="groupId" title="${uiLabelMap.CommonSecurityGroupId}" required-field="true"><text size="20" maxlength="20"/></field>
         <field name="groupName" title="${uiLabelMap.CommonName}"><text/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><text size="60" maxlength="250"/></field>
+        <field name="requireAuthFactor" title="Require multi-factor authentication for group members">
+            <drop-down allow-empty="false" no-current-selected-key="N">
+                <option key="N" description="No"/>
+                <option key="Y" description="Yes"/>
+            </drop-down>
+        </field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}"><submit button-type="button"/></field>
         <field name="cancelLink" title=" " widget-style="smallSubmit">
             <hyperlink description="${uiLabelMap.CommonCancelDone}" target="${cancelPage}" also-hidden="false"/>
@@ -120,6 +126,12 @@ under the License.
         <field name="groupId" title="${uiLabelMap.CommonSecurityGroupId}"><display/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><text size="60" maxlength="250"/></field>
         <field name="groupName" title="${uiLabelMap.CommonName}"><text/></field>
+        <field name="requireAuthFactor" title="Require multi-factor authentication for group members">
+            <drop-down allow-empty="false" current="selected" no-current-selected-key="N">
+                <option key="N" description="No"/>
+                <option key="Y" description="Yes"/>
+            </drop-down>
+        </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
     </form>
     <grid name="ListSecurityGroupPermissions" list-name="securityGroupPermissions"
@@ -176,6 +188,7 @@ under the License.
             </hyperlink>
         </field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
+        <field name="requireAuthFactor" title="MFA Required"><display default-value="N"/></field>
     </grid>
     <grid name="ListSecurityGroupUserLogins" list-name="userLoginSecurityGroups" target="updateUserLoginToSecurityGroup"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
@@ -260,10 +273,13 @@ under the License.
             <set field="passwordHint" from-field="editUserLogin.passwordHint"/>
         </actions>
         <auto-fields-service service-name="updatePassword"/>
+        <field name="partyId"><hidden value="${partyId}"/></field>
         <field name="userLoginId"><hidden/></field>
         <field name="currentPassword"><password/></field>
         <field name="newPassword"><password/></field>
         <field name="newPasswordVerify"><password/></field>
+        <field name="requirePasswordChange"><hidden value="N"/></field>
+        <field name="mfaAdminReason" title="MFA recovery reason"><text maxlength="255"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="text-link"/></field>
         <field name="cancelLink" title=" " widget-style="smallSubmit">
             <hyperlink description="${uiLabelMap.CommonCancelDone}" target="${cancelPage}" also-hidden="false">
