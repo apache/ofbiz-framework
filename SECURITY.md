@@ -40,6 +40,8 @@ Administrative access should be treated as equivalent to full control over the O
 
 Administrative credentials must therefore be granted only to highly trusted individuals.
 
+Examples of administrative-level permissions include, but are not limited to, ENTITY_MAINT, ENTITY_DATA_ADMIN, SERVICE_MAINT, SECRET_MAINT, SECURITY_ADMIN, CONTENTMGR_SUPER_ADMIN.
+
 ## Logging and Sensitive Information
 
 OFBiz log files may contain sensitive information, including user identifiers, request parameters, business data, or internal error details.
@@ -108,4 +110,4 @@ The Apache OFBiz project does not aim to:
 
 Security vulnerabilities should be reported privately to the Apache OFBiz Security Team following Apache Software Foundation [security reporting guidelines](https://www.apache.org/security/) at: [security@ofbiz.apache.org](security@ofbiz.apache.org).
 
-Please do not report security issues through public issue trackers or mailing lists.
+Please do not report security issues through public issue trackers or mailing lists, keep the vulnerabilities confidential and refrain from any public disclosure.
