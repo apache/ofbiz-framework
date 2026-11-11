@@ -96,7 +96,7 @@ public class CheckOutEvents {
                 Map<String, Object> createDropShipGroupResult = cart.createDropShipGroups(dispatcher);
                 if ("error".equals(createDropShipGroupResult.get("responseMessage"))) {
                     Debug.logError((String) createDropShipGroupResult.get("errorMessage"), MODULE);
-                    request.setAttribute("_ERROR_MESSAGE_", (String) createDropShipGroupResult.get("errorMessage"));
+                    request.setAttribute("_ERROR_MESSAGE_", createDropShipGroupResult.get("errorMessage"));
                     return "error";
                 }
             } catch (CartItemModifyException e) {
@@ -786,7 +786,7 @@ public class CheckOutEvents {
                 Map<String, Object> createDropShipGroupResult = cart.createDropShipGroups(dispatcher);
                 if ("error".equals(createDropShipGroupResult.get("responseMessage"))) {
                     Debug.logError((String) createDropShipGroupResult.get("errorMessage"), MODULE);
-                    request.setAttribute("_ERROR_MESSAGE_", (String) createDropShipGroupResult.get("errorMessage"));
+                    request.setAttribute("_ERROR_MESSAGE_", createDropShipGroupResult.get("errorMessage"));
                     return "error";
                 }
             } catch (CartItemModifyException e) {

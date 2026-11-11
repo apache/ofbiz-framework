@@ -170,7 +170,7 @@ public final class RestListResponseBuilderTest {
 
     @Test
     public void omitsLastLinkWhenLastPageIndexExceedsIntegerMaxValue() {
-        long overflowTotalCount = ((long) Integer.MAX_VALUE + 2L) * 20L;
+        long overflowTotalCount = (Integer.MAX_VALUE + 2L) * 20L;
         Map<String, Object> result = RestListResponseBuilder.forList("items", List.of("A"))
                 .pageIndex(0)
                 .pageSize(20)
@@ -187,7 +187,7 @@ public final class RestListResponseBuilderTest {
 
     @Test
     public void omitsNextLinkWhenNextPageIndexExceedsIntegerMaxValue() {
-        long totalCountWithNextPage = ((long) Integer.MAX_VALUE + 2L) * 20L;
+        long totalCountWithNextPage = (Integer.MAX_VALUE + 2L) * 20L;
         Map<String, Object> result = RestListResponseBuilder.forList("items", List.of("A"))
                 .pageIndex(Integer.MAX_VALUE)
                 .pageSize(20)

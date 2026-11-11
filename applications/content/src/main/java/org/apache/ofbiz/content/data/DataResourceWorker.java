@@ -1126,7 +1126,7 @@ public class DataResourceWorker implements org.apache.ofbiz.widget.content.DataR
                 int readTimeout = (int) UtilProperties.getPropertyNumber("security",
                         "content.data.url.resource.read.timeout", 30000.0);
                 long maxResponseSize = (long) UtilProperties.getPropertyNumber("security",
-                        "content.data.url.resource.max.response.size", (double) (10L * 1024 * 1024));
+                        "content.data.url.resource.max.response.size", 10.0 * 1024 * 1024);
                 URLConnection con = url.openConnection();
                 con.setConnectTimeout(connectTimeout);
                 con.setReadTimeout(readTimeout);
@@ -1399,7 +1399,7 @@ public class DataResourceWorker implements org.apache.ofbiz.widget.content.DataR
                 int readTimeout = (int) UtilProperties.getPropertyNumber("security",
                         "content.data.url.resource.read.timeout", 30000.0);
                 long maxResponseSize = (long) UtilProperties.getPropertyNumber("security",
-                        "content.data.url.resource.max.response.size", (double) (10L * 1024 * 1024));
+                        "content.data.url.resource.max.response.size", 10.0 * 1024 * 1024);
 
                 URLConnection con = url.openConnection();
                 con.setConnectTimeout(connectTimeout);

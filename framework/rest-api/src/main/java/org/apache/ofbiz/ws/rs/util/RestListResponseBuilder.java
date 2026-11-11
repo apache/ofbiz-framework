@@ -127,7 +127,7 @@ public final class RestListResponseBuilder {
     }
 
     private boolean hasNext() {
-        return totalCount > ((long) pageIndex + 1L) * pageSize;
+        return totalCount > (pageIndex + 1L) * pageSize;
     }
 
     private long getTotalPages() {

@@ -100,7 +100,7 @@ public class RestTestServices {
     public static Map<String, Object> testServiceInputParameters(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map<String, Object> result = ServiceUtil.returnSuccess();
         Debug.logInfo("My value" + (String) context.get("myInput"), null);
-        result.put("myInput", (String) context.get("myInput"));
+        result.put("myInput", context.get("myInput"));
         return result;
     }
 }
