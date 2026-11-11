@@ -134,12 +134,6 @@ under the License.
     <Bug pattern="PT_RELATIVE_PATH_TRAVERSAL" />
   </Match>
   <Match>
-    <!-- not a problem, report is initialised by initHtmlReport and then feed by different threads -->
-    <Class name="org.apache.ofbiz.htmlreport.AbstractReportThread" />
-    <Field name="report" />
-    <Bug pattern="UWF_UNWRITTEN_FIELD " />
-  </Match>
-  <Match>
     <!-- not a problem, servletContext is initialised by contextInitialized() and then only read before being destroyed by contextDestroyed() -->
     <Class name="org.apache.ofbiz.ws.rs.listener.ApiContextListener" />
     <Field name="servletContext" />
