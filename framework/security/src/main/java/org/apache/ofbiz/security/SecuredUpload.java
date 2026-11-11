@@ -886,14 +886,14 @@ public class SecuredUpload {
             while (!inflater.finished()) {
                 int count = inflater.inflate(result);
                 if (count == 0) {
-                    if (!inflater.needsInput()) { // Not everything read
-                        inflater.inflate(result);
-                    } else if (inflater.needsDictionary()) { // Dictionary to be loaded
-                        inflater.setDictionary(result);
-                        inflater.getAdler();
-                    } else { // nothing to inflate, avoid endless loop
-                        return true;
+                    if (inflater.needsDictionary()) { // PNG forbids preset dictionaries (FDICT must be 0)
+                        Debug.logError("================== Not saved for security reason, "
+                                + "PNG IDAT requires a preset dictionary ==================", MODULE);
+                    } else { // needsInput(): the zlib stream is truncated
+                        Debug.logError("================== Not saved for security reason, "
+                                + "PNG IDAT zlib stream is truncated ==================", MODULE);
                     }
+                    return false;
                 }
             }
             if (inflater.getRemaining() > 0) { // There is more than image data in IDAT, check it
