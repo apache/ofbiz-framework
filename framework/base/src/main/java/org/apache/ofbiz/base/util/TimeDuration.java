@@ -331,7 +331,7 @@ public class TimeDuration implements Serializable, Comparable<TimeDuration> {
         duration -= 0x9CA41900L * months;
         units = duration / 86400000L;
         int days = (int) units;
-        duration -= 86400000L * (long) days;
+        duration -= 86400000L * days;
         units = duration / 3600000;
         int hours = (int) units;
         duration -= 3600000 * (long) hours;
@@ -391,7 +391,7 @@ public class TimeDuration implements Serializable, Comparable<TimeDuration> {
     public static long toLong(TimeDuration duration) {
         return (0x757B12C00L * duration.years)
                 + (0x9CA41900L * duration.months)
-                + (86400000L * (long) duration.days)
+                + (86400000L * duration.days)
                 + (3600000 * (long) duration.hours)
                 + (60000 * (long) duration.minutes)
                 + (1000 * (long) duration.seconds)
