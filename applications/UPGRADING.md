@@ -58,8 +58,8 @@ no replacement in OFBiz; a project that still uses one has to keep its own copy.
 * `createWorkEffortICalData`, `updateWorkEffortICalData`, `deleteWorkEffortICalData`, `workEffortICalendarPermission`,
   `getICalWorkEfforts` and `getPartyICalUrl` are removed with the iCalendar webapp
   ([OFBIZ-13816](https://issues.apache.org/jira/browse/OFBIZ-13816)).
-* The email sent by `sendVerifyEmailAddressNotification` now links to `/control/verifyEmailAddress` on the store's
-  base URL; map a `verifyEmailAddress` request calling the `verifyEmailAddress` service in your store webapp
+* The email sent by `sendVerifyEmailAddressNotification` now links to `/control/verifyEmailAddress` in the webapp
+  of the store's web site; map a `verifyEmailAddress` request calling the `verifyEmailAddress` service there
   ([OFBIZ-13819](https://issues.apache.org/jira/browse/OFBIZ-13819)).
 
 ### Custom code
@@ -83,6 +83,17 @@ no replacement in OFBiz; a project that still uses one has to keep its own copy.
 * `ICalConverter`, `ICalRecurConverter`, `ICalWorker` and `ICalHandlerFactory` in
   `org.apache.ofbiz.workeffort.workeffort` are removed with the iCalendar webapp
   ([OFBIZ-13816](https://issues.apache.org/jira/browse/OFBIZ-13816)).
+* Several web sites in one webapp, told apart by `WebSite.hostedPathAlias`, are still supported by the link building
+  in `RequestHandler` and by the `cms` event, but no servlet filter that enables them ships any more. Such a webapp
+  needs its own filter, mapped after the `ContextFilter`, that:
+  * sets the `MULTI_SITE_ENABLED` servlet context attribute;
+  * selects the `WebSite` whose `hostedPathAlias` matches the first path segment, or else the one with `isDefault`
+    set to Y;
+  * sets the `webSiteId` request and session attributes and the `displayMaintenancePage` session attribute;
+  * wraps the request so that `getPathInfo` no longer contains the alias segment.
+
+  The `ControlServlet` of that webapp must be mapped to `/*`
+  ([OFBIZ-13819](https://issues.apache.org/jira/browse/OFBIZ-13819)).
 
 ### Data
 
