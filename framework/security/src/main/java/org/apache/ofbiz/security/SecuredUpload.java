@@ -880,10 +880,9 @@ public class SecuredUpload {
     }
 
     private static boolean inflate(byte[] data) {
-        Inflater inflater = new Inflater();
-        inflater.setInput(data);
-        byte[] result = new byte[data.length * 5]; // Inflating ratio max is 5/1
-        try {
+        try (Inflater inflater = new Inflater()) {
+            inflater.setInput(data);
+            byte[] result = new byte[data.length * 5]; // Inflating ratio max is 5/1
             while (!inflater.finished()) {
                 int count = inflater.inflate(result);
                 if (count == 0) {
@@ -893,7 +892,6 @@ public class SecuredUpload {
                         inflater.setDictionary(result);
                         inflater.getAdler();
                     } else { // nothing to inflate, avoid endless loop
-                        inflater.end();
                         return true;
                     }
                 }
@@ -905,13 +903,11 @@ public class SecuredUpload {
                 String decodedStr = new String(decoded, StandardCharsets.UTF_8);
                 if (!isValidText(decodedStr, Collections.emptyList())) {
                     Debug.logError("================== Not saved for security reason ==================", MODULE);
-                    inflater.end();
                     return false;
                 }
             }
         } catch (DataFormatException | IOException error) {
             Debug.logError("================== Not saved for security reason ==================" + error, MODULE);
-            inflater.end();
             return false;
         }
         return true;
