@@ -22,6 +22,8 @@ import org.apache.ofbiz.base.util.UtilValidate
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.service.ModelService
 import org.apache.ofbiz.service.ServiceUtil
+import org.apache.ofbiz.webapp.WebAppUtil
+import org.xml.sax.SAXException
 
 /**
  * Update a Contact Mechanism
@@ -318,6 +320,13 @@ Map sendVerifyEmailAddressNotification() {
                 .cache()
                 .queryFirst()
         emailParams.webSiteId = webSite ? webSite.webSiteId : null
+        if (webSite) {
+            try {
+                emailParams.bodyParameters.contextRoot = WebAppUtil.getWebappInfoFromWebsiteId(webSite.webSiteId).contextRoot
+            } catch (IllegalArgumentException | IOException | SAXException e) {
+                logWarning("No webapp found for web site ${webSite.webSiteId}: ${e.message}")
+            }
+        }
         run service: 'sendMailFromScreen', with: emailParams
     }
     return success()

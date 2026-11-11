@@ -25,6 +25,7 @@ under the License.
         <h1>${title!}</h1>
         <p>Thank you for registering. Please click the link below to complete your registration.</p>
         <br/><br/>
-        <a href="${baseUrl}/control/verifyEmailAddress?verifyHash=${parameters.verifyHash}">${baseUrl}/control/verifyEmailAddress</a>
+        <#assign verifyUrl = baseUrl + (parameters.contextRoot!"") + "/control/verifyEmailAddress">
+        <a href="${verifyUrl}?verifyHash=${parameters.verifyHash}">${verifyUrl}</a>
     </body>
 </html>
