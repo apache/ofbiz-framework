@@ -41,7 +41,6 @@ import jakarta.ws.rs.core.UriInfo;
 class OpenApiResourceTest {
 
 
-    @SuppressWarnings("try")
     @ParameterizedTest
     @CsvSource({
         "json, application/json",
@@ -76,9 +75,8 @@ class OpenApiResourceTest {
         c.set(resource, servletContext);
 
         // Mock heavy Swagger builder
-        try (MockedConstruction<org.apache.ofbiz.ws.rs.openapi.OFBizOpenApiReader> readerMock =
-                Mockito.mockConstruction(OFBizOpenApiReader.class, (mock, context) -> { });
-                MockedConstruction<OFBizResourceScanner> scannerMock = Mockito.mockConstruction(OFBizResourceScanner.class)) {
+        try (MockedConstruction<OFBizOpenApiReader> _ = Mockito.mockConstruction(OFBizOpenApiReader.class);
+                MockedConstruction<OFBizResourceScanner> _ = Mockito.mockConstruction(OFBizResourceScanner.class)) {
 
             Response response = resource.getOpenApi(mock(HttpHeaders.class), mock(UriInfo.class), type, "api");
 
