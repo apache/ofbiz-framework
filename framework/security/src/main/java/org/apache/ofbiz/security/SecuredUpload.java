@@ -1243,9 +1243,11 @@ public class SecuredUpload {
         String mimeType = getMimeTypeFromFileName(fileName);
         if ("audio/basic".equals(mimeType)
                 || "audio/wav".equals(mimeType)
+                || "audio/vnd.wave".equals(mimeType)
                 || "audio/x-ms-wax".equals(mimeType)
                 || "audio/mpeg".equals(mimeType)
                 || "audio/mp4".equals(mimeType)
+                || "audio/x-aac".equals(mimeType)
                 || "audio/ogg".equals(mimeType)
                 || "audio/vorbis".equals(mimeType)
                 || "audio/x-ogg".equals(mimeType)
@@ -1266,12 +1268,15 @@ public class SecuredUpload {
     private static boolean isValidVideoFile(String fileName) throws IOException {
         String mimeType = getMimeTypeFromFileName(fileName);
         if ("video/avi".equals(mimeType)
+                || "video/x-msvideo".equals(mimeType)
                 || "video/mpeg".equals(mimeType)
                 || "video/mp4".equals(mimeType)
                 || "video/quicktime".equals(mimeType)
                 || "video/3gpp".equals(mimeType)
                 || "video/x-ms-asf".equals(mimeType)
                 || "video/x-flv".equals(mimeType)
+                || "video/x-matroska".equals(mimeType)
+                || "video/webm".equals(mimeType)
                 || "video/x-ms-wvx".equals(mimeType)
                 || "video/x-ms-wm".equals(mimeType)
                 || "video/x-ms-wmv".equals(mimeType)
