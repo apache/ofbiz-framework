@@ -56,9 +56,6 @@ under the License.
         <engine name="groovy-tracker" class="org.apache.ofbiz.service.engine.TrackedServiceEngine"/>
         <!--  -->
         <engine name="route" class="org.apache.ofbiz.service.engine.RouteEngine"/>
-        <engine name="jms" class="org.apache.ofbiz.service.jms.JmsServiceEngine"/>
-        
-        <!-- <service-location name="eedcc-test" location="https://localhost:8443/webtools/control/httpService"/> -->
 
         <!-- default notification group for all services loaded with 'main' loader
              - uncomment this to enable error notification for all services
@@ -79,19 +76,6 @@ under the License.
            - run-in-pool is the name of the pool to run the job in; defaults to the send-to-poll (above)
 
         <startup-service name="testScv" runtime-data-id="9900" runtime-delay="0" run-in-pool="pool"/>
-        -->
-
-        <!-- JMS Service Queue/Topic Configuration -->
-        <!--
-        <jms-service name="serviceMessenger" send-mode="all">
-            <server jndi-server-name="default"
-                    jndi-name="jms/TopicConnectionFactory"
-                    topic-queue="jms/OFBTopic"
-                    type="topic"
-                    username="admin"
-                    password="admin"
-                    listen="true"/>
-        </jms-service>
         -->
     </service-engine>
 </service-config>

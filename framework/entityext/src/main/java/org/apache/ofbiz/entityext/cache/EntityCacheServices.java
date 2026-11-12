@@ -21,170 +21,20 @@ package org.apache.ofbiz.entityext.cache;
 import java.util.Map;
 
 import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntity;
-import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericPK;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.condition.EntityCondition;
-import org.apache.ofbiz.entity.util.DistributedCacheClear;
-import org.apache.ofbiz.entity.util.EntityQuery;
-import org.apache.ofbiz.entityext.EntityServiceFactory;
 import org.apache.ofbiz.service.DispatchContext;
-import org.apache.ofbiz.service.GenericServiceException;
-import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ServiceUtil;
 
 /**
  * Entity Engine Cache Services
  */
-public class EntityCacheServices implements DistributedCacheClear {
+public class EntityCacheServices {
 
     private static final String MODULE = EntityCacheServices.class.getName();
-
-    private Delegator delegator = null;
-    private LocalDispatcher dispatcher = null;
-    private String userLoginId = null;
-
-    public EntityCacheServices() { }
-
-    @Override
-    public void setDelegator(Delegator delegator, String userLoginId) {
-        this.delegator = delegator;
-        this.dispatcher = EntityServiceFactory.getLocalDispatcher(delegator);
-        this.userLoginId = userLoginId;
-    }
-
-    /**
-     * Gets auth user login.
-     * @return the auth user login
-     */
-    public GenericValue getAuthUserLogin() {
-        GenericValue userLogin = null;
-        try {
-            userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", userLoginId).cache().queryOne();
-        } catch (GenericEntityException e) {
-            Debug.logError(e, "Error finding the userLogin for distributed cache clear", MODULE);
-        }
-        return userLogin;
-    }
-
-    @Override
-    public void distributedClearCacheLine(GenericValue value) {
-        // Debug.logInfo("running distributedClearCacheLine for value: " + value, MODULE);
-        if (this.dispatcher == null) {
-            Debug.logWarning("No dispatcher is available, somehow the setDelegator (which also creates a dispatcher) was not called,"
-                    + " not running distributed cache clear", MODULE);
-            return;
-        }
-
-        GenericValue userLogin = getAuthUserLogin();
-        if (userLogin == null) {
-            Debug.logWarning("The userLogin for distributed cache clear was not found with userLoginId [" + userLoginId
-                    + "], not clearing remote caches.", MODULE);
-            return;
-        }
-
-        try {
-            this.dispatcher.runAsync("distributedClearCacheLineByValue", UtilMisc.toMap("value", value, "userLogin", userLogin), false);
-        } catch (GenericServiceException e) {
-            Debug.logError(e, "Error running the distributedClearCacheLineByValue service", MODULE);
-        }
-    }
-
-    @Override
-    public void distributedClearCacheLineFlexible(GenericEntity dummyPK) {
-        // Debug.logInfo("running distributedClearCacheLineFlexible for dummyPK: " + dummyPK, MODULE);
-        if (this.dispatcher == null) {
-            Debug.logWarning("No dispatcher is available, somehow the setDelegator (which also creates a dispatcher) was not called, "
-                    + "not running distributed cache clear", MODULE);
-            return;
-        }
-
-        GenericValue userLogin = getAuthUserLogin();
-        if (userLogin == null) {
-            Debug.logWarning("The userLogin for distributed cache clear was not found with userLoginId [" + userLoginId
-                    + "], not clearing remote caches.", MODULE);
-            return;
-        }
-
-        try {
-            this.dispatcher.runAsync("distributedClearCacheLineByDummyPK", UtilMisc.toMap("dummyPK", dummyPK, "userLogin", userLogin), false);
-        } catch (GenericServiceException e) {
-            Debug.logError(e, "Error running the distributedClearCacheLineByDummyPK service", MODULE);
-        }
-    }
-
-    @Override
-    public void distributedClearCacheLineByCondition(String entityName, EntityCondition condition) {
-        // Debug.logInfo("running distributedClearCacheLineByCondition for (name, condition): " + entityName + ", " + condition + ")", MODULE);
-        if (this.dispatcher == null) {
-            Debug.logWarning("No dispatcher is available, somehow the setDelegator (which also creates a dispatcher) "
-                    + "was not called, not running distributed cache clear", MODULE);
-            return;
-        }
-
-        GenericValue userLogin = getAuthUserLogin();
-        if (userLogin == null) {
-            Debug.logWarning("The userLogin for distributed cache clear was not found with userLoginId [" + userLoginId
-                    + "], not clearing remote caches.", MODULE);
-            return;
-        }
-
-        try {
-            this.dispatcher.runAsync("distributedClearCacheLineByCondition", UtilMisc.toMap("entityName", entityName, "condition",
-                    condition, "userLogin", userLogin), false);
-        } catch (GenericServiceException e) {
-            Debug.logError(e, "Error running the distributedClearCacheLineByCondition service", MODULE);
-        }
-    }
-
-    @Override
-    public void distributedClearCacheLine(GenericPK primaryKey) {
-        // Debug.logInfo("running distributedClearCacheLine for primaryKey: " + primaryKey, MODULE);
-        if (this.dispatcher == null) {
-            Debug.logWarning("No dispatcher is available, somehow the setDelegator (which also creates a dispatcher) was not called, "
-                    + "not running distributed cache clear", MODULE);
-            return;
-        }
-
-        GenericValue userLogin = getAuthUserLogin();
-        if (userLogin == null) {
-            Debug.logWarning("The userLogin for distributed cache clear was not found with userLoginId [" + userLoginId
-                    + "], not clearing remote caches.", MODULE);
-            return;
-        }
-
-        try {
-            this.dispatcher.runAsync("distributedClearCacheLineByPrimaryKey", UtilMisc.toMap("primaryKey",
-                    primaryKey, "userLogin", userLogin), false);
-        } catch (GenericServiceException e) {
-            Debug.logError(e, "Error running the distributedClearCacheLineByPrimaryKey service", MODULE);
-        }
-    }
-
-    @Override
-    public void clearAllCaches() {
-        if (this.dispatcher == null) {
-            Debug.logWarning("No dispatcher is available, somehow the setDelegator (which also creates a dispatcher) "
-                    + "was not called, not running distributed clear all caches", MODULE);
-            return;
-        }
-
-        GenericValue userLogin = getAuthUserLogin();
-        if (userLogin == null) {
-            Debug.logWarning("The userLogin for distributed cache clear was not found with userLoginId [" + userLoginId
-                    + "], not clearing remote caches.", MODULE);
-            return;
-        }
-
-        try {
-            this.dispatcher.runAsync("distributedClearAllEntityCaches", UtilMisc.toMap("userLogin", userLogin), false);
-        } catch (GenericServiceException e) {
-            Debug.logError(e, "Error running the distributedClearAllCaches service", MODULE);
-        }
-    }
 
     /**
      * Clear All Entity Caches Service

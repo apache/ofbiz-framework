@@ -43,7 +43,6 @@ commons-csv = "1.14.1"
 commons-fileupload2-jakarta-servlet6 = "2.0.0-M5"
 commons-text = "1.15.0"
 geronimo-transaction = "4.0.0"
-geronimo-jms-spec = "1.1.1"
 httpclient-cache = "4.5.14"
 # Shared by log4j-api, log4j-core, log4j-layout-template-json, log4j-legacy-api, log4j-jul,
 # log4j-slf4j2-impl, log4j-web, log4j-jcl.
@@ -129,7 +128,6 @@ tomcat-dbcp = { module = "org.apache.tomcat:tomcat-dbcp", version.ref = "tomcat"
 commons-fileupload2-jakarta-servlet6 = { module = "org.apache.commons:commons-fileupload2-jakarta-servlet6", version.ref = "commons-fileupload2-jakarta-servlet6" }
 commons-text = { module = "org.apache.commons:commons-text", version.ref = "commons-text" }
 geronimo-transaction = { module = "org.apache.geronimo.components:geronimo-transaction", version.ref = "geronimo-transaction" }
-geronimo-jms-spec = { module = "org.apache.geronimo.specs:geronimo-jms_1.1_spec", version.ref = "geronimo-jms-spec" }
 httpclient-cache = { module = "org.apache.httpcomponents:httpclient-cache", version.ref = "httpclient-cache" }
 log4j-api = { module = "org.apache.logging.log4j:log4j-api", version.ref = "log4j" }
 log4j-core = { module = "org.apache.logging.log4j:log4j-core", version.ref = "log4j" }

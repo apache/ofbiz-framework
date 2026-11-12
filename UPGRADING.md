@@ -129,6 +129,16 @@ the same pull request.
   services, the `entity-sync-rmi` service location and the Webtools Entity Sync Status page. The EntitySync records
   stay and can still select the entities to export in the Webtools XML Data Export page; to move data between
   instances, use the XML export and import.
+* The JMS service engine is removed ([OFBIZ-13829](https://issues.apache.org/jira/browse/OFBIZ-13829)), with the
+  `jms` engine, the `<jms-service>` element of `serviceengine.xml`, the `enableJMS` property of `service.properties`
+  and the `OpenJMS` entry of `jndiservers.xml`. Services defined with `engine="jms"` no longer load.
+* Distributed entity cache clearing has no built-in transport any more
+  ([OFBIZ-13829](https://issues.apache.org/jira/browse/OFBIZ-13829)): the `distributedClear*` services, which only
+  worked through JMS, are removed with the `localhostClear*` services and their service groups, and
+  `distributed-cache-clear-class-name` in `entityengine.xml` no longer defaults to `EntityCacheServices`. It stays off
+  by default; a cluster that turned on `distributed-cache-clear-enabled` has to set
+  `distributed-cache-clear-class-name` to its own `DistributedCacheClear` implementation, otherwise a warning is
+  logged and caches are only cleared locally.
 
 ### Custom code
 
@@ -229,6 +239,10 @@ the same pull request.
     `ServiceEcaAction.getShortDisplayDescription`, and the `exportEntityEoModelBundle` and
     `exportServiceEoModelBundle` services and their webtools pages
     ([OFBIZ-13817](https://issues.apache.org/jira/browse/OFBIZ-13817)).
+  * the `org.apache.ofbiz.service.jms` package, `JmsService` and `Server` of the service config model,
+    `LocalDispatcher.getJMSListeneFactory`, `ServiceDispatcher.getJMSListenerFactory` and
+    `ServiceDispatcher.enableJMS`; `EntityCacheServices` no longer implements `DistributedCacheClear`
+    ([OFBIZ-13829](https://issues.apache.org/jira/browse/OFBIZ-13829)).
 
 ### Themes
 

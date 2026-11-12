@@ -29,7 +29,6 @@ import org.apache.ofbiz.entity.transaction.GenericTransactionException;
 import org.apache.ofbiz.entity.transaction.TransactionUtil;
 import org.apache.ofbiz.security.Security;
 import org.apache.ofbiz.service.calendar.RecurrenceRule;
-import org.apache.ofbiz.service.jms.JmsListenerFactory;
 import org.apache.ofbiz.service.job.JobManager;
 import org.apache.ofbiz.service.job.JobManagerException;
 
@@ -247,11 +246,6 @@ public abstract class GenericAbstractDispatcher implements LocalDispatcher {
     @Override
     public JobManager getJobManager() {
         return dispatcher.getJobManager();
-    }
-
-    @Override
-    public JmsListenerFactory getJMSListeneFactory() {
-        return dispatcher.getJMSListenerFactory();
     }
 
     @Override
