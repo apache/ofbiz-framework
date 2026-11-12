@@ -48,7 +48,7 @@
                             <decorator-section name="search-options">
                                 <platform-specific>
                                     <html>
-                                        <html-template multi-block="true" location="component://common-theme/template/includes/SetMultipleSelectJsList.ftl"/>
+                                        <html-template location="component://common-theme/template/includes/SetMultipleSelectJsList.ftl"/>
                                     </html>
                                 </platform-specific>
                                 <include-form name="FindEmploymentApps" location="component://humanres/widget/forms/EmploymentAppForms.xml"/>

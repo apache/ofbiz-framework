@@ -315,7 +315,7 @@
             <actions>
             </actions>
             <widgets>
-                <platform-specific><html><html-template multi-block="true" location="component://humanres/template/internalorg/EditInternalOrg.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://humanres/template/internalorg/EditInternalOrg.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>

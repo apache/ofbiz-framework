@@ -82,7 +82,7 @@ under the License.
                                 </ws:decorator-section>
                                 <ws:decorator-section name="search-options">
                                     <ws:platform-specific>
-                                        <ws:html><ws:html-template multi-block="true" location="component://common-theme/template/includes/SetMultipleSelectJsList.ftl"/></ws:html>
+                                        <ws:html><ws:html-template location="component://common-theme/template/includes/SetMultipleSelectJsList.ftl"/></ws:html>
                                     </ws:platform-specific>
                                     <ws:include-form name="FindWorkEffort" location="component://workeffort/widget/workeffort/WorkEffortCpd.xml"/>
                                 </ws:decorator-section>

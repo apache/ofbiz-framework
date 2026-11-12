@@ -79,7 +79,7 @@ under the License.
                                 <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
                                     <decorator-section name="search-options">
                                         <platform-specific>
-                                            <html><html-template multi-block="true" location="component://common-theme/template/includes/SetMultipleSelectJsList.ftl"/></html>
+                                            <html><html-template location="component://common-theme/template/includes/SetMultipleSelectJsList.ftl"/></html>
                                         </platform-specific>
                                         <include-form name="FindPayments" location="component://accounting/widget/PaymentForms.xml"/>
                                     </decorator-section>
@@ -498,7 +498,7 @@ under the License.
          <section>
             <widgets>
                 <platform-specific>
-                    <html><html-template multi-block="true" location="component://accounting/template/payment/ManualCCTx.ftl"/></html>
+                    <html><html-template location="component://accounting/template/payment/ManualCCTx.ftl"/></html>
                 </platform-specific>
             </widgets>
         </section>

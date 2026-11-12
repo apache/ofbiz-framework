@@ -166,7 +166,6 @@ public class XmlWidgetVisitor extends XmlAbstractWidgetVisitor implements ModelW
         getWriter().append("<html-template");
         visitModelWidget(htmlTemplate);
         visitAttribute("location", htmlTemplate.getLocationExdr());
-        visitAttribute("multi-block", htmlTemplate.isMultiBlock());
         getWriter().append("/>");
     }
 

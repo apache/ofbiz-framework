@@ -63,7 +63,7 @@ under the License.
                         <link target="EditShipment" text="${uiLabelMap.ProductNewShipment}" style="buttontext"></link>
                         <screenlet title="${uiLabelMap.ProductFindShipment}">
                             <platform-specific>
-                                <html><html-template multi-block="true" location="component://common-theme/template/includes/SetMultipleSelectJsList.ftl"/></html>
+                                <html><html-template location="component://common-theme/template/includes/SetMultipleSelectJsList.ftl"/></html>
                             </platform-specific>
                             <include-form name="FindShipment" location="component://product/widget/facility/ShipmentForms.xml"/>
                         </screenlet>
@@ -371,7 +371,7 @@ under the License.
                 <decorator-screen name="CommonShipmentMainDecorator" location="${parameters.commonShipmentDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template multi-block="true" location="component://product/template/shipment/QuickShipOrder.ftl"/></html>
+                            <html><html-template location="component://product/template/shipment/QuickShipOrder.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -391,7 +391,7 @@ under the License.
                 <decorator-screen name="CommonShipmentMainDecorator" location="${parameters.commonShipmentDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template multi-block="true" location="component://product/template/shipment/VerifyPick.ftl"/></html>
+                            <html><html-template location="component://product/template/shipment/VerifyPick.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -410,7 +410,7 @@ under the License.
                 <decorator-screen name="CommonShipmentMainDecorator" location="${parameters.commonShipmentDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template multi-block="true" location="component://product/template/shipment/PackOrder.ftl"/></html>
+                            <html><html-template location="component://product/template/shipment/PackOrder.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -559,7 +559,7 @@ under the License.
                 <decorator-screen name="CommonShipmentDecorator" location="${parameters.commonShipmentDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template multi-block="true" location="component://product/template/shipment/ReceiveInventoryAgainstPurchaseOrder.ftl"/></html>
+                            <html><html-template location="component://product/template/shipment/ReceiveInventoryAgainstPurchaseOrder.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>

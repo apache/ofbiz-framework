@@ -264,7 +264,7 @@ under the License.
                 <!-- render messages -->
                 <platform-specific>
                     <html>
-                        <html-template multi-block="true" location="${messagesTemplateLocation}" />
+                        <html-template location="${messagesTemplateLocation}" />
                     </html>
                 </platform-specific>
                 <!-- render content area -->
@@ -588,7 +588,7 @@ under the License.
                             <widgets />
                         </section>
                         <platform-specific>
-                            <html><html-template multi-block="true" location="${impersonatedTemplateLocation}"/></html>
+                            <html><html-template location="${impersonatedTemplateLocation}"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -695,7 +695,7 @@ under the License.
     <screen name="EventMessages">
         <section>
             <widgets>
-                <platform-specific><html><html-template multi-block="true" location="component://common-theme/template/includes/Messages.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://common-theme/template/includes/Messages.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -882,7 +882,7 @@ under the License.
             </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://common-theme/template/ViewBlocked.ftl"/></html></platform-specific>
-                <platform-specific><html><html-template multi-block="true" location="component://common-theme/template/includes/Messages.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://common-theme/template/includes/Messages.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -894,7 +894,7 @@ under the License.
             </actions>
             <widgets>
                 <platform-specific>
-                    <html><html-template multi-block="true" location="component://common-theme/template/includes/GeoLocation.ftl"/></html>
+                    <html><html-template location="component://common-theme/template/includes/GeoLocation.ftl"/></html>
                 </platform-specific>
             </widgets>
         </section>

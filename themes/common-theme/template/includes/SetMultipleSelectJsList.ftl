@@ -22,6 +22,12 @@ under the License.
     <#if row.asm_multipleSelect??>
       <script type="text/javascript">
           jQuery(document).ready(function () {
+              <#if !ranOnce>
+                <#assign ranOnce=true>
+                <#if asm_multipleSelectForm?? && asm_formSize??>
+              jQuery("#${asm_multipleSelectForm}").css({"width": "${asm_formSize!700}px", "position": "relative"});
+                </#if>
+              </#if>
               var libraryFiles = ["/common/js/node_modules/select2/dist/js/select2.full.min.js",
                   "/common/js/node_modules/select2/dist/css/select2.min.css"];
               importLibrary(libraryFiles, function() {
@@ -58,12 +64,6 @@ under the License.
                   });
               });
           });
-          <#if !ranOnce>
-            <#assign ranOnce=true>
-            <#if asm_multipleSelectForm?? && asm_formSize??>
-          jQuery("#${asm_multipleSelectForm}").css({"width": "${asm_formSize!700}px", "position": "relative"});
-            </#if>
-          </#if>
       </script>
     </#if>
   </#list>
