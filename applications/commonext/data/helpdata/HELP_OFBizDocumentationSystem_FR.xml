@@ -54,7 +54,7 @@
     <section>
       <title>Contribuer à la réalistaion d'un nouvel écran d'aide, en quelques étapes.</title>
       <para>
-          Il y a une différence entre les écrans portlet et 'normaux'. Si une page contient une portlet, l'aide générale du composant 'myportal' 
+          Il y a une différence entre les écrans portlet et 'normaux'. Si une page contient une portlet, l'aide générale de la page portail 
           est montrée avec, à la fin, la liste des portlets utilisées dans cette page. L'aide peut être obtenue en cliquant sur la portlet concernée.
       </para>
       <section>
