@@ -15274,25 +15274,6 @@
         <value xml:lang="zh-CN">推销</value>
         <value xml:lang="zh-TW">行銷</value>
     </property>
-    <property key="MyPortal">
-        <value xml:lang="ar">بوابتي</value>
-        <value xml:lang="cs">Můj portál</value>
-        <value xml:lang="de">Mein Portal</value>
-        <value xml:lang="en">My Portal</value>
-        <value xml:lang="es">Mi portal</value>
-        <value xml:lang="es-MX">Mi portal</value>
-        <value xml:lang="es-CL">Mi Portal</value>
-        <value xml:lang="fr">Mon portail</value>
-        <value xml:lang="hi-IN">मेरा पोर्टल</value>
-        <value xml:lang="it">Mio portale</value>
-        <value xml:lang="ja">私のポータル</value>
-        <value xml:lang="nl">Mijn Portaal</value>
-        <value xml:lang="pt-BR">Meu portal</value>
-        <value xml:lang="ru">Мой портал</value>
-        <value xml:lang="vi">Cổng thông tin của tôi</value>
-        <value xml:lang="zh">我的门户</value>
-        <value xml:lang="zh-TW">我的入口網站</value>
-    </property>
     <property key="OFBiz Site">
         <value xml:lang="ar">موقع أوفبيز</value>
         <value xml:lang="cs">Domovská stránka OFBiz</value>

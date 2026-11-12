@@ -58,7 +58,7 @@
       <title>Contributing a new help screen, a few steps.</title>
       <para>
           There is a difference between portlets and 'normal' screens. If a
-          page contains a portlet, the general help of the myportal component is shown with
+          page contains a portlet, the general help of the portal page is shown with
           at the bottom a list of the portlets used at that page. Help can be obtained by clicking on
           the relevant portlet.
       </para>

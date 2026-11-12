@@ -96,27 +96,6 @@
         <value xml:lang="zh">完全管理组，具有全部通用权限。</value>
         <value xml:lang="zh-TW">完全管理群組,具有全部通用權限.</value>
     </property>
-    <property key="SecurityGroup.description.MYPORTAL_CUSTOMER">
-        <value xml:lang="en">Customer user of MYPORTAL, Limited access to own custRequests, and project</value>
-        <value xml:lang="it">Utente di myportal, accesso limitato al proprietario delle richieste cliente, e progetti</value>
-        <value xml:lang="ja">私のポータルの顧客ユーザは、自分の顧客リクエストおよびプロジェクトに限定されたアクセスができます。</value>
-        <value xml:lang="zh">我的门户客户用户，受限访问自己的客户请求，以及项目</value>
-        <value xml:lang="zh-TW">我的入口網站客戶使用者,受限於訪問自己的客戶請求,以及專案</value>
-    </property>
-    <property key="SecurityGroup.description.MYPORTAL_EMPL-NOEML">
-        <value xml:lang="en">Employee user of MYPORTAL, Limited access to the projectmgr and comms, custReq, no email</value>
-        <value xml:lang="it">Utente impiegato di myportal, accesso limitato ai progetti e comunicazioni, richieste cliente, no email</value>
-        <value xml:lang="ja">私のポータルの従業員ユーザは、プロジェクト管理、通信、顧客リクエスト、Eメール無に限定されたアクセスができます。</value>
-        <value xml:lang="zh">我的门户雇员用户，受限访问项目管理以及沟通、客户请求，不包括电子邮件</value>
-        <value xml:lang="zh-TW">我的入口員工使用者,受限於訪問專案管理以及通訊、客戶請求,不包括電子郵件</value>
-    </property>
-    <property key="SecurityGroup.description.MYPORTAL_EMPLOYEE">
-        <value xml:lang="en">Employee user of myportal, Limited access to the projectmgr, comms,custRequests</value>
-        <value xml:lang="it">Utente impiegato di myportal, accesso limitato ai progetti e comunicazioni, richieste cliente</value>
-        <value xml:lang="ja">私のポータルの従業員ユーザは、プロジェクト管理、通信、顧客リクエストに限定されたアクセスができます。</value>
-        <value xml:lang="zh">我的门户雇员用户，受限访问项目管理、沟通、客户请求</value>
-        <value xml:lang="zh-TW">我的入口員工使用者,受限訪問專案管理、通訊、客戶請求</value>
-    </property>
     <property key="SecurityGroup.description.ORDERADMIN">
         <value xml:lang="en">Order Admin group, has all order permissions.</value>
         <value xml:lang="es">Administrador de Órdenes, tiene todos los permisos de Órdenes.</value>
@@ -1138,27 +1117,6 @@
         <value xml:lang="th">การแสดงการทำงานในการจัดการการตลาด</value>
         <value xml:lang="zh">市场管理中的浏览操作。</value>
         <value xml:lang="zh-TW">行銷管理中的檢視操作.</value>
-    </property>
-    <property key="SecurityPermission.description.MYPORTAL_CUSTOMER">
-        <value xml:lang="en">Use the customer screens in myportal.</value>
-        <value xml:lang="it">Usare la visualizzazione clienti in myportal.</value>
-        <value xml:lang="ja">私のポータルで顧客画面の使用。</value>
-        <value xml:lang="zh">我的门户中使用客户页面。</value>
-        <value xml:lang="zh-TW">我的入口網站中客戶使用者畫面.</value>
-    </property>
-    <property key="SecurityPermission.description.MYPORTAL_EMPL-NOEML">
-        <value xml:lang="en">Usage of the employee screens in myportal: projectmanager and internal notes.</value>
-        <value xml:lang="it">Usare la visualizzazione clienti in myportal: gestione progetti e note interne.</value>
-        <value xml:lang="ja">私のポータルで従業員画面の使用。プロジェクト管理および内部連絡。</value>
-        <value xml:lang="zh">我的门户中使用雇员页面：项目管理和内部便笺。</value>
-        <value xml:lang="zh-TW">我的入口網站中員工使用者畫面:專案管理和內部便箋.</value>
-    </property>
-    <property key="SecurityPermission.description.MYPORTAL_EMPLOYEE">
-        <value xml:lang="en">Use the employee screens in myportal.</value>
-        <value xml:lang="it">Usare la visualizzazione impiegati in myportal.</value>
-        <value xml:lang="ja">私のポータルで従業員画面の使用。</value>
-        <value xml:lang="zh">我的门户中使用雇员页面。</value>
-        <value xml:lang="zh-TW">我的入口網站中員工使用者畫面。</value>
     </property>
     <property key="SecurityPermission.description.OAGIS_VIEW">
         <value xml:lang="en">View operations in the Oagis application.</value>
