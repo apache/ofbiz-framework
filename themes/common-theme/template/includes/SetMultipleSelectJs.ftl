@@ -19,6 +19,9 @@ under the License.
 <#if asm_multipleSelect??> <#-- we check only this var and suppose the others are also present -->
 <script type="text/javascript">
 jQuery(document).ready(function () {
+    <#if asm_multipleSelectForm?? && asm_formSize??>
+    jQuery("#${asm_multipleSelectForm}").css({"width": "${asm_formSize!700}px", "position": "relative"});
+    </#if>
     var libraryFiles = ["/common/js/node_modules/select2/dist/js/select2.full.min.js",
         "/common/js/node_modules/select2/dist/css/select2.min.css"];
     importLibrary(libraryFiles, function(){
@@ -55,8 +58,5 @@ jQuery(document).ready(function () {
         });
     });
 });
-    <#if asm_multipleSelectForm?? && asm_formSize??>
-jQuery("#${asm_multipleSelectForm}").css({"width": "${asm_formSize!700}px", "position": "relative"});
-    </#if>
 </script>
 </#if>

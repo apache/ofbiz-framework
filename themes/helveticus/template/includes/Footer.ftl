@@ -33,6 +33,5 @@ under the License.
     <script type="text/javascript" src="<@ofbizContentUrl>${StringUtil.wrapString(javaScript)}</@ofbizContentUrl>"></script>
   </#list>
 </#if>
-<@scriptTagsFooter/>
 </body>
 </html>

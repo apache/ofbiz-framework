@@ -206,6 +206,13 @@ the same pull request.
   * `LookupField.getTargetParameterList` is removed ([#2461](https://github.com/apache/ofbiz-framework/pull/2461)).
   * `UelFunctions.getFunctionMapper` returns `UelFunctions.Functions`, which is final, and `setFunction` is removed
     (commit c7f1ea4d18, [OFBIZ-13372](https://issues.apache.org/jira/browse/OFBIZ-13372)).
+  * The `multi-block` attribute of `html-template` is deprecated and has no effect: inline scripts are rendered where
+    they appear in the template instead of being served through the `getJs` request at the end of the body. Remove
+    the attribute from custom screens, and wrap in a document-ready handler any script that relied on running after
+    the rest of the page. `ScriptLinkHelper`, `ScriptTagsFooterTransform`, `CommonEvents.jsResponseFromRequest`,
+    `HtmlWidget.HtmlTemplate.isMultiBlock` and the `getJs` and `js` requests of the common controller are removed
+    ([OFBIZ-13831](https://issues.apache.org/jira/browse/OFBIZ-13831)). A deployment that enforces a
+    Content-Security-Policy without `'unsafe-inline'` will block these scripts.
 * REST: `OpenApiUtil`, `OFBizApiConfig`, the REST `Error` response and the authentication and OpenAPI resources
   changed signatures, and the classes behind `export="true"` endpoints are removed
   ([#1568](https://github.com/apache/ofbiz-framework/pull/1568),
@@ -258,6 +265,8 @@ These apply to custom themes and to themes that override the common-theme macro 
   ([#1146](https://github.com/apache/ofbiz-framework/pull/1146)), as are the `moment-timezone` files
   ([#879](https://github.com/apache/ofbiz-framework/pull/879)). jQuery moves from 3 to 4, which removes deprecated
   jQuery APIs.
+* The `<@scriptTagsFooter/>` directive is removed; delete it from the footer template of a custom theme
+  ([OFBIZ-13831](https://issues.apache.org/jira/browse/OFBIZ-13831)).
 * The `ServiceNotification` email screen moves to `component://common/widget/EmailScreens.xml`
   ([#1398](https://github.com/apache/ofbiz-framework/pull/1398)).
 

@@ -45,7 +45,7 @@ under the License.
                         <include-menu name="MainActionMenu" location="${parameters.mainMenuLocation}"/>
                     </decorator-section>
                     <decorator-section name="body">
-                        <platform-specific><html><html-template multi-block="true" location="component://common-theme/template/includes/SetMultipleSelectJs.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://common-theme/template/includes/SetMultipleSelectJs.ftl"/></html></platform-specific>
                         <section>
                             <!-- do check for PARTYMGR, _VIEW permission -->
                             <condition>
@@ -753,7 +753,7 @@ under the License.
                                 <set field="focusFieldName" value="NewUser_USER_PARTY_ID"/>
                             </actions>
                             <widgets>
-                                <platform-specific><html><html-template multi-block="true" location="component://common-theme/template/includes/SetDependentDropdownValuesJs.ftl"/></html></platform-specific>
+                                <platform-specific><html><html-template location="component://common-theme/template/includes/SetDependentDropdownValuesJs.ftl"/></html></platform-specific>
                                 <screenlet title="${uiLabelMap.PartyCreateNewCustomer}">
                                     <include-form name="NewUser" location="component://party/widget/partymgr/PartyForms.xml"/>
                                 </screenlet>
@@ -798,7 +798,7 @@ under the License.
                                 <set field="selectedDependentOption" value="_none_"/>
                             </actions>
                             <widgets>
-                                <platform-specific><html><html-template multi-block="true" location="component://common-theme/template/includes/SetDependentDropdownValuesJs.ftl"/></html></platform-specific>
+                                <platform-specific><html><html-template location="component://common-theme/template/includes/SetDependentDropdownValuesJs.ftl"/></html></platform-specific>
                                 <screenlet title="${uiLabelMap.PartyCreateNewProspect}">
                                     <include-form name="NewUser" location="component://party/widget/partymgr/PartyForms.xml"/>
                                 </screenlet>
@@ -843,7 +843,7 @@ under the License.
                                 <set field="selectedDependentOption" value="_none_"/>
                             </actions>
                             <widgets>
-                                <platform-specific><html><html-template multi-block="true" location="component://common-theme/template/includes/SetDependentDropdownValuesJs.ftl"/></html></platform-specific>
+                                <platform-specific><html><html-template location="component://common-theme/template/includes/SetDependentDropdownValuesJs.ftl"/></html></platform-specific>
                                 <screenlet title="${uiLabelMap.PartyCreateNewEmployee}">
                                     <include-form name="NewUser" location="component://party/widget/partymgr/PartyForms.xml"/>
                                 </screenlet>

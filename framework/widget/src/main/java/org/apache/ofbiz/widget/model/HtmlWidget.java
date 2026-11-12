@@ -46,10 +46,7 @@ import org.apache.ofbiz.base.util.template.OfbizBeansWrapper;
 import org.apache.ofbiz.widget.renderer.ScreenRenderer;
 import org.apache.ofbiz.widget.renderer.ScreenStringRenderer;
 import org.apache.ofbiz.widget.renderer.html.HtmlWidgetRenderer;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
 import org.jsoup.parser.ParseError;
-import org.jsoup.select.Elements;
 import org.w3c.dom.Element;
 
 import freemarker.ext.beans.BeansWrapper;
@@ -68,6 +65,8 @@ import freemarker.template.Version;
 @SuppressWarnings("serial")
 public class HtmlWidget extends ModelScreenWidget {
     private static final String MODULE = HtmlWidget.class.getName();
+    /** Context key of the stack of writers buffering the FreeMarker templates being rendered. */
+    public static final String FTL_WRITER = "WriterForFTL";
 
     private static final UtilCache<String, Template> SPECIAL_TEMPLATE_CACHE =
             UtilCache.createUtilCache("widget.screen.template.ftl.general", 0, 0, false);
@@ -222,13 +221,16 @@ public class HtmlWidget extends ModelScreenWidget {
 
     public static class HtmlTemplate extends ModelScreenWidget {
         private FlexibleStringExpander locationExdr;
-        private boolean multiBlock;
         private String inlineFTL;
 
         public HtmlTemplate(ModelScreen modelScreen, Element htmlTemplateElement) {
             super(modelScreen, htmlTemplateElement);
             this.locationExdr = FlexibleStringExpander.getInstance(htmlTemplateElement.getAttribute("location"));
-            this.multiBlock = !"false".equals(htmlTemplateElement.getAttribute("multi-block"));
+            if ("true".equals(htmlTemplateElement.getAttribute("multi-block"))) {
+                Debug.logWarning("The multi-block attribute of html-template is deprecated and has no effect, please remove it from the"
+                        + " screen [" + modelScreen.getSourceLocation() + "#" + modelScreen.getName() + "] including ["
+                        + htmlTemplateElement.getAttribute("location") + "]", MODULE);
+            }
             this.inlineFTL = htmlTemplateElement.getTextContent();
         }
 
@@ -239,14 +241,6 @@ public class HtmlWidget extends ModelScreenWidget {
          */
         public String getLocation(Map<String, Object> context) {
             return locationExdr.expandString(context);
-        }
-
-        /**
-         * Is multi block boolean.
-         * @return the boolean
-         */
-        public boolean isMultiBlock() {
-            return this.multiBlock;
         }
 
         @Override
@@ -263,7 +257,7 @@ public class HtmlWidget extends ModelScreenWidget {
                 return;
             }
 
-            if (!isMultiBlock() && !Debug.verboseOn()) {
+            if (!Debug.verboseOn()) {
                 renderHtmlTemplate(writer, locationExdr, context);
                 return;
             }
@@ -272,75 +266,39 @@ public class HtmlWidget extends ModelScreenWidget {
              * We use stack to store the string writer because a freemarker template may also render a sub screen
              * widget by using ${screens.render(link to the screen)}. So before rendering the sub screen widget,
              * ScreenRenderer class will check for the existence of the stack and retrieve the correct string writer.
-             * Inline script tags are removed from the final rendering, if multi-block = true
+             * The template output is buffered so that it can be checked for unclosed tags.
              */
             String location = locationExdr.expandString(context);
             StringWriter stringWriter = new StringWriter();
-            Stack<StringWriter> stringWriterStack = UtilGenerics.cast(context.get(ScriptLinkHelper.FTL_WRITER));
+            Stack<StringWriter> stringWriterStack = UtilGenerics.cast(context.get(FTL_WRITER));
             if (stringWriterStack == null) {
                 stringWriterStack = new Stack<>();
             }
             stringWriterStack.push(stringWriter);
-            context.put(ScriptLinkHelper.FTL_WRITER, stringWriterStack);
+            context.put(FTL_WRITER, stringWriterStack);
             renderHtmlTemplate(stringWriter, locationExdr, context);
             stringWriterStack.pop();
             // check if no more parent freemarker template before removing from context
             if (stringWriterStack.empty()) {
-                context.remove(ScriptLinkHelper.FTL_WRITER);
+                context.remove(FTL_WRITER);
             }
             String data = stringWriter.toString();
             stringWriter.close();
 
-            if (Debug.verboseOn()) {
-                List<String> themeBasePathsToExempt = UtilHtml.getVisualThemeFolderNamesToExempt();
-                if (!themeBasePathsToExempt.stream().anyMatch(location::contains)) {
-                    // check for unclosed tags
-                    List<String> errorList = UtilHtml.hasUnclosedTag(data);
-                    if (UtilValidate.isNotEmpty(errorList)) {
-                        errorList.forEach(a -> UtilHtml.logHtmlWarning(data, location, a, MODULE));
-                        // check with JSoup Html Parser
-                        List<ParseError> errList = UtilHtml.validateHtmlFragmentWithJSoup(data);
-                        if (UtilValidate.isNotEmpty(errList)) {
-                            errList.forEach(a -> UtilHtml.logHtmlWarning(data, location, a.toString(), MODULE));
-                        }
+            List<String> themeBasePathsToExempt = UtilHtml.getVisualThemeFolderNamesToExempt();
+            if (!themeBasePathsToExempt.stream().anyMatch(location::contains)) {
+                // check for unclosed tags
+                List<String> errorList = UtilHtml.hasUnclosedTag(data);
+                if (UtilValidate.isNotEmpty(errorList)) {
+                    errorList.forEach(a -> UtilHtml.logHtmlWarning(data, location, a, MODULE));
+                    // check with JSoup Html Parser
+                    List<ParseError> errList = UtilHtml.validateHtmlFragmentWithJSoup(data);
+                    if (UtilValidate.isNotEmpty(errList)) {
+                        errList.forEach(a -> UtilHtml.logHtmlWarning(data, location, a.toString(), MODULE));
                     }
                 }
             }
-
-            if (isMultiBlock()) {
-                Document doc = Jsoup.parseBodyFragment(data);
-                // extract js script tags
-                Elements scriptElements = doc.select("script");
-                if (scriptElements != null && scriptElements.size() > 0) {
-                    StringBuilder scripts = new StringBuilder();
-                    for (org.jsoup.nodes.Element script : scriptElements) {
-                        String type = script.attr("type");
-                        String src = script.attr("src");
-                        if (UtilValidate.isEmpty(src)) {
-                            if (UtilValidate.isEmpty(type) || "text/javascript".equals(type)) {
-                                scripts.append(script.data());
-                                script.remove();
-                            }
-                        }
-                    }
-
-                    if (scripts.length() > 0) {
-                        // store script for retrieval by the browser
-                        String fileName = location;
-                        fileName = fileName.substring(fileName.lastIndexOf('/') + 1);
-                        if (fileName.endsWith(".ftl")) {
-                            fileName = fileName.substring(0, fileName.length() - 4);
-                        }
-                        HttpServletRequest request = (HttpServletRequest) context.get("request");
-                        ScriptLinkHelper.prepareScriptLinkForBodyEnd(request, fileName, scripts.toString());
-                    }
-                }
-                // the 'template' block
-                String body = doc.body().html();
-                writer.append(body);
-            } else {
-                writer.append(data);
-            }
+            writer.append(data);
         }
 
         @Override

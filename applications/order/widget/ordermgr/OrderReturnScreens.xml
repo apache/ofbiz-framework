@@ -70,7 +70,7 @@ under the License.
                                 <link style="buttontext" target="returnMain" text="${uiLabelMap.OrderCreateNewReturn}"/>
                             </container>
                             <platform-specific>
-                                <html><html-template multi-block="true" location="component://common-theme/template/includes/SetMultipleSelectJsList.ftl"/></html>
+                                <html><html-template location="component://common-theme/template/includes/SetMultipleSelectJsList.ftl"/></html>
                             </platform-specific>
                             <include-form name="FindReturns" location="component://order/widget/ordermgr/ReturnForms.xml"/>
                             <include-grid name="ListReturns" location="component://order/widget/ordermgr/ReturnForms.xml"/>
