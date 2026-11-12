@@ -236,6 +236,21 @@ processResources {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 
+// generateSecretKeys writes a random value for each of these properties on every new setup. Leave them out
+// of the build cache key so that tasks with the main resources on their classpath (test, checkstyle,
+// codenarc, compileTestGroovy) can reuse cached results across setups that have different keys.
+normalization {
+    runtimeClasspath {
+        properties('**/security.properties') {
+            ignoreProperty 'login.secret_key_string'
+            ignoreProperty 'security.token.key'
+        }
+        properties('**/start.properties') {
+            ignoreProperty 'ofbiz.admin.key'
+        }
+    }
+}
+
 // Only used for release branches
 def getCurrentGitBranch() {
     return gitOutput('branch', '--show-current')
