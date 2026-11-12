@@ -30,26 +30,13 @@ under the License.
         <attribute name="fieldName" type="String" mode="IN" optional="true"/>
     </service>
 
-    <!-- Entity Engine Extension Services -->
-    <service name="distributedClearAllEntityCaches" engine="jms" location="serviceMessenger" invoke="clearAllEntityCaches" auth="true">
-        <description>Clear All Entity Engine Caches for all Servers listening to the topic</description>
-    </service>
-    <!-- Below uses Group/HTTP engine
-    <service name="distributedClearAllEntityCaches" engine="group" location="distributedClearAllEntityCaches" invoke=""/>
-    -->
+    <!-- Entity Engine Cache Services -->
     <service name="clearAllEntityCaches" engine="java" export="true"
             location="org.apache.ofbiz.entityext.cache.EntityCacheServices" invoke="clearAllEntityCaches" auth="true">
         <description>Clears all values from all Entity Engine caches. By default does not distribute.</description>
         <attribute name="distribute" type="Boolean" mode="IN" optional="true"/>
     </service>
 
-    <service name="distributedClearCacheLineByValue" engine="jms" location="serviceMessenger" invoke="clearCacheLineByValue" auth="true">
-        <description>Clear Cache Line by value for all Servers listening to the topic</description>
-        <attribute name="value" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
-    </service>
-    <!-- Below uses Group/HTTP engine
-    <service name="distributedClearCacheLineByValue" engine="group" location="distributedClearCacheLineByValue" invoke=""/>
-    -->
     <service name="clearCacheLineByValue" engine="java" export="true"
             location="org.apache.ofbiz.entityext.cache.EntityCacheServices" invoke="clearCacheLine" auth="true">
         <description>Clear Cache Line with a value (GenericValue); this is the preferred method since the all, by primary key and by and caches will be cleared. By default does not distribute.</description>
@@ -57,13 +44,6 @@ under the License.
         <attribute name="distribute" type="Boolean" mode="IN" optional="true"/>
     </service>
 
-    <service name="distributedClearCacheLineByDummyPK" engine="jms" location="serviceMessenger" invoke="clearCacheLineByDummyPK" auth="true">
-        <description>Clear Cache Line by dummyPK for all Servers listening to the topic</description>
-        <attribute name="dummyPK" type="GenericEntity" mode="IN" optional="false"/>
-    </service>
-    <!-- Below uses Group/HTTP engine
-    <service name="distributedClearCacheLineByDummyPK" engine="group" location="distributedClearCacheLineByDummyPK" invoke=""/>
-    -->
     <service name="clearCacheLineByDummyPK" engine="java" export="true"
             location="org.apache.ofbiz.entityext.cache.EntityCacheServices" invoke="clearCacheLine" auth="true">
         <description>Clear Cache Line with a dummyPK (GenericEntity); clears that all cache entry and depending on whether the dummyPK is a primaryKey or not this clears the by primary key cache or the specified entry in the by and cache. By default does not distribute.</description>
@@ -71,14 +51,6 @@ under the License.
         <attribute name="distribute" type="Boolean" mode="IN" optional="true"/>
     </service>
 
-    <service name="distributedClearCacheLineByPrimaryKey" engine="jms" location="serviceMessenger" invoke="clearCacheLineByPrimaryKey" auth="true">
-        <description>Clear Cache Line by primaryKey for all Servers listening to the topic</description>
-        <attribute name="primaryKey" type="GenericPK" mode="IN" optional="false"/>
-        <attribute name="distribute" type="Boolean" mode="IN" optional="true"/>
-    </service>
-    <!-- Below uses Group/HTTP engine
-    <service name="distributedClearCacheLineByPrimaryKey" engine="group" location="distributedClearCacheLineByPrimaryKey" invoke=""/>
-    -->
     <service name="clearCacheLineByPrimaryKey" engine="java" export="true"
             location="org.apache.ofbiz.entityext.cache.EntityCacheServices" invoke="clearCacheLine" auth="true">
         <description>Clear Cache Line with a primaryKey (GenericPK); clears the all and by primary key caches. By default does not distribute.</description>
@@ -86,36 +58,12 @@ under the License.
         <attribute name="distribute" type="Boolean" mode="IN" optional="true"/>
     </service>
 
-    <service name="distributedClearCacheLineByCondition" engine="jms" location="serviceMessenger" invoke="clearCacheLineByCondition" auth="true">
-        <description>Clear Cache Line by condition for all Servers listening to the topic</description>
-        <attribute name="entityName" type="String" mode="IN" optional="false"/>
-        <attribute name="condition" type="org.apache.ofbiz.entity.condition.EntityCondition" mode="IN" optional="false"/>
-        <attribute name="distribute" type="Boolean" mode="IN" optional="true"/>
-    </service>
     <service name="clearCacheLineByCondition" engine="java" export="true"
             location="org.apache.ofbiz.entityext.cache.EntityCacheServices" invoke="clearCacheLine" auth="true">
         <description>Clear Cache Line with a condition; By default does not distribute.</description>
         <attribute name="entityName" type="String" mode="IN" optional="false"/>
         <attribute name="condition" type="org.apache.ofbiz.entity.condition.EntityCondition" mode="IN" optional="false"/>
         <attribute name="distribute" type="Boolean" mode="IN" optional="true"/>
-    </service>
-
-    <!-- HTTP Engine localhost cache clearing (example: duplicate entire block for each server) -->
-    <service name="localhostClearAllEntityCaches" engine="http"
-            location="eedcc-test" invoke="clearAllEntityCaches">
-        <implements service="clearAllEntityCaches"/>
-    </service>
-    <service name="localhostClearCacheLineByValue" engine="http"
-            location="eedcc-test" invoke="clearCacheLineByValue">
-        <implements service="clearCacheLineByValue"/>
-    </service>
-    <service name="localhostClearCacheLineByDummyPK" engine="http"
-            location="eedcc-test" invoke="clearCacheLineByDummyPK">
-        <implements service="clearCacheLineByDummyPK"/>
-    </service>
-    <service name="localhostClearCacheLineByPrimaryKey" engine="http"
-            location="eedcc-test" invoke="clearCacheLineByPrimaryKey">
-        <implements service="clearCacheLineByPrimaryKey"/>
     </service>
 
     <!-- Index/Key Services -->

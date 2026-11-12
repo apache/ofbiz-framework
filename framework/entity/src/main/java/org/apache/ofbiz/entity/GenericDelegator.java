@@ -2864,6 +2864,11 @@ public class GenericDelegator implements Delegator {
             ClassLoader loader = Thread.currentThread().getContextClassLoader();
             // initialize the distributedCacheClear mechanism
             String distributedCacheClearClassName = this.delegatorInfo.getDistributedCacheClearClassName();
+            if (distributedCacheClearClassName.isEmpty()) {
+                Debug.logWarning("Distributed cache clearing is enabled for delegator [" + delegatorFullName
+                        + "] but no distributed-cache-clear-class-name is set, distributed cache clearing will be disabled", MODULE);
+                return null;
+            }
 
             try {
                 Class<?> dccClass = loader.loadClass(distributedCacheClearClassName);

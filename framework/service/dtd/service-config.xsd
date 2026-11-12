@@ -46,7 +46,6 @@ under the License.
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="global-services" />
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="service-groups" />
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="service-ecas" />
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="jms-service" />
             </xs:sequence>
             <xs:attribute name="name" type="xs:string" use="required" />
         </xs:complexType>
@@ -266,45 +265,6 @@ under the License.
         </xs:complexType>
     </xs:element>
 
-    <xs:element name="jms-service">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="server" maxOccurs="unbounded">
-                    <xs:complexType>
-                        <xs:attribute name="jndi-server-name" type="xs:string" use="required" />
-                        <xs:attribute name="jndi-name" type="xs:string" use="required" />
-                        <xs:attribute name="topic-queue" type="xs:string" use="required" />
-                        <xs:attribute name="type" use="required">
-                            <xs:simpleType>
-                                <xs:restriction base="xs:token">
-                                    <xs:enumeration value="topic" />
-                                    <xs:enumeration value="queue" />
-                                </xs:restriction>
-                            </xs:simpleType>
-                        </xs:attribute>
-                        <xs:attribute name="username" type="xs:string" />
-                        <xs:attribute name="password" type="xs:string" />
-                        <xs:attribute name="client-id" type="xs:string" />
-                        <xs:attribute name="listen" type="xs:boolean" default="false"/>
-                        <xs:attribute type="xs:string" name="listener-class" />
-                    </xs:complexType>
-                </xs:element>
-            </xs:sequence>
-            <xs:attribute name="name" type="xs:string" use="required" />
-            <xs:attribute name="send-mode" default="none">
-                <xs:simpleType>
-                    <xs:restriction base="xs:token">
-                        <xs:enumeration value="none" />
-                        <xs:enumeration value="all" />
-                        <xs:enumeration value="first-available" />
-                        <xs:enumeration value="random" />
-                        <xs:enumeration value="round-robin" />
-                        <xs:enumeration value="least-load" />
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:attribute>
-        </xs:complexType>
-    </xs:element>
 
     <xs:element name="notification-group">
         <xs:complexType>

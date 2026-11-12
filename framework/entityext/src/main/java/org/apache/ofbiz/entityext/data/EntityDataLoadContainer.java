@@ -94,10 +94,9 @@ public class EntityDataLoadContainer implements Container {
                 .map(StartupCommand::getProperties)
                 .findFirst().get();
 
-        /* disable job scheduler, JMS listener and startup services
+        /* disable job scheduler and startup services
          * FIXME: This is not thread-safe. */
         ServiceDispatcher.enableJM(false);
-        ServiceDispatcher.enableJMS(false);
         ServiceDispatcher.enableSvcs(false);
 
         Configuration configuration = ContainerConfig.getConfiguration(name);

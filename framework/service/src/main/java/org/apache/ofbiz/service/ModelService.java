@@ -112,7 +112,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
     /** Does this service require authorization */
     private boolean auth;
 
-    /** Can this service be called through the JMS listener, or from webtools by a user without SERVICE_INVOKE_ANY */
+    /** Can this service be called from webtools by a user without SERVICE_INVOKE_ANY */
     private boolean export;
 
     /** Enable verbose debugging when calling this service */

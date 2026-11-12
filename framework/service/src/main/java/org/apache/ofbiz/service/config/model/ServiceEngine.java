@@ -40,7 +40,6 @@ public final class ServiceEngine {
     private final List<Engine> engines;
     private final Map<String, Engine> engineMap;
     private final List<GlobalServices> globalServices;
-    private final List<JmsService> jmsServices;
     private final String name;
     private final List<NotificationGroup> notificationGroups;
     private final List<ResourceLoader> resourceLoaders;
@@ -158,16 +157,6 @@ public final class ServiceEngine {
             }
             this.serviceEcas = Collections.unmodifiableList(serviceEcas);
         }
-        List<? extends Element> jmsServiceElementList = UtilXml.childElementList(engineElement, "jms-service");
-        if (jmsServiceElementList.isEmpty()) {
-            this.jmsServices = Collections.emptyList();
-        } else {
-            List<JmsService> jmsServices = new ArrayList<>(jmsServiceElementList.size());
-            for (Element jmsServiceElement : jmsServiceElementList) {
-                jmsServices.add(new JmsService(jmsServiceElement));
-            }
-            this.jmsServices = Collections.unmodifiableList(jmsServices);
-        }
     }
 
     public Authorization getAuthorization() {
@@ -184,19 +173,6 @@ public final class ServiceEngine {
 
     public List<GlobalServices> getGlobalServices() {
         return this.globalServices;
-    }
-
-    public JmsService getJmsServiceByName(String name) {
-        for (JmsService jmsService : jmsServices) {
-            if (name.equals(jmsService.getName())) {
-                return jmsService;
-            }
-        }
-        return null;
-    }
-
-    public List<JmsService> getJmsServices() {
-        return this.jmsServices;
     }
 
     public String getName() {

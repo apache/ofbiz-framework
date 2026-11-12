@@ -75,10 +75,9 @@ import org.apache.ofbiz.testtools.report.TestRunManifest;
  * before returning its "no tests found" error. <b>Deliberately {@code removeFromCache}, not
  * {@code ServiceContainer.deregister}</b>: {@code deregister} calls {@code LocalDispatcher.deregister()},
  * which shuts the backing {@code ServiceDispatcher} down as soon as its {@code localContext} empties
- * out - always true immediately for a dispatcher used by exactly one test run - and that shutdown
- * closes JMS listeners through a process-wide singleton ({@code JmsListenerFactory}) shared by every
- * dispatcher in the JVM, including the live server's real one. See
- * {@code deregisterTestDispatcher}'s own javadoc for the full chain.
+ * out - always true immediately for a dispatcher used by exactly one test run - while
+ * {@code removeFromCache} only drops the cache entry. See {@code deregisterTestDispatcher}'s own
+ * javadoc.
  *
  * <p>What this fix does <b>not</b> touch, at all: the heavier {@code ServiceDispatcher} instance
  * backing each run - its {@code Security}, {@code JobManager} reference, now-empty
@@ -398,12 +397,9 @@ public final class TestRunServices {
      * distinction matters: {@code deregister} calls {@code LocalDispatcher.deregister()}, which (via
      * {@code ServiceDispatcher.deregister}) shuts the {@code ServiceDispatcher} down once its
      * {@code localContext} map empties out - and for a dispatcher used by exactly one test run, that is
-     * always immediately. Shutdown calls {@code JmsListenerFactory.closeListeners()}, and
-     * {@code JmsListenerFactory} is a process-wide singleton over a static listener map shared by every
-     * dispatcher in the JVM - so {@code deregister} here would close the live server's real JMS listeners
-     * on every single test run, not just this run's own (nonexistent) ones. {@code removeFromCache} only
-     * removes the cache entry and touches none of that - see this class's javadoc for exactly what is and
-     * is not cleaned up as a result.
+     * always immediately. {@code removeFromCache} only removes the cache entry and leaves the
+     * {@code ServiceDispatcher} alone - see this class's javadoc for exactly what is and is not cleaned up
+     * as a result.
      *
      * <p>Best-effort only: any failure or error here is logged, never rethrown - including an
      * {@code Error}, not just an {@code Exception} - since a cleanup failure must never turn an otherwise

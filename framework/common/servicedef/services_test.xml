@@ -99,16 +99,6 @@ under the License.
         <attribute name="result" type="String" mode="OUT"/>
     </service>
 
-    <service name="testJMSQueue" engine="jms" location="serviceMessenger" invoke="testScv">
-        <description>Test JMS Queue service</description>
-        <attribute name="message" type="String" mode="IN"/>
-    </service>
-
-    <service name="testJMSTopic" engine="jms" location="serviceMessenger" invoke="testScv">
-        <description>Test JMS Topic service</description>
-        <attribute name="message" type="String" mode="IN"/>
-    </service>
-
     <service name="testMca" engine="java"
             location="org.apache.ofbiz.common.CommonServices" invoke="mcaTest">
         <description>Test Service MCA</description>

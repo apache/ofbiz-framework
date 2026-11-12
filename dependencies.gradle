@@ -45,7 +45,6 @@ dependencies {
     implementation libs.commons.fileupload2.jakarta.servlet6
     implementation libs.commons.text
     implementation libs.geronimo.transaction
-    implementation libs.geronimo.jms.spec
     implementation libs.httpclient.cache
     implementation libs.log4j.api // the API of log4j 2
     implementation libs.log4j.layout.template.json // JSON/ECS structured logging profile (log4j2-json.xml)
