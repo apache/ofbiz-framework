@@ -783,4 +783,17 @@ class PartyTests implements JupiterTestHelper {
         assert partyAndUserLogin.userLoginId == 'DemoCustomer'
     }
 
+    @Test
+    @Order(29)
+    void testEmployeePermissionCheck() {
+        Map expected = [demoemployee: true, admin: true, EuroCustomer: false]
+        expected.each { String userLoginId, boolean hasPermission ->
+            GenericValue checkedUserLogin = from('UserLogin').where('userLoginId', userLoginId).queryOne()
+            Map serviceResult = dispatcher.runSync('employeePermissionCheck',
+                    [mainAction: 'VIEW', userLogin: checkedUserLogin])
+            assert ServiceUtil.isSuccess(serviceResult)
+            assert serviceResult.hasPermission == hasPermission
+        }
+    }
+
 }

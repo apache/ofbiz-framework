@@ -28,8 +28,10 @@ under the License.
         <br /><br />
         We will solve/implement the request as soon as possible
         <br /><br />
+        <#if custRequestUrl??>
         The status and used hours can always be checked <br />
-        <a href="${StringUtil.wrapString(baseUrl!)}/myportal/control/showPortletMainDecorator?portalPortletId=ViewCustRequest&amp;id=${custRequest.custRequestId}">here....</a>
+        <a href="${StringUtil.wrapString(baseUrl!)}${custRequestUrl}">here....</a>
+        </#if>
         <br /><br />
         Regards.
         <br /><br />

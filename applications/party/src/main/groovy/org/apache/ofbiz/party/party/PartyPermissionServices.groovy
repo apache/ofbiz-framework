@@ -69,6 +69,27 @@ Map basePlusPartyIdPermissionCheck() {
     return result
 }
 
+//Returns hasPermission=true if the userLogin party has the EMPLOYEE role OR
+//      user has the PORTALPAGE_ADMIN permission
+/**
+ * Employee permission logic, used by portlets meant for employees
+ */
+Map employeePermissionCheck() {
+    Map result = success()
+    boolean hasPermission = security.hasPermission('PORTALPAGE_ADMIN', userLogin)
+    if (!hasPermission && userLogin.partyId) {
+        hasPermission = from('PartyRole').where(partyId: userLogin.partyId, roleTypeId: 'EMPLOYEE').cache().queryOne() != null
+    }
+    if (!hasPermission) {
+        String resourceDescription = parameters.resourceDescription ?: UtilProperties.getPropertyValue('CommonUiLabels',
+                'CommonPermissionThisOperation')
+        result.failMessage = UtilProperties.getMessage('PartyUiLabels',
+                'PartyPermissionErrorEmployee', [resourceDescription: resourceDescription], parameters.locale)
+    }
+    result.hasPermission = hasPermission
+    return result
+}
+
 // ============== Additional Permission Checking =============
 
 //Returns hasPermission=true if userLogin partyId equals partyId parameter OR

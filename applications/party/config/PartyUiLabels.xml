@@ -10873,6 +10873,9 @@
         <value xml:lang="zh">你没有权限对这个会员执行本操作</value>
         <value xml:lang="zh-TW">你沒有權限對這個團體執行本操作</value>
     </property>
+    <property key="PartyPermissionErrorEmployee">
+        <value xml:lang="en">Security Error: you must be an employee to perform ${resourceDescription}.</value>
+    </property>
     <property key="PartyPermissionErrorPartyId">
         <value xml:lang="ar">خطأ أمني: ليس لديك الصلاحية لتنفيذ ${resourceDescription} لهذا الطرف</value>
         <value xml:lang="de">Sicherheitsfehler: Sie haben keine Berechtigung ${resourceDescription} für diesen Akteur auszuführen.</value>

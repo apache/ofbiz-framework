@@ -27,9 +27,11 @@ under the License.
         <p>Your Customer Request ${custRequest.custRequestName!} [${custRequest.custRequestId}] has a note added to it:<br />
         ${StringUtil.wrapString(noteData.noteInfo!)}
         <br /><br />
+        <#if custRequestUrl??>
         Please login to the url below and add another note as a reply if required.<br /><br />
         The status and used hours can always be checked <br />
-        <a href="${StringUtil.wrapString(baseSecureUrl!)}/myportal/control/showPortletMainDecorator?portalPortletId=ViewCustRequest&amp;id=${custRequest.custRequestId}">here.....</a>
+        <a href="${StringUtil.wrapString(baseSecureUrl!)}${custRequestUrl}">here.....</a>
+        </#if>
         <br /><br />
         Regards.<br /><br />
         Thank you for your business.

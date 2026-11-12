@@ -61,6 +61,15 @@ no replacement in OFBiz; a project that still uses one has to keep its own copy.
 * The email sent by `sendVerifyEmailAddressNotification` now links to `/control/verifyEmailAddress` in the webapp
   of the store's web site; map a `verifyEmailAddress` request calling the `verifyEmailAddress` service there
   ([OFBIZ-13819](https://issues.apache.org/jira/browse/OFBIZ-13819)).
+* Portlets for employees are checked with the new `employeePermissionCheck` service of party, which passes for a party
+  with the `EMPLOYEE` role or a user with `PORTALPAGE_ADMIN`, instead of `portalPermissionIsEmployee`, which the
+  applications do not define. The `ListCustomerInvoices`, `ListCustRequests`, `ListCustomerOrders` and
+  `ListCustReturns` portlets, which used `portalPermissionIsCustomer`, are removed with their screens and forms, as is
+  the ordermgr `EditRequestCustomer` request
+  ([OFBIZ-13825](https://issues.apache.org/jira/browse/OFBIZ-13825)).
+* The customer request emails link to `/control/ViewRequest?custRequestId=...` in the webapp of the web site the
+  email is sent for, or else of the first web site of the request's product store, and leave the link out when there
+  is none; map a `ViewRequest` request there ([OFBIZ-13825](https://issues.apache.org/jira/browse/OFBIZ-13825)).
 
 ### Custom code
 

@@ -731,11 +731,6 @@ under the License.
         <field name="paidAmount"><display type="currency" currency="${invoice.currencyUomId}"/></field>
         <field name="outstandingAmount"><display type="currency" currency="${invoice.currencyUomId}"/></field>
     </grid>
-    <grid name="ListCustomerInvoices" extends="ListInvoices" list-name="invoices"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-        <field name="partyIdFrom"><ignored/></field>
-        <field name="partyIdTo"><ignored/></field>
-    </grid>
     <grid name="ListSupplierInvoices" extends="ListInvoices" list-name="invoiceslistexternal"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="partyIdFrom"><ignored/></field>
