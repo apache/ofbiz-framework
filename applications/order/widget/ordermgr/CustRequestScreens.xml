@@ -204,25 +204,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-    <screen name="EditRequestCustomer">
-        <section>
-            <actions>
-                <set field="custRequestId" from-field="parameters.custRequestId"/>
-                <entity-one entity-name="CustRequest" value-field="custRequest"/>
-                <set field="statusId" from-field="custRequest.statusId"/>
-                <entity-one entity-name="StatusItem" value-field="currentStatus"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="CommonRequestDecorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.OrderRequest}">
-                            <include-form name="EditRequestCustomer" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
-                        </screenlet>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
     <screen name="RequestRoles">
         <section>
             <actions>
@@ -579,123 +560,6 @@ under the License.
         </section>
     </screen>
     <!-- list customer requests to the customer portlet -->
-    <screen name="ListCustRequests">
-        <section>
-            <actions>
-                <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="fromPartyId" from-field="userLogin.partyId"/>
-            </actions>
-            <widgets>
-                <section>
-                    <condition>
-                        <if-compare field="otherContacts" operator="equals" value="Y"/>
-                    </condition>
-                    <actions>
-                        <script location="component://party/src/main/groovy/org/apache/ofbiz/party/party/GetMyCompany.groovy"/>
-                        <set field="fromPartyId" from-field=""/>
-                        <set field="notFromPartyId" from-field="userLogin.partyId"/>
-                        <set field="screenletTitle" from-field="uiLabelMap.OrderOpenCompanyCustomerRequests"/>
-                    </actions>
-                    <widgets/>
-                </section>
-                <section>
-                    <condition>
-                        <if-compare field="statusGroup" operator="equals" value="OPEN"/>
-                    </condition>
-                    <actions>
-                        <set field="screenletTitle" from-field="uiLabelMap.OrderOpenMyCustomerRequests"/>
-                        <entity-condition entity-name="CustRequestInfoAndWorkEffortAndPartyRel" list="custRequests">
-                            <condition-list combine="and">
-                                <condition-expr field-name="partyIdFrom" operator="equals" from-field="myCompanyId" ignore-if-empty="true"/>
-                                <condition-expr field-name="fromPartyId" operator="equals" from-field="fromPartyId" ignore-if-empty="true"/>
-                                <condition-expr field-name="fromPartyId" operator="not-equals" from-field="notFromPartyId" ignore-if-empty="true"/>
-                                <condition-list combine="or">
-                                    <condition-expr field-name="statusId" operator="equals" value="CRQ_SUBMITTED"/>
-                                    <condition-expr field-name="statusId" operator="equals" value="CRQ_REVIEWED"/>
-                                    <condition-expr field-name="statusId" operator="equals" value="CRQ_ACCEPTED"/>
-                                </condition-list>
-                            </condition-list>
-                            <order-by field-name="+priority"/>
-                            <order-by field-name="+custRequestDate"/>
-                        </entity-condition>
-                    </actions>
-                    <widgets/>
-                </section>
-                <section>
-                    <condition>
-                        <if-compare field="statusGroup" operator="equals" value="COMPLETED"/>
-                    </condition>
-                    <actions>
-                        <set field="screenletTitle" from-field="uiLabelMap.OrderCompletedMyCustomerRequests"/>
-                        <entity-condition entity-name="CustRequestInfoAndWorkEffortAndPartyRel" list="custRequests">
-                            <condition-list combine="and">
-                                <condition-expr field-name="partyIdFrom" operator="equals" from-field="myCompanyId" ignore-if-empty="true"/>
-                                <condition-expr field-name="fromPartyId" operator="equals" from-field="fromPartyId" ignore-if-empty="true"/>
-                                <condition-expr field-name="fromPartyId" operator="not-equals" from-field="notFromPartyId" ignore-if-empty="true"/>
-                                <condition-expr field-name="statusId" operator="equals" value="CRQ_COMPLETED"/>
-                            </condition-list>
-                            <order-by field-name="-custRequestDate"/>
-                        </entity-condition>
-                    </actions>
-                    <widgets/>
-                </section>
-                <section>
-                    <condition>
-                        <if-compare field="statusGroup" operator="equals" value="CANCELLED"/>
-                    </condition>
-                    <actions>
-                        <set field="screenletTitle" from-field="uiLabelMap.OrderCancelledMyCustomerRequests"/>
-                        <entity-condition entity-name="CustRequestInfoAndWorkEffortAndPartyRel" list="custRequests">
-                            <condition-list combine="and">
-                                <condition-expr field-name="partyIdFrom" operator="equals" from-field="myCompanyId" ignore-if-null="true"/>
-                                <condition-expr field-name="fromPartyId" operator="equals" from-field="fromPartyId" ignore-if-empty="true"/>
-                                <condition-expr field-name="fromPartyId" operator="not-equals" from-field="notFromPartyId" ignore-if-empty="true"/>
-                                <condition-list combine="or">
-                                    <condition-expr field-name="statusId" operator="equals" value="CRQ_REJECTED"/>
-                                    <condition-expr field-name="statusId" operator="equals" value="CRQ_CANCELLED"/>
-                                </condition-list>
-                            </condition-list>
-                            <order-by field-name="-custRequestDate"/>
-                        </entity-condition>
-                    </actions>
-                    <widgets/>
-                </section>
-                <section>
-                    <condition>
-                        <if-compare field="otherContacts" operator="not-equals" value="Y"/>
-                    </condition>
-                    <widgets>
-                        <screenlet title="${screenletTitle} ${fromPartyId}" navigation-form-name="ListCustRequests">
-                            <section>
-                                <condition>
-                                    <if-compare field="statusGroup" operator="equals" value="OPEN"/>
-                                </condition>
-                                <widgets>
-                                    <link target="EditRequestCustomer" text="${uiLabelMap.OrderNewRequest}" style="buttontext"/>
-                                </widgets>
-                            </section>
-                            <include-form name="ListMyCustRequests" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
-                        </screenlet>
-                    </widgets>
-                    <fail-widgets>
-                        <section><!-- only show open requests from other people in the company if there are any to show -->
-                            <condition>
-                                <not><if-empty field="custRequests"/></not>
-                            </condition>
-                            <actions>
-                                <set field="screenletTitle" from-field="uiLabelMap.OrderOpenCollequeCustomerRequests"/>
-                            </actions>
-                            <widgets>
-                                <screenlet title="${screenletTitle}" navigation-form-name="ListCustRequests" >
-                                    <include-form name="ListCustRequests" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
-                                </screenlet>
-                            </widgets>
-                        </section>
-                    </fail-widgets>
-                </section>
-            </widgets>
-        </section>
-    </screen>
     <screen name="CreateCustRequestNotification">
         <section>
             <condition><not><if-empty field="custRequestId"/></not></condition>
@@ -706,6 +570,7 @@ under the License.
                 </entity-one>
                 <set field="title" value="${uiLabelMap.OrderCustRequestNotificationMailCreation} #${custRequestId}"/>
                 <set field="parameters.subject" value="You request has been received and is registered as Customer request: ${custRequest.custRequestName}[${custRequest.custRequestId}]"/>
+                <script location="component://order/src/main/groovy/org/apache/ofbiz/order/request/CustRequestNotificationUrl.groovy"/>
             </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://order/template/request/CreateCustRequestNotification.ftl"/></html></platform-specific>
@@ -724,6 +589,7 @@ under the License.
                     <field-map field-name="partyId" from-field="custRequest.fromPartyId"/>
                 </entity-one>
                 <set field="title" value="${uiLabelMap.OrderCustRequestNotificationMailCompleted} #${custRequestId}"/>
+                <script location="component://order/src/main/groovy/org/apache/ofbiz/order/request/CustRequestNotificationUrl.groovy"/>
             </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://order/template/request/CompletedCustRequestNotification.ftl"/></html></platform-specific>
@@ -744,6 +610,7 @@ under the License.
                 <entity-one entity-name="NoteData" value-field="noteData"/>
                 <set field="title" value="${uiLabelMap.OrderCustRequestNotificationMailNoteAdded} #${custRequestId}"/>
                 <set field="subject" value="A note has been added to your Customer request ${custRequest.custRequestName}[${custRequest.custRequestId}]"/>
+                <script location="component://order/src/main/groovy/org/apache/ofbiz/order/request/CustRequestNotificationUrl.groovy"/>
             </actions>
             <widgets>
                 <platform-specific><html><html-template 
@@ -756,20 +623,4 @@ under the License.
         </section>
     </screen>
 
-    <screen name="ListCustReturns">
-        <section>
-            <actions>
-                <set field="partyId" from-field="userLogin.partyId"/>
-                <set field="screenletTitle" from-field="uiLabelMap.OrderMyReturns"/>
-                <entity-one entity-name="StatusItem" value-field="statusItem">
-                    <field-map field-name="statusId" from-field="statusId"/>
-                </entity-one>
-            </actions>
-            <widgets>
-                <screenlet title="${screenletTitle} (${statusItem.description})" navigation-form-name="ListCustReturns" >
-                    <include-form name="ListReturns" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
-                </screenlet>
-            </widgets>
-        </section>
-    </screen>
 </screens>

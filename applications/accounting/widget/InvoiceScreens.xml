@@ -291,31 +291,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-    <screen name="ListCustomerInvoices">
-        <section>
-            <actions>
-                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
-                <script location="component://party/src/main/groovy/org/apache/ofbiz/party/party/GetMyCompany.groovy"/>
-                <entity-condition entity-name="Invoice" list="invoices">
-                    <condition-list combine="and">
-                        <condition-expr field-name="partyId" operator="equals" from-field="myCompanyId"/>
-                        <condition-list combine="or">
-                            <condition-expr field-name="statusId" operator="equals" value="INVOICE_APPROVED"/>
-                            <condition-expr field-name="statusId" operator="equals" value="INVOICE_SENT"/>
-                            <condition-expr field-name="statusId" operator="equals" value="INVOICE_READY"/>
-                            <condition-expr field-name="statusId" operator="equals" value="INVOICE_PAID"/>
-                        </condition-list>
-                    </condition-list>
-                    <order-by field-name="invoiceDate DESC"/>
-                </entity-condition>
-            </actions>
-            <widgets>
-                <screenlet title="${uiLabelMap.AccountingInvoices}" navigation-form-name="ListInvoices">
-                    <include-grid name="ListCustomerInvoices" location="component://accounting/widget/InvoiceForms.xml"/>
-                </screenlet>
-            </widgets>
-        </section>
-    </screen>
     <screen name="ListSupplierInvoices">
         <section>
             <actions>

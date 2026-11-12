@@ -147,8 +147,9 @@ function updatePortletOrder(currentItem, nextObjectToDroppedItem, mode, destinat
             d_portletSeqId: (nextObjectToDroppedItem != null) ? nextObjectToDroppedItem.attr("portletseqid") : null
     };
     
+    // post to the webapp that shows the portal page
     jQuery.ajax({
-        url: "/myportal/control/updatePortalPagePortletSeqAjax",
+        url: window.location.pathname.replace(/\/control\/.*$/, "/control/updatePortalPagePortletSeqAjax"),
         data: requestData,
         type: "POST",
     }).done( function(data){ onCompleteRequest(); });

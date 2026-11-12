@@ -1285,7 +1285,8 @@ under the License.
     <screen name="CreateUserNotification">
         <section>
             <actions>
-                <set field="title" from-field="uiLabelMap.MyPortalCustRequestNotificationMailCreation"/>
+                <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="title" from-field="uiLabelMap.PartyUserCreated"/>
             </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://party/template/email/CreatePartyNotification.ftl"/></html></platform-specific>

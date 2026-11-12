@@ -267,3 +267,6 @@ These apply to custom themes and to themes that override the common-theme macro 
   `targetDelegatorName`, `forPullOnly`, `forPushOnly` and the `EntitySyncHistory` records) are no longer written.
   Delete any `JobSandbox` record that runs `runEntitySync` or `runPullEntitySync`. Job 8200 (`cleanSyncRemoveInfo`)
   stays ([OFBIZ-13820](https://issues.apache.org/jira/browse/OFBIZ-13820)).
+* Changing a portal page that the user does not own, or its columns and portlets, now needs `PORTALPAGE_ADMIN`, the
+  permission the portal page screens already check, instead of `MYPORTALBASE_ADMIN`. Grant `PORTALPAGE_ADMIN` to any
+  security group that relied on the old permission ([OFBIZ-13825](https://issues.apache.org/jira/browse/OFBIZ-13825)).

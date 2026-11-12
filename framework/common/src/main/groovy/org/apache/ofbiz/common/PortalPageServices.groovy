@@ -172,7 +172,7 @@ Map createPortalPage() {
 }
 
 /**
- * Update a Portal Page, only allowed to the page owner or a user with MYPORTALBASE_ADMIN.
+ * Update a Portal Page, only allowed to the page owner or a user with PORTALPAGE_ADMIN.
  * The owner of the page cannot be changed.
  * @return Success response after update
  */
@@ -367,9 +367,9 @@ private Map checkOwnerShip() {
         return error(label('CommonUiLabels', 'PortalPageNotFound', [parameters: parameters]))
     }
 
-    // only page owner or user with MYPORTALBASE_ADMIN can modify the page detail
+    // only page owner or user with PORTALPAGE_ADMIN can modify the page detail
     if (portalPage.ownerUserLoginId != userLogin.userLoginId &&
-            !security.hasPermission('MYPORTALBASE_ADMIN', userLogin)) {
+            !security.hasPermission('PORTALPAGE_ADMIN', userLogin)) {
         return error(label('CommonUiLabels', 'PortalPageNotOwned', [portalPage: portalPage]))
     }
     return success()

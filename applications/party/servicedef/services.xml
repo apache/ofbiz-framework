@@ -1284,6 +1284,14 @@ under the License.
         <implements service="permissionInterface"/>
         <attribute name="partyId" type="String" mode="INOUT" optional="true"/>
     </service>
+    <service name="employeePermissionCheck" engine="groovy"
+            location="component://party/src/main/groovy/org/apache/ofbiz/party/party/PartyPermissionServices.groovy" invoke="employeePermissionCheck">
+        <description>
+            Performs an employee security check. The userLogin party must have the EMPLOYEE role OR
+            the user must have the PORTALPAGE_ADMIN permission.
+        </description>
+        <implements service="permissionInterface"/>
+    </service>
     <service name="partyStatusPermissionCheck" engine="groovy"
             location="component://party/src/main/groovy/org/apache/ofbiz/party/party/PartyPermissionServices.groovy" invoke="partyStatusPermissionCheck">
         <description>

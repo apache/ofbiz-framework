@@ -26,8 +26,10 @@ under the License.
         <p>Hello ${person.firstName!} ${person.lastName!},</p>
         <p>Your Customer Request ${custRequest.custRequestName!} [${custRequest.custRequestId}] has been completed.
         <br /><br />
+        <#if custRequestUrl??>
         The status and used hours can always be checked at the url: <br />
-        <a href="${StringUtil.wrapString(baseUrl!)}/myportal/control/showPortletMainDecorator?portalPortletId=ViewCustRequest&amp;id=${custRequest.custRequestId}">${baseUrl!}/myportal/control/ViewRequest?custRequestId=${custRequest.custRequestId}</a>
+        <a href="${StringUtil.wrapString(baseUrl!)}${custRequestUrl}">${baseUrl!}${custRequestUrl}</a>
+        </#if>
         <br /><br />
         Regards.<br /><br />
         Thank you for your business.
