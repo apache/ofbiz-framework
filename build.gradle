@@ -236,6 +236,32 @@ processResources {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 
+// Secret keys written by generateSecretKeys: the file in the source tree, its path on the classpath, and the
+// properties it holds. generateSecretKeys, rotateSecretKeys and the build cache normalization below all use
+// this list, so a new key only needs to be added here.
+def generatedSecretKeys = [
+    [sourceFile: 'framework/security/config/security.properties',
+     classpathPath: 'security.properties',
+     keys: ['login.secret_key_string', 'security.token.key'],
+     rotatable: true],
+    [sourceFile: 'framework/start/src/main/resources/org/apache/ofbiz/base/start/start.properties',
+     classpathPath: 'org/apache/ofbiz/base/start/start.properties',
+     keys: ['ofbiz.admin.key'],
+     rotatable: false],
+]
+
+// Leave the generated keys out of build cache keys, so a setup with its own keys can reuse results CI built
+// with blank ones. This also covers the test copy of security.properties, and no cached task uses the values.
+normalization {
+    runtimeClasspath {
+        generatedSecretKeys.each { keyFile ->
+            properties(keyFile.classpathPath) { propertiesFile ->
+                keyFile.keys.each { propertiesFile.ignoreProperty(it) }
+            }
+        }
+    }
+}
+
 // Only used for release branches
 def getCurrentGitBranch() {
     return gitOutput('branch', '--show-current')
@@ -1192,12 +1218,9 @@ task generateSecretKeys(group: sysadminGroup,
                 + 'and AdminServer authentication, and write them to their properties files. A property that is '
                 + 'already set is left untouched; use rotateSecretKeys to replace an existing JWT/password key.') {
     doLast {
-        def securityPropertiesFile = file('framework/security/config/security.properties')
-        generateAndWriteKey(securityPropertiesFile, 'login.secret_key_string')
-        generateAndWriteKey(securityPropertiesFile, 'security.token.key')
-
-        def startPropertiesFile = file('framework/start/src/main/resources/org/apache/ofbiz/base/start/start.properties')
-        generateAndWriteKey(startPropertiesFile, 'ofbiz.admin.key')
+        generatedSecretKeys.each { keyFile ->
+            keyFile.keys.each { generateAndWriteKey(file(keyFile.sourceFile), it) }
+        }
 
         println "Secret key generation complete. Keep any new keys secret and do not commit them to version control."
     }
@@ -1210,9 +1233,9 @@ task rotateSecretKeys(group: sysadminGroup,
                 + 'in-flight forgot-password link encrypted with the old login.secret_key_string will stop '
                 + 'decrypting.') {
     doLast {
-        def securityPropertiesFile = file('framework/security/config/security.properties')
-        generateAndWriteKey(securityPropertiesFile, 'login.secret_key_string', true)
-        generateAndWriteKey(securityPropertiesFile, 'security.token.key', true)
+        generatedSecretKeys.findAll { it.rotatable }.each { keyFile ->
+            keyFile.keys.each { generateAndWriteKey(file(keyFile.sourceFile), it, true) }
+        }
 
         println "Secret keys rotated. Keep the new keys secret and do not commit them to version control."
     }
