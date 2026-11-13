@@ -1,4 +1,4 @@
-/*******************************************************************************
+/* *****************************************************************************
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -58,23 +58,20 @@ public class TypesafeConfigImplReader implements ConfigurationReaderInterface {
     }
 
     public TypesafeConfigImplReader(String confOverload) {
-        init(confOverload);
+        CONFIGURATION_CACHE.clear();
+        globalConfig = UtilValidate.isNotEmpty(confOverload)
+                ? ConfigFactory.load(confOverload)
+                : ConfigFactory.load();
     }
 
     public TypesafeConfigImplReader(File confOverload) {
-        init(List.of(confOverload));
+        CONFIGURATION_CACHE.clear();
+        this.globalConfig = initGlobalConfig(List.of(confOverload));
     }
 
     public TypesafeConfigImplReader(List<File> confOverloads) {
-        init(confOverloads);
-    }
-
-    @Override
-    public void init(String resourceName) {
         CONFIGURATION_CACHE.clear();
-        globalConfig = UtilValidate.isNotEmpty(resourceName)
-                ? ConfigFactory.load(resourceName)
-                : ConfigFactory.load();
+        this.globalConfig = initGlobalConfig(confOverloads);
     }
 
     /**
@@ -82,8 +79,7 @@ public class TypesafeConfigImplReader implements ConfigurationReaderInterface {
      *
      * @param confFiles the list of files that will be loaded.
      */
-    public void init(List<File> confFiles) {
-        CONFIGURATION_CACHE.clear();
+    private static Config initGlobalConfig(List<File> confFiles) {
         Debug.logInfo("Collect available configuration", MODULE);
         List<Config> configsToLoad = UtilMisc.toList(
                 ConfigFactory.systemEnvironment(),
@@ -94,15 +90,15 @@ public class TypesafeConfigImplReader implements ConfigurationReaderInterface {
                 configsToLoad.add(ConfigFactory.parseFile(confFile));
             }
         }
-        configsToLoad.stream()
+        Config localConfig = ConfigFactory.empty();
+        for (Config config : configsToLoad.stream()
                 .filter(Objects::nonNull)
-                .toList()
-                .forEach(config -> {
-                    globalConfig = globalConfig.withFallback(config);
-                    Debug.logInfo("Loaded config element with origin: " + config.origin(), MODULE);
-                });
-        globalConfig = globalConfig.resolve();
+                .toList()) {
+            localConfig = localConfig.withFallback(config);
+            Debug.logInfo("Loaded config element with origin: " + config.origin(), MODULE);
+        }
         Debug.logInfo("Configurations loaded and merged", MODULE);
+        return localConfig.resolve();
     }
 
     @Override

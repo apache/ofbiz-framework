@@ -158,7 +158,7 @@ public class ModelGroupReader implements Serializable {
             Node curChild = docElement.getFirstChild();
             if (curChild != null) {
                 utilTimer.timerString("[ModelGroupReader.getGroupCache] Before start of entity loop");
-                            Set<String> errors = new HashSet<>();
+                Set<String> errors = new HashSet<>();
                 do {
                     if (curChild.getNodeType() == Node.ELEMENT_NODE && "entity-group".equals(curChild.getNodeName())) {
                         Element curEntity = (Element) curChild;
@@ -167,9 +167,9 @@ public class ModelGroupReader implements Serializable {
 
                         try {
                             if (null == EntityConfig.getInstance().getDelegator(delegatorName).getGroupDataSource(groupName)) {
-                                            errors.add("The declared group name " + groupName
-                                                    + " has no corresponding group-map in entityengine.xml for delegator ["
-                                                    + delegatorName + "]");
+                                errors.add("The declared group name " + groupName
+                                        + " has no corresponding group-map in entityengine.xml for delegator ["
+                                        + delegatorName + "]");
                             }
                         } catch (GenericEntityConfException e) {
                             Debug.logWarning(e, "Exception thrown while getting group name: ", MODULE);
@@ -181,9 +181,9 @@ public class ModelGroupReader implements Serializable {
                     }
                     curChild = curChild.getNextSibling();
                 } while (curChild != null);
-                            if (!errors.isEmpty()) {
-                                errors.forEach(error -> Debug.logError(error, MODULE));
-                            }
+                if (!errors.isEmpty()) {
+                    errors.forEach(error -> Debug.logError(error, MODULE));
+                }
             } else {
                 Debug.logWarning("[ModelGroupReader.getGroupCache] No child nodes found.", MODULE);
             }

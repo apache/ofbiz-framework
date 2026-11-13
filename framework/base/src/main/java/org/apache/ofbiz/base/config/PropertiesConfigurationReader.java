@@ -1,4 +1,4 @@
-/*******************************************************************************
+/* *****************************************************************************
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -26,11 +26,6 @@ public class PropertiesConfigurationReader implements ConfigurationReaderInterfa
     private Properties props;
 
     PropertiesConfigurationReader(String resourceName) {
-        init(resourceName);
-    }
-
-    @Override
-    public void init(String resourceName) {
         Properties vanilla = UtilProperties.getProperties(resourceName);
         props = vanilla != null ? vanilla : new Properties();
     }

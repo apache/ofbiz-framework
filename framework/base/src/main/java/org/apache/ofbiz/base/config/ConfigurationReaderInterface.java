@@ -1,4 +1,4 @@
-/*******************************************************************************
+/* *****************************************************************************
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -26,13 +26,6 @@ import java.util.List;
  * Each implementation handles a specific configuration type.
  */
 public interface ConfigurationReaderInterface {
-
-    /**
-     * Inits a reader from a resource file.
-     *
-     * @param resourceName the XML, Java properties, JSON (or HOCON) file to load
-     */
-    void init(String resourceName);
 
     /**
      * Retrieve the value from reader at {@code key}

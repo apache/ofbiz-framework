@@ -204,9 +204,4 @@ public final class ServiceEngine extends AbstractConfigElement {
         return threadPool;
     }
 
-    @Override
-    public String getName() {
-        return name;
-    }
-
 }
