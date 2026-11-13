@@ -21,7 +21,10 @@ package org.apache.ofbiz.testtools;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
@@ -51,6 +54,8 @@ public class TestRunContainer implements Container {
 
     private static final String MODULE = TestRunContainer.class.getName();
     public static final String LOG_DIR = "runtime/logs/test-results/";
+    // build.gradle's testIntegration retry logic relies on this exact filename; keep them in sync.
+    static final String RUN_COMPLETED_MARKER = LOG_DIR + "run-completed.marker";
 
     private String name;
     private JunitSuiteWrapper jsWrapper;
@@ -97,10 +102,26 @@ public class TestRunContainer implements Container {
             failedRun = !results.wasSuccessful() ? true : failedRun;
         }
 
+        // Lets testIntegration's retry logic (build.gradle) tell a graceful test failure apart
+        // from a crash/hang before this point was reached.
+        markRunCompleted();
+
         if (failedRun) {
             throw new ContainerException("Test run was unsuccessful");
         }
         return true;
+    }
+
+    /**
+     * Writes {@link #RUN_COMPLETED_MARKER}. Best-effort - a failed write only means a caller
+     * can't distinguish a graceful failure from a crash, not that this run's outcome changes.
+     */
+    static void markRunCompleted() {
+        try {
+            Files.writeString(Path.of(RUN_COMPLETED_MARKER), "true");
+        } catch (IOException e) {
+            Debug.logWarning(e, "Unable to write test-run completion marker at " + RUN_COMPLETED_MARKER, MODULE);
+        }
     }
 
     @Override
