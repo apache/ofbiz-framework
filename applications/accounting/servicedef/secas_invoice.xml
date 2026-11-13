@@ -53,6 +53,6 @@ under the License.
         <condition field-name="oldStatusId" operator="not-equals" value="INVOICE_READY"/>
         <condition field-name="oldStatusId" operator="not-equals" value="INVOICE_PAID"/>
         <action service="checkInvoicePaymentApplications" mode="sync"/>
-        <action service="capturePaymentsByInvoice" mode="sync"/>
+        <action service="capturePaymentsByInvoice" mode="sync" run-as-user="system"/>
     </eca>
 </service-eca>
