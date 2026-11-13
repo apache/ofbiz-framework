@@ -34,6 +34,7 @@ under the License.
     <field-type-def type="currency-precise" sql-type="NUMBER(18,3)" java-type="java.math.BigDecimal"/>
     <field-type-def type="fixed-point" sql-type="NUMBER(18,6)" java-type="java.math.BigDecimal"/>
     <field-type-def type="floating-point" sql-type="FLOAT" java-type="Double"/>
+    <field-type-def type="integer" sql-type="NUMBER(10,0)" java-type="Integer"/>
     <field-type-def type="numeric" sql-type="NUMBER(20,0)" java-type="Long"/>
 
     <field-type-def type="id" sql-type="VARCHAR(20)" java-type="String"/>
