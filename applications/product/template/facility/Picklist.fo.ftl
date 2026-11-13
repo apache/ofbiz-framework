@@ -126,7 +126,7 @@ under the License.
 <fo:page-sequence master-reference="main">
 <fo:flow flow-name="xsl-region-body" font-family="Helvetica">
 
-    <#if security.hasEntityPermission("FACILITY", "_VIEW", session)>
+    <#if security.hasEntityPermission("FACILITY", "_VIEW", userLogin)>
 
     <#if picklistInfo?has_content>
         <fo:block font-size="12pt">${uiLabelMap.ProductPickList} ${picklistInfo.picklist.picklistId} ${uiLabelMap.CommonIn} ${uiLabelMap.ProductFacility} ${picklistInfo.facility.facilityName} <fo:inline font-size="8pt">[${picklistInfo.facility.facilityId}]</fo:inline></fo:block>
