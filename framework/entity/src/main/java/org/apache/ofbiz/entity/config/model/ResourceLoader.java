@@ -18,9 +18,12 @@
  *******************************************************************************/
 package org.apache.ofbiz.entity.config.model;
 
+import org.apache.ofbiz.base.config.AbstractConfigElement;
 import org.apache.ofbiz.base.lang.ThreadSafe;
 import org.apache.ofbiz.entity.GenericEntityConfException;
 import org.w3c.dom.Element;
+
+import java.util.Map;
 
 /**
  * An object that models the <code>&lt;resource-loader&gt;</code> element.
@@ -28,46 +31,73 @@ import org.w3c.dom.Element;
  * @see <code>entity-config.xsd</code>
  */
 @ThreadSafe
-public final class ResourceLoader {
+public final class ResourceLoader extends AbstractConfigElement {
 
-    private final String name; // type = xs:string
-    private final String className; // type = xs:string
-    private final String prependEnv; // type = xs:string
-    private final String prefix; // type = xs:string
+    private final EntityConfigGetter config = EntityConfigGetter.getInstance();
+    public static final String ELEMENT_NAME = "resource-loader";
+    private final String xPath;
 
-    ResourceLoader(Element element) throws GenericEntityConfException {
+    private final String name;
+    private final String className;
+    private final String prependEnv;
+    private final String prefix;
+
+    ResourceLoader(Element element, String xPathParent) throws GenericEntityConfException {
         String lineNumberText = EntityConfig.createConfigFileLineNumberText(element);
         String name = element.getAttribute("name").intern();
         if (name.isEmpty()) {
             throw new GenericEntityConfException("<resource-loader> element name attribute is empty" + lineNumberText);
         }
         this.name = name;
-        String className = element.getAttribute("class").intern();
+        xPath = xPathParent.concat("/" + ELEMENT_NAME + "[@name=\"" + name + "\"]");
+        String className = config.getValue(xPath + "/@class");
         if (className.isEmpty()) {
             throw new GenericEntityConfException("<resource-loader> element class attribute is empty" + lineNumberText);
         }
         this.className = className;
-        this.prependEnv = element.getAttribute("prepend-env").intern();
-        this.prefix = element.getAttribute("prefix").intern();
+        prependEnv = config.getValue(xPath + "/@prepend-env");
+        prefix = config.getValue(xPath + "/@prefix");
     }
 
-    /** Returns the value of the <code>name</code> attribute. */
-    public String getName() {
-        return this.name;
+    ResourceLoader(Map<String, Object> configObject, String xPath) throws GenericEntityConfException {
+        this.xPath = xPath;
+        String name = getNameFromXPath(xPath);
+        if (name.isEmpty()) {
+            throw new GenericEntityConfException("<resource-loader> element name attribute is empty");
+        }
+        this.name = name;
+        String className = config.getValue(configObject, "/@class");
+        if (className.isEmpty()) {
+            throw new GenericEntityConfException("<resource-loader> element class attribute is empty");
+        }
+        this.className = className;
+        prependEnv = config.getValue(configObject, "/@prepend-env");
+        prefix = config.getValue(configObject, "/@prefix");
     }
 
-    /** Returns the value of the <code>class</code> attribute. */
+    public static ResourceLoader loadFromXml(Element element, String xPathParent) throws GenericEntityConfException {
+        return new ResourceLoader(element, xPathParent);
+    }
+
+    public static ResourceLoader loadFromConfig(Map<String, Object> configMap, String xPath) throws GenericEntityConfException {
+        return new ResourceLoader(configMap, xPath);
+    }
+
     public String getClassName() {
-        return this.className;
+        return className;
     }
 
-    /** Returns the value of the <code>prepend-env</code> attribute. */
     public String getPrependEnv() {
-        return this.prependEnv;
+        return prependEnv;
     }
 
-    /** Returns the value of the <code>prefix</code> attribute. */
     public String getPrefix() {
-        return this.prefix;
+        return prefix;
     }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
 }

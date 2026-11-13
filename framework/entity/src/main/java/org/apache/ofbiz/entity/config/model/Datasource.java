@@ -21,9 +21,13 @@ package org.apache.ofbiz.entity.config.model;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.ofbiz.base.config.AbstractConfigElement;
+import org.apache.ofbiz.base.config.ConfigHelper;
 import org.apache.ofbiz.base.lang.ThreadSafe;
-import org.apache.ofbiz.base.util.UtilXml;
+import org.apache.ofbiz.base.util.UtilGenerics;
+import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.GenericEntityConfException;
 import org.w3c.dom.Element;
 
@@ -33,21 +37,25 @@ import org.w3c.dom.Element;
  * @see <code>entity-config.xsd</code>
  */
 @ThreadSafe
-public final class Datasource {
+public final class Datasource extends AbstractConfigElement {
 
-    private final String name; // type = xs:string
-    private final String helperClass; // type = xs:string
-    private final String fieldTypeName; // type = xs:string
+    private final EntityConfigGetter config = EntityConfigGetter.getInstance();
+    public static final String ELEMENT_NAME = "datasource";
+    private final String xPath;
+
+    private final String name;
+    private final String helperClass;
+    private final String fieldTypeName;
     private final boolean useSchemas;
-    private final String schemaName; // type = xs:string
+    private final String schemaName;
     private final boolean checkOnStart;
     private final boolean addMissingOnStart;
     private final boolean usePkConstraintNames;
     private final boolean checkPksOnStart;
-    private final int constraintNameClipLength; // type = xs:nonNegativeInteger
+    private final int constraintNameClipLength;
     private final boolean useProxyCursor;
-    private final String proxyCursorName; // type = xs:string
-    private final int resultFetchSize; // type = xs:integer
+    private final String proxyCursorName;
+    private final int resultFetchSize;
     private final boolean useForeignKeys;
     private final boolean useForeignKeyIndices;
     private final boolean checkFksOnStart;
@@ -64,97 +72,65 @@ public final class Datasource {
     private final boolean useBinaryTypeForBlob;
     private final boolean useOrderByNulls;
     private final String offsetStyle;
-    private final String tableType; // type = xs:string
-    private final String characterSet; // type = xs:string
-    private final String collate; // type = xs:string
-    private final int maxWorkerPoolSize; // type = xs:integer
-    private final List<SqlLoadPath> sqlLoadPathList; // <sql-load-path>
-    private final List<ReadData> readDataList; // <read-data>
-    private final InlineJdbc inlineJdbc; // <inline-jdbc>
-    private final JndiJdbc jndiJdbc; // <jndi-jdbc>
-    private final TyrexDataSource tyrexDataSource; // <tyrex-dataSource>
+    private final String tableType;
+    private final String characterSet;
+    private final String collate;
+    private final int maxWorkerPoolSize;
+    private final List<SqlLoadPath> sqlLoadPathList;
+    private final List<ReadData> readDataList;
+    private final InlineJdbc inlineJdbc;
+    private final JndiJdbc jndiJdbc;
+    private final TyrexDataSource tyrexDataSource;
 
-    Datasource(Element element) throws GenericEntityConfException {
+    Datasource(Element element, String xPathParent) throws GenericEntityConfException {
+        boolean checkStructure = ConfigHelper.checkStrictXmlStructure();
         String lineNumberText = EntityConfig.createConfigFileLineNumberText(element);
-        String name = element.getAttribute("name").intern();
+        String name = element.getAttribute("name");
         if (name.isEmpty()) {
             throw new GenericEntityConfException("<datasource> element name attribute is empty" + lineNumberText);
         }
         this.name = name;
-        String helperClass = element.getAttribute("helper-class").intern();
-        if (helperClass.isEmpty()) {
+        this.xPath = xPathParent.concat("/datasource[@name='" + name + "']");
+        String helperClass = config.getValue(this.xPath + "/@helper-class");
+        if (helperClass.isEmpty() && checkStructure) {
             throw new GenericEntityConfException("<datasource> element helper-class attribute is empty" + lineNumberText);
         }
         this.helperClass = helperClass;
-        String fieldTypeName = element.getAttribute("field-type-name").intern();
-        if (fieldTypeName.isEmpty()) {
+        String fieldTypeName = config.getValue(this.xPath + "/@field-type-name");
+        if (fieldTypeName.isEmpty() && checkStructure) {
             throw new GenericEntityConfException("<datasource> element field-type-name attribute is empty" + lineNumberText);
         }
         this.fieldTypeName = fieldTypeName;
-        this.useSchemas = !"false".equals(element.getAttribute("use-schemas"));
-        this.schemaName = element.getAttribute("schema-name").intern();
-        this.checkOnStart = !"false".equals(element.getAttribute("check-on-start"));
-        this.addMissingOnStart = "true".equals(element.getAttribute("add-missing-on-start"));
-        this.usePkConstraintNames = !"false".equals(element.getAttribute("use-pk-constraint-names"));
-        this.checkPksOnStart = !"false".equals(element.getAttribute("check-pks-on-start"));
-        String constraintNameClipLength = element.getAttribute("constraint-name-clip-length");
-        if (constraintNameClipLength.isEmpty()) {
-            this.constraintNameClipLength = 30;
-        } else {
-            try {
-                this.constraintNameClipLength = Integer.parseInt(constraintNameClipLength);
-            } catch (Exception e) {
-                throw new GenericEntityConfException("<datasource> element constraint-name-clip-length attribute is invalid" + lineNumberText);
-            }
-        }
-        this.useProxyCursor = "true".equalsIgnoreCase(element.getAttribute("use-proxy-cursor"));
-        String proxyCursorName = element.getAttribute("proxy-cursor-name").intern();
-        if (proxyCursorName.isEmpty()) {
-            proxyCursorName = "p_cursor";
-        }
-        this.proxyCursorName = proxyCursorName;
-        String resultFetchSize = element.getAttribute("result-fetch-size");
-        if (resultFetchSize.isEmpty()) {
-            this.resultFetchSize = -1;
-        } else {
-            try {
-                this.resultFetchSize = Integer.parseInt(resultFetchSize);
-            } catch (Exception e) {
-                throw new GenericEntityConfException("<datasource> element result-fetch-size attribute is invalid" + lineNumberText);
-            }
-        }
-        this.useForeignKeys = !"false".equals(element.getAttribute("use-foreign-keys"));
-        this.useForeignKeyIndices = !"false".equals(element.getAttribute("use-foreign-key-indices"));
-        this.checkFksOnStart = "true".equals(element.getAttribute("check-fks-on-start"));
-        this.checkFkIndicesOnStart = "true".equals(element.getAttribute("check-fk-indices-on-start"));
-        String fkStyle = element.getAttribute("fk-style").intern();
-        if (fkStyle.isEmpty()) {
-            fkStyle = "name_constraint";
-        }
-        this.fkStyle = fkStyle;
-        this.useFkInitiallyDeferred = "true".equals(element.getAttribute("use-fk-initially-deferred"));
-        this.useIndices = !"false".equals(element.getAttribute("use-indices"));
-        this.useIndicesUnique = !"false".equals(element.getAttribute("use-indices-unique"));
-        this.checkIndicesOnStart = "true".equals(element.getAttribute("check-indices-on-start"));
-        String joinStyle = element.getAttribute("join-style").intern();
-        if (joinStyle.isEmpty()) {
-            joinStyle = "ansi";
-        }
-        this.joinStyle = joinStyle;
-        this.aliasViewColumns = "true".equals(element.getAttribute("alias-view-columns"));
-        this.alwaysUseConstraintKeyword = "true".equals(element.getAttribute("always-use-constraint-keyword"));
-        this.dropFkUseForeignKeyKeyword = "true".equals(element.getAttribute("drop-fk-use-foreign-key-keyword"));
-        this.useBinaryTypeForBlob = "true".equals(element.getAttribute("use-binary-type-for-blob"));
-        this.useOrderByNulls = "true".equals(element.getAttribute("use-order-by-nulls"));
-        String offsetStyle = element.getAttribute("offset-style").intern();
-        if (offsetStyle.isEmpty()) {
-            offsetStyle = "none";
-        }
-        this.offsetStyle = offsetStyle;
-        this.tableType = element.getAttribute("table-type").intern();
-        this.characterSet = element.getAttribute("character-set").intern();
-        this.collate = element.getAttribute("collate").intern();
-        String maxWorkerPoolSize = element.getAttribute("max-worker-pool-size").intern();
+        useSchemas = "true".equals(config.getValue(this.xPath + "/@use-schemas"));
+        schemaName = config.getValue(this.xPath + "/@schema-name");
+        checkOnStart = "true".equals(config.getValue(this.xPath + "/@check-on-start"));
+        addMissingOnStart = "true".equals(config.getValue(this.xPath + "/@add-missing-on-start"));
+        usePkConstraintNames = "true".equals(config.getValue(this.xPath + "/@use-pk-constraint-names"));
+        checkPksOnStart = "true".equals(config.getValue(this.xPath + "/@check-pks-on-start"));
+        constraintNameClipLength = config.getValue(this.xPath + "/@constraint-name-clip-length", 30, Integer.class);
+        useProxyCursor = "true".equalsIgnoreCase(config.getValue(this.xPath + "/@use-proxy-cursor"));
+        proxyCursorName = config.getValue(this.xPath + "/@proxy-cursor-name", "p_cursor", String.class);
+        resultFetchSize = config.getValue(this.xPath + "/@result-fetch-size", -1, Integer.class);
+        useForeignKeys = "true".equals(config.getValue(this.xPath + "/@use-foreign-keys"));
+        useForeignKeyIndices = "true".equals(config.getValue(this.xPath + "/@use-foreign-key-indices"));
+        checkFksOnStart = "true".equals(config.getValue(this.xPath + "/@check-fks-on-start"));
+        checkFkIndicesOnStart = "true".equals(config.getValue(this.xPath + "/@check-fks-indices-on-start"));
+        fkStyle = config.getValue(this.xPath + "/@fk-style", "name_constraint", String.class);
+        useFkInitiallyDeferred = "true".equals(config.getValue(this.xPath + "/@use-fk-initially-deferred"));
+        useIndices = "true".equals(config.getValue(this.xPath + "/@use-indices"));
+        useIndicesUnique = "true".equals(config.getValue(this.xPath + "/@use-indices-unique"));
+        checkIndicesOnStart = "true".equals(config.getValue(this.xPath + "/@check-indices-on-start"));
+        joinStyle = config.getValue(this.xPath + "/@join-style", "ansi", String.class);
+        aliasViewColumns = "true".equals(config.getValue(this.xPath + "/@alias-view-columns"));
+        alwaysUseConstraintKeyword = "true".equals(config.getValue(this.xPath + "/@always-use-constraint-keyword"));
+        dropFkUseForeignKeyKeyword = "true".equals(config.getValue(this.xPath + "/@drop-fk-use-foreign-key-keyword"));
+        useBinaryTypeForBlob = "true".equals(config.getValue(this.xPath + "/@use-binary-type-for-blob"));
+        useOrderByNulls = "true".equals(config.getValue(this.xPath + "/@use-order-by-nulls"));
+        offsetStyle = config.getValue(this.xPath + "/@offset-style", "none", String.class);
+        tableType = config.getValue(this.xPath + "/@table-type");
+        characterSet = config.getValue(this.xPath + "/@character-set");
+        collate = config.getValue(this.xPath + "/@collate");
+        String maxWorkerPoolSize = config.getValue(this.xPath + "/@max-worker-pool-size");
         if (maxWorkerPoolSize.isEmpty()) {
             this.maxWorkerPoolSize = 1;
         } else {
@@ -170,46 +146,38 @@ public final class Datasource {
                 throw new GenericEntityConfException("<datasource> element max-worker-pool-size attribute is invalid" + lineNumberText);
             }
         }
-        List<? extends Element> sqlLoadPathElementList = UtilXml.childElementList(element, "sql-load-path");
-        if (sqlLoadPathElementList.isEmpty()) {
+        List<SqlLoadPath> sqlLoadPathList = config.getSubElementsAsListEntries(xPath, element, SqlLoadPath.class);
+        if (sqlLoadPathList.isEmpty()) {
             this.sqlLoadPathList = Collections.emptyList();
         } else {
-            List<SqlLoadPath> sqlLoadPathList = new ArrayList<>(sqlLoadPathElementList.size());
-            for (Element sqlLoadPathElement : sqlLoadPathElementList) {
-                sqlLoadPathList.add(new SqlLoadPath(sqlLoadPathElement));
-            }
             this.sqlLoadPathList = Collections.unmodifiableList(sqlLoadPathList);
         }
-        List<? extends Element> readDataElementList = UtilXml.childElementList(element, "read-data");
-        if (readDataElementList.isEmpty()) {
+        List<ReadData> readDataList = config.getSubElementsAsListEntries(xPath, element, ReadData.class);
+        if (readDataList.isEmpty()) {
             this.readDataList = Collections.emptyList();
         } else {
-            List<ReadData> readDataList = new ArrayList<>(readDataElementList.size());
-            for (Element readDataElement : readDataElementList) {
-                readDataList.add(new ReadData(readDataElement));
-            }
             this.readDataList = Collections.unmodifiableList(readDataList);
         }
         int jdbcElementCount = 0;
-        Element inlineJdbcElement = UtilXml.firstChildElement(element, "inline-jdbc");
-        if (inlineJdbcElement == null) {
+        InlineJdbc inlineJdbc = config.getObjectSubElement(xPath, element, InlineJdbc.class);
+        if (inlineJdbc == null) {
             this.inlineJdbc = null;
         } else {
-            this.inlineJdbc = new InlineJdbc(inlineJdbcElement);
+            this.inlineJdbc = inlineJdbc;
             jdbcElementCount++;
         }
-        Element jndiJdbcElement = UtilXml.firstChildElement(element, "jndi-jdbc");
-        if (jndiJdbcElement == null) {
+        JndiJdbc jndiJdbc = config.getObjectSubElement(xPath, element, JndiJdbc.class);
+        if (jndiJdbc == null) {
             this.jndiJdbc = null;
         } else {
-            this.jndiJdbc = new JndiJdbc(jndiJdbcElement);
+            this.jndiJdbc = jndiJdbc;
             jdbcElementCount++;
         }
-        Element tyrexElement = UtilXml.firstChildElement(element, "tyrex-dataSource");
-        if (tyrexElement == null) {
-            this.tyrexDataSource = null;
+        TyrexDataSource tyrex = config.getObjectSubElement(xPath, element, TyrexDataSource.class);
+        if (tyrex == null) {
+            tyrexDataSource = null;
         } else {
-            this.tyrexDataSource = new TyrexDataSource(tyrexElement);
+            this.tyrexDataSource = tyrex;
             jdbcElementCount++;
         }
         if (jdbcElementCount > 1) {
@@ -218,193 +186,276 @@ public final class Datasource {
         }
     }
 
-    /** Returns the value of the <code>name</code> attribute. */
-    public String getName() {
-        return this.name;
+    Datasource(Map<String, Object> configObject, String xPath) throws GenericEntityConfException {
+        boolean checkStructure = ConfigHelper.checkStrictXmlStructure();
+        this.xPath = xPath;
+        name = getNameFromXPath(xPath);
+        if (name.isEmpty() && checkStructure) {
+            throw new GenericEntityConfException("<datasource> element name attribute is empty");
+        }
+        String helperClass = config.getValue(configObject, "/@helper-class");
+        if (helperClass.isEmpty() && checkStructure) {
+            throw new GenericEntityConfException("<datasource> element helper-class attribute is empty");
+        }
+        this.helperClass = helperClass;
+        String fieldTypeName = config.getValue(configObject, "/@field-type-name");
+        if (fieldTypeName.isEmpty() && checkStructure) {
+            throw new GenericEntityConfException("<datasource> element field-type-name attribute is empty");
+        }
+        this.fieldTypeName = fieldTypeName;
+        useSchemas = "true".equals(config.getValue(configObject, "/@use-schemas"));
+        schemaName = config.getValue(configObject, "/@schema-name");
+        checkOnStart = "true".equals(config.getValue(configObject, "/@check-on-start"));
+        addMissingOnStart = "true".equals(config.getValue(configObject, "/@add-missing-on-start"));
+        usePkConstraintNames = "true".equals(config.getValue(configObject, "/@use-pk-constraint-names"));
+        checkPksOnStart = "true".equals(config.getValue(configObject, "/@check-pks-on-start"));
+        constraintNameClipLength = config.getValue(configObject, "/@constraint-name-clip-length", 30, Integer.class);
+        useProxyCursor = "true".equalsIgnoreCase(config.getValue(configObject, "/@use-proxy-cursor"));
+        proxyCursorName = config.getValue(configObject, "/@proxy-cursor-name", "p_cursor", String.class);
+        resultFetchSize = config.getValue(configObject, "/@result-fetch-size", -1, Integer.class);
+        useForeignKeys = "true".equals(config.getValue(configObject, "/@use-foreign-keys"));
+        useForeignKeyIndices = "true".equals(config.getValue(configObject, "/@use-foreign-key-indices"));
+        checkFksOnStart = "true".equals(config.getValue(configObject, "/@check-fks-on-start"));
+        checkFkIndicesOnStart = "true".equals(config.getValue(configObject, "/@check-fks-indices-on-start"));
+        fkStyle = config.getValue(configObject, "/@fk-style", "name_constraint", String.class);
+        useFkInitiallyDeferred = "true".equals(config.getValue(configObject, "/@use-fk-initially-deferred"));
+        useIndices = "true".equals(config.getValue(configObject, "/@use-indices"));
+        useIndicesUnique = "true".equals(config.getValue(configObject, "/@use-indices-unique"));
+        checkIndicesOnStart = "true".equals(config.getValue(configObject, "/@check-indices-on-start"));
+        joinStyle = config.getValue(configObject, "/@join-style", "ansi", String.class);
+        aliasViewColumns = "true".equals(config.getValue(configObject, "/@alias-view-columns"));
+        alwaysUseConstraintKeyword = "true".equals(config.getValue(configObject, "/@always-use-constraint-keyword"));
+        dropFkUseForeignKeyKeyword = "true".equals(config.getValue(configObject, "/@drop-fk-use-foreign-keyword"));
+        useBinaryTypeForBlob = "true".equals(config.getValue(configObject, "/@use-binary-type-for-blob"));
+        useOrderByNulls = "true".equals(config.getValue(configObject, "/@use-order-by-nulls"));
+        offsetStyle = config.getValue(configObject, "/@offset-style", "none", String.class);
+        tableType = config.getValue(configObject, "/@table-type");
+        characterSet = config.getValue(configObject, "/@character-set");
+        collate = config.getValue(configObject, "/@collate");
+        String maxWorkerPoolSize = config.getValue(configObject, "/@max-worker-pool-size");
+        if (maxWorkerPoolSize.isEmpty()) {
+            this.maxWorkerPoolSize = 1;
+        } else {
+            try {
+                int maxWorkerPoolSizeInt = Integer.parseInt(maxWorkerPoolSize);
+                if (maxWorkerPoolSizeInt == 0) {
+                    maxWorkerPoolSizeInt = 1;
+                } else if (maxWorkerPoolSizeInt < 0) {
+                    maxWorkerPoolSizeInt = Math.abs(maxWorkerPoolSizeInt) * Runtime.getRuntime().availableProcessors();
+                }
+                this.maxWorkerPoolSize = maxWorkerPoolSizeInt;
+            } catch (NumberFormatException e) {
+                throw new GenericEntityConfException("<datasource> element max-worker-pool-size attribute is invalid");
+            }
+        }
+        List<SqlLoadPath> sqlLoadPathList = config.getSubElementsAsListEntries(xPath.concat("/sql-load-path"), null, SqlLoadPath.class);
+        this.sqlLoadPathList = sqlLoadPathList.isEmpty()
+                ? Collections.emptyList()
+                : Collections.unmodifiableList(sqlLoadPathList);
+
+        List<ReadData> readDataList = new ArrayList<>();
+        List<Map<String, Object>> readDataConfs = UtilGenerics.cast(configObject.get("read-data"));
+        if (UtilValidate.isNotEmpty(readDataConfs)) {
+            for (Map<String, Object> readDataConf : readDataConfs) {
+                readDataList.add(ReadData.loadFromConfig(readDataConf, "/read-data"));
+            }
+        }
+
+        this.readDataList = readDataList.isEmpty()
+                ? Collections.emptyList()
+                : Collections.unmodifiableList(readDataList);
+
+        int jdbcElementCount = 0;
+
+        Map<String, Object> inlineJdbcConfig = UtilGenerics.cast(configObject.get("inline-jdbc"));
+        if (UtilValidate.isNotEmpty(inlineJdbcConfig)) {
+            this.inlineJdbc = InlineJdbc.loadFromConfig(inlineJdbcConfig, "/inline-jdbc");
+            jdbcElementCount++;
+        } else {
+            this.inlineJdbc = null;
+        }
+
+        Map<String, Object> jndiJdbcConfig = UtilGenerics.cast(configObject.get("jndi-jdbc"));
+        if (UtilValidate.isNotEmpty(jndiJdbcConfig)) {
+            this.jndiJdbc = JndiJdbc.loadFromConfig(jndiJdbcConfig, "/jndi-jdbc");
+            jdbcElementCount++;
+        } else {
+            this.jndiJdbc = null;
+        }
+
+        Map<String, Object> tyrexJdbcConfig = UtilGenerics.cast(configObject.get("tyrex-jdbc"));
+        if (UtilValidate.isNotEmpty(tyrexJdbcConfig)) {
+            this.tyrexDataSource = TyrexDataSource.loadFromConfig(tyrexJdbcConfig, "/tyrex-jdbc");
+            jdbcElementCount++;
+        } else {
+            this.tyrexDataSource = null;
+        }
+
+        if (jdbcElementCount > 1) {
+            throw new GenericEntityConfException("<datasource> element is invalid: Only one of <inline-jdbc>, <jndi-jdbc>, "
+                    + "<tyrex-dataSource> is allowed");
+        }
     }
 
-    /** Returns the value of the <code>helper-class</code> attribute. */
+    public static Datasource loadFromXml(Element element, String xPathParent) throws GenericEntityConfException {
+        return new Datasource(element, xPathParent);
+    }
+
+    public static Datasource loadFromConfig(Map<String, Object> configMap, String xPath) throws GenericEntityConfException {
+        return new Datasource(configMap, xPath);
+    }
+
     public String getHelperClass() {
-        return this.helperClass;
+        return helperClass;
     }
 
-    /** Returns the value of the <code>field-type-name</code> attribute. */
     public String getFieldTypeName() {
-        return this.fieldTypeName;
+        return fieldTypeName;
     }
 
-    /** Returns the value of the <code>use-schemas</code> attribute. */
     public boolean getUseSchemas() {
-        return this.useSchemas;
+        return useSchemas;
     }
 
-    /** Returns the value of the <code>schema-name</code> attribute. */
     public String getSchemaName() {
-        return this.schemaName;
+        return schemaName;
     }
 
-    /** Returns the value of the <code>check-on-start</code> attribute. */
     public boolean getCheckOnStart() {
-        return this.checkOnStart;
+        return checkOnStart;
     }
 
-    /** Returns the value of the <code>add-missing-on-start</code> attribute. */
     public boolean getAddMissingOnStart() {
-        return this.addMissingOnStart;
+        return addMissingOnStart;
     }
 
-    /** Returns the value of the <code>use-pk-constraint-names</code> attribute. */
     public boolean getUsePkConstraintNames() {
-        return this.usePkConstraintNames;
+        return usePkConstraintNames;
     }
 
-    /** Returns the value of the <code>check-pks-on-start</code> attribute. */
     public boolean getCheckPksOnStart() {
-        return this.checkPksOnStart;
+        return checkPksOnStart;
     }
 
-    /** Returns the value of the <code>constraint-name-clip-length</code> attribute. */
     public int getConstraintNameClipLength() {
-        return this.constraintNameClipLength;
+        return constraintNameClipLength;
     }
 
-    /** Returns the value of the <code>use-proxy-cursor</code> attribute. */
     public boolean getUseProxyCursor() {
-        return this.useProxyCursor;
+        return useProxyCursor;
     }
 
-    /** Returns the value of the <code>proxy-cursor-name</code> attribute. */
     public String getProxyCursorName() {
-        return this.proxyCursorName;
+        return proxyCursorName;
     }
 
-    /** Returns the value of the <code>result-fetch-size</code> attribute. */
     public int getResultFetchSize() {
-        return this.resultFetchSize;
+        return resultFetchSize;
     }
 
-    /** Returns the value of the <code>use-foreign-keys</code> attribute. */
     public boolean getUseForeignKeys() {
-        return this.useForeignKeys;
+        return useForeignKeys;
     }
 
-    /** Returns the value of the <code>use-foreign-key-indices</code> attribute. */
     public boolean getUseForeignKeyIndices() {
-        return this.useForeignKeyIndices;
+        return useForeignKeyIndices;
     }
 
-    /** Returns the value of the <code>check-fks-on-start</code> attribute. */
     public boolean getCheckFksOnStart() {
-        return this.checkFksOnStart;
+        return checkFksOnStart;
     }
 
-    /** Returns the value of the <code>check-fk-indices-on-start</code> attribute. */
     public boolean getCheckFkIndicesOnStart() {
-        return this.checkFkIndicesOnStart;
+        return checkFkIndicesOnStart;
     }
 
-    /** Returns the value of the <code>fk-style</code> attribute. */
     public String getFkStyle() {
-        return this.fkStyle;
+        return fkStyle;
     }
 
-    /** Returns the value of the <code>use-fk-initially-deferred</code> attribute. */
     public boolean getUseFkInitiallyDeferred() {
-        return this.useFkInitiallyDeferred;
+        return useFkInitiallyDeferred;
     }
 
-    /** Returns the value of the <code>use-indices</code> attribute. */
     public boolean getUseIndices() {
-        return this.useIndices;
+        return useIndices;
     }
 
-    /** Returns the value of the <code>use-indices-unique</code> attribute. */
     public boolean getUseIndicesUnique() {
-        return this.useIndicesUnique;
+        return useIndicesUnique;
     }
 
-    /** Returns the value of the <code>check-indices-on-start</code> attribute. */
     public boolean getCheckIndicesOnStart() {
-        return this.checkIndicesOnStart;
+        return checkIndicesOnStart;
     }
 
-    /** Returns the value of the <code>join-style</code> attribute. */
     public String getJoinStyle() {
-        return this.joinStyle;
+        return joinStyle;
     }
 
-    /** Returns the value of the <code>alias-view-columns</code> attribute. */
     public boolean getAliasViewColumns() {
-        return this.aliasViewColumns;
+        return aliasViewColumns;
     }
 
-    /** Returns the value of the <code>always-use-constraint-keyword</code> attribute. */
     public boolean getAlwaysUseConstraintKeyword() {
-        return this.alwaysUseConstraintKeyword;
+        return alwaysUseConstraintKeyword;
     }
 
-    /** Returns the value of the <code>drop-fk-use-foreign-key-keyword</code> attribute. */
     public boolean getDropFkUseForeignKeyKeyword() {
-        return this.dropFkUseForeignKeyKeyword;
+        return dropFkUseForeignKeyKeyword;
     }
 
-    /** Returns the value of the <code>use-binary-type-for-blob</code> attribute. */
     public boolean getUseBinaryTypeForBlob() {
-        return this.useBinaryTypeForBlob;
+        return useBinaryTypeForBlob;
     }
 
-    /** Returns the value of the <code>use-order-by-nulls</code> attribute. */
     public boolean getUseOrderByNulls() {
-        return this.useOrderByNulls;
+        return useOrderByNulls;
     }
 
-    /** Returns the value of the <code>offset-style</code> attribute. */
     public String getOffsetStyle() {
-        return this.offsetStyle;
+        return offsetStyle;
     }
 
-    /** Returns the value of the <code>table-type</code> attribute. */
     public String getTableType() {
-        return this.tableType;
+        return tableType;
     }
 
-    /** Returns the value of the <code>character-set</code> attribute. */
     public String getCharacterSet() {
-        return this.characterSet;
+        return characterSet;
     }
 
-    /** Returns the value of the <code>collate</code> attribute. */
     public String getCollate() {
-        return this.collate;
+        return collate;
     }
 
-    /** Returns the value of the <code>max-worker-pool-size</code> attribute. */
     public int getMaxWorkerPoolSize() {
-        return this.maxWorkerPoolSize;
+        return maxWorkerPoolSize;
     }
 
-    /** Returns the <code>&lt;sql-load-path&gt;</code> child elements. */
     public List<SqlLoadPath> getSqlLoadPathList() {
-        return this.sqlLoadPathList;
+        return sqlLoadPathList;
     }
 
-    /** Returns the <code>&lt;read-data&gt;</code> child elements. */
     public List<ReadData> getReadDataList() {
-        return this.readDataList;
+        return readDataList;
     }
 
-    /** Returns the <code>&lt;inline-jdbc&gt;</code> child element. */
     public InlineJdbc getInlineJdbc() {
-        return this.inlineJdbc;
+        return inlineJdbc;
     }
 
-    /** Returns the <code>&lt;jndi-jdbc&gt;</code> child element. */
     public JndiJdbc getJndiJdbc() {
-        return this.jndiJdbc;
+        return jndiJdbc;
     }
 
-    /** Returns the <code>&lt;tyrex-dataSource&gt;</code> child element. */
     public TyrexDataSource getTyrexDataSource() {
-        return this.tyrexDataSource;
+        return tyrexDataSource;
     }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
 }

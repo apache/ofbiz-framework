@@ -31,13 +31,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.apache.ofbiz.service.tracker.JobTracker;
+import org.apache.ofbiz.base.config.ConfigurationFactory;
 import org.apache.ofbiz.base.config.GenericConfigException;
 import org.apache.ofbiz.base.util.Assert;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
@@ -59,6 +58,7 @@ import org.apache.ofbiz.service.calendar.RecurrenceInfoException;
 import org.apache.ofbiz.service.config.ServiceConfigUtil;
 import org.apache.ofbiz.service.config.model.RunFromPool;
 import org.apache.ofbiz.service.config.model.ThreadPool;
+import org.apache.ofbiz.service.tracker.JobTracker;
 import org.apache.ofbiz.service.tracker.JobTrackerFactory;
 
 /**
@@ -74,7 +74,7 @@ import org.apache.ofbiz.service.tracker.JobTrackerFactory;
 public final class JobManager {
 
     private static final String MODULE = JobManager.class.getName();
-    public static final String INSTANCE_ID = UtilProperties.getPropertyValue("general", "unique.instanceId", "ofbiz0");
+    public static final String INSTANCE_ID = ConfigurationFactory.getInstance().getValue("general", "unique.instanceId", "ofbiz0");
     private static final ConcurrentHashMap<String, JobManager> REG_MANAGERS = new ConcurrentHashMap<>();
     private static boolean isShutDown = false;
 
@@ -117,7 +117,7 @@ public final class JobManager {
     private final Delegator delegator;
     private boolean crashedJobsReloaded = false;
 
-    private JobManager(Delegator delegator) {
+    public JobManager(Delegator delegator) {
         this.delegator = delegator;
     }
 
@@ -641,7 +641,7 @@ public final class JobManager {
         if (UtilValidate.isEmpty(jobName)) {
             jobName = Long.toString((new Date().getTime()));
         }
-        Map<String, Object> jFields = UtilMisc.<String, Object>toMap("jobName", jobName, "runTime", new java.sql.Timestamp(startTime),
+        Map<String, Object> jFields = UtilMisc.<String, Object>toMap("jobName", jobName, "runTime", new Timestamp(startTime),
                 "serviceName", serviceName, "statusId", "SERVICE_PENDING", "recurrenceInfoId", infoId, "runtimeDataId", dataId,
                 "priority", JobPriority.NORMAL);
         // set the pool ID

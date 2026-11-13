@@ -18,6 +18,8 @@
  *******************************************************************************/
 package org.apache.ofbiz.entity.config.model;
 
+import java.util.Map;
+import org.apache.ofbiz.base.config.AbstractConfigElement;
 import org.apache.ofbiz.base.lang.ThreadSafe;
 import org.apache.ofbiz.entity.GenericEntityConfException;
 import org.w3c.dom.Element;
@@ -28,43 +30,76 @@ import org.w3c.dom.Element;
  * @see <code>entity-config.xsd</code>
  */
 @ThreadSafe
-public final class FieldType {
+public final class FieldType extends AbstractConfigElement {
 
-    private final String name; // type = xs:string
-    private final String loader; // type = xs:string
-    private final String location; // type = xs:string
+    private final EntityConfigGetter config = EntityConfigGetter.getInstance();
+    public static final String ELEMENT_NAME = "field-type";
+    private final String xPath;
 
-    FieldType(Element element) throws GenericEntityConfException {
+    private final String name;
+    private final String loader;
+    private final String location;
+
+    FieldType(Element element, String xPathParent) throws GenericEntityConfException {
         String lineNumberText = EntityConfig.createConfigFileLineNumberText(element);
-        String name = element.getAttribute("name").intern();
+        String name = element.getAttribute("name");
         if (name.isEmpty()) {
             throw new GenericEntityConfException("<field-type> element name attribute is empty" + lineNumberText);
         }
         this.name = name;
-        String loader = element.getAttribute("loader").intern();
+        xPath = xPathParent.concat("/field-type[@name='" + name + "']");
+        String loader = config.getValue(this.xPath + "/@loader");
         if (loader.isEmpty()) {
             throw new GenericEntityConfException("<field-type> element loader attribute is empty" + lineNumberText);
         }
         this.loader = loader;
-        String location = element.getAttribute("location").intern();
+        String location = config.getValue(this.xPath + "/@location");
         if (location.isEmpty()) {
             throw new GenericEntityConfException("<field-type> element location attribute is empty" + lineNumberText);
         }
         this.location = location;
     }
 
-    /** Returns the value of the <code>name</code> attribute. */
-    public String getName() {
-        return this.name;
+    FieldType(Map<String, Object> configObject, String xPath) throws GenericEntityConfException {
+        this.xPath = xPath;
+        String name = getNameFromXPath(xPath);
+        if (name.isEmpty()) {
+            throw new GenericEntityConfException("<field-type> element name attribute is empty");
+        }
+        this.name = name;
+        String loader = config.getValue(configObject, "/@loader");
+        if (loader.isEmpty()) {
+            throw new GenericEntityConfException("<field-type> element loader attribute is empty ");
+        }
+        this.loader = loader;
+        String location = config.getValue(configObject, "/@location");
+        if (location.isEmpty()) {
+            throw new GenericEntityConfException("<field-type> element location attribute is empty");
+        }
+        this.location = location;
     }
 
-    /** Returns the value of the <code>loader</code> attribute. */
+    public static FieldType loadFromXml(Element element, String xPathParent)
+            throws GenericEntityConfException {
+        return new FieldType(element, xPathParent);
+    }
+
+    public static FieldType loadFromConfig(Map<String, Object> configMap, String xPath)
+            throws GenericEntityConfException {
+        return new FieldType(configMap, xPath);
+    }
+
     public String getLoader() {
-        return this.loader;
+        return loader;
     }
 
-    /** Returns the value of the <code>location</code> attribute. */
     public String getLocation() {
-        return this.location;
+        return location;
     }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
 }

@@ -20,12 +20,9 @@ package org.apache.ofbiz.service.config.model;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.apache.ofbiz.base.lang.ThreadSafe;
-import org.apache.ofbiz.base.util.UtilXml;
 import org.apache.ofbiz.service.config.ServiceConfigException;
 import org.w3c.dom.Element;
 
@@ -35,14 +32,11 @@ import org.w3c.dom.Element;
 @ThreadSafe
 public final class ServiceConfig {
 
+    private static final String X_PATH = "/service-config";
+
     public static ServiceConfig create(Element serviceConfigElement) throws ServiceConfigException {
-        Map<String, ServiceEngine> serviceEngineMap = new HashMap<>();
-        List<? extends Element> engineElementList = UtilXml.childElementList(serviceConfigElement, "service-engine");
-        for (Element engineElement : engineElementList) {
-            ServiceEngine engineModel = new ServiceEngine(engineElement);
-            serviceEngineMap.put(engineModel.getName(), engineModel);
-        }
-        return new ServiceConfig(serviceEngineMap);
+        return new ServiceConfig(ServiceConfigGetter.getInstance()
+                .getSubElementsAsMapValues(X_PATH, serviceConfigElement, ServiceEngine.class));
     }
 
     private final Map<String, ServiceEngine> serviceEngineMap;
@@ -52,12 +46,10 @@ public final class ServiceConfig {
     }
 
     public Collection<ServiceEngine> getServiceEngines() {
-        return this.serviceEngineMap.values();
+        return serviceEngineMap.values();
     }
 
     public ServiceEngine getServiceEngine(String name) {
-        return this.serviceEngineMap.get(name);
+        return serviceEngineMap.get(name);
     }
-
-
 }

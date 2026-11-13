@@ -65,6 +65,7 @@ public final class StartupCommandUtil {
         SHUTDOWN("shutdown"),
         START("start"),
         STATUS("status"),
+        CONFIG("configuration"),
         TEST("test");
 
         private String name;
@@ -164,6 +165,18 @@ public final class StartupCommandUtil {
             .optionalArg(true)
             .argName("key=value")
             .get();
+    private static final Option CONFIG = Option.builder("c")
+            .longOpt(StartupOption.CONFIG.getName())
+            .desc("Runs ofbiz with dedicated configuration files to override default ofbiz configuration: "
+                    + System.lineSeparator()
+                    + "-c file=myConf1.conf,myConf2.conf"
+                    + System.lineSeparator()
+                    + "-c enable=true")
+            .numberOfArgs(2)
+            .valueSeparator('=')
+            .optionalArg(true)
+            .argName("key=value")
+            .get();
 
     static List<StartupCommand> parseOfbizCommands(final String[] args) throws StartupException {
         CommandLine commandLine = null;
@@ -187,7 +200,7 @@ public final class StartupCommandUtil {
                     "ofbiz|ofbizDebug|ofbizBackground",
                     System.lineSeparator() + "Executes OFBiz command e.g. start, shutdown, check status, etc",
                     getOfbizStartupOptions(),
-                    "note: Only one command can execute at a time. Portoffset may be appended."
+                    "note: Only one command can execute at a time. Portoffset and config may be appended."
                         + System.lineSeparator()
                         + "Also a command must be invoked separately for each argument e.g."
                         + System.lineSeparator()
@@ -220,6 +233,7 @@ public final class StartupCommandUtil {
         Options options = new Options();
         options.addOptionGroup(ofbizCommandOptions);
         options.addOption(PORTOFFSET);
+        options.addOption(CONFIG);
         return options;
     }
 

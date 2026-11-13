@@ -26,6 +26,9 @@ under the License.
 
     <test-suite loader="main" location="testdef/basetests.xml"/>
 
+    <!-- load the configuration overload system -->
+    <container name="config-container" loaders="main,load-data,test" class="org.apache.ofbiz.base.container.ConfigContainer"/>
+
     <!-- load the administration server -->
     <container name="admin-container" loaders="main" class="org.apache.ofbiz.base.container.AdminServerContainer"/>
 

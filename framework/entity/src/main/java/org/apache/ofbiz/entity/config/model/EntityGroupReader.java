@@ -18,12 +18,12 @@
  *******************************************************************************/
 package org.apache.ofbiz.entity.config.model;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.ofbiz.base.config.AbstractConfigElement;
 import org.apache.ofbiz.base.lang.ThreadSafe;
-import org.apache.ofbiz.base.util.UtilXml;
 import org.apache.ofbiz.entity.GenericEntityConfException;
 import org.w3c.dom.Element;
 
@@ -33,51 +33,73 @@ import org.w3c.dom.Element;
  * @see <code>entity-config.xsd</code>
  */
 @ThreadSafe
-public final class EntityGroupReader {
+public final class EntityGroupReader extends AbstractConfigElement {
 
-    private final String name; // type = xs:string
-    private final String loader; // type = xs:string
-    private final String location; // type = xs:string
-    private final List<Resource> resourceList; // <resource>
+    private final EntityConfigGetter config = EntityConfigGetter.getInstance();
+    public static final String ELEMENT_NAME = "entity-group-reader";
+    private final String xPath;
 
-    EntityGroupReader(Element element) throws GenericEntityConfException {
+    private final String name;
+    private final String loader;
+    private final String location;
+    private final List<Resource> resourceList;
+
+    EntityGroupReader(Element element, String xPathParent) throws GenericEntityConfException {
         String lineNumberText = EntityConfig.createConfigFileLineNumberText(element);
         String name = element.getAttribute("name").intern();
         if (name.isEmpty()) {
             throw new GenericEntityConfException("<entity-group-reader> element name attribute is empty" + lineNumberText);
         }
         this.name = name;
-        this.loader = element.getAttribute("loader").intern();
-        this.location = element.getAttribute("location").intern();
-        List<? extends Element> resourceElementList = UtilXml.childElementList(element, "resource");
-        if (resourceElementList.isEmpty()) {
+        this.xPath = xPathParent.concat("/entity-group-reader[@name='" + name + "']");
+        loader = config.getValue(xPath + "/@loader");
+        location = config.getValue(xPath + "/@location");
+        List<Resource> resourceList = config.getSubElementsAsListEntries(xPath.concat("/resource"), element, Resource.class);
+        if (resourceList.isEmpty()) {
             this.resourceList = Collections.emptyList();
         } else {
-            List<Resource> resourceList = new ArrayList<>(resourceElementList.size());
-            for (Element resourceElement : resourceElementList) {
-                resourceList.add(new Resource(resourceElement));
-            }
             this.resourceList = Collections.unmodifiableList(resourceList);
         }
     }
 
-    /** Returns the value of the <code>name</code> attribute. */
-    public String getName() {
-        return this.name;
+    EntityGroupReader(Map<String, Object> configObject, String xPath) throws GenericEntityConfException {
+        this.xPath = xPath;
+        String name = getNameFromXPath(xPath);
+        if (name.isEmpty()) {
+            throw new GenericEntityConfException("<entity-group-reader> element name attribute is empty");
+        }
+        this.name = name;
+        loader = config.getValue(configObject, "/@loader");
+        location = config.getValue(configObject, "/@location");
+        List<Resource> resourceList = config.getSubElementsAsListEntries(xPath.concat("/resource"), null, Resource.class);
+        this.resourceList = resourceList.isEmpty() ? Collections.emptyList() : Collections.unmodifiableList(resourceList);
     }
 
-    /** Returns the value of the <code>loader</code> attribute. */
+    public static EntityGroupReader loadFromXml(Element element, String xPathParent)
+            throws GenericEntityConfException {
+        return new EntityGroupReader(element, xPathParent);
+    }
+
+    public static EntityGroupReader loadFromConfig(Map<String, Object> configMap, String xPath)
+            throws GenericEntityConfException {
+        return new EntityGroupReader(configMap, xPath);
+    }
+
     public String getLoader() {
-        return this.loader;
+        return loader;
     }
 
-    /** Returns the value of the <code>location</code> attribute. */
     public String getLocation() {
-        return this.location;
+        return location;
     }
 
-    /** Returns the <code>&lt;resource&gt;</code> child elements. */
     public List<Resource> getResourceList() {
-        return this.resourceList;
+        return resourceList;
     }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
 }
