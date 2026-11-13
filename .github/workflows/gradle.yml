@@ -92,7 +92,13 @@ jobs:
       with:
         java-version: ${{ matrix.java }}
         distribution: temurin
-        cache: 'gradle'
+
+    # Restores the most recent Gradle cache even when build files changed (e.g. a Dependabot bump),
+    # so only new or changed dependencies are downloaded from Maven Central.
+    # v5 is kept on purpose: ASF projects do not use v6 because of its licensing model change,
+    # see https://github.com/apache/infrastructure-actions/pull/953
+    - name: Set up Gradle
+      uses: gradle/actions/setup-gradle@0723195856401067f7a2779048b490ace7a47d7c # v5.0.2
 
     - name: Grant execute permission for gradlew and pullAllPluginsSource.sh
       run: chmod +x gradlew gradle/init-gradle-wrapper.sh pullAllPluginsSource.sh

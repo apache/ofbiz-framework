@@ -362,7 +362,9 @@ sourceSets {
 jar.manifest.attributes(
     'Implementation-Title': project.name,
     'Main-Class': application.mainClass,
-    'Class-Path': getJarClasspath()
+    // Resolved only when the manifest is written, not while the build is configured: otherwise every
+    // Gradle invocation (even `./gradlew tasks`) has to resolve, and possibly download, all dependencies.
+    'Class-Path': provider { getJarClasspath() }
 )
 
 // Checks OFBiz Java coding conventions.

@@ -109,6 +109,13 @@ jobs:
         java-version: 25
         distribution: temurin
 
+    # Caches Gradle dependencies between runs so they are not all downloaded from Maven Central again.
+    # v5 is kept on purpose: ASF projects do not use v6 because of its licensing model change,
+    # see https://github.com/apache/infrastructure-actions/pull/953
+    - name: Set up Gradle
+      if: matrix.language == 'java'
+      uses: gradle/actions/setup-gradle@0723195856401067f7a2779048b490ace7a47d7c # v5.0.2
+
     # The Gradle wrapper jar is not committed and must be downloaded first.
     # Only compilation is needed, so tests and other checks are not run.
     - name: Build with Gradle
