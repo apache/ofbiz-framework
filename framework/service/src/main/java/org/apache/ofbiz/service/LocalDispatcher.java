@@ -22,6 +22,7 @@ import java.util.Map;
 
 import org.apache.ofbiz.entity.util.DelegatorProvider;
 import org.apache.ofbiz.security.Security;
+import org.apache.ofbiz.service.jms.JmsListenerFactory;
 import org.apache.ofbiz.service.job.JobManager;
 
 /**
@@ -346,6 +347,12 @@ public interface LocalDispatcher extends DelegatorProvider {
      * @return JobManager that is associated with this dispatcher
      */
     JobManager getJobManager();
+
+    /**
+     * Gets the JmsListenerFactory which holds the message listeners.
+     * @return JmsListenerFactory
+     */
+    JmsListenerFactory getJMSListeneFactory();
 
 
     /**
