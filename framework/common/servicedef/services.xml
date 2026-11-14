@@ -418,6 +418,24 @@ under the License.
                 resulting session must be confined to completing that reset, never treated as a full login.</description>
         </attribute>
     </service>
+    <service name="userLoginMfaPending" engine="java" auth="false" location="org.apache.ofbiz.common.login.LoginServices" invoke="userLoginMfaPending">
+        <description>Authenticates primary credentials without committing successful-login state, pending MFA verification</description>
+        <attribute name="username" type="String" mode="IN" optional="false"/>
+        <attribute name="password" type="String" mode="IN" optional="true"/>
+        <attribute name="token" type="String" mode="IN" optional="true"/>
+        <attribute name="visitId" type="String" mode="IN" optional="true"/>
+        <attribute name="isServiceAuth" type="Boolean" mode="IN" optional="true"/>
+        <attribute name="userLogin" type="org.apache.ofbiz.entity.GenericValue" mode="OUT"/>
+        <attribute name="userLoginSession" type="java.util.Map" mode="OUT" optional="true"/>
+        <attribute name="request" mode="IN" type="jakarta.servlet.http.HttpServletRequest" optional="true"/>
+    </service>
+    <service name="completeUserLoginMfa" engine="java" auth="false" export="false"
+            location="org.apache.ofbiz.common.login.LoginServices" invoke="completeUserLoginMfa">
+        <description>Commit interactive login state only after session-bound MFA completion</description>
+        <attribute name="request" type="jakarta.servlet.http.HttpServletRequest" mode="IN" optional="false"/>
+        <attribute name="userLogin" type="org.apache.ofbiz.entity.GenericValue" mode="OUT"/>
+        <attribute name="userLoginSession" type="java.util.Map" mode="OUT" optional="true"/>
+    </service>
     <service name="userImpersonate" engine="java" location="org.apache.ofbiz.common.login.LoginServices" invoke="userImpersonate" auth="true">
         <description>Used to Automatically Authenticate a username/password; create a UserLogin object</description>
         <required-permissions join-type="AND">

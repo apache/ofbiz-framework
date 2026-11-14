@@ -46,6 +46,7 @@ import org.apache.ofbiz.party.contact.ContactHelper;
 import org.apache.ofbiz.product.product.ProductEvents;
 import org.apache.ofbiz.product.store.ProductStoreWorker;
 import org.apache.ofbiz.security.SecurityUtil;
+import org.apache.ofbiz.security.login.MfaServices;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.service.ServiceUtil;
@@ -120,6 +121,28 @@ public class LoginEvents {
         return "success";
     }
 
+    private static boolean isMfaRequiredForPasswordRecovery(Delegator delegator, LocalDispatcher dispatcher, String userLoginId) {
+        try {
+            if (dispatcher == null) return true;
+            Map<String, Object> policy = dispatcher.runSync("isUserLoginMfaRequired", UtilMisc.toMap("userLoginId", userLoginId));
+            if (ServiceUtil.isError(policy)) return true;
+            boolean required = Boolean.TRUE.equals(policy.get("required"));
+            if (required) {
+                MfaServices.recordAuthenticationEvent(delegator, userLoginId, "MFA_PASSWORD_RECOVERY_BLOCKED", null, null);
+            }
+            return required;
+        } catch (Exception e) {
+            Debug.logWarning(e, "Unable to evaluate MFA password-recovery policy; refusing token recovery", MODULE);
+            return true;
+        }
+    }
+
+    private static String showGenericPasswordRecoveryResponse(HttpServletRequest request) {
+        String message = UtilProperties.getMessage(RESOURCE, "loginevents.new_password_sent_check_email", UtilHttp.getLocale(request));
+        request.setAttribute("_EVENT_MESSAGE_", message);
+        return "success";
+    }
+
     /** Show the password hint for the userLoginId specified in the request object.
      *@param request The HTTPRequest object for the current request
      *@param response The HTTPResponse object for the current request
@@ -148,6 +171,10 @@ public class LoginEvents {
             supposedUserLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", userLoginId).queryOne();
         } catch (GenericEntityException gee) {
             Debug.logWarning(gee, "", MODULE);
+        }
+        if (supposedUserLogin != null && isMfaRequiredForPasswordRecovery(delegator,
+                (LocalDispatcher) request.getAttribute("dispatcher"), userLoginId)) {
+            return showGenericPasswordRecoveryResponse(request);
         }
         if (supposedUserLogin != null) {
             passwordHint = supposedUserLogin.getString("passwordHint");
@@ -204,6 +231,10 @@ public class LoginEvents {
                         UtilHttp.getLocale(request));
                 request.setAttribute("_EVENT_MESSAGE_", errMsg);
                 return "success";
+            }
+
+            if (isMfaRequiredForPasswordRecovery(delegator, dispatcher, userLoginId)) {
+                return showGenericPasswordRecoveryResponse(request);
             }
 
             // check login is associated to a party
@@ -318,7 +349,11 @@ public class LoginEvents {
 
     public static String storeCheckLogin(HttpServletRequest request, HttpServletResponse response) {
         String responseString = LoginWorker.checkLogin(request, response);
-        if ("error".equals(responseString)) {
+        return continueStoreLogin(request, response, responseString);
+    }
+
+    static String continueStoreLogin(HttpServletRequest request, HttpServletResponse response, String responseString) {
+        if (!"success".equals(responseString)) {
             return responseString;
         }
         // if we are logged in okay, do the check store customer role
@@ -327,10 +362,11 @@ public class LoginEvents {
 
     public static String storeLogin(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
         String responseString = LoginWorker.login(request, response);
-        if (!"success".equals(responseString)) {
-            return responseString;
-        }
-        // if we logged in okay, do the check store customer role
-        return ProductEvents.checkStoreCustomerRole(request, response);
+        return continueStoreLogin(request, response, responseString);
+    }
+
+    public static String storeVerifyAuthFactor(HttpServletRequest request, HttpServletResponse response) {
+        String responseString = LoginWorker.verifyAuthFactor(request, response);
+        return continueStoreLogin(request, response, responseString);
     }
 }

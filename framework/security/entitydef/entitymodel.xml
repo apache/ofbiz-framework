@@ -117,6 +117,65 @@ under the License.
         <key-map field-name="originUserLoginId" rel-field-name="userLoginId"/>
       </relation>
     </entity>
+    <entity entity-name="UserLoginAuthFactor"
+            package-name="org.apache.ofbiz.security.login"
+            never-cache="true"
+            title="User Login Authentication Factor">
+      <field name="factorId" type="id"></field>
+      <field name="userLoginId" type="id-vlong"></field>
+      <field name="factorType" type="id"></field>
+      <field name="secret" type="long-varchar" encrypt="true"></field>
+      <field name="secretHash" type="long-varchar"></field>
+      <field name="factorLabel" type="description"></field>
+      <field name="needsValidation" type="indicator"></field>
+      <field name="lastUsedDate" type="date-time"></field>
+      <field name="lastUsedStep" type="numeric"></field>
+      <field name="fromDate" type="date-time"></field>
+      <field name="thruDate" type="date-time"></field>
+      <prim-key field="factorId"/>
+      <relation type="one" fk-name="ULAF_USER" rel-entity-name="UserLogin">
+        <key-map field-name="userLoginId"/>
+      </relation>
+    </entity>
+    <entity entity-name="UserLoginAuthChallenge"
+            package-name="org.apache.ofbiz.security.login"
+            never-cache="true"
+            title="Pending User Login Authentication Challenge">
+      <field name="challengeId" type="id"></field>
+      <field name="userLoginId" type="id-vlong"></field>
+      <field name="factorId" type="id"></field>
+      <field name="delegatorName" type="id-vlong"></field>
+      <field name="sessionBindingHash" type="long-varchar"></field>
+      <field name="challengeStatus" type="id"></field>
+      <field name="attemptCount" type="numeric"></field>
+      <field name="createdDate" type="date-time"></field>
+      <field name="expiresDate" type="date-time"></field>
+      <field name="verifiedDate" type="date-time"></field>
+      <prim-key field="challengeId"/>
+      <relation type="one" fk-name="ULAC_USER" rel-entity-name="UserLogin">
+        <key-map field-name="userLoginId"/>
+      </relation>
+      <relation type="one" fk-name="ULAC_FACTOR" rel-entity-name="UserLoginAuthFactor">
+        <key-map field-name="factorId"/>
+      </relation>
+    </entity>
+    <entity entity-name="UserAuthenticationEvent"
+            package-name="org.apache.ofbiz.security.login"
+            never-cache="true"
+            title="User Authentication Event">
+      <field name="authenticationEventId" type="id"></field>
+      <field name="userLoginId" type="id-vlong"></field>
+      <field name="eventType" type="id-long"></field>
+      <field name="factorType" type="id"></field>
+      <field name="challengeId" type="id"></field>
+      <field name="actorUserLoginId" type="id-vlong"></field>
+      <field name="eventReason" type="description"></field>
+      <field name="eventDate" type="date-time"></field>
+      <prim-key field="authenticationEventId"/>
+      <relation type="one-nofk" fk-name="UAE_USER" rel-entity-name="UserLogin">
+        <key-map field-name="userLoginId"/>
+      </relation>
+    </entity>
     <entity entity-name="UserLoginSession"
             package-name="org.apache.ofbiz.security.login"
             never-cache="true"
@@ -141,6 +200,7 @@ under the License.
       <field name="groupId" type="id"></field>
       <field name="groupName" type="value"></field>
       <field name="description" type="description"></field>
+      <field name="requireAuthFactor" type="indicator"></field>
       <prim-key field="groupId"/>
     </entity>
     <entity entity-name="SecurityGroupPermission"

@@ -51,6 +51,7 @@ poi = "6.0.0"
 pdfbox = "3.0.8"
 # Shared by shiro-crypto-cipher, shiro-crypto-core, shiro-lang.
 shiro = "3.0.1"
+totp = "1.7.1"
 # Shared by sshd-core, sshd-sftp.
 sshd = "2.20.1"
 # Shared by tika-core, tika-parser-pdf-module.
@@ -139,6 +140,7 @@ pdfbox-io = { module = "org.apache.pdfbox:pdfbox-io", version.ref = "pdfbox" }
 shiro-crypto-cipher = { module = "org.apache.shiro:shiro-crypto-cipher", version.ref = "shiro" }
 shiro-crypto-core = { module = "org.apache.shiro:shiro-crypto-core", version.ref = "shiro" }
 shiro-lang = { module = "org.apache.shiro:shiro-lang", version.ref = "shiro" }
+totp = { module = "dev.samstevens.totp:totp", version.ref = "totp" }
 sshd-core = { module = "org.apache.sshd:sshd-core", version.ref = "sshd" }
 sshd-sftp = { module = "org.apache.sshd:sshd-sftp", version.ref = "sshd" }
 tika-core = { module = "org.apache.tika:tika-core", version.ref = "tika" }

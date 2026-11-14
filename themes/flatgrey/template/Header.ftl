@@ -153,6 +153,7 @@ under the License.
             <#else>
               <li><a href="<@ofbizUrl>userprofile</@ofbizUrl>">${userLogin.userFullName!userLogin.userLoginId}</a></li>
             </#if>
+            <li><a href="<@ofbizUrl>authFactorSetup</@ofbizUrl>">MFA Setup</a></li>
             <li><a href="<@ofbizUrl>logout</@ofbizUrl>">${uiLabelMap.CommonLogout}</a></li>
           <#else>
             <li>${uiLabelMap.CommonWelcome}! <a href="<@ofbizUrl>${checkLoginUrl}</@ofbizUrl>">${uiLabelMap.CommonLogin}</a></li>
