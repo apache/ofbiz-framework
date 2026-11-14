@@ -18,61 +18,25 @@
  *******************************************************************************/
 package org.apache.ofbiz.webapp.ftl;
 
-import java.io.IOException;
-import java.io.Writer;
 import java.util.Map;
-import java.util.Set;
-import jakarta.servlet.http.HttpServletRequest;
-
-import org.apache.ofbiz.widget.model.ScriptLinkHelper;
 
 import freemarker.core.Environment;
-import freemarker.ext.beans.BeanModel;
-import freemarker.template.TemplateModelException;
-import freemarker.template.TemplateTransformModel;
+import freemarker.template.TemplateDirectiveBody;
+import freemarker.template.TemplateDirectiveModel;
+import freemarker.template.TemplateModel;
 
 /**
- * Render the externalized script tags collected from the "html-template" tag where multi-block = true
+ * Renders nothing. This directive used to write, at the end of the body, the script tags of the inline scripts
+ * extracted from the "html-template" widgets with multi-block = true. Inline scripts are no longer extracted, and the
+ * directive is only kept so that the footer template of an existing theme still renders.
+ * @deprecated remove the directive from theme templates
  */
-public class ScriptTagsFooterTransform implements TemplateTransformModel {
+@Deprecated
+public class ScriptTagsFooterTransform implements TemplateDirectiveModel {
 
     @Override
-    public final Writer getWriter(Writer out, @SuppressWarnings("rawtypes") Map args)
-            throws TemplateModelException, IOException {
-
-        return new Writer(out) {
-
-            @Override
-            public void close() throws IOException {
-                try {
-                    Environment env = Environment.getCurrentEnvironment();
-                    BeanModel req = (BeanModel) env.getVariable("request");
-                    if (req != null) {
-                        HttpServletRequest request = (HttpServletRequest) req.getWrappedObject();
-                        Set<String> scriptSrcSet = ScriptLinkHelper.getScriptLinksForBodyEnd(request);
-                        if (scriptSrcSet != null) {
-                            String srcList = "";
-                            for (String scriptSrc : scriptSrcSet) {
-                                srcList += ("<script src=\"" + scriptSrc + "\" type=\"text/javascript\"></script>\n");
-                            }
-                            out.write(srcList);
-                        }
-                    }
-                    return;
-                } catch (Exception e) {
-                    throw new IOException(e.getMessage());
-                }
-            }
-
-            @Override
-            public void flush() throws IOException {
-                out.flush();
-            }
-
-            @Override
-            public void write(char[] cbuf, int off, int len) {
-            }
-        };
-
+    public void execute(Environment env, @SuppressWarnings("rawtypes") Map params, TemplateModel[] loopVars,
+            TemplateDirectiveBody body) {
+        // Nothing to render.
     }
 }

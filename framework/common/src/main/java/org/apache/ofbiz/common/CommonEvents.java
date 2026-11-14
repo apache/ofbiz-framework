@@ -62,7 +62,6 @@ import org.apache.ofbiz.webapp.control.JWTManager;
 import org.apache.ofbiz.webapp.control.LoginWorker;
 import org.apache.ofbiz.security.SecurityUtil;
 import org.apache.ofbiz.widget.model.ModelWidget;
-import org.apache.ofbiz.widget.model.ScriptLinkHelper;
 import org.apache.ofbiz.widget.model.ThemeFactory;
 import org.apache.ofbiz.widget.renderer.VisualTheme;
 
@@ -182,34 +181,6 @@ public class CommonEvents {
                     Debug.logWarning(e, MODULE);
                 }
             }
-        }
-        return "success";
-    }
-
-    public static String jsResponseFromRequest(HttpServletRequest request, HttpServletResponse response) {
-
-        String fileName = request.getParameter("name");
-        String script = ScriptLinkHelper.getScriptFromCache(request.getSession(), fileName);
-
-        // return the JS String
-        Writer out;
-        try {
-
-            // set the JS content type
-            response.setContentType("text/javascript");
-            // script.length is not reliable for unicode characters
-            response.setContentLength(script.getBytes("UTF8").length);
-            // return 404 if script is empty
-            if (UtilValidate.isEmpty(script)) {
-                response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-            }
-
-            out = response.getWriter();
-            out.write(script);
-            out.flush();
-        } catch (IOException e) {
-            Debug.logError(e, MODULE);
-            return "error";
         }
         return "success";
     }

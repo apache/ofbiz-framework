@@ -527,7 +527,8 @@ under the License.
         <xs:attribute type="xs:boolean" name="multi-block" use="optional" default="false">
             <xs:annotation>
                 <xs:documentation>
-                    Inline script will be rendered as external script at bottom of body tag.
+                    Deprecated: this attribute no longer has any effect, inline scripts are rendered where they
+                    appear in the template. It is only kept so that existing screens still validate.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
