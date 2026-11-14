@@ -77,7 +77,11 @@ public final class DelegatorElement {
         }
         this.entityEcaHandlerClassName = entityEcaHandlerClassName;
         this.distributedCacheClearEnabled = "true".equalsIgnoreCase(element.getAttribute("distributed-cache-clear-enabled"));
-        this.distributedCacheClearClassName = element.getAttribute("distributed-cache-clear-class-name").intern();
+        String distributedCacheClearClassName = element.getAttribute("distributed-cache-clear-class-name").intern();
+        if (distributedCacheClearClassName.isEmpty()) {
+            distributedCacheClearClassName = "org.apache.ofbiz.entityext.cache.EntityCacheServices";
+        }
+        this.distributedCacheClearClassName = distributedCacheClearClassName;
         String distributedCacheClearUserLoginId = element.getAttribute("distributed-cache-clear-user-login-id").intern();
         if (distributedCacheClearUserLoginId.isEmpty()) {
             distributedCacheClearUserLoginId = "system";

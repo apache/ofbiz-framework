@@ -53,6 +53,7 @@ import org.apache.ofbiz.service.eca.ServiceEcaUtil;
 import org.apache.ofbiz.service.engine.GenericEngine;
 import org.apache.ofbiz.service.engine.GenericEngineFactory;
 import org.apache.ofbiz.service.group.ServiceGroupReader;
+import org.apache.ofbiz.service.jms.JmsListenerFactory;
 import org.apache.ofbiz.service.job.JobManager;
 import org.apache.ofbiz.service.job.JobManagerException;
 import org.apache.ofbiz.service.semaphore.ServiceSemaphore;
@@ -79,6 +80,7 @@ public final class ServiceDispatcher {
     // FIXME: These fields are not thread-safe. They are modified by EntityDataLoadContainer.
     // We need a better design - like have this class query EntityDataLoadContainer if data is being loaded.
     private static boolean enableJM = true;
+    private static boolean enableJMS = UtilProperties.getPropertyAsBoolean("service", "enableJMS", true);
     private static boolean enableSvcs = true;
 
     private Delegator delegator = null;
@@ -90,8 +92,9 @@ public final class ServiceDispatcher {
     private Map<String, DispatchContext> localContext = new ConcurrentHashMap<>();
     private Map<String, List<GenericServiceCallback>> callbacks = new HashMap<>();
     private JobManager jm = null;
+    private JmsListenerFactory jlf = null;
 
-    private ServiceDispatcher(Delegator delegator, boolean enableJM) {
+    private ServiceDispatcher(Delegator delegator, boolean enableJM, boolean enableJMS) {
         factory = new GenericEngineFactory(this);
         ServiceGroupReader.readConfig();
         ServiceEcaUtil.readConfig();
@@ -130,10 +133,14 @@ public final class ServiceDispatcher {
         } else {
             Debug.logError("[ServiceDispatcher.init] : Delegator parameter was null and caused an exception.", MODULE);
         }
+        // make sure we haven't disabled these features from running
+        if (enableJMS) {
+            this.jlf = JmsListenerFactory.getInstance(delegator);
+        }
     }
 
     private ServiceDispatcher(Delegator delegator) {
-        this(delegator, enableJM);
+        this(delegator, enableJM, enableJMS);
     }
 
     /**
@@ -855,6 +862,14 @@ public final class ServiceDispatcher {
     }
 
     /**
+     * Gets the JmsListenerFactory which holds the message listeners.
+     * @return JmsListenerFactory
+     */
+    public JmsListenerFactory getJMSListenerFactory() {
+        return this.jlf;
+    }
+
+    /**
      * Gets the Delegator associated with this dispatcher
      * @return Delegator associated with this dispatcher
      */
@@ -898,6 +913,10 @@ public final class ServiceDispatcher {
 
     private void shutdown() throws GenericServiceException {
         Debug.logImportant("Shutting down the service engine...", MODULE);
+        if (jlf != null) {
+            // shutdown JMS listeners
+            jlf.closeListeners();
+        }
     }
 
     // checks if parameters were passed for authentication
@@ -1079,6 +1098,15 @@ public final class ServiceDispatcher {
      */
     public static void enableJM(boolean enable) {
         ServiceDispatcher.enableJM = enable;
+    }
+
+    /**
+     * Enables/Disables the JMS listeners globally
+     * (this will not effect any dispatchers already running)
+     * @param enable
+     */
+    public static void enableJMS(boolean enable) {
+        ServiceDispatcher.enableJMS = enable;
     }
 
     /**
