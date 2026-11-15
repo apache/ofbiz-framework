@@ -262,8 +262,16 @@ allprojects {
         // the switch from jCenter to mavenCentral needs some additional repositories to be configured here
         // this should be checked frequently to remove obsolete configurations if the artifacts are available
         // on mavenCentral directly
-        maven {
-            url = "https://artifacts.alfresco.com/nexus/content/repositories/public/"
+        exclusiveContent {
+            // org.activiti:activiti-juel-jakarta and its parent POMs are not on Maven Central
+            forRepository {
+                maven {
+                    url = "https://artifacts.alfresco.com/nexus/content/repositories/public/"
+                }
+            }
+            filter {
+                includeGroup 'org.activiti'
+            }
         }
         /* maven {
             // To test not released FreeMarker versions, see OFBIZ-12934 and sub-tasks for details
