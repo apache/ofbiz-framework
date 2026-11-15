@@ -46,7 +46,7 @@ geronimo-transaction = "4.0.0"
 geronimo-jms-spec = "1.1.1"
 httpclient-cache = "4.5.14"
 # Shared by log4j-api, log4j-core, log4j-layout-template-json, log4j-legacy-api, log4j-jul,
-# log4j-slf4j2-impl, log4j-web, log4j-jcl.
+# log4j-slf4j2-impl, log4j-jcl.
 log4j = "2.26.1"
 poi = "6.0.0"
 pdfbox = "3.0.8"
@@ -185,7 +185,6 @@ h2 = { module = "com.h2database:h2", version.ref = "h2" }
 log4j-legacy-api = { module = "org.apache.logging.log4j:log4j-1.2-api", version.ref = "log4j" }
 log4j-jul = { module = "org.apache.logging.log4j:log4j-jul", version.ref = "log4j" }
 log4j-slf4j2-impl = { module = "org.apache.logging.log4j:log4j-slf4j2-impl", version.ref = "log4j" }
-log4j-web = { module = "org.apache.logging.log4j:log4j-web", version.ref = "log4j" }
 log4j-jcl = { module = "org.apache.logging.log4j:log4j-jcl", version.ref = "log4j" }
 codenarc = { module = "org.codenarc:CodeNarc", version.ref = "codenarc" }
 checkstyle = { module = "com.puppycrawl.tools:checkstyle", version.ref = "checkstyle" }
