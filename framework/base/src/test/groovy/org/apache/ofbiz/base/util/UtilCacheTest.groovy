@@ -20,10 +20,11 @@ package org.apache.ofbiz.base.util
 
 import static org.apache.ofbiz.base.util.tool.UtilCacheTestTools.createListener
 
-import java.util.concurrent.CountDownLatch
-import java.util.concurrent.TimeUnit
+import java.util.concurrent.CopyOnWriteArrayList
 
+import org.apache.ofbiz.base.util.cache.CacheDeclaration
 import org.apache.ofbiz.base.util.cache.CacheListener
+import org.apache.ofbiz.base.util.cache.CachePolicy
 import org.apache.ofbiz.base.util.cache.UtilCache
 import org.apache.ofbiz.base.util.tool.UtilCacheTestTools.Listener
 
@@ -52,29 +53,37 @@ class UtilCacheTest  {
             controlMap.put(key, value)
         }
         assert cacheToPopulate.size() == rowsToAdd
-        assert controlMap.keySet() == cacheToPopulate.getCacheLineKeys()
+        assert controlMap.keySet() == cacheToPopulate.keys()
         assert cacheToPopulate.values().containsAll(controlMap.values())
     }
 
-    static void doUtilCacheCreateTest(UtilCache myCache, Integer sizeLimit, Integer maxInMemory, Long expireTime,
-                                      Boolean useSoftReference) {
-        if (sizeLimit) {
-            assert sizeLimit.intValue() == myCache.sizeLimit
+    static void doUtilCacheCreateTest(UtilCache myCache, Long maxSize, Long expireTime, Boolean useSoftReference) {
+        if (maxSize != null) {
+            assert maxSize.longValue() == myCache.maxSize
         }
-        if (maxInMemory) {
-            assert maxInMemory.intValue() == myCache.maxInMemory
-        }
-        if (expireTime) {
+        if (expireTime != null) {
             assert expireTime.longValue() == myCache.expireTime
         }
-        if (useSoftReference) {
+        if (useSoftReference != null) {
             assert useSoftReference == myCache.getUseSoftReference()
         }
         assert myCache.isEmpty()
-        assert Collections.emptySet() == myCache.cacheLineKeys
+        assert Collections.emptySet() == myCache.keys()
         assert Collections.emptyList() == myCache.values()
         assert myCache === UtilCache.findCache(myCache.name)
         assert myCache !== UtilCache.createUtilCache()
+    }
+
+    /** Polls {@code condition} until it holds or {@code timeoutMillis} pass; returns whether it held. */
+    static boolean waitFor(long timeoutMillis = 5000, Closure<Boolean> condition) {
+        long deadline = System.currentTimeMillis() + timeoutMillis
+        while (!condition()) {
+            if (System.currentTimeMillis() > deadline) {
+                return false
+            }
+            sleep(50)
+        }
+        return true
     }
 
     static <K, V> void doSingleKeyInSingleCacheTest(UtilCache myCache, K myKey, V myValue) {
@@ -96,18 +105,16 @@ class UtilCacheTest  {
     @Test
     void testCreateUtilCache() {
         String name = 'testCreateUtilCache'
-        doUtilCacheCreateTest(UtilCache.createUtilCache(), null, null, null, null)
-        doUtilCacheCreateTest(UtilCache.createUtilCache(name), null, null, null, null)
-        doUtilCacheCreateTest(UtilCache.createUtilCache(name, false), null, null, null, Boolean.FALSE)
-        doUtilCacheCreateTest(UtilCache.createUtilCache(name, true), null, null, null, Boolean.TRUE)
-        doUtilCacheCreateTest(UtilCache.createUtilCache(5, 15000), 5, null, 15000L, null)
-        doUtilCacheCreateTest(UtilCache.createUtilCache(name, 6, 16000), 6, null, 16000L, null)
-        doUtilCacheCreateTest(UtilCache.createUtilCache(name, 7, 17000, false), 7, null, 17000L, Boolean.FALSE)
-        doUtilCacheCreateTest(UtilCache.createUtilCache(name, 8, 18000, true), 8, null, 18000L, Boolean.TRUE)
-        doUtilCacheCreateTest(UtilCache.createUtilCache(name, 9, 5, 19000, false), 9, 5, 19000L, Boolean.FALSE)
-        doUtilCacheCreateTest(UtilCache.createUtilCache(name, 10, 6, 20000, false), 10, 6, 20000L, Boolean.FALSE)
-        doUtilCacheCreateTest(UtilCache.createUtilCache(name, 11, 7, 21000, false, 'a', 'b'), 11, 7, 21000L, Boolean.FALSE)
-        doUtilCacheCreateTest(UtilCache.createUtilCache(name, 12, 8, 22000, false, 'c', 'd'), 12, 8, 22000L, Boolean.FALSE)
+        doUtilCacheCreateTest(UtilCache.createUtilCache(), 0L, 0L, Boolean.FALSE)
+        doUtilCacheCreateTest(UtilCache.createUtilCache(name), 0L, 0L, Boolean.FALSE)
+        doUtilCacheCreateTest(UtilCache.createUtilCache(name, false), 0L, 0L, Boolean.FALSE)
+        doUtilCacheCreateTest(UtilCache.createUtilCache(name, true), 0L, 0L, Boolean.TRUE)
+        doUtilCacheCreateTest(UtilCache.createUtilCache(5, 15000), 5L, 15000L, Boolean.FALSE)
+        doUtilCacheCreateTest(UtilCache.createUtilCache(name, 6, 16000), 6L, 16000L, Boolean.FALSE)
+        doUtilCacheCreateTest(UtilCache.createUtilCache(name, 7, 17000, false), 7L, 17000L, Boolean.FALSE)
+        doUtilCacheCreateTest(UtilCache.createUtilCache(name, 8, 18000, true), 8L, 18000L, Boolean.TRUE)
+        doUtilCacheCreateTest(UtilCache.createUtilCache(name, 9, 5, 19000, false), 5L, 19000L, Boolean.FALSE)
+        doUtilCacheCreateTest(UtilCache.createUtilCache(name, 10, 0, 20000, false), 10L, 20000L, Boolean.FALSE)
     }
     // codenarc-enable JUnitTestMethodWithoutAssert
 
@@ -117,8 +124,8 @@ class UtilCacheTest  {
         UtilCache myCache = UtilCache.createUtilCache(name, 5, 0, 0, false)
         assert UtilCache.getUtilCacheTableKeySet().contains(name)
         assert myCache == UtilCache.findCache(name)
-        assert myCache == UtilCache.getOrCreateUtilCache(
-                name, myCache.sizeLimit, myCache.maxInMemory, myCache.expireTime, myCache.useSoftReference)
+        assert myCache == UtilCache.getOrCreateUtilCache(name, (int) myCache.maxSize, 0, myCache.expireTime,
+                myCache.useSoftReference)
     }
 
     @Test
@@ -202,20 +209,13 @@ class UtilCacheTest  {
         Listener myCacheListener = createListener(myCache)
         Listener controlListener = new Listener()
         Map controlMap = [:]
-        // expired entries are removed by a background thread, so wait for their removal instead of
-        // sleeping a fixed time; added after myCacheListener, so it is notified after it
-        CountDownLatch removals = new CountDownLatch(5)
-        myCache.addListener([noteKeyRemoval: { cache, key, value -> removals.countDown() },
-                             noteKeyAddition: { cache, key, value -> },
-                             noteKeyUpdate: { cache, key, newValue, oldValue -> }] as CacheListener)
-        // long enough for the entries to still be there when populateEmptyCache checks them on a busy machine
         myCache.setExpireTime(1000)
         populateEmptyCache(name, myCache, 5, controlMap, controlListener)
         controlMap.forEach { k, v -> controlListener.noteKeyRemoval(myCache, k, v) }
-        assert removals.await(30, TimeUnit.SECONDS)
-        assert myCache.getCacheLineKeys().isEmpty()
+        // reads stop returning an expired element at once, but Caffeine's timer wheel removes it and tells the
+        // listeners up to about a second later
+        assert waitFor { myCache.keys().isEmpty() && myCacheListener == controlListener }
         assert myCache.values().isEmpty()
-        assert myCacheListener == controlListener
     }
 
     @Test
@@ -226,18 +226,18 @@ class UtilCacheTest  {
         Map controlMap = [:]
         populateEmptyCache(name, myCache, 5, controlMap)
 
-        myCache.setMaxInMemory(2)
+        myCache.setMaxSize(2)
         assert myCache.size() == 2
-        controlMap.keySet().retainAll(myCache.getCacheLineKeys())
-        assert controlMap.keySet() == myCache.getCacheLineKeys()
+        controlMap.keySet().retainAll(myCache.keys())
+        assert controlMap.keySet() == myCache.keys()
         assert myCache.values().containsAll(controlMap.values())
 
-        myCache.setMaxInMemory(0)
-        assert controlMap.keySet() == myCache.getCacheLineKeys()
+        myCache.setMaxSize(0)
+        assert controlMap.keySet() == myCache.keys()
         assert myCache.values().containsAll(controlMap.values())
 
-        myCache.setMaxInMemory(size)
-        assert controlMap.keySet() == myCache.getCacheLineKeys()
+        myCache.setMaxSize(size)
+        assert controlMap.keySet() == myCache.keys()
         assert myCache.values().containsAll(controlMap.values())
     }
 
@@ -296,6 +296,78 @@ class UtilCacheTest  {
         assert inCache === value2
         doSingleKeyInSingleCacheTest myCache, key2, value2
         assert controlListener == myCacheListener
+    }
+
+    @Test
+    void testGetWithLoader() {
+        String name = 'testGetWithLoader'
+        UtilCache<String, String> myCache = UtilCache.createUtilCache(name, 0, 0, 0, false)
+        Listener myCacheListener = createListener(myCache)
+        Listener controlListener = new Listener()
+        int calls = 0
+        controlListener.noteKeyAddition(myCache, 'key', 'loaded')
+        assert myCache.get('key') { calls++; 'loaded' } == 'loaded'
+        assert myCache.get('key') { calls++; 'other' } == 'loaded'
+        assert myCache.get('none') { null } == null
+        assert calls == 1
+        assert !myCache.containsKey('none')
+        assert myCacheListener == controlListener
+    }
+
+    @Test
+    void testPutNullValueRemovesKey() {
+        String name = 'testPutNullValueRemovesKey'
+        UtilCache<String, String> myCache = UtilCache.createUtilCache(name, 0, 0, 0, false)
+        myCache.put('key', 'value')
+        assert myCache.put('key', null) == 'value'
+        assert !myCache.containsKey('key')
+    }
+
+    @Test
+    void testDeclareReconfiguresExistingCache() {
+        String name = 'testDeclareReconfigures'
+        UtilCache<String, String> myCache = UtilCache.createUtilCache(name, 0, 0, 0, false)
+        myCache.put('key', 'value')
+        try {
+            UtilCache.declare([new CacheDeclaration(name, false, 3L, 50000L, null, CachePolicy.LOCAL)])
+            assert myCache.maxSize == 3
+            assert myCache.expireTime == 50000
+            assert myCache.policy == CachePolicy.LOCAL
+            assert myCache.get('key') == 'value'
+        } finally {
+            UtilCache.declare([])
+        }
+        assert myCache.maxSize == 0
+        assert myCache.expireTime == 0
+        assert myCache.policy == CachePolicy.INVALIDATE
+        assert myCache.get('key') == 'value'
+    }
+
+    @Test
+    void testReconfigureKeepsEntriesAndNotifiesExpiryOnce() {
+        String name = 'testReconfigureKeepsEntries'
+        UtilCache<String, String> myCache = UtilCache.createUtilCache(name, 0, 0, 2000, false)
+        List<String> removals = new CopyOnWriteArrayList<>()
+        myCache.addListener([
+                noteKeyAddition: { cache, key, value -> },
+                noteKeyUpdate: { cache, key, newValue, oldValue -> },
+                noteKeyRemoval: { cache, key, oldValue -> removals.add("$key=$oldValue".toString()) },
+        ] as CacheListener<String, String>)
+        myCache.put('a', '1')
+        myCache.put('b', '2')
+        myCache.put('c', '3')
+
+        myCache.setMaxSize(10)
+        assert myCache.maxSize == 10
+        assert myCache.keys() == ['a', 'b', 'c'] as Set
+        assert myCache.get('b') == '2'
+        assert removals.isEmpty()
+
+        // the copied entries keep the expiry they had left and are reported once, by the new store only
+        assert waitFor { removals.size() >= 3 }
+        sleep(1500) // past the duplicate window: a second notification would show up by now
+        assert removals.sort() == ['a=1', 'b=2', 'c=3']
+        assert myCache.isEmpty()
     }
 
 }

@@ -25,4 +25,7 @@ under the License.
     <classpath type="dir" location="config"/>
 
     <test-suite loader="main" location="testdef/MinilangTests.xml"/>
+
+    <cache name="minilang.SimpleMethodsDirect" expire-time="10000"/>
+    <cache name="minilang.SimpleMethodsResource" expire-time="10000"/>
 </ofbiz-component>

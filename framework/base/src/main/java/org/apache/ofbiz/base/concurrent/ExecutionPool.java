@@ -21,11 +21,8 @@ package org.apache.ofbiz.base.concurrent;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.concurrent.DelayQueue;
-import java.util.concurrent.Delayed;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
@@ -44,8 +41,6 @@ public final class ExecutionPool {
     public static final ExecutorService GLOBAL_BATCH = new ThreadPoolExecutor(0, Integer.MAX_VALUE, 5, TimeUnit.SECONDS, new SynchronousQueue<>(),
             new ExecutionPoolThreadFactory(null, "OFBiz-batch"));
     public static final ForkJoinPool GLOBAL_FORK_JOIN = new ForkJoinPool();
-    private static final ExecutorService PULSE_EXECUTION_POOL = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors(),
-            new ExecutionPoolThreadFactory(null, "OFBiz-ExecutionPoolPulseWorker"));
 
     protected static class ExecutionPoolThreadFactory implements ThreadFactory {
         private final ThreadGroup group;
@@ -91,104 +86,4 @@ public final class ExecutionPool {
         }
         return result;
     }
-
-    public static void addPulse(Pulse pulse) {
-        DELAY_QUEUE.put(pulse);
-    }
-
-    public static void removePulse(Pulse pulse) {
-        DELAY_QUEUE.remove(pulse);
-    }
-
-    static {
-        int numberOfExecutionPoolPulseWorkers = Runtime.getRuntime().availableProcessors();
-        for (int i = 0; i < numberOfExecutionPoolPulseWorkers; i++) {
-            PULSE_EXECUTION_POOL.execute(new ExecutionPoolPulseWorker());
-        }
-    }
-
-    private static final DelayQueue<Pulse> DELAY_QUEUE = new DelayQueue<>();
-
-    public static class ExecutionPoolPulseWorker implements Runnable {
-        @Override
-        public void run() {
-            try {
-                while (true) {
-                    DELAY_QUEUE.take().run();
-                }
-            } catch (InterruptedException e) {
-                Debug.logError(e, MODULE);
-            }
-        }
-    }
-
-    public abstract static class Pulse implements Delayed, Runnable {
-        private final long expireTimeNanos;
-        private final long loadTimeNanos;
-
-        protected Pulse(long delayNanos) {
-            this(System.nanoTime(), delayNanos);
-        }
-
-        protected Pulse(long loadTimeNanos, long delayNanos) {
-            this.loadTimeNanos = loadTimeNanos;
-            expireTimeNanos = loadTimeNanos + delayNanos;
-        }
-
-        /**
-         * Gets load time nanos.
-         * @return the load time nanos
-         */
-        public long getLoadTimeNanos() {
-            return loadTimeNanos;
-        }
-
-        /**
-         * Gets expire time nanos.
-         * @return the expire time nanos
-         */
-        public long getExpireTimeNanos() {
-            return expireTimeNanos;
-        }
-
-        @Override
-        public final long getDelay(TimeUnit unit) {
-            return unit.convert(expireTimeNanos - System.nanoTime(), TimeUnit.NANOSECONDS);
-        }
-
-        @Override
-        public final int compareTo(Delayed other) {
-            if (this.equals(other)) {
-                return 0;
-            }
-            long r = timeDiff((Pulse) other);
-            if (r < 0) {
-                return -1;
-            }
-            return 1;
-        }
-
-        @Override
-        public final boolean equals(Object other) {
-            if (other instanceof Pulse) {
-                return timeDiff((Pulse) other) == 0;
-            }
-            return false;
-        }
-
-        @Override
-        public int hashCode() {
-            return super.hashCode();
-        }
-
-        /**
-         * Calculates the difference between this.expireTimeNanos and other.expireTimeNanos
-         * @param other used to calculate the difference
-         * @return the time difference of the two instance's expireTimeNanos
-         */
-        long timeDiff(Pulse other) {
-            return expireTimeNanos - other.expireTimeNanos;
-        }
-    }
-
 }

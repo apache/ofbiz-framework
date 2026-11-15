@@ -32,4 +32,6 @@ under the License.
     -->
 
     <test-suite loader="main" location="testdef/webapptests.xml"/>
+
+    <cache name="webapp.ControllerConfig" expire-time="10000"/>
 </ofbiz-component>

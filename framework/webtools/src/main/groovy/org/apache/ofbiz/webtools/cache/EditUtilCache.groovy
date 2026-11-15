@@ -32,12 +32,9 @@ if (cacheName) {
                 cacheSize: UtilFormatOut.formatQuantity(utilCache.size()),
                 hitCount: UtilFormatOut.formatQuantity(utilCache.getHitCount()),
                 missCountTot: UtilFormatOut.formatQuantity(utilCache.getMissCountTotal()),
-                missCountNotFound: UtilFormatOut.formatQuantity(utilCache.getMissCountNotFound()),
-                missCountExpired: UtilFormatOut.formatQuantity(utilCache.getMissCountExpired()),
-                missCountSoftRef: UtilFormatOut.formatQuantity(utilCache.getMissCountSoftRef()),
                 removeHitCount: UtilFormatOut.formatQuantity(utilCache.getRemoveHitCount()),
                 removeMissCount: UtilFormatOut.formatQuantity(utilCache.getRemoveMissCount()),
-                maxInMemory: UtilFormatOut.formatQuantity(utilCache.getMaxInMemory()),
+                maxInMemory: UtilFormatOut.formatQuantity(utilCache.getMaxSize()),
                 expireTime: UtilFormatOut.formatQuantity(utilCache.getExpireTime()),
                 useSoftReference: utilCache.getUseSoftReference().toString()
         ]

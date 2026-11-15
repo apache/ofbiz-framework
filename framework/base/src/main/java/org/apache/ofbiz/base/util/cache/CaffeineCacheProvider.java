@@ -18,32 +18,18 @@
  *******************************************************************************/
 package org.apache.ofbiz.base.util.cache;
 
-import org.apache.ofbiz.base.concurrent.ExecutionPool;
+import java.util.function.BiConsumer;
 
-public abstract class CacheLine<V> extends ExecutionPool.Pulse {
-    CacheLine(long loadTimeNanos, long expireTimeNanos) {
-        super(loadTimeNanos, expireTimeNanos);
-    }
+/** The default {@link CacheProvider}, backed by Caffeine. */
+public final class CaffeineCacheProvider implements CacheProvider {
 
-    abstract CacheLine<V> changeLine(boolean useSoftReference, long expireTimeNanos);
-    abstract void remove();
-
-    /**
-     * Different expire time boolean.
-     * @param expireTimeNanos the expire time nanos
-     * @return the boolean
-     */
-    boolean differentExpireTime(long expireTimeNanos) {
-        return this.getExpireTimeNanos() - getLoadTimeNanos() - expireTimeNanos != 0;
-    }
-    public abstract V getValue();
-
-    void cancel() {
+    @Override
+    public String getName() {
+        return "caffeine";
     }
 
     @Override
-    public void run() {
-        remove();
+    public <K, V> CacheStore<K, V> create(CacheSettings settings, BiConsumer<K, V> onExpired) {
+        return new CaffeineCacheStore<>(settings, onExpired);
     }
 }
-

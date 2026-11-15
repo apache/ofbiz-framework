@@ -34,6 +34,7 @@ import org.apache.ofbiz.base.component.ComponentLoaderConfig.ComponentDef;
 import org.apache.ofbiz.base.start.Start;
 import org.apache.ofbiz.base.start.StartupCommand;
 import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.cache.UtilCache;
 
 /**
  * ComponentContainer - StartupContainer implementation for Components
@@ -75,6 +76,9 @@ public class ComponentContainer implements Container {
                 loadComponent(ofbizHome, def);
             }
             ComponentConfig.sortDependencies();
+            UtilCache.declare(ComponentConfig.getAllCacheInfos().stream()
+                    .map(ComponentConfig.CacheInfo::getDeclaration)
+                    .toList());
         } catch (IOException | ComponentException e) {
             throw new ContainerException(e);
         }

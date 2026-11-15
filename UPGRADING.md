@@ -151,6 +151,17 @@ the same pull request.
   ([OFBIZ-13848](https://issues.apache.org/jira/browse/OFBIZ-13848)). Nothing calls the service or implements the
   interface. The telecom entities and their seed types stay; call your gateway service directly and record the
   message with `createCommunicationEvent`.
+* `framework/base/config/cache.properties` is removed. Cache settings are declared with `<cache>` elements in the
+  `ofbiz-component.xml` of the component that owns the cache, for example
+  `<cache name="widget.screen.locationResource" expire-time="10000"/>` or
+  `<cache name-prefix="entitycache." max-size="5000"/>`. To change a setting for your installation, declare the same
+  name or prefix in your own component with only the attributes you want to change. Declarations are merged attribute
+  by attribute: for each attribute an exact name beats a prefix, a longer prefix beats a shorter one, and between
+  declarations of the same name or prefix the component loaded last wins. `<cache>` elements must come after every
+  other element of `ofbiz-component.xml`.
+  The keys map as follows: `maxSize`/`maxInMemory` to `max-size`, `expireTime` to `expire-time`, `useSoftReference`
+  to `soft-values`. The `default.*` and `${entity-name}`-style keys have no replacement; use `name-prefix` instead
+  ([OFBIZ-13833](https://issues.apache.org/jira/browse/OFBIZ-13833)).
 
 ### Custom code
 
@@ -265,6 +276,17 @@ the same pull request.
   project request form of the party communication event screens (`form=request`), the `projectMgrExists` context
   field and the sfa `updateTaskAssigment` request are removed. projectmgr lists a project's orders and creates
   requests from communication events on its own screens.
+* `UtilCache` runs on Caffeine through a small cache SPI (`CacheProvider`, `CacheStore`) and its API is tidied
+  ([OFBIZ-13833](https://issues.apache.org/jira/browse/OFBIZ-13833)): `getCacheLineKeys()` becomes `keys()`,
+  `erase()` becomes `clear()`, `getMaxInMemory()`, `setMaxInMemory()`, `getSizeLimit()` and `setSizeLimit()` become
+  `getMaxSize()` and `setMaxSize()` (now `long`), and `getCacheLineTable()`, `getCacheLineValues()`,
+  `getMissCountNotFound()`, `CacheLine` and its subclasses are removed. The trailing `String... names` parameters of
+  `createUtilCache` and `getOrCreateUtilCache` are removed, and so are `getCacheNamePrefixes()` and
+  `getCacheNames(String)` of the entity `AbstractCache`. `put(key, null)` now removes the key. `UtilCache` is no
+  longer `Serializable`. New: `get(key, loader)`, which loads and caches the value on a miss. `CacheSoftReference`,
+  `ReferenceCleaner`, `ExecutionPool.Pulse`, `ExecutionPool.ExecutionPoolPulseWorker`, `addPulse`, `removePulse` and
+  `UtilCache.onEviction` are removed. Size eviction now uses Caffeine's frequency-based policy rather than LRU, which
+  only matters for caches given a max-size.
 
 ### Themes
 

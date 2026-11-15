@@ -30,6 +30,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.apache.ofbiz.base.component.ComponentConfig;
+import org.apache.ofbiz.base.util.cache.CachePolicy;
+import org.apache.ofbiz.base.util.cache.UtilCache;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -58,6 +60,7 @@ public final class ComponentContainerTest {
         for (Path cfg : CONFIGS) {
             Files.deleteIfExists(ofbizHome.resolve(cfg));
         }
+        UtilCache.declare(List.of());
     }
 
     @Test
@@ -77,5 +80,22 @@ public final class ComponentContainerTest {
                 .filter(name -> name.equals("test-order") || name.equals("test-accounting"))
                 .collect(Collectors.toList());
         assertEquals(Arrays.asList("test-order", "test-accounting"), loadedComponents);
+    }
+
+    @Test
+    public void testCacheDeclarationsMergeInLoadOrder() throws ContainerException {
+        ComponentContainer containerObj = new ComponentContainer();
+        containerObj.init("component-container", ofbizHome);
+
+        UtilCache<String, String> exact = UtilCache.createUtilCache("test.component.cache");
+        assertEquals(2000L, exact.getExpireTime());
+        assertEquals(CachePolicy.LOCAL, exact.getPolicy());
+        assertEquals(Boolean.TRUE, exact.getUseSoftReference());
+        assertEquals(10L, exact.getMaxSize());
+
+        UtilCache<String, String> byPrefix = UtilCache.createUtilCache("test.component.other");
+        assertEquals(10L, byPrefix.getMaxSize());
+        assertEquals(0L, byPrefix.getExpireTime());
+        assertEquals(CachePolicy.INVALIDATE, byPrefix.getPolicy());
     }
 }
