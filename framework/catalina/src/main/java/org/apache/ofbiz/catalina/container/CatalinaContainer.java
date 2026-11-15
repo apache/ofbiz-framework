@@ -322,7 +322,7 @@ public class CatalinaContainer implements Container {
         ReplicationTransmitter trans = new ReplicationTransmitter();
         try {
             MultiPointSender mps = (MultiPointSender) Class.forName(ContainerConfig.getPropertyValue(clusterProp,
-                    "replication-mode", "org.apache.catalina.tribes.transport.bio.PooledMultiSender")).getDeclaredConstructor().newInstance();
+                    "replication-mode", "org.apache.catalina.tribes.transport.nio.PooledParallelSender")).getDeclaredConstructor().newInstance();
             trans.setTransport(mps);
         } catch (Exception exc) {
             throw new ContainerException("Cluster configuration requires a valid replication-mode property: " + exc.getMessage());
