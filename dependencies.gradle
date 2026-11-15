@@ -21,7 +21,6 @@ dependencies {
     implementation libs.caffeine
     implementation libs.guava
     implementation libs.zxing.core
-    implementation libs.concurrentlinkedhashmap.lru
     implementation libs.ez.vcard
     implementation libs.owasp.java.html.sanitizer
     implementation libs.libphonenumber

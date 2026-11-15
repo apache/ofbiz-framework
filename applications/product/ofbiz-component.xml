@@ -88,4 +88,7 @@ under the License.
         base-permission="OFBTOOLS,FACILITY"
         app-shortcut-screen="component://product/widget/facility/FacilityScreens.xml#ShortcutApp"
         mount-point="/facility"/>
+
+    <cache name="product.content.rendered" expire-time="60000" soft-values="true"/>
+    <cache name="product.config" expire-time="60000" soft-values="true"/>
 </ofbiz-component>

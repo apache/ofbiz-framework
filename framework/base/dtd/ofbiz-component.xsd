@@ -31,6 +31,7 @@ under the License.
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="webapp"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="container"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="uel-mapping"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="cache"/>
             </xs:sequence>
             <xs:attributeGroup ref="attlist.ofbiz-component"/>
         </xs:complexType>
@@ -306,5 +307,40 @@ under the License.
     <xs:attributeGroup name="attlist.uel-mapping">
         <xs:attribute type="xs:string" name="name" use="required"/>
         <xs:attribute type="xs:string" name="class-name" use="required"/>
+    </xs:attributeGroup>
+    <xs:element name="cache">
+        <xs:annotation>
+            <xs:documentation>
+                Settings of a cache created through UtilCache. Give exactly one of name and name-prefix. All the
+                declarations that match a cache are merged attribute by attribute: for each attribute an exact name
+                beats any prefix, a longer prefix beats a shorter one, and between declarations of the same name or
+                prefix the component loaded last wins. Attributes no declaration sets keep the value given by the
+                code that creates the cache.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:attributeGroup ref="attlist.cache"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.cache">
+        <xs:attribute type="xs:string" name="name"/>
+        <xs:attribute type="xs:string" name="name-prefix"/>
+        <xs:attribute type="xs:nonNegativeInteger" name="max-size">
+            <xs:annotation><xs:documentation>Maximum number of entries, 0 for no limit.</xs:documentation></xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:nonNegativeInteger" name="expire-time">
+            <xs:annotation><xs:documentation>Milliseconds an entry lives after it is written, 0 for no expiry.</xs:documentation></xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:boolean" name="soft-values"/>
+        <xs:attribute name="policy">
+            <xs:annotation><xs:documentation>Behaviour when several servers share one database; no effect without an invalidation bus.</xs:documentation></xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="local"/>
+                    <xs:enumeration value="invalidate"/>
+                    <xs:enumeration value="near"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
     </xs:attributeGroup>
 </xs:schema>

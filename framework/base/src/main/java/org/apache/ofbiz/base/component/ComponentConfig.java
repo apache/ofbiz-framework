@@ -46,6 +46,8 @@ import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilURL;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.UtilXml;
+import org.apache.ofbiz.base.util.cache.CacheDeclaration;
+import org.apache.ofbiz.base.util.cache.CachePolicy;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -129,6 +131,16 @@ public final class ComponentConfig {
                 .filter(matchingComponentName(name))
                 .flatMap(cc -> cc.getEntityResourceInfos().stream())
                 .filter(eri -> UtilValidate.isEmpty(type) || type.equals(eri.type))
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Provides the {@code <cache>} declarations of all components, in component load order.
+     * @return a list of cache declarations
+     */
+    public static List<CacheInfo> getAllCacheInfos() {
+        return components()
+                .flatMap(cc -> cc.getCacheInfos().stream())
                 .collect(Collectors.toList());
     }
 
@@ -294,6 +306,7 @@ public final class ComponentConfig {
     private final List<KeystoreInfo> keystoreInfos;
     private final List<WebappInfo> webappInfos;
     private final List<UelMappingInfo> uelMappings;
+    private final List<CacheInfo> cacheInfos;
     private final List<ContainerConfig.Configuration> configurations;
 
     /**
@@ -318,6 +331,7 @@ public final class ComponentConfig {
         this.webappInfos = b.webappInfos;
         this.configurations = b.configurations;
         this.uelMappings = b.uelMappings;
+        this.cacheInfos = (b.cacheInfos == null) ? Collections.emptyList() : b.cacheInfos;
     }
 
     /**
@@ -337,6 +351,7 @@ public final class ComponentConfig {
         private List<KeystoreInfo> keystoreInfos;
         private List<WebappInfo> webappInfos;
         private List<UelMappingInfo> uelMappings;
+        private List<CacheInfo> cacheInfos;
         private List<ContainerConfig.Configuration> configurations;
 
         public Builder globalName(String name) {
@@ -399,6 +414,11 @@ public final class ComponentConfig {
             return this;
         }
 
+        public Builder cacheInfos(List<CacheInfo> cacheInfos) {
+            this.cacheInfos = cacheInfos;
+            return this;
+        }
+
         public Builder uelMappings(List<UelMappingInfo> uelMappings) {
             this.uelMappings = uelMappings;
             return this;
@@ -454,6 +474,7 @@ public final class ComponentConfig {
         keystoreInfos = collectElements(componentElement, "keystore", KeystoreInfo::new);
         webappInfos = collectElements(componentElement, "webapp", WebappInfo::new);
         uelMappings = collectElements(componentElement, "uel-mapping", UelMappingInfo::new);
+        cacheInfos = collectElements(componentElement, "cache", CacheInfo::new);
         resourceLoaderInfos = UtilXml.childElementList(componentElement, "resource-loader").stream()
                 .map(ResourceLoaderInfo::new)
                 .collect(Collectors.collectingAndThen(
@@ -553,6 +574,10 @@ public final class ComponentConfig {
 
     private List<KeystoreInfo> getKeystoreInfos() {
         return this.keystoreInfos;
+    }
+
+    private List<CacheInfo> getCacheInfos() {
+        return this.cacheInfos;
     }
 
     private List<UelMappingInfo> getUelMappings() {
@@ -812,6 +837,41 @@ public final class ComponentConfig {
 
         public String getClassName() {
             return this.className;
+        }
+    }
+
+    /**
+     * An object that models the <code>&lt;cache&gt;</code> element.
+     * @see <code>ofbiz-component.xsd</code>
+     */
+    public static final class CacheInfo extends ResourceInfo {
+        private final CacheDeclaration declaration;
+
+        private CacheInfo(ComponentConfig componentConfig, Element element) {
+            super(componentConfig, element);
+            String name = element.getAttribute("name");
+            String namePrefix = element.getAttribute("name-prefix");
+            if (name.isEmpty() == namePrefix.isEmpty()) {
+                throw new IllegalArgumentException("A <cache> element of component [" + componentConfig.getGlobalName()
+                        + "] must have exactly one of the name and name-prefix attributes");
+            }
+            this.declaration = new CacheDeclaration(name.isEmpty() ? namePrefix : name, name.isEmpty(),
+                    longAttribute(element, "max-size"), longAttribute(element, "expire-time"),
+                    booleanAttribute(element, "soft-values"), CachePolicy.fromAttribute(element.getAttribute("policy")));
+        }
+
+        private static Long longAttribute(Element element, String attributeName) {
+            String value = element.getAttribute(attributeName);
+            return value.isEmpty() ? null : Long.valueOf(value);
+        }
+
+        private static Boolean booleanAttribute(Element element, String attributeName) {
+            String value = element.getAttribute(attributeName);
+            return value.isEmpty() ? null : Boolean.valueOf(value);
+        }
+
+        public CacheDeclaration getDeclaration() {
+            return declaration;
         }
     }
 

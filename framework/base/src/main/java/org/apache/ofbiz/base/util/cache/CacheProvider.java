@@ -18,16 +18,23 @@
  *******************************************************************************/
 package org.apache.ofbiz.base.util.cache;
 
-public abstract class HardRefCacheLine<V> extends CacheLine<V> {
-    private final V value;
+import java.util.function.BiConsumer;
 
-    HardRefCacheLine(V value, long loadTimeNanos, long expireTimeNanos) {
-        super(loadTimeNanos, expireTimeNanos);
-        this.value = value;
-    }
+/**
+ * Creates the {@link CacheStore}s behind {@link UtilCache}. OFBiz uses the Caffeine provider unless a jar on the
+ * classpath declares another one in {@code META-INF/services/org.apache.ofbiz.base.util.cache.CacheProvider}.
+ */
+public interface CacheProvider {
 
-    @Override
-    public V getValue() {
-        return value;
-    }
+    /** Returns a short name for logs, such as {@code caffeine}. */
+    String getName();
+
+    /**
+     * Creates a store.
+     * @param settings the settings of the cache
+     * @param onExpired called with the key and value of each entry removed because it expired or its soft
+     *        reference was cleared (the value is {@code null} in that case); not called for size evictions or
+     *        explicit removals
+     */
+    <K, V> CacheStore<K, V> create(CacheSettings settings, BiConsumer<K, V> onExpired);
 }

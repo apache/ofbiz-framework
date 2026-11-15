@@ -92,7 +92,7 @@ public class EntityCache extends AbstractCache<GenericPK, GenericValue> {
         if (entityCache == null) {
             return;
         }
-        for (GenericPK pk: entityCache.getCacheLineKeys()) {
+        for (GenericPK pk: entityCache.keys()) {
             GenericValue entity = entityCache.get(pk);
             if (entity == null) {
                 continue;

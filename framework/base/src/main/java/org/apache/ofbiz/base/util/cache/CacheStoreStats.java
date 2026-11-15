@@ -18,22 +18,21 @@
  *******************************************************************************/
 package org.apache.ofbiz.base.util.cache;
 
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.ReferenceCleaner;
+/**
+ * Counts kept by a {@link CacheStore}.
+ * @param hitCount lookups that found an entry
+ * @param missCount lookups that found no entry
+ * @param evictionCount entries removed by the store because of size, expiry or garbage collection
+ */
+public record CacheStoreStats(long hitCount, long missCount, long evictionCount) {
 
-public abstract class CacheSoftReference<V> extends ReferenceCleaner.Soft<V> {
+    public static final CacheStoreStats ZERO = new CacheStoreStats(0, 0, 0);
 
-    private static final String MODULE = CacheSoftReference.class.getName();
-
-    CacheSoftReference(V o) {
-        super(o);
+    public CacheStoreStats plus(CacheStoreStats other) {
+        return new CacheStoreStats(hitCount + other.hitCount, missCount + other.missCount, evictionCount + other.evictionCount);
     }
 
-    @Override
-    public void clear() {
-        if (Debug.verboseOn()) {
-            Debug.logVerbose(new Exception("UtilCache.CacheSoftRef.clear()"), "Clearing UtilCache SoftReference - " + get(), MODULE);
-        }
-        super.clear();
+    public CacheStoreStats minus(CacheStoreStats other) {
+        return new CacheStoreStats(hitCount - other.hitCount, missCount - other.missCount, evictionCount - other.evictionCount);
     }
 }

@@ -25,4 +25,14 @@ under the License.
     <classpath type="dir" location="config"/>
 
     <test-suite loader="main" location="testdef/widgettests.xml"/>
+
+    <cache name="widget.form.locationResource" expire-time="10000"/>
+    <cache name="widget.form.webappResource" expire-time="10000"/>
+    <cache name="widget.grid.locationResource" expire-time="10000"/>
+    <cache name="widget.grid.webappResource" expire-time="10000"/>
+    <cache name="widget.menu.locationResource" expire-time="10000"/>
+    <cache name="widget.screen.locationResource" expire-time="10000"/>
+    <cache name="widget.screen.webappResource" expire-time="10000"/>
+    <cache name="widget.tree.locationResource" expire-time="10000"/>
+    <cache name="widget.screen.template.ftl.general" expire-time="10000"/>
 </ofbiz-component>

@@ -268,7 +268,7 @@ public abstract class AbstractEntityConditionCache<K, V> extends AbstractCache<E
         if (entityCache == null) {
             return;
         }
-        for (EntityCondition condition: entityCache.getCacheLineKeys()) {
+        for (EntityCondition condition: entityCache.keys()) {
             boolean shouldRemove = false;
             if (condition == null) {
                 shouldRemove = true;

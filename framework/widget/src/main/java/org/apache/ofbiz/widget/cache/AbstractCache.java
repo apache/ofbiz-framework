@@ -78,6 +78,6 @@ public abstract class AbstractCache {
      */
     protected UtilCache<WidgetContextCacheKey, GenericWidgetOutput> getOrCreateCache(String widgetName) {
         String name = getCacheName(widgetName);
-        return UtilCache.getOrCreateUtilCache(name, 0, 0, 0, true, name);
+        return UtilCache.getOrCreateUtilCache(name, 0, 0, 0, true);
     }
 }

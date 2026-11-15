@@ -34,4 +34,9 @@ under the License.
     <uel-mapping name="math-uel" class-name="org.apache.ofbiz.base.util.string.uel.MathUel"/>
     <uel-mapping name="string-uel" class-name="org.apache.ofbiz.base.util.string.uel.StringUel"/>
     <uel-mapping name="misc-uel" class-name="org.apache.ofbiz.base.util.string.uel.MiscUel"/>
+
+    <!-- Cache settings, see the cache element in ofbiz-component.xsd -->
+    <cache name="script.ParsedScripts" expire-time="10000"/>
+    <cache name="script.GroovyLocationParsedCache" expire-time="10000"/>
+    <cache name="template.ftl.general" expire-time="10000"/>
 </ofbiz-component>

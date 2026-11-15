@@ -88,7 +88,7 @@ public final class UtilCacheEvents {
         if (utilCache != null) {
             Object key = null;
 
-            Iterator<?> ksIter = utilCache.getCacheLineKeys().iterator();
+            Iterator<?> ksIter = utilCache.keys().iterator();
             int curNum = 0;
 
             while (ksIter.hasNext()) {
@@ -275,7 +275,7 @@ public final class UtilCacheEvents {
 
         if (utilCache != null) {
             if (maxInMemory != null) {
-                utilCache.setMaxInMemory(maxInMemory);
+                utilCache.setMaxSize(maxInMemory);
             }
             if (expireTime != null) {
                 utilCache.setExpireTime(expireTime);

@@ -3661,58 +3661,6 @@
         <value xml:lang="zh">其它安装工具</value>
         <value xml:lang="zh-TW">其他安裝工具</value>
     </property>
-    <property key="WebtoolsMisses">
-        <value xml:lang="de">Fehler/nicht gefunden/Abgelaufen/Referenz</value>
-        <value xml:lang="en">Misses/NF/EXP/SR</value>
-        <value xml:lang="fr">Echecs/Non trouvés/Exp./Réf. symb.</value>
-        <value xml:lang="it">Perse/Non trovate/Scadute/Riferimento soft</value>
-        <value xml:lang="ja">損失/対象なし/失効/シンボル参照</value>
-        <value xml:lang="pt">Falta/NÃ£o encontrado/expiradoReferÃªncia simbÃ³lica</value>
-        <value xml:lang="ro">Pierdute, negasite, Expirate Curatirea Referinte </value>
-        <value xml:lang="th">Misses/NF/EXP/SR</value>
-        <value xml:lang="vi">Thiếu/NF/EXP/SR</value>
-        <value xml:lang="zh">错失/未找到/过期/软引用</value>
-        <value xml:lang="zh-TW">錯失/未找到/過期/軟參考</value>
-    </property>
-    <property key="WebtoolsMissesExpire">
-        <value xml:lang="de">Abgelaufen</value>
-        <value xml:lang="en">Expire</value>
-        <value xml:lang="fr">Expire</value>
-        <value xml:lang="it">Scadute</value>
-        <value xml:lang="ja">失効</value>
-        <value xml:lang="pt">Expirar</value>
-        <value xml:lang="ro">Expirare</value>
-        <value xml:lang="th">หมดอายุ</value>
-        <value xml:lang="vi">Hết hạn</value>
-        <value xml:lang="zh">过期</value>
-        <value xml:lang="zh-TW">過期</value>
-    </property>
-    <property key="WebtoolsMissesNotFound">
-        <value xml:lang="de">Nicht gefunden</value>
-        <value xml:lang="en">Not Found</value>
-        <value xml:lang="fr">Non trouvé</value>
-        <value xml:lang="it">Non trovate</value>
-        <value xml:lang="ja">対象なし</value>
-        <value xml:lang="pt">NÃ£o encontrado</value>
-        <value xml:lang="ro">Ne Gasite</value>
-        <value xml:lang="th">ไม่พบ</value>
-        <value xml:lang="vi">Không tìm thấy</value>
-        <value xml:lang="zh">未找到</value>
-        <value xml:lang="zh-TW">未找到</value>
-    </property>
-    <property key="WebtoolsMissesSoftReference">
-        <value xml:lang="de">Referenz</value>
-        <value xml:lang="en">Soft Reference</value>
-        <value xml:lang="fr">Référence symbolique</value>
-        <value xml:lang="it">Riferimento soft</value>
-        <value xml:lang="ja">ソフト参照</value>
-        <value xml:lang="pt">ReferÃªncia simbÃ³lica</value>
-        <value xml:lang="ro">Curatirea Referinte</value>
-        <value xml:lang="th">Soft Reference</value>
-        <value xml:lang="vi">Tham chiếu sắp xếp</value>
-        <value xml:lang="zh">软引用</value>
-        <value xml:lang="zh-TW">軟參考</value>
-    </property>
     <property key="WebtoolsMissesTotal">
         <value xml:lang="de">Fehler</value>
         <value xml:lang="en">Misses</value>

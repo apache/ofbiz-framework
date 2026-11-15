@@ -22,5 +22,7 @@ under the License.
         xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/ofbiz-component.xsd">
     <resource-loader name="main" type="component"/>
     <classpath type="dir" location="config"/>
+    <cache name="test.component.cache" expire-time="1000" soft-values="true"/>
+    <cache name-prefix="test.component." max-size="10"/>
 </ofbiz-component>
 
