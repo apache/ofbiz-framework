@@ -376,11 +376,6 @@ public class CatalinaContainer implements Container {
             throws ContainerException {
         List<Valve> engineValves = new ArrayList<>();
 
-        // configure the CrossSubdomainSessionValve
-        if (ContainerConfig.getPropertyValue(engineConfig, "enable-cross-subdomain-sessions", false)) {
-            engineValves.add(new CrossSubdomainSessionValve());
-        }
-
         // configure the SslAcceleratorValve
         String sslAcceleratorPortStr = ContainerConfig.getPropertyValue(engineConfig, "ssl-accelerator-port", null);
         if (UtilValidate.isNotEmpty(sslAcceleratorPortStr)) {
@@ -614,6 +609,11 @@ public class CatalinaContainer implements Container {
 
         if (clusterProp != null && contextIsDistributable) {
             context.setManager(prepareClusterManager(clusterProp));
+        }
+
+        // share the session with all the subdomains by setting the domain of the session cookie
+        if (ContainerConfig.getPropertyValue(retrieveTomcatEngineConfig(configuration), "enable-cross-subdomain-sessions", false)) {
+            context.setCookieProcessor(new CrossSubdomainSessionCookieProcessor(context));
         }
 
         StandardRoot resources = new StandardRoot(context);
