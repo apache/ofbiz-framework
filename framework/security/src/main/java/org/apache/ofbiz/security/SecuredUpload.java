@@ -101,18 +101,6 @@ import org.apache.pdfbox.pdmodel.PDDocumentNameDictionary;
 import org.apache.pdfbox.pdmodel.PDEmbeddedFilesNameTreeNode;
 import org.apache.pdfbox.pdmodel.common.filespecification.PDComplexFileSpecification;
 import org.apache.tika.Tika;
-import org.apache.tika.exception.TikaException;
-import org.apache.tika.io.TikaInputStream;
-import org.apache.tika.metadata.HttpHeaders;
-import org.apache.tika.metadata.Metadata;
-import org.apache.tika.metadata.TikaCoreProperties;
-import org.apache.tika.parser.AutoDetectParser;
-import org.apache.tika.parser.ParseContext;
-import org.apache.tika.parser.Parser;
-import org.apache.tika.parser.RecursiveParserWrapper;
-import org.apache.tika.sax.BasicContentHandlerFactory;
-import org.apache.tika.sax.ContentHandlerFactory;
-import org.apache.tika.sax.RecursiveParserWrapperHandler;
 import org.mustangproject.ZUGFeRD.ZUGFeRDImporter;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
@@ -1410,13 +1398,6 @@ public class SecuredUpload {
             if (!FileUtil.unZip(fileName, folderName, "")) {
                 return false;
             } else {
-                // Keep it like that to allow to spot other file types which could be included...
-                // try {
-                // recursiveParserWrapper(fileName);
-                // } catch (SAXException | TikaException e) {
-                // // TODO Auto-generated catch block
-                // e.printStackTrace();
-                // }
                 // Recursive method to check inside directories
                 return isValidDirectoryInCompressedFile(folderName, delegator);
             }
@@ -1459,46 +1440,6 @@ public class SecuredUpload {
         }
         FileUtils.deleteDirectory(folder);
         return true;
-    }
-
-    /**
-     * For documents that may contain embedded documents, it might be helpful to create list of metadata objects, one for the container document and
-     * one for each embedded document. This allows easy access to both the extracted content and the metadata of each embedded document. Note that
-     * many document formats can contain embedded documents, including traditional container formats -- zip, tar and others -- but also common office
-     * document formats including: MSWord, MSExcel, MSPowerPoint, RTF, PDF, MSG and several others.
-     * <p>
-     * The "content" format is determined by the ContentHandlerFactory, and the content is stored in
-     * {@link org.apache.tika.metadata.TikaCoreProperties#TIKA_CONTENT}
-     * <p>
-     * The drawback to the RecursiveParserWrapper is that it caches metadata and contents in memory. This should not be used on files whose contents
-     * are too big to be handled in memory.
-     * @return a list of metadata object, one each for the container file and each embedded file
-     * @throws IOException
-     * @throws SAXException
-     * @throws TikaException
-     */
-    // This can turn to be useful, so I let it there...
-    // Inspired by https://cwiki.apache.org/confluence/display/tika/RecursiveMetadata
-    // And https://stackoverflow.com/questions/62132310/apache-tika-exctract-file-names-and-mime-types-from-archive
-    @SuppressWarnings("unused")
-    private static Set<String> recursiveParserWrapper(String fileName) throws IOException, SAXException, TikaException {
-        File file = new File(fileName);
-        Parser p = new AutoDetectParser();
-        ContentHandlerFactory factory = new BasicContentHandlerFactory(BasicContentHandlerFactory.HANDLER_TYPE.IGNORE, -1);
-        RecursiveParserWrapper wrapper = new RecursiveParserWrapper(p);
-        Metadata metadata = new Metadata();
-        metadata.set(TikaCoreProperties.ORIGINAL_RESOURCE_NAME, file.getName());
-        ParseContext context = new ParseContext();
-        RecursiveParserWrapperHandler handler = new RecursiveParserWrapperHandler(factory);
-        try (TikaInputStream stream = TikaInputStream.get(file.toPath())) {
-            wrapper.parse(stream, handler, metadata, context);
-        }
-        List<Metadata> metadatas = handler.getMetadataList();
-        Set<String> mimeTypes = new HashSet<>();
-        for (Metadata metadata1 : metadatas) {
-            mimeTypes.add(metadata1.get(HttpHeaders.CONTENT_TYPE));
-        }
-        return mimeTypes;
     }
 
     /**
