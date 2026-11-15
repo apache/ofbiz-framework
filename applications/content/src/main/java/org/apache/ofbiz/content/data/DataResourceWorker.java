@@ -74,7 +74,6 @@ import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilURL;
 import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.base.util.UtilXml;
 import org.apache.ofbiz.base.util.collections.MapStack;
 import org.apache.ofbiz.base.util.template.FreeMarkerWorker;
 import org.apache.ofbiz.base.util.template.XslTransform;
@@ -83,7 +82,6 @@ import org.apache.ofbiz.content.content.UploadContentAndImage;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.entity.model.ModelReader;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.ofbiz.service.GenericServiceException;
@@ -103,7 +101,6 @@ import org.apache.ofbiz.widget.renderer.VisualTheme;
 import org.apache.ofbiz.widget.renderer.macro.MacroFormRenderer;
 import org.apache.ofbiz.widget.renderer.macro.MacroScreenRenderer;
 import org.apache.tika.Tika;
-import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
 import freemarker.template.TemplateException;
@@ -1016,18 +1013,20 @@ public class DataResourceWorker implements org.apache.ofbiz.widget.content.DataR
                     context.put("simpleEncoder", UtilCodec.getEncoder(modelTheme.getEncoder("screen")));
                     HttpServletRequest request = (HttpServletRequest) context.get("request");
                     HttpServletResponse response = (HttpServletResponse) context.get("response");
-                    ModelForm modelForm = null;
-                    ModelReader entityModelReader = delegator.getModelReader();
-                    String formText = getDataResourceText(dataResource, targetMimeTypeId, locale, templateContext, delegator, cache);
-                    Document formXml = UtilXml.readXmlDocument(formText, true, true);
-                    Map<String, ModelForm> modelFormMap = FormFactory.readFormDocument(formXml, entityModelReader,
-                            UtilHttp.getVisualTheme(request), dispatcher.getDispatchContext(), null);
-
-                    if (UtilValidate.isNotEmpty(modelFormMap)) {
-                        Map.Entry<String, ModelForm> entry = modelFormMap.entrySet().iterator().next();
-                        // get first entry, only one form allowed per file
-                        modelForm = entry.getValue();
+                    // A FORM_COMBINED data resource is rendered only when it references a deployed form
+                    // definition (URL_RESOURCE with a component://...#formName objectInfo location), as for
+                    // SCREEN_COMBINED. Building a ModelForm from form XML stored in the data resource text is
+                    // not supported: that text can carry widget actions and scripts.
+                    String formLocation = dataResource.getString("objectInfo");
+                    int formNameIndex = formLocation == null ? -1 : formLocation.lastIndexOf('#');
+                    if (!"URL_RESOURCE".equals(dataResource.getString("dataResourceTypeId")) || formNameIndex < 0
+                            || !formLocation.startsWith("component://") || formNameIndex == formLocation.length() - 1) {
+                        throw new GeneralException("FORM_COMBINED data resource [" + dataResource.getString("dataResourceId")
+                                + "] must reference a component:// form location via objectInfo.");
                     }
+                    ModelForm modelForm = FormFactory.getFormFromLocation(formLocation.substring(0, formNameIndex),
+                            formLocation.substring(formNameIndex + 1), delegator.getModelReader(), UtilHttp.getVisualTheme(request),
+                            dispatcher.getDispatchContext());
                     String formrenderer = modelTheme.getFormRendererLocation("screen");
                     MacroFormRenderer renderer = new MacroFormRenderer(formrenderer, request, response);
                     FormRenderer formRenderer = null;
