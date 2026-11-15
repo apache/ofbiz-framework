@@ -55,7 +55,7 @@ dependencies {
     implementation libs.bundles.shiro
     implementation libs.sshd.core
     implementation libs.sshd.sftp
-    implementation libs.bundles.tika
+    implementation libs.tika.core
     implementation libs.cxf.rt.frontend.jaxrs
     implementation libs.tomcat.catalina.ha
     implementation libs.tomcat.jasper
@@ -88,6 +88,7 @@ dependencies {
     testImplementation libs.junit.platform.launcher
     testImplementation libs.hamcrest.library
     testImplementation libs.mockito.core
+    testImplementation libs.tika.parser.pdf.module // WidgetMacroLibraryTests parses the rendered PDF
     testImplementation libs.log4j.core // EntityEcaUtilConcurrencyTest captures log events
 
     runtimeOnly libs.barcode4j.fop.ext
@@ -110,6 +111,12 @@ dependencies {
         }
         implementation(libs.bcprov.jdk18on) {
             because 'CVE-2024-29857, CVE-2024-30171, CVE-2024-30172, CVE-2024-34447'
+        }
+        implementation(libs.bcpkix.jdk18on) {
+            because 'keep the BouncyCastle jars on the bcprov-jdk18on version (utils-mail-dkim asks for an older one)'
+        }
+        implementation(libs.bcutil.jdk18on) {
+            because 'keep the BouncyCastle jars on the bcprov-jdk18on version (utils-mail-dkim asks for an older one)'
         }
         implementation(libs.testng) {
             because 'CVE-2022-4065'
