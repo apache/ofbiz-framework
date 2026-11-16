@@ -20,7 +20,7 @@ under the License.
 
 <api name="TestToolsApi"
      displayName="Test Tools REST API"
-     path="testtools"
+     apiGroupPath="api"
      description="Generic, component-agnostic REST endpoint to trigger and poll testdef test-suite
          runs for any component, identified by a componentName URL path parameter."
      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"

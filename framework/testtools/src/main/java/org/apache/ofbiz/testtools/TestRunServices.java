@@ -102,7 +102,7 @@ import org.apache.ofbiz.testtools.report.TestRunManifest;
  *
  * <p><b>{@link #runTestSuite}/{@link #getTestRunStatus} are exposed directly</b>, via the single,
  * generic, framework-owned {@code framework/testtools/api/testruns.rest.xml} endpoint
- * ({@code POST /rest/testtools/testruns/{componentName}}, {@code GET /rest/testtools/testruns/{runId}}).
+ * ({@code POST /rest/api/testruns/{componentName}}, {@code GET /rest/api/testruns/{runId}}).
  * {@code componentName} normally comes from that URL's path parameter, but REST attribute binding
  * merges body/path/query/header sources onto the same context map, so a caller can still send a
  * different value (e.g. a same-named query parameter) or an empty one. Neither is a vulnerability

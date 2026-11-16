@@ -67,7 +67,7 @@ import org.apache.ofbiz.service.ServiceUtil;
  *
  * <p>Exposed directly via the generic, framework-owned
  * {@code framework/testtools/api/testruns.rest.xml} endpoint
- * ({@code POST /rest/testtools/testruns/batch}, {@code GET /rest/testtools/testruns/batch/{batchId}}).
+ * ({@code POST /rest/api/testruns/batch}, {@code GET /rest/api/testruns/batch/{batchId}}).
  * See {@link TestRunServices}' javadoc for the same "do not expose from a component's own
  * *.rest.xml" caution - it applies here identically.
  */
