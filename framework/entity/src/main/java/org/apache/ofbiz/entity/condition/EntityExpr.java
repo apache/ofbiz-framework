@@ -179,7 +179,28 @@ public final class EntityExpr implements EntityCondition {
      * @param delegator the delegator used to check the condition expression
      */
     public void checkRhsType(ModelEntity modelEntity, Delegator delegator) {
-        if (EntityExpr.isNullField(rhs) || modelEntity == null) {
+        if (modelEntity == null) {
+            return;
+        }
+
+        String fieldName = null;
+        ModelField curField;
+        if (lhs instanceof EntityFieldValue) {
+            EntityFieldValue efv = (EntityFieldValue) lhs;
+            fieldName = efv.getFieldName();
+            curField = efv.getModelField(modelEntity);
+        } else {
+            // nothing to check
+            return;
+        }
+
+        if (curField == null) {
+            String msg = "FieldName " + fieldName + " not found for entity: " + modelEntity.getEntityName();
+            throw new IllegalArgumentException(msg);
+        }
+        // A null comparison has no value to type check, and the type checks below need the delegator
+        // running the query, so skip them in either case
+        if (EntityExpr.isNullField(rhs) || delegator == null) {
             return;
         }
 
@@ -199,25 +220,6 @@ public final class EntityExpr implements EntityCondition {
             }
         }
 
-        String fieldName = null;
-        ModelField curField;
-        if (lhs instanceof EntityFieldValue) {
-            EntityFieldValue efv = (EntityFieldValue) lhs;
-            fieldName = efv.getFieldName();
-            curField = efv.getModelField(modelEntity);
-        } else {
-            // nothing to check
-            return;
-        }
-
-        if (curField == null) {
-            String msg = "FieldName " + fieldName + " not found for entity: " + modelEntity.getEntityName();
-            throw new IllegalArgumentException(msg);
-        }
-        // The type checks below need the delegator running the query, so skip them when it isn't available
-        if (delegator == null) {
-            return;
-        }
         Delegator deleg = delegator;
         ModelFieldType type = null;
         try {
