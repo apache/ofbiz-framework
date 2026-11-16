@@ -199,8 +199,9 @@ public class LoginServices {
                     boolean isSystem = (isServiceAuth && userLogin.get("isSystem") != null) ? "Y".equalsIgnoreCase(userLogin.getString("isSystem"))
                                                                                             : false;
 
-                    // grab the hasLoggedOut flag
-                    Boolean hasLoggedOut = userLogin.getBoolean("hasLoggedOut");
+                    // getBoolean() maps a missing hasLoggedOut to false, so read the raw indicator:
+                    // only "N" means the user is logged in, a missing value must be set to "N" like "Y"
+                    boolean loggedIn = "N".equals(userLogin.getString("hasLoggedOut"));
 
                     if ((UtilValidate.isEmpty(userLogin.getString("enabled")) || "Y".equals(userLogin.getString("enabled"))
                             || (reEnableTime != null && reEnableTime.before(UtilDateTime.nowTimestamp())) || (isSystem))
@@ -245,7 +246,7 @@ public class LoginServices {
                             Debug.logVerbose("[LoginServices.userLogin] : Password Matched or Token Validated", MODULE);
 
                             // update the hasLoggedOut flag
-                            if (hasLoggedOut == null || hasLoggedOut) {
+                            if (!loggedIn) {
                                 userLogin.set("hasLoggedOut", "N");
                             }
 
@@ -253,7 +254,7 @@ public class LoginServices {
                             Long currentFailedLogins = userLogin.getLong("successiveFailedLogins");
                             if (currentFailedLogins != null && currentFailedLogins > 0) {
                                 userLogin.set("successiveFailedLogins", 0L);
-                            } else if (hasLoggedOut != null && !hasLoggedOut) {
+                            } else if (loggedIn) {
                                 // successful login & no logout flag, no need to change anything, so don't do the store
                                 doStore = false;
                             }
