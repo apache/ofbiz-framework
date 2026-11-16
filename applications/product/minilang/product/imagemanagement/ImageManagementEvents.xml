@@ -22,6 +22,10 @@ under the License.
         xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
     
     <simple-method method-name="setDefaultImage" short-description="Set Default Image">
+        <check-permission permission="IMAGE_MANAGEMENT" action="_ADMIN">
+            <fail-property resource="ProductErrorUiLabels" property="ProductImageManagementPermissionError"/>
+        </check-permission>
+        <check-errors/>
         <entity-and entity-name="ProductContent" list="lastestDefaults">
             <field-map field-name="productId" from-field="parameters.productId"/>
             <field-map field-name="productContentTypeId" value="DEFAULT_IMAGE"/>
