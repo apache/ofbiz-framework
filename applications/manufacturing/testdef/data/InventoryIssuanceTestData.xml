@@ -54,7 +54,7 @@ under the License.
                            enableAccounting="Y"/>
 
     <!-- Accounting Setup -->
-    <CustomTimePeriod customTimePeriodId="II_FISCAL_YEAR" periodTypeId="FISCAL_YEAR" fromDate="2020-01-01 00:00:00.0" thruDate="2026-12-31 23:59:59.0" isClosed="N" organizationPartyId="II_COMPANY"/>
+    <CustomTimePeriod customTimePeriodId="II_FISCAL_YEAR" periodTypeId="FISCAL_YEAR" fromDate="2020-01-01 00:00:00.0" isClosed="N" organizationPartyId="II_COMPANY"/>
     
     <GlAccount glAccountId="II_INV_ACCOUNT" glAccountTypeId="INVENTORY_ACCOUNT" glAccountClassId="INVENTORY_ASSET" accountCode="II140000" accountName="Inventory"/>
     <GlAccount glAccountId="II_RAW_MAT_ACCOUNT" glAccountTypeId="RAWMAT_INVENTORY" glAccountClassId="INVENTORY_ASSET" accountCode="II141000" accountName="Raw Materials"/>
