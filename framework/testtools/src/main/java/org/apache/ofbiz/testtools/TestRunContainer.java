@@ -188,7 +188,7 @@ public class TestRunContainer implements Container {
                     throw new IllegalStateException("Unknown SuiteEntry type: " + entry.getClass());
                 }
             } finally {
-                // Net for JUnit 3 test engines (ServiceTest/SimpleMethodTest/EntityXmlAssertTest) whose
+                // Net for JUnit 3 test engines (ServiceTest/EntityXmlAssertTest) whose
                 // own run(TestResult) overrides can let an unchecked exception escape before reaching
                 // Junit3ResultBridge.endTest() - without this, testCase would stay armed on this thread
                 // for every subsequent log line until the next test overwrites it. Also correct (a no-op

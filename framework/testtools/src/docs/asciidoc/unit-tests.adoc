@@ -126,16 +126,6 @@ Specific service's name which will be tested in a service-name attribute like th
     </test-case>
 ----
 
-=== Simple Method
-Specific simple method's location and name which will be tested in a location and a name attribute respectively
-like this:
-[source, xml]
-----
-    <test-case case-name="auto-accounting-transaction-tests-PoReceipt">
-        <simple-method-test location="component://accounting/minilang/test/AutoAcctgTransTests.xml" name="testAcctgTransOnPoReceipts"/>
-    </test-case>
-----
-
 == How to run a unit test?
 You can run unit test by run 'gradle' with following target:
 

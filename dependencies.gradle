@@ -64,8 +64,6 @@ dependencies {
     implementation libs.groovy.all
     implementation libs.freemarker
     implementation libs.esapi
-    implementation libs.spring.test
-    implementation libs.spring.web
     implementation libs.jackson.databind
     implementation libs.bundles.jersey
     implementation libs.bundles.swagger
@@ -88,6 +86,8 @@ dependencies {
     testImplementation libs.junit.platform.launcher
     testImplementation libs.hamcrest.library
     testImplementation libs.mockito.core
+    testImplementation libs.spring.test
+    testImplementation libs.spring.web
     testImplementation libs.tika.parser.pdf.module // WidgetMacroLibraryTests parses the rendered PDF
     testImplementation libs.log4j.core // EntityEcaUtilConcurrencyTest captures log events
 

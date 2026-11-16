@@ -23,7 +23,7 @@ import junit.framework.Test;
 /**
  * One test-case/test-group child parsed from a {@code <test-suite>}'s testdef XML, ready to execute.
  * {@link Junit3Entry} wraps a real {@code junit.framework.Test}, built the same way it always has been
- * for {@code junit-test-suite}/{@code service-test}/{@code simple-method-test}/
+ * for {@code junit-test-suite}/{@code service-test}/
  * {@code entity-xml(-assert)}/{@code webdriver-test} elements. {@link JupiterEntry} carries just the
  * Jupiter test class itself, with no eager JUnit Platform discovery -
  * {@link JupiterTestExtension.JupiterClassRunner} discovers and executes it directly when

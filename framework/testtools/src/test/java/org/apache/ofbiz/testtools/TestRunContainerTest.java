@@ -251,7 +251,7 @@ class TestRunContainerTest {
     }
 
     /**
-     * Mirrors how ServiceTest/SimpleMethodTest/EntityXmlAssertTest override run(TestResult) directly -
+     * Mirrors how ServiceTest/EntityXmlAssertTest override run(TestResult) directly -
      * calling result.startTest(this) (which arms the testCase MDC field via Junit3ResultBridge.startTest())
      * themselves, then running the test's own logic before reaching result.endTest(this). An unchecked
      * exception thrown from that logic - as opposed to the addFailure()/addError() calls those engines

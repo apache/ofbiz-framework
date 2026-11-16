@@ -51,7 +51,7 @@ public class EntityXmlAssertTest extends OFBizTestCase {
 
     @Override
     public int countTestCases() {
-        // One EntityXmlAssertTest instance is one test case, same as ServiceTest/SimpleMethodTest.
+        // One EntityXmlAssertTest instance is one test case, same as ServiceTest.
         // This used to return the number of <entity> records in entityXmlUrlString instead, which
         // JUnit 3's TestResult.startTest() adds into the suite's overall run count - inflating the
         // "tests" total reported in the JUnit XML/HTML report by the size of the referenced data file,
