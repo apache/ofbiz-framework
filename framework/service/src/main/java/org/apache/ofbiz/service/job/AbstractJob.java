@@ -106,6 +106,9 @@ public abstract class AbstractJob implements Job, Serializable {
             exec();
         } catch (InvalidJobException e) {
             Debug.logWarning(e.getMessage(), MODULE);
+        } catch (RuntimeException e) {
+            // log it here, otherwise it only reaches the executor thread's default handler (stderr)
+            Debug.logError(e, "Job [" + getJobId() + "] failed with an unexpected exception", MODULE);
         }
         // sanity check; make sure we don't have any transactions in place
         try {
