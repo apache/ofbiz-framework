@@ -57,7 +57,7 @@ public class TelecomServices {
             Debug.logImportant("Telecom message not sent to " + numbers.toString()
                     + " because telecom.notifications.enabled property is set to N or empty", MODULE);
             return ServiceUtil.returnSuccess("Telecom message not sent to " + numbers.toString()
-                    + " because sms.notifications.enabled property is set to N or empty");
+                    + " because telecom.notifications.enabled property is set to N or empty");
         }
 
         String redirectNumber = EntityUtilProperties.getPropertyValue("general", "telecom.notifications.redirectTo", delegator);
@@ -88,7 +88,7 @@ public class TelecomServices {
             GenericValue productStoreTelecomSetting = EntityQuery.use(delegator).from("ProductStoreTelecomSetting").where(conditions).queryOne();
             if (productStoreTelecomSetting != null) {
                 GenericValue customMethod = productStoreTelecomSetting.getRelatedOne("CustomMethod", false);
-                if (UtilValidate.isNotEmpty(customMethod.getString("customMethodName"))) {
+                if (customMethod != null && UtilValidate.isNotEmpty(customMethod.getString("customMethodName"))) {
                     Map<String, Object> serviceCtx = new HashMap<>();
                     serviceCtx.put("numbers", numbers);
                     serviceCtx.put("message", message);
@@ -105,7 +105,7 @@ public class TelecomServices {
 
                     createCommEventCtx.clear();
                     createCommEventCtx.put("communicationEventId", communicationEventId);
-                    if (UtilValidate.isNotEmpty(createCommEventResult.get("response"))) {
+                    if (UtilValidate.isNotEmpty(customMethodResult.get("response"))) {
                         createCommEventCtx.put("note", customMethodResult.get("response"));
                     }
                     createCommEventCtx.put("statusId", "COM_COMPLETE");
@@ -113,7 +113,7 @@ public class TelecomServices {
                     dispatcher.runSync("updateCommunicationEvent", createCommEventCtx);
                 }
             } else {
-                return ServiceUtil.returnError("Not sending SMS as no ProductStoreEmailSetting found for the passed inputs.");
+                return ServiceUtil.returnError("Not sending SMS as no ProductStoreTelecomSetting found for the passed inputs.");
             }
         } catch (GenericEntityException | GenericServiceException e) {
             Debug.logError(e.getMessage(), MODULE);
