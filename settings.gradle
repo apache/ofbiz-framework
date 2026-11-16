@@ -38,6 +38,8 @@ develocity {
     }
 }
 
+// The build cache is off by default for local builds. To use it, pass --build-cache, or set
+// org.gradle.caching=true in ~/.gradle/gradle.properties. Remote hits need the same plugins and JDK as CI.
 buildCache {
     local {
         enabled = !isCI
@@ -45,7 +47,8 @@ buildCache {
 
     remote(develocity.buildCache) {
         enabled = true
-        push = isCI
+        // Only builds of trunk and release branches fill the shared cache, not pull requests.
+        push = isCI && System.getenv('GITHUB_EVENT_NAME') == 'push'
     }
 }
 

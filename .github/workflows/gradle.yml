@@ -104,13 +104,13 @@ jobs:
       run: ./pullAllPluginsSource.sh
 
     - name: Build with Gradle
-      run: ./gradlew check
+      run: ./gradlew --build-cache check
 
     - name: Prepare Javadocs with Gradle
-      run: ./gradlew javadoc
+      run: ./gradlew --build-cache javadoc
 
     - name: Load demo and test data with Gradle
-      run: ./gradlew loadAll
+      run: ./gradlew --build-cache loadAll
 
     - name: Run integration tests with Gradle
-      run: ./gradlew testIntegration
+      run: ./gradlew --build-cache testIntegration
