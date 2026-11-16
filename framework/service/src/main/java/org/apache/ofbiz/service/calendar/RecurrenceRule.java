@@ -126,7 +126,9 @@ public class RecurrenceRule {
         if (!checkFreq(freq)) {
             throw new RecurrenceRuleException("Recurrence FREQUENCY is a required parameter.");
         }
-        if (rule.getLong("intervalNumber") < 1) {
+        // an empty interval means 1, as in getInterval()
+        Long interval = rule.getLong("intervalNumber");
+        if (interval != null && interval < 1) {
             throw new RecurrenceRuleException("Recurrence INTERVAL must be a positive integer.");
         }
 
