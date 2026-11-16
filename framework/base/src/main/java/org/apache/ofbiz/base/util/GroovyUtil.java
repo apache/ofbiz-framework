@@ -30,8 +30,24 @@ import javax.script.ScriptContext;
 
 import org.apache.ofbiz.base.location.FlexibleLocation;
 import org.apache.ofbiz.base.util.cache.UtilCache;
+import org.codehaus.groovy.ast.AnnotatedNode;
+import org.codehaus.groovy.ast.AnnotationNode;
+import org.codehaus.groovy.ast.ClassCodeVisitorSupport;
+import org.codehaus.groovy.ast.ClassNode;
+import org.codehaus.groovy.ast.expr.ClassExpression;
+import org.codehaus.groovy.ast.expr.ConstantExpression;
+import org.codehaus.groovy.ast.expr.ConstructorCallExpression;
+import org.codehaus.groovy.ast.expr.Expression;
+import org.codehaus.groovy.ast.expr.MethodCallExpression;
+import org.codehaus.groovy.ast.expr.MethodPointerExpression;
+import org.codehaus.groovy.ast.expr.PropertyExpression;
+import org.codehaus.groovy.ast.expr.StaticMethodCallExpression;
+import org.codehaus.groovy.classgen.GeneratorContext;
 import org.codehaus.groovy.control.CompilationFailedException;
+import org.codehaus.groovy.control.CompilePhase;
 import org.codehaus.groovy.control.CompilerConfiguration;
+import org.codehaus.groovy.control.SourceUnit;
+import org.codehaus.groovy.control.customizers.CompilationCustomizer;
 import org.codehaus.groovy.control.customizers.SecureASTCustomizer;
 import org.codehaus.groovy.runtime.InvokerHelper;
 
@@ -47,6 +63,23 @@ import groovy.lang.Script;
 public final class GroovyUtil {
 
     private static final String MODULE = GroovyUtil.class.getName();
+    // Method names that reach OS execution, dynamic class loading, reflection or nested script
+    // evaluation. Rejected as method-call and static-call targets in sandboxed scripts.
+    private static final List<String> DISALLOWED_METHOD_NAMES = List.of(
+            "execute", "exec", "start", "forName", "evaluate", "invokeMethod", "getMetaClass",
+            "setMetaClass", "getClassLoader", "getRuntime", "newInstance", "loadClass",
+            "getDeclaredMethod", "getMethod", "parseClass", "run");
+    // Properties that hand back the runtime, the class or a class loader to call the above on.
+    private static final List<String> DISALLOWED_PROPERTY_NAMES = List.of(
+            "class", "metaClass", "classLoader", "runtime");
+    // Types whose constructors give OS execution, dynamic evaluation or filesystem / network access.
+    private static final List<String> DISALLOWED_CONSTRUCTOR_TYPES = List.of(
+            "java.lang.ProcessBuilder", "java.lang.Thread", "java.io.File", "java.net.URL",
+            "java.net.Socket", "groovy.lang.GroovyShell", "groovy.lang.GroovyClassLoader");
+    // Classes whose static methods reach OS execution, the filesystem or nested evaluation; the
+    // SecureASTCustomizer receiver list only blocks instance receivers, not these static targets.
+    private static final List<String> DISALLOWED_STATIC_TARGETS = List.of(
+            "java.lang.System", "java.nio.file.Files", "groovy.util.Eval", "groovy.lang.Eval");
     private static final UtilCache<String, Class<?>> PARSED_SCRIPTS = UtilCache.createUtilCache("script.GroovyLocationParsedCache", 0, 0, false);
     private static final GroovyClassLoader GROOVY_CLASS_LOADER;
     private static final GroovyClassLoader GROOVY_CLASS_LOADER_FOR_LOCATION;
@@ -64,7 +97,7 @@ public final class GroovyUtil {
             // SecureASTCustomizer here as an injection backstop (see GroovyUtilTests).
             CompilerConfiguration sandboxedConf = new CompilerConfiguration();
             sandboxedConf.setScriptBaseClass(scriptBaseClass);
-            sandboxedConf.addCompilationCustomizers(buildSecureAstCustomizer());
+            sandboxedConf.addCompilationCustomizers(new RejectSourceAnnotationsCustomizer(), buildSecureAstCustomizer());
             sandboxedClassLoader = new GroovyClassLoader(GroovyUtil.class.getClassLoader(), sandboxedConf);
 
             // Used by parseClass(InputStream, location): compiles *.groovy files resolved from a component://
@@ -82,7 +115,7 @@ public final class GroovyUtil {
 
     static {
         SANDBOXED_COMPILER_CONFIG = new CompilerConfiguration();
-        SANDBOXED_COMPILER_CONFIG.addCompilationCustomizers(buildSecureAstCustomizer());
+        SANDBOXED_COMPILER_CONFIG.addCompilationCustomizers(new RejectSourceAnnotationsCustomizer(), buildSecureAstCustomizer());
     }
 
     /**
@@ -94,7 +127,10 @@ public final class GroovyUtil {
      * visits the AST during compilation, so handing the same instance to two {@code CompilerConfiguration}s
      * used concurrently would be unsafe.
      * <p>Note: SecureASTCustomizer operates at compile time and does not constitute a complete sandbox;
-     * expressions compiled through either path should never originate from untrusted input.
+     * expressions compiled through either path should never originate from untrusted input. An
+     * expression checker is added to also reject the common dynamic-dispatch routes (dynamic method
+     * or property names, blocked method / property names, method pointers, dangerous constructors
+     * and static calls) that the statically-typed import and receiver lists cannot catch.
      * @return a new, independently-usable SecureASTCustomizer
      */
     private static SecureASTCustomizer buildSecureAstCustomizer() {
@@ -117,7 +153,100 @@ public final class GroovyUtil {
                 Thread.class,
                 ClassLoader.class);
         secureAst.setDisallowedReceiversClasses(blockedReceivers);
+        // The import and receiver lists above only catch statically-typed references. Groovy
+        // expressions are dynamically typed, so a call like 'id'.execute() or Class.forName(...)
+        // is not caught by them. This expression checker closes the common dynamic-dispatch routes:
+        // blocked method and property names, dynamically-computed method or property names, method
+        // pointers, dangerous constructors, and static calls on System / Files / Eval.
+        secureAst.addExpressionCheckers(GroovyUtil::isExpressionAllowed);
         return secureAst;
+    }
+
+    /**
+     * Rejects the dynamic-dispatch routes that reach OS execution, dynamic class loading or nested
+     * evaluation but slip past the statically-typed import and receiver lists of a
+     * {@link SecureASTCustomizer}. This is a denylist and a defence-in-depth measure, not a complete
+     * sandbox; expressions must never originate from untrusted input.
+     * @param expression the expression being compiled
+     * @return {@code false} to reject the expression, {@code true} to allow it
+     */
+    private static boolean isExpressionAllowed(Expression expression) {
+        if (expression instanceof MethodCallExpression) {
+            MethodCallExpression call = (MethodCallExpression) expression;
+            if (call.getObjectExpression() instanceof ClassExpression
+                    && DISALLOWED_STATIC_TARGETS.contains(((ClassExpression) call.getObjectExpression()).getType().getName())) {
+                return false;
+            }
+            // A method name built at runtime (e.g. 'id'."${m}"()) cannot be checked, so reject it.
+            if (!(call.getMethod() instanceof ConstantExpression)) {
+                return false;
+            }
+            return !DISALLOWED_METHOD_NAMES.contains(call.getMethodAsString());
+        }
+        if (expression instanceof StaticMethodCallExpression) {
+            return !DISALLOWED_METHOD_NAMES.contains(((StaticMethodCallExpression) expression).getMethod());
+        }
+        if (expression instanceof MethodPointerExpression) {
+            // A method pointer (e.g. 'id'.&execute) defers the call past this check, so reject it.
+            return false;
+        }
+        if (expression instanceof ConstructorCallExpression) {
+            return !DISALLOWED_CONSTRUCTOR_TYPES.contains(((ConstructorCallExpression) expression).getType().getName());
+        }
+        if (expression instanceof PropertyExpression) {
+            PropertyExpression property = (PropertyExpression) expression;
+            if (!(property.getProperty() instanceof ConstantExpression)) {
+                return false;
+            }
+            return !DISALLOWED_PROPERTY_NAMES.contains(property.getPropertyAsString());
+        }
+        if (expression instanceof ClassExpression) {
+            String type = ((ClassExpression) expression).getType().getName();
+            return !("java.lang.Class".equals(type) || "java.lang.Runtime".equals(type)
+                    || "java.lang.ProcessBuilder".equals(type));
+        }
+        return true;
+    }
+
+    /**
+     * A {@link CompilationCustomizer} that rejects any annotation written in the compiled source.
+     * AST-transform annotations such as {@code @ASTTest} and {@code @Grab} run arbitrary code at
+     * compile time, before a {@link SecureASTCustomizer} ever sees the result, so a sandboxed
+     * script must not be allowed to carry them. Synthetic annotations that Groovy adds itself
+     * (for example {@code @Generated}) have no source position and are left alone.
+     */
+    private static final class RejectSourceAnnotationsCustomizer extends CompilationCustomizer {
+
+        RejectSourceAnnotationsCustomizer() {
+            super(CompilePhase.CONVERSION);
+        }
+
+        @Override
+        public void call(SourceUnit source, GeneratorContext context, ClassNode classNode) {
+            rejectSourceAnnotations(classNode);
+            ClassCodeVisitorSupport visitor = new ClassCodeVisitorSupport() {
+                @Override
+                protected SourceUnit getSourceUnit() {
+                    return source;
+                }
+
+                @Override
+                public void visitAnnotations(AnnotatedNode node) {
+                    rejectSourceAnnotations(node);
+                    super.visitAnnotations(node);
+                }
+            };
+            visitor.visitClass(classNode);
+        }
+
+        private static void rejectSourceAnnotations(AnnotatedNode node) {
+            for (AnnotationNode annotation : node.getAnnotations()) {
+                if (annotation.getLineNumber() > 0) {
+                    throw new SecurityException("Annotations are not allowed in a sandboxed Groovy script: @"
+                            + annotation.getClassNode().getName());
+                }
+            }
+        }
     }
 
     /**
