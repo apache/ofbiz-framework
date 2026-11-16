@@ -28,13 +28,10 @@ import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.ObjectType;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.UtilXml;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.DelegatorFactory;
 import org.apache.ofbiz.entity.testtools.EntityTestCase;
-import org.apache.ofbiz.minilang.MiniLangException;
-import org.apache.ofbiz.minilang.SimpleMethod;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ServiceContainer;
 import org.apache.ofbiz.service.testtools.OFBizTestCase;
@@ -195,25 +192,6 @@ public class ModelTestSuite {
             }
         } else if ("service-test".equals(nodeName)) {
             this.testList.add(new SuiteEntry.Junit3Entry(new ServiceTest(caseName, testElement)));
-        } else if ("simple-method-test".equals(nodeName)) {
-            if (UtilValidate.isNotEmpty(testElement.getAttribute("name"))) {
-                this.testList.add(new SuiteEntry.Junit3Entry(new SimpleMethodTest(caseName, testElement)));
-            } else {
-                String methodLocation = testElement.getAttribute("location");
-                List<SimpleMethod> simpleMethods;
-                try {
-                    simpleMethods = SimpleMethod.getSimpleMethodsList(methodLocation, null);
-                    for (SimpleMethod simpleMethod : simpleMethods) {
-                        String methodName = simpleMethod.getMethodName();
-                        if (methodName.startsWith("test")) {
-                            this.testList.add(new SuiteEntry.Junit3Entry(
-                                    new SimpleMethodTest(caseName + "." + methodName, methodLocation, methodName)));
-                        }
-                    }
-                } catch (MiniLangException e) {
-                    Debug.logError(e, MODULE);
-                }
-            }
         } else if ("jupiter-test-suite".equals(nodeName)) {
             String className = testElement.getAttribute("class-name");
             try {

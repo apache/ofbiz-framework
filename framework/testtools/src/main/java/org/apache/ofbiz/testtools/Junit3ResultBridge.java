@@ -38,7 +38,7 @@ import junit.framework.TestListener;
  * reporting output is redirected here, into the same sink(s) {@link JupiterTestExtension.JupiterClassRunner}
  * reports Jupiter entries to.
  *
- * <p>Some OFBiz JUnit-3 test engines - {@link ServiceTest}, {@link SimpleMethodTest},
+ * <p>Some OFBiz JUnit-3 test engines - {@link ServiceTest} and
  * {@link EntityXmlAssertTest} - override {@code run(TestResult)} and can call
  * {@code result.addFailure(this, ...)}/{@code result.addError(this, ...)} more than once for the same
  * {@code Test} object (once per accumulated error message), before calling {@code result.endTest(this)}

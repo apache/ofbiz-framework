@@ -97,7 +97,7 @@ class Junit3ResultBridgeTest {
     }
 
     /**
-     * Mirrors how ServiceTest/SimpleMethodTest/EntityXmlAssertTest override run(TestResult) directly -
+     * Mirrors how ServiceTest/EntityXmlAssertTest override run(TestResult) directly -
      * calling result.startTest(this), then multiple result.addFailure(this, ...) calls for one logical
      * test, then result.endTest(this) - rather than going through JUnit 3's default reflection-based
      * single-assertion dispatch.

@@ -111,6 +111,11 @@ the same pull request.
 * Tests: `<groovy-test-suite>` is removed from `test-suite.xsd` (commit 5a67b40971), and the `createTestReports`
   Gradle task is replaced by `createTestReport` and `createFramedTestReport`
   ([#1603](https://github.com/apache/ofbiz-framework/pull/1603)).
+* Tests: `<simple-method-test>` is removed from `test-suite.xsd`, with the `SimpleMethodTest` class. It always ran the
+  simple-method in service mode; call `SimpleMethod.runSimpleService` from a `<jupiter-test-suite>` class instead, or
+  `SimpleMethod.runSimpleEvent` with mock request and response objects to test a simple-method used as an event.
+  `spring-test` and `spring-web` are now test-only dependencies, so custom main code that uses them must declare them
+  in its own `build.gradle` ([OFBIZ-13843](https://issues.apache.org/jira/browse/OFBIZ-13843)).
 * Security: the login services check `SECURITY_CREATE` and `SECURITY_PWD_UPDATE` instead of `PARTYMGR_CREATE` and
   `PARTYMGR_UPDATE` to create a user login for another party or change another user's password. Grant the new
   permissions to the security groups that need them
