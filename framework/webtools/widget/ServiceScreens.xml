@@ -190,7 +190,7 @@ under the License.
                                         <set field="percentage" value="${groovy:state.get(status.statusId + '_percentage')}" default-value="0" type="BigDecimal"/>
                                     </actions>
                                     <widgets>
-                                        <label>${status.description}: ${groovy: state.(status.statusId)} (${groovy: percentage * 100} %)</label>
+                                        <label>${status.description}: ${groovy: state[status.statusId]} (${groovy: percentage * 100} %)</label>
                                         <horizontal-separator/>
                                     </widgets>
                                 </section>
