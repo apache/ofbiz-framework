@@ -149,7 +149,17 @@ public class PersistedServiceJob extends GenericServiceJob {
         if (Debug.verboseOn()) {
             Debug.logVerbose("Job [" + getJobId() + "] running", MODULE);
         }
-        // configure any additional recurrences
+        try {
+            scheduleNextRun();
+        } catch (GenericEntityException | RuntimeException e) {
+            // the job is already stored as running, so end it as failed instead of leaving it running
+            failed(e);
+            throw new InvalidJobException("Unable to schedule the next run of job [" + getJobId() + "]", e);
+        }
+    }
+
+    // configure any additional recurrences
+    private void scheduleNextRun() throws GenericEntityException {
         long maxRecurrenceCount = -1;
         long currentRecurrenceCount = 0;
         TemporalExpression expr = null;
@@ -160,11 +170,7 @@ public class PersistedServiceJob extends GenericServiceJob {
             expr = RecurrenceInfo.toTemporalExpression(recurrence);
         }
         if (expr == null && UtilValidate.isNotEmpty(jobValue.getString("tempExprId"))) {
-            try {
-                expr = TemporalExpressionWorker.getTemporalExpression(this.delegator, jobValue.getString("tempExprId"));
-            } catch (GenericEntityException e) {
-                throw new RuntimeException(e.getMessage());
-            }
+            expr = TemporalExpressionWorker.getTemporalExpression(this.delegator, jobValue.getString("tempExprId"));
         }
         if (jobValue.get("maxRecurrenceCount") != null) {
             maxRecurrenceCount = jobValue.getLong("maxRecurrenceCount");
@@ -176,21 +182,17 @@ public class PersistedServiceJob extends GenericServiceJob {
             currentRecurrenceCount++;
             jobValue.set("currentRecurrenceCount", currentRecurrenceCount);
         }
-        try {
-            if (expr != null && (maxRecurrenceCount == -1 || currentRecurrenceCount <= maxRecurrenceCount)) {
-                if (recurrence != null) {
-                    recurrence.incrementCurrentCount();
-                }
-                TimeZone timeZone = jobValue.get("recurrenceTimeZone") != null ? TimeZone.getTimeZone(jobValue.getString("recurrenceTimeZone"))
-                        : TimeZone.getDefault();
-                Calendar next = expr.next(Calendar.getInstance(timeZone));
-
-                if (next != null) {
-                    createRecurrence(next.getTimeInMillis(), false);
-                }
+        if (expr != null && (maxRecurrenceCount == -1 || currentRecurrenceCount <= maxRecurrenceCount)) {
+            if (recurrence != null) {
+                recurrence.incrementCurrentCount();
             }
-        } catch (GenericEntityException e) {
-            throw new InvalidJobException(e);
+            TimeZone timeZone = jobValue.get("recurrenceTimeZone") != null ? TimeZone.getTimeZone(jobValue.getString("recurrenceTimeZone"))
+                    : TimeZone.getDefault();
+            Calendar next = expr.next(Calendar.getInstance(timeZone));
+
+            if (next != null) {
+                createRecurrence(next.getTimeInMillis(), false);
+            }
         }
         if (Debug.infoOn()) {
             Debug.logInfo("Job  [" + getJobName() + "] Id [" + getJobId() + "] -- Next runtime: " + new Date(nextRecurrence), MODULE);
