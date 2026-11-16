@@ -37,6 +37,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+import org.apache.commons.io.FilenameUtils;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.UtilDateTime;
@@ -305,10 +306,7 @@ public class DataServices {
             }
         } else if (binData != null) {
             try {
-                String origName = file.getName();
-                int dotIdx = origName.lastIndexOf('.');
-                String fileExt = dotIdx >= 0 ? origName.substring(dotIdx) : null;
-                Path tempFile = Files.createTempFile(null, fileExt);
+                Path tempFile = Files.createTempFile(null, getTempFileSuffix(file, context));
                 Files.write(tempFile, binData.array(), StandardOpenOption.APPEND);
                 if (!SecuredUpload.isValidFile(tempFile.toString(), "All", delegator)) {
                     String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedFileFormatsIncludingSvg", locale);
@@ -330,6 +328,25 @@ public class DataServices {
 
         Map<String, Object> result = ServiceUtil.returnSuccess();
         return result;
+    }
+
+    /**
+     * Returns the suffix of the temporary file an uploaded binary is checked in before it is copied to {@code file}:
+     * the extension of {@code file}, or when it has none (the upload's MIME type has no FileExtension), the extension
+     * of the uploaded file name, so that {@link SecuredUpload#isValidFile} checks the real extension instead of the
+     * default ".tmp" suffix.
+     */
+    private static String getTempFileSuffix(File file, Map<String, ? extends Object> context) {
+        String extension = FilenameUtils.getExtension(file.getName());
+        if (UtilValidate.isEmpty(extension)) {
+            String uploadedFileName = (String) context.get("dataResourceName");
+            GenericValue dataResource = (GenericValue) context.get("dataResource");
+            if (UtilValidate.isEmpty(uploadedFileName) && dataResource != null) {
+                uploadedFileName = dataResource.getString("dataResourceName");
+            }
+            extension = FilenameUtils.getExtension(uploadedFileName);
+        }
+        return UtilValidate.isNotEmpty(extension) && extension.matches("[A-Za-z0-9]+") ? "." + extension : null;
     }
 
     /**
@@ -525,10 +542,7 @@ public class DataServices {
                 }
             } else if (binData != null) {
                 try {
-                    String origName = file.getName();
-                    int dotIdx = origName.lastIndexOf('.');
-                    String fileExt = dotIdx >= 0 ? origName.substring(dotIdx) : null;
-                    Path tempFile = Files.createTempFile(null, fileExt);
+                    Path tempFile = Files.createTempFile(null, getTempFileSuffix(file, context));
                     Files.write(tempFile, binData.array(), StandardOpenOption.APPEND);
                     if (!SecuredUpload.isValidFile(tempFile.toString(), "Image", delegator)) {
                         String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedFileFormatsIncludingSvg", locale);
