@@ -33,12 +33,6 @@ under the License.
     <preprocessor>
     </preprocessor>
     -->
-    <!-- Events to run on every request after all other processing (chains exempt) -->
-    <!--
-    <postprocessor>
-        <event name="test" type="java" path="org.apache.ofbiz.webapp.event.TestEvent" invoke="test"/>
-    </postprocessor>
-    -->
 
     <!-- Request Mappings -->
 
@@ -116,33 +110,9 @@ under the License.
         <response name="success" type="view" value="showDateTime"/>
     </request-map>
 
-    <request-map uri="TestService">
-        <security https="false" auth="false"/>
-        <event type="service" invoke="testScv"/>
-        <response name="error" type="view" value="error"/>
-        <response name="success" type="view" value="error"/>
-    </request-map>
-    <request-map uri="streamTest">
-        <security https="false" auth="false"/>
-        <event type="service-stream" invoke="serviceStreamTest"/>
-        <response name="success" type="none"/>
-        <response name="error" type="none"/>
-    </request-map>
-
-    <request-map uri="yahoo">
-        <security https="false" auth="false"/>
-        <response name="success" type="url" value="http://www.yahoo.com"/>
-    </request-map>
-
     <request-map uri="view">
         <security https="true" auth="false"/>
         <response name="success" type="view" value="main"/>
-    </request-map>
-    <request-map uri="chain">
-        <security https="false" auth="false"/>
-        <event type="java" path="org.apache.ofbiz.webapp.event.TestEvent" invoke="test"/>
-        <response name="success" type="request" value="/view"/>
-        <response name="error" type="view" value="error"/>
     </request-map>
     <!-- End Utility Requests -->
 
