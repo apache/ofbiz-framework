@@ -134,6 +134,12 @@ the same pull request.
   services, the `entity-sync-rmi` service location and the Webtools Entity Sync Status page. The EntitySync records
   stay and can still select the entities to export in the Webtools XML Data Export page; to move data between
   instances, use the XML export and import.
+* The `sendTelecomMessage` service and the `sendTelecomMessageInterface` service interface are removed, with
+  `TelecomServices`, the `telecom.notifications.enabled` and `telecom.notifications.redirectTo` properties and the
+  `defaultFromTelecomAddress` property of `general.properties`
+  ([OFBIZ-13848](https://issues.apache.org/jira/browse/OFBIZ-13848)). Nothing calls the service or implements the
+  interface. The telecom entities and their seed types stay; call your gateway service directly and record the
+  message with `createCommunicationEvent`.
 
 ### Custom code
 
