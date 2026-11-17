@@ -537,7 +537,7 @@ public class ShoppingCartHelper {
         int rowCount = UtilHttp.getMultiFormRowCount(context);
 
         // assume that the facility is the same for all requirements
-        String facilityId = (String) context.get("facilityId_o_0");
+        String facilityId = (String) context.get("facilityId" + UtilHttp.getMultiFormFirstRowSuffix(context));
         if (UtilValidate.isNotEmpty(facilityId)) {
             cart.setFacilityId(facilityId);
         }

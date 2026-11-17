@@ -29,7 +29,7 @@ under the License.
         <field name="totalCacheMemory" title="${uiLabelMap.WebtoolsCacheMemory}"><display/></field>
     </form>
 
-    <form name="ListCache" type="multi" title="" list-name="cacheList" target="ClearSelectedCaches" paginate-target="FindUtilCache"
+    <form name="ListCache" type="multi" use-row-submit="true" title="" list-name="cacheList" target="ClearSelectedCaches" paginate-target="FindUtilCache"
           odd-row-style="alternate-row" default-table-style="basic-table hover-bar" >
         <field name="_rowSubmit" use-when="hasUtilCacheEdit" title="${uiLabelMap.CommonSelectAll}"><check/></field>
         <field name="cacheName" title="${uiLabelMap.WebtoolsCacheName}" sort-field="true"><display/></field>

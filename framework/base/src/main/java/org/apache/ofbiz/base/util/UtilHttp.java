@@ -1686,6 +1686,22 @@ public final class UtilHttp {
         return rowCount;
     }
 
+    /**
+     * Returns the suffix of the first row submitted by a multi form, to read a value that every row of the form
+     * carries: the first selected row when the form uses row submit and a row is selected, otherwise row 0.
+     */
+    public static String getMultiFormFirstRowSuffix(Map<String, ?> requestMap) {
+        if ("Y".equalsIgnoreCase(String.valueOf(requestMap.get("_useRowSubmit")))) {
+            int rowCount = getMultiFormRowCount(requestMap);
+            for (int i = 0; i < rowCount; i++) {
+                if ("Y".equalsIgnoreCase(String.valueOf(requestMap.get(ROW_SUBMIT_PREFIX + i)))) {
+                    return MULTI_ROW_DELIMITER + i;
+                }
+            }
+        }
+        return MULTI_ROW_DELIMITER + 0;
+    }
+
     public static String stashParameterMap(HttpServletRequest request) {
         HttpSession session = request.getSession();
         Map<String, Map<String, Object>> paramMapStore = UtilGenerics.cast(session.getAttribute("_PARAM_MAP_STORE_"));

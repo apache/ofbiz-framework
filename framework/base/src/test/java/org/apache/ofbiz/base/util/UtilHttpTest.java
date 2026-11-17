@@ -222,4 +222,20 @@ public final class UtilHttpTest {
     public void missingRequestMakeParamListWithSuffix() {
         assertThrows(NullPointerException.class, () -> UtilHttp.makeParamListWithSuffix(null, "suffix", "prefix"));
     }
+
+    @Test
+    public void firstSelectedRowGetMultiFormFirstRowSuffix() {
+        Map<String, Object> params = UtilMisc.toMap("_useRowSubmit", "Y",
+                "facilityId_o_2", "WH2", "_rowSubmit_o_2", "Y",
+                "facilityId_o_5", "WH5", "_rowSubmit_o_5", "Y");
+        assertThat(UtilHttp.getMultiFormFirstRowSuffix(params), equalTo("_o_2"));
+    }
+
+    @Test
+    public void rowZeroGetMultiFormFirstRowSuffix() {
+        assertThat(UtilHttp.getMultiFormFirstRowSuffix(UtilMisc.toMap("_useRowSubmit", "Y", "facilityId_o_0", "WH0",
+                "facilityId_o_1", "WH1")), equalTo("_o_0"));
+        assertThat(UtilHttp.getMultiFormFirstRowSuffix(UtilMisc.toMap("facilityId_o_1", "WH1", "_rowSubmit_o_1", "Y")),
+                equalTo("_o_0"));
+    }
 }

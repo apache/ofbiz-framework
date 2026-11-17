@@ -26,6 +26,32 @@ var AJAX_REQUEST_TIMEOUT = 5000;
 // Search param : id of a link to be clicked right away
 var SP_CLICK_ON = 'clickOn';
 
+// Leave the unselected rows of a multi-row form out of its submission. The handlers of a form that posts
+// _useRowSubmit=Y skip every row whose _rowSubmit_o_N is not set, so only the selected rows need to be sent,
+// which keeps long lists under the server's request parameter limit. Nothing is removed when no row is selected.
+document.addEventListener('formdata', function (event) {
+    var formData = event.formData;
+    if (formData.get('_useRowSubmit') !== 'Y') {
+        return;
+    }
+    var selectedRows = new Set();
+    formData.forEach(function (value, name) {
+        var match = /^_rowSubmit_o_(\d+)$/.exec(name);
+        if (match && value === 'Y') {
+            selectedRows.add(match[1]);
+        }
+    });
+    if (selectedRows.size === 0) {
+        return;
+    }
+    Array.from(formData.keys()).forEach(function (name) {
+        var match = /_o_(\d+)(?:_c_\w+)?$/.exec(name);
+        if (match && !selectedRows.has(match[1])) {
+            formData.delete(name);
+        }
+    });
+}, true);
+
 // Add observers on DOM ready.
 $(document).ready(function () {
     // add CSRF token to jQuery AJAX calls to the same domain
