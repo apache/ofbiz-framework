@@ -204,84 +204,6 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     /** don't allow empty constructor */
     protected ShoppingCart() { }
 
-    /** Creates a new cloned ShoppingCart Object. */
-    public ShoppingCart(ShoppingCart cart) {
-        this.delegator = cart.getDelegator();
-        this.dispatcher = cart.getDispatcher();
-        this.delegatorName = delegator.getDelegatorName();
-        this.productStoreId = cart.getProductStoreId();
-        this.doPromotions = cart.getDoPromotions();
-        this.poNumber = cart.getPoNumber();
-        this.orderId = cart.getOrderId();
-        this.orderName = "Copy of " + cart.getOrderName();
-        this.workEffortId = cart.getWorkEffortId();
-        this.firstAttemptOrderId = cart.getFirstAttemptOrderId();
-        this.billingAccountId = cart.getBillingAccountId();
-        this.agreementId = cart.getAgreementId();
-        this.quoteId = cart.getQuoteId();
-        this.orderAdditionalEmails = cart.getOrderAdditionalEmails();
-        this.adjustments.addAll(cart.getAdjustments());
-        this.contactMechIdsMap = new HashMap<>(cart.getOrderContactMechIds());
-        this.freeShippingProductPromoActions = new ArrayList<>(cart.getFreeShippingProductPromoActions());
-        this.desiredAlternateGiftByAction = cart.getAllDesiredAlternateGiftByActionCopy();
-        this.productPromoUseInfoList.addAll(cart.productPromoUseInfoList);
-        this.productPromoCodes = new HashSet<>(cart.productPromoCodes);
-        this.locale = cart.getLocale();
-        this.currencyUom = cart.getCurrency();
-        this.externalId = cart.getExternalId();
-        this.internalCode = cart.getInternalCode();
-        this.viewCartOnAdd = cart.viewCartOnAdd();
-        this.defaultShipAfterDate = cart.getDefaultShipAfterDate();
-        this.defaultShipBeforeDate = cart.getDefaultShipBeforeDate();
-        this.defaultReserveAfterDate = cart.getDefaultReserveAfterDate();
-        this.cancelBackOrderDate = cart.getCancelBackOrderDate();
-
-        this.terminalId = cart.getTerminalId();
-        this.transactionId = cart.getTransactionId();
-        this.autoOrderShoppingListId = cart.getAutoOrderShoppingListId();
-
-        // clone the additionalPartyRoleMap
-        this.additionalPartyRole = new HashMap<>();
-        for (Map.Entry<String, List<String>> me : cart.additionalPartyRole.entrySet()) {
-            this.additionalPartyRole.put(me.getKey(), new LinkedList<>(me.getValue()));
-        }
-
-        // clone the groups, each parent before its children, and continue their numbering
-        for (ShoppingCartItemGroup itemGroup : cart.itemGroupByNumberMap.values()) {
-            copyItemGroup(itemGroup, this.itemGroupByNumberMap);
-        }
-        this.nextGroupNumber = cart.nextGroupNumber;
-        this.nextItemSeq = cart.nextItemSeq;
-
-        // clone the items, moving them to the cloned groups
-        for (ShoppingCartItem item : cart.items()) {
-            ShoppingCartItem newItem = new ShoppingCartItem(item);
-            if (item.getItemGroup() != null) {
-                newItem.setItemGroup(this.itemGroupByNumberMap.get(item.getItemGroup().getGroupNumber()));
-            }
-            cartLines.add(newItem);
-        }
-
-        this.facilityId = cart.facilityId;
-        this.webSiteId = cart.webSiteId;
-    }
-
-    /**
-     * Copies an item group into the given map of copies, copying its parent groups first.
-     * @param itemGroup the item group to copy
-     * @param copies the copies made so far, by group number
-     * @return the copy of the item group
-     */
-    private static ShoppingCartItemGroup copyItemGroup(ShoppingCartItemGroup itemGroup, Map<String, ShoppingCartItemGroup> copies) {
-        ShoppingCartItemGroup copy = copies.get(itemGroup.getGroupNumber());
-        if (copy == null) {
-            ShoppingCartItemGroup parentGroup = itemGroup.getParentGroup();
-            copy = new ShoppingCartItemGroup(itemGroup, parentGroup == null ? null : copyItemGroup(parentGroup, copies));
-            copies.put(copy.getGroupNumber(), copy);
-        }
-        return copy;
-    }
-
     /** Creates new empty ShoppingCart object. */
     public ShoppingCart(LocalDispatcher dispatcher, String productStoreId, String webSiteId, Locale locale, String currencyUom,
                         String billToCustomerPartyId, String billFromVendorPartyId) {
@@ -5155,12 +5077,6 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         protected ShoppingCartItemGroup(String groupNumber, String groupName, ShoppingCartItemGroup parentGroup) {
             this.groupNumber = groupNumber;
             this.groupName = groupName;
-            this.parentGroup = parentGroup;
-        }
-
-        protected ShoppingCartItemGroup(ShoppingCartItemGroup itemGroup, ShoppingCartItemGroup parentGroup) {
-            this.groupNumber = itemGroup.groupNumber;
-            this.groupName = itemGroup.groupName;
             this.parentGroup = parentGroup;
         }
         /** get group number */
