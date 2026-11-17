@@ -33,26 +33,26 @@ under the License.
           odd-row-style="alternate-row" default-table-style="basic-table hover-bar" >
         <field name="_rowSubmit" use-when="hasUtilCacheEdit" title="${uiLabelMap.CommonSelectAll}"><check/></field>
         <field name="cacheName" title="${uiLabelMap.WebtoolsCacheName}" sort-field="true"><display/></field>
-        <field name="cacheSize" title="${uiLabelMap.WebtoolsSize}" sort-field="true"><display/></field>
-        <field name="hitCount" title="${uiLabelMap.WebtoolsHits}" sort-field="true"><display/></field>
-        <field name="misses" title="${uiLabelMap.WebtoolsMisses}" sort-field="true"><display description="${missCountTot}/${missCountNotFound}/${missCountExpired}/${missCountSoftRef}"/></field>
-        <field name="removes" title="${uiLabelMap.WebtoolsRemoves}" sort-field="true"><display description="${removeHitCount}/${removeMissCount}"/></field>
-        <field name="maxInMemory" title="${uiLabelMap.WebtoolsMaxInMemory}" sort-field="true"><display/></field>
-        <field name="expireTime" title="${uiLabelMap.WebtoolsExpireTime}" sort-field="true"><display/></field>
-        <field name="useSoftReference" title="${uiLabelMap.WebtoolsUseSoftRef}" sort-field="true"><display/></field>
-        <field name="cacheMemory" title="${uiLabelMap.WebtoolsCacheMemory}" sort-field="true"><display/></field>
+        <field name="cacheSize" title="${uiLabelMap.WebtoolsSize}" sort-field="true"><display also-hidden="false"/></field>
+        <field name="hitCount" title="${uiLabelMap.WebtoolsHits}" sort-field="true"><display also-hidden="false"/></field>
+        <field name="misses" title="${uiLabelMap.WebtoolsMisses}" sort-field="true"><display also-hidden="false" description="${missCountTot}/${missCountNotFound}/${missCountExpired}/${missCountSoftRef}"/></field>
+        <field name="removes" title="${uiLabelMap.WebtoolsRemoves}" sort-field="true"><display also-hidden="false" description="${removeHitCount}/${removeMissCount}"/></field>
+        <field name="maxInMemory" title="${uiLabelMap.WebtoolsMaxInMemory}" sort-field="true"><display also-hidden="false"/></field>
+        <field name="expireTime" title="${uiLabelMap.WebtoolsExpireTime}" sort-field="true"><display also-hidden="false"/></field>
+        <field name="useSoftReference" title="${uiLabelMap.WebtoolsUseSoftRef}" sort-field="true"><display also-hidden="false"/></field>
+        <field name="cacheMemory" title="${uiLabelMap.WebtoolsCacheMemory}" sort-field="true"><display also-hidden="false"/></field>
         <field name="findUtilCacheElements" title=" " use-when="hasUtilCacheEdit" widget-style="buttontext">
-            <hyperlink description="${uiLabelMap.WebtoolsElements}" target="FindUtilCacheElements" >
+            <hyperlink also-hidden="false" description="${uiLabelMap.WebtoolsElements}" target="FindUtilCacheElements" >
                 <parameter param-name="UTIL_CACHE_NAME" from-field="cacheName"/>
             </hyperlink>
         </field>
         <field name="EditUtilCache" title=" " use-when="hasUtilCacheEdit" widget-style="buttontext" >
-            <hyperlink description="${uiLabelMap.CommonEdit}" target="EditUtilCache" >
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonEdit}" target="EditUtilCache" >
                 <parameter param-name="UTIL_CACHE_NAME" from-field="cacheName"/>
             </hyperlink>
         </field>
         <field name="FindUtilCacheClear" title=" " use-when="hasUtilCacheEdit" widget-style="buttontext">
-            <hyperlink description="${uiLabelMap.CommonClear}" target="FindUtilCacheClear"
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonClear}" target="FindUtilCacheClear"
                     request-confirmation="true" confirmation-message="${uiLabelMap.WebtoolsConfirmIrreversibleDelete} cache ${cacheName}?">
                 <parameter param-name="UTIL_CACHE_NAME" from-field="cacheName"/>
             </hyperlink>

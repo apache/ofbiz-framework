@@ -366,13 +366,13 @@ under the License.
             </hyperlink>
         </field>
         <field name="productId" title="${uiLabelMap.ProductProductId}">
-            <display-entity entity-name="Product" key-field-name="productId" description="${productId} - ${internalName}"/>
+            <display-entity also-hidden="false" entity-name="Product" key-field-name="productId" description="${productId} - ${internalName}"/>
         </field>
-        <field name="quantity" title="${uiLabelMap.CommonQuantity}"><display type="number" format="quantity"/></field>
-        <field name="averageCost" title="${uiLabelMap.OrderOrderQuoteAverageCost}"><display type="number" format="amount"/></field>
-        <field name="costToPriceMult" title="${uiLabelMap.OrderOrderQuoteCostToPrice}"><display type="number" format="amount"/></field>
+        <field name="quantity" title="${uiLabelMap.CommonQuantity}"><display also-hidden="false" type="number" format="quantity"/></field>
+        <field name="averageCost" title="${uiLabelMap.OrderOrderQuoteAverageCost}"><display also-hidden="false" type="number" format="amount"/></field>
+        <field name="costToPriceMult" title="${uiLabelMap.OrderOrderQuoteCostToPrice}"><display also-hidden="false" type="number" format="amount"/></field>
         <field name="defaultQuoteUnitPrice" title="${uiLabelMap.OrderOrderQuoteDefaultUnitPrice}"><display type="number" format="amount"/></field>
-        <field name="quoteUnitPrice" title="${uiLabelMap.OrderOrderQuoteUnitPrice}"><display type="number" format="amount"/></field>
+        <field name="quoteUnitPrice" title="${uiLabelMap.OrderOrderQuoteUnitPrice}"><display also-hidden="false" type="number" format="amount"/></field>
         <field name="manualQuoteUnitPrice" title="${uiLabelMap.OrderOrderQuoteManualUnitPrice}"><text/></field>
         <field name="_rowSubmit" title="${uiLabelMap.CommonSelected}"><check/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" use-when="quoteItemAndCostInfos!=[]" widget-style="smallSubmit"><submit/></field>

@@ -485,15 +485,15 @@ under the License.
             </hyperlink>
         </field>
         <field name="productId" widget-style="buttontext">
-            <hyperlink description="${productId}" target="/catalog/control/EditProductInventoryItems" target-type="inter-app">
+            <hyperlink also-hidden="false" description="${productId}" target="/catalog/control/EditProductInventoryItems" target-type="inter-app">
                 <parameter param-name="productId"/>
             </hyperlink>
         </field>
-        <field name="internalName"><display/></field>
-        <field name="availableToPromiseTotal" title="${uiLabelMap.ProductItemATP}"><display/></field>
-        <field name="quantityOnHandTotal" title="${uiLabelMap.ProductItemQOH}"><display/></field>
-        <field name="productATP" title="${uiLabelMap.ProductProductATP}"><display/></field>
-        <field name="productQOH" title="${uiLabelMap.ProductProductQOH}"><display/></field>
+        <field name="internalName"><display also-hidden="false"/></field>
+        <field name="availableToPromiseTotal" title="${uiLabelMap.ProductItemATP}"><display also-hidden="false"/></field>
+        <field name="quantityOnHandTotal" title="${uiLabelMap.ProductItemQOH}"><display also-hidden="false"/></field>
+        <field name="productATP" title="${uiLabelMap.ProductProductATP}"><display also-hidden="false"/></field>
+        <field name="productQOH" title="${uiLabelMap.ProductProductQOH}"><display also-hidden="false"/></field>
         <field name="varianceReasonId">
             <drop-down allow-empty="false">
                 <entity-options entity-name="VarianceReason"/>

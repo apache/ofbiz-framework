@@ -598,23 +598,23 @@ under the License.
         <field name="productionRunId"><hidden/></field>
         <field name="workEffortId" entry-name="productionRunId"><hidden/></field>
         <field name="contentId"><display/></field>
-        <field name="drDataResourceId"><display/></field>
-        <field name="contentTypeId"><display-entity entity-name="ContentType"/></field>
-        <field name="contentName"><display/></field>
-        <field name="description"><display/></field>
-        <field name="localeString"><display/></field>
-        <field name="description"><display/></field>
-        <field name="drMimeTypeId"><display/></field>
+        <field name="drDataResourceId"><display also-hidden="false"/></field>
+        <field name="contentTypeId"><display-entity also-hidden="false" entity-name="ContentType"/></field>
+        <field name="contentName"><display also-hidden="false"/></field>
+        <field name="description"><display also-hidden="false"/></field>
+        <field name="localeString"><display also-hidden="false"/></field>
+        <field name="description"><display also-hidden="false"/></field>
+        <field name="drMimeTypeId"><display also-hidden="false"/></field>
         <field name="drObjectInfo" title="${uiLabelMap.CommonContent}">
-            <display description="default ${drObjectInfo}"/>
+            <display also-hidden="false" description="default ${drObjectInfo}"/>
         </field>
         <field name="drObjectInfo" title="${uiLabelMap.CommonContent}" use-when="${groovy: drDataResourceTypeId != null &amp;&amp; (drDataResourceTypeId.contains(&quot;FILE&quot;) || drDataResourceTypeId.equals(&quot;IMAGE_OBJECT&quot;))}">
-            <hyperlink description="${drObjectInfo}" target="/content/control/ViewBinaryDataResource" target-type="content" target-window="productionRunContentWindow">
+            <hyperlink also-hidden="false" description="${drObjectInfo}" target="/content/control/ViewBinaryDataResource" target-type="content" target-window="productionRunContentWindow">
                 <parameter param-name="dataResourceId" from-field="drDataResourceId"/>
             </hyperlink>
         </field>
         <field name="drObjectInfo" title="${uiLabelMap.CommonContent}" entry-name="drDataResourceId" encode-output="true" use-when="${groovy: drDataResourceTypeId != null &amp;&amp; drDataResourceTypeId.equals(&quot;ELECTRONIC_TEXT&quot;)}">
-            <display-entity entity-name="ElectronicText" key-field-name="dataResourceId" description="${textData}"></display-entity>
+            <display-entity also-hidden="false" entity-name="ElectronicText" key-field-name="dataResourceId" description="${textData}"></display-entity>
         </field>
         <field name="workEffortContentTypeId"><drop-down><entity-options entity-name="WorkEffortContentType"></entity-options></drop-down></field>
         <field name="_rowSubmit" title="${uiLabelMap.CommonSelected}"><check/></field>

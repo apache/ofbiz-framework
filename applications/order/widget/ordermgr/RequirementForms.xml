@@ -241,14 +241,14 @@ under the License.
             </hyperlink>
         </field>
         <field name="requirementTypeId">
-            <display-entity entity-name="RequirementType" also-hidden="true"/>
+            <display-entity entity-name="RequirementType" also-hidden="false"/>
         </field>
-        <field name="facilityId"><display/></field>
+        <field name="facilityId"><display also-hidden="false"/></field>
         <field name="productId" title="${uiLabelMap.ProductProductId}">
-            <display-entity entity-name="Product" key-field-name="productId" description="${productId} - ${internalName}"/>
+            <display-entity also-hidden="false" entity-name="Product" key-field-name="productId" description="${productId} - ${internalName}"/>
         </field>
-        <field name="requirementStartDate"><display/></field>
-        <field name="requiredByDate"><display/></field>
+        <field name="requirementStartDate"><display also-hidden="false"/></field>
+        <field name="requiredByDate"><display also-hidden="false"/></field>
         <field name="quantity" title="${uiLabelMap.CommonQuantity}"><display type="number" format="quantity"/></field>
         <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><check/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit">
