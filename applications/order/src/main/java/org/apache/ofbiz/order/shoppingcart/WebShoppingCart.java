@@ -59,9 +59,4 @@ public class WebShoppingCart extends ShoppingCart {
     public WebShoppingCart(HttpServletRequest request) {
         this(request, UtilHttp.getLocale(request), UtilHttp.getCurrencyUom(request));
     }
-
-    /** Creates a new cloned ShoppingCart Object. */
-    public WebShoppingCart(ShoppingCart cart) {
-        super(cart);
-    }
 }
