@@ -244,6 +244,10 @@ public final class CmsEvents {
                 if (contentId != null) {
                     try {
                         statusCode = verifyContentToWebSite(delegator, webSiteId, contentId);
+                        if (statusCode == HttpServletResponse.SC_OK && UtilValidate.isEmpty(mapKey)
+                                && !hasContentToRender(delegator, contentId)) {
+                            statusCode = HttpServletResponse.SC_NOT_FOUND;
+                        }
                     } catch (GeneralException e) {
                         Debug.logError(e, MODULE);
                         throw new GeneralRuntimeException(e.getMessage(), e);
@@ -405,6 +409,21 @@ public final class CmsEvents {
                     + "website entity record for WebSiteId:" + webSiteId + " could not be found");
         }
         return "error";
+    }
+
+    /**
+     * A publish point with no data resource of its own and no published content linked to it has nothing to render.
+     */
+    private static boolean hasContentToRender(Delegator delegator, String contentId) throws GenericEntityException {
+        GenericValue content = EntityQuery.use(delegator).from("Content").where("contentId", contentId).cache().queryOne();
+        if (content == null || !"WEB_SITE_PUB_PT".equals(content.getString("contentTypeId"))
+                || content.get("dataResourceId") != null) {
+            return content != null;
+        }
+        return EntityQuery.use(delegator).from("ContentAssocDataResourceViewTo")
+                .where("contentIdStart", contentId, "statusId", "CTNT_PUBLISHED", "caContentAssocTypeId", "PUBLISH_LINK")
+                .filterByDate("caFromDate", "caThruDate")
+                .cache().queryFirst() != null;
     }
 
     protected static int verifyContentToWebSite(Delegator delegator, String webSiteId, String contentId) throws GeneralException {
