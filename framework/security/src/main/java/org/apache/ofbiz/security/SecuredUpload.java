@@ -292,6 +292,15 @@ public class SecuredUpload {
         return DENIEDWEBSHELLTOKENS.stream().allMatch(token -> isValid(content.toLowerCase(), token.toLowerCase(), allowed));
     }
 
+    /**
+     * Checks a file name (or path) against the upload naming rules. This only inspects the name: it never reads,
+     * creates or deletes a file, so callers may pass a client-supplied name. Callers that hold an actual uploaded
+     * file and want it removed on rejection must do so themselves, as {@link #isValidFile} does.
+     * @param fileToCheck the file name or path to check
+     * @param delegator the delegator, used to read the image management URL property
+     * @return true if the name is acceptable
+     * @throws IOException kept for compatibility with existing callers and type-validate declarations
+     */
     public static boolean isValidFileName(String fileToCheck, Delegator delegator) throws IOException {
         // Prevents double extensions
         if (StringUtils.countMatches(fileToCheck, ".") > 1) {
@@ -320,7 +329,6 @@ public class SecuredUpload {
             }
             if (DENIEDFILEEXTENSIONS.contains(extension)) {
                 Debug.logError("This file extension is not allowed for security reason", MODULE);
-                deleteBadFile(fileToCheck);
                 return false;
             }
 
@@ -373,29 +381,52 @@ public class SecuredUpload {
                     + " only 1 dot as an input for the file name and the extension."
                     + "The file name and extension should not be empty at all",
                     MODULE);
-            deleteBadFile(fileToCheck);
             return false;
         }
         return true;
     }
 
     /**
-     * @param fileToCheck
-     * @param delegator
+     * Checks an existing file against all supported file types without deleting it. Used as a service parameter
+     * validator, so the path comes from the caller and must never be removed.
+     * @param fileToCheck the path of the file to check
+     * @param delegator the delegator
      * @return true if the file is valid
-     * @throws IOException
+     * @throws IOException if the file cannot be read
      */
     public static boolean isValidAllFile(String fileToCheck, Delegator delegator) throws IOException {
-        return isValidFile(fileToCheck, "All", delegator);
+        return isValidExistingFile(fileToCheck, "All", delegator);
     }
 
     /**
-     * @param fileToCheck
-     * @param fileType
+     * Checks a file that the caller has just written, typically an uploaded temporary file, and deletes it when it
+     * is rejected. Only pass a file created by the current request: for a path that comes from the caller or
+     * already existed, use {@link #isValidExistingFile} instead.
+     * @param fileToCheck the path of the file to check
+     * @param fileType the expected file type
+     * @param delegator the delegator
      * @return true if the file is valid
-     * @throws IOException
+     * @throws IOException if the file cannot be read
      */
     public static boolean isValidFile(String fileToCheck, String fileType, Delegator delegator) throws IOException {
+        return checkFile(fileToCheck, fileType, delegator, true);
+    }
+
+    /**
+     * Checks a file with the same rules as {@link #isValidFile} but never deletes it. Use this for a path that
+     * comes from the caller or for a file this request did not create.
+     * @param fileToCheck the path of the file to check
+     * @param fileType the expected file type
+     * @param delegator the delegator
+     * @return true if the file is valid
+     * @throws IOException if the file cannot be read
+     */
+    public static boolean isValidExistingFile(String fileToCheck, String fileType, Delegator delegator) throws IOException {
+        return checkFile(fileToCheck, fileType, delegator, false);
+    }
+
+    private static boolean checkFile(String fileToCheck, String fileType, Delegator delegator, boolean deleteOnFailure)
+            throws IOException {
         // Allow all uploads w/o check
         if (("true".equalsIgnoreCase(EntityUtilProperties.getPropertyValue("security", "allowAllUploads", delegator)))) {
             return true;
@@ -405,12 +436,17 @@ public class SecuredUpload {
         // This is the strongest control — only explicitly whitelisted extensions pass.
         // The deny-list in isValidFileName acts as a secondary defence.
         if (!isAllowedExtension(fileToCheck, fileType)) {
-            deleteBadFile(fileToCheck);
+            if (deleteOnFailure) {
+                deleteBadFile(fileToCheck);
+            }
             return false;
         }
 
         // Check the file name
         if (!isValidFileName(fileToCheck, delegator)) { // Useless when the file is internally generated, but not sure for all cases
+            if (deleteOnFailure) {
+                deleteBadFile(fileToCheck);
+            }
             return false;
         }
 
@@ -443,7 +479,9 @@ public class SecuredUpload {
         }
 
         if (isExecutable(fileToCheck)) {
-            deleteBadFile(fileToCheck);
+            if (deleteOnFailure) {
+                deleteBadFile(fileToCheck);
+            }
             return false;
         }
 
@@ -451,7 +489,9 @@ public class SecuredUpload {
         // Otherwise isValidTextFile, which only checks the characters used, would accept it as a text file.
         if (isSvgFile(fileToCheck) && !isValidSvgFile(fileToCheck)) {
             Debug.logError("File : " + fileToCheck + ", is not a safe SVG file", MODULE);
-            deleteBadFile(fileToCheck);
+            if (deleteOnFailure) {
+                deleteBadFile(fileToCheck);
+            }
             return false;
         }
 
@@ -525,7 +565,9 @@ public class SecuredUpload {
             }
             break;
         }
-        deleteBadFile(fileToCheck);
+        if (deleteOnFailure) {
+            deleteBadFile(fileToCheck);
+        }
         return false;
     }
 
