@@ -247,6 +247,11 @@ the same pull request.
     `ServiceEcaAction.getShortDisplayDescription`, and the `exportEntityEoModelBundle` and
     `exportServiceEoModelBundle` services and their webtools pages
     ([OFBIZ-13817](https://issues.apache.org/jira/browse/OFBIZ-13817)).
+* Applications no longer reference the projectmgr plugin
+  ([OFBIZ-13854](https://issues.apache.org/jira/browse/OFBIZ-13854)). The `projectAssoOrder` order screen, the
+  project request form of the party communication event screens (`form=request`), the `projectMgrExists` context
+  field and the sfa `updateTaskAssigment` request are removed. projectmgr lists a project's orders and creates
+  requests from communication events on its own screens.
 
 ### Themes
 
