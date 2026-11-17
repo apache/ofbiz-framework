@@ -696,28 +696,6 @@ public class CheckOutEvents {
         return result;
     }
 
-    public static String checkExternalCheckout(HttpServletRequest request, HttpServletResponse response) {
-        Delegator delegator = (Delegator) request.getAttribute("delegator");
-        ShoppingCart cart = ShoppingCartEvents.getCartObject(request);
-        GenericValue productStore = ProductStoreWorker.getProductStore(cart.getProductStoreId(), delegator);
-        String paymentMethodTypeId = request.getParameter("paymentMethodTypeId");
-        if ("EXT_PAYPAL".equals(paymentMethodTypeId) || cart.getPaymentMethodTypeIds().contains("EXT_PAYPAL")) {
-            try {
-                GenericValue payPalProdStorePaySetting = EntityQuery.use(delegator).from("ProductStorePaymentSetting").where("productStoreId",
-                        productStore.getString("productStoreId"), "paymentMethodTypeId", "EXT_PAYPAL").queryFirst();
-                if (payPalProdStorePaySetting != null) {
-                    GenericValue gatewayConfig = payPalProdStorePaySetting.getRelatedOne("PaymentGatewayConfig", false);
-                    if (gatewayConfig != null && "PAY_GATWY_PAYFLOWPRO".equals(gatewayConfig.getString("paymentGatewayConfigTypeId"))) {
-                        return "paypal";
-                    }
-                }
-            } catch (GenericEntityException e) {
-                Debug.logError(e, MODULE);
-            }
-        }
-        return "success";
-    }
-
     public static String checkExternalPayment(HttpServletRequest request, HttpServletResponse response) {
         // warning there can only be ONE payment preference for this to work
         // you cannot accept multiple payment type when using an external gateway
