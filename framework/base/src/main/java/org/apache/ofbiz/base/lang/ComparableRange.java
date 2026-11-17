@@ -19,6 +19,7 @@
 package org.apache.ofbiz.base.lang;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /** A range of values. */
 @SuppressWarnings("serial")
@@ -98,7 +99,7 @@ public class ComparableRange<T extends Comparable<T>> implements Range<T>, Compa
 
     @Override
     public int hashCode() {
-        return super.hashCode();
+        return Objects.hash(start, end);
     }
 
     @Override
