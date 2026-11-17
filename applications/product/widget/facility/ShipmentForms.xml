@@ -239,21 +239,21 @@ under the License.
         <field name="orderId" title="${uiLabelMap.ProductOrderId}"><display/></field>
         <field name="orderItemSeqId" title="${uiLabelMap.ProductOrderItem}"><display/></field>
         <field name="shipGroupSeqId"><display/></field>
-        <field name="productId" title="${uiLabelMap.ProductProductId}"><display/></field>
+        <field name="productId" title="${uiLabelMap.ProductProductId}"><display also-hidden="false"/></field>
         <!-- ordered quantity -->
-        <field name="orderedQuantity" title="${uiLabelMap.ProductOrderedQuantity}"><display/></field>
+        <field name="orderedQuantity" title="${uiLabelMap.ProductOrderedQuantity}"><display also-hidden="false"/></field>
         <!-- planned quantity not issued -->
-        <field name="plannedQuantity" title="${uiLabelMap.ProductPlannedQuantity}"><display/></field>
+        <field name="plannedQuantity" title="${uiLabelMap.ProductPlannedQuantity}"><display also-hidden="false"/></field>
         <!-- issued quantity -->
-        <field name="issuedQuantity" title="${uiLabelMap.ProductIssuedQuantity}"><display/></field>
+        <field name="issuedQuantity" title="${uiLabelMap.ProductIssuedQuantity}"><display also-hidden="false"/></field>
         <!-- quantity for plan -->
         <field name="quantity" title="${uiLabelMap.ProductQuantity}"><text/></field>
         <!-- planned weight -->
-        <field name="weight" title="${uiLabelMap.ProductWeight}"><display/></field>
-        <field name="weightUom" title="${uiLabelMap.CommonUom}"><display/></field>
+        <field name="weight" title="${uiLabelMap.ProductWeight}"><display also-hidden="false"/></field>
+        <field name="weightUom" title="${uiLabelMap.CommonUom}"><display also-hidden="false"/></field>
         <!-- planned volume -->
-        <field name="volume" title="${uiLabelMap.CommonVolume}"><display/></field>
-        <field name="volumeUom" title="${uiLabelMap.CommonUom}"><display/></field>
+        <field name="volume" title="${uiLabelMap.CommonVolume}"><display also-hidden="false"/></field>
+        <field name="volumeUom" title="${uiLabelMap.CommonUom}"><display also-hidden="false"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}">
             <submit button-type="button"/>
         </field>
