@@ -52,10 +52,9 @@ public final class JmsListenerFactory implements Runnable {
     private static final AtomicReference<JmsListenerFactory> JL_FACTORY_REF = new AtomicReference<>(null);
 
     private final Delegator delegator;
-    private boolean firstPass = true;
-    private int loadable = 0;
-    private int connected = 0;
-    private Thread thread;
+    // set by closeListeners; once set, the loader thread stops and no listener is (re)connected
+    private volatile boolean closed = false;
+    private volatile Thread thread;
 
 
     public static JmsListenerFactory getInstance(Delegator delegator) {
@@ -86,24 +85,22 @@ public final class JmsListenerFactory implements Runnable {
     @Override
     public void run() {
         Debug.logInfo("Starting JMS Listener Factory Thread", MODULE);
-        while (firstPass || connected < loadable) {
-            if (Debug.verboseOn()) {
-                Debug.logVerbose("First Pass: " + firstPass + " Connected: " + connected + " Available: " + loadable, MODULE);
-            }
+        while (!closed) {
             this.loadListeners();
-            if (loadable == 0) {
-                // if there is nothing to do then we can break without sleeping
-                break;
+            if (listeners.values().stream().allMatch(GenericMessageListener::isConnected)) {
+                // nothing to load, or every listener is connected
+                Debug.logInfo("JMS Listener Factory Thread Finished; All listeners connected.", MODULE);
+                return;
             }
-            firstPass = false;
             try {
                 Thread.sleep(20000);
             } catch (InterruptedException ie) {
-                Debug.logError(ie, MODULE);
+                if (!closed) {
+                    Debug.logError(ie, MODULE);
+                }
             }
-            continue;
         }
-        Debug.logInfo("JMS Listener Factory Thread Finished; All listeners connected.", MODULE);
+        Debug.logInfo("JMS Listener Factory Thread Finished; listeners closed.", MODULE);
     }
 
     // Load the JMS listeners
@@ -183,15 +180,15 @@ public final class JmsListenerFactory implements Runnable {
                     if (listener != null) {
                         listeners.put(serverKey, listener);
                     }
-                    loadable++;
                 }
             }
 
         }
-        if (listener != null && !listener.isConnected()) {
+        if (listener != null && !closed && !listener.isConnected()) {
             listener.load();
-            if (listener.isConnected()) {
-                connected++;
+            if (closed) {
+                // closeListeners ran while this listener was connecting
+                listener.close();
             }
         }
         return listener;
@@ -216,7 +213,12 @@ public final class JmsListenerFactory implements Runnable {
      * @throws GenericServiceException
      */
     public void closeListeners() throws GenericServiceException {
-        loadable = 0;
+        closed = true;
+        Thread loader = thread;
+        if (loader != null) {
+            // wake the loader thread from its retry sleep, or a connection attempt, so that it ends now
+            loader.interrupt();
+        }
         for (String serverKey: listeners.keySet()) {
             closeListener(serverKey);
         }
