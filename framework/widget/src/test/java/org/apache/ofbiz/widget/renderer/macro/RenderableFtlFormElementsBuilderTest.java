@@ -22,6 +22,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import org.apache.ofbiz.base.util.UtilCodec;
 import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.webapp.control.ConfigXMLReader;
 import org.apache.ofbiz.webapp.control.RequestHandler;
 import org.apache.ofbiz.widget.content.StaticContentUrlProvider;
@@ -1063,6 +1064,9 @@ public final class RenderableFtlFormElementsBuilderTest {
         when(modelFormField.getModelForm()).thenReturn(modelForm);
         when(request.getAttribute("title")).thenReturn("");
         final Map<String, Object> context = new HashMap<>();
+        final Delegator delegator = mock(Delegator.class);
+        when(delegator.getDelegator()).thenReturn(delegator);
+        context.put("delegator", delegator);
         context.put("wholeFormContext", new HashMap<String, Object>());
 
         final RenderableFtl link = renderableFtlFormElementsBuilder.makeHyperlinkByType("hidden-form", "STYLE", null, "#",

@@ -24,6 +24,7 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 
 import org.apache.commons.collections4.MapUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilProperties;
@@ -31,6 +32,7 @@ import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.collections.PagedList;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.util.EntityListIterator;
+import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.ofbiz.widget.WidgetWorker;
 import org.apache.ofbiz.widget.model.ModelForm;
 
@@ -170,6 +172,12 @@ public final class Paginator {
             }
         } catch (Exception e) {
             Debug.logWarning(e, "Error getting paginate view size: " + e.toString(), MODULE);
+        }
+        // a multi form posts every row back, so keep the requested view size within widget.form.multi.maxViewSize
+        if ("multi".equals(modelForm.getType())) {
+            String maxViewSize = EntityUtilProperties.getPropertyValue("widget", "widget.form.multi.maxViewSize", "200",
+                    WidgetWorker.getDelegator(context));
+            viewSize = Math.min(viewSize, NumberUtils.toInt(maxViewSize, 200));
         }
         return viewSize;
     }
