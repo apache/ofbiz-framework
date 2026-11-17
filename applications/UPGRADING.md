@@ -80,6 +80,9 @@ no replacement in OFBiz; a project that still uses one has to keep its own copy.
     e67062a6ab, [OFBIZ-13199](https://issues.apache.org/jira/browse/OFBIZ-13199)).
   * `ensureItemsQuantity` is removed (commit 45f6a3e247,
     [OFBIZ-13318](https://issues.apache.org/jira/browse/OFBIZ-13318)).
+* `CheckOutEvents.checkExternalCheckout` is removed: it only returned "paypal" for the PayflowPro gateway removed in
+  [OFBIZ-13446](https://issues.apache.org/jira/browse/OFBIZ-13446), and "success" otherwise
+  ([OFBIZ-13862](https://issues.apache.org/jira/browse/OFBIZ-13862)).
 * `ProductConfigWrapper.ConfigItem` and `ConfigOption` are static nested classes with new constructors, and the
   `BOMNode` tree methods changed ([#2509](https://github.com/apache/ofbiz-framework/pull/2509)).
 * Manufacturing:
