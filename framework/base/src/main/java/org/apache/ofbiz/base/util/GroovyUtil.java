@@ -35,6 +35,7 @@ import org.codehaus.groovy.ast.AnnotatedNode;
 import org.codehaus.groovy.ast.AnnotationNode;
 import org.codehaus.groovy.ast.ClassCodeVisitorSupport;
 import org.codehaus.groovy.ast.ClassNode;
+import org.codehaus.groovy.ast.expr.CastExpression;
 import org.codehaus.groovy.ast.expr.ClassExpression;
 import org.codehaus.groovy.ast.expr.ConstantExpression;
 import org.codehaus.groovy.ast.expr.ConstructorCallExpression;
@@ -64,15 +65,19 @@ import groovy.lang.Script;
 public final class GroovyUtil {
 
     private static final String MODULE = GroovyUtil.class.getName();
-    // Method names that reach OS execution, dynamic class loading, reflection or nested script
-    // evaluation. Rejected as method-call and static-call targets in sandboxed scripts.
+    // Method names that reach OS execution, dynamic class loading, reflection, nested script
+    // evaluation or file / URL reads. Rejected as method-call and static-call targets in
+    // sandboxed scripts.
     private static final List<String> DISALLOWED_METHOD_NAMES = List.of(
             "execute", "exec", "start", "forName", "evaluate", "invokeMethod", "getMetaClass",
             "setMetaClass", "getClassLoader", "getRuntime", "newInstance", "loadClass",
-            "getDeclaredMethod", "getMethod", "parseClass", "run");
-    // Properties that hand back the runtime, the class or a class loader to call the above on.
+            "getDeclaredMethod", "getMethod", "parseClass", "run",
+            "toURL", "toURI", "getText", "readLines", "eachLine", "newReader", "newInputStream",
+            "withReader", "withInputStream", "readBytes");
+    // Properties that hand back the runtime, the class or a class loader to call the above on, or
+    // that read a file / URL body (the GDK text and bytes properties).
     private static final List<String> DISALLOWED_PROPERTY_NAMES = List.of(
-            "class", "metaClass", "classLoader", "runtime");
+            "class", "metaClass", "classLoader", "runtime", "text", "bytes");
     // Types whose constructors give OS execution, dynamic evaluation or filesystem / network access.
     private static final List<String> DISALLOWED_CONSTRUCTOR_TYPES = List.of(
             "java.lang.ProcessBuilder", "java.lang.Thread", "java.io.File", "java.net.URL",
@@ -81,6 +86,12 @@ public final class GroovyUtil {
     // SecureASTCustomizer receiver list only blocks instance receivers, not these static targets.
     private static final List<String> DISALLOWED_STATIC_TARGETS = List.of(
             "java.lang.System", "java.nio.file.Files", "groovy.util.Eval", "groovy.lang.Eval");
+    // Types a coercion ("'/etc/passwd' as File") can turn a String into to reach the filesystem or
+    // network. A cast bypasses the constructor and method-name checks, so the cast target is
+    // checked too.
+    private static final List<String> DISALLOWED_CAST_TYPES = List.of(
+            "java.io.File", "java.net.URL", "java.net.URI", "java.nio.file.Path",
+            "java.io.InputStream", "java.io.Reader");
     private static final UtilCache<String, Class<?>> PARSED_SCRIPTS = UtilCache.createUtilCache("script.GroovyLocationParsedCache", 0, 0, false);
     private static final GroovyClassLoader GROOVY_CLASS_LOADER;
     private static final GroovyClassLoader GROOVY_CLASS_LOADER_FOR_LOCATION;
@@ -164,8 +175,10 @@ public final class GroovyUtil {
         // The import and receiver lists above only catch statically-typed references. Groovy
         // expressions are dynamically typed, so a call like 'id'.execute() or Class.forName(...)
         // is not caught by them. This expression checker closes the common dynamic-dispatch routes:
-        // blocked method and property names, dynamically-computed method or property names, method
-        // pointers, dangerous constructors, and static calls on System / Files / Eval.
+        // blocked method and property names (including the file / URL read helpers and the text /
+        // bytes properties), dynamically-computed method or property names, method pointers,
+        // dangerous constructors, coercions to File / URL / Path, and static calls on
+        // System / Files / Eval.
         secureAst.addExpressionCheckers(GroovyUtil::isExpressionAllowed);
         return secureAst;
     }
@@ -212,6 +225,11 @@ public final class GroovyUtil {
             String type = ((ClassExpression) expression).getType().getName();
             return !("java.lang.Class".equals(type) || "java.lang.Runtime".equals(type)
                     || "java.lang.ProcessBuilder".equals(type));
+        }
+        if (expression instanceof CastExpression) {
+            // A coercion such as ('/etc/passwd' as File) reaches the filesystem or network without a
+            // constructor call or a blocked method name, so the cast target type is checked here.
+            return !DISALLOWED_CAST_TYPES.contains(((CastExpression) expression).getType().getName());
         }
         return true;
     }

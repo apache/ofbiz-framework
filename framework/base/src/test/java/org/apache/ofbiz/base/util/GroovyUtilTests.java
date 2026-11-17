@@ -75,6 +75,27 @@ public class GroovyUtilTests {
                 "GroovyUtil.parseClass() must refuse a script that calls a dynamically-named method");
         assertThrows(CompilationFailedException.class, () -> GroovyUtil.parseClass("('id'.&execute)()"),
                 "GroovyUtil.parseClass() must refuse a script that calls a method through a method pointer");
+        assertThrows(CompilationFailedException.class, () -> GroovyUtil.parseClass("'id'.invokeMethod('exe' + 'cute', null)"),
+                "GroovyUtil.parseClass() must refuse a script that dispatches a call through invokeMethod()");
+    }
+
+    /**
+     * A String can be turned into a File or URL with {@code toURL()}/{@code toURI()} or an
+     * {@code as File} coercion, and the GDK then reads the target through {@code text},
+     * {@code getText()}, {@code readLines()} or {@code newInputStream()}. Both the conversion and
+     * the read must be rejected so a {@code ${groovy:...}} expression cannot read a local file or
+     * fetch a URL.
+     */
+    @Test
+    public void parseClassRejectsFileAndUrlReads() {
+        assertThrows(CompilationFailedException.class, () -> GroovyUtil.parseClass("\"file:///etc/hostname\".toURL().text"),
+                "GroovyUtil.parseClass() must refuse a script that reads a URL through toURL().text");
+        assertThrows(CompilationFailedException.class, () -> GroovyUtil.parseClass("('/etc/passwd' as File).text"),
+                "GroovyUtil.parseClass() must refuse a script that reads a file coerced with 'as File'");
+        assertThrows(CompilationFailedException.class, () -> GroovyUtil.parseClass("('/etc/passwd' as File).getText()"),
+                "GroovyUtil.parseClass() must refuse a script that reads a file through getText()");
+        assertThrows(CompilationFailedException.class, () -> GroovyUtil.parseClass("\"http://x/\".toURI().toURL().text"),
+                "GroovyUtil.parseClass() must refuse a script that reaches a URL through toURI()/toURL()");
     }
 
     /**
