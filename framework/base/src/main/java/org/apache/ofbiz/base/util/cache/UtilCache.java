@@ -96,7 +96,7 @@ public final class UtilCache<K, V> {
     }
 
     private CacheStore<Object, V> newStore(CacheSettings settings) {
-        return CacheProviders.active().create(settings, this::onExpired);
+        return CacheProviders.getActiveProvider().create(settings, this::onExpired);
     }
 
     private void onExpired(Object key, V value) {
