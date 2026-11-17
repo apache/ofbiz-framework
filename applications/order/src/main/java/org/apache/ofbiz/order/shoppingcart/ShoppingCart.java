@@ -1180,10 +1180,8 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         if (itemGroup == null) {
             ShoppingCartItemGroup parentGroup = addItemGroup(itemGroupValue.getRelatedOne("ParentOrderItemGroup", true));
             itemGroup = new ShoppingCartItemGroup(itemGroupNumber, itemGroupValue.getString("groupName"), parentGroup);
-            int parsedGroupNumber = Integer.parseInt(itemGroupNumber);
-            if (parsedGroupNumber > this.nextGroupNumber) {
-                this.nextGroupNumber = parsedGroupNumber + 1;
-            }
+            // new groups must be numbered after every loaded group
+            this.nextGroupNumber = Math.max(this.nextGroupNumber, Long.parseLong(itemGroupNumber) + 1);
             this.itemGroupByNumberMap.put(itemGroupNumber, itemGroup);
         }
         return itemGroup;
