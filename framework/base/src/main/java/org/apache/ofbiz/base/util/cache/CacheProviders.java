@@ -38,7 +38,7 @@ public final class CacheProviders {
      * Returns the provider in use, never {@code null}. The provider is selected on first use and assigned before
      * anything is logged, because logging may itself create a {@link UtilCache} and so re-enter this method.
      */
-    public static CacheProvider active() {
+    public static CacheProvider getActiveProvider() {
         CacheProvider provider = active;
         if (provider != null) {
             return provider;
@@ -71,16 +71,14 @@ public final class CacheProviders {
         return providers;
     }
 
-    static CacheProvider select(Iterable<CacheProvider> found) {
+    static CacheProvider select(List<CacheProvider> found) {
         List<String> messages = new ArrayList<>();
         CacheProvider chosen = select(found, messages);
         messages.forEach(message -> Debug.logWarning(message, MODULE));
         return chosen;
     }
 
-    private static CacheProvider select(Iterable<CacheProvider> found, List<String> messages) {
-        List<CacheProvider> providers = new ArrayList<>();
-        found.forEach(providers::add);
+    private static CacheProvider select(List<CacheProvider> providers, List<String> messages) {
         if (providers.isEmpty()) {
             return new CaffeineCacheProvider();
         }
