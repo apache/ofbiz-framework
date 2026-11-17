@@ -18,13 +18,9 @@
 */
 package org.apache.ofbiz.party.communication
 
-import org.apache.ofbiz.base.component.ComponentConfig
-
 if (parameters.communicationEventId) {
     context.communicationEventRole = from('CommunicationEventRole')
                                         .where('communicationEventId', parameters.communicationEventId,
                                                 'partyId', parameters.partyId, 'roleTypeId', parameters.roleTypeId)
                                         .queryOne()
-
-    context.projectMgrExists = ComponentConfig.componentExists('projectmgr')
 }
