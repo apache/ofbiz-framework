@@ -108,6 +108,10 @@ the same pull request.
   encryption ([#2055](https://github.com/apache/ofbiz-framework/pull/2055)).
 * Widgets: `<if-entity-permission>` is removed from `widget-common.xsd`
   ([#1235](https://github.com/apache/ofbiz-framework/pull/1235)).
+* Widgets: multi forms render at most `widget.form.multi.maxViewSize` rows per page (`widget.properties`, 200 by
+  default), whatever view size the request or the screen asks for. Raise it, or override it with a `SystemProperty`
+  record, if a custom multi form must show more rows on one page
+  ([OFBIZ-13863](https://issues.apache.org/jira/browse/OFBIZ-13863)).
 * Tests: `<groovy-test-suite>` is removed from `test-suite.xsd` (commit 5a67b40971), and the `createTestReports`
   Gradle task is replaced by `createTestReport` and `createFramedTestReport`
   ([#1603](https://github.com/apache/ofbiz-framework/pull/1603)).
