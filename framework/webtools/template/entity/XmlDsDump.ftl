@@ -30,7 +30,6 @@ under the License.
 <#macro displayButtonBar>
   <div class="button-bar">
     <input type="submit" value="${uiLabelMap.WebtoolsExport}"/>
-    <a href="<@ofbizUrl>xmldsdump?checkAll=true</@ofbizUrl>" class="smallSubmit">${uiLabelMap.WebtoolsCheckAll}</a>
     <a href="<@ofbizUrl>xmldsdump</@ofbizUrl>" class="smallSubmit">${uiLabelMap.WebtoolsUnCheckAll}</a>
   </div>
 </#macro>
@@ -108,6 +107,27 @@ under the License.
       </select>
       </td>
       </tr>
+      <tr>
+        <td class="label"><label for="entitySelection">${uiLabelMap.WebtoolsEntitySelection}</label></td>
+        <td>
+          <#assign entitySelection = parameters.entitySelection!(("true" == parameters.checkAll!)?then("allEntities", ""))>
+          <select name="entitySelection" id="entitySelection">
+            <option value=""<#if !entitySelection?has_content> selected="selected"</#if>>${uiLabelMap.WebtoolsEntitySelectionChecked}</option>
+            <option value="allEntities"<#if "allEntities" == entitySelection> selected="selected"</#if>>${uiLabelMap.WebtoolsEntitySelectionAll}</option>
+            <option value="entityPackages"<#if "entityPackages" == entitySelection> selected="selected"</#if>>${uiLabelMap.WebtoolsEntitySelectionPackages}</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td class="label"><label for="entityPackage">${uiLabelMap.WebtoolsEntityPackages}</label></td>
+        <td>
+          <select name="entityPackage" id="entityPackage" multiple="multiple" size="8">
+            <#list entityPackages as entityPackage>
+              <option value="${entityPackage}">${entityPackage}</option>
+            </#list>
+          </select>
+        </td>
+      </tr>
         </table>
       <br />
 
@@ -115,19 +135,14 @@ under the License.
       <table>
         <tr>
           <#assign entCount = 0>
-          <#assign checkAll = parameters.checkAll?default("false")>
           <#list modelEntities as modelEntity>
             <#if entCount % 3 == 0 && entCount != 0>
               </tr><tr>
             </#if>
             <#assign entCount = entCount + 1>
-            <#assign check = checkAll/>
-            <#if "true" == checkAll && "org.apache.ofbiz.entity.model.ModelViewEntity" == modelEntity.getClass().getName()>
-                <#assign check = "false"/>
-            </#if>
             <#assign curEntityName = modelEntity.getEntityName()/>
             <#assign isViewEntity = (modelEntity.getClass().getName() == "org.apache.ofbiz.entity.model.ModelViewEntity")/>
-            <td><input type="checkbox" name="entityName" value="${curEntityName}"<#if check="true"> checked="checked"</#if>/>${curEntityName}<#if isViewEntity> (View Entity)</#if></td>
+            <td><input type="checkbox" name="entityName" value="${curEntityName}"/>${curEntityName}<#if isViewEntity> (View Entity)</#if></td>
           </#list>
         </tr>
       </table>
