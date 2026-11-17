@@ -213,7 +213,7 @@ public class DataServices {
             // We would just have a better error message
             if (file.exists()) {
                 // Check if a webshell is not uploaded
-                if (!SecuredUpload.isValidFile(fileNameAndPath, "All", delegator)) {
+                if (!SecuredUpload.isValidExistingFile(fileNameAndPath, "All", delegator)) {
                     String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedFileFormatsIncludingSvg", locale);
                     return ServiceUtil.returnError(errorMessage);
                 }
