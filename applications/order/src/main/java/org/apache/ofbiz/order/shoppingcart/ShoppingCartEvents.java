@@ -752,7 +752,9 @@ public class ShoppingCartEvents {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         HttpSession session = request.getSession();
         Locale locale = UtilHttp.getLocale(request);
-        String supplierPartyId = request.getParameter("supplierPartyId_o_0");
+        // the form carries the same values on every row, read them from the first submitted row
+        String rowSuffix = UtilHttp.getMultiFormFirstRowSuffix(UtilHttp.getParameterMap(request));
+        String supplierPartyId = request.getParameter("supplierPartyId" + rowSuffix);
 
         // check the preferred currency of the supplier, if set, use that for the cart, otherwise use system defaults.
         ShoppingCart cart = null;
@@ -768,12 +770,12 @@ public class ShoppingCartEvents {
         }
 
         // TODO: the code below here needs some cleanups
-        String billToCustomerPartyId = request.getParameter("billToCustomerPartyId_o_0");
+        String billToCustomerPartyId = request.getParameter("billToCustomerPartyId" + rowSuffix);
         if (UtilValidate.isEmpty(billToCustomerPartyId) && UtilValidate.isEmpty(supplierPartyId)) {
             request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "OrderCouldNotInitPurchaseOrder", locale));
             return "error";
         }
-        String orderId = request.getParameter("orderId_o_0");
+        String orderId = request.getParameter("orderId");
         // set the order id if supplied
         if (UtilValidate.isNotEmpty(orderId)) {
             GenericValue thisOrder = null;
@@ -793,7 +795,7 @@ public class ShoppingCartEvents {
         cart.setBillFromVendorPartyId(supplierPartyId);
         cart.setOrderPartyId(supplierPartyId);
         cart.setOrderId(orderId);
-        String agreementId = request.getParameter("agreementId_o_0");
+        String agreementId = request.getParameter("agreementId" + rowSuffix);
         if (UtilValidate.isNotEmpty(agreementId)) {
             ShoppingCartHelper sch = new ShoppingCartHelper(delegator, dispatcher, cart);
             sch.selectAgreement(agreementId);
