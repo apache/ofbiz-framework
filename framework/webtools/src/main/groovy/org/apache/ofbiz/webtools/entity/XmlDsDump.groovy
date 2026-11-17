@@ -46,6 +46,24 @@ if (parameters.entityName) {
     passedEntityNames = parameters.entityName instanceof Collection ? parameters.entityName as TreeSet : [parameters.entityName] as TreeSet
 }
 
+reader = delegator.getModelReader()
+modelEntities = reader.getEntityCache().values() as TreeSet
+context.modelEntities = modelEntities
+context.entityPackages = modelEntities*.getPackageName() as TreeSet
+
+// select every entity, or every entity of the chosen packages, with one parameter instead of one entityName per entity;
+// view entities are left out, since they hold no data of their own
+switch (parameters.entitySelection) {
+    case 'allEntities':
+        passedEntityNames = modelEntities.findAll { !(it instanceof ModelViewEntity) }*.getEntityName() as TreeSet
+        break
+    case 'entityPackages':
+        Set packageNames = parameters.entityPackage instanceof Collection ? parameters.entityPackage as Set : [parameters.entityPackage] as Set
+        passedEntityNames = modelEntities.findAll { !(it instanceof ModelViewEntity) && packageNames.contains(it.getPackageName()) }
+                *.getEntityName() as TreeSet
+        break
+}
+
 // get the max records per file setting and convert to a int
 int maxRecordsPerFile = maxRecStr && maxRecStr.isInteger() ? (maxRecStr as int) : 0
 
@@ -168,7 +186,6 @@ switch (preConfiguredSetName) {
 if (entitySyncId) {
     passedEntityNames = org.apache.ofbiz.entityext.EntityGroupUtil.getEntityNamesByEntitySync(entitySyncId, delegator)
 }
-checkAll = parameters.checkAll == 'true'
 tobrowser = parameters.tobrowser != null
 context.tobrowser = tobrowser
 
@@ -188,10 +205,6 @@ if (entityFromCond && entityThruCond) {
 } else if (entityThruCond) {
     entityDateCond = entityThruCond
 }
-
-reader = delegator.getModelReader()
-modelEntities = reader.getEntityCache().values() as TreeSet
-context.modelEntities = modelEntities
 
 if (passedEntityNames) {
     if (tobrowser) {

@@ -1055,18 +1055,6 @@
         <value xml:lang="zh">x.509证书</value>
         <value xml:lang="zh-TW">x.509憑證</value>
     </property>
-    <property key="WebtoolsCheckAll">
-        <value xml:lang="de">Alle auswählen</value>
-        <value xml:lang="en">Check All (not views)</value>
-        <value xml:lang="fr">Tout sélectionner (sauf les views)</value>
-        <value xml:lang="it">Seleziona tutto</value>
-        <value xml:lang="ja">すべてチェック (ビュー以外)</value>
-        <value xml:lang="pt">Selecionar todos</value>
-        <value xml:lang="th">ตรวจสอบทั้งหมด</value>
-        <value xml:lang="vi">Chọn tất cả</value>
-        <value xml:lang="zh">检查全部</value>
-        <value xml:lang="zh-TW">檢查全部</value>
-    </property>
     <property key="WebtoolsCheckDataOnly">
         <value xml:lang="de">Nur Datencheck (keine Änderungen in der Datenbank)</value>
         <value xml:lang="en">Check Data Only (nothing changed in database)</value>
@@ -1809,6 +1797,18 @@
         <value xml:lang="vi">Phiên bản tĩnh (static)</value>
         <value xml:lang="zh">静态版本</value>
         <value xml:lang="zh-TW">靜態版本</value>
+    </property>
+    <property key="WebtoolsEntitySelection">
+        <value xml:lang="en">Entities to export</value>
+    </property>
+    <property key="WebtoolsEntitySelectionAll">
+        <value xml:lang="en">All entities (not views)</value>
+    </property>
+    <property key="WebtoolsEntitySelectionChecked">
+        <value xml:lang="en">Entity names checked below</value>
+    </property>
+    <property key="WebtoolsEntitySelectionPackages">
+        <value xml:lang="en">All entities of the selected packages (not views)</value>
     </property>
     <property key="WebtoolsEntitySyncDump">
         <value xml:lang="de">Dump der Entitätensynchronisierung</value>
