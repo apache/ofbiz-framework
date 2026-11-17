@@ -108,7 +108,7 @@ public class TemporalExpressions implements Serializable {
         @Override
         public int hashCode() {
             final int prime = 31;
-            int result = super.hashCode();
+            int result = getClass().hashCode();
             result = prime * result + ((range == null) ? 0 : range.hashCode());
             return result;
         }
@@ -230,7 +230,7 @@ public class TemporalExpressions implements Serializable {
         @Override
         public int hashCode() {
             final int prime = 31;
-            int result = super.hashCode();
+            int result = getClass().hashCode();
             result = prime * result + dayOfWeek;
             result = prime * result + occurrence;
             return result;
@@ -366,7 +366,7 @@ public class TemporalExpressions implements Serializable {
         @Override
         public int hashCode() {
             final int prime = 31;
-            int result = super.hashCode();
+            int result = getClass().hashCode();
             result = prime * result + end;
             result = prime * result + start;
             return result;
@@ -489,7 +489,7 @@ public class TemporalExpressions implements Serializable {
         @Override
         public int hashCode() {
             final int prime = 31;
-            int result = super.hashCode();
+            int result = getClass().hashCode();
             result = prime * result + end;
             result = prime * result + start;
             return result;
@@ -618,7 +618,7 @@ public class TemporalExpressions implements Serializable {
         @Override
         public int hashCode() {
             final int prime = 31;
-            int result = super.hashCode();
+            int result = getClass().hashCode();
             result = prime * result + ((excluded == null) ? 0 : excluded.hashCode());
             result = prime * result + ((included == null) ? 0 : included.hashCode());
             return result;
@@ -736,7 +736,7 @@ public class TemporalExpressions implements Serializable {
         @Override
         public int hashCode() {
             final int prime = 31;
-            int result = super.hashCode();
+            int result = getClass().hashCode();
             result = prime * result + freqCount;
             result = prime * result + freqType;
             result = prime * result + ((start == null) ? 0 : start.hashCode());
@@ -906,7 +906,7 @@ public class TemporalExpressions implements Serializable {
         @Override
         public int hashCode() {
             final int prime = 31;
-            int result = super.hashCode();
+            int result = getClass().hashCode();
             result = prime * result + end;
             result = prime * result + start;
             return result;
@@ -1066,7 +1066,7 @@ public class TemporalExpressions implements Serializable {
         @Override
         public int hashCode() {
             final int prime = 31;
-            int result = super.hashCode();
+            int result = getClass().hashCode();
             result = prime * result + ((expressionSet == null) ? 0 : expressionSet.hashCode());
             return result;
         }
@@ -1189,7 +1189,7 @@ public class TemporalExpressions implements Serializable {
         @Override
         public int hashCode() {
             final int prime = 31;
-            int result = super.hashCode();
+            int result = getClass().hashCode();
             result = prime * result + end;
             result = prime * result + start;
             return result;
@@ -1350,7 +1350,7 @@ public class TemporalExpressions implements Serializable {
         @Override
         public int hashCode() {
             final int prime = 31;
-            int result = super.hashCode();
+            int result = getClass().hashCode();
             result = prime * result + end;
             result = prime * result + start;
             return result;
@@ -1504,7 +1504,7 @@ public class TemporalExpressions implements Serializable {
         @Override
         public int hashCode() {
             final int prime = 31;
-            int result = super.hashCode();
+            int result = getClass().hashCode();
             result = prime * result + ((excluded == null) ? 0 : excluded.hashCode());
             result = prime * result + ((included == null) ? 0 : included.hashCode());
             result = prime * result + ((substitute == null) ? 0 : substitute.hashCode());
@@ -1616,7 +1616,7 @@ public class TemporalExpressions implements Serializable {
         @Override
         public int hashCode() {
             final int prime = 31;
-            int result = super.hashCode();
+            int result = getClass().hashCode();
             result = prime * result + ((expressionSet == null) ? 0 : expressionSet.hashCode());
             return result;
         }
