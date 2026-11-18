@@ -43,7 +43,9 @@ public abstract class AbstractJmsListener implements GenericMessageListener, Exc
     private static final String MODULE = AbstractJmsListener.class.getName();
 
     private LocalDispatcher dispatcher;
-    private boolean isConnected = false;
+    private volatile boolean isConnected = false;
+    // set when the listeners are closed for good; stops the reconnect loop in onException
+    private volatile boolean stopped = false;
 
     /**
      * Initializes the LocalDispatcher for this service listener.
@@ -138,18 +140,33 @@ public abstract class AbstractJmsListener implements GenericMessageListener, Exc
     public void onException(JMSException je) {
         this.setConnected(false);
         Debug.logError(je, "JMS connection exception", MODULE);
-        while (!isConnected()) {
+        while (!stopped && !isConnected()) {
             try {
                 this.refresh();
             } catch (GenericServiceException e) {
                 try {
                     Thread.sleep(10000);
                 } catch (InterruptedException ie) {
-                    Debug.logError(ie, MODULE);
+                    Thread.currentThread().interrupt();
+                    return;
                 }
-                continue;
             }
         }
+        if (stopped && isConnected()) {
+            // reconnected while the listeners were being closed
+            try {
+                this.close();
+            } catch (GenericServiceException e) {
+                Debug.logError(e, "Unable to close the JMS connection re-opened during shutdown", MODULE);
+            }
+        }
+    }
+
+    /**
+     * Stops any attempt to reconnect after a connection exception, once the listeners are closed for good.
+     */
+    void stopReconnecting() {
+        this.stopped = true;
     }
 
     @Override
