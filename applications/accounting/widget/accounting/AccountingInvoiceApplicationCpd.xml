@@ -315,7 +315,7 @@ under the License.
             <wf:field name="paymentId"><wf:lookup target-form-name="LookupPayment"/></wf:field>
             <wf:field name="amountToApply" use-when="paymentApplication == null"><wf:text size="10"/></wf:field>
             <wf:field name="amountToApply" disabled="true" use-when="paymentApplication != null" entry-name="amountApplied"><wf:text size="10"/></wf:field>
-            <wf:field name="invoiceProcessing" use-when="&quot;${uiConfigMap.invoiceProcessing}&quot;.equals(&quot;Y&quot;)"><wf:check/></wf:field>
+            <wf:field name="invoiceProcessing" use-when="&quot;Y&quot;.equals(uiConfigMap?.invoiceProcessing)"><wf:check/></wf:field>
             <wf:field name="applyButton" widget-style="smallSubmit">
                 <wf:submit button-type="button"/>
             </wf:field>
