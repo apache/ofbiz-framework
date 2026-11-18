@@ -101,6 +101,11 @@ under the License.
                 <input type="hidden" name="purchaseOrderId" value="${orderId}"/>
                 <input type="hidden" name="shipmentId" value="${shipmentId}" />
                 <input type="hidden" name="shipGroupSeqId" value="${shipGroupSeqId}" />
+                <#-- values that are the same on every row are posted once -->
+                <input type="hidden" name="currencyUomId" value="${currencyUomId?default("")}"/>
+                <input type="hidden" name="ownerPartyId" value="${(facility.ownerPartyId)!}"/>
+                <input type="hidden" name="datetimeReceived" value="${now}"/>
+                <input type="hidden" name="quantityRejected" value="0"/>
                 <input type="hidden" name="_useRowSubmit" value="Y"/>
                 <table cellspacing="0" class="basic-table">
                     <tr class="header-row">
@@ -163,16 +168,10 @@ under the License.
                             <#if availableToReceive &gt; 0 && !isShipmentReceived>
                                 <td>
                                     <input type="hidden" name="productId_o_${rowCount}" value="${(product.productId)!}"/>
-                                    <input type="hidden" name="facilityId_o_${rowCount}" value="${facilityId}"/>
-                                    <input type="hidden" name="shipmentId_o_${rowCount}" value="${shipmentId}"/>
                                     <input type="hidden" name="orderId_o_${rowCount}" value="${orderItem.orderId}"/>
                                     <input type="hidden" name="shipGroupSeqId_o_${rowCount}" value="${itemShipGroupSeqId!}"/>
                                     <input type="hidden" name="orderItemSeqId_o_${rowCount}" value="${orderItem.orderItemSeqId}"/>
                                     <input type="hidden" name="unitCost_o_${rowCount}" value="${orderItem.unitPrice?default(0)}"/>
-                                    <input type="hidden" name="currencyUomId_o_${rowCount}" value="${currencyUomId?default("")}"/>
-                                    <input type="hidden" name="ownerPartyId_o_${rowCount}" value="${(facility.ownerPartyId)!}"/>
-                                    <input type="hidden" name="datetimeReceived_o_${rowCount}" value="${now}"/>
-                                    <input type="hidden" name="quantityRejected_o_${rowCount}" value="0"/>
                                     <#-- quantity field required by the chained issueOrderItemToShipment service -->
                                     <input type="hidden" name="quantity_o_${rowCount}" id="quantity_o_${rowCount}" value=""/>
                                     <#if itemQuantitiesToReceive?? && itemQuantitiesToReceive.get(orderItem.orderItemSeqId)??>

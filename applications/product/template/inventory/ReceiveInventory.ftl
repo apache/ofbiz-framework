@@ -351,6 +351,15 @@ under the License.
             <#if shipment?has_content>
             <input type="hidden" name="shipmentIdReceived" value="${shipment.shipmentId}"/>
             </#if>
+            <#-- values that are the same on every row are posted once -->
+            <input type="hidden" name="datetimeReceived" value="${nowTimestamp}"/>
+            <#if shipment?? && shipment.shipmentId?has_content>
+            <input type="hidden" name="shipmentId" value="${shipment.shipmentId}"/>
+            </#if>
+            <input type="hidden" name="currencyUomId" value="${currencyUomId!}"/>
+            <#if currencyUomId?default('') != orderCurrencyUomId?default('')>
+            <input type="hidden" name="orderCurrencyUomId" value="${orderCurrencyUomId!}"/>
+            </#if>
             <input type="hidden" name="_useRowSubmit" value="Y"/>
             <#assign rowCount = 0/>
             <table class="basic-table" cellspacing="0">
@@ -393,11 +402,6 @@ under the License.
                   <#assign orderItemType = orderItem.getRelatedOne("OrderItemType", false)/>
                   <input type="hidden" name="orderId_o_${rowCount}" value="${orderItem.orderId}"/>
                   <input type="hidden" name="orderItemSeqId_o_${rowCount}" value="${orderItem.orderItemSeqId}"/>
-                  <input type="hidden" name="facilityId_o_${rowCount}" value="${requestParameters.facilityId!}"/>
-                  <input type="hidden" name="datetimeReceived_o_${rowCount}" value="${nowTimestamp}"/>
-                  <#if shipment?? && shipment.shipmentId?has_content>
-                    <input type="hidden" name="shipmentId_o_${rowCount}" value="${shipment.shipmentId}"/>
-                  </#if>
                   <#if salesOrderItem?has_content>
                     <input type="hidden" name="priorityOrderId_o_${rowCount}" value="${salesOrderItem.orderId}"/>
                     <input type="hidden" name="priorityOrderItemSeqId_o_${rowCount}" value="${salesOrderItem.orderItemSeqId}"/>
@@ -513,20 +517,17 @@ under the License.
                           <#if currencyUomId?default('') != orderCurrencyUomId?default('')>
                             <td>${uiLabelMap.ProductPerUnitPriceOrder}</td>
                             <td>
-                              <input type="hidden" name="orderCurrencyUomId_o_${rowCount}" value="${orderCurrencyUomId!}" />
                               <input type="text" id="orderCurrencyUnitPrice_${rowCount}" name="orderCurrencyUnitPrice_o_${rowCount}" value="${orderCurrencyUnitPriceMap[orderItem.orderItemSeqId]}" onchange="javascript:getConvertedPrice(orderCurrencyUnitPrice_${rowCount}, '${orderCurrencyUomId}', '${currencyUomId}', '${rowCount}', '${orderCurrencyUnitPriceMap[orderItem.orderItemSeqId]}', '${itemCost}');" size="6" maxlength="20" />
                               ${orderCurrencyUomId!}
                             </td>
                             <td>${uiLabelMap.ProductPerUnitPriceFacility}:</td>
                             <td>
-                              <input type="hidden" name="currencyUomId_o_${rowCount}" value="${currencyUomId!}" />
                               <input type="text" id="unitCost_${rowCount}" name="unitCost_o_${rowCount}" value="${itemCost}" readonly="readonly" size="6" maxlength="20" />
                               ${currencyUomId!}
                             </td>
                           <#else>
                             <td align="right">${uiLabelMap.ProductPerUnitPrice}</td>
                             <td align="left">
-                              <input type="hidden" name="currencyUomId_o_${rowCount}" value="${currencyUomId!}" />
                               <input type="text" name="unitCost_o_${rowCount}" value="${itemCost}" size="6" maxlength="20" />
                               ${currencyUomId!}
                             </td>
