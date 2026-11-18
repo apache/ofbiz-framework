@@ -90,7 +90,7 @@ under the License.
         <field name="marketingCampaignId" title="${uiLabelMap.MarketingCampaignId}">
             <display/>
         </field>
-        <field name="partyId" title="${uiLabelMap.PartyPartyId}" use-when="&quot;${lastName}&quot;!=null">
+        <field name="partyId" title="${uiLabelMap.PartyPartyId}">
             <display-entity entity-name="PartyNameView" description="${firstName} ${lastName}" also-hidden="true">
                 <sub-hyperlink target="/partymgr/control/viewprofile" description="${partyId}" link-style="buttontext" target-type="inter-app">
                     <parameter param-name="partyId"/>

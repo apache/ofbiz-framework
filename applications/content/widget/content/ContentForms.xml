@@ -202,7 +202,7 @@ under the License.
         <field name="ownerContentId"><lookup target-form-name="LookupContent"/></field>
         <field name="decoratorContentId">
             <lookup target-form-name="LookupContent">
-                <sub-hyperlink use-when="&quot;${currentValue.decoratorContentId}&quot;.length()>0" link-style="buttontext" target="EditContent" description="${uiLabelMap.ContentGoToContent}">
+                <sub-hyperlink use-when="currentValue?.decoratorContentId!=null&amp;&amp;currentValue.decoratorContentId.length()>0" link-style="buttontext" target="EditContent" description="${uiLabelMap.ContentGoToContent}">
                     <parameter param-name="contentId" from-field="currentValue.decoratorContentId"/>
                 </sub-hyperlink>
             </lookup>
