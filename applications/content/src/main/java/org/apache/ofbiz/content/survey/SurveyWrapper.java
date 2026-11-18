@@ -50,6 +50,7 @@ import org.apache.ofbiz.entity.transaction.TransactionUtil;
 import org.apache.ofbiz.entity.util.EntityListIterator;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.entity.util.EntityUtil;
+import org.apache.ofbiz.widget.model.WidgetSecureLocation;
 
 import freemarker.template.Configuration;
 import freemarker.template.Template;
@@ -181,14 +182,15 @@ public class SurveyWrapper {
      * @throws SurveyWrapperException
      */
     public Writer render(String templatePath) throws SurveyWrapperException {
-        if (UtilValidate.isUrlInStringAndDoesNotStartByComponentProtocol(templatePath)) {
+        String sanitizedTemplatePath = WidgetSecureLocation.sanitize(templatePath);
+        if (sanitizedTemplatePath == null) {
             String errMsg = "Problem getting the template for Survey from URL: " + templatePath;
             Debug.logError(errMsg, MODULE);
             throw new IllegalArgumentException(errMsg);
         }
         URL templateUrl = null;
         try {
-            templateUrl = FlexibleLocation.resolveLocation(templatePath);
+            templateUrl = FlexibleLocation.resolveLocation(sanitizedTemplatePath);
         } catch (MalformedURLException e) {
             throw new SurveyWrapperException(e);
         }
