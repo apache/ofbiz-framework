@@ -149,9 +149,17 @@ public class AuthenticationResource {
                         UtilMisc.toMap("userLoginId", userLogin.getString("userLoginId"),
                                 "authenticationContext", new AuthenticationContext(
                                         AuthenticationContext.METHOD_PASSWORD)));
-                mfaRequired = ServiceUtil.isSuccess(mfaCheck) && Boolean.TRUE.equals(mfaCheck.get("required"));
+                if (ServiceUtil.isError(mfaCheck)) {
+                    Debug.logError("Error evaluating MFA policy for user [" + userLogin.getString("userLoginId")
+                            + "]: " + ServiceUtil.getErrorMessage(mfaCheck), MODULE);
+                    return RestApiUtil.error(Response.Status.UNAUTHORIZED.getStatusCode(),
+                            Response.Status.UNAUTHORIZED.getReasonPhrase(), "Unable to verify authentication policy.");
+                }
+                mfaRequired = Boolean.TRUE.equals(mfaCheck.get("required"));
             } catch (GenericServiceException e) {
                 Debug.logError(e, "Error checking MFA status in getAuthToken", MODULE);
+                return RestApiUtil.error(Response.Status.UNAUTHORIZED.getStatusCode(),
+                        Response.Status.UNAUTHORIZED.getReasonPhrase(), "Unable to verify authentication policy.");
             }
         }
 
