@@ -30,7 +30,6 @@ import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
@@ -153,38 +152,8 @@ public class FinAccountProductServices {
                 }
             }
         }
-        // some person data for expanding
-        GenericValue partyGroup = null;
-        GenericValue person = null;
-        GenericValue party = null;
-
-        if (billToParty != null) {
-            try {
-                party = billToParty.getRelatedOne("Party", false);
-            } catch (GenericEntityException e) {
-                Debug.logError(e, MODULE);
-            }
-            if (party != null) {
-                String partyTypeId = party.getString("partyTypeId");
-                if ("PARTY_GROUP".equals(partyTypeId)) {
-                    partyGroup = billToParty;
-                } else if ("PERSON".equals(partyTypeId)) {
-                    person = billToParty;
-                }
-            }
-        }
-
-        // create the context for FSE
-        Map<String, Object> expContext = new HashMap<>();
-        expContext.put("orderHeader", orderHeader);
-        expContext.put("orderItem", orderItem);
-        expContext.put("party", party);
-        expContext.put("person", person);
-        expContext.put("partyGroup", partyGroup);
-
-        // expand the name field to dynamically add information
-        FlexibleStringExpander exp = FlexibleStringExpander.getInstance(finAccountName);
-        finAccountName = exp.expandString(expContext);
+        // The financial account name is business data (the feature description, or the default
+        // above), so it is used as stored rather than evaluated as a template expression.
 
         // price/amount/quantity to create initial deposit amount
         BigDecimal quantity = orderItem.getBigDecimal("quantity");

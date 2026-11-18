@@ -42,6 +42,7 @@ under the License.
 
     <service name="createProductFeature" engine="entity-auto" invoke="create" default-entity-name="ProductFeature" auth="true">
         <description>Create a ProductFeature record</description>
+        <permission-service service-name="productGenericPermission" main-action="CREATE"/>
         <auto-attributes include="all" mode="IN" optional="true"/>
         <override name="productFeatureId" type="String" mode="INOUT" optional="true"/>
         <override name="productFeatureTypeId" mode="IN" optional="false"/>
@@ -49,6 +50,7 @@ under the License.
     </service>
     <service name="updateProductFeature" engine="entity-auto" invoke="update" default-entity-name="ProductFeature" auth="true">
         <description>Update a ProductFeature record</description>
+        <permission-service service-name="productGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="productFeatureTypeId" mode="IN" optional="false"/>
