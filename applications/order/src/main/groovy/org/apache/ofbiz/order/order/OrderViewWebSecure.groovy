@@ -23,6 +23,9 @@ orderHeader = context.orderHeader
 // can anybody view an anonymous order?  this is set in the screen widget and should only be turned on by an email confirmation screen
 allowAnonymousView = context.allowAnonymousView
 
+// set to Y by the screen of a customer facing web site, so that only the customer who created the order can view it
+customerOrderView = context.customerOrderView
+
 // if orderHeader is null in OrderView.groovy then it is not null but void here!
 if (orderHeader) {
     // set hasPermission, must always exist if the orderHeader != null
@@ -47,7 +50,7 @@ if (orderHeader) {
         }
     }
     // This is related with OFBIZ-11836 "IDOR vulnerability in the order processing feature"
-    if (parameters.localDispatcherName == 'ecommerce') {
+    if (customerOrderView == 'Y') {
         List errMsgList = []
         if (orderHeader.createdBy == person.partyId
         || (orderHeader.createdBy == 'anonymous' && allowAnonymousView == 'Y')) {

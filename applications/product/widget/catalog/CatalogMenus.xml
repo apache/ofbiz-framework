@@ -222,19 +222,6 @@ under the License.
                 <parameter param-name="SEARCH_CATEGORY_ID" from-field="productCategoryId"/>
             </link>
         </menu-item>
-        <menu-item name="ProductCategoryPage" title="${uiLabelMap.ProductCategoryPage}" widget-style="buttontext website">
-            <condition>
-                <not>
-                    <or>
-                        <if-empty field="productCategory"/>
-                        <if-compare field="isEcommercePresent" operator="equals" value="false"/><!-- FIXME this is only temporary a more elaborate solution would be preferred, see OFBIZ-9241 -->
-                    </or>
-                </not>
-            </condition>
-            <link target="/ecommerce/control/category" url-mode="plain">
-                <parameter param-name="category_id" from-field="productCategoryId"/>
-            </link>
-        </menu-item>
     </menu>
 
     <menu name="ProductStoreTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
@@ -582,19 +569,6 @@ under the License.
                 <not><if-empty field="product"/></not>
             </condition>
             <link target="CreateVirtualWithVariantsForm">
-                <parameter param-name="product_id" from-field="productId"/>
-            </link>
-        </menu-item>
-        <menu-item name="ProductProductPage" title="${uiLabelMap.ProductProductPage}">
-            <condition>
-                <not>
-                    <or>
-                        <if-empty field="product"/>
-                        <if-compare field="isEcommercePresent" operator="equals" value="false"/><!-- FIXME this is only temporary a more elaborate solution would be preferred, see OFBIZ-9241 -->
-                    </or>
-                </not>
-            </condition>
-            <link target="/ecommerce/control/product" url-mode="inter-app">
                 <parameter param-name="product_id" from-field="productId"/>
             </link>
         </menu-item>

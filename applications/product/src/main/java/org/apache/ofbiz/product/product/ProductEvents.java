@@ -1066,7 +1066,6 @@ public class ProductEvents {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         String emailType = "PRDS_TELL_FRIEND";
-        String defaultScreenLocation = "component://ecommerce/widget/EmailProductScreens.xml#TellFriend";
 
         GenericValue productStore = ProductStoreWorker.getProductStore(request);
         if (productStore == null) {
@@ -1086,15 +1085,12 @@ public class ProductEvents {
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
         }
-        if (productStoreEmail == null) {
-            String errMsg = "Could not find tell a friend [" + emailType + "] email settings for the store [" + productStoreId + "]";
+        String bodyScreenLocation = productStoreEmail != null ? productStoreEmail.getString("bodyScreenLocation") : null;
+        if (UtilValidate.isEmpty(bodyScreenLocation)) {
+            String errMsg = "Could not find tell a friend [" + emailType + "] email settings with a body screen for the store ["
+                    + productStoreId + "]";
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
-        }
-
-        String bodyScreenLocation = productStoreEmail.getString("bodyScreenLocation");
-        if (UtilValidate.isEmpty(bodyScreenLocation)) {
-            bodyScreenLocation = defaultScreenLocation;
         }
 
         Map<String, Object> paramMap = UtilHttp.getParameterMap(request);

@@ -50,11 +50,6 @@ function removeSelectable(typeString, productFeatureTypeId, productId) {
     }
 }
 
-function doPublish() {
-    window.open('/ecommerce/control/product?product_id=${productId!}');
-    document.publish.submit();
-}
-
 </script>
 <div class="screenlet">
     <div class="screenlet-title-bar">
@@ -437,7 +432,7 @@ function doPublish() {
 </div>
 <div class="screenlet">
     <div class="screenlet-title-bar">
-        <h3>${uiLabelMap.ProductPublishAndView}</h3>
+        <h3>${uiLabelMap.CommonPublish}</h3>
     </div>
     <div class="screenlet-body">
     <!--  **************************************************** publish section -->
@@ -449,7 +444,7 @@ function doPublish() {
             <tr>
                 <td>
                     <@htmlTemplate.renderDateTimeField name="fromDate" event="" action="" className="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="" size="25" maxlength="30" id="fromDate1" isDateType=true shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
-                    <input type="button" value="${uiLabelMap.ProductPublishAndView}" onclick="doPublish();"/>
+                    <input type="submit" value="${uiLabelMap.CommonPublish}"/>
                 </td>
             </tr>
         </table>

@@ -113,25 +113,9 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ViewResponse"/>
     </request-map>
-    <request-map uri="LatestResponses">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="LatestResponses"/>
-    </request-map>
     <request-map uri="EditBlogArticle">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditBlogArticle"/>
-    </request-map>
-    <request-map uri="EditBlogImage">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="EditBlogImage"/>
-    </request-map>
-    <request-map uri="EditBlogText">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="EditBlogText"/>
-    </request-map>
-    <request-map uri="RespondBlog">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="RespondBlog"/>
     </request-map>
     <request-map uri="persistBlogSummary">
         <security https="true" auth="true"/>
@@ -1823,11 +1807,6 @@ under the License.
     <view-map name="EditBlog" type="screen" page="component://content/widget/forum/BlogScreens.xml#EditBlog"/>
     <view-map name="EditBlogArticle" type="screen" page="component://content/widget/forum/BlogScreens.xml#EditArticle"/>
     <view-map name="ViewResponse" type="screen" page="component://content/widget/forum/BlogScreens.xml#BlogMain"/>
-    <view-map name="RespondBlog" type="screen" page="component://ecommerce/widget/blog/BlogScreens.xml#AddBlogResponse"/>
-    <view-map name="EditBlogText" type="screen" page="component://ecommerce/widget/blog/BlogScreens.xml#EditBlogResponse"/>
-    <view-map name="EditBlogImage" type="screen" page="component://ecommerce/widget/blog/BlogScreens.xml#EditBlogResponse"/>
-    <view-map name="EditBlogResponse" type="screen" page="component://ecommerce/widget/blog/BlogScreens.xml#EditBlogResponse"/>
-    <view-map name="LatestResponses" type="screen" page="component://ecommerce/widget/blog/BlogScreens.xml#LatestResponses"/>
 
     <view-map name="FindForumGroups" type="screen" page="component://content/widget/forum/ForumScreens.xml#FindForumGroups"/>
     <view-map name="ForumGroupRoles" type="screen" page="component://content/widget/forum/ForumScreens.xml#ForumGroupRoles"/>

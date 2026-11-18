@@ -208,6 +208,8 @@ the same pull request.
     [#2330](https://github.com/apache/ofbiz-framework/pull/2330)).
   * The HTML menu and tree renderers are removed; use the macro renderers
     ([#2478](https://github.com/apache/ofbiz-framework/pull/2478)).
+  * The `MinimalActions` screen of common no longer sets the `isEcommercePresent` field
+    ([OFBIZ-13867](https://issues.apache.org/jira/browse/OFBIZ-13867)).
   * `LookupField.getTargetParameterList` is removed ([#2461](https://github.com/apache/ofbiz-framework/pull/2461)).
   * `UelFunctions.getFunctionMapper` returns `UelFunctions.Functions`, which is final, and `setFunction` is removed
     (commit c7f1ea4d18, [OFBIZ-13372](https://issues.apache.org/jira/browse/OFBIZ-13372)).

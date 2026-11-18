@@ -67,6 +67,8 @@ no replacement in OFBiz; a project that still uses one has to keep its own copy.
   `ListCustReturns` portlets, which used `portalPermissionIsCustomer`, are removed with their screens and forms, as is
   the ordermgr `EditRequestCustomer` request
   ([OFBIZ-13825](https://issues.apache.org/jira/browse/OFBIZ-13825)).
+* The content `LatestResponses`, `EditBlogImage`, `EditBlogText` and `RespondBlog` requests, which rendered screens of
+  a plugin, are removed ([OFBIZ-13867](https://issues.apache.org/jira/browse/OFBIZ-13867)).
 * The customer request emails link to `/control/ViewRequest?custRequestId=...` in the webapp of the web site the
   email is sent for, or else of the first web site of the request's product store, and leave the link out when there
   is none; map a `ViewRequest` request there ([OFBIZ-13825](https://issues.apache.org/jira/browse/OFBIZ-13825)).
@@ -92,6 +94,12 @@ no replacement in OFBiz; a project that still uses one has to keep its own copy.
 * The carrier and gateway classes listed under "Removed integrations" are gone, together with
   `ShipmentServices.quickScheduleShipmentRouteSegment`, the carrier parameters of `WeightPackageSession`,
   `UtilValidate.isValueLinkCard` and `CatalogWorker.getCatalogTopEbayCategoryId`.
+* `OrderViewWebSecure.groovy` lets only the customer who created an order view it when the screen sets
+  `customerOrderView` to Y, instead of when the webapp's dispatcher is named `ecommerce`; set it in the order
+  screens of a customer facing web site ([OFBIZ-13867](https://issues.apache.org/jira/browse/OFBIZ-13867)).
+* `ProductEvents.tellAFriend` no longer falls back to a default body screen; set `bodyScreenLocation` on the
+  `PRDS_TELL_FRIEND` email setting of the product store
+  ([OFBIZ-13867](https://issues.apache.org/jira/browse/OFBIZ-13867)).
 * `ICalConverter`, `ICalRecurConverter`, `ICalWorker` and `ICalHandlerFactory` in
   `org.apache.ofbiz.workeffort.workeffort` are removed with the iCalendar webapp
   ([OFBIZ-13816](https://issues.apache.org/jira/browse/OFBIZ-13816)).
