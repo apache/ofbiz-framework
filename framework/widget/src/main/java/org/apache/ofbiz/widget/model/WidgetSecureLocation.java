@@ -58,6 +58,10 @@ public final class WidgetSecureLocation {
             Debug.logWarning("Unable to sanitize an empty widget location", MODULE);
             return null;
         }
+        if (location.indexOf('%') >= 0) {
+            Debug.logWarning(String.format("Percent-encoded characters are not allowed in location: [%s]", location), MODULE);
+            return null;
+        }
         if (isFileScheme(location) || UtilValidate.isUrlInStringAndDoesNotStartByComponentProtocol(location)) {
             Debug.logWarning(String.format("Unable to sanitize location: [%s]", location), MODULE);
             return null;
