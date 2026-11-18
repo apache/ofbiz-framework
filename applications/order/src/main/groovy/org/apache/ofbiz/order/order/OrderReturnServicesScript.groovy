@@ -412,7 +412,7 @@ Map updateReturnStatusFromReceipt() {
          */
         for (GenericValue receipt : shipmentReceipts) {
             GenericValue shipment = delegator.getRelatedOne('Shipment', receipt, false)
-            if (shipment.shipmentId) {
+            if (shipment?.shipmentId) {
                 if ('RETURN_RECEIVED' != shipment.statusId) {
                     run service: 'updateShipment', with: [shipmentId: shipment.shipmentId,
                                                           statusId: 'PURCH_SHIP_RECEIVED']
