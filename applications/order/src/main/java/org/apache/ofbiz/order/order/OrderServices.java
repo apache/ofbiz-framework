@@ -82,6 +82,7 @@ import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.service.ServiceUtil;
+import org.apache.ofbiz.widget.model.WidgetSecureLocation;
 
 import com.ibm.icu.util.Calendar;
 
@@ -5128,8 +5129,15 @@ public class OrderServices {
     public static Map<String, Object> massPrintOrders(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
-        String screenLocation = (String) context.get("screenLocation");
+        Locale locale = (Locale) context.get("locale");
+        String screenLocation = WidgetSecureLocation.sanitize((String) context.get("screenLocation"));
         String printerName = (String) context.get("printerName");
+
+        if (screenLocation == null) {
+            Debug.logError("Rejected screen location [" + context.get("screenLocation") + "] for massPrintOrders", MODULE);
+            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderErrorScreenLocationNotAllowed",
+                    UtilMisc.toMap("screenLocation", context.get("screenLocation")), locale));
+        }
 
         // make the list per facility
         List<String> orderIds = UtilGenerics.cast(context.get("orderIdList"));
@@ -5157,7 +5165,14 @@ public class OrderServices {
     public static Map<String, Object> massCreateFileForOrders(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
-        String screenLocation = (String) context.get("screenLocation");
+        Locale locale = (Locale) context.get("locale");
+        String screenLocation = WidgetSecureLocation.sanitize((String) context.get("screenLocation"));
+
+        if (screenLocation == null) {
+            Debug.logError("Rejected screen location [" + context.get("screenLocation") + "] for massCreateFileForOrders", MODULE);
+            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderErrorScreenLocationNotAllowed",
+                    UtilMisc.toMap("screenLocation", context.get("screenLocation")), locale));
+        }
 
         // make the list per facility
         List<String> orderIds = UtilGenerics.cast(context.get("orderIdList"));
