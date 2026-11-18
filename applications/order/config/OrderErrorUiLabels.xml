@@ -1432,6 +1432,9 @@
         <value xml:lang="zh">退货状态没有改变，从${statusId} -&gt; ${statusIdTo}不是一个可行的改变。</value>
         <value xml:lang="zh-TW">退貨狀態沒有改變，從${statusId} -&gt; ${statusIdTo}不是一個可行的改變。</value>
     </property>
+    <property key="OrderErrorScreenLocationNotAllowed">
+        <value xml:lang="en">The screen location [${screenLocation}] is not an allowed widget location.</value>
+    </property>
     <property key="OrderErrorTheProductStoreIdCanOnlyBeNullForPurchaseOrders">
         <value xml:lang="ar">خطأ: دليل محل السلعة يمكن أن يكون فارغا لأمر الشراء فقط</value>
         <value xml:lang="de">FEHLER: Die Laden-Id darf nur bei Beschaffungsaufträgen leer sein</value>

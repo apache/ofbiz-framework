@@ -119,8 +119,13 @@ public class ScreenFactory {
                 modelScreenMap = SCREEN_LOCATION_CACHE.get(resourceName);
                 if (modelScreenMap == null) {
                     long startTime = System.currentTimeMillis();
-                    URL screenFileUrl = null;
-                    screenFileUrl = FlexibleLocation.resolveLocation(resourceName);
+                    String sanitizedLocation = WidgetSecureLocation.sanitize(resourceName);
+                    if (sanitizedLocation == null) {
+                        Debug.logWarning("The location of screen [%s] isn't an allowed path. Abort rendering. Raw location [%s]",
+                                MODULE, resourceName, resourceName);
+                        throw new IllegalArgumentException("Abort screen rendering due to unallowed screen location");
+                    }
+                    URL screenFileUrl = FlexibleLocation.resolveLocation(sanitizedLocation);
                     if (screenFileUrl == null || UtilValidate.isUrlInStringAndDoesNotStartByComponentProtocol(screenFileUrl.toString())) {
                         throw new IllegalArgumentException("Could not resolve location to URL: " + resourceName);
                     }
