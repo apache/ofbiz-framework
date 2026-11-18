@@ -22,6 +22,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.Writer;
 import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -557,11 +559,33 @@ public final class FreeMarkerWorker {
             }
             try {
                 URL locationUrl = FlexibleLocation.resolveLocation(name);
-                return locationUrl != null && new File(locationUrl.toURI()).exists() ? locationUrl : null;
+                if (locationUrl == null || !new File(locationUrl.toURI()).exists()) {
+                    return null;
+                }
+                // Only serve an explicit file: template location when it resolves under ofbiz.home.
+                if (name.regionMatches(true, 0, "file:", 0, 5) && !resolvesUnderOfbizHome(locationUrl)) {
+                    Debug.logWarning("Refusing to load template from a file location outside ofbiz.home: " + name, MODULE);
+                    return null;
+                }
+                return locationUrl;
             } catch (Exception e) {
                 Debug.logWarning("Unable to locate the template: " + name, MODULE);
             }
             return null;
+        }
+
+        private static boolean resolvesUnderOfbizHome(URL locationUrl) {
+            String ofbizHome = System.getProperty("ofbiz.home");
+            if (UtilValidate.isEmpty(ofbizHome)) {
+                return false; // no ofbiz.home means no trusted boundary, so fail closed
+            }
+            try {
+                Path home = Paths.get(ofbizHome).toRealPath();
+                Path target = new File(locationUrl.toURI()).toPath().toRealPath();
+                return target.startsWith(home);
+            } catch (Exception e) {
+                return false;
+            }
         }
     }
 
