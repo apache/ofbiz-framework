@@ -132,7 +132,9 @@ public class LoginServices {
             userErrMsgs.add(UtilProperties.getMessage(RESOURCE, "loginservices.password_missing", locale));
         } else {
 
-            if ("true".equalsIgnoreCase(EntityUtilProperties.getPropertyValue("security", "username.lowercase", delegator))) {
+            boolean usernameToLowerCase = "true".equalsIgnoreCase(
+                    EntityUtilProperties.getPropertyValue("security", "username.lowercase", delegator));
+            if (usernameToLowerCase) {
                 username = username.toLowerCase(Locale.getDefault());
             }
             if ("true".equalsIgnoreCase(EntityUtilProperties.getPropertyValue("security", "password.lowercase", delegator))) {
@@ -239,7 +241,7 @@ public class LoginServices {
                         // if the password.accept.encrypted.and.plain property in security is set to true allow plain or encrypted passwords
                         // if this is a system account don't bother checking the passwords
                         // if externalAuth passed; this is run as well
-                        if ((!authFatalError && externalAuth) || (useTomcatSSO && tomcatSSOLogin(request, username, password))
+                        if ((!authFatalError && externalAuth) || (useTomcatSSO && tomcatSSOLogin(request, username, password, usernameToLowerCase))
                                 || (jwtToken != null && jwtTokenValid)
                                 || jwtPasswordResetTokenValid
                                 || (password != null && checkPassword(userLogin.getString("currentPassword"), useEncryption, password))) {
@@ -1235,14 +1237,20 @@ public class LoginServices {
         return passwordMatches;
     }
 
-    private static boolean tomcatSSOLogin(HttpServletRequest request, String userName, String currentPassword) {
+    private static boolean tomcatSSOLogin(HttpServletRequest request, String userName, String currentPassword,
+            boolean lowercaseUserName) {
         try {
             request.login(userName, currentPassword);
         } catch (ServletException e) {
 
             StringManager sm = StringManager.getManager("org.apache.catalina.connector");
             if (sm.getString("coyoteRequest.alreadyAuthenticated").equals(e.getMessage())) {
-                return true;
+                String remoteUser = request.getRemoteUser();
+                if (remoteUser != null && lowercaseUserName) {
+                    remoteUser = remoteUser.toLowerCase(Locale.getDefault());
+                }
+                // Only complete the login as the user the container already authenticated.
+                return userName != null && userName.equals(remoteUser);
             } else {
                 Debug.logError(e, MODULE);
                 return false;
