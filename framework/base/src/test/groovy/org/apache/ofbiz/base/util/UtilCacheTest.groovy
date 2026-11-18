@@ -20,6 +20,10 @@ package org.apache.ofbiz.base.util
 
 import static org.apache.ofbiz.base.util.tool.UtilCacheTestTools.createListener
 
+import java.util.concurrent.CountDownLatch
+import java.util.concurrent.TimeUnit
+
+import org.apache.ofbiz.base.util.cache.CacheListener
 import org.apache.ofbiz.base.util.cache.UtilCache
 import org.apache.ofbiz.base.util.tool.UtilCacheTestTools.Listener
 
@@ -198,14 +202,17 @@ class UtilCacheTest  {
         Listener myCacheListener = createListener(myCache)
         Listener controlListener = new Listener()
         Map controlMap = [:]
-        myCache.setExpireTime(100)
+        // expired entries are removed by a background thread, so wait for their removal instead of
+        // sleeping a fixed time; added after myCacheListener, so it is notified after it
+        CountDownLatch removals = new CountDownLatch(5)
+        myCache.addListener([noteKeyRemoval: { cache, key, value -> removals.countDown() },
+                             noteKeyAddition: { cache, key, value -> },
+                             noteKeyUpdate: { cache, key, newValue, oldValue -> }] as CacheListener)
+        // long enough for the entries to still be there when populateEmptyCache checks them on a busy machine
+        myCache.setExpireTime(1000)
         populateEmptyCache(name, myCache, 5, controlMap, controlListener)
         controlMap.forEach { k, v -> controlListener.noteKeyRemoval(myCache, k, v) }
-        try {
-            sleep(200)
-        } catch (InterruptedException e) {
-            fail('Failed to pause process during tests execution')
-        }
+        assert removals.await(30, TimeUnit.SECONDS)
         assert myCache.getCacheLineKeys().isEmpty()
         assert myCache.values().isEmpty()
         assert myCacheListener == controlListener

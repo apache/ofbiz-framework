@@ -85,15 +85,20 @@ class EntityEcaUtilConcurrencyTest {
         appender.start()
         logger.addAppender(appender)
         try {
-            // Warm-up rebuild: initializes EntityEcaUtil and measures how many resource-load log
-            // lines one full rebuild produces here (varies with which plugins are active).
+            // Initializes EntityEcaUtil, whose static initializer creates the cache.
+            EntityEcaUtil.getEntityEcaCache(READER_NAME)
+            UtilCache<String, ?> ecaReaderCache = UtilCache.findCache('entity.EcaReaders')
+            Assertions.assertNotNull(ecaReaderCache, 'entity.EcaReaders cache must already exist (created by EntityEcaUtil\'s static initializer)')
+
+            // Warm-up rebuild: measures how many resource-load log lines one full rebuild produces
+            // here (varies with which plugins are active). The entry is removed first because an
+            // earlier test in this JVM may already have built it, and then nothing would be rebuilt.
+            ecaReaderCache.remove(READER_NAME)
+            appender.reset()
             EntityEcaUtil.getEntityEcaCache(READER_NAME)
             int resourcesPerRebuild = appender.matchCount
             Assertions.assertTrue(resourcesPerRebuild > 0,
                     "Expected at least one entity ECA resource registered for reader \"${READER_NAME}\" in this environment")
-
-            UtilCache<String, ?> ecaReaderCache = UtilCache.findCache('entity.EcaReaders')
-            Assertions.assertNotNull(ecaReaderCache, 'entity.EcaReaders cache must already exist (created by EntityEcaUtil\'s static initializer)')
 
             for (int iteration = 0; iteration < ITERATIONS; iteration++) {
                 ecaReaderCache.remove(READER_NAME)

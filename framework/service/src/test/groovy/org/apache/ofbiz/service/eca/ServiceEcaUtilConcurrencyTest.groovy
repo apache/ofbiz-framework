@@ -63,16 +63,16 @@ class ServiceEcaUtilConcurrencyTest {
     private static final int WRITER_THREADS = 8
     private static final int READER_THREADS = 4
     private static final int MERGES_PER_WRITER = 3000
+    // All writers serialize on CONFIG_LOCK, so the merges are effectively single-threaded work: they
+    // take a few seconds on an idle machine but can take minutes on a loaded one. Writers stop after
+    // this long even if they have not done all their merges, so the race runs for a bounded time.
+    private static final long WRITE_MILLIS = 30000
 
     @Test
     // SEPARATE_THREAD so a genuine hang (e.g. a corrupted, cyclic rule list spinning
     // evalRules()/mergeEcaDefinitions() forever instead of throwing) still fails this test at
-    // the deadline, rather than blocking until someone kills the build.
-    //
-    // 120s gives generous headroom over CI: all writers serialize on CONFIG_LOCK, so the
-    // 24 000 addEcaDefinitions() calls are effectively single-threaded XML-parsing work that
-    // took ~12s on an idle 10-core dev machine - comfortably longer on a shared/throttled
-    // GitHub Actions runner. This bound exists to catch a genuine hang, not to pace the workload.
+    // the deadline, rather than blocking until someone kills the build. This bound exists to
+    // catch a genuine hang, not to pace the workload, which WRITE_MILLIS bounds.
     @Timeout(value = 120, threadMode = Timeout.ThreadMode.SEPARATE_THREAD)
     void evalRulesToleratesConcurrentAddEcaDefinitions() {
         String serviceName = "raceRegressionTestService${UUID.randomUUID()}"
@@ -97,9 +97,9 @@ class ServiceEcaUtilConcurrencyTest {
 
             @Override
             URL getURL() throws GenericConfigException {
-                // No backing resource for this in-memory handler; addEcaDefinitions() catches this
-                // and falls back to getLocation(), same as it does for any resource without a URL.
-                throw new GenericConfigException('no URL for in-memory test resource')
+                // Nothing is read from this URL; it only names the rules' location. Throwing here
+                // instead would make addEcaDefinitions() log an error with a stack trace on every call.
+                return URI.create("file:/${getLocation()}").toURL()
             }
 
             @Override
@@ -149,7 +149,8 @@ class ServiceEcaUtilConcurrencyTest {
             List<Future<?>> futures = (1..WRITER_THREADS).collect {
                 writers.submit({
                     startLatch.await()
-                    for (int j = 0; j < MERGES_PER_WRITER; j++) {
+                    long deadline = System.nanoTime() + TimeUnit.MILLISECONDS.toNanos(WRITE_MILLIS)
+                    for (int j = 0; j < MERGES_PER_WRITER && System.nanoTime() < deadline; j++) {
                         try {
                             ServiceEcaUtil.addEcaDefinitions(handler)
                         // See the matching note on the reader's catch above.
@@ -162,8 +163,7 @@ class ServiceEcaUtilConcurrencyTest {
             }
 
             startLatch.countDown()
-            // See the @Timeout comment above for why 90s: this bound only needs to be well clear
-            // of the observed ~12s local runtime, with room for slower/shared CI hardware.
+            // Writers stop after WRITE_MILLIS; this bound only catches a writer that hangs.
             futures.each { it.get(90, TimeUnit.SECONDS) }
         } finally {
             writers.shutdownNow()
