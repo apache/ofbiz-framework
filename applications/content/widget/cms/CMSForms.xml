@@ -100,7 +100,7 @@ under the License.
             <text size="60"/>
         </field>
        <field name="summaryData" title="${uiLabelMap.ContentBlogSummary}"
-            use-when="&quot;${summaryDataResourceTypeId}&quot;.length()>0"
+            use-when="summaryDataResourceTypeId!=null&amp;&amp;summaryDataResourceTypeId.length()>0"
             id-name="summaryData">
                 <textarea rows="8" cols="80"/>
         </field>
@@ -227,7 +227,7 @@ under the License.
             <hidden/>
         </field>
         <field name="contentId" position="1" map-name="currentValue"
-            use-when="&quot;${currentValue.contentId}&quot;.length()>0" >
+            use-when="currentValue?.contentId!=null&amp;&amp;currentValue.contentId.length()>0" >
             <display />
         </field>
         <field name="ownerContentId" title="Owning Department" >
@@ -237,10 +237,10 @@ under the License.
             <display/>
         </field>
         <field name="textData" entry-name="summaryData" id-name="textData"
-            use-when="&quot;${textSource}&quot;.length()>0 &amp;&amp; &quot;${textSource}&quot;.equals(&quot;summaryData&quot;) "
+            use-when="&quot;summaryData&quot;.equals(textSource)"
          ><textarea rows="20" cols="80"/></field>
         <field name="textData" id-name="textData" entry-name="textData"
-            use-when="&quot;${textSource}&quot;.length()>0 &amp;&amp; &quot;${textSource}&quot;.equals(&quot;textData&quot;) "
+            use-when="&quot;textData&quot;.equals(textSource)"
          ><textarea rows="20" cols="80"/></field>
         <field name="privilegeEnumId" >
             <hidden/>
@@ -302,7 +302,7 @@ under the License.
         </field>
         <!--
         <field name="contentId" position="1" map-name="currentValue"
-            use-when="&quot;${currentValue.contentId}&quot;.length()>0" >
+            use-when="currentValue?.contentId!=null&amp;&amp;currentValue.contentId.length()>0" >
             <display />
         </field>
         -->
@@ -490,7 +490,7 @@ under the License.
             <sub-hyperlink link-style="buttontext" target-type="intra-app" target="gotoDataResource" description="${uiLabelMap.ContentGoToDataResource}">
                 <parameter param-name="dataResourceId" from-field="currentValue.dataResourceId"/>
             </sub-hyperlink>
-            <sub-hyperlink use-when="&quot;${currentValue.dataResourceId}&quot;.length()>0" link-style="buttontext" target-type="intra-app" target="gotoDataResource" description="${uiLabelMap.ContentGoToDataResource}">
+            <sub-hyperlink use-when="currentValue?.dataResourceId!=null&amp;&amp;currentValue.dataResourceId.length()>0" link-style="buttontext" target-type="intra-app" target="gotoDataResource" description="${uiLabelMap.ContentGoToDataResource}">
                 <parameter param-name="dataResourceId" from-field="currentValue.dataResourceId"/>
             </sub-hyperlink>
 -->

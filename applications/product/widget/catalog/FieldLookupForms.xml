@@ -190,10 +190,10 @@ under the License.
             <set field="hasVariants" value="${groovy: delegator.findByAnd('ProductAssoc', org.apache.ofbiz.base.util.UtilMisc.toMap('productId', productId, 'productAssocTypeId', 'PRODUCT_VARIANT'), null, true).size() > 0}" type="Boolean"/>
         </row-actions>
         <!--
-        <field name="productId" title=" " widget-style="buttontext" use-when="isVirtual==null||&quot;${isVirtual}&quot;.equals(&quot;N&quot;)">
+        <field name="productId" title=" " widget-style="buttontext" use-when="isVirtual==null||&quot;N&quot;.equals(isVirtual)">
             <hyperlink description="${productId}" target="javascript:set_value('${productId}')" also-hidden="false" target-type="plain"/>
         </field>
-        <field name="productId" title="${uiLabelMap.ProductProductId}" use-when="isVirtual!=null&amp;&amp;&quot;${isVirtual}&quot;.equals(&quot;Y&quot;)"><display/></field>
+        <field name="productId" title="${uiLabelMap.ProductProductId}" use-when="isVirtual!=null&amp;&amp;&quot;Y&quot;.equals(isVirtual)"><display/></field>
         -->
         <field name="productId" widget-style="buttontext">
             <hyperlink description="${productId}" target="javascript:set_value('${productId}')" also-hidden="false" target-type="plain"/>
