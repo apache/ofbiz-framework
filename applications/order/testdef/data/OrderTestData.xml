@@ -27,7 +27,6 @@ under the License.
     <ProdCatalogCategory prodCatalogId="DemoCatalog" productCategoryId="CATALOG1_BEST_SELL" fromDate="2010-01-01 12:00:00.0" sequenceNum="1" prodCatalogCategoryTypeId="PCCT_BEST_SELL"/>
 
     <ProductStore productStoreId="9000" storeName="OFBiz Ebay Store1-AU" companyName="Apache Ofbiz" title="Test OFBiz store1" requirementMethodEnumId="PRODRQM_STOCK"/>
-    <ProductStoreEmailSetting productStoreId="9000" emailType="PRDS_ODR_CONFIRM" bodyScreenLocation="component://ecommerce/widget/EmailOrderScreens.xml#OrderConfirmNotice" xslfoAttachScreenLocation="component://ecommerce/widget/EmailOrderScreens.xml#OrderConfirmNoticePdf" subject="OFBiz Demo - Order Confirmation #${orderId}" bccAddress="ofbiztest@example.com" fromAddress="ofbiztest@example.com"/>
 
     <ProductStore productStoreId="9000ATP" storeName="OFBiz Ebay Store2-AU" companyName="Apache Ofbiz" title="Test OFBiz store2 atp" requirementMethodEnumId="PRODRQM_STOCK_ATP"/>
     <Facility facilityId="WebStoreWarehouseAtp" facilityTypeId="WAREHOUSE" facilityName="Web Store Warehouse ATP" defaultInventoryItemTypeId="NON_SERIAL_INV_ITEM"/>
