@@ -561,7 +561,7 @@ under the License.
         <field name="invoiceId"><hidden/></field>
         <field name="paymentId"><lookup target-form-name="LookupPayment"/></field>
         <field name="amountToApply" parameter-name="amountApplied"><text size="10"/></field>
-        <field name="invoiceProcessing" use-when="&quot;${uiConfigMap.invoiceProcessing}&quot;.equals(&quot;Y&quot;)"><check/></field>
+        <field name="invoiceProcessing" use-when="&quot;Y&quot;.equals(uiConfigMap?.invoiceProcessing)"><check/></field>
         <field name="applyButton" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>
@@ -636,10 +636,10 @@ under the License.
             </service>
         </actions>
         <field name="invoiceId"><hidden/></field>
-        <field name="emailAddressFrom" entry-name="mapFrom.emailAddress" parameter-name="sendFrom" use-when="&quot;${invoice.invoiceTypeId}&quot;.equals(&quot;SALES_INVOICE&quot;)"><text type="email"/></field>
-        <field name="emailAddressFrom" entry-name="mapTo.emailAddress" parameter-name="sendFrom" use-when="&quot;${invoice.invoiceTypeId}&quot;.equals(&quot;PURCHASE_INVOICE&quot;)"><text type="email"/></field>
-        <field name="emailAddressTo" entry-name="mapTo.emailAddress" parameter-name="sendTo" use-when="&quot;${invoice.invoiceTypeId}&quot;.equals(&quot;SALES_INVOICE&quot;)"><text type="email"/></field>
-        <field name="emailAddressTo" entry-name="mapFrom.emailAddress" parameter-name="sendTo" use-when="&quot;${invoice.invoiceTypeId}&quot;.equals(&quot;PURCHASE_INVOICE&quot;)"><text type="email"/></field>
+        <field name="emailAddressFrom" entry-name="mapFrom.emailAddress" parameter-name="sendFrom" use-when="&quot;SALES_INVOICE&quot;.equals(invoice?.invoiceTypeId)"><text type="email"/></field>
+        <field name="emailAddressFrom" entry-name="mapTo.emailAddress" parameter-name="sendFrom" use-when="&quot;PURCHASE_INVOICE&quot;.equals(invoice?.invoiceTypeId)"><text type="email"/></field>
+        <field name="emailAddressTo" entry-name="mapTo.emailAddress" parameter-name="sendTo" use-when="&quot;SALES_INVOICE&quot;.equals(invoice?.invoiceTypeId)"><text type="email"/></field>
+        <field name="emailAddressTo" entry-name="mapFrom.emailAddress" parameter-name="sendTo" use-when="&quot;PURCHASE_INVOICE&quot;.equals(invoice?.invoiceTypeId)"><text type="email"/></field>
         <field name="emailAddressCc" entry-name="ccEmailAddress" parameter-name="sendCc"><text type="email"/></field>
         <field name="subject"><text default-value="Please find attached invoice."/></field>
         <field name="otherCurrency" entry-name="parameters.other" parameter-name="other"><check/></field>

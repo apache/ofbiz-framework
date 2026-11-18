@@ -852,7 +852,7 @@ under the License.
         </field>
         <field name="reconciledDate"><date-time/></field>
         <field name="organizationPartyId"><display/></field>
-        <field name="reconciledBalance" use-when="&quot;GLREC_RECONCILED&quot;.equals(&quot;${glReconciliation.statusId}&quot;)"><display type="currency" currency="${defaultOrganizationPartyCurrencyUomId}"/></field>
+        <field name="reconciledBalance" use-when="&quot;GLREC_RECONCILED&quot;.equals(glReconciliation?.statusId)"><display type="currency" currency="${defaultOrganizationPartyCurrencyUomId}"/></field>
         <field name="openingBalance" use-when="${groovy:'GLREC_RECONCILED'.equals(glReconciliation?.statusId)}"><display/></field>
         <field use-when="glReconciliationId!=null" name="updateButton" title="${uiLabelMap.CommonUpdate}" widget-style="buttontext" ><submit button-type="text-link"/></field>
     </form>
