@@ -152,12 +152,18 @@ public final class UtilHttp {
         // Pseudo-parameters passed in the URI path overrides the ones from the regular URI parameters
         params.putAll(getPathInfoOnlyParameterMap(req.getPathInfo(), pred));
 
-        // If nothing is found in the parameters, try to find something in the multi-part map.
-        Map<String, Object> multiPartMap = null;
-        try {
-            multiPartMap = params.isEmpty() ? getMultiPartParameterMap(req) : Collections.emptyMap();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        // If nothing is found in the parameters, try to find something in the multi-part map. The request body can only
+        // be read once, so reuse the multi-part map already parsed for this request.
+        Map<String, Object> multiPartMap = Collections.emptyMap();
+        if (params.isEmpty()) {
+            multiPartMap = UtilGenerics.cast(req.getAttribute("multiPartMap"));
+            if (multiPartMap == null) {
+                try {
+                    multiPartMap = getMultiPartParameterMap(req);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
         }
         params.putAll(multiPartMap);
         if (req.getAttribute("multiPartMap") == null) {

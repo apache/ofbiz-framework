@@ -120,6 +120,15 @@ public final class UtilHttpTest {
     }
 
     @Test
+    public void cachedMultiPartParameterMap() {
+        when(req.getParameterMap()).thenReturn(Collections.emptyMap());
+        when(req.getAttribute("multiPartMap")).thenReturn(UtilMisc.toMap("foo", "1"));
+        assertThat(UtilHttp.getParameterMap(req), hasEntry("foo", "1"));
+        // Check that the request body, already read, is not parsed again
+        Mockito.verify(req, Mockito.never()).getContentType();
+    }
+
+    @Test
     public void filteredGetParameterMap() {
         when(req.getParameterMap()).thenReturn(UtilMisc.toMap(
                 "foo", new String[] {"1"},
