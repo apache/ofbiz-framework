@@ -96,6 +96,7 @@ import org.apache.ofbiz.widget.model.ModelScreen;
 import org.apache.ofbiz.widget.model.ModelTheme;
 import org.apache.ofbiz.widget.model.ScreenFactory;
 import org.apache.ofbiz.widget.model.ThemeFactory;
+import org.apache.ofbiz.widget.model.WidgetSecureLocation;
 import org.apache.ofbiz.widget.renderer.FormRenderer;
 import org.apache.ofbiz.widget.renderer.ScreenRenderer;
 import org.apache.ofbiz.widget.renderer.ScreenStringRenderer;
@@ -1222,7 +1223,12 @@ public class DataResourceWorker implements org.apache.ofbiz.widget.content.DataR
     }
 
     public static String renderMimeTypeTemplate(GenericValue mimeTypeTemplate, Map<String, Object> context) throws GeneralException, IOException {
-        String location = mimeTypeTemplate.getString("templateLocation");
+        String rawLocation = mimeTypeTemplate.getString("templateLocation");
+        // Validate the template location the same way the widget factories do.
+        String location = WidgetSecureLocation.sanitize(rawLocation);
+        if (location == null) {
+            throw new GeneralException("Unsupported mime type template location: [" + rawLocation + "]");
+        }
         StringWriter writer = new StringWriter();
         try {
             FreeMarkerWorker.renderTemplate(location, context, writer);
