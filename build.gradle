@@ -792,7 +792,7 @@ task loadTenant(group: ofbizServer, description: 'Load data using tenantId') {
     }
 
     executeLoadTenant.doFirst {
-        if (!project.hasProperty('tenantId')) {
+        if (!providers.gradleProperty('tenantId').present) {
             throw new GradleException('Missing project property tenantId')
         }
     }
@@ -805,11 +805,11 @@ task createTenant(group: ofbizServer, description: 'Create a new tenant in your 
 
     task prepareAndValidateTenantArguments {
         doLast {
-            if (!project.hasProperty('tenantId')) {
+            if (!providers.gradleProperty('tenantId').present) {
                 throw new GradleException('Project property tenantId is missing')
             }
             // dbPlatform values: H(H2), M(MySQL), O(Oracle), P(PostgreSQL) (default D)
-            if (project.hasProperty('dbPlatform')) {
+            if (providers.gradleProperty('dbPlatform').present) {
                 if (dbPlatform == 'H') {
                     databaseTemplateFile = "${rootDir}/framework/resources/templates/AdminNewTenantData-H2.xml"
                 } else if (dbPlatform == 'M') {
@@ -828,11 +828,11 @@ task createTenant(group: ofbizServer, description: 'Create a new tenant in your 
     task generateDatabaseTemplateFile(dependsOn: prepareAndValidateTenantArguments) {
         doLast {
             def filterTokens = ['tenantId': tenantId,
-                'tenantName': project.hasProperty('tenantName') ? tenantName : tenantId,
-                'domainName': project.hasProperty('domainName') ? domainName : 'org.apache.ofbiz',
-                'db-IP': project.hasProperty('dbIp') ? dbIp : '',
-                'db-User': project.hasProperty('dbUser') ? dbUser : '',
-                'db-Password': project.hasProperty('dbPassword') ? dbPassword : '']
+                'tenantName': providers.gradleProperty('tenantName').present ? tenantName : tenantId,
+                'domainName': providers.gradleProperty('domainName').present ? domainName : 'org.apache.ofbiz',
+                'db-IP': providers.gradleProperty('dbIp').present ? dbIp : '',
+                'db-User': providers.gradleProperty('dbUser').present ? dbUser : '',
+                'db-Password': providers.gradleProperty('dbPassword').present ? dbPassword : '']
 
             generateFileFromTemplate(databaseTemplateFile, 'runtime/tmp',
                 filterTokens, 'tmpFilteredTenantData.xml')
@@ -918,7 +918,7 @@ task deleteOfbizDocumentation {
 
 task deletePluginDocumentation {
     doFirst {
-        if (!project.hasProperty('pluginId')) {
+        if (!providers.gradleProperty('pluginId').present) {
             throw new GradleException('Missing property \"pluginId\"')
         }
         if(!(activeComponents().stream().anyMatch { it.name == pluginId })) {
@@ -1119,9 +1119,9 @@ task generateDBPassword(group: sysadminGroup,
                 + 'falling back to the OFBIZ_MASTER_KEY environment variable.') {
     def execOps = objects.newInstance(InjectedExecOps).execOps
     doLast {
-        def secret = project.hasProperty('dbPassword') ? project.property('dbPassword')
+        def secret = providers.gradleProperty('dbPassword').present ? providers.gradleProperty('dbPassword').get()
                 : promptSecret('Enter database password: ')
-        def masterKey = project.hasProperty('masterKey') ? project.property('masterKey') : System.getenv('OFBIZ_MASTER_KEY')
+        def masterKey = providers.gradleProperty('masterKey').present ? providers.gradleProperty('masterKey').get() : System.getenv('OFBIZ_MASTER_KEY')
         if (masterKey) {
             def output = new java.io.ByteArrayOutputStream()
             execOps.javaexec {
@@ -1132,7 +1132,7 @@ task generateDBPassword(group: sysadminGroup,
             }
             secret = output.toString().trim()
         }
-        def propertyName = "jdbc-password.${project.property('lookupKey')}"
+        def propertyName = "jdbc-password.${providers.gradleProperty('lookupKey').get()}"
         def newLine = "${propertyName}=${secret}"
         def passwordsFile = file('framework/base/config/passwords.properties')
         def lines = passwordsFile.readLines()
@@ -1152,11 +1152,11 @@ task generateEncryptedSecret(group: sysadminGroup,
                 + 'to the OFBIZ_MASTER_KEY environment variable.') {
     def execOps = objects.newInstance(InjectedExecOps).execOps
     doLast {
-        def secret = project.hasProperty('secretPassword') ? project.property('secretPassword')
+        def secret = providers.gradleProperty('secretPassword').present ? providers.gradleProperty('secretPassword').get()
                 : promptSecret('Enter secret value: ')
-        def lookupKey = project.hasProperty('lookupKey') ? project.property('lookupKey')
+        def lookupKey = providers.gradleProperty('lookupKey').present ? providers.gradleProperty('lookupKey').get()
                 : promptValue('Enter lookup key: ')
-        def masterKey = project.hasProperty('masterKey') ? project.property('masterKey')
+        def masterKey = providers.gradleProperty('masterKey').present ? providers.gradleProperty('masterKey').get()
                 : (System.getenv('OFBIZ_MASTER_KEY') ?: promptSecret('Enter master key: '))
 
         def markerName = 'SECRET'
@@ -1188,11 +1188,11 @@ task reEncryptAllSecrets(group: sysadminGroup,
     dependsOn classes
     def execOps = objects.newInstance(InjectedExecOps).execOps
     doLast {
-        def oldKey = project.hasProperty('oldMasterKey') ? project.property('oldMasterKey')
+        def oldKey = providers.gradleProperty('oldMasterKey').present ? providers.gradleProperty('oldMasterKey').get()
                 : (System.getenv('OFBIZ_OLD_MASTER_KEY') ?: promptSecret('Enter OLD master key: '))
-        def newKey = project.hasProperty('newMasterKey') ? project.property('newMasterKey')
+        def newKey = providers.gradleProperty('newMasterKey').present ? providers.gradleProperty('newMasterKey').get()
                 : (System.getenv('OFBIZ_NEW_MASTER_KEY') ?: promptSecret('Enter NEW master key: '))
-        def dryRun = project.hasProperty('dryRun') ? project.property('dryRun') : 'false'
+        def dryRun = providers.gradleProperty('dryRun').present ? providers.gradleProperty('dryRun').get() : 'false'
         execOps.javaexec {
             classpath = sourceSets.main.runtimeClasspath
             mainClass = 'org.apache.ofbiz.base.crypto.ReEncryptSecretsMain'
@@ -1252,15 +1252,9 @@ task rotateSecretKeys(group: sysadminGroup,
 // ========== OFBiz Plugin Management ==========
 task createPlugin(group: ofbizPlugin, description: 'create a new plugin component based on specified templates') {
     doLast {
-        if (!project.hasProperty('pluginResourceName')) {
-            ext.pluginResourceName = pluginId.capitalize()
-        }
-        if (!project.hasProperty('webappName')) {
-            ext.webappName = pluginId
-        }
-        if (!project.hasProperty('basePermission')) {
-            ext.basePermission = pluginId.toUpperCase()
-        }
+        def pluginResourceName = providers.gradleProperty('pluginResourceName').getOrElse(pluginId.capitalize())
+        def webappName = providers.gradleProperty('webappName').getOrElse(pluginId)
+        def basePermission = providers.gradleProperty('basePermission').getOrElse(pluginId.toUpperCase())
 
         def filterTokens = ['component-name': pluginId,
             'component-resource-name': pluginResourceName,
@@ -1306,7 +1300,7 @@ task createPlugin(group: ofbizPlugin, description: 'create a new plugin componen
 task installPlugin(group: ofbizPlugin, description: 'executes plugin install task if it exists') {
 
     doFirst {
-        if (!project.hasProperty('pluginId')) {
+        if (!providers.gradleProperty('pluginId').present) {
             throw new GradleException('Missing property \"pluginId\"')
         }
     }
@@ -1328,7 +1322,7 @@ task installPlugin(group: ofbizPlugin, description: 'executes plugin install tas
 task uninstallPlugin(group: ofbizPlugin, description: 'executes plugin uninstall task if it exists') {
 
     doFirst {
-        if (!project.hasProperty('pluginId')) {
+        if (!providers.gradleProperty('pluginId').present) {
             throw new GradleException('Missing property \"pluginId\"')
         }
         if (!subprojectExists(":plugins:${pluginId}")) {
@@ -1402,16 +1396,16 @@ task pushPlugin(group: ofbizPlugin, description: 'push an existing plugin to loc
 task pullPlugin(group: ofbizPlugin, description: 'Download and install a plugin with all dependencies') {
     def execOps = objects.newInstance(InjectedExecOps).execOps
     doLast {
-        if (!project.hasProperty('dependencyId')) {
+        if (!providers.gradleProperty('dependencyId').present) {
             throw new GradleException('You must pass the dependencyId of the plugin')
         }
 
         // Connect to a remote maven repository if defined
-        if (project.hasProperty('repoUrl')) {
+        if (providers.gradleProperty('repoUrl').present) {
             repositories {
                 maven {
                     url repoUrl
-                    if (project.hasProperty('repoUser') && project.hasProperty('repoPassword')) {
+                    if (providers.gradleProperty('repoUser').present && providers.gradleProperty('repoPassword').present) {
                         credentials {
                             username repoUser
                             password repoPassword
