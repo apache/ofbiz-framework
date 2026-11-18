@@ -820,6 +820,7 @@ under the License.
 
     <service name="updateTrainingStatus" engine="entity-auto" default-entity-name="PersonTraining" invoke="update" auth="true">
         <description>Update Training Status</description>
+        <permission-service service-name="humanResManagerPermission" main-action="UPDATE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
         <override name="reason" optional="false"/>
@@ -828,6 +829,7 @@ under the License.
     <service name="applyTraining" engine="simple" default-entity-name="PersonTraining" 
              location="component://humanres/minilang/HumanResServices.xml" invoke="applyTraining" auth="true">
         <description>Create Training Request</description>
+        <permission-service service-name="humanResManagerPermission" main-action="CREATE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
         <override name="approverId" optional="false"/>
@@ -843,6 +845,7 @@ under the License.
     <service name="assignTraining" engine="simple" default-entity-name="PersonTraining" 
              location="component://humanres/minilang/HumanResServices.xml" invoke="assignTraining" auth="true">
         <description>Create Training Request</description>
+        <permission-service service-name="humanResManagerPermission" main-action="CREATE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
         <override name="approverId" optional="false"/>
