@@ -195,6 +195,7 @@
         <make-value entity-name="PersonTraining" value-field="personTraining"/>
         <set-pk-fields map="parameters" value-field="personTraining"/>
         <set-nonpk-fields map="parameters" value-field="personTraining"/>
+        <set field="personTraining.approvalStatus" value="TRAINING_APPLIED"/>
         <set from-field="trainingRequest.trainingRequestId" field="personTraining.trainingRequestId"/>
         <set field="personTraining.fromDate" from-field="parameters.fromDate"/>
         <set field="personTraining.thruDate" from-field="parameters.thruDate"/>
