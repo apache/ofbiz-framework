@@ -160,7 +160,6 @@ under the License.
                         <#assign quantityNotIssued = orderItemAndShipGroupAssoc.quantity - totalQuantityIssued>
                         <#if (quantityNotIssued > 0)>
                             <td>
-                                <input type="hidden" name="shipmentId_o_${rowCount}" value="${shipmentId}"/>
                                 <input type="hidden" name="orderId_o_${rowCount}" value="${orderItemAndShipGroupAssoc.orderId}"/>
                                 <input type="hidden" name="shipGroupSeqId_o_${rowCount}" value="${orderItemAndShipGroupAssoc.shipGroupSeqId}"/>
                                 <input type="hidden" name="orderItemSeqId_o_${rowCount}" value="${orderItemAndShipGroupAssoc.orderItemSeqId}"/>
@@ -203,7 +202,6 @@ under the License.
                             <td>${orderItemShipGrpInvRes.quantityNotAvailable?default("&nbsp;")}</td>
                             <#if originFacility?? && originFacility.facilityId == inventoryItem.facilityId!>
                                 <td>
-                                    <input type="hidden" name="shipmentId_o_${rowCount}" value="${shipmentId}"/>
                                     <input type="hidden" name="orderId_o_${rowCount}" value="${orderItemShipGrpInvRes.orderId}"/>
                                     <input type="hidden" name="shipGroupSeqId_o_${rowCount}" value="${orderItemShipGrpInvRes.shipGroupSeqId}"/>
                                     <input type="hidden" name="orderItemSeqId_o_${rowCount}" value="${orderItemShipGrpInvRes.orderItemSeqId}"/>

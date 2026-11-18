@@ -59,8 +59,12 @@ under the License.
             <#-- general request fields -->
             <input type="hidden" name="facilityId" value="${requestParameters.facilityId!}" />
             <input type="hidden" name="returnId" value="${requestParameters.returnId!}" />
-            <input type="hidden" name="_useRowSubmit" value="Y" />
             <#assign now = Static["org.apache.ofbiz.base.util.UtilDateTime"].nowTimestamp().toString()>
+            <#-- values that are the same on every row are posted once -->
+            <input type="hidden" name="shipmentId" value="${parameters.shipmentId!}" />
+            <input type="hidden" name="datetimeReceived" value="${now}" />
+            <input type="hidden" name="quantityRejected" value="0" />
+            <input type="hidden" name="_useRowSubmit" value="Y" />
             <#assign rowCount = 0>
             <table cellspacing="0" class="basic-table">
               <#if !returnItems?? || returnItems?size == 0>
@@ -86,12 +90,7 @@ under the License.
                   <#assign orderItem = returnItem.getRelatedOne("OrderItem", false)!>
                   <#if (orderItem?has_content && 0 < defaultQuantity)>
                   <#assign orderItemType = (orderItem.getRelatedOne("OrderItemType", false))!>
-                  <input type="hidden" name="returnId_o_${rowCount}" value="${returnItem.returnId}" />
                   <input type="hidden" name="returnItemSeqId_o_${rowCount}" value="${returnItem.returnItemSeqId}" />
-                  <input type="hidden" name="shipmentId_o_${rowCount}" value="${parameters.shipmentId!}" />
-                  <input type="hidden" name="facilityId_o_${rowCount}" value="${requestParameters.facilityId!}" />
-                  <input type="hidden" name="datetimeReceived_o_${rowCount}" value="${now}" />
-                  <input type="hidden" name="quantityRejected_o_${rowCount}" value="0" />
                   <input type="hidden" name="comments_o_${rowCount}" value="${uiLabelMap.OrderReturnedItemRaNumber} ${returnItem.returnId}" />
 
                   <#assign unitCost = Static["org.apache.ofbiz.order.order.OrderReturnServices"].getReturnItemInitialCost(delegator, returnItem.returnId, returnItem.returnItemSeqId)/>
