@@ -12233,20 +12233,6 @@
         <value xml:lang="zh">没有找到符合你要求的产品</value>
         <value xml:lang="zh-TW">沒有找到符合你需求的產品</value>
     </property>
-    <property key="ProductCategoryPage">
-        <value xml:lang="de">Kategorie Seite</value>
-        <value xml:lang="en">Category Page</value>
-        <value xml:lang="es">Página de la Categoría</value>
-        <value xml:lang="fr">Page de la catégorie</value>
-        <value xml:lang="it">Pagina Categoria</value>
-        <value xml:lang="ja">カテゴリページ</value>
-        <value xml:lang="nl">Categorie-pagina</value>
-        <value xml:lang="ro">Pagina Categorie</value>
-        <value xml:lang="th">หน้าหมวดหมู่</value>
-        <value xml:lang="vi">Trang Phân loại Quản lý</value>
-        <value xml:lang="zh">分类页面</value>
-        <value xml:lang="zh-TW">分類頁面</value>
-    </property>
     <property key="ProductCategoryProducts">
         <value xml:lang="de">Produkte dieser Kategorie</value>
         <value xml:lang="en">Products from this category</value>
@@ -23434,20 +23420,6 @@
         <value xml:lang="zh">产品序号</value>
         <value xml:lang="zh-TW">產品序號</value>
     </property>
-    <property key="ProductProductPage">
-        <value xml:lang="de">Produktseite</value>
-        <value xml:lang="en">Product Page</value>
-        <value xml:lang="es">Página de producto</value>
-        <value xml:lang="fr">Vue de l'article (ecom)</value>
-        <value xml:lang="it">Pagina Prodotto</value>
-        <value xml:lang="ja">製品ページ</value>
-        <value xml:lang="ro">Pagina Produs </value>
-        <value xml:lang="ru">Страница продукта</value>
-        <value xml:lang="th">หน้าสินค้า</value>
-        <value xml:lang="vi">Trang sản phẩm</value>
-        <value xml:lang="zh">产品页面</value>
-        <value xml:lang="zh-TW">產品頁面</value>
-    </property>
     <property key="ProductProductPromoContentList">
         <value xml:lang="de">Produkt Promo Inhalts Liste</value>
         <value xml:lang="en">Product Promo Content List</value>
@@ -24308,20 +24280,6 @@
         <value xml:lang="vi">Khuyến mại</value>
         <value xml:lang="zh">促销</value>
         <value xml:lang="zh-TW">促銷</value>
-    </property>
-    <property key="ProductPublishAndView">
-        <value xml:lang="de">Veröffentlichen und Ansehen</value>
-        <value xml:lang="en">Publish View</value>
-        <value xml:lang="es">Publicar y ver</value>
-        <value xml:lang="fr">Publier et voir</value>
-        <value xml:lang="it">Pubblica e mostra</value>
-        <value xml:lang="ja">公開表示</value>
-        <value xml:lang="ro">Publicheaza si Afiseaza</value>
-        <value xml:lang="ru">Опубликовать и просмотреть</value>
-        <value xml:lang="th">ประกาศ แสดง</value>
-        <value xml:lang="vi">Khách xem</value>
-        <value xml:lang="zh">发布和浏览</value>
-        <value xml:lang="zh-TW">發行和檢視</value>
     </property>
     <property key="ProductPurchaseFrom">
         <value xml:lang="de">Einkauf von</value>

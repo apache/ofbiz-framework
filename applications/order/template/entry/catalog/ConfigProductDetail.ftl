@@ -336,7 +336,7 @@ function getConfigDetails() {
               <input type="text" size="5" name="add_amount" value="" />
             </div>
             <#if !configwrapper.isCompleted()>
-              <div>[${uiLabelMap.EcommerceProductNotConfigured}]&nbsp;
+              <div>[${uiLabelMap.OrderProductNotConfigured}]&nbsp;
               <input type="text" size="5" name="quantity" value="0" disabled="disabled" /></div>
             <#else>
               <a href="javascript:addItem()" class="buttontext"><span style="white-space: nowrap;">${uiLabelMap.OrderAddToCart}</span></a>&nbsp;

@@ -481,7 +481,6 @@
         <set field="createPromotionCategoryCtx.productCategoryId" value="${catalogUpperCase}_PROMOTIONS"/>
         <set field="createPromotionCategoryCtx.categoryName" value="${catalogUpperCase} Promotions"/>
         <set field="createPromotionCategoryCtx.productCategoryTypeId" value="CATALOG_CATEGORY"/>
-        <set field="createPromotionCategoryCtx.detailScreen" value="component://ecommerce/widget/CatalogScreens.xml#categorydetailmatrix"/>
 
         <call-service service-name="createProductCategory" in-map-name="createPromotionCategoryCtx">
             <result-to-field result-name="productCategoryId" field="promotionCategoryId"/>

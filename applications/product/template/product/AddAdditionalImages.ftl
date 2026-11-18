@@ -53,3 +53,12 @@ under the License.
     <input type="hidden" id="originalImage" name="originalImage" />
   </div>
 </form>
+<script type="text/javascript">
+    jQuery(document).ready(function() {
+        jQuery('#addAdditionalImagesForm a[swapDetail]').hover(function() {
+            jQuery('#detailImage').attr('src', jQuery(this).attr('swapDetail'));
+        }, function() {
+            jQuery('#detailImage').attr('src', jQuery('#originalImage').val());
+        });
+    });
+</script>

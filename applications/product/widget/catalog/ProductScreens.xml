@@ -926,8 +926,6 @@ under the License.
                 <set field="tabButtonItem" value="EditProductContent"/>
                 <set field="labelTitleProperty" value="ProductContent"/>
 
-                <set field="layoutSettings.javaScripts[]" value="/ecommerce/images/productAdditionalView.js" global="true"/>
-
                 <set field="productId" from-field="parameters.productId"/>
                 <entity-one entity-name="Product" value-field="product"/>
                 <script location="component://product/src/main/groovy/org/apache/ofbiz/product/catalog/product/EditProductContent.groovy"/>

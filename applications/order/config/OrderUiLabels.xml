@@ -4164,23 +4164,6 @@
         <value xml:lang="zh">厂家直送</value>
         <value xml:lang="zh-TW">供應商直送</value>
     </property>
-    <property key="OrderEcommerce">
-        <value xml:lang="ar">التجارة الإلكترونية</value>
-        <value xml:lang="de">Ecommerce</value>
-        <value xml:lang="en">Ecommerce</value>
-        <value xml:lang="es">Comercio electrónico</value>
-        <value xml:lang="fr">Commerce électronique</value>
-        <value xml:lang="it">E-commerce</value>
-        <value xml:lang="ja">Eコマース</value>
-        <value xml:lang="nl">Ecommerce</value>
-        <value xml:lang="pt-BR">Comércio eletrônico</value>
-        <value xml:lang="ro">Ecomerce</value>
-        <value xml:lang="ru">Ecommerce</value>
-        <value xml:lang="th">พาณิชย์อิเล็กทรอนิกส์</value>
-        <value xml:lang="vi">Thương mại điện tử</value>
-        <value xml:lang="zh">电子商务</value>
-        <value xml:lang="zh-TW">電子商務</value>
-    </property>
     <property key="OrderEditItems">
         <value xml:lang="ar">تعديل البنود</value>
         <value xml:lang="de">Elemente bearbeiten</value>
@@ -10289,6 +10272,19 @@
         <value xml:lang="vi">Sản phẩm</value>
         <value xml:lang="zh">产品</value>
         <value xml:lang="zh-TW">產品</value>
+    </property>
+    <property key="OrderProductNotConfigured">
+        <value xml:lang="da">Produktet er ikke konfigureret</value>
+        <value xml:lang="en">Product not configured</value>
+        <value xml:lang="fr">Article non configuré</value>
+        <value xml:lang="it">Prodotto non configurato</value>
+        <value xml:lang="ja">製品は設定されていません</value>
+        <value xml:lang="nl">Product niet geconfigureerd</value>
+        <value xml:lang="pt-BR">Produto não configurado</value>
+        <value xml:lang="ro">Produsul nu este configurat</value>
+        <value xml:lang="vi">Sản phẩm chưa được cấu hình</value>
+        <value xml:lang="zh">产品没有配置</value>
+        <value xml:lang="zh-TW">產品沒有配置</value>
     </property>
     <property key="OrderProductStore">
         <value xml:lang="ar">محل السلعة</value>
