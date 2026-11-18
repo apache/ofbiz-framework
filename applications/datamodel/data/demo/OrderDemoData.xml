@@ -227,22 +227,6 @@ under the License.
     <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="EXT_COD" paymentServiceTypeEnumId="PRDS_PAY_EXTERNAL"/>
     <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="EXT_BILLACT" paymentServiceTypeEnumId="PRDS_PAY_EXTERNAL"/>
 
-    <ProductStoreEmailSetting productStoreId="9000" emailType="PRDS_ODR_CONFIRM" bodyScreenLocation="component://ecommerce/widget/EmailOrderScreens.xml#OrderConfirmNotice" xslfoAttachScreenLocation="component://ecommerce/widget/EmailOrderScreens.xml#OrderConfirmNoticePdf" subject="OFBiz Demo - Order Confirmation #${orderId}" bccAddress="ofbiztest@example.com" fromAddress="ofbiztest@example.com"/>
-    <ProductStoreEmailSetting productStoreId="9000" emailType="PRDS_ODR_COMPLETE" bodyScreenLocation="component://ecommerce/widget/EmailOrderScreens.xml#OrderCompleteNotice" subject="OFBiz Demo - Your Order Is Complete #${orderId}" fromAddress="ofbiztest@example.com"/>
-    <ProductStoreEmailSetting productStoreId="9000" emailType="PRDS_ODR_BACKORDER" bodyScreenLocation="component://ecommerce/widget/EmailOrderScreens.xml#BackorderNotice" subject="OFBiz Demo - Backorder Notification #${orderId}" fromAddress="ofbiztest@example.com"/>
-    <ProductStoreEmailSetting productStoreId="9000" emailType="PRDS_ODR_CHANGE" bodyScreenLocation="component://ecommerce/widget/EmailOrderScreens.xml#OrderChangeNotice" subject="OFBiz Demo - Order Change Notification #${orderId}" fromAddress="ofbiztest@example.com"/>
-    <ProductStoreEmailSetting productStoreId="9000" emailType="PRDS_ODR_PAYRETRY" bodyScreenLocation="component://ecommerce/widget/EmailOrderScreens.xml#PaymentRetryNotice" subject="OFBiz Demo - Order Payment Notification #${orderId}" fromAddress="ofbiztest@example.com"/>
-    <ProductStoreEmailSetting productStoreId="9000" emailType="PRDS_ODR_SHIP_COMPLT" bodyScreenLocation="component://ecommerce/widget/EmailOrderScreens.xml#ShipmentCompleteNotice" subject="OFBiz Demo - Shipment Complete Notification #${orderId}" fromAddress="ofbiztest@example.com"/>
-
-    <ProductStoreEmailSetting productStoreId="9000" emailType="PRDS_RTN_ACCEPT" bodyScreenLocation="component://ecommerce/widget/EmailReturnScreens.xml#ReturnAccept" subject="OFBiz Demo - Return Accepted #${returnHeader.returnId}" xslfoAttachScreenLocation="component://order/widget/ordermgr/OrderPrintScreens.xml#ReturnPDF" fromAddress="ofbiztest@example.com"/>
-    <ProductStoreEmailSetting productStoreId="9000" emailType="PRDS_RTN_COMPLETE" bodyScreenLocation="component://ecommerce/widget/EmailReturnScreens.xml#ReturnComplete" subject="OFBiz Demo - Return Completed #${returnHeader.returnId}" xslfoAttachScreenLocation="component://order/widget/ordermgr/OrderPrintScreens.xml#ReturnPDF" fromAddress="ofbiztest@example.com"/>
-    <ProductStoreEmailSetting productStoreId="9000" emailType="PRDS_RTN_CANCEL" bodyScreenLocation="component://ecommerce/widget/EmailReturnScreens.xml#ReturnCancel" subject="OFBiz Demo - Return Cancelled #${returnHeader.returnId}" xslfoAttachScreenLocation="component://order/widget/ordermgr/OrderPrintScreens.xml#ReturnPDF" fromAddress="ofbiztest@example.com"/>
-
-    <ProductStoreEmailSetting productStoreId="9000" emailType="PRDS_GC_PURCHASE" bodyScreenLocation="component://ecommerce/widget/EmailGiftCardScreens.xml#GiftCardPurchase" fromAddress="ofbiztest@example.com" subject="A Gift From ${senderName}!"/>
-    <ProductStoreEmailSetting productStoreId="9000" emailType="PRDS_GC_RELOAD" bodyScreenLocation="component://ecommerce/widget/EmailGiftCardScreens.xml#GiftCardReload" fromAddress="ofbiztest@example.com" subject="Gift Card Reload Results"/>
-
-    <ProductStoreEmailSetting productStoreId="9000" emailType="PRDS_TELL_FRIEND" bodyScreenLocation="component://ecommerce/widget/EmailProductScreens.xml#TellFriend" subject="${sendFrom} has sent you a link!" fromAddress="ofbiztest@example.com"/>
-
     <ProductStoreEmailSetting productStoreId="9000" emailType="PRDS_PWD_RETRIEVE" bodyScreenLocation="component://securityext/widget/EmailSecurityScreens.xml#PasswordEmail" subject="OFBiz Demo - Password Reminder (${userLogin.userLoginId})" fromAddress="ofbiztest@example.com"/>
 
     <ProductStoreEmailSetting productStoreId="9000" emailType="PRDS_QUO_CONFIRM" bodyScreenLocation="component://order/widget/ordermgr/QuoteScreens.xml#ViewQuoteSimple" xslfoAttachScreenLocation="component://order/widget/ordermgr/QuoteScreens.xml#QuoteReport" subject="OFBiz Demo - Quote Confirmation #${quoteId}" bccAddress="ofbiztest@example.com" fromAddress="ofbiztest@example.com"/>
@@ -252,13 +236,6 @@ under the License.
     <ProductStoreEmailSetting productStoreId="9000" emailType="UPD_PRSNL_INF_CNFRM" bodyScreenLocation="component://party/widget/partymgr/EmailPartyScreens.xml#ChangePersonalInfoNotification" subject="Personal Information Updated" bccAddress="ofbiztest@example.com" fromAddress="ofbiztest@example.com"/>
     <ProductStoreEmailSetting productStoreId="9000" emailType="PRDS_EMAIL_VERIFY" bodyScreenLocation="component://party/widget/partymgr/EmailPartyScreens.xml#VerifyEmailAddressNotification" subject="Email Address Verification" bccAddress="ofbiztest@example.com" fromAddress="ofbiztest@example.com"/>
     <ProductStoreEmailSetting productStoreId="9000" emailType="PRDS_CUST_ACTIVATED" bodyScreenLocation="component://party/widget/partymgr/EmailPartyScreens.xml#AccountActivatedNotification" subject="Account Activated" bccAddress="ofbiztest@example.com" fromAddress="ofbiztest@example.com"/>
-
-    <ProductStoreEmailSetting productStoreId="9000" emailType="CONT_NOTI_EMAIL" bodyScreenLocation="component://ecommerce/widget/EmailContactListScreens.xml#ContactUsEmailNotification" subject="Contact-us Information Notification" fromAddress="ofbiztest@example.com" />
-
-    <ProductStoreEmailSetting productStoreId="9000" emailType="SUB_CONT_LIST_NOTI" bodyScreenLocation="component://ecommerce/widget/EmailContactListScreens.xml#ContactListSubscribeEmail" subject="Subscribe Contact List" fromAddress="ofbiztest@example.com"/>
-    <ProductStoreEmailSetting productStoreId="9000" emailType="UNSUB_CONT_LIST_VERI" bodyScreenLocation="component://ecommerce/widget/EmailContactListScreens.xml#ContactListUnsubscribeVerifyEmail" subject="Verify Unsubscribe Contact List" fromAddress="ofbiztest@example.com"/>
-    <ProductStoreEmailSetting productStoreId="9000" emailType="UNSUB_CONT_LIST_NOTI" bodyScreenLocation="component://ecommerce/widget/EmailContactListScreens.xml#ContactListUnsubscribeEmail" subject="Unsubscribe Contact List" fromAddress="ofbiztest@example.com"/>
-    <ProductStoreEmailSetting productStoreId="9000" emailType="CONT_EMAIL_TEMPLATE" bodyScreenLocation="component://ecommerce/widget/EmailContactListScreens.xml#ContactListEmailTemplate"/>
 
     <WebAnalyticsConfig webSiteId="WebStore" webAnalyticsTypeId="GOOGLE_ANALYTICS" webAnalyticsCode="//--  enter here your analytic script code --"/>
     <WebAnalyticsConfig webSiteId="WebStore" webAnalyticsTypeId="BING_ANALYTICS" webAnalyticsCode="//--  enter here your analytic script code --"/>
@@ -300,7 +277,7 @@ under the License.
                      primaryParentCategoryId="201" productCategoryId="2012" productCategoryTypeId="CATALOG_CATEGORY"/>
     <ProductCategory longDescription="long description of Micro Widgets"
                      primaryParentCategoryId="2011" productCategoryId="20111" productCategoryTypeId="CATALOG_CATEGORY"/>
-    <ProductCategory productCategoryId="PROMOTIONS" productCategoryTypeId="CATALOG_CATEGORY" detailScreen="component://ecommerce/widget/CatalogScreens.xml#categorydetailmatrix"/>
+    <ProductCategory productCategoryId="PROMOTIONS" productCategoryTypeId="CATALOG_CATEGORY"/>
     <ProductCategory categoryName="Demo Default Search"
                      longDescription="Catalog1 Search Products - only products in this category will show up in a search in catalog1"
                      productCategoryId="CATALOG1_SEARCH" productCategoryTypeId="SEARCH_CATEGORY"/>
@@ -1327,7 +1304,7 @@ under the License.
     <!-- Buy 1 Get 1 At 50% off with promo code, no limit -->
     <!-- 4 for $50 in set of products -->
     <ProductPromo productPromoId="9000" promoName="Test Promo 1" userEntered="Y" useLimitPerOrder="1" createdDate="2001-05-13 12:00:00.0">
-        <promoText><![CDATA[Spend more than $100 on your favorite widgets and gizmos and get a free <a href="/ecommerce/control/product?category_id=20111&amp;product_id=WG-1111">Micro Chrome Widget</a>!]]></promoText>
+        <promoText>Spend more than $100 on your favorite widgets and gizmos and get a free Micro Chrome Widget [WG-1111]!</promoText>
     </ProductPromo>
     <ProductPromo productPromoId="9010" promoName="Test Percent off product set " promoText="20% off any one item, either GZ-1005 (.NIT Gizmo) or GZ-1006 (Open Gizmo) with a limit of 1 per order" userEntered="Y" showToCustomer="Y" requireCode="N" useLimitPerOrder="1" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
     <ProductPromo productPromoId="9011" promoName="Test percent off entire purchase, no condition" promoText="10% off entire purchase" userEntered="Y" showToCustomer="Y" requireCode="N" useLimitPerOrder="1" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
@@ -1337,10 +1314,10 @@ under the License.
     <ProductPromo productPromoId="9015" promoName="Test X products for $Y" promoText="Buy 4 items for $50 from Purple Gizmo [GZ-5005], Rainbow Gizmo [GZ-1004], Round Gizmo [GZ-2644] or Square Gizmo [GZ-2002] limit 2 per customer" userEntered="Y" showToCustomer="Y" requireCode="N" useLimitPerCustomer="2" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
     <ProductPromo productPromoId="9016" promoName="Test $ off products in categories" promoText="Get $500 off any item in the Small Gizmos [101] category, limit 1 per order, 2 per customer, 3 for entire promotion. Discount not to exceed the price of the item." userEntered="Y" showToCustomer="Y" requireCode="N" useLimitPerOrder="1" useLimitPerCustomer="2" useLimitPerPromotion="3" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
     <ProductPromo productPromoId="9017" promoName="Test Gift with Amount of Specific Product" userEntered="Y" useLimitPerOrder="2" createdDate="2001-05-13 12:00:00.0">
-        <promoText><![CDATA[Buy $50 of your favorite gizmos (all products in Gizmo [100] or sub-category) get a free <a href="/ecommerce/control/product?category_id=20111&amp;product_id=GZ-1006">Open Gizmo</a>! Limit 2 per order.]]></promoText>
+        <promoText>Buy $50 of your favorite gizmos (all products in Gizmo [100] or sub-category) get a free Open Gizmo [GZ-1006]! Limit 2 per order.</promoText>
     </ProductPromo>
     <ProductPromo productPromoId="9018" promoName="Test Gift with Total Amount of Product" userEntered="Y" useLimitPerOrder="1" createdDate="2001-05-13 12:00:00.0">
-        <promoText><![CDATA[Spend more than $150 on your favorite gizmos (all products in Gizmo [100] or sub-category) and get a free <a href="/ecommerce/control/product?category_id=20111&amp;product_id=GZ-1006">Open Gizmo</a>!]]></promoText>
+        <promoText>Spend more than $150 on your favorite gizmos (all products in Gizmo [100] or sub-category) and get a free Open Gizmo [GZ-1006]!</promoText>
     </ProductPromo>
     <ProductPromo productPromoId="9019" promoName="Test Percent off when Customer Orders over $1000 in 12 months" userEntered="Y" useLimitPerOrder="1" createdDate="2001-05-13 12:00:00.0">
         <promoText><![CDATA[Spend more than $1000 in any 12 months on our fabulous Widgets and Gizmos and get a 5% discount.]]></promoText>

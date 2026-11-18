@@ -122,5 +122,8 @@ no replacement in OFBiz; a project that still uses one has to keep its own copy.
   enumerations are removed.
 * `FinAccount.finAccountCode` is no longer encrypted. Run `decryptFinAccountCodes` to turn the existing values back
   into plain text ([#2055](https://github.com/apache/ofbiz-framework/pull/2055)).
+* The `BLOG_TPL_TOPLEFT` and `BLOG_TPL_TOPCENTER` data resources render
+  `component://content/widget/forum/BlogTemplates.xml`. Load the seed data again, or update their `objectInfo`, so that
+  existing blog entries keep rendering ([OFBIZ-13870](https://issues.apache.org/jira/browse/OFBIZ-13870)).
 * The tables of the removed entities are not dropped. Drop them once you no longer need their data; the list is in
   [datamodel/DATAMODEL_CHANGES.adoc](datamodel/DATAMODEL_CHANGES.adoc).
