@@ -347,7 +347,7 @@ public final class MfaServices {
                 return ServiceUtil.returnError("Authenticator confirmation failed");
             }
             int activated = delegator.storeByCondition("UserLoginAuthFactor",
-                    Map.of("needsValidation", "N", "lastUsedDate", UtilDateTime.nowTimestamp()),
+                    Map.of("needsValidation", "N", "lastUsedDate", UtilDateTime.nowTimestamp(), "lastUsedStep", acceptedStep),
                     and(EntityCondition.makeCondition("factorId", EntityOperator.EQUALS, factorId),
                             EntityCondition.makeCondition("userLoginId", EntityOperator.EQUALS, pendingUserId),
                             EntityCondition.makeCondition("needsValidation", EntityOperator.EQUALS, "Y"),
