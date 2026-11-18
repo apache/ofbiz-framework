@@ -224,8 +224,16 @@ public class JmsListenerFactory implements Runnable {
      */
     public void closeListeners() throws GenericServiceException {
         loadable = 0;
-        for (String serverKey: listeners.keySet()) {
-            closeListener(serverKey);
+        for (Map.Entry<String, GenericMessageListener> entry: listeners.entrySet()) {
+            if (entry.getValue() instanceof AbstractJmsListener jmsListener) {
+                jmsListener.stopReconnecting();
+            }
+            try {
+                closeListener(entry.getKey());
+            } catch (GenericServiceException e) {
+                // keep closing the other listeners
+                Debug.logError(e, "Unable to close the JMS listener " + entry.getKey(), MODULE);
+            }
         }
     }
 
