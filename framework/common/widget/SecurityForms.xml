@@ -271,6 +271,7 @@ under the License.
         focus-field-name="currentPassword" header-row-style="header-row" default-table-style="basic-table">
         <actions>
             <set field="passwordHint" from-field="editUserLogin.passwordHint"/>
+            <property-to-field field="mfaEnabled" resource="security" property="security.login.authFactor.enable" default="false"/>
         </actions>
         <auto-fields-service service-name="updatePassword"/>
         <field name="partyId"><hidden value="${partyId}"/></field>
@@ -278,8 +279,13 @@ under the License.
         <field name="currentPassword"><password/></field>
         <field name="newPassword"><password/></field>
         <field name="newPasswordVerify"><password/></field>
-        <field name="requirePasswordChange"><hidden value="N"/></field>
-        <field name="mfaAdminReason" title="MFA recovery reason"><text maxlength="255"/></field>
+        <field name="requirePasswordChange">
+            <drop-down allow-empty="false" no-current-selected-key="N">
+                <option key="Y" description="${uiLabelMap.CommonY}"/>
+                <option key="N" description="${uiLabelMap.CommonN}"/>
+            </drop-down>
+        </field>
+        <field name="mfaAdminReason" title="MFA recovery reason" use-when="&quot;true&quot;.equals(mfaEnabled)"><text maxlength="255"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="text-link"/></field>
         <field name="cancelLink" title=" " widget-style="smallSubmit">
             <hyperlink description="${uiLabelMap.CommonCancelDone}" target="${cancelPage}" also-hidden="false">
