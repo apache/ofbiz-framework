@@ -46,7 +46,6 @@ import org.apache.ofbiz.party.contact.ContactHelper;
 import org.apache.ofbiz.product.product.ProductEvents;
 import org.apache.ofbiz.product.store.ProductStoreWorker;
 import org.apache.ofbiz.security.SecurityUtil;
-import org.apache.ofbiz.security.login.MfaServices;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.service.ServiceUtil;
@@ -128,7 +127,7 @@ public class LoginEvents {
             if (ServiceUtil.isError(policy)) return true;
             boolean required = Boolean.TRUE.equals(policy.get("required"));
             if (required) {
-                MfaServices.recordAuthenticationEvent(delegator, userLoginId, "MFA_PASSWORD_RECOVERY_BLOCKED", null, null);
+                Debug.logInfo("Password recovery blocked for MFA-mandated user [" + userLoginId + "]", MODULE);
             }
             return required;
         } catch (Exception e) {
@@ -174,7 +173,9 @@ public class LoginEvents {
         }
         if (supposedUserLogin != null && isMfaRequiredForPasswordRecovery(delegator,
                 (LocalDispatcher) request.getAttribute("dispatcher"), userLoginId)) {
-            return showGenericPasswordRecoveryResponse(request);
+            errMsg = UtilProperties.getMessage(RESOURCE, "loginevents.no_password_hint_specified_try_password_emailed", UtilHttp.getLocale(request));
+            request.setAttribute("_ERROR_MESSAGE_", errMsg);
+            return "error";
         }
         if (supposedUserLogin != null) {
             passwordHint = supposedUserLogin.getString("passwordHint");
