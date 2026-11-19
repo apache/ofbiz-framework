@@ -25,7 +25,6 @@ import java.security.SecureRandom;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Base64;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,7 +37,7 @@ import dev.samstevens.totp.time.SystemTimeProvider;
 import dev.samstevens.totp.secret.DefaultSecretGenerator;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilDateTime;
-import org.apache.ofbiz.base.util.UtilValidate;
+import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
@@ -666,16 +665,13 @@ public final class MfaServices {
         sendSecurityAlertNotification(delegator, userLoginId, actorUserLoginId, eventType, factorType, reason);
     }
 
-    public static Map<String, Object> sendMfaSecurityNotification(DispatchContext ctx, Map<String, ?> context) {
-        String userLoginId = (String) context.get("userLoginId");
-        String actorUserLoginId = (String) context.get("actorUserLoginId");
-        String eventType = (String) context.get("eventType");
-        String factorType = (String) context.get("factorType");
-        String reason = (String) context.get("reason");
-        sendSecurityAlertNotification(ctx.getDelegator(), userLoginId, actorUserLoginId, eventType, factorType, reason);
-        return ServiceUtil.returnSuccess();
-    }
-
+    /**
+     * Dispatches the {@code sendMfaSecurityNotification} application-layer service (asynchronously) for
+     * the security-relevant event types this feature actually wants to email about (enrollment,
+     * revocation, and -- only if the operator opted in -- a committed login), gated by the
+     * notification-enable property. Deliberately does not touch Party/ContactMech entities itself: that
+     * lookup belongs to the application layer, not the security framework.
+     */
     public static void sendSecurityAlertNotification(Delegator delegator, String userLoginId, String actorUserLoginId,
             String eventType, String factorType, String reason) {
         if (delegator == null || userLoginId == null) {
@@ -697,107 +693,18 @@ public final class MfaServices {
             return;
         }
         try {
-            GenericValue userLogin = EntityQuery.use(delegator).from("UserLogin")
-                    .where("userLoginId", userLoginId).cache(false).queryOne();
-            if (userLogin == null) {
-                return;
-            }
-            String partyId = userLogin.getString("partyId");
-            if (UtilValidate.isEmpty(partyId)) {
-                return;
-            }
-            String emailAddress = findPartyEmail(delegator, partyId);
-            if (UtilValidate.isEmpty(emailAddress)) {
-                return;
-            }
-            String fromAddress = EntityUtilProperties.getPropertyValue("security",
-                    "security.login.authFactor.notify.email.from", "notifications-noreply@example.com", delegator);
-
-            String subject;
-            StringBuilder body = new StringBuilder();
-            body.append("Hello,\n\n");
-            Timestamp now = UtilDateTime.nowTimestamp();
-
-            switch (eventType) {
-            case "MFA_ENROLL":
-                subject = "[Security Alert] Multi-factor authentication method added";
-                body.append("A new multi-factor authentication factor (")
-                        .append(factorType != null ? factorType : "Authenticator")
-                        .append(") was enrolled for your account [").append(userLoginId).append("].\n\n");
-                break;
-            case "MFA_FACTOR_REVOKED":
-                subject = "[Security Alert] Multi-factor authentication method revoked";
-                body.append("A multi-factor authentication factor was removed from your account [")
-                        .append(userLoginId).append("].\n");
-                if (reason != null && !reason.isBlank()) {
-                    body.append("Reason: ").append(reason).append("\n");
-                }
-                if (actorUserLoginId != null && !actorUserLoginId.equals(userLoginId)) {
-                    body.append("Revoked by Administrator: ").append(actorUserLoginId).append("\n");
-                }
-                body.append("\n");
-                break;
-            case "LOGIN_COMMITTED":
-                subject = "[Security Alert] Successful sign-in with multi-factor authentication";
-                body.append("A successful sign-in with multi-factor authentication (")
-                        .append(factorType != null ? factorType : "MFA")
-                        .append(") was completed for your account [").append(userLoginId).append("].\n\n");
-                break;
-            default:
-                return;
-            }
-
-            body.append("Time: ").append(now).append("\n\n");
-            body.append("If you did not perform or authorize this action, please contact your system administrator immediately.\n\n");
-            body.append("Apache OFBiz Security");
-
             LocalDispatcher dispatcher = ServiceContainer.getLocalDispatcher(delegator.getDelegatorName(), delegator);
             if (dispatcher != null) {
-                Debug.logInfo("Dispatching MFA security alert email [" + subject + "] to " + emailAddress
-                        + " for user [" + userLoginId + "]", MODULE);
-                Map<String, Object> emailCtx = new HashMap<>();
-                emailCtx.put("sendTo", emailAddress);
-                emailCtx.put("sendFrom", fromAddress);
-                emailCtx.put("subject", subject);
-                emailCtx.put("body", body.toString());
-                emailCtx.put("partyId", partyId);
-                try {
-                    dispatcher.runAsync("sendMail", emailCtx);
-                } catch (Throwable t) {
-                    Debug.logWarning("Unable to dispatch security alert email to " + emailAddress + ": " + t.getMessage(), MODULE);
-                }
+                dispatcher.runAsync("sendMfaSecurityNotification", UtilMisc.toMap(
+                        "userLoginId", userLoginId,
+                        "actorUserLoginId", actorUserLoginId,
+                        "eventType", eventType,
+                        "factorType", factorType,
+                        "reason", reason));
             }
         } catch (Throwable t) {
-            Debug.logWarning("Error preparing security alert notification for " + userLoginId + ": " + t.getMessage(), MODULE);
+            Debug.logWarning("Error dispatching security alert notification for " + userLoginId + ": " + t.getMessage(), MODULE);
         }
-    }
-
-    private static String findPartyEmail(Delegator delegator, String partyId) {
-        try {
-            GenericValue pcm = EntityQuery.use(delegator).from("PartyAndContactMech")
-                    .where("partyId", partyId, "contactMechTypeId", "EMAIL_ADDRESS")
-                    .filterByDate().queryFirst();
-            if (pcm != null && UtilValidate.isNotEmpty(pcm.getString("infoString"))) {
-                return pcm.getString("infoString");
-            }
-        } catch (Throwable t) {
-            // view entity might not be loaded in test context
-        }
-        try {
-            List<GenericValue> pcms = EntityQuery.use(delegator).from("PartyContactMech")
-                    .where("partyId", partyId).filterByDate().queryList();
-            for (GenericValue p : pcms) {
-                GenericValue cm = EntityQuery.use(delegator).from("ContactMech")
-                        .where("contactMechId", p.getString("contactMechId"), "contactMechTypeId", "EMAIL_ADDRESS")
-                        .queryOne();
-                if (cm != null && UtilValidate.isNotEmpty(cm.getString("infoString"))) {
-                    return cm.getString("infoString");
-                }
-            }
-        } catch (Throwable t) {
-            // tables might not be loaded in unit tests
-        }
-        return null;
     }
 
     private static long findMatchingTotpStep(String secret, String code) {
