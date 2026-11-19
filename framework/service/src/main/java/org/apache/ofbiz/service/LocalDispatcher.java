@@ -352,7 +352,17 @@ public interface LocalDispatcher extends DelegatorProvider {
      * Gets the JmsListenerFactory which holds the message listeners.
      * @return JmsListenerFactory
      */
-    JmsListenerFactory getJMSListeneFactory();
+    JmsListenerFactory getJMSListenerFactory();
+
+    /**
+     * Gets the JmsListenerFactory which holds the message listeners.
+     * @return JmsListenerFactory
+     * @deprecated misspelled, use {@link #getJMSListenerFactory()}
+     */
+    @Deprecated
+    default JmsListenerFactory getJMSListeneFactory() {
+        return getJMSListenerFactory();
+    }
 
 
     /**

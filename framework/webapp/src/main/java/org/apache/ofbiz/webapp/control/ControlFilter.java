@@ -210,7 +210,7 @@ public class ControlFilter extends HttpFilter {
             String uri = uriWithContext.substring(context.length());
 
 
-            //// Block with several steps for rejecting wrong URLs, allowing specific ones
+            // Block with several steps for rejecting wrong URLs, allowing specific ones
 
             // Allows UEL and FlexibleString (OFBIZ-12602).
             GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");

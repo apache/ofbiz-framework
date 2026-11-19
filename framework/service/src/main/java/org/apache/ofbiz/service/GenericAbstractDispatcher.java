@@ -250,7 +250,7 @@ public abstract class GenericAbstractDispatcher implements LocalDispatcher {
     }
 
     @Override
-    public JmsListenerFactory getJMSListeneFactory() {
+    public JmsListenerFactory getJMSListenerFactory() {
         return dispatcher.getJMSListenerFactory();
     }
 

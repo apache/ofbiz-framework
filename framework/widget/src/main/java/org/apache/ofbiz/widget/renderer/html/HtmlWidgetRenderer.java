@@ -125,10 +125,6 @@ public class HtmlWidgetRenderer {
         return "";
     }
 
-    public static String formatBoundaryJsComment(String boundaryType, String widgetType, String widgetName) {
-        return "// " + boundaryType + " " + widgetType + " " + widgetName + WHITE_SPACE;
-    }
-
     /**
      * Renders the beginning boundary comment string.
      * @param writer The writer to write to
