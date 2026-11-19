@@ -72,4 +72,69 @@ class UserLoginTests implements JupiterTestHelper {
         assert createdUserLogin
     }
 
+    /*
+     * A UserLogin created by createUserLogin has no hasLoggedOut value. The first successful
+     * userLogin must store "N", otherwise LoginWorker.isUserLoggedIn, which only accepts "N",
+     * treats the user as logged out on the next request (OFBIZ-13851, regression of OFBIZ-10506).
+     */
+    @Test
+    void testUserLoginSetsMissingHasLoggedOutToN() {
+        GenericValue userLogin = createLoginUser('hasloggedout.missing', null)
+        assert userLogin.hasLoggedOut == null: 'createUserLogin should leave hasLoggedOut empty'
+
+        Map serviceResult = login(userLogin.userLoginId)
+
+        assert serviceResult.userLogin.hasLoggedOut == 'N': 'userLogin should return a logged in UserLogin'
+        assert reload(userLogin).hasLoggedOut == 'N': 'userLogin should store hasLoggedOut = N'
+    }
+
+    @Test
+    void testUserLoginResetsHasLoggedOutYToN() {
+        GenericValue userLogin = createLoginUser('hasloggedout.yes', 'Y')
+
+        Map serviceResult = login(userLogin.userLoginId)
+
+        assert serviceResult.userLogin.hasLoggedOut == 'N': 'userLogin should return a logged in UserLogin'
+        assert reload(userLogin).hasLoggedOut == 'N': 'userLogin should store hasLoggedOut = N'
+    }
+
+    @Test
+    void testUserLoginDoesNotStoreWhenHasLoggedOutIsN() {
+        GenericValue userLogin = createLoginUser('hasloggedout.no', 'N')
+
+        Map serviceResult = login(userLogin.userLoginId)
+
+        assert serviceResult.userLogin.hasLoggedOut == 'N': 'userLogin should return a logged in UserLogin'
+        GenericValue stored = reload(userLogin)
+        assert stored.hasLoggedOut == 'N': 'hasLoggedOut should stay N'
+        assert stored.lastUpdatedStamp == userLogin.lastUpdatedStamp: 'an already logged in UserLogin should not be stored again'
+    }
+
+    private GenericValue createLoginUser(String userLoginId, String hasLoggedOut) {
+        Map serviceResult = dispatcher.runSync('createUserLogin', [
+                userLoginId: userLoginId,
+                enabled: 'Y',
+                currentPassword: 'ofbiz',
+                currentPasswordVerify: 'ofbiz'
+        ])
+        assert ServiceUtil.isSuccess(serviceResult): serviceResult.errorMessage
+        GenericValue userLogin = from('UserLogin').where('userLoginId', userLoginId).queryOne()
+        if (hasLoggedOut != null) {
+            userLogin.hasLoggedOut = hasLoggedOut
+            userLogin.store()
+            userLogin = reload(userLogin)
+        }
+        return userLogin
+    }
+
+    private Map login(String userLoginId) {
+        Map serviceResult = dispatcher.runSync('userLogin', ['login.username': userLoginId, 'login.password': 'ofbiz'])
+        assert ServiceUtil.isSuccess(serviceResult): serviceResult.errorMessage
+        return serviceResult
+    }
+
+    private GenericValue reload(GenericValue userLogin) {
+        return from('UserLogin').where('userLoginId', userLogin.userLoginId).queryOne()
+    }
+
 }
