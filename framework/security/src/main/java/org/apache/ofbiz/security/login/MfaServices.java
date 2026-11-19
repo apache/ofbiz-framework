@@ -678,7 +678,7 @@ public final class MfaServices {
             return;
         }
         boolean emailEnabled = Boolean.parseBoolean(EntityUtilProperties.getPropertyValue("security",
-                "security.login.authFactor.notify.email.enable", "true", delegator));
+                "security.login.authFactor.notify.email.enable", "false", delegator));
         if (!emailEnabled) {
             return;
         }
