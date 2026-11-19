@@ -18,7 +18,6 @@
  *******************************************************************************/
 package org.apache.ofbiz.testtools;
 
-import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
@@ -200,16 +199,6 @@ public class ModelTestSuite {
                 Debug.logInfo("Added Jupiter test class: " + className, MODULE);
             } catch (Exception e) {
                 Debug.logError(e, "Unable to load jupiter test suite class : " + className, MODULE);
-            }
-        } else if ("webdriver-test".equals(nodeName)) {
-            try {
-                String className = "org.apache.ofbiz.testtools.WebDriverTest";
-                Class<?> cl;
-                cl = Class.forName(className);
-                Constructor<?> con = cl.getConstructor(String.class, Element.class);
-                this.testList.add(new SuiteEntry.Junit3Entry((Test) con.newInstance(caseName, testElement)));
-            } catch (Exception e) {
-                Debug.logError(e, MODULE);
             }
         } else if ("entity-xml".equals(nodeName)) {
             this.testList.add(new SuiteEntry.Junit3Entry(new EntityXmlAssertTest(caseName, testElement)));

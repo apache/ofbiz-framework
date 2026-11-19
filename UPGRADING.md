@@ -120,6 +120,9 @@ the same pull request.
   `SimpleMethod.runSimpleEvent` with mock request and response objects to test a simple-method used as an event.
   `spring-test` and `spring-web` are now test-only dependencies, so custom main code that uses them must declare them
   in its own `build.gradle` ([OFBIZ-13843](https://issues.apache.org/jira/browse/OFBIZ-13843)).
+* Tests: `<webdriver-test>` is removed from `test-suite.xsd`. It loaded an `org.apache.ofbiz.testtools.WebDriverTest`
+  class that OFBiz never shipped; a project that provided its own has to move those tests to a `<jupiter-test-suite>`
+  class ([OFBIZ-13875](https://issues.apache.org/jira/browse/OFBIZ-13875)).
 * Security: the login services check `SECURITY_CREATE` and `SECURITY_PWD_UPDATE` instead of `PARTYMGR_CREATE` and
   `PARTYMGR_UPDATE` to create a user login for another party or change another user's password. Grant the new
   permissions to the security groups that need them
