@@ -289,9 +289,8 @@ public class SecuredUpload {
         }
 
         // Check there is no web shell in an uploaded file
-        return DENIEDWEBSHELLTOKENS.stream().allMatch(token -> isValid(content.toLowerCase(), token.toLowerCase(), allowed));
+        return DENIEDWEBSHELLTOKENS.stream().allMatch(token -> isValid(content.toLowerCase(Locale.ROOT), token.toLowerCase(Locale.ROOT), allowed));
     }
-
     /**
      * Checks a file name (or path) against the upload naming rules. This only inspects the name: it never reads,
      * creates or deletes a file, so callers may pass a client-supplied name. Callers that hold an actual uploaded
