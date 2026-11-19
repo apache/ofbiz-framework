@@ -23,6 +23,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.sql.Timestamp;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.LinkedHashMap;
@@ -678,7 +680,7 @@ public final class MfaServices {
             return;
         }
         boolean emailEnabled = Boolean.parseBoolean(EntityUtilProperties.getPropertyValue("security",
-                "security.login.authFactor.notify.email.enable", "false", delegator));
+                "security.login.authFactor.notify.email.enable", "true", delegator));
         if (!emailEnabled) {
             return;
         }
@@ -780,5 +782,52 @@ public final class MfaServices {
             Debug.logError(e, "Error generating QR code data URI", MODULE);
             return null;
         }
+    }
+
+    /**
+     * Purges expired MFA challenges and old authentication audit events.
+     * @param ctx the dispatch context
+     * @param context input parameters: daysToKeepChallenges (default 1), daysToKeepEvents (default 90)
+     * @return map with purged counts
+     */
+    public static Map<String, Object> purgeOldMfaChallengesAndEvents(DispatchContext ctx, Map<String, ?> context) {
+        Delegator delegator = ctx.getDelegator();
+        Integer daysToKeepChallenges = (Integer) context.get("daysToKeepChallenges");
+        if (daysToKeepChallenges == null || daysToKeepChallenges < 0) {
+            daysToKeepChallenges = 1;
+        }
+        Integer daysToKeepEvents = (Integer) context.get("daysToKeepEvents");
+        if (daysToKeepEvents == null || daysToKeepEvents < 0) {
+            daysToKeepEvents = 90;
+        }
+
+        Timestamp challengePurgeThreshold = Timestamp.from(Instant.now().minus(Duration.ofDays(daysToKeepChallenges)));
+        Timestamp eventPurgeThreshold = Timestamp.from(Instant.now().minus(Duration.ofDays(daysToKeepEvents)));
+
+        int purgedChallenges = 0;
+        int purgedEvents = 0;
+
+        try {
+            EntityCondition challengeCond = EntityCondition.makeCondition(EntityOperator.OR,
+                    EntityCondition.makeCondition("expiresDate", EntityOperator.LESS_THAN, challengePurgeThreshold),
+                    EntityCondition.makeCondition(EntityOperator.AND,
+                            EntityCondition.makeCondition("challengeStatus", EntityOperator.IN, List.of("CONSUMED", "LOCKED")),
+                            EntityCondition.makeCondition("createdDate", EntityOperator.LESS_THAN, challengePurgeThreshold)));
+            purgedChallenges = delegator.removeByCondition("UserLoginAuthChallenge", challengeCond);
+
+            EntityCondition eventCond = EntityCondition.makeCondition("eventDate", EntityOperator.LESS_THAN, eventPurgeThreshold);
+            purgedEvents = delegator.removeByCondition("UserAuthenticationEvent", eventCond);
+
+            Debug.logInfo("Purged " + purgedChallenges + " old MFA challenges and " + purgedEvents
+                    + " old authentication audit events.", MODULE);
+        } catch (GenericEntityException e) {
+            Debug.logError(e, "Error purging old MFA challenges and events", MODULE);
+            return ServiceUtil.returnError("Error during MFA purge: " + e.getMessage());
+        }
+
+        Map<String, Object> result = ServiceUtil.returnSuccess();
+        result.put("purgedChallengesCount", purgedChallenges);
+        result.put("purgedEventsCount", purgedEvents);
+        return result;
     }
 }

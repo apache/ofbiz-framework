@@ -90,4 +90,12 @@ under the License.
         <attribute name="factorType" type="String" mode="IN" optional="true"/>
         <attribute name="reason" type="String" mode="IN" optional="true"/>
     </service>
+    <service name="purgeOldMfaChallengesAndEvents" engine="java" auth="true" export="false"
+            location="org.apache.ofbiz.security.login.MfaServices" invoke="purgeOldMfaChallengesAndEvents">
+        <description>Purges expired MFA challenges and old authentication audit events.</description>
+        <attribute name="daysToKeepChallenges" type="Integer" mode="IN" optional="true"/>
+        <attribute name="daysToKeepEvents" type="Integer" mode="IN" optional="true"/>
+        <attribute name="purgedChallengesCount" type="Integer" mode="OUT" optional="true"/>
+        <attribute name="purgedEventsCount" type="Integer" mode="OUT" optional="true"/>
+    </service>
 </services>

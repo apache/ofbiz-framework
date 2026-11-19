@@ -136,6 +136,9 @@ under the License.
       <relation type="one" fk-name="ULAF_USER" rel-entity-name="UserLogin">
         <key-map field-name="userLoginId"/>
       </relation>
+      <relation type="one-nofk" fk-name="ULAF_ENUM" rel-entity-name="Enumeration">
+        <key-map field-name="factorType" rel-field-name="enumId"/>
+      </relation>
     </entity>
     <entity entity-name="UserLoginAuthChallenge"
             package-name="org.apache.ofbiz.security.login"
@@ -144,7 +147,6 @@ under the License.
       <field name="challengeId" type="id"></field>
       <field name="userLoginId" type="id-vlong"></field>
       <field name="factorId" type="id"></field>
-      <field name="delegatorName" type="id-vlong"></field>
       <field name="sessionBindingHash" type="long-varchar"></field>
       <field name="challengeStatus" type="id"></field>
       <field name="attemptCount" type="numeric"></field>
@@ -157,6 +159,9 @@ under the License.
       </relation>
       <relation type="one" fk-name="ULAC_FACTOR" rel-entity-name="UserLoginAuthFactor">
         <key-map field-name="factorId"/>
+      </relation>
+      <relation type="one-nofk" fk-name="ULAC_STATUS" rel-entity-name="StatusItem">
+        <key-map field-name="challengeStatus" rel-field-name="statusId"/>
       </relation>
     </entity>
     <entity entity-name="UserAuthenticationEvent"
