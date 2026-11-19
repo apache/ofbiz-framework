@@ -1394,6 +1394,11 @@ under the License.
                 <parameter param-name="agreementId" from-field="agreement.agreementId"/>
             </link>
         </menu-item>
+        <menu-item name="AgreementAttributes" title="${uiLabelMap.CommonAttributes}">
+            <link target="EditAgreementAttributes">
+                <parameter param-name="agreementId" from-field="agreement.agreementId"/>
+            </link>
+        </menu-item>
         <menu-item name="AgreementItems" title="${uiLabelMap.AccountingAgreementItems}">
             <link target="ListAgreementItems">
                 <parameter param-name="agreementId" from-field="agreement.agreementId"/>
@@ -1432,6 +1437,12 @@ under the License.
         </menu-item>
         <menu-item name="ListAgreementItemTerms" title="${uiLabelMap.AccountingAgreementItemTerms}">
             <link target="ListAgreementItemTerms">
+                <parameter param-name="agreementId" from-field="agreementItem.agreementId"/>
+                <parameter param-name="agreementItemSeqId" from-field="agreementItem.agreementItemSeqId"/>
+            </link>
+        </menu-item>
+        <menu-item name="EditAgreementItemAttributes" title="${uiLabelMap.CommonAttributes}">
+            <link target="EditAgreementItemAttributes">
                 <parameter param-name="agreementId" from-field="agreementItem.agreementId"/>
                 <parameter param-name="agreementItemSeqId" from-field="agreementItem.agreementItemSeqId"/>
             </link>

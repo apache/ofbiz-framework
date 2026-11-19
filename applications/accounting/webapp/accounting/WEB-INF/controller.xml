@@ -1198,6 +1198,46 @@ under the License.
         <response name="error" type="view" value="EditAgreementTerms"/>
     </request-map>
 
+    <request-map uri="EditAgreementAttributes"><security https="true" auth="true"/><response name="success" type="view" value="EditAgreementAttributes"/></request-map>
+    <request-map uri="createAgreementAttribute">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createAgreementAttribute"/>
+        <response name="success" type="view" value="EditAgreementAttributes"/>
+        <response name="error" type="view" value="EditAgreementAttributes"/>
+    </request-map>
+    <request-map uri="updateAgreementAttribute">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateAgreementAttribute"/>
+        <response name="success" type="view" value="EditAgreementAttributes"/>
+        <response name="error" type="view" value="EditAgreementAttributes"/>
+    </request-map>
+    <request-map uri="deleteAgreementAttribute">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deleteAgreementAttribute"/>
+        <response name="success" type="view" value="EditAgreementAttributes"/>
+        <response name="error" type="view" value="EditAgreementAttributes"/>
+    </request-map>
+
+    <request-map uri="EditAgreementItemAttributes"><security https="true" auth="true"/><response name="success" type="view" value="EditAgreementItemAttributes"/></request-map>
+    <request-map uri="createAgreementItemAttribute">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createAgreementItemAttribute"/>
+        <response name="success" type="view" value="EditAgreementItemAttributes"/>
+        <response name="error" type="view" value="EditAgreementItemAttributes"/>
+    </request-map>
+    <request-map uri="updateAgreementItemAttribute">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateAgreementItemAttribute"/>
+        <response name="success" type="view" value="EditAgreementItemAttributes"/>
+        <response name="error" type="view" value="EditAgreementItemAttributes"/>
+    </request-map>
+    <request-map uri="deleteAgreementItemAttribute">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deleteAgreementItemAttribute"/>
+        <response name="success" type="view" value="EditAgreementItemAttributes"/>
+        <response name="error" type="view" value="EditAgreementItemAttributes"/>
+    </request-map>
+
     <request-map uri="EditAgreementContents">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditAgreementContents"/>
@@ -2731,6 +2771,8 @@ under the License.
     <view-map name="ListAgreementItems" type="screen" page="component://accounting/widget/AgreementScreens.xml#ListAgreementItems"/>
     <view-map name="EditAgreementItem" type="screen" page="component://accounting/widget/AgreementScreens.xml#EditAgreementItem"/>
     <view-map name="EditAgreementTerms" type="screen" page="component://accounting/widget/AgreementScreens.xml#EditAgreementTerms"/>
+    <view-map name="EditAgreementAttributes" type="screen" page="component://accounting/widget/AgreementScreens.xml#EditAgreementAttributes"/>
+    <view-map name="EditAgreementItemAttributes" type="screen" page="component://accounting/widget/AgreementScreens.xml#EditAgreementItemAttributes"/>
     <view-map name="EditAgreementContents" type="screen" page="component://accounting/widget/AgreementScreens.xml#EditAgreementContents"/>
     <view-map name="ListAgreementPromoAppls" type="screen" page="component://accounting/widget/AgreementScreens.xml#ListAgreementPromoAppls"/>
     <view-map name="EditAgreementPromoAppl" type="screen" page="component://accounting/widget/AgreementScreens.xml#EditAgreementPromoAppl"/>

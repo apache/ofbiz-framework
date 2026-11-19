@@ -267,6 +267,66 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </grid>
     
+    <grid name="ListAgreementAttributes" target="updateAgreementAttribute" list-name="agreementAttributes" paginate-target="EditAgreementAttributes" title=""
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <actions>
+            <entity-and entity-name="AgreementAttribute" list="agreementAttributes">
+                <field-map field-name="agreementId" from-field="agreementId"/>
+                <order-by field-name="attrName"/>
+            </entity-and>
+        </actions>
+        <auto-fields-service service-name="updateAgreementAttribute"/>
+        <field name="agreementId"><hidden/></field>
+        <field name="attrName"><display/></field>
+        <field name="deleteLink" title=" " widget-style="buttontext">
+            <hyperlink description="${uiLabelMap.CommonRemove}" target="deleteAgreementAttribute" also-hidden="false">
+                <parameter param-name="agreementId"/>
+                <parameter param-name="attrName"/>
+            </hyperlink>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </grid>
+
+    <form name="AddAgreementAttribute" type="single" target="createAgreementAttribute" title=""
+        header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-service service-name="createAgreementAttribute"/>
+        <field name="agreementId"><hidden/></field>
+        <field name="attrName" required-field="true"><text/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+
+    <grid name="ListAgreementItemAttributes" target="updateAgreementItemAttribute" list-name="agreementItemAttributes" paginate-target="EditAgreementItemAttributes" title=""
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <actions>
+            <entity-and entity-name="AgreementItemAttribute" list="agreementItemAttributes">
+                <field-map field-name="agreementId" from-field="agreementId"/>
+                <field-map field-name="agreementItemSeqId" from-field="agreementItemSeqId"/>
+                <order-by field-name="attrName"/>
+            </entity-and>
+        </actions>
+        <auto-fields-service service-name="updateAgreementItemAttribute"/>
+        <field name="agreementId"><hidden/></field>
+        <field name="agreementItemSeqId"><hidden/></field>
+        <field name="attrName"><display/></field>
+        <field name="deleteLink" title=" " widget-style="buttontext">
+            <hyperlink description="${uiLabelMap.CommonRemove}" target="deleteAgreementItemAttribute" also-hidden="false">
+                <parameter param-name="agreementId"/>
+                <parameter param-name="agreementItemSeqId"/>
+                <parameter param-name="attrName"/>
+            </hyperlink>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </grid>
+
+    <form name="AddAgreementItemAttribute" type="single" target="createAgreementItemAttribute" title=""
+        header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-service service-name="createAgreementItemAttribute"/>
+        <field name="agreementId"><hidden/></field>
+        <field name="agreementItemSeqId"><hidden/></field>
+        <field name="attrName" required-field="true"><text/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+
     <form name="AddAgreementTerm" type="single" target="createAgreementTerm" title="" default-map-name="agreementTerm"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="AgreementTerm" default-field-type="edit"/>
