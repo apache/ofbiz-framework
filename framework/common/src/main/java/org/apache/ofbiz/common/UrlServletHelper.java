@@ -44,6 +44,7 @@ import jakarta.servlet.http.HttpServletResponse;
 public final class UrlServletHelper {
 
     private static final String MODULE = UrlServletHelper.class.getName();
+    private static final String PATH_SEGMENT_UNSAFE_CHARS = "/\\%?#;";
 
     private UrlServletHelper() { }
 
@@ -135,6 +136,12 @@ public final class UrlServletHelper {
             searchString = httpRequest.getParameter("searchString");
         }
 
+        // The values are appended to the request dispatcher path, so each one must stay within its own path segment
+        viewIndex = toPathSegmentValue(viewIndex);
+        viewSize = toPathSegmentValue(viewSize);
+        viewSort = toPathSegmentValue(viewSort);
+        searchString = toPathSegmentValue(searchString);
+
         //Set query string parameters to url
         if (UtilValidate.isNotEmpty(viewIndex)) {
             urlBuilder.append("/~VIEW_INDEX=" + viewIndex);
@@ -153,6 +160,20 @@ public final class UrlServletHelper {
             request.setAttribute("SEARCH_STRING", searchString);
         }
     }
+
+    /**
+     * Returns the value if it can be appended to a request dispatcher path as part of a single path segment, or
+     * {@code null} if it holds a path separator or a character that changes how the dispatcher resolves the path.
+     * @param value the request value
+     * @return the value, or {@code null} if it is not usable in a path segment
+     */
+    private static String toPathSegmentValue(String value) {
+        if (value == null || value.chars().anyMatch(c -> PATH_SEGMENT_UNSAFE_CHARS.indexOf(c) >= 0)) {
+            return null;
+        }
+        return value;
+    }
+
     public static void checkPathAlias(ServletRequest request, ServletResponse response, Delegator delegator, String pathInfo) {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
