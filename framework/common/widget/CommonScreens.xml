@@ -284,10 +284,10 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleMfaEnrollment"/>
-                <set field="mfaFactorId" value="${groovy: request.getAttribute('mfaFactorId') ?: parameters.mfaFactorId}"/>
-                <set field="mfaProvisioningUri" value="${groovy: request.getAttribute('mfaProvisioningUri') ?: parameters.mfaProvisioningUri}"/>
-                <set field="mfaSecret" value="${groovy: request.getAttribute('mfaSecret') ?: parameters.mfaSecret}"/>
-                <set field="mfaQrCodeDataUri" value="${groovy: request.getAttribute('mfaQrCodeDataUri') ?: parameters.mfaQrCodeDataUri}"/>
+                <set field="mfaFactorId" value="${groovy: request.getAttribute('mfaFactorId')}"/>
+                <set field="mfaProvisioningUri" value="${groovy: request.getAttribute('mfaProvisioningUri')}"/>
+                <set field="mfaSecret" value="${groovy: request.getAttribute('mfaSecret')}"/>
+                <set field="mfaQrCodeDataUri" value="${groovy: request.getAttribute('mfaQrCodeDataUri')}"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -297,7 +297,7 @@ under the License.
                             <section>
                                 <condition><not><if-empty field="mfaQrCodeDataUri"/></not></condition>
                                 <widgets>
-                                    <image src="${mfaQrCodeDataUri}" url-mode="raw" width="220" height="220" style="display:block; margin: 15px auto; border: 2px solid #ddd; padding: 10px; background: #fff; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"/>
+                                    <image src="${mfaQrCodeDataUri}" url-mode="raw" width="220" height="220" style="mfa-qr-code"/>
                                 </widgets>
                             </section>
                             <section>
@@ -321,10 +321,10 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleLogin"/>
-                <set field="mfaFactorId" value="${groovy: request.getAttribute('mfaFactorId') ?: parameters.mfaFactorId}"/>
-                <set field="mfaProvisioningUri" value="${groovy: request.getAttribute('mfaProvisioningUri') ?: parameters.mfaProvisioningUri}"/>
-                <set field="mfaSecret" value="${groovy: request.getAttribute('mfaSecret') ?: parameters.mfaSecret}"/>
-                <set field="mfaQrCodeDataUri" value="${groovy: request.getAttribute('mfaQrCodeDataUri') ?: parameters.mfaQrCodeDataUri}"/>
+                <set field="mfaFactorId" value="${groovy: request.getAttribute('mfaFactorId')}"/>
+                <set field="mfaProvisioningUri" value="${groovy: request.getAttribute('mfaProvisioningUri')}"/>
+                <set field="mfaSecret" value="${groovy: request.getAttribute('mfaSecret')}"/>
+                <set field="mfaQrCodeDataUri" value="${groovy: request.getAttribute('mfaQrCodeDataUri')}"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -344,7 +344,7 @@ under the License.
                                     <section>
                                         <condition><not><if-empty field="mfaQrCodeDataUri"/></not></condition>
                                         <widgets>
-                                            <image src="${mfaQrCodeDataUri}" url-mode="raw" width="220" height="220" style="display:block; margin: 15px auto; border: 2px solid #ddd; padding: 10px; background: #fff; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"/>
+                                            <image src="${mfaQrCodeDataUri}" url-mode="raw" width="220" height="220" style="mfa-qr-code"/>
                                         </widgets>
                                     </section>
                                     <section>
