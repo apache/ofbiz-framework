@@ -32,6 +32,7 @@ import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.webapp.control.JWTManager;
 import org.apache.ofbiz.webapp.control.LoginWorker;
 import org.apache.ofbiz.ws.rs.annotation.AuthToken;
+import org.apache.ofbiz.ws.rs.util.RestApiRequestContext;
 import org.apache.ofbiz.ws.rs.util.RestApiUtil;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -83,7 +84,7 @@ public class AuthenticationResource {
      * protected by {@code @AuthToken}.</p>
      *
      * <p>The method retrieves the current {@code Delegator} and dispatcher from the
-     * servlet context and expects a resolved {@code userLogin} attribute on the
+     * request context and expects a resolved {@code userLogin} attribute on the
      * HTTP request.</p>
      *
      * @param creds the HTTP Authorization header containing Basic Authentication credentials
@@ -125,13 +126,15 @@ public class AuthenticationResource {
             @Parameter(in = ParameterIn.HEADER, name = "Authorization",
             description = "Authorization header using Basic Authentication", example = HttpHeaders.AUTHORIZATION + ": Basic YWRtaW46b2ZiaXo=")
             @HeaderParam(HttpHeaders.AUTHORIZATION) String creds) {
-        Delegator delegator = (Delegator) servletContext.getAttribute("delegator");
-        httpRequest.setAttribute("delegator", delegator);
-        httpRequest.setAttribute("dispatcher", servletContext.getAttribute("dispatcher"));
+        Delegator delegator = RestApiRequestContext.getDelegator(httpRequest, servletContext);
         GenericValue userLogin = (GenericValue) httpRequest.getAttribute("userLogin");
         //TODO : Move this into an OFBiz service. All such implementations should be inside an OFBiz service.
         Map<String, String> claims = UtilMisc.toMap("userLoginId", userLogin.getString("userLoginId"),
                 "apiGroupPath", apiGroupPath);
+        String tenantId = (String) httpRequest.getAttribute("userTenantId");
+        if (tenantId != null) {
+            claims.put("tenantId", tenantId);
+        }
         String jwtToken = JWTManager.createJwt(delegator, claims);
         String refreshToken = JWTManager.createRefreshToken(delegator, claims);
 
@@ -158,14 +161,18 @@ public class AuthenticationResource {
             + " valid exclusivly for the same apiGroup as the provided token")
     public Response refreshToken(@HeaderParam("Refresh-Token") String refreshToken) {
 
-        Delegator delegator = (Delegator) servletContext.getAttribute("delegator");
-        httpRequest.setAttribute("delegator", delegator);
-        httpRequest.setAttribute("dispatcher", delegator);
+        Delegator delegator = RestApiRequestContext.getDelegator(httpRequest, servletContext);
         Map<String, Object> claims = JWTManager.validateRefreshToken(delegator, refreshToken);
 
         if (claims.containsKey(ModelService.ERROR_MESSAGE)) {
             return RestApiUtil.error(Response.Status.UNAUTHORIZED.getStatusCode(), Response.Status.UNAUTHORIZED.getReasonPhrase(),
                     "Unauthorized: " + claims.get(ModelService.ERROR_MESSAGE));
+        }
+
+        if (!RestApiRequestContext.matchesTenant(httpRequest, claims)) {
+            return RestApiUtil.error(Response.Status.UNAUTHORIZED.getStatusCode(),
+                    Response.Status.UNAUTHORIZED.getReasonPhrase(),
+                    "Unauthorized: Refresh token is not valid for this tenant.");
         }
 
         if (!claims.containsKey("apiGroupPath")) {
@@ -181,6 +188,10 @@ public class AuthenticationResource {
 
         Map<String, String> newClaims = UtilMisc.toMap("userLoginId", userLoginId,
                 "apiGroupPath", claims.get("apiGroupPath"));
+        String tenantId = (String) httpRequest.getAttribute("userTenantId");
+        if (tenantId != null) {
+            newClaims.put("tenantId", tenantId);
+        }
         String newAccessToken = JWTManager.createJwt(delegator, newClaims);
         String newRefreshToken = JWTManager.createRefreshToken(delegator, newClaims);
 

@@ -31,6 +31,10 @@ under the License.
         <param-name>entityDelegatorName</param-name><param-value>default</param-value>
     </context-param>
     <filter>
+        <filter-name>TenantContextFilter</filter-name>
+        <filter-class>org.apache.ofbiz.ws.rs.filters.TenantContextFilter</filter-class>
+    </filter>
+    <filter>
         <filter-name>Jersey REST Filter</filter-name>
         <filter-class>org.glassfish.jersey.servlet.ServletContainer</filter-class>
         <init-param>
@@ -42,6 +46,10 @@ under the License.
             <param-value>/swagger/.*</param-value>
         </init-param>
     </filter>
+    <filter-mapping>
+        <filter-name>TenantContextFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
     <filter-mapping>
         <filter-name>Jersey REST Filter</filter-name>
         <url-pattern>/*</url-pattern>

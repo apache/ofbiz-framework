@@ -29,6 +29,7 @@ import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.service.ServiceUtil;
 import org.apache.ofbiz.ws.rs.ServiceNameContextHolder;
+import org.apache.ofbiz.ws.rs.util.RestApiRequestContext;
 import org.apache.ofbiz.ws.rs.util.RestApiUtil;
 import org.apache.ofbiz.ws.rs.util.ServiceRequestWorker;
 
@@ -81,7 +82,7 @@ public final class ServiceRequestHandler extends RestRequestHandler {
     protected Response execute(ContainerRequestContext ctx, Map<String, Object> arguments) {
         ServiceNameContextHolder.set(service);
         addSecurityParameters(arguments);
-        LocalDispatcher dispatcher = (LocalDispatcher) getServletContext().getAttribute("dispatcher");
+        LocalDispatcher dispatcher = RestApiRequestContext.getDispatcher(getHttpRequest(), getServletContext());
         Map<String, Object> serviceContext = null;
         try {
             serviceContext = dispatcher.getDispatchContext().makeValidContext(service, ModelService.IN_PARAM, arguments);

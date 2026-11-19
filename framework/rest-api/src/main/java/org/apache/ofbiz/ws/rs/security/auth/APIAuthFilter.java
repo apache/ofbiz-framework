@@ -31,6 +31,7 @@ import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.webapp.control.JWTManager;
 import org.apache.ofbiz.ws.rs.annotation.Secured;
 import org.apache.ofbiz.ws.rs.common.AuthenticationScheme;
+import org.apache.ofbiz.ws.rs.util.RestApiRequestContext;
 import org.apache.ofbiz.ws.rs.util.RestApiUtil;
 
 import jakarta.annotation.Priority;
@@ -74,7 +75,7 @@ public class APIAuthFilter implements ContainerRequestFilter {
     @Override
     public void filter(ContainerRequestContext requestContext) throws IOException {
         String authorizationHeader = requestContext.getHeaderString(HttpHeaders.AUTHORIZATION);
-        Delegator delegator = (Delegator) servletContext.getAttribute("delegator");
+        Delegator delegator = RestApiRequestContext.getDelegator(httpRequest, servletContext);
         if (!isTokenBasedAuthentication(authorizationHeader)) {
             abortWithUnauthorized(requestContext, false, "Unauthorized: Access is denied due to invalid or absent Authorization header.");
             return;
@@ -83,6 +84,10 @@ public class APIAuthFilter implements ContainerRequestFilter {
         Map<String, Object> claims = JWTManager.validateAccessToken(delegator, jwtToken);
         if (claims.containsKey(ModelService.ERROR_MESSAGE)) {
             abortWithUnauthorized(requestContext, true, "Unauthorized: " + (String) claims.get(ModelService.ERROR_MESSAGE));
+            return;
+        }
+        if (!RestApiRequestContext.matchesTenant(httpRequest, claims)) {
+            abortWithUnauthorized(requestContext, true, "Unauthorized: Token is not valid for this tenant.");
             return;
         }
         if (!isTokenIssuedForRequestedApi(requestContext, claims)) {

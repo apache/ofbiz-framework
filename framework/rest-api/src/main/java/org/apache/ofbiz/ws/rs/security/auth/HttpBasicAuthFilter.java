@@ -25,7 +25,6 @@ import java.util.Map;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.ofbiz.security.Security;
@@ -34,6 +33,7 @@ import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ServiceUtil;
 import org.apache.ofbiz.ws.rs.annotation.AuthToken;
 import org.apache.ofbiz.ws.rs.common.AuthenticationScheme;
+import org.apache.ofbiz.ws.rs.util.RestApiRequestContext;
 import org.apache.ofbiz.ws.rs.util.RestApiUtil;
 
 import jakarta.servlet.ServletContext;
@@ -119,7 +119,7 @@ public class HttpBasicAuthFilter implements ContainerRequestFilter {
 
     private void authenticate(String userName, String password, String validatedApiGroupPath) throws ForbiddenException {
         Map<String, Object> result = null;
-        LocalDispatcher dispatcher = (LocalDispatcher) servletContext.getAttribute("dispatcher");
+        LocalDispatcher dispatcher = RestApiRequestContext.getDispatcher(httpRequest, servletContext);
         try {
             result = dispatcher.runSync("userLogin",
                     UtilMisc.toMap("login.username", userName, "login.password", password, "locale", httpRequest.getLocale()));
@@ -140,7 +140,7 @@ public class HttpBasicAuthFilter implements ContainerRequestFilter {
             throw new ForbiddenException(errorMsg);
         }
 
-        Security security = (Security) servletContext.getAttribute("security");
+        Security security = RestApiRequestContext.getSecurity(httpRequest, servletContext);
         if (security != null && !security.hasPermission(securityGroupPermission, (GenericValue) result.get("userLogin"))) {
             String errorMsg = String.format("The specified user has no base permission to use api: [%s].", validatedApiGroupPath);
             Debug.logInfo(errorMsg, MODULE);
@@ -155,6 +155,6 @@ public class HttpBasicAuthFilter implements ContainerRequestFilter {
         String keyPrefix = "rest-api.auth.api-group.";
         String keyPostfix = ".baseSecurityGroupPermission";
         String fullKey = keyPrefix + validatedApiGroupPath + keyPostfix;
-        return EntityUtilProperties.getPropertyValue("rest-api", fullKey, (Delegator) servletContext.getAttribute("delegator"));
+        return EntityUtilProperties.getPropertyValue("rest-api", fullKey, RestApiRequestContext.getDelegator(httpRequest, servletContext));
     }
 }
