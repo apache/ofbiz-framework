@@ -21,7 +21,6 @@ import groovy.xml.XmlParser
 import groovy.xml.XmlSlurper
 import javax.inject.Inject
 import org.apache.tools.ant.filters.ReplaceTokens
-import org.asciidoctor.gradle.jvm.AsciidoctorTask
 import org.gradle.process.ExecOperations
 
 /* ========================================================
@@ -34,8 +33,6 @@ plugins {
     id 'checkstyle'
     id 'codenarc'
     id 'maven-publish'
-    id "org.asciidoctor.jvm.convert" version "4.0.5" // For now we can not update above. See "production-ready version" warning in https://plugins.gradle.org/plugin/org.asciidoctor.jvm
-    id "org.asciidoctor.jvm.pdf" version "4.0.5"     // For now we can not update above. See "production-ready version" warning in https://plugins.gradle.org/plugin/org.asciidoctor.jvm
     id "org.owasp.dependencycheck" version "latest.release" apply false
     id "se.patrikerdes.use-latest-versions"  version "latest.release" apply false
     id "com.github.ben-manes.versions" version "latest.release" apply false
@@ -887,29 +884,63 @@ task createTenant(group: ofbizServer, description: 'Create a new tenant in your 
 }
 
 // ========== Documentation tasks ==========
-tasks.withType(AsciidoctorTask) { task ->
-    executionMode = JAVA_EXEC
-        jvm {
-            jvmArgs("--add-opens","java.base/sun.nio.ch=ALL-UNNAMED","--add-opens","java.base/java.io=ALL-UNNAMED")
+// The documentation is converted with AsciidoctorJ run directly, instead of the asciidoctor Gradle plugins.
+configurations {
+    asciidoctor {
+        description = 'AsciidoctorJ and AsciidoctorJ PDF, used to convert the AsciiDoc documentation'
+    }
+}
+
+dependencies {
+    asciidoctor libs.asciidoctorj.cli
+    asciidoctor libs.asciidoctorj.pdf
+}
+
+// JRuby (asciidoctorj-pdf) and Windows don't mix well, so Windows only gets the HTML output
+def asciidocBackends = System.properties['os.name'].toLowerCase().contains('windows') ? ['html5'] : ['html5', 'pdf']
+def asciidocAttributes = [
+    'doctype': 'book',
+    'revnumber': getCurrentGitBranch(),
+    'experimental': '',
+    'allow-uri-read': '',
+    'icons': 'font',
+    'sectnums': '',
+    'chapter-label': '',
+    'toc': 'left@',
+    'toclevels': '3']
+
+/**
+ * Converts the AsciiDoc documents found in sourceDir, skipping files and folders starting with '_', to each backend
+ * in its own folder under outputDir, keeping their relative paths, and copies the images folder next to them.
+ * Includes are resolved from the root of the project.
+ */
+def convertAsciidoc = { ExecOperations execOps, File sourceDir, File outputDir, List<String> includes = ['**/*.adoc'] ->
+    def documents = fileTree(sourceDir) {
+        include includes
+        exclude '**/_*', '**/_*/**'
+    }.files
+    if (documents.isEmpty()) {
+        return
+    }
+    asciidocBackends.each { backend ->
+        def backendDir = new File(outputDir, backend)
+        execOps.javaexec {
+            classpath = configurations.asciidoctor
+            mainClass = 'org.asciidoctor.cli.jruby.AsciidoctorInvoker'
+            jvmArgs '--add-opens', 'java.base/sun.nio.ch=ALL-UNNAMED', '--add-opens', 'java.base/java.io=ALL-UNNAMED'
+            args '--backend', backend, '--safe-mode', 'unsafe', '--base-dir', rootDir.path,
+                    '--source-dir', sourceDir.path, '--destination-dir', backendDir.path
+            if (backend == 'pdf') {
+                args '--require', 'asciidoctor-pdf'
+            }
+            asciidocAttributes.each { name, value -> args '--attribute', "${name}=${value}" }
+            args documents.collect { it.path }.sort()
         }
-    outputOptions {
-         // I hate we have to do this - but JRuby (asciidoctorj-pdf) and Windows don't mix well
-        if (System.properties['os.name'].toLowerCase().contains('windows')) {
-            backends = ['html5']
-        } else {
-            backends = ['html5', 'pdf']
+        copy {
+            from new File(sourceDir, 'images')
+            into new File(backendDir, 'images')
         }
     }
-    attributes \
-        'doctype': 'book',
-        'revnumber': getCurrentGitBranch(),
-        'experimental': '',
-        'allow-uri-read': true,
-        'icons': 'font',
-        'sectnums': '',
-        'chapter-label': '',
-        'toc': 'left@',
-        'toclevels': '3'
 }
 
 task deleteOfbizDocumentation {
@@ -932,21 +963,21 @@ task deleteAllPluginsDocumentation {
     doFirst { delete "${buildDir}/asciidoc/plugins" }
 }
 
-
-task generateReadmeFiles(group: docsGroup, type: AsciidoctorTask) {
-    doFirst { delete "${buildDir}/asciidoc/readme" }
-    description = 'Generate OFBiz README files'
-    sourceDir "${rootDir}"
-    // CHANGELOG.adoc should be only present in the current stable version
-    sources {
-        include 'README.adoc', 'CHANGELOG.adoc', 'CONTRIBUTING.adoc', 'DOCKER.adoc'
+task generateReadmeFiles(group: docsGroup, description: 'Generate OFBiz README files') {
+    def execOps = objects.newInstance(InjectedExecOps).execOps
+    doLast {
+        delete "${buildDir}/asciidoc/readme"
+        // CHANGELOG.adoc should be only present in the current stable version
+        convertAsciidoc(execOps, rootDir, file("${buildDir}/asciidoc/readme"),
+                ['README.adoc', 'CHANGELOG.adoc', 'CONTRIBUTING.adoc', 'DOCKER.adoc'])
     }
-    outputDir = file("${buildDir}/asciidoc/readme/")
 }
 
-task generateOfbizDocumentation(group: docsGroup, type: AsciidoctorTask) {
+task generateOfbizDocumentation(group: docsGroup, description: 'Generate OFBiz documentation manuals') {
     dependsOn deleteOfbizDocumentation
-    description = 'Generate OFBiz documentation manuals'
+    def execOps = objects.newInstance(InjectedExecOps).execOps
+    doLast {
+        // the manuals show the images of every component, which are copied next to them for the conversion
         activeComponents().each { component ->
             copy {
                 from "${component}/src/docs/asciidoc/images/${component.name}"
@@ -954,78 +985,60 @@ task generateOfbizDocumentation(group: docsGroup, type: AsciidoctorTask) {
                 into "${rootDir}/docs/asciidoc/images/${component.name}"
             }
         }
-    sourceDir "${rootDir}/docs/asciidoc"
-    outputDir = file("${buildDir}/asciidoc/ofbiz")
-    doLast {
-        activeComponents().each { component ->
-            delete "${rootDir}/docs/asciidoc/images/${component.name}"
+        try {
+            convertAsciidoc(execOps, file("${rootDir}/docs/asciidoc"), file("${buildDir}/asciidoc/ofbiz"))
+        } finally {
+            activeComponents().each { component ->
+                delete "${rootDir}/docs/asciidoc/images/${component.name}"
+            }
         }
     }
 }
 
-task generatePluginDocumentation(group: docsGroup) {
-    dependsOn deletePluginDocumentation
-    description = 'Generate plugin documentation. Expects pluginId flag'
-    activeComponents()
-        .findAll { project.hasProperty('pluginId') && it.name == pluginId }
-        .each { component ->
-            def pluginAsciidoc = task "${component.name}Documentation" (type: AsciidoctorTask) {
-                def asciidocFolder = new File("${component}/src/docs/asciidoc")
-                if (asciidocFolder.exists()) {
-                    copy {
-                        from "${rootDir}/docs/asciidoc/images/OFBiz-Logo.svg"
-                        into "${component}/src/docs/asciidoc/images"
-                    }
-                    sourceDir file("${component}/src/docs/asciidoc")
-                    outputDir file("${buildDir}/asciidoc/plugins/${component.name}")
-                    doLast { println "Documentation generated for plugin ${component.name}" }
-                } else {
-                    println "No documentation found for plugin ${component.name}"
-                }
-                doLast { delete "${component}/src/docs/asciidoc/images/OFBiz-Logo.svg" }
-                mustRunAfter deletePluginDocumentation
-            }
-            dependsOn pluginAsciidoc
-            doLast { delete "${component}/src/docs/asciidoc/images/OFBiz-Logo.svg" }
-        }
-}
-
-task generateAllPluginsDocumentation(group: docsGroup,
-        description: 'Generate all plugins documentation.') {
-
-    dependsOn deleteAllPluginsDocumentation
-    File pluginsDirectory = file(pluginsDir)
-    if (!pluginsDirectory.exists()) {
-        println("Plugins directory not found.")
+/**
+ * Converts the documentation of a plugin, with the OFBiz logo copied next to it for the conversion.
+ */
+def convertPluginDocumentation = { ExecOperations execOps, component ->
+    def asciidocFolder = file("${component}/src/docs/asciidoc")
+    if (!asciidocFolder.exists()) {
+        println "No documentation found for plugin ${component.name}"
         return
     }
-    pluginsDirectory.eachDir { plugin ->
-        activeComponents().each { component ->
-            if (component.name == plugin.name) {
-                if (subprojectExists(":plugins:${plugin.name}")) {
-                    // Note: the "-" between "component.name" and "Documentation" allows to differentiate from
-                    // the other inner task temporary created by the generatePluginDocumentation task
-                    def pluginAsciidoc = task "${component.name}-Documentation" (type: AsciidoctorTask) {
-                        def asciidocFolder = new File("${component}/src/docs/asciidoc")
-                        doFirst {
-                            if (asciidocFolder.exists()) {
-                                copy {
-                                    from "${rootDir}/docs/asciidoc/images/OFBiz-Logo.svg"
-                                    into "${component}/src/docs/asciidoc/images"
-                                }
-                            }
-                        }
-                        if (asciidocFolder.exists()) {
-                            sourceDir file("${component}/src/docs/asciidoc")
-                            outputDir = file("${buildDir}/asciidoc/plugins/${component.name}")
-                            doLast { println "Documentation generated for plugin ${component.name}" }
-                        }
-                    mustRunAfter deleteAllPluginsDocumentation
-                    doLast { delete "${component}/src/docs/asciidoc/images/OFBiz-Logo.svg" }
-                    }
-                    dependsOn pluginAsciidoc
-                }
-            }
+    copy {
+        from "${rootDir}/docs/asciidoc/images/OFBiz-Logo.svg"
+        into "${asciidocFolder}/images"
+    }
+    try {
+        convertAsciidoc(execOps, asciidocFolder, file("${buildDir}/asciidoc/plugins/${component.name}"))
+        println "Documentation generated for plugin ${component.name}"
+    } finally {
+        delete "${asciidocFolder}/images/OFBiz-Logo.svg"
+    }
+}
+
+task generatePluginDocumentation(group: docsGroup, description: 'Generate plugin documentation. Expects pluginId flag') {
+    dependsOn deletePluginDocumentation
+    def execOps = objects.newInstance(InjectedExecOps).execOps
+    doLast {
+        activeComponents()
+            .findAll { it.name == providers.gradleProperty('pluginId').get() }
+            .each { component -> convertPluginDocumentation(execOps, component) }
+    }
+}
+
+task generateAllPluginsDocumentation(group: docsGroup, description: 'Generate all plugins documentation.') {
+    dependsOn deleteAllPluginsDocumentation
+    def execOps = objects.newInstance(InjectedExecOps).execOps
+    doLast {
+        File pluginsDirectory = file(pluginsDir)
+        if (!pluginsDirectory.exists()) {
+            println('Plugins directory not found.')
+            return
+        }
+        pluginsDirectory.eachDir { plugin ->
+            activeComponents()
+                .findAll { it.name == plugin.name && subprojectExists(":plugins:${plugin.name}") }
+                .each { component -> convertPluginDocumentation(execOps, component) }
         }
     }
 }

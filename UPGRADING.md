@@ -48,6 +48,10 @@ the same pull request.
   `gradlew -PXlint:none` to turn the lint warnings and the failure off.
 * Gradle 9 replaces Gradle 8. Run `gradle/init-gradle-wrapper.sh` (or `init-gradle-wrapper.ps1`) again to get the
   new wrapper.
+* The asciidoctor Gradle plugins (`org.asciidoctor.jvm.convert`, `org.asciidoctor.jvm.pdf`) are removed. The
+  documentation tasks keep their names and output folders but run AsciidoctorJ directly, so custom build scripts that
+  declare tasks of type `AsciidoctorTask` must apply the plugin themselves
+  ([OFBIZ-13721](https://issues.apache.org/jira/browse/OFBIZ-13721)).
 * The embedded Tomcat moves from 9 to 11, and with it from Java EE (`javax.*`) to Jakarta EE 11 (`jakarta.*`):
   Servlet 6.1, Jersey 4 and Spring 7 ([OFBIZ-12989](https://issues.apache.org/jira/browse/OFBIZ-12989),
   [#2428](https://github.com/apache/ofbiz-framework/pull/2428)). See "Custom code" below.

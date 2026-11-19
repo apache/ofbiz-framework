@@ -50,6 +50,8 @@ httpclient-cache = "4.5.14"
 log4j = "2.26.1"
 poi = "6.0.0"
 pdfbox = "3.0.8"
+asciidoctorj = "3.0.1"
+asciidoctorj-pdf = "2.3.27"
 # Shared by shiro-crypto-cipher, shiro-crypto-core, shiro-lang.
 shiro = "3.0.1"
 # Shared by sshd-core, sshd-sftp.
@@ -138,6 +140,8 @@ poi = { module = "org.apache.poi:poi", version.ref = "poi" }
 poi-ooxml = { module = "org.apache.poi:poi-ooxml", version.ref = "poi" }
 pdfbox-core = { module = "org.apache.pdfbox:pdfbox", version.ref = "pdfbox" }
 pdfbox-io = { module = "org.apache.pdfbox:pdfbox-io", version.ref = "pdfbox" }
+asciidoctorj-cli = { module = "org.asciidoctor:asciidoctorj-cli", version.ref = "asciidoctorj" }
+asciidoctorj-pdf = { module = "org.asciidoctor:asciidoctorj-pdf", version.ref = "asciidoctorj-pdf" }
 shiro-crypto-cipher = { module = "org.apache.shiro:shiro-crypto-cipher", version.ref = "shiro" }
 shiro-crypto-core = { module = "org.apache.shiro:shiro-crypto-core", version.ref = "shiro" }
 shiro-lang = { module = "org.apache.shiro:shiro-lang", version.ref = "shiro" }
