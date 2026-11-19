@@ -239,7 +239,9 @@ public class PartyServices {
                     List<GenericValue> userLogins = EntityQuery.use(delegator).from("UserLogin").where(cond).queryList();
                     for (GenericValue userLogin : userLogins) {
                         userLogin.set("enabled", "N");
-                        userLogin.set("disabledDateTime", UtilDateTime.nowTimestamp());
+                        if (loggedInUserLogin != null) {
+                            userLogin.put("disabledBy", loggedInUserLogin.get("userLoginId"));
+                        }
                     }
                     delegator.storeAll(userLogins);
                 }
