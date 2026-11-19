@@ -376,7 +376,6 @@ public class JWTManager {
                     }
                     if (list != null) {
                         result.put(entry.getKey(), list);
-                        result.put(entry.getKey() + "String", String.join(",", list));
                     } else {
                         result.put(entry.getKey(), claim.asString());
                     }
