@@ -309,3 +309,10 @@ These apply to custom themes and to themes that override the common-theme macro 
 * Changing a portal page that the user does not own, or its columns and portlets, now needs `PORTALPAGE_ADMIN`, the
   permission the portal page screens already check, instead of `MYPORTALBASE_ADMIN`. Grant `PORTALPAGE_ADMIN` to any
   security group that relied on the old permission ([OFBIZ-13825](https://issues.apache.org/jira/browse/OFBIZ-13825)).
+* Data resources no longer render a FreeMarker template stored as `ELECTRONIC_TEXT`. The content seed data resources
+  `CONTENT_ERROR_403`, `CONTENT_ERROR_404`, `CONTENT_ERROR_404_FR`, `CONTENT_ERROR_410`, `STDWRAP001`,
+  `TEMPLATE_IMAGE_LEFT` and `TEMPLATE_TEXT_ONLY` now read theirs from files in `applications/content/template`.
+  The unused `WRAP_ARTICLE`, `WRAP_NEXT_PREV`, `WRAP_VIEW`, `WRAP_STD_LOOP`, `LEFTBAR`, `TMPLT_IMG_CENTER`,
+  `WRAP_ARTICLE_TABLE`, `WRAP_STD_001`, `IMAGE_CENTERED`, `IMAGE_LEFT`, `TEMPLATE_TEXT` and `TMPLT_IMG_CENTER_FL`
+  are no longer in the content seed data. Reload the seed data, and move any custom FreeMarker template stored as
+  `ELECTRONIC_TEXT` to a file ([OFBIZ-13878](https://issues.apache.org/jira/browse/OFBIZ-13878)).
