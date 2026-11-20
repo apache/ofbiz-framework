@@ -286,11 +286,13 @@ public class AuthenticationResource {
             if (UtilValidate.isEmpty(resolvedApiGroup)) {
                 resolvedApiGroup = "api";
             }
-            String amrMethod = "ULAF_TOTP".equals(factorType) ? "totp" : "mfa";
+            // RFC 8176 registered AMR values: "otp" (TOTP / Backup Codes), "fido" (WebAuthn / Passkeys), "mfa" (multi-factor)
+            String amrMethod = ("ULAF_TOTP".equals(factorType) || "ULAF_BACKUP".equals(factorType)) ? "otp"
+                    : ("ULAF_WEBAUTHN".equals(factorType) || "ULAF_PASSKEY".equals(factorType)) ? "fido" : "mfa";
             Map<String, Object> claims = new HashMap<>();
             claims.put("userLoginId", userLoginId);
             claims.put("apiGroupPath", resolvedApiGroup);
-            claims.put("amr", List.of("pwd", amrMethod));
+            claims.put("amr", List.of("pwd", amrMethod, "mfa"));
 
             String jwtToken = JWTManager.createJwt(delegator, claims);
             String refreshToken = JWTManager.createRefreshToken(delegator, claims);
