@@ -277,6 +277,26 @@ under the License.
         <xs:attribute type="xs:string" name="character-set"/>
         <xs:attribute type="xs:string" name="collate"/>
         <xs:attribute type="xs:integer" name="max-worker-pool-size" default="1"/>
+        <xs:attribute type="xs:integer" name="max-table-name-size" default="30">
+            <xs:annotation>
+                <xs:documentation>Give the max size for a table name where OFBiz raise a warn log of it's exceeded</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:integer" name="max-column-name-size" default="30">
+            <xs:annotation>
+                <xs:documentation>Give the max size for a column name where OFBiz raise a warn log of it's exceeded</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:integer" name="max-index-name-size" default="18">
+            <xs:annotation>
+                <xs:documentation>Give the max size for an index name where OFBiz raise a warn log of it's exceeded</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:integer" name="max-fk-name-size" default="18">
+            <xs:annotation>
+                <xs:documentation>Give the max size for a foreign key name where OFBiz raise a warn log of it's exceeded</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="sql-load-path">
         <xs:complexType>
