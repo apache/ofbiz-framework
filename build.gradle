@@ -643,6 +643,8 @@ task generatePluginDocumentation(group: docsGroup) {
                         into "${component}/src/docs/asciidoc/images"
                     }
                     sourceDir file("${component}/src/docs/asciidoc")
+                    // the includes of a plugin documentation are relative to its folder, as they are inside the user manual
+                    baseDirFollowsSourceDir()
                     outputDir file("${buildDir}/asciidoc/plugins/${component.name}")
                     doLast { println "Documentation generated for plugin ${component.name}" }
                 } else {
@@ -678,6 +680,8 @@ task generateAllPluginsDocumentation(group: docsGroup,
                         }
                         if (asciidocFolder.exists()) {
                             sourceDir file("${component}/src/docs/asciidoc")
+                            // the includes of a plugin documentation are relative to its folder, as they are inside the user manual
+                            baseDirFollowsSourceDir()
                             outputDir = file("${buildDir}/asciidoc/plugins/${component.name}")
                             doLast { println "Documentation generated for plugin ${component.name}" }
                         }
