@@ -195,7 +195,7 @@ public final class GroovyUtil {
         if (expression instanceof MethodCallExpression) {
             MethodCallExpression call = (MethodCallExpression) expression;
             if (call.getObjectExpression() instanceof ClassExpression
-                    && DISALLOWED_STATIC_TARGETS.contains(((ClassExpression) call.getObjectExpression()).getType().getName())) {
+                    && DISALLOWED_STATIC_TARGETS.contains(call.getObjectExpression().getType().getName())) {
                 return false;
             }
             // A method name built at runtime (e.g. 'id'."${m}"()) cannot be checked, so reject it.
@@ -212,7 +212,7 @@ public final class GroovyUtil {
             return false;
         }
         if (expression instanceof ConstructorCallExpression) {
-            return !DISALLOWED_CONSTRUCTOR_TYPES.contains(((ConstructorCallExpression) expression).getType().getName());
+            return !DISALLOWED_CONSTRUCTOR_TYPES.contains(expression.getType().getName());
         }
         if (expression instanceof PropertyExpression) {
             PropertyExpression property = (PropertyExpression) expression;
@@ -222,14 +222,14 @@ public final class GroovyUtil {
             return !DISALLOWED_PROPERTY_NAMES.contains(property.getPropertyAsString());
         }
         if (expression instanceof ClassExpression) {
-            String type = ((ClassExpression) expression).getType().getName();
+            String type = expression.getType().getName();
             return !("java.lang.Class".equals(type) || "java.lang.Runtime".equals(type)
                     || "java.lang.ProcessBuilder".equals(type));
         }
         if (expression instanceof CastExpression) {
             // A coercion such as ('/etc/passwd' as File) reaches the filesystem or network without a
             // constructor call or a blocked method name, so the cast target type is checked here.
-            return !DISALLOWED_CAST_TYPES.contains(((CastExpression) expression).getType().getName());
+            return !DISALLOWED_CAST_TYPES.contains(expression.getType().getName());
         }
         return true;
     }
