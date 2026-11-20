@@ -53,7 +53,7 @@ pdfbox = "3.0.8"
 asciidoctorj = "3.0.1"
 asciidoctorj-pdf = "2.3.27"
 # Shared by shiro-crypto-cipher, shiro-crypto-core, shiro-lang.
-shiro = "3.0.1"
+shiro = "3.0.2"
 # Shared by sshd-core, sshd-sftp.
 sshd = "2.20.1"
 # Shared by tika-core, tika-parser-pdf-module.
@@ -61,7 +61,7 @@ tika = "4.2.0"
 cxf-rt-frontend-jaxrs = "4.2.4"
 # Remember to change the version number (11 now) in javadoc block if needed. Shared by
 # tomcat-catalina-ha, tomcat-dbcp, tomcat-jasper.
-tomcat = "11.0.27"
+tomcat = "11.0.29"
 # Shared by batik-anim, batik-util, batik-bridge.
 batik = "1.20"
 fop = "2.12"
@@ -71,7 +71,7 @@ freemarker = "2.3.35"
 esapi = "2.7.0.0"
 # Shared by spring-test, spring-web.
 spring = "7.0.10"
-jackson-databind = "2.22.4"
+jackson-databind = "2.23.0"
 # Shared by jersey-container-servlet, jersey-hk2, jersey-media-multipart, jersey-media-json-jackson.
 jersey = "4.0.3"
 # Shared by swagger-jaxrs2-core-jakarta, swagger-jaxrs2-servlet-initializer-jakarta, swagger-annotations-jakarta.
@@ -98,7 +98,7 @@ checkstyle = "14.4.0"
 # CVE-2024-21742
 apache-mime4j-core = "0.8.15"
 # CVE-2024-29857, CVE-2024-30171, CVE-2024-30172, CVE-2024-34447. Shared by bcprov-jdk18on, bcpkix-jdk18on, bcutil-jdk18on.
-bcprov-jdk18on = "1.86"
+bcprov-jdk18on = "1.87"
 # CVE-2022-4065
 testng = "7.12.0"
 
