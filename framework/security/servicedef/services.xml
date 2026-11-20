@@ -81,6 +81,23 @@ under the License.
         <attribute name="code" type="String" mode="IN" optional="false"/>
         <attribute name="verified" type="Boolean" mode="OUT" optional="true"/>
     </service>
+    <service name="generateUserLoginBackupCodes" engine="java" auth="true" export="false"
+            location="org.apache.ofbiz.security.login.MfaServices" invoke="generateUserLoginBackupCodes">
+        <description>Generates a fresh batch of backup recovery codes, invalidating any unused codes from
+        a previous batch. Self-service calls must supply the current password.</description>
+        <attribute name="userLogin" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
+        <attribute name="currentPassword" type="String" mode="IN" optional="true"/>
+        <attribute name="locale" type="java.util.Locale" mode="IN" optional="true"/>
+        <attribute name="backupCodes" type="java.util.List" mode="OUT"/>
+    </service>
+    <service name="getRemainingBackupCodesCount" engine="java" auth="true" export="false"
+            location="org.apache.ofbiz.security.login.MfaServices" invoke="getRemainingBackupCodesCount">
+        <description>Returns the count of unused backup recovery codes remaining for an account, for
+        display on the MFA settings page.</description>
+        <attribute name="userLogin" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
+        <attribute name="targetUserLoginId" type="String" mode="IN" optional="true"/>
+        <attribute name="remainingCount" type="Integer" mode="OUT"/>
+    </service>
     <service name="sendMfaSecurityNotification" engine="java" auth="false" export="false"
             location="org.apache.ofbiz.security.login.MfaServices" invoke="sendMfaSecurityNotification">
         <description>Sends security alert email to the party associated with the user login</description>

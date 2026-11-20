@@ -34,9 +34,11 @@ import java.util.Map;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
+import org.apache.ofbiz.base.crypto.HashCrypt;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilMisc;
+import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
@@ -60,6 +62,10 @@ public final class MfaServices {
     public static final String MFA_VERIFIED_AT = "_MFA_VERIFIED_AT_";
     private static final String MODULE = MfaServices.class.getName();
     private static final String TOTP = "ULAF_TOTP";
+    public static final String BACKUP_CODE = "ULAF_BACKUP";
+    public static final int DEFAULT_BACKUP_CODES_COUNT = 10;
+    // Canonical Crockford Base32 symbol set (10 digits + 22 letters, excluding I, L, O, and U to prevent visual confusion and profanity)
+    private static final String BACKUP_CODE_CHARS = "0123456789abcdefghjkmnpqrstvwxyz";
     private static final SecureRandom SECURE_RANDOM = new SecureRandom();
 
     private MfaServices() { }
@@ -159,7 +165,10 @@ public final class MfaServices {
             factor.set("lastUsedDate", UtilDateTime.nowTimestamp());
             factor.store();
             recordEvent(delegator, userLogin.getString("userLoginId"), "MFA_ENROLL", TOTP, null);
-            return ServiceUtil.returnSuccess();
+            List<String> backupCodes = generateBackupCodes(delegator, userLogin.getString("userLoginId"));
+            Map<String, Object> result = ServiceUtil.returnSuccess();
+            result.put("backupCodes", backupCodes);
+            return result;
         } catch (GenericEntityException e) {
             return ServiceUtil.returnError("Authenticator confirmation failed");
         }
@@ -190,6 +199,9 @@ public final class MfaServices {
                     continue;
                 }
                 if (thruDate != null && !thruDate.after(now)) {
+                    continue;
+                }
+                if (BACKUP_CODE.equals(factor.getString("factorType"))) {
                     continue;
                 }
                 Map<String, Object> safeFactor = new LinkedHashMap<>();
@@ -265,10 +277,10 @@ public final class MfaServices {
         }
         Delegator delegator = ctx.getDelegator();
         try {
-            List<GenericValue> factors = activeFactors(delegator, userLogin.getString("userLoginId"));
-            boolean mustEnroll = factors.isEmpty()
+            List<GenericValue> primaryFactors = activePrimaryFactors(delegator, userLogin.getString("userLoginId"));
+            boolean mustEnroll = primaryFactors.isEmpty()
                     && hasRequiredSecurityGroup(delegator, userLogin.getString("userLoginId"));
-            if (factors.isEmpty() && !mustEnroll) {
+            if (primaryFactors.isEmpty() && !mustEnroll && activeFactors(delegator, userLogin.getString("userLoginId")).isEmpty()) {
                 Map<String, Object> result = ServiceUtil.returnSuccess();
                 result.put("required", false);
                 return result;
@@ -361,8 +373,11 @@ public final class MfaServices {
             session.removeAttribute(PENDING_ENROLLMENT);
             session.removeAttribute(PRIMARY_VERIFIED);
             recordEvent(delegator, pendingUserId, "MFA_ENROLL", TOTP, null);
+            List<String> backupCodes = generateBackupCodes(delegator, pendingUserId);
+            session.setAttribute("mfaBackupCodes", backupCodes);
             Map<String, Object> result = ServiceUtil.returnSuccess();
             result.put("activated", true);
+            result.put("backupCodes", backupCodes);
             return result;
         } catch (GenericEntityException e) {
             return ServiceUtil.returnError("Authenticator confirmation failed");
@@ -405,7 +420,7 @@ public final class MfaServices {
             if (attempts >= maxAttempts) {
                 return ServiceUtil.returnError("Invalid or expired authentication challenge");
             }
-            GenericValue usedFactor = consumeTotpCode(delegator, pendingUserId, code);
+            GenericValue usedFactor = consumeFactorCode(delegator, pendingUserId, code);
             if (usedFactor == null) {
                 boolean locked = handleFailedMfaAttempt(delegator, userLogin, challenge, attempts, maxAttempts);
                 recordEvent(delegator, pendingUserId, "MFA_VERIFY_FAILURE", null, challengeId);
@@ -489,6 +504,110 @@ public final class MfaServices {
         }).toList();
     }
 
+    /**
+     * The account's active factors excluding backup codes -- i.e. the factors that actually satisfy
+     * "has MFA enrolled" for policy purposes (backup codes are a recovery mechanism, not a standalone
+     * factor).
+     */
+    public static List<GenericValue> activePrimaryFactors(Delegator delegator, String userLoginId) throws GenericEntityException {
+        return activeFactors(delegator, userLoginId).stream()
+                .filter(factor -> !BACKUP_CODE.equals(factor.getString("factorType")))
+                .toList();
+    }
+
+    private static String generateSingleBackupCode() {
+        StringBuilder sb = new StringBuilder(9);
+        for (int i = 0; i < 8; i++) {
+            if (i == 4) {
+                sb.append('-');
+            }
+            sb.append(BACKUP_CODE_CHARS.charAt(SECURE_RANDOM.nextInt(BACKUP_CODE_CHARS.length())));
+        }
+        return sb.toString();
+    }
+
+    /**
+     * Normalizes a user-entered backup code for comparison: strips separators/whitespace, lower-cases it,
+     * and maps visually-confusable Crockford Base32 characters (o/i/l) to their canonical digit.
+     */
+    public static String normalizeBackupCode(String code) {
+        if (code == null) {
+            return "";
+        }
+        String clean = code.replace("-", "").replace(" ", "").trim().toLowerCase();
+        // Crockford Base32 error tolerance: map visual lookalikes to canonical characters
+        return clean.replace('o', '0')
+                    .replace('i', '1')
+                    .replace('l', '1');
+    }
+
+    /**
+     * Generates a fresh batch of single-use backup recovery codes, expiring any unused codes from a
+     * previous batch first. Codes are stored only as a salted hash ({@code secretHash}); the plaintext
+     * values returned here are the only time they are ever available.
+     * @param delegator the delegator
+     * @param userLoginId the account to generate codes for
+     * @return the plaintext codes, for one-time display to the user
+     * @throws GenericEntityException if the factor rows cannot be written
+     */
+    public static List<String> generateBackupCodes(Delegator delegator, String userLoginId) throws GenericEntityException {
+        int count = getIntProperty(delegator, "security.login.authFactor.backupCodes.count", DEFAULT_BACKUP_CODES_COUNT);
+        Timestamp now = UtilDateTime.nowTimestamp();
+        delegator.storeByCondition("UserLoginAuthFactor", Map.of("thruDate", now), and(
+                EntityCondition.makeCondition("userLoginId", EntityOperator.EQUALS, userLoginId),
+                EntityCondition.makeCondition("factorType", EntityOperator.EQUALS, BACKUP_CODE),
+                EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null)));
+
+        String hashType = EntityUtilProperties.getPropertyValue("security", "password.encrypt.hash.type", "SHA", delegator);
+        List<String> plainCodes = new ArrayList<>(count);
+        for (int i = 0; i < count; i++) {
+            String plainCode = generateSingleBackupCode();
+            String normalized = normalizeBackupCode(plainCode);
+            String hashed = HashCrypt.cryptUTF8(hashType, null, normalized);
+            String factorId = delegator.getNextSeqId("UserLoginAuthFactor");
+            GenericValue factor = delegator.makeValue("UserLoginAuthFactor", Map.of(
+                    "factorId", factorId,
+                    "userLoginId", userLoginId,
+                    "factorType", BACKUP_CODE,
+                    "secretHash", hashed,
+                    "factorLabel", "Backup Recovery Code",
+                    "needsValidation", "N",
+                    "fromDate", now));
+            factor.create();
+            plainCodes.add(plainCode);
+        }
+        recordEvent(delegator, userLoginId, "MFA_BACKUP_CODES_GENERATED", BACKUP_CODE, null);
+        return plainCodes;
+    }
+
+    private static GenericValue consumeBackupCode(Delegator delegator, String userLoginId, String code)
+            throws GenericEntityException {
+        if (code == null || code.isBlank()) {
+            return null;
+        }
+        String normalized = normalizeBackupCode(code);
+        List<GenericValue> backupFactors = EntityQuery.use(delegator).from("UserLoginAuthFactor")
+                .where("userLoginId", userLoginId, "factorType", BACKUP_CODE, "needsValidation", "N", "thruDate", null)
+                .cache(false).queryList();
+        String hashType = EntityUtilProperties.getPropertyValue("security", "password.encrypt.hash.type", "SHA", delegator);
+        for (GenericValue factor : backupFactors) {
+            String secretHash = factor.getString("secretHash");
+            if (secretHash != null && HashCrypt.comparePassword(secretHash, hashType, normalized)) {
+                Timestamp now = UtilDateTime.nowTimestamp();
+                int consumed = delegator.storeByCondition("UserLoginAuthFactor",
+                        Map.of("thruDate", now, "lastUsedDate", now, "lastUsedStep", 1L),
+                        and(EntityCondition.makeCondition("factorId", EntityOperator.EQUALS, factor.getString("factorId")),
+                                EntityCondition.makeCondition("userLoginId", EntityOperator.EQUALS, userLoginId),
+                                EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null)));
+                if (consumed == 1) {
+                    recordEvent(delegator, userLoginId, "MFA_BACKUP_CODE_USED", BACKUP_CODE, null);
+                    return factor;
+                }
+            }
+        }
+        return null;
+    }
+
     private static boolean hasRequiredSecurityGroup(Delegator delegator, String userLoginId) throws GenericEntityException {
         Timestamp now = UtilDateTime.nowTimestamp();
         List<GenericValue> memberships = EntityQuery.use(delegator).from("UserLoginSecurityGroup")
@@ -536,19 +655,26 @@ public final class MfaServices {
         if (code == null) {
             return null;
         }
-        return consumeTotpCode(delegator, userLoginId, code);
+        GenericValue factor = consumeTotpCode(delegator, userLoginId, code);
+        if (factor != null) {
+            return factor;
+        }
+        return consumeBackupCode(delegator, userLoginId, code);
     }
 
     public static Map<String, Object> createRestMfaChallenge(Delegator delegator, String userLoginId, String apiGroupPath)
             throws GenericEntityException {
-        List<GenericValue> factors = activeFactors(delegator, userLoginId);
+        List<GenericValue> factors = activePrimaryFactors(delegator, userLoginId);
         boolean mustEnroll = factors.isEmpty() && hasRequiredSecurityGroup(delegator, userLoginId);
+        if (factors.isEmpty() && !mustEnroll && activeFactors(delegator, userLoginId).isEmpty()) {
+            return Map.of("required", false);
+        }
         List<String> allowedFactorHints = new ArrayList<>();
         if (mustEnroll) {
             allowedFactorHints.add("ENROLLMENT_REQUIRED");
             allowedFactorHints.add(TOTP);
         } else {
-            for (GenericValue factor : factors) {
+            for (GenericValue factor : activeFactors(delegator, userLoginId)) {
                 String type = factor.getString("factorType");
                 if (type != null && !allowedFactorHints.contains(type)) {
                     allowedFactorHints.add(type);
@@ -798,6 +924,73 @@ public final class MfaServices {
                     Integer.toString(defaultValue), delegator));
         } catch (NumberFormatException e) {
             return defaultValue;
+        }
+    }
+
+    /**
+     * Self-service wrapper around {@link #generateBackupCodes}: re-authenticates with the current
+     * password when one is supplied.
+     * @param ctx the service dispatch context
+     * @param context service input: {@code userLogin}, optional {@code currentPassword}, optional
+     *         {@code locale}
+     * @return the newly generated backup codes
+     */
+    public static Map<String, Object> generateUserLoginBackupCodes(DispatchContext ctx, Map<String, ?> context) {
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        if (userLogin == null) {
+            return ServiceUtil.returnError("Unable to generate backup recovery codes");
+        }
+        String currentPassword = (String) context.get("currentPassword");
+        Delegator delegator = ctx.getDelegator();
+        String userLoginId = userLogin.getString("userLoginId");
+        try {
+            if (UtilValidate.isNotEmpty(currentPassword)) {
+                if (!reauthenticate(ctx, userLogin, currentPassword, context.get("locale"))) {
+                    return ServiceUtil.returnError("Current credentials could not be verified");
+                }
+            }
+            List<String> codes = generateBackupCodes(delegator, userLoginId);
+            Map<String, Object> result = ServiceUtil.returnSuccess();
+            result.put("backupCodes", codes);
+            return result;
+        } catch (GenericEntityException e) {
+            Debug.logError(e, "Unable to generate backup recovery codes", MODULE);
+            return ServiceUtil.returnError("Unable to generate backup recovery codes");
+        }
+    }
+
+    /**
+     * Counts an account's unused backup recovery codes, for display on the MFA settings page (e.g.
+     * "3 codes remaining"). Viewing another user's count requires the {@code SECURITY} {@code _VIEW}
+     * permission.
+     * @param ctx the service dispatch context
+     * @param context service input: {@code userLogin}, optional {@code targetUserLoginId} (defaults to
+     *         the caller)
+     * @return {@code remainingCount}
+     */
+    public static Map<String, Object> getRemainingBackupCodesCount(DispatchContext ctx, Map<String, ?> context) {
+        GenericValue actor = (GenericValue) context.get("userLogin");
+        String targetUserLoginId = (String) context.get("targetUserLoginId");
+        if (targetUserLoginId == null && actor != null) {
+            targetUserLoginId = actor.getString("userLoginId");
+        }
+        if (actor == null || targetUserLoginId == null) {
+            return ServiceUtil.returnError("Unable to retrieve backup codes count");
+        }
+        boolean self = targetUserLoginId.equals(actor.getString("userLoginId"));
+        if (!self && !ctx.getSecurity().hasEntityPermission("SECURITY", "_VIEW", actor)) {
+            return ServiceUtil.returnError("Not authorized to view authentication factors");
+        }
+        Delegator delegator = ctx.getDelegator();
+        try {
+            long count = EntityQuery.use(delegator).from("UserLoginAuthFactor")
+                    .where("userLoginId", targetUserLoginId, "factorType", BACKUP_CODE, "needsValidation", "N", "thruDate", null)
+                    .cache(false).queryCount();
+            Map<String, Object> result = ServiceUtil.returnSuccess();
+            result.put("remainingCount", (int) count);
+            return result;
+        } catch (GenericEntityException e) {
+            return ServiceUtil.returnError("Unable to retrieve backup codes count");
         }
     }
 

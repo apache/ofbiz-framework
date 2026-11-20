@@ -136,12 +136,6 @@ public class LoginEvents {
         }
     }
 
-    private static String showGenericPasswordRecoveryResponse(HttpServletRequest request) {
-        String message = UtilProperties.getMessage(RESOURCE, "loginevents.new_password_sent_check_email", UtilHttp.getLocale(request));
-        request.setAttribute("_EVENT_MESSAGE_", message);
-        return "success";
-    }
-
     /** Show the password hint for the userLoginId specified in the request object.
      *@param request The HTTPRequest object for the current request
      *@param response The HTTPResponse object for the current request
@@ -234,9 +228,11 @@ public class LoginEvents {
                 return "success";
             }
 
-            if (isMfaRequiredForPasswordRecovery(delegator, dispatcher, userLoginId)) {
-                return showGenericPasswordRecoveryResponse(request);
-            }
+            // Note: MFA-mandated accounts are deliberately NOT blocked here. Resetting the password via
+            // email does not bypass the second factor -- LoginWorker#login() re-evaluates the MFA policy
+            // for every successful primary authentication, including a password-reset-token login, and
+            // will not commit a session without it. Blocking the email here would only strand customers
+            // who still have their authenticator but forgot their password, without closing any real gap.
 
             // check login is associated to a party
             GenericValue userParty = userLogin.getRelatedOne("Party", false);
