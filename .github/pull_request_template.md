@@ -12,5 +12,5 @@ applications/UPGRADING.md.]
 [Thanks:] [xxxx for ... and yyyy for]
 
 ## For more information
-
+https://github.com/apache/ofbiz-framework/blob/trunk/CONTRIBUTING.md
 https://cwiki.apache.org/confluence/display/OFBIZ/OFBiz+commit+message+template
