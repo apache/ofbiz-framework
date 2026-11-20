@@ -30,6 +30,8 @@ import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.entity.util.EntityUtilProperties;
+import org.apache.ofbiz.security.Security;
+import org.apache.ofbiz.security.SecurityFactory;
 import org.apache.ofbiz.security.login.AuthenticationContext;
 import org.apache.ofbiz.security.login.MfaServices;
 import org.apache.ofbiz.service.GenericServiceException;
@@ -271,6 +273,44 @@ public class AuthenticationResource {
                     Response.Status.BAD_REQUEST.getReasonPhrase(), "Verification code is required.");
         }
         try {
+            // 1. Pre-validate challenge existence and API group binding before consuming code
+            GenericValue challenge = EntityQuery.use(delegator).from("UserLoginAuthChallenge")
+                    .where("challengeId", challengeId)
+                    .cache(false).queryOne();
+            if (challenge == null || !"PENDING".equals(challenge.getString("challengeStatus"))) {
+                return RestApiUtil.error(Response.Status.UNAUTHORIZED.getStatusCode(),
+                        Response.Status.UNAUTHORIZED.getReasonPhrase(), "Invalid or expired authentication challenge");
+            }
+            String bindingHash = challenge.getString("sessionBindingHash");
+            String expectedApiGroup = "api";
+            if (bindingHash != null && bindingHash.startsWith("rest:")) {
+                expectedApiGroup = bindingHash.substring(5);
+            }
+            if (UtilValidate.isEmpty(expectedApiGroup)) {
+                expectedApiGroup = "api";
+            }
+
+            // Enforce that the challenge is only verified for the API group it was issued for
+            if (UtilValidate.isNotEmpty(apiGroupPath) && !apiGroupPath.equals(expectedApiGroup)) {
+                return RestApiUtil.error(Response.Status.FORBIDDEN.getStatusCode(),
+                        Response.Status.FORBIDDEN.getReasonPhrase(),
+                        "Access Denied: Challenge was not issued for API group: [" + apiGroupPath + "]");
+            }
+
+            // Validate that the API group has a configured base security permission
+            String keyPrefix = "rest-api.auth.api-group.";
+            String keyPostfix = ".baseSecurityGroupPermission";
+            String fullKey = keyPrefix + expectedApiGroup + keyPostfix;
+            String securityGroupPermission = EntityUtilProperties.getPropertyValue("rest-api", fullKey, delegator);
+
+            if (UtilValidate.isEmpty(securityGroupPermission)) {
+                String errorMsg = String.format("No SecurityGroup configured for api: [%s]. Access denied.", expectedApiGroup);
+                Debug.logInfo(errorMsg, MODULE);
+                return RestApiUtil.error(Response.Status.FORBIDDEN.getStatusCode(),
+                        Response.Status.FORBIDDEN.getReasonPhrase(), errorMsg);
+            }
+
+            // 2. Verify MFA code and consume challenge
             Map<String, Object> verifyResult = MfaServices.verifyRestMfaChallenge(delegator, challengeId, code);
             if (!ServiceUtil.isSuccess(verifyResult)) {
                 return RestApiUtil.error(Response.Status.UNAUTHORIZED.getStatusCode(),
@@ -278,20 +318,27 @@ public class AuthenticationResource {
             }
             String userLoginId = (String) verifyResult.get("userLoginId");
             String factorType = (String) verifyResult.get("factorType");
-            String bindingHash = (String) verifyResult.get("sessionBindingHash");
-            String resolvedApiGroup = apiGroupPath;
-            if (UtilValidate.isEmpty(resolvedApiGroup) && bindingHash != null && bindingHash.startsWith("rest:")) {
-                resolvedApiGroup = bindingHash.substring(5);
+
+            // 3. Check userLogin permission
+            GenericValue userLogin = EntityQuery.use(delegator).from("UserLogin")
+                    .where("userLoginId", userLoginId).queryOne();
+            Security security = (Security) servletContext.getAttribute("security");
+            if (security == null) {
+                security = SecurityFactory.getInstance(delegator);
             }
-            if (UtilValidate.isEmpty(resolvedApiGroup)) {
-                resolvedApiGroup = "api";
+            if (security != null && !security.hasPermission(securityGroupPermission, userLogin)) {
+                String errorMsg = String.format("Access Denied: The specified user has no base permission to use api: [%s]", expectedApiGroup);
+                Debug.logInfo(errorMsg, MODULE);
+                return RestApiUtil.error(Response.Status.FORBIDDEN.getStatusCode(),
+                        Response.Status.FORBIDDEN.getReasonPhrase(), errorMsg);
             }
+
             // RFC 8176 registered AMR values: "otp" (TOTP / Backup Codes), "fido" (WebAuthn / Passkeys), "mfa" (multi-factor)
             String amrMethod = ("ULAF_TOTP".equals(factorType) || "ULAF_BACKUP".equals(factorType)) ? "otp"
                     : ("ULAF_WEBAUTHN".equals(factorType) || "ULAF_PASSKEY".equals(factorType)) ? "fido" : "mfa";
             Map<String, Object> claims = new HashMap<>();
             claims.put("userLoginId", userLoginId);
-            claims.put("apiGroupPath", resolvedApiGroup);
+            claims.put("apiGroupPath", expectedApiGroup);
             claims.put("amr", List.of("pwd", amrMethod, "mfa"));
 
             String jwtToken = JWTManager.createJwt(delegator, claims);
@@ -302,7 +349,7 @@ public class AuthenticationResource {
                     "expires_in", EntityUtilProperties.getPropertyValue("security", "security.jwt.token.expireTime", "1800", delegator),
                     "token_type", "Bearer");
             return RestApiUtil.success("Token granted.", tokenPayload);
-        } catch (GenericEntityException e) {
+        } catch (GenericEntityException | org.apache.ofbiz.security.SecurityConfigurationException e) {
             Debug.logError(e, "Error verifying REST MFA challenge", MODULE);
             return RestApiUtil.error(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(),
                     "Internal Server Error", "Unable to verify authentication challenge.");
