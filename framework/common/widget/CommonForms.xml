@@ -49,6 +49,10 @@ under the License.
         <field name="code" title="Authenticator code" required-field="true"><text maxlength="64"/></field>
         <field name="submitButton" title="Verify"><submit button-type="button"/></field>
     </form>
+    <form name="MfaReverifyForm" type="single" target="reverifyAuthFactor">
+        <field name="code" title="Authenticator code" required-field="true"><text maxlength="64"/></field>
+        <field name="submitButton" title="Verify"><submit button-type="button"/></field>
+    </form>
     <form name="MfaEnrollmentStartForm" type="single" target="beginTotpEnrollment">
         <field name="label" title="Authenticator label"><text maxlength="100"/></field>
         <field name="currentPassword" title="Current password" required-field="true"><password maxlength="255"/></field>
@@ -66,6 +70,7 @@ under the License.
             <entity-condition entity-name="UserLoginAuthFactor" list="mfaFactors">
                 <condition-list combine="and">
                     <condition-expr field-name="userLoginId" from-field="mfaOwnerUserLoginId"/>
+                    <condition-expr field-name="factorType" operator="not-equals" value="ULAF_BACKUP"/>
                     <condition-expr field-name="thruDate" operator="equals" from-field="nullField"/>
                 </condition-list>
                 <order-by field-name="fromDate"/>
@@ -80,6 +85,11 @@ under the License.
         <field name="currentPassword" title=" " widget-style="revoke-password" id-name="revokeCurrentPassword"><password size="45" maxlength="255"/></field>
         <field name="submitButton" title="Revoke factor"><submit button-type="button"/></field>
     </grid>
+
+    <form name="GenerateBackupCodesForm" type="single" target="generateBackupCodes">
+        <field name="currentPassword" title="Current password" required-field="true"><password maxlength="255"/></field>
+        <field name="submitButton" title="Generate New Backup Codes"><submit button-type="button"/></field>
+    </form>
 
     <grid name="ListAdminMfaFactors" list-name="mfaFactors" target="revokeMfaFactor"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">

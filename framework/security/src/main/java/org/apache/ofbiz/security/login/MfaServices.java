@@ -27,6 +27,7 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -60,6 +61,9 @@ public final class MfaServices {
     public static final String PENDING_ENROLLMENT = "_MFA_PENDING_ENROLLMENT_";
     public static final String PENDING_ENROLLMENT_FACTOR = "_MFA_PENDING_ENROLLMENT_FACTOR_";
     public static final String MFA_VERIFIED_AT = "_MFA_VERIFIED_AT_";
+    public static final String PENDING_REPLAY_KIND = "_MFA_PENDING_REPLAY_KIND_";
+    public static final String PENDING_REPLAY_PARAMS = "_MFA_PENDING_REPLAY_PARAMS_";
+    public static final String PENDING_REPLAY_AT = "_MFA_PENDING_REPLAY_AT_";
     private static final String MODULE = MfaServices.class.getName();
     private static final String TOTP = "ULAF_TOTP";
     public static final String BACKUP_CODE = "ULAF_BACKUP";
@@ -101,6 +105,124 @@ public final class MfaServices {
         } catch (GenericEntityException e) {
             return ServiceUtil.returnError("Unable to evaluate authentication-factor policy");
         }
+    }
+
+    /**
+     * True when the current session already completed a required factor within the configured
+     * re-authentication window, or when a fresh factor code accompanying this request satisfies it now.
+     * Used as the single, reusable step-up gate for every sensitive action (password change, factor
+     * management, backup-code generation) regardless of which caller invokes it.
+     */
+    public static boolean hasRecentMfaProof(HttpServletRequest request, GenericValue userLogin, LocalDispatcher dispatcher) {
+        try {
+            Map<String, Object> policy = dispatcher.runSync("isUserLoginMfaRequired",
+                    UtilMisc.toMap("userLoginId", userLogin.getString("userLoginId")));
+            if (ServiceUtil.isError(policy)) return false;
+            if (!Boolean.TRUE.equals(policy.get("required"))) return true;
+            HttpSession session = request.getSession(false);
+            if (session == null) return false;
+            Object verifiedAt = session.getAttribute(MFA_VERIFIED_AT);
+            int maxAgeSeconds = EntityUtilProperties.getPropertyAsInteger("security",
+                    "security.login.authFactor.reauthenticationWindow", 300);
+            if (verifiedAt instanceof Number) {
+                long ageMillis = System.currentTimeMillis() - ((Number) verifiedAt).longValue();
+                if (ageMillis >= 0 && ageMillis <= maxAgeSeconds * 1000L) {
+                    return true;
+                }
+            }
+            // Step-up / Re-authentication: if the re-auth window expired, accept a fresh factor code
+            // bundled with this same request instead of forcing a separate logout/login round trip.
+            String code = request.getParameter("mfaCode");
+            if (UtilValidate.isEmpty(code)) {
+                code = request.getParameter("code");
+            }
+            if (UtilValidate.isNotEmpty(code)) {
+                Delegator delegator = (Delegator) request.getAttribute("delegator");
+                if (delegator == null) {
+                    delegator = (Delegator) session.getAttribute("delegator");
+                }
+                GenericValue usedFactor = consumeFactorCode(delegator, userLogin.getString("userLoginId"), code);
+                if (usedFactor != null) {
+                    session.setAttribute(MFA_VERIFIED_AT, System.currentTimeMillis());
+                    recordAuthenticationEvent(delegator, userLogin.getString("userLoginId"),
+                            "MFA_REVERIFY_SUCCESS", usedFactor.getString("factorType"), null);
+                    return true;
+                }
+            }
+            return false;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    /** How long a deferred action may sit waiting for its step-up re-verification before it is
+     * discarded rather than replayed; kept short since it only bridges a single reverify round trip. */
+    private static final int PENDING_REPLAY_MAX_AGE_SECONDS = 180;
+
+    /** A sensitive operation's submitted fields, held just long enough to replay it once the user
+     * re-verifies, so they are not asked to resubmit the original form. */
+    public static final class PendingMfaReplay {
+        private final String kind;
+        private final Map<String, String> params;
+
+        private PendingMfaReplay(String kind, Map<String, String> params) {
+            this.kind = kind;
+            this.params = params;
+        }
+
+        public String getKind() {
+            return kind;
+        }
+
+        public Map<String, String> getParams() {
+            return params;
+        }
+    }
+
+    /**
+     * Stashes the current request's submitted fields in the session under {@code kind}, so that once
+     * the user satisfies {@link #hasRecentMfaProof}, {@link #takePendingMfaReplay} can hand the exact
+     * same fields back to complete the operation without a second form submission. One-shot: callers
+     * must consume it via takePendingMfaReplay, which removes it immediately.
+     * @param request the current request, whose parameters are captured
+     * @param kind a short caller-defined tag identifying which deferred operation this is
+     */
+    public static void stashPendingMfaReplay(HttpServletRequest request, String kind) {
+        Map<String, String> params = new HashMap<>();
+        request.getParameterMap().forEach((name, values) -> {
+            if (values != null && values.length > 0 && values[0] != null) {
+                params.put(name, values[0]);
+            }
+        });
+        HttpSession session = request.getSession();
+        session.setAttribute(PENDING_REPLAY_KIND, kind);
+        session.setAttribute(PENDING_REPLAY_PARAMS, params);
+        session.setAttribute(PENDING_REPLAY_AT, System.currentTimeMillis());
+    }
+
+    /**
+     * Removes and returns the pending replay stashed by {@link #stashPendingMfaReplay}, or {@code null}
+     * if there is none or it is too old to trust. Always clears the session attributes, so a replay is
+     * consumed at most once regardless of outcome.
+     * @param session the current session
+     * @return the stashed kind and fields, or null
+     */
+    @SuppressWarnings("unchecked")
+    public static PendingMfaReplay takePendingMfaReplay(HttpSession session) {
+        String kind = (String) session.getAttribute(PENDING_REPLAY_KIND);
+        Map<String, String> params = (Map<String, String>) session.getAttribute(PENDING_REPLAY_PARAMS);
+        Object stashedAt = session.getAttribute(PENDING_REPLAY_AT);
+        session.removeAttribute(PENDING_REPLAY_KIND);
+        session.removeAttribute(PENDING_REPLAY_PARAMS);
+        session.removeAttribute(PENDING_REPLAY_AT);
+        if (kind == null || params == null || !(stashedAt instanceof Number)) {
+            return null;
+        }
+        long ageMillis = System.currentTimeMillis() - ((Number) stashedAt).longValue();
+        if (ageMillis < 0 || ageMillis > PENDING_REPLAY_MAX_AGE_SECONDS * 1000L) {
+            return null;
+        }
+        return new PendingMfaReplay(kind, params);
     }
 
     public static Map<String, Object> createUserLoginTotpFactor(DispatchContext ctx, Map<String, ?> context) {

@@ -246,10 +246,32 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleMfaSetup"/>
                 <set field="mfaOwnerUserLoginId" from-field="userLogin.userLoginId"/>
+                <set field="flashBackupCodes" value="${groovy: session.getAttribute('mfaBackupCodes')}"/>
+                <set field="dummy" value="${groovy: session.removeAttribute('mfaBackupCodes')}"/>
+                <entity-condition entity-name="UserLoginAuthFactor" list="activeBackupFactors">
+                    <condition-list combine="and">
+                        <condition-expr field-name="userLoginId" from-field="userLogin.userLoginId"/>
+                        <condition-expr field-name="factorType" value="ULAF_BACKUP"/>
+                        <condition-expr field-name="thruDate" operator="equals" from-field="nullField"/>
+                    </condition-list>
+                </entity-condition>
+                <set field="backupCodesCount" value="${groovy: activeBackupFactors != null ? activeBackupFactors.size() : 0}"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <not><if-empty field="flashBackupCodes"/></not>
+                            </condition>
+                            <widgets>
+                                <platform-specific>
+                                    <html>
+                                        <html-template location="component://common-theme/template/includes/MfaBackupCodesDisplay.ftl"/>
+                                    </html>
+                                </platform-specific>
+                            </widgets>
+                        </section>
                         <screenlet title="Set up multi-factor authentication (QR Code)">
                             <label style="h3" text="Adding an authenticator requires your current password. The factor is not active until you confirm a code."/>
                             <include-form name="MfaEnrollmentStartForm" location="component://common/widget/CommonForms.xml"/>
@@ -257,6 +279,11 @@ under the License.
                         <screenlet title="Enrolled Authenticators">
                             <label style="h4" text="To revoke an active authenticator, enter your current login password in the box next to it and click 'Revoke factor'."/>
                             <include-grid name="ListSelfMfaFactors" location="component://common/widget/CommonForms.xml"/>
+                        </screenlet>
+                        <screenlet title="Backup Recovery Codes">
+                            <label style="h4" text="Active backup codes remaining: ${backupCodesCount}"/>
+                            <label text="Backup recovery codes let you access your account if you lose your phone or authenticator app. Generating new codes invalidates any existing unused codes."/>
+                            <include-form name="GenerateBackupCodesForm" location="component://common/widget/CommonForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -274,6 +301,23 @@ under the License.
                         <screenlet title="Complete multi-factor authentication">
                             <label style="h3" text="Enter the 6-digit verification code from your authenticator app."/>
                             <include-form name="MfaChallengeForm" location="component://common/widget/CommonForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="authFactorReverify">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleLogin"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="Complete multi-factor authentication">
+                            <label style="h3" text="Enter the 6-digit verification code from your authenticator app."/>
+                            <include-form name="MfaReverifyForm" location="component://common/widget/CommonForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>

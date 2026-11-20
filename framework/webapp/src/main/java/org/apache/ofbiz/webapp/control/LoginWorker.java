@@ -858,22 +858,13 @@ public final class LoginWorker {
         }
     }
 
-    /** True when the current session completed a required factor within the configured re-auth window. */
+    /**
+     * True when the current session completed a required factor within the configured re-auth window.
+     * Delegates to {@link MfaServices#hasRecentMfaProof} so there is a single, shared implementation of
+     * this step-up gate for every caller (Java controller events and minilang alike).
+     */
     public static boolean hasRecentMfaProof(HttpServletRequest request, GenericValue userLogin, LocalDispatcher dispatcher) {
-        try {
-            Map<String, Object> policy = dispatcher.runSync("isUserLoginMfaRequired",
-                    UtilMisc.toMap("userLoginId", userLogin.getString("userLoginId")));
-            if (ServiceUtil.isError(policy)) return false;
-            if (!Boolean.TRUE.equals(policy.get("required"))) return true;
-            Object verifiedAt = request.getSession(false).getAttribute(MfaServices.MFA_VERIFIED_AT);
-            if (!(verifiedAt instanceof Number)) return false;
-            int maxAgeSeconds = EntityUtilProperties.getPropertyAsInteger("security",
-                    "security.login.authFactor.reauthenticationWindow", 300);
-            long ageMillis = System.currentTimeMillis() - ((Number) verifiedAt).longValue();
-            return ageMillis >= 0 && ageMillis <= maxAgeSeconds * 1000L;
-        } catch (Exception e) {
-            return false;
-        }
+        return MfaServices.hasRecentMfaProof(request, userLogin, dispatcher);
     }
 
     /** Apply the MFA freshness requirement before any interactive password mutation. */
@@ -953,16 +944,23 @@ public final class LoginWorker {
         }
         String currentPassword = request.getParameter("currentPassword");
         String reason = request.getParameter("reason");
+        String factorId = request.getParameter("factorId");
         // For admin reset, reason is required. For self-service, password or recent MFA proof is required.
         if (UtilValidate.isEmpty(currentPassword) && UtilValidate.isEmpty(reason) && !hasRecentMfaProof(request, actor, dispatcher)) {
+            MfaServices.stashPendingMfaReplay(request, "revokeMfaFactor");
             request.setAttribute("_ERROR_MESSAGE_", "Sign in again with a verified factor before changing MFA settings");
-            return "error";
+            return "authFactorRequired";
         }
+        return doRevokeMfaFactor(actor, dispatcher, factorId, currentPassword, reason, UtilHttp.getLocale(request), request);
+    }
+
+    private static String doRevokeMfaFactor(GenericValue actor, LocalDispatcher dispatcher, String factorId,
+            String currentPassword, String reason, java.util.Locale locale, HttpServletRequest request) {
         try {
             Map<String, Object> result = dispatcher.runSync("revokeUserLoginAuthFactor", UtilMisc.toMap(
-                    "userLogin", actor, "factorId", request.getParameter("factorId"),
+                    "userLogin", actor, "factorId", factorId,
                     "currentPassword", currentPassword,
-                    "reason", reason, "locale", UtilHttp.getLocale(request)));
+                    "reason", reason, "locale", locale));
             if (ServiceUtil.isError(result)) {
                 String errorMsg = ServiceUtil.getErrorMessage(result);
                 request.setAttribute("_ERROR_MESSAGE_", UtilValidate.isNotEmpty(errorMsg) ? errorMsg : "Unable to revoke authentication factor");
@@ -984,13 +982,20 @@ public final class LoginWorker {
             return "error";
         }
         if (!hasRecentMfaProof(request, userLogin, dispatcher)) {
+            MfaServices.stashPendingMfaReplay(request, "beginTotpEnrollment");
             request.setAttribute("_ERROR_MESSAGE_", "Sign in again with a verified factor before changing MFA settings");
-            return "error";
+            return "authFactorRequired";
         }
+        return doBeginTotpEnrollment(userLogin, dispatcher, request.getParameter("label"), request.getParameter("currentPassword"),
+                UtilHttp.getLocale(request), request, response);
+    }
+
+    private static String doBeginTotpEnrollment(GenericValue userLogin, LocalDispatcher dispatcher, String label,
+            String currentPassword, java.util.Locale locale, HttpServletRequest request, HttpServletResponse response) {
         try {
             Map<String, Object> result = dispatcher.runSync("createUserLoginTotpFactor",
-                    UtilMisc.toMap("userLogin", userLogin, "label", request.getParameter("label"),
-                            "currentPassword", request.getParameter("currentPassword"), "locale", UtilHttp.getLocale(request)));
+                    UtilMisc.toMap("userLogin", userLogin, "label", label,
+                            "currentPassword", currentPassword, "locale", locale));
             if (ServiceUtil.isError(result)) {
                 request.setAttribute("_ERROR_MESSAGE_", "Unable to begin authenticator enrollment");
                 return "error";
@@ -1016,23 +1021,149 @@ public final class LoginWorker {
             return "error";
         }
         if (!hasRecentMfaProof(request, userLogin, dispatcher)) {
+            MfaServices.stashPendingMfaReplay(request, "confirmTotpEnrollment");
             request.setAttribute("_ERROR_MESSAGE_", "Sign in again with a verified factor before changing MFA settings");
-            return "error";
+            return "authFactorRequired";
         }
+        return doConfirmTotpEnrollment(userLogin, dispatcher, request.getParameter("factorId"), request.getParameter("code"), request);
+    }
+
+    private static String doConfirmTotpEnrollment(GenericValue userLogin, LocalDispatcher dispatcher, String factorId,
+            String code, HttpServletRequest request) {
         try {
             Map<String, Object> result = dispatcher.runSync("confirmUserLoginTotpFactor", UtilMisc.toMap(
-                    "userLogin", userLogin, "factorId", request.getParameter("factorId"), "code", request.getParameter("code")));
+                    "userLogin", userLogin, "factorId", factorId, "code", code));
             if (ServiceUtil.isError(result)) {
                 request.setAttribute("_ERROR_MESSAGE_", "Authenticator confirmation failed");
                 return "error";
             }
             request.getSession().setAttribute(MfaServices.MFA_VERIFIED_AT, System.currentTimeMillis());
+            if (result.get("backupCodes") != null) {
+                request.setAttribute("mfaBackupCodes", result.get("backupCodes"));
+                request.getSession().setAttribute("mfaBackupCodes", result.get("backupCodes"));
+            }
             request.setAttribute("_EVENT_MESSAGE_", "Multi-factor authentication (TOTP) has been successfully enrolled.");
             return "success";
         } catch (GenericServiceException e) {
             Debug.logError(e, "Unable to confirm authenticator enrollment", MODULE);
             request.setAttribute("_ERROR_MESSAGE_", "Authenticator confirmation failed");
             return "error";
+        }
+    }
+
+    /** Generate a fresh batch of backup recovery codes for the currently authenticated account. */
+    public static String generateBackupCodes(HttpServletRequest request, HttpServletResponse response) {
+        GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
+        LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
+        if (userLogin == null || dispatcher == null) {
+            return "error";
+        }
+        if (!hasRecentMfaProof(request, userLogin, dispatcher)) {
+            MfaServices.stashPendingMfaReplay(request, "generateBackupCodes");
+            request.setAttribute("_ERROR_MESSAGE_", "Sign in again with a verified factor before managing backup codes");
+            return "authFactorRequired";
+        }
+        return doGenerateBackupCodes(userLogin, dispatcher, request.getParameter("currentPassword"), UtilHttp.getLocale(request), request);
+    }
+
+    private static String doGenerateBackupCodes(GenericValue userLogin, LocalDispatcher dispatcher, String currentPassword,
+            java.util.Locale locale, HttpServletRequest request) {
+        try {
+            Map<String, Object> result = dispatcher.runSync("generateUserLoginBackupCodes",
+                    UtilMisc.toMap("userLogin", userLogin, "currentPassword", currentPassword, "locale", locale));
+            if (ServiceUtil.isError(result)) {
+                String errorMsg = ServiceUtil.getErrorMessage(result);
+                request.setAttribute("_ERROR_MESSAGE_", UtilValidate.isNotEmpty(errorMsg) ? errorMsg : "Unable to generate backup recovery codes");
+                return "error";
+            }
+            request.setAttribute("mfaBackupCodes", result.get("backupCodes"));
+            request.getSession().setAttribute("mfaBackupCodes", result.get("backupCodes"));
+            request.setAttribute("_EVENT_MESSAGE_", "New backup recovery codes have been generated.");
+            return "success";
+        } catch (GenericServiceException e) {
+            Debug.logError(e, "Unable to generate backup recovery codes", MODULE);
+            request.setAttribute("_ERROR_MESSAGE_", "Unable to generate backup recovery codes");
+            return "error";
+        }
+    }
+
+    /** Re-verify an active session using an MFA factor without requiring full logout. */
+    public static String reverifyAuthFactor(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session = request.getSession(false);
+        GenericValue userLogin = session == null ? null : (GenericValue) session.getAttribute("userLogin");
+        if (userLogin == null) {
+            request.setAttribute("_ERROR_MESSAGE_", "User is not logged in");
+            return "error";
+        }
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
+        if (delegator == null && session != null) {
+            delegator = (Delegator) session.getAttribute("delegator");
+        }
+        String code = request.getParameter("code");
+        if (UtilValidate.isEmpty(code)) {
+            code = request.getParameter("mfaCode");
+        }
+        if (UtilValidate.isEmpty(code)) {
+            request.setAttribute("_ERROR_MESSAGE_", "An authenticator code is required to re-verify this session");
+            return "authFactorRequired";
+        }
+        try {
+            GenericValue usedFactor = MfaServices.consumeFactorCode(delegator, userLogin.getString("userLoginId"), code);
+            if (usedFactor == null) {
+                MfaServices.recordAuthenticationEvent(delegator, userLogin.getString("userLoginId"),
+                        "MFA_REVERIFY_FAILURE", null, null);
+                request.setAttribute("_ERROR_MESSAGE_", "Invalid authenticator code");
+                return "error";
+            }
+            session.setAttribute(MfaServices.MFA_VERIFIED_AT, System.currentTimeMillis());
+            MfaServices.recordAuthenticationEvent(delegator, userLogin.getString("userLoginId"),
+                    "MFA_REVERIFY_SUCCESS", usedFactor.getString("factorType"), null);
+            request.setAttribute("_EVENT_MESSAGE_", "Authentication factor verified successfully.");
+            return completePendingMfaReplay(request, response, session, userLogin);
+        } catch (GenericEntityException e) {
+            Debug.logError(e, "Error verifying authentication factor", MODULE);
+            request.setAttribute("_ERROR_MESSAGE_", "Unable to verify authentication factor");
+            return "error";
+        }
+    }
+
+    /**
+     * Completes the sensitive operation that originally triggered this re-verification (if any), so the
+     * user is not asked to resubmit the form they already filled in once MFA is satisfied again. A
+     * missing or stale pending replay is not an error: it just means the user reached this screen
+     * directly, so the caller falls back to its own plain success message.
+     * @param request the current request, reused to run the deferred operation
+     * @param response the current response, needed by the TOTP-enrollment replay
+     * @param session the current session, already holding the freshly-verified MFA proof
+     * @param userLogin the currently authenticated user
+     * @return the deferred operation's own result code, or "success" when there was nothing to replay
+     */
+    private static String completePendingMfaReplay(HttpServletRequest request, HttpServletResponse response,
+            HttpSession session, GenericValue userLogin) {
+        MfaServices.PendingMfaReplay replay = MfaServices.takePendingMfaReplay(session);
+        if (replay == null) {
+            return "success";
+        }
+        LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
+        if (dispatcher == null) {
+            return "success";
+        }
+        java.util.Locale locale = UtilHttp.getLocale(request);
+        Map<String, String> params = replay.getParams();
+        switch (replay.getKind()) {
+        case "revokeMfaFactor":
+            return doRevokeMfaFactor(userLogin, dispatcher, params.get("factorId"), params.get("currentPassword"),
+                    params.get("reason"), locale, request);
+        case "beginTotpEnrollment":
+            String beginResult = doBeginTotpEnrollment(userLogin, dispatcher, params.get("label"), params.get("currentPassword"),
+                    locale, request, response);
+            return "success".equals(beginResult) ? "beginTotpEnrollmentReplayed" : beginResult;
+        case "confirmTotpEnrollment":
+            return doConfirmTotpEnrollment(userLogin, dispatcher, params.get("factorId"), params.get("code"), request);
+        case "generateBackupCodes":
+            return doGenerateBackupCodes(userLogin, dispatcher, params.get("currentPassword"), locale, request);
+        default:
+            return "success";
         }
     }
 

@@ -112,22 +112,40 @@ under the License.
         <response name="authFactorEnrollmentRequired" type="view" value="authFactorForcedEnrollment"/>
         <response name="error" type="view" value="login"/>
     </request-map>
+    <request-map uri="reverifyAuthFactor">
+        <security https="true" auth="true" csrf-token="true"/>
+        <event type="java" path="org.apache.ofbiz.webapp.control.LoginWorker" invoke="reverifyAuthFactor"/>
+        <response name="success" type="view-last"/>
+        <response name="beginTotpEnrollmentReplayed" type="view" value="authFactorEnrollment"/>
+        <response name="authFactorRequired" type="view" value="authFactorReverify"/>
+        <response name="error" type="view-last"/>
+    </request-map>
     <request-map uri="beginTotpEnrollment">
         <security https="true" auth="true" csrf-token="true"/>
         <event type="java" path="org.apache.ofbiz.webapp.control.LoginWorker" invoke="beginTotpEnrollment"/>
         <response name="success" type="view" value="authFactorEnrollment"/>
+        <response name="authFactorRequired" type="view" value="authFactorReverify" save-last-view="true"/>
         <response name="error" type="view-last"/>
     </request-map>
     <request-map uri="confirmTotpEnrollment">
         <security https="true" auth="true" csrf-token="true"/>
         <event type="java" path="org.apache.ofbiz.webapp.control.LoginWorker" invoke="confirmTotpEnrollment"/>
         <response name="success" type="request-redirect" value="authFactorSetup"/>
+        <response name="authFactorRequired" type="view" value="authFactorReverify" save-last-view="true"/>
+        <response name="error" type="view-last"/>
+    </request-map>
+    <request-map uri="generateBackupCodes">
+        <security https="true" auth="true" csrf-token="true"/>
+        <event type="java" path="org.apache.ofbiz.webapp.control.LoginWorker" invoke="generateBackupCodes"/>
+        <response name="success" type="view" value="authFactorSetup"/>
+        <response name="authFactorRequired" type="view" value="authFactorReverify" save-last-view="true"/>
         <response name="error" type="view-last"/>
     </request-map>
     <request-map uri="revokeMfaFactor" method="post">
         <security https="true" auth="true" csrf-token="true"/>
         <event type="java" path="org.apache.ofbiz.webapp.control.LoginWorker" invoke="revokeMfaFactor"/>
         <response name="success" type="view-last"/>
+        <response name="authFactorRequired" type="view" value="authFactorReverify" save-last-view="true"/>
         <response name="error" type="view-last"/>
     </request-map>
     <request-map uri="logout">
@@ -420,6 +438,7 @@ under the License.
     <view-map name="main" type="none" auth="false"/>
     <view-map name="authFactorSetup" type="screen" page="component://common/widget/CommonScreens.xml#authFactorSetup"/>
     <view-map name="authFactorChallenge" type="screen" page="component://common/widget/CommonScreens.xml#authFactorChallenge" auth="false"/>
+    <view-map name="authFactorReverify" type="screen" page="component://common/widget/CommonScreens.xml#authFactorReverify"/>
     <view-map name="authFactorForcedEnrollment" type="screen" page="component://common/widget/CommonScreens.xml#authFactorForcedEnrollment" auth="false"/>
     <view-map name="authFactorEnrollment" type="screen" page="component://common/widget/CommonScreens.xml#authFactorEnrollment"/>
     <view-map name="login" type="screen" page="component://common/widget/CommonScreens.xml#login" auth="false"/>
