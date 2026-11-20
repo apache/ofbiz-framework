@@ -59,6 +59,24 @@ public final class BillingAccountWorker {
 
     protected BillingAccountWorker() { }
 
+    /**
+     * Checks that a billing account may be used by a given party, that is the party currently holds the
+     * bill-to customer role on it.
+     * @param delegator        the delegator
+     * @param partyId          the party that must hold the bill-to customer role on the account
+     * @param billingAccountId the billing account id to check
+     * @return true when the party currently holds a BILL_TO_CUSTOMER role on the billing account
+     * @throws GenericEntityException if the billing account role lookup fails
+     */
+    public static boolean isPartyBillingAccount(Delegator delegator, String partyId, String billingAccountId) throws GenericEntityException {
+        if (partyId == null) {
+            return false;
+        }
+        return EntityQuery.use(delegator).from("BillingAccountRole")
+                .where("billingAccountId", billingAccountId, "partyId", partyId, "roleTypeId", "BILL_TO_CUSTOMER")
+                .filterByDate().queryCount() > 0;
+    }
+
     public static List<Map<String, Object>> makePartyBillingAccountList(GenericValue userLogin, String currencyUomId, String partyId,
              Delegator delegator, LocalDispatcher dispatcher) throws GeneralException {
         List<Map<String, Object>> billingAccountList = new LinkedList<>();

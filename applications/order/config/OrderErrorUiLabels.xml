@@ -6060,6 +6060,9 @@
         <value xml:lang="zh">错误：查找销售订单行失败</value>
         <value xml:lang="zh-TW">錯誤：查詢銷售訂單行失敗</value>
     </property>
+    <property key="checkhelper.payment_method_not_owned">
+        <value xml:lang="en">The selected payment method, financial account or billing account does not belong to the order party.</value>
+    </property>
     <property key="checkhelper.select_method_of_payment">
         <value xml:lang="ar">يرجى اختيار طريقة للدفع.</value>
         <value xml:lang="de">Bitte wählen Sie eine Zahlungsart.</value>
