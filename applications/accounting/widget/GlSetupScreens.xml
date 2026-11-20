@@ -425,7 +425,7 @@ under the License.
                 <set field="labelTitleProperty" from-field="uiLabelMap.AccountingFinAccountTypeGlAccount"/>
                 <set field="tabButtonItem" value="GlAccountAssignment"/>
                 <set field="tabButtonItem2" value="FinAccountTypeGlAccounts"/>
-                <set field="helpAnchor" value="_help_for_financial_account_gl_account_type_2"/>
+                <set field="helpAnchor" value="help_for_organization_financial_account_gl_account_type"/>
 
                  <entity-condition entity-name="FinAccountTypeGlAccount" list="finAccountTypeGlAccounts">
                     <condition-expr field-name="organizationPartyId" operator="equals" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}"/>

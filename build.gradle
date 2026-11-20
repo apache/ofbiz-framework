@@ -912,9 +912,10 @@ def asciidocAttributes = [
 /**
  * Converts the AsciiDoc documents found in sourceDir, skipping files and folders starting with '_', to each backend
  * in its own folder under outputDir, keeping their relative paths, and copies the images folder next to them.
- * Includes are resolved from the root of the project.
+ * The includes of the converted documents are resolved from baseDir, the root of the project by default.
  */
-def convertAsciidoc = { ExecOperations execOps, File sourceDir, File outputDir, List<String> includes = ['**/*.adoc'] ->
+def convertAsciidoc = { ExecOperations execOps, File sourceDir, File outputDir, File baseDir = rootDir,
+        List<String> includes = ['**/*.adoc'] ->
     def documents = fileTree(sourceDir) {
         include includes
         exclude '**/_*', '**/_*/**'
@@ -928,7 +929,7 @@ def convertAsciidoc = { ExecOperations execOps, File sourceDir, File outputDir, 
             classpath = configurations.asciidoctor
             mainClass = 'org.asciidoctor.cli.jruby.AsciidoctorInvoker'
             jvmArgs '--add-opens', 'java.base/sun.nio.ch=ALL-UNNAMED', '--add-opens', 'java.base/java.io=ALL-UNNAMED'
-            args '--backend', backend, '--safe-mode', 'unsafe', '--base-dir', rootDir.path,
+            args '--backend', backend, '--safe-mode', 'unsafe', '--base-dir', baseDir.path,
                     '--source-dir', sourceDir.path, '--destination-dir', backendDir.path
             if (backend == 'pdf') {
                 args '--require', 'asciidoctor-pdf'
@@ -967,9 +968,7 @@ task generateReadmeFiles(group: docsGroup, description: 'Generate OFBiz README f
     def execOps = objects.newInstance(InjectedExecOps).execOps
     doLast {
         delete "${buildDir}/asciidoc/readme"
-        // CHANGELOG.adoc should be only present in the current stable version
-        convertAsciidoc(execOps, rootDir, file("${buildDir}/asciidoc/readme"),
-                ['README.adoc', 'CHANGELOG.adoc', 'CONTRIBUTING.adoc', 'DOCKER.adoc'])
+        convertAsciidoc(execOps, rootDir, file("${buildDir}/asciidoc/readme"), rootDir, ['DOCKER.adoc'])
     }
 }
 
@@ -1009,7 +1008,8 @@ def convertPluginDocumentation = { ExecOperations execOps, component ->
         into "${asciidocFolder}/images"
     }
     try {
-        convertAsciidoc(execOps, asciidocFolder, file("${buildDir}/asciidoc/plugins/${component.name}"))
+        // the includes of a plugin documentation are relative to its folder, as they are inside the user manual
+        convertAsciidoc(execOps, asciidocFolder, file("${buildDir}/asciidoc/plugins/${component.name}"), asciidocFolder)
         println "Documentation generated for plugin ${component.name}"
     } finally {
         delete "${asciidocFolder}/images/OFBiz-Logo.svg"

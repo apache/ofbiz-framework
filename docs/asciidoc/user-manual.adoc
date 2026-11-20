@@ -140,7 +140,10 @@ first.
 
 include::docs/asciidoc/_include/OFBizDocumentationSystem.adoc[leveloffset=+2]
 
-include::README.adoc[tags=quickstart]
+== Quick start
+
+To quickly install and fire up OFBiz, follow the
+https://github.com/apache/ofbiz-framework/blob/trunk/README.md#quick-start[quick start instructions of the README].
 
 include::applications/commonext/src/docs/asciidoc/ofbiz-setup.adoc[leveloffset=+1]
 
