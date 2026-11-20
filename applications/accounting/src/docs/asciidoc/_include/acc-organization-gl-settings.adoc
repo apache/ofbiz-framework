@@ -40,6 +40,7 @@ include::HELP_EditProductGlAccounts.adoc[leveloffset=+2]
 
 include::HELP_EditProductCategoryGlAccounts.adoc[leveloffset=+2]
 
+[[help_for_organization_financial_account_gl_account_type]]
 include::HELP_EditFinAccountTypeGlAccounts.adoc[leveloffset=+2]
 
 include::HELP_GlAccountSalInvoice.adoc[leveloffset=+2]
