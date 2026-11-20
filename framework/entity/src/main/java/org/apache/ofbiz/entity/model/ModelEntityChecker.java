@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.apache.ofbiz.entity.model;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -32,6 +33,8 @@ import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
+import org.apache.ofbiz.entity.config.model.Datasource;
+import org.apache.ofbiz.entity.config.model.EntityConfig;
 
 /**
  * Generic Entity - Entity Definition Checker
@@ -43,13 +46,10 @@ public final class ModelEntityChecker {
     public static void checkEntities(Delegator delegator, List<String> warningList) throws GenericEntityException {
         ModelReader reader = delegator.getModelReader();
 
-        Set<String> reservedWords = new HashSet<>();
         if (Debug.infoOn()) {
             Debug.logInfo("[initReservedWords] array length = " + RW_ARRAY.length, MODULE);
         }
-        for (int i = 0; i < RW_ARRAY.length; i++) {
-            reservedWords.add(RW_ARRAY[i]);
-        }
+        Set<String> reservedWords = new HashSet<>(Arrays.asList(RW_ARRAY));
 
         Map<String, Set<String>> packages = new HashMap<>();
         Set<String> packageNames = new TreeSet<>();
@@ -88,19 +88,22 @@ public final class ModelEntityChecker {
                 if (helperName == null) {
                     //only show group name warning if helper name not found
                     if (UtilValidate.isEmpty(groupName)) {
-                        warningList.add("[GroupNotFound] No Group Name found for entity " + entity.getEntityName() + ".");
+                        warningList.add(String.format("[GroupNotFound] No Group Name found for entity %s.", entityName));
                     } else {
-                        warningList.add("[HelperNotFound] No Helper (DataSource) definition found for entity [" + entity.getEntityName()
-                                + "] because there is no helper (datasource) configured for the entity group it is in: [" + groupName + "]");
+                        warningList.add(String.format("[HelperNotFound] No Helper (DataSource) definition found for entity [%s]"
+                                + " because there is no helper (datasource) configured for the entity group it is in: [%s]",
+                                entityName, groupName));
                     }
                 }
-                if (entity.getPlainTableName() != null && entity.getPlainTableName().length() > 30) {
-                    warningList.add("[TableNameGT30] Table name [" + entity.getPlainTableName() + "] of entity " + entity.getEntityName()
-                            + " is longer than 30 characters.");
+                Datasource datasource = EntityConfig.getDatasource(delegator.getGroupHelperInfo(groupName).getHelperBaseName());
+                int maxTableNameSize = datasource.getMaxTableNameSize();
+                if (entity.getPlainTableName() != null && entity.getPlainTableName().length() > maxTableNameSize) {
+                    warningList.add(String.format("[TableNameGT%s] Table name [%s] of entity %s is longer than %s characters.",
+                            maxTableNameSize, entity.getPlainTableName(), entityName, maxTableNameSize));
                 }
                 if (entity.getPlainTableName() != null && reservedWords.contains(entity.getPlainTableName().toUpperCase(Locale.getDefault()))) {
-                    warningList.add("[TableNameRW] Table name [" + entity.getPlainTableName() + "] of entity " + entity.getEntityName()
-                            + " is a reserved word.");
+                    warningList.add(String.format("[TableNameRW] Table name [%s] of entity %s is a reserved word.",
+                            entity.getPlainTableName(), entityName));
                 }
 
                 // don't check columns/relations/keys when never-check is set to "true"
@@ -108,34 +111,37 @@ public final class ModelEntityChecker {
                     continue;
                 }
 
-                Set<String> ufields = new HashSet<>();
+                Set<String> uniqueFields = new HashSet<>();
                 Iterator<ModelField> fieldIter = entity.getFieldsIterator();
                 while (fieldIter.hasNext()) {
                     ModelField field = fieldIter.next();
                     ModelFieldType type = delegator.getEntityFieldType(entity, field.getType());
 
-                    if (ufields.contains(field.getName())) {
-                        warningList.add("[FieldNotUnique] Field [" + field.getName() + " of entity " + entity.getEntityName()
-                                + " is not unique for that entity.");
+                    if (uniqueFields.contains(field.getName())) {
+                        warningList.add(String.format("[FieldNotUnique] Field [%s] of entity %s is not unique for that entity.",
+                                field.getName(), entityName));
                     } else {
-                        ufields.add(field.getName());
+                        uniqueFields.add(field.getName());
                     }
-                    if (field.getColName().length() > 30 && !(entity instanceof ModelViewEntity)) {
-                        warningList.add("[FieldNameGT30] Column name [" + field.getColName() + "] of entity " + entity.getEntityName()
-                                + " is longer than 30 characters.");
+                    int maxColumnNameSize = datasource.getMaxColumnNameSize();
+                    if (field.getColName().length() > maxColumnNameSize && !(entity instanceof ModelViewEntity)) {
+                        warningList.add(String.format("[FieldNameGT%s] Column name [%s] of entity %s is longer than %s characters.",
+                                maxColumnNameSize, field.getColName(), entityName, maxColumnNameSize));
                     }
-                    if (field.getColName().length() == 0) {
-                        warningList.add("[FieldNameEQ0] Column name for field name \"" + field.getName() + "\" of entity " + entity.getEntityName()
-                                + " is empty (zero length).");
+                    if (field.getColName().isEmpty()) {
+                        warningList.add(String.format("[FieldNameEQ0] Column name for field name \"%s\" of entity %S is empty (zero length).",
+                                field.getName(), entityName));
                     }
                     if (reservedWords.contains(field.getColName().toUpperCase(Locale.getDefault()))) {
-                        warningList.add("[FieldNameRW] Column name " + field.getColName() + " of entity " + entity.getEntityName()
-                                + " is a reserved word.");
+                        warningList.add(String.format("[FieldNameRW] Column name %s of entity %s is a reserved word.",
+                                field.getColName(), entityName));
                     }
                     if (type == null) {
-                        StringBuilder warningMsg = new StringBuilder();
-                        warningMsg.append("[FieldTypeNotFound] Field type " + field.getType() + " of entity " + entity.getEntityName()
-                                + " not found in field type definitions");
+                        StringBuilder warningMsg = new StringBuilder("[FieldTypeNotFound] Field type ")
+                                .append(field.getType())
+                                .append(" of entity ")
+                                .append(entityName)
+                                .append(" not found in field type definitions");
                         if (helperName == null) {
                             warningMsg.append(" (no helper definition found)");
                         }
@@ -149,31 +155,30 @@ public final class ModelEntityChecker {
                         ModelIndex index = indexIter.next();
 
                         if (indexNames.contains(index.getName())) {
-                            warningList.add("[IndexDuplicateName] Index on entity "
-                                            + entity.getEntityName() + " has a duplicate index-name \""
-                                            + index.getName() + "\".");
+                            warningList.add(String.format("[IndexDuplicateName] Index on entity %s has a duplicate index-name \"%s\".",
+                                    entityName, index.getName()));
                         } else {
                             indexNames.add(index.getName());
                         }
 
                         if (tableNames.contains(index.getName())) {
-                            warningList.add("[IndexTableDupName] Index on entity "
-                                            + entity.getEntityName() + " has an index-name \""
-                                            + index.getName() + "\" that is also being used as a table name.");
+                            warningList.add(String.format("[IndexTableDupName] Index on entity %s has an index-name \"%s\""
+                                            + " that is also being used as a table name.",
+                                    entityName, index.getName()));
                         }
 
                         if (fkNames.contains(index.getName())) {
-                            warningList.add("[IndexFKDupName] Index on entity "
-                                            + entity.getEntityName()
-                                            + " has an index-name \""
-                                            + index.getName()
-                                            + "\" that is also being used as a Foreign Key name.");
+                            warningList.add(String.format("[IndexFKDupName] Index on entity %s has an index-name \"%s\""
+                                            + " that is also being used as a Foreign Key name.",
+                                    entityName, index.getName()));
                         }
 
-                        // make sure all names are <= 18 characters
-                        if (index.getName().length() > 18) {
-                            warningList.add("[IndexNameGT18] The index name " + index.getName() + " (length:" + index.getName().length()
-                                            + ") was greater than 18 characters in length for entity " + entity.getEntityName() + ".");
+                        // make sure all names are <= maxIndexNameSize characters
+                        int maxIndexNameSize = datasource.getMaxIndexNameSize();
+                        if (index.getName().length() > maxIndexNameSize) {
+                            warningList.add(String.format("[IndexNameGT%s] The index name %s (length: %s) was greater than %s"
+                                            + " characters in length for entity %s.",
+                                    maxIndexNameSize, index.getName(), index.getName().length(), maxIndexNameSize, entityName));
                         }
                     }
 
@@ -182,42 +187,43 @@ public final class ModelEntityChecker {
                         ModelRelation relation = entity.getRelation(r);
 
                         if (!entityNames.contains(relation.getRelEntityName())) {
-                            warningList.add("[RelatedEntityNotFound] Related entity " + relation.getRelEntityName()
-                                            + " of entity " + entity.getEntityName() + " not found.");
+                            warningList.add(String.format("[RelatedEntityNotFound] Related entity %s of entity %s not found.",
+                                    relation.getRelEntityName(), entityName));
                         }
                         if (relations.contains(relation.getTitle() + relation.getRelEntityName())) {
-                            warningList.add("[RelationNameNotUnique] Relation " + relation.getTitle() + relation.getRelEntityName()
-                                            + " of entity " + entity.getEntityName() + " is not unique for that entity.");
+                            warningList.add(String.format("[RelationNameNotUnique] Relation %s%s of entity %s is not unique for that entity.",
+                                    relation.getTitle(), relation.getRelEntityName(), entityName));
                         } else {
                             relations.add(relation.getTitle() + relation.getRelEntityName());
                         }
 
-                        if (relation.getFkName().length() > 0) {
+                        if (!relation.getFkName().isEmpty()) {
                             if (fkNames.contains(relation.getFkName())) {
-                                warningList.add("[RelationFkDuplicate] Relation to " + relation.getRelEntityName()
-                                                + " from entity " + entity.getEntityName() + " has a duplicate fk-name \""
-                                                + relation.getFkName() + "\".");
+                                warningList.add(String.format("[RelationFkDuplicate] Relation to %s"
+                                                + " from entity %s has a duplicate fk-name \"%s\".",
+                                        relation.getRelEntityName(), entityName, relation.getFkName()));
                             } else {
                                 fkNames.add(relation.getFkName());
                             }
                             if (tableNames.contains(relation.getFkName())) {
-                                warningList.add("[RelationFkTableDup] Relation to " + relation.getRelEntityName() + " from entity "
-                                                + entity.getEntityName() + " has an fk-name \""
-                                                + relation.getFkName() + "\" that is also being used as a table name.");
+                                warningList.add(String.format("[RelationFkTableDup] Relation to %s from entity "
+                                                + "%s has an fk-name \"%s\" that is also being used as a table name.",
+                                        relation.getRelEntityName(), entityName, relation.getFkName()));
                             }
                             if (indexNames.contains(relation.getFkName())) {
-                                warningList.add("[RelationFkTableDup] Relation to " + relation.getRelEntityName() + " from entity "
-                                                + entity.getEntityName() + " has an fk-name \""
-                                                + relation.getFkName() + "\" that is also being used as an index name.");
+                                warningList.add(String.format("[RelationFkTableDup] Relation to %s from entity %s has an fk-name \""
+                                                + "%s\" that is also being used as an index name.",
+                                        relation.getRelEntityName(), entityName, relation.getFkName()));
                             }
                         }
 
-                        // make sure all FK names are <= 18 characters
-                        if (relation.getFkName().length() > 18) {
-                            warningList.add("[RelFKNameGT18] The foreign key named " + relation.getFkName()
-                                    + " (length:" + relation.getFkName().length()
-                                    + ") was greater than 18 characters in length for relation " + relation.getTitle() + relation.getRelEntityName()
-                                    + " of entity " + entity.getEntityName() + ".");
+                        // make sure all FK names are <= maxFkNameSize characters
+                        int maxFkNameSize = datasource.getMaxFkNameSize();
+                        if (relation.getFkName().length() > maxFkNameSize) {
+                            warningList.add(String.format("[RelFKNameGT%s] The foreign key named %s"
+                                    + " (length %s) was greater than %s characters in length for relation %s%s of entity %s.",
+                                    maxFkNameSize, relation.getFkName(), relation.getFkName().length(),
+                                    maxFkNameSize, relation.getTitle(), relation.getRelEntityName(), entityName));
                         }
 
                         ModelEntity relatedEntity = null;
@@ -231,20 +237,21 @@ public final class ModelEntityChecker {
                             // match the PK of the relatedEntity
                             if ("one".equals(relation.getType()) || "one-nofk".equals(relation.getType())) {
                                 if (relatedEntity.getPksSize() != relation.getKeyMaps().size()) {
-                                    warningList.add("[RelatedOneKeyMapsWrongSize] The number of primary keys (" + relatedEntity.getPksSize()
-                                            + ") of related entity " + relation.getRelEntityName()
-                                            + " does not match the number of keymaps (" + relation.getKeyMaps().size()
-                                            + ") for relation of type one \"" + relation.getTitle() + relation.getRelEntityName()
-                                            + "\" of entity " + entity.getEntityName() + ".");
+                                    warningList.add(String.format("[RelatedOneKeyMapsWrongSize] The number of primary keys (%s) of related entity %s"
+                                                    + " does not match the number of keymaps (%s) for relation of type one \"%s%s\" of entity %s.",
+                                            relatedEntity.getPksSize(), relation.getRelEntityName(),
+                                            relation.getKeyMaps().size(), relation.getTitle(), relation.getRelEntityName(),
+                                            entityName));
                                 }
                                 Iterator<ModelField> pksIter = relatedEntity.getPksIterator();
                                 while (pksIter.hasNext()) {
                                     ModelField pk = pksIter.next();
                                     if (relation.findKeyMapByRelated(pk.getName()) == null) {
-                                        warningList.add("[RelationOneRelatedPrimaryKeyMissing] The primary key \"" + pk.getName()
-                                                + "\" of related entity " + relation.getRelEntityName()
-                                                + " is missing in the keymaps for relation of type one " + relation.getTitle()
-                                                + relation.getRelEntityName() + " of entity " + entity.getEntityName() + ".");
+                                        warningList.add(String.format("[RelationOneRelatedPrimaryKeyMissing] The primary key \"%s\""
+                                                        + " of related entity %s is missing in the keymaps for relation \"%s%s\" of type one"
+                                                        + " of entity %s.",
+                                                pk.getName(), relation.getRelEntityName(), relation.getTitle(),
+                                                relation.getRelEntityName(), entityName));
                                     }
                                 }
                             }
@@ -262,23 +269,23 @@ public final class ModelEntityChecker {
                                 rfield = relatedEntity.getField(keyMap.getRelFieldName());
                             }
                             if (rfield == null) {
-                                warningList.add("[RelationRelatedFieldNotFound] The field \"" + keyMap.getRelFieldName()
-                                        + "\" of related entity " + relation.getRelEntityName()
-                                        + " was specified in the keymaps but is not found for relation " + relation.getTitle()
-                                        + relation.getRelEntityName() + " of entity " + entity.getEntityName() + ".");
+                                warningList.add(String.format("[RelationRelatedFieldNotFound] The field \"%s\" of related entity"
+                                        + " %s was specified in the keymaps but is not found for relation %s%s of entity %s.",
+                                        keyMap.getRelFieldName(), relation.getRelEntityName(),
+                                        relation.getTitle(), relation.getRelEntityName(), entityName));
                             }
                             if (field == null) {
-                                warningList.add("[RelationFieldNotFound] The field " + keyMap.getFieldName()
-                                        + " was specified in the keymaps but is not found for relation " + relation.getTitle()
-                                        + relation.getRelEntityName() + " of entity " + entity.getEntityName() + ".");
+                                warningList.add(String.format("[RelationFieldNotFound] The field %s was specified in the keymaps but is not found"
+                                        + " for relation %s%s of entity %s.",
+                                        keyMap.getFieldName(), relation.getTitle(), relation.getRelEntityName(), entityName));
                             }
                             if (field != null && rfield != null) {
                                 if (!field.getType().equals(rfield.getType())) {
-                                    warningList.add("[RelationFieldTypesDifferent] The field type (" + field.getType()
-                                            + ") of " + field.getName() + " of entity " + entity.getEntityName()
-                                            + " is not the same as field type (" + rfield.getType() + ") of "
-                                            + rfield.getName() + " of entity " + relation.getRelEntityName() + " for relation "
-                                            + relation.getTitle() + relation.getRelEntityName() + ".");
+                                    warningList.add(String.format("[RelationFieldTypesDifferent] The field type (%s) of %s of entity %s"
+                                            + " is not the same as field type (%s) of %s of entity %s for relation %s%s.",
+                                            field.getType(), field.getName(), entityName, rfield.getType(),
+                                            rfield.getName(), relation.getRelEntityName(), relation.getTitle(),
+                                            relation.getRelEntityName()));
                                 }
                             }
                         }
@@ -288,7 +295,7 @@ public final class ModelEntityChecker {
         }
     }
 
-    protected static final String[] RW_ARRAY = {"ABORT", "ABS", "ABSOLUTE",
+    private static final String[] RW_ARRAY = {"ABORT", "ABS", "ABSOLUTE",
             "ACCEPT", "ACCES", "ACCESS", "ACS", "ACTION", "ACTIVATE", "ADD", "ADDFORM",
             "ADMIN", "AFTER", "AGGREGATE", "ALIAS", "ALL", "ALLOCATE", "ALTER",
             "ANALYZE", "AND", "ANDFILENAME", "ANY", "ANYFINISH", "APPEND",

@@ -23,6 +23,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.apache.ofbiz.base.lang.ThreadSafe;
+import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.UtilXml;
 import org.apache.ofbiz.entity.GenericEntityConfException;
 import org.w3c.dom.Element;
@@ -73,6 +74,10 @@ public final class Datasource {
     private final InlineJdbc inlineJdbc; // <inline-jdbc>
     private final JndiJdbc jndiJdbc; // <jndi-jdbc>
     private final TyrexDataSource tyrexDataSource; // <tyrex-dataSource>
+    private final int maxTableNameSize;
+    private final int maxColumnNameSize;
+    private final int maxIndexNameSize;
+    private final int maxFkNameSize;
 
     Datasource(Element element) throws GenericEntityConfException {
         String lineNumberText = EntityConfig.createConfigFileLineNumberText(element);
@@ -216,6 +221,18 @@ public final class Datasource {
             throw new GenericEntityConfException("<datasource> element is invalid: Only one of <inline-jdbc>, <jndi-jdbc>, "
                     + "<tyrex-dataSource> is allowed" + lineNumberText);
         }
+        this.maxTableNameSize = UtilValidate.isNotEmpty(element.getAttribute("max-table-name-size"))
+                ? Integer.parseInt(element.getAttribute("max-table-name-size").intern())
+                : 30;
+        this.maxColumnNameSize = UtilValidate.isNotEmpty(element.getAttribute("max-column-name-size"))
+                ? Integer.parseInt(element.getAttribute("max-column-name-size").intern())
+                : 30;
+        this.maxIndexNameSize = UtilValidate.isNotEmpty(element.getAttribute("max-index-name-size"))
+                ? Integer.parseInt(element.getAttribute("max-index-name-size").intern())
+                : 18;
+        this.maxFkNameSize = UtilValidate.isNotEmpty(element.getAttribute("max-fk-name-size"))
+                ? Integer.parseInt(element.getAttribute("max-fk-name-size").intern())
+                : 18;
     }
 
     /** Returns the value of the <code>name</code> attribute. */
@@ -406,5 +423,25 @@ public final class Datasource {
     /** Returns the <code>&lt;tyrex-dataSource&gt;</code> child element. */
     public TyrexDataSource getTyrexDataSource() {
         return this.tyrexDataSource;
+    }
+
+    /** Returns the  <code>&lt;max-table-name-size&gt;</code> child element. */
+    public int getMaxTableNameSize() {
+        return this.maxTableNameSize;
+    }
+
+    /** Returns the  <code>&lt;max-Field-name-size&gt;</code> child element. */
+    public int getMaxColumnNameSize() {
+        return this.maxColumnNameSize;
+    }
+
+    /** Returns the  <code>&lt;max-Index-name-size&gt;</code> child element. */
+    public int getMaxIndexNameSize() {
+        return this.maxIndexNameSize;
+    }
+
+    /** Returns the  <code>&lt;max-fk-name-size&gt;</code> child element. */
+    public int getMaxFkNameSize() {
+        return this.maxFkNameSize;
     }
 }
