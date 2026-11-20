@@ -218,7 +218,6 @@ Map copyInvoice() {
     // then create items with parent : This prevents an SQL exception from occurring if the parent does not yet exist
     List<GenericValue> invoiceItemWitheParents = invoiceItems.findAll { it.parentInvoiceId }
     invoiceItemWitheParents.each {
-        Map localContext = it.getAllFields()
         run service: 'createInvoiceItem', with: [*: it.getAllFields(),
                                                  invoiceId: newInvoiceId,
                                                  parentInvoiceId: newInvoiceId]
