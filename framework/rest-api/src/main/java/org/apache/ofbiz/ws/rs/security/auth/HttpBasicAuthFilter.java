@@ -29,6 +29,7 @@ import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.ofbiz.security.Security;
+import org.apache.ofbiz.security.login.MfaServices;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ServiceUtil;
@@ -123,9 +124,15 @@ public class HttpBasicAuthFilter implements ContainerRequestFilter {
     private void authenticate(String userName, String password, String validatedApiGroupPath) throws ForbiddenException {
         Map<String, Object> result = null;
         LocalDispatcher dispatcher = (LocalDispatcher) servletContext.getAttribute("dispatcher");
+        Delegator delegator = (Delegator) servletContext.getAttribute("delegator");
+        boolean mfaEnabled = Boolean.parseBoolean(EntityUtilProperties.getPropertyValue("security",
+                "security.login.authFactor.enable", "false", delegator))
+                || MfaServices.hasActiveFactor(delegator, userName);
+        String loginService = mfaEnabled ? "userLoginMfaPending" : "userLogin";
         try {
-            result = dispatcher.runSync("userLogin",
-                    UtilMisc.toMap("login.username", userName, "login.password", password, "locale", httpRequest.getLocale()));
+            result = dispatcher.runSync(loginService,
+                    UtilMisc.toMap("login.username", userName, "login.password", password,
+                            "username", userName, "password", password, "locale", httpRequest.getLocale()));
         } catch (GenericServiceException e) {
             Debug.logError(e, "Error calling userLogin service", MODULE);
             throw new ForbiddenException(e.getMessage());

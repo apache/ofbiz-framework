@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
@@ -144,7 +145,8 @@ public class AuthenticationResource {
 
         boolean mfaRequired = false;
         boolean mfaEnabled = Boolean.parseBoolean(EntityUtilProperties.getPropertyValue("security",
-                "security.login.authFactor.enable", "false", delegator));
+                "security.login.authFactor.enable", "false", delegator))
+                || (userLogin != null && MfaServices.hasActiveFactor(delegator, userLogin.getString("userLoginId")));
         if (mfaEnabled && userLogin != null && dispatcher != null) {
             try {
                 Map<String, Object> mfaCheck = dispatcher.runSync("isUserLoginMfaRequired",
@@ -184,6 +186,27 @@ public class AuthenticationResource {
                 Debug.logError(e, "Error creating REST MFA challenge", MODULE);
                 return RestApiUtil.error(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(),
                         "Internal Server Error", "Unable to create authentication challenge.");
+            }
+        }
+
+        if (mfaEnabled && userLogin != null) {
+            try {
+                Long failedLogins = userLogin.getLong("successiveFailedLogins");
+                if (failedLogins != null && failedLogins > 0) {
+                    userLogin.set("successiveFailedLogins", 0L);
+                }
+                userLogin.set("hasLoggedOut", "N");
+                userLogin.store();
+                if ("true".equals(EntityUtilProperties.getPropertyValue("security", "store.login.history", delegator))) {
+                    Map<String, Object> history = UtilMisc.toMap("userLoginId", userLogin.getString("userLoginId"),
+                            "fromDate", UtilDateTime.nowTimestamp(), "successfulLogin", "Y");
+                    if (userLogin.getModelEntity().isField("partyId")) {
+                        history.put("partyId", userLogin.get("partyId"));
+                    }
+                    delegator.create("UserLoginHistory", history);
+                }
+            } catch (GenericEntityException e) {
+                Debug.logError(e, "Error committing login state in getAuthToken", MODULE);
             }
         }
 

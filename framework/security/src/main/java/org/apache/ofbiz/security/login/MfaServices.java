@@ -82,8 +82,28 @@ public final class MfaServices {
         }
         boolean enabled = Boolean.parseBoolean(EntityUtilProperties.getPropertyValue("security",
                 "security.login.authFactor.enable", "false", delegator));
-        return enabled && (!activeFactors(delegator, userLoginId).isEmpty()
-                || hasRequiredSecurityGroup(delegator, userLoginId));
+        // A factor the user already enrolled is honored regardless of the global switch (matching how
+        // GitHub/Google treat a member's own 2FA versus an org-wide enforcement toggle); the switch only
+        // gates whether security-group membership can *force* enrollment on users who have no factor yet.
+        return !activePrimaryFactors(delegator, userLoginId).isEmpty()
+                || (enabled && hasRequiredSecurityGroup(delegator, userLoginId));
+    }
+
+    /**
+     * True when the user already has at least one active MFA factor enrolled. Used as a cheap pre-check
+     * by callers that otherwise skip the MFA-aware code path entirely while the global switch is off, so
+     * that an individually-enrolled factor is never silently bypassed.
+     */
+    public static boolean hasActiveFactor(Delegator delegator, String userLoginId) {
+        if (UtilValidate.isEmpty(userLoginId)) {
+            return false;
+        }
+        try {
+            return !activePrimaryFactors(delegator, userLoginId).isEmpty();
+        } catch (GenericEntityException e) {
+            Debug.logError(e, "Unable to check active MFA factors for [" + userLoginId + "]", MODULE);
+            return false;
+        }
     }
 
     public static Map<String, Object> isUserLoginMfaRequired(DispatchContext ctx, Map<String, ?> context) {
@@ -868,6 +888,22 @@ public final class MfaServices {
                         EntityCondition.makeCondition("attemptCount", EntityOperator.EQUALS, attempts)));
         if (claimed != 1) {
             return ServiceUtil.returnError("Authentication challenge is invalid or has expired");
+        }
+        Long failedLogins = userLogin.getLong("successiveFailedLogins");
+        if (failedLogins != null && failedLogins > 0) {
+            userLogin.set("successiveFailedLogins", 0L);
+        }
+        if ("Y".equals(userLogin.getString("hasLoggedOut"))) {
+            userLogin.set("hasLoggedOut", "N");
+        }
+        userLogin.store();
+        if ("true".equals(EntityUtilProperties.getPropertyValue("security", "store.login.history", delegator))) {
+            Map<String, Object> history = UtilMisc.toMap("userLoginId", userLoginId,
+                    "fromDate", UtilDateTime.nowTimestamp(), "successfulLogin", "Y");
+            if (userLogin.getModelEntity().isField("partyId")) {
+                history.put("partyId", userLogin.get("partyId"));
+            }
+            delegator.create("UserLoginHistory", history);
         }
         String factorType = usedFactor.getString("factorType");
         recordEvent(delegator, userLoginId, "MFA_VERIFY_SUCCESS", factorType, challengeId);
