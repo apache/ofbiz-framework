@@ -278,4 +278,29 @@ public final class FinAccountHelper {
         number = number.replaceAll("\\D", "");
         return UtilValidate.sumIsMod10(UtilValidate.getLuhnSum(number));
     }
+
+    /**
+     * Checks that a financial account may be used by a given party, that is the party owns the account
+     * or currently holds a role on it.
+     * @param delegator    the delegator
+     * @param partyId      the party that must own the account or hold a role on it
+     * @param finAccountId the financial account id to check
+     * @return true when the account exists and the party owns it or holds a current role on it
+     * @throws GenericEntityException if the financial account lookup fails
+     */
+    public static boolean isPartyFinAccount(Delegator delegator, String partyId, String finAccountId) throws GenericEntityException {
+        if (partyId == null) {
+            return false;
+        }
+        GenericValue finAccount = EntityQuery.use(delegator).from("FinAccount")
+                .where("finAccountId", finAccountId).queryOne();
+        if (finAccount == null) {
+            return false;
+        }
+        if (partyId.equals(finAccount.getString("ownerPartyId"))) {
+            return true;
+        }
+        return EntityQuery.use(delegator).from("FinAccountRole")
+                .where("finAccountId", finAccountId, "partyId", partyId).filterByDate().queryCount() > 0;
+    }
 }

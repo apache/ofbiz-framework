@@ -54,6 +54,25 @@ public final class PaymentWorker {
 
     private PaymentWorker() { }
 
+    /**
+     * Checks that a payment method belongs to a given party. An id that is not a stored PaymentMethod
+     * (for example a payment method type such as EXT_OFFLINE) is treated as owned, so callers can keep
+     * handling those ids as before.
+     * @param delegator       the delegator
+     * @param partyId         the party that must own the payment method
+     * @param paymentMethodId the payment method id to check
+     * @return true when the id is not a stored payment method, or it is owned by the given party
+     * @throws GenericEntityException if the payment method lookup fails
+     */
+    public static boolean isPartyPaymentMethod(Delegator delegator, String partyId, String paymentMethodId) throws GenericEntityException {
+        GenericValue paymentMethod = EntityQuery.use(delegator).from("PaymentMethod")
+                .where("paymentMethodId", paymentMethodId).queryOne();
+        if (paymentMethod == null) {
+            return true;
+        }
+        return partyId != null && partyId.equals(paymentMethod.getString("partyId"));
+    }
+
     // to be able to use in minilanguage where Boolean cannot be used
     public static List<Map<String, GenericValue>> getPartyPaymentMethodValueMaps(Delegator delegator, String partyId) {
         return (getPartyPaymentMethodValueMaps(delegator, partyId, false));
