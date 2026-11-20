@@ -122,7 +122,8 @@ public class LoginServices {
         try {
             GenericValue userLogin = EntityQuery.use(delegator).from("UserLogin")
                     .where("userLoginId", userLoginId).cache(false).queryOne();
-            if (userLogin == null || "Y".equals(userLogin.getString("isSystem"))) {
+            if (userLogin == null || "Y".equals(userLogin.getString("isSystem"))
+                    || "N".equals(userLogin.getString("enabled"))) {
                 return ServiceUtil.returnError("Authentication completion was not authorized");
             }
             if (primaryOnly && MfaServices.isMfaRequired(delegator, userLoginId)) {
@@ -604,7 +605,7 @@ public class LoginServices {
 
     private static boolean markSuccessfulLogin(GenericValue userLogin, boolean isSystem, Boolean hasLoggedOut) {
         boolean doStore = true;
-        if (!isSystem) {
+        if (!isSystem && !"N".equals(userLogin.getString("enabled"))) {
             userLogin.set("enabled", "Y");
             userLogin.set("disabledBy", null);
         }
