@@ -29,6 +29,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import org.apache.ofbiz.accounting.payment.BillingAccountWorker;
+import org.apache.ofbiz.accounting.payment.PaymentWorker;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.ObjectType;
@@ -286,6 +288,20 @@ public class CheckOutHelper {
             singleUsePayments = new ArrayList<>();
         }
 
+        // Only accept a stored payment method, financial account or billing account of the order's bill-to party.
+        String billToPartyId = cart.getBillToCustomerPartyId();
+        try {
+            if (UtilValidate.isNotEmpty(billingAccountId)
+                    && !BillingAccountWorker.isPartyBillingAccount(delegator, billToPartyId, billingAccountId)) {
+                errorMessages.add(UtilProperties.getMessage(RES_ERROR, "checkhelper.payment_method_not_owned", cart.getLocale()));
+                return errorMessages;
+            }
+        } catch (GenericEntityException e) {
+            Debug.logError(e, MODULE);
+            errorMessages.add(UtilProperties.getMessage(RES_ERROR, "checkhelper.payment_method_not_owned", cart.getLocale()));
+            return errorMessages;
+        }
+
         // set the payment method option
         if (UtilValidate.isNotEmpty(selectedPaymentMethods)) {
             // clear out the old payments
@@ -366,6 +382,22 @@ public class CheckOutHelper {
                     if (Debug.verboseOn()) {
                         Debug.logVerbose("Split checkOutPaymentId: " + splitStr[0] + " / " + splitStr[1], MODULE);
                     }
+                }
+
+                try {
+                    if (finAccountId != null) {
+                        if (!FinAccountHelper.isPartyFinAccount(delegator, billToPartyId, finAccountId)) {
+                            errorMessages.add(UtilProperties.getMessage(RES_ERROR, "checkhelper.payment_method_not_owned", cart.getLocale()));
+                            continue;
+                        }
+                    } else if (!PaymentWorker.isPartyPaymentMethod(delegator, billToPartyId, checkOutPaymentId)) {
+                        errorMessages.add(UtilProperties.getMessage(RES_ERROR, "checkhelper.payment_method_not_owned", cart.getLocale()));
+                        continue;
+                    }
+                } catch (GenericEntityException e) {
+                    Debug.logError(e, MODULE);
+                    errorMessages.add(UtilProperties.getMessage(RES_ERROR, "checkhelper.payment_method_not_owned", cart.getLocale()));
+                    continue;
                 }
 
                 // get the selected amount to use
