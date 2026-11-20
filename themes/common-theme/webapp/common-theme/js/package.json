@@ -22,7 +22,7 @@
         "jstree": "^3.3.17",
         "moment-timezone": "^0.6.6",
         "moment-with-locales-es6": "^1.0.1",
-        "readmore-js": "^2.2.1",
+        "readmore-js": "^3.1.0",
         "select2": "^4.1.0",
         "trumbowyg": "^2.31.0",
         "uglify-js": "3.19.3"
