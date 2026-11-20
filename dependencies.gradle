@@ -22,7 +22,12 @@ dependencies {
     implementation 'com.google.zxing:core:3.5.4'
     implementation 'com.googlecode.concurrentlinkedhashmap:concurrentlinkedhashmap-lru:1.4.2'
     implementation 'com.googlecode.ez-vcard:ez-vcard:0.12.2'
+    // override the embedded jsoup in ez-vcard:0.12.2 to avoid CVE-2026-75140 and CVE-2026-71497
+    implementation 'org.jsoup:jsoup:1.23.2'
+
     implementation 'com.googlecode.owasp-java-html-sanitizer:owasp-java-html-sanitizer:20220608.1'
+    // override the embedded guava in owasp-java-html-sanitizer:20220608.1 to avoid CVE-2026-102554
+    implementation 'com.google.guava:guava:33.7.2-jre'
     implementation 'com.googlecode.libphonenumber:libphonenumber:8.13.55'
     implementation 'com.ibm.icu:icu4j:74.2'
     implementation 'com.github.librepdf:openpdf:1.4.2'
@@ -51,7 +56,7 @@ dependencies {
     implementation 'org.apache.poi:poi:4.1.2' // poi-ooxml-schemas-5.0.0.pom'. Received status code 401 from server
     implementation 'org.apache.pdfbox:pdfbox:3.0.8'
     implementation 'org.apache.pdfbox:pdfbox-io:3.0.8'
-    implementation 'org.apache.shiro:shiro-core:1.13.0'
+    implementation 'org.apache.shiro:shiro-core:2.2.1'
     implementation 'org.apache.shiro:shiro-crypto-cipher:2.2.1'
     implementation 'org.apache.sshd:sshd-core:2.20.1'
     implementation 'org.apache.sshd:sshd-sftp:2.20.1'
@@ -62,6 +67,10 @@ dependencies {
     implementation 'org.apache.tomcat:tomcat-catalina-ha:9.0.123' // Remember to change the version number (9 now) in javadoc block if needed.
     implementation 'org.apache.tomcat:tomcat-jasper:9.0.123'
     implementation 'org.apache.axis2:axis2-kernel:1.8.2'
+    // override the embedded neethi in axis2-kernel:1.8.2 to avoid CVE-2026-42402, CVE-2026-42403 and CVE-2026-42404
+    implementation 'org.apache.neethi:neethi:3.2.4'
+    // override the embedded apache-mime4j-core in axis2-kernel:1.8.2 brought by axiom-api:1.4.0 to avoid CVE-2024-21742
+    implementation 'org.apache.james:apache-mime4j-core:0.8.10'
     implementation 'org.apache.xmlgraphics:batik-anim:1.20'
     implementation 'org.apache.xmlgraphics:batik-util:1.20'
     implementation 'org.apache.xmlgraphics:batik-bridge:1.20'
@@ -72,8 +81,20 @@ dependencies {
     implementation 'org.freemarker:freemarker:2.3.35' // Remember to change the version number in FreeMarkerWorker class when upgrading. See OFBIZ-10019 if >= 2.4
 
     implementation 'org.owasp.esapi:esapi:2.7.0.0'
+    // override the core5 and client5 versions on esapi 2.7.0.0 to avoid CVE-2026-54399, CVE-2026-54428 and CVE-2026-64607:
+    implementation 'org.apache.httpcomponents.core5:httpcore5:5.4.4'
+    implementation 'org.apache.httpcomponents.core5:httpcore5-h2:5.4.4'
+    implementation 'org.apache.httpcomponents.client5:httpclient5:5.6.3'
+    // ad CVE-2025-48924: The esapi package also introduces the dependency on commons-configuration which in turn depends on apache.commons-lang:2.6.
+    // no usage of the exposed ClassUtils class and namely the vulnerable method ClassUtils.getClass() is observed in the code base.
+
+    // on spring-test with CVE-2025-41-249:
+    // - no usage of @EnableMethodSecurity is observed in the code base
     implementation 'org.springframework:spring-test:5.3.39' //  6.1.4 does not compile
+    // on spring-web with CVE-2016-1000031 (only fixed in versions 6+):
+    // - no explicit references to HTTP invoker classes in the source code are observed
     implementation 'org.springframework:spring-web:5.3.39'
+
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.22.4'
     implementation 'oro:oro:2.0.8'
     implementation 'wsdl4j:wsdl4j:1.6.3'
