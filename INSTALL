@@ -73,11 +73,6 @@ _______________________________________________________________________________
     Note that if you use one or several plugins all must be of the same version than the framework.
 
 Going further
-To complete your installation and use OFBiz please read README.adoc
-You may prefer to read this AsciiDoc file in HTML format.
-For that simply follow:
-https://asciidoctor.org/docs/convert-documents/#converting-a-document-to-html
-
-If you want directly the result you can go to:
-https://nightlies.apache.org/ofbiz/trunk/readme/html5/README.html
+To complete your installation and use OFBiz please read README.md, also available at:
+https://github.com/apache/ofbiz-framework/blob/trunk/README.md
 

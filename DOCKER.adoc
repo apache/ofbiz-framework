@@ -7,7 +7,7 @@ you have already downloaded.
 
 If you want to include any plugins in your container image, you must
 download those plugins before running the build. (See the plugin
-documentation in README.adoc).
+documentation in README.md).
 
 === Quickstart
 
