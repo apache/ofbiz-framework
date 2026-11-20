@@ -207,9 +207,21 @@ Map copyInvoice() {
                                                          invoiceDate: UtilDateTime.nowTimestamp(),
                                                          paidDate: null]
     String newInvoiceId = serviceResult.invoiceId
-    invoiceItems.each {
+
+    // first create items without any parents
+    List<GenericValue> invoiceItemWithoutParents = invoiceItems.findAll { !it.parentInvoiceId }
+    invoiceItemWithoutParents.each {
         run service: 'createInvoiceItem', with: [*: it.getAllFields(),
                                                  invoiceId: newInvoiceId]
+    }
+
+    // then create items with parent : This prevents an SQL exception from occurring if the parent does not yet exist
+    List<GenericValue> invoiceItemWitheParents = invoiceItems.findAll { it.parentInvoiceId }
+    invoiceItemWitheParents.each {
+        Map localContext = it.getAllFields()
+        run service: 'createInvoiceItem', with: [*: it.getAllFields(),
+                                                 invoiceId: newInvoiceId,
+                                                 parentInvoiceId: newInvoiceId]
     }
     return success([invoiceId: newInvoiceId])
 }
