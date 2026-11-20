@@ -26,6 +26,7 @@ import java.util.concurrent.atomic.AtomicInteger
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.security.Security
 import org.apache.ofbiz.security.login.MfaServices
+import org.apache.ofbiz.security.login.TotpUtil
 import org.apache.ofbiz.service.LocalDispatcher
 import org.apache.ofbiz.service.ServiceUtil
 import org.apache.ofbiz.testtools.JunitJupiterTest
@@ -35,7 +36,6 @@ import org.junit.jupiter.api.Test
 import org.springframework.mock.web.MockHttpServletRequest
 import org.springframework.mock.web.MockHttpServletResponse
 import org.springframework.mock.web.MockHttpSession
-import dev.samstevens.totp.code.DefaultCodeGenerator
 
 @JunitJupiterTest
 class UserLoginTests implements JupiterTestHelper {
@@ -157,7 +157,7 @@ class UserLoginTests implements JupiterTestHelper {
         assert ServiceUtil.isSuccess(enrollment): enrollment.errorMessage
         assert enrollment.provisioningUri.contains(enrollment.secret)
 
-        String enrollmentCode = new DefaultCodeGenerator().generate(enrollment.secret, (System.currentTimeMillis() / 30_000L) as long)
+        String enrollmentCode = TotpUtil.generateTotp(enrollment.secret, (System.currentTimeMillis() / 30_000L) as long)
         Map confirmation = dispatcher.runSync('confirmUserLoginTotpFactor', [
                 userLogin: userLogin,
                 factorId: enrollment.factorId,
@@ -192,7 +192,7 @@ class UserLoginTests implements JupiterTestHelper {
         otherRequest.getSession().setAttribute('_MFA_PENDING_USERLOGIN_', userLoginId)
         // Enrollment confirmation consumes the current TOTP step; authenticate with the next
         // permitted step so this test exercises login rather than replay rejection.
-        String totpCode = new DefaultCodeGenerator().generate(enrollment.secret,
+        String totpCode = TotpUtil.generateTotp(enrollment.secret,
                 ((System.currentTimeMillis() / 30_000L) as long) + 1L)
         Map crossSession = dispatcher.runSync('verifyUserLoginMfaChallenge', [request: otherRequest, code: totpCode])
         assert ServiceUtil.isError(crossSession)
@@ -261,7 +261,7 @@ class UserLoginTests implements JupiterTestHelper {
                 locale: Locale.US
         ])
         assert ServiceUtil.isSuccess(enrollment): enrollment.errorMessage
-        String code = new DefaultCodeGenerator().generate(enrollment.secret, (System.currentTimeMillis() / 30_000L) as long)
+        String code = TotpUtil.generateTotp(enrollment.secret, (System.currentTimeMillis() / 30_000L) as long)
         Map confirmed = dispatcher.runSync('confirmUserLoginTotpFactor', [
                 userLogin: userLogin,
                 factorId: enrollment.factorId,
@@ -357,7 +357,7 @@ class UserLoginTests implements JupiterTestHelper {
         ])
         assert ServiceUtil.isSuccess(enrollment): enrollment.errorMessage
         request.getSession().setAttribute('_MFA_PENDING_ENROLLMENT_FACTOR_', enrollment.factorId)
-        String enrollmentCode = new DefaultCodeGenerator().generate(enrollment.secret,
+        String enrollmentCode = TotpUtil.generateTotp(enrollment.secret,
                 (System.currentTimeMillis() / 30_000L) as long)
         Map confirmed = dispatcher.runSync('completeForcedTotpEnrollment', [request: request, code: enrollmentCode])
         assert ServiceUtil.isSuccess(confirmed): confirmed.errorMessage
@@ -365,7 +365,7 @@ class UserLoginTests implements JupiterTestHelper {
         assert from('UserLoginAuthFactor').where('factorId', enrollment.factorId).queryOne().needsValidation == 'N'
         assert request.getSession().getAttribute('userLogin') == null
 
-        String loginCode = new DefaultCodeGenerator().generate(enrollment.secret,
+        String loginCode = TotpUtil.generateTotp(enrollment.secret,
                 ((System.currentTimeMillis() / 30_000L) as long) + 1L)
         Map verified = dispatcher.runSync('verifyUserLoginMfaChallenge', [request: request, code: loginCode])
         assert ServiceUtil.isSuccess(verified): verified.errorMessage

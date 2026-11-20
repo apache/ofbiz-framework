@@ -34,9 +34,6 @@ import java.util.Map;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
-import dev.samstevens.totp.code.DefaultCodeGenerator;
-import dev.samstevens.totp.time.SystemTimeProvider;
-import dev.samstevens.totp.secret.DefaultSecretGenerator;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilMisc;
@@ -106,7 +103,7 @@ public final class MfaServices {
             return ServiceUtil.returnError("Current credentials could not be verified");
         }
         Delegator delegator = ctx.getDelegator();
-        String secret = new DefaultSecretGenerator().generate();
+        String secret = TotpUtil.generateSecret();
         String factorId = delegator.getNextSeqId("UserLoginAuthFactor");
         String label = (String) context.get("label");
         String issuer = EntityUtilProperties.getPropertyValue("security", "security.login.authFactor.totp.issuer",
@@ -153,7 +150,7 @@ public final class MfaServices {
                     .where("factorId", factorId, "userLoginId", userLogin.getString("userLoginId"),
                             "factorType", TOTP, "needsValidation", "Y", "thruDate", null)
                     .cache(false).queryOne();
-            long acceptedStep = findMatchingTotpStep(factor == null ? null : factor.getString("secret"), code);
+            long acceptedStep = findMatchingTotpStep(delegator, factor == null ? null : factor.getString("secret"), code);
             if (factor == null || acceptedStep < 0) {
                 return ServiceUtil.returnError("Authenticator confirmation failed");
             }
@@ -340,7 +337,7 @@ public final class MfaServices {
             GenericValue factor = EntityQuery.use(delegator).from("UserLoginAuthFactor")
                     .where("factorId", factorId, "userLoginId", pendingUserId, "factorType", TOTP,
                             "needsValidation", "Y", "thruDate", null).cache(false).queryOne();
-            long acceptedStep = findMatchingTotpStep(factor == null ? null : factor.getString("secret"), code);
+            long acceptedStep = findMatchingTotpStep(delegator, factor == null ? null : factor.getString("secret"), code);
             if (factor == null || acceptedStep < 0) {
                 incrementChallengeAttempts(delegator, challenge, attempts, maxAttempts);
                 recordEvent(delegator, pendingUserId, "MFA_VERIFY_FAILURE", TOTP,
@@ -501,7 +498,7 @@ public final class MfaServices {
             throws GenericEntityException {
         for (GenericValue factor : activeFactors(delegator, userLoginId)) {
             if (TOTP.equals(factor.getString("factorType"))) {
-                long acceptedStep = findMatchingTotpStep(factor.getString("secret"), code);
+                long acceptedStep = findMatchingTotpStep(delegator, factor.getString("secret"), code);
                 if (acceptedStep < 0) {
                     continue;
                 }
@@ -709,23 +706,9 @@ public final class MfaServices {
         }
     }
 
-    private static long findMatchingTotpStep(String secret, String code) {
-        if (secret == null || code == null || !code.matches("[0-9]{6}")) {
-            return -1;
-        }
-        try {
-            long currentStep = new SystemTimeProvider().getTime() / 30;
-            DefaultCodeGenerator generator = new DefaultCodeGenerator();
-            for (long step = currentStep - 1; step <= currentStep + 1; step++) {
-                String expected = generator.generate(secret, step);
-                if (MessageDigest.isEqual(expected.getBytes(StandardCharsets.US_ASCII), code.getBytes(StandardCharsets.US_ASCII))) {
-                    return step;
-                }
-            }
-        } catch (Exception e) {
-            return -1;
-        }
-        return -1;
+    private static long findMatchingTotpStep(Delegator delegator, String secret, String code) {
+        int windowSteps = getIntProperty(delegator, "security.login.authFactor.totpWindowSteps", 1);
+        return TotpUtil.findMatchingTotpStep(secret, code, windowSteps);
     }
 
     private static String randomCode() {
