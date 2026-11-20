@@ -324,7 +324,7 @@ public final class MfaServices {
         try {
             GenericValue challenge = EntityQuery.use(delegator).from("UserLoginAuthChallenge")
                     .where("challengeId", session.getAttribute(PENDING_CHALLENGE), "userLoginId", pendingUserId,
-                            "delegatorName", delegator.getDelegatorName(), "challengeStatus", "PENDING")
+                            "challengeStatus", "PENDING")
                     .cache(false).queryOne();
             if (!challengeIsValid(challenge, request)) {
                 return ServiceUtil.returnError("Unable to complete authenticator enrollment");
@@ -334,12 +334,17 @@ public final class MfaServices {
             if (attempts >= maxAttempts) {
                 return ServiceUtil.returnError("Unable to complete authenticator enrollment");
             }
+            GenericValue userLogin = EntityQuery.use(delegator).from("UserLogin")
+                    .where("userLoginId", pendingUserId).cache(false).queryOne();
+            if (userLogin == null || "N".equals(userLogin.getString("enabled"))) {
+                return ServiceUtil.returnError("Account has been disabled");
+            }
             GenericValue factor = EntityQuery.use(delegator).from("UserLoginAuthFactor")
                     .where("factorId", factorId, "userLoginId", pendingUserId, "factorType", TOTP,
                             "needsValidation", "Y", "thruDate", null).cache(false).queryOne();
             long acceptedStep = findMatchingTotpStep(delegator, factor == null ? null : factor.getString("secret"), code);
             if (factor == null || acceptedStep < 0) {
-                incrementChallengeAttempts(delegator, challenge, attempts, maxAttempts);
+                handleFailedMfaAttempt(delegator, userLogin, challenge, attempts, maxAttempts);
                 recordEvent(delegator, pendingUserId, "MFA_VERIFY_FAILURE", TOTP,
                         (String) session.getAttribute(PENDING_CHALLENGE));
                 return ServiceUtil.returnError("Authenticator confirmation failed");
@@ -380,11 +385,17 @@ public final class MfaServices {
             return ServiceUtil.returnError("Invalid or expired authentication challenge");
         }
         Delegator delegator = ctx.getDelegator();
-        String currentDelegator = delegator.getDelegatorName();
         try {
+            GenericValue userLogin = EntityQuery.use(delegator).from("UserLogin")
+                    .where("userLoginId", pendingUserId).cache(false).queryOne();
+            if (userLogin == null || "N".equals(userLogin.getString("enabled"))) {
+                Map<String, Object> result = ServiceUtil.returnError("Invalid or expired authentication challenge");
+                result.put("accountLocked", true);
+                return result;
+            }
             GenericValue challenge = EntityQuery.use(delegator).from("UserLoginAuthChallenge")
                     .where("challengeId", challengeId, "userLoginId", pendingUserId,
-                            "delegatorName", currentDelegator, "challengeStatus", "PENDING")
+                            "challengeStatus", "PENDING")
                     .cache(false).queryOne();
             if (!challengeIsValid(challenge, request)) {
                 return ServiceUtil.returnError("Invalid or expired authentication challenge");
@@ -396,10 +407,13 @@ public final class MfaServices {
             }
             GenericValue usedFactor = consumeTotpCode(delegator, pendingUserId, code);
             if (usedFactor == null) {
-                incrementChallengeAttempts(delegator, challenge, attempts, maxAttempts);
+                boolean locked = handleFailedMfaAttempt(delegator, userLogin, challenge, attempts, maxAttempts);
                 recordEvent(delegator, pendingUserId, "MFA_VERIFY_FAILURE", null, challengeId);
                 Map<String, Object> result = ServiceUtil.returnSuccess();
                 result.put("verified", false);
+                if (locked) {
+                    result.put("accountLocked", true);
+                }
                 return result;
             }
             int claimed = delegator.storeByCondition("UserLoginAuthChallenge",
@@ -569,7 +583,7 @@ public final class MfaServices {
             return ServiceUtil.returnError("Invalid or expired authentication challenge");
         }
         GenericValue challenge = EntityQuery.use(delegator).from("UserLoginAuthChallenge")
-                .where("challengeId", challengeId, "delegatorName", delegator.getDelegatorName())
+                .where("challengeId", challengeId)
                 .cache(false).queryOne();
         if (challenge == null || !"PENDING".equals(challenge.getString("challengeStatus"))) {
             return ServiceUtil.returnError("Authentication challenge is invalid or has expired");
@@ -584,10 +598,18 @@ public final class MfaServices {
             return ServiceUtil.returnError("Maximum verification attempts exceeded. Please restart authentication");
         }
         String userLoginId = challenge.getString("userLoginId");
+        GenericValue userLogin = EntityQuery.use(delegator).from("UserLogin")
+                .where("userLoginId", userLoginId).cache(false).queryOne();
+        if (userLogin == null || "N".equals(userLogin.getString("enabled"))) {
+            return ServiceUtil.returnError("Account has been disabled");
+        }
         GenericValue usedFactor = consumeFactorCode(delegator, userLoginId, code);
         if (usedFactor == null) {
-            incrementChallengeAttempts(delegator, challenge, attempts, maxAttempts);
+            boolean locked = handleFailedMfaAttempt(delegator, userLogin, challenge, attempts, maxAttempts);
             recordEvent(delegator, userLoginId, "MFA_VERIFY_FAILURE", null, challengeId);
+            if (locked) {
+                return ServiceUtil.returnError("Account has been disabled due to too many failed attempts");
+            }
             return ServiceUtil.returnError("Invalid authentication code");
         }
         int claimed = delegator.storeByCondition("UserLoginAuthChallenge",
@@ -616,6 +638,37 @@ public final class MfaServices {
         Timestamp expires = challenge.getTimestamp("expiresDate");
         return expires != null && expires.after(UtilDateTime.nowTimestamp())
                 && constantTimeEquals(challenge.getString("sessionBindingHash"), sessionHash(request.getSession().getId()));
+    }
+
+    private static boolean handleFailedMfaAttempt(Delegator delegator, GenericValue userLogin,
+            GenericValue challenge, long attempts, int maxAttempts) throws GenericEntityException {
+        incrementChallengeAttempts(delegator, challenge, attempts, maxAttempts);
+        if (userLogin != null && !"Y".equals(userLogin.getString("isSystem"))) {
+            Long currentFailedLogins = userLogin.getLong("successiveFailedLogins");
+            long nextFailedLogins = (currentFailedLogins == null ? 0L : currentFailedLogins) + 1L;
+            userLogin.set("successiveFailedLogins", nextFailedLogins);
+
+            String mflStr = EntityUtilProperties.getPropertyValue("security", "max.failed.logins", delegator);
+            long maxFailedLogins = 3;
+            try {
+                maxFailedLogins = Long.parseLong(mflStr);
+            } catch (Exception e) {
+                maxFailedLogins = 3;
+                Debug.logWarning("Could not parse max.failed.logins from security.properties, using default of 3", MODULE);
+            }
+
+            boolean isLocked = false;
+            if (maxFailedLogins > 0 && nextFailedLogins >= maxFailedLogins) {
+                userLogin.set("enabled", "N");
+                userLogin.set("disabledDateTime", UtilDateTime.nowTimestamp());
+                isLocked = true;
+                recordEvent(delegator, userLogin.getString("userLoginId"), "MFA_ACCOUNT_LOCKED", null,
+                        challenge == null ? null : challenge.getString("challengeId"));
+            }
+            userLogin.store();
+            return isLocked;
+        }
+        return false;
     }
 
     private static void incrementChallengeAttempts(Delegator delegator, GenericValue challenge, long attempts, int maxAttempts)
