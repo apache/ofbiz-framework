@@ -161,6 +161,7 @@ under the License.
     <service name="cancelPaymentBatch" engine="groovy"
             location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/payment/PaymentServices.groovy" invoke="cancelPaymentBatch" auth="true">
         <description>cancel payment batch</description>
+        <permission-service service-name="acctgPaymentPermissionCheck" main-action="UPDATE"/>
         <attribute name="paymentGroupId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="createPaymentAndPaymentGroupForInvoices" engine="groovy"
