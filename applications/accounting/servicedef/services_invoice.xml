@@ -510,11 +510,13 @@ under the License.
     </service>
     <service name="updateInvoiceAttribute" default-entity-name="InvoiceAttribute" engine="entity-auto" invoke="update" auth="true">
         <description>Update a InvoiceAttribute</description>
+        <permission-service service-name="acctgInvoicePermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="deleteInvoiceAttribute" default-entity-name="InvoiceAttribute" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete a InvoiceAttribute</description>
+        <permission-service service-name="acctgInvoicePermissionCheck" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN"/>
     </service>
 
