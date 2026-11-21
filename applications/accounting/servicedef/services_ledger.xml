@@ -377,6 +377,7 @@ under the License.
     <!-- FinAccountTypeGlAccount Services -->
     <service name="createFinAccountTypeGlAccount" default-entity-name="FinAccountTypeGlAccount" engine="entity-auto" invoke="create" auth="true">
         <description>Create a FinAccountTypeGlAccount</description>
+        <permission-service service-name="basicGeneralLedgerPermissionCheck" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="false"/>
     </service>
@@ -395,6 +396,7 @@ under the License.
     <!-- VarianceReasonGlAccount Services -->
     <service name="createVarianceReasonGlAccount" default-entity-name="VarianceReasonGlAccount" engine="entity-auto" invoke="create" auth="true">
         <description>create a Variance Reason Gl Account</description>
+        <permission-service service-name="basicGeneralLedgerPermissionCheck" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="false"/>
     </service>
