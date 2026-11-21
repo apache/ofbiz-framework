@@ -45,7 +45,7 @@ public class ExternalLoginKeysManager {
     private static final String EXTERNAL_LOGIN_KEY_ATTR = "externalLoginKey";
     // How long a minted key remains redeemable. Bounds the window during which a leaked key
     // (address bar, browser history, Referer header, proxy log) is worth anything to an attacker.
-    private static final long EXTERNAL_LOGIN_KEY_TTL_MILLIS = 15 * 60 * 1000;
+    private static final long EXTERNAL_LOGIN_KEY_TTL_MILLIS = 2 * 60 * 1000;
     // This Map is keyed by the randomly generated externalLoginKey and the value is the ticket
     // describing who it authenticates as and until when. One render mints one key and embeds it
     // in every cross-webapp link on that page (see getExternalLoginKey's request-attribute
