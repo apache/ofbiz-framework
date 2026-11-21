@@ -102,11 +102,13 @@ under the License.
     </service>
     <service name="updateFinAccountRole" default-entity-name="FinAccountRole" engine="entity-auto" invoke="update" auth="true">
         <description>Update a FinAccountRole</description>
+        <permission-service service-name="acctgFinAcctPermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="deleteFinAccountRole" default-entity-name="FinAccountRole" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete a FinAccountRole</description>
+        <permission-service service-name="acctgFinAcctPermissionCheck" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
