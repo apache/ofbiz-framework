@@ -120,6 +120,22 @@ public class LoginEvents {
         return "success";
     }
 
+    private static boolean isMfaRequiredForPasswordRecovery(Delegator delegator, LocalDispatcher dispatcher, String userLoginId) {
+        try {
+            if (dispatcher == null) return true;
+            Map<String, Object> policy = dispatcher.runSync("isUserLoginMfaRequired", UtilMisc.toMap("userLoginId", userLoginId));
+            if (ServiceUtil.isError(policy)) return true;
+            boolean required = Boolean.TRUE.equals(policy.get("required"));
+            if (required) {
+                Debug.logInfo("Password recovery blocked for MFA-mandated user [" + userLoginId + "]", MODULE);
+            }
+            return required;
+        } catch (Exception e) {
+            Debug.logWarning(e, "Unable to evaluate MFA password-recovery policy; refusing token recovery", MODULE);
+            return true;
+        }
+    }
+
     /** Show the password hint for the userLoginId specified in the request object.
      *@param request The HTTPRequest object for the current request
      *@param response The HTTPResponse object for the current request
@@ -148,6 +164,12 @@ public class LoginEvents {
             supposedUserLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", userLoginId).queryOne();
         } catch (GenericEntityException gee) {
             Debug.logWarning(gee, "", MODULE);
+        }
+        if (supposedUserLogin != null && isMfaRequiredForPasswordRecovery(delegator,
+                (LocalDispatcher) request.getAttribute("dispatcher"), userLoginId)) {
+            errMsg = UtilProperties.getMessage(RESOURCE, "loginevents.no_password_hint_specified_try_password_emailed", UtilHttp.getLocale(request));
+            request.setAttribute("_ERROR_MESSAGE_", errMsg);
+            return "error";
         }
         if (supposedUserLogin != null) {
             passwordHint = supposedUserLogin.getString("passwordHint");
@@ -205,6 +227,12 @@ public class LoginEvents {
                 request.setAttribute("_EVENT_MESSAGE_", errMsg);
                 return "success";
             }
+
+            // Note: MFA-mandated accounts are deliberately NOT blocked here. Resetting the password via
+            // email does not bypass the second factor -- LoginWorker#login() re-evaluates the MFA policy
+            // for every successful primary authentication, including a password-reset-token login, and
+            // will not commit a session without it. Blocking the email here would only strand customers
+            // who still have their authenticator but forgot their password, without closing any real gap.
 
             // check login is associated to a party
             GenericValue userParty = userLogin.getRelatedOne("Party", false);
@@ -318,7 +346,11 @@ public class LoginEvents {
 
     public static String storeCheckLogin(HttpServletRequest request, HttpServletResponse response) {
         String responseString = LoginWorker.checkLogin(request, response);
-        if ("error".equals(responseString)) {
+        return continueStoreLogin(request, response, responseString);
+    }
+
+    static String continueStoreLogin(HttpServletRequest request, HttpServletResponse response, String responseString) {
+        if (!"success".equals(responseString)) {
             return responseString;
         }
         // if we are logged in okay, do the check store customer role
@@ -327,10 +359,11 @@ public class LoginEvents {
 
     public static String storeLogin(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
         String responseString = LoginWorker.login(request, response);
-        if (!"success".equals(responseString)) {
-            return responseString;
-        }
-        // if we logged in okay, do the check store customer role
-        return ProductEvents.checkStoreCustomerRole(request, response);
+        return continueStoreLogin(request, response, responseString);
+    }
+
+    public static String storeVerifyAuthFactor(HttpServletRequest request, HttpServletResponse response) {
+        String responseString = LoginWorker.verifyAuthFactor(request, response);
+        return continueStoreLogin(request, response, responseString);
     }
 }

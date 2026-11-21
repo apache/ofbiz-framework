@@ -33,6 +33,7 @@ import java.util.stream.Collectors;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transaction;
 
 import org.apache.ofbiz.base.crypto.HashCrypt;
@@ -58,6 +59,7 @@ import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.ofbiz.security.Security;
 import org.apache.ofbiz.security.SecurityUtil;
+import org.apache.ofbiz.security.login.MfaServices;
 import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ModelService;
@@ -78,6 +80,109 @@ public class LoginServices {
      * @return Map of results including (userLogin) GenericValue object
      */
     public static Map<String, Object> userLogin(DispatchContext ctx, Map<String, ?> context) {
+        return userLogin(ctx, context, false);
+    }
+
+    /**
+     * Authenticate primary credentials for a future multi-factor flow without committing successful-login state.
+     * This service must only be used to begin a server-side MFA challenge. It does not establish an authenticated
+     * session; callers must not treat its returned UserLogin as a completed login.
+     * @param ctx the service context
+     * @param context the authentication context
+     * @return authentication result without successful-login bookkeeping
+     */
+    public static Map<String, Object> userLoginMfaPending(DispatchContext ctx, Map<String, ?> context) {
+        if (Boolean.TRUE.equals(context.get("isServiceAuth"))) {
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "loginservices.mfa_pending_interactive_only",
+                    (java.util.Locale) context.get("locale")));
+        }
+        return userLogin(ctx, context, true);
+    }
+
+    /**
+     * Finalize a browser login after the session-bound MFA challenge has been verified.
+     * This service is local-only and requires server-side pre-authentication markers.
+     * @param ctx the service context
+     * @param context the authentication context
+     * @return the completed login result
+     */
+    public static Map<String, Object> completeUserLoginMfa(DispatchContext ctx, Map<String, ?> context) {
+        HttpServletRequest request = (HttpServletRequest) context.get("request");
+        HttpSession session = request == null ? null : request.getSession(false);
+        if (session == null) {
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "loginservices.mfa_authentication_completion_not_authorized",
+                    (java.util.Locale) context.get("locale")));
+        }
+        String userLoginId = (String) session.getAttribute(MfaServices.PENDING_USER);
+        String challengeId = (String) session.getAttribute(MfaServices.PENDING_CHALLENGE);
+        String verifiedChallengeId = (String) session.getAttribute(MfaServices.VERIFIED_CHALLENGE);
+        boolean primaryOnly = Boolean.TRUE.equals(session.getAttribute(MfaServices.PRIMARY_VERIFIED));
+        if (userLoginId == null || (!primaryOnly && (challengeId == null || !challengeId.equals(verifiedChallengeId)))) {
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "loginservices.mfa_authentication_completion_not_authorized",
+                    (java.util.Locale) context.get("locale")));
+        }
+        Delegator delegator = ctx.getDelegator();
+        try {
+            GenericValue userLogin = EntityQuery.use(delegator).from("UserLogin")
+                    .where("userLoginId", userLoginId).cache(false).queryOne();
+            if (userLogin == null || "Y".equals(userLogin.getString("isSystem"))
+                    || "N".equals(userLogin.getString("enabled"))) {
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "loginservices.mfa_authentication_completion_not_authorized",
+                        (java.util.Locale) context.get("locale")));
+            }
+            if (primaryOnly && MfaServices.isMfaRequired(delegator, userLoginId)) {
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "loginservices.mfa_authfactor_policy_changed_restart",
+                        (java.util.Locale) context.get("locale")));
+            }
+            if (!primaryOnly && !MfaServices.consumeVerifiedChallenge(delegator, request, userLoginId, challengeId)) {
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "loginservices.mfa_authentication_completion_not_authorized",
+                        (java.util.Locale) context.get("locale")));
+            }
+            markSuccessfulLogin(userLogin, false, userLogin.getBoolean("hasLoggedOut"));
+            userLogin.store();
+            if ("true".equals(EntityUtilProperties.getPropertyValue("security", "store.login.history", delegator))) {
+                Map<String, Object> history = UtilMisc.toMap("userLoginId", userLoginId,
+                        "visitId", org.apache.ofbiz.webapp.stats.VisitHandler.getVisitId(session),
+                        "fromDate", UtilDateTime.nowTimestamp(), "successfulLogin", "Y");
+                if (userLogin.getModelEntity().isField("partyId")) {
+                    history.put("partyId", userLogin.get("partyId"));
+                }
+                delegator.create("UserLoginHistory", history);
+            }
+            String factorType = null;
+            if (!primaryOnly && challengeId != null) {
+                GenericValue challenge = EntityQuery.use(delegator).from("UserLoginAuthChallenge")
+                        .where("challengeId", challengeId).cache(false).queryOne();
+                if (challenge != null && challenge.getString("factorId") != null) {
+                    GenericValue factor = EntityQuery.use(delegator).from("UserLoginAuthFactor")
+                            .where("factorId", challenge.getString("factorId")).cache(false).queryOne();
+                    if (factor != null) {
+                        factorType = factor.getString("factorType");
+                    }
+                }
+            }
+            MfaServices.recordAuthenticationEvent(delegator, userLoginId, "LOGIN_COMMITTED", factorType, challengeId);
+            Map<String, Object> result = ServiceUtil.returnSuccess();
+            result.put("userLogin", userLogin);
+            Map<String, Object> userLoginSession = LoginWorker.getUserLoginSession(userLogin);
+            if (userLoginSession != null) {
+                result.put("userLoginSession", userLoginSession);
+            }
+            session.removeAttribute(MfaServices.PENDING_CHALLENGE);
+            session.removeAttribute(MfaServices.PENDING_USER);
+            session.removeAttribute(MfaServices.VERIFIED_CHALLENGE);
+            session.removeAttribute(MfaServices.PRIMARY_VERIFIED);
+            session.removeAttribute(MfaServices.PENDING_ENROLLMENT);
+            session.removeAttribute(MfaServices.PENDING_ENROLLMENT_FACTOR);
+            session.removeAttribute("_MFA_PENDING_PROVISIONING_URI_");
+            return result;
+        } catch (GenericEntityException e) {
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "loginevents.mfa_unable_to_complete_login",
+                    (java.util.Locale) context.get("locale")));
+        }
+    }
+
+    private static Map<String, Object> userLogin(DispatchContext ctx, Map<String, ?> context, boolean deferSuccessCommit) {
         LocalDispatcher dispatcher = ctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");
         Delegator delegator = ctx.getDelegator();
@@ -208,7 +313,7 @@ public class LoginServices {
                             || (reEnableTime != null && reEnableTime.before(UtilDateTime.nowTimestamp())) || (isSystem))
                             && UtilValidate.isEmpty(userLogin.getString("disabledBy"))) {
                         String successfulLogin;
-                        if (!isSystem) {
+                        if (!isSystem && !deferSuccessCommit) {
                             userLogin.set("enabled", "Y");
                             userLogin.set("disabledBy", null);
                         }
@@ -246,23 +351,16 @@ public class LoginServices {
                                 || (password != null && checkPassword(userLogin.getString("currentPassword"), useEncryption, password))) {
                             Debug.logVerbose("[LoginServices.userLogin] : Password Matched or Token Validated", MODULE);
 
-                            // update the hasLoggedOut flag
-                            if (hasLoggedOut == null || hasLoggedOut) {
-                                userLogin.set("hasLoggedOut", "N");
-                            }
-
-                            // reset failed login count if necessary
-                            Long currentFailedLogins = userLogin.getLong("successiveFailedLogins");
-                            if (currentFailedLogins != null && currentFailedLogins > 0) {
-                                userLogin.set("successiveFailedLogins", 0L);
-                            } else if (hasLoggedOut != null && !hasLoggedOut) {
-                                // successful login & no logout flag, no need to change anything, so don't do the store
+                            if (deferSuccessCommit) {
+                                // Primary authentication is valid, but only successful MFA may commit login state/history.
                                 doStore = false;
+                            } else {
+                                doStore = markSuccessfulLogin(userLogin, isSystem, hasLoggedOut);
+
                             }
+                            successfulLogin = deferSuccessCommit ? null : "Y";
 
-                            successfulLogin = "Y";
-
-                            if (!isServiceAuth) {
+                            if (!isServiceAuth && !deferSuccessCommit) {
                                 // get the UserLoginSession if this is not a service auth
                                 Map<?, ?> userLoginSessionMap = LoginWorker.getUserLoginSession(userLogin);
 
@@ -343,7 +441,8 @@ public class LoginServices {
                                     userLogin.store();
                                 }
 
-                                if ("true".equals(EntityUtilProperties.getPropertyValue("security", "store.login.history", delegator))) {
+                                if (successfulLogin != null
+                                        && "true".equals(EntityUtilProperties.getPropertyValue("security", "store.login.history", delegator))) {
                                     boolean createHistory = true;
 
                                     // only save info on service auth if option set to true to do so
@@ -510,6 +609,24 @@ public class LoginServices {
             passwordUsedCurrentSize = delegator.encryptFieldValue("UserLoginHistory", encryptMethod, password).toString().length();
         }
         return passwordUsedCurrentSize > maxPasswordSize;
+    }
+
+    private static boolean markSuccessfulLogin(GenericValue userLogin, boolean isSystem, Boolean hasLoggedOut) {
+        boolean doStore = true;
+        if (!isSystem && !"N".equals(userLogin.getString("enabled"))) {
+            userLogin.set("enabled", "Y");
+            userLogin.set("disabledBy", null);
+        }
+        if (hasLoggedOut == null || hasLoggedOut) {
+            userLogin.set("hasLoggedOut", "N");
+        }
+        Long currentFailedLogins = userLogin.getLong("successiveFailedLogins");
+        if (currentFailedLogins != null && currentFailedLogins > 0) {
+            userLogin.set("successiveFailedLogins", 0L);
+        } else if (hasLoggedOut != null && !hasLoggedOut) {
+            doStore = false;
+        }
+        return doStore;
     }
 
     /**

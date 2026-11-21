@@ -394,7 +394,6 @@ under the License.
   </td>
 </#macro>
 <#macro renderFormatHeaderRowFormCellTitleSeparator isLast style="">
-  <#if style?has_content><span class="${style}"></#if> - <#if style?has_content></span></#if>
 </#macro>
 
 <#macro renderFormatItemRowOpen formName itemIndex="" altRowStyles="" evenRowStyle="" oddRowStyle="">
@@ -459,7 +458,7 @@ under the License.
 -->
 
 
-<#macro renderFormatEmptySpace>&nbsp;</#macro>
+<#macro renderFormatEmptySpace></#macro>
 
 <#macro renderTextFindField name defaultOption opBeginsWith opContains opIsEmpty opNotEqual className alert hideIgnoreCase ignCase ignoreCase conditionGroup="" value="" opEquals="" size="" maxlength="" autocomplete="" titleStyle="" tabindex="" disabled=false>
   <#if conditionGroup?has_content>

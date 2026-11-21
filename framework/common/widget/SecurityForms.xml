@@ -110,6 +110,12 @@ under the License.
         <field name="groupId" title="${uiLabelMap.CommonSecurityGroupId}" required-field="true"><text size="20" maxlength="20"/></field>
         <field name="groupName" title="${uiLabelMap.CommonName}"><text/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><text size="60" maxlength="250"/></field>
+        <field name="requireAuthFactor" title="${uiLabelMap.SecurityRequireMfaForGroupMembers}">
+            <drop-down allow-empty="false" no-current-selected-key="N">
+                <option key="N" description="${uiLabelMap.CommonNo}"/>
+                <option key="Y" description="${uiLabelMap.CommonYes}"/>
+            </drop-down>
+        </field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}"><submit button-type="button"/></field>
         <field name="cancelLink" title=" " widget-style="smallSubmit">
             <hyperlink description="${uiLabelMap.CommonCancelDone}" target="${cancelPage}" also-hidden="false"/>
@@ -120,6 +126,12 @@ under the License.
         <field name="groupId" title="${uiLabelMap.CommonSecurityGroupId}"><display/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><text size="60" maxlength="250"/></field>
         <field name="groupName" title="${uiLabelMap.CommonName}"><text/></field>
+        <field name="requireAuthFactor" title="${uiLabelMap.SecurityRequireMfaForGroupMembers}">
+            <drop-down allow-empty="false" current="selected" no-current-selected-key="N">
+                <option key="N" description="${uiLabelMap.CommonNo}"/>
+                <option key="Y" description="${uiLabelMap.CommonYes}"/>
+            </drop-down>
+        </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
     </form>
     <grid name="ListSecurityGroupPermissions" list-name="securityGroupPermissions"
@@ -176,6 +188,7 @@ under the License.
             </hyperlink>
         </field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
+        <field name="requireAuthFactor" title="${uiLabelMap.SecurityMfaRequired}"><display default-value="N"/></field>
     </grid>
     <grid name="ListSecurityGroupUserLogins" list-name="userLoginSecurityGroups" target="updateUserLoginToSecurityGroup"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
@@ -258,12 +271,21 @@ under the License.
         focus-field-name="currentPassword" header-row-style="header-row" default-table-style="basic-table">
         <actions>
             <set field="passwordHint" from-field="editUserLogin.passwordHint"/>
+            <property-to-field field="mfaEnabled" resource="security" property="security.login.authFactor.enable" default="false"/>
         </actions>
         <auto-fields-service service-name="updatePassword"/>
+        <field name="partyId"><hidden value="${partyId}"/></field>
         <field name="userLoginId"><hidden/></field>
         <field name="currentPassword"><password/></field>
         <field name="newPassword"><password/></field>
         <field name="newPasswordVerify"><password/></field>
+        <field name="requirePasswordChange">
+            <drop-down allow-empty="false" no-current-selected-key="N">
+                <option key="Y" description="${uiLabelMap.CommonY}"/>
+                <option key="N" description="${uiLabelMap.CommonN}"/>
+            </drop-down>
+        </field>
+        <field name="mfaAdminReason" title="${uiLabelMap.SecurityMfaRecoveryReason}" use-when="&quot;true&quot;.equals(mfaEnabled)"><text maxlength="255"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="text-link"/></field>
         <field name="cancelLink" title=" " widget-style="smallSubmit">
             <hyperlink description="${uiLabelMap.CommonCancelDone}" target="${cancelPage}" also-hidden="false">

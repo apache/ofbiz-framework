@@ -46,6 +46,7 @@ under the License.
             </a>
         </div>
         <a id="visual-theme" class="user-pref-btn" href="<@ofbizUrl>ListVisualThemes</@ofbizUrl>">${uiLabelMap.CommonVisualThemes}</a>
+        <a id="mfa-setup" class="user-pref-btn" href="<@ofbizUrl>authFactorSetup</@ofbizUrl>">MFA Setup</a>
         <a id="logout" class="user-pref-btn" href="<@ofbizUrl>logout</@ofbizUrl>">${uiLabelMap.CommonLogout}</a>
     </div>
 </div>
