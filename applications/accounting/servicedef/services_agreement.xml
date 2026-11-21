@@ -220,16 +220,19 @@ under the License.
     <!-- AgreementRole -->
     <service name="createAgreementRole" default-entity-name="AgreementRole" engine="entity-auto" invoke="create" auth="true">
         <description>Create an Agreement Role</description>
+        <permission-service service-name="acctgAgreementPermissionCheck" main-action="CREATE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
     <service name="updateAgreementRole" default-entity-name="AgreementRole" engine="entity-auto" invoke="update" auth="true">
         <description>Update an Agreement Role</description>
+        <permission-service service-name="acctgAgreementPermissionCheck" main-action="UPDATE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
     <service name="deleteAgreementRole" default-entity-name="AgreementRole" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete an Agreement Role</description>
+        <permission-service service-name="acctgAgreementPermissionCheck" main-action="DELETE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
 
@@ -252,22 +255,26 @@ under the License.
     <!-- Agreement content services -->
     <service name="createAgreementContent" default-entity-name="AgreementContent" engine="entity-auto" invoke="create" auth="true">
         <description>Create Agreement Content</description>
+        <permission-service service-name="acctgAgreementPermissionCheck" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="fromDate" optional="true"/>
     </service>
     <service name="updateAgreementContent" default-entity-name="AgreementContent" engine="entity-auto" invoke="update" auth="true">
         <description>Update Agreement Content</description>
+        <permission-service service-name="acctgAgreementPermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="removeAgreementContent" default-entity-name="AgreementContent" engine="entity-auto" invoke="delete" auth="true">
         <description>Remove Content From Agreement</description>
+        <permission-service service-name="acctgAgreementPermissionCheck" main-action="DELETE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
 
-    <service name="uploadAgreementContentFile" engine="group" transaction-timeout="300">
+    <service name="uploadAgreementContentFile" engine="group" transaction-timeout="300" auth="true">
         <description>Upload and attach a file to an agreement</description>
+        <permission-service service-name="acctgAgreementPermissionCheck" main-action="CREATE"/>
         <group>
             <invoke name="createContentFromUploadedFile" result-to-context="true"/>
             <invoke name="createAgreementContent"/>
@@ -300,11 +307,13 @@ under the License.
     <!--AgrementWorkEffortApplic-->
     <service name="createAgreementWorkEffortApplic" default-entity-name="AgreementWorkEffortApplic" engine="entity-auto" invoke="create" auth="true">
         <description> Create AgreementWorkEffortApplic </description>
+        <permission-service service-name="acctgAgreementPermissionCheck" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <override name="agreementItemSeqId" default-value="_NA_"/>
     </service>
     <service name="deleteAgreementWorkEffortApplic" default-entity-name="AgreementWorkEffortApplic" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete AgreementWorkEffortApplic</description>
+        <permission-service service-name="acctgAgreementPermissionCheck" main-action="DELETE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
     
