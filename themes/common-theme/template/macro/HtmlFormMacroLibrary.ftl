@@ -910,15 +910,7 @@ Parameter: delegatorName, String, optional - name of the delegator in context.
     <#if tabindex?has_content> tabindex="${tabindex}"</#if>/><#rt/>
 </#macro>
 
-<#macro renderPasswordField className alert name="" value="" size="" maxlength="" id="" autocomplete="" tabindex="" disabled=false placeholder="">
-  <#local ph = placeholder>
-  <#local extraStyle = "">
-  <#if !ph?has_content>
-    <#if (className?has_content && className?contains("revoke-password")) || (id?has_content && id?contains("revokeCurrentPassword"))>
-      <#local ph = "Enter current login password to revoke factor">
-      <#local extraStyle = "min-width: 360px;">
-    </#if>
-  </#if>
+<#macro renderPasswordField className alert name="" value="" size="" maxlength="" id="" autocomplete="" tabindex="" disabled=false>
   <input type="password"
     <@renderClass className alert />
     <@renderDisabled disabled />
@@ -929,8 +921,6 @@ Parameter: delegatorName, String, optional - name of the delegator in context.
     <#if id?has_content> id="${id}"</#if>
     <#if autocomplete?has_content> autocomplete="off"</#if>
     <#if tabindex?has_content> tabindex="${tabindex}"</#if>
-    <#if ph?has_content> placeholder="${ph}"</#if>
-    <#if extraStyle?has_content> style="${extraStyle}"</#if>
     required/><#rt/>
 </#macro>
 
