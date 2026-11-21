@@ -1400,7 +1400,7 @@ under the License.
     </request-map>
     <request-map uri="ProfileUpdatePassword">
         <security https="true" auth="true" csrf-token="true"/>
-        <event type="java" path="org.apache.ofbiz.webapp.control.LoginWorker" invoke="updatePasswordWithMfa"/>
+        <event type="simple" path="component://securityext/minilang/login/LoginSimpleEvents.xml" invoke="updatePassword"/>
         <response name="success" type="view" value="ProfileEditUserLogin"/>
         <response name="error" type="view" value="ProfileEditUserLogin"/>
     </request-map>
