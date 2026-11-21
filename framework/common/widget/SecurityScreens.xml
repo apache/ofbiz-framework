@@ -195,7 +195,7 @@ under the License.
                         <section>
                             <condition><if-service-permission service-name="securityPermissionCheck" main-action="UPDATE"/></condition>
                             <widgets>
-                                <screenlet title="Authentication factors">
+                                <screenlet title="${uiLabelMap.SecurityAuthenticationFactors}">
                                     <include-grid name="ListAdminMfaFactors" location="component://common/widget/CommonForms.xml"/>
                                 </screenlet>
                             </widgets>

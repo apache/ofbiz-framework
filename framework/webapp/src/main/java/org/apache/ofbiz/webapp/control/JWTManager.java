@@ -73,6 +73,7 @@ import jakarta.ws.rs.core.HttpHeaders;
  */
 public class JWTManager {
     private static final String MODULE = JWTManager.class.getName();
+    private static final String RESOURCE = "SecurityextUiLabels";
 
     // Static map of thread-safe JwkProvider instances for each delegator.
     private static volatile Map<String, JwkProvider> jwkProviders = new ConcurrentHashMap<>();
@@ -170,7 +171,8 @@ public class JWTManager {
                         UtilMisc.toMap("userLoginId", userLogin.getString("userLoginId"), "authenticationContext", authCtx));
             } catch (GenericServiceException e) {
                 Debug.logError(e, "Unable to evaluate MFA policy for JWT authentication", MODULE);
-                request.setAttribute("_ERROR_MESSAGE_", "Unable to complete login");
+                request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RESOURCE, "loginevents.mfa_unable_to_complete_login",
+                        UtilHttp.getLocale(request)));
                 return "error";
             }
             if (Boolean.TRUE.equals(policyResult.get("required"))) {
@@ -184,10 +186,12 @@ public class JWTManager {
                             UtilMisc.toMap("userLogin", userLogin, "request", request));
                 } catch (GenericServiceException e) {
                     Debug.logError(e, "Unable to start MFA challenge for JWT login", MODULE);
-                    request.setAttribute("_ERROR_MESSAGE_", "Unable to complete login");
+                    request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RESOURCE, "loginevents.mfa_unable_to_complete_login",
+                            UtilHttp.getLocale(request)));
                     return "error";
                 }
-                request.setAttribute("_ERROR_MESSAGE_", "Authentication factor required to complete sign in");
+                request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RESOURCE,
+                        "loginevents.mfa_authentication_factor_required_to_complete_sign_in", UtilHttp.getLocale(request)));
                 if (Boolean.TRUE.equals(challengeResult.get("mustEnroll"))) {
                     return "authFactorEnrollmentRequired";
                 }

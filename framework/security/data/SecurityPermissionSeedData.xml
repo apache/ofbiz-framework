@@ -60,12 +60,18 @@ under the License.
     <SecurityPermission permissionId="SECURITY_PWD_UPDATE" description="Update other user passwords." />
     <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="SECURITY_PWD_UPDATE"/>
 
-
     <!-- MFA Factor Type Enumerations -->
     <EnumerationType enumTypeId="MFA_FACTOR_TYPE" hasTable="N" description="Multi-Factor Authentication Factor Type"/>
     <Enumeration enumId="ULAF_TOTP" enumTypeId="MFA_FACTOR_TYPE" sequenceId="01" description="Time-Based One-Time Password (RFC 6238)"/>
     <Enumeration enumId="ULAF_BACKUP" enumTypeId="MFA_FACTOR_TYPE" sequenceId="02" description="Emergency Backup Recovery Code (NIST SP 800-63B)"/>
     <Enumeration enumId="ULAF_WEBAUTHN" enumTypeId="MFA_FACTOR_TYPE" sequenceId="03" description="WebAuthn Hardware Security Key"/>
     <Enumeration enumId="ULAF_PASSKEY" enumTypeId="MFA_FACTOR_TYPE" sequenceId="04" description="FIDO2 Passkey"/>
+
+    <!-- MFA Challenge Status Items -->
+    <StatusType statusTypeId="MFA_CHALLENGE_STATUS" hasTable="N" description="MFA Challenge Lifecycle Status"/>
+    <StatusItem statusId="PENDING" statusTypeId="MFA_CHALLENGE_STATUS" statusCode="PENDING" sequenceId="01" description="Pending Verification"/>
+    <StatusItem statusId="VERIFIED" statusTypeId="MFA_CHALLENGE_STATUS" statusCode="VERIFIED" sequenceId="02" description="Verified Successfully"/>
+    <StatusItem statusId="CONSUMED" statusTypeId="MFA_CHALLENGE_STATUS" statusCode="CONSUMED" sequenceId="03" description="Consumed and Finalized"/>
+    <StatusItem statusId="LOCKED" statusTypeId="MFA_CHALLENGE_STATUS" statusCode="LOCKED" sequenceId="04" description="Locked Due to Failed Attempts"/>
 
 </entity-engine-xml>

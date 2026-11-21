@@ -418,7 +418,8 @@ under the License.
                 resulting session must be confined to completing that reset, never treated as a full login.</description>
         </attribute>
     </service>
-    <service name="userLoginMfaPending" engine="java" auth="false" location="org.apache.ofbiz.common.login.LoginServices" invoke="userLoginMfaPending">
+    <service name="userLoginMfaPending" engine="java" auth="false" export="false"
+            location="org.apache.ofbiz.common.login.LoginServices" invoke="userLoginMfaPending">
         <description>Authenticates primary credentials without committing successful-login state, pending MFA verification</description>
         <attribute name="username" type="String" mode="IN" optional="false"/>
         <attribute name="password" type="String" mode="IN" optional="true"/>

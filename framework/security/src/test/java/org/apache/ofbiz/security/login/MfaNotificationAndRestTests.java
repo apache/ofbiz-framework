@@ -57,11 +57,11 @@ public class MfaNotificationAndRestTests {
         Map<String, Object> claims = new HashMap<>();
         claims.put("userLoginId", "admin");
         claims.put("apiGroupPath", "api");
-        claims.put("amr", List.of("pwd", "totp"));
+        claims.put("amr", List.of("pwd", "otp", "mfa"));
 
         AuthenticationContext authContext = new AuthenticationContext(AuthenticationContext.METHOD_JWT, claims);
         assertTrue(authContext.isMfaSatisfied(null),
-                "Tokens issued after successful Step 2 REST verification must satisfy MFA assurance");
+                "Tokens issued after successful Step 2 REST verification with RFC 8176 AMR must satisfy MFA assurance");
     }
 
     @Test

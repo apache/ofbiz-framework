@@ -20,21 +20,16 @@ package org.apache.ofbiz.common.test
 
 import java.lang.reflect.InvocationHandler
 import java.lang.reflect.Proxy
-import java.util.concurrent.atomic.AtomicBoolean
-import java.util.concurrent.atomic.AtomicInteger
 
 import org.apache.ofbiz.entity.GenericValue
-import org.apache.ofbiz.security.Security
 import org.apache.ofbiz.security.login.MfaServices
 import org.apache.ofbiz.security.login.TotpUtil
 import org.apache.ofbiz.service.LocalDispatcher
 import org.apache.ofbiz.service.ServiceUtil
 import org.apache.ofbiz.testtools.JunitJupiterTest
 import org.apache.ofbiz.testtools.JupiterTestHelper
-import org.apache.ofbiz.webapp.control.LoginWorker
 import org.junit.jupiter.api.Test
 import org.springframework.mock.web.MockHttpServletRequest
-import org.springframework.mock.web.MockHttpServletResponse
 import org.springframework.mock.web.MockHttpSession
 
 @JunitJupiterTest
@@ -227,17 +222,28 @@ class UserLoginTests implements JupiterTestHelper {
         assert ServiceUtil.isError(expiredVerification)
 
         // Invalid codes are committed as verification outcomes so counters and lockout survive the response.
+        // Failed attempts also count towards the account-level lockout (max.failed.logins, default 3),
+        // which fires before the per-challenge limit (maxVerifyAttempts, default 5) ever would. The replay
+        // attempt above already contributed one failure, so compute how many more are needed from the
+        // account's actual current count rather than assuming it starts at zero.
         Map limitedChallenge = dispatcher.runSync('createUserLoginMfaChallenge', [userLogin: completed.userLogin, request: request])
         assert ServiceUtil.isSuccess(limitedChallenge)
-        for (int attempt = 1; attempt <= 5; attempt++) {
+        int maxFailedLogins = 3
+        long failedLoginsBeforeLockoutTest = from('UserLogin').where('userLoginId', userLoginId).queryOne().successiveFailedLogins ?: 0L
+        int attemptsUntilLockout = (maxFailedLogins - failedLoginsBeforeLockoutTest) as int
+        for (int attempt = 1; attempt <= attemptsUntilLockout; attempt++) {
             Map invalidVerification = dispatcher.runSync('verifyUserLoginMfaChallenge', [request: request, code: 'wrong-code'])
             assert ServiceUtil.isSuccess(invalidVerification)
             assert invalidVerification.verified == false
             GenericValue limitedRecord = from('UserLoginAuthChallenge').where('challengeId', limitedChallenge.challengeId).queryOne()
             assert limitedRecord.attemptCount == attempt
+            if (attempt == attemptsUntilLockout) {
+                assert invalidVerification.accountLocked == true
+            }
         }
-        GenericValue lockedChallenge = from('UserLoginAuthChallenge').where('challengeId', limitedChallenge.challengeId).queryOne()
-        assert lockedChallenge.challengeStatus == 'LOCKED'
+        GenericValue lockedUserLogin = from('UserLogin').where('userLoginId', userLoginId).queryOne()
+        assert lockedUserLogin.enabled == 'N'
+        assert lockedUserLogin.successiveFailedLogins == maxFailedLogins as Long
         Map overLimitVerification = dispatcher.runSync('verifyUserLoginMfaChallenge', [request: request, code: totpCode])
         assert ServiceUtil.isError(overLimitVerification)
     }
@@ -397,17 +403,10 @@ class UserLoginTests implements JupiterTestHelper {
         assert ServiceUtil.isSuccess(createResult): createResult.errorMessage
         GenericValue userLogin = from('UserLogin').where('userLoginId', userLoginId).queryOne()
 
-        AtomicInteger updateCalls = new AtomicInteger()
         LocalDispatcher mockedDispatcher = Proxy.newProxyInstance(LocalDispatcher.classLoader,
                 [LocalDispatcher] as Class[], { Object proxy, java.lang.reflect.Method method, Object[] args ->
-                    if (method.name == 'runSync') {
-                        if (args[0] == 'isUserLoginMfaRequired') {
-                            return [required: true]
-                        }
-                        if (args[0] == 'updatePassword') {
-                            updateCalls.incrementAndGet()
-                            return ServiceUtil.returnSuccess()
-                        }
+                    if (method.name == 'runSync' && args[0] == 'isUserLoginMfaRequired') {
+                        return [required: true]
                     }
                     throw new UnsupportedOperationException(method.name)
                 } as InvocationHandler) as LocalDispatcher
@@ -415,86 +414,87 @@ class UserLoginTests implements JupiterTestHelper {
         MockHttpSession session = new MockHttpSession()
         session.setAttribute('userLogin', userLogin)
         request.setSession(session)
-        request.setAttribute('dispatcher', mockedDispatcher)
-        request.setParameter('currentPassword', 'ofbiz')
-        request.setParameter('newPassword', 'Mfa-Password-Change-1!')
-        request.setParameter('newPasswordVerify', 'Mfa-Password-Change-1!')
 
-        assert LoginWorker.updatePasswordWithMfa(request, new MockHttpServletResponse()) == 'error'
-        assert updateCalls.get() == 0
+        // Same gate the updatePassword simple-method now calls via call-class-method (LoginSimpleEvents.xml).
+        assert !MfaServices.hasRecentMfaProof(request, userLogin, mockedDispatcher)
 
         session.setAttribute(MfaServices.MFA_VERIFIED_AT, System.currentTimeMillis())
-        assert LoginWorker.updatePasswordWithMfa(request, new MockHttpServletResponse()) == 'success'
-        assert updateCalls.get() == 1
+        assert MfaServices.hasRecentMfaProof(request, userLogin, mockedDispatcher)
     }
 
     @Test
-    void testMfaAdministrativePasswordRecoveryRequiresPermissionAndReasonAndAuditsSuccess() {
-        String actorId = 'mfa.admin-recovery.actor.' + UUID.randomUUID()
-        String targetId = 'mfa.admin-recovery.target.' + UUID.randomUUID()
-        for (String userLoginId : [actorId, targetId]) {
-            Map createResult = dispatcher.runSync('createUserLogin', [
-                    userLoginId: userLoginId,
-                    enabled: 'Y',
-                    currentPassword: 'ofbiz',
-                    currentPasswordVerify: 'ofbiz'
-            ])
-            assert ServiceUtil.isSuccess(createResult): createResult.errorMessage
+    void testMfaBackupRecoveryCodes() {
+        String userLoginId = 'backup-code-test-user'
+        delegator.create('UserLogin', [
+                userLoginId: userLoginId,
+                currentPassword: HashCrypt.cryptUTF8(LoginServices.getHashType(), null, 'ofbiz'),
+                enabled: 'Y',
+                isSystem: 'N'
+        ])
+        GenericValue userLogin = from('UserLogin').where('userLoginId', userLoginId).queryOne()
+
+        // 1. Generate backup codes via service
+        Map genResult = dispatcher.runSync('generateUserLoginBackupCodes', [
+                userLogin: userLogin,
+                currentPassword: 'ofbiz'
+        ])
+        assert ServiceUtil.isSuccess(genResult): genResult.errorMessage
+        List<String> codes = (List<String>) genResult.backupCodes
+        assert codes != null
+        assert codes.size() == 10
+
+        // Check remaining count
+        Map countResult = dispatcher.runSync('getRemainingBackupCodesCount', [userLogin: userLogin])
+        assert ServiceUtil.isSuccess(countResult)
+        assert countResult.remainingCount == 10
+
+        // Database check: verify hashes are stored, not plain codes
+        List stored = from('UserLoginAuthFactor')
+                .where('userLoginId', userLoginId, 'factorType', MfaServices.BACKUP_CODE)
+                .queryList()
+        assert stored.size() == 10
+        stored.each { factor ->
+            assert factor.thruDate == null
+            assert factor.secretHash != null
+            assert !codes.contains(factor.secretHash)
         }
-        GenericValue actor = from('UserLogin').where('userLoginId', actorId).queryOne()
-        AtomicInteger updateCalls = new AtomicInteger()
-        LocalDispatcher mockedDispatcher = Proxy.newProxyInstance(LocalDispatcher.classLoader,
-                [LocalDispatcher] as Class[], { Object proxy, java.lang.reflect.Method method, Object[] args ->
-                    if (method.name == 'runSync') {
-                        if (args[0] == 'isUserLoginMfaRequired') {
-                            return [required: true]
-                        }
-                        if (args[0] == 'updatePassword') {
-                            updateCalls.incrementAndGet()
-                            return ServiceUtil.returnSuccess()
-                        }
-                    }
-                    throw new UnsupportedOperationException(method.name)
-                } as InvocationHandler) as LocalDispatcher
-        AtomicBoolean hasPermission = new AtomicBoolean(false)
-        Security mockedSecurity = Proxy.newProxyInstance(Security.classLoader,
-                [Security] as Class[], { Object proxy, java.lang.reflect.Method method, Object[] args ->
-                    if (method.name == 'hasEntityPermission') {
-                        return hasPermission.get()
-                    }
-                    return false
-                } as InvocationHandler) as Security
-
-        MockHttpSession session = new MockHttpSession()
-        session.setAttribute('userLogin', actor)
-        session.setAttribute(MfaServices.MFA_VERIFIED_AT, System.currentTimeMillis())
+        // 2. Authenticate challenge using a backup code (with hyphens & uppercase)
         MockHttpServletRequest request = new MockHttpServletRequest()
-        request.setSession(session)
-        request.setAttribute('dispatcher', mockedDispatcher)
-        request.setAttribute('security', mockedSecurity)
-        request.setAttribute('delegator', getDelegator())
-        request.setParameter('userLoginId', targetId)
-        request.setParameter('newPassword', 'Mfa-Admin-Reset-1!')
-        request.setParameter('newPasswordVerify', 'Mfa-Admin-Reset-1!')
-        request.setParameter('mfaAdminReason', 'Account recovery after verified support request')
+        request.setSession(new MockHttpSession())
+        Map challenge = dispatcher.runSync('createUserLoginMfaChallenge', [userLogin: userLogin, request: request])
+        assert ServiceUtil.isSuccess(challenge)
+        assert challenge.required
 
-        assert LoginWorker.updatePasswordWithMfa(request, new MockHttpServletResponse()) == 'error'
-        assert updateCalls.get() == 0
-        assert from('UserAuthenticationEvent').where([userLoginId: targetId, eventType: 'MFA_ADMIN_PASSWORD_RESET']).queryCount() == 0
+        String firstCode = codes[0]
+        String codeToSubmit = firstCode.toUpperCase()
+        Map verifyResult = dispatcher.runSync('verifyUserLoginMfaChallenge', [request: request, code: codeToSubmit])
+        assert ServiceUtil.isSuccess(verifyResult): verifyResult.errorMessage
+        assert verifyResult.verified == true
 
-        hasPermission.set(true)
-        request.setParameter('mfaAdminReason', '')
-        assert LoginWorker.updatePasswordWithMfa(request, new MockHttpServletResponse()) == 'error'
-        assert updateCalls.get() == 0
+        // Complete login
+        Map completed = dispatcher.runSync('completeUserLoginMfa', [request: request])
+        assert ServiceUtil.isSuccess(completed): completed.errorMessage
 
-        request.setParameter('mfaAdminReason', 'Account recovery after verified support request')
-        assert LoginWorker.updatePasswordWithMfa(request, new MockHttpServletResponse()) == 'success'
-        assert updateCalls.get() == 1
-        GenericValue auditEvent = from('UserAuthenticationEvent').queryList()
-                .find { it.userLoginId == targetId && it.eventType == 'MFA_ADMIN_PASSWORD_RESET' }
-        assert auditEvent
-        assert auditEvent.actorUserLoginId == actorId
-        assert auditEvent.eventReason == 'Account recovery after verified support request'
+        // Verify that the used code is now consumed (single-use)
+        Map countAfterUse = dispatcher.runSync('getRemainingBackupCodesCount', [userLogin: userLogin])
+        assert countAfterUse.remainingCount == 9
+
+        // Verify audit event logged
+        assert from('UserAuthenticationEvent').where([
+                userLoginId: userLoginId,
+                eventType: 'MFA_BACKUP_CODE_USED',
+                factorType: MfaServices.BACKUP_CODE
+        ]).queryCount() == 1
+
+        // 3. Replay attack: submitting the SAME backup code again must FAIL
+        MockHttpServletRequest replayRequest = new MockHttpServletRequest()
+        replayRequest.setSession(new MockHttpSession())
+        Map replayChallenge = dispatcher.runSync('createUserLoginMfaChallenge', [userLogin: userLogin, request: replayRequest])
+        assert ServiceUtil.isSuccess(replayChallenge)
+
+        Map replayVerify = dispatcher.runSync('verifyUserLoginMfaChallenge', [request: replayRequest, code: firstCode])
+        assert ServiceUtil.isSuccess(replayVerify)
+        assert replayVerify.verified == false
     }
 
 }

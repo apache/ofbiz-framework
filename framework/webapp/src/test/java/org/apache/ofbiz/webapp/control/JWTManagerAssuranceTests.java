@@ -102,4 +102,21 @@ public class JWTManagerAssuranceTests {
         assertTrue(authCtx.isMfaSatisfied(null),
                 "Valid JWT with AMR=['pwd', 'totp'] must satisfy MFA assurance");
     }
+
+    @Test
+    public void testTokenWithOtpAmrSatisfiesMfaAssurance() {
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("userLoginId", "admin");
+        claims.put("amr", Arrays.asList("pwd", "otp", "mfa"));
+
+        String token = JWTManager.createJwt(null, claims);
+        assertNotNull(token);
+
+        Map<String, Object> extractedClaims = JWTManager.validateAccessToken(null, token);
+        assertNotNull(extractedClaims);
+
+        AuthenticationContext authCtx = new AuthenticationContext(AuthenticationContext.METHOD_JWT, extractedClaims);
+        assertTrue(authCtx.isMfaSatisfied(null),
+                "Valid JWT with RFC 8176 AMR=['pwd', 'otp', 'mfa'] must satisfy MFA assurance");
+    }
 }

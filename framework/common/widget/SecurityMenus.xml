@@ -28,7 +28,7 @@
         <menu-item name="FindSecurityGroup" title="${uiLabelMap.PageTitleFindSecurityGroup}">
             <link target="FindSecurityGroup"/>
         </menu-item>
-        <menu-item name="authFactorSetup" title="MFA Setup">
+        <menu-item name="authFactorSetup" title="${uiLabelMap.SecurityMfaSetup}">
             <link target="authFactorSetup"/>
         </menu-item>
         <menu-item name="EditUserLogin" title="${uiLabelMap.UserLogin}">

@@ -110,10 +110,10 @@ under the License.
         <field name="groupId" title="${uiLabelMap.CommonSecurityGroupId}" required-field="true"><text size="20" maxlength="20"/></field>
         <field name="groupName" title="${uiLabelMap.CommonName}"><text/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><text size="60" maxlength="250"/></field>
-        <field name="requireAuthFactor" title="Require multi-factor authentication for group members">
+        <field name="requireAuthFactor" title="${uiLabelMap.SecurityRequireMfaForGroupMembers}">
             <drop-down allow-empty="false" no-current-selected-key="N">
-                <option key="N" description="No"/>
-                <option key="Y" description="Yes"/>
+                <option key="N" description="${uiLabelMap.CommonNo}"/>
+                <option key="Y" description="${uiLabelMap.CommonYes}"/>
             </drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}"><submit button-type="button"/></field>
@@ -126,10 +126,10 @@ under the License.
         <field name="groupId" title="${uiLabelMap.CommonSecurityGroupId}"><display/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><text size="60" maxlength="250"/></field>
         <field name="groupName" title="${uiLabelMap.CommonName}"><text/></field>
-        <field name="requireAuthFactor" title="Require multi-factor authentication for group members">
+        <field name="requireAuthFactor" title="${uiLabelMap.SecurityRequireMfaForGroupMembers}">
             <drop-down allow-empty="false" current="selected" no-current-selected-key="N">
-                <option key="N" description="No"/>
-                <option key="Y" description="Yes"/>
+                <option key="N" description="${uiLabelMap.CommonNo}"/>
+                <option key="Y" description="${uiLabelMap.CommonYes}"/>
             </drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
@@ -188,7 +188,7 @@ under the License.
             </hyperlink>
         </field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
-        <field name="requireAuthFactor" title="MFA Required"><display default-value="N"/></field>
+        <field name="requireAuthFactor" title="${uiLabelMap.SecurityMfaRequired}"><display default-value="N"/></field>
     </grid>
     <grid name="ListSecurityGroupUserLogins" list-name="userLoginSecurityGroups" target="updateUserLoginToSecurityGroup"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
@@ -285,7 +285,7 @@ under the License.
                 <option key="N" description="${uiLabelMap.CommonN}"/>
             </drop-down>
         </field>
-        <field name="mfaAdminReason" title="MFA recovery reason" use-when="&quot;true&quot;.equals(mfaEnabled)"><text maxlength="255"/></field>
+        <field name="mfaAdminReason" title="${uiLabelMap.SecurityMfaRecoveryReason}" use-when="&quot;true&quot;.equals(mfaEnabled)"><text maxlength="255"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="text-link"/></field>
         <field name="cancelLink" title=" " widget-style="smallSubmit">
             <hyperlink description="${uiLabelMap.CommonCancelDone}" target="${cancelPage}" also-hidden="false">

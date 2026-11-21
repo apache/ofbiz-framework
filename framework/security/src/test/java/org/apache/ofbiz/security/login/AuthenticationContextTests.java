@@ -69,6 +69,16 @@ public class AuthenticationContextTests {
     }
 
     @Test
+    public void testJwtWithOtpAmrSatisfiesMfa() {
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("userLoginId", "admin");
+        claims.put("amr", Arrays.asList("pwd", "otp", "mfa"));
+
+        AuthenticationContext ctx = new AuthenticationContext(AuthenticationContext.METHOD_JWT, claims);
+        assertTrue(ctx.isMfaSatisfied(null), "JWT with standard RFC 8176 'otp' and 'mfa' AMR must satisfy MFA assurance");
+    }
+
+    @Test
     public void testJwtWithTotpAmrSatisfiesMfa() {
         Map<String, Object> claims = new HashMap<>();
         claims.put("userLoginId", "admin");

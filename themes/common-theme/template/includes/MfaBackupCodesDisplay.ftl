@@ -18,8 +18,8 @@ under the License.
 -->
 <#if flashBackupCodes?has_content>
 <div style="background-color: #fff3cd; border: 1px solid #ffeeba; color: #856404; padding: 15px; margin: 15px 0; border-radius: 4px;">
-    <h4 style="margin-top: 0; color: #856404;"><strong>Your Backup Recovery Codes</strong></h4>
-    <p><strong>Save these recovery codes now. If you lose access to your authenticator app, these codes are the ONLY way to recover your account. Each code can be used only once.</strong></p>
+    <h4 style="margin-top: 0; color: #856404;"><strong>${uiLabelMap.SecurityMfaBackupCodesGeneratedTitle}</strong></h4>
+    <p><strong>${uiLabelMap.SecurityMfaBackupCodesWarning}</strong></p>
     <div id="mfaBackupCodesList" style="font-family: monospace; font-size: 1.15em; display: flex; flex-wrap: wrap; gap: 10px; margin: 15px 0;">
         <#list flashBackupCodes as bCode>
             <div class="mfaBackupCode" style="background: #ffffff; color: #212529; padding: 8px 14px; border: 1px solid #ced4da; border-radius: 3px; font-weight: bold; min-width: 110px; text-align: center;">
@@ -29,13 +29,13 @@ under the License.
     </div>
     <button type="button" id="mfaCopyAllBackupCodesBtn" onclick="copyAllMfaBackupCodes(this)"
             style="padding: 8px 16px; border-radius: 3px; border: 1px solid #856404; background: #ffffff; color: #856404; font-weight: bold; cursor: pointer;">
-        Copy all codes
+        ${uiLabelMap.SecurityMfaCopyAllBackupCodes}
     </button>
     <#-- Rendered as normal (singly) HTML-escaped text, then read back via textContent at copy time: keeps
          the "Copied!" label correct regardless of the page's auto-escaping policy, instead of re-escaping
          it a second time for inlining into the script below. -->
-    <span id="mfaBackupCodesCopiedLabel" style="display:none;">Copied!</span>
-    <p style="margin-bottom: 0; margin-top: 10px;"><em>Please copy or print these codes now. They will not be displayed again.</em></p>
+    <span id="mfaBackupCodesCopiedLabel" style="display:none;">${uiLabelMap.SecurityMfaBackupCodesCopied}</span>
+    <p style="margin-bottom: 0; margin-top: 10px;"><em>${uiLabelMap.SecurityMfaBackupCodesOneTimeNotice}</em></p>
 </div>
 <script>
     function copyAllMfaBackupCodes(buttonEl) {

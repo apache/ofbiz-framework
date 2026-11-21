@@ -30,6 +30,7 @@ import java.util.Base64;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -39,6 +40,7 @@ import org.apache.ofbiz.base.crypto.HashCrypt;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilMisc;
+import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
@@ -65,6 +67,7 @@ public final class MfaServices {
     public static final String PENDING_REPLAY_PARAMS = "_MFA_PENDING_REPLAY_PARAMS_";
     public static final String PENDING_REPLAY_AT = "_MFA_PENDING_REPLAY_AT_";
     private static final String MODULE = MfaServices.class.getName();
+    private static final String RESOURCE = "SecurityextUiLabels";
     private static final String TOTP = "ULAF_TOTP";
     public static final String BACKUP_CODE = "ULAF_BACKUP";
     public static final int DEFAULT_BACKUP_CODES_COUNT = 10;
@@ -74,6 +77,15 @@ public final class MfaServices {
 
     private MfaServices() { }
 
+    /**
+     * Decides whether {@code userLoginId} must complete a second factor at all: true if they already have
+     * an active primary (non-backup) factor enrolled, or the global switch is on and they belong to a
+     * security group with {@code requireAuthFactor='Y'}. System accounts are always exempt.
+     * @param delegator the delegator
+     * @param userLoginId the account to evaluate
+     * @return true if a second factor is required
+     * @throws GenericEntityException if the UserLogin or its factors cannot be read
+     */
     public static boolean isMfaRequired(Delegator delegator, String userLoginId) throws GenericEntityException {
         GenericValue targetUserLogin = userLoginId == null ? null : EntityQuery.use(delegator)
                 .from("UserLogin").where("userLoginId", userLoginId).cache(false).queryOne();
@@ -106,6 +118,14 @@ public final class MfaServices {
         }
     }
 
+    /**
+     * Service wrapper around {@link #isMfaRequired}: also checks whether the supplied
+     * {@code authenticationContext} already satisfies the policy, so a trusted external assurance (e.g. a
+     * JWT {@code amr} claim) can skip the interactive challenge.
+     * @param ctx the service dispatch context
+     * @param context service input: {@code userLoginId}, optional {@code authenticationContext}
+     * @return {@code required} and {@code mfaSatisfied} flags
+     */
     public static Map<String, Object> isUserLoginMfaRequired(DispatchContext ctx, Map<String, ?> context) {
         Map<String, Object> result = ServiceUtil.returnSuccess();
         Delegator delegator = ctx.getDelegator();
@@ -123,7 +143,8 @@ public final class MfaServices {
             result.put("required", !mfaSatisfied);
             return result;
         } catch (GenericEntityException e) {
-            return ServiceUtil.returnError("Unable to evaluate authentication-factor policy");
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "mfaservices.unable_to_evaluate_policy",
+                    (Locale) context.get("locale")));
         }
     }
 
@@ -245,10 +266,21 @@ public final class MfaServices {
         return new PendingMfaReplay(kind, params);
     }
 
+    /**
+     * Begins self-service TOTP enrollment: expires any other not-yet-confirmed TOTP factor for the
+     * account, creates a new pending one with a fresh secret, and returns its provisioning URI and QR
+     * code for the user to scan. Requires the caller's current password; the factor stays inactive until
+     * {@link #confirmUserLoginTotpFactor} accepts a code against it.
+     * @param ctx the service dispatch context
+     * @param context service input: {@code userLogin}, optional {@code label}, {@code currentPassword},
+     *         optional {@code locale}
+     * @return the new factor's id, secret, provisioning URI and QR code data URI
+     */
     public static Map<String, Object> createUserLoginTotpFactor(DispatchContext ctx, Map<String, ?> context) {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         if (userLogin == null || !reauthenticate(ctx, userLogin, (String) context.get("currentPassword"), context.get("locale"))) {
-            return ServiceUtil.returnError("Current credentials could not be verified");
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "mfaservices.current_credentials_not_verified",
+                    (Locale) context.get("locale")));
         }
         Delegator delegator = ctx.getDelegator();
         String secret = TotpUtil.generateSecret();
@@ -272,7 +304,8 @@ public final class MfaServices {
                     "fromDate", UtilDateTime.nowTimestamp()));
             factor.create();
         } catch (GenericEntityException e) {
-            return ServiceUtil.returnError("Unable to create pending authenticator factor");
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "mfaservices.unable_to_create_pending_factor",
+                    (Locale) context.get("locale")));
         }
         String account = userLogin.getString("userLoginId");
         String uri = "otpauth://totp/" + urlEncode(issuer + ":" + account) + "?secret=" + secret
@@ -285,12 +318,20 @@ public final class MfaServices {
         return result;
     }
 
+    /**
+     * Confirms a pending TOTP factor: checks the submitted code against its secret within the configured
+     * step window, and on success activates the factor and issues a fresh set of backup recovery codes.
+     * @param ctx the service dispatch context
+     * @param context service input: {@code userLogin}, {@code factorId}, {@code code}
+     * @return the newly generated backup codes
+     */
     public static Map<String, Object> confirmUserLoginTotpFactor(DispatchContext ctx, Map<String, ?> context) {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String factorId = (String) context.get("factorId");
         String code = (String) context.get("code");
         if (userLogin == null || factorId == null || code == null) {
-            return ServiceUtil.returnError("Authenticator confirmation failed");
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "loginevents.mfa_authenticator_confirmation_failed",
+                    (Locale) context.get("locale")));
         }
         Delegator delegator = ctx.getDelegator();
         try {
@@ -300,7 +341,8 @@ public final class MfaServices {
                     .cache(false).queryOne();
             long acceptedStep = findMatchingTotpStep(delegator, factor == null ? null : factor.getString("secret"), code);
             if (factor == null || acceptedStep < 0) {
-                return ServiceUtil.returnError("Authenticator confirmation failed");
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "loginevents.mfa_authenticator_confirmation_failed",
+                        (Locale) context.get("locale")));
             }
             factor.set("needsValidation", "N");
             factor.set("lastUsedStep", acceptedStep);
@@ -312,10 +354,20 @@ public final class MfaServices {
             result.put("backupCodes", backupCodes);
             return result;
         } catch (GenericEntityException e) {
-            return ServiceUtil.returnError("Authenticator confirmation failed");
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "loginevents.mfa_authenticator_confirmation_failed",
+                    (Locale) context.get("locale")));
         }
     }
 
+    /**
+     * Lists an account's active, non-backup authentication factors (id, type, label, validation state,
+     * enrollment/last-used dates) without exposing any secret. Viewing another user's factors requires
+     * the {@code SECURITY} {@code _VIEW} permission.
+     * @param ctx the service dispatch context
+     * @param context service input: {@code userLogin}, optional {@code targetUserLoginId} (defaults to
+     *         the caller)
+     * @return the matching factors, each with its secret omitted
+     */
     public static Map<String, Object> getUserLoginAuthFactors(DispatchContext ctx, Map<String, ?> context) {
         GenericValue actor = (GenericValue) context.get("userLogin");
         String targetUserLoginId = (String) context.get("targetUserLoginId");
@@ -323,11 +375,13 @@ public final class MfaServices {
             targetUserLoginId = actor.getString("userLoginId");
         }
         if (actor == null || targetUserLoginId == null) {
-            return ServiceUtil.returnError("Unable to retrieve authentication factors");
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "mfaservices.unable_to_retrieve_factors",
+                    (Locale) context.get("locale")));
         }
         boolean self = targetUserLoginId.equals(actor.getString("userLoginId"));
         if (!self && !ctx.getSecurity().hasEntityPermission("SECURITY", "_VIEW", actor)) {
-            return ServiceUtil.returnError("Not authorized to view authentication factors");
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "mfaservices.not_authorized_to_view_factors",
+                    (Locale) context.get("locale")));
         }
         try {
             List<GenericValue> storedFactors = EntityQuery.use(ctx.getDelegator()).from("UserLoginAuthFactor")
@@ -359,41 +413,56 @@ public final class MfaServices {
             result.put("factors", safeFactors);
             return result;
         } catch (GenericEntityException e) {
-            return ServiceUtil.returnError("Unable to retrieve authentication factors");
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "mfaservices.unable_to_retrieve_factors",
+                    (Locale) context.get("locale")));
         }
     }
 
+    /**
+     * Revokes (sets {@code thruDate} on) an authentication factor. Self-service revocation
+     * re-authenticates with the current password; an administrator revoking another user's factor needs
+     * the {@code SECURITY} {@code _UPDATE} permission and a non-blank reason. Refuses to drop the
+     * account's last factor while a security-group policy still mandates MFA for it.
+     * @param ctx the service dispatch context
+     * @param context service input: {@code userLogin} (the actor), {@code factorId}, optional
+     *         {@code currentPassword}, optional {@code reason}
+     * @return success, or an error if not authorized or the factor is still required
+     */
     public static Map<String, Object> revokeUserLoginAuthFactor(DispatchContext ctx, Map<String, ?> context) {
         GenericValue actor = (GenericValue) context.get("userLogin");
         String factorId = (String) context.get("factorId");
         String currentPassword = (String) context.get("currentPassword");
         String reason = (String) context.get("reason");
         if (actor == null || factorId == null || reason != null && reason.length() > 255) {
-            return ServiceUtil.returnError("Unable to revoke authentication factor");
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "mfaservices.unable_to_revoke_factor",
+                    (Locale) context.get("locale")));
         }
         try {
             Delegator delegator = ctx.getDelegator();
             GenericValue factor = EntityQuery.use(delegator).from("UserLoginAuthFactor")
                     .where("factorId", factorId).cache(false).queryOne();
             if (factor == null || factor.getTimestamp("thruDate") != null) {
-                return ServiceUtil.returnError("Authentication factor is unavailable");
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "mfaservices.factor_unavailable", (Locale) context.get("locale")));
             }
             String targetUserLoginId = factor.getString("userLoginId");
             String actorUserLoginId = actor.getString("userLoginId");
             boolean self = actorUserLoginId.equals(targetUserLoginId);
             if (self) {
                 if (!reauthenticate(ctx, actor, currentPassword, context.get("locale"))) {
-                    return ServiceUtil.returnError("Current credentials could not be verified");
+                    return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "mfaservices.current_credentials_not_verified",
+                            (Locale) context.get("locale")));
                 }
             } else if (!ctx.getSecurity().hasEntityPermission("SECURITY", "_UPDATE", actor)
                     || reason == null || reason.isBlank()) {
-                return ServiceUtil.returnError("Not authorized to revoke this authentication factor");
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "mfaservices.not_authorized_to_revoke_factor",
+                        (Locale) context.get("locale")));
             }
             boolean mfaEnabled = Boolean.parseBoolean(EntityUtilProperties.getPropertyValue("security",
                     "security.login.authFactor.enable", "false", delegator));
             if (self && mfaEnabled && hasRequiredSecurityGroup(delegator, targetUserLoginId)
                     && activeFactors(delegator, targetUserLoginId).size() <= 1) {
-                return ServiceUtil.returnError("A required authentication factor cannot be removed while the group policy is active");
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "mfaservices.required_factor_cannot_be_removed",
+                        (Locale) context.get("locale")));
             }
             Timestamp now = UtilDateTime.nowTimestamp();
             int updated = delegator.storeByCondition("UserLoginAuthFactor", Map.of("thruDate", now), and(
@@ -401,21 +470,32 @@ public final class MfaServices {
                     EntityCondition.makeCondition("userLoginId", EntityOperator.EQUALS, targetUserLoginId),
                     EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null)));
             if (updated != 1) {
-                return ServiceUtil.returnError("Authentication factor is unavailable");
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "mfaservices.factor_unavailable", (Locale) context.get("locale")));
             }
             recordEvent(delegator, targetUserLoginId, actorUserLoginId, "MFA_FACTOR_REVOKED",
                     factor.getString("factorType"), null, reason);
             return ServiceUtil.returnSuccess();
         } catch (GenericEntityException e) {
-            return ServiceUtil.returnError("Unable to revoke authentication factor");
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "mfaservices.unable_to_revoke_factor",
+                    (Locale) context.get("locale")));
         }
     }
 
+    /**
+     * Creates a pending {@code UserLoginAuthChallenge} bound to the current session for a user who has
+     * already passed primary authentication. Returns {@code mustEnroll=true} instead of a challenge when
+     * the account has no factor yet but belongs to an MFA-mandated security group.
+     * @param ctx the service dispatch context
+     * @param context service input: {@code userLogin}, {@code request}
+     * @return {@code required}/{@code mustEnroll} flags and, if a challenge was created, its
+     *         {@code challengeId}
+     */
     public static Map<String, Object> createUserLoginMfaChallenge(DispatchContext ctx, Map<String, ?> context) {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         HttpServletRequest request = (HttpServletRequest) context.get("request");
         if (userLogin == null || request == null) {
-            return ServiceUtil.returnError("Unable to start authentication challenge");
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "mfaservices.unable_to_start_challenge",
+                    (Locale) context.get("locale")));
         }
         Delegator delegator = ctx.getDelegator();
         try {
@@ -433,7 +513,6 @@ public final class MfaServices {
             GenericValue challenge = delegator.makeValue("UserLoginAuthChallenge", Map.of(
                     "challengeId", challengeId,
                     "userLoginId", userLogin.getString("userLoginId"),
-                    "delegatorName", delegator.getDelegatorName(),
                     "sessionBindingHash", sessionHash(request.getSession().getId()),
                     "challengeStatus", "PENDING",
                     "attemptCount", 0L,
@@ -443,6 +522,7 @@ public final class MfaServices {
             HttpSession session = request.getSession();
             session.setAttribute(PENDING_CHALLENGE, challengeId);
             session.setAttribute(PENDING_USER, userLogin.getString("userLoginId"));
+            session.removeAttribute(PRIMARY_VERIFIED);
             if (mustEnroll) {
                 session.setAttribute(PENDING_ENROLLMENT, Boolean.TRUE);
             } else {
@@ -455,24 +535,37 @@ public final class MfaServices {
             result.put("challengeId", challengeId);
             return result;
         } catch (GenericEntityException e) {
-            return ServiceUtil.returnError("Unable to start authentication challenge");
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "mfaservices.unable_to_start_challenge",
+                    (Locale) context.get("locale")));
         }
     }
 
+    /**
+     * Finishes a mandatory TOTP enrollment forced during login (see {@link #createUserLoginMfaChallenge}'s
+     * {@code mustEnroll}): validates the submitted code against the pending factor bound to this session,
+     * activates it on success, and issues backup codes. Locks the account via
+     * {@link #handleFailedMfaAttempt} after too many wrong codes.
+     * @param ctx the service dispatch context
+     * @param context service input: {@code request}, {@code code}
+     * @return {@code activated} flag and the new backup codes
+     */
     public static Map<String, Object> completeForcedTotpEnrollment(DispatchContext ctx, Map<String, ?> context) {
         HttpServletRequest request = (HttpServletRequest) context.get("request");
         if (request == null) {
-            return ServiceUtil.returnError("Unable to complete authenticator enrollment");
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "mfaservices.unable_to_complete_enrollment",
+                    (Locale) context.get("locale")));
         }
         HttpSession session = request.getSession(false);
         if (session == null || !Boolean.TRUE.equals(session.getAttribute(PENDING_ENROLLMENT))) {
-            return ServiceUtil.returnError("Unable to complete authenticator enrollment");
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "mfaservices.unable_to_complete_enrollment",
+                    (Locale) context.get("locale")));
         }
         String pendingUserId = (String) session.getAttribute(PENDING_USER);
         String factorId = (String) session.getAttribute(PENDING_ENROLLMENT_FACTOR);
         String code = (String) context.get("code");
         if (pendingUserId == null || factorId == null || code == null || code.length() > 64) {
-            return ServiceUtil.returnError("Unable to complete authenticator enrollment");
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "mfaservices.unable_to_complete_enrollment",
+                    (Locale) context.get("locale")));
         }
         Delegator delegator = ctx.getDelegator();
         try {
@@ -481,17 +574,19 @@ public final class MfaServices {
                             "challengeStatus", "PENDING")
                     .cache(false).queryOne();
             if (!challengeIsValid(challenge, request)) {
-                return ServiceUtil.returnError("Unable to complete authenticator enrollment");
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "mfaservices.unable_to_complete_enrollment",
+                        (Locale) context.get("locale")));
             }
             int maxAttempts = getIntProperty(delegator, "security.login.authFactor.maxVerifyAttempts", 5);
             long attempts = challenge.getLong("attemptCount") == null ? 0 : challenge.getLong("attemptCount");
             if (attempts >= maxAttempts) {
-                return ServiceUtil.returnError("Unable to complete authenticator enrollment");
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "mfaservices.unable_to_complete_enrollment",
+                        (Locale) context.get("locale")));
             }
             GenericValue userLogin = EntityQuery.use(delegator).from("UserLogin")
                     .where("userLoginId", pendingUserId).cache(false).queryOne();
             if (userLogin == null || "N".equals(userLogin.getString("enabled"))) {
-                return ServiceUtil.returnError("Account has been disabled");
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "mfaservices.account_disabled", (Locale) context.get("locale")));
             }
             GenericValue factor = EntityQuery.use(delegator).from("UserLoginAuthFactor")
                     .where("factorId", factorId, "userLoginId", pendingUserId, "factorType", TOTP,
@@ -501,7 +596,8 @@ public final class MfaServices {
                 handleFailedMfaAttempt(delegator, userLogin, challenge, attempts, maxAttempts);
                 recordEvent(delegator, pendingUserId, "MFA_VERIFY_FAILURE", TOTP,
                         (String) session.getAttribute(PENDING_CHALLENGE));
-                return ServiceUtil.returnError("Authenticator confirmation failed");
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "loginevents.mfa_authenticator_confirmation_failed",
+                        (Locale) context.get("locale")));
             }
             int activated = delegator.storeByCondition("UserLoginAuthFactor",
                     Map.of("needsValidation", "N", "lastUsedDate", UtilDateTime.nowTimestamp(), "lastUsedStep", acceptedStep),
@@ -510,7 +606,8 @@ public final class MfaServices {
                             EntityCondition.makeCondition("needsValidation", EntityOperator.EQUALS, "Y"),
                             EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null)));
             if (activated != 1) {
-                return ServiceUtil.returnError("Authenticator confirmation failed");
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "loginevents.mfa_authenticator_confirmation_failed",
+                        (Locale) context.get("locale")));
             }
             session.removeAttribute(PENDING_ENROLLMENT);
             session.removeAttribute(PRIMARY_VERIFIED);
@@ -522,45 +619,61 @@ public final class MfaServices {
             result.put("backupCodes", backupCodes);
             return result;
         } catch (GenericEntityException e) {
-            return ServiceUtil.returnError("Authenticator confirmation failed");
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "loginevents.mfa_authenticator_confirmation_failed",
+                    (Locale) context.get("locale")));
         }
     }
 
+    /**
+     * Verifies a submitted TOTP/backup code against the session's pending login challenge and, on
+     * success, marks it {@code VERIFIED} (optimistic-concurrency guarded on {@code attemptCount}) for
+     * {@code LoginServices#completeUserLoginMfa} to consume. Enforces the per-challenge attempt limit and
+     * locks the account via {@link #handleFailedMfaAttempt} after too many failures.
+     * @param ctx the service dispatch context
+     * @param context service input: {@code request}, {@code code}
+     * @return {@code verified} flag, or {@code accountLocked} if this failure crossed the lockout
+     *         threshold
+     */
     public static Map<String, Object> verifyUserLoginMfaChallenge(DispatchContext ctx, Map<String, ?> context) {
         HttpServletRequest request = (HttpServletRequest) context.get("request");
         String code = (String) context.get("code");
         if (request == null || code == null || code.length() > 64) {
-            return ServiceUtil.returnError("Invalid or expired authentication challenge");
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "loginevents.mfa_invalid_or_expired_challenge",
+                    (Locale) context.get("locale")));
         }
         HttpSession session = request.getSession(false);
         if (session == null) {
-            return ServiceUtil.returnError("Invalid or expired authentication challenge");
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "loginevents.mfa_invalid_or_expired_challenge",
+                    (Locale) context.get("locale")));
         }
         String challengeId = (String) session.getAttribute(PENDING_CHALLENGE);
         String pendingUserId = (String) session.getAttribute(PENDING_USER);
         if (challengeId == null || pendingUserId == null) {
-            return ServiceUtil.returnError("Invalid or expired authentication challenge");
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "loginevents.mfa_invalid_or_expired_challenge",
+                    (Locale) context.get("locale")));
         }
         Delegator delegator = ctx.getDelegator();
         try {
             GenericValue userLogin = EntityQuery.use(delegator).from("UserLogin")
                     .where("userLoginId", pendingUserId).cache(false).queryOne();
             if (userLogin == null || "N".equals(userLogin.getString("enabled"))) {
-                Map<String, Object> result = ServiceUtil.returnError("Invalid or expired authentication challenge");
+                Map<String, Object> result = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "mfaservices.account_disabled",
+                        (Locale) context.get("locale")));
                 result.put("accountLocked", true);
                 return result;
             }
             GenericValue challenge = EntityQuery.use(delegator).from("UserLoginAuthChallenge")
-                    .where("challengeId", challengeId, "userLoginId", pendingUserId,
-                            "challengeStatus", "PENDING")
+                    .where("challengeId", challengeId, "userLoginId", pendingUserId, "challengeStatus", "PENDING")
                     .cache(false).queryOne();
             if (!challengeIsValid(challenge, request)) {
-                return ServiceUtil.returnError("Invalid or expired authentication challenge");
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "loginevents.mfa_invalid_or_expired_challenge",
+                        (Locale) context.get("locale")));
             }
             int maxAttempts = getIntProperty(delegator, "security.login.authFactor.maxVerifyAttempts", 5);
             long attempts = challenge.getLong("attemptCount") == null ? 0 : challenge.getLong("attemptCount");
             if (attempts >= maxAttempts) {
-                return ServiceUtil.returnError("Invalid or expired authentication challenge");
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "loginevents.mfa_invalid_or_expired_challenge",
+                        (Locale) context.get("locale")));
             }
             GenericValue usedFactor = consumeFactorCode(delegator, pendingUserId, code);
             if (usedFactor == null) {
@@ -583,7 +696,8 @@ public final class MfaServices {
                             EntityCondition.makeCondition("sessionBindingHash", EntityOperator.EQUALS,
                                     sessionHash(session.getId()))));
             if (claimed != 1) {
-                return ServiceUtil.returnError("Invalid or expired authentication challenge");
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "loginevents.mfa_invalid_or_expired_challenge",
+                        (Locale) context.get("locale")));
             }
             session.setAttribute(VERIFIED_CHALLENGE, challengeId);
             recordEvent(delegator, pendingUserId, "MFA_VERIFY_SUCCESS", usedFactor.getString("factorType"), challengeId);
@@ -591,14 +705,30 @@ public final class MfaServices {
             result.put("verified", true);
             return result;
         } catch (GenericEntityException e) {
-            return ServiceUtil.returnError("Invalid or expired authentication challenge");
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "loginevents.mfa_invalid_or_expired_challenge",
+                    (Locale) context.get("locale")));
         }
     }
 
+    /**
+     * True when the account has at least one active factor of any kind, including backup codes (unlike
+     * {@link #hasActiveFactor}, which only counts primary factors).
+     */
     public static boolean hasActiveFactors(Delegator delegator, String userLoginId) throws GenericEntityException {
         return !activeFactors(delegator, userLoginId).isEmpty();
     }
 
+    /**
+     * Atomically marks a session-verified challenge {@code CONSUMED}, so it cannot be reused to complete
+     * a second login. Fails if the challenge was not the one this session itself verified, has expired,
+     * or was already consumed.
+     * @param delegator the delegator
+     * @param request the current request, whose session must hold the verified challenge id
+     * @param userLoginId the account the challenge belongs to
+     * @param challengeId the challenge to consume
+     * @return true if the challenge was successfully claimed
+     * @throws GenericEntityException if the update fails
+     */
     public static boolean consumeVerifiedChallenge(Delegator delegator, HttpServletRequest request,
             String userLoginId, String challengeId) throws GenericEntityException {
         HttpSession session = request.getSession(false);
@@ -608,7 +738,6 @@ public final class MfaServices {
         int consumed = delegator.storeByCondition("UserLoginAuthChallenge", Map.of("challengeStatus", "CONSUMED"),
                 and(EntityCondition.makeCondition("challengeId", EntityOperator.EQUALS, challengeId),
                         EntityCondition.makeCondition("userLoginId", EntityOperator.EQUALS, userLoginId),
-                        EntityCondition.makeCondition("delegatorName", EntityOperator.EQUALS, delegator.getDelegatorName()),
                         EntityCondition.makeCondition("challengeStatus", EntityOperator.EQUALS, "VERIFIED"),
                         EntityCondition.makeCondition("expiresDate", EntityOperator.GREATER_THAN, UtilDateTime.nowTimestamp()),
                         EntityCondition.makeCondition("sessionBindingHash", EntityOperator.EQUALS, sessionHash(session.getId()))));
@@ -792,6 +921,10 @@ public final class MfaServices {
         return null;
     }
 
+    /**
+     * Tries a submitted code as a TOTP code first, then as a backup recovery code, consuming whichever
+     * one matches. Returns the factor that was consumed, or null if the code matched neither.
+     */
     public static GenericValue consumeFactorCode(Delegator delegator, String userLoginId, String code)
             throws GenericEntityException {
         if (code == null) {
@@ -804,6 +937,17 @@ public final class MfaServices {
         return consumeBackupCode(delegator, userLoginId, code);
     }
 
+    /**
+     * REST counterpart of {@link #createUserLoginMfaChallenge}: creates a pending challenge bound to the
+     * requesting API group (via {@code sessionBindingHash}, prefixed {@code "rest:"}) instead of an HTTP
+     * session, so {@link #verifyRestMfaChallenge} can later confirm it was issued for that same group.
+     * @param delegator the delegator
+     * @param userLoginId the already-password-authenticated account
+     * @param apiGroupPath the REST API group the eventual token will be scoped to
+     * @return the challenge id and allowed-factor hints, or {@code required=false} if no challenge is
+     *         needed
+     * @throws GenericEntityException if the challenge cannot be created
+     */
     public static Map<String, Object> createRestMfaChallenge(Delegator delegator, String userLoginId, String apiGroupPath)
             throws GenericEntityException {
         List<GenericValue> factors = activePrimaryFactors(delegator, userLoginId);
@@ -830,7 +974,6 @@ public final class MfaServices {
         GenericValue challenge = delegator.makeValue("UserLoginAuthChallenge", Map.of(
                 "challengeId", challengeId,
                 "userLoginId", userLoginId,
-                "delegatorName", delegator.getDelegatorName(),
                 "sessionBindingHash", bindingHash,
                 "challengeStatus", "PENDING",
                 "attemptCount", 0L,
@@ -845,40 +988,53 @@ public final class MfaServices {
         return result;
     }
 
+    /**
+     * REST counterpart of {@link #verifyUserLoginMfaChallenge}: verifies a submitted code against a
+     * group-bound REST challenge, commits the login (resets {@code successiveFailedLogins}, records
+     * {@code UserLoginHistory}) on success, and enforces the same per-challenge attempt limit and account
+     * lockout.
+     * @param delegator the delegator
+     * @param challengeId the challenge to verify
+     * @param code the submitted TOTP/backup code
+     * @return the authenticated {@code userLoginId} and {@code factorType}, for the caller to mint a
+     *         token with
+     * @throws GenericEntityException if the challenge or UserLogin cannot be read/updated
+     */
     public static Map<String, Object> verifyRestMfaChallenge(Delegator delegator, String challengeId, String code)
             throws GenericEntityException {
         if (challengeId == null || code == null || code.length() > 64) {
-            return ServiceUtil.returnError("Invalid or expired authentication challenge");
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "loginevents.mfa_invalid_or_expired_challenge", (Locale) null));
         }
         GenericValue challenge = EntityQuery.use(delegator).from("UserLoginAuthChallenge")
                 .where("challengeId", challengeId)
                 .cache(false).queryOne();
         if (challenge == null || !"PENDING".equals(challenge.getString("challengeStatus"))) {
-            return ServiceUtil.returnError("Authentication challenge is invalid or has expired");
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "mfaservices.challenge_invalid_or_expired", (Locale) null));
         }
         Timestamp expires = challenge.getTimestamp("expiresDate");
         if (expires == null || expires.before(UtilDateTime.nowTimestamp())) {
-            return ServiceUtil.returnError("Authentication challenge is invalid or has expired");
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "mfaservices.challenge_invalid_or_expired", (Locale) null));
         }
         int maxAttempts = getIntProperty(delegator, "security.login.authFactor.maxVerifyAttempts", 5);
         long attempts = challenge.getLong("attemptCount") == null ? 0 : challenge.getLong("attemptCount");
         if (attempts >= maxAttempts) {
-            return ServiceUtil.returnError("Maximum verification attempts exceeded. Please restart authentication");
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "mfaservices.max_verification_attempts_exceeded", (Locale) null));
         }
         String userLoginId = challenge.getString("userLoginId");
         GenericValue userLogin = EntityQuery.use(delegator).from("UserLogin")
                 .where("userLoginId", userLoginId).cache(false).queryOne();
         if (userLogin == null || "N".equals(userLogin.getString("enabled"))) {
-            return ServiceUtil.returnError("Account has been disabled");
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "mfaservices.account_disabled", (Locale) null));
         }
         GenericValue usedFactor = consumeFactorCode(delegator, userLoginId, code);
         if (usedFactor == null) {
             boolean locked = handleFailedMfaAttempt(delegator, userLogin, challenge, attempts, maxAttempts);
             recordEvent(delegator, userLoginId, "MFA_VERIFY_FAILURE", null, challengeId);
             if (locked) {
-                return ServiceUtil.returnError("Account has been disabled due to too many failed attempts");
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "mfaservices.account_disabled_too_many_failed_attempts",
+                        (Locale) null));
             }
-            return ServiceUtil.returnError("Invalid authentication code");
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "mfaservices.invalid_authentication_code", (Locale) null));
         }
         int claimed = delegator.storeByCondition("UserLoginAuthChallenge",
                 Map.of("challengeStatus", "CONSUMED", "verifiedDate", UtilDateTime.nowTimestamp(),
@@ -887,7 +1043,7 @@ public final class MfaServices {
                         EntityCondition.makeCondition("challengeStatus", EntityOperator.EQUALS, "PENDING"),
                         EntityCondition.makeCondition("attemptCount", EntityOperator.EQUALS, attempts)));
         if (claimed != 1) {
-            return ServiceUtil.returnError("Authentication challenge is invalid or has expired");
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "mfaservices.challenge_invalid_or_expired", (Locale) null));
         }
         Long failedLogins = userLogin.getLong("successiveFailedLogins");
         if (failedLogins != null && failedLogins > 0) {
@@ -968,11 +1124,21 @@ public final class MfaServices {
                         EntityCondition.makeCondition("attemptCount", EntityOperator.EQUALS, attempts)));
     }
 
+    /**
+     * Public entry point for callers outside this class to append a {@code UserAuthenticationEvent} audit
+     * row (and trigger a security-alert notification) for events that don't involve an administrative
+     * actor.
+     */
     public static void recordAuthenticationEvent(Delegator delegator, String userLoginId,
             String eventType, String factorType, String challengeId) {
         recordEvent(delegator, userLoginId, eventType, factorType, challengeId);
     }
 
+    /**
+     * Like {@link #recordAuthenticationEvent}, but for actions an administrator performed on another
+     * user's account (e.g. an administrative password reset), recording the administrator as the acting
+     * user along with the supplied reason.
+     */
     public static void recordAdministrativeAuthenticationEvent(Delegator delegator, String userLoginId,
             String actorUserLoginId, String eventType, String reason) {
         recordEvent(delegator, userLoginId, actorUserLoginId, eventType, null, null, reason);
@@ -1152,6 +1318,11 @@ public final class MfaServices {
         }
     }
 
+    /**
+     * Renders {@code text} (an {@code otpauth://} provisioning URI) as a QR code and returns it as a
+     * base64-encoded PNG data URI, so the browser can display it with no external QR-rendering
+     * dependency. Returns null if encoding fails.
+     */
     public static String generateQrCodeDataUri(String text, int width, int height) {
         try {
             com.google.zxing.qrcode.QRCodeWriter qrCodeWriter = new com.google.zxing.qrcode.QRCodeWriter();
@@ -1209,7 +1380,8 @@ public final class MfaServices {
                     + " old authentication audit events.", MODULE);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Error purging old MFA challenges and events", MODULE);
-            return ServiceUtil.returnError("Error during MFA purge: " + e.getMessage());
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "mfaservices.purge_error",
+                    UtilMisc.toMap("errorDetail", e.getMessage()), (Locale) context.get("locale")));
         }
 
         Map<String, Object> result = ServiceUtil.returnSuccess();

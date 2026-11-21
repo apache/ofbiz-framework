@@ -93,7 +93,8 @@ public class LoginServices {
      */
     public static Map<String, Object> userLoginMfaPending(DispatchContext ctx, Map<String, ?> context) {
         if (Boolean.TRUE.equals(context.get("isServiceAuth"))) {
-            return ServiceUtil.returnError("MFA-pending authentication is only available for interactive logins");
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "loginservices.mfa_pending_interactive_only",
+                    (java.util.Locale) context.get("locale")));
         }
         return userLogin(ctx, context, true);
     }
@@ -109,14 +110,16 @@ public class LoginServices {
         HttpServletRequest request = (HttpServletRequest) context.get("request");
         HttpSession session = request == null ? null : request.getSession(false);
         if (session == null) {
-            return ServiceUtil.returnError("Authentication completion was not authorized");
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "loginservices.mfa_authentication_completion_not_authorized",
+                    (java.util.Locale) context.get("locale")));
         }
         String userLoginId = (String) session.getAttribute(MfaServices.PENDING_USER);
         String challengeId = (String) session.getAttribute(MfaServices.PENDING_CHALLENGE);
         String verifiedChallengeId = (String) session.getAttribute(MfaServices.VERIFIED_CHALLENGE);
         boolean primaryOnly = Boolean.TRUE.equals(session.getAttribute(MfaServices.PRIMARY_VERIFIED));
         if (userLoginId == null || (!primaryOnly && (challengeId == null || !challengeId.equals(verifiedChallengeId)))) {
-            return ServiceUtil.returnError("Authentication completion was not authorized");
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "loginservices.mfa_authentication_completion_not_authorized",
+                    (java.util.Locale) context.get("locale")));
         }
         Delegator delegator = ctx.getDelegator();
         try {
@@ -124,13 +127,16 @@ public class LoginServices {
                     .where("userLoginId", userLoginId).cache(false).queryOne();
             if (userLogin == null || "Y".equals(userLogin.getString("isSystem"))
                     || "N".equals(userLogin.getString("enabled"))) {
-                return ServiceUtil.returnError("Authentication completion was not authorized");
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "loginservices.mfa_authentication_completion_not_authorized",
+                        (java.util.Locale) context.get("locale")));
             }
             if (primaryOnly && MfaServices.isMfaRequired(delegator, userLoginId)) {
-                return ServiceUtil.returnError("Authentication-factor policy changed; restart login");
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "loginservices.mfa_authfactor_policy_changed_restart",
+                        (java.util.Locale) context.get("locale")));
             }
             if (!primaryOnly && !MfaServices.consumeVerifiedChallenge(delegator, request, userLoginId, challengeId)) {
-                return ServiceUtil.returnError("Authentication completion was not authorized");
+                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "loginservices.mfa_authentication_completion_not_authorized",
+                        (java.util.Locale) context.get("locale")));
             }
             markSuccessfulLogin(userLogin, false, userLogin.getBoolean("hasLoggedOut"));
             userLogin.store();
@@ -171,7 +177,8 @@ public class LoginServices {
             session.removeAttribute("_MFA_PENDING_PROVISIONING_URI_");
             return result;
         } catch (GenericEntityException e) {
-            return ServiceUtil.returnError("Unable to complete login");
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "loginevents.mfa_unable_to_complete_login",
+                    (java.util.Locale) context.get("locale")));
         }
     }
 

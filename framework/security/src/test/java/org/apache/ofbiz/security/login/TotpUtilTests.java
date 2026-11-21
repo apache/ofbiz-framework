@@ -112,4 +112,10 @@ public class TotpUtilTests {
         assertEquals(-1L, invalid);
     }
 
+    @Test
+    public void testCrockfordBase32Normalization() {
+        assertEquals("01123456", MfaServices.normalizeBackupCode("o-i-l-23456"));
+        assertEquals("01123456", MfaServices.normalizeBackupCode("O I L 23456"));
+        assertEquals("abcd1234", MfaServices.normalizeBackupCode("ABCD-1234"));
+    }
 }

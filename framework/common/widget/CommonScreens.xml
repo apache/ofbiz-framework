@@ -272,17 +272,17 @@ under the License.
                                 </platform-specific>
                             </widgets>
                         </section>
-                        <screenlet title="Set up multi-factor authentication (QR Code)">
-                            <label style="h3" text="Adding an authenticator requires your current password. The factor is not active until you confirm a code."/>
+                        <screenlet title="${uiLabelMap.SecurityMfaSetupTitle}">
+                            <label style="h3" text="${uiLabelMap.SecurityMfaSetupPrompt}"/>
                             <include-form name="MfaEnrollmentStartForm" location="component://common/widget/CommonForms.xml"/>
                         </screenlet>
-                        <screenlet title="Enrolled Authenticators">
-                            <label style="h4" text="To revoke an active authenticator, enter your current login password in the box next to it and click 'Revoke factor'."/>
+                        <screenlet title="${uiLabelMap.SecurityMfaEnrolledAuthenticators}">
+                            <label style="h4" text="${uiLabelMap.SecurityMfaRevokePrompt}"/>
                             <include-grid name="ListSelfMfaFactors" location="component://common/widget/CommonForms.xml"/>
                         </screenlet>
-                        <screenlet title="Backup Recovery Codes">
-                            <label style="h4" text="Active backup codes remaining: ${backupCodesCount}"/>
-                            <label text="Backup recovery codes let you access your account if you lose your phone or authenticator app. Generating new codes invalidates any existing unused codes."/>
+                        <screenlet title="${uiLabelMap.SecurityMfaBackupCodesTitle}">
+                            <label style="h4" text="${uiLabelMap.SecurityMfaBackupCodesRemaining}: ${backupCodesCount}"/>
+                            <label text="${uiLabelMap.SecurityMfaBackupCodesDescription}"/>
                             <include-form name="GenerateBackupCodesForm" location="component://common/widget/CommonForms.xml"/>
                         </screenlet>
                     </decorator-section>
@@ -298,8 +298,8 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet title="Complete multi-factor authentication">
-                            <label style="h3" text="Enter the 6-digit verification code from your authenticator app."/>
+                        <screenlet title="${uiLabelMap.SecurityMfaCompleteTitle}">
+                            <label style="h3" text="${uiLabelMap.SecurityMfaChallengePrompt}"/>
                             <include-form name="MfaChallengeForm" location="component://common/widget/CommonForms.xml"/>
                         </screenlet>
                     </decorator-section>
@@ -315,8 +315,8 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet title="Complete multi-factor authentication">
-                            <label style="h3" text="Enter the 6-digit verification code from your authenticator app."/>
+                        <screenlet title="${uiLabelMap.SecurityMfaCompleteTitle}">
+                            <label style="h3" text="${uiLabelMap.SecurityMfaChallengePrompt}"/>
                             <include-form name="MfaReverifyForm" location="component://common/widget/CommonForms.xml"/>
                         </screenlet>
                     </decorator-section>
@@ -336,8 +336,8 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet title="Set up Authenticator App (QR Code)">
-                            <label style="h3" text="Scan this QR code with Google Authenticator, Microsoft Authenticator, or 2FAS:"/>
+                        <screenlet title="${uiLabelMap.SecurityMfaSetupAppQrTitle}">
+                            <label style="h3" text="${uiLabelMap.SecurityMfaScanQrPrompt}"/>
                             <section>
                                 <condition><not><if-empty field="mfaQrCodeDataUri"/></not></condition>
                                 <widgets>
@@ -348,7 +348,7 @@ under the License.
                                 <condition><not><if-empty field="mfaSecret"/></not></condition>
                                 <widgets>
                                     <container style="alert alert-info">
-                                        <label style="h4" text="Can't scan the QR code? Enter this setup key manually into your authenticator app:"/>
+                                        <label style="h4" text="${uiLabelMap.SecurityMfaManualEntryPrompt}"/>
                                         <label style="h2" text="${mfaSecret}"/>
                                     </container>
                                 </widgets>
@@ -373,18 +373,18 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet title="Multi-factor authentication is required for your account">
+                        <screenlet title="${uiLabelMap.SecurityMfaForcedEnrollmentTitle}">
                             <section>
                                 <condition><if-empty field="mfaProvisioningUri"/></condition>
                                 <widgets>
-                                    <label style="h3" text="Set up an authenticator before continuing."/>
+                                    <label style="h3" text="${uiLabelMap.SecurityMfaForcedEnrollmentStartPrompt}"/>
                                     <include-form name="MfaForcedEnrollmentStartForm" location="component://common/widget/CommonForms.xml"/>
                                 </widgets>
                             </section>
                             <section>
                                 <condition><not><if-empty field="mfaProvisioningUri"/></not></condition>
                                 <widgets>
-                                    <label style="h3" text="Scan this QR code with your authenticator app, then enter the current 6-digit code:"/>
+                                    <label style="h3" text="${uiLabelMap.SecurityMfaForcedEnrollmentScanPrompt}"/>
                                     <section>
                                         <condition><not><if-empty field="mfaQrCodeDataUri"/></not></condition>
                                         <widgets>
@@ -395,7 +395,7 @@ under the License.
                                         <condition><not><if-empty field="mfaSecret"/></not></condition>
                                         <widgets>
                                             <container style="alert alert-info">
-                                                <label style="h4" text="Can't scan the QR code? Enter this setup key manually into your authenticator:"/>
+                                                <label style="h4" text="${uiLabelMap.SecurityMfaManualEntryPrompt}"/>
                                                 <label style="h2" text="${mfaSecret}"/>
                                             </container>
                                         </widgets>

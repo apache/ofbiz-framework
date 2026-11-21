@@ -30,6 +30,7 @@ import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.ofbiz.security.login.AuthenticationContext;
+import org.apache.ofbiz.security.login.MfaServices;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ModelService;
@@ -97,7 +98,8 @@ public class APIAuthFilter implements ContainerRequestFilter {
         }
         GenericValue userLogin = extractUserLoginFromJwtClaim(delegator, claims);
         boolean mfaEnabled = Boolean.parseBoolean(EntityUtilProperties.getPropertyValue("security",
-                "security.login.authFactor.enable", "false", delegator));
+                "security.login.authFactor.enable", "false", delegator))
+                || (userLogin != null && MfaServices.hasActiveFactor(delegator, userLogin.getString("userLoginId")));
         if (mfaEnabled && userLogin != null) {
             LocalDispatcher dispatcher = (LocalDispatcher) servletContext.getAttribute("dispatcher");
             if (dispatcher != null) {

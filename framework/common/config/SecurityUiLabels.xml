@@ -863,4 +863,219 @@
         <value xml:lang="zh">浏览证书</value>
         <value xml:lang="zh-TW">檢視憑證</value>
     </property>
+    <property key="PageTitleMfaSetup">
+        <value xml:lang="en">Multi-Factor Authentication Setup</value>
+        <value xml:lang="fr">Configuration de l'authentification multi-facteurs</value>
+        <value xml:lang="hi-IN">बहु-कारक प्रमाणीकरण सेटअप</value>
+    </property>
+    <property key="PageTitleMfaEnrollment">
+        <value xml:lang="en">Authenticator Enrollment</value>
+        <value xml:lang="fr">Enregistrement de l'authentificateur</value>
+        <value xml:lang="hi-IN">प्रमाणीकरण नामांकन</value>
+    </property>
+    <property key="SecurityMfaSetup">
+        <value xml:lang="en">MFA Setup</value>
+        <value xml:lang="fr">Configuration MFA</value>
+        <value xml:lang="hi-IN">MFA सेटअप</value>
+    </property>
+    <property key="SecurityAuthenticationFactors">
+        <value xml:lang="en">Authentication Factors</value>
+        <value xml:lang="fr">Facteurs d'authentification</value>
+        <value xml:lang="hi-IN">प्रमाणीकरण कारक</value>
+    </property>
+    <property key="SecurityRequireMfaForGroupMembers">
+        <value xml:lang="en">Require multi-factor authentication for group members</value>
+        <value xml:lang="fr">Exiger l'authentification multi-facteurs pour les membres du groupe</value>
+        <value xml:lang="hi-IN">समूह के सदस्यों के लिए बहु-कारक प्रमाणीकरण आवश्यक करें</value>
+    </property>
+    <property key="SecurityMfaRequired">
+        <value xml:lang="en">MFA Required</value>
+        <value xml:lang="fr">MFA requis</value>
+        <value xml:lang="hi-IN">MFA आवश्यक</value>
+    </property>
+    <property key="SecurityMfaRecoveryReason">
+        <value xml:lang="en">MFA Recovery Reason</value>
+        <value xml:lang="fr">Raison de récupération MFA</value>
+        <value xml:lang="hi-IN">MFA पुनर्प्राप्ति कारण</value>
+    </property>
+    <property key="SecurityMfaSetupTitle">
+        <value xml:lang="en">Set up multi-factor authentication (QR Code)</value>
+        <value xml:lang="fr">Configurer l'authentification multi-facteurs (Code QR)</value>
+        <value xml:lang="hi-IN">बहु-कारक प्रमाणीकरण सेट करें (QR कोड)</value>
+    </property>
+    <property key="SecurityMfaSetupPrompt">
+        <value xml:lang="en">Adding an authenticator requires your current password. The factor is not active until you confirm a code.</value>
+        <value xml:lang="fr">L'ajout d'un authentificateur nécessite votre mot de passe actuel. Le facteur n'est actif qu'après confirmation d'un code.</value>
+        <value xml:lang="hi-IN">प्रमाणीकरण जोड़ने के लिए आपके वर्तमान पासवर्ड की आवश्यकता है। कोड की पुष्टि होने तक कारक सक्रिय नहीं होगा।</value>
+    </property>
+    <property key="SecurityMfaEnrolledAuthenticators">
+        <value xml:lang="en">Enrolled Authenticators</value>
+        <value xml:lang="fr">Authentificateurs enregistrés</value>
+        <value xml:lang="hi-IN">नामांकित प्रमाणीकरणकर्ता</value>
+    </property>
+    <property key="SecurityMfaRevokePrompt">
+        <value xml:lang="en">To revoke an active authenticator, enter your current login password in the box next to it and click 'Revoke factor'.</value>
+        <value xml:lang="fr">Pour révoquer un authentificateur actif, entrez votre mot de passe actuel et cliquez sur 'Révoquer le facteur'.</value>
+        <value xml:lang="hi-IN">सक्रिय प्रमाणीकरणकर्ता को रद्द करने के लिए, उसके बगल के बॉक्स में अपना वर्तमान पासवर्ड दर्ज करें और 'कारक रद्द करें' पर क्लिक करें।</value>
+    </property>
+    <property key="SecurityMfaCompleteTitle">
+        <value xml:lang="en">Complete multi-factor authentication</value>
+        <value xml:lang="fr">Compléter l'authentification multi-facteurs</value>
+        <value xml:lang="hi-IN">बहु-कारक प्रमाणीकरण पूरा करें</value>
+    </property>
+    <property key="SecurityMfaChallengePrompt">
+        <value xml:lang="en">Enter the 6-digit code from your authenticator app or an 8-character backup recovery code.</value>
+        <value xml:lang="fr">Entrez le code à 6 chiffres de votre application d'authentification ou un code de récupération à 8 caractères.</value>
+        <value xml:lang="hi-IN">अपने प्रमाणीकरण ऐप से 6 अंकों का कोड या 8 अक्षरों का बैकअप रिकवरी कोड दर्ज करें।</value>
+    </property>
+    <property key="SecurityMfaSetupAppQrTitle">
+        <value xml:lang="en">Set up Authenticator App (QR Code)</value>
+        <value xml:lang="fr">Configurer l'application d'authentification (Code QR)</value>
+        <value xml:lang="hi-IN">प्रमाणीकरण ऐप सेट करें (QR कोड)</value>
+    </property>
+    <property key="SecurityMfaScanQrPrompt">
+        <value xml:lang="en">Scan this QR code with Google Authenticator, Microsoft Authenticator, or 2FAS:</value>
+        <value xml:lang="fr">Scannez ce code QR avec Google Authenticator, Microsoft Authenticator ou 2FAS :</value>
+        <value xml:lang="hi-IN">Google Authenticator, Microsoft Authenticator, या 2FAS के साथ इस QR कोड को स्कैन करें:</value>
+    </property>
+    <property key="SecurityMfaManualEntryPrompt">
+        <value xml:lang="en">Can't scan the QR code? Enter this setup key manually into your authenticator app:</value>
+        <value xml:lang="fr">Impossible de scanner le code QR ? Entrez cette clé de configuration manuellement dans votre application :</value>
+        <value xml:lang="hi-IN">QR कोड स्कैन नहीं कर सकते? इस सेटअप कुंजी को मैन्युअल रूप से अपने प्रमाणीकरण ऐप में दर्ज करें:</value>
+    </property>
+    <property key="SecurityMfaForcedEnrollmentTitle">
+        <value xml:lang="en">Multi-factor authentication is required for your account</value>
+        <value xml:lang="fr">L'authentification multi-facteurs est requise pour votre compte</value>
+        <value xml:lang="hi-IN">आपके खाते के लिए बहु-कारक प्रमाणीकरण आवश्यक है</value>
+    </property>
+    <property key="SecurityMfaForcedEnrollmentStartPrompt">
+        <value xml:lang="en">Set up an authenticator before continuing.</value>
+        <value xml:lang="fr">Configurez un authentificateur avant de continuer.</value>
+        <value xml:lang="hi-IN">जारी रखने से पहले एक प्रमाणीकरणकर्ता सेट करें।</value>
+    </property>
+    <property key="SecurityMfaForcedEnrollmentScanPrompt">
+        <value xml:lang="en">Scan this QR code with your authenticator app, then enter the current 6-digit code:</value>
+        <value xml:lang="fr">Scannez ce code QR avec votre application d'authentification, puis entrez le code actuel à 6 chiffres :</value>
+        <value xml:lang="hi-IN">अपने प्रमाणीकरण ऐप से इस QR कोड को स्कैन करें, फिर वर्तमान 6 अंकों का कोड दर्ज करें:</value>
+    </property>
+    <property key="SecurityMfaAuthCode">
+        <value xml:lang="en">Authenticator code</value>
+        <value xml:lang="fr">Code d'authentification</value>
+        <value xml:lang="hi-IN">प्रमाणीकरण कोड</value>
+    </property>
+    <property key="SecurityMfaVerify">
+        <value xml:lang="en">Verify</value>
+        <value xml:lang="fr">Vérifier</value>
+        <value xml:lang="hi-IN">सत्यापित करें</value>
+    </property>
+    <property key="SecurityMfaAuthLabel">
+        <value xml:lang="en">Authenticator label</value>
+        <value xml:lang="fr">Libellé de l'authentificateur</value>
+        <value xml:lang="hi-IN">प्रमाणीकरणकर्ता लेबल</value>
+    </property>
+    <property key="SecurityMfaBeginEnrollment">
+        <value xml:lang="en">Begin enrollment</value>
+        <value xml:lang="fr">Commencer l'enregistrement</value>
+        <value xml:lang="hi-IN">नामांकन प्रारंभ करें</value>
+    </property>
+    <property key="SecurityMfaConfirmAuthenticator">
+        <value xml:lang="en">Confirm authenticator</value>
+        <value xml:lang="fr">Confirmer l'authentificateur</value>
+        <value xml:lang="hi-IN">प्रमाणीकरणकर्ता की पुष्टि करें</value>
+    </property>
+    <property key="SecurityMfaConfirmAndContinue">
+        <value xml:lang="en">Confirm and continue</value>
+        <value xml:lang="fr">Confirmer et continuer</value>
+        <value xml:lang="hi-IN">पुष्टि करें और जारी रखें</value>
+    </property>
+    <property key="SecurityMfaFactorType">
+        <value xml:lang="en">Factor type</value>
+        <value xml:lang="fr">Type de facteur</value>
+        <value xml:lang="hi-IN">कारक प्रकार</value>
+    </property>
+    <property key="SecurityMfaFactorLabel">
+        <value xml:lang="en">Label</value>
+        <value xml:lang="fr">Libellé</value>
+        <value xml:lang="hi-IN">लेबल</value>
+    </property>
+    <property key="SecurityMfaPendingValidation">
+        <value xml:lang="en">Pending validation</value>
+        <value xml:lang="fr">Validation en attente</value>
+        <value xml:lang="hi-IN">सत्यापन लंबित</value>
+    </property>
+    <property key="SecurityMfaLastUsed">
+        <value xml:lang="en">Last used</value>
+        <value xml:lang="fr">Dernière utilisation</value>
+        <value xml:lang="hi-IN">अंतिम उपयोग</value>
+    </property>
+    <property key="SecurityMfaRevokedExpired">
+        <value xml:lang="en">Revoked/expired</value>
+        <value xml:lang="fr">Révoqué/expiré</value>
+        <value xml:lang="hi-IN">रद्द/समाप्त</value>
+    </property>
+    <property key="SecurityMfaRevokeFactor">
+        <value xml:lang="en">Revoke factor</value>
+        <value xml:lang="fr">Révoquer le facteur</value>
+        <value xml:lang="hi-IN">कारक रद्द करें</value>
+    </property>
+    <property key="SecurityMfaEnterCurrentPasswordToRevoke">
+        <value xml:lang="en">Enter your current login password in the box next to the authenticator you want to revoke</value>
+        <value xml:lang="fr">Entrez votre mot de passe de connexion actuel dans la case à côté de l'authentificateur à révoquer</value>
+        <value xml:lang="hi-IN">जिस ऑथेंटिकेटर को रद्द करना है उसके बगल वाले बॉक्स में अपना वर्तमान लॉगिन पासवर्ड दर्ज करें</value>
+    </property>
+    <property key="SecurityMfaAdminReason">
+        <value xml:lang="en">Administrative reason</value>
+        <value xml:lang="fr">Raison administrative</value>
+        <value xml:lang="hi-IN">प्रशासनिक कारण</value>
+    </property>
+    <property key="SecurityMfaAdminReasonTooltip">
+        <value xml:lang="en">Enter audit justification (e.g. Employee lost phone). Do NOT enter password.</value>
+        <value xml:lang="fr">Entrez la justification d'audit (ex. Téléphone perdu). Ne PAS entrer de mot de passe.</value>
+        <value xml:lang="hi-IN">ऑडिट औचित्य दर्ज करें (जैसे कर्मचारी का फोन खो गया)। पासवर्ड दर्ज न करें।</value>
+    </property>
+    <property key="SecurityMfaBackupCodesGeneratedTitle">
+        <value xml:lang="en">Your Backup Recovery Codes</value>
+        <value xml:lang="fr">Vos codes de récupération de secours</value>
+        <value xml:lang="hi-IN">आपके बैकअप रिकवरी कोड</value>
+    </property>
+    <property key="SecurityMfaBackupCodesWarning">
+        <value xml:lang="en">Save these recovery codes now. If you lose access to your authenticator app, these codes are the ONLY way to recover your account. Each code can be used only once.</value>
+        <value xml:lang="fr">Enregistrez ces codes de récupération maintenant. Si vous perdez l'accès à votre application d'authentification, ces codes sont le SEUL moyen de récupérer votre compte. Chaque code ne peut être utilisé qu'une seule fois.</value>
+        <value xml:lang="hi-IN">इन रिकवरी कोड्स को अभी सुरक्षित सहेज लें। यदि आप अपने ऑथेंटिकेटर ऐप तक पहुंच खो देते हैं, तो ये कोड आपके खाते को पुनर्प्राप्त करने का एकमात्र तरीका हैं। प्रत्येक कोड केवल एक बार उपयोग किया जा सकता है।</value>
+    </property>
+    <property key="SecurityMfaBackupCodesTitle">
+        <value xml:lang="en">Backup Recovery Codes</value>
+        <value xml:lang="fr">Codes de récupération de secours</value>
+        <value xml:lang="hi-IN">बैकअप रिकवरी कोड</value>
+    </property>
+    <property key="SecurityMfaBackupCodesRemaining">
+        <value xml:lang="en">Active backup codes remaining</value>
+        <value xml:lang="fr">Codes de secours actifs restants</value>
+        <value xml:lang="hi-IN">सक्रिय बैकअप कोड शेष</value>
+    </property>
+    <property key="SecurityMfaBackupCodesDescription">
+        <value xml:lang="en">Backup recovery codes let you access your account if you lose your phone or authenticator app. Generating new codes invalidates any existing unused codes.</value>
+        <value xml:lang="fr">Les codes de récupération de secours vous permettent d'accéder à votre compte si vous perdez votre téléphone. La génération de nouveaux codes invalide les codes existants non utilisés.</value>
+        <value xml:lang="hi-IN">यदि आपका फ़ोन या ऑथेंटिकेटर ऐप खो जाता है, तो बैकअप रिकवरी कोड आपको अपने खाते में लॉगिन करने की सुविधा देते हैं। नए कोड जनरेट करने से मौजूदा अप्रयुक्त कोड अमान्य हो जाएंगे।</value>
+    </property>
+    <property key="SecurityMfaGenerateBackupCodes">
+        <value xml:lang="en">Generate New Backup Codes</value>
+        <value xml:lang="fr">Générer de nouveaux codes de secours</value>
+        <value xml:lang="hi-IN">नए बैकअप कोड जनरेट करें</value>
+    </property>
+    <property key="SecurityMfaBackupCodesOneTimeNotice">
+        <value xml:lang="en">Please copy or print these codes now. They will not be displayed again.</value>
+        <value xml:lang="fr">Veuillez copier ou imprimer ces codes maintenant. Ils ne seront plus affichés.</value>
+        <value xml:lang="hi-IN">कृपया इन कोड्स को अभी कॉपी या प्रिंट कर लें। ये दोबारा प्रदर्शित नहीं होंगे।</value>
+    </property>
+    <property key="SecurityMfaCopyAllBackupCodes">
+        <value xml:lang="en">Copy all codes</value>
+        <value xml:lang="fr">Copier tous les codes</value>
+        <value xml:lang="hi-IN">सभी कोड कॉपी करें</value>
+    </property>
+    <property key="SecurityMfaBackupCodesCopied">
+        <value xml:lang="en">Copied!</value>
+        <value xml:lang="fr">Copié !</value>
+        <value xml:lang="hi-IN">कॉपी हो गया!</value>
+    </property>
 </resource>
