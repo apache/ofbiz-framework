@@ -175,6 +175,7 @@ under the License.
     </service>
     <service name="removeContactList" default-entity-name="ContactList" engine="entity-auto" invoke="delete" auth="true">
         <description>Remove a ContactList record</description>
+        <permission-service service-name="marketingPermissionService" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
