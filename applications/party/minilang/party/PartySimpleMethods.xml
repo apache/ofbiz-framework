@@ -85,6 +85,19 @@ under the License.
         </if-not-empty>
     </simple-method>
 
+    <simple-method method-name="checkPartyRoleExists" short-description="Verify the party already holds the given role before a role-based association is created" login-required="false">
+        <set field="lookupPKMap.partyId" from-field="parameters.partyId"/>
+        <set field="lookupPKMap.roleTypeId" from-field="parameters.roleTypeId"/>
+        <find-by-primary-key entity-name="PartyRole" map="lookupPKMap" value-field="lookedUpValue" use-cache="true"/>
+        <if-empty field="lookedUpValue">
+            <entity-one entity-name="RoleType" value-field="roleType"/>
+            <add-error>
+                <fail-message message="${groovy: label('PartyErrorUiLabels', 'PartyRoleAssociationRequired', [partyId: parameters.partyId, roleDescription: roleType?.get('description', locale)], locale)}"/>
+            </add-error>
+            <check-errors/>
+        </if-empty>
+    </simple-method>
+
     <simple-method method-name="createPersonAndUserLogin" short-description="Creates a person and userlogin" login-required="false">
         <set-service-fields service-name="createUserLogin" map="parameters" to-map="createUlInMap"/>
 
