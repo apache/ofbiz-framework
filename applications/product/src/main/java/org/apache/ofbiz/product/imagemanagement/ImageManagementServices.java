@@ -334,7 +334,15 @@ public class ImageManagementServices {
             if ("Y".equals(autoApproveImage)) {
                 Map<String, Object> autoApproveCtx = new HashMap<>();
                 autoApproveCtx.put("contentId", contentId);
-                autoApproveCtx.put("userLogin", userLogin);
+                // Auto-approval on upload is store policy, not the uploader's approval, so run it as the system user.
+                GenericValue systemUserLogin;
+                try {
+                    systemUserLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "system").cache().queryOne();
+                } catch (GenericEntityException e) {
+                    Debug.logError(e, MODULE);
+                    return ServiceUtil.returnError(e.getMessage());
+                }
+                autoApproveCtx.put("userLogin", systemUserLogin);
                 autoApproveCtx.put("checkStatusId", "IM_APPROVED");
                 try {
                     Map<String, Object> serviceResult = dispatcher.runSync("updateStatusImageManagement", autoApproveCtx);
