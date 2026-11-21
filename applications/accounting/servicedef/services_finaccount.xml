@@ -118,9 +118,10 @@ under the License.
         <auto-attributes mode="IN" optional="true" include="nonpk"/>
     </service>
     <service name="expireFinAccountAuth" engine="simple" default-entity-name="FinAccountAuth"
-            location="component://accounting/minilang/finaccount/FinAccountServices.xml" invoke="expireFinAccountAuth">
+            location="component://accounting/minilang/finaccount/FinAccountServices.xml" invoke="expireFinAccountAuth" auth="true">
         <!-- NOTE: never set require-new-transaction on this service, needs to be called with other services in same transaction to protect operations such as the payment capture one -->
         <description>Expires a fin account authorization.  Will use current time if no time is supplied in parameter</description>
+        <permission-service service-name="acctgFinAcctPermissionCheck" main-action="UPDATE"/>
         <attribute name="finAccountAuthId" type="String" mode="IN" optional="false"/>
         <attribute name="expireDateTime" type="Timestamp" mode="IN" optional="true"/>
     </service>
