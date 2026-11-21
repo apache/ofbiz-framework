@@ -313,11 +313,13 @@ under the License.
     </service>
     <service name="updateProductPaymentMethodType" default-entity-name="ProductPaymentMethodType" engine="entity-auto" invoke="update" auth="true">
         <description>Update an ProductPaymentMethodType</description>
+        <permission-service service-name="productGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="deleteProductPaymentMethodType" default-entity-name="ProductPaymentMethodType" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete an ProductPaymentMethodType</description>
+        <permission-service service-name="productGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
