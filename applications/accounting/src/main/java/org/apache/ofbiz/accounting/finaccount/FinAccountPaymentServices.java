@@ -72,14 +72,18 @@ public class FinAccountPaymentServices {
             // check for an existing auth trans and cancel it
             GenericValue authTrans = PaymentGatewayServices.getAuthTransaction(paymentPref);
             if (authTrans != null) {
-                Map<String, Object> input = UtilMisc.toMap("userLogin", userLogin, "finAccountAuthId",
-                        authTrans.get("referenceNum"));
                 try {
+                    // expireFinAccountAuth requires accounting permission; run as the "system" user since this is a
+                    // trusted side effect of re-authorizing the order payment
+                    GenericValue systemUserLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "system")
+                            .cache().queryOne();
+                    Map<String, Object> input = UtilMisc.toMap("userLogin", systemUserLogin, "finAccountAuthId",
+                            authTrans.get("referenceNum"));
                     Map<String, Object> result = dispatcher.runSync("expireFinAccountAuth", input);
                     if (ServiceUtil.isError(result)) {
                         return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result));
                     }
-                } catch (GenericServiceException e) {
+                } catch (GenericEntityException | GenericServiceException e) {
                     Debug.logError(e, MODULE);
                     return ServiceUtil.returnError(e.getMessage());
                 }
@@ -303,7 +307,7 @@ public class FinAccountPaymentServices {
 
     public static Map<String, Object> finAccountReleaseAuth(DispatchContext dctx, Map<String, Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        Delegator delegator = dctx.getDelegator();
         GenericValue paymentPref = (GenericValue) context.get("orderPaymentPreference");
         Locale locale = (Locale) context.get("locale");
 
@@ -317,7 +321,10 @@ public class FinAccountPaymentServices {
                         "AccountingFinAccountCannotFindAuthorization", locale));
             }
 
-            Map<String, Object> input = UtilMisc.toMap("userLogin", userLogin, "finAccountAuthId", authTransaction.get("referenceNum"));
+            // expireFinAccountAuth requires accounting permission; run as the "system" user since this is a
+            // trusted side effect of releasing the order payment authorization
+            GenericValue systemUserLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "system").cache().queryOne();
+            Map<String, Object> input = UtilMisc.toMap("userLogin", systemUserLogin, "finAccountAuthId", authTransaction.get("referenceNum"));
             Map<String, Object> serviceResults = dispatcher.runSync("expireFinAccountAuth", input);
             // if there's an error, don't release
             if (ServiceUtil.isError(serviceResults)) {
@@ -330,7 +337,7 @@ public class FinAccountPaymentServices {
             result.put("releaseResult", Boolean.TRUE);
 
             return result;
-        } catch (GenericServiceException e) {
+        } catch (GenericEntityException | GenericServiceException e) {
             Debug.logError(e, e.getMessage(), MODULE);
             return ServiceUtil.returnError(err + e.getMessage());
         }
@@ -417,12 +424,15 @@ public class FinAccountPaymentServices {
         // should happen in same transaction to avoid conflict problems
         Map<String, Object> releaseResult;
         try {
-            releaseResult = dispatcher.runSync("expireFinAccountAuth", UtilMisc.<String, Object>toMap("userLogin", userLogin, "finAccountAuthId",
-                    finAccountAuthId));
+            // expireFinAccountAuth requires accounting permission; run as the "system" user since this is a
+            // trusted side effect of capturing the order payment
+            GenericValue systemUserLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "system").cache().queryOne();
+            releaseResult = dispatcher.runSync("expireFinAccountAuth", UtilMisc.<String, Object>toMap("userLogin", systemUserLogin,
+                    "finAccountAuthId", finAccountAuthId));
             if (ServiceUtil.isError(releaseResult)) {
                 return ServiceUtil.returnError(ServiceUtil.getErrorMessage(releaseResult));
             }
-        } catch (GenericServiceException e) {
+        } catch (GenericEntityException | GenericServiceException e) {
             Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
