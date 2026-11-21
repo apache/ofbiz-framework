@@ -1434,6 +1434,7 @@ under the License.
     <service name="removeProductContentAndImageFile" default-entity-name="ProductContent" engine="groovy"
         location="component://product/src/main/groovy/org/apache/ofbiz/product/product/imagemanagement/ImageManagementServicesScript.groovy" invoke="removeProductContentAndImageFile" auth="true">
         <description>Remove Content From Product and File Image</description>
+        <permission-service service-name="imageManagementPermissionCheck" main-action="ADMIN"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
@@ -1492,6 +1493,7 @@ under the License.
 
     <service name="setImageDetail" engine="groovy" default-entity-name="ProductContent"
         location="component://product/src/main/groovy/org/apache/ofbiz/product/product/imagemanagement/ImageManagementServicesScript.groovy" invoke="setImageDetail" auth="true">
+        <permission-service service-name="imageManagementPermissionCheck" main-action="ADMIN"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <attribute name="sequenceNum" mode="IN" type="Integer" optional="true"/>
@@ -1501,12 +1503,14 @@ under the License.
 
     <service name="updateStatusImageManagement" engine="groovy"
         location="component://product/src/main/groovy/org/apache/ofbiz/product/product/imagemanagement/ImageManagementServicesScript.groovy" invoke="updateStatusImageManagement" auth="true">
+        <permission-service service-name="imageManagementPermissionCheck" main-action="APPROVE"/>
         <attribute name="contentId" mode="IN" type="String" optional="false"/>
         <attribute name="checkStatusId" mode="IN" type="String" optional="true"/>
     </service>
 
     <service name="addRejectedReasonImageManagement" engine="groovy"
         location="component://product/src/main/groovy/org/apache/ofbiz/product/product/imagemanagement/ImageManagementServicesScript.groovy" invoke="addRejectedReasonImageManagement" auth="true">
+        <permission-service service-name="imageManagementPermissionCheck" main-action="APPROVE"/>
         <attribute name="contentId" mode="IN" type="String" optional="false"/>
         <attribute name="description" mode="IN" type="String" optional="true"/>
     </service>
@@ -1524,6 +1528,7 @@ under the License.
     <service name="resizeImages" engine="groovy"
         location="component://product/src/main/groovy/org/apache/ofbiz/product/product/imagemanagement/ImageManagementServicesScript.groovy" invoke="resizeImages" auth="true">
         <description>Resize Images.</description>
+        <permission-service service-name="imageManagementPermissionCheck" main-action="ADMIN"/>
         <attribute name="resizeOption" mode="IN" type="String" optional="false"/>
         <attribute name="productId" mode="IN" type="String" optional="false"/>
         <attribute name="size" mode="IN" type="String" optional="false"/>
@@ -1550,6 +1555,7 @@ under the License.
     <service name="removeImageBySize" engine="groovy"
         location="component://product/src/main/groovy/org/apache/ofbiz/product/product/imagemanagement/ImageManagementServicesScript.groovy" invoke="removeImageBySize" auth="true">
         <description>Remove Image By Size.</description>
+        <permission-service service-name="imageManagementPermissionCheck" main-action="ADMIN"/>
         <attribute name="productId" mode="IN" type="String" optional="false"/>
         <attribute name="mapKey" mode="IN" type="String" optional="false"/>
     </service>
