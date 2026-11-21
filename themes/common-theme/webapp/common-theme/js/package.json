@@ -12,7 +12,7 @@
         "flot": "^4.2.6",
         "inputmask": "^5.0.10",
         "jgrowl": "^1.5.1",
-        "jquery": "^4.0.0",
+        "jquery": "^4.1.0",
         "jquery-jeditable": "^2.0.19",
         "jquery-migrate": "^4.0.2",
         "jquery-ui-dist": "^1.13.3",
