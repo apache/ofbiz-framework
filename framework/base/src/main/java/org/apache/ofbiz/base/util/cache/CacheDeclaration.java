@@ -37,6 +37,14 @@ public record CacheDeclaration(String name, boolean prefix, Long maxSize, Long e
         if (name.isEmpty()) {
             throw new IllegalArgumentException("A cache declaration needs a name or a name prefix");
         }
+        if (maxSize != null && maxSize < 0) {
+            throw new IllegalArgumentException("The max-size of cache declaration [" + name + "] must not be negative: "
+                    + maxSize);
+        }
+        if (expireTimeMillis != null && expireTimeMillis < 0) {
+            throw new IllegalArgumentException("The expire-time of cache declaration [" + name
+                    + "] must not be negative: " + expireTimeMillis);
+        }
     }
 
     /** Returns whether this declaration applies to the cache named {@code cacheName}. */

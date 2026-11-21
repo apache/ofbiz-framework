@@ -37,6 +37,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.function.Function;
+import java.util.function.UnaryOperator;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.ObjectType;
@@ -60,6 +61,13 @@ public final class UtilCache<K, V> {
     /** An index number appended to utilCacheTable names when there are conflicts. */
     private static final ConcurrentHashMap<String, AtomicInteger> DEFAULT_INDICES = new ConcurrentHashMap<>();
 
+    /**
+     * Serializes the creation in {@link #getOrCreateUtilCache}, so that only one thread builds a missing cache and
+     * takes its name index. A plain monitor rather than {@code computeIfAbsent}: building a store can log, and logging
+     * can create other caches, which a monitor allows on the same thread but a map's compute does not.
+     */
+    private static final Object CREATE_LOCK = new Object();
+
     /** The {@code <cache>} declarations of all components, in load order. */
     private static volatile List<CacheDeclaration> declarations = List.of();
 
@@ -73,9 +81,20 @@ public final class UtilCache<K, V> {
      * the write lock so no write lands in the old store after its entries were copied. Plain reads take no lock.
      */
     private final ReentrantReadWriteLock storeLock = new ReentrantReadWriteLock();
-    private volatile CacheStore<Object, V> store;
-    private volatile CacheStoreStats carriedStats = CacheStoreStats.ZERO;
-    private volatile CacheStoreStats statsBaseline = CacheStoreStats.ZERO;
+    /** Holds keys as given ({@code null} as {@link ObjectType#NULL}) and values with {@code null} as {@link NullValue}. */
+    private volatile CacheStore<Object, Object> store;
+    private volatile Stats stats = Stats.EMPTY;
+
+    /** Marks a cached {@code null} value: callers cache {@code null} to remember that a lookup found nothing. */
+    private enum NullValue { INSTANCE }
+
+    /**
+     * The statistics carried over from replaced stores and the baseline of the current store's statistics at the
+     * last clear, kept in one object so a reader never sees one updated without the other.
+     */
+    private record Stats(CacheStoreStats carried, CacheStoreStats baseline) {
+        private static final Stats EMPTY = new Stats(CacheStoreStats.ZERO, CacheStoreStats.ZERO);
+    }
 
     private UtilCache(String name, CacheSettings codeSettings) {
         this.name = name;
@@ -95,37 +114,48 @@ public final class UtilCache<K, V> {
                 CachePolicy.INVALIDATE);
     }
 
-    private CacheStore<Object, V> newStore(CacheSettings settings) {
+    private CacheStore<Object, Object> newStore(CacheSettings settings) {
         return CacheProviders.getActiveProvider().create(settings, this::onExpired);
     }
 
-    private void onExpired(Object key, V value) {
-        noteRemoval(toKey(key), value);
+    private void onExpired(Object key, Object value) {
+        noteRemoval(toKey(key), toValue(value));
     }
 
-    private void reconfigure(CacheSettings settings) {
+    /**
+     * Rebuilds the store with the settings {@code change} derives from the current ones, keeping the entries. The
+     * change is applied under the write lock, so concurrent setting changes cannot overwrite each other.
+     */
+    private void reconfigure(UnaryOperator<CacheSettings> change) {
         storeLock.writeLock().lock();
         try {
-            CacheStore<Object, V> oldStore = store;
-            if (oldStore.settings().equals(settings)) {
+            CacheStore<Object, Object> oldStore = store;
+            CacheSettings oldSettings = oldStore.settings();
+            CacheSettings settings = change.apply(oldSettings);
+            if (oldSettings.equals(settings)) {
                 return;
             }
-            CacheStore<Object, V> newStore = newStore(settings);
+            // as before, a new expire time applies to the entries that have none; other changes leave it alone
+            long noExpiry = settings.expireTimeMillis() != oldSettings.expireTimeMillis() ? settings.expireTimeMillis() : 0;
+            CacheStore<Object, Object> newStore = newStore(settings);
             Set<Object> oldKeys = oldStore.keys();
             for (Object key : oldKeys) {
-                V value = oldStore.peek(key);
+                Object value = oldStore.peek(key);
                 if (value != null) {
                     long remaining = oldStore.expiresInMillis(key);
-                    newStore.put(key, value, remaining >= 0 ? Math.max(1, remaining) : settings.expireTimeMillis());
+                    newStore.put(key, value, remaining >= 0 ? Math.max(1, remaining) : noExpiry);
                 }
             }
-            carriedStats = carriedStats.plus(oldStore.stats()).minus(statsBaseline);
-            statsBaseline = CacheStoreStats.ZERO;
+            Stats current = stats;
+            stats = new Stats(current.carried().plus(oldStore.stats()).minus(current.baseline()), CacheStoreStats.ZERO);
             store = newStore;
-            // explicit removals do not reach the expiry listener, so the old store's pending timers cannot report
-            // the copied entries a second time, and the values are not held twice
+            // explicit removals do not reach the expiry listener, so the old store's pending timers cannot report the
+            // copied entries a second time, and the values are not held twice; an entry the old store expired (and
+            // reported) meanwhile is dropped from the new store too, so it is reported once
             for (Object key : oldKeys) {
-                oldStore.remove(key);
+                if (oldStore.remove(key) == null) {
+                    newStore.remove(key);
+                }
             }
         } finally {
             storeLock.writeLock().unlock();
@@ -145,7 +175,7 @@ public final class UtilCache<K, V> {
     }
 
     private void applyDeclarations() {
-        reconfigure(CacheDeclarations.resolve(declarations, codeSettings));
+        reconfigure(current -> CacheDeclarations.resolve(declarations, codeSettings));
     }
 
     private static String getNextDefaultIndex(String cacheName) {
@@ -161,13 +191,22 @@ public final class UtilCache<K, V> {
         return key == ObjectType.NULL ? null : UtilGenerics.<K>cast(key);
     }
 
+    private static Object fromValue(Object value) {
+        return value == null ? NullValue.INSTANCE : value;
+    }
+
+    private V toValue(Object value) {
+        return value == NullValue.INSTANCE ? null : UtilGenerics.<V>cast(value);
+    }
+
     /**
      * Gets an element from the cache.
      * @param key the key of the element
-     * @return the value, or {@code null} when the key is not in the cache
+     * @return the value, or {@code null} when the key is not in the cache or is cached with a {@code null} value
+     *         (use {@link #containsKey(Object)} to tell them apart)
      */
     public V get(Object key) {
-        return store.get(fromKey(key));
+        return toValue(store.get(fromKey(key)));
     }
 
     /**
@@ -185,11 +224,11 @@ public final class UtilCache<K, V> {
         V value;
         storeLock.readLock().lock();
         try {
-            value = store.get(fromKey(key), storeKey -> {
+            value = toValue(store.get(fromKey(key), storeKey -> {
                 V newValue = loader.apply(key);
                 loaded.set(newValue != null);
                 return newValue;
-            });
+            }));
         } finally {
             storeLock.readLock().unlock();
         }
@@ -199,13 +238,16 @@ public final class UtilCache<K, V> {
         return value;
     }
 
-    /** Puts an element in the cache with the cache's expire time. A {@code null} value removes the key. */
+    /**
+     * Puts an element in the cache with the cache's expire time. A {@code null} value is cached too, so that
+     * {@link #containsKey(Object)} remembers a lookup that found nothing.
+     */
     public V put(K key, V value) {
         return putInternal(key, value, null);
     }
 
     /**
-     * Puts an element in the cache. A {@code null} value removes the key.
+     * Puts an element in the cache. A {@code null} value is cached too.
      * @param expireTimeMillis how long to keep this element, 0 or less for no expiry
      * @return the previous value, or {@code null}
      */
@@ -215,14 +257,11 @@ public final class UtilCache<K, V> {
 
     /** Puts an element; a {@code null} expire time means the cache's expire time, read under the lock. */
     private V putInternal(K key, V value, Long expireTimeMillis) {
-        if (value == null) {
-            return removeInternal(key, false);
-        }
-        V oldValue;
+        Object oldValue;
         storeLock.readLock().lock();
         try {
-            CacheStore<Object, V> current = store;
-            oldValue = current.put(fromKey(key), value,
+            CacheStore<Object, Object> current = store;
+            oldValue = current.put(fromKey(key), fromValue(value),
                     expireTimeMillis != null ? expireTimeMillis : current.settings().expireTimeMillis());
         } finally {
             storeLock.readLock().unlock();
@@ -230,9 +269,9 @@ public final class UtilCache<K, V> {
         if (oldValue == null) {
             noteAddition(key, value);
         } else {
-            noteUpdate(key, value, oldValue);
+            noteUpdate(key, value, toValue(oldValue));
         }
-        return oldValue;
+        return toValue(oldValue);
     }
 
     /** Puts an element in the cache unless the key already has one; returns the existing value or {@code null}. */
@@ -247,14 +286,11 @@ public final class UtilCache<K, V> {
 
     /** Puts an element if absent; a {@code null} expire time means the cache's expire time, read under the lock. */
     private V putIfAbsentInternal(K key, V value, Long expireTimeMillis) {
-        if (value == null) {
-            return store.peek(fromKey(key));
-        }
-        V existing;
+        Object existing;
         storeLock.readLock().lock();
         try {
-            CacheStore<Object, V> current = store;
-            existing = current.putIfAbsent(fromKey(key), value,
+            CacheStore<Object, Object> current = store;
+            existing = current.putIfAbsent(fromKey(key), fromValue(value),
                     expireTimeMillis != null ? expireTimeMillis : current.settings().expireTimeMillis());
         } finally {
             storeLock.readLock().unlock();
@@ -262,7 +298,7 @@ public final class UtilCache<K, V> {
         if (existing == null) {
             noteAddition(key, value);
         }
-        return existing;
+        return toValue(existing);
     }
 
     /** Puts an element in the cache unless the key already has one; returns the value now in the cache. */
@@ -280,7 +316,7 @@ public final class UtilCache<K, V> {
     }
 
     private V removeInternal(Object key, boolean countRemove) {
-        V oldValue;
+        Object oldValue;
         storeLock.readLock().lock();
         try {
             oldValue = store.remove(fromKey(key));
@@ -288,36 +324,35 @@ public final class UtilCache<K, V> {
             storeLock.readLock().unlock();
         }
         if (oldValue != null) {
-            noteRemoval(UtilGenerics.<K>cast(key), oldValue);
+            noteRemoval(UtilGenerics.<K>cast(key), toValue(oldValue));
             if (countRemove) {
                 removeHitCount.incrementAndGet();
             }
         } else if (countRemove) {
             removeMissCount.incrementAndGet();
         }
-        return oldValue;
+        return toValue(oldValue);
     }
 
     /** Removes all elements from this cache and resets its counters. */
     public void clear() {
-        Map<Object, V> removed = new LinkedHashMap<>();
+        Map<Object, Object> removed = new LinkedHashMap<>();
         storeLock.readLock().lock();
         try {
-            CacheStore<Object, V> current = store;
+            CacheStore<Object, Object> current = store;
             for (Object key : current.keys()) {
-                V oldValue = current.remove(key);
+                Object oldValue = current.remove(key);
                 if (oldValue != null) {
                     removed.put(key, oldValue);
                 }
             }
-            carriedStats = CacheStoreStats.ZERO;
-            statsBaseline = current.stats();
+            stats = new Stats(CacheStoreStats.ZERO, current.stats());
             removeHitCount.set(0);
             removeMissCount.set(0);
         } finally {
             storeLock.readLock().unlock();
         }
-        removed.forEach((key, oldValue) -> noteRemoval(toKey(key), oldValue));
+        removed.forEach((key, oldValue) -> noteRemoval(toKey(key), toValue(oldValue)));
     }
 
     /** Removes all elements from all caches. */
@@ -331,14 +366,14 @@ public final class UtilCache<K, V> {
         return new HashSet<>(UTIL_CACHE_TABLE.keySet());
     }
 
-    /** Returns the values in the cache. */
+    /** Returns the values in the cache, including cached {@code null} values, without counting hits. */
     public Collection<V> values() {
-        CacheStore<Object, V> current = store;
+        CacheStore<Object, Object> current = store;
         List<V> values = new ArrayList<>();
         for (Object key : current.keys()) {
-            V value = current.peek(key);
+            Object value = current.peek(key);
             if (value != null) {
-                values.add(value);
+                values.add(toValue(value));
             }
         }
         return values;
@@ -347,6 +382,10 @@ public final class UtilCache<K, V> {
     /** Returns a snapshot of the keys in the cache; it may contain {@code null}. */
     public Set<K> keys() {
         Set<Object> storeKeys = store.keys();
+        if (!storeKeys.contains(ObjectType.NULL)) {
+            // the store already returns an unmodifiable snapshot, so there is nothing to translate or copy
+            return UtilGenerics.cast(storeKeys);
+        }
         Set<K> keys = new LinkedHashSet<>(storeKeys.size());
         for (Object storeKey : storeKeys) {
             keys.add(toKey(storeKey));
@@ -394,11 +433,11 @@ public final class UtilCache<K, V> {
      * {@link #keys()}), {@code lineSize} and, for an element that expires, {@code expireTimeMillis} left.
      */
     public List<Map<String, Object>> getLineInfos() {
-        CacheStore<Object, V> current = store;
+        CacheStore<Object, Object> current = store;
         List<Map<String, Object>> lineInfos = new ArrayList<>();
         int keyNum = 0;
         for (Object storeKey : current.keys()) {
-            V value = current.peek(storeKey);
+            Object value = current.peek(storeKey);
             if (value != null) {
                 Map<String, Object> lineInfo = new HashMap<>();
                 lineInfo.put("elementKey", toKey(storeKey));
@@ -406,7 +445,7 @@ public final class UtilCache<K, V> {
                 if (expiresIn >= 0) {
                     lineInfo.put("expireTimeMillis", expiresIn);
                 }
-                lineInfo.put("lineSize", findSizeInBytes(value));
+                lineInfo.put("lineSize", findSizeInBytes(toValue(value)));
                 lineInfo.put("keyNum", keyNum);
                 lineInfos.add(lineInfo);
             }
@@ -420,7 +459,8 @@ public final class UtilCache<K, V> {
     }
 
     private CacheStoreStats stats() {
-        return carriedStats.plus(store.stats()).minus(statsBaseline);
+        Stats current = stats;
+        return current.carried().plus(store.stats()).minus(current.baseline());
     }
 
     /** Returns the number of lookups that found an element. */
@@ -448,7 +488,7 @@ public final class UtilCache<K, V> {
 
     /** Sets the maximum number of elements, 0 for no limit. */
     public void setMaxSize(long maxSize) {
-        reconfigure(store.settings().withMaxSize(Math.max(0, maxSize)));
+        reconfigure(current -> current.withMaxSize(Math.max(0, maxSize)));
     }
 
     /** Returns the expire time of new elements in milliseconds, 0 for no expiry. */
@@ -458,7 +498,7 @@ public final class UtilCache<K, V> {
 
     /** Sets the expire time of elements without their own expiry, 0 or less for no expiry. */
     public void setExpireTime(long expireTimeMillis) {
-        reconfigure(store.settings().withExpireTimeMillis(Math.max(0, expireTimeMillis)));
+        reconfigure(current -> current.withExpireTimeMillis(Math.max(0, expireTimeMillis)));
     }
 
     public boolean getUseSoftReference() {
@@ -466,7 +506,30 @@ public final class UtilCache<K, V> {
     }
 
     public void setUseSoftReference(boolean useSoftReference) {
-        reconfigure(store.settings().withSoftValues(useSoftReference));
+        reconfigure(current -> current.withSoftValues(useSoftReference));
+    }
+
+    /**
+     * Changes several settings with a single rebuild of the store; a {@code null} argument leaves that setting as it
+     * is. Used by the webtools cache edit page.
+     * @param maxSize the maximum number of elements, 0 for no limit
+     * @param expireTimeMillis the expire time of elements without their own expiry, 0 or less for no expiry
+     * @param useSoftReference whether values are held through soft references
+     */
+    public void setSettings(Long maxSize, Long expireTimeMillis, Boolean useSoftReference) {
+        reconfigure(current -> {
+            CacheSettings settings = current;
+            if (maxSize != null) {
+                settings = settings.withMaxSize(Math.max(0, maxSize));
+            }
+            if (expireTimeMillis != null) {
+                settings = settings.withExpireTimeMillis(Math.max(0, expireTimeMillis));
+            }
+            if (useSoftReference != null) {
+                settings = settings.withSoftValues(useSoftReference);
+            }
+            return settings;
+        });
     }
 
     /** Returns the cache policy. It has no effect until an invalidation bus exists. */
@@ -482,7 +545,10 @@ public final class UtilCache<K, V> {
         return size() == 0;
     }
 
-    /** Returns whether the cache holds an element for the key, without counting a hit or a miss. */
+    /**
+     * Returns whether the cache holds an element for the key, including one cached with a {@code null} value,
+     * without counting a hit or a miss.
+     */
     public boolean containsKey(Object key) {
         return store.peek(fromKey(key)) != null;
     }
@@ -556,11 +622,15 @@ public final class UtilCache<K, V> {
         if (existingCache != null) {
             return existingCache;
         }
-        UtilCache<K, V> newCache = newCache(name + getNextDefaultIndex(name),
-                codeSettings(name, sizeLimit, maxInMemory, expireTime, useSoftReference));
-        UtilCache<K, V> previous = UtilGenerics.cast(UTIL_CACHE_TABLE.putIfAbsent(name, newCache));
-        if (previous != null) {
-            return previous;
+        UtilCache<K, V> newCache;
+        synchronized (CREATE_LOCK) {
+            existingCache = findCache(name);
+            if (existingCache != null) {
+                return existingCache;
+            }
+            newCache = newCache(name + getNextDefaultIndex(name),
+                    codeSettings(name, sizeLimit, maxInMemory, expireTime, useSoftReference));
+            UTIL_CACHE_TABLE.put(name, newCache);
         }
         // a declare() running while the cache was created may have missed it; this is a no-op when nothing changed
         newCache.applyDeclarations();

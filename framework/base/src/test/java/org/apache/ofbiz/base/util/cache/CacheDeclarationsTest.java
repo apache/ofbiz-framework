@@ -115,6 +115,12 @@ public class CacheDeclarationsTest {
     }
 
     @Test
+    public void negativeValuesAreRejected() {
+        assertThrows(IllegalArgumentException.class, () -> new CacheDeclaration("widget.", true, -1L, null, null, null));
+        assertThrows(IllegalArgumentException.class, () -> new CacheDeclaration("widget.", true, null, -1L, null, null));
+    }
+
+    @Test
     public void emptyNameIsRejected() {
         assertThrows(IllegalArgumentException.class, () -> exact("", null, null));
     }

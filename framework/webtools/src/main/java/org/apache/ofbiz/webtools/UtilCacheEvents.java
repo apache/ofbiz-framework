@@ -274,15 +274,9 @@ public final class UtilCacheEvents {
         UtilCache<?, ?> utilCache = UtilCache.findCache(name);
 
         if (utilCache != null) {
-            if (maxInMemory != null) {
-                utilCache.setMaxSize(maxInMemory);
-            }
-            if (expireTime != null) {
-                utilCache.setExpireTime(expireTime);
-            }
-            if (useSoftReferenceStr != null) {
-                utilCache.setUseSoftReference("true".equals(useSoftReferenceStr));
-            }
+            // one call, so the cache is rebuilt once for all the changed settings
+            utilCache.setSettings(maxInMemory != null ? Long.valueOf(maxInMemory) : null, expireTime,
+                    useSoftReferenceStr != null ? "true".equals(useSoftReferenceStr) : null);
         }
         return "success";
     }

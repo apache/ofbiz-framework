@@ -282,11 +282,12 @@ the same pull request.
   `getMaxSize()` and `setMaxSize()` (now `long`), and `getCacheLineTable()`, `getCacheLineValues()`,
   `getMissCountNotFound()`, `CacheLine` and its subclasses are removed. The trailing `String... names` parameters of
   `createUtilCache` and `getOrCreateUtilCache` are removed, and so are `getCacheNamePrefixes()` and
-  `getCacheNames(String)` of the entity `AbstractCache`. `put(key, null)` now removes the key. `UtilCache` is no
-  longer `Serializable`. New: `get(key, loader)`, which loads and caches the value on a miss. `CacheSoftReference`,
-  `ReferenceCleaner`, `ExecutionPool.Pulse`, `ExecutionPool.ExecutionPoolPulseWorker`, `addPulse`, `removePulse` and
-  `UtilCache.onEviction` are removed. Size eviction now uses Caffeine's frequency-based policy rather than LRU, which
-  only matters for caches given a max-size.
+  `getCacheNames(String)` of the entity `AbstractCache`. `UtilCache` is no longer `Serializable`. New:
+  `get(key, loader)`, which loads and caches the value on a miss, and
+  `setSettings(maxSize, expireTime, useSoftReference)`, which changes several settings with a single rebuild.
+  `CacheSoftReference`, `ReferenceCleaner`, `ExecutionPool.Pulse`, `ExecutionPool.ExecutionPoolPulseWorker`,
+  `addPulse`, `removePulse` and `UtilCache.onEviction` are removed. Size eviction now uses Caffeine's frequency-based
+  policy rather than LRU, which only matters for caches given a max-size.
 
 ### Themes
 

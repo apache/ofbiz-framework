@@ -21,6 +21,7 @@ package org.apache.ofbiz.base.util
 import static org.apache.ofbiz.base.util.tool.UtilCacheTestTools.createListener
 
 import java.util.concurrent.CopyOnWriteArrayList
+import java.util.concurrent.CountDownLatch
 
 import org.apache.ofbiz.base.util.cache.CacheDeclaration
 import org.apache.ofbiz.base.util.cache.CacheListener
@@ -315,12 +316,68 @@ class UtilCacheTest  {
     }
 
     @Test
-    void testPutNullValueRemovesKey() {
-        String name = 'testPutNullValueRemovesKey'
+    void testPutNullValueIsCached() {
+        String name = 'testPutNullValueIsCached'
         UtilCache<String, String> myCache = UtilCache.createUtilCache(name, 0, 0, 0, false)
         myCache.put('key', 'value')
         assert myCache.put('key', null) == 'value'
+        assert myCache.containsKey('key')
+        assert myCache.get('key') == null
+        assert myCache.size() == 1
+        assert myCache.values() == [null]
+        assert myCache.putIfAbsent('key', 'other') == null
+        assert myCache.get('key') == null
+        assert myCache.remove('key') == null
         assert !myCache.containsKey('key')
+    }
+
+    @Test
+    void testOtherSettingChangesKeepEntriesWithoutExpiry() {
+        UtilCache<String, String> myCache = UtilCache.createUtilCache('testOtherSettingChanges', 0, 0, 60000, false)
+        myCache.put('forever', 'value', 0)
+        myCache.setMaxSize(10)
+        myCache.setUseSoftReference(true)
+        assert myCache.get('forever') == 'value'
+        assert !myCache.getLineInfos().find { it.elementKey == 'forever' }.containsKey('expireTimeMillis')
+    }
+
+    @Test
+    void testNewExpireTimeAppliesToEntriesWithoutExpiry() {
+        UtilCache<String, String> myCache = UtilCache.createUtilCache('testNewExpireTimeApplies', 0, 0, 0, false)
+        myCache.put('key', 'value')
+        myCache.setExpireTime(60000)
+        assert myCache.getLineInfos().find { it.elementKey == 'key' }.expireTimeMillis > 0
+    }
+
+    @Test
+    void testSetSettingsChangesOnlyGivenSettings() {
+        UtilCache<String, String> myCache = UtilCache.createUtilCache('testSetSettings', 0, 0, 0, false)
+        myCache.put('key', 'value')
+        myCache.setSettings(5L, null, Boolean.TRUE)
+        assert myCache.getMaxSize() == 5L
+        assert myCache.getExpireTime() == 0L
+        assert myCache.getUseSoftReference()
+        assert myCache.get('key') == 'value'
+    }
+
+    @Test
+    void testGetOrCreateUtilCacheCreatesOneCacheUnderContention() {
+        String name = 'testGetOrCreateContention'
+        int threads = 16
+        CountDownLatch start = new CountDownLatch(1)
+        List<UtilCache<String, String>> results = Collections.synchronizedList([])
+        List<Thread> workers = (1..threads).collect {
+            Thread.start {
+                start.await()
+                results << UtilCache.getOrCreateUtilCache(name, 0, 0, 0, false)
+            }
+        }
+        start.countDown()
+        workers*.join()
+        assert results.size() == threads
+        assert results.every { it.is(results[0]) }
+        // only the creating thread took a name index, so the next cache with this base name gets index 1
+        assert UtilCache.createUtilCache(name).getName() == name + '1'
     }
 
     @Test

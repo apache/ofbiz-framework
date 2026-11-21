@@ -500,7 +500,8 @@ public final class ComponentConfig {
                     try {
                         return Stream.of(mapper.apply(this, element));
                     } catch (IllegalArgumentException e) {
-                        Debug.log(e.getMessage());
+                        Debug.logWarning("Ignoring an invalid <" + elemName + "> element of component [" + getGlobalName()
+                                + "]: " + e.getMessage(), MODULE);
                         return Stream.empty();
                     }
                 })
@@ -844,11 +845,10 @@ public final class ComponentConfig {
      * An object that models the <code>&lt;cache&gt;</code> element.
      * @see <code>ofbiz-component.xsd</code>
      */
-    public static final class CacheInfo extends ResourceInfo {
+    public static final class CacheInfo {
         private final CacheDeclaration declaration;
 
         private CacheInfo(ComponentConfig componentConfig, Element element) {
-            super(componentConfig, element);
             String name = element.getAttribute("name");
             String namePrefix = element.getAttribute("name-prefix");
             if (name.isEmpty() == namePrefix.isEmpty()) {
@@ -862,7 +862,15 @@ public final class ComponentConfig {
 
         private static Long longAttribute(Element element, String attributeName) {
             String value = element.getAttribute(attributeName);
-            return value.isEmpty() ? null : Long.valueOf(value);
+            if (value.isEmpty()) {
+                return null;
+            }
+            try {
+                return Long.valueOf(value.trim());
+            } catch (NumberFormatException e) {
+                throw new IllegalArgumentException("The " + attributeName + " of a <cache> element is not a number: "
+                        + value, e);
+            }
         }
 
         private static Boolean booleanAttribute(Element element, String attributeName) {
