@@ -28,4 +28,10 @@ under the License.
         <description>Facility Manager permission Checking Logic</description>
         <implements service="permissionInterface"/>
     </service>
+
+    <service name="imageManagementPermissionCheck" engine="groovy"
+            location="component://product/src/main/groovy/org/apache/ofbiz/product/product/imagemanagement/ImageManagementServicesScript.groovy" invoke="imageManagementPermissionCheck">
+        <description>Image Management permission Checking Logic</description>
+        <implements service="permissionInterface"/>
+    </service>
 </services>

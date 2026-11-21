@@ -425,3 +425,13 @@ Map removeImageBySize() {
     }
     return success()
 }
+
+/**
+ * Checks that the user holds an image management permission for the requested main action.
+ * @return the hasPermission result from genericBasePermissionCheck for the IMAGE_MANAGEMENT permission
+ */
+Map imageManagementPermissionCheck() {
+    parameters.primaryPermission = 'IMAGE_MANAGEMENT'
+    Map serviceResult = run service: 'genericBasePermissionCheck', with: parameters
+    return serviceResult
+}
