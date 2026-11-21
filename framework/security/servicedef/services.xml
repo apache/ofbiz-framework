@@ -123,15 +123,6 @@ under the License.
         <attribute name="targetUserLoginId" type="String" mode="IN" optional="true"/>
         <attribute name="remainingCount" type="Integer" mode="OUT"/>
     </service>
-    <service name="sendMfaSecurityNotification" engine="java" auth="false" export="false"
-            location="org.apache.ofbiz.security.login.MfaServices" invoke="sendMfaSecurityNotification">
-        <description>Sends security alert email to the party associated with the user login</description>
-        <attribute name="userLoginId" type="String" mode="IN" optional="false"/>
-        <attribute name="actorUserLoginId" type="String" mode="IN" optional="true"/>
-        <attribute name="eventType" type="String" mode="IN" optional="false"/>
-        <attribute name="factorType" type="String" mode="IN" optional="true"/>
-        <attribute name="reason" type="String" mode="IN" optional="true"/>
-    </service>
     <service name="purgeOldMfaChallengesAndEvents" engine="java" auth="true" export="false"
             location="org.apache.ofbiz.security.login.MfaServices" invoke="purgeOldMfaChallengesAndEvents">
         <description>Purges expired MFA challenges and old authentication audit events.</description>
