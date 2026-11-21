@@ -523,18 +523,21 @@ under the License.
     <!-- Party GlAccount services -->
     <service name="createPartyGlAccount" default-entity-name="PartyGlAccount" engine="entity-auto" invoke="create" auth="true">
         <description>Associate a party to a General Ledger Account</description>
+        <permission-service service-name="basicGeneralLedgerPermissionCheck" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <attribute name="glAccountId" type="String" mode="IN" optional="false"/>
     </service>
 
     <service name="updatePartyGlAccount" default-entity-name="PartyGlAccount" engine="entity-auto" invoke="update" auth="true">
         <description>Update an existing General Ledger Account of a Party</description>
+        <permission-service service-name="basicGeneralLedgerPermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <attribute name="glAccountId" type="String" mode="IN" optional="false"/>
     </service>
 
     <service name="deletePartyGlAccount" default-entity-name="PartyGlAccount" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete an existing General Ledger Account of a Party</description>
+        <permission-service service-name="basicGeneralLedgerPermissionCheck" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
