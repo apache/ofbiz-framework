@@ -863,6 +863,7 @@ under the License.
     </service>
     <service name="deletePaymentGroup" default-entity-name="PaymentGroup" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete a Payment Group</description>
+        <permission-service service-name="acctgPaymentPermissionCheck" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     
@@ -887,6 +888,7 @@ under the License.
     <service name="expirePaymentGroupMember" default-entity-name="PaymentGroupMember" engine="simple"
             location="component://accounting/minilang/payment/PaymentMethodServices.xml" invoke="expirePaymentGroupMember" auth="true">
         <description>expire a Payment Group Member</description>
+        <permission-service service-name="acctgPaymentPermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 </services>
