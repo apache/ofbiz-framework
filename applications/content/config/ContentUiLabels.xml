@@ -2950,28 +2950,6 @@
         <value xml:lang="zh">子模板</value>
         <value xml:lang="zh-TW">子模板</value>
     </property>
-    <property key="ContentTemplateImageCentered">
-        <value xml:lang="da">Billede centreret ovenover</value>
-        <value xml:lang="en">Image centered above</value>
-        <value xml:lang="fr">Image centrée au-dessus</value>
-        <value xml:lang="it">Immagine centrata sopra</value>
-        <value xml:lang="ja">画像を中央上部に</value>
-        <value xml:lang="pt">Imagem centrada acima</value>
-        <value xml:lang="vi">Ảnh căn giữa</value>
-        <value xml:lang="zh">图像居中置顶</value>
-        <value xml:lang="zh-TW">圖像置中置頂</value>
-    </property>
-    <property key="ContentTemplateImageLeft">
-        <value xml:lang="da">Billede til venstre, tekst flyder omkring</value>
-        <value xml:lang="en">Image left, text flows around.</value>
-        <value xml:lang="fr">Image à gauche, texte flottant autour</value>
-        <value xml:lang="it">Immagine a sinistra.</value>
-        <value xml:lang="ja">画像を左に、テキストは回り込む。</value>
-        <value xml:lang="pt">Imagem à esquerda, o texto flui ao redor.</value>
-        <value xml:lang="vi">Ảnh bên trái, chữ xung quanh</value>
-        <value xml:lang="zh">图像居左，文本环绕</value>
-        <value xml:lang="zh-TW">圖像置左,本文環繞</value>
-    </property>
     <property key="ContentTemplateInstanceChild">
         <value xml:lang="da">Forekomst af barn</value>
         <value xml:lang="en">Instance Child</value>
@@ -3004,17 +2982,6 @@
         <value xml:lang="vi">Khởi tạo mức gốc</value>
         <value xml:lang="zh">根实例</value>
         <value xml:lang="zh-TW">根實例</value>
-    </property>
-    <property key="ContentTemplateTextOnly">
-        <value xml:lang="da">Kun tekst</value>
-        <value xml:lang="en">Text only</value>
-        <value xml:lang="fr">Texte seulement</value>
-        <value xml:lang="it">Solo testo</value>
-        <value xml:lang="ja">テキストのみ</value>
-        <value xml:lang="pt">Somente texto</value>
-        <value xml:lang="vi">Chỉ nhập chữ</value>
-        <value xml:lang="zh">仅文本</value>
-        <value xml:lang="zh-TW">僅本文</value>
     </property>
     <property key="ContentTemplates">
         <value xml:lang="ar">نماذج</value>
