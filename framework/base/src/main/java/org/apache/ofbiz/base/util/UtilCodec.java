@@ -519,10 +519,10 @@ public class UtilCodec {
             String filtered = policy.sanitize(value);
             String unescapeHtml4 = StringEscapeUtils.unescapeHtml4(filtered);
             String unescapeEcmaScriptAndHtml4 = StringEscapeUtils.unescapeEcmaScript(unescapeHtml4);
-            // Replaces possible quotes entities in value (due to HtmlSanitizer above) to avoid issue with
-            // testCreateCustRequestItemNote and allow saving when using quotes in fields
-            // Maybe later we will figure out that some more HTML entities will need to be added to here, see OFBIZ-12691
-            if (filtered != null && !value.replace("&#39;", "'").replace("&#34;", "\"").replace("&#64;", "@").equals(unescapeEcmaScriptAndHtml4)) {
+            // The renderer above encodes text characters such as quotes, = + & < > as HTML entities, so value is
+            // decoded the same way as the sanitized output; only markup removed by the sanitizer makes them differ.
+            // EcmaScript escapes are only decoded on the sanitized side, so that they are still rejected (OFBIZ-12096).
+            if (filtered != null && !StringEscapeUtils.unescapeHtml4(value).equals(unescapeEcmaScriptAndHtml4)) {
                 String issueMsg = null;
                 if (locale.equals(TEST_LOCALE)) {
                     issueMsg = "In field [" + valueName + "] by our input policy, your input has not been accepted "
