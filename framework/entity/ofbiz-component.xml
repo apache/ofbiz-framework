@@ -37,4 +37,9 @@ under the License.
     <container name="delegator-container" loaders="main" class="org.apache.ofbiz.entity.DelegatorContainer">
         <property name="preload-delegators" value="default"/>
     </container>
+
+    <!-- Cache settings, see the cache element in ofbiz-component.xsd -->
+    <cache name="entity.ModelFieldTypeReader" policy="local"/>
+    <cache name="entity.ModelGroupReader" policy="local"/>
+    <cache name="entity.ModelReader" policy="local"/>
 </ofbiz-component>

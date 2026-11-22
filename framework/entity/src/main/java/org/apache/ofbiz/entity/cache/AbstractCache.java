@@ -97,6 +97,7 @@ public abstract class AbstractCache<K, V> {
      */
     protected UtilCache<K, V> getOrCreateCache(String entityName) {
         String name = getCacheName(entityName);
-        return UtilCache.getOrCreateUtilCache(name, 0, 0, 0, true);
+        // the delegator's DistributedCacheClear tells the other servers about entity changes
+        return UtilCache.getOrCreateUtilCache(name, 0, 0, 0, true, false);
     }
 }

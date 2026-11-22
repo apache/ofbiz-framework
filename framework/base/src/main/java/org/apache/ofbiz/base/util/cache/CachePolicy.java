@@ -19,13 +19,21 @@
 package org.apache.ofbiz.base.util.cache;
 
 /**
- * How a cache behaves when several OFBiz servers share one database.
- * Without an invalidation bus every policy behaves as {@link #LOCAL}.
+ * How a cache behaves when several OFBiz servers share one database, set with the {@code policy} attribute of a
+ * {@code <cache>} declaration. A cache is {@link #LOCAL} unless declared otherwise. Without an invalidation bus every
+ * policy behaves as {@link #LOCAL}. The entity engine's caches are distributed by its {@code DistributedCacheClear},
+ * whatever their policy.
  */
 public enum CachePolicy {
-    /** Entries stay on this server; nothing is sent to or received from other servers. */
+    /**
+     * The default. Entries stay on this server; nothing is sent to or received from other servers. Right for caches of
+     * files, parsed definitions and other data each server reads for itself.
+     */
     LOCAL,
-    /** A removal on one server is sent to the other servers, which drop the same entry. */
+    /**
+     * A removal on one server is sent to the other servers, which drop the same entry. Declare it for caches holding
+     * data read from the database, such as rendered content.
+     */
     INVALIDATE,
     /** Like {@link #INVALIDATE}, with a shared tier when the cache provider supports one. */
     NEAR;

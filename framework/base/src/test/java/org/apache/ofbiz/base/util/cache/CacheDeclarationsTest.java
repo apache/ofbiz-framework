@@ -19,7 +19,9 @@
 package org.apache.ofbiz.base.util.cache;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
@@ -123,5 +125,15 @@ public class CacheDeclarationsTest {
     @Test
     public void emptyNameIsRejected() {
         assertThrows(IllegalArgumentException.class, () -> exact("", null, null));
+    }
+
+    @Test
+    public void isDeclaredMatchesExactNameOrPrefix() {
+        List<CacheDeclaration> declarations = List.of(exact("a.b", null, CachePolicy.LOCAL), prefix("widget.", null));
+        assertTrue(CacheDeclarations.isDeclared(declarations, "a.b"));
+        assertTrue(CacheDeclarations.isDeclared(declarations, "widget.screen.x"));
+        assertFalse(CacheDeclarations.isDeclared(declarations, "a.bc"));
+        assertFalse(CacheDeclarations.isDeclared(declarations, "other"));
+        assertFalse(CacheDeclarations.isDeclared(List.of(), "a.b"));
     }
 }

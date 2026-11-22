@@ -30,9 +30,11 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArraySet;
-import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
@@ -43,6 +45,9 @@ import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.ObjectType;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilObject;
+import org.apache.ofbiz.base.util.cache.InvalidationMessage.CacheClear;
+import org.apache.ofbiz.base.util.cache.InvalidationMessage.CacheKey;
+import org.apache.ofbiz.base.util.cache.InvalidationMessage.ClearAll;
 
 /**
  * Generalized caching utility, the API every OFBiz cache goes through.
@@ -50,6 +55,10 @@ import org.apache.ofbiz.base.util.UtilObject;
  * A cache's settings come from the code that creates it, overridden by the {@code <cache>} declarations of the
  * {@code ofbiz-component.xml} files (see {@link #declare(List)}). Changing a setting rebuilds the store and keeps
  * the entries.</p>
+ * <p>A cache is {@link CachePolicy#LOCAL local} unless a {@code <cache>} declaration gives it another policy: with an
+ * invalidation bus installed (see {@link CacheInvalidation}) only caches declared {@code policy="invalidate"} publish
+ * their removals to the other servers and apply theirs. Declare it for caches holding data read from the database;
+ * the entity engine's caches are distributed by its own {@code DistributedCacheClear}, whatever their policy.</p>
  */
 public final class UtilCache<K, V> {
 
@@ -68,11 +77,33 @@ public final class UtilCache<K, V> {
      */
     private static final Object CREATE_LOCK = new Object();
 
+    /** Past this many live tombstones a cache drops them and ignores puts of every key for the tombstone time. */
+    private static final int MAX_TOMBSTONES = 10_000;
+
+    /** The most undeclared cache names listed in the grouped warning. */
+    private static final int MAX_LISTED_UNDECLARED = 50;
+
+    /** The base names of the caches already warned about as undeclared, so each name warns once per JVM. */
+    private static final Set<String> WARNED_UNDECLARED = ConcurrentHashMap.newKeySet();
+
     /** The {@code <cache>} declarations of all components, in load order. */
     private static volatile List<CacheDeclaration> declarations = List.of();
 
     private final String name;
     private final CacheSettings codeSettings;
+    /** Whether removals are published to other servers; false for caches whose owner publishes them (entity caches). */
+    private final boolean publishRemovals;
+    /** Moves on with every invalidation received for this cache, so an in-flight load can tell it may be stale. */
+    private final AtomicLong remoteInvalidationVersion = new AtomicLong();
+    /** Keys invalidated by another server, with the {@link System#nanoTime()} until which puts of them are ignored. */
+    private final ConcurrentHashMap<Object, Long> tombstones = new ConcurrentHashMap<>();
+    /**
+     * The {@link System#nanoTime()} until which puts of every key are ignored, after a clear received from another
+     * server or a tombstone overflow; {@code null} when there has been none.
+     */
+    private volatile Long clearedUntil;
+    /** The {@link System#nanoTime()} of the last pruning of expired tombstones. */
+    private volatile long lastTombstonePrune = System.nanoTime();
     private final AtomicLong removeHitCount = new AtomicLong();
     private final AtomicLong removeMissCount = new AtomicLong();
     private final Set<CacheListener<K, V>> listeners = new CopyOnWriteArraySet<>();
@@ -96,13 +127,14 @@ public final class UtilCache<K, V> {
         private static final Stats EMPTY = new Stats(CacheStoreStats.ZERO, CacheStoreStats.ZERO);
     }
 
-    private UtilCache(String name, CacheSettings codeSettings) {
+    private UtilCache(String name, CacheSettings codeSettings, boolean publishRemovals) {
         this.name = name;
         this.codeSettings = codeSettings;
+        this.publishRemovals = publishRemovals;
     }
 
-    private static <K, V> UtilCache<K, V> newCache(String name, CacheSettings codeSettings) {
-        UtilCache<K, V> cache = new UtilCache<>(name, codeSettings);
+    private static <K, V> UtilCache<K, V> newCache(String name, CacheSettings codeSettings, boolean publishRemovals) {
+        UtilCache<K, V> cache = new UtilCache<>(name, codeSettings, publishRemovals);
         cache.store = cache.newStore(CacheDeclarations.resolve(declarations, codeSettings));
         return cache;
     }
@@ -110,8 +142,9 @@ public final class UtilCache<K, V> {
     private static CacheSettings codeSettings(String name, int sizeLimit, int maxInMemory, long expireTime,
                                               boolean useSoftReference) {
         int maxSize = maxInMemory > 0 ? maxInMemory : sizeLimit;
+        // local unless a <cache> declaration says otherwise: only caches holding database data need invalidation
         return new CacheSettings(name, Math.max(0, maxSize), Math.max(0, expireTime), useSoftReference,
-                CachePolicy.INVALIDATE);
+                CachePolicy.LOCAL);
     }
 
     private CacheStore<Object, Object> newStore(CacheSettings settings) {
@@ -211,43 +244,66 @@ public final class UtilCache<K, V> {
 
     /**
      * Gets an element from the cache, loading it on a miss. A {@code null} result of the loader is returned and not
-     * cached.
-     * <p>The loader runs inside Caffeine's atomic compute for that key and while holding the cache's read lock, so it
-     * must not call back into the same cache (recursive update or deadlock), and a slow loader delays
-     * reconfiguration and the writers queued behind it.</p>
+     * cached. The loader runs outside any lock and may use this cache; two threads missing the same key at the same
+     * time may both run it. The loaded value is cached only if no invalidation for this cache arrived from another
+     * server while it loaded, so a value read before such a change is not kept.
      * @param key the key of the element
      * @param loader computes the value on a miss
      * @return the cached or loaded value
      */
     public V get(K key, Function<? super K, ? extends V> loader) {
-        AtomicBoolean loaded = new AtomicBoolean();
-        V value;
+        Object storeKey = fromKey(key);
+        Object cached = store.get(storeKey);
+        if (cached != null) {
+            return toValue(cached);
+        }
+        long versionBeforeLoad = remoteInvalidationVersion.get();
+        V value = loader.apply(key);
+        if (value == null || remoteInvalidationVersion.get() != versionBeforeLoad) {
+            return value;
+        }
+        Object existing;
         storeLock.readLock().lock();
         try {
-            value = toValue(store.get(fromKey(key), storeKey -> {
-                V newValue = loader.apply(key);
-                loaded.set(newValue != null);
-                return newValue;
-            }));
+            if (isTombstoned(storeKey)) {
+                return value;
+            }
+            CacheStore<Object, Object> current = store;
+            existing = current.putIfAbsent(storeKey, value, current.settings().expireTimeMillis());
         } finally {
             storeLock.readLock().unlock();
         }
-        if (loaded.get()) {
-            noteAddition(key, value);
+        if (existing != null) {
+            return toValue(existing);
         }
+        if (remoteInvalidationVersion.get() != versionBeforeLoad) {
+            // an invalidation landed between the check above and the put: do not keep what may be stale
+            storeLock.readLock().lock();
+            try {
+                store.remove(storeKey);
+            } finally {
+                storeLock.readLock().unlock();
+            }
+            return value;
+        }
+        noteAddition(key, value);
         return value;
     }
 
     /**
      * Puts an element in the cache with the cache's expire time. A {@code null} value is cached too, so that
      * {@link #containsKey(Object)} remembers a lookup that found nothing.
+     * <p>With an invalidation bus installed, a put is silently dropped for the bus's tombstone time after another server
+     * invalidated that key or cleared the whole cache, so a value computed from data read before that change is not
+     * kept; the current value, if any, is returned.</p>
      */
     public V put(K key, V value) {
         return putInternal(key, value, null);
     }
 
     /**
-     * Puts an element in the cache. A {@code null} value is cached too.
+     * Puts an element in the cache. A {@code null} value is cached too. Dropped like {@link #put(Object, Object)} for the
+     * tombstone time after another server invalidated the key or cleared the cache.
      * @param expireTimeMillis how long to keep this element, 0 or less for no expiry
      * @return the previous value, or {@code null}
      */
@@ -257,12 +313,23 @@ public final class UtilCache<K, V> {
 
     /** Puts an element; a {@code null} expire time means the cache's expire time, read under the lock. */
     private V putInternal(K key, V value, Long expireTimeMillis) {
+        Object storeKey = fromKey(key);
+        // read before the tombstone check, so an invalidation landing between the check and the write is seen after it
+        long versionBeforePut = remoteInvalidationVersion.get();
         Object oldValue;
         storeLock.readLock().lock();
         try {
+            if (isTombstoned(storeKey)) {
+                return toValue(store.peek(storeKey));
+            }
             CacheStore<Object, Object> current = store;
-            oldValue = current.put(fromKey(key), fromValue(value),
+            oldValue = current.put(storeKey, fromValue(value),
                     expireTimeMillis != null ? expireTimeMillis : current.settings().expireTimeMillis());
+            if (invalidatedSince(versionBeforePut, storeKey)) {
+                // an invalidation of this key, or a clear, landed between the check and the write: drop what was written
+                current.remove(storeKey);
+                return toValue(oldValue);
+            }
         } finally {
             storeLock.readLock().unlock();
         }
@@ -274,7 +341,11 @@ public final class UtilCache<K, V> {
         return toValue(oldValue);
     }
 
-    /** Puts an element in the cache unless the key already has one; returns the existing value or {@code null}. */
+    /**
+     * Puts an element in the cache unless the key already has one; returns the existing value or {@code null}. Dropped
+     * like {@link #put(Object, Object)} for the tombstone time after another server invalidated the key or cleared the
+     * cache.
+     */
     public V putIfAbsent(K key, V value) {
         return putIfAbsentInternal(key, value, null);
     }
@@ -286,12 +357,21 @@ public final class UtilCache<K, V> {
 
     /** Puts an element if absent; a {@code null} expire time means the cache's expire time, read under the lock. */
     private V putIfAbsentInternal(K key, V value, Long expireTimeMillis) {
+        Object storeKey = fromKey(key);
+        long versionBeforePut = remoteInvalidationVersion.get();
         Object existing;
         storeLock.readLock().lock();
         try {
+            if (isTombstoned(storeKey)) {
+                return toValue(store.peek(storeKey));
+            }
             CacheStore<Object, Object> current = store;
-            existing = current.putIfAbsent(fromKey(key), fromValue(value),
+            existing = current.putIfAbsent(storeKey, fromValue(value),
                     expireTimeMillis != null ? expireTimeMillis : current.settings().expireTimeMillis());
+            if (existing == null && invalidatedSince(versionBeforePut, storeKey)) {
+                current.remove(storeKey);
+                return null;
+            }
         } finally {
             storeLock.readLock().unlock();
         }
@@ -308,11 +388,20 @@ public final class UtilCache<K, V> {
     }
 
     /**
-     * Removes an element from the cache.
+     * Removes an element from the cache, and tells the other servers when a bus is installed.
      * @return the removed value, or {@code null}
      */
     public V remove(Object key) {
-        return removeInternal(key, true);
+        V oldValue = removeInternal(key, true);
+        if (publishes()) {
+            CacheInvalidation.publish(List.of(key instanceof String stringKey ? new CacheKey(name, stringKey)
+                    : new CacheClear(name)));
+        }
+        return oldValue;
+    }
+
+    private boolean publishes() {
+        return CacheInvalidation.isActive() && publishRemovals && store.settings().policy() != CachePolicy.LOCAL;
     }
 
     private V removeInternal(Object key, boolean countRemove) {
@@ -334,8 +423,24 @@ public final class UtilCache<K, V> {
         return toValue(oldValue);
     }
 
-    /** Removes all elements from this cache and resets its counters. */
+    /** Removes all elements from this cache and resets its counters, and tells the other servers. */
     public void clear() {
+        clearLocal();
+        if (publishes()) {
+            CacheInvalidation.publish(List.of(new CacheClear(name)));
+        }
+    }
+
+    private void clearLocal() {
+        clearEntries(true);
+    }
+
+    /**
+     * Removes all elements and notifies the listeners.
+     * @param resetStats whether the hit, miss and remove counters are reset too; a clear received from another server
+     *        keeps them, as it says nothing about how this server's cache is used
+     */
+    private void clearEntries(boolean resetStats) {
         Map<Object, Object> removed = new LinkedHashMap<>();
         storeLock.readLock().lock();
         try {
@@ -346,20 +451,23 @@ public final class UtilCache<K, V> {
                     removed.put(key, oldValue);
                 }
             }
-            stats = new Stats(CacheStoreStats.ZERO, current.stats());
-            removeHitCount.set(0);
-            removeMissCount.set(0);
+            if (resetStats) {
+                stats = new Stats(CacheStoreStats.ZERO, current.stats());
+                removeHitCount.set(0);
+                removeMissCount.set(0);
+            }
         } finally {
             storeLock.readLock().unlock();
         }
         removed.forEach((key, oldValue) -> noteRemoval(toKey(key), toValue(oldValue)));
     }
 
-    /** Removes all elements from all caches. */
+    /** Removes all elements from all caches, and tells the other servers to clear theirs. */
     public static void clearAllCaches() {
         for (UtilCache<?, ?> cache : UTIL_CACHE_TABLE.values()) {
-            cache.clear();
+            cache.clearLocal();
         }
+        CacheInvalidation.publish(List.of(new ClearAll()));
     }
 
     public static Set<String> getUtilCacheTableKeySet() {
@@ -532,7 +640,10 @@ public final class UtilCache<K, V> {
         });
     }
 
-    /** Returns the cache policy. It has no effect until an invalidation bus exists. */
+    /**
+     * Returns the cache policy: {@link CachePolicy#LOCAL} unless a {@code <cache>} declaration sets another. It has no
+     * effect until an invalidation bus exists.
+     */
     public CachePolicy getPolicy() {
         return store.settings().policy();
     }
@@ -596,12 +707,19 @@ public final class UtilCache<K, V> {
         return cache != null && cache.containsKey(key);
     }
 
+    /** Clears every cache whose name starts with {@code startsWith}, and tells the other servers in one batch. */
     public static void clearCachesThatStartWith(String startsWith) {
+        List<InvalidationMessage> messages = new ArrayList<>();
         for (Map.Entry<String, UtilCache<?, ?>> entry : UTIL_CACHE_TABLE.entrySet()) {
             if (entry.getKey().startsWith(startsWith)) {
-                entry.getValue().clear();
+                UtilCache<?, ?> cache = entry.getValue();
+                cache.clearLocal();
+                if (cache.publishes()) {
+                    messages.add(new CacheClear(cache.name));
+                }
             }
         }
+        CacheInvalidation.publish(messages);
     }
 
     public static void clearCache(String cacheName) {
@@ -618,6 +736,18 @@ public final class UtilCache<K, V> {
      */
     public static <K, V> UtilCache<K, V> getOrCreateUtilCache(String name, int sizeLimit, int maxInMemory, long expireTime,
                                                               boolean useSoftReference) {
+        return getOrCreateUtilCache(name, sizeLimit, maxInMemory, expireTime, useSoftReference, true);
+    }
+
+    /**
+     * Returns the cache registered under {@code name}, creating it if needed.
+     * @param sizeLimit the maximum size when {@code maxInMemory} is 0
+     * @param maxInMemory the maximum size, 0 to use {@code sizeLimit}
+     * @param publishRemovals whether this cache publishes its removals to other servers; pass {@code false} when the
+     *        code owning the cache publishes them itself, as the entity engine does
+     */
+    public static <K, V> UtilCache<K, V> getOrCreateUtilCache(String name, int sizeLimit, int maxInMemory, long expireTime,
+                                                              boolean useSoftReference, boolean publishRemovals) {
         UtilCache<K, V> existingCache = findCache(name);
         if (existingCache != null) {
             return existingCache;
@@ -629,18 +759,19 @@ public final class UtilCache<K, V> {
                 return existingCache;
             }
             newCache = newCache(name + getNextDefaultIndex(name),
-                    codeSettings(name, sizeLimit, maxInMemory, expireTime, useSoftReference));
+                    codeSettings(name, sizeLimit, maxInMemory, expireTime, useSoftReference), publishRemovals);
             UTIL_CACHE_TABLE.put(name, newCache);
         }
         // a declare() running while the cache was created may have missed it; this is a no-op when nothing changed
         newCache.applyDeclarations();
+        newCache.warnIfUndeclared();
         return newCache;
     }
 
     public static <K, V> UtilCache<K, V> createUtilCache(String name, int sizeLimit, int maxInMemory, long expireTime,
                                                          boolean useSoftReference) {
         return storeCache(newCache(name + getNextDefaultIndex(name),
-                codeSettings(name, sizeLimit, maxInMemory, expireTime, useSoftReference)));
+                codeSettings(name, sizeLimit, maxInMemory, expireTime, useSoftReference), true));
     }
 
     public static <K, V> UtilCache<K, V> createUtilCache(String name, int sizeLimit, long expireTime, boolean useSoftReference) {
@@ -671,10 +802,180 @@ public final class UtilCache<K, V> {
         UTIL_CACHE_TABLE.put(cache.getName(), cache);
         // a declare() running while the cache was created may have missed it; this is a no-op when nothing changed
         cache.applyDeclarations();
+        cache.warnIfUndeclared();
         return cache;
+    }
+
+    /**
+     * With a bus installed, logs once per cache name a warning for this cache if it publishes removals and no
+     * {@code <cache>} declaration matches it, since it is then treated as local without anyone having decided so.
+     */
+    private void warnIfUndeclared() {
+        String baseName = codeSettings.name();
+        if (!CacheInvalidation.isActive() || !publishRemovals || CacheDeclarations.isDeclared(declarations, baseName)) {
+            return;
+        }
+        if (WARNED_UNDECLARED.add(baseName)) {
+            Debug.logWarning("Cache [" + baseName + "] has no <cache> declaration and is treated as local, so it is not "
+                    + "cleared on the other servers; declare policy=\"invalidate\" in its component's ofbiz-component.xml "
+                    + "if it holds data read from the database, or policy=\"local\" to confirm it is per-server.", MODULE);
+        }
+    }
+
+    /**
+     * Checks every existing cache, when a bus is installed, and logs one grouped warning for the undeclared ones that were
+     * not reported before.
+     * @return the sorted base names reported, empty when none
+     */
+    static List<String> warnUndeclaredCaches() {
+        if (!CacheInvalidation.isActive()) {
+            return List.of();
+        }
+        SortedSet<String> names = new TreeSet<>();
+        for (UtilCache<?, ?> cache : UTIL_CACHE_TABLE.values()) {
+            String baseName = cache.codeSettings.name();
+            if (cache.publishRemovals && !CacheDeclarations.isDeclared(declarations, baseName)
+                    && WARNED_UNDECLARED.add(baseName)) {
+                names.add(baseName);
+            }
+        }
+        if (names.isEmpty()) {
+            return List.of();
+        }
+        List<String> sorted = List.copyOf(names);
+        int shown = Math.min(sorted.size(), MAX_LISTED_UNDECLARED);
+        String list = String.join(", ", sorted.subList(0, shown))
+                + (sorted.size() > shown ? " and " + (sorted.size() - shown) + " more" : "");
+        Debug.logWarning(sorted.size() + " caches have no <cache> declaration and are treated as local, so they are not "
+                + "cleared on the other servers: [" + list + "]; declare policy=\"invalidate\" in the owning component's "
+                + "ofbiz-component.xml for any that hold data read from the database, or policy=\"local\" to confirm "
+                + "they are per-server.", MODULE);
+        return sorted;
+    }
+
+    /** Whether a warning for the undeclared cache {@code baseName} has been logged. */
+    static boolean wasWarnedUndeclared(String baseName) {
+        return WARNED_UNDECLARED.contains(baseName);
+    }
+
+    /** Forgets the warned names, for tests. */
+    static void resetWarnedUndeclared() {
+        WARNED_UNDECLARED.clear();
     }
 
     public static <K, V> UtilCache<K, V> findCache(String cacheName) {
         return UtilGenerics.cast(UTIL_CACHE_TABLE.get(cacheName));
+    }
+
+    /**
+     * Applies invalidations received from another server; local caches, which include every cache not declared with
+     * another policy, are left alone.
+     */
+    static void applyRemote(List<InvalidationMessage> messages) {
+        for (InvalidationMessage message : messages) {
+            switch (message) {
+            case CacheKey m -> {
+                UtilCache<?, ?> cache = findCache(m.cacheName());
+                if (cache != null && cache.appliesRemote()) {
+                    cache.applyRemoteKey(m.key());
+                }
+            }
+            case CacheClear m -> {
+                UtilCache<?, ?> cache = findCache(m.cacheName());
+                if (cache != null && cache.appliesRemote()) {
+                    cache.applyRemoteClear();
+                }
+            }
+            case ClearAll m -> clearAllNonLocalCaches();
+            default -> {
+                // entity messages are applied by the entity engine's handler
+            }
+            }
+        }
+    }
+
+    /**
+     * Clears every cache that is not local, after a received clear-all or a bus gap. The entity caches are cleared by the
+     * entity engine's handler.
+     */
+    static void clearAllNonLocalCaches() {
+        for (UtilCache<?, ?> cache : UTIL_CACHE_TABLE.values()) {
+            if (cache.appliesRemote()) {
+                cache.applyRemoteClear();
+            }
+        }
+    }
+
+    private boolean appliesRemote() {
+        return store.settings().policy() != CachePolicy.LOCAL;
+    }
+
+    private void applyRemoteKey(String key) {
+        remoteInvalidationVersion.incrementAndGet();
+        long tombstoneMillis = CacheInvalidation.tombstoneMillis();
+        if (tombstoneMillis > 0) {
+            long now = System.nanoTime();
+            long tombstoneNanos = TimeUnit.MILLISECONDS.toNanos(tombstoneMillis);
+            if (now - lastTombstonePrune >= tombstoneNanos / 2) {
+                lastTombstonePrune = now;
+                tombstones.values().removeIf(until -> now - until >= 0);
+            }
+            if (tombstones.size() >= MAX_TOMBSTONES) {
+                // too many keys to track one by one: treat the whole cache as just cleared instead
+                tombstones.clear();
+                extendClearedUntil(now + tombstoneNanos);
+            } else {
+                tombstones.put(key, now + tombstoneNanos);
+            }
+        }
+        removeInternal(key, false);
+    }
+
+    private void applyRemoteClear() {
+        remoteInvalidationVersion.incrementAndGet();
+        long tombstoneMillis = CacheInvalidation.tombstoneMillis();
+        if (tombstoneMillis > 0) {
+            extendClearedUntil(System.nanoTime() + TimeUnit.MILLISECONDS.toNanos(tombstoneMillis));
+        }
+        clearEntries(false);
+    }
+
+    /** Moves the window in which puts of every key are ignored to end no earlier than {@code until}. */
+    private void extendClearedUntil(long until) {
+        Long current = clearedUntil;
+        if (current == null || until - current > 0) {
+            clearedUntil = until;
+        }
+    }
+
+    /**
+     * Whether an invalidation received since {@code versionBeforePut} covers this store key, so a value just written
+     * for it may be stale.
+     */
+    private boolean invalidatedSince(long versionBeforePut, Object storeKey) {
+        return remoteInvalidationVersion.get() != versionBeforePut && isTombstoned(storeKey);
+    }
+
+    /**
+     * Whether a put of this store key must be ignored because another server just invalidated it, or just cleared the
+     * whole cache.
+     */
+    private boolean isTombstoned(Object storeKey) {
+        Long clearUntil = clearedUntil;
+        if (clearUntil != null && System.nanoTime() - clearUntil < 0) {
+            return true;
+        }
+        if (tombstones.isEmpty()) {
+            return false;
+        }
+        Long until = tombstones.get(storeKey);
+        if (until == null) {
+            return false;
+        }
+        if (System.nanoTime() - until < 0) {
+            return true;
+        }
+        tombstones.remove(storeKey, until);
+        return false;
     }
 }

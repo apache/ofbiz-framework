@@ -39,4 +39,16 @@ under the License.
     <cache name="script.ParsedScripts" expire-time="10000"/>
     <cache name="script.GroovyLocationParsedCache" expire-time="10000"/>
     <cache name="template.ftl.general" expire-time="10000"/>
+    <cache name="base.metrics" policy="local"/>
+    <cache name="default" policy="local"/>
+    <cache name="specified" policy="local"/>
+    <cache name="entity.JNDIContexts" policy="local"/>
+    <cache name-prefix="flexibleMapAccessor." policy="local"/>
+    <cache name-prefix="flexibleStringExpander." policy="local"/>
+    <cache name-prefix="nodeElResolver." policy="local"/>
+    <cache name-prefix="properties." policy="local"/>
+    <cache name-prefix="regularExpression." policy="local"/>
+    <cache name-prefix="resource." policy="local"/>
+    <cache name-prefix="script." policy="local"/>
+    <cache name-prefix="template.ftl." policy="local"/>
 </ofbiz-component>

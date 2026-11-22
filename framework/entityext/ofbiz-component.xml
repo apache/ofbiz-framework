@@ -42,4 +42,7 @@ under the License.
         <property name="delegator-name" value="default"/>
         <property name="entity-group-name" value="org.apache.ofbiz"/>
     </container>
+
+    <!-- Cache settings, see the cache element in ofbiz-component.xsd -->
+    <cache name="entity.EcaReaders" policy="local"/>
 </ofbiz-component>
