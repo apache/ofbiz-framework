@@ -288,6 +288,11 @@ the same pull request.
   `CacheSoftReference`, `ReferenceCleaner`, `ExecutionPool.Pulse`, `ExecutionPool.ExecutionPoolPulseWorker`,
   `addPulse`, `removePulse` and `UtilCache.onEviction` are removed. Size eviction now uses Caffeine's frequency-based
   policy rather than LRU, which only matters for caches given a max-size.
+* The forms of `component://content/widget/cms/CMSForms.xml` that no screen renders are removed: `EditContent`,
+  `UpdateContentPurposeOperation`, `AddContentPurposeOperation`, `EditAddContentMaster`, `EditAddContent`,
+  `EditAddBioContent`, `AddResponse`, `EditAddImageMaster`, `EditAddImage` and `EditAddBioImage`, with the
+  `ContentTemplateImageCentered`, `ContentTemplateImageLeft` and `ContentTemplateTextOnly` labels
+  ([OFBIZ-13883](https://issues.apache.org/jira/browse/OFBIZ-13883)).
 
 ### Themes
 
