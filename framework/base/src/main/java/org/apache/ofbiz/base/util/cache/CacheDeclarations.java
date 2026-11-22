@@ -44,4 +44,9 @@ public final class CacheDeclarations {
         }
         return result;
     }
+
+    /** Returns whether any declaration, by exact name or by name prefix, matches {@code cacheName}. */
+    public static boolean isDeclared(List<CacheDeclaration> declarations, String cacheName) {
+        return declarations.stream().anyMatch(declaration -> declaration.matches(cacheName));
+    }
 }

@@ -85,4 +85,7 @@ under the License.
     <test-suite loader="main" location="testdef/UserLoginTests.xml"/>
     <test-suite loader="main" location="testdef/PerformFindTests.xml"/>
     <test-suite loader="main" location="testdef/EmailServicesInjectionTests.xml"/>
+
+    <!-- Cache settings, see the cache element in ofbiz-component.xsd -->
+    <cache name="smtp.oauth2.accessToken" policy="local"/>
 </ofbiz-component>

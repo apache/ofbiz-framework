@@ -65,4 +65,6 @@ under the License.
     </container>
     -->
 
+    <!-- Cache settings, see the cache element in ofbiz-component.xsd -->
+    <cache name-prefix="service." policy="local"/>
 </ofbiz-component>

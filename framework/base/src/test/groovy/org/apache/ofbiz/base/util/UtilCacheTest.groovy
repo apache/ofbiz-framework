@@ -24,15 +24,18 @@ import java.util.concurrent.CopyOnWriteArrayList
 import java.util.concurrent.CountDownLatch
 
 import org.apache.ofbiz.base.util.cache.CacheDeclaration
+import org.apache.ofbiz.base.util.cache.CacheInvalidation
 import org.apache.ofbiz.base.util.cache.CacheListener
 import org.apache.ofbiz.base.util.cache.CachePolicy
+import org.apache.ofbiz.base.util.cache.InvalidationMessage
+import org.apache.ofbiz.base.util.cache.RecordingInvalidationBus
 import org.apache.ofbiz.base.util.cache.UtilCache
 import org.apache.ofbiz.base.util.tool.UtilCacheTestTools.Listener
 
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.BeforeAll
 
-// codenarc-disable JUnitLostTest
+// codenarc-disable JUnitLostTest,MethodCount
 class UtilCacheTest  {
 
     @BeforeAll
@@ -100,6 +103,17 @@ class UtilCacheTest  {
         assert !UtilCache.validKey(myCache.getName(), myKey)
         assert myCache.get(myKey) == null
         assert myCache.remove(myKey) == null
+    }
+
+    static RecordingInvalidationBus installBus(long tombstoneMillis) {
+        RecordingInvalidationBus bus = new RecordingInvalidationBus(tombstoneMillis)
+        CacheInvalidation.install(bus)
+        return bus
+    }
+
+    /** Declares the caches {@code policy="invalidate"}; caches are local by default. Reset with {@code declare([])}. */
+    static void declareInvalidate(String... names) {
+        UtilCache.declare(names.collect { new CacheDeclaration(it, false, null, null, null, CachePolicy.INVALIDATE) })
     }
 
     // codenarc-disable JUnitTestMethodWithoutAssert
@@ -381,22 +395,338 @@ class UtilCacheTest  {
     }
 
     @Test
+    void testRemovePublishesTheKeyWhenABusIsInstalled() {
+        UtilCache<String, String> myCache = UtilCache.createUtilCache('testRemovePublishes', 0, 0, 0, false)
+        RecordingInvalidationBus bus = installBus(2000)
+        try {
+            declareInvalidate('testRemovePublishes')
+            myCache.put('a', '1')
+            myCache.remove('a')
+            myCache.remove(Integer.valueOf(7))
+            myCache.clear()
+            assert bus.messages() == [new InvalidationMessage.CacheKey(myCache.getName(), 'a'),
+                                      new InvalidationMessage.CacheClear(myCache.getName()),
+                                      new InvalidationMessage.CacheClear(myCache.getName())]
+        } finally {
+            UtilCache.declare([])
+            CacheInvalidation.uninstall()
+        }
+    }
+
+    @Test
+    void testClearCachesThatStartWithPublishesOneBatch() {
+        UtilCache<String, String> first = UtilCache.createUtilCache('testPrefixBatch.first', 0, 0, 0, false)
+        UtilCache<String, String> second = UtilCache.createUtilCache('testPrefixBatch.second', 0, 0, 0, false)
+        UtilCache<String, String> local = UtilCache.createUtilCache('testPrefixBatch.local', 0, 0, 0, false)
+        RecordingInvalidationBus bus = installBus(2000)
+        try {
+            declareInvalidate('testPrefixBatch.first', 'testPrefixBatch.second')
+            first.put('a', '1')
+            local.put('c', '3')
+            UtilCache.clearCachesThatStartWith('testPrefixBatch.')
+            assert first.isEmpty() && second.isEmpty() && local.isEmpty()
+            assert bus.batches().size() == 1
+            assert bus.messages() as Set == [new InvalidationMessage.CacheClear(first.getName()),
+                                             new InvalidationMessage.CacheClear(second.getName())] as Set
+        } finally {
+            UtilCache.declare([])
+            CacheInvalidation.uninstall()
+        }
+    }
+
+    @Test
+    void testNothingIsPublishedWithoutABus() {
+        UtilCache<String, String> myCache = UtilCache.createUtilCache('testNoBusNoPublish', 0, 0, 0, false)
+        try {
+            declareInvalidate('testNoBusNoPublish')
+            assert !CacheInvalidation.isActive()
+            myCache.put('a', '1')
+            assert myCache.remove('a') == '1'
+            myCache.clear()
+            // nothing was kept back to be sent once a bus is installed
+            RecordingInvalidationBus bus = installBus(2000)
+            try {
+                assert bus.messages().isEmpty()
+            } finally {
+                CacheInvalidation.uninstall()
+            }
+        } finally {
+            UtilCache.declare([])
+        }
+    }
+
+    @Test
+    void testUndeclaredCachesAreLocalAndNeitherPublishNorApply() {
+        UtilCache<String, String> myCache = UtilCache.createUtilCache('testUndeclaredLocal', 0, 0, 0, false)
+        assert myCache.policy == CachePolicy.LOCAL
+        RecordingInvalidationBus bus = installBus(2000)
+        try {
+            myCache.put('a', '1')
+            myCache.remove('a')
+            myCache.clear()
+            assert bus.messages().isEmpty()
+            myCache.put('b', '2')
+            bus.deliverFrom('other-node', new InvalidationMessage.CacheKey(myCache.getName(), 'b'))
+            bus.deliverFrom('other-node', new InvalidationMessage.CacheClear(myCache.getName()))
+            bus.deliverFrom('other-node', new InvalidationMessage.ClearAll())
+            bus.reportGap()
+            assert myCache.get('b') == '2'
+        } finally {
+            CacheInvalidation.uninstall()
+        }
+    }
+
+    @Test
+    void testLocalCachesNeitherPublishNorApply() {
+        String name = 'testLocalCacheNoPublish'
+        UtilCache<String, String> myCache = UtilCache.createUtilCache(name, 0, 0, 0, false)
+        RecordingInvalidationBus bus = installBus(2000)
+        try {
+            UtilCache.declare([new CacheDeclaration(name, false, null, null, null, CachePolicy.LOCAL)])
+            myCache.put('a', '1')
+            myCache.remove('a')
+            assert bus.messages().isEmpty()
+            myCache.put('b', '2')
+            bus.deliverFrom('other-node', new InvalidationMessage.CacheKey(myCache.getName(), 'b'))
+            assert myCache.get('b') == '2'
+        } finally {
+            UtilCache.declare([])
+            CacheInvalidation.uninstall()
+        }
+    }
+
+    @Test
+    void testCachesCreatedWithoutPublishingDoNotPublish() {
+        UtilCache<String, String> myCache = UtilCache.getOrCreateUtilCache('testNoPublishOption', 0, 0, 0, false, false)
+        // declared invalidate, so only the publishRemovals argument keeps it from publishing
+        declareInvalidate('testNoPublishOption')
+        RecordingInvalidationBus bus = installBus(2000)
+        try {
+            myCache.put('a', '1')
+            myCache.remove('a')
+            myCache.clear()
+            assert bus.messages().isEmpty()
+        } finally {
+            UtilCache.declare([])
+            CacheInvalidation.uninstall()
+        }
+    }
+
+    @Test
+    void testReceivedKeyRemovesAndBlocksPutsForTheTombstoneTime() {
+        // a long tombstone, so a slow machine cannot see it expire before the put is checked
+        UtilCache<String, String> myCache = UtilCache.createUtilCache('testReceivedKey', 0, 0, 0, false)
+        UtilCache<String, String> expiring = UtilCache.createUtilCache('testReceivedKeyExpiry', 0, 0, 0, false)
+        declareInvalidate('testReceivedKey', 'testReceivedKeyExpiry')
+        RecordingInvalidationBus bus = installBus(60000)
+        try {
+            myCache.put('a', 'old')
+            bus.deliverFrom('other-node', new InvalidationMessage.CacheKey(myCache.getName(), 'a'))
+            assert !myCache.containsKey('a')
+            myCache.put('a', 'stale')
+            assert !myCache.containsKey('a')
+            myCache.putIfAbsent('a', 'stale')
+            assert !myCache.containsKey('a')
+            myCache.put('other', 'kept')
+            assert myCache.get('other') == 'kept'
+        } finally {
+            CacheInvalidation.uninstall()
+        }
+        // a short tombstone on a separate cache for the expiry
+        RecordingInvalidationBus shortBus = installBus(200)
+        try {
+            expiring.put('a', 'old')
+            shortBus.deliverFrom('other-node', new InvalidationMessage.CacheKey(expiring.getName(), 'a'))
+            assert !expiring.containsKey('a')
+            assert waitFor {
+                expiring.put('a', 'fresh')
+                expiring.get('a') == 'fresh'
+            }
+        } finally {
+            UtilCache.declare([])
+            CacheInvalidation.uninstall()
+        }
+    }
+
+    @Test
+    void testReceivedClearBlocksPutsForTheTombstoneTime() {
+        UtilCache<String, String> myCache = UtilCache.createUtilCache('testReceivedClearWindow', 0, 0, 0, false)
+        declareInvalidate('testReceivedClearWindow')
+        RecordingInvalidationBus bus = installBus(60000)
+        try {
+            myCache.put('a', 'old')
+            bus.deliverFrom('other-node', new InvalidationMessage.CacheClear(myCache.getName()))
+            assert myCache.isEmpty()
+            myCache.put('b', 'stale')
+            myCache.putIfAbsent('c', 'stale')
+            assert myCache.get('d') { String key -> 'loaded' } == 'loaded'
+            assert myCache.isEmpty()
+        } finally {
+            UtilCache.declare([])
+            CacheInvalidation.uninstall()
+        }
+    }
+
+    @Test
+    void testTooManyTombstonesBlockPutsOfEveryKey() {
+        UtilCache<String, String> myCache = UtilCache.createUtilCache('testTombstoneOverflow', 0, 0, 0, false)
+        declareInvalidate('testTombstoneOverflow')
+        RecordingInvalidationBus bus = installBus(60000)
+        try {
+            myCache.put('unrelated', 'kept')
+            InvalidationMessage[] keys = (0..10_000).collect {
+                new InvalidationMessage.CacheKey(myCache.getName(), "key$it".toString())
+            } as InvalidationMessage[]
+            bus.deliverFrom('other-node', keys)
+            // the overflow drops the tombstones but treats the whole cache as just cleared, so no stale put gets in
+            myCache.put('key10000', 'stale')
+            myCache.put('never-invalidated', 'blocked')
+            assert !myCache.containsKey('key10000')
+            assert !myCache.containsKey('never-invalidated')
+            // entries already cached are not removed by the overflow
+            assert myCache.get('unrelated') == 'kept'
+        } finally {
+            UtilCache.declare([])
+            CacheInvalidation.uninstall()
+        }
+    }
+
+    @Test
+    void testReceivedClearKeepsTheStatistics() {
+        UtilCache<String, String> myCache = UtilCache.createUtilCache('testReceivedClearStats', 0, 0, 0, false)
+        declareInvalidate('testReceivedClearStats')
+        RecordingInvalidationBus bus = installBus(2000)
+        try {
+            myCache.put('a', '1')
+            myCache.put('b', '2')
+            myCache.get('a')
+            myCache.get('missing')
+            myCache.remove('b')
+            long hits = myCache.getHitCount()
+            long misses = myCache.getMissCountTotal()
+            long removeHits = myCache.getRemoveHitCount()
+            assert hits > 0 && misses > 0 && removeHits > 0
+            bus.deliverFrom('other-node', new InvalidationMessage.CacheClear(myCache.getName()))
+            assert myCache.isEmpty()
+            assert myCache.getHitCount() == hits
+            assert myCache.getMissCountTotal() == misses
+            assert myCache.getRemoveHitCount() == removeHits
+            bus.reportGap()
+            assert myCache.getHitCount() == hits
+        } finally {
+            UtilCache.declare([])
+            CacheInvalidation.uninstall()
+        }
+    }
+
+    @Test
+    void testOwnMessagesAreIgnored() {
+        UtilCache<String, String> myCache = UtilCache.createUtilCache('testOwnMessages', 0, 0, 0, false)
+        declareInvalidate('testOwnMessages')
+        RecordingInvalidationBus bus = installBus(2000)
+        try {
+            myCache.put('a', '1')
+            bus.deliverFrom(CacheInvalidation.getNodeId(), new InvalidationMessage.CacheKey(myCache.getName(), 'a'))
+            assert myCache.get('a') == '1'
+        } finally {
+            UtilCache.declare([])
+            CacheInvalidation.uninstall()
+        }
+    }
+
+    @Test
+    void testReceivedClearAllClearsEveryNonLocalCache() {
+        UtilCache<String, String> first = UtilCache.createUtilCache('testClearAllFirst', 0, 0, 0, false)
+        UtilCache<String, String> second = UtilCache.createUtilCache('testClearAllSecond', 0, 0, 0, false)
+        UtilCache<String, String> local = UtilCache.createUtilCache('testClearAllLocal', 0, 0, 0, false)
+        declareInvalidate('testClearAllFirst', 'testClearAllSecond')
+        RecordingInvalidationBus bus = installBus(2000)
+        try {
+            first.put('a', '1')
+            second.put('b', '2')
+            local.put('c', '3')
+            bus.deliverFrom('other-node', new InvalidationMessage.ClearAll())
+            assert first.isEmpty()
+            assert second.isEmpty()
+            assert local.get('c') == '3'
+        } finally {
+            UtilCache.declare([])
+            CacheInvalidation.uninstall()
+        }
+    }
+
+    @Test
+    void testClearAllCachesPublishesOneClearAll() {
+        RecordingInvalidationBus bus = installBus(2000)
+        try {
+            UtilCache.clearAllCaches()
+            assert bus.messages() == [new InvalidationMessage.ClearAll()]
+        } finally {
+            CacheInvalidation.uninstall()
+        }
+    }
+
+    @Test
+    void testGapClearsEveryNonLocalCache() {
+        UtilCache<String, String> myCache = UtilCache.createUtilCache('testGapClears', 0, 0, 0, false)
+        declareInvalidate('testGapClears')
+        RecordingInvalidationBus bus = installBus(2000)
+        try {
+            myCache.put('a', '1')
+            bus.reportGap()
+            assert myCache.isEmpty()
+        } finally {
+            UtilCache.declare([])
+            CacheInvalidation.uninstall()
+        }
+    }
+
+    @Test
+    void testLoaderResultIsNotCachedWhenInvalidatedDuringTheLoad() {
+        UtilCache<String, String> myCache = UtilCache.createUtilCache('testLoaderGuard', 0, 0, 0, false)
+        declareInvalidate('testLoaderGuard')
+        // no tombstone time, so the received clear blocks this load only, not the next one
+        RecordingInvalidationBus bus = installBus(0)
+        try {
+            String value = myCache.get('a') { String key ->
+                bus.deliverFrom('other-node', new InvalidationMessage.CacheClear(myCache.getName()))
+                'loaded'
+            }
+            assert value == 'loaded'
+            assert !myCache.containsKey('a')
+            assert myCache.get('b') { String key -> 'loaded' } == 'loaded'
+            assert myCache.get('b') == 'loaded'
+        } finally {
+            UtilCache.declare([])
+            CacheInvalidation.uninstall()
+        }
+    }
+
+    @Test
+    void testLoaderMayUseTheSameCache() {
+        UtilCache<String, String> myCache = UtilCache.createUtilCache('testLoaderReentry', 0, 0, 0, false)
+        myCache.put('base', 'x')
+        assert myCache.get('derived') { String key -> myCache.get('base') + 'y' } == 'xy'
+        assert myCache.get('derived') == 'xy'
+    }
+
+    @Test
     void testDeclareReconfiguresExistingCache() {
         String name = 'testDeclareReconfigures'
         UtilCache<String, String> myCache = UtilCache.createUtilCache(name, 0, 0, 0, false)
         myCache.put('key', 'value')
         try {
-            UtilCache.declare([new CacheDeclaration(name, false, 3L, 50000L, null, CachePolicy.LOCAL)])
+            UtilCache.declare([new CacheDeclaration(name, false, 3L, 50000L, null, CachePolicy.INVALIDATE)])
             assert myCache.maxSize == 3
             assert myCache.expireTime == 50000
-            assert myCache.policy == CachePolicy.LOCAL
+            assert myCache.policy == CachePolicy.INVALIDATE
             assert myCache.get('key') == 'value'
         } finally {
             UtilCache.declare([])
         }
         assert myCache.maxSize == 0
         assert myCache.expireTime == 0
-        assert myCache.policy == CachePolicy.INVALIDATE
+        assert myCache.policy == CachePolicy.LOCAL
         assert myCache.get('key') == 'value'
     }
 
@@ -425,6 +755,58 @@ class UtilCacheTest  {
         sleep(1500) // past the duplicate window: a second notification would show up by now
         assert removals.sort() == ['a=1', 'b=2', 'c=3']
         assert myCache.isEmpty()
+    }
+
+    @Test
+    void testUndeclaredPublishingCacheIsWarnedAboutOnce() {
+        String before = 'testWarnUndeclared.beforeBus'
+        String after = 'testWarnUndeclared.afterBus'
+        UtilCache.createUtilCache(before, 0, 0, 0, false)
+        assert !UtilCache.wasWarnedUndeclared(before)
+        assert UtilCache.warnUndeclaredCaches() == []
+        installBus(2000)
+        try {
+            // a cache that existed when the bus was installed was reported by the grouped warning at install
+            assert UtilCache.wasWarnedUndeclared(before)
+            assert UtilCache.warnUndeclaredCaches() == []
+            assert !UtilCache.wasWarnedUndeclared(after)
+            // a cache created while the bus is installed is checked when created, and the name warns only once
+            UtilCache.createUtilCache(after, 0, 0, 0, false)
+            assert UtilCache.wasWarnedUndeclared(after)
+            UtilCache.createUtilCache(after, 0, 0, 0, false)
+            UtilCache.getOrCreateUtilCache(after + '2', 0, 0, 0, false)
+            // names already warned about individually are not reported again, nor is the earlier grouped one
+            assert UtilCache.warnUndeclaredCaches() == []
+            assert UtilCache.wasWarnedUndeclared(after + '2')
+        } finally {
+            UtilCache.declare([])
+            CacheInvalidation.uninstall()
+        }
+    }
+
+    @Test
+    void testDeclaredOrEntityOrBuslessCachesAreNotWarnedAbout() {
+        String declared = 'testWarnDeclared.local'
+        String prefixed = 'testWarnDeclared.prefixed.one'
+        String entityLike = 'testWarnDeclared.entity'
+        UtilCache.createUtilCache('testWarnBusless', 0, 0, 0, false)
+        UtilCache.warnUndeclaredCaches()
+        assert !UtilCache.wasWarnedUndeclared('testWarnBusless')
+        installBus(2000)
+        try {
+            UtilCache.declare([new CacheDeclaration(declared, false, null, null, null, CachePolicy.LOCAL),
+                               new CacheDeclaration('testWarnDeclared.prefixed.', true, null, null, null, CachePolicy.LOCAL)])
+            UtilCache.createUtilCache(declared, 0, 0, 0, false)
+            UtilCache.createUtilCache(prefixed, 0, 0, 0, false)
+            UtilCache.getOrCreateUtilCache(entityLike, 0, 0, 0, true, false)
+            UtilCache.warnUndeclaredCaches()
+            assert !UtilCache.wasWarnedUndeclared(declared)
+            assert !UtilCache.wasWarnedUndeclared(prefixed)
+            assert !UtilCache.wasWarnedUndeclared(entityLike)
+        } finally {
+            UtilCache.declare([])
+            CacheInvalidation.uninstall()
+        }
     }
 
 }

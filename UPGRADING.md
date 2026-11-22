@@ -165,6 +165,22 @@ the same pull request.
   The keys map as follows: `maxSize`/`maxInMemory` to `max-size`, `expireTime` to `expire-time`, `useSoftReference`
   to `soft-values`. The `default.*` and `${entity-name}`-style keys have no replacement; use `name-prefix` instead
   ([OFBIZ-13833](https://issues.apache.org/jira/browse/OFBIZ-13833)).
+* Servers sharing a database can clear each other's caches through a cache invalidation bus
+  ([OFBIZ-13881](https://issues.apache.org/jira/browse/OFBIZ-13881)). A provider plugin installs the bus; the framework
+  ships none, so a single server is unchanged. Entity changes are published after commit, as primary key values only,
+  by `org.apache.ofbiz.entity.cache.EntityCacheInvalidator`: select it on a delegator with
+  `distributed-cache-clear-enabled="true"` and
+  `distributed-cache-clear-class-name="org.apache.ofbiz.entity.cache.EntityCacheInvalidator"`. The JMS implementation
+  stays the default. Entity caches are distributed by `EntityCacheInvalidator` whatever their `<cache>` policy. Other
+  caches are local by default: declare `policy="invalidate"` in the `<cache>` element of a cache holding data read from
+  the database (the framework and applications do so for `security.AuthorizationCache` and the `*.content.rendered` and
+  `product.config` caches), so its removals and clears are applied on the other servers. With a bus installed, OFBiz logs a warning for each cache without a `<cache>` declaration, so new caches state
+  their policy. Removals from such caches are
+  published at once, not after a surrounding transaction commits. The bus must be authenticated: a forged message can
+  clear any distributed cache. Remote entity invalidation is coarser than the JMS path: each row changed on another
+  server clears the entity's list and object caches (and those of the view entities containing it), not only the
+  condition caches the row matches. A find running inside an older `REPEATABLE READ` snapshot can still read and cache
+  a row older than an invalidation that already arrived.
 
 ### Custom code
 
@@ -296,6 +312,11 @@ the same pull request.
   `EditAddBioContent`, `AddResponse`, `EditAddImageMaster`, `EditAddImage` and `EditAddBioImage`, with the
   `ContentTemplateImageCentered`, `ContentTemplateImageLeft` and `ContentTemplateTextOnly` labels
   ([OFBIZ-13883](https://issues.apache.org/jira/browse/OFBIZ-13883)).
+* `UtilCache.get(key, loader)` now runs the loader outside any lock, may run it more than once at a time for the same
+  key, and caches the result only if no invalidation for that cache arrived from another server during the load
+  ([OFBIZ-13881](https://issues.apache.org/jira/browse/OFBIZ-13881)). `getOrCreateUtilCache` has an overload with a
+  `publishRemovals` argument for caches whose owner tells the other servers about changes itself. A provider plugin
+  implements `org.apache.ofbiz.base.util.cache.InvalidationBus` and installs it with `CacheInvalidation.install`.
 
 ### Themes
 

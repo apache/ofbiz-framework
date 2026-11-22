@@ -40,4 +40,7 @@ under the License.
             class="org.apache.ofbiz.webtools.secret.SecretAuditContainer">
         <property name="delegator-name" value="default"/>
     </container>
+
+    <!-- Cache settings, see the cache element in ofbiz-component.xsd -->
+    <cache name="ArtifactInfoFactory" policy="local"/>
 </ofbiz-component>

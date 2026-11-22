@@ -1548,6 +1548,10 @@ public class GenericDelegator implements Delegator {
             }
         }
 
+        // read before the database, so a change committed meanwhile (here or on another server) keeps a stale result out
+        // of the cache; a find inside an older REPEATABLE READ snapshot can still cache a row older than that change
+        long versionBeforeLoad = useCache ? cache.invalidationVersion(entityName) : 0;
+
         boolean beganTransaction = false;
         try {
             if (ALWAYS_USE_TRANS) {
@@ -1571,9 +1575,9 @@ public class GenericDelegator implements Delegator {
             if (useCache) {
                 if (value != null) {
                     ecaRunner.evalRules(EntityEcaHandler.EV_CACHE_PUT, EntityEcaHandler.OP_FIND, value, false);
-                    this.putInPrimaryKeyCache(primaryKey, value);
+                    this.putInPrimaryKeyCache(primaryKey, value, versionBeforeLoad);
                 } else {
-                    this.putInPrimaryKeyCache(primaryKey, GenericValue.NULL_VALUE);
+                    this.putInPrimaryKeyCache(primaryKey, GenericValue.NULL_VALUE, versionBeforeLoad);
                 }
             }
 
@@ -1722,6 +1726,10 @@ public class GenericDelegator implements Delegator {
             }
         }
 
+        // read before the database, so a change committed meanwhile (here or on another server) keeps a stale result out
+        // of the cache; a find inside an older REPEATABLE READ snapshot can still cache a row older than that change
+        long versionBeforeLoad = useCache ? cache.invalidationVersion(entityName) : 0;
+
         boolean beganTransaction = false;
         try {
             if (ALWAYS_USE_TRANS) {
@@ -1735,7 +1743,7 @@ public class GenericDelegator implements Delegator {
 
             if (useCache && UtilValidate.isEmpty(fieldsToSelect)) {
                 ecaRunner.evalRules(EntityEcaHandler.EV_CACHE_PUT, EntityEcaHandler.OP_FIND, dummyValue, false);
-                this.cache.put(entityName, entityCondition, orderBy, list);
+                this.cache.putIfNotInvalidated(entityName, entityCondition, orderBy, list, versionBeforeLoad);
             }
             TransactionUtil.commit(beganTransaction);
             return list;
@@ -2203,6 +2211,16 @@ public class GenericDelegator implements Delegator {
             return null;
         }
         return value;
+    }
+
+    private void putInPrimaryKeyCache(GenericPK primaryKey, GenericValue value, long versionBeforeLoad) {
+        if (primaryKey.getModelEntity().getNeverCache()) {
+            // logs the same warning as before and does not cache
+            putInPrimaryKeyCache(primaryKey, value);
+            return;
+        }
+        value.setImmutable();
+        cache.putIfNotInvalidated(primaryKey, value, versionBeforeLoad);
     }
 
     /* (non-Javadoc)

@@ -333,7 +333,10 @@ under the License.
         </xs:attribute>
         <xs:attribute type="xs:boolean" name="soft-values"/>
         <xs:attribute name="policy">
-            <xs:annotation><xs:documentation>Behaviour when several servers share one database; no effect without an invalidation bus.</xs:documentation></xs:annotation>
+            <xs:annotation><xs:documentation>Behaviour when several servers share one database; no effect without an invalidation bus.
+                A cache is local unless declared otherwise: its entries stay on this server. Declare invalidate for caches holding
+                data read from the database, so a removal or clear on one server is applied on the others. The entity engine's
+                caches are distributed by its distributed cache clear (EntityCacheInvalidator) whatever this attribute says.</xs:documentation></xs:annotation>
             <xs:simpleType>
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="local"/>

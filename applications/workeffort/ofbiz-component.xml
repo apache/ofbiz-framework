@@ -46,4 +46,7 @@ under the License.
         base-permission="OFBTOOLS,WORKEFFORTMGR"
         app-shortcut-screen="component://workeffort/widget/CommonScreens.xml#ShortcutApp"
         mount-point="/workeffort"/>
+
+    <!-- caches of data read from the database: cleared on the other servers too when an invalidation bus is installed -->
+    <cache name="workeffort.content.rendered" policy="invalidate"/>
 </ofbiz-component>

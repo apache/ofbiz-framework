@@ -89,13 +89,14 @@ public final class ComponentContainerTest {
 
         UtilCache<String, String> exact = UtilCache.createUtilCache("test.component.cache");
         assertEquals(2000L, exact.getExpireTime());
-        assertEquals(CachePolicy.LOCAL, exact.getPolicy());
+        assertEquals(CachePolicy.INVALIDATE, exact.getPolicy());
         assertEquals(Boolean.TRUE, exact.getUseSoftReference());
         assertEquals(10L, exact.getMaxSize());
 
         UtilCache<String, String> byPrefix = UtilCache.createUtilCache("test.component.other");
         assertEquals(10L, byPrefix.getMaxSize());
         assertEquals(0L, byPrefix.getExpireTime());
-        assertEquals(CachePolicy.INVALIDATE, byPrefix.getPolicy());
+        // local by default
+        assertEquals(CachePolicy.LOCAL, byPrefix.getPolicy());
     }
 }

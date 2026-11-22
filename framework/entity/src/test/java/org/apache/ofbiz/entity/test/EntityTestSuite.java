@@ -31,6 +31,7 @@ import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -50,12 +51,17 @@ import org.apache.ofbiz.base.util.Observer;
 import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilXml;
+import org.apache.ofbiz.base.util.cache.CacheInvalidation;
+import org.apache.ofbiz.base.util.cache.InvalidationMessage;
+import org.apache.ofbiz.base.util.cache.RecordingInvalidationBus;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.DelegatorFactory;
 import org.apache.ofbiz.entity.GenericEntity;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericPK;
 import org.apache.ofbiz.entity.GenericValue;
+import org.apache.ofbiz.entity.cache.Cache;
+import org.apache.ofbiz.entity.cache.EntityCacheInvalidator;
 import org.apache.ofbiz.entity.condition.EntityCondition;
 import org.apache.ofbiz.entity.condition.EntityOperator;
 import org.apache.ofbiz.entity.config.model.Datasource;
@@ -362,6 +368,44 @@ public class EntityTestSuite implements JupiterTestHelper {
         testValue = EntityQuery.use(delegator).from("TestingViewPks").where("testingTypeId", "TEST-CACHE-3").cache(true).queryOne();
         assertEquals("New Testing Subtype #Cache-3", testValue.getString("subtypeDescription"),
                 "View retrieved from cache has the correct member description");
+    }
+
+    /**
+     * A remote invalidation drops the cached value and the entity's condition caches, and a load that started before it
+     * does not cache its result.
+     * @throws Exception the exception
+     */
+    @DisplayName("Test entity cache invalidation versions guard stale loads")
+    @Test
+    public void testEntityCacheInvalidationVersionsGuardStaleLoads() throws Exception {
+        Delegator delegator = getDelegator();
+        Cache cache = delegator.getCache();
+        delegator.removeByAnd("TestingType", "testingTypeId", "TEST-GEN-1");
+        try {
+            delegator.create("TestingType", "testingTypeId", "TEST-GEN-1", "description", "Invalidation version test");
+            GenericValue value = delegator.findOne("TestingType", true, "testingTypeId", "TEST-GEN-1");
+            GenericPK pk = value.getPrimaryKey();
+            EntityCondition condition = EntityCondition.makeCondition("testingTypeId", "TEST-GEN-1");
+            delegator.findList("TestingType", condition, null, null, null, true);
+            assertNotNull(delegator.getFromPrimaryKeyCache(pk), "value cached");
+            assertNotNull(cache.get("TestingType", condition, (List<String>) null), "list cached");
+
+            long before = cache.invalidationVersion("TestingType");
+            cache.invalidateFromRemote(pk);
+            assertNull(delegator.getFromPrimaryKeyCache(pk), "value dropped");
+            assertNull(cache.get("TestingType", condition, (List<String>) null), "condition cache dropped");
+            assertFalse(cache.putIfNotInvalidated(pk, value, before), "stale load not cached");
+            assertNull(delegator.getFromPrimaryKeyCache(pk), "still not cached");
+            assertTrue(cache.putIfNotInvalidated(pk, value, cache.invalidationVersion("TestingType")), "current load cached");
+            assertNotNull(delegator.getFromPrimaryKeyCache(pk), "value cached again");
+
+            long beforeClearAll = cache.invalidationVersion("TestingType");
+            cache.invalidateAllVersions();
+            assertFalse(cache.putIfNotInvalidated("TestingType", condition, null, List.of(value), beforeClearAll),
+                    "stale list not cached");
+        } finally {
+            delegator.removeByAnd("TestingType", "testingTypeId", "TEST-GEN-1");
+        }
     }
 
     /**
@@ -1419,6 +1463,303 @@ public class EntityTestSuite implements JupiterTestHelper {
                 + totalTimeSeveralSmallTransactions + " ms", MODULE);
         assertTrue(noErrors, "Errors detected executing the small transactions");
         assertTrue(totalTimeOneTransaction < totalTimeSeveralSmallTransactions, "One big transaction was not faster than several small ones");
+    }
+
+    private RecordingInvalidationBus installInvalidator(Delegator delegator) {
+        RecordingInvalidationBus bus = new RecordingInvalidationBus(2000);
+        CacheInvalidation.install(bus);
+        EntityCacheInvalidator invalidator = new EntityCacheInvalidator();
+        invalidator.setDelegator(delegator, "system");
+        delegator.setDistributedCacheClear(invalidator);
+        return bus;
+    }
+
+    private void removeInvalidator(Delegator delegator) {
+        // the test delegator does not enable distributed-cache-clear-enabled, so it has no distributed cache clear of its
+        // own to restore
+        delegator.setDistributedCacheClear(null);
+        CacheInvalidation.uninstall();
+    }
+
+    private InvalidationMessage.EntityKey testingTypeKey(Delegator delegator, String id) {
+        return new InvalidationMessage.EntityKey(delegator.getDelegatorName(), "TestingType", Map.of("testingTypeId", id));
+    }
+
+    /**
+     * Entity invalidations are published only after commit, and not at all on rollback.
+     * @throws Exception the exception
+     */
+    @DisplayName("Test entity invalidations are published after commit")
+    @Test
+    public void testEntityInvalidationsArePublishedAfterCommit() throws Exception {
+        Delegator delegator = getDelegator();
+        delegator.removeByAnd("TestingType", "testingTypeId", "TEST-INV-1");
+        RecordingInvalidationBus bus = installInvalidator(delegator);
+        try {
+            Cache cache = delegator.getCache();
+            boolean began = TransactionUtil.begin();
+            delegator.create("TestingType", "testingTypeId", "TEST-INV-1", "description", "Invalidation test");
+            assertTrue(bus.messages().isEmpty(), "nothing published before commit");
+            long versionBeforeCommit = cache.invalidationVersion("TestingType");
+            long viewVersionBeforeCommit = cache.invalidationVersion("TestingViewPks");
+            TransactionUtil.commit(began);
+            assertTrue(bus.messages().contains(testingTypeKey(delegator, "TEST-INV-1")), "published after commit");
+            assertTrue(cache.invalidationVersion("TestingType") != versionBeforeCommit,
+                    "the commit moved the entity's invalidation version");
+            assertTrue(cache.invalidationVersion("TestingViewPks") != viewVersionBeforeCommit,
+                    "the commit moved the invalidation version of a view containing the entity");
+
+            bus.reset();
+            began = TransactionUtil.begin();
+            delegator.create("TestingType", "testingTypeId", "TEST-INV-2", "description", "Rolled back");
+            TransactionUtil.rollback(began, "testing rollback", null);
+            assertTrue(bus.messages().isEmpty(), "nothing published on rollback");
+        } finally {
+            removeInvalidator(delegator);
+            delegator.removeByAnd("TestingType", "testingTypeId", "TEST-INV-1");
+            delegator.removeByAnd("TestingType", "testingTypeId", "TEST-INV-2");
+        }
+    }
+
+    /**
+     * Entity invalidations from another server drop the cached value, a list cache, and nothing for this server's own.
+     * @throws Exception the exception
+     */
+    @DisplayName("Test received entity invalidations")
+    @Test
+    public void testReceivedEntityInvalidations() throws Exception {
+        Delegator delegator = getDelegator();
+        delegator.removeByAnd("TestingType", "testingTypeId", "TEST-INV-3");
+        delegator.create("TestingType", "testingTypeId", "TEST-INV-3", "description", "Received test");
+        RecordingInvalidationBus bus = installInvalidator(delegator);
+        try {
+            GenericPK pk = delegator.makePK("TestingType", "testingTypeId", "TEST-INV-3");
+            delegator.findOne("TestingType", UtilMisc.toMap("testingTypeId", "TEST-INV-3"), true);
+            assertNotNull(delegator.getFromPrimaryKeyCache(pk), "value cached");
+
+            bus.deliverFrom(CacheInvalidation.getNodeId(), testingTypeKey(delegator, "TEST-INV-3"));
+            assertNotNull(delegator.getFromPrimaryKeyCache(pk), "own message ignored");
+
+            bus.deliverFrom("other-node", testingTypeKey(delegator, "TEST-INV-3"));
+            assertNull(delegator.getFromPrimaryKeyCache(pk), "value dropped by a remote key");
+
+            EntityCondition condition = EntityCondition.makeCondition("testingTypeId", "TEST-INV-3");
+            delegator.findList("TestingType", condition, null, null, null, true);
+            assertNotNull(delegator.getCache().get("TestingType", condition, (List<String>) null), "list cached");
+            bus.deliverFrom("other-node", new InvalidationMessage.EntityClear(delegator.getDelegatorName(), "TestingType"));
+            assertNull(delegator.getCache().get("TestingType", condition, (List<String>) null), "list dropped by a remote clear");
+
+            delegator.findOne("TestingType", UtilMisc.toMap("testingTypeId", "TEST-INV-3"), true);
+            assertNotNull(delegator.getFromPrimaryKeyCache(pk), "value cached again");
+            bus.deliverFrom("other-node", new InvalidationMessage.EntityClearAll(delegator.getDelegatorName()));
+            assertNull(delegator.getFromPrimaryKeyCache(pk), "value dropped by a remote entity clear-all");
+
+            bus.deliverFrom("other-node", new InvalidationMessage.EntityKey(delegator.getDelegatorName(), "NoSuchEntity",
+                    Map.of("id", "x")));
+        } finally {
+            removeInvalidator(delegator);
+            delegator.removeByAnd("TestingType", "testingTypeId", "TEST-INV-3");
+        }
+    }
+
+    /**
+     * A transaction changing more than {@link EntityCacheInvalidator#MAX_KEYS_PER_ENTITY} rows of one entity publishes
+     * one clear of the entity instead of a key per row.
+     * @throws Exception the exception
+     */
+    @DisplayName("Test a transaction's key invalidations collapse to an entity clear")
+    @Test
+    public void testManyKeyInvalidationsCollapseToAnEntityClear() throws Exception {
+        Delegator delegator = getDelegator();
+        String prefix = "TEST-INVB-";
+        EntityCondition byPrefix = EntityCondition.makeCondition("testingTypeId", EntityOperator.LIKE, prefix + "%");
+        delegator.removeByCondition("TestingType", byPrefix);
+        RecordingInvalidationBus bus = installInvalidator(delegator);
+        try {
+            boolean began = TransactionUtil.begin();
+            try {
+                for (int i = 0; i <= EntityCacheInvalidator.MAX_KEYS_PER_ENTITY + 20; i++) {
+                    GenericValue value = delegator.create("TestingType", "testingTypeId", prefix + i, "description",
+                            "Bounded invalidation test");
+                    value.set("description", "Bounded invalidation test, stored");
+                    value.store();
+                }
+                TransactionUtil.commit(began);
+            } catch (GenericEntityException e) {
+                TransactionUtil.rollback(began, "bounded invalidation test failed", e);
+                throw e;
+            }
+            List<InvalidationMessage> published = bus.messages();
+            long clears = published.stream().filter(new InvalidationMessage.EntityClear(delegator.getDelegatorName(),
+                    "TestingType")::equals).count();
+            assertEquals(1, clears, "one entity clear for TestingType: " + published.size() + " message(s)");
+            assertTrue(published.stream().noneMatch(m -> m instanceof InvalidationMessage.EntityKey key
+                    && "TestingType".equals(key.entityName())), "no TestingType key invalidations");
+        } finally {
+            removeInvalidator(delegator);
+            delegator.removeByCondition("TestingType", byPrefix);
+        }
+    }
+
+    /**
+     * Without an installed bus the invalidator does nothing: no after-commit work, no invalidation version moved.
+     * @throws Exception the exception
+     */
+    @DisplayName("Test the entity invalidator does nothing without a bus")
+    @Test
+    public void testEntityInvalidatorDoesNothingWithoutABus() throws Exception {
+        Delegator delegator = getDelegator();
+        delegator.removeByAnd("TestingType", "testingTypeId", "TEST-INV-NOBUS");
+        EntityCacheInvalidator invalidator = new EntityCacheInvalidator();
+        invalidator.setDelegator(delegator, "system");
+        delegator.setDistributedCacheClear(invalidator);
+        try {
+            assertFalse(CacheInvalidation.isActive(), "no bus installed");
+            long before = delegator.getCache().invalidationVersion("TestingType");
+            boolean began = TransactionUtil.begin();
+            delegator.create("TestingType", "testingTypeId", "TEST-INV-NOBUS", "description", "No bus");
+            TransactionUtil.commit(began);
+            assertEquals(before, delegator.getCache().invalidationVersion("TestingType"), "nothing queued without a bus");
+        } finally {
+            delegator.setDistributedCacheClear(null);
+            delegator.removeByAnd("TestingType", "testingTypeId", "TEST-INV-NOBUS");
+        }
+    }
+
+    /**
+     * A remote invalidation of an entity also drops the condition caches of the view entities containing it, and moves
+     * their invalidation versions. Uses the TestingViewPks view, which contains TestingType.
+     * @throws Exception the exception
+     */
+    @DisplayName("Test remote entity invalidations clear the views containing the entity")
+    @Test
+    public void testRemoteEntityInvalidationsClearViews() throws Exception {
+        Delegator delegator = getDelegator();
+        Cache cache = delegator.getCache();
+        String id = "TEST-INV-VIEW";
+        delegator.removeByAnd("TestingSubtype", "testingTypeId", id);
+        delegator.removeByAnd("TestingType", "testingTypeId", id);
+        try {
+            delegator.create("TestingType", "testingTypeId", id, "description", "View invalidation test");
+            delegator.create("TestingSubtype", "testingTypeId", id, "subtypeDescription", "View invalidation test");
+            ModelEntity model = delegator.getModelEntity("TestingType");
+            List<String> views = new ArrayList<>();
+            model.getViewConvertorsIterator().forEachRemaining(views::add);
+            assertTrue(views.contains("TestingViewPks"), "TestingViewPks is a view of TestingType: " + views);
+            EntityCondition condition = EntityCondition.makeCondition("testingTypeId", id);
+
+            delegator.findList("TestingViewPks", condition, null, null, null, true);
+            assertNotNull(cache.get("TestingViewPks", condition, (List<String>) null), "view list cached");
+            long viewVersion = cache.invalidationVersion("TestingViewPks");
+            cache.invalidateFromRemote(delegator.makePK("TestingType", "testingTypeId", id));
+            assertNull(cache.get("TestingViewPks", condition, (List<String>) null), "view list dropped by a remote key");
+            assertTrue(cache.invalidationVersion("TestingViewPks") != viewVersion, "view version moved by a remote key");
+
+            delegator.findList("TestingViewPks", condition, null, null, null, true);
+            assertNotNull(cache.get("TestingViewPks", condition, (List<String>) null), "view list cached again");
+            viewVersion = cache.invalidationVersion("TestingViewPks");
+            cache.invalidateFromRemote("TestingType");
+            assertNull(cache.get("TestingViewPks", condition, (List<String>) null), "view list dropped by a remote clear");
+            assertTrue(cache.invalidationVersion("TestingViewPks") != viewVersion, "view version moved by a remote clear");
+
+            viewVersion = cache.invalidationVersion("TestingViewPks");
+            cache.invalidateVersion("TestingType");
+            assertTrue(cache.invalidationVersion("TestingViewPks") != viewVersion, "invalidateVersion moves view versions");
+        } finally {
+            delegator.removeByAnd("TestingSubtype", "testingTypeId", id);
+            delegator.removeByAnd("TestingType", "testingTypeId", id);
+        }
+    }
+
+    /**
+     * A primary key with a timestamp field is sent as an ISO-8601 instant and, received, removes the cached value; a
+     * key sent in the older string form is still understood.
+     * @throws Exception the exception
+     */
+    @DisplayName("Test entity key invalidations with a timestamp primary key field")
+    @Test
+    public void testTimestampPrimaryKeyInvalidationRoundTrips() throws Exception {
+        Delegator delegator = getDelegator();
+        Timestamp fromDate = Timestamp.valueOf("2026-11-21 10:15:30.123456789");
+        GenericValue value = delegator.makeValue("TestingNodeMember", "testingNodeId", "TEST-INV-NODE", "testingId",
+                "TEST-INV-TS", "fromDate", fromDate);
+        GenericPK pk = value.getPrimaryKey();
+        RecordingInvalidationBus bus = installInvalidator(delegator);
+        try {
+            // outside a transaction, so the key is published at once
+            delegator.clearCacheLine(pk);
+            List<InvalidationMessage> published = bus.messages();
+            assertEquals(1, published.size(), "one message: " + published);
+            InvalidationMessage.EntityKey key = (InvalidationMessage.EntityKey) published.get(0);
+            assertEquals(fromDate.toInstant().toString(), key.pkFields().get("fromDate"), "timestamp sent as an instant");
+
+            delegator.getCache().put(pk, value);
+            assertNotNull(delegator.getFromPrimaryKeyCache(pk), "value cached");
+            bus.deliverFrom("other-node", key);
+            assertNull(delegator.getFromPrimaryKeyCache(pk), "value dropped by the received key");
+
+            delegator.getCache().put(pk, value);
+            Map<String, String> legacyFields = new HashMap<>(key.pkFields());
+            legacyFields.put("fromDate", fromDate.toString());
+            bus.deliverFrom("other-node", new InvalidationMessage.EntityKey(delegator.getDelegatorName(),
+                    "TestingNodeMember", legacyFields));
+            assertNull(delegator.getFromPrimaryKeyCache(pk), "value dropped by a key in the string form");
+        } finally {
+            removeInvalidator(delegator);
+            delegator.getCache().remove(pk);
+        }
+    }
+
+    /**
+     * A transaction with more than {@link EntityCacheInvalidator#MAX_MESSAGES} invalidations across several entities
+     * publishes one clear per touched entity, not a clear of every entity cache.
+     * @throws Exception the exception
+     */
+    @DisplayName("Test a transaction past the message limit collapses to one clear per entity")
+    @Test
+    public void testTooManyInvalidationsCollapseToOneClearPerEntity() throws Exception {
+        Delegator delegator = getDelegator();
+        List<String> entityNames = new ArrayList<>();
+        for (String entityName : List.of("Testing", "TestingType", "TestingSubtype", "TestingNode", "TestingStatus",
+                "TestFieldType", "TestingCrypto", "TestingRemoveAll", "TestingItem", "Tenant", "Component",
+                "JavaResource")) {
+            if (!delegator.getModelEntity(entityName).getNeverCache()) {
+                entityNames.add(entityName);
+            }
+        }
+        int keysPerEntity = EntityCacheInvalidator.MAX_KEYS_PER_ENTITY - 5;
+        assertTrue(entityNames.size() * keysPerEntity > EntityCacheInvalidator.MAX_MESSAGES, "enough entities: "
+                + entityNames);
+        RecordingInvalidationBus bus = installInvalidator(delegator);
+        try {
+            boolean began = TransactionUtil.begin();
+            try {
+                // clearing cache lines needs no rows; each clear is queued as one key invalidation
+                for (String entityName : entityNames) {
+                    ModelEntity model = delegator.getModelEntity(entityName);
+                    for (int i = 0; i < keysPerEntity; i++) {
+                        GenericPK pk = delegator.makePK(entityName);
+                        for (String pkField : model.getPkFieldNames()) {
+                            pk.setString(pkField, "TEST-INV-MAX-" + i);
+                        }
+                        delegator.clearCacheLine(pk);
+                    }
+                }
+                assertTrue(bus.messages().isEmpty(), "nothing published before commit");
+                TransactionUtil.commit(began);
+            } catch (GenericEntityException e) {
+                TransactionUtil.rollback(began, "message limit test failed", e);
+                throw e;
+            }
+            assertEquals(1, bus.batches().size(), "one batch");
+            List<InvalidationMessage> expected = new ArrayList<>();
+            for (String entityName : entityNames) {
+                expected.add(new InvalidationMessage.EntityClear(delegator.getDelegatorName(), entityName));
+            }
+            assertEquals(expected, bus.messages(), "one clear per touched entity");
+        } finally {
+            removeInvalidator(delegator);
+        }
     }
 
     private final class TestObserver implements Observer {
