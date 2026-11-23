@@ -1249,7 +1249,6 @@ public class ProductEvents {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         String productId = request.getParameter("productId");
         String productTags = request.getParameter("productTags");
-        String statusId = request.getParameter("statusId");
         if (UtilValidate.isNotEmpty(productId) && UtilValidate.isNotEmpty(productTags)) {
             List<String> matchList = new LinkedList<>();
             Pattern regex = Pattern.compile("[^\\s\"']+|\"([^\"]*)\"|'([^']*)'");
@@ -1266,15 +1265,12 @@ public class ProductEvents {
                 return "error";
             }
 
-            if (UtilValidate.isEmpty(statusId)) {
-                statusId = "KW_PENDING";
-            }
-
+            // tags added here always wait for moderation before they are shown
             if (UtilValidate.isNotEmpty(matchList)) {
                 for (String keywordStr : matchList) {
                     try {
                         dispatcher.runSync("createProductKeyword", UtilMisc.toMap("productId", productId, "keyword", keywordStr.trim(),
-                                "keywordTypeId", "KWT_TAG", "statusId", statusId, "userLogin", userLogin));
+                                "keywordTypeId", "KWT_TAG", "statusId", "KW_PENDING", "userLogin", userLogin));
                     } catch (GenericServiceException e) {
                         request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
                         return "error";
