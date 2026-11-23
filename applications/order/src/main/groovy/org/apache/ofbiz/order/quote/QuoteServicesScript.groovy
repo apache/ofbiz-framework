@@ -707,6 +707,17 @@ Map createQuoteNote() {
 }
 
 /**
+ * Update a note associated with a quote
+ */
+Map updateQuoteNote() {
+    if (!from('QuoteNote').where(quoteId: parameters.quoteId, noteId: parameters.noteId).queryOne()) {
+        return error(label('OrderErrorUiLabels', 'OrderQuoteNoteNotFound', parameters))
+    }
+    Map serviceResult = dispatcher.runSync('updateNote', dctx.makeValidContext('updateNote', ModelService.IN_PARAM, parameters))
+    return ServiceUtil.isError(serviceResult) ? serviceResult : success()
+}
+
+/**
  * Create a Quote adjustment
  */
 Map createQuoteAdjustment() {

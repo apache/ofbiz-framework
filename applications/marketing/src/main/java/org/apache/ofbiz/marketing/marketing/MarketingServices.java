@@ -162,6 +162,14 @@ public class MarketingServices {
         String contactListId = (String) context.get("contactListId");
         String partyId = (String) context.get("partyId");
         Timestamp fromDate = (Timestamp) context.get("fromDate");
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        // a party can remove itself from a contact list, removing anyone else needs MARKETING_DELETE
+        if ((partyId == null || !partyId.equals(userLogin.getString("partyId")))
+                && !dctx.getSecurity().hasEntityPermission("MARKETING", "_DELETE", userLogin)) {
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "MarketingDeletePermissionError",
+                    UtilMisc.toMap("resourceDescription", UtilProperties.getMessage("CommonUiLabels", "CommonPermissionThisOperation", locale)),
+                    locale));
+        }
         String successMessage = UtilProperties.getMessage(RESOURCE, "MarketingNewsletterSubscriptionPendingRequestDeletedMessage", locale);
 
         Map<String, Object> input = UtilMisc.toMap("contactListId", contactListId, "partyId", partyId,

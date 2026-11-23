@@ -67,7 +67,7 @@ under the License.
         <attribute name="noteId" type="String" mode="OUT"/>
     </service>
 
-    <service name="updateNote" default-entity-name="NoteData" engine="entity-auto" invoke="update">
+    <service name="updateNote" default-entity-name="NoteData" engine="entity-auto" invoke="update" auth="true">
         <description>Update a note record</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
