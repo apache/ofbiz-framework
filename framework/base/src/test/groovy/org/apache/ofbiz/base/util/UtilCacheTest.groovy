@@ -682,6 +682,70 @@ class UtilCacheTest  {
     }
 
     @Test
+    void testCachesWithAnIndexSuffixNeitherPublishNorApply() {
+        UtilCache<String, String> first = UtilCache.createUtilCache('testSuffixed', 0, 0, 0, false)
+        UtilCache<String, String> second = UtilCache.createUtilCache('testSuffixed', 0, 0, 0, false)
+        assert second.getName() != first.getName()
+        declareInvalidate('testSuffixed')
+        RecordingInvalidationBus bus = installBus(2000)
+        try {
+            second.put('a', '1')
+            second.remove('a')
+            second.clear()
+            UtilCache.clearCachesThatStartWith(second.getName())
+            assert bus.messages().isEmpty()
+
+            second.put('b', '2')
+            bus.deliverFrom('other-node', new InvalidationMessage.CacheKey(second.getName(), 'b'),
+                    new InvalidationMessage.CacheClear(second.getName()))
+            assert second.get('b') == '2'
+
+            first.remove('c')
+            assert bus.messages() == [new InvalidationMessage.CacheKey(first.getName(), 'c')]
+        } finally {
+            UtilCache.declare([])
+            CacheInvalidation.uninstall()
+        }
+    }
+
+    @Test
+    void testPutRacingAReceivedInvalidationIsDroppedWithoutTombstones() {
+        UtilCache<Object, String> myCache = UtilCache.createUtilCache('testPutRaceNoTombstone', 0, 0, 0, false)
+        declareInvalidate('testPutRaceNoTombstone')
+        // no tombstone time, so only the invalidation version can tell the put raced an invalidation
+        RecordingInvalidationBus bus = installBus(0)
+        try {
+            // the store hashes the key while writing it: deliver the clear then, between the check and the write
+            boolean delivered = false
+            Object racingKey = new Object() {
+
+                @Override
+                int hashCode() {
+                    if (!delivered) {
+                        delivered = true
+                        bus.deliverFrom('other-node', new InvalidationMessage.CacheClear(myCache.getName()))
+                    }
+                    return 1
+                }
+
+                @Override
+                boolean equals(Object other) {
+                    return this.is(other)
+                }
+
+            }
+            myCache.put(racingKey, 'stale')
+            assert delivered
+            assert !myCache.containsKey(racingKey)
+            myCache.put('later', 'fresh')
+            assert myCache.get('later') == 'fresh'
+        } finally {
+            UtilCache.declare([])
+            CacheInvalidation.uninstall()
+        }
+    }
+
+    @Test
     void testLoaderResultIsNotCachedWhenInvalidatedDuringTheLoad() {
         UtilCache<String, String> myCache = UtilCache.createUtilCache('testLoaderGuard', 0, 0, 0, false)
         declareInvalidate('testLoaderGuard')

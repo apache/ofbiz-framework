@@ -1627,6 +1627,36 @@ public class EntityTestSuite implements JupiterTestHelper {
     }
 
     /**
+     * A cache clear made outside a transaction moves the invalidation versions at once, as an after-commit clear does,
+     * and publishes right away.
+     * @throws Exception the exception
+     */
+    @DisplayName("Test a clear outside a transaction moves the invalidation version")
+    @Test
+    public void testClearOutsideATransactionMovesTheInvalidationVersion() throws Exception {
+        Delegator delegator = getDelegator();
+        RecordingInvalidationBus bus = installInvalidator(delegator);
+        try {
+            assertFalse(TransactionUtil.isTransactionInPlace(), "no transaction in place");
+            Cache cache = delegator.getCache();
+            long before = cache.invalidationVersion("TestingType");
+            delegator.clearCacheLine(delegator.makePK("TestingType", "testingTypeId", "TEST-INV-NOTX"));
+            assertTrue(cache.invalidationVersion("TestingType") != before, "version moved by a key clear");
+            assertEquals(List.of(testingTypeKey(delegator, "TEST-INV-NOTX")), bus.messages(), "key published at once");
+
+            before = cache.invalidationVersion("TestingType");
+            delegator.clearCacheLineByCondition("TestingType", EntityCondition.makeCondition("testingTypeId", "x"));
+            assertTrue(cache.invalidationVersion("TestingType") != before, "version moved by a condition clear");
+
+            long viewBefore = cache.invalidationVersion("TestingViewPks");
+            delegator.clearAllCaches();
+            assertTrue(cache.invalidationVersion("TestingViewPks") != viewBefore, "every version moved by a clear-all");
+        } finally {
+            removeInvalidator(delegator);
+        }
+    }
+
+    /**
      * A remote invalidation of an entity also drops the condition caches of the view entities containing it, and moves
      * their invalidation versions. Uses the TestingViewPks view, which contains TestingType.
      * @throws Exception the exception
@@ -1655,11 +1685,16 @@ public class EntityTestSuite implements JupiterTestHelper {
             assertNull(cache.get("TestingViewPks", condition, (List<String>) null), "view list dropped by a remote key");
             assertTrue(cache.invalidationVersion("TestingViewPks") != viewVersion, "view version moved by a remote key");
 
-            delegator.findList("TestingViewPks", condition, null, null, null, true);
+            List<GenericValue> viewRows = delegator.findList("TestingViewPks", condition, null, null, null, true);
             assertNotNull(cache.get("TestingViewPks", condition, (List<String>) null), "view list cached again");
+            assertFalse(viewRows.isEmpty(), "the view has a row for the test record");
+            GenericPK viewPk = viewRows.get(0).getPrimaryKey();
+            cache.put(viewRows.get(0));
+            assertNotNull(cache.get(viewPk), "view value cached by primary key");
             viewVersion = cache.invalidationVersion("TestingViewPks");
             cache.invalidateFromRemote("TestingType");
             assertNull(cache.get("TestingViewPks", condition, (List<String>) null), "view list dropped by a remote clear");
+            assertNull(cache.get(viewPk), "view value dropped by a remote clear");
             assertTrue(cache.invalidationVersion("TestingViewPks") != viewVersion, "view version moved by a remote clear");
 
             viewVersion = cache.invalidationVersion("TestingViewPks");

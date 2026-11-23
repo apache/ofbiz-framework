@@ -156,14 +156,13 @@ public class Cache {
     }
 
     /**
-     * Applies another server's condition-based or bulk change: removes everything cached for the entity, and the
-     * condition caches of the view entities containing it. The invalidation versions move first.
+     * Applies another server's condition-based or bulk change: removes everything cached for the entity and for the view
+     * entities containing it, as the collapsed re-clear on the sending server does. The invalidation versions move first.
      * @param entityName the entity name
      */
     public void invalidateFromRemote(String entityName) {
         invalidateVersion(entityName);
-        entityCache.remove(entityName);
-        removeConditionCaches(entityName, viewEntityNames(entityName));
+        removeEntityAndViews(entityName);
     }
 
     /**

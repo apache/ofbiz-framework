@@ -401,7 +401,17 @@ public final class UtilCache<K, V> {
     }
 
     private boolean publishes() {
-        return CacheInvalidation.isActive() && publishRemovals && store.settings().policy() != CachePolicy.LOCAL;
+        return CacheInvalidation.isActive() && publishRemovals && hasSharedName()
+                && store.settings().policy() != CachePolicy.LOCAL;
+    }
+
+    /**
+     * Whether this cache's name is the same on every server: the name it was created with, without the index suffix a
+     * second cache of the same name gets. The suffix depends on how many caches of that name each server created and in
+     * what order, so a cache with one neither publishes nor applies key and cache invalidations.
+     */
+    private boolean hasSharedName() {
+        return name.equals(codeSettings.name());
     }
 
     private V removeInternal(Object key, boolean countRemove) {
@@ -876,13 +886,13 @@ public final class UtilCache<K, V> {
             switch (message) {
             case CacheKey m -> {
                 UtilCache<?, ?> cache = findCache(m.cacheName());
-                if (cache != null && cache.appliesRemote()) {
+                if (cache != null && cache.hasSharedName() && cache.appliesRemote()) {
                     cache.applyRemoteKey(m.key());
                 }
             }
             case CacheClear m -> {
                 UtilCache<?, ?> cache = findCache(m.cacheName());
-                if (cache != null && cache.appliesRemote()) {
+                if (cache != null && cache.hasSharedName() && cache.appliesRemote()) {
                     cache.applyRemoteClear();
                 }
             }
@@ -950,10 +960,14 @@ public final class UtilCache<K, V> {
 
     /**
      * Whether an invalidation received since {@code versionBeforePut} covers this store key, so a value just written
-     * for it may be stale.
+     * for it may be stale. Without tombstones there is no telling which key was invalidated, so any received
+     * invalidation counts.
      */
     private boolean invalidatedSince(long versionBeforePut, Object storeKey) {
-        return remoteInvalidationVersion.get() != versionBeforePut && isTombstoned(storeKey);
+        if (remoteInvalidationVersion.get() == versionBeforePut) {
+            return false;
+        }
+        return CacheInvalidation.tombstoneMillis() <= 0 || isTombstoned(storeKey);
     }
 
     /**

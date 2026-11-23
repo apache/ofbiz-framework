@@ -35,7 +35,11 @@ public interface InvalidationBus {
      */
     void start(InvalidationReceiver receiver);
 
-    /** Sends a payload to every server of the cluster. Must not block for long; failures are logged by the caller. */
+    /**
+     * Sends a payload to every server of the cluster. Called on the thread that changed the data, once for each removal
+     * from a distributed cache, so it must not wait for the network: hand the payload to an asynchronous client or a
+     * sender thread. Failures are logged by the caller.
+     */
     void publish(String payload);
 
     /**
