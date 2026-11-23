@@ -127,15 +127,18 @@ under the License.
     </service>
     <service name="updateCustRequestParty" engine="entity-auto" default-entity-name="CustRequestParty" invoke="update" auth="true">
         <description>Update CustRequestParty record</description>
+        <permission-service service-name="custRequestChildPermissionCheck" main-action="UPDATE"/>
         <auto-attributes mode="IN" include="pk" optional="true"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
     <service name="deleteCustRequestParty" engine="entity-auto" default-entity-name="CustRequestParty" invoke="delete" auth="true">
         <description>Delete a CustRequestParty record</description>
+        <permission-service service-name="custRequestChildPermissionCheck" main-action="DELETE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
     <service name="expireCustRequestParty" engine="entity-auto" default-entity-name="CustRequestParty" invoke="expire" auth="true">
         <description>Expires a CustRequestParty record</description>
+        <permission-service service-name="custRequestChildPermissionCheck" main-action="UPDATE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
     <service name="checkStatusCustRequest" engine="simple" default-entity-name="CustRequest"
@@ -151,6 +154,7 @@ under the License.
     <service name="createCustRequestNote" engine="simple"
             location="component://order/minilang/request/CustRequestServices.xml" invoke="createCustRequestNote" auth="true">
         <description>Create a note for a CustRequest</description>
+        <permission-service service-name="custRequestChildPermissionCheck" main-action="CREATE"/>
         <attribute name="custRequestId" type="String" mode="IN" optional="false"/>
         <attribute name="noteInfo" type="String" mode="IN" optional="false" allow-html="safe"/>
         <attribute name="noteId" type="String" mode="OUT" optional="false"/>
@@ -160,6 +164,7 @@ under the License.
     <service name="updateCustRequestNote" engine="simple"
             location="component://order/minilang/request/CustRequestServices.xml" invoke="updateCustRequestNote" auth="true">
         <description>Update CustRequest Note</description>
+        <permission-service service-name="custRequestChildPermissionCheck" main-action="UPDATE"/>
         <attribute name="custRequestId" type="String" mode="IN" optional="false"/>
         <attribute name="noteId" type="String" mode="IN" optional="false" allow-html="safe"/>
         <attribute name="noteInfo" type="String" mode="IN" optional="true"/>
@@ -167,6 +172,7 @@ under the License.
     <service name="createCustRequestItemNote" engine="simple"
             location="component://order/minilang/request/CustRequestServices.xml" invoke="createCustRequestItemNote" auth="true">
         <description>Create a note for a CustRequestItem</description>
+        <permission-service service-name="custRequestChildPermissionCheck" main-action="CREATE"/>
         <attribute name="custRequestId" type="String" mode="IN" optional="false"/>
         <attribute name="custRequestItemSeqId" type="String" mode="IN" optional="false"/>
         <attribute name="note" type="String" mode="IN" optional="false" allow-html="safe"/>
@@ -199,6 +205,7 @@ under the License.
     <service name="setCustRequestStatus" engine="simple"
             location="component://order/minilang/request/CustRequestServices.xml" invoke="setCustRequestStatus" auth="true">
         <description>Set the Customer Request  Status</description>
+        <permission-service service-name="custRequestChildPermissionCheck" main-action="UPDATE"/>
         <attribute name="custRequestId" type="String" mode="INOUT" optional="false"/>
         <attribute name="statusId" type="String" mode="IN" optional="false"/>
         <attribute name="reason" type="String" mode="IN" optional="true" allow-html="safe"/>
@@ -230,6 +237,7 @@ under the License.
     <!-- custRequest content services -->
     <service name="createCustRequestContent" engine="entity-auto" invoke="create" default-entity-name="CustRequestContent" auth="true">
         <description>Create a Customer Request Content</description>
+        <permission-service service-name="custRequestChildPermissionCheck" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="fromDate" optional="true" default-value="${date:nowTimestamp()}"/>

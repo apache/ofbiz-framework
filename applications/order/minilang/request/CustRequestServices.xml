@@ -80,14 +80,19 @@ under the License.
         <create-value value-field="newEntity"/>
         <field-to-result field="newEntity.custRequestId" result-name="custRequestId"/>
 
-        <!-- set status fields and history if provided -->
+        <!-- set status fields and history if provided; the status belongs to the request just created, so
+             setCustRequestStatus is run by the system user here -->
         <if-not-empty field="parameters.statusId">
+            <entity-one entity-name="UserLogin" value-field="systemUserLogin">
+                <field-map field-name="userLoginId" value="system"/>
+            </entity-one>
             <set field="setStat.statusId" from-field="parameters.statusId"/>
             <set field="setStat.custRequestId" from-field="newEntity.custRequestId"/>
             <if-not-empty field="parameters.webSiteId">
                 <set field="setStat.webSiteId" from-field="parameters.webSiteId"/>
             </if-not-empty>
-            <call-service service-name="setCustRequestStatus" in-map-name="setStat"/>
+            <set field="setStat.userLogin" from-field="systemUserLogin"/>
+            <call-service service-name="setCustRequestStatus" in-map-name="setStat" include-user-login="false"/>
         </if-not-empty>
         
         <!-- create also the item if key fields are provided -->
@@ -487,14 +492,19 @@ under the License.
         <set-service-fields service-name="createCustRequestCommEvent" map="parameters" to-map="custRequestCommEvent"/>
         <call-service service-name="createCustRequestCommEvent" in-map-name="custRequestCommEvent"/>
 
-        <!-- copy attachments/content -->
+        <!-- copy attachments/content; the content belongs to the request just created, so
+             createCustRequestContent is run by the system user here -->
         <entity-and entity-name="CommEventContentAssoc" list="custRequestContents">
             <field-map field-name="communicationEventId" from-field="parameters.communicationEventId"/>
         </entity-and>
+        <entity-one entity-name="UserLogin" value-field="systemUserLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
         <iterate list="custRequestContents" entry="custRequestContent">
             <set field="reqContent.custRequestId" from-field="parameters.custRequestId"/>
             <set field="reqContent.contentId" from-field="custRequestContent.contentId"/>
-            <call-service service-name="createCustRequestContent" in-map-name="reqContent"/>
+            <set field="reqContent.userLogin" from-field="systemUserLogin"/>
+            <call-service service-name="createCustRequestContent" in-map-name="reqContent" include-user-login="false"/>
         </iterate>
 
         <!-- update status from communication event -->
