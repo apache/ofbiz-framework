@@ -102,6 +102,11 @@ public class JWTManager {
 
         // get userLoginId from the token and retrieve the corresponding userLogin from the database
         GenericValue userLogin = getUserlogin(delegator, claims);
+        if (userLogin != null && !LoginWorker.isUserLoginActive(userLogin)) {
+            Debug.logWarning("The user login " + userLogin.getString("userLoginId")
+                    + " of the JWT token is disabled, no single sign on user login possible.", MODULE);
+            return "success";
+        }
 
         if (UtilValidate.isNotEmpty(userLogin)) {
             // check userLogin base permission and if it is enabled
