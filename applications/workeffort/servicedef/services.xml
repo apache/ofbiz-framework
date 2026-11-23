@@ -299,6 +299,7 @@ under the License.
     <service name="updateWorkEffortNote" engine="simple"
             location="component://workeffort/minilang/workeffort/WorkEffortSimpleServices.xml" invoke="updateWorkEffortNote" auth="true">
         <description>Update a WorkEffort Note</description>
+        <permission-service service-name="workEffortGenericPermission" main-action="UPDATE"/>
         <attribute name="workEffortId" type="String" mode="IN" optional="false">
             <type-validate>
                 <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortId"/>
