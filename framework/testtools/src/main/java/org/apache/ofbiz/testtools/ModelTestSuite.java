@@ -22,9 +22,9 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 
-import org.apache.commons.lang.RandomStringUtils;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.ObjectType;
+import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilXml;
@@ -54,7 +54,7 @@ public class ModelTestSuite {
     private List<SuiteEntry> testList = new ArrayList<>();
 
     public ModelTestSuite(Element mainElement, String testCase) {
-        String uniqueSuffix = "-" + RandomStringUtils.randomAlphanumeric(10);
+        String uniqueSuffix = "-" + StringUtil.randomString(10, StringUtil.ALPHANUMERIC_CHARS);
         this.suiteName = mainElement.getAttribute("suite-name");
         this.delegator = DelegatorFactory.getDelegator(DELEGATOR_NAME).makeTestDelegator(DELEGATOR_NAME + uniqueSuffix);
         this.dispatcher = ServiceContainer.getLocalDispatcher(DISPATCHER_NAME + uniqueSuffix, delegator);
