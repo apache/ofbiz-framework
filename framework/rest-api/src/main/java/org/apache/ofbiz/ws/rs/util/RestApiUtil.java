@@ -40,6 +40,8 @@ import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.collections.MapComparator;
+import org.apache.ofbiz.entity.Delegator;
+import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.ws.rs.core.OFBizApiConfig;
 import org.apache.ofbiz.ws.rs.core.ResponseStatus;
@@ -792,5 +794,17 @@ public final class RestApiUtil {
             }
         }
         return null;
+    }
+
+    /**
+     * Returns the base permission a user needs to use the given api group, as configured by
+     * {@code rest-api.auth.api-group.<apiGroupPath>.baseSecurityGroupPermission} in rest-api.properties.
+     * @param delegator the delegator
+     * @param apiGroupPath the api group path
+     * @return the configured permission, or an empty string if none is configured
+     */
+    public static String getApiGroupBasePermission(Delegator delegator, String apiGroupPath) {
+        return EntityUtilProperties.getPropertyValue("rest-api",
+                "rest-api.auth.api-group." + apiGroupPath + ".baseSecurityGroupPermission", delegator);
     }
 }
