@@ -27,8 +27,10 @@ import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.util.EntityQuery;
+import org.apache.ofbiz.security.Security;
 import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.webapp.control.JWTManager;
+import org.apache.ofbiz.webapp.control.LoginWorker;
 import org.apache.ofbiz.ws.rs.annotation.Secured;
 import org.apache.ofbiz.ws.rs.common.AuthenticationScheme;
 import org.apache.ofbiz.ws.rs.util.RestApiUtil;
@@ -91,7 +93,29 @@ public class APIAuthFilter implements ContainerRequestFilter {
             return;
         }
         GenericValue userLogin = extractUserLoginFromJwtClaim(delegator, claims);
+        if (!isUserLoginStillAuthorized(delegator, userLogin, (String) claims.get("apiGroupPath"))) {
+            abortWithUnauthorized(requestContext, true, "Unauthorized: Access is denied due to the user of the token"
+                    + " being disabled or no longer allowed to use this api");
+            return;
+        }
         httpRequest.setAttribute("userLogin", userLogin);
+    }
+
+    /**
+     * Checks again, on each request, what was checked when the token was issued: the account is still
+     * enabled and still has the base permission of the api group, so a disabled or de-authorized account
+     * cannot keep using a token issued before the change.
+     */
+    private boolean isUserLoginStillAuthorized(Delegator delegator, GenericValue userLogin, String apiGroupPath) {
+        if (userLogin == null || !LoginWorker.isUserLoginActive(userLogin)) {
+            return false;
+        }
+        String basePermission = RestApiUtil.getApiGroupBasePermission(delegator, apiGroupPath);
+        if (UtilValidate.isEmpty(basePermission)) {
+            return false;
+        }
+        Security security = (Security) servletContext.getAttribute("security");
+        return security != null && security.hasPermission(basePermission, userLogin);
     }
 
     private boolean isTokenBasedAuthentication(String authorizationHeader) {

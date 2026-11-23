@@ -27,7 +27,6 @@ import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.ofbiz.security.Security;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
@@ -132,7 +131,8 @@ public class HttpBasicAuthFilter implements ContainerRequestFilter {
             throw new ForbiddenException(ServiceUtil.getErrorMessage(result));
         }
 
-        String securityGroupPermission = determineSecurityGroupPermission(validatedApiGroupPath);
+        String securityGroupPermission = RestApiUtil.getApiGroupBasePermission((Delegator) servletContext.getAttribute("delegator"),
+                validatedApiGroupPath);
 
         if (UtilValidate.isEmpty(securityGroupPermission)) {
             String errorMsg = String.format("No SecurityGroup configured for api: [%s]. Access denied.", validatedApiGroupPath);
@@ -149,12 +149,5 @@ public class HttpBasicAuthFilter implements ContainerRequestFilter {
 
         GenericValue userLogin = (GenericValue) result.get("userLogin");
         httpRequest.setAttribute("userLogin", userLogin);
-    }
-
-    private String determineSecurityGroupPermission(String validatedApiGroupPath) {
-        String keyPrefix = "rest-api.auth.api-group.";
-        String keyPostfix = ".baseSecurityGroupPermission";
-        String fullKey = keyPrefix + validatedApiGroupPath + keyPostfix;
-        return EntityUtilProperties.getPropertyValue("rest-api", fullKey, (Delegator) servletContext.getAttribute("delegator"));
     }
 }
