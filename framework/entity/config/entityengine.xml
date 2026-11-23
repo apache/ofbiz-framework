@@ -405,8 +405,14 @@ access. For a detailed description see the core/docs/entityconfig.html file.
             use-binary-type-for-blob="true"
             use-order-by-nulls="true"
             offset-style="limit"
-            result-fetch-size="50"> <!-- Comment out the result-fetch-size attribute for jdbc driver versions older than 8.0.
-            Not recommended to use those though. They are archived unsupported versions: http://jdbc.postgresql.org/download.html -->
+            result-fetch-size="50">
+        <!-- You can define your own database size rule for your custom
+             by default OFBiz try to manage all database limitation :
+            max-table-name-size="30"
+            max-column-name-size="30"
+            max-index-name-size="18"
+            max-fk-name-size="18">
+             -->
         
         <read-data reader-name="tenant"/>
         <read-data reader-name="seed"/>
