@@ -101,9 +101,9 @@ public class HttpBasicAuthFilter implements ContainerRequestFilter {
 
     }
 
-    private boolean isBasicAuth(String authorizationHeader) {
+        private boolean isBasicAuth(String authorizationHeader) {
         return authorizationHeader != null
-                && authorizationHeader.toLowerCase().startsWith(AuthenticationScheme.BASIC.getScheme().toLowerCase() + " ");
+                && authorizationHeader.regionMatches(true, 0, AuthenticationScheme.BASIC.getScheme() + " ", 0, AuthenticationScheme.BASIC.getScheme().length() + 1);
     }
 
     private void abortWithUnauthorized(ContainerRequestContext requestContext, boolean isAuthHeaderPresent, String message) {
