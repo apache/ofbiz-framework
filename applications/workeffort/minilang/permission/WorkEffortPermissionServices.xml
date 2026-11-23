@@ -66,6 +66,28 @@ under the License.
                                 <if-compare field="mainAction" value="UPDATE" operator="equals"/>
                             </condition>
                             <then>
+                                <!-- Associations carry workEffortIdFrom/workEffortIdTo instead of workEffortId; require the owner role on both ends. -->
+                                <if>
+                                    <condition>
+                                        <and>
+                                            <if-empty field="parameters.workEffortId"/>
+                                            <not><if-empty field="parameters.workEffortIdFrom"/></not>
+                                        </and>
+                                    </condition>
+                                    <then>
+                                        <set field="workEffortId" from-field="parameters.workEffortIdFrom"/>
+                                        <call-simple-method method-name="workEffortPartyOwnerRolePermission"/>
+                                        <if>
+                                            <condition>
+                                                <if-compare field="hasPermission" value="true" operator="equals"/>
+                                            </condition>
+                                            <then>
+                                                <set field="workEffortId" from-field="parameters.workEffortIdTo"/>
+                                                <call-simple-method method-name="workEffortPartyOwnerRolePermission"/>
+                                            </then>
+                                        </if>
+                                    </then>
+                                    <else>
                                 <!-- make sure we have role permission to update THIS workeffort -->
                                 <set field="workEffortId" from-field="parameters.workEffortId"/>
                                 <call-simple-method method-name="workEffortPartyOwnerRolePermission"/>
@@ -115,6 +137,8 @@ under the License.
                                         </if>
                                     </then>
                                 </if>
+                                    </else>
+                                </if>
                             </then>
                         </else-if>
                         </if>
@@ -128,6 +152,13 @@ under the License.
         <if-empty field="workEffortId">
             <!-- This should be case of create WorkEffort -->
             <set field="workEffortId" from-field="parameters.workEffortParentId"/>
+        </if-empty>
+        <if-empty field="workEffortId">
+            <!-- No work effort to verify ownership against: fail closed. -->
+            <property-to-field resource="WorkEffortUiLabels" property="WorkEffortNotInRolePermissionError" field="failMessage"/>
+            <set field="hasPermission" type="Boolean" value="false"/>
+            <field-to-result field="hasPermission"/>
+            <field-to-result field="failMessage"/>
         </if-empty>
         <while><condition><not><if-empty field="workEffortId"></if-empty></not></condition>
             <then>
