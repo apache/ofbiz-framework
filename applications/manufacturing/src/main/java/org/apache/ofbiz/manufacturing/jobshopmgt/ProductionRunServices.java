@@ -3574,9 +3574,11 @@ public class ProductionRunServices {
                 serviceContext = UtilMisc.toMap("productId", ((GenericValue) component.get("product")).getString("productId"),
                         "quantity", component.get("quantity"),
                         "facilityId", inventoryItem.getString("facilityId"),
-                        "unitCost", componentInventoryItemCost,
-                        "userLogin", userLogin);
+                        "unitCost", componentInventoryItemCost);
                 serviceContext.put("workEffortId", workEffortId);
+                // productionRunTaskProduce requires MANUFACTURING_UPDATE; returning the components of a decomposed item to inventory is
+                // part of this operation, which also runs for shipment receipts and inventory reservations
+                serviceContext.put("userLogin", EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "system").cache().queryOne());
                 serviceResult = dispatcher.runSync("productionRunTaskProduce", serviceContext);
                 if (ServiceUtil.isError(serviceResult)) {
                     return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
