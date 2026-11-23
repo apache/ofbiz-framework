@@ -4346,6 +4346,9 @@
         <value xml:lang="zh">安全错误：要运行 updateOrderItemShipGroup，你必须具有 ORDERMGR_UPDATE 或 ORDERMGR_ADMIN 权限</value>
         <value xml:lang="zh-TW">安全錯誤：要運行 updateOrderItemShipGroup，你必須具有 ORDERMGR_UPDATE 或 ORDERMGR_ADMIN 權限</value>
     </property>
+    <property key="OrderSecurityErrorToRunCreateOrderNote">
+        <value xml:lang="en">Security Error: to add a note to this order you must have the ORDERMGR_NOTE permission or be allowed to update the order</value>
+    </property>
     <property key="OrderSecurityErrorToRunUpdateOrderNote">
         <value xml:lang="ar">خطأ في تبديل الملاحظة خاص\سري</value>
         <value xml:lang="de">Fehler beim Wechseln einer Anmerkung Privat/Öffentlich</value>
