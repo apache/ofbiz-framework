@@ -94,8 +94,11 @@ Map createTransferFromRequirement() {
             run service: 'createRequirement', with: [*: requirement.getAllFields(),
                                                      quantity: quantityNotTransferred]
         }
+        // updateRequirement requires ORDERMGR_UPDATE; marking the requirement ordered is part of this already permitted operation
+        GenericValue systemLogin = from('UserLogin').where(userLoginId: 'system').cache().queryOne()
         run service: 'updateRequirement', with: [requirementId: requirement.requirementId,
-                                                 statusId: 'REQ_ORDERED']
+                                                 statusId: 'REQ_ORDERED',
+                                                 userLogin: systemLogin]
     } catch (Exception e) {
         return error('Failed to create the requirement with ' + e)
     }
