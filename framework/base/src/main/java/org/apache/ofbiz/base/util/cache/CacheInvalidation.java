@@ -49,6 +49,11 @@ public final class CacheInvalidation {
     };
 
     private static volatile InvalidationBus bus;
+    /**
+     * The tombstone length of the installed bus, set before the bus starts so a message received while it starts gets
+     * its tombstone too.
+     */
+    private static volatile long currentTombstoneMillis;
 
     private CacheInvalidation() { }
 
@@ -66,7 +71,13 @@ public final class CacheInvalidation {
         if (bus != null) {
             throw new IllegalStateException("A cache invalidation bus is already installed: " + bus.getName());
         }
-        newBus.start(RECEIVER);
+        currentTombstoneMillis = newBus.tombstoneMillis();
+        try {
+            newBus.start(RECEIVER);
+        } catch (RuntimeException e) {
+            currentTombstoneMillis = 0;
+            throw e;
+        }
         bus = newBus;
         Debug.logInfo("Cache invalidation bus [" + newBus.getName() + "] installed, node id " + NODE_ID, MODULE);
         UtilCache.warnUndeclaredCaches();
@@ -78,6 +89,7 @@ public final class CacheInvalidation {
         if (current != null) {
             bus = null;
             current.stop();
+            currentTombstoneMillis = 0;
         }
     }
 
@@ -88,8 +100,7 @@ public final class CacheInvalidation {
 
     /** The tombstone length of the installed bus, or 0 without one. */
     static long tombstoneMillis() {
-        InvalidationBus current = bus;
-        return current == null ? 0 : current.tombstoneMillis();
+        return currentTombstoneMillis;
     }
 
     /**

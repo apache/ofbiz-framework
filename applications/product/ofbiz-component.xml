@@ -89,10 +89,11 @@ under the License.
         app-shortcut-screen="component://product/widget/facility/FacilityScreens.xml#ShortcutApp"
         mount-point="/facility"/>
 
-    <!-- caches of data read from the database: cleared on the other servers too when an invalidation bus is installed -->
-    <cache name="product.content.rendered" expire-time="60000" soft-values="true" policy="invalidate"/>
+    <!-- cleared on the other servers too when an invalidation bus is installed -->
     <cache name="product.config" expire-time="60000" soft-values="true" policy="invalidate"/>
-    <cache name="product.promo.content.rendered" policy="invalidate"/>
-    <cache name="category.content.rendered" policy="invalidate"/>
-    <cache name="configItem.content.rendered" policy="invalidate"/>
+    <!-- rendered content caches: local, since nothing removes their entries when the content changes -->
+    <cache name="product.content.rendered" expire-time="60000" soft-values="true"/>
+    <cache name="product.promo.content.rendered" policy="local"/>
+    <cache name="category.content.rendered" policy="local"/>
+    <cache name="configItem.content.rendered" policy="local"/>
 </ofbiz-component>

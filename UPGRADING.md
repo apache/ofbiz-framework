@@ -173,14 +173,17 @@ the same pull request.
   `distributed-cache-clear-class-name="org.apache.ofbiz.entity.cache.EntityCacheInvalidator"`. The JMS implementation
   stays the default. Entity caches are distributed by `EntityCacheInvalidator` whatever their `<cache>` policy. Other
   caches are local by default: declare `policy="invalidate"` in the `<cache>` element of a cache holding data read from
-  the database (the framework and applications do so for `security.AuthorizationCache` and the `*.content.rendered` and
-  `product.config` caches), so its removals and clears are applied on the other servers. With a bus installed, OFBiz logs a warning for each cache without a `<cache>` declaration, so new caches state
-  their policy. Removals from such caches are
-  published at once, not after a surrounding transaction commits. The bus must be authenticated: a forged message can
-  clear any distributed cache. Remote entity invalidation is coarser than the JMS path: each row changed on another
-  server clears the entity's list and object caches (and those of the view entities containing it), not only the
-  condition caches the row matches. A find running inside an older `REPEATABLE READ` snapshot can still read and cache
-  a row older than an invalidation that already arrived.
+  the database (the framework and applications do so for `security.AuthorizationCache` and `product.config`), so its
+  removals and clears are applied on the other servers. Only removals and clears are distributed, so this helps a cache
+  only if code removes or clears it when its data changes. The `*.content.rendered` caches stay local for that reason:
+  nothing removes their entries when the content changes. A cache created a second time under the same name, which
+  gets an index suffix, stays local too, since the suffix can differ between servers. With a bus installed, OFBiz logs
+  a warning for each cache without a `<cache>` declaration, so new caches state their policy. Removals from distributed
+  caches are published at once, not after a surrounding transaction commits. The bus must be authenticated: a forged
+  message can clear any distributed cache. Remote entity invalidation is coarser than the JMS path: each row changed on
+  another server clears the entity's list and object caches (and those of the view entities containing it), not only
+  the condition caches the row matches. A find running inside an older `REPEATABLE READ` snapshot can still read and
+  cache a row older than an invalidation that already arrived.
 
 ### Custom code
 

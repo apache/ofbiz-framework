@@ -29,7 +29,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.apache.ofbiz.base.util.Debug;
@@ -92,8 +91,11 @@ public final class EntityCacheInvalidator implements DistributedCacheClear {
      * of that entity, for the same reasons of memory, after-commit work and payload size.
      */
     public static final int MAX_MESSAGES = 1000;
-    /** The delegators using this class, which received entity messages are applied to. */
-    private static final Set<Delegator> DELEGATORS = new CopyOnWriteArraySet<>();
+    /**
+     * The delegators using this class by name, which received entity messages are applied to. A delegator created again
+     * under the same name replaces the old instance, so messages reach the live one and the old one can be collected.
+     */
+    private static final Map<String, Delegator> DELEGATORS = new ConcurrentHashMap<>();
     private static final AtomicBoolean HANDLER_REGISTERED = new AtomicBoolean();
     private static final Map<PendingKey, PendingInvalidations> PENDING = new ConcurrentHashMap<>();
     /** The re-clear key of the delegator's clear-all. */
@@ -108,7 +110,7 @@ public final class EntityCacheInvalidator implements DistributedCacheClear {
     @Override
     public void setDelegator(Delegator delegator, String userLoginId) {
         this.delegator = delegator;
-        DELEGATORS.add(delegator);
+        DELEGATORS.put(delegator.getDelegatorName(), delegator);
         if (HANDLER_REGISTERED.compareAndSet(false, true)) {
             CacheInvalidation.addHandler(new RemoteEntityInvalidations());
         }
@@ -194,7 +196,19 @@ public final class EntityCacheInvalidator implements DistributedCacheClear {
         } catch (GenericTransactionException e) {
             Debug.logWarning(e, "Could not check the current transaction; publishing the cache invalidation now", MODULE);
         }
+        // no transaction to wait for: move the versions now, as afterCompletion does, so a find that read the database
+        // before this clear does not cache what it read
+        moveVersions(delegator.getCache(), message);
         CacheInvalidation.publish(List.of(message));
+    }
+
+    private static void moveVersions(Cache cache, InvalidationMessage message) {
+        switch (message) {
+        case EntityKey m -> cache.invalidateVersion(m.entityName());
+        case EntityClear m -> cache.invalidateVersion(m.entityName());
+        case EntityClearAll m -> cache.invalidateAllVersions();
+        default -> { }
+        }
     }
 
     private static Transaction activeTransaction() throws GenericTransactionException {
@@ -416,7 +430,7 @@ public final class EntityCacheInvalidator implements DistributedCacheClear {
                 }
             }
             // UtilCache skips local caches, which the entity caches are unless declared otherwise, so they are cleared here
-            case ClearAll m -> DELEGATORS.forEach(RemoteEntityInvalidations::clearEntityCaches);
+            case ClearAll m -> DELEGATORS.values().forEach(RemoteEntityInvalidations::clearEntityCaches);
             default -> {
                 // cache messages are applied by UtilCache
             }
@@ -425,7 +439,7 @@ public final class EntityCacheInvalidator implements DistributedCacheClear {
 
         @Override
         public void onGap() {
-            DELEGATORS.forEach(RemoteEntityInvalidations::clearEntityCaches);
+            DELEGATORS.values().forEach(RemoteEntityInvalidations::clearEntityCaches);
         }
 
         /** Moves every invalidation version on first, so loads in flight do not cache what they read, then clears. */
@@ -491,12 +505,7 @@ public final class EntityCacheInvalidator implements DistributedCacheClear {
         }
 
         private static Delegator find(String delegatorName) {
-            for (Delegator candidate : DELEGATORS) {
-                if (candidate.getDelegatorName().equals(delegatorName)) {
-                    return candidate;
-                }
-            }
-            return null;
+            return DELEGATORS.get(delegatorName);
         }
 
         /** The entity's model when it exists and may be cached, otherwise {@code null} (logged when unknown). */
