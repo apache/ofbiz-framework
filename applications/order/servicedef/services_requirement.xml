@@ -48,13 +48,19 @@ under the License.
     </service>
     <service name="updateRequirement" default-entity-name="Requirement" engine="entity-auto" invoke="update" auth="true">
         <description>Update an existing requirement</description>
+        <required-permissions join-type="AND">
+            <check-permission permission="ORDERMGR" action="_UPDATE"/>
+        </required-permissions>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <attribute name="oldStatusId" type="String" mode="OUT" optional="true"/>
     </service>
-    <service name="deleteRequirementAndRelated" engine="groovy"
+    <service name="deleteRequirementAndRelated" engine="groovy" auth="true"
             location="component://order/src/main/groovy/org/apache/ofbiz/order/requirement/RequirementServicesScript.groovy" invoke="deleteRequirementAndRelated">
         <description>Delete a requirement after deleting related entity records.</description>
+        <required-permissions join-type="AND">
+            <check-permission permission="ORDERMGR" action="_DELETE"/>
+        </required-permissions>
         <attribute name="requirementId" type="String" mode="IN" optional="false"/>
     </service>
     <!-- RequirementRole services -->
@@ -163,6 +169,9 @@ under the License.
     <service name="approveRequirement" engine="java"
             location="org.apache.ofbiz.manufacturing.jobshopmgt.ProductionRunServices" invoke="approveRequirement" auth="true">
         <description>Approves a requirement.</description>
+        <required-permissions join-type="AND">
+            <check-permission permission="ORDERMGR" action="_UPDATE"/>
+        </required-permissions>
         <attribute mode="IN" name="requirementId" optional="false" type="String"/>
         <attribute mode="IN" name="quantity" optional="true" type="BigDecimal"/>
     </service>
@@ -170,6 +179,9 @@ under the License.
     <service name="autoAssignRequirementToSupplier" engine="groovy" auth="true"
              location="component://order/src/main/groovy/org/apache/ofbiz/order/requirement/RequirementServicesScript.groovy" invoke="autoAssignRequirementToSupplier">
         <description>If the requirement is a product requirement (purchasing) try to assign it to the primary supplier</description>
+        <required-permissions join-type="AND">
+            <check-permission permission="ORDERMGR" action="_CREATE"/>
+        </required-permissions>
         <attribute name="requirementId" type="String" mode="IN" optional="false"/>
     </service>
 
