@@ -79,7 +79,10 @@ the same pull request.
   for spreadsheets.
 * Screen, form, grid, menu and tree locations must be `component://` locations. To load them from a plain file path,
   set `allowFilePaths` in `security.properties`
-  ([#1650](https://github.com/apache/ofbiz-framework/pull/1650)).
+  ([#1650](https://github.com/apache/ofbiz-framework/pull/1650)). The same applies to the survey template of a
+  product store survey (`ProductStoreSurveyAppl.surveyTemplate`): change a plain file path such as
+  `/applications/content/template/survey/GenericSurvey.ftl` to `component://content/template/survey/GenericSurvey.ftl`
+  ([#2688](https://github.com/apache/ofbiz-framework/pull/2688)).
 * REST: services marked `export="true"` are no longer published as REST endpoints. Declare the endpoints you need in a
   `*.rest.xml` file in your component's `api` directory, as described in the rest-api component documentation
   ([#1609](https://github.com/apache/ofbiz-framework/pull/1609)). The rest-api component now lives in
