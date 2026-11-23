@@ -48,6 +48,6 @@ under the License.
     <!-- Real-time Backorder Reconciliation for Production Runs -->
     <eca service="balanceInventoryItems" event="commit">
         <condition-service service-name="checkProductionRunFacilityRecon"/>
-        <action service="reassignWorkEffortInventoryReservations" mode="sync"/>
+        <action service="reassignWorkEffortInventoryReservations" mode="sync" run-as-user="system"/>
     </eca>
 </service-eca>

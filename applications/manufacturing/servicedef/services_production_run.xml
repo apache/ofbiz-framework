@@ -94,10 +94,11 @@ under the License.
         <attribute name="estimatedCompletionDate" type="java.sql.Timestamp" mode="OUT" optional="true"/>
     </service>
     <service name="createProductionRunPartyAssign" engine="groovy"
-             location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/jobshopmgt/ProductionRunServicesScript.groovy" invoke="createProductionRunPartyAssign" auth="false">
+             location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/jobshopmgt/ProductionRunServicesScript.groovy" invoke="createProductionRunPartyAssign" auth="true">
         <description>
             Associate a party to the production run
         </description>
+        <permission-service service-name="manufacturingPermissionService" main-action="CREATE"/>
         <attribute name="productionRunId" type="String" mode="INOUT" optional="false"/>
         <attribute name="partyId" type="String" mode="IN" optional="false"/>
         <attribute name="roleTypeId" type="String" mode="IN" optional="false"/>
@@ -106,10 +107,11 @@ under the License.
         <attribute name="thruDate" type="Timestamp" mode="IN" optional="true"/>
     </service>
     <service name="createProductionRunAssoc" engine="groovy"
-             location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/jobshopmgt/ProductionRunServicesScript.groovy" invoke="createProductionRunAssoc" auth="false">
+             location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/jobshopmgt/ProductionRunServicesScript.groovy" invoke="createProductionRunAssoc" auth="true">
         <description>
             Associate the production run to another production run
         </description>
+        <permission-service service-name="manufacturingPermissionService" main-action="CREATE"/>
         <attribute name="productionRunId" type="String" mode="IN" optional="false"/>
         <attribute name="productionRunIdTo" type="String" mode="IN" optional="false"/>
         <attribute name="workFlowSequenceTypeId" type="String" mode="IN" optional="false"/>
@@ -117,6 +119,7 @@ under the License.
     <service name="createProductionRunsForProductBom" engine="java"
             location="org.apache.ofbiz.manufacturing.jobshopmgt.ProductionRunServices" invoke="createProductionRunsForProductBom" auth="true">
         <description>Explodes a product id and creates all the needed production runs.</description>
+        <permission-service service-name="manufacturingPermissionService" main-action="CREATE"/>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="quantity" optional="true" mode="IN" type="BigDecimal"/>
         <attribute name="startDate" type="java.sql.Timestamp" mode="IN" optional="false"/>
@@ -171,6 +174,7 @@ under the License.
     <service name="updateProductionRun" engine="java"
             location="org.apache.ofbiz.manufacturing.jobshopmgt.ProductionRunServices" invoke="updateProductionRun" auth="true">
         <description>Update a Production Run</description>
+        <permission-service service-name="manufacturingPermissionService" main-action="UPDATE"/>
         <attribute name="productionRunId" type="String" mode="IN" optional="false"/>
         <attribute name="quantity" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="estimatedStartDate" type="Timestamp" mode="IN" optional="true"/>
@@ -181,6 +185,7 @@ under the License.
     <service name="changeProductionRunStatus" engine="java"
             location="org.apache.ofbiz.manufacturing.jobshopmgt.ProductionRunServices" invoke="changeProductionRunStatus" auth="true">
         <description>Change the Production Run status</description>
+        <permission-service service-name="manufacturingPermissionService" main-action="UPDATE"/>
         <attribute name="productionRunId" type="String" mode="IN" optional="false"/>
         <attribute name="statusId" type="String" mode="IN" optional="true"/>
         <attribute name="newStatusId" type="String" mode="OUT" optional="false"/>
@@ -188,6 +193,7 @@ under the License.
     <service name="changeProductionRunTaskStatus" engine="java"
             location="org.apache.ofbiz.manufacturing.jobshopmgt.ProductionRunServices" invoke="changeProductionRunTaskStatus" auth="true">
         <description>Change the Production Run Task status</description>
+        <permission-service service-name="manufacturingPermissionService" main-action="UPDATE"/>
         <attribute name="productionRunId" type="String" mode="IN" optional="false"/>
         <attribute name="workEffortId" type="String" mode="IN" optional="false"/> <!-- The task id -->
         <attribute name="statusId" type="String" mode="IN" optional="true"/>
@@ -198,6 +204,7 @@ under the License.
     <service name="addProductionRunRoutingTask" engine="java"
             location="org.apache.ofbiz.manufacturing.jobshopmgt.ProductionRunServices" invoke="addProductionRunRoutingTask" auth="true">
         <description>add a RoutingTask to an existing ProductionRun</description>
+        <permission-service service-name="manufacturingPermissionService" main-action="CREATE"/>
         <attribute name="productionRunId" type="String" mode="IN" optional="false"/>
         <attribute name="routingTaskId" type="String" mode="INOUT" optional="false"/>
         <attribute name="priority" type="Long" mode="IN" optional="false"/>
@@ -228,6 +235,7 @@ under the License.
     <service name="addProductionRunComponent" engine="java"
             location="org.apache.ofbiz.manufacturing.jobshopmgt.ProductionRunServices" invoke="addProductionRunComponent" auth="true">
         <description>add a Product Component to an existing ProductionRun</description>
+        <permission-service service-name="manufacturingPermissionService" main-action="CREATE"/>
         <attribute name="productionRunId" type="String" mode="IN" optional="false"/>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="estimatedQuantity" type="BigDecimal" mode="IN"/>
@@ -236,6 +244,7 @@ under the License.
     <service name="updateProductionRunComponent" engine="java"
             location="org.apache.ofbiz.manufacturing.jobshopmgt.ProductionRunServices" invoke="updateProductionRunComponent" auth="true">
         <description>update a Product Component to an existing ProductionRun</description>
+        <permission-service service-name="manufacturingPermissionService" main-action="UPDATE"/>
         <attribute name="productionRunId" type="String" mode="IN" optional="false"/>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="workEffortId" type="String" mode="IN" optional="true"/>
@@ -249,18 +258,19 @@ under the License.
         <attribute name="productId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="issueProductionRunTask" engine="groovy"
-             location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/jobshopmgt/ProductionRunServicesScript.groovy" invoke="issueProductionRunTask" auth="false">
+             location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/jobshopmgt/ProductionRunServicesScript.groovy" invoke="issueProductionRunTask" auth="true">
         <description>
             Issues the Inventory for a Production Run Task.
             Note that this skips the normal inventory reservation process.
         </description>
+        <permission-service service-name="manufacturingPermissionService" main-action="UPDATE"/>
         <attribute name="workEffortId" type="String" mode="IN" optional="false"/>
         <attribute name="reserveOrderEnumId" type="String" mode="IN" optional="true"/>
         <attribute name="failIfItemsAreNotAvailable" type="String" mode="IN" optional="true"/>
         <attribute name="failIfItemsAreNotOnHand" type="String" mode="IN" optional="true"/>
     </service>
     <service name="issueProductionRunTaskComponent" engine="groovy"
-             location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/jobshopmgt/ProductionRunServicesScript.groovy" invoke="issueProductionRunTaskComponent" auth="false">
+             location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/jobshopmgt/ProductionRunServicesScript.groovy" invoke="issueProductionRunTaskComponent" auth="true">
         <description>
             Issues the Inventory for a Production Run Task Component. For more info see the issueProductionRunTask service.
             If fromDate is passed, then the WorkEffortGoodStandard record with pk composed of (workEffortId|productId|fromDate)
@@ -273,6 +283,7 @@ under the License.
             no items with negative qoh will be created.
             If lotId is filled, failIfItemsAreNotAvailable is set to automatically set to "Y".
         </description>
+        <permission-service service-name="manufacturingPermissionService" main-action="UPDATE"/>
         <attribute name="workEffortId" type="String" mode="IN" optional="false"/>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="fromDate" type="Timestamp" mode="IN" optional="true"/>
@@ -334,6 +345,7 @@ under the License.
         <description>
             Create Inventory for product produced by a Production Run.
         </description>
+        <permission-service service-name="manufacturingPermissionService" main-action="UPDATE"/>
         <attribute name="workEffortId" type="String" mode="IN" optional="false"/>
         <attribute name="inventoryItemIds" type="List" mode="OUT" optional="false"/>
         <attribute name="quantity" type="BigDecimal" mode="INOUT" optional="true"/>
@@ -349,6 +361,7 @@ under the License.
         <description>
             Create Inventory for product produced by a Production Run and if necessary add declared quantities to tasks (and issue materials, if needed).
         </description>
+        <permission-service service-name="manufacturingPermissionService" main-action="UPDATE"/>
         <attribute name="workEffortId" type="String" mode="IN" optional="false"/>
         <attribute name="inventoryItemIds" type="List" mode="OUT" optional="false"/>
         <attribute name="quantity" type="BigDecimal" mode="INOUT" optional="false"/>
@@ -365,6 +378,7 @@ under the License.
         <description>
             Create Inventory from a Production Run Task.
         </description>
+        <permission-service service-name="manufacturingPermissionService" main-action="UPDATE"/>
         <attribute name="workEffortId" type="String" mode="IN" optional="false"/>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="quantity" type="BigDecimal" mode="IN" optional="false"/>
@@ -382,6 +396,7 @@ under the License.
         <description>
             Create Inventory from a Production Run Task, by returning to warehouse part of the materials allocated.
         </description>
+        <permission-service service-name="manufacturingPermissionService" main-action="UPDATE"/>
         <attribute name="workEffortId" type="String" mode="IN" optional="false"/>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="quantity" type="BigDecimal" mode="IN" optional="true"/>
@@ -413,6 +428,7 @@ under the License.
         <description>
             Add a TimeEntry for the production run task and updates the relevant fields.
         </description>
+        <permission-service service-name="manufacturingPermissionService" main-action="UPDATE"/>
         <attribute name="productionRunId" type="String" mode="IN" optional="false"/>
         <attribute name="productionRunTaskId" type="String" mode="IN" optional="false"/>
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
@@ -429,28 +445,33 @@ under the License.
     <service name="quickRunProductionRunTask" engine="java"
             location="org.apache.ofbiz.manufacturing.jobshopmgt.ProductionRunServices" invoke="quickRunProductionRunTask" auth="true">
         <description>Quick runs a ProductionRun task to the completed status, also issuing components if necessary.</description>
+        <permission-service service-name="manufacturingPermissionService" main-action="UPDATE"/>
         <attribute name="productionRunId" type="String" mode="IN" optional="false"/>
         <attribute name="taskId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="quickRunAllProductionRunTasks" engine="java"
             location="org.apache.ofbiz.manufacturing.jobshopmgt.ProductionRunServices" invoke="quickRunAllProductionRunTasks" auth="true">
         <description>Quick runs all the tasks of a ProductionRun to the completed status, also issuing components if necessary.</description>
+        <permission-service service-name="manufacturingPermissionService" main-action="UPDATE"/>
         <attribute name="productionRunId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="quickStartAllProductionRunTasks" engine="java"
             location="org.apache.ofbiz.manufacturing.jobshopmgt.ProductionRunServices" invoke="quickStartAllProductionRunTasks" auth="true">
         <description>Quick starts all the tasks of a ProductionRun.</description>
+        <permission-service service-name="manufacturingPermissionService" main-action="UPDATE"/>
         <attribute name="productionRunId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="quickChangeProductionRunStatus" engine="java"
             location="org.apache.ofbiz.manufacturing.jobshopmgt.ProductionRunServices" invoke="quickChangeProductionRunStatus" auth="true">
         <description>Quick moves a ProductionRun to the passed in status, performing all the needed tasks in the way</description>
+        <permission-service service-name="manufacturingPermissionService" main-action="UPDATE"/>
         <attribute name="productionRunId" type="String" mode="IN" optional="false"/>
         <attribute name="statusId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="cancelProductionRun" engine="java"
             location="org.apache.ofbiz.manufacturing.jobshopmgt.ProductionRunServices" invoke="cancelProductionRun" auth="true">
         <description>Cancels a ProductionRun.</description>
+        <permission-service service-name="manufacturingPermissionService" main-action="UPDATE"/>
         <attribute name="productionRunId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="getProductionRunTotResQty" engine="java"
@@ -497,6 +518,7 @@ under the License.
     <service name="reserveWorkEffortInventoryItem" engine="groovy"
              location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/jobshopmgt/ProductionRunResServices.groovy" invoke="reserveWorkEffortInventoryItem" auth="true">
         <description>Manufacturing-specific wrapper for inventory reservation. Provides a flexible extension point for production business rules (e.g., lot selection, task status checks) that should not be implemented in the generic core engine.</description>
+        <permission-service service-name="manufacturingPermissionService" main-action="UPDATE"/>
         <attribute name="workEffortId" type="String" mode="IN" optional="false"/>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="facilityId" type="String" mode="IN" optional="false"/>
@@ -536,6 +558,7 @@ under the License.
     <service name="releaseProductionRunTaskComponent" engine="groovy"
              location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/jobshopmgt/ProductionRunResServices.groovy" invoke="releaseProductionRunTaskComponent" auth="true">
         <description>Cancels reservations</description>
+        <permission-service service-name="manufacturingPermissionService" main-action="UPDATE"/>
         <attribute name="workEffortId" type="String" mode="IN" optional="false"/>
         <attribute name="inventoryItemId" type="String" mode="IN" optional="false"/>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
@@ -572,6 +595,7 @@ under the License.
     <service name="reallocateAndIssueInventory" engine="groovy"
              location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/jobshopmgt/ProductionRunResServices.groovy" invoke="reallocateAndIssueInventory" auth="true">
         <description>Performs Move-Then-Issue: Reallocates reservations from affected reservations to the current task, then issues.</description>
+        <permission-service service-name="manufacturingPermissionService" main-action="UPDATE"/>
         <attribute name="workEffortId" type="String" mode="IN" optional="false"/>
         <attribute name="productId" type="String" mode="IN" optional="true"/>
         <attribute name="reserveOrderEnumId" type="String" mode="IN" optional="true"/>
