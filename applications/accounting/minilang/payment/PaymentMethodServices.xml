@@ -25,6 +25,39 @@ under the License.
         <make-value entity-name="PaymentMethod" value-field="lookupPKMap"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="PaymentMethod" map="lookupPKMap" value-field="lookedUpValue"/>
+        <!-- without permission to update any payment information, the payment method and the address must both belong to the
+             party of the user -->
+        <if>
+            <condition>
+                <and>
+                    <not><if-has-permission permission="PAY_INFO" action="_UPDATE"/></not>
+                    <not><if-has-permission permission="ACCOUNTING" action="_UPDATE"/></not>
+                </and>
+            </condition>
+            <then>
+                <entity-and entity-name="PartyContactMech" list="partyContactMechs" filter-by-date="true">
+                    <field-map field-name="partyId" from-field="userLogin.partyId"/>
+                    <field-map field-name="contactMechId" from-field="parameters.contactMechId"/>
+                </entity-and>
+                <if>
+                    <condition>
+                        <or>
+                            <if-empty field="userLogin.partyId"/>
+                            <if-compare-field field="lookedUpValue.partyId" to-field="userLogin.partyId" operator="not-equals"/>
+                            <if-empty field="partyContactMechs"/>
+                        </or>
+                    </condition>
+                    <then>
+                        <set field="partyId" from-field="userLogin.partyId"/>
+                        <set field="paymentMethodId" from-field="parameters.paymentMethodId"/>
+                        <add-error>
+                            <fail-property resource="AccountingUiLabels" property="AccountingCreditCardUpdateWithoutPermission"/>
+                        </add-error>
+                    </then>
+                </if>
+                <check-errors/>
+            </then>
+        </if>
         <if-compare field="lookedUpValue.paymentMethodTypeId" operator="equals" value="CREDIT_CARD">
             <find-by-primary-key entity-name="CreditCard" map="lookupPKMap" value-field="mainValue"/>
             <clone-value value-field="mainValue" new-value-field="savedValue"/>
