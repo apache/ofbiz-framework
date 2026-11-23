@@ -615,6 +615,9 @@ under the License.
         <attribute name="note" type="String" mode="IN" allow-html="safe"/>
         <attribute name="internalNote" type="String" mode="IN"/>
         <attribute name="noteName" type="String" mode="IN" optional="true"/>
+        <attribute name="noteParty" type="String" mode="IN" optional="true">
+            <description>The party recorded as the author of the note; when empty, the party of the user</description>
+        </attribute>
     </service>
 
     <service name="updateOrderNote" engine="simple" default-entity-name="OrderHeaderNote"
