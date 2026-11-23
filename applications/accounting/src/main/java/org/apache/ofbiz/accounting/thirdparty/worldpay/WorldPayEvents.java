@@ -20,6 +20,8 @@ package org.apache.ofbiz.accounting.thirdparty.worldpay;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -331,8 +333,9 @@ public class WorldPayEvents {
         Map<String, Object> parametersMap = UtilHttp.getParameterMap(request);
         String orderId = request.getParameter("cartId");
         for (String name : parametersMap.keySet()) {
-            String value = request.getParameter(name);
-            Debug.logError("### Param: " + name + " => " + value, MODULE);
+            if (!"callbackPW".equals(name)) {
+                Debug.logError("### Param: " + name + " => " + request.getParameter(name), MODULE);
+            }
         }
         // get the user
         if (userLogin == null) {
@@ -364,6 +367,10 @@ public class WorldPayEvents {
         if (orderHeader == null) {
             Debug.logError("Cannot get the order header for order: " + orderId, MODULE);
             request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "worldPayEvents.problemsGettingOrderHeader", locale));
+            return "error";
+        }
+        if (!isVerifiedNotification(delegator, request, orderHeader)) {
+            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "worldPayEvents.notificationNotVerified", locale));
             return "error";
         }
         // get the transaction status
@@ -417,6 +424,57 @@ public class WorldPayEvents {
             }
         }
         return "success";
+    }
+
+    /**
+     * Checks that a notification comes from WorldPay for this order: it must carry the Payment Response password
+     * configured as payment.worldpay.callbackPassword, the order must be paid through WorldPay, and the amount and
+     * currency must match the order. A notification is never accepted while no password is configured.
+     */
+    private static boolean isVerifiedNotification(Delegator delegator, HttpServletRequest request, GenericValue orderHeader) {
+        String orderId = orderHeader.getString("orderId");
+        GenericValue paymentConfig = ProductStoreWorker.getProductStorePaymentSetting(delegator, orderHeader.getString("productStoreId"),
+                "EXT_WORLDPAY", null, true);
+        String configString = paymentConfig != null ? paymentConfig.getString("paymentPropertiesPath") : null;
+        if (configString == null) {
+            configString = "payment.properties";
+        }
+        String callbackPassword = EntityUtilProperties.getPropertyValue(configString, "payment.worldpay.callbackPassword", delegator);
+        if (UtilValidate.isEmpty(callbackPassword)) {
+            Debug.logError("Rejected WorldPay notification for order " + orderId + ": payment.worldpay.callbackPassword is not configured",
+                    MODULE);
+            return false;
+        }
+        String callbackPW = request.getParameter("callbackPW");
+        if (callbackPW == null || !MessageDigest.isEqual(callbackPassword.getBytes(StandardCharsets.UTF_8),
+                callbackPW.getBytes(StandardCharsets.UTF_8))) {
+            Debug.logError("Rejected WorldPay notification for order " + orderId + ": wrong callback password", MODULE);
+            return false;
+        }
+        try {
+            if (EntityQuery.use(delegator).from("OrderPaymentPreference")
+                    .where("orderId", orderId, "paymentMethodTypeId", "EXT_WORLDPAY").queryCount() == 0) {
+                Debug.logError("Rejected WorldPay notification for order " + orderId + ": the order is not paid through WorldPay", MODULE);
+                return false;
+            }
+        } catch (GenericEntityException e) {
+            Debug.logError(e, "Cannot get payment preferences for order " + orderId, MODULE);
+            return false;
+        }
+        String amount = request.getParameter("amount");
+        String currency = request.getParameter("currency");
+        BigDecimal grandTotal = orderHeader.getBigDecimal("grandTotal");
+        try {
+            if (amount == null || currency == null || grandTotal == null || new BigDecimal(amount.trim()).compareTo(grandTotal) != 0
+                    || !currency.equals(orderHeader.getString("currencyUom"))) {
+                Debug.logError("Rejected WorldPay notification for order " + orderId + ": amount or currency does not match the order", MODULE);
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            Debug.logError("Rejected WorldPay notification for order " + orderId + ": invalid amount " + amount, MODULE);
+            return false;
+        }
+        return true;
     }
 
     private static boolean setPaymentPreferences(Delegator delegator, LocalDispatcher dispatcher, GenericValue userLogin, String orderId,

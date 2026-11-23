@@ -902,6 +902,9 @@
         <value xml:lang="zh">返回的订单标识无效</value>
         <value xml:lang="zh-TW">返回的訂單標識無效</value>
     </property>
+    <property key="worldPayEvents.notificationNotVerified">
+        <value xml:lang="en">The WorldPay notification could not be verified</value>
+    </property>
     <property key="worldPayEvents.problemsConnectingWithWorldPay">
         <value xml:lang="de">Probleme beim Verbinden mit WorldPay</value>
         <value xml:lang="en">Problems Connecting With WorldPay</value>
