@@ -108,14 +108,18 @@ public final class ServiceDispatcher {
                 Debug.logError(e, "[ServiceDispatcher.init] : No instance of security implementation found.", MODULE);
             }
 
-        // clean up the service semaphores of same instance
-            try {
-                int rn = delegator.removeByAnd("ServiceSemaphore", "lockedByInstanceId", JobManager.INSTANCE_ID);
-                if (rn > 0) {
-                    Debug.logInfo("[ServiceDispatcher.init] : Clean up " + rn + " service semaphors.", MODULE);
+            // clean up the service semaphores of same instance, once per instance from the original delegator:
+            // a test delegator would record the removal and recreate the rows on rollback, including locks of
+            // services running at that moment
+            if (delegator.getOriginalDelegatorName().equals(delegator.getDelegatorName())) {
+                try {
+                    int rn = delegator.removeByAnd("ServiceSemaphore", "lockedByInstanceId", JobManager.INSTANCE_ID);
+                    if (rn > 0) {
+                        Debug.logInfo("[ServiceDispatcher.init] : Clean up " + rn + " service semaphors.", MODULE);
+                    }
+                } catch (GenericEntityException e) {
+                    Debug.logError(e, MODULE);
                 }
-            } catch (GenericEntityException e) {
-                Debug.logError(e, MODULE);
             }
         }
 
