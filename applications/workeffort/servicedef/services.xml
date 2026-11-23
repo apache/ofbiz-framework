@@ -1317,6 +1317,8 @@ under the License.
         <implements service="permissionInterface"/>
         <attribute name="workEffortId" mode="IN" type="String" optional="true"/>
         <attribute name="workEffortParentId" mode="IN" type="String" optional="true"/>
+        <attribute name="workEffortIdFrom" mode="IN" type="String" optional="true"/>
+        <attribute name="workEffortIdTo" mode="IN" type="String" optional="true"/>
     </service>
     <service name="timesheetPermissionCheck" engine="groovy"
              location="component://workeffort/src/main/groovy/org/apache/ofbiz/workeffort/timesheet/TimesheetPermissionServices.groovy" invoke="timesheetPermissionCheck">
