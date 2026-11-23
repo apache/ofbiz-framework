@@ -68,11 +68,7 @@ public class RecurrenceInfo {
         // Get start date
         long startTime = info.getTimestamp("startDateTime").getTime();
 
-        if (startTime > 0) {
-            int nanos = info.getTimestamp("startDateTime").getNanos();
-
-            startTime += (nanos / 1000000);
-        } else {
+        if (startTime <= 0) {
             throw new RecurrenceInfoException("Recurrence startDateTime must have a value.");
         }
         startDate = new Date(startTime);

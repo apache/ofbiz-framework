@@ -192,9 +192,7 @@ public class RecurrenceRule {
         }
 
         if (stamp != null) {
-            long nanos = stamp.getNanos();
             time = stamp.getTime();
-            time += (nanos / 1000000);
         }
         if (Debug.verboseOn()) {
             Debug.logVerbose("Returning time: " + time, MODULE);
