@@ -1654,7 +1654,7 @@ under the License.
     </request-map>
     <request-map uri="updateQuoteNote">
         <security https="true" auth="true"/>
-        <event type="service" invoke="updateNote"/>
+        <event type="service" invoke="updateQuoteNote"/>
         <response name="success" type="request-redirect" value="ListQuoteNotes"><redirect-parameter name="quoteId"/></response>
         <response name="error" type="view" value="ListQuoteNotes"/>
     </request-map>

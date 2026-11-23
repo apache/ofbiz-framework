@@ -3254,6 +3254,9 @@
         <value xml:lang="vi">Lỗi xảy ra : Công việc báo giá ${parameters.quoteId} ${parameters.workEffortId} đã tồn tại.</value>
         <value xml:lang="zh">错误：已存在询价人工服务（QuoteWorkEffort）${parameters.quoteId}、${parameters.workEffortId}。</value>
     </property>
+    <property key="OrderQuoteNoteNotFound">
+        <value xml:lang="en">Note ${noteId} is not associated with quote ${quoteId}.</value>
+    </property>
     <property key="OrderQuoteDoesNotExists">
         <value xml:lang="en">Quote does not exist.</value>
     </property>

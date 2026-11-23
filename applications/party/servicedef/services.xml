@@ -242,6 +242,9 @@ under the License.
     <service name="createPartyNote" engine="java"
             location="org.apache.ofbiz.party.party.PartyServices" invoke="createPartyNote" auth="true">
         <description>Create a note item and associate with a party. If a noteId is passed, creates an assoication to that note instead.</description>
+        <required-permissions join-type="AND">
+            <check-permission permission="PARTYMGR" action="_NOTE"/>
+        </required-permissions>
         <attribute name="partyId" type="String" mode="IN" optional="false"/>
         <attribute name="noteName" type="String" mode="IN" optional="true"/>
         <attribute name="noteId" type="String" mode="INOUT" optional="true"/>
@@ -1055,17 +1058,20 @@ under the License.
     <!-- party content services -->
     <service name="createPartyContent" default-entity-name="PartyContent" engine="entity-auto" invoke="create" auth="true">
         <description>Create a PartyContent record</description>
+        <permission-service service-name="partyIdPermissionCheck" main-action="CREATE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
         <override name="fromDate" optional="true"/>
     </service>
     <service name="updatePartyContent" default-entity-name="PartyContent" engine="entity-auto" invoke="update" auth="true">
         <description>Update a PartyContent record</description>
+        <permission-service service-name="partyIdPermissionCheck" main-action="UPDATE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
     <service name="removePartyContent" default-entity-name="PartyContent" engine="entity-auto" invoke="delete" auth="true">
         <description>Remove a PartyContent record</description>
+        <permission-service service-name="partyIdPermissionCheck" main-action="DELETE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
 
@@ -1136,6 +1142,7 @@ under the License.
 
     <service name="createPartyCarrierAccount" default-entity-name="PartyCarrierAccount" engine="entity-auto" invoke="create" auth="true">
         <description>Create a PartyCarrierAccount record</description>
+        <permission-service service-name="partyBasePermissionCheck" main-action="CREATE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
         <override type="Timestamp" mode="IN" name="fromDate" optional="true"/>
@@ -1144,6 +1151,7 @@ under the License.
 
     <service name="updatePartyCarrierAccount" default-entity-name="PartyCarrierAccount" engine="entity-auto" invoke="update" auth="true">
         <description>Update a PartyCarrierAccount record</description>
+        <permission-service service-name="partyBasePermissionCheck" main-action="UPDATE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
