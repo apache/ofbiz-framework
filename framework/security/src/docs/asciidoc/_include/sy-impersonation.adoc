@@ -23,6 +23,7 @@ The Apache OFBiz Project
 Release trunk
 
 :imagesdir: ./images/security
+ifdef::backend-pdf[:imagesdir: docs/asciidoc/images/security]
 
 === Introduction to User impersonation
 
