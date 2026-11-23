@@ -350,6 +350,21 @@ under the License.
         </attribute>
         <attribute name="noteName" type="String" mode="IN" optional="true"/>
     </service>
+    <service name="updateQuoteNote" engine="groovy"
+            location="component://order/src/main/groovy/org/apache/ofbiz/order/quote/QuoteServicesScript.groovy" invoke="updateQuoteNote" auth="true">
+        <description>Update a note associated with a quote</description>
+        <required-permissions join-type="AND">
+            <check-permission permission="ORDERMGR" action="_UPDATE"/>
+        </required-permissions>
+        <attribute name="quoteId" type="String" mode="IN" optional="false"/>
+        <attribute name="noteId" type="String" mode="IN" optional="false">
+            <type-validate>
+                <fail-property resource="OrderErrorUiLabels" property="OrderRequiredFieldMissingNoteId"/>
+            </type-validate>
+        </attribute>
+        <attribute name="noteName" type="String" mode="IN" optional="true"/>
+        <attribute name="noteInfo" type="String" mode="IN" optional="true" allow-html="safe"/>
+    </service>
 
     <service name="createQuoteTermAttribute" default-entity-name="QuoteTermAttribute" engine="entity-auto" invoke="create" auth="true">
         <description>Create a QuoteTermAttribute record</description>
