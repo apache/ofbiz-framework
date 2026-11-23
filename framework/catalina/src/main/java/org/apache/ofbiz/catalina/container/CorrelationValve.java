@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.Base64;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.ServiceLoader;
 import java.util.Set;
@@ -106,7 +107,7 @@ public class CorrelationValve extends ValveBase {
     private static UserLoginIdMode resolveUserLoginIdMode() {
         String mode = UtilProperties.getPropertyValue("debug", "log.correlation.userLoginId.mode", "plain");
         try {
-            return UserLoginIdMode.valueOf(mode.trim().toUpperCase());
+            return UserLoginIdMode.valueOf(mode.trim().toUpperCase(Locale.ROOT));
         } catch (IllegalArgumentException e) {
             Debug.logWarning("Invalid log.correlation.userLoginId.mode [" + mode + "]; defaulting to 'plain'", MODULE);
             return UserLoginIdMode.PLAIN;
