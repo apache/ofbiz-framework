@@ -21,6 +21,7 @@ The Apache OFBiz Project
 :doctype: book
 :imagesdir: ./images
 ifdef::backend-pdf[]
+:imagesdir: docs/asciidoc/images
 :title-logo-image: image::OFBiz-Logo.svg[Apache OFBiz Logo, pdfwidth=4.25in, align=center]
 :source-highlighter: rouge
 endif::[]
