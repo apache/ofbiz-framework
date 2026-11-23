@@ -331,22 +331,15 @@ public final class SqlJdbcUtil {
 
         Iterator<ModelField> iter = modelFields.iterator();
         while (iter.hasNext()) {
-            Object item = iter.next();
-            Object name = null;
-            ModelField modelField = null;
-            if (item instanceof ModelField) {
-                modelField = (ModelField) item;
-                sb.append(modelField.getColValue());
-                name = modelField.getName();
-            } else {
-                sb.append(item);
-                name = item;
-            }
+            ModelField modelField = iter.next();
+            sb.append(modelField.getColValue());
 
-            Object fieldValue = fields.get(name);
+            Object fieldValue = fields.get(modelField.getName());
             if (fieldValue != null && fieldValue != GenericEntity.NULL_FIELD) {
-                sb.append('=');
-                addValue(sb, modelField, fieldValue, entityConditionParams);
+                sb.append("=?");
+                if (entityConditionParams != null) {
+                    entityConditionParams.add(new EntityConditionParam(modelField, fieldValue));
+                }
             } else {
                 sb.append(" IS NULL");
             }
