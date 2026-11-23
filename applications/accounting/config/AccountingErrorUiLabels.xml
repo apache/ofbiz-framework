@@ -811,6 +811,9 @@
         <value xml:lang="zh">贝宝返回的信息中没有有效的orderId（订单编号）。</value>
         <value xml:lang="zh-TW">PayPal返回的資訊中沒有有效的orderId(訂單識別).</value>
     </property>
+    <property key="payPalEvents.notificationNotVerified">
+        <value xml:lang="en">The PayPal notification could not be verified</value>
+    </property>
     <property key="payPalEvents.previousPayPalOrderHasBeenCancelled">
         <value xml:lang="de">Der vorherige PayPal-Auftrag wurde storniert.</value>
         <value xml:lang="en">Previous PayPal order has been cancelled.</value>

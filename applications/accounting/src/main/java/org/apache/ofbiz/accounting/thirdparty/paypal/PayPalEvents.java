@@ -21,11 +21,12 @@ package org.apache.ofbiz.accounting.thirdparty.paypal;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
+import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.LinkedHashMap;
@@ -195,91 +196,6 @@ public class PayPalEvents {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
 
-        // get the product store
-        GenericValue productStore = ProductStoreWorker.getProductStore(request);
-        if (productStore == null) {
-            Debug.logError("ProductStore is null", MODULE);
-            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "payPalEvents.problemsGettingMerchantConfiguration",
-                    locale));
-            return "error";
-        }
-
-        // get the payment properties file
-        GenericValue paymentConfig = ProductStoreWorker.getProductStorePaymentSetting(delegator, productStore.getString("productStoreId"),
-                "EXT_PAYPAL", null, true);
-
-        String configString = null;
-        String paymentGatewayConfigId = null;
-        if (paymentConfig != null) {
-            paymentGatewayConfigId = paymentConfig.getString("paymentGatewayConfigId");
-            configString = paymentConfig.getString("paymentPropertiesPath");
-        }
-
-        if (configString == null) {
-            configString = "payment.properties";
-        }
-
-        // get the confirm URL
-        String confirmUrl = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "confirmUrl",
-                configString, "payment.paypal.confirm");
-
-        // get the redirect URL
-        String redirectUrl = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "redirectUrl",
-                configString, "payment.paypal.redirect");
-
-        if (UtilValidate.isEmpty(confirmUrl) || UtilValidate.isEmpty(redirectUrl)) {
-            Debug.logError("Payment properties is not configured properly, no confirm URL defined!", MODULE);
-            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "payPalEvents.problemsGettingMerchantConfiguration",
-                    locale));
-            return "error";
-        }
-
-        // first verify this is valid from PayPal
-        Map<String, Object> parametersMap = UtilHttp.getParameterMap(request);
-        parametersMap.put("cmd", "_notify-validate");
-
-        // send off the confirm request
-        String confirmResp = null;
-        String str = UtilHttp.urlEncodeArgs(parametersMap);
-        URL u = UtilURL.fromUrlString(redirectUrl);
-        URLConnection uc = u.openConnection();
-        uc.setDoOutput(true);
-        uc.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-
-        try (BufferedReader in = new BufferedReader(new InputStreamReader(uc.getInputStream()));
-                PrintWriter pw = new PrintWriter(new OutputStreamWriter(uc.getOutputStream(), "UTF-8"))) {
-
-            pw.println(str);
-            confirmResp = in.readLine();
-            Debug.logError("PayPal Verification Response: " + confirmResp, MODULE);
-        } catch (IOException e) {
-            Debug.logError(e, "Problems sending verification message.", MODULE);
-        }
-
-        Debug.logInfo("Got verification from PayPal, processing..", MODULE);
-        boolean verified = false;
-        for (String name : parametersMap.keySet()) {
-            String value = request.getParameter(name);
-            Debug.logError("### Param: " + name + " => " + value, MODULE);
-            if (UtilValidate.isNotEmpty(name) && "payer_status".equalsIgnoreCase(name) && UtilValidate.isNotEmpty(value)
-                    && "verified".equalsIgnoreCase(value)) {
-                verified = true;
-            }
-        }
-        if (!verified) {
-            Debug.logError("###### PayPal did not verify this request, need investigation!", MODULE);
-        }
-
-        // get the system user
-        GenericValue userLogin = null;
-        try {
-            userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "system").queryOne();
-        } catch (GenericEntityException e) {
-            Debug.logError(e, "Cannot get UserLogin for: system; cannot continue", MODULE);
-            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "payPalEvents.problemsGettingAuthenticationUser", locale));
-            return "error";
-        }
-
         // get the orderId
         String orderId = request.getParameter("invoice");
 
@@ -302,6 +218,51 @@ public class PayPalEvents {
         if (orderHeader == null) {
             Debug.logError("Cannot get the order header for order: " + orderId, MODULE);
             request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "payPalEvents.problemsGettingOrderHeader", locale));
+            return "error";
+        }
+
+        // get the payment properties file of the store the order was placed in
+        GenericValue paymentConfig = ProductStoreWorker.getProductStorePaymentSetting(delegator, orderHeader.getString("productStoreId"),
+                "EXT_PAYPAL", "PRDS_PAY_EXTERNAL", true);
+
+        String configString = null;
+        String paymentGatewayConfigId = null;
+        if (paymentConfig != null) {
+            paymentGatewayConfigId = paymentConfig.getString("paymentGatewayConfigId");
+            configString = paymentConfig.getString("paymentPropertiesPath");
+        }
+
+        if (configString == null) {
+            configString = "payment.properties";
+        }
+
+        // get the confirm URL
+        String confirmUrl = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "confirmUrl",
+                configString, "payment.paypal.confirm");
+
+        // get the paypal account
+        String payPalAccount = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "businessEmail", configString,
+                "payment.paypal.business");
+
+        if (UtilValidate.isEmpty(confirmUrl) || UtilValidate.isEmpty(payPalAccount)) {
+            Debug.logError("Payment properties is not configured properly, no confirm URL or PayPal account defined!", MODULE);
+            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "payPalEvents.problemsGettingMerchantConfiguration",
+                    locale));
+            return "error";
+        }
+
+        if (!isVerifiedByPayPal(request, confirmUrl, orderId) || !isMatchingNotification(delegator, request, orderHeader, payPalAccount)) {
+            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "payPalEvents.notificationNotVerified", locale));
+            return "error";
+        }
+
+        // get the system user
+        GenericValue userLogin = null;
+        try {
+            userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "system").queryOne();
+        } catch (GenericEntityException e) {
+            Debug.logError(e, "Cannot get UserLogin for: system; cannot continue", MODULE);
+            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "payPalEvents.problemsGettingAuthenticationUser", locale));
             return "error";
         }
 
@@ -498,6 +459,86 @@ public class PayPalEvents {
             return false;
         }
 
+        return true;
+    }
+
+    /**
+     * Posts the notification back to PayPal at the configured confirm URL and accepts it only when PayPal answers VERIFIED.
+     */
+    private static boolean isVerifiedByPayPal(HttpServletRequest request, String confirmUrl, String orderId) {
+        URL url = UtilURL.fromUrlString(confirmUrl);
+        if (url == null) {
+            Debug.logError("Rejected PayPal notification for order " + orderId + ": invalid confirm URL " + confirmUrl, MODULE);
+            return false;
+        }
+        String charset = UtilValidate.isNotEmpty(request.getCharacterEncoding()) ? request.getCharacterEncoding() : "UTF-8";
+        try {
+            // PayPal expects every field it sent, in the same order, after cmd=_notify-validate
+            StringBuilder message = new StringBuilder("cmd=_notify-validate");
+            for (Map.Entry<String, String[]> parameter : request.getParameterMap().entrySet()) {
+                for (String value : parameter.getValue()) {
+                    message.append('&').append(URLEncoder.encode(parameter.getKey(), charset)).append('=')
+                            .append(URLEncoder.encode(value, charset));
+                }
+            }
+            URLConnection connection = url.openConnection();
+            connection.setDoOutput(true);
+            connection.setConnectTimeout(30000);
+            connection.setReadTimeout(30000);
+            connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            try (OutputStream out = connection.getOutputStream()) {
+                out.write(message.toString().getBytes(StandardCharsets.US_ASCII));
+            }
+            String answer;
+            try (BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream(), StandardCharsets.US_ASCII))) {
+                answer = in.readLine();
+            }
+            if (!"VERIFIED".equals(answer)) {
+                Debug.logError("Rejected PayPal notification for order " + orderId + ": PayPal answered " + answer, MODULE);
+                return false;
+            }
+        } catch (IOException e) {
+            Debug.logError(e, "Rejected PayPal notification for order " + orderId + ": cannot get the PayPal verification", MODULE);
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Checks that a notification is about this order: the order must be paid through PayPal, the payment must go to the configured
+     * PayPal account, and the amount and currency must match the order.
+     */
+    private static boolean isMatchingNotification(Delegator delegator, HttpServletRequest request, GenericValue orderHeader,
+                                                  String payPalAccount) {
+        String orderId = orderHeader.getString("orderId");
+        try {
+            if (EntityQuery.use(delegator).from("OrderPaymentPreference")
+                    .where("orderId", orderId, "paymentMethodTypeId", "EXT_PAYPAL").queryCount() == 0) {
+                Debug.logError("Rejected PayPal notification for order " + orderId + ": the order is not paid through PayPal", MODULE);
+                return false;
+            }
+        } catch (GenericEntityException e) {
+            Debug.logError(e, "Cannot get payment preferences for order " + orderId, MODULE);
+            return false;
+        }
+        if (!payPalAccount.equalsIgnoreCase(request.getParameter("receiver_email"))
+                && !payPalAccount.equalsIgnoreCase(request.getParameter("business"))) {
+            Debug.logError("Rejected PayPal notification for order " + orderId + ": the payment is not made to " + payPalAccount, MODULE);
+            return false;
+        }
+        String amount = request.getParameter("mc_gross");
+        String currency = request.getParameter("mc_currency");
+        BigDecimal grandTotal = orderHeader.getBigDecimal("grandTotal");
+        try {
+            if (amount == null || currency == null || grandTotal == null || new BigDecimal(amount.trim()).compareTo(grandTotal) != 0
+                    || !currency.equals(orderHeader.getString("currencyUom"))) {
+                Debug.logError("Rejected PayPal notification for order " + orderId + ": amount or currency does not match the order", MODULE);
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            Debug.logError("Rejected PayPal notification for order " + orderId + ": invalid amount " + amount, MODULE);
+            return false;
+        }
         return true;
     }
 
