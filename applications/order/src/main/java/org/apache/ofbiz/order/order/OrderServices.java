@@ -642,6 +642,10 @@ public class OrderServices {
             }
         }
 
+        // the notes belong to the order being created, so they are added by the system user, with the user as their author
+        GenericValue noteUserLogin = ServiceUtil.getUserLogin(ctx, context, "system");
+        String noteParty = userLogin != null ? userLogin.getString("partyId") : null;
+
         // create the order internal notes
         List<String> orderInternalNotes = UtilGenerics.cast(context.get("orderInternalNotes"));
         if (UtilValidate.isNotEmpty(orderInternalNotes)) {
@@ -649,8 +653,7 @@ public class OrderServices {
                 try {
                     Map<String, Object> noteOutputMap = dispatcher.runSync("createOrderNote", UtilMisc.<String, Object>toMap("orderId", orderId,
                             "internalNote", "Y",
-                            "note", orderInternalNote,
-                            "userLogin", userLogin));
+                            "note", orderInternalNote, "noteParty", noteParty, "userLogin", noteUserLogin));
                     if (ServiceUtil.isError(noteOutputMap)) {
                         return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                                 "OrderOrderNoteCannotBeCreated", UtilMisc.toMap("errorString", ""), locale),
@@ -671,8 +674,7 @@ public class OrderServices {
                 try {
                     Map<String, Object> noteOutputMap = dispatcher.runSync("createOrderNote", UtilMisc.<String, Object>toMap("orderId", orderId,
                             "internalNote", "N",
-                            "note", orderNote,
-                            "userLogin", userLogin));
+                            "note", orderNote, "noteParty", noteParty, "userLogin", noteUserLogin));
                     if (ServiceUtil.isError(noteOutputMap)) {
                         return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                                 "OrderOrderNoteCannotBeCreated", UtilMisc.toMap("errorString", ""), locale),
@@ -3140,7 +3142,17 @@ public class OrderServices {
         String orderId = (String) context.get("orderId");
         String internalNote = (String) context.get("internalNote");
         Map<String, Object> noteCtx = UtilMisc.<String, Object>toMap("note", noteString, "userLogin", userLogin, "noteName", noteName);
+        String noteParty = (String) context.get("noteParty");
+        if (UtilValidate.isNotEmpty(noteParty)) {
+            noteCtx.put("partyId", noteParty);
+        }
         Locale locale = (Locale) context.get("locale");
+        Security security = dctx.getSecurity();
+
+        if (!security.hasEntityPermission("ORDERMGR", "_NOTE", userLogin)
+                && !OrderServices.hasPermission(orderId, userLogin, "UPDATE", security, delegator)) {
+            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderSecurityErrorToRunCreateOrderNote", locale));
+        }
 
         try {
             // Store the note.
