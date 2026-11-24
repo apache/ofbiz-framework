@@ -109,6 +109,21 @@ public final class RequestHandler {
         this.trackVisit = !"false".equalsIgnoreCase(context.getInitParameter("track-visit"));
     }
 
+    /**
+     * Tells whether a parameter name designates a widget resource location override, such as a
+     * decorator, screen, template or menu location. These names must not be persisted with a saved
+     * view nor restored from one, because they select which resource gets rendered.
+     * @param key the parameter name, may be {@code null}
+     * @return {@code true} if the parameter must be dropped from saved view parameters
+     */
+    static boolean isLocationOverrideParameter(String key) {
+        return key != null && (key.endsWith("Location")
+                || key.endsWith("Decorator")
+                || key.endsWith("Screen")
+                || key.endsWith("Template")
+                || key.endsWith("Uri"));
+    }
+
     public static RequestHandler getRequestHandler(ServletContext servletContext) {
         RequestHandler rh = (RequestHandler) servletContext.getAttribute("_REQUEST_HANDLER_");
         if (rh == null) {
@@ -1007,10 +1022,7 @@ public final class RequestHandler {
                         String key = urlParamEntry.getKey();
                         // Filter out event messages and dynamic resource/location override parameters
                         if (key != null && !key.startsWith("_")
-                                && !key.endsWith("Location")
-                                && !key.endsWith("Screen")
-                                && !key.endsWith("Template")
-                                && !key.endsWith("Uri")
+                                && !isLocationOverrideParameter(key)
                                 && !("_EVENT_MESSAGE_".equals(key) || "_ERROR_MESSAGE_".equals(key)
                                 || "_EVENT_MESSAGE_LIST_".equals(key) || "_ERROR_MESSAGE_LIST_".equals(key))) {
                             request.setAttribute(key, urlParamEntry.getValue());
@@ -1246,11 +1258,7 @@ public final class RequestHandler {
 
         // Filter out sensitive dynamic location/template override parameters from persisted session params
         Map<String, Object> sanitizedParamMap = new HashMap<>(paramMap);
-        sanitizedParamMap.keySet().removeIf(key -> key != null && (
-                key.endsWith("Location")
-                || key.endsWith("Screen")
-                || key.endsWith("Template")
-                || key.endsWith("Uri")));
+        sanitizedParamMap.keySet().removeIf(RequestHandler::isLocationOverrideParameter);
         req.getSession().setAttribute("_LAST_VIEW_PARAMS_", sanitizedParamMap);
 
         if ("SAVED".equals(saveName)) {
