@@ -613,6 +613,8 @@ under the License.
         <entity-condition entity-name="WorkEffortAssocToView" list="resultList" filter-by-date="true">
             <condition-list combine="and">
                 <condition-expr field-name="workEffortIdFrom" operator="equals" from-field="workEffortId"/>
+                <!-- Only publish associated work efforts that are themselves public. -->
+                <condition-expr field-name="scopeEnumId" value="WES_PUBLIC"/>
                 <condition-expr field-name="workEffortTypeId" operator="equals" from-field="parameters.workEffortTypeId" ignore-if-empty="true"/>
             </condition-list>
         </entity-condition>
