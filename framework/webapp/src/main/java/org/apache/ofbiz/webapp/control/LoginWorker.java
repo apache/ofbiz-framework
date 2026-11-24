@@ -382,9 +382,12 @@ public final class LoginWorker {
         }
 
         // a session established from a password-reset token must never be treated as equivalent to a full
-        // login: confine it to the small set of requests needed to complete the reset
+        // login: confine it to the small set of requests needed to complete the reset, each rendering its own
+        // view, so a view name appended to the request path is refused as well
+        String pathInfo = request.getPathInfo();
         if ("Y".equals(session.getAttribute(PASSWORD_RESET_ONLY_SESSION_ATTR))
-                && !PASSWORD_RESET_ONLY_ALLOWED_REQUESTS.contains(RequestHandler.getRequestUri(request.getPathInfo()))) {
+                && (!PASSWORD_RESET_ONLY_ALLOWED_REQUESTS.contains(RequestHandler.getRequestUri(pathInfo))
+                        || RequestHandler.getOverrideViewUri(pathInfo) != null)) {
             response.setStatus(HttpStatus.SC_UNAUTHORIZED);
             return "error";
         }
