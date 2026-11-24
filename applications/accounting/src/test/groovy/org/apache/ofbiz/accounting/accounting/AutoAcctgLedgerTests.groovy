@@ -33,7 +33,7 @@ class AutoAcctgLedgerTests implements JupiterTestHelper {
     @Order(1)
     void testCreateAcctgTrans() {
         String acctgTransTypeId = testParams.acctgTransTypeId ?: 'CREDIT_MEMO'
-        Map serviceCtx = [:]
+        Map<String, Object> serviceCtx = [:]
         serviceCtx.acctgTransTypeId = acctgTransTypeId
         serviceCtx.description = testParams.description ?: 'Test Credit Memo Transaction'
         serviceCtx.transactionDate = UtilDateTime.nowTimestamp()
