@@ -82,7 +82,7 @@ under the License.
     </request-map>
     <request-map uri="sendconfirmationmail">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="sendMail"/>
+        <event type="service" path="" invoke="sendOrderConfirmationMail"/>
         <response name="success" type="view" value="orderview"/>
         <response name="error" type="view" value="SendConfirmationMail"/>
     </request-map>
