@@ -85,6 +85,7 @@ dependencies {
     testImplementation libs.junit.platform.launcher
     testImplementation libs.hamcrest.library
     testImplementation libs.mockito.core
+    testImplementation libs.testcontainers // container-based integration tests, skipped without Docker
     testImplementation libs.spring.test
     testImplementation libs.spring.web
     testImplementation libs.tika.parser.pdf.module // WidgetMacroLibraryTests parses the rendered PDF
