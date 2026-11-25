@@ -141,3 +141,20 @@ Map getOrderedSummaryInformation() {
 
     return result
 }
+
+/**
+ * Send an order confirmation email written in the order manager.
+ * Only the message fields are passed on, so the mail is sent through the configured mail server.
+ */
+Map sendOrderConfirmationMail() {
+    run service: 'sendMail', with: [orderId: parameters.orderId,
+                                    partyId: parameters.partyId,
+                                    sendTo: parameters.sendTo,
+                                    sendCc: parameters.sendCc,
+                                    sendBcc: parameters.sendBcc,
+                                    sendFrom: parameters.sendFrom,
+                                    subject: parameters.subject,
+                                    body: parameters.body,
+                                    contentType: parameters.contentType]
+    return success()
+}
