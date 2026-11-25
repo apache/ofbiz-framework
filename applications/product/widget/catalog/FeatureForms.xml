@@ -232,16 +232,16 @@
         <field name="productFeatureGroupId"><hidden/></field>
         <field name="fromDate"><hidden/></field>
         <field name="productFeatureId" title="${uiLabelMap.CommonId}"><display/></field>
-        <field name="description" title="${uiLabelMap.ProductFeature}"><display/></field>
+        <field name="description" title="${uiLabelMap.ProductFeature}"><display also-hidden="false"/></field>
         <field name="productFeatureTypeId" title="${uiLabelMap.CommonType}">
-            <display-entity entity-name="ProductFeatureType"/>
+            <display-entity also-hidden="false" entity-name="ProductFeatureType"/>
         </field>
         <field name="productFeatureCategoryId" title="${uiLabelMap.ProductFeatureCategory}">
-            <display-entity entity-name="ProductFeatureCategory"/>
+            <display-entity also-hidden="false" entity-name="ProductFeatureCategory"/>
         </field>
         <field name="sequenceNum"><text size="3"/></field>
         <field name="removeFeatureGroupAppl" title="${uiLabelMap.CommonRemove}" widget-style="buttontext">
-            <hyperlink description="${uiLabelMap.CommonRemove}" target="RemoveProductFeatureGroupAppl">
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonRemove}" target="RemoveProductFeatureGroupAppl">
                 <parameter param-name="productFeatureGroupId"/>
                 <parameter param-name="productFeatureId"/>
                 <parameter param-name="fromDate"/>
@@ -276,11 +276,11 @@
         <field name="productFeatureGroupId"><hidden/></field>
         <field name="productFeatureId" title="${uiLabelMap.CommonId}"><display/></field>
         <field name="productFeatureTypeId" title="${uiLabelMap.CommonType}">
-            <display-entity entity-name="ProductFeatureType"/>
+            <display-entity also-hidden="false" entity-name="ProductFeatureType"/>
         </field>
-        <field name="description" title="${uiLabelMap.ProductFeature}"><display/></field>
-        <field name="idCode" title="${uiLabelMap.CommonIdCode}"><display/></field>
-        <field name="abbrev" title="${uiLabelMap.ProductAbbrev}"><display/></field>
+        <field name="description" title="${uiLabelMap.ProductFeature}"><display also-hidden="false"/></field>
+        <field name="idCode" title="${uiLabelMap.CommonIdCode}"><display also-hidden="false"/></field>
+        <field name="abbrev" title="${uiLabelMap.ProductAbbrev}"><display also-hidden="false"/></field>
         <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><check/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit">
           <submit/>

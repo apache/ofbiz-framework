@@ -344,22 +344,22 @@ under the License.
         </field>
         <field name="facilityId"><hidden value="${parameters.facilityId}"/></field>
         <field name="internalName" entry-name="productId">
-            <display-entity entity-name="Product" key-field-name="productId" description="${internalName}"/>
+            <display-entity also-hidden="false" entity-name="Product" key-field-name="productId" description="${internalName}"/>
         </field>
         <field name="partyId" title="${uiLabelMap.ProductSupplier}">
-            <display-entity entity-name="PartyNameView" description="${lastName} ${firstName} ${groupName}"/>
+            <display-entity also-hidden="false" entity-name="PartyNameView" description="${lastName} ${firstName} ${groupName}"/>
         </field>
-        <field name="supplierCurrencyUomId" entry-name="parameters.supplierCurrencyUomId"><display/></field>
-        <field name="supplierProductId" title="${uiLabelMap.ProductSupplierProductId}"><display/></field>
-        <field name="idValue" title="${uiLabelMap.ProductUPCA}"><display/></field>
-        <field name="minimumOrderQuantity" title="${uiLabelMap.FormFieldTitle_minimumOrderQuantity}" widget-area-style="align-text"><display type="number" format="quantity"/></field>
-        <field name="lastPrice" widget-area-style="align-text"><display type="currency" currency="${currencyUomId}"/></field>
-        <field name="requiredByDate"><display/></field>
-        <field name="atp" title="${uiLabelMap.ProductAtp}" widget-area-style="align-text"><display/></field>
-        <field name="qoh" title="${uiLabelMap.ProductQoh}" widget-area-style="align-text"><display/></field>
-        <field name="qtySold" title="${uiLabelMap.OrderQuantitySold}" widget-area-style="align-text"><display/></field>
+        <field name="supplierCurrencyUomId" entry-name="parameters.supplierCurrencyUomId"><display also-hidden="false"/></field>
+        <field name="supplierProductId" title="${uiLabelMap.ProductSupplierProductId}"><display also-hidden="false"/></field>
+        <field name="idValue" title="${uiLabelMap.ProductUPCA}"><display also-hidden="false"/></field>
+        <field name="minimumOrderQuantity" title="${uiLabelMap.FormFieldTitle_minimumOrderQuantity}" widget-area-style="align-text"><display also-hidden="false" type="number" format="quantity"/></field>
+        <field name="lastPrice" widget-area-style="align-text"><display also-hidden="false" type="currency" currency="${currencyUomId}"/></field>
+        <field name="requiredByDate"><display also-hidden="false"/></field>
+        <field name="atp" title="${uiLabelMap.ProductAtp}" widget-area-style="align-text"><display also-hidden="false"/></field>
+        <field name="qoh" title="${uiLabelMap.ProductQoh}" widget-area-style="align-text"><display also-hidden="false"/></field>
+        <field name="qtySold" title="${uiLabelMap.OrderQuantitySold}" widget-area-style="align-text"><display also-hidden="false"/></field>
         <field name="quantity"><text size="4"/></field>
-        <field name="comments"><display/></field>
+        <field name="comments"><display also-hidden="false"/></field>
         <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><check/></field>
     </form>
     <form name="ApprovedProductRequirementsSubmit" type="single"

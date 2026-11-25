@@ -362,8 +362,6 @@ under the License.
            <wf:row-actions>
                <wf:set field="total" value="${groovy: (quantity ?: 1) * (amount ?: 0)}" type="BigDecimal"/>
            </wf:row-actions>
-           <wf:field name="viewSize"><wf:hidden value="${viewSize}"/></wf:field>
-           <wf:field name="viewIndex"><wf:hidden value="${viewIndex}"/></wf:field>
            <wf:field name="invoiceId"><wf:hidden/></wf:field>
            <wf:field name="uomId"><wf:hidden/></wf:field>
            <wf:field name="taxableFlag"><wf:hidden/></wf:field>
@@ -382,7 +380,7 @@ under the License.
                </wf:drop-down>
            </wf:field>
            <wf:field name="amount" title="${uiLabelMap.AccountingUnitPrice}"><wf:text size="10"/></wf:field>
-           <wf:field name="total" widget-area-style="align-text"><wf:display type="currency" currency="${invoice.currencyUomId}"/></wf:field>  <!-- this should not look like something you can modify, hence display -->
+           <wf:field name="total" widget-area-style="align-text"><wf:display also-hidden="false" type="currency" currency="${invoice.currencyUomId}"/></wf:field>  <!-- this should not look like something you can modify, hence display -->
            <wf:field name="updateButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit" ><wf:submit button-type="button"/></wf:field>
         </wf:form>
 

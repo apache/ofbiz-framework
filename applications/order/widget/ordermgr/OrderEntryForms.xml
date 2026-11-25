@@ -47,7 +47,7 @@ under the License.
             <display-entity entity-name="Product" key-field-name="productId" description="${productId} - ${internalName}"/>
         </field>
 
-        <field name="requiredByDate"><display/></field>
+        <field name="requiredByDate"><display also-hidden="false"/></field>
         <field name="quantity"><text/></field>
         <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><check/></field>
         <field name="submitButton" widget-style="smallSubmit"><submit/></field>
@@ -161,8 +161,8 @@ under the License.
                 <parameter param-name="productId"/>
             </hyperlink>
         </field>
-        <field name="brandName" title="${uiLabelMap.ProductBrandName}"><display/></field>
-        <field name="internalName"><display/></field>
+        <field name="brandName" title="${uiLabelMap.ProductBrandName}"><display also-hidden="false"/></field>
+        <field name="internalName"><display also-hidden="false"/></field>
         <field name="quantity" title="${uiLabelMap.OrderQuantity}">
             <text size="5" maxlength="10"/>
         </field>
@@ -186,14 +186,14 @@ under the License.
                 <parameter param-name="productId"/>
             </hyperlink>
         </field>
-        <field name="supplierProductId"><display/></field>
-        <field name="supplierProductName"><display/></field>
-        <field name="internalName"><display/></field>
-        <field name="lastPrice"><display type="number" format="amount"/></field>
-        <field name="minimumOrderQuantity"><display type="number" format="quantity"/></field>
-        <field name="minimumStock"><display type="number" format="quantity"/></field>
-        <field name="qohAtp" title="${uiLabelMap.ProductAtpQoh}"><display/></field>
-        <field name="quantityOnOrder"><display type="number" format="quantity"/></field>
+        <field name="supplierProductId"><display also-hidden="false"/></field>
+        <field name="supplierProductName"><display also-hidden="false"/></field>
+        <field name="internalName"><display also-hidden="false"/></field>
+        <field name="lastPrice"><display also-hidden="false" type="number" format="amount"/></field>
+        <field name="minimumOrderQuantity"><display also-hidden="false" type="number" format="quantity"/></field>
+        <field name="minimumStock"><display also-hidden="false" type="number" format="quantity"/></field>
+        <field name="qohAtp" title="${uiLabelMap.ProductAtpQoh}"><display also-hidden="false"/></field>
+        <field name="quantityOnOrder"><display also-hidden="false" type="number" format="quantity"/></field>
         <field name="quantity" title="${uiLabelMap.OrderQuantity}">
             <text size="5" maxlength="10"/>
         </field>
@@ -209,8 +209,8 @@ under the License.
         <field name="productId"  title="${uiLabelMap.ProductProductId}" widget-style="buttontext">
             <hyperlink description="${productId}" target="/catalog/control/EditProductInventoryItems?productId=${productId}" target-type="inter-app"/>
         </field>
-        <field name="brandName" title="${uiLabelMap.ProductBrandName}"><display/></field>
-        <field name="internalName"><display/></field>
+        <field name="brandName" title="${uiLabelMap.ProductBrandName}"><display also-hidden="false"/></field>
+        <field name="internalName"><display also-hidden="false"/></field>
         <field name="quantity" title="${uiLabelMap.OrderQuantity}">
             <text size="5" maxlength="10"/>
         </field>

@@ -145,9 +145,9 @@ under the License.
                 <parameter param-name="productId"/>
             </hyperlink>
         </field>
-        <field name="supplierProductId"><display/></field>
-        <field name="supplierProductName"><display/></field>
-        <field name="lastPrice"><display/></field>
+        <field name="supplierProductId"><display also-hidden="false"/></field>
+        <field name="supplierProductName"><display also-hidden="false"/></field>
+        <field name="lastPrice"><display also-hidden="false"/></field>
         <field name="quantity" title="${uiLabelMap.OrderQuantity}">
             <text size="5" maxlength="10"/>
         </field>
