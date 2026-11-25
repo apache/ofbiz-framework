@@ -247,7 +247,8 @@ public class EmailServices {
         Session session;
         MimeMessage mail;
         try {
-            Properties props = System.getProperties();
+            // the mail settings of this message go to a copy, so that they do not change the JVM system properties
+            Properties props = (Properties) System.getProperties().clone();
             props.put(sendType, sendVia);
             if (UtilValidate.isNotEmpty(port)) {
                 props.put("mail.smtp.port", port);
