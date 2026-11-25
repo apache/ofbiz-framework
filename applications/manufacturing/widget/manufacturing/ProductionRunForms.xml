@@ -428,7 +428,7 @@ under the License.
         <field name="workEffortId"><hidden/></field>
         <field name="fromDate"><hidden/></field>
         <field name="task" entry-name="workEffortId" title="${uiLabelMap.ManufacturingRoutingTaskId}">
-            <display description="${workEffortName} [${workEffortId}]"/>
+            <display also-hidden="false" description="${workEffortName} [${workEffortId}]"/>
         </field>
         <field name="internalName" title="${uiLabelMap.ProductProductName}">
             <display description="${internalName} [${productId}]" also-hidden="false"/>
@@ -487,7 +487,7 @@ under the License.
         <field name="workEffortId"><hidden/></field>
         <field name="fromDate"><hidden/></field>
         <field name="task" entry-name="workEffortId" title="${uiLabelMap.ManufacturingRoutingTaskId}">
-            <display description="${workEffortName} [${workEffortId}]"/>
+            <display also-hidden="false" description="${workEffortName} [${workEffortId}]"/>
         </field>
         <field name="internalName" title="${uiLabelMap.ProductProductName}">
             <display description="${internalName} [${productId}]" also-hidden="false"/>

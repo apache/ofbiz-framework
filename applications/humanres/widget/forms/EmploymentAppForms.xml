@@ -60,7 +60,7 @@ under the License.
         <field name="referredByPartyId" title="${uiLabelMap.FormFieldTitle_referredByPartyId}"><lookup target-form-name="LookupPartyName"/></field>
         <field name="applicationDate" title="${uiLabelMap.FormFieldTitle_applicationDate}"><date-time/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
-            <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteEmploymentApp" also-hidden="true">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteEmploymentApp" also-hidden="false">
                 <parameter param-name="applicationId"/>
                 <parameter param-name="partyId"/>
                 <parameter param-name="referredByPartyId"/>

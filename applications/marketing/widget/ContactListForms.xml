@@ -303,21 +303,21 @@ under the License.
                 </sub-hyperlink>
             </display-entity>
         </field>
-        <field use-when="contactMechTypeId.equals(&quot;POSTAL_ADDRESS&quot;)" name="toName" map-name="postalAddress"><display/></field>
-        <field use-when="contactMechTypeId.equals(&quot;POSTAL_ADDRESS&quot;)" name="attnName" map-name="postalAddress"><display/></field>
-        <field use-when="contactMechTypeId.equals(&quot;POSTAL_ADDRESS&quot;)" name="address1" map-name="postalAddress"><display/></field>
-        <field use-when="contactMechTypeId.equals(&quot;POSTAL_ADDRESS&quot;)" name="address2" map-name="postalAddress"><display/></field>
-        <field use-when="contactMechTypeId.equals(&quot;POSTAL_ADDRESS&quot;)" name="city" map-name="postalAddress"><display/></field>
-        <field use-when="contactMechTypeId.equals(&quot;POSTAL_ADDRESS&quot;)" name="abbreviation" map-name="postalAddress"><display/></field>
-        <field use-when="contactMechTypeId.equals(&quot;POSTAL_ADDRESS&quot;)" name="postalCode" map-name="postalAddress"><display/></field>
+        <field use-when="contactMechTypeId.equals(&quot;POSTAL_ADDRESS&quot;)" name="toName" map-name="postalAddress"><display also-hidden="false"/></field>
+        <field use-when="contactMechTypeId.equals(&quot;POSTAL_ADDRESS&quot;)" name="attnName" map-name="postalAddress"><display also-hidden="false"/></field>
+        <field use-when="contactMechTypeId.equals(&quot;POSTAL_ADDRESS&quot;)" name="address1" map-name="postalAddress"><display also-hidden="false"/></field>
+        <field use-when="contactMechTypeId.equals(&quot;POSTAL_ADDRESS&quot;)" name="address2" map-name="postalAddress"><display also-hidden="false"/></field>
+        <field use-when="contactMechTypeId.equals(&quot;POSTAL_ADDRESS&quot;)" name="city" map-name="postalAddress"><display also-hidden="false"/></field>
+        <field use-when="contactMechTypeId.equals(&quot;POSTAL_ADDRESS&quot;)" name="abbreviation" map-name="postalAddress"><display also-hidden="false"/></field>
+        <field use-when="contactMechTypeId.equals(&quot;POSTAL_ADDRESS&quot;)" name="postalCode" map-name="postalAddress"><display also-hidden="false"/></field>
         <field use-when="contactMechTypeId.equals(&quot;POSTAL_ADDRESS&quot;)" name="countryGeoId" map-name="postalAddress">
-            <display-entity entity-name="Geo" key-field-name="geoId" description="${geoName}"/>
+            <display-entity also-hidden="false" entity-name="Geo" key-field-name="geoId" description="${geoName}"/>
         </field>
-        <field use-when="contactMechTypeId.equals(&quot;TELECOM_NUMBER&quot;)" name="countryCode" map-name="telephone"><display/></field>
-        <field use-when="contactMechTypeId.equals(&quot;TELECOM_NUMBER&quot;)" name="areaCode" map-name="telephone"><display/></field>
-        <field use-when="contactMechTypeId.equals(&quot;TELECOM_NUMBER&quot;)" name="contactNumber" map-name="telephone"><display/></field>
-        <field use-when="contactMechTypeId.equals(&quot;TELECOM_NUMBER&quot;)" name="extension" map-name="telephone"><display/></field>
-        <field use-when="!contactMechTypeId.equals(&quot;POSTAL_ADDRESS&quot;)&amp;&amp;!contactMechTypeId.equals(&quot;TELECOM_NUMBER&quot;)" name="infoString" map-name="contactMech"><display/></field>
+        <field use-when="contactMechTypeId.equals(&quot;TELECOM_NUMBER&quot;)" name="countryCode" map-name="telephone"><display also-hidden="false"/></field>
+        <field use-when="contactMechTypeId.equals(&quot;TELECOM_NUMBER&quot;)" name="areaCode" map-name="telephone"><display also-hidden="false"/></field>
+        <field use-when="contactMechTypeId.equals(&quot;TELECOM_NUMBER&quot;)" name="contactNumber" map-name="telephone"><display also-hidden="false"/></field>
+        <field use-when="contactMechTypeId.equals(&quot;TELECOM_NUMBER&quot;)" name="extension" map-name="telephone"><display also-hidden="false"/></field>
+        <field use-when="!contactMechTypeId.equals(&quot;POSTAL_ADDRESS&quot;)&amp;&amp;!contactMechTypeId.equals(&quot;TELECOM_NUMBER&quot;)" name="infoString" map-name="contactMech"><display also-hidden="false"/></field>
         <field name="submitButton" title="${uiLabel.CommonSubmit}"><submit/></field>
     </form>
 

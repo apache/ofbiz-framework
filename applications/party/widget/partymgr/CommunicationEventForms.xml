@@ -408,32 +408,32 @@ under the License.
         </row-actions>
         <field name="communicationEventId"><hidden/></field>
         <field name="subject" sort-field="true">
-            <hyperlink description="${subject}[${communicationEventId}]" target="ViewCommunicationEvent">
+            <hyperlink also-hidden="false" description="${subject}[${communicationEventId}]" target="ViewCommunicationEvent">
                 <parameter param-name="communicationEventId"/>
                 <parameter param-name="partyId"/>
                 <parameter param-name="roleTypeId"/>
                 <parameter param-name="headerItem" from-field="parameters.headerItem"/>
             </hyperlink>
         </field>
-        <field name="communicationEventTypeId" title="${uiLabelMap.CommonType}" sort-field="true"><display-entity entity-name="CommunicationEventType" key-field-name="communicationEventTypeId"/></field>
+        <field name="communicationEventTypeId" title="${uiLabelMap.CommonType}" sort-field="true"><display-entity also-hidden="false" entity-name="CommunicationEventType" key-field-name="communicationEventTypeId"/></field>
         <field name="statusId" sort-field="true">
-            <display-entity entity-name="StatusItem" key-field-name="statusId"/>
+            <display-entity also-hidden="false" entity-name="StatusItem" key-field-name="statusId"/>
         </field>
         <field name="partyId" title="${uiLabelMap.CommonPartyId}" sort-field="true">
-            <display-entity description="${firstName} ${middleName} ${lastName} ${groupName}" entity-name="PartyNameView" key-field-name="partyId">
+            <display-entity also-hidden="false" description="${firstName} ${middleName} ${lastName} ${groupName}" entity-name="PartyNameView" key-field-name="partyId">
                 <sub-hyperlink target="/partymgr/control/viewprofile" description="[${partyIdFrom}]" target-type="inter-app">
                     <parameter param-name="partyId" from-field="partyIdFrom"/>
                 </sub-hyperlink>
             </display-entity>
         </field>
         <field name="roleTypeId" sort-field="true">
-            <display-entity entity-name="RoleType"/>
+            <display-entity also-hidden="false" entity-name="RoleType"/>
         </field>
         <field name="roleStatusId" sort-field="true">
-            <display-entity entity-name="StatusItem" key-field-name="statusId"/>
+            <display-entity also-hidden="false" entity-name="StatusItem" key-field-name="statusId"/>
         </field>
-        <field name="entryDate" title="${uiLabelMap.CommonCreated}" sort-field="true"><display type="date"/></field>
-        <field name="datetimeStarted" title="${uiLabelMap.CommonSent}" sort-field="true"><display type="date"/></field>
+        <field name="entryDate" title="${uiLabelMap.CommonCreated}" sort-field="true"><display also-hidden="false" type="date"/></field>
+        <field name="datetimeStarted" title="${uiLabelMap.CommonSent}" sort-field="true"><display also-hidden="false" type="date"/></field>
     </form>
 
     <form name="FindCommunicationByOrder" type="single" target="FindCommunicationByOrder" paginate="true" focus-field-name="submitButton"
@@ -903,7 +903,7 @@ under the License.
         <field name="delContentDataResource"><hidden value="Y"/></field>
         <field name="communicationEventId"><hidden/></field>
         <field name="subject" widget-style="buttontext" widget-area-style="fieldWidth300">
-            <hyperlink description="${subject}" target="${parameters._LAST_VIEW_NAME_}" also-hidden="true">
+            <hyperlink description="${subject}" target="${parameters._LAST_VIEW_NAME_}" also-hidden="false">
                 <parameter param-name="communicationEventId"/>
                 <parameter param-name="partyId"/>
                 <parameter param-name="my" value="My"/>
@@ -912,9 +912,9 @@ under the License.
             </hyperlink>
         </field>
         <field name="entryDate">
-            <display type="date"/>
+            <display also-hidden="false" type="date"/>
         </field>
-        <field name="note" widget-area-style="fieldWidth200"><display/></field>
+        <field name="note" widget-area-style="fieldWidth200"><display also-hidden="false"/></field>
         <field name="_rowSubmit" title="${uiLabelMap.CommonYes}"><check/></field>
         <field name="deleteSelectedButton" widget-style="smallSubmit"><submit/></field>
     </form>

@@ -114,10 +114,10 @@ under the License.
                 <option key="IM_PENDING/${productId}" description="${uiLabelMap.FormFieldTitle_pending}"/>
             </radio>
         </field>
-        <field name="drDataResourceName" position="2" title="${uiLabelMap.ImageManagementImageName}"><display/></field>
+        <field name="drDataResourceName" position="2" title="${uiLabelMap.ImageManagementImageName}"><display also-hidden="false"/></field>
         <field name="contentId" position="2"><display/></field>
-        <field name="dataResourceId" title="${uiLabelMap.ContentDataResourceId}" position="2"><display/></field>
-        <field name="fromDate" position="2"><display/></field>
+        <field name="dataResourceId" title="${uiLabelMap.ContentDataResourceId}" position="2"><display also-hidden="false"/></field>
+        <field name="fromDate" position="2"><display also-hidden="false"/></field>
         <field name="viewButton" position="2" title="${uiLabelMap.CommonView}" widget-style="buttontext">
             <hyperlink description="${uiLabelMap.CommonView}" target="${origContentDataResourceViews[0].drObjectInfo}" target-window="_blank" also-hidden="false" target-type="content"/>
         </field>
@@ -193,12 +193,12 @@ under the License.
             <display-entity entity-name="Product" key-field-name="productId" description="${internalName} [${productId}] - ${productCategory.categoryName}" also-hidden="false"/>
         </field>
         <field name="_rowSubmit" position="2" title=" " widget-style="hidden"><check all-checked="true"/></field>
-        <field name="drDataResourceName" position="2" title="${uiLabelMap.ImageManagementImageName}"><display/></field>
+        <field name="drDataResourceName" position="2" title="${uiLabelMap.ImageManagementImageName}"><display also-hidden="false"/></field>
         <field name="contentId" position="2"><display/></field>
-        <field name="dataResourceId" title="${uiLabelMap.ContentDataResourceId}" position="2"><display/></field>
-        <field name="fromDate" position="2"><display/></field>
+        <field name="dataResourceId" title="${uiLabelMap.ContentDataResourceId}" position="2"><display also-hidden="false"/></field>
+        <field name="fromDate" position="2"><display also-hidden="false"/></field>
         <field name="statusId" position="2" title="${uiLabelMap.CommonStatus}">
-            <display-entity entity-name="StatusItem" key-field-name="statusId"/>
+            <display-entity also-hidden="false" entity-name="StatusItem" key-field-name="statusId"/>
         </field>
         <field name="description" position="2" title="${uiLabelMap.ImageManagementRejectedReason}">
             <drop-down allow-empty="true">
@@ -318,14 +318,14 @@ under the License.
         <field name="sequenceNum" use-when="${groovy: return context.statusId == 'IM_APPROVED';}" title="${uiLabelMap.ImageManagementSortOrder}"><text maxlength="2" size="5"/></field>
         <field name="drIsPublic" use-when="${groovy: return context.statusId == 'IM_APPROVED';}" title="${uiLabelMap.ImageManagementPublic}"><check/></field>
         <field name="defaultImage" use-when="${groovy: return context.statusId == 'IM_APPROVED';}" title="${uiLabelMap.ImageManagementDefaultImage}" widget-style="buttontext">
-            <hyperlink description="${uiLabelMap.ImageManagementSetDefault}" target="setDefaultImage">
+            <hyperlink also-hidden="false" description="${uiLabelMap.ImageManagementSetDefault}" target="setDefaultImage">
                 <parameter param-name="productId"/>
                 <parameter param-name="contentId"/>
                 <parameter param-name="contentIdTo"/>
             </hyperlink>
         </field>
         <field name="drDataResourceName" title="${uiLabelMap.ImageManagementImageName}" id-name="description">
-            <display description="${drDataResourceName}" >
+            <display also-hidden="false" description="${drDataResourceName}" >
                 <in-place-editor url="renameImage" cancel-control="button" saving-text="Updating..." text-between-controls=" ">
                     <simple-editor/>
                     <field-map field-name="productId" from-field="productId"/>
@@ -334,7 +334,7 @@ under the License.
             </display>
         </field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}">
-            <display-entity entity-name="StatusItem" key-field-name="statusId"/>
+            <display-entity also-hidden="false" entity-name="StatusItem" key-field-name="statusId"/>
         </field>
         <field name="viewButton" title="${uiLabelMap.CommonView}" widget-style="buttontext">
             <hyperlink description="${uiLabelMap.CommonView}" target="${origContentDataResourceViews[0].drObjectInfo}" target-window="_blank" also-hidden="false" target-type="content"/>

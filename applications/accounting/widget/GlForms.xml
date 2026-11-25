@@ -821,17 +821,17 @@ under the License.
             </hyperlink>
         </field>
         <field name="partyId">
-            <hyperlink description="${partyIdTo}" target="/partymgr/control/viewprofile" target-type="inter-app">
+            <hyperlink also-hidden="false" description="${partyIdTo}" target="/partymgr/control/viewprofile" target-type="inter-app">
                 <parameter param-name="partyId"/>
             </hyperlink>
         </field>
-        <field name="productId"><display/></field>
+        <field name="productId"><display also-hidden="false"/></field>
         <field name="organizationPartyId">
             <hyperlink description="${organizationPartyId}" target="/partymgr/control/viewprofile" target-type="inter-app">
                 <parameter param-name="partyId" from-field="organizationPartyId"/>
             </hyperlink>
         </field>
-        <field name="amount"><display/></field>
+        <field name="amount"><display also-hidden="false"/></field>
         <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><check/></field>
         <field name="submitButton" title="${uiLabelMap.AccountingCreateAcctRecons}" widget-style="buttontext"><submit button-type="text-link"/></field>
     </form>
