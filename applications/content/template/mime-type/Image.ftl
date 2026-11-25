@@ -16,4 +16,10 @@
   specific language governing permissions and limitations
   under the License.
   -->
+<#-- public images go through the img request when the current webapp has one, as stream may require a login or be absent -->
+<#assign requestMaps = request.getAttribute("requestMapMap")!>
+<#if "Y" == (dataResource.isPublic)! && requestMaps?has_content && requestMaps["img"]??>
+<img src="<@ofbizUrl secure="${request.isSecure()?string}">img?imgId=${dataResource.dataResourceId}</@ofbizUrl>"/>
+<#else>
 <img src="<@ofbizUrl secure="${request.isSecure()?string}">stream?contentId=${contentId!}</@ofbizUrl>"/>
+</#if>
