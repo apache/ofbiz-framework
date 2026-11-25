@@ -51,6 +51,22 @@ under the License.
         <description>Send a order confirmation</description>
         <implements service="orderNotificationInterface"/>
     </service>
+    <service name="sendOrderConfirmationMail" engine="groovy"
+            location="component://order/src/main/groovy/org/apache/ofbiz/order/order/OrderServicesScript.groovy" invoke="sendOrderConfirmationMail">
+        <description>Send an order confirmation email written in the order manager, using the configured mail server</description>
+        <required-permissions join-type="AND">
+            <check-permission permission="ORDERMGR" action="_SEND_CONFIRMATION"/>
+        </required-permissions>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="partyId" type="String" mode="IN" optional="true"/>
+        <attribute name="sendTo" type="String" mode="IN" optional="false"/>
+        <attribute name="sendCc" type="String" mode="IN" optional="true"/>
+        <attribute name="sendBcc" type="String" mode="IN" optional="true"/>
+        <attribute name="sendFrom" type="String" mode="IN" optional="true"/>
+        <attribute name="subject" type="String" mode="IN" optional="false" allow-html="safe"/>
+        <attribute name="body" type="String" mode="IN" optional="false" allow-html="any"/>
+        <attribute name="contentType" type="String" mode="IN" optional="true"/>
+    </service>
     <service name="sendOrderChangeNotification" engine="java" require-new-transaction="true" max-retry="3"
             location="org.apache.ofbiz.order.order.OrderServices" invoke="sendOrderChangeNotification">
         <description>Send a order notification</description>
