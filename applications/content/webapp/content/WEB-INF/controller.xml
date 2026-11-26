@@ -1577,18 +1577,6 @@ under the License.
         <response name="success" type="view" value="EditAddContent"/>
         <response name="error" type="view" value="EditAddSubContent"/>
     </request-map>
-    <request-map uri="persistContent">
-        <security auth="true" https="true"/>
-        <event type="service" invoke="persistContentAndAssoc" path=""/>
-        <response name="success" type="view" value="CMSContentEdit"/>
-        <response name="error" type="view" value="EditAddContent"/>
-    </request-map>
-    <request-map uri="persistImage">
-        <security auth="true" https="true"/>
-        <event type="java" path="org.apache.ofbiz.content.content.UploadContentAndImage" invoke="uploadContentAndImage"/>
-        <response name="success" type="view" value="CMSContentEdit"/>
-        <response name="error" type="view" value="EditAddContent"/>
-    </request-map>
 
     <!-- ================ SimpleContent Requests ================= -->
 

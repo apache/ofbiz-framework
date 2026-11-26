@@ -315,6 +315,10 @@ the same pull request.
   `EditAddBioContent`, `AddResponse`, `EditAddImageMaster`, `EditAddImage` and `EditAddBioImage`, with the
   `ContentTemplateImageCentered`, `ContentTemplateImageLeft` and `ContentTemplateTextOnly` labels
   ([OFBIZ-13883](https://issues.apache.org/jira/browse/OFBIZ-13883)).
+* The content `persistContent` and `persistImage` requests, which only those forms used, are removed with the
+  `uploadContentAndImage` and `uploadContentStuff` events of `UploadContentAndImage`. Call the `persistContentAndAssoc`,
+  `createContentFromUploadedFile` or `createBlogEntry` services instead
+  ([OFBIZ-13898](https://issues.apache.org/jira/browse/OFBIZ-13898)).
 * `UtilCache.get(key, loader)` now runs the loader outside any lock, may run it more than once at a time for the same
   key, and caches the result only if no invalidation for that cache arrived from another server during the load
   ([OFBIZ-13881](https://issues.apache.org/jira/browse/OFBIZ-13881)). `getOrCreateUtilCache` has an overload with a

@@ -455,18 +455,4 @@
         <value xml:lang="fr">Aucun répertoire racine fourni. Veuillez indiquer le chemin dans le champ objectInfo de la ressource de donnée</value>
         <value xml:lang="zh">没有提供根目录，请在数据资源对象信息数据项中填写路径</value>
     </property>
-    <property key="uploadContentAndImage.no_files_uploaded">
-        <value xml:lang="da">Ingen filer uploaded</value>
-        <value xml:lang="de">Keine Dateien hochgeladen</value>
-        <value xml:lang="en">No files uploaded</value>
-        <value xml:lang="es">No se cargaron archivos</value>
-        <value xml:lang="fr">Aucun fichier téléversé</value>
-        <value xml:lang="it">Nessun file caricato</value>
-        <value xml:lang="ja">アップロードされたファイルはありません</value>
-        <value xml:lang="pt">Não há arquivos enviados</value>
-        <value xml:lang="ro">Nici-un  fisier incarcat</value>
-        <value xml:lang="th">ไม่มีไฟล์</value>
-        <value xml:lang="zh">没有上传文件</value>
-        <value xml:lang="zh-TW">沒有上傳檔案</value>
-    </property>
 </resource>
