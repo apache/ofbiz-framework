@@ -269,9 +269,16 @@ under the License.
                         <container style="page-title">
                             <label text="${uiLabelMap.PageTitleFindSecurityGroup}"/>
                         </container>
-                        <container style="button-bar">
-                            <link target="CreateNewSecurityGroup" style="buttontext create" text="${uiLabelMap.CommonCreate}"/>
-                        </container>
+                        <section>
+                            <condition>
+                                <if-service-permission service-name="securityPermissionCheck" main-action="CREATE"/>
+                            </condition>
+                            <widgets>
+                                <container style="button-bar">
+                                    <link target="CreateNewSecurityGroup" style="buttontext create" text="${uiLabelMap.CommonCreate}"/>
+                                </container>
+                            </widgets>
+                        </section>
                         <screenlet>
                             <include-grid name="ListSecurityGroups" location="component://common/widget/SecurityForms.xml"/>
                         </screenlet>
@@ -296,9 +303,16 @@ under the License.
                         <container style="page-title">
                             <label text="${uiLabelMap.FindUserLogin}"/>
                         </container>
-                        <container style="button-bar">
-                            <link target="createnewlogin" style="buttontext create" text="${uiLabelMap.CommonCreate}"/>
-                        </container>
+                        <section>
+                            <condition>
+                                <if-service-permission service-name="securityPermissionCheck" main-action="CREATE"/>
+                            </condition>
+                            <widgets>
+                                <container style="button-bar">
+                                    <link target="createnewlogin" style="buttontext create" text="${uiLabelMap.CommonCreate}"/>
+                                </container>
+                            </widgets>
+                        </section>
                         <screenlet>
                             <include-grid name="ListUserLogins" location="component://common/widget/SecurityForms.xml"/>
                         </screenlet>
