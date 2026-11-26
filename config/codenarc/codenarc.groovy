@@ -16,6 +16,8 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+package config.codenarc
+
 ruleset {
     description '''
         OFBiz ruleset adapted from basic one from https://codenarc.org/StarterRuleSet-AllRulesByCategory.groovy.txt
