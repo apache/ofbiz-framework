@@ -70,8 +70,8 @@ under the License.
                 <set field="headerItem" value="main"/>
                 <set field="titleProperty" value="WebtoolsViewComponents"/>
                 <set field="tabButtonItem" value="viewents"/>
-                <script location="component://webtools/src/test/groovy/org/apache/ofbizwebtools/artifactinfo/TestSuiteInfo.groovy"/>
-                <script location="component://webtools/src/test/groovy/org/apache/ofbizwebtools/artifactinfo/TestSuiteResults.groovy"/>
+                <script location="component://webtools/src/test/groovy/org/apache/ofbiz/webtools/artifactinfo/TestSuiteInfo.groovy"/>
+                <script location="component://webtools/src/test/groovy/org/apache/ofbiz/webtools/artifactinfo/TestSuiteResults.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonArtifactDecorator" location="${parameters.mainDecoratorLocation}">

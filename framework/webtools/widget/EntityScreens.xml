@@ -425,7 +425,7 @@ under the License.
                 <set field="headerItem" value="main"/>
                 <set field="titleProperty" value="WebtoolsPerformanceTests"/>
                 <set field="tabButtonItem" value="entityPerformanceTest"/>
-                <script location="component://webtools/src/test/groovy/org/apache/ofbizwebtools/entity/EntityPerformanceTest.groovy"/>
+                <script location="component://webtools/src/test/groovy/org/apache/ofbiz/webtools/entity/EntityPerformanceTest.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonEntityDecorator" location="${parameters.mainDecoratorLocation}">
