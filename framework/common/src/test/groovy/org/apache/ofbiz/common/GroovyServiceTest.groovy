@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
 */
-package org.apache.ofbizcommon
+package org.apache.ofbiz.common
 
 import org.apache.ofbiz.service.ServiceUtil
 
