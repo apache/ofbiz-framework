@@ -184,6 +184,10 @@ the same pull request.
   another server clears the entity's list and object caches (and those of the view entities containing it), not only
   the condition caches the row matches. A find running inside an older `REPEATABLE READ` snapshot can still read and
   cache a row older than an invalidation that already arrived.
+* The HTTP engine example for distributed entity cache clearing is removed: the `localhostClear*` services, the
+  `distributedClear*` service groups of `entityext/servicedef/groups.xml` and the commented `group` variants of the
+  `distributedClear*` services. The `http` engine they relied on no longer exists; the `distributedClear*` services keep
+  their `jms` definitions ([OFBIZ-13905](https://issues.apache.org/jira/browse/OFBIZ-13905)).
 
 ### Custom code
 
