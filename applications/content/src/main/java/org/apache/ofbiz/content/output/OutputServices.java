@@ -18,6 +18,8 @@
  *******************************************************************************/
 package org.apache.ofbiz.content.output;
 
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -72,6 +74,9 @@ import org.apache.ofbiz.widget.renderer.ScreenStringRenderer;
 import org.apache.ofbiz.widget.renderer.VisualTheme;
 import org.apache.ofbiz.widget.renderer.fo.FoFormRenderer;
 import org.apache.ofbiz.widget.renderer.macro.MacroScreenRenderer;
+import org.apache.pdfbox.Loader;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.printing.PDFPageable;
 import org.xml.sax.SAXException;
 
 import freemarker.template.TemplateException;
@@ -106,11 +111,6 @@ public class OutputServices {
         if (UtilValidate.isEmpty(contentType)) {
             contentType = "application/postscript";
         }
-        if (UtilValidate.isEmpty(printerContentType)) {
-            // the FO transformation below always produces PDF, so let the print service autosense the format
-            printerContentType = DocFlavor.INPUT_STREAM.AUTOSENSE.getMimeType();
-        }
-
         try {
 
             MapStack<String> screenContextTmp = MapStack.create();
@@ -139,20 +139,9 @@ public class OutputServices {
             baos.flush();
             baos.close();
 
-            // Print is sent
-            DocFlavor psInFormat = new DocFlavor.INPUT_STREAM(printerContentType);
-            InputStream bais = new ByteArrayInputStream(baos.toByteArray());
-
-            DocAttributeSet docAttributeSet = new HashDocAttributeSet();
-            List<Object> docAttributes = UtilGenerics.cast(serviceContext.remove("docAttributes"));
-            if (UtilValidate.isNotEmpty(docAttributes)) {
-                for (Object da : docAttributes) {
-                    Debug.logInfo("Adding DocAttribute: " + da, MODULE);
-                    docAttributeSet.add((DocAttribute) da);
-                }
-            }
-
-            Doc myDoc = new SimpleDoc(bais, psInFormat, docAttributeSet);
+            // the FO transformation above always produces PDF; a caller supplied printerContentType is sent as is
+            DocFlavor psInFormat = UtilValidate.isNotEmpty(printerContentType)
+                    ? new DocFlavor.INPUT_STREAM(printerContentType) : DocFlavor.INPUT_STREAM.PDF;
 
             PrintService printer = null;
 
@@ -167,7 +156,7 @@ public class OutputServices {
                 if (printServices.length > 0) {
                     printer = printServices[0];
                     Debug.logInfo("Using printer: " + printer.getName(), MODULE);
-                    if (!printer.isDocFlavorSupported(psInFormat)) {
+                    if (UtilValidate.isNotEmpty(printerContentType) && !printer.isDocFlavorSupported(psInFormat)) {
                         return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentPrinterNotSupportDocFlavorFormat",
                                 UtilMisc.toMap("psInFormat", psInFormat, "printerName", printer.getName()), locale));
                     }
@@ -198,9 +187,33 @@ public class OutputServices {
                     praset.add((PrintRequestAttribute) pra);
                 }
             }
+
+            if (UtilValidate.isEmpty(printerContentType) && !printer.isDocFlavorSupported(psInFormat)) {
+                // the printer cannot read PDF, so let PDFBox render the pages through the printer driver
+                Debug.logInfo("Printer " + printer.getName() + " does not accept PDF, rendering the pages with PDFBox", MODULE);
+                PrinterJob printerJob = PrinterJob.getPrinterJob();
+                printerJob.setPrintService(printer);
+                try (PDDocument document = Loader.loadPDF(baos.toByteArray())) {
+                    printerJob.setPageable(new PDFPageable(document));
+                    printerJob.print(praset);
+                }
+                return ServiceUtil.returnSuccess();
+            }
+
+            DocAttributeSet docAttributeSet = new HashDocAttributeSet();
+            List<Object> docAttributes = UtilGenerics.cast(serviceContext.remove("docAttributes"));
+            if (UtilValidate.isNotEmpty(docAttributes)) {
+                for (Object da : docAttributes) {
+                    Debug.logInfo("Adding DocAttribute: " + da, MODULE);
+                    docAttributeSet.add((DocAttribute) da);
+                }
+            }
+            InputStream bais = new ByteArrayInputStream(baos.toByteArray());
+            Doc myDoc = new SimpleDoc(bais, psInFormat, docAttributeSet);
             DocPrintJob job = printer.createPrintJob();
             job.print(myDoc, praset);
-        } catch (PrintException | IOException | TemplateException | GeneralException | SAXException | ParserConfigurationException e) {
+        } catch (PrintException | PrinterException | IOException | TemplateException | GeneralException | SAXException
+                | ParserConfigurationException e) {
             Debug.logError(e, "Error rendering [" + contentType + "]: " + e.toString(), MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentRenderingError",
                     UtilMisc.toMap("contentType", contentType, "errorString", e.toString()), locale));
