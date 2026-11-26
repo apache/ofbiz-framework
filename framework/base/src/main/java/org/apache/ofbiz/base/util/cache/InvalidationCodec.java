@@ -73,7 +73,7 @@ public final class InvalidationCodec {
                 node.put("kind", "cacheClear");
                 node.put("cache", m.cacheName());
             }
-            case ClearAll m -> node.put("kind", "clearAll");
+            case ClearAll _ -> node.put("kind", "clearAll");
             case EntityKey m -> {
                 node.put("kind", "entityKey");
                 node.put("delegator", m.delegatorName());

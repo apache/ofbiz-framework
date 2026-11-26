@@ -59,7 +59,6 @@ public class FinAccountPaymentServices {
     public static Map<String, Object> finAccountPreAuth(DispatchContext dctx, Map<String, Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
-        GenericValue userLogin = (GenericValue) context.get("userLogin");
         Locale locale = (Locale) context.get("locale");
         GenericValue paymentPref = (GenericValue) context.get("orderPaymentPreference");
         String finAccountCode = (String) context.get("finAccountCode");

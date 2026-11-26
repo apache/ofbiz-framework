@@ -896,7 +896,7 @@ public final class UtilCache<K, V> {
                     cache.applyRemoteClear();
                 }
             }
-            case ClearAll m -> clearAllNonLocalCaches();
+            case ClearAll _ -> clearAllNonLocalCaches();
             default -> {
                 // entity messages are applied by the entity engine's handler
             }
