@@ -82,6 +82,3 @@ currentValue.nowTimestamp = UtilDateTime.nowTimestamp()
 context.currentValue = currentValue
 
 request.setAttribute('previousParams', currentValue)
-
-persistAction = context.persistAction ?: 'persistContent'
-context.persistAction = persistAction
