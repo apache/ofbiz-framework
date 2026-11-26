@@ -9694,6 +9694,7 @@
     </property>
     <property key="StatusItem.description.CRQ_DRAFT">
         <value xml:lang="ar">مسودة</value>
+        <value xml:lang="de">Entwurf</value>
         <value xml:lang="en">Draft</value>
         <value xml:lang="es">Esbozo</value>
         <value xml:lang="fr">Brouillon</value>
@@ -9707,6 +9708,7 @@
     </property>
     <property key="StatusItem.description.CRQ_PENDING">
         <value xml:lang="ar">معلقة</value>
+        <value xml:lang="de">Wartend</value>
         <value xml:lang="en">Pending Cust.</value>
         <value xml:lang="es">Pendiente</value>
         <value xml:lang="fr">En attente</value>
