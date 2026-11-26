@@ -246,8 +246,6 @@ under the License.
             </else>
         </if-empty>
 
-        <log level="info" message="UserLogin : ${userLogin}"/>
-
         <!-- add the party to the customer role -->
         <set field="roleMap.roleTypeId" value="CUSTOMER"/>
         <set field="roleMap.partyId" from-field="tempMap.partyId"/>
