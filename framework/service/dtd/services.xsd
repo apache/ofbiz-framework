@@ -170,6 +170,8 @@ under the License.
                     <xs:enumeration value="UPDATE"/>
                     <xs:enumeration value="DELETE"/>
                     <xs:enumeration value="VIEW"/>
+                    <xs:enumeration value="ADMIN"/>
+                    <xs:enumeration value="APPROVE"/>
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
