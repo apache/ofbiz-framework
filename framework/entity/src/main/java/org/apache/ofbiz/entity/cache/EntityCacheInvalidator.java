@@ -206,7 +206,7 @@ public final class EntityCacheInvalidator implements DistributedCacheClear {
         switch (message) {
         case EntityKey m -> cache.invalidateVersion(m.entityName());
         case EntityClear m -> cache.invalidateVersion(m.entityName());
-        case EntityClearAll m -> cache.invalidateAllVersions();
+        case EntityClearAll _ -> cache.invalidateAllVersions();
         default -> { }
         }
     }
@@ -430,7 +430,7 @@ public final class EntityCacheInvalidator implements DistributedCacheClear {
                 }
             }
             // UtilCache skips local caches, which the entity caches are unless declared otherwise, so they are cleared here
-            case ClearAll m -> DELEGATORS.values().forEach(RemoteEntityInvalidations::clearEntityCaches);
+            case ClearAll _ -> DELEGATORS.values().forEach(RemoteEntityInvalidations::clearEntityCaches);
             default -> {
                 // cache messages are applied by UtilCache
             }
