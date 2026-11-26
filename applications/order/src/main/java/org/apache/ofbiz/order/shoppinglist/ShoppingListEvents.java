@@ -669,10 +669,14 @@ public class ShoppingListEvents {
         return responseIds;
     }
 
-    private static GenericValue getCartUserLogin(ShoppingCart cart) {
+    private static GenericValue getCartUserLogin(ShoppingCart cart) throws GenericEntityException {
         GenericValue ul = cart.getUserLogin();
         if (ul == null) {
             ul = cart.getAutoUserLogin();
+        }
+        if (ul == null) {
+            // a guest has no userLogin, but the shopping list services need one for their permission services
+            ul = EntityQuery.use(cart.getDelegator()).from("UserLogin").where("userLoginId", "anonymous").cache().queryOne();
         }
         return ul;
     }
