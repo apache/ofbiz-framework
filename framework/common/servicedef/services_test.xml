@@ -56,12 +56,6 @@ under the License.
 
     <service name="groupTest" engine="group" location="testGroup" invoke=""/>
 
-<!--     <service name="testHttp" engine="http" location="main-http" invoke="testScv">
-        <description>HTTP service wrapper around the test service</description>
-        <attribute name="message" type="String" mode="IN" optional="true"/>
-        <attribute name="resp" type="String" mode="OUT"/>
-    </service> -->
-
     <service name="testGroovy" engine="groovy" location="component://common/src/test/groovy/org/apache/ofbizcommon/GroovyServiceTest.groovy" invoke="">
         <description>Test Groovy Script Service</description>
         <attribute name="message" type="String" mode="IN" optional="true"/>

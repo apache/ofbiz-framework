@@ -58,8 +58,6 @@ under the License.
         <engine name="route" class="org.apache.ofbiz.service.engine.RouteEngine"/>
         <engine name="jms" class="org.apache.ofbiz.service.jms.JmsServiceEngine"/>
         
-        <!-- <service-location name="eedcc-test" location="https://localhost:8443/webtools/control/httpService"/> -->
-
         <!-- default notification group for all services loaded with 'main' loader
              - uncomment this to enable error notification for all services
              - (default.fail.main, default.success.main can also be defined
