@@ -216,6 +216,9 @@ public final class MfaServices {
                 if (delegator == null) {
                     delegator = (Delegator) session.getAttribute("delegator");
                 }
+                if (isAccountDisabled(delegator, userLogin.getString("userLoginId"))) {
+                    return false;
+                }
                 GenericValue usedFactor = consumeFactorCode(delegator, userLogin.getString("userLoginId"), code);
                 if (usedFactor != null) {
                     session.setAttribute(MFA_VERIFIED_AT, System.currentTimeMillis());
@@ -1199,6 +1202,19 @@ public final class MfaServices {
     public static boolean handleFailedMfaReverify(Delegator delegator, String userLoginId) throws GenericEntityException {
         GenericValue userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", userLoginId).cache(false).queryOne();
         return recordFailedMfaCredentialAttempt(delegator, userLogin, null);
+    }
+
+    /**
+     * Tells whether the account is currently disabled, read fresh from the database. Step-up code checks
+     * on an already open session use it so that a locked account accepts no further codes.
+     * @param delegator the delegator
+     * @param userLoginId the account to check
+     * @return true if the account does not exist or is disabled
+     * @throws GenericEntityException if the account cannot be read
+     */
+    public static boolean isAccountDisabled(Delegator delegator, String userLoginId) throws GenericEntityException {
+        GenericValue userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", userLoginId).cache(false).queryOne();
+        return userLogin == null || "N".equals(userLogin.getString("enabled"));
     }
 
     /**
