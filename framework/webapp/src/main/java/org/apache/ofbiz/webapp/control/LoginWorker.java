@@ -629,6 +629,8 @@ public final class LoginWorker {
                                 UtilHttp.getLocale(request)));
                         return "error";
                     }
+                    // a new primary login never inherits fields stashed by an earlier, abandoned attempt
+                    MfaServices.takePendingMfaReplay(session);
                     // This same submission already carries a requested password change (the
                     // requirePasswordChange form reposts USERNAME/PASSWORD/newPassword/newPasswordVerify to
                     // this same login event, since it is the only endpoint common to every webapp). Stash
@@ -855,9 +857,14 @@ public final class LoginWorker {
                 return passwordChangeError;
             }
         }
-        String loginResult = doMainLogin(request, response, userLogin, userLoginSession);
-        return userLogin != null && "Y".equals(userLogin.getString("requirePasswordChange"))
-                ? "requirePasswordChange" : loginResult;
+        if (userLogin != null && "Y".equals(userLogin.getString("requirePasswordChange"))) {
+            // As in login(): a forced password change comes before the session is established, so the
+            // change form cannot be skipped. The form's repost goes through login() and a new challenge.
+            session.removeAttribute(MfaServices.MFA_VERIFIED_AT);
+            request.setAttribute("USERNAME", userLogin.getString("userLoginId"));
+            return "requirePasswordChange";
+        }
+        return doMainLogin(request, response, userLogin, userLoginSession);
     }
 
     /** Begin mandatory TOTP enrollment using only the identity bound to the pre-authentication session. */
@@ -1175,6 +1182,12 @@ public final class LoginWorker {
             return "authFactorRequired";
         }
         try {
+            if (MfaServices.isAccountDisabled(delegator, userLogin.getString("userLoginId"))) {
+                // a locked account accepts no further codes, right or wrong, from a session that is still open
+                request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RESOURCE,
+                        "loginevents.mfa_account_disabled_too_many_failed_attempts", UtilHttp.getLocale(request)));
+                return "error";
+            }
             GenericValue usedFactor = MfaServices.consumeFactorCode(delegator, userLogin.getString("userLoginId"), code);
             if (usedFactor == null) {
                 MfaServices.recordAuthenticationEvent(delegator, userLogin.getString("userLoginId"),

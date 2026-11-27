@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#assign username = requestParameters.USERNAME?default((sessionAttributes.autoUserLogin.userLoginId)?default(""))>
+<#assign username = requestParameters.USERNAME?default((requestAttributes.USERNAME)?default((sessionAttributes.autoUserLogin.userLoginId)?default("")))>
 <#assign tenantId = requestParameters.userTenantId!>
 <div id="loginBar"><span>${uiLabelMap.CommonForgotYourPassword}?</span><div id="company-logo"></div></div>
 <center>

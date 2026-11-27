@@ -432,7 +432,7 @@ under the License.
     <view-map name="login" type="screen" page="component://common/widget/CommonScreens.xml#login" auth="false"/>
     <view-map name="impersonated" type="screen" page="component://common/widget/CommonScreens.xml#impersonated"/>
     <view-map name="ajaxLogin" type="screen" page="component://common/widget/CommonScreens.xml#ajaxNotLoggedIn" auth="false"/>
-    <view-map name="requirePasswordChange" type="screen" page="component://common/widget/CommonScreens.xml#requirePasswordChange"/>
+    <view-map name="requirePasswordChange" type="screen" page="component://common/widget/CommonScreens.xml#requirePasswordChange" auth="false"/>
     <view-map name="forgotPassword" type="screen" page="component://common/widget/CommonScreens.xml#forgotPassword" auth="false"/>
     <view-map name="EventMessages" type="screen" page="component://common/widget/CommonScreens.xml#EventMessages" auth="false"/>
 
