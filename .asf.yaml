@@ -49,8 +49,7 @@ github:
         includes:
           - "~DEFAULT_BRANCH"
           - "release*"
-        excludes:
-          - "release26.11"
+        excludes: []
       bypass_teams:
         - root
       restrict_deletion: true
