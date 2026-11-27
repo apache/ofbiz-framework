@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.jms.JMSException;
 import javax.jms.MapMessage;
@@ -67,10 +68,19 @@ import org.w3c.dom.Element;
 
 /**
  * AbstractJMSEngine
+ * @deprecated since 26.11, removed with the JMS service engine (OFBIZ-13829); servers clear each other's caches through
+ *             the cache invalidation bus instead, see {@code org.apache.ofbiz.entity.cache.EntityCacheInvalidator}.
  */
+@Deprecated(since = "26.11", forRemoval = true)
+@SuppressWarnings("removal") // uses the other JMS classes, deprecated with it
 public class JmsServiceEngine extends AbstractEngine {
 
     private static final String MODULE = JmsServiceEngine.class.getName();
+    private static final String DEPRECATION = "; it is deprecated and will be removed after 26.11 (OFBIZ-13829). To clear caches across servers, "
+            + "select org.apache.ofbiz.entity.cache.EntityCacheInvalidator as the delegator's distributed-cache-clear-class-name "
+            + "and install a cache invalidation bus provider plugin; see UPGRADING.md.";
+    /** The deprecation is logged once, on the first service the engine runs. */
+    private static final AtomicBoolean DEPRECATION_LOGGED = new AtomicBoolean();
 
     public JmsServiceEngine(ServiceDispatcher dispatcher) {
         super(dispatcher);
@@ -371,6 +381,9 @@ public class JmsServiceEngine extends AbstractEngine {
      * @throws GenericServiceException the generic service exception
      */
     protected Map<String, Object> run(ModelService modelService, Map<String, Object> context) throws GenericServiceException {
+        if (!DEPRECATION_LOGGED.getAndSet(true)) {
+            Debug.logWarning("The service " + modelService.getName() + " runs on the JMS service engine" + DEPRECATION, MODULE);
+        }
         JmsService serviceElement = getServiceElement(modelService);
         List<Server> serverList = serviceElement.getServers();
 

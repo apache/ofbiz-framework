@@ -40,6 +40,7 @@ public final class ServiceEngine {
     private final List<Engine> engines;
     private final Map<String, Engine> engineMap;
     private final List<GlobalServices> globalServices;
+    @SuppressWarnings("removal") // JMS, deprecated, removed by OFBIZ-13829
     private final List<JmsService> jmsServices;
     private final String name;
     private final List<NotificationGroup> notificationGroups;
@@ -50,6 +51,7 @@ public final class ServiceEngine {
     private final List<StartupService> startupServices;
     private final ThreadPool threadPool;
 
+    @SuppressWarnings("removal") // JMS, deprecated, removed by OFBIZ-13829
     ServiceEngine(Element engineElement) throws ServiceConfigException {
         String name = engineElement.getAttribute("name").intern();
         if (name.isEmpty()) {
@@ -186,6 +188,9 @@ public final class ServiceEngine {
         return this.globalServices;
     }
 
+    /** @deprecated since 26.11, removed with the JMS service engine (OFBIZ-13829) */
+    @Deprecated(since = "26.11", forRemoval = true)
+    @SuppressWarnings("removal") // JMS, deprecated, removed by OFBIZ-13829
     public JmsService getJmsServiceByName(String name) {
         for (JmsService jmsService : jmsServices) {
             if (name.equals(jmsService.getName())) {
@@ -195,6 +200,9 @@ public final class ServiceEngine {
         return null;
     }
 
+    /** @deprecated since 26.11, removed with the JMS service engine (OFBIZ-13829) */
+    @Deprecated(since = "26.11", forRemoval = true)
+    @SuppressWarnings("removal") // JMS, deprecated, removed by OFBIZ-13829
     public List<JmsService> getJmsServices() {
         return this.jmsServices;
     }

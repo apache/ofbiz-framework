@@ -36,7 +36,11 @@ import org.apache.ofbiz.service.GenericServiceException;
 
 /**
  * JmsTopicListener - Topic (Pub/Sub) Message Listener.
+ * @deprecated since 26.11, removed with the JMS service engine (OFBIZ-13829); servers clear each other's caches through
+ *             the cache invalidation bus instead, see {@code org.apache.ofbiz.entity.cache.EntityCacheInvalidator}.
  */
+@Deprecated(since = "26.11", forRemoval = true)
+@SuppressWarnings("removal") // uses the other JMS classes, deprecated with it
 public class JmsTopicListener extends AbstractJmsListener {
 
     private static final String MODULE = JmsTopicListener.class.getName();

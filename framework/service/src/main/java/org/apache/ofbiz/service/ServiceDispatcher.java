@@ -92,8 +92,10 @@ public final class ServiceDispatcher {
     private Map<String, DispatchContext> localContext = new ConcurrentHashMap<>();
     private Map<String, List<GenericServiceCallback>> callbacks = new HashMap<>();
     private JobManager jm = null;
+    @SuppressWarnings("removal") // JMS, deprecated, removed by OFBIZ-13829
     private JmsListenerFactory jlf = null;
 
+    @SuppressWarnings("removal") // JMS, deprecated, removed by OFBIZ-13829
     private ServiceDispatcher(Delegator delegator, boolean enableJM, boolean enableJMS) {
         factory = new GenericEngineFactory(this);
         ServiceGroupReader.readConfig();
@@ -868,7 +870,10 @@ public final class ServiceDispatcher {
     /**
      * Gets the JmsListenerFactory which holds the message listeners.
      * @return JmsListenerFactory
+     * @deprecated since 26.11, removed with the JMS service engine (OFBIZ-13829)
      */
+    @Deprecated(since = "26.11", forRemoval = true)
+    @SuppressWarnings("removal") // JMS, deprecated, removed by OFBIZ-13829
     public JmsListenerFactory getJMSListenerFactory() {
         return this.jlf;
     }
@@ -1108,7 +1113,9 @@ public final class ServiceDispatcher {
      * Enables/Disables the JMS listeners globally
      * (this will not effect any dispatchers already running)
      * @param enable
+     * @deprecated since 26.11, removed with the JMS service engine (OFBIZ-13829)
      */
+    @Deprecated(since = "26.11", forRemoval = true)
     public static void enableJMS(boolean enable) {
         ServiceDispatcher.enableJMS = enable;
     }

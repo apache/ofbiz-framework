@@ -94,12 +94,12 @@ under the License.
     </service>
 
     <service name="testJMSQueue" engine="jms" location="serviceMessenger" invoke="testScv">
-        <description>Test JMS Queue service</description>
+        <description>Test JMS Queue service. Deprecated: the JMS service engine will be removed after 26.11 (OFBIZ-13829)</description>
         <attribute name="message" type="String" mode="IN"/>
     </service>
 
     <service name="testJMSTopic" engine="jms" location="serviceMessenger" invoke="testScv">
-        <description>Test JMS Topic service</description>
+        <description>Test JMS Topic service. Deprecated: the JMS service engine will be removed after 26.11 (OFBIZ-13829)</description>
         <attribute name="message" type="String" mode="IN"/>
     </service>
 
