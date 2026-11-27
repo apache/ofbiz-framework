@@ -23,6 +23,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 
 import org.apache.ofbiz.base.config.GenericConfigException;
@@ -38,10 +39,19 @@ import org.apache.ofbiz.service.config.model.Server;
 
 /**
  * JmsListenerFactory
+ * @deprecated since 26.11, removed with the JMS service engine (OFBIZ-13829); servers clear each other's caches through
+ *             the cache invalidation bus instead, see {@code org.apache.ofbiz.entity.cache.EntityCacheInvalidator}.
  */
+@Deprecated(since = "26.11", forRemoval = true)
+@SuppressWarnings("removal") // uses the other JMS classes, deprecated with it
 public final class JmsListenerFactory implements Runnable {
 
     private static final String MODULE = JmsListenerFactory.class.getName();
+    private static final String DEPRECATION = "; it is deprecated and will be removed after 26.11 (OFBIZ-13829). To clear caches across servers, "
+            + "select org.apache.ofbiz.entity.cache.EntityCacheInvalidator as the delegator's distributed-cache-clear-class-name "
+            + "and install a cache invalidation bus provider plugin; see UPGRADING.md.";
+    /** The deprecation is logged once, when the first listener is loaded; listeners are loaded again every 20 seconds. */
+    private static final AtomicBoolean DEPRECATION_LOGGED = new AtomicBoolean();
 
     public static final String TOPIC_LISTENER_CLASS = "org.apache.ofbiz.service.jms.JmsTopicListener";
     public static final String QUEUE_LISTENER_CLASS = "org.apache.ofbiz.service.jms.JmsQueueListener";
@@ -122,6 +132,9 @@ public final class JmsListenerFactory implements Runnable {
                             serverKey.append(server.getTopicQueue());
                             // store the server element
                             servers.put(serverKey.toString(), server);
+                            if (!DEPRECATION_LOGGED.getAndSet(true)) {
+                                Debug.logWarning("A JMS listener is configured for " + serverKey + DEPRECATION, MODULE);
+                            }
                             // load the listener
                             GenericMessageListener listener = loadListener(serverKey.toString(), server);
 

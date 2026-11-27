@@ -24,7 +24,11 @@ import org.w3c.dom.Element;
 
 /**
  * An object that models the <code>&lt;server&gt;</code> element.
+ * @deprecated since 26.11, removed with the JMS service engine (OFBIZ-13829); servers clear each other's caches through
+ *             the cache invalidation bus instead, see {@code org.apache.ofbiz.entity.cache.EntityCacheInvalidator}.
  */
+@Deprecated(since = "26.11", forRemoval = true)
+@SuppressWarnings("removal") // uses the other JMS classes, deprecated with it
 @ThreadSafe
 public final class Server {
 

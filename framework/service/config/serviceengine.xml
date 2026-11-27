@@ -79,7 +79,8 @@ under the License.
         <startup-service name="testScv" runtime-data-id="9900" runtime-delay="0" run-in-pool="pool"/>
         -->
 
-        <!-- JMS Service Queue/Topic Configuration -->
+        <!-- JMS Service Queue/Topic Configuration. The JMS service engine is deprecated and will be removed after 26.11
+             (OFBIZ-13829); servers clear each other's caches through the cache invalidation bus instead. -->
         <!--
         <jms-service name="serviceMessenger" send-mode="all">
             <server jndi-server-name="default"

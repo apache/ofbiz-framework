@@ -250,6 +250,8 @@ public abstract class GenericAbstractDispatcher implements LocalDispatcher {
     }
 
     @Override
+    @Deprecated(since = "26.11", forRemoval = true)
+    @SuppressWarnings("removal") // JMS, deprecated, removed by OFBIZ-13829
     public JmsListenerFactory getJMSListenerFactory() {
         return dispatcher.getJMSListenerFactory();
     }

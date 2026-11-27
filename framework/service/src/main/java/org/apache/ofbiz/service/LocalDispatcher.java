@@ -351,15 +351,19 @@ public interface LocalDispatcher extends DelegatorProvider {
     /**
      * Gets the JmsListenerFactory which holds the message listeners.
      * @return JmsListenerFactory
+     * @deprecated since 26.11, removed with the JMS service engine (OFBIZ-13829)
      */
+    @Deprecated(since = "26.11", forRemoval = true)
+    @SuppressWarnings("removal") // JMS, deprecated, removed by OFBIZ-13829
     JmsListenerFactory getJMSListenerFactory();
 
     /**
      * Gets the JmsListenerFactory which holds the message listeners.
      * @return JmsListenerFactory
-     * @deprecated misspelled, use {@link #getJMSListenerFactory()}
+     * @deprecated misspelled; removed with the JMS service engine (OFBIZ-13829)
      */
-    @Deprecated
+    @Deprecated(since = "26.11", forRemoval = true)
+    @SuppressWarnings("removal") // JMS, deprecated, removed by OFBIZ-13829
     default JmsListenerFactory getJMSListeneFactory() {
         return getJMSListenerFactory();
     }

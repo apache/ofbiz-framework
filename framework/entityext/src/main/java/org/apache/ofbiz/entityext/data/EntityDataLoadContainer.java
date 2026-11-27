@@ -97,7 +97,7 @@ public class EntityDataLoadContainer implements Container {
         /* disable job scheduler, JMS listener and startup services
          * FIXME: This is not thread-safe. */
         ServiceDispatcher.enableJM(false);
-        ServiceDispatcher.enableJMS(false);
+        disableJmsListeners();
         ServiceDispatcher.enableSvcs(false);
 
         Configuration configuration = ContainerConfig.getConfiguration(name);
@@ -114,6 +114,11 @@ public class EntityDataLoadContainer implements Container {
             // load data for a single delegator
             loadDataForDelegator(loadDataProps, configuration, delegatorNameProp, overrideDelegator);
         }
+    }
+
+    @SuppressWarnings("removal") // JMS, deprecated, removed by OFBIZ-13829
+    private static void disableJmsListeners() {
+        ServiceDispatcher.enableJMS(false);
     }
 
     @Override

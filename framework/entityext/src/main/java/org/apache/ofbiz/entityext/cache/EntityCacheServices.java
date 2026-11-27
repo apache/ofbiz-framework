@@ -37,11 +37,16 @@ import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ServiceUtil;
 
 /**
- * Entity Engine Cache Services
+ * Entity Engine Cache Services. Its {@link DistributedCacheClear} implementation, the default
+ * {@code distributed-cache-clear-class-name}, clears the caches of other servers through the deprecated JMS service engine.
+ * The {@code clearAllEntityCaches} and {@code clearCacheLine} services stay.
  */
 public class EntityCacheServices implements DistributedCacheClear {
 
     private static final String MODULE = EntityCacheServices.class.getName();
+    private static final String DEPRECATION = "; this goes through the JMS service engine, which is deprecated and will be removed "
+            + "after 26.11 (OFBIZ-13829). Select org.apache.ofbiz.entity.cache.EntityCacheInvalidator as the delegator's "
+            + "distributed-cache-clear-class-name and install a cache invalidation bus provider plugin; see UPGRADING.md.";
 
     private Delegator delegator = null;
     private LocalDispatcher dispatcher = null;
@@ -54,6 +59,8 @@ public class EntityCacheServices implements DistributedCacheClear {
         this.delegator = delegator;
         this.dispatcher = EntityServiceFactory.getLocalDispatcher(delegator);
         this.userLoginId = userLoginId;
+        Debug.logWarning("The delegator " + delegator.getDelegatorName() + " clears the caches of other servers with "
+                + EntityCacheServices.class.getName() + DEPRECATION, MODULE);
     }
 
     /**
@@ -71,6 +78,7 @@ public class EntityCacheServices implements DistributedCacheClear {
     }
 
     @Override
+    @Deprecated(since = "26.11", forRemoval = true)
     public void distributedClearCacheLine(GenericValue value) {
         // Debug.logInfo("running distributedClearCacheLine for value: " + value, MODULE);
         if (this.dispatcher == null) {
@@ -94,6 +102,7 @@ public class EntityCacheServices implements DistributedCacheClear {
     }
 
     @Override
+    @Deprecated(since = "26.11", forRemoval = true)
     public void distributedClearCacheLineFlexible(GenericEntity dummyPK) {
         // Debug.logInfo("running distributedClearCacheLineFlexible for dummyPK: " + dummyPK, MODULE);
         if (this.dispatcher == null) {
@@ -117,6 +126,7 @@ public class EntityCacheServices implements DistributedCacheClear {
     }
 
     @Override
+    @Deprecated(since = "26.11", forRemoval = true)
     public void distributedClearCacheLineByCondition(String entityName, EntityCondition condition) {
         // Debug.logInfo("running distributedClearCacheLineByCondition for (name, condition): " + entityName + ", " + condition + ")", MODULE);
         if (this.dispatcher == null) {
@@ -141,6 +151,7 @@ public class EntityCacheServices implements DistributedCacheClear {
     }
 
     @Override
+    @Deprecated(since = "26.11", forRemoval = true)
     public void distributedClearCacheLine(GenericPK primaryKey) {
         // Debug.logInfo("running distributedClearCacheLine for primaryKey: " + primaryKey, MODULE);
         if (this.dispatcher == null) {
@@ -165,6 +176,7 @@ public class EntityCacheServices implements DistributedCacheClear {
     }
 
     @Override
+    @Deprecated(since = "26.11", forRemoval = true)
     public void clearAllCaches() {
         if (this.dispatcher == null) {
             Debug.logWarning("No dispatcher is available, somehow the setDelegator (which also creates a dispatcher) "

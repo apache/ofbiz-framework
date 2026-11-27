@@ -170,10 +170,11 @@ the same pull request.
   ships none, so a single server is unchanged. Entity changes are published after commit, as primary key values only,
   by `org.apache.ofbiz.entity.cache.EntityCacheInvalidator`: select it on a delegator with
   `distributed-cache-clear-enabled="true"` and
-  `distributed-cache-clear-class-name="org.apache.ofbiz.entity.cache.EntityCacheInvalidator"`. The JMS implementation
-  stays the default. Entity caches are distributed by `EntityCacheInvalidator` whatever their `<cache>` policy. Other
-  caches are local by default: declare `policy="invalidate"` in the `<cache>` element of a cache holding data read from
-  the database (the framework and applications do so for `security.AuthorizationCache` and `product.config`), so its
+  `distributed-cache-clear-class-name="org.apache.ofbiz.entity.cache.EntityCacheInvalidator"`. The deprecated JMS
+  implementation stays the default until it is removed (see the next entry). Entity caches are distributed by
+  `EntityCacheInvalidator` whatever their `<cache>` policy. Other caches are local by default: declare
+  `policy="invalidate"` in the `<cache>` element of a cache holding data read from the database (the framework and
+  applications do so for `security.AuthorizationCache` and `product.config`), so its
   removals and clears are applied on the other servers. Only removals and clears are distributed, so this helps a cache
   only if code removes or clears it when its data changes. The `*.content.rendered` caches stay local for that reason:
   nothing removes their entries when the content changes. A cache created a second time under the same name, which
@@ -184,6 +185,16 @@ the same pull request.
   another server clears the entity's list and object caches (and those of the view entities containing it), not only
   the condition caches the row matches. A find running inside an older `REPEATABLE READ` snapshot can still read and
   cache a row older than an invalidation that already arrived.
+* The JMS service engine is deprecated and will be removed after this release
+  ([OFBIZ-13912](https://issues.apache.org/jira/browse/OFBIZ-13912), removal in
+  [OFBIZ-13829](https://issues.apache.org/jira/browse/OFBIZ-13829)). Its only use in OFBiz is the default distributed
+  entity cache clearing, `org.apache.ofbiz.entityext.cache.EntityCacheServices` with the `distributedClear*` services,
+  which goes with it. To keep clearing the caches of servers that share a database, select
+  `org.apache.ofbiz.entity.cache.EntityCacheInvalidator` as `distributed-cache-clear-class-name` on the delegator and
+  install a plugin that provides the cache invalidation bus. Services with `engine="jms"`, the `<jms-service>`
+  configuration of `serviceengine.xml`, `enableJMS` in `service.properties` and
+  `LocalDispatcher.getJMSListenerFactory()` are removed along with it. OFBiz logs a warning at start-up when a delegator
+  clears caches through JMS, when a JMS listener is configured, and when a service first runs on the JMS engine.
 * The HTTP engine example for distributed entity cache clearing is removed: the `localhostClear*` services, the
   `distributedClear*` service groups of `entityext/servicedef/groups.xml` and the commented `group` variants of the
   `distributedClear*` services. The `http` engine they relied on no longer exists; the `distributedClear*` services keep
