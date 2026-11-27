@@ -6590,21 +6590,11 @@
         <value xml:lang="zh">已成功更新电子邮件地址。</value>
         <value xml:lang="zh-TW">已成功更新電子郵件位址.</value>
     </property>
-    <property key="PartyEmailAddressVerificationExpired">
-        <value xml:lang="ar">إنتهت صلاحية التحقق من عنوان البريد الإلكتروني</value>
-        <value xml:lang="de">Die E-Mail Adresse Verifikation ist abgelaufen.</value>
-        <value xml:lang="en">The Email Address Verification has been expired.</value>
-        <value xml:lang="es">La validación de la dirección de correo electrónico ha caducado.</value>
-        <value xml:lang="fr">La vérification de l'adresse électronique a expirée</value>
-        <value xml:lang="hi-IN">ईमेल पता सत्यापन की समय सीमा समाप्त हो गई है|</value>
-        <value xml:lang="it">La verifica dell'indirizzo email è scaduta.</value>
-        <value xml:lang="ja">Eメールアドレスの確認が失効しています。</value>
-        <value xml:lang="nl">De verificatie van het e-mailadres is verlopen.</value>
-        <value xml:lang="pt-BR">A verificação do endereço de e-mail expirou.</value>
-        <value xml:lang="th">ที่อยู่อีเมล์นี้จากการตรวจสอบพบว่าหมดอายุ</value>
-        <value xml:lang="vi">Địa chỉ thư điện tử xác nhận đã bị quá hạn.</value>
-        <value xml:lang="zh">电子邮件地址已过期。</value>
-        <value xml:lang="zh-TW">電子郵件位址已過期.</value>
+    <property key="PartyEmailAddressVerificationInvalid">
+        <value xml:lang="en">This verification link is invalid or has expired.</value>
+    </property>
+    <property key="PartyEmailAddressVerified">
+        <value xml:lang="en">Your email address is verified.</value>
     </property>
     <property key="PartyEmailAddresses">
         <value xml:lang="ar">عناوين البريد الإلكتروني</value>

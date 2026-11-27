@@ -121,10 +121,6 @@ under the License.
         <action service="sendUpdatePersonalInfoEmailNotification" mode="async" persist="true"/>
     </eca>
 
-    <eca service="createEmailAddressVerification" event="commit">
-        <action service="sendVerifyEmailAddressNotification" mode="async"/>
-    </eca>
-    
     <!-- send a note when a communicationevent is created for a certain loginId when an 
         existing comm event's status changes into status: entered-->
     <eca service="updateCommunicationEvent" event="commit">

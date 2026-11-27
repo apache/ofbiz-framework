@@ -1099,6 +1099,8 @@ under the License.
         <field name="emailAddress" type="id-vlong"></field>
         <field name="verifyHash" type="value"></field>
         <field name="expireDate" type="date-time"></field>
+        <field name="partyId" type="id"></field>
+        <field name="contactMechId" type="id"></field>
         <prim-key field="emailAddress"/>
         <index name="EMAIL_VERIFY_HASH" unique="true">
             <index-field name="verifyHash"/>
