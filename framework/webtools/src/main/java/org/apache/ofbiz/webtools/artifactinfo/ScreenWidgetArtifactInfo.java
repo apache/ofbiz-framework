@@ -118,12 +118,13 @@ public class ScreenWidgetArtifactInfo extends ArtifactInfoBase {
                 continue;
             }
             // attempt to convert relation names to entity names
-            entityName = getAif().getEntityModelReader().validateEntityName(entityName);
-            if (entityName == null) {
+            String validEntityName = getAif().getEntityModelReader().validateEntityName(entityName);
+            if (validEntityName == null) {
                 Debug.logWarning("Entity [" + entityName + "] reference in screen [" + this.screenName + "] in resource [" + this.screenLocation
                         + "] does not exist!", MODULE);
                 continue;
             }
+            entityName = validEntityName;
 
             // the forward reference
             this.entitiesUsedInThisScreen.add(getAif().getEntityArtifactInfo(entityName));

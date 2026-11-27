@@ -515,10 +515,6 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="LinkProductionRun"/>
     </request-map>
-    <request-map uri="assocProductionRunParty">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="assocProdRunParty"/>
-    </request-map>
     <request-map uri="createProductionRunPartyAssign">
         <security https="true" auth="true"/>
         <event type="service" invoke="createProductionRunPartyAssign"/>
@@ -915,7 +911,6 @@ under the License.
     <view-map name="CreateProductionRun" type="screen" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#CreateProductionRun"/>
     <view-map name="FindProductionRun" type="screen" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#FindProductionRun"/>
     <view-map name="EditProductionRun" type="screen" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#EditProductionRun"/>
-    <view-map name="assocProdRunParty" type="screen" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#AssocProdRunParty"/>
     <view-map name="ProductionRunParties" type="screen" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#ProductionRunParties"/>
     <view-map name="LinkProductionRun" type="screen" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#LinkProductionRun"/>
     <view-map name="PrintProductionRun" type="screenfop" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#ProductionRunPdf" content-type="application/pdf" encoding="none"/>

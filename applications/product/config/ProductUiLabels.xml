@@ -23870,6 +23870,10 @@
         <value xml:lang="zh">促销代码电子邮件</value>
         <value xml:lang="zh-TW">促銷代碼電子郵件</value>
     </property>
+    <property key="ProductPromoCodeEmailNotValid">
+        <value xml:lang="en">${emailAddress} is not a valid email address</value>
+        <value xml:lang="fr">${emailAddress} n'est pas une adresse email valide</value>
+    </property>
     <property key="ProductPromoCodeImportEmptyFile">
         <value xml:lang="de">Leere Datei; nichts zu tun</value>
         <value xml:lang="en">Empty file; nothing to do</value>

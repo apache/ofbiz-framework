@@ -228,6 +228,13 @@ under the License.
         <permission-service service-name="productPriceGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
+    <service name="createProductPromoCodeEmail" engine="java"
+                location="org.apache.ofbiz.product.promo.PromoServices" invoke="createProductPromoCodeEmail" auth="true">
+        <description>Link an email address to a ProductPromoCode, creating an email contact mech when none holds this address</description>
+        <permission-service service-name="productPriceGenericPermission" main-action="CREATE"/>
+        <attribute name="productPromoCodeId" type="String" mode="IN" optional="false"/>
+        <attribute name="emailAddress" type="String" mode="IN" optional="false"/>
+    </service>
     <service name="createBulkProductPromoCodeEmail" engine="java"
                 location="org.apache.ofbiz.product.promo.PromoServices" invoke="importPromoCodeEmailsFromFile" auth="true">
         <description>Create several ProductPromoCodeEmail from an uploaded list of emails (one address per line)</description>

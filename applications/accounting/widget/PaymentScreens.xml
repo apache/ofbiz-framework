@@ -171,9 +171,6 @@ under the License.
                 <entity-one entity-name="Payment" value-field="payment"/>
                 <set field="appliedAmount" type="BigDecimal" value="${groovy:org.apache.ofbiz.accounting.payment.PaymentWorker.getPaymentApplied(payment)}"/>
                 <set field="notAppliedAmount" type="BigDecimal" value="${groovy:org.apache.ofbiz.accounting.payment.PaymentWorker.getPaymentNotApplied(payment)}"/>
-                <set field="notAppliedAmountStr" type="String" value="${groovy:
-                    import java.text.NumberFormat;
-                    return(NumberFormat.getCurrencyInstance(context.get(&quot;locale&quot;)).format(org.apache.ofbiz.accounting.payment.PaymentWorker.getPaymentNotApplied(payment)));}"/>
                 <script location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/payment/ListNotAppliedInvoices.groovy"/>
                 <script location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/payment/ListNotAppliedPayments.groovy"/>
                 <entity-one entity-name="PartyNameView" value-field="partyNameViewTo">

@@ -500,6 +500,23 @@ under the License.
         <field name="expectationEnumId" title="${uiLabelMap.WorkEffortExpectation}"><display-entity entity-name="Enumeration" key-field-name="enumId"/></field>
     </grid>
 
+    <grid name="DisplayWorkEffortFixedAssetAssigns" list-name="fixedAssetAssignments"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <field name="fixedAssetId" title="${uiLabelMap.AccountingFixedAsset}">
+            <display-entity entity-name="FixedAsset" description="${fixedAssetName}">
+                <sub-hyperlink target="/accounting/control/EditFixedAsset" target-type="inter-app" description="${fixedAssetId}" link-style="buttontext">
+                    <parameter param-name="fixedAssetId"/>
+                </sub-hyperlink>
+            </display-entity>
+        </field>
+        <field name="fromDate"><display/></field>
+        <field name="thruDate"><display/></field>
+        <field name="statusId"><display-entity entity-name="StatusItem"/></field>
+        <field name="availabilityStatusId"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
+        <field name="allocatedCost"><display/></field>
+        <field name="comments"><display/></field>
+    </grid>
+
     <form name="ListPreferredContactMech" target="" title="" type="list"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>

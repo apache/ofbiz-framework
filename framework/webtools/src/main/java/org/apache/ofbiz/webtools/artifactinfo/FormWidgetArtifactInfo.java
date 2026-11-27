@@ -123,11 +123,14 @@ public class FormWidgetArtifactInfo extends ArtifactInfoBase {
             if (entityName.contains("${")) {
                 continue;
             }
-            if (!getAif().getEntityModelReader().getEntityNames().contains(entityName)) {
+            // attempt to convert relation names to entity names
+            String validEntityName = getAif().getEntityModelReader().validateEntityName(entityName);
+            if (validEntityName == null) {
                 Debug.logWarning("Entity [" + entityName + "] reference in form [" + this.formName + "] in resource [" + this.formLocation
                         + "] does not exist!", MODULE);
                 continue;
             }
+            entityName = validEntityName;
 
             // the forward reference
             this.entitiesUsedInThisForm.add(getAif().getEntityArtifactInfo(entityName));

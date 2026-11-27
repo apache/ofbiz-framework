@@ -46,7 +46,7 @@ public final class ModelGrid extends ModelForm {
     public ModelGrid(Element formElement, String formLocation, ModelReader entityModelReader,
                      VisualTheme visualTheme, DispatchContext dispatchContext) {
         super(formElement, formLocation, entityModelReader, visualTheme, dispatchContext, "list",
-                resolveParentModel(formElement, "grid", entityModelReader, visualTheme, dispatchContext));
+                resolveParentModel(formElement, "grid", formLocation, entityModelReader, visualTheme, dispatchContext));
     }
 
     @Override

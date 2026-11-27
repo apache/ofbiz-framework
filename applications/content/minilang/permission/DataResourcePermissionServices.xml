@@ -189,9 +189,12 @@
                 </if-empty>
 
                 <!-- check ownership of this record -->
-                <set field="checkId" from-field="dataResourceId"/>
-                <call-simple-method method-name="checkOwnership" 
-                    xml-resource="component://content/src/main/groovy/org/apache/ofbiz/content/permission/ContentPermissionServices.groovy"/>
+                <set field="checkOwnershipCtx.roleEntity" from-field="roleEntity"/>
+                <set field="checkOwnershipCtx.roleEntityField" from-field="roleEntityField"/>
+                <set field="checkOwnershipCtx.checkId" from-field="dataResourceId"/>
+                <call-service service-name="checkOwnership" in-map-name="checkOwnershipCtx">
+                    <result-to-field result-name="hasPermission"/>
+                </call-service>
             </then>
         </if>
     </simple-method>
