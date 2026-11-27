@@ -20,11 +20,11 @@ under the License.
 # Apache OFBiz®
 
 [![Licence](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0)
-[![Version](https://img.shields.io/badge/Version-trunk-red.svg)](https://github.com/apache/ofbiz-framework)
+[![Version](https://img.shields.io/badge/Version-release26.11-orange.svg)](https://github.com/apache/ofbiz-framework)
 
-[![Java CI with Gradle](https://github.com/apache/ofbiz-framework/actions/workflows/gradle.yml/badge.svg?branch=trunk)](https://github.com/apache/ofbiz-framework/actions/workflows/gradle.yml)
+[![Java CI with Gradle](https://github.com/apache/ofbiz-framework/actions/workflows/gradle.yml/badge.svg?branch=release26.11)](https://github.com/apache/ofbiz-framework/actions/workflows/gradle.yml)
 [![CodeQL](https://github.com/apache/ofbiz-framework/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/apache/ofbiz-framework/actions/workflows/codeql-analysis.yml)<!-- For the CodeQL badge to not get stuck on failing, you need to delete the last failing CodeQL workflow (AKA action)-->
-[![Build Status](https://ci2.apache.org/badges/ofbizTrunkFrameworkPlugins.svg)](https://ci2.apache.org/#/builders?tags=%2BofbizTrunkFrameworkPlugins)<!--For the BuildBot badge to not get stuck on failure, ALL builds of all branches handled by https://github.com/apache/infrastructure-bb2/blob/master/ofbiz.py need to pass-->
+[![Build Status](https://ci2.apache.org/badges/ofbizBranch26Framework.svg)](https://ci2.apache.org/#/builders?tags=%2BofbizBranch26Framework)<!--For the BuildBot badge to not get stuck on failure, ALL builds of all branches handled by https://github.com/apache/infrastructure-bb2/blob/master/ofbiz.py need to pass-->
 [![services health](https://qpkb254zxeu.montastic.io/badge)](https://qpkb254zxeu.montastic.io)
 
 [![Scorecard supply-chain security](https://github.com/apache/ofbiz-framework/actions/workflows/scorecard.yml/badge.svg)](https://github.com/apache/ofbiz-framework/actions/workflows/scorecard.yml)
