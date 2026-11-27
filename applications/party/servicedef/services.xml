@@ -1175,27 +1175,27 @@ under the License.
     </service>
 
     <!-- Email address verification services-->
-    <service name="createEmailAddressVerification" engine="java" default-entity-name="EmailAddressVerification"
-            location="org.apache.ofbiz.party.contact.ContactMechServices" invoke="createEmailAddressVerification">
-        <attribute name="emailAddress" type="String" mode="IN" optional="false"/>
-        <attribute name="verifyHash" type="String" mode="OUT" optional="false"/>
-        <attribute name="expireDate" type="String" mode="IN" optional="true"/>
+    <service name="createEmailAddressVerification" engine="groovy" export="false" hideResultInLog="true" auth="true"
+            location="component://party/src/main/groovy/org/apache/ofbiz/party/contact/ContactMechServicesScript.groovy" invoke="createEmailAddressVerification">
+        <description>Create a verification for an email address of a party and return its token; only the token's hash is stored</description>
+        <permission-service service-name="partyContactMechPermissionCheck" main-action="UPDATE"/>
+        <attribute name="partyId" type="String" mode="IN" optional="false"/>
+        <attribute name="contactMechId" type="String" mode="IN" optional="false"/>
+        <attribute name="token" type="String" mode="OUT" optional="false"/>
     </service>
-    <service name="sendVerifyEmailAddressNotification" engine="groovy"
-             location="component://party/src/main/groovy/org/apache/ofbiz/party/contact/ContactMechServicesScript.groovy" invoke="sendVerifyEmailAddressNotification">
-        <attribute name="emailAddress" type="String" mode="IN" optional="false">
-             <type-validate>
-                 <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingEmailAddress"/>
-             </type-validate>
-         </attribute>
+    <service name="sendEmailAddressVerification" engine="groovy" auth="true"
+            location="component://party/src/main/groovy/org/apache/ofbiz/party/contact/ContactMechServicesScript.groovy" invoke="sendEmailAddressVerification">
+        <description>Email a verification link for an email address of a party, when the product store has a PRDS_EMAIL_VERIFY email setting</description>
+        <permission-service service-name="partyContactMechPermissionCheck" main-action="UPDATE"/>
+        <attribute name="partyId" type="String" mode="IN" optional="true"/>
+        <attribute name="contactMechId" type="String" mode="IN" optional="false"/>
+        <attribute name="productStoreId" type="String" mode="IN" optional="false"/>
+        <attribute name="webSiteId" type="String" mode="IN" optional="true"/>
     </service>
-    <service name="verifyEmailAddress" engine="groovy"
-             location="component://party/src/main/groovy/org/apache/ofbiz/party/contact/ContactMechServicesScript.groovy" invoke="verifyEmailAddress">
-        <attribute name="verifyHash" type="String" mode="IN" optional="false">
-             <type-validate>
-                 <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingVerifyHash"/>
-             </type-validate>
-         </attribute>
+    <service name="verifyEmailAddress" engine="groovy" auth="false" export="false"
+            location="component://party/src/main/groovy/org/apache/ofbiz/party/contact/ContactMechServicesScript.groovy" invoke="verifyEmailAddress">
+        <description>Mark the email address a verification token was issued for as verified; a token works once</description>
+        <attribute name="token" type="String" mode="IN" optional="false"/>
     </service>
 
     <!-- Party Invitation Services -->

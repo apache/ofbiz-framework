@@ -23,9 +23,11 @@ under the License.
     </head>
     <body>
         <h1>${title!}</h1>
-        <p>Thank you for registering. Please click the link below to complete your registration.</p>
+        <p>Please confirm that this email address belongs to the account of ${parameters.partyName!} at
+            ${parameters.storeName!} by following the link below.</p>
+        <p>If you did not ask for this, you can ignore this email: nothing changes until the link is followed.</p>
         <br/><br/>
-        <#assign verifyUrl = baseUrl + (parameters.contextRoot!"") + "/control/verifyEmailAddress">
-        <a href="${verifyUrl}?verifyHash=${parameters.verifyHash}">${verifyUrl}</a>
+        <#assign verifyUrl = (baseSecureUrl!baseUrl) + (parameters.contextRoot!"") + "/control/verifyEmailAddress">
+        <a href="${verifyUrl}?token=${parameters.token}">${verifyUrl}</a>
     </body>
 </html>

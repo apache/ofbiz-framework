@@ -66,6 +66,8 @@ under the License.
         <field-to-result field="newValue.contactMechId" result-name="contactMechId"/>
         <field-to-request field="newValue.contactMechId" request-name="contactMechId"/>
         <set-nonpk-fields map="parameters" value-field="newValue"/>
+        <!-- only verifyEmailAddress sets the verified flag -->
+        <clear-field field="newValue.verified"/>
         <now-timestamp field="newValue.fromDate"/>
         <create-value value-field="newValue"/>
     </simple-method>
@@ -103,6 +105,8 @@ under the License.
         
         <if-compare-field to-field="newPartyContactMech.contactMechId" field="parameters.contactMechId" operator="not-equals">
             <set-nonpk-fields map="parameters" value-field="newPartyContactMech"/>
+            <!-- a new address has not been verified yet -->
+            <clear-field field="newPartyContactMech.verified"/>
             <now-timestamp field="newPartyContactMech.fromDate"/>
             <now-timestamp field="partyContactMech.thruDate"/>
             <store-value value-field="partyContactMech"/>
@@ -129,7 +133,10 @@ under the License.
             <field-to-request field="newPartyContactMech.contactMechId" request-name="contactMechId"/>
             <else>
                 <set field="extension" from-field="partyContactMech.extension"/>
+                <!-- only verifyEmailAddress sets the verified flag: the stored value, null included, always wins -->
+                <set field="verified" from-field="partyContactMech.verified" set-if-null="true"/>
                 <set-nonpk-fields map="parameters" value-field="partyContactMech"/>
+                <set field="partyContactMech.verified" from-field="verified" set-if-null="true"/>
                 <if-compare-field field="parameters.extension" operator="not-equals" to-field="extension">
                     <set field="partyContactMech.thruDate" value=""/>
                 </if-compare-field>

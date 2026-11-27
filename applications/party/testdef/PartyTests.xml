@@ -34,6 +34,9 @@
     <test-case case-name="party-communication-event-tests">
         <jupiter-test-suite class-name="org.apache.ofbiz.party.party.test.PartyCommunicationEventTests"/>
     </test-case>
+    <test-case case-name="party-email-verification-tests">
+        <jupiter-test-suite class-name="org.apache.ofbiz.party.party.test.PartyEmailVerificationTests"/>
+    </test-case>
     <test-case case-name="party-misc-tests">
         <jupiter-test-suite class-name="org.apache.ofbiz.party.party.test.PartyMiscTests"/>
     </test-case>

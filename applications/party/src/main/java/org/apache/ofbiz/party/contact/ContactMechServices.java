@@ -19,10 +19,7 @@
 
 package org.apache.ofbiz.party.contact;
 
-import java.nio.charset.StandardCharsets;
-import java.security.SecureRandom;
 import java.sql.Timestamp;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -30,7 +27,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import org.apache.ofbiz.base.crypto.HashCrypt;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilGenerics;
@@ -41,7 +37,6 @@ import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.util.EntityQuery;
-import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.ofbiz.party.party.PartyWorker;
 import org.apache.ofbiz.security.Security;
 import org.apache.ofbiz.service.DispatchContext;
@@ -49,9 +44,6 @@ import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.service.ServiceUtil;
-
-import com.ibm.icu.util.Calendar;
-
 
 /**
  * Services for Contact Mechanism maintenance
@@ -61,8 +53,6 @@ public class ContactMechServices {
     private static final String MODULE = ContactMechServices.class.getName();
     private static final String RESOURCE = "PartyUiLabels";
     private static final String RES_ERROR = "PartyErrorUiLabels";
-
-    private static final SecureRandom SECURE_RANDOM = new SecureRandom();
 
     /**
      * Creates a ContactMech
@@ -962,53 +952,6 @@ public class ContactMechServices {
                     UtilMisc.toMap("errorString", e.getMessage()), locale));
         }
         return ServiceUtil.returnSuccess();
-    }
-
-    /**
-     * Creates an EmailAddressVerification
-     */
-    public static Map<String, Object> createEmailAddressVerification(DispatchContext dctx, Map<String, ? extends Object> context) {
-        Delegator delegator = dctx.getDelegator();
-        String emailAddress = (String) context.get("emailAddress");
-        String verifyHash = null;
-
-        String expireTime = EntityUtilProperties.getPropertyValue("security", "email_verification.expire.hours", delegator);
-        Integer expTime = Integer.valueOf(expireTime);
-        Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.HOUR, expTime);
-        Date date = calendar.getTime();
-        Timestamp expireDate = UtilDateTime.toTimestamp(date);
-
-        synchronized (ContactMechServices.class) {
-            while (true) {
-                Long random = SECURE_RANDOM.nextLong();
-                verifyHash = HashCrypt.digestHash("MD5", Long.toString(random).getBytes(StandardCharsets.UTF_8));
-                List<GenericValue> emailAddVerifications = null;
-                try {
-                    emailAddVerifications = EntityQuery.use(delegator).from("EmailAddressVerification").where("verifyHash", verifyHash).queryList();
-                } catch (GenericEntityException e) {
-                    Debug.logError(e.getMessage(), MODULE);
-                    return ServiceUtil.returnError(e.getMessage());
-                }
-                if (UtilValidate.isEmpty(emailAddVerifications)) {
-                    GenericValue emailAddressVerification = delegator.makeValue("EmailAddressVerification");
-                    emailAddressVerification.set("emailAddress", emailAddress);
-                    emailAddressVerification.set("verifyHash", verifyHash);
-                    emailAddressVerification.set("expireDate", expireDate);
-                    try {
-                        delegator.create(emailAddressVerification);
-                    } catch (GenericEntityException e) {
-                        Debug.logError(e.getMessage(), MODULE);
-                        return ServiceUtil.returnError(e.getMessage());
-                    }
-                    break;
-                }
-            }
-        }
-
-        Map<String, Object> result = ServiceUtil.returnSuccess();
-        result.put("verifyHash", verifyHash);
-        return result;
     }
 
 }

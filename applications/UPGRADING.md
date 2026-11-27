@@ -58,9 +58,25 @@ no replacement in OFBiz; a project that still uses one has to keep its own copy.
 * `createWorkEffortICalData`, `updateWorkEffortICalData`, `deleteWorkEffortICalData`, `workEffortICalendarPermission`,
   `getICalWorkEfforts` and `getPartyICalUrl` are removed with the iCalendar webapp
   ([OFBIZ-13816](https://issues.apache.org/jira/browse/OFBIZ-13816)).
-* The email sent by `sendVerifyEmailAddressNotification` now links to `/control/verifyEmailAddress` in the webapp
-  of the store's web site; map a `verifyEmailAddress` request calling the `verifyEmailAddress` service there
-  ([OFBIZ-13819](https://issues.apache.org/jira/browse/OFBIZ-13819)).
+* Email address verification works end to end ([OFBIZ-13858](https://issues.apache.org/jira/browse/OFBIZ-13858)).
+  `createEmailAddressVerification` takes `partyId` and `contactMechId` and returns the `token`; only its SHA-256 is
+  stored, and `EmailAddressVerification` gains `partyId` and `contactMechId`. `sendVerifyEmailAddressNotification`
+  and the ECA that called it are replaced by `sendEmailAddressVerification` (`partyId`, `contactMechId`,
+  `productStoreId`), which sends the store's `PRDS_EMAIL_VERIFY` email with a link to
+  `/control/verifyEmailAddress?token=` in the webapp of the store's web site. `verifyEmailAddress` takes `token`,
+  sets `PartyContactMech.verified` to Y and consumes the token; map a `verifyEmailAddress` request with
+  `auth="false"` calling it in your store webapp. Changing an email address leaves the new `PartyContactMech`
+  unverified. Custom `PRDS_EMAIL_VERIFY` body screens must use `parameters.token` instead of `parameters.verifyHash`.
+  The Java method `ContactMechServices.createEmailAddressVerification` is removed. The `verified` flag of
+  `PartyContactMech` can no longer be set through the contact mech create and update services: only
+  `verifyEmailAddress` sets it, and a changed address starts unverified. `verified=Y` values stored before this
+  change were never proven (they could be set freely), so projects that rely on the flag should clear them.
+  `createEmailAddressVerification` and `sendEmailAddressVerification` need a logged-in owner of the address or the
+  party contact mech permission (`partyContactMechPermissionCheck`), and the latter takes an optional `webSiteId`
+  of the product store. It sends nothing when a verification for the same address was issued less than
+  `email_verification.resend.minutes` ago (security.properties, default 5, 0 to disable), and it gives the body screen
+  `storeName` and `partyName` besides `token`. The labels `PartyEmailAddressVerificationExpired` and
+  `PartyRequiredFieldMissingVerifyHash` are removed.
 * Portlets for employees are checked with the new `employeePermissionCheck` service of party, which passes for a party
   with the `EMPLOYEE` role or a user with `PORTALPAGE_ADMIN`, instead of `portalPermissionIsEmployee`, which the
   applications do not define. The `ListCustomerInvoices`, `ListCustRequests`, `ListCustomerOrders` and

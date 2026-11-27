@@ -82,22 +82,6 @@ class PartyMiscTests implements JupiterTestHelper {
     }
 
     @Test
-    @Order(3)
-    void testCreateEmailAddressVerification() {
-        String emailAddress = testParams.emailAddress ?: 'test_email@example.com'
-        Map serviceCtx = [
-                emailAddress: emailAddress,
-                userLogin: userLogin
-        ]
-        Map serviceResult = dispatcher.runSync('createEmailAddressVerification', serviceCtx)
-        assert ServiceUtil.isSuccess(serviceResult)
-
-        GenericValue emailAddressVerification = from('EmailAddressVerification').where('emailAddress', emailAddress).queryOne()
-        assert emailAddressVerification
-        assert emailAddressVerification.verifyHash == serviceResult.verifyHash
-    }
-
-    @Test
     @Order(4)
     void testCreatePartyIdentifications() {
         String partyId = testParams.partyId ?: 'TestCustomer'

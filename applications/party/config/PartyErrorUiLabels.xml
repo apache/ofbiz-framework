@@ -116,9 +116,6 @@
     <property key="PartyRequiredFieldMissingUserLoginId">
         <value xml:lang="en">Required Field Missing : User Login Id</value>
     </property>
-    <property key="PartyRequiredFieldMissingVerifyHash">
-        <value xml:lang="en">Required Field Missing : Verify Hash</value>
-    </property>
     <property key="PartyUploadedFileDataNotFound">
         <value xml:lang="en">Uploaded file data not found</value>
     </property>
