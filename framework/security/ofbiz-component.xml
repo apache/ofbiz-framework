@@ -30,6 +30,8 @@ under the License.
     <entity-resource type="data" reader-name="demo" loader="main" location="data/PasswordSecurityDemoData.xml"/>
     <entity-resource type="data" reader-name="demo" loader="main" location="data/SecurityGroupDemoData.xml"/>
     <entity-resource type="data" reader-name="demo" loader="main" location="data/SSOJWTDemoData.xml"/>
+    <entity-resource type="data" reader-name="seed" loader="main" location="data/MfaScheduledServiceData.xml"/>
+    <service-resource type="model" loader="main" location="servicedef/services.xml"/>
 
     <!-- holds each delegator's Security, which reads permissions from the database -->
     <cache name="security.AuthorizationCache" policy="invalidate"/>

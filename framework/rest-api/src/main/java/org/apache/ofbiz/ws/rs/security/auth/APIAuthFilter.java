@@ -22,13 +22,20 @@ import java.io.IOException;
 import java.util.Map;
 
 import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.util.EntityQuery;
+import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.ofbiz.security.Security;
+import org.apache.ofbiz.security.login.AuthenticationContext;
+import org.apache.ofbiz.security.login.MfaServices;
+import org.apache.ofbiz.service.GenericServiceException;
+import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ModelService;
+import org.apache.ofbiz.service.ServiceUtil;
 import org.apache.ofbiz.webapp.control.JWTManager;
 import org.apache.ofbiz.webapp.control.LoginWorker;
 import org.apache.ofbiz.ws.rs.annotation.Secured;
@@ -97,6 +104,34 @@ public class APIAuthFilter implements ContainerRequestFilter {
             abortWithUnauthorized(requestContext, true, "Unauthorized: Access is denied due to the user of the token"
                     + " being disabled or no longer allowed to use this api");
             return;
+        }
+        boolean mfaEnabled = Boolean.parseBoolean(EntityUtilProperties.getPropertyValue("security",
+                "security.login.authFactor.enable", "false", delegator))
+                || (userLogin != null && MfaServices.hasActiveFactor(delegator, userLogin.getString("userLoginId")));
+        if (mfaEnabled && userLogin != null) {
+            LocalDispatcher dispatcher = (LocalDispatcher) servletContext.getAttribute("dispatcher");
+            if (dispatcher != null) {
+                AuthenticationContext authCtx = new AuthenticationContext(AuthenticationContext.METHOD_JWT, claims);
+                try {
+                    Map<String, Object> policy = dispatcher.runSync("isUserLoginMfaRequired",
+                            UtilMisc.toMap("userLoginId", userLogin.getString("userLoginId"), "authenticationContext", authCtx));
+                    if (ServiceUtil.isError(policy)) {
+                        Debug.logError("Error evaluating MFA policy for user [" + userLogin.getString("userLoginId")
+                                + "]: " + ServiceUtil.getErrorMessage(policy), MODULE);
+                        abortWithUnauthorized(requestContext, true, "Unauthorized: Unable to verify authentication assurance.");
+                        return;
+                    }
+                    if (Boolean.TRUE.equals(policy.get("required"))) {
+                        abortWithUnauthorized(requestContext, true,
+                                "Unauthorized: Multi-factor authentication required for this account.");
+                        return;
+                    }
+                } catch (GenericServiceException e) {
+                    Debug.logError(e, "Error evaluating MFA policy in REST API", MODULE);
+                    abortWithUnauthorized(requestContext, true, "Unauthorized: Unable to verify authentication assurance.");
+                    return;
+                }
+            }
         }
         httpRequest.setAttribute("userLogin", userLogin);
     }

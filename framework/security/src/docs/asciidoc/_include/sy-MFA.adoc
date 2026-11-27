@@ -1,0 +1,222 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+
+= Multi-Factor Authentication (MFA) Implementation Guide
+== Overview and Architecture
+
+This guide explains how the native Multi-Factor Authentication (MFA) architecture in Apache OFBiz(R) fits together.
+
+=== Core Capabilities
+
+* *Native RFC 6238 TOTP Engine:* Zero-dependency TOTP generation and verification built directly on standard JDK `javax.crypto.Mac` (HmacSHA1, HmacSHA256, HmacSHA512) and pure RFC 4648 Base32 codec in `org.apache.ofbiz.security.login.TotpUtil`.
+* *NIST SP 800-63B Emergency Backup Recovery Codes:* Generates 10 single-use, 8-character Crockford Base32 recovery codes (`xxxx-xxxx`) stored with salted cryptographic hashing (`secretHash`) and atomic invalidation (`thruDate = nowTimestamp()`), preventing customer lockouts on eCommerce storefronts.
+* *Email Password Recovery Does Not Bypass MFA:* `emailPasswordRequest` sends the normal password-reset email to MFA-mandated accounts exactly as it does to anyone else -- it is **not** blocked, because doing so would only strand customers who still have their authenticator but simply forgot their password, without closing any real gap: `LoginWorker#login()` re-evaluates the MFA policy for *every* successful primary authentication, including a password-reset-token login, and will not commit a session without the second factor regardless of how the password was changed. The weaker, legacy password-*hint* path (`showPasswordHint`) remains blocked for MFA-mandated accounts, since a stored hint is not an acceptable authenticator under NIST SP 800-63B and offers no real recovery value once backup codes exist. A lost *authenticator device* (not merely a forgotten password) with no remaining backup codes still requires administrator-assisted recovery: a security administrator with `SECURITY_UPDATE` permission can revoke the lost factor (with a mandatory reason) via the `EditUserLogin` screen, reachable through partymgr's `ProfileEditUserLogin` (`/partymgr/control/ProfileEditUserLogin?userLoginId=...`), after which the user can enroll a new factor themselves -- this is standard practice (Google, GitHub, AWS all require either a backup code or support-assisted recovery in that scenario).
+* *Staged Authentication Lifecycle:* `PRIMARY_VERIFIED` -> `MFA_PENDING` -> `AUTHENTICATION_COMMITTED` strictly eliminates pre-MFA session state poisoning, premature login history commits, and improper lockout resets.
+* *Forced Password Changes Survive Their Own MFA Challenge:* The `requirePasswordChange` interstitial reposts `USERNAME`/`PASSWORD`/`newPassword`/`newPasswordVerify` to the same `/login` event -- the only endpoint common to every webapp -- which, for an enrolled account, still needs a fresh MFA challenge before anything can be applied. `LoginWorker.login()` stashes those fields (the same session-based stash-and-replay mechanism `revokeMfaFactor`/`beginTotpEnrollment`/`generateBackupCodes` use for their own step-up) before returning `authFactorRequired`, so the password change is actually applied once that challenge is verified, instead of being silently dropped while the form keeps reappearing.
+* *Zero-Trust Session Isolation:* The authenticated HTTP session (`userLogin` attribute), login cookies, and `UserLoginHistory` records are not committed before the second factor succeeds, across the Standard Web UI, REST, and service-level channels. One exception: the JWT SSO preprocessor (`checkJWTLogin`) persists `hasLoggedOut="N"` on the `UserLogin` row itself before the MFA policy check runs, a pre-existing write this PR did not reorder; the session attribute is removed again if that check fails closed, but the DB write is not undone.
+* *Air-Gapped In-Memory PNG QR Generation:* Generates QR codes natively in-memory as Base64-encoded PNG Data URIs (`data:image/png;base64,...`) via `com.google.zxing:core` and standard `javax.imageio.ImageIO`, ensuring zero-CDN dependency, air-gapped security, and universal cross-browser compatibility without SVG XML injection vulnerabilities.
+* *Role & Group-Level Policy Enforcement:* Seamless self-service setup under user profiles and mandatory forced-enrollment interstitials for high-privilege security groups (`SecurityGroup.requireAuthFactor="Y"`).
+* *High-Assurance Re-Authentication Windows:* 300-second (5 minutes) validity window protecting sensitive factor-management operations (enrolling, confirming, revoking a factor, and regenerating backup codes), with in-session step-up re-authentication (`/reverifyAuthFactor`) avoiding forced logouts. This gate is keyed on who actually owns the target factor, not on whether a `reason` was supplied: a user revoking their *own* factor cannot skip it just by adding one, the way an administrator revoking *someone else's* factor legitimately does (gated instead on the `SECURITY_UPDATE` permission and a mandatory reason). Ordinary account password changes (`updatePassword`, including the eCommerce storefront's own profile-update flow) are deliberately left out of this gate, matching trunk's existing behavior for every account whether or not a factor is enrolled.
+* *Two-Step REST API Token Handshake:* Outbound tokens emit RFC 8176 standard `amr: ["pwd", "otp", "mfa"]`, while inbound tokens from external Identity Providers (Keycloak, Okta) support configurable `amr` and `acr` assurance evaluation.
+* *Comprehensive Security Auditing:* Dedicated `UserAuthenticationEvent` entity capturing precision timestamps, actor IDs, challenge IDs, event types, and mandatory administrative justifications.
+* *Backward Compatible by Default:* Master toggle disabled by default (`security.login.authFactor.enable=false`) leaves an account with no enrolled factor completely unaffected. An account that already has one enrolled is still challenged or denied regardless of the switch -- web, REST, JWT, and service-level login all honor an individually enrolled factor -- the same way GitHub/Google treat a member's own 2FA versus an org-wide enforcement toggle.
+
+---
+
+=== 1. Data Model & Entity Architecture
+
+The implementation introduces three additive entities in `framework/security/entitydef/entitymodel.xml`, plus one additive field on the existing `SecurityGroup` entity, with zero schema changes to existing core entities:
+
+==== UserLoginAuthFactor
+Stores configured authentication factors:
+* `factorId` (id, PK): Unique factor identifier.
+* `userLoginId` (id-vlong, FK): Owner of the authentication factor.
+* `factorType` (id): Factor type indicator (`ULAF_TOTP`, `ULAF_BACKUP`, `ULAF_WEBAUTHN`, `ULAF_PASSKEY`).
+* `secret` (long-varchar, encrypt="true"): AES-encrypted shared secret (or COSE public key for WebAuthn).
+* `secretHash` (long-varchar): Salted cryptographic hash for backup recovery codes (`HashCrypt.cryptUTF8`) or Base64URL `credentialId` for WebAuthn.
+* `factorLabel` (description): User-friendly label (e.g., "Work Mobile Authenticator", "Backup Recovery Code").
+* `needsValidation` (indicator): 'Y' during pending enrollment; transitions to 'N' only upon successful verification.
+* `lastUsedDate` (date-time): Timestamp of last successful verification.
+* `lastUsedStep` (numeric): Monotonic counter field. Stores accepted RFC 6238 time-step (replay defense) or FIDO2 Signature Counter (`signCount`) for authenticator clone detection.
+* `fromDate` / `thruDate` (date-time): Lifecycle validity window. Atomic consumption of backup codes sets `thruDate = nowTimestamp()`.
+
+==== UserLoginAuthChallenge
+Ephemeral, server-managed authentication challenge record:
+* `challengeId` (id, PK): Cryptographically random identifier issued to the client.
+* `userLoginId` (id-vlong, FK): Identity bound to this challenge.
+* `factorId` (id, FK): Target factor selected for verification.
+* `sessionBindingHash` (long-varchar): Cryptographic session binding hash (or WebAuthn binary challenge).
+* `challengeStatus` (id): `PENDING`, `VERIFIED`, `CONSUMED`, `LOCKED`.
+* `attemptCount` (numeric): Incremented on failed verification attempts.
+* `createdDate`, `expiresDate`, `verifiedDate` (date-time): Challenge lifecycle timestamps (default TTL: 300 seconds).
+
+==== UserAuthenticationEvent
+Append-only security audit entity:
+* Captures events: `LOGIN_COMMITTED`, `MFA_REQUIRED`, `MFA_ENROLL`, `MFA_VERIFY_SUCCESS`, `MFA_VERIFY_FAILURE`, `MFA_ACCOUNT_LOCKED`, `MFA_REVERIFY_SUCCESS`, `MFA_REVERIFY_FAILURE`, `MFA_FACTOR_REVOKED`, `MFA_BACKUP_CODES_GENERATED`, `MFA_BACKUP_CODE_USED`, `MFA_EXTERNAL_ASSURANCE`.
+* Records `actorUserLoginId`, `eventReason` (mandatory administrative reason up to 255 chars), and precision `eventDate`.
+
+==== SecurityGroup Extension
+* `requireAuthFactor` (indicator): Added to `SecurityGroup` entity ('Y'/'N', default 'N'). When enabled on any active group, all users with active membership are subject to mandatory MFA enforcement.
+
+---
+
+=== 2. Authentication Channels & Policy Matrix
+
+[cols="2,2,3,2,2", options="header"]
+|===
+| Channel | Entry Point / Handler | Behavior When MFA Is Required | State & History Timing | Policy & Edge Cases
+
+| *1. Standard Web UI* (Form Login)
+| `LoginWorker.login()` (`common-controller.xml`)
+| `userLoginMfaPending` validates password. Session set to `_MFA_PENDING_`. User redirected to `authFactorChallenge` view. Code verified via `MfaServices.verifyUserLoginMfaChallenge`.
+| `userLogin` attribute kept null in session. Successive failed logins increment on bad OTP. `UserLoginHistory` and session commitment occur only upon Step 2 success.
+| Forced enrollment triggered if user lacks active factor. Double session rotation executed.
+
+| *2. Service-Level Login* (`isServiceAuth`)
+| `LoginServices.userLogin()` / `userLoginMfaPending()` (`DispatchContext`)
+| Scheduled background jobs, ECA rules, and inter-service HTTP calls pass `login.username` and `login.password` in service context map. Interactive challenge is not possible.
+| `userLoginMfaPending` strictly rejects service authentication for MFA users with `ServiceUtil.returnError()`. The plain `userLogin` service -- the one actually invoked for *any* service call carrying `login.username`/`login.password` (`serviceengine.xml`'s `<authorization service-name="userLogin">`, used by `ServiceDispatcher.checkAuth()`, not just by callers that explicitly choose `userLoginMfaPending`) -- refuses it the same way: correct credentials for an MFA-mandated account return `RESPOND_FAIL` instead of completing the login. No session established; no `UserLoginHistory` written; `successiveFailedLogins` is left untouched either way, since the credentials were correct.
+| *System accounts (`isSystem='Y'`) are explicitly exempt.* Interactive human accounts cannot run automated background services.
+
+| *3. REST API* (Token Handshake)
+| `AuthenticationResource.java` (`/rest/auth/token` & `/rest/auth/{group}/mfa/{id}/verify`)
+| Two-step handshake: Step 1 validates Basic Auth and returns HTTP 202 `Accepted` with ephemeral `challengeId`. Step 2 accepts OTP/backup code and mints JWT bearer tokens.
+| `HttpBasicAuthFilter` defers `UserLoginHistory` to Step 2. Failed OTP attempts increment `successiveFailedLogins`. `UserLoginHistory` committed at Step 2.
+| Pre-validates API group binding and `baseSecurityGroupPermission` to prevent cross-group token theft.
+
+| *4. JWT SSO* (Federated IdP)
+| `JWTManager.checkJWTLogin()` (preprocessor)
+| Inbound JWT tokens from external IdPs (Keycloak, Okta) are evaluated for trusted `amr` (`otp`, `mfa`, `fido`, `hwk`) or trusted `acr` claims. If assurance is present, the token is accepted immediately.
+| **Known limitation, confirmed by live testing:** if assurance is missing, `checkJWTLogin` correctly creates the challenge and returns `authFactorRequired`/`authFactorEnrollmentRequired` -- but this runs as a controller *preprocessor* event, and `RequestHandler`'s preprocessor loop (core OFBiz, unrelated to this PR) only honors a `success` return from preprocessor events; any other value is logged and discarded. The challenge is created server-side but never shown, so the request silently falls through unauthenticated instead of prompting for a second factor.
+| `security.jwt.mfa.amr.trusted` and `security.jwt.mfa.acr.trusted` configure trusted identity providers. Only affects JWT-authenticated users who already have an active factor or are in an MFA-mandated security group; non-MFA users are unaffected.
+
+| *5. HTTP Header, Remote-User/Tomcat SSO & Client Certificate* (Proxy / mTLS)
+| `LoginWorker.checkRequestHeaderLogin()`, `checkServletRequestRemoteUserLogin()`, `check509CertLogin()` (all preprocessors) -> `loginUserWithUserLoginId()`
+| Reverse proxy, servlet-container SSO, or TLS layer asserts primary identity for `REMOTE_USER`, Tomcat SSO, or an X.509 client certificate.
+| **Same known limitation as JWT SSO above, verified by live `curl` testing against this branch:** when MFA is required, `loginUserWithUserLoginId` returns `authFactorRequired`, but since all three entry points above are controller preprocessors, that return value is swallowed by `RequestHandler` the same way, and the challenge is never shown. The user is left effectively anonymous for that request rather than being prompted or rejected.
+| Configurable perimeter trust: `security.login.http.header.mfaTrusted=false` by default. **This is a pre-existing OFBiz `RequestHandler` preprocessor constraint, not something introduced or fixed by this PR; it would need either a core framework change (letting preprocessors render a view) or moving these checks off the preprocessor chain to resolve.** Only affects users who already have an active factor or are in an MFA-mandated security group; non-MFA users authenticate normally through these channels.
+
+| *6. External Login Key* (Cross-App SSO)
+| `ExternalLoginKeysManager.java` (`externalLoginKey`)
+| Navigating across OFBiz web applications generates a transient single-sign-on ticket. Ticket carries the verified `_MFA_VERIFIED_AT_` timestamp.
+| Target application imports verified timestamp into its session. `UserLoginHistory` already written by origin app.
+| Eliminates duplicate MFA challenges during valid cross-webapp navigation while enforcing 300s re-authentication window. Transient URL key lifetime remains tightly bounded at 2 minutes. This channel is not subject to the preprocessor limitation described in rows 4 and 5: `checkExternalLoginKey` never itself decides whether MFA is required -- it only forwards an already-verified timestamp (or none) and always returns `success`, deferring any fresh MFA decision to the normal Standard Web UI flow on the next request.
+|===
+
+---
+
+=== 3. Standards Compliance & WebAuthn / Passkeys Extensibility
+
+==== RFC 8176 Compliance (Authentication Method Reference)
+* In IANA / RFC 8176, `"totp"` is not a registered AMR value. The official standard registers `"otp"` (One-Time Password) for all OTP types (RFC 6238 TOTP, RFC 4226 HOTP, and lookup recovery codes) and `"mfa"` for multi-factor authentication events.
+* Tokens minted post-MFA by `/rest/auth/{apiGroup}/mfa/{challengeId}/verify` strictly emit:
+** `amr: ["pwd", "otp", "mfa"]` for TOTP (`ULAF_TOTP`) and Backup Codes (`ULAF_BACKUP`).
+** `amr: ["pwd", "fido", "mfa"]` for WebAuthn / Passkeys (`ULAF_WEBAUTHN`, `ULAF_PASSKEY`).
+* `security.jwt.mfa.amr.trusted=mfa,otp,totp,sms,hwk,fido` guarantees backwards compatibility while adhering strictly to IANA/RFC 8176 standards.
+
+==== Future-Proof WebAuthn / Passkeys (FIDO2) Architecture Mapping
+The existing data model is designed to support WebAuthn / Passkeys out of the box with zero database schema migrations:
+1. `UserLoginAuthFactor.factorType`: Maps to `ULAF_WEBAUTHN` or `ULAF_PASSKEY`.
+2. `UserLoginAuthFactor.secret`: Encrypted storage for the Authenticator's Credential Public Key (in COSE format or PEM).
+3. `UserLoginAuthFactor.secretHash`: Indexed lookup for the Base64URL-encoded `credentialId` returned during `navigator.credentials.get()`.
+4. `UserLoginAuthFactor.lastUsedStep`: Monotonic numeric column directly stores the FIDO2 Signature Counter (`signCount`) to detect cloned authenticators (`signCount > lastUsedStep`).
+5. `UserLoginAuthChallenge.challengeId` / `sessionBindingHash`: Holds the cryptographically random binary challenge passed to `navigator.credentials.get()` / `create()` to guarantee freshness and prevent replay attacks.
+6. `UserLoginAuthChallenge.attemptCount`: Limits assertion attempts against brute-forcing.
+
+---
+
+=== 4. Operational Configuration
+
+All operational toggles reside cleanly in `framework/security/config/security.properties`:
+
+[source,properties]
+----
+# =================================================================
+# Multi-Factor Authentication (MFA) Configuration
+# =================================================================
+
+# Master switch: false by default; an individually enrolled account is still challenged
+# regardless of this switch (see Core Capabilities above)
+security.login.authFactor.enable=false
+
+# Issuer name displayed in authenticator applications (e.g., Google Authenticator)
+security.login.authFactor.totp.issuer=Apache OFBiz
+
+# Clock-skew tolerance for TOTP verification, in time-steps (default: 1 step, i.e. +/-30s)
+security.login.authFactor.totpWindowSteps=1
+
+# Lifetime of an unverified MFA login challenge in seconds
+security.login.authFactor.pendingTimeout=300
+
+# Maximum failed verification attempts before challenge lockout
+security.login.authFactor.maxVerifyAttempts=5
+
+# Step-up re-authentication window for sensitive actions (5 minutes)
+security.login.authFactor.reauthenticationWindow=300
+
+# Number of emergency single-use backup recovery codes generated per user
+security.login.authFactor.backupCodes.count=10
+
+# Trusted RFC 8176 AMR claim values for JWT assurance evaluation
+security.jwt.mfa.amr.trusted=mfa,otp,totp,sms,hwk,fido
+
+# Optional trusted ACR (Authentication Context Class Reference) values for JWT assurance
+security.jwt.mfa.acr.trusted=
+
+# Optional trusted issuers for external MFA claims (comma-separated; empty means any validly signed token)
+security.jwt.mfa.issuers.trusted=
+
+# External perimeter proxy/SSO/client-certificate MFA trust toggles (default: false)
+security.login.http.header.mfaTrusted=false
+security.login.tomcat.sso.mfaTrusted=false
+security.login.cert.mfaTrusted=false
+
+# Security-alert emails on factor enroll/revoke/recovery (and optionally successful MFA login):
+# disabled by default until a real sender replaces the placeholder address below
+security.login.authFactor.notify.email.enable=false
+security.login.authFactor.notify.email.onLogin=false
+security.login.authFactor.notify.email.from=notifications-noreply@example.com
+----
+
+==== Scheduled Maintenance
+A daily `MFA_CHALLENGE_PURGE` job (`purgeOldMfaChallengesAndEvents`, seeded in `framework/security/data/MfaScheduledServiceData.xml`) removes expired/consumed `UserLoginAuthChallenge` rows and old `UserAuthenticationEvent` audit rows, which otherwise accumulate forever. Retention defaults to 1 day for challenges and 90 days for events (`daysToKeepChallenges`/`daysToKeepEvents` service parameters).
+
+==== Security Alert Notifications
+`MfaServices.sendSecurityAlertNotification` dispatches `sendMfaSecurityNotification` (implemented in `applications/securityext`, keeping the Party/ContactMech email lookup out of the framework layer) for `MFA_ENROLL`, `MFA_FACTOR_REVOKED`, and optionally `LOGIN_COMMITTED` events. Disabled by default (`security.login.authFactor.notify.email.enable=false`) until a real sender address replaces the placeholder `notifications-noreply@example.com`.
+
+==== Account-Wide Lockout on Failed MFA Attempts
+A wrong code anywhere in the MFA flow -- challenge verification, forced-enrollment confirmation, the REST challenge, or the step-up re-authentication gate used by `beginTotpEnrollment`/`revokeMfaFactor`/`generateBackupCodes` -- increments the account's `successiveFailedLogins` counter, the same counter a wrong primary password uses, and disables the account once `max.failed.logins` (default: 3) is exceeded. This is in addition to, not instead of, the narrower per-challenge `attemptCount` lockout (`security.login.authFactor.maxVerifyAttempts`). `confirmTotpEnrollment` is deliberately excluded from this gate's bundled-code shortcut: its own `code` parameter confirms a brand-new, not-yet-validated factor, never an existing one, so it is never read as a step-up code at all (a wrong confirmation code is simply rejected by `confirmUserLoginTotpFactor` without incrementing anything); the step-up window still applies before reaching that point, just via the session-recency check only. A *successful* step-up code clears any strikes left over from earlier wrong attempts at the same gate, exactly like a correct primary password would -- it does not accumulate toward the lockout threshold just because it followed one or more wrong ones, whether the proof came through the bundled-code shortcut or through `reverifyAuthFactor` directly.
+
+---
+
+=== 5. Automated Test Suites & Verification
+
+The implementation is verified by comprehensive automated test suites:
+1. `UserLoginTests.groovy` (17/17 Integration Tests Passing): Staged authentication deferral, single-use challenge consumption, factor masking, service engine rejection (both `userLoginMfaPending`'s own refusal and the plain `userLogin` service's -- the one `ServiceDispatcher.checkAuth()` actually invokes for any service call carrying `login.username`/`login.password`, e.g. `SetTimeZoneFromBrowser` -- confirming a correct password for an MFA-mandated account is neither accepted nor counted as a failed attempt), forced enrollment, the 300s step-up re-authentication gate used by backup-code generation and factor revocation -- unconditionally for both, so a standing password alone never substitutes for recent proof -- (including a wrong code submitted through that same gate counting towards the account lockout, not just a wrong code at the dedicated `reverifyAuthFactor` endpoint, and confirming that a caller revoking their own factor cannot skip this gate merely by supplying a `reason`, the way an administrator revoking someone else's factor does), audit reason logging, NIST SP 800-63B backup code generation and consumption, a forced password change (`requirePasswordChange="Y"`) bundled with a login attempt that itself needs an MFA challenge -- confirming the requested change is actually applied once that challenge is verified, instead of being silently dropped and leaving the form stuck reappearing --, a successful step-up code clearing strikes left over from earlier wrong attempts the same way a correct primary password does (both through `hasRecentMfaProof`'s own bundled-code shortcut and through the dedicated `reverifyAuthFactor` endpoint, independently), and confirming a second, not-yet-validated factor's own code is never misread as a wrong step-up attempt against an existing factor once the re-authentication window has expired.
+2. `TotpUtilTests.java` (5/5 Unit Tests Passing): All 6 official IETF RFC 6238 Appendix B Table 1 test vectors across SHA-1, SHA-256, and SHA-512, 1-step window matching (±30s) at the library level, and Base32 codec. The window size `MfaServices` passes down is configurable via `security.login.authFactor.totpWindowSteps` (default `1`), not hardcoded.
+3. `AuthenticationContextTests.java` (10/10 Unit Tests Passing): RFC 8176 AMR evaluation (`otp`, `mfa`, `fido`, `totp`), single-factor password rejection, external login key assurance propagation, and perimeter header SSO trust checks.
+4. `MfaNotificationAndRestTests.java` (5/5 Unit Tests Passing): REST API two-step challenge verification, RFC 8176 `amr: ["pwd", "otp", "mfa"]` token assurance, security alert notifications, and that `verifyRestMfaChallenge` resolves a real locale on its error path instead of throwing.
+5. `JWTManagerAssuranceTests.java` (5/5 Unit Tests Passing): JWT token minting, claim extraction, and end-to-end cryptographic token validation with RFC 8176 assurance claims.
+6. `LoginEventsTests.java` (1/1 Unit Test Passing): Proper propagation of MFA challenge status codes (`authFactorRequired`, `authFactorEnrollmentRequired`) through storefront and application wrappers.
+7. `AuthenticationResourceMfaFailClosedTests.java` (2/2 Unit Tests Passing): Verifies the REST token endpoint (`/rest/auth/token`) fails closed (401) when `isUserLoginMfaRequired` either throws or returns an error result, instead of silently treating the account as not requiring MFA.
+8. `APIAuthFilterMfaFailClosedTests.java` (2/2 Unit Tests Passing): Verifies the same fail-closed behavior in `APIAuthFilter`, mirroring `AuthenticationResourceMfaFailClosedTests`.
+9. `HttpBasicAuthFilterMfaUsernameCaseTests.java` (1/1 Unit Test Passing): Verifies that with `username.lowercase=true`, a differently-cased Basic-Auth login (e.g. `ADMIN` for a stored `admin`) still routes through `userLoginMfaPending`, not the plain `userLogin` service, so an enrolled account's factor is never missed due to letter case.
+10. `JWTManagerMfaSessionCleanupTests.java` (2/2 Unit Tests Passing): Verifies that `checkJWTLogin` removes the session's `userLogin` attribute before returning `error` when the MFA policy check fails closed (throws, or returns a service-error result), so a denied request never leaves the session logged in.
+11. `Check509CertLoginMfaRegressionTests.java` (1/1 Unit Test Passing): Verifies that an unknown certificate CN falls through to `success`, the same way `checkRequestHeaderLogin`/`checkServletRequestRemoteUserLogin` already behave and the same way `check509CertLogin` itself behaved before its certificate lookup was folded into the shared `loginUserWithUserLoginId` helper, instead of failing the request for every client-cert login, MFA-mandated or not.
+12. `LoginWorkerMfaUsernameCaseTests.java` (1/1 Unit Test Passing): Verifies the same `username.lowercase=true` protection on the standard web login path -- `LoginWorker.login` routes a differently-cased login (e.g. `ADMIN` for a stored `admin`) through `userLoginMfaPending`, not the plain `userLogin` service, mirroring `HttpBasicAuthFilterMfaUsernameCaseTests` for the REST Basic-Auth path.

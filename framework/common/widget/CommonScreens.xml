@@ -239,6 +239,175 @@ under the License.
         </section>
     </screen>
 
+    <screen name="authFactorSetup">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleMfaSetup"/>
+                <set field="mfaOwnerUserLoginId" from-field="userLogin.userLoginId"/>
+                <set field="flashBackupCodes" value="${groovy: session.getAttribute('mfaBackupCodes')}"/>
+                <set field="dummy" value="${groovy: session.removeAttribute('mfaBackupCodes')}"/>
+                <entity-condition entity-name="UserLoginAuthFactor" list="activeBackupFactors">
+                    <condition-list combine="and">
+                        <condition-expr field-name="userLoginId" from-field="userLogin.userLoginId"/>
+                        <condition-expr field-name="factorType" value="ULAF_BACKUP"/>
+                        <condition-expr field-name="thruDate" operator="equals" from-field="nullField"/>
+                    </condition-list>
+                </entity-condition>
+                <set field="backupCodesCount" value="${groovy: activeBackupFactors != null ? activeBackupFactors.size() : 0}"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <not><if-empty field="flashBackupCodes"/></not>
+                            </condition>
+                            <widgets>
+                                <platform-specific>
+                                    <html>
+                                        <html-template location="component://common-theme/template/includes/MfaBackupCodesDisplay.ftl"/>
+                                    </html>
+                                </platform-specific>
+                            </widgets>
+                        </section>
+                        <screenlet title="${uiLabelMap.SecurityMfaSetupTitle}">
+                            <label style="h3" text="${uiLabelMap.SecurityMfaSetupPrompt}"/>
+                            <include-form name="MfaEnrollmentStartForm" location="component://common/widget/CommonForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.SecurityMfaEnrolledAuthenticators}">
+                            <label style="h4" text="${uiLabelMap.SecurityMfaRevokePrompt}"/>
+                            <include-grid name="ListSelfMfaFactors" location="component://common/widget/CommonForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.SecurityMfaBackupCodesTitle}">
+                            <label style="h4" text="${uiLabelMap.SecurityMfaBackupCodesRemaining}: ${backupCodesCount}"/>
+                            <label text="${uiLabelMap.SecurityMfaBackupCodesDescription}"/>
+                            <include-form name="GenerateBackupCodesForm" location="component://common/widget/CommonForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="authFactorChallenge">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleLogin"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.SecurityMfaCompleteTitle}">
+                            <label style="h3" text="${uiLabelMap.SecurityMfaChallengePrompt}"/>
+                            <include-form name="MfaChallengeForm" location="component://common/widget/CommonForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="authFactorReverify">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleLogin"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.SecurityMfaCompleteTitle}">
+                            <label style="h3" text="${uiLabelMap.SecurityMfaChallengePrompt}"/>
+                            <include-form name="MfaReverifyForm" location="component://common/widget/CommonForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="authFactorEnrollment">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleMfaEnrollment"/>
+                <set field="mfaFactorId" value="${groovy: request.getAttribute('mfaFactorId')}"/>
+                <set field="mfaProvisioningUri" value="${groovy: request.getAttribute('mfaProvisioningUri')}"/>
+                <set field="mfaSecret" value="${groovy: request.getAttribute('mfaSecret')}"/>
+                <set field="mfaQrCodeDataUri" value="${groovy: request.getAttribute('mfaQrCodeDataUri')}"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.SecurityMfaSetupAppQrTitle}">
+                            <label style="h3" text="${uiLabelMap.SecurityMfaScanQrPrompt}"/>
+                            <section>
+                                <condition><not><if-empty field="mfaQrCodeDataUri"/></not></condition>
+                                <widgets>
+                                    <image src="${mfaQrCodeDataUri}" url-mode="raw" width="220" height="220" style="mfa-qr-code"/>
+                                </widgets>
+                            </section>
+                            <section>
+                                <condition><not><if-empty field="mfaSecret"/></not></condition>
+                                <widgets>
+                                    <container style="alert alert-info">
+                                        <label style="h4" text="${uiLabelMap.SecurityMfaManualEntryPrompt}"/>
+                                        <label style="h2" text="${mfaSecret}"/>
+                                    </container>
+                                </widgets>
+                            </section>
+                            <include-form name="MfaEnrollmentConfirmForm" location="component://common/widget/CommonForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="authFactorForcedEnrollment">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleLogin"/>
+                <set field="mfaFactorId" value="${groovy: request.getAttribute('mfaFactorId')}"/>
+                <set field="mfaProvisioningUri" value="${groovy: request.getAttribute('mfaProvisioningUri')}"/>
+                <set field="mfaSecret" value="${groovy: request.getAttribute('mfaSecret')}"/>
+                <set field="mfaQrCodeDataUri" value="${groovy: request.getAttribute('mfaQrCodeDataUri')}"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.SecurityMfaForcedEnrollmentTitle}">
+                            <section>
+                                <condition><if-empty field="mfaProvisioningUri"/></condition>
+                                <widgets>
+                                    <label style="h3" text="${uiLabelMap.SecurityMfaForcedEnrollmentStartPrompt}"/>
+                                    <include-form name="MfaForcedEnrollmentStartForm" location="component://common/widget/CommonForms.xml"/>
+                                </widgets>
+                            </section>
+                            <section>
+                                <condition><not><if-empty field="mfaProvisioningUri"/></not></condition>
+                                <widgets>
+                                    <label style="h3" text="${uiLabelMap.SecurityMfaForcedEnrollmentScanPrompt}"/>
+                                    <section>
+                                        <condition><not><if-empty field="mfaQrCodeDataUri"/></not></condition>
+                                        <widgets>
+                                            <image src="${mfaQrCodeDataUri}" url-mode="raw" width="220" height="220" style="mfa-qr-code"/>
+                                        </widgets>
+                                    </section>
+                                    <section>
+                                        <condition><not><if-empty field="mfaSecret"/></not></condition>
+                                        <widgets>
+                                            <container style="alert alert-info">
+                                                <label style="h4" text="${uiLabelMap.SecurityMfaManualEntryPrompt}"/>
+                                                <label style="h2" text="${mfaSecret}"/>
+                                            </container>
+                                        </widgets>
+                                    </section>
+                                    <include-form name="MfaForcedEnrollmentConfirmForm" location="component://common/widget/CommonForms.xml"/>
+                                </widgets>
+                            </section>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
     <screen name="impersonated">
         <section>
             <actions>

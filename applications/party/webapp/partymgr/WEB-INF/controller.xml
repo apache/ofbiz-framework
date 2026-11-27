@@ -1399,7 +1399,7 @@ under the License.
         <response name="success" type="view" value="ProfileEditUserLogin"/>
     </request-map>
     <request-map uri="ProfileUpdatePassword">
-        <security https="true" auth="true"/>
+        <security https="true" auth="true" csrf-token="true"/>
         <event type="simple" path="component://securityext/minilang/login/LoginSimpleEvents.xml" invoke="updatePassword"/>
         <response name="success" type="view" value="ProfileEditUserLogin"/>
         <response name="error" type="view" value="ProfileEditUserLogin"/>
