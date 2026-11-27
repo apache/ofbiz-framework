@@ -188,7 +188,7 @@ if (security.hasPermission('ENTITY_MAINT', session)) {
     perfRow.callsPerSecond = decimalFormat.format(callsPerSecond)
     performanceList.add(perfRow)
 
-    utilCache = new UtilCache('test-cache', 0, 0, 0, false, null, 'test-cache')
+    utilCache = UtilCache.getOrCreateUtilCache('test-cache', 0, 0, 0, false, false)
     utilCache.put('testName', 'testValue')
     calls = 1000000
     startTime = System.currentTimeMillis()
