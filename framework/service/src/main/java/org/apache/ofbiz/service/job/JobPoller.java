@@ -258,42 +258,48 @@ public final class JobPoller implements ServiceConfigListener {
                     Thread.sleep(1000);
                 }
                 while (!EXECUTOR.isShutdown()) {
-                    int remainingCapacity = queueSize() - EXECUTOR.getQueue().size();
-                    if (remainingCapacity > 0) {
-                        // Build "list of lists"
-                        Collection<JobManager> jmCollection = JOB_MANAGERS.values();
-                        List<Iterator<Job>> pollResults = new ArrayList<>();
-                        for (JobManager jm : jmCollection) {
-                            if (!jm.isAvailable()) {
-                                if (Debug.infoOn()) {
-                                    Debug.logInfo("The job manager is locked.", MODULE);
+                    try {
+                        int remainingCapacity = queueSize() - EXECUTOR.getQueue().size();
+                        if (remainingCapacity > 0) {
+                            // Build "list of lists"
+                            Collection<JobManager> jmCollection = JOB_MANAGERS.values();
+                            List<Iterator<Job>> pollResults = new ArrayList<>();
+                            for (JobManager jm : jmCollection) {
+                                if (!jm.isAvailable()) {
+                                    if (Debug.infoOn()) {
+                                        Debug.logInfo("The job manager is locked.", MODULE);
+                                    }
+                                    continue;
                                 }
-                                continue;
+                                jm.reloadCrashedJobs();
+                                pollResults.add(jm.poll(remainingCapacity).iterator());
                             }
-                            jm.reloadCrashedJobs();
-                            pollResults.add(jm.poll(remainingCapacity).iterator());
-                        }
-                        // Create queue candidate list from "list of lists"
-                        List<Job> queueCandidates = new ArrayList<>();
-                        boolean addingJobs = true;
-                        while (addingJobs) {
-                            addingJobs = false;
-                            for (Iterator<Job> jobIterator : pollResults) {
-                                if (jobIterator.hasNext()) {
-                                    queueCandidates.add(jobIterator.next());
-                                    addingJobs = true;
+                            // Create queue candidate list from "list of lists"
+                            List<Job> queueCandidates = new ArrayList<>();
+                            boolean addingJobs = true;
+                            while (addingJobs) {
+                                addingJobs = false;
+                                for (Iterator<Job> jobIterator : pollResults) {
+                                    if (jobIterator.hasNext()) {
+                                        queueCandidates.add(jobIterator.next());
+                                        addingJobs = true;
+                                    }
+                                }
+                            }
+                            // The candidate list might be larger than the queue remaining capacity,
+                            // but that is okay - the excess jobs will be dequeued and rescheduled.
+                            for (Job job : queueCandidates) {
+                                try {
+                                    queueNow(job);
+                                } catch (InvalidJobException e) {
+                                    Debug.logError(e, MODULE);
                                 }
                             }
                         }
-                        // The candidate list might be larger than the queue remaining capacity,
-                        // but that is okay - the excess jobs will be dequeued and rescheduled.
-                        for (Job job : queueCandidates) {
-                            try {
-                                queueNow(job);
-                            } catch (InvalidJobException e) {
-                                Debug.logError(e, MODULE);
-                            }
-                        }
+                    } catch (Throwable t) {
+                        // Log and keep polling: an unexpected exception here must not end the poller thread,
+                        // otherwise no job runs again until OFBiz is restarted.
+                        Debug.logError(t, "Exception thrown while polling for jobs, the JobPoller keeps running: ", MODULE);
                     }
                     Thread.sleep(pollWaitTime());
                 }
