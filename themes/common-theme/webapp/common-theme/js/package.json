@@ -7,7 +7,7 @@
         "@chinchilla-software/jquery-ui-timepicker-addon": "^1.6.3",
         "datejs": "^1.0.0-rc3",
         "daterangepicker": "^4.0.2",
-        "dompurify": "^3.4.18",
+        "dompurify": "^3.5.0",
         "featherlight": "^1.7.14",
         "flot": "^4.2.6",
         "inputmask": "^5.0.10",
@@ -23,7 +23,7 @@
         "moment-timezone": "^0.6.6",
         "moment-with-locales-es6": "^1.0.1",
         "readmore-js": "^3.1.0",
-        "select2": "^4.1.0",
+        "select2": "^4.2.0",
         "trumbowyg": "^2.31.0",
         "uglify-js": "3.19.3"
     },
