@@ -699,8 +699,6 @@ under the License.
     <view-map name="AddJobManagerLock" type="screen" page="component://webtools/widget/ServiceScreens.xml#AddJobManagerLock"/>
     <view-map name="FindJobManagerLock" type="screen" page="component://webtools/widget/ServiceScreens.xml#FindJobManagerLock"/>
 
-    <view-map name="printStart" type="screen" page="component://webtools/widget/CommonScreens.xml#printStart"/>
-    <view-map name="printDone" type="screen" page="component://webtools/widget/CommonScreens.xml#printDone"/>
 
     <view-map name="EntitySQLProcessor" type="screen" page="component://webtools/widget/EntityScreens.xml#EntitySQLProcessor"/>
     <view-map name="ConnectionPoolStatus" type="screen" page="component://webtools/widget/EntityScreens.xml#ConnectionPoolStatus"/>

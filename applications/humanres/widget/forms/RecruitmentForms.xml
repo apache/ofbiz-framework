@@ -445,15 +445,7 @@ under the License.
         <field name="internalOrganisation"><display/></field>
         <field name="reportingDate"><display/></field>
         <field name="location" title="${uiLabelMap.CommonLocation}">
-            <display description="${groovy:
-                import org.apache.ofbiz.entity.GenericValue;
-                import org.apache.ofbiz.base.util.UtilMisc;
-                import org.apache.ofbiz.entity.util.EntityUtil;
-                GenericValue partyAndPostalAddress = EntityUtil.getFirst(delegator.findByAnd(&quot;PartyAndPostalAddress&quot;,UtilMisc.toMap(&quot;partyId&quot;,internalOrganisation), null, false));
-                if(partyAndPostalAddress==null) return ;
-                if(partyAndPostalAddress!=null) city = partyAndPostalAddress.getString(&quot;city&quot;);
-                return city;
-                }"/>
+            <display description="${groovy: org.apache.ofbiz.entity.util.EntityQuery.use(delegator).from('PartyAndPostalAddress').where('partyId', internalOrganisation).queryFirst()?.city}"/>
         </field>
     </grid>
 </forms>

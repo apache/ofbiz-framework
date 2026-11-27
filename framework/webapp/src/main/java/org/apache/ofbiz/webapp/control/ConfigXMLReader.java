@@ -19,7 +19,6 @@
 package org.apache.ofbiz.webapp.control;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Path;
@@ -28,6 +27,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -35,13 +35,13 @@ import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import org.apache.ofbiz.base.component.ComponentConfig;
 import org.apache.ofbiz.base.component.ComponentConfig.WebappInfo;
 import org.apache.ofbiz.base.location.FlexibleLocation;
 import org.apache.ofbiz.base.metrics.Metrics;
 import org.apache.ofbiz.base.metrics.MetricsFactory;
 import org.apache.ofbiz.base.util.Assert;
 import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.FileUtil;
 import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilHttp;
@@ -102,36 +102,33 @@ public final class ConfigXMLReader {
         String cacheId = controllerPartialPath != null ? controllerPartialPath : "NOPARTIALPATH";
         List<ControllerConfig> controllerConfigs = CONTROLLERSEARCHRESULTSCACHE.get(cacheId);
         if (controllerConfigs == null) {
-            try {
-                // find controller.xml file with webappMountPoint + "/WEB-INF" in the path
-                List<File> controllerFiles = FileUtil.findXmlFiles(null, controllerPartialPath, "site-conf",
-                        "site-conf.xsd");
-                controllerConfigs = new LinkedList<>();
-                for (File controllerFile : controllerFiles) {
-                    URL controllerUrl = null;
-                    try {
-                        controllerUrl = controllerFile.toURI().toURL();
-                    } catch (MalformedURLException mue) {
-                        throw new GeneralException(mue);
-                    }
-                    ControllerConfig cc = ConfigXMLReader.getControllerConfig(controllerUrl);
-                    controllerConfigs.add(cc);
+            // only the controller of each webapp, read with the controller files it includes: a request defined in
+            // an included file is answered by every webapp that includes it, along with the views it refers to
+            Set<File> controllerFiles = new LinkedHashSet<>();
+            for (WebappInfo webappInfo : ComponentConfig.getAllWebappResourceInfos()) {
+                File controllerFile = webappInfo.location().resolve(CONTROLLERXMLFILENAME).toFile();
+                if (controllerFile.exists() && (controllerPartialPath == null
+                        || controllerFile.getPath().replace('\\', '/').contains(controllerPartialPath))) {
+                    controllerFiles.add(controllerFile);
                 }
-                controllerConfigs = CONTROLLERSEARCHRESULTSCACHE.putIfAbsentAndGet(cacheId, controllerConfigs);
-            } catch (IOException e) {
-                throw new GeneralException(
-                        "Error finding controller XML files to lookup request references: " + e.toString(), e);
             }
-        }
-        if (controllerConfigs != null) {
-            for (ControllerConfig cc : controllerConfigs) {
-                // make sure it has the named request in it
-                if (cc.requestMapMap.get(requestUri) != null) {
-                    String requestUniqueId = cc.url.toExternalForm() + "#" + requestUri;
-                    allControllerRequestSet.add(requestUniqueId);
-                    // Debug.logInfo("========== In findControllerFilesWithRequest found controller with request here ["
-                    // + requestUniqueId + "]", MODULE);
+            controllerConfigs = new LinkedList<>();
+            for (File controllerFile : controllerFiles) {
+                URL controllerUrl = null;
+                try {
+                    controllerUrl = controllerFile.toURI().toURL();
+                } catch (MalformedURLException mue) {
+                    throw new GeneralException(mue);
                 }
+                ControllerConfig cc = ConfigXMLReader.getControllerConfig(controllerUrl);
+                controllerConfigs.add(cc);
+            }
+            controllerConfigs = CONTROLLERSEARCHRESULTSCACHE.putIfAbsentAndGet(cacheId, controllerConfigs);
+        }
+        for (ControllerConfig cc : controllerConfigs) {
+            // make sure it has the named request in it
+            if (cc.getRequestMapMap().get(requestUri) != null) {
+                allControllerRequestSet.add(cc.url.toExternalForm() + "#" + requestUri);
             }
         }
         return allControllerRequestSet;

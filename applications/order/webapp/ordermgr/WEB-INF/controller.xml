@@ -1965,8 +1965,8 @@ under the License.
     <request-map uri="deleteCustomerTaxAuthInfo">
         <security https="true" auth="true"/>
         <event type="service" invoke="deletePartyTaxAuthInfo"/>
-        <response name="success" type="view" value="viewprofile"/>
-        <response name="error" type="view" value="viewprofile"/>
+        <response name="success" type="view" value="checkoutshippingaddress"/>
+        <response name="error" type="view" value="checkoutshippingaddress"/>
     </request-map>
 
     <request-map uri="AddOrderAttachments">

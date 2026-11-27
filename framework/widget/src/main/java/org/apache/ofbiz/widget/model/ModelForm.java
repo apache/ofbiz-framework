@@ -1542,13 +1542,14 @@ public abstract class ModelForm extends ModelWidget {
      * is looked for first, then, for backwards compatibility, one with the other tag.
      * @param widgetElement the element of the form or grid being built
      * @param widgetTag "form" or "grid", the tag of the model being built
+     * @param widgetLocation the location of the file that holds the element, also the location of a parent found in that file
      * @param entityModelReader the entity model reader
      * @param visualTheme the visual theme
      * @param dispatchContext the dispatch context
      * @return the parent model, or null if the element extends nothing or the parent cannot be found
      */
-    static ModelForm resolveParentModel(Element widgetElement, String widgetTag, ModelReader entityModelReader,
-                                        VisualTheme visualTheme, DispatchContext dispatchContext) {
+    static ModelForm resolveParentModel(Element widgetElement, String widgetTag, String widgetLocation,
+                                        ModelReader entityModelReader, VisualTheme visualTheme, DispatchContext dispatchContext) {
         String parentName = widgetElement.getAttribute("extends");
         if (parentName.isEmpty()) {
             return null;
@@ -1578,8 +1579,11 @@ public abstract class ModelForm extends ModelWidget {
                 }
             }
         } else if (!parentName.equals(widgetElement.getAttribute("name"))) {
-            // try to find the parent definition in the same file
+            // try to find the parent definition in the same file, in its forms element when it is a compound widgets file
             Element rootElement = widgetElement.getOwnerDocument().getDocumentElement();
+            if (!"forms".equalsIgnoreCase(rootElement.getTagName())) {
+                rootElement = UtilXml.firstChildElement(rootElement, "forms");
+            }
             Element parentElement = UtilXml.firstChildElement(rootElement, widgetTag, "name", parentName);
             String parentTag = widgetTag;
             if (parentElement == null) {
@@ -1591,10 +1595,10 @@ public abstract class ModelForm extends ModelWidget {
                         MODULE);
             } else if ("grid".equals(parentTag)) {
                 parentModel = GridFactory.createModelGrid(parentElement, entityModelReader, visualTheme, dispatchContext,
-                        parentResource, parentName);
+                        widgetLocation, parentName);
             } else {
                 parentModel = FormFactory.createModelForm(parentElement, entityModelReader, visualTheme, dispatchContext,
-                        parentResource, parentName);
+                        widgetLocation, parentName);
             }
         } else {
             Debug.logError("Recursive " + widgetTag + " definition found for '" + widgetElement.getAttribute("name") + ".'",

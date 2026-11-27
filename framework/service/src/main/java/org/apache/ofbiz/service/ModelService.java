@@ -1871,7 +1871,8 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
                         }
                         addParam(existingParam);
                     } else {
-                        Debug.logWarning("Override param found but no parameter existing; ignoring: " + overrideParam.getName(), MODULE);
+                        Debug.logWarning("Override param found but no parameter existing in service [" + name + "]; ignoring: "
+                                + overrideParam.getName(), MODULE);
                     }
                 }
             }

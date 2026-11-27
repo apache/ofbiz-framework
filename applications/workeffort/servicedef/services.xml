@@ -1536,14 +1536,9 @@ under the License.
         <description>Delete WorkEffortInventoryProduced</description>
         <permission-service service-name="workEffortGenericPermission" main-action="DELETE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
-        <override name="contactMechId" optional="false">
+        <override name="inventoryItemId" optional="false">
             <type-validate>
-                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingContactMechId"/>
-            </type-validate>
-        </override>
-        <override name="fromDate" optional="false">
-            <type-validate>
-                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingFromDate"/>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingInventoryItemId"/>
             </type-validate>
         </override>
         <override name="workEffortId" optional="false">

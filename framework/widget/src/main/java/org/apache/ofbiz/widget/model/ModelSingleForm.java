@@ -46,7 +46,7 @@ public final class ModelSingleForm extends ModelForm {
     public ModelSingleForm(Element formElement, String formLocation, ModelReader entityModelReader,
                            VisualTheme visualTheme, DispatchContext dispatchContext) {
         super(formElement, formLocation, entityModelReader, visualTheme, dispatchContext, "single",
-                resolveParentModel(formElement, "form", entityModelReader, visualTheme, dispatchContext));
+                resolveParentModel(formElement, "form", formLocation, entityModelReader, visualTheme, dispatchContext));
     }
 
     @Override

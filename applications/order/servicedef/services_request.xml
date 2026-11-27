@@ -98,7 +98,7 @@ under the License.
         <override name="custRequestItemSeqId" optional="true"/>
         <override name="story" allow-html="safe"/>
         <override name="description" allow-html="safe"/>
-        <override name="status" default-value="CRQ_SUBMITTED"/>
+        <override name="statusId" default-value="CRQ_SUBMITTED"/>
     </service>
     <service name="updateCustRequestItem" engine="entity-auto" default-entity-name="CustRequestItem" invoke="update" auth="true">
         <description>Update a CustRequestItem record</description>

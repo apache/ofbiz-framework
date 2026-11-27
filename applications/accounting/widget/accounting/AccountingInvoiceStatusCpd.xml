@@ -27,7 +27,7 @@ under the License.
     <sc:site-conf>
         <sc:request-map uri="Accounting/Invoice/Status/History"><sc:security https="true" auth="true"/><sc:response name="success" type="view" value="Accounting/Invoice/Status/History"/></sc:request-map>
 
-        <sc:view-map name="Accounting/Invoice/Status/History" type="screen" page="component://accounting/widget/accounting/AccountingInvoiceStatus.xml#InvoiceStatus"/>
+        <sc:view-map name="Accounting/Invoice/Status/History" type="screen" page="component://accounting/widget/accounting/AccountingInvoiceStatusCpd.xml#InvoiceStatus"/>
     </sc:site-conf>
 
     <ws:screens>

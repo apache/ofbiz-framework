@@ -101,7 +101,7 @@ under the License.
                                     <label text="${uiLabelMap.PageTitleListWorkEffortFixedAssetAssigns}"/>
                                 </container>
                                 <container style="screenlet-body">
-                                    <include-form name="DisplayWorkEffortFixedAssetAssigns" location="component://workeffort/widget/WorkEffortForms.xml"/>
+                                    <include-grid name="DisplayWorkEffortFixedAssetAssigns" location="component://workeffort/widget/WorkEffortForms.xml"/>
                                 </container>
                             </widgets>
                         </section>

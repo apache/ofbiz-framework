@@ -25,6 +25,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -714,7 +715,7 @@ public final class ArtifactInfoFactory {
             String rootComponentPath = componentConfig.rootLocation().toString();
             List<File> screenFiles = new ArrayList<>();
             List<File> formFiles = new ArrayList<>();
-            List<File> controllerFiles = new ArrayList<>();
+            Set<File> controllerFiles = new LinkedHashSet<>();
             try {
                 screenFiles = FileUtil.findXmlFiles(rootComponentPath, null, "screens", "widget-screen.xsd");
             } catch (IOException ioe) {
@@ -725,10 +726,13 @@ public final class ArtifactInfoFactory {
             } catch (IOException ioe) {
                 Debug.logWarning(ioe.getMessage(), MODULE);
             }
-            try {
-                controllerFiles = FileUtil.findXmlFiles(rootComponentPath, null, "site-conf", "site-conf.xsd");
-            } catch (IOException ioe) {
-                Debug.logWarning(ioe.getMessage(), MODULE);
+            // only the controller of each webapp: the controller files it includes are read through it, a request
+            // or view they refer to may be defined in another included file
+            for (ComponentConfig.WebappInfo webappInfo : componentConfig.getWebappInfos()) {
+                File controllerFile = webappInfo.location().resolve("WEB-INF").resolve("controller.xml").toFile();
+                if (controllerFile.exists()) {
+                    controllerFiles.add(controllerFile);
+                }
             }
             for (File screenFile: screenFiles) {
                 String screenFilePath = screenFile.getAbsolutePath();

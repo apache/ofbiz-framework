@@ -229,8 +229,70 @@ public class PromoServices {
         return ServiceUtil.returnSuccess();
     }
 
-    public static Map<String, Object> importPromoCodeEmailsFromFile(DispatchContext dctx, Map<String, ? extends Object> context) {
+    /**
+     * Links an email address to a promo code, through the contact mech that already holds this address or a new one.
+     * @param dctx the dispatch context
+     * @param productPromoCodeId the promo code to link the email address to
+     * @param emailAddress a valid email address
+     * @param userLogin the user login running the services
+     * @return null when the email address is linked, otherwise the error message
+     * @throws GenericServiceException when a service cannot be run
+     */
+    private static String addPromoCodeEmail(DispatchContext dctx, String productPromoCodeId, String emailAddress, GenericValue userLogin)
+            throws GenericServiceException {
         LocalDispatcher dispatcher = dctx.getDispatcher();
+        GenericValue contactMech;
+        try {
+            //check for existing contactMechId
+            contactMech = EntityQuery.use(dctx.getDelegator()).from("ContactMech").where("infoString", emailAddress).queryOne();
+        } catch (GenericEntityException e) {
+            Debug.logError(e, MODULE);
+            return "Too many contactMechIds found ";
+        }
+        String contactMechId;
+        if (contactMech == null) {
+            //If no contactMech found create new
+            Map<String, Object> result = dispatcher.runSync("createContactMech",
+                    UtilMisc.toMap("contactMechTypeId", "EMAIL_ADDRESS", "infoString", emailAddress, "userLogin", userLogin));
+            if (ServiceUtil.isError(result)) {
+                return ServiceUtil.getErrorMessage(result);
+            }
+            contactMechId = (String) result.get("contactMechId");
+        } else {
+            contactMechId = contactMech.getString("contactMechId");
+        }
+        Map<String, Object> result = dispatcher.runSync("createProductPromoCodeContactMech",
+                UtilMisc.<String, Object>toMap("productPromoCodeId", productPromoCodeId, "contactMechId", contactMechId,
+                        "userLogin", userLogin));
+        if (ServiceUtil.isError(result)) {
+            return ServiceUtil.getErrorMessage(result);
+        }
+        return null;
+    }
+
+    public static Map<String, Object> createProductPromoCodeEmail(DispatchContext dctx, Map<String, ? extends Object> context) {
+        String productPromoCodeId = (String) context.get("productPromoCodeId");
+        String emailAddress = (String) context.get("emailAddress");
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        Locale locale = (Locale) context.get("locale");
+
+        if (!UtilValidate.isEmail(emailAddress)) {
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ProductPromoCodeEmailNotValid",
+                    UtilMisc.toMap("emailAddress", emailAddress), locale));
+        }
+        try {
+            String errorMessage = addPromoCodeEmail(dctx, productPromoCodeId, emailAddress, userLogin);
+            if (errorMessage != null) {
+                return ServiceUtil.returnError(errorMessage);
+            }
+        } catch (GenericServiceException e) {
+            Debug.logError(e, MODULE);
+            return ServiceUtil.returnError(e.getMessage());
+        }
+        return ServiceUtil.returnSuccess();
+    }
+
+    public static Map<String, Object> importPromoCodeEmailsFromFile(DispatchContext dctx, Map<String, ? extends Object> context) {
         String productPromoCodeId = (String) context.get("productPromoCodeId");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Locale locale = (Locale) context.get("locale");
@@ -255,38 +317,9 @@ public class PromoServices {
                 if (!line.isEmpty() && !line.startsWith("#")) {
                     if (UtilValidate.isEmail(line)) {
                         // valid email address
-                        GenericValue contactMech;
-                        String contactMechId;
-                        try {
-                            //check for existing contactMechId
-                            contactMech = EntityQuery.use(dctx.getDelegator()).from("ContactMech")
-                                    .where("infoString", line).queryOne();
-                        } catch (GenericEntityException e) {
-                            Debug.logError(e, MODULE);
-                            errors.add(line + ": Too many contactMechIds found ");
-                            continue;
-                        }
-                        Map<String, Object> result = new HashMap<>();
-                        if (contactMech == null) {
-                            //If no contactMech found create new
-                            result = dispatcher.runSync("createContactMech",
-                                    UtilMisc.toMap("contactMechTypeId", "EMAIL_ADDRESS", "infoString", line,
-                                            "userLogin", userLogin));
-                            if (ServiceUtil.isError(result)) {
-                                errors.add(line + ": " + ServiceUtil.getErrorMessage(result));
-                                continue;
-                            } else {
-                                contactMechId = (String) result.get("contactMechId");
-                            }
-                        } else {
-                            contactMechId = contactMech.getString("contactMechId");
-                        }
-                        result.clear();
-                        result = dispatcher.runSync("createProductPromoCodeContactMech",
-                                UtilMisc.<String, Object>toMap("productPromoCodeId",
-                                productPromoCodeId, "contactMechId", contactMechId, "userLogin", userLogin));
-                        if (ServiceUtil.isError(result)) {
-                            errors.add(line + ": " + ServiceUtil.getErrorMessage(result));
+                        String errorMessage = addPromoCodeEmail(dctx, productPromoCodeId, line, userLogin);
+                        if (errorMessage != null) {
+                            errors.add(line + ": " + errorMessage);
                         }
                     } else {
                         // not valid ignore and notify
