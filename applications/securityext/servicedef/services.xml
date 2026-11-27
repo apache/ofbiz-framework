@@ -42,4 +42,14 @@ under the License.
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
     </service>
 
+    <service name="sendMfaSecurityNotification" engine="java" auth="false" export="false"
+            location="org.apache.ofbiz.securityext.login.MfaNotificationServices" invoke="sendMfaSecurityNotification">
+        <description>Dispatches an asynchronous security notification email when MFA factor lifecycle changes.</description>
+        <attribute name="userLoginId" type="String" mode="IN" optional="false"/>
+        <attribute name="actorUserLoginId" type="String" mode="IN" optional="true"/>
+        <attribute name="eventType" type="String" mode="IN" optional="false"/>
+        <attribute name="factorType" type="String" mode="IN" optional="true"/>
+        <attribute name="reason" type="String" mode="IN" optional="true"/>
+    </service>
+
 </services>

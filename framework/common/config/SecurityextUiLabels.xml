@@ -144,6 +144,76 @@
         <value xml:lang="en">Impersonation of your user is in process by ${originUserLoginId}</value>
         <value xml:lang="fr">Incarnation de votre utilisateur en cours par ${originUserLoginId}</value>
     </property>
+    <property key="loginevents.mfa_factor_required_for_password_change">
+        <value xml:lang="en">Complete a recent multi-factor sign-in before changing your password.</value>
+        <value xml:lang="fr">Terminez une connexion multifacteur récente avant de changer votre mot de passe.</value>
+        <value xml:lang="hi-IN">अपना पासवर्ड बदलने से पहले हाल ही में मल्टी-फैक्टर साइन-इन पूरा करें।</value>
+    </property>
+    <property key="loginevents.mfa_administrative_reset_requires_permission_and_reason">
+        <value xml:lang="en">A privileged, reasoned recovery is required to change the password for an account enforcing multi-factor authentication.</value>
+        <value xml:lang="fr">Une récupération privilégiée et justifiée est requise pour changer le mot de passe d'un compte appliquant l'authentification multifacteur.</value>
+        <value xml:lang="hi-IN">मल्टी-फैक्टर प्रमाणीकरण लागू करने वाले खाते का पासवर्ड बदलने के लिए एक विशेषाधिकार प्राप्त, कारण-सहित रिकवरी आवश्यक है।</value>
+    </property>
+    <property key="mfanotificationservices.security_alert_greeting">
+        <value xml:lang="en">Hello,</value>
+        <value xml:lang="fr">Bonjour,</value>
+        <value xml:lang="hi-IN">नमस्ते,</value>
+    </property>
+    <property key="mfanotificationservices.security_alert_time_line">
+        <value xml:lang="en">Time: ${eventTime}</value>
+        <value xml:lang="fr">Heure : ${eventTime}</value>
+        <value xml:lang="hi-IN">समय: ${eventTime}</value>
+    </property>
+    <property key="mfanotificationservices.security_alert_footer">
+        <value xml:lang="en">If you did not perform or authorize this action, please contact your system administrator immediately.</value>
+        <value xml:lang="fr">Si vous n'avez pas effectué ou autorisé cette action, veuillez contacter immédiatement votre administrateur système.</value>
+        <value xml:lang="hi-IN">यदि आपने यह कार्रवाई नहीं की है या इसे अधिकृत नहीं किया है, तो कृपया तुरंत अपने सिस्टम व्यवस्थापक से संपर्क करें।</value>
+    </property>
+    <property key="mfanotificationservices.security_alert_signature">
+        <value xml:lang="en">Apache OFBiz Security</value>
+        <value xml:lang="fr">Sécurité Apache OFBiz</value>
+        <value xml:lang="hi-IN">Apache OFBiz सुरक्षा</value>
+    </property>
+    <property key="mfanotificationservices.mfa_enroll_subject">
+        <value xml:lang="en">[Security Alert] Multi-factor authentication method added</value>
+        <value xml:lang="fr">[Alerte de sécurité] Méthode d'authentification multifacteur ajoutée</value>
+        <value xml:lang="hi-IN">[सुरक्षा अलर्ट] मल्टी-फैक्टर प्रमाणीकरण विधि जोड़ी गई</value>
+    </property>
+    <property key="mfanotificationservices.mfa_enroll_body">
+        <value xml:lang="en">A new multi-factor authentication factor (${factorType}) was enrolled for your account [${userLoginId}].</value>
+        <value xml:lang="fr">Un nouveau facteur d'authentification multifacteur (${factorType}) a été ajouté à votre compte [${userLoginId}].</value>
+        <value xml:lang="hi-IN">आपके खाते [${userLoginId}] के लिए एक नया मल्टी-फैक्टर प्रमाणीकरण फैक्टर (${factorType}) नामांकित किया गया है।</value>
+    </property>
+    <property key="mfanotificationservices.mfa_factor_revoked_subject">
+        <value xml:lang="en">[Security Alert] Multi-factor authentication method revoked</value>
+        <value xml:lang="fr">[Alerte de sécurité] Méthode d'authentification multifacteur révoquée</value>
+        <value xml:lang="hi-IN">[सुरक्षा अलर्ट] मल्टी-फैक्टर प्रमाणीकरण विधि निरस्त की गई</value>
+    </property>
+    <property key="mfanotificationservices.mfa_factor_revoked_body">
+        <value xml:lang="en">A multi-factor authentication factor was removed from your account [${userLoginId}].</value>
+        <value xml:lang="fr">Un facteur d'authentification multifacteur a été supprimé de votre compte [${userLoginId}].</value>
+        <value xml:lang="hi-IN">आपके खाते [${userLoginId}] से एक मल्टी-फैक्टर प्रमाणीकरण फैक्टर हटा दिया गया है।</value>
+    </property>
+    <property key="mfanotificationservices.mfa_factor_revoked_reason_line">
+        <value xml:lang="en">Reason: ${reason}</value>
+        <value xml:lang="fr">Motif : ${reason}</value>
+        <value xml:lang="hi-IN">कारण: ${reason}</value>
+    </property>
+    <property key="mfanotificationservices.mfa_factor_revoked_by_admin_line">
+        <value xml:lang="en">Revoked by Administrator: ${actorUserLoginId}</value>
+        <value xml:lang="fr">Révoqué par l'administrateur : ${actorUserLoginId}</value>
+        <value xml:lang="hi-IN">व्यवस्थापक द्वारा निरस्त: ${actorUserLoginId}</value>
+    </property>
+    <property key="mfanotificationservices.login_committed_subject">
+        <value xml:lang="en">[Security Alert] Successful sign-in with multi-factor authentication</value>
+        <value xml:lang="fr">[Alerte de sécurité] Connexion réussie avec authentification multifacteur</value>
+        <value xml:lang="hi-IN">[सुरक्षा अलर्ट] मल्टी-फैक्टर प्रमाणीकरण के साथ सफल साइन-इन</value>
+    </property>
+    <property key="mfanotificationservices.login_committed_body">
+        <value xml:lang="en">A successful sign-in with multi-factor authentication (${factorType}) was completed for your account [${userLoginId}].</value>
+        <value xml:lang="fr">Une connexion réussie avec authentification multifacteur (${factorType}) a été effectuée pour votre compte [${userLoginId}].</value>
+        <value xml:lang="hi-IN">आपके खाते [${userLoginId}] के लिए मल्टी-फैक्टर प्रमाणीकरण (${factorType}) के साथ एक सफल साइन-इन पूरा हुआ है।</value>
+    </property>
     <property key="loginevents.new_password_createdandsent_check_email">
         <value xml:lang="de">Ein neues Passwort wurde erzeugt und Ihnen per E-Mail zugeschickt. Überprüfen Sie bitte Ihren E-Mail-Eingang.</value>
         <value xml:lang="en">A new password has been created and sent to you. Please check your Email.</value>
@@ -893,5 +963,220 @@
         <value xml:lang="th">มันจะไม่สามารถใช้ได้อีกครั้ง ${reEnableTime}.</value>
         <value xml:lang="zh">将重新启用 ${reEnableTime}。</value>
         <value xml:lang="zh-TW">將重新啟用 ${reEnableTime}.</value>
+    </property>
+    <property key="loginevents.mfa_account_disabled_too_many_failed_attempts">
+        <value xml:lang="en">Account has been disabled due to too many failed attempts.</value>
+        <value xml:lang="fr">Le compte a été désactivé en raison d'un trop grand nombre de tentatives échouées.</value>
+        <value xml:lang="hi-IN">बहुत अधिक असफल प्रयासों के कारण खाता निष्क्रिय कर दिया गया है।</value>
+    </property>
+    <property key="loginevents.mfa_authentication_factor_required_to_complete_sign_in">
+        <value xml:lang="en">Authentication factor required to complete sign in</value>
+        <value xml:lang="fr">Facteur d'authentification requis pour terminer la connexion</value>
+        <value xml:lang="hi-IN">साइन इन पूरा करने के लिए प्रमाणीकरण फैक्टर आवश्यक है</value>
+    </property>
+    <property key="loginevents.mfa_authentication_session_expired_or_invalid">
+        <value xml:lang="en">Authentication session expired or invalid. Please log in again.</value>
+        <value xml:lang="fr">La session d'authentification a expiré ou n'est pas valide. Veuillez vous reconnecter.</value>
+        <value xml:lang="hi-IN">प्रमाणीकरण सत्र समाप्त हो गया है या अमान्य है। कृपया पुनः लॉग इन करें।</value>
+    </property>
+    <property key="loginevents.mfa_authenticator_code_required_to_reverify_session">
+        <value xml:lang="en">Authenticator code is required to re-verify session</value>
+        <value xml:lang="fr">Un code d'authentification est requis pour revérifier la session</value>
+        <value xml:lang="hi-IN">सत्र को फिर से सत्यापित करने के लिए प्रमाणक कोड आवश्यक है</value>
+    </property>
+    <property key="loginevents.mfa_authenticator_confirmation_failed">
+        <value xml:lang="en">Authenticator confirmation failed</value>
+        <value xml:lang="fr">Échec de la confirmation de l'authentificateur</value>
+        <value xml:lang="hi-IN">प्रमाणक की पुष्टि विफल रही</value>
+    </property>
+    <property key="loginevents.mfa_invalid_authenticator_code">
+        <value xml:lang="en">Invalid authenticator code</value>
+        <value xml:lang="fr">Code d'authentification invalide</value>
+        <value xml:lang="hi-IN">अमान्य प्रमाणक कोड</value>
+    </property>
+    <property key="loginevents.mfa_invalid_or_expired_challenge">
+        <value xml:lang="en">Invalid or expired authentication challenge</value>
+        <value xml:lang="fr">Défi d'authentification invalide ou expiré</value>
+        <value xml:lang="hi-IN">अमान्य या समाप्त हो चुकी प्रमाणीकरण चुनौती</value>
+    </property>
+    <property key="loginevents.mfa_reauth_required_before_changing_settings">
+        <value xml:lang="en">Re-authentication required: provide a verified authenticator code before changing MFA settings.</value>
+        <value xml:lang="fr">Ré-authentification requise : fournissez un code d'authentification vérifié avant de modifier les paramètres MFA.</value>
+        <value xml:lang="hi-IN">पुनः प्रमाणीकरण आवश्यक है: MFA सेटिंग्स बदलने से पहले एक सत्यापित प्रमाणक कोड प्रदान करें।</value>
+    </property>
+    <property key="loginevents.mfa_reauth_required_before_managing_backup_codes">
+        <value xml:lang="en">Re-authentication required: provide a verified authenticator code before managing backup codes.</value>
+        <value xml:lang="fr">Ré-authentification requise : fournissez un code d'authentification vérifié avant de gérer les codes de secours.</value>
+        <value xml:lang="hi-IN">पुनः प्रमाणीकरण आवश्यक है: बैकअप कोड प्रबंधित करने से पहले एक सत्यापित प्रमाणक कोड प्रदान करें।</value>
+    </property>
+    <property key="loginevents.mfa_session_expired_please_login_again">
+        <value xml:lang="en">Session expired. Please log in again.</value>
+        <value xml:lang="fr">La session a expiré. Veuillez vous reconnecter.</value>
+        <value xml:lang="hi-IN">सत्र समाप्त हो गया। कृपया पुनः लॉग इन करें।</value>
+    </property>
+    <property key="loginevents.mfa_unable_to_begin_enrollment">
+        <value xml:lang="en">Unable to begin authenticator enrollment</value>
+        <value xml:lang="fr">Impossible de commencer l'inscription de l'authentificateur</value>
+        <value xml:lang="hi-IN">प्रमाणक नामांकन शुरू करने में असमर्थ</value>
+    </property>
+    <property key="loginevents.mfa_unable_to_complete_login">
+        <value xml:lang="en">Unable to complete login</value>
+        <value xml:lang="fr">Impossible de terminer la connexion</value>
+        <value xml:lang="hi-IN">लॉगिन पूरा करने में असमर्थ</value>
+    </property>
+    <property key="loginevents.mfa_unable_to_complete_password_change">
+        <value xml:lang="en">Unable to complete the password change; please try again.</value>
+        <value xml:lang="fr">Impossible de terminer le changement de mot de passe ; veuillez réessayer.</value>
+        <value xml:lang="hi-IN">पासवर्ड परिवर्तन पूरा करने में असमर्थ; कृपया पुनः प्रयास करें।</value>
+    </property>
+    <property key="loginevents.mfa_unable_to_generate_backup_codes">
+        <value xml:lang="en">Unable to generate backup recovery codes</value>
+        <value xml:lang="fr">Impossible de générer les codes de récupération de secours</value>
+        <value xml:lang="hi-IN">बैकअप रिकवरी कोड जनरेट करने में असमर्थ</value>
+    </property>
+    <property key="loginevents.mfa_unable_to_verify_authentication_factor">
+        <value xml:lang="en">Unable to verify authentication factor</value>
+        <value xml:lang="fr">Impossible de vérifier le facteur d'authentification</value>
+        <value xml:lang="hi-IN">प्रमाणीकरण फैक्टर सत्यापित करने में असमर्थ</value>
+    </property>
+    <property key="loginevents.mfa_user_is_not_logged_in">
+        <value xml:lang="en">User is not logged in</value>
+        <value xml:lang="fr">L'utilisateur n'est pas connecté</value>
+        <value xml:lang="hi-IN">उपयोगकर्ता लॉग इन नहीं है</value>
+    </property>
+    <property key="loginevents.mfa_backup_codes_generated">
+        <value xml:lang="en">A new set of backup recovery codes has been generated. Store them in a safe place.</value>
+        <value xml:lang="fr">Un nouveau jeu de codes de récupération de secours a été généré. Conservez-les en lieu sûr.</value>
+        <value xml:lang="hi-IN">बैकअप रिकवरी कोड का एक नया सेट जनरेट किया गया है। उन्हें सुरक्षित स्थान पर रखें।</value>
+    </property>
+    <property key="loginevents.mfa_factor_revoked_success">
+        <value xml:lang="en">Authentication factor has been successfully revoked.</value>
+        <value xml:lang="fr">Le facteur d'authentification a été révoqué avec succès.</value>
+        <value xml:lang="hi-IN">प्रमाणीकरण फैक्टर को सफलतापूर्वक निरस्त कर दिया गया है।</value>
+    </property>
+    <property key="loginevents.mfa_factor_verified_success">
+        <value xml:lang="en">Authentication factor successfully verified.</value>
+        <value xml:lang="fr">Le facteur d'authentification a été vérifié avec succès.</value>
+        <value xml:lang="hi-IN">प्रमाणीकरण फैक्टर सफलतापूर्वक सत्यापित हो गया है।</value>
+    </property>
+    <property key="loginevents.mfa_totp_enrolled_success">
+        <value xml:lang="en">Multi-factor authentication (TOTP) has been successfully enrolled.</value>
+        <value xml:lang="fr">L'authentification multifacteur (TOTP) a été activée avec succès.</value>
+        <value xml:lang="hi-IN">मल्टी-फैक्टर प्रमाणीकरण (TOTP) सफलतापूर्वक नामांकित हो गया है।</value>
+    </property>
+    <property key="mfaservices.account_disabled">
+        <value xml:lang="en">Account has been disabled</value>
+        <value xml:lang="fr">Le compte a été désactivé</value>
+        <value xml:lang="hi-IN">खाता निष्क्रिय कर दिया गया है</value>
+    </property>
+    <property key="mfaservices.account_disabled_too_many_failed_attempts">
+        <value xml:lang="en">Account has been disabled due to too many failed attempts</value>
+        <value xml:lang="fr">Le compte a été désactivé en raison d'un trop grand nombre de tentatives échouées</value>
+        <value xml:lang="hi-IN">बहुत अधिक असफल प्रयासों के कारण खाता निष्क्रिय कर दिया गया है</value>
+    </property>
+    <property key="mfaservices.required_factor_cannot_be_removed">
+        <value xml:lang="en">A required authentication factor cannot be removed while the group policy is active</value>
+        <value xml:lang="fr">Un facteur d'authentification requis ne peut pas être supprimé tant que la politique de groupe est active</value>
+        <value xml:lang="hi-IN">समूह नीति सक्रिय रहते हुए एक आवश्यक प्रमाणीकरण फैक्टर को हटाया नहीं जा सकता</value>
+    </property>
+    <property key="mfaservices.challenge_invalid_or_expired">
+        <value xml:lang="en">Authentication challenge is invalid or has expired</value>
+        <value xml:lang="fr">Le défi d'authentification est invalide ou a expiré</value>
+        <value xml:lang="hi-IN">प्रमाणीकरण चुनौती अमान्य है या समाप्त हो चुकी है</value>
+    </property>
+    <property key="mfaservices.factor_unavailable">
+        <value xml:lang="en">Authentication factor is unavailable</value>
+        <value xml:lang="fr">Le facteur d'authentification n'est pas disponible</value>
+        <value xml:lang="hi-IN">प्रमाणीकरण फैक्टर उपलब्ध नहीं है</value>
+    </property>
+    <property key="mfaservices.current_credentials_not_verified">
+        <value xml:lang="en">Current credentials could not be verified</value>
+        <value xml:lang="fr">Les informations d'identification actuelles n'ont pas pu être vérifiées</value>
+        <value xml:lang="hi-IN">वर्तमान क्रेडेंशियल सत्यापित नहीं किए जा सके</value>
+    </property>
+    <property key="mfaservices.invalid_authentication_code">
+        <value xml:lang="en">Invalid authentication code</value>
+        <value xml:lang="fr">Code d'authentification invalide</value>
+        <value xml:lang="hi-IN">अमान्य प्रमाणीकरण कोड</value>
+    </property>
+    <property key="mfaservices.max_verification_attempts_exceeded">
+        <value xml:lang="en">Maximum verification attempts exceeded. Please restart authentication</value>
+        <value xml:lang="fr">Nombre maximal de tentatives de vérification dépassé. Veuillez recommencer l'authentification</value>
+        <value xml:lang="hi-IN">अधिकतम सत्यापन प्रयास पार हो गए। कृपया प्रमाणीकरण फिर से शुरू करें</value>
+    </property>
+    <property key="mfaservices.not_authorized_to_revoke_factor">
+        <value xml:lang="en">Not authorized to revoke this authentication factor</value>
+        <value xml:lang="fr">Non autorisé à révoquer ce facteur d'authentification</value>
+        <value xml:lang="hi-IN">इस प्रमाणीकरण फैक्टर को निरस्त करने के लिए अधिकृत नहीं</value>
+    </property>
+    <property key="mfaservices.not_authorized_to_view_factors">
+        <value xml:lang="en">Not authorized to view authentication factors</value>
+        <value xml:lang="fr">Non autorisé à afficher les facteurs d'authentification</value>
+        <value xml:lang="hi-IN">प्रमाणीकरण फैक्टर देखने के लिए अधिकृत नहीं</value>
+    </property>
+    <property key="mfaservices.unable_to_complete_enrollment">
+        <value xml:lang="en">Unable to complete authenticator enrollment</value>
+        <value xml:lang="fr">Impossible de terminer l'inscription de l'authentificateur</value>
+        <value xml:lang="hi-IN">प्रमाणक नामांकन पूरा करने में असमर्थ</value>
+    </property>
+    <property key="mfaservices.unable_to_create_pending_factor">
+        <value xml:lang="en">Unable to create pending authenticator factor</value>
+        <value xml:lang="fr">Impossible de créer le facteur d'authentificateur en attente</value>
+        <value xml:lang="hi-IN">लंबित प्रमाणक फैक्टर बनाने में असमर्थ</value>
+    </property>
+    <property key="mfaservices.unable_to_evaluate_policy">
+        <value xml:lang="en">Unable to evaluate authentication-factor policy</value>
+        <value xml:lang="fr">Impossible d'évaluer la politique de facteur d'authentification</value>
+        <value xml:lang="hi-IN">प्रमाणीकरण-फैक्टर नीति का मूल्यांकन करने में असमर्थ</value>
+    </property>
+    <property key="mfaservices.unable_to_retrieve_factors">
+        <value xml:lang="en">Unable to retrieve authentication factors</value>
+        <value xml:lang="fr">Impossible de récupérer les facteurs d'authentification</value>
+        <value xml:lang="hi-IN">प्रमाणीकरण फैक्टर प्राप्त करने में असमर्थ</value>
+    </property>
+    <property key="mfaservices.unable_to_retrieve_backup_codes_count">
+        <value xml:lang="en">Unable to retrieve backup codes count</value>
+        <value xml:lang="fr">Impossible de récupérer le nombre de codes de secours</value>
+        <value xml:lang="hi-IN">बैकअप कोड की संख्या प्राप्त करने में असमर्थ</value>
+    </property>
+    <property key="mfaservices.unable_to_revoke_factor">
+        <value xml:lang="en">Unable to revoke authentication factor</value>
+        <value xml:lang="fr">Impossible de révoquer le facteur d'authentification</value>
+        <value xml:lang="hi-IN">प्रमाणीकरण फैक्टर निरस्त करने में असमर्थ</value>
+    </property>
+    <property key="mfaservices.unable_to_start_challenge">
+        <value xml:lang="en">Unable to start authentication challenge</value>
+        <value xml:lang="fr">Impossible de démarrer le défi d'authentification</value>
+        <value xml:lang="hi-IN">प्रमाणीकरण चुनौती शुरू करने में असमर्थ</value>
+    </property>
+    <property key="mfaservices.user_not_authenticated">
+        <value xml:lang="en">User not authenticated</value>
+        <value xml:lang="fr">Utilisateur non authentifié</value>
+        <value xml:lang="hi-IN">उपयोगकर्ता प्रमाणित नहीं है</value>
+    </property>
+    <property key="mfaservices.purge_error">
+        <value xml:lang="en">Error during MFA purge: ${errorDetail}</value>
+        <value xml:lang="fr">Erreur lors de la purge MFA : ${errorDetail}</value>
+        <value xml:lang="hi-IN">MFA पर्ज के दौरान त्रुटि: ${errorDetail}</value>
+    </property>
+    <property key="loginservices.mfa_pending_interactive_only">
+        <value xml:lang="en">MFA-pending authentication is only available for interactive logins</value>
+        <value xml:lang="fr">L'authentification en attente de MFA n'est disponible que pour les connexions interactives</value>
+        <value xml:lang="hi-IN">MFA-लंबित प्रमाणीकरण केवल इंटरैक्टिव लॉगिन के लिए उपलब्ध है</value>
+    </property>
+    <property key="loginservices.mfa_required_service_auth_denied">
+        <value xml:lang="en">Service-level authentication is not available for an account that requires multi-factor authentication</value>
+        <value xml:lang="fr">L'authentification au niveau du service n'est pas disponible pour un compte nécessitant une authentification multifacteur</value>
+        <value xml:lang="hi-IN">बहु-कारक प्रमाणीकरण आवश्यक वाले खाते के लिए सेवा-स्तरीय प्रमाणीकरण उपलब्ध नहीं है</value>
+    </property>
+    <property key="loginservices.mfa_authentication_completion_not_authorized">
+        <value xml:lang="en">Authentication completion was not authorized</value>
+        <value xml:lang="fr">La finalisation de l'authentification n'a pas été autorisée</value>
+        <value xml:lang="hi-IN">प्रमाणीकरण पूर्णता अधिकृत नहीं थी</value>
+    </property>
+    <property key="loginservices.mfa_authfactor_policy_changed_restart">
+        <value xml:lang="en">Authentication-factor policy changed; restart login</value>
+        <value xml:lang="fr">La politique de facteur d'authentification a changé ; recommencez la connexion</value>
+        <value xml:lang="hi-IN">प्रमाणीकरण-फैक्टर नीति बदल गई; लॉगिन पुनः आरंभ करें</value>
     </property>
 </resource>

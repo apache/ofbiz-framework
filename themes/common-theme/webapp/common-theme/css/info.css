@@ -47,6 +47,17 @@ limitations under the License.
 .with-left-right-columns {
     grid-template-columns: [left-col-label] minmax(150px, auto) 1fr [right-col-label] minmax(150px, auto) 1fr;
 }
+
+/* MFA QR Code styling */
+.mfa-qr-code {
+    display: block;
+    margin: 15px auto;
+    border: 2px solid #ddd;
+    padding: 10px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
 .ofbiz-form label {
     text-align: right;
     padding: 0.4em;

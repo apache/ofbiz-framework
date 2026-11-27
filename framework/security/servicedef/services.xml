@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/services.xsd">
+    <description>Security Authentication Factor Services</description>
+    <vendor>OFBiz</vendor>
+    <version>1.0</version>
+
+    <service name="createUserLoginTotpFactor" engine="java" auth="true" export="false"
+            location="org.apache.ofbiz.security.login.MfaServices" invoke="createUserLoginTotpFactor">
+        <description>Begins self-service TOTP enrollment: generates a secret, expires any other pending
+        (not-yet-confirmed) TOTP factor for the account, and returns the provisioning URI/QR code to
+        scan. Requires the caller's current password.</description>
+        <attribute name="userLogin" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
+        <attribute name="label" type="String" mode="IN" optional="true"/>
+        <attribute name="currentPassword" type="String" mode="IN" optional="false"/>
+        <attribute name="locale" type="java.util.Locale" mode="IN" optional="true"/>
+        <attribute name="factorId" type="String" mode="OUT"/>
+        <attribute name="secret" type="String" mode="OUT"/>
+        <attribute name="provisioningUri" type="String" mode="OUT"/>
+        <attribute name="qrCodeDataUri" type="String" mode="OUT" optional="true"/>
+    </service>
+    <service name="confirmUserLoginTotpFactor" engine="java" auth="true" export="false"
+            location="org.apache.ofbiz.security.login.MfaServices" invoke="confirmUserLoginTotpFactor">
+        <description>Confirms a pending TOTP factor by checking the submitted code against its secret;
+        on success activates the factor and issues a fresh set of backup recovery codes.</description>
+        <attribute name="userLogin" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
+        <attribute name="factorId" type="String" mode="IN" optional="false"/>
+        <attribute name="code" type="String" mode="IN" optional="false"/>
+        <attribute name="backupCodes" type="java.util.List" mode="OUT" optional="true"/>
+    </service>
+    <service name="isUserLoginMfaRequired" engine="java" auth="false" export="false"
+            location="org.apache.ofbiz.security.login.MfaServices" invoke="isUserLoginMfaRequired">
+        <description>Read-only policy check: whether this account must complete a second factor, and
+        whether the supplied AuthenticationContext (e.g. a trusted external JWT claim) already satisfies
+        it.</description>
+        <attribute name="userLoginId" type="String" mode="IN" optional="false"/>
+        <attribute name="authenticationContext" type="org.apache.ofbiz.security.login.AuthenticationContext" mode="IN" optional="true"/>
+        <attribute name="required" type="Boolean" mode="OUT"/>
+        <attribute name="mfaSatisfied" type="Boolean" mode="OUT" optional="true"/>
+    </service>
+    <service name="getUserLoginAuthFactors" engine="java" auth="true" export="false"
+            location="org.apache.ofbiz.security.login.MfaServices" invoke="getUserLoginAuthFactors">
+        <description>Lists an account's active, non-backup authentication factors without exposing their
+        secrets; viewing another user's factors requires the SECURITY_VIEW permission.</description>
+        <attribute name="userLogin" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
+        <attribute name="targetUserLoginId" type="String" mode="IN" optional="true"/>
+        <attribute name="factors" type="java.util.List" mode="OUT"/>
+    </service>
+    <service name="revokeUserLoginAuthFactor" engine="java" auth="true" export="false"
+            location="org.apache.ofbiz.security.login.MfaServices" invoke="revokeUserLoginAuthFactor">
+        <description>Revokes (sets thruDate on) an authentication factor. Self-service revocation
+        requires the current password; an administrator revoking someone else's factor must supply a
+        reason. Refuses to remove the last factor while a security-group policy mandates MFA.</description>
+        <attribute name="userLogin" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
+        <attribute name="factorId" type="String" mode="IN" optional="false"/>
+        <attribute name="currentPassword" type="String" mode="IN" optional="true"/>
+        <attribute name="reason" type="String" mode="IN" optional="true"/>
+        <attribute name="locale" type="java.util.Locale" mode="IN" optional="true"/>
+    </service>
+    <service name="createUserLoginMfaChallenge" engine="java" auth="false" export="false"
+            location="org.apache.ofbiz.security.login.MfaServices" invoke="createUserLoginMfaChallenge">
+        <description>Creates a pending UserLoginAuthChallenge bound to the current session and records
+        whether the account must enroll a factor first (mustEnroll) rather than simply verify
+        one.</description>
+        <attribute name="userLogin" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
+        <attribute name="request" type="jakarta.servlet.http.HttpServletRequest" mode="IN" optional="false"/>
+        <attribute name="required" type="Boolean" mode="OUT"/>
+        <attribute name="mustEnroll" type="Boolean" mode="OUT" optional="true"/>
+        <attribute name="challengeId" type="String" mode="OUT" optional="true"/>
+    </service>
+    <service name="completeForcedTotpEnrollment" engine="java" auth="false" export="false"
+            location="org.apache.ofbiz.security.login.MfaServices" invoke="completeForcedTotpEnrollment">
+        <description>Finishes a mandatory (security-group-forced) TOTP enrollment started during login:
+        validates the submitted code against the pending factor, activates it, and issues backup
+        codes.</description>
+        <attribute name="request" type="jakarta.servlet.http.HttpServletRequest" mode="IN" optional="false"/>
+        <attribute name="code" type="String" mode="IN" optional="false"/>
+        <attribute name="activated" type="Boolean" mode="OUT" optional="true"/>
+        <attribute name="backupCodes" type="java.util.List" mode="OUT" optional="true"/>
+    </service>
+    <service name="verifyUserLoginMfaChallenge" engine="java" auth="false" export="false"
+            location="org.apache.ofbiz.security.login.MfaServices" invoke="verifyUserLoginMfaChallenge">
+        <description>Verifies a submitted TOTP/backup code against the session's pending challenge; on
+        success marks it VERIFIED for LoginServices#completeUserLoginMfa to consume. Enforces
+        per-challenge attempt limits and increments successiveFailedLogins on failure.</description>
+        <attribute name="request" type="jakarta.servlet.http.HttpServletRequest" mode="IN" optional="false"/>
+        <attribute name="code" type="String" mode="IN" optional="false"/>
+        <attribute name="verified" type="Boolean" mode="OUT" optional="true"/>
+        <attribute name="accountLocked" type="Boolean" mode="OUT" optional="true"/>
+    </service>
+    <service name="generateUserLoginBackupCodes" engine="java" auth="true" export="false"
+            location="org.apache.ofbiz.security.login.MfaServices" invoke="generateUserLoginBackupCodes">
+        <description>Generates a fresh batch of backup recovery codes, invalidating any unused codes from
+        a previous batch. Self-service calls must supply the current password.</description>
+        <attribute name="userLogin" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
+        <attribute name="currentPassword" type="String" mode="IN" optional="true"/>
+        <attribute name="locale" type="java.util.Locale" mode="IN" optional="true"/>
+        <attribute name="backupCodes" type="java.util.List" mode="OUT"/>
+    </service>
+    <service name="getRemainingBackupCodesCount" engine="java" auth="true" export="false"
+            location="org.apache.ofbiz.security.login.MfaServices" invoke="getRemainingBackupCodesCount">
+        <description>Returns the count of unused backup recovery codes remaining for an account, for
+        display on the MFA settings page.</description>
+        <attribute name="userLogin" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
+        <attribute name="targetUserLoginId" type="String" mode="IN" optional="true"/>
+        <attribute name="remainingCount" type="Integer" mode="OUT"/>
+    </service>
+    <service name="purgeOldMfaChallengesAndEvents" engine="java" auth="true" export="false"
+            location="org.apache.ofbiz.security.login.MfaServices" invoke="purgeOldMfaChallengesAndEvents">
+        <description>Purges expired MFA challenges and old authentication audit events.</description>
+        <attribute name="daysToKeepChallenges" type="Integer" mode="IN" optional="true"/>
+        <attribute name="daysToKeepEvents" type="Integer" mode="IN" optional="true"/>
+        <attribute name="purgedChallengesCount" type="Integer" mode="OUT" optional="true"/>
+        <attribute name="purgedEventsCount" type="Integer" mode="OUT" optional="true"/>
+    </service>
+</services>

@@ -20,6 +20,7 @@ package org.apache.ofbiz.ws.rs.security.auth;
 
 import java.io.IOException;
 import java.util.Base64;
+import java.util.Locale;
 import java.util.Map;
 
 import org.apache.ofbiz.base.util.Debug;
@@ -27,7 +28,9 @@ import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericValue;
+import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.ofbiz.security.Security;
+import org.apache.ofbiz.security.login.MfaServices;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ServiceUtil;
@@ -88,6 +91,9 @@ public class HttpBasicAuthFilter implements ContainerRequestFilter {
         final String password = tokens[1];
 
         String apiGroupPath = requestContext.getUriInfo().getPathParameters().getFirst("apiGroupPath");
+        if (apiGroupPath == null) {
+            apiGroupPath = "api";
+        }
         String validatedApiGroupPath = RestApiUtil.validateApiGroupPath(apiGroupPath);
         if (UtilValidate.isEmpty(validatedApiGroupPath)) {
             abortWithUnauthorized(requestContext, true, "Access Denied: Unknown api.");
@@ -119,9 +125,32 @@ public class HttpBasicAuthFilter implements ContainerRequestFilter {
     private void authenticate(String userName, String password, String validatedApiGroupPath) throws ForbiddenException {
         Map<String, Object> result = null;
         LocalDispatcher dispatcher = (LocalDispatcher) servletContext.getAttribute("dispatcher");
+        Delegator delegator = (Delegator) servletContext.getAttribute("delegator");
+        // Normalize the same way LoginServices.userLogin() normalizes it before looking the account up,
+        // so an enrolled account is still recognized here regardless of letter case (see LoginWorker.login()
+        // for the same fix on the browser login path).
+        String userNameForMfaCheck = "true".equalsIgnoreCase(
+                EntityUtilProperties.getPropertyValue("security", "username.lowercase", delegator))
+                ? userName.toLowerCase(Locale.getDefault())
+                : userName;
+        boolean mfaEnabled = Boolean.parseBoolean(EntityUtilProperties.getPropertyValue("security",
+                "security.login.authFactor.enable", "false", delegator))
+                || MfaServices.hasActiveFactor(delegator, userNameForMfaCheck);
+        String loginService = mfaEnabled ? "userLoginMfaPending" : "userLogin";
+        // userLoginMfaPending must receive plain username/password, not login.username/login.password:
+        // those keys also carry a special meaning to ServiceDispatcher.checkAuth(), which treats their
+        // presence as a request to pre-authenticate the caller by invoking the configured auth service
+        // (plain "userLogin", serviceengine.xml) before the target service runs at all. For any OTHER
+        // target service that bypass runs the full, non-deferred login -- committing successiveFailedLogins
+        // reset, hasLoggedOut and UserLoginHistory for this account immediately, even though the real,
+        // deferred userLoginMfaPending call right after it still correctly held all of that back pending
+        // MFA. Passing only username/password here avoids triggering that bypass, exactly as the browser
+        // login flow already does for this same service (see LoginWorker.login()).
+        Map<String, Object> loginContext = mfaEnabled
+                ? UtilMisc.toMap("username", userName, "password", password, "locale", httpRequest.getLocale())
+                : UtilMisc.toMap("login.username", userName, "login.password", password, "locale", httpRequest.getLocale());
         try {
-            result = dispatcher.runSync("userLogin",
-                    UtilMisc.toMap("login.username", userName, "login.password", password, "locale", httpRequest.getLocale()));
+            result = dispatcher.runSync(loginService, loginContext);
         } catch (GenericServiceException e) {
             Debug.logError(e, "Error calling userLogin service", MODULE);
             throw new ForbiddenException(e.getMessage());
